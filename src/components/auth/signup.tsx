@@ -17,10 +17,13 @@ import { z } from "zod"
 import { useMutation } from "@tanstack/react-query"
 import { signUp } from "@/actions/user/signup"
 import { InputWithLabel } from "../ui/input-label"
+import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
 type SchemaProps = z.infer<typeof signupSchema>
 
 export default function SignupForm() {
+  const router = useRouter()
   const form = useForm<SchemaProps>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -37,11 +40,14 @@ export default function SignupForm() {
   } = useMutation({
     mutationFn: (values: SchemaProps) => signUp(values.email, values.password),
     onSuccess: () => {
+      // show success toast
+      toast.success("Signup successful!")
       // redirect to dashboard
-
+      router.push("/dashboard")
     },
     onError: (error) => {
-      // show error message
+      // show error toast
+      toast.error(error.message)
     }
   })
 

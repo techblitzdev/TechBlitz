@@ -1,3 +1,4 @@
+'use client'
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -15,6 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from "zod"
 import { useMutation } from "@tanstack/react-query"
 import { signUp } from "@/actions/user/signup"
+import { InputWithLabel } from "../ui/input-label"
 
 type SchemaProps = z.infer<typeof signupSchema>
 
@@ -33,21 +35,81 @@ export default function SignupForm() {
     mutateAsync: server_signup,
     isPending
   } = useMutation({
-    mutationFn: signUp,
+    mutationFn: (values: SchemaProps) => signUp(values.email, values.password),
     onSuccess: () => {
       // redirect to dashboard
 
+    },
+    onError: (error) => {
+      // show error message
     }
   })
 
-  const handleSignup = (values: SchemaProps) => {}
+  const handleSignup = (values: SchemaProps) => server_signup(values)
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSignup)}
+        className="grid grid-cols-12 gap-4 w-96 mt-8"
       >
-        
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormControl>
+              <div className="col-span-6">
+                <InputWithLabel
+                  label="Email"
+                  type="email"
+                  {...field}
+                />
+                <FormMessage>{form.formState?.errors?.email?.message}</FormMessage>
+              </div>
+            </FormControl>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormControl>
+              <div className="col-span-6">
+                <InputWithLabel
+                  label="Password"
+                  type="password"
+                  {...field}
+                />
+                <FormMessage>{form.formState?.errors?.password?.message}</FormMessage>
+              </div>
+            </FormControl>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormControl>
+              <div className="col-span-6">
+                <InputWithLabel
+                  label="Confirm Password"
+                  type="password"
+                  {...field}
+                />
+                <FormMessage>{form.formState?.errors?.confirmPassword?.message}</FormMessage>
+              </div>
+            </FormControl>
+          )}
+        />
+        <FormItem className="col-span-full">
+          <Button
+            type="submit"
+            disabled={isPending}
+            className="w-full"
+          >
+            {isPending ? "Loading..." : "Sign Up"}
+          </Button>
+        </FormItem>
       </form>
     </Form>
   )

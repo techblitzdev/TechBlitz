@@ -31,7 +31,6 @@ export default function SignupForm() {
   })
 
   const { 
-    data,
     mutateAsync: server_signup,
     isPending
   } = useMutation({

@@ -14,16 +14,18 @@ import { loginSchema } from "@/lib/zod/schemas/login"
 import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from "zod"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { login } from "@/actions/user/login"
 import { InputWithLabel } from "../ui/input-label"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import { useRef } from "react"
 
 type SchemaProps = z.infer<typeof loginSchema>
 
 export default function LoginForm() {
   const router = useRouter()
+  const isPending = useRef(false)
   
   const form = useForm<SchemaProps>({
     resolver: zodResolver(loginSchema),
@@ -33,25 +35,18 @@ export default function LoginForm() {
     }
   })
 
-  const { 
-    data,
-    mutateAsync: server_login,
-    isPending
-  } = useMutation({
-    mutationFn: (values: SchemaProps) => login(values.email, values.password),
-    onSuccess: () => {
-      // show success toast
-      toast.success("Login successful!")
-      // redirect to dashboard
-      router.push("/dashboard")
-    },
-    onError: (error) => {
-      // show error toast
-      toast.error(error.message)
+  const handleLogin = async (values: SchemaProps) => {
+    isPending.current = true
+    const res = await login(values.email, values.password)
+    
+    if(res) {
+      toast.success('Logged in successfully')
+      router.push('/dashboard')
+    } else {
+      toast.error('There was an error logging in')
     }
-  })
-
-  const handleLogin = (values: SchemaProps) => server_login(values)
+    isPending.current = false
+  }
 
   return (
     <Form {...form}>
@@ -64,7 +59,7 @@ export default function LoginForm() {
           name="email"
           render={({ field }) => (
             <FormControl>
-              <div className="col-span-6">
+              <div className="col-span-12">
                 <InputWithLabel
                   label="Email"
                   type="email"
@@ -80,7 +75,7 @@ export default function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormControl>
-              <div className="col-span-6">
+              <div className="col-span-12">
                 <InputWithLabel
                   label="Password"
                   type="password"
@@ -94,10 +89,10 @@ export default function LoginForm() {
         <FormItem className="col-span-full">
           <Button
             type="submit"
-            disabled={isPending}
+            disabled={isPending.current}
             className="w-full"
           >
-            {isPending ? "Loading..." : "Login"}
+            {isPending.current ? "Loading..." : "Login"}
           </Button>
         </FormItem>
       </form>

@@ -8,7 +8,10 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-  	extend: {
+		extend: {
+			fontFamily: {
+				inter: ['var(--font-inter)'],
+			},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -52,7 +55,7 @@ const config: Config = {
   			}
   		},
   		container: {
-  			center: 'true',
+  			center: true,
   			padding: '2rem',
   			screens: {
   				'2xl': '1400px'

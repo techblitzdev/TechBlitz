@@ -46,7 +46,7 @@ const InputWithLabel = React.forwardRef<HTMLInputElement, InputWithLabelProps>(
       >
         <div className="flex gap-x-1 items-center">
           <label 
-            className="text-sm text-muted-foreground text-white/80"
+            className="text-sm text-muted-foreground text-white/80 font-inter font-medium"
           >
             {label}
           </label>

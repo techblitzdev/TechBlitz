@@ -33,11 +33,13 @@ export const login = async (email: string, password: string) => {
 		// 		lastLogin: new Date()
 		// 	}
 		// });
+
+		console.log('User logged in', user);
 		
-		return user;
+		return user.user;
 	} catch (error) {
-		console.error('Error logging in:', error);
-		return null;
+		console.error('There as an error logging in', error);
+		return false;
 	}
 }
 

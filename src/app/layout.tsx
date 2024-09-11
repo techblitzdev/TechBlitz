@@ -1,19 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { InterFont } from "./styles/fonts/font";
 import "./globals.css";
 import { ReactQueryClientProvider } from '@/components/react-query-client-provider';
 import { Toaster } from "@/components/ui/sonner"
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
 
 export const metadata: Metadata = {
   title: "DevDaily",
@@ -29,12 +19,12 @@ export default function RootLayout({
     <ReactQueryClientProvider>
       <html lang="en">
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${InterFont.variable} antialiased`}
         >
           <main>
             {children}
           </main>
-          <Toaster />
+          <Toaster  className="bg-black" />
         </body>
       </html>
     </ReactQueryClientProvider>

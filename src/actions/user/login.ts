@@ -1,5 +1,6 @@
 'use server'
 
+import { prisma } from "@/utils/prisma";
 import { createClient as createServerClient } from "@/utils/supabase/server";
 
 /**
@@ -25,14 +26,14 @@ export const login = async (email: string, password: string) => {
 		if (error) throw new Error(error.message);
 
 		// update the 'lastLoggedIn' field in the db
-		// await prisma.user.update({
-		// 	where: {
-		// 		uid: user?.user.id
-		// 	},
-		// 	data: {
-		// 		lastLogin: new Date()
-		// 	}
-		// });
+		await prisma.users.update({
+			where: {
+				uid: user?.user.id
+			},
+			data: {
+				lastLogin: new Date()
+			}
+		});
 
 		console.log('User logged in', user);
 		

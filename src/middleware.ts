@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
   // early exit if we do not find the user
   if (!user || !user.user?.id) {
     // redirect them to the signup page
-    return NextResponse.redirect('/signup?r=no-user');
+    return NextResponse.redirect(new URL('/login?r=no-user', request.url));
   }
 
   // the user level is going to have to be checked on the admin page. 

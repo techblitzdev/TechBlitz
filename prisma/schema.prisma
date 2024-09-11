@@ -20,19 +20,20 @@ datasource db {
 // The user will also have a list of questions that they have answered,
 // as well as a list of answers for the question.
 model Users {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  uid   String  @id @default(cuid())
+  email String  @unique
+  name  String?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  lastLogin DateTime?
 
   // A user can have many questions
   answers Answers[]
 }
 
 model Questions {
-  id String @id @default(cuid())
+  uid String @id @default(cuid())
 
   question     String
   answer       String
@@ -46,13 +47,13 @@ model Questions {
 // An answer is a response to a question
 // Each time a user tries to answer a question, an answer row is created
 model Answers {
-  id String @id @default(cuid())
+  uid String @id @default(cuid())
 
   // The user who has answered the question
-  user Users @relation(fields: [id], references: [id], map: "userAnswers")
+  user Users @relation(fields: [uid], references: [uid], map: "userAnswers")
 
   // The question that the user has answered
-  question Questions @relation(fields: [id], references: [id])
+  question Questions @relation(fields: [uid], references: [uid])
 
   userAnswer    String
   correctAnswer String

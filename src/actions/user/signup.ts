@@ -2,6 +2,7 @@
 import { supabase } from '@/lib/supabase';
 import { type AuthResponse } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
+import { prisma } from '@/utils/prisma';
 
 const cookiesStore = cookies();
 
@@ -29,17 +30,18 @@ export const signUp = async (
     // REMEMBER EMAIL AUTH IS OFF!
 
     // if the user sign up is successful, add the user to the database
-    // await prisma.user.create({
-    //   data: {
-    //     uid: user.id,
-    //     email: user.email,
-    //     createdAt: new Date(),
-    //     updatedAt: new Date(),
-    //     firstName: '',
-    //     lastName: '',
-    //     hasAuthenticatedEmail: false
-    //   }
-    // });
+    await prisma.users.create({
+      data: {
+        uid: user.id,
+        email: user.email,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        name: '',
+        answers: undefined,
+        lastLogin: new Date()
+        //hasAuthenticatedEmail: false
+      }
+    });
 
     // return the user object so we can extract the user.id on the front end
     return user;

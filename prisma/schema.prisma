@@ -57,7 +57,11 @@ model Answers {
 
   userAnswer    String
   correctAnswer String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  questionDate  DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  questionDate DateTime // the date that the question will be asked
+
+  fastedTime Int? // the time that the user answered the question
 }

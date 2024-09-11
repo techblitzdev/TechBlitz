@@ -63,5 +63,5 @@ model Answers {
 
   questionDate DateTime // the date that the question will be asked
 
-  fastedTime Int? // the time that the user answered the question
+  timeTaken Int? // the time that the user answered the question
 }

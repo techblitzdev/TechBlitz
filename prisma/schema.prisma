@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// A user is a person who can log in to the application
+// This will be responsible for all data related to the user
+// profile and authentication.
+// The user will also have a list of questions that they have answered,
+// as well as a list of answers for the question.
+model Users {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // A user can have many questions
+  answers Answers[]
+}
+
+model Questions {
+  id String @id @default(cuid())
+
+  question     String
+  answer       String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  questionDate DateTime
+
+  Answers Answers[]
+}
+
+// An answer is a response to a question
+// Each time a user tries to answer a question, an answer row is created
+model Answers {
+  id String @id @default(cuid())
+
+  // The user who has answered the question
+  user Users @relation(fields: [id], references: [id], map: "userAnswers")
+
+  // The question that the user has answered
+  question Questions @relation(fields: [id], references: [id])
+
+  userAnswer    String
+  correctAnswer String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  questionDate  DateTime
+}

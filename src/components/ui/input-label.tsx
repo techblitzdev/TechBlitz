@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/tooltip';
 
 // react hook form 
-import { UseFormRegister, Path, Controller } from 'react-hook-form';
+import { Path } from 'react-hook-form';
 
 interface IFormProps {
   [key: string]: string;

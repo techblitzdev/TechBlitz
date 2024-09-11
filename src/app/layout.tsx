@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import { InterFont } from "./styles/fonts/font";
 import "./globals.css";
 import { ReactQueryClientProvider } from '@/components/react-query-client-provider';

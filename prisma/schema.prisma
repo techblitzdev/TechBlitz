@@ -14,6 +14,13 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+enum userLevel {
+  STANDARD
+  ADMIN
+  TRIAL
+  FREE
+}
+
 // A user is a person who can log in to the application
 // This will be responsible for all data related to the user
 // profile and authentication.
@@ -27,6 +34,8 @@ model Users {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   lastLogin DateTime?
+
+  userLevel userLevel @default(STANDARD)
 
   // A user can have many questions
   answers Answers[]

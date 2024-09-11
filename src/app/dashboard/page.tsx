@@ -1,6 +1,6 @@
 export default function Dashboard() {
   return (
-    <div>
+    <div className="container text-white">
       <h1>Dashboard</h1>
     </div>
   );

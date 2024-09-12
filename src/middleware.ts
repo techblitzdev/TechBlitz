@@ -30,11 +30,24 @@ export async function middleware(req: NextRequest) {
     path
   })
 
+  const nonAuthPaths = [
+    '/login',
+    '/signup',
+    '/forgot-password',
+    '/reset-password',
+    '/verify-email',
+    '/verify-email/success'
+  ]
+
   // get the current user that is trying to access the admin panel
   const { user: user } = await updateSession(req);
 
   // early exit if we do not find the user
-  if (!user || !user.user?.id && path !== '/login') {
+  if (
+    !user ||
+    !user.user?.id &&
+    !nonAuthPaths.includes(path)
+  ) {
     // redirect them to the signup page
     return NextResponse.redirect(new URL('/login?r=no-user', req.url));
   }

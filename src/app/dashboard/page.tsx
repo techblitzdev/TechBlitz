@@ -3,7 +3,6 @@ import { getUserFromSession } from "@/actions/user/get-user";
 export default async function Dashboard() {
   // get our current user
   const user = await (await getUserFromSession());
-
   if (!user) return;
 
   return (

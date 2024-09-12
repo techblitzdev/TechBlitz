@@ -1,7 +1,7 @@
 'use server'
-
 import { prisma } from "@/utils/prisma";
 import { createClient as createServerClient } from "@/utils/supabase/server";
+import { cookies } from "next/headers";
 
 /**
  * Logs the user into the application
@@ -11,7 +11,8 @@ import { createClient as createServerClient } from "@/utils/supabase/server";
  * @returns 
  */
 export const login = async (email: string, password: string) => {
-	const supabase = createServerClient();
+	const cookieStore = cookies();
+	const supabase = createServerClient(cookieStore);
 
 	if(!supabase) throw new Error('No supabase client found')
 

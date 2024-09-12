@@ -9,7 +9,7 @@ export default async function Dashboard() {
   return (
     <div className="container text-white py-20">
       <h1 className="font-bold text-3xl">Dashboard</h1>
-      <p>Welcome {user.data.user?.id}</p>
+      <p>Welcome {user.data.user?.email}</p>
     </div>
   );
 }

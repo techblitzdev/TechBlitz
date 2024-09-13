@@ -38,10 +38,14 @@ export const signUp = async (
         updatedAt: new Date(),
         name: '',
         answers: undefined,
-        lastLogin: new Date()
+        lastLogin: new Date(),
+        userLevel: 'STANDARD'
         //hasAuthenticatedEmail: false
       }
     });
+
+    // set the user level on the supabase user object
+    user.user_metadata.userLevel = 'STANDARD';
 
     // return the user object so we can extract the user.id on the front end
     return user;

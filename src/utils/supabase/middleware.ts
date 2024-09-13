@@ -1,14 +1,13 @@
-/**
- * Server Component client -
- * 	To access Supabase from Server Components, Server Actions,
- *  and Route Handlers, which run only on the server.
- *
- */
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
-import { cookies } from 'next/headers';
+import { NextResponse, type NextRequest } from 'next/server';
 
-export function createClient() {
-  const cookieStore = cookies();
+export async function updateSession(request: NextRequest) {
+  let response = NextResponse.next({
+    request: {
+      headers: request.headers
+    }
+  });
+
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -16,30 +15,53 @@ export function createClient() {
   if (!supabaseUrl || !supabaseKey)
     throw new Error('Missing env variables for Supabase');
 
-  // create the client on the server
-  return createServerClient(supabaseUrl, supabaseKey, {
+  // this is used in this file to access the user
+  const supabase = createServerClient(supabaseUrl, supabaseKey, {
     cookies: {
       get(name: string) {
-        return cookieStore.get(name)?.value;
+        return request.cookies.get(name)?.value;
       },
       set(name: string, value: string, options: CookieOptions) {
-        try {
-          cookieStore.set({ name, value, ...options });
-        } catch (error) {
-          // The `set` method was called from a Server Component.
-          // This can be ignored if you have middleware refreshing
-          // user sessions.
-        }
+        request.cookies.set({
+          name,
+          value,
+          ...options
+        });
+        response = NextResponse.next({
+          request: {
+            headers: request.headers
+          }
+        });
+        response.cookies.set({
+          name,
+          value,
+          ...options
+        });
       },
       remove(name: string, options: CookieOptions) {
-        try {
-          cookieStore.set({ name, value: '', ...options });
-        } catch (error) {
-          // The `delete` method was called from a Server Component.
-          // This can be ignored if you have middleware refreshing
-          // user sessions.
-        }
+        request.cookies.set({
+          name,
+          value: '',
+          ...options
+        });
+        response = NextResponse.next({
+          request: {
+            headers: request.headers
+          }
+        });
+        response.cookies.set({
+          name,
+          value: '',
+          ...options
+        });
       }
     }
   });
+
+  const { data: user } = await supabase.auth?.getUser();
+
+  return {
+    response,
+    user
+  };
 }

@@ -1,10 +1,11 @@
 import { type EmailOtpType } from '@supabase/supabase-js';
 import { type NextRequest, NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
 import { createClient } from '@/utils/supabase/server';
 
 export async function GET(request: NextRequest) {
-
+  const cookieStore = cookies();
   const { searchParams } = new URL(request.url);
   // pull the token has out of the query params
   // this gets set on the OTP in the email sent to the user
@@ -33,7 +34,7 @@ export async function GET(request: NextRequest) {
   // if we have the required vars to verify the OTP
   if (token_hash && type) {
     // create a new supabase client from our util
-    const supabase = createClient();
+    const supabase = createClient(cookieStore);
 
     const { error } = await supabase.auth.verifyOtp({
       type,

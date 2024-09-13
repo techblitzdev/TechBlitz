@@ -1,7 +1,7 @@
 'use server'
-
 import { prisma } from "@/utils/prisma";
 import { createClient as createServerClient } from "@/utils/supabase/server";
+import { cookies } from "next/headers";
 
 /**
  * Logs the user into the application
@@ -11,7 +11,8 @@ import { createClient as createServerClient } from "@/utils/supabase/server";
  * @returns 
  */
 export const login = async (email: string, password: string) => {
-	const supabase = createServerClient();
+	const cookieStore = cookies();
+	const supabase = createServerClient(cookieStore);
 
 	if(!supabase) throw new Error('No supabase client found')
 
@@ -25,15 +26,38 @@ export const login = async (email: string, password: string) => {
 
 		if (error) throw new Error(error.message);
 
-		// update the 'lastLoggedIn' field in the db
-		await prisma.users.update({
+		// get the user from the db
+		const dbUser = await prisma.users.findUnique({
 			where: {
 				uid: user?.user.id
-			},
-			data: {
-				lastLogin: new Date()
 			}
 		});
+
+		// if the user is not found, add them to the db
+		if (!dbUser) {
+			await prisma.users.create({
+				data: {
+					uid: user?.user.id,
+					email: user?.user.email as string,
+					createdAt: new Date(),
+					updatedAt: new Date(),
+					name: '',
+					answers: undefined,
+					lastLogin: new Date()
+				}
+			});
+		}
+		else {
+			// update the 'lastLoggedIn' field in the db
+			await prisma.users.update({
+				where: {
+					uid: user?.user.id
+				},
+				data: {
+					lastLogin: new Date()
+				}
+			});
+		}
 
 		console.log('User logged in', user);
 		

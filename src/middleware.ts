@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { updateSession } from "@/utils/supabase/middleware";
+import { getBaseUrl } from './utils';
+import { User } from './types/User';
 
 
 // See "Matching Paths" below to learn more
@@ -16,6 +18,15 @@ export const config = {
     "/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)",
   ],
 };
+
+const nonAuthPaths = [
+    '/login',
+    '/signup',
+    '/forgot-password',
+    '/reset-password',
+    '/verify-email',
+    '/verify-email/success'
+  ]
  
 // This function can be marked `async` if using `await` inside
 export async function middleware(req: NextRequest) {
@@ -25,19 +36,6 @@ export async function middleware(req: NextRequest) {
   const path = `${url.pathname}${
     searchParams.toString().length > 0 ? `?${searchParams.toString()}` : ''
   }`
-
-  console.log({
-    path
-  })
-
-  const nonAuthPaths = [
-    '/login',
-    '/signup',
-    '/forgot-password',
-    '/reset-password',
-    '/verify-email',
-    '/verify-email/success'
-  ]
 
   // get the current user that is trying to access the admin panel
   const { user: user } = await updateSession(req);
@@ -55,6 +53,22 @@ export async function middleware(req: NextRequest) {
   // the user level is going to have to be checked on the admin page. 
   // we can just pass the user object to the page
 
-  // run next here to prevent infinite loop
-  return NextResponse.next();
+  // now check if the user is trying to access the admin page is the admin
+  if (
+    path === '/admin' &&
+    user.user
+  ) {  
+    // get the user from the db by hitting the 
+    const response = await fetch(`${getBaseUrl()}/api/user/${user?.user.id}`, {
+      method: 'GET'
+    })
+    const userData: User = await response.json();
+
+    console.log(userData)
+
+    // now check the userLevel
+    if (!userData.userLevel || userData.userLevel !== 'ADMIN') {
+      return NextResponse.redirect(new URL('/dashboard', req.url));
+    }
+  }
 }

@@ -25,6 +25,5 @@ export async function GET(req: NextRequest, {
       error: 'No user found'
     })
   }
-
   return NextResponse.json(user);
 }

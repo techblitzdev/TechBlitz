@@ -50,9 +50,6 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL('/login?r=no-user', req.url));
   }
 
-  // the user level is going to have to be checked on the admin page. 
-  // we can just pass the user object to the page
-
   // now check if the user is trying to access the admin page is the admin
   if (
     path === '/admin' &&

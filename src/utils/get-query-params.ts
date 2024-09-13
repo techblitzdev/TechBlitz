@@ -9,13 +9,12 @@ interface GetQueryParamsProps {
 }
 
 /**
- * Method to get all parameters in a query string.
- * (not to be confused with 'useQueryParams', which allows 
- *  you to set query params.)
+ * Custom hook to get query parameters from the URL.
  * 
+ * @param keys Optional list of keys to filter specific parameters.
  * @returns QueryParams
  */
-export const getQueryParams = ({ keys = [] }: GetQueryParamsProps): QueryParams => {
+export const useGetQueryParams = ({ keys = [] }: GetQueryParamsProps = {}): QueryParams => {
   const searchParams = useSearchParams();
   const searchParamsKeys = Array.from(searchParams.keys());
 
@@ -34,5 +33,6 @@ export const getQueryParams = ({ keys = [] }: GetQueryParamsProps): QueryParams 
       values[key] = value;
     }
   }
+
   return values;
 };

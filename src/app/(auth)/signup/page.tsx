@@ -1,7 +1,7 @@
 'use client'
 import SignupForm from '@/components/auth/signup'
 import { ERROR_CODES } from '@/utils/constants/error-codes';
-import { getQueryParams } from '@/utils/get-query-params'
+import { useGetQueryParams } from '@/utils/get-query-params'
 import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 import type { ErrorCodes } from '@/types/Constants'; // Import the ErrorCodes type
@@ -12,7 +12,7 @@ export default function SignupPage() {
 
 
   // check if we have any query parameters
-  const urlParams = getQueryParams({
+  const urlParams = useGetQueryParams({
     keys: ['r']
   });
 

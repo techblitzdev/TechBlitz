@@ -6,7 +6,7 @@ export default async function Dashboard() {
   if (!user) return;
 
   return (
-    <div className="container text-white py-20">
+    <div className="container text-white">
       <h1 className="font-bold text-3xl">Dashboard</h1>
       <p>Welcome {user.data.user?.email}</p>
     </div>

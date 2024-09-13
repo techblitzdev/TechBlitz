@@ -52,7 +52,7 @@ export async function middleware(req: NextRequest) {
 
   // now check if the user is trying to access the admin page is the admin
   if (
-    path === '/admin' &&
+    path.includes('/admin') &&
     user.user
   ) {  
     // get the user from the db by hitting the 

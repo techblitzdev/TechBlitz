@@ -1,4 +1,4 @@
-import { useSearchParams } from "next/navigation";
+import { useSearchParams } from 'next/navigation';
 
 interface QueryParams {
   [key: string]: string;

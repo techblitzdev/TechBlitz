@@ -1,6 +1,5 @@
 'use server'
 import { createClient as createServerClient } from "@/utils/supabase/server";
-import { unstable_cache } from "next/cache";
 import { cookies } from "next/headers";
 import { prisma } from "@/utils/prisma";
 

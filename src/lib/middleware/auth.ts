@@ -1,5 +1,5 @@
-import { updateSession } from "@/utils/supabase/middleware";
-import { type NextRequest, NextResponse } from "next/server";
+import { updateSession } from '@/utils/supabase/middleware';
+import { type NextRequest, NextResponse } from 'next/server';
 
 /**
  * This middleware will check if the user is authenticated
@@ -10,10 +10,10 @@ export default async function AuthMiddleware(
   req: NextRequest,
   path: string
 ) {
-  const { headers } = req;
+
 
   // get the current session & user
-  const { response: session, user: user } = await updateSession(req); 
+  const { user: user } = await updateSession(req); 
 
   // if there is no user, and they are trying to access a page that requires auth
   // redirect them to the dashboard with a not-authenticated message

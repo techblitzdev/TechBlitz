@@ -20,7 +20,13 @@ export default function SignupPage() {
   );
 }
 
-function SignupContent({ ranToast, setUrlParams }: { ranToast: boolean; setUrlParams: any }) {
+function SignupContent({
+  ranToast,
+  setUrlParams,
+}: {
+  ranToast: boolean;
+  setUrlParams: any;
+}) {
   // check if we have any query parameters
   const urlParams = useGetQueryParams({
     keys: ['r'],

@@ -16,6 +16,7 @@ import { newQuestionSchema } from '@/lib/zod/schemas/new-question-schema';
 import { z } from 'zod';
 import { InputWithLabel } from '@/components/ui/input-label';
 import { toast } from 'sonner';
+import { DatePicker } from '../ui/date-picker';
 
 type SchemaProps = z.infer<typeof newQuestionSchema>;
 
@@ -85,11 +86,7 @@ export default function NewQuestionModal({ ...props }) {
                 name="questionDate"
                 render={({ field }) => (
                   <FormControl>
-                    <InputWithLabel
-                      label="Question Date"
-                      type="text"
-                      {...field}
-                    />
+                    <DatePicker key={form.watch('questionDate')} />
                   </FormControl>
                 )}
               />

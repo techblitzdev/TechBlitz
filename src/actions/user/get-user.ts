@@ -1,7 +1,7 @@
 'use server'
-import { createClient as createServerClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
-import { prisma } from "@/utils/prisma";
+import { createClient as createServerClient } from '@/utils/supabase/server';
+import { cookies } from 'next/headers';
+import { prisma } from '@/utils/prisma';
 
 /**
  * Get the user from the server - used in api routes, server componets & server actions

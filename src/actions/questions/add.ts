@@ -13,6 +13,12 @@ export const addQuestion = async (opts: {
   if (!question || !answer || !questionDate) {
     return 'Please provide a question and an answer'
   }
+
+  console.log({
+    question,
+    answer,
+    questionDate
+  })
   
   // generate a new question id
   const uid = uniqid()  

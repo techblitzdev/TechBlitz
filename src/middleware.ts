@@ -61,8 +61,6 @@ export async function middleware(req: NextRequest) {
     })
     const userData: User = await response.json();
 
-    console.log(userData)
-
     // now check the userLevel
     if (!userData.userLevel || userData.userLevel !== 'ADMIN') {
       return NextResponse.redirect(new URL('/dashboard', req.url));

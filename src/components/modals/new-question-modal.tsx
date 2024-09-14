@@ -1,4 +1,5 @@
 'use client';
+
 import {
   Dialog,
   DialogContent,
@@ -17,6 +18,7 @@ import { z } from 'zod';
 import { InputWithLabel } from '@/components/ui/input-label';
 import { toast } from 'sonner';
 import { DatePicker } from '../ui/date-picker';
+import { formatISO } from 'date-fns';
 
 type SchemaProps = z.infer<typeof newQuestionSchema>;
 
@@ -30,15 +32,10 @@ export default function NewQuestionModal({ ...props }) {
     },
   });
 
-  const {
-    mutateAsync: server_addQuestion,
-    isPending,
-    isError,
-  } = useMutation({
+  const { mutateAsync: server_addQuestion, isPending } = useMutation({
     mutationFn: (values: SchemaProps) => addQuestion({ ...values }),
     onSuccess: () => {
       toast.success('Question added successfully');
-
       form.reset();
     },
     onError: () => {
@@ -86,7 +83,15 @@ export default function NewQuestionModal({ ...props }) {
                 name="questionDate"
                 render={({ field }) => (
                   <FormControl>
-                    <DatePicker key={form.watch('questionDate')} />
+                    <DatePicker
+                      date={field.value ? new Date(field.value) : undefined}
+                      setDate={(date) =>
+                        form.setValue(
+                          'questionDate',
+                          date ? formatISO(date) : ''
+                        )
+                      }
+                    />
                   </FormControl>
                 )}
               />

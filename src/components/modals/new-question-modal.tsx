@@ -15,6 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { newQuestionSchema } from '@/lib/zod/schemas/new-question-schema';
 import { z } from 'zod';
 import { InputWithLabel } from '@/components/ui/input-label';
+import { toast } from 'sonner';
 
 type SchemaProps = z.infer<typeof newQuestionSchema>;
 
@@ -29,14 +30,19 @@ export default function NewQuestionModal({ ...props }) {
   });
 
   const {
-    data,
     mutateAsync: server_addQuestion,
     isPending,
     isError,
   } = useMutation({
     mutationFn: (values: SchemaProps) => addQuestion({ ...values }),
-    onSuccess: () => {},
-    onError: () => {},
+    onSuccess: () => {
+      toast.success('Question added successfully');
+
+      form.reset();
+    },
+    onError: () => {
+      toast.error('Failed to add question');
+    },
   });
 
   const handleNewQuestion = async (values: SchemaProps) => {

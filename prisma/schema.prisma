@@ -45,7 +45,7 @@ model Questions {
   uid String @id @default(cuid())
 
   question     String
-  answer       String
+  answer       String[]
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   questionDate DateTime

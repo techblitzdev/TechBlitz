@@ -1,5 +1,4 @@
 'use client';
-
 import {
   Dialog,
   DialogContent,
@@ -7,17 +6,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import { useMutation } from '@tanstack/react-query';
 import { addQuestion } from '@/actions/questions/add';
 import { Form, FormControl, FormField } from '../ui/form';
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { newQuestionSchema } from '@/lib/zod/schemas/new-question-schema';
 import { z } from 'zod';
 import { InputWithLabel } from '@/components/ui/input-label';
 import { toast } from 'sonner';
-import { DatePicker } from '../ui/date-picker';
+import { DatePicker } from '@/components/ui/date-picker';
 import { formatISO } from 'date-fns';
 
 type SchemaProps = z.infer<typeof newQuestionSchema>;
@@ -26,15 +25,25 @@ export default function NewQuestionModal({ ...props }) {
   const form = useForm<SchemaProps>({
     resolver: zodResolver(newQuestionSchema),
     defaultValues: {
-      answer: '',
       question: '',
       questionDate: new Date().toISOString(),
+      answers: [{ text: '' }], // Initialize with an empty answer
     },
   });
 
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: 'answers',
+  });
+
   const { mutateAsync: server_addQuestion, isPending } = useMutation({
-    mutationFn: (values: SchemaProps) => addQuestion({ ...values }),
-    onSuccess: () => {
+    mutationFn: (values: SchemaProps) => {
+      const { answers, ...rest } = values;
+      const answerTexts = answers.map((answer) => answer.text);
+      return addQuestion({ ...rest, answers: answerTexts });
+    },
+    onSuccess: (data) => {
+      console.log(data);
       toast.success('Question added successfully');
       form.reset();
     },
@@ -60,6 +69,7 @@ export default function NewQuestionModal({ ...props }) {
               onSubmit={form.handleSubmit(handleNewQuestion)}
               className="flex flex-col gap-y-4 !mt-6"
             >
+              {/* Main Question Field */}
               <FormField
                 control={form.control}
                 name="question"
@@ -69,15 +79,44 @@ export default function NewQuestionModal({ ...props }) {
                   </FormControl>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="answer"
-                render={({ field }) => (
-                  <FormControl>
-                    <InputWithLabel label="Answer" type="text" {...field} />
-                  </FormControl>
-                )}
-              />
+
+              {/* Dynamic Answer Fields */}
+              {fields.map((item, index) => (
+                <div key={item.id} className="flex items-center gap-x-4">
+                  <FormField
+                    control={form.control}
+                    name={`answers.${index}.text`} // Correct path for each answer's text
+                    render={({ field }) => (
+                      <FormControl>
+                        <InputWithLabel
+                          label={`Answer ${index + 1}`}
+                          type="text"
+                          {...field}
+                        />
+                      </FormControl>
+                    )}
+                  />
+                  {/* Remove Button */}
+                  <Button
+                    variant="destructive"
+                    type="button"
+                    onClick={() => remove(index)}
+                  >
+                    Remove
+                  </Button>
+                </div>
+              ))}
+
+              {/* Add New Answer Button */}
+              <Button
+                type="button"
+                className="w-64"
+                onClick={() => append({ text: '' })} // Append a new empty answer
+              >
+                Add Answer
+              </Button>
+
+              {/* Question Date */}
               <FormField
                 control={form.control}
                 name="questionDate"
@@ -96,6 +135,7 @@ export default function NewQuestionModal({ ...props }) {
                 )}
               />
 
+              {/* Submit Button */}
               <Button
                 type="submit"
                 className="bg-blue-500 text-white"

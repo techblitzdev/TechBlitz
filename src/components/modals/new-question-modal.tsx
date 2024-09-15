@@ -27,7 +27,7 @@ export default function NewQuestionModal({ ...props }) {
     defaultValues: {
       question: '',
       questionDate: new Date().toISOString(),
-      answers: [{ text: '' }], // Initialize with an empty answer
+      answers: [{ text: '' }],
     },
   });
 
@@ -39,7 +39,9 @@ export default function NewQuestionModal({ ...props }) {
   const { mutateAsync: server_addQuestion, isPending } = useMutation({
     mutationFn: (values: SchemaProps) => {
       const { answers, ...rest } = values;
-      const answerTexts = answers.map((answer) => answer.text);
+      let answerTexts = answers.map((answer) => answer.text);
+      // turn answerTexts into an array so we can pass it to the addQuestion function
+      answerTexts = Array.from(answerTexts);
       return addQuestion({ ...rest, answers: answerTexts });
     },
     onSuccess: (data) => {
@@ -52,9 +54,8 @@ export default function NewQuestionModal({ ...props }) {
     },
   });
 
-  const handleNewQuestion = async (values: SchemaProps) => {
+  const handleNewQuestion = async (values: SchemaProps) =>
     await server_addQuestion(values);
-  };
 
   return (
     <Dialog>
@@ -85,7 +86,7 @@ export default function NewQuestionModal({ ...props }) {
                 <div key={item.id} className="flex items-center gap-x-4">
                   <FormField
                     control={form.control}
-                    name={`answers.${index}.text`} // Correct path for each answer's text
+                    name={`answers.${index}.text`}
                     render={({ field }) => (
                       <FormControl>
                         <InputWithLabel
@@ -101,6 +102,7 @@ export default function NewQuestionModal({ ...props }) {
                     variant="destructive"
                     type="button"
                     onClick={() => remove(index)}
+                    className="self-end"
                   >
                     Remove
                   </Button>
@@ -110,7 +112,7 @@ export default function NewQuestionModal({ ...props }) {
               {/* Add New Answer Button */}
               <Button
                 type="button"
-                className="w-64"
+                className="w-fit"
                 onClick={() => append({ text: '' })} // Append a new empty answer
               >
                 Add Answer

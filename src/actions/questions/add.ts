@@ -1,3 +1,4 @@
+'use server'
 import { prisma } from '@/utils/prisma';
 import uniqid from 'uniqid';
 
@@ -19,10 +20,7 @@ export const addQuestion = async (opts: {
   // Basic validation
   if (!question || !answers.length || !questionDate) {
     console.error('Please provide a question, at least one answer, and a question date');
-    return {
-      status: 'error',
-      message: 'Please provide a question, at least one answer, and a question date',
-    };
+    return 'Please provide a question, at least one answer, and a question date'
   }
 
   try {
@@ -41,18 +39,12 @@ export const addQuestion = async (opts: {
       },
     });
 
+    console.log('New question created:', newQuestion)
+
     // If creation is successful, return a success message
-    return {
-      status: 'success',
-      message: 'Question added successfully',
-      data: newQuestion,
-    };
+    return 'ok'
   } catch (error) {
     console.error('Failed to add new question:', error);
-    return {
-      status: 'error',
-      message: 'Failed to add new question',
-      error: error
-    };
+    return error;
   }
 };

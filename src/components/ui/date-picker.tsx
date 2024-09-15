@@ -22,7 +22,7 @@ export function DatePicker({ date, setDate }: DatePickerProps) {
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          variant={'outline'}
+          variant="default"
           className={cn(
             'w-full justify-start text-left font-normal',
             !date && 'text-muted-foreground'
@@ -36,7 +36,7 @@ export function DatePicker({ date, setDate }: DatePickerProps) {
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate} // Handle both Date and undefined
+          onSelect={setDate}
           initialFocus
         />
       </PopoverContent>

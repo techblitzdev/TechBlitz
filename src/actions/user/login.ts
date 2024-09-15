@@ -29,7 +29,7 @@ export const login = async (email: string, password: string) => {
 		// get the user from the db
 		const dbUser = await prisma.users.findUnique({
 			where: {
-				uid: user?.user.id
+				email: user?.user.email as string
 			}
 		});
 
@@ -51,7 +51,7 @@ export const login = async (email: string, password: string) => {
 			// update the 'lastLoggedIn' field in the db
 			await prisma.users.update({
 				where: {
-					uid: user?.user.id
+					email: user?.user.email as string
 				},
 				data: {
 					lastLogin: new Date()

@@ -1,69 +1,58 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
-import { updateSession } from "@/utils/supabase/middleware";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { updateSession } from '@/utils/supabase/middleware';
 import { getBaseUrl } from './utils';
 import { User } from './types/User';
 
+// Define the paths where authentication is not required
+const nonAuthPaths = [
+  '/login',
+  '/signup',
+  '/forgot-password',
+  '/reset-password',
+  '/verify-email',
+  '/verify-email/success',
+];
 
-// See "Matching Paths" below to learn more
+// Exclude some paths from the middleware (e.g., API, public files, etc.)
 export const config = {
   matcher: [
-    /*
-     * Match all paths except for:
-     * 1. /api routes
-     * 2. /_next (Next.js internals)
-     * 3. /_static (inside /public)
-     * 4. all root files inside /public (e.g. /favicon.ico)
-     */
-    "/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)",
+    '/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)',
   ],
 };
 
-const nonAuthPaths = [
-    '/login',
-    '/signup',
-    '/forgot-password',
-    '/reset-password',
-    '/verify-email',
-    '/verify-email/success'
-  ]
- 
-// This function can be marked `async` if using `await` inside
+// Middleware function
 export async function middleware(req: NextRequest) {
   const url = req.nextUrl;
+  const pathname = url.pathname;
 
-  const searchParams = req.nextUrl.searchParams.toString()
-  const path = `${url.pathname}${
-    searchParams.toString().length > 0 ? `?${searchParams.toString()}` : ''
-  }`
-
-  // get the current user that is trying to access the admin panel
-  const { user: user } = await updateSession(req);
-
-  // early exit if we do not find the user
-  if (
-    !user ||
-    !user.user?.id &&
-    !nonAuthPaths.includes(path)
-  ) {
-    // redirect them to the signup page
-    return NextResponse.redirect(new URL('/login?r=no-user', req.url));
+  // Early return if on a non-auth path
+  if (nonAuthPaths.some(path => pathname.startsWith(path))) {
+    return NextResponse.next();
   }
 
-  // now check if the user is trying to access the admin page is the admin
-  if (
-    path.includes('/admin') &&
-    user.user
-  ) {  
-    // get the user from the db by hitting the 
-    const response = await fetch(`${getBaseUrl()}/api/user/${user?.user.id}`, {
-      method: 'GET'
-    })
+  // Get the current user session
+  const { user } = await updateSession(req);
+
+  // If there's no user, redirect to the login page unless it's a non-auth path
+  if (!user?.user?.id) {
+    return NextResponse.redirect(new URL(`/login?r=${encodeURIComponent(pathname)}`, req.url));
+  }
+
+  // Check for admin access if the user is navigating to the admin page
+  if (pathname.startsWith('/admin')) {
+    const response = await fetch(`${getBaseUrl()}/api/user/${user.user.id}`, {
+      method: 'GET',
+    });
+
     const userData: User = await response.json();
 
-    // now check the userLevel
-    if (!userData.userLevel || userData.userLevel !== 'ADMIN') {
+    // If the user is not an admin, redirect to the dashboard
+    if (userData.userLevel !== 'ADMIN') {
       return NextResponse.redirect(new URL('/dashboard', req.url));
     }
   }
+
+  // Proceed as normal if the user is authenticated and authorized
+  return NextResponse.next();
 }

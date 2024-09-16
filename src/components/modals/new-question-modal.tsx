@@ -39,9 +39,7 @@ export default function NewQuestionModal({ ...props }) {
   const { mutateAsync: server_addQuestion, isPending } = useMutation({
     mutationFn: (values: SchemaProps) => {
       const { answers, ...rest } = values;
-      let answerTexts = answers.map((answer) => answer.text);
-      // turn answerTexts into an array so we can pass it to the addQuestion function
-      answerTexts = Array.from(answerTexts);
+      const answerTexts = answers.map((answer) => answer.text);
       return addQuestion({ ...rest, answers: answerTexts });
     },
     onSuccess: (data) => {

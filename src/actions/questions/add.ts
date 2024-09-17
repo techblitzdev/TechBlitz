@@ -1,6 +1,7 @@
 'use server';
 import { prisma } from '@/utils/prisma';
 import uniqid from 'uniqid';
+import { supabase } from '@/lib/supabase';
 
 export const addQuestion = async (opts: {
   question: string;
@@ -10,12 +11,6 @@ export const addQuestion = async (opts: {
   console.log('Adding new question...');
   // Destructure the input values from opts
   const { question, answers, questionDate } = opts;
-
-  console.log({
-    question,
-    answers,
-    questionDate,
-  });
 
   console.log('type of answers', typeof Array.from(answers));
 
@@ -39,24 +34,33 @@ export const addQuestion = async (opts: {
   }
 
   try {
-    // Generate a unique ID for the question
     const uid = uniqid();
 
-    // Create a new question in the database
-    const newQuestion = await prisma.questions.create({
+    await prisma.questions.create({
       data: {
         uid,
         question,
-        answer: [...answers],
         questionDate: new Date(questionDate),
         createdAt: new Date(),
         updatedAt: new Date(),
+        answers: {
+          createMany: {
+            data: answers.map((answer) => ({
+              uid: uniqid(),
+              answer,
+            })),
+          },
+          connect: {
+            uid: uid,
+          },
+        },
+      },
+      include: {
+        userAnswers: false,
+        answers: true,
       },
     });
 
-    console.log('New question created:', newQuestion);
-
-    // If creation is successful, return a success message
     return 'ok';
   } catch (error) {
     console.error('Failed to add new question:', error);

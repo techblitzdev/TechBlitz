@@ -44,15 +44,20 @@ model Users {
 }
 
 model Questions {
-  uid String @id @default(cuid())
-
+  uid          String            @id @default(cuid())
   question     String
-  answer       String[]
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
   questionDate DateTime
+  answers      QuestionAnswers[]
+  userAnswers  Answers[]
+}
 
-  Answers Answers[]
+model QuestionAnswers {
+  uid        String    @id @default(cuid())
+  questionId String
+  question   Questions @relation(fields: [questionId], references: [uid])
+  answer     String
 }
 
 // An answer is a response to a question

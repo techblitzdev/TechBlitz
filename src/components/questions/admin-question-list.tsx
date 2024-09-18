@@ -1,4 +1,5 @@
 import { getQuestions } from '@/actions/questions/admin/get';
+import Link from 'next/link';
 
 export default async function AdminQuestionList({ ...props }) {
   const questions = await getQuestions();
@@ -9,21 +10,28 @@ export default async function AdminQuestionList({ ...props }) {
         {questions &&
           typeof questions !== 'string' &&
           questions.map((question) => (
-            <div
+            <Link
               key={question.uid}
-              className="p-2 border border-white rounded-sm"
+              href={`/admin/questions/${question.uid}`}
+              className="p-2 border border-black-50 bg-black-75 rounded-sm font-inter hover:bg-black-50 duration-300"
             >
-              <p>{question.question}</p>
-              <p>Question date: {question.questionDate.toISOString()}</p>
+              <p>
+                <span className="font-semibold">Question:</span>{' '}
+                {question.question}
+              </p>
+              <p>
+                <span className="font-semibold">Question date:</span>{' '}
+                {question.questionDate.toISOString()}
+              </p>
               <div>
-                Question answers:{' '}
+                <span className="font-semibold">Question answers:</span>{' '}
                 {question.answers.map((a, index) => (
                   <p key={index}>
                     {index + 1}. {a.answer}
                   </p>
                 ))}
               </div>
-            </div>
+            </Link>
           ))}
       </div>
     </div>

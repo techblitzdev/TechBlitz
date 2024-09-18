@@ -1,7 +1,6 @@
 'use server';
 import { prisma } from '@/utils/prisma';
 import uniqid from 'uniqid';
-import { supabase } from '@/lib/supabase';
 
 export const addQuestion = async (opts: {
   question: string;

@@ -1,17 +1,16 @@
-import NewQuestionModal from '@/components/modals/new-question-modal';
+import AdminQuestionList from '@/components/questions/admin-question-list';
+import NewQuestionModal from '@/components/questions/new-question-modal';
+import { Separator } from '@/components/ui/separator';
 
 export default function AdminQuestionsPage() {
   return (
-    <div className="font-inter">
-      <h1 className="font-bold text-3xl">Admin Question's Page</h1>
-      <div className="mt-2">
-        <p className="text-xs">
-          Here you can add new questions, review previous questions and delete
-          questions.
-        </p>
+    <div className="font-inter flex flex-col gap-y-4">
+      <div className="flex justify-between">
+        <h1 className="font-bold text-3xl">Admin Question's Page</h1>
+        <NewQuestionModal className="w-fit" />
       </div>
-
-      <NewQuestionModal className="mt-4" />
+      <Separator />
+      <AdminQuestionList />
     </div>
   );
 }

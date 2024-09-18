@@ -6,12 +6,14 @@
 
 generator client {
   provider = "prisma-client-js"
+  //previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
+  //schemas           = ["public", "auth"]
 }
 
 enum userLevel {
@@ -42,15 +44,20 @@ model Users {
 }
 
 model Questions {
-  uid String @id @default(cuid())
-
+  uid          String            @id @default(cuid())
   question     String
-  answer       String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
   questionDate DateTime
+  answers      QuestionAnswers[]
+  userAnswers  Answers[]
+}
 
-  Answers Answers[]
+model QuestionAnswers {
+  uid         String    @id @default(cuid())
+  questionuId String
+  question    Questions @relation(fields: [questionuId], references: [uid])
+  answer      String
 }
 
 // An answer is a response to a question

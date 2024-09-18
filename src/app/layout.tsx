@@ -20,7 +20,7 @@ export default function RootLayout({
         <body
           className={`${InterFont.variable} antialiased`}
         >
-          <main>
+          <main className="py-12 container">
             {children}
           </main>
           <Toaster  className="bg-black" />

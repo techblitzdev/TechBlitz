@@ -20,7 +20,13 @@ export default function SignupPage() {
   );
 }
 
-function SignupContent({ ranToast, setUrlParams }: { ranToast: boolean; setUrlParams: any }) {
+function SignupContent({
+  ranToast,
+  setUrlParams,
+}: {
+  ranToast: boolean;
+  setUrlParams: any;
+}) {
   // check if we have any query parameters
   const urlParams = useGetQueryParams({
     keys: ['r'],
@@ -58,7 +64,7 @@ function SignupContent({ ranToast, setUrlParams }: { ranToast: boolean; setUrlPa
   }
 
   return (
-    <div className="container text-white h-screen flex flex-col items-center justify-center py-20">
+    <div className="container text-white h-screen flex flex-col items-center justify-center">
       <h1 className="font-bold text-3xl">Sign up page</h1>
       <SignupForm />
     </div>

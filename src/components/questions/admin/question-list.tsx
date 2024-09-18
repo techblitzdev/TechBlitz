@@ -1,12 +1,18 @@
 import { getQuestions } from '@/actions/questions/admin/get';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import AdminQuestionPicker from '@/components/questions/admin/question-picker';
+import AdminQuestionToday from './question-today';
 
 export default async function AdminQuestionList({ ...props }) {
   const questions = await getQuestions();
   return (
     <div {...props}>
+      <AdminQuestionToday />
+      <AdminQuestionPicker />
       {questions?.length === 0 && <p>No questions found</p>}
-      <div className="flex flex-col gap-y-2">
+      <div className="flex flex-col gap-y-2 mt-5">
         {questions &&
           typeof questions !== 'string' &&
           questions.map((question) => (

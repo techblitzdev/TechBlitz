@@ -1,4 +1,4 @@
-import AdminQuestionList from '@/components/questions/admin-question-list';
+import AdminQuestionList from '@/components/questions/admin/question-list';
 import NewQuestionModal from '@/components/questions/new-question-modal';
 import { Separator } from '@/components/ui/separator';
 

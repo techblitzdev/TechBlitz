@@ -50,14 +50,8 @@ export const addQuestion = async (opts: {
               answer,
             })),
           },
-          connect: {
-            uid: uid,
-          },
         },
-      },
-      include: {
-        userAnswers: false,
-        answers: true,
+        userAnswers: {},
       },
     });
 

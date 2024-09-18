@@ -11,8 +11,6 @@ export const addQuestion = async (opts: {
   // Destructure the input values from opts
   const { question, answers, questionDate } = opts;
 
-  console.log('type of answers', typeof Array.from(answers));
-
   // Basic validation
   if (!question || !answers.length || !questionDate) {
     console.error(

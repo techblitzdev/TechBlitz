@@ -8,6 +8,9 @@ export const getQuestions = async () => {
       orderBy: {
         questionDate: 'asc',
       },
+      include: {
+        answers: true,
+      },
     });
   } catch (error) {
     console.error('Failed to get questions:', error);

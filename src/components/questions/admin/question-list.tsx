@@ -2,9 +2,11 @@ import { getQuestions } from '@/actions/questions/admin/get';
 import Link from 'next/link';
 import AdminQuestionPicker from '@/components/questions/admin/question-picker';
 import AdminQuestionToday from './question-today';
+import { getPagination } from '@/utils/supabase/pagination';
 
 export default async function AdminQuestionList({ ...props }) {
-  const questions = await getQuestions();
+  const { from, to } = getPagination(0, 10);
+  const questions = await getQuestions({ from, to });
   return (
     <div {...props}>
       <AdminQuestionToday />

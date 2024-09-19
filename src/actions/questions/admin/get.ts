@@ -4,9 +4,11 @@ import { prisma } from '@/utils/prisma';
 export const getQuestions = async () => {
   console.log('Getting questions...');
   try {
+    // limit to 10 posts per page
     return await prisma.questions.findMany({
+      take: 10,
       orderBy: {
-        questionDate: 'asc',
+        questionDate: 'desc',
       },
       include: {
         answers: true,

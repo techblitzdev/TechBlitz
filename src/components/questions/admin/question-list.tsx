@@ -1,7 +1,5 @@
 import { getQuestions } from '@/actions/questions/admin/get';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import AdminQuestionPicker from '@/components/questions/admin/question-picker';
 import AdminQuestionToday from './question-today';
 

@@ -44,13 +44,14 @@ model Users {
 }
 
 model Questions {
-  uid          String            @id @default(cuid())
-  question     String
-  createdAt    DateTime          @default(now())
-  updatedAt    DateTime          @updatedAt
-  questionDate DateTime
-  answers      QuestionAnswers[]
-  userAnswers  Answers[]
+  uid            String            @id @default(cuid())
+  question       String
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  questionDate   DateTime
+  answers        QuestionAnswers[]
+  userAnswers    Answers[]
+  answerResource String?
 }
 
 model QuestionAnswers {

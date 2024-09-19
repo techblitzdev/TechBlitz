@@ -1,4 +1,6 @@
 import { getUserFromDb, getUserFromSession } from '@/actions/user/get-user';
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 export default async function Dashboard() {
   // get our current user
@@ -13,6 +15,14 @@ export default async function Dashboard() {
   return (
     <div className="container text-white">
       <h1 className="font-bold text-3xl">Dashboard</h1>
+      {userData?.userLevel === 'ADMIN' && (
+        <a
+          href="/admin/questions"
+          className="text-blue-500 hover:underline cursor-pointer"
+        >
+          To admin page
+        </a>
+      )}
       <p>UserId: {user.user?.id}</p>
       <p>User email: {userData?.email}</p>
       <p>User role: {userData?.userLevel}</p>

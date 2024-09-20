@@ -11,13 +11,13 @@ export default function DashboardBentoGrid() {
       description:
         'Today’s question is about the importance of learning new things.',
       header: <TodayTaskList />,
-      className: 'md:col-span-2',
+      className: 'md:col-span-2 text-white',
     },
     {
-      title: 'Upcoming Task',
-      description: <Skeleton />,
+      title: "Today's Task's fasted times!",
+      description: 'Can you beat the fastest time?',
       header: <Skeleton />,
-      className: 'md:col-span-1',
+      className: 'md:col-span-1 text-white',
     },
   ];
 

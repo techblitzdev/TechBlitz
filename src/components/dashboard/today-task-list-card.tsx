@@ -11,10 +11,15 @@ export default function TodayTaskListCard({
   className,
 }: TodayTaskListCardProps) {
   return (
-    <div className={cn('p-4 bg-black shadow-sm rounded-lg', className)}>
-      <div className="font-inter">
-        <p className="mt-2 text-sm">{question.question}</p>
-      </div>
+    <div
+      className={cn(
+        'h-full w-full bg-black bg-dot-white/[0.2] relative flex items-center justify-center rounded-sm',
+        className
+      )}
+    >
+      {/* Radial gradient for the container to give a faded look */}
+      <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+      <p className="mt-2 text-sm">{question.question}</p>
     </div>
   );
 }

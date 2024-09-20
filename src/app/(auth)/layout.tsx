@@ -3,9 +3,5 @@ export default function AuthLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <div className="py-12">
-      {children}
-    </div>
-  );
+  return <div>{children}</div>;
 }

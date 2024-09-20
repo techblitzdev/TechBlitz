@@ -1,4 +1,7 @@
 import { getUserFromDb, getUserFromSession } from '@/actions/user/get-user';
+import AdminButton from '@/components/admin-button';
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 export default async function Dashboard() {
   // get our current user
@@ -13,6 +16,7 @@ export default async function Dashboard() {
   return (
     <div className="container text-white">
       <h1 className="font-bold text-3xl">Dashboard</h1>
+      {userData?.userLevel === 'ADMIN' && <AdminButton />}
       <p>UserId: {user.user?.id}</p>
       <p>User email: {userData?.email}</p>
       <p>User role: {userData?.userLevel}</p>

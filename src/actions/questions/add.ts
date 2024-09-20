@@ -1,7 +1,6 @@
 'use server';
 import { prisma } from '@/utils/prisma';
 import uniqid from 'uniqid';
-import { supabase } from '@/lib/supabase';
 
 export const addQuestion = async (opts: {
   question: string;
@@ -11,8 +10,6 @@ export const addQuestion = async (opts: {
   console.log('Adding new question...');
   // Destructure the input values from opts
   const { question, answers, questionDate } = opts;
-
-  console.log('type of answers', typeof Array.from(answers));
 
   // Basic validation
   if (!question || !answers.length || !questionDate) {

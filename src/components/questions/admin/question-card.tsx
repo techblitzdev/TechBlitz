@@ -6,6 +6,7 @@ export default function AdminQuestionCard({
 }: {
   question: Question;
 }) {
+  if (!question) return null;
   return (
     <Link
       key={question.uid}

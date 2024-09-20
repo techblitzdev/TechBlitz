@@ -7,6 +7,7 @@ import { getPagination } from '@/utils/supabase/pagination';
 export default async function AdminQuestionList({ ...props }) {
   const { from, to } = getPagination(0, 10);
   const questions = await getQuestions({ from, to });
+
   return (
     <div {...props}>
       <AdminQuestionToday />

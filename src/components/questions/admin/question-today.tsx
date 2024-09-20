@@ -1,11 +1,11 @@
 import { Button } from '@/components/ui/button';
-import type { Questions } from '@prisma/client';
+import { Question } from '@/types/Questions';
 import AdminQuestionCard from './question-card';
 
 export default function AdminQuestionToday({
   question,
 }: {
-  question: Questions;
+  question: Question;
 }) {
   return (
     <div className="flex flex-col gap-y-2 w-full items-center">

@@ -1,6 +1,6 @@
 import { getUserFromDb, getUserFromSession } from '@/actions/user/get-user';
 import AdminButton from '@/components/admin-button';
-import TodayTaskList from '@/components/dashboard/today-task-list';
+import DashboardBentoGrid from '@/components/dashboard/dashboard-bento-grid';
 import { Separator } from '@/components/ui/separator';
 
 export default async function Dashboard() {
@@ -17,7 +17,7 @@ export default async function Dashboard() {
         {userData?.userLevel === 'ADMIN' && <AdminButton />}
       </div>
       <Separator />
-      <TodayTaskList />
+      <DashboardBentoGrid />
     </div>
   );
 }

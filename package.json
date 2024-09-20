@@ -22,6 +22,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
     "@supabase/ssr": "^0.5.1",
+    "@tabler/icons-react": "^3.17.0",
     "@tanstack/react-form": "^0.32.0",
     "@tanstack/react-query": "^5.55.4",
     "class-variance-authority": "^0.7.0",

@@ -5,9 +5,9 @@ export default async function TodayTaskList() {
   const todaysQuestion = await getTodaysQuestion();
 
   return (
-    <div>
+    <div className="h-full">
       {todaysQuestion ? (
-        <TodayTaskListCard question={todaysQuestion} />
+        <TodayTaskListCard className="h-full" question={todaysQuestion} />
       ) : (
         <p>No task for today</p>
       )}

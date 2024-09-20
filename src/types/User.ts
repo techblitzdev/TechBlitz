@@ -1,9 +1,12 @@
 export type User = {
-  uid: string
-  email: string
-  name?: string
-  createdAt: string
-  updatedAt: string
-  userLevel: 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE'
-  answers: string[]
-}
+  uid: string;
+  email: string;
+  name?: string;
+
+  createdAt: string;
+  updatedAt: string;
+  lastLogin: string;
+
+  userLevel: 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE';
+  answers: string[];
+};

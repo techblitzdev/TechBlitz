@@ -1,12 +1,11 @@
-export type Question = {
-  uid: string
-  user: string
-  question: string
-  answer: string
-  createdAt: string
-  updatedAt: string
+import { QuestionAnswer } from './QuestionAnswers';
 
-  // The answer to the question
-  questionDate: string
-  answers: string[]
-}
+export type Question = {
+  answers: QuestionAnswer[];
+  uid: string;
+  question: string;
+  createdAt: Date;
+  updatedAt: Date;
+  questionDate: Date;
+  answerResource: string | null;
+};

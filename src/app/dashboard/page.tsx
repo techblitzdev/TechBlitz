@@ -1,7 +1,6 @@
 import { getUserFromDb, getUserFromSession } from '@/actions/user/get-user';
 import AdminButton from '@/components/admin-button';
-import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
+import TodayTaskList from '@/components/dashboard/today-task-list';
 
 export default async function Dashboard() {
   // get our current user
@@ -11,8 +10,6 @@ export default async function Dashboard() {
   // get the user from the db
   const userData = await getUserFromDb(user.user.id);
 
-  console.log('userData', userData);
-
   return (
     <div className="container text-white">
       <h1 className="font-bold text-3xl">Dashboard</h1>
@@ -20,6 +17,7 @@ export default async function Dashboard() {
       <p>UserId: {user.user?.id}</p>
       <p>User email: {userData?.email}</p>
       <p>User role: {userData?.userLevel}</p>
+      <TodayTaskList />
     </div>
   );
 }

@@ -1,13 +1,13 @@
-import Link from 'next/link';
+'use client';
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 export default function AdminButton({ ...props }) {
+  const router = useRouter();
+  const toAdminPage = () => router.push('/admin');
   return (
-    <Link
-      href="/admin/questions"
-      className="text-blue-500 hover:underline cursor-pointer"
-      prefetch
-    >
+    <Button onClick={toAdminPage} {...props}>
       To admin page
-    </Link>
+    </Button>
   );
 }

@@ -44,20 +44,23 @@ model Users {
 }
 
 model Questions {
-  uid            String            @id @default(cuid())
-  question       String
-  createdAt      DateTime          @default(now())
-  updatedAt      DateTime          @updatedAt
-  questionDate   DateTime
-  answers        QuestionAnswers[]
+  uid          String   @id @default(cuid())
+  question     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  questionDate DateTime
+
+  answers       QuestionAnswers[]
+  correctAnswer String // the QuestionAnswersUid
+
   userAnswers    Answers[]
   answerResource String?
 }
 
 model QuestionAnswers {
   uid         String    @id @default(cuid())
-  questionuId String
-  question    Questions @relation(fields: [questionuId], references: [uid])
+  questionUid String
+  question    Questions @relation(fields: [questionUid], references: [uid])
   answer      String
 }
 

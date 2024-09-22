@@ -8,5 +8,5 @@ export type Question = {
   updatedAt: Date;
   questionDate: Date;
   answerResource: string | null;
-  correctAnswer: number | null;
+  correctAnswer: string | null;
 };

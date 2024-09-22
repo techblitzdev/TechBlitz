@@ -1,4 +1,4 @@
-import { getQuestions } from '@/actions/questions/admin/get';
+import { getQuestions } from '@/actions/questions/admin/list';
 import AdminQuestionPicker from '@/components/questions/admin/question-picker';
 import AdminQuestionToday from './question-today';
 import { getPagination } from '@/utils/supabase/pagination';

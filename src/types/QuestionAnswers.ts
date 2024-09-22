@@ -1,5 +1,5 @@
 export type QuestionAnswer = {
   uid: string;
-  questionuId: string;
+  questionUid: string;
   answer: string;
 };

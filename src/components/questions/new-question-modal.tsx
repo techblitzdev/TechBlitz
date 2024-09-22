@@ -28,6 +28,7 @@ export default function NewQuestionModal({ ...props }) {
       question: '',
       questionDate: new Date().toISOString(),
       answers: [{ text: '' }],
+      correctAnswer: null,
     },
   });
 
@@ -36,11 +37,19 @@ export default function NewQuestionModal({ ...props }) {
     name: 'answers',
   });
 
+  const toggleCorrectAnswer = (index: number) => {
+    form.setValue('correctAnswer', index);
+  };
+
   const { mutateAsync: server_addQuestion, isPending } = useMutation({
     mutationFn: (values: SchemaProps) => {
       const { answers, ...rest } = values;
       const answerTexts = answers.map((answer) => answer.text);
-      return addQuestion({ ...rest, answers: answerTexts });
+      return addQuestion({
+        ...rest,
+        answers: answerTexts,
+        correctAnswer: Number(rest.correctAnswer),
+      });
     },
     onSuccess: (data) => {
       console.log(data);
@@ -95,6 +104,18 @@ export default function NewQuestionModal({ ...props }) {
                       </FormControl>
                     )}
                   />
+                  {/** Mark as correct answer */}
+                  <Button
+                    variant="default"
+                    type="button"
+                    className="self-end"
+                    onClick={() => toggleCorrectAnswer(index)}
+                  >
+                    {index === form.watch('correctAnswer') &&
+                    form.watch('correctAnswer') !== null
+                      ? '✅'
+                      : 'Mark as correct'}
+                  </Button>
                   {/* Remove Button */}
                   <Button
                     variant="destructive"

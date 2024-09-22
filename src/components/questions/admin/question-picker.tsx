@@ -1,7 +1,7 @@
 'use client';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { getQuestions } from '@/actions/questions/admin/get';
+import { getQuestions } from '@/actions/questions/admin/list';
 import { getPagination } from '@/utils/supabase/pagination';
 
 export default async function AdminQuestionPicker({

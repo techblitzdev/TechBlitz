@@ -104,27 +104,29 @@ export default function NewQuestionModal({ ...props }) {
                       </FormControl>
                     )}
                   />
-                  {/** Mark as correct answer */}
-                  <Button
-                    variant="default"
-                    type="button"
-                    className="self-end"
-                    onClick={() => toggleCorrectAnswer(index)}
-                  >
-                    {index === form.watch('correctAnswer') &&
-                    form.watch('correctAnswer') !== null
-                      ? '✅'
-                      : 'Mark as correct'}
-                  </Button>
-                  {/* Remove Button */}
-                  <Button
-                    variant="destructive"
-                    type="button"
-                    onClick={() => remove(index)}
-                    className="self-end"
-                  >
-                    Remove
-                  </Button>
+                  <div className="w-full flex items-center justify-between self-end">
+                    {/** Mark as correct answer */}
+                    <Button
+                      variant="default"
+                      type="button"
+                      className="self-end"
+                      onClick={() => toggleCorrectAnswer(index)}
+                    >
+                      {index === form.watch('correctAnswer') &&
+                      form.watch('correctAnswer') !== null
+                        ? '✅'
+                        : 'Mark as correct'}
+                    </Button>
+                    {/* Remove Button */}
+                    <Button
+                      variant="destructive"
+                      type="button"
+                      onClick={() => remove(index)}
+                      className="self-end"
+                    >
+                      Remove
+                    </Button>
+                  </div>
                 </div>
               ))}
 

@@ -22,7 +22,7 @@ export const getQuestion = async (uid: string) => {
       return null;
     }
 
-    return question as Question;
+    return question;
   } catch (e) {
     console.error('Error getting question', e);
     return null;

@@ -1,9 +1,11 @@
-import { getTodaysQuestion } from '@/actions/questions/get-today';
+import { Question } from '@/types/Questions';
 import TodayTaskListCard from './today-task-list-card';
 
-export default async function TodayTaskList() {
-  const todaysQuestion = await getTodaysQuestion();
-
+export default async function TodayTaskList({
+  todaysQuestion,
+}: {
+  todaysQuestion: Question;
+}) {
   return (
     <div className="h-full">
       {todaysQuestion ? (

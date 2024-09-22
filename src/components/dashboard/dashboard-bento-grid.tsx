@@ -3,16 +3,21 @@ import React from 'react';
 import { BentoGrid, BentoGridItem } from '../ui/bento-grid';
 import { Skeleton } from '../ui/skeleton';
 import TodayTaskList from './today-task-list';
+import { getTodaysQuestion } from '@/actions/questions/get-today';
 
-export default function DashboardBentoGrid() {
+export default async function DashboardBentoGrid() {
+  const todaysQuestion = await getTodaysQuestion();
+
   const items = [
     {
       title: 'Today’s Question!',
       description:
         'Today’s question is about the importance of learning new things.',
-      header: <TodayTaskList />,
+      header: todaysQuestion && (
+        <TodayTaskList todaysQuestion={todaysQuestion} />
+      ),
       className: 'md:col-span-2 text-white',
-      href: '/todays-question',
+      href: `/question/${todaysQuestion?.uid}`,
     },
     {
       title: 'X days streak!',

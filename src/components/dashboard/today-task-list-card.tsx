@@ -13,7 +13,7 @@ export default function TodayTaskListCard({
   return (
     <div
       className={cn(
-        'h-full w-full bg-black bg-dot-white/[0.2] relative flex items-center justify-center rounded-sm',
+        'h-full w-full bg-black bg-dot-white/[0.2] relative flex p-5 rounded-sm',
         className
       )}
     >

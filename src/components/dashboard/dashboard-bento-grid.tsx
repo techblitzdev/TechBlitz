@@ -13,9 +13,7 @@ export default async function DashboardBentoGrid() {
       title: 'Today’s Question!',
       description:
         'Today’s question is about the importance of learning new things.',
-      header: todaysQuestion && (
-        <TodayTaskList todaysQuestion={todaysQuestion} />
-      ),
+      header: <Skeleton />,
       className: 'md:col-span-2 text-white',
       href: `/question/${todaysQuestion?.uid}`,
     },

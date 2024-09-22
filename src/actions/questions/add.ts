@@ -6,10 +6,11 @@ export const addQuestion = async (opts: {
   question: string;
   answers: string[];
   questionDate: string;
+  correctAnswer: number;
 }) => {
   console.log('Adding new question...');
   // Destructure the input values from opts
-  const { question, answers, questionDate } = opts;
+  const { question, answers, questionDate, correctAnswer } = opts;
 
   // Basic validation
   if (!question || !answers.length || !questionDate) {
@@ -30,6 +31,21 @@ export const addQuestion = async (opts: {
     return 'Each answer must be a string';
   }
 
+  // create the answers array
+  const answerRecords = answers.map((answer) => ({
+    uid: uniqid(),
+    answer,
+  }));
+
+  // Check if correctAnswerIndex is valid
+  if (correctAnswer < 0 || correctAnswer >= answers.length) {
+    console.error('Invalid correctAnswerIndex');
+    return 'Invalid correctAnswerIndex';
+  }
+
+  // get the correct answer uid
+  const correctAnswerUid = answerRecords[correctAnswer].uid;
+
   try {
     const uid = uniqid();
 
@@ -42,13 +58,11 @@ export const addQuestion = async (opts: {
         updatedAt: new Date(),
         answers: {
           createMany: {
-            data: answers.map((answer) => ({
-              uid: uniqid(),
-              answer,
-            })),
+            data: answerRecords,
           },
         },
         userAnswers: {},
+        correctAnswer: correctAnswerUid,
       },
     });
 

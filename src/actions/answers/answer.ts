@@ -20,6 +20,11 @@ export const answerQuestion = async (opts: {
       throw new Error('Question not found');
     }
 
+    console.log({
+      questionCorrectAnswer: question.correctAnswer,
+      answerUid,
+    });
+
     return question.correctAnswer === answerUid ? true : false;
   } catch (e) {
     console.error(e);

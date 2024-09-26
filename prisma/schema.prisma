@@ -39,7 +39,7 @@ model Users {
 
   userLevel userLevel @default(STANDARD)
 
-  // A user can have many questions
+  // A user can have many answers
   answers Answers[]
 }
 
@@ -62,6 +62,12 @@ model QuestionAnswers {
   questionUid String
   question    Questions @relation(fields: [questionUid], references: [uid])
   answer      String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  // A question can have many answers
+  userAnswers Answers[]
 }
 
 // An answer is a response to a question
@@ -75,13 +81,11 @@ model Answers {
   // The question that the user has answered
   question Questions @relation(fields: [uid], references: [uid])
 
-  userAnswer    String
-  correctAnswer String
+  userAnswer    QuestionAnswers @relation(fields: [userAnswerUid], references: [uid])
+  userAnswerUid String // the answerUid that the user has selected
+  correctAnswer Boolean         @default(false)
 
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  questionDate DateTime // the date that the question will be asked
 
   timeTaken Int? // the time that the user answered the question
 }

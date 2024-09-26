@@ -1,11 +1,18 @@
 'use server';
 import { prisma } from '@/utils/prisma';
 import { revalidateTag } from 'next/cache';
+import { userAuth } from '@/actions/utils/user-auth';
 
 type GetQuestionsOpts = { from: number; to: number };
 
 export const getQuestions = async (opts: GetQuestionsOpts) => {
   const { from, to } = opts;
+
+  // ensure the user trying to get the questions is an admin
+  const isAdmin = await userAuth('ADMIN');
+  if (!isAdmin) {
+    return;
+  }
 
   try {
     // limit to 'to' questions per page starting from 'from'

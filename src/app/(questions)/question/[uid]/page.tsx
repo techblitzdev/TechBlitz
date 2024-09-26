@@ -1,11 +1,8 @@
 'use client';
-import { useState } from 'react';
+
 import { useQuery } from '@tanstack/react-query';
-// actions
 import { getQuestion } from '@/actions/questions/get';
 import { answerQuestion } from '@/actions/answers/answer';
-
-// components
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -15,12 +12,11 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import LoadingSpinner from '@/components/ui/loading';
-
-// zod
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
 import { z } from 'zod';
+import { useUser } from '@/hooks/useUser';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 
@@ -29,6 +25,11 @@ export default function TodaysQuestionPage({
 }: {
   params: { uid: string };
 }) {
+  const {
+    data: userData,
+    isLoading: userLoading,
+    error: userError,
+  } = useUser();
   const { uid } = params;
 
   const {
@@ -49,10 +50,14 @@ export default function TodaysQuestionPage({
   });
 
   const handleAnswerQuestion = async (values: SchemaProps) => {
-    console.log('hit');
+    if (!userData?.user) {
+      console.error('User is not logged in');
+      return;
+    }
     const isCorrect = await answerQuestion({
       questionUid: uid,
       answerUid: values.answer,
+      userId: userData.user.id,
     });
 
     console.log({
@@ -60,7 +65,7 @@ export default function TodaysQuestionPage({
     });
   };
 
-  if (isPending || !question) {
+  if (userLoading || isPending || !question) {
     return (
       <div className="flex justify-center items-center">
         <LoadingSpinner />
@@ -68,8 +73,12 @@ export default function TodaysQuestionPage({
     );
   }
 
+  if (userError) {
+    return <span>Error loading user: {userError.message}</span>;
+  }
+
   if (isError) {
-    return <span>Error: {error.message}</span>;
+    return <span>Error loading question: {error.message}</span>;
   }
 
   return (
@@ -106,15 +115,6 @@ export default function TodaysQuestionPage({
               )}
             />
           ))}
-          {/* <input
-                type="radio"
-                name="answer"
-                value={answer.uid}
-                checked={selectedAnswer === answer.uid}
-                onChange={() => setSelectedAnswer(answer.uid)}
-              />
-              <span>{answer.answer}</span>
-            </label> */}
         </div>
         <Button type="submit" variant="default">
           Submit

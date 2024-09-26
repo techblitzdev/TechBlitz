@@ -1,5 +1,5 @@
+'use server';
 import { prisma } from '@/utils/prisma';
-import { Question } from '@/types/Questions';
 
 export const getQuestion = async (uid: string) => {
   if (!uid) {

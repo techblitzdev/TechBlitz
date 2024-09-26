@@ -1,11 +1,11 @@
 'use client';
-import { useState } from 'react';
 import { getQuestion } from '@/actions/questions/get';
 import { answerQuestion } from '@/actions/answers/answer';
 import { useQuery } from '@tanstack/react-query';
 
 // components
 import { Button } from '@/components/ui/button';
+import LoadingSpinner from '@/components/ui/loading';
 
 export default function TodaysQuestionPage({
   params,
@@ -16,7 +16,7 @@ export default function TodaysQuestionPage({
 }) {
   const { uid } = params;
   // State to store the selected answer UID
-  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const selectedAnswer = '1';
 
   // Fetch the question data
   const {
@@ -32,10 +32,8 @@ export default function TodaysQuestionPage({
     },
   });
 
-  if (!question) return <p>Loading...</p>;
-
-  if (isPending) {
-    return <span>Loading...</span>;
+  if (isPending || !question) {
+    return <LoadingSpinner />;
   }
 
   if (isError) {
@@ -43,9 +41,7 @@ export default function TodaysQuestionPage({
   }
 
   // Handle answer selection
-  const handleSelectAnswer = (answerUid: string) => {
-    setSelectedAnswer(answerUid);
-  };
+  const handleSelectAnswer = (answerUid: string) => {};
 
   // Handle form submission
   const handleAnswerQuestion = async () => {

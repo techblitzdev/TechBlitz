@@ -6,7 +6,6 @@ export const answerQuestion = async (opts: {
   answerUid: string;
 }) => {
   const { questionUid, answerUid } = opts;
-
   try {
     // check if the answerUid is the correct answer
     // if it is, return true

@@ -1,5 +1,5 @@
 'use client';
-
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getQuestion } from '@/actions/questions/get';
 import { answerQuestion } from '@/actions/answers/answer';
@@ -25,6 +25,7 @@ export default function TodaysQuestionPage({
 }: {
   params: { uid: string };
 }) {
+  const [correctAnswer, setCorrectAnswer] = useState<boolean | null>(null);
   const {
     data: userData,
     isLoading: userLoading,
@@ -60,9 +61,7 @@ export default function TodaysQuestionPage({
       userId: userData.user.id,
     });
 
-    console.log({
-      isCorrect,
-    });
+    setCorrectAnswer(isCorrect);
   };
 
   if (userLoading || isPending || !question) {
@@ -117,7 +116,11 @@ export default function TodaysQuestionPage({
           ))}
         </div>
         <Button type="submit" variant="default">
-          Submit
+          {correctAnswer === null
+            ? 'Submit'
+            : correctAnswer
+            ? 'Correct!'
+            : 'Incorrect!'}
         </Button>
       </form>
     </Form>

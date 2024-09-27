@@ -2,8 +2,9 @@ import { cn } from '@/lib/utils';
 import React from 'react';
 import { BentoGrid, BentoGridItem } from '../ui/bento-grid';
 import { Skeleton } from '../ui/skeleton';
-import TodayTaskList from './today-task-list';
+//import TodayTaskList from './today-task-list';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
+import { DailyStreakChart } from './daily-streak-chart';
 
 export default async function DashboardBentoGrid() {
   const todaysQuestion = await getTodaysQuestion();
@@ -20,7 +21,11 @@ export default async function DashboardBentoGrid() {
     {
       title: 'X days streak!',
       description: 'Keep up the good work!',
-      header: <Skeleton />,
+      header: (
+        <div className="flex size-full items-center justify-center">
+          <DailyStreakChart />
+        </div>
+      ),
       className: 'md:col-span-1 text-white',
     },
     {

@@ -1,6 +1,4 @@
 'use client';
-
-import { TrendingUp } from 'lucide-react';
 import {
   Label,
   PolarGrid,
@@ -9,33 +7,23 @@ import {
   RadialBarChart,
 } from 'recharts';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription } from '@/components/ui/card';
 import { ChartConfig, ChartContainer } from '@/components/ui/chart';
-import { useUser } from '@/hooks/useUser';
-import { useQuery } from '@tanstack/react-query';
-import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 import LoadingSpinner from '../ui/loading';
 
 export const description = 'A radial chart with text';
 
-export function DailyStreakChart() {
-  const { data: user } = useUser();
-  const { data, error, isLoading } = useQuery({
-    queryKey: ['user', user?.user?.id],
-    queryFn: () => {
-      if (!user || !user.user || !user?.user.id) return;
-      return getUserDailyStats(user?.user.id);
-    },
-  });
+type DailyStreakChartProps = {
+  totalDailyStreak: number | null;
+  correctDailyStreak: number | null;
+};
 
-  if (isLoading || !data?.correctDailyStreak || !data.totalDailyStreak)
+export function DailyStreakChart(opts: {
+  userStreakData: DailyStreakChartProps;
+}) {
+  const { userStreakData } = opts;
+
+  if (!userStreakData?.correctDailyStreak || !userStreakData.totalDailyStreak)
     return (
       <CardDescription>
         <LoadingSpinner />
@@ -45,7 +33,7 @@ export function DailyStreakChart() {
   const chartData = [
     {
       name: 'streak',
-      streak: data?.totalDailyStreak,
+      streak: userStreakData?.totalDailyStreak,
       fill: 'lightgreen',
     },
   ];
@@ -72,7 +60,10 @@ export function DailyStreakChart() {
             data={chartData}
             startAngle={90}
             endAngle={
-              90 + (data?.correctDailyStreak / data?.totalDailyStreak) * 360
+              90 +
+              (userStreakData?.correctDailyStreak /
+                userStreakData?.totalDailyStreak) *
+                360
             }
             innerRadius={80}
             outerRadius={110}
@@ -106,7 +97,8 @@ export function DailyStreakChart() {
                           y={viewBox.cy}
                           className="text-xl font-bold fill-white font-inter"
                         >
-                          {data.correctDailyStreak} / {data.totalDailyStreak}
+                          {userStreakData.correctDailyStreak} /{' '}
+                          {userStreakData.totalDailyStreak}
                         </tspan>
                         <tspan
                           x={viewBox.cx}

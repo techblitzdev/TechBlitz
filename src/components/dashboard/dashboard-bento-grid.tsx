@@ -2,12 +2,26 @@ import { cn } from '@/lib/utils';
 import React from 'react';
 import { BentoGrid, BentoGridItem } from '../ui/bento-grid';
 import { Skeleton } from '../ui/skeleton';
-//import TodayTaskList from './today-task-list';
-import { getTodaysQuestion } from '@/actions/questions/get-today';
 import { DailyStreakChart } from './daily-streak-chart';
+
+import { DAILY_STREAK } from '@/utils/constants/daily-streak';
+
+import { getTodaysQuestion } from '@/actions/questions/get-today';
+import { getUserDailyStats } from '@/actions/user/get-daily-streak';
+
+import { createClient as createServerClient } from '@/utils/supabase/server';
+import { cookies } from 'next/headers';
 
 export default async function DashboardBentoGrid() {
   const todaysQuestion = await getTodaysQuestion();
+  const cookieStore = cookies();
+  const supabase = createServerClient(cookieStore);
+
+  const { data: user } = await supabase?.auth?.getUser();
+
+  if (!user || !user.user?.id) return;
+
+  const userStreak = await getUserDailyStats(user?.user?.id);
 
   const items = [
     {
@@ -19,11 +33,11 @@ export default async function DashboardBentoGrid() {
       href: `/question/${todaysQuestion?.uid}`,
     },
     {
-      title: 'X days streak!',
-      description: 'Keep up the good work!',
-      header: (
-        <div className="flex size-full items-center justify-center">
-          <DailyStreakChart />
+      title: `${userStreak?.totalDailyStreak} day streak!`,
+      description: DAILY_STREAK['30'],
+      header: userStreak && (
+        <div className="flex size-full items-center justify-center h-[180px]">
+          <DailyStreakChart userStreakData={userStreak} />
         </div>
       ),
       className: 'md:col-span-1 text-white',

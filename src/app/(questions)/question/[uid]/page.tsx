@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getQuestion } from '@/actions/questions/get';
 import { answerQuestion } from '@/actions/answers/answer';
@@ -25,13 +25,21 @@ export default function TodaysQuestionPage({
 }: {
   params: { uid: string };
 }) {
+  const { uid } = params;
+
   const [correctAnswer, setCorrectAnswer] = useState<boolean | null>(null);
   const {
     data: userData,
     isLoading: userLoading,
     error: userError,
   } = useUser();
-  const { uid } = params;
+
+  const buttonText = useCallback(() => {
+    if (correctAnswer === null) {
+      return 'Submit';
+    }
+    return correctAnswer ? 'Correct!' : 'Incorrect!';
+  }, [correctAnswer]);
 
   const {
     data: question,
@@ -72,12 +80,8 @@ export default function TodaysQuestionPage({
     );
   }
 
-  if (userError) {
-    return <span>Error loading user: {userError.message}</span>;
-  }
-
-  if (isError) {
-    return <span>Error loading question: {error.message}</span>;
+  if (userError || isError) {
+    return <span>Error loading: {error?.message}</span>;
   }
 
   return (
@@ -116,11 +120,7 @@ export default function TodaysQuestionPage({
           ))}
         </div>
         <Button type="submit" variant="default">
-          {correctAnswer === null
-            ? 'Submit'
-            : correctAnswer
-            ? 'Correct!'
-            : 'Incorrect!'}
+          {buttonText()}
         </Button>
       </form>
     </Form>

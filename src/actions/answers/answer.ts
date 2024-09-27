@@ -8,11 +8,10 @@ export const answerQuestion = async (opts: {
   answerUid: string;
   userId: string;
 }) => {
+  console.log('hit the answer endpoint');
   const { questionUid, answerUid, userId } = opts;
+
   try {
-    // check if the answerUid is the correct answer
-    // if it is, return true
-    // if it is not, return false
     const question = await prisma.questions.findUnique({
       where: {
         uid: questionUid,
@@ -23,20 +22,11 @@ export const answerQuestion = async (opts: {
       throw new Error('Question not found');
     }
 
-    const correctAnswer = question.correctAnswer === answerUid ? true : false;
+    const correctAnswer = question.correctAnswer === answerUid;
 
-    // get the current user
-
-    // we now need to save the user's answer to the db
+    // Create the answer
     await prisma.answers.create({
       data: {
-        correctAnswer,
-        createdAt: new Date(),
-        userAnswer: {
-          connect: {
-            uid: answerUid,
-          },
-        },
         user: {
           connect: {
             uid: userId,
@@ -47,9 +37,14 @@ export const answerQuestion = async (opts: {
             uid: questionUid,
           },
         },
+        userAnswerUid: answerUid,
+        correctAnswer,
       },
     });
+
+    return correctAnswer;
   } catch (e) {
     console.error(e);
+    throw e;
   }
 };

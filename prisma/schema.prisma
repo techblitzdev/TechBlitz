@@ -29,7 +29,7 @@ enum userLevel {
 // The user will also have a list of questions that they have answered,
 // as well as a list of answers for the question.
 model Users {
-  uid   String  @id @default(cuid())
+  uid   String  @id()
   email String  @unique
   name  String?
 
@@ -65,27 +65,18 @@ model QuestionAnswers {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
-
-  // A question can have many answers
-  userAnswers Answers[]
 }
 
 // An answer is a response to a question
 // Each time a user tries to answer a question, an answer row is created
 model Answers {
-  uid String @id @default(cuid())
-
-  // The user who has answered the question
-  user Users @relation(fields: [uid], references: [uid], map: "userAnswers")
-
-  // The question that the user has answered
-  question Questions @relation(fields: [uid], references: [uid])
-
-  userAnswer    QuestionAnswers @relation(fields: [userAnswerUid], references: [uid])
-  userAnswerUid String // the answerUid that the user has selected
-  correctAnswer Boolean         @default(false)
-
-  createdAt DateTime @default(now())
-
-  timeTaken Int? // the time that the user answered the question
+  uid           String    @id @default(cuid())
+  userId        String
+  questionId    String
+  user          Users     @relation(fields: [userId], references: [uid])
+  question      Questions @relation(fields: [questionId], references: [uid])
+  userAnswerUid String
+  correctAnswer Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  timeTaken     Int?
 }

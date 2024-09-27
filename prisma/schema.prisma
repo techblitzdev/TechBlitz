@@ -41,6 +41,9 @@ model Users {
 
   // A user can have many answers
   answers Answers[]
+
+  totalDailyStreak   Int? @default(0) // the total number of days the user has answered the daily question
+  correctDailyStreak Int? @default(0) // how many days the user has got the daily question correct
 }
 
 model Questions {

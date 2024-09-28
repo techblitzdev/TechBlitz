@@ -4,15 +4,30 @@ import LoadingSpinner from '@/components/ui/loading';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import CountUp from 'react-countup';
+import { useQuery } from '@tanstack/react-query';
+import { getTodaysQuestion } from '@/actions/questions/get-today';
 
 export default function NotFound() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const {
+    data: todaysQuestion,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ['not-found'],
+    queryFn: () => getTodaysQuestion(),
+  });
+
   const goBack = () => {
     setLoading(true);
     router.push('/dashboard');
   };
 
-  const [loading, setLoading] = useState(false);
+  const goToDailyQuestion = () =>
+    router.push(`/question/${todaysQuestion?.uid}`);
 
   return (
     <div className="w-full flex items-center justify-center min-h-screen bg-dot-white/[0.2] relative">
@@ -29,9 +44,14 @@ export default function NotFound() {
             Sorry, it look's like the page you have requested could not be
             found.
           </p>
-          <Button variant="secondary" className="mt-4" onClick={goBack}>
-            {loading ? <LoadingSpinner /> : 'Back to dashboard'}
-          </Button>
+          <div className="mt-4 flex flex-col md:flex-row gap-4 self-center justify-center w-[75%] md:w-auto">
+            <Button variant="secondary" onClick={goBack}>
+              {loading ? <LoadingSpinner /> : 'Back to dashboard'}
+            </Button>
+            <Button variant="default" onClick={goToDailyQuestion}>
+              Go to daily question
+            </Button>
+          </div>
         </div>
       </div>
     </div>

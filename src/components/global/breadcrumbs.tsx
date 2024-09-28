@@ -24,7 +24,7 @@ export function BreadcrumbWithCustomSeparator({
       <BreadcrumbList>
         {/* Map through the items to generate breadcrumb links */}
         {items.map((item, index) => (
-          <BreadcrumbItem key={index}>
+          <BreadcrumbItem key={index} className="text-white">
             {/* Render as a link if it's not the last item */}
             {index < items.length - 1 ? (
               <>

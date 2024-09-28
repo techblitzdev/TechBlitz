@@ -13,7 +13,7 @@ export default async function Dashboard() {
   return (
     <div className="container py-12 text-white flex flex-col gap-y-4">
       <div className="flex w-full justify-between">
-        <h1 className="font-bold text-3xl font-satoshi">Dashboard</h1>
+        <h1 className="font-bold text-3xl font-satoshi">Welcome back!</h1>
         {userData?.userLevel === 'ADMIN' && <AdminButton />}
       </div>
       <Separator />

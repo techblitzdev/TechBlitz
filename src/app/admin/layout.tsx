@@ -13,7 +13,7 @@ export default function AdminLayout({
   const paths = pathname.split('/').filter((path) => path); // Remove empty string elements
 
   return (
-    <div className="font-inter flex flex-col gap-y-4">
+    <div className="container py-12 font-inter flex flex-col gap-y-4">
       <div className="flex justify-between">
         <h1 className="font-bold text-3xl">
           <Link href={'/dashboard'} prefetch>

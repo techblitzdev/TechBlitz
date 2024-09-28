@@ -48,9 +48,13 @@ export default function NotFound() {
             <Button variant="secondary" onClick={goBack}>
               {loading ? <LoadingSpinner /> : 'Back to dashboard'}
             </Button>
-            <Button variant="default" onClick={goToDailyQuestion}>
-              Go to daily question
-            </Button>
+            {isError || !todaysQuestion?.uid ? (
+              ''
+            ) : (
+              <Button variant="default" onClick={goToDailyQuestion}>
+                {isLoading ? <LoadingSpinner /> : 'Go to daily question'}
+              </Button>
+            )}
           </div>
         </div>
       </div>

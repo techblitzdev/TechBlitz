@@ -11,7 +11,7 @@ export default async function Dashboard() {
   const userData = await getUserFromDb(user.user.id);
 
   return (
-    <div className="container text-white flex flex-col gap-y-4">
+    <div className="container py-12 text-white flex flex-col gap-y-4">
       <div className="flex w-full justify-between">
         <h1 className="font-bold text-3xl font-inter">Dashboard</h1>
         {userData?.userLevel === 'ADMIN' && <AdminButton />}

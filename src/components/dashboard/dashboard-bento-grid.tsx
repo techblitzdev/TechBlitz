@@ -34,7 +34,7 @@ export default async function DashboardBentoGrid() {
     },
     {
       title: `${userStreak?.totalDailyStreak} day streak!`,
-      description: DAILY_STREAK['30'],
+      description: DAILY_STREAK,
       header: userStreak && (
         <div className="flex size-full items-center justify-center h-[180px]">
           <DailyStreakChart userStreakData={userStreak} />
@@ -43,8 +43,8 @@ export default async function DashboardBentoGrid() {
       className: 'md:col-span-1 text-white',
     },
     {
-      title: 'Previous Task',
-      description: 'Want to see the previous tasks?',
+      title: 'Previous Questions',
+      description: 'Can you beat your previous score?',
       header: <Skeleton />,
       className: 'md:col-span-1 text-white',
     },

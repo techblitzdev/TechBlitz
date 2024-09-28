@@ -19,6 +19,7 @@ export default function RootLayout({
       <html lang="en">
         <body
           className={`${InterFont.variable} ${SatoshiFont.variable} antialiased`}
+          suppressHydrationWarning={true}
         >
           <main>{children}</main>
           <Toaster className="bg-black" />

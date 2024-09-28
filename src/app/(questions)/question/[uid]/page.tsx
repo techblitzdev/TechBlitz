@@ -87,7 +87,7 @@ export default function TodaysQuestionPage({
   return (
     <Form {...form}>
       <form
-        className="font-inter flex flex-col gap-y-4"
+        className="font-satoshi flex flex-col gap-y-4"
         onSubmit={form.handleSubmit(handleAnswerQuestion)}
       >
         <h1 className="font-semibold font-inter text-3xl">

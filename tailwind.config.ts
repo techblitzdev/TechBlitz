@@ -17,6 +17,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         inter: ['var(--font-inter)'],
+        satoshi: ['var(--font-satoshi)'],
       },
       colors: {
         background: 'hsl(var(--background))',

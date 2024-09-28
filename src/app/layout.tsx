@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { InterFont } from './styles/fonts/font';
+import { InterFont, SatoshiFont } from './styles/fonts/font';
 import './globals.css';
 import { ReactQueryClientProvider } from '@/components/react-query-client-provider';
 import { Toaster } from '@/components/ui/sonner';
@@ -17,7 +17,9 @@ export default function RootLayout({
   return (
     <ReactQueryClientProvider>
       <html lang="en">
-        <body className={`${InterFont.variable} antialiased`}>
+        <body
+          className={`${InterFont.variable} ${SatoshiFont.variable} antialiased`}
+        >
           <main>{children}</main>
           <Toaster className="bg-black" />
         </body>

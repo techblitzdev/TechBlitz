@@ -34,6 +34,7 @@
     "next": "14.2.9",
     "next-themes": "^0.3.0",
     "react": "^18",
+    "react-countup": "^6.5.3",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18",
     "react-hook-form": "^7.53.0",

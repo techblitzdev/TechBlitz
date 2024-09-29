@@ -6,11 +6,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Button } from '../ui/button';
-import { ExitIcon } from '@radix-ui/react-icons';
 import type { User } from '@/types/User';
+import LogoutButton from './logout';
 
-export default function UserProfileDropdown(opts: { userData: Partial<User> }) {
+export default async function UserProfileDropdown(opts: {
+  userData: Partial<User>;
+}) {
   const { userData } = opts;
 
   return (
@@ -36,13 +37,7 @@ export default function UserProfileDropdown(opts: { userData: Partial<User> }) {
         <DropdownMenuItem>Upgrade account</DropdownMenuItem>
         <DropdownMenuSeparator className="bg-black-50" />
         <DropdownMenuItem className="px-0" asChild>
-          <Button
-            className="w-full py-1 px-4 flex items-center gap-x-2"
-            variant="default"
-          >
-            <span>Sign out</span>
-            <ExitIcon className="size-3" />
-          </Button>
+          <LogoutButton />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

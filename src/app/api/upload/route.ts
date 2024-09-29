@@ -8,6 +8,13 @@ export async function POST(req: NextRequest) {
   // Remember to enforce type here and after use some lib like zod.js to check it
   const files = formData.getAll('files') as File[];
   const userId = formData.get('userId') as string;
+  const route = formData.get('route') as string;
+
+  console.log({
+    files,
+    userId,
+    route,
+  });
 
   const fileLocation = `${userId}/logo.png`;
 
@@ -15,7 +22,7 @@ export async function POST(req: NextRequest) {
   // The file will be stored in the user-profile-pictures bucket with the key `userId/logo`
   // upsert set to true so the user can replace the logo if they want to
   const { error } = await supabase.storage
-    .from('user-profile-pictures')
+    .from(route)
     .upload(fileLocation, files[0], {
       cacheControl: '3600',
       upsert: true,
@@ -29,7 +36,7 @@ export async function POST(req: NextRequest) {
 
   // get the public url for the newly uploaded file
   const { data: url } = await supabase.storage
-    .from('user-profile-pictures')
+    .from(route)
     .getPublicUrl(fileLocation);
 
   // append a unique id to the url to refetch the image every time we upload it

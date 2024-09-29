@@ -8,8 +8,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '../ui/button';
 import { ExitIcon } from '@radix-ui/react-icons';
+import type { User } from '@/types/User';
 
-export default function UserProfileDropdown() {
+export default function UserProfileDropdown(opts: { userData: Partial<User> }) {
+  const { userData } = opts;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -25,7 +28,9 @@ export default function UserProfileDropdown() {
       >
         {/* <DropdownMenuLabel>Account</DropdownMenuLabel> */}
         {/* <DropdownMenuSeparator className="bg-black-50" /> */}
-        <DropdownMenuItem>My profile @name</DropdownMenuItem>
+        <DropdownMenuItem>
+          My profile @{userData?.name || userData.email}
+        </DropdownMenuItem>
         <DropdownMenuItem>Account settings</DropdownMenuItem>
         <DropdownMenuItem>Support</DropdownMenuItem>
         <DropdownMenuItem>Upgrade account</DropdownMenuItem>

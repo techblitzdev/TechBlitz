@@ -2,6 +2,7 @@
 import { createClient as createServerClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
 import { prisma } from '@/utils/prisma';
+import { User } from '@/types/User';
 
 /**
  * Get the user from the server - used in api routes, server componets & server actions
@@ -14,12 +15,13 @@ export const getUserFromSession = async () => {
   return supabase?.auth?.getUser();
 };
 
-export const getUserFromDb = async (userId: string) => {
+export const getUserFromDb = async (
+  userId: string
+): Promise<Omit<User, 'answers'> | null> => {
   if (!userId) return null;
-  console.log('userId', userId);
-  return await prisma.users.findUnique({
+  return (await prisma.users.findUnique({
     where: {
       uid: userId,
     },
-  });
+  })) as Omit<User, 'answers'> | null;
 };

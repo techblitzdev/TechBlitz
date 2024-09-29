@@ -56,7 +56,12 @@ export default function LoginForm() {
           render={({ field }) => (
             <FormControl>
               <div className="col-span-12">
-                <InputWithLabel label="Email" type="email" {...field} />
+                <InputWithLabel
+                  label="Email"
+                  type="email"
+                  {...field}
+                  autoComplete="email"
+                />
                 <FormMessage>
                   {form.formState?.errors?.email?.message}
                 </FormMessage>
@@ -70,7 +75,12 @@ export default function LoginForm() {
           render={({ field }) => (
             <FormControl>
               <div className="col-span-12">
-                <InputWithLabel label="Password" type="password" {...field} />
+                <InputWithLabel
+                  label="Password"
+                  type="password"
+                  {...field}
+                  autoComplete="current-password"
+                />
                 <FormMessage>
                   {form.formState?.errors?.password?.message}
                 </FormMessage>

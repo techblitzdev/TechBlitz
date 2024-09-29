@@ -36,9 +36,7 @@ export default async function UserProfileDropdown(opts: {
         <DropdownMenuItem>Support</DropdownMenuItem>
         <DropdownMenuItem>Upgrade account</DropdownMenuItem>
         <DropdownMenuSeparator className="bg-black-50" />
-        <DropdownMenuItem className="px-0" asChild>
-          <LogoutButton />
-        </DropdownMenuItem>
+        <LogoutButton />
       </DropdownMenuContent>
     </DropdownMenu>
   );

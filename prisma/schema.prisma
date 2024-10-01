@@ -44,6 +44,8 @@ model Users {
 
   totalDailyStreak   Int? @default(0) // the total number of days the user has answered the daily question
   correctDailyStreak Int? @default(0) // how many days the user has got the daily question correct
+
+  userProfilePicture String?
 }
 
 model Questions {

@@ -16,9 +16,7 @@ const nonAuthPaths = [
 
 // Exclude some paths from the middleware (e.g., API, public files, etc.)
 export const config = {
-  matcher: [
-    '/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)',
-  ],
+  matcher: ['/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)'],
 };
 
 // Middleware function
@@ -27,16 +25,18 @@ export async function middleware(req: NextRequest) {
   const pathname = url.pathname;
 
   // Early return if on a non-auth path
-  if (nonAuthPaths.some(path => pathname.startsWith(path))) {
+  if (nonAuthPaths.some((path) => pathname.startsWith(path))) {
     return NextResponse.next();
   }
 
   // Get the current user session
-  const { user } = await updateSession(req);
+  const { user, response } = await updateSession(req);
 
   // If there's no user, redirect to the login page unless it's a non-auth path
   if (!user?.user?.id) {
-    return NextResponse.redirect(new URL(`/login?r=${encodeURIComponent(pathname)}`, req.url));
+    return NextResponse.redirect(
+      new URL(`/login?r=${encodeURIComponent(pathname)}`, req.url)
+    );
   }
 
   // Check for admin access if the user is navigating to the admin page

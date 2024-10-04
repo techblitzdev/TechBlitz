@@ -99,6 +99,7 @@ export default function NewQuestionModal({ ...props }) {
                         <InputWithLabel
                           label={`Answer ${index + 1}`}
                           type="text"
+                          wrapperclassname="w-96"
                           {...field}
                         />
                       </FormControl>

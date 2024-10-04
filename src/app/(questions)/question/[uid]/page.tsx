@@ -1,18 +1,9 @@
 'use client';
-import { useCallback, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getQuestion } from '@/actions/questions/get';
-import { answerQuestion } from '@/actions/answers/answer';
-import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField } from '@/components/ui/form';
 import LoadingSpinner from '@/components/ui/loading';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
-import { z } from 'zod';
 import { useUser } from '@/hooks/useUser';
-
-type SchemaProps = z.infer<typeof answerQuestionSchema>;
+import AnswerQuestionForm from '@/components/questions/answer-question-form';
 
 export default function TodaysQuestionPage({
   params,
@@ -20,22 +11,11 @@ export default function TodaysQuestionPage({
   params: { uid: string };
 }) {
   const { uid } = params;
-  // state the track if the user's answer is correct
-  const [correctAnswer, setCorrectAnswer] = useState<boolean | null>(null);
-  // state to track if the answer modal
-  const [showAnswerModal, setShowAnswerModal] = useState(false);
   const {
     data: userData,
     isLoading: userLoading,
     error: userError,
   } = useUser();
-
-  const buttonText = useCallback(() => {
-    if (correctAnswer === null) {
-      return 'Submit';
-    }
-    return correctAnswer ? 'Correct!' : 'Incorrect!';
-  }, [correctAnswer]);
 
   const {
     data: question,
@@ -47,28 +27,6 @@ export default function TodaysQuestionPage({
     queryFn: () => getQuestion(uid),
   });
 
-  const form = useForm<SchemaProps>({
-    resolver: zodResolver(answerQuestionSchema),
-    defaultValues: {
-      answer: '',
-    },
-  });
-
-  const handleAnswerQuestion = async (values: SchemaProps) => {
-    if (!userData?.user) {
-      console.error('User is not logged in');
-      return;
-    }
-    const isCorrect = await answerQuestion({
-      questionUid: uid,
-      answerUid: values.answer,
-      userId: userData.user.id,
-    });
-
-    setShowAnswerModal(true);
-    setCorrectAnswer(isCorrect);
-  };
-
   if (userLoading || isPending || !question) {
     return (
       <div className="flex justify-center items-center">
@@ -77,49 +35,17 @@ export default function TodaysQuestionPage({
     );
   }
 
-  if (userError || isError) {
+  if (userError || isError || !userData?.user) {
     return <span>Error loading: {error?.message}</span>;
   }
 
   return (
-    <Form {...form}>
-      <form
-        className="font-satoshi flex flex-col gap-y-4"
-        onSubmit={form.handleSubmit(handleAnswerQuestion)}
-      >
-        <h1 className="font-semibold font-inter text-3xl">
-          {question.question}
-        </h1>
-        <div className="flex flex-col gap-y-2">
-          {question.answers.map((answer) => (
-            <FormField
-              control={form.control}
-              name="answer"
-              key={answer.uid}
-              render={({ field }) => (
-                <FormControl>
-                  <label className="flex items-center gap-x-2">
-                    <input
-                      {...field}
-                      type="radio"
-                      name="answer"
-                      value={answer.uid}
-                      checked={field.value === answer.uid}
-                      onChange={() => {
-                        field.onChange(answer.uid);
-                      }}
-                    />
-                    <span>{answer.answer}</span>
-                  </label>
-                </FormControl>
-              )}
-            />
-          ))}
-        </div>
-        <Button type="submit" variant="default">
-          {buttonText()}
-        </Button>
-      </form>
-    </Form>
+    <>
+      <AnswerQuestionForm
+        userData={userData.user}
+        uid={uid}
+        question={question}
+      />
+    </>
   );
 }

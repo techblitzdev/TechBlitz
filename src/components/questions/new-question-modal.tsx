@@ -69,7 +69,7 @@ export default function NewQuestionModal({ ...props }) {
       <DialogTrigger asChild>
         <Button {...props}>Create New Question</Button>
       </DialogTrigger>
-      <DialogContent className="bg-black">
+      <DialogContent className="bg-black md:max-w-4xl">
         <DialogHeader>
           <DialogTitle className="text-2xl">Add new Question</DialogTitle>
           <Form {...form}>

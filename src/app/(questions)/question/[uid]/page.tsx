@@ -4,13 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getQuestion } from '@/actions/questions/get';
 import { answerQuestion } from '@/actions/answers/answer';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField } from '@/components/ui/form';
 import LoadingSpinner from '@/components/ui/loading';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -26,8 +20,10 @@ export default function TodaysQuestionPage({
   params: { uid: string };
 }) {
   const { uid } = params;
-
+  // state the track if the user's answer is correct
   const [correctAnswer, setCorrectAnswer] = useState<boolean | null>(null);
+  // state to track if the answer modal
+  const [showAnswerModal, setShowAnswerModal] = useState(false);
   const {
     data: userData,
     isLoading: userLoading,
@@ -69,6 +65,7 @@ export default function TodaysQuestionPage({
       userId: userData.user.id,
     });
 
+    setShowAnswerModal(true);
     setCorrectAnswer(isCorrect);
   };
 

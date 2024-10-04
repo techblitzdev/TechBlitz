@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import type { User } from '@/types/User';
 import LogoutButton from './logout';
+import AdminButton from '../admin-button';
 
 export default async function UserProfileDropdown(opts: {
   userData: Partial<User>;
@@ -37,6 +38,11 @@ export default async function UserProfileDropdown(opts: {
         <DropdownMenuItem>Upgrade account</DropdownMenuItem>
         <DropdownMenuSeparator className="bg-black-50" />
         <LogoutButton />
+        {userData.userLevel == 'ADMIN' && (
+          <DropdownMenuItem>
+            <AdminButton className="w-full" />
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

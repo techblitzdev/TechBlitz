@@ -1,14 +1,12 @@
 'use server';
 import { prisma } from '@/utils/prisma';
-import { connect } from 'http2';
-import uniqid from 'uniqid';
 
 export const answerQuestion = async (opts: {
   questionUid: string;
   answerUid: string;
-  userId: string;
+  userUid: string;
 }) => {
-  const { questionUid, answerUid, userId } = opts;
+  const { questionUid, answerUid, userUid } = opts;
 
   try {
     // find the question the user is trying to answer
@@ -30,7 +28,7 @@ export const answerQuestion = async (opts: {
       where: {
         user: {
           is: {
-            uid: userId,
+            uid: userUid,
           },
         },
         AND: {
@@ -51,7 +49,7 @@ export const answerQuestion = async (opts: {
     // on the user
     await prisma.users.update({
       where: {
-        uid: userId,
+        uid: userUid,
       },
       data: {
         correctDailyStreak: {
@@ -68,7 +66,7 @@ export const answerQuestion = async (opts: {
       data: {
         user: {
           connect: {
-            uid: userId,
+            uid: userUid,
           },
         },
         question: {

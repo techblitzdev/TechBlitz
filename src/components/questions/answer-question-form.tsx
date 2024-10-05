@@ -47,11 +47,11 @@ export default function AnswerQuestionForm({
     const { correctAnswer, userAnswer } = await answerQuestion({
       questionUid: uid,
       answerUid: values.answer,
-      userId: userData.id,
+      userUid: userData.id,
     });
 
     setCorrectAnswer(correctAnswer ? 'correct' : 'incorrect');
-    setUserAnswer(userAnswer);
+    //setUserAnswer(userAnswer);
   };
 
   return (

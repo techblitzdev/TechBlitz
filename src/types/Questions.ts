@@ -1,5 +1,8 @@
 import { QuestionAnswer } from './QuestionAnswers';
 
+/**
+ * This type represents the shape of the data of a question.
+ */
 export type Question = {
   answers: QuestionAnswer[];
   uid: string;

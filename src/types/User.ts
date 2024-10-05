@@ -1,3 +1,6 @@
+/**
+ * Represents a user in the system.
+ */
 export type User = {
   uid: string;
   email: string;

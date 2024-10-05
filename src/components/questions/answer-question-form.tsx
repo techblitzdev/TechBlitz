@@ -1,10 +1,8 @@
 'use client';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { answerQuestion } from '@/actions/answers/answer';
 // components
-import { Button } from '../ui/button';
 import { Form, FormControl, FormField } from '@/components/ui/form';
-import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 // zod
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -31,13 +29,6 @@ export default function AnswerQuestionForm({
     'init' | 'incorrect' | 'correct'
   >('init');
   const [openAnswerModal, setOpenAnswerModal] = useState(false);
-
-  const buttonText = useCallback(() => {
-    if (correctAnswer === 'init') {
-      return 'Submit';
-    }
-    return correctAnswer === 'correct' ? 'Correct!' : 'Incorrect!';
-  }, [correctAnswer]);
 
   /** FORM */
   const form = useForm<SchemaProps>({
@@ -98,19 +89,12 @@ export default function AnswerQuestionForm({
               />
             ))}
           </div>
-          <Dialog>
-            <DialogTrigger>
-              <Button type="submit" variant="default">
-                {buttonText()}
-              </Button>
-              <AnswerQuestionModal
-                question={question}
-                user={userData}
-                correct={correctAnswer}
-                isOpen={openAnswerModal}
-              />
-            </DialogTrigger>
-          </Dialog>
+          <AnswerQuestionModal
+            question={question}
+            user={userData}
+            correct={correctAnswer}
+            isOpen={openAnswerModal}
+          />
         </form>
       </Form>
     </>

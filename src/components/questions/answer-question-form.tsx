@@ -29,7 +29,7 @@ export default function AnswerQuestionForm({
   const [correctAnswer, setCorrectAnswer] = useState<
     'init' | 'incorrect' | 'correct'
   >('init');
-  const [userAnswer, setUserAnswer] = useState<Answer>();
+  const [userAnswer, setUserAnswer] = useState<Answer | null>(null);
 
   /** FORM */
   const form = useForm<SchemaProps>({
@@ -51,7 +51,7 @@ export default function AnswerQuestionForm({
     });
 
     setCorrectAnswer(correctAnswer ? 'correct' : 'incorrect');
-    //setUserAnswer(userAnswer);
+    setUserAnswer(userAnswer);
   };
 
   return (
@@ -94,7 +94,7 @@ export default function AnswerQuestionForm({
             question={question}
             user={userData}
             correct={correctAnswer}
-            userAnswer={userAnswer}
+            userAnswer={userAnswer || ({} as Answer)}
           />
         </form>
       </Form>

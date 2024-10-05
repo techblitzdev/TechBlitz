@@ -1,4 +1,5 @@
 'use server';
+import { Answer } from '@/types/Answers';
 import { prisma } from '@/utils/prisma';
 
 export const answerQuestion = async (opts: {
@@ -62,7 +63,7 @@ export const answerQuestion = async (opts: {
     });
 
     // Create the answer
-    const userAnswer = await prisma.answers.create({
+    const userAnswer = (await prisma.answers.create({
       data: {
         user: {
           connect: {
@@ -77,7 +78,7 @@ export const answerQuestion = async (opts: {
         userAnswerUid: answerUid,
         correctAnswer,
       },
-    });
+    })) as Answer;
 
     return { correctAnswer, userAnswer };
   } catch (e) {

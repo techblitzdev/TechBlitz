@@ -8,10 +8,10 @@ export const answerQuestion = async (opts: {
   answerUid: string;
   userId: string;
 }) => {
-  console.log('hit the answer endpoint');
   const { questionUid, answerUid, userId } = opts;
 
   try {
+    // find the question the user is trying to answer
     const question = await prisma.questions.findUnique({
       where: {
         uid: questionUid,
@@ -21,7 +21,8 @@ export const answerQuestion = async (opts: {
     if (!question) {
       throw new Error('Question not found');
     }
-
+    // determine if the user's answer is correct by comparing the answer
+    // uid to the question.correctAnswer uid
     const correctAnswer = question.correctAnswer === answerUid;
 
     // figure out if the user has already answered this question
@@ -42,19 +43,9 @@ export const answerQuestion = async (opts: {
       },
     });
 
-    console.log({
-      existingAnswer,
-      correctAnswer,
-    });
-
     // only increment if this is a new answer,
     const shouldIncrementCorrectDailyStreak = !existingAnswer && correctAnswer;
     const shouldIncrementTotalDailyStreak = !existingAnswer;
-
-    console.log({
-      shouldIncrementCorrectDailyStreak,
-      shouldIncrementTotalDailyStreak,
-    });
 
     // based on the correct answer, we need to update the daily question streak
     // on the user
@@ -73,7 +64,7 @@ export const answerQuestion = async (opts: {
     });
 
     // Create the answer
-    await prisma.answers.create({
+    const userAnswer = await prisma.answers.create({
       data: {
         user: {
           connect: {
@@ -90,7 +81,7 @@ export const answerQuestion = async (opts: {
       },
     });
 
-    return correctAnswer;
+    return { correctAnswer, userAnswer };
   } catch (e) {
     console.error(e);
     throw e;

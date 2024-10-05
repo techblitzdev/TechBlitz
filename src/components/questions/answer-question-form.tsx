@@ -12,6 +12,7 @@ import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
 import type { Question } from '@/types/Questions';
 import type { User } from '@supabase/supabase-js';
 import AnswerQuestionModal from './answer-question-modal';
+import { Answer } from '@/types/Answers';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
@@ -28,7 +29,7 @@ export default function AnswerQuestionForm({
   const [correctAnswer, setCorrectAnswer] = useState<
     'init' | 'incorrect' | 'correct'
   >('init');
-  const [openAnswerModal, setOpenAnswerModal] = useState(false);
+  const [userAnswer, setUserAnswer] = useState<Answer>();
 
   /** FORM */
   const form = useForm<SchemaProps>({
@@ -43,14 +44,14 @@ export default function AnswerQuestionForm({
       console.error('User is not logged in');
       return;
     }
-    const isCorrect = await answerQuestion({
+    const { correctAnswer, userAnswer } = await answerQuestion({
       questionUid: uid,
       answerUid: values.answer,
       userId: userData.id,
     });
 
-    setCorrectAnswer(isCorrect ? 'correct' : 'incorrect');
-    setOpenAnswerModal(true);
+    setCorrectAnswer(correctAnswer ? 'correct' : 'incorrect');
+    setUserAnswer(userAnswer);
   };
 
   return (
@@ -93,7 +94,7 @@ export default function AnswerQuestionForm({
             question={question}
             user={userData}
             correct={correctAnswer}
-            isOpen={openAnswerModal}
+            userAnswer={userAnswer}
           />
         </form>
       </Form>

@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+
 import {
   Dialog,
   DialogClose,
@@ -6,19 +8,19 @@ import {
   DialogDescription,
   DialogFooter,
   DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/dialog';
+import { Button } from '../ui/button';
 
 import type { Question } from '@/types/Questions';
-import { DialogTrigger } from '@radix-ui/react-dialog';
 import type { User } from '@supabase/supabase-js';
-import { Button } from '../ui/button';
-import { useCallback } from 'react';
+import type { Answer } from '@/types/Answers';
 
 type AnswerQuestionModalProps = {
-  isOpen: boolean;
   question: Question;
   user: User;
   correct: 'correct' | 'incorrect' | 'init';
+  userAnswer: Answer;
 };
 
 export default function AnswerQuestionModal({
@@ -40,14 +42,17 @@ export default function AnswerQuestionModal({
           {buttonText()}
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-black-75 md:max-w-3xl">
-        <DialogHeader>
-          <DialogTitle>That was {correct}</DialogTitle>
+      <DialogContent className="bg-black-75 md:max-w-xl">
+        <DialogHeader className="w-full flex justify-center sm:text-center">
+          <DialogTitle className="text-2xl">That was {correct}</DialogTitle>
         </DialogHeader>
 
-        <DialogDescription>{JSON.stringify(question)}</DialogDescription>
+        <DialogDescription></DialogDescription>
 
-        <DialogFooter></DialogFooter>
+        <DialogFooter className="flex justify-between gap-3">
+          <Button>View Answer</Button>
+          <Button variant="secondary">Next Question</Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

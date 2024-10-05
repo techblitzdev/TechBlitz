@@ -27,6 +27,7 @@ export default function AnswerQuestionModal({
   question,
   user,
   correct,
+  userAnswer,
 }: AnswerQuestionModalProps) {
   const buttonText = useCallback(() => {
     if (correct === 'init') {

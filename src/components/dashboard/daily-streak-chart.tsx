@@ -36,13 +36,18 @@ export function DailyStreakChart(opts: {
     );
   }
 
-  // if (!userStreakData?.correctDailyStreak || !userStreakData.totalDailyStreak) {
-  //   return (
-  //     <CardDescription>
-  //       <LoadingSpinner />
-  //     </CardDescription>
-  //   );
-  // }
+  if (
+    !('correctDailyStreak' in userStreakData) ||
+    !('totalDailyStreak' in userStreakData) ||
+    userStreakData.correctDailyStreak === null ||
+    userStreakData.totalDailyStreak === null
+  ) {
+    return (
+      <CardDescription>
+        <LoadingSpinner />
+      </CardDescription>
+    );
+  }
 
   const chartData = [
     {

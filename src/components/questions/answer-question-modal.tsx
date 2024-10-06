@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import {
   Dialog,
   DialogHeader,
@@ -12,7 +12,8 @@ import { Button } from '../ui/button';
 import type { Question } from '@/types/Questions';
 import type { UserRecord } from '@/types/User';
 import type { Answer } from '@/types/Answers';
-import LoadingSpinner from '../ui/loading';
+import LoadingSpinner from '@/components/ui/loading';
+import { DailyStreakChart } from '../dashboard/daily-streak-chart';
 
 type AnswerQuestionModalProps = {
   question: Question;
@@ -52,6 +53,7 @@ export default function AnswerQuestionModal({
   correct,
   userAnswer,
 }: AnswerQuestionModalProps) {
+  const [showQuestionData, setShowQuestionData] = useState(false);
   const getDialogContent = useCallback(() => {
     if (correct === 'init') {
       return null;
@@ -69,6 +71,11 @@ export default function AnswerQuestionModal({
   }, [correct]);
 
   const content = getDialogContent();
+
+  const userStreakData = {
+    totalDailyStreak: user.totalDailyStreak,
+    correctDailyStreak: user?.correctDailyStreak,
+  };
 
   return (
     <Dialog>
@@ -91,20 +98,36 @@ export default function AnswerQuestionModal({
               </DialogDescription>
             </DialogHeader>
 
-            <div className="mt-4">
-              <pre className="bg-black-100 p-4 rounded-md overflow-x-auto">
-                {JSON.stringify(userAnswer, null, 2)}
-              </pre>
+            <div className="">
+              <DailyStreakChart userStreakData={userStreakData} />
             </div>
+
+            {showQuestionData && (
+              <div className="mt-4">
+                <pre className="bg-black-100 p-4 rounded-md overflow-x-auto">
+                  {JSON.stringify(userAnswer, null, 2)}
+                </pre>
+              </div>
+            )}
           </>
         )}
-        <DialogFooter className="flex justify-between gap-3 mt-6">
-          {correct === 'incorrect' ? (
-            <Button variant="default">Retry question</Button>
-          ) : (
-            <Button variant="default">View question</Button>
+        <DialogFooter className="flex w-full justify-between gap-3 mt-6">
+          {user.userLevel === 'ADMIN' && (
+            <Button
+              variant="secondary"
+              onClick={() => setShowQuestionData(!showQuestionData)}
+            >
+              Show question data
+            </Button>
           )}
-          <Button variant="secondary">Next question</Button>
+          <div className="flex gap-3">
+            {correct === 'incorrect' ? (
+              <Button variant="default">Retry question</Button>
+            ) : (
+              <Button variant="default">View question</Button>
+            )}
+            <Button variant="secondary">Next question</Button>
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>

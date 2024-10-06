@@ -1,15 +1,19 @@
 import { useState } from 'react';
-import { answerQuestion } from '@/actions/answers/answer';
+// components
 import { Form, FormControl, FormField } from '@/components/ui/form';
+import { Button } from '@/components/ui/button';
+import AnswerQuestionModal from '@/components/questions/answer-question-modal';
+// actions
+import { answerQuestion } from '@/actions/answers/answer';
+// zod
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
+// types
 import type { Question } from '@/types/Questions';
 import type { UserRecord } from '@/types/User';
 import type { Answer } from '@/types/Answers';
-import { Button } from '@/components/ui/button';
-import AnswerQuestionModal from './answer-question-modal';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {

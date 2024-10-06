@@ -12,7 +12,7 @@ import type { Question } from '@/types/Questions';
 import type { UserRecord } from '@/types/User';
 import type { Answer } from '@/types/Answers';
 import LoadingSpinner from '@/components/ui/loading';
-import { DailyStreakChart } from '../dashboard/daily-streak-chart';
+import { DailyStreakChart } from '@/components/dashboard/daily-streak-chart';
 
 type AnswerQuestionModalProps = {
   question: Question;

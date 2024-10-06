@@ -1,6 +1,7 @@
 'use server';
 import { Answer } from '@/types/Answers';
 import { prisma } from '@/utils/prisma';
+import { revalidateTag } from 'next/cache';
 
 export const answerQuestion = async (opts: {
   questionUid: string;
@@ -79,6 +80,9 @@ export const answerQuestion = async (opts: {
         correctAnswer,
       },
     })) as Answer;
+
+    // revalidate the user streak
+    revalidateTag(`user-streak-${userUid}`);
 
     return { correctAnswer, userAnswer };
   } catch (e) {

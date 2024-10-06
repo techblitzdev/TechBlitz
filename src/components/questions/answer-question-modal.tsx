@@ -84,23 +84,24 @@ export default function AnswerQuestionModal({
           {buttonText()}
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-black-75 md:max-w-xl">
+      <DialogContent
+        className="bg-black-75 md:max-w-xl"
+        aria-description="Answer question modal"
+      >
         {correct === 'init' ? (
-          <div className="h-36 flex items-center justify-center">
+          <DialogTitle className="h-36 flex items-center justify-center">
             <LoadingSpinner />
-          </div>
+          </DialogTitle>
         ) : (
           <>
-            <DialogHeader className="w-full flex flex-col items-center sm:text-center">
+            <div className="w-full flex flex-col items-center sm:text-center">
               <DialogTitle className="text-2xl">{content?.heading}</DialogTitle>
               <DialogDescription className="mt-2">
                 {content?.description}
               </DialogDescription>
-            </DialogHeader>
-
-            <div className="">
-              <DailyStreakChart userStreakData={userStreakData} />
             </div>
+
+            <DailyStreakChart userStreakData={userStreakData} />
 
             {showQuestionData && (
               <div className="mt-4">

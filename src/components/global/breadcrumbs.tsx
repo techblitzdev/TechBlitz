@@ -28,7 +28,7 @@ export function BreadcrumbWithCustomSeparator({
             {/* Render as a link if it's not the last item */}
             {index < items.length - 1 ? (
               <>
-                <BreadcrumbLink>
+                <BreadcrumbLink asChild>
                   <Link href={item.href}>{item.label}</Link>
                 </BreadcrumbLink>
                 <BreadcrumbSeparator />

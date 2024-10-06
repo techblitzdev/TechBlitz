@@ -13,3 +13,14 @@ export type User = {
   userLevel: 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE';
   answers: string[];
 };
+
+export type UserRecord = Pick<
+  User,
+  | 'uid'
+  | 'email'
+  | 'name'
+  | 'createdAt'
+  | 'updatedAt'
+  | 'lastLogin'
+  | 'userLevel'
+>;

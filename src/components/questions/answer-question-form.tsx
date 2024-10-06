@@ -10,13 +10,13 @@ import { z } from 'zod';
 import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
 // types
 import type { Question } from '@/types/Questions';
-import type { User } from '@supabase/supabase-js';
+import type { UserRecord } from '@/types/User';
 import AnswerQuestionModal from './answer-question-modal';
 import { Answer } from '@/types/Answers';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
-  userData: User;
+  userData: UserRecord;
   uid: string;
   question: Question;
 };
@@ -47,7 +47,7 @@ export default function AnswerQuestionForm({
     const { correctAnswer, userAnswer } = await answerQuestion({
       questionUid: uid,
       answerUid: values.answer,
-      userUid: userData.id,
+      userUid: userData.uid,
     });
 
     setCorrectAnswer(correctAnswer ? 'correct' : 'incorrect');

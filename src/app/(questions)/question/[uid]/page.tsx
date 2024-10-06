@@ -11,11 +11,7 @@ export default function TodaysQuestionPage({
   params: { uid: string };
 }) {
   const { uid } = params;
-  const {
-    data: userData,
-    isLoading: userLoading,
-    error: userError,
-  } = useUser();
+  const { user, isLoading: userLoading, isError: userError } = useUser();
 
   const {
     data: question,
@@ -35,17 +31,13 @@ export default function TodaysQuestionPage({
     );
   }
 
-  if (userError || isError || !userData?.user) {
+  if (userError || isError || !user?.uid) {
     return <span>Error loading: {error?.message}</span>;
   }
 
   return (
     <>
-      <AnswerQuestionForm
-        userData={userData.user}
-        uid={uid}
-        question={question}
-      />
+      <AnswerQuestionForm userData={user} uid={uid} question={question} />
     </>
   );
 }

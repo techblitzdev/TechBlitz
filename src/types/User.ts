@@ -12,6 +12,9 @@ export type User = {
 
   userLevel: 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE';
   answers: string[];
+
+  correctDailyStreak: number;
+  totalDailyStreak: number;
 };
 
 export type UserRecord = Pick<
@@ -23,4 +26,6 @@ export type UserRecord = Pick<
   | 'updatedAt'
   | 'lastLogin'
   | 'userLevel'
+  | 'correctDailyStreak'
+  | 'totalDailyStreak'
 >;

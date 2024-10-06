@@ -6,9 +6,8 @@ import {
   DialogDescription,
   DialogFooter,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import type { Question } from '@/types/Questions';
 import type { UserRecord } from '@/types/User';
 import type { Answer } from '@/types/Answers';
@@ -20,9 +19,10 @@ type AnswerQuestionModalProps = {
   user: UserRecord;
   correct: 'correct' | 'incorrect' | 'init';
   userAnswer: Answer;
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
   onRetry?: () => void;
   onNext?: () => void;
-  onView?: () => void;
 };
 
 type DialogContentType = {
@@ -52,8 +52,13 @@ export default function AnswerQuestionModal({
   user,
   correct,
   userAnswer,
+  isOpen,
+  onOpenChange,
+  onRetry,
+  onNext,
 }: AnswerQuestionModalProps) {
   const [showQuestionData, setShowQuestionData] = useState(false);
+
   const getDialogContent = useCallback(() => {
     if (correct === 'init') {
       return null;
@@ -63,35 +68,23 @@ export default function AnswerQuestionModal({
       : dialogContent.incorrect;
   }, [correct, user?.name]);
 
-  const buttonText = useCallback(() => {
-    if (correct === 'init') {
-      return 'Submit';
-    }
-    return correct === 'correct' ? 'Correct!' : 'Incorrect!';
-  }, [correct]);
-
   const content = getDialogContent();
 
   const userStreakData = {
     totalDailyStreak: user.totalDailyStreak,
-    correctDailyStreak: user?.correctDailyStreak,
+    correctDailyStreak: user.correctDailyStreak,
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button type="submit" variant="default">
-          {buttonText()}
-        </Button>
-      </DialogTrigger>
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent
         className="bg-black-75 md:max-w-xl"
         aria-description="Answer question modal"
       >
         {correct === 'init' ? (
-          <DialogTitle className="h-36 flex items-center justify-center">
+          <div className="h-36 flex items-center justify-center">
             <LoadingSpinner />
-          </DialogTitle>
+          </div>
         ) : (
           <>
             <div className="w-full flex flex-col items-center sm:text-center">
@@ -118,16 +111,22 @@ export default function AnswerQuestionModal({
               variant="secondary"
               onClick={() => setShowQuestionData(!showQuestionData)}
             >
-              Show question data
+              {showQuestionData ? 'Hide' : 'Show'} question data
             </Button>
           )}
           <div className="flex gap-3">
             {correct === 'incorrect' ? (
-              <Button variant="default">Retry question</Button>
+              <Button variant="default" onClick={onRetry}>
+                Retry question
+              </Button>
             ) : (
-              <Button variant="default">View question</Button>
+              <Button variant="default" onClick={() => onOpenChange(false)}>
+                Close
+              </Button>
             )}
-            <Button variant="secondary">Next question</Button>
+            <Button variant="secondary" onClick={onNext}>
+              Next question
+            </Button>
           </div>
         </DialogFooter>
       </DialogContent>

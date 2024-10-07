@@ -49,7 +49,7 @@ export const answerQuestion = async (opts: {
 
     // based on the correct answer, we need to update the daily question streak
     // on the user
-    await prisma.users.update({
+    const userData = await prisma.users.update({
       where: {
         uid: userUid,
       },
@@ -82,9 +82,13 @@ export const answerQuestion = async (opts: {
     })) as Answer;
 
     // revalidate the user streak
-    revalidateTag(`user-streak-${userUid}`);
+    revalidateTag(`user-${userUid}`);
 
-    return { correctAnswer, userAnswer };
+    return {
+      correctAnswer,
+      userAnswer,
+      userData,
+    };
   } catch (e) {
     console.error(e);
     throw e;

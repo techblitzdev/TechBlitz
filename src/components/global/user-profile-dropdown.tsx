@@ -39,7 +39,7 @@ export default async function UserProfileDropdown(opts: {
         <DropdownMenuSeparator className="bg-black-50" />
         <LogoutButton />
         {userData.userLevel == 'ADMIN' && (
-          <DropdownMenuItem>
+          <DropdownMenuItem className="hover:bg-transparent">
             <AdminButton className="w-full" />
           </DropdownMenuItem>
         )}

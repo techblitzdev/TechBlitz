@@ -14,6 +14,8 @@ import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
 import type { Question } from '@/types/Questions';
 import type { UserRecord } from '@/types/User';
 import type { Answer } from '@/types/Answers';
+import { toast } from 'sonner';
+import { clearQuestionsForAdmin } from '@/actions/questions/admin/clear';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
@@ -61,6 +63,17 @@ export default function AnswerQuestionForm({
     } catch (error) {
       console.error('Error submitting answer:', error);
       // Handle error appropriately
+      toast.error('Error submitting answer');
+    }
+  };
+
+  const adminClearAnswers = async () => {
+    try {
+      await clearQuestionsForAdmin(uid);
+      toast.success('Successfully cleared all answers for this question');
+    } catch (error) {
+      console.error('Error clearing answers:', error);
+      toast.error('Failed to clear answers. Please try again.');
     }
   };
 
@@ -108,6 +121,12 @@ export default function AnswerQuestionForm({
         <Button type="submit" disabled={!form.formState.isDirty}>
           Submit Answer
         </Button>
+
+        {userData.userLevel === 'ADMIN' && (
+          <Button type="button" variant="secondary" onClick={adminClearAnswers}>
+            (ADMIN ONLY) clear today's answer
+          </Button>
+        )}
 
         <AnswerQuestionModal
           question={question}

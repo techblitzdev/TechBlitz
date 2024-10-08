@@ -5,15 +5,15 @@ import { BaseRecord } from './BaseRecord';
  */
 export interface User extends BaseRecord {
   email: string;
-  name?: string;
+  name: string | null;
 
-  lastLogin: Date;
+  lastLogin: Date | null;
 
   userLevel: 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE';
   answers: string[];
 
-  correctDailyStreak: number;
-  totalDailyStreak: number;
+  correctDailyStreak: number | null;
+  totalDailyStreak: number | null;
 
   /** a toggle the user can turn on to indicate how long it took them to answer a question */
   showTimeTaken?: boolean;

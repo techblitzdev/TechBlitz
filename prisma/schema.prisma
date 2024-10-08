@@ -46,6 +46,8 @@ model Users {
   correctDailyStreak Int? @default(0) // how many days the user has got the daily question correct
 
   userProfilePicture String?
+
+  showTimeTaken Boolean @default(false) // show the time taken to answer a question
 }
 
 model Questions {

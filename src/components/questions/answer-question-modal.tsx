@@ -89,7 +89,7 @@ export default function AnswerQuestionModal({
           <>
             <div className="w-full flex flex-col items-center sm:text-center">
               <DialogTitle className="text-2xl">{content?.heading}</DialogTitle>
-              <DialogDescription className="mt-2">
+              <DialogDescription className="mt-2 text-center">
                 {content?.description}
               </DialogDescription>
             </div>

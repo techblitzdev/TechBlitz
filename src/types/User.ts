@@ -1,13 +1,12 @@
+import { BaseRecord } from './BaseRecord';
+
 /**
  * Represents a user in the system.
  */
-export type User = {
-  uid: string;
+export interface User extends BaseRecord {
   email: string;
   name?: string;
 
-  createdAt: Date;
-  updatedAt: Date;
   lastLogin: Date;
 
   userLevel: 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE';
@@ -15,7 +14,10 @@ export type User = {
 
   correctDailyStreak: number;
   totalDailyStreak: number;
-};
+
+  /** a toggle the user can turn on to indicate how long it took them to answer a question */
+  showTimeTaken?: boolean;
+}
 
 export type UserRecord = Pick<
   User,
@@ -28,4 +30,5 @@ export type UserRecord = Pick<
   | 'userLevel'
   | 'correctDailyStreak'
   | 'totalDailyStreak'
+  | 'showTimeTaken'
 >;

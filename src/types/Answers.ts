@@ -16,5 +16,5 @@ export interface Answer extends BaseRecord {
   /** The date when the user answered this question */
   questionDate: string;
   /** How long it took the user to answer this question */
-  timeTaken?: number;
+  timeTaken: number | null;
 }

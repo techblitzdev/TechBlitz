@@ -6,9 +6,9 @@ export type User = {
   email: string;
   name?: string;
 
-  createdAt: string;
-  updatedAt: string;
-  lastLogin: string;
+  createdAt: Date;
+  updatedAt: Date;
+  lastLogin: Date;
 
   userLevel: 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE';
   answers: string[];

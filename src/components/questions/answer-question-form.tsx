@@ -35,6 +35,7 @@ export default function AnswerQuestionForm({
     'init' | 'incorrect' | 'correct'
   >('init');
   const [userAnswer, setUserAnswer] = useState<Answer | null>(null);
+  const [newUserData, setNewUserData] = useState<UserRecord | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const form = useForm<SchemaProps>({
@@ -51,14 +52,21 @@ export default function AnswerQuestionForm({
     }
 
     try {
-      const { correctAnswer, userAnswer } = await answerQuestion({
+      const {
+        correctAnswer,
+        userAnswer,
+        userData: newUserData,
+      } = await answerQuestion({
         questionUid: uid,
         answerUid: values.answer,
         userUid: userData.uid,
       });
 
+      // set the data that we get bacl from the endpoint so we can pass it to the popup
       setCorrectAnswer(correctAnswer ? 'correct' : 'incorrect');
       setUserAnswer(userAnswer);
+      setNewUserData(newUserData);
+      // open the modal
       setIsModalOpen(true);
     } catch (error) {
       console.error('Error submitting answer:', error);
@@ -117,27 +125,26 @@ export default function AnswerQuestionForm({
             />
           ))}
         </div>
-
         <Button type="submit" disabled={!form.formState.isDirty}>
           Submit Answer
         </Button>
-
         {userData.userLevel === 'ADMIN' && (
           <Button type="button" variant="secondary" onClick={adminClearAnswers}>
             (ADMIN ONLY) clear today's answer
           </Button>
         )}
-
-        <AnswerQuestionModal
-          question={question}
-          user={userData}
-          correct={correctAnswer}
-          userAnswer={userAnswer || ({} as Answer)}
-          isOpen={isModalOpen}
-          onOpenChange={setIsModalOpen}
-          onRetry={handleRetry}
-          onNext={onNext}
-        />
+        {newUserData != null && (
+          <AnswerQuestionModal
+            question={question}
+            user={newUserData}
+            correct={correctAnswer}
+            userAnswer={userAnswer || ({} as Answer)}
+            isOpen={isModalOpen}
+            onOpenChange={setIsModalOpen}
+            onRetry={handleRetry}
+            onNext={onNext}
+          />
+        )}
       </form>
     </Form>
   );

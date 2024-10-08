@@ -39,7 +39,7 @@ type DialogContentType = {
 const dialogContent: DialogContentType = {
   correct: (name: string) => ({
     heading: `Well done ${name || 'there'}!`,
-    description: 'You got the answer right!',
+    description: 'Correct answer',
   }),
   incorrect: {
     heading: 'Better luck next time!',
@@ -71,8 +71,8 @@ export default function AnswerQuestionModal({
   const content = getDialogContent();
 
   const userStreakData = {
-    totalDailyStreak: user.totalDailyStreak,
-    correctDailyStreak: user.correctDailyStreak,
+    totalDailyStreak: user?.totalDailyStreak || 0,
+    correctDailyStreak: user?.correctDailyStreak || 0,
   };
 
   return (
@@ -116,7 +116,11 @@ export default function AnswerQuestionModal({
           )}
           <div className="flex gap-3">
             {correct === 'incorrect' ? (
-              <Button variant="default" onClick={onRetry}>
+              <Button
+                variant="default"
+                onClick={onRetry}
+                className="w-full md:w-fit"
+              >
                 Retry question
               </Button>
             ) : (
@@ -124,7 +128,11 @@ export default function AnswerQuestionModal({
                 Close
               </Button>
             )}
-            <Button variant="secondary" onClick={onNext}>
+            <Button
+              variant="secondary"
+              onClick={onNext}
+              className="w-full md:w-fit"
+            >
               Next question
             </Button>
           </div>

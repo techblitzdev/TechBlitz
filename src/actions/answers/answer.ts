@@ -49,37 +49,42 @@ export const answerQuestion = async (opts: {
 
     // based on the correct answer, we need to update the daily question streak
     // on the user
-    const userData = await prisma.users.update({
-      where: {
-        uid: userUid,
-      },
-      data: {
-        correctDailyStreak: {
-          increment: shouldIncrementCorrectDailyStreak ? 1 : 0,
+    const { userData, userAnswer } = await prisma.$transaction(async (tx) => {
+      console.log('hit the transation...');
+      await tx.users.update({
+        where: { uid: userUid },
+        data: {
+          correctDailyStreak: {
+            increment: shouldIncrementCorrectDailyStreak ? 1 : 0,
+          },
+          totalDailyStreak: {
+            increment: shouldIncrementTotalDailyStreak ? 1 : 0,
+          },
         },
-        totalDailyStreak: {
-          increment: shouldIncrementTotalDailyStreak ? 1 : 0,
-        },
-      },
-    });
+      });
 
-    // Create the answer
-    const userAnswer = (await prisma.answers.create({
-      data: {
-        user: {
-          connect: {
-            uid: userUid,
-          },
+      const userData = await tx.users.findUnique({
+        where: {
+          uid: userUid,
         },
-        question: {
-          connect: {
-            uid: questionUid,
-          },
+      });
+
+      const userAnswer = await tx.answers.create({
+        data: {
+          user: { connect: { uid: userUid } },
+          question: { connect: { uid: questionUid } },
+          userAnswerUid: answerUid,
+          correctAnswer,
         },
-        userAnswerUid: answerUid,
-        correctAnswer,
-      },
-    })) as Answer;
+      });
+
+      console.log({ userData });
+
+      return {
+        userData,
+        userAnswer,
+      };
+    });
 
     // revalidate the user streak
     revalidateTag(`user-${userUid}`);

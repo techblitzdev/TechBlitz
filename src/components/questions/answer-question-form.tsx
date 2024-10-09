@@ -24,6 +24,7 @@ type AnswerQuestionFormProps = {
   question: Question;
   time: number;
   stopwatchPause: () => void;
+  resetStopwatch: () => void;
   onNext?: () => void;
 };
 
@@ -33,6 +34,7 @@ export default function AnswerQuestionForm({
   question,
   time,
   stopwatchPause,
+  resetStopwatch,
   onNext,
 }: AnswerQuestionFormProps) {
   const [correctAnswer, setCorrectAnswer] = useState<
@@ -104,6 +106,8 @@ export default function AnswerQuestionForm({
     setCorrectAnswer('init');
     setUserAnswer(null);
     setIsModalOpen(false);
+    resetStopwatch();
+
     form.reset();
   };
 

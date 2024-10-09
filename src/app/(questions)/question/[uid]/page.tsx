@@ -74,6 +74,7 @@ export default function TodaysQuestionPage({
         question={question}
         time={totalSeconds}
         stopwatchPause={pause}
+        resetStopwatch={reset}
       />
     </>
   );

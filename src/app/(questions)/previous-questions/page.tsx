@@ -38,6 +38,7 @@ export default function PreviousQuestionsPage() {
       }
       return getPreviousQuestions({
         userUid: user.uid,
+        orderBy: 'desc',
       });
     },
     enabled: !!user?.uid, // Only run query when user exists

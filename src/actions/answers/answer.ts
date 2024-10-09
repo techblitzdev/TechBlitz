@@ -7,8 +7,9 @@ export const answerQuestion = async (opts: {
   questionUid: string;
   answerUid: string;
   userUid: string;
+  timeTaken?: number;
 }) => {
-  const { questionUid, answerUid, userUid } = opts;
+  const { questionUid, answerUid, userUid, timeTaken } = opts;
 
   try {
     // find the question the user is trying to answer
@@ -50,7 +51,6 @@ export const answerQuestion = async (opts: {
     // based on the correct answer, we need to update the daily question streak
     // on the user
     const { userData, userAnswer } = await prisma.$transaction(async (tx) => {
-      console.log('hit the transation...');
       await tx.users.update({
         where: { uid: userUid },
         data: {
@@ -75,6 +75,7 @@ export const answerQuestion = async (opts: {
           question: { connect: { uid: questionUid } },
           userAnswerUid: answerUid,
           correctAnswer,
+          timeTaken,
         },
       });
 

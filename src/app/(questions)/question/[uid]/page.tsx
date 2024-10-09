@@ -1,5 +1,4 @@
 'use client';
-
 import { useQuery } from '@tanstack/react-query';
 import { getQuestion } from '@/actions/questions/get';
 import LoadingSpinner from '@/components/ui/loading';
@@ -43,9 +42,10 @@ export default function TodaysQuestionPage({
   });
 
   // Timer setup if the user has `showTimeTaken` enabled
-  const { seconds, minutes, pause, isRunning, reset } = useStopwatch({
-    autoStart: true,
-  });
+  const { seconds, minutes, pause, isRunning, reset, totalSeconds } =
+    useStopwatch({
+      autoStart: true,
+    });
 
   if (userLoading || isPending || !question) {
     return (
@@ -68,7 +68,13 @@ export default function TodaysQuestionPage({
         </div>
       </div>
       <Separator />
-      <AnswerQuestionForm userData={user} uid={uid} question={question} />
+      <AnswerQuestionForm
+        userData={user}
+        uid={uid}
+        question={question}
+        time={totalSeconds}
+        stopwatchPause={pause}
+      />
     </>
   );
 }

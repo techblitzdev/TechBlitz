@@ -22,6 +22,8 @@ type AnswerQuestionFormProps = {
   userData: UserRecord;
   uid: string;
   question: Question;
+  time: number;
+  stopwatchPause: () => void;
   onNext?: () => void;
 };
 
@@ -29,6 +31,8 @@ export default function AnswerQuestionForm({
   userData,
   uid,
   question,
+  time,
+  stopwatchPause,
   onNext,
 }: AnswerQuestionFormProps) {
   const [correctAnswer, setCorrectAnswer] = useState<
@@ -51,16 +55,27 @@ export default function AnswerQuestionForm({
       return;
     }
 
+    // pause the stopwatch
+    stopwatchPause();
+
     try {
+      // build the params
+      const opts: any = {
+        questionUid: uid,
+        answerUid: values.answer,
+        userUid: userData.uid,
+      };
+
+      // conditonally add the time taken if it exists
+      if (time) {
+        opts.timeTaken = time;
+      }
+
       const {
         correctAnswer,
         userAnswer,
         userData: newUserData,
-      } = await answerQuestion({
-        questionUid: uid,
-        answerUid: values.answer,
-        userUid: userData.uid,
-      });
+      } = await answerQuestion(opts);
 
       // set the data that we get bacl from the endpoint so we can pass it to the popup
       setCorrectAnswer(correctAnswer ? 'correct' : 'incorrect');

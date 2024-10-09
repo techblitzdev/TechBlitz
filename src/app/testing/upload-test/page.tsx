@@ -4,13 +4,13 @@ import { useUser } from '@/hooks/useUser';
 import { useState } from 'react';
 
 export default function UploadTestPage() {
-  const { data: user } = useUser();
+  const { user } = useUser();
 
   const onSubmit = async (data: any) => {
-    if (!user?.user?.id) return;
+    if (!user?.uid) return;
     const formData = new FormData();
     formData.append('files', data.target.files[0]);
-    formData.append('userId', user?.user?.id);
+    formData.append('userId', user?.uid);
     formData.append('route', 'user-profile-pictures');
 
     try {

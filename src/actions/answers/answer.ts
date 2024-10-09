@@ -1,17 +1,18 @@
 'use server';
+import { Answer } from '@/types/Answers';
 import { prisma } from '@/utils/prisma';
-import { connect } from 'http2';
-import uniqid from 'uniqid';
+import { revalidateTag } from 'next/cache';
 
 export const answerQuestion = async (opts: {
   questionUid: string;
   answerUid: string;
-  userId: string;
+  userUid: string;
+  timeTaken?: number;
 }) => {
-  console.log('hit the answer endpoint');
-  const { questionUid, answerUid, userId } = opts;
+  const { questionUid, answerUid, userUid, timeTaken } = opts;
 
   try {
+    // find the question the user is trying to answer
     const question = await prisma.questions.findUnique({
       where: {
         uid: questionUid,
@@ -21,7 +22,8 @@ export const answerQuestion = async (opts: {
     if (!question) {
       throw new Error('Question not found');
     }
-
+    // determine if the user's answer is correct by comparing the answer
+    // uid to the question.correctAnswer uid
     const correctAnswer = question.correctAnswer === answerUid;
 
     // figure out if the user has already answered this question
@@ -29,7 +31,7 @@ export const answerQuestion = async (opts: {
       where: {
         user: {
           is: {
-            uid: userId,
+            uid: userUid,
           },
         },
         AND: {
@@ -42,55 +44,57 @@ export const answerQuestion = async (opts: {
       },
     });
 
-    console.log({
-      existingAnswer,
-      correctAnswer,
-    });
-
     // only increment if this is a new answer,
     const shouldIncrementCorrectDailyStreak = !existingAnswer && correctAnswer;
     const shouldIncrementTotalDailyStreak = !existingAnswer;
 
-    console.log({
-      shouldIncrementCorrectDailyStreak,
-      shouldIncrementTotalDailyStreak,
-    });
-
     // based on the correct answer, we need to update the daily question streak
     // on the user
-    await prisma.users.update({
-      where: {
-        uid: userId,
-      },
-      data: {
-        correctDailyStreak: {
-          increment: shouldIncrementCorrectDailyStreak ? 1 : 0,
-        },
-        totalDailyStreak: {
-          increment: shouldIncrementTotalDailyStreak ? 1 : 0,
-        },
-      },
-    });
-
-    // Create the answer
-    await prisma.answers.create({
-      data: {
-        user: {
-          connect: {
-            uid: userId,
+    const { userData, userAnswer } = await prisma.$transaction(async (tx) => {
+      await tx.users.update({
+        where: { uid: userUid },
+        data: {
+          correctDailyStreak: {
+            increment: shouldIncrementCorrectDailyStreak ? 1 : 0,
+          },
+          totalDailyStreak: {
+            increment: shouldIncrementTotalDailyStreak ? 1 : 0,
           },
         },
-        question: {
-          connect: {
-            uid: questionUid,
-          },
+      });
+
+      const userData = await tx.users.findUnique({
+        where: {
+          uid: userUid,
         },
-        userAnswerUid: answerUid,
-        correctAnswer,
-      },
+      });
+
+      const userAnswer = await tx.answers.create({
+        data: {
+          user: { connect: { uid: userUid } },
+          question: { connect: { uid: questionUid } },
+          userAnswerUid: answerUid,
+          correctAnswer,
+          timeTaken,
+        },
+      });
+
+      console.log({ userData });
+
+      return {
+        userData,
+        userAnswer,
+      };
     });
 
-    return correctAnswer;
+    // revalidate the user streak
+    revalidateTag(`user-${userUid}`);
+
+    return {
+      correctAnswer,
+      userAnswer,
+      userData,
+    };
   } catch (e) {
     console.error(e);
     throw e;

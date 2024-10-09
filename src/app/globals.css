@@ -90,3 +90,7 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.navbar-height {
+  @apply h-[calc(100dvh-3rem)];
+}

@@ -9,7 +9,7 @@ import {
 
 import { Card, CardContent, CardDescription } from '@/components/ui/card';
 import { ChartConfig, ChartContainer } from '@/components/ui/chart';
-import LoadingSpinner from '../ui/loading';
+import LoadingSpinner from '@/components/ui/loading';
 
 export const description = 'A radial chart with text';
 
@@ -23,12 +23,31 @@ export function DailyStreakChart(opts: {
 }) {
   const { userStreakData } = opts;
 
-  if (!userStreakData?.correctDailyStreak || !userStreakData.totalDailyStreak)
+  if (
+    userStreakData?.correctDailyStreak === 0 &&
+    userStreakData?.totalDailyStreak === 0
+  ) {
+    return (
+      <CardDescription>
+        <span className="text-center text-lg font-satoshi text-white">
+          You haven't answered any questions yet!
+        </span>
+      </CardDescription>
+    );
+  }
+
+  if (
+    !('correctDailyStreak' in userStreakData) ||
+    !('totalDailyStreak' in userStreakData) ||
+    userStreakData.correctDailyStreak === null ||
+    userStreakData.totalDailyStreak === null
+  ) {
     return (
       <CardDescription>
         <LoadingSpinner />
       </CardDescription>
     );
+  }
 
   const chartData = [
     {

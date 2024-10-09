@@ -1,24 +1,27 @@
 'use client';
-import { useCallback, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getQuestion } from '@/actions/questions/get';
-import { answerQuestion } from '@/actions/answers/answer';
-import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '@/components/ui/form';
 import LoadingSpinner from '@/components/ui/loading';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
-import { z } from 'zod';
 import { useUser } from '@/hooks/useUser';
+import AnswerQuestionForm from '@/components/questions/answer-question-form';
+import { Separator } from '@/components/ui/separator';
+import { BreadcrumbWithCustomSeparator } from '@/components/global/breadcrumbs';
+import { useStopwatch } from 'react-timer-hook';
 
-type SchemaProps = z.infer<typeof answerQuestionSchema>;
+const items = [
+  {
+    href: '/dashboard',
+    label: 'Home',
+  },
+  {
+    href: '/questions',
+    label: 'Questions',
+  },
+  {
+    href: '',
+    label: 'Daily Question',
+  },
+];
 
 export default function TodaysQuestionPage({
   params,
@@ -26,20 +29,7 @@ export default function TodaysQuestionPage({
   params: { uid: string };
 }) {
   const { uid } = params;
-
-  const [correctAnswer, setCorrectAnswer] = useState<boolean | null>(null);
-  const {
-    data: userData,
-    isLoading: userLoading,
-    error: userError,
-  } = useUser();
-
-  const buttonText = useCallback(() => {
-    if (correctAnswer === null) {
-      return 'Submit';
-    }
-    return correctAnswer ? 'Correct!' : 'Incorrect!';
-  }, [correctAnswer]);
+  const { user, isLoading: userLoading, isError: userError } = useUser();
 
   const {
     data: question,
@@ -51,78 +41,41 @@ export default function TodaysQuestionPage({
     queryFn: () => getQuestion(uid),
   });
 
-  const form = useForm<SchemaProps>({
-    resolver: zodResolver(answerQuestionSchema),
-    defaultValues: {
-      answer: '',
-    },
-  });
-
-  const handleAnswerQuestion = async (values: SchemaProps) => {
-    if (!userData?.user) {
-      console.error('User is not logged in');
-      return;
-    }
-    const isCorrect = await answerQuestion({
-      questionUid: uid,
-      answerUid: values.answer,
-      userId: userData.user.id,
+  // Timer setup if the user has `showTimeTaken` enabled
+  const { seconds, minutes, pause, isRunning, reset, totalSeconds } =
+    useStopwatch({
+      autoStart: true,
     });
-
-    setCorrectAnswer(isCorrect);
-  };
 
   if (userLoading || isPending || !question) {
     return (
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center navbar-height">
         <LoadingSpinner />
       </div>
     );
   }
 
-  if (userError || isError) {
+  if (userError || isError || !user?.uid) {
     return <span>Error loading: {error?.message}</span>;
   }
 
   return (
-    <Form {...form}>
-      <form
-        className="font-satoshi flex flex-col gap-y-4"
-        onSubmit={form.handleSubmit(handleAnswerQuestion)}
-      >
-        <h1 className="font-semibold font-inter text-3xl">
-          {question.question}
-        </h1>
-        <div className="flex flex-col gap-y-2">
-          {question.answers.map((answer) => (
-            <FormField
-              control={form.control}
-              name="answer"
-              key={answer.uid}
-              render={({ field }) => (
-                <FormControl>
-                  <label className="flex items-center gap-x-2">
-                    <input
-                      {...field}
-                      type="radio"
-                      name="answer"
-                      value={answer.uid}
-                      checked={field.value === answer.uid}
-                      onChange={() => {
-                        field.onChange(answer.uid);
-                      }}
-                    />
-                    <span>{answer.answer}</span>
-                  </label>
-                </FormControl>
-              )}
-            />
-          ))}
+    <>
+      <div className="flex w-full justify-between items-center font-satoshi">
+        <BreadcrumbWithCustomSeparator items={items} />
+        <div className="flex items-center">
+          <span>{minutes}</span>:<span>{seconds}</span>
         </div>
-        <Button type="submit" variant="default">
-          {buttonText()}
-        </Button>
-      </form>
-    </Form>
+      </div>
+      <Separator />
+      <AnswerQuestionForm
+        userData={user}
+        uid={uid}
+        question={question}
+        time={totalSeconds}
+        stopwatchPause={pause}
+        resetStopwatch={reset}
+      />
+    </>
   );
 }

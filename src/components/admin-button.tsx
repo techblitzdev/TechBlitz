@@ -6,7 +6,7 @@ export default function AdminButton({ ...props }) {
   const router = useRouter();
   const toAdminPage = () => router.push('/admin');
   return (
-    <Button onClick={toAdminPage} {...props}>
+    <Button onClick={toAdminPage} {...props} variant="secondary">
       To admin page
     </Button>
   );

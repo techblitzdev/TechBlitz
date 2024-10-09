@@ -46,6 +46,8 @@ model Users {
   correctDailyStreak Int? @default(0) // how many days the user has got the daily question correct
 
   userProfilePicture String?
+
+  showTimeTaken Boolean @default(false) // show the time taken to answer a question
 }
 
 model Questions {
@@ -76,12 +78,14 @@ model QuestionAnswers {
 // Each time a user tries to answer a question, an answer row is created
 model Answers {
   uid           String    @id @default(cuid())
-  userId        String
-  questionId    String
-  user          Users     @relation(fields: [userId], references: [uid])
-  question      Questions @relation(fields: [questionId], references: [uid])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now())
+  userUid       String    @default("legacy_user")
+  questionUid   String    @default("legacy_question")
+  user          Users     @relation(fields: [userUid], references: [uid])
+  question      Questions @relation(fields: [questionUid], references: [uid])
   userAnswerUid String
   correctAnswer Boolean   @default(false)
-  createdAt     DateTime  @default(now())
+  questionDate  String    @default("")
   timeTaken     Int?
 }

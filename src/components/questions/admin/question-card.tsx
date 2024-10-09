@@ -11,7 +11,7 @@ export default function AdminQuestionCard({
     <Link
       key={question.uid}
       href={`/admin/questions/${question.uid}`}
-      className="p-2 border border-black-50 bg-black-75 rounded-sm font-inter hover:bg-black-50 duration-300"
+      className="p-2 border border-black-50 bg-black-75 rounded-sm font-inter hover:bg-black-50 duration-300 w-full"
     >
       <p>
         <span className="font-semibold">Question:</span> {question.question}

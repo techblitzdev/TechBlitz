@@ -19,7 +19,7 @@ export default async function AdminQuestionList({ ...props }) {
         Object.values(questions).every((arr) => arr.length === 0) && (
           <p>No questions found</p>
         )}
-      <div className="flex flex-col gap-y-2 mt-5">
+      <div className="flex flex-col gap-y-2">
         {/* Render future questions */}
         {questions.future?.map((question) => (
           <AdminQuestionCard key={question.uid} question={question} />

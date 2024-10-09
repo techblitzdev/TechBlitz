@@ -107,7 +107,6 @@ export default function AnswerQuestionForm({
     setUserAnswer(null);
     setIsModalOpen(false);
     resetStopwatch();
-
     form.reset();
   };
 

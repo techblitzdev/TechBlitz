@@ -13,6 +13,7 @@ import type { UserRecord } from '@/types/User';
 import type { Answer } from '@/types/Answers';
 import LoadingSpinner from '@/components/ui/loading';
 import { DailyStreakChart } from '@/components/dashboard/daily-streak-chart';
+import { convertSecondsToTime } from '@/utils/time';
 
 type AnswerQuestionModalProps = {
   question: Question;
@@ -75,6 +76,8 @@ export default function AnswerQuestionModal({
     correctDailyStreak: user?.correctDailyStreak || 0,
   };
 
+  const timeTaken = convertSecondsToTime(userAnswer?.timeTaken || 0);
+
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent
@@ -90,7 +93,18 @@ export default function AnswerQuestionModal({
             <div className="w-full flex flex-col items-center sm:text-center">
               <DialogTitle className="text-2xl">{content?.heading}</DialogTitle>
               <DialogDescription className="mt-2 text-center">
-                {content?.description}
+                {user.showTimeTaken && (
+                  <>
+                    <p>You answered in</p>
+                    {timeTaken.minutes > 0 && (
+                      <span>
+                        You answered in {timeTaken.minutes} minute
+                        {timeTaken.minutes > 1 && 's'}{' '}
+                      </span>
+                    )}
+                    <span>{timeTaken.seconds} seconds</span>
+                  </>
+                )}
               </DialogDescription>
             </div>
 

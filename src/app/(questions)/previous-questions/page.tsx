@@ -1,10 +1,12 @@
 'use client';
 import { getPreviousQuestions } from '@/actions/questions/get-previous';
 import { BreadcrumbWithCustomSeparator } from '@/components/global/breadcrumbs';
+import GlobalPagination from '@/components/global/pagination';
 import QueryStates from '@/components/global/query-states';
 import LoadingSpinner from '@/components/ui/loading';
 import { Separator } from '@/components/ui/separator';
 import { useUser } from '@/hooks/useUser';
+import { getPagination } from '@/utils/supabase/pagination';
 import { useQuery } from '@tanstack/react-query';
 
 const items = [
@@ -23,6 +25,7 @@ const items = [
 ];
 
 export default function PreviousQuestionsPage() {
+  const { from, to } = getPagination(0, 3);
   const { user, isLoading: userLoading, isError: userError } = useUser();
 
   const {
@@ -39,6 +42,8 @@ export default function PreviousQuestionsPage() {
       return getPreviousQuestions({
         userUid: user.uid,
         orderBy: 'desc',
+        from,
+        to,
       });
     },
     enabled: !!user?.uid, // Only run query when user exists
@@ -63,6 +68,7 @@ export default function PreviousQuestionsPage() {
           <div key={q.uid}>{q.questionDate.toString()}</div>
         ))}
       </div>
+      <GlobalPagination />
     </>
   );
 }

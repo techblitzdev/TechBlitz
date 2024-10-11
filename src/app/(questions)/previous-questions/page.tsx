@@ -3,11 +3,13 @@ import { getPreviousQuestions } from '@/actions/questions/get-previous';
 import { BreadcrumbWithCustomSeparator } from '@/components/global/breadcrumbs';
 import GlobalPagination from '@/components/global/pagination';
 import QueryStates from '@/components/global/query-states';
-import LoadingSpinner from '@/components/ui/loading';
 import { Separator } from '@/components/ui/separator';
 import { useUser } from '@/hooks/useUser';
 import { getPagination } from '@/utils/supabase/pagination';
 import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+
+const ITEMS_PER_PAGE = 3;
 
 const items = [
   {
@@ -25,16 +27,12 @@ const items = [
 ];
 
 export default function PreviousQuestionsPage() {
-  const { from, to } = getPagination(0, 3);
+  const [currentPage, setCurrentPage] = useState(0);
+  const { from, to } = getPagination(currentPage, ITEMS_PER_PAGE);
   const { user, isLoading: userLoading, isError: userError } = useUser();
 
-  const {
-    data: previousQuestions,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ['previous-questions', user?.uid],
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ['previous-questions', user?.uid, currentPage],
     queryFn: async () => {
       if (!user?.uid) {
         throw new Error('User not found');
@@ -46,8 +44,12 @@ export default function PreviousQuestionsPage() {
         to,
       });
     },
-    enabled: !!user?.uid, // Only run query when user exists
+    enabled: !!user?.uid,
   });
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
 
   <QueryStates
     error={error}
@@ -64,11 +66,16 @@ export default function PreviousQuestionsPage() {
       </div>
       <Separator />
       <div className="flex flex-col gap-5">
-        {previousQuestions?.map((q) => (
+        {data?.questions.map((q) => (
           <div key={q.uid}>{q.questionDate.toString()}</div>
         ))}
       </div>
-      <GlobalPagination />
+      <GlobalPagination
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+        totalItems={data?.total || 0}
+        itemsPerPage={ITEMS_PER_PAGE}
+      />
     </>
   );
 }

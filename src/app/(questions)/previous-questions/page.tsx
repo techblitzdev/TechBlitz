@@ -3,6 +3,7 @@ import { getPreviousQuestions } from '@/actions/questions/get-previous';
 import { BreadcrumbWithCustomSeparator } from '@/components/global/breadcrumbs';
 import GlobalPagination from '@/components/global/pagination';
 import QueryStates from '@/components/global/query-states';
+import PreviousQuestionCard from '@/components/questions/previous-question-card';
 import LoadingSpinner from '@/components/ui/loading';
 import { Separator } from '@/components/ui/separator';
 import { useUser } from '@/hooks/useUser';
@@ -10,7 +11,7 @@ import { getPagination } from '@/utils/supabase/pagination';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
-const ITEMS_PER_PAGE = 3;
+const ITEMS_PER_PAGE = 6;
 
 const items = [
   {
@@ -71,7 +72,11 @@ export default function PreviousQuestionsPage() {
           </div>
         )}
         {data?.questions.map((q) => (
-          <div key={q.uid}>{q.questionDate.toString()}</div>
+          <PreviousQuestionCard
+            key={q.uid}
+            questionData={q}
+            userUid={user?.uid || ''}
+          />
         ))}
       </div>
       <GlobalPagination

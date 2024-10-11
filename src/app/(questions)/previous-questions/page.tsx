@@ -1,11 +1,13 @@
 'use client';
-import { getPreviousQuestions } from '@/actions/questions/get-previous';
+// components
 import { BreadcrumbWithCustomSeparator } from '@/components/global/breadcrumbs';
 import GlobalPagination from '@/components/global/pagination';
 import QueryStates from '@/components/global/query-states';
 import PreviousQuestionCard from '@/components/questions/previous-question-card';
 import LoadingSpinner from '@/components/ui/loading';
 import { Separator } from '@/components/ui/separator';
+
+import { getPreviousQuestions } from '@/actions/questions/get-previous';
 import { useUser } from '@/hooks/useUser';
 import { getPagination } from '@/utils/supabase/pagination';
 import { useQuery } from '@tanstack/react-query';
@@ -76,6 +78,7 @@ export default function PreviousQuestionsPage() {
             key={q.uid}
             questionData={q}
             userUid={user?.uid || ''}
+            userAnswer={data.answers.find((a) => a.questionUid === q.uid)}
           />
         ))}
       </div>

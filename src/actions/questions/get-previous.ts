@@ -2,10 +2,12 @@
 import { prisma } from '@/utils/prisma';
 import { getUserFromDb } from '../user/get-user';
 import { Question } from '@/types/Questions';
+import { Answer } from '@/types/Answers';
 
 interface PaginatedResponse {
   questions: Question[]; // Replace 'any' with your Question type
   total: number;
+  answers: Answer[];
 }
 
 export const getPreviousQuestions = async (opts: {
@@ -28,7 +30,7 @@ export const getPreviousQuestions = async (opts: {
   const todayDate = new Date().toISOString();
 
   // Get total count and questions in parallel
-  const [total, questions] = await Promise.all([
+  const [total, questions, answers] = await Promise.all([
     prisma.questions.count({
       where: {
         questionDate: {
@@ -51,10 +53,18 @@ export const getPreviousQuestions = async (opts: {
         answers: true, // Include the answers in the query
       },
     }),
+
+    // get the user's answers to the questions
+    prisma.answers.findMany({
+      where: {
+        userUid,
+      },
+    }),
   ]);
 
   return {
     questions,
     total,
+    answers,
   };
 };

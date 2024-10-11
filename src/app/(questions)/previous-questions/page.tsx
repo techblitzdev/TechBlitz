@@ -3,6 +3,7 @@ import { getPreviousQuestions } from '@/actions/questions/get-previous';
 import { BreadcrumbWithCustomSeparator } from '@/components/global/breadcrumbs';
 import GlobalPagination from '@/components/global/pagination';
 import QueryStates from '@/components/global/query-states';
+import LoadingSpinner from '@/components/ui/loading';
 import { Separator } from '@/components/ui/separator';
 import { useUser } from '@/hooks/useUser';
 import { getPagination } from '@/utils/supabase/pagination';
@@ -47,9 +48,7 @@ export default function PreviousQuestionsPage() {
     enabled: !!user?.uid,
   });
 
-  const handlePageChange = (newPage: number) => {
-    setCurrentPage(newPage);
-  };
+  const handlePageChange = (newPage: number) => setCurrentPage(newPage);
 
   <QueryStates
     error={error}
@@ -61,16 +60,22 @@ export default function PreviousQuestionsPage() {
 
   return (
     <>
-      <div className="flex w-full justify-between items-center font-satoshi">
+      <div className="flex w-full items-center font-satoshi">
         <BreadcrumbWithCustomSeparator items={items} />
       </div>
       <Separator />
       <div className="flex flex-col gap-5">
+        {isLoading && (
+          <div className="h-96 flex justify-center items-center">
+            <LoadingSpinner />
+          </div>
+        )}
         {data?.questions.map((q) => (
           <div key={q.uid}>{q.questionDate.toString()}</div>
         ))}
       </div>
       <GlobalPagination
+        className="absolute bottom-0 left-0"
         currentPage={currentPage}
         onPageChange={handlePageChange}
         totalItems={data?.total || 0}

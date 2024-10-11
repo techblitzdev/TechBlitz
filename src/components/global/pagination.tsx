@@ -13,6 +13,7 @@ interface GlobalPaginationProps {
   onPageChange: (page: number) => void;
   totalItems: number;
   itemsPerPage: number;
+  className?: string;
 }
 
 export default function GlobalPagination({
@@ -20,6 +21,7 @@ export default function GlobalPagination({
   onPageChange,
   totalItems,
   itemsPerPage,
+  className,
 }: GlobalPaginationProps) {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
@@ -36,7 +38,7 @@ export default function GlobalPagination({
   };
 
   return (
-    <Pagination>
+    <Pagination className={className}>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious

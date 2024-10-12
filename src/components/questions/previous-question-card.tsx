@@ -37,6 +37,7 @@ export default function PreviousQuestionCard(opts: {
         isOpen={showAnswerModal !== undefined}
         onClose={() => setShowAnswerModal(undefined)}
         userAnswer={showAnswerModal}
+        questionData={questionData}
       />
     </>
   );

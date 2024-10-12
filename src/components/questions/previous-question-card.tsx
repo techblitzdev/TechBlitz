@@ -33,12 +33,14 @@ export default function PreviousQuestionCard(opts: {
           </div>
         )}
       </Button>
-      <PreviousQuestionAnswerModal
-        isOpen={showAnswerModal !== undefined}
-        onClose={() => setShowAnswerModal(undefined)}
-        userAnswer={showAnswerModal}
-        questionData={questionData}
-      />
+      {showAnswerModal && (
+        <PreviousQuestionAnswerModal
+          isOpen={showAnswerModal !== undefined}
+          onClose={() => setShowAnswerModal(undefined)}
+          userAnswer={showAnswerModal}
+          questionData={questionData}
+        />
+      )}
     </>
   );
 }

@@ -26,7 +26,12 @@ export default function PreviousQuestionCard(opts: {
           <p>{questionData.question}</p>
           <p>{questionData.questionDate.toDateString()}</p>
         </div>
-        <div className="text-sm">{userAnswer?.correctAnswer || '❌'}</div>
+        {!userAnswer && <div className="text-sm">No answer submitted</div>}
+        {userAnswer && (
+          <div className="text-sm">
+            {userAnswer?.correctAnswer ? '✅' : '❌'}
+          </div>
+        )}
       </Button>
       <PreviousQuestionAnswerModal
         isOpen={showAnswerModal !== undefined}

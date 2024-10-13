@@ -46,6 +46,7 @@ export default async function DashboardBentoGrid() {
       description: 'Can you beat your previous score?',
       header: <Skeleton />,
       className: 'md:col-span-1 text-white',
+      href: '/previous-questions',
     },
     {
       title: "Today's Task's fasted times!",

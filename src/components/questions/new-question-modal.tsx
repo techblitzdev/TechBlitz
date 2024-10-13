@@ -90,7 +90,10 @@ export default function NewQuestionModal({ ...props }) {
 
               {/* Dynamic Answer Fields */}
               {fields.map((item, index) => (
-                <div key={item.id} className="flex items-center gap-x-4">
+                <div
+                  key={item.id}
+                  className="flex flex-col md:flex-row md:items-center gap-4"
+                >
                   <FormField
                     control={form.control}
                     name={`answers.${index}.text`}
@@ -99,7 +102,7 @@ export default function NewQuestionModal({ ...props }) {
                         <InputWithLabel
                           label={`Answer ${index + 1}`}
                           type="text"
-                          wrapperclassname="w-96"
+                          wrapperclassname="lg:w-96"
                           {...field}
                         />
                       </FormControl>

@@ -14,6 +14,7 @@ import type { Answer } from '@/types/Answers';
 import LoadingSpinner from '@/components/ui/loading';
 import { DailyStreakChart } from '@/components/dashboard/daily-streak-chart';
 import { convertSecondsToTime } from '@/utils/time';
+import JsonDisplay from '../global/json-display';
 
 type AnswerQuestionModalProps = {
   question: Question;
@@ -112,9 +113,7 @@ export default function AnswerQuestionModal({
 
             {showQuestionData && (
               <div className="mt-4">
-                <pre className="bg-black-100 p-4 rounded-md overflow-x-auto">
-                  {JSON.stringify(userAnswer, null, 2)}
-                </pre>
+                <JsonDisplay data={userAnswer} />
               </div>
             )}
           </>

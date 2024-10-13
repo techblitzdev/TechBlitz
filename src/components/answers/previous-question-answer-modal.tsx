@@ -12,6 +12,7 @@ import { Answer } from '@/types/Answers';
 import { Question } from '@/types/Questions';
 import { useQuery } from '@tanstack/react-query';
 import { getAnswer } from '@/actions/answers/get-answer';
+import LoadingSpinner from '../ui/loading';
 
 export default function PreviousQuestionAnswerModal(opts: {
   isOpen: boolean;
@@ -39,9 +40,33 @@ export default function PreviousQuestionAnswerModal(opts: {
         aria-description={`Answer question modal`}
       >
         <DialogTitle>Answer</DialogTitle>
-        <DialogDescription>
-          <p>{JSON.stringify(data, null, 2)}</p>
-          <JsonDisplay data={userAnswer} />
+        <DialogDescription className="flex flex-col gap-y-1">
+          {isLoading && <LoadingSpinner />}
+          {isError && <p>Error getting answer</p>}
+          {/* <JsonDisplay data={data} /> */}
+          <p>
+            <span className="font-semibold">Question: </span>
+            {questionData.question}
+          </p>
+          <p>
+            {userAnswer?.correctAnswer ? '✅' : '❌'}{' '}
+            <span className="font-semibold">
+              {userAnswer?.correctAnswer ? 'Correct' : 'Incorrect'}
+            </span>
+          </p>
+          {/** if the answer is incorrect, display the correct answer */}
+          {!userAnswer?.correctAnswer && (
+            <>
+              <p>
+                <span className="font-semibold">Your Answer: </span>
+                <JsonDisplay data={userAnswer} />
+              </p>
+              <p>
+                <span className="font-semibold">Correct Answer: </span>
+                {data?.answer}
+              </p>
+            </>
+          )}
         </DialogDescription>
       </DialogContent>
     </Dialog>

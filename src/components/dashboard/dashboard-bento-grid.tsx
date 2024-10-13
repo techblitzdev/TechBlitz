@@ -1,5 +1,3 @@
-import { cn } from '@/lib/utils';
-import React from 'react';
 import { BentoGrid, BentoGridItem } from '../ui/bento-grid';
 import { Skeleton } from '../ui/skeleton';
 import { DailyStreakChart } from './daily-streak-chart';
@@ -11,6 +9,7 @@ import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 
 import { createClient as createServerClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
+import TodaysLeaderboardBentoBox from '@/components/leaderboard/bento-box';
 
 export default async function DashboardBentoGrid() {
   const todaysQuestion = await getTodaysQuestion();
@@ -19,10 +18,16 @@ export default async function DashboardBentoGrid() {
 
   const { data: user } = await supabase?.auth?.getUser();
 
+  // we need the user in order to continue. The user should be authed
+  // in the middleware, so this should (theoretically) never happen.
   if (!user || !user.user?.id) return;
 
   const userStreak = await getUserDailyStats(user?.user?.id);
 
+  /**
+   *  list of items that will be displayed in the bento grid. The class
+   *  name is used to determine the size of the grid item.
+   */
   const items = [
     {
       title: 'Today’s Question!',
@@ -49,15 +54,15 @@ export default async function DashboardBentoGrid() {
       href: '/previous-questions',
     },
     {
-      title: "Today's Task's fasted times!",
-      description: 'Can you beat the fastest time?',
-      header: <Skeleton />,
+      title: "Today's Leaderboard",
+      description: 'View the full list.',
+      header: <TodaysLeaderboardBentoBox todaysQuestion={todaysQuestion} />,
       className: 'md:col-span-2 text-white',
     },
   ];
 
   return (
-    <BentoGrid className="">
+    <BentoGrid>
       {items.map((item, i) => (
         <BentoGridItem
           key={i}

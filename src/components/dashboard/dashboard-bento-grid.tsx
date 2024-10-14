@@ -47,17 +47,18 @@ export default async function DashboardBentoGrid() {
       className: 'md:col-span-1 text-white',
     },
     {
+      title: "Today's Leaderboard",
+      description: 'View the full list.',
+      header: <TodaysLeaderboardBentoBox todaysQuestion={todaysQuestion} />,
+      className: 'md:col-span-2 text-white',
+      href: `/leaderboard/${todaysQuestion?.uid}`,
+    },
+    {
       title: 'Previous Questions',
       description: 'Can you beat your previous score?',
       header: <Skeleton />,
       className: 'md:col-span-1 text-white',
       href: '/previous-questions',
-    },
-    {
-      title: "Today's Leaderboard",
-      description: 'View the full list.',
-      header: <TodaysLeaderboardBentoBox todaysQuestion={todaysQuestion} />,
-      className: 'md:col-span-2 text-white',
     },
   ];
 

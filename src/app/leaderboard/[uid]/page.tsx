@@ -1,23 +1,17 @@
-import { Question } from '@/types/Questions';
-import JsonDisplay from '../global/json-display';
 import { getFastestTimes } from '@/actions/leaderboard/get-fastest';
 import { formatSeconds } from '@/utils/time';
 
-/**
- * Component to display the top 3(?) users on the leaderboard for the
- * current task for the day.
- *
- */
-export default async function TodaysLeaderboardBentoBox(opts: {
-  todaysQuestion: Question | null;
+export default async function TodaysLeaderboardPage({
+  params,
+}: {
+  params: { uid: string };
 }) {
-  const { todaysQuestion } = opts;
-  if (!todaysQuestion) return null;
-
+  const { uid } = params;
   const { fastestTimes } = await getFastestTimes({
-    numberOfResults: 3,
-    questionUid: todaysQuestion?.uid,
+    numberOfResults: 10,
+    questionUid: uid,
   });
+
   return (
     <div className="font-satoshi">
       {fastestTimes.map((time, i) => {

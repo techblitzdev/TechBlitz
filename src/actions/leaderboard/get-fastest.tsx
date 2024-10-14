@@ -1,16 +1,32 @@
 'use server';
-
 import { prisma } from '@/utils/prisma';
-import { getUserFromDb } from '../user/get-user';
 
 export const getFastestTimes = async (opts: {
   questionUid: string;
-  numberOfResults: number;
+  numberOfResults?: number;
+  page?: number;
+  pageSize?: number;
 }) => {
-  const { questionUid, numberOfResults } = opts;
+  const { questionUid, numberOfResults, page, pageSize } = opts;
 
-  if (!questionUid || !numberOfResults) {
-    throw new Error('Missing required parameters');
+  if (!questionUid) {
+    throw new Error('Missing required parameter: questionUid');
+  }
+
+  let take: number | undefined;
+  let skip: number | undefined;
+
+  if (numberOfResults !== undefined) {
+    // Fixed number of results
+    take = numberOfResults;
+  } else if (page !== undefined && pageSize !== undefined) {
+    // Pagination
+    take = pageSize;
+    skip = (page - 1) * pageSize;
+  } else {
+    throw new Error(
+      'Either numberOfResults or both page and pageSize must be provided'
+    );
   }
 
   // only return the fastest times for correct answers
@@ -19,24 +35,28 @@ export const getFastestTimes = async (opts: {
       questionUid,
       correctAnswer: true,
     },
-    take: numberOfResults,
+    take,
+    skip,
     orderBy: {
       timeTaken: 'asc',
     },
+    include: {
+      user: true,
+    },
   });
 
-  // get the user data for each answer
-  const usersData = await Promise.all(
-    answers.map(async (answer) => {
-      const userData = await getUserFromDb(answer.userUid);
-      return {
-        ...answer,
-        user: userData,
-      };
-    })
-  );
+  const total = await prisma.answers.count({
+    where: {
+      questionUid,
+      correctAnswer: true,
+    },
+  });
 
   return {
-    fastestTimes: usersData,
+    fastestTimes: answers,
+    total,
+    page: page || 1,
+    pageSize: pageSize || total,
+    totalPages: Math.ceil(total / (pageSize || total)),
   };
 };

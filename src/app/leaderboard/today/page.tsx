@@ -1,13 +1,18 @@
 import { getFastestTimes } from '@/actions/leaderboard/get-fastest';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
+import GlobalPagination from '@/components/global/pagination';
 import { formatSeconds } from '@/utils/time';
+
+const ITEMS_PER_PAGE = 12;
 
 export default async function TodaysLeaderboardPage() {
   const todayQuestion = await getTodaysQuestion();
 
-  const { fastestTimes } = await getFastestTimes({
+  const { fastestTimes, total } = await getFastestTimes({
     numberOfResults: 10,
     questionUid: todayQuestion?.uid || '',
+    page: 1,
+    pageSize: 20,
   });
 
   return (
@@ -20,6 +25,13 @@ export default async function TodaysLeaderboardPage() {
           </div>
         );
       })}
+      <GlobalPagination
+        className="absolute bottom-0 left-0"
+        currentPage={1}
+        onPageChange={() => {}}
+        totalItems={total || 0}
+        itemsPerPage={ITEMS_PER_PAGE}
+      />
     </div>
   );
 }

@@ -1,15 +1,13 @@
 import { getFastestTimes } from '@/actions/leaderboard/get-fastest';
+import { getTodaysQuestion } from '@/actions/questions/get-today';
 import { formatSeconds } from '@/utils/time';
 
-export default async function TodaysLeaderboardPage({
-  params,
-}: {
-  params: { uid: string };
-}) {
-  const { uid } = params;
+export default async function TodaysLeaderboardPage() {
+  const todayQuestion = await getTodaysQuestion();
+
   const { fastestTimes } = await getFastestTimes({
     numberOfResults: 10,
-    questionUid: uid,
+    questionUid: todayQuestion?.uid || '',
   });
 
   return (

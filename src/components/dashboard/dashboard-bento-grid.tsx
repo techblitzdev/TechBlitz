@@ -51,7 +51,7 @@ export default async function DashboardBentoGrid() {
       description: 'View the full list.',
       header: <TodaysLeaderboardBentoBox todaysQuestion={todaysQuestion} />,
       className: 'md:col-span-2 text-white',
-      href: `/leaderboard/${todaysQuestion?.uid}`,
+      href: '/leaderboard/today',
     },
     {
       title: 'Previous Questions',

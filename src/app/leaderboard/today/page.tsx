@@ -15,7 +15,7 @@ export default async function TodaysLeaderboardPage() {
       {fastestTimes.map((time, i) => {
         return (
           <div key={i}>
-            {i + 1}. <span className="font-semibold">{time.user?.name}</span>-{' '}
+            {i + 1}. <span className="font-semibold">{time.user?.name}</span>:{' '}
             {formatSeconds(time.timeTaken || 0)}
           </div>
         );

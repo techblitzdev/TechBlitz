@@ -62,9 +62,16 @@ export default function TodaysQuestionPage({
   return (
     <>
       <div className="flex w-full justify-between items-center font-satoshi">
-        <BreadcrumbWithCustomSeparator items={items} />
-        <div className="flex items-center">
-          <span>{minutes}</span>:<span>{seconds}</span>
+        <div className="flex flex-col gap-y-2 w-full">
+          <BreadcrumbWithCustomSeparator items={items} />
+          <div className="flex items-center justify-between w-full">
+            <h1 className="text-xl md:text-3xl font-semibold">
+              {question.question}
+            </h1>
+            <div className="flex items-center">
+              <span>{minutes}</span>:<span>{seconds}</span>
+            </div>
+          </div>
         </div>
       </div>
       <Separator />

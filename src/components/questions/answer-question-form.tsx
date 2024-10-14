@@ -116,9 +116,6 @@ export default function AnswerQuestionForm({
         className="font-satoshi flex flex-col gap-y-4"
         onSubmit={form.handleSubmit(handleAnswerQuestion)}
       >
-        <h1 className="font-semibold font-inter text-3xl">
-          {question.question}
-        </h1>
         <div className="flex flex-col gap-y-2">
           {question.answers.map((answer) => (
             <FormField

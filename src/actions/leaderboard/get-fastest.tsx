@@ -1,5 +1,7 @@
 'use server';
+
 import { prisma } from '@/utils/prisma';
+import { getUserFromDb } from '../user/get-user';
 
 export const getFastestTimes = async (opts: {
   questionUid: string;
@@ -12,16 +14,29 @@ export const getFastestTimes = async (opts: {
   }
 
   // only return the fastest times for correct answers
-  return await prisma.answers.findMany({
+  const answers = await prisma.answers.findMany({
     where: {
       questionUid,
-      AND: {
-        correctAnswer: true,
-      },
+      correctAnswer: true,
     },
     take: numberOfResults,
     orderBy: {
       timeTaken: 'asc',
     },
   });
+
+  // get the user data for each answer
+  const usersData = await Promise.all(
+    answers.map(async (answer) => {
+      const userData = await getUserFromDb(answer.userUid);
+      return {
+        ...answer,
+        user: userData,
+      };
+    })
+  );
+
+  return {
+    fastestTimes: usersData,
+  };
 };

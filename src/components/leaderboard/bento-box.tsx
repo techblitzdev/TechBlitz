@@ -13,7 +13,7 @@ export default async function TodaysLeaderboardBentoBox(opts: {
   const { todaysQuestion } = opts;
   if (!todaysQuestion) return null;
 
-  const fastestTimes = await getFastestTimes({
+  const { fastestTimes } = await getFastestTimes({
     numberOfResults: 3,
     questionUid: todaysQuestion?.uid,
   });
@@ -21,8 +21,8 @@ export default async function TodaysLeaderboardBentoBox(opts: {
     <>
       {fastestTimes.map((time, i) => {
         return (
-          <div>
-            {i + 1}. {time.userUid} - {time.timeTaken}
+          <div key={i}>
+            {i + 1}. {time.user?.name} - {time.timeTaken}
           </div>
         );
       })}

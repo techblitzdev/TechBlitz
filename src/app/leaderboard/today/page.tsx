@@ -1,9 +1,7 @@
 import { getFastestTimes } from '@/actions/leaderboard/get-fastest';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
-import GlobalPagination from '@/components/global/pagination';
+import TodaysLeaderboardPageClient from '@/app/(questions)/previous-questions/page.client';
 import { formatSeconds } from '@/utils/time';
-
-const ITEMS_PER_PAGE = 12;
 
 export default async function TodaysLeaderboardPage() {
   const todayQuestion = await getTodaysQuestion();
@@ -25,13 +23,7 @@ export default async function TodaysLeaderboardPage() {
           </div>
         );
       })}
-      <GlobalPagination
-        className="absolute bottom-0 left-0"
-        currentPage={1}
-        onPageChange={() => {}}
-        totalItems={total || 0}
-        itemsPerPage={ITEMS_PER_PAGE}
-      />
+      <TodaysLeaderboardPageClient fastestTimes={fastestTimes} total={total} />
     </div>
   );
 }

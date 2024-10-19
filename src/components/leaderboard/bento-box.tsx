@@ -20,6 +20,9 @@ export default async function TodaysLeaderboardBentoBox(opts: {
   });
   return (
     <div className="font-satoshi">
+      {fastestTimes.length === 0 && (
+        <p className="font-semibold text-xs">No fastest times yet!</p>
+      )}
       {fastestTimes.map((time, i) => {
         return (
           <div key={i}>

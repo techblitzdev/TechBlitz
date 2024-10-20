@@ -8,7 +8,7 @@ import { revalidateTag } from 'next/cache';
 /**
  * Get the user from the server - used in api routes, server componets & server actions
  *
- * @returns
+ * @returns User | null
  */
 export const getUserFromSession = async () => {
   const cookieStore = cookies();

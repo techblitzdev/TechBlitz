@@ -31,7 +31,10 @@ export default async function UserProfileDropdown(opts: {
         {/* <DropdownMenuLabel>Account</DropdownMenuLabel> */}
         {/* <DropdownMenuSeparator className="bg-black-50" /> */}
         <DropdownMenuItem>
-          My profile @{userData?.name || userData.email}
+          My profile
+          <span className="font-semibold font-satoshi">
+            &nbsp; @{userData?.name || userData.email}
+          </span>
         </DropdownMenuItem>
         <DropdownMenuItem>Account settings</DropdownMenuItem>
         <DropdownMenuItem>Support</DropdownMenuItem>

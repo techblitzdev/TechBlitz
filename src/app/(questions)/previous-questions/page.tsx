@@ -63,8 +63,11 @@ export default function PreviousQuestionsPage() {
 
   return (
     <>
-      <div className="flex w-full items-center font-satoshi">
+      <div className="flex flex-col gap-y-2 w-full">
         <BreadcrumbWithCustomSeparator items={items} />
+        <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
+          Previous Questions
+        </h1>
       </div>
       <Separator />
       <div className="flex flex-col gap-5">

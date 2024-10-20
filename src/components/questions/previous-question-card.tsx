@@ -19,7 +19,7 @@ export default function PreviousQuestionCard(opts: {
     <>
       <Button
         key={questionData.uid}
-        className="flex flex-col items-start bg-black-50 p-2 rounded-lg text-start h-auto"
+        className="flex flex-col items-start bg-black-50 p-2 rounded-lg text-start h-auto w-full"
         onClick={() => setShowAnswerModal(userAnswer || undefined)}
       >
         <div className="flex items-center gap-x-10">

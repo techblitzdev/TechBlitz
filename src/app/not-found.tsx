@@ -4,7 +4,7 @@ import LoadingSpinner from '@/components/ui/loading';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import CountUp from 'react-countup';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
 
 export default function NotFound() {
@@ -39,8 +39,8 @@ export default function NotFound() {
           className="min-h-24 text-8xl font-semibold"
           duration={2}
         />
-        <div className="flex flex-col max-w-96">
-          <p className="text-sm">
+        <div className="flex flex-col max-w-96 items-center">
+          <p className="text-sm w-[90%]">
             Sorry, it look's like the page you have requested could not be
             found.
           </p>

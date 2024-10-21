@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input } from './input';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/cn';
 import {
   Tooltip,
   TooltipContent,

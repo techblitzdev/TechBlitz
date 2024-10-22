@@ -2,6 +2,7 @@
 import Stripe from 'stripe';
 import { stripe } from '@/lib/stripe';
 import { unstable_cache } from 'next/cache';
+import { StripeProduct } from '@/types/StripeProduct';
 
 /**
  * Retrieves all products from the stripe account.
@@ -10,7 +11,7 @@ import { unstable_cache } from 'next/cache';
  * @returns
  */
 export const getStripeProducts = unstable_cache(
-  async (): Promise<Stripe.Product[]> => {
+  async (): Promise<StripeProduct[]> => {
     if (!stripe) {
       throw new Error('Stripe is not initialized');
     }
@@ -19,11 +20,21 @@ export const getStripeProducts = unstable_cache(
       await stripe.products.list({
         active: true,
         limit: 10,
+        expand: ['data.default_price'],
       });
 
     if (!products) throw new Error('No products found');
 
-    return products.data;
+    return products.data.map((product) => {
+      return {
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        features: product.metadata.features,
+        default_price: product.default_price as Stripe.Price,
+        metadata: product.metadata,
+      };
+    });
   }
 );
 

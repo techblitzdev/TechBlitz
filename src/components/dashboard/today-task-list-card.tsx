@@ -1,5 +1,5 @@
 import { Question } from '@/types/Questions';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/cn';
 
 type TodayTaskListCardProps = {
   question: Question;

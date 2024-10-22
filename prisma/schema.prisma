@@ -48,6 +48,23 @@ model Users {
   userProfilePicture String?
 
   showTimeTaken Boolean @default(false) // show the time taken to answer a question
+
+  // A user can one subscription
+  subscription Subscriptions?
+}
+
+model Subscriptions {
+  uid           String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  userUid       String   @unique
+  user          Users    @relation(fields: [userUid], references: [uid])
+  startDate     DateTime
+  endDate       DateTime
+  active        Boolean  @default(true)
+  planId        String
+  planTrial     Boolean  @default(false)
+  planTrialDays Int?
 }
 
 model Questions {

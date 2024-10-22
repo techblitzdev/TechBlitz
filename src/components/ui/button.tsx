@@ -5,7 +5,7 @@ import { ArrowRightIcon } from '@radix-ui/react-icons';
 // packages
 // next
 import Link, { LinkProps } from 'next/link';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/cn';
 
 type ButtonElementProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 type AnchorElementProps = React.LinkHTMLAttributes<LinkProps>;

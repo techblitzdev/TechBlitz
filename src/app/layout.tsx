@@ -3,6 +3,8 @@ import { InterFont, SatoshiFont } from './styles/fonts/font';
 import './globals.css';
 import { ReactQueryClientProvider } from '@/components/react-query-client-provider';
 import { Toaster } from '@/components/ui/sonner';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 export const metadata: Metadata = {
   title: 'DevDaily',

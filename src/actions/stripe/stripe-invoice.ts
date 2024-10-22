@@ -1,64 +1,98 @@
 'use server';
+
 import Stripe from 'stripe';
 
-export const createInvoice = async (
+export const createSubscription = async (
   user: Stripe.Customer,
-  amount: number,
+  priceId: string,
   stripe: Stripe
-): Promise<Stripe.PaymentIntent['client_secret'] | null> => {
+): Promise<{ subscriptionId: string; clientSecret: string | null } | null> => {
   if (!user || !user.id) {
     return Promise.reject('Invalid user');
   }
 
-  // try to create the invoice
   try {
-    const invoice: Stripe.Invoice = await stripe.invoices.create({
+    // Create a subscription
+    const subscription = await stripe.subscriptions.create({
       customer: user.id,
-      description: 'Test Invoice',
-      currency: 'gbp',
-      auto_advance: false,
-    });
-
-    // create an invoice item
-    /**
-     * Invoice Items represent the component lines of an invoice. An invoice item is added to an
-     * invoice by creating or updating it  with an invoice field, at which point it will be
-     * included as an invoice line item within invoice.lines.
-     */
-    await stripe.invoiceItems.create({
-      invoice: invoice?.id,
-      customer: user?.id,
-      unit_amount: amount,
-      currency: 'gbp',
-      quantity: 1,
-    });
-
-    const finalizedInvoice: Stripe.Response<Stripe.Invoice> =
-        await stripe.invoices.finalizeInvoice(invoice.id, {
-          auto_advance: true,
-        }),
-      paymentIntentId = finalizedInvoice?.payment_intent;
-
-    let paymentIntent: Stripe.PaymentIntent;
-
-    // if the payment intent is not a string, we need to cancel the flow
-    if (typeof paymentIntentId !== 'string') return null;
-
-    // if the payment intent is a string, we need to update it
-    await stripe.paymentIntents.retrieve(paymentIntentId);
-
-    // update the payment intent with the new payment intent id
-    paymentIntent = await stripe.paymentIntents.update(paymentIntentId, {
+      items: [{ price: priceId }],
+      payment_behavior: 'default_incomplete',
+      payment_settings: { save_default_payment_method: 'on_subscription' },
+      expand: ['latest_invoice.payment_intent'],
       metadata: {
-        email: user?.email,
-        amount: amount,
+        email: user.email,
       },
-      receipt_email: user?.email,
     });
 
-    return paymentIntent.client_secret;
+    // Type assertion to access the expanded invoice and payment intent
+    const invoice = subscription.latest_invoice as Stripe.Invoice;
+    const paymentIntent = invoice.payment_intent as Stripe.PaymentIntent;
+
+    // If there's no payment intent, something went wrong
+    if (!paymentIntent) {
+      // Cancel the subscription since payment failed
+      await stripe.subscriptions.cancel(subscription.id);
+      return Promise.reject('Failed to create payment intent for subscription');
+    }
+
+    return {
+      subscriptionId: subscription.id,
+      clientSecret: paymentIntent.client_secret,
+    };
   } catch (error) {
-    console.error(error);
+    console.error('Error creating subscription:', error);
+    return Promise.reject(error);
+  }
+};
+
+// Optional: Helper function to handle subscription updates
+export const updateSubscription = async (
+  subscriptionId: string,
+  newPriceId: string,
+  stripe: Stripe
+): Promise<Stripe.Subscription> => {
+  try {
+    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+
+    return await stripe.subscriptions.update(subscriptionId, {
+      items: [
+        {
+          id: subscription.items.data[0].id,
+          price: newPriceId,
+        },
+      ],
+      proration_behavior: 'create_prorations',
+    });
+  } catch (error) {
+    console.error('Error updating subscription:', error);
+    return Promise.reject(error);
+  }
+};
+
+// Optional: Helper function to cancel subscription
+export const cancelSubscription = async (
+  subscriptionId: string,
+  stripe: Stripe
+): Promise<Stripe.Subscription> => {
+  try {
+    return await stripe.subscriptions.cancel(subscriptionId, {
+      prorate: true,
+    });
+  } catch (error) {
+    console.error('Error cancelling subscription:', error);
+    return Promise.reject(error);
+  }
+};
+
+// Optional: Helper function to check subscription status
+export const getSubscriptionStatus = async (
+  subscriptionId: string,
+  stripe: Stripe
+): Promise<Stripe.Subscription> => {
+  try {
+    return await stripe.subscriptions.retrieve(subscriptionId);
+  } catch (error) {
+    console.error('Error retrieving subscription:', error);
     return Promise.reject(error);
   }
 };

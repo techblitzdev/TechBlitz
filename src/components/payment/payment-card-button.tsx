@@ -16,11 +16,11 @@ const stripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY as string);
 const getClientSecret = async (
   product: StripeProduct
 ): Promise<{
-  invoice: string;
-  paymentPrice: number;
+  subscriptionId: string;
+  clientSecret: string | null;
 } | null> => {
-  const response = await createSubscription(product);
-  if (!response || !response.invoice) return null;
+  const response = await createSubscription(product.default_price.id);
+  if (!response || !response.clientSecret) return null;
   return response;
 };
 
@@ -45,7 +45,7 @@ export function PaymentButton({ product }: { product: StripeProduct }) {
         return;
       }
 
-      setClientSecret(response.invoice);
+      setClientSecret(response.clientSecret);
       setOpen(true);
     } catch (error) {
       console.error(error);

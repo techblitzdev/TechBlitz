@@ -58,6 +58,11 @@ export function PaymentButton({ product }: { product: StripeProduct }) {
     }
   };
 
+  const options = {
+    clientSecret,
+    appearance: { variables: { colorBackground: 'black', colorText: 'white' } },
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -74,8 +79,16 @@ export function PaymentButton({ product }: { product: StripeProduct }) {
         </Button>
       </DialogTrigger>
       {clientSecret && (
-        <DialogContent>
-          <Elements stripe={stripe} options={{ clientSecret }}>
+        <DialogContent className=" bg-black-900">
+          <Elements
+            stripe={stripe}
+            options={{
+              clientSecret,
+              appearance: {
+                variables: { colorBackground: 'black', colorText: 'white' },
+              },
+            }}
+          >
             <CheckoutForm
               productPrice={product.default_price.unit_amount as number}
             />

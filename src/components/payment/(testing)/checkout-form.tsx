@@ -29,7 +29,7 @@ export const CheckoutForm = ({ productPrice }: { productPrice: number }) => {
     });
 
     // update the user record with the payment id
-    console.log(result);
+
     setLoading(false);
 
     return result;
@@ -39,10 +39,28 @@ export const CheckoutForm = ({ productPrice }: { productPrice: number }) => {
     <form onSubmit={handleSubmit} className="p-5 flex flex-col gap-y-2">
       <div className="flex flex-col gap-y-4">
         <h3 className="text-2xl font-bold">Payment: £{productPrice / 100}</h3>
-        <PaymentElement />
+        <PaymentElement
+          options={{
+            layout: 'accordion',
+            defaultValues: {
+              billingDetails: {
+                address: {
+                  city: 'London',
+                  country: 'GB',
+                  line1: '123 Fake St',
+                  line2: 'Apt 2',
+                  postal_code: 'E1 4UD',
+                  state: 'London',
+                },
+                email: 'hello@devdaily.com',
+                name: 'John Doe',
+              },
+            },
+          }}
+        />
       </div>
-      <Button type="submit" disabled={!stripe}>
-        {loading ? <ReloadIcon className="w-3 h-3 animate-spin" /> : 'Submit'}
+      <Button type="submit" disabled={!stripe} variant="secondary">
+        {loading ? <ReloadIcon className="size-3 animate-spin" /> : 'Submit'}
       </Button>
     </form>
   );

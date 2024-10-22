@@ -11,8 +11,6 @@ import { unstable_cache } from 'next/cache';
  */
 export const getStripeProducts = unstable_cache(
   async (): Promise<Stripe.Product[]> => {
-    //const stripe = await getStripe();
-
     if (!stripe) {
       throw new Error('Stripe is not initialized');
     }

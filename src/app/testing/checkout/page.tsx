@@ -11,7 +11,7 @@ export default function SubscriptionTestPage() {
         Subscription Test Page
       </h1>
       <h6>Products:</h6>
-      <div className="flex gap-10">
+      <div className="flex gap-10 justify-center max-w-2xl">
         {products?.map((product) => (
           <PricingCard
             key={product.id}

@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { CheckoutForm } from './(testing)/checkout-form';
+import CheckoutForm from './(testing)/checkout-form';
 import { ReloadIcon } from '@radix-ui/react-icons';
 import { toast } from 'sonner';
 import { createSubscription } from '@/actions/stripe/stripe-subscription';

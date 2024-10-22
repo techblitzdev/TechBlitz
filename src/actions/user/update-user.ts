@@ -28,7 +28,7 @@ export const updateUserSubscription = async (opts: {
   }
 
   // Check if user already has a subscription
-  const existingSubscription = await prisma.subscriptions?.findUnique({
+  const existingSubscription = await prisma.subscriptions.findUnique({
     where: {
       userUid,
     },

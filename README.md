@@ -2,7 +2,7 @@
 
 meerge is an online platform designed to help individuals enhance their development knowledge through a diverse range of questions. Whether you're just starting your journey or you're looking to sharpen your skills, meerge provides an interactive and engaging way to improve your understanding of key concepts in software development.
 
-Features
+### Features
 
 - Wide Range of Questions: Questions that cover a variety of topics and difficulty levels, ensuring there's something for everyone.
 - Progress Tracking: Keep track of your learning progress, so you can see how much you've improved over time.

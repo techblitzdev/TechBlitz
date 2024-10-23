@@ -8,7 +8,7 @@ export default function SubscriptionTestPage() {
   const { data: products, isLoading } = useProducts();
 
   return (
-    <div className="container py-12 text-white flex flex-col gap-y-4">
+    <div className="container py-12 text-white flex flex-col gap-y-4 items-center">
       <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
         Subscription Test Page
       </h1>

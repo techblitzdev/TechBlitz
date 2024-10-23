@@ -53,6 +53,11 @@ export async function middleware(req: NextRequest) {
     }
   }
 
+  // check if the user has gone to '/' and is authenticated, redirect to dashboard
+  if (pathname === '/' && user?.user?.id) {
+    return NextResponse.redirect(new URL('/dashboard', req.url));
+  }
+
   // Proceed as normal if the user is authenticated and authorized
   return NextResponse.next();
 }

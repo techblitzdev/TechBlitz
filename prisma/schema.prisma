@@ -63,6 +63,7 @@ model Subscriptions {
   endDate       DateTime
   active        Boolean  @default(true)
   planId        String
+  productId     String
   planTrial     Boolean  @default(false)
   planTrialDays Int?
 }

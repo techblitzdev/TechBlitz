@@ -13,7 +13,6 @@ export const useUser = () => {
     queryKey: ['user'],
     queryFn: async () => {
       try {
-        console.log('Fetching user data');
         const { data: authData, error: authError } =
           await supabase.auth.getUser();
 

@@ -7,6 +7,7 @@ export interface Subscription extends BaseRecord {
   endDate: Date;
   active: boolean;
   planId: string;
+  productId: string;
   planTrial: boolean;
   planTrialDays: number | null;
 }

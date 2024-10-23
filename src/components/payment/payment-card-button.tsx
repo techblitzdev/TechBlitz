@@ -1,5 +1,4 @@
 'use client';
-
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import CheckoutForm from './(testing)/checkout-form';
@@ -10,6 +9,7 @@ import { useState } from 'react';
 import type { StripeProduct } from '../../types/StripeProduct';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
+import { useSubscription } from '@/hooks/useSubscription';
 
 const stripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY as string);
 
@@ -24,7 +24,12 @@ const getClientSecret = async (
   return response;
 };
 
-export function PaymentButton({ product }: { product: StripeProduct }) {
+export function PaymentButton(opts: { product: StripeProduct }) {
+  const { product } = opts;
+  // get the user's current subscription (if any)
+  const { data: subscription, isLoading: subscriptionLoading } =
+    useSubscription();
+
   const [loading, setLoading] = useState<{
     [key: string]: boolean;
   }>({});
@@ -58,11 +63,6 @@ export function PaymentButton({ product }: { product: StripeProduct }) {
     }
   };
 
-  const options = {
-    clientSecret,
-    appearance: { variables: { colorBackground: 'black', colorText: 'white' } },
-  };
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -70,11 +70,16 @@ export function PaymentButton({ product }: { product: StripeProduct }) {
           onClick={async () => await handleClientSecret(product)}
           className="flex gap-x-2 min-w-[84px] duration-300 ease-in-out"
           variant={product.metadata.mostPopular ? 'secondary' : 'default'}
+          disabled={subscription?.productId === product.id}
         >
           {loading[product.id] ? (
             <ReloadIcon className="w-3 h-3 animate-spin" />
           ) : (
-            'Buy now'
+            <>
+              {subscription?.productId === product.id
+                ? 'Subscribed'
+                : 'Buy now'}
+            </>
           )}
         </Button>
       </DialogTrigger>
@@ -91,6 +96,7 @@ export function PaymentButton({ product }: { product: StripeProduct }) {
           >
             <CheckoutForm
               productPrice={product.default_price.unit_amount as number}
+              productId={product.id}
             />
           </Elements>
         </DialogContent>

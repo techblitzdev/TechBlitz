@@ -6,15 +6,13 @@ import { ReloadIcon, CheckIcon } from '@radix-ui/react-icons';
 //type imports
 import type { StripeProduct } from '@/types/StripeProduct';
 
-export function PricingCard({
-  product,
-  isLoading,
-  billingPeriod,
-}: {
+export function PricingCard(opts: {
   product: StripeProduct;
   isLoading: boolean;
   billingPeriod: Stripe.PriceListParams.Recurring.Interval;
 }) {
+  const { product, isLoading, billingPeriod } = opts;
+
   return (
     <div
       key={product.id}
@@ -27,7 +25,7 @@ export function PricingCard({
         <div className="flex flex-col gap-y-1 border-b border-black-50 pb-6">
           <div className="flex w-full justify-between items-center">
             <h2 className="text-xl font-semibold font-poppins">
-              {product.name}
+              {product.name} id: {product.id}
             </h2>
           </div>
           <div className="flex gap-x-1 items-center">

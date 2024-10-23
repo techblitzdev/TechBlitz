@@ -1,8 +1,10 @@
 'use client';
 import { PricingCard } from '@/components/payment/(testing)/payment-card';
+import LoadingSpinner from '@/components/ui/loading';
 import { useProducts } from '@/hooks/useProducts';
 
 export default function SubscriptionTestPage() {
+  // get the products
   const { data: products, isLoading } = useProducts();
 
   return (
@@ -11,6 +13,7 @@ export default function SubscriptionTestPage() {
         Subscription Test Page
       </h1>
       <h6>Products:</h6>
+      {isLoading && <LoadingSpinner />}
       <div className="flex gap-10 justify-center max-w-2xl">
         {products?.map((product) => (
           <PricingCard

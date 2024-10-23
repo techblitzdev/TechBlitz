@@ -1,5 +1,4 @@
 'use client';
-
 import { Button } from '@/components/ui/button';
 import {
   useStripe,
@@ -12,11 +11,11 @@ import { updateUserSubscription } from '@/actions/user/update-user';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
-interface CheckoutFormProps {
+export default function CheckoutForm(opts: {
   productPrice: number;
-}
-
-export default function CheckoutForm({ productPrice }: CheckoutFormProps) {
+  productId: string;
+}) {
+  const { productPrice, productId } = opts;
   const stripe = useStripe();
   const elements = useElements();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -29,6 +28,7 @@ export default function CheckoutForm({ productPrice }: CheckoutFormProps) {
         endDate: Date;
         active: boolean;
         planId: string;
+        productId: string;
         planTrial: boolean;
         planTrialDays: number | null;
       };
@@ -81,7 +81,7 @@ export default function CheckoutForm({ productPrice }: CheckoutFormProps) {
         // Calculate subscription dates
         const startDate = new Date();
         const endDate = new Date();
-        endDate.setMonth(endDate.getMonth() + 1); // Assuming monthly subscription
+        endDate.setMonth(endDate.getMonth() + 1);
 
         // Update subscription in your database
         await updateSubscriptionMutation.mutateAsync({
@@ -92,6 +92,7 @@ export default function CheckoutForm({ productPrice }: CheckoutFormProps) {
             planId: paymentIntent.id,
             planTrial: false,
             planTrialDays: null,
+            productId: productId,
           },
         });
 

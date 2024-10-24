@@ -23,7 +23,13 @@ export default function RootLayout({
           className={`${InterFont.variable} ${SatoshiFont.variable} antialiased`}
           suppressHydrationWarning={true}
         >
-          <main>{children}</main>
+          {/* Fixed background gradient */}
+          <div className="fixed inset-0 bg-gradient-to-t from-[#f0db4f]/5 via-transparent to-transparent pointer-events-none" />
+
+          {/* Scrollable content */}
+          <div className="relative z-10">
+            <main>{children}</main>
+          </div>
           <Toaster className="bg-black" />
         </body>
       </html>

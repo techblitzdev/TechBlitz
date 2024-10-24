@@ -14,11 +14,13 @@ export default async function TodaysLeaderboardPage() {
 
   return (
     <div className="font-satoshi">
-      <TodaysLeaderboardPageClient
-        initialFastestTimes={fastestTimes}
-        initialTotal={total}
-        questionUid={todayQuestion?.uid || ''}
-      />
+      {todayQuestion?.uid && (
+        <TodaysLeaderboardPageClient
+          initialFastestTimes={fastestTimes}
+          initialTotal={total}
+          questionUid={todayQuestion?.uid || ''}
+        />
+      )}
     </div>
   );
 }

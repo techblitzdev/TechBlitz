@@ -1,4 +1,4 @@
-'use server'
+'use server';
 import { supabase } from '@/lib/supabase';
 import { type AuthResponse } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
@@ -10,11 +10,10 @@ export const signUp = async (
   email: string,
   password: string
 ): Promise<AuthResponse['data']['user'] | null> => {
-
   try {
     const { data, error } = await supabase.auth.signUp({
       email,
-      password
+      password,
     });
 
     // easy access to the user object
@@ -36,12 +35,11 @@ export const signUp = async (
         email: user.email,
         createdAt: new Date(),
         updatedAt: new Date(),
-        name: '',
         answers: undefined,
         lastLogin: new Date(),
-        userLevel: 'STANDARD'
+        userLevel: 'STANDARD',
         //hasAuthenticatedEmail: false
-      }
+      },
     });
 
     // set the user level on the supabase user object

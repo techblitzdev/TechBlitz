@@ -66,9 +66,9 @@ export default function AnswerQuestionModal({
       return null;
     }
     return correct === 'correct'
-      ? dialogContent.correct(user?.name || '')
+      ? dialogContent.correct(user?.username || '')
       : dialogContent.incorrect;
-  }, [correct, user?.name]);
+  }, [correct, user?.username]);
 
   const content = getDialogContent();
 

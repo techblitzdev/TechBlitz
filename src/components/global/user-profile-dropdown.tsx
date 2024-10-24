@@ -12,6 +12,7 @@ import AdminButton from '../admin-button';
 import { getUserFromDb, getUserFromSession } from '@/actions/user/get-user';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getUserDisplayName } from '@/utils/user';
 
 export default async function UserProfileDropdown() {
   // get our current user
@@ -40,7 +41,7 @@ export default async function UserProfileDropdown() {
         <DropdownMenuItem>
           My profile
           <span className="font-semibold font-satoshi">
-            &nbsp; @{userData?.name || userData?.email}
+            &nbsp; @{userData && getUserDisplayName(userData)}
           </span>
         </DropdownMenuItem>
         <DropdownMenuItem>Account settings</DropdownMenuItem>

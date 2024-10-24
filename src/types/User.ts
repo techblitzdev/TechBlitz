@@ -5,7 +5,9 @@ import { BaseRecord } from './BaseRecord';
  */
 export interface User extends BaseRecord {
   email: string;
-  name: string | null;
+  username: string | null;
+  firstName: string | null;
+  lastName: string | null;
 
   lastLogin: Date | null;
 
@@ -23,7 +25,9 @@ export type UserRecord = Pick<
   User,
   | 'uid'
   | 'email'
-  | 'name'
+  | 'username'
+  | 'firstName'
+  | 'lastName'
   | 'createdAt'
   | 'updatedAt'
   | 'lastLogin'

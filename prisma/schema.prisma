@@ -29,9 +29,11 @@ enum userLevel {
 // The user will also have a list of questions that they have answered,
 // as well as a list of answers for the question.
 model Users {
-  uid   String  @id()
-  email String  @unique
-  name  String?
+  uid       String  @id()
+  email     String  @unique
+  username  String?
+  firstName String?
+  lastName  String?
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

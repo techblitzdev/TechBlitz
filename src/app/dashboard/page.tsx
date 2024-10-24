@@ -1,5 +1,6 @@
 import AdminButton from '@/components/admin-button';
 import DashboardBentoGrid from '@/components/dashboard/dashboard-bento-grid';
+import LanguageSwitcher from '@/components/global/language-dropdown';
 import UserProfileDropdown from '@/components/global/user-profile-dropdown';
 import { Separator } from '@/components/ui/separator';
 
@@ -10,7 +11,10 @@ export default async function Dashboard() {
         <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
           Welcome back!
         </h1>
-        <UserProfileDropdown />
+        <div className="flex item-center gap-x-3">
+          <LanguageSwitcher />
+          <UserProfileDropdown />
+        </div>
         {/** userData?.userLevel === 'ADMIN' && <AdminButton /> */}
       </div>
       <Separator />

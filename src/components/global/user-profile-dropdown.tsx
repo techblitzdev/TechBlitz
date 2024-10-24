@@ -11,6 +11,7 @@ import LogoutButton from './logout';
 import AdminButton from '../admin-button';
 import { getUserFromDb, getUserFromSession } from '@/actions/user/get-user';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default async function UserProfileDropdown() {
   // get our current user
@@ -22,10 +23,12 @@ export default async function UserProfileDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <img
+        <Image
           src="https://www.gravatar.com/avatar/default"
           alt="user"
-          className="w-8 h-8 rounded-full"
+          width={24}
+          height={24}
+          className="rounded-full"
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent

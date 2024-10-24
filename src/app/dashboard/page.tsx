@@ -3,6 +3,7 @@ import DashboardBentoGrid from '@/components/dashboard/dashboard-bento-grid';
 import LanguageSwitcher from '@/components/global/language-dropdown';
 import UserProfileDropdown from '@/components/global/user-profile-dropdown';
 import { Separator } from '@/components/ui/separator';
+import Link from 'next/link';
 
 export default async function Dashboard() {
   return (

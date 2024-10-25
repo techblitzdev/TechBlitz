@@ -46,7 +46,7 @@ export default async function UserProfileDropdown() {
             <SheetTrigger className="font-semibold font-satoshi w-full text-xs text-start">
               My profile @{userData && getUserDisplayName(userData)}
             </SheetTrigger>
-            <UserProfileSheet />
+            <UserProfileSheet user={userData} />
           </Sheet>
         </DropdownMenuItem>
         <DropdownMenuSeparator className="bg-black-50" />

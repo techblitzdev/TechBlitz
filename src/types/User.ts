@@ -8,6 +8,7 @@ export interface User extends BaseRecord {
   username: string | null;
   firstName: string | null;
   lastName: string | null;
+  userProfilePicture?: string | null;
 
   lastLogin: Date | null;
 
@@ -28,6 +29,7 @@ export type UserRecord = Pick<
   | 'username'
   | 'firstName'
   | 'lastName'
+  | 'userProfilePicture'
   | 'createdAt'
   | 'updatedAt'
   | 'lastLogin'

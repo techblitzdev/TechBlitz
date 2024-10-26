@@ -13,7 +13,7 @@ export default async function TodaysLeaderboardBentoBox(opts: {
   todaysQuestion: Question | null;
 }) {
   const { todaysQuestion } = opts;
-  if (!todaysQuestion) return null;
+  if (!todaysQuestion || !todaysQuestion?.uid) return null;
 
   const { fastestTimes } = await getFastestTimes({
     numberOfResults: 3,

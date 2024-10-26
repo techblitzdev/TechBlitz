@@ -4,6 +4,7 @@ import TodaysLeaderboardPageClient from '@/app/leaderboard/today/page.client';
 
 export default async function TodaysLeaderboardPage() {
   const todayQuestion = await getTodaysQuestion();
+  if (!todayQuestion || !todayQuestion?.uid) return null;
 
   const { fastestTimes, total } = await getFastestTimes({
     numberOfResults: 1,

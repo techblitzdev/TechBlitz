@@ -11,7 +11,7 @@ import { revalidateTag } from 'next/cache';
  * @returns User | null
  */
 export const getUserFromSession = async () => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createServerClient(cookieStore);
   return supabase?.auth?.getUser();
 };
@@ -26,7 +26,7 @@ export const getUserFromDb = async (
     },
   });
 
-  revalidateTag(`user-${userUid}`);
+  //revalidateTag(`user-${userUid}`);
 
   return user;
 };

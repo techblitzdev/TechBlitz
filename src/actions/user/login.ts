@@ -11,7 +11,7 @@ import { cookies } from 'next/headers';
  * @returns
  */
 export const login = async (email: string, password: string) => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createServerClient(cookieStore);
 
   if (!supabase) throw new Error('No supabase client found');

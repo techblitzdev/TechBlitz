@@ -1,4 +1,5 @@
-'use client';
+'use client';;
+import { use } from "react";
 import { useQuery } from '@tanstack/react-query';
 import { getQuestion } from '@/actions/questions/get';
 import LoadingSpinner from '@/components/ui/loading';
@@ -23,11 +24,12 @@ const items = [
   },
 ];
 
-export default function TodaysQuestionPage({
-  params,
-}: {
-  params: { uid: string };
-}) {
+export default function TodaysQuestionPage(
+  props: {
+    params: Promise<{ uid: string }>;
+  }
+) {
+  const params = use(props.params);
   const { uid } = params;
   const { user, isLoading: userLoading, isError: userError } = useUser();
 

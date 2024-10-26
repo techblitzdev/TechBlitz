@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 import { createClient } from '@/utils/supabase/server';
 
 export async function GET(request: NextRequest) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const { searchParams } = new URL(request.url);
   // pull the token has out of the query params
   // this gets set on the OTP in the email sent to the user

@@ -25,8 +25,8 @@ export default function LanguageSwitcher() {
           <Image
             src={selectedLanguage.svg}
             alt={selectedLanguage.language}
-            width={24}
-            height={24}
+            width={32}
+            height={32}
             unoptimized
           />
         )}

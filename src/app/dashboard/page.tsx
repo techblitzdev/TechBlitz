@@ -1,4 +1,3 @@
-import AdminButton from '@/components/admin-button';
 import DashboardBentoGrid from '@/components/dashboard/dashboard-bento-grid';
 import LanguageSwitcher from '@/components/global/language-dropdown';
 import UserProfileDropdown from '@/components/global/user-profile-dropdown';

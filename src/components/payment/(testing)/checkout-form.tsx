@@ -7,7 +7,7 @@ import {
 } from '@stripe/react-stripe-js';
 import { useState } from 'react';
 import { ReloadIcon } from '@radix-ui/react-icons';
-import { updateUserSubscription } from '@/actions/user/update-user';
+import { updateUserSubscription } from '@/actions/user/update-user-subscription';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 

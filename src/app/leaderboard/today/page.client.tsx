@@ -8,6 +8,7 @@ import { Answer } from '@/types/Answers';
 import { getFastestTimes } from '@/actions/leaderboard/get-fastest';
 import { formatSeconds } from '@/utils/time';
 import { Button } from '@/components/ui/button';
+import { getUserDisplayName } from '@/utils/user';
 
 const ITEMS_PER_PAGE = 1;
 
@@ -52,8 +53,11 @@ export default function TodaysLeaderboardPageClient(opts: {
         const index = (currentPage - 1) * ITEMS_PER_PAGE + i + 1;
         return (
           <div key={time.uid}>
-            {index}. <span className="font-semibold">{time.user?.name}</span>:{' '}
-            {formatSeconds(time.timeTaken || 0)}
+            {index}.{' '}
+            <span className="font-semibold">
+              {getUserDisplayName(time.user)}
+            </span>
+            : {formatSeconds(time.timeTaken || 0)}
           </div>
         );
       })}

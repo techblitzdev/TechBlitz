@@ -6,6 +6,7 @@ import { useState } from 'react';
 import CountUp from 'react-countup';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
+import Link from 'next/link';
 
 export default function NotFound() {
   const router = useRouter();
@@ -45,9 +46,13 @@ export default function NotFound() {
             found.
           </p>
           <div className="mt-4 flex flex-col md:flex-row gap-4 self-center justify-center w-[75%] md:w-auto">
-            <Button variant="secondary" onClick={goBack}>
-              {loading ? <LoadingSpinner /> : 'Back to dashboard'}
-            </Button>
+            <Link
+              href="/dashboard"
+              prefetch
+              className="self-center !text-black inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-white text-primary-foreground shadow hover:bg-white/90 h-9 px-4 py-2"
+            >
+              Back to dashboard
+            </Link>
             {isError || !todaysQuestion?.uid ? (
               ''
             ) : (

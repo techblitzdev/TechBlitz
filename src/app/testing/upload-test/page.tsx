@@ -1,7 +1,6 @@
 'use client';
 import { Input } from '@/components/ui/input';
 import { useUser } from '@/hooks/useUser';
-import { useState } from 'react';
 
 export default function UploadTestPage() {
   const { user } = useUser();

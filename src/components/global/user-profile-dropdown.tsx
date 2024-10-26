@@ -2,16 +2,17 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import type { User } from '@/types/User';
 import LogoutButton from './logout';
-import AdminButton from '../admin-button';
+import AdminButton from '@/components/admin-button';
 import { getUserFromDb, getUserFromSession } from '@/actions/user/get-user';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getUserDisplayName } from '@/utils/user';
+import { Sheet, SheetTrigger } from '@/components/ui/sheet';
+import UserProfileSheet from './user-profile-sheet';
 
 export default async function UserProfileDropdown() {
   // get our current user
@@ -19,6 +20,8 @@ export default async function UserProfileDropdown() {
   if (!user || !user.user?.id) return;
   // get the user from the db
   const userData = await getUserFromDb(user.user.id);
+  // the middleware should catch this to prevent the page from rendering
+  if (!userData) return;
 
   return (
     <DropdownMenu>
@@ -26,35 +29,45 @@ export default async function UserProfileDropdown() {
         <Image
           src="https://www.gravatar.com/avatar/default"
           alt="user"
-          width={24}
-          height={24}
+          width={32}
+          height={32}
           className="rounded-full"
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="bg-black-75 text-whtie border-black-75 w-56"
+        className="bg-black-75 text-white border-black-75 w-56"
         align="end"
       >
-        {/* <DropdownMenuLabel>Account</DropdownMenuLabel> */}
-        {/* <DropdownMenuSeparator className="bg-black-50" /> */}
-        <DropdownMenuItem>
-          My profile
-          <span className="font-semibold font-satoshi">
-            &nbsp; @{userData?.name || userData?.email}
-          </span>
-        </DropdownMenuItem>
-        <DropdownMenuItem>Account settings</DropdownMenuItem>
-        <DropdownMenuItem>Support</DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link href={`${process.env.CHECKOUT_URL}`}>Upgrade account</Link>
+        <DropdownMenuItem
+          preventDefaultOnClick
+          className="hover:bg-white hover:text-black duration-100"
+        >
+          <Sheet>
+            <SheetTrigger className="font-semibold font-satoshi w-full text-xs text-start">
+              My profile @{userData && getUserDisplayName(userData)}
+            </SheetTrigger>
+            <UserProfileSheet user={userData} />
+          </Sheet>
         </DropdownMenuItem>
         <DropdownMenuSeparator className="bg-black-50" />
-        <LogoutButton />
-        {userData?.userLevel == 'ADMIN' && (
-          <DropdownMenuItem className="hover:bg-transparent">
-            <AdminButton className="w-full" />
-          </DropdownMenuItem>
-        )}
+        <DropdownMenuItem className="text-xs hover:bg-white hover:text-black duration-100">
+          Settings
+        </DropdownMenuItem>
+        <DropdownMenuItem className="text-xs hover:bg-white hover:text-black duration-100">
+          Support
+        </DropdownMenuItem>
+        <DropdownMenuItem className="hover:bg-white hover:text-black duration-100 text-xs">
+          <Link href={`${process.env.CHECKOUT_URL}`} prefetch>
+            Upgrade account
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator className="bg-black-50" />
+        <div className="flex flex-col gap-y-1">
+          <LogoutButton />
+          {userData?.userLevel == 'ADMIN' && (
+            <AdminButton className="w-full text-xs" />
+          )}
+        </div>
       </DropdownMenuContent>
     </DropdownMenu>
   );

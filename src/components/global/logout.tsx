@@ -18,7 +18,7 @@ export default function LogoutButton() {
       variant="default"
       onClick={handleLogout}
     >
-      <span>Logout</span>
+      <p className="text-xs">Logout</p>
       <ExitIcon className="size-3" />
     </Button>
   );

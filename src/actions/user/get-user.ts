@@ -2,7 +2,7 @@
 import { createClient as createServerClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
 import { prisma } from '@/utils/prisma';
-import { User } from '@/types/User';
+import { UserRecord } from '@/types/User';
 import { revalidateTag } from 'next/cache';
 
 /**
@@ -18,13 +18,13 @@ export const getUserFromSession = async () => {
 
 export const getUserFromDb = async (
   userUid: string
-): Promise<Omit<User, 'answers'> | null> => {
+): Promise<UserRecord | null> => {
   if (!userUid) return null;
-  const user = (await prisma.users.findUnique({
+  const user = await prisma.users.findUnique({
     where: {
       uid: userUid,
     },
-  })) as Omit<User, 'answers'> | null;
+  });
 
   revalidateTag(`user-${userUid}`);
 

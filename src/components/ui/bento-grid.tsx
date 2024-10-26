@@ -51,6 +51,7 @@ export const BentoGridItem = ({
         'row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-black-75 border border-transparent justify-between flex flex-col space-y-4',
         className
       )}
+      prefetch
     >
       {content}
     </Link>

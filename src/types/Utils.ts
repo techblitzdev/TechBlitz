@@ -2,8 +2,7 @@
 export type RequireAtLeastOne<T> = {
   // [K in keyof T] creates a mapped type, iterating over each property K in type T
   // The -? removes optional modifiers (making properties required by default)
-  [K in keyof T]-?: // Part 1: Required<Pick<T, K>> // For each property K, we create a type that:
-  // Pick<T, K> selects just the current property K from T
+  [K in keyof T]-?: // Pick<T, K> selects just the current property K from T // Part 1: Required<Pick<T, K>> // For each property K, we create a type that:
   // Required<...> makes that property required
   // Example: if K is 'name', this makes { name: string } required
   Required<Pick<T, K>> &
@@ -17,3 +16,6 @@ export type RequireAtLeastOne<T> = {
   // [keyof T] at the end creates a union of all these combinations
   // This transforms the mapped type into a union type where at least one property must be present
 }[keyof T];
+
+// util to set different loading states
+export type States = 'idle' | 'loading' | 'success' | 'error';

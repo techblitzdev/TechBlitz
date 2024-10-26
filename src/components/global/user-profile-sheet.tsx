@@ -1,44 +1,32 @@
 'use client';
-// components
+
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { toast } from 'sonner';
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
+  SheetDescription,
 } from '@/components/ui/sheet';
-import {
-  Form,
-  FormDescription,
-  FormField,
-  FormLabel,
-  FormControl,
-  FormItem,
-} from '@/components/ui/form';
+import { Form, FormField, FormItem, FormControl } from '@/components/ui/form';
 import { InputWithLabel } from '@/components/ui/input-label';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-
-// types
-import { UserRecord, UserUpdatePayload } from '@/types/User';
-// actions
-import { getUserDisplayName } from '@/utils/user';
-
-// zod
-import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
 import { updateUser } from '@/actions/user/update-user';
-import { toast } from 'sonner';
+import { getUserDisplayName } from '@/utils/user';
+import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
+import type { UserRecord, UserUpdatePayload } from '@/types/User';
+import type { States } from '@/types/Utils';
 
 type SchemaProps = z.infer<typeof userDetailsSchema>;
 
-export default function UserProfileSheet(opts: { user: UserRecord }) {
-  const { user } = opts;
+export default function UserProfileSheet({ user }: { user: UserRecord }) {
+  const [state, setState] = useState<States>('idle');
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(userDetailsSchema),
@@ -51,38 +39,48 @@ export default function UserProfileSheet(opts: { user: UserRecord }) {
     },
   });
 
-  const updateUserDetails = async (values: SchemaProps, data: any) => {
+  const onSubmit = async (values: SchemaProps) => {
+    setState('loading');
+    try {
+      const updatedVals: UserUpdatePayload = {
+        ...values,
+        uid: user.uid,
+      };
+
+      await updateUser({
+        userDetails: updatedVals,
+      });
+
+      toast.success('Profile updated successfully');
+      setState('success');
+    } catch (e) {
+      console.error(e);
+      toast.error('An error occurred while updating your profile');
+      setState('error');
+    }
+  };
+
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
     const formData = new FormData();
-    formData.append('files', data.target.files[0]);
+    formData.append('files', file);
     formData.append('userId', user?.uid);
     formData.append('route', 'user-profile-pictures');
 
     try {
-      // upload the file
       const res = await fetch('/api/upload', {
         method: 'POST',
         body: formData,
       });
       const { logoUrl } = await res.json();
-
-      const updatedVals: UserUpdatePayload = {
-        ...values,
-        uid: user.uid,
-      };
-      if (logoUrl) {
-        updatedVals.userProfilePicture = logoUrl;
-      }
-
-      // update the user
-      await updateUser({
-        userDetails: updatedVals,
-      });
-
-      // toast to confirm
-      toast.success('Profile updated successfully');
+      form.setValue('profilePicture', logoUrl);
     } catch (e) {
       console.error(e);
-      toast.error('An error occurred while updating your profile');
+      toast.error('An error occurred while uploading the profile picture');
     }
   };
 
@@ -105,14 +103,14 @@ export default function UserProfileSheet(opts: { user: UserRecord }) {
           </div>
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit(updateUserDetails)}
+              onSubmit={form.handleSubmit(onSubmit)}
               className="flex flex-col gap-4"
             >
               <FormField
                 control={form.control}
                 name="profilePicture"
                 render={({ field }) => (
-                  <FormItem className="flex gap-x-4 items-center">
+                  <FormItem className="flex gap-x-4 items-center z-[5000]">
                     <FormControl>
                       <>
                         <div className="bg-white p-2 rounded-full size-16"></div>
@@ -126,6 +124,7 @@ export default function UserProfileSheet(opts: { user: UserRecord }) {
                           id="logo-file-upload"
                           type="file"
                           className="!hidden"
+                          onChange={handleFileUpload}
                         />
                       </>
                     </FormControl>
@@ -148,7 +147,6 @@ export default function UserProfileSheet(opts: { user: UserRecord }) {
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="firstName"
@@ -165,7 +163,6 @@ export default function UserProfileSheet(opts: { user: UserRecord }) {
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="lastName"
@@ -183,9 +180,13 @@ export default function UserProfileSheet(opts: { user: UserRecord }) {
                 )}
               />
 
-              <Button type="submit" className="w-full" variant="secondary">
-                Save changes
-              </Button>
+              {/* <Button onClick={() => console.log('clicked')}>Click me</Button> */}
+
+              <FormItem>
+                <Button type="submit" className="w-full" variant="secondary">
+                  {state === 'loading' ? 'Saving...' : 'Save'}
+                </Button>
+              </FormItem>
             </form>
           </Form>
         </div>

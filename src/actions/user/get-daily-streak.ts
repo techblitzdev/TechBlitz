@@ -14,7 +14,7 @@ export const getUserDailyStats = async (userUid: string) => {
 
   const { correctDailyStreak, totalDailyStreak } = userData;
 
-  revalidateTag(`user-streak-${userUid}`);
+  //revalidateTag(`user-streak-${userUid}`);
 
   return {
     totalDailyStreak,

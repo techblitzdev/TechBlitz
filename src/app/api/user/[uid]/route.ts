@@ -1,16 +1,18 @@
 import { getUserFromDb } from '@/actions/user/get-user';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest, {
-  params
-}: {
-  params: {
-    uid: string;
+export async function GET(
+  req: NextRequest,
+  props: {
+    params: Promise<{
+      uid: string;
+    }>
   }
-}) {
+) {
+  const params = await props.params;
   // get the userId from the params
-  const userId = params.uid;  
-  
+  const userId = params.uid;
+
   if (!userId) {
     return NextResponse.json({
       error: 'No user id provided'

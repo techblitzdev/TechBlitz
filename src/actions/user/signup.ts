@@ -1,10 +1,10 @@
 'use server';
 import { supabase } from '@/lib/supabase';
 import { type AuthResponse } from '@supabase/supabase-js';
-import { cookies } from 'next/headers';
+import { cookies, type UnsafeUnwrappedCookies } from 'next/headers';
 import { prisma } from '@/utils/prisma';
 
-const cookiesStore = cookies();
+const cookiesStore = (cookies() as unknown as UnsafeUnwrappedCookies);
 
 export const signUp = async (
   email: string,
@@ -24,7 +24,7 @@ export const signUp = async (
 
     // only set the cookie if the auth sign up is successful
     const userId = user.id;
-    cookiesStore.set('userId', userId);
+    (await cookiesStore).set('userId', userId);
 
     // REMEMBER EMAIL AUTH IS OFF!
 

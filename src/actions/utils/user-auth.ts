@@ -6,7 +6,7 @@ import { prisma } from '@/utils/prisma';
 type userRoles = 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE';
 
 export const userAuth = async (userRole: userRoles | userRoles[]) => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data: user, error } = await supabase.auth.getUser();
   const userId = user?.user?.id;

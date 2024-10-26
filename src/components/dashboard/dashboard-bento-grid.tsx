@@ -13,7 +13,7 @@ import TodaysLeaderboardBentoBox from '@/components/leaderboard/bento-box';
 
 export default async function DashboardBentoGrid() {
   const todaysQuestion = await getTodaysQuestion();
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createServerClient(cookieStore);
 
   const { data: user } = await supabase?.auth?.getUser();

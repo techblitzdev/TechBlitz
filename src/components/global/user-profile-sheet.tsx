@@ -117,9 +117,10 @@ export default function UserProfileSheet({ user }: { user: UserRecord }) {
                       <div className="bg-white p-2 rounded-full size-16"></div>
                       <label
                         htmlFor="logo-file-upload"
-                        className="cursor-pointer"
+                        className="cursor-pointer flex flex-col"
                       >
-                        Upload Logo
+                        <span className="font-semibold">Upload logo</span>
+                        <span className="text-xs font-light">Max 2MB</span>
                       </label>
                       <Input
                         id="logo-file-upload"

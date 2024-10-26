@@ -1,12 +1,13 @@
 'use client';
-
 import { useState } from 'react';
+// zod
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
 import { z } from 'zod';
+// components
 import { toast } from 'sonner';
 import {
-  Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -18,10 +19,11 @@ import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { updateUser } from '@/actions/user/update-user';
-import { getUserDisplayName } from '@/utils/user';
-import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
+// types
 import type { UserRecord, UserUpdatePayload } from '@/types/User';
 import type { States } from '@/types/Utils';
+
+import { getUserDisplayName } from '@/utils/user';
 
 type SchemaProps = z.infer<typeof userDetailsSchema>;
 
@@ -90,107 +92,122 @@ export default function UserProfileSheet({ user }: { user: UserRecord }) {
       className="bg-black border-l border-black-50"
       side="right"
     >
-      <SheetHeader>
-        <div className="flex flex-col gap-y-4">
-          <div className="flex flex-col gap-y-2">
-            <SheetTitle className="text-2xl">
-              {getUserDisplayName(user)}
-            </SheetTitle>
-            <SheetDescription className="text-white/70">
-              Edit your profile details below.
-            </SheetDescription>
-            <Separator className="bg-black-50" />
-          </div>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="flex flex-col gap-4"
-            >
-              <FormField
-                control={form.control}
-                name="profilePicture"
-                render={({ field }) => (
-                  <FormItem className="flex gap-x-4 items-center z-[5000]">
-                    <FormControl>
-                      <>
-                        <div className="bg-white p-2 rounded-full size-16"></div>
-                        <label
-                          htmlFor="logo-file-upload"
-                          className="cursor-pointer"
-                        >
-                          Upload Logo
-                        </label>
-                        <Input
-                          id="logo-file-upload"
-                          type="file"
-                          className="!hidden"
-                          onChange={handleFileUpload}
-                        />
-                      </>
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <InputWithLabel
-                        label="Username"
-                        type="text"
-                        autoComplete="username"
-                        {...field}
+      <div className="flex flex-col gap-y-4">
+        <SheetHeader className="flex flex-col gap-y-2">
+          <SheetTitle className="text-2xl">
+            {getUserDisplayName(user)}
+          </SheetTitle>
+          <SheetDescription className="text-white/70">
+            Edit your profile details below.
+          </SheetDescription>
+          <Separator className="bg-black-50" />
+        </SheetHeader>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col gap-4"
+          >
+            <FormField
+              control={form.control}
+              name="profilePicture"
+              render={({ field }) => (
+                <FormItem className="flex gap-x-4 items-center z-[5000]">
+                  <FormControl>
+                    <>
+                      <div className="bg-white p-2 rounded-full size-16"></div>
+                      <label
+                        htmlFor="logo-file-upload"
+                        className="cursor-pointer"
+                      >
+                        Upload Logo
+                      </label>
+                      <Input
+                        id="logo-file-upload"
+                        type="file"
+                        className="!hidden"
+                        onChange={handleFileUpload}
                       />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="firstName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <InputWithLabel
-                        label="First name"
-                        type="text"
-                        autoComplete="given-name"
-                        {...field}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="lastName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <InputWithLabel
-                        label="Last name"
-                        type="text"
-                        autoComplete="family-name"
-                        {...field}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
+                    </>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <InputWithLabel
+                      label="Username"
+                      type="text"
+                      autoComplete="username"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <InputWithLabel
+                      disabled
+                      label="Public email"
+                      type="text"
+                      autoComplete="email"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <InputWithLabel
+                      label="First name"
+                      type="text"
+                      autoComplete="given-name"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <InputWithLabel
+                      label="Last name"
+                      type="text"
+                      autoComplete="family-name"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
 
-              {/* <Button onClick={() => console.log('clicked')}>Click me</Button> */}
+            {/* <Button onClick={() => console.log('clicked')}>Click me</Button> */}
 
-              <FormItem>
-                <Button type="submit" className="w-full" variant="secondary">
-                  {state === 'loading' ? 'Saving...' : 'Save'}
-                </Button>
-              </FormItem>
-            </form>
-          </Form>
-        </div>
-      </SheetHeader>
+            <FormItem>
+              <Button type="submit" className="w-full" variant="secondary">
+                {state === 'loading' ? 'Saving...' : 'Save'}
+              </Button>
+            </FormItem>
+          </form>
+        </Form>
+      </div>
     </SheetContent>
   );
 }

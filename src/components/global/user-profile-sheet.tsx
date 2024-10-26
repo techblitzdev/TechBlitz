@@ -15,6 +15,7 @@ import {
   FormField,
   FormLabel,
   FormControl,
+  FormItem,
 } from '@/components/ui/form';
 import { InputWithLabel } from '@/components/ui/input-label';
 import { Separator } from '@/components/ui/separator';
@@ -22,7 +23,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 // types
-import { UserRecord } from '@/types/User';
+import { UserRecord, UserUpdatePayload } from '@/types/User';
 // actions
 import { getUserDisplayName } from '@/utils/user';
 
@@ -31,6 +32,8 @@ import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { updateUser } from '@/actions/user/update-user';
+import { toast } from 'sonner';
 
 type SchemaProps = z.infer<typeof userDetailsSchema>;
 
@@ -48,7 +51,40 @@ export default function UserProfileSheet(opts: { user: UserRecord }) {
     },
   });
 
-  const updateUserDetails = async (values: SchemaProps) => {};
+  const updateUserDetails = async (values: SchemaProps, data: any) => {
+    const formData = new FormData();
+    formData.append('files', data.target.files[0]);
+    formData.append('userId', user?.uid);
+    formData.append('route', 'user-profile-pictures');
+
+    try {
+      // upload the file
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const { logoUrl } = await res.json();
+
+      const updatedVals: UserUpdatePayload = {
+        ...values,
+        uid: user.uid,
+      };
+      if (logoUrl) {
+        updatedVals.userProfilePicture = logoUrl;
+      }
+
+      // update the user
+      await updateUser({
+        userDetails: updatedVals,
+      });
+
+      // toast to confirm
+      toast.success('Profile updated successfully');
+    } catch (e) {
+      console.error(e);
+      toast.error('An error occurred while updating your profile');
+    }
+  };
 
   return (
     <SheetContent
@@ -76,36 +112,40 @@ export default function UserProfileSheet(opts: { user: UserRecord }) {
                 control={form.control}
                 name="profilePicture"
                 render={({ field }) => (
-                  <FormControl>
-                    <div className="flex gap-x-4 items-center">
-                      <div className="bg-white p-2 rounded-full size-16"></div>
-                      <Button variant="default" className="cursor-pointer">
-                        Upload Logo
-                      </Button>
-                      <Input
-                        id="logo-file-upload"
-                        type="file"
-                        onChange={() => {}}
-                        className="!hidden"
-                      />
-                    </div>
-                  </FormControl>
+                  <FormItem className="flex gap-x-4 items-center">
+                    <FormControl>
+                      <>
+                        <div className="bg-white p-2 rounded-full size-16"></div>
+                        <label
+                          htmlFor="logo-file-upload"
+                          className="cursor-pointer"
+                        >
+                          Upload Logo
+                        </label>
+                        <Input
+                          id="logo-file-upload"
+                          type="file"
+                          className="!hidden"
+                        />
+                      </>
+                    </FormControl>
+                  </FormItem>
                 )}
               />
               <FormField
                 control={form.control}
                 name="username"
                 render={({ field }) => (
-                  <FormControl>
-                    <>
+                  <FormItem>
+                    <FormControl>
                       <InputWithLabel
                         label="Username"
                         type="text"
                         autoComplete="username"
                         {...field}
                       />
-                    </>
-                  </FormControl>
+                    </FormControl>
+                  </FormItem>
                 )}
               />
 
@@ -113,16 +153,16 @@ export default function UserProfileSheet(opts: { user: UserRecord }) {
                 control={form.control}
                 name="firstName"
                 render={({ field }) => (
-                  <FormControl>
-                    <>
+                  <FormItem>
+                    <FormControl>
                       <InputWithLabel
                         label="First name"
                         type="text"
                         autoComplete="given-name"
                         {...field}
                       />
-                    </>
-                  </FormControl>
+                    </FormControl>
+                  </FormItem>
                 )}
               />
 
@@ -130,16 +170,16 @@ export default function UserProfileSheet(opts: { user: UserRecord }) {
                 control={form.control}
                 name="lastName"
                 render={({ field }) => (
-                  <FormControl>
-                    <>
+                  <FormItem>
+                    <FormControl>
                       <InputWithLabel
                         label="Last name"
                         type="text"
                         autoComplete="family-name"
                         {...field}
                       />
-                    </>
-                  </FormControl>
+                    </FormControl>
+                  </FormItem>
                 )}
               />
 

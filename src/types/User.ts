@@ -1,4 +1,5 @@
 import { BaseRecord } from './BaseRecord';
+import { RequireAtLeastOne } from './Utils';
 
 /**
  * Represents a user in the system.
@@ -38,3 +39,11 @@ export type UserRecord = Pick<
   | 'totalDailyStreak'
   | 'showTimeTaken'
 >;
+
+// First, create a type that excludes 'uid' from the partial requirement
+type UpdateableUserFields = Omit<UserRecord, 'uid'>;
+
+// Then create the type for updates that requires uid and at least one other field
+export type UserUpdatePayload = {
+  uid: UserRecord['uid'];
+} & RequireAtLeastOne<UpdateableUserFields>;

@@ -29,8 +29,8 @@ export default async function UserProfileDropdown() {
         <Image
           src="https://www.gravatar.com/avatar/default"
           alt="user"
-          width={24}
-          height={24}
+          width={32}
+          height={32}
           className="rounded-full"
         />
       </DropdownMenuTrigger>
@@ -51,7 +51,7 @@ export default async function UserProfileDropdown() {
         </DropdownMenuItem>
         <DropdownMenuSeparator className="bg-black-50" />
         <DropdownMenuItem className="text-xs hover:bg-white hover:text-black duration-100">
-          Account settings
+          Settings
         </DropdownMenuItem>
         <DropdownMenuItem className="text-xs hover:bg-white hover:text-black duration-100">
           Support

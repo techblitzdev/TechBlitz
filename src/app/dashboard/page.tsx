@@ -7,7 +7,9 @@ export default async function Dashboard() {
   return (
     <div className="container py-6 lg:py-12 text-white flex flex-col gap-y-4">
       <div className="flex w-full justify-between">
-        <h1 className="text-xl font-satoshi font-semibold">Welcome back!</h1>
+        <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
+          Welcome back!
+        </h1>
         <div className="flex item-center gap-x-3">
           <LanguageSwitcher />
           <UserProfileDropdown />

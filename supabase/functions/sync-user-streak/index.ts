@@ -24,6 +24,9 @@ const getTodaysQuestion = async (supabaseClient: SupabaseClient) => {
       .eq('questionDate', today)
       .limit(1)
   
+  console.log('questions', data)
+  console.log('today', today)
+  
   if (questionsError) throw questionsError
 
   return {
@@ -32,18 +35,18 @@ const getTodaysQuestion = async (supabaseClient: SupabaseClient) => {
   }
 }
 
-const getTodaysAnswers = async (supabaseClient: SupabaseClient, today: string) => {
+const getTodaysAnswers = async (supabaseClient: SupabaseClient, today: string, questionUid: string) => {
   console.log('hit getTodaysAnswers inside sync-user-streak')
   // now go and get the questions that have been answered for the current day
   const { data: answers, error: answersError } = 
     await supabaseClient
       .from('Answers')
-      .select('questionUid')
-      .eq('answerDate', today)
+      .select('*')
+      .eq('questionUid', questionUid)
+  
+  console.log('answers', answers)
   
   if (answersError) throw answersError
-
-  console.log('answers', answers)
 
   return {
     answers
@@ -72,7 +75,7 @@ Deno.serve(async (req) => {
   
     const { data, today } = await getTodaysQuestion(supabaseClient)
 
-    const { answers } = await getTodaysAnswers(supabaseClient, today)
+    const { answers } = await getTodaysAnswers(supabaseClient, today, data[0].uid)
 
     return new Response(JSON.stringify({ user, data }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },

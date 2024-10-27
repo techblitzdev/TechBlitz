@@ -1,7 +1,7 @@
 // Follow this setup guide to integrate the Deno language server with your editor:
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from 'jsr:@supabase/supabase-js@2';
 import { corsHeaders } from '../_shared/cors.ts'
 
 Deno.serve(async (req) => {
@@ -9,6 +9,9 @@ Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
   }
+
+  // First get the token from the Authorization header
+  const token = req.headers.get('Authorization')
 
   try {
     const supabaseClient = createClient(
@@ -21,22 +24,34 @@ Deno.serve(async (req) => {
       }
     );
 
-    // First get the token from the Authorization header
-    const token = req.headers.get('Authorization').replace('Bearer ', '')
-
-    console.log({
-      token
-    })
-
-    // And we can run queries in the context of our authenticated user
-    const { data, error } = await supabaseClient.from("Users").select('*')
-
-    console.log({
-      data,
-      error
-    })
+    // get the current date
+    const today = new Date().toISOString().split('T')[0]
     
-    if (error) throw error
+    /**
+     * We need to get the question for the current day
+     * 
+     * We only need to return:
+     * - the uid
+     * - the correct answer
+     */
+    const { data, error: questionsError } =
+      await supabaseClient
+        .from('Questions')
+        .select('uid, correctAnswer')
+        .eq('questionDate', today)
+    
+    if (questionsError) throw questionsError
+
+    // now go and get the questions that have been answered for the current day
+    const { data: answers, error: answersError } = 
+      await supabaseClient
+        .from('Answers')
+        .select('questionUid')
+        .eq('answerDate', today)
+    
+    if (answersError) throw answersError
+
+    console.log('answers', answers)
 
     return new Response(JSON.stringify({ user, data }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },

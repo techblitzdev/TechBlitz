@@ -2,6 +2,7 @@
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
 import { createClient } from '@supabase/supabase-js';
+import { corsHeaders } from '../_shared/cors.ts'
 
 Deno.serve(async (req) => {
   // This is needed if you're planning to invoke your function from a browser.
@@ -10,7 +11,7 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const supabase = createClient(
+    const supabaseClient = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
       Deno.env.get('SUPABASE_ANON_KEY') ?? '',
       {
@@ -23,23 +24,38 @@ Deno.serve(async (req) => {
     // First get the token from the Authorization header
     const token = req.headers.get('Authorization').replace('Bearer ', '')
 
+    console.log({
+      token
+    })
+
     // Now we can get the session or user object
     const {
       data: { user },
     } = await supabaseClient.auth.getUser(token)
 
-    // And we can run queries in the context of our authenticated user
-    const { data, error } = await supabaseClient.from('Users').select('*')
-    if (error) throw error
+    console.log({
+      user
+    })
 
-    console.log(data);
+    // And we can run queries in the context of our authenticated user
+    const { data, error } = await supabaseClient.from('Answers').select('*')
+
+    console.log({
+      data,
+      error
+    })
+    
+    if (error) throw error
 
     return new Response(JSON.stringify({ user, data }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 200,
     })
-  } catch (e) {
-    console.error('error', e);
+  } catch (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      status: 400,
+    })
   }
 });
 

@@ -28,17 +28,8 @@ Deno.serve(async (req) => {
       token
     })
 
-    // Now we can get the session or user object
-    const {
-      data: { user },
-    } = await supabaseClient.auth.getUser(token)
-
-    console.log({
-      user
-    })
-
     // And we can run queries in the context of our authenticated user
-    const { data, error } = await supabaseClient.from('Answers').select('*')
+    const { data, error } = await supabaseClient.from("Users").select('*')
 
     console.log({
       data,

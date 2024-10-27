@@ -1,20 +1,47 @@
 // Follow this setup guide to integrate the Deno language server with your editor:
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
-
-console.log("Hello from sync-user-streak!")
+import { createClient } from '@supabase/supabase-js';
 
 Deno.serve(async (req) => {
-  const { name } = await req.json()
-  const data = {
-    message: `Hello from sync-user-streak!`,
+  // This is needed if you're planning to invoke your function from a browser.
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { headers: corsHeaders })
   }
 
-  return new Response(
-    JSON.stringify(data),
-    { headers: { "Content-Type": "application/json" } },
-  )
-})
+  try {
+    const supabase = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
+      {
+        global: {
+          headers: { Authorization: req.headers.get('Authorization')! },
+        },
+      }
+    );
+
+    // First get the token from the Authorization header
+    const token = req.headers.get('Authorization').replace('Bearer ', '')
+
+    // Now we can get the session or user object
+    const {
+      data: { user },
+    } = await supabaseClient.auth.getUser(token)
+
+    // And we can run queries in the context of our authenticated user
+    const { data, error } = await supabaseClient.from('Users').select('*')
+    if (error) throw error
+
+    console.log(data);
+
+    return new Response(JSON.stringify({ user, data }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      status: 200,
+    })
+  } catch (e) {
+    console.error('error', e);
+  }
+});
 
 /* To invoke locally:
 

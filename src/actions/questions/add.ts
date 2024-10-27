@@ -53,7 +53,7 @@ export const addQuestion = async (opts: {
       data: {
         uid,
         question,
-        questionDate: new Date(questionDate),
+        questionDate: new Date(questionDate).toISOString().split('T')[0],
         createdAt: new Date(),
         updatedAt: new Date(),
         answers: {

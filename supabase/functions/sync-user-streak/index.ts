@@ -1,8 +1,54 @@
 // Follow this setup guide to integrate the Deno language server with your editor:
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
-import { createClient } from 'jsr:@supabase/supabase-js@2';
+import { createClient, type SupabaseClient } from 'jsr:@supabase/supabase-js@2';
 import { corsHeaders } from '../_shared/cors.ts'
+
+/**
+ * We need to get the question for the current day
+ * 
+ * We only need to return:
+ * - the uid
+ * - the correct answer
+ */
+const getTodaysQuestion = async (supabaseClient: SupabaseClient) => {
+  console.log('hit getTodaysQuestion inside sync-user-streak')
+
+  // get the current date
+  const today = new Date().toISOString().split('T')[0]
+
+  const { data, error: questionsError } =
+    await supabaseClient
+      .from('Questions')
+      .select('*')
+      .eq('questionDate', today)
+      .limit(1)
+  
+  if (questionsError) throw questionsError
+
+  return {
+    data,
+    today
+  }
+}
+
+const getTodaysAnswers = async (supabaseClient: SupabaseClient, today: string) => {
+  console.log('hit getTodaysAnswers inside sync-user-streak')
+  // now go and get the questions that have been answered for the current day
+  const { data: answers, error: answersError } = 
+    await supabaseClient
+      .from('Answers')
+      .select('questionUid')
+      .eq('answerDate', today)
+  
+  if (answersError) throw answersError
+
+  console.log('answers', answers)
+
+  return {
+    answers
+  }
+}
 
 Deno.serve(async (req) => {
   // This is needed if you're planning to invoke your function from a browser.
@@ -23,35 +69,10 @@ Deno.serve(async (req) => {
         },
       }
     );
+  
+    const { data, today } = await getTodaysQuestion(supabaseClient)
 
-    // get the current date
-    const today = new Date().toISOString().split('T')[0]
-    
-    /**
-     * We need to get the question for the current day
-     * 
-     * We only need to return:
-     * - the uid
-     * - the correct answer
-     */
-    const { data, error: questionsError } =
-      await supabaseClient
-        .from('Questions')
-        .select('uid, correctAnswer')
-        .eq('questionDate', today)
-    
-    if (questionsError) throw questionsError
-
-    // now go and get the questions that have been answered for the current day
-    const { data: answers, error: answersError } = 
-      await supabaseClient
-        .from('Answers')
-        .select('questionUid')
-        .eq('answerDate', today)
-    
-    if (answersError) throw answersError
-
-    console.log('answers', answers)
+    const { answers } = await getTodaysAnswers(supabaseClient, today)
 
     return new Response(JSON.stringify({ user, data }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },

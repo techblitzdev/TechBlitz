@@ -75,7 +75,7 @@ model Questions {
   question     String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  questionDate DateTime
+  questionDate String
 
   answers       QuestionAnswers[]
   correctAnswer String // the QuestionAnswersUid

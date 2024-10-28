@@ -9,7 +9,7 @@ export type Question = {
   question: string;
   createdAt: Date;
   updatedAt: Date;
-  questionDate: Date;
+  questionDate: string;
   answerResource: string | null;
   correctAnswer: string | null;
 };

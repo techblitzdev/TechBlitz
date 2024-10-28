@@ -1,6 +1,6 @@
 'use client';
 
-import { format } from 'date-fns';
+import { addDays, format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
 
 import { cn } from '@/utils/cn';
@@ -11,6 +11,18 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+} from './dropdown-menu';
 
 interface DatePickerProps {
   date: Date | undefined;
@@ -19,8 +31,8 @@ interface DatePickerProps {
 
 export function DatePicker({ date, setDate }: DatePickerProps) {
   return (
-    <Popover>
-      <PopoverTrigger asChild>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
         <Button
           variant="default"
           className={cn(
@@ -31,15 +43,27 @@ export function DatePicker({ date, setDate }: DatePickerProps) {
           <CalendarIcon className="mr-2 h-4 w-4" />
           {date ? format(date, 'PPP') : <span>Pick a date</span>}
         </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-          initialFocus
-        />
-      </PopoverContent>
-    </Popover>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-auto p-0">
+        <Calendar mode="single" selected={date} onSelect={setDate} />
+        <div className="p-3 border-t border-border">
+          <Select
+            onValueChange={(value) =>
+              setDate(addDays(new Date(), parseInt(value)))
+            }
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Select" />
+            </SelectTrigger>
+            <SelectContent position="popper">
+              <SelectItem value="0">Today</SelectItem>
+              <SelectItem value="1">Tomorrow</SelectItem>
+              <SelectItem value="3">In 3 days</SelectItem>
+              <SelectItem value="7">In a week</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

@@ -48,8 +48,25 @@ const getTodaysAnswers = async (supabaseClient: SupabaseClient, today: string, q
   
   if (answersError) throw answersError
 
+  return { answers }
+}
+
+const getCorrectAnswers = (supabaseClient: SupabaseClient, answers: any) => {
+  console.log('hit getCorrectAnswers inside sync-user-streak')
+
+  // now we need to get the correct answer
+  const correctAnswers = answers.find((answer: any) => answer.correctAnswer)
+
+  console.log('correctAnswers', correctAnswers)
+
+  // pull out the user's who answered the question correctly
+  const users = correctAnswers.map((answer) => answer.userUid)
+
+  console.log('users', users)
+
   return {
-    answers
+    correctAnswers,
+    users
   }
 }
 
@@ -76,6 +93,18 @@ Deno.serve(async (req) => {
     const { data, today } = await getTodaysQuestion(supabaseClient)
 
     const { answers } = await getTodaysAnswers(supabaseClient, today, data[0].uid)
+
+    // now we have the answers, we need to check which user's answered the question
+    // correctly and update their streak
+    const { correctAnswers, users } = getCorrectAnswers(supabaseClient, answers)
+
+    // now we need to get the user's who answered the question correctly
+    // and update their streak
+    console.log({
+      correctAnswers,
+      users
+    })
+
 
     return new Response(JSON.stringify({ user, data }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },

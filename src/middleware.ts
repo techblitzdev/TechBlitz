@@ -24,6 +24,11 @@ export async function middleware(req: NextRequest) {
   const url = req.nextUrl;
   const pathname = url.pathname;
 
+  // redirect sign-up to signup
+  if (pathname === '/sign-up') {
+    return NextResponse.redirect(new URL('/signup', req.url));
+  }
+
   // Early return if on a non-auth path
   if (nonAuthPaths.some((path) => pathname.startsWith(path))) {
     return NextResponse.next();

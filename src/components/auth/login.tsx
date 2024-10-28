@@ -33,13 +33,17 @@ export default function LoginForm() {
 
   const handleLogin = async (values: SchemaProps) => {
     isPending.current = true;
-    const res = await login(values.email, values.password);
+    try {
+      const res = await login(values.email, values.password);
 
-    if (res) {
-      toast.success('Logged in successfully');
-      router.push('/dashboard');
-    } else {
-      toast.error('There was an error logging in');
+      if (res) {
+        toast.success('Logged in successfully');
+        router.push('/dashboard');
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
     }
     isPending.current = false;
   };
@@ -48,7 +52,7 @@ export default function LoginForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleLogin)}
-        className="grid grid-cols-12 gap-4 w-96 mt-8"
+        className="grid grid-cols-12 gap-4 w-full lg:w-96 mt-8"
       >
         <FormField
           control={form.control}

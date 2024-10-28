@@ -24,7 +24,7 @@ export default function PreviousQuestionCard(opts: {
       >
         <div className="flex items-center gap-x-10">
           <p>{questionData.question}</p>
-          <p>{questionData.questionDate.toDateString()}</p>
+          <p>{questionData.questionDate}</p>
         </div>
         {!userAnswer && <div className="text-sm">No answer submitted</div>}
         {userAnswer && (

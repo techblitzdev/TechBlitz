@@ -1,7 +1,7 @@
 // Follow this setup guide to integrate the Deno language server with your editor:
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
-import { createClient, type SupabaseClient } from 'jsr:@supabase/supabase-js@2';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { corsHeaders } from '../_shared/cors.ts'
 
 /**
@@ -59,11 +59,49 @@ const getCorrectAnswers = (answers) => {
     .filter(answer => answer.correctAnswer === true)
     .map(answer => answer.userUid)
   
-  console.log('userAnswers', userAnswers)
+  // unique the userAnswers
+  const uniqueUserAnswers = [...new Set(userAnswers)]
   
   return {
-    userAnswers
+    userAnswers: uniqueUserAnswers
   }
+}
+
+const getAllUsers = async (supabaseClient: SupabaseClient) => {
+  console.log('hit getAllUsers inside sync-user-streak')
+  
+  const { data: users, error: usersError } = 
+    await supabaseClient
+      .from('Users')
+      .select('*')
+  
+  console.log('users', users)
+  
+  if (usersError) throw usersError
+  
+  return users.map(user => user.uid)
+}
+
+const getUsersWhoHaventAnsweredCorrectly = (allUserIds: string[], correctUserIds: string[]) => {
+  return allUserIds.filter(uid => !correctUserIds.includes(uid))
+}
+
+const updateStreak = async (supabaseClient: SupabaseClient, usersToUpdate: string[]) => {
+  console.log('hit updateStreak inside sync-user-streak')
+  
+  // update the streak for all users who haven't answered correctly
+  const { data: updatedUsers, error: updateError } = 
+    await supabaseClient
+      .from('Users')
+      .update({ totalDailyStreak: 0, correctDailyStreak: 0 })
+      .in('uid', [...usersToUpdate])
+  
+  console.log('updatedUsers', updatedUsers)
+  console.log('updateError', updateError)
+  
+  if (updateError) throw updateError
+
+  return updatedUsers
 }
 
 Deno.serve(async (req) => {
@@ -92,14 +130,21 @@ Deno.serve(async (req) => {
 
     // now we have the answers, we need to check which user's answered the question
     // correctly and update their streak
-    const { userAnswers } = getCorrectAnswers(supabaseClient, answers)
+    const { userAnswers: correctUserIds } = getCorrectAnswers(answers)
 
-    // now we need to get the user's who answered the question correctly
-    // and update their streak
+    // Get all users and find those who haven't answered correctly
+    const allUserIds = await getAllUsers(supabaseClient)
+    const usersToUpdate = getUsersWhoHaventAnsweredCorrectly(allUserIds, correctUserIds)
+    
     console.log({
-      userAnswers
+      users: allUserIds,
+      totalUsers: allUserIds.length,
+      correctAnswers: correctUserIds.length,
+      usersToUpdate: usersToUpdate.length
     })
 
+    // update the streak for all users who haven't answered correctly
+    const user = await updateStreak(supabaseClient, usersToUpdate)
 
     return new Response(JSON.stringify({ user, data }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },

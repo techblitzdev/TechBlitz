@@ -50,7 +50,7 @@ export default function SignupForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSignup)}
-        className="grid grid-cols-12 gap-4 w-96 mt-8"
+        className="grid grid-cols-12 gap-4 w-full lg:w-96 mt-8"
       >
         <FormField
           control={form.control}

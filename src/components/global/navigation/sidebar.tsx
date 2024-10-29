@@ -1,3 +1,4 @@
+'use client';
 import { Calendar, Home, Inbox, Search, Settings } from 'lucide-react';
 import {
   Sidebar,
@@ -14,9 +15,14 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
-import type { SidebarItem } from '@/types/Sidebar';
 import AppSidebarSubMenuItem from './sidebar-submenu-item';
 import SidebarFooterComponent from './sidebar-footer';
+
+//types
+import type { SidebarItem } from '@/types/Sidebar';
+
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 // Menu items
 const items: SidebarItem[] = [
@@ -62,12 +68,14 @@ const items: SidebarItem[] = [
 ];
 
 export function AppSidebar() {
+  const pathname = usePathname();
+
   return (
     <Sidebar className="p-2 rounded-xl">
       <SidebarContent className="p-2">
         <SidebarGroup>
           <SidebarGroupLabel>
-            <h2 className="text-xl font-bold">{process.env.APP_NAME}</h2>
+            <h2 className="text-xl font-bold font-satoshi">meerge</h2>
           </SidebarGroupLabel>
           <SidebarGroupContent className="mt-4">
             <SidebarMenu>
@@ -79,7 +87,9 @@ export function AppSidebar() {
                         <SidebarMenuButton asChild>
                           <div>
                             {item.icon && <item.icon />}
-                            <span>{item.title}</span>
+                            <span className="font-satoshi text-base">
+                              {item.title}
+                            </span>
                           </div>
                         </SidebarMenuButton>
                       </CollapsibleTrigger>
@@ -89,10 +99,16 @@ export function AppSidebar() {
                     </Collapsible>
                   ) : (
                     <SidebarMenuButton asChild>
-                      <a href={item.url}>
+                      <Link
+                        href={item.url}
+                        prefetch
+                        className={`font-satoshi text-base ${
+                          pathname == item.url ? 'bg-black' : ''
+                        }`}
+                      >
                         {item.icon && <item.icon />}
                         <span>{item.title}</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   )}
                 </SidebarMenuItem>

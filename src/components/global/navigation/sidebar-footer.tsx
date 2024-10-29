@@ -15,6 +15,7 @@ import { ChevronUp, User2 } from 'lucide-react';
 import { useUser } from '@/hooks/useUser';
 import { getUserDisplayName } from '@/utils/user';
 import LoadingSpinner from '@/components/ui/loading';
+import LogoutButton from '../logout';
 
 export default function SidebarFooterComponent() {
   const { user, isError, isLoading } = useUser();
@@ -28,6 +29,7 @@ export default function SidebarFooterComponent() {
               <SidebarMenuButton>
                 <User2 />
                 {isLoading && <LoadingSpinner />}
+                {isError && 'Error'}
                 {user && getUserDisplayName(user)}
                 <ChevronUp className="ml-auto" />
               </SidebarMenuButton>
@@ -43,7 +45,7 @@ export default function SidebarFooterComponent() {
                 <span>Billing</span>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <span>Sign out</span>
+                <LogoutButton variant="ghost" padding="none" />
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

@@ -2,15 +2,13 @@
 import { Button } from '@/components/ui/button';
 import LoadingSpinner from '@/components/ui/loading';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import CountUp from 'react-countup';
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
 import Link from 'next/link';
 
 export default function NotFound() {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
 
   const {
     data: todaysQuestion,
@@ -21,11 +19,6 @@ export default function NotFound() {
     queryKey: ['not-found'],
     queryFn: () => getTodaysQuestion(),
   });
-
-  const goBack = () => {
-    setLoading(true);
-    router.push('/dashboard');
-  };
 
   const goToDailyQuestion = () =>
     router.push(`/question/${todaysQuestion?.uid}`);

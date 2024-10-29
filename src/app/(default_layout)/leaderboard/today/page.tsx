@@ -1,6 +1,6 @@
 import { getFastestTimes } from '@/actions/leaderboard/get-fastest';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
-import TodaysLeaderboardPageClient from '@/app/leaderboard/today/page.client';
+import TodaysLeaderboardPageClient from '@/app/(default_layout)/leaderboard/today/page.client';
 
 export default async function TodaysLeaderboardPage() {
   const todayQuestion = await getTodaysQuestion();

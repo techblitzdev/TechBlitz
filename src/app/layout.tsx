@@ -30,7 +30,7 @@ export default function Layout({
             {/* Scrollable content */}
             <AppSidebar />
             <main>
-              <SidebarTrigger />
+              {/* <SidebarTrigger /> */}
               {children}
             </main>
             <Toaster className="bg-black" />

@@ -29,7 +29,7 @@ export default function Layout({
 
             {/* Scrollable content */}
             <AppSidebar />
-            <main>
+            <main className="w-full">
               {/* <SidebarTrigger /> */}
               {children}
             </main>

@@ -23,52 +23,64 @@ import type { SidebarItem } from '@/types/Sidebar';
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-
-// Menu items
-const items: SidebarItem[] = [
-  {
-    title: 'Home',
-    url: '/dashboard',
-    icon: Home,
-  },
-  {
-    title: 'Questions',
-    url: '/questions',
-    icon: Inbox,
-    subItems: [
-      {
-        title: 'All',
-        url: '/questions',
-      },
-      {
-        title: 'Daily Question',
-        url: '/',
-      },
-      {
-        title: 'Previous Questions',
-        url: '/previous-questions',
-      },
-    ],
-  },
-  {
-    title: 'Stats',
-    url: '#',
-    icon: Calendar,
-  },
-  {
-    title: 'Leaderboard',
-    url: '#',
-    icon: Search,
-  },
-  {
-    title: 'Settings',
-    url: '#',
-    icon: Settings,
-  },
-];
+import { useQuery } from '@tanstack/react-query';
+import { getTodaysQuestion } from '@/actions/questions/get-today';
 
 export function AppSidebar() {
   const pathname = usePathname();
+
+  const {
+    data: todaysQuestion,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ['not-found'],
+    queryFn: () => getTodaysQuestion(),
+  });
+
+  // Menu items
+  const items: SidebarItem[] = [
+    {
+      title: 'Home',
+      url: '/dashboard',
+      icon: Home,
+    },
+    {
+      title: 'Questions',
+      url: '/questions',
+      icon: Inbox,
+      subItems: [
+        {
+          title: 'All',
+          url: '/questions',
+        },
+        {
+          title: 'Daily Question',
+          url: `/question/${todaysQuestion?.uid}`,
+        },
+        {
+          title: 'Previous Questions',
+          url: '/previous-questions',
+        },
+      ],
+    },
+    {
+      title: 'Stats',
+      url: '#',
+      icon: Calendar,
+    },
+    {
+      title: 'Leaderboard',
+      url: '#',
+      icon: Search,
+    },
+    {
+      title: 'Settings',
+      url: '#',
+      icon: Settings,
+    },
+  ];
 
   return (
     <Sidebar className="p-2 rounded-xl">

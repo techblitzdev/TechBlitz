@@ -30,11 +30,18 @@ export default async function DashboardBentoGrid() {
    */
   const items = [
     {
-      title: 'Today’s Question!',
+      title: "Today's Question!",
       description: 'Daily question',
       header: <Skeleton />,
       className: 'md:col-span-2 text-white',
       href: `/question/${todaysQuestion?.uid}`,
+    },
+    {
+      title: "Today's Leaderboard",
+      description: 'View the full list.',
+      header: <TodaysLeaderboardBentoBox todaysQuestion={todaysQuestion} />,
+      className: 'md:col-span-1 md:row-span-2 text-white h-full',
+      href: '/leaderboard/today',
     },
     {
       title: `${userStreak?.totalDailyStreak} day streak!`,
@@ -47,13 +54,6 @@ export default async function DashboardBentoGrid() {
       className: 'md:col-span-1 text-white',
     },
     {
-      title: "Today's Leaderboard",
-      description: 'View the full list.',
-      header: <TodaysLeaderboardBentoBox todaysQuestion={todaysQuestion} />,
-      className: 'md:col-span-2 text-white',
-      href: '/leaderboard/today',
-    },
-    {
       title: 'Previous Questions',
       description: 'Can you beat your previous score?',
       header: <Skeleton />,
@@ -63,7 +63,7 @@ export default async function DashboardBentoGrid() {
   ];
 
   return (
-    <BentoGrid>
+    <BentoGrid className="grid-rows-[auto_auto_auto] md:grid-rows-[repeat(2,minmax(0,1fr))] h-full">
       {items.map((item, i) => (
         <BentoGridItem
           key={i}

@@ -1,5 +1,13 @@
 'use client';
-import { Calendar, Home, Inbox, Search, Settings } from 'lucide-react';
+
+import {
+  FileQuestion,
+  Home,
+  Settings,
+  Award,
+  ChartBarIncreasing,
+  LockIcon,
+} from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -25,9 +33,12 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
+import ComingSoonChip from '../coming-soon';
+import { useUser } from '@/hooks/useUser';
 
 export function AppSidebar() {
   const pathname = usePathname();
+  const { user } = useUser();
 
   const { data: todaysQuestion } = useQuery({
     queryKey: ['not-found'],
@@ -44,7 +55,7 @@ export function AppSidebar() {
     {
       title: 'Questions',
       url: '/questions',
-      icon: Inbox,
+      icon: FileQuestion,
       subItems: [
         {
           title: 'All',
@@ -63,19 +74,28 @@ export function AppSidebar() {
     {
       title: 'Stats',
       url: '#',
-      icon: Calendar,
+      icon: ChartBarIncreasing,
+      chip: ComingSoonChip,
     },
     {
       title: 'Leaderboard',
-      url: '#',
-      icon: Search,
+      url: '/leaderboard/today',
+      icon: Award,
     },
     {
       title: 'Settings',
-      url: '#',
+      url: '/settings',
       icon: Settings,
     },
   ];
+
+  if (user?.userLevel === 'ADMIN') {
+    items.push({
+      title: 'Admin',
+      url: '/admin',
+      icon: LockIcon,
+    });
+  }
 
   return (
     <Sidebar className="p-2 rounded-xl">
@@ -92,11 +112,14 @@ export function AppSidebar() {
                     <Collapsible defaultOpen className="group/collapsible">
                       <CollapsibleTrigger asChild>
                         <SidebarMenuButton asChild>
-                          <div>
+                          <div className="flex items-centerw-full">
                             {item.icon && <item.icon />}
-                            <span className="font-satoshi text-base">
+                            <span className="font-satoshi text-sm">
                               {item.title}
                             </span>
+                            <div className="ms-auto">
+                              {item.chip && <item.chip />}
+                            </div>
                           </div>
                         </SidebarMenuButton>
                       </CollapsibleTrigger>
@@ -109,12 +132,15 @@ export function AppSidebar() {
                       <Link
                         href={item.url}
                         prefetch
-                        className={`font-satoshi text-base ${
+                        className={`flex items-center font-satoshi text-base ${
                           pathname == item.url ? 'bg-black' : ''
                         }`}
                       >
                         {item.icon && <item.icon />}
                         <span>{item.title}</span>
+                        <div className="ms-auto">
+                          {item.chip && <item.chip />}
+                        </div>
                       </Link>
                     </SidebarMenuButton>
                   )}

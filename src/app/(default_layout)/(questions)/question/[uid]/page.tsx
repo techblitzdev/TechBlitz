@@ -7,6 +7,7 @@ import AnswerQuestionForm from '@/components/questions/answer-question-form';
 import { Separator } from '@/components/ui/separator';
 import { BreadcrumbWithCustomSeparator } from '@/components/global/breadcrumbs';
 import { useStopwatch } from 'react-timer-hook';
+import NoDailyQuestion from '@/components/global/errors/no-daily-question';
 
 const items = [
   {
@@ -41,12 +42,16 @@ export default function TodaysQuestionPage({
     queryFn: () => getQuestion(uid),
   });
 
+  if (!question && !isPending) {
+    return <NoDailyQuestion />;
+  }
+
   // Timer setup if the user has `showTimeTaken` enabled
   const { seconds, minutes, pause, reset, totalSeconds } = useStopwatch({
     autoStart: true,
   });
 
-  if (userLoading || isPending || !question) {
+  if (userLoading || isPending) {
     return (
       <div className="flex justify-center items-center navbar-height">
         <LoadingSpinner />
@@ -65,7 +70,7 @@ export default function TodaysQuestionPage({
           <BreadcrumbWithCustomSeparator items={items} />
           <div className="flex items-center justify-between w-full">
             <h1 className="text-xl md:text-3xl font-semibold">
-              {question.question}
+              {question?.question}
             </h1>
             <div className="flex items-center">
               <span>{minutes}</span>:<span>{seconds}</span>
@@ -74,14 +79,16 @@ export default function TodaysQuestionPage({
         </div>
       </div>
       <Separator />
-      <AnswerQuestionForm
-        userData={user}
-        uid={uid}
-        question={question}
-        time={totalSeconds}
-        stopwatchPause={pause}
-        resetStopwatch={reset}
-      />
+      {question && (
+        <AnswerQuestionForm
+          userData={user}
+          uid={uid}
+          question={question}
+          time={totalSeconds}
+          stopwatchPause={pause}
+          resetStopwatch={reset}
+        />
+      )}
     </>
   );
 }

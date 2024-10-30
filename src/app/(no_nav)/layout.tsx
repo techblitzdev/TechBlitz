@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { InterFont, SatoshiFont } from '../styles/fonts/font';
-import './globals.css';
+import '../globals.css';
 import { ReactQueryClientProvider } from '@/components/react-query-client-provider';
 import { Toaster } from '@/components/ui/sonner';
 

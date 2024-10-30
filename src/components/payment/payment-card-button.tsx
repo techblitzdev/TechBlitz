@@ -27,8 +27,7 @@ const getClientSecret = async (
 export function PaymentButton(opts: { product: StripeProduct }) {
   const { product } = opts;
   // get the user's current subscription (if any)
-  const { data: subscription, isLoading: subscriptionLoading } =
-    useSubscription();
+  const { data: subscription } = useSubscription();
 
   const [loading, setLoading] = useState<{
     [key: string]: boolean;

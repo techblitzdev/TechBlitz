@@ -11,7 +11,7 @@ export const getAnswer = async (opts: {
   questionUid: string;
   userUid: string;
 }) => {
-  const { questionUid, userUid } = opts;
+  const { questionUid } = opts;
 
   // check if the user has answered the question
   // const userHasAnswered = await prisma.answers.findFirst({

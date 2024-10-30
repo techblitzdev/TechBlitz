@@ -1,5 +1,4 @@
 'use server';
-import { Answer } from '@/types/Answers';
 import { prisma } from '@/utils/prisma';
 import { revalidateTag } from 'next/cache';
 

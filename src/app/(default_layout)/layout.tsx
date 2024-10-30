@@ -3,7 +3,7 @@ import { InterFont, SatoshiFont } from '../styles/fonts/font';
 import '../globals.css';
 import { ReactQueryClientProvider } from '@/components/react-query-client-provider';
 import { Toaster } from '@/components/ui/sonner';
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/global/navigation/sidebar';
 
 export const metadata: Metadata = {

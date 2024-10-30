@@ -14,7 +14,6 @@ export default function NotFound() {
     data: todaysQuestion,
     isLoading,
     isError,
-    error,
   } = useQuery({
     queryKey: ['not-found'],
     queryFn: () => getTodaysQuestion(),
@@ -35,7 +34,7 @@ export default function NotFound() {
         />
         <div className="flex flex-col max-w-96 items-center">
           <p className="text-sm w-[90%]">
-            Sorry, it look's like the page you have requested could not be
+            Sorry, it look&apos;s like the page you have requested could not be
             found.
           </p>
           <div className="mt-4 flex flex-col md:flex-row gap-4 self-center justify-center w-[75%] md:w-auto">

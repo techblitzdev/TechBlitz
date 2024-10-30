@@ -13,7 +13,7 @@ export default async function AdminQuestionList({ ...props }) {
   return (
     <div {...props}>
       {questions?.today && <AdminQuestionToday question={questions.today[0]} />}
-      <AdminQuestionPicker from={from} to={to} />
+      <AdminQuestionPicker />
       {questions &&
         typeof questions !== 'string' &&
         Object.values(questions).every((arr) => arr.length === 0) && (

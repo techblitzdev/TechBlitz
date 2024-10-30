@@ -30,7 +30,7 @@ export function DailyStreakChart(opts: {
     return (
       <CardDescription>
         <span className="text-center text-lg font-satoshi text-white">
-          You haven't answered any questions yet!
+          You haven&apos;t answered any questions yet!
         </span>
       </CardDescription>
     );

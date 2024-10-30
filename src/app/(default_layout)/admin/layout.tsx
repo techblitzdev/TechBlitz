@@ -1,7 +1,6 @@
 'use client';
 import NewQuestionModal from '@/components/questions/new-question-modal';
 import { Separator } from '@/components/ui/separator';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { BreadcrumbWithCustomSeparator } from '@/components/global/breadcrumbs';
 

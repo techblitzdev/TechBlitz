@@ -29,12 +29,7 @@ import { getTodaysQuestion } from '@/actions/questions/get-today';
 export function AppSidebar() {
   const pathname = usePathname();
 
-  const {
-    data: todaysQuestion,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
+  const { data: todaysQuestion } = useQuery({
     queryKey: ['not-found'],
     queryFn: () => getTodaysQuestion(),
   });

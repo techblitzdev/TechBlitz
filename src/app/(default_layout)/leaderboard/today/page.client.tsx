@@ -18,7 +18,7 @@ export default function TodaysLeaderboardPageClient(opts: {
   initialTotal: number;
 }) {
   // pull out the data from the props
-  const { initialFastestTimes, initialTotal, questionUid } = opts;
+  const { questionUid } = opts;
 
   const [currentPage, setCurrentPage] = useState(0);
 

@@ -47,6 +47,7 @@
     "recharts": "^2.12.7",
     "sonner": "^1.5.0",
     "stripe": "^17.2.1",
+    "tailwind-container-break-out": "^2.0.9",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "uniqid": "^5.4.0",

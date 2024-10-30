@@ -103,7 +103,8 @@ const config: Config = {
   plugins: [
     require('tailwindcss-animate'),
     addVariablesForColors,
-    addMatchUtils,
+		addMatchUtils,
+		require('tailwind-container-break-out')
   ],
 };
 

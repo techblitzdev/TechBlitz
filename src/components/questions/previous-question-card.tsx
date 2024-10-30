@@ -9,7 +9,7 @@ export default function PreviousQuestionCard(opts: {
   userUid: string;
   userAnswer: Answer | undefined;
 }) {
-  const { questionData, userUid, userAnswer } = opts;
+  const { questionData, userAnswer } = opts;
   // state to track whether to open the user's answer to the question
   const [showAnswerModal, setShowAnswerModal] = useState<Answer | undefined>(
     undefined

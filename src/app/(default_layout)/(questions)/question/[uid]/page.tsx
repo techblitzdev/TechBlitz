@@ -42,10 +42,9 @@ export default function TodaysQuestionPage({
   });
 
   // Timer setup if the user has `showTimeTaken` enabled
-  const { seconds, minutes, pause, isRunning, reset, totalSeconds } =
-    useStopwatch({
-      autoStart: true,
-    });
+  const { seconds, minutes, pause, reset, totalSeconds } = useStopwatch({
+    autoStart: true,
+  });
 
   if (userLoading || isPending || !question) {
     return (

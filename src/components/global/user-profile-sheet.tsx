@@ -110,7 +110,7 @@ export default function UserProfileSheet({ user }: { user: UserRecord }) {
             <FormField
               control={form.control}
               name="profilePicture"
-              render={({ field }) => (
+              render={() => (
                 <FormItem className="flex gap-x-4 items-center z-[5000]">
                   <FormControl>
                     <>

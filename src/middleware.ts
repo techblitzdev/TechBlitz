@@ -35,7 +35,7 @@ export async function middleware(req: NextRequest) {
   }
 
   // Get the current user session
-  const { user, response } = await updateSession(req);
+  const { user } = await updateSession(req);
 
   // If there's no user, redirect to the login page unless it's a non-auth path
   if (!user?.user?.id) {

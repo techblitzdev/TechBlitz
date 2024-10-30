@@ -91,7 +91,7 @@ const Button = React.forwardRef<
 
     return (
       <div className={cn(special && 'w-full', 'relative')}>
-        {/** @ts-ignore-next-line */}
+        {/** @ts-expect-error - the element tag has been changed */}
         <Comp
           className={cn(
             arrow && 'px-10 overflow-hidden relative group',

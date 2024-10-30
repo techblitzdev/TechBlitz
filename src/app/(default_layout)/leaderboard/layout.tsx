@@ -24,7 +24,7 @@ export default function QuestionsLayout({
       <div className="flex flex-col gap-y-2">
         <BreadcrumbWithCustomSeparator items={items} />
         <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
-          Today's Leaderboard
+          Today&apos;s Leaderboard
         </h1>
       </div>
       <Separator />

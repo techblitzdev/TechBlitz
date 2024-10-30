@@ -31,7 +31,7 @@ export default async function DashboardBentoGrid() {
   const items = [
     {
       title: 'Today’s Question!',
-      description: 'Today’s question is about something.',
+      description: 'Daily question',
       header: <Skeleton />,
       className: 'md:col-span-2 text-white',
       href: `/question/${todaysQuestion?.uid}`,

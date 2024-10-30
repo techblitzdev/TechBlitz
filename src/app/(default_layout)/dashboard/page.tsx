@@ -5,7 +5,7 @@ import { Separator } from '@/components/ui/separator';
 
 export default async function Dashboard() {
   return (
-    <div className="container py-6 lg:py-12 text-white flex flex-col gap-y-4">
+    <div className="text-white flex flex-col gap-y-4">
       <div className="flex w-full justify-between">
         <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
           Welcome back!
@@ -16,7 +16,7 @@ export default async function Dashboard() {
         </div>
         {/** userData?.userLevel === 'ADMIN' && <AdminButton /> */}
       </div>
-      <Separator />
+      <Separator className="bg-black-50" />
       <DashboardBentoGrid />
     </div>
   );

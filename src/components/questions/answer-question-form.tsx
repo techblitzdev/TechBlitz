@@ -145,7 +145,7 @@ export default function AnswerQuestionForm({
         </Button>
         {userData.userLevel === 'ADMIN' && (
           <Button type="button" variant="secondary" onClick={adminClearAnswers}>
-            (ADMIN ONLY) clear today's answer
+            (ADMIN ONLY) clear today&apos;s answer
           </Button>
         )}
         {newUserData != null && (

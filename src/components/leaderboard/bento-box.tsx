@@ -1,5 +1,4 @@
 import { Question } from '@/types/Questions';
-import JsonDisplay from '../global/json-display';
 import { getFastestTimes } from '@/actions/leaderboard/get-fastest';
 import { formatSeconds } from '@/utils/time';
 import { getUserDisplayName } from '@/utils/user';

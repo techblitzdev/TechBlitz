@@ -1,16 +1,7 @@
-'use client';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { getQuestions } from '@/actions/questions/admin/list';
-import { getPagination } from '@/utils/supabase/pagination';
 
-export default function AdminQuestionPicker({
-  to,
-  from,
-}: {
-  to: number;
-  from: number;
-}) {
+export default function AdminQuestionPicker() {
   return (
     <div className="w-full flex justify-between">
       <Button className="flex items-center gap-x-1" onClick={() => {}}>

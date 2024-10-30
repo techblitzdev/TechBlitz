@@ -1,7 +1,7 @@
 import Stripe from 'stripe';
 // component imports
 import { PaymentButton } from '../payment-card-button';
-import { ReloadIcon, CheckIcon } from '@radix-ui/react-icons';
+import { ReloadIcon } from '@radix-ui/react-icons';
 
 //type imports
 import type { StripeProduct } from '@/types/StripeProduct';

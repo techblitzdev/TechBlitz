@@ -1,6 +1,5 @@
 import BackToDashboard from '@/components/global/back-to-dashboard';
 import { Separator } from '@/components/ui/separator';
-import Link from 'next/link';
 
 export default function ProfileLayout({
   children,

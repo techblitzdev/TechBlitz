@@ -1,7 +1,6 @@
 import { useCallback, useState } from 'react';
 import {
   Dialog,
-  DialogHeader,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -59,6 +58,7 @@ export default function AnswerQuestionModal({
   onRetry,
   onNext,
 }: AnswerQuestionModalProps) {
+  console.log('question', question);
   const [showQuestionData, setShowQuestionData] = useState(false);
 
   const getDialogContent = useCallback(() => {

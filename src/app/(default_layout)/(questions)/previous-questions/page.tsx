@@ -13,7 +13,7 @@ import { getPagination } from '@/utils/supabase/pagination';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 10;
 
 const items = [
   {
@@ -70,28 +70,30 @@ export default function PreviousQuestionsPage() {
         </h1>
       </div>
       <Separator />
-      <div className="flex flex-col gap-5">
-        {isLoading && (
-          <div className="h-96 flex justify-center items-center">
-            <LoadingSpinner />
-          </div>
-        )}
-        {data?.questions.map((q) => (
-          <PreviousQuestionCard
-            key={q.uid}
-            questionData={q}
-            userUid={user?.uid || ''}
-            userAnswer={data.answers.find((a) => a.questionUid === q.uid)}
-          />
-        ))}
+      <div className="flex flex-col h-full justify-between">
+        <div className="flex flex-col gap-5">
+          {isLoading && (
+            <div className="h-96 flex justify-center items-center">
+              <LoadingSpinner />
+            </div>
+          )}
+          {data?.questions.map((q) => (
+            <PreviousQuestionCard
+              key={q.uid}
+              questionData={q}
+              userUid={user?.uid || ''}
+              userAnswer={data.answers.find((a) => a.questionUid === q.uid)}
+            />
+          ))}
+        </div>
+        <GlobalPagination
+          className="mt-5"
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+          totalItems={data?.total || 0}
+          itemsPerPage={ITEMS_PER_PAGE}
+        />
       </div>
-      <GlobalPagination
-        className="absolute bottom-0 left-0"
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-        totalItems={data?.total || 0}
-        itemsPerPage={ITEMS_PER_PAGE}
-      />
     </>
   );
 }

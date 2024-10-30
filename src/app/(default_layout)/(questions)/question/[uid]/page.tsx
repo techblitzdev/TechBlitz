@@ -7,6 +7,7 @@ import AnswerQuestionForm from '@/components/questions/answer-question-form';
 import { Separator } from '@/components/ui/separator';
 import { BreadcrumbWithCustomSeparator } from '@/components/global/breadcrumbs';
 import { useStopwatch } from 'react-timer-hook';
+import NoDailyQuestion from '@/components/global/errors/no-daily-question';
 
 const items = [
   {
@@ -41,12 +42,16 @@ export default function TodaysQuestionPage({
     queryFn: () => getQuestion(uid),
   });
 
+  if (!question) {
+    return <NoDailyQuestion />;
+  }
+
   // Timer setup if the user has `showTimeTaken` enabled
   const { seconds, minutes, pause, reset, totalSeconds } = useStopwatch({
     autoStart: true,
   });
 
-  if (userLoading || isPending || !question) {
+  if (userLoading || isPending) {
     return (
       <div className="flex justify-center items-center navbar-height">
         <LoadingSpinner />

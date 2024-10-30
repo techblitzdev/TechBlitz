@@ -15,7 +15,7 @@ export default async function TodaysLeaderboardPage() {
   });
 
   return (
-    <div className="font-satoshi">
+    <>
       {todayQuestion?.uid && (
         <TodaysLeaderboardPageClient
           initialFastestTimes={fastestTimes}
@@ -23,6 +23,6 @@ export default async function TodaysLeaderboardPage() {
           questionUid={todayQuestion?.uid || ''}
         />
       )}
-    </div>
+    </>
   );
 }

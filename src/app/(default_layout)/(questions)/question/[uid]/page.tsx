@@ -42,7 +42,7 @@ export default function TodaysQuestionPage({
     queryFn: () => getQuestion(uid),
   });
 
-  if (!question) {
+  if (!question && !isPending) {
     return <NoDailyQuestion />;
   }
 
@@ -70,7 +70,7 @@ export default function TodaysQuestionPage({
           <BreadcrumbWithCustomSeparator items={items} />
           <div className="flex items-center justify-between w-full">
             <h1 className="text-xl md:text-3xl font-semibold">
-              {question.question}
+              {question?.question}
             </h1>
             <div className="flex items-center">
               <span>{minutes}</span>:<span>{seconds}</span>
@@ -79,14 +79,16 @@ export default function TodaysQuestionPage({
         </div>
       </div>
       <Separator />
-      <AnswerQuestionForm
-        userData={user}
-        uid={uid}
-        question={question}
-        time={totalSeconds}
-        stopwatchPause={pause}
-        resetStopwatch={reset}
-      />
+      {question && (
+        <AnswerQuestionForm
+          userData={user}
+          uid={uid}
+          question={question}
+          time={totalSeconds}
+          stopwatchPause={pause}
+          resetStopwatch={reset}
+        />
+      )}
     </>
   );
 }

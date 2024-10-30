@@ -6,6 +6,7 @@ import {
   Settings,
   Award,
   ChartBarIncreasing,
+  LockIcon,
 } from 'lucide-react';
 import {
   Sidebar,
@@ -33,9 +34,11 @@ import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
 import ComingSoonChip from '../coming-soon';
+import { useUser } from '@/hooks/useUser';
 
 export function AppSidebar() {
   const pathname = usePathname();
+  const { user } = useUser();
 
   const { data: todaysQuestion } = useQuery({
     queryKey: ['not-found'],
@@ -85,6 +88,14 @@ export function AppSidebar() {
       icon: Settings,
     },
   ];
+
+  if (user?.userLevel === 'ADMIN') {
+    items.push({
+      title: 'Admin',
+      url: '/admin',
+      icon: LockIcon,
+    });
+  }
 
   return (
     <Sidebar className="p-2 rounded-xl">

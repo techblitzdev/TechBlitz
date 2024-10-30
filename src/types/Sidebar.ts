@@ -3,4 +3,5 @@ export interface SidebarItem {
   url: string;
   icon?: React.ComponentType;
   subItems?: SidebarItem[];
+  chip?: React.ComponentType;
 }

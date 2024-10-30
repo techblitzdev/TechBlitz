@@ -1,4 +1,5 @@
 'use client';
+
 import {
   FileQuestion,
   Home,
@@ -31,6 +32,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
+import ComingSoonChip from '../coming-soon';
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -70,6 +72,7 @@ export function AppSidebar() {
       title: 'Stats',
       url: '#',
       icon: ChartBarIncreasing,
+      chip: ComingSoonChip,
     },
     {
       title: 'Leaderboard',
@@ -98,11 +101,14 @@ export function AppSidebar() {
                     <Collapsible defaultOpen className="group/collapsible">
                       <CollapsibleTrigger asChild>
                         <SidebarMenuButton asChild>
-                          <div>
-                            {item.icon && <item.icon />}
-                            <span className="font-satoshi text-base">
-                              {item.title}
-                            </span>
+                          <div className="flex items-center justify-between w-full">
+                            <div className="flex items-center gap-2">
+                              {item.icon && <item.icon />}
+                              <span className="font-satoshi text-base">
+                                {item.title}
+                              </span>
+                            </div>
+                            {item.chip && <item.chip />}
                           </div>
                         </SidebarMenuButton>
                       </CollapsibleTrigger>
@@ -115,12 +121,15 @@ export function AppSidebar() {
                       <Link
                         href={item.url}
                         prefetch
-                        className={`font-satoshi text-base ${
+                        className={`flex items-center justify-between w-full font-satoshi text-base ${
                           pathname == item.url ? 'bg-black' : ''
                         }`}
                       >
-                        {item.icon && <item.icon />}
-                        <span>{item.title}</span>
+                        <div className="flex items-center gap-2">
+                          {item.icon && <item.icon />}
+                          <span>{item.title}</span>
+                        </div>
+                        {item.chip && <item.chip />}
                       </Link>
                     </SidebarMenuButton>
                   )}

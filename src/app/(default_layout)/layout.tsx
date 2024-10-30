@@ -29,8 +29,8 @@ export default function Layout({
 
             {/* Scrollable content */}
             <AppSidebar />
-            <main className="w-full container py-6 lg:py-8 ml-break-out pl-break-out">
-              <div className="pl-4 h-full">
+            <main className="w-full container py-6 lg:py-8 lg:ml-break-out pl-break-out">
+              <div className="lg:pl-4 h-full">
                 {/* <SidebarTrigger /> */}
                 {children}
               </div>

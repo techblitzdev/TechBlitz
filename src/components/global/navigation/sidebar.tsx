@@ -1,5 +1,11 @@
 'use client';
-import { Calendar, Home, Inbox, Search, Settings } from 'lucide-react';
+import {
+  FileQuestion,
+  Home,
+  Settings,
+  Award,
+  ChartBarIncreasing,
+} from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -44,7 +50,7 @@ export function AppSidebar() {
     {
       title: 'Questions',
       url: '/questions',
-      icon: Inbox,
+      icon: FileQuestion,
       subItems: [
         {
           title: 'All',
@@ -63,16 +69,16 @@ export function AppSidebar() {
     {
       title: 'Stats',
       url: '#',
-      icon: Calendar,
+      icon: ChartBarIncreasing,
     },
     {
       title: 'Leaderboard',
-      url: '#',
-      icon: Search,
+      url: '/leaderboard/today',
+      icon: Award,
     },
     {
       title: 'Settings',
-      url: '#',
+      url: '/settings',
       icon: Settings,
     },
   ];

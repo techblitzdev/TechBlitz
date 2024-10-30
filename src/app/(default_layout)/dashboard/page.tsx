@@ -12,7 +12,9 @@ export default async function Dashboard() {
         </h1>
         <div className="flex item-center gap-x-3">
           <LanguageSwitcher />
-          <UserProfileDropdown />
+          <div className="lg:hidden flex">
+            <UserProfileDropdown />
+          </div>
         </div>
         {/** userData?.userLevel === 'ADMIN' && <AdminButton /> */}
       </div>

@@ -1,9 +1,13 @@
+import { getTodaysQuestion } from '@/actions/questions/get-today';
 import DashboardBentoGrid from '@/components/dashboard/dashboard-bento-grid';
 import LanguageSwitcher from '@/components/global/language-dropdown';
 import UserProfileDropdown from '@/components/global/user-profile-dropdown';
+import TodaysLeaderboardBentoBox from '@/components/leaderboard/bento-box';
 import { Separator } from '@/components/ui/separator';
 
 export default async function Dashboard() {
+  const todaysQuestion = await getTodaysQuestion();
+
   return (
     <div className="text-white flex flex-col gap-y-4">
       <div className="flex w-full justify-between">

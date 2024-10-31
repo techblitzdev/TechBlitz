@@ -47,3 +47,5 @@ type UpdateableUserFields = Omit<UserRecord, 'uid'>;
 export type UserUpdatePayload = {
   uid: UserRecord['uid'];
 } & RequireAtLeastOne<UpdateableUserFields>;
+
+export type UserWithOutAnswers = Pick<User, Exclude<keyof User, 'answers'>>;

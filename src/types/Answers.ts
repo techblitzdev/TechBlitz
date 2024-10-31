@@ -1,4 +1,5 @@
 import { BaseRecord } from './BaseRecord';
+import { User, UserWithOutAnswers } from './User';
 
 /**
  * The Answer type is the shape of the data when a user
@@ -17,4 +18,8 @@ export interface Answer extends BaseRecord {
   questionDate: string;
   /** How long it took the user to answer this question */
   timeTaken: number | null;
+}
+
+export interface AnswerWithUser extends Answer {
+  user: UserWithOutAnswers;
 }

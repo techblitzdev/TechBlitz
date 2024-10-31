@@ -8,6 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { Card, CardContent } from '@/components/ui/card';
 import { Trophy } from 'lucide-react';
 import { Button } from '../ui/button';
+import Link from 'next/link';
 
 export default async function TodaysLeaderboardBentoBox(opts: {
   todaysQuestion: Question | null;
@@ -27,14 +28,13 @@ export default async function TodaysLeaderboardBentoBox(opts: {
     return (
       <Card className="bg-black border-none">
         <CardContent className="pt-6 px-6 text-center">
-          <Trophy className="mx-auto mb-2 text-gray-400" size={24} />
-          <p className="text-sm text-gray-600">No fastest times yet!</p>
-          <p className="text-xs text-gray-400 mt-1">
-            Be the first to complete today's challenge!
-          </p>
-          <Button href={`/question/${todaysQuestion?.uid}`} className="mt-4">
-            Start Challenge
-          </Button>
+          <Link href={`/question/${todaysQuestion.uid}`}>
+            <Trophy className="mx-auto mb-2 text-white" size={24} />
+            <p className="text-sm text-white">No fastest times yet!</p>
+            <p className="text-xs text-white mt-1">
+              Be the first to complete today's challenge!
+            </p>
+          </Link>
         </CardContent>
       </Card>
     );

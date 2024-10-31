@@ -7,7 +7,6 @@ import TopThreeLeaderboardBentoBox from './top-three';
 import { Separator } from '@/components/ui/separator';
 import { Card, CardContent } from '@/components/ui/card';
 import { Trophy } from 'lucide-react';
-import { Button } from '../ui/button';
 import Link from 'next/link';
 
 export default async function TodaysLeaderboardBentoBox(opts: {

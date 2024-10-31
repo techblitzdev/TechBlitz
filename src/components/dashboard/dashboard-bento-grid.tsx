@@ -1,6 +1,7 @@
 import { BentoGrid, BentoGridItem } from '../ui/bento-grid';
 import { Skeleton } from '../ui/skeleton';
 import { DailyStreakChart } from './daily-streak-chart';
+import { ArrowRight } from 'lucide-react';
 
 import { DAILY_STREAK } from '@/utils/constants/daily-streak';
 
@@ -38,7 +39,11 @@ export default async function DashboardBentoGrid() {
     },
     {
       title: "Today's Leaderboard",
-      description: 'View the full list.',
+      description: (
+        <div className="flex gap-x-1 items-center">
+          View the full list <ArrowRight className="size-3" />
+        </div>
+      ),
       header: <TodaysLeaderboardBentoBox todaysQuestion={todaysQuestion} />,
       className: 'md:col-span-1 md:row-span-2 text-white h-full',
       href: '/leaderboard/today',

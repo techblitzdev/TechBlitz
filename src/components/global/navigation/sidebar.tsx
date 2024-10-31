@@ -17,6 +17,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
 } from '@/components/ui/sidebar';
 import {
   Collapsible,
@@ -101,8 +102,9 @@ export function AppSidebar() {
     <Sidebar className="p-2 rounded-xl">
       <SidebarContent className="p-2">
         <SidebarGroup>
-          <SidebarGroupLabel>
+          <SidebarGroupLabel className="w-full flex items-center justify-between">
             <h2 className="text-xl font-bold font-satoshi">meerge</h2>
+            <SidebarTrigger className="size-4 h-full flex items-center my-auto" />
           </SidebarGroupLabel>
           <SidebarGroupContent className="mt-4">
             <SidebarMenu>

@@ -1,6 +1,5 @@
 import { getUserFromSession } from '@/actions/user/get-user';
-import { Answer, AnswerWithUser } from '@/types/Answers';
-import { User } from '@/types/User';
+import { AnswerWithUser } from '@/types/Answers';
 import { getUserDisplayName } from '@/utils/user';
 
 export default async function TopThreeLeaderboardBentoBox(opts: {

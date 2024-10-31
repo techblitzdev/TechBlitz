@@ -1,6 +1,5 @@
 'use server';
 import { AnswerWithUser } from '@/types/Answers';
-import { UserWithOutAnswers } from '@/types/User';
 import { prisma } from '@/utils/prisma';
 
 type GetFastestTimesReturnType = {

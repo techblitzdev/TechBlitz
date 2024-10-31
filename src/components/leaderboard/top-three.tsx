@@ -1,14 +1,18 @@
 import { getUserFromSession } from '@/actions/user/get-user';
+import { Answer, AnswerWithUser } from '@/types/Answers';
+import { User } from '@/types/User';
 import { getUserDisplayName } from '@/utils/user';
 
 export default async function TopThreeLeaderboardBentoBox(opts: {
-  fastestTimes: any[];
+  fastestTimes: AnswerWithUser[];
 }) {
   const { fastestTimes } = opts;
   const { data: currentUser } = await getUserFromSession();
 
   // First sort by time taken
-  const orderedTimes = fastestTimes.sort((a, b) => a.timeTaken - b.timeTaken);
+  const orderedTimes = fastestTimes.sort(
+    (a, b) => (a?.timeTaken ?? Infinity) - (b?.timeTaken ?? Infinity)
+  );
 
   if (orderedTimes.length === 0) return null;
 

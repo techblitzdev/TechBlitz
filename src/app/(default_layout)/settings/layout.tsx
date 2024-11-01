@@ -7,11 +7,11 @@ export default function ProfileLayout({
     <div className="text-white flex flex-col gap-y-4 relative">
       <div className="flex flex-col gap-y-2">
         <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
-          Account Settings
+          Settings
         </h1>
       </div>
       <Separator className="bg-black-50" />
-      {children}
+      <div className="bg-black-100 rounded-xl p-8">{children}</div>
     </div>
   );
 }

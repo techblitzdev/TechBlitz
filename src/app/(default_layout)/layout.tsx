@@ -7,7 +7,7 @@ import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/global/navigation/sidebar';
 
 export const metadata: Metadata = {
-  title: 'DevDaily',
+  title: 'meerge',
   description: 'Improve your code knowledge, one day at a time.',
 };
 
@@ -29,7 +29,7 @@ export default function Layout({
 
             {/* Scrollable content */}
             <AppSidebar />
-            <main className="w-full container py-6 lg:py-8 lg:ml-break-out pl-break-out">
+            <main className="w-full container py-6 lg:pt-8 lg:pb-3 lg:ml-break-out pl-break-out">
               <div className="lg:pl-4 h-full">
                 {/* <SidebarTrigger /> */}
                 {children}

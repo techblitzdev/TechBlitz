@@ -1,5 +1,4 @@
 'use client';
-
 import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -65,7 +64,7 @@ export default function SettingsProfilePage() {
   }
 
   return (
-    <div className="flex flex-col gap-y-10">
+    <div className="flex flex-col gap-y-8">
       <h1 className="text-2xl">Account Settings</h1>
       <Form {...form}>
         <form

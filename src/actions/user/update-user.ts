@@ -3,6 +3,7 @@ import { UserUpdatePayload } from '@/types/User';
 import { prisma } from '@/utils/prisma';
 
 export const updateUser = async (opts: { userDetails: UserUpdatePayload }) => {
+  console.log('hit endpoint')
   const { userDetails } = opts;
   if (!userDetails) {
     throw new Error('User data is required');

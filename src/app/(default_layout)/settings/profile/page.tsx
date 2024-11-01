@@ -4,7 +4,6 @@ import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
 import { useUser } from '@/hooks/useUser';
 import { InputWithLabel } from '@/components/ui/input-label';
 import { UserUpdatePayload } from '@/types/User';
@@ -17,8 +16,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
 
-type SchemaProps = z.infer<typeof userDetailsSchema>;
+type SchemaProps = z.input<typeof userDetailsSchema>;
 
 export default function SettingsProfilePage() {
   const { user } = useUser();
@@ -26,23 +26,22 @@ export default function SettingsProfilePage() {
   const form = useForm<SchemaProps>({
     resolver: zodResolver(userDetailsSchema),
     defaultValues: {
-      username: user?.username || '',
-      firstName: user?.firstName || '',
-      lastName: user?.lastName || '',
+      username: user?.username || null,
+      firstName: user?.firstName || null,
+      lastName: user?.lastName || null,
       showTimeTaken: user?.showTimeTaken || false,
     },
   });
 
   const onSubmit = async (values: SchemaProps) => {
-    console.log({
-      values,
-    });
-
     try {
-      const updatedVals: UserUpdatePayload = {
-        ...values,
+      const cleanedValues = Object.fromEntries(
+        Object.entries(values).filter(([_, value]) => value !== null)
+      );
+
+      const updatedVals: Partial<UserUpdatePayload> = {
+        ...cleanedValues,
         uid: user?.uid || '',
-        showTimeTaken: values?.showTimeTaken || false,
       };
 
       await updateUser({
@@ -76,6 +75,7 @@ export default function SettingsProfilePage() {
                     autoComplete="username"
                     placeholder={user?.username || 'Username'}
                     {...field}
+                    value={field.value || ''}
                   />
                 </FormControl>
               </FormItem>
@@ -93,6 +93,7 @@ export default function SettingsProfilePage() {
                     autoComplete="given-name"
                     placeholder={user?.firstName || 'First name'}
                     {...field}
+                    value={field.value || ''}
                   />
                 </FormControl>
               </FormItem>
@@ -110,6 +111,7 @@ export default function SettingsProfilePage() {
                     autoComplete="family-name"
                     placeholder={user?.lastName || 'Last name'}
                     {...field}
+                    value={field.value || ''}
                   />
                 </FormControl>
               </FormItem>
@@ -128,7 +130,7 @@ export default function SettingsProfilePage() {
                         <div className="flex items-center gap-x-1">
                           <Switch
                             id="showTimeTaken"
-                            checked={field.value}
+                            checked={field.value || false}
                             onCheckedChange={field.onChange}
                             className="bg-black-50"
                           />

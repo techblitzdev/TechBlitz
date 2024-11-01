@@ -1,17 +1,21 @@
 import { z } from 'zod';
 
-export const userDetailsSchema = z.object({
-  username: z.string().min(3).optional(),
-  firstName: z.string().min(3).optional(),
-  lastName: z.string().min(3).optional(),
-  showTimeTaken: z.boolean().optional()
-}).refine(
-  (data) => {
-    // At least one field must be provided
-    return Object.values(data).some(value => value !== undefined);
-  },
-  {
-    message: "At least one field must be provided for update",
-    path: [] // This will make it a general form error rather than field-specific
-  }
-);
+// Updated schema to properly handle optional fields
+export const userDetailsSchema = z
+  .object({
+    username: z.string().min(3).nullable(),
+    firstName: z.string().min(3).nullable(),
+    lastName: z.string().min(3).nullable(),
+    showTimeTaken: z.boolean().optional(),
+  })
+  .transform((data) => {
+    // Remove null values from the payload
+    const cleanedData: Partial<typeof data> = {};
+    for (const [key, value] of Object.entries(data)) {
+      if (value !== null) {
+        // @ts-expect-error
+        cleanedData[key] = value;
+      }
+    }
+    return cleanedData;
+  });

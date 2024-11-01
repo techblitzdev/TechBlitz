@@ -1,7 +1,7 @@
 'use server';
 import Stripe from 'stripe';
 import { stripe } from '@/lib/stripe';
-import { unstable_cache } from 'next/cache';
+import { unstable_cache as NextCache } from 'next/cache';
 import { StripeProduct } from '@/types/StripeProduct';
 
 /**
@@ -10,7 +10,7 @@ import { StripeProduct } from '@/types/StripeProduct';
  * @param stripe
  * @returns
  */
-export const getStripeProducts = unstable_cache(
+export const getStripeProducts = NextCache(
   async (): Promise<StripeProduct[]> => {
     if (!stripe) {
       throw new Error('Stripe is not initialized');
@@ -42,7 +42,7 @@ export const getStripeProducts = unstable_cache(
  * @description Method to get a plan via it's id
  * @param planId - The id of the plan you want to get the data for
  */
-export const getPlanById = unstable_cache(async (planId: string) => {
+export const getPlanById = NextCache(async (planId: string) => {
   // grab all of the products, doesn't matter if it's monthly or yearly
   const products = await getStripeProducts();
   if (!products) throw new Error('No products found');

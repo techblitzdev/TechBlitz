@@ -1,5 +1,5 @@
 'use client';
-import { useRef } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -21,23 +21,22 @@ import {
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import LoadingSpinner from '@/components/ui/loading';
+import DeleteAccountModal from '@/components/settings/delete-account-modal';
 
 type SchemaProps = z.infer<typeof updateUserSchema>;
 
 export default function SettingsProfilePage() {
   const { user, isLoading } = useUser();
-  const openDeleteAccountModal = useRef(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const { mutateAsync: server_updateUserAuth, isPending } = useMutation({
     mutationFn: (values: SchemaProps) => updateUserAuth(values),
     onSuccess: () => {
-      // Handle successful update (e.g., show a success message)
       toast.success(
         'Account updated successfully, please check your email for further instructions.'
       );
     },
     onError: (error) => {
-      // Handle error (e.g., show an error message)
       toast.error(`Failed to update user auth: ${error}`);
     },
   });
@@ -54,7 +53,6 @@ export default function SettingsProfilePage() {
     try {
       await server_updateUserAuth(values);
     } catch (error) {
-      // Handle error (e.g., show an error message)
       console.error('Failed to update user auth:', error);
     }
   };
@@ -107,11 +105,15 @@ export default function SettingsProfilePage() {
       </Form>
       <Button
         variant="destructive"
-        onClick={() => (openDeleteAccountModal.current = true)}
+        onClick={() => setIsDeleteModalOpen(true)}
         className="w-fit"
       >
         Delete account
       </Button>
+      <DeleteAccountModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+      />
     </div>
   );
 }

@@ -17,10 +17,14 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 type SchemaProps = z.input<typeof userDetailsSchema>;
 
 export default function SettingsProfilePage() {
+  // Get QueryClient from the context
+  const queryClient = useQueryClient();
+
   const { user } = useUser();
 
   const form = useForm<SchemaProps>({
@@ -44,9 +48,14 @@ export default function SettingsProfilePage() {
         uid: user?.uid || '',
       };
 
-      await updateUser({
-        userDetails: updatedVals,
-      });
+      // using tanstack query here as we need to revalidate the user data
+      // after updating the user's details
+
+      await updateUser({ userDetails: updatedVals });
+
+      // revalidate the query key so we refetch the user data
+      // once they have updated their details
+      queryClient.invalidateQueries({ queryKey: ['user-details'] });
 
       toast.success('Profile updated successfully');
     } catch (e) {

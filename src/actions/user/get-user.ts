@@ -3,7 +3,6 @@ import { createClient as createServerClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
 import { prisma } from '@/utils/prisma';
 import { UserRecord } from '@/types/User';
-import { revalidateTag } from 'next/cache';
 import { unstable_cache as NextCache } from 'next/cache';
 
 /**

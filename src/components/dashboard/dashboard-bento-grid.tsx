@@ -8,16 +8,13 @@ import { DAILY_STREAK } from '@/utils/constants/daily-streak';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
 import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 
-import { createClient as createServerClient } from '@/utils/supabase/server';
-import { cookies } from 'next/headers';
 import TodaysLeaderboardBentoBox from '@/components/leaderboard/bento-box';
+import { getUserFromSession } from '@/actions/user/get-user';
 
 export default async function DashboardBentoGrid() {
   const todaysQuestion = await getTodaysQuestion();
-  const cookieStore = cookies();
-  const supabase = createServerClient(cookieStore);
 
-  const { data: user } = await supabase?.auth?.getUser();
+  const { data: user } = await getUserFromSession();
 
   // we need the user in order to continue. The user should be authed
   // in the middleware, so this should (theoretically) never happen.

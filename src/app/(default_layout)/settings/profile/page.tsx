@@ -18,13 +18,13 @@ import {
 } from '@/components/ui/tooltip';
 import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Loader2 } from 'lucide-react';
+import LoadingSpinner from '@/components/ui/loading';
 
 type SchemaProps = z.input<typeof userDetailsSchema>;
 
 export default function SettingsProfilePage() {
-  // Get QueryClient from the context
   const queryClient = useQueryClient();
-
   const { user } = useUser();
 
   const form = useForm<SchemaProps>({
@@ -37,8 +37,9 @@ export default function SettingsProfilePage() {
     },
   });
 
-  const onSubmit = async (values: SchemaProps) => {
-    try {
+  // Use mutation hook for handling the update
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (values: SchemaProps) => {
       const cleanedValues = Object.fromEntries(
         Object.entries(values).filter(([_, value]) => value !== null)
       );
@@ -48,20 +49,22 @@ export default function SettingsProfilePage() {
         uid: user?.uid || '',
       };
 
-      // using tanstack query here as we need to revalidate the user data
-      // after updating the user's details
-
       await updateUser({ userDetails: updatedVals });
-
-      // revalidate the query key so we refetch the user data
-      // once they have updated their details
+    },
+    onSuccess: () => {
+      // wait for the mutation to complete before invalidating the query
       queryClient.invalidateQueries({ queryKey: ['user-details'] });
-
+      queryClient.resetQueries({ queryKey: ['user-details'] });
       toast.success('Profile updated successfully');
-    } catch (e) {
-      console.error(e);
+    },
+    onError: (error) => {
+      console.error(error);
       toast.error('An error occurred while updating your profile');
-    }
+    },
+  });
+
+  const onSubmit = (values: SchemaProps) => {
+    mutate(values);
   };
 
   return (
@@ -153,8 +156,8 @@ export default function SettingsProfilePage() {
             )}
           />
 
-          <Button type="submit" variant="secondary">
-            Save changes
+          <Button type="submit" variant="secondary" disabled={isPending}>
+            {isPending ? <LoadingSpinner /> : 'Save changes'}
           </Button>
         </form>
       </Form>

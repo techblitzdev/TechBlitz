@@ -63,15 +63,12 @@ function SignupContent({
   }
 
   return (
-    <div className="container text-white h-screen flex items-center justify-center">
-      <div className="bg-black p-8 rounded-xl space-y-4 text-center">
-        <h1 className="font-bold text-3xl mb-2">Join us today</h1>
-        <p className="text-gray-300 mb-8 text-sm font-satoshi">
-          Set up your account in less than a minute <br /> no credit card
-          required.
-        </p>
-        <SignupForm />
-      </div>
+    <div className="bg-black-100 p-8 rounded-xl space-y-4 text-center">
+      <h1 className="font-bold text-3xl mb-2">Join us today</h1>
+      <p className="text-gray-300 mb-8 text-sm font-satoshi">
+        Set up your account in less than a minute and become a part of
+      </p>
+      <SignupForm />
     </div>
   );
 }

@@ -24,7 +24,7 @@ export default function NotFound() {
 
   return (
     <div className="w-full flex items-center justify-center min-h-screen bg-dot-white/[0.2] relative">
-      <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+      <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black-950 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
 
       <div className="flex flex-col text-center gap-x-5 items-center font-inter">
         <CountUp

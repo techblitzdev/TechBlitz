@@ -14,7 +14,7 @@ interface AnswerQuestionInput {
 interface AnswerQuestionResponse {
   correctAnswer: boolean;
   userAnswer: Answer;
-  userData: UserRecord | null; // Replace 'any' with your Prisma User type
+  userData: UserRecord | null;
 }
 
 // Helper functions

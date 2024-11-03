@@ -82,6 +82,8 @@ model Questions {
 
   userAnswers    Answers[]
   answerResource String?
+
+  codeSnippet String? // if the question is going to render a code block along with the question
 }
 
 model QuestionAnswers {

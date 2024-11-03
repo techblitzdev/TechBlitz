@@ -12,4 +12,6 @@ export type Question = {
   questionDate: string;
   answerResource: string | null;
   correctAnswer: string | null;
+
+  codeSnippet: string | null;
 };

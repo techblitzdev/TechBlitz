@@ -1,4 +1,4 @@
-export type Languages = 'javascript' | 'typescript' | 'python' | 'golang';
+export type Languages = 'javascript' | 'typescript' | 'python' | 'go';
 
 export type LanguageConfig = {
   label: string;

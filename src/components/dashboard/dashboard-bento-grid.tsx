@@ -10,6 +10,7 @@ import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 
 import TodaysLeaderboardBentoBox from '@/components/leaderboard/bento-box';
 import { getUserFromSession } from '@/actions/user/get-user';
+import UserRank from '../leaderboard/user-rank';
 
 export default async function DashboardBentoGrid() {
   const todaysQuestion = await getTodaysQuestion();
@@ -35,7 +36,7 @@ export default async function DashboardBentoGrid() {
       href: `/question/${todaysQuestion?.uid}`,
     },
     {
-      title: "Today's Leaderboard",
+      title: <div>Today's Leaderboard</div>,
       description: (
         <div className="flex gap-x-1 items-center">
           View the full list <ArrowRight className="size-3" />

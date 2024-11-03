@@ -106,12 +106,12 @@ export default function SignupForm() {
 
         <Separator className="mt-1 col-span-full bg-black-50" />
 
-        <Link
-          href="/login"
-          className="col-span-full text-sm text-gray-300 hover:text-white duration-300 underline"
-        >
-          Already have an account?
-        </Link>
+        <span className="col-span-full text-sm text-gray-300 hover:text-white duration-300">
+          Already have an account?{' '}
+          <Link href="/login" prefetch className="underline">
+            Sign in
+          </Link>
+        </span>
       </form>
     </Form>
   );

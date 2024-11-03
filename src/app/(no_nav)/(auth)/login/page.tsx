@@ -1,10 +1,13 @@
-import LoginForm from "@/components/auth/login"
+import LoginForm from '@/components/auth/login';
 
 export default function SignupPage() {
   return (
-    <div className="container text-white h-screen flex flex-col items-center justify-center">
-      <h1 className="font-bold text-4xl font-inter">Welcome Back!</h1>
+    <div className="bg-black-100 p-8 rounded-xl space-y-4 text-center">
+      <h1 className="font-bold text-3xl mb-2">Welcome Back!</h1>
+      <p className="text-gray-300 mb-8 text-sm font-satoshi text-wrap">
+        Sign in to your account to continue.
+      </p>
       <LoginForm />
     </div>
-  )
+  );
 }

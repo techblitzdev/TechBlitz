@@ -10,8 +10,6 @@ export default function SignupPage() {
   const ranToast = useRef(false);
   const [params, setUrlParams] = useState({});
 
-  console.log(params);
-
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <SignupContent ranToast={ranToast.current} setUrlParams={setUrlParams} />

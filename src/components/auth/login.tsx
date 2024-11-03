@@ -16,6 +16,8 @@ import { InputWithLabel } from '../ui/input-label';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
+import { Separator } from '../ui/separator';
+import Link from 'next/link';
 
 type SchemaProps = z.infer<typeof loginSchema>;
 
@@ -41,6 +43,7 @@ export default function LoginForm() {
         router.push('/dashboard');
       }
     } catch (error) {
+      console.error(error);
       if (error instanceof Error) {
         toast.error(error.message);
       }
@@ -66,7 +69,7 @@ export default function LoginForm() {
                   {...field}
                   autoComplete="email"
                 />
-                <FormMessage>
+                <FormMessage className="mt-0.5 text-start">
                   {form.formState?.errors?.email?.message}
                 </FormMessage>
               </div>
@@ -78,16 +81,23 @@ export default function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormControl>
-              <div className="col-span-12">
+              <div className="col-span-12 relative">
                 <InputWithLabel
                   label="Password"
                   type="password"
                   {...field}
                   autoComplete="current-password"
                 />
-                <FormMessage>
+                <FormMessage className="mt-0.5 text-start">
                   {form.formState?.errors?.password?.message}
                 </FormMessage>
+                <Link
+                  href="/login/forgot-password"
+                  prefetch
+                  className="absolute top-0 text-xs text-gray-300 hover:text-white duration-300 text-start mt-1 right-0"
+                >
+                  Forgot password?
+                </Link>
               </div>
             </FormControl>
           )}
@@ -97,6 +107,15 @@ export default function LoginForm() {
             {isPending.current ? 'Loading...' : 'Login'}
           </Button>
         </FormItem>
+
+        <Separator className="mt-1 col-span-full bg-black-50" />
+
+        <span className="col-span-full text-sm text-gray-300 hover:text-white duration-300">
+          Don't have an account?{' '}
+          <Link href="/signup" prefetch className="underline">
+            Sign up
+          </Link>
+        </span>
       </form>
     </Form>
   );

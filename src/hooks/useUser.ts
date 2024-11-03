@@ -10,7 +10,7 @@ export const useUser = () => {
     UserRecord | null,
     Error
   >({
-    queryKey: ['user'],
+    queryKey: ['user-details'],
     queryFn: async () => {
       try {
         const { data: authData, error: authError } =

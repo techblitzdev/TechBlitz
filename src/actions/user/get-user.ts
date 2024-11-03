@@ -3,7 +3,7 @@ import { createClient as createServerClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
 import { prisma } from '@/utils/prisma';
 import { UserRecord } from '@/types/User';
-import { revalidateTag } from 'next/cache';
+import { unstable_cache as NextCache } from 'next/cache';
 
 /**
  * Get the user from the server - used in api routes, server componets & server actions
@@ -16,7 +16,7 @@ export const getUserFromSession = async () => {
   return supabase?.auth?.getUser();
 };
 
-export const getUserFromDb = async (
+export const getUserFromDb = NextCache(async (
   userUid: string
 ): Promise<UserRecord | null> => {
   if (!userUid) return null;
@@ -26,7 +26,5 @@ export const getUserFromDb = async (
     },
   });
 
-  revalidateTag(`user-${userUid}`);
-
   return user;
-};
+}, ['user-details']);

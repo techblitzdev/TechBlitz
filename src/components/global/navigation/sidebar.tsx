@@ -7,6 +7,10 @@ import {
   Award,
   ChartBarIncreasing,
   LockIcon,
+  Trash,
+  User,
+  Bell,
+  CreditCard,
 } from 'lucide-react';
 import {
   Sidebar,
@@ -17,6 +21,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
 } from '@/components/ui/sidebar';
 import {
   Collapsible,
@@ -26,8 +31,7 @@ import {
 import AppSidebarSubMenuItem from './sidebar-submenu-item';
 import SidebarFooterComponent from './sidebar-footer';
 
-//types
-import type { SidebarItem } from '@/types/Sidebar';
+import type { SidebarItem, SidebarItemType } from '@/types/Sidebar';
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -46,7 +50,7 @@ export function AppSidebar() {
   });
 
   // Menu items
-  const items: SidebarItem[] = [
+  const standardItems: SidebarItemType[] = [
     {
       title: 'Home',
       url: '/dashboard',
@@ -84,10 +88,46 @@ export function AppSidebar() {
     },
     {
       title: 'Settings',
-      url: '/settings',
+      url: '/settings/profile',
       icon: Settings,
     },
   ];
+
+  const settingsItems: SidebarItemType[] = [
+    {
+      title: 'Home',
+      url: '/dashboard',
+      icon: Home,
+    },
+    {
+      groupLabel: 'Settings',
+    },
+    {
+      title: 'Profile',
+      url: '/settings/profile',
+      icon: User,
+    },
+    {
+      title: 'Account',
+      url: '/settings/account',
+      icon: Settings,
+    },
+    {
+      title: 'Billing',
+      url: '/settings/billing',
+      icon: CreditCard,
+    },
+    {
+      title: 'Notifications',
+      url: '/settings/notifications',
+      icon: Bell,
+    },
+  ];
+
+  // dynamically set the items we use based on the page
+  const items = pathname.startsWith('/settings')
+    ? settingsItems
+    : standardItems;
 
   if (user?.userLevel === 'ADMIN') {
     items.push({
@@ -97,55 +137,70 @@ export function AppSidebar() {
     });
   }
 
+  const renderSidebarItem = (item: SidebarItemType) => {
+    if ('groupLabel' in item) {
+      return (
+        <SidebarGroup key={item.groupLabel}>
+          <SidebarGroupLabel className="px-0 h-fit">
+            {item.groupLabel}
+          </SidebarGroupLabel>
+        </SidebarGroup>
+      );
+    }
+
+    return (
+      <SidebarMenuItem key={item.title}>
+        {item.subItems ? (
+          <Collapsible defaultOpen className="group/collapsible">
+            <CollapsibleTrigger asChild>
+              <SidebarMenuButton asChild>
+                <div className="flex items-center w-full">
+                  {item.icon && <item.icon />}
+                  <span className="font-satoshi text-sm">{item.title}</span>
+                  <div className="ms-auto">{item.chip && <item.chip />}</div>
+                </div>
+              </SidebarMenuButton>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <AppSidebarSubMenuItem item={item} />
+            </CollapsibleContent>
+          </Collapsible>
+        ) : (
+          <SidebarMenuButton asChild>
+            <Link
+              href={item.url}
+              prefetch
+              className={`flex items-center font-satoshi text-base ${
+                pathname === item.url ? 'bg-black' : ''
+              }`}
+            >
+              {item.icon && <item.icon />}
+              <span>{item.title}</span>
+              <div className="ms-auto">{item.chip && <item.chip />}</div>
+            </Link>
+          </SidebarMenuButton>
+        )}
+      </SidebarMenuItem>
+    );
+  };
+
   return (
-    <Sidebar className="p-2 rounded-xl">
+    <Sidebar className="p-3 rounded-xl">
       <SidebarContent className="p-2">
         <SidebarGroup>
-          <SidebarGroupLabel>
-            <h2 className="text-xl font-bold font-satoshi">meerge</h2>
+          <SidebarGroupLabel className="w-full flex items-center justify-between">
+            <Link
+              href="/dashboard"
+              className="text-xl font-bold font-satoshi hover:text-white duration-300"
+              prefetch
+            >
+              meerge
+            </Link>
+            <SidebarTrigger className="size-4 h-full flex items-center my-auto" />
           </SidebarGroupLabel>
           <SidebarGroupContent className="mt-4">
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  {item.subItems ? (
-                    <Collapsible defaultOpen className="group/collapsible">
-                      <CollapsibleTrigger asChild>
-                        <SidebarMenuButton asChild>
-                          <div className="flex items-centerw-full">
-                            {item.icon && <item.icon />}
-                            <span className="font-satoshi text-sm">
-                              {item.title}
-                            </span>
-                            <div className="ms-auto">
-                              {item.chip && <item.chip />}
-                            </div>
-                          </div>
-                        </SidebarMenuButton>
-                      </CollapsibleTrigger>
-                      <CollapsibleContent>
-                        <AppSidebarSubMenuItem item={item} />
-                      </CollapsibleContent>
-                    </Collapsible>
-                  ) : (
-                    <SidebarMenuButton asChild>
-                      <Link
-                        href={item.url}
-                        prefetch
-                        className={`flex items-center font-satoshi text-base ${
-                          pathname == item.url ? 'bg-black' : ''
-                        }`}
-                      >
-                        {item.icon && <item.icon />}
-                        <span>{item.title}</span>
-                        <div className="ms-auto">
-                          {item.chip && <item.chip />}
-                        </div>
-                      </Link>
-                    </SidebarMenuButton>
-                  )}
-                </SidebarMenuItem>
-              ))}
+              {items.map((item) => renderSidebarItem(item))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

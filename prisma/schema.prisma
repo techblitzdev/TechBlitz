@@ -60,7 +60,7 @@ model Subscriptions {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   userUid       String   @unique
-  user          Users    @relation(fields: [userUid], references: [uid])
+  user          Users    @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
   startDate     DateTime
   endDate       DateTime
   active        Boolean  @default(true)
@@ -87,7 +87,7 @@ model Questions {
 model QuestionAnswers {
   uid         String    @id @default(cuid())
   questionUid String
-  question    Questions @relation(fields: [questionUid], references: [uid])
+  question    Questions @relation(fields: [questionUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
   answer      String
 
   createdAt DateTime @default(now())
@@ -102,8 +102,8 @@ model Answers {
   updatedAt     DateTime  @default(now())
   userUid       String    @default("legacy_user")
   questionUid   String    @default("legacy_question")
-  user          Users     @relation(fields: [userUid], references: [uid])
-  question      Questions @relation(fields: [questionUid], references: [uid])
+  user          Users     @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+  question      Questions @relation(fields: [questionUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
   userAnswerUid String
   correctAnswer Boolean   @default(false)
   questionDate  String    @default("")

@@ -12,7 +12,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getUserDisplayName } from '@/utils/user';
 import { Sheet, SheetTrigger } from '@/components/ui/sheet';
-import UserProfileSheet from './user-profile-sheet';
 
 export default async function UserProfileDropdown() {
   // get our current user
@@ -46,7 +45,6 @@ export default async function UserProfileDropdown() {
             <SheetTrigger className="font-semibold font-satoshi w-full text-xs text-start">
               My profile @{userData && getUserDisplayName(userData)}
             </SheetTrigger>
-            <UserProfileSheet user={userData} />
           </Sheet>
         </DropdownMenuItem>
         <DropdownMenuSeparator className="bg-black-50" />

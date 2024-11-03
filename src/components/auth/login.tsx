@@ -35,13 +35,15 @@ export default function LoginForm() {
 
   const handleLogin = async (values: SchemaProps) => {
     isPending.current = true;
+    const { email, password } = values;
     try {
-      const res = await login(values.email, values.password);
+      await login({
+        email,
+        password,
+      });
 
-      if (res) {
-        toast.success('Logged in successfully');
-        router.push('/dashboard');
-      }
+      toast.success('Logged in successfully');
+      router.push('/dashboard');
     } catch (error) {
       console.error(error);
       if (error instanceof Error) {
@@ -103,7 +105,12 @@ export default function LoginForm() {
           )}
         />
         <FormItem className="col-span-full">
-          <Button type="submit" disabled={isPending.current} className="w-full">
+          <Button
+            type="submit"
+            disabled={isPending.current}
+            className="w-full"
+            variant="secondary"
+          >
             {isPending.current ? 'Loading...' : 'Login'}
           </Button>
         </FormItem>

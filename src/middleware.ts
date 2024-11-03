@@ -9,7 +9,7 @@ const nonAuthPaths = [
   '/login',
   '/signup',
   '/forgot-password',
-  '/reset-password',
+  '/update-password',
   '/verify-email',
   '/verify-email/success',
 ];

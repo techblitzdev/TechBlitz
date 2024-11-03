@@ -17,7 +17,7 @@ const CodeDisplay: React.FC<CodeDisplayProps> = ({
     .trim();
 
   return (
-    <Highlight theme={themes.oneDark} code={cleanContent} language={language}>
+    <Highlight theme={themes.vsDark} code={cleanContent} language="js">
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre
           className="overflow-x-auto rounded-lg p-4"
@@ -25,9 +25,9 @@ const CodeDisplay: React.FC<CodeDisplayProps> = ({
         >
           {tokens.map((line, lineIndex) => {
             // Don't render empty line at the end
-            if (lineIndex === tokens.length - 1 && line[0].content === '') {
-              return null;
-            }
+            // if (lineIndex === tokens.length - 1 && line[0].content === '') {
+            //   return null;
+            // }
 
             return (
               <div

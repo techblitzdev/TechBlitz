@@ -3,5 +3,10 @@ export default function AuthLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div>{children}</div>;
+  return (
+    <div className="relative">
+      <h6 className="top-4 left-4 absolute font-satoshi text-xl">meerge</h6>
+      {children}
+    </div>
+  );
 }

@@ -1,5 +1,4 @@
 'use client';
-
 import SignupForm from '@/components/auth/signup';
 import { ERROR_CODES } from '@/utils/constants/error-codes';
 import { useGetQueryParams } from '@/utils/get-query-params';
@@ -64,9 +63,15 @@ function SignupContent({
   }
 
   return (
-    <div className="container text-white h-screen flex flex-col items-center justify-center">
-      <h1 className="font-bold text-3xl">Sign up page</h1>
-      <SignupForm />
+    <div className="container text-white h-screen flex items-center justify-center">
+      <div className="bg-black p-8 rounded-xl space-y-4 text-center">
+        <h1 className="font-bold text-3xl mb-2">Join us today</h1>
+        <p className="text-gray-300 mb-8 text-sm font-satoshi">
+          Set up your account in less than a minute <br /> no credit card
+          required.
+        </p>
+        <SignupForm />
+      </div>
     </div>
   );
 }

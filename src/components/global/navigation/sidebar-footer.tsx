@@ -39,7 +39,7 @@ export default function SidebarFooterComponent() {
               side="top"
               className="w-[--radix-popper-anchor-width] bg-black-75 border-black-50 text-white"
             >
-              <DropdownMenuItem className="hover:bg-black-50">
+              <DropdownMenuItem className="!hover:bg-black-50">
                 <Link href="/settings/account" className="w-full">
                   Account
                 </Link>

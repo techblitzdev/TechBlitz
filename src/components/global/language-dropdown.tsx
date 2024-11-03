@@ -10,6 +10,7 @@ import {
 import { useState } from 'react';
 import Image from 'next/image';
 import { CheckIcon } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function LanguageSwitcher() {
   const [selectedLanguageState, setSelectedLanguage] = useState('javascript');
@@ -32,7 +33,7 @@ export default function LanguageSwitcher() {
         )}
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="bg-black-75 text-white border-none"
+        className="bg-black-75 text-white border-none space-y-3"
         align="end"
       >
         {LANGUAGE_OPTIONS.map((lang) => (
@@ -58,7 +59,7 @@ export default function LanguageSwitcher() {
                 height={24}
                 unoptimized
               />
-              <span className="ml-3 text-[10px] font-satoshi flex items-center gap-x-2">
+              <span className="ml-3 font-satoshi flex items-center gap-x-2">
                 {lang.config.isActive ? lang.config.label : 'Coming soon'}
                 {lang.language === selectedLanguageState && (
                   <CheckIcon className="size-3" />
@@ -67,9 +68,7 @@ export default function LanguageSwitcher() {
             </div>
           </DropdownMenuItem>
         ))}
-        <DropdownMenuItem className="text-[10px] font-satoshi font-medium">
-          Submit your suggestion
-        </DropdownMenuItem>
+        <Button variant="secondary">Submit your suggestion</Button>
       </DropdownMenuContent>
     </DropdownMenu>
   );

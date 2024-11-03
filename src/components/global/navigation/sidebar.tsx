@@ -156,7 +156,7 @@ export function AppSidebar() {
               <SidebarMenuButton asChild>
                 <div className="flex items-center w-full">
                   {item.icon && <item.icon />}
-                  <span className="font-satoshi text-sm">{item.title}</span>
+                  <span className="font-satoshi text-base">{item.title}</span>
                   <div className="ms-auto">{item.chip && <item.chip />}</div>
                 </div>
               </SidebarMenuButton>
@@ -175,7 +175,7 @@ export function AppSidebar() {
               }`}
             >
               {item.icon && <item.icon />}
-              <span>{item.title}</span>
+              <span className="text-base">{item.title}</span>
               <div className="ms-auto">{item.chip && <item.chip />}</div>
             </Link>
           </SidebarMenuButton>

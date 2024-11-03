@@ -83,9 +83,7 @@ export default function TodaysQuestionPage({
       <div className="bg-black-75 rounded-xl p-4 space-y-4">
         {question?.codeSnippet && (
           <div className="space-y-1">
-            <p className="text-white text-sm font-satoshi font-semibold">
-              Code snippet:
-            </p>
+            <p className="text-white text-sm font-satoshi font-semibold"></p>
             <QuestionDisplay content={question.codeSnippet} />
           </div>
         )}

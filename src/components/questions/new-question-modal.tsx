@@ -70,7 +70,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         onClick={() => editor.chain().focus().toggleCodeBlock().run()}
         className={editor.isActive('codeBlock') ? 'bg-black-50' : ''}
       >
-        code block
+        Code block
       </Button>
       {editor.isActive('codeBlock') && (
         <Select
@@ -105,7 +105,7 @@ export default function NewQuestionModal({ ...props }) {
         defaultLanguage: 'javascript',
       }),
     ],
-    content: 'Enter code snippet here...',
+    content: '',
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
       form.setValue('codeSnippet', html);

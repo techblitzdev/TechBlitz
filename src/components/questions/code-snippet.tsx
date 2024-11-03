@@ -10,12 +10,14 @@ const CodeDisplay: React.FC<CodeDisplayProps> = ({
   content,
   language = 'javascript',
 }) => {
+  // Clean the content by removing pre and code tags
+  const cleanContent = content
+    .replace(/<pre><code[^>]*>/g, '')
+    .replace(/<\/code><\/pre>/g, '')
+    .trim();
+
   return (
-    <Highlight
-      theme={themes.nightOwl}
-      code={content.trim()}
-      language={language}
-    >
+    <Highlight theme={themes.oneDark} code={cleanContent} language={language}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre
           className="overflow-x-auto rounded-lg p-4"

@@ -40,6 +40,11 @@ body {
     font-size: 0.85rem;
     padding: 0.25em 0.3em;
   }
+
+  pre:focus-visible {
+    outline: 2px solid var(--purple);
+    outline-offset: 0.5rem;
+  }
 }
 
 @layer base {

@@ -16,6 +16,7 @@ import { useUser } from '@/hooks/useUser';
 import { getUserDisplayName } from '@/utils/user';
 import LoadingSpinner from '@/components/ui/loading';
 import LogoutButton from '../logout';
+import Link from 'next/link';
 
 export default function SidebarFooterComponent() {
   const { user, isError, isLoading } = useUser();
@@ -36,15 +37,19 @@ export default function SidebarFooterComponent() {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               side="top"
-              className="w-[--radix-popper-anchor-width]"
+              className="w-[--radix-popper-anchor-width] bg-black-75 border-black-50 text-white"
             >
-              <DropdownMenuItem>
-                <span>Account</span>
+              <DropdownMenuItem className="hover:bg-black-50">
+                <Link href="/settings/account" className="w-full">
+                  Account
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <span>Billing</span>
+              <DropdownMenuItem className="hover:bg-black-50">
+                <Link href="/settings/billing" className="w-full">
+                  Billing
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem className="hover:bg-black-50 w-full">
                 <LogoutButton variant="ghost" padding="none" />
               </DropdownMenuItem>
             </DropdownMenuContent>

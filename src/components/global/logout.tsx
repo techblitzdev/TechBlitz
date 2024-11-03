@@ -27,12 +27,12 @@ export default function LogoutButton(otps: {
 
   return (
     <Button
-      className="w-full flex items-center gap-x-2"
+      className="!w-full flex items-center gap-x-2 h-auto hover:bg-black-50 hover:text-white"
       variant={variant}
       onClick={handleLogout}
       padding={padding}
     >
-      <p className="text-xs">Logout</p>
+      <p className="text-sm">Logout</p>
       <ExitIcon className="size-3" />
     </Button>
   );

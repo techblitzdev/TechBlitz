@@ -16,6 +16,8 @@ import { signUp } from '@/actions/user/signup';
 import { InputWithLabel } from '../ui/input-label';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { Separator } from '../ui/separator';
+import Link from 'next/link';
 
 type SchemaProps = z.infer<typeof signupSchema>;
 
@@ -26,7 +28,6 @@ export default function SignupForm() {
     defaultValues: {
       email: '',
       password: '',
-      confirmPassword: '',
     },
   });
 
@@ -57,10 +58,11 @@ export default function SignupForm() {
           name="email"
           render={({ field }) => (
             <FormControl>
-              <div className="col-span-6">
+              <div className="col-span-12">
                 <InputWithLabel
                   label="Email"
                   type="email"
+                  placeholder="hello@meerge.dev"
                   {...field}
                   autoComplete="email"
                 />
@@ -76,10 +78,11 @@ export default function SignupForm() {
           name="password"
           render={({ field }) => (
             <FormControl>
-              <div className="col-span-6">
+              <div className="col-span-12">
                 <InputWithLabel
                   label="Password"
                   type="password"
+                  placeholder="********"
                   {...field}
                   autoComplete="new-password"
                 />
@@ -90,29 +93,25 @@ export default function SignupForm() {
             </FormControl>
           )}
         />
-        <FormField
-          control={form.control}
-          name="confirmPassword"
-          render={({ field }) => (
-            <FormControl>
-              <div className="col-span-6">
-                <InputWithLabel
-                  label="Confirm Password"
-                  type="password"
-                  {...field}
-                />
-                <FormMessage>
-                  {form.formState?.errors?.confirmPassword?.message}
-                </FormMessage>
-              </div>
-            </FormControl>
-          )}
-        />
         <FormItem className="col-span-full">
-          <Button type="submit" disabled={isPending} className="w-full">
+          <Button
+            type="submit"
+            disabled={isPending}
+            className="w-full"
+            variant="secondary"
+          >
             {isPending ? 'Loading...' : 'Sign Up'}
           </Button>
         </FormItem>
+
+        <Separator className="mt-1 col-span-full bg-black-50" />
+
+        <Link
+          href="/login"
+          className="col-span-full text-sm text-gray-300 hover:text-white duration-300 underline"
+        >
+          Already have an account?
+        </Link>
       </form>
     </Form>
   );

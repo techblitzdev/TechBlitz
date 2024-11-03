@@ -18,7 +18,6 @@ import {
 } from '@/components/ui/tooltip';
 import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Loader2 } from 'lucide-react';
 import LoadingSpinner from '@/components/ui/loading';
 
 type SchemaProps = z.input<typeof userDetailsSchema>;
@@ -49,17 +48,39 @@ export default function SettingsProfilePage() {
         uid: user?.uid || '',
       };
 
-      await updateUser({ userDetails: updatedVals });
+      const updatedUser = await updateUser({ userDetails: updatedVals });
+      return updatedUser;
     },
-    onSuccess: () => {
-      // wait for the mutation to complete before invalidating the query
-      queryClient.invalidateQueries({ queryKey: ['user-details'] });
-      queryClient.resetQueries({ queryKey: ['user-details'] });
-      toast.success('Profile updated successfully');
+    onMutate: async (newUserData) => {
+      // Cancel any outgoing refetches
+      await queryClient.cancelQueries({ queryKey: ['user-details'] });
+
+      // Snapshot the previous value
+      const previousUser = queryClient.getQueryData(['user-details']);
+
+      // Optimistically update to the new value
+      queryClient.setQueryData(['user-details'], (old: any) => ({
+        ...old,
+        ...newUserData,
+      }));
+
+      // Return a context object with the snapshotted value
+      return { previousUser };
     },
-    onError: (error) => {
-      console.error(error);
+    onError: (err, newUserData, context) => {
+      // If the mutation fails, use the context returned from onMutate to roll back
+      queryClient.setQueryData(['user-details'], context?.previousUser);
       toast.error('An error occurred while updating your profile');
+      console.error(err);
+    },
+    onSuccess: (updatedUser) => {
+      // Update the cache with the actual response data
+      //queryClient.setQueryData(['user-details'], updatedUser);
+
+      // Refetch to ensure cache is in sync with server
+      //queryClient.invalidateQueries({ queryKey: ['user-details'] });
+
+      toast.success('Profile updated successfully');
     },
   });
 

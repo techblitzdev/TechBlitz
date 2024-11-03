@@ -28,9 +28,7 @@ export default async function UserRank(opts: {
     <div className="text-white text-sm flex w-full justify-between items-center">
       {userRank ? `${userRank}.` : 'Not ranked'} {getUserDisplayName(userData)}{' '}
       (You)
-      {userAnswer && (
-        <div className="">{formatSeconds(userAnswer.timeTaken || 0)}</div>
-      )}
+      {userAnswer && <p>{formatSeconds(userAnswer.timeTaken || 0)}</p>}
     </div>
   );
 }

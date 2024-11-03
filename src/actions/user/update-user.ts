@@ -1,6 +1,7 @@
 'use server';
 import { UserUpdatePayload } from '@/types/User';
 import { prisma } from '@/utils/prisma';
+import { revalidateTag } from 'next/cache';
 
 export const updateUser = async (opts: {
   userDetails: Partial<UserUpdatePayload>;
@@ -16,5 +17,8 @@ export const updateUser = async (opts: {
     },
     data: userDetails,
   });
+
+  revalidateTag('user-details');
+
   return 'ok';
 };

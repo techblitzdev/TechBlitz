@@ -16,11 +16,11 @@ export const deleteUser = async (opts: {
   // Wrap all Prisma operations in a transaction
   await prisma.$transaction(async (tx) => {
     // delete the user from the database
-    // await tx.users.delete({
-    //   where: {
-    //     uid: userUid
-    //   }
-    // });
+    await tx.users.delete({
+      where: {
+        uid: userUid
+      }
+    });
 
     // delete the user from supabase auth
     const { error } = await supabase.auth.admin.deleteUser(

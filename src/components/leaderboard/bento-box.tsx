@@ -23,7 +23,7 @@ export default async function TodaysLeaderboardBentoBox(opts: {
   const top3FastestTimes = fastestTimes.slice(0, 3);
   const restOfFastestTimes = fastestTimes.slice(3, fastestTimes.length);
 
-  if (fastestTimes.length === 0) {
+  if (fastestTimes.length === 0 && todaysQuestion?.uid) {
     return (
       <Card className="bg-black border-none">
         <CardContent className="pt-6 px-6 text-center">

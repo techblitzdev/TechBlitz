@@ -18,13 +18,12 @@ import {
 } from '@/components/ui/tooltip';
 import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import LoadingSpinner from '@/components/ui/loading';
 
 type SchemaProps = z.input<typeof userDetailsSchema>;
 
 export default function SettingsProfilePage() {
-  // Get QueryClient from the context
   const queryClient = useQueryClient();
-
   const { user } = useUser();
 
   const form = useForm<SchemaProps>({
@@ -37,8 +36,9 @@ export default function SettingsProfilePage() {
     },
   });
 
-  const onSubmit = async (values: SchemaProps) => {
-    try {
+  // Use mutation hook for handling the update
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (values: SchemaProps) => {
       const cleanedValues = Object.fromEntries(
         Object.entries(values).filter(([_, value]) => value !== null)
       );
@@ -48,20 +48,44 @@ export default function SettingsProfilePage() {
         uid: user?.uid || '',
       };
 
-      // using tanstack query here as we need to revalidate the user data
-      // after updating the user's details
+      const updatedUser = await updateUser({ userDetails: updatedVals });
+      return updatedUser;
+    },
+    onMutate: async (newUserData) => {
+      // Cancel any outgoing refetches
+      await queryClient.cancelQueries({ queryKey: ['user-details'] });
 
-      await updateUser({ userDetails: updatedVals });
+      // Snapshot the previous value
+      const previousUser = queryClient.getQueryData(['user-details']);
 
-      // revalidate the query key so we refetch the user data
-      // once they have updated their details
-      queryClient.invalidateQueries({ queryKey: ['user-details'] });
+      // Optimistically update to the new value
+      queryClient.setQueryData(['user-details'], (old: any) => ({
+        ...old,
+        ...newUserData,
+      }));
+
+      // Return a context object with the snapshotted value
+      return { previousUser };
+    },
+    onError: (err, newUserData, context) => {
+      // If the mutation fails, use the context returned from onMutate to roll back
+      queryClient.setQueryData(['user-details'], context?.previousUser);
+      toast.error('An error occurred while updating your profile');
+      console.error(err);
+    },
+    onSuccess: (updatedUser) => {
+      // Update the cache with the actual response data
+      //queryClient.setQueryData(['user-details'], updatedUser);
+
+      // Refetch to ensure cache is in sync with server
+      //queryClient.invalidateQueries({ queryKey: ['user-details'] });
 
       toast.success('Profile updated successfully');
-    } catch (e) {
-      console.error(e);
-      toast.error('An error occurred while updating your profile');
-    }
+    },
+  });
+
+  const onSubmit = (values: SchemaProps) => {
+    mutate(values);
   };
 
   return (
@@ -153,8 +177,8 @@ export default function SettingsProfilePage() {
             )}
           />
 
-          <Button type="submit" variant="secondary">
-            Save changes
+          <Button type="submit" variant="secondary" disabled={isPending}>
+            {isPending ? <LoadingSpinner /> : 'Save changes'}
           </Button>
         </form>
       </Form>

@@ -8,6 +8,9 @@ import { Separator } from '@/components/ui/separator';
 import { Card, CardContent } from '@/components/ui/card';
 import { Trophy } from 'lucide-react';
 import Link from 'next/link';
+import { getUserAnswerRank } from '@/actions/leaderboard/get-user-rank';
+import { getUserFromSession } from '@/actions/user/get-user';
+import UserRank from './user-rank';
 
 export default async function TodaysLeaderboardBentoBox(opts: {
   todaysQuestion: Question | null;
@@ -22,6 +25,8 @@ export default async function TodaysLeaderboardBentoBox(opts: {
 
   const top3FastestTimes = fastestTimes.slice(0, 3);
   const restOfFastestTimes = fastestTimes.slice(3, fastestTimes.length);
+
+  const { data: user } = await getUserFromSession();
 
   if (fastestTimes.length === 0 && todaysQuestion?.uid) {
     return (
@@ -40,10 +45,9 @@ export default async function TodaysLeaderboardBentoBox(opts: {
   }
 
   return (
-    <Card className="font-satoshi bg-black text-white border-none">
-      <CardContent className="pt-6 pb-4">
+    <Card className="font-satoshi bg-black text-white border-none h-full">
+      <CardContent className="pt-6 pb-4 flex flex-col h-full justify-between">
         <TopThreeLeaderboardBentoBox fastestTimes={top3FastestTimes} />
-
         {restOfFastestTimes.length > 0 && (
           <>
             <Separator className="my-2" />
@@ -67,6 +71,13 @@ export default async function TodaysLeaderboardBentoBox(opts: {
             </ol>
           </>
         )}
+        <div className="flex flex-col gap-y-2">
+          <Separator className="bg-black-50" />
+          <UserRank
+            questionUid={todaysQuestion.uid}
+            userUid={user?.user?.id || ''}
+          />
+        </div>
       </CardContent>
     </Card>
   );

@@ -8,6 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { BreadcrumbWithCustomSeparator } from '@/components/global/breadcrumbs';
 import { useStopwatch } from 'react-timer-hook';
 import NoDailyQuestion from '@/components/global/errors/no-daily-question';
+import { QuestionDisplay } from '@/components/questions/code-snippet';
 
 const items = [
   {
@@ -79,16 +80,21 @@ export default function TodaysQuestionPage({
         </div>
       </div>
       <Separator />
-      {question && (
-        <AnswerQuestionForm
-          userData={user}
-          uid={uid}
-          question={question}
-          time={totalSeconds}
-          stopwatchPause={pause}
-          resetStopwatch={reset}
-        />
-      )}
+      <div className="bg-black-75 rounded-xl p-4 space-y-4">
+        {question?.codeSnippet && (
+          <QuestionDisplay content={question.codeSnippet} />
+        )}
+        {question && (
+          <AnswerQuestionForm
+            userData={user}
+            uid={uid}
+            question={question}
+            time={totalSeconds}
+            stopwatchPause={pause}
+            resetStopwatch={reset}
+          />
+        )}
+      </div>
     </>
   );
 }

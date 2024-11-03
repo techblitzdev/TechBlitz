@@ -192,7 +192,7 @@ export default function NewQuestionModal({ ...props }) {
                       <MenuBar editor={editor} />
                       <EditorContent
                         editor={editor}
-                        className="prose prose-invert max-w-none p-4"
+                        className="prose prose-invert max-w-none p-4 focus:border-none"
                         {...field}
                       />
                     </div>

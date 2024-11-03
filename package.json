@@ -39,6 +39,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
+    "dompurify": "^3.1.7",
     "framer-motion": "^11.5.6",
     "lowlight": "^3.1.0",
     "lucide-react": "^0.439.0",
@@ -61,6 +62,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/dompurify": "^3.0.5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

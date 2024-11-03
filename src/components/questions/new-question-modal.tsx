@@ -1,4 +1,9 @@
 'use client';
+import React from 'react';
+import { useEditor, EditorContent } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import { common, createLowlight } from 'lowlight';
 import {
   Dialog,
   DialogContent,
@@ -7,8 +12,6 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { useMutation } from '@tanstack/react-query';
-import { addQuestion } from '@/actions/questions/add';
 import { Form, FormControl, FormField } from '../ui/form';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -18,10 +21,97 @@ import { InputWithLabel } from '@/components/ui/input-label';
 import { toast } from 'sonner';
 import { DatePicker } from '@/components/ui/date-picker';
 import { formatISO } from 'date-fns';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { addQuestion } from '@/actions/questions/add';
+import { useMutation } from '@tanstack/react-query';
+
+import { LANGUAGE_OPTIONS } from '@/utils/constants/language-options';
+
+const lowlight = createLowlight(common);
 
 type SchemaProps = z.infer<typeof newQuestionSchema>;
 
+const MenuBar = ({ editor }: { editor: any }) => {
+  const [currentLanguage, setCurrentLanguage] = React.useState('javascript');
+
+  if (!editor) {
+    return null;
+  }
+
+  return (
+    <div className="border-b border-black-50 p-2 flex items-center gap-2 flex-wrap">
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => editor.chain().focus().toggleBold().run()}
+        disabled={!editor.can().chain().focus().toggleBold().run()}
+        className={editor.isActive('bold') ? 'bg-black-50' : ''}
+      >
+        bold
+      </Button>
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => editor.chain().focus().toggleItalic().run()}
+        disabled={!editor.can().chain().focus().toggleItalic().run()}
+        className={editor.isActive('italic') ? 'bg-black-50' : ''}
+      >
+        italic
+      </Button>
+      <Button
+        variant="default"
+        size="sm"
+        onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+        className={editor.isActive('codeBlock') ? 'bg-black-50' : ''}
+      >
+        code block
+      </Button>
+      {editor.isActive('codeBlock') && (
+        <Select
+          value={currentLanguage}
+          onValueChange={(value) => {
+            setCurrentLanguage(value);
+            editor.chain().focus().setCodeBlock({ language: value }).run();
+          }}
+        >
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Select language" />
+          </SelectTrigger>
+          <SelectContent className="h-auto">
+            {LANGUAGE_OPTIONS.map((lang) => (
+              <SelectItem key={lang.language} value={lang.language}>
+                {lang.config.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      )}
+    </div>
+  );
+};
+
 export default function NewQuestionModal({ ...props }) {
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      CodeBlockLowlight.configure({
+        lowlight,
+        defaultLanguage: 'javascript',
+      }),
+    ],
+    content: 'Enter code snippet here...',
+    onUpdate: ({ editor }) => {
+      const html = editor.getHTML();
+      form.setValue('codeSnippet', html);
+    },
+  });
+
   const form = useForm<SchemaProps>({
     resolver: zodResolver(newQuestionSchema),
     defaultValues: {
@@ -52,9 +142,9 @@ export default function NewQuestionModal({ ...props }) {
       });
     },
     onSuccess: (data) => {
-      console.log(data);
       toast.success('Question added successfully');
       form.reset();
+      editor?.commands.setContent('');
     },
     onError: () => {
       toast.error('Failed to add question');
@@ -77,13 +167,35 @@ export default function NewQuestionModal({ ...props }) {
               onSubmit={form.handleSubmit(handleNewQuestion)}
               className="flex flex-col gap-y-4 !mt-6"
             >
-              {/* Main Question Field */}
+              {/* Question */}
               <FormField
                 control={form.control}
                 name="question"
                 render={({ field }) => (
                   <FormControl>
-                    <InputWithLabel label="Question" type="text" {...field} />
+                    <InputWithLabel
+                      label="Question"
+                      type="text"
+                      wrapperclassname="lg:w-96"
+                      {...field}
+                    />
+                  </FormControl>
+                )}
+              />
+              {/* TipTap Editor */}
+              <FormField
+                control={form.control}
+                name="codeSnippet"
+                render={({ field }) => (
+                  <FormControl>
+                    <div className="border border-black-50 rounded-md">
+                      <MenuBar editor={editor} />
+                      <EditorContent
+                        editor={editor}
+                        className="prose prose-invert max-w-none p-4"
+                        {...field}
+                      />
+                    </div>
                   </FormControl>
                 )}
               />
@@ -109,7 +221,6 @@ export default function NewQuestionModal({ ...props }) {
                     )}
                   />
                   <div className="w-full flex items-center justify-between self-end">
-                    {/** Mark as correct answer */}
                     <Button
                       variant="default"
                       type="button"
@@ -121,7 +232,6 @@ export default function NewQuestionModal({ ...props }) {
                         ? '✅'
                         : 'Mark as correct'}
                     </Button>
-                    {/* Remove Button */}
                     <Button
                       variant="destructive"
                       type="button"
@@ -138,7 +248,7 @@ export default function NewQuestionModal({ ...props }) {
               <Button
                 type="button"
                 className="w-fit"
-                onClick={() => append({ text: '' })} // Append a new empty answer
+                onClick={() => append({ text: '' })}
               >
                 Add Answer
               </Button>
@@ -163,11 +273,7 @@ export default function NewQuestionModal({ ...props }) {
               />
 
               {/* Submit Button */}
-              <Button
-                type="submit"
-                className="bg-blue-500 text-white"
-                disabled={isPending}
-              >
+              <Button type="submit" variant="secondary" disabled={isPending}>
                 {isPending ? 'Adding...' : 'Add Question'}
               </Button>
             </form>

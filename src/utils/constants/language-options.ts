@@ -30,10 +30,10 @@ export const LANGUAGE_OPTIONS: LanguageDropdown[] = [
     svg: PythonSvg,
   },
   {
-    language: 'golang',
+    language: 'go',
     config: {
       isActive: false,
-      label: 'GoLang',
+      label: 'Go',
     },
     svg: GolangSvg,
   },

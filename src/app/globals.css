@@ -26,6 +26,22 @@ body {
   }
 }
 
+/* Basic editor styles */
+.tiptap {
+  :first-child {
+    margin-top: 0;
+  }
+
+  /* Code and preformatted text styles */
+  code {
+    background-color: var(--purple-light);
+    border-radius: 0.4rem;
+    color: var(--white);
+    font-size: 0.85rem;
+    padding: 0.25em 0.3em;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

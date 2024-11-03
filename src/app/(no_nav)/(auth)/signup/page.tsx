@@ -64,9 +64,9 @@ function SignupContent({
 
   return (
     <div className="bg-black-100 p-8 rounded-xl space-y-4 text-center">
-      <h1 className="font-bold text-3xl mb-2">Join us today</h1>
+      <h1 className="font-bold text-3xl mb-2">Join today!</h1>
       <p className="text-gray-300 mb-8 text-sm font-satoshi text-wrap">
-        Become a part of the fastest growing community <br /> of developers.
+        And become a part of the fastest growing community <br /> of developers.
       </p>
       <SignupForm />
     </div>

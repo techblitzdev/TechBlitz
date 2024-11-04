@@ -27,10 +27,13 @@ export default function CodeDisplay({ content, language }: CodeDisplayProps) {
     .replace(/<\/code><\/pre>/g, '')
     .trim();
 
+  // also change =&gt; to =>
+  const cleanContentWithArrow = cleanContent.replace(/=&gt;/g, '=>');
+
   return (
     <Highlight
       theme={themes.vsDark}
-      code={cleanContent}
+      code={cleanContentWithArrow}
       language={language || 'js'}
     >
       {({

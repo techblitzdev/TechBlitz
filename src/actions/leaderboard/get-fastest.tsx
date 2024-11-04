@@ -1,6 +1,7 @@
 'use server';
 import { AnswerWithUser } from '@/types/Answers';
 import { prisma } from '@/utils/prisma';
+import { revalidateTag } from 'next/cache';
 
 type GetFastestTimesReturnType = {
   fastestTimes: AnswerWithUser[];
@@ -60,6 +61,8 @@ export const getFastestTimes = async (opts: {
       correctAnswer: true,
     },
   });
+
+  revalidateTag(`leaderboard-${questionUid}`);
 
   return {
     fastestTimes: answers,

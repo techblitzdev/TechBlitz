@@ -9,6 +9,7 @@ import { BreadcrumbWithCustomSeparator } from '@/components/global/breadcrumbs';
 import { useStopwatch } from 'react-timer-hook';
 import NoDailyQuestion from '@/components/global/errors/no-daily-question';
 import QuestionDisplay from '@/components/questions/code-snippet';
+import { Clock } from 'lucide-react';
 
 const items = [
   {
@@ -73,8 +74,11 @@ export default function TodaysQuestionPage({
             <h1 className="text-xl md:text-3xl font-semibold">
               {question?.question}
             </h1>
-            <div className="flex items-center">
-              <span>{minutes}</span>:<span>{seconds}</span>
+            <div className="flex items-center gap-x-1">
+              <Clock className="size-4" />
+              <p>
+                <span>{minutes}</span>:<span>{seconds}</span>
+              </p>
             </div>
           </div>
         </div>

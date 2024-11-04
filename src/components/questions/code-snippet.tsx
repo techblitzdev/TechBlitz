@@ -25,15 +25,15 @@ export default function CodeDisplay({ content, language }: CodeDisplayProps) {
   const cleanContent = content
     .replace(/<pre><code[^>]*>/g, '')
     .replace(/<\/code><\/pre>/g, '')
+    .replace(/=&gt;/g, '=>')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
     .trim();
-
-  // also change =&gt; to =>
-  const cleanContentWithArrow = cleanContent.replace(/=&gt;/g, '=>');
 
   return (
     <Highlight
       theme={themes.vsDark}
-      code={cleanContentWithArrow}
+      code={cleanContent}
       language={language || 'js'}
     >
       {({

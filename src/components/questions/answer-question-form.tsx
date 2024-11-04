@@ -16,6 +16,7 @@ import type { UserRecord } from '@/types/User';
 import type { Answer } from '@/types/Answers';
 import { toast } from 'sonner';
 import { clearQuestionsForAdmin } from '@/actions/questions/admin/clear';
+import QuestionCard from './question-card';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
@@ -124,17 +125,7 @@ export default function AnswerQuestionForm({
               key={answer.uid}
               render={({ field }) => (
                 <FormControl>
-                  <label className="flex items-center gap-x-2">
-                    <input
-                      {...field}
-                      type="radio"
-                      name="answer"
-                      value={answer.uid}
-                      checked={field.value === answer.uid}
-                      onChange={() => field.onChange(answer.uid)}
-                    />
-                    <span>{answer.answer}</span>
-                  </label>
+                  <QuestionCard answer={answer} field={field} />
                 </FormControl>
               )}
             />

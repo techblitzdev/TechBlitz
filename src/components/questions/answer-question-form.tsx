@@ -16,6 +16,10 @@ import type { UserRecord } from '@/types/User';
 import type { Answer } from '@/types/Answers';
 import { toast } from 'sonner';
 import { clearQuestionsForAdmin } from '@/actions/questions/admin/clear';
+import { Label } from '../ui/label';
+import { cn } from '@/utils/cn';
+import { ArrowRight, Check } from 'lucide-react';
+import LoadingSpinner from '../ui/loading';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
@@ -43,6 +47,7 @@ export default function AnswerQuestionForm({
   const [userAnswer, setUserAnswer] = useState<Answer | null>(null);
   const [newUserData, setNewUserData] = useState<UserRecord | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(answerQuestionSchema),
@@ -57,18 +62,17 @@ export default function AnswerQuestionForm({
       return;
     }
 
-    // pause the stopwatch
+    setIsLoading(true);
+
     stopwatchPause();
 
     try {
-      // build the params
       const opts: any = {
         questionUid: uid,
         answerUid: values.answer,
         userUid: userData.uid,
       };
 
-      // conditonally add the time taken if it exists
       if (time) {
         opts.timeTaken = time;
       }
@@ -79,17 +83,16 @@ export default function AnswerQuestionForm({
         userData: newUserData,
       } = await answerQuestion(opts);
 
-      // set the data that we get bacl from the endpoint so we can pass it to the popup
       setCorrectAnswer(correctAnswer ? 'correct' : 'incorrect');
       setUserAnswer(userAnswer);
       setNewUserData(newUserData);
-      // open the modal
       setIsModalOpen(true);
     } catch (error) {
       console.error('Error submitting answer:', error);
-      // Handle error appropriately
       toast.error('Error submitting answer');
     }
+
+    setIsLoading(false);
   };
 
   const adminClearAnswers = async () => {
@@ -113,41 +116,83 @@ export default function AnswerQuestionForm({
   return (
     <Form {...form}>
       <form
-        className="font-satoshi flex flex-col gap-y-4"
+        className="font-satoshi flex flex-col gap-8"
         onSubmit={form.handleSubmit(handleAnswerQuestion)}
       >
-        <div className="flex flex-col gap-y-2">
+        <div className="grid grid-cols-12 gap-8 mt-6">
           {question.answers.map((answer) => (
-            <FormField
-              control={form.control}
-              name="answer"
-              key={answer.uid}
-              render={({ field }) => (
-                <FormControl>
-                  <label className="flex items-center gap-x-2">
-                    <input
-                      {...field}
-                      type="radio"
-                      name="answer"
-                      value={answer.uid}
-                      checked={field.value === answer.uid}
-                      onChange={() => field.onChange(answer.uid)}
-                    />
-                    <span>{answer.answer}</span>
-                  </label>
-                </FormControl>
-              )}
-            />
+            <div key={answer.uid} className="col-span-full lg:col-span-6">
+              <FormField
+                control={form.control}
+                name="answer"
+                render={({ field }) => (
+                  <FormControl>
+                    <Label
+                      htmlFor={answer.uid}
+                      className={cn(
+                        'p-4 rounded-xl min-h-20 w-full flex items-center gap-x-2 cursor-pointer transition-colors',
+                        field.value === answer.uid
+                          ? 'bg-white text-black hover:bg-white/90'
+                          : 'bg-black hover:bg-gray-900'
+                      )}
+                      onClick={() => field.onChange(answer.uid)}
+                    >
+                      <input
+                        type="radio"
+                        id={answer.uid}
+                        className="hidden"
+                        name="answer"
+                        value={answer.uid}
+                        checked={field.value === answer.uid}
+                        onChange={() => {}}
+                      />
+                      <div
+                        className={cn(
+                          'h-5 w-5 rounded-md border border-black-50 flex items-center justify-center flex-shrink-0', // Fixed size and prevent shrinking
+                          field.value === answer.uid
+                            ? 'bg-black text-white'
+                            : ''
+                        )}
+                      >
+                        {field.value === answer.uid && (
+                          <Check className="h-3 w-3 flex-shrink-0" />
+                        )}
+                      </div>
+                      <p className="text-base">{answer.answer}</p>
+                    </Label>
+                  </FormControl>
+                )}
+              />
+            </div>
           ))}
         </div>
-        <Button type="submit" disabled={!form.formState.isDirty}>
-          Submit Answer
-        </Button>
-        {userData.userLevel === 'ADMIN' && (
-          <Button type="button" variant="secondary" onClick={adminClearAnswers}>
-            (ADMIN ONLY) clear today&apos;s answer
+        <div className="flex items-center gap-4">
+          <Button
+            type="submit"
+            size="lg"
+            variant="secondary"
+            disabled={!form.formState.isDirty}
+          >
+            {isLoading ? (
+              <LoadingSpinner />
+            ) : (
+              <div className="flex items-center gap-x-1">
+                Submit
+                <ArrowRight className="size-3" />
+              </div>
+            )}
           </Button>
-        )}
+          {userData.userLevel === 'ADMIN' && (
+            <Button
+              size="lg"
+              type="button"
+              variant="default"
+              onClick={adminClearAnswers}
+            >
+              (ADMIN ONLY) clear today&apos;s answer
+            </Button>
+          )}
+        </div>
         {newUserData != null && (
           <AnswerQuestionModal
             question={question}

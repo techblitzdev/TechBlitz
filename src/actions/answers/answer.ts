@@ -2,6 +2,7 @@
 import { Answer } from '@/types/Answers';
 import { User, UserRecord } from '@/types/User';
 import { prisma } from '@/utils/prisma';
+import { revalidateTag } from 'next/cache';
 
 // Types
 interface AnswerQuestionInput {
@@ -85,10 +86,11 @@ const updateOrCreateAnswer = async (
   }
 ) => {
   if (existingAnswer) {
-    // Only update if new time is better than existing time
+    // Update if the new answer is correct and the previous one was incorrect, or if the time is better
     if (
-      timeTaken !== undefined &&
-      timeTaken < (existingAnswer.timeTaken ?? Infinity)
+      correctAnswer !== existingAnswer.correctAnswer || // Change from incorrect to correct
+      (timeTaken !== undefined &&
+        timeTaken < (existingAnswer.timeTaken ?? Infinity))
     ) {
       return tx.answers.update({
         where: { uid: existingAnswer.uid },
@@ -98,7 +100,7 @@ const updateOrCreateAnswer = async (
     return existingAnswer;
   }
 
-  // Create new answer
+  // Create new answer if none exists
   return tx.answers.create({
     data: {
       user: { connect: { uid: userUid } },
@@ -150,6 +152,8 @@ export async function answerQuestion({
 
       return { userData, userAnswer };
     });
+
+    revalidateTag(`leaderboard-${questionUid}`);
 
     return {
       correctAnswer,

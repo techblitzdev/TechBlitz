@@ -19,7 +19,7 @@ export default function QuestionHintAccordion(opts: { hint: string }) {
             <p>Hint</p>
           </div>
         </AccordionTrigger>
-        <AccordionContent className="pb-2">{hint}</AccordionContent>
+        <AccordionContent className="pb-4">{hint}</AccordionContent>
       </AccordionItem>
     </Accordion>
   );

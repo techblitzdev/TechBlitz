@@ -7,7 +7,6 @@ import {
   Award,
   ChartBarIncreasing,
   LockIcon,
-  Trash,
   User,
   Bell,
   CreditCard,
@@ -141,7 +140,7 @@ export function AppSidebar() {
     if ('groupLabel' in item) {
       return (
         <SidebarGroup key={item.groupLabel}>
-          <SidebarGroupLabel className="px-0 h-fit">
+          <SidebarGroupLabel className="px-0 h-fit text-xl font-satoshi">
             {item.groupLabel}
           </SidebarGroupLabel>
         </SidebarGroup>
@@ -156,7 +155,7 @@ export function AppSidebar() {
               <SidebarMenuButton asChild>
                 <div className="flex items-center w-full">
                   {item.icon && <item.icon />}
-                  <span className="font-satoshi text-base">{item.title}</span>
+                  <span className="text-xl font-satoshi">{item.title}</span>
                   <div className="ms-auto">{item.chip && <item.chip />}</div>
                 </div>
               </SidebarMenuButton>
@@ -175,7 +174,7 @@ export function AppSidebar() {
               }`}
             >
               {item.icon && <item.icon />}
-              <span className="text-base">{item.title}</span>
+              <span className="text-xl">{item.title}</span>
               <div className="ms-auto">{item.chip && <item.chip />}</div>
             </Link>
           </SidebarMenuButton>
@@ -191,12 +190,11 @@ export function AppSidebar() {
           <SidebarGroupLabel className="w-full flex items-center justify-between">
             <Link
               href="/dashboard"
-              className="text-xl font-bold font-satoshi hover:text-white duration-300"
+              className="text-xl lg:text-3xl font-bold font-satoshi hover:text-white duration-300"
               prefetch
             >
               meerge
             </Link>
-            <SidebarTrigger className="size-4 h-full flex items-center my-auto" />
           </SidebarGroupLabel>
           <SidebarGroupContent className="mt-4">
             <SidebarMenu>

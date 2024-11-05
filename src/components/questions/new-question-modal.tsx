@@ -32,6 +32,7 @@ import { addQuestion } from '@/actions/questions/add';
 import { useMutation } from '@tanstack/react-query';
 
 import { LANGUAGE_OPTIONS } from '@/utils/constants/language-options';
+import { Separator } from '../ui/separator';
 
 const lowlight = createLowlight(common);
 
@@ -119,6 +120,8 @@ export default function NewQuestionModal({ ...props }) {
       questionDate: new Date().toISOString(),
       answers: [{ text: '' }],
       correctAnswer: null,
+      codeSnippet: '',
+      hint: '',
     },
   });
 
@@ -139,6 +142,7 @@ export default function NewQuestionModal({ ...props }) {
         ...rest,
         answers: answerTexts,
         correctAnswer: Number(rest.correctAnswer),
+        hint: rest.hint,
       });
     },
     onSuccess: (data) => {
@@ -155,46 +159,72 @@ export default function NewQuestionModal({ ...props }) {
     await server_addQuestion(values);
 
   return (
-    <Dialog>
+    <Dialog modal={true}>
       <DialogTrigger asChild>
         <Button {...props}>Create New Question</Button>
       </DialogTrigger>
       <DialogContent className="bg-black md:max-w-4xl">
         <DialogHeader>
-          <DialogTitle className="text-2xl">Add new Question</DialogTitle>
+          <DialogTitle className="text-2xl">
+            Add new Question
+            <Separator className="bg-black-50 mt-2" />
+          </DialogTitle>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(handleNewQuestion)}
               className="flex flex-col gap-y-4 !mt-6"
             >
-              {/* Question */}
-              <FormField
-                control={form.control}
-                name="question"
-                render={({ field }) => (
-                  <FormControl>
-                    <InputWithLabel
-                      label="Question"
-                      type="text"
-                      wrapperclassname="lg:w-96"
-                      {...field}
-                    />
-                  </FormControl>
-                )}
-              />
+              <div className="flex gap-4 items-end">
+                {/* Question */}
+                <FormField
+                  control={form.control}
+                  name="question"
+                  render={({ field }) => (
+                    <FormControl>
+                      <InputWithLabel
+                        label="Question"
+                        type="text"
+                        wrapperclassname="lg:w-96"
+                        {...field}
+                      />
+                    </FormControl>
+                  )}
+                />
+                {/* Question Date */}
+                <FormField
+                  control={form.control}
+                  name="questionDate"
+                  render={({ field }) => (
+                    <FormControl>
+                      <DatePicker
+                        date={field.value ? new Date(field.value) : undefined}
+                        setDate={(date) =>
+                          form.setValue(
+                            'questionDate',
+                            date ? formatISO(date) : ''
+                          )
+                        }
+                      />
+                    </FormControl>
+                  )}
+                />
+              </div>
               {/* TipTap Editor */}
               <FormField
                 control={form.control}
                 name="codeSnippet"
                 render={({ field }) => (
                   <FormControl>
-                    <div className="border border-black-50 rounded-md">
-                      <MenuBar editor={editor} />
-                      <EditorContent
-                        editor={editor}
-                        className="prose prose-invert max-w-none p-4 focus:border-none"
-                        {...field}
-                      />
+                    <div className="space-y-1">
+                      <p className="text-sm">Code Block</p>
+                      <div className="border border-black-50 rounded-md">
+                        <MenuBar editor={editor} />
+                        <EditorContent
+                          editor={editor}
+                          className="prose prose-invert max-w-none p-4 focus:border-none"
+                          {...field}
+                        />
+                      </div>
                     </div>
                   </FormControl>
                 )}
@@ -244,6 +274,21 @@ export default function NewQuestionModal({ ...props }) {
                 </div>
               ))}
 
+              <FormField
+                control={form.control}
+                name="hint"
+                render={({ field }) => (
+                  <FormControl>
+                    <InputWithLabel
+                      label="Hint"
+                      type="text"
+                      wrapperclassname="lg:w-96"
+                      {...field}
+                    />
+                  </FormControl>
+                )}
+              />
+
               {/* Add New Answer Button */}
               <Button
                 type="button"
@@ -252,25 +297,6 @@ export default function NewQuestionModal({ ...props }) {
               >
                 Add Answer
               </Button>
-
-              {/* Question Date */}
-              <FormField
-                control={form.control}
-                name="questionDate"
-                render={({ field }) => (
-                  <FormControl>
-                    <DatePicker
-                      date={field.value ? new Date(field.value) : undefined}
-                      setDate={(date) =>
-                        form.setValue(
-                          'questionDate',
-                          date ? formatISO(date) : ''
-                        )
-                      }
-                    />
-                  </FormControl>
-                )}
-              />
 
               {/* Submit Button */}
               <Button type="submit" variant="secondary" disabled={isPending}>

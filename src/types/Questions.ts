@@ -14,4 +14,6 @@ export type Question = {
   correctAnswer: string | null;
 
   codeSnippet: string | null;
+
+  hint: string | null;
 };

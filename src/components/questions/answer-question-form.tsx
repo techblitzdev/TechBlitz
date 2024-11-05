@@ -20,6 +20,9 @@ import { Label } from '../ui/label';
 import { cn } from '@/utils/cn';
 import { ArrowRight, Check } from 'lucide-react';
 import LoadingSpinner from '../ui/loading';
+import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
+import { Separator } from '../ui/separator';
+import QuestionHintAccordion from './question-hint';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
@@ -116,10 +119,10 @@ export default function AnswerQuestionForm({
   return (
     <Form {...form}>
       <form
-        className="font-satoshi flex flex-col gap-8"
+        className="font-satoshi flex flex-col gap-4"
         onSubmit={form.handleSubmit(handleAnswerQuestion)}
       >
-        <div className="grid grid-cols-12 gap-8 mt-6">
+        <div className="grid grid-cols-12 gap-8 my-6">
           {question.answers.map((answer) => (
             <div key={answer.uid} className="col-span-full lg:col-span-6">
               <FormField
@@ -130,7 +133,7 @@ export default function AnswerQuestionForm({
                     <Label
                       htmlFor={answer.uid}
                       className={cn(
-                        'p-4 rounded-xl min-h-20 w-full flex items-center gap-x-2 cursor-pointer transition-colors',
+                        'p-4 rounded-xl min-h-20 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors',
                         field.value === answer.uid
                           ? 'bg-white text-black hover:bg-white/90'
                           : 'bg-black hover:bg-gray-900'
@@ -166,32 +169,38 @@ export default function AnswerQuestionForm({
             </div>
           ))}
         </div>
-        <div className="flex items-center gap-4">
-          <Button
-            type="submit"
-            size="lg"
-            variant="secondary"
-            disabled={!form.formState.isDirty}
-          >
-            {isLoading ? (
-              <LoadingSpinner />
-            ) : (
-              <div className="flex items-center gap-x-1">
-                Submit
-                <ArrowRight className="size-3" />
-              </div>
-            )}
-          </Button>
-          {userData.userLevel === 'ADMIN' && (
+        <Separator className="bg-black-50" />
+        <div className="w-1/3 space-y-4">
+          {question.hint && <QuestionHintAccordion hint={question.hint} />}
+          <div className="flex items-center gap-4">
             <Button
+              type="submit"
               size="lg"
-              type="button"
-              variant="default"
-              onClick={adminClearAnswers}
+              variant="secondary"
+              disabled={!form.formState.isDirty}
+              className="w-full"
             >
-              (ADMIN ONLY) clear today&apos;s answer
+              {isLoading ? (
+                <LoadingSpinner />
+              ) : (
+                <div className="flex items-center gap-x-1">
+                  Submit
+                  <ArrowRight className="size-3" />
+                </div>
+              )}
             </Button>
-          )}
+            {userData.userLevel === 'ADMIN' && (
+              <Button
+                size="lg"
+                type="button"
+                variant="default"
+                onClick={adminClearAnswers}
+                className="w-full"
+              >
+                (ADMIN ONLY) clear today&apos;s answer
+              </Button>
+            )}
+          </div>
         </div>
         {newUserData != null && (
           <AnswerQuestionModal

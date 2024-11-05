@@ -14,4 +14,5 @@ export const newQuestionSchema = z.object({
     .nonempty('At least one answer is required'),
   correctAnswer: z.number().or(z.null()), // the index of the QuestionAnswer that is the correct answer
   codeSnippet: z.string().optional(),
+  hint: z.string().optional(),
 });

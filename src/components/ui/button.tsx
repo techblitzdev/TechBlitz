@@ -2,8 +2,6 @@ import React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ArrowRightIcon } from '@radix-ui/react-icons';
-// packages
-// next
 import Link, { LinkProps } from 'next/link';
 import { cn } from '@/utils/cn';
 
@@ -15,6 +13,7 @@ export interface ButtonProps extends VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   special?: boolean;
   arrow?: boolean;
+  fullWidth?: boolean;
 }
 
 const buttonVariants = cva(
@@ -58,10 +57,15 @@ const buttonVariants = cva(
         lg: 'px-8 py-4',
         xl: 'px-10 py-5',
       },
+      fullWidth: {
+        true: 'w-full',
+        false: 'inline-flex',
+      },
     },
     defaultVariants: {
       variant: 'default',
       size: 'default',
+      fullWidth: false,
     },
   }
 );
@@ -82,6 +86,7 @@ const Button = React.forwardRef<
       arrow,
       padding,
       fontSize,
+      fullWidth,
       ...props
     },
     ref
@@ -90,7 +95,7 @@ const Button = React.forwardRef<
     const compProps = href ? { href, ...props } : { ...props };
 
     return (
-      <div className="w-full relative">
+      <div className={cn({ 'w-full': fullWidth, relative: true })}>
         {/** @ts-expect-error - the element tag has been changed */}
         <Comp
           className={cn(
@@ -102,6 +107,7 @@ const Button = React.forwardRef<
               rounded,
               fontSize,
               padding,
+              fullWidth,
             })
           )}
           ref={ref}

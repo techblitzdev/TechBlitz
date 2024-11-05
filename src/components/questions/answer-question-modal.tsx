@@ -14,6 +14,16 @@ import LoadingSpinner from '@/components/ui/loading';
 import { DailyStreakChart } from '@/components/dashboard/daily-streak-chart';
 import { convertSecondsToTime } from '@/utils/time';
 import JsonDisplay from '../global/json-display';
+import { LockClosedIcon } from '@radix-ui/react-icons';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import { getNextQuestion } from '@/actions/questions/get-next-question';
+import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 type AnswerQuestionModalProps = {
   question: Question;
@@ -58,7 +68,7 @@ export default function AnswerQuestionModal({
   onRetry,
   onNext,
 }: AnswerQuestionModalProps) {
-  console.log('question', question);
+  const router = useRouter();
   const [showQuestionData, setShowQuestionData] = useState(false);
 
   const getDialogContent = useCallback(() => {
@@ -78,6 +88,30 @@ export default function AnswerQuestionModal({
   };
 
   const timeTaken = convertSecondsToTime(userAnswer?.timeTaken || 0);
+
+  const {
+    data: nextQuestion,
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ['nextQuestion', user.uid],
+    queryFn: async () =>
+      await getNextQuestion({
+        currentQuestionId: question.uid,
+        userUid: user.uid,
+      }),
+  });
+
+  const handleNextQuestion = async () => {
+    if (user.userLevel === 'FREE' && correct === 'correct') {
+      return;
+    }
+    console.log('hit');
+
+    if (nextQuestion) {
+      router.push(`/question/${nextQuestion}`);
+    }
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -111,6 +145,12 @@ export default function AnswerQuestionModal({
 
             <DailyStreakChart userStreakData={userStreakData} />
 
+            {correct === 'correct' && (
+              <div className="text-center">
+                Make sure to come back tomorrow to keep your streak going!
+              </div>
+            )}
+
             {showQuestionData && (
               <div className="mt-4">
                 <JsonDisplay data={userAnswer} />
@@ -127,27 +167,41 @@ export default function AnswerQuestionModal({
               {showQuestionData ? 'Hide' : 'Show'} question data
             </Button>
           )}
-          <div className="flex gap-3">
+          <div className="flex gap-3 w-full justify-end">
             {correct === 'incorrect' ? (
-              <Button
-                variant="default"
-                onClick={onRetry}
-                className="w-full md:w-fit"
-              >
+              <Button variant="default" onClick={onRetry} className="!w-fit">
                 Retry question
               </Button>
             ) : (
-              <Button variant="default" onClick={() => onOpenChange(false)}>
+              <Button
+                variant="default"
+                onClick={() => onOpenChange(false)}
+                fullWidth={false}
+              >
                 Close
               </Button>
             )}
-            <Button
-              variant="secondary"
-              onClick={onNext}
-              className="w-full md:w-fit"
-            >
-              Next question
-            </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button
+                    variant="secondary"
+                    onClick={handleNextQuestion}
+                    className="flex items-center gap-1"
+                    fullWidth={false}
+                    disabled={user?.userLevel === 'FREE'}
+                  >
+                    {isLoading ? <LoadingSpinner /> : <>Next question</>}
+                    {user?.userLevel === 'FREE' && <LockClosedIcon />}
+                  </Button>
+                  {user?.userLevel === 'FREE' && (
+                    <TooltipContent>
+                      <p>Upgrade to premium to unlock the next question</p>
+                    </TooltipContent>
+                  )}
+                </TooltipTrigger>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </DialogFooter>
       </DialogContent>

@@ -90,7 +90,7 @@ const Button = React.forwardRef<
     const compProps = href ? { href, ...props } : { ...props };
 
     return (
-      <div className={cn(special && 'w-full', 'relative')}>
+      <div className="w-full relative">
         {/** @ts-expect-error - the element tag has been changed */}
         <Comp
           className={cn(

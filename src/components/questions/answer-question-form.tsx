@@ -22,6 +22,7 @@ import { ArrowRight, Check } from 'lucide-react';
 import LoadingSpinner from '../ui/loading';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import { Separator } from '../ui/separator';
+import QuestionHintAccordion from './question-hint';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
@@ -169,20 +170,15 @@ export default function AnswerQuestionForm({
           ))}
         </div>
         <Separator className="bg-black-50" />
-        <div className="flex items-center gap-x-1">
-          <QuestionMarkCircledIcon className="size-5" />
-          <p>Hint</p>
-          {question.hint && (
-            <p className="text-sm text-muted-foreground">{question.hint}</p>
-          )}
-        </div>
-        <div className="flex items-center w-full justify-between">
+        <div className="w-1/3 space-y-4">
+          {question.hint && <QuestionHintAccordion hint={question.hint} />}
           <div className="flex items-center gap-4">
             <Button
               type="submit"
               size="lg"
               variant="secondary"
               disabled={!form.formState.isDirty}
+              className="w-full"
             >
               {isLoading ? (
                 <LoadingSpinner />
@@ -199,6 +195,7 @@ export default function AnswerQuestionForm({
                 type="button"
                 variant="default"
                 onClick={adminClearAnswers}
+                className="w-full"
               >
                 (ADMIN ONLY) clear today&apos;s answer
               </Button>

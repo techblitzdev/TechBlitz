@@ -5,14 +5,22 @@ import uniqid from 'uniqid';
 export const addQuestion = async (opts: {
   question: string;
   answers: string[];
-  questionDate: string;
+  questionDate?: string;
   correctAnswer: number;
   codeSnippet?: string;
   hint?: string;
+  dailyQuestion?: boolean;
 }) => {
   // Destructure the input values from opts
-  const { question, answers, questionDate, correctAnswer, codeSnippet, hint } =
-    opts;
+  const {
+    question,
+    answers,
+    questionDate,
+    correctAnswer,
+    codeSnippet,
+    hint,
+    dailyQuestion,
+  } = opts;
 
   // Basic validation
   if (!question || !answers.length || !questionDate) {
@@ -67,6 +75,7 @@ export const addQuestion = async (opts: {
         correctAnswer: correctAnswerUid,
         codeSnippet: codeSnippet || null,
         hint: hint || null,
+        dailyQuestion: dailyQuestion || false,
       },
     });
 

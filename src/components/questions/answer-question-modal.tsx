@@ -118,6 +118,12 @@ export default function AnswerQuestionModal({
 
             <DailyStreakChart userStreakData={userStreakData} />
 
+            {correct === 'correct' && (
+              <div className="text-center">
+                Make to sure come back tomorrow to keep your streak going!
+              </div>
+            )}
+
             {showQuestionData && (
               <div className="mt-4">
                 <JsonDisplay data={userAnswer} />

@@ -48,9 +48,8 @@ export default function TodaysQuestionPage({
     return <NoDailyQuestion />;
   }
 
-  // Timer setup if the user has `showTimeTaken` enabled
   const { seconds, minutes, pause, reset, totalSeconds } = useStopwatch({
-    autoStart: true,
+    autoStart: user?.showTimeTaken || false,
   });
 
   if (userLoading || isPending) {
@@ -74,12 +73,14 @@ export default function TodaysQuestionPage({
             <h1 className="text-xl md:text-3xl font-semibold">
               {question?.question}
             </h1>
-            <div className="flex items-center gap-x-1">
-              <Clock className="size-4" />
-              <p>
-                <span>{minutes}</span>:<span>{seconds}</span>
-              </p>
-            </div>
+            {user?.showTimeTaken && (
+              <div className="flex items-center gap-x-1">
+                <Clock className="size-4" />
+                <p>
+                  <span>{minutes}</span>:<span>{seconds}</span>
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

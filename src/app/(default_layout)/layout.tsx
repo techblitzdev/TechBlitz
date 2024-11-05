@@ -3,7 +3,7 @@ import { InterFont, SatoshiFont } from '../styles/fonts/font';
 import '../globals.css';
 import { ReactQueryClientProvider } from '@/components/react-query-client-provider';
 import { Toaster } from '@/components/ui/sonner';
-import { SidebarProvider } from '@/components/ui/sidebar';
+import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/global/navigation/sidebar';
 
 export const metadata: Metadata = {
@@ -31,7 +31,7 @@ export default function Layout({
             <AppSidebar />
             <main className="w-full pr-6 py-6 lg:pt-8 lg:pb-3 lg:ml-break-out pl-break-out">
               <div className="lg:pl-4 h-full">
-                {/* <SidebarTrigger /> */}
+                <SidebarTrigger className="size-4 h-full flex items-center my-auto -top-2.5 relative" />
                 {children}
               </div>
             </main>

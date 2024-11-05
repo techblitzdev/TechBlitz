@@ -21,6 +21,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { getNextQuestion } from '@/actions/questions/get-next-question';
+import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 type AnswerQuestionModalProps = {
   question: Question;
@@ -65,7 +68,7 @@ export default function AnswerQuestionModal({
   onRetry,
   onNext,
 }: AnswerQuestionModalProps) {
-  console.log('question', question);
+  const router = useRouter();
   const [showQuestionData, setShowQuestionData] = useState(false);
 
   const getDialogContent = useCallback(() => {
@@ -85,6 +88,30 @@ export default function AnswerQuestionModal({
   };
 
   const timeTaken = convertSecondsToTime(userAnswer?.timeTaken || 0);
+
+  const {
+    data: nextQuestion,
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ['nextQuestion', user.uid],
+    queryFn: async () =>
+      await getNextQuestion({
+        currentQuestionId: question.uid,
+        userUid: user.uid,
+      }),
+  });
+
+  const handleNextQuestion = async () => {
+    if (user.userLevel === 'FREE' && correct === 'correct') {
+      return;
+    }
+    console.log('hit');
+
+    if (nextQuestion) {
+      router.push(`/question/${nextQuestion}`);
+    }
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -120,7 +147,7 @@ export default function AnswerQuestionModal({
 
             {correct === 'correct' && (
               <div className="text-center">
-                Make to sure come back tomorrow to keep your streak going!
+                Make sure to come back tomorrow to keep your streak going!
               </div>
             )}
 
@@ -159,12 +186,12 @@ export default function AnswerQuestionModal({
                 <TooltipTrigger>
                   <Button
                     variant="secondary"
-                    onClick={onNext}
+                    onClick={handleNextQuestion}
                     className="flex items-center gap-1"
                     fullWidth={false}
                     disabled={user?.userLevel === 'FREE'}
                   >
-                    Next question
+                    {isLoading ? <LoadingSpinner /> : <>Next question</>}
                     {user?.userLevel === 'FREE' && <LockClosedIcon />}
                   </Button>
                   {user?.userLevel === 'FREE' && (

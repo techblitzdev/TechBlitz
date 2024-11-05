@@ -84,6 +84,8 @@ model Questions {
   answerResource String?
 
   codeSnippet String? // if the question is going to render a code block along with the question
+
+  hint String? // a hint to help the user answer the question
 }
 
 model QuestionAnswers {

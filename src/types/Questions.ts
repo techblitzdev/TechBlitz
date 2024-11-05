@@ -16,4 +16,6 @@ export type Question = {
   codeSnippet: string | null;
 
   hint: string | null;
+
+  dailyQuestion: boolean;
 };

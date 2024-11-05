@@ -1,5 +1,6 @@
 'use server';
 import { Answer } from '@/types/Answers';
+import { Question } from '@/types/Questions';
 import { User, UserRecord } from '@/types/User';
 import { prisma } from '@/utils/prisma';
 import { revalidateTag } from 'next/cache';
@@ -42,6 +43,7 @@ const findExistingAnswer = async (userUid: string, questionUid: string) => {
 
 const handleStreakUpdates = async (
   tx: any,
+  dailyQuestion: boolean,
   {
     userUid,
     shouldIncrementCorrectStreak,
@@ -53,6 +55,10 @@ const handleStreakUpdates = async (
   }
 ) => {
   if (!shouldIncrementCorrectStreak && !shouldIncrementTotalStreak) return;
+
+  // check if the question is a daily question or not
+  // if its not, exit early
+  if (!dailyQuestion) return;
 
   await tx.users.update({
     where: { uid: userUid },
@@ -129,7 +135,7 @@ export async function answerQuestion({
 
     const { userData, userAnswer } = await prisma.$transaction(async (tx) => {
       // Handle streak updates
-      await handleStreakUpdates(tx, {
+      await handleStreakUpdates(tx, question.dailyQuestion, {
         userUid,
         shouldIncrementCorrectStreak,
         shouldIncrementTotalStreak,

@@ -20,6 +20,8 @@ import { Label } from '../ui/label';
 import { cn } from '@/utils/cn';
 import { ArrowRight, Check } from 'lucide-react';
 import LoadingSpinner from '../ui/loading';
+import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
+import { Separator } from '../ui/separator';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
@@ -166,32 +168,42 @@ export default function AnswerQuestionForm({
             </div>
           ))}
         </div>
-        <div className="flex items-center gap-4">
-          <Button
-            type="submit"
-            size="lg"
-            variant="secondary"
-            disabled={!form.formState.isDirty}
-          >
-            {isLoading ? (
-              <LoadingSpinner />
-            ) : (
-              <div className="flex items-center gap-x-1">
-                Submit
-                <ArrowRight className="size-3" />
-              </div>
-            )}
-          </Button>
-          {userData.userLevel === 'ADMIN' && (
-            <Button
-              size="lg"
-              type="button"
-              variant="default"
-              onClick={adminClearAnswers}
-            >
-              (ADMIN ONLY) clear today&apos;s answer
-            </Button>
+        <Separator className="bg-black-50" />
+        <div className="flex items-center gap-x-1">
+          <QuestionMarkCircledIcon className="size-5" />
+          <p>Hint</p>
+          {question.hint && (
+            <p className="text-sm text-muted-foreground">{question.hint}</p>
           )}
+        </div>
+        <div className="flex items-center w-full justify-between">
+          <div className="flex items-center gap-4">
+            <Button
+              type="submit"
+              size="lg"
+              variant="secondary"
+              disabled={!form.formState.isDirty}
+            >
+              {isLoading ? (
+                <LoadingSpinner />
+              ) : (
+                <div className="flex items-center gap-x-1">
+                  Submit
+                  <ArrowRight className="size-3" />
+                </div>
+              )}
+            </Button>
+            {userData.userLevel === 'ADMIN' && (
+              <Button
+                size="lg"
+                type="button"
+                variant="default"
+                onClick={adminClearAnswers}
+              >
+                (ADMIN ONLY) clear today&apos;s answer
+              </Button>
+            )}
+          </div>
         </div>
         {newUserData != null && (
           <AnswerQuestionModal

@@ -8,9 +8,11 @@ export const addQuestion = async (opts: {
   questionDate: string;
   correctAnswer: number;
   codeSnippet?: string;
+  hint?: string;
 }) => {
   // Destructure the input values from opts
-  const { question, answers, questionDate, correctAnswer, codeSnippet } = opts;
+  const { question, answers, questionDate, correctAnswer, codeSnippet, hint } =
+    opts;
 
   // Basic validation
   if (!question || !answers.length || !questionDate) {
@@ -64,6 +66,7 @@ export const addQuestion = async (opts: {
         userAnswers: {},
         correctAnswer: correctAnswerUid,
         codeSnippet: codeSnippet || null,
+        hint: hint || null,
       },
     });
 

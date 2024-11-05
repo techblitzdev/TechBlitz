@@ -14,6 +14,13 @@ import LoadingSpinner from '@/components/ui/loading';
 import { DailyStreakChart } from '@/components/dashboard/daily-streak-chart';
 import { convertSecondsToTime } from '@/utils/time';
 import JsonDisplay from '../global/json-display';
+import { LockClosedIcon } from '@radix-ui/react-icons';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 type AnswerQuestionModalProps = {
   question: Question;
@@ -127,27 +134,41 @@ export default function AnswerQuestionModal({
               {showQuestionData ? 'Hide' : 'Show'} question data
             </Button>
           )}
-          <div className="flex gap-3">
+          <div className="flex gap-3 w-full justify-end">
             {correct === 'incorrect' ? (
-              <Button
-                variant="default"
-                onClick={onRetry}
-                className="w-full md:w-fit"
-              >
+              <Button variant="default" onClick={onRetry} className="!w-fit">
                 Retry question
               </Button>
             ) : (
-              <Button variant="default" onClick={() => onOpenChange(false)}>
+              <Button
+                variant="default"
+                onClick={() => onOpenChange(false)}
+                fullWidth={false}
+              >
                 Close
               </Button>
             )}
-            <Button
-              variant="secondary"
-              onClick={onNext}
-              className="w-full md:w-fit"
-            >
-              Next question
-            </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button
+                    variant="secondary"
+                    onClick={onNext}
+                    className="flex items-center gap-1"
+                    fullWidth={false}
+                    disabled={user?.userLevel === 'FREE'}
+                  >
+                    Next question
+                    {user?.userLevel === 'FREE' && <LockClosedIcon />}
+                  </Button>
+                  {user?.userLevel === 'FREE' && (
+                    <TooltipContent>
+                      <p>Upgrade to premium to unlock the next question</p>
+                    </TooltipContent>
+                  )}
+                </TooltipTrigger>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </DialogFooter>
       </DialogContent>

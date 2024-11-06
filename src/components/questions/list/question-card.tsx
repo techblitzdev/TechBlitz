@@ -49,10 +49,10 @@ export default function QuestionListCard(opts: {
         {question.tags &&
           question?.tags.map((tag) => (
             <span
-              key={tag.uid}
+              key={tag.tagId}
               className="text-xs bg-gray-800 rounded-lg px-2 py-1"
             >
-              {tag.name}
+              {tag.tag.name}
             </span>
           ))}
       </div>

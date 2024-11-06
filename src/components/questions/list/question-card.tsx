@@ -38,11 +38,24 @@ export default function QuestionListCard(opts: {
 
   return (
     <Link
-      className="flex items-center w-full bg-black p-2 rounded-lg justify-between"
+      className="flex flex-col gap-y-2 items-start w-full bg-black p-2 rounded-lg justify-between"
       href={`/question/${question.uid}`}
     >
-      {question.question}
-      {question.dailyQuestion && <p>Daily Question</p>}
+      <div className="flex items-center justify-between w-full">
+        {question.question}
+        {question.dailyQuestion && <p>Daily Question</p>}
+      </div>
+      <div className="flex gap-2">
+        {question.tags &&
+          question?.tags.map((tag) => (
+            <span
+              key={tag.tagId}
+              className="text-xs bg-gray-800 rounded-lg px-2 py-1"
+            >
+              {tag.tag.name}
+            </span>
+          ))}
+      </div>
     </Link>
   );
 }

@@ -125,6 +125,7 @@ export default function NewQuestionModal({ ...props }) {
       codeSnippet: '',
       hint: '',
       dailyQuestion: false,
+      tags: '',
     },
   });
 
@@ -140,15 +141,20 @@ export default function NewQuestionModal({ ...props }) {
     mutationFn: (values: SchemaProps) => {
       const { answers, ...rest } = values;
       const answerTexts = answers.map((answer) => answer.text);
+
+      console.log(rest.tags);
+
       return addQuestion({
         ...rest,
         answers: answerTexts,
         correctAnswer: Number(rest.correctAnswer),
+        tags: rest.tags ? rest.tags.split(',').map((tag) => tag.trim()) : [],
       });
     },
     onSuccess: (data) => {
       toast.success('Question added successfully');
       form.reset();
+      form.setValue('tags', '');
       editor?.commands.setContent('');
     },
     onError: () => {
@@ -321,6 +327,28 @@ export default function NewQuestionModal({ ...props }) {
               >
                 Add Answer
               </Button>
+
+              <Separator className="bg-black-50" />
+
+              <p className="text-white font-semibold text-xl">Tags</p>
+
+              {/* Tags */}
+              <FormField
+                control={form.control}
+                name="tags"
+                render={({ field }) => (
+                  <FormControl>
+                    <InputWithLabel
+                      label="Tags"
+                      type="text"
+                      wrapperclassname="lg:w-96"
+                      {...field}
+                    />
+                  </FormControl>
+                )}
+              />
+
+              <Separator className="bg-black-50" />
 
               {/* Submit Button */}
               <Button type="submit" variant="secondary" disabled={isPending}>

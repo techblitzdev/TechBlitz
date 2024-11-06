@@ -10,8 +10,8 @@ export const addQuestion = async (opts: {
   codeSnippet?: string;
   hint?: string;
   dailyQuestion?: boolean;
+  tags: string[];
 }) => {
-  // Destructure the input values from opts
   const {
     question,
     answers,
@@ -20,50 +20,45 @@ export const addQuestion = async (opts: {
     codeSnippet,
     hint,
     dailyQuestion,
+    tags,
   } = opts;
 
-  // Basic validation
-  if (!question || !answers.length || !questionDate) {
+  if (!question || !answers.length) {
     console.error(
       'Please provide a question, at least one answer, and a question date'
     );
     return 'Please provide a question, at least one answer, and a question date';
   }
 
-  // Check if answers is an array of strings
-  if (!Array.isArray(answers)) {
-    console.error('answers must be an array');
-    return 'answers must be an array of strings';
-  }
-
-  if (!answers.every((answer) => typeof answer === 'string')) {
+  if (
+    !Array.isArray(answers) ||
+    !answers.every((answer) => typeof answer === 'string')
+  ) {
     console.error('Each answer must be a string');
     return 'Each answer must be a string';
   }
 
-  // create the answers array
   const answerRecords = answers.map((answer) => ({
     uid: uniqid(),
     answer,
   }));
 
-  // Check if correctAnswerIndex is valid
   if (correctAnswer < 0 || correctAnswer >= answers.length) {
-    console.error('Invalid correctAnswerIndex');
-    return 'Invalid correctAnswerIndex';
+    console.error('Invalid correctAnswer index');
+    return 'Invalid correctAnswer index';
   }
 
-  // get the correct answer uid
   const correctAnswerUid = answerRecords[correctAnswer].uid;
+  const questionUid = uniqid();
 
   try {
-    const uid = uniqid();
-
     await prisma.questions.create({
       data: {
-        uid,
+        uid: questionUid,
         question,
-        questionDate: new Date(questionDate).toISOString().split('T')[0],
+        questionDate: questionDate
+          ? new Date(questionDate).toISOString().split('T')[0]
+          : '',
         createdAt: new Date(),
         updatedAt: new Date(),
         answers: {
@@ -76,13 +71,35 @@ export const addQuestion = async (opts: {
         codeSnippet: codeSnippet || null,
         hint: hint || null,
         dailyQuestion: dailyQuestion || false,
+        tags: {
+          connectOrCreate: tags.map((tag) => ({
+            where: {
+              questionId_tagId: {
+                questionId: questionUid,
+                tagId: uniqid(),
+              },
+            },
+            create: {
+              tag: {
+                connectOrCreate: {
+                  where: { name: tag },
+                  create: {
+                    uid: uniqid(),
+                    name: tag,
+                  },
+                },
+              },
+            },
+          })),
+        },
       },
     });
 
     return 'ok';
   } catch (error) {
     console.error('Failed to add new question:', error);
-    if (error instanceof Error) return error.message;
-    else return 'Failed to add new question';
+    return error instanceof Error
+      ? error.message
+      : 'Failed to add new question';
   }
 };

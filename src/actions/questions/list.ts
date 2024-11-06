@@ -1,9 +1,10 @@
 'use server';
 import { prisma } from '@/utils/prisma';
-import type { Question } from '@/types/Questions';
+import type { QuestionWithoutAnswers } from '@/types/Questions';
+import { getTagsFromQuestion } from '../utils/get-tags-from-question';
 
 type ListQuestionsReturnType = {
-  questions: Omit<Question, 'answers'>[];
+  questions: QuestionWithoutAnswers[];
   total: number;
   page: number;
   pageSize: number;
@@ -28,12 +29,24 @@ export const listQuestions = async (
     orderBy: {
       questionDate: 'asc',
     },
+    include: {
+      tags: {
+        include: {
+          tag: true,
+        },
+      },
+    },
   });
+
+  // Transform the questions to match the expected format
+  const transformedQuestions = getTagsFromQuestion(
+    questions
+  ) as unknown as QuestionWithoutAnswers[];
 
   const total = await prisma.questions.count();
 
   return {
-    questions,
+    questions: transformedQuestions,
     total,
     page,
     pageSize,

@@ -16,6 +16,7 @@ export const newQuestionSchema = z
     codeSnippet: z.string().optional(),
     hint: z.string().optional(),
     dailyQuestion: z.boolean().default(false),
+    tags: z.string().nonempty('At least one tag is required'),
   })
   .refine((data) => !data.dailyQuestion || data.questionDate, {
     message: 'Date is required when Daily Question is enabled',

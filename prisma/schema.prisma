@@ -1,19 +1,11 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-  //previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
-  //schemas           = ["public", "auth"]
 }
 
 enum userLevel {
@@ -23,11 +15,6 @@ enum userLevel {
   FREE
 }
 
-// A user is a person who can log in to the application
-// This will be responsible for all data related to the user
-// profile and authentication.
-// The user will also have a list of questions that they have answered,
-// as well as a list of answers for the question.
 model Users {
   uid       String  @id()
   email     String  @unique
@@ -41,17 +28,15 @@ model Users {
 
   userLevel userLevel @default(STANDARD)
 
-  // A user can have many answers
   answers Answers[]
 
-  totalDailyStreak   Int? @default(0) // the total number of days the user has answered the daily question
-  correctDailyStreak Int? @default(0) // how many days the user has got the daily question correct
+  totalDailyStreak   Int? @default(0)
+  correctDailyStreak Int? @default(0)
 
   userProfilePicture String?
 
-  showTimeTaken Boolean @default(false) // show the time taken to answer a question
+  showTimeTaken Boolean @default(false)
 
-  // A user can one subscription
   subscription Subscriptions?
 }
 
@@ -78,16 +63,36 @@ model Questions {
   questionDate String
 
   answers       QuestionAnswers[]
-  correctAnswer String // the QuestionAnswersUid
+  correctAnswer String
 
   userAnswers    Answers[]
   answerResource String?
 
-  codeSnippet String? // if the question is going to render a code block along with the question
+  codeSnippet String?
 
-  hint String? // a hint to help the user answer the question
+  hint String?
 
-  dailyQuestion Boolean @default(false) // if the question is a daily question
+  dailyQuestion Boolean @default(false)
+
+  tags QuestionTags[]
+}
+
+model Tag {
+  uid       String         @id @default(uuid())
+  name      String         @unique
+  questions QuestionTags[]
+}
+
+// Junction table for the many-to-many relationship between Questions and Tags
+model QuestionTags {
+  question   Questions @relation(fields: [questionId], references: [uid], onDelete: Cascade)
+  questionId String
+  tag        Tag       @relation(fields: [tagId], references: [uid], onDelete: Cascade)
+  tagId      String
+
+  @@id([questionId, tagId])
+  @@index([tagId])
+  @@index([questionId])
 }
 
 model QuestionAnswers {
@@ -100,8 +105,6 @@ model QuestionAnswers {
   updatedAt DateTime @default(now())
 }
 
-// An answer is a response to a question
-// Each time a user tries to answer a question, an answer row is created
 model Answers {
   uid           String    @id @default(cuid())
   createdAt     DateTime  @default(now())

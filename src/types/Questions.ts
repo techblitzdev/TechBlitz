@@ -1,4 +1,5 @@
 import { QuestionAnswer } from './QuestionAnswers';
+import { Tags } from './Tags';
 
 /**
  * This type represents the shape of the data of a question.
@@ -18,4 +19,8 @@ export type Question = {
   hint: string | null;
 
   dailyQuestion: boolean;
+
+  tags?: Tags[];
 };
+
+export type QuestionWithoutAnswers = Omit<Question, 'answers'>;

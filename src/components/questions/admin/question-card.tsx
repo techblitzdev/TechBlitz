@@ -18,7 +18,7 @@ export default function AdminQuestionCard({
       </p>
       <p>
         <span className="font-semibold">Question date:</span>{' '}
-        {new Date(question.questionDate).toLocaleDateString()}
+        {new Date(question?.questionDate || '').toLocaleDateString()}
       </p>
       <div>
         <span className="font-semibold">Question answers:</span>{' '}

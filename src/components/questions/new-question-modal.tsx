@@ -33,6 +33,8 @@ import { useMutation } from '@tanstack/react-query';
 
 import { LANGUAGE_OPTIONS } from '@/utils/constants/language-options';
 import { Separator } from '../ui/separator';
+import { Switch } from '../ui/switch';
+import { Label } from '../ui/label';
 
 const lowlight = createLowlight(common);
 
@@ -117,11 +119,12 @@ export default function NewQuestionModal({ ...props }) {
     resolver: zodResolver(newQuestionSchema),
     defaultValues: {
       question: '',
-      questionDate: new Date().toISOString(),
+      questionDate: '',
       answers: [{ text: '' }],
       correctAnswer: null,
       codeSnippet: '',
       hint: '',
+      dailyQuestion: false,
     },
   });
 
@@ -130,9 +133,8 @@ export default function NewQuestionModal({ ...props }) {
     name: 'answers',
   });
 
-  const toggleCorrectAnswer = (index: number) => {
+  const toggleCorrectAnswer = (index: number) =>
     form.setValue('correctAnswer', index);
-  };
 
   const { mutateAsync: server_addQuestion, isPending } = useMutation({
     mutationFn: (values: SchemaProps) => {
@@ -142,7 +144,6 @@ export default function NewQuestionModal({ ...props }) {
         ...rest,
         answers: answerTexts,
         correctAnswer: Number(rest.correctAnswer),
-        hint: rest.hint,
       });
     },
     onSuccess: (data) => {
@@ -159,11 +160,11 @@ export default function NewQuestionModal({ ...props }) {
     await server_addQuestion(values);
 
   return (
-    <Dialog modal={true}>
+    <Dialog>
       <DialogTrigger asChild>
         <Button {...props}>Create New Question</Button>
       </DialogTrigger>
-      <DialogContent className="bg-black md:max-w-4xl">
+      <DialogContent className="bg-black-75 md:max-w-4xl max-h-[600px] overflow-y-scroll">
         <DialogHeader>
           <DialogTitle className="text-2xl">
             Add new Question
@@ -191,23 +192,25 @@ export default function NewQuestionModal({ ...props }) {
                   )}
                 />
                 {/* Question Date */}
-                <FormField
-                  control={form.control}
-                  name="questionDate"
-                  render={({ field }) => (
-                    <FormControl>
-                      <DatePicker
-                        date={field.value ? new Date(field.value) : undefined}
-                        setDate={(date) =>
-                          form.setValue(
-                            'questionDate',
-                            date ? formatISO(date) : ''
-                          )
-                        }
-                      />
-                    </FormControl>
-                  )}
-                />
+                {form.watch('dailyQuestion') && (
+                  <FormField
+                    control={form.control}
+                    name="questionDate"
+                    render={({ field }) => (
+                      <FormControl>
+                        <DatePicker
+                          date={field.value ? new Date(field.value) : undefined}
+                          setDate={(date) =>
+                            form.setValue(
+                              'questionDate',
+                              date ? formatISO(date) : ''
+                            )
+                          }
+                        />
+                      </FormControl>
+                    )}
+                  />
+                )}
               </div>
               {/* TipTap Editor */}
               <FormField
@@ -229,6 +232,42 @@ export default function NewQuestionModal({ ...props }) {
                   </FormControl>
                 )}
               />
+
+              <div className="flex gap-4 items-end">
+                <FormField
+                  control={form.control}
+                  name="hint"
+                  render={({ field }) => (
+                    <FormControl>
+                      <InputWithLabel
+                        label="Hint"
+                        type="text"
+                        wrapperclassname="lg:w-96"
+                        {...field}
+                      />
+                    </FormControl>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="dailyQuestion"
+                  render={({ field }) => (
+                    <FormControl>
+                      <div className="flex items-center gap-1 mb-1">
+                        <Switch
+                          id="dailyQuestion"
+                          checked={field.value || false}
+                          onCheckedChange={field.onChange}
+                        />
+                        <Label htmlFor="dailyQuestion">Daily Question?</Label>
+                      </div>
+                    </FormControl>
+                  )}
+                />
+              </div>
+              <Separator className="bg-black-50" />
+
+              <p className="text-white font-semibold text-xl">Answers</p>
 
               {/* Dynamic Answer Fields */}
               {fields.map((item, index) => (
@@ -273,21 +312,6 @@ export default function NewQuestionModal({ ...props }) {
                   </div>
                 </div>
               ))}
-
-              <FormField
-                control={form.control}
-                name="hint"
-                render={({ field }) => (
-                  <FormControl>
-                    <InputWithLabel
-                      label="Hint"
-                      type="text"
-                      wrapperclassname="lg:w-96"
-                      {...field}
-                    />
-                  </FormControl>
-                )}
-              />
 
               {/* Add New Answer Button */}
               <Button

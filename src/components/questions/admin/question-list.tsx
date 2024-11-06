@@ -3,12 +3,13 @@ import AdminQuestionPicker from '@/components/questions/admin/question-picker';
 import AdminQuestionToday from './question-today';
 import { getPagination } from '@/utils/supabase/pagination';
 import AdminQuestionCard from './question-card';
+import LoadingSpinner from '@/components/ui/loading';
 
 export default async function AdminQuestionList({ ...props }) {
   const { from, to } = getPagination(0, 10);
   const questions = await getQuestions({ from, to });
 
-  if (!questions) return <p>Loading...</p>;
+  if (!questions) return <LoadingSpinner />;
 
   return (
     <div {...props}>

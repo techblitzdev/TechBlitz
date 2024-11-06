@@ -9,11 +9,13 @@ export type Question = {
   question: string;
   createdAt: Date;
   updatedAt: Date;
-  questionDate: string;
+  questionDate: string | null;
   answerResource: string | null;
   correctAnswer: string | null;
 
   codeSnippet: string | null;
 
   hint: string | null;
+
+  dailyQuestion: boolean;
 };

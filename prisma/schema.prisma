@@ -86,6 +86,8 @@ model Questions {
   codeSnippet String? // if the question is going to render a code block along with the question
 
   hint String? // a hint to help the user answer the question
+
+  dailyQuestion Boolean @default(false) // if the question is a daily question
 }
 
 model QuestionAnswers {

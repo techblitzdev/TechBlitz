@@ -88,6 +88,8 @@ model Questions {
   hint String? // a hint to help the user answer the question
 
   dailyQuestion Boolean @default(false) // if the question is a daily question
+
+  tags String[] // tags to help categorize the question
 }
 
 model QuestionAnswers {

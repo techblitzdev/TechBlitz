@@ -18,4 +18,6 @@ export type Question = {
   hint: string | null;
 
   dailyQuestion: boolean;
+
+  tags: string[];
 };

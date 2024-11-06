@@ -46,14 +46,15 @@ export default function QuestionListCard(opts: {
         {question.dailyQuestion && <p>Daily Question</p>}
       </div>
       <div className="flex gap-2">
-        {question.tags.map((tag) => (
-          <span
-            key={tag.uid}
-            className="text-xs bg-gray-800 rounded-lg px-2 py-1"
-          >
-            {tag.name}
-          </span>
-        ))}
+        {question.tags &&
+          question?.tags.map((tag) => (
+            <span
+              key={tag.uid}
+              className="text-xs bg-gray-800 rounded-lg px-2 py-1"
+            >
+              {tag.name}
+            </span>
+          ))}
       </div>
     </Link>
   );

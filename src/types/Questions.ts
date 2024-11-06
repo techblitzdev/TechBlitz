@@ -20,5 +20,5 @@ export type Question = {
 
   dailyQuestion: boolean;
 
-  tags: Tags[];
+  tags?: Tags[];
 };

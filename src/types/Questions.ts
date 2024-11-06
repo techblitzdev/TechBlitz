@@ -1,4 +1,5 @@
 import { QuestionAnswer } from './QuestionAnswers';
+import { Tags } from './Tags';
 
 /**
  * This type represents the shape of the data of a question.
@@ -19,5 +20,5 @@ export type Question = {
 
   dailyQuestion: boolean;
 
-  tags: string[];
+  tags: Tags[];
 };

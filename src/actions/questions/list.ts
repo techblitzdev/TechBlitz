@@ -28,12 +28,30 @@ export const listQuestions = async (
     orderBy: {
       questionDate: 'asc',
     },
+    include: {
+      tags: {
+        include: {
+          tag: true,
+        },
+      },
+    },
   });
+
+  // Transform the questions to match the expected format
+  const transformedQuestions = questions.map((question) => ({
+    ...question,
+    tags: question.tags.map((tagRelation) => ({
+      uid: tagRelation.tag.uid,
+      questionId: tagRelation.questionId,
+      tagId: tagRelation.tagId,
+      name: tagRelation.tag.name,
+    })),
+  }));
 
   const total = await prisma.questions.count();
 
   return {
-    questions,
+    questions: transformedQuestions,
     total,
     page,
     pageSize,

@@ -28,7 +28,7 @@ export const getQuestions = async (opts: GetQuestionsOpts) => {
     });
 
     // revalidate the 'questions' tag
-    revalidateTag('questions');
+    //revalidateTag('questions');
 
     // current date
     const today = new Date();

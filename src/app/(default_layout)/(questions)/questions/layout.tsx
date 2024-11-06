@@ -7,16 +7,12 @@ const items = [
     label: 'Home',
   },
   {
-    href: '/leaderboard',
-    label: 'Leaderboard',
-  },
-  {
-    href: '',
-    label: 'Today',
+    href: '/questions',
+    label: 'Questions',
   },
 ];
 
-export default function LeaderboardLayout({
+export default function QuestionsLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
@@ -24,10 +20,10 @@ export default function LeaderboardLayout({
       <div className="flex flex-col gap-y-2">
         <BreadcrumbWithCustomSeparator items={items} />
         <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
-          Today&apos;s Leaderboard
+          All Questions
         </h1>
       </div>
-      <Separator />
+      <Separator className="bg-black-50" />
       {children}
     </div>
   );

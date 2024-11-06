@@ -24,9 +24,14 @@ export default function AdminLayout({
   ];
 
   return (
-    <div className="container py-12 font-inter flex flex-col gap-y-4">
+    <div className="flex flex-col gap-y-4">
       <div className="flex justify-between items-center">
-        <BreadcrumbWithCustomSeparator items={items} />
+        <div className="space-y-1">
+          <BreadcrumbWithCustomSeparator items={items} />
+          <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
+            Questions
+          </h1>
+        </div>
         <NewQuestionModal className="w-fit" />
       </div>
       <>

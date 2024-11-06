@@ -22,3 +22,5 @@ export type Question = {
 
   tags?: Tags[];
 };
+
+export type QuestionWithoutAnswers = Omit<Question, 'answers'>;

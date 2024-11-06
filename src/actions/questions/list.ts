@@ -1,9 +1,10 @@
 'use server';
 import { prisma } from '@/utils/prisma';
-import type { Question } from '@/types/Questions';
+import type { QuestionWithoutAnswers } from '@/types/Questions';
+import { getTagsFromQuestion } from '../utils/get-tags-from-question';
 
 type ListQuestionsReturnType = {
-  questions: Omit<Question, 'answers'>[];
+  questions: QuestionWithoutAnswers[];
   total: number;
   page: number;
   pageSize: number;
@@ -38,15 +39,9 @@ export const listQuestions = async (
   });
 
   // Transform the questions to match the expected format
-  const transformedQuestions = questions.map((question) => ({
-    ...question,
-    tags: question.tags.map((tagRelation) => ({
-      uid: tagRelation.tag.uid,
-      questionId: tagRelation.questionId,
-      tagId: tagRelation.tagId,
-      name: tagRelation.tag.name,
-    })),
-  }));
+  const transformedQuestions = getTagsFromQuestion(
+    questions
+  ) as unknown as QuestionWithoutAnswers[];
 
   const total = await prisma.questions.count();
 

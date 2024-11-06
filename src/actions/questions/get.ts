@@ -1,5 +1,7 @@
 'use server';
 import { prisma } from '@/utils/prisma';
+import { getTagsFromQuestion } from '../utils/get-tags-from-question';
+import { Question } from '@/types/Questions';
 
 export const getQuestion = async (uid: string) => {
   if (!uid) {
@@ -8,19 +10,27 @@ export const getQuestion = async (uid: string) => {
   }
 
   try {
-    const question = await prisma.questions.findUnique({
+    const res = await prisma.questions.findUnique({
       where: {
         uid,
       },
       include: {
         answers: true,
+        tags: {
+          include: {
+            tag: true,
+          },
+        },
       },
     });
 
-    if (!question) {
+    if (!res) {
       console.error('Question not found');
       return null;
     }
+
+    // get the tags from out the question
+    const question = getTagsFromQuestion(res) as unknown as Question;
 
     return question;
   } catch (e) {

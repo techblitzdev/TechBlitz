@@ -1,4 +1,8 @@
 export type Tags = {
-  uid: string;
-  name: string;
+  tag: {
+    uid: string;
+    name: string;
+  };
+  questionId: string;
+  tagId: string;
 };

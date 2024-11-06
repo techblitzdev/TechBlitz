@@ -85,6 +85,20 @@ export default function TodaysQuestionPage({
         </div>
       </div>
       <Separator />
+      <div className="">
+        {question?.tags && (
+          <div className="flex flex-wrap gap-2">
+            {question.tags.map((tag) => (
+              <span
+                key={tag?.tag?.uid}
+                className="bg-black-50 text-white rounded-full px-2 py-1 text-xs"
+              >
+                {tag.tag.name}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
       <div className="bg-black-75 rounded-xl p-4 space-y-4">
         {question?.codeSnippet && (
           <div className="space-y-1">

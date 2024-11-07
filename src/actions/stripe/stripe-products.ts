@@ -25,8 +25,14 @@ export const getStripeProducts = NextCache(
 
     if (!products) throw new Error('No products found');
 
+    // sort the products in price order
+    products.data.sort((a, b) => {
+      if (!a.default_price || !b.default_price) return 0;
+      // @ts-ignore - Typescript doesn't know we expanded the default_price
+      return a.default_price.unit_amount - b.default_price.unit_amount;
+    });
+
     return products.data.map((product) => {
-      console.log(product);
       return {
         id: product.id,
         name: product.name,

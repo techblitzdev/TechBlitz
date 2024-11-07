@@ -7,9 +7,6 @@ export const useSubscription = (userUid?: string) => {
   // get the current user
   const { user } = useUser();
 
-  console.log('user', user);
-  console.log('uid', uid);
-
   return useQuery({
     queryKey: ['get-subscription', user?.uid, uid],
     queryFn: () => {

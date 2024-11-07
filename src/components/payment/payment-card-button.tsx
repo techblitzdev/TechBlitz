@@ -71,19 +71,20 @@ export function PaymentButton(opts: { product: StripeProduct }) {
         <Button
           onClick={async () => await handleClientSecret(product)}
           className="flex gap-x-2 min-w-[84px] duration-300 ease-in-out"
-          variant={product.metadata.mostPopular ? 'accent' : 'default'}
+          variant={product.metadata.mostPopular ? 'accent' : 'secondary'}
           disabled={subscription?.productId === product.id}
           fullWidth
         >
           {loading[product.id] ? (
-            <ReloadIcon className="w-3 h-3 animate-spin" />
+            <ReloadIcon className="size-3 animate-spin" />
           ) : (
-            <>
-              {subscription?.productId === product.id
-                ? 'Subscribed'
-                : 'Buy now'}
-              {JSON.stringify(subscription)}
-            </>
+            <div className="font-satoshi">
+              {subscription?.productId === product.id ||
+              (!subscription?.productId &&
+                product.default_price.unit_amount === 0)
+                ? 'Current plan'
+                : 'Upgrade'}
+            </div>
           )}
         </Button>
       </DialogTrigger>

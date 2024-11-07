@@ -57,8 +57,8 @@ export default async function DashboardBentoGrid() {
       className: 'md:col-span-1 text-white',
     },
     {
-      title: 'Previous Questions',
-      description: 'Can you beat your previous score?',
+      title: 'All Questions',
+      description: 'View all questions and improve your knowledge',
       header: <Skeleton />,
       className: 'md:col-span-1 text-white',
       href: '/previous-questions',

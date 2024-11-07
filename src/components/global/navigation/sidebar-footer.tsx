@@ -27,7 +27,7 @@ export default function SidebarFooterComponent() {
         <SidebarMenuItem>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <SidebarMenuButton className="text-lg xl:text-xl">
+              <SidebarMenuButton>
                 <User2 />
                 {isLoading && <LoadingSpinner />}
                 {isError && 'Error'}

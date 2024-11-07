@@ -82,6 +82,7 @@ export function PaymentButton(opts: { product: StripeProduct }) {
               {subscription?.productId === product.id
                 ? 'Subscribed'
                 : 'Buy now'}
+              {JSON.stringify(subscription)}
             </>
           )}
         </Button>

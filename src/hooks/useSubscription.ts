@@ -1,4 +1,3 @@
-'use client';
 import { useQuery } from '@tanstack/react-query';
 import { getSubscription } from '@/actions/stripe/stripe-get-subscription';
 import { useUser } from './useUser';
@@ -15,7 +14,7 @@ export const useSubscription = (userUid?: string) => {
     queryKey: ['get-subscription', user?.uid, uid],
     queryFn: () => {
       return getSubscription({
-        userUid: user?.uid || uid,
+        userUid: user?.uid || uid || '',
       });
     },
   });

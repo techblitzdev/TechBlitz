@@ -6,9 +6,8 @@ export const getSubscription = async (opts: {
   userUid: string;
 }): Promise<Subscription | null> => {
   const { userUid } = opts;
-  if (!userUid) {
-    throw new Error('User UID is required');
-  }
+
+  if (!userUid) return null;
 
   // get the user from the db
 

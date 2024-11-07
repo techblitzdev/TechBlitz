@@ -15,7 +15,7 @@ export default function AppSidebarSubMenuItem(opts: { item: SidebarItem }) {
       {item?.subItems.map((subItem) => (
         <SidebarMenuSubItem key={subItem.title}>
           <SidebarMenuSubButton asChild>
-            <Link href={subItem.url} prefetch className="font-satoshi text-lg">
+            <Link href={subItem.url} prefetch className="font-ubuntu text-lg">
               {subItem.title}
             </Link>
           </SidebarMenuSubButton>

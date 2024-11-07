@@ -29,7 +29,7 @@ export function PricingCard(opts: {
               {product.name}
             </h2>
             {product.metadata.mostPopular && (
-              <div className="bg-accent rounded-full text-white text-xs px-2 py-1">
+              <div className="bg-accent rounded-lg text-white text-xs px-2 py-1">
                 {' '}
                 Most popular
               </div>

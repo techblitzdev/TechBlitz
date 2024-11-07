@@ -19,7 +19,7 @@ export default async function UpgradePage() {
             Upgrade your account to unlock premium features, plans tailored to
             you.
           </p>
-          <div className="flex gap-10 justify-center mt-6">
+          <div className="flex gap-10 justify-center mt-6 px-10">
             {products?.map((product) => (
               <PricingCard
                 key={product.id}

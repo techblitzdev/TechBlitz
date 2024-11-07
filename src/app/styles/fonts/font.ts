@@ -1,4 +1,4 @@
-import { Inter } from 'next/font/google';
+import { Inter, Ubuntu } from 'next/font/google';
 import localFont from 'next/font/local';
 
 export const InterFont = Inter({
@@ -14,4 +14,12 @@ export const SatoshiFont = localFont({
   variable: '--font-satoshi',
   style: 'normal',
   weight: '100 200 300 400 500 600 700 800 900',
+});
+
+export const UbuntuFont = Ubuntu({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-ubuntu',
+  style: 'normal',
+  weight: ['300', '400', '500', '700'],
 });

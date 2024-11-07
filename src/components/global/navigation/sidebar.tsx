@@ -140,7 +140,7 @@ export function AppSidebar() {
     if ('groupLabel' in item) {
       return (
         <SidebarGroup key={item.groupLabel}>
-          <SidebarGroupLabel className="px-0 h-fit text-base xl:text-lg font-satoshi">
+          <SidebarGroupLabel className="px-0 h-fit text-base xl:text-lg font-ubuntutoshi">
             {item.groupLabel}
           </SidebarGroupLabel>
         </SidebarGroup>
@@ -155,7 +155,7 @@ export function AppSidebar() {
               <SidebarMenuButton asChild>
                 <div className="flex items-center w-full">
                   {item.icon && <item.icon />}
-                  <span className="text-base xl:text-lg font-satoshi">
+                  <span className="text-base xl:text-lg font-ubuntutoshi">
                     {item.title}
                   </span>
                   <div className="ms-auto">{item.chip && <item.chip />}</div>
@@ -171,7 +171,7 @@ export function AppSidebar() {
             <Link
               href={item.url}
               prefetch
-              className={`flex items-center font-satoshi text-base ${
+              className={`flex items-center font-ubuntutoshi text-base ${
                 pathname === item.url ? 'bg-black' : ''
               }`}
             >
@@ -192,7 +192,7 @@ export function AppSidebar() {
           <SidebarGroupLabel className="w-full flex items-center justify-between">
             <Link
               href="/dashboard"
-              className="text-base xl:text-lg lg:text-3xl font-bold font-satoshi hover:text-white duration-300"
+              className="text-base xl:text-lg lg:text-3xl font-bold font-ubuntutoshi hover:text-white duration-300"
               prefetch
             >
               meerge

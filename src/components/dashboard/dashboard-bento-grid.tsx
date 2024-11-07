@@ -11,6 +11,7 @@ import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 import TodaysLeaderboardBentoBox from '@/components/leaderboard/bento-box';
 import { getUserFromSession } from '@/actions/user/get-user';
 import UserRank from '../leaderboard/user-rank';
+import { Button } from '../ui/button';
 
 export default async function DashboardBentoGrid() {
   const todaysQuestion = await getTodaysQuestion();
@@ -30,7 +31,11 @@ export default async function DashboardBentoGrid() {
   const items = [
     {
       title: "Today's Question!",
-      description: 'Daily question',
+      description: (
+        <Button variant="accent" className="flex gap-x-1 items-center">
+          Answer now <ArrowRight className="size-3" />
+        </Button>
+      ),
       header: <Skeleton />,
       className: 'md:col-span-2 text-white',
       href: `/question/${todaysQuestion?.uid}`,
@@ -38,9 +43,9 @@ export default async function DashboardBentoGrid() {
     {
       title: <div>Today's Leaderboard</div>,
       description: (
-        <div className="flex gap-x-1 items-center">
+        <Button variant="accent" className="flex gap-x-1 items-center">
           View the full list <ArrowRight className="size-3" />
-        </div>
+        </Button>
       ),
       header: <TodaysLeaderboardBentoBox todaysQuestion={todaysQuestion} />,
       className: 'md:col-span-1 md:row-span-2 text-white h-full',
@@ -57,8 +62,8 @@ export default async function DashboardBentoGrid() {
       className: 'md:col-span-1 text-white',
     },
     {
-      title: 'Previous Questions',
-      description: 'Can you beat your previous score?',
+      title: 'All Questions',
+      description: 'View all questions and improve your knowledge',
       header: <Skeleton />,
       className: 'md:col-span-1 text-white',
       href: '/previous-questions',

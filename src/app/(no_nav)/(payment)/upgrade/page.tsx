@@ -9,13 +9,13 @@ export default async function UpgradePage() {
     <div className="relative bg-dot-white/[0.2]">
       <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black-950 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
 
-      <div className="w-full h-svh flex flex-col py-12 container z-50 relative text-center items-center justify-center">
-        <h1 className="text-3xl lg:text-5xl">
+      <div className="w-full h-svh flex flex-col py-12 container z-50 relative items-center justify-center">
+        <h1 className="text-3xl lg:text-5xl text-center">
           Simple and affordable <br /> pricing plans
         </h1>
 
         <div className="flex flex-col w-full mt-10">
-          <p className="font-satoshi">
+          <p className="font-satoshi text-center">
             Upgrade your account to unlock premium features, plans tailored to
             you.
           </p>

@@ -64,7 +64,9 @@ export function PricingCard(opts: {
                 key={product.id + feature.name}
                 className="flex gap-x-2 items-center"
               >
-                <CheckIcon className="size-4" />
+                <div className="bg-accent p-0.5 rounded-full">
+                  <CheckIcon className="size-3" />
+                </div>
                 <span>{feature.name}</span>
               </div>
             ))}

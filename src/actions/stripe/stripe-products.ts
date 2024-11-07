@@ -26,11 +26,14 @@ export const getStripeProducts = NextCache(
     if (!products) throw new Error('No products found');
 
     return products.data.map((product) => {
+      console.log(product);
       return {
         id: product.id,
         name: product.name,
         description: product.description,
-        features: product.metadata.features,
+        features: product.marketing_features.map((feature) => ({
+          name: feature.name || '',
+        })),
         default_price: product.default_price as Stripe.Price,
         metadata: product.metadata,
       };

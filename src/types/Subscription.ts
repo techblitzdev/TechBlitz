@@ -3,13 +3,13 @@ import { BaseRecord } from './BaseRecord';
 // Types for subscription-related data
 export interface Subscription extends BaseRecord {
   userUid: string;
-  startDate: Date;
-  endDate: Date;
+  startDate?: Date;
+  endDate?: Date;
   active: boolean;
   planId: string;
   productId: string;
   planTrial: boolean;
-  planTrialDays: number | null;
+  planTrialDays?: number | undefined;
 }
 
 // Type for creating a new subscription

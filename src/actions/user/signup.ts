@@ -45,6 +45,19 @@ export const signUp = async (
     // set the user level on the supabase user object
     user.user_metadata.userLevel = 'FREE';
 
+    // create a subscription for the user
+    await prisma.subscriptions.create({
+      data: {
+        userUid: user.id,
+        active: true,
+        createdAt: new Date(),
+        planId: '',
+        productId: '',
+        startDate: new Date(),
+        updatedAt: new Date(),
+      },
+    });
+
     // return the user object so we can extract the user.id on the front end
     return user;
   } catch (error) {

@@ -41,17 +41,17 @@ model Users {
 }
 
 model Subscriptions {
-  uid           String   @id @default(cuid())
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  userUid       String   @unique
-  user          Users    @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
-  startDate     DateTime
-  endDate       DateTime
-  active        Boolean  @default(true)
+  uid           String    @id @default(cuid())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  userUid       String    @unique
+  user          Users     @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+  startDate     DateTime?
+  endDate       DateTime?
+  active        Boolean   @default(true)
   planId        String
   productId     String
-  planTrial     Boolean  @default(false)
+  planTrial     Boolean   @default(false)
   planTrialDays Int?
 }
 

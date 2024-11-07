@@ -1,5 +1,6 @@
 import { getStripeProducts } from '@/actions/stripe/stripe-products';
 import { PricingCard } from '@/components/payment/payment-card';
+import { X } from 'lucide-react';
 import Link from 'next/link';
 
 export default async function UpgradePage() {
@@ -13,6 +14,12 @@ export default async function UpgradePage() {
         className="font-semibold top-4 left-4 absolute font-satoshi text-2xl z-30 hover:text-white/80 duration-300"
       >
         meerge
+      </Link>
+      <Link
+        href="/dashboard"
+        className="font-semibold top-5 right-5 absolute font-satoshi text-2xl z-30 hover:text-white/80 duration-300"
+      >
+        <X className="size-5" />
       </Link>
       <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black-950 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
 

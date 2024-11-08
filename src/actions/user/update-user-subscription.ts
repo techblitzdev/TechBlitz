@@ -16,8 +16,9 @@ type UpdateSubscriptionResponse = {
 
 export const updateUserSubscription = async (opts: {
   subscription: CreateSubscriptionInput;
+  priceId: string;
 }): Promise<UpdateSubscriptionResponse> => {
-  const { subscription } = opts;
+  const { subscription, priceId } = opts;
   // get the current user
   const { data } = await getUserFromSession();
 
@@ -50,16 +51,35 @@ export const updateUserSubscription = async (opts: {
     }
 
     // immediately cancel the old subscription
-    const oldStripeSubscription = await stripe.subscriptions.cancel(
-      oldStripeSubscriptionId
+    // const oldStripeSubscription = await stripe.subscriptions.cancel(
+    //   oldStripeSubscriptionId
+    // );
+
+    // if (!oldStripeSubscription) {
+    //   return {
+    //     success: false,
+    //     error: 'Stripe subscription not found',
+    //   };
+    // }
+
+    // Update the Stripe subscription
+    const updatedStripeSubscription = await stripe.subscriptions.update(
+      oldStripeSubscriptionId,
+      {
+        items: [
+          {
+            // @ts-ignore
+            id: existingSubscription.stripeSubscriptionItemId, // Retrieve this from your database if stored
+            price: priceId,
+          },
+        ],
+        proration_behavior: 'create_prorations', // Prorates based on billing cycle
+      }
     );
 
-    if (!oldStripeSubscription) {
-      return {
-        success: false,
-        error: 'Stripe subscription not found',
-      };
-    }
+    console.log({
+      updatedStripeSubscription,
+    });
 
     // Update existing subscription
     const updatedSubscription = await prisma.subscriptions.update({

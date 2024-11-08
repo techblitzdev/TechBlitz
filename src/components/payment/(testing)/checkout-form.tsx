@@ -21,9 +21,17 @@ export default function CheckoutForm(opts: {
   product: StripeProduct;
   stripeCustomerId: string;
   stripeSubscriptionId: string;
+  stripeSubscriptionItemId: string;
+  priceId: string;
 }) {
-  const { productPrice, product, stripeCustomerId, stripeSubscriptionId } =
-    opts;
+  const {
+    productPrice,
+    product,
+    stripeCustomerId,
+    stripeSubscriptionId,
+    stripeSubscriptionItemId,
+    priceId,
+  } = opts;
   const stripe = useStripe();
   const elements = useElements();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -42,10 +50,12 @@ export default function CheckoutForm(opts: {
         planTrialDays: number | null;
         stripeCustomerId: string;
         stripeSubscriptionId: string;
+        stripeSubscriptionItemId: string;
       };
     }) => {
       return updateUserSubscription({
         ...subscriptionData,
+        priceId,
       });
     },
     onSuccess: (data) => {
@@ -104,6 +114,7 @@ export default function CheckoutForm(opts: {
             productId: product.id,
             stripeCustomerId,
             stripeSubscriptionId,
+            stripeSubscriptionItemId,
           },
         });
 

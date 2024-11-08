@@ -13,6 +13,7 @@ export const createSubscription = async (
   clientSecret: string | null;
   customerId: string;
   isNewCustomer: boolean;
+  stripeSubscriptionItemId: string;
 } | null> => {
   const { data } = await getUserFromSession();
   if (!data) {
@@ -71,6 +72,7 @@ export const createSubscription = async (
       clientSecret: paymentIntent.client_secret,
       customerId: customer.id,
       isNewCustomer,
+      stripeSubscriptionItemId: subscription.items.data[0].id,
     };
   } catch (error) {
     console.error('Error in handleCustomerSubscription:', error);

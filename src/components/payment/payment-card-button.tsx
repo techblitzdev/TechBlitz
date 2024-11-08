@@ -20,6 +20,7 @@ const getClientSecret = async (
   subscriptionId: string;
   clientSecret: string | null;
   customerId: string;
+  stripeSubscriptionItemId: string;
 } | null> => {
   const response = await createSubscription(product.default_price.id);
   if (!response || !response.clientSecret) return null;
@@ -39,6 +40,9 @@ export function PaymentButton(opts: { product: StripeProduct }) {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [stripeCustomerId, setStripeCustomerId] = useState<string>('');
   const [stripeSubscriptionId, setStripeSubscriptionId] = useState<string>('');
+  const [stripeSubscriptionItemId, setStripeSubscriptionItemId] =
+    useState<string>('');
+  const [priceId, setPriceId] = useState<string>('');
   const [open, setOpen] = useState(false);
 
   const handleClientSecret = async (plan: StripeProduct) => {
@@ -58,6 +62,8 @@ export function PaymentButton(opts: { product: StripeProduct }) {
       setClientSecret(response.clientSecret);
       setStripeCustomerId(response.customerId);
       setStripeSubscriptionId(response.subscriptionId);
+      setStripeSubscriptionItemId(response.stripeSubscriptionItemId);
+      setPriceId(plan.default_price.id);
       setOpen(true);
     } catch (error) {
       console.error(error);
@@ -113,6 +119,8 @@ export function PaymentButton(opts: { product: StripeProduct }) {
               product={product}
               stripeCustomerId={stripeCustomerId}
               stripeSubscriptionId={stripeSubscriptionId}
+              stripeSubscriptionItemId={stripeSubscriptionItemId}
+              priceId={priceId}
             />
           </Elements>
         </DialogContent>

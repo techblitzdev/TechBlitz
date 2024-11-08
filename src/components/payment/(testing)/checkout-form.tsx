@@ -118,7 +118,7 @@ export default function CheckoutForm(opts: {
     <form onSubmit={handleSubmit} className="p-5 flex flex-col gap-y-2">
       <div className="flex gap-8">
         <div className="space-y-4">
-          <h3 className="text-lg space-y-1">
+          <h3 className="text-sm font-light space-y-1">
             <span>
               Subscribe to {product.name} <br />
             </span>
@@ -140,15 +140,15 @@ export default function CheckoutForm(opts: {
             ))}
           </div>
         </div>
-        <div className="space-y-4 w-[30rem]">
+        <div className="space-y-4 w-full">
           <h3 className="text-xl">Payment details</h3>
           <InputWithLabel
             label="Email address"
-            placeholder="John Doe"
             name="email"
             type="email"
             autoComplete="email"
             value={user?.email}
+            disabled
           />
           <PaymentElement
             options={{

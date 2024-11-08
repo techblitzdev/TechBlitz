@@ -19,8 +19,11 @@ import { useUser } from '@/hooks/useUser';
 export default function CheckoutForm(opts: {
   productPrice: number;
   product: StripeProduct;
+  stripeCustomerId: string;
+  stripeSubscriptionId: string;
 }) {
-  const { productPrice, product } = opts;
+  const { productPrice, product, stripeCustomerId, stripeSubscriptionId } =
+    opts;
   const stripe = useStripe();
   const elements = useElements();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -37,6 +40,8 @@ export default function CheckoutForm(opts: {
         productId: string;
         planTrial: boolean;
         planTrialDays: number | null;
+        stripeCustomerId: string;
+        stripeSubscriptionId: string;
       };
     }) => {
       return updateUserSubscription({
@@ -44,9 +49,7 @@ export default function CheckoutForm(opts: {
       });
     },
     onSuccess: (data) => {
-      if (data.success) {
-        toast.success(`Subscription updated successfully ${data}`);
-      } else {
+      if (!data.success) {
         toast.error(data.error || 'Failed to update subscription');
       }
     },
@@ -99,6 +102,8 @@ export default function CheckoutForm(opts: {
             planTrial: false,
             planTrialDays: null,
             productId: product.id,
+            stripeCustomerId,
+            stripeSubscriptionId,
           },
         });
 

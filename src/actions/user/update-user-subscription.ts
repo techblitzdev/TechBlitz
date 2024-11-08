@@ -5,6 +5,7 @@ import type {
 } from '@/types/Subscription';
 import { getUserFromSession } from './get-user';
 import { prisma } from '@/utils/prisma';
+import { stripe } from '@/lib/stripe';
 
 type UpdateSubscriptionResponse = {
   success: boolean;
@@ -16,9 +17,9 @@ export const updateUserSubscription = async (opts: {
   subscription: CreateSubscriptionInput;
 }): Promise<UpdateSubscriptionResponse> => {
   const { subscription } = opts;
-
   // get the current user
   const { data } = await getUserFromSession();
+
   const userUid = data?.user?.id;
   if (!userUid) {
     return {
@@ -46,6 +47,39 @@ export const updateUserSubscription = async (opts: {
       },
     });
 
+    // get the subscription and customer id from the db
+    const { stripeCustomerId, stripeSubscriptionId } = existingSubscription;
+    if (!stripeCustomerId || !stripeSubscriptionId) {
+      return {
+        success: false,
+        error: 'Stripe customer or subscription ID not found',
+      };
+    }
+
+    // retrieve the subscription from Stripe
+    const stripeSubscription = await stripe.subscriptions.retrieve(
+      stripeSubscriptionId
+    );
+    if (!stripeSubscription) {
+      return {
+        success: false,
+        error: 'Stripe subscription not found',
+      };
+    }
+
+    // update the subscription in stripe
+    await stripe.subscriptions.update(stripeSubscriptionId, {
+      items: [
+        {
+          id: stripeSubscriptionId,
+          deleted: true,
+        },
+        {
+          price: stripeSubscription.items.data[0].price.id,
+        },
+      ],
+    });
+
     return {
       success: true,
       subscription: updatedSubscription,
@@ -58,6 +92,8 @@ export const updateUserSubscription = async (opts: {
         userUid,
         createdAt: new Date(),
         updatedAt: new Date(),
+        stripeCustomerId: subscription.stripeCustomerId,
+        stripeSubscriptionId: subscription.stripeSubscriptionId,
       },
     });
 

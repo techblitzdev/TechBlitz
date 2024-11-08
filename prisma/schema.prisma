@@ -53,6 +53,9 @@ model Subscriptions {
   productId     String
   planTrial     Boolean   @default(false)
   planTrialDays Int?
+
+  stripeCustomerId     String?
+  stripeSubscriptionId String?
 }
 
 model Questions {

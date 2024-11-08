@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { InterFont, SatoshiFont } from '../styles/fonts/font';
+import { InterFont, SatoshiFont, UbuntuFont } from '../styles/fonts/font';
 import '../globals.css';
 import { ReactQueryClientProvider } from '@/components/react-query-client-provider';
 import { Toaster } from '@/components/ui/sonner';
@@ -18,14 +18,11 @@ export default function Layout({
     <ReactQueryClientProvider>
       <html lang="en">
         <body
-          className={`${InterFont.variable} ${SatoshiFont.variable} antialiased`}
+          className={`${InterFont.variable} ${SatoshiFont.variable} ${UbuntuFont.variable} antialiased`}
           suppressHydrationWarning={true}
         >
-          {/* Fixed background gradient */}
-          <div className="fixed inset-0 bg-gradient-to-t from-[#f0db4f]/5 via-transparent to-transparent pointer-events-none" />
-
           {/* Scrollable content */}
-          <main className="test">{children}</main>
+          <main>{children}</main>
           <Toaster className="bg-black" />
         </body>
       </html>

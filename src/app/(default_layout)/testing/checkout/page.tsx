@@ -1,5 +1,5 @@
 'use client';
-import { PricingCard } from '@/components/payment/(testing)/payment-card';
+import { PricingCard } from '@/components/payment/payment-card';
 import LoadingSpinner from '@/components/ui/loading';
 import { useProducts } from '@/hooks/useProducts';
 

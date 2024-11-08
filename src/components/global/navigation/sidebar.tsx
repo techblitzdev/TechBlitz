@@ -30,7 +30,7 @@ import {
 import AppSidebarSubMenuItem from './sidebar-submenu-item';
 import SidebarFooterComponent from './sidebar-footer';
 
-import type { SidebarItem, SidebarItemType } from '@/types/Sidebar';
+import type { SidebarItemType } from '@/types/Sidebar';
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
@@ -192,7 +192,7 @@ export function AppSidebar() {
           <SidebarGroupLabel className="w-full flex items-center justify-between">
             <Link
               href="/dashboard"
-              className="text-base xl:text-lg lg:text-3xl font-bold font-ubuntutoshi hover:text-white duration-300"
+              className="text-base xl:text-lg lg:text-3xl font-bold font-ubuntu hover:text-white duration-300"
               prefetch
             >
               meerge

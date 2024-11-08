@@ -10,6 +10,7 @@ import type { StripeProduct } from '../../types/StripeProduct';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { useSubscription } from '@/hooks/useSubscription';
+import { useUser } from '@/hooks/useUser';
 
 const stripe = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY as string);
 
@@ -26,12 +27,14 @@ const getClientSecret = async (
 
 export function PaymentButton(opts: { product: StripeProduct }) {
   const { product } = opts;
+  const { user } = useUser();
   // get the user's current subscription (if any)
-  const { data: subscription } = useSubscription();
+  const { data: subscription } = useSubscription(user?.uid);
 
   const [loading, setLoading] = useState<{
     [key: string]: boolean;
   }>({});
+
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
 
@@ -68,22 +71,29 @@ export function PaymentButton(opts: { product: StripeProduct }) {
         <Button
           onClick={async () => await handleClientSecret(product)}
           className="flex gap-x-2 min-w-[84px] duration-300 ease-in-out"
-          variant={product.metadata.mostPopular ? 'secondary' : 'default'}
-          disabled={subscription?.productId === product.id}
+          variant={product.metadata.mostPopular ? 'accent' : 'secondary'}
+          disabled={
+            subscription?.productId === product.id ||
+            (!subscription?.productId &&
+              product.default_price.unit_amount === 0)
+          }
+          fullWidth
         >
           {loading[product.id] ? (
-            <ReloadIcon className="w-3 h-3 animate-spin" />
+            <ReloadIcon className="size-3 animate-spin" />
           ) : (
-            <>
-              {subscription?.productId === product.id
-                ? 'Subscribed'
-                : 'Buy now'}
-            </>
+            <div className="font-satoshi">
+              {subscription?.productId === product.id ||
+              (!subscription?.productId &&
+                product.default_price.unit_amount === 0)
+                ? 'Current plan'
+                : 'Upgrade'}
+            </div>
           )}
         </Button>
       </DialogTrigger>
       {clientSecret && (
-        <DialogContent className=" bg-black-900">
+        <DialogContent className=" bg-black-900 w-fit md:w-[50rem]">
           <Elements
             stripe={stripe}
             options={{
@@ -95,7 +105,7 @@ export function PaymentButton(opts: { product: StripeProduct }) {
           >
             <CheckoutForm
               productPrice={product.default_price.unit_amount as number}
-              productId={product.id}
+              product={product}
             />
           </Elements>
         </DialogContent>

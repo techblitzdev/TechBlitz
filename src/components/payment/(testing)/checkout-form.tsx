@@ -10,15 +10,21 @@ import { ReloadIcon } from '@radix-ui/react-icons';
 import { updateUserSubscription } from '@/actions/user/update-user-subscription';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
+import { StripeProduct } from '@/types/StripeProduct';
+import { CheckIcon } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
+import { InputWithLabel } from '@/components/ui/input-label';
+import { useUser } from '@/hooks/useUser';
 
 export default function CheckoutForm(opts: {
   productPrice: number;
-  productId: string;
+  product: StripeProduct;
 }) {
-  const { productPrice, productId } = opts;
+  const { productPrice, product } = opts;
   const stripe = useStripe();
   const elements = useElements();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user } = useUser();
 
   // Create mutation for updating subscription
   const updateSubscriptionMutation = useMutation({
@@ -92,7 +98,7 @@ export default function CheckoutForm(opts: {
             planId: paymentIntent.id,
             planTrial: false,
             planTrialDays: null,
-            productId: productId,
+            productId: product.id,
           },
         });
 
@@ -110,43 +116,60 @@ export default function CheckoutForm(opts: {
 
   return (
     <form onSubmit={handleSubmit} className="p-5 flex flex-col gap-y-2">
-      <div className="flex flex-col gap-y-4">
-        <h3 className="text-2xl font-bold">
-          Payment: £{(productPrice / 100).toFixed(2)}
-        </h3>
-        <PaymentElement
-          options={{
-            layout: 'accordion',
-            defaultValues: {
-              billingDetails: {
-                address: {
-                  city: 'London',
-                  country: 'GB',
-                  line1: '123 Fake St',
-                  line2: 'Apt 2',
-                  postal_code: 'E1 4UD',
-                  state: 'London',
-                },
-                email: 'hello@devdaily.com',
-                name: 'John Doe',
-              },
-            },
-          }}
-        />
+      <div className="flex gap-8">
+        <div className="space-y-4">
+          <h3 className="text-sm font-light space-y-1">
+            <span>
+              Subscribe to {product.name} <br />
+            </span>
+            <span className="text-3xl">£{(productPrice / 100).toFixed(2)}</span>
+            <span className="text-xs"> per month, billed monthly </span>
+          </h3>
+          <Separator />
+          <div className="flex flex-col gap-y-3">
+            {product?.features?.map((feature) => (
+              <div
+                key={product.id + feature.name}
+                className="flex gap-x-2 items-center"
+              >
+                <div className="bg-accent p-0.5 rounded-full">
+                  <CheckIcon className="size-3" />
+                </div>
+                <span className="text-sm font-satoshi">{feature.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="space-y-4 w-full">
+          <h3 className="text-xl">Payment details</h3>
+          <InputWithLabel
+            label="Email address"
+            name="email"
+            type="email"
+            autoComplete="email"
+            value={user?.email}
+            disabled
+          />
+          <PaymentElement
+            options={{
+              layout: 'auto',
+            }}
+          />
+          <Button
+            type="submit"
+            disabled={
+              !stripe || isSubmitting || updateSubscriptionMutation.isPending
+            }
+            variant="secondary"
+            className="w-full mt-4"
+          >
+            {isSubmitting || updateSubscriptionMutation.isPending ? (
+              <ReloadIcon className="size-3 animate-spin mr-2" />
+            ) : null}
+            {isSubmitting ? 'Processing...' : 'Submit Payment'}
+          </Button>
+        </div>
       </div>
-      <Button
-        type="submit"
-        disabled={
-          !stripe || isSubmitting || updateSubscriptionMutation.isPending
-        }
-        variant="secondary"
-        className="w-full"
-      >
-        {isSubmitting || updateSubscriptionMutation.isPending ? (
-          <ReloadIcon className="size-3 animate-spin mr-2" />
-        ) : null}
-        {isSubmitting ? 'Processing...' : 'Submit Payment'}
-      </Button>
     </form>
   );
 }

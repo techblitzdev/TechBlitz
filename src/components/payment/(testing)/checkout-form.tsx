@@ -13,6 +13,8 @@ import { toast } from 'sonner';
 import { StripeProduct } from '@/types/StripeProduct';
 import { CheckIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import { InputWithLabel } from '@/components/ui/input-label';
+import { useUser } from '@/hooks/useUser';
 
 export default function CheckoutForm(opts: {
   productPrice: number;
@@ -22,6 +24,7 @@ export default function CheckoutForm(opts: {
   const stripe = useStripe();
   const elements = useElements();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user } = useUser();
 
   // Create mutation for updating subscription
   const updateSubscriptionMutation = useMutation({
@@ -113,7 +116,7 @@ export default function CheckoutForm(opts: {
 
   return (
     <form onSubmit={handleSubmit} className="p-5 flex flex-col gap-y-2">
-      <div className="flex gap-4">
+      <div className="flex gap-8">
         <div className="space-y-4">
           <h3 className="text-lg space-y-1">
             <span>
@@ -138,23 +141,18 @@ export default function CheckoutForm(opts: {
           </div>
         </div>
         <div className="space-y-4 w-[30rem]">
+          <h3 className="text-xl">Payment details</h3>
+          <InputWithLabel
+            label="Email address"
+            placeholder="John Doe"
+            name="email"
+            type="email"
+            autoComplete="email"
+            value={user?.email}
+          />
           <PaymentElement
             options={{
-              layout: 'accordion',
-              defaultValues: {
-                billingDetails: {
-                  address: {
-                    city: 'London',
-                    country: 'GB',
-                    line1: '123 Fake St',
-                    line2: 'Apt 2',
-                    postal_code: 'E1 4UD',
-                    state: 'London',
-                  },
-                  email: 'hello@meerge.com',
-                  name: 'John Doe',
-                },
-              },
+              layout: 'auto',
             }}
           />
           <Button

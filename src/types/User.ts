@@ -1,6 +1,8 @@
 import { BaseRecord } from './BaseRecord';
 import { RequireAtLeastOne } from './Utils';
 
+export type UserLevel = 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE' | 'PREMIUM';
+
 /**
  * Represents a user in the system.
  */
@@ -13,7 +15,7 @@ export interface User extends BaseRecord {
 
   lastLogin: Date | null;
 
-  userLevel: 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE';
+  userLevel: UserLevel;
   answers: string[];
 
   correctDailyStreak: number | null;

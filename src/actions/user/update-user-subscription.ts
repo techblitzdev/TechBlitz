@@ -6,6 +6,7 @@ import type {
 import { getUserFromSession } from './get-user';
 import { prisma } from '@/utils/prisma';
 import { stripe } from '@/lib/stripe';
+import { PRICING_PLANS } from '@/utils/constants/pricing';
 
 type UpdateSubscriptionResponse = {
   success: boolean;
@@ -36,6 +37,30 @@ export const updateUserSubscription = async (opts: {
   });
 
   if (existingSubscription) {
+    // get the subscription and customer id from the db
+    const {
+      stripeCustomerId: oldStripeCustomerId,
+      stripeSubscriptionId: oldStripeSubscriptionId,
+    } = existingSubscription;
+    if (!oldStripeCustomerId || !oldStripeSubscriptionId) {
+      return {
+        success: false,
+        error: 'Stripe customer or subscription ID not found',
+      };
+    }
+
+    // immediately cancel the old subscription
+    const oldStripeSubscription = await stripe.subscriptions.cancel(
+      oldStripeSubscriptionId
+    );
+
+    if (!oldStripeSubscription) {
+      return {
+        success: false,
+        error: 'Stripe subscription not found',
+      };
+    }
+
     // Update existing subscription
     const updatedSubscription = await prisma.subscriptions.update({
       where: {
@@ -47,37 +72,26 @@ export const updateUserSubscription = async (opts: {
       },
     });
 
-    // get the subscription and customer id from the db
-    const { stripeCustomerId, stripeSubscriptionId } = existingSubscription;
-    if (!stripeCustomerId || !stripeSubscriptionId) {
+    // update the user object based on which plan was chosen
+
+    // find the user's plan name
+    const plan = PRICING_PLANS.find((p) => p.uid === subscription.productId);
+
+    if (!plan) {
       return {
         success: false,
-        error: 'Stripe customer or subscription ID not found',
+        error: 'Plan not found',
       };
     }
 
-    // retrieve the subscription from Stripe
-    const stripeSubscription = await stripe.subscriptions.retrieve(
-      stripeSubscriptionId
-    );
-    if (!stripeSubscription) {
-      return {
-        success: false,
-        error: 'Stripe subscription not found',
-      };
-    }
-
-    // update the subscription in stripe
-    await stripe.subscriptions.update(stripeSubscriptionId, {
-      items: [
-        {
-          id: stripeSubscriptionId,
-          deleted: true,
-        },
-        {
-          price: stripeSubscription.items.data[0].price.id,
-        },
-      ],
+    // update the user level
+    await prisma.users.update({
+      where: {
+        uid: userUid,
+      },
+      data: {
+        userLevel: plan.value,
+      },
     });
 
     return {
@@ -94,6 +108,30 @@ export const updateUserSubscription = async (opts: {
         updatedAt: new Date(),
         stripeCustomerId: subscription.stripeCustomerId,
         stripeSubscriptionId: subscription.stripeSubscriptionId,
+      },
+    });
+
+    // find the user's plan name
+    const plan = PRICING_PLANS.find((p) => p.uid === newSubscription.productId);
+
+    console.log({
+      plan,
+    });
+
+    if (!plan) {
+      return {
+        success: false,
+        error: 'Plan not found',
+      };
+    }
+
+    // update the user level
+    await prisma.users.update({
+      where: {
+        uid: userUid,
+      },
+      data: {
+        userLevel: plan.value,
       },
     });
 

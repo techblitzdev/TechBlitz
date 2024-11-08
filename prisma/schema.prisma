@@ -13,6 +13,7 @@ enum userLevel {
   ADMIN
   TRIAL
   FREE
+  PREMIUM
 }
 
 model Users {

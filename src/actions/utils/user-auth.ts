@@ -2,10 +2,9 @@
 import { createClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
 import { prisma } from '@/utils/prisma';
+import type { UserLevel } from '@/types/User';
 
-type userRoles = 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE';
-
-export const userAuth = async (userRole: userRoles | userRoles[]) => {
+export const userAuth = async (userRole: UserLevel | UserLevel[]) => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
   const { data: user, error } = await supabase.auth.getUser();

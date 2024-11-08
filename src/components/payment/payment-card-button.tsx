@@ -72,7 +72,11 @@ export function PaymentButton(opts: { product: StripeProduct }) {
           onClick={async () => await handleClientSecret(product)}
           className="flex gap-x-2 min-w-[84px] duration-300 ease-in-out"
           variant={product.metadata.mostPopular ? 'accent' : 'secondary'}
-          disabled={subscription?.productId === product.id}
+          disabled={
+            subscription?.productId === product.id ||
+            (!subscription?.productId &&
+              product.default_price.unit_amount === 0)
+          }
           fullWidth
         >
           {loading[product.id] ? (
@@ -89,7 +93,7 @@ export function PaymentButton(opts: { product: StripeProduct }) {
         </Button>
       </DialogTrigger>
       {clientSecret && (
-        <DialogContent className=" bg-black-900">
+        <DialogContent className=" bg-black-900 w-fit md:w-[50rem]">
           <Elements
             stripe={stripe}
             options={{
@@ -101,7 +105,7 @@ export function PaymentButton(opts: { product: StripeProduct }) {
           >
             <CheckoutForm
               productPrice={product.default_price.unit_amount as number}
-              productId={product.id}
+              product={product}
             />
           </Elements>
         </DialogContent>

@@ -55,7 +55,11 @@ export default async function DashboardBentoGrid() {
     },
     {
       title: 'Roadmap',
-      description: 'Check out what we have planned for the future!',
+      description: (
+        <div className="font-satoshi">
+          View your progress and upcoming challenges, generated just for you!'
+        </div>
+      ),
       header: <Skeleton />,
       className: 'md:col-span-2 text-white',
     },

@@ -41,12 +41,6 @@ import { useQuery } from '@tanstack/react-query';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
 import ComingSoonChip from '../coming-soon';
 import { useUser } from '@/hooks/useUser';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -89,7 +83,9 @@ export function AppSidebar() {
     {
       title: (
         <>
-          {user?.userLevel === 'ADMIN' || user?.userLevel === 'PREMIUM' ? (
+          {user?.userLevel === 'ADMIN' ||
+          (user?.userLevel === 'PREMIUM' &&
+            !pathname.startsWith('/settings')) ? (
             <p>Roadmap</p>
           ) : (
             <div className="flex items-center gap-3">
@@ -105,7 +101,7 @@ export function AppSidebar() {
     },
     {
       title: 'Stats',
-      url: '#',
+      url: '/',
       icon: ChartBarIncreasing,
       chip: ComingSoonChip,
     },
@@ -192,9 +188,7 @@ export function AppSidebar() {
               <SidebarMenuButton asChild>
                 <div className="flex items-center w-full">
                   {item.icon && <item.icon />}
-                  <span className="text-sm font-ubuntutoshi">
-                    <>{item.title}</>
-                  </span>
+                  <span className="text-sm font-ubuntutoshi">{item.title}</span>
                   <div className="ms-auto">{item.chip && <item.chip />}</div>
                 </div>
               </SidebarMenuButton>
@@ -208,9 +202,7 @@ export function AppSidebar() {
             {item.disabled ? (
               <SidebarMenuItem className="flex items-center font-ubuntu text-sm p-2 gap-x-2 opacity-50 hover:cursor-not-allowed h-8">
                 {item.icon && <item.icon />}
-                <span className="text-sm font-ubuntutoshi">
-                  <>{item.title}</>
-                </span>
+                <span className="text-sm font-ubuntutoshi">{item.title}</span>
                 <div className="ms-auto">{item.chip && <item.chip />}</div>
               </SidebarMenuItem>
             ) : (

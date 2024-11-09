@@ -15,6 +15,7 @@ import { CheckIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { InputWithLabel } from '@/components/ui/input-label';
 import { useUser } from '@/hooks/useUser';
+import { getBaseUrl } from '@/utils';
 
 export default function CheckoutForm(opts: {
   productPrice: number;
@@ -85,7 +86,7 @@ export default function CheckoutForm(opts: {
         {
           elements,
           confirmParams: {
-            return_url: window.location.href,
+            return_url: `${getBaseUrl()}/dashboard?payment=success`,
           },
           redirect: 'if_required',
         }

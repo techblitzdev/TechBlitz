@@ -10,6 +10,8 @@ import {
   User,
   Bell,
   CreditCard,
+  RouteIcon,
+  HelpCircle,
 } from 'lucide-react';
 import {
   Sidebar,
@@ -20,6 +22,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarSeparator,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 import {
@@ -51,7 +54,10 @@ export function AppSidebar() {
   // Menu items
   const standardItems: SidebarItemType[] = [
     {
-      title: 'Home',
+      groupLabel: 'menu',
+    },
+    {
+      title: 'Dashboard',
       url: '/dashboard',
       icon: Home,
     },
@@ -75,8 +81,27 @@ export function AppSidebar() {
       ],
     },
     {
-      title: 'Stats',
+      title: (
+        <>
+          {user?.userLevel === 'ADMIN' ||
+          (user?.userLevel === 'PREMIUM' &&
+            !pathname.startsWith('/settings')) ? (
+            <p>Roadmap</p>
+          ) : (
+            <div className="flex items-center gap-3">
+              <p>Roadmap</p>
+              <LockIcon className="size-4" />
+            </div>
+          )}
+        </>
+      ),
       url: '#',
+      icon: RouteIcon,
+      disabled: user?.userLevel !== 'ADMIN' && user?.userLevel !== 'PREMIUM',
+    },
+    {
+      title: 'Stats',
+      url: '/',
       icon: ChartBarIncreasing,
       chip: ComingSoonChip,
     },
@@ -84,6 +109,14 @@ export function AppSidebar() {
       title: 'Leaderboard',
       url: '/leaderboard/today',
       icon: Award,
+    },
+    {
+      groupLabel: 'Support',
+    },
+    {
+      title: 'Help',
+      url: '/help',
+      icon: HelpCircle,
     },
     {
       title: 'Settings',
@@ -139,8 +172,8 @@ export function AppSidebar() {
   const renderSidebarItem = (item: SidebarItemType) => {
     if ('groupLabel' in item) {
       return (
-        <SidebarGroup key={item.groupLabel}>
-          <SidebarGroupLabel className="px-0 h-fit text-base xl:text-lg font-ubuntutoshi">
+        <SidebarGroup key={item.groupLabel} className="mt-2">
+          <SidebarGroupLabel className="px-0 py-0 h-fit text-sm font-ubuntutoshi">
             {item.groupLabel}
           </SidebarGroupLabel>
         </SidebarGroup>
@@ -148,16 +181,14 @@ export function AppSidebar() {
     }
 
     return (
-      <SidebarMenuItem key={item.title}>
+      <SidebarMenuItem key={item.url}>
         {item.subItems ? (
           <Collapsible defaultOpen className="group/collapsible">
             <CollapsibleTrigger asChild>
               <SidebarMenuButton asChild>
                 <div className="flex items-center w-full">
                   {item.icon && <item.icon />}
-                  <span className="text-base xl:text-lg font-ubuntutoshi">
-                    {item.title}
-                  </span>
+                  <span className="text-sm font-ubuntutoshi">{item.title}</span>
                   <div className="ms-auto">{item.chip && <item.chip />}</div>
                 </div>
               </SidebarMenuButton>
@@ -168,17 +199,29 @@ export function AppSidebar() {
           </Collapsible>
         ) : (
           <SidebarMenuButton asChild>
-            <Link
-              href={item.url}
-              prefetch
-              className={`flex items-center font-ubuntutoshi text-base ${
-                pathname === item.url ? 'bg-black' : ''
-              }`}
-            >
-              {item.icon && <item.icon />}
-              <span className="text-base xl:text-lg">{item.title}</span>
-              <div className="ms-auto">{item.chip && <item.chip />}</div>
-            </Link>
+            {item.disabled ? (
+              <SidebarMenuItem className="flex items-center font-ubuntu text-sm p-2 gap-x-2 opacity-50 hover:cursor-not-allowed h-8">
+                {item.icon && <item.icon />}
+                <span className="text-sm font-ubuntutoshi">{item.title}</span>
+                <div className="ms-auto">{item.chip && <item.chip />}</div>
+              </SidebarMenuItem>
+            ) : (
+              <Link
+                href={item.url}
+                prefetch
+                className={`flex items-center font-ubuntu text-sm py-2 ${
+                  pathname === item.url
+                    ? 'bg-white text-black border border-black-75'
+                    : ''
+                }`}
+              >
+                {item.icon && <item.icon />}
+                <span className="text-sm">
+                  <>{item.title}</>
+                </span>
+                <div className="ms-auto">{item.chip && <item.chip />}</div>
+              </Link>
+            )}
           </SidebarMenuButton>
         )}
       </SidebarMenuItem>
@@ -186,19 +229,19 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar className="p-3 rounded-xl">
-      <SidebarContent className="p-2">
+    <Sidebar>
+      <SidebarContent className="py-6">
         <SidebarGroup>
           <SidebarGroupLabel className="w-full flex items-center justify-between">
             <Link
               href="/dashboard"
-              className="text-base xl:text-lg lg:text-3xl font-bold font-ubuntu hover:text-white duration-300"
+              className="text-sm xl:text-2xl font-ubuntu hover:text-white duration-300"
               prefetch
             >
               meerge
             </Link>
           </SidebarGroupLabel>
-          <SidebarGroupContent className="mt-4">
+          <SidebarGroupContent className="mt-5">
             <SidebarMenu>
               {items.map((item) => renderSidebarItem(item))}
             </SidebarMenu>

@@ -25,13 +25,13 @@ export default function Layout({
         >
           <SidebarProvider>
             {/* Fixed background gradient */}
-            <div className="fixed inset-0 bg-gradient-to-t from-[#f0db4f]/5 via-transparent to-transparent pointer-events-none"></div>
+            {/* <div className="fixed inset-0 bg-gradient-to-t from-[#f0db4f]/5 via-transparent to-transparent pointer-events-none"></div> */}
 
             {/* Scrollable content */}
             <AppSidebar />
-            <main className="w-full pr-6 py-6 lg:pt-8 lg:pb-3 lg:ml-break-out pl-break-out">
+            <main className="w-full pr-6 py-6 lg:pt-8 lg:pb-3">
               <div className="lg:pl-4 h-full">
-                <SidebarTrigger className="size-4 h-full flex items-center my-auto -top-2.5 relative" />
+                {/* <SidebarTrigger className="size-4 h-full flex items-center my-auto -top-2.5 relative" /> */}
                 {children}
               </div>
             </main>

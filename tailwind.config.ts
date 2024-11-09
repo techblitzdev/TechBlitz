@@ -116,10 +116,19 @@ const config: Config = {
             height: '0',
           },
         },
+        scroll: {
+          '0%': {
+            transform: 'translateY(0)',
+          },
+          '100%': {
+            transform: 'translateY(calc(-72px * var(--question-count)))',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        scroll: 'scroll 30s linear infinite',
       },
     },
   },

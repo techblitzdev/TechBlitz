@@ -27,7 +27,10 @@ export default function SidebarFooterComponent() {
         <SidebarMenuItem>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <SidebarMenuButton>
+              <SidebarMenuButton
+                variant="outline"
+                className="bg-black-100 text-white"
+              >
                 <User2 />
                 {isLoading && <LoadingSpinner />}
                 {isError && 'Error'}

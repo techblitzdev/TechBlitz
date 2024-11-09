@@ -1,10 +1,11 @@
 export interface SidebarItem {
-  title: string;
+  title: string | React.ReactNode;
   url: string;
   icon?: React.ComponentType;
   subItems?: SidebarItem[];
   chip?: React.ComponentType;
-  groupLabel?: string
+  groupLabel?: string;
+  disabled?: boolean;
 }
 
 export interface SidebarGroupItem {

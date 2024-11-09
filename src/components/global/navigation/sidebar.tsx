@@ -10,6 +10,7 @@ import {
   User,
   Bell,
   CreditCard,
+  RouteIcon,
 } from 'lucide-react';
 import {
   Sidebar,
@@ -38,6 +39,12 @@ import { useQuery } from '@tanstack/react-query';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
 import ComingSoonChip from '../coming-soon';
 import { useUser } from '@/hooks/useUser';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -73,6 +80,23 @@ export function AppSidebar() {
           url: '/previous-questions',
         },
       ],
+    },
+    {
+      title: (
+        <>
+          {user?.userLevel === 'ADMIN' || user?.userLevel === 'PREMIUM' ? (
+            <p>Roadmap</p>
+          ) : (
+            <div className="flex items-center gap-3">
+              <p>Roadmap</p>
+              <LockIcon />
+            </div>
+          )}
+        </>
+      ),
+      url: '#',
+      icon: RouteIcon,
+      disabled: user?.userLevel !== 'ADMIN' && user?.userLevel !== 'PREMIUM',
     },
     {
       title: 'Stats',
@@ -140,7 +164,7 @@ export function AppSidebar() {
     if ('groupLabel' in item) {
       return (
         <SidebarGroup key={item.groupLabel}>
-          <SidebarGroupLabel className="px-0 h-fit text-base xl:text-lg font-ubuntutoshi">
+          <SidebarGroupLabel className="px-0 h-fit text-sm font-ubuntutoshi">
             {item.groupLabel}
           </SidebarGroupLabel>
         </SidebarGroup>
@@ -148,15 +172,15 @@ export function AppSidebar() {
     }
 
     return (
-      <SidebarMenuItem key={item.title}>
+      <SidebarMenuItem key={item.url}>
         {item.subItems ? (
           <Collapsible defaultOpen className="group/collapsible">
             <CollapsibleTrigger asChild>
               <SidebarMenuButton asChild>
                 <div className="flex items-center w-full">
                   {item.icon && <item.icon />}
-                  <span className="text-base xl:text-lg font-ubuntutoshi">
-                    {item.title}
+                  <span className="text-sm font-ubuntutoshi">
+                    <>{item.title}</>
                   </span>
                   <div className="ms-auto">{item.chip && <item.chip />}</div>
                 </div>
@@ -168,17 +192,42 @@ export function AppSidebar() {
           </Collapsible>
         ) : (
           <SidebarMenuButton asChild>
-            <Link
-              href={item.url}
-              prefetch
-              className={`flex items-center font-ubuntutoshi text-base ${
-                pathname === item.url ? 'bg-black' : ''
-              }`}
-            >
-              {item.icon && <item.icon />}
-              <span className="text-base xl:text-lg">{item.title}</span>
-              <div className="ms-auto">{item.chip && <item.chip />}</div>
-            </Link>
+            {item.disabled ? (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger className="w-full">
+                    <SidebarMenuItem className="flex items-center font-ubuntu text-sm p-2 gap-x-2 opacity-50 hover:cursor-not-allowed">
+                      {item.icon && <item.icon />}
+                      <span className="text-sm font-ubuntutoshi">
+                        <>{item.title}</>
+                      </span>
+                      <div className="ms-auto">
+                        {item.chip && <item.chip />}
+                      </div>
+                    </SidebarMenuItem>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <div className="text-sm">
+                      Upgrade to premium to unlock this feature.
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            ) : (
+              <Link
+                href={item.url}
+                prefetch
+                className={`flex items-center font-ubuntu text-sm py-2 ${
+                  pathname === item.url ? 'bg-black border border-black-75' : ''
+                }`}
+              >
+                {item.icon && <item.icon />}
+                <span className="text-sm">
+                  <>{item.title}</>
+                </span>
+                <div className="ms-auto">{item.chip && <item.chip />}</div>
+              </Link>
+            )}
           </SidebarMenuButton>
         )}
       </SidebarMenuItem>
@@ -186,19 +235,19 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar className="p-3 rounded-xl">
-      <SidebarContent className="p-2">
+    <Sidebar>
+      <SidebarContent className="py-2">
         <SidebarGroup>
           <SidebarGroupLabel className="w-full flex items-center justify-between">
             <Link
               href="/dashboard"
-              className="text-base xl:text-lg lg:text-3xl font-bold font-ubuntu hover:text-white duration-300"
+              className="text-sm xl:text-xl font-ubuntu hover:text-white duration-300"
               prefetch
             >
               meerge
             </Link>
           </SidebarGroupLabel>
-          <SidebarGroupContent className="mt-4">
+          <SidebarGroupContent className="mt-8">
             <SidebarMenu>
               {items.map((item) => renderSidebarItem(item))}
             </SidebarMenu>

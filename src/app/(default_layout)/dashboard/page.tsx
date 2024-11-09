@@ -18,7 +18,7 @@ export default async function Dashboard() {
         </div>
       </div>
       <Separator className="bg-black-50" />
-      <div className=" h-full">
+      <div className="h-full mt-1">
         <DashboardBentoGrid />
       </div>
     </div>

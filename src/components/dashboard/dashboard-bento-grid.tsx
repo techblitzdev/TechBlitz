@@ -12,6 +12,7 @@ import TodaysLeaderboardBentoBox from '@/components/leaderboard/bento-box';
 import { getUserFromSession } from '@/actions/user/get-user';
 import UserRank from '../leaderboard/user-rank';
 import { Button } from '../ui/button';
+import AllQuestionsDashboardBentoBox from '../questions/dashboard/all-questions-bento-box';
 
 export default async function DashboardBentoGrid() {
   const todaysQuestion = await getTodaysQuestion();
@@ -62,9 +63,7 @@ export default async function DashboardBentoGrid() {
       className: 'md:col-span-1 text-white',
     },
     {
-      title: 'All Questions',
-      description: 'View all questions and improve your knowledge',
-      header: <Skeleton />,
+      header: <AllQuestionsDashboardBentoBox />,
       className: 'md:col-span-1 text-white',
       href: '/previous-questions',
     },

@@ -11,3 +11,9 @@ export const getBaseUrl = () => {
     ? 'http://localhost:3000'
     : publicRootDomain;
 };
+
+export const capitalise = (string: string) => {
+  // lowercase the whole string
+  const lowercaseString = string.toLowerCase();
+  return lowercaseString[0].toUpperCase() + lowercaseString.slice(1);
+};

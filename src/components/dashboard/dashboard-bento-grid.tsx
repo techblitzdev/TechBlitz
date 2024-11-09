@@ -12,6 +12,7 @@ import TodaysLeaderboardBentoBox from '@/components/leaderboard/bento-box';
 import { getUserFromSession } from '@/actions/user/get-user';
 import { Button } from '../ui/button';
 import AllQuestionsDashboardBentoBox from '../dashboard/all-questions-bento-box';
+import TodaysQuestionBentoBox from './todays-question-bento-box';
 
 export default async function DashboardBentoGrid() {
   const todaysQuestion = await getTodaysQuestion();
@@ -36,7 +37,9 @@ export default async function DashboardBentoGrid() {
           Answer now <ArrowRight className="size-3" />
         </Button>
       ),
-      header: <Skeleton />,
+      header: todaysQuestion && (
+        <TodaysQuestionBentoBox question={todaysQuestion} />
+      ),
       className: 'md:col-span-1 text-white',
       href: `/question/${todaysQuestion?.uid}`,
     },

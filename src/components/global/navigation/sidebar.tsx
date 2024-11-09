@@ -54,7 +54,7 @@ export function AppSidebar() {
   // Menu items
   const standardItems: SidebarItemType[] = [
     {
-      groupLabel: 'menu',
+      groupLabel: 'Menu',
     },
     {
       title: 'Dashboard',

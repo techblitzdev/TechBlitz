@@ -10,6 +10,9 @@ export interface Subscription extends BaseRecord {
   productId: string;
   planTrial: boolean;
   planTrialDays: number | null;
+  stripeSubscriptionId: string | null;
+  stripeCustomerId: string | null;
+  stripeSubscriptionItemId: string | null;
 }
 
 // Type for creating a new subscription

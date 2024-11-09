@@ -15,12 +15,24 @@ import { CheckIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { InputWithLabel } from '@/components/ui/input-label';
 import { useUser } from '@/hooks/useUser';
+import { getBaseUrl } from '@/utils';
 
 export default function CheckoutForm(opts: {
   productPrice: number;
   product: StripeProduct;
+  stripeCustomerId: string;
+  stripeSubscriptionId: string;
+  stripeSubscriptionItemId: string;
+  priceId: string;
 }) {
-  const { productPrice, product } = opts;
+  const {
+    productPrice,
+    product,
+    stripeCustomerId,
+    stripeSubscriptionId,
+    stripeSubscriptionItemId,
+    priceId,
+  } = opts;
   const stripe = useStripe();
   const elements = useElements();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -37,16 +49,18 @@ export default function CheckoutForm(opts: {
         productId: string;
         planTrial: boolean;
         planTrialDays: number | null;
+        stripeCustomerId: string;
+        stripeSubscriptionId: string;
+        stripeSubscriptionItemId: string;
       };
     }) => {
       return updateUserSubscription({
         ...subscriptionData,
+        priceId,
       });
     },
     onSuccess: (data) => {
-      if (data.success) {
-        toast.success(`Subscription updated successfully ${data}`);
-      } else {
+      if (!data.success) {
         toast.error(data.error || 'Failed to update subscription');
       }
     },
@@ -72,7 +86,7 @@ export default function CheckoutForm(opts: {
         {
           elements,
           confirmParams: {
-            return_url: window.location.href,
+            return_url: `${getBaseUrl()}/dashboard?payment=success`,
           },
           redirect: 'if_required',
         }
@@ -99,6 +113,9 @@ export default function CheckoutForm(opts: {
             planTrial: false,
             planTrialDays: null,
             productId: product.id,
+            stripeCustomerId,
+            stripeSubscriptionId,
+            stripeSubscriptionItemId,
           },
         });
 

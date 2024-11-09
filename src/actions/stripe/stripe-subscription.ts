@@ -3,17 +3,20 @@ import Stripe from 'stripe';
 import { stripe } from '@/lib/stripe';
 import { getUserFromSession } from '../user/get-user';
 
+type SubscriptionResponse = {
+  subscriptionId: string;
+  clientSecret: string | null;
+  customerId: string;
+  isNewCustomer: boolean;
+  stripeSubscriptionItemId: string;
+} | null;
+
 /**
  * Looks up or creates a customer and creates a subscription for them
  */
 export const createSubscription = async (
   priceId: string
-): Promise<{
-  subscriptionId: string;
-  clientSecret: string | null;
-  customerId: string;
-  isNewCustomer: boolean;
-} | null> => {
+): Promise<SubscriptionResponse> => {
   const { data } = await getUserFromSession();
   if (!data) {
     throw new Error('User not found');
@@ -25,7 +28,7 @@ export const createSubscription = async (
   }
 
   try {
-    // First, try to look up the customer
+    // Try to look up the customer
     let customer = await lookupCustomer(email, stripe);
     let isNewCustomer = false;
 
@@ -41,27 +44,56 @@ export const createSubscription = async (
       isNewCustomer = true;
     }
 
-    // Now create the subscription
-    const subscription = await stripe.subscriptions.create({
-      customer: customer.id,
-      items: [{ price: priceId }],
-      payment_behavior: 'default_incomplete',
-      payment_settings: {
-        save_default_payment_method: 'on_subscription',
-        payment_method_types: ['card'],
-      },
-      expand: ['latest_invoice.payment_intent'],
-      metadata: {
-        email: customer.email,
-      },
-    });
+    // Check if the user already has an active subscription
+    const existingSubscription = await hasActiveSubscription(
+      customer.id,
+      priceId,
+      stripe
+    );
 
-    // Type assertion to access the expanded invoice and payment intent
+    let subscription: Stripe.Subscription;
+
+    console.log('existingSubscription:', existingSubscription);
+
+    if (existingSubscription.data.length > 0) {
+      console.log('existing subscription');
+      // Update the existing Stripe subscription with the new price
+      subscription = await stripe.subscriptions.update(
+        existingSubscription.data[0].id,
+        {
+          items: [
+            {
+              id: existingSubscription.data[0].items.data[0].id,
+              price: priceId,
+            },
+          ],
+          proration_behavior: 'create_prorations',
+        }
+      );
+    } else {
+      console.log('new subscription');
+      // Create a new subscription
+      subscription = await stripe.subscriptions.create({
+        customer: customer.id,
+        items: [{ price: priceId }],
+        payment_behavior: 'default_incomplete',
+        payment_settings: {
+          save_default_payment_method: 'on_subscription',
+          payment_method_types: ['card'],
+        },
+        expand: ['latest_invoice.payment_intent'],
+        metadata: {
+          email: customer.email,
+        },
+      });
+    }
+
+    // Access the expanded invoice and payment intent
     const invoice = subscription.latest_invoice as Stripe.Invoice;
     const paymentIntent = invoice.payment_intent as Stripe.PaymentIntent;
 
     if (!paymentIntent?.client_secret) {
-      // Cancel the subscription since payment intent creation failed
+      // Cancel the subscription if payment intent creation failed
       await stripe.subscriptions.cancel(subscription.id);
       throw new Error('Failed to create payment intent for subscription');
     }
@@ -71,9 +103,10 @@ export const createSubscription = async (
       clientSecret: paymentIntent.client_secret,
       customerId: customer.id,
       isNewCustomer,
+      stripeSubscriptionItemId: subscription.items.data[0].id,
     };
   } catch (error) {
-    console.error('Error in handleCustomerSubscription:', error);
+    console.error('Error in createSubscription:', error);
     throw error;
   }
 };
@@ -109,45 +142,19 @@ export const createCustomer = async (
 };
 
 /**
- * Gets all active subscriptions for a customer
- */
-export const getCustomerSubscriptions = async (
-  customerId: string,
-  stripe: Stripe
-): Promise<Stripe.Subscription[]> => {
-  try {
-    const subscriptions = await stripe.subscriptions.list({
-      customer: customerId,
-      status: 'active',
-    });
-    return subscriptions.data;
-  } catch (error) {
-    console.error('Error getting customer subscriptions:', error);
-    throw error;
-  }
-};
-
-/**
  * Checks if customer has an active subscription for a specific product
  */
 export const hasActiveSubscription = async (
   customerId: string,
-  productId: string,
+  priceId: string,
   stripe: Stripe
-): Promise<boolean> => {
+): Promise<Stripe.Response<Stripe.ApiList<Stripe.Subscription>>> => {
   try {
-    const subscriptions = await stripe.subscriptions.list({
+    return await stripe.subscriptions.list({
       customer: customerId,
       status: 'active',
-      expand: ['data.items.data.price.product'],
+      expand: ['data.items.data.price'],
     });
-
-    return subscriptions.data.some((subscription) =>
-      subscription.items.data.some((item) => {
-        const product = item.price.product as Stripe.Product;
-        return product.id === productId;
-      })
-    );
   } catch (error) {
     console.error('Error checking active subscription:', error);
     throw error;

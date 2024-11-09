@@ -13,6 +13,7 @@ enum userLevel {
   ADMIN
   TRIAL
   FREE
+  PREMIUM
 }
 
 model Users {
@@ -53,6 +54,10 @@ model Subscriptions {
   productId     String
   planTrial     Boolean   @default(false)
   planTrialDays Int?
+
+  stripeCustomerId         String?
+  stripeSubscriptionId     String?
+  stripeSubscriptionItemId String?
 }
 
 model Questions {

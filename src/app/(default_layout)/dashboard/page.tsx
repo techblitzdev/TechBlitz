@@ -5,10 +5,10 @@ import { Separator } from '@/components/ui/separator';
 
 export default async function Dashboard() {
   return (
-    <div className="text-white flex flex-col gap-y-4">
+    <div className="text-white flex flex-col gap-y-4 h-full">
       <div className="flex w-full justify-between">
         <h1 className="text-xl md:text-4xl font-satoshi font-semibold">
-          Welcome back!
+          Overview
         </h1>
         <div className="flex item-center gap-x-3">
           <LanguageSwitcher />
@@ -19,7 +19,9 @@ export default async function Dashboard() {
         {/** userData?.userLevel === 'ADMIN' && <AdminButton /> */}
       </div>
       <Separator className="bg-black-50" />
-      <DashboardBentoGrid />
+      <div className=" h-full">
+        <DashboardBentoGrid />
+      </div>
     </div>
   );
 }

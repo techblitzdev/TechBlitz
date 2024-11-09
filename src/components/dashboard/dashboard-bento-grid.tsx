@@ -12,7 +12,7 @@ import TodaysLeaderboardBentoBox from '@/components/leaderboard/bento-box';
 import { getUserFromSession } from '@/actions/user/get-user';
 import UserRank from '../leaderboard/user-rank';
 import { Button } from '../ui/button';
-import AllQuestionsDashboardBentoBox from '../questions/all-questions-bento-box';
+import AllQuestionsDashboardBentoBox from '../questions/dashboard/all-questions-bento-box';
 
 export default async function DashboardBentoGrid() {
   const todaysQuestion = await getTodaysQuestion();

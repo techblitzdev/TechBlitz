@@ -9,7 +9,7 @@ export const BentoGrid = ({
   children?: React.ReactNode;
 }) => {
   return (
-    <div className={cn('grid grid-cols-1 md:grid-cols-3 gap-6 ', className)}>
+    <div className={cn('grid grid-cols-1 md:grid-cols-3 gap-6', className)}>
       {children}
     </div>
   );
@@ -30,39 +30,43 @@ export const BentoGridItem = ({
   icon?: React.ReactNode;
   href?: string;
 }) => {
-  const content = (
-    <>
-      {header}
-      <div className="group-hover/bento:translate-x-2 transition duration-200">
-        {icon}
-        <div className="font-bold text-white mb-1 mt-2 font-satoshi text-lg">
-          {title}
-        </div>
-        <div className="font-normal text-sm text-white">{description}</div>
-      </div>
-    </>
+  const renderContent = () => {
+    const hasContent = title || description || icon;
+
+    return (
+      <>
+        {header}
+        {hasContent && (
+          <div className="group-hover/bento:translate-x-2 transition duration-200">
+            {icon}
+            {title && (
+              <div className="font-bold text-white mb-1 mt-2 font-satoshi text-lg">
+                {title}
+              </div>
+            )}
+            {description && (
+              <div className="font-normal text-sm text-white">
+                {description}
+              </div>
+            )}
+          </div>
+        )}
+      </>
+    );
+  };
+
+  const baseClasses = cn(
+    'row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-black-75 border border-transparent justify-between flex flex-col',
+    // Only add space-y-4 if there's content to space
+    header || title || description || icon ? 'space-y-4' : '',
+    className
   );
 
-  // If `href` is provided, wrap the content in a Link or anchor tag
   return href ? (
-    <Link
-      href={href}
-      className={cn(
-        'row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-black-75 border border-transparent justify-between flex flex-col space-y-4',
-        className
-      )}
-      prefetch
-    >
-      {content}
+    <Link href={href} className={baseClasses} prefetch>
+      {renderContent()}
     </Link>
   ) : (
-    <div
-      className={cn(
-        'row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-black-75 border border-transparent justify-between flex flex-col space-y-4',
-        className
-      )}
-    >
-      {content}
-    </div>
+    <div className={baseClasses}>{renderContent()}</div>
   );
 };

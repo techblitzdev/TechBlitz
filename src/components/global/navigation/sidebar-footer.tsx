@@ -2,31 +2,14 @@
 import {
   SidebarFooter,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { ChevronUp, User2 } from 'lucide-react';
 import { useUser } from '@/hooks/useUser';
-import { getUserDisplayName } from '@/utils/user';
-import LoadingSpinner from '@/components/ui/loading';
-import LogoutButton from '../logout';
-import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
-export default function SidebarFooterComponent() {
-  const { user, isError, isLoading } = useUser();
-
-  return (
-    <SidebarFooter>
-      <SidebarMenu>
-        <SidebarMenuItem>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+{
+  /* <DropdownMenu>
+            {/* <DropdownMenuTrigger asChild>
               <SidebarMenuButton
                 variant="outline"
                 className="bg-black-100 text-white"
@@ -37,8 +20,10 @@ export default function SidebarFooterComponent() {
                 {user && getUserDisplayName(user)}
                 <ChevronUp className="ml-auto" />
               </SidebarMenuButton>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
+            </DropdownMenuTrigger> */
+}
+{
+  /* <DropdownMenuContent
               side="top"
               className="w-[--radix-popper-anchor-width] bg-black-75 border-black-50 text-white"
             >
@@ -61,8 +46,29 @@ export default function SidebarFooterComponent() {
                 <LogoutButton variant="ghost" padding="none" />
               </DropdownMenuItem>
             </DropdownMenuContent>
-          </DropdownMenu>
-        </SidebarMenuItem>
+          </DropdownMenu> */
+}
+
+export default function SidebarFooterComponent() {
+  const { user, isError, isLoading } = useUser();
+
+  return (
+    <SidebarFooter>
+      <SidebarMenu>
+        {user?.userLevel !== 'PREMIUM' && (
+          <SidebarMenuItem className="font-semibold font-ubuntu text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-75 py-4 px-2">
+            <p className="text-sm">
+              Upgrade to{' '}
+              {user?.userLevel !== 'STANDARD' ? 'Standard' : 'Premium'}
+            </p>
+            <p className="text-xs font-light">
+              Elevate your development skills
+            </p>
+            <Button variant="accent" fullWidth className="mt-2" href="/upgrade">
+              Upgrade
+            </Button>
+          </SidebarMenuItem>
+        )}
       </SidebarMenu>
     </SidebarFooter>
   );

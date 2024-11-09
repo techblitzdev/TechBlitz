@@ -4,6 +4,7 @@ import { capitalise } from '@/utils';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Separator } from '../ui/separator';
+import { Component } from './today-question-bento-box-chart';
 
 export default function TodaysQuestionBentoBox(opts: { question: Question }) {
   const { question } = opts;
@@ -39,7 +40,9 @@ export default function TodaysQuestionBentoBox(opts: { question: Question }) {
         </Button>
         {/* <ArrowRight className="size-4 ml-1 group-hover:ml-2 duration-300" /> */}
       </div>
-      <div className="bg-black size-full my-6 rounded-lg"></div>
+      <div className="bg-black size-full my-6 rounded-lg flex justify-center items-center text-center px-4">
+        <Component />
+      </div>
       <div className="flex flex-wrap space-y-2 w-full items-end justify-between">
         <div className="space-y-1">
           <h6>Topics:</h6>

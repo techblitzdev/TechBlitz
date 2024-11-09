@@ -11,6 +11,20 @@ export default function TodaysQuestionBentoBox(opts: { question: Question }) {
   // get the question tags from the question - only choose the first 3
   const tags = question?.tags?.map((tag) => tag.tag.name).slice(0, 3) || [];
 
+  // border-green-500 border-yellow-500 border-red-500
+  const getQuestionDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case 'EASY':
+        return 'green-500';
+      case 'MEDIUM':
+        return 'yellow-500';
+      case 'HARD':
+        return 'red-500';
+      default:
+        return 'gray';
+    }
+  };
+
   return (
     <section className="flex flex-col justify-between h-full group relative">
       <div className="flex w-full justify-between">
@@ -25,7 +39,8 @@ export default function TodaysQuestionBentoBox(opts: { question: Question }) {
         </Button>
         {/* <ArrowRight className="size-4 ml-1 group-hover:ml-2 duration-300" /> */}
       </div>
-      <div className="flex w-full items-end justify-between">
+      <div className="bg-black size-full my-6 rounded-lg"></div>
+      <div className="flex flex-wrap space-y-2 w-full items-end justify-between">
         <div className="space-y-1">
           <h6>Topics:</h6>
           <div className="flex gap-x-2 mt-2">
@@ -39,7 +54,12 @@ export default function TodaysQuestionBentoBox(opts: { question: Question }) {
             ))}
           </div>
         </div>
-        <Chip color="white" text={capitalise(question.difficulty)} ghost />
+        <Chip
+          color={getQuestionDifficultyColor(question.difficulty)}
+          text={capitalise(question.difficulty)}
+          textColor={getQuestionDifficultyColor(question.difficulty)}
+          ghost
+        />
       </div>
     </section>
   );

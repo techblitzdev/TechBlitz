@@ -89,7 +89,7 @@ export function AppSidebar() {
           ) : (
             <div className="flex items-center gap-3">
               <p>Roadmap</p>
-              <LockIcon />
+              <LockIcon className="size-4" />
             </div>
           )}
         </>
@@ -193,26 +193,13 @@ export function AppSidebar() {
         ) : (
           <SidebarMenuButton asChild>
             {item.disabled ? (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger className="w-full">
-                    <SidebarMenuItem className="flex items-center font-ubuntu text-sm p-2 gap-x-2 opacity-50 hover:cursor-not-allowed">
-                      {item.icon && <item.icon />}
-                      <span className="text-sm font-ubuntutoshi">
-                        <>{item.title}</>
-                      </span>
-                      <div className="ms-auto">
-                        {item.chip && <item.chip />}
-                      </div>
-                    </SidebarMenuItem>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <div className="text-sm">
-                      Upgrade to premium to unlock this feature.
-                    </div>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <SidebarMenuItem className="flex items-center font-ubuntu text-sm p-2 gap-x-2 opacity-50 hover:cursor-not-allowed h-8">
+                {item.icon && <item.icon />}
+                <span className="text-sm font-ubuntutoshi">
+                  <>{item.title}</>
+                </span>
+                <div className="ms-auto">{item.chip && <item.chip />}</div>
+              </SidebarMenuItem>
             ) : (
               <Link
                 href={item.url}

@@ -10,9 +10,8 @@ import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 
 import TodaysLeaderboardBentoBox from '@/components/leaderboard/bento-box';
 import { getUserFromSession } from '@/actions/user/get-user';
-import UserRank from '../leaderboard/user-rank';
 import { Button } from '../ui/button';
-import AllQuestionsDashboardBentoBox from '../questions/dashboard/all-questions-bento-box';
+import AllQuestionsDashboardBentoBox from '../dashboard/all-questions-bento-box';
 
 export default async function DashboardBentoGrid() {
   const todaysQuestion = await getTodaysQuestion();
@@ -38,8 +37,13 @@ export default async function DashboardBentoGrid() {
         </Button>
       ),
       header: <Skeleton />,
-      className: 'md:col-span-2 text-white',
+      className: 'md:col-span-1 text-white',
       href: `/question/${todaysQuestion?.uid}`,
+    },
+    {
+      header: <AllQuestionsDashboardBentoBox />,
+      className: 'md:col-span-2 text-white',
+      href: '/questions',
     },
     {
       title: <div>Today's Leaderboard</div>,
@@ -53,6 +57,12 @@ export default async function DashboardBentoGrid() {
       href: '/leaderboard/today',
     },
     {
+      title: 'Roadmap',
+      description: 'Check out what we have planned for the future!',
+      header: <Skeleton />,
+      className: 'md:col-span-2 text-white',
+    },
+    {
       title: `${userStreak?.totalDailyStreak} day streak!`,
       description: DAILY_STREAK,
       header: userStreak && (
@@ -61,11 +71,6 @@ export default async function DashboardBentoGrid() {
         </div>
       ),
       className: 'md:col-span-1 text-white',
-    },
-    {
-      header: <AllQuestionsDashboardBentoBox />,
-      className: 'md:col-span-1 text-white',
-      href: '/previous-questions',
     },
   ];
 

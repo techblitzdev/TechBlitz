@@ -5,6 +5,7 @@ import { ReactQueryClientProvider } from '@/components/react-query-client-provid
 import { Toaster } from '@/components/ui/sonner';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/global/navigation/sidebar';
+import { Separator } from '@/components/ui/separator';
 
 export const metadata: Metadata = {
   title: 'meerge',
@@ -30,7 +31,7 @@ export default function Layout({
             {/* Scrollable content */}
             <AppSidebar />
             <main className="w-full pr-6 py-6 lg:pt-6 lg:pb-3">
-              <div className="lg:pl-4 h-full">
+              <div className="lg:pl-4 h-[95%]">
                 {/* <SidebarTrigger className="size-4 h-full flex items-center my-auto -top-2.5 relative" /> */}
                 {children}
               </div>

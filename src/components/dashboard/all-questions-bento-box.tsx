@@ -1,8 +1,7 @@
 'use client';
 import React, { useState } from 'react';
-import Chip from '../../global/chip';
+import Chip from '../global/chip';
 import DashboardQuestionCard from './dashboard-question-card';
-import { Arrow } from '@radix-ui/react-tooltip';
 import { ArrowRight } from 'lucide-react';
 
 export default function AllQuestionsDashboardBentoBox() {

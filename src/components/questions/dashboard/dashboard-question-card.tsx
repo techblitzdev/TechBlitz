@@ -19,10 +19,7 @@ export default function DashboardQuestionCard({
             <X className="w-4 h-4 text-red-500" />
           )}
         </div>
-        <span className="text-sm font-ubuntu">
-          {question}
-          {randomQuestion ? '' : ' (Try again?)'}
-        </span>
+        <span className="text-sm font-ubuntu">{question}</span>
       </div>
     </div>
   );

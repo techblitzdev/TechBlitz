@@ -1,6 +1,8 @@
 import { QuestionAnswer } from './QuestionAnswers';
 import { Tags } from './Tags';
 
+export type QuestionDifficulty = 'EASY' | 'MEDIUM' | 'HARD';
+
 /**
  * This type represents the shape of the data of a question.
  */
@@ -21,6 +23,8 @@ export type Question = {
   dailyQuestion: boolean;
 
   tags?: Tags[];
+
+  difficulty: QuestionDifficulty;
 };
 
 export type QuestionWithoutAnswers = Omit<Question, 'answers'>;

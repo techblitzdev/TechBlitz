@@ -5,7 +5,6 @@ import { ReactQueryClientProvider } from '@/components/react-query-client-provid
 import { Toaster } from '@/components/ui/sonner';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/global/navigation/sidebar';
-import { Separator } from '@/components/ui/separator';
 
 export const metadata: Metadata = {
   title: 'meerge',

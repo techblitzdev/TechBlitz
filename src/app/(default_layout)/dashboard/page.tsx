@@ -3,7 +3,7 @@ import LanguageSwitcher from '@/components/global/language-dropdown';
 import UserProfileDropdown from '@/components/global/user-profile-dropdown';
 import { Separator } from '@/components/ui/separator';
 
-export default async function Dashboard() {
+export default function Dashboard() {
   return (
     <div className="text-white flex flex-col gap-y-4 h-full">
       <div className="flex w-full justify-between">

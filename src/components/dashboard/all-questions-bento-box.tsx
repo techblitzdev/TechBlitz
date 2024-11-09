@@ -23,7 +23,7 @@ export default function AllQuestionsDashboardBentoBox() {
         <Chip color="accent" text="Questions" />
         <h6 className="text-lg lg:text-xl flex items-center">
           View all Questions
-          <ArrowRight className="w-4 h-4 inline-block ml-1 group-hover:ml-2 duration-300" />
+          <ArrowRight className="size-4 inline-block ml-1 group-hover:ml-2 duration-300" />
         </h6>
       </div>
 

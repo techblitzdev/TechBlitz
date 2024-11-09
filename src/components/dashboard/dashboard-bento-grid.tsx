@@ -31,12 +31,6 @@ export default async function DashboardBentoGrid() {
    */
   const items = [
     {
-      title: "Today's Question!",
-      description: (
-        <Button variant="accent" className="flex gap-x-1 items-center">
-          Answer now <ArrowRight className="size-3" />
-        </Button>
-      ),
       header: todaysQuestion && (
         <TodaysQuestionBentoBox question={todaysQuestion} />
       ),

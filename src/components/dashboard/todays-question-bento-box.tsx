@@ -11,7 +11,7 @@ export default function TodaysQuestionBentoBox(opts: { question: Question }) {
   // get the question tags from the question - only choose the first 3
   const tags = question?.tags?.map((tag) => tag.tag.name).slice(0, 3) || [];
 
-  // border-green-500 border-yellow-500 border-red-500
+  // border-green-500 border-yellow-500 border-red-500 text-green-500 text-yellow-500 text-red-500
   const getQuestionDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'EASY':

@@ -11,6 +11,7 @@ import {
   Bell,
   CreditCard,
   RouteIcon,
+  HelpCircle,
 } from 'lucide-react';
 import {
   Sidebar,
@@ -21,6 +22,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarSeparator,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 import {
@@ -58,7 +60,10 @@ export function AppSidebar() {
   // Menu items
   const standardItems: SidebarItemType[] = [
     {
-      title: 'Home',
+      groupLabel: 'menu',
+    },
+    {
+      title: 'Dashboard',
       url: '/dashboard',
       icon: Home,
     },
@@ -108,6 +113,14 @@ export function AppSidebar() {
       title: 'Leaderboard',
       url: '/leaderboard/today',
       icon: Award,
+    },
+    {
+      groupLabel: 'Support',
+    },
+    {
+      title: 'Help',
+      url: '/help',
+      icon: HelpCircle,
     },
     {
       title: 'Settings',
@@ -163,8 +176,8 @@ export function AppSidebar() {
   const renderSidebarItem = (item: SidebarItemType) => {
     if ('groupLabel' in item) {
       return (
-        <SidebarGroup key={item.groupLabel}>
-          <SidebarGroupLabel className="px-0 h-fit text-sm font-ubuntutoshi">
+        <SidebarGroup key={item.groupLabel} className="mt-2">
+          <SidebarGroupLabel className="px-0 py-0 h-fit text-sm font-ubuntutoshi">
             {item.groupLabel}
           </SidebarGroupLabel>
         </SidebarGroup>
@@ -205,7 +218,9 @@ export function AppSidebar() {
                 href={item.url}
                 prefetch
                 className={`flex items-center font-ubuntu text-sm py-2 ${
-                  pathname === item.url ? 'bg-black border border-black-75' : ''
+                  pathname === item.url
+                    ? 'bg-white text-black border border-black-75'
+                    : ''
                 }`}
               >
                 {item.icon && <item.icon />}
@@ -223,18 +238,18 @@ export function AppSidebar() {
 
   return (
     <Sidebar>
-      <SidebarContent className="py-2">
+      <SidebarContent className="py-6">
         <SidebarGroup>
           <SidebarGroupLabel className="w-full flex items-center justify-between">
             <Link
               href="/dashboard"
-              className="text-sm xl:text-xl font-ubuntu hover:text-white duration-300"
+              className="text-sm xl:text-2xl font-ubuntu hover:text-white duration-300"
               prefetch
             >
               meerge
             </Link>
           </SidebarGroupLabel>
-          <SidebarGroupContent className="mt-8">
+          <SidebarGroupContent className="mt-5">
             <SidebarMenu>
               {items.map((item) => renderSidebarItem(item))}
             </SidebarMenu>

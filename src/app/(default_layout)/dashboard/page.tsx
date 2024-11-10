@@ -1,14 +1,21 @@
+import { getUserFromDb, getUserFromSession } from '@/actions/user/get-user';
 import DashboardBentoGrid from '@/components/dashboard/dashboard-bento-grid';
 import LanguageSwitcher from '@/components/global/language-dropdown';
 import UserProfileDropdown from '@/components/global/user-profile-dropdown';
 import { Separator } from '@/components/ui/separator';
+import { getUserDisplayName } from '@/utils/user';
 
 export default async function Dashboard() {
+  const user = await getUserFromSession();
+  if (!user?.data?.user?.id) return null;
+  const userData = await getUserFromDb(user?.data?.user?.id);
+  if (!userData) return null;
+
   return (
     <div className="text-white flex flex-col gap-y-4 h-full">
       <div className="flex w-full justify-between">
         <h1 className="text-xl md:text-4xl font-satoshi font-semibold">
-          Overview
+          Welcome back, {getUserDisplayName(userData)}!
         </h1>
         <div className="flex item-center gap-x-3">
           <LanguageSwitcher />

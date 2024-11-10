@@ -10,36 +10,43 @@ import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 
 import TodaysLeaderboardBentoBox from '@/components/leaderboard/bento-box';
 import { getUserFromSession } from '@/actions/user/get-user';
-import UserRank from '../leaderboard/user-rank';
 import { Button } from '../ui/button';
-import AllQuestionsDashboardBentoBox from '../questions/dashboard/all-questions-bento-box';
+import AllQuestionsDashboardBentoBox from '../dashboard/all-questions-bento-box';
+import TodaysQuestionBentoBox from './todays-question-bento-box';
+import YesterdaysQuestionBentoBox from './yesterdays-question-bento-box';
+import { getYesterdaysQuestion } from '@/actions/questions/get-yesterdays-question';
 
 export default async function DashboardBentoGrid() {
   const todaysQuestion = await getTodaysQuestion();
-
+  const yesterdaysQuestion = await getYesterdaysQuestion();
   const { data: user } = await getUserFromSession();
 
-  // we need the user in order to continue. The user should be authed
-  // in the middleware, so this should (theoretically) never happen.
   if (!user || !user.user?.id) return;
 
   const userStreak = await getUserDailyStats(user?.user?.id);
 
-  /**
-   *  list of items that will be displayed in the bento grid. The class
-   *  name is used to determine the size of the grid item.
-   */
   const items = [
     {
-      title: "Today's Question!",
-      description: (
-        <Button variant="accent" className="flex gap-x-1 items-center">
-          Answer now <ArrowRight className="size-3" />
-        </Button>
+      header: todaysQuestion && (
+        <TodaysQuestionBentoBox question={todaysQuestion} />
       ),
-      header: <Skeleton />,
-      className: 'md:col-span-2 text-white',
+      className: 'h-full text-white',
       href: `/question/${todaysQuestion?.uid}`,
+      padded: false,
+    },
+    {
+      header: yesterdaysQuestion && (
+        <YesterdaysQuestionBentoBox question={yesterdaysQuestion} />
+      ),
+      className: 'h-full text-white',
+      href: `/question/${yesterdaysQuestion?.uid}`,
+      padded: false,
+    },
+    {
+      header: <AllQuestionsDashboardBentoBox />,
+      className: 'md:col-span-2 text-white',
+      href: '/questions',
+      padded: false,
     },
     {
       title: <div>Today's Leaderboard</div>,
@@ -51,6 +58,18 @@ export default async function DashboardBentoGrid() {
       header: <TodaysLeaderboardBentoBox todaysQuestion={todaysQuestion} />,
       className: 'md:col-span-1 md:row-span-2 text-white h-full',
       href: '/leaderboard/today',
+      padded: true,
+    },
+    {
+      title: 'Roadmap',
+      description: (
+        <div className="font-satoshi">
+          View your progress and upcoming challenges, generated just for you!
+        </div>
+      ),
+      header: <Skeleton />,
+      className: 'md:col-span-2 text-white',
+      padded: true,
     },
     {
       title: `${userStreak?.totalDailyStreak} day streak!`,
@@ -61,11 +80,7 @@ export default async function DashboardBentoGrid() {
         </div>
       ),
       className: 'md:col-span-1 text-white',
-    },
-    {
-      header: <AllQuestionsDashboardBentoBox />,
-      className: 'md:col-span-1 text-white',
-      href: '/previous-questions',
+      padded: true,
     },
   ];
 
@@ -79,6 +94,7 @@ export default async function DashboardBentoGrid() {
           header={item.header}
           className={item.className}
           href={item.href}
+          padded={item.padded}
         />
       ))}
     </BentoGrid>

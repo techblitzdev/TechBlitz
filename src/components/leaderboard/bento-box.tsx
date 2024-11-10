@@ -45,7 +45,7 @@ export default async function TodaysLeaderboardBentoBox(opts: {
   }
 
   return (
-    <Card className="font-satoshi bg-black text-white border-none h-full">
+    <Card className="font-satoshi bg-black text-white border-none h-full p-4">
       <CardContent className="pt-6 pb-4 flex flex-col h-full justify-between">
         <TopThreeLeaderboardBentoBox fastestTimes={top3FastestTimes} />
         {restOfFastestTimes.length > 0 && (

@@ -56,7 +56,7 @@ export default function SidebarFooterComponent() {
     <SidebarFooter>
       <SidebarMenu>
         {user?.userLevel !== 'PREMIUM' && (
-          <SidebarMenuItem className="font-semibold font-ubuntu text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-75 py-4 px-2">
+          <SidebarMenuItem className="font-semibold font-ubuntu text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-75 p-6">
             <p className="text-sm">
               Upgrade to{' '}
               {user?.userLevel !== 'STANDARD' ? 'Standard' : 'Premium'}

@@ -42,14 +42,15 @@ export default function TodaysLeaderboardPageClient(opts: {
 
   return (
     <div className="h-full">
-      {data?.fastestTimes.length === 0 && (
-        <div className="w-full flex flex-col gap-y-1 justify-center items-center ">
-          <p>No fastest times yet!</p>
-          <Button variant="secondary" href={`/question/${questionUid}`}>
-            Click here to be the first!
-          </Button>
-        </div>
-      )}
+      {data?.fastestTimes.length === 0 ||
+        (!data && (
+          <div className="w-full flex flex-col gap-y-1 justify-center items-center ">
+            <p>No fastest times yet!</p>
+            <Button variant="secondary" href={`/question/${questionUid}`}>
+              Click here to be the first!
+            </Button>
+          </div>
+        ))}
       <div className="h-full flex flex-col justify-between">
         <div className="flex flex-col gap-y-1">
           {data?.fastestTimes.map((time, i) => {

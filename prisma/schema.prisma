@@ -16,6 +16,12 @@ enum userLevel {
   PREMIUM
 }
 
+enum QuestionDifficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
 model Users {
   uid       String  @id()
   email     String  @unique
@@ -80,6 +86,8 @@ model Questions {
   dailyQuestion Boolean @default(false)
 
   tags QuestionTags[]
+
+  difficulty QuestionDifficulty @default(EASY)
 }
 
 model Tag {

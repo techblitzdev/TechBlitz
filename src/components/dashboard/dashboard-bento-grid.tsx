@@ -16,6 +16,7 @@ import TodaysQuestionBentoBox from './todays-question-bento-box';
 import YesterdaysQuestionBentoBox from './yesterdays-question-bento-box';
 import { getYesterdaysQuestion } from '@/actions/questions/get-yesterdays-question';
 import ProgressBentoBox from './progression-bento-box';
+import StreakBentoBox from './streak-bento-box';
 
 export default async function DashboardBentoGrid() {
   const todaysQuestion = await getTodaysQuestion();
@@ -67,15 +68,16 @@ export default async function DashboardBentoGrid() {
       padded: false,
     },
     {
-      title: `${userStreak?.totalDailyStreak} day streak!`,
-      description: DAILY_STREAK,
+      //title: `${userStreak?.totalDailyStreak} day streak!`,
+      //description: DAILY_STREAK,
       header: userStreak && (
-        <div className="flex size-full items-center justify-center h-[180px]">
-          <DailyStreakChart userStreakData={userStreak} />
-        </div>
+        // <div className="flex size-full items-center justify-center h-[180px]">
+        //   <DailyStreakChart userStreakData={userStreak} />
+        // </div>
+        <StreakBentoBox />
       ),
       className: 'md:col-span-1 text-white',
-      padded: true,
+      padded: false,
     },
   ];
 

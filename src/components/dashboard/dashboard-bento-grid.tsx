@@ -15,6 +15,7 @@ import AllQuestionsDashboardBentoBox from '../dashboard/all-questions-bento-box'
 import TodaysQuestionBentoBox from './todays-question-bento-box';
 import YesterdaysQuestionBentoBox from './yesterdays-question-bento-box';
 import { getYesterdaysQuestion } from '@/actions/questions/get-yesterdays-question';
+import ProgressBentoBox from './progression-bento-box';
 
 export default async function DashboardBentoGrid() {
   const todaysQuestion = await getTodaysQuestion();
@@ -61,15 +62,9 @@ export default async function DashboardBentoGrid() {
       padded: true,
     },
     {
-      title: 'Roadmap',
-      description: (
-        <div className="font-satoshi">
-          View your progress and upcoming challenges, generated just for you!
-        </div>
-      ),
-      header: <Skeleton />,
+      header: <ProgressBentoBox />,
       className: 'md:col-span-2 text-white',
-      padded: true,
+      padded: false,
     },
     {
       title: `${userStreak?.totalDailyStreak} day streak!`,

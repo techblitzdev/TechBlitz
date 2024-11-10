@@ -124,11 +124,18 @@ const config: Config = {
             transform: 'translateY(calc(-72px * var(--question-count)))',
           },
         },
+        'scroll-right': {
+          to: {
+            transform: 'translate(calc(-50% - 0.5rem))',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         scroll: 'scroll 30s linear infinite',
+        'scroll-right':
+          'scroll-right var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite',
       },
     },
   },

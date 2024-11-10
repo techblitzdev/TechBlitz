@@ -13,7 +13,8 @@ export const getBaseUrl = () => {
 };
 
 export const capitalise = (string: string) => {
+  if (!string) return '';
   // lowercase the whole string
-  const lowercaseString = string.toLowerCase();
-  return lowercaseString[0].toUpperCase() + lowercaseString.slice(1);
+  const lowercaseString = string?.toLowerCase();
+  return lowercaseString[0]?.toUpperCase() + lowercaseString?.slice(1);
 };

@@ -1,3 +1,4 @@
+'use client';
 import { cn } from '@/utils/cn';
 import Link from 'next/link';
 
@@ -6,11 +7,15 @@ export const BentoGrid = ({
   children,
 }: {
   className?: string;
-  children?: React.ReactNode;
+  children?: React.ReactNode[];
 }) => {
   return (
     <div className={cn('grid grid-cols-1 md:grid-cols-4 gap-6', className)}>
-      {children}
+      <div className="flex flex-col gap-6 md:col-span-1">
+        {children?.[0]}
+        {children?.[1]}
+      </div>
+      {children?.slice(2)}
     </div>
   );
 };
@@ -56,7 +61,7 @@ export const BentoGridItem = ({
   };
 
   const baseClasses = cn(
-    'row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-black-75 border border-transparent justify-between flex flex-col  border border-black-50',
+    'rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-black dark:border-white/[0.2] bg-black-75 border border-black-50 justify-between flex flex-col',
     // Only add space-y-4 if there's content to space
     header || title || description || icon ? 'space-y-4' : '',
     className

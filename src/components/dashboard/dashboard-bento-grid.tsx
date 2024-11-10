@@ -13,29 +13,32 @@ import { getUserFromSession } from '@/actions/user/get-user';
 import { Button } from '../ui/button';
 import AllQuestionsDashboardBentoBox from '../dashboard/all-questions-bento-box';
 import TodaysQuestionBentoBox from './todays-question-bento-box';
+import YesterdaysQuestionBentoBox from './yesterdays-question-bento-box';
+import { getYesterdaysQuestion } from '@/actions/questions/get-yesterdays-question';
 
 export default async function DashboardBentoGrid() {
   const todaysQuestion = await getTodaysQuestion();
-
+  const yesterdaysQuestion = await getYesterdaysQuestion();
   const { data: user } = await getUserFromSession();
 
-  // we need the user in order to continue. The user should be authed
-  // in the middleware, so this should (theoretically) never happen.
   if (!user || !user.user?.id) return;
 
   const userStreak = await getUserDailyStats(user?.user?.id);
 
-  /**
-   *  list of items that will be displayed in the bento grid. The class
-   *  name is used to determine the size of the grid item.
-   */
   const items = [
     {
       header: todaysQuestion && (
         <TodaysQuestionBentoBox question={todaysQuestion} />
       ),
-      className: 'md:col-span-1 text-white',
+      className: 'h-full text-white',
       href: `/question/${todaysQuestion?.uid}`,
+    },
+    {
+      header: yesterdaysQuestion && (
+        <YesterdaysQuestionBentoBox question={yesterdaysQuestion} />
+      ),
+      className: 'h-full text-white',
+      href: `/question/${yesterdaysQuestion?.uid}`,
     },
     {
       header: <AllQuestionsDashboardBentoBox />,
@@ -57,7 +60,7 @@ export default async function DashboardBentoGrid() {
       title: 'Roadmap',
       description: (
         <div className="font-satoshi">
-          View your progress and upcoming challenges, generated just for you!'
+          View your progress and upcoming challenges, generated just for you!
         </div>
       ),
       header: <Skeleton />,

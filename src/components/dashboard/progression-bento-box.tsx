@@ -1,9 +1,17 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Lock } from 'lucide-react';
 import { Button } from '../ui/button';
 import { InfiniteMovingCards } from '../ui/infinite-moving-cards';
 import { Separator } from '../ui/separator';
 import { useUser } from '@/hooks/useUser';
 import { Grid } from '../ui/grid';
+import { useUserServer } from '@/hooks/useUserServer';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../ui/tooltip';
+import Chip from '../global/chip';
 
 const items: {
   name: string;
@@ -43,9 +51,14 @@ const items: {
   },
 ];
 
-export default function ProgressBentoBox() {
+export default async function ProgressBentoBox() {
+  const user = await useUserServer();
+
   return (
     <div className="h-full flex flex-col p-4 relative group overflow-hidden">
+      <div className="absolute">
+        <Chip color="accent" text="Roadmap" />
+      </div>
       <Grid size={20} position="top-right" />
       <div className="h-full flex items-center justify-center relative">
         <InfiniteMovingCards items={items} speed="slow" />
@@ -55,14 +68,36 @@ export default function ProgressBentoBox() {
         <div className="space-y-1">
           <h6 className="text-xl">Progression</h6>
           <p className="font-satoshi text-xs">
-            Your very own, personalised progression framework
+            Your very own, personalised progression framework to help you grow
+            as a developer.
           </p>
         </div>
-        <Button variant="accent" className="font-ubuntu font-medium">
-          View yours now{' '}
-          <ArrowRight className="size-3 ml-1 group-hover:ml-2 duration-300" />
-        </Button>
+        {user?.userLevel !== 'FREE' && user?.userLevel !== 'STANDARD' && (
+          <Button
+            href="/progression"
+            variant="accent"
+            className="font-ubuntu font-medium"
+          >
+            View yours now{' '}
+            <ArrowRight className="size-3 ml-1 group-hover:ml-2 duration-300" />
+          </Button>
+        )}
       </div>
+      {user?.userLevel === 'FREE' ||
+        (user?.userLevel === 'STANDARD' && (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger className="absolute">
+                <div className="flex items-center bg-accent p-2 rounded-md">
+                  <Lock className="size-5" />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent className="font-satoshi">
+                You need to be a premium member to access this feature.
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        ))}
     </div>
   );
 }

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
+  --background: #ffffff ;
   --foreground: #171717;
 
   --color-secondary: #ffffff;
@@ -12,14 +12,14 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #0a0a0a !important;
     --foreground: #ededed;
   }
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  color: var(--foreground) !important;
+  background: var(--background) !important;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -89,6 +89,13 @@ body {
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --mantine-color-text: var(--foreground) !important;
+    --mantine-color-red-6: var(--foreground) !important;
+    --mantine-primary-color-filled: rgb(94, 102, 214) !important;
+    --mantine-primary-color-filled-hover: rgb(94, 102, 214, 0.5) !important;
+    --mantine-primary-color-light: rgba(94, 102, 214, 0.1) !important;
+    --mantine-primary-color-light-hover: rgba(94, 102, 214, 0.12) !important;
   }
   .dark {
     --background: 240 10% 3.9%;

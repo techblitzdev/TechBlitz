@@ -6,10 +6,18 @@ import { Toaster } from '@/components/ui/sonner';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/global/navigation/sidebar';
 
+import { createTheme, MantineProvider } from '@mantine/core';
+// Import styles of packages that you've installed.
+// All packages except `@mantine/hooks` require styles imports
+import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
+
 export const metadata: Metadata = {
   title: 'meerge',
   description: 'Improve your code knowledge, one day at a time.',
 };
+
+const theme = createTheme({});
 
 export default function Layout({
   children,
@@ -31,8 +39,7 @@ export default function Layout({
             <AppSidebar />
             <main className="w-full pr-6 py-6 lg:pt-6 lg:pb-3">
               <div className="lg:pl-4 h-[95%]">
-                {/* <SidebarTrigger className="size-4 h-full flex items-center my-auto -top-2.5 relative" /> */}
-                {children}
+                <MantineProvider>{children}</MantineProvider>
               </div>
             </main>
             <Toaster className="bg-black" />

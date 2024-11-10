@@ -49,6 +49,7 @@ export default function TodaysQuestionBentoBox(opts: { question: Question }) {
                 color="white"
                 textColor="black"
                 text={capitalise(tag)}
+                bold={false}
               />
             ))}
           </div>

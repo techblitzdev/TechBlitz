@@ -15,7 +15,7 @@ export default function Chip(opts: {
 
   const baseClasses = small
     ? 'text-[10px] px-1.5 py-0.5 font-ubuntu'
-    : 'text-xs px-2 py-1 font-semibold';
+    : 'text-xs px-2 py-1 font-semibold h-fit';
 
   // Build classes based on ghost prop
   const colorClasses = ghost

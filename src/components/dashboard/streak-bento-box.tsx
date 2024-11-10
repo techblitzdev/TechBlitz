@@ -5,6 +5,7 @@ import { Separator } from '../ui/separator';
 import { Button } from '../ui/button';
 import { ArrowRight } from 'lucide-react';
 import { Grid } from '../ui/grid';
+import Chip from '../global/chip';
 
 export default function StreakBentoBox() {
   const today = new Date();
@@ -16,7 +17,7 @@ export default function StreakBentoBox() {
   ]);
 
   return (
-    <div className="space-y-4 group relative overflow-hidden p-4">
+    <div className="space-y-4 group relative overflow-hidden p-4 h-full">
       <div className="space-y-1">
         <h6 className="text-xl text-center">Current streak</h6>
         {/* <p className="font-satoshi text-center">Your current daily streak!</p> */}
@@ -33,11 +34,12 @@ export default function StreakBentoBox() {
           onClick={(e) => e.preventDefault()}
         />
       </div>
-      <div className="flex w-full justify-end">
-        <Button variant="secondary">
+      <div className="flex w-full justify-between items-end">
+        <Chip color="accent" text="Streak" />
+        {/* <Button variant="secondary">
           View more stats
           <ArrowRight className="size-3 ml-1 group-hover:ml-2 duration-300" />
-        </Button>
+        </Button> */}
       </div>
       <Grid size={20} position="bottom-left" />
     </div>

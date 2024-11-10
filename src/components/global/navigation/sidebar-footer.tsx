@@ -64,7 +64,7 @@ export default function SidebarFooterComponent() {
             <p className="text-xs font-light">
               Elevate your development skills
             </p>
-            <Button variant="accent" fullWidth className="mt-2" href="/upgrade">
+            <Button variant="accent" fullWidth className="mt-4" href="/upgrade">
               Upgrade
             </Button>
           </SidebarMenuItem>

@@ -1,5 +1,4 @@
 'use client';
-
 import {
   FileQuestion,
   Home,
@@ -22,8 +21,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarSeparator,
-  SidebarTrigger,
 } from '@/components/ui/sidebar';
 import {
   Collapsible,
@@ -41,9 +38,15 @@ import { useQuery } from '@tanstack/react-query';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
 import ComingSoonChip from '../coming-soon';
 import { useUser } from '@/hooks/useUser';
+import { useEffect, useRef, useState } from 'react';
+import { useGetQueryParams } from '@/utils/get-query-params';
+import { ErrorCodes } from '@/types/Constants';
+import { toast } from 'sonner';
+import { ERROR_CODES } from '@/utils/constants/error-codes';
 
 export function AppSidebar() {
   const pathname = usePathname();
+
   const { user } = useUser();
 
   const { data: todaysQuestion } = useQuery({
@@ -168,6 +171,11 @@ export function AppSidebar() {
       icon: LockIcon,
     });
   }
+
+  // check if we have any query parameters
+  const urlParams = useGetQueryParams({
+    keys: ['r'],
+  });
 
   const renderSidebarItem = (item: SidebarItemType) => {
     if ('groupLabel' in item) {

@@ -3,7 +3,7 @@ import { prisma } from '@/utils/prisma';
 import { stripe } from '@/lib/stripe';
 
 /**
- * Cancels a use's subscription at the end of the billing period
+ * Cancels a user's subscription at the end of the billing period
  *
  * @param opts
  */

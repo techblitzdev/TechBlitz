@@ -1,31 +1,34 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { cancelSubscription } from '@/actions/stripe/stripe-cancel-subscription';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import type { UserWithOutAnswers } from '@/types/User';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 export default function CancelSubscriptionButton(opts: {
   user: UserWithOutAnswers;
 }) {
+  const router = useRouter();
   const { user } = opts;
   const { userLevel, uid: userUid } = user;
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
 
-  const handleCancelSubscription = async () => {
-    setIsLoading(true);
+  const handleCancelSubscription = async (formData: FormData) => {
     setError(null);
-    try {
-      await cancelSubscription({ userUid });
-      // You might want to refresh the page or update the user state here
-      alert('Subscription cancelled successfully');
-    } catch (error) {
-      console.error('Failed to cancel subscription:', error);
-      setError('Failed to cancel subscription. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
+    startTransition(async () => {
+      try {
+        await cancelSubscription({ userUid });
+        toast.success('Subscription cancelled successfully');
+        // Redirect to the dashboard
+        router.push('/dashboard?r=subscription-cancelled');
+      } catch (error) {
+        console.error('Failed to cancel subscription:', error);
+        setError('Failed to cancel subscription. Please try again.');
+      }
+    });
   };
 
   return (
@@ -36,9 +39,9 @@ export default function CancelSubscriptionButton(opts: {
             type="submit"
             variant="destructive"
             className="mt-4"
-            disabled={isLoading}
+            disabled={isPending}
           >
-            {isLoading ? 'Cancelling...' : 'Cancel subscription'}
+            {isPending ? 'Cancelling...' : 'Cancel subscription'}
           </Button>
         </form>
       )}

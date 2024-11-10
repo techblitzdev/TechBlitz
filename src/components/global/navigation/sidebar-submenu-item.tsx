@@ -16,8 +16,8 @@ export default function AppSidebarSubMenuItem(opts: { item: SidebarItem }) {
   return (
     <SidebarMenuSub>
       {item?.subItems.map((subItem) => (
-        <SidebarMenuSubItem key={subItem.url}>
-          <SidebarMenuSubButton asChild>
+        <div key={subItem.url}>
+          <div>
             <Link
               href={subItem.url}
               prefetch
@@ -29,8 +29,8 @@ export default function AppSidebarSubMenuItem(opts: { item: SidebarItem }) {
             >
               {subItem.title}
             </Link>
-          </SidebarMenuSubButton>
-        </SidebarMenuSubItem>
+          </div>
+        </div>
       ))}
     </SidebarMenuSub>
   );

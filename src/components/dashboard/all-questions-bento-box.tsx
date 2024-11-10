@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Chip from '../global/chip';
 import DashboardQuestionCard from './dashboard-question-card';
 import { ArrowRight } from 'lucide-react';
+import { Grid } from '../ui/grid';
 
 export default function AllQuestionsDashboardBentoBox() {
   const questions = [
@@ -18,7 +19,8 @@ export default function AllQuestionsDashboardBentoBox() {
   const [allQuestions] = useState([...questions, ...questions, ...questions]);
 
   return (
-    <section className="h-full flex flex-col gap-y-5 group">
+    <section className="h-full flex flex-col gap-y-5 group p-4 relative overflow-hidden">
+      <Grid size={20} position="top-right" />
       <div className="space-y-3">
         <Chip color="accent" text="Questions" />
         <h6 className="text-lg lg:text-xl flex items-center">
@@ -28,8 +30,12 @@ export default function AllQuestionsDashboardBentoBox() {
       </div>
 
       <div className="relative overflow-hidden mt-3 h-64">
+        {/* Top fade effect */}
+        <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-black-75 to-transparent z-10" />
+
+        {/* Scrolling content */}
         <div
-          className="animate-scroll hover:pause-animation"
+          className="animate-scroll hover:pause-animation relative z-0"
           style={
             { '--question-count': questions.length } as React.CSSProperties
           }
@@ -41,6 +47,9 @@ export default function AllQuestionsDashboardBentoBox() {
             />
           ))}
         </div>
+
+        {/* Bottom fade effect */}
+        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-black-75 to-transparent z-10" />
       </div>
     </section>
   );

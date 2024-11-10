@@ -3,6 +3,7 @@ import Chip from '../global/chip';
 import { capitalise } from '@/utils';
 import { ArrowUpRight } from 'lucide-react';
 import { Button } from '../ui/button';
+import { Grid } from '../ui/grid';
 
 export default function TodaysQuestionBentoBox(opts: { question: Question }) {
   const { question } = opts;
@@ -25,7 +26,7 @@ export default function TodaysQuestionBentoBox(opts: { question: Question }) {
   };
 
   return (
-    <section className="flex flex-col justify-between h-full group relative gap-y-4">
+    <section className="flex flex-col justify-between p-4 h-full group relative gap-y-4">
       <div className="flex w-full justify-between">
         <div className="space-y-1">
           <h6 className="text-xl">Today's Question </h6>

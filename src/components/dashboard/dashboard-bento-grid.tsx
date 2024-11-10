@@ -32,6 +32,7 @@ export default async function DashboardBentoGrid() {
       ),
       className: 'h-full text-white',
       href: `/question/${todaysQuestion?.uid}`,
+      padded: false,
     },
     {
       header: yesterdaysQuestion && (
@@ -39,11 +40,13 @@ export default async function DashboardBentoGrid() {
       ),
       className: 'h-full text-white',
       href: `/question/${yesterdaysQuestion?.uid}`,
+      padded: false,
     },
     {
       header: <AllQuestionsDashboardBentoBox />,
       className: 'md:col-span-2 text-white',
       href: '/questions',
+      padded: false,
     },
     {
       title: <div>Today's Leaderboard</div>,
@@ -55,6 +58,7 @@ export default async function DashboardBentoGrid() {
       header: <TodaysLeaderboardBentoBox todaysQuestion={todaysQuestion} />,
       className: 'md:col-span-1 md:row-span-2 text-white h-full',
       href: '/leaderboard/today',
+      padded: true,
     },
     {
       title: 'Roadmap',
@@ -65,6 +69,7 @@ export default async function DashboardBentoGrid() {
       ),
       header: <Skeleton />,
       className: 'md:col-span-2 text-white',
+      padded: true,
     },
     {
       title: `${userStreak?.totalDailyStreak} day streak!`,
@@ -75,6 +80,7 @@ export default async function DashboardBentoGrid() {
         </div>
       ),
       className: 'md:col-span-1 text-white',
+      padded: true,
     },
   ];
 
@@ -88,6 +94,7 @@ export default async function DashboardBentoGrid() {
           header={item.header}
           className={item.className}
           href={item.href}
+          padded={item.padded}
         />
       ))}
     </BentoGrid>

@@ -1,8 +1,9 @@
 import { Question } from '@/types/Questions';
 import Chip from '../global/chip';
 import { capitalise } from '@/utils';
-import { ArrowDownLeft, ArrowUpRight } from 'lucide-react';
+import { ArrowDownLeft } from 'lucide-react';
 import { Button } from '../ui/button';
+import { Grid } from '../ui/grid';
 
 export default function YesterdaysQuestionBentoBox(opts: {
   question: Question;
@@ -27,7 +28,7 @@ export default function YesterdaysQuestionBentoBox(opts: {
   };
 
   return (
-    <section className="flex flex-col justify-between h-full group relative">
+    <section className="flex flex-col justify-between h-full group relative overflow-hidden p-4">
       <div className="flex w-full justify-between">
         <Button variant="accent" className="size-10" padding="none">
           <ArrowDownLeft className="size-5 group-hover:rotate-45 duration-300" />
@@ -63,6 +64,7 @@ export default function YesterdaysQuestionBentoBox(opts: {
           ghost
         />
       </div>
+      <Grid size={20} position="bottom-right" />
     </section>
   );
 }

@@ -33,31 +33,44 @@ export default function PreviousQuestionCard(opts: {
             </Button>
           </div>
           <div className="text-start text-[10px]">
-            <p>Submissions:</p>
-            <p>Correct submissions:</p>
+            <p className="font-ubuntu text-sm">
+              Submissions: <span className="font-medium underline">1036</span>
+            </p>
+            <p className="font-ubuntu text-sm">
+              Correct submissions:{' '}
+              <span className="font-medium underline">872</span>
+            </p>
           </div>
         </div>
-        <div className="mt-5 w-full flex">
-          {questionData?.tags && (
-            <div className="space-y-0.5">
-              <p>Tags</p>
-              <div className="flex items-center gap-1">
-                {questionData?.tags?.map((tag) => (
-                  <Chip color="accent" text={capitalise(tag.tag.name)} />
-                ))}
+        <div className="mt-5 w-full flex justify-between items-end">
+          <div className="flex items-center gap-10">
+            {questionData?.tags && (
+              <div className="space-y-0.5">
+                <p className="font-ubuntu text-xs">Tags</p>
+                <div className="flex items-center gap-1">
+                  {questionData?.tags?.map((tag) => (
+                    <Chip color="accent" text={capitalise(tag.tag.name)} />
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
-          {questionData?.difficulty && (
-            <div className="space-y-0.5 justify-start">
-              <p>Difficulty</p>
+            )}
+            {questionData?.difficulty && (
               <Chip
                 text={capitalise(questionData.difficulty)}
                 color={getQuestionDifficultyColor(questionData.difficulty)}
                 textColor={getQuestionDifficultyColor(questionData.difficulty)}
                 ghost
+                small
               />
-            </div>
+            )}
+          </div>
+          {/** question date */}
+          {questionData?.questionDate && (
+            <Chip
+              color="black-100"
+              text={questionData.questionDate}
+              border="black-50"
+            />
           )}
         </div>
       </Button>

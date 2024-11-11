@@ -66,7 +66,7 @@ export default function PreviousQuestionsPage() {
       <div className="flex flex-col gap-y-2 w-full">
         <BreadcrumbWithCustomSeparator items={items} />
         <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
-          Previous Questions
+          Previous Daily Questions
         </h1>
       </div>
       <Separator />

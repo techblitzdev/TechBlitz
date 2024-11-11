@@ -6,6 +6,7 @@ import PreviousQuestionAnswerModal from '../answers/previous-question-answer-mod
 import { ArrowUpRight } from 'lucide-react';
 import Chip from '../global/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
+import { Grid } from '../ui/grid';
 
 export default function PreviousQuestionCard(opts: {
   questionData: Question;
@@ -22,9 +23,10 @@ export default function PreviousQuestionCard(opts: {
     <>
       <Button
         key={questionData.uid}
-        className="space-y-5 items-start bg-black-75 border border-black-50 p-5 rounded-lg group w-full h-auto flex flex-col"
+        className="space-y-5 items-start bg-black-75 border border-black-50 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
         onClick={() => setShowAnswerModal(userAnswer || undefined)}
       >
+        <Grid size={20} position="bottom-right" />
         <div className="flex flex-col w-full">
           <div className="flex w-full justify-between">
             <h6 className="text-base">{questionData.question}</h6>

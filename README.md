@@ -1,6 +1,6 @@
-# meerge
+# TechBlitz
 
-meerge is an online platform designed to help individuals enhance their development knowledge through a diverse range of questions. Whether you're just starting your journey or you're looking to sharpen your skills, meerge provides an interactive and engaging way to improve your understanding of key concepts in software development.
+TechBlitz is an online platform designed to help individuals enhance their development knowledge through a diverse range of questions. Whether you're just starting your journey or you're looking to sharpen your skills, meerge provides an interactive and engaging way to improve your understanding of key concepts in software development.
 
 ### Features
 

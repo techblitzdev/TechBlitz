@@ -5,7 +5,7 @@ import { Answer } from '@/types/Answers';
 import PreviousQuestionAnswerModal from '../answers/previous-question-answer-modal';
 import { ArrowUpRight } from 'lucide-react';
 import Chip from '../global/chip';
-import { capitalise } from '@/utils';
+import { capitalise, getQuestionDifficultyColor } from '@/utils';
 
 export default function PreviousQuestionCard(opts: {
   questionData: Question;
@@ -49,8 +49,14 @@ export default function PreviousQuestionCard(opts: {
             </div>
           )}
           {questionData?.difficulty && (
-            <div className="space-y-0.5">
+            <div className="space-y-0.5 justify-start">
               <p>Difficulty</p>
+              <Chip
+                text={capitalise(questionData.difficulty)}
+                color={getQuestionDifficultyColor(questionData.difficulty)}
+                textColor={getQuestionDifficultyColor(questionData.difficulty)}
+                ghost
+              />
             </div>
           )}
         </div>

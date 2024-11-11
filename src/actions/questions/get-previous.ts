@@ -43,6 +43,9 @@ export const getPreviousQuestions = async (opts: {
         questionDate: {
           lt: todayDate,
         },
+        AND: {
+          dailyQuestion: true,
+        },
       },
       orderBy: {
         questionDate: orderBy,

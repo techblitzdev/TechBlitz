@@ -8,17 +8,17 @@ interface PricingPlan {
 
 export const PRICING_PLANS: PricingPlan[] = [
   {
-    uid: 'prod_RAybyZGAgEWBZG',
+    uid: 'prod_RCUoaCsYoBPN4e',
     name: 'Free',
     value: 'FREE',
   },
   {
-    uid: 'prod_R4c14AjPuu66QA',
+    uid: 'prod_RCUocTRqcoLtvH',
     name: 'Standard',
     value: 'STANDARD',
   },
   {
-    uid: 'prod_R4c1F8yVFg0mb3',
+    uid: 'prod_RCUoLWmEitsaH1',
     name: 'Premium',
     value: 'PREMIUM',
   },

@@ -3,6 +3,9 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Answer } from '@/types/Answers';
 import PreviousQuestionAnswerModal from '../answers/previous-question-answer-modal';
+import { ArrowUpRight } from 'lucide-react';
+import Chip from '../global/chip';
+import { capitalise } from '@/utils';
 
 export default function PreviousQuestionCard(opts: {
   questionData: Question;
@@ -19,19 +22,38 @@ export default function PreviousQuestionCard(opts: {
     <>
       <Button
         key={questionData.uid}
-        className="flex flex-col items-start bg-black-50 p-2 rounded-lg text-start h-auto w-full"
+        className="space-y-5 items-start bg-black-75 border border-black-50 p-5 rounded-lg group w-full h-auto flex flex-col"
         onClick={() => setShowAnswerModal(userAnswer || undefined)}
       >
-        <div className="flex items-center gap-x-10">
-          <p>{questionData.question}</p>
-          <p>{questionData.questionDate}</p>
-        </div>
-        {!userAnswer && <div className="text-sm">No answer submitted</div>}
-        {userAnswer && (
-          <div className="text-sm">
-            {userAnswer?.correctAnswer ? '✅' : '❌'}
+        <div className="flex flex-col w-full">
+          <div className="flex w-full justify-between">
+            <h6 className="text-base">{questionData.question}</h6>
+            <Button variant="accent" className="size-10" padding="none">
+              <ArrowUpRight className="size-5 group-hover:rotate-45 duration-300" />
+            </Button>
           </div>
-        )}
+          <div className="text-start text-[10px]">
+            <p>Submissions:</p>
+            <p>Correct submissions:</p>
+          </div>
+        </div>
+        <div className="mt-5 w-full flex">
+          {questionData?.tags && (
+            <div className="space-y-0.5">
+              <p>Tags</p>
+              <div className="flex items-center gap-1">
+                {questionData?.tags?.map((tag) => (
+                  <Chip color="accent" text={capitalise(tag.tag.name)} />
+                ))}
+              </div>
+            </div>
+          )}
+          {questionData?.difficulty && (
+            <div className="space-y-0.5">
+              <p>Difficulty</p>
+            </div>
+          )}
+        </div>
       </Button>
       {showAnswerModal && (
         <PreviousQuestionAnswerModal

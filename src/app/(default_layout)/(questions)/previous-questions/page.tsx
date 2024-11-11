@@ -71,7 +71,7 @@ export default function PreviousQuestionsPage() {
       </div>
       <Separator />
       <div className="flex flex-col h-full justify-between">
-        <div className="flex flex-col gap-5">
+        <div className="grid grid-cols-2 gap-6">
           {isLoading && (
             <div className="h-96 flex justify-center items-center">
               <LoadingSpinner />

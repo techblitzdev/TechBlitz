@@ -1,5 +1,4 @@
 'use client';
-
 import {
   FileQuestion,
   Home,
@@ -22,8 +21,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarSeparator,
-  SidebarTrigger,
 } from '@/components/ui/sidebar';
 import {
   Collapsible,
@@ -44,6 +41,7 @@ import { useUser } from '@/hooks/useUser';
 
 export function AppSidebar() {
   const pathname = usePathname();
+
   const { user } = useUser();
 
   const { data: todaysQuestion } = useQuery({
@@ -238,7 +236,7 @@ export function AppSidebar() {
               className="text-sm xl:text-2xl font-ubuntu hover:text-white duration-300"
               prefetch
             >
-              meerge
+              TechBlitz
             </Link>
           </SidebarGroupLabel>
           <SidebarGroupContent className="mt-5">

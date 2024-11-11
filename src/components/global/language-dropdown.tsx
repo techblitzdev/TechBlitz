@@ -1,5 +1,4 @@
 'use client';
-
 import { LANGUAGE_OPTIONS } from '@/utils/constants/language-options';
 import {
   DropdownMenu,

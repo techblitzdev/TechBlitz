@@ -13,7 +13,7 @@ export default async function UpgradePage() {
         href="/dashboard"
         className="font-semibold top-4 left-4 absolute font-satoshi text-2xl z-30 hover:text-white/80 duration-300"
       >
-        meerge
+        TechBlitz
       </Link>
       <Link
         href="/dashboard"

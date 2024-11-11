@@ -43,7 +43,7 @@ export function PricingCard(opts: {
               ) : (
                 <span className="text-4xl font-inter">
                   {product.default_price?.unit_amount
-                    ? product.default_price.unit_amount / 100
+                    ? product.default_price?.unit_amount / 100
                     : 0}
                 </span>
               )}

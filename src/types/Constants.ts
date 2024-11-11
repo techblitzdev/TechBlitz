@@ -5,7 +5,7 @@ type ErrorDetail = {
 
 export type ErrorCodes = {
   'not-authenticated': ErrorDetail;
-  'unauthorized': string | ErrorDetail;
+  unauthorized: string | ErrorDetail;
   'no-user': ErrorDetail;
+  'subscription-cancelled': ErrorDetail;
 };
-

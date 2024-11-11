@@ -26,10 +26,11 @@ export default function PreviousQuestionCard(opts: {
         className="space-y-5 items-start bg-black-75 border border-black-50 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
         onClick={() => setShowAnswerModal(userAnswer || undefined)}
       >
-        <Grid size={20} position="bottom-right" />
         <div className="flex flex-col w-full">
           <div className="flex w-full justify-between">
-            <h6 className="text-base">{questionData.question}</h6>
+            <h6 className="text-base text-wrap text-start">
+              {questionData.question}
+            </h6>
             <Button variant="accent" className="size-10" padding="none">
               <ArrowUpRight className="size-5 group-hover:rotate-45 duration-300" />
             </Button>
@@ -75,6 +76,7 @@ export default function PreviousQuestionCard(opts: {
             />
           )}
         </div>
+        <Grid size={20} position="bottom-right" />
       </Button>
       {showAnswerModal && (
         <PreviousQuestionAnswerModal

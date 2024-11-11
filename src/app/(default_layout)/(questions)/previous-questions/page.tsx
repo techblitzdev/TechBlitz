@@ -12,6 +12,7 @@ import { useUser } from '@/hooks/useUser';
 import { getPagination } from '@/utils/supabase/pagination';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
+import BackToDashboard from '@/components/global/back-to-dashboard';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -64,12 +65,22 @@ export default function PreviousQuestionsPage() {
   return (
     <>
       <div className="flex flex-col gap-y-2 w-full">
-        <BreadcrumbWithCustomSeparator items={items} />
-        <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
-          Previous Daily Questions
-        </h1>
+        <div className="flex flex-col gap-y-2 justify-center w-full text-center">
+          <div className="flex w-full justify-between">
+            <BackToDashboard />
+
+            <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
+              Previous Daily Questions
+            </h1>
+            <div aria-hidden></div>
+          </div>
+          <p className="font-ubuntu text-sm text-gray-300">
+            Here you can find all the daily questions that have been asked in
+            the past, as well as your answers to them.
+          </p>
+        </div>
       </div>
-      <Separator />
+      <Separator className="bg-black-50" />
       <div className="flex flex-col h-full justify-between">
         <div className="grid grid-cols-1 w-1/2 gap-6">
           {isLoading && (

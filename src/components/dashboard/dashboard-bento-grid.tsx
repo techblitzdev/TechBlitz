@@ -17,6 +17,7 @@ import YesterdaysQuestionBentoBox from './yesterdays-question-bento-box';
 import { getYesterdaysQuestion } from '@/actions/questions/get-yesterdays-question';
 import ProgressBentoBox from './progression-bento-box';
 import StreakBentoBox from './streak-bento-box';
+import NoDailyQuestion from '../global/errors/no-daily-question';
 
 export default async function DashboardBentoGrid() {
   const todaysQuestion = await getTodaysQuestion();
@@ -29,8 +30,12 @@ export default async function DashboardBentoGrid() {
 
   const items = [
     {
-      header: todaysQuestion && (
+      header: todaysQuestion ? (
         <TodaysQuestionBentoBox question={todaysQuestion} />
+      ) : (
+        <div className="p-4">
+          <NoDailyQuestion variant="accent" />
+        </div>
       ),
       className: 'h-full text-white',
       href: `/question/${todaysQuestion?.uid}`,

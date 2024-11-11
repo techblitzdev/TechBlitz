@@ -13,7 +13,7 @@ import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 
 export const metadata: Metadata = {
-  title: 'meerge',
+  title: 'TechBlitz',
   description: 'Improve your code knowledge, one day at a time.',
 };
 

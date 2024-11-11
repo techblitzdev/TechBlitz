@@ -44,13 +44,13 @@ export default function TodaysQuestionPage({
     queryFn: () => getQuestion(uid),
   });
 
-  if (!question && !isPending) {
-    return <NoDailyQuestion />;
-  }
-
   const { seconds, minutes, pause, reset, totalSeconds } = useStopwatch({
     autoStart: user?.showTimeTaken || false,
   });
+
+  if (!question && !isPending) {
+    return <NoDailyQuestion />;
+  }
 
   if (userLoading || isPending) {
     return (

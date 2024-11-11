@@ -236,7 +236,7 @@ export function AppSidebar() {
               className="text-sm xl:text-2xl font-ubuntu hover:text-white duration-300"
               prefetch
             >
-              meerge
+              TechBlitz
             </Link>
           </SidebarGroupLabel>
           <SidebarGroupContent className="mt-5">

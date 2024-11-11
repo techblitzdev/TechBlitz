@@ -62,7 +62,7 @@ export default function SignupForm() {
                 <InputWithLabel
                   label="Email"
                   type="email"
-                  placeholder="hello@meerge.dev"
+                  placeholder="hello@techblitz.dev"
                   {...field}
                   autoComplete="email"
                 />

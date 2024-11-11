@@ -4,6 +4,7 @@ import {
   SidebarMenuSubButton,
 } from '@/components/ui/sidebar';
 import type { SidebarItem } from '@/types/Sidebar';
+import { cn } from '@/utils/cn';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -16,8 +17,16 @@ export default function AppSidebarSubMenuItem(opts: { item: SidebarItem }) {
   return (
     <SidebarMenuSub>
       {item?.subItems.map((subItem) => (
-        <div key={subItem.url}>
-          <div>
+        <SidebarMenuSubItem key={subItem.url}>
+          <SidebarMenuSubButton
+            asChild
+            className={cn(
+              'duration-300',
+              pathname === subItem.url
+                ? 'hover:bg-white/60'
+                : 'hover:bg-sidebar-accent'
+            )}
+          >
             <Link
               href={subItem.url}
               prefetch
@@ -29,8 +38,8 @@ export default function AppSidebarSubMenuItem(opts: { item: SidebarItem }) {
             >
               {subItem.title}
             </Link>
-          </div>
-        </div>
+          </SidebarMenuSubButton>
+        </SidebarMenuSubItem>
       ))}
     </SidebarMenuSub>
   );

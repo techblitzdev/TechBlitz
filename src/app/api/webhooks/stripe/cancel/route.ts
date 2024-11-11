@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server';
 import { stripe } from '@/lib/stripe';
 import { prisma } from '@/utils/prisma';
 
-const webhookSecret = process.env.NEXT_PRIVATE_STRIPE_WEBHOOK_SECRET;
+const webhookSecret = process.env.NEXT_PRIVATE_STRIPE_WEBHOOK_SECRET_CANCEL;
 
 export async function POST(req: NextRequest) {
   // Ensure that stripe is initialized

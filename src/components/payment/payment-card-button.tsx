@@ -86,7 +86,7 @@ export function PaymentButton(opts: { product: StripeProduct }) {
           disabled={
             subscription?.productId === product.id ||
             (!subscription?.productId &&
-              product.default_price.unit_amount === 0)
+              product.default_price?.unit_amount === 0)
           }
           fullWidth
         >
@@ -96,7 +96,7 @@ export function PaymentButton(opts: { product: StripeProduct }) {
             <div className="font-satoshi">
               {subscription?.productId === product.id ||
               (!subscription?.productId &&
-                product.default_price.unit_amount === 0)
+                product.default_price?.unit_amount === 0)
                 ? 'Current plan'
                 : 'Upgrade'}
             </div>
@@ -115,7 +115,7 @@ export function PaymentButton(opts: { product: StripeProduct }) {
             }}
           >
             <CheckoutForm
-              productPrice={product.default_price.unit_amount as number}
+              productPrice={product.default_price?.unit_amount as number}
               product={product}
               stripeCustomerId={stripeCustomerId}
               stripeSubscriptionId={stripeSubscriptionId}

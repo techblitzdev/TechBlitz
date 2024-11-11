@@ -29,7 +29,7 @@ export const getStripeProducts = NextCache(
     products.data.sort((a, b) => {
       if (!a.default_price || !b.default_price) return 0;
       // @ts-ignore - Typescript doesn't know we expanded the default_price
-      return a.default_price.unit_amount - b.default_price.unit_amount;
+      return a.default_price?.unit_amount - b.default_price?.unit_amount;
     });
 
     return products.data.map((product) => {

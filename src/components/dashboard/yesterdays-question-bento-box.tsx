@@ -3,6 +3,7 @@ import Chip from '../global/chip';
 import { capitalise } from '@/utils';
 import { ArrowDownLeft } from 'lucide-react';
 import { Button } from '../ui/button';
+import { getQuestionDifficultyColor } from '@/utils';
 import { Grid } from '../ui/grid';
 
 export default function YesterdaysQuestionBentoBox(opts: {
@@ -12,20 +13,6 @@ export default function YesterdaysQuestionBentoBox(opts: {
 
   // get the question tags from the question - only choose the first 3
   const tags = question?.tags?.map((tag) => tag.tag.name).slice(0, 3) || [];
-
-  // border-green-500 border-yellow-500 border-red-500 text-green-500 text-yellow-500 text-red-500
-  const getQuestionDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case 'EASY':
-        return 'green-500';
-      case 'MEDIUM':
-        return 'yellow-500';
-      case 'HARD':
-        return 'red-500';
-      default:
-        return 'gray';
-    }
-  };
 
   return (
     <section className="flex flex-col justify-between h-full group relative overflow-hidden p-4">

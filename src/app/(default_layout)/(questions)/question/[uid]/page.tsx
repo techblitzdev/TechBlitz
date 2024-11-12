@@ -49,7 +49,7 @@ export default function TodaysQuestionPage({
   });
 
   if (!question && !isPending) {
-    return <NoDailyQuestion />;
+    return <NoDailyQuestion textAlign="center" />;
   }
 
   if (userLoading || isPending) {

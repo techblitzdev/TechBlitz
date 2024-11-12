@@ -42,8 +42,12 @@ export default async function DashboardBentoGrid() {
       padded: false,
     },
     {
-      header: yesterdaysQuestion && (
+      header: yesterdaysQuestion ? (
         <YesterdaysQuestionBentoBox question={yesterdaysQuestion} />
+      ) : (
+        <div className="p-4">
+          <NoDailyQuestion variant="accent" />
+        </div>
       ),
       className: 'h-full text-white',
       href: `/question/${yesterdaysQuestion?.uid}`,

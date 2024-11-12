@@ -28,3 +28,12 @@ export type Question = {
 };
 
 export type QuestionWithoutAnswers = Omit<Question, 'answers'>;
+
+export type QuestionWithTags = QuestionWithoutAnswers & {
+  tags: Array<{
+    tag: {
+      id: string;
+      name: string;
+    };
+  }>;
+};

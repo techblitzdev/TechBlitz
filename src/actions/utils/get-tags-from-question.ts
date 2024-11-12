@@ -1,4 +1,8 @@
-import type { Question, QuestionWithoutAnswers } from '@/types/Questions';
+import type {
+  Question,
+  QuestionWithoutAnswers,
+  QuestionWithTags,
+} from '@/types/Questions';
 
 export const getTagsFromQuestion = (
   questions: Question | Omit<Question, 'answers'>[]
@@ -8,11 +12,11 @@ export const getTagsFromQuestion = (
   const processQuestion = (question: Question | QuestionWithoutAnswers) => ({
     ...question,
     tags: question.tags?.map((tag) => ({
-      questionId: tag.questionId,
-      tagId: tag.tagId,
+      questionId: tag?.questionId,
+      tagId: tag?.tagId,
       tag: {
-        uid: tag.tagId,
-        name: tag.tag.name,
+        uid: tag?.tagId,
+        name: tag?.tag?.name,
       },
     })),
   });
@@ -21,4 +25,12 @@ export const getTagsFromQuestion = (
   return Array.isArray(questions)
     ? questions.map(processQuestion)
     : processQuestion(questions);
+};
+
+export const extractTagIds = (questions: QuestionWithTags[]) => {
+  const tagIds = questions.flatMap((question) =>
+    question.tags.map((tagRelation) => tagRelation.tag.uid)
+  );
+
+  return tagIds;
 };

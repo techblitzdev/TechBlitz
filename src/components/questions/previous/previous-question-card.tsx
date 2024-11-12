@@ -2,11 +2,11 @@ import { Question } from '@/types/Questions';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Answer } from '@/types/Answers';
-import PreviousQuestionAnswerModal from '../answers/previous-question-answer-modal';
+import PreviousQuestionAnswerModal from '../../answers/previous-question-answer-modal';
 import { ArrowUpRight } from 'lucide-react';
-import Chip from '../global/chip';
+import Chip from '../../global/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
-import { Grid } from '../ui/grid';
+import { Grid } from '../../ui/grid';
 
 export default function PreviousQuestionCard(opts: {
   questionData: Question;

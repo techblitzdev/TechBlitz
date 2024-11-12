@@ -1,5 +1,5 @@
 import { Grid } from '@/components/ui/grid';
-import { Skeleton } from '../ui/skeleton';
+import { Skeleton } from '../../ui/skeleton';
 
 export default function PreviousQuestionSkeleton() {
   return (

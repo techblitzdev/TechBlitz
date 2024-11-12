@@ -4,6 +4,7 @@ import '../globals.css';
 import { ReactQueryClientProvider } from '@/components/react-query-client-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import { HydrationOverlay } from '@builder.io/react-hydration-overlay';
 import { AppSidebar } from '@/components/global/navigation/sidebar';
 
 import { createTheme, MantineProvider } from '@mantine/core';
@@ -39,7 +40,9 @@ export default function Layout({
             <AppSidebar />
             <main className="w-full pr-6 py-6 lg:pt-6 lg:pb-3">
               <div className="lg:pl-4 h-[95%]">
-                <MantineProvider>{children}</MantineProvider>
+                <MantineProvider>
+                  <HydrationOverlay>{children}</HydrationOverlay>
+                </MantineProvider>
               </div>
             </main>
             <Toaster className="bg-black" />

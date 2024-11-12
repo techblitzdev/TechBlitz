@@ -52,7 +52,9 @@ export default function PreviousQuestionCard(opts: {
                 <p className="font-ubuntu text-xs">Tags</p>
                 <div className="flex items-center gap-1">
                   {questionData?.tags?.map((tag) => (
-                    <Chip color="accent" text={capitalise(tag.tag.name)} />
+                    <div key={tag.tagId}>
+                      <Chip color="accent" text={capitalise(tag.tag.name)} />
+                    </div>
                   ))}
                 </div>
               </div>

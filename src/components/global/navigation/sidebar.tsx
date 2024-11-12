@@ -21,6 +21,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
 } from '@/components/ui/sidebar';
 import {
   Collapsible,
@@ -217,7 +218,9 @@ export function AppSidebar() {
                 <span className="text-sm">
                   <>{item.title}</>
                 </span>
-                <div className="ms-auto">{item.chip && <item.chip />}</div>
+                {item.chip && (
+                  <div className="ms-auto">{item.chip && <item.chip />}</div>
+                )}
               </Link>
             )}
           </SidebarMenuButton>

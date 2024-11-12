@@ -75,9 +75,8 @@ export default function PreviousQuestionsPage() {
     <>
       <div className="flex flex-col gap-y-2 w-full">
         <div className="flex flex-col gap-y-2 justify-center w-full text-center">
-          <div className="flex w-full justify-between">
+          <div className="flex w-full justify-between container">
             <BackToDashboard />
-
             <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
               Previous Daily Questions
             </h1>
@@ -108,8 +107,9 @@ export default function PreviousQuestionsPage() {
             ))}
           </div>
           <div className="w-1/2 relative">
-            <div className="sticky top-20">
-              <div className="col-span-1 w-full h-fit flex">
+            <div className="sticky top-10 space-y-10">
+              <div className="w-fit h-fit flex flex-col gap-y-1.5">
+                <h6 className="text-xl">Your statstics</h6>
                 <DatePicker
                   className="z-30 text-white border border-black-50 p-2 rounded-md bg-black-100 hover:cursor-default"
                   color="white"
@@ -120,6 +120,9 @@ export default function PreviousQuestionsPage() {
                   inputMode="none"
                   onClick={(e) => e.preventDefault()}
                 />
+              </div>
+              <div className="">
+                <h6 className="text-xl">Suggested questions</h6>
               </div>
             </div>
           </div>

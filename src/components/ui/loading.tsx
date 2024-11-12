@@ -9,13 +9,13 @@ export default function LoadingSpinner() {
       <g
         fill="none"
         stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
       >
         <path
-          stroke-dasharray="16"
-          stroke-dashoffset="16"
+          strokeDasharray="16"
+          strokeDashoffset="16"
           d="M12 3c4.97 0 9 4.03 9 9"
         >
           <animate
@@ -33,9 +33,9 @@ export default function LoadingSpinner() {
           ></animateTransform>
         </path>
         <path
-          stroke-dasharray="64"
-          stroke-dashoffset="64"
-          stroke-opacity=".3"
+          strokeDasharray="64"
+          strokeDashoffset="64"
+          strokeOpacity=".3"
           d="M12 3c4.97 0 9 4.03 9 9c0 4.97 -4.03 9 -9 9c-4.97 0 -9 -4.03 -9 -9c0 -4.97 4.03 -9 9 -9Z"
         >
           <animate

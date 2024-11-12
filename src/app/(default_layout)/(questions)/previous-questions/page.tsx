@@ -1,6 +1,5 @@
 'use client';
 import GlobalPagination from '@/components/global/pagination';
-import QueryStates from '@/components/global/query-states';
 import PreviousQuestionCard from '@/components/questions/previous/previous-question-card';
 import PreviousQuestionSkeleton from '@/components/questions/previous/previous-question-card-skeleton';
 import { Separator } from '@/components/ui/separator';
@@ -10,17 +9,8 @@ import { getPagination } from '@/utils/supabase/pagination';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import BackToDashboard from '@/components/global/back-to-dashboard';
-import { DatePicker } from '@mantine/dates';
 import { getSuggestions } from '@/actions/questions/get-suggestions';
-import LoadingSpinner from '@/components/ui/loading';
-import PreviousQuestionSuggestedCard from '@/components/questions/previous/previous-question-suggested-table';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
+import PreviousQuestionPageSidenbar from '@/components/questions/previous/previous-question-page-sidebar';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -45,28 +35,7 @@ export default function PreviousQuestionsPage() {
     enabled: !!user?.uid,
   });
 
-  const { data: suggestions, isLoading: suggestionsLoading } = useQuery({
-    queryKey: ['suggested-questions', user?.uid],
-    queryFn: async () => {
-      if (!user?.uid) {
-        throw new Error('User not found');
-      }
-      return getSuggestions({
-        userUid: user.uid,
-      });
-    },
-    enabled: !!user?.uid,
-  });
-
   const handlePageChange = (newPage: number) => setCurrentPage(newPage);
-
-  const today = new Date();
-  const date = new Date(today).setDate(today.getDate() - 10);
-
-  const [value, setValue] = useState<[Date | null, Date | null]>([
-    new Date(date),
-    today,
-  ]);
 
   return (
     <>
@@ -105,45 +74,8 @@ export default function PreviousQuestionsPage() {
                   />
                 ))}
           </div>
-          <aside className="w-1/2 relative">
-            <div className="sticky top-10 space-y-10 w-1/2">
-              <div className="w-fit h-fit flex flex-col gap-y-1.5">
-                <h6 className="text-xl">Your statistics</h6>
-                <DatePicker
-                  className="z-30 text-white border border-black-50 p-2 rounded-md bg-black-100 hover:cursor-default"
-                  color="white"
-                  type="range"
-                  value={value}
-                  onChange={setValue}
-                  c="gray"
-                  inputMode="none"
-                  onClick={(e) => e.preventDefault()}
-                />
-              </div>
-              <div className="space-y-1.5">
-                <div className="flex items-center gap-x-2">
-                  <h6 className="text-xl">Suggested questions</h6>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <QuestionMarkCircledIcon className="size-3.5 mt-1 text-gray-300" />
-                        <TooltipContent>
-                          <p>
-                            These question have been suggested based on areas
-                            where some users have struggled in the past.
-                          </p>
-                        </TooltipContent>
-                      </TooltipTrigger>
-                    </Tooltip>
-                  </TooltipProvider>
-                </div>
-                <PreviousQuestionSuggestedCard
-                  questions={suggestions ?? []}
-                  isLoading={suggestionsLoading}
-                />
-              </div>
-            </div>
-          </aside>
+          {/* Display sidebar with user statistics and suggested questions */}
+          {user && <PreviousQuestionPageSidenbar user={user} />}
         </div>
         <GlobalPagination
           className="mt-5"

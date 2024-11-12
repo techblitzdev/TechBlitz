@@ -1,10 +1,8 @@
 'use client';
-
-import { BreadcrumbWithCustomSeparator } from '@/components/global/breadcrumbs';
 import GlobalPagination from '@/components/global/pagination';
 import QueryStates from '@/components/global/query-states';
-import PreviousQuestionCard from '@/components/questions/previous-question-card';
-import PreviousQuestionSkeleton from '@/components/questions/previous-question-card-skeleton';
+import PreviousQuestionCard from '@/components/questions/previous/previous-question-card';
+import PreviousQuestionSkeleton from '@/components/questions/previous/previous-question-card-skeleton';
 import { Separator } from '@/components/ui/separator';
 import { getPreviousQuestions } from '@/actions/questions/get-previous';
 import { useUser } from '@/hooks/useUser';
@@ -13,6 +11,16 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import BackToDashboard from '@/components/global/back-to-dashboard';
 import { DatePicker } from '@mantine/dates';
+import { getSuggestions } from '@/actions/questions/get-suggestions';
+import LoadingSpinner from '@/components/ui/loading';
+import PreviousQuestionSuggestedCard from '@/components/questions/previous/previous-question-suggested-table';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -32,6 +40,19 @@ export default function PreviousQuestionsPage() {
         orderBy: 'desc',
         from,
         to,
+      });
+    },
+    enabled: !!user?.uid,
+  });
+
+  const { data: suggestions, isLoading: suggestionsLoading } = useQuery({
+    queryKey: ['suggested-questions', user?.uid],
+    queryFn: async () => {
+      if (!user?.uid) {
+        throw new Error('User not found');
+      }
+      return getSuggestions({
+        userUid: user.uid,
       });
     },
     enabled: !!user?.uid,
@@ -84,8 +105,8 @@ export default function PreviousQuestionsPage() {
                   />
                 ))}
           </div>
-          <div className="w-1/2 relative">
-            <div className="sticky top-10 space-y-10">
+          <aside className="w-1/2 relative">
+            <div className="sticky top-10 space-y-10 w-1/2">
               <div className="w-fit h-fit flex flex-col gap-y-1.5">
                 <h6 className="text-xl">Your statistics</h6>
                 <DatePicker
@@ -99,11 +120,30 @@ export default function PreviousQuestionsPage() {
                   onClick={(e) => e.preventDefault()}
                 />
               </div>
-              <div className="">
-                <h6 className="text-xl">Suggested questions</h6>
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-x-2">
+                  <h6 className="text-xl">Suggested questions</h6>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <QuestionMarkCircledIcon className="size-3.5 mt-1 text-gray-300" />
+                        <TooltipContent>
+                          <p>
+                            These question have been suggested based on areas
+                            where some users have struggled in the past.
+                          </p>
+                        </TooltipContent>
+                      </TooltipTrigger>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+                <PreviousQuestionSuggestedCard
+                  questions={suggestions ?? []}
+                  isLoading={suggestionsLoading}
+                />
               </div>
             </div>
-          </div>
+          </aside>
         </div>
         <GlobalPagination
           className="mt-5"

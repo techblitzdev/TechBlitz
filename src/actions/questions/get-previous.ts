@@ -54,6 +54,11 @@ export const getPreviousQuestions = async (opts: {
       take: to - from, // Calculate the correct number of items to take
       include: {
         answers: true, // Include the answers in the query
+        tags: {
+          include: {
+            tag: true,
+          },
+        },
       },
     }),
 
@@ -64,6 +69,10 @@ export const getPreviousQuestions = async (opts: {
       },
     }),
   ]);
+
+  console.log({
+    questions,
+  });
 
   return {
     questions,

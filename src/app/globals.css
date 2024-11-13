@@ -96,6 +96,7 @@ body {
     --mantine-primary-color-filled-hover: rgb(94, 102, 214, 0.5) !important;
     --mantine-primary-color-light: rgba(94, 102, 214, 0.1) !important;
     --mantine-primary-color-light-hover: rgba(94, 102, 214, 0.12) !important;
+    --mantine-color-gray-0: var(--background) !important;
   }
   .dark {
     --background: 240 10% 3.9%;
@@ -144,8 +145,4 @@ body {
   h1, h2, h3, h4, h5, h6 {
     @apply font-ubuntu !font-medium
   }
-}
-
-.navbar-height {
-  @apply h-[calc(100dvh-2rem)];
 }

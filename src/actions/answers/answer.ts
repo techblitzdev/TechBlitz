@@ -1,7 +1,6 @@
 'use server';
 import { Answer } from '@/types/Answers';
-import { Question } from '@/types/Questions';
-import { User, UserRecord } from '@/types/User';
+import { UserRecord } from '@/types/User';
 import { prisma } from '@/utils/prisma';
 import { revalidateTag } from 'next/cache';
 
@@ -18,6 +17,26 @@ interface AnswerQuestionResponse {
   userAnswer: Answer;
   userData: UserRecord | null;
 }
+
+const findOrCreateUserStreak = async (userUid: string) => {
+  const streak = await prisma.streaks.findUnique({
+    where: { userUid },
+  });
+
+  if (streak) return;
+
+  await prisma.streaks.create({
+    data: {
+      userUid,
+      streakStart: new Date(),
+      streakEnd: new Date(),
+      createdAt: new Date(),
+      currentstreakCount: 0,
+      longestStreak: 0,
+      updatedAt: new Date(),
+    },
+  });
+};
 
 // Helper functions
 const findQuestion = async (questionUid: string) => {
@@ -60,6 +79,23 @@ const handleStreakUpdates = async (
   // if its not, exit early
   if (!dailyQuestion) return;
 
+  // update the user's streak record
+  await findOrCreateUserStreak(userUid);
+
+  // update the user's streak
+  await tx.streaks.update({
+    where: { userUid },
+    data: {
+      currentstreakCount: {
+        increment: shouldIncrementCorrectStreak ? 1 : 0,
+      },
+      longestStreak: {
+        increment: shouldIncrementTotalStreak ? 1 : 0,
+      },
+    },
+  });
+
+  // DEPRECATED: Update the user's streak in the user record
   await tx.users.update({
     where: { uid: userUid },
     data: {

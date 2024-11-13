@@ -1,20 +1,22 @@
-'use client';
-import { useState } from 'react';
 import { DatePicker } from '@mantine/dates';
-import { Separator } from '../ui/separator';
-import { Button } from '../ui/button';
-import { ArrowRight } from 'lucide-react';
 import { Grid } from '../ui/grid';
 import Chip from '../global/chip';
+import { getUserFromSession } from '@/actions/user/get-user';
+import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 
-export default function StreakBentoBox() {
-  const today = new Date();
-  const date = new Date(today).setDate(today.getDate() - 10);
+export default async function StreakBentoBox() {
+  const { data: user, error } = await getUserFromSession();
+  if (!user || !user.user?.id) return;
 
-  const [value, setValue] = useState<[Date | null, Date | null]>([
-    new Date(date),
-    today,
-  ]);
+  // get the user's streak data
+  const userStreak = await getUserDailyStats(user?.user?.id);
+
+  // get the streak start date and streak end date
+  const startDate = userStreak?.streakData?.streakEnd as Date;
+  const endDate = userStreak?.streakData?.streakStart as Date;
+
+  // create an array of dates between the start and end date
+  const dateArray: [Date, Date] = [startDate, endDate];
 
   return (
     <div className="space-y-4 group relative overflow-hidden p-4 h-full">
@@ -24,14 +26,12 @@ export default function StreakBentoBox() {
       </div>
       <div className="w-full h-fit flex items-center justify-center">
         <DatePicker
-          className="z-30 text-white border border-black-50 p-2 rounded-md bg-black-100 hover:cursor-default"
+          className="z-30 text-white border border-black-50 p-2 rounded-md bg-black-100 hover:cursor-default hover:text-black"
           color="white"
           type="range"
-          value={value}
-          onChange={setValue}
+          value={dateArray}
           c="gray"
           inputMode="none"
-          onClick={(e) => e.preventDefault()}
         />
       </div>
       <div className="flex w-full justify-between items-end">

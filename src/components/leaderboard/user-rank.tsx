@@ -3,6 +3,7 @@ import { getUserAnswerRank } from '@/actions/leaderboard/get-user-rank';
 import { getUserFromDb } from '@/actions/user/get-user';
 import { convertSecondsToTime, formatSeconds } from '@/utils/time';
 import { getUserDisplayName } from '@/utils/user';
+import { Button } from '../ui/button';
 
 export default async function UserRank(opts: {
   questionUid: string;
@@ -25,6 +26,19 @@ export default async function UserRank(opts: {
     questionUid,
     userUid,
   });
+
+  if (!userAnswer) {
+    return (
+      <div className="flex justify-between w-full items-center">
+        <p className="text-white text-sm font-semibold font-satoshi">
+          Not ranked
+        </p>
+        <Button variant="accent" href={`/question/${questionUid}`}>
+          Answer now!
+        </Button>
+      </div>
+    );
+  }
 
   const timeTaken = convertSecondsToTime(userAnswer?.timeTaken ?? 0);
 

@@ -3,6 +3,7 @@ import { Grid } from '../ui/grid';
 import Chip from './chip';
 import { getUserFromSession } from '@/actions/user/get-user';
 import { getUserDailyStats } from '@/actions/user/get-daily-streak';
+import { FlameIcon } from 'lucide-react';
 
 export default async function StreakBentoBox() {
   const { data: user, error } = await getUserFromSession();
@@ -40,6 +41,14 @@ export default async function StreakBentoBox() {
           View more stats
           <ArrowRight className="size-3 ml-1 group-hover:ml-2 duration-300" />
         </Button> */}
+        {/** display user's longest streak */}
+        <div className="flex items-center gap-1 font-medium">
+          <p className="font-satoshi">Longest streak:</p>
+          <p className="font-satoshi">
+            {userStreak?.streakData?.longestStreak}
+          </p>
+          <FlameIcon className="fill-red-500 text-orange-500" />
+        </div>
       </div>
       <Grid size={20} position="bottom-left" />
     </div>

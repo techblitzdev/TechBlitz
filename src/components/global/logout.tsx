@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { ExitIcon } from '@radix-ui/react-icons';
 import { Button } from '../ui/button';
+import { toast } from 'sonner';
 
 export default function LogoutButton(otps: {
   variant?:
@@ -21,16 +22,22 @@ export default function LogoutButton(otps: {
 
   const router = useRouter();
   const handleLogout = async () => {
-    await logout();
-    router.push('/login');
+    try {
+      await logout();
+      router.push('/login');
+    } catch (err) {
+      toast.error('Failed to logout');
+    }
+    toast.success('You have been logged out');
   };
 
   return (
     <Button
-      className="flex items-center gap-x-2 h-auto hover:bg-transparent hover:text-white"
+      className="flex items-center gap-x-2 h-auto hover:text-white"
       variant={variant}
       onClick={handleLogout}
       padding={padding}
+      type="button"
     >
       <p className="text-sm">Logout</p>
       <ExitIcon className="size-3" />

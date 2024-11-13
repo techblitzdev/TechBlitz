@@ -11,7 +11,6 @@ import type { Question } from '@/types/Questions';
 import type { UserRecord } from '@/types/User';
 import type { Answer } from '@/types/Answers';
 import LoadingSpinner from '@/components/ui/loading';
-import { DailyStreakChart } from '@/components/dashboard/daily-streak-chart';
 import { convertSecondsToTime } from '@/utils/time';
 import JsonDisplay from '../global/json-display';
 import { LockClosedIcon } from '@radix-ui/react-icons';
@@ -24,6 +23,9 @@ import {
 import { getNextQuestion } from '@/actions/questions/get-next-question';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import StreakBentoBox from '../global/streak-bento-box';
+import { DatePicker } from '@mantine/dates';
+import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 
 type AnswerQuestionModalProps = {
   question: Question;
@@ -82,12 +84,21 @@ export default function AnswerQuestionModal({
 
   const content = getDialogContent();
 
-  const userStreakData = {
-    totalDailyStreak: user?.totalDailyStreak || 0,
-    correctDailyStreak: user?.correctDailyStreak || 0,
-  };
-
   const timeTaken = convertSecondsToTime(userAnswer?.timeTaken || 0);
+
+  const {
+    data: streakData,
+    refetch: refetchStreak,
+    isLoading: streakLoading,
+  } = useQuery({
+    queryKey: ['streak-data', user.uid],
+    queryFn: async () => await getUserDailyStats(user.uid),
+  });
+
+  const dateArray = [
+    streakData?.streakData?.streakStart,
+    streakData?.streakData?.streakEnd,
+  ] as [Date, Date];
 
   const {
     data: nextQuestion,
@@ -102,11 +113,10 @@ export default function AnswerQuestionModal({
       }),
   });
 
-  const handleNextQuestion = async () => {
+  const handleNextQuestion = () => {
     if (user.userLevel === 'FREE' && correct === 'correct') {
       return;
     }
-    console.log('hit');
 
     if (nextQuestion) {
       router.push(`/question/${nextQuestion}`);
@@ -143,7 +153,16 @@ export default function AnswerQuestionModal({
               </DialogDescription>
             </div>
 
-            <DailyStreakChart userStreakData={userStreakData} />
+            <div className="w-full flex justify-center">
+              <DatePicker
+                className="z-30 text-white border border-black-50 p-2 rounded-md bg-black-100 hover:cursor-default hover:text-black"
+                color="white"
+                type="range"
+                value={dateArray}
+                c="gray"
+                inputMode="none"
+              />
+            </div>
 
             {correct === 'correct' && (
               <div className="text-center">

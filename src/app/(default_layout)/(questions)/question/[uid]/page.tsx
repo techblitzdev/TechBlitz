@@ -54,7 +54,7 @@ export default function TodaysQuestionPage({
 
   if (userLoading || isPending) {
     return (
-      <div className="flex justify-center items-center navbar-height">
+      <div className="flex justify-center items-center">
         <LoadingSpinner />
       </div>
     );

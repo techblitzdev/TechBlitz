@@ -13,20 +13,10 @@ import LoadingSpinner from '@/components/ui/loading';
 
 export const description = 'A radial chart with text';
 
-type DailyStreakChartProps = {
-  totalDailyStreak: number | null;
-  correctDailyStreak: number | null;
-};
-
-export function DailyStreakChart(opts: {
-  userStreakData: DailyStreakChartProps;
-}) {
+export function DailyStreakChart(opts: { userStreakData: number }) {
   const { userStreakData } = opts;
 
-  if (
-    userStreakData?.correctDailyStreak === 0 &&
-    userStreakData?.totalDailyStreak === 0
-  ) {
+  if (userStreakData === 0) {
     return (
       <CardDescription>
         <span className="text-center text-lg font-satoshi text-white">
@@ -36,23 +26,10 @@ export function DailyStreakChart(opts: {
     );
   }
 
-  if (
-    !('correctDailyStreak' in userStreakData) ||
-    !('totalDailyStreak' in userStreakData) ||
-    userStreakData.correctDailyStreak === null ||
-    userStreakData.totalDailyStreak === null
-  ) {
-    return (
-      <CardDescription>
-        <LoadingSpinner />
-      </CardDescription>
-    );
-  }
-
   const chartData = [
     {
       name: 'streak',
-      streak: userStreakData?.totalDailyStreak,
+      streak: userStreakData,
       fill: 'lightgreen',
     },
   ];
@@ -78,12 +55,6 @@ export function DailyStreakChart(opts: {
           <RadialBarChart
             data={chartData}
             startAngle={90}
-            endAngle={
-              90 +
-              (userStreakData?.correctDailyStreak /
-                userStreakData?.totalDailyStreak) *
-                360
-            }
             innerRadius={80}
             outerRadius={110}
           >
@@ -116,8 +87,7 @@ export function DailyStreakChart(opts: {
                           y={viewBox.cy}
                           className="text-xl font-bold fill-white font-inter"
                         >
-                          {userStreakData.correctDailyStreak} /{' '}
-                          {userStreakData.totalDailyStreak}
+                          {userStreakData} day
                         </tspan>
                         <tspan
                           x={viewBox.cx}

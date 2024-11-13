@@ -8,16 +8,15 @@ export const getUserDailyStats = async (userUid: string) => {
     where: {
       uid: userUid,
     },
+    include: {
+      streak: true,
+    },
   });
-
   if (!userData) return null;
 
-  const { correctDailyStreak, totalDailyStreak } = userData;
+  const streakData = userData.streak;
 
   revalidateTag(`user-streak-${userUid}`);
 
-  return {
-    totalDailyStreak,
-    correctDailyStreak,
-  };
+  return { streakData };
 };

@@ -2,11 +2,12 @@ import { Question } from '@/types/Questions';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Answer } from '@/types/Answers';
-import PreviousQuestionAnswerModal from '../answers/previous-question-answer-modal';
+import PreviousQuestionAnswerModal from '../../answers/previous-question-answer-modal';
 import { ArrowUpRight } from 'lucide-react';
-import Chip from '../global/chip';
+import Chip from '../../global/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
-import { Grid } from '../ui/grid';
+import { Grid } from '../../ui/grid';
+import TagDisplay from './tag-display';
 
 export default function PreviousQuestionCard(opts: {
   questionData: Question;
@@ -46,19 +47,18 @@ export default function PreviousQuestionCard(opts: {
           </div>
         </div>
         <div className="mt-5 w-full flex justify-between items-end">
-          <div className="flex items-center gap-10">
-            {questionData?.tags && (
-              <div className="space-y-0.5">
-                <p className="font-ubuntu text-xs">Tags</p>
-                <div className="flex items-center gap-1">
-                  {questionData?.tags?.map((tag) => (
-                    <div key={tag.tagId}>
-                      <Chip color="accent" text={capitalise(tag.tag.name)} />
+          <div className="flex gap-4 items-end">
+            {questionData?.tags?.length
+              ? questionData?.tags?.length > 0 && (
+                  <div className="space-y-0.5 text-start">
+                    <div className="flex items-center gap-1">
+                      <TagDisplay tags={questionData?.tags || []} />
                     </div>
-                  ))}
-                </div>
-              </div>
-            )}
+                  </div>
+                )
+              : ''}
+          </div>
+          <div className="flex items-center gap-x-3">
             {questionData?.difficulty && (
               <Chip
                 text={capitalise(questionData.difficulty)}
@@ -68,15 +68,15 @@ export default function PreviousQuestionCard(opts: {
                 small
               />
             )}
+            {/** question date */}
+            {questionData?.questionDate && (
+              <Chip
+                color="black-100"
+                text={questionData.questionDate}
+                border="black-50"
+              />
+            )}
           </div>
-          {/** question date */}
-          {questionData?.questionDate && (
-            <Chip
-              color="black-100"
-              text={questionData.questionDate}
-              border="black-50"
-            />
-          )}
         </div>
         <Grid size={20} position="bottom-right" />
       </Button>

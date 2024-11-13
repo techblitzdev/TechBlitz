@@ -17,7 +17,7 @@ export default function Chip(opts: {
     border,
   } = opts;
 
-  // !border-black-50 border-green-500 border-yellow-500 border-red-500 text-yellow-500 text-red-500
+  // !border-accent !border-black-50 border-green-500 border-yellow-500 border-red-500 text-yellow-500 text-red-500
 
   const baseClasses = small
     ? 'text-[10px] px-1.5 py-0.5 font-ubuntu'
@@ -30,7 +30,9 @@ export default function Chip(opts: {
 
   const boldClasses = bold ? 'font-semibold' : '';
 
-  const borderClasses = border ? `border !border-${border}` : '';
+  const borderClasses = border
+    ? `border !border-${border}`
+    : `border !border-${color}`;
 
   return (
     <span

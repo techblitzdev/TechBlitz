@@ -1,10 +1,7 @@
 'use client';
-
-import { BreadcrumbWithCustomSeparator } from '@/components/global/breadcrumbs';
 import GlobalPagination from '@/components/global/pagination';
-import QueryStates from '@/components/global/query-states';
-import PreviousQuestionCard from '@/components/questions/previous-question-card';
-import PreviousQuestionSkeleton from '@/components/questions/previous-question-card-skeleton';
+import PreviousQuestionCard from '@/components/questions/previous/previous-question-card';
+import PreviousQuestionSkeleton from '@/components/questions/previous/previous-question-card-skeleton';
 import { Separator } from '@/components/ui/separator';
 import { getPreviousQuestions } from '@/actions/questions/get-previous';
 import { useUser } from '@/hooks/useUser';
@@ -12,7 +9,8 @@ import { getPagination } from '@/utils/supabase/pagination';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import BackToDashboard from '@/components/global/back-to-dashboard';
-import { DatePicker } from '@mantine/dates';
+import { getSuggestions } from '@/actions/questions/get-suggestions';
+import PreviousQuestionPageSidenbar from '@/components/questions/previous/previous-question-page-sidebar';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -38,14 +36,6 @@ export default function PreviousQuestionsPage() {
   });
 
   const handlePageChange = (newPage: number) => setCurrentPage(newPage);
-
-  const today = new Date();
-  const date = new Date(today).setDate(today.getDate() - 10);
-
-  const [value, setValue] = useState<[Date | null, Date | null]>([
-    new Date(date),
-    today,
-  ]);
 
   return (
     <>
@@ -84,26 +74,8 @@ export default function PreviousQuestionsPage() {
                   />
                 ))}
           </div>
-          <div className="w-1/2 relative">
-            <div className="sticky top-10 space-y-10">
-              <div className="w-fit h-fit flex flex-col gap-y-1.5">
-                <h6 className="text-xl">Your statistics</h6>
-                <DatePicker
-                  className="z-30 text-white border border-black-50 p-2 rounded-md bg-black-100 hover:cursor-default"
-                  color="white"
-                  type="range"
-                  value={value}
-                  onChange={setValue}
-                  c="gray"
-                  inputMode="none"
-                  onClick={(e) => e.preventDefault()}
-                />
-              </div>
-              <div className="">
-                <h6 className="text-xl">Suggested questions</h6>
-              </div>
-            </div>
-          </div>
+          {/* Display sidebar with user statistics and suggested questions */}
+          {user && <PreviousQuestionPageSidenbar user={user} />}
         </div>
         <GlobalPagination
           className="mt-5"

@@ -10,6 +10,7 @@ import { getUserFromSession } from '@/actions/user/get-user';
 import { getLongestStreaks } from '@/actions/leaderboard/get-longest-streaks';
 import { getUserDisplayName } from '@/utils/user';
 import { Grid } from '../ui/grid';
+import Chip from '../global/chip';
 
 export default async function TodaysLeaderboardBentoBox(opts: {
   todaysQuestion: Question | null;
@@ -47,10 +48,13 @@ export default async function TodaysLeaderboardBentoBox(opts: {
     <div className="overflow-hidden flex flex-col h-full justify-between group">
       <div className="flex flex-col h-full justify-between relative overflow-hidden">
         <div>
-          <div className="bg-black-50/10">
+          <div className="bg-black-50/10 relative">
             <div className="flex items-center p-4">
               <h6 className="text-xl">Today's Top User's</h6>
               <ArrowRight className="size-4 ml-1 group-hover:ml-2 duration-300" />
+            </div>
+            <div className="absolute top-4 right-4">
+              <Chip color="accent" text="Leaderboard" />
             </div>
             <Separator className="bg-black-50" />
           </div>

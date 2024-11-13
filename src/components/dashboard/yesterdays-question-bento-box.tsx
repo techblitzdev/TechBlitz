@@ -39,6 +39,7 @@ export default function YesterdaysQuestionBentoBox(opts: {
                   color="white"
                   textColor="black"
                   text={capitalise(tag)}
+                  bold={false}
                 />
               ))}
             </div>

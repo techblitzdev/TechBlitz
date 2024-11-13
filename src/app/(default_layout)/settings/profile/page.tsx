@@ -19,6 +19,8 @@ import {
 import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import LoadingSpinner from '@/components/ui/loading';
+import { logout } from '@/actions/user/logout';
+import LogoutButton from '@/components/global/logout';
 
 type SchemaProps = z.input<typeof userDetailsSchema>;
 
@@ -177,9 +179,12 @@ export default function SettingsProfilePage() {
             )}
           />
 
-          <Button type="submit" variant="secondary" disabled={isPending}>
-            {isPending ? <LoadingSpinner /> : 'Save changes'}
-          </Button>
+          <div className="flex gap-4">
+            <Button type="submit" variant="secondary" disabled={isPending}>
+              {isPending ? <LoadingSpinner /> : 'Save changes'}
+            </Button>
+            <LogoutButton variant="destructive" />
+          </div>
         </form>
       </Form>
     </div>

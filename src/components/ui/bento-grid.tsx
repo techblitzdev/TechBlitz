@@ -64,7 +64,7 @@ export const BentoGridItem = ({
   };
 
   const baseClasses = cn(
-    'rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none dark:bg-black dark:border-white/[0.2] bg-black-75 border border-black-50 justify-between flex flex-col',
+    'rounded-xl group/bento overflow-hidden hover:shadow-xl transition duration-200 shadow-input dark:shadow-none dark:bg-black dark:border-white/[0.2] bg-black-75 border border-black-50 justify-between flex flex-col',
     // Only add space-y-4 if there's content to space
     header || title || description || icon ? 'space-y-4' : '',
     className,

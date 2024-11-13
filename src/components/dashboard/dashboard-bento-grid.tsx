@@ -60,16 +60,10 @@ export default async function DashboardBentoGrid() {
       padded: false,
     },
     {
-      title: <div>Today's Leaderboard</div>,
-      description: (
-        <Button variant="accent" className="flex gap-x-1 items-center">
-          View the full list <ArrowRight className="size-3" />
-        </Button>
-      ),
       header: <TodaysLeaderboardBentoBox todaysQuestion={todaysQuestion} />,
       className: 'md:col-span-1 md:row-span-2 text-white h-full',
       href: '/leaderboard/today',
-      padded: true,
+      padded: false,
     },
     {
       header: <ProgressBentoBox />,
@@ -95,8 +89,6 @@ export default async function DashboardBentoGrid() {
       {items.map((item, i) => (
         <BentoGridItem
           key={i}
-          title={item.title}
-          description={item.description}
           header={item.header}
           className={item.className}
           href={item.href}

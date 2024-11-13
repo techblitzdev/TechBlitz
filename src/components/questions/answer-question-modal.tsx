@@ -194,10 +194,10 @@ export default function AnswerQuestionModal({
             ) : (
               <Button
                 variant="default"
-                onClick={() => onOpenChange(false)}
+                onClick={() => router.push('/dashboard')}
                 fullWidth={false}
               >
-                Close
+                Dashboard
               </Button>
             )}
             <TooltipProvider>

@@ -56,9 +56,11 @@ export default async function ProgressBentoBox() {
 
   return (
     <div className="h-full flex flex-col p-4 relative group overflow-hidden">
-      <div className="absolute">
-        <Chip color="accent" text="Roadmap" />
-      </div>
+      {user?.userLevel !== 'FREE' && user?.userLevel !== 'STANDARD' && (
+        <div className="absolute">
+          <Chip color="accent" text="Roadmap" />
+        </div>
+      )}
       <Grid size={20} position="top-right" />
       <div className="h-full flex items-center justify-center relative">
         <InfiniteMovingCards items={items} speed="slow" />

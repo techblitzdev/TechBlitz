@@ -1,3 +1,4 @@
+'use server';
 import { prisma } from '@/utils/prisma';
 import { unstable_cache as NextCache } from 'next/cache';
 

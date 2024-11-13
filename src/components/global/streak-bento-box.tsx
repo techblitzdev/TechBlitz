@@ -1,6 +1,6 @@
 import { DatePicker } from '@mantine/dates';
 import { Grid } from '../ui/grid';
-import Chip from '../global/chip';
+import Chip from './chip';
 import { getUserFromSession } from '@/actions/user/get-user';
 import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 

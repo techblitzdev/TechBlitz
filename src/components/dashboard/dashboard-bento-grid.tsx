@@ -16,7 +16,7 @@ import TodaysQuestionBentoBox from './todays-question-bento-box';
 import YesterdaysQuestionBentoBox from './yesterdays-question-bento-box';
 import { getYesterdaysQuestion } from '@/actions/questions/get-yesterdays-question';
 import ProgressBentoBox from './progression-bento-box';
-import StreakBentoBox from './streak-bento-box';
+import StreakBentoBox from '../global/streak-bento-box';
 import NoDailyQuestion from '../global/errors/no-daily-question';
 
 export default async function DashboardBentoGrid() {

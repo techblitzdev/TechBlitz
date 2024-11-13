@@ -23,9 +23,9 @@ const findOrCreateUserStreak = async (userUid: string) => {
     where: { userUid },
   });
 
-  if (streak) return;
+  if (streak) return streak;
 
-  await prisma.streaks.create({
+  return await prisma.streaks.create({
     data: {
       userUid,
       streakStart: new Date(),
@@ -38,7 +38,6 @@ const findOrCreateUserStreak = async (userUid: string) => {
   });
 };
 
-// Helper functions
 const findQuestion = async (questionUid: string) => {
   const question = await prisma.questions.findUnique({
     where: { uid: questionUid },
@@ -60,53 +59,95 @@ const findExistingAnswer = async (userUid: string, questionUid: string) => {
   });
 };
 
+const updateStreakDates = async (
+  tx: any,
+  userUid: string,
+  currentStreak: any,
+  correctAnswer: boolean
+) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const lastUpdate = new Date(currentStreak.updatedAt);
+  lastUpdate.setHours(0, 0, 0, 0);
+
+  const isNextDay = today.getTime() - lastUpdate.getTime() === 86400000; // 24 hours in ms
+  const isToday = today.getTime() === lastUpdate.getTime();
+
+  let newStreakStart = new Date(currentStreak.streakStart);
+  let newStreakEnd = new Date();
+  let newCurrentStreak = currentStreak.currentstreakCount;
+  let newLongestStreak = currentStreak.longestStreak;
+
+  if (isNextDay && correctAnswer) {
+    // Continue the streak
+    newCurrentStreak += 1;
+    newLongestStreak = Math.max(newCurrentStreak, newLongestStreak);
+    // Update end date to today
+    newStreakEnd = new Date();
+  } else if (!isToday) {
+    // Break in streak (more than one day gap)
+    if (correctAnswer) {
+      // Start new streak
+      newCurrentStreak = 1;
+      // Reset start date to today
+      newStreakStart = new Date();
+      newStreakEnd = new Date();
+    } else {
+      // Wrong answer after gap
+      newCurrentStreak = 0;
+      // Reset start date
+      newStreakStart = new Date();
+      newStreakEnd = new Date();
+    }
+  } else if (!correctAnswer) {
+    // Wrong answer today
+    newCurrentStreak = 0;
+    // Reset start date
+    newStreakStart = new Date();
+    newStreakEnd = new Date();
+  }
+
+  // If it's the same day and correct, keep current streak (no change)
+  await tx.streaks.update({
+    where: { userUid },
+    data: {
+      streakStart: newStreakStart,
+      streakEnd: newStreakEnd,
+      currentstreakCount: newCurrentStreak,
+      longestStreak: newLongestStreak,
+      updatedAt: new Date(),
+    },
+  });
+
+  await tx.users.update({
+    where: { uid: userUid },
+    data: {
+      correctDailyStreak: newCurrentStreak,
+      totalDailyStreak:
+        currentStreak.totalDailyStreak +
+        (isNextDay || (!isToday && correctAnswer) ? 1 : 0),
+    },
+  });
+};
+
 const handleStreakUpdates = async (
   tx: any,
   dailyQuestion: boolean,
   {
     userUid,
-    shouldIncrementCorrectStreak,
-    shouldIncrementTotalStreak,
+    correctAnswer,
   }: {
     userUid: string;
-    shouldIncrementCorrectStreak: boolean;
-    shouldIncrementTotalStreak: boolean;
+    correctAnswer: boolean;
   }
 ) => {
-  if (!shouldIncrementCorrectStreak && !shouldIncrementTotalStreak) return;
-
-  // check if the question is a daily question or not
-  // if its not, exit early
   if (!dailyQuestion) return;
 
-  // update the user's streak record
-  await findOrCreateUserStreak(userUid);
+  const userStreak = await findOrCreateUserStreak(userUid);
+  if (!userStreak) return;
 
-  // update the user's streak
-  await tx.streaks.update({
-    where: { userUid },
-    data: {
-      currentstreakCount: {
-        increment: shouldIncrementCorrectStreak ? 1 : 0,
-      },
-      longestStreak: {
-        increment: shouldIncrementTotalStreak ? 1 : 0,
-      },
-    },
-  });
-
-  // DEPRECATED: Update the user's streak in the user record
-  await tx.users.update({
-    where: { uid: userUid },
-    data: {
-      correctDailyStreak: {
-        increment: shouldIncrementCorrectStreak ? 1 : 0,
-      },
-      totalDailyStreak: {
-        increment: shouldIncrementTotalStreak ? 1 : 0,
-      },
-    },
-  });
+  await updateStreakDates(tx, userUid, userStreak, correctAnswer);
 };
 
 const updateOrCreateAnswer = async (
@@ -130,7 +171,8 @@ const updateOrCreateAnswer = async (
   if (existingAnswer) {
     // Update if the new answer is correct and the previous one was incorrect, or if the time is better
     if (
-      correctAnswer !== existingAnswer.correctAnswer || // Change from incorrect to correct
+      // Change from incorrect to correct
+      correctAnswer !== existingAnswer.correctAnswer ||
       (timeTaken !== undefined &&
         timeTaken < (existingAnswer.timeTaken ?? Infinity))
     ) {
@@ -165,17 +207,14 @@ export async function answerQuestion({
     const correctAnswer = question.correctAnswer === answerUid;
     const existingAnswer = await findExistingAnswer(userUid, questionUid);
 
-    // Determine streak updates
-    const shouldIncrementCorrectStreak = !existingAnswer && correctAnswer;
-    const shouldIncrementTotalStreak = !existingAnswer;
-
     const { userData, userAnswer } = await prisma.$transaction(async (tx) => {
-      // Handle streak updates
-      await handleStreakUpdates(tx, question.dailyQuestion, {
-        userUid,
-        shouldIncrementCorrectStreak,
-        shouldIncrementTotalStreak,
-      });
+      // Only update streaks if this is a new answer
+      if (!existingAnswer) {
+        await handleStreakUpdates(tx, question.dailyQuestion, {
+          userUid,
+          correctAnswer,
+        });
+      }
 
       // Get updated user data
       const userData = await tx.users.findUnique({

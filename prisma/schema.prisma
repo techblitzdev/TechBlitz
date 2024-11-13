@@ -45,6 +45,8 @@ model Users {
   showTimeTaken Boolean @default(false)
 
   subscription Subscriptions?
+
+  streak Streaks?
 }
 
 model Subscriptions {
@@ -130,4 +132,24 @@ model Answers {
   correctAnswer Boolean   @default(false)
   questionDate  String    @default("")
   timeTaken     Int?
+}
+
+model Streaks {
+  uid       String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // connect to user
+  userUid String @unique
+  user    Users  @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+
+  // how we calculate the user's streak
+  streakStart DateTime
+  streakEnd   DateTime
+
+  // easy way to pluck out the user's current streak
+  currentstreakCount Int @default(0)
+
+  // easy way to pluck out the user's longest streak
+  longestStreak Int @default(0)
 }

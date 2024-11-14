@@ -2,11 +2,18 @@ import Chip from '@/components/global/chip'; // Assuming this is your Chip compo
 import { Tags } from '@/types/Tags';
 import { capitalise } from '@/utils';
 
-export default function TagDisplay(opts: { tags: Tags[] }) {
-  const { tags } = opts;
+export default function TagDisplay(opts: {
+  tags: Tags[];
+  numberOfTags?: number;
+  variant?: 'default' | 'outline' | 'secondary' | 'destructive' | 'accent';
+}) {
+  const { tags, numberOfTags = 3, variant = 'accent' } = opts;
 
-  const visibleTags = tags.slice(0, 3);
-  const remainingCount = Math.max(0, tags.length - 3);
+  const visibleTags = tags.slice(0, numberOfTags);
+  const remainingCount = Math.max(0, tags.length - numberOfTags);
+
+  // set text colour based on variant
+  const textColor = variant === 'accent' ? 'white' : 'black';
 
   return (
     <div className="space-y-0.5 text-start">
@@ -14,12 +21,19 @@ export default function TagDisplay(opts: { tags: Tags[] }) {
         {visibleTags.map((tag) => (
           <Chip
             key={tag.tagId}
-            color="accent"
+            color={variant}
             text={capitalise(tag.tag.name)}
+            textColor={textColor}
+            bold={false}
           />
         ))}
         {remainingCount > 0 && (
-          <Chip color="accent" text={`+${remainingCount}`} />
+          <Chip
+            color={variant}
+            text={`+${remainingCount}`}
+            textColor={textColor}
+            bold={false}
+          />
         )}
       </div>
     </div>

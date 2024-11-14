@@ -5,14 +5,14 @@ import { ArrowDownLeft } from 'lucide-react';
 import { Button } from '../ui/button';
 import { getQuestionDifficultyColor } from '@/utils';
 import { Grid } from '../ui/grid';
+import TagDisplay from '../questions/previous/tag-display';
 
 export default function YesterdaysQuestionBentoBox(opts: {
   question: Question;
 }) {
   const { question } = opts;
 
-  // get the question tags from the question - only choose the first 3
-  const tags = question?.tags?.map((tag) => tag.tag.name).slice(0, 3) || [];
+  const tags = question?.tags || [];
 
   return (
     <section className="flex flex-col justify-between h-full group relative overflow-hidden p-4">
@@ -33,15 +33,7 @@ export default function YesterdaysQuestionBentoBox(opts: {
           <div className="space-y-1">
             <h6>Topics:</h6>
             <div className="flex gap-x-2 mt-2">
-              {tags?.map((tag) => (
-                <Chip
-                  key={tag}
-                  color="white"
-                  textColor="black"
-                  text={capitalise(tag)}
-                  bold={false}
-                />
-              ))}
+              <TagDisplay variant="secondary" tags={tags} numberOfTags={2} />
             </div>
           </div>
         )}

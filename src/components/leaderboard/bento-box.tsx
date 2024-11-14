@@ -26,24 +26,6 @@ export default async function TodaysLeaderboardBentoBox(opts: {
 
   const longestStreaks = await getLongestStreaks();
 
-  if (fastestTimes.length === 0 && todaysQuestion?.uid) {
-    return (
-      <Card className="bg-black border-none">
-        <CardContent className="text-center">
-          <Link href={`/question/${todaysQuestion.uid}`}>
-            <Trophy className="mx-auto mb-2 text-white" size={24} />
-            <p className="text-sm text-white">No fastest times yet!</p>
-            <p className="text-xs text-white mt-1">
-              Be the first to complete today's challenge!
-            </p>
-          </Link>
-        </CardContent>
-      </Card>
-    );
-  }
-  {
-  }
-
   return (
     <div className="overflow-hidden flex flex-col h-full justify-between group">
       <div className="flex flex-col h-full justify-between relative overflow-hidden">
@@ -58,7 +40,21 @@ export default async function TodaysLeaderboardBentoBox(opts: {
             </div>
             <Separator className="bg-black-50" />
           </div>
-          <FastestTimes fastestTimes={fastestTimes} />
+          {fastestTimes.length === 0 && todaysQuestion?.uid ? (
+            <Card className="bg-black rounded-none border-none pt-4">
+              <CardContent className="text-center">
+                <Link href={`/question/${todaysQuestion.uid}`}>
+                  <Trophy className="mx-auto mb-2 text-white" size={24} />
+                  <p className="text-sm text-white">No fastest times yet!</p>
+                  <p className="text-xs text-white mt-1">
+                    Be the first to complete today's challenge!
+                  </p>
+                </Link>
+              </CardContent>
+            </Card>
+          ) : (
+            <FastestTimes fastestTimes={fastestTimes} />
+          )}
         </div>
 
         <div className="z-20 shadow-md m-4 bg-black-100 border border-black-50 rounded-md overflow-hidden">

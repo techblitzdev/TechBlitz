@@ -99,10 +99,10 @@ export default function TodaysQuestionPage({
       <Separator className="bg-black-50" />
 
       <div className="grid grid-cols-12 gap-8 mt-6">
-        <div className="flex flex-col gap-y-4 col-span-6">
+        <div className="flex flex-col gap-y-4 col-span-full lg:col-span-6 relative overflow-hidden">
           <Button className="border border-black-50">Question</Button>
           {/** answers */}
-          <div className="col-span-6 h-full bg-black-75 border border-black-50 rounded-xl overflow-hidden">
+          <div className="col-span-full lg:col-span-6 h-full bg-black-75 border border-black-50 rounded-xl overflow-hidden">
             <div className="p-4">
               <Chip
                 color={getQuestionDifficultyColor(question.difficulty)}
@@ -113,20 +113,22 @@ export default function TodaysQuestionPage({
             </div>
             <Separator className="bg-black-50" />
             <div className="h-96"></div>
-            {question?.tags && (
-              <>
-                <Separator className="bg-black-50" />
-                <div className="p-4">
-                  <TagDisplay tags={question.tags} />
-                </div>
-              </>
-            )}
+            <div className="absolute w-full bottom-0">
+              {question?.tags && (
+                <>
+                  <Separator className="bg-black-50" />
+                  <div className="p-4">
+                    <TagDisplay tags={question.tags} />
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
 
-        <div className="col-span-6 h-3/4 grid-cols-subgrid gap-8 flex flex-col">
+        <div className="col-span-full lg:col-span-6 h-3/4 grid-cols-subgrid gap-8 flex flex-col">
           {/** code snippet */}
-          <div className="h-1/2 col-span-full row-start-1 bg-black-75 border border-black-50 rounded-xl relative overflow-hidden">
+          <div className="min-h-fit col-span-full row-start-1 bg-black-75 border border-black-50 rounded-xl relative overflow-hidden">
             <div className="px-4 py-2 text-sm">Code</div>
             <Separator className="bg-black-50" />
             {question?.codeSnippet && (
@@ -139,6 +141,11 @@ export default function TodaysQuestionPage({
             <div className="px-4 py-2 text-sm">Stats</div>
             <Separator className="bg-black-50" />
             <div className="h-64"></div>
+          </div>
+
+          <div className="flex items-center gap-4 self-end">
+            <Button variant="destructive">Reset</Button>
+            <Button variant="secondary">Submit</Button>
           </div>
         </div>
       </div>

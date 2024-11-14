@@ -9,7 +9,12 @@ import { BreadcrumbWithCustomSeparator } from '@/components/global/breadcrumbs';
 import { useStopwatch } from 'react-timer-hook';
 import NoDailyQuestion from '@/components/global/errors/no-daily-question';
 import QuestionDisplay from '@/components/questions/code-snippet';
-import { Clock } from 'lucide-react';
+import { ArrowRight, ChevronRight, Clock } from 'lucide-react';
+import BackToDashboard from '@/components/global/back-to-dashboard';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import Chip from '@/components/global/chip';
+import { capitalise, getQuestionDifficultyColor } from '@/utils';
 
 const items = [
   {
@@ -64,58 +69,67 @@ export default function TodaysQuestionPage({
     return <span>Error loading: {error?.message}</span>;
   }
 
+  if (!question) {
+    return <span>Question not found</span>;
+  }
+
   return (
     <>
-      <div className="flex w-full justify-between items-center font-satoshi">
-        <div className="flex flex-col gap-y-2 w-full">
-          <BreadcrumbWithCustomSeparator items={items} />
-          <div className="flex items-center justify-between w-full">
-            <h1 className="text-xl md:text-3xl font-semibold">
-              {question?.question}
-            </h1>
-            {user?.showTimeTaken && (
-              <div className="flex items-center gap-x-1">
-                <Clock className="size-4" />
-                <p>
-                  <span>{minutes}</span>:<span>{seconds}</span>
-                </p>
-              </div>
-            )}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-x-5 py-2">
+          {/** Previous question button */}
+          <BackToDashboard />
+          {question?.dailyQuestion && question?.questionDate && (
+            <div className="font-ubuntu flex gap-x-5 items-center">
+              <p>Daily question</p>
+              <span>|</span>
+              {new Date(question?.questionDate).toLocaleDateString()}
+            </div>
+          )}
+        </div>
+        <Link
+          href="/dashboard"
+          className="bg-black-100 border border-black-50 p-2 rounded-md relative group duration-200 size-8 flex items-center justify-center"
+        >
+          <ChevronRight className="size-4 opacity-100 group-hover:opacity-0 absolute duration-100" />
+          <ArrowRight className="size-4 opacity-0 group-hover:opacity-100 absolute duration-100" />
+        </Link>
+      </div>
+      <Separator className="bg-black-50" />
+
+      <div className="grid grid-cols-12 gap-8 mt-6">
+        <div className="flex flex-col gap-y-4 col-span-6">
+          <Button className="">Question</Button>
+          {/** answers */}
+          <div className="col-span-6 h-full bg-black-75 border border-black-50 rounded-xl overflow-hidden">
+            <div className="p-4">
+              <Chip
+                color={getQuestionDifficultyColor(question.difficulty)}
+                text={capitalise(question.difficulty)}
+                textColor={getQuestionDifficultyColor(question.difficulty)}
+                ghost
+              />
+            </div>
+            <Separator className="bg-black-50" />
+            <div className="h-96"></div>
           </div>
         </div>
-      </div>
-      <Separator />
-      <div className="">
-        {question?.tags && (
-          <div className="flex flex-wrap gap-2">
-            {question.tags.map((tag) => (
-              <span
-                key={tag?.tag?.uid}
-                className="bg-black-50 text-white rounded-full px-2 py-1 text-xs"
-              >
-                {tag.tag.name}
-              </span>
-            ))}
+
+        <div className="col-span-6 h-3/4 grid-cols-subgrid gap-8 flex flex-col">
+          {/** code snippet */}
+          <div className="h-1/2 col-span-full row-start-1 bg-black-75 border border-black-50 rounded-xl">
+            <div className="p-4">Code snippet</div>
+            <Separator className="bg-black-50" />
+            <div className="h-64"></div>
           </div>
-        )}
-      </div>
-      <div className="bg-black-75 rounded-xl p-4 space-y-4">
-        {question?.codeSnippet && (
-          <div className="space-y-1">
-            <p className="text-white text-sm font-satoshi font-semibold"></p>
-            <QuestionDisplay content={question.codeSnippet} />
+
+          {/** hints + question stats */}
+          <div className="h-1/2 col-span-full row-start-2 bg-black-75 border border-black-50 rounded-xl">
+            <div className="p-4">Question stats</div>
+            <Separator className="bg-black-50" />
+            <div className="h-64"></div>
           </div>
-        )}
-        {question && (
-          <AnswerQuestionForm
-            userData={user}
-            uid={uid}
-            question={question}
-            time={totalSeconds}
-            stopwatchPause={pause}
-            resetStopwatch={reset}
-          />
-        )}
+        </div>
       </div>
     </>
   );

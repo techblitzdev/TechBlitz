@@ -15,6 +15,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import Chip from '@/components/global/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
+import TagDisplay from '@/components/questions/previous/tag-display';
 
 const items = [
   {
@@ -99,7 +100,7 @@ export default function TodaysQuestionPage({
 
       <div className="grid grid-cols-12 gap-8 mt-6">
         <div className="flex flex-col gap-y-4 col-span-6">
-          <Button className="">Question</Button>
+          <Button className="border border-black-50">Question</Button>
           {/** answers */}
           <div className="col-span-6 h-full bg-black-75 border border-black-50 rounded-xl overflow-hidden">
             <div className="p-4">
@@ -112,20 +113,30 @@ export default function TodaysQuestionPage({
             </div>
             <Separator className="bg-black-50" />
             <div className="h-96"></div>
+            {question?.tags && (
+              <>
+                <Separator className="bg-black-50" />
+                <div className="p-4">
+                  <TagDisplay tags={question.tags} />
+                </div>
+              </>
+            )}
           </div>
         </div>
 
         <div className="col-span-6 h-3/4 grid-cols-subgrid gap-8 flex flex-col">
           {/** code snippet */}
-          <div className="h-1/2 col-span-full row-start-1 bg-black-75 border border-black-50 rounded-xl">
-            <div className="p-4">Code snippet</div>
+          <div className="h-1/2 col-span-full row-start-1 bg-black-75 border border-black-50 rounded-xl relative overflow-hidden">
+            <div className="px-4 py-2 text-sm">Code</div>
             <Separator className="bg-black-50" />
-            <div className="h-64"></div>
+            {question?.codeSnippet && (
+              <QuestionDisplay content={question.codeSnippet} language="" />
+            )}
           </div>
 
           {/** hints + question stats */}
           <div className="h-1/2 col-span-full row-start-2 bg-black-75 border border-black-50 rounded-xl">
-            <div className="p-4">Question stats</div>
+            <div className="px-4 py-2 text-sm">Stats</div>
             <Separator className="bg-black-50" />
             <div className="h-64"></div>
           </div>

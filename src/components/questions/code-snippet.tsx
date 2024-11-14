@@ -44,8 +44,8 @@ export default function CodeDisplay({ content, language }: CodeDisplayProps) {
         getTokenProps,
       }: HighlightProps) => (
         <pre
-          className="overflow-x-auto rounded-lg p-4"
-          style={{ ...style, background: '#011627' }}
+          className="overflow-x-auto p-4"
+          style={{ ...style, background: '#111111' }}
         >
           {tokens.map((line, lineIndex) => (
             <div
@@ -53,10 +53,10 @@ export default function CodeDisplay({ content, language }: CodeDisplayProps) {
               {...getLineProps({ line })}
               className="table-row"
             >
-              <span className="table-cell text-gray-500 pr-4 select-none text-right">
+              <span className="table-cell text-gray-500 pr-4 select-none text-right text-sm">
                 {lineIndex + 1}.
               </span>
-              <span className="table-cell">
+              <span className="table-cell text-sm">
                 {line.map((token, tokenIndex) => (
                   <span key={tokenIndex} {...getTokenProps({ token })} />
                 ))}

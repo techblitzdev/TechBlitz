@@ -119,7 +119,7 @@ export default function AnswerQuestionForm({
   return (
     <Form {...form}>
       <form
-        className="font-satoshi flex flex-col gap-4"
+        className="font-satoshi flex flex-col"
         onSubmit={form.handleSubmit(handleAnswerQuestion)}
       >
         <div className="grid grid-cols-12 gap-4 p-4">

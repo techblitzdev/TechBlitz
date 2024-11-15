@@ -5,6 +5,7 @@ import {
   AccordionContent,
 } from '@/components/ui/accordion';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
+import { Lightbulb } from 'lucide-react';
 
 export default function QuestionHintAccordion(opts: { hint: string }) {
   const { hint } = opts;
@@ -18,7 +19,7 @@ export default function QuestionHintAccordion(opts: { hint: string }) {
       >
         <AccordionTrigger className="text-sm duration-300">
           <div className="flex items-center gap-x-1">
-            <QuestionMarkCircledIcon className="size-4" />
+            <Lightbulb className="size-4" />
             <p>Hint</p>
           </div>
         </AccordionTrigger>

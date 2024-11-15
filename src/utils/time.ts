@@ -26,7 +26,7 @@ export const formatSeconds = (seconds: number) => {
     if (result) {
       result += ' ';
     }
-    result += `${remainingSeconds} second${remainingSeconds !== 1 ? 's' : ''}`;
+    result += `${remainingSeconds}s`;
   }
 
   if (!result) {

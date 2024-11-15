@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button';
 import Chip from '@/components/global/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import TagDisplay from '@/components/questions/previous/tag-display';
+import { formatSeconds } from '@/utils/time';
 
 export default function TodaysQuestionPage({
   params,
@@ -35,7 +36,7 @@ export default function TodaysQuestionPage({
   });
 
   const { seconds, minutes, pause, reset, totalSeconds } = useStopwatch({
-    autoStart: user?.showTimeTaken || false,
+    autoStart: true,
   });
 
   if (!question && !isPending) {
@@ -80,8 +81,8 @@ export default function TodaysQuestionPage({
       </div>
       <Separator className="bg-black-50" />
 
-      <div className="grid grid-cols-12 gap-8 mt-6">
-        <div className="flex flex-col gap-y-4 col-span-full lg:col-span-6 relative overflow-hidden">
+      <div className="flex gap-8 mt-6">
+        <div className="flex flex-col gap-y-4 w-1/2 relative overflow-hidden">
           <Button className="border border-black-50">Question</Button>
           {/** answers */}
           <div className="col-span-full lg:col-span-6 h-full bg-black-75 border border-black-50 rounded-xl overflow-hidden">
@@ -94,9 +95,9 @@ export default function TodaysQuestionPage({
               />
               {/** time taken */}
               {user?.showTimeTaken && (
-                <div className="flex items-center gap-x-2">
+                <div className="flex items-center gap-x-1 text-sm">
                   <Clock className="size-4" />
-                  <p>{`${minutes}:${seconds}`}</p>
+                  <p>{formatSeconds(totalSeconds)}</p>
                 </div>
               )}
             </div>
@@ -128,7 +129,7 @@ export default function TodaysQuestionPage({
           </div>
         </div>
 
-        <div className="col-span-full lg:col-span-6 h-3/4 grid-cols-subgrid gap-8 flex flex-col">
+        <div className="w-1/2 h-3/4 grid-cols-subgrid gap-8 flex flex-col">
           {/** code snippet */}
           <div className="min-h-fit col-span-full row-start-1 bg-black-75 border border-black-50 rounded-xl relative overflow-hidden">
             <div className="px-4 py-2 text-sm flex w-full items-center justify-between">
@@ -142,7 +143,7 @@ export default function TodaysQuestionPage({
           </div>
 
           {/** hints + question stats */}
-          <div className="h-1/2 col-span-full row-start-2 bg-black-75 border border-black-50 rounded-xl">
+          <div className="col-span-full row-start-2 bg-black-75 border border-black-50 rounded-xl">
             <div className="px-4 py-2 text-sm">Stats</div>
             <Separator className="bg-black-50" />
             <div className="h-64"></div>

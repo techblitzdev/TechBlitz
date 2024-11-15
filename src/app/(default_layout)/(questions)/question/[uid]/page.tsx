@@ -5,7 +5,6 @@ import LoadingSpinner from '@/components/ui/loading';
 import { useUser } from '@/hooks/useUser';
 import AnswerQuestionForm from '@/components/questions/answer-question-form';
 import { Separator } from '@/components/ui/separator';
-import { BreadcrumbWithCustomSeparator } from '@/components/global/breadcrumbs';
 import { useStopwatch } from 'react-timer-hook';
 import NoDailyQuestion from '@/components/global/errors/no-daily-question';
 import QuestionDisplay from '@/components/questions/code-snippet';
@@ -16,21 +15,6 @@ import { Button } from '@/components/ui/button';
 import Chip from '@/components/global/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import TagDisplay from '@/components/questions/previous/tag-display';
-
-const items = [
-  {
-    href: '/dashboard',
-    label: 'Home',
-  },
-  {
-    href: '/questions',
-    label: 'Questions',
-  },
-  {
-    href: '',
-    label: 'Daily Question',
-  },
-];
 
 export default function TodaysQuestionPage({
   params,
@@ -83,8 +67,6 @@ export default function TodaysQuestionPage({
           {question?.dailyQuestion && question?.questionDate && (
             <div className="font-ubuntu flex gap-x-5 items-center">
               <p>Daily question</p>
-              <span>|</span>
-              {new Date(question?.questionDate).toLocaleDateString()}
             </div>
           )}
         </div>
@@ -112,8 +94,21 @@ export default function TodaysQuestionPage({
               />
             </div>
             <Separator className="bg-black-50" />
-            <div className="h-96"></div>
-            <div className="absolute w-full bottom-0">
+            <div className="h-fit bg-black-100 p-4">
+              {question?.question && (
+                <h3 className="font-inter font-light">{question.question}</h3>
+              )}
+
+              <AnswerQuestionForm
+                userData={user}
+                uid={uid}
+                question={question}
+                time={totalSeconds}
+                stopwatchPause={pause}
+                resetStopwatch={reset}
+              />
+            </div>
+            <div className="">
               {question?.tags && (
                 <>
                   <Separator className="bg-black-50" />
@@ -129,7 +124,10 @@ export default function TodaysQuestionPage({
         <div className="col-span-full lg:col-span-6 h-3/4 grid-cols-subgrid gap-8 flex flex-col">
           {/** code snippet */}
           <div className="min-h-fit col-span-full row-start-1 bg-black-75 border border-black-50 rounded-xl relative overflow-hidden">
-            <div className="px-4 py-2 text-sm">Code</div>
+            <div className="px-4 py-2 text-sm flex w-full items-center justify-between">
+              <p>Code</p>
+              <p className="text-xs">JavaScript</p>
+            </div>
             <Separator className="bg-black-50" />
             {question?.codeSnippet && (
               <QuestionDisplay content={question.codeSnippet} language="" />

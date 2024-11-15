@@ -122,9 +122,9 @@ export default function AnswerQuestionForm({
         className="font-satoshi flex flex-col gap-4"
         onSubmit={form.handleSubmit(handleAnswerQuestion)}
       >
-        <div className="grid grid-cols-12 gap-8 my-6">
+        <div className="grid grid-cols-12 gap-4 my-6">
           {question.answers.map((answer) => (
-            <div key={answer.uid} className="col-span-full lg:col-span-6">
+            <div key={answer.uid} className="col-span-full">
               <FormField
                 control={form.control}
                 name="answer"
@@ -133,10 +133,10 @@ export default function AnswerQuestionForm({
                     <Label
                       htmlFor={answer.uid}
                       className={cn(
-                        'p-4 rounded-xl min-h-20 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors',
+                        'p-4 rounded-xl min-h-20 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
                         field.value === answer.uid
                           ? 'bg-white text-black hover:bg-white/90'
-                          : 'bg-black hover:bg-gray-900'
+                          : 'bg-black-100 hover:bg-gray-900'
                       )}
                       onClick={() => field.onChange(answer.uid)}
                     >
@@ -151,7 +151,7 @@ export default function AnswerQuestionForm({
                       />
                       <div
                         className={cn(
-                          'h-5 w-5 rounded-md border border-black-50 flex items-center justify-center flex-shrink-0', // Fixed size and prevent shrinking
+                          'size-5 rounded-md border border-black-50 flex items-center justify-center flex-shrink-0', // Fixed size and prevent shrinking
                           field.value === answer.uid
                             ? 'bg-black text-white'
                             : ''
@@ -161,7 +161,7 @@ export default function AnswerQuestionForm({
                           <Check className="h-3 w-3 flex-shrink-0" />
                         )}
                       </div>
-                      <p className="text-base">{answer.answer}</p>
+                      <p className="text-sm">{answer.answer}</p>
                     </Label>
                   </FormControl>
                 )}
@@ -170,9 +170,9 @@ export default function AnswerQuestionForm({
           ))}
         </div>
         <Separator className="bg-black-50" />
-        <div className="w-1/3 space-y-4">
+        <div className="w-full space-y-4">
           {question.hint && <QuestionHintAccordion hint={question.hint} />}
-          <div className="flex items-center gap-4">
+          {/* <div className="flex items-center gap-4">
             <Button
               type="submit"
               size="lg"
@@ -200,7 +200,7 @@ export default function AnswerQuestionForm({
                 (ADMIN ONLY) clear today&apos;s answer
               </Button>
             )}
-          </div>
+          </div> */}
         </div>
         {newUserData != null && (
           <AnswerQuestionModal

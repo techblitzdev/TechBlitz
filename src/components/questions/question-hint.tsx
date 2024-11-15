@@ -12,10 +12,13 @@ export default function QuestionHintAccordion(opts: { hint: string }) {
 
   return (
     <Accordion type="single" collapsible>
-      <AccordionItem value={hint} className="border-black-50 duration-300">
-        <AccordionTrigger className="text-lg">
+      <AccordionItem
+        value={hint}
+        className="border-black-50 duration-300 w-full"
+      >
+        <AccordionTrigger className="text-sm duration-300">
           <div className="flex items-center gap-x-1">
-            <QuestionMarkCircledIcon className="size-5" />
+            <QuestionMarkCircledIcon className="size-4" />
             <p>Hint</p>
           </div>
         </AccordionTrigger>

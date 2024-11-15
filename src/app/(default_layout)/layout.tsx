@@ -40,9 +40,7 @@ export default function Layout({
             <AppSidebar />
             <main className="w-full pr-6 py-6 lg:pt-6 lg:pb-3">
               <div className="lg:pl-4 h-[95%]">
-                <MantineProvider>
-                  <HydrationOverlay>{children}</HydrationOverlay>
-                </MantineProvider>
+                <MantineProvider>{children}</MantineProvider>
               </div>
             </main>
             <Toaster className="bg-black" />

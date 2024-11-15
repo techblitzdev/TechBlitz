@@ -12,7 +12,7 @@ import type { UserRecord } from '@/types/User';
 import type { Answer } from '@/types/Answers';
 import LoadingSpinner from '@/components/ui/loading';
 import { convertSecondsToTime } from '@/utils/time';
-import JsonDisplay from '../global/json-display';
+import JsonDisplay from '../../global/json-display';
 import { LockClosedIcon } from '@radix-ui/react-icons';
 import {
   Tooltip,
@@ -23,7 +23,6 @@ import {
 import { getNextQuestion } from '@/actions/questions/get-next-question';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import StreakBentoBox from '../global/streak-bento-box';
 import { DatePicker } from '@mantine/dates';
 import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 

@@ -1,9 +1,9 @@
 'use client';
-import { useState } from 'react';
+import { useState, forwardRef, useImperativeHandle } from 'react';
 // components
 import { Form, FormControl, FormField } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
-import AnswerQuestionModal from '@/components/questions/answer-question-modal';
+import AnswerQuestionModal from '@/components/questions/single/answer-question-modal';
 // actions
 import { answerQuestion } from '@/actions/answers/answer';
 // zod
@@ -17,18 +17,15 @@ import type { UserRecord } from '@/types/User';
 import type { Answer } from '@/types/Answers';
 import { toast } from 'sonner';
 import { clearQuestionsForAdmin } from '@/actions/questions/admin/clear';
-import { Label } from '../ui/label';
+import { Label } from '../../ui/label';
 import { cn } from '@/utils/cn';
-import { ArrowRight, Check } from 'lucide-react';
-import LoadingSpinner from '../ui/loading';
-import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
-import { Separator } from '../ui/separator';
+import { Check } from 'lucide-react';
+import { Separator } from '../../ui/separator';
 import QuestionHintAccordion from './question-hint';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
   userData: UserRecord;
-  uid: string;
   question: Question;
   time?: number;
   stopwatchPause?: () => void;
@@ -38,7 +35,6 @@ type AnswerQuestionFormProps = {
 
 export default function AnswerQuestionForm({
   userData,
-  uid,
   question,
   time,
   stopwatchPause,
@@ -69,7 +65,7 @@ export default function AnswerQuestionForm({
 
     try {
       const opts: any = {
-        questionUid: uid,
+        questionUid: question?.uid,
         answerUid: values.answer,
         userUid: userData.uid,
       };
@@ -96,7 +92,7 @@ export default function AnswerQuestionForm({
 
   const adminClearAnswers = async () => {
     try {
-      await clearQuestionsForAdmin(uid);
+      await clearQuestionsForAdmin(question?.uid);
       toast.success('Successfully cleared all answers for this question');
     } catch (error) {
       console.error('Error clearing answers:', error);

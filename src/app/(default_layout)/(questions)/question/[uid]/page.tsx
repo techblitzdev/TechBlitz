@@ -8,7 +8,13 @@ import { Separator } from '@/components/ui/separator';
 import { useStopwatch } from 'react-timer-hook';
 import NoDailyQuestion from '@/components/global/errors/no-daily-question';
 import QuestionDisplay from '@/components/questions/code-snippet';
-import { ArrowRight, ChevronRight, Clock } from 'lucide-react';
+import {
+  ArrowRight,
+  ChartColumn,
+  ChevronRight,
+  Clock,
+  Expand,
+} from 'lucide-react';
 import BackToDashboard from '@/components/global/back-to-dashboard';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -82,10 +88,11 @@ export default function TodaysQuestionPage({
       <Separator className="bg-black-50" />
 
       <div className="flex gap-8 mt-6">
+        {/* Left Section - Question and Stats */}
         <div className="flex flex-col gap-y-4 w-1/2 relative overflow-hidden">
+          {/* Question Card */}
           <Button className="border border-black-50">Question</Button>
-          {/** answers */}
-          <div className="col-span-full lg:col-span-6 h-full bg-black-75 border border-black-50 rounded-xl overflow-hidden">
+          <div className="col-span-full lg:col-span-6 h-fit bg-black-75 border border-black-50 rounded-xl overflow-hidden">
             <div className="p-4 w-full flex justify-between">
               <Chip
                 color={getQuestionDifficultyColor(question.difficulty)}
@@ -93,7 +100,6 @@ export default function TodaysQuestionPage({
                 textColor={getQuestionDifficultyColor(question.difficulty)}
                 ghost
               />
-              {/** time taken */}
               {user?.showTimeTaken && (
                 <div className="flex items-center gap-x-1 text-sm">
                   <Clock className="size-4" />
@@ -103,8 +109,16 @@ export default function TodaysQuestionPage({
             </div>
             <Separator className="bg-black-50" />
             <div className="h-fit bg-black-100">
+              {question.dailyQuestion && (
+                <div className="p-4">
+                  <h3 className="font-inter text-gray-400 text-xs font-light">
+                    This question is a daily question and will count towards
+                    your daily streak.
+                  </h3>
+                </div>
+              )}
               {question?.question && (
-                <div className=" p-4">
+                <div className="px-4">
                   <h3 className="font-inter font-light">{question.question}</h3>
                 </div>
               )}
@@ -127,14 +141,42 @@ export default function TodaysQuestionPage({
               </>
             )}
           </div>
+
+          {/* Stats Card */}
+          <div className="h-28 bg-black-75 border border-black-50 rounded-xl">
+            <div className="flex items-center gap-x-1 p-4">
+              <ChartColumn className="size-4" />
+              <div className="text-sm">Stats</div>
+            </div>
+            <Separator className="bg-black-50" />
+            <div className="p-4 flex items-center">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <p>Submissions</p>
+                  <p className="text-accent">23456</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <p>Correct</p>
+                  <p className="text-accent">12345</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <p>Success rate</p>
+                  <p className="text-accent">78%</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
+        {/* Right Section - Code Snippet and Related Questions */}
         <div className="w-1/2 h-3/4 grid-cols-subgrid gap-8 flex flex-col">
-          {/** code snippet */}
-          <div className="min-h-fit col-span-full row-start-1 bg-black-75 border border-black-50 rounded-xl relative overflow-hidden">
-            <div className="px-4 py-2 text-sm flex w-full items-center justify-between">
+          {/* Code Snippet */}
+          <div className="h-[45rem] col-span-full bg-black-75 border border-black-50 rounded-xl relative overflow-hidden">
+            <div className="p-4 text-sm flex w-full items-center justify-between">
               <p>Code</p>
-              <p className="text-xs">JavaScript</p>
+              <div className="flex items-center gap-x-3">
+                <Expand className="size-4 text-gray-500" />
+              </div>
             </div>
             <Separator className="bg-black-50" />
             {question?.codeSnippet && (
@@ -142,11 +184,18 @@ export default function TodaysQuestionPage({
             )}
           </div>
 
-          {/** hints + question stats */}
-          <div className="col-span-full row-start-2 bg-black-75 border border-black-50 rounded-xl">
-            <div className="px-4 py-2 text-sm">Stats</div>
+          {/* Related Questions Card */}
+          <div className="h-36 bg-black-75 border border-black-50 rounded-xl">
+            <div className="flex items-center gap-x-1 p-4">
+              <Expand className="size-4" />
+              <div className="text-sm">Related Questions</div>
+            </div>
             <Separator className="bg-black-50" />
-            <div className="h-64"></div>
+            <div className="p-4">
+              <p className="text-sm text-gray-400">
+                No related questions available.
+              </p>
+            </div>
           </div>
 
           <div className="flex items-center gap-4 self-end">

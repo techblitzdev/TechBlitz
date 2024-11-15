@@ -44,7 +44,7 @@ export default function CodeDisplay({ content, language }: CodeDisplayProps) {
         getTokenProps,
       }: HighlightProps) => (
         <pre
-          className="overflow-x-auto p-4"
+          className="overflow-x-auto p-4 h-full"
           style={{ ...style, background: '#111111' }}
         >
           {tokens.map((line, lineIndex) => (

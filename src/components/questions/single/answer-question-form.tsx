@@ -30,7 +30,7 @@ type AnswerQuestionFormProps = {
   stopwatchPause: () => void;
   resetStopwatch?: () => void;
   onNext?: () => void;
-  ref: React.ForwardedRef<{ submitForm: () => void }>;
+  nextQuestion?: string;
 };
 
 const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
@@ -39,7 +39,8 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
     question,
     time,
     stopwatchPause,
-  }: Omit<AnswerQuestionFormProps, 'ref'>,
+    nextQuestion,
+  }: AnswerQuestionFormProps,
   ref: React.Ref<{ submitForm: () => void }>
 ) {
   const [correctAnswer, setCorrectAnswer] = useState<
@@ -217,6 +218,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
             isOpen={isModalOpen}
             onOpenChange={setIsModalOpen}
             onRetry={handleRetry}
+            nextQuestion={nextQuestion}
           />
         )}
       </form>

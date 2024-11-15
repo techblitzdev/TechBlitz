@@ -35,6 +35,7 @@ type AnswerQuestionModalProps = {
   onOpenChange: (open: boolean) => void;
   onRetry?: () => void;
   onNext?: () => void;
+  nextQuestion?: string;
 };
 
 type DialogContentType = {
@@ -68,6 +69,7 @@ export default function AnswerQuestionModal({
   onOpenChange,
   onRetry,
   onNext,
+  nextQuestion,
 }: AnswerQuestionModalProps) {
   const router = useRouter();
   const [showQuestionData, setShowQuestionData] = useState(false);
@@ -98,19 +100,6 @@ export default function AnswerQuestionModal({
     streakData?.streakData?.streakStart,
     streakData?.streakData?.streakEnd,
   ] as [Date, Date];
-
-  const {
-    data: nextQuestion,
-    refetch,
-    isLoading,
-  } = useQuery({
-    queryKey: ['random-question', user.uid],
-    queryFn: async () =>
-      await getRandomQuestion({
-        currentQuestionId: question.uid,
-        userUid: user.uid,
-      }),
-  });
 
   const handleNextQuestion = () => {
     if (user.userLevel === 'FREE' && correct === 'correct') {
@@ -209,7 +198,7 @@ export default function AnswerQuestionModal({
                     fullWidth={false}
                     disabled={user?.userLevel === 'FREE'}
                   >
-                    {isLoading ? <LoadingSpinner /> : <>Next question</>}
+                    Next question
                     {user?.userLevel === 'FREE' && <LockClosedIcon />}
                   </Button>
                   {user?.userLevel === 'FREE' && (

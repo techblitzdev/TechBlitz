@@ -14,6 +14,7 @@ import { getQuestionStats } from '@/actions/questions/get-question-stats';
 import { useUserServer } from '@/hooks/useUserServer';
 
 import QuestionCard from '@/components/questions/single/question-card';
+import { getRandomQuestion } from '@/actions/questions/get-next-question';
 
 export default async function TodaysQuestionPage({
   params,
@@ -32,6 +33,10 @@ export default async function TodaysQuestionPage({
   }
 
   const totalSubmissions = await getQuestionStats(uid);
+  const nextQuestion = await getRandomQuestion({
+    currentQuestionId: uid,
+    userUid: user.uid,
+  });
 
   return (
     <>
@@ -40,7 +45,11 @@ export default async function TodaysQuestionPage({
         <div className="flex flex-col gap-y-4 w-1/2 relative overflow-hidden h-fit">
           {/* Question Card */}
           <Button className="border border-black-50">Question</Button>
-          <QuestionCard question={question} user={user} />
+          <QuestionCard
+            question={question}
+            user={user}
+            nextQuestion={nextQuestion}
+          />
 
           {/* Stats Card */}
           <div className="bg-black-75 border border-black-50 rounded-xl">

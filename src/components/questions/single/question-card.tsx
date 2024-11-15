@@ -17,8 +17,9 @@ import { useStopwatch } from 'react-timer-hook';
 export default function QuestionCard(opts: {
   user: UserRecord;
   question: Question;
+  nextQuestion?: string;
 }) {
-  const { user, question } = opts;
+  const { user, question, nextQuestion } = opts;
 
   const answerFormRef = useRef<{ submitForm: () => void }>(null);
 
@@ -59,6 +60,7 @@ export default function QuestionCard(opts: {
           question={question}
           stopwatchPause={pause}
           time={totalSeconds}
+          nextQuestion={nextQuestion}
         />
       </div>
       <Separator className="bg-black-50" />

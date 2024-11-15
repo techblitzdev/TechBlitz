@@ -11,6 +11,7 @@ import { capitalise, getQuestionDifficultyColor } from '@/utils';
 
 import { UserRecord } from '@/types/User';
 import { Question } from '@/types/Questions';
+import { cn } from '@/utils/cn';
 
 export default function QuestionCard(opts: {
   user: UserRecord;
@@ -42,7 +43,7 @@ export default function QuestionCard(opts: {
           </div>
         )}
         {question?.question && (
-          <div className="px-4">
+          <div className={cn('px-4', !question.dailyQuestion && 'pt-4')}>
             <h3 className="font-inter font-light">{question.question}</h3>
           </div>
         )}

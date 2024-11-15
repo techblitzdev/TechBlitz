@@ -13,8 +13,8 @@ export default async function StreakBentoBox() {
   const userStreak = await getUserDailyStats(user?.user?.id);
 
   // get the streak start date and streak end date
-  const startDate = userStreak?.streakData?.streakEnd as Date;
-  const endDate = userStreak?.streakData?.streakStart as Date;
+  const startDate = userStreak?.streakData?.streakStart as Date;
+  const endDate = userStreak?.streakData?.streakEnd as Date;
 
   // create an array of dates between the start and end date
   const dateArray: [Date, Date] = [startDate, endDate];

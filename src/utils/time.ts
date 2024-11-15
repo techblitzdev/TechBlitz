@@ -30,7 +30,7 @@ export const formatSeconds = (seconds: number) => {
   }
 
   if (!result) {
-    result = '0 seconds';
+    result = '0s';
   }
 
   return result;

@@ -36,36 +36,16 @@ export default async function TodaysQuestionPage({
 
   const question = await getQuestion(uid);
   if (!question) {
-    return <LoadingSpinner />;
+    return <NoDailyQuestion />;
   }
 
   const totalSubmissions = await getQuestionStats(uid);
 
   return (
     <>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-x-5 py-2">
-          {/** Previous question button */}
-          <BackToDashboard />
-          {question?.dailyQuestion && question?.questionDate && (
-            <div className="font-ubuntu flex gap-x-5 items-center">
-              <p>Daily question</p>
-            </div>
-          )}
-        </div>
-        <Link
-          href="/dashboard"
-          className="bg-black-100 border border-black-50 p-2 rounded-md relative group duration-200 size-8 flex items-center justify-center"
-        >
-          <ChevronRight className="size-4 opacity-100 group-hover:opacity-0 absolute duration-100" />
-          <ArrowRight className="size-4 opacity-0 group-hover:opacity-100 absolute duration-100" />
-        </Link>
-      </div>
-      <Separator className="bg-black-50" />
-
-      <div className="flex gap-8 mt-6">
+      <div className="flex gap-8 mt-3">
         {/* Left Section - Question and Stats */}
-        <div className="flex flex-col gap-y-4 w-1/2 relative overflow-hidden">
+        <div className="flex flex-col gap-y-4 w-1/2 relative overflow-hidden h-fit">
           {/* Question Card */}
           <Button className="border border-black-50">Question</Button>
           <div className="col-span-full lg:col-span-6 h-fit bg-black-75 border border-black-50 rounded-xl overflow-hidden">
@@ -104,8 +84,12 @@ export default async function TodaysQuestionPage({
             {question?.tags && (
               <>
                 <Separator className="bg-black-100 w-full" />
-                <div className="p-4">
+                <div className="p-4 w-full flex justify-between items-center">
                   <TagDisplay tags={question.tags} variant="secondary" />
+                  <div className="flex items-center gap-4 self-end">
+                    <Button variant="destructive">Reset</Button>
+                    <Button variant="accent">Submit</Button>
+                  </div>
                 </div>
               </>
             )}
@@ -175,11 +159,6 @@ export default async function TodaysQuestionPage({
                 No related questions available.
               </p>
             </div>
-          </div>
-
-          <div className="flex items-center gap-4 self-end">
-            <Button variant="destructive">Reset</Button>
-            <Button variant="secondary">Submit</Button>
           </div>
         </div>
       </div>

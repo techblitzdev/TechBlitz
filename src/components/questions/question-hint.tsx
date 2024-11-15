@@ -4,7 +4,6 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from '@/components/ui/accordion';
-import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import { Lightbulb } from 'lucide-react';
 
 export default function QuestionHintAccordion(opts: { hint: string }) {

@@ -1,11 +1,7 @@
-'use client';
-import { useQuery } from '@tanstack/react-query';
 import { getQuestion } from '@/actions/questions/get';
 import LoadingSpinner from '@/components/ui/loading';
-import { useUser } from '@/hooks/useUser';
 import AnswerQuestionForm from '@/components/questions/answer-question-form';
 import { Separator } from '@/components/ui/separator';
-import { useStopwatch } from 'react-timer-hook';
 import NoDailyQuestion from '@/components/global/errors/no-daily-question';
 import QuestionDisplay from '@/components/questions/code-snippet';
 import {
@@ -13,9 +9,7 @@ import {
   ChartColumn,
   Check,
   ChevronRight,
-  Clock,
   Expand,
-  Percent,
   ShieldQuestionIcon,
   User,
 } from 'lucide-react';
@@ -25,59 +19,27 @@ import { Button } from '@/components/ui/button';
 import Chip from '@/components/global/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import TagDisplay from '@/components/questions/previous/tag-display';
-import { formatSeconds } from '@/utils/time';
 import { getQuestionStats } from '@/actions/questions/get-question-stats';
+import { useUserServer } from '@/hooks/useUserServer';
+import Stopwatch from '@/components/questions/stopwatch';
 
-export default function TodaysQuestionPage({
+export default async function TodaysQuestionPage({
   params,
 }: {
   params: { uid: string };
 }) {
   const { uid } = params;
-  const { user, isLoading: userLoading, isError: userError } = useUser();
-
-  const {
-    data: question,
-    isPending,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ['question', uid],
-    queryFn: () => getQuestion(uid),
-  });
-
-  const {
-    data: totalSubmissions,
-    isPending: totalSubmissionsPending,
-    isError: totalSubmissionsError,
-  } = useQuery({
-    queryKey: ['question-submissions', uid],
-    queryFn: () => getQuestionStats(uid),
-  });
-
-  const { seconds, minutes, pause, reset, totalSeconds } = useStopwatch({
-    autoStart: true,
-  });
-
-  if (!question && !isPending) {
-    return <NoDailyQuestion textAlign="center" />;
+  const user = await useUserServer();
+  if (!user) {
+    return;
   }
 
-  if (userLoading || isPending) {
-    return (
-      <div className="flex justify-center items-center">
-        <LoadingSpinner />
-      </div>
-    );
-  }
-
-  if (userError || isError || !user?.uid) {
-    return <span>Error loading: {error?.message}</span>;
-  }
-
+  const question = await getQuestion(uid);
   if (!question) {
-    return <span>Question not found</span>;
+    return <LoadingSpinner />;
   }
+
+  const totalSubmissions = await getQuestionStats(uid);
 
   return (
     <>
@@ -114,12 +76,7 @@ export default function TodaysQuestionPage({
                 textColor={getQuestionDifficultyColor(question.difficulty)}
                 ghost
               />
-              {user?.showTimeTaken && (
-                <div className="flex items-center gap-x-1 text-sm">
-                  <Clock className="size-4" />
-                  <p>{formatSeconds(totalSeconds)}</p>
-                </div>
-              )}
+              {user?.showTimeTaken && <Stopwatch />}
             </div>
             <Separator className="bg-black-50" />
             <div className="h-fit bg-black-100">
@@ -141,9 +98,6 @@ export default function TodaysQuestionPage({
                 userData={user}
                 uid={uid}
                 question={question}
-                time={totalSeconds}
-                stopwatchPause={pause}
-                resetStopwatch={reset}
               />
             </div>
             <Separator className="bg-black-50" />

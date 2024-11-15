@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 // components
 import { Form, FormControl, FormField } from '@/components/ui/form';
@@ -29,9 +30,9 @@ type AnswerQuestionFormProps = {
   userData: UserRecord;
   uid: string;
   question: Question;
-  time: number;
-  stopwatchPause: () => void;
-  resetStopwatch: () => void;
+  time?: number;
+  stopwatchPause?: () => void;
+  resetStopwatch?: () => void;
   onNext?: () => void;
 };
 
@@ -50,7 +51,6 @@ export default function AnswerQuestionForm({
   const [userAnswer, setUserAnswer] = useState<Answer | null>(null);
   const [newUserData, setNewUserData] = useState<UserRecord | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(answerQuestionSchema),
@@ -64,8 +64,6 @@ export default function AnswerQuestionForm({
       console.error('User is not logged in');
       return;
     }
-
-    setIsLoading(true);
 
     stopwatchPause();
 
@@ -94,8 +92,6 @@ export default function AnswerQuestionForm({
       console.error('Error submitting answer:', error);
       toast.error('Error submitting answer');
     }
-
-    setIsLoading(false);
   };
 
   const adminClearAnswers = async () => {

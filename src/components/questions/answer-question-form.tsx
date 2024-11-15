@@ -122,7 +122,7 @@ export default function AnswerQuestionForm({
         className="font-satoshi flex flex-col gap-4"
         onSubmit={form.handleSubmit(handleAnswerQuestion)}
       >
-        <div className="grid grid-cols-12 gap-4 my-6">
+        <div className="grid grid-cols-12 gap-4 p-4">
           {question.answers.map((answer) => (
             <div key={answer.uid} className="col-span-full">
               <FormField
@@ -135,8 +135,8 @@ export default function AnswerQuestionForm({
                       className={cn(
                         'p-4 rounded-xl min-h-20 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
                         field.value === answer.uid
-                          ? 'bg-white text-black hover:bg-white/90'
-                          : 'bg-black-100 hover:bg-gray-900'
+                          ? 'bg-black-50'
+                          : 'bg-black hover:bg-black-75'
                       )}
                       onClick={() => field.onChange(answer.uid)}
                     >
@@ -153,7 +153,7 @@ export default function AnswerQuestionForm({
                         className={cn(
                           'size-5 rounded-md border border-black-50 flex items-center justify-center flex-shrink-0', // Fixed size and prevent shrinking
                           field.value === answer.uid
-                            ? 'bg-black text-white'
+                            ? 'bg-accent text-white'
                             : ''
                         )}
                       >
@@ -170,7 +170,7 @@ export default function AnswerQuestionForm({
           ))}
         </div>
         <Separator className="bg-black-50" />
-        <div className="w-full space-y-4">
+        <div className="w-full space-y-4 px-4">
           {question.hint && <QuestionHintAccordion hint={question.hint} />}
           {/* <div className="flex items-center gap-4">
             <Button

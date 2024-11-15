@@ -85,18 +85,27 @@ export default function TodaysQuestionPage({
           <Button className="border border-black-50">Question</Button>
           {/** answers */}
           <div className="col-span-full lg:col-span-6 h-full bg-black-75 border border-black-50 rounded-xl overflow-hidden">
-            <div className="p-4">
+            <div className="p-4 w-full flex justify-between">
               <Chip
                 color={getQuestionDifficultyColor(question.difficulty)}
                 text={capitalise(question.difficulty)}
                 textColor={getQuestionDifficultyColor(question.difficulty)}
                 ghost
               />
+              {/** time taken */}
+              {user?.showTimeTaken && (
+                <div className="flex items-center gap-x-2">
+                  <Clock className="size-4" />
+                  <p>{`${minutes}:${seconds}`}</p>
+                </div>
+              )}
             </div>
             <Separator className="bg-black-50" />
-            <div className="h-fit bg-black-100 p-4">
+            <div className="h-fit bg-black-100">
               {question?.question && (
-                <h3 className="font-inter font-light">{question.question}</h3>
+                <div className=" p-4">
+                  <h3 className="font-inter font-light">{question.question}</h3>
+                </div>
               )}
 
               <AnswerQuestionForm
@@ -108,16 +117,14 @@ export default function TodaysQuestionPage({
                 resetStopwatch={reset}
               />
             </div>
-            <div className="">
-              {question?.tags && (
-                <>
-                  <Separator className="bg-black-50" />
-                  <div className="p-4">
-                    <TagDisplay tags={question.tags} />
-                  </div>
-                </>
-              )}
-            </div>
+            {question?.tags && (
+              <>
+                <Separator className="bg-black-50 w-full" />
+                <div className="p-4">
+                  <TagDisplay tags={question.tags} variant="secondary" />
+                </div>
+              </>
+            )}
           </div>
         </div>
 

@@ -2,8 +2,8 @@ import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
+  AccordionContent,
 } from '@/components/ui/accordion';
-import { AccordionContent } from '@radix-ui/react-accordion';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 
 export default function QuestionHintAccordion(opts: { hint: string }) {

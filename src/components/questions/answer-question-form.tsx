@@ -65,7 +65,7 @@ export default function AnswerQuestionForm({
       return;
     }
 
-    stopwatchPause();
+    //stopwatchPause();
 
     try {
       const opts: any = {
@@ -108,7 +108,6 @@ export default function AnswerQuestionForm({
     setCorrectAnswer('init');
     setUserAnswer(null);
     setIsModalOpen(false);
-    resetStopwatch();
     form.reset();
   };
 

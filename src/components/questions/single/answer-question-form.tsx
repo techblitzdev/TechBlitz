@@ -31,16 +31,13 @@ type AnswerQuestionFormProps = {
   stopwatchPause?: () => void;
   resetStopwatch?: () => void;
   onNext?: () => void;
+  ref: React.ForwardedRef<{ submitForm: () => void }>;
 };
 
-export default function AnswerQuestionForm({
-  userData,
-  question,
-  time,
-  stopwatchPause,
-  resetStopwatch,
-  onNext,
-}: AnswerQuestionFormProps) {
+const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
+  { userData, question, time }: Omit<AnswerQuestionFormProps, 'ref'>,
+  ref: React.Ref<{ submitForm: () => void }>
+) {
   const [correctAnswer, setCorrectAnswer] = useState<
     'init' | 'incorrect' | 'correct'
   >('init');
@@ -54,6 +51,16 @@ export default function AnswerQuestionForm({
       answer: '',
     },
   });
+
+  // Expose the `submitForm` method to the parent via ref
+  useImperativeHandle(ref, () => ({
+    submitForm: () => {
+      form.handleSubmit(async (values) => {
+        console.log('Submitting form with values:', values);
+        await handleAnswerQuestion(values);
+      })();
+    },
+  }));
 
   const handleAnswerQuestion = async (values: SchemaProps) => {
     if (!userData) {
@@ -202,10 +209,11 @@ export default function AnswerQuestionForm({
             isOpen={isModalOpen}
             onOpenChange={setIsModalOpen}
             onRetry={handleRetry}
-            onNext={onNext}
           />
         )}
       </form>
     </Form>
   );
-}
+});
+
+export default AnswerQuestionForm;

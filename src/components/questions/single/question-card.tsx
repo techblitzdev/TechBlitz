@@ -1,11 +1,14 @@
 'use client';
+import { useRef } from 'react';
 
 import Chip from '@/components/global/chip';
 import { Separator } from '@/components/ui/separator';
-import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import AnswerQuestionForm from './answer-question-form';
 import QuestionCardFooter from './question-card-footer';
 import Stopwatch from './stopwatch';
+
+import { capitalise, getQuestionDifficultyColor } from '@/utils';
+
 import { UserRecord } from '@/types/User';
 import { Question } from '@/types/Questions';
 
@@ -14,6 +17,8 @@ export default function QuestionCard(opts: {
   question: Question;
 }) {
   const { user, question } = opts;
+
+  const answerFormRef = useRef<{ submitForm: () => void }>(null);
 
   return (
     <div className="col-span-full lg:col-span-6 h-fit bg-black-75 border border-black-50 rounded-xl overflow-hidden">
@@ -42,10 +47,19 @@ export default function QuestionCard(opts: {
           </div>
         )}
 
-        <AnswerQuestionForm userData={user} question={question} />
+        <AnswerQuestionForm
+          ref={answerFormRef}
+          userData={user}
+          question={question}
+        />
       </div>
       <Separator className="bg-black-50" />
-      {question.tags && <QuestionCardFooter questionTags={question.tags} />}
+      {question.tags && (
+        <QuestionCardFooter
+          questionTags={question.tags}
+          answerFormRef={answerFormRef}
+        />
+      )}
     </div>
   );
 }

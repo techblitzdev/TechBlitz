@@ -1,14 +1,13 @@
-'use client';
 import { Tags } from '@/types/Tags';
-import { useRef } from 'react';
 import { Separator } from '../../ui/separator';
 import TagDisplay from '../previous/tag-display';
 import { Button } from '../../ui/button';
 
-export default function QuestionCardFooter(opts: { questionTags: Tags[] }) {
-  const { questionTags } = opts;
-
-  const answerFormRef = useRef<{ submitForm: () => void }>(null);
+export default function QuestionCardFooter(opts: {
+  questionTags: Tags[];
+  answerFormRef: React.RefObject<{ submitForm: () => void }>;
+}) {
+  const { questionTags, answerFormRef } = opts;
 
   return (
     <>
@@ -19,7 +18,12 @@ export default function QuestionCardFooter(opts: { questionTags: Tags[] }) {
             <TagDisplay tags={questionTags} variant="secondary" />
             <div className="flex items-center gap-4 self-end">
               <Button variant="destructive">Reset</Button>
-              <Button variant="accent">Submit</Button>
+              <Button
+                variant="accent"
+                onClick={() => answerFormRef.current?.submitForm()} // Trigger form submission
+              >
+                Submit
+              </Button>
             </div>
           </div>
         </>

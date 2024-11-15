@@ -11,9 +11,13 @@ import QuestionDisplay from '@/components/questions/code-snippet';
 import {
   ArrowRight,
   ChartColumn,
+  Check,
   ChevronRight,
   Clock,
   Expand,
+  Percent,
+  ShieldQuestionIcon,
+  User,
 } from 'lucide-react';
 import BackToDashboard from '@/components/global/back-to-dashboard';
 import Link from 'next/link';
@@ -22,6 +26,7 @@ import Chip from '@/components/global/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import TagDisplay from '@/components/questions/previous/tag-display';
 import { formatSeconds } from '@/utils/time';
+import { getQuestionStats } from '@/actions/questions/get-question-stats';
 
 export default function TodaysQuestionPage({
   params,
@@ -39,6 +44,15 @@ export default function TodaysQuestionPage({
   } = useQuery({
     queryKey: ['question', uid],
     queryFn: () => getQuestion(uid),
+  });
+
+  const {
+    data: totalSubmissions,
+    isPending: totalSubmissionsPending,
+    isError: totalSubmissionsError,
+  } = useQuery({
+    queryKey: ['question-submissions', uid],
+    queryFn: () => getQuestionStats(uid),
   });
 
   const { seconds, minutes, pause, reset, totalSeconds } = useStopwatch({
@@ -93,7 +107,7 @@ export default function TodaysQuestionPage({
           {/* Question Card */}
           <Button className="border border-black-50">Question</Button>
           <div className="col-span-full lg:col-span-6 h-fit bg-black-75 border border-black-50 rounded-xl overflow-hidden">
-            <div className="p-4 w-full flex justify-between">
+            <div className="p-4 w-full flex justify-between bg-black-25">
               <Chip
                 color={getQuestionDifficultyColor(question.difficulty)}
                 text={capitalise(question.difficulty)}
@@ -132,9 +146,10 @@ export default function TodaysQuestionPage({
                 resetStopwatch={reset}
               />
             </div>
+            <Separator className="bg-black-50" />
             {question?.tags && (
               <>
-                <Separator className="bg-black-50 w-full" />
+                <Separator className="bg-black-100 w-full" />
                 <div className="p-4">
                   <TagDisplay tags={question.tags} variant="secondary" />
                 </div>
@@ -143,25 +158,35 @@ export default function TodaysQuestionPage({
           </div>
 
           {/* Stats Card */}
-          <div className="h-28 bg-black-75 border border-black-50 rounded-xl">
+          <div className="bg-black-75 border border-black-50 rounded-xl">
             <div className="flex items-center gap-x-1 p-4">
               <ChartColumn className="size-4" />
               <div className="text-sm">Stats</div>
             </div>
             <Separator className="bg-black-50" />
             <div className="p-4 flex items-center">
-              <div className="flex items-center gap-4">
+              <div className="flex items-start gap-4 text-sm text-gray-400">
                 <div className="flex items-center gap-2">
-                  <p>Submissions</p>
-                  <p className="text-accent">23456</p>
+                  <div className="flex items-center gap-0.5">
+                    <User className="size-4" />
+                    <p>Total submissions:</p>
+                  </div>
+                  <p>{totalSubmissions?.totalSubmissions}</p>
                 </div>
+                |
                 <div className="flex items-center gap-2">
-                  <p>Correct</p>
-                  <p className="text-accent">12345</p>
+                  <p>Success rate:</p>
+                  <p>{totalSubmissions?.percentageCorrect}%</p>
                 </div>
+                |
                 <div className="flex items-center gap-2">
-                  <p>Success rate</p>
-                  <p className="text-accent">78%</p>
+                  <div className="flex items-center gap-0.5">
+                    <Check className="size-4 text-green-500" />
+                    <p>Correct:</p>
+                  </div>
+                  <p className="">
+                    {totalSubmissions?.totalCorrectSubmissions}
+                  </p>
                 </div>
               </div>
             </div>
@@ -172,7 +197,7 @@ export default function TodaysQuestionPage({
         <div className="w-1/2 h-3/4 grid-cols-subgrid gap-8 flex flex-col">
           {/* Code Snippet */}
           <div className="h-[45rem] col-span-full bg-black-75 border border-black-50 rounded-xl relative overflow-hidden">
-            <div className="p-4 text-sm flex w-full items-center justify-between">
+            <div className="p-4 text-sm flex w-full items-center justify-between bg-black-25">
               <p>Code</p>
               <div className="flex items-center gap-x-3">
                 <Expand className="size-4 text-gray-500" />
@@ -185,9 +210,9 @@ export default function TodaysQuestionPage({
           </div>
 
           {/* Related Questions Card */}
-          <div className="h-36 bg-black-75 border border-black-50 rounded-xl">
+          <div className="h-36 bg-black-75 border border-black-50 rounded-xl overflow-hidden">
             <div className="flex items-center gap-x-1 p-4">
-              <Expand className="size-4" />
+              <ShieldQuestionIcon className="size-4" />
               <div className="text-sm">Related Questions</div>
             </div>
             <Separator className="bg-black-50" />

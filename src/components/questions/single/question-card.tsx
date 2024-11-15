@@ -12,6 +12,7 @@ import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import { UserRecord } from '@/types/User';
 import { Question } from '@/types/Questions';
 import { cn } from '@/utils/cn';
+import { useStopwatch } from 'react-timer-hook';
 
 export default function QuestionCard(opts: {
   user: UserRecord;
@@ -20,6 +21,10 @@ export default function QuestionCard(opts: {
   const { user, question } = opts;
 
   const answerFormRef = useRef<{ submitForm: () => void }>(null);
+
+  const { seconds, minutes, pause, reset, totalSeconds } = useStopwatch({
+    autoStart: true,
+  });
 
   return (
     <div className="col-span-full lg:col-span-6 h-fit bg-black-75 border border-black-50 rounded-xl overflow-hidden">
@@ -30,7 +35,7 @@ export default function QuestionCard(opts: {
           textColor={getQuestionDifficultyColor(question.difficulty)}
           ghost
         />
-        {user?.showTimeTaken && <Stopwatch />}
+        {user?.showTimeTaken && <Stopwatch totalSeconds={totalSeconds} />}
       </div>
       <Separator className="bg-black-50" />
       <div className="h-fit bg-black-100">
@@ -52,6 +57,8 @@ export default function QuestionCard(opts: {
           ref={answerFormRef}
           userData={user}
           question={question}
+          stopwatchPause={pause}
+          time={totalSeconds}
         />
       </div>
       <Separator className="bg-black-50" />

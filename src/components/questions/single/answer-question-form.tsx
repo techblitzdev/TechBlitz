@@ -16,7 +16,6 @@ import type { Question } from '@/types/Questions';
 import type { UserRecord } from '@/types/User';
 import type { Answer } from '@/types/Answers';
 import { toast } from 'sonner';
-import { clearQuestionsForAdmin } from '@/actions/questions/admin/clear';
 import { Label } from '../../ui/label';
 import { cn } from '@/utils/cn';
 import { Check } from 'lucide-react';
@@ -27,15 +26,20 @@ type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
   userData: UserRecord;
   question: Question;
-  time?: number;
-  stopwatchPause?: () => void;
+  time: number;
+  stopwatchPause: () => void;
   resetStopwatch?: () => void;
   onNext?: () => void;
   ref: React.ForwardedRef<{ submitForm: () => void }>;
 };
 
 const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
-  { userData, question, time }: Omit<AnswerQuestionFormProps, 'ref'>,
+  {
+    userData,
+    question,
+    time,
+    stopwatchPause,
+  }: Omit<AnswerQuestionFormProps, 'ref'>,
   ref: React.Ref<{ submitForm: () => void }>
 ) {
   const [correctAnswer, setCorrectAnswer] = useState<
@@ -68,7 +72,11 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
       return;
     }
 
-    //stopwatchPause();
+    stopwatchPause();
+
+    console.log({
+      time,
+    });
 
     try {
       const opts: any = {
@@ -97,15 +105,15 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
     }
   };
 
-  const adminClearAnswers = async () => {
-    try {
-      await clearQuestionsForAdmin(question?.uid);
-      toast.success('Successfully cleared all answers for this question');
-    } catch (error) {
-      console.error('Error clearing answers:', error);
-      toast.error('Failed to clear answers. Please try again.');
-    }
-  };
+  // const adminClearAnswers = async () => {
+  //   try {
+  //     await clearQuestionsForAdmin(question?.uid);
+  //     toast.success('Successfully cleared all answers for this question');
+  //   } catch (error) {
+  //     console.error('Error clearing answers:', error);
+  //     toast.error('Failed to clear answers. Please try again.');
+  //   }
+  // };
 
   const handleRetry = () => {
     setCorrectAnswer('init');

@@ -2,12 +2,9 @@
 
 import { formatSeconds } from '@/utils/time';
 import { Clock } from 'lucide-react';
-import { useStopwatch } from 'react-timer-hook';
 
-export default function Stopwatch() {
-  const { seconds, minutes, pause, reset, totalSeconds } = useStopwatch({
-    autoStart: true,
-  });
+export default function Stopwatch(otps: { totalSeconds: number }) {
+  const { totalSeconds } = otps;
 
   return (
     <div className="flex items-center gap-x-1 text-sm">

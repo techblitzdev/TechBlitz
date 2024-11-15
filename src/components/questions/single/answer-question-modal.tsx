@@ -20,7 +20,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { getNextQuestion } from '@/actions/questions/get-next-question';
+import { getRandomQuestion } from '@/actions/questions/get-next-question';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { DatePicker } from '@mantine/dates';
@@ -104,9 +104,9 @@ export default function AnswerQuestionModal({
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ['nextQuestion', user.uid],
+    queryKey: ['random-question', user.uid],
     queryFn: async () =>
-      await getNextQuestion({
+      await getRandomQuestion({
         currentQuestionId: question.uid,
         userUid: user.uid,
       }),

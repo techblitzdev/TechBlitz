@@ -1,5 +1,4 @@
 import { getQuestion } from '@/actions/questions/get';
-import AnswerQuestionForm from '@/components/questions/single/answer-question-form';
 import { Separator } from '@/components/ui/separator';
 import NoDailyQuestion from '@/components/global/errors/no-daily-question';
 import QuestionDisplay from '@/components/questions/single/code-snippet';
@@ -11,13 +10,9 @@ import {
   User,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import Chip from '@/components/global/chip';
-import { capitalise, getQuestionDifficultyColor } from '@/utils';
-import TagDisplay from '@/components/questions/previous/tag-display';
 import { getQuestionStats } from '@/actions/questions/get-question-stats';
 import { useUserServer } from '@/hooks/useUserServer';
-import Stopwatch from '@/components/questions/single/stopwatch';
-import QuestionCardFooter from '@/components/questions/single/question-card-footer';
+
 import QuestionCard from '@/components/questions/single/question-card';
 
 export default async function TodaysQuestionPage({

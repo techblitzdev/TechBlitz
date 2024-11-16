@@ -41,17 +41,19 @@ export default function PreviousQuestionsPage() {
     <>
       <div className="flex flex-col gap-y-2 w-full">
         <div className="flex flex-col gap-y-2 justify-center w-full text-center">
-          <div className="flex w-full justify-between container">
+          <div className="flex items-center w-full justify-between container">
             <BackToDashboard />
-            <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
-              Previous Daily Questions
-            </h1>
+            <div className="flex flex-col w-full justify-between">
+              <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
+                Previous Daily Questions
+              </h1>
+              <p className="font-ubuntu text-sm text-gray-300">
+                Here you can find all the daily questions that have been asked
+                in the past.
+              </p>
+            </div>
             <div aria-hidden></div>
           </div>
-          <p className="font-ubuntu text-sm text-gray-300">
-            Here you can find all the daily questions that have been asked in
-            the past, as well as your answers to them.
-          </p>
         </div>
       </div>
       <Separator className="bg-black-50" />

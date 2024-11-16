@@ -1,25 +1,31 @@
 'use client';
-import { listQuestions } from '@/actions/questions/list';
+
 import GlobalPagination from '@/components/global/pagination';
-import QuestionListCard from '@/components/questions/list/question-card';
 import LoadingSpinner from '@/components/ui/loading';
+import QuestionListCard from '@/components/questions/list/question-card';
 import { useUser } from '@/hooks/useUser';
 import { Question } from '@/types/Questions';
+import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { listQuestions } from '@/actions/questions/list';
 
-const ITEMS_PER_PAGE = 20;
-
-export default function QuestionsDashboardClient(opts: {
-  questions: Omit<Question, 'answers'>[];
+const QuestionsDashboardClient = ({
+  initialQuestions,
+  initialPage,
+  totalPages,
+  total,
+  itemsPerPage,
+}: {
+  initialQuestions: Omit<Question, 'answers'>[];
+  initialPage: number;
   totalPages: number;
-  page: number;
   total: number;
-}) {
-  const { total } = opts;
+  itemsPerPage: number;
+}) => {
   const { user, isLoading: userLoading } = useUser();
-
-  const [currentPage, setCurrentPage] = useState(0);
+  const [questions, setQuestions] = useState(initialQuestions);
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [loading, setLoading] = useState(false);
 
   const handlePageChange = (newPage: number) => setCurrentPage(newPage);
 
@@ -31,27 +37,40 @@ export default function QuestionsDashboardClient(opts: {
       }
       return listQuestions({
         page: currentPage,
-        pageSize: ITEMS_PER_PAGE,
+        pageSize: 20,
       });
     },
-    enabled: !!user?.uid,
+    enabled: false,
   });
 
-  if (userLoading || isLoading) return <LoadingSpinner />;
+  if (userLoading) return <LoadingSpinner />;
   if (!user) return null;
 
   return (
     <>
-      {data?.questions?.map((question) => (
-        <QuestionListCard key={question.uid} question={question} user={user} />
-      ))}
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <div className="space-y-4">
+          {questions?.map((question) => (
+            <QuestionListCard
+              key={question.uid}
+              question={question}
+              user={user}
+            />
+          ))}
+        </div>
+      )}
+
       <GlobalPagination
         className="mt-5"
         currentPage={currentPage}
         onPageChange={handlePageChange}
         totalItems={total}
-        itemsPerPage={ITEMS_PER_PAGE}
+        itemsPerPage={itemsPerPage}
       />
     </>
   );
-}
+};
+
+export default QuestionsDashboardClient;

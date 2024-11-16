@@ -113,9 +113,16 @@ export default async function TodaysQuestionPage({
             </div>
             <Separator className="bg-black-50" />
             <div className="divide-y-[1px] divide-black-50">
-              {relatedQuestions.map((relatedQuestion, index) => (
-                <RelatedQuestionCard question={relatedQuestion} index={index} />
-              ))}
+              {relatedQuestions.length > 0 ? (
+                relatedQuestions.map((relatedQuestion, index) => (
+                  <RelatedQuestionCard
+                    question={relatedQuestion}
+                    index={index}
+                  />
+                ))
+              ) : (
+                <div className="p-4 text-sm">No related questions found</div>
+              )}
             </div>
           </div>
         </div>

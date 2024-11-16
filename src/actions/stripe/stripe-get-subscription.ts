@@ -9,9 +9,6 @@ export const getSubscription = async (opts: {
 
   if (!userUid) return null;
 
-  // get the user from the db
-
-  //@ts-ignore
   return await prisma.subscriptions.findUnique({
     where: {
       userUid,

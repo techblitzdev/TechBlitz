@@ -16,6 +16,7 @@ import { useUserServer } from '@/hooks/useUserServer';
 import QuestionCard from '@/components/questions/single/question-card';
 import { getRandomQuestion } from '@/actions/questions/get-next-question';
 import { getRelatedQuestions } from '@/actions/questions/get-related';
+import RelatedQuestionCard from '@/components/questions/single/related-question-card';
 
 export default async function TodaysQuestionPage({
   params,
@@ -105,16 +106,16 @@ export default async function TodaysQuestionPage({
           </div>
 
           {/* Related Questions Card */}
-          <div className=" bg-black-75 border border-black-50 rounded-xl overflow-hidden">
+          <div className="min-h-fit bg-black-75 border border-black-50 rounded-xl overflow-hidden">
             <div className="flex items-center gap-x-1 p-4">
               <ShieldQuestionIcon className="size-4" />
               <div className="text-sm">Related Questions</div>
             </div>
             <Separator className="bg-black-50" />
-            <div className="p-4">
-              <p className="text-sm text-gray-400">
-                {JSON.stringify(relatedQuestions)}
-              </p>
+            <div className="divide-y-[1px] divide-black-50">
+              {relatedQuestions.map((relatedQuestion, index) => (
+                <RelatedQuestionCard question={relatedQuestion} index={index} />
+              ))}
             </div>
           </div>
         </div>

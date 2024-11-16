@@ -12,7 +12,7 @@ export default function RelatedQuestionCard(opts: {
     <Link
       href={`/questions/${question.uid}`}
       className={cn(
-        'px-4 py-2 w-full flex justify-between items-center group',
+        'px-4 py-3 w-full flex justify-between items-center group',
         index % 2 === 0
           ? 'bg-black hover:bg-black-75'
           : 'bg-black-75 hover:bg-black-100'

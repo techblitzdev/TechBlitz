@@ -59,8 +59,8 @@ export default async function TodaysQuestionPage({
           />
 
           {/* Stats Card */}
-          <div className="bg-black-75 border border-black-50 rounded-xl">
-            <div className="flex items-center gap-x-1 p-4">
+          <div className="bg-black-75 border border-black-50 rounded-xl overflow-hidden">
+            <div className="flex items-center gap-x-1 p-4 bg-black-25">
               <ChartColumn className="size-4" />
               <div className="text-sm">Stats</div>
             </div>
@@ -107,7 +107,7 @@ export default async function TodaysQuestionPage({
 
           {/* Related Questions Card */}
           <div className="min-h-fit bg-black-75 border border-black-50 rounded-xl overflow-hidden">
-            <div className="flex items-center gap-x-1 p-4">
+            <div className="flex items-center bg-black-25 gap-x-1 p-4">
               <ShieldQuestionIcon className="size-4" />
               <div className="text-sm">Related Questions</div>
             </div>

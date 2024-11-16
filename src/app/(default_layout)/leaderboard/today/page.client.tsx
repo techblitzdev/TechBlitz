@@ -65,7 +65,7 @@ export default function TodaysLeaderboardPageClient(opts: {
             );
           })}
         </div>
-        {data && data?.fastestTimes?.length > 0 && data?.totalPages > 0 && (
+        {/* {data && data?.fastestTimes?.length > 0 && data?.totalPages > 0 && (
           <GlobalPagination
             className="mt-5"
             currentPage={currentPage}
@@ -73,7 +73,7 @@ export default function TodaysLeaderboardPageClient(opts: {
             totalItems={data?.total || 0}
             itemsPerPage={ITEMS_PER_PAGE}
           />
-        )}
+        )} */}
       </div>
     </div>
   );

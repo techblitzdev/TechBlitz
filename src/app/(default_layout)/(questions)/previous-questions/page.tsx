@@ -79,13 +79,13 @@ export default function PreviousQuestionsPage() {
           {/* Display sidebar with user statistics and suggested questions */}
           {user && <PreviousQuestionPageSidenbar user={user} />}
         </div>
-        <GlobalPagination
+        {/* <GlobalPagination
           className="mt-5"
           currentPage={currentPage}
           onPageChange={handlePageChange}
           totalItems={data?.total || 0}
           itemsPerPage={ITEMS_PER_PAGE}
-        />
+        /> */}
       </div>
     </>
   );

@@ -2,64 +2,117 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { corsHeaders } from '../_shared/cors.ts';
 
 /**
- * We need to get the question for the previous day
- *
- * We only need to return:
- * - the uid
- * - the correct answer
+ * Fetch the previous day's question with only required fields.
  */
 const getPreviousDaysQuestion = async (supabaseClient: SupabaseClient) => {
-  console.log('hit getPreviousDaysQuestion inside sync-user-streak');
+  console.log('Fetching previous day question in sync-user-streak');
 
-  // get the previous day's date
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
   const previousDay = yesterday.toISOString().split('T')[0];
 
-  const { data, error: questionsError } = await supabaseClient
+  const { data, error } = await supabaseClient
     .from('Questions')
-    .select('*')
+    .select('uid, correctAnswer')
     .eq('questionDate', previousDay)
-    .limit(1);
+    .limit(1)
+    .single();
 
-  console.log('questions', data);
-  console.log('previousDay', previousDay);
+  if (error) {
+    console.error('Error fetching question:', error);
+    throw new Error('Unable to fetch the previous day’s question');
+  }
 
-  if (questionsError) throw questionsError;
-
-  return {
-    data,
-    previousDay,
-  };
+  console.log('Previous day question:', data);
+  return { question: data, previousDay };
 };
 
+/**
+ * Fetch all answers for the given question UID.
+ */
 const getTodaysAnswers = async (
   supabaseClient: SupabaseClient,
-  previousDay: string,
   questionUid: string
 ) => {
-  console.log('hit getTodaysAnswers inside sync-user-streak');
-  // now go and get the questions that have been answered for the previous day
-  const { data: answers, error: answersError } = await supabaseClient
+  console.log('Fetching answers for question:', questionUid);
+
+  const { data, error } = await supabaseClient
     .from('Answers')
-    .select('*')
+    .select('userUid, correctAnswer')
     .eq('questionUid', questionUid);
 
-  console.log('answers', answers);
+  if (error) {
+    console.error('Error fetching answers:', error);
+    throw new Error('Unable to fetch answers for the question');
+  }
 
-  if (answersError) throw answersError;
-
-  return { answers };
+  console.log('Fetched answers:', data);
+  return data;
 };
 
-// Rest of the code remains the same
+/**
+ * Update streaks for users who haven't answered correctly.
+ */
+const updateStreak = async (
+  supabaseClient: SupabaseClient,
+  usersToUpdate: string[]
+) => {
+  console.log('Updating streaks for users:', usersToUpdate);
 
+  const { error } = await supabaseClient
+    .from('Streaks')
+    .update({
+      streakStart: null,
+      streakEnd: null,
+      currentstreakCount: 0,
+    })
+    .in('userUid', usersToUpdate);
+
+  if (error) {
+    console.error('Error updating streaks:', error);
+    throw new Error('Unable to update streaks');
+  }
+
+  console.log('Streaks updated successfully');
+  return 'ok';
+};
+
+/**
+ * Helper to extract correct answers from the list of answers.
+ */
+const getCorrectAnswers = (answers: any[]) => {
+  return answers
+    .filter((answer) => answer.correctAnswer)
+    .map((answer) => answer.userUid);
+};
+
+/**
+ * Fetch all users in the system.
+ */
+const getAllUsers = async (supabaseClient: SupabaseClient) => {
+  const { data, error } = await supabaseClient.from('Users').select('uid');
+  if (error) throw new Error('Unable to fetch users');
+  return data.map((user) => user.uid);
+};
+
+/**
+ * Get users who haven't answered correctly.
+ */
+const getUsersWhoHaventAnsweredCorrectly = (
+  allUsers: string[],
+  correctUserIds: string[]
+) => {
+  const correctUserSet = new Set(correctUserIds);
+  return allUsers.filter((userId) => !correctUserSet.has(userId));
+};
+
+/**
+ * Entry point for the Deno server.
+ */
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders });
   }
-
-  const token = req.headers.get('Authorization');
 
   try {
     const supabaseClient = createClient(
@@ -67,20 +120,21 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_ANON_KEY') ?? '',
       {
         global: {
-          headers: { Authorization: req.headers.get('Authorization')! },
+          headers: { Authorization: req.headers.get('Authorization') ?? '' },
         },
       }
     );
 
-    const { data, previousDay } = await getPreviousDaysQuestion(supabaseClient);
-
-    const { answers } = await getTodaysAnswers(
-      supabaseClient,
-      previousDay,
-      data[0].uid
+    const { question, previousDay } = await getPreviousDaysQuestion(
+      supabaseClient
     );
 
-    const { userAnswers: correctUserIds } = getCorrectAnswers(answers);
+    if (!question) {
+      throw new Error('No question found for the previous day');
+    }
+
+    const answers = await getTodaysAnswers(supabaseClient, question.uid);
+    const correctUserIds = getCorrectAnswers(answers);
 
     const allUserIds = await getAllUsers(supabaseClient);
     const usersToUpdate = getUsersWhoHaventAnsweredCorrectly(
@@ -89,22 +143,32 @@ Deno.serve(async (req) => {
     );
 
     console.log({
-      users: allUserIds,
       totalUsers: allUserIds.length,
       correctAnswers: correctUserIds.length,
       usersToUpdate: usersToUpdate.length,
     });
 
-    const user = await updateStreak(supabaseClient, usersToUpdate);
+    await updateStreak(supabaseClient, usersToUpdate);
 
-    return new Response(JSON.stringify({ user, data }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      status: 200,
-    });
+    return new Response(
+      JSON.stringify({
+        message: 'Streaks updated successfully',
+        stats: {
+          totalUsers: allUserIds.length,
+          correctAnswers: correctUserIds.length,
+          usersUpdated: usersToUpdate.length,
+        },
+      }),
+      {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 200,
+      }
+    );
   } catch (error) {
+    console.error('Error:', error);
     return new Response(JSON.stringify({ error: error.message }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      status: 400,
+      status: 500,
     });
   }
 });

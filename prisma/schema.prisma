@@ -144,8 +144,8 @@ model Streaks {
   user    Users  @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
 
   // how we calculate the user's streak
-  streakStart DateTime
-  streakEnd   DateTime
+  streakStart DateTime?
+  streakEnd   DateTime?
 
   // easy way to pluck out the user's current streak
   currentstreakCount Int @default(0)

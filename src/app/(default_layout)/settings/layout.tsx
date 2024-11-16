@@ -11,7 +11,9 @@ export default function ProfileLayout({
         </h1>
       </div>
       <Separator className="bg-black-50" />
-      <div className="bg-black-75 rounded-xl p-8">{children}</div>
+      <div className="bg-black-75 rounded-xl p-8 border border-black-50">
+        {children}
+      </div>
     </div>
   );
 }

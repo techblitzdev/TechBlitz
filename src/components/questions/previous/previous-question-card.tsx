@@ -1,31 +1,29 @@
 import { Question } from '@/types/Questions';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
 import { Answer } from '@/types/Answers';
-import PreviousQuestionAnswerModal from '../../answers/previous-question-answer-modal';
 import { ArrowUpRight } from 'lucide-react';
 import Chip from '../../global/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import { Grid } from '../../ui/grid';
 import TagDisplay from './tag-display';
+import { getQuestionStats } from '@/actions/questions/get-question-stats';
+import Link from 'next/link';
 
-export default function PreviousQuestionCard(opts: {
+export default async function PreviousQuestionCard(opts: {
   questionData: Question;
   userUid: string;
   userAnswer: Answer | undefined;
 }) {
   const { questionData, userAnswer } = opts;
-  // state to track whether to open the user's answer to the question
-  const [showAnswerModal, setShowAnswerModal] = useState<Answer | undefined>(
-    undefined
-  );
+
+  const questionStats = await getQuestionStats(questionData.uid);
 
   return (
     <>
-      <Button
+      <Link
+        href={`/questions/${questionData.uid}`}
         key={questionData.uid}
         className="space-y-5 items-start bg-black-75 border border-black-50 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
-        onClick={() => setShowAnswerModal(userAnswer || undefined)}
       >
         <div className="flex flex-col w-full">
           <div className="flex w-full justify-between">
@@ -38,11 +36,16 @@ export default function PreviousQuestionCard(opts: {
           </div>
           <div className="text-start text-[10px]">
             <p className="font-ubuntu text-sm">
-              Submissions: <span className="font-medium underline">1036</span>
+              Submissions:{' '}
+              <span className="font-medium underline">
+                {questionStats?.totalSubmissions}
+              </span>
             </p>
             <p className="font-ubuntu text-sm">
               Correct submissions:{' '}
-              <span className="font-medium underline">872</span>
+              <span className="font-medium underline">
+                {questionStats?.percentageCorrect}%
+              </span>
             </p>
           </div>
         </div>
@@ -79,15 +82,15 @@ export default function PreviousQuestionCard(opts: {
           </div>
         </div>
         <Grid size={20} position="bottom-right" />
-      </Button>
-      {showAnswerModal && (
+      </Link>
+      {/* {showAnswerModal && (
         <PreviousQuestionAnswerModal
           isOpen={showAnswerModal !== undefined}
           onClose={() => setShowAnswerModal(undefined)}
           userAnswer={showAnswerModal}
           questionData={questionData}
         />
-      )}
+      )} */}
     </>
   );
 }

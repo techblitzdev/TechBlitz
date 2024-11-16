@@ -1,11 +1,8 @@
 import { listQuestions } from '@/actions/questions/list';
-import { getPagination } from '@/utils/supabase/pagination';
 import QuestionListCard from '@/components/questions/list/question-card';
 import { useUserServer } from '@/hooks/useUserServer';
 import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 import { DatePicker } from '@mantine/dates';
-import Link from 'next/link';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
 import GlobalPagination from '@/components/global/pagination';
 
 const ITEMS_PER_PAGE = 5;
@@ -19,7 +16,7 @@ export default async function QuestionsDashboard({
   if (!user) return null;
 
   const currentPage = parseInt(searchParams.page as string) || 1;
-  if (currentPage < 1) return null; // Handle invalid page numbers
+  if (currentPage < 1) return null;
 
   // Fetch user streak statistics
   const userStreak = await getUserDailyStats(user.uid);
@@ -28,7 +25,6 @@ export default async function QuestionsDashboard({
   const dateArray: [Date, Date] = [startDate, endDate];
 
   // Fetch questions for the current page
-  const { from, to } = getPagination(currentPage, ITEMS_PER_PAGE);
   const { questions, totalPages } = await listQuestions({
     page: currentPage,
     pageSize: ITEMS_PER_PAGE,
@@ -50,7 +46,7 @@ export default async function QuestionsDashboard({
         <div className="mt-5 w-full flex justify-center gap-x-2">
           <GlobalPagination
             currentPage={currentPage}
-            totalPages={25}
+            totalPages={totalPages}
             href="/questions/all"
             paramName="page"
           />

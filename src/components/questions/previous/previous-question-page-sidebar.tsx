@@ -1,3 +1,4 @@
+'use client';
 import { DatePicker } from '@mantine/dates';
 import PreviousQuestionSuggestedCard from '@/components/questions/previous/previous-question-suggested-table';
 import {

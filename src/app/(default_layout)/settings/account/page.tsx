@@ -22,6 +22,7 @@ import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import LoadingSpinner from '@/components/ui/loading';
 import DeleteAccountModal from '@/components/settings/delete-account-modal';
+import { Separator } from '@/components/ui/separator';
 
 type SchemaProps = z.infer<typeof updateUserSchema>;
 
@@ -62,12 +63,16 @@ export default function SettingsProfilePage() {
   }
 
   return (
-    <div className="flex flex-col gap-y-8">
-      <h1 className="text-2xl">Account Settings</h1>
+    <div className="flex flex-col">
+      <div className="space-y-1 p-8">
+        <h1 className="text-2xl">Account Settings</h1>
+        <p className="text-sm">Update your account details and preferences.</p>
+      </div>
+      <Separator className="w-full bg-black-50" />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-1/2 space-y-6"
+          className="w-1/2 space-y-6 p-8"
         >
           <FormField
             control={form.control}
@@ -106,7 +111,7 @@ export default function SettingsProfilePage() {
       <Button
         variant="destructive"
         onClick={() => setIsDeleteModalOpen(true)}
-        className="w-fit"
+        className="w-fit mx-8 mb-8"
       >
         Delete account
       </Button>

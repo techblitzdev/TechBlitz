@@ -19,8 +19,8 @@ import {
 import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import LoadingSpinner from '@/components/ui/loading';
-import { logout } from '@/actions/user/logout';
 import LogoutButton from '@/components/global/logout';
+import { Separator } from '@/components/ui/separator';
 
 type SchemaProps = z.input<typeof userDetailsSchema>;
 
@@ -91,12 +91,16 @@ export default function SettingsProfilePage() {
   };
 
   return (
-    <div className="flex flex-col gap-y-10">
-      <h1 className="text-2xl">Profile Settings</h1>
+    <div className="flex flex-col">
+      <div className="space-y-1 p-8">
+        <h1 className="text-2xl">Profile Settings</h1>
+        <p className="text-sm">Update your profile details and preferences.</p>
+      </div>
+      <Separator className="w-full bg-black-50" />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-1/2 space-y-6"
+          className="w-1/2 space-y-6 p-8"
         >
           <FormField
             control={form.control}

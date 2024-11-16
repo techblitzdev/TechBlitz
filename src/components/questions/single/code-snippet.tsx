@@ -55,7 +55,7 @@ export default function CodeDisplay({ content, language }: CodeDisplayProps) {
               className="table-row"
             >
               <span className="table-cell text-gray-500 pr-4 select-none text-right text-sm">
-                {lineIndex + 1}.
+                {lineIndex + 1}
               </span>
               <span className="table-cell text-sm">
                 {line.map((token, tokenIndex) => (

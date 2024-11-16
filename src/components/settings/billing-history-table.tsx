@@ -4,9 +4,7 @@ import { format } from 'date-fns';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -27,12 +25,6 @@ export default function BillingHistoryTable({
     };
   });
 
-  // Calculate total amount
-  const totalAmount = invoiceData.reduce(
-    (sum, invoice) => sum + invoice.amount,
-    0
-  );
-
   return (
     <Table>
       <TableHeader className="divide-black-50">
@@ -51,14 +43,6 @@ export default function BillingHistoryTable({
           </TableRow>
         ))}
       </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell colSpan={2}>Total</TableCell>
-          <TableCell className="text-right">
-            ${totalAmount.toFixed(2)}
-          </TableCell>
-        </TableRow>
-      </TableFooter>
     </Table>
   );
 }

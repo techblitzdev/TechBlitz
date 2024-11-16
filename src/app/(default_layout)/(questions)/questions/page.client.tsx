@@ -48,20 +48,6 @@ const QuestionsDashboardClient = ({
 
   return (
     <>
-      {loading ? (
-        <LoadingSpinner />
-      ) : (
-        <div className="space-y-4">
-          {questions?.map((question) => (
-            <QuestionListCard
-              key={question.uid}
-              question={question}
-              user={user}
-            />
-          ))}
-        </div>
-      )}
-
       <GlobalPagination
         className="mt-5"
         currentPage={currentPage}

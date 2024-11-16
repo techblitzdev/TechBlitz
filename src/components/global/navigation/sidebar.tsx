@@ -67,7 +67,7 @@ export function AppSidebar() {
       subItems: [
         {
           title: 'All',
-          url: '/questions',
+          url: '/questions/all',
         },
         {
           title: 'Daily Question',

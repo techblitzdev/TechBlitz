@@ -1,7 +1,7 @@
 import { getUserAnswer } from '@/actions/answers/get-user-answer';
 import { getUserAnswerRank } from '@/actions/leaderboard/get-user-rank';
 import { getUserFromDb } from '@/actions/user/get-user';
-import { convertSecondsToTime, formatSeconds } from '@/utils/time';
+import { formatSeconds } from '@/utils/time';
 import { getUserDisplayName } from '@/utils/user';
 import { Button } from '../ui/button';
 
@@ -40,7 +40,7 @@ export default async function UserRank(opts: {
     );
   }
 
-  const timeTaken = convertSecondsToTime(userAnswer?.timeTaken ?? 0);
+  const displayTime = formatSeconds(userAnswer?.timeTaken || 0);
 
   return (
     <div className="gap-x-4 text-white text-sm font-semibold font-satoshi flex w-full justify-between items-center">
@@ -53,13 +53,7 @@ export default async function UserRank(opts: {
         </span>
       </p>
       <div className="text-xs bg-white text-black py-1 px-2 rounded-md">
-        {timeTaken.minutes > 0 && (
-          <span>
-            You answered in {timeTaken.minutes} minute
-            {timeTaken.minutes > 1 && 's'}{' '}
-          </span>
-        )}
-        <span>{timeTaken.seconds} seconds</span>
+        <span>{displayTime}</span>
       </div>
     </div>
   );

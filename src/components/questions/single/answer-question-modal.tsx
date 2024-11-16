@@ -12,7 +12,7 @@ import type { UserRecord } from '@/types/User';
 import type { Answer } from '@/types/Answers';
 import LoadingSpinner from '@/components/ui/loading';
 import { convertSecondsToTime } from '@/utils/time';
-import JsonDisplay from '../global/json-display';
+import JsonDisplay from '../../global/json-display';
 import { LockClosedIcon } from '@radix-ui/react-icons';
 import {
   Tooltip,
@@ -20,10 +20,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { getNextQuestion } from '@/actions/questions/get-next-question';
+import { getRandomQuestion } from '@/actions/questions/get-next-question';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import StreakBentoBox from '../global/streak-bento-box';
 import { DatePicker } from '@mantine/dates';
 import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 
@@ -36,6 +35,7 @@ type AnswerQuestionModalProps = {
   onOpenChange: (open: boolean) => void;
   onRetry?: () => void;
   onNext?: () => void;
+  nextQuestion?: string;
 };
 
 type DialogContentType = {
@@ -69,6 +69,7 @@ export default function AnswerQuestionModal({
   onOpenChange,
   onRetry,
   onNext,
+  nextQuestion,
 }: AnswerQuestionModalProps) {
   const router = useRouter();
   const [showQuestionData, setShowQuestionData] = useState(false);
@@ -99,19 +100,6 @@ export default function AnswerQuestionModal({
     streakData?.streakData?.streakStart,
     streakData?.streakData?.streakEnd,
   ] as [Date, Date];
-
-  const {
-    data: nextQuestion,
-    refetch,
-    isLoading,
-  } = useQuery({
-    queryKey: ['nextQuestion', user.uid],
-    queryFn: async () =>
-      await getNextQuestion({
-        currentQuestionId: question.uid,
-        userUid: user.uid,
-      }),
-  });
 
   const handleNextQuestion = () => {
     if (user.userLevel === 'FREE' && correct === 'correct') {
@@ -210,7 +198,7 @@ export default function AnswerQuestionModal({
                     fullWidth={false}
                     disabled={user?.userLevel === 'FREE'}
                   >
-                    {isLoading ? <LoadingSpinner /> : <>Next question</>}
+                    Next question
                     {user?.userLevel === 'FREE' && <LockClosedIcon />}
                   </Button>
                   {user?.userLevel === 'FREE' && (

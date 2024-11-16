@@ -1,121 +1,131 @@
-'use client';
-import { useQuery } from '@tanstack/react-query';
 import { getQuestion } from '@/actions/questions/get';
-import LoadingSpinner from '@/components/ui/loading';
-import { useUser } from '@/hooks/useUser';
-import AnswerQuestionForm from '@/components/questions/answer-question-form';
 import { Separator } from '@/components/ui/separator';
-import { BreadcrumbWithCustomSeparator } from '@/components/global/breadcrumbs';
-import { useStopwatch } from 'react-timer-hook';
 import NoDailyQuestion from '@/components/global/errors/no-daily-question';
-import QuestionDisplay from '@/components/questions/code-snippet';
-import { Clock } from 'lucide-react';
+import QuestionDisplay from '@/components/questions/single/code-snippet';
+import {
+  ChartColumn,
+  Check,
+  Expand,
+  ShieldQuestionIcon,
+  User,
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { getQuestionStats } from '@/actions/questions/get-question-stats';
+import { useUserServer } from '@/hooks/useUserServer';
 
-const items = [
-  {
-    href: '/dashboard',
-    label: 'Home',
-  },
-  {
-    href: '/questions',
-    label: 'Questions',
-  },
-  {
-    href: '',
-    label: 'Daily Question',
-  },
-];
+import QuestionCard from '@/components/questions/single/question-card';
+import { getRandomQuestion } from '@/actions/questions/get-next-question';
+import { getRelatedQuestions } from '@/actions/questions/get-related';
+import RelatedQuestionCard from '@/components/questions/single/related-question-card';
 
-export default function TodaysQuestionPage({
+export default async function TodaysQuestionPage({
   params,
 }: {
   params: { uid: string };
 }) {
   const { uid } = params;
-  const { user, isLoading: userLoading, isError: userError } = useUser();
+  const user = await useUserServer();
+  if (!user) {
+    return;
+  }
 
-  const {
-    data: question,
-    isPending,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ['question', uid],
-    queryFn: () => getQuestion(uid),
+  const question = await getQuestion(uid);
+  if (!question) {
+    return <NoDailyQuestion />;
+  }
+
+  const totalSubmissions = await getQuestionStats(uid);
+  const nextQuestion = await getRandomQuestion({
+    currentQuestionId: uid,
+    userUid: user.uid,
   });
 
-  const { seconds, minutes, pause, reset, totalSeconds } = useStopwatch({
-    autoStart: user?.showTimeTaken || false,
+  const relatedQuestions = await getRelatedQuestions({
+    questionUid: uid,
+    tags: question.tags || [],
   });
-
-  if (!question && !isPending) {
-    return <NoDailyQuestion textAlign="center" />;
-  }
-
-  if (userLoading || isPending) {
-    return (
-      <div className="flex justify-center items-center">
-        <LoadingSpinner />
-      </div>
-    );
-  }
-
-  if (userError || isError || !user?.uid) {
-    return <span>Error loading: {error?.message}</span>;
-  }
 
   return (
     <>
-      <div className="flex w-full justify-between items-center font-satoshi">
-        <div className="flex flex-col gap-y-2 w-full">
-          <BreadcrumbWithCustomSeparator items={items} />
-          <div className="flex items-center justify-between w-full">
-            <h1 className="text-xl md:text-3xl font-semibold">
-              {question?.question}
-            </h1>
-            {user?.showTimeTaken && (
-              <div className="flex items-center gap-x-1">
-                <Clock className="size-4" />
-                <p>
-                  <span>{minutes}</span>:<span>{seconds}</span>
-                </p>
+      <div className="flex gap-8 mt-3">
+        {/* Left Section - Question and Stats */}
+        <div className="flex flex-col gap-y-4 w-1/2 relative overflow-hidden h-fit">
+          {/* Question Card */}
+          <Button className="border border-black-50">Question</Button>
+          <QuestionCard
+            question={question}
+            user={user}
+            nextQuestion={nextQuestion}
+          />
+
+          {/* Stats Card */}
+          <div className="bg-black-75 border border-black-50 rounded-xl overflow-hidden">
+            <div className="flex items-center gap-x-1 p-4 bg-black-25">
+              <ChartColumn className="size-4" />
+              <div className="text-sm">Stats</div>
+            </div>
+            <Separator className="bg-black-50" />
+            <div className="p-4 flex items-center">
+              <div className="flex items-start gap-4 text-sm text-gray-400">
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-0.5">
+                    <User className="size-4" />
+                    <p>Total submissions:</p>
+                  </div>
+                  <p>{totalSubmissions?.totalSubmissions}</p>
+                </div>
+                {totalSubmissions?.percentageCorrect > 0 && (
+                  <>
+                    |
+                    <div className="flex items-center gap-0.5">
+                      <Check className="size-4" />
+                      <p>Success rate:</p>
+                      <p>{totalSubmissions?.percentageCorrect}%</p>
+                    </div>
+                  </>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </div>
-      </div>
-      <Separator />
-      <div className="">
-        {question?.tags && (
-          <div className="flex flex-wrap gap-2">
-            {question.tags.map((tag) => (
-              <span
-                key={tag?.tag?.uid}
-                className="bg-black-50 text-white rounded-full px-2 py-1 text-xs"
-              >
-                {tag.tag.name}
-              </span>
-            ))}
+
+        {/* Right Section - Code Snippet and Related Questions */}
+        <div className="w-1/2 h-3/4 grid-cols-subgrid gap-8 flex flex-col">
+          {/* Code Snippet */}
+          <div className="h-[45rem] col-span-full bg-black-75 border border-black-50 rounded-xl relative overflow-hidden">
+            <div className="p-4 text-sm flex w-full items-center justify-between bg-black-25">
+              <p>Code</p>
+              <div className="flex items-center gap-x-3">
+                <Expand className="size-4 text-gray-500" />
+              </div>
+            </div>
+            <Separator className="bg-black-50" />
+            {question?.codeSnippet && (
+              <QuestionDisplay content={question.codeSnippet} language="" />
+            )}
           </div>
-        )}
-      </div>
-      <div className="bg-black-75 rounded-xl p-4 space-y-4">
-        {question?.codeSnippet && (
-          <div className="space-y-1">
-            <p className="text-white text-sm font-satoshi font-semibold"></p>
-            <QuestionDisplay content={question.codeSnippet} />
+
+          {/* Related Questions Card */}
+          <div className="min-h-fit bg-black-75 border border-black-50 rounded-xl overflow-hidden">
+            <div className="flex items-center bg-black-25 gap-x-1 p-4">
+              <ShieldQuestionIcon className="size-4" />
+              <div className="text-sm">Related Questions</div>
+            </div>
+            <Separator className="bg-black-50" />
+            <div className="divide-y-[1px] divide-black-50">
+              {relatedQuestions.length > 0 ? (
+                relatedQuestions.map((relatedQuestion, index) => (
+                  <RelatedQuestionCard
+                    question={relatedQuestion}
+                    index={index}
+                  />
+                ))
+              ) : (
+                <div className="p-4 text-sm">No related questions found</div>
+              )}
+            </div>
           </div>
-        )}
-        {question && (
-          <AnswerQuestionForm
-            userData={user}
-            uid={uid}
-            question={question}
-            time={totalSeconds}
-            stopwatchPause={pause}
-            resetStopwatch={reset}
-          />
-        )}
+        </div>
       </div>
     </>
   );

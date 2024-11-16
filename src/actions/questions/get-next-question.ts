@@ -1,7 +1,7 @@
 'use server';
 import { prisma } from '@/utils/prisma';
 
-export const getNextQuestion = async (opts: {
+export const getRandomQuestion = async (opts: {
   currentQuestionId: string;
   userUid: string;
 }) => {
@@ -12,11 +12,6 @@ export const getNextQuestion = async (opts: {
     where: {
       uid: {
         not: currentQuestionId,
-      },
-      userAnswers: {
-        none: {
-          userUid: userUid,
-        },
       },
     },
   });

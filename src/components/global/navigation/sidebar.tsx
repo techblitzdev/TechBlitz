@@ -74,7 +74,7 @@ export function AppSidebar() {
           url: `/question/${todaysQuestion?.uid}`,
         },
         {
-          title: 'Previous Questions',
+          title: 'All Daily Questions',
           url: '/previous-questions',
         },
       ],

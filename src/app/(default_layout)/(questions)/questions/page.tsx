@@ -18,7 +18,7 @@ export default async function QuestionsDashboard() {
   });
 
   return (
-    <div className="container">
+    <div className="container flex mt-5 gap-10">
       <div className="w-1/2 space-y-6">
         {/* Render questions fetched server-side */}
         {questions?.map((question) => (
@@ -38,6 +38,12 @@ export default async function QuestionsDashboard() {
           itemsPerPage={ITEMS_PER_PAGE}
         />
       </div>
+
+      <aside className="w-1/2 relative">
+        <div className="sticky top-10 space-y-10 w-1/2">
+          sidebar content goes here
+        </div>
+      </aside>
     </div>
   );
 }

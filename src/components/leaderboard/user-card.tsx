@@ -1,6 +1,6 @@
 import { getUserFromSession } from '@/actions/user/get-user';
 import { AnswerWithUser } from '@/types/Answers';
-import { convertSecondsToTime } from '@/utils/time';
+import { formatSeconds } from '@/utils/time';
 import { getUserDisplayName } from '@/utils/user';
 
 export default async function DashboardLearderboardUserCard(opts: {
@@ -11,7 +11,7 @@ export default async function DashboardLearderboardUserCard(opts: {
   const { data: currentUser } = await getUserFromSession();
 
   const isCurrentUser = currentUser?.user?.id === entry.user.uid;
-  const timeTaken = convertSecondsToTime(entry.timeTaken ?? 0);
+  const timeTaken = formatSeconds(entry.timeTaken || 0);
   const displayName = getUserDisplayName(entry.user);
 
   return (
@@ -36,15 +36,9 @@ export default async function DashboardLearderboardUserCard(opts: {
           )}
         </div>
       </div>
-      <div className="text-xs bg-white text-black py-1 px-2 rounded-md">
-        {timeTaken.minutes > 0 && (
-          <span>
-            You answered in {timeTaken.minutes} minute
-            {timeTaken.minutes > 1 && 's'}{' '}
-          </span>
-        )}
-        <span>{timeTaken.seconds} seconds</span>
-      </div>
+      <span className="text-xs bg-white text-black py-1 px-2 rounded-md">
+        {timeTaken}
+      </span>
     </div>
   );
 }

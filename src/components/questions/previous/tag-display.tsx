@@ -9,8 +9,11 @@ export default function TagDisplay(opts: {
 }) {
   const { tags, numberOfTags = 3, variant = 'accent' } = opts;
 
-  const visibleTags = tags.slice(0, numberOfTags);
+  let visibleTags = tags.slice(0, numberOfTags);
   const remainingCount = Math.max(0, tags.length - numberOfTags);
+
+  // remove any empty tags
+  visibleTags = visibleTags.filter((tag) => tag.tag.name !== '');
 
   // set text colour based on variant
   const textColor = variant === 'accent' ? 'white' : 'black';

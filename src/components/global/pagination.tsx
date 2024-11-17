@@ -29,7 +29,9 @@ export default function GlobalPagination(opts: {
           href={`${href}?${paramName}=${i + 1}`}
           className={cn(
             'bg-black-75 border border-black-50 hover:bg-black-50 duration-300 rounded-md size-8 flex items-center justify-center p-1 text-sm',
-            `${currentPage === i + 1 ? 'pointer-events-none opacity-50' : ''}`
+            `${
+              currentPage === i + 1 ? 'pointer-events-none border-accent' : ''
+            }`
           )}
         >
           {i + 1}

@@ -6,6 +6,7 @@ export interface SidebarItem {
   chip?: React.ComponentType;
   groupLabel?: string;
   disabled?: boolean;
+  badge?: string;
 }
 
 export interface SidebarGroupItem {

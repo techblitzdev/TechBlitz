@@ -56,7 +56,7 @@ export default async function DashboardBentoGrid() {
     {
       header: <AllQuestionsDashboardBentoBox />,
       className: 'md:col-span-2 text-white',
-      href: '/questions',
+      href: '/questions/all',
       padded: false,
     },
     {

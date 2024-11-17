@@ -2,6 +2,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubItem,
   SidebarMenuSubButton,
+  SidebarMenuBadge,
 } from '@/components/ui/sidebar';
 import type { SidebarItem } from '@/types/Sidebar';
 import { cn } from '@/utils/cn';
@@ -30,13 +31,19 @@ export default function AppSidebarSubMenuItem(opts: { item: SidebarItem }) {
             <Link
               href={subItem.url}
               prefetch
-              className={`flex items-center font-ubuntu text-sm py-2 ${
+              className={`flex items-center justify-between font-ubuntu text-sm py-2 ${
                 pathname === subItem.url
                   ? 'bg-white !text-black border border-black-75'
                   : ''
               }`}
             >
               {subItem.title}
+
+              {subItem.badge && (
+                <SidebarMenuBadge className="bg-accent !text-[10px] text-white">
+                  {subItem.badge}
+                </SidebarMenuBadge>
+              )}
             </Link>
           </SidebarMenuSubButton>
         </SidebarMenuSubItem>

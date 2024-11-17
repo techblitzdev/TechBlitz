@@ -49,7 +49,7 @@ export default async function LeaderboardMostQuestionsAnswered(opts: {
                     <User className="size-4" />
                   </div>
                 )}
-                <span>{user.username || user.email}</span>
+                <span>{user.username || 'Anonymous'}</span>
                 <p>
                   {userUid === user.uid && (
                     <span className="text-xs text-gray-500">(You)</span>

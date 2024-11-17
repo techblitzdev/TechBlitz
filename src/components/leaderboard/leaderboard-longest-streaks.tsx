@@ -44,7 +44,11 @@ export default async function LeaderboardLongestStreaks(opts: {
                     <User className="size-4" />
                   </div>
                 )}
-                <p>{getUserDisplayName(streak.user)}</p>
+                <p>
+                  {getUserDisplayName(streak.user).length > 15
+                    ? `${getUserDisplayName(streak.user).substring(0, 15)}...`
+                    : getUserDisplayName(streak.user)}
+                </p>
                 {userUid === streak.user.uid && (
                   <span className="text-xs text-gray-500">(You)</span>
                 )}

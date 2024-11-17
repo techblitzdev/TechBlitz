@@ -2,7 +2,7 @@ import { getFastestTimes } from '@/actions/leaderboard/get-fastest';
 import Card from '../global/Card';
 import { QuestionWithoutAnswers } from '@/types/Questions';
 import { getUserDisplayName } from '@/utils/user';
-import { Medal, User } from 'lucide-react';
+import { ArrowRight, Medal, User } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import GlobalPagination from '../global/pagination';
 import { formatSeconds } from '@/utils/time';
@@ -19,9 +19,10 @@ const header = (todayQuestionUid: string) => {
       </div>
       <Link
         href={`/question/${todayQuestionUid}`}
-        className="bg-accent px-2 py-1 rounded-md font-ubuntu hover:bg-accent/90 duration-300 text-xs font-medium"
+        className="bg-accent px-2 py-1 gap-x-2 rounded-md group font-ubuntu hover:bg-accent/90 duration-300 text-xs font-medium flex items-center justify-between"
       >
-        Answer now!
+        Answer now
+        <ArrowRight className="size-3 inline-block" />
       </Link>
     </div>
   );
@@ -104,7 +105,12 @@ export default async function LeaderboardTodayBoard(opts: {
                     <User className="size-4" />
                   </div>
                 )}
-                <span>{getUserDisplayName(time.user)}</span>
+                {/** truncate */}
+                <p>
+                  {getUserDisplayName(time.user).length > 15
+                    ? `${getUserDisplayName(time.user).substring(0, 15)}...`
+                    : getUserDisplayName(time.user)}
+                </p>
                 <p>
                   {userUid === time.user.uid && (
                     <span className="text-xs text-gray-500">(You)</span>

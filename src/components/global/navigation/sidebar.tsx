@@ -22,6 +22,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
+  SidebarMenuBadge,
 } from '@/components/ui/sidebar';
 import {
   Collapsible,
@@ -39,6 +40,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
 import ComingSoonChip from '../coming-soon';
 import { useUser } from '@/hooks/useUser';
+import { userAnsweredDailyQuestion } from '@/actions/questions/user-answered-daily-question';
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -48,6 +50,18 @@ export function AppSidebar() {
   const { data: todaysQuestion } = useQuery({
     queryKey: ['not-found'],
     queryFn: () => getTodaysQuestion(),
+  });
+
+  // determine if the user has already answered the
+  // daily question or not
+  const { data: hasAnsweredDailyQuestion, isLoading } = useQuery({
+    queryKey: [`user-has-answered-daily-question-${todaysQuestion?.uid}`],
+    queryFn: () =>
+      userAnsweredDailyQuestion({
+        questionUid: todaysQuestion?.uid || '',
+        userUid: user?.uid || '',
+      }),
+    enabled: !!todaysQuestion?.uid,
   });
 
   // Menu items
@@ -72,6 +86,7 @@ export function AppSidebar() {
         {
           title: 'Daily Question',
           url: `/question/${todaysQuestion?.uid}`,
+          badge: hasAnsweredDailyQuestion ? '' : 'New',
         },
         {
           title: 'All Daily Questions',
@@ -215,11 +230,15 @@ export function AppSidebar() {
                 }`}
               >
                 {item.icon && <item.icon />}
-                <span className="text-sm">
-                  <>{item.title}</>
-                </span>
+                <span className="text-sm">{item.title}</span>
                 {item.chip && (
                   <div className="ms-auto">{item.chip && <item.chip />}</div>
+                )}
+
+                {item.badge && (
+                  <SidebarMenuBadge className="bg-accent !text-xs text-white">
+                    {item.badge}
+                  </SidebarMenuBadge>
                 )}
               </Link>
             )}
@@ -239,7 +258,7 @@ export function AppSidebar() {
               className="text-sm xl:text-2xl font-ubuntu hover:text-white duration-300"
               prefetch
             >
-              TechBlitz
+              TechBlitz: {JSON.stringify(hasAnsweredDailyQuestion)}
             </Link>
           </SidebarGroupLabel>
           <SidebarGroupContent className="mt-5">

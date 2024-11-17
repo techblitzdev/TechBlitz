@@ -235,6 +235,7 @@ export async function answerQuestion({
     });
 
     revalidateTag(`leaderboard-${questionUid}`);
+    revalidateTag(`user-has-answered-daily-question-${questionUid}`);
 
     return {
       correctAnswer,

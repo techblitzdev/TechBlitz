@@ -1,4 +1,4 @@
-import { Separator } from '@radix-ui/react-separator';
+import { Separator } from '../ui/separator';
 
 export default function Card({
   header,
@@ -18,7 +18,8 @@ export default function Card({
       <div className="flex-grow overflow-auto">{children}</div>
       {footer && (
         <>
-          <div className="p-4 text-sm flex w-full items-center justify-between border-t border-black-50">
+          <Separator className="bg-black-50" />
+          <div className="p-4 text-sm flex w-full items-center justify-between">
             {footer}
           </div>
         </>

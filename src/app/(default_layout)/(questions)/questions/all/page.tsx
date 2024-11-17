@@ -15,7 +15,7 @@ import { useUserServer } from '@/hooks/useUserServer';
 import { getSuggestions } from '@/actions/questions/get-suggestions';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 20;
 
 export default async function QuestionsDashboard({
   searchParams,

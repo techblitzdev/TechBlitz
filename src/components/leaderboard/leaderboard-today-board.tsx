@@ -15,7 +15,12 @@ const header = (todayQuestionUid: string) => {
     <div className="flex items-center w-full justify-between">
       <div className="flex gap-x-2 items-center">
         <Medal className="size-5 text-yellow-400" />
-        <h3 className="text-lg">Fastest times today</h3>
+        <h3 className="text-lg flex gap-x-2 items-end">
+          <span>Fastest times today</span>
+          <span className="text-xs text-gray-500 mb-1">
+            ({new Date().toLocaleDateString()})
+          </span>
+        </h3>
       </div>
       <Link
         href={`/question/${todayQuestionUid}`}

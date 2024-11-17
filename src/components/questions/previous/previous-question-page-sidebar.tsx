@@ -1,5 +1,5 @@
 import { DatePicker } from '@mantine/dates';
-import PreviousQuestionSuggestedCard from '@/components/questions/previous/previous-question-suggested-table';
+import QuestionSuggestedCard from '@/components/questions/suggested-questions-table';
 import {
   Tooltip,
   TooltipContent,
@@ -62,7 +62,7 @@ export default async function PreviousQuestionPageSidenbar(opts: {
               </Tooltip>
             </TooltipProvider>
           </div>
-          <PreviousQuestionSuggestedCard
+          <QuestionSuggestedCard
             questions={suggestions ?? []}
             isLoading={false}
           />

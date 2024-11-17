@@ -1,9 +1,19 @@
-import { listQuestions } from '@/actions/questions/list';
 import QuestionListCard from '@/components/questions/list/question-card';
-import { useUserServer } from '@/hooks/useUserServer';
-import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 import { DatePicker } from '@mantine/dates';
 import GlobalPagination from '@/components/global/pagination';
+import QuestionSuggestedCard from '@/components/questions/suggested-questions-table';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+
+import { listQuestions } from '@/actions/questions/list';
+import { getUserDailyStats } from '@/actions/user/get-daily-streak';
+import { useUserServer } from '@/hooks/useUserServer';
+import { getSuggestions } from '@/actions/questions/get-suggestions';
+import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 
 const ITEMS_PER_PAGE = 5;
 
@@ -28,6 +38,10 @@ export default async function QuestionsDashboard({
   const { questions, totalPages } = await listQuestions({
     page: currentPage,
     pageSize: ITEMS_PER_PAGE,
+  });
+
+  const suggestions = await getSuggestions({
+    userUid: user?.uid || '',
   });
 
   return (
@@ -62,6 +76,28 @@ export default async function QuestionsDashboard({
               type="range"
               value={dateArray}
               inputMode="none"
+            />
+          </div>
+          <div className="space-y-4">
+            <div className="flex items-center gap-x-2">
+              <h6 className="text-xl">Suggested questions</h6>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <QuestionMarkCircledIcon className="size-3.5 mt-1 text-gray-300" />
+                    <TooltipContent>
+                      <p>
+                        These question have been suggested based on areas where
+                        some users have struggled in the past.
+                      </p>
+                    </TooltipContent>
+                  </TooltipTrigger>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+            <QuestionSuggestedCard
+              questions={suggestions ?? []}
+              isLoading={false}
             />
           </div>
         </div>

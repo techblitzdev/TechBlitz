@@ -6,27 +6,40 @@ import { Medal, User } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import GlobalPagination from '../global/pagination';
 import { formatSeconds } from '@/utils/time';
+import Link from 'next/link';
 
 const ITEMS_PER_PAGE = 20;
 
-const header = () => {
+const header = (todayQuestionUid: string) => {
   return (
     <div className="flex items-center w-full justify-between">
-      <div className="flex gap-x-1 items-center">
+      <div className="flex gap-x-2 items-center">
         <Medal className="size-5 text-yellow-400" />
         <h3 className="text-lg">Fastest times today</h3>
       </div>
+      <Link
+        href={`/question/${todayQuestionUid}`}
+        className="bg-accent px-2 py-1 rounded-md font-ubuntu hover:bg-accent/90 duration-300 text-xs font-medium"
+      >
+        Answer now!
+      </Link>
     </div>
   );
 };
 
-const footer = (totalAnswers: number) => {
+const footer = (opts: {
+  totalAnswers: number;
+  totalPages: number;
+  currentPage: number;
+}) => {
+  const { totalAnswers, currentPage, totalPages } = opts;
+
   return (
     <div className="flex w-full items-center justify-between">
       <GlobalPagination
-        currentPage={1}
-        totalPages={1}
-        href="/leaderboard/today"
+        currentPage={currentPage}
+        totalPages={totalPages}
+        href="/leaderboard"
         paramName="page"
         margin="mt-0 justify-start"
       />
@@ -38,45 +51,69 @@ const footer = (totalAnswers: number) => {
 export default async function LeaderboardTodayBoard(opts: {
   todayQuestion: QuestionWithoutAnswers;
   currentPage: number;
+  userUid?: string;
 }) {
-  const { todayQuestion, currentPage } = opts;
+  const { todayQuestion, currentPage, userUid } = opts;
 
-  const { fastestTimes, total } = await getFastestTimes({
-    numberOfResults: 20,
+  const { fastestTimes, total, totalPages } = await getFastestTimes({
+    numberOfResults: 100,
     questionUid: todayQuestion?.uid || '',
     page: currentPage,
     pageSize: ITEMS_PER_PAGE,
   });
 
+  const startingRank = (currentPage - 1) * ITEMS_PER_PAGE;
+
   return (
-    <Card header={header()} footer={footer(total)}>
+    <Card
+      header={header(todayQuestion.uid)}
+      footer={footer({
+        currentPage,
+        totalAnswers: total,
+        totalPages,
+      })}
+    >
       <div className="flex flex-col divide-y-[1px] divide-black-50">
+        {/* Headings Row */}
+        <div className="flex items-center justify-between px-4 py-2 bg-black-75 font-bold font-ubuntu text-xs">
+          <span className="flex-1">Position</span>
+          <span className="flex-1">User</span>
+          <span className="flex-1 text-right">Time</span>
+        </div>
+        {/* Leaderboard Rows */}
         {fastestTimes.length > 0 &&
           fastestTimes.map((time, index) => (
             <div
               key={time.uid}
               className={cn(
-                'flex items-center justify-between p-4',
+                'flex items-center justify-between px-4 py-3',
                 index % 2 === 0 ? 'bg-black' : 'bg-black-75'
               )}
             >
-              <div className="flex items-center gap-4 font-ubuntu">
-                <span className="text-sm font-bold">{index + 1}.</span>
-                <div className="flex items-center gap-2">
-                  {time?.user.userProfilePicture ? (
-                    <img
-                      src={time?.user.userProfilePicture}
-                      className="rounded-full size-5"
-                    />
-                  ) : (
-                    <div className="rounded-full size-5 flex items-center justify-center bg-black-50">
-                      <User className="size-3" />
-                    </div>
+              <span className="flex-1 text-sm font-bold">
+                #{1 + (startingRank + index)}
+              </span>
+              <div className="flex-1 flex items-center gap-2">
+                {time?.user.userProfilePicture ? (
+                  <img
+                    src={time?.user.userProfilePicture}
+                    className="rounded-full size-6"
+                  />
+                ) : (
+                  <div className="rounded-full size-6 flex items-center justify-center bg-black-50">
+                    <User className="size-4" />
+                  </div>
+                )}
+                <span>{getUserDisplayName(time.user)}</span>
+                <p>
+                  {userUid === time.user.uid && (
+                    <span className="text-xs text-gray-500">(You)</span>
                   )}
-                  <span>{getUserDisplayName(time.user)}</span>
-                </div>
+                </p>
               </div>
-              <span>{formatSeconds(time.timeTaken || 0)}</span>
+              <span className="flex-1 text-right">
+                {formatSeconds(time.timeTaken || 0)}
+              </span>
             </div>
           ))}
       </div>

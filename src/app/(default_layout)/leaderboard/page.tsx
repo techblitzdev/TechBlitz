@@ -5,6 +5,7 @@ import NoDailyQuestion from '@/components/global/errors/no-daily-question';
 import LeaderboardLongestStreaks from '@/components/leaderboard/leaderboard-longest-streaks';
 import LeaderboardMostQuestionsAnswered from '@/components/leaderboard/leaderboard-most-questions-answered';
 import LeaderboardTodayBoard from '@/components/leaderboard/leaderboard-today-board';
+import { useUserServer } from '@/hooks/useUserServer';
 
 export default async function TodaysLeaderboardPage({
   searchParams,
@@ -12,6 +13,8 @@ export default async function TodaysLeaderboardPage({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const currentPage = parseInt(searchParams.page as string) || 1;
+
+  const user = await useUserServer();
 
   const todayQuestion = await getTodaysQuestion();
   if (!todayQuestion || !todayQuestion?.uid) return <NoDailyQuestion />;
@@ -22,11 +25,12 @@ export default async function TodaysLeaderboardPage({
         <LeaderboardTodayBoard
           todayQuestion={todayQuestion}
           currentPage={currentPage}
+          userUid={user?.uid}
         />
       </div>
       <div className="w-full flex flex-col gap-10 lg:w-1/2">
-        <LeaderboardMostQuestionsAnswered />
-        <LeaderboardLongestStreaks />
+        <LeaderboardMostQuestionsAnswered userUid={user?.uid} />
+        <LeaderboardLongestStreaks userUid={user?.uid} />
       </div>
     </div>
   );

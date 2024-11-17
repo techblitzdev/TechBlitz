@@ -1,19 +1,29 @@
 import { getMostQuestionsAnswered } from '@/actions/leaderboard/get-most-questions-answered';
 import Card from '../global/Card';
 import { getUserDisplayName } from '@/utils/user';
-import { User } from 'lucide-react';
+import { Trophy, User } from 'lucide-react';
 
 const header = () => {
   return (
-    <div className="flex items-center w-full justify-between">
-      <div className="flex gap-x-1 items-center">
-        <h3 className="text-lg">Top user's by questions answered</h3>
+    <div className="flex w-full">
+      <div className="flex flex-col gap-y-0.5">
+        <div className="flex gap-x-2 items-center">
+          <Trophy className="size-5 text-yellow-400" />
+          <h3 className="text-lg">Top user's by questions answered</h3>
+        </div>
+        <p className="text-xs">
+          Become a top user for a chance to win a prize at the end of the month!
+        </p>
       </div>
     </div>
   );
 };
 
-export default async function LeaderboardMostQuestionsAnswered() {
+export default async function LeaderboardMostQuestionsAnswered(opts: {
+  userUid?: string;
+}) {
+  const { userUid } = opts;
+
   const topUsersByQuestionCount = await getMostQuestionsAnswered();
 
   return (
@@ -22,7 +32,7 @@ export default async function LeaderboardMostQuestionsAnswered() {
         {topUsersByQuestionCount.map((user, index) => (
           <div
             key={user.uid}
-            className={`flex items-center justify-between font-ubuntu p-4 ${
+            className={`flex items-center justify-between font-ubuntu px-4 py-3 ${
               index % 2 === 0 ? 'bg-black' : 'bg-black-75'
             }`}
           >
@@ -32,14 +42,19 @@ export default async function LeaderboardMostQuestionsAnswered() {
                 {user?.userProfilePicture ? (
                   <img
                     src={user.userProfilePicture}
-                    className="rounded-full size-5"
+                    className="rounded-full size-6"
                   />
                 ) : (
-                  <div className="rounded-full size-5 flex items-center justify-center bg-black-50">
-                    <User className="size-3" />
+                  <div className="rounded-full size-6 flex items-center justify-center bg-black-50">
+                    <User className="size-4" />
                   </div>
                 )}
                 <span>{user.username || user.email}</span>
+                <p>
+                  {userUid === user.uid && (
+                    <span className="text-xs text-gray-500">(You)</span>
+                  )}
+                </p>
               </div>
             </div>
             <span>{user._count.answers}</span>

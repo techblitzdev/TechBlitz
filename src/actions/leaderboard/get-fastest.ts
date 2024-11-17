@@ -17,35 +17,21 @@ export const getFastestTimes = async (opts: {
   page?: number;
   pageSize?: number;
 }): Promise<GetFastestTimesReturnType> => {
-  const { questionUid, numberOfResults, page, pageSize } = opts;
+  const { questionUid, numberOfResults, page = 1, pageSize = 20 } = opts;
 
-  if (!questionUid)
-    return { fastestTimes: [], total: 0, page: 1, pageSize: 1, totalPages: 1 };
-
-  let take: number | undefined;
-  let skip: number | undefined;
-
-  if (numberOfResults !== undefined) {
-    // Fixed number of results
-    take = numberOfResults;
-  } else if (page !== undefined && pageSize !== undefined) {
-    // Pagination
-    take = pageSize;
-    skip = (page - 1) * pageSize;
-  } else {
-    throw new Error(
-      'Either numberOfResults or both page and pageSize must be provided'
-    );
+  if (!questionUid) {
+    return { fastestTimes: [], total: 0, page: 1, pageSize, totalPages: 1 };
   }
 
-  // only return the fastest times for correct answers
+  const skip = (page - 1) * pageSize;
+
   const answers = await prisma.answers.findMany({
     where: {
       questionUid,
       correctAnswer: true,
     },
-    take,
-    skip,
+    take: pageSize, // Correctly set the limit
+    skip, // Correctly set the offset
     orderBy: {
       timeTaken: 'asc',
     },
@@ -61,13 +47,11 @@ export const getFastestTimes = async (opts: {
     },
   });
 
-  revalidateTag(`leaderboard-${questionUid}`);
-
   return {
     fastestTimes: answers,
     total,
-    page: page || 1,
-    pageSize: pageSize || total,
-    totalPages: Math.ceil(total / (pageSize || total)),
+    page,
+    pageSize,
+    totalPages: Math.ceil(total / pageSize),
   };
 };

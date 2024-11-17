@@ -23,7 +23,7 @@ export default function GlobalPagination(opts: {
         <ArrowLeft className="size-5" />
       </Link>
 
-      {/** display 1-8 pages, then last page at the end with '...' inbetween */}
+      {/** display 1-6 pages, then last page at the end with '...' inbetween */}
       {Array.from({ length: totalPages > 6 ? 6 : totalPages }, (_, i) => (
         <Link
           key={i}

@@ -24,41 +24,51 @@ export default async function LeaderboardLongestStreaks(opts: {
   return (
     <Card header={header()}>
       <div className="flex flex-col divide-y-[1px] divide-black-50">
+        {/* Headings Row */}
+        <div className="flex items-center justify-between px-4 py-2 bg-black-75 font-bold font-ubuntu text-xs">
+          <span className="flex-1">Position</span>
+          <span className="flex-1">User</span>
+          <span className="flex-1 text-right">Streak</span>
+        </div>
+
         {longestStreaks.map((streak, i) => (
-          <li
-            key={i}
-            className={`flex items-center justify-between w-full px-4 py-3 font-ubuntu ${
+          <div
+            key={streak.user.uid}
+            className={`flex items-center justify-between font-ubuntu px-4 py-3 ${
               i % 2 === 0 ? 'bg-black' : 'bg-black-75'
             }`}
           >
-            <div className="flex items-center gap-x-4">
-              <span>#{i + 1}</span>
-              <div className="flex items-center gap-2">
-                {streak.user.userProfilePicture ? (
-                  <img
-                    src={streak?.user.userProfilePicture}
-                    className="rounded-full size-6"
-                  />
-                ) : (
-                  <div className="rounded-full size-6 flex items-center justify-center bg-black-50">
-                    <User className="size-4" />
-                  </div>
-                )}
-                <p>
-                  {getUserDisplayName(streak.user).length > 15
-                    ? `${getUserDisplayName(streak.user).substring(0, 15)}...`
-                    : getUserDisplayName(streak.user)}
-                </p>
-                {userUid === streak.user.uid && (
-                  <span className="text-xs text-gray-500">(You)</span>
-                )}
-              </div>
+            {/* Position */}
+            <span className="flex-1">#{i + 1}</span>
+
+            {/* User */}
+            <div className="flex-1 flex items-center gap-4">
+              {streak.user.userProfilePicture ? (
+                <img
+                  src={streak.user.userProfilePicture}
+                  className="rounded-full size-6"
+                />
+              ) : (
+                <div className="rounded-full size-6 flex items-center justify-center bg-black-50">
+                  <User className="size-4" />
+                </div>
+              )}
+              <span>
+                {getUserDisplayName(streak.user).length > 15
+                  ? `${getUserDisplayName(streak.user).substring(0, 15)}...`
+                  : getUserDisplayName(streak.user)}
+              </span>
+              {userUid === streak.user.uid && (
+                <span className="text-xs text-gray-500">(You)</span>
+              )}
             </div>
-            <div className="flex items-center w-fit">
+
+            {/* Streak */}
+            <span className="justify-end flex-1 flex items-end gap-1">
               {streak.streak}{' '}
               <FlameIcon className="fill-red-500 text-orange-500" />
-            </div>
-          </li>
+            </span>
+          </div>
         ))}
       </div>
     </Card>

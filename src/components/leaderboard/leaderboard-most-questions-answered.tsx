@@ -30,10 +30,10 @@ export default async function LeaderboardMostQuestionsAnswered(opts: {
     <Card header={header()}>
       <div className="flex flex-col divide-y-[1px] divide-black-50">
         {/* Headings Row */}
-        <div className="flex items-center justify-between px-4 py-2 bg-black-75 font-bold font-ubuntu text-xs">
-          <span className="w-[15%]">Position</span>
-          <span className="w-[50%]">User</span>
-          <span className="w-[35%] text-right">Answered</span>
+        <div className="flex items-center justify-between px-4 py-2 bg-black-75 font-medium font-ubuntu text-xs">
+          <span className="flex-1">Position</span>
+          <span className="flex-1">User</span>
+          <span className="flex-1 text-right">Answered</span>
         </div>
 
         {topUsersByQuestionCount.map((user, index) => (
@@ -44,10 +44,10 @@ export default async function LeaderboardMostQuestionsAnswered(opts: {
             }`}
           >
             {/* Position */}
-            <span className="w-[15%]">#{index + 1}</span>
+            <span className="flex-1">#{index + 1}</span>
 
             {/* User */}
-            <div className="w-[50%] flex items-center gap-4">
+            <div className="flex flex-1 items-center gap-4">
               {user?.userProfilePicture ? (
                 <img
                   src={user.userProfilePicture}

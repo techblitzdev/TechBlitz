@@ -81,7 +81,7 @@ export default async function LeaderboardTodayBoard(opts: {
     >
       <div className="flex flex-col divide-y-[1px] divide-black-50">
         {/* Headings Row */}
-        <div className="flex items-center justify-between px-4 py-2 bg-black-75 font-bold font-ubuntu text-xs">
+        <div className="flex items-center justify-between px-4 py-2 bg-black-75 font-medium font-ubuntu text-xs">
           <span className="flex-1">Position</span>
           <span className="flex-1">User</span>
           <span className="flex-1 text-right">Time</span>

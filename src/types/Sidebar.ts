@@ -7,6 +7,7 @@ export interface SidebarItem {
   groupLabel?: string;
   disabled?: boolean;
   badge?: string;
+  dropdownMenu?: React.ReactNode;
 }
 
 export interface SidebarGroupItem {

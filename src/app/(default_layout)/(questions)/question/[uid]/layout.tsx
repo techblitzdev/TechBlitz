@@ -2,6 +2,7 @@ import { getQuestion } from '@/actions/questions/get';
 import { getRandomQuestion } from '@/actions/questions/get-next-question';
 import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 import BackToDashboard from '@/components/global/back-to-dashboard';
+import CurrentStreak from '@/components/global/current-streak';
 import { Separator } from '@/components/ui/separator';
 import {
   Tooltip,
@@ -49,12 +50,7 @@ export default async function QuestionUidLayout({
           )}
         </div>
         <div className="flex items-center gap-x-5">
-          <div className="flex items-center gap-x-1">
-            <Flame className="fill-red-500 text-orange-500" />
-            <p className="font-ubuntu font-bold">
-              {userStreak?.streakData?.currentstreakCount}{' '}
-            </p>
-          </div>
+          <CurrentStreak />
           <div className="flex gap-x-2 items-center">
             <TooltipProvider delayDuration={0} skipDelayDuration={100}>
               <Tooltip>

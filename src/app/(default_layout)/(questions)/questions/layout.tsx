@@ -1,5 +1,6 @@
 import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 import BackToDashboard from '@/components/global/back-to-dashboard';
+import CurrentStreak from '@/components/global/current-streak';
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/useUserServer';
 import { Flame } from 'lucide-react';
@@ -27,12 +28,7 @@ export default async function QuestionsLayout({
                 enhance your knowledge.
               </p>
             </div>
-            <div className="flex items-center gap-x-1">
-              <Flame className="fill-red-500 text-orange-500" />
-              <p className="font-ubuntu font-bold">
-                {userStreak?.streakData?.currentstreakCount}{' '}
-              </p>
-            </div>
+            <CurrentStreak />
           </div>
         </div>
       </div>

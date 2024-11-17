@@ -11,6 +11,7 @@ import {
   CreditCard,
   RouteIcon,
   HelpCircle,
+  MoreHorizontal,
 } from 'lucide-react';
 import {
   Sidebar,
@@ -22,6 +23,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuBadge,
+  SidebarMenuAction,
 } from '@/components/ui/sidebar';
 import {
   Collapsible,
@@ -40,10 +42,16 @@ import { getTodaysQuestion } from '@/actions/questions/get-today';
 import ComingSoonChip from '../coming-soon';
 import { useUser } from '@/hooks/useUser';
 import { userAnsweredDailyQuestion } from '@/actions/questions/user-answered-daily-question';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import LogoutButton from '../logout';
 
 export function AppSidebar() {
   const pathname = usePathname();
-
   const { user } = useUser();
 
   const { data: todaysQuestion } = useQuery({
@@ -51,8 +59,6 @@ export function AppSidebar() {
     queryFn: () => getTodaysQuestion(),
   });
 
-  // determine if the user has already answered the
-  // daily question or not
   const { data: hasAnsweredDailyQuestion, isLoading } = useQuery({
     queryKey: [`user-has-answered-daily-question-${todaysQuestion?.uid}`],
     queryFn: () =>
@@ -63,7 +69,6 @@ export function AppSidebar() {
     enabled: !!todaysQuestion?.uid,
   });
 
-  // Menu items
   const standardItems: SidebarItemType[] = [
     {
       groupLabel: 'Menu',
@@ -135,6 +140,33 @@ export function AppSidebar() {
       title: 'Settings',
       url: '/settings/profile',
       icon: Settings,
+      dropdownMenu: (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <SidebarMenuAction>
+              <MoreHorizontal />
+            </SidebarMenuAction>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            side="right"
+            align="start"
+            className="bg-black-75 border border-black-50 text-white hover:text-white"
+          >
+            <DropdownMenuItem>
+              <LogoutButton variant="ghost" padding="none" />
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href="/settings/profile">Profile</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href="/settings/account">Account</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href="/settings/billing">Billing</Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ),
     },
   ];
 
@@ -169,7 +201,6 @@ export function AppSidebar() {
     },
   ];
 
-  // dynamically set the items we use based on the page
   const items = pathname.startsWith('/settings')
     ? settingsItems
     : standardItems;
@@ -211,37 +242,39 @@ export function AppSidebar() {
             </CollapsibleContent>
           </Collapsible>
         ) : (
-          <SidebarMenuButton asChild>
-            {item.disabled ? (
-              <SidebarMenuItem className="flex items-center font-ubuntu text-sm p-2 gap-x-2 opacity-50 hover:cursor-not-allowed h-8">
-                {item.icon && <item.icon />}
-                <span className="text-sm font-ubuntutoshi">{item.title}</span>
-                <div className="ms-auto">{item.chip && <item.chip />}</div>
-              </SidebarMenuItem>
-            ) : (
-              <Link
-                href={item.url}
-                prefetch
-                className={`flex items-center font-ubuntu text-sm py-2 ${
-                  pathname === item.url
-                    ? 'bg-white text-black border border-black-75'
-                    : ''
-                }`}
-              >
-                {item.icon && <item.icon />}
-                <span className="text-sm">{item.title}</span>
-                {item.chip && (
+          <div className="flex items-center w-full">
+            <SidebarMenuButton asChild className="flex-grow">
+              {item.disabled ? (
+                <div className="flex items-center font-ubuntu text-sm p-2 gap-x-2 opacity-50 hover:cursor-not-allowed h-8">
+                  {item.icon && <item.icon />}
+                  <span className="text-sm font-ubuntutoshi">{item.title}</span>
                   <div className="ms-auto">{item.chip && <item.chip />}</div>
-                )}
-
-                {item.badge && (
-                  <SidebarMenuBadge className="bg-accent !text-xs text-white">
-                    {item.badge}
-                  </SidebarMenuBadge>
-                )}
-              </Link>
-            )}
-          </SidebarMenuButton>
+                </div>
+              ) : (
+                <Link
+                  href={item.url}
+                  prefetch
+                  className={`flex items-center font-ubuntu text-sm py-2 ${
+                    pathname === item.url
+                      ? 'bg-white text-black border border-black-75'
+                      : ''
+                  }`}
+                >
+                  {item.icon && <item.icon />}
+                  <span className="text-sm">{item.title}</span>
+                  {item.chip && (
+                    <div className="ms-auto">{item.chip && <item.chip />}</div>
+                  )}
+                  {item.badge && (
+                    <SidebarMenuBadge className="bg-accent !text-xs text-white">
+                      {item.badge}
+                    </SidebarMenuBadge>
+                  )}
+                </Link>
+              )}
+            </SidebarMenuButton>
+            {item.dropdownMenu && <div className="">{item.dropdownMenu}</div>}
+          </div>
         )}
       </SidebarMenuItem>
     );

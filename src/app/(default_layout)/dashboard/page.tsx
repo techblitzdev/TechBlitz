@@ -1,5 +1,6 @@
 import { getUserFromDb, getUserFromSession } from '@/actions/user/get-user';
 import DashboardBentoGrid from '@/components/dashboard/dashboard-bento-grid';
+import CurrentStreak from '@/components/global/current-streak';
 import LanguageSwitcher from '@/components/global/language-dropdown';
 import UserProfileDropdown from '@/components/global/user-profile-dropdown';
 import { Separator } from '@/components/ui/separator';
@@ -18,6 +19,7 @@ export default async function Dashboard() {
           Welcome back, {getUserDisplayName(userData)}!
         </h1>
         <div className="flex item-center gap-x-3">
+          <CurrentStreak />
           <LanguageSwitcher />
           <div className="lg:hidden flex">
             <UserProfileDropdown />

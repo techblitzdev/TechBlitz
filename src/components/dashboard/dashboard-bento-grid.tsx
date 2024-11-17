@@ -62,7 +62,7 @@ export default async function DashboardBentoGrid() {
     {
       header: <TodaysLeaderboardBentoBox todaysQuestion={todaysQuestion} />,
       className: 'md:col-span-1 md:row-span-2 text-white h-full',
-      href: '/leaderboard/today',
+      href: '/leaderboard',
       padded: false,
     },
     {

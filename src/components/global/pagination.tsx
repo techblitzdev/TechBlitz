@@ -7,11 +7,12 @@ export default function GlobalPagination(opts: {
   totalPages: number;
   href: string;
   paramName: string;
+  margin?: string;
 }) {
-  const { currentPage, totalPages, href, paramName } = opts;
+  const { currentPage, totalPages, href, paramName, margin = 'mt-5' } = opts;
 
   return (
-    <div className="mt-5 w-full flex justify-center items-center gap-x-2">
+    <div className={cn('flex w-full justify-center gap-2', margin)}>
       <Link
         href={`${href}?${paramName}=${currentPage - 1}`}
         className={cn(
@@ -22,7 +23,7 @@ export default function GlobalPagination(opts: {
         <ArrowLeft className="size-5" />
       </Link>
 
-      {/** display 1-8 pages, then last page at the end with '...' inbetween */}
+      {/** display 1-6 pages, then last page at the end with '...' inbetween */}
       {Array.from({ length: totalPages > 6 ? 6 : totalPages }, (_, i) => (
         <Link
           key={i}

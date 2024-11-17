@@ -21,7 +21,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
   SidebarMenuBadge,
 } from '@/components/ui/sidebar';
 import {
@@ -121,7 +120,7 @@ export function AppSidebar() {
     },
     {
       title: 'Leaderboard',
-      url: '/leaderboard/today',
+      url: '/leaderboard',
       icon: Award,
     },
     {

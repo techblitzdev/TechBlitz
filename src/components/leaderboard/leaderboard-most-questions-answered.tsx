@@ -37,7 +37,7 @@ export default async function LeaderboardMostQuestionsAnswered(opts: {
             }`}
           >
             <div className="flex gap-4 items-center">
-              <span>{index + 1}.</span>
+              <span>#{index + 1}</span>
               <div className="flex items-center gap-2">
                 {user?.userProfilePicture ? (
                   <img

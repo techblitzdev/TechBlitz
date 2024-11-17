@@ -32,7 +32,7 @@ export default async function LeaderboardLongestStreaks(opts: {
             }`}
           >
             <div className="flex items-center gap-x-4">
-              <span>{i + 1}.</span>
+              <span>#{i + 1}</span>
               <div className="flex items-center gap-2">
                 {streak.user.userProfilePicture ? (
                   <img

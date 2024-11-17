@@ -21,7 +21,7 @@ export const listQuestions = async (
 ): Promise<ListQuestionsReturnType> => {
   const { page = 0, pageSize = 10 } = opts;
 
-  const skip = page * pageSize;
+  const skip = (page - 1) * pageSize;
 
   const questions = await prisma.questions.findMany({
     skip,

@@ -25,6 +25,10 @@ export default async function PreviousQuestionsPage({
     pageSize: ITEMS_PER_PAGE,
   });
 
+  console.log({
+    ...data,
+  });
+
   return (
     <>
       <div className="flex flex-col gap-y-2 w-full">
@@ -56,16 +60,16 @@ export default async function PreviousQuestionsPage({
                 userAnswer={data.answers.find((a) => a.questionUid === q.uid)}
               />
             ))}
+            <GlobalPagination
+              currentPage={currentPage}
+              totalPages={data?.totalPages || 1}
+              href="/previous-questions"
+              paramName="page"
+            />
           </div>
           {/* Display sidebar with user statistics and suggested questions */}
           {user && <PreviousQuestionPageSidenbar user={user} />}
         </div>
-        <GlobalPagination
-          currentPage={currentPage}
-          totalPages={data?.totalPages || 1}
-          href="/previous-questions"
-          paramName="page"
-        />
       </div>
     </>
   );

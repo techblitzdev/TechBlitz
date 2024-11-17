@@ -21,8 +21,6 @@ export const getPreviousQuestions = async (opts: {
 }): Promise<PaginatedResponse | undefined> => {
   const { userUid, orderBy, page = 0, pageSize = 5 } = opts;
 
-  const skip = page * pageSize;
-
   // get the user
   const user = await getUserFromDb(userUid);
 
@@ -30,6 +28,8 @@ export const getPreviousQuestions = async (opts: {
   if (!user) {
     return;
   }
+
+  const skip = (page - 1) * pageSize;
 
   // get the current date
   const todayDate = new Date().toISOString();

@@ -40,17 +40,20 @@ export default function GlobalPagination(opts: {
           <span>...</span>
         </div>
       )}
-      <Link
-        href={`${href}?${paramName}=${totalPages}`}
-        className={cn(
-          'bg-black-75 border border-black-50 hover:bg-black-50 duration-300 rounded-md size-8 flex items-center justify-center p-1 text-sm',
-          `${
-            currentPage === totalPages ? 'pointer-events-none opacity-50' : ''
-          }`
-        )}
-      >
-        {totalPages}
-      </Link>
+      {/** display last page */}
+      {totalPages > 6 && (
+        <Link
+          href={`${href}?${paramName}=${totalPages}`}
+          className={cn(
+            'bg-black-75 border border-black-50 hover:bg-black-50 duration-300 rounded-md size-8 flex items-center justify-center p-1 text-sm',
+            `${
+              currentPage === totalPages ? 'pointer-events-none opacity-50' : ''
+            }`
+          )}
+        >
+          {totalPages}
+        </Link>
+      )}
 
       <Link
         href={`${href}?${paramName}=${currentPage + 1}`}

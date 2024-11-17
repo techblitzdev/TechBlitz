@@ -1,4 +1,3 @@
-'use client';
 import { DatePicker } from '@mantine/dates';
 import PreviousQuestionSuggestedCard from '@/components/questions/previous/previous-question-suggested-table';
 import {
@@ -9,25 +8,17 @@ import {
 } from '@/components/ui/tooltip';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 
-import { useQuery } from '@tanstack/react-query';
-import { User, UserRecord } from '@/types/User';
+import { UserRecord } from '@/types/User';
 import { getSuggestions } from '@/actions/questions/get-suggestions';
 import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 
-export default function PreviousQuestionPageSidenbar(opts: {
+export default async function PreviousQuestionPageSidenbar(opts: {
   user: UserRecord | null;
 }) {
   const { user } = opts;
+  if (!user) return null;
 
-  const { data: userStreak } = useQuery({
-    queryKey: ['user-streak', user?.uid],
-    queryFn: async () => {
-      if (!user?.uid) {
-        throw new Error('User not found');
-      }
-      return getUserDailyStats(user.uid);
-    },
-  });
+  const userStreak = await getUserDailyStats(user?.uid);
 
   // get the streak start date and streak end date
   const startDate = userStreak?.streakData?.streakStart as Date;
@@ -36,17 +27,8 @@ export default function PreviousQuestionPageSidenbar(opts: {
   // create an array of dates between the start and end date
   const dateArray: [Date, Date] = [startDate, endDate];
 
-  const { data: suggestions, isLoading: suggestionsLoading } = useQuery({
-    queryKey: ['suggested-questions', user?.uid],
-    queryFn: async () => {
-      if (!user?.uid) {
-        throw new Error('User not found');
-      }
-      return getSuggestions({
-        userUid: user.uid,
-      });
-    },
-    enabled: !!user?.uid,
+  const suggestions = await getSuggestions({
+    userUid: user?.uid || '',
   });
 
   return (
@@ -82,7 +64,7 @@ export default function PreviousQuestionPageSidenbar(opts: {
           </div>
           <PreviousQuestionSuggestedCard
             questions={suggestions ?? []}
-            isLoading={suggestionsLoading}
+            isLoading={false}
           />
         </div>
       </div>

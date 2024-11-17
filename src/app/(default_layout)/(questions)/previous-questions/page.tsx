@@ -25,10 +25,6 @@ export default async function PreviousQuestionsPage({
     pageSize: ITEMS_PER_PAGE,
   });
 
-  console.log({
-    ...data,
-  });
-
   return (
     <>
       <div className="flex flex-col gap-y-2 w-full">

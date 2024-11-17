@@ -1,20 +1,18 @@
-import { Question } from '@/types/Questions';
+import { QuestionWithoutAnswers } from '@/types/Questions';
 import { Button } from '@/components/ui/button';
-import { Answer } from '@/types/Answers';
 import { ArrowUpRight } from 'lucide-react';
-import Chip from '../../global/chip';
+import Chip from '../global/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
-import { Grid } from '../../ui/grid';
-import TagDisplay from './tag-display';
+import { Grid } from '../ui/grid';
+import TagDisplay from './previous/tag-display';
 import { getQuestionStats } from '@/actions/questions/get-question-stats';
 import Link from 'next/link';
 
-export default async function PreviousQuestionCard(opts: {
-  questionData: Question;
+export default async function QuestionCard(opts: {
+  questionData: QuestionWithoutAnswers;
   userUid: string;
-  userAnswer: Answer | undefined;
 }) {
-  const { questionData, userAnswer } = opts;
+  const { questionData } = opts;
 
   const questionStats = await getQuestionStats(questionData.uid);
 

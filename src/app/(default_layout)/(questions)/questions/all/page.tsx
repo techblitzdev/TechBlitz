@@ -1,4 +1,3 @@
-import QuestionListCard from '@/components/questions/list/question-card';
 import { DatePicker } from '@mantine/dates';
 import GlobalPagination from '@/components/global/pagination';
 import QuestionSuggestedCard from '@/components/questions/suggested-questions-table';
@@ -14,6 +13,7 @@ import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 import { useUserServer } from '@/hooks/useUserServer';
 import { getSuggestions } from '@/actions/questions/get-suggestions';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
+import QuestionCard from '@/components/questions/question-card';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -48,11 +48,11 @@ export default async function QuestionsDashboard({
     <div className="container flex mt-5 gap-10">
       {/* Left Section: Questions */}
       <div className="w-1/2 space-y-6">
-        {questions?.map((question) => (
-          <QuestionListCard
-            key={question.uid}
-            question={question}
-            user={user}
+        {questions?.map((q) => (
+          <QuestionCard
+            key={q.uid}
+            questionData={q}
+            userUid={user?.uid || ''}
           />
         ))}
 

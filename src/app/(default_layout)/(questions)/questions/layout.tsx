@@ -23,8 +23,8 @@ export default async function QuestionsLayout({
                 All questions
               </h1>
               <p className="font-ubuntu text-sm text-gray-300">
-                Choose from a wide variety of questions, covering a range of
-                topics.
+                Explore a diverse set of questions across multiple topics to
+                enhance your knowledge.
               </p>
             </div>
             <div className="flex items-center gap-x-1">

@@ -1,5 +1,5 @@
 import GlobalPagination from '@/components/global/pagination';
-import PreviousQuestionCard from '@/components/questions/previous/previous-question-card';
+import QuestionCard from '@/components/questions/question-card';
 import { Separator } from '@/components/ui/separator';
 import { getPreviousQuestions } from '@/actions/questions/get-previous';
 import BackToDashboard from '@/components/global/back-to-dashboard';
@@ -49,11 +49,10 @@ export default async function PreviousQuestionsPage({
         <div className="flex w-full gap-10">
           <div className="w-1/2 space-y-6">
             {data?.questions.map((q) => (
-              <PreviousQuestionCard
+              <QuestionCard
                 key={q.uid}
                 questionData={q}
                 userUid={user?.uid || ''}
-                userAnswer={data.answers.find((a) => a.questionUid === q.uid)}
               />
             ))}
             <GlobalPagination

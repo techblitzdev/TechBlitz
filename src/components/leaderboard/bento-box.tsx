@@ -16,12 +16,12 @@ export default async function TodaysLeaderboardBentoBox(opts: {
   todaysQuestion: Question | null;
 }) {
   const { todaysQuestion } = opts;
-  if (!todaysQuestion || !todaysQuestion?.uid) return null;
+  //if (!todaysQuestion || !todaysQuestion?.uid) return null;
   const { data: user } = await getUserFromSession();
 
   const { fastestTimes } = await getFastestTimes({
     numberOfResults: 10,
-    questionUid: todaysQuestion?.uid,
+    questionUid: todaysQuestion?.uid || '',
   });
 
   const longestStreaks = await getLongestStreaks();
@@ -86,7 +86,7 @@ export default async function TodaysLeaderboardBentoBox(opts: {
         <div className="px-4 pb-4 bg-black-50/10 pt-4">
           <p className="text-xs">Your rank:</p>
           <UserRank
-            questionUid={todaysQuestion.uid}
+            questionUid={todaysQuestion?.uid || ''}
             userUid={user?.user?.id || ''}
           />
         </div>

@@ -1,87 +1,73 @@
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { cn } from '@/utils/cn';
 
-interface GlobalPaginationProps {
+export default function GlobalPagination(opts: {
   currentPage: number;
-  onPageChange: (page: number) => void;
-  totalItems: number;
-  itemsPerPage: number;
-  className?: string;
-}
-
-export default function GlobalPagination({
-  currentPage,
-  onPageChange,
-  totalItems,
-  itemsPerPage,
-  className,
-}: GlobalPaginationProps) {
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-  const handlePrevious = () => {
-    if (currentPage > 0) {
-      onPageChange(currentPage - 1);
-    }
-  };
-
-  const handleNext = () => {
-    if (currentPage < totalPages - 1) {
-      onPageChange(currentPage + 1);
-    }
-  };
+  totalPages: number;
+  href: string;
+  paramName: string;
+}) {
+  const { currentPage, totalPages, href, paramName } = opts;
 
   return (
-    <Pagination className={className}>
-      <PaginationContent>
-        <PaginationItem>
-          <PaginationPrevious
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              handlePrevious();
-            }}
-            className={
-              currentPage === 0 ? 'pointer-events-none opacity-50' : ''
-            }
-          />
-        </PaginationItem>
+    <div className="mt-5 w-full flex justify-center items-center gap-x-2">
+      <Link
+        href={`${href}?${paramName}=${currentPage - 1}`}
+        className={cn(
+          'bg-black-75 border border-black-50 rounded-md size-8 flex items-center justify-center text-sm',
+          `${currentPage === 1 ? 'pointer-events-none opacity-50' : ''}`
+        )}
+      >
+        <ArrowLeft className="size-5" />
+      </Link>
 
-        {[...Array(totalPages)].map((_, index) => (
-          <PaginationItem key={index}>
-            <PaginationLink
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                onPageChange(index);
-              }}
-              isActive={currentPage === index}
-            >
-              {index + 1}
-            </PaginationLink>
-          </PaginationItem>
-        ))}
+      {/** display 1-8 pages, then last page at the end with '...' inbetween */}
+      {Array.from({ length: totalPages > 6 ? 6 : totalPages }, (_, i) => (
+        <Link
+          key={i}
+          href={`${href}?${paramName}=${i + 1}`}
+          className={cn(
+            'bg-black-75 border border-black-50 hover:bg-black-50 duration-300 rounded-md size-8 flex items-center justify-center p-1 text-sm',
+            `${
+              currentPage === i + 1 ? 'pointer-events-none border-accent' : ''
+            }`
+          )}
+        >
+          {i + 1}
+        </Link>
+      ))}
+      {totalPages > 6 && (
+        <div className="bg-black-75 border border-black-50 rounded-md size-8 flex items-center justify-center p-2">
+          <span>...</span>
+        </div>
+      )}
+      {/** display last page */}
+      {totalPages > 6 && (
+        <Link
+          href={`${href}?${paramName}=${totalPages}`}
+          className={cn(
+            'bg-black-75 border border-black-50 hover:bg-black-50 duration-300 rounded-md size-8 flex items-center justify-center p-1 text-sm',
+            `${
+              currentPage === totalPages ? 'pointer-events-none opacity-50' : ''
+            }`
+          )}
+        >
+          {totalPages}
+        </Link>
+      )}
 
-        <PaginationItem>
-          <PaginationNext
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              handleNext();
-            }}
-            className={
-              currentPage === totalPages - 1
-                ? 'pointer-events-none opacity-50'
-                : ''
-            }
-          />
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
+      <Link
+        href={`${href}?${paramName}=${currentPage + 1}`}
+        className={cn(
+          'bg-black-75 border border-black-50 hover:bg-black-50 duration-300 rounded-md size-8 flex justify-center items-center',
+          `${
+            currentPage === totalPages ? 'pointer-events-none opacity-50' : ''
+          }`
+        )}
+      >
+        <ArrowRight className="size-5" />
+      </Link>
+    </div>
   );
 }

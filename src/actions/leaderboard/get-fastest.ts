@@ -19,9 +19,8 @@ export const getFastestTimes = async (opts: {
 }): Promise<GetFastestTimesReturnType> => {
   const { questionUid, numberOfResults, page, pageSize } = opts;
 
-  if (!questionUid) {
-    throw new Error('Missing required parameter: questionUid');
-  }
+  if (!questionUid)
+    return { fastestTimes: [], total: 0, page: 1, pageSize: 1, totalPages: 1 };
 
   let take: number | undefined;
   let skip: number | undefined;

@@ -1,22 +1,25 @@
 'use server';
 import { prisma } from '@/utils/prisma';
 import { getUserFromDb } from '../user/get-user';
-import { Question } from '@/types/Questions';
+import { Question, QuestionWithoutAnswers } from '@/types/Questions';
 import { Answer } from '@/types/Answers';
 
 interface PaginatedResponse {
   questions: Question[]; // Replace 'any' with your Question type
   total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
   answers: Answer[];
 }
 
 export const getPreviousQuestions = async (opts: {
   userUid: string;
   orderBy: 'asc' | 'desc';
-  from: number;
-  to: number;
+  page?: number;
+  pageSize?: number;
 }): Promise<PaginatedResponse | undefined> => {
-  const { userUid, orderBy, from, to } = opts;
+  const { userUid, orderBy, page = 0, pageSize = 5 } = opts;
 
   // get the user
   const user = await getUserFromDb(userUid);
@@ -25,6 +28,8 @@ export const getPreviousQuestions = async (opts: {
   if (!user) {
     return;
   }
+
+  const skip = (page - 1) * pageSize;
 
   // get the current date
   const todayDate = new Date().toISOString();
@@ -50,8 +55,8 @@ export const getPreviousQuestions = async (opts: {
       orderBy: {
         questionDate: orderBy,
       },
-      skip: from,
-      take: to - from, // Calculate the correct number of items to take
+      skip,
+      take: pageSize, // Calculate the correct number of items to take
       include: {
         answers: true, // Include the answers in the query
         tags: {
@@ -70,13 +75,12 @@ export const getPreviousQuestions = async (opts: {
     }),
   ]);
 
-  console.log({
-    questions,
-  });
-
   return {
     questions,
     total,
     answers,
+    page,
+    pageSize,
+    totalPages: Math.ceil(total / pageSize),
   };
 };

@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
 
-export default function PreviousQuestionSuggestedCard(opts: {
+export default function QuestionSuggestedCard(opts: {
   questions?: QuestionWithoutAnswers[];
   isLoading: boolean;
 }) {

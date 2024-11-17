@@ -1,5 +1,5 @@
 import { DatePicker } from '@mantine/dates';
-import PreviousQuestionSuggestedCard from '@/components/questions/previous/previous-question-suggested-table';
+import QuestionSuggestedCard from '@/components/questions/suggested-questions-table';
 import {
   Tooltip,
   TooltipContent,
@@ -7,35 +7,28 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { User, UserRecord } from '@/types/User';
-import { getSuggestions } from '@/actions/questions/get-suggestions';
 
-export default function PreviousQuestionPageSidenbar(opts: {
+import { UserRecord } from '@/types/User';
+import { getSuggestions } from '@/actions/questions/get-suggestions';
+import { getUserDailyStats } from '@/actions/user/get-daily-streak';
+
+export default async function PreviousQuestionPageSidenbar(opts: {
   user: UserRecord | null;
 }) {
   const { user } = opts;
+  if (!user) return null;
 
-  const today = new Date();
-  const date = new Date(today).setDate(today.getDate() - 10);
+  const userStreak = await getUserDailyStats(user?.uid);
 
-  const [value, setValue] = useState<[Date | null, Date | null]>([
-    new Date(date),
-    today,
-  ]);
+  // get the streak start date and streak end date
+  const startDate = userStreak?.streakData?.streakStart as Date;
+  const endDate = userStreak?.streakData?.streakEnd as Date;
 
-  const { data: suggestions, isLoading: suggestionsLoading } = useQuery({
-    queryKey: ['suggested-questions', user?.uid],
-    queryFn: async () => {
-      if (!user?.uid) {
-        throw new Error('User not found');
-      }
-      return getSuggestions({
-        userUid: user.uid,
-      });
-    },
-    enabled: !!user?.uid,
+  // create an array of dates between the start and end date
+  const dateArray: [Date, Date] = [startDate, endDate];
+
+  const suggestions = await getSuggestions({
+    userUid: user?.uid || '',
   });
 
   return (
@@ -47,11 +40,9 @@ export default function PreviousQuestionPageSidenbar(opts: {
             className="z-30 text-white border border-black-50 p-2 rounded-md bg-black-100 hover:cursor-default"
             color="white"
             type="range"
-            value={value}
-            onChange={setValue}
+            value={dateArray}
             c="gray"
             inputMode="none"
-            onClick={(e) => e.preventDefault()}
           />
         </div>
         <div className="space-y-4">
@@ -71,9 +62,9 @@ export default function PreviousQuestionPageSidenbar(opts: {
               </Tooltip>
             </TooltipProvider>
           </div>
-          <PreviousQuestionSuggestedCard
+          <QuestionSuggestedCard
             questions={suggestions ?? []}
-            isLoading={suggestionsLoading}
+            isLoading={false}
           />
         </div>
       </div>

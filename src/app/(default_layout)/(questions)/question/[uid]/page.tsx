@@ -31,7 +31,7 @@ export default async function TodaysQuestionPage({
 
   const question = await getQuestion(uid);
   if (!question) {
-    return <NoDailyQuestion />;
+    return <NoDailyQuestion textAlign="center" />;
   }
 
   const totalSubmissions = await getQuestionStats(uid);

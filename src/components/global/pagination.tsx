@@ -7,11 +7,12 @@ export default function GlobalPagination(opts: {
   totalPages: number;
   href: string;
   paramName: string;
+  margin?: string;
 }) {
-  const { currentPage, totalPages, href, paramName } = opts;
+  const { currentPage, totalPages, href, paramName, margin = 'mt-5' } = opts;
 
   return (
-    <div className="mt-5 w-full flex justify-center items-center gap-x-2">
+    <div className={cn('flex w-full justify-center gap-2', margin)}>
       <Link
         href={`${href}?${paramName}=${currentPage - 1}`}
         className={cn(

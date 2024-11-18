@@ -77,28 +77,32 @@ export default function FilterButtonDifficulty() {
         <Button
           variant="default"
           padding="sm"
-          className="flex items-center gap-x-2.5 text-xs data-[state=open]:[&*svg]:rotate-180"
+          className="flex items-center gap-x-2.5 text-xs group"
         >
           <div
             className="size-1.5 ml-1 rounded-full"
             style={{ backgroundColor: color }}
           />
           <span>Difficulty</span>
-          <ChevronDown className="size-3 duration-300" />
+          <ChevronDown className="size-3 duration-200 group-data-[state=open]:-rotate-180" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="center"
         className="!p-0 w-40 bg-black border border-black-50 text-white text-sm"
       >
-        <DropdownMenuGroup className="p-2">
+        <DropdownMenuGroup className="p-1">
           {Object.entries(DIFFICULTY_MAP).map(
             ([key, { color, label }]) =>
               key !== 'DEFAULT' && (
-                <DropdownMenuItem key={key}>
+                <DropdownMenuItem
+                  key={key}
+                  asChild
+                  className="hover:!text-white hover:cursor-pointer"
+                >
                   <button
                     onClick={() => handleFilterClick(key as QuestionDifficulty)}
-                    className="w-full text-left flex items-center gap-x-2 hover:text-white"
+                    className="h-full w-full text-left flex items-center gap-x-2"
                   >
                     <div
                       className="size-2 rounded-full"

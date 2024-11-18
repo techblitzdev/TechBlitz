@@ -59,25 +59,26 @@ export default function FilterButtonsSort() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>
         <Button
           padding="sm"
           variant="default"
-          className="flex items-center gap-x-1 text-xs"
+          className="flex items-center gap-x-1 text-xs group"
         >
           <ArrowUpDown className="size-4" />
           Sort
-          <ChevronDown className="size-3" />
+          <ChevronDown className="size-3 duration-200 group-data-[state=open]:-rotate-180" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
         className="!p-0 w-56 bg-black border border-black-50 text-white text-sm"
       >
-        <DropdownMenuGroup className="py-2 p-2">
-          <DropdownMenuItem className="flex items-center justify-between">
+        <DropdownMenuGroup className="p-1">
+          <DropdownMenuItem className="flex items-center justify-between hover:!bg-transparent">
             <span className="text-white">Date</span>
             <Switch
+              className="data-[state=checked]:bg-accent data-[state=unchecked]:bg-primary"
               checked={ascending}
               onCheckedChange={(checked) =>
                 handleSwitchChange('ascending', setAscending, checked)

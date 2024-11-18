@@ -74,8 +74,6 @@ export default function FilterButtonsSort() {
         align="end"
         className="!p-0 w-56 bg-black border border-black-50 text-white text-sm"
       >
-        <DropdownMenuLabel className="px-4 py-3">Sort by</DropdownMenuLabel>
-        <Separator className="bg-black-50" />
         <DropdownMenuGroup className="py-2 p-2">
           <DropdownMenuItem className="flex items-center justify-between">
             <span className="text-white">Date</span>

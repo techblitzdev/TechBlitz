@@ -1,6 +1,9 @@
 'use server';
 import { prisma } from '@/utils/prisma';
-import type { QuestionWithoutAnswers } from '@/types/Questions';
+import type {
+  QuestionDifficulty,
+  QuestionWithoutAnswers,
+} from '@/types/Questions';
 import { getTagsFromQuestion } from '../utils/get-tags-from-question';
 import { QuestionFilters } from '@/types/Filters';
 
@@ -25,12 +28,20 @@ export const listQuestions = async (
 
   const skip = (page - 1) * pageSize;
 
+  const whereClause = {
+    where: {
+      difficulty:
+        (filters?.difficulty?.toUpperCase() as QuestionDifficulty) || undefined,
+    },
+  };
+
   const questions = await prisma.questions.findMany({
     skip,
     take: pageSize,
     orderBy: {
       questionDate: filters?.ascending ? 'asc' : 'desc',
     },
+    ...whereClause,
     include: {
       tags: {
         include: {

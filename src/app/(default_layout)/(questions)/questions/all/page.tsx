@@ -15,6 +15,7 @@ import { getSuggestions } from '@/actions/questions/get-suggestions';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import QuestionCard from '@/components/questions/question-card';
 import Filter from '@/components/global/filters/filter';
+import { QuestionDifficulty } from '@/types/Questions';
 
 const ITEMS_PER_PAGE = 5;
 
@@ -29,12 +30,14 @@ export default async function QuestionsDashboard({
   // filters from search params
   const currentPage = parseInt(searchParams.page as string) || 1;
   const ascending = searchParams.ascending === 'true';
+  const difficulty = searchParams.difficulty as QuestionDifficulty;
 
   if (currentPage < 1) return null;
 
   // construct filter object to send up
   const filters = {
     ascending,
+    difficulty,
   };
 
   // Fetch user streak statistics

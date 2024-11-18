@@ -8,6 +8,7 @@ import {
   Check,
 } from 'lucide-react';
 import FilterButtonsSort from './buttons/sort/date';
+import FilterButtonDifficulty from './buttons/filter/difficulty';
 
 export default function Filter() {
   return (
@@ -27,15 +28,7 @@ export default function Filter() {
           All tags
           <ChevronDown className="size-3" />
         </Button>
-        <Button
-          padding="sm"
-          variant="default"
-          className="flex items-center gap-x-1 text-xs"
-        >
-          <Calendar className="size-4" />
-          Difficulty
-          <ChevronDown className="size-3" />
-        </Button>
+        <FilterButtonDifficulty />
         <Button
           padding="sm"
           variant="default"
@@ -46,7 +39,9 @@ export default function Filter() {
           <ChevronDown className="size-3" />
         </Button>
       </div>
-      <FilterButtonsSort />
+      <div>
+        <FilterButtonsSort />
+      </div>
     </div>
   );
 }

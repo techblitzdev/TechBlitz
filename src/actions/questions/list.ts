@@ -2,6 +2,7 @@
 import { prisma } from '@/utils/prisma';
 import type { QuestionWithoutAnswers } from '@/types/Questions';
 import { getTagsFromQuestion } from '../utils/get-tags-from-question';
+import { QuestionFilters } from '@/types/Filters';
 
 type ListQuestionsReturnType = {
   questions: QuestionWithoutAnswers[];
@@ -14,12 +15,13 @@ type ListQuestionsReturnType = {
 type GetQuestionsOpts = {
   page?: number;
   pageSize?: number;
+  filters?: QuestionFilters;
 };
 
 export const listQuestions = async (
   opts: GetQuestionsOpts
 ): Promise<ListQuestionsReturnType> => {
-  const { page = 0, pageSize = 10 } = opts;
+  const { page = 0, pageSize = 10, filters } = opts;
 
   const skip = (page - 1) * pageSize;
 
@@ -27,7 +29,7 @@ export const listQuestions = async (
     skip,
     take: pageSize,
     orderBy: {
-      questionDate: 'asc',
+      questionDate: filters?.ascending ? 'asc' : 'desc',
     },
     include: {
       tags: {

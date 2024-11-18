@@ -10,7 +10,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Switch } from '@/components/ui/switch';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
@@ -18,29 +17,23 @@ export default function FilterButtonCompleted() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  // Get the current value of the filter
+  const completedFilter = searchParams.get('completed');
+
   // Helper to update query params
   const updateQueryParams = (key: string, value: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
-    if (value) {
-      params.set(key, value);
+    // If 'completed' is being set or cleared, ensure page is reset to 1
+    params.set('page', '1');
+
+    // Toggle filter: if the same value is clicked, remove the filter, else set it
+    if (value === completedFilter) {
+      params.delete(key); // Remove the filter
     } else {
-      params.delete(key);
+      params.set(key, value || ''); // Set the new filter
     }
+
     router.push(`?${params.toString()}`);
-  };
-
-  // State for switches
-  const [completed, setCompleted] = useState(
-    searchParams.get('ascending') === 'true'
-  );
-
-  const handleSwitchChange = (
-    key: string,
-    stateSetter: React.Dispatch<React.SetStateAction<boolean>>,
-    value: boolean
-  ) => {
-    stateSetter(value);
-    updateQueryParams(key, value ? 'true' : null);
   };
 
   return (
@@ -59,18 +52,25 @@ export default function FilterButtonCompleted() {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="!p-0 w-56 bg-black border border-black-50 text-white text-sm"
+        className="!p-0 w-40 bg-black border border-black-50 text-white text-sm"
       >
         <DropdownMenuGroup className="p-1">
-          <DropdownMenuItem className="flex items-center justify-between hover:!bg-transparent">
-            <span className="text-white">Completed</span>
-            <Switch
-              className="data-[state=checked]:bg-accent data-[state=unchecked]:bg-primary"
-              checked={completed}
-              onCheckedChange={(checked) =>
-                handleSwitchChange('completed', setCompleted, checked)
-              }
-            />
+          <DropdownMenuItem
+            asChild
+            className="flex items-center justify-between hover:!bg-transparent"
+          >
+            <button onClick={() => updateQueryParams('completed', 'true')}>
+              Completed
+            </button>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem
+            asChild
+            className="flex items-center justify-between hover:!bg-transparent"
+          >
+            <button onClick={() => updateQueryParams('completed', 'false')}>
+              Incomplete
+            </button>
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>

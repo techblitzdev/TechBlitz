@@ -82,6 +82,7 @@ export default function FilterButtonDifficulty() {
         <Button
           variant="default"
           padding="sm"
+          size="sm"
           className="flex items-center gap-x-2.5 text-xs group"
         >
           <div

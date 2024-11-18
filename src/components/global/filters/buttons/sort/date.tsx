@@ -62,7 +62,7 @@ export default function FilterButtonsSort() {
       <DropdownMenuTrigger asChild>
         <Button
           padding="sm"
-          variant="default"
+          variant="secondary"
           className="flex items-center gap-x-1 text-xs group"
         >
           <ArrowUpDown className="size-4" />

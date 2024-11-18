@@ -22,6 +22,7 @@ export default function Filter() {
         <Button
           padding="sm"
           variant="default"
+          size="sm"
           className="flex items-center gap-x-1 text-xs"
         >
           <Tag className="size-4" />
@@ -32,6 +33,7 @@ export default function Filter() {
         <Button
           padding="sm"
           variant="default"
+          size="sm"
           className="flex items-center gap-x-1 text-xs"
         >
           <Check className="size-4" />

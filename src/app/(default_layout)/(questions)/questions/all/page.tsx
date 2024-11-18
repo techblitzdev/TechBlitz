@@ -17,7 +17,7 @@ import QuestionCard from '@/components/questions/question-card';
 import Filter from '@/components/global/filters/filter';
 import { QuestionDifficulty } from '@/types/Questions';
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 20;
 
 export default async function QuestionsDashboard({
   searchParams,
@@ -31,6 +31,7 @@ export default async function QuestionsDashboard({
   const currentPage = parseInt(searchParams.page as string) || 1;
   const ascending = searchParams.ascending === 'true';
   const difficulty = searchParams.difficulty as QuestionDifficulty;
+  const completed = searchParams.completed === 'true';
 
   if (currentPage < 1) return null;
 
@@ -38,6 +39,7 @@ export default async function QuestionsDashboard({
   const filters = {
     ascending,
     difficulty,
+    completed,
   };
 
   // Fetch user streak statistics
@@ -47,9 +49,10 @@ export default async function QuestionsDashboard({
   const dateArray: [Date, Date] = [startDate, endDate];
 
   // Fetch questions for the current page
-  const { questions, totalPages } = await listQuestions({
+  const { questions, totalPages, total } = await listQuestions({
     page: currentPage,
     pageSize: ITEMS_PER_PAGE,
+    userUid: user.uid,
     filters,
   });
 
@@ -61,6 +64,7 @@ export default async function QuestionsDashboard({
     <div className="container flex mt-5 gap-10">
       {/* Left Section: Questions */}
       <div className="w-1/2 space-y-6">
+        {total}
         <Filter />
         {questions?.map((q) => (
           <QuestionCard

@@ -19,12 +19,13 @@ type GetQuestionsOpts = {
   page?: number;
   pageSize?: number;
   filters?: QuestionFilters;
+  userUid: string;
 };
 
 export const listQuestions = async (
   opts: GetQuestionsOpts
 ): Promise<ListQuestionsReturnType> => {
-  const { page = 1, pageSize = 10, filters } = opts;
+  const { page = 1, pageSize = 10, filters, userUid } = opts;
 
   const skip = (page - 1) * pageSize;
 
@@ -33,6 +34,14 @@ export const listQuestions = async (
     where: {
       difficulty:
         (filters?.difficulty?.toUpperCase() as QuestionDifficulty) || undefined,
+      // exclude questions the user has answered if the completed filter is set to true
+      ...(filters?.completed && {
+        userAnswers: {
+          some: {
+            userUid: userUid,
+          },
+        },
+      }),
     },
   };
 

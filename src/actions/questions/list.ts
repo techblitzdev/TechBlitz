@@ -24,10 +24,11 @@ type GetQuestionsOpts = {
 export const listQuestions = async (
   opts: GetQuestionsOpts
 ): Promise<ListQuestionsReturnType> => {
-  const { page = 0, pageSize = 10, filters } = opts;
+  const { page = 1, pageSize = 10, filters } = opts;
 
   const skip = (page - 1) * pageSize;
 
+  // define the where clause for filtering based on difficulty
   const whereClause = {
     where: {
       difficulty:
@@ -35,6 +36,7 @@ export const listQuestions = async (
     },
   };
 
+  // fetch the paginated questions
   const questions = await prisma.questions.findMany({
     skip,
     take: pageSize,
@@ -51,12 +53,15 @@ export const listQuestions = async (
     },
   });
 
-  // Transform the questions to match the expected format
+  // transform the questions to match the expected format
   const transformedQuestions = getTagsFromQuestion(
     questions
   ) as unknown as QuestionWithoutAnswers[];
 
-  const total = await prisma.questions.count();
+  // fetch the total number of matching questions (without pagination)
+  const total = await prisma.questions.count({
+    where: whereClause.where,
+  });
 
   return {
     questions: transformedQuestions,

@@ -1,6 +1,8 @@
+'use client';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/utils/cn';
+import { useSearchParams } from 'next/navigation';
 
 export default function GlobalPagination(opts: {
   currentPage: number;
@@ -10,11 +12,19 @@ export default function GlobalPagination(opts: {
   margin?: string;
 }) {
   const { currentPage, totalPages, href, paramName, margin = 'mt-5' } = opts;
+  const searchParams = useSearchParams();
+
+  // Helper function to construct the query string with the page and existing filters
+  const getPaginationLink = (page: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set(paramName, page.toString());
+    return `${href}?${params.toString()}`;
+  };
 
   return (
     <div className={cn('flex w-full justify-center gap-2', margin)}>
       <Link
-        href={`${href}?${paramName}=${currentPage - 1}`}
+        href={currentPage > 1 ? getPaginationLink(currentPage - 1) : '#'}
         className={cn(
           'bg-black-75 border border-black-50 rounded-md size-8 flex items-center justify-center text-sm',
           `${currentPage === 1 ? 'pointer-events-none opacity-50' : ''}`
@@ -23,11 +33,11 @@ export default function GlobalPagination(opts: {
         <ArrowLeft className="size-5" />
       </Link>
 
-      {/** display 1-6 pages, then last page at the end with '...' inbetween */}
+      {/** display 1-6 pages, then last page at the end with '...' in between */}
       {Array.from({ length: totalPages > 6 ? 6 : totalPages }, (_, i) => (
         <Link
           key={i}
-          href={`${href}?${paramName}=${i + 1}`}
+          href={getPaginationLink(i + 1)}
           className={cn(
             'bg-black-75 border border-black-50 hover:bg-black-50 duration-300 rounded-md size-8 flex items-center justify-center p-1 text-sm',
             `${
@@ -38,15 +48,17 @@ export default function GlobalPagination(opts: {
           {i + 1}
         </Link>
       ))}
+
       {totalPages > 6 && (
         <div className="bg-black-75 border border-black-50 rounded-md size-8 flex items-center justify-center p-2">
           <span>...</span>
         </div>
       )}
+
       {/** display last page */}
       {totalPages > 6 && (
         <Link
-          href={`${href}?${paramName}=${totalPages}`}
+          href={getPaginationLink(totalPages)}
           className={cn(
             'bg-black-75 border border-black-50 hover:bg-black-50 duration-300 rounded-md size-8 flex items-center justify-center p-1 text-sm',
             `${
@@ -59,7 +71,9 @@ export default function GlobalPagination(opts: {
       )}
 
       <Link
-        href={`${href}?${paramName}=${currentPage + 1}`}
+        href={
+          currentPage < totalPages ? getPaginationLink(currentPage + 1) : '#'
+        }
         className={cn(
           'bg-black-75 border border-black-50 hover:bg-black-50 duration-300 rounded-md size-8 flex justify-center items-center',
           `${

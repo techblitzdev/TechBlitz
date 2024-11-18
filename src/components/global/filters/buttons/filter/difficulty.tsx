@@ -44,11 +44,16 @@ export default function FilterButtonDifficulty() {
 
   const updateQueryParams = (key: string, value: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
+
+    // If 'difficulty' is being set or cleared, ensure page is reset to 1
+    params.set('page', '1'); // Reset the page to 1
+
     if (value) {
       params.set(key, value);
     } else {
       params.delete(key);
     }
+
     router.push(`?${params.toString()}`);
   };
 

@@ -191,6 +191,43 @@ model RoadmapUserQuestions {
   // Connect to the associated roadmap
   roadmapUid String
   roadmap    UserRoadmaps @relation(fields: [roadmapUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+
+  // connect to a single RoadmapUserQuestionsAnswers
+  correctAnswerUid String
+
+  RoadmapUserQuestionsAnswers RoadmapUserQuestionsAnswers[]
+
+  RoadmapUserQuestionsUserAnswers RoadmapUserQuestionsUserAnswers[]
+}
+
+model RoadmapUserQuestionsAnswers {
+  uid       String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Connect to the associated roadmap question
+  questionUid String
+  question    RoadmapUserQuestions @relation(fields: [questionUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+
+  correct Boolean @default(false)
+
+  // User-provided answer
+  answer String
+}
+
+model RoadmapUserQuestionsUserAnswers {
+  uid       String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Connect to the associated roadmap question
+  questionUid String
+  question    RoadmapUserQuestions @relation(fields: [questionUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+
+  correct Boolean @default(false)
+
+  // User-provided answer
+  answer String
 }
 
 // Default questions used to generate user roadmaps

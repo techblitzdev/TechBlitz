@@ -43,7 +43,8 @@ export const listQuestions = async (
           ? {
               userAnswers: {
                 some: {
-                  userUid, // Check if there are answers by the current user
+                  // Check if there are answers by the current user
+                  userUid,
                 },
               },
             }
@@ -51,7 +52,8 @@ export const listQuestions = async (
           ? {
               userAnswers: {
                 none: {
-                  userUid, // Exclude questions answered by the current user
+                  // Exclude questions answered by the current user
+                  userUid,
                 },
               },
             }

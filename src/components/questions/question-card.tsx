@@ -19,7 +19,7 @@ export default async function QuestionCard(opts: {
   return (
     <>
       <Link
-        href={`/questions/${questionData.uid}`}
+        href={`/question/${questionData.uid}`}
         key={questionData.uid}
         className="space-y-5 items-start bg-black-75 border border-black-50 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
       >

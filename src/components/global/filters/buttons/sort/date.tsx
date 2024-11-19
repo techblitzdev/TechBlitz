@@ -62,6 +62,7 @@ export default function FilterButtonsSort() {
       <DropdownMenuTrigger asChild>
         <Button
           padding="sm"
+          size="sm"
           variant="secondary"
           className="flex items-center gap-x-1 text-xs group"
         >

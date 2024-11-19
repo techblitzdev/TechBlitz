@@ -64,20 +64,20 @@ export const getSuggestions = cache(
         { correctAnswers: [], incorrectAnswers: [] }
       );
 
-      console.log('Incorrect answers count:', incorrectAnswers.length);
-      console.log('Correct answers count:', correctAnswers.length);
+      // console.log('Incorrect answers count:', incorrectAnswers.length);
+      // console.log('Correct answers count:', correctAnswers.length);
 
       // Extract tag IDs from questions
       const tagIds = extractTagIds(incorrectAnswers);
 
-      console.log('Tag IDs found:', tagIds);
+      // console.log('Tag IDs found:', tagIds);
 
       // Find questions with similar tags that haven't been answered
       const answeredQuestionIds = userAnswers.map(
         (answer) => answer.question.uid
       );
 
-      console.log('Answered question IDs:', answeredQuestionIds);
+      // console.log('Answered question IDs:', answeredQuestionIds);
 
       const suggestions = await prisma.questions.findMany({
         where: {
@@ -111,7 +111,7 @@ export const getSuggestions = cache(
         take: limit,
       });
 
-      console.log('Found suggestions:', suggestions.length);
+      // console.log('Found suggestions:', suggestions.length);
       return suggestions;
     } catch (error) {
       console.error('Error getting suggestions:', error);

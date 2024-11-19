@@ -14,6 +14,9 @@ import { useUserServer } from '@/hooks/useUserServer';
 import { getSuggestions } from '@/actions/questions/get-suggestions';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import QuestionCard from '@/components/questions/question-card';
+import Filter from '@/components/global/filters/filter';
+import { QuestionDifficulty } from '@/types/Questions';
+import FilterChips from '@/components/global/filters/chips';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -25,8 +28,23 @@ export default async function QuestionsDashboard({
   const user = await useUserServer();
   if (!user) return null;
 
+  // filters from search params
   const currentPage = parseInt(searchParams.page as string) || 1;
+  const ascending = searchParams.ascending === 'true';
+  const difficulty = searchParams.difficulty as QuestionDifficulty;
+  const completed =
+    'completed' in searchParams ? searchParams.completed === 'true' : undefined;
+  const tags = (searchParams.tags as string)?.split(',') || [];
+
   if (currentPage < 1) return null;
+
+  // construct filter object to send up
+  const filters = {
+    ascending,
+    difficulty,
+    completed,
+    tags,
+  };
 
   // Fetch user streak statistics
   const userStreak = await getUserDailyStats(user.uid);
@@ -35,9 +53,11 @@ export default async function QuestionsDashboard({
   const dateArray: [Date, Date] = [startDate, endDate];
 
   // Fetch questions for the current page
-  const { questions, totalPages } = await listQuestions({
+  const { questions, totalPages, total } = await listQuestions({
     page: currentPage,
     pageSize: ITEMS_PER_PAGE,
+    userUid: user.uid,
+    filters,
   });
 
   const suggestions = await getSuggestions({
@@ -48,6 +68,8 @@ export default async function QuestionsDashboard({
     <div className="container flex mt-5 gap-10">
       {/* Left Section: Questions */}
       <div className="w-1/2 space-y-6">
+        <Filter />
+        <FilterChips />
         {questions?.map((q) => (
           <QuestionCard
             key={q.uid}
@@ -69,7 +91,7 @@ export default async function QuestionsDashboard({
       {/* Right Section: Statistics */}
       <aside className="w-1/2 relative">
         <div className="sticky top-10 space-y-10 w-1/2">
-          <div className="w-fit h-fit flex flex-col gap-y-1.5">
+          <div className="w-fit h-fit flex flex-col gap-y-2.5">
             <h6 className="text-xl">Your statistics</h6>
             <DatePicker
               className="z-30 text-white border border-black-50 p-2 rounded-md bg-black-100 hover:cursor-default"

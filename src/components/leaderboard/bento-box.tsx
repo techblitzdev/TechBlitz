@@ -44,7 +44,7 @@ export default async function TodaysLeaderboardBentoBox(opts: {
             <Card className="bg-black rounded-none border-none pt-4">
               <CardContent className="text-center">
                 <Link href={`/question/${todaysQuestion.uid}`}>
-                  <Trophy className="mx-auto mb-2 text-white" size={24} />
+                  <Trophy className="mx-auto mb-2 text-yellow-500" size={24} />
                   <p className="text-sm text-white">No fastest times yet!</p>
                   <p className="text-xs text-white mt-1">
                     Be the first to complete today's challenge!

@@ -32,16 +32,31 @@ export const listQuestions = async (
   // define the where clause for filtering based on difficulty
   const whereClause = {
     where: {
-      difficulty:
-        (filters?.difficulty?.toUpperCase() as QuestionDifficulty) || undefined,
-      // exclude questions the user has answered if the completed filter is set to true
-      ...(filters?.completed && {
-        userAnswers: {
-          some: {
-            userUid: userUid,
-          },
-        },
-      }),
+      AND: [
+        filters?.difficulty
+          ? {
+              difficulty:
+                filters.difficulty.toUpperCase() as QuestionDifficulty,
+            }
+          : {},
+        filters?.completed === true
+          ? {
+              userAnswers: {
+                some: {
+                  userUid, // Check if there are answers by the current user
+                },
+              },
+            }
+          : filters?.completed === false
+          ? {
+              userAnswers: {
+                none: {
+                  userUid, // Exclude questions answered by the current user
+                },
+              },
+            }
+          : {},
+      ],
     },
   };
 

@@ -31,7 +31,8 @@ export default async function QuestionsDashboard({
   const currentPage = parseInt(searchParams.page as string) || 1;
   const ascending = searchParams.ascending === 'true';
   const difficulty = searchParams.difficulty as QuestionDifficulty;
-  const completed = searchParams.completed === 'true';
+  const completed =
+    'completed' in searchParams ? searchParams.completed === 'true' : undefined;
 
   if (currentPage < 1) return null;
 

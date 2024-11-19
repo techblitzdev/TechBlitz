@@ -26,7 +26,9 @@ export const getQuestionStats = async (questionUid: string) => {
     },
   });
 
-  const percentageCorrect = (totalCorrectSubmissions / totalSubmissions) * 100;
+  const percentageCorrect = Math.round(
+    (totalCorrectSubmissions / totalSubmissions) * 100 || 0
+  );
 
   return {
     totalSubmissions,

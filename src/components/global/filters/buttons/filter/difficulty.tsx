@@ -114,10 +114,12 @@ export default function FilterButtonDifficulty() {
                       className="size-2 rounded-full"
                       style={{ backgroundColor: color }}
                     />
-                    {label}
-                    {currentDifficulty === key && (
-                      <Check className="size-3 text-white" />
-                    )}
+                    <div className="flex items-center w-full justify-between">
+                      {label}
+                      {currentDifficulty === key && (
+                        <Check className="size-3 text-white" />
+                      )}
+                    </div>
                   </button>
                 </DropdownMenuItem>
               )

@@ -62,8 +62,10 @@ export default function FilterButtonCompleted() {
               className="h-full w-full text-left flex items-center gap-x-2"
               onClick={() => updateQueryParams('completed', 'true')}
             >
-              Completed
-              {completedFilter === 'true' && <Check className="size-3" />}
+              <div className="flex items-center w-full justify-between">
+                Completed
+                {completedFilter === 'true' && <Check className="size-3" />}
+              </div>
             </button>
           </DropdownMenuItem>
 
@@ -75,8 +77,10 @@ export default function FilterButtonCompleted() {
               onClick={() => updateQueryParams('completed', 'false')}
               className="h-full w-full text-left flex items-center gap-x-2"
             >
-              Incomplete
-              {completedFilter === 'false' && <Check className="size-3" />}
+              <div className="flex items-center w-full justify-between">
+                Incomplete
+                {completedFilter === 'false' && <Check className="size-3" />}
+              </div>
             </button>
           </DropdownMenuItem>
         </DropdownMenuGroup>

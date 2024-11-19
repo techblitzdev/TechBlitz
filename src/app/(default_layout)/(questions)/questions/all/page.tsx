@@ -33,6 +33,7 @@ export default async function QuestionsDashboard({
   const difficulty = searchParams.difficulty as QuestionDifficulty;
   const completed =
     'completed' in searchParams ? searchParams.completed === 'true' : undefined;
+  const tags = (searchParams.tags as string)?.split(',') || [];
 
   if (currentPage < 1) return null;
 
@@ -41,6 +42,7 @@ export default async function QuestionsDashboard({
     ascending,
     difficulty,
     completed,
+    tags,
   };
 
   // Fetch user streak statistics
@@ -65,7 +67,6 @@ export default async function QuestionsDashboard({
     <div className="container flex mt-5 gap-10">
       {/* Left Section: Questions */}
       <div className="w-1/2 space-y-6">
-        {total}
         <Filter />
         {questions?.map((q) => (
           <QuestionCard

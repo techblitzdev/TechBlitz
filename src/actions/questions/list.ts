@@ -56,6 +56,19 @@ export const listQuestions = async (
               },
             }
           : {},
+        filters?.tags?.length
+          ? {
+              tags: {
+                some: {
+                  tag: {
+                    name: {
+                      in: filters.tags,
+                    },
+                  },
+                },
+              },
+            }
+          : {},
       ],
     },
   };

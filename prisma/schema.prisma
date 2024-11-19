@@ -47,6 +47,8 @@ model Users {
   subscription Subscriptions?
 
   streak Streaks?
+
+  roadmaps UserRoadmaps[]
 }
 
 model Subscriptions {
@@ -152,4 +154,77 @@ model Streaks {
 
   // easy way to pluck out the user's longest streak
   longestStreak Int @default(0)
+}
+
+// Main roadmap associated with a user
+model UserRoadmaps {
+  uid       String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Connect to the user
+  userUid String @unique
+  user    Users  @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+
+  // Related questions specific to this roadmap
+  questions RoadmapUserQuestions[]
+
+  // Status of the roadmap (e.g., active, completed, archived)
+  status RoadmapStatus @default(ACTIVE)
+}
+
+// Individual questions in a user's roadmap
+model RoadmapUserQuestions {
+  uid       String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  question    String
+  codeSnippet String? // Optional code snippet for the question
+  hint        String? // Optional hint to help the user
+  difficulty  QuestionDifficulty @default(EASY) // Enum for question difficulty
+
+  // Track completion status for this question
+  completed   Boolean   @default(false)
+  completedAt DateTime? // Timestamp for when the question was completed
+
+  // Connect to the associated roadmap
+  roadmapUid String
+  roadmap    UserRoadmaps @relation(fields: [roadmapUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+}
+
+// Default questions used to generate user roadmaps
+model DefaultRoadmapQuestions {
+  uid       String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  question    String
+  codeSnippet String? // Optional code snippet for the default question
+  hint        String? // Optional hint for the question
+  difficulty  QuestionDifficulty @default(EASY) // Enum for question difficulty
+
+  // Answers submitted for the default roadmap questions
+  answers DefaultRoadmapQuestionsAnswers[]
+}
+
+// User answers to the default roadmap questions
+model DefaultRoadmapQuestionsAnswers {
+  uid       String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Connect to the associated default question
+  questionUid String
+  question    DefaultRoadmapQuestions @relation(fields: [questionUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+
+  // User-provided answer
+  answer String
+}
+
+// Enums for roadmap and question statuses
+enum RoadmapStatus {
+  ACTIVE
+  COMPLETED
+  ARCHIVED
 }

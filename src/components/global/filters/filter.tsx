@@ -26,7 +26,7 @@ export default function Filter() {
           size="sm"
           className="flex items-center gap-x-1 text-xs"
         >
-          <Tag className="size-4" />
+          <Tag className="size-3" />
           All tags
           <ChevronDown className="size-3" />
         </Button>

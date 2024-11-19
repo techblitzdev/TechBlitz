@@ -11,7 +11,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
 
 export default function FilterButtonCompleted() {
   const router = useRouter();
@@ -45,7 +44,7 @@ export default function FilterButtonCompleted() {
           size="sm"
           className="flex items-center gap-x-1 text-xs group"
         >
-          <Check className="size-4" />
+          <Check className="size-3" />
           Completed
           <ChevronDown className="size-3 duration-200 group-data-[state=open]:-rotate-180" />
         </Button>
@@ -57,19 +56,27 @@ export default function FilterButtonCompleted() {
         <DropdownMenuGroup className="p-1">
           <DropdownMenuItem
             asChild
-            className="flex items-center justify-between hover:!bg-transparent"
+            className="flex items-center justify-between hover:!text-white hover:cursor-pointer"
           >
-            <button onClick={() => updateQueryParams('completed', 'true')}>
+            <button
+              className="h-full w-full text-left flex items-center gap-x-2"
+              onClick={() => updateQueryParams('completed', 'true')}
+            >
               Completed
+              {completedFilter === 'true' && <Check className="size-3" />}
             </button>
           </DropdownMenuItem>
 
           <DropdownMenuItem
             asChild
-            className="flex items-center justify-between hover:!bg-transparent"
+            className="flex items-center justify-between hover:!text-white hover:cursor-pointer"
           >
-            <button onClick={() => updateQueryParams('completed', 'false')}>
+            <button
+              onClick={() => updateQueryParams('completed', 'false')}
+              className="h-full w-full text-left flex items-center gap-x-2"
+            >
               Incomplete
+              {completedFilter === 'false' && <Check className="size-3" />}
             </button>
           </DropdownMenuItem>
         </DropdownMenuGroup>

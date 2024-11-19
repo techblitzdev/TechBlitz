@@ -16,6 +16,7 @@ import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import QuestionCard from '@/components/questions/question-card';
 import Filter from '@/components/global/filters/filter';
 import { QuestionDifficulty } from '@/types/Questions';
+import FilterChips from '@/components/global/filters/chips';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -68,6 +69,7 @@ export default async function QuestionsDashboard({
       {/* Left Section: Questions */}
       <div className="w-1/2 space-y-6">
         <Filter />
+        <FilterChips />
         {questions?.map((q) => (
           <QuestionCard
             key={q.uid}

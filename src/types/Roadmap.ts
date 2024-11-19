@@ -10,6 +10,7 @@ export interface UserRoadmaps extends BaseRecord {
   user: User; // Relation to the Users type
   questions: RoadmapUserQuestions[]; // Related questions specific to this roadmap
   status: RoadmapStatus; // Status of the roadmap (active, completed, archived)
+  defaultRoadmapQuestionsUsersAnswers: DefaultRoadmapQuestionsUsersAnswers[]; // User answers to default questions
 }
 
 // Individual questions in a user's roadmap
@@ -50,6 +51,7 @@ export interface DefaultRoadmapQuestions extends BaseRecord {
   hint?: string; // Optional hint for the question
   difficulty: QuestionDifficulty; // Enum for question difficulty
   answers: DefaultRoadmapQuestionsAnswers[]; // Submitted answers
+  correctAnswerUid: string; // Connects to the correct answer
 }
 
 // User answers to the default roadmap questions
@@ -57,4 +59,16 @@ export interface DefaultRoadmapQuestionsAnswers extends BaseRecord {
   questionUid: string; // Connects to the associated default question
   question: DefaultRoadmapQuestions; // Relation to the DefaultRoadmapQuestions type
   answer: string; // User-provided answer text
+}
+
+export interface DefaultRoadmapQuestionsUsersAnswers extends BaseRecord {
+  questionUid: string; // Connects to the associated default question
+  question: DefaultRoadmapQuestions; // Relation to the DefaultRoadmapQuestions type
+  userUid: string; // Connects to the user who answered the question
+  user: User; // Relation to the Users type
+  correct: boolean; // Indicates whether the user's answer was correct
+  answer: string; // User-provided answer text
+
+  roadmapUid: string; // Connects to the associated roadmap
+  roadmap: UserRoadmaps; // Relation to the UserRoadmaps type
 }

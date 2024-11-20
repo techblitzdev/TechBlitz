@@ -247,6 +247,7 @@ model DefaultRoadmapQuestions {
   DefaultRoadmapQuestionsUsersAnswers DefaultRoadmapQuestionsUsersAnswers[]
 
   correctAnswer String
+  order         Int
 }
 
 // User answers to the default roadmap questions

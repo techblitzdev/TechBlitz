@@ -12,6 +12,7 @@ export const addQuestion = async (opts: {
   dailyQuestion?: boolean;
   tags: string[];
   isRoadmapQuestion?: boolean;
+  order?: number;
 }) => {
   const {
     question,
@@ -23,6 +24,7 @@ export const addQuestion = async (opts: {
     dailyQuestion,
     tags,
     isRoadmapQuestion,
+    order,
   } = opts;
 
   if (!question || !answers.length) {
@@ -113,6 +115,7 @@ export const addQuestion = async (opts: {
           codeSnippet: codeSnippet || null,
           hint: hint || null,
           DefaultRoadmapQuestionsUsersAnswers: {},
+          order: order || 0,
         },
       });
     }

@@ -14,11 +14,6 @@ const nonAuthPaths = [
   '/verify-email/success',
 ];
 
-// Exclude some paths from the middleware (e.g., API, public files, etc.)
-export const config = {
-  matcher: ['/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)'],
-};
-
 // Middleware function
 export async function middleware(req: NextRequest) {
   const url = req.nextUrl;
@@ -66,3 +61,11 @@ export async function middleware(req: NextRequest) {
   // Proceed as normal if the user is authenticated and authorized
   return NextResponse.next();
 }
+
+// Exclude some paths from the middleware (e.g., API, public files, etc.)
+export const config = {
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    '/((?!_next|monitoring|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+  ],
+};

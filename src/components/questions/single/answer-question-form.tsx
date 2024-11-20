@@ -21,11 +21,12 @@ import { cn } from '@/utils/cn';
 import { Check } from 'lucide-react';
 import { Separator } from '../../ui/separator';
 import QuestionHintAccordion from './question-hint';
+import { DefaultRoadmapQuestions } from '@/types/Roadmap';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
   userData: UserRecord;
-  question: Question;
+  question: Question | DefaultRoadmapQuestions;
   time: number;
   stopwatchPause: () => void;
   resetStopwatch?: () => void;
@@ -211,7 +212,6 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
         </div>
         {newUserData != null && (
           <AnswerQuestionModal
-            question={question}
             user={newUserData}
             correct={correctAnswer}
             userAnswer={userAnswer || ({} as Answer)}

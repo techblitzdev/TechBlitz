@@ -27,7 +27,6 @@ import { DatePicker } from '@mantine/dates';
 import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 
 type AnswerQuestionModalProps = {
-  question: Question;
   user: UserRecord;
   correct: 'correct' | 'incorrect' | 'init';
   userAnswer: Answer;
@@ -61,7 +60,6 @@ const dialogContent: DialogContentType = {
 };
 
 export default function AnswerQuestionModal({
-  question,
   user,
   correct,
   userAnswer,

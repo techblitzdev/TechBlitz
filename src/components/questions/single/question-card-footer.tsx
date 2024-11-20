@@ -4,7 +4,7 @@ import TagDisplay from '../previous/tag-display';
 import { Button } from '../../ui/button';
 
 export default function QuestionCardFooter(opts: {
-  questionTags: Tags[];
+  questionTags?: Tags[];
   answerFormRef: React.RefObject<{ submitForm: () => void }>;
 }) {
   const { questionTags, answerFormRef } = opts;

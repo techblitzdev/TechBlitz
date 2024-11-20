@@ -245,6 +245,8 @@ model DefaultRoadmapQuestions {
   // Answers submitted for the default roadmap questions
   answers                             DefaultRoadmapQuestionsAnswers[]
   DefaultRoadmapQuestionsUsersAnswers DefaultRoadmapQuestionsUsersAnswers[]
+
+  correctAnswer String
 }
 
 // User answers to the default roadmap questions

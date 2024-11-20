@@ -126,6 +126,7 @@ export default function NewQuestionModal({ ...props }) {
       hint: '',
       dailyQuestion: false,
       tags: '',
+      isRoadmapQuestion: false,
     },
   });
 
@@ -141,8 +142,6 @@ export default function NewQuestionModal({ ...props }) {
     mutationFn: (values: SchemaProps) => {
       const { answers, ...rest } = values;
       const answerTexts = answers.map((answer) => answer.text);
-
-      console.log(rest.tags);
 
       return addQuestion({
         ...rest,
@@ -266,6 +265,24 @@ export default function NewQuestionModal({ ...props }) {
                           onCheckedChange={field.onChange}
                         />
                         <Label htmlFor="dailyQuestion">Daily Question?</Label>
+                      </div>
+                    </FormControl>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="isRoadmapQuestion"
+                  render={({ field }) => (
+                    <FormControl>
+                      <div className="flex items-center gap-1 mb-1">
+                        <Switch
+                          id="isRoadmapQuestion"
+                          checked={field.value || false}
+                          onCheckedChange={field.onChange}
+                        />
+                        <Label htmlFor="isRoadmapQuestion">
+                          Roadmap Question?
+                        </Label>
                       </div>
                     </FormControl>
                   )}

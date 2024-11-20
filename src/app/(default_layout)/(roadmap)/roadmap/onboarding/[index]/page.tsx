@@ -1,17 +1,17 @@
-import { fetchRoadmapQuestion } from '@/actions/roadmap/questions/fetch-roadmap-question';
 import QuestionCard from '@/components/questions/single/question-card';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/useUserServer';
-import { Expand, ShieldQuestionIcon } from 'lucide-react';
+import { Expand } from 'lucide-react';
 import QuestionDisplay from '@/components/questions/single/code-snippet';
+import { fetchRoadmapQuestionViaOrder } from '@/actions/roadmap/questions/fetch-roadmap-question-via-order';
 
 export default async function RoadmapQuestionPage({
   params,
 }: {
-  params: { uid: string };
+  params: { index: number };
 }) {
-  const { uid } = params;
+  const { index } = params;
 
   // ensure the user is logged in
   const user = await useUserServer();
@@ -20,9 +20,9 @@ export default async function RoadmapQuestionPage({
   }
 
   // get the question
-  const question = await fetchRoadmapQuestion(uid);
+  const question = await fetchRoadmapQuestionViaOrder(index);
   if (!question) {
-    return null;
+    return 'No question found';
   }
 
   return (

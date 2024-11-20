@@ -1,4 +1,5 @@
 // components
+import { fetchRoadmapQuestionViaOrder } from '@/actions/roadmap/questions/fetch-roadmap-question-via-order';
 import { fetchAllRoadmapQuestions } from '@/actions/roadmap/questions/fetch-roadmap-questions';
 import NoDailyQuestion from '@/components/global/errors/no-daily-question';
 import { Button } from '@/components/ui/button';
@@ -12,7 +13,7 @@ import {
 
 export default async function RoadmapOnboardingModal() {
   // get the first 'default' roadmap question
-  const firstQuestion = (await fetchAllRoadmapQuestions()).shift();
+  const firstQuestion = await fetchRoadmapQuestionViaOrder(1);
 
   return (
     <Dialog open={true}>
@@ -43,7 +44,7 @@ export default async function RoadmapOnboardingModal() {
               Back to dashboard
             </Button>
             <Button
-              href={`/roadmap/question/${firstQuestion?.uid}`}
+              href={`/roadmap/onboarding/1`}
               className="h-full"
               variant="accent"
             >

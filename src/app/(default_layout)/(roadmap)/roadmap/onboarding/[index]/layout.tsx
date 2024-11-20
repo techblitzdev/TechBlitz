@@ -9,13 +9,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { useUserServer } from '@/hooks/useUserServer';
-import {
-  ArrowLeft,
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  Flame,
-} from 'lucide-react';
+import { ArrowRight, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default async function RoadmapUidLayout({
@@ -35,7 +29,6 @@ export default async function RoadmapUidLayout({
           <BackToDashboard />
         </div>
         <div className="flex items-center gap-x-5">
-          <CurrentStreak />
           <div className="flex gap-x-2 items-center">
             <TooltipProvider delayDuration={0} skipDelayDuration={100}>
               <Tooltip>

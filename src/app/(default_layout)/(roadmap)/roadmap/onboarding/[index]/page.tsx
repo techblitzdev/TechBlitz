@@ -5,6 +5,7 @@ import { useUserServer } from '@/hooks/useUserServer';
 import { Expand } from 'lucide-react';
 import QuestionDisplay from '@/components/questions/single/code-snippet';
 import { fetchRoadmapQuestionViaOrder } from '@/actions/roadmap/questions/fetch-roadmap-question-via-order';
+import { createOrFetchUserRoadmap } from '@/actions/roadmap/create-or-fetch-user-roadmap';
 
 export default async function RoadmapQuestionPage({
   params,
@@ -19,6 +20,11 @@ export default async function RoadmapQuestionPage({
     return;
   }
 
+  // create a new roadmap question
+  await createOrFetchUserRoadmap({
+    userUid: user.uid,
+  });
+
   // get the question
   const question = await fetchRoadmapQuestionViaOrder(index);
   if (!question) {
@@ -27,7 +33,7 @@ export default async function RoadmapQuestionPage({
 
   return (
     <>
-      <div className="flex gap-8 mt-3">
+      <div className="flex gap-8 mt-5">
         {/* Left Section - Question and Stats */}
         <div className="flex flex-col gap-y-4 w-1/2 relative overflow-hidden h-fit">
           {/* Question Card */}

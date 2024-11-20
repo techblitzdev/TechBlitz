@@ -2,7 +2,6 @@
 import { useState, forwardRef, useImperativeHandle } from 'react';
 // components
 import { Form, FormControl, FormField } from '@/components/ui/form';
-import { Button } from '@/components/ui/button';
 import AnswerQuestionModal from '@/components/questions/single/answer-question-modal';
 // actions
 import { answerQuestion } from '@/actions/answers/answer';
@@ -32,6 +31,7 @@ type AnswerQuestionFormProps = {
   resetStopwatch?: () => void;
   onNext?: () => void;
   nextQuestion?: string;
+  isRoadmapQuestion?: boolean;
 };
 
 const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
@@ -41,6 +41,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
     time,
     stopwatchPause,
     nextQuestion,
+    isRoadmapQuestion = false,
   }: AnswerQuestionFormProps,
   ref: React.Ref<{ submitForm: () => void }>
 ) {
@@ -73,12 +74,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
       console.error('User is not logged in');
       return;
     }
-
     stopwatchPause();
-
-    console.log({
-      time,
-    });
 
     try {
       const opts: any = {

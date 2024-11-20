@@ -287,4 +287,5 @@ enum RoadmapStatus {
   ACTIVE
   COMPLETED
   ARCHIVED
+  CREATING
 }

@@ -174,6 +174,8 @@ model UserRoadmaps {
   DefaultRoadmapQuestionsUsersAnswers DefaultRoadmapQuestionsUsersAnswers[]
 
   currentQuestionIndex Int @default(1) // used to instantly jump to the user's current question when onboarding
+
+  hasGeneratedRoadmap Boolean @default(false) // flag to indicate if the roadmap has been generated
 }
 
 // Individual questions in a user's roadmap

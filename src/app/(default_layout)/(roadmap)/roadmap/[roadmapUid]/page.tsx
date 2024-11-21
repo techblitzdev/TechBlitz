@@ -1,9 +1,17 @@
-export default function RoadmapSinglgePage({
+import { test } from '@/actions/roadmap/ai/test';
+
+export default async function RoadmapSinglgePage({
   params,
 }: {
   params: { roadmapUid: string };
 }) {
   const { roadmapUid } = params;
 
-  return <div className="">Hello from {roadmapUid}</div>;
+  const foo = await test();
+
+  return (
+    <div>
+      Hello from {roadmapUid} {JSON.stringify(foo)}
+    </div>
+  );
 }

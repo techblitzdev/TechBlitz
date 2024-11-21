@@ -31,7 +31,7 @@ export default function QuestionCard(opts: {
   } = opts;
 
   const answerFormRef = useRef<{ submitForm: () => void }>(null);
-  const { seconds, minutes, pause, reset, totalSeconds } = useStopwatch({
+  const { seconds, pause, reset, totalSeconds } = useStopwatch({
     autoStart: true,
   });
 

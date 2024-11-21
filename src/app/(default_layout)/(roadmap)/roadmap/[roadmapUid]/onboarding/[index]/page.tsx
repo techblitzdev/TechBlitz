@@ -4,9 +4,9 @@ import { useUserServer } from '@/hooks/useUserServer';
 import { Expand } from 'lucide-react';
 import QuestionDisplay from '@/components/questions/single/code-snippet';
 import { fetchRoadmapQuestionViaOrder } from '@/actions/roadmap/questions/fetch-roadmap-question-via-order';
-import { createOrFetchUserRoadmap } from '@/actions/roadmap/create-or-fetch-user-roadmap';
 import OnboardingQuestionCard from '@/components/roadmaps/onboarding-question-card';
 import { redirect } from 'next/navigation';
+import { checkIfUserIsOnCorrectQuestionIndex } from '@/actions/roadmap/questions/check-user-is-on-correct-index';
 
 export default async function RoadmapQuestionPage({
   params,
@@ -21,9 +21,22 @@ export default async function RoadmapQuestionPage({
     return;
   }
 
+  // check if the current index is the current question index
+  // on the roadmap
+  const isCorrectQuestion = await checkIfUserIsOnCorrectQuestionIndex({
+    currentQuestionIndex: index,
+    roadmapUid,
+    userUid: user.uid,
+  });
+
+  if (isCorrectQuestion !== true) {
+    return redirect(`/roadmap/${roadmapUid}/onboarding/${isCorrectQuestion}`);
+  }
+
   // get the question
   const question = await fetchRoadmapQuestionViaOrder(index);
-  // if there is no question, redirect to ...
+  // if there is no question, redirect to a 'holding' page to generate
+  // the questions for the user
   if (!question) {
     return redirect('/dashboard');
   }

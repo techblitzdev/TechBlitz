@@ -2,54 +2,40 @@
 import { useState, forwardRef, useImperativeHandle } from 'react';
 // components
 import { Form, FormControl, FormField } from '@/components/ui/form';
-import AnswerQuestionModal from '@/components/questions/single/answer-question-modal';
-// actions
-import { answerQuestion } from '@/actions/answers/answer';
+import QuestionHintAccordion from '../questions/single/question-hint';
+import { Label } from '../ui/label';
+import { Separator } from '../ui/separator';
+import { toast } from 'sonner';
+import { Check } from 'lucide-react';
+
 // zod
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
+
 // types
-import type { Question } from '@/types/Questions';
 import type { UserRecord } from '@/types/User';
-import type { Answer } from '@/types/Answers';
-import { toast } from 'sonner';
-import { Label } from '../../ui/label';
-import { cn } from '@/utils/cn';
-import { Check } from 'lucide-react';
-import { Separator } from '../../ui/separator';
-import QuestionHintAccordion from './question-hint';
 import { DefaultRoadmapQuestions } from '@/types/Roadmap';
+
+import { cn } from '@/utils/cn';
+import { answerDefaultRoadmapQuestion } from '@/actions/roadmap/questions/answer-roadmap-question';
+import { useRouter } from 'next/navigation';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
   userData: UserRecord;
-  question: Question | DefaultRoadmapQuestions;
-  time: number;
-  stopwatchPause: () => void;
-  resetStopwatch?: () => void;
-  onNext?: () => void;
-  nextQuestion?: string;
-  isRoadmapQuestion?: boolean;
+  question: DefaultRoadmapQuestions;
+  roadmapUid: string;
 };
 
-const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
-  {
-    userData,
-    question,
-    time,
-    stopwatchPause,
-    nextQuestion,
-  }: AnswerQuestionFormProps,
+const RoadmapAnswerQuestionForm = forwardRef(function AnswerQuestionForm(
+  { userData, question, roadmapUid }: AnswerQuestionFormProps,
   ref: React.Ref<{ submitForm: () => void }>
 ) {
-  const [correctAnswer, setCorrectAnswer] = useState<
-    'init' | 'incorrect' | 'correct'
-  >('init');
-  const [userAnswer, setUserAnswer] = useState<Answer | null>(null);
+  const router = useRouter();
+
   const [newUserData, setNewUserData] = useState<UserRecord | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(answerQuestionSchema),
@@ -73,7 +59,6 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
       console.error('User is not logged in');
       return;
     }
-    stopwatchPause();
 
     try {
       const opts: any = {
@@ -82,41 +67,16 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
         userUid: userData.uid,
       };
 
-      if (time) {
-        opts.timeTaken = time;
-      }
+      await answerDefaultRoadmapQuestion(opts);
 
-      const {
-        correctAnswer,
-        userAnswer,
-        userData: newUserData,
-      } = await answerQuestion(opts);
+      // redirect to the page
+      router.push('/roadmap/');
 
-      setCorrectAnswer(correctAnswer ? 'correct' : 'incorrect');
-      setUserAnswer(userAnswer);
       setNewUserData(newUserData);
-      setIsModalOpen(true);
     } catch (error) {
       console.error('Error submitting answer:', error);
       toast.error('Error submitting answer');
     }
-  };
-
-  // const adminClearAnswers = async () => {
-  //   try {
-  //     await clearQuestionsForAdmin(question?.uid);
-  //     toast.success('Successfully cleared all answers for this question');
-  //   } catch (error) {
-  //     console.error('Error clearing answers:', error);
-  //     toast.error('Failed to clear answers. Please try again.');
-  //   }
-  // };
-
-  const handleRetry = () => {
-    setCorrectAnswer('init');
-    setUserAnswer(null);
-    setIsModalOpen(false);
-    form.reset();
   };
 
   return (
@@ -175,50 +135,10 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
         <Separator className="bg-black-50" />
         <div className="w-full space-y-4 px-4">
           {question.hint && <QuestionHintAccordion hint={question.hint} />}
-          {/* <div className="flex items-center gap-4">
-            <Button
-              type="submit"
-              size="lg"
-              variant="secondary"
-              disabled={!form.formState.isDirty}
-              className="w-full"
-            >
-              {isLoading ? (
-                <LoadingSpinner />
-              ) : (
-                <div className="flex items-center gap-x-1">
-                  Submit
-                  <ArrowRight className="size-3" />
-                </div>
-              )}
-            </Button>
-            {userData.userLevel === 'ADMIN' && (
-              <Button
-                size="lg"
-                type="button"
-                variant="default"
-                onClick={adminClearAnswers}
-                className="w-full"
-              >
-                (ADMIN ONLY) clear today&apos;s answer
-              </Button>
-            )}
-          </div> */}
         </div>
-        {newUserData != null && (
-          <AnswerQuestionModal
-            user={newUserData}
-            correct={correctAnswer}
-            userAnswer={userAnswer || ({} as Answer)}
-            isOpen={isModalOpen}
-            onOpenChange={setIsModalOpen}
-            onRetry={handleRetry}
-            nextQuestion={nextQuestion}
-          />
-        )}
       </form>
     </Form>
   );
 });
 
-export default AnswerQuestionForm;
+export default RoadmapAnswerQuestionForm;

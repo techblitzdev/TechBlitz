@@ -1,6 +1,7 @@
 import { fetchUserRoadmaps } from '@/actions/roadmap/fetch-user-roadmaps';
 import RoadmapOnboarding from '@/components/roadmaps/empty/onboarding';
 import { useUserServer } from '@/hooks/useUserServer';
+import Link from 'next/link';
 
 export default async function RoadmapPage() {
   const user = await useUserServer();
@@ -18,6 +19,9 @@ export default async function RoadmapPage() {
   return (
     <div>
       <h1>Roadmap page</h1>
+      <Link href={`/roadmap/${userRoadmaps[0].uid}/onboarding/1`}>
+        Current roadmap
+      </Link>
     </div>
   );
 }

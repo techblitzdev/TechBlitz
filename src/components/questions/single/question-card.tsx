@@ -77,7 +77,6 @@ export default function QuestionCard(opts: {
           stopwatchPause={pause}
           time={totalSeconds}
           nextQuestion={nextQuestion}
-          isRoadmapQuestion={isRoadmapQuestion}
         />
       </div>
       <Separator className="bg-black-50" />

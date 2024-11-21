@@ -1,4 +1,3 @@
-import QuestionCard from '@/components/questions/single/question-card';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/useUserServer';
@@ -6,6 +5,7 @@ import { Expand } from 'lucide-react';
 import QuestionDisplay from '@/components/questions/single/code-snippet';
 import { fetchRoadmapQuestionViaOrder } from '@/actions/roadmap/questions/fetch-roadmap-question-via-order';
 import { createOrFetchUserRoadmap } from '@/actions/roadmap/create-or-fetch-user-roadmap';
+import OnboardingQuestionCard from '@/components/roadmaps/onboarding-question-card';
 
 export default async function RoadmapQuestionPage({
   params,
@@ -21,7 +21,7 @@ export default async function RoadmapQuestionPage({
   }
 
   // create a new roadmap question
-  await createOrFetchUserRoadmap({
+  const { uid } = await createOrFetchUserRoadmap({
     userUid: user.uid,
   });
 
@@ -38,10 +38,10 @@ export default async function RoadmapQuestionPage({
         <div className="flex flex-col gap-y-4 w-1/2 relative overflow-hidden h-fit">
           {/* Question Card */}
           <Button className="border border-black-50">Question</Button>
-          <QuestionCard
+          <OnboardingQuestionCard
             question={question}
             user={user}
-            isRoadmapQuestion={true}
+            roadmapUid={uid}
           />
         </div>
 

@@ -163,7 +163,7 @@ model UserRoadmaps {
   updatedAt DateTime @updatedAt
 
   // Connect to the user
-  userUid String @unique
+  userUid String
   user    Users  @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
 
   // Related questions specific to this roadmap

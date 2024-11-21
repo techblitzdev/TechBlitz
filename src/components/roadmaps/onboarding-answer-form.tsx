@@ -66,6 +66,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function AnswerQuestionForm(
         answerUid: values.answer,
         roadmapUid,
         userUid: userData.uid,
+        currentQuestionIndex: question?.order,
       };
 
       const { currentQuestionIndex } = await answerDefaultRoadmapQuestion(opts);

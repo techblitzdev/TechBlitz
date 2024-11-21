@@ -6,13 +6,14 @@ import QuestionDisplay from '@/components/questions/single/code-snippet';
 import { fetchRoadmapQuestionViaOrder } from '@/actions/roadmap/questions/fetch-roadmap-question-via-order';
 import { createOrFetchUserRoadmap } from '@/actions/roadmap/create-or-fetch-user-roadmap';
 import OnboardingQuestionCard from '@/components/roadmaps/onboarding-question-card';
+import { redirect } from 'next/navigation';
 
 export default async function RoadmapQuestionPage({
   params,
 }: {
-  params: { index: number };
+  params: { roadmapUid: string; index: number };
 }) {
-  const { index } = params;
+  const { index, roadmapUid } = params;
 
   // ensure the user is logged in
   const user = await useUserServer();
@@ -20,15 +21,11 @@ export default async function RoadmapQuestionPage({
     return;
   }
 
-  // create a new roadmap question
-  const { uid } = await createOrFetchUserRoadmap({
-    userUid: user.uid,
-  });
-
   // get the question
   const question = await fetchRoadmapQuestionViaOrder(index);
+  // if there is no question, redirect to ...
   if (!question) {
-    return 'No question found';
+    return redirect('/dashboard');
   }
 
   return (
@@ -41,7 +38,7 @@ export default async function RoadmapQuestionPage({
           <OnboardingQuestionCard
             question={question}
             user={user}
-            roadmapUid={uid}
+            roadmapUid={roadmapUid}
           />
         </div>
 

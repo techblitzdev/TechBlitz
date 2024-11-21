@@ -64,13 +64,15 @@ const RoadmapAnswerQuestionForm = forwardRef(function AnswerQuestionForm(
       const opts: any = {
         questionUid: question?.uid,
         answerUid: values.answer,
-        userUid: userData.uid,
+        roadmapUid,
       };
 
-      await answerDefaultRoadmapQuestion(opts);
+      const { currentQuestionIndex } = await answerDefaultRoadmapQuestion(opts);
 
       // redirect to the page
-      router.push('/roadmap/');
+      router.push(
+        `/roadmap/${roadmapUid}/onboarding/${currentQuestionIndex + 1}`
+      );
 
       setNewUserData(newUserData);
     } catch (error) {

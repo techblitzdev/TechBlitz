@@ -4,10 +4,9 @@ import { prisma } from '@/utils/prisma';
 export const answerDefaultRoadmapQuestion = async (opts: {
   questionUid: string;
   answerUid: string;
-  userUid: string;
   roadmapUid: string;
 }) => {
-  const { questionUid, answerUid, userUid, roadmapUid } = opts;
+  const { questionUid, answerUid, roadmapUid } = opts;
 
   const question = await prisma.defaultRoadmapQuestions.findUnique({
     where: { uid: questionUid },
@@ -28,5 +27,5 @@ export const answerDefaultRoadmapQuestion = async (opts: {
     },
   });
 
-  return { correctAnswer, userAnswer };
+  return { correctAnswer, userAnswer, currentQuestionIndex: question.order };
 };

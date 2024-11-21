@@ -16,16 +16,25 @@ export default async function RoadmapPage() {
     return <RoadmapOnboarding />;
   }
 
+  // determine the href for the roadmap depending on status
+  // if the roadmap is creating, we redirect the user to the current question
+  // otherwise, the roadmap/roadmapUid page
+  const roadmapsMap = userRoadmaps.map((roadmap) => {
+    return {
+      roadmap: roadmap,
+      href:
+        roadmap.status === 'ACTIVE'
+          ? `/roadmap/${roadmap.uid}`
+          : `/roadmap/${roadmap.uid}/onboarding/${roadmap.currentQuestionIndex}`,
+    };
+  });
+
   return (
     <div className="space-y-4">
       <h1>Roadmap page</h1>
-      {userRoadmaps.map((roadmap) => (
+      {roadmapsMap.map(({ roadmap, href }) => (
         <div key={roadmap.uid}>
-          <Link
-            href={`/roadmap/${roadmap.uid}/onboarding/${roadmap.currentQuestionIndex}`}
-          >
-            {roadmap.status}
-          </Link>
+          <Link href={href}>{roadmap.status}</Link>
         </div>
       ))}
     </div>

@@ -69,11 +69,19 @@ const RoadmapAnswerQuestionForm = forwardRef(function AnswerQuestionForm(
         currentQuestionIndex: question?.order,
       };
 
-      const { currentQuestionIndex } = await answerDefaultRoadmapQuestion(opts);
+      // there is a chance nothing get's returned as we perform a redirect
+      // if this is the last question to answer
+      const answer = await answerDefaultRoadmapQuestion(opts);
+
+      if (answer?.isLastQuestion) {
+        // redirect to the page
+        router.push(`/roadmap/${roadmapUid}`);
+        return;
+      }
 
       // redirect to the page
       router.push(
-        `/roadmap/${roadmapUid}/onboarding/${currentQuestionIndex + 1}`
+        `/roadmap/${roadmapUid}/onboarding/${answer?.currentQuestionIndex + 1}`
       );
 
       setNewUserData(newUserData);

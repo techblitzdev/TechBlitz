@@ -7,6 +7,7 @@ import { fetchRoadmapQuestionViaOrder } from '@/actions/roadmap/questions/fetch-
 import OnboardingQuestionCard from '@/components/roadmaps/onboarding-question-card';
 import { redirect } from 'next/navigation';
 import { checkIfUserIsOnCorrectQuestionIndex } from '@/actions/roadmap/questions/check-user-is-on-correct-index';
+import LoadingSpinner from '@/components/ui/loading';
 
 export default async function RoadmapQuestionPage({
   params,
@@ -38,7 +39,7 @@ export default async function RoadmapQuestionPage({
   // if there is no question, redirect to a 'holding' page to generate
   // the questions for the user
   if (!question) {
-    return redirect('/dashboard');
+    return <LoadingSpinner />;
   }
 
   return (

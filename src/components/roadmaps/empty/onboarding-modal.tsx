@@ -1,6 +1,6 @@
 // components
+import { createOrFetchUserRoadmap } from '@/actions/roadmap/create-or-fetch-user-roadmap';
 import { fetchRoadmapQuestionViaOrder } from '@/actions/roadmap/questions/fetch-roadmap-question-via-order';
-import { fetchAllRoadmapQuestions } from '@/actions/roadmap/questions/fetch-roadmap-questions';
 import NoDailyQuestion from '@/components/global/errors/no-daily-question';
 import { Button } from '@/components/ui/button';
 import {
@@ -10,10 +10,28 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
+import { useUserServer } from '@/hooks/useUserServer';
+import { redirect } from 'next/navigation';
 
 export default async function RoadmapOnboardingModal() {
+  const user = await useUserServer();
+  if (!user) {
+    return redirect('/login');
+  }
+
   // get the first 'default' roadmap question
   const firstQuestion = await fetchRoadmapQuestionViaOrder(1);
+
+  const handleButtonClick = async (data: FormData) => {
+    'use server';
+    // create a new roadmap record for the user
+    const roadmap = await createOrFetchUserRoadmap({
+      userUid: user?.uid,
+    });
+
+    // redirect the user to the new page
+    redirect(`/roadmap/${roadmap.uid}/onboarding/1`);
+  };
 
   return (
     <Dialog open={true}>
@@ -39,18 +57,17 @@ export default async function RoadmapOnboardingModal() {
           </>
         )}
         <DialogFooter>
-          <div className="flex items-center gap-x-1 mt-5 w-full justify-end">
+          <form
+            className="flex items-center gap-x-1 mt-5 w-full justify-end"
+            action={handleButtonClick}
+          >
             <Button className="h-full" href="/dashboard" variant="default">
               Back to dashboard
             </Button>
-            <Button
-              href={`/roadmap/onboarding/1`}
-              className="h-full"
-              variant="accent"
-            >
+            <Button type="submit" className="h-full" variant="accent">
               Let's get started!
             </Button>
-          </div>
+          </form>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -18,7 +18,7 @@ export const createOrFetchUserRoadmap = async (opts: { userUid: string }) => {
     const existingUserRoadmap = await prisma.userRoadmaps.findFirst({
       where: {
         userUid,
-        status: 'ACTIVE',
+        status: 'CREATING',
       },
     });
 

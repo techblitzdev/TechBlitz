@@ -172,6 +172,8 @@ model UserRoadmaps {
   // Status of the roadmap (e.g., active, completed, archived)
   status                              RoadmapStatus                         @default(ACTIVE)
   DefaultRoadmapQuestionsUsersAnswers DefaultRoadmapQuestionsUsersAnswers[]
+
+  currentQuestionIndex Int @default(1) // used to instantly jump to the user's current question when onboarding
 }
 
 // Individual questions in a user's roadmap
@@ -247,7 +249,7 @@ model DefaultRoadmapQuestions {
   DefaultRoadmapQuestionsUsersAnswers DefaultRoadmapQuestionsUsersAnswers[]
 
   correctAnswer String
-  order         Int
+  order         Int    @default(autoincrement())
 }
 
 // User answers to the default roadmap questions

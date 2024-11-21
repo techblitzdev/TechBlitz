@@ -17,11 +17,17 @@ export default async function RoadmapPage() {
   }
 
   return (
-    <div>
+    <div className="space-y-4">
       <h1>Roadmap page</h1>
-      <Link href={`/roadmap/${userRoadmaps[0].uid}/onboarding/1`}>
-        Current roadmap
-      </Link>
+      {userRoadmaps.map((roadmap) => (
+        <div key={roadmap.uid}>
+          <Link
+            href={`/roadmap/${roadmap.uid}/onboarding/${roadmap.currentQuestionIndex}`}
+          >
+            {roadmap.status}
+          </Link>
+        </div>
+      ))}
     </div>
   );
 }

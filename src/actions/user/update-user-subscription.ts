@@ -115,10 +115,6 @@ export const updateUserSubscription = async (opts: {
     // find the user's plan name
     const plan = PRICING_PLANS.find((p) => p.uid === newSubscription.productId);
 
-    console.log({
-      plan,
-    });
-
     if (!plan) {
       return {
         success: false,

@@ -2,7 +2,6 @@ import { ArrowRight, Lock } from 'lucide-react';
 import { Button } from '../ui/button';
 import { InfiniteMovingCards } from '../ui/infinite-moving-cards';
 import { Separator } from '../ui/separator';
-import { useUser } from '@/hooks/useUser';
 import { Grid } from '../ui/grid';
 import { useUserServer } from '@/hooks/useUserServer';
 import {
@@ -12,6 +11,7 @@ import {
   TooltipTrigger,
 } from '../ui/tooltip';
 import Chip from '../global/chip';
+import Link from 'next/link';
 
 const items: {
   name: string;
@@ -55,7 +55,10 @@ export default async function ProgressBentoBox() {
   const user = await useUserServer();
 
   return (
-    <div className="h-full flex flex-col p-4 relative group overflow-hidden">
+    <Link
+      href="/roadmap"
+      className="h-full flex flex-col p-4 relative group overflow-hidden"
+    >
       {user?.userLevel !== 'FREE' && user?.userLevel !== 'STANDARD' && (
         <div className="absolute">
           <Chip color="accent" text="Roadmap" />
@@ -100,6 +103,6 @@ export default async function ProgressBentoBox() {
             </Tooltip>
           </TooltipProvider>
         ))}
-    </div>
+    </Link>
   );
 }

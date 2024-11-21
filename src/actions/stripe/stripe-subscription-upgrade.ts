@@ -1,6 +1,4 @@
 'use server';
-import { prisma } from '@/utils/prisma';
-import Stripe from 'stripe';
 import { stripe } from '@/lib/stripe';
 
 export const upgradeUserSubscription = async (opts: {

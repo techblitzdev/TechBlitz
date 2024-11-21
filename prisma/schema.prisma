@@ -163,7 +163,7 @@ model UserRoadmaps {
   updatedAt DateTime @updatedAt
 
   // Connect to the user
-  userUid String @unique
+  userUid String
   user    Users  @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
 
   // Related questions specific to this roadmap
@@ -172,6 +172,10 @@ model UserRoadmaps {
   // Status of the roadmap (e.g., active, completed, archived)
   status                              RoadmapStatus                         @default(ACTIVE)
   DefaultRoadmapQuestionsUsersAnswers DefaultRoadmapQuestionsUsersAnswers[]
+
+  currentQuestionIndex Int @default(1) // used to instantly jump to the user's current question when onboarding
+
+  hasGeneratedRoadmap Boolean @default(false) // flag to indicate if the roadmap has been generated
 }
 
 // Individual questions in a user's roadmap
@@ -245,6 +249,9 @@ model DefaultRoadmapQuestions {
   // Answers submitted for the default roadmap questions
   answers                             DefaultRoadmapQuestionsAnswers[]
   DefaultRoadmapQuestionsUsersAnswers DefaultRoadmapQuestionsUsersAnswers[]
+
+  correctAnswer String
+  order         Int    @default(autoincrement())
 }
 
 // User answers to the default roadmap questions
@@ -284,4 +291,5 @@ enum RoadmapStatus {
   ACTIVE
   COMPLETED
   ARCHIVED
+  CREATING
 }

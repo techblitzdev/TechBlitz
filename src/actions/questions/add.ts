@@ -11,6 +11,8 @@ export const addQuestion = async (opts: {
   hint?: string;
   dailyQuestion?: boolean;
   tags: string[];
+  isRoadmapQuestion?: boolean;
+  order?: number;
 }) => {
   const {
     question,
@@ -21,6 +23,8 @@ export const addQuestion = async (opts: {
     hint,
     dailyQuestion,
     tags,
+    isRoadmapQuestion,
+    order,
   } = opts;
 
   if (!question || !answers.length) {
@@ -52,48 +56,69 @@ export const addQuestion = async (opts: {
   const questionUid = uniqid();
 
   try {
-    await prisma.questions.create({
-      data: {
-        uid: questionUid,
-        question,
-        questionDate: questionDate
-          ? new Date(questionDate).toISOString().split('T')[0]
-          : '',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        answers: {
-          createMany: {
-            data: answerRecords,
-          },
-        },
-        userAnswers: {},
-        correctAnswer: correctAnswerUid,
-        codeSnippet: codeSnippet || null,
-        hint: hint || null,
-        dailyQuestion: dailyQuestion || false,
-        tags: {
-          connectOrCreate: tags.map((tag) => ({
-            where: {
-              questionId_tagId: {
-                questionId: questionUid,
-                tagId: uniqid(),
-              },
+    if (!isRoadmapQuestion) {
+      await prisma.questions.create({
+        data: {
+          uid: questionUid,
+          question,
+          questionDate: questionDate
+            ? new Date(questionDate).toISOString().split('T')[0]
+            : '',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          answers: {
+            createMany: {
+              data: answerRecords,
             },
-            create: {
-              tag: {
-                connectOrCreate: {
-                  where: { name: tag },
-                  create: {
-                    uid: uniqid(),
-                    name: tag,
+          },
+          userAnswers: {},
+          correctAnswer: correctAnswerUid,
+          codeSnippet: codeSnippet || null,
+          hint: hint || null,
+          dailyQuestion: dailyQuestion || false,
+          tags: {
+            connectOrCreate: tags.map((tag) => ({
+              where: {
+                questionId_tagId: {
+                  questionId: questionUid,
+                  tagId: uniqid(),
+                },
+              },
+              create: {
+                tag: {
+                  connectOrCreate: {
+                    where: { name: tag },
+                    create: {
+                      uid: uniqid(),
+                      name: tag,
+                    },
                   },
                 },
               },
-            },
-          })),
+            })),
+          },
         },
-      },
-    });
+      });
+    } else {
+      await prisma.defaultRoadmapQuestions.create({
+        data: {
+          uid: questionUid,
+          question,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          answers: {
+            createMany: {
+              data: answerRecords,
+            },
+          },
+          correctAnswer: correctAnswerUid,
+          codeSnippet: codeSnippet || null,
+          hint: hint || null,
+          DefaultRoadmapQuestionsUsersAnswers: {},
+          order: order || 0,
+        },
+      });
+    }
 
     return 'ok';
   } catch (error) {

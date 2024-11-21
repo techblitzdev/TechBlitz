@@ -1,6 +1,5 @@
 import { getQuestion } from '@/actions/questions/get';
 import { getRandomQuestion } from '@/actions/questions/get-next-question';
-import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 import BackToDashboard from '@/components/global/back-to-dashboard';
 import CurrentStreak from '@/components/global/current-streak';
 import { Separator } from '@/components/ui/separator';
@@ -29,8 +28,6 @@ export default async function QuestionUidLayout({
   const question = await getQuestion(uid);
   const user = await useUserServer();
   if (!user) return;
-
-  const userStreak = await getUserDailyStats(user?.uid);
 
   const nextQuestion = await getRandomQuestion({
     currentQuestionId: uid,

@@ -13,17 +13,25 @@ import { UserRecord } from '@/types/User';
 import { Question } from '@/types/Questions';
 import { cn } from '@/utils/cn';
 import { useStopwatch } from 'react-timer-hook';
+import { DefaultRoadmapQuestions } from '@/types/Roadmap';
 
 export default function QuestionCard(opts: {
   user: UserRecord;
-  question: Question;
+  question: Question | DefaultRoadmapQuestions;
   nextQuestion?: string;
+  isRoadmapQuestion?: boolean;
+  index?: number;
 }) {
-  const { user, question, nextQuestion } = opts;
+  const {
+    user,
+    question,
+    nextQuestion,
+    isRoadmapQuestion = false,
+    index,
+  } = opts;
 
   const answerFormRef = useRef<{ submitForm: () => void }>(null);
-
-  const { seconds, minutes, pause, reset, totalSeconds } = useStopwatch({
+  const { seconds, pause, reset, totalSeconds } = useStopwatch({
     autoStart: true,
   });
 
@@ -36,11 +44,13 @@ export default function QuestionCard(opts: {
           textColor={getQuestionDifficultyColor(question.difficulty)}
           ghost
         />
-        {user?.showTimeTaken && <Stopwatch totalSeconds={totalSeconds} />}
+        {user?.showTimeTaken && !isRoadmapQuestion && (
+          <Stopwatch totalSeconds={totalSeconds} />
+        )}
       </div>
       <Separator className="bg-black-50" />
       <div className="h-fit bg-black-100">
-        {question.dailyQuestion && (
+        {'dailyQuestion' in question && question.dailyQuestion && (
           <div className="p-4">
             <h3 className="font-inter text-gray-400 text-xs font-light">
               This question is a daily question and will count towards your
@@ -49,7 +59,13 @@ export default function QuestionCard(opts: {
           </div>
         )}
         {question?.question && (
-          <div className={cn('px-4', !question.dailyQuestion && 'pt-4')}>
+          <div
+            className={cn(
+              'px-4',
+              'dailyQuestion' in question && !question.dailyQuestion && 'pt-4',
+              isRoadmapQuestion && 'pt-4'
+            )}
+          >
             <h3 className="font-inter font-light">{question.question}</h3>
           </div>
         )}
@@ -64,12 +80,10 @@ export default function QuestionCard(opts: {
         />
       </div>
       <Separator className="bg-black-50" />
-      {question.tags && (
-        <QuestionCardFooter
-          questionTags={question.tags}
-          answerFormRef={answerFormRef}
-        />
-      )}
+      <QuestionCardFooter
+        questionTags={'tags' in question ? question.tags : []}
+        answerFormRef={answerFormRef}
+      />
     </div>
   );
 }

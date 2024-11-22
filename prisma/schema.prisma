@@ -123,9 +123,10 @@ model QuestionAnswers {
 }
 
 model Answers {
-  uid           String    @id @default(cuid())
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now())
+  uid       String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
   userUid       String    @default("legacy_user")
   questionUid   String    @default("legacy_question")
   user          Users     @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
@@ -214,10 +215,14 @@ model RoadmapUserQuestionsAnswers {
   questionUid String
   question    RoadmapUserQuestions @relation(fields: [questionUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
 
+  // is this the correct answer?
   correct Boolean @default(false)
 
-  // User-provided answer
+  // the string answer 
   answer String
+
+  // the order of the answer in the roadmap
+  order Int @default(0)
 }
 
 model RoadmapUserQuestionsUserAnswers {

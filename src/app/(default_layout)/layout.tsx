@@ -38,8 +38,8 @@ export default function Layout({
 
             {/* Scrollable content */}
             <AppSidebar />
-            <main className="w-full pr-6 py-6 lg:pt-6 lg:pb-3">
-              <div className="lg:pl-4 h-[95%]">
+            <main className="w-full py-6 lg:pt-6 lg:pb-3">
+              <div className="h-[95%]">
                 <MantineProvider>{children}</MantineProvider>
               </div>
             </main>

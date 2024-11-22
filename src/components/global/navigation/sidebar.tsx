@@ -24,6 +24,7 @@ import {
   SidebarMenuItem,
   SidebarMenuBadge,
   SidebarMenuAction,
+  SidebarTrigger,
 } from '@/components/ui/sidebar';
 import {
   Collapsible,
@@ -292,6 +293,7 @@ export function AppSidebar() {
             >
               TechBlitz
             </Link>
+            <SidebarTrigger className="size-5 mt-1.5" />
           </SidebarGroupLabel>
           <SidebarGroupContent className="mt-5">
             <SidebarMenu>

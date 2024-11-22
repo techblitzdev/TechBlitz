@@ -204,6 +204,9 @@ model RoadmapUserQuestions {
   RoadmapUserQuestionsAnswers RoadmapUserQuestionsAnswers[]
 
   RoadmapUserQuestionsUserAnswers RoadmapUserQuestionsUserAnswers[]
+
+  // the order of the question in the roadmap
+  order Int
 }
 
 model RoadmapUserQuestionsAnswers {

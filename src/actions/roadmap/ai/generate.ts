@@ -5,6 +5,7 @@ import { zodResponseFormat } from 'openai/helpers/zod';
 import { generateDataForAi } from './get-question-data-for-gen';
 import { aiQuestionSchema } from '@/lib/zod/schemas/ai/response';
 import { addUidsToResponse } from './utils/add-uids-to-response';
+import { addOrderToResponseQuestions } from './utils/add-order-to-response-questions';
 
 export const roadmapGenerate = async (opts: {
   roadmapUid: string;
@@ -13,12 +14,15 @@ export const roadmapGenerate = async (opts: {
   // Retrieve and format the necessary data for AI
   const formattedData = await generateDataForAi(opts);
 
-  if (
-    !formattedData ||
-    formattedData === 'generated' ||
-    formattedData === 'invalid'
-  ) {
-    return 'invalid';
+  if (formattedData === 'generated') {
+    return await prisma.roadmapUserQuestions.findMany({
+      where: {
+        roadmapUid: opts.roadmapUid,
+      },
+      include: {
+        RoadmapUserQuestionsAnswers: true,
+      },
+    });
   }
 
   // Request AI-generated questions
@@ -49,8 +53,11 @@ export const roadmapGenerate = async (opts: {
   const formattedResponse = JSON.parse(res.choices[0].message.content);
   const questions = addUidsToResponse(formattedResponse.questionData);
 
+  // add a order value to each question
+  const questionsWithOrder = addOrderToResponseQuestions(questions);
+
   // Prepare database operations in a transaction
-  const roadmapQuestionsData = questions.map((question: any) => ({
+  const roadmapQuestionsData = questionsWithOrder.map((question: any) => ({
     uid: question.uid,
     roadmapUid: opts.roadmapUid,
     question: question.questions,
@@ -63,8 +70,10 @@ export const roadmapGenerate = async (opts: {
         answer: answer.answer,
         correct: answer.correct,
         order: answer.order,
+        uid: answer.uid,
       })),
     },
+    order: question.order,
   }));
 
   try {
@@ -80,6 +89,7 @@ export const roadmapGenerate = async (opts: {
             data: {
               ...answer,
               questionUid: question.uid,
+              uid: answer.uid,
             },
           })
         )
@@ -93,6 +103,16 @@ export const roadmapGenerate = async (opts: {
         },
       }),
     ]);
+
+    // now go and get the questions to display
+    const questions = await prisma.roadmapUserQuestions.findMany({
+      where: {
+        roadmapUid: opts.roadmapUid,
+      },
+      include: {
+        RoadmapUserQuestionsAnswers: true,
+      },
+    });
 
     return questions;
   } catch (error) {

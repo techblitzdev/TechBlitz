@@ -252,6 +252,8 @@ model DefaultRoadmapQuestions {
 
   correctAnswer String
   order         Int    @default(autoincrement())
+
+  aiTitle String? // This is for the case where question titles are 'what is the output of this code' and we need to give the actual title of the question to the ai
 }
 
 // User answers to the default roadmap questions

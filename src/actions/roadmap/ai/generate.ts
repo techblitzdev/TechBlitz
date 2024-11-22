@@ -7,8 +7,6 @@ export const roadmapGenerate = async (opts: {
   roadmapUid: string;
   userUid: string;
 }) => {
-  const { roadmapUid, userUid } = opts;
-
   // get the data that we need in the right format
   const formattedData = await generateDataForAi(opts);
 

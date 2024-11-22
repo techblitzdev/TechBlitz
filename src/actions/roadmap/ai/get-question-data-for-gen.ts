@@ -57,7 +57,7 @@ export const generateDataForAi = async (opts: {
     // push the question along with the user's answer
     if (question) {
       userAnswers.push({
-        question: question.question,
+        question: question.aiTitle || '',
         correctAnswer: answer.correct,
         difficulty: question.difficulty,
       });

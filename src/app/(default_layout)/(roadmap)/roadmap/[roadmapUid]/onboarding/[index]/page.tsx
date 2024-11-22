@@ -44,7 +44,7 @@ export default async function RoadmapQuestionPage({
 
   return (
     <>
-      <div className="flex gap-8 mt-5">
+      <div className="flex gap-8 mt-5 px-6">
         {/* Left Section - Question and Stats */}
         <div className="flex flex-col gap-y-4 w-1/2 relative overflow-hidden h-fit">
           {/* Question Card */}

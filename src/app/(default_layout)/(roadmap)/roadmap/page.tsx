@@ -1,7 +1,10 @@
+import { createOrFetchUserRoadmap } from '@/actions/roadmap/create-or-fetch-user-roadmap';
 import { fetchUserRoadmaps } from '@/actions/roadmap/fetch-user-roadmaps';
 import RoadmapOnboarding from '@/components/roadmaps/empty/onboarding';
+import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/useUserServer';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 export default async function RoadmapPage() {
   const user = await useUserServer();
@@ -29,14 +32,29 @@ export default async function RoadmapPage() {
     };
   });
 
+  const handleButtonClick = async (data: FormData) => {
+    'use server';
+    // create a new roadmap record for the user
+    const roadmap = await createOrFetchUserRoadmap({
+      userUid: user?.uid,
+    });
+
+    // redirect the user to the new page
+    redirect(`/roadmap/${roadmap.uid}/onboarding/1`);
+  };
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 px-6">
       <h1>Roadmap page</h1>
       {roadmapsMap.map(({ roadmap, href }) => (
         <div key={roadmap.uid}>
           <Link href={href}>{roadmap.status}</Link>
         </div>
       ))}
+      {/** create new roadmap cta */}
+      <form action={handleButtonClick}>
+        <Button>Create new roadmap</Button>
+      </form>
     </div>
   );
 }

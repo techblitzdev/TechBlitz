@@ -7,11 +7,7 @@ export default async function RoadmapSinglgePage({
 }) {
   const { roadmapUid } = params;
 
-  const foo = await test();
+  //const foo = await test();
 
-  return (
-    <div>
-      Hello from {roadmapUid} {JSON.stringify(foo)}
-    </div>
-  );
+  return <div>Hello from {roadmapUid}</div>;
 }

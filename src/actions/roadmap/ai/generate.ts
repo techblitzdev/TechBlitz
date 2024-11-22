@@ -1,7 +1,12 @@
 'use server';
 import { prisma } from '@/utils/prisma';
 import { openai } from '@/lib/open-ai';
+import { zodResponseFormat } from 'openai/helpers/zod';
 import { generateDataForAi } from './get-question-data-for-gen';
+import {
+  aiQuestionSchema,
+  questionSchema,
+} from '@/lib/zod/schemas/ai/question';
 
 export const roadmapGenerate = async (opts: {
   roadmapUid: string;
@@ -32,6 +37,7 @@ export const roadmapGenerate = async (opts: {
         content: JSON.stringify(formattedData),
       },
     ],
+    response_format: zodResponseFormat(aiQuestionSchema, 'event'),
   });
 
   return res.choices[0].message;

@@ -1,4 +1,4 @@
-import { generateDataForAi } from '@/actions/roadmap/ai/get-question-data-for-gen';
+import { roadmapGenerate } from '@/actions/roadmap/ai/generate';
 import { test } from '@/actions/roadmap/ai/test';
 import { useUserServer } from '@/hooks/useUserServer';
 
@@ -14,7 +14,7 @@ export default async function RoadmapSinglgePage({
     return <div>Not logged in</div>;
   }
 
-  const foo = await generateDataForAi({
+  const generatedPlan = await roadmapGenerate({
     roadmapUid,
     userUid: user.uid,
   });
@@ -22,7 +22,7 @@ export default async function RoadmapSinglgePage({
   return (
     <div className="px-6 space-y-10">
       <div>Hello from {roadmapUid}</div>
-      <pre className="">{JSON.stringify(foo, null, 2)}</pre>
+      <pre className="text-wrap">{JSON.stringify(generatedPlan, null, 2)}</pre>
     </div>
   );
 }

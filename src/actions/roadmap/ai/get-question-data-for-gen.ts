@@ -1,10 +1,17 @@
 'use server';
+import { QuestionDifficulty } from '@/types/Questions';
 import { prisma } from '@/utils/prisma';
+
+interface ReturnType {
+  question: string;
+  correctAnswer: boolean;
+  difficulty: QuestionDifficulty;
+}
 
 export const generateDataForAi = async (opts: {
   roadmapUid: string;
   userUid: string;
-}) => {
+}): Promise<ReturnType[] | 'generated' | 'invalid'> => {
   const { roadmapUid, userUid } = opts;
 
   // get the roadmap and check if the roadmap has already been generated
@@ -20,7 +27,7 @@ export const generateDataForAi = async (opts: {
   });
 
   if (roadmap?.hasGeneratedRoadmap) {
-    return 'Roadmap already generated';
+    return 'generated';
   }
 
   // we need to get all of the answers that the user has answered
@@ -33,7 +40,7 @@ export const generateDataForAi = async (opts: {
     });
 
   if (roadmapDefaultAnswers.length === 0) {
-    return 'No answers found';
+    return 'invalid';
   }
 
   // start an array to store the questions that we will be asking
@@ -51,7 +58,7 @@ export const generateDataForAi = async (opts: {
     if (question) {
       userAnswers.push({
         question: question.question,
-        answer: answer.correct,
+        correctAnswer: answer.correct,
         difficulty: question.difficulty,
       });
     }

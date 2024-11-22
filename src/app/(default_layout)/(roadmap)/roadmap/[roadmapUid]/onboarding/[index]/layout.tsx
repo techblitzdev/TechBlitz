@@ -23,7 +23,7 @@ export default async function RoadmapUidLayout({
 
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between px-6">
         <div className="flex items-center gap-x-5 py-2">
           {/** Previous question button */}
           <BackToDashboard />
@@ -47,7 +47,7 @@ export default async function RoadmapUidLayout({
           </div>
         </div>
       </div>
-      <Separator className="bg-black-50" />
+      <Separator className="bg-black-50 mt-5" />
       {children}
     </>
   );

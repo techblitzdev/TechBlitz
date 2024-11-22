@@ -223,9 +223,6 @@ model RoadmapUserQuestionsAnswers {
 
   // the string answer 
   answer String
-
-  // the order of the answer in the roadmap
-  order Int @default(0)
 }
 
 model RoadmapUserQuestionsUserAnswers {

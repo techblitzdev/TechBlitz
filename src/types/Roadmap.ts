@@ -50,13 +50,13 @@ export interface RoadmapUserQuestionsUserAnswers extends BaseRecord {
 // Default questions used to generate user roadmaps
 export interface DefaultRoadmapQuestions extends BaseRecord {
   question: string; // Default question text
-  codeSnippet?: string; // Optional code snippet for the default question
-  hint?: string; // Optional hint for the question
+  codeSnippet: string | null; // Optional code snippet for the default question
+  hint: string | null; // Optional hint for the question
   difficulty: QuestionDifficulty; // Enum for question difficulty
   answers: DefaultRoadmapQuestionsAnswers[]; // Submitted answers
   correctAnswer: string; // Connects to the correct answer
   order: number; // Order of the question in the default roadmap
-  aiTitle?: string; // AI-generated title for the question
+  aiTitle: string | null; // AI-generated title for the question
 }
 
 // User answers to the default roadmap questions

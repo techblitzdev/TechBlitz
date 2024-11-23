@@ -35,7 +35,7 @@ export const roadmapGenerate = async (opts: {
       },
       {
         role: 'system',
-        content: `The code snippet that you provide needs to be wrapped in a pre tag and a code tag and be put in the 'codeSnippet' field.`,
+        content: `The code snippet that you provide needs to be wrapped in a pre tag and a code tag and be put in the 'codeSnippet' field. Please make sure the title does not contain any code.`,
       },
       {
         role: 'user',

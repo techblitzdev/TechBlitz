@@ -8,6 +8,7 @@ import OnboardingQuestionCard from '@/components/roadmaps/onboarding-question-ca
 import { redirect } from 'next/navigation';
 import { checkIfUserIsOnCorrectQuestionIndex } from '@/actions/roadmap/questions/check-user-is-on-correct-index';
 import LoadingSpinner from '@/components/ui/loading';
+import { DefaultRoadmapQuestions } from '@prisma/client';
 
 export default async function RoadmapQuestionPage({
   params,

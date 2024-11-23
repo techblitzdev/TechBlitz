@@ -47,7 +47,7 @@ export const roadmapGenerate = async (opts: {
   });
 
   if (!res.choices[0]?.message?.content) {
-    return 'invalid';
+    throw new Error('AI response is missing content');
   }
 
   // Parse and process the AI response

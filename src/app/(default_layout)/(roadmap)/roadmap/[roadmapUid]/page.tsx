@@ -1,6 +1,7 @@
 import { roadmapGenerate } from '@/actions/roadmap/ai/generate';
 import { test } from '@/actions/roadmap/ai/test';
 import { useUserServer } from '@/hooks/useUserServer';
+import Link from 'next/link';
 
 export default async function RoadmapSinglgePage({
   params,
@@ -22,9 +23,13 @@ export default async function RoadmapSinglgePage({
   return (
     <div className="px-6 space-y-10">
       <div>Hello from {roadmapUid}</div>
-      <pre className="text-wrap">
-        {generatedPlan && JSON.stringify(generatedPlan, null, 2)}
-      </pre>
+      <div className="flex flex-col gap-y-4">
+        {generatedPlan?.map((step) => (
+          <Link href={`/roadmap/${roadmapUid}/${step.uid}`}>
+            {step.question}
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

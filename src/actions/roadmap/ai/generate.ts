@@ -112,6 +112,7 @@ export const roadmapGenerate = async (opts: {
       },
       include: {
         answers: true,
+        roadmap: true,
       },
     });
 

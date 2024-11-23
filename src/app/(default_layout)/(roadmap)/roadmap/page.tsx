@@ -5,10 +5,15 @@ import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/useUserServer';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import PostHogClient from '../../../posthog';
 
 export default async function RoadmapPage() {
   const user = await useUserServer();
   if (!user) return null;
+
+  const posthog = PostHogClient();
+  const flags = await posthog.getAllFlags('user_distinct_id');
+  await posthog.shutdown();
 
   // fetch the user's roadmaps
   const userRoadmaps = await fetchUserRoadmaps(user.uid);

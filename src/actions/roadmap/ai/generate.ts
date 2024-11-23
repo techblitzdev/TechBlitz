@@ -20,7 +20,7 @@ export const roadmapGenerate = async (opts: {
         roadmapUid: opts.roadmapUid,
       },
       include: {
-        RoadmapUserQuestionsAnswers: true,
+        answers: true,
       },
     });
   }
@@ -67,6 +67,7 @@ export const roadmapGenerate = async (opts: {
     hint: question.hint,
     completed: false,
     order: question.order,
+    difficulty: question.difficulty.toUpperCase() || 'EASY',
     RoadmapUserQuestionsAnswers: {
       create: question.answers.map((answer: any) => ({
         answer: answer.answer,
@@ -110,7 +111,7 @@ export const roadmapGenerate = async (opts: {
         roadmapUid: opts.roadmapUid,
       },
       include: {
-        RoadmapUserQuestionsAnswers: true,
+        answers: true,
       },
     });
 

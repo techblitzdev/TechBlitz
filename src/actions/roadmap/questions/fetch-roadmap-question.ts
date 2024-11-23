@@ -7,7 +7,7 @@ export const fetchRoadmapQuestion = async (questionUid: string) => {
       uid: questionUid,
     },
     include: {
-      RoadmapUserQuestionsAnswers: true,
+      answers: true,
     },
   });
 };

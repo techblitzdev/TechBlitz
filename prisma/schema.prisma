@@ -201,7 +201,7 @@ model RoadmapUserQuestions {
   // connect to a single RoadmapUserQuestionsAnswers
   correctAnswerUid String
 
-  RoadmapUserQuestionsAnswers RoadmapUserQuestionsAnswers[]
+  answers RoadmapUserQuestionsAnswers[]
 
   RoadmapUserQuestionsUserAnswers RoadmapUserQuestionsUserAnswers[]
 

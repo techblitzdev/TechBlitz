@@ -2,15 +2,17 @@ import { BaseRecord } from './BaseRecord';
 import { QuestionDifficulty } from './Questions';
 import { User } from './User';
 
-export type RoadmapStatus = 'ACTIVE' | 'COMPLETED' | 'ARCHIVED';
+export type RoadmapStatus = 'ACTIVE' | 'COMPLETED' | 'ARCHIVED' | 'CREATING';
 
 // Main roadmap associated with a user
 export interface UserRoadmaps extends BaseRecord {
   userUid: string; // Connects to the user
   user: User; // Relation to the Users type
   questions: RoadmapUserQuestions[]; // Related questions specific to this roadmap
-  status: RoadmapStatus; // Status of the roadmap (active, completed, archived)
+  status: RoadmapStatus; // Status of the roadmap (active, completed, archived, creating)
   defaultRoadmapQuestionsUsersAnswers: DefaultRoadmapQuestionsUsersAnswers[]; // User answers to default questions
+  currentQuestionIndex: number; // Index of the user's current question
+  hasGeneratedRoadmap: boolean; // Indicates if the roadmap has been generated
 }
 
 // Individual questions in a user's roadmap
@@ -24,8 +26,9 @@ export interface RoadmapUserQuestions extends BaseRecord {
   roadmapUid: string; // Connect to the associated roadmap
   roadmap: UserRoadmaps; // Relation to the UserRoadmaps type
   correctAnswerUid: string; // Connects to the correct answer
-  RoadmapUserQuestionsAnswers: RoadmapUserQuestionsAnswers[]; // Array of possible answers
-  RoadmapUserQuestionsUserAnswers: RoadmapUserQuestionsUserAnswers[]; // User-specific answers
+  answers: RoadmapUserQuestionsAnswers[]; // Array of possible answers
+  userAnswers: RoadmapUserQuestionsUserAnswers[]; // User-specific answers
+  order: number; // Order of the question in the roadmap
 }
 
 // Possible answers for roadmap questions
@@ -47,12 +50,13 @@ export interface RoadmapUserQuestionsUserAnswers extends BaseRecord {
 // Default questions used to generate user roadmaps
 export interface DefaultRoadmapQuestions extends BaseRecord {
   question: string; // Default question text
-  codeSnippet: string | null; // Optional code snippet for the default question
-  hint: string | null; // Optional hint for the question
+  codeSnippet?: string; // Optional code snippet for the default question
+  hint?: string; // Optional hint for the question
   difficulty: QuestionDifficulty; // Enum for question difficulty
   answers: DefaultRoadmapQuestionsAnswers[]; // Submitted answers
   correctAnswer: string; // Connects to the correct answer
   order: number; // Order of the question in the default roadmap
+  aiTitle?: string; // AI-generated title for the question
 }
 
 // User answers to the default roadmap questions
@@ -61,6 +65,7 @@ export interface DefaultRoadmapQuestionsAnswers extends BaseRecord {
   answer: string; // User-provided answer text
 }
 
+// User-specific answers to default roadmap questions
 export interface DefaultRoadmapQuestionsUsersAnswers extends BaseRecord {
   questionUid: string; // Connects to the associated default question
   question: DefaultRoadmapQuestions; // Relation to the DefaultRoadmapQuestions type
@@ -68,7 +73,6 @@ export interface DefaultRoadmapQuestionsUsersAnswers extends BaseRecord {
   user: User; // Relation to the Users type
   correct: boolean; // Indicates whether the user's answer was correct
   answer: string; // User-provided answer text
-
   roadmapUid: string; // Connects to the associated roadmap
   roadmap: UserRoadmaps; // Relation to the UserRoadmaps type
 }

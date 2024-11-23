@@ -9,13 +9,13 @@ import { capitalise, getQuestionDifficultyColor } from '@/utils';
 
 import { UserRecord } from '@/types/User';
 import { Question } from '@/types/Questions';
-import { DefaultRoadmapQuestions } from '@/types/Roadmap';
+import { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
 import RoadmapAnswerQuestionForm from '@/components/roadmaps/onboarding-answer-form';
 import { Button } from '../ui/button';
 
 export default function OnboardingQuestionCard(opts: {
   user: UserRecord;
-  question: DefaultRoadmapQuestions;
+  question: DefaultRoadmapQuestions | RoadmapUserQuestions;
   roadmapUid: string;
 }) {
   const { user, question, roadmapUid } = opts;

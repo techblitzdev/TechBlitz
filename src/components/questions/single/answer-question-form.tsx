@@ -126,7 +126,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
         onSubmit={form.handleSubmit(handleAnswerQuestion)}
       >
         <div className="grid grid-cols-12 gap-4 p-4">
-          {question.answers.map((answer) => (
+          {question?.answers?.map((answer) => (
             <div key={answer.uid} className="col-span-full">
               <FormField
                 control={form.control}

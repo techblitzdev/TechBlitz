@@ -9,7 +9,7 @@ export const fetchRoadmapQuestionViaOrder = async (order: number) => {
       order: number,
     },
     include: {
-      RoadmapUserQuestionsAnswers: true,
+      answers: true,
     },
   });
 };

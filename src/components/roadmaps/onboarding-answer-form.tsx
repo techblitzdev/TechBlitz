@@ -16,7 +16,7 @@ import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
 
 // types
 import type { UserRecord } from '@/types/User';
-import { DefaultRoadmapQuestions } from '@/types/Roadmap';
+import { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
 
 import { cn } from '@/utils/cn';
 import { answerDefaultRoadmapQuestion } from '@/actions/roadmap/questions/default/answer-roadmap-question';
@@ -25,7 +25,7 @@ import { useRouter } from 'next/navigation';
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
   userData: UserRecord;
-  question: DefaultRoadmapQuestions;
+  question: DefaultRoadmapQuestions | RoadmapUserQuestions;
   roadmapUid: string;
 };
 
@@ -98,7 +98,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function AnswerQuestionForm(
         onSubmit={form.handleSubmit(handleAnswerQuestion)}
       >
         <div className="grid grid-cols-12 gap-4 p-4">
-          {question.answers.map((answer) => (
+          {question?.answers?.map((answer) => (
             <div key={answer.uid} className="col-span-full">
               <FormField
                 control={form.control}

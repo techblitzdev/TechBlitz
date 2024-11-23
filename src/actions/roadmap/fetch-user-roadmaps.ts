@@ -6,6 +6,8 @@ export const fetchUserRoadmaps = async (userUid: string) => {
     where: {
       userUid,
     },
-    orderBy: {},
+    orderBy: {
+      createdAt: 'desc',
+    },
   });
 };

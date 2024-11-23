@@ -35,7 +35,7 @@ export const roadmapGenerate = async (opts: {
       },
       {
         role: 'system',
-        content: `The code snippet that you provide needs to be wrapped in a pre tag and a code tag and be put in the 'codeSnippet' field. Please make sure the title does not contain any code.`,
+        content: `The code snippet that you provide needs to be wrapped in a pre tag and a code tag and be put in the 'codeSnippet' field. The title must not contain any code. The code snippet must NOT give the answer away.`,
       },
       {
         role: 'user',
@@ -43,7 +43,7 @@ export const roadmapGenerate = async (opts: {
       },
     ],
     response_format: zodResponseFormat(aiQuestionSchema, 'event'),
-    temperature: 0.1,
+    temperature: 0,
   });
 
   if (!firstPass.choices[0]?.message?.content) {

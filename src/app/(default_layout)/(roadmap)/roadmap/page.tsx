@@ -51,9 +51,11 @@ export default async function RoadmapPage() {
   return (
     <div className="space-y-4 px-6">
       <h1>Roadmap page</h1>
-      {roadmapsMap.map(({ roadmap, href }) => (
+      {roadmapsMap.map(({ roadmap, href }, index) => (
         <div key={roadmap.uid}>
-          <Link href={href}>{roadmap.status}</Link>
+          <Link href={href}>
+            {index}. {roadmap.status}
+          </Link>
         </div>
       ))}
       {/** create new roadmap cta */}

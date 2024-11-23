@@ -21,10 +21,14 @@ export default async function RoadmapQuestionLayout({
   }
 
   // Fetch the previous and next questions
-  const nextQuestion = await fetchRoadmapQuestionViaOrder(question.order + 1);
-  const previousQuestion = await fetchRoadmapQuestionViaOrder(
-    question.order - 1
-  );
+  const nextQuestion = await fetchRoadmapQuestionViaOrder({
+    order: question.order + 1,
+    roadmapUid,
+  });
+  const previousQuestion = await fetchRoadmapQuestionViaOrder({
+    order: question.order - 1,
+    roadmapUid,
+  });
 
   return (
     <>

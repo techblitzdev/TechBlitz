@@ -1,5 +1,5 @@
 import { fetchRoadmapQuestion } from '@/actions/roadmap/questions/fetch-roadmap-question';
-import OnboardingQuestionCard from '@/components/roadmaps/onboarding-question-card';
+import OnboardingQuestionCard from '@/components/roadmaps/onboarding/onboarding-question-card';
 
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -22,7 +22,7 @@ export default async function RoadmapQuestionPage({
   // grab the question from the db
   const question = (await fetchRoadmapQuestion(uid)) as RoadmapUserQuestions;
   if (!question) {
-    return redirect(`/roadmap/${roadmapUid}`);
+    return redirect(`/roadmap/${roadmapUid}?error_question_not_found`);
   }
 
   return (

@@ -3,15 +3,15 @@ import { useRef } from 'react';
 
 import Chip from '@/components/global/chip';
 import { Separator } from '@/components/ui/separator';
-import QuestionCardFooter from '../questions/single/question-card-footer';
+import QuestionCardFooter from '../../questions/single/question-card-footer';
 
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 
 import { UserRecord } from '@/types/User';
 import { Question } from '@/types/Questions';
 import { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
-import RoadmapAnswerQuestionForm from '@/components/roadmaps/onboarding-answer-form';
-import { Button } from '../ui/button';
+import RoadmapAnswerQuestionForm from '@/components/roadmaps/onboarding/onboarding-answer-form';
+import { Button } from '../../ui/button';
 
 export default function OnboardingQuestionCard(opts: {
   user: UserRecord;

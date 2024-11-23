@@ -2,9 +2,9 @@
 import { useState, forwardRef, useImperativeHandle } from 'react';
 // components
 import { Form, FormControl, FormField } from '@/components/ui/form';
-import QuestionHintAccordion from '../questions/single/question-hint';
-import { Label } from '../ui/label';
-import { Separator } from '../ui/separator';
+import QuestionHintAccordion from '../../questions/single/question-hint';
+import { Label } from '../../ui/label';
+import { Separator } from '../../ui/separator';
 import { toast } from 'sonner';
 import { Check } from 'lucide-react';
 

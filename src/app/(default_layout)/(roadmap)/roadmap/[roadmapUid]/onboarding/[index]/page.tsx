@@ -45,9 +45,9 @@ export default async function RoadmapQuestionPage({
 
   return (
     <>
-      <div className="flex gap-8 mt-5 px-6">
+      <div className="flex flex-col lg:flex-row gap-8 mt-5 px-6">
         {/* Left Section - Question and Stats */}
-        <div className="flex flex-col gap-y-4 w-1/2 relative overflow-hidden h-fit">
+        <div className="flex flex-col gap-y-4 w-full lg:w-1/2 relative overflow-hidden h-fit">
           {/* Question Card */}
           <Button className="border border-black-50">Question</Button>
           <OnboardingQuestionCard
@@ -58,7 +58,7 @@ export default async function RoadmapQuestionPage({
         </div>
 
         {/* Right Section - Code Snippet and Related Questions */}
-        <div className="w-1/2 h-3/4 grid-cols-subgrid gap-8 flex flex-col">
+        <div className="w-full lg:w-1/2 h-3/4 grid-cols-subgrid gap-8 flex flex-col">
           {/* Code Snippet */}
           <div className="h-[45rem] col-span-full bg-black-75 border border-black-50 rounded-xl relative overflow-hidden">
             <div className="p-4 text-sm flex w-full items-center justify-between bg-black-25">

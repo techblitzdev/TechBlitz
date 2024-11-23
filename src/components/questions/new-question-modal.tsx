@@ -127,6 +127,8 @@ export default function NewQuestionModal({ ...props }) {
       dailyQuestion: false,
       tags: '',
       isRoadmapQuestion: false,
+      aiTitle: undefined,
+      difficulty: 'EASY',
     },
   });
 
@@ -140,6 +142,7 @@ export default function NewQuestionModal({ ...props }) {
 
   const { mutateAsync: server_addQuestion, isPending } = useMutation({
     mutationFn: (values: SchemaProps) => {
+      console.log('hit');
       const { answers, ...rest } = values;
       const answerTexts = answers.map((answer) => answer.text);
 
@@ -148,6 +151,8 @@ export default function NewQuestionModal({ ...props }) {
         answers: answerTexts,
         correctAnswer: Number(rest.correctAnswer),
         tags: rest.tags ? rest.tags.split(',').map((tag) => tag.trim()) : [],
+        aiTitle: rest.aiTitle || undefined,
+        difficulty: rest.difficulty,
       });
     },
     onSuccess: (data) => {
@@ -160,6 +165,9 @@ export default function NewQuestionModal({ ...props }) {
       toast.error('Failed to add question');
     },
   });
+
+  const showAiTitleField =
+    form.watch('isRoadmapQuestion') && !form.watch('dailyQuestion');
 
   const handleNewQuestion = async (values: SchemaProps) =>
     await server_addQuestion(values);
@@ -193,6 +201,28 @@ export default function NewQuestionModal({ ...props }) {
                         wrapperclassname="lg:w-96"
                         {...field}
                       />
+                    </FormControl>
+                  )}
+                />
+                {/* Difficulty */}
+                <FormField
+                  control={form.control}
+                  name="difficulty"
+                  render={({ field }) => (
+                    <FormControl>
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <SelectTrigger className="w-40">
+                          <SelectValue placeholder="Select difficulty" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="EASY">Easy</SelectItem>
+                          <SelectItem value="MEDIUM">Medium</SelectItem>
+                          <SelectItem value="HARD">Hard</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                   )}
                 />
@@ -288,6 +318,24 @@ export default function NewQuestionModal({ ...props }) {
                   )}
                 />
               </div>
+              {/* AI Title Field */}
+              {showAiTitleField && (
+                <FormField
+                  control={form.control}
+                  name="aiTitle"
+                  render={({ field }) => (
+                    <FormControl>
+                      <InputWithLabel
+                        label="AI Title"
+                        type="text"
+                        wrapperclassname="lg:w-96"
+                        {...field}
+                      />
+                    </FormControl>
+                  )}
+                />
+              )}
+
               <Separator className="bg-black-50" />
 
               <p className="text-white font-semibold text-xl">Answers</p>

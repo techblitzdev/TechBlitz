@@ -10,8 +10,9 @@ import Link from 'next/link';
 export default function QuestionNavigation(opts: {
   nextQuestion: string | null;
   previousQuestion: string | null;
+  navigationType: 'question' | 'roadmap';
 }) {
-  const { nextQuestion, previousQuestion } = opts;
+  const { nextQuestion, previousQuestion, navigationType = 'question' } = opts;
 
   return (
     <div className="flex gap-x-2 items-center">
@@ -30,7 +31,9 @@ export default function QuestionNavigation(opts: {
             </Link>
           </TooltipTrigger>
           <TooltipContent side="bottom" className="text-white font-inter">
-            {previousQuestion ? 'Previous question' : 'No previous question'}
+            {previousQuestion
+              ? `Previous ${navigationType}`
+              : `No previous ${navigationType}`}
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
@@ -50,7 +53,9 @@ export default function QuestionNavigation(opts: {
             </Link>
           </TooltipTrigger>
           <TooltipContent side="bottom">
-            {nextQuestion ? 'Next question' : 'No next question'}
+            {nextQuestion
+              ? `Next ${navigationType}`
+              : `No next ${navigationType}`}
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

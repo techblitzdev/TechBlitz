@@ -79,7 +79,7 @@ export default async function ProgressBentoBox() {
         </div>
         {user?.userLevel !== 'FREE' && user?.userLevel !== 'STANDARD' && (
           <Button
-            href="/progression"
+            href="/roadmaps"
             variant="accent"
             className="font-ubuntu font-medium"
           >

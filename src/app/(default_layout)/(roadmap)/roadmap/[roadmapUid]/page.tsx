@@ -1,7 +1,7 @@
 import { roadmapGenerate } from '@/actions/roadmap/ai/generate';
-import { test } from '@/actions/roadmap/ai/test';
 import { useUserServer } from '@/hooks/useUserServer';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 export default async function RoadmapSinglgePage({
   params,
@@ -10,9 +10,10 @@ export default async function RoadmapSinglgePage({
 }) {
   const { roadmapUid } = params;
 
+  // better safe than sorry!
   const user = await useUserServer();
   if (!user) {
-    return <div>Not logged in</div>;
+    return redirect('/login');
   }
 
   const generatedPlan = await roadmapGenerate({
@@ -21,7 +22,7 @@ export default async function RoadmapSinglgePage({
   });
 
   return (
-    <div className="px-6 space-y-10">
+    <div className="space-y-10 container">
       <div>Hello from {roadmapUid}</div>
       <div className="flex flex-col gap-y-4">
         {generatedPlan?.map((step) => (

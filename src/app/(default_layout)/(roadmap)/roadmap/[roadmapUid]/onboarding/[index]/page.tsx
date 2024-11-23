@@ -54,7 +54,6 @@ export default async function RoadmapQuestionPage({
             question={question}
             user={user}
             roadmapUid={roadmapUid}
-            isDefaultQuestion={true}
           />
         </div>
 

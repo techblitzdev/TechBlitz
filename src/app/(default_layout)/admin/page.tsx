@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default async function AdminPage() {
   return (
-    <div className="font-inter">
+    <div className="px-6">
       <h1 className="font-bold text-3xl">
         <Link
           href="/admin/questions"

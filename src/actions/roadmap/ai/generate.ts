@@ -20,22 +20,22 @@ export const roadmapGenerate = async (opts: {
         roadmapUid: opts.roadmapUid,
       },
       include: {
-        RoadmapUserQuestionsAnswers: true,
+        answers: true,
       },
     });
   }
 
   // Request AI-generated questions
-  const res = await openai.chat.completions.create({
+  const firstPass = await openai.chat.completions.create({
     model: 'gpt-4o-mini-2024-07-18',
     messages: [
       {
         role: 'system',
-        content: `You're an expert software developer. Given a series of user-answered questions with results, generate a 10-question roadmap to enhance the user’s knowledge. Focus on areas the user got wrong, build on prior questions, and guide their next steps. Each question should have 4 answers (1 correct).`,
+        content: `You're an expert software developer. Given a series of user-answered questions with results, generate a minimum 10-question roadmap to enhance the user’s knowledge. Focus on areas the user got wrong, build on prior questions, and guide their next steps. Each question MUST have 4 answers (1 correct). There HAS to be at least 10 questions`,
       },
       {
         role: 'system',
-        content: `The code snippet that you provide needs to be wrapped in a pre tag and a code tag and be put in the 'codeSnippet' field.`,
+        content: `The code snippet MUST to be wrapped in a pre tag and a code tag and be put in the 'codeSnippet' field. The title MUST NOT contain any code that relates to the code snippet. The code snippet MUST NOT give the answer away. The title MUST be a question. The answers NEEDS related to the question title. The codeSnippet MUST relate to the question title. The answers MUST be related to the code snippet. The hint MUST be related to the code snippet. The difficulty MUST be related to the code snippet. MAKE the questions unique. The answers MUST be unique. HARD questions MUST have a longer code snippet`,
       },
       {
         role: 'user',
@@ -46,12 +46,12 @@ export const roadmapGenerate = async (opts: {
     temperature: 0,
   });
 
-  if (!res.choices[0]?.message?.content) {
-    return 'invalid';
+  if (!firstPass.choices[0]?.message?.content) {
+    throw new Error('AI response is missing content');
   }
 
   // Parse and process the AI response
-  const formattedResponse = JSON.parse(res.choices[0].message.content);
+  const formattedResponse = JSON.parse(firstPass.choices[0].message.content);
   const questions = addUidsToResponse(formattedResponse.questionData);
 
   // add a order value to each question
@@ -67,6 +67,7 @@ export const roadmapGenerate = async (opts: {
     hint: question.hint,
     completed: false,
     order: question.order,
+    difficulty: question.difficulty.toUpperCase() || 'EASY',
     RoadmapUserQuestionsAnswers: {
       create: question.answers.map((answer: any) => ({
         answer: answer.answer,
@@ -110,7 +111,7 @@ export const roadmapGenerate = async (opts: {
         roadmapUid: opts.roadmapUid,
       },
       include: {
-        RoadmapUserQuestionsAnswers: true,
+        answers: true,
       },
     });
 

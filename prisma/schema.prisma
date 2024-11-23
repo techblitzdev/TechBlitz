@@ -8,6 +8,8 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+// ENUMS
+
 enum userLevel {
   STANDARD
   ADMIN
@@ -21,6 +23,16 @@ enum QuestionDifficulty {
   MEDIUM
   HARD
 }
+
+// Enums for roadmap and question statuses
+enum RoadmapStatus {
+  ACTIVE
+  COMPLETED
+  ARCHIVED
+  CREATING
+}
+
+// MODELS
 
 model Users {
   uid       String  @id()
@@ -201,9 +213,11 @@ model RoadmapUserQuestions {
   // connect to a single RoadmapUserQuestionsAnswers
   correctAnswerUid String
 
-  RoadmapUserQuestionsAnswers RoadmapUserQuestionsAnswers[]
+  answers RoadmapUserQuestionsAnswers[]
 
-  RoadmapUserQuestionsUserAnswers RoadmapUserQuestionsUserAnswers[]
+  userAnswers RoadmapUserQuestionsUserAnswers[]
+
+  userCorrect Boolean @default(false)
 
   // the order of the question in the roadmap
   order Int
@@ -291,12 +305,4 @@ model DefaultRoadmapQuestionsUsersAnswers {
   // connect to the roadmap
   roadmapUid String
   roadmap    UserRoadmaps @relation(fields: [roadmapUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
-}
-
-// Enums for roadmap and question statuses
-enum RoadmapStatus {
-  ACTIVE
-  COMPLETED
-  ARCHIVED
-  CREATING
 }

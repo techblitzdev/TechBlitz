@@ -1,4 +1,5 @@
 'use server';
+import { QuestionDifficulty } from '@/types/Questions';
 import { prisma } from '@/utils/prisma';
 import uniqid from 'uniqid';
 
@@ -13,6 +14,8 @@ export const addQuestion = async (opts: {
   tags: string[];
   isRoadmapQuestion?: boolean;
   order?: number;
+  difficulty: QuestionDifficulty;
+  aiTitle?: string;
 }) => {
   const {
     question,
@@ -25,7 +28,11 @@ export const addQuestion = async (opts: {
     tags,
     isRoadmapQuestion,
     order,
+    aiTitle,
+    difficulty,
   } = opts;
+
+  console.log('hit');
 
   if (!question || !answers.length) {
     console.error(
@@ -116,6 +123,8 @@ export const addQuestion = async (opts: {
           hint: hint || null,
           DefaultRoadmapQuestionsUsersAnswers: {},
           order: order || 0,
+          aiTitle: aiTitle || null,
+          difficulty,
         },
       });
     }

@@ -1,35 +1,33 @@
 'use client';
-import { useState, forwardRef, useImperativeHandle } from 'react';
-// components
-import { Form, FormControl, FormField } from '@/components/ui/form';
-import QuestionHintAccordion from '../questions/single/question-hint';
-import { Label } from '../ui/label';
-import { Separator } from '../ui/separator';
-import { toast } from 'sonner';
-import { Check } from 'lucide-react';
-
 // zod
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
 
-// types
-import type { UserRecord } from '@/types/User';
-import { DefaultRoadmapQuestions } from '@/types/Roadmap';
+import { UserRecord } from '@/types/User';
 
-import { cn } from '@/utils/cn';
-import { answerDefaultRoadmapQuestion } from '@/actions/roadmap/questions/answer-roadmap-question';
+import { forwardRef, useImperativeHandle, useState } from 'react';
+import { Form, FormControl, FormField } from '@/components/ui/form';
+import { RoadmapUserQuestions } from '@/types/Roadmap';
+import { answerRoadmapQueston } from '@/actions/roadmap/questions/answer-roadmap-question';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { Label } from '@/components/ui/label';
+import { cn } from '@/utils/cn';
+import { Check } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
+import QuestionHintAccordion from '@/components/questions/single/question-hint';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
+
 type AnswerQuestionFormProps = {
   userData: UserRecord;
-  question: DefaultRoadmapQuestions;
+  question: RoadmapUserQuestions;
   roadmapUid: string;
 };
 
-const RoadmapAnswerQuestionForm = forwardRef(function AnswerQuestionForm(
+const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
   { userData, question, roadmapUid }: AnswerQuestionFormProps,
   ref: React.Ref<{ submitForm: () => void }>
 ) {
@@ -55,6 +53,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function AnswerQuestionForm(
   }));
 
   const handleAnswerQuestion = async (values: SchemaProps) => {
+    console.log('Submitting form with values:', values);
     if (!userData) {
       console.error('User is not logged in');
       return;
@@ -71,18 +70,17 @@ const RoadmapAnswerQuestionForm = forwardRef(function AnswerQuestionForm(
 
       // there is a chance nothing get's returned as we perform a redirect
       // if this is the last question to answer
-      const answer = await answerDefaultRoadmapQuestion(opts);
+      const { userAnswer, nextQuestion } = await answerRoadmapQueston(opts);
 
-      if (answer?.isLastQuestion) {
-        // redirect to the page
+      // if there is no next question, redirect to the roadmap page
+      // TODO: show a completion message
+      if (!nextQuestion) {
         router.push(`/roadmap/${roadmapUid}`);
         return;
       }
 
       // redirect to the page
-      router.push(
-        `/roadmap/${roadmapUid}/onboarding/${answer?.currentQuestionIndex + 1}`
-      );
+      router.push(`/roadmap/${roadmapUid}/${nextQuestion?.uid}`);
 
       setNewUserData(newUserData);
     } catch (error) {
@@ -98,7 +96,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function AnswerQuestionForm(
         onSubmit={form.handleSubmit(handleAnswerQuestion)}
       >
         <div className="grid grid-cols-12 gap-4 p-4">
-          {question.answers.map((answer) => (
+          {question?.answers?.map((answer) => (
             <div key={answer.uid} className="col-span-full">
               <FormField
                 control={form.control}

@@ -1,4 +1,4 @@
-import { fetchRoadmapQuestionViaOrder } from '@/actions/roadmap/questions/fetch-roadmap-question-via-order';
+import { fetchRoadmapQuestionViaOrder } from '@/actions/roadmap/questions/default/fetch-roadmap-question-via-order';
 import BackToDashboard from '@/components/global/back-to-dashboard';
 import CurrentStreak from '@/components/global/current-streak';
 import { Separator } from '@/components/ui/separator';

@@ -18,6 +18,12 @@ export const newQuestionSchema = z
     dailyQuestion: z.boolean().default(false),
     tags: z.string().nonempty('At least one tag is required'),
     isRoadmapQuestion: z.boolean().default(false),
+    aiTitle: z.string().optional(),
+    // either easy, medium, or hard
+    difficulty: z.enum(['EASY', 'MEDIUM', 'HARD'], {
+      required_error: 'Difficulty is required',
+      invalid_type_error: 'Difficulty must be one of: easy, medium, or hard',
+    }),
   })
   .refine((data) => !data.dailyQuestion || data.questionDate, {
     message: 'Date is required when Daily Question is enabled',

@@ -2,6 +2,7 @@ import { getQuestion } from '@/actions/questions/get';
 import { getRandomQuestion } from '@/actions/questions/get-next-question';
 import BackToDashboard from '@/components/global/back-to-dashboard';
 import CurrentStreak from '@/components/global/current-streak';
+import QuestionNavigation from '@/components/global/navigation/question-navigation';
 import { Separator } from '@/components/ui/separator';
 import {
   Tooltip,
@@ -48,38 +49,10 @@ export default async function QuestionUidLayout({
         </div>
         <div className="flex items-center gap-x-5">
           <CurrentStreak />
-          <div className="flex gap-x-2 items-center">
-            <TooltipProvider delayDuration={0} skipDelayDuration={100}>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Link
-                    href={`/question/${nextQuestion}`}
-                    className="bg-black-100 border border-black-50 p-2 rounded-md relative group duration-200 size-8 flex items-center justify-center"
-                  >
-                    <ChevronLeft className="size-4 opacity-100 group-hover:opacity-0 absolute duration-100" />
-                    <ArrowLeft className="size-4 opacity-0 group-hover:opacity-100 absolute duration-100" />
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent side="bottom" className="text-white font-inter">
-                  Previous question
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider delayDuration={0} skipDelayDuration={100}>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Link
-                    href={`/question/${nextQuestion}`}
-                    className="bg-black-100 border border-black-50 p-2 rounded-md relative group duration-200 size-8 flex items-center justify-center"
-                  >
-                    <ChevronRight className="size-4 opacity-100 group-hover:opacity-0 absolute duration-100" />
-                    <ArrowRight className="size-4 opacity-0 group-hover:opacity-100 absolute duration-100" />
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent side="bottom">Next question</TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
+          <QuestionNavigation
+            nextQuestion={nextQuestion ? `/question/${nextQuestion}` : null}
+            previousQuestion={null}
+          />
         </div>
       </div>
       <Separator className="bg-black-50" />

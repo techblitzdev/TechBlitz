@@ -1,10 +1,12 @@
 import { ChevronLeft, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-export default function BackToDashboard() {
+export default function BackToDashboard(opts: { href?: string }) {
+  const { href = '/dashboard' } = opts;
+
   return (
     <Link
-      href="/dashboard"
+      href={href}
       prefetch
       className="bg-black-100 border border-black-50 p-2 rounded-md relative group duration-200 size-8 flex items-center justify-center"
     >

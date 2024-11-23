@@ -10,6 +10,6 @@ export const addOrderToResponseQuestions = (response: any) => {
 
   return response.map((question, index) => ({
     ...question,
-    order: index,
+    order: index + 1,
   }));
 };

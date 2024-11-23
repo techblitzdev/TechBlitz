@@ -31,7 +31,7 @@ export const roadmapGenerate = async (opts: {
     messages: [
       {
         role: 'system',
-        content: `You are an expert software developer. Given a series of user-answered questions with results, generate a 10-question roadmap to enhance the user’s knowledge. Focus on areas the user got wrong, build on prior questions, and guide their next steps. Each question should have 4 answers (1 correct).`,
+        content: `You're an expert software developer. Given a series of user-answered questions with results, generate a 10-question roadmap to enhance the user’s knowledge. Focus on areas the user got wrong, build on prior questions, and guide their next steps. Each question should have 4 answers (1 correct).`,
       },
       {
         role: 'system',
@@ -43,6 +43,7 @@ export const roadmapGenerate = async (opts: {
       },
     ],
     response_format: zodResponseFormat(aiQuestionSchema, 'event'),
+    temperature: 0,
   });
 
   if (!res.choices[0]?.message?.content) {
@@ -65,15 +66,14 @@ export const roadmapGenerate = async (opts: {
     codeSnippet: question.codeSnippet,
     hint: question.hint,
     completed: false,
+    order: question.order,
     RoadmapUserQuestionsAnswers: {
       create: question.answers.map((answer: any) => ({
         answer: answer.answer,
         correct: answer.correct,
-        order: answer.order,
         uid: answer.uid,
       })),
     },
-    order: question.order,
   }));
 
   try {

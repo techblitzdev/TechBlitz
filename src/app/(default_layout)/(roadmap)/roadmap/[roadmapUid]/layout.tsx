@@ -26,6 +26,14 @@ export default async function RoadmapOverviewPage({
           {/** Previous question button */}
           <BackToDashboard />
         </div>
+        <div className="flex flex-col text-center">
+          <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
+            (Roadmap Title)
+          </h1>
+          <p className="font-ubuntu text-sm text-gray-300">
+            (Roadmap Description)
+          </p>
+        </div>
         <div className="flex items-center gap-x-5">
           <QuestionNavigation
             nextQuestion={nextRoadmapUid ? `/roadmap/${nextRoadmapUid}` : null}

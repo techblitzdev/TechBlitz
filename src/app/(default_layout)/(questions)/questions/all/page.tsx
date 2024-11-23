@@ -65,9 +65,9 @@ export default async function QuestionsDashboard({
   });
 
   return (
-    <div className="container flex mt-5 gap-10">
+    <div className="container flex flex-col lg:flex-row mt-5 gap-10">
       {/* Left Section: Questions */}
-      <div className="w-1/2 space-y-6">
+      <div className="w-full lg:w-1/2 space-y-6">
         <Filter />
         <FilterChips />
         {questions?.map((q) => (
@@ -89,7 +89,7 @@ export default async function QuestionsDashboard({
       </div>
 
       {/* Right Section: Statistics */}
-      <aside className="w-1/2 relative">
+      <aside className="w-full lg:w-1/2 relative">
         <div className="sticky top-10 space-y-10 w-1/2">
           <div className="w-fit h-fit flex flex-col gap-y-2.5">
             <h6 className="text-xl">Your statistics</h6>

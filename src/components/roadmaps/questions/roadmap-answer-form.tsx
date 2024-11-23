@@ -70,8 +70,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
 
       // there is a chance nothing get's returned as we perform a redirect
       // if this is the last question to answer
-      const { totalQuestions, userAnswer, nextQuestion } =
-        await answerRoadmapQueston(opts);
+      const { userAnswer, nextQuestion } = await answerRoadmapQueston(opts);
 
       // if there is no next question, redirect to the roadmap page
       // TODO: show a completion message

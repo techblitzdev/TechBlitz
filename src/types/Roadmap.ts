@@ -29,6 +29,7 @@ export interface RoadmapUserQuestions extends BaseRecord {
   answers: RoadmapUserQuestionsAnswers[]; // Array of possible answers
   userAnswers: RoadmapUserQuestionsUserAnswers[]; // User-specific answers
   order: number; // Order of the question in the roadmap
+  userCorrect: boolean; // Indicates if the user answered the question correctly
 }
 
 // Possible answers for roadmap questions

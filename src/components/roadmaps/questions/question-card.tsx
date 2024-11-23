@@ -10,6 +10,7 @@ import { UserRecord } from '@/types/User';
 import { RoadmapUserQuestions } from '@/types/Roadmap';
 import { Button } from '../../ui/button';
 import RoadmapAnswerQuestionForm from '../questions/roadmap-answer-form';
+import { Check, X } from 'lucide-react';
 
 export default function RoadmapQuestionCard(opts: {
   user: UserRecord;
@@ -30,6 +31,21 @@ export default function RoadmapQuestionCard(opts: {
           textColor={getQuestionDifficultyColor(question.difficulty)}
           ghost
         />
+        <div className="flex items-center gap-x-1">
+          {/** display if the user has already answered the question or not */}
+          {question?.completed && (
+            <>
+              {question?.userCorrect ? (
+                <Check className="size-4 text-green-500" />
+              ) : (
+                <X className="size-4 text-destructive" />
+              )}
+              <div className="flex items-center gap-2">
+                <p className="text-sm">Answered</p>
+              </div>
+            </>
+          )}
+        </div>
       </div>
       <Separator className="bg-black-50" />
       <div className="h-fit bg-black-100">

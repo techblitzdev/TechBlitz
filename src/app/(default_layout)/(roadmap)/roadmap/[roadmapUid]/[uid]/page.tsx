@@ -1,5 +1,4 @@
 import { fetchRoadmapQuestion } from '@/actions/roadmap/questions/fetch-roadmap-question';
-import OnboardingQuestionCard from '@/components/roadmaps/onboarding/onboarding-question-card';
 
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';

@@ -1,6 +1,7 @@
 'use server';
 import { prisma } from '@/utils/prisma';
 import { fetchRoadmapQuestion } from './fetch-roadmap-question';
+import { redirect } from 'next/navigation';
 
 export const answerRoadmapQueston = async (opts: {
   questionUid: string;
@@ -23,24 +24,20 @@ export const answerRoadmapQueston = async (opts: {
   const correctAnswer = question.correctAnswerUid === answerUid;
 
   // check if the answer already exists
-  const existingAnswer = await prisma.roadmapUserQuestionsAnswers.findFirst({
-    where: {
-      questionUid,
-      AND: {
-        question: {
-          roadmap: {
-            userUid,
-          },
-        },
+  const existingAnswer = await prisma.roadmapUserQuestionsUserAnswers.findFirst(
+    {
+      where: {
+        questionUid,
       },
-    },
-  });
+    }
+  );
 
   let userAnswer;
 
   if (existingAnswer) {
+    console.log('updating answer');
     // if the answer already exists, update it instead of creating a new one
-    userAnswer = await prisma.roadmapUserQuestionsAnswers.update({
+    userAnswer = await prisma.roadmapUserQuestionsUserAnswers.update({
       where: { uid: existingAnswer.uid },
       data: {
         answer: answerUid,
@@ -48,8 +45,9 @@ export const answerRoadmapQueston = async (opts: {
       },
     });
   } else {
+    console.log('creating answer');
     // create a new answer record
-    userAnswer = await prisma.roadmapUserQuestionsAnswers.create({
+    userAnswer = await prisma.roadmapUserQuestionsUserAnswers.create({
       data: {
         questionUid: questionUid,
         correct: correctAnswer,
@@ -58,16 +56,33 @@ export const answerRoadmapQueston = async (opts: {
     });
   }
 
-  // if this is the last question, mark the roadmap as completed
-  const totalQuestions = await prisma.roadmapUserQuestions.count({
+  // update the question record to mark it as answered and either correct or incorrect
+  await prisma.roadmapUserQuestions.update({
+    where: {
+      uid: questionUid,
+    },
+    data: {
+      userCorrect: correctAnswer,
+      completed: true,
+    },
+  });
+
+  // if this is the last question, and all other questions have been answered
+  // mark the roadmap as complete
+
+  // we find this by trying to find values where the user has either not answered
+  // or answered incorrectly
+  const hasAnsweredAllQuestions = await prisma.roadmapUserQuestions.findMany({
     where: {
       roadmapUid,
+      completed: false,
+      userCorrect: false,
     },
   });
 
   let nextQuestion = null;
 
-  if (currentQuestionIndex === totalQuestions - 1) {
+  if (hasAnsweredAllQuestions.length === 0) {
     await prisma.userRoadmaps.update({
       where: {
         uid: roadmapUid,
@@ -86,9 +101,9 @@ export const answerRoadmapQueston = async (opts: {
     });
 
     if (!nextQuestion) {
-      throw new Error('Next question not found');
+      redirect(`/roadmap/${roadmapUid}?complete=true`);
     }
   }
 
-  return { userAnswer, totalQuestions, nextQuestion };
+  return { userAnswer, nextQuestion };
 };

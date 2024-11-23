@@ -2,12 +2,12 @@
 import { prisma } from '@/utils/prisma';
 
 export const fetchRoadmapQuestion = async (questionUid: string) => {
-  return await prisma.roadmapUserQuestions.findUnique({
+  return await prisma.defaultRoadmapQuestions.findUnique({
     where: {
       uid: questionUid,
     },
     include: {
-      RoadmapUserQuestionsAnswers: true,
+      answers: true,
     },
   });
 };

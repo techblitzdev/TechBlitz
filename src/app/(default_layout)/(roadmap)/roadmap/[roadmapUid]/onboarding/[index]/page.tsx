@@ -3,7 +3,7 @@ import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/useUserServer';
 import { Expand } from 'lucide-react';
 import QuestionDisplay from '@/components/questions/single/code-snippet';
-import { fetchRoadmapQuestionViaOrder } from '@/actions/roadmap/questions/fetch-roadmap-question-via-order';
+import { fetchRoadmapQuestionViaOrder } from '@/actions/roadmap/questions/default/fetch-roadmap-question-via-order';
 import OnboardingQuestionCard from '@/components/roadmaps/onboarding-question-card';
 import { redirect } from 'next/navigation';
 import { checkIfUserIsOnCorrectQuestionIndex } from '@/actions/roadmap/questions/check-user-is-on-correct-index';

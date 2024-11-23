@@ -19,7 +19,7 @@ import type { UserRecord } from '@/types/User';
 import { DefaultRoadmapQuestions } from '@/types/Roadmap';
 
 import { cn } from '@/utils/cn';
-import { answerDefaultRoadmapQuestion } from '@/actions/roadmap/questions/answer-roadmap-question';
+import { answerDefaultRoadmapQuestion } from '@/actions/roadmap/questions/default/answer-roadmap-question';
 import { useRouter } from 'next/navigation';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;

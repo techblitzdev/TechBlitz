@@ -26,12 +26,12 @@ export const roadmapGenerate = async (opts: {
   }
 
   // Request AI-generated questions
-  const res = await openai.chat.completions.create({
+  const firstPass = await openai.chat.completions.create({
     model: 'gpt-4o-mini-2024-07-18',
     messages: [
       {
         role: 'system',
-        content: `You're an expert software developer. Given a series of user-answered questions with results, generate a 10-question roadmap to enhance the user’s knowledge. Focus on areas the user got wrong, build on prior questions, and guide their next steps. Each question should have 4 answers (1 correct).`,
+        content: `You're an expert software developer. Given a series of user-answered questions with results, generate a minimum 10-question roadmap to enhance the user’s knowledge. Focus on areas the user got wrong, build on prior questions, and guide their next steps. Each question should have 4 answers (1 correct). There has to be at least 10 questions`,
       },
       {
         role: 'system',
@@ -43,15 +43,15 @@ export const roadmapGenerate = async (opts: {
       },
     ],
     response_format: zodResponseFormat(aiQuestionSchema, 'event'),
-    temperature: 0,
+    temperature: 0.1,
   });
 
-  if (!res.choices[0]?.message?.content) {
+  if (!firstPass.choices[0]?.message?.content) {
     throw new Error('AI response is missing content');
   }
 
   // Parse and process the AI response
-  const formattedResponse = JSON.parse(res.choices[0].message.content);
+  const formattedResponse = JSON.parse(firstPass.choices[0].message.content);
   const questions = addUidsToResponse(formattedResponse.questionData);
 
   // add a order value to each question

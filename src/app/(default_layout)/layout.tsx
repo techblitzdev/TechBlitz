@@ -6,6 +6,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { HydrationOverlay } from '@builder.io/react-hydration-overlay';
 import { AppSidebar } from '@/components/global/navigation/sidebar';
+import { CSPostHogProvider } from '../providers';
 
 import { createTheme, MantineProvider } from '@mantine/core';
 // Import styles of packages that you've installed.
@@ -40,7 +41,9 @@ export default function Layout({
             <AppSidebar />
             <main className="w-full py-6 lg:pt-6 lg:pb-3">
               <div className="h-[95%]">
-                <MantineProvider>{children}</MantineProvider>
+                <CSPostHogProvider>
+                  <MantineProvider>{children}</MantineProvider>
+                </CSPostHogProvider>
               </div>
             </main>
             <Toaster className="bg-black" />

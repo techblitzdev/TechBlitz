@@ -9,6 +9,7 @@ export const answerRoadmapQueston = async (opts: {
   userUid: string;
   currentQuestionIndex: number;
 }) => {
+  console.log('hit');
   const { questionUid, answerUid, roadmapUid, userUid, currentQuestionIndex } =
     opts;
 
@@ -64,6 +65,8 @@ export const answerRoadmapQueston = async (opts: {
     },
   });
 
+  let nextQuestion = null;
+
   if (currentQuestionIndex === totalQuestions - 1) {
     await prisma.userRoadmaps.update({
       where: {
@@ -73,5 +76,19 @@ export const answerRoadmapQueston = async (opts: {
         status: 'COMPLETED',
       },
     });
+  } else {
+    // get the next question
+    nextQuestion = await prisma.roadmapUserQuestions.findFirst({
+      where: {
+        roadmapUid,
+        order: currentQuestionIndex + 1,
+      },
+    });
+
+    if (!nextQuestion) {
+      throw new Error('Next question not found');
+    }
   }
+
+  return { userAnswer, totalQuestions, nextQuestion };
 };

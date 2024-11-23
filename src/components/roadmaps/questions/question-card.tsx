@@ -7,16 +7,17 @@ import { Separator } from '@/components/ui/separator';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 
 import { UserRecord } from '@/types/User';
-import { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
-import OnboardingRoadmapAnswerQuestionForm from '@/components/roadmaps/onboarding/onboarding-answer-form';
+import { RoadmapUserQuestions } from '@/types/Roadmap';
 import { Button } from '../../ui/button';
+import RoadmapAnswerQuestionForm from '../questions/roadmap-answer-form';
 
-export default function OnboardingQuestionCard(opts: {
+export default function RoadmapQuestionCard(opts: {
   user: UserRecord;
-  question: DefaultRoadmapQuestions;
+  question: RoadmapUserQuestions;
   roadmapUid: string;
+  isDefaultQuestion: boolean;
 }) {
-  const { user, question, roadmapUid } = opts;
+  const { user, question, roadmapUid, isDefaultQuestion } = opts;
 
   const answerFormRef = useRef<{ submitForm: () => void }>(null);
 
@@ -37,7 +38,7 @@ export default function OnboardingQuestionCard(opts: {
             <h3 className="font-inter font-light">{question.question}</h3>
           </div>
         )}
-        <OnboardingRoadmapAnswerQuestionForm
+        <RoadmapAnswerQuestionForm
           ref={answerFormRef}
           question={question}
           userData={user}

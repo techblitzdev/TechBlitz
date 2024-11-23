@@ -8,6 +8,7 @@ import { Expand } from 'lucide-react';
 import { redirect } from 'next/navigation';
 import QuestionDisplay from '@/components/questions/single/code-snippet';
 import { RoadmapUserQuestions } from '@/types/Roadmap';
+import RoadmapQuestionCard from '@/components/roadmaps/questions/question-card';
 
 export default async function RoadmapQuestionPage({
   params,
@@ -32,10 +33,11 @@ export default async function RoadmapQuestionPage({
         <Button className="border border-black-50">
           Question {question.order}
         </Button>
-        <OnboardingQuestionCard
+        <RoadmapQuestionCard
           question={question}
           user={user}
           roadmapUid={roadmapUid}
+          isDefaultQuestion={false}
         />
       </div>
       <div className="w-1/2 h-3/4 grid-cols-subgrid gap-8 flex flex-col">

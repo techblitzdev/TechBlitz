@@ -35,7 +35,7 @@ export const roadmapGenerate = async (opts: {
       },
       {
         role: 'system',
-        content: `The code snippet MUST to be wrapped in a pre tag and a code tag and be put in the 'codeSnippet' field. The title MUST NOT contain any code that relates to the code snippet. The code snippet MUST NOT give the answer away. The title MUST be a question. The answers NEEDS related to the question title. The codeSnippet MUST relate to the question title. The answers MUST be related to the code snippet. The hint MUST be related to the code snippet. The difficulty MUST be related to the code snippet. No question should be repeated.`,
+        content: `The code snippet MUST to be wrapped in a pre tag and a code tag and be put in the 'codeSnippet' field. The title MUST NOT contain any code that relates to the code snippet. The code snippet MUST NOT give the answer away. The title MUST be a question. The answers NEEDS related to the question title. The codeSnippet MUST relate to the question title. The answers MUST be related to the code snippet. The hint MUST be related to the code snippet. The difficulty MUST be related to the code snippet. MAKE the questions unique. The answers MUST be unique. HARD questions MUST have a longer code snippet`,
       },
       {
         role: 'user',

@@ -74,18 +74,21 @@ const OnboardingRoadmapAnswerQuestionForm = forwardRef(
         // if this is the last question to answer
         const answer = await answerDefaultRoadmapQuestion(opts);
 
+        // the action will redirect if this is the last question
+        // if that fails, this is here to do it.
         if (answer?.isLastQuestion) {
+          console.log('Last question answered');
           // redirect to the page
-          router.push(`/roadmap/${roadmapUid}`);
+          router.push(`/roadmap/${roadmapUid}/onboarding/generate`);
           return;
+        } else {
+          // redirect to the page
+          router.push(
+            `/roadmap/${roadmapUid}/onboarding/${
+              answer?.currentQuestionIndex + 1
+            }`
+          );
         }
-
-        // redirect to the page
-        router.push(
-          `/roadmap/${roadmapUid}/onboarding/${
-            answer?.currentQuestionIndex + 1
-          }`
-        );
 
         setNewUserData(newUserData);
       } catch (error) {

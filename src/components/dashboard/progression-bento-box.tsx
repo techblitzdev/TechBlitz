@@ -56,7 +56,7 @@ export default async function ProgressBentoBox() {
 
   return (
     <Link
-      href="/roadmap"
+      href="/roadmaps"
       className="h-full flex flex-col p-4 relative group overflow-hidden"
     >
       {user?.userLevel !== 'FREE' && user?.userLevel !== 'STANDARD' && (

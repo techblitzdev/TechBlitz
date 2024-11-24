@@ -126,18 +126,7 @@ export const roadmapGenerate = async (opts: {
       }),
     ]);
 
-    // now go and get the questions to display
-    const questions = await prisma.roadmapUserQuestions.findMany({
-      where: {
-        roadmapUid: opts.roadmapUid,
-      },
-      include: {
-        answers: true,
-        roadmap: true,
-      },
-    });
-
-    return questions;
+    return 'generated';
   } catch (error) {
     console.error('Error generating roadmap:', error);
     throw new Error('Roadmap generation failed.');

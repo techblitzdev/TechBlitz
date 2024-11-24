@@ -2,6 +2,7 @@ import { fetchNextPrevRoadmap } from '@/actions/roadmap/fetch-next-prev-roadmap'
 import { fetchRoadmap } from '@/actions/roadmap/fetch-single-roadmap';
 import BackToDashboard from '@/components/global/back-to-dashboard';
 import QuestionNavigation from '@/components/global/navigation/question-navigation';
+import RoadmapDropdown from '@/components/roadmaps/dropdown';
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/useUserServer';
 
@@ -28,7 +29,7 @@ export default async function RoadmapOverviewPage({
       <div className="flex items-center justify-between container">
         <div className="flex items-center gap-x-5 py-2">
           {/** Previous question button */}
-          <BackToDashboard />
+          <BackToDashboard href="/roadmaps" />
         </div>
         <div className="flex flex-col gap-y-1 text-center">
           <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
@@ -38,14 +39,19 @@ export default async function RoadmapOverviewPage({
             {roadmap?.description}
           </p>
         </div>
-        <div className="flex items-center gap-x-5">
-          <QuestionNavigation
-            nextQuestion={nextRoadmapUid ? `/roadmap/${nextRoadmapUid}` : null}
-            previousQuestion={
-              prevRoadmapUid ? `/roadmap/${prevRoadmapUid}` : null
-            }
-            navigationType="roadmap"
-          />
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-x-5">
+            <QuestionNavigation
+              nextQuestion={
+                nextRoadmapUid ? `/roadmap/${nextRoadmapUid}` : null
+              }
+              previousQuestion={
+                prevRoadmapUid ? `/roadmap/${prevRoadmapUid}` : null
+              }
+              navigationType="roadmap"
+            />
+          </div>
+          <RoadmapDropdown roadmapUid={roadmapUid} />
         </div>
       </div>
       <Separator className="bg-black-50" />

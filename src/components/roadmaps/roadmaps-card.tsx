@@ -10,7 +10,7 @@ export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {
   const { roadmap } = opts;
 
   const href =
-    roadmap.status === 'ACTIVE'
+    roadmap.status === 'ACTIVE' || roadmap.status === 'COMPLETED'
       ? `/roadmap/${roadmap.uid}`
       : `/roadmap/${roadmap.uid}/onboarding/${roadmap.currentQuestionIndex}`;
 

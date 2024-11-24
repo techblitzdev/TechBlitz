@@ -162,3 +162,18 @@ body {
     opacity: 1;
   }
 }
+
+.line {
+  position: absolute;
+  width: 4px;
+  background-color: #e5e5e5; /* default color */
+  transition: background-color 0.3s ease;
+}
+
+.line.active {
+  background-color: #34d399; /* green when active */
+}
+
+.line.inactive {
+  background-color: #f87171; /* red for incorrect answers */
+}

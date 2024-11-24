@@ -4,21 +4,7 @@ import BackToDashboard from '@/components/global/back-to-dashboard';
 import CurrentStreak from '@/components/global/current-streak';
 import QuestionNavigation from '@/components/global/navigation/question-navigation';
 import { Separator } from '@/components/ui/separator';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
 import { useUserServer } from '@/hooks/useUserServer';
-import {
-  ArrowLeft,
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  Flame,
-} from 'lucide-react';
-import Link from 'next/link';
 
 export default async function QuestionUidLayout({
   children,
@@ -37,7 +23,7 @@ export default async function QuestionUidLayout({
 
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between px-6">
         <div className="flex items-center gap-x-5 py-2">
           {/** Previous question button */}
           <BackToDashboard />
@@ -52,6 +38,7 @@ export default async function QuestionUidLayout({
           <QuestionNavigation
             nextQuestion={nextQuestion ? `/question/${nextQuestion}` : null}
             previousQuestion={null}
+            navigationType="question"
           />
         </div>
       </div>

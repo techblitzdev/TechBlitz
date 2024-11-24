@@ -114,7 +114,7 @@ export function AppSidebar() {
           )}
         </>
       ),
-      url: '/roadmap',
+      url: '/roadmaps',
       icon: RouteIcon,
       disabled: user?.userLevel !== 'ADMIN' && user?.userLevel !== 'PREMIUM',
     },

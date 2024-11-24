@@ -12,7 +12,7 @@ export default async function RoadmapPage() {
   if (!user) return null;
 
   const posthog = PostHogClient();
-  const flags = await posthog.getAllFlags('user_distinct_id');
+  await posthog.getAllFlags('user_distinct_id');
   await posthog.shutdown();
 
   // fetch the user's roadmaps

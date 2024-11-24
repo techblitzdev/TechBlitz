@@ -10,7 +10,6 @@ export const answerRoadmapQueston = async (opts: {
   userUid: string;
   currentQuestionIndex: number;
 }) => {
-  console.log('hit');
   const { questionUid, answerUid, roadmapUid, userUid, currentQuestionIndex } =
     opts;
 

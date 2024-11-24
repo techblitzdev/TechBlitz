@@ -16,9 +16,8 @@ export default function RoadmapQuestionCard(opts: {
   user: UserRecord;
   question: RoadmapUserQuestions;
   roadmapUid: string;
-  isDefaultQuestion: boolean;
 }) {
-  const { user, question, roadmapUid, isDefaultQuestion } = opts;
+  const { user, question, roadmapUid } = opts;
 
   const answerFormRef = useRef<{ submitForm: () => void }>(null);
 

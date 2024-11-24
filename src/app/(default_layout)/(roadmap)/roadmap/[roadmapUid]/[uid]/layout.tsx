@@ -45,6 +45,7 @@ export default async function RoadmapQuestionLayout({
               ? `/roadmap/${roadmapUid}/${previousQuestion.uid}`
               : null
           }
+          navigationType="question"
         />
       </div>
       <Separator className="bg-black-50 mt-4" />

@@ -36,7 +36,6 @@ export default async function RoadmapQuestionPage({
           question={question}
           user={user}
           roadmapUid={roadmapUid}
-          isDefaultQuestion={false}
         />
       </div>
       <div className="w-full lg:w-1/2 h-3/4 grid-cols-subgrid gap-8 flex flex-col">

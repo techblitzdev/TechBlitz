@@ -1,5 +1,6 @@
 import { roadmapGenerate } from '@/actions/roadmap/ai/generate';
 import { fetchRoadmap } from '@/actions/roadmap/fetch-single-roadmap';
+import { fetchRoadmapQuestions } from '@/actions/roadmap/questions/fetch-roadmap-questiosn';
 import RoadmapQuestionCard from '@/components/roadmaps/questions/[uid]/question-card';
 import { Button } from '@/components/ui/button';
 import {
@@ -29,10 +30,16 @@ export default async function RoadmapSinglgePage({
   // go get the roadmap
   const roadmap = await fetchRoadmap({ roadmapUid, userUid: user.uid });
 
-  const generatedPlan = await roadmapGenerate({
+  // fetch the questions
+  const generatedPlan = await fetchRoadmapQuestions({
     roadmapUid,
     userUid: user.uid,
   });
+
+  // const generatedPlan = await roadmapGenerate({
+  //   roadmapUid,
+  //   userUid: user.uid,
+  // });
 
   // order the questions via the order
   generatedPlan.sort((a, b) => a.order - b.order);

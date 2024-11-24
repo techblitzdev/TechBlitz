@@ -4,6 +4,7 @@ import { getUserFromDb } from '@/actions/user/get-user';
 import { formatSeconds } from '@/utils/time';
 import { getUserDisplayName } from '@/utils/user';
 import { Button } from '../ui/button';
+import { redirect } from 'next/navigation';
 
 export default async function UserRank(opts: {
   questionUid: string;
@@ -29,14 +30,18 @@ export default async function UserRank(opts: {
 
   if (!userAnswer) {
     return (
-      <div className="flex justify-between w-full items-center">
+      <form
+        action={async () => {
+          'use server';
+          redirect(`/question/${questionUid}`);
+        }}
+        className="flex justify-between w-full items-center"
+      >
         <p className="text-white text-sm font-semibold font-satoshi">
           Not ranked
         </p>
-        <Button variant="accent" href={`/question/${questionUid}`}>
-          Answer now!
-        </Button>
-      </div>
+        <Button variant="accent">Answer now!</Button>
+      </form>
     );
   }
 
@@ -53,7 +58,7 @@ export default async function UserRank(opts: {
         </span>
       </p>
       <div className="text-xs bg-white text-black py-1 px-2 rounded-md">
-        <span>{displayTime}</span>
+        <p>{displayTime}</p>
       </div>
     </div>
   );

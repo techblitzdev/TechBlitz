@@ -54,7 +54,7 @@ export default async function RoadmapPage() {
       {roadmapsMap.map(({ roadmap, href }, index) => (
         <div key={roadmap.uid}>
           <Link href={href}>
-            {index}. {roadmap.status}
+            {index}. {roadmap.title}
           </Link>
         </div>
       ))}

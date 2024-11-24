@@ -18,4 +18,6 @@ export const questionSchema = z.object({
 
 export const aiQuestionSchema = z.object({
   questionData: z.array(questionSchema),
+  title: z.string(),
+  description: z.string(),
 });

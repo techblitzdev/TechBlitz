@@ -1,3 +1,4 @@
+import NoDailyQuestion from '@/components/global/errors/no-daily-question';
 import { getFastestTimes } from '@/actions/leaderboard/get-fastest';
 import Card from '../global/Card';
 import { QuestionWithoutAnswers } from '@/types/Questions';
@@ -55,7 +56,7 @@ const footer = (opts: {
 };
 
 export default async function LeaderboardTodayBoard(opts: {
-  todayQuestion: QuestionWithoutAnswers;
+  todayQuestion: QuestionWithoutAnswers | null;
   currentPage: number;
   userUid?: string;
 }) {
@@ -72,62 +73,68 @@ export default async function LeaderboardTodayBoard(opts: {
 
   return (
     <Card
-      header={header(todayQuestion.uid)}
+      header={header(todayQuestion?.uid || '')}
       footer={footer({
         currentPage,
         totalAnswers: total,
         totalPages,
       })}
     >
-      <div className="flex flex-col divide-y-[1px] divide-black-50">
-        {/* Headings Row */}
-        <div className="flex items-center justify-between px-4 py-2 bg-black-75 font-medium font-ubuntu text-xs">
-          <span className="flex-1">Position</span>
-          <span className="flex-1">User</span>
-          <span className="flex-1 text-right">Time</span>
+      {!todayQuestion ? (
+        <div className="p-4">
+          <NoDailyQuestion />
         </div>
-        {/* Leaderboard Rows */}
-        {fastestTimes.length > 0 &&
-          fastestTimes.map((time, index) => (
-            <div
-              key={time.uid}
-              className={cn(
-                'flex items-center justify-between px-4 py-3',
-                index % 2 === 0 ? 'bg-black' : 'bg-black-75'
-              )}
-            >
-              <span className="flex-1 text-sm font-bold">
-                #{1 + (startingRank + index)}
-              </span>
-              <div className="flex-1 flex items-center gap-2">
-                {time?.user.userProfilePicture ? (
-                  <img
-                    src={time?.user.userProfilePicture}
-                    className="rounded-full size-6"
-                  />
-                ) : (
-                  <div className="rounded-full size-6 flex items-center justify-center bg-black-50">
-                    <User className="size-4" />
-                  </div>
+      ) : (
+        <div className="flex flex-col divide-y-[1px] divide-black-50">
+          {/* Headings Row */}
+          <div className="flex items-center justify-between px-4 py-2 bg-black-75 font-medium font-ubuntu text-xs">
+            <span className="flex-1">Position</span>
+            <span className="flex-1">User</span>
+            <span className="flex-1 text-right">Time</span>
+          </div>
+          {/* Leaderboard Rows */}
+          {fastestTimes.length > 0 &&
+            fastestTimes.map((time, index) => (
+              <div
+                key={time.uid}
+                className={cn(
+                  'flex items-center justify-between px-4 py-3',
+                  index % 2 === 0 ? 'bg-black' : 'bg-black-75'
                 )}
-                {/** truncate */}
-                <p>
-                  {getUserDisplayName(time.user).length > 15
-                    ? `${getUserDisplayName(time.user).substring(0, 15)}...`
-                    : getUserDisplayName(time.user)}
-                </p>
-                <p>
-                  {userUid === time.user.uid && (
-                    <span className="text-xs text-gray-500">(You)</span>
+              >
+                <span className="flex-1 text-sm font-bold">
+                  #{1 + (startingRank + index)}
+                </span>
+                <div className="flex-1 flex items-center gap-2">
+                  {time?.user.userProfilePicture ? (
+                    <img
+                      src={time?.user.userProfilePicture}
+                      className="rounded-full size-6"
+                    />
+                  ) : (
+                    <div className="rounded-full size-6 flex items-center justify-center bg-black-50">
+                      <User className="size-4" />
+                    </div>
                   )}
-                </p>
+                  {/** truncate */}
+                  <p>
+                    {getUserDisplayName(time.user).length > 15
+                      ? `${getUserDisplayName(time.user).substring(0, 15)}...`
+                      : getUserDisplayName(time.user)}
+                  </p>
+                  <p>
+                    {userUid === time.user.uid && (
+                      <span className="text-xs text-gray-500">(You)</span>
+                    )}
+                  </p>
+                </div>
+                <span className="flex-1 text-right">
+                  {formatSeconds(time.timeTaken || 0)}
+                </span>
               </div>
-              <span className="flex-1 text-right">
-                {formatSeconds(time.timeTaken || 0)}
-              </span>
-            </div>
-          ))}
-      </div>
+            ))}
+        </div>
+      )}
     </Card>
   );
 }

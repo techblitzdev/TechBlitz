@@ -27,6 +27,10 @@ export default async function RoadmapSinglgePage({
   // go get the roadmap
   const roadmap = await fetchRoadmap({ roadmapUid, userUid: user.uid });
 
+  if (!roadmap) {
+    redirect('/roadmaps?error=roadmap_not_found');
+  }
+
   // fetch the questions
   const generatedPlan = await fetchRoadmapQuestions({
     roadmapUid,

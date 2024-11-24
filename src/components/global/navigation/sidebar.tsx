@@ -103,7 +103,8 @@ export function AppSidebar() {
       title: (
         <>
           {user?.userLevel === 'ADMIN' ||
-          (user?.userLevel === 'PREMIUM' &&
+          user?.userLevel === 'PREMIUM' ||
+          (user?.userLevel === 'STANDARD' &&
             !pathname.startsWith('/settings')) ? (
             <p>Progression</p>
           ) : (
@@ -257,7 +258,7 @@ export function AppSidebar() {
                   prefetch
                   className={`flex items-center font-ubuntu text-sm py-2 ${
                     pathname === item.url
-                      ? 'bg-white text-black border border-black-75'
+                      ? 'bg-black-25 text-white border border-black-50'
                       : ''
                   }`}
                 >

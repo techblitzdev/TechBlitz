@@ -1,18 +1,19 @@
 'use client';
-
 import { useState } from 'react';
 import { EllipsisVertical } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { EditRoadmapModal } from './edit-roadmap-modal';
-import { Separator } from '../ui/separator';
-import { DropdownMenuSeparator } from '../ui/dropdown-menu';
 import { updateRoadmapDetails } from '@/actions/roadmap/update-roadmap-details';
 import { useUser } from '@/hooks/useUser';
+import { deleteRoadmap } from '@/actions/roadmap/delete-roadmap';
+import { useRouter } from 'next/navigation';
 
 export default function RoadmapDropdown(opts: { roadmapUid: string }) {
   const { user } = useUser();
   if (!user) return null;
+
+  const router = useRouter();
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
@@ -29,6 +30,12 @@ export default function RoadmapDropdown(opts: { roadmapUid: string }) {
       title: data.title,
       description: data.description,
     });
+  };
+
+  const handleRoadmapDelete = async () => {
+    await deleteRoadmap(opts.roadmapUid, user.uid);
+    // redirect to the roadmaps page
+    router.push('/roadmaps');
   };
 
   return (
@@ -57,6 +64,7 @@ export default function RoadmapDropdown(opts: { roadmapUid: string }) {
           <Button
             variant="ghost"
             className="w-full justify-start text-left font-normal py-1.5 text-destructive px-4 hover:text-white"
+            onClick={handleRoadmapDelete}
           >
             Delete roadmap
           </Button>

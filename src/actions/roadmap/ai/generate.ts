@@ -25,16 +25,16 @@ export const roadmapGenerate = async (opts: {
     messages: [
       {
         role: 'system',
-        content: `You're an expert software developer teacher. Given a series of user-answered questions with results, generate a roadmap to enhance the user’s knowledge. Focus on areas the user got wrong, AND build on prior questions, guide their next steps. Each question MUST have 4 answers, 1 correct. There MUST be 10 questions`,
+        content: `You're an expert software developer teacher. Given a series of user-answered questions with results, generate a roadmap to enhance the user’s knowledge. Focus on areas the user got wrong, AND build on prior questions, guide their next steps. Each question MUST have 4 answers, 1 correct. There MUST be 10 questions. The title of the roadmap MUST be revelant to the questions. The description MUST be relevant to the questions. MAKE title and description concise.`,
       },
       {
         role: 'system',
-        content: `The code snippet MUST to be wrapped in a pre tag and a code tag and be put in the 'codeSnippet' field. The title MUST NOT contain any code that relates to the code snippet. The code snippet MUST NOT contain the answer. The title MUST be a question. Answers NEEDS related to the question title. CodeSnippet MUST relate to question title. Answers MUST be related to the code snippet. Hint MUST be related to the codeSnippet. Difficulty MUST be related to the code snippet. Questions MUST be unique. The answers MUST be unique. HARD questions MUST have a longer code snippet`,
+        content: `The code snippet MUST to be wrapped in a pre tag and a code tag and be put in the 'codeSnippet' field. The title MUST NOT contain code that relates to the code snippet. Title MUST be a question. Answers MUST relate to question title. CodeSnippet MUST relate to question title. Answers MUST be related to the code snippet. Difficulty MUST be related to the code snippet. Questions MUST be unique. The answers MUST be unique`,
       },
       {
         role: 'system',
         content:
-          'Topics to focus on: JavaScript, Promises, Async/Await, Array Methods, Objects, scope, closures, fetch, callbacks, recursion, maps, sets,  & other topics you think are relevant. Make sure to include a variety of question types. Make sure to include a variety of code snippets. MAKE the questions challenging. MAKE the questions be real-world applicable.',
+          'Topics to focus on: JavaScript, Promises, Async/Await, Array Methods, Objects, scope, closures, fetch, callbacks, recursion, & other topics you think are relevant. Make sure to include a variety of question types. MAKE the questions be real-world applicable.',
       },
       {
         role: 'user',
@@ -122,6 +122,8 @@ export const roadmapGenerate = async (opts: {
         },
         data: {
           hasGeneratedRoadmap: true,
+          title: formattedResponse.title,
+          description: formattedResponse.description,
         },
       }),
     ]);

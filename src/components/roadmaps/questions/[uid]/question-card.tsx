@@ -19,22 +19,26 @@ export default function RoadmapQuestionCard(opts: {
     <div className="relative flex gap-7">
       <div
         className={cn(
-          'h-[inherit] flex',
-          index === 0 && 'items-end',
-          index === totalQuestions - 1
-            ? 'items-start' // Last question should be at the top
-            : ''
+          'relative flex flex-col items-center w-0.5',
+          index === totalQuestions - 1 && 'pb-6'
         )}
       >
         <div
           className={cn(
-            'bg-black-50 w-0.5 relative',
-            index === 0 || index === totalQuestions - 1
-              ? 'h-1/2' // First or last line should be half-height
-              : 'h-full',
-            question?.completed && 'bg-green-500'
+            'bg-black-50 w-0.5 relative h-1/2',
+            question?.completed && question?.userCorrect && 'bg-green-500'
           )}
-        ></div>
+        />
+        {/* Dot */}
+        <div
+          className={cn(
+            'size-3 rounded-full bg-black-50', // Default dot
+            // Green dot if completed AND correct
+            question?.completed && question?.userCorrect && 'bg-green-500',
+            question?.completed && !question?.userCorrect && 'bg-destructive'
+          )}
+        />
+        <div className={cn('bg-black-50 w-0.5 relative h-1/2')} />
       </div>
       <Link
         href={`/roadmap/${roadmapUid}/${question.uid}`}

@@ -38,7 +38,7 @@ export default async function QuestionUidLayout({
           <QuestionNavigation
             nextQuestion={nextQuestion ? `/question/${nextQuestion}` : null}
             previousQuestion={null}
-            navigationType="roadmap"
+            navigationType="question"
           />
         </div>
       </div>

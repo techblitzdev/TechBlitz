@@ -31,11 +31,16 @@ export const roadmapGenerate = async (opts: {
     messages: [
       {
         role: 'system',
-        content: `You're an expert software developer. Given a series of user-answered questions with results, generate a minimum 10-question roadmap to enhance the user’s knowledge. Focus on areas the user got wrong, build on prior questions, and guide their next steps. Each question MUST have 4 answers (1 correct). There HAS to be at least 10 questions`,
+        content: `You're an expert software developer teacher. Given a series of user-answered questions with results, generate a roadmap to enhance the user’s knowledge. Focus on areas the user got wrong, AND build on prior questions, guide their next steps. Each question MUST have 4 answers, 1 correct. There MUST be 10 questions`,
       },
       {
         role: 'system',
-        content: `The code snippet MUST to be wrapped in a pre tag and a code tag and be put in the 'codeSnippet' field. The title MUST NOT contain any code that relates to the code snippet. The code snippet MUST NOT give the answer away. The title MUST be a question. The answers NEEDS related to the question title. The codeSnippet MUST relate to the question title. The answers MUST be related to the code snippet. The hint MUST be related to the code snippet. The difficulty MUST be related to the code snippet. MAKE the questions unique. The answers MUST be unique. HARD questions MUST have a longer code snippet`,
+        content: `The code snippet MUST to be wrapped in a pre tag and a code tag and be put in the 'codeSnippet' field. The title MUST NOT contain any code that relates to the code snippet. The code snippet MUST NOT contain the answer. The title MUST be a question. Answers NEEDS related to the question title. CodeSnippet MUST relate to question title. Answers MUST be related to the code snippet. Hint MUST be related to the codeSnippet. Difficulty MUST be related to the code snippet. Questions MUST be unique. The answers MUST be unique. HARD questions MUST have a longer code snippet`,
+      },
+      {
+        role: 'system',
+        content:
+          'Topics to focus on: JavaScript, Promises, Async/Await, Array Methods, Objects, scope, closures, fetch, callbacks & other topics you think are relevant. Make sure to include a variety of question types. Make sure to include a variety of code snippets',
       },
       {
         role: 'user',
@@ -50,8 +55,30 @@ export const roadmapGenerate = async (opts: {
     throw new Error('AI response is missing content');
   }
 
+  // second pass to ensure that the codesnippets do not contain the answer
+  const secondPass = await openai.chat.completions.create({
+    model: 'gpt-4o-mini-2024-07-18',
+    messages: [
+      {
+        role: 'assistant',
+        content:
+          'Please ensure that the code snippets do not contain the answer. If they do, please remove the answer from the code snippet. Do not modify the question, answers, hints or codeSnippet fields if not required..',
+      },
+      {
+        role: 'assistant',
+        content: firstPass.choices[0].message.content,
+      },
+    ],
+    response_format: zodResponseFormat(aiQuestionSchema, 'event'),
+    temperature: 0,
+  });
+
+  if (!secondPass.choices[0]?.message?.content) {
+    throw new Error('AI response is missing content');
+  }
+
   // Parse and process the AI response
-  const formattedResponse = JSON.parse(firstPass.choices[0].message.content);
+  const formattedResponse = JSON.parse(secondPass.choices[0].message.content);
   const questions = addUidsToResponse(formattedResponse.questionData);
 
   // add a order value to each question

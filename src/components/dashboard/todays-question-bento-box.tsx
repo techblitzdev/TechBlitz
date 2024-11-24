@@ -3,12 +3,21 @@ import Chip from '../global/chip';
 import { capitalise } from '@/utils';
 import { ArrowUpRight } from 'lucide-react';
 import { Button } from '../ui/button';
-import { Grid } from '../ui/grid';
 import { getQuestionDifficultyColor } from '@/utils';
 import TagDisplay from '../questions/previous/tag-display';
+import NoDailyQuestion from '../global/errors/no-daily-question';
 
-export default function TodaysQuestionBentoBox(opts: { question: Question }) {
+export default function TodaysQuestionBentoBox(opts: {
+  question: Question | null;
+}) {
   const { question } = opts;
+
+  if (!question)
+    return (
+      <div className="p-4">
+        <NoDailyQuestion variant="accent" />
+      </div>
+    );
 
   const tags = question?.tags || [];
 

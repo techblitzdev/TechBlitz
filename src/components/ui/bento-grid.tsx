@@ -1,7 +1,7 @@
 'use client';
+
 import { cn } from '@/utils/cn';
 import Link from 'next/link';
-import { Grid } from './grid';
 
 export const BentoGrid = ({
   className,
@@ -35,7 +35,7 @@ export const BentoGridItem = ({
   description?: string | React.ReactNode;
   header?: React.ReactNode;
   icon?: React.ReactNode;
-  href?: string;
+  href?: string | null;
   padded?: boolean;
 }) => {
   const renderContent = () => {
@@ -65,7 +65,6 @@ export const BentoGridItem = ({
 
   const baseClasses = cn(
     'rounded-xl group/bento overflow-hidden hover:shadow-xl transition duration-200 shadow-input dark:shadow-none dark:bg-black dark:border-white/[0.2] bg-black-75 border border-black-50 justify-between flex flex-col',
-    // Only add space-y-4 if there's content to space
     header || title || description || icon ? 'space-y-4' : '',
     className,
     padded ? 'p-4' : ''

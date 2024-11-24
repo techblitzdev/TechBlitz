@@ -6,11 +6,19 @@ import { Button } from '../ui/button';
 import { getQuestionDifficultyColor } from '@/utils';
 import { Grid } from '../ui/grid';
 import TagDisplay from '../questions/previous/tag-display';
+import NoDailyQuestion from '../global/errors/no-daily-question';
 
 export default function YesterdaysQuestionBentoBox(opts: {
-  question: Question;
+  question: Question | null;
 }) {
   const { question } = opts;
+
+  if (!question)
+    return (
+      <div className="p-4">
+        <NoDailyQuestion variant="accent" />
+      </div>
+    );
 
   const tags = question?.tags || [];
 

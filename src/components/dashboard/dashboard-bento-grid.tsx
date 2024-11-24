@@ -11,7 +11,6 @@ import YesterdaysQuestionBentoBox from './yesterdays-question-bento-box';
 import { getYesterdaysQuestion } from '@/actions/questions/get-yesterdays-question';
 import ProgressBentoBox from './progression-bento-box';
 import StreakBentoBox from '../global/streak-bento-box';
-import NoDailyQuestion from '../global/errors/no-daily-question';
 
 export default async function DashboardBentoGrid() {
   const todaysQuestion = await getTodaysQuestion();
@@ -24,27 +23,19 @@ export default async function DashboardBentoGrid() {
 
   const items = [
     {
-      header: todaysQuestion ? (
-        <TodaysQuestionBentoBox question={todaysQuestion} />
-      ) : (
-        <div className="p-4">
-          <NoDailyQuestion variant="accent" />
-        </div>
-      ),
+      header: <TodaysQuestionBentoBox question={todaysQuestion} />,
       className: 'h-full text-white',
-      href: `/question/${todaysQuestion?.uid || ''}`,
+      // conditionally render the href based on whether there is a question
+      href: todaysQuestion?.uid ? `/question/${todaysQuestion?.uid}` : null,
       padded: false,
     },
     {
-      header: yesterdaysQuestion ? (
-        <YesterdaysQuestionBentoBox question={yesterdaysQuestion} />
-      ) : (
-        <div className="p-4">
-          <NoDailyQuestion variant="accent" />
-        </div>
-      ),
+      header: <YesterdaysQuestionBentoBox question={yesterdaysQuestion} />,
       className: 'h-full text-white',
-      href: `/question/${yesterdaysQuestion?.uid || ''}`,
+      // conditionally render the href based on whether there is a question
+      href: yesterdaysQuestion?.uid
+        ? `/question/${yesterdaysQuestion?.uid}`
+        : null,
       padded: false,
     },
     {
@@ -78,6 +69,11 @@ export default async function DashboardBentoGrid() {
     },
   ];
 
+  // remove any hrefs that are null
+  items.forEach((item) => {
+    if (!item.href || item.href === null) delete item.href;
+  });
+
   return (
     <BentoGrid className="grid-rows-[auto_auto_auto] md:grid-rows-[repeat(2,minmax(0,1fr))] h-full">
       {items.map((item, i) => (
@@ -85,7 +81,7 @@ export default async function DashboardBentoGrid() {
           key={i}
           header={item.header}
           className={item.className}
-          href={item.href}
+          href={item?.href}
           padded={item.padded}
         />
       ))}

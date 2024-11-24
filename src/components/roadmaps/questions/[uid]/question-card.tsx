@@ -11,25 +11,35 @@ export default function RoadmapQuestionCard(opts: {
   question: RoadmapUserQuestions;
   roadmapUid: string;
   index: number;
+  totalQuestions: number;
 }) {
-  const { question, roadmapUid, index } = opts;
+  const { question, roadmapUid, index, totalQuestions } = opts;
 
   return (
-    <div className="relative">
+    <div className="relative flex gap-7">
       <div
         className={cn(
-          'absolute top-1/2 -translate-y-1/2 -left-[35px] size-3 rounded-full flex items-center justify-center',
-          question.completed
-            ? question.userCorrect
-              ? 'bg-green-500'
-              : 'bg-red-500'
-            : 'bg-black-50'
+          'h-[inherit] flex',
+          index === 0 && 'items-end',
+          index === totalQuestions - 1
+            ? 'items-start' // Last question should be at the top
+            : ''
         )}
-      ></div>{' '}
+      >
+        <div
+          className={cn(
+            'bg-black-50 w-0.5 relative',
+            index === 0 || index === totalQuestions - 1
+              ? 'h-1/2' // First or last line should be half-height
+              : 'h-full',
+            question?.completed && 'bg-green-500'
+          )}
+        ></div>
+      </div>
       <Link
         href={`/roadmap/${roadmapUid}/${question.uid}`}
         key={question.uid}
-        className="py-6 space-y-5 items-start bg-black-75 border border-black-50 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
+        className="py-6 mb-6 space-y-5 items-start bg-black-75 border border-black-50 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
       >
         <div className="flex flex-col w-full">
           <div className="flex w-full justify-between">

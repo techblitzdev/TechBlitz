@@ -39,34 +39,18 @@ export default async function RoadmapSinglgePage({
 
   return (
     <div className="flex flex-col lg:flex-row gap-10 mt-5 container">
-      <div className="w-full lg:w-1/2 relative flex gap-7 items-center">
-        <div className="relative flex flex-col items-center w-0.5 h-full">
-          {generatedPlan?.map((question, index) => (
-            <div
-              key={question.uid}
-              className={cn(
-                'w-full h-full',
-                question.completed ? 'bg-green-500' : 'bg-black-50'
-              )}
-              style={{
-                height:
-                  index < generatedPlan.length - 1
-                    ? 'calc(100% / (generatedPlan.length - 1))'
-                    : 'auto',
-              }}
-            ></div>
-          ))}
-        </div>
-        <div className="space-y-6">
-          {generatedPlan?.map((question, index) => (
+      <div className="w-full lg:w-1/2 relative">
+        {generatedPlan?.map((question, index) => (
+          <div className="flex flex-col justify-center">
             <RoadmapQuestionCard
               key={question.uid}
               question={question}
               roadmapUid={roadmapUid}
               index={index}
+              totalQuestions={generatedPlan.length}
             />
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
 
       <aside className="w-full lg:w-1/2 relative">

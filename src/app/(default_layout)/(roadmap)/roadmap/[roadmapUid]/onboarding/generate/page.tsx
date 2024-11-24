@@ -1,11 +1,11 @@
-import { roadmapGenerate } from '@/actions/roadmap/ai/generate';
 import { fetchDefaultUserAnswers } from '@/actions/roadmap/questions/default/fetch-default-user-answers';
 import { Grid } from '@/components/ui/grid';
 import LoadingSpinner from '@/components/ui/loading';
 import { useUserServer } from '@/hooks/useUserServer';
 import { Check, Route, X } from 'lucide-react';
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { Suspense } from 'react';
+import RoadmapGenerateButton from '@/components/roadmaps/onboarding/onboarding-generate';
 
 export default async function RoadmapGeneratingPage({
   params,
@@ -26,11 +26,6 @@ export default async function RoadmapGeneratingPage({
 
   // Sort answers by question order
   userAnswers.sort((a, b) => a.question.order - b.question.order);
-
-  const generate = await roadmapGenerate({
-    roadmapUid,
-    userUid: user.uid,
-  });
 
   return (
     <div className="h-screen flex items-center justify-center">
@@ -80,16 +75,12 @@ export default async function RoadmapGeneratingPage({
               This process may take a few minutes. <br /> Please hold tight
               while we prepare your personalised roadmap.
             </p>
-            {generate.length || generate === 'generated' ? (
-              <Link
-                href={`/roadmap/${roadmapUid}`}
-                className="bg-accent text-white px-4 py-2 rounded-md text-sm font-semibold font-ubuntu"
-              >
-                Go to Roadmap
-              </Link>
-            ) : (
-              <LoadingSpinner />
-            )}
+            <Suspense fallback={<LoadingSpinner />}>
+              <RoadmapGenerateButton
+                roadmapUid={roadmapUid}
+                userUid={user.uid}
+              />
+            </Suspense>
           </div>
         </div>
 

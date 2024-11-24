@@ -2,6 +2,7 @@
 import { prisma } from '@/utils/prisma';
 import { fetchRoadmapQuestion } from './fetch-roadmap-question';
 import { redirect } from 'next/navigation';
+import { revalidateTag } from 'next/cache';
 
 export const answerRoadmapQueston = async (opts: {
   questionUid: string;
@@ -103,6 +104,9 @@ export const answerRoadmapQueston = async (opts: {
       redirect(`/roadmap/${roadmapUid}?complete=true`);
     }
   }
+
+  // revaidate the roadmap list
+  revalidateTag('roadmap-list');
 
   return { userAnswer, nextQuestion };
 };

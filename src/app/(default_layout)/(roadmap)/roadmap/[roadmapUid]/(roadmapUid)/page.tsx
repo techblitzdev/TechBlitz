@@ -1,4 +1,3 @@
-import { roadmapGenerate } from '@/actions/roadmap/ai/generate';
 import { fetchRoadmap } from '@/actions/roadmap/fetch-single-roadmap';
 import { fetchRoadmapQuestions } from '@/actions/roadmap/questions/fetch-roadmap-questiosn';
 import RoadmapQuestionCard from '@/components/roadmaps/questions/[uid]/question-card';
@@ -10,8 +9,6 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { useUserServer } from '@/hooks/useUserServer';
-import { cn } from '@/utils/cn';
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 export default async function RoadmapSinglgePage({
@@ -35,11 +32,6 @@ export default async function RoadmapSinglgePage({
     roadmapUid,
     userUid: user.uid,
   });
-
-  // const generatedPlan = await roadmapGenerate({
-  //   roadmapUid,
-  //   userUid: user.uid,
-  // });
 
   // order the questions via the order
   generatedPlan.sort((a, b) => a.order - b.order);

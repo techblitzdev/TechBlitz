@@ -34,7 +34,7 @@ export const roadmapGenerate = async (opts: {
       {
         role: 'system',
         content:
-          'Topics to focus on: JavaScript, Promises, Async/Await, Array Methods, Objects, scope, closures, fetch, callbacks & other topics you think are relevant. Make sure to include a variety of question types. Make sure to include a variety of code snippets',
+          'Topics to focus on: JavaScript, Promises, Async/Await, Array Methods, Objects, scope, closures, fetch, callbacks, recursion, maps, sets,  & other topics you think are relevant. Make sure to include a variety of question types. Make sure to include a variety of code snippets. MAKE the questions challenging. MAKE the questions be real-world applicable.',
       },
       {
         role: 'user',
@@ -126,18 +126,7 @@ export const roadmapGenerate = async (opts: {
       }),
     ]);
 
-    // now go and get the questions to display
-    const questions = await prisma.roadmapUserQuestions.findMany({
-      where: {
-        roadmapUid: opts.roadmapUid,
-      },
-      include: {
-        answers: true,
-        roadmap: true,
-      },
-    });
-
-    return questions;
+    return 'generated';
   } catch (error) {
     console.error('Error generating roadmap:', error);
     throw new Error('Roadmap generation failed.');

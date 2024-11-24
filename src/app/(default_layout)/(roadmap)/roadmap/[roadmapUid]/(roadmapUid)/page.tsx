@@ -48,6 +48,8 @@ export default async function RoadmapSinglgePage({
               roadmapUid={roadmapUid}
               index={index}
               totalQuestions={generatedPlan.length}
+              nextQuestionCorrect={generatedPlan[index + 1]?.userCorrect}
+              nextQuestionAnswered={generatedPlan[index + 1]?.completed}
             />
           </div>
         ))}

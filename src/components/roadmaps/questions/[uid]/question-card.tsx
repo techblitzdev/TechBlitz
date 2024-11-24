@@ -12,8 +12,17 @@ export default function RoadmapQuestionCard(opts: {
   roadmapUid: string;
   index: number;
   totalQuestions: number;
+  nextQuestionCorrect?: boolean;
+  nextQuestionAnswered?: boolean;
 }) {
-  const { question, roadmapUid, index, totalQuestions } = opts;
+  const {
+    question,
+    roadmapUid,
+    index,
+    totalQuestions,
+    nextQuestionCorrect,
+    nextQuestionAnswered,
+  } = opts;
 
   return (
     <div className="relative flex gap-7">
@@ -26,7 +35,9 @@ export default function RoadmapQuestionCard(opts: {
         <div
           className={cn(
             'bg-black-50 w-0.5 relative h-1/2',
-            question?.completed && question?.userCorrect && 'bg-green-500'
+            question?.completed && question?.userCorrect && 'bg-green-500',
+            question?.completed && !question?.userCorrect && 'bg-destructive',
+            index == 0 && 'opacity-0'
           )}
         />
         {/* Dot */}
@@ -38,7 +49,14 @@ export default function RoadmapQuestionCard(opts: {
             question?.completed && !question?.userCorrect && 'bg-destructive'
           )}
         />
-        <div className={cn('bg-black-50 w-0.5 relative h-1/2')} />
+        <div
+          className={cn(
+            'bg-black-50 w-0.5 relative h-1/2',
+            question?.completed && question?.userCorrect && 'bg-green-500',
+            nextQuestionAnswered && !nextQuestionCorrect && 'bg-destructive',
+            index === totalQuestions - 1 && 'opacity-0'
+          )}
+        />
       </div>
       <Link
         href={`/roadmap/${roadmapUid}/${question.uid}`}

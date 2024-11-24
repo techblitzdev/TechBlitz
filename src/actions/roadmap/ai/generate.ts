@@ -6,6 +6,7 @@ import { generateDataForAi } from './get-question-data-for-gen';
 import { aiQuestionSchema } from '@/lib/zod/schemas/ai/response';
 import { addUidsToResponse } from './utils/add-uids-to-response';
 import { addOrderToResponseQuestions } from './utils/add-order-to-response-questions';
+import { fetchRoadmapQuestions } from '../questions/fetch-roadmap-questiosn';
 
 export const roadmapGenerate = async (opts: {
   roadmapUid: string;
@@ -15,14 +16,7 @@ export const roadmapGenerate = async (opts: {
   const formattedData = await generateDataForAi(opts);
 
   if (formattedData === 'generated') {
-    return await prisma.roadmapUserQuestions.findMany({
-      where: {
-        roadmapUid: opts.roadmapUid,
-      },
-      include: {
-        answers: true,
-      },
-    });
+    return fetchRoadmapQuestions(opts);
   }
 
   // Request AI-generated questions

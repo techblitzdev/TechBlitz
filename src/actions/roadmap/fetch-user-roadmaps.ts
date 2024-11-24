@@ -6,6 +6,10 @@ export const fetchUserRoadmaps = async (userUid: string) => {
     where: {
       userUid,
     },
+    include: {
+      DefaultRoadmapQuestionsUsersAnswers: true,
+      questions: true,
+    },
     orderBy: {
       createdAt: 'desc',
     },

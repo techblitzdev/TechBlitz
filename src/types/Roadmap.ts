@@ -8,14 +8,12 @@ export type RoadmapStatus = 'ACTIVE' | 'COMPLETED' | 'ARCHIVED' | 'CREATING';
 export interface UserRoadmaps extends BaseRecord {
   // Connects to the user
   userUid: string;
-  // Relation to the Users type
-  user: User;
   // Related questions specific to this roadmap
   questions: RoadmapUserQuestions[];
   // Status of the roadmap (active, completed, archived, creating)
   status: RoadmapStatus;
   // User answers to default questions
-  defaultRoadmapQuestionsUsersAnswers: DefaultRoadmapQuestionsUsersAnswers[];
+  DefaultRoadmapQuestionsUsersAnswers: DefaultRoadmapQuestionsUsersAnswers[];
   // Index of the user's current question
   currentQuestionIndex: number;
   // Indicates if the roadmap has been generated

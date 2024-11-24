@@ -3,9 +3,9 @@ import { fetchUserRoadmaps } from '@/actions/roadmap/fetch-user-roadmaps';
 import RoadmapOnboarding from '@/components/roadmaps/empty/onboarding';
 import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/useUserServer';
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import PostHogClient from '../../../posthog';
+import RoadmapsCard from '@/components/roadmaps/roadmaps-card';
 
 export default async function RoadmapPage() {
   const user = await useUserServer();
@@ -24,19 +24,6 @@ export default async function RoadmapPage() {
     return <RoadmapOnboarding />;
   }
 
-  // determine the href for the roadmap depending on status
-  // if the roadmap is creating, we redirect the user to the current question
-  // otherwise, the roadmap/roadmapUid page
-  const roadmapsMap = userRoadmaps.map((roadmap) => {
-    return {
-      roadmap: roadmap,
-      href:
-        roadmap.status === 'ACTIVE'
-          ? `/roadmap/${roadmap.uid}`
-          : `/roadmap/${roadmap.uid}/onboarding/${roadmap.currentQuestionIndex}`,
-    };
-  });
-
   const handleButtonClick = async (data: FormData) => {
     'use server';
     // create a new roadmap record for the user
@@ -49,18 +36,22 @@ export default async function RoadmapPage() {
   };
 
   return (
-    <div className="space-y-4 container">
-      {roadmapsMap.map(({ roadmap, href }, index) => (
-        <div key={roadmap.uid}>
-          <Link href={href}>
-            {index}. {roadmap.title}
-          </Link>
-        </div>
-      ))}
+    <div className="flex flex-col lg:flex-row gap-10 mt-5 container">
+      <div className="w-full lg:w-1/2 relative">
+        {userRoadmaps.map((roadmap) => (
+          // @ts-ignore
+          <RoadmapsCard key={roadmap.uid} roadmap={roadmap} />
+        ))}
+      </div>
+
       {/** create new roadmap cta */}
-      <form action={handleButtonClick}>
-        <Button>Create new roadmap</Button>
-      </form>
+      <aside className="w-full lg:w-1/2 relative">
+        <div className="sticky top-10 space-y-10 w-1/2">
+          <form action={handleButtonClick}>
+            <Button variant="accent">Create new roadmap</Button>
+          </form>
+        </div>
+      </aside>
     </div>
   );
 }

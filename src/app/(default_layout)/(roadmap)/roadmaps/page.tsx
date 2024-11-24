@@ -49,8 +49,7 @@ export default async function RoadmapPage() {
   };
 
   return (
-    <div className="space-y-4 px-6">
-      <h1>Roadmap page</h1>
+    <div className="space-y-4 container">
       {roadmapsMap.map(({ roadmap, href }, index) => (
         <div key={roadmap.uid}>
           <Link href={href}>

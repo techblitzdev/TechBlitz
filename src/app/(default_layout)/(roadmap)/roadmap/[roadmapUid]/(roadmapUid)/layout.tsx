@@ -26,12 +26,12 @@ export default async function RoadmapOverviewPage({
 
   return (
     <div className="text-white flex flex-col gap-y-4 relative h-full">
-      <div className="flex items-center justify-between container">
+      <div className="flex items-center justify-between gap-4 container">
         <div className="flex items-center gap-x-5 py-2">
           {/** Previous question button */}
           <BackToDashboard href="/roadmaps" />
         </div>
-        <div className="flex flex-col gap-y-1 text-center">
+        <div className="flex flex-col gap-y-1 text-center items-center">
           <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
             {roadmap?.title}
           </h1>

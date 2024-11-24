@@ -34,7 +34,7 @@ export const roadmapGenerate = async (opts: {
       {
         role: 'system',
         content:
-          'Topics to focus on: JavaScript, Promises, Async/Await, Array Methods, Objects, scope, closures, fetch, callbacks & other topics you think are relevant. Make sure to include a variety of question types. Make sure to include a variety of code snippets',
+          'Topics to focus on: JavaScript, Promises, Async/Await, Array Methods, Objects, scope, closures, fetch, callbacks & other topics you think are relevant. Make sure to include a variety of question types. Make sure to include a variety of code snippets. MAKE the questions challenging. MAKE the questions be real-world applicable.',
       },
       {
         role: 'user',

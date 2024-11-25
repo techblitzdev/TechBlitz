@@ -4,7 +4,6 @@ import '../globals.css';
 import { ReactQueryClientProvider } from '@/components/react-query-client-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
-import { HydrationOverlay } from '@builder.io/react-hydration-overlay';
 import { AppSidebar } from '@/components/global/navigation/sidebar';
 import { CSPostHogProvider } from '../providers';
 
@@ -13,6 +12,7 @@ import { createTheme, MantineProvider } from '@mantine/core';
 // All packages except `@mantine/hooks` require styles imports
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
+import { StarsBackground } from '@/components/ui/stars-background';
 
 export const metadata: Metadata = {
   title: 'techblitz',
@@ -33,21 +33,13 @@ export default function Layout({
           className={`${InterFont.variable} ${SatoshiFont.variable} ${UbuntuFont.variable} antialiased`}
           suppressHydrationWarning={true}
         >
-          <SidebarProvider>
-            {/* Fixed background gradient */}
-            {/* <div className="fixed inset-0 bg-gradient-to-t from-[#f0db4f]/5 via-transparent to-transparent pointer-events-none"></div> */}
-
-            {/* Scrollable content */}
-            <AppSidebar />
-            <main className="w-full py-6 lg:pt-6 lg:pb-3">
-              <div className="h-[95%]">
-                <CSPostHogProvider>
-                  <MantineProvider>{children}</MantineProvider>
-                </CSPostHogProvider>
-              </div>
-            </main>
-            <Toaster className="bg-black" />
-          </SidebarProvider>
+          <main className="container">
+            <StarsBackground />
+            <CSPostHogProvider>
+              <MantineProvider>{children}</MantineProvider>
+            </CSPostHogProvider>
+          </main>
+          <Toaster className="bg-black" />
         </body>
       </html>
     </ReactQueryClientProvider>

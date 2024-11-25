@@ -34,6 +34,13 @@ enum RoadmapStatus {
 
 // MODELS
 
+model Waitlist {
+  uid       String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Users {
   uid       String  @id()
   email     String  @unique

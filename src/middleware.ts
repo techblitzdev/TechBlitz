@@ -12,6 +12,7 @@ const nonAuthPaths = [
   '/update-password',
   '/verify-email',
   '/verify-email/success',
+  '/',
 ];
 
 // Exclude some paths from the middleware (e.g., API, public files, etc.)

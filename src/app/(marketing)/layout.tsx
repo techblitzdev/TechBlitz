@@ -12,6 +12,7 @@ import { createTheme, MantineProvider } from '@mantine/core';
 // All packages except `@mantine/hooks` require styles imports
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
+import { StarsBackground } from '@/components/ui/stars-background';
 
 export const metadata: Metadata = {
   title: 'techblitz',
@@ -33,6 +34,7 @@ export default function Layout({
           suppressHydrationWarning={true}
         >
           <main className="container">
+            <StarsBackground />
             <CSPostHogProvider>
               <MantineProvider>{children}</MantineProvider>
             </CSPostHogProvider>

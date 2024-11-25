@@ -34,7 +34,7 @@ export default function Layout({
           suppressHydrationWarning={true}
         >
           <main className="container">
-            <StarsBackground />
+            <StarsBackground className="-z-10" />
             <CSPostHogProvider>
               <MantineProvider>{children}</MantineProvider>
             </CSPostHogProvider>

@@ -50,6 +50,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import LogoutButton from '../logout';
+import Logo from '../logo';
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -292,7 +293,7 @@ export function AppSidebar() {
               className="text-sm xl:text-2xl font-ubuntu hover:text-white duration-300"
               prefetch
             >
-              TechBlitz
+              <Logo />
             </Link>
             <SidebarTrigger className="size-5 mt-1.5" />
           </SidebarGroupLabel>

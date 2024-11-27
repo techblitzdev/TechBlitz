@@ -21,7 +21,7 @@ export default async function TodaysLeaderboardBentoBox(opts: {
 
   const { fastestTimes } = await getFastestTimes({
     numberOfResults: 10,
-    questionUid: todaysQuestion?.uid || '',
+    questionUid: todaysQuestion?.uid || ''
   });
 
   const longestStreaks = await getLongestStreaks();
@@ -36,19 +36,28 @@ export default async function TodaysLeaderboardBentoBox(opts: {
               <ArrowRight className="size-4 ml-1 group-hover:ml-2 duration-300" />
             </div>
             <div className="absolute top-4 right-4">
-              <Chip color="accent" text="Leaderboard" />
+              <Chip
+                color="accent"
+                text="Leaderboard"
+              />
             </div>
             <Separator className="bg-black-50" />
           </div>
           {fastestTimes.length === 0 && todaysQuestion?.uid ? (
-            <Card className="bg-black rounded-none border-none pt-4">
+            <Card className="rounded-none border-none pt-4 group">
               <CardContent className="text-center">
                 <Link href={`/question/${todaysQuestion.uid}`}>
-                  <Trophy className="mx-auto mb-2 text-yellow-500" size={24} />
+                  <Trophy
+                    className="mx-auto mb-2 text-yellow-500"
+                    size={24}
+                  />
                   <p className="text-sm text-white">No fastest times yet!</p>
                   <p className="text-xs text-white mt-1">
                     Be the first to complete today's challenge!
                   </p>
+                  <div className="bg-white group-hover:bg-white/75 w-fit mt-2 text-black rounded-md px-3 py-1.5 text-xs justify-self-center">
+                    Answer now
+                  </div>
                 </Link>
               </CardContent>
             </Card>
@@ -79,7 +88,10 @@ export default async function TodaysLeaderboardBentoBox(opts: {
             ))}
           </ol>
         </div>
-        <Grid size={20} position="bottom-right" />
+        <Grid
+          size={20}
+          position="bottom-right"
+        />
       </div>
       <div className="flex flex-col overflow-hidden">
         <Separator className="bg-black-50 " />

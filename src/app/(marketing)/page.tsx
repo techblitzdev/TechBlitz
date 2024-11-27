@@ -8,7 +8,7 @@ export default function Page() {
   posthog.capture('page_view', { page_name: 'Waitlist page' });
 
   return (
-    <div className="w-full min-h-screen flex justify-center items-center relative">
+    <div className="container w-full min-h-screen flex justify-center items-center relative">
       <div className="absolute top-8 left-0 lg:left-8">
         <Logo />
       </div>

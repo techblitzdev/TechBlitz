@@ -16,13 +16,13 @@ import { StarsBackground } from '@/components/ui/stars-background';
 
 export const metadata: Metadata = {
   title: 'techblitz',
-  description: 'Improve your code knowledge, one day at a time.',
+  description: 'Improve your code knowledge, one day at a time.'
 };
 
 const theme = createTheme({});
 
 export default function Layout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -33,7 +33,7 @@ export default function Layout({
           className={`${InterFont.variable} ${SatoshiFont.variable} ${UbuntuFont.variable} antialiased`}
           suppressHydrationWarning={true}
         >
-          <main className="container">
+          <main>
             <StarsBackground className="-z-10" />
             <CSPostHogProvider>
               <MantineProvider>{children}</MantineProvider>

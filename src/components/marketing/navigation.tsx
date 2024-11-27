@@ -4,7 +4,7 @@ import { Button } from '../ui/button';
 
 export default function MarketingNavigation() {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between container">
       <Link href="/">
         <Logo />
       </Link>

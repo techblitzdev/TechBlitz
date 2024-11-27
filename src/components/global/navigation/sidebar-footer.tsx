@@ -2,7 +2,7 @@
 import {
   SidebarFooter,
   SidebarMenu,
-  SidebarMenuItem,
+  SidebarMenuItem
 } from '@/components/ui/sidebar';
 import { useUser } from '@/hooks/useUser';
 import { Button } from '@/components/ui/button';
@@ -53,7 +53,7 @@ export default function SidebarFooterComponent() {
   const { user, isError, isLoading } = useUser();
 
   return (
-    <SidebarFooter>
+    <SidebarFooter className="bg-[#000000]">
       <SidebarMenu>
         {user?.userLevel !== 'PREMIUM' && (
           <SidebarMenuItem className="font-semibold font-ubuntu text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-75 p-6">
@@ -64,7 +64,12 @@ export default function SidebarFooterComponent() {
             <p className="text-xs font-light">
               Elevate your development skills
             </p>
-            <Button variant="accent" fullWidth className="mt-4" href="/upgrade">
+            <Button
+              variant="accent"
+              fullWidth
+              className="mt-4"
+              href="/upgrade"
+            >
               Upgrade
             </Button>
           </SidebarMenuItem>

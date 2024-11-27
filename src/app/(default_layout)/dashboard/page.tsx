@@ -4,6 +4,7 @@ import CurrentStreak from '@/components/global/current-streak';
 import LanguageSwitcher from '@/components/global/language-dropdown';
 import UserProfileDropdown from '@/components/global/user-profile-dropdown';
 import { Separator } from '@/components/ui/separator';
+import { SidebarTrigger } from '@/components/ui/sidebar';
 import { getUserDisplayName } from '@/utils/user';
 
 export default async function Dashboard() {
@@ -16,6 +17,7 @@ export default async function Dashboard() {
     <div className="text-white flex flex-col gap-y-4 h-full">
       <div className="flex w-full justify-between px-6">
         <div className="space-y-1">
+          <SidebarTrigger className="lg:hidden" />
           <h1 className="text-xl md:text-3xl font-ubuntu">
             Welcome back, {getUserDisplayName(userData)}
           </h1>

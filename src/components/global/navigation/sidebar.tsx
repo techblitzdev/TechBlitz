@@ -11,7 +11,7 @@ import {
   CreditCard,
   RouteIcon,
   HelpCircle,
-  MoreHorizontal,
+  MoreHorizontal
 } from 'lucide-react';
 import {
   Sidebar,
@@ -25,11 +25,12 @@ import {
   SidebarMenuBadge,
   SidebarMenuAction,
   SidebarTrigger,
+  SidebarRail
 } from '@/components/ui/sidebar';
 import {
   Collapsible,
   CollapsibleContent,
-  CollapsibleTrigger,
+  CollapsibleTrigger
 } from '@/components/ui/collapsible';
 import AppSidebarSubMenuItem from './sidebar-submenu-item';
 import SidebarFooterComponent from './sidebar-footer';
@@ -47,7 +48,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import LogoutButton from '../logout';
 import Logo from '../logo';
@@ -58,7 +59,7 @@ export function AppSidebar() {
 
   const { data: todaysQuestion } = useQuery({
     queryKey: ['not-found'],
-    queryFn: () => getTodaysQuestion(),
+    queryFn: () => getTodaysQuestion()
   });
 
   const { data: hasAnsweredDailyQuestion, isLoading } = useQuery({
@@ -66,19 +67,19 @@ export function AppSidebar() {
     queryFn: () =>
       userAnsweredDailyQuestion({
         questionUid: todaysQuestion?.uid || '',
-        userUid: user?.uid || '',
+        userUid: user?.uid || ''
       }),
-    enabled: !!todaysQuestion?.uid,
+    enabled: !!todaysQuestion?.uid
   });
 
   const standardItems: SidebarItemType[] = [
     {
-      groupLabel: 'Menu',
+      groupLabel: 'Menu'
     },
     {
       title: 'Dashboard',
       url: '/dashboard',
-      icon: Home,
+      icon: Home
     },
     {
       title: 'Questions',
@@ -87,18 +88,18 @@ export function AppSidebar() {
       subItems: [
         {
           title: 'All',
-          url: '/questions/all',
+          url: '/questions/all'
         },
         {
           title: 'Daily Question',
           url: `/question/${todaysQuestion?.uid}`,
-          badge: hasAnsweredDailyQuestion ? '' : 'New',
+          badge: hasAnsweredDailyQuestion ? '' : 'New'
         },
         {
           title: 'All Daily Questions',
-          url: '/previous-questions',
-        },
-      ],
+          url: '/previous-questions'
+        }
+      ]
     },
     {
       title: (
@@ -118,26 +119,26 @@ export function AppSidebar() {
       ),
       url: '/roadmaps',
       icon: RouteIcon,
-      disabled: user?.userLevel !== 'ADMIN' && user?.userLevel !== 'PREMIUM',
+      disabled: user?.userLevel !== 'ADMIN' && user?.userLevel !== 'PREMIUM'
     },
     {
       title: 'Stats',
       url: '/',
       icon: ChartBarIncreasing,
-      chip: ComingSoonChip,
+      chip: ComingSoonChip
     },
     {
       title: 'Leaderboard',
       url: '/leaderboard',
-      icon: Award,
+      icon: Award
     },
     {
-      groupLabel: 'Support',
+      groupLabel: 'Support'
     },
     {
       title: 'Help',
       url: '/help',
-      icon: HelpCircle,
+      icon: HelpCircle
     },
     {
       title: 'Settings',
@@ -156,7 +157,10 @@ export function AppSidebar() {
             className="bg-black-75 border border-black-50 text-white hover:text-white"
           >
             <DropdownMenuItem>
-              <LogoutButton variant="ghost" padding="none" />
+              <LogoutButton
+                variant="ghost"
+                padding="none"
+              />
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Link href="/settings/profile">Profile</Link>
@@ -169,39 +173,39 @@ export function AppSidebar() {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      ),
-    },
+      )
+    }
   ];
 
   const settingsItems: SidebarItemType[] = [
     {
       title: 'Home',
       url: '/dashboard',
-      icon: Home,
+      icon: Home
     },
     {
-      groupLabel: 'Settings',
+      groupLabel: 'Settings'
     },
     {
       title: 'Profile',
       url: '/settings/profile',
-      icon: User,
+      icon: User
     },
     {
       title: 'Account',
       url: '/settings/account',
-      icon: Settings,
+      icon: Settings
     },
     {
       title: 'Billing',
       url: '/settings/billing',
-      icon: CreditCard,
+      icon: CreditCard
     },
     {
       title: 'Notifications',
       url: '/settings/notifications',
-      icon: Bell,
-    },
+      icon: Bell
+    }
   ];
 
   const items = pathname.startsWith('/settings')
@@ -212,14 +216,17 @@ export function AppSidebar() {
     items.push({
       title: 'Admin',
       url: '/admin',
-      icon: LockIcon,
+      icon: LockIcon
     });
   }
 
   const renderSidebarItem = (item: SidebarItemType) => {
     if ('groupLabel' in item) {
       return (
-        <SidebarGroup key={item.groupLabel} className="mt-2">
+        <SidebarGroup
+          key={item.groupLabel}
+          className="mt-2"
+        >
           <SidebarGroupLabel className="px-0 py-0 h-fit text-sm font-ubuntutoshi">
             {item.groupLabel}
           </SidebarGroupLabel>
@@ -230,7 +237,10 @@ export function AppSidebar() {
     return (
       <SidebarMenuItem key={item.url}>
         {item.subItems ? (
-          <Collapsible defaultOpen className="group/collapsible">
+          <Collapsible
+            defaultOpen
+            className="group/collapsible"
+          >
             <CollapsibleTrigger asChild>
               <SidebarMenuButton asChild>
                 <div className="flex items-center w-full">
@@ -246,7 +256,10 @@ export function AppSidebar() {
           </Collapsible>
         ) : (
           <div className="flex items-center w-full">
-            <SidebarMenuButton asChild className="flex-grow">
+            <SidebarMenuButton
+              asChild
+              className="flex-grow"
+            >
               {item.disabled ? (
                 <div className="flex items-center font-ubuntu text-sm p-2 gap-x-2 opacity-50 hover:cursor-not-allowed h-8">
                   {item.icon && <item.icon />}
@@ -285,7 +298,7 @@ export function AppSidebar() {
 
   return (
     <Sidebar>
-      <SidebarContent className="py-6">
+      <SidebarContent className="py-6 bg-[#000000]">
         <SidebarGroup>
           <SidebarGroupLabel className="w-full flex items-center justify-between">
             <Link
@@ -295,9 +308,8 @@ export function AppSidebar() {
             >
               <Logo />
             </Link>
-            <SidebarTrigger className="size-5 mt-1.5" />
           </SidebarGroupLabel>
-          <SidebarGroupContent className="mt-5">
+          <SidebarGroupContent className="mt-5 bg-[#000000]">
             <SidebarMenu>
               {items.map((item) => renderSidebarItem(item))}
             </SidebarMenu>
@@ -305,6 +317,7 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooterComponent />
+      <SidebarRail />
     </Sidebar>
   );
 }

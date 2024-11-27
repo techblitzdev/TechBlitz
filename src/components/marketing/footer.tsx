@@ -1,11 +1,12 @@
+import Logo from '../global/logo';
+
 export default function MarketingFooter() {
   return (
-    <footer className="bottom-0">
-      <div className="flex items-center justify-between text-white">
-        <div>
-          <p className="text-sm">
-            &copy; 2021 Company Name. All rights reserved.
-          </p>
+    <footer className="bottom-0 bg-black-75 border border-black-50 p-4 rounded-lg">
+      <div className="flex justify-between text-white">
+        <div className="flex flex-col gap-y-8">
+          <Logo />
+          <p className="text-sm">&copy; 2024 techblitz. All rights reserved.</p>
         </div>
         <div>
           <ul className="flex items-center gap-x-4 text-sm">

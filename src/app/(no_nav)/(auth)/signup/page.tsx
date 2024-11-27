@@ -12,21 +12,24 @@ export default function SignupPage() {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <SignupContent ranToast={ranToast.current} setUrlParams={setUrlParams} />
+      <SignupContent
+        ranToast={ranToast.current}
+        setUrlParams={setUrlParams}
+      />
     </Suspense>
   );
 }
 
 function SignupContent({
   ranToast,
-  setUrlParams,
+  setUrlParams
 }: {
   ranToast: boolean;
   setUrlParams: any;
 }) {
   // check if we have any query parameters
   const urlParams = useGetQueryParams({
-    keys: ['r'],
+    keys: ['r']
   });
 
   // if we have a query parameter, we can use it to display a toast message
@@ -49,19 +52,19 @@ function SignupContent({
     if (typeof errorDetail === 'string') {
       toast.error(errorDetail, {
         duration: 5000,
-        position: 'bottom-right',
+        position: 'bottom-right'
       });
     } else {
       toast.error(errorDetail.title, {
         description: errorDetail.description,
         duration: 5000,
-        position: 'bottom-right',
+        position: 'bottom-right'
       });
     }
   }
 
   return (
-    <div className="bg-black-100 p-8 rounded-xl space-y-4 text-center">
+    <div className="bg-black-100 border border-black-50 p-8 rounded-xl space-y-4 text-center">
       <h1 className="font-bold text-3xl mb-2">Join today!</h1>
       <p className="text-gray-300 mb-8 text-sm font-satoshi text-wrap">
         And become a part of the fastest growing community <br /> of developers.

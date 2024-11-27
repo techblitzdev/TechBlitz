@@ -5,12 +5,12 @@ import { ReactQueryClientProvider } from '@/components/react-query-client-provid
 import { Toaster } from '@/components/ui/sonner';
 
 export const metadata: Metadata = {
-  title: 'DevDaily',
-  description: 'Improve your code knowledge, one day at a time.',
+  title: 'techblitz',
+  description: 'Improve your code knowledge, one day at a time.'
 };
 
 export default function Layout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {

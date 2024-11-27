@@ -25,24 +25,24 @@ export const roadmapGenerate = async (opts: {
     messages: [
       {
         role: 'system',
-        content: `You're an expert software developer teacher. Given a series of user-answered questions with results, generate a roadmap to enhance the user’s knowledge. Focus on areas the user got wrong, AND build on prior questions, guide their next steps. Each question MUST have 4 answers, 1 correct. There MUST be 10 questions. The title of the roadmap MUST be revelant to the questions. The description MUST be relevant to the questions. MAKE title and description concise.`,
+        content: `You're an expert software developer teacher. Given a series of user-answered questions with results, generate a roadmap to enhance the user’s knowledge. Focus on areas the user got wrong, AND build on prior questions, guide their next steps. Each question MUST have 4 answers, 1 correct. There MUST be MAXIMUM 10 questions. The title of the roadmap MUST be revelant to the questions. The description MUST be relevant to the questions. MAKE title and description concise.`
       },
       {
         role: 'system',
-        content: `The code snippet MUST to be wrapped in a pre tag and a code tag and be put in the 'codeSnippet' field. The title MUST NOT contain code that relates to the code snippet. Title MUST be a question. Answers MUST relate to question title. CodeSnippet MUST relate to question title. Answers MUST be related to the code snippet. Difficulty MUST be related to the code snippet. Questions MUST be unique. The answers MUST be unique`,
+        content: `The code snippet MUST to be wrapped in a pre tag and a code tag and be put in the 'codeSnippet' field. The title MUST NOT contain code that relates to the code snippet. Title MUST be a question. Answers MUST relate to question title. CodeSnippet MUST relate to question title. Answers MUST be related to the code snippet. Difficulty MUST be related to the code snippet. Questions MUST be unique. The answers MUST be unique`
       },
       {
         role: 'system',
         content:
-          'Topics to focus on: JavaScript, Promises, Async/Await, Array Methods, Objects, scope, closures, fetch, callbacks, recursion, & other topics you think are relevant. Make sure to include a variety of question types. MAKE the questions be real-world applicable.',
+          'Topics to focus on: JavaScript, Promises, Async/Await, Array Methods, Objects, scope, closures, fetch, callbacks, recursion, & other topics you think are relevant. Make sure to include a variety of question types. MAKE the questions be real-world applicable.'
       },
       {
         role: 'user',
-        content: JSON.stringify(formattedData),
-      },
+        content: JSON.stringify(formattedData)
+      }
     ],
     response_format: zodResponseFormat(aiQuestionSchema, 'event'),
-    temperature: 0,
+    temperature: 0
   });
 
   if (!firstPass.choices[0]?.message?.content) {
@@ -56,15 +56,15 @@ export const roadmapGenerate = async (opts: {
       {
         role: 'assistant',
         content:
-          'Please ensure that the code snippets do not contain the answer. If they do, please remove the answer from the code snippet. Do not modify the question, answers, hints or codeSnippet fields if not required..',
+          'Please ensure that the code snippets do not contain the answer. If they do, please remove the answer from the code snippet. Do not modify the question, answers, hints or codeSnippet fields if not required..'
       },
       {
         role: 'assistant',
-        content: firstPass.choices[0].message.content,
-      },
+        content: firstPass.choices[0].message.content
+      }
     ],
     response_format: zodResponseFormat(aiQuestionSchema, 'event'),
-    temperature: 0,
+    temperature: 0
   });
 
   if (!secondPass.choices[0]?.message?.content) {
@@ -93,9 +93,9 @@ export const roadmapGenerate = async (opts: {
       create: question.answers.map((answer: any) => ({
         answer: answer.answer,
         correct: answer.correct,
-        uid: answer.uid,
-      })),
-    },
+        uid: answer.uid
+      }))
+    }
   }));
 
   try {
@@ -103,7 +103,7 @@ export const roadmapGenerate = async (opts: {
       prisma.roadmapUserQuestions.createMany({
         data: roadmapQuestionsData.map(
           ({ RoadmapUserQuestionsAnswers, ...rest }) => rest
-        ),
+        )
       }),
       ...roadmapQuestionsData.flatMap((question) =>
         question.RoadmapUserQuestionsAnswers.create.map((answer: any) =>
@@ -111,21 +111,21 @@ export const roadmapGenerate = async (opts: {
             data: {
               ...answer,
               questionUid: question.uid,
-              uid: answer.uid,
-            },
+              uid: answer.uid
+            }
           })
         )
       ),
       prisma.userRoadmaps.update({
         where: {
-          uid: opts.roadmapUid,
+          uid: opts.roadmapUid
         },
         data: {
           hasGeneratedRoadmap: true,
           title: formattedResponse.title,
-          description: formattedResponse.description,
-        },
-      }),
+          description: formattedResponse.description
+        }
+      })
     ]);
 
     return 'generated';

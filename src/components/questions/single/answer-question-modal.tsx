@@ -29,7 +29,9 @@ import {
   ClockIcon,
   RepeatIcon,
   ArrowRightIcon,
-  LinkIcon
+  LinkIcon,
+  TrophyIcon,
+  Flame
 } from 'lucide-react';
 import { toast } from 'sonner';
 import {
@@ -134,7 +136,6 @@ export default function AnswerQuestionModal({
 
   const copyLink = () => {
     navigator.clipboard.writeText(window.location.href);
-
     toast.success('Question link copied to clipboard!');
   };
 
@@ -181,20 +182,34 @@ export default function AnswerQuestionModal({
               )}
 
             {isDailyQuestion && (
-              <div className="w-full flex justify-center">
+              <div className="w-full flex flex-col items-center space-y-4">
+                <div className="flex items-center gap-2 text-gray-300">
+                  <Flame className="text-orange-500 fill-red-500 size-6" />
+                  <span className="font-medium">Your Daily Streak</span>
+                </div>
                 <DatePicker
-                  className="z-30 text-white border border-black-50 p-2 rounded-md bg-white dark:bg-black-100 hover:cursor-default"
+                  className="z-30 text-white border border-black-50 p-2 rounded-md bg-black-100 hover:cursor-default"
                   color="white"
                   type="range"
                   value={dateArray}
                   c="gray"
                   inputMode="none"
                 />
+                {streakData?.streakData && (
+                  <div className="flex items-center gap-2 text-gray-300">
+                    <TrophyIcon className="text-yellow-500 size-5" />
+                    <span>
+                      Current Streak: {streakData.streakData.currentstreakCount}{' '}
+                      day
+                      {streakData.streakData.currentstreakCount !== 1 && 's'}
+                    </span>
+                  </div>
+                )}
               </div>
             )}
 
             {correct === 'correct' && isDailyQuestion && (
-              <div className="text-center text-green-600 dark:text-green-400 font-medium">
+              <div className="text-center text-white font-medium">
                 Keep your momentum going! Come back tomorrow to maintain your
                 streak.
               </div>
@@ -208,15 +223,6 @@ export default function AnswerQuestionModal({
           </div>
         )}
         <DialogFooter className="flex w-full justify-between gap-3 mt-6">
-          {/* {user.userLevel === 'ADMIN' && (
-            <Button
-              variant="outline"
-              onClick={() => setShowQuestionData(!showQuestionData)}
-              className="text-gray-300"
-            >
-              {showQuestionData ? 'Hide' : 'Show'} question data
-            </Button>
-          )} */}
           <div className="flex w-full justify-between">
             <TooltipProvider>
               <Tooltip>

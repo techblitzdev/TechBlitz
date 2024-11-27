@@ -8,7 +8,7 @@ export default function Page() {
   posthog.capture('page_view', { page_name: 'Waitlist page' });
 
   return (
-    <div className="w-full min-h-screen flex justify-center items-center relative">
+    <div className="container w-full min-h-screen flex justify-center items-center relative">
       <div className="absolute top-8 left-0 lg:left-8">
         <Logo />
       </div>
@@ -21,10 +21,9 @@ export default function Page() {
             Unleash Your Potential with <br /> Engaging Software Learning
           </h1>
           <p className="text-gray-400 text-sm font-ubuntu">
-            Dive into the world of software development with dynamic and
-            fast-paced learning. Challenge yourself, compete with peers, or
-            craft a personalized learning path designed to sharpen your skills
-            and help you achieve your goals.
+            Accelerate your software development skills through dynamic
+            learning. Customize your path, challenge yourself, and achieve your
+            coding goals with personalized, competitive training.
           </p>
         </div>
 

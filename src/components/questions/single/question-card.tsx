@@ -17,7 +17,7 @@ import { DefaultRoadmapQuestions } from '@/types/Roadmap';
 
 export default function QuestionCard(opts: {
   user: UserRecord;
-  question: Question | DefaultRoadmapQuestions;
+  question: Question;
   nextQuestion?: string;
   isRoadmapQuestion?: boolean;
   index?: number;
@@ -27,12 +27,12 @@ export default function QuestionCard(opts: {
     question,
     nextQuestion,
     isRoadmapQuestion = false,
-    index,
+    index
   } = opts;
 
   const answerFormRef = useRef<{ submitForm: () => void }>(null);
   const { seconds, pause, reset, totalSeconds } = useStopwatch({
-    autoStart: true,
+    autoStart: true
   });
 
   return (
@@ -77,6 +77,7 @@ export default function QuestionCard(opts: {
           stopwatchPause={pause}
           time={totalSeconds}
           nextQuestion={nextQuestion}
+          resetStopwatch={reset}
         />
       </div>
       <Separator className="bg-black-50" />

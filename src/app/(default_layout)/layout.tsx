@@ -13,16 +13,17 @@ import { createTheme, MantineProvider } from '@mantine/core';
 // All packages except `@mantine/hooks` require styles imports
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
+import { StarsBackground } from '@/components/ui/stars-background';
 
 export const metadata: Metadata = {
   title: 'techblitz',
-  description: 'Improve your code knowledge, one day at a time.',
+  description: 'Improve your code knowledge, one day at a time.'
 };
 
 const theme = createTheme({});
 
 export default function Layout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {

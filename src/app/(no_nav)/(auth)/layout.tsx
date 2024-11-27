@@ -12,9 +12,9 @@ export default function AuthLayout({
   }
 
   return (
-    <div className="relative">
+    <div className="relative container">
       <StarsBackground className="-z-10" />
-      <div className="top-4 left-4 absolute z-30">
+      <div className="absolute top-8 left-0 lg:left-8">
         <Logo />
       </div>
       <div className="container text-white h-screen flex items-center justify-center">

@@ -32,6 +32,10 @@ import {
   LinkIcon
 } from 'lucide-react';
 import { toast } from 'sonner';
+import {
+  CORRECT_ANSWER_CONTENT,
+  INCORRECT_ANSWER_CONTENT
+} from '@/utils/constants/answer-content';
 
 type AnswerQuestionModalProps = {
   user: UserRecord;
@@ -60,12 +64,18 @@ type DialogContentType = {
 
 const dialogContent: DialogContentType = {
   correct: (name: string) => ({
-    heading: `Excellent work, ${name || 'learner'}!`,
-    description: 'You got the answer right!',
+    heading:
+      CORRECT_ANSWER_CONTENT[
+        Math.floor(Math.random() * CORRECT_ANSWER_CONTENT.length)
+      ] + ` ${name || 'learner'}!`,
+    description: 'You got the answer right, great job! Try another one?',
     icon: <CheckCircle2Icon className="text-green-500 size-16" />
   }),
   incorrect: {
-    heading: 'Keep pushing forward!',
+    heading:
+      INCORRECT_ANSWER_CONTENT[
+        Math.floor(Math.random() * INCORRECT_ANSWER_CONTENT.length)
+      ],
     description: 'Learning from mistakes is how we grow, try again?',
     icon: <XCircleIcon className="text-red-500 size-16" />
   }
@@ -134,7 +144,7 @@ export default function AnswerQuestionModal({
       onOpenChange={onOpenChange}
     >
       <DialogContent
-        className="bg-black-75 rounded-2xl shadow-2xl border-none py-6 px-8 md:max-w-2xl"
+        className="bg-black-75 rounded-xl border border-black-50 shadow-2xl py-6 px-8 md:max-w-2xl"
         aria-description="Answer question modal"
       >
         {correct === 'init' ? (
@@ -208,12 +218,21 @@ export default function AnswerQuestionModal({
             </Button>
           )} */}
           <div className="flex w-full justify-between">
-            <Button
-              variant="default"
-              onClick={() => copyLink()}
-            >
-              <LinkIcon className="size-4" />
-            </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button
+                    variant="default"
+                    onClick={() => copyLink()}
+                  >
+                    <LinkIcon className="size-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Copy link</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
             <div className="flex gap-3 w-full justify-end">
               {correct === 'incorrect' ? (
                 <Button

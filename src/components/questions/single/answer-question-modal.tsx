@@ -147,6 +147,10 @@ export default function AnswerQuestionModal({
       <DialogContent
         className="bg-black-75 rounded-xl border border-black-50 shadow-2xl py-6 px-8 md:max-w-2xl"
         aria-description="Answer question modal"
+        showCloseButton={false}
+        onInteractOutside={(e) => {
+          e.preventDefault();
+        }}
       >
         {correct === 'init' ? (
           <div className="h-36 flex items-center justify-center">
@@ -164,29 +168,9 @@ export default function AnswerQuestionModal({
               </DialogDescription>
             </div>
 
-            {user.showTimeTaken &&
-              correct === 'correct' &&
-              userAnswer.timeTaken && (
-                <div className="rounded-xl flex items-center gap-1">
-                  <ClockIcon className="text-gray-500 size-6" />
-                  <p className="text-gray-200">
-                    {timeTaken.minutes > 0 && (
-                      <span>
-                        {timeTaken.minutes} minute
-                        {timeTaken.minutes > 1 && 's'}{' '}
-                      </span>
-                    )}
-                    {formatSeconds(userAnswer.timeTaken)}
-                  </p>
-                </div>
-              )}
-
             {isDailyQuestion && (
-              <div className="w-full flex flex-col items-center space-y-4">
-                <div className="flex items-center gap-2 text-gray-300">
-                  <Flame className="text-orange-500 fill-red-500 size-6" />
-                  <span className="font-medium">Your Daily Streak</span>
-                </div>
+              <div className="w-full flex gap-4 items-start">
+                {/* Styled Date Picker */}
                 <DatePicker
                   className="z-30 text-white border border-black-50 p-2 rounded-md bg-black-100 hover:cursor-default"
                   color="white"
@@ -195,21 +179,48 @@ export default function AnswerQuestionModal({
                   c="gray"
                   inputMode="none"
                 />
-                {streakData?.streakData && (
-                  <div className="flex items-center gap-2 text-gray-300">
-                    <TrophyIcon className="text-yellow-500 size-5" />
-                    <span>
-                      Current Streak: {streakData.streakData.currentstreakCount}{' '}
-                      day
-                      {streakData.streakData.currentstreakCount !== 1 && 's'}
-                    </span>
-                  </div>
-                )}
+
+                <div className="text-sm flex flex-col gap-2 p-4 text-gray-300 bg-black-100 border border-black-50 h-full w-full rounded-md">
+                  <>
+                    <h6 className="text-base font-bold underline">Stats</h6>
+                    {user.showTimeTaken &&
+                      correct === 'correct' &&
+                      userAnswer.timeTaken && (
+                        <div className="rounded-xl flex items-center gap-2">
+                          <p className="text-gray-200">
+                            Answered in: {formatSeconds(userAnswer.timeTaken)}
+                          </p>
+                          <ClockIcon className="text-gray-500 size-5" />
+                        </div>
+                      )}
+                    {/* Streak Stats */}
+                    {streakData?.streakData && (
+                      <>
+                        <div className="flex items-center gap-2">
+                          <span className="font-semibold">
+                            Current Streak:{' '}
+                            {streakData.streakData.currentstreakCount} day
+                            {streakData.streakData.currentstreakCount !== 1 &&
+                              's'}
+                          </span>
+                          <TrophyIcon className="text-yellow-500 size-5" />
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-semibold">
+                            Longest Streak:{' '}
+                            {streakData.streakData.longestStreak}
+                          </span>
+                          <Flame className="text-orange-500 fill-red-500 size-5" />
+                        </div>
+                      </>
+                    )}
+                  </>
+                </div>
               </div>
             )}
 
             {correct === 'correct' && isDailyQuestion && (
-              <div className="text-center text-white font-medium">
+              <div className="text-center text-white font-medium text-sm">
                 Keep your momentum going! Come back tomorrow to maintain your
                 streak.
               </div>

@@ -95,7 +95,10 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
     setLoading(false);
   };
 
+  const [redirecting, setRedirecting] = useState(false);
   const handleNextQuestion = () => {
+    if (redirecting) return;
+    setRedirecting(true);
     // if there is no next question, redirect to the roadmap page
     // TODO: show a completion message
     if (!nextQuestion) {
@@ -105,6 +108,8 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
 
     // redirect to the page
     router.push(`/roadmap/${roadmapUid}/${nextQuestion?.uid}`);
+
+    setRedirecting(false);
   };
 
   const handleRetry = () => {
@@ -152,7 +157,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
                       onClick={() => handleNextQuestion()}
                       type="button"
                     >
-                      Next Question
+                      {redirecting ? 'Redirecting...' : 'Next Question'}
                     </Button>
                   </div>
                 </div>

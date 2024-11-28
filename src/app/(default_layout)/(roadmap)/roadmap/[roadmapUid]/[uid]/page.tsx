@@ -8,9 +8,10 @@ import { redirect } from 'next/navigation';
 import QuestionDisplay from '@/components/questions/single/code-snippet';
 import { RoadmapUserQuestions } from '@/types/Roadmap';
 import RoadmapQuestionCard from '@/components/roadmaps/questions/question-card';
+import ExpandedCodeModal from '@/components/questions/expanded-code-modal';
 
 export default async function RoadmapQuestionPage({
-  params,
+  params
 }: Readonly<{ params: { roadmapUid: string; uid: string } }>) {
   const { roadmapUid, uid } = params;
 
@@ -43,13 +44,16 @@ export default async function RoadmapQuestionPage({
         <div className="h-[45rem] col-span-full bg-black-75 border border-black-50 rounded-xl relative overflow-hidden">
           <div className="p-4 text-sm flex w-full items-center justify-between bg-black-25">
             <p>Code</p>
-            <div className="flex items-center gap-x-3">
-              <Expand className="size-4 text-gray-500" />
-            </div>
+            {question.codeSnippet && (
+              <ExpandedCodeModal code={question.codeSnippet} />
+            )}
           </div>
           <Separator className="bg-black-50" />
           {question?.codeSnippet && (
-            <QuestionDisplay content={question.codeSnippet} language="" />
+            <QuestionDisplay
+              content={question.codeSnippet}
+              language=""
+            />
           )}
         </div>
       </div>

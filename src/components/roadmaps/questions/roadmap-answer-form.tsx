@@ -9,15 +9,20 @@ import { UserRecord } from '@/types/User';
 
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import { Form, FormControl, FormField } from '@/components/ui/form';
-import { RoadmapUserQuestions } from '@/types/Roadmap';
-import { answerRoadmapQueston } from '@/actions/roadmap/questions/answer-roadmap-question';
+import {
+  RoadmapUserQuestions,
+  RoadmapUserQuestionsAnswers
+} from '@/types/Roadmap';
+import { answerRoadmapQuestion } from '@/actions/roadmap/questions/answer-roadmap-question';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/utils/cn';
-import { Check } from 'lucide-react';
+import { Check, CheckCircle2Icon, XCircleIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import QuestionHintAccordion from '@/components/questions/single/question-hint';
+import { Answer } from '@/types/Answers';
+import LoadingSpinner from '@/components/ui/loading';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 
@@ -33,13 +38,15 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
 ) {
   const router = useRouter();
 
-  const [newUserData, setNewUserData] = useState<UserRecord | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [newUserData, setNewUserData] =
+    useState<RoadmapUserQuestionsAnswers | null>(null);
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(answerQuestionSchema),
     defaultValues: {
-      answer: '',
-    },
+      answer: ''
+    }
   });
 
   // Expose the `submitForm` method to the parent via ref
@@ -49,28 +56,28 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
         console.log('Submitting form with values:', values);
         await handleAnswerQuestion(values);
       })();
-    },
+    }
   }));
 
   const handleAnswerQuestion = async (values: SchemaProps) => {
-    console.log('Submitting form with values:', values);
     if (!userData) {
       console.error('User is not logged in');
       return;
     }
 
+    setLoading(true);
     try {
       const opts: any = {
         questionUid: question?.uid,
         answerUid: values.answer,
         roadmapUid,
         userUid: userData.uid,
-        currentQuestionIndex: question?.order,
+        currentQuestionIndex: question?.order
       };
 
       // there is a chance nothing get's returned as we perform a redirect
       // if this is the last question to answer
-      const { userAnswer, nextQuestion } = await answerRoadmapQueston(opts);
+      const { userAnswer, nextQuestion } = await answerRoadmapQuestion(opts);
 
       // if there is no next question, redirect to the roadmap page
       // TODO: show a completion message
@@ -80,68 +87,114 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
       }
 
       // redirect to the page
-      router.push(`/roadmap/${roadmapUid}/${nextQuestion?.uid}`);
+      //router.push(`/roadmap/${roadmapUid}/${nextQuestion?.uid}`);
 
-      setNewUserData(newUserData);
+      setNewUserData(userAnswer);
     } catch (error) {
       console.error('Error submitting answer:', error);
       toast.error('Error submitting answer');
     }
+    setLoading(false);
   };
 
   return (
     <Form {...form}>
       <form
-        className="font-satoshi flex flex-col"
+        className="font-satoshi flex flex-col relative"
         onSubmit={form.handleSubmit(handleAnswerQuestion)}
       >
-        <div className="grid grid-cols-12 gap-4 p-4">
-          {question?.answers?.map((answer) => (
-            <div key={answer.uid} className="col-span-full">
-              <FormField
-                control={form.control}
-                name="answer"
-                render={({ field }) => (
-                  <FormControl>
-                    <Label
-                      htmlFor={answer.uid}
-                      className={cn(
-                        'p-4 rounded-xl min-h-20 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
-                        field.value === answer.uid
-                          ? 'bg-black-50'
-                          : 'bg-black hover:bg-black-75'
-                      )}
-                      onClick={() => field.onChange(answer.uid)}
-                    >
-                      <input
-                        type="radio"
-                        id={answer.uid}
-                        className="hidden"
-                        name="answer"
-                        value={answer.uid}
-                        checked={field.value === answer.uid}
-                        onChange={() => {}}
-                      />
-                      <div
-                        className={cn(
-                          'size-5 rounded-md border border-black-50 flex items-center justify-center flex-shrink-0', // Fixed size and prevent shrinking
-                          field.value === answer.uid
-                            ? 'bg-accent text-white'
-                            : ''
-                        )}
-                      >
-                        {field.value === answer.uid && (
-                          <Check className="h-3 w-3 flex-shrink-0" />
-                        )}
-                      </div>
-                      <p className="text-sm">{answer.answer}</p>
-                    </Label>
-                  </FormControl>
-                )}
-              />
+        {loading && (
+          <div className="h-[25rem] absolute flex justify-center items-center w-full">
+            <div className="gap-y-3 flex flex-col items-center">
+              <LoadingSpinner />
+              <p className="text-sm">Submitting</p>
             </div>
-          ))}
-        </div>
+          </div>
+        )}
+
+        {newUserData && !loading ? (
+          <div className="flex flex-col items-center justify-center h-[25rem] p-6 text-center">
+            <div className="bg-black-25 border border-black-50 rounded-xl p-8 shadow-lg text-center max-w-md w-full">
+              {newUserData?.correct ? (
+                <div className="space-y-4">
+                  <CheckCircle2Icon className="mx-auto text-green-500 size-16" />
+                  <h3 className="text-2xl font-semibold text-green-600">
+                    Correct!
+                  </h3>
+                  <p className="text-sm">
+                    Great job! You've answered the question correctly.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <XCircleIcon className="mx-auto text-red-500 size-16" />
+                  <h3 className="text-2xl font-semibold text-red-600">
+                    Incorrect
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Don't worry, learning is a process. Keep trying!
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div
+            className={cn(
+              'grid grid-cols-12 gap-4 p-4',
+              loading ? 'opacity-10 pointer-events-none' : ''
+            )}
+          >
+            {question?.answers?.map((answer) => (
+              <div
+                key={answer.uid}
+                className="col-span-full"
+              >
+                <FormField
+                  control={form.control}
+                  name="answer"
+                  render={({ field }) => (
+                    <FormControl>
+                      <Label
+                        htmlFor={answer.uid}
+                        className={cn(
+                          'p-4 rounded-xl min-h-20 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
+                          field.value === answer.uid
+                            ? 'bg-black-50'
+                            : 'bg-black hover:bg-black-75'
+                        )}
+                        onClick={() => field.onChange(answer.uid)}
+                      >
+                        <input
+                          type="radio"
+                          id={answer.uid}
+                          className="hidden"
+                          name="answer"
+                          value={answer.uid}
+                          checked={field.value === answer.uid}
+                          onChange={() => {}}
+                        />
+                        <div
+                          className={cn(
+                            'size-5 rounded-md border border-black-50 flex items-center justify-center flex-shrink-0', // Fixed size and prevent shrinking
+                            field.value === answer.uid
+                              ? 'bg-accent text-white'
+                              : ''
+                          )}
+                        >
+                          {field.value === answer.uid && (
+                            <Check className="h-3 w-3 flex-shrink-0" />
+                          )}
+                        </div>
+                        <p className="text-sm">{answer.answer}</p>
+                      </Label>
+                    </FormControl>
+                  )}
+                />
+              </div>
+            ))}
+          </div>
+        )}
         <Separator className="bg-black-50" />
         <div className="w-full space-y-4 px-4">
           {question.hint && <QuestionHintAccordion hint={question.hint} />}

@@ -4,27 +4,39 @@ import {
   DialogContent,
   DialogDescription,
   DialogFooter,
-  DialogTitle,
+  DialogTitle
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import type { Question } from '@/types/Questions';
 import type { UserRecord } from '@/types/User';
 import type { Answer } from '@/types/Answers';
 import LoadingSpinner from '@/components/ui/loading';
-import { convertSecondsToTime } from '@/utils/time';
+import { convertSecondsToTime, formatSeconds } from '@/utils/time';
 import JsonDisplay from '../../global/json-display';
-import { LockClosedIcon } from '@radix-ui/react-icons';
+import { LockClosedIcon, ResetIcon } from '@radix-ui/react-icons';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
+  TooltipTrigger
 } from '@/components/ui/tooltip';
-import { getRandomQuestion } from '@/actions/questions/get-next-question';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { DatePicker } from '@mantine/dates';
 import { getUserDailyStats } from '@/actions/user/get-daily-streak';
+import {
+  CheckCircle2Icon,
+  XCircleIcon,
+  ClockIcon,
+  ArrowRightIcon,
+  LinkIcon,
+  TrophyIcon,
+  Flame
+} from 'lucide-react';
+import { toast } from 'sonner';
+import {
+  CORRECT_ANSWER_CONTENT,
+  INCORRECT_ANSWER_CONTENT
+} from '@/utils/constants/answer-content';
 
 type AnswerQuestionModalProps = {
   user: UserRecord;
@@ -35,28 +47,39 @@ type AnswerQuestionModalProps = {
   onRetry?: () => void;
   onNext?: () => void;
   nextQuestion?: string;
+  isDailyQuestion?: boolean;
 };
 
 type DialogContentType = {
   correct: (name: string) => {
     heading: string;
     description: string;
+    icon: React.ReactNode;
   };
   incorrect: {
     heading: string;
     description: string;
+    icon: React.ReactNode;
   };
 };
 
 const dialogContent: DialogContentType = {
   correct: (name: string) => ({
-    heading: `Well done ${name || 'there'}!`,
-    description: 'Correct answer',
+    heading:
+      CORRECT_ANSWER_CONTENT[
+        Math.floor(Math.random() * CORRECT_ANSWER_CONTENT.length)
+      ] + ` ${name || 'learner'}!`,
+    description: 'You got the answer right, great job! Try another one?',
+    icon: <CheckCircle2Icon className="text-green-500 size-16" />
   }),
   incorrect: {
-    heading: 'Better luck next time!',
-    description: 'You got the answer wrong, want to try again?',
-  },
+    heading:
+      INCORRECT_ANSWER_CONTENT[
+        Math.floor(Math.random() * INCORRECT_ANSWER_CONTENT.length)
+      ],
+    description: 'Learning from mistakes is how we grow, try again?',
+    icon: <XCircleIcon className="text-red-500 size-16" />
+  }
 };
 
 export default function AnswerQuestionModal({
@@ -68,6 +91,7 @@ export default function AnswerQuestionModal({
   onRetry,
   onNext,
   nextQuestion,
+  isDailyQuestion
 }: AnswerQuestionModalProps) {
   const router = useRouter();
   const [showQuestionData, setShowQuestionData] = useState(false);
@@ -88,15 +112,15 @@ export default function AnswerQuestionModal({
   const {
     data: streakData,
     refetch: refetchStreak,
-    isLoading: streakLoading,
+    isLoading: streakLoading
   } = useQuery({
     queryKey: ['streak-data', user.uid],
-    queryFn: async () => await getUserDailyStats(user.uid),
+    queryFn: async () => await getUserDailyStats(user.uid)
   });
 
   const dateArray = [
     streakData?.streakData?.streakStart,
-    streakData?.streakData?.streakEnd,
+    streakData?.streakData?.streakEnd
   ] as [Date, Date];
 
   const handleNextQuestion = () => {
@@ -109,50 +133,103 @@ export default function AnswerQuestionModal({
     }
   };
 
+  const copyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    toast.success('Question link copied to clipboard!');
+  };
+
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={onOpenChange}
+    >
       <DialogContent
-        className="bg-black-75 md:max-w-xl"
+        className="bg-black-75 rounded-xl border border-black-50 shadow-2xl py-6 px-8 md:max-w-2xl"
         aria-description="Answer question modal"
+        showCloseButton={false}
+        onInteractOutside={(e) => {
+          e.preventDefault();
+        }}
       >
         {correct === 'init' ? (
           <div className="h-36 flex items-center justify-center">
             <LoadingSpinner />
           </div>
         ) : (
-          <>
-            <div className="w-full flex flex-col items-center sm:text-center">
-              <DialogTitle className="text-2xl">{content?.heading}</DialogTitle>
-              <DialogDescription className="mt-2 text-center">
-                {user.showTimeTaken && (
-                  <>
-                    <p>You answered in</p>
-                    {timeTaken.minutes > 0 && (
-                      <span>
-                        You answered in {timeTaken.minutes} minute
-                        {timeTaken.minutes > 1 && 's'}{' '}
-                      </span>
-                    )}
-                    <span>{timeTaken.seconds} seconds</span>
-                  </>
-                )}
+          <div className="space-y-6">
+            <div className="w-full flex flex-col">
+              <div className="flex w-full justify-between">
+                {content?.icon && <div className="mb-4">{content.icon}</div>}
+                <Button className="bg-black-75 border border-black-50 rounded-lg w-fit">
+                  <ResetIcon
+                    className="cursor-pointer size-4"
+                    onClick={onRetry}
+                  />
+                </Button>
+              </div>
+              <DialogTitle className="text-3xl font-bold text-white">
+                {content?.heading}
+              </DialogTitle>
+              <DialogDescription className="mt-2 text-gray-300 text-base">
+                {content?.description}
               </DialogDescription>
             </div>
 
-            <div className="w-full flex justify-center">
-              <DatePicker
-                className="z-30 text-white border border-black-50 p-2 rounded-md bg-black-100 hover:cursor-default hover:text-black"
-                color="white"
-                type="range"
-                value={dateArray}
-                c="gray"
-                inputMode="none"
-              />
-            </div>
+            {isDailyQuestion && (
+              <div className="w-full flex flex-col items-center lg:flex-row gap-4 lg:items-start">
+                {/* Styled Date Picker */}
+                <DatePicker
+                  className="order-2 lg:order-1 z-30 text-white border border-black-50 p-2 rounded-md bg-black-100 hover:cursor-default"
+                  color="white"
+                  type="range"
+                  value={dateArray}
+                  c="gray"
+                  inputMode="none"
+                />
 
-            {correct === 'correct' && (
-              <div className="text-center">
-                Make sure to come back tomorrow to keep your streak going!
+                <div className="order-1 lg:order-2 text-sm flex flex-col gap-2 p-4 text-gray-300 bg-black-100 border border-black-50 h-full w-full rounded-md">
+                  <>
+                    <h6 className="text-base font-bold underline">Stats</h6>
+                    {user.showTimeTaken &&
+                      correct === 'correct' &&
+                      userAnswer.timeTaken && (
+                        <div className="rounded-xl flex items-center gap-2">
+                          <ClockIcon className="text-gray-500 size-5" />
+                          <p className="text-gray-200">
+                            Answered in: {formatSeconds(userAnswer.timeTaken)}
+                          </p>
+                        </div>
+                      )}
+                    {/* Streak Stats */}
+                    {streakData?.streakData && (
+                      <>
+                        <div className="flex items-center gap-2">
+                          <TrophyIcon className="text-yellow-500 size-5" />
+                          <span className="font-semibold">
+                            Current Streak:{' '}
+                            {streakData.streakData.currentstreakCount} day
+                            {streakData.streakData.currentstreakCount !== 1 &&
+                              's'}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Flame className="text-orange-500 fill-red-500 size-5" />
+                          <span className="font-semibold">
+                            Longest Streak:{' '}
+                            {streakData.streakData.longestStreak}
+                          </span>
+                        </div>
+                      </>
+                    )}
+                  </>
+                </div>
+              </div>
+            )}
+
+            {correct === 'correct' && isDailyQuestion && (
+              <div className="text-center text-white font-medium text-sm">
+                Keep your momentum going! Come back tomorrow to maintain your
+                streak.
               </div>
             )}
 
@@ -161,52 +238,66 @@ export default function AnswerQuestionModal({
                 <JsonDisplay data={userAnswer} />
               </div>
             )}
-          </>
+          </div>
         )}
         <DialogFooter className="flex w-full justify-between gap-3 mt-6">
-          {user.userLevel === 'ADMIN' && (
-            <Button
-              variant="secondary"
-              onClick={() => setShowQuestionData(!showQuestionData)}
-            >
-              {showQuestionData ? 'Hide' : 'Show'} question data
-            </Button>
-          )}
-          <div className="flex gap-3 w-full justify-end">
-            {correct === 'incorrect' ? (
-              <Button variant="default" onClick={onRetry} className="!w-fit">
-                Retry question
-              </Button>
-            ) : (
-              <Button
-                variant="default"
-                onClick={() => router.push('/dashboard')}
-                fullWidth={false}
-              >
-                Dashboard
-              </Button>
-            )}
+          <div className="flex w-full justify-between">
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
                   <Button
-                    variant="secondary"
-                    onClick={handleNextQuestion}
-                    className="flex items-center gap-1"
-                    fullWidth={false}
-                    disabled={user?.userLevel === 'FREE'}
+                    variant="default"
+                    onClick={() => copyLink()}
                   >
-                    Next question
-                    {user?.userLevel === 'FREE' && <LockClosedIcon />}
+                    <LinkIcon className="size-4" />
                   </Button>
-                  {user?.userLevel === 'FREE' && (
-                    <TooltipContent>
-                      <p>Upgrade to premium to unlock the next question</p>
-                    </TooltipContent>
-                  )}
                 </TooltipTrigger>
+                <TooltipContent>
+                  <p>Copy link</p>
+                </TooltipContent>
               </Tooltip>
             </TooltipProvider>
+            <div className="flex gap-3 w-full justify-end">
+              {correct === 'incorrect' ? (
+                <Button
+                  variant="default"
+                  onClick={onRetry}
+                  className="!w-fit flex items-center gap-2"
+                >
+                  <ResetIcon className="size-4" />
+                  Retry question
+                </Button>
+              ) : (
+                <Button
+                  variant="default"
+                  onClick={() => router.push('/dashboard')}
+                >
+                  Dashboard
+                </Button>
+              )}
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Button
+                      variant="secondary"
+                      onClick={handleNextQuestion}
+                      className="flex items-center gap-2"
+                      fullWidth={false}
+                      disabled={user?.userLevel === 'FREE'}
+                    >
+                      Next question
+                      <ArrowRightIcon className="size-4" />
+                      {user?.userLevel === 'FREE' && <LockClosedIcon />}
+                    </Button>
+                    {user?.userLevel === 'FREE' && (
+                      <TooltipContent>
+                        <p>Upgrade to premium to unlock the next question</p>
+                      </TooltipContent>
+                    )}
+                  </TooltipTrigger>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
           </div>
         </DialogFooter>
       </DialogContent>

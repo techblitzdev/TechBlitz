@@ -4,7 +4,7 @@ import { fetchRoadmapQuestion } from './fetch-roadmap-question';
 import { redirect } from 'next/navigation';
 import { revalidateTag } from 'next/cache';
 
-export const answerRoadmapQueston = async (opts: {
+export const answerRoadmapQuestion = async (opts: {
   questionUid: string;
   answerUid: string;
   roadmapUid: string;
@@ -27,8 +27,8 @@ export const answerRoadmapQueston = async (opts: {
   const existingAnswer = await prisma.roadmapUserQuestionsUserAnswers.findFirst(
     {
       where: {
-        questionUid,
-      },
+        questionUid
+      }
     }
   );
 
@@ -41,8 +41,8 @@ export const answerRoadmapQueston = async (opts: {
       where: { uid: existingAnswer.uid },
       data: {
         answer: answerUid,
-        correct: correctAnswer,
-      },
+        correct: correctAnswer
+      }
     });
   } else {
     console.log('creating answer');
@@ -51,20 +51,20 @@ export const answerRoadmapQueston = async (opts: {
       data: {
         questionUid: questionUid,
         correct: correctAnswer,
-        answer: answerUid,
-      },
+        answer: answerUid
+      }
     });
   }
 
   // update the question record to mark it as answered and either correct or incorrect
   await prisma.roadmapUserQuestions.update({
     where: {
-      uid: questionUid,
+      uid: questionUid
     },
     data: {
       userCorrect: correctAnswer,
-      completed: true,
-    },
+      completed: true
+    }
   });
 
   // if this is the last question, and all other questions have been answered
@@ -76,8 +76,8 @@ export const answerRoadmapQueston = async (opts: {
     where: {
       roadmapUid,
       completed: false,
-      userCorrect: false,
-    },
+      userCorrect: false
+    }
   });
 
   let nextQuestion = null;
@@ -85,19 +85,19 @@ export const answerRoadmapQueston = async (opts: {
   if (hasAnsweredAllQuestions.length === 0) {
     await prisma.userRoadmaps.update({
       where: {
-        uid: roadmapUid,
+        uid: roadmapUid
       },
       data: {
-        status: 'COMPLETED',
-      },
+        status: 'COMPLETED'
+      }
     });
   } else {
     // get the next question
     nextQuestion = await prisma.roadmapUserQuestions.findFirst({
       where: {
         roadmapUid,
-        order: currentQuestionIndex + 1,
-      },
+        order: currentQuestionIndex + 1
+      }
     });
 
     if (!nextQuestion) {

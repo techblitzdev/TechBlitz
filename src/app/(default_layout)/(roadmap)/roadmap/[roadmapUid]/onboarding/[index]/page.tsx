@@ -8,10 +8,11 @@ import OnboardingQuestionCard from '@/components/roadmaps/onboarding/onboarding-
 import { redirect } from 'next/navigation';
 import { checkIfUserIsOnCorrectQuestionIndex } from '@/actions/roadmap/questions/check-user-is-on-correct-index';
 import LoadingSpinner from '@/components/ui/loading';
-import { DefaultRoadmapQuestions } from '@prisma/client';
+import { Dialog, DialogTrigger } from '@/components/ui/dialog';
+import ExpandedCodeModal from '@/components/questions/expanded-code-modal';
 
 export default async function RoadmapQuestionPage({
-  params,
+  params
 }: {
   params: { roadmapUid: string; index: number };
 }) {
@@ -28,7 +29,7 @@ export default async function RoadmapQuestionPage({
   const isCorrectQuestion = await checkIfUserIsOnCorrectQuestionIndex({
     currentQuestionIndex: index,
     roadmapUid,
-    userUid: user.uid,
+    userUid: user.uid
   });
 
   if (isCorrectQuestion !== true) {
@@ -63,13 +64,16 @@ export default async function RoadmapQuestionPage({
           <div className="h-[45rem] col-span-full bg-black-75 border border-black-50 rounded-xl relative overflow-hidden">
             <div className="p-4 text-sm flex w-full items-center justify-between bg-black-25">
               <p>Code</p>
-              <div className="flex items-center gap-x-3">
-                <Expand className="size-4 text-gray-500" />
-              </div>
+              {question.codeSnippet && (
+                <ExpandedCodeModal code={question.codeSnippet} />
+              )}
             </div>
             <Separator className="bg-black-50" />
             {question?.codeSnippet && (
-              <QuestionDisplay content={question.codeSnippet} language="" />
+              <QuestionDisplay
+                content={question.codeSnippet}
+                language=""
+              />
             )}
           </div>
         </div>

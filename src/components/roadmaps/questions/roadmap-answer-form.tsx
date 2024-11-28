@@ -23,6 +23,7 @@ import { Separator } from '@/components/ui/separator';
 import QuestionHintAccordion from '@/components/questions/single/question-hint';
 import { Answer } from '@/types/Answers';
 import LoadingSpinner from '@/components/ui/loading';
+import { Button } from '@/components/ui/button';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 
@@ -39,8 +40,14 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
-  const [newUserData, setNewUserData] =
-    useState<RoadmapUserQuestionsAnswers | null>(null);
+  const [nextQuestion, setNextQuestion] = useState<Omit<
+    RoadmapUserQuestions,
+    'answers'
+  > | null>();
+  const [newUserData, setNewUserData] = useState<Omit<
+    RoadmapUserQuestionsAnswers,
+    'answers'
+  > | null>(null);
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(answerQuestionSchema),
@@ -79,22 +86,30 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
       // if this is the last question to answer
       const { userAnswer, nextQuestion } = await answerRoadmapQuestion(opts);
 
-      // if there is no next question, redirect to the roadmap page
-      // TODO: show a completion message
-      if (!nextQuestion) {
-        router.push(`/roadmap/${roadmapUid}`);
-        return;
-      }
-
-      // redirect to the page
-      //router.push(`/roadmap/${roadmapUid}/${nextQuestion?.uid}`);
-
       setNewUserData(userAnswer);
+      setNextQuestion(nextQuestion);
     } catch (error) {
       console.error('Error submitting answer:', error);
       toast.error('Error submitting answer');
     }
     setLoading(false);
+  };
+
+  const handleNextQuestion = () => {
+    // if there is no next question, redirect to the roadmap page
+    // TODO: show a completion message
+    if (!nextQuestion) {
+      router.push(`/roadmap/${roadmapUid}`);
+      return;
+    }
+
+    // redirect to the page
+    router.push(`/roadmap/${roadmapUid}/${nextQuestion?.uid}`);
+  };
+
+  const handleRetry = () => {
+    form.reset();
+    setNewUserData(null);
   };
 
   return (
@@ -116,7 +131,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
           <div className="flex flex-col items-center justify-center h-[25rem] p-6 text-center">
             <div className="bg-black-25 border border-black-50 rounded-xl p-8 shadow-lg text-center max-w-md w-full">
               {newUserData?.correct ? (
-                <div className="space-y-4">
+                <div className="flex flex-col gap-y-4 items-center">
                   <CheckCircle2Icon className="mx-auto text-green-500 size-16" />
                   <h3 className="text-2xl font-semibold text-green-600">
                     Correct!
@@ -124,16 +139,47 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
                   <p className="text-sm">
                     Great job! You've answered the question correctly.
                   </p>
+
+                  <div className="flex items-center gap-x-3">
+                    <Button
+                      href="/dashboard"
+                      variant="secondary"
+                    >
+                      Dashboard
+                    </Button>
+                    <Button
+                      variant="accent"
+                      onClick={() => handleNextQuestion()}
+                      type="button"
+                    >
+                      Next Question
+                    </Button>
+                  </div>
                 </div>
               ) : (
-                <div className="space-y-4">
+                <div className="flex flex-col gap-y-4 items-center">
                   <XCircleIcon className="mx-auto text-red-500 size-16" />
                   <h3 className="text-2xl font-semibold text-red-600">
                     Incorrect
                   </h3>
-                  <p className="text-muted-foreground">
+                  <p className="text-sm">
                     Don't worry, learning is a process. Keep trying!
                   </p>
+                  <div className="flex items-center gap-x-3">
+                    <Button
+                      href="/dashboard"
+                      variant="secondary"
+                    >
+                      Dashboard
+                    </Button>
+                    <Button
+                      variant="accent"
+                      onClick={() => handleRetry()}
+                      type="button"
+                    >
+                      Retry
+                    </Button>
+                  </div>
                 </div>
               )}
             </div>

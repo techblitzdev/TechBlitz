@@ -27,7 +27,6 @@ import {
   CheckCircle2Icon,
   XCircleIcon,
   ClockIcon,
-  RepeatIcon,
   ArrowRightIcon,
   LinkIcon,
   TrophyIcon,

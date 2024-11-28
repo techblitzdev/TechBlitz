@@ -15,6 +15,15 @@ export default function TagDisplay(opts: {
   // remove any empty tags
   visibleTags = visibleTags.filter((tag) => tag.tag.name !== '');
 
+  // convert '-' to ' '
+  visibleTags = visibleTags.map((tag) => ({
+    ...tag,
+    tag: {
+      ...tag.tag,
+      name: tag.tag.name.replace(/-/g, ' ')
+    }
+  }));
+
   // set text colour based on variant
   const textColor = variant === 'accent' ? 'white' : 'black';
 

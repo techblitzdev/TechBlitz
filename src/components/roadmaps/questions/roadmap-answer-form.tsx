@@ -48,6 +48,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
     RoadmapUserQuestionsAnswers,
     'answers'
   > | null>(null);
+  const [redirecting, setRedirecting] = useState(false);
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(answerQuestionSchema),
@@ -95,7 +96,6 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
     setLoading(false);
   };
 
-  const [redirecting, setRedirecting] = useState(false);
   const handleNextQuestion = () => {
     if (redirecting) return;
     setRedirecting(true);

@@ -12,7 +12,7 @@ import type { Answer } from '@/types/Answers';
 import LoadingSpinner from '@/components/ui/loading';
 import { convertSecondsToTime, formatSeconds } from '@/utils/time';
 import JsonDisplay from '../../global/json-display';
-import { LockClosedIcon } from '@radix-ui/react-icons';
+import { LockClosedIcon, ResetIcon } from '@radix-ui/react-icons';
 import {
   Tooltip,
   TooltipContent,
@@ -158,8 +158,16 @@ export default function AnswerQuestionModal({
           </div>
         ) : (
           <div className="space-y-6">
-            <div className="w-full flex flex-col ">
-              {content?.icon && <div className="mb-4">{content.icon}</div>}
+            <div className="w-full flex flex-col">
+              <div className="flex w-full justify-between">
+                {content?.icon && <div className="mb-4">{content.icon}</div>}
+                <Button className="bg-black-75 border border-black-50 rounded-lg w-fit">
+                  <ResetIcon
+                    className="cursor-pointer size-4"
+                    onClick={onRetry}
+                  />
+                </Button>
+              </div>
               <DialogTitle className="text-3xl font-bold text-white">
                 {content?.heading}
               </DialogTitle>
@@ -169,10 +177,10 @@ export default function AnswerQuestionModal({
             </div>
 
             {isDailyQuestion && (
-              <div className="w-full flex gap-4 items-start">
+              <div className="w-full flex flex-col items-center lg:flex-row gap-4 lg:items-start">
                 {/* Styled Date Picker */}
                 <DatePicker
-                  className="z-30 text-white border border-black-50 p-2 rounded-md bg-black-100 hover:cursor-default"
+                  className="order-2 lg:order-1 z-30 text-white border border-black-50 p-2 rounded-md bg-black-100 hover:cursor-default"
                   color="white"
                   type="range"
                   value={dateArray}
@@ -180,37 +188,37 @@ export default function AnswerQuestionModal({
                   inputMode="none"
                 />
 
-                <div className="text-sm flex flex-col gap-2 p-4 text-gray-300 bg-black-100 border border-black-50 h-full w-full rounded-md">
+                <div className="order-1 lg:order-2 text-sm flex flex-col gap-2 p-4 text-gray-300 bg-black-100 border border-black-50 h-full w-full rounded-md">
                   <>
                     <h6 className="text-base font-bold underline">Stats</h6>
                     {user.showTimeTaken &&
                       correct === 'correct' &&
                       userAnswer.timeTaken && (
                         <div className="rounded-xl flex items-center gap-2">
+                          <ClockIcon className="text-gray-500 size-5" />
                           <p className="text-gray-200">
                             Answered in: {formatSeconds(userAnswer.timeTaken)}
                           </p>
-                          <ClockIcon className="text-gray-500 size-5" />
                         </div>
                       )}
                     {/* Streak Stats */}
                     {streakData?.streakData && (
                       <>
                         <div className="flex items-center gap-2">
+                          <TrophyIcon className="text-yellow-500 size-5" />
                           <span className="font-semibold">
                             Current Streak:{' '}
                             {streakData.streakData.currentstreakCount} day
                             {streakData.streakData.currentstreakCount !== 1 &&
                               's'}
                           </span>
-                          <TrophyIcon className="text-yellow-500 size-5" />
                         </div>
                         <div className="flex items-center gap-2">
+                          <Flame className="text-orange-500 fill-red-500 size-5" />
                           <span className="font-semibold">
                             Longest Streak:{' '}
                             {streakData.streakData.longestStreak}
                           </span>
-                          <Flame className="text-orange-500 fill-red-500 size-5" />
                         </div>
                       </>
                     )}
@@ -257,7 +265,7 @@ export default function AnswerQuestionModal({
                   onClick={onRetry}
                   className="!w-fit flex items-center gap-2"
                 >
-                  <RepeatIcon className="size-4" />
+                  <ResetIcon className="size-4" />
                   Retry question
                 </Button>
               ) : (

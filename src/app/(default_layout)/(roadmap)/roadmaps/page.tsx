@@ -6,6 +6,7 @@ import { useUserServer } from '@/hooks/useUserServer';
 import { redirect } from 'next/navigation';
 import PostHogClient from '../../../posthog';
 import RoadmapsCard from '@/components/roadmaps/roadmaps-card';
+import CreateRoadmapButton from '@/components/roadmaps/create-roadmap-button';
 
 export default async function RoadmapPage() {
   const user = await useUserServer();
@@ -24,32 +25,22 @@ export default async function RoadmapPage() {
     return <RoadmapOnboarding />;
   }
 
-  const handleButtonClick = async (data: FormData) => {
-    'use server';
-    // create a new roadmap record for the user
-    const roadmap = await createOrFetchUserRoadmap({
-      userUid: user?.uid,
-    });
-
-    // redirect the user to the new page
-    redirect(`/roadmap/${roadmap.uid}/onboarding/1`);
-  };
-
   return (
     <div className="flex flex-col lg:flex-row gap-10 mt-5 container">
       <div className="w-full lg:w-1/2 relative">
         {userRoadmaps.map((roadmap) => (
-          // @ts-ignore
-          <RoadmapsCard key={roadmap.uid} roadmap={roadmap} />
+          <RoadmapsCard
+            key={roadmap.uid}
+            // @ts-ignore
+            roadmap={roadmap}
+          />
         ))}
       </div>
 
       {/** create new roadmap cta */}
       <aside className="w-full lg:w-1/2 relative">
         <div className="sticky top-10 space-y-10 w-1/2">
-          <form action={handleButtonClick}>
-            <Button variant="accent">Create new roadmap</Button>
-          </form>
+          <CreateRoadmapButton userId={user.uid} />
         </div>
       </aside>
     </div>

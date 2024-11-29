@@ -10,12 +10,12 @@ import { deleteRoadmap } from '@/actions/roadmap/delete-roadmap';
 import { useRouter } from 'next/navigation';
 
 export default function RoadmapDropdown(opts: { roadmapUid: string }) {
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
   const { user } = useUser();
   if (!user) return null;
 
   const router = useRouter();
-
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const handleEditRoadmap = () => {
     setIsEditModalOpen(true);
@@ -28,7 +28,7 @@ export default function RoadmapDropdown(opts: { roadmapUid: string }) {
     // Here you would typically save the data to your backend
     await updateRoadmapDetails(opts.roadmapUid, user?.uid, {
       title: data.title,
-      description: data.description,
+      description: data.description
     });
   };
 

@@ -2,7 +2,7 @@
 import { QuestionDifficulty } from '@/types/Questions';
 import { prisma } from '@/utils/prisma';
 
-interface ReturnType {
+export interface ReturnType {
   question: string;
   correctAnswer: boolean;
   difficulty: QuestionDifficulty;
@@ -14,6 +14,37 @@ export const generateDataForAi = async (opts: {
 }): Promise<ReturnType[] | 'generated' | 'invalid'> => {
   const { roadmapUid, userUid } = opts;
 
+  // check if the user roadmap is complete already
+  const roadmapData = await prisma.userRoadmaps.findUnique({
+    where: {
+      uid: roadmapUid,
+      AND: {
+        userUid,
+        AND: {
+          status: 'COMPLETED'
+        }
+      }
+    }
+  });
+
+  // if it is complete, the data we give back will be the questions the
+  // user has already answered
+  if (roadmapData) {
+    const questions = await prisma.roadmapUserQuestions.findMany({
+      where: {
+        roadmapUid
+      }
+    });
+
+    const userAnswers = questions.map((question) => ({
+      question: question.question,
+      correctAnswer: question.userCorrect,
+      difficulty: question.difficulty
+    }));
+
+    return userAnswers;
+  }
+
   // get the roadmap and check if the roadmap has already been generated
   // and if the user that is requesting the data is the same user that
   // generated the data
@@ -21,9 +52,9 @@ export const generateDataForAi = async (opts: {
     where: {
       uid: roadmapUid,
       AND: {
-        userUid,
-      },
-    },
+        userUid
+      }
+    }
   });
 
   if (roadmap?.hasGeneratedRoadmap) {
@@ -35,8 +66,8 @@ export const generateDataForAi = async (opts: {
   const roadmapDefaultAnswers =
     await prisma.defaultRoadmapQuestionsUsersAnswers.findMany({
       where: {
-        roadmapUid,
-      },
+        roadmapUid
+      }
     });
 
   if (roadmapDefaultAnswers.length === 0) {
@@ -50,8 +81,8 @@ export const generateDataForAi = async (opts: {
   for (const [index, answer] of roadmapDefaultAnswers.entries()) {
     const question = await prisma.defaultRoadmapQuestions.findUnique({
       where: {
-        uid: answer.questionUid,
-      },
+        uid: answer.questionUid
+      }
     });
 
     // push the question along with the user's answer
@@ -59,7 +90,7 @@ export const generateDataForAi = async (opts: {
       userAnswers.push({
         question: question.aiTitle || '',
         correctAnswer: answer.correct,
-        difficulty: question.difficulty,
+        difficulty: question.difficulty
       });
     }
   }

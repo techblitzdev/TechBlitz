@@ -14,8 +14,15 @@ export const fetchRoadmap = async (opts: {
     where: {
       uid: roadmapUid,
       AND: {
-        userUid,
-      },
+        userUid
+      }
     },
+    include: {
+      questions: {
+        include: {
+          answers: true
+        }
+      }
+    }
   });
 };

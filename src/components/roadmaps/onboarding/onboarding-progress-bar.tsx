@@ -3,8 +3,6 @@ import { defaultRoadmapQuestionCount } from '@/actions/roadmap/questions/default
 export default async function OnboardingProgressBar({ currentStep = 0 }) {
   const defaultQuestions = await defaultRoadmapQuestionCount();
 
-  // get the current index from the params
-
   return (
     <div className="flex items-center w-3/5 relative">
       {/* Progress Bar Background */}

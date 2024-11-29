@@ -107,7 +107,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
     }
 
     // redirect to the page
-    router.push(`/roadmap/${roadmapUid}/${nextQuestion?.uid}`);
+    //router.push(`/roadmap/${roadmapUid}/${nextQuestion?.uid}`);
 
     setRedirecting(false);
   };

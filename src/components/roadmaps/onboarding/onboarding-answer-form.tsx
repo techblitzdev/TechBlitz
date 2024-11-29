@@ -118,7 +118,7 @@ const OnboardingRoadmapAnswerQuestionForm = forwardRef(
     return (
       <Form {...form}>
         <form
-          className="font-satoshi flex flex-col relative"
+          className="flex flex-col relative"
           onSubmit={form.handleSubmit(handleAnswerQuestion)}
         >
           {loading && (
@@ -168,7 +168,7 @@ const OnboardingRoadmapAnswerQuestionForm = forwardRef(
                     onClick={() => handleNextQuestion()}
                     type="button"
                   >
-                    {redirecting ? 'Redirecting...' : 'Next Question'}
+                    {redirecting ? <LoadingSpinner /> : 'Next Question'}
                   </Button>
                 </div>
               </div>

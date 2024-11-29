@@ -21,7 +21,6 @@ import { cn } from '@/utils/cn';
 import { Check, CheckCircle2Icon, XCircleIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import QuestionHintAccordion from '@/components/questions/single/question-hint';
-import { Answer } from '@/types/Answers';
 import LoadingSpinner from '@/components/ui/loading';
 import { Button } from '@/components/ui/button';
 
@@ -107,7 +106,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
     }
 
     // redirect to the page
-    //router.push(`/roadmap/${roadmapUid}/${nextQuestion?.uid}`);
+    router.push(`/roadmap/${roadmapUid}/${nextQuestion?.uid}`);
 
     setRedirecting(false);
   };
@@ -157,7 +156,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
                       onClick={() => handleNextQuestion()}
                       type="button"
                     >
-                      {redirecting ? 'Redirecting...' : 'Next Question'}
+                      {redirecting ? <LoadingSpinner /> : 'Next Question'}
                     </Button>
                   </div>
                 </div>

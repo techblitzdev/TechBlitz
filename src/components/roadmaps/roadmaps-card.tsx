@@ -30,7 +30,11 @@ export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {
             </p>
           )}
         </div>
-        <Button variant="accent" className="size-10" padding="none">
+        <Button
+          variant="accent"
+          className="size-10"
+          padding="none"
+        >
           <ArrowUpRight className="size-5 group-hover:rotate-45 duration-300" />
         </Button>
       </div>
@@ -52,7 +56,10 @@ export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {
           )}
         </div>
       </div>
-      <Grid size={20} position="bottom-right" />
+      <Grid
+        size={20}
+        position="bottom-right"
+      />
     </Link>
   );
 }

@@ -1,12 +1,11 @@
-import { fetchRoadmapQuestionViaOrder } from '@/actions/roadmap/questions/default/fetch-roadmap-question-via-order';
 import BackToDashboard from '@/components/global/back-to-dashboard';
-import CurrentStreak from '@/components/global/current-streak';
+import OnboardingProgressBar from '@/components/roadmaps/onboarding/onboarding-progress-bar';
 import { Separator } from '@/components/ui/separator';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
+  TooltipTrigger
 } from '@/components/ui/tooltip';
 import { useUserServer } from '@/hooks/useUserServer';
 import { ArrowRight, ChevronRight } from 'lucide-react';
@@ -14,7 +13,7 @@ import Link from 'next/link';
 
 export default async function RoadmapUidLayout({
   children,
-  params,
+  params
 }: Readonly<{ children: React.ReactNode; params: { index: number } }>) {
   const { index } = params;
 
@@ -28,9 +27,13 @@ export default async function RoadmapUidLayout({
           {/** Previous question button */}
           <BackToDashboard />
         </div>
+        <OnboardingProgressBar currentStep={index} />
         <div className="flex items-center gap-x-5">
           <div className="flex gap-x-2 items-center">
-            <TooltipProvider delayDuration={0} skipDelayDuration={100}>
+            <TooltipProvider
+              delayDuration={0}
+              skipDelayDuration={100}
+            >
               <Tooltip>
                 <TooltipTrigger>
                   <Link

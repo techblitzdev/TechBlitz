@@ -18,7 +18,7 @@ export function PricingCard(opts: {
     <div
       key={product.id}
       className="
-        flex flex-col bg-black p-8 border border-black-75
+        flex flex-col bg-black-75 p-8 border border-black-50
         w-1/4 justify-between relative rounded-xl min-h-full h-full
       "
     >
@@ -49,7 +49,7 @@ export function PricingCard(opts: {
               )}
             </div>
             <span className="text-xs font-inter mb-1.5">
-              per {billingPeriod}, billed {billingPeriod}
+              per {billingPeriod}, billed monthly
             </span>
           </div>
         </div>
@@ -72,7 +72,10 @@ export function PricingCard(opts: {
             ))}
           </div>
           {/** payment trigger */}
-          <PaymentButton key={product.id} product={product} />
+          <PaymentButton
+            key={product.id}
+            product={product}
+          />
         </div>
       </div>
     </div>

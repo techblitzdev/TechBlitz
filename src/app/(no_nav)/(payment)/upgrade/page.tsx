@@ -1,4 +1,5 @@
 import { getStripeProducts } from '@/actions/stripe/stripe-products';
+import Logo from '@/components/global/logo';
 import { PricingCard } from '@/components/payment/payment-card';
 import { X } from 'lucide-react';
 import Link from 'next/link';
@@ -11,9 +12,9 @@ export default async function UpgradePage() {
     <div className="relative bg-dot-white/[0.2]">
       <Link
         href="/dashboard"
-        className="font-semibold top-4 left-4 absolute font-satoshi text-2xl z-30 hover:text-white/80 duration-300"
+        className="absolute top-8 left-8 z-50"
       >
-        TechBlitz
+        <Logo />
       </Link>
       <Link
         href="/dashboard"

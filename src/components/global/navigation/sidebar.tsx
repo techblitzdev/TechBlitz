@@ -103,7 +103,7 @@ export function AppSidebar() {
     },
     {
       title: 'Roadmaps',
-      url: '/roadmaps',
+      url: user?.userLevel === 'ADMIN' ? '/upgrade' : '/roadmaps',
       icon: RouteIcon
     },
     {

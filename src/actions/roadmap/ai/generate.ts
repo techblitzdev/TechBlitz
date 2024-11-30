@@ -83,7 +83,8 @@ export const roadmapGenerate = async (opts: {
       data: {
         hasGeneratedRoadmap: true,
         title: formattedResponse.title,
-        description: formattedResponse.description
+        description: formattedResponse.description,
+        status: 'ACTIVE'
       }
     })
   ]);

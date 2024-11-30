@@ -102,24 +102,9 @@ export function AppSidebar() {
       ]
     },
     {
-      title: (
-        <>
-          {user?.userLevel === 'ADMIN' ||
-          user?.userLevel === 'PREMIUM' ||
-          (user?.userLevel === 'STANDARD' &&
-            !pathname.startsWith('/settings')) ? (
-            <p>Progression</p>
-          ) : (
-            <div className="flex items-center gap-3">
-              <p>Progression</p>
-              <LockIcon className="size-4" />
-            </div>
-          )}
-        </>
-      ),
+      title: 'Roadmaps',
       url: '/roadmaps',
-      icon: RouteIcon,
-      disabled: user?.userLevel !== 'ADMIN' && user?.userLevel !== 'PREMIUM'
+      icon: RouteIcon
     },
     {
       title: 'Stats',

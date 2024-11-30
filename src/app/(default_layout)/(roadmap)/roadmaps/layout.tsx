@@ -1,8 +1,9 @@
 import BackToDashboard from '@/components/global/back-to-dashboard';
 import { Separator } from '@/components/ui/separator';
+import React from 'react';
 
 export default function RoadmapLayout({
-  children,
+  children
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <div className="text-white flex flex-col gap-y-4 relative h-full">

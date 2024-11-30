@@ -3,7 +3,7 @@ import { useId } from 'react';
 export const Grid = ({
   pattern,
   size,
-  position = 'top-left',
+  position = 'top-left'
 }: {
   pattern?: number[][];
   size?: number;
@@ -14,7 +14,7 @@ export const Grid = ({
     [Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
     [Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
     [Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
-    [Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
+    [Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1]
   ];
 
   // Define gradient and position styles based on the `position` prop
@@ -22,7 +22,7 @@ export const Grid = ({
     'top-left': 'left-0 top-0',
     'top-right': 'right-0 top-0 transform scale-x-[-1]',
     'bottom-left': 'left-0 bottom-0 transform scale-y-[-1]',
-    'bottom-right': 'right-0 bottom-0 transform scale-x-[-1] scale-y-[-1]',
+    'bottom-right': 'right-0 bottom-0 transform scale-x-[-1] scale-y-[-1]'
   };
 
   return (
@@ -48,7 +48,10 @@ export function GridPattern({ width, height, x, y, squares, ...props }: any) {
   const patternId = useId();
 
   return (
-    <svg aria-hidden="true" {...props}>
+    <svg
+      aria-hidden="true"
+      {...props}
+    >
       <defs>
         <pattern
           id={patternId}
@@ -58,7 +61,10 @@ export function GridPattern({ width, height, x, y, squares, ...props }: any) {
           x={x}
           y={y}
         >
-          <path d={`M.5 ${height}V.5H${width}`} fill="none" />
+          <path
+            d={`M.5 ${height}V.5H${width}`}
+            fill="none"
+          />
         </pattern>
       </defs>
       <rect
@@ -68,11 +74,15 @@ export function GridPattern({ width, height, x, y, squares, ...props }: any) {
         fill={`url(#${patternId})`}
       />
       {squares && (
-        <svg x={x} y={y} className="overflow-visible">
+        <svg
+          x={x}
+          y={y}
+          className="overflow-visible"
+        >
           {squares.map(([x, y]: any) => (
             <rect
               strokeWidth="0"
-              key={`${x}-${y}`}
+              key={`${x}-${y}-${useId()}`}
               width={width + 1}
               height={height + 1}
               x={x * width}

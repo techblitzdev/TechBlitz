@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation';
 import PostHogClient from '../../../posthog';
 import RoadmapsCard from '@/components/roadmaps/[uid]/roadmaps-card';
 import CreateRoadmapButton from '@/components/roadmaps/create-roadmap-button';
+import RoadmapOverviewHeroSection from '@/components/roadmaps/overview/roadmap-overview-hero';
 
 export default async function RoadmapPage() {
   const user = await useUserServer();
@@ -26,23 +27,26 @@ export default async function RoadmapPage() {
   }
 
   return (
-    <div className="flex flex-col lg:flex-row gap-10 mt-5 container">
-      <div className="w-full lg:w-1/2 relative">
-        {userRoadmaps.map((roadmap) => (
-          <RoadmapsCard
-            key={roadmap.uid}
-            // @ts-ignore
-            roadmap={roadmap}
-          />
-        ))}
-      </div>
-
-      {/** create new roadmap cta */}
-      <aside className="w-full lg:w-1/2 relative">
-        <div className="sticky top-10 space-y-10 w-1/2">
-          <CreateRoadmapButton userId={user.uid} />
+    <>
+      <RoadmapOverviewHeroSection />
+      <div className="flex flex-col lg:flex-row gap-10 mt-5 container">
+        <div className="w-full lg:w-1/2 relative">
+          {userRoadmaps.map((roadmap) => (
+            <RoadmapsCard
+              key={roadmap.uid}
+              // @ts-ignore
+              roadmap={roadmap}
+            />
+          ))}
         </div>
-      </aside>
-    </div>
+
+        {/** create new roadmap cta */}
+        <aside className="w-full lg:w-1/2 relative">
+          <div className="sticky top-10 space-y-10 w-1/2">
+            <CreateRoadmapButton userId={user.uid} />
+          </div>
+        </aside>
+      </div>
+    </>
   );
 }

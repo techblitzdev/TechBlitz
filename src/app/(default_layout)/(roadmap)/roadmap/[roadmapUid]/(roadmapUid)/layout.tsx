@@ -47,7 +47,7 @@ export default async function RoadmapOverviewPage({
         </div>
       </div>
       <Separator className="bg-black-50" />
-      {children}
+      <div className="container">{children}</div>
     </div>
   );
 }

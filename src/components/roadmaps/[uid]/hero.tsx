@@ -11,13 +11,13 @@ export default function RoadmapHeroSection(opts: {
       <div className="container flex flex-col px-16">
         <div className="flex w-full justify-between gap-3">
           <div className="flex flex-col gap-y-3 font-inter max-w-3xl">
-            <h6 className="text-3xl text-wrap text-start font-inter">
+            <h1 className="text-3xl text-wrap text-start font-inter">
               {opts.roadmap.title}
-            </h6>
+            </h1>
             {opts.roadmap.description && (
-              <p className="text-sm text-gray-400 font-inter">
+              <h6 className="text-sm text-gray-400 font-inter">
                 {opts.roadmap?.description}
-              </p>
+              </h6>
             )}
           </div>
         </div>

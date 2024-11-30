@@ -1,34 +1,27 @@
 import Chip from '@/components/global/chip';
-import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/ui/grid';
 import { UserRoadmapsWithAnswers } from '@/types/Roadmap';
 import { capitalise } from '@/utils';
-import { ArrowUpRight } from 'lucide-react';
 
 export default function RoadmapHeroSection(opts: {
   roadmap: UserRoadmapsWithAnswers;
 }) {
   return (
-    <div className="w-full py-16 group relative">
+    <section className="w-full py-10 group relative">
       <div className="container flex flex-col px-16">
         <div className="flex w-full justify-between gap-3">
-          <div className="flex flex-col gap-y-3 font-ubuntu max-w-3xl">
-            <h6 className="text-3xl text-wrap text-start">
+          <div className="flex flex-col gap-y-3 font-inter max-w-3xl">
+            <h6 className="text-3xl text-wrap text-start font-inter">
               {opts.roadmap.title}
             </h6>
             {opts.roadmap.description && (
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-gray-400 font-inter">
                 {opts.roadmap?.description}
               </p>
             )}
           </div>
         </div>
-        <div className="mt-5 w-fit flex gap-3">
-          <Chip
-            text={opts.roadmap?.questions.length.toString() + ' ' + 'Questions'}
-            color="white"
-            textColor="black"
-          />
+        <div className="mt-5 w-fit flex gap-3 z-10">
           <div className="flex items-center gap-x-3">
             {opts.roadmap?.status && (
               <Chip
@@ -38,12 +31,19 @@ export default function RoadmapHeroSection(opts: {
               />
             )}
           </div>
+          <Chip
+            text={opts.roadmap?.questions.length.toString() + ' ' + 'Questions'}
+            color="white"
+            textColor="black"
+          />
         </div>
       </div>
       <Grid
         size={20}
         position="bottom-left"
       />
-    </div>
+      {/* Fade-out gradient overlay */}
+      <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000000] to-transparent pointer-events-none"></div>
+    </section>
   );
 }

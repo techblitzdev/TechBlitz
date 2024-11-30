@@ -36,7 +36,7 @@ export default async function RoadmapSinglgePage({
 
   return (
     <div className="flex flex-col lg:flex-row gap-10 mt-5 container">
-      <div className="w-full lg:w-1/2 relative">
+      <div className="order-last md:order-first w-full lg:w-1/2 relative">
         {roadmap.questions?.map((question, index) => (
           <div className="flex flex-col justify-center">
             <RoadmapQuestionCard
@@ -55,7 +55,7 @@ export default async function RoadmapSinglgePage({
       </div>
 
       <aside className="w-full lg:w-1/2 relative">
-        <div className="sticky top-10 space-y-5 w-2/5">
+        <div className="order-first md:order-last sticky top-10 space-y-5 w-full md:w-3/4 xl:w-2/5">
           {/** @ts-ignore */}
           <RoadmapStats roadmap={roadmap} />
           <TooltipProvider>

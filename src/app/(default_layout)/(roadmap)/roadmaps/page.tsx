@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/useUserServer';
 import { redirect } from 'next/navigation';
 import PostHogClient from '../../../posthog';
-import RoadmapsCard from '@/components/roadmaps/roadmaps-card';
+import RoadmapsCard from '@/components/roadmaps/[uid]/roadmaps-card';
 import CreateRoadmapButton from '@/components/roadmaps/create-roadmap-button';
 
 export default async function RoadmapPage() {

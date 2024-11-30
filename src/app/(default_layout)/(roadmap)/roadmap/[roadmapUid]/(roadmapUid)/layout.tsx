@@ -2,13 +2,13 @@ import { fetchNextPrevRoadmap } from '@/actions/roadmap/fetch-next-prev-roadmap'
 import { fetchRoadmap } from '@/actions/roadmap/fetch-single-roadmap';
 import BackToDashboard from '@/components/global/back-to-dashboard';
 import QuestionNavigation from '@/components/global/navigation/question-navigation';
-import RoadmapDropdown from '@/components/roadmaps/dropdown';
+import RoadmapDropdown from '@/components/roadmaps/[uid]/dropdown';
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/useUserServer';
 
 export default async function RoadmapOverviewPage({
   children,
-  params,
+  params
 }: Readonly<{ children: React.ReactNode; params: { roadmapUid: string } }>) {
   const { roadmapUid } = params;
 
@@ -18,7 +18,7 @@ export default async function RoadmapOverviewPage({
   // get the next and previous roadmaps
   const { prevRoadmapUid, nextRoadmapUid } = await fetchNextPrevRoadmap({
     roadmapUid,
-    userUid: user.uid,
+    userUid: user.uid
   });
 
   // fetch the roadmap to display the title and description

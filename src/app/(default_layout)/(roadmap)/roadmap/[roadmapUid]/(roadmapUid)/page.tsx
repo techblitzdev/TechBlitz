@@ -1,7 +1,7 @@
 import { fetchRoadmap } from '@/actions/roadmap/fetch-single-roadmap';
-import GenerateMoreQuestionsButton from '@/components/roadmaps/generate-more-questions';
+import GenerateMoreQuestionsButton from '@/components/roadmaps/[uid]/generate-more-questions';
 import RoadmapQuestionCard from '@/components/roadmaps/questions/[uid]/question-card';
-import RoadmapStats from '@/components/roadmaps/roadmap-stats';
+import RoadmapStats from '@/components/roadmaps/[uid]/roadmap-stats';
 import {
   Tooltip,
   TooltipContent,

@@ -46,6 +46,8 @@ export default async function RoadmapSinglgePage({
               totalQuestions={roadmap.questions.length}
               nextQuestionCorrect={roadmap.questions[index + 1]?.userCorrect}
               nextQuestionAnswered={roadmap.questions[index + 1]?.completed}
+              prevQuestionCorrect={roadmap.questions[index - 1]?.userCorrect}
+              prevQuestionAnswered={roadmap.questions[index - 1]?.completed}
             />
           </div>
         ))}

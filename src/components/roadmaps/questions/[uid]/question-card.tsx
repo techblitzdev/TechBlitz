@@ -21,7 +21,7 @@ export default function RoadmapQuestionCard(opts: {
     index,
     totalQuestions,
     nextQuestionCorrect,
-    nextQuestionAnswered,
+    nextQuestionAnswered
   } = opts;
 
   return (
@@ -32,29 +32,32 @@ export default function RoadmapQuestionCard(opts: {
           index === totalQuestions - 1 && 'pb-6'
         )}
       >
+        {/* Top line */}
         <div
           className={cn(
             'bg-black-50 w-0.5 relative h-1/2',
-            question?.completed && question?.userCorrect && 'bg-green-500',
-            question?.completed && !question?.userCorrect && 'bg-destructive',
-            index == 0 && 'opacity-0'
-          )}
-        />
-        {/* Dot */}
-        <div
-          className={cn(
-            'size-3 rounded-full bg-black-50', // Default dot
-            // Green dot if completed AND correct
+            index === 0 && 'opacity-0', // First question has no top line
             question?.completed && question?.userCorrect && 'bg-green-500',
             question?.completed && !question?.userCorrect && 'bg-destructive'
           )}
         />
+
+        {/* Dot */}
+        <div
+          className={cn(
+            'size-3 rounded-full bg-black-50', // Default dot
+            question?.completed && question?.userCorrect && 'bg-green-500',
+            question?.completed && !question?.userCorrect && 'bg-destructive'
+          )}
+        />
+
+        {/* Bottom line */}
         <div
           className={cn(
             'bg-black-50 w-0.5 relative h-1/2',
+            index === totalQuestions - 1 && 'opacity-0', // Last question has no bottom line
             question?.completed && question?.userCorrect && 'bg-green-500',
-            nextQuestionAnswered && !nextQuestionCorrect && 'bg-destructive',
-            index === totalQuestions - 1 && 'opacity-0'
+            nextQuestionAnswered && !nextQuestionCorrect && 'bg-destructive'
           )}
         />
       </div>
@@ -68,7 +71,11 @@ export default function RoadmapQuestionCard(opts: {
             <h6 className="text-base text-wrap text-start">
               {question.question}
             </h6>
-            <Button variant="accent" className="size-10" padding="none">
+            <Button
+              variant="accent"
+              className="size-10"
+              padding="none"
+            >
               <ArrowUpRight className="size-5 group-hover:rotate-45 duration-300" />
             </Button>
           </div>
@@ -103,7 +110,10 @@ export default function RoadmapQuestionCard(opts: {
             )}
           </div>
         </div>
-        <Grid size={20} position="bottom-right" />
+        <Grid
+          size={20}
+          position="bottom-right"
+        />
       </Link>
     </div>
   );

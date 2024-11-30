@@ -1,3 +1,4 @@
+'use client';
 import {
   Dialog,
   DialogContent,
@@ -7,21 +8,15 @@ import {
 } from '@/components/ui/dialog';
 import { useRouter } from 'next/navigation';
 
-export default function Example() {
+export default function Example({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   return (
     <Dialog
       defaultOpen={true}
       modal={true}
-      onOpenChange={router.back}
     >
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Dialog Title</DialogTitle>
-        </DialogHeader>
-        <p>Dialog content</p>
-      </DialogContent>
+      <DialogContent>{children}</DialogContent>
     </Dialog>
   );
 }

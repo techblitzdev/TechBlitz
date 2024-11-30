@@ -55,7 +55,7 @@ export default async function RoadmapSinglgePage({
       </div>
 
       <aside className="w-full lg:w-1/2 relative">
-        <div className="sticky top-10 space-y-5 w-1/2">
+        <div className="sticky top-10 space-y-5 w-2/5">
           {/** @ts-ignore */}
           <RoadmapStats roadmap={roadmap} />
           <TooltipProvider>

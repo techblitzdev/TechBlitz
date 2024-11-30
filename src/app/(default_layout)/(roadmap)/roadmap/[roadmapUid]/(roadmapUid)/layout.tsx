@@ -31,14 +31,6 @@ export default async function RoadmapOverviewPage({
           {/** Previous question button */}
           <BackToDashboard href="/roadmaps" />
         </div>
-        <div className="flex flex-col gap-y-1 text-center items-center">
-          <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
-            {roadmap?.title}
-          </h1>
-          <p className="font-ubuntu text-xs text-gray-300 max-w-4xl">
-            {roadmap?.description}
-          </p>
-        </div>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-x-5">
             <QuestionNavigation

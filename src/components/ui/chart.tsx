@@ -4,6 +4,7 @@ import * as React from 'react';
 import * as RechartsPrimitive from 'recharts';
 
 import { cn } from '@/utils/cn';
+import { capitalise } from '@/utils';
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: '', dark: '.dark' } as const;
@@ -57,7 +58,10 @@ const ChartContainer = React.forwardRef<
         )}
         {...props}
       >
-        <ChartStyle id={chartId} config={config} />
+        <ChartStyle
+          id={chartId}
+          config={config}
+        />
         <RechartsPrimitive.ResponsiveContainer>
           {children}
         </RechartsPrimitive.ResponsiveContainer>
@@ -94,7 +98,7 @@ ${colorConfig
 }
 `
           )
-          .join('\n'),
+          .join('\n')
       }}
     />
   );
@@ -127,7 +131,7 @@ const ChartTooltipContent = React.forwardRef<
       formatter,
       color,
       nameKey,
-      labelKey,
+      labelKey
     },
     ref
   ) => {
@@ -166,7 +170,7 @@ const ChartTooltipContent = React.forwardRef<
       hideLabel,
       labelClassName,
       config,
-      labelKey,
+      labelKey
     ]);
 
     if (!active || !payload?.length) {
@@ -194,7 +198,7 @@ const ChartTooltipContent = React.forwardRef<
               <div
                 key={item.dataKey}
                 className={cn(
-                  'flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground',
+                  'flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-white',
                   indicator === 'dot' && 'items-center'
                 )}
               >
@@ -214,13 +218,13 @@ const ChartTooltipContent = React.forwardRef<
                               'w-1': indicator === 'line',
                               'w-0 border-[1.5px] border-dashed bg-transparent':
                                 indicator === 'dashed',
-                              'my-0.5': nestLabel && indicator === 'dashed',
+                              'my-0.5': nestLabel && indicator === 'dashed'
                             }
                           )}
                           style={
                             {
                               '--color-bg': indicatorColor,
-                              '--color-border': indicatorColor,
+                              '--color-border': indicatorColor
                             } as React.CSSProperties
                           }
                         />
@@ -234,12 +238,14 @@ const ChartTooltipContent = React.forwardRef<
                     >
                       <div className="grid gap-1.5">
                         {nestLabel ? tooltipLabel : null}
-                        <span className="text-muted-foreground">
-                          {itemConfig?.label || item.name}
+                        <span className="text-white">
+                          {capitalise(
+                            String(itemConfig?.label || item.name || '')
+                          )}
                         </span>
                       </div>
                       {item.value && (
-                        <span className="font-mono font-medium tabular-nums text-foreground">
+                        <span className="font-mono font-medium tabular-nums text-white">
                           {item.value.toLocaleString()}
                         </span>
                       )}
@@ -302,7 +308,7 @@ const ChartLegendContent = React.forwardRef<
                 <div
                   className="h-2 w-2 shrink-0 rounded-[2px]"
                   style={{
-                    backgroundColor: item.color,
+                    backgroundColor: item.color
                   }}
                 />
               )}
@@ -361,5 +367,5 @@ export {
   ChartTooltipContent,
   ChartLegend,
   ChartLegendContent,
-  ChartStyle,
+  ChartStyle
 };

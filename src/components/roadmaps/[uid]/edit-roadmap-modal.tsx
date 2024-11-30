@@ -1,17 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
-import { Textarea } from '../ui/textarea';
+import { Button } from '../../ui/button';
+import { Input } from '../../ui/input';
+import { Label } from '../../ui/label';
+import { Textarea } from '../../ui/textarea';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
-} from '../ui/dialog';
+  DialogFooter
+} from '../../ui/dialog';
 import { useQuery } from '@tanstack/react-query';
 import { fetchRoadmap } from '@/actions/roadmap/fetch-single-roadmap';
 import { Loader2 } from 'lucide-react';
@@ -29,7 +29,7 @@ export function EditRoadmapModal({
   onClose,
   onSave,
   roadmapUid,
-  userUid,
+  userUid
 }: EditRoadmapModalProps) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -39,10 +39,10 @@ export function EditRoadmapModal({
     queryFn: async () => {
       return await fetchRoadmap({
         roadmapUid,
-        userUid,
+        userUid
       });
     },
-    enabled: isOpen, // Only fetch when the modal is open
+    enabled: isOpen // Only fetch when the modal is open
   });
 
   useEffect(() => {
@@ -59,7 +59,10 @@ export function EditRoadmapModal({
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => !open && onClose()}
+    >
       <DialogContent className="bg-black-75 text-white border border-black-50 max-w-lg">
         <DialogHeader>
           <DialogTitle>Edit Roadmap Details</DialogTitle>
@@ -90,13 +93,17 @@ export function EditRoadmapModal({
                 <Textarea
                   id="description"
                   value={description}
-                  onChange={(e) => setDescription(e.target.value)}
+                  onChange={(e: any) => setDescription(e.target.value)}
                   className="bg-black-100 border-black-50 text-white"
                 />
               </div>
             </div>
             <DialogFooter className="mt-4">
-              <Button type="button" variant="outline" onClick={onClose}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={onClose}
+              >
                 Cancel
               </Button>
               <Button type="submit">Save changes</Button>

@@ -1,9 +1,9 @@
 import { UserRoadmaps } from '@/types/Roadmap';
 import Link from 'next/link';
-import { Grid } from '../ui/grid';
-import { Button } from '../ui/button';
+import { Grid } from '../../ui/grid';
+import { Button } from '../../ui/button';
 import { ArrowUpRight } from 'lucide-react';
-import Chip from '../global/chip';
+import Chip from '../../global/chip';
 import { capitalise } from '@/utils';
 
 export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {

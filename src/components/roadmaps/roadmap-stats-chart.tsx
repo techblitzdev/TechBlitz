@@ -17,7 +17,7 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart';
-const chartData = [{ month: 'january', desktop: 1260, mobile: 570 }];
+import { UserRoadmapsWithAnswers } from '@/types/Roadmap';
 
 const chartConfig = {
   desktop: {
@@ -30,15 +30,28 @@ const chartConfig = {
   }
 } satisfies ChartConfig;
 
-export default function Component() {
-  const totalVisitors = chartData[0].desktop + chartData[0].mobile;
+export default function Component(opts: { roadmap: UserRoadmapsWithAnswers }) {
+  const { roadmap } = opts;
+
+  const correctCount = roadmap.questions.filter((f) => f.userCorrect).length;
+  const incorrectCount = roadmap.questions.filter((f) => !f.userCorrect).length;
+  const correctPercentage = Math.round(
+    (correctCount / roadmap.questions.length) * 100
+  );
+
+  const chartData = [
+    {
+      correct: correctCount,
+      incorrect: incorrectCount
+    }
+  ];
 
   return (
     <Card className="flex flex-col border border-black-50 bg-black-75">
-      <CardHeader className="items-center pb-0 text-white text-base xl:text-xl font-ubuntu font-semibold">
+      <CardHeader className="items-center pb-0 pt-4 px-3 text-white text-base xl:text-xl font-ubuntu font-semibold">
         Questions answered
       </CardHeader>
-      <CardContent className="flex flex-1 items-center pb-0 max-h-[150px] pt-16">
+      <CardContent className="flex flex-1 items-center pb-0 px-3 max-h-[150px] pt-16">
         <ChartContainer
           config={chartConfig}
           className="mx-auto aspect-square w-full max-w-[250px]"
@@ -51,6 +64,7 @@ export default function Component() {
           >
             <ChartTooltip
               cursor={false}
+              labelClassName="fill-white"
               content={<ChartTooltipContent hideLabel />}
             />
             <PolarRadiusAxis
@@ -72,7 +86,7 @@ export default function Component() {
                           y={(viewBox.cy || 0) - 16}
                           className="fill-white text-2xl font-bold"
                         >
-                          73%
+                          {correctPercentage}%
                         </tspan>
                         <tspan
                           x={viewBox.cx}
@@ -88,14 +102,14 @@ export default function Component() {
               />
             </PolarRadiusAxis>
             <RadialBar
-              dataKey="desktop"
+              dataKey="correct"
               stackId="a"
               cornerRadius={5}
               fill="var(--color-desktop)"
               className="stroke-transparent stroke-2"
             />
             <RadialBar
-              dataKey="mobile"
+              dataKey="incorrect"
               fill="var(--color-mobile)"
               stackId="a"
               cornerRadius={5}
@@ -105,8 +119,9 @@ export default function Component() {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex text-center items-center gap-2 font-medium leading-none text-white">
-          You have answered 10 out of 17 questions!
+        <div className="text-xs flex text-center items-center gap-2 font-medium leading-none text-white">
+          You have answered {correctCount} out of {roadmap.questions.length}{' '}
+          questions correctly
         </div>
       </CardFooter>
     </Card>

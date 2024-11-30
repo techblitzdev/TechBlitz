@@ -8,8 +8,7 @@ export default function RoadmapStats(opts: {
 
   return (
     <div className="space-y-2.5">
-      <h6 className="text-xl">Roadmap stats</h6>
-      <RoadmapStatsChart />
+      <RoadmapStatsChart roadmap={roadmap} />
     </div>
   );
 }

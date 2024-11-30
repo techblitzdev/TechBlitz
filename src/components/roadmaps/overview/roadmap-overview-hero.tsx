@@ -1,5 +1,4 @@
 import { Grid } from '@/components/ui/grid';
-import { Target } from 'lucide-react';
 
 export default function RoadmapOverviewHeroSection() {
   return (

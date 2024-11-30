@@ -5,7 +5,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
+  TooltipTrigger
 } from '@/components/ui/tooltip';
 
 import { listQuestions } from '@/actions/questions/list';
@@ -17,11 +17,12 @@ import QuestionCard from '@/components/questions/question-card';
 import Filter from '@/components/global/filters/filter';
 import { QuestionDifficulty } from '@/types/Questions';
 import FilterChips from '@/components/global/filters/chips';
+import QuestionsAllHero from '@/components/questions/all/hero';
 
 const ITEMS_PER_PAGE = 20;
 
 export default async function QuestionsDashboard({
-  searchParams,
+  searchParams
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
@@ -43,7 +44,7 @@ export default async function QuestionsDashboard({
     ascending,
     difficulty,
     completed,
-    tags,
+    tags
   };
 
   // Fetch user streak statistics
@@ -57,73 +58,76 @@ export default async function QuestionsDashboard({
     page: currentPage,
     pageSize: ITEMS_PER_PAGE,
     userUid: user.uid,
-    filters,
+    filters
   });
 
   const suggestions = await getSuggestions({
-    userUid: user?.uid || '',
+    userUid: user?.uid || ''
   });
 
   return (
-    <div className="container flex flex-col lg:flex-row mt-5 gap-10">
-      {/* Left Section: Questions */}
-      <div className="w-full lg:w-1/2 space-y-6">
-        <Filter />
-        <FilterChips />
-        {questions?.map((q) => (
-          <QuestionCard
-            key={q.uid}
-            questionData={q}
-            userUid={user?.uid || ''}
-          />
-        ))}
+    <>
+      <QuestionsAllHero />
+      <div className="container flex flex-col lg:flex-row mt-5 gap-10">
+        {/* Left Section: Questions */}
+        <div className="w-full lg:w-1/2 space-y-6">
+          <Filter />
+          <FilterChips />
+          {questions?.map((q) => (
+            <QuestionCard
+              key={q.uid}
+              questionData={q}
+              userUid={user?.uid || ''}
+            />
+          ))}
 
-        <div className="mt-5 w-full flex justify-center gap-x-2">
-          <GlobalPagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            href="/questions/all"
-            paramName="page"
-          />
-        </div>
-      </div>
-
-      {/* Right Section: Statistics */}
-      <aside className="w-full lg:w-1/2 relative">
-        <div className="sticky top-10 space-y-10 w-1/2">
-          <div className="w-fit h-fit flex flex-col gap-y-2.5">
-            <h6 className="text-xl">Your statistics</h6>
-            <DatePicker
-              className="z-30 text-white border border-black-50 p-2 rounded-md bg-black-100 hover:cursor-default"
-              type="range"
-              value={dateArray}
-              inputMode="none"
+          <div className="mt-5 w-full flex justify-center gap-x-2">
+            <GlobalPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              href="/questions/all"
+              paramName="page"
             />
           </div>
-          <div className="space-y-4">
-            <div className="flex items-center gap-x-2">
-              <h6 className="text-xl">Suggested questions</h6>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <QuestionMarkCircledIcon className="size-3.5 mt-1 text-gray-300" />
-                    <TooltipContent>
-                      <p>
-                        These question have been suggested based on areas where
-                        some users have struggled in the past.
-                      </p>
-                    </TooltipContent>
-                  </TooltipTrigger>
-                </Tooltip>
-              </TooltipProvider>
+        </div>
+
+        {/* Right Section: Statistics */}
+        <aside className="w-full lg:w-1/2 relative">
+          <div className="sticky top-10 space-y-10 w-1/2">
+            <div className="w-fit h-fit flex flex-col gap-y-2.5">
+              <h6 className="text-xl">Your statistics</h6>
+              <DatePicker
+                className="z-30 text-white border border-black-50 p-2 rounded-md bg-black-100 hover:cursor-default"
+                type="range"
+                value={dateArray}
+                inputMode="none"
+              />
             </div>
-            <QuestionSuggestedCard
-              questions={suggestions ?? []}
-              isLoading={false}
-            />
+            <div className="space-y-4">
+              <div className="flex items-center gap-x-2">
+                <h6 className="text-xl">Suggested questions</h6>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <QuestionMarkCircledIcon className="size-3.5 mt-1 text-gray-300" />
+                      <TooltipContent>
+                        <p>
+                          These question have been suggested based on areas
+                          where some users have struggled in the past.
+                        </p>
+                      </TooltipContent>
+                    </TooltipTrigger>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+              <QuestionSuggestedCard
+                questions={suggestions ?? []}
+                isLoading={false}
+              />
+            </div>
           </div>
-        </div>
-      </aside>
-    </div>
+        </aside>
+      </div>
+    </>
   );
 }

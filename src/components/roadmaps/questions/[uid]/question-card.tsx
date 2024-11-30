@@ -14,6 +14,8 @@ export default function RoadmapQuestionCard(opts: {
   totalQuestions: number;
   nextQuestionCorrect?: boolean;
   nextQuestionAnswered?: boolean;
+  prevQuestionCorrect?: boolean;
+  prevQuestionAnswered?: boolean;
 }) {
   const {
     question,
@@ -21,7 +23,9 @@ export default function RoadmapQuestionCard(opts: {
     index,
     totalQuestions,
     nextQuestionCorrect,
-    nextQuestionAnswered
+    nextQuestionAnswered,
+    prevQuestionCorrect,
+    prevQuestionAnswered
   } = opts;
 
   return (
@@ -38,7 +42,9 @@ export default function RoadmapQuestionCard(opts: {
             'bg-black-50 w-0.5 relative h-1/2',
             index === 0 && 'opacity-0', // First question has no top line
             question?.completed && question?.userCorrect && 'bg-green-500',
-            question?.completed && !question?.userCorrect && 'bg-destructive'
+            question?.completed && !question?.userCorrect && 'bg-destructive',
+            prevQuestionAnswered && !prevQuestionCorrect && 'bg-destructive',
+            prevQuestionCorrect && 'bg-green-500'
           )}
         />
 
@@ -57,7 +63,7 @@ export default function RoadmapQuestionCard(opts: {
             'bg-black-50 w-0.5 relative h-1/2',
             index === totalQuestions - 1 && 'opacity-0', // Last question has no bottom line
             question?.completed && question?.userCorrect && 'bg-green-500',
-            nextQuestionAnswered && !nextQuestionCorrect && 'bg-destructive'
+            question?.completed && !question?.userCorrect && 'bg-destructive'
           )}
         />
       </div>

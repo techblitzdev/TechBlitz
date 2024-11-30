@@ -25,7 +25,7 @@ export default async function RoadmapUidLayout({
       <div className="flex items-center justify-between px-6">
         <div className="flex items-center gap-x-5 py-2">
           {/** Previous question button */}
-          <BackToDashboard />
+          <BackToDashboard href="/roadmaps" />
         </div>
         <OnboardingProgressBar currentStep={index} />
         <div className="flex items-center gap-x-5">

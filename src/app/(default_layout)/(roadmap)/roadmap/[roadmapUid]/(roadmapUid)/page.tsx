@@ -1,18 +1,17 @@
 import { fetchRoadmap } from '@/actions/roadmap/fetch-single-roadmap';
-import { fetchRoadmapQuestions } from '@/actions/roadmap/questions/fetch-roadmap-questiosn';
+import GenerateMoreQuestionsButton from '@/components/roadmaps/generate-more-questions';
 import RoadmapQuestionCard from '@/components/roadmaps/questions/[uid]/question-card';
-import { Button } from '@/components/ui/button';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
+  TooltipTrigger
 } from '@/components/ui/tooltip';
 import { useUserServer } from '@/hooks/useUserServer';
 import { redirect } from 'next/navigation';
 
 export default async function RoadmapSinglgePage({
-  params,
+  params
 }: {
   params: { roadmapUid: string };
 }) {
@@ -31,28 +30,22 @@ export default async function RoadmapSinglgePage({
     redirect('/roadmaps?error=roadmap_not_found');
   }
 
-  // fetch the questions
-  const generatedPlan = await fetchRoadmapQuestions({
-    roadmapUid,
-    userUid: user.uid,
-  });
-
   // order the questions via the order
-  generatedPlan.sort((a, b) => a.order - b.order);
+  roadmap.questions.sort((a, b) => a.order - b.order);
 
   return (
     <div className="flex flex-col lg:flex-row gap-10 mt-5 container">
       <div className="w-full lg:w-1/2 relative">
-        {generatedPlan?.map((question, index) => (
+        {roadmap.questions?.map((question, index) => (
           <div className="flex flex-col justify-center">
             <RoadmapQuestionCard
               key={question.uid}
               question={question}
               roadmapUid={roadmapUid}
               index={index}
-              totalQuestions={generatedPlan.length}
-              nextQuestionCorrect={generatedPlan[index + 1]?.userCorrect}
-              nextQuestionAnswered={generatedPlan[index + 1]?.completed}
+              totalQuestions={roadmap.questions.length}
+              nextQuestionCorrect={roadmap.questions[index + 1]?.userCorrect}
+              nextQuestionAnswered={roadmap.questions[index + 1]?.completed}
             />
           </div>
         ))}
@@ -67,14 +60,9 @@ export default async function RoadmapSinglgePage({
                 asChild
                 className="w-fit"
               >
-                <Button
-                  variant="accent"
-                  disabled={roadmap?.status !== 'COMPLETED'}
-                >
-                  Generate more questions
-                </Button>
+                <GenerateMoreQuestionsButton roadmap={roadmap} />
               </TooltipTrigger>
-              <TooltipContent>
+              <TooltipContent align="center">
                 <p>
                   You can only generate more questions once you have completed
                   the roadmap

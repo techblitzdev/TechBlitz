@@ -10,12 +10,12 @@ import { deleteRoadmap } from '@/actions/roadmap/delete-roadmap';
 import { useRouter } from 'next/navigation';
 
 export default function RoadmapDropdown(opts: { roadmapUid: string }) {
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
   const { user } = useUser();
   if (!user) return null;
 
   const router = useRouter();
-
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const handleEditRoadmap = () => {
     setIsEditModalOpen(true);
@@ -28,7 +28,7 @@ export default function RoadmapDropdown(opts: { roadmapUid: string }) {
     // Here you would typically save the data to your backend
     await updateRoadmapDetails(opts.roadmapUid, user?.uid, {
       title: data.title,
-      description: data.description,
+      description: data.description
     });
   };
 
@@ -51,19 +51,19 @@ export default function RoadmapDropdown(opts: { roadmapUid: string }) {
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="bg-black-75 text-white border border-black-50 w-56 p-2"
+          className="bg-black-75 text-white border border-black-50 w-40 p-1"
           align="end"
         >
           <Button
             variant="ghost"
-            className="w-full justify-start text-left font-normal py-1.5 px-4 hover:text-white"
+            className="w-full justify-start text-left font-normal px-2 hover:text-white"
             onClick={handleEditRoadmap}
           >
             Edit roadmap details
           </Button>
           <Button
             variant="ghost"
-            className="w-full justify-start text-left font-normal py-1.5 text-destructive px-4 hover:text-white"
+            className="w-full justify-start text-left font-normal px-2 py-1.5 text-destructive hover:text-white"
             onClick={handleRoadmapDelete}
           >
             Delete roadmap

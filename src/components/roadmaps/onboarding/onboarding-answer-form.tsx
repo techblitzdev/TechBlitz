@@ -22,7 +22,7 @@ import { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
 
 import { cn } from '@/utils/cn';
 import { answerDefaultRoadmapQuestion } from '@/actions/roadmap/questions/default/answer-roadmap-question';
-import { useRouter } from 'next/navigation';
+import AnswerSubmittedForm from '../answer-submitted-form';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
@@ -36,14 +36,11 @@ const OnboardingRoadmapAnswerQuestionForm = forwardRef(
     { userData, question, roadmapUid }: AnswerQuestionFormProps,
     ref: React.Ref<{ submitForm: () => void }>
   ) {
-    const router = useRouter();
-
     const [loading, setLoading] = useState(false);
     const [newUserData, setNewUserData] = useState<{
       correct: boolean;
       message?: string;
     } | null>(null);
-    const [redirecting, setRedirecting] = useState(false);
     const [nextQuestionIndex, setNextQuestionIndex] = useState<number | null>(
       null
     );
@@ -101,20 +98,6 @@ const OnboardingRoadmapAnswerQuestionForm = forwardRef(
       setLoading(false);
     };
 
-    const handleNextQuestion = () => {
-      if (redirecting) return;
-      setRedirecting(true);
-
-      // If no next question, redirect to generate page
-      if (nextQuestionIndex === null) {
-        router.push(`/roadmap/${roadmapUid}/onboarding/generate`);
-        return;
-      }
-
-      // Redirect to next question
-      router.push(`/roadmap/${roadmapUid}/onboarding/${nextQuestionIndex}`);
-    };
-
     return (
       <Form {...form}>
         <form
@@ -131,48 +114,12 @@ const OnboardingRoadmapAnswerQuestionForm = forwardRef(
           )}
 
           {newUserData && !loading ? (
-            <div className="flex flex-col items-center justify-center h-[25rem] p-6 text-center">
-              <div className="bg-black-25 border border-black-50 rounded-xl p-8 shadow-lg text-center max-w-md w-full">
-                {newUserData.correct ? (
-                  <div className="flex flex-col gap-y-4 items-center">
-                    <CheckCircle2Icon className="mx-auto text-green-500 size-16" />
-                    <h3 className="text-2xl font-semibold text-green-600">
-                      Correct!
-                    </h3>
-                    <p className="text-sm">
-                      {newUserData.message ||
-                        "Great job! You've answered the question correctly."}
-                    </p>
-                  </div>
-                ) : (
-                  <div className="flex flex-col gap-y-4 items-center">
-                    <XCircleIcon className="mx-auto text-red-500 size-16" />
-                    <h3 className="text-2xl font-semibold text-red-600">
-                      Incorrect
-                    </h3>
-                    <p className="text-sm">
-                      {newUserData.message ||
-                        "Don't worry, learning is a process. Keep trying!"}
-                    </p>
-                  </div>
-                )}
-                <div className="flex justify-center items-center gap-x-3 mt-4">
-                  <Button
-                    href="/dashboard"
-                    variant="secondary"
-                  >
-                    Dashboard
-                  </Button>
-                  <Button
-                    variant="accent"
-                    onClick={() => handleNextQuestion()}
-                    type="button"
-                  >
-                    {redirecting ? <LoadingSpinner /> : 'Next Question'}
-                  </Button>
-                </div>
-              </div>
-            </div>
+            <AnswerSubmittedForm
+              key={question.uid}
+              newUserData={newUserData}
+              nextQuestionIndex={nextQuestionIndex}
+              roadmapUid={roadmapUid}
+            />
           ) : (
             <div
               className={cn(

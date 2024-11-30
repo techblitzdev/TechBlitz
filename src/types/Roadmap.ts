@@ -19,9 +19,9 @@ export interface UserRoadmaps extends BaseRecord {
   // Indicates if the roadmap has been generated
   hasGeneratedRoadmap: boolean;
   // the roadmap title
-  title: string | undefined;
+  title: string | null;
   // the roadmap description
-  description: string | undefined;
+  description: string | null;
 }
 
 // Individual questions in a user's roadmap

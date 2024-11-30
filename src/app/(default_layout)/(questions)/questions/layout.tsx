@@ -3,7 +3,6 @@ import BackToDashboard from '@/components/global/back-to-dashboard';
 import CurrentStreak from '@/components/global/current-streak';
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/useUserServer';
-import { Flame } from 'lucide-react';
 
 export default async function QuestionsLayout({
   children

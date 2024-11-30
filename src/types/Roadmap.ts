@@ -24,6 +24,12 @@ export interface UserRoadmaps extends BaseRecord {
   description: string | null;
 }
 
+export type UserRoadmapsWithAnswers = Omit<
+  UserRoadmaps,
+  'DefaultRoadmapQuestionsUsersAnswers'
+> &
+  RoadmapUserQuestionsAnswers;
+
 // Individual questions in a user's roadmap
 export interface RoadmapUserQuestions extends BaseRecord {
   // Question text

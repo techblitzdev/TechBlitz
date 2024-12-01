@@ -1,5 +1,6 @@
 import MarketingFooter from '@/components/marketing/global/footer';
 import MarketingNavigation from '@/components/marketing/global/navigation';
+import FeaturesBentoGrid from '@/components/marketing/homepage/features-bento-grid';
 import HomepageHero from '@/components/marketing/homepage/hero';
 import { useUserServer } from '@/hooks/useUserServer';
 import { redirect } from 'next/navigation';
@@ -15,6 +16,7 @@ export default async function AuthedPage() {
       <div className="mt-6 z-30 container">
         <MarketingNavigation />
         <HomepageHero />
+        <FeaturesBentoGrid />
         <MarketingFooter />
       </div>
     </div>

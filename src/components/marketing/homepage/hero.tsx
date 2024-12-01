@@ -1,13 +1,10 @@
-'use client';
 import { Button } from '@/components/ui/button';
 import { Highlight } from '@/components/ui/highlight';
 import { Input } from '@/components/ui/input';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import RoadmapDashboardImg from '@/public/images/roadmap-dashboard-img.png';
-import DashboardImg from '@/public/images/dashboard-img.png';
+import HomepageHeroImages from './hero-images';
 
 export default function HomepageHero() {
   return (
@@ -24,8 +21,8 @@ export default function HomepageHero() {
           </span>
         </Link>
         <h1 className="text-3xl lg:text-5xl font-inter font-bold !leading-[normal]">
-          Your <Highlight>personalized</Highlight> path <br /> to master
-          software engineering.
+          Your <Highlight>personalized</Highlight> path to master software
+          engineering.
         </h1>
         <h6 className="font-inter">
           A fully customizable, end-to-end learning platform for software
@@ -57,22 +54,7 @@ export default function HomepageHero() {
       </div>
 
       <div className="col-span-full lg:col-span-6 xl:col-span-7 h-full">
-        <div className="relative h-full">
-          <Image
-            className="hidden lg:block lg:absolute lg:top-16 lg:-right-20 rounded-lg bg-[#000000] border border-black-50 lg:scale-[1.25] aspect-video"
-            src={RoadmapDashboardImg}
-            width={1600}
-            height={1600}
-            alt="Roadmap Dashboard"
-          />
-          <Image
-            className="z-30 lg:absolute lg:-right-56 lg:scale-[1.30] rounded-lg bg-[#000000] border border-black-50"
-            src={DashboardImg}
-            width={1600}
-            height={1600}
-            alt="Dashboard"
-          />
-        </div>
+        <HomepageHeroImages />
       </div>
     </section>
   );

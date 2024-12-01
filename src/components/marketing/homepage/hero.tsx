@@ -43,7 +43,7 @@ export default function HomepageHero() {
               variant="accent"
               className="w-full lg:w-fit items-center"
             >
-              Get Started for Free
+              Get Started
               <ArrowRight className="ml-2 size-4" />
             </Button>
           </div>

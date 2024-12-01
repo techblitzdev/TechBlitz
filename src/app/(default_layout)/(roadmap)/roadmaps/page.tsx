@@ -1,13 +1,10 @@
-import { createOrFetchUserRoadmap } from '@/actions/roadmap/create-or-fetch-user-roadmap';
 import { fetchUserRoadmaps } from '@/actions/roadmap/fetch-user-roadmaps';
 import RoadmapOnboarding from '@/components/roadmaps/empty/onboarding';
-import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/useUserServer';
-import { redirect } from 'next/navigation';
 import PostHogClient from '../../../posthog';
 import RoadmapsCard from '@/components/roadmaps/[uid]/roadmaps-card';
 import CreateRoadmapButton from '@/components/roadmaps/create-roadmap-button';
-import RoadmapOverviewHeroSection from '@/components/roadmaps/overview/roadmap-overview-hero';
+import Hero from '@/components/global/hero';
 
 export default async function RoadmapPage() {
   const user = await useUserServer();
@@ -28,7 +25,11 @@ export default async function RoadmapPage() {
 
   return (
     <>
-      <RoadmapOverviewHeroSection />
+      <Hero
+        heading="Roadmaps"
+        subheading="Welcome to your roadmap overview. Here you can view all of your
+          roadmaps and their progress, as well as create new ones."
+      />
       <div className="flex flex-col lg:flex-row gap-10 mt-5 container">
         <div className="w-full lg:w-1/2 relative">
           {userRoadmaps.map((roadmap) => (

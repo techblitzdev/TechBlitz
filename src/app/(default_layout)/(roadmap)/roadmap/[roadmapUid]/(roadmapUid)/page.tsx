@@ -10,7 +10,9 @@ import {
 } from '@/components/ui/tooltip';
 import { useUserServer } from '@/hooks/useUserServer';
 import { redirect } from 'next/navigation';
-import RoadmapHeroSection from '@/components/roadmaps/[uid]/hero';
+import Hero from '@/components/global/hero';
+import Chip from '@/components/global/chip';
+import { capitalise } from '@/utils';
 
 export default async function RoadmapSinglgePage({
   params
@@ -38,7 +40,29 @@ export default async function RoadmapSinglgePage({
   return (
     <>
       {/** @ts-ignore */}
-      <RoadmapHeroSection roadmap={roadmap} />
+      <div className="px-8">
+        <Hero
+          heading={roadmap.title || 'Untitled Roadmap'}
+          subheading={roadmap.description || 'No description'}
+        >
+          <div className="mt-5 w-fit flex gap-3 z-10">
+            <div className="flex items-center gap-x-3">
+              {roadmap?.status && (
+                <Chip
+                  text={capitalise(roadmap.status)}
+                  color="black-100"
+                  border="black-50"
+                />
+              )}
+            </div>
+            <Chip
+              text={roadmap?.questions.length.toString() + ' ' + 'Questions'}
+              color="white"
+              textColor="black"
+            />
+          </div>
+        </Hero>
+      </div>
       <div className="flex flex-col lg:flex-row gap-10 mt-5 container">
         <div className="order-last md:order-first w-full lg:w-1/2 relative">
           {roadmap.questions?.map((question, index) => (

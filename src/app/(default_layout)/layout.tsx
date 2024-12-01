@@ -40,7 +40,7 @@ export default function Layout({
 
             {/* Scrollable content */}
             <AppSidebar />
-            <main className="w-full py-6 lg:pt-6 lg:pb-3">
+            <main className="w-full py-6 lg:pt-4 lg:pb-3">
               <div className="h-[95%]">
                 <CSPostHogProvider>
                   <MantineProvider>{children}</MantineProvider>

@@ -1,15 +1,14 @@
 import GlobalPagination from '@/components/global/pagination';
 import QuestionCard from '@/components/questions/question-card';
-import { Separator } from '@/components/ui/separator';
 import { getPreviousQuestions } from '@/actions/questions/get-previous';
-import BackToDashboard from '@/components/global/back-to-dashboard';
 import PreviousQuestionPageSidenbar from '@/components/questions/previous/previous-question-page-sidebar';
 import { useUserServer } from '@/hooks/useUserServer';
+import Hero from '@/components/global/hero';
 
 const ITEMS_PER_PAGE = 10;
 
 export default async function PreviousQuestionsPage({
-  searchParams,
+  searchParams
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
@@ -22,29 +21,15 @@ export default async function PreviousQuestionsPage({
     userUid: user.uid,
     orderBy: 'asc',
     page: currentPage,
-    pageSize: ITEMS_PER_PAGE,
+    pageSize: ITEMS_PER_PAGE
   });
 
   return (
-    <>
-      <div className="flex flex-col gap-y-2 w-full">
-        <div className="flex flex-col gap-y-2 justify-center w-full text-center">
-          <div className="flex items-center w-full justify-between container">
-            <BackToDashboard />
-            <div className="flex flex-col w-full justify-between">
-              <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
-                Previous Daily Questions
-              </h1>
-              <p className="font-ubuntu text-sm text-gray-300">
-                Here you can find all the daily questions that have been asked
-                in the past.
-              </p>
-            </div>
-            <div aria-hidden></div>
-          </div>
-        </div>
-      </div>
-      <Separator className="bg-black-50" />
+    <div>
+      <Hero
+        heading="Previous Daily Questions"
+        subheading="Questions you have answered in the past"
+      />
       <div className="flex flex-col h-full justify-between container mt-5">
         <div className="flex w-full gap-10">
           <div className="w-1/2 space-y-6">
@@ -66,6 +51,6 @@ export default async function PreviousQuestionsPage({
           {user && <PreviousQuestionPageSidenbar user={user} />}
         </div>
       </div>
-    </>
+    </div>
   );
 }

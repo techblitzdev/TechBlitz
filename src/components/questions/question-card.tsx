@@ -28,7 +28,11 @@ export default async function QuestionCard(opts: {
             <h6 className="text-base text-wrap text-start">
               {questionData.question}
             </h6>
-            <Button variant="accent" className="size-10" padding="none">
+            <Button
+              variant="accent"
+              className="size-10"
+              padding="none"
+            >
               <ArrowUpRight className="size-5 group-hover:rotate-45 duration-300" />
             </Button>
           </div>
@@ -79,7 +83,10 @@ export default async function QuestionCard(opts: {
             )}
           </div>
         </div>
-        <Grid size={20} position="bottom-right" />
+        <Grid
+          size={20}
+          position="bottom-right"
+        />
       </Link>
       {/* {showAnswerModal && (
         <PreviousQuestionAnswerModal

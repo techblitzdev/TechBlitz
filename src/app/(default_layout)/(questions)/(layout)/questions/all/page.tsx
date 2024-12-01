@@ -17,7 +17,7 @@ import QuestionCard from '@/components/questions/question-card';
 import Filter from '@/components/global/filters/filter';
 import { QuestionDifficulty } from '@/types/Questions';
 import FilterChips from '@/components/global/filters/chips';
-import QuestionsAllHero from '@/components/questions/all/hero';
+import Hero from '@/components/global/hero';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -67,7 +67,11 @@ export default async function QuestionsDashboard({
 
   return (
     <>
-      <QuestionsAllHero />
+      <Hero
+        heading="All Questions"
+        subheading=" Explore a diverse set of questions across multiple topics to enhance
+          your knowledge."
+      />
       <div className="container flex flex-col lg:flex-row mt-5 gap-10">
         {/* Left Section: Questions */}
         <div className="w-full lg:w-1/2 space-y-6">

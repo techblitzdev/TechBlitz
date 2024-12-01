@@ -1,5 +1,5 @@
-import MarketingFooter from '@/components/marketing/footer';
-import MarketingNavigation from '@/components/marketing/navigation';
+import MarketingFooter from '@/components/marketing/global/footer';
+import MarketingNavigation from '@/components/marketing/global/navigation';
 import { useUserServer } from '@/hooks/useUserServer';
 import { redirect } from 'next/navigation';
 

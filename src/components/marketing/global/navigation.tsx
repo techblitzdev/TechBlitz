@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import Logo from '../global/logo';
-import { Button } from '../ui/button';
+import Logo from '../../global/logo';
+import { Button } from '../../ui/button';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 
 export default function MarketingNavigation() {

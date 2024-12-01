@@ -2,10 +2,11 @@ import Link from 'next/link';
 import Logo from '../../global/logo';
 import { Button } from '../../ui/button';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
+import { ArrowRight } from 'lucide-react';
 
 export default function MarketingNavigation() {
   return (
-    <div className="flex items-center justify-between container">
+    <div className="flex items-center justify-between">
       <Link href="/">
         <Logo />
       </Link>
@@ -25,15 +26,16 @@ export default function MarketingNavigation() {
       <div className="items-center gap-x-2 hidden md:flex">
         <Button
           href="/login"
-          variant="default"
+          variant="ghost"
         >
           Login
         </Button>
         <Button
           href="signup"
-          variant="secondary"
+          variant="accent"
         >
           Get Started
+          <ArrowRight className="ml-2 size-4" />
         </Button>
       </div>
       <HamburgerMenuIcon className="size-5 block md:hidden" />

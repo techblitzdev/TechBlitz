@@ -1,5 +1,6 @@
 import MarketingFooter from '@/components/marketing/global/footer';
 import MarketingNavigation from '@/components/marketing/global/navigation';
+import HomepageHero from '@/components/marketing/homepage/hero';
 import { useUserServer } from '@/hooks/useUserServer';
 import { redirect } from 'next/navigation';
 
@@ -10,9 +11,9 @@ export default async function AuthedPage() {
   }
 
   return (
-    <div className="mt-6 z-30">
+    <div className="mt-6 z-30 container">
       <MarketingNavigation />
-      <div className="h-[90dvh]"></div>
+      <HomepageHero />
       <MarketingFooter />
     </div>
   );

@@ -10,8 +10,10 @@ export default function Hero(opts: {
   return (
     <section className="w-full pt-7 pb-4 group relative">
       <div className="container flex flex-col gap-y-3 z-10">
-        <h1 className="text-3xl text-wrap text-start font-inter">{heading}</h1>
-        <h6 className="text-sm text-gray-400 font-inter max-w-md z-50">
+        <h1 className="text-3xl text-wrap text-start font-inter max-w-2xl">
+          {heading}
+        </h1>
+        <h6 className="text-sm text-gray-400 font-inter max-w-lg z-50">
           {subheading}
         </h6>
         {children}

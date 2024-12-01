@@ -1,6 +1,5 @@
 import { getMostQuestionsAnswered } from '@/actions/leaderboard/get-most-questions-answered';
-import Card from '../global/card';
-import { getUserDisplayName } from '@/utils/user';
+import Card from '../global/Card';
 import { Trophy, User } from 'lucide-react';
 
 const header = () => {

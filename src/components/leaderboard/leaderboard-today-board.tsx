@@ -1,6 +1,6 @@
 import NoDailyQuestion from '@/components/global/errors/no-daily-question';
 import { getFastestTimes } from '@/actions/leaderboard/get-fastest';
-import Card from '../global/card';
+import Card from '../global/Card';
 import { QuestionWithoutAnswers } from '@/types/Questions';
 import { getUserDisplayName } from '@/utils/user';
 import { ArrowRight, Medal, User } from 'lucide-react';

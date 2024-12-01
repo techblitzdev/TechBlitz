@@ -1,5 +1,6 @@
-import MarketingFooter from '@/components/marketing/footer';
-import MarketingNavigation from '@/components/marketing/navigation';
+import MarketingFooter from '@/components/marketing/global/footer';
+import MarketingNavigation from '@/components/marketing/global/navigation';
+import HomepageHero from '@/components/marketing/homepage/hero';
 import { useUserServer } from '@/hooks/useUserServer';
 import { redirect } from 'next/navigation';
 
@@ -10,10 +11,12 @@ export default async function AuthedPage() {
   }
 
   return (
-    <div className="mt-6 z-30">
-      <MarketingNavigation />
-      <div className="h-[90dvh]"></div>
-      <MarketingFooter />
+    <div className="overflow-x-hidden">
+      <div className="mt-6 z-30 container">
+        <MarketingNavigation />
+        <HomepageHero />
+        <MarketingFooter />
+      </div>
     </div>
   );
 }

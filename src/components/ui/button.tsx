@@ -29,45 +29,45 @@ const buttonVariants = cva(
           'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
         secondary:
           'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
-        ghost: 'hover:bg-accent hover:text-accent-foreground',
+        ghost: 'hover:bg-accent hover:text-white',
         link: 'text-primary underline-offset-4 hover:underline',
-        accent: 'bg-accent text-white shadow-sm hover:bg-accent/90',
+        accent: 'bg-accent text-white shadow-sm hover:bg-accent/90'
       },
       size: {
         default: 'h-9 px-4 py-2',
         sm: 'h-8 rounded-md px-3 text-xs',
         lg: 'h-10 rounded-md px-8',
-        icon: 'h-9 w-9',
+        icon: 'h-9 w-9'
       },
       fontSize: {
         xs: 'text-xs',
         sm: 'text-sm',
         md: 'text-base',
         lg: 'text-lg',
-        xl: 'text-xl',
+        xl: 'text-xl'
       },
       rounded: {
         sm: 'rounded-sm',
         md: 'rounded-md',
-        lg: 'rounded-2xl hover:rounded-xl',
+        lg: 'rounded-2xl hover:rounded-xl'
       },
       padding: {
         none: '!p-0',
         sm: 'px-2 py-1',
         md: 'px-4 py-2',
         lg: 'px-8 py-4',
-        xl: 'px-10 py-5',
+        xl: 'px-10 py-5'
       },
       fullWidth: {
         true: 'w-full',
-        false: 'inline-flex',
-      },
+        false: 'inline-flex'
+      }
     },
     defaultVariants: {
       variant: 'default',
       size: 'default',
-      fullWidth: false,
-    },
+      fullWidth: false
+    }
   }
 );
 
@@ -108,7 +108,7 @@ const Button = React.forwardRef<
               rounded,
               fontSize,
               padding,
-              fullWidth,
+              fullWidth
             })
           )}
           ref={ref}

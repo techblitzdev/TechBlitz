@@ -124,8 +124,8 @@ export function AppSidebar() {
     {
       title: 'Stats',
       url: '/',
-      icon: ChartBarIncreasing,
-      chip: ComingSoonChip
+      icon: ChartBarIncreasing
+      // chip: ComingSoonChip
     },
     {
       title: 'Leaderboard',
@@ -227,7 +227,7 @@ export function AppSidebar() {
           key={item.groupLabel}
           className="mt-2"
         >
-          <SidebarGroupLabel className="px-0 py-0 h-fit text-sm font-ubuntutoshi">
+          <SidebarGroupLabel className="px-0 py-0 h-fit text-sm font-inter">
             {item.groupLabel}
           </SidebarGroupLabel>
         </SidebarGroup>
@@ -245,7 +245,7 @@ export function AppSidebar() {
               <SidebarMenuButton asChild>
                 <div className="flex items-center w-full">
                   {item.icon && <item.icon />}
-                  <span className="text-sm font-ubuntutoshi">{item.title}</span>
+                  <span className="text-sm font-inter">{item.title}</span>
                   <div className="ms-auto">{item.chip && <item.chip />}</div>
                 </div>
               </SidebarMenuButton>
@@ -261,16 +261,16 @@ export function AppSidebar() {
               className="flex-grow"
             >
               {item.disabled ? (
-                <div className="flex items-center font-ubuntu text-sm p-2 gap-x-2 opacity-50 hover:cursor-not-allowed h-8">
+                <div className="flex items-center font-inter font-medium  text-sm p-2 gap-x-2 opacity-50 hover:cursor-not-allowed h-8">
                   {item.icon && <item.icon />}
-                  <span className="text-sm font-ubuntutoshi">{item.title}</span>
+                  <span className="text-sm font-inter">{item.title}</span>
                   <div className="ms-auto">{item.chip && <item.chip />}</div>
                 </div>
               ) : (
                 <Link
                   href={item.url}
                   prefetch
-                  className={`flex items-center font-ubuntu text-sm py-2 ${
+                  className={`flex items-center font-inter font-medium  text-sm py-2 ${
                     pathname === item.url
                       ? 'bg-black-25 text-white border border-black-50'
                       : ''

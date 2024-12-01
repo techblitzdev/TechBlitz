@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import Logo from '../global/logo';
+import Logo from '../../global/logo';
 import SocialLinks from './socials';
-import { Button } from '../ui/button';
+import { Button } from '../../ui/button';
 import { ArrowRight } from 'lucide-react';
-import { Separator } from '../ui/separator';
+import { Separator } from '../../ui/separator';
 
 const footerItems = [
   {
@@ -49,7 +49,7 @@ const footerItems = [
 
 export default function MarketingFooter() {
   return (
-    <footer className="container py-8">
+    <footer className="py-8">
       <div className="flex flex-col lg:flex-row justify-between text-white">
         <div className="flex flex-col gap-y-12 w-full">
           <div className="flex flex-col lg:flex-row w-full justify-between">

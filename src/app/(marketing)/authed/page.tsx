@@ -11,10 +11,12 @@ export default async function AuthedPage() {
   }
 
   return (
-    <div className="mt-6 z-30 container">
-      <MarketingNavigation />
-      <HomepageHero />
-      <MarketingFooter />
+    <div className="overflow-x-hidden">
+      <div className="mt-6 z-30 container">
+        <MarketingNavigation />
+        <HomepageHero />
+        <MarketingFooter />
+      </div>
     </div>
   );
 }

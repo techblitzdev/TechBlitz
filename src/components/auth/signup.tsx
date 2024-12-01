@@ -5,7 +5,7 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form';
 import { signupSchema } from '@/lib/zod/schemas/signup';
 import { useForm } from 'react-hook-form';
@@ -27,22 +27,24 @@ export default function SignupForm() {
     resolver: zodResolver(signupSchema),
     defaultValues: {
       email: '',
-      password: '',
-    },
+      password: ''
+    }
   });
 
   const { mutateAsync: server_signup, isPending } = useMutation({
     mutationFn: (values: SchemaProps) => signUp(values.email, values.password),
     onSuccess: () => {
       // show success toast
-      toast.success('Signup successful!');
+      toast.success(
+        'Signup successful! Please check your email to verify your account.'
+      );
       // redirect to dashboard
-      router.push('/dashboard');
+      router.push('/login');
     },
     onError: (error) => {
       // show error toast
       toast.error(error.message);
-    },
+    }
   });
 
   const handleSignup = (values: SchemaProps) => server_signup(values);
@@ -108,7 +110,11 @@ export default function SignupForm() {
 
         <span className="col-span-full text-sm text-gray-300 hover:text-white duration-300">
           Already have an account?{' '}
-          <Link href="/login" prefetch className="underline">
+          <Link
+            href="/login"
+            prefetch
+            className="underline"
+          >
             Sign in
           </Link>
         </span>

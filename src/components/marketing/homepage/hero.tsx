@@ -20,7 +20,7 @@ export default function HomepageHero() {
             <ArrowUpRight className="ml-2 size-4 group-hover:rotate-45 duration-300" />
           </span>
         </Link>
-        <h1 className="text-3xl lg:text-5xl font-inter font-bold !leading-[normal]">
+        <h1 className="text-3xl lg:text-5xl font-inter !font-medium !leading-[normal]">
           Your <Highlight>personalized</Highlight> path to master software
           engineering.
         </h1>

@@ -1,5 +1,5 @@
 import { getUserDisplayName } from '@/utils/user';
-import Card from '../global/Card';
+import Card from '../global/card';
 import { FlameIcon, User } from 'lucide-react';
 import { getLongestStreaks } from '@/actions/leaderboard/get-longest-streaks';
 

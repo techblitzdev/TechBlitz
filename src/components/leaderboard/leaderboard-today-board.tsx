@@ -1,6 +1,6 @@
 import NoDailyQuestion from '@/components/global/errors/no-daily-question';
 import { getFastestTimes } from '@/actions/leaderboard/get-fastest';
-import Card from '../global/Card';
+import Card from '../global/card';
 import { QuestionWithoutAnswers } from '@/types/Questions';
 import { getUserDisplayName } from '@/utils/user';
 import { ArrowRight, Medal, User } from 'lucide-react';
@@ -66,7 +66,7 @@ export default async function LeaderboardTodayBoard(opts: {
     numberOfResults: 100,
     questionUid: todayQuestion?.uid || '',
     page: currentPage,
-    pageSize: ITEMS_PER_PAGE,
+    pageSize: ITEMS_PER_PAGE
   });
 
   const startingRank = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -77,7 +77,7 @@ export default async function LeaderboardTodayBoard(opts: {
       footer={footer({
         currentPage,
         totalAnswers: total,
-        totalPages,
+        totalPages
       })}
     >
       {!todayQuestion ? (

@@ -1,5 +1,5 @@
 import { getMostQuestionsAnswered } from '@/actions/leaderboard/get-most-questions-answered';
-import Card from '../global/Card';
+import Card from '../global/card';
 import { getUserDisplayName } from '@/utils/user';
 import { Trophy, User } from 'lucide-react';
 

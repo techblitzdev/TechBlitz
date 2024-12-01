@@ -19,7 +19,7 @@ export default function HomepageHero() {
         >
           <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
           <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
-            Beta Access Available
+            Beta out now
             <ArrowUpRight className="ml-2 size-4 group-hover:rotate-45 duration-300" />
           </span>
         </Link>
@@ -59,14 +59,14 @@ export default function HomepageHero() {
       <div className="col-span-full lg:col-span-6 h-full">
         <div className="relative h-full">
           <Image
-            className="absolute top-16 -right-20 rounded-lg bg-[#000000] border border-black-50 scale-125 object-contain px-3"
+            className="absolute top-16 -right-20 rounded-lg bg-[#000000] border border-black-50 scale-[1.30] object-contain px-1"
             src={RoadmapDashboardImg}
             width={1600}
             height={1600}
             alt="Roadmap Dashboard"
           />
           <Image
-            className="z-30 absolute -right-72 scale-125 rounded-lg bg-[#000000] object-contain border border-black-50 px-3"
+            className="z-30 absolute -right-56 scale-[1.30] rounded-lg bg-[#000000] object-contain border border-black-50 px-1"
             src={DashboardImg}
             width={1600}
             height={1600}

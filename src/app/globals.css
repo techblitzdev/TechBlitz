@@ -148,7 +148,7 @@ body {
   h4,
   h5,
   h6 {
-    @apply font-ubuntu !font-medium;
+    @apply font-onest !font-medium;
   }
 }
 
@@ -176,4 +176,8 @@ body {
 
 .line.inactive {
   background-color: #f87171; /* red for incorrect answers */
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-b from-white to-white/55;
 }

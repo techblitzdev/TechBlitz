@@ -24,6 +24,10 @@ body {
 }
 
 @layer utilities {
+  ::selection {
+    @apply bg-accent text-white;
+  }
+
   .text-balance {
     text-wrap: balance;
   }
@@ -46,9 +50,9 @@ body {
     content: '';
     position: absolute;
     top: 10%;
-    left: -25%;
+    left: -10%;
     height: 75%;
-    width: 150%;
+    width: 125%;
 
     @apply animate-border-spin;
   }

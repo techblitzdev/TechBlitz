@@ -42,7 +42,7 @@ export default function FeaturesBentoGrid() {
             />
           </div>
           <div className={cn('!border-b-0', cardClasses)}>
-            <div className="flex flex-col gap-y-2">
+            <div className="flex flex-col gap-y-1">
               <h6 className="text-2xl text-gradient from-white to-white/55">
                 Daily questions
               </h6>
@@ -53,14 +53,26 @@ export default function FeaturesBentoGrid() {
             </div>
           </div>
           <div className={cn('!border-r-0', cardClasses)}>
-            <h6 className="text-2xl text-gradient from-white to-white/55">
-              Leaderboard
-            </h6>
+            <div className="flex flex-col gap-y-1">
+              <h6 className="text-2xl text-gradient from-white to-white/55">
+                Leaderboard
+              </h6>
+              <p className="text-xs text-gray-400">
+                Our AI powered roadmap will help you take the next step in your
+                developer journey.
+              </p>
+            </div>
           </div>
           <div className={cn('col-span-full lg:col-span-2', cardClasses)}>
-            <h6 className="text-2xl text-gradient from-white to-white/55">
-              Progress tracking
-            </h6>
+            <div className="flex flex-col gap-y-1">
+              <h6 className="text-2xl text-gradient from-white to-white/55">
+                Progress tracking
+              </h6>
+              <p className="text-xs text-gray-400">
+                Our AI powered roadmap will help you take the next step in your
+                developer journey.
+              </p>
+            </div>
           </div>
         </div>
       </div>

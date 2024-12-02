@@ -20,7 +20,7 @@ import '@mantine/dates/styles.css';
 import { StarsBackground } from '@/components/ui/stars-background';
 
 export const metadata: Metadata = {
-  title: 'techblitz',
+  title: 'techblitz | The all-in-one platform for developers',
   description: 'Improve your code knowledge, one day at a time.'
 };
 

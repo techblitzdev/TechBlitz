@@ -1,7 +1,6 @@
 'use client';
-
-import { motion, AnimatePresence, usePresence, useInView } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { useRef } from 'react';
 
 export default function HomepageLargeText() {
   const text =

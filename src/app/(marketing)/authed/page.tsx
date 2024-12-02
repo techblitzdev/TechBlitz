@@ -1,6 +1,6 @@
 import MarketingFooter from '@/components/marketing/global/footer';
 import MarketingNavigation from '@/components/marketing/global/navigation';
-import FeaturesBentoGrid from '@/components/marketing/homepage/features-bento-grid';
+import FeaturesBentoGrid from '@/components/marketing/homepage/features/features-bento-grid';
 import HomepageHero from '@/components/marketing/homepage/hero';
 import HomepageLargeText from '@/components/marketing/homepage/large-text';
 import { useUserServer } from '@/hooks/useUserServer';

@@ -130,6 +130,11 @@ const config: Config = {
           to: {
             transform: 'translate(calc(-50% - 0.5rem))'
           }
+        },
+        'border-spin': {
+          '100%': {
+            transform: 'rotate(-360deg)'
+          }
         }
       },
       animation: {
@@ -137,7 +142,8 @@ const config: Config = {
         'accordion-up': 'accordion-up 0.2s ease-out',
         scroll: 'scroll 30s linear infinite',
         'scroll-right':
-          'scroll-right var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite'
+          'scroll-right var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite',
+        'border-spin': 'border-spin 10s linear infinite'
       }
     }
   },

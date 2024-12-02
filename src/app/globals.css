@@ -7,7 +7,7 @@
   --foreground: #171717;
 
   --color-secondary: #ffffff;
-  --color-accent: #5b61d6;
+  --color-accent: rgb(91, 97, 214);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,6 +30,51 @@ body {
 
   .pause-animation {
     animation-play-state: paused;
+  }
+
+  .card-wrapper {
+    @apply relative overflow-hidden;
+  }
+
+  /* Gradient */
+  .card-wrapper::before {
+    background: conic-gradient(
+      rgba(91, 97, 214, 1) 0deg,
+      rgba(91, 97, 214, 0.5) 90deg,
+      transparent 80deg
+    );
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: -25%;
+    height: 75%;
+    width: 150%;
+
+    @apply animate-border-spin;
+  }
+
+  /* Body */
+  .card-content {
+    @apply absolute left-[1px] top-[1px] h-[calc(100%-2px)] w-[calc(100%-2px)];
+  }
+
+  .line {
+    position: absolute;
+    width: 4px;
+    background-color: #e5e5e5; /* default color */
+    transition: background-color 0.3s ease;
+  }
+
+  .line.active {
+    background-color: #34d399; /* green when active */
+  }
+
+  .line.inactive {
+    background-color: #f87171; /* red for incorrect answers */
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-b;
   }
 }
 
@@ -161,23 +206,4 @@ body {
     height: var(--radix-accordion-content-height);
     opacity: 1;
   }
-}
-
-.line {
-  position: absolute;
-  width: 4px;
-  background-color: #e5e5e5; /* default color */
-  transition: background-color 0.3s ease;
-}
-
-.line.active {
-  background-color: #34d399; /* green when active */
-}
-
-.line.inactive {
-  background-color: #f87171; /* red for incorrect answers */
-}
-
-.text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-b from-white to-white/55;
 }

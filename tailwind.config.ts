@@ -18,7 +18,8 @@ const config: Config = {
       fontFamily: {
         inter: ['var(--font-inter)'],
         satoshi: ['var(--font-satoshi)'],
-        ubuntu: ['var(--font-ubuntu)']
+        ubuntu: ['var(--font-ubuntu)'],
+        onest: ['var(--font-onest)']
       },
       colors: {
         background: 'hsl(var(--background))',

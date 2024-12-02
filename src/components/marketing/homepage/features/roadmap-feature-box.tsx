@@ -1,11 +1,10 @@
 'use client';
-
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Progress } from '@/components/ui/progress';
-import { CheckCircle, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 
 const skeletonVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -46,9 +45,9 @@ export default function RoadmapFeatureBox() {
   }, []);
 
   return (
-    <Card className="w-full max-w-md border-black-50 bg-black-75 shadow-md z-50 relative">
+    <Card className="group-hover:scale-[1.03] duration-300 rounded-bl-none w-full h-fit lg:max-w-2xl border-black-50 bg-black-75 shadow-md z-50 absolute -right-3 top-24">
       <CardContent className="pt-6">
-        <div className="flex items-center space-x-4 h-10">
+        <div className="flex items-center space-x-4 h-14">
           <AnimatePresence mode="wait">
             {isComplete ? (
               <motion.div
@@ -58,7 +57,7 @@ export default function RoadmapFeatureBox() {
                 animate="visible"
                 exit="exit"
               >
-                <CheckCircle2 className="size-11 text-green-500" />
+                <CheckCircle2 className="size-16 text-green-500" />
               </motion.div>
             ) : (
               <motion.div
@@ -69,8 +68,8 @@ export default function RoadmapFeatureBox() {
                 exit="exit"
                 className="space-y-2 w-full"
               >
-                <Skeleton className="h-4 w-[200px] bg-black-50" />
-                <Skeleton className="h-4 w-[160px] bg-black-50" />
+                <Skeleton className="h-7 w-[400px] bg-black-50" />
+                <Skeleton className="h-7 w-[260px] bg-black-50" />
               </motion.div>
             )}
           </AnimatePresence>
@@ -78,14 +77,14 @@ export default function RoadmapFeatureBox() {
       </CardContent>
       <CardFooter className="flex flex-col items-start space-y-2">
         <motion.h3
-          className="text-lg font-semibold leading-none tracking-tight text-white"
+          className="text-2xl font-semibold leading-none tracking-tight text-white"
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
         >
           {isComplete ? 'Roadmap generated!' : 'Generating your roadmap...'}
         </motion.h3>
         <motion.p
-          className="text-xs text-muted-foreground"
+          className="text-base text-muted-foreground"
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
         >

@@ -1,13 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/ui/grid';
-import { Highlight } from '@/components/ui/highlight';
 import { cn } from '@/utils/cn';
-import { ChevronRight, RouteIcon } from 'lucide-react';
-import Image from 'next/image';
-import FeaturesRoadmapImg from '@/public/images/features-roadmap-img.png';
+import { ChevronRight } from 'lucide-react';
 import CodeDisplay from '@/components/questions/single/code-snippet';
-import Link from 'next/link';
 import RoadmapFeatureBox from './roadmap-feature-box';
+import Link from 'next/link';
 
 const cardClasses = 'border border-black-50 p-6';
 const codeSnippet = `let numbers = [5, 3, 7];
@@ -37,20 +34,30 @@ export default function FeaturesBentoGrid() {
       "
       >
         <div className="card-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-black-400">
-          <div
+          <Link
+            href="/features/roadmap"
             className={cn(
-              'col-span-full lg:col-span-2 !border-r-0 !border-b-0 relative overflow-hidden group flex flex-col gap-y-5',
+              'col-span-full lg:col-span-2 !border-r-0 !border-b-0 relative overflow-hidden group flex gap-5',
               cardClasses
             )}
           >
-            <div className="flex flex-col gap-y-1 relative">
-              <h6 className="text-2xl text-gradient from-white to-white/55">
-                AI Powered Progression Paths
-              </h6>
-              <p className="text-xs text-gray-400">
-                Our AI powered roadmap will help you take the next step in your
-                developer journey.
-              </p>
+            <div className="flex flex-col justify-between">
+              <div className="flex flex-col gap-y-1 relative max-w-sm">
+                <h6 className="text-2xl text-gradient from-white to-white/55">
+                  AI Powered Progression Paths
+                </h6>
+                <p className="text-xs text-gray-400">
+                  Our AI powered roadmap will help you take the next step in
+                  your developer journey.
+                </p>
+              </div>
+              <Button
+                variant="secondary"
+                className="flex gap-x-2 items-center w-fit font-onest"
+              >
+                Learn more{' '}
+                <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
+              </Button>
             </div>
 
             <RoadmapFeatureBox />
@@ -65,16 +72,16 @@ export default function FeaturesBentoGrid() {
 
             <Grid
               size={20}
-              position="bottom-right"
+              position="bottom-left"
             />
-          </div>
+          </Link>
           <div
             className={cn(
               '!border-b-0 flex flex-col justify-between group',
               cardClasses
             )}
           >
-            <div className="flex flex-col gap-y-1">
+            <div className="flex flex-col gap-y-1 h-fit">
               <h6 className="text-2xl text-gradient from-white to-white/55">
                 Daily questions
               </h6>
@@ -86,14 +93,14 @@ export default function FeaturesBentoGrid() {
                 <CodeDisplay content={codeSnippet} />
               </div>
             </div>
-            <Button
+            {/* <Button
               href="/signup?ref=daily-question"
               variant="accent"
               className="flex gap-x-2 items-center w-fit font-ubuntu"
             >
               Answer now{' '}
               <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
-            </Button>
+            </Button> */}
           </div>
           <div className={cn('!border-r-0', cardClasses)}>
             <div className="flex flex-col gap-y-1">

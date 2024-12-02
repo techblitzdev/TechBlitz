@@ -33,7 +33,7 @@ export default function FeaturesBentoGrid() {
         </span>
       </div>
       <div
-        className="card-wrapper h-[750px]
+        className="card-wrapper h-[450px]
       "
       >
         <div className="card-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-black-400">

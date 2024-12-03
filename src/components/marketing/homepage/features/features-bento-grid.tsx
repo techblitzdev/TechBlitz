@@ -11,7 +11,7 @@ const cardClasses = 'border border-black-50 p-6';
 
 export default function FeaturesBentoGrid() {
   return (
-    <div className="pt-28 pb-20 flex flex-col gap-y-7 relative">
+    <section className="pt-28 pb-20 flex flex-col gap-y-7 relative">
       <div className="flex flex-col gap-y-1 items-center text-center">
         <div className="group w-fit relative inline-flex overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
           <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
@@ -27,7 +27,7 @@ export default function FeaturesBentoGrid() {
         </span>
       </div>
       <div
-        className="card-wrapper min-h-[660px] rounded-lg
+        className="card-wrapper min-h-[700px] rounded-lg
       "
       >
         <div className="card-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-black-400 rounded-lg">
@@ -78,26 +78,19 @@ export default function FeaturesBentoGrid() {
               'rounded-tr-lg h-80 !border-b-0 flex flex-col justify-between group overflow-hidden',
               cardClasses
             )}
+            style={{
+              background:
+                'radial-gradient(128% 107% at 100% 100%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
+            }}
           >
-            <div className="flex flex-col gap-y-1 h-fit">
+            <div className="flex flex-col gap-y-1">
               <h6 className="text-2xl text-gradient from-white to-white/55">
-                Daily questions
+                Progress tracking
               </h6>
               <p className="text-xs text-gray-400">
-                Daily questions will help you reinforce your learning and
-                understand concepts.
+                Our AI powered roadmap will help you take the next step in your
+                developer journey.
               </p>
-              <Button
-                variant="link"
-                padding="none"
-                className="text-white"
-              >
-                Answer now{' '}
-                <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
-              </Button>
-              <div className=" group-hover:scale-[1.03] duration-300 overflow-hidden">
-                <DailyQuestionBox />
-              </div>
             </div>
           </Link>
           <Link
@@ -120,24 +113,35 @@ export default function FeaturesBentoGrid() {
           </Link>
           <div
             className={cn(
-              'rounded-br-lg col-span-full lg:col-span-2',
+              'rounded-br-lg col-span-full lg:col-span-2 group overflow-hidden',
               cardClasses
             )}
           >
-            <div className="flex flex-col gap-y-1">
+            <div className="flex flex-col gap-y-1 h-fit">
               <h6 className="text-2xl text-gradient from-white to-white/55">
-                Progress tracking
+                Daily questions
               </h6>
               <p className="text-xs text-gray-400">
-                Our AI powered roadmap will help you take the next step in your
-                developer journey.
+                Daily questions will help you reinforce your learning and
+                understand concepts.
               </p>
+              <Button
+                variant="link"
+                padding="none"
+                className="text-white"
+              >
+                Answer now{' '}
+                <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
+              </Button>
+              <div className=" group-hover:scale-[1.03] duration-300 relative">
+                <DailyQuestionBox />
+              </div>
             </div>
           </div>
         </div>
       </div>
       {/* Fade-out gradient overlay */}
       <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-[#000000] to-transparent pointer-events-none"></div>
-    </div>
+    </section>
   );
 }

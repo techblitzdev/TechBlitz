@@ -33,15 +33,10 @@ export default function LeaderboardBentoBox() {
   const initialLeaderboard: LeaderboardItem[] = [
     { id: 1, name: 'Elon Musk' },
     { id: 2, name: 'Bill Gates' },
-    { id: 3, name: 'Jeff Bezos' }
+    { id: 3, name: 'Jeff Bezos' },
+    { id: 4, name: user ? getUserDisplayName(user) : 'Anonymous (you)' },
+    { id: 5, name: 'Mark Zuckerberg' }
   ];
-
-  // either we use the user name, or we add in a 'anonymous' user
-  if (user) {
-    initialLeaderboard.push({ id: 4, name: getUserDisplayName(user) });
-  } else if (!user) {
-    initialLeaderboard.push({ id: 4, name: 'Anonymous (you)' });
-  }
 
   const [leaderboard, setLeaderboard] = useState(initialLeaderboard);
   const [trend, setTrend] = useState<{

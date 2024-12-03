@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { useUser } from '@/hooks/useUser';
 import { getUserDisplayName } from '@/utils/user';
+import { Grid } from '@/components/ui/grid';
 
 interface LeaderboardItem {
   id: number;
@@ -83,7 +84,7 @@ export default function LeaderboardBentoBox() {
             key={item.id}
             layout
             transition={spring}
-            className="flex items-center justify-between px-4 py-3"
+            className="flex items-center justify-between pl-7 pr-6 py-3"
           >
             <p className="text-white leading-none font-semibold tracking-tight font-onest">
               {item.name}
@@ -101,7 +102,7 @@ export default function LeaderboardBentoBox() {
             </div>
           </motion.li>
         ))}
-        <li className="px-4 py-3 flex items-center gap-x-2 font-onest text-gray-400 text-sm">
+        <li className="pl-7 pr-6 py-3 flex items-center gap-x-2 font-onest text-gray-400 text-sm">
           Top Users
           <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
         </li>

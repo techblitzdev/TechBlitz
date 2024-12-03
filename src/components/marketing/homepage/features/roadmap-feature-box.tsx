@@ -45,7 +45,7 @@ export default function RoadmapFeatureBox() {
   }, []);
 
   return (
-    <Card className="group-hover:scale-[1.03] duration-300 rounded-bl-none w-full h-fit lg:max-w-2xl border-black-50 bg-black-75 shadow-md z-50 absolute -right-3 top-[98px]">
+    <Card className="group-hover:scale-[1.03] duration-300 pb-3 rounded-bl-none w-full lg:max-w-2xl border-black-50 bg-black-75 shadow-md z-50 absolute -right-3 top-28">
       <CardContent className="pt-6">
         <div className="flex items-center space-x-4 h-14">
           <AnimatePresence mode="wait">
@@ -77,7 +77,7 @@ export default function RoadmapFeatureBox() {
           </AnimatePresence>
         </div>
       </CardContent>
-      <CardFooter className="flex flex-col items-start space-y-2">
+      <CardFooter className="mt-2 flex flex-col items-start space-y-2.5">
         <motion.h3
           className="text-2xl font-semibold leading-none tracking-tight text-white"
           animate={{ opacity: 1 }}
@@ -96,7 +96,7 @@ export default function RoadmapFeatureBox() {
         </motion.p>
         <Progress
           value={progress}
-          className="w-full mt-4"
+          className="w-full mt-7"
         />
       </CardFooter>
     </Card>

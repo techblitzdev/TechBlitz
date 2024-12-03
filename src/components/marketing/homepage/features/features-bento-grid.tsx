@@ -5,12 +5,20 @@ import { ChevronRight } from 'lucide-react';
 import CodeDisplay from '@/components/questions/single/code-snippet';
 import RoadmapFeatureBox from './roadmap-feature-box';
 import Link from 'next/link';
+import DailyQuestionBox from './daily-question-box';
 
 const cardClasses = 'border border-black-50 p-6';
 const codeSnippet = `let numbers = [5, 3, 7];
 let sum = numbers.reduce((acc, num) => acc + num);
 // Missing line here
-console.log(result);`;
+// another missing line
+// and another!
+// Missing line here
+// another missing line
+// and another!
+// Missing line here
+// another missing line
+// and another!console.log(result);`;
 
 export default function FeaturesBentoGrid() {
   return (
@@ -77,7 +85,7 @@ export default function FeaturesBentoGrid() {
           </Link>
           <div
             className={cn(
-              '!border-b-0 flex flex-col justify-between group',
+              '!border-b-0 flex flex-col justify-between group overflow-hidden',
               cardClasses
             )}
           >
@@ -89,14 +97,21 @@ export default function FeaturesBentoGrid() {
                 Daily questions will help you reinforce your learning and
                 understand concepts.
               </p>
-              <div className="mt-4">
-                <CodeDisplay content={codeSnippet} />
-              </div>
+              <Button
+                variant="link"
+                padding="none"
+                className="text-white"
+              >
+                Answer now{' '}
+                <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
+              </Button>
+              <DailyQuestionBox />
             </div>
             {/* <Button
               href="/signup?ref=daily-question"
-              variant="accent"
-              className="flex gap-x-2 items-center w-fit font-ubuntu"
+              variant="link"
+              padding="none"
+              className="flex gap-x-2 items-center w-fit text-white group-hover:underline"
             >
               Answer now{' '}
               <ChevronRight className="size-4 group-hover:ml-1 duration-300" />

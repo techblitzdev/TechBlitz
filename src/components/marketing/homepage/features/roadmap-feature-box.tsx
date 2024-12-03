@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Progress } from '@/components/ui/progress';
-import { CheckCircle2 } from 'lucide-react';
+import { Check, CheckCircle2 } from 'lucide-react';
 
 const skeletonVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -45,7 +45,7 @@ export default function RoadmapFeatureBox() {
   }, []);
 
   return (
-    <Card className="group-hover:scale-[1.03] duration-300 rounded-bl-none w-full h-fit lg:max-w-2xl border-black-50 bg-black-75 shadow-md z-50 absolute -right-3 top-24">
+    <Card className="group-hover:scale-[1.03] duration-300 rounded-bl-none w-full h-fit lg:max-w-2xl border-black-50 bg-black-75 shadow-md z-50 absolute -right-3 top-[98px]">
       <CardContent className="pt-6">
         <div className="flex items-center space-x-4 h-14">
           <AnimatePresence mode="wait">
@@ -57,7 +57,9 @@ export default function RoadmapFeatureBox() {
                 animate="visible"
                 exit="exit"
               >
-                <CheckCircle2 className="size-16 text-green-500" />
+                <button className="inline-flex size-16 animate-shimmer items-center justify-center rounded-full bg-gradient-to-r from-green-400 via-green-600 to-green-400 bg-[length:200%_100%] font-medium transition-colors">
+                  <Check className="size-8 text-white" />
+                </button>
               </motion.div>
             ) : (
               <motion.div

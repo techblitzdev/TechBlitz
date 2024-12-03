@@ -135,6 +135,14 @@ const config: Config = {
           '100%': {
             transform: 'rotate(-360deg)'
           }
+        },
+        shimmer: {
+          from: {
+            backgroundPosition: '0 0'
+          },
+          to: {
+            backgroundPosition: '-200% 0'
+          }
         }
       },
       animation: {
@@ -143,7 +151,8 @@ const config: Config = {
         scroll: 'scroll 30s linear infinite',
         'scroll-right':
           'scroll-right var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite',
-        'border-spin': 'border-spin 10s linear infinite'
+        'border-spin': 'border-spin 10s linear infinite',
+        shimmer: 'shimmer 2s linear infinite'
       }
     }
   },

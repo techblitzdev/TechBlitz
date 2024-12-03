@@ -2,23 +2,12 @@ import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/ui/grid';
 import { cn } from '@/utils/cn';
 import { ChevronRight } from 'lucide-react';
-import CodeDisplay from '@/components/questions/single/code-snippet';
 import RoadmapFeatureBox from './roadmap-feature-box';
 import Link from 'next/link';
 import DailyQuestionBox from './daily-question-box';
+import LeaderboardBentoBox from './leaderboard-bento-box';
 
 const cardClasses = 'border border-black-50 p-6';
-const codeSnippet = `let numbers = [5, 3, 7];
-let sum = numbers.reduce((acc, num) => acc + num);
-// Missing line here
-// another missing line
-// and another!
-// Missing line here
-// another missing line
-// and another!
-// Missing line here
-// another missing line
-// and another!console.log(result);`;
 
 export default function FeaturesBentoGrid() {
   return (
@@ -38,14 +27,14 @@ export default function FeaturesBentoGrid() {
         </span>
       </div>
       <div
-        className="card-wrapper h-[450px]
+        className="card-wrapper min-h-[660px]
       "
       >
         <div className="card-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-black-400">
           <Link
             href="/features/roadmap"
             className={cn(
-              'col-span-full lg:col-span-2 !border-r-0 !border-b-0 relative overflow-hidden group flex gap-5',
+              'h-80 col-span-full lg:col-span-2 !border-r-0 !border-b-0 relative overflow-hidden group flex gap-5',
               cardClasses
             )}
           >
@@ -83,9 +72,10 @@ export default function FeaturesBentoGrid() {
               position="bottom-left"
             />
           </Link>
-          <div
+          <Link
+            href="/signup?ref=daily-question"
             className={cn(
-              '!border-b-0 flex flex-col justify-between group overflow-hidden',
+              'h-80 !border-b-0 flex flex-col justify-between group overflow-hidden',
               cardClasses
             )}
           >
@@ -105,31 +95,29 @@ export default function FeaturesBentoGrid() {
                 Answer now{' '}
                 <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
               </Button>
-              <DailyQuestionBox />
+              <div className=" group-hover:scale-[1.03] duration-300">
+                <DailyQuestionBox />
+              </div>
             </div>
-            {/* <Button
-              href="/signup?ref=daily-question"
-              variant="link"
-              padding="none"
-              className="flex gap-x-2 items-center w-fit text-white group-hover:underline"
-            >
-              Answer now{' '}
-              <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
-            </Button> */}
-          </div>
-          <div className={cn('!border-r-0', cardClasses)}>
+          </Link>
+          <Link
+            href="/features/leaderboard"
+            className={cn(
+              '!border-r-0 relative overflow-hidden group',
+              cardClasses
+            )}
+          >
+            <LeaderboardBentoBox />
             <div className="flex flex-col gap-y-1">
               <h6 className="text-2xl text-gradient from-white to-white/55">
                 Leaderboard
               </h6>
               <p className="text-xs text-gray-400">
-                Our AI powered roadmap will help you take the next step in your
-                developer journey.
+                Compete with other developers and see how you stack up against
+                them!
               </p>
-              {/** display user's who've answered the most questions */}
-              <div className=""></div>
             </div>
-          </div>
+          </Link>
           <div className={cn('col-span-full lg:col-span-2', cardClasses)}>
             <div className="flex flex-col gap-y-1">
               <h6 className="text-2xl text-gradient from-white to-white/55">

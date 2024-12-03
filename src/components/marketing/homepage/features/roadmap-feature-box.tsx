@@ -45,7 +45,13 @@ export default function RoadmapFeatureBox() {
   }, []);
 
   return (
-    <Card className="group-hover:scale-[1.03] duration-300 pb-3 rounded-bl-none w-full lg:max-w-2xl border-black-50 bg-black-75 shadow-md z-50 absolute -right-3 top-28">
+    <Card
+      style={{
+        background:
+          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
+      }}
+      className="group-hover:scale-[1.03] duration-300 pb-3 rounded-bl-none w-full lg:max-w-2xl border-black-50 bg-black-75 shadow-md z-50 absolute -right-3 top-28"
+    >
       <CardContent className="pt-6">
         <div className="flex items-center space-x-4 h-14">
           <AnimatePresence mode="wait">

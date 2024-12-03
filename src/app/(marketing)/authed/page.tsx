@@ -14,7 +14,7 @@ export default async function AuthedPage() {
 
   return (
     <div className="overflow-x-hidden">
-      <div className="mt-6 z-30 container">
+      <div className="mt-6 z-30 container relative">
         <MarketingNavigation />
         <HomepageHero />
         <FeaturesBentoGrid />

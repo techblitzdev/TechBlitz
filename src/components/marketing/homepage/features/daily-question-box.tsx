@@ -22,7 +22,7 @@ export default function DailyQuestionBox() {
   return (
     <motion.div
       ref={ref}
-      className="relative top-3 border border-black-50"
+      className="relative top-3 border border-black-50 rounded-lg overflow-hidden"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
       exit={{ opacity: 0, y: -20 }}

@@ -27,14 +27,14 @@ export default function FeaturesBentoGrid() {
         </span>
       </div>
       <div
-        className="card-wrapper min-h-[660px]
+        className="card-wrapper min-h-[660px] rounded-lg
       "
       >
-        <div className="card-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-black-400">
+        <div className="card-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-black-400 rounded-lg">
           <Link
             href="/features/roadmap"
             className={cn(
-              'h-80 col-span-full lg:col-span-2 !border-r-0 !border-b-0 relative overflow-hidden group flex gap-5',
+              'rounded-tl-lg h-80 col-span-full lg:col-span-2 !border-r-0 !border-b-0 relative overflow-hidden group flex gap-5',
               cardClasses
             )}
           >
@@ -75,7 +75,7 @@ export default function FeaturesBentoGrid() {
           <Link
             href="/signup?ref=daily-question"
             className={cn(
-              'h-80 !border-b-0 flex flex-col justify-between group overflow-hidden',
+              'rounded-tr-lg h-80 !border-b-0 flex flex-col justify-between group overflow-hidden',
               cardClasses
             )}
           >
@@ -95,7 +95,7 @@ export default function FeaturesBentoGrid() {
                 Answer now{' '}
                 <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
               </Button>
-              <div className=" group-hover:scale-[1.03] duration-300">
+              <div className=" group-hover:scale-[1.03] duration-300 overflow-hidden">
                 <DailyQuestionBox />
               </div>
             </div>
@@ -103,7 +103,7 @@ export default function FeaturesBentoGrid() {
           <Link
             href="/features/leaderboard"
             className={cn(
-              '!border-r-0 relative overflow-hidden group',
+              'rounded-br-lg !border-r-0 relative overflow-hidden group',
               cardClasses
             )}
           >
@@ -118,7 +118,12 @@ export default function FeaturesBentoGrid() {
               </p>
             </div>
           </Link>
-          <div className={cn('col-span-full lg:col-span-2', cardClasses)}>
+          <div
+            className={cn(
+              'rounded-br-lg col-span-full lg:col-span-2',
+              cardClasses
+            )}
+          >
             <div className="flex flex-col gap-y-1">
               <h6 className="text-2xl text-gradient from-white to-white/55">
                 Progress tracking

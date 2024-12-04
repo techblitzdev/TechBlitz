@@ -105,7 +105,7 @@ export default function LeaderboardBentoBox() {
             </div>
           </motion.li>
         ))}
-        <li className="pl-7 pr-6 py-3 flex items-center gap-x-2 font-onest text-gray-400 text-sm">
+        <li className="hidden sm:flex pl-7 pr-6 py-3 flex items-center gap-x-2 font-onest text-gray-400 text-sm">
           Top Users
           <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
         </li>

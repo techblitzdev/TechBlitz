@@ -133,7 +133,7 @@ export default function ProgressChart() {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
+        <div className="flex gap-2 font-medium leading-none text-white">
           {trend.isUp ? 'Trending up' : 'Trending down'} by {trend.percentage}%
           this period
           {trend.isUp ? (
@@ -142,7 +142,7 @@ export default function ProgressChart() {
             <TrendingDown className="h-4 w-4 text-red-500" />
           )}
         </div>
-        <div className="leading-none text-muted-foreground">
+        <div className="leading-none text-white">
           Showing questions answered for the last 12 months
         </div>
       </CardFooter>

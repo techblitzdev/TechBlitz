@@ -28,14 +28,14 @@ export default function FeaturesBentoGrid() {
         </span>
       </div>
       <div
-        className="card-wrapper min-h-[700px] rounded-lg
+        className="card-wrapper min-h-[1400px] md:min-h-[1000px] lg:min-h-[700px] rounded-lg
       "
       >
         <div className="card-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-black-400 rounded-lg">
           <Link
             href="/features/roadmap"
             className={cn(
-              'rounded-tl-lg h-80 col-span-full lg:col-span-2 !border-r-0 !border-b-0 relative overflow-hidden group flex gap-5',
+              'rounded-t-lg lg:rounded-tr-none lg:rounded-tl-lg h-80 col-span-full lg:col-span-2 lg:!border-r-0 !border-b-0 relative overflow-hidden group flex flex-col sm:flex-row gap-5',
               cardClasses
             )}
           >
@@ -51,7 +51,7 @@ export default function FeaturesBentoGrid() {
               </div>
               <Button
                 variant="secondary"
-                className="flex gap-x-2 items-center w-fit font-onest"
+                className="gap-x-2 items-center w-fit font-onest hidden md:flex"
               >
                 Learn more{' '}
                 <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
@@ -66,7 +66,7 @@ export default function FeaturesBentoGrid() {
           <Link
             href="/signup?ref=daily-question"
             className={cn(
-              'rounded-tr-lg h-80 !border-b-0 flex flex-col justify-between group overflow-hidden',
+              'lg:rounded-tr-lg h-[390px] lg:h-80 !border-b-0 flex flex-col justify-between group overflow-hidden',
               cardClasses
             )}
           >
@@ -88,7 +88,7 @@ export default function FeaturesBentoGrid() {
           <Link
             href="/features/leaderboard"
             className={cn(
-              'rounded-br-lg !border-r-0 relative overflow-hidden group',
+              'md:border-l-none lg:border-l md:border-b-none lg:border-b lg:rounded-bl-lg lg:!border-r-0 relative overflow-hidden md:overflow-hidden group',
               cardClasses
             )}
           >
@@ -106,7 +106,7 @@ export default function FeaturesBentoGrid() {
           <Link
             href="/features/daily-questions"
             className={cn(
-              'rounded-br-lg col-span-full lg:col-span-2 group overflow-hidden',
+              'rounded-bl-lg lg:rounded-bl-none rounded-br-lg col-span-full lg:col-span-2 group overflow-hidden',
               cardClasses
             )}
           >

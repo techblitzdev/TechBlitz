@@ -13,7 +13,6 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle
 } from '@/components/ui/navigation-menu';
-import Logo from '@/components/global/logo';
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -30,7 +29,7 @@ const components: { title: string; href: string; description: string }[] = [
   {
     title: 'Changelog',
     href: '/changelog',
-    description: 'Stay up to date with the latest changes to our techblitz.'
+    description: 'Stay up to date with the latest changes to techblitz.'
   },
   {
     title: 'FAQs',

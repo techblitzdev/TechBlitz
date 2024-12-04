@@ -8,7 +8,7 @@ import HomepageHeroImages from './hero-images';
 
 export default function HomepageHero() {
   return (
-    <section className="py-16 lg:py-40 grid grid-cols-12 gap-4 lg:gap-16 items-center">
+    <section className="py-16 md:pb-20 md:pt-32 xl:py-40 grid grid-cols-12 gap-4 lg:gap-16 items-center">
       <div className="flex flex-col gap-y-4 col-span-full lg:col-span-6 xl:col-span-5">
         <Link
           href="/"

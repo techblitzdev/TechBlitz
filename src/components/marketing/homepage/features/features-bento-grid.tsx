@@ -64,7 +64,7 @@ export default function FeaturesBentoGrid() {
             />
           </Link>
           <Link
-            href="/signup?ref=daily-question"
+            href="/features/progress-tracking"
             className={cn(
               'lg:rounded-tr-lg h-[390px] lg:h-80 !border-b-0 flex flex-col justify-between group overflow-hidden',
               cardClasses
@@ -134,8 +134,6 @@ export default function FeaturesBentoGrid() {
           </Link>
         </div>
       </div>
-      {/* Fade-out gradient overlay */}
-      <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-[#000000] to-transparent pointer-events-none"></div>
     </section>
   );
 }

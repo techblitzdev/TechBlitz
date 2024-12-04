@@ -14,12 +14,14 @@ export default async function AuthedPage() {
 
   return (
     <div className="overflow-x-hidden">
-      <div className="mt-6 z-30 container relative">
+      <div className="z-30">
         <MarketingNavigation />
-        <HomepageHero />
-        <FeaturesBentoGrid />
-        <HomepageLargeText />
-        <MarketingFooter />
+        <div className="container">
+          <HomepageHero />
+          <FeaturesBentoGrid />
+          <HomepageLargeText />
+          <MarketingFooter />
+        </div>
       </div>
     </div>
   );

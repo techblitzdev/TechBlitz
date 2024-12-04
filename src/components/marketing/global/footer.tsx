@@ -58,7 +58,7 @@ export default function MarketingFooter() {
                 <Logo />
                 <Button
                   variant="accent"
-                  className="items-center flex md:hidden w-fit"
+                  className="items-center flex md:hidden w-fit font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
                   href="/signup"
                 >
                   Get Started for Free
@@ -92,7 +92,7 @@ export default function MarketingFooter() {
             <div className="mt-6 lg:mt-0 space-y-2">
               <Button
                 variant="accent"
-                className="items-center hidden md:flex w-fit"
+                className="items-center hidden md:flex w-fit font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
                 href="/signup"
               >
                 Get Started for Free

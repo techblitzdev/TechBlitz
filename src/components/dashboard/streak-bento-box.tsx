@@ -1,6 +1,6 @@
 import { DatePicker } from '@mantine/dates';
 import { Grid } from '../ui/grid';
-import Chip from './chip';
+import Chip from '../global/chip';
 import { getUserFromSession } from '@/actions/user/get-user';
 import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 import { FlameIcon } from 'lucide-react';
@@ -36,7 +36,10 @@ export default async function StreakBentoBox() {
         />
       </div>
       <div className="flex w-full justify-between items-end">
-        <Chip color="accent" text="Streak" />
+        <Chip
+          color="accent"
+          text="Streak"
+        />
         {/* <Button variant="secondary">
           View more stats
           <ArrowRight className="size-3 ml-1 group-hover:ml-2 duration-300" />
@@ -50,7 +53,10 @@ export default async function StreakBentoBox() {
           <FlameIcon className="fill-red-500 text-orange-500" />
         </div>
       </div>
-      <Grid size={20} position="bottom-left" />
+      <Grid
+        size={20}
+        position="bottom-left"
+      />
     </div>
   );
 }

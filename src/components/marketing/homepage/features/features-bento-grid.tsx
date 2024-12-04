@@ -6,6 +6,7 @@ import RoadmapFeatureBox from './roadmap-feature-box';
 import Link from 'next/link';
 import DailyQuestionBox from './daily-question-box';
 import LeaderboardBentoBox from './leaderboard-bento-box';
+import ProgressionBentoBox from './progression-box';
 
 const cardClasses = 'border border-black-50 p-6';
 
@@ -73,14 +74,19 @@ export default function FeaturesBentoGrid() {
                 'radial-gradient(128% 107% at 100% 100%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
             }}
           >
-            <div className="flex flex-col gap-y-1">
-              <h6 className="text-2xl text-gradient from-white to-white/55">
-                Progress tracking
-              </h6>
-              <p className="text-xs text-gray-400">
-                Our AI powered roadmap will help you take the next step in your
-                developer journey.
-              </p>
+            <div className="flex flex-col gap-y-4 relative">
+              <div className="flex flex-col gap-y-1">
+                <h6 className="text-2xl text-gradient from-white to-white/55">
+                  Progress tracking
+                </h6>
+                <p className="text-xs text-gray-400">
+                  Track your progress and view your strengths and weaknesses as
+                  you learn.
+                </p>
+              </div>
+              <div className="w-full h-fit flex items-center justify-center">
+                <ProgressionBentoBox />
+              </div>
             </div>
           </Link>
           <Link

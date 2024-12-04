@@ -14,11 +14,17 @@ export default function Page() {
       </div>
       <div className="flex flex-col items-center gap-y-6 lg:p-8 shadow-lg rounded-lg max-w-2xl text-center">
         <div className="flex flex-col gap-4 items-center">
-          <HoverBorderGradient className="px-8 py-1.5 bg-transparent font-ubuntu text-xs">
-            Waitlist
-          </HoverBorderGradient>
-          <h1 className="text-2xl md:text-4xl font-bold font-satoshi text-white leading-snug">
-            Unleash Your Potential with <br /> Engaging Software Learning
+          <Link
+            href="/"
+            className="group w-fit relative inline-flex overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
+          >
+            <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+            <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-5 py-1 text-sm font-medium text-white backdrop-blur-3xl">
+              Waitlist
+            </span>
+          </Link>
+          <h1 className="text-3xl lg:text-5xl !font-onest !font-medium !leading-[1.1] text-gradient from-white to-white/75">
+            Master Software Skills Through Interactive Learning
           </h1>
           <p className="text-gray-400 text-sm font-ubuntu">
             Accelerate your software development skills through dynamic

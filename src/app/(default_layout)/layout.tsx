@@ -1,5 +1,10 @@
 import type { Metadata } from 'next';
-import { InterFont, SatoshiFont, UbuntuFont } from '../styles/fonts/font';
+import {
+  InterFont,
+  OnestFont,
+  SatoshiFont,
+  UbuntuFont
+} from '../styles/fonts/font';
 import '../globals.css';
 import { ReactQueryClientProvider } from '@/components/react-query-client-provider';
 import { Toaster } from '@/components/ui/sonner';
@@ -31,7 +36,7 @@ export default function Layout({
     <ReactQueryClientProvider>
       <html lang="en">
         <body
-          className={`${InterFont.variable} ${SatoshiFont.variable} ${UbuntuFont.variable} antialiased`}
+          className={`${InterFont.variable} ${SatoshiFont.variable} ${UbuntuFont.variable} ${OnestFont.variable} antialiased`}
           suppressHydrationWarning={true}
         >
           <SidebarProvider>

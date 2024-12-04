@@ -8,7 +8,7 @@ import HomepageHeroImages from './hero-images';
 
 export default function HomepageHero() {
   return (
-    <section className="py-16 lg:py-32 grid grid-cols-12 gap-4 lg:gap-16 items-center">
+    <section className="py-16 md:pb-20 md:pt-32 xl:py-40 grid grid-cols-12 gap-4 lg:gap-16 items-center">
       <div className="flex flex-col gap-y-4 col-span-full lg:col-span-6 xl:col-span-5">
         <Link
           href="/"
@@ -20,14 +20,21 @@ export default function HomepageHero() {
             <ArrowUpRight className="ml-2 size-4 group-hover:rotate-45 duration-300" />
           </span>
         </Link>
-        <h1 className="text-3xl lg:text-5xl font-inter !font-medium !leading-[normal]">
-          Your <Highlight>personalized</Highlight> path to master software
-          engineering.
+        <h1 className="text-3xl lg:text-5xl !font-onest !font-medium !leading-[1.1] text-gradient from-white to-white/75">
+          Your{' '}
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/55">
+            personalized
+          </span>
+          <br />
+          path to master software engineering.
         </h1>
-        <h6 className="font-inter">
+        <h6 className="font-onest">
           A fully customizable, end-to-end learning platform for software
           engineers of all abilities — packed with daily challenges that are{' '}
-          <strong>actually</strong> useful.
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/80">
+            actually
+          </span>{' '}
+          useful.
         </h6>
         <div className="flex flex-col gap-y-3">
           <div className="flex flex-col md:flex-row gap-3 md:items-end mt-3 w-full">

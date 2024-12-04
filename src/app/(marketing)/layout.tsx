@@ -1,5 +1,10 @@
 import type { Metadata } from 'next';
-import { InterFont, SatoshiFont, UbuntuFont } from '../styles/fonts/font';
+import {
+  InterFont,
+  OnestFont,
+  SatoshiFont,
+  UbuntuFont
+} from '../styles/fonts/font';
 import '../globals.css';
 import { ReactQueryClientProvider } from '@/components/react-query-client-provider';
 import { Toaster } from '@/components/ui/sonner';
@@ -15,7 +20,7 @@ import '@mantine/dates/styles.css';
 import { StarsBackground } from '@/components/ui/stars-background';
 
 export const metadata: Metadata = {
-  title: 'techblitz',
+  title: 'techblitz | The all-in-one platform for developers',
   description: 'Improve your code knowledge, one day at a time.'
 };
 
@@ -30,7 +35,7 @@ export default function Layout({
     <ReactQueryClientProvider>
       <html lang="en">
         <body
-          className={`${InterFont.variable} ${SatoshiFont.variable} ${UbuntuFont.variable} antialiased`}
+          className={`${InterFont.variable} ${SatoshiFont.variable} ${UbuntuFont.variable} ${OnestFont.variable} antialiased`}
           suppressHydrationWarning={true}
         >
           <main>

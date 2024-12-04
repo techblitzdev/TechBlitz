@@ -10,7 +10,7 @@ import TodaysQuestionBentoBox from './todays-question-bento-box';
 import YesterdaysQuestionBentoBox from './yesterdays-question-bento-box';
 import { getYesterdaysQuestion } from '@/actions/questions/get-yesterdays-question';
 import ProgressBentoBox from './progression-bento-box';
-import StreakBentoBox from '../global/streak-bento-box';
+import StreakBentoBox from './streak-bento-box';
 
 export default async function DashboardBentoGrid() {
   const todaysQuestion = await getTodaysQuestion();
@@ -27,7 +27,7 @@ export default async function DashboardBentoGrid() {
       className: 'h-full text-white',
       // conditionally render the href based on whether there is a question
       href: todaysQuestion?.uid ? `/question/${todaysQuestion?.uid}` : null,
-      padded: false,
+      padded: false
     },
     {
       header: <YesterdaysQuestionBentoBox question={yesterdaysQuestion} />,
@@ -36,24 +36,24 @@ export default async function DashboardBentoGrid() {
       href: yesterdaysQuestion?.uid
         ? `/question/${yesterdaysQuestion?.uid}`
         : null,
-      padded: false,
+      padded: false
     },
     {
       header: <AllQuestionsDashboardBentoBox />,
       className: 'md:col-span-2 text-white',
       href: '/questions/all',
-      padded: false,
+      padded: false
     },
     {
       header: <TodaysLeaderboardBentoBox todaysQuestion={todaysQuestion} />,
       className: 'md:col-span-1 md:row-span-2 text-white h-full',
       href: '/leaderboard',
-      padded: false,
+      padded: false
     },
     {
       header: <ProgressBentoBox />,
       className: 'md:col-span-2 text-white',
-      padded: false,
+      padded: false
     },
     {
       //title: `${userStreak?.totalDailyStreak} day streak!`,
@@ -65,8 +65,8 @@ export default async function DashboardBentoGrid() {
         <StreakBentoBox />
       ),
       className: 'md:col-span-1 text-white',
-      padded: false,
-    },
+      padded: false
+    }
   ];
 
   // remove any hrefs that are null

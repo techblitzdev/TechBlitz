@@ -5,6 +5,7 @@ import { Highlight, themes } from 'prism-react-renderer';
 interface CodeDisplayProps {
   content: string;
   language?: string;
+  backgroundColor?: string;
 }
 
 interface HighlightProps {
@@ -21,7 +22,11 @@ interface Token {
   empty?: boolean;
 }
 
-export default function CodeDisplay({ content, language }: CodeDisplayProps) {
+export default function CodeDisplay({
+  content,
+  language,
+  backgroundColor = '#111111'
+}: CodeDisplayProps) {
   // Clean the content by removing pre and code tags
   const cleanContent = content
     .replace(/<pre><code[^>]*>/g, '')
@@ -42,11 +47,11 @@ export default function CodeDisplay({ content, language }: CodeDisplayProps) {
         style,
         tokens,
         getLineProps,
-        getTokenProps,
+        getTokenProps
       }: HighlightProps) => (
         <pre
           className="overflow-x-auto p-4 h-full text-wrap"
-          style={{ ...style, background: '#111111' }}
+          style={{ ...style, background: backgroundColor }}
         >
           {tokens.map((line, lineIndex) => (
             <div
@@ -59,7 +64,10 @@ export default function CodeDisplay({ content, language }: CodeDisplayProps) {
               </span>
               <span className="table-cell text-sm">
                 {line.map((token, tokenIndex) => (
-                  <span key={tokenIndex} {...getTokenProps({ token })} />
+                  <span
+                    key={tokenIndex}
+                    {...getTokenProps({ token })}
+                  />
                 ))}
               </span>
             </div>

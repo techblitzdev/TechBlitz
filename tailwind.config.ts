@@ -18,7 +18,8 @@ const config: Config = {
       fontFamily: {
         inter: ['var(--font-inter)'],
         satoshi: ['var(--font-satoshi)'],
-        ubuntu: ['var(--font-ubuntu)']
+        ubuntu: ['var(--font-ubuntu)'],
+        onest: ['var(--font-onest)']
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -129,6 +130,19 @@ const config: Config = {
           to: {
             transform: 'translate(calc(-50% - 0.5rem))'
           }
+        },
+        'border-spin': {
+          '100%': {
+            transform: 'rotate(-360deg)'
+          }
+        },
+        shimmer: {
+          from: {
+            backgroundPosition: '0 0'
+          },
+          to: {
+            backgroundPosition: '-200% 0'
+          }
         }
       },
       animation: {
@@ -136,7 +150,9 @@ const config: Config = {
         'accordion-up': 'accordion-up 0.2s ease-out',
         scroll: 'scroll 30s linear infinite',
         'scroll-right':
-          'scroll-right var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite'
+          'scroll-right var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite',
+        'border-spin': 'border-spin 10s linear infinite',
+        shimmer: 'shimmer 2s linear infinite'
       }
     }
   },

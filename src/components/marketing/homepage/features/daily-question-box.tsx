@@ -67,8 +67,8 @@ export default function DailyQuestionBox() {
       </motion.div>
       <motion.div
         className="
-          absolute top-24 left-72 border border-black-50 rounded-lg 
-          overflow-hidden w-3/5 group-hover:top-6 duration-500 group-hover:scale-[1.04]
+          absolute top-24 left-24 md:left-72 border border-black-50 rounded-lg 
+          overflow-hidden w-4/5 md:w-3/5 group-hover:top-6 duration-500 group-hover:scale-[1.04]
         "
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}

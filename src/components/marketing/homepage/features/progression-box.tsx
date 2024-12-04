@@ -18,7 +18,11 @@ export default function ProgressionBentoBox() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="absolute top-28 flex flex-col gap-4 w-full bg-black rounded-lg border border-white/10"
+      className="absolute top-28 flex flex-col gap-4 w-full rounded-lg"
+      style={{
+        background:
+          'radial-gradient(128% 107% at 100% 100%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
+      }}
     >
       {/* <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">

@@ -69,10 +69,6 @@ export default function FeaturesBentoGrid() {
               'rounded-tr-lg h-80 !border-b-0 flex flex-col justify-between group overflow-hidden',
               cardClasses
             )}
-            style={{
-              background:
-                'radial-gradient(128% 107% at 100% 100%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
-            }}
           >
             <div className="flex flex-col gap-y-4 relative">
               <div className="flex flex-col gap-y-1">

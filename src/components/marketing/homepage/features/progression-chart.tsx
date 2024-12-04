@@ -39,7 +39,13 @@ const chartConfig = {
 
 export default function ProgressChart() {
   return (
-    <Card className="border-black-50">
+    <Card
+      style={{
+        background:
+          'radial-gradient(128% 107% at 100% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
+      }}
+      className="border-black-50"
+    >
       <CardHeader>
         <CardTitle className="text-white">Your statistics</CardTitle>
         <CardDescription>November - December 2024</CardDescription>
@@ -86,7 +92,7 @@ export default function ProgressChart() {
           Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
+          Showing questions answered for the last 2 months
         </div>
       </CardFooter>
     </Card>

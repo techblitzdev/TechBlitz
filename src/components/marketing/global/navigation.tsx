@@ -36,7 +36,9 @@ export default function MarketingNavigation() {
             </li>
           </ul>
         </nav> */}
-        <NavigationMenuItems />
+        <div className="absolute left-1/2 transform -translate-x-1/2 py-2 px-4 hidden md:block">
+          <NavigationMenuItems />
+        </div>
         <div className="items-center gap-x-2 hidden md:flex">
           <Button
             href="/login"

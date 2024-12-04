@@ -7,7 +7,12 @@ export const Grid = ({
 }: {
   pattern?: number[][];
   size?: number;
-  position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  position?:
+    | 'top-left'
+    | 'top-right'
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'cover';
 }) => {
   const p = pattern ?? [
     [Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
@@ -22,7 +27,8 @@ export const Grid = ({
     'top-left': 'left-0 top-0',
     'top-right': 'right-0 top-0 transform scale-x-[-1]',
     'bottom-left': 'left-0 bottom-0 transform scale-y-[-1]',
-    'bottom-right': 'right-0 bottom-0 transform scale-x-[-1] scale-y-[-1]'
+    'bottom-right': 'right-0 bottom-0 transform scale-x-[-1] scale-y-[-1]',
+    cover: 'scale-150 top-0'
   };
 
   return (
@@ -37,7 +43,7 @@ export const Grid = ({
           x="-12"
           y="4"
           squares={p}
-          className="absolute inset-0 h-full w-full mix-blend-overlay fill-white/10 stroke-white/10"
+          className="absolute inset-0 h-full w-full mix-blend-overlay fill-white/10 stroke-black-50 z-0"
         />
       </div>
     </div>

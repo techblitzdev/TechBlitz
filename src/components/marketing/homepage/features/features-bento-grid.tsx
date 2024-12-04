@@ -51,7 +51,7 @@ export default function FeaturesBentoGrid() {
               </div>
               <Button
                 variant="secondary"
-                className="gap-x-2 items-center w-fit font-onest hidden md:flex"
+                className="z-10 relative gap-x-2 items-center w-fit font-onest hidden md:flex"
               >
                 Learn more{' '}
                 <ChevronRight className="size-4 group-hover:ml-1 duration-300" />

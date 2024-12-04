@@ -35,7 +35,7 @@ export default function MarketingNavigation() {
           <Button
             href="signup"
             variant="accent"
-            className="font-onest"
+            className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
           >
             Get Started
             <ArrowRight className="ml-2 size-4" />

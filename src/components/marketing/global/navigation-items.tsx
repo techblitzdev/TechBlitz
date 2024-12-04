@@ -98,7 +98,7 @@ export function NavigationMenuItems() {
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Link
-            href="/docs"
+            href="/pricing"
             legacyBehavior
             passHref
           >

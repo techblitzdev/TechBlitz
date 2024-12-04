@@ -29,7 +29,7 @@ function SignupContent({
 }) {
   // check if we have any query parameters
   const urlParams = useGetQueryParams({
-    keys: ['r']
+    keys: ['r', 'email']
   });
 
   // if we have a query parameter, we can use it to display a toast message
@@ -69,7 +69,7 @@ function SignupContent({
       <p className="text-gray-300 mb-8 text-sm font-satoshi text-wrap">
         And become a part of the fastest growing community <br /> of developers.
       </p>
-      <SignupForm />
+      <SignupForm prefilledEmail={urlParams?.email || ''} />
     </div>
   );
 }

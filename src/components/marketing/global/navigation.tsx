@@ -4,16 +4,6 @@ import { Button } from '../../ui/button';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 import { ArrowRight } from 'lucide-react';
 
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport
-} from '@/components/ui/navigation-menu';
 import { NavigationMenuItems } from './navigation-items';
 
 export default function MarketingNavigation() {
@@ -23,19 +13,6 @@ export default function MarketingNavigation() {
         <Link href="/">
           <Logo />
         </Link>
-        {/* <nav className="absolute left-1/2 transform -translate-x-1/2 py-2 px-4 hidden md:block">
-          <ul className="flex items-center gap-x-8 font-onest text-sm">
-            <li className="text-white hover:text-gray-400 duration-300 hover:cursor-pointer">
-              <Link href="/platform">Platform</Link>
-            </li>
-            <li className="text-white hover:text-gray-400 duration-300 hover:cursor-pointer">
-              <Link href="/pricing">Pricing</Link>
-            </li>
-            <li className="text-white hover:text-gray-400 duration-300 hover:cursor-pointer">
-              <Link href="/contact">Contact</Link>
-            </li>
-          </ul>
-        </nav> */}
         <div className="absolute left-1/2 transform -translate-x-1/2 py-2 px-4 hidden md:block">
           <NavigationMenuItems />
         </div>

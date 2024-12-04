@@ -14,9 +14,7 @@ totalRevenue *= 0.9;
 // Format as currency
 let formattedRevenue = £\${totalSales.toFixed(2)}\;
 // Missing line here
-// and another missing line
-// and another!console.log(formattedRevenue);
-// I see you in th 
+console.log(formattedRevenue);
 `;
 
 const codeSnippet2 = `
@@ -28,7 +26,9 @@ let payroll = employees
 // Add bonuses for overtime
 payroll += employees
   .filter(emp => emp.hoursWorked > 40)
-  .map(emp => (emp.hoursWorked - 40) * emp.hourlyRate * 1.5)
+  .map(emp => (emp.hoursWorked - 40) * 
+  // hey there 😉
+  emp.hourlyRate * 1.5)
   .reduce((acc, bonus) => acc + bonus, 0);
 // Format as currency
 let formattedPayroll = \`Total payroll: £\${payroll.toFixed(2)}\`;
@@ -42,9 +42,15 @@ export default function DailyQuestionBox() {
   const isInView = useInView(ref, { once: true });
 
   return (
-    <div ref={ref}>
+    <div
+      ref={ref}
+      className="gap-10"
+    >
       <motion.div
-        className="relative top-3 border border-black-50 rounded-lg overflow-hidden w-3/4"
+        className="
+          relative top-6 border border-black-50 rounded-lg overflow-hidden 
+          w-3/4 group-hover:top-12 duration-500 group-hover:scale-[1.03]
+        "
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
         exit={{ opacity: 0, y: -20 }}
@@ -60,14 +66,18 @@ export default function DailyQuestionBox() {
         />
       </motion.div>
       <motion.div
-        className="absolute top-20 left-72 border border-black-50 rounded-lg overflow-hidden w-3/5"
+        className="
+          absolute top-24 left-72 border border-black-50 rounded-lg 
+          overflow-hidden w-3/5 group-hover:top-6 duration-500 group-hover:scale-[1.04]
+        "
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
         exit={{ opacity: 0, y: -20 }}
         transition={{
           type: 'spring',
           stiffness: 100,
-          damping: 15
+          damping: 15,
+          delay: 0.2
         }}
       >
         <CodeDisplay

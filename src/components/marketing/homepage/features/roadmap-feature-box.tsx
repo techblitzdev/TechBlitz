@@ -102,7 +102,7 @@ export default function RoadmapFeatureBox() {
         </motion.p>
         <Progress
           value={progress}
-          className="w-full mt-7"
+          className="w-full mt-7 "
         />
       </CardFooter>
     </Card>

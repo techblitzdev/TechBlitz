@@ -56,17 +56,7 @@ export default function FeaturesBentoGrid() {
                 <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
               </Button>
             </div>
-
             <RoadmapFeatureBox />
-
-            {/* <Image
-              src={FeaturesRoadmapImg}
-              alt="Features Roadmap"
-              layout="responsive"
-              placeholder="blur"
-              className="z-50 absolute -right-20 top-0 border border-black-50"
-            /> */}
-
             <Grid
               size={20}
               position="bottom-left"
@@ -111,33 +101,35 @@ export default function FeaturesBentoGrid() {
               </p>
             </div>
           </Link>
-          <div
+          <Link
+            href="/features/daily-questions"
             className={cn(
               'rounded-br-lg col-span-full lg:col-span-2 group overflow-hidden',
               cardClasses
             )}
           >
-            <div className="flex flex-col gap-y-1 h-fit">
-              <h6 className="text-2xl text-gradient from-white to-white/55">
-                Daily questions
-              </h6>
-              <p className="text-xs text-gray-400">
-                Daily questions will help you reinforce your learning and
-                understand concepts.
-              </p>
+            <div className="flex justify-between">
+              <div className="flex flex-col gap-y-1 h-fit">
+                <h6 className="text-2xl text-gradient from-white to-white/55">
+                  Daily questions
+                </h6>
+                <p className="text-xs text-gray-400">
+                  Daily questions will help you reinforce your learning and
+                  understand concepts.
+                </p>
+              </div>
               <Button
-                variant="link"
-                padding="none"
-                className="text-white"
+                variant="accent"
+                className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
               >
-                Answer now{' '}
+                Learn more{' '}
                 <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
               </Button>
-              <div className=" group-hover:scale-[1.03] duration-300 relative">
-                <DailyQuestionBox />
-              </div>
             </div>
-          </div>
+            <div className="relative">
+              <DailyQuestionBox />
+            </div>
+          </Link>
         </div>
       </div>
       {/* Fade-out gradient overlay */}

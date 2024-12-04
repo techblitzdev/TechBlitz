@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import { useMemo } from 'react';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { shuffle } from 'lodash';
@@ -9,11 +9,11 @@ import {
   ChevronUp,
   ChevronDown,
   TrophyIcon,
-  ChevronRight
+  ChevronRight,
+  Minus
 } from 'lucide-react';
 import { useUser } from '@/hooks/useUser';
 import { getUserDisplayName } from '@/utils/user';
-import { Grid } from '@/components/ui/grid';
 
 interface LeaderboardItem {
   id: number;
@@ -30,11 +30,16 @@ export default function LeaderboardBentoBox() {
   // get the current user
   const { user: user } = useUser();
 
+  // Memoize the username
+  const username = useMemo(() => {
+    return user ? getUserDisplayName(user) : 'Anonymous';
+  }, [user]);
+
   const initialLeaderboard: LeaderboardItem[] = [
     { id: 1, name: 'Elon Musk' },
     { id: 2, name: 'Bill Gates' },
     { id: 3, name: 'Jeff Bezos' },
-    { id: 4, name: user ? getUserDisplayName(user) : 'Anonymous (you)' },
+    { id: 4, name: `${username} (you)` },
     { id: 5, name: 'Mark Zuckerberg' }
   ];
 
@@ -90,6 +95,9 @@ export default function LeaderboardBentoBox() {
               )}
               {trend[item.id] === 'down' && (
                 <ChevronDown className="w-4 h-4 text-red-500" />
+              )}
+              {trend[item.id] === 'neutral' && (
+                <Minus className="w-4 h-4 text-gray-400" />
               )}
               <span className="text-gray-400 text-sm font-bold font-onest">
                 {index + 1}

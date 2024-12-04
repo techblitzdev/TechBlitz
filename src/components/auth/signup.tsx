@@ -21,12 +21,14 @@ import Link from 'next/link';
 
 type SchemaProps = z.infer<typeof signupSchema>;
 
-export default function SignupForm() {
+export default function SignupForm(opts: { prefilledEmail?: string }) {
+  const { prefilledEmail } = opts;
+
   const router = useRouter();
   const form = useForm<SchemaProps>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
-      email: '',
+      email: prefilledEmail || '',
       password: ''
     }
   });

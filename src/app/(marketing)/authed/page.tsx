@@ -2,7 +2,7 @@ import CallToActionBlock from '@/components/marketing/global/call-to-action-bloc
 import MarketingFooter from '@/components/marketing/global/footer';
 import MarketingNavigation from '@/components/marketing/global/navigation';
 import FeaturesBentoGrid from '@/components/marketing/homepage/features/features-bento-grid';
-import HomepageHero from '@/components/marketing/homepage/hero';
+import HomepageHero from '@/components/marketing/homepage/hero/hero';
 import HomepageLargeText from '@/components/marketing/homepage/large-text';
 import { useUserServer } from '@/hooks/useUserServer';
 import { redirect } from 'next/navigation';

@@ -1,10 +1,8 @@
-import { Button } from '@/components/ui/button';
-import { Highlight } from '@/components/ui/highlight';
-import { Input } from '@/components/ui/input';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
-import HomepageHeroImages from './hero-images';
+import HomepageHeroImages from '../hero/hero-images';
+import HomepageHeroEmailSignup from './email-input';
 
 export default function HomepageHero() {
   return (
@@ -36,28 +34,7 @@ export default function HomepageHero() {
           </span>{' '}
           useful.
         </h6>
-        <div className="flex flex-col gap-y-3">
-          <div className="flex flex-col md:flex-row gap-3 md:items-end mt-3 w-full">
-            <Input
-              className="
-								bg-transparent p-2 placeholder:text-white/50 autofill:!bg-transparent border border-black-50
-								focus-visible:outline-none focus-visible:ring-0 disabled:cursor-not-allowed disabled:opacity-50 px-4
-								hover:border-white/50 w-full lg:w-72
-          		"
-              placeholder="Enter your email"
-            />
-            <Button
-              variant="accent"
-              className="w-full lg:w-fit items-center"
-            >
-              Get Started
-              <ArrowRight className="ml-2 size-4" />
-            </Button>
-          </div>
-          <p className="text-gray-400 text-xs pl-0.5">
-            No credit card required.
-          </p>
-        </div>
+        <HomepageHeroEmailSignup />
       </div>
 
       <div className="col-span-full lg:col-span-6 xl:col-span-7 h-full">

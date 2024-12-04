@@ -50,7 +50,7 @@ export default function RoadmapFeatureBox() {
         background:
           'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
       }}
-      className="group-hover:scale-[1.03] duration-300 pb-3 rounded-bl-none w-full lg:max-w-2xl border-black-50 bg-black-75 shadow-md z-50 absolute -right-3 top-28"
+      className="group-hover:scale-[1.03] duration-300 pb-3 rounded-bl-none max-w-md lg:max-w-lg xl:max-w-2xl border-black-50 bg-black-75 shadow-md z-50 absolute -right-3 top-28"
     >
       <CardContent className="pt-6">
         <div className="flex items-center space-x-4 h-14">
@@ -63,9 +63,9 @@ export default function RoadmapFeatureBox() {
                 animate="visible"
                 exit="exit"
               >
-                <button className="inline-flex size-16 animate-shimmer items-center justify-center rounded-full bg-gradient-to-r from-green-400 via-green-600 to-green-400 bg-[length:200%_100%] font-medium transition-colors">
+                <div className="inline-flex size-16 animate-shimmer items-center justify-center rounded-full bg-gradient-to-r from-green-400 via-green-600 to-green-400 bg-[length:200%_100%] font-medium transition-colors">
                   <Check className="size-8 text-white" />
-                </button>
+                </div>
               </motion.div>
             ) : (
               <motion.div

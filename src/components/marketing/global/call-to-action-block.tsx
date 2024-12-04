@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/ui/grid';
 import { Separator } from '@/components/ui/separator';
+import { ChevronRight } from 'lucide-react';
 
 export default function CallToActionBlock(opts: {
   title: string;
@@ -37,10 +38,11 @@ export default function CallToActionBlock(opts: {
         <Button
           variant="secondary"
           size="lg"
-          className="font-onest"
+          className="font-onest group"
           href="/features"
         >
           <span>Learn More</span>
+          <ChevronRight size={16} />
         </Button>
       </div>
       <Grid

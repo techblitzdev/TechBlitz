@@ -31,7 +31,7 @@ export default function OpenSourceBlock() {
       <div className="col-span-7 relative">
         <div className="absolute inset-x-0 w-full top-0 h-20 bg-gradient-to-b from-[#000000] to-transparent pointer-events-none"></div>
         {/** 'timeline' line */}
-        <div className="absolute inset-y-0 w-[2px] h-full left-10 bg-[#3d444db3] -z-10" />
+        <div className="absolute inset-y-0 w-[2px] h-full left-4 bg-[#3d444db3] -z-10" />
         <div className="flex flex-col gap-16 z-10">
           <OpenSourceCard />
           <OpenSourceCard />

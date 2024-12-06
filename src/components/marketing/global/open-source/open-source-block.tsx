@@ -76,7 +76,7 @@ export default function OpenSourceBlock() {
         </a>
       </div>
       {/** illustration / GH card area */}
-      <div className="scale-105 col-span-7 relative overflow-y-clip max-h-[450px] [transform:perspective(4101px)_rotateX(47deg)_rotateY(-13deg)_rotateZ(31deg)] top-8 hover:[transform:perspective(4101px)_rotateX(0deg)_rotateY(0deg)_rotateZ(0deg)] duration-700">
+      <div className="scale-105 col-span-7 relative overflow-y-clip max-h-[450px] [transform:perspective(4101px)_rotateX(47deg)_rotateY(-13deg)_rotateZ(31deg)] top-8 duration-700">
         <div className="absolute inset-x-0 w-full top-0 h-20 bg-gradient-to-b from-[#000000] to-transparent pointer-events-none"></div>
         {/** 'timeline' line */}
         <div className="absolute inset-y-0 w-[2px] h-full left-4 bg-[#3d444db3] -z-10" />

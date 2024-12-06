@@ -88,7 +88,7 @@ export default function OpenSourceCard(opts: {
             align="start"
             alignOffset={-4}
             side="top"
-            className="bg-black-75 border border-black-50 px-2 py-1 rounded-lg min-w-fit"
+            className="bg-black-75 border border-black-50 px-2 py-1 rounded-lg min-w-fit [transform:perspective(4101px)_rotateX(47deg)_rotateY(-13deg)_rotateZ(31deg)] top-8 relative"
           >
             <div className="flex items-center gap-x-1 justify-between">
               {emojis.map((emoji) => (

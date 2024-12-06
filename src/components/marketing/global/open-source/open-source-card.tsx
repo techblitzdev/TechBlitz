@@ -5,13 +5,49 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@/components/ui/popover';
+import { cn } from '@/utils/cn';
 
-export default function OpenSourceCard() {
+type cardStyle = 'comment' | 'issue' | 'pr';
+
+export default function OpenSourceCard(opts: { cardStyle?: cardStyle }) {
+  const { cardStyle = 'comment' } = opts;
+
   const emojis = ['👍', '👎', '😄', '🎉', '😕', '❤️', '🚀', '👀'];
 
+  // determine the colours of the card based on the card style
+  const cardColors = {
+    comment: {
+      headerBg: 'bg-[#131D2E]',
+      contentBg: 'bg-[#000000]',
+      border: 'border-[#1F4272]'
+    },
+    issue: {
+      headerBg: 'bg-[#2D1111]',
+      contentBg: 'bg-[#2D1111]',
+      border: 'border-[#4E1C1C]'
+    },
+    pr: {
+      headerBg: 'bg-[#0F2D11]',
+      contentBg: 'bg-[#0F2D11]',
+      border: 'border-[#1C4E1C]'
+    }
+  };
+
   return (
-    <Card className="border border-[#1F4272] rounded-md overflow-hidden">
-      <CardHeader className="space-y-0 flex flex-row w-full justify-between items-center text-white text-sm bg-[#131D2E] px-4 py-3 border-b border-[#1F4272]">
+    <Card
+      className={cn(
+        'border rounded-md overflow-hidden relative',
+        cardColors[cardStyle].border
+      )}
+    >
+      <CardHeader
+        className={cn(
+          'space-y-0 flex flex-row w-full justify-between items-center text-white text-sm px-4 py-3 border-b',
+          'before:content-[""] before:absolute before:w-8 before:h-16 before:bg-red-500 before:top-2.5 before:-left-4',
+          cardColors[cardStyle].headerBg,
+          cardColors[cardStyle].border
+        )}
+      >
         <div className="flex flex-row items-center gap-x-2">
           <span className="font-semibold">techblitz</span>
           <span className="text-gray-400">commented 11 hours ago</span>
@@ -28,7 +64,7 @@ export default function OpenSourceCard() {
             align="start"
             alignOffset={-4}
             side="top"
-            className="bg-black-75 border border-black-50 p-2 rounded-lg"
+            className="bg-black-75 border border-black-50 px-2 py-1 rounded-lg min-w-fit"
           >
             <div className="flex items-center gap-x-1 justify-between">
               {emojis.map((emoji) => (

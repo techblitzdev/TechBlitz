@@ -6,11 +6,17 @@ import {
   PopoverTrigger
 } from '@/components/ui/popover';
 import { cn } from '@/utils/cn';
+import { capitalise } from '@/utils';
 
 type cardStyle = 'comment' | 'issue' | 'pr';
 
-export default function OpenSourceCard(opts: { cardStyle?: cardStyle }) {
-  const { cardStyle = 'comment' } = opts;
+export default function OpenSourceCard(opts: {
+  cardStyle?: cardStyle;
+  content?: string;
+  contributorName?: string;
+  actionType?: string;
+}) {
+  const { cardStyle = 'comment', content, actionType, contributorName } = opts;
 
   const emojis = ['👍', '👎', '😄', '🎉', '😕', '❤️', '🚀', '👀'];
 
@@ -19,23 +25,21 @@ export default function OpenSourceCard(opts: { cardStyle?: cardStyle }) {
     comment: {
       headerBg: 'bg-[#131D2E]',
       headerColor: '#131D2E',
-      contentBg: 'bg-[#000000]',
       border: 'border-[#1F4272]',
       borderColor: '#1F4272'
     },
     issue: {
       headerBg: 'bg-[#2D1111]',
       headerColor: '#2D1111',
-      contentBg: 'bg-[#2D1111]',
       border: 'border-[#4E1C1C]',
       borderColor: '#4E1C1C'
     },
     pr: {
-      headerBg: 'bg-[#0F2D11]',
-      headerColor: '#0F2D11',
-      contentBg: 'bg-[#0F2D11]',
-      border: 'border-[#1C4E1C]',
-      borderColor: '#1C4E1C'
+      headerBg: 'bg-[#151B23]',
+      headerColor: '#151B23',
+
+      border: 'border-[#3C444D]',
+      borderColor: '#3C444D'
     }
   };
 
@@ -57,13 +61,25 @@ export default function OpenSourceCard(opts: { cardStyle?: cardStyle }) {
         }
       >
         <div className="flex flex-row items-center gap-x-2">
-          <span className="font-semibold">techblitz</span>
+          <span className="font-semibold">
+            {contributorName || 'techblitz'}
+          </span>
           <span className="text-gray-400">commented 11 hours ago</span>
         </div>
-        <Ellipsis className="size-4" />
+        <div className="flex items-center gap-x-2">
+          <p
+            className={cn(
+              'text-xs text-[#9198a1] border rounded-full py-px px-1.5 font-semibold',
+              cardColors[cardStyle].border
+            )}
+          >
+            {actionType && capitalise(actionType)}
+          </p>
+          <Ellipsis className="size-4" />
+        </div>
       </CardHeader>
       <CardContent className="rounded-b-md text-white p-4 pb-14 text-sm relative bg-[#000000]">
-        or maybe infinite card scrolling with 'GitHub comment' style cards?
+        {content}
         <Popover>
           <PopoverTrigger className="absolute bottom-4 left-4 border border-black-50 rounded-full p-1">
             <Smile className="size-4 text-gray-200" />

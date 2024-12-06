@@ -18,35 +18,43 @@ export default function OpenSourceCard(opts: { cardStyle?: cardStyle }) {
   const cardColors = {
     comment: {
       headerBg: 'bg-[#131D2E]',
+      headerColor: '#131D2E',
       contentBg: 'bg-[#000000]',
-      border: 'border-[#1F4272]'
+      border: 'border-[#1F4272]',
+      borderColor: '#1F4272'
     },
     issue: {
       headerBg: 'bg-[#2D1111]',
+      headerColor: '#2D1111',
       contentBg: 'bg-[#2D1111]',
-      border: 'border-[#4E1C1C]'
+      border: 'border-[#4E1C1C]',
+      borderColor: '#4E1C1C'
     },
     pr: {
       headerBg: 'bg-[#0F2D11]',
+      headerColor: '#0F2D11',
       contentBg: 'bg-[#0F2D11]',
-      border: 'border-[#1C4E1C]'
+      border: 'border-[#1C4E1C]',
+      borderColor: '#1C4E1C'
     }
   };
 
   return (
     <Card
-      className={cn(
-        'border rounded-md overflow-hidden relative',
-        cardColors[cardStyle].border
-      )}
+      className={cn('border rounded-md relative', cardColors[cardStyle].border)}
     >
       <CardHeader
         className={cn(
-          'space-y-0 flex flex-row w-full justify-between items-center text-white text-sm px-4 py-3 border-b',
-          'before:content-[""] before:absolute before:w-8 before:h-16 before:bg-red-500 before:top-2.5 before:-left-4',
+          'space-y-0 flex flex-row w-full justify-between items-center text-white text-sm px-4 py-3 border-b gh-card-arrow rounded-t-md',
           cardColors[cardStyle].headerBg,
           cardColors[cardStyle].border
         )}
+        style={
+          {
+            '--arrow-color': cardColors[cardStyle].headerColor,
+            '--arrow-border-color': cardColors[cardStyle].borderColor
+          } as React.CSSProperties
+        }
       >
         <div className="flex flex-row items-center gap-x-2">
           <span className="font-semibold">techblitz</span>
@@ -54,7 +62,7 @@ export default function OpenSourceCard(opts: { cardStyle?: cardStyle }) {
         </div>
         <Ellipsis className="size-4" />
       </CardHeader>
-      <CardContent className="text-white p-4 pb-14 text-sm relative bg-[#000000]">
+      <CardContent className="rounded-b-md text-white p-4 pb-14 text-sm relative bg-[#000000]">
         or maybe infinite card scrolling with 'GitHub comment' style cards?
         <Popover>
           <PopoverTrigger className="absolute bottom-4 left-4 border border-black-50 rounded-full p-1">

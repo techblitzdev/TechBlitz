@@ -80,6 +80,22 @@ body {
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-b;
   }
+
+  /** This is acting like the 'border' of the arrow */
+  .gh-card-arrow::before {
+    @apply -left-2 top-2.5 h-4 w-2 absolute;
+    content: '';
+    clip-path: polygon(100% 0, 0 50%, 100% 100%);
+    background: var(--arrow-border-color);
+  }
+
+  /** This is acting like the 'background' of the arrow */
+  .gh-card-arrow::after {
+    @apply -left-1.5 top-2.5 h-4 w-2 absolute;
+    content: '';
+    clip-path: polygon(100% 0, 0 50%, 100% 100%);
+    background: var(--arrow-color);
+  }
 }
 
 /* Basic editor styles */

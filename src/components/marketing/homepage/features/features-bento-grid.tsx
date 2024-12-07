@@ -26,9 +26,10 @@ export default function FeaturesBentoGrid() {
         <h1 className="text-2xl lg:text-5xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
           We make Software engineering easy{' '}
         </h1>
-        <span className="text-gradient from-white to-white/55 max-w-xl">
+        <span className="text-gray-400 max-w-3xl">
           Daily questions, leaderboards, AI generated progression paths & 1000's
-          of questions. Everything you need to become a better developer.
+          of questions designed to aid in solving real-world software problems.
+          Everything you need to become a better developer.
         </span>
       </div>
       <div className="min-h-[1400px] md:min-h-[1000px] lg:min-h-[700px] rounded-lg">

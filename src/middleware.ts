@@ -31,7 +31,6 @@ export const config = {
 
 // Middleware function
 export async function middleware(req: NextRequest) {
-  console.log('running middleware');
   const url = req.nextUrl;
   const pathname = url.pathname;
 
@@ -39,8 +38,6 @@ export async function middleware(req: NextRequest) {
   if (pathname === '/sign-up') {
     return NextResponse.redirect(new URL('/signup', req.url));
   }
-
-  console.log('pathname', pathname);
 
   // Early return if on a non-auth path
   if (nonAuthPaths.some((path) => pathname === path)) {
@@ -50,12 +47,13 @@ export async function middleware(req: NextRequest) {
   // Get the current user session
   const { user } = await updateSession(req);
 
-  console.log({
-    user
-  });
-
   // If there's no user, redirect to the login page
   if (!user?.user?.id) {
+    const isProd = process.env.NODE_ENV === 'production';
+    // if we are on prod (for now), redirect to the homepage
+    if (isProd) {
+      return NextResponse.redirect(new URL('/', req.url));
+    }
     return NextResponse.redirect(
       new URL(`/login?r=${encodeURIComponent(pathname)}`, req.url)
     );

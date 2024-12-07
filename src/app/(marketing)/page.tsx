@@ -15,22 +15,14 @@ export default async function AuthedPage() {
   return (
     <div className="overflow-x-hidden">
       <div className="z-30">
-        {process.env.NEXT_PUBLIC_ENV === 'development' && (
-          <MarketingNavigation />
-        )}
+        <MarketingNavigation />
         <div className="container">
           <HomepageHero />
           <FeaturesBentoGrid />
           <HomepageLargeText />
           <OpenSourceBlock />
           <CallToActionBlock title="Master Coding in Weeks, Not Years" />
-          {process.env.NEXT_PUBLIC_ENV === 'development' ? (
-            <MarketingFooter />
-          ) : (
-            <div className="w-full flex items-center justify-center py-5">
-              <SocialLinks />
-            </div>
-          )}
+          <MarketingFooter />
         </div>
       </div>
     </div>

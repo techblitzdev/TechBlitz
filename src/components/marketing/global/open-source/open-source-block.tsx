@@ -4,7 +4,7 @@ import OpenSourceCard from './open-source-card';
 import CommitCard from './commit-card';
 
 type cardStyle = 'comment' | 'issue' | 'pr';
-type ActionType = 'contributor' | 'comment' | 'owner' | 'issue';
+type ActionType = 'contributor' | 'comment' | 'owner' | 'issue' | 'author';
 type GithubCard = {
   contributorName?: string;
   actionType: ActionType;
@@ -24,30 +24,33 @@ type GithubCardType = GithubCard | CommitCardType;
 export default function OpenSourceBlock() {
   const githubCards: GithubCardType[] = [
     {
-      contributorName: 'John Doe',
+      contributorName: 'Anonymous Contributor (you)',
       actionType: 'contributor',
       component: 'OpenSourceCard',
       cardStyle: 'pr',
-      content: 'Adds a new feature to the platform'
+      content:
+        'This pull request address the issue with z-indexing on the questions/all page'
     },
     {
       component: 'CommitCard',
-      commitMessage: 'feat: add new feature',
+      commitMessage:
+        'fix(dashboard/questions): fix z-indexing on questions/all page',
       buildSuccess: true
     },
     {
-      contributorName: 'Jane Doe',
+      contributorName: 'techblitz',
       actionType: 'owner',
       component: 'OpenSourceCard',
       cardStyle: 'comment',
-      content: 'This is a comment! Great code, great pr 🚀'
+      content:
+        'Great work! Thanks for the contribution. Could you add a test for this as well?'
     },
     {
-      contributorName: 'John Doe',
-      actionType: 'comment',
+      contributorName: 'Anonymous Contributor (you)',
+      actionType: 'author',
       component: 'OpenSourceCard',
-      cardStyle: 'issue',
-      content: 'This is an issue! Bad code, bad pr'
+      cardStyle: 'comment',
+      content: 'Yes, I can add a test for this. I will update the PR shortly.'
     }
   ];
 

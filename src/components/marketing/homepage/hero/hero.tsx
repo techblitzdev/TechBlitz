@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import HomepageHeroImages from '../hero/hero-images';
 import HomepageHeroEmailSignup from './email-input';
+import { WaitlistForm } from '../../waitlist-form';
 
 export default function HomepageHero() {
   return (
@@ -34,7 +35,11 @@ export default function HomepageHero() {
           </span>{' '}
           useful.
         </h6>
-        <HomepageHeroEmailSignup />
+        {process.env.NEXT_PUBLIC_ENV === 'development' ? (
+          <HomepageHeroEmailSignup />
+        ) : (
+          <WaitlistForm />
+        )}
       </div>
 
       <div className="col-span-full lg:col-span-6 xl:col-span-7 h-full">

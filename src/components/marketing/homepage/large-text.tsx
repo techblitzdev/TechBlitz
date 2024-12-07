@@ -42,7 +42,7 @@ function Word({ word, index }: { word: string; index: number }) {
         damping: 15,
         delay: index * 0.2
       }}
-      className="inline-block mr-2"
+      className="inline-block mr-2 text-white"
     >
       {word}
     </motion.span>

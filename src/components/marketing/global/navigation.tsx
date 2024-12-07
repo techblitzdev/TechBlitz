@@ -8,7 +8,7 @@ import { NavigationMenuItems } from './navigation-items';
 
 export default function MarketingNavigation() {
   return (
-    <div className="sticky top-4 z-50 bg-[#000000] pb-5">
+    <div className="fixed w-full py-5 z-50 bg-[#000000]">
       <div className="container flex items-center justify-between">
         <Link href="/">
           <Logo />

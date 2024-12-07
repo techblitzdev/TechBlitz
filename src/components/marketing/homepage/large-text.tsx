@@ -4,7 +4,7 @@ import { useRef } from 'react';
 
 export default function HomepageLargeText() {
   const text =
-    "Sharpening your coding skills is time consuming and tedious. We're here to change that.";
+    'Your skills, supercharged. Intelligent learning paths that adapt to where you are—and where you want to go.';
 
   // Split the text into an array of words
   const words = text.split(' ');

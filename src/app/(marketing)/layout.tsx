@@ -21,7 +21,32 @@ import { StarsBackground } from '@/components/ui/stars-background';
 
 export const metadata: Metadata = {
   title: 'techblitz | The all-in-one platform for developers',
-  description: 'Improve your code knowledge, one day at a time.'
+  description: 'Improve your code knowledge, one day at a time.',
+  keywords: [
+    'coding',
+    'programming',
+    'software engineering',
+    'web development',
+    'ai',
+    'machine learning',
+    'education'
+  ],
+  openGraph: {
+    title: 'techblitz | The all-in-one platform for developers',
+    description: 'Improve your code knowledge, one day at a time.',
+    type: 'website',
+    url: 'https://techblitz.dev',
+    images: {
+      url: 'https://techblitz.dev/dashboard-img.png',
+      width: 800,
+      height: 630,
+      alt: 'techblitz | The all-in-one platform for developers'
+    }
+  },
+  robots: {
+    index: true,
+    follow: true
+  }
 };
 
 const theme = createTheme({});

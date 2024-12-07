@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/ui/grid';
 import { Separator } from '@/components/ui/separator';
 import { ChevronRight } from 'lucide-react';
+import { WaitlistForm } from '../waitlist-form';
 
 export default function CallToActionBlock(opts: {
   title: string;
@@ -27,23 +28,29 @@ export default function CallToActionBlock(opts: {
       </div>
 
       <div className="z-50 relative flex flex-col sm:flex-row gap-4 items-center justify-center">
-        <Button
-          variant="accent"
-          size="lg"
-          className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
-          href="/signup"
-        >
-          <span>Get Started</span>
-        </Button>
-        <Button
-          variant="secondary"
-          size="lg"
-          className="font-onest group"
-          href="/features"
-        >
-          <span>Learn More</span>
-          <ChevronRight size={16} />
-        </Button>
+        {process.env.NEXT_PUBLIC_ENV === 'development' ? (
+          <>
+            <Button
+              variant="accent"
+              size="lg"
+              className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+              href="/signup"
+            >
+              <span>Get Started</span>
+            </Button>
+            <Button
+              variant="secondary"
+              size="lg"
+              className="font-onest group"
+              href="/features"
+            >
+              <span>Learn More</span>
+              <ChevronRight size={16} />
+            </Button>
+          </>
+        ) : (
+          <WaitlistForm />
+        )}
       </div>
       <Grid
         size={30}

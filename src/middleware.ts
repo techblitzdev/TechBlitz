@@ -12,12 +12,21 @@ const nonAuthPaths = [
   '/update-password',
   '/verify-email',
   '/verify-email/success',
-  '/',
+  '/'
 ];
 
 // Exclude some paths from the middleware (e.g., API, public files, etc.)
 export const config = {
-  matcher: ['/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)'],
+  matcher: [
+    /*
+     * Match all paths except for:
+     * 1. /api routes
+     * 2. /_next (Next.js internals)
+     * 3. /_static (inside /public)
+     * 4. all root files inside /public (e.g. /favicon.ico)
+     */
+    '/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)'
+  ]
 };
 
 // Middleware function
@@ -31,15 +40,20 @@ export async function middleware(req: NextRequest) {
   }
 
   // Early return if on a non-auth path
-  if (nonAuthPaths.some((path) => pathname.startsWith(path))) {
+  if (nonAuthPaths.some((path) => pathname === path)) {
     return NextResponse.next();
   }
 
   // Get the current user session
   const { user } = await updateSession(req);
 
-  // If there's no user, redirect to the login page unless it's a non-auth path
+  // If there's no user, redirect to the login page
   if (!user?.user?.id) {
+    const isProd = process.env.NODE_ENV === 'production';
+    // if we are on prod (for now), redirect to the homepage
+    if (isProd) {
+      return NextResponse.redirect(new URL('/', req.url));
+    }
     return NextResponse.redirect(
       new URL(`/login?r=${encodeURIComponent(pathname)}`, req.url)
     );
@@ -48,7 +62,7 @@ export async function middleware(req: NextRequest) {
   // Check for admin access if the user is navigating to the admin page
   if (pathname.startsWith('/admin')) {
     const response = await fetch(`${getBaseUrl()}/api/user/${user.user.id}`, {
-      method: 'GET',
+      method: 'GET'
     });
 
     const userData: User = await response.json();

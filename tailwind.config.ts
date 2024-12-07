@@ -13,6 +13,28 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
+  safelist: [
+    // safelist all border-[color] classes
+    {
+      pattern:
+        /^border-\[(#[0-9a-fA-F]{6}|#[0-9a-fA-F]{3}|rgba?\([^)]+\)|[a-zA-Z0-9\-]+)\]$/
+    },
+    // safelist all the after:border-[color] classes
+    {
+      pattern:
+        /^after:bg-\[(#[0-9a-fA-F]{6}|#[0-9a-fA-F]{3}|rgba?\([^)]+\)|[a-zA-Z0-9\-]+)\]$/
+    },
+    // safelist all bg-[color] classes
+    {
+      pattern:
+        /^bg-\[(#[0-9a-fA-F]{6}|#[0-9a-fA-F]{3}|rgba?\([^)]+\)|[a-zA-Z0-9\-]+)\]$/
+    },
+    // safelist the before:bg-[color] classes
+    {
+      pattern:
+        /^before:bg-\[(#[0-9a-fA-F]{6}|#[0-9a-fA-F]{3}|rgba?\([^)]+\)|[a-zA-Z0-9\-]+)\]$/
+    }
+  ],
   theme: {
     extend: {
       fontFamily: {
@@ -148,7 +170,7 @@ const config: Config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        scroll: 'scroll 30s linear infinite',
+        scroll: 'scroll 20s linear infinite',
         'scroll-right':
           'scroll-right var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite',
         'border-spin': 'border-spin 10s linear infinite',

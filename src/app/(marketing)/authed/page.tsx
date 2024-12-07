@@ -1,6 +1,7 @@
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 import MarketingFooter from '@/components/marketing/global/footer';
 import MarketingNavigation from '@/components/marketing/global/navigation';
+import OpenSourceBlock from '@/components/marketing/global/open-source/open-source-block';
 import FeaturesBentoGrid from '@/components/marketing/homepage/features/features-bento-grid';
 import HomepageHero from '@/components/marketing/homepage/hero/hero';
 import HomepageLargeText from '@/components/marketing/homepage/large-text';
@@ -21,7 +22,8 @@ export default async function AuthedPage() {
           <HomepageHero />
           <FeaturesBentoGrid />
           <HomepageLargeText />
-          <CallToActionBlock title="Master Coding Skills in Weeks, Not Years" />
+          <OpenSourceBlock />
+          <CallToActionBlock title="Master Coding in Weeks, Not Years" />
           <MarketingFooter />
         </div>
       </div>

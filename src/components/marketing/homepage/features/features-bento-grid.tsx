@@ -20,7 +20,7 @@ export default function FeaturesBentoGrid() {
             Features
           </span>
         </div>
-        <h1 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
+        <h1 className="text-2xl lg:text-5xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
           Software engineering is easy{' '}
         </h1>
         <span className="text-xs text-gradient from-white to-white/55">

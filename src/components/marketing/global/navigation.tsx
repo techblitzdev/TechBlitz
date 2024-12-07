@@ -38,6 +38,7 @@ export default function MarketingNavigation() {
           ) : (
             <Button
               variant="accent"
+              href="#waitlist-form"
               className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
             >
               Join the Waitlist

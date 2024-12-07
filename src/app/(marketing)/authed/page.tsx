@@ -5,6 +5,7 @@ import OpenSourceBlock from '@/components/marketing/global/open-source/open-sour
 import FeaturesBentoGrid from '@/components/marketing/homepage/features/features-bento-grid';
 import HomepageHero from '@/components/marketing/homepage/hero/hero';
 import HomepageLargeText from '@/components/marketing/homepage/large-text';
+import YoullHateIf from '@/components/marketing/homepage/youll-hate-if/youll-hate-if';
 import { useUserServer } from '@/hooks/useUserServer';
 import { redirect } from 'next/navigation';
 

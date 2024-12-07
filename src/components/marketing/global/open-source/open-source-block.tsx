@@ -55,7 +55,7 @@ export default function OpenSourceBlock() {
   ];
 
   return (
-    <section className="pb-10 md:pb-32 grid grid-cols-12 gap-4 lg:gap-16">
+    <section className="pb-20 md:pb-52 grid grid-cols-12 gap-4 lg:gap-16">
       <div className="flex flex-col gap-y-3 col-span-full lg:col-span-5 self-center">
         <h1 className="text-2xl lg:text-5xl !font-sans !leading-[normal] text-gradient from-white to-white/55">
           Secrets are for Magicians, Not Software

@@ -1,4 +1,5 @@
 import { AnimatedBreak } from '@/components/marketing/pricing/animated-break';
+import PricingCardBlock from '@/components/marketing/pricing/pricing-card-block';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -8,13 +9,22 @@ export const metadata: Metadata = {
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen container py-16 md:pb-20 md:pt-32 xl:py-40">
-      <h1 className="text-3xl lg:text-5xl !font-onest !font-medium !leading-[1.1] text-gradient from-white to-white/75">
-        Prices that don't <AnimatedBreak /> the bank
-      </h1>
-      <p className="text-gray-400">
-        Sign up for free, upgrade for our latest and premium features.
-      </p>
+    <div className="text-center min-h-screen container py-16 md:pb-20 md:pt-32 xl:py-40 flex flex-col gap-y-10">
+      <div className="flex flex-col gap-y-2 items-center">
+        <div className="group w-fit relative inline-flex overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+          <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+          <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
+            Pricing
+          </span>
+        </div>
+        <h1 className="text-3xl lg:text-5xl !font-onest !font-medium !leading-[1.1] text-gradient from-white to-white/75">
+          Prices that don't <AnimatedBreak /> the bank
+        </h1>
+        <p className="text-gray-400">
+          Start for free and unlock premium features with our affordable plans.
+        </p>
+      </div>
+      <PricingCardBlock />
     </div>
   );
 }

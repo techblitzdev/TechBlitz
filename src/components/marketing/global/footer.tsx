@@ -49,7 +49,7 @@ const footerItems = [
 
 export default function MarketingFooter() {
   return (
-    <footer className="py-8">
+    <footer className="py-8 container">
       <div className="flex flex-col lg:flex-row justify-between text-white">
         <div className="flex flex-col gap-y-12 w-full">
           {process.env.NEXT_PUBLIC_ENV === 'development' && (

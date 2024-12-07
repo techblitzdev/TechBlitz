@@ -18,6 +18,8 @@ import { createTheme, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 import { StarsBackground } from '@/components/ui/stars-background';
+import MarketingNavigation from '@/components/marketing/global/navigation';
+import MarketingFooter from '@/components/marketing/global/footer';
 
 export const metadata: Metadata = {
   title: 'techblitz | The all-in-one platform for developers',
@@ -66,7 +68,11 @@ export default function Layout({
           <main>
             <StarsBackground className="-z-10" />
             <CSPostHogProvider>
-              <MantineProvider>{children}</MantineProvider>
+              <MantineProvider>
+                <MarketingNavigation />
+                {children}
+                <MarketingFooter />
+              </MantineProvider>
             </CSPostHogProvider>
           </main>
           <Toaster className="bg-black" />

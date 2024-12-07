@@ -4,7 +4,7 @@ import { useRef } from 'react';
 
 export default function HomepageLargeText() {
   const text =
-    "Sharpening your coding skills is time consuming and tedious. We're here to change that.";
+    'Your skills, supercharged. Intelligent learning paths that adapt to where you are—and where you want to go.';
 
   // Split the text into an array of words
   const words = text.split(' ');
@@ -42,7 +42,7 @@ function Word({ word, index }: { word: string; index: number }) {
         damping: 15,
         delay: index * 0.2
       }}
-      className="inline-block mr-2 text-white"
+      className="inline-block mr-2"
     >
       {word}
     </motion.span>

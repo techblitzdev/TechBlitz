@@ -11,6 +11,9 @@ import ProgressionBentoBox from './progression-box';
 const cardClasses = 'border border-black-50 p-6 rounded-lg';
 
 export default function FeaturesBentoGrid() {
+  // if on prod, make all links be disabled go to '/'
+  const isProd = process.env.NEXT_PUBLIC_ENV === 'production';
+
   return (
     <section className="pt-10 lg:pt-28 pb-10 md:pb-20 flex flex-col gap-y-7 relative">
       <div className="flex flex-col gap-y-1 items-center text-center">
@@ -30,7 +33,7 @@ export default function FeaturesBentoGrid() {
       <div className="min-h-[1400px] md:min-h-[1000px] lg:min-h-[700px] rounded-lg">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 bg-black-400 rounded-lg">
           <Link
-            href="/features/roadmap"
+            href={isProd ? '' : '/features/roadmap'}
             className={cn(
               'h-80 col-span-full lg:col-span-2 relative overflow-hidden group flex flex-col sm:flex-row gap-5',
               cardClasses
@@ -61,7 +64,7 @@ export default function FeaturesBentoGrid() {
             />
           </Link>
           <Link
-            href="/features/progress-tracking"
+            href={isProd ? '' : '/features/progress-tracking'}
             className={cn(
               'h-[390px] lg:h-80 flex flex-col justify-between group overflow-hidden',
               cardClasses
@@ -83,7 +86,7 @@ export default function FeaturesBentoGrid() {
             </div>
           </Link>
           <Link
-            href="/features/leaderboard"
+            href={isProd ? '' : '/features/leaderboard'}
             className={cn('relative overflow-hidden group', cardClasses)}
           >
             <LeaderboardBentoBox />
@@ -98,7 +101,7 @@ export default function FeaturesBentoGrid() {
             </div>
           </Link>
           <Link
-            href="/features/daily-questions"
+            href={isProd ? '' : '/features/daily-questions'}
             className={cn(
               'col-span-full lg:col-span-2 group overflow-hidden',
               cardClasses

@@ -100,6 +100,7 @@ export function NavigationMenuItems() {
             href="/pricing"
             legacyBehavior
             passHref
+            className="!text-white focus:!text-white"
           >
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Pricing
@@ -132,7 +133,7 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            'group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground hover:!text-white',
+            'group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-white hover:!text-white',
             className
           )}
           {...props}

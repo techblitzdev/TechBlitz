@@ -1,12 +1,19 @@
 'use server';
 import { prisma } from '@/utils/prisma';
 
+type StatsChartData = {
+  [month: string]: {
+    totalQuestions: number;
+    tagCounts: Record<string, number>;
+  };
+};
+
 /**
  * Method to get all the question data for the user and return it
  * in a format to display in a chart.
  *
  * We return the data in the following format:
- * [month]: totalQuestions
+ * [month]: { totalQuestions: number, tags: string[], tagCounts: Record<string, number> }
  */
 export const getStatsChartData = async (userUid: string) => {
   if (!userUid) {
@@ -16,18 +23,38 @@ export const getStatsChartData = async (userUid: string) => {
   const questions = await prisma.answers.findMany({
     where: {
       userUid
+    },
+    include: {
+      question: {
+        select: {
+          createdAt: true,
+          tags: {
+            include: {
+              tag: true
+            }
+          }
+        }
+      }
     }
   });
 
-  const data: Record<string, number> = {};
+  const data: StatsChartData = {};
 
-  questions.forEach((question) => {
-    const month = question.createdAt.toISOString().slice(0, 7);
+  questions.forEach((answer) => {
+    const month = answer.question.createdAt.toISOString().slice(0, 7);
+    const tags = answer.question.tags.map((tag) => tag.tag.name);
 
     if (data[month]) {
-      data[month]++;
+      data[month].totalQuestions++;
+      tags.forEach((tag) => {
+        data[month].tagCounts[tag] = (data[month].tagCounts[tag] || 0) + 1;
+      });
     } else {
-      data[month] = 1;
+      const tagCounts: Record<string, number> = {};
+      tags.forEach((tag) => {
+        tagCounts[tag] = 1;
+      });
+      data[month] = { totalQuestions: 1, tagCounts };
     }
   });
 

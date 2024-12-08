@@ -123,7 +123,7 @@ export function AppSidebar() {
     },
     {
       title: 'Stats',
-      url: '/',
+      url: '/statistics',
       icon: ChartBarIncreasing
       // chip: ComingSoonChip
     },

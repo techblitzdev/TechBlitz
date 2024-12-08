@@ -21,7 +21,7 @@ We love to be transparent with our users, so below are the next features we have
 
 - **Roadmaps**: Sharing roadmaps with other users
 - **TechBlitz for schools**: Education groups, create your student's questions, roadmaps and allow them to battle with one another for the top spot of the class!
-- **Social**: Profiles, friends / coworkers
+- **Social**: Profiles, friends/coworkers
 - **Statistics**: A more in-depth statistics dashboard, giving you a greater insight on your current ability.
 
 ## 🛠 Tech Stack
@@ -33,6 +33,24 @@ We love to be transparent with our users, so below are the next features we have
 - **Payments**: Stripe
 - **Hosting**: Vercel
 - **ORM**: Prisma
+
+### Installation
+
+1. Clone the repository
+   ```bash
+   git clone [https://git.new/blitz](https://github.com/Logannford/TechBlitz.git)
+
+   ```
+2. Install dependencies
+  ```bash
+    cd techblitz
+    npm install
+  ```
+
+3. Run the development server
+   ```bash
+   npm run dev (or npm run dev -- -p (port-of-your-choice))
+   ```
 
 ## 📚 Contributing
 We welcome contributions! Please see our CONTRIBUTING.md for details on:

@@ -6,7 +6,7 @@ export default async function PricingCardBlock() {
   const products = await getStripeProducts();
 
   return (
-    <section className="max-w-5xl grid grid-cols-3 lg:grid-cols-12 gap-10 self-center">
+    <section className="pb-20 max-w-5xl grid grid-cols-3 lg:grid-cols-12 gap-10 self-center">
       {products.map((product) => (
         <PricingCard
           key={product.id}

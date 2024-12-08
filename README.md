@@ -12,8 +12,16 @@ TechBlitz is designed to empower developers at all skill levels by providing a c
 - **Multi-Language Support**: Practice in your preferred programming language (coming soon)
 - **Daily questions**: Repetition in the form of daily questions, and streaks to ensure you never miss a day!
 - **Skill Tracking**: Monitor your progress and identify areas for improvement
-- **1000's of question**: A wide variety of short-form coding questions to test your knowledege
+- **1000's of questions**: A wide variety of short-form coding questions to test your knowledge
+- **Leaderboard**: Battle with other users for a chance to win prizes at the end of each month!
 - **Community-Driven**: Open-source and community-powered platform
+
+- ## 📍 Roadmap
+We love to be transparent with our users, so below are the next features we have planned.
+
+- Sharing roadmaps with other user's
+- TechBlitz education tier
+- Social improvements - profiles, friends / coworkers
 
 ## 🛠 Tech Stack
 

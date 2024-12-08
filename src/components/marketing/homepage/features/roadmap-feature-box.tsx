@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Progress } from '@/components/ui/progress';
-import { Check, CheckCircle2 } from 'lucide-react';
+import { Check } from 'lucide-react';
 
 const skeletonVariants = {
   hidden: { opacity: 0, y: 20 },

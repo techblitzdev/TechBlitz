@@ -23,6 +23,34 @@ export const metadata: Metadata = {
 };
 
 export default function PricingPage() {
+  const faqs = [
+    {
+      question: 'What is techblitz?',
+      answer:
+        'techblitz is an online platform that helps developers of all abilities to learn and grow. We offer a range of tools and resources to help you become a better developer, including questions, roadmaps, tutorials, and more.'
+    },
+    {
+      question: 'Is techblitz open source?',
+      answer:
+        "Yes! techblitz is open source. You can find our source <Link href='https://git.new/blitz' target='_blank' className='text-accent'>here</Link>."
+    },
+    {
+      question: 'Is techblitz free to use?',
+      answer:
+        'Yes, techblitz is free to use. You can sign up for a free account and start using our software right away.'
+    },
+    {
+      question: 'What are the benefits of using techblitz?',
+      answer:
+        'We offer short-form questions on various topics to help you learn and grow.'
+    },
+    {
+      question: 'What will you be adding to techblitz in the future?',
+      answer:
+        "We are always working on new features and improvements to techblitz. You can find our roadmap <Link href='/roadmap' className='text-accent'>here</Link>. Feel free to reach out to us with any feature requests or suggestions you may have."
+    }
+  ];
+
   return (
     <div className="text-center min-h-screen container flex flex-col">
       <div className="flex flex-col gap-y-2 items-center py-16 md:pb-20 md:pt-32 xl:pt-40 xl:pb-32">
@@ -43,7 +71,7 @@ export default function PricingPage() {
         </div>
       </div>
 
-      <FAQsBlock />
+      <FAQsBlock faqs={faqs} />
 
       <CallToActionBlock title="Master Coding in Weeks, Not Years" />
     </div>

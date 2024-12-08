@@ -13,10 +13,11 @@ import { CheckIcon } from 'lucide-react';
 export default function PricingCard(opts: { product: StripeProduct }) {
   const { product } = opts;
 
+  const paymentLink = product?.metadata?.paymentLink;
   const mostPopular = product.metadata.mostPopular == 'true';
   const isFree = !product.default_price?.unit_amount;
   // if it is free, then link to the signup page
-  const href = isFree ? '/signup' : '';
+  const href = isFree ? '/signup' : paymentLink;
 
   return (
     <Card

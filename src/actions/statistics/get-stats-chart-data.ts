@@ -60,3 +60,23 @@ export const getStatsChartData = async (userUid: string) => {
 
   return data;
 };
+
+/**
+ * Gets the total number of questions the user has answered.
+ *
+ * @param userUid
+ * @returns
+ */
+export const getTotalQuestionCount = async (userUid: string) => {
+  if (!userUid) {
+    return null;
+  }
+
+  const questions = await prisma.answers.count({
+    where: {
+      userUid
+    }
+  });
+
+  return questions;
+};

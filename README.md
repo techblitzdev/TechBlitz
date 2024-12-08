@@ -16,12 +16,13 @@ TechBlitz is designed to empower developers at all skill levels by providing a c
 - **Leaderboard**: Battle with other users for a chance to win prizes at the end of each month!
 - **Community-Driven**: Open-source and community-powered platform
 
-- ## 📍 Roadmap
+## 📍 Roadmap
 We love to be transparent with our users, so below are the next features we have planned.
 
-- Sharing roadmaps with other user's
-- TechBlitz education tier
-- Social improvements - profiles, friends / coworkers
+- **Roadmaps**: Sharing roadmaps with other users
+- **TechBlitz for schools**: Education groups, create your student's questions, roadmaps and allow them to battle with one another for the top spot of the class!
+- **Social**: Profiles, friends / coworkers
+- **Statistics**: A more in-depth statistics dashboard, giving you a greater insight on your current ability.
 
 ## 🛠 Tech Stack
 

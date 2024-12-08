@@ -23,16 +23,16 @@ export default async function TodaysLeaderboardPage({
         subheading="See how you stack up against the rest of the community, and try to battle your way to the top!"
       />
       <div className="container flex flex-col xl:flex-row gap-10 mt-5">
-        <div className="w-full xl:w-1/2">
+        <div className="w-full flex flex-col gap-10 xl:w-1/2">
           <LeaderboardTodayBoard
             todayQuestion={todayQuestion}
             currentPage={currentPage}
             userUid={user?.uid}
           />
-        </div>
-        <div className="w-full flex flex-col gap-10 xl:w-1/2">
-          <LeaderboardMostQuestionsAnswered userUid={user?.uid} />
           <LeaderboardLongestStreaks userUid={user?.uid} />
+        </div>
+        <div className="w-full xl:w-1/2">
+          <LeaderboardMostQuestionsAnswered userUid={user?.uid} />
         </div>
       </div>
     </>

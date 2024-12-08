@@ -38,8 +38,8 @@ export default async function LeaderboardMostQuestionsAnswered(opts: {
         {topUsersByQuestionCount.map((user, index) => (
           <div
             key={user.uid}
-            className={`flex items-center justify-between font-ubuntu px-4 py-3 ${
-              index % 2 === 0 ? 'bg-black' : 'bg-black-75'
+            className={`flex items-center justify-between px-4 py-3 ${
+              index % 2 === 0 ? 'bg-black' : 'bg-[#000]'
             }`}
           >
             {/* Position */}

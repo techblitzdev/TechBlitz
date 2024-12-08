@@ -99,7 +99,7 @@ export default async function LeaderboardTodayBoard(opts: {
                 key={time.uid}
                 className={cn(
                   'flex items-center justify-between px-4 py-3',
-                  index % 2 === 0 ? 'bg-black' : 'bg-black-75'
+                  index % 2 === 0 ? 'bg-[#000]' : 'bg-black-75'
                 )}
               >
                 <span className="flex-1 text-sm font-bold">

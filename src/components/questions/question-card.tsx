@@ -21,7 +21,7 @@ export default async function QuestionCard(opts: {
       <Link
         href={`/question/${questionData.uid}`}
         key={questionData.uid}
-        className="space-y-5 items-start bg-black-75 border border-black-50 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
+        className="space-y-5 items-start border border-black-50 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
       >
         <div className="flex flex-col w-full">
           <div className="flex w-full justify-between">
@@ -51,7 +51,7 @@ export default async function QuestionCard(opts: {
             </p>
           </div>
         </div>
-        <div className="mt-5 w-full flex justify-between items-end">
+        <div className="mt-5 w-full flex justify-between items-end z-10 relative">
           <div className="flex gap-4 items-end">
             {questionData?.tags?.length
               ? questionData?.tags?.length > 0 && (

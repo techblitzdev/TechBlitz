@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export const BentoGrid = ({
   className,
-  children,
+  children
 }: {
   className?: string;
   children?: React.ReactNode[];
@@ -29,6 +29,7 @@ export const BentoGridItem = ({
   icon,
   href,
   padded,
+  gradientBg
 }: {
   className?: string;
   title?: string | React.ReactNode;
@@ -37,6 +38,7 @@ export const BentoGridItem = ({
   icon?: React.ReactNode;
   href?: string | null;
   padded?: boolean;
+  gradientBg?: boolean;
 }) => {
   const renderContent = () => {
     const hasContent = title || description || icon;
@@ -64,17 +66,33 @@ export const BentoGridItem = ({
   };
 
   const baseClasses = cn(
-    'rounded-xl group/bento overflow-hidden hover:shadow-xl transition duration-200 shadow-input dark:shadow-none dark:bg-black dark:border-white/[0.2] bg-black-75 border border-black-50 justify-between flex flex-col',
+    'rounded-xl group/bento overflow-hidden hover:shadow-xl transition duration-200 shadow-input border border-black-50 justify-between flex flex-col',
     header || title || description || icon ? 'space-y-4' : '',
     className,
     padded ? 'p-4' : ''
   );
 
   return href ? (
-    <Link href={href} className={baseClasses} prefetch>
+    <Link
+      href={href}
+      className={baseClasses}
+      prefetch
+    >
       {renderContent()}
     </Link>
   ) : (
-    <div className={baseClasses}>{renderContent()}</div>
+    <div
+      className={baseClasses}
+      style={
+        gradientBg
+          ? {
+              background:
+                'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
+            }
+          : undefined
+      }
+    >
+      {renderContent()}
+    </div>
   );
 };

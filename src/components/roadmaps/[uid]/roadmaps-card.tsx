@@ -17,7 +17,7 @@ export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {
   return (
     <Link
       href={href}
-      className="py-6 mb-6 space-y-5 items-start bg-black-75 border border-black-50 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
+      className="py-6 mb-6 space-y-5 items-start border border-black-50 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
     >
       <div className="flex w-full justify-between gap-3">
         <div className="flex flex-col gap-y-3 font-ubuntu">
@@ -38,14 +38,12 @@ export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {
           <ArrowUpRight className="size-5 group-hover:rotate-45 duration-300" />
         </Button>
       </div>
-      <div className="mt-5 w-full flex justify-between items-end">
-        <div className="">
-          <Chip
-            text={roadmap?.questions.length.toString() + ' ' + 'Questions'}
-            color="white"
-            textColor="black"
-          />
-        </div>
+      <div className="mt-5 w-full flex justify-between items-end relative z-10">
+        <Chip
+          text={roadmap?.questions.length.toString() + ' ' + 'Questions'}
+          color="white"
+          textColor="black"
+        />
         <div className="flex items-center gap-x-3">
           {roadmap?.status && (
             <Chip

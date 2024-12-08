@@ -8,7 +8,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
+  TooltipTrigger
 } from '../ui/tooltip';
 import Chip from '../global/chip';
 import Link from 'next/link';
@@ -19,36 +19,36 @@ const items: {
 }[] = [
   {
     name: 'JavaScript',
-    title: 'Object',
+    title: 'Objects'
   },
   {
     name: 'JavaScript',
-    title: 'Arrays',
+    title: 'Arrays'
   },
   {
     name: 'JavaScript',
-    title: 'Functions',
+    title: 'Data types'
   },
   {
     name: 'JavaScript',
-    title: 'Scope',
+    title: 'Array methods'
   },
   {
     name: 'JavaScript',
-    title: 'Asynchronous programming',
+    title: 'Asynchronous programming'
   },
   {
     name: 'JavaScript',
-    title: 'Promises',
+    title: 'Promises'
   },
   {
     name: 'JavaScript',
-    title: 'Callbacks',
+    title: 'Callbacks'
   },
   {
     name: 'JavaScript',
-    title: 'Closures',
-  },
+    title: 'Closures'
+  }
 ];
 
 export default async function ProgressBentoBox() {
@@ -60,13 +60,22 @@ export default async function ProgressBentoBox() {
       className="h-full flex flex-col p-4 relative group overflow-hidden"
     >
       {user?.userLevel !== 'FREE' && user?.userLevel !== 'STANDARD' && (
-        <div className="absolute">
-          <Chip color="accent" text="Roadmap" />
+        <div className="absolute z-10">
+          <Chip
+            color="accent"
+            text="Roadmap"
+          />
         </div>
       )}
-      <Grid size={20} position="top-right" />
+      <Grid
+        size={20}
+        position="top-right"
+      />
       <div className="h-full flex items-center justify-center relative">
-        <InfiniteMovingCards items={items} speed="slow" />
+        <InfiniteMovingCards
+          items={items}
+          speed="slow"
+        />
         <Separator className="absolute top-1/2 -translate-y-1/2 z-50 bg-black-50" />
       </div>
       <div className="flex w-full justify-between">

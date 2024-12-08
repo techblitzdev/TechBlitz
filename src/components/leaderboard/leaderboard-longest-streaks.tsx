@@ -34,8 +34,8 @@ export default async function LeaderboardLongestStreaks(opts: {
         {longestStreaks.map((streak, i) => (
           <div
             key={streak.user.uid}
-            className={`flex items-center justify-between font-ubuntu px-4 py-3 ${
-              i % 2 === 0 ? 'bg-black' : 'bg-black-75'
+            className={`flex items-center justify-between px-4 py-3 ${
+              i % 2 === 0 ? 'bg-black' : 'bg-[#000]'
             }`}
           >
             {/* Position */}

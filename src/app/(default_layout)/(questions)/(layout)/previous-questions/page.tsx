@@ -1,7 +1,7 @@
 import GlobalPagination from '@/components/global/pagination';
 import QuestionCard from '@/components/questions/question-card';
 import { getPreviousQuestions } from '@/actions/questions/get-previous';
-import PreviousQuestionPageSidenbar from '@/components/questions/previous/previous-question-page-sidebar';
+import PreviousQuestionPageSidebar from '@/components/questions/previous/previous-question-page-sidebar';
 import { useUserServer } from '@/hooks/useUserServer';
 import Hero from '@/components/global/hero';
 
@@ -48,7 +48,7 @@ export default async function PreviousQuestionsPage({
             />
           </div>
           {/* Display sidebar with user statistics and suggested questions */}
-          {user && <PreviousQuestionPageSidenbar user={user} />}
+          {user && <PreviousQuestionPageSidebar user={user} />}
         </div>
       </div>
     </div>

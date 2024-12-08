@@ -24,19 +24,21 @@ export default async function DashboardBentoGrid() {
   const items = [
     {
       header: <TodaysQuestionBentoBox question={todaysQuestion} />,
-      className: 'h-full text-white',
+      className: 'h-full text-white justify-center',
       // conditionally render the href based on whether there is a question
       href: todaysQuestion?.uid ? `/question/${todaysQuestion?.uid}` : null,
-      padded: false
+      padded: false,
+      gradientBg: true
     },
     {
       header: <YesterdaysQuestionBentoBox question={yesterdaysQuestion} />,
-      className: 'h-full text-white',
+      className: 'h-full text-white justify-center',
       // conditionally render the href based on whether there is a question
       href: yesterdaysQuestion?.uid
         ? `/question/${yesterdaysQuestion?.uid}`
         : null,
-      padded: false
+      padded: false,
+      gradientBg: true
     },
     {
       header: <AllQuestionsDashboardBentoBox />,
@@ -83,6 +85,7 @@ export default async function DashboardBentoGrid() {
           className={item.className}
           href={item?.href}
           padded={item.padded}
+          gradientBg={item.gradientBg}
         />
       ))}
     </BentoGrid>

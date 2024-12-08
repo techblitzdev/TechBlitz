@@ -99,9 +99,9 @@ export default async function QuestionsDashboard({
         <aside className="w-full lg:w-1/2 relative">
           <div className="sticky top-10 space-y-10 w-1/2">
             <div className="w-fit h-fit flex flex-col gap-y-2.5">
-              <h6 className="text-xl">Your statistics</h6>
+              <h6 className="text-xl">Your current streak</h6>
               <DatePicker
-                className="z-30 text-white border border-black-50 p-2 rounded-md bg-black-100 hover:cursor-default"
+                className="z-30 text-white border border-black-50 p-2 rounded-md hover:cursor-default"
                 type="range"
                 value={dateArray}
                 inputMode="none"

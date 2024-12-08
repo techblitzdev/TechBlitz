@@ -18,7 +18,7 @@ export default async function Dashboard() {
       <div className="flex w-full justify-between px-6">
         <div className="space-y-1">
           <SidebarTrigger className="lg:hidden" />
-          <h1 className="text-xl md:text-3xl font-ubuntu">
+          <h1 className="text-xl md:text-3xl font-onest">
             Welcome back, {getUserDisplayName(userData)}
           </h1>
           <p className="text-xs md:text-sm font-satoshi text-gray-400">

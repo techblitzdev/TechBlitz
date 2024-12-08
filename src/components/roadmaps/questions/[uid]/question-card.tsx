@@ -22,8 +22,6 @@ export default function RoadmapQuestionCard(opts: {
     roadmapUid,
     index,
     totalQuestions,
-    nextQuestionCorrect,
-    nextQuestionAnswered,
     prevQuestionCorrect,
     prevQuestionAnswered
   } = opts;
@@ -70,7 +68,7 @@ export default function RoadmapQuestionCard(opts: {
       <Link
         href={`/roadmap/${roadmapUid}/${question.uid}`}
         key={question.uid}
-        className="py-6 mb-6 space-y-5 items-start bg-black-75 border border-black-50 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
+        className="py-6 mb-6 space-y-5 items-start border border-black-50 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
       >
         <div className="flex flex-col w-full">
           <div className="flex w-full justify-between gap-3">
@@ -116,10 +114,6 @@ export default function RoadmapQuestionCard(opts: {
             )}
           </div>
         </div>
-        <Grid
-          size={20}
-          position="bottom-right"
-        />
       </Link>
     </div>
   );

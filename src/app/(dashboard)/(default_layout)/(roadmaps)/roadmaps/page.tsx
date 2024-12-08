@@ -1,7 +1,7 @@
 import { fetchUserRoadmaps } from '@/actions/roadmap/fetch-user-roadmaps';
 import RoadmapOnboarding from '@/components/roadmaps/empty/onboarding';
 import { useUserServer } from '@/hooks/useUserServer';
-import PostHogClient from '../../../posthog';
+import PostHogClient from '@/app/posthog';
 import RoadmapsCard from '@/components/roadmaps/[uid]/roadmaps-card';
 import CreateRoadmapButton from '@/components/roadmaps/create-roadmap-button';
 import Hero from '@/components/global/hero';

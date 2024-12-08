@@ -1,6 +1,7 @@
 import { getUserFromDb, getUserFromSession } from '@/actions/user/get-user';
 import DashboardBentoGrid from '@/components/dashboard/dashboard-bento-grid';
 import CurrentStreak from '@/components/global/current-streak';
+import Feedback from '@/components/global/feedback';
 import LanguageSwitcher from '@/components/global/language-dropdown';
 import UserProfileDropdown from '@/components/global/user-profile-dropdown';
 import { Button } from '@/components/ui/button';
@@ -35,13 +36,7 @@ export default async function Dashboard() {
               <UserProfileDropdown />
             </div>
           </div>
-          <Button
-            variant="default"
-            className="flex items-center gap-x-2"
-          >
-            <ChatBubbleIcon className="size-4" />
-            Feedback
-          </Button>
+          <Feedback />
         </div>
       </div>
       <Separator className="bg-black-50" />

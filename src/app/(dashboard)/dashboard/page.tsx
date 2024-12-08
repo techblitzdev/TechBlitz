@@ -3,9 +3,11 @@ import DashboardBentoGrid from '@/components/dashboard/dashboard-bento-grid';
 import CurrentStreak from '@/components/global/current-streak';
 import LanguageSwitcher from '@/components/global/language-dropdown';
 import UserProfileDropdown from '@/components/global/user-profile-dropdown';
+import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { getUserDisplayName } from '@/utils/user';
+import { ChatBubbleIcon } from '@radix-ui/react-icons';
 
 export default async function Dashboard() {
   const user = await getUserFromSession();
@@ -25,12 +27,21 @@ export default async function Dashboard() {
             Here's your daily dose of learning!
           </p>
         </div>
-        <div className="flex item-center gap-x-3">
-          <CurrentStreak />
-          <LanguageSwitcher />
-          <div className="lg:hidden flex">
-            <UserProfileDropdown />
+        <div className="flex gap-x-4 items-center">
+          <div className="flex item-center gap-x-3">
+            <CurrentStreak />
+            {/* <LanguageSwitcher /> */}
+            <div className="lg:hidden flex">
+              <UserProfileDropdown />
+            </div>
           </div>
+          <Button
+            variant="default"
+            className="flex items-center gap-x-2"
+          >
+            <ChatBubbleIcon className="size-4" />
+            Feedback
+          </Button>
         </div>
       </div>
       <Separator className="bg-black-50" />

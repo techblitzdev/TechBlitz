@@ -19,7 +19,7 @@ const items: {
 }[] = [
   {
     name: 'JavaScript',
-    title: 'Object'
+    title: 'Objects'
   },
   {
     name: 'JavaScript',
@@ -27,11 +27,11 @@ const items: {
   },
   {
     name: 'JavaScript',
-    title: 'Functions'
+    title: 'Data types'
   },
   {
     name: 'JavaScript',
-    title: 'Scope'
+    title: 'Array methods'
   },
   {
     name: 'JavaScript',

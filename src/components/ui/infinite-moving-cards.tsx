@@ -8,7 +8,7 @@ export const InfiniteMovingCards = ({
   direction = 'left',
   speed = 'fast',
   pauseOnHover = true,
-  className,
+  className
 }: {
   items: {
     name: string;
@@ -28,7 +28,7 @@ export const InfiniteMovingCards = ({
 
   const [start, setStart] = useState(false);
 
-  function addAnimation() {
+  const addAnimation = () => {
     if (containerRef.current && scrollerRef.current) {
       const scrollerContent = Array.from(scrollerRef.current.children);
 
@@ -43,7 +43,7 @@ export const InfiniteMovingCards = ({
       getSpeed();
       setStart(true);
     }
-  }
+  };
 
   const getDirection = () => {
     if (containerRef.current) {
@@ -92,7 +92,7 @@ export const InfiniteMovingCards = ({
         {items.map((item, idx) => (
           <div
             className={cn(
-              'bg-black-100 w-[150px] relative rounded-2xl border flex-shrink-0 border-black-50 p-4 md:w-[200px] transition-all',
+              'bg-[#000] w-[150px] relative rounded-2xl border flex-shrink-0 border-black-50 p-4 md:w-[200px] transition-all',
               idx % 2 === 0 ? '-translate-y-16' : 'translate-y-16'
             )}
             key={item.name}
@@ -120,7 +120,7 @@ export const InfiniteMovingCards = ({
               className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
             ></div>
             <div className="relative z-20 flex size-full justify-center items-center">
-              <span className="text-center leading-[1.6] text-white font-ubuntu font-normal">
+              <span className="text-white font-onest text-center">
                 {item.title}
               </span>
             </div>

@@ -59,7 +59,7 @@
     "mini-svg-data-uri": "^1.4.4",
     "motion": "^11.12.0",
     "nanoid": "^5.0.8",
-    "next": "14.2.9",
+    "next": "14.2.10",
     "next-themes": "^0.3.0",
     "openai": "^4.73.0",
     "posthog-js": "^1.188.0",

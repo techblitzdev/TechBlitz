@@ -5,10 +5,11 @@ import PostHogClient from '@/app/posthog';
 import RoadmapsCard from '@/components/roadmaps/[uid]/roadmaps-card';
 import CreateRoadmapButton from '@/components/roadmaps/create-roadmap-button';
 import Hero from '@/components/global/hero';
+import { redirect } from 'next/navigation';
 
 export default async function RoadmapPage() {
   const user = await useUserServer();
-  if (!user) return null;
+  if (!user) return redirect('/login');
 
   const posthog = PostHogClient();
   await posthog.getAllFlags('user_distinct_id');
@@ -28,7 +29,7 @@ export default async function RoadmapPage() {
       <Hero
         heading="Roadmaps"
         subheading="Welcome to your roadmap overview. Here you can view all of your
-          roadmaps and their progress, as well as create new ones."
+        roadmaps and their progress, as well as create new ones."
       />
       <div className="flex flex-col lg:flex-row gap-10 mt-5 container">
         <div className="w-full lg:w-1/2 relative">

@@ -14,6 +14,9 @@ export default function PricingCard(opts: { product: StripeProduct }) {
   const { product } = opts;
 
   const mostPopular = product.metadata.mostPopular == 'true';
+  const isFree = !product.default_price?.unit_amount;
+  // if it is free, then link to the signup page
+  const href = isFree ? '/signup' : '';
 
   return (
     <Card
@@ -68,9 +71,9 @@ export default function PricingCard(opts: { product: StripeProduct }) {
         <Button
           fullWidth
           variant={mostPopular ? 'accent' : 'default'}
-          href="/signup"
+          href={href}
         >
-          Get started
+          {isFree ? 'Sign up' : 'Get started'}
         </Button>
       </CardContent>
     </Card>

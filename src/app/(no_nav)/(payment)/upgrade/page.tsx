@@ -13,6 +13,7 @@ export default async function UpgradePage() {
       <Link
         href="/dashboard"
         className="absolute top-8 left-8 z-50"
+        aria-label="Go back to dashboard"
       >
         <Logo />
       </Link>

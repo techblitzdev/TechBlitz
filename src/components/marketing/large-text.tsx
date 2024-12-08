@@ -10,7 +10,7 @@ export default function HomepageLargeText() {
 
   return (
     <section className="pt-32 pb-44">
-      <h1 className="text-5xl lg:text-7xl text-gradient from-white to-white/55 py-4">
+      <h2 className="text-5xl lg:text-7xl text-gradient from-white to-white/55 py-4">
         <AnimatePresence>
           {words.map((word, index) => (
             <Word
@@ -20,7 +20,7 @@ export default function HomepageLargeText() {
             />
           ))}
         </AnimatePresence>
-      </h1>
+      </h2>
     </section>
   );
 }

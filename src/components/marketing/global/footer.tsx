@@ -72,7 +72,7 @@ export default function MarketingFooter() {
                       key={item.title}
                       className="flex flex-col gap-y-3"
                     >
-                      <h4 className="font-bold">{item.title}</h4>
+                      <h6 className="font-bold">{item.title}</h6>
                       <ul className="flex flex-col gap-y-2">
                         {item.links &&
                           item.links.map((link) => (

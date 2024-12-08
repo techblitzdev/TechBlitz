@@ -12,9 +12,9 @@ export default function FAQsBlock() {
   return (
     <section className="pb-32 flex flex-col items-center gap-10">
       <div className="text-center flex flex-col gap-y-2">
-        <h3 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
+        <h2 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
           Frequently asked questions
-        </h3>
+        </h2>
       </div>
       <Accordion
         type="single"
@@ -25,7 +25,7 @@ export default function FAQsBlock() {
           value="What is techblitz?"
           className="border-b border-black-50"
         >
-          <AccordionTrigger className="text-lg duration-300">
+          <AccordionTrigger className="text-xl duration-300">
             What is techblitz?
           </AccordionTrigger>
           <AccordionContent className="pb-4">
@@ -39,7 +39,7 @@ export default function FAQsBlock() {
           value="How do I get started?"
           className="border-b border-black-50"
         >
-          <AccordionTrigger className="text-lg duration-300">
+          <AccordionTrigger className="text-xl duration-300">
             Is techblitz open source?
           </AccordionTrigger>
           <AccordionContent className="pb-4">
@@ -57,7 +57,7 @@ export default function FAQsBlock() {
           value="Is techblitz free to use?"
           className="border-b border-black-50"
         >
-          <AccordionTrigger className="text-lg duration-300">
+          <AccordionTrigger className="text-xl duration-300">
             Is techblitz free to use?
           </AccordionTrigger>
           <AccordionContent className="pb-4">
@@ -69,7 +69,7 @@ export default function FAQsBlock() {
           value="What are the benefits of using techblitz?"
           className="border-b border-black-50"
         >
-          <AccordionTrigger className="text-lg duration-300">
+          <AccordionTrigger className="text-xl duration-300">
             What are the benefits of using techblitz?
           </AccordionTrigger>
           <AccordionContent className="pb-4">
@@ -80,7 +80,7 @@ export default function FAQsBlock() {
           value="What will you be adding to techblitz in the future?"
           className="border-b border-black-50"
         >
-          <AccordionTrigger className="text-lg duration-300">
+          <AccordionTrigger className="text-xl duration-300">
             What will you be adding to techblitz in the future?
           </AccordionTrigger>
           <AccordionContent className="pb-4">

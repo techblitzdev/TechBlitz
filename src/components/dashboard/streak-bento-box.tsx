@@ -35,7 +35,7 @@ export default async function StreakBentoBox() {
           inputMode="none"
         />
       </div>
-      <div className="flex w-full justify-between items-end">
+      <div className="flex w-full justify-between items-end z-10 relative">
         <Chip
           color="accent"
           text="Streak"

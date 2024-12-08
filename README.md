@@ -23,6 +23,7 @@ We love to be transparent with our users, so below are the next features we have
 - **TechBlitz for schools**: Education groups, create your student's questions, roadmaps and allow them to battle with one another for the top spot of the class!
 - **Social**: Profiles, friends/coworkers
 - **Statistics**: A more in-depth statistics dashboard, giving you a greater insight on your current ability.
+- **Multi-language support**: Currently we only support JavaScript. However, we are looking into: Python, Typescript, and GoLang for our first wave of other languages to support.
 
 ## 🛠 Tech Stack
 

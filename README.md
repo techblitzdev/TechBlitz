@@ -28,7 +28,7 @@ We love to be transparent with our users, so below are the next features we have
 
 ## 🛠 Tech Stack
 
-- **Frontend**: React + Next.js
+- **Frameworks**: React + Next.js (app router)
 - **Styling**: Tailwind CSS
 - **UI Components**: Shadcn/UI, aceternity, recharts
 - **Backend**: Supabase

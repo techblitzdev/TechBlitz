@@ -35,6 +35,8 @@ We love to be transparent with our users, so below are the next features we have
 - **Payments**: Stripe
 - **Hosting**: Vercel
 - **ORM**: Prisma
+- **Data fetching**: Tanstack Query
+- **Short links**: Dub
 
 ### Installation
 

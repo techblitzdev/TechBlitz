@@ -4,7 +4,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
+  TooltipTrigger
 } from '@/components/ui/tooltip';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 
@@ -12,7 +12,7 @@ import { UserRecord } from '@/types/User';
 import { getSuggestions } from '@/actions/questions/get-suggestions';
 import { getUserDailyStats } from '@/actions/user/get-daily-streak';
 
-export default async function PreviousQuestionPageSidenbar(opts: {
+export default async function PreviousQuestionPageSidebar(opts: {
   user: UserRecord | null;
 }) {
   const { user } = opts;
@@ -28,16 +28,16 @@ export default async function PreviousQuestionPageSidenbar(opts: {
   const dateArray: [Date, Date] = [startDate, endDate];
 
   const suggestions = await getSuggestions({
-    userUid: user?.uid || '',
+    userUid: user?.uid || ''
   });
 
   return (
     <aside className="w-1/2 relative">
       <div className="sticky top-10 space-y-10 w-1/2">
         <div className="w-fit h-fit flex flex-col gap-y-2.5">
-          <h6 className="text-xl">Your statistics</h6>
+          <h6 className="text-xl">Your current streak</h6>
           <DatePicker
-            className="z-30 text-white border border-black-50 p-2 rounded-md bg-black-100 hover:cursor-default"
+            className="z-30 text-white border border-black-50 p-2 rounded-md hover:cursor-default"
             color="white"
             type="range"
             value={dateArray}

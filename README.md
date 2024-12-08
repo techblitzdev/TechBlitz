@@ -24,6 +24,7 @@ We love to be transparent with our users, so below are the next features we have
 - **Social**: Profiles, friends/coworkers
 - **Statistics**: A more in-depth statistics dashboard, giving you a greater insight on your current ability.
 - **Multi-language support**: Currently we only support JavaScript. However, we are looking into: Python, Typescript, and GoLang for our first wave of other languages to support.
+- **Searching**: Implement elastic search to easily find questions that you want to answer🚀
 
 ## 🛠 Tech Stack
 

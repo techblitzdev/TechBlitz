@@ -39,7 +39,6 @@ export default async function RoadmapSinglgePage({
 
   return (
     <>
-      {/** @ts-ignore */}
       <div className="px-8">
         <Hero
           heading={roadmap.title || 'Untitled Roadmap'}

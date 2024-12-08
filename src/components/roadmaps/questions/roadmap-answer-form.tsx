@@ -210,7 +210,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
                         className={cn(
                           'p-4 rounded-xl min-h-20 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
                           field.value === answer.uid
-                            ? 'bg-black-50'
+                            ? ''
                             : 'bg-black hover:bg-black-75'
                         )}
                         onClick={() => field.onChange(answer.uid)}

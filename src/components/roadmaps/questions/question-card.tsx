@@ -61,7 +61,7 @@ export default function RoadmapQuestionCard(opts: {
         />
       </div>
       <Separator className="bg-black-50" />
-      <div className="p-4 w-full flex justify-between items-center">
+      <div className="p-4 w-full flex justify-between items-center bg-black-25">
         <div className="flex items-center gap-4 self-end">
           <Button variant="destructive">Reset</Button>
           <Button

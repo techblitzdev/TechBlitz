@@ -1,5 +1,5 @@
 import { getStatsChartData } from '@/actions/statistics/get-stats-chart-data';
-import Hero from '@/components/global/hero';
+import QuestionChart from '@/components/statistics/total-question-chart';
 import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/useUserServer';
 import { Calendar } from 'lucide-react';
@@ -16,7 +16,7 @@ export default async function StatisticsPage() {
 
   return (
     <div>
-      <div className="py-14 flex w-full justify-between items-center">
+      <div className="pt-14 pb-5 flex w-full justify-between items-center">
         <h1 className="text-3xl text-gradient from-white to-white/55">
           Statistics
         </h1>
@@ -25,7 +25,10 @@ export default async function StatisticsPage() {
           Jan 2024 - Jan 2025
         </Button>
       </div>
-      <pre>{JSON.stringify(stats, null, 2)}</pre>
+      <div className="max-h-[28rem]">
+        <QuestionChart />
+      </div>
+      {/* <pre>{JSON.stringify(stats, null, 2)}</pre> */}
     </div>
   );
 }

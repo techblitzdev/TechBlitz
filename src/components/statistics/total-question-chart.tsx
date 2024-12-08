@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { TrendingUp, TrendingDown } from 'lucide-react';
-import { CartesianGrid, Line, LineChart, XAxis } from 'recharts';
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
 import NumberFlow from '@number-flow/react';
 
 import {
@@ -100,6 +100,13 @@ export default function QuestionChart() {
               axisLine={false}
               tickMargin={8}
               tickFormatter={(value) => value.slice(0, 3)}
+            />
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              tickFormatter={(value) => `${value}`}
+              width={30}
+              tick={{ fill: 'hsl(var(--muted-foreground))' }}
             />
             <ChartTooltip
               cursor={false}

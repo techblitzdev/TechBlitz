@@ -15,7 +15,10 @@ export default function QuestionSuggestedCard(opts: {
       <div className="flex flex-col bg-black-100 border overflow-hidden border-black-50 rounded-md divide-y-[1px] divide-black-50">
         {Array.from({ length: 5 }).map((_, index) => (
           <div className="flex w-full justify-between items-center p-3">
-            <Skeleton key={index} className="bg-black h-6 w-3/4" />
+            <Skeleton
+              key={index}
+              className="bg-black h-6 w-3/4"
+            />
             <ArrowRight className="size-3 mr-1" />
           </div>
         ))}
@@ -31,7 +34,7 @@ export default function QuestionSuggestedCard(opts: {
           className={cn(
             'p-3 truncate w-full flex justify-between items-center group',
             index % 2 === 0
-              ? 'bg-black-75 hover:bg-black-100'
+              ? 'bg-[#000] hover:bg-black-100'
               : 'bg-black hover:bg-black-75'
           )}
           href={`/question/${question.uid}`}

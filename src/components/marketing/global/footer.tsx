@@ -19,7 +19,7 @@ const footerItems = [
       },
       {
         title: 'FAQs',
-        href: '/'
+        href: '/faqs'
       }
     ]
   },

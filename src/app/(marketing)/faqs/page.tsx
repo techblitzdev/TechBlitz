@@ -47,6 +47,48 @@ export default function FAQsPage() {
       )
     },
     {
+      question: 'What are the benefits of using techblitz?',
+      answer:
+        'We offer short-form questions on various topics to help you learn and grow.'
+    },
+    {
+      question: 'How do I get started with techblitz?',
+      answer: (
+        <>
+          To get started with techblitz, simply sign up for a free account. You
+          can sign up{' '}
+          <Link
+            href="/signup"
+            className="text-accent"
+          >
+            here
+          </Link>
+          .
+        </>
+      )
+    },
+    {
+      question: 'Can I contribute to techblitz?',
+      answer: (
+        <>
+          Yes! You can contribute to techblitz by submitting a pull request on
+          our{' '}
+          <a
+            href="https://git.new/blitz"
+            target="_blank"
+            className="text-accent"
+          >
+            GitHub repository
+          </a>
+          .
+        </>
+      )
+    },
+    {
+      question: 'Can I get a refund?',
+      answer: 'Yes, you can get a refund within 14 days of your purchase. '
+    },
+    {
       question:
         'My question is not listed here. How can I get in touch with you?',
       answer: 'testing'

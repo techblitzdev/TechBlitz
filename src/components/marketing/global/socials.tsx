@@ -9,6 +9,7 @@ export default function SocialLinks() {
           href="https://www.instagram.com/techblitz.dev/"
           target="_blank"
           className="size-4 fill-white hover:fill-accent duration-300"
+          aria-label="Go to techblitz on Instagram"
         >
           <svg
             role="img"
@@ -25,7 +26,9 @@ export default function SocialLinks() {
           href="https://git.new/techblitz"
           target="_blank"
           className="size-4 fill-white hover:fill-accent duration-300"
+          aria-label="Go to techblitz on GitHub"
         >
+          <title>GitHub</title>
           <GitHubLogoIcon />
         </Link>
       </div>
@@ -34,7 +37,9 @@ export default function SocialLinks() {
           href="https://x.com/techblitz_dev"
           target="_blank"
           className="size-4 fill-white hover:fill-accent duration-300"
+          aria-label="Go to techblitz on Twitter"
         >
+          <title>X</title>
           <svg
             data-testid="geist-icon"
             height="16"

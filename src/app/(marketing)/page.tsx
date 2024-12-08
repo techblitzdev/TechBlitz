@@ -3,7 +3,7 @@ import MarketingFooter from '@/components/marketing/global/footer';
 import OpenSourceBlock from '@/components/marketing/global/open-source/open-source-block';
 import FeaturesBentoGrid from '@/components/marketing/homepage/features/features-bento-grid';
 import HomepageHero from '@/components/marketing/homepage/hero/hero';
-import HomepageLargeText from '@/components/marketing/homepage/large-text';
+import HomepageLargeText from '@/components/marketing/large-text';
 
 import posthog from 'posthog-js';
 

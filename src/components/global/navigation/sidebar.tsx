@@ -305,6 +305,7 @@ export function AppSidebar() {
               href="/dashboard"
               className="text-sm xl:text-2xl font-ubuntu hover:text-white duration-300"
               prefetch
+              aria-label="Go back to dashboard"
             >
               <Logo />
             </Link>

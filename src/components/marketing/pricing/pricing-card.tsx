@@ -32,14 +32,14 @@ export default function PricingCard(opts: { product: StripeProduct }) {
     >
       <CardHeader>
         <div className="flex flex-col gap-2 text-start">
-          <h3 className="text-sm text-white font-satoshi flex gap-x-2">
-            {product.name}
+          <div className="text-sm text-white font-satoshi flex gap-x-2">
+            <p>{product.name}</p>
             {mostPopular && (
               <Badge className="font-onest !bg-gradient-to-r !from-accent !via-accent/60 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors">
                 Most popular
               </Badge>
             )}
-          </h3>
+          </div>
           <div className="flex flex-col gap-y-1">
             <span className="text-4xl font-semibold !leading-[1.1] text-gradient from-white to-white/75 font-onest">
               £

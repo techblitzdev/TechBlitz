@@ -39,11 +39,20 @@ export const metadata: Metadata = {
     type: 'website',
     url: 'https://techblitz.dev',
     images: {
-      url: 'https://techblitz.dev/dashboard-img.png',
+      url: 'https://opengraph.b-cdn.net/production/images/863d8e33-33f7-41ed-a987-983e8cc4c7f4.png?token=ASFBmVA1xTYODlK0Qt38ZI3qFDVAR4ChDCoLriKFC5o&height=550&width=1200&expires=33269672893',
       width: 800,
       height: 630,
       alt: 'techblitz | The all-in-one platform for developers'
     }
+  },
+  twitter: {
+    title: 'techblitz | The all-in-one platform for developers',
+    description: 'Improve your code knowledge, one day at a time.',
+    images: [
+      {
+        url: 'https://opengraph.b-cdn.net/production/images/863d8e33-33f7-41ed-a987-983e8cc4c7f4.png?token=ASFBmVA1xTYODlK0Qt38ZI3qFDVAR4ChDCoLriKFC5o&height=550&width=1200&expires=33269672893'
+      }
+    ]
   },
   robots: {
     index: true,

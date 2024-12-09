@@ -11,7 +11,7 @@ export default function HomepageHero() {
       id="#waitlist-form"
       className="pb-16 pt-28 md:pb-20 md:pt-32 xl:pb-40 xl:pt-56 grid grid-cols-12 gap-4 lg:gap-16 items-center"
     >
-      <div className="flex flex-col gap-y-4 col-span-full lg:col-span-6 xl:col-span-5">
+      <div className="flex flex-col gap-y-4 col-span-full items-center text-center">
         <Link
           href="/"
           className="group w-fit relative inline-flex overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
@@ -22,15 +22,15 @@ export default function HomepageHero() {
             <ArrowUpRight className="ml-2 size-4 group-hover:rotate-45 duration-300" />
           </span>
         </Link>
-        <h1 className="text-3xl lg:text-5xl !font-onest !font-medium !leading-[1.1] text-gradient from-white to-white/75">
-          Your{' '}
+        <h1 className="text-5xl lg:text-7xl !font-onest !font-medium tracking-tight text-gradient from-white to-white/75">
+          Software Engineering,{' '}
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/55">
-            personalized
+            <br />
+            Tailored{' '}
           </span>
-          <br />
-          path to master software engineering.
+          to You
         </h1>
-        <h6 className="font-onest">
+        <h6 className="font-onest max-w-2xl text-gray-400">
           A fully customizable, end-to-end learning platform for software
           engineers of all abilities — packed with daily challenges that are{' '}
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/80">
@@ -43,10 +43,6 @@ export default function HomepageHero() {
         ) : (
           <WaitlistForm />
         )}
-      </div>
-
-      <div className="col-span-full lg:col-span-6 xl:col-span-7 h-full">
-        <HomepageHeroImages />
       </div>
     </section>
   );

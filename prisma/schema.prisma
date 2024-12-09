@@ -111,6 +111,8 @@ model Questions {
   tags QuestionTags[]
 
   difficulty QuestionDifficulty @default(EASY)
+
+  DemoAnswers DemoAnswers[]
 }
 
 model Tag {
@@ -154,6 +156,17 @@ model Answers {
   correctAnswer Boolean   @default(false)
   questionDate  String    @default("")
   timeTaken     Int?
+}
+
+model DemoAnswers {
+  uid      String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  questionUid String
+  question    Questions @relation(fields: [questionUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+  correctAnswer Boolean @default(false)
+  userAnswer   String
+  timeTaken    Int?
 }
 
 model Streaks {

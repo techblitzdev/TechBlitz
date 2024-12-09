@@ -14,6 +14,7 @@ export interface ButtonProps extends VariantProps<typeof buttonVariants> {
   special?: boolean;
   arrow?: boolean;
   fullWidth?: boolean;
+  wrapperClassName?: string;
 }
 
 const buttonVariants = cva(
@@ -88,6 +89,7 @@ const Button = React.forwardRef<
       padding,
       fontSize,
       fullWidth,
+      wrapperClassName,
       ...props
     },
     ref
@@ -96,7 +98,12 @@ const Button = React.forwardRef<
     const compProps = href ? { href, ...props } : { ...props };
 
     return (
-      <div className={cn({ 'w-full': fullWidth, relative: true })}>
+      <div
+        className={cn(
+          { 'w-full': fullWidth, relative: true },
+          wrapperClassName
+        )}
+      >
         {/** @ts-expect-error - the element tag has been changed */}
         <Comp
           className={cn(

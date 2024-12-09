@@ -27,14 +27,7 @@ export default function CallToActionBlock(opts: {
         <p className="text-gray-400 text-lg">{description}</p>
       </div>
 
-      <Button
-        variant="accent"
-        className="relative z-10 rounded-full font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
-      >
-        dub.sh/blitz
-      </Button>
-
-      {/* <div className="z-50 relative flex flex-col sm:flex-row gap-4 items-center justify-center">
+      <div className="z-50 relative flex flex-col sm:flex-row gap-4 items-center justify-center">
         {process.env.NEXT_PUBLIC_ENV === 'development' ? (
           <>
             <Button
@@ -58,7 +51,7 @@ export default function CallToActionBlock(opts: {
         ) : (
           <WaitlistForm />
         )}
-      </div> */}
+      </div>
       <Grid
         size={30}
         position="bottom-right"

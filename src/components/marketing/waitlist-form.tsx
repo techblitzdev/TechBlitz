@@ -5,6 +5,7 @@ import { InputWithLabel } from '@/components/ui/input-label';
 import { addToWaitlist } from '@/actions/waitlist/add';
 import { toast } from 'sonner';
 import posthog from 'posthog-js';
+import { ChevronRight } from 'lucide-react';
 
 export function WaitlistForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,15 +32,29 @@ export function WaitlistForm() {
       onSubmit={handleSubmit}
       className="flex flex-col items-end gap-4 w-full max-w-md justify-center"
     >
-      <InputWithLabel
-        type="email"
-        name="email"
-        autoComplete="email"
-        placeholder="Email Address"
-        wrapperclassname="w-full"
-      />
-      <Button fullWidth variant="accent" disabled={isSubmitting}>
-        {isSubmitting ? 'Joining...' : 'Join the Waitlist'}
+      <div className="flex items-end gap-3 w-full">
+        <InputWithLabel
+          type="email"
+          name="email"
+          autoComplete="email"
+          placeholder="Email Address"
+          wrapperclassname="w-full"
+          className="w-full"
+          inputClassName="w-full"
+        />
+        <Button
+          variant="accent"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Joining...' : 'Join the Waitlist'}
+        </Button>
+      </div>
+      <Button
+        variant="secondary"
+        fullWidth
+      >
+        Answer today's challenge
+        <ChevronRight className="ml-2 size-3" />
       </Button>
     </form>
   );

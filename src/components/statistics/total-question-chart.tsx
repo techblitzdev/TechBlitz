@@ -35,7 +35,11 @@ export default function QuestionChart({
 }) {
   const chartData = useMemo(() => {
     return Object.entries(questionData).map(([month, data]) => ({
-      month,
+      // turn '2021-01' into 'Jan 2021'
+      month: new Date(month).toLocaleDateString('en-US', {
+        month: 'short',
+        year: 'numeric'
+      }),
       questions: data.totalQuestions
     }));
   }, [questionData]);

@@ -59,17 +59,19 @@ export function WaitlistForm() {
           {isSubmitting ? 'Joining...' : 'Join the Waitlist'}
         </Button>
       </div>
-      {data && (
-        <Button
-          variant="secondary"
-          fullWidth
-          type="button"
-          href={data.uid}
-        >
-          Answer today's challenge
-          <ChevronRight className="ml-2 size-3" />
-        </Button>
-      )}
+      <div className="h-9 w-full">
+        {data && (
+          <Button
+            variant="secondary"
+            fullWidth
+            type="button"
+            href={data.uid}
+          >
+            Answer today's challenge
+            <ChevronRight className="ml-2 size-3" />
+          </Button>
+        )}
+      </div>
     </form>
   );
 }

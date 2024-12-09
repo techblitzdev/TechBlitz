@@ -8,9 +8,14 @@ import posthog from 'posthog-js';
 import { ChevronRight } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
+import { useRouter } from 'next/navigation';
+import LoadingSpinner from '../ui/loading';
 
 export function WaitlistForm() {
+  const router = useRouter();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [redirecting, setRedirecting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,6 +39,19 @@ export function WaitlistForm() {
     queryKey: ['daily-challenge'],
     queryFn: () => getTodaysQuestion()
   });
+
+  const handleQuestionClick = () => {
+    // add loading spinner
+    setRedirecting(true);
+    if (!data) {
+      return toast.error('Failed to get the daily challenge. Please try again');
+    }
+    // track event
+    posthog.capture('daily_challenge_click');
+
+    // redirect to the daily challenge
+    router.push(data.uid);
+  };
 
   return (
     <form
@@ -60,17 +78,21 @@ export function WaitlistForm() {
         </Button>
       </div>
       <div className="h-9 w-full">
-        {data && (
-          <Button
-            variant="secondary"
-            fullWidth
-            type="button"
-            href={data.uid}
-          >
-            Answer today's challenge
-            <ChevronRight className="ml-2 size-3" />
-          </Button>
-        )}
+        <Button
+          variant="secondary"
+          fullWidth
+          type="button"
+          onClick={handleQuestionClick}
+        >
+          {!data || redirecting ? (
+            <LoadingSpinner />
+          ) : (
+            <>
+              Answer today's challenge
+              <ChevronRight className="ml-2 size-3" />
+            </>
+          )}
+        </Button>
       </div>
     </form>
   );

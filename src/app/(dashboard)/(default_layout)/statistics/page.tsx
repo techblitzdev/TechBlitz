@@ -12,7 +12,16 @@ export default async function StatisticsPage() {
     return redirect('/login');
   }
 
-  const stats = await getStatsChartData(user.uid);
+  const stats = await getStatsChartData({
+    userUid: user.uid,
+    from: '2024-01-01',
+    to: '2025-12-10'
+  });
+
+  // TODO: Handle error/null state
+  if (!stats) {
+    return null;
+  }
 
   return (
     <div>
@@ -26,9 +35,9 @@ export default async function StatisticsPage() {
         </Button>
       </div>
       <div className="max-h-[28rem]">
-        <QuestionChart />
+        <QuestionChart questionData={stats} />
       </div>
-      {/* <pre>{JSON.stringify(stats, null, 2)}</pre> */}
+      <pre>{JSON.stringify(stats, null, 2)}</pre>
     </div>
   );
 }

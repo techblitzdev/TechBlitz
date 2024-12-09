@@ -1,12 +1,6 @@
 'use server';
+import { StatsChartData } from '@/types/Stats';
 import { prisma } from '@/utils/prisma';
-
-type StatsChartData = {
-  [month: string]: {
-    totalQuestions: number;
-    tagCounts: Record<string, number>;
-  };
-};
 
 /**
  * Method to get all the question data for the user and return it
@@ -15,14 +9,26 @@ type StatsChartData = {
  * We return the data in the following format:
  * [month]: { totalQuestions: number, tags: string[], tagCounts: Record<string, number> }
  */
-export const getStatsChartData = async (userUid: string) => {
+export const getStatsChartData = async (opts: {
+  userUid: string;
+  to: string;
+  from: string;
+}) => {
+  const { userUid, to, from } = opts;
+
   if (!userUid) {
     return null;
   }
 
   const questions = await prisma.answers.findMany({
     where: {
-      userUid
+      userUid,
+      question: {
+        createdAt: {
+          gte: new Date(from),
+          lte: new Date(to)
+        }
+      }
     },
     include: {
       question: {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
 import NumberFlow from '@number-flow/react';
@@ -19,28 +19,7 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart';
-
-const months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-];
-
-const generateRandomData = () => {
-  return months.map((month) => ({
-    month,
-    questions: Math.floor(Math.random() * 50) + 25
-  }));
-};
+import { StatsChartData } from '@/types/Stats';
 
 const chartConfig = {
   questions: {
@@ -49,9 +28,38 @@ const chartConfig = {
   }
 } satisfies ChartConfig;
 
-export default function QuestionChart() {
-  const [chartData, setChartData] = useState(generateRandomData());
-  const [trend, setTrend] = useState({ percentage: 25, isUp: true });
+export default function QuestionChart({
+  questionData
+}: {
+  questionData: StatsChartData;
+}) {
+  const chartData = useMemo(() => {
+    return Object.entries(questionData).map(([month, data]) => ({
+      month,
+      questions: data.totalQuestions
+    }));
+  }, [questionData]);
+
+  const trend = useMemo(() => {
+    const sortedData = [...chartData].sort(
+      (a, b) => new Date(a.month).getTime() - new Date(b.month).getTime()
+    );
+    const lastMonth = sortedData[sortedData.length - 1];
+    const previousMonth = sortedData[sortedData.length - 2];
+
+    if (lastMonth && previousMonth) {
+      const percentageChange =
+        ((lastMonth.questions - previousMonth.questions) /
+          previousMonth.questions) *
+        100;
+      return {
+        percentage: Math.abs(percentageChange).toFixed(2),
+        isUp: percentageChange > 0
+      };
+    }
+
+    return { percentage: 0, isUp: true };
+  }, [chartData]);
 
   return (
     <Card
@@ -66,7 +74,7 @@ export default function QuestionChart() {
           <span>Questions Answered </span>
           <div className="flex gap-1 items-center text-sm font-medium leading-none text-white">
             <span className="flex items-center">
-              <NumberFlow value={trend.percentage} />%
+              <NumberFlow value={Number(trend.percentage)} />%
             </span>
             {trend.isUp ? (
               <TrendingUp className="h-4 w-4 text-green-500" />
@@ -75,7 +83,7 @@ export default function QuestionChart() {
             )}
           </div>
         </CardTitle>
-        <CardDescription>Last 12 months</CardDescription>
+        <CardDescription>Last {chartData.length} months</CardDescription>
       </CardHeader>
       <CardContent className="border-black-50 max-h-[28rem]">
         <ChartContainer

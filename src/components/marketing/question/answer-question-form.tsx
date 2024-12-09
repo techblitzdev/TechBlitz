@@ -5,40 +5,40 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
 
-import { UserRecord } from '@/types/User';
-
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import { Form, FormControl, FormField } from '@/components/ui/form';
-import {
-  RoadmapUserQuestions,
-  RoadmapUserQuestionsAnswers
-} from '@/types/Roadmap';
 import { toast } from 'sonner';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/utils/cn';
-import { Check, CheckCircle2Icon, XCircleIcon } from 'lucide-react';
+import {
+  Check,
+  CheckCircle2Icon,
+  ChevronLeftIcon,
+  XCircleIcon
+} from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import QuestionHintAccordion from '@/components/questions/single/question-hint';
 import LoadingSpinner from '@/components/ui/loading';
 import { Button } from '@/components/ui/button';
 import { answerDailyQuestionDemo } from '@/actions/demo/answer-question-demo';
 import { Question } from '@/types/Questions';
+import WaitlistSignup from './waitlist-sign-up';
+import Link from 'next/link';
+import BackToDashboard from '@/components/global/back-to-dashboard';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 
 type AnswerQuestionFormProps = {
   question: Question;
+  seconds: number;
 };
 
 const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
-  { question }: AnswerQuestionFormProps,
+  { question, seconds }: AnswerQuestionFormProps,
   ref: React.Ref<{ submitForm: () => void }>
 ) {
   const [loading, setLoading] = useState(false);
-  const [newUserData, setNewUserData] = useState<Omit<
-    RoadmapUserQuestionsAnswers,
-    'answers'
-  > | null>(null);
+  const [correct, setCorrect] = useState<boolean | null>(null);
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(answerQuestionSchema),
@@ -60,24 +60,20 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
   const handleAnswerQuestion = async (values: SchemaProps) => {
     setLoading(true);
     try {
-      const opts: any = {
+      const opts = {
         questionUid: question?.uid,
-        answerUid: values.answer
+        userAnswerUid: values.answer,
+        timeTaken: seconds
       };
 
-      // there is a chance nothing get's returned as we perform a redirect
-      // if this is the last question to answer
       const correct = await answerDailyQuestionDemo(opts);
+      setCorrect(correct);
     } catch (error) {
       console.error('Error submitting answer:', error);
       toast.error('Error submitting answer');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-  };
-
-  const handleRetry = () => {
-    form.reset();
-    setNewUserData(null);
   };
 
   return (
@@ -95,51 +91,37 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
           </div>
         )}
 
-        {newUserData && !loading ? (
+        {correct !== null && !loading ? (
           <div className="flex flex-col items-center justify-center h-[25rem] p-6 text-center">
-            <div className="bg-black-25 border border-black-50 rounded-xl p-8 shadow-lg text-center max-w-md w-full">
-              {newUserData?.correct ? (
-                <div className="flex flex-col gap-y-4 items-center">
-                  <CheckCircle2Icon className="mx-auto text-green-500 size-16" />
-                  <h3 className="text-2xl font-semibold text-green-600">
-                    Correct!
-                  </h3>
-                  <p className="text-sm">
-                    Great job! You've answered the question correctly.
-                  </p>
-
-                  <div className="flex items-center gap-x-3">
-                    <Button
-                      href="/"
-                      variant="secondary"
-                    >
-                      Home
-                    </Button>
+            <div className="bg-black border border-black-50 rounded-xl p-8 shadow-lg text-center max-w-md w-full">
+              {correct ? (
+                <div className="flex flex-col gap-y-2 relative">
+                  <div className="md:absolute">
+                    <BackToDashboard href="/" />
                   </div>
+                  <div className="flex gap-2 items-center justify-center">
+                    <CheckCircle2Icon className="text-green-500 size-6" />
+                    <h3 className="text-lg font-semibold text-green-600">
+                      Correct!
+                    </h3>
+                  </div>
+                  {/** waitlist form */}
+                  <WaitlistSignup />
                 </div>
               ) : (
-                <div className="flex flex-col gap-y-4 items-center">
-                  <XCircleIcon className="mx-auto text-red-500 size-16" />
-                  <h3 className="text-2xl font-semibold text-red-600">
-                    Incorrect
-                  </h3>
-                  <p className="text-sm">
-                    Don't worry, learning is a process. Keep trying!
-                  </p>
-                  <div className="flex items-center gap-x-3">
-                    <Button
-                      href="/"
-                      variant="secondary"
-                    >
-                      Home
-                    </Button>
-                    <Button
-                      variant="accent"
-                      onClick={() => handleRetry()}
-                      type="button"
-                    >
-                      Retry
-                    </Button>
+                <div className="flex flex-col gap-y-4 relative items-center">
+                  <div className="w-full md:absolute md:left-0 md:top-0">
+                    <BackToDashboard href="/" />
+                  </div>
+                  <div className="flex flex-col items-center gap-y-4 w-full max-w-md">
+                    <div className="flex gap-x-2 items-center justify-center">
+                      <XCircleIcon className="text-red-500 size-6" />
+                      <h3 className="text-lg font-semibold text-red-600">
+                        Incorrect
+                      </h3>
+                    </div>
+                    {/** waitlist form */}
+                    <WaitlistSignup />
                   </div>
                 </div>
               )}

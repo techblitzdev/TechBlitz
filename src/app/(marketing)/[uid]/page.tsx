@@ -34,7 +34,7 @@ export default async function MarketingQuestionPage({
           <QuestionCard question={question} />
 
           {/* Stats Card */}
-          <div className="bg-black-75 border border-black-50 rounded-xl overflow-hidden">
+          <div className="hidden md:block bg-black-75 border border-black-50 rounded-xl overflow-hidden">
             <div className="flex items-center gap-x-1 p-4 bg-black-25">
               <ChartColumn className="size-4" />
               <div className="text-sm">Stats</div>
@@ -70,6 +70,25 @@ export default async function MarketingQuestionPage({
                 language=""
               />
             )}
+          </div>
+        </div>
+        {/* Stats Card */}
+        <div className="block md:hidden bg-black-75 border border-black-50 rounded-xl overflow-hidden">
+          <div className="flex items-center gap-x-1 p-4 bg-black-25">
+            <ChartColumn className="size-4" />
+            <div className="text-sm">Stats</div>
+          </div>
+          <Separator className="bg-black-50" />
+          <div className="p-4 flex items-center">
+            <div className="flex items-start gap-4 text-sm text-gray-400">
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-0.5">
+                  <User className="size-4" />
+                  <p>Total submissions:</p>
+                </div>
+                <p>{totalSubmissions}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

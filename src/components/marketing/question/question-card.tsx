@@ -17,7 +17,7 @@ export default function QuestionCard(opts: {
   question: Question;
   index?: number;
 }) {
-  const { question, index } = opts;
+  const { question } = opts;
 
   const answerFormRef = useRef<{ submitForm: () => void }>(null);
   const { seconds, pause, reset, totalSeconds } = useStopwatch({
@@ -51,6 +51,7 @@ export default function QuestionCard(opts: {
         <AnswerQuestionForm
           ref={answerFormRef}
           question={question}
+          seconds={seconds}
         />
       </div>
       <Separator className="bg-black-50" />

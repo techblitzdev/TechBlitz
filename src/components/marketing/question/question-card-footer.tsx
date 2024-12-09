@@ -23,12 +23,6 @@ export default function QuestionCardFooter(opts: {
             </div>
             <div className="flex flex-row items-center gap-4 w-full md:w-auto justify-staer md:justify-end">
               <Button
-                variant="destructive"
-                className="w-full md:w-auto"
-              >
-                Reset
-              </Button>
-              <Button
                 variant="accent"
                 className="w-full md:w-auto"
                 onClick={() => answerFormRef.current?.submitForm()} // Trigger form submission

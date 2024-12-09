@@ -12,6 +12,7 @@ export default function HomepageHeroImages() {
         alt="Dashboard"
         priority={true}
       />
+      <div className="absolute inset-x-0 w-full bottom-0 h-20 lg:h-80 bg-gradient-to-t from-[#000000] to-transparent pointer-events-none"></div>
     </div>
   );
 }

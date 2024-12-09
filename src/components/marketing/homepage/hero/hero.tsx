@@ -30,7 +30,7 @@ export default function HomepageHero() {
           </span>
           to You
         </h1>
-        <h6 className="font-onest max-w-2xl">
+        <h6 className="font-onest max-w-2xl text-gray-400">
           A fully customizable, end-to-end learning platform for software
           engineers of all abilities — packed with daily challenges that are{' '}
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/80">

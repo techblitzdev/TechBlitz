@@ -74,14 +74,6 @@ export default async function StatisticsPage() {
         ) : (
           <LoadingSpinner />
         )}
-        {highestScoringTag ? (
-          <TotalStatsCard
-            header={highestScoringTag.tag}
-            description={`Highest Scoring Tag (${highestScoringTag.count})`}
-          />
-        ) : (
-          <LoadingSpinner />
-        )}
         <div className="max-h-[28rem] col-span-12">
           {stats ? <QuestionChart questionData={stats} /> : <LoadingSpinner />}
         </div>

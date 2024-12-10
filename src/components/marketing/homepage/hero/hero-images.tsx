@@ -47,7 +47,7 @@ export default function HomepageHeroImages() {
         initial={{ opacity: 1 }}
         animate={{ opacity: isVideoPlaying ? 0 : 1 }}
         transition={{ duration: 0.3 }}
-        className="absolute inset-0 z-10"
+        className="md:absolute inset-0 z-10"
       >
         <Image
           className="rounded-lg bg-black border border-black/50"

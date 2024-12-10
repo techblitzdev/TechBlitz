@@ -1,6 +1,6 @@
 import { Tags } from '@/types/Tags';
 import { Separator } from '../../ui/separator';
-import TagDisplay from '../previous/tag-display';
+import TagDisplay from '@/components/questions/previous/tag-display';
 import { Button } from '../../ui/button';
 
 export default function QuestionCardFooter(opts: {
@@ -14,15 +14,17 @@ export default function QuestionCardFooter(opts: {
       {questionTags && (
         <>
           <Separator className="bg-black-100 w-full" />
-          <div className="p-4 w-full flex justify-between items-center">
-            <TagDisplay
-              tags={questionTags}
-              variant="secondary"
-            />
-            <div className="flex items-center gap-4 self-end">
-              <Button variant="destructive">Reset</Button>
+          <div className="p-4 w-full flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="w-full md:w-auto">
+              <TagDisplay
+                tags={questionTags}
+                variant="secondary"
+              />
+            </div>
+            <div className="flex flex-row items-center gap-4 w-full md:w-auto justify-staer md:justify-end">
               <Button
                 variant="accent"
+                className="w-full md:w-auto"
                 onClick={() => answerFormRef.current?.submitForm()} // Trigger form submission
               >
                 Submit

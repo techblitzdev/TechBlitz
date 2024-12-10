@@ -5,7 +5,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
+  TooltipTrigger
 } from '@/components/ui/tooltip';
 
 // react hook form
@@ -35,10 +35,11 @@ interface InputWithLabelProps {
   // react hook form props
   label?: Path<IFormProps>;
   checkbox?: Path<IFormProps>;
+  inputClassName?: Path<IFormProps>;
 }
 
 const InputWithLabel = React.forwardRef<HTMLInputElement, InputWithLabelProps>(
-  ({ label, ...props }, ref) => {
+  ({ label, inputClassName, ...props }, ref) => {
     return (
       <div
         className={cn`
@@ -64,7 +65,7 @@ const InputWithLabel = React.forwardRef<HTMLInputElement, InputWithLabelProps>(
             </TooltipProvider>
           )}
         </div>
-        <div className="flex items-center gap-x-2">
+        <div className={cn('flex items-center gap-x-2', inputClassName)}>
           {props.checkbox && <Checkbox></Checkbox>}
           <Input
             ref={ref}

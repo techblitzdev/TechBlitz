@@ -18,6 +18,8 @@ import Filter from '@/components/global/filters/filter';
 import { QuestionDifficulty } from '@/types/Questions';
 import FilterChips from '@/components/global/filters/chips';
 import Hero from '@/components/global/hero';
+import { Suspense } from 'react';
+import LoadingSpinner from '@/components/ui/loading';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -66,7 +68,7 @@ export default async function QuestionsDashboard({
   });
 
   return (
-    <>
+    <Suspense fallback={<LoadingSpinner />}>
       <Hero
         heading="All Questions"
         subheading=" Explore a diverse set of questions across multiple topics to enhance
@@ -132,6 +134,6 @@ export default async function QuestionsDashboard({
           </div>
         </aside>
       </div>
-    </>
+    </Suspense>
   );
 }

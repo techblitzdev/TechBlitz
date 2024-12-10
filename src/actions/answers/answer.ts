@@ -20,7 +20,7 @@ interface AnswerQuestionResponse {
 
 const findOrCreateUserStreak = async (userUid: string) => {
   const streak = await prisma.streaks.findUnique({
-    where: { userUid },
+    where: { userUid }
   });
 
   if (streak) return streak;
@@ -33,14 +33,14 @@ const findOrCreateUserStreak = async (userUid: string) => {
       createdAt: new Date(),
       currentstreakCount: 0,
       longestStreak: 0,
-      updatedAt: new Date(),
-    },
+      updatedAt: new Date()
+    }
   });
 };
 
 const findQuestion = async (questionUid: string) => {
   const question = await prisma.questions.findUnique({
-    where: { uid: questionUid },
+    where: { uid: questionUid }
   });
 
   if (!question) {
@@ -54,8 +54,8 @@ const findExistingAnswer = async (userUid: string, questionUid: string) => {
   return prisma.answers.findFirst({
     where: {
       user: { is: { uid: userUid } },
-      question: { is: { uid: questionUid } },
-    },
+      question: { is: { uid: questionUid } }
+    }
   });
 };
 
@@ -116,8 +116,8 @@ const updateStreakDates = async (
       streakEnd: newStreakEnd,
       currentstreakCount: newCurrentStreak,
       longestStreak: newLongestStreak,
-      updatedAt: new Date(),
-    },
+      updatedAt: new Date()
+    }
   });
 
   await tx.users.update({
@@ -126,8 +126,8 @@ const updateStreakDates = async (
       correctDailyStreak: newCurrentStreak,
       totalDailyStreak:
         currentStreak.totalDailyStreak +
-        (isNextDay || (!isToday && correctAnswer) ? 1 : 0),
-    },
+        (isNextDay || (!isToday && correctAnswer) ? 1 : 0)
+    }
   });
 };
 
@@ -136,7 +136,7 @@ const handleStreakUpdates = async (
   dailyQuestion: boolean,
   {
     userUid,
-    correctAnswer,
+    correctAnswer
   }: {
     userUid: string;
     correctAnswer: boolean;
@@ -158,7 +158,7 @@ const updateOrCreateAnswer = async (
     questionUid,
     answerUid,
     correctAnswer,
-    timeTaken,
+    timeTaken
   }: {
     existingAnswer: any;
     userUid: string;
@@ -178,7 +178,7 @@ const updateOrCreateAnswer = async (
     ) {
       return tx.answers.update({
         where: { uid: existingAnswer.uid },
-        data: { userAnswerUid: answerUid, correctAnswer, timeTaken },
+        data: { userAnswerUid: answerUid, correctAnswer, timeTaken }
       });
     }
     return existingAnswer;
@@ -191,59 +191,80 @@ const updateOrCreateAnswer = async (
       question: { connect: { uid: questionUid } },
       userAnswerUid: answerUid,
       correctAnswer,
-      timeTaken,
-    },
+      timeTaken
+    }
   });
+};
+
+/**
+ * Gets the total number of questions the user has answered.
+ *
+ * @param userUid
+ * @returns
+ */
+export const getTotalQuestionCount = async (userUid: string) => {
+  if (!userUid) {
+    return null;
+  }
+
+  const questions = await prisma.answers.count({
+    where: {
+      userUid
+    }
+  });
+
+  revalidateTag('statistics');
+
+  return questions;
 };
 
 export async function answerQuestion({
   questionUid,
   answerUid,
   userUid,
-  timeTaken,
+  timeTaken
 }: AnswerQuestionInput): Promise<AnswerQuestionResponse> {
-  try {
-    const question = await findQuestion(questionUid);
-    const correctAnswer = question.correctAnswer === answerUid;
-    const existingAnswer = await findExistingAnswer(userUid, questionUid);
+  const question = await findQuestion(questionUid);
+  const correctAnswer = question.correctAnswer === answerUid;
+  const existingAnswer = await findExistingAnswer(userUid, questionUid);
 
-    const { userData, userAnswer } = await prisma.$transaction(async (tx) => {
-      // Only update streaks if this is a new answer
-      if (!existingAnswer) {
-        await handleStreakUpdates(tx, question.dailyQuestion, {
-          userUid,
-          correctAnswer,
-        });
-      }
-
-      // Get updated user data
-      const userData = await tx.users.findUnique({
-        where: { uid: userUid },
-      });
-
-      // Handle answer creation or update
-      const userAnswer = await updateOrCreateAnswer(tx, {
-        existingAnswer,
+  const { userData, userAnswer } = await prisma.$transaction(async (tx) => {
+    // Only update streaks if this is a new answer
+    if (!existingAnswer) {
+      await handleStreakUpdates(tx, question.dailyQuestion, {
         userUid,
-        questionUid,
-        answerUid,
-        correctAnswer,
-        timeTaken,
+        correctAnswer
       });
+    }
 
-      return { userData, userAnswer };
+    // Get updated user data
+    const userData = await tx.users.findUnique({
+      where: { uid: userUid }
     });
 
-    revalidateTag(`leaderboard-${questionUid}`);
-    revalidateTag(`user-has-answered-daily-question-${questionUid}`);
-
-    return {
+    // Handle answer creation or update
+    const userAnswer = await updateOrCreateAnswer(tx, {
+      existingAnswer,
+      userUid,
+      questionUid,
+      answerUid,
       correctAnswer,
-      userAnswer,
-      userData,
-    };
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+      timeTaken
+    });
+
+    return { userData, userAnswer };
+  });
+
+  // revalidate leaderboard
+  revalidateTag(`leaderboard-${questionUid}`);
+  // revalidate if the user has answered the streak
+  revalidateTag(`user-has-answered-daily-question-${questionUid}`);
+  // revalidate the user's statistics
+  revalidateTag(`statistics`);
+
+  return {
+    correctAnswer,
+    userAnswer,
+    userData
+  };
 }

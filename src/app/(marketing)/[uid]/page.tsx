@@ -5,6 +5,9 @@ import ExpandedCodeModal from '@/components/questions/expanded-code-modal';
 import { Separator } from '@/components/ui/separator';
 import { ChartColumn, User } from 'lucide-react';
 import QuestionDisplay from '@/components/questions/single/code-snippet';
+import { Button } from '@/components/ui/button';
+import { ChatBubbleIcon } from '@radix-ui/react-icons';
+import FeedbackButton from '@/components/global/feedback-button';
 
 export default async function MarketingQuestionPage({
   params
@@ -27,6 +30,9 @@ export default async function MarketingQuestionPage({
 
   return (
     <div className="container mx-auto px-4 py-20 md:py-28">
+      <div className="flex w-full justify-end">
+        <FeedbackButton />
+      </div>
       <div className="flex flex-col md:flex-row gap-6 mt-3">
         {/* Left Section - Question and Stats */}
         <div className="w-full md:w-1/2 flex flex-col gap-y-4">
@@ -56,7 +62,7 @@ export default async function MarketingQuestionPage({
 
         {/* Code Section */}
         <div className="w-full md:w-1/2">
-          <div className="h-auto md:h-[45rem] bg-black-75 border border-black-50 rounded-xl relative overflow-hidden">
+          <div className="h-auto min-h-[45rem] bg-black-75 border border-black-50 rounded-xl relative overflow-hidden">
             <div className="p-4 text-sm flex w-full items-center justify-between bg-black-25">
               <p>Code</p>
               {question.codeSnippet && (

@@ -8,8 +8,6 @@ import {
 import '../globals.css';
 import { ReactQueryClientProvider } from '@/components/react-query-client-provider';
 import { Toaster } from '@/components/ui/sonner';
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/global/navigation/sidebar';
 import { CSPostHogProvider } from '../providers';
 
 import { createTheme, MantineProvider } from '@mantine/core';

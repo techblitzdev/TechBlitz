@@ -109,3 +109,46 @@ export const getTotalTimeTaken = async (userUid: string) => {
 
   return totalTime;
 };
+
+export const getHighestScoringTag = async (userUid: string) => {
+  if (!userUid) {
+    return null;
+  }
+
+  const answers = await prisma.answers.findMany({
+    where: {
+      userUid
+    },
+    include: {
+      question: {
+        include: {
+          tags: {
+            include: {
+              tag: true
+            }
+          }
+        }
+      }
+    }
+  });
+
+  const tagCounts: Record<string, number> = {};
+
+  answers.forEach((answer) => {
+    answer.question.tags.forEach((tag) => {
+      const tagName = tag.tag.name;
+      tagCounts[tagName] = (tagCounts[tagName] || 0) + 1;
+    });
+  });
+
+  const highestScoringTag = Object.keys(tagCounts).reduce((acc, tag) => {
+    return tagCounts[tag] > tagCounts[acc] ? tag : acc;
+  }, '');
+
+  revalidateTag('statistics');
+
+  return {
+    tag: highestScoringTag,
+    count: tagCounts[highestScoringTag]
+  };
+};

@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/utils/cn';
 import NumberFlow from '@number-flow/react';
 import { useEffect, useState } from 'react';
+import { capitalise } from '@/utils';
 
 interface TotalAnsweredQuestionsProps {
   header: string | number;
@@ -28,21 +29,31 @@ export default function TotalStatsCard({
   }, [header]);
 
   return (
-    <Card className={cn('col-span-12 lg:col-span-3 border-none', className)}>
+    <Card
+      className={cn(
+        'col-span-12 md:col-span-6 lg:col-span-3 border-none',
+        className
+      )}
+    >
       <CardHeader className="p-3">
         <CardTitle className="text-white">
           <div className="flex items-center justify-between">
-            <span className="text-5xl font-bold text-white">
+            <span className="text-2xl lg:text-4xl font-bold text-white">
               {typeof header === 'number' ? (
-                <NumberFlow value={number} />
+                <NumberFlow
+                  className="p-0"
+                  value={number}
+                />
               ) : (
-                header
+                capitalise(header)
               )}
             </span>
           </div>
         </CardTitle>
       </CardHeader>
-      <CardContent className="text-white p-3 pt-0">{description}</CardContent>
+      <CardContent className="text-white text-sm p-3 pt-0">
+        {description}
+      </CardContent>
     </Card>
   );
 }

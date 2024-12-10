@@ -191,17 +191,6 @@ export default function QuestionChart({
           </LineChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none text-white">
-          {trend.isUp ? 'Trending up' : 'Trending down'} by {trend.percentage}%
-          this period
-          {trend.isUp ? (
-            <TrendingUp className="h-4 w-4 text-green-500" />
-          ) : (
-            <TrendingDown className="h-4 w-4 text-red-500" />
-          )}
-        </div>
-      </CardFooter>
     </Card>
   );
 }

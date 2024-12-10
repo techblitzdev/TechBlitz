@@ -52,6 +52,7 @@ export default async function StatisticsPage() {
       <div className="grid grid-cols-12 gap-y-4 gap-x-8">
         {totalQuestions ? (
           <TotalStatsCard
+            className="-left-3 relative"
             header={Number(totalQuestions)}
             description="Total Questions Answered"
           />

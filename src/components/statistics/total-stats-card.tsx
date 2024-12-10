@@ -38,7 +38,7 @@ export default function TotalStatsCard({
       <CardHeader className="p-3">
         <CardTitle className="text-white">
           <div className="flex items-center justify-between">
-            <span className="text-2xl lg:text-4xl font-bold text-white">
+            <span className="text-2xl lg:text-4xl font-bold">
               {typeof header === 'number' ? (
                 <NumberFlow
                   className="p-0"
@@ -51,7 +51,12 @@ export default function TotalStatsCard({
           </div>
         </CardTitle>
       </CardHeader>
-      <CardContent className="text-white text-sm p-3 pt-0">
+      <CardContent
+        className={cn(
+          'relative text-gray-400 text-sm p-3 pt-0',
+          typeof header === 'number' ? '-top-3' : ''
+        )}
+      >
         {description}
       </CardContent>
     </Card>

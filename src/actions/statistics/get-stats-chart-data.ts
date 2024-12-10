@@ -26,13 +26,12 @@ export const getStatsChartData = async (opts: {
       userUid,
       createdAt: {
         gte: new Date(from),
-        lte: new Date(to)
+        lte: new Date('2024-12-31')
       }
     },
     include: {
       question: {
         select: {
-          createdAt: true,
           tags: {
             include: {
               tag: true
@@ -46,7 +45,8 @@ export const getStatsChartData = async (opts: {
   const data: StatsChartData = {};
 
   questions.forEach((answer) => {
-    const month = answer.question.createdAt.toISOString().slice(0, 7);
+    console.log(answer.createdAt);
+    const month = answer.createdAt.toISOString().slice(0, 7);
     const tags = answer.question.tags.map((tag) => tag.tag.name);
 
     if (data[month]) {
@@ -62,6 +62,8 @@ export const getStatsChartData = async (opts: {
       data[month] = { totalQuestions: 1, tagCounts };
     }
   });
+
+  console.log(data['2024-12']);
 
   revalidateTag('statistics');
 

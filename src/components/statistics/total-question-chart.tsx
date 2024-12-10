@@ -19,7 +19,6 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart';
-import { StatsChartData } from '@/types/Stats';
 
 const chartConfig = {
   questions: {
@@ -34,27 +33,71 @@ export default function QuestionChart({
   questionData: StatsChartData;
 }) {
   const chartData = useMemo(() => {
-    return Object.entries(questionData).map(([month, data]) => ({
-      // turn '2021-01' into 'Jan 2021'
-      month: new Date(month).toLocaleDateString('en-US', {
-        month: 'short',
-        year: 'numeric'
-      }),
-      questions: data.totalQuestions
-    }));
+    const entries = Object.entries(questionData);
+    const sortedEntries = entries.sort(
+      (a, b) => new Date(a[0]).getTime() - new Date(b[0]).getTime()
+    );
+    const monthCount = sortedEntries.length;
+
+    if (monthCount < 3) {
+      // Convert to weekly or daily data
+      const allDates = sortedEntries.flatMap(([month, data]) => {
+        const [year, monthNum] = month.split('-');
+        const daysInMonth = new Date(
+          Number(year),
+          Number(monthNum),
+          0
+        ).getDate();
+        return Array.from({ length: daysInMonth }, (_, i) => {
+          const day = i + 1;
+          const date = `${year}-${monthNum.padStart(2, '0')}-${day
+            .toString()
+            .padStart(2, '0')}`;
+          return [date, data.totalQuestions / daysInMonth];
+        });
+      });
+
+      if (monthCount < 1) {
+        // Daily data
+        return allDates.map(([date, questions]) => ({
+          date: new Date(date).toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric'
+          }),
+          questions: Math.round(Number(questions))
+        }));
+      } else {
+        // Weekly data
+        const weeklyData: { [week: string]: number } = {};
+        allDates.forEach(([date, questions]) => {
+          const week = getWeekNumber(new Date(date));
+          weeklyData[week] = (weeklyData[week] || 0) + Number(questions);
+        });
+        return Object.entries(weeklyData).map(([week, questions]) => ({
+          date: `Week ${week}`,
+          questions: Math.round(questions)
+        }));
+      }
+    } else {
+      // Monthly data (original logic)
+      return sortedEntries.map(([month, data]) => ({
+        date: new Date(month).toLocaleDateString('en-US', {
+          month: 'short',
+          year: 'numeric'
+        }),
+        questions: data.totalQuestions
+      }));
+    }
   }, [questionData]);
 
   const trend = useMemo(() => {
-    const sortedData = [...chartData].sort(
-      (a, b) => new Date(a.month).getTime() - new Date(b.month).getTime()
-    );
-    const lastMonth = sortedData[sortedData.length - 1];
-    const previousMonth = sortedData[sortedData.length - 2];
+    const lastPeriod = chartData[chartData.length - 1];
+    const previousPeriod = chartData[chartData.length - 2];
 
-    if (lastMonth && previousMonth) {
+    if (lastPeriod && previousPeriod) {
       const percentageChange =
-        ((lastMonth.questions - previousMonth.questions) /
-          previousMonth.questions) *
+        ((lastPeriod.questions - previousPeriod.questions) /
+          previousPeriod.questions) *
         100;
       return {
         percentage: Math.abs(percentageChange).toFixed(2),
@@ -64,6 +107,13 @@ export default function QuestionChart({
 
     return { percentage: 0, isUp: true };
   }, [chartData]);
+
+  const periodText = useMemo(() => {
+    const monthCount = Object.keys(questionData).length;
+    if (monthCount < 1) return 'days';
+    if (monthCount < 3) return 'weeks';
+    return 'months';
+  }, [questionData]);
 
   return (
     <Card
@@ -87,7 +137,9 @@ export default function QuestionChart({
             )}
           </div>
         </CardTitle>
-        <CardDescription>Last {chartData.length} months</CardDescription>
+        <CardDescription>
+          Last {chartData.length} {periodText}
+        </CardDescription>
       </CardHeader>
       <CardContent className="border-black-50 max-h-[28rem]">
         <ChartContainer
@@ -107,11 +159,11 @@ export default function QuestionChart({
           >
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
+              dataKey="date"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={(value) => value.split(' ')[0]}
             />
             <YAxis
               tickLine={false}
@@ -152,4 +204,22 @@ export default function QuestionChart({
       </CardFooter>
     </Card>
   );
+}
+
+// Helper function to get week number
+function getWeekNumber(date: Date) {
+  const d = new Date(
+    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+  );
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil(((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
+}
+
+export interface StatsChartData {
+  [month: string]: {
+    totalQuestions: number;
+    tagCounts: Record<string, number>;
+  };
 }

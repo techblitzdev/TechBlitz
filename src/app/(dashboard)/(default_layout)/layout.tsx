@@ -1,6 +1,6 @@
 import BackToDashboard from '@/components/global/back-to-dashboard';
 import CurrentStreak from '@/components/global/current-streak';
-import Feedback from '@/components/global/feedback';
+import Feedback from '@/components/global/feedback-button';
 import { Separator } from '@/components/ui/separator';
 
 export default function StatisticsLayout({

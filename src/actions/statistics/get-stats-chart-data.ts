@@ -1,6 +1,7 @@
 'use server';
 import { StatsChartData } from '@/types/Stats';
 import { prisma } from '@/utils/prisma';
+import { revalidateTag } from 'next/cache';
 
 /**
  * Method to get all the question data for the user and return it
@@ -23,11 +24,9 @@ export const getStatsChartData = async (opts: {
   const questions = await prisma.answers.findMany({
     where: {
       userUid,
-      question: {
-        createdAt: {
-          gte: new Date(from),
-          lte: new Date(to)
-        }
+      createdAt: {
+        gte: new Date(from),
+        lte: new Date(to)
       }
     },
     include: {
@@ -64,6 +63,8 @@ export const getStatsChartData = async (opts: {
     }
   });
 
+  revalidateTag('statistics');
+
   return data;
 };
 
@@ -84,5 +85,27 @@ export const getTotalQuestionCount = async (userUid: string) => {
     }
   });
 
+  revalidateTag('statistics');
+
   return questions;
+};
+
+export const getTotalTimeTaken = async (userUid: string) => {
+  if (!userUid) {
+    return null;
+  }
+
+  const answers = await prisma.answers.findMany({
+    where: {
+      userUid
+    }
+  });
+
+  const totalTime = answers.reduce((acc, answer) => {
+    return acc + (answer.timeTaken || 0);
+  }, 0);
+
+  revalidateTag('statistics');
+
+  return totalTime;
 };

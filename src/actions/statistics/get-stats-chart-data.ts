@@ -14,8 +14,9 @@ export const getStatsChartData = async (opts: {
   userUid: string;
   to: string;
   from: string;
+  step: 'month' | 'week' | 'day';
 }) => {
-  const { userUid, to, from } = opts;
+  const { userUid, to, from, step } = opts;
 
   if (!userUid) {
     return null;
@@ -44,26 +45,73 @@ export const getStatsChartData = async (opts: {
 
   const data: StatsChartData = {};
 
+  // Helper function to format day label
+  const formatDayLabel = (date: Date) => {
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ];
+
+    const dayOfWeek = days[date.getDay()];
+    const month = months[date.getMonth()];
+    const dayOfMonth = date.getDate();
+
+    return `${dayOfWeek}, ${month} ${dayOfMonth}`;
+  };
+
   questions.forEach((answer) => {
-    console.log(answer.createdAt);
-    const month = answer.createdAt.toISOString().slice(0, 7);
+    let key: string;
+    switch (step) {
+      case 'month':
+        key = answer.createdAt.toISOString().slice(0, 7);
+        break;
+      case 'week':
+        // Get the start of the week (first day of the week)
+        const weekStart = new Date(answer.createdAt);
+        weekStart.setDate(
+          answer.createdAt.getDate() - answer.createdAt.getDay()
+        );
+        key = weekStart.toISOString().slice(0, 10);
+        break;
+      case 'day':
+        key = formatDayLabel(answer.createdAt);
+        break;
+    }
+
     const tags = answer.question.tags.map((tag) => tag.tag.name);
 
-    if (data[month]) {
-      data[month].totalQuestions++;
+    if (data[key]) {
+      data[key].totalQuestions++;
       tags.forEach((tag) => {
-        data[month].tagCounts[tag] = (data[month].tagCounts[tag] || 0) + 1;
+        data[key].tagCounts[tag] = (data[key].tagCounts[tag] || 0) + 1;
+        // Ensure tags array is updated
+        if (!data[key].tags.includes(tag)) {
+          data[key].tags.push(tag);
+        }
       });
     } else {
       const tagCounts: Record<string, number> = {};
       tags.forEach((tag) => {
         tagCounts[tag] = 1;
       });
-      data[month] = { totalQuestions: 1, tagCounts };
+      data[key] = {
+        totalQuestions: 1,
+        tagCounts,
+        tags: [...tags]
+      };
     }
   });
-
-  console.log(data['2024-12']);
 
   revalidateTag('statistics');
 

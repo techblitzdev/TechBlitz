@@ -4,6 +4,7 @@ import {
   getTotalTimeTaken,
   getHighestScoringTag
 } from '@/actions/statistics/get-stats-chart-data';
+import StatsRangePicker from '@/components/statistics/range-picker';
 import QuestionChart from '@/components/statistics/total-question-chart';
 import TotalStatsCard from '@/components/statistics/total-stats-card';
 import { Button } from '@/components/ui/button';
@@ -26,7 +27,8 @@ export default async function StatisticsPage() {
       getStatsChartData({
         userUid: user.uid,
         from: '2024-01-01',
-        to: '2024-12-31'
+        to: '2024-12-31',
+        step: 'day'
       }),
       getTotalQuestionCount(user.uid),
       getTotalTimeTaken(user.uid),
@@ -40,10 +42,7 @@ export default async function StatisticsPage() {
           Statistics
         </h1>
         <div className="flex gap-3">
-          <Button>
-            <Calendar className="size-4 mr-2" />
-            Date Range
-          </Button>
+          <StatsRangePicker />
           <Button variant="default">
             <Stars className="size-4 text-yellow-300 fill-yellow-300" />
           </Button>

@@ -8,11 +8,13 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { Button } from '../ui/button';
-import { Calendar } from 'lucide-react';
+import { Calendar, ChevronDown } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { STATISTICS_STEPS } from '@/utils/constants/statistics-filters';
+import { STATISTICS } from '@/utils/constants/statistics-filters';
 
-export default function StatsRangePicker() {
+export default function StatsRangePicker(opts: { selectedRange: string }) {
+  const { selectedRange } = opts;
+
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -29,10 +31,13 @@ export default function StatsRangePicker() {
           variant="default"
           padding="sm"
           size="sm"
-          className="flex items-center gap-x-2.5 text-xs group"
+          className="flex items-center justify-between text-xs group w-44"
         >
-          <Calendar className="size-4 mr-2" />
-          Date Range
+          <div className="flex gap-x-2 items-center">
+            <Calendar className="size-4" />
+            {selectedRange ? selectedRange : 'Date Range'}
+          </div>
+          <ChevronDown className="size-3" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
@@ -40,7 +45,7 @@ export default function StatsRangePicker() {
         className="!p-0 w-40 bg-black border border-black-50 text-white text-sm"
       >
         <DropdownMenuGroup className="p-1">
-          {STATISTICS_STEPS.map((step) => (
+          {Object.values(STATISTICS).map((step) => (
             <DropdownMenuItem
               key={step.value}
               className="hover:!text-white"

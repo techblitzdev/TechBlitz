@@ -1,4 +1,4 @@
-import { STATISTICS_STEPS, STEPS } from '@/utils/constants/statistics-filters';
+import { STEPS } from '@/utils/constants/statistics-filters';
 
 export type StatsChartData = {
   [key: string]: {
@@ -8,7 +8,7 @@ export type StatsChartData = {
   };
 };
 
-export type StatsConstants = (typeof STATISTICS_STEPS)[number]; // { value: 'last-7-days', label: 'Last 7 days' }
+export type StepRange = 'day' | 'week' | 'month';
 
 // used to get the type of the elements in the STEPS array
 export type StatsSteps = (typeof STEPS)[number]; // '7d' | '30d' | '90d'

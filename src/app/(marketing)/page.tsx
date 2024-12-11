@@ -6,10 +6,21 @@ import HomepageHero from '@/components/marketing/homepage/hero/hero';
 import HomepageHeroImages from '@/components/marketing/homepage/hero/hero-images';
 import HomepageLargeText from '@/components/marketing/large-text';
 
+import { supabase } from '@/lib/supabase';
+
 import posthog from 'posthog-js';
 
 export default async function AuthedPage() {
   posthog.capture('page_view', { page_name: 'Landing Page' });
+
+  const { data, error } = await supabase.functions.invoke(
+    'slack_send-daily-question'
+  );
+
+  console.log({
+    data,
+    error
+  });
 
   return (
     <div className="overflow-x-hidden">

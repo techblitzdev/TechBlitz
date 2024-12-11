@@ -10,7 +10,7 @@ import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 
 import { UserRecord } from '@/types/User';
 import { getSuggestions } from '@/actions/questions/get-suggestions';
-import { getUserDailyStats } from '@/actions/user/get-daily-streak';
+import { getUserDailyStats } from '@/actions/user/authed/get-daily-streak';
 
 export default async function PreviousQuestionPageSidebar(opts: {
   user: UserRecord | null;

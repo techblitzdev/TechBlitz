@@ -22,7 +22,7 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { DatePicker } from '@mantine/dates';
-import { getUserDailyStats } from '@/actions/user/get-daily-streak';
+import { getUserDailyStats } from '@/actions/user/authed/get-daily-streak';
 import {
   CheckCircle2Icon,
   XCircleIcon,

@@ -1,5 +1,5 @@
 'use client';
-import { logout } from '@/actions/user/logout';
+import { logout } from '@/actions/user/account/logout';
 import { useRouter } from 'next/navigation';
 
 import { ExitIcon } from '@radix-ui/react-icons';

@@ -5,13 +5,13 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form';
 import { loginSchema } from '@/lib/zod/schemas/login';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { login } from '@/actions/user/login';
+import { login } from '@/actions/user/account/login';
 import { InputWithLabel } from '../ui/input-label';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
@@ -29,8 +29,8 @@ export default function LoginForm() {
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: '',
-      password: '',
-    },
+      password: ''
+    }
   });
 
   const handleLogin = async (values: SchemaProps) => {
@@ -39,7 +39,7 @@ export default function LoginForm() {
     try {
       await login({
         email,
-        password,
+        password
       });
 
       toast.success('Logged in successfully');
@@ -119,7 +119,11 @@ export default function LoginForm() {
 
         <span className="col-span-full text-sm text-gray-300 hover:text-white duration-300">
           Don't have an account?{' '}
-          <Link href="/signup" prefetch className="underline">
+          <Link
+            href="/signup"
+            prefetch
+            className="underline"
+          >
             Sign up
           </Link>
         </span>

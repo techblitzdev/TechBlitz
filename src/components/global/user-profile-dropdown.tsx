@@ -3,11 +3,14 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import LogoutButton from './logout';
 import AdminButton from '@/components/admin-button';
-import { getUserFromDb, getUserFromSession } from '@/actions/user/get-user';
+import {
+  getUserFromDb,
+  getUserFromSession
+} from '@/actions/user/authed/get-user';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getUserDisplayName } from '@/utils/user';
@@ -55,7 +58,10 @@ export default async function UserProfileDropdown() {
           Support
         </DropdownMenuItem>
         <DropdownMenuItem className="hover:bg-white hover:text-black duration-100 text-xs">
-          <Link href={`${process.env.CHECKOUT_URL}`} prefetch>
+          <Link
+            href={`${process.env.CHECKOUT_URL}`}
+            prefetch
+          >
             Upgrade account
           </Link>
         </DropdownMenuItem>

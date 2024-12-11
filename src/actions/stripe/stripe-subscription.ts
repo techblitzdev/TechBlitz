@@ -1,7 +1,7 @@
 'use server';
 import Stripe from 'stripe';
 import { stripe } from '@/lib/stripe';
-import { getUserFromSession } from '../user/get-user';
+import { getUserFromSession } from '../user/authed/get-user';
 
 type SubscriptionResponse = {
   subscriptionId: string;
@@ -37,8 +37,8 @@ export const createSubscription = async (
       const customerParams: Stripe.CustomerCreateParams = {
         email,
         metadata: {
-          createdAt: new Date().toISOString(),
-        },
+          createdAt: new Date().toISOString()
+        }
       };
       customer = await createCustomer(customerParams, stripe);
       isNewCustomer = true;
@@ -64,10 +64,10 @@ export const createSubscription = async (
           items: [
             {
               id: existingSubscription.data[0].items.data[0].id,
-              price: priceId,
-            },
+              price: priceId
+            }
           ],
-          proration_behavior: 'create_prorations',
+          proration_behavior: 'create_prorations'
         }
       );
     } else {
@@ -79,12 +79,12 @@ export const createSubscription = async (
         payment_behavior: 'default_incomplete',
         payment_settings: {
           save_default_payment_method: 'on_subscription',
-          payment_method_types: ['card'],
+          payment_method_types: ['card']
         },
         expand: ['latest_invoice.payment_intent'],
         metadata: {
-          email: customer.email,
-        },
+          email: customer.email
+        }
       });
     }
 
@@ -103,7 +103,7 @@ export const createSubscription = async (
       clientSecret: paymentIntent.client_secret,
       customerId: customer.id,
       isNewCustomer,
-      stripeSubscriptionItemId: subscription.items.data[0].id,
+      stripeSubscriptionItemId: subscription.items.data[0].id
     };
   } catch (error) {
     console.error('Error in createSubscription:', error);
@@ -120,7 +120,7 @@ export const lookupCustomer = async (
 ): Promise<Stripe.Customer | null> => {
   const existingCustomer = await stripe.customers.list({
     email: email,
-    limit: 1,
+    limit: 1
   });
 
   return existingCustomer.data.length ? existingCustomer.data[0] : null;
@@ -153,7 +153,7 @@ export const hasActiveSubscription = async (
     return await stripe.subscriptions.list({
       customer: customerId,
       status: 'active',
-      expand: ['data.items.data.price'],
+      expand: ['data.items.data.price']
     });
   } catch (error) {
     console.error('Error checking active subscription:', error);

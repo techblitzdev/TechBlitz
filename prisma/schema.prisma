@@ -42,7 +42,7 @@ model Waitlist {
 }
 
 model Users {
-  uid       String  @id()
+  uid       String  @id @default(cuid())
   email     String  @unique
   username  String?
   firstName String?
@@ -68,6 +68,45 @@ model Users {
   streak Streaks?
 
   roadmaps UserRoadmaps[]
+
+  workspaceOwner Workspaces[] @relation(name: "WorkspaceOwner")
+
+  workspaceUsers Workspaces[] @relation(name: "WorkspaceUsers")
+
+  WorkspaceUsers WorkspaceUsers[]
+}
+
+model Workspaces {
+  uid       String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name        String
+  description String?
+  ownerUid    String
+  owner       Users   @relation(fields: [ownerUid], references: [uid], onDelete: Cascade, onUpdate: Cascade, name: "WorkspaceOwner")
+
+  users WorkspaceUsers[]
+
+  @@unique([name, ownerUid])
+  Users Users[] @relation(name: "WorkspaceUsers")
+}
+
+model WorkspaceUsers {
+  uid         String     @id @default(cuid())
+  workspaceUid String
+  workspace   Workspaces @relation(fields: [workspaceUid], references: [uid], onDelete: Cascade)
+  userUid     String
+  user        Users      @relation(fields: [userUid], references: [uid], onDelete: Cascade)
+  role        UserRole   @default(MEMBER)
+
+  @@unique([workspaceUid, userUid])
+}
+
+enum UserRole {
+  ADMIN
+  MEMBER
+  VIEWER
 }
 
 model Subscriptions {

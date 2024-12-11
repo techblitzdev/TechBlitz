@@ -61,9 +61,7 @@ export default function SidebarFooterComponent() {
               Upgrade to{' '}
               {user?.userLevel !== 'STANDARD' ? 'Standard' : 'Premium'}
             </p>
-            <p className="text-xs font-light">
-              Elevate your development skills
-            </p>
+            <p className="text-xs font-light">Unlock more features.</p>
             <Button
               variant="accent"
               fullWidth

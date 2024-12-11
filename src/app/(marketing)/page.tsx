@@ -13,14 +13,14 @@ import posthog from 'posthog-js';
 export default async function AuthedPage() {
   posthog.capture('page_view', { page_name: 'Landing Page' });
 
-  const { data, error } = await supabase.functions.invoke(
-    'slack_send-daily-question'
-  );
+  // const { data, error } = await supabase.functions.invoke(
+  //   'slack_send-daily-question'
+  // );
 
-  console.log({
-    data,
-    error
-  });
+  // console.log({
+  //   data,
+  //   error
+  // });
 
   return (
     <div className="overflow-x-hidden">

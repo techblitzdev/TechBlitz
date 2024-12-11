@@ -53,39 +53,37 @@ export async function GET(request: NextRequest) {
         //     uid: userSession.user.id
         //   }
         // });
-
         // if the user is not in the db, add them
         //if (!user && userSession.user.email) {
-          // await prisma.user.create({
-          //   data: {
-          //     uid: userSession.user.id,
-          //     email: userSession.user.email,
-          //     createdAt: new Date(),
-          //     updatedAt: new Date(),
-          //     firstName: '',
-          //     lastName: '',
-          //     hasAuthenticatedEmail: true
-          //   }
-          // });
+        // await prisma.user.create({
+        //   data: {
+        //     uid: userSession.user.id,
+        //     email: userSession.user.email,
+        //     createdAt: new Date(),
+        //     updatedAt: new Date(),
+        //     firstName: '',
+        //     lastName: '',
+        //     hasAuthenticatedEmail: true
+        //   }
+        // });
         //} else {
-          // if the user is in the db, update the hasAuthenticatedEmail field
-          // await prisma.user.update({
-          //   where: {
-          //     uid: userSession.user.id
-          //   },
-          //   data: {
-          //     hasAuthenticatedEmail: true
-          //   }
-          // });
+        // if the user is in the db, update the hasAuthenticatedEmail field
+        // await prisma.user.update({
+        //   where: {
+        //     uid: userSession.user.id
+        //   },
+        //   data: {
+        //     hasAuthenticatedEmail: true
+        //   }
+        // });
         //}
       }
 
       // redirect the user to the next page
       redirectTo.searchParams.delete('next');
-      return NextResponse.redirect(redirectTo);
-    }
-    else{
-      console.error('Error verifying OTP:', error.message)
+      return NextResponse.redirect('/signup');
+    } else {
+      console.error('Error verifying OTP:', error.message);
     }
   }
 

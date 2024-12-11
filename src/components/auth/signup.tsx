@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useMutation } from '@tanstack/react-query';
-import { signUp } from '@/actions/user/signup';
+import { signUp } from '@/actions/user/account/signup';
 import { InputWithLabel } from '../ui/input-label';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';

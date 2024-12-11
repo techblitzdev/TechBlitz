@@ -5,16 +5,16 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { resetPassword } from '@/actions/user/reset-password';
+import { resetPassword } from '@/actions/user/account/reset-password';
 import { toast } from 'sonner';
 import { InputWithLabel } from '@/components/ui/input-label';
-import { updateUser } from '@/actions/user/update-user';
-import { updateUserAuth } from '@/actions/user/update-user-auth';
+import { updateUser } from '@/actions/user/authed/update-user';
+import { updateUserAuth } from '@/actions/user/authed/update-user-auth';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
@@ -22,7 +22,7 @@ import LoadingSpinner from '@/components/ui/loading';
 
 const passwordSchema = z.object({
   password: z.string().min(8),
-  confirmPassword: z.string(),
+  confirmPassword: z.string()
 });
 
 type SchemaProps = z.infer<typeof passwordSchema>;
@@ -38,15 +38,15 @@ export default function UpdatePasswordPage() {
     resolver: zodResolver(passwordSchema),
     defaultValues: {
       password: '',
-      confirmPassword: '',
-    },
+      confirmPassword: ''
+    }
   });
 
   const handlePasswordReset = async (values: SchemaProps) => {
     const { password, confirmPassword } = values;
     if (password !== confirmPassword) {
       form.setError('confirmPassword', {
-        message: 'Passwords do not match',
+        message: 'Passwords do not match'
       });
       return;
     }
@@ -54,7 +54,7 @@ export default function UpdatePasswordPage() {
     setIsLoading(true);
     try {
       await updateUserAuth({
-        password,
+        password
       });
 
       toast.success('Password updated');

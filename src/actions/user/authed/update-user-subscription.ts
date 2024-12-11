@@ -1,7 +1,7 @@
 'use server';
 import type {
   CreateSubscriptionInput,
-  Subscription,
+  Subscription
 } from '@/types/Subscription';
 import { getUserFromSession } from './get-user';
 import { prisma } from '@/utils/prisma';
@@ -26,27 +26,27 @@ export const updateUserSubscription = async (opts: {
   if (!userUid) {
     return {
       success: false,
-      error: 'User not found',
+      error: 'User not found'
     };
   }
 
   // Check if user already has a subscription
   const existingSubscription = await prisma.subscriptions.findUnique({
     where: {
-      userUid,
-    },
+      userUid
+    }
   });
 
   if (existingSubscription) {
     // get the subscription and customer id from the db
     const {
       stripeCustomerId: oldStripeCustomerId,
-      stripeSubscriptionId: oldStripeSubscriptionId,
+      stripeSubscriptionId: oldStripeSubscriptionId
     } = existingSubscription;
     if (!oldStripeCustomerId || !oldStripeSubscriptionId) {
       return {
         success: false,
-        error: 'Stripe customer or subscription ID not found',
+        error: 'Stripe customer or subscription ID not found'
       };
     }
 
@@ -65,12 +65,12 @@ export const updateUserSubscription = async (opts: {
     // Update existing subscription
     const updatedSubscription = await prisma.subscriptions.update({
       where: {
-        userUid,
+        userUid
       },
       data: {
         ...subscription,
-        updatedAt: new Date(),
-      },
+        updatedAt: new Date()
+      }
     });
 
     // update the user object based on which plan was chosen
@@ -81,23 +81,23 @@ export const updateUserSubscription = async (opts: {
     if (!plan) {
       return {
         success: false,
-        error: 'Plan not found',
+        error: 'Plan not found'
       };
     }
 
     // update the user level
     await prisma.users.update({
       where: {
-        uid: userUid,
+        uid: userUid
       },
       data: {
-        userLevel: plan.value,
-      },
+        userLevel: plan.value
+      }
     });
 
     return {
       success: true,
-      subscription: updatedSubscription,
+      subscription: updatedSubscription
     };
   } else {
     // Create new subscription
@@ -108,8 +108,8 @@ export const updateUserSubscription = async (opts: {
         createdAt: new Date(),
         updatedAt: new Date(),
         stripeCustomerId: subscription.stripeCustomerId,
-        stripeSubscriptionId: subscription.stripeSubscriptionId,
-      },
+        stripeSubscriptionId: subscription.stripeSubscriptionId
+      }
     });
 
     // find the user's plan name
@@ -118,23 +118,23 @@ export const updateUserSubscription = async (opts: {
     if (!plan) {
       return {
         success: false,
-        error: 'Plan not found',
+        error: 'Plan not found'
       };
     }
 
     // update the user level
     await prisma.users.update({
       where: {
-        uid: userUid,
+        uid: userUid
       },
       data: {
-        userLevel: plan.value,
-      },
+        userLevel: plan.value
+      }
     });
 
     return {
       success: true,
-      subscription: newSubscription,
+      subscription: newSubscription
     };
   }
 };

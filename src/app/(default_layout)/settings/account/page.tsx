@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useMutation } from '@tanstack/react-query';
 import { useUser } from '@/hooks/useUser';
-import { updateUserAuth } from '@/actions/user/update-user-auth';
+import { updateUserAuth } from '@/actions/user/authed/update-user-auth';
 import { updateUserSchema } from '@/lib/zod/schemas/update-user';
 
 import { Button } from '@/components/ui/button';
@@ -16,7 +16,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
@@ -39,15 +39,15 @@ export default function SettingsProfilePage() {
     },
     onError: (error) => {
       toast.error(`Failed to update user auth: ${error}`);
-    },
+    }
   });
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(updateUserSchema),
     defaultValues: {
       email: user?.email || '',
-      password: '',
-    },
+      password: ''
+    }
   });
 
   const onSubmit = async (values: SchemaProps) => {
@@ -81,7 +81,10 @@ export default function SettingsProfilePage() {
               <FormItem>
                 <FormLabel>Email Address</FormLabel>
                 <FormControl>
-                  <Input placeholder={user?.email} {...field} />
+                  <Input
+                    placeholder={user?.email}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -94,7 +97,11 @@ export default function SettingsProfilePage() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="********" {...field} />
+                  <Input
+                    type="password"
+                    placeholder="********"
+                    {...field}
+                  />
                 </FormControl>
                 <FormDescription>
                   Leave blank to keep your current password

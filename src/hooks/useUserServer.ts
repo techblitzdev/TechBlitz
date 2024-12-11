@@ -1,4 +1,7 @@
-import { getUserFromDb, getUserFromSession } from '@/actions/user/get-user';
+import {
+  getUserFromDb,
+  getUserFromSession
+} from '@/actions/user/authed/get-user';
 
 export const useUserServer = async () => {
   const userSession = await getUserFromSession();

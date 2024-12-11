@@ -1,10 +1,10 @@
 import { BentoGrid, BentoGridItem } from '../ui/bento-grid';
 
 import { getTodaysQuestion } from '@/actions/questions/get-today';
-import { getUserDailyStats } from '@/actions/user/get-daily-streak';
+import { getUserDailyStats } from '@/actions/user/authed/get-daily-streak';
 
 import TodaysLeaderboardBentoBox from '@/components/leaderboard/bento-box';
-import { getUserFromSession } from '@/actions/user/get-user';
+import { getUserFromSession } from '@/actions/user/authed/get-user';
 import AllQuestionsDashboardBentoBox from '../dashboard/all-questions-bento-box';
 import TodaysQuestionBentoBox from './todays-question-bento-box';
 import YesterdaysQuestionBentoBox from './yesterdays-question-bento-box';

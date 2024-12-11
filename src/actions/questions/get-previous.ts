@@ -1,6 +1,6 @@
 'use server';
 import { prisma } from '@/utils/prisma';
-import { getUserFromDb } from '../user/get-user';
+import { getUserFromDb } from '../user/authed/get-user';
 import { Question, QuestionWithoutAnswers } from '@/types/Questions';
 import { Answer } from '@/types/Answers';
 
@@ -39,21 +39,21 @@ export const getPreviousQuestions = async (opts: {
     prisma.questions.count({
       where: {
         questionDate: {
-          lt: todayDate,
-        },
-      },
+          lt: todayDate
+        }
+      }
     }),
     prisma.questions.findMany({
       where: {
         questionDate: {
-          lt: todayDate,
+          lt: todayDate
         },
         AND: {
-          dailyQuestion: true,
-        },
+          dailyQuestion: true
+        }
       },
       orderBy: {
-        questionDate: orderBy,
+        questionDate: orderBy
       },
       skip,
       take: pageSize, // Calculate the correct number of items to take
@@ -61,18 +61,18 @@ export const getPreviousQuestions = async (opts: {
         answers: true, // Include the answers in the query
         tags: {
           include: {
-            tag: true,
-          },
-        },
-      },
+            tag: true
+          }
+        }
+      }
     }),
 
     // get the user's answers to the questions
     prisma.answers.findMany({
       where: {
-        userUid,
-      },
-    }),
+        userUid
+      }
+    })
   ]);
 
   return {
@@ -81,6 +81,6 @@ export const getPreviousQuestions = async (opts: {
     answers,
     page,
     pageSize,
-    totalPages: Math.ceil(total / pageSize),
+    totalPages: Math.ceil(total / pageSize)
   };
 };

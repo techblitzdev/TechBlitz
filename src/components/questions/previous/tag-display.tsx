@@ -29,7 +29,7 @@ export default function TagDisplay(opts: {
 
   return (
     <div className="space-y-0.5 text-start">
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-2 flex-wrap">
         {visibleTags.map((tag) => (
           <Chip
             key={tag.tagId}

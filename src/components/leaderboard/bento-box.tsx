@@ -6,7 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, FlameIcon, Trophy } from 'lucide-react';
 import Link from 'next/link';
 import UserRank from './user-rank';
-import { getUserFromSession } from '@/actions/user/get-user';
+import { getUserFromSession } from '@/actions/user/authed/get-user';
 import { getLongestStreaks } from '@/actions/leaderboard/get-longest-streaks';
 import { getUserDisplayName } from '@/utils/user';
 import { Grid } from '../ui/grid';

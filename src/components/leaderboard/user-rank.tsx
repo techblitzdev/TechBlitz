@@ -1,6 +1,6 @@
 import { getUserAnswer } from '@/actions/answers/get-user-answer';
 import { getUserAnswerRank } from '@/actions/leaderboard/get-user-rank';
-import { getUserFromDb } from '@/actions/user/get-user';
+import { getUserFromDb } from '@/actions/user/authed/get-user';
 import { formatSeconds } from '@/utils/time';
 import { getUserDisplayName } from '@/utils/user';
 import { Button } from '../ui/button';
@@ -19,13 +19,13 @@ export default async function UserRank(opts: {
 
   const userRank = await getUserAnswerRank({
     questionUid,
-    userUid,
+    userUid
   });
 
   // go get the answer
   const userAnswer = await getUserAnswer({
     questionUid,
-    userUid,
+    userUid
   });
 
   if (!userAnswer) {

@@ -1,4 +1,4 @@
-import { getUserFromSession } from '@/actions/user/get-user';
+import { getUserFromSession } from '@/actions/user/authed/get-user';
 import { AnswerWithUser } from '@/types/Answers';
 import { formatSeconds } from '@/utils/time';
 import { getUserDisplayName } from '@/utils/user';

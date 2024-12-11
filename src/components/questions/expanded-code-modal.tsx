@@ -8,7 +8,7 @@ export default function ExpandedCodeModal({ code }: { code: string }) {
       <DialogTrigger className="flex items-center gap-x-3">
         <Expand className="size-4 text-gray-500" />
       </DialogTrigger>
-      <DialogContent className="bg-black-100 border border-black-50 max-w-5xl">
+      <DialogContent className="bg-black-100 border border-black-50 h-[85%] w-[95%] md:h-auto md:w-auto md:max-w-5xl">
         <QuestionDisplay
           content={code}
           language=""

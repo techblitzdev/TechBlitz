@@ -1,4 +1,4 @@
-import { getUserDailyStats } from '@/actions/user/get-daily-streak';
+import { getUserDailyStats } from '@/actions/user/authed/get-daily-streak';
 import { useUserServer } from '@/hooks/useUserServer';
 import { Flame } from 'lucide-react';
 import { SVGProps } from 'react';

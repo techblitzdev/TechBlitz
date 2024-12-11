@@ -19,9 +19,14 @@ import { StarsBackground } from '@/components/ui/stars-background';
 import MarketingNavigation from '@/components/marketing/global/navigation';
 import MarketingFooter from '@/components/marketing/global/footer';
 
+const title =
+  'techblitz | The all-in-one platform for learning software engineering';
+const description =
+  'TechBlitz is a community of like-minded software engineers looking to expand their knowledge. Daily coding challenges, ai-powered coding roadmaps, in depths statistics and much more. Sign up for free now!';
+
 export const metadata: Metadata = {
-  title: 'techblitz | The all-in-one platform for developers',
-  description: 'Improve your code knowledge, one day at a time.',
+  title,
+  description,
   keywords: [
     'coding',
     'programming',
@@ -32,23 +37,26 @@ export const metadata: Metadata = {
     'education'
   ],
   openGraph: {
-    title: 'techblitz | The all-in-one platform for developers',
-    description: 'Improve your code knowledge, one day at a time.',
+    title,
+    description,
     type: 'website',
     url: 'https://techblitz.dev',
     images: {
-      url: 'https://opengraph.b-cdn.net/production/images/863d8e33-33f7-41ed-a987-983e8cc4c7f4.png?token=ASFBmVA1xTYODlK0Qt38ZI3qFDVAR4ChDCoLriKFC5o&height=550&width=1200&expires=33269672893',
+      url: 'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
       width: 800,
       height: 630,
-      alt: 'techblitz | The all-in-one platform for developers'
+      alt: description
     }
   },
   twitter: {
-    title: 'techblitz | The all-in-one platform for developers',
-    description: 'Improve your code knowledge, one day at a time.',
+    title,
+    description,
     images: [
       {
-        url: 'https://opengraph.b-cdn.net/production/images/863d8e33-33f7-41ed-a987-983e8cc4c7f4.png?token=ASFBmVA1xTYODlK0Qt38ZI3qFDVAR4ChDCoLriKFC5o&height=550&width=1200&expires=33269672893'
+        url: 'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
+        width: 800,
+        height: 630,
+        alt: description
       }
     ]
   },

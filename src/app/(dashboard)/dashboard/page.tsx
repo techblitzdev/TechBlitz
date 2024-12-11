@@ -1,4 +1,7 @@
-import { getUserFromDb, getUserFromSession } from '@/actions/user/get-user';
+import {
+  getUserFromDb,
+  getUserFromSession
+} from '@/actions/user/authed/get-user';
 import DashboardBentoGrid from '@/components/dashboard/dashboard-bento-grid';
 import CurrentStreak from '@/components/global/current-streak';
 import Feedback from '@/components/global/feedback-button';

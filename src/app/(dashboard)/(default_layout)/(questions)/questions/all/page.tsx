@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/tooltip';
 
 import { listQuestions } from '@/actions/questions/list';
-import { getUserDailyStats } from '@/actions/user/get-daily-streak';
+import { getUserDailyStats } from '@/actions/user/authed/get-daily-streak';
 import { useUserServer } from '@/hooks/useUserServer';
 import { getSuggestions } from '@/actions/questions/get-suggestions';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';

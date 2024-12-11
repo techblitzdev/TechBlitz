@@ -7,14 +7,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useUser } from '@/hooks/useUser';
 import { InputWithLabel } from '@/components/ui/input-label';
 import { UserUpdatePayload } from '@/types/User';
-import { updateUser } from '@/actions/user/update-user';
+import { updateUser } from '@/actions/user/authed/update-user';
 import { toast } from 'sonner';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import {
   Tooltip,
   TooltipProvider,
-  TooltipTrigger,
+  TooltipTrigger
 } from '@/components/ui/tooltip';
 import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -34,8 +34,8 @@ export default function SettingsProfilePage() {
       username: user?.username || null,
       firstName: user?.firstName || null,
       lastName: user?.lastName || null,
-      showTimeTaken: user?.showTimeTaken || false,
-    },
+      showTimeTaken: user?.showTimeTaken || false
+    }
   });
 
   // Use mutation hook for handling the update
@@ -47,7 +47,7 @@ export default function SettingsProfilePage() {
 
       const updatedVals: Partial<UserUpdatePayload> = {
         ...cleanedValues,
-        uid: user?.uid || '',
+        uid: user?.uid || ''
       };
 
       const updatedUser = await updateUser({ userDetails: updatedVals });
@@ -63,7 +63,7 @@ export default function SettingsProfilePage() {
       // Optimistically update to the new value
       queryClient.setQueryData(['user-details'], (old: any) => ({
         ...old,
-        ...newUserData,
+        ...newUserData
       }));
 
       // Return a context object with the snapshotted value
@@ -83,7 +83,7 @@ export default function SettingsProfilePage() {
       //queryClient.invalidateQueries({ queryKey: ['user-details'] });
 
       toast.success('Profile updated successfully');
-    },
+    }
   });
 
   const onSubmit = (values: SchemaProps) => {
@@ -184,7 +184,11 @@ export default function SettingsProfilePage() {
           />
 
           <div className="flex gap-4">
-            <Button type="submit" variant="secondary" disabled={isPending}>
+            <Button
+              type="submit"
+              variant="secondary"
+              disabled={isPending}
+            >
               {isPending ? <LoadingSpinner /> : 'Save changes'}
             </Button>
             <LogoutButton variant="destructive" />

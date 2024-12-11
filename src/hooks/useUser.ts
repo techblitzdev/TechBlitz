@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { createClient } from '@/utils/supabase/client';
 import type { UserRecord } from '@/types/User';
-import { getUserFromDb } from '@/actions/user/get-user';
+import { getUserFromDb } from '@/actions/user/authed/get-user';
 
 export const useUser = () => {
   const supabase = createClient();
@@ -33,13 +33,13 @@ export const useUser = () => {
       }
     },
     retry: 1,
-    staleTime: 1000 * 60 * 5,
+    staleTime: 1000 * 60 * 5
   });
 
   return {
     user: data,
     isLoading,
     isError,
-    error,
+    error
   };
 };

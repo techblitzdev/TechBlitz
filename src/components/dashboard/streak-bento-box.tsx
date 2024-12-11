@@ -1,8 +1,8 @@
 import { DatePicker } from '@mantine/dates';
 import { Grid } from '../ui/grid';
 import Chip from '../global/chip';
-import { getUserFromSession } from '@/actions/user/get-user';
-import { getUserDailyStats } from '@/actions/user/get-daily-streak';
+import { getUserFromSession } from '@/actions/user/authed/get-user';
+import { getUserDailyStats } from '@/actions/user/authed/get-daily-streak';
 import { FlameIcon } from 'lucide-react';
 
 export default async function StreakBentoBox() {

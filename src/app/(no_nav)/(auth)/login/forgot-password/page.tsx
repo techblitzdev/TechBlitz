@@ -11,7 +11,7 @@ import {
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { resetPassword } from '@/actions/user/reset-password';
+import { resetPassword } from '@/actions/user/account/reset-password';
 import { toast } from 'sonner';
 import { InputWithLabel } from '@/components/ui/input-label';
 import Link from 'next/link';

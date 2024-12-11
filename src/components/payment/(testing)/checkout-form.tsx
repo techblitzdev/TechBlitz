@@ -3,11 +3,11 @@ import { Button } from '@/components/ui/button';
 import {
   useStripe,
   useElements,
-  PaymentElement,
+  PaymentElement
 } from '@stripe/react-stripe-js';
 import { useState } from 'react';
 import { ReloadIcon } from '@radix-ui/react-icons';
-import { updateUserSubscription } from '@/actions/user/update-user-subscription';
+import { updateUserSubscription } from '@/actions/user/authed/update-user-subscription';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { StripeProduct } from '@/types/StripeProduct';
@@ -31,7 +31,7 @@ export default function CheckoutForm(opts: {
     stripeCustomerId,
     stripeSubscriptionId,
     stripeSubscriptionItemId,
-    priceId,
+    priceId
   } = opts;
   const stripe = useStripe();
   const elements = useElements();
@@ -56,7 +56,7 @@ export default function CheckoutForm(opts: {
     }) => {
       return updateUserSubscription({
         ...subscriptionData,
-        priceId,
+        priceId
       });
     },
     onSuccess: (data) => {
@@ -67,7 +67,7 @@ export default function CheckoutForm(opts: {
     onError: (error) => {
       toast.error('Error updating subscription');
       console.error('Subscription update error:', error);
-    },
+    }
   });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -86,9 +86,9 @@ export default function CheckoutForm(opts: {
         {
           elements,
           confirmParams: {
-            return_url: `${getBaseUrl()}/dashboard?payment=success`,
+            return_url: `${getBaseUrl()}/dashboard?payment=success`
           },
-          redirect: 'if_required',
+          redirect: 'if_required'
         }
       );
 
@@ -115,8 +115,8 @@ export default function CheckoutForm(opts: {
             productId: product.id,
             stripeCustomerId,
             stripeSubscriptionId,
-            stripeSubscriptionItemId,
-          },
+            stripeSubscriptionItemId
+          }
         });
 
         toast.success('Payment successful!');
@@ -132,7 +132,10 @@ export default function CheckoutForm(opts: {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-5 flex flex-col gap-y-2">
+    <form
+      onSubmit={handleSubmit}
+      className="p-5 flex flex-col gap-y-2"
+    >
       <div className="flex gap-8">
         <div className="space-y-4">
           <h3 className="text-sm font-light space-y-1">
@@ -169,7 +172,7 @@ export default function CheckoutForm(opts: {
           />
           <PaymentElement
             options={{
-              layout: 'auto',
+              layout: 'auto'
             }}
           />
           <Button

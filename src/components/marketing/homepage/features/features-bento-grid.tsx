@@ -27,9 +27,10 @@ export default function FeaturesBentoGrid() {
           We make Software engineering easy{' '}
         </h1>
         <span className="text-gray-400 max-w-3xl">
-          Daily questions, leaderboards, AI generated progression paths & 1000's
-          of questions designed to aid in solving real-world software problems.
-          Everything you need to become a better developer.
+          Elevate your coding skills with TechBlitz: AI-powered learning paths,
+          daily challenges, competitive leaderboards, and a vast question bank
+          tackling real-world software problems. Your all-in-one platform for
+          continuous growth and career advancement in tech.
         </span>
       </div>
       <div className="min-h-[1400px] md:min-h-[1000px] lg:min-h-[700px] rounded-lg">
@@ -47,8 +48,8 @@ export default function FeaturesBentoGrid() {
                   AI Powered Progression Paths
                 </h6>
                 <p className="text-xs text-gray-400">
-                  Our AI powered roadmap will help you take the next step in
-                  your developer journey.
+                  Personalized learning paths tailored to your goals and skill
+                  level.
                 </p>
               </div>
               <Button
@@ -78,8 +79,7 @@ export default function FeaturesBentoGrid() {
                   Progress tracking
                 </h6>
                 <p className="text-xs text-gray-400">
-                  Track your progress and view your strengths and weaknesses as
-                  you learn.
+                  Track your progress and use AI to analysis your coding habits.
                 </p>
               </div>
               <div className="w-full h-fit flex items-center justify-center">
@@ -115,8 +115,8 @@ export default function FeaturesBentoGrid() {
                   Daily questions
                 </h6>
                 <p className="text-xs text-gray-400">
-                  Daily questions will help you reinforce your learning and
-                  understand concepts.
+                  Sharpen your skills with practical, industry-relevant coding
+                  challenges.
                 </p>
               </div>
               <Button

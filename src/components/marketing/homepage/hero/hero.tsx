@@ -22,21 +22,21 @@ export default function HomepageHero() {
             <ArrowUpRight className="ml-2 size-4 group-hover:rotate-45 duration-300" />
           </span>
         </Link>
-        <h1 className="text-5xl lg:text-7xl !font-onest !font-medium tracking-tight text-gradient from-white to-white/75">
-          Software Engineering,{' '}
+        <h1 className="text-5xl lg:text-7xl !font-onest !font-medium tracking-tight">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/55">
-            <br />
-            Tailored{' '}
+            Supercharge{' '}
           </span>
-          to You
+          <span className=" text-gradient from-white to-white/75">
+            Your <br /> Software Engineering Career
+          </span>
         </h1>
         <h6 className="font-onest max-w-2xl text-gray-400">
-          A fully customizable, end-to-end learning platform for software
-          engineers of all abilities — packed with daily challenges that are{' '}
+          AI-powered learning paths, daily coding challenges, and a supportive
+          tech community. Tailored for{' '}
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/80">
-            actually
-          </span>{' '}
-          useful.
+            every{' '}
+          </span>
+          skill level.
         </h6>
         {process.env.NEXT_PUBLIC_ENV === 'development' ? (
           <HomepageHeroEmailSignup />

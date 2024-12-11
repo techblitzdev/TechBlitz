@@ -44,7 +44,7 @@ export default async function StatisticsPage({
 
   return (
     <div>
-      <div className="pt-14 pb-5 flex w-full justify-between items-center">
+      <div className="pt-14 pb-5 flex flex-col gap-3 md:flex-row w-full justify-between md:items-center">
         <h1 className="text-3xl text-gradient from-white to-white/55">
           Statistics
         </h1>

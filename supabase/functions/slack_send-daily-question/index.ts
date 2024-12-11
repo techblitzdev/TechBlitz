@@ -53,7 +53,10 @@ Deno.serve(async (req) => {
       throw new Error('No question found for today');
     }
 
-    return new Response(data);
+    return new Response(JSON.stringify(data), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      status: 200
+    });
   } catch (error) {
     console.error(error);
   }

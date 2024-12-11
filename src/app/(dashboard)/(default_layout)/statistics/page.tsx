@@ -29,7 +29,8 @@ export default async function StatisticsPage({
   }
 
   // get the date range from the search params
-  const range = searchParams.range as StatsSteps;
+  let range = searchParams.range as StatsSteps;
+  if (!range) range = '90d';
 
   const { step } = STATISTICS[range];
 
@@ -49,9 +50,9 @@ export default async function StatisticsPage({
         </h1>
         <div className="flex gap-3">
           <StatsRangePicker selectedRange={STATISTICS[range].label} />
-          <Button variant="default">
+          {/* <Button variant="default">
             <Stars className="size-4 text-yellow-300 fill-yellow-300" />
-          </Button>
+          </Button> */}
         </div>
       </div>
       <div className="grid grid-cols-12 gap-y-4 gap-x-8">

@@ -81,7 +81,7 @@ export async function GET(request: NextRequest) {
 
       // redirect the user to the next page
       redirectTo.searchParams.delete('next');
-      return NextResponse.redirect('/signup');
+      return NextResponse.redirect('/login');
     } else {
       console.error('Error verifying OTP:', error.message);
     }

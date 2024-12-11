@@ -7,7 +7,6 @@ import { motion } from 'framer-motion';
 import DashboardImg from '../../../../public/images/dashboard-img.png';
 
 export default function HomepageHeroImages() {
-  const [isHovered, setIsHovered] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -20,7 +19,6 @@ export default function HomepageHeroImages() {
     if (iframeRef.current) {
       iframeRef.current.src = 'about:blank';
     }
-    // then hide the video and show the static image
   };
 
   useEffect(() => {
@@ -43,20 +41,13 @@ export default function HomepageHeroImages() {
   }, [isVideoPlaying]);
 
   return (
-    <div
-      className="relative h-full overflow-hidden rounded-lg shadow-2xl px-0 md:px-20"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <div className="relative h-full overflow-hidden rounded-lg shadow-2xl px-0 md:px-20">
       {/* Static Image */}
       <motion.div
-        initial={{ scale: 1, opacity: 1 }}
-        animate={{
-          scale: isHovered && !isVideoPlaying ? 1.05 : 1,
-          opacity: isVideoPlaying ? 0 : 1
-        }}
+        initial={{ opacity: 1 }}
+        animate={{ opacity: isVideoPlaying ? 0 : 1 }}
         transition={{ duration: 0.3 }}
-        className="absolute inset-0 z-10"
+        className="md:absolute inset-0 z-10"
       >
         <Image
           className="rounded-lg bg-black border border-black/50"
@@ -70,12 +61,7 @@ export default function HomepageHeroImages() {
 
       {/* Play Button */}
       {!isVideoPlaying && (
-        <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: isHovered ? 1 : 0, scale: isHovered ? 1 : 0.8 }}
-          transition={{ duration: 0.2 }}
-        >
+        <div className="absolute inset-0 flex items-center justify-center z-20">
           <motion.div
             className="bg-accent hover:bg-accent/90 rounded-full p-4 flex items-center justify-center cursor-pointer shadow-lg"
             whileHover={{ scale: 1.1 }}
@@ -84,7 +70,7 @@ export default function HomepageHeroImages() {
           >
             <Play className="w-8 h-8 text-white fill-white" />
           </motion.div>
-        </motion.div>
+        </div>
       )}
 
       {/* Video */}
@@ -108,10 +94,10 @@ export default function HomepageHeroImages() {
           }}
           allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
           allowFullScreen={true}
-          onEnded={handleVideoEnd}
         ></iframe>
       </div>
 
+      {/* Gradient overlay */}
       <div className="absolute inset-x-0 bottom-0 h-20 md:h-40 lg:h-80 bg-gradient-to-t from-[#000] to-transparent pointer-events-none z-30"></div>
     </div>
   );

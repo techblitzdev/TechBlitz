@@ -25,7 +25,11 @@ export default function YesterdaysQuestionBentoBox(opts: {
   return (
     <section className="flex flex-col justify-between h-full group relative overflow-hidden p-4">
       <div className="flex w-full justify-between">
-        <Button variant="accent" className="size-10" padding="none">
+        <Button
+          variant="accent"
+          className="size-10"
+          padding="none"
+        >
           <ArrowDownLeft className="size-5 group-hover:rotate-45 duration-300" />
         </Button>
         <div className="space-y-1 text-end">
@@ -38,10 +42,14 @@ export default function YesterdaysQuestionBentoBox(opts: {
       </div>
       <div className="flex flex-wrap space-y-2 w-full items-end justify-between">
         {tags && tags.length > 0 && (
-          <div className="space-y-1">
+          <div className="space-y-1 relative z-10">
             <h6>Topics:</h6>
             <div className="flex gap-x-2 mt-2">
-              <TagDisplay variant="secondary" tags={tags} numberOfTags={2} />
+              <TagDisplay
+                variant="secondary"
+                tags={tags}
+                numberOfTags={2}
+              />
             </div>
           </div>
         )}
@@ -52,7 +60,10 @@ export default function YesterdaysQuestionBentoBox(opts: {
           ghost
         />
       </div>
-      <Grid size={20} position="bottom-right" />
+      <Grid
+        size={20}
+        position="bottom-right"
+      />
     </section>
   );
 }

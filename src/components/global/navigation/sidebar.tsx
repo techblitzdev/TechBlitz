@@ -137,7 +137,7 @@ export function AppSidebar() {
     },
     {
       title: 'Help',
-      url: '/help',
+      url: 'mailto:loganfordwd@gmail.com',
       icon: HelpCircle
     },
     {

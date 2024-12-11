@@ -1,6 +1,7 @@
 'use server';
-import { StatsChartData } from '@/types/Stats';
+import { StatsChartData, StatsSteps } from '@/types/Stats';
 import { prisma } from '@/utils/prisma';
+import { getRange } from '@/utils/stats/get-range';
 import { revalidateTag } from 'next/cache';
 
 /**
@@ -8,31 +9,34 @@ import { revalidateTag } from 'next/cache';
  * in a format to display in a chart.
  *
  * We return the data in the following format:
- * [month]: { totalQuestions: number, tags: string[], tagCounts: Record<string, number> }
+ * [key]: { totalQuestions: number, tags: string[], tagCounts: Record<string, number> }
  */
 export const getStatsChartData = async (opts: {
   userUid: string;
   to: string;
-  from: string;
+  from: StatsSteps;
+  step: 'month' | 'week' | 'day';
 }) => {
-  const { userUid, to, from } = opts;
+  const { userUid, to, from, step } = opts;
 
   if (!userUid) {
     return null;
   }
 
+  const toDate = new Date(to);
+  const fromDate = getRange(from);
+
   const questions = await prisma.answers.findMany({
     where: {
       userUid,
       createdAt: {
-        gte: new Date(from),
-        lte: new Date(to)
+        gte: fromDate,
+        lte: toDate
       }
     },
     include: {
       question: {
         select: {
-          createdAt: true,
           tags: {
             include: {
               tag: true
@@ -46,20 +50,43 @@ export const getStatsChartData = async (opts: {
   const data: StatsChartData = {};
 
   questions.forEach((answer) => {
-    const month = answer.question.createdAt.toISOString().slice(0, 7);
+    let key: string;
+    switch (step) {
+      case 'month':
+        key = answer.createdAt.toISOString().slice(0, 7);
+        break;
+      case 'week':
+        const weekStart = new Date(answer.createdAt);
+        weekStart.setDate(
+          answer.createdAt.getDate() - answer.createdAt.getDay()
+        );
+        key = weekStart.toISOString().slice(0, 10);
+        break;
+      case 'day':
+        key = formatDayLabel(answer.createdAt);
+        break;
+    }
+
     const tags = answer.question.tags.map((tag) => tag.tag.name);
 
-    if (data[month]) {
-      data[month].totalQuestions++;
+    if (data[key]) {
+      data[key].totalQuestions++;
       tags.forEach((tag) => {
-        data[month].tagCounts[tag] = (data[month].tagCounts[tag] || 0) + 1;
+        data[key].tagCounts[tag] = (data[key].tagCounts[tag] || 0) + 1;
+        if (!data[key].tags.includes(tag)) {
+          data[key].tags.push(tag);
+        }
       });
     } else {
       const tagCounts: Record<string, number> = {};
       tags.forEach((tag) => {
         tagCounts[tag] = 1;
       });
-      data[month] = { totalQuestions: 1, tagCounts };
+      data[key] = {
+        totalQuestions: 1,
+        tagCounts,
+        tags: [...tags]
+      };
     }
   });
 
@@ -69,19 +96,27 @@ export const getStatsChartData = async (opts: {
 };
 
 /**
- * Gets the total number of questions the user has answered.
- *
- * @param userUid
- * @returns
+ * Gets the total number of questions the user has answered within a specific range.
  */
-export const getTotalQuestionCount = async (userUid: string) => {
+export const getTotalQuestionCount = async (
+  userUid: string,
+  to: string,
+  from: StatsSteps
+) => {
   if (!userUid) {
     return null;
   }
 
+  const toDate = new Date(to);
+  const fromDate = getRange(from);
+
   const questions = await prisma.answers.count({
     where: {
-      userUid
+      userUid,
+      createdAt: {
+        gte: fromDate,
+        lte: toDate
+      }
     }
   });
 
@@ -90,34 +125,66 @@ export const getTotalQuestionCount = async (userUid: string) => {
   return questions;
 };
 
-export const getTotalTimeTaken = async (userUid: string) => {
+/**
+ * Gets the total time taken for questions answered within a specific range.
+ */
+export const getTotalTimeTaken = async (
+  userUid: string,
+  to: string,
+  from: StatsSteps
+) => {
   if (!userUid) {
     return null;
   }
 
+  const toDate = new Date(to);
+  const fromDate = getRange(from);
+
   const answers = await prisma.answers.findMany({
     where: {
-      userUid
+      userUid,
+      createdAt: {
+        gte: fromDate,
+        lte: toDate
+      }
+    },
+    select: {
+      timeTaken: true
     }
   });
 
-  const totalTime = answers.reduce((acc, answer) => {
-    return acc + (answer.timeTaken || 0);
-  }, 0);
+  const totalTime = answers.reduce(
+    (acc, answer) => acc + (answer.timeTaken || 0),
+    0
+  );
 
   revalidateTag('statistics');
 
   return totalTime;
 };
 
-export const getHighestScoringTag = async (userUid: string) => {
+/**
+ * Gets the highest scoring tag within a specific range.
+ */
+export const getHighestScoringTag = async (
+  userUid: string,
+  to: string,
+  from: StatsSteps
+) => {
   if (!userUid) {
     return null;
   }
 
+  const toDate = new Date(to);
+  const fromDate = getRange(from);
+
   const answers = await prisma.answers.findMany({
     where: {
-      userUid
+      userUid,
+      createdAt: {
+        gte: fromDate,
+        lte: toDate
+      }
     },
     include: {
       question: {
@@ -141,9 +208,10 @@ export const getHighestScoringTag = async (userUid: string) => {
     });
   });
 
-  const highestScoringTag = Object.keys(tagCounts).reduce((acc, tag) => {
-    return tagCounts[tag] > tagCounts[acc] ? tag : acc;
-  }, '');
+  const highestScoringTag = Object.keys(tagCounts).reduce(
+    (a, b) => (tagCounts[a] > tagCounts[b] ? a : b),
+    ''
+  );
 
   revalidateTag('statistics');
 
@@ -151,4 +219,48 @@ export const getHighestScoringTag = async (userUid: string) => {
     tag: highestScoringTag,
     count: tagCounts[highestScoringTag]
   };
+};
+
+export const getData = async (opts: {
+  userUid: string;
+  to: string;
+  from: StatsSteps;
+  step: 'month' | 'week' | 'day';
+}) => {
+  const { userUid, to, from } = opts;
+
+  const [stats, totalQuestions, totalTimeTaken, highestScoringTag] =
+    await Promise.all([
+      getStatsChartData(opts),
+      getTotalQuestionCount(userUid, to, from),
+      getTotalTimeTaken(userUid, to, from),
+      getHighestScoringTag(userUid, to, from)
+    ]);
+
+  return { stats, totalQuestions, totalTimeTaken, highestScoringTag };
+};
+
+// Helper function to format day label
+const formatDayLabel = (date: Date) => {
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+  ];
+
+  const dayOfWeek = days[date.getDay()];
+  const month = months[date.getMonth()];
+  const dayOfMonth = date.getDate();
+
+  return `${dayOfWeek}, ${month} ${dayOfMonth}`;
 };

@@ -2,56 +2,63 @@ import {
   getStatsChartData,
   getTotalQuestionCount,
   getTotalTimeTaken,
-  getHighestScoringTag
+  getHighestScoringTag,
+  getData
 } from '@/actions/statistics/get-stats-chart-data';
+import StatsRangePicker from '@/components/statistics/range-picker';
 import QuestionChart from '@/components/statistics/total-question-chart';
 import TotalStatsCard from '@/components/statistics/total-stats-card';
 import { Button } from '@/components/ui/button';
 import LoadingSpinner from '@/components/ui/loading';
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/useUserServer';
+import { StatsSteps } from '@/types/Stats';
+import { STATISTICS } from '@/utils/constants/statistics-filters';
 import { formatSeconds } from '@/utils/time';
 import { Calendar, Stars } from 'lucide-react';
 import { redirect } from 'next/navigation';
 
-export default async function StatisticsPage() {
+export default async function StatisticsPage({
+  searchParams
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
   const user = await useUserServer();
-
   if (!user) {
     return redirect('/login');
   }
 
-  const [stats, totalQuestions, totalTimeTaken, highestScoringTag] =
-    await Promise.all([
-      getStatsChartData({
-        userUid: user.uid,
-        from: '2024-01-01',
-        to: '2024-12-31'
-      }),
-      getTotalQuestionCount(user.uid),
-      getTotalTimeTaken(user.uid),
-      getHighestScoringTag(user.uid)
-    ]);
+  // get the date range from the search params
+  let range = searchParams.range as StatsSteps;
+  if (!range) range = '90d';
+
+  const { step } = STATISTICS[range];
+
+  const { stats, highestScoringTag, totalQuestions, totalTimeTaken } =
+    await getData({
+      userUid: user.uid,
+      from: range,
+      to: new Date().toISOString(),
+      step
+    });
 
   return (
     <div>
-      <div className="pt-14 pb-5 flex w-full justify-between items-center">
+      <div className="pt-14 pb-5 flex flex-col gap-3 md:flex-row w-full justify-between md:items-center">
         <h1 className="text-3xl text-gradient from-white to-white/55">
           Statistics
         </h1>
         <div className="flex gap-3">
-          <Button>
-            <Calendar className="size-4 mr-2" />
-            Date Range
-          </Button>
-          <Button variant="default">
+          <StatsRangePicker selectedRange={STATISTICS[range].label} />
+          {/* <Button variant="default">
             <Stars className="size-4 text-yellow-300 fill-yellow-300" />
-          </Button>
+          </Button> */}
         </div>
       </div>
       <div className="grid grid-cols-12 gap-y-4 gap-x-8">
         {totalQuestions ? (
           <TotalStatsCard
+            className="-left-3 relative"
             header={Number(totalQuestions)}
             description="Total Questions Answered"
           />
@@ -78,7 +85,6 @@ export default async function StatisticsPage() {
           {stats ? <QuestionChart questionData={stats} /> : <LoadingSpinner />}
         </div>
       </div>
-      <pre>{JSON.stringify(stats, null, 2)}</pre>
     </div>
   );
 }

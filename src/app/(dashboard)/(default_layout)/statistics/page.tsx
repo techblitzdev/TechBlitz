@@ -84,7 +84,6 @@ export default async function StatisticsPage({
           {stats ? <QuestionChart questionData={stats} /> : <LoadingSpinner />}
         </div>
       </div>
-      <pre>{JSON.stringify(stats, null, 2)}</pre>
     </div>
   );
 }

@@ -5,8 +5,11 @@ import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 import { ArrowRight } from 'lucide-react';
 
 import { NavigationMenuItems } from './navigation-items';
+import { useUserServer } from '@/hooks/useUserServer';
 
-export default function MarketingNavigation() {
+export default async function MarketingNavigation() {
+  const user = await useUserServer();
+
   return (
     <div className="fixed w-full py-5 z-[1000] bg-[#000000]">
       <div className="container flex items-center justify-between">
@@ -21,34 +24,45 @@ export default function MarketingNavigation() {
             <NavigationMenuItems />
           </div>
         )}
-        <div className="items-center gap-x-2 hidden md:flex">
+        {user?.email ? (
           <Button
-            href="/login"
-            variant="ghost"
-            className="font-onest"
+            href="/dashboard"
+            className="font-onest !bg-gradient-to-r !from-accent !via-accent/70 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
           >
-            Login
+            Dashboard
           </Button>
-          {process.env.NEXT_PUBLIC_ENV === 'development' ? (
-            <Button
-              href="signup"
-              variant="accent"
-              className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
-            >
-              Get Started
-              <ArrowRight className="ml-2 size-4" />
-            </Button>
-          ) : (
-            <Button
-              variant="accent"
-              href="#waitlist-form"
-              className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
-            >
-              Join the Waitlist
-              <ArrowRight className="ml-2 size-4" />
-            </Button>
-          )}
-        </div>
+        ) : (
+          <>
+            <div className="items-center gap-x-2 hidden md:flex">
+              <Button
+                href="/login"
+                variant="ghost"
+                className="font-onest"
+              >
+                Login
+              </Button>
+              {process.env.NEXT_PUBLIC_ENV === 'development' ? (
+                <Button
+                  href="signup"
+                  variant="accent"
+                  className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+                >
+                  Get Started
+                  <ArrowRight className="ml-2 size-4" />
+                </Button>
+              ) : (
+                <Button
+                  variant="accent"
+                  href="#waitlist-form"
+                  className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+                >
+                  Join the Waitlist
+                  <ArrowRight className="ml-2 size-4" />
+                </Button>
+              )}
+            </div>
+          </>
+        )}
         {process.env.NEXT_PUBLIC_ENV === 'development' ? (
           <HamburgerMenuIcon className="size-5 block md:hidden" />
         ) : (

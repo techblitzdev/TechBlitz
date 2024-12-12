@@ -4,7 +4,7 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
-  DialogDescription,
+  DialogDescription
 } from '@/components/ui/dialog';
 import JsonDisplay from '@/components/global/json-display';
 // types
@@ -12,7 +12,7 @@ import { Answer } from '@/types/Answers';
 import { Question } from '@/types/Questions';
 import { useQuery } from '@tanstack/react-query';
 import { getAnswer } from '@/actions/answers/get-answer';
-import LoadingSpinner from '../ui/loading';
+import LoadingSpinner from '../../ui/loading';
 
 export default function PreviousQuestionAnswerModal(opts: {
   isOpen: boolean;
@@ -28,13 +28,16 @@ export default function PreviousQuestionAnswerModal(opts: {
     queryFn: async () => {
       return await getAnswer({
         questionUid: questionData.uid,
-        userUid: userAnswer?.userUid || '',
+        userUid: userAnswer?.userUid || ''
       });
-    },
+    }
   });
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={onClose}
+    >
       <DialogContent
         className="bg-black-75 md:max-w-xl"
         aria-description={`Answer question modal`}

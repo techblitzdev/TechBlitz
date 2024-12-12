@@ -6,7 +6,6 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import LogoutButton from '../auth/logout';
-import AdminButton from '@/components/admin-button';
 import {
   getUserFromDb,
   getUserFromSession
@@ -68,9 +67,6 @@ export default async function UserProfileDropdown() {
         <DropdownMenuSeparator className="bg-black-50" />
         <div className="flex flex-col gap-y-1">
           <LogoutButton />
-          {userData?.userLevel == 'ADMIN' && (
-            <AdminButton className="w-full text-xs" />
-          )}
         </div>
       </DropdownMenuContent>
     </DropdownMenu>

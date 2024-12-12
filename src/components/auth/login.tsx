@@ -18,6 +18,11 @@ import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
 import { Separator } from '../ui/separator';
 import Link from 'next/link';
+import { DiscordLogoIcon, GitHubLogoIcon } from '@radix-ui/react-icons';
+import {
+  signInWithGithub,
+  signInWithDiscord
+} from '@/actions/user/account/oauth';
 
 type SchemaProps = z.infer<typeof loginSchema>;
 
@@ -115,8 +120,6 @@ export default function LoginForm() {
           </Button>
         </FormItem>
 
-        <Separator className="mt-1 col-span-full bg-black-50" />
-
         <span className="col-span-full text-sm text-gray-300 hover:text-white duration-300">
           Don't have an account?{' '}
           <Link
@@ -128,6 +131,40 @@ export default function LoginForm() {
           </Link>
         </span>
       </form>
+      <div className="relative pt-5 pb-3 col-span-full">
+        <Separator className=" bg-black-50" />
+        <span className="absolute top-3 left-1/2 transform -translate-x-1/2 bg-[#000000] px-2 text-xs text-gray-300">
+          OR
+        </span>
+      </div>
+      <div className="flex gap-4 items-center justify-center">
+        <form
+          onSubmit={async (event) => {
+            event.preventDefault();
+            await signInWithGithub();
+          }}
+        >
+          <Button
+            type="submit"
+            variant="ghost"
+          >
+            <GitHubLogoIcon className="size-4" />
+          </Button>
+        </form>
+        <form
+          onSubmit={async (event) => {
+            event.preventDefault();
+            await signInWithDiscord();
+          }}
+        >
+          <Button
+            type="submit"
+            variant="ghost"
+          >
+            <DiscordLogoIcon className="size-4" />
+          </Button>
+        </form>
+      </div>
     </Form>
   );
 }

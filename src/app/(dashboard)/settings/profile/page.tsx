@@ -19,7 +19,7 @@ import {
 import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import LoadingSpinner from '@/components/ui/loading';
-import LogoutButton from '@/components/global/logout';
+import LogoutButton from '@/components/auth/logout';
 import { Separator } from '@/components/ui/separator';
 
 type SchemaProps = z.input<typeof userDetailsSchema>;

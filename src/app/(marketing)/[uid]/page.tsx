@@ -5,9 +5,7 @@ import ExpandedCodeModal from '@/components/questions/expanded-code-modal';
 import { Separator } from '@/components/ui/separator';
 import { ChartColumn, User } from 'lucide-react';
 import QuestionDisplay from '@/components/questions/single/code-snippet';
-import { Button } from '@/components/ui/button';
-import { ChatBubbleIcon } from '@radix-ui/react-icons';
-import FeedbackButton from '@/components/global/feedback-button';
+import FeedbackButton from '@/components/ui/feedback-button';
 
 export default async function MarketingQuestionPage({
   params

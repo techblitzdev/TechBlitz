@@ -10,7 +10,7 @@ import { getUserFromSession } from '@/actions/user/authed/get-user';
 import { getLongestStreaks } from '@/actions/leaderboard/get-longest-streaks';
 import { getUserDisplayName } from '@/utils/user';
 import { Grid } from '../ui/grid';
-import Chip from '../global/chip';
+import Chip from '../ui/chip';
 
 export default async function TodaysLeaderboardBentoBox(opts: {
   todaysQuestion: Question | null;

@@ -1,4 +1,4 @@
-import Logo from '@/components/global/logo';
+import Logo from '@/components/ui/logo';
 import { StarsBackground } from '@/components/ui/stars-background';
 import { redirect } from 'next/navigation';
 

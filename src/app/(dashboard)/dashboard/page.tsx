@@ -3,10 +3,9 @@ import {
   getUserFromSession
 } from '@/actions/user/authed/get-user';
 import DashboardBentoGrid from '@/components/dashboard/dashboard-bento-grid';
-import CurrentStreak from '@/components/global/current-streak';
-import Feedback from '@/components/global/feedback-button';
-import LanguageSwitcher from '@/components/global/language-dropdown';
-import UserProfileDropdown from '@/components/global/user-profile-dropdown';
+import CurrentStreak from '@/components/ui/current-streak';
+import Feedback from '@/components/ui/feedback-button';
+import UserProfileDropdown from '@/components/ui/user-profile-dropdown';
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { getUserDisplayName } from '@/utils/user';

@@ -1,5 +1,5 @@
 import { Question } from '@/types/Questions';
-import Chip from '../global/chip';
+import Chip from '../ui/chip';
 import { capitalise } from '@/utils';
 import { ArrowDownLeft } from 'lucide-react';
 import { Button } from '../ui/button';

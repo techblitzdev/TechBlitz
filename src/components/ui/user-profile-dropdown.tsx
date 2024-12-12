@@ -5,7 +5,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import LogoutButton from './logout';
+import LogoutButton from '../auth/logout';
 import AdminButton from '@/components/admin-button';
 import {
   getUserFromDb,

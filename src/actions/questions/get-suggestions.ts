@@ -3,11 +3,11 @@
 import { prisma } from '@/utils/prisma';
 import {
   extractTagIds,
-  getTagsFromQuestion,
-} from '../utils/get-tags-from-question';
+  getTagsFromQuestion
+} from './utils/get-tags-from-question';
 import type {
   QuestionWithoutAnswers,
-  QuestionWithTags,
+  QuestionWithTags
 } from '@/types/Questions';
 import { cache } from 'react';
 
@@ -31,15 +31,15 @@ export const getSuggestions = cache(
             include: {
               tags: {
                 include: {
-                  tag: true,
-                },
-              },
-            },
-          },
+                  tag: true
+                }
+              }
+            }
+          }
         },
         orderBy: {
-          createdAt: 'desc',
-        },
+          createdAt: 'desc'
+        }
       });
 
       if (!userAnswers.length) {
@@ -87,28 +87,28 @@ export const getSuggestions = cache(
                 some: {
                   tag: {
                     uid: {
-                      in: tagIds,
-                    },
-                  },
-                },
-              },
+                      in: tagIds
+                    }
+                  }
+                }
+              }
             },
             {
-              dailyQuestion: true,
-            },
-          ],
+              dailyQuestion: true
+            }
+          ]
         },
         include: {
           tags: {
             include: {
-              tag: true,
-            },
-          },
+              tag: true
+            }
+          }
         },
         orderBy: {
-          createdAt: 'desc',
+          createdAt: 'desc'
         },
-        take: limit,
+        take: limit
       });
 
       // console.log('Found suggestions:', suggestions.length);

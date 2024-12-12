@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Logo from '../../global/logo';
+import Logo from '../../ui/logo';
 import SocialLinks from './socials';
 import { Button } from '../../ui/button';
 import { ArrowRight } from 'lucide-react';

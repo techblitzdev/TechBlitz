@@ -2,9 +2,9 @@
 import { prisma } from '@/utils/prisma';
 import type {
   QuestionDifficulty,
-  QuestionWithoutAnswers,
+  QuestionWithoutAnswers
 } from '@/types/Questions';
-import { getTagsFromQuestion } from '../utils/get-tags-from-question';
+import { getTagsFromQuestion } from './utils/get-tags-from-question';
 import { QuestionFilters } from '@/types/Filters';
 
 type ListQuestionsReturnType = {
@@ -35,8 +35,7 @@ export const listQuestions = async (
       AND: [
         filters?.difficulty
           ? {
-              difficulty:
-                filters.difficulty.toUpperCase() as QuestionDifficulty,
+              difficulty: filters.difficulty.toUpperCase() as QuestionDifficulty
             }
           : {},
         filters?.completed === true
@@ -44,18 +43,18 @@ export const listQuestions = async (
               userAnswers: {
                 some: {
                   // Check if there are answers by the current user
-                  userUid,
-                },
-              },
+                  userUid
+                }
+              }
             }
           : filters?.completed === false
           ? {
               userAnswers: {
                 none: {
                   // Exclude questions answered by the current user
-                  userUid,
-                },
-              },
+                  userUid
+                }
+              }
             }
           : {},
         filters?.tags?.length
@@ -64,15 +63,15 @@ export const listQuestions = async (
                 some: {
                   tag: {
                     name: {
-                      in: filters.tags,
-                    },
-                  },
-                },
-              },
+                      in: filters.tags
+                    }
+                  }
+                }
+              }
             }
-          : {},
-      ],
-    },
+          : {}
+      ]
+    }
   };
 
   // fetch the paginated questions
@@ -80,16 +79,16 @@ export const listQuestions = async (
     skip,
     take: pageSize,
     orderBy: {
-      questionDate: filters?.ascending ? 'asc' : 'desc',
+      questionDate: filters?.ascending ? 'asc' : 'desc'
     },
     ...whereClause,
     include: {
       tags: {
         include: {
-          tag: true,
-        },
-      },
-    },
+          tag: true
+        }
+      }
+    }
   });
 
   // transform the questions to match the expected format
@@ -99,7 +98,7 @@ export const listQuestions = async (
 
   // fetch the total number of matching questions (without pagination)
   const total = await prisma.questions.count({
-    where: whereClause.where,
+    where: whereClause.where
   });
 
   return {
@@ -107,6 +106,6 @@ export const listQuestions = async (
     total,
     page,
     pageSize,
-    totalPages: Math.ceil(total / pageSize),
+    totalPages: Math.ceil(total / pageSize)
   };
 };

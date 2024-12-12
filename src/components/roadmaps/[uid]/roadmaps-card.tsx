@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Grid } from '../../ui/grid';
 import { Button } from '../../ui/button';
 import { ArrowUpRight } from 'lucide-react';
-import Chip from '../../global/chip';
+import Chip from '../../ui/chip';
 import { capitalise } from '@/utils';
 
 export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {

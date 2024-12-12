@@ -1,4 +1,4 @@
-import Chip from '@/components/global/chip';
+import Chip from '@/components/ui/chip';
 import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/ui/grid';
 import { RoadmapUserQuestions } from '@/types/Roadmap';

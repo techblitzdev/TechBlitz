@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import Chip from '../global/chip';
+import Chip from '../ui/chip';
 import DashboardQuestionCard from './dashboard-question-card';
 import { ArrowRight } from 'lucide-react';
 import { Grid } from '../ui/grid';

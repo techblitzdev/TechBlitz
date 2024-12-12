@@ -1,7 +1,7 @@
 'use client';
 import { useRef } from 'react';
 
-import Chip from '@/components/global/chip';
+import Chip from '@/components/ui/chip';
 import { Separator } from '@/components/ui/separator';
 import AnswerQuestionForm from './answer-question-form';
 import QuestionCardFooter from './question-card-footer';

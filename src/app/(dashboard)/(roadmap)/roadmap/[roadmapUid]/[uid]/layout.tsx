@@ -1,13 +1,13 @@
 import { fetchRoadmapQuestionViaOrder } from '@/actions/roadmap/questions/fetch-question-via-order';
 import { fetchRoadmapQuestion } from '@/actions/roadmap/questions/fetch-roadmap-question';
-import BackToDashboard from '@/components/global/back-to-dashboard';
+import BackToDashboard from '@/components/ui/back-to-dashboard';
 import QuestionNavigation from '@/components/global/navigation/question-navigation';
 import { Separator } from '@/components/ui/separator';
 import { redirect } from 'next/navigation';
 
 export default async function RoadmapQuestionLayout({
   children,
-  params,
+  params
 }: Readonly<{
   children: React.ReactNode;
   params: { roadmapUid: string; uid: string };
@@ -23,11 +23,11 @@ export default async function RoadmapQuestionLayout({
   // Fetch the previous and next questions
   const nextQuestion = await fetchRoadmapQuestionViaOrder({
     order: question.order + 1,
-    roadmapUid,
+    roadmapUid
   });
   const previousQuestion = await fetchRoadmapQuestionViaOrder({
     order: question.order - 1,
-    roadmapUid,
+    roadmapUid
   });
 
   return (

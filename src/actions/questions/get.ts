@@ -1,6 +1,6 @@
 'use server';
 import { prisma } from '@/utils/prisma';
-import { getTagsFromQuestion } from '../utils/get-tags-from-question';
+import { getTagsFromQuestion } from './utils/get-tags-from-question';
 import { Question } from '@/types/Questions';
 
 export const getQuestion = async (uid: string) => {
@@ -12,16 +12,16 @@ export const getQuestion = async (uid: string) => {
   try {
     const res = await prisma.questions.findUnique({
       where: {
-        uid,
+        uid
       },
       include: {
         answers: true,
         tags: {
           include: {
-            tag: true,
-          },
-        },
-      },
+            tag: true
+          }
+        }
+      }
     });
 
     if (!res) {

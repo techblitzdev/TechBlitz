@@ -1,7 +1,7 @@
 import { QuestionWithoutAnswers } from '@/types/Questions';
 import { Button } from '@/components/ui/button';
 import { ArrowUpRight } from 'lucide-react';
-import Chip from '../global/chip';
+import Chip from '../ui/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import { Grid } from '../ui/grid';
 import TagDisplay from './previous/tag-display';

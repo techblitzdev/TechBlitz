@@ -10,7 +10,7 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from '../ui/tooltip';
-import Chip from '../global/chip';
+import Chip from '../ui/chip';
 import Link from 'next/link';
 
 const items: {

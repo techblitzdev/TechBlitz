@@ -14,7 +14,7 @@ export const signInWithGithub = async () => {
 
   if (error) throw new Error(error.message);
 
-  redirect(`${data.url}/dashboard`);
+  redirect(data.url);
 };
 
 export const signInWithDiscord = async () => {
@@ -29,5 +29,5 @@ export const signInWithDiscord = async () => {
 
   if (error) throw new Error(error.message);
 
-  redirect(`${data.url}/dashboard`);
+  redirect(data.url);
 };

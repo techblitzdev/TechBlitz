@@ -317,7 +317,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooterComponent />
+      {user?.userLevel !== 'ADMIN' && <SidebarFooterComponent />}
       <SidebarRail />
     </Sidebar>
   );

@@ -73,6 +73,7 @@
     "react-hook-form": "^7.53.0",
     "react-timer-hook": "^3.0.7",
     "recharts": "^2.12.7",
+    "resend": "^4.0.1",
     "sonner": "^1.5.0",
     "stripe": "^17.2.1",
     "tailwind-container-break-out": "^2.0.9",

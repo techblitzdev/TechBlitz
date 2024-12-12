@@ -5,6 +5,7 @@ import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import TagDisplay from './previous/tag-display';
 import { getQuestionStats } from '@/actions/questions/get-question-stats';
 import Link from 'next/link';
+import Chip from '../ui/chip';
 
 export default async function QuestionCard(opts: {
   questionData: QuestionWithoutAnswers;

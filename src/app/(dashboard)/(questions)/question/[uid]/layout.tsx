@@ -1,14 +1,14 @@
 import { getQuestion } from '@/actions/questions/get';
 import { getRandomQuestion } from '@/actions/questions/get-next-question';
-import BackToDashboard from '@/components/global/back-to-dashboard';
-import CurrentStreak from '@/components/global/current-streak';
+import BackToDashboard from '@/components/ui/back-to-dashboard';
+import CurrentStreak from '@/components/ui/current-streak';
 import QuestionNavigation from '@/components/global/navigation/question-navigation';
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/useUserServer';
 
 export default async function QuestionUidLayout({
   children,
-  params,
+  params
 }: Readonly<{ children: React.ReactNode; params: { uid: string } }>) {
   const { uid } = params;
 
@@ -18,7 +18,7 @@ export default async function QuestionUidLayout({
 
   const nextQuestion = await getRandomQuestion({
     currentQuestionId: uid,
-    userUid: user.uid,
+    userUid: user.uid
   });
 
   return (

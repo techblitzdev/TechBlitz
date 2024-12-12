@@ -1,6 +1,6 @@
 import { getSubscriptionDetails } from '@/actions/stripe/stripe-get-subscription-details';
 import { getUserInvoices } from '@/actions/stripe/stripe-get-user-invoices';
-import Chip from '@/components/global/chip';
+import Chip from '@/components/ui/chip';
 import BillingHistoryTable from '@/components/settings/billing-history-table';
 import CancelSubscriptionModal from '@/components/settings/cancel-subscription-modal';
 import { Button } from '@/components/ui/button';
@@ -23,7 +23,7 @@ export default async function BillingPage() {
   ).toLocaleDateString('en-GB', {
     year: 'numeric',
     month: 'long',
-    day: 'numeric',
+    day: 'numeric'
   });
 
   return (
@@ -40,7 +40,11 @@ export default async function BillingPage() {
           <h6 className="text-lg">Your current plan</h6>
           <p className="text-sm flex items-center gap-x-1">
             You are currently on the{' '}
-            <Chip color="accent" text={user.userLevel} /> plan.
+            <Chip
+              color="accent"
+              text={user.userLevel}
+            />{' '}
+            plan.
           </p>
         </div>
         {user.userLevel === 'FREE' ? (

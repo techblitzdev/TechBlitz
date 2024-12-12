@@ -41,7 +41,6 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
-import ComingSoonChip from '../coming-soon';
 import { useUser } from '@/hooks/useUser';
 import { userAnsweredDailyQuestion } from '@/actions/questions/user-answered-daily-question';
 import {
@@ -50,8 +49,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import LogoutButton from '../logout';
-import Logo from '../logo';
+import LogoutButton from '../../auth/logout';
+import Logo from '../../ui/logo';
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -125,7 +124,6 @@ export function AppSidebar() {
       title: 'Stats',
       url: '/statistics',
       icon: ChartBarIncreasing
-      // chip: ComingSoonChip
     },
     {
       title: 'Leaderboard',

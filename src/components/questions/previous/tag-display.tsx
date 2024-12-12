@@ -1,4 +1,4 @@
-import Chip from '@/components/global/chip'; // Assuming this is your Chip component
+import Chip from '@/components/ui/chip'; // Assuming this is your Chip component
 import { Tags } from '@/types/Tags';
 import { capitalise } from '@/utils';
 

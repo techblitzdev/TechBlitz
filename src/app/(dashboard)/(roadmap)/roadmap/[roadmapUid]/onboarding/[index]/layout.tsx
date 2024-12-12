@@ -1,4 +1,4 @@
-import BackToDashboard from '@/components/global/back-to-dashboard';
+import BackToDashboard from '@/components/ui/back-to-dashboard';
 import OnboardingProgressBar from '@/components/roadmaps/onboarding/onboarding-progress-bar';
 import { Separator } from '@/components/ui/separator';
 import {

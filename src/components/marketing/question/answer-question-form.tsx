@@ -24,7 +24,7 @@ import { answerDailyQuestionDemo } from '@/actions/demo/answer-question-demo';
 import { Question } from '@/types/Questions';
 import WaitlistSignup from './waitlist-sign-up';
 import Link from 'next/link';
-import BackToDashboard from '@/components/global/back-to-dashboard';
+import BackToDashboard from '@/components/ui/back-to-dashboard';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 

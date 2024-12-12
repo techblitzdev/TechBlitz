@@ -1,5 +1,5 @@
 'use server';
-import { userAuth } from '@/actions/utils/user-auth';
+import { userAuth } from '@/actions/questions/admin/utils/user-auth';
 import { prisma } from '@/utils/prisma';
 
 export const clearQuestionsForAdmin = async (uid: string) => {
@@ -13,8 +13,8 @@ export const clearQuestionsForAdmin = async (uid: string) => {
   // clear all questions that relate to the uid that was passed in
   await prisma.answers.deleteMany({
     where: {
-      questionUid: uid,
-    },
+      questionUid: uid
+    }
   });
 
   return { success: true };

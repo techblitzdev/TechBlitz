@@ -1,6 +1,6 @@
 import { fetchNextPrevRoadmap } from '@/actions/roadmap/fetch-next-prev-roadmap';
 import { fetchRoadmap } from '@/actions/roadmap/fetch-single-roadmap';
-import BackToDashboard from '@/components/global/back-to-dashboard';
+import BackToDashboard from '@/components/ui/back-to-dashboard';
 import QuestionNavigation from '@/components/global/navigation/question-navigation';
 import RoadmapDropdown from '@/components/roadmaps/[uid]/dropdown';
 import { Separator } from '@/components/ui/separator';

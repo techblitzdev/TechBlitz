@@ -11,7 +11,7 @@ import {
 import { useUserServer } from '@/hooks/useUserServer';
 import { redirect } from 'next/navigation';
 import Hero from '@/components/global/hero';
-import Chip from '@/components/global/chip';
+import Chip from '@/components/ui/chip';
 import { capitalise } from '@/utils';
 
 export default async function RoadmapSinglgePage({

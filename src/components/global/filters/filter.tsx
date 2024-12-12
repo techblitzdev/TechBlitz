@@ -2,7 +2,7 @@ import FilterButtonsSort from './buttons/sort/date';
 import FilterButtonDifficulty from './buttons/filter/difficulty';
 import FilterButtonCompleted from './buttons/filter/completed';
 import FilterButtonTags from './buttons/filter/tags';
-import { getTags } from '@/actions/tags/get-tags';
+import { getTags } from '@/actions/questions/tags/get-tags';
 
 export default async function Filter() {
   // fetch all of the tags from the db

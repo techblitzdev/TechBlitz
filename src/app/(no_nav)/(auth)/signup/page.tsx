@@ -5,7 +5,6 @@ import { useGetQueryParams } from '@/utils/get-query-params';
 import { Suspense, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import type { ErrorCodes } from '@/types/Constants';
-import { Button } from '@/components/ui/button';
 
 export default function SignupPage() {
   const ranToast = useRef(false);

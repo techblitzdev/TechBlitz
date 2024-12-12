@@ -19,10 +19,7 @@ import { useRef } from 'react';
 import { Separator } from '../ui/separator';
 import Link from 'next/link';
 import { DiscordLogoIcon, GitHubLogoIcon } from '@radix-ui/react-icons';
-import {
-  signInWithGithub,
-  signInWithDiscord
-} from '@/actions/user/account/oauth';
+import { oauth } from '@/actions/user/account/oauth';
 
 type SchemaProps = z.infer<typeof loginSchema>;
 
@@ -141,7 +138,7 @@ export default function LoginForm() {
         <form
           onSubmit={async (event) => {
             event.preventDefault();
-            await signInWithGithub();
+            await oauth('github');
           }}
         >
           <Button
@@ -155,7 +152,7 @@ export default function LoginForm() {
         <form
           onSubmit={async (event) => {
             event.preventDefault();
-            await signInWithDiscord();
+            await oauth('discord');
           }}
         >
           <Button

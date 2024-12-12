@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Star } from 'lucide-react';
 import OpenSourceCard from './open-source-card';
 import CommitCard from './commit-card';
 
@@ -55,7 +55,7 @@ export default function OpenSourceBlock() {
   ];
 
   return (
-    <section className="pb-20 md:pb-52 grid grid-cols-12 gap-4 lg:gap-16">
+    <section className="pb-20 md:pb-52 grid grid-cols-12 gap-4 lg:gap-16 relative">
       <div className="flex flex-col gap-y-3 col-span-full lg:col-span-5 self-center">
         <h1 className="text-2xl lg:text-5xl !font-sans !leading-[normal] text-gradient from-white to-white/55">
           Secrets are for Magicians, Not Software
@@ -71,10 +71,10 @@ export default function OpenSourceBlock() {
         >
           <Button
             variant="secondary"
-            className="w-fit"
+            className="w-fit flex gap-x-1"
           >
-            Source Code
-            <ChevronRight className="size-4 ml-2" />
+            <Star className="size-5 text-yellow-400 fill-yellow-300" />
+            on GitHub!
           </Button>
         </a>
       </div>

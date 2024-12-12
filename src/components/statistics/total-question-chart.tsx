@@ -9,7 +9,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle
 } from '@/components/ui/card';
@@ -76,6 +75,15 @@ export default function QuestionChart({
     return 'months';
   }, [questionData]);
 
+  const maxQuestions = useMemo(() => {
+    return Math.max(...chartData.map((data) => data.questions));
+  }, [chartData]);
+
+  const yAxisDomain = useMemo(() => {
+    const maxY = Math.ceil(maxQuestions * 1.1); // Add 10% padding
+    return [0, maxY];
+  }, [maxQuestions]);
+
   return (
     <Card
       className="border-black-50 max-h-[28rem]"
@@ -107,7 +115,8 @@ export default function QuestionChart({
           config={chartConfig}
           className="max-h-80"
           style={{
-            aspectRatio: '9 / 2'
+            aspectRatio: '10 / 4',
+            width: '100%'
           }}
         >
           <LineChart
@@ -115,7 +124,9 @@ export default function QuestionChart({
             data={chartData}
             margin={{
               left: 12,
-              right: 12
+              right: 12,
+              top: 20,
+              bottom: 10
             }}
           >
             <CartesianGrid vertical={false} />
@@ -132,6 +143,7 @@ export default function QuestionChart({
               tickFormatter={(value) => `${value}`}
               width={30}
               tick={{ fill: 'hsl(var(--muted-foreground))' }}
+              domain={yAxisDomain}
             />
             <ChartTooltip
               cursor={false}

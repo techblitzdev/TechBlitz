@@ -4,7 +4,7 @@ import { useRef } from 'react';
 
 export default function HomepageLargeText() {
   const text =
-    'Elevate your skills with personalized learning paths that adapt to your journey as a developer.';
+    'Unlock Your Full-Stack Potential with Daily Coding Challenges, Adaptive Roadmaps, and Comprehensive Tech Skills Assessment.';
   // Split the text into an array of words
   const words = text.split(' ');
 

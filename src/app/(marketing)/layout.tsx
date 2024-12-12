@@ -28,13 +28,18 @@ export const metadata: Metadata = {
   title,
   description,
   keywords: [
-    'coding',
-    'programming',
     'software engineering',
-    'web development',
-    'ai',
-    'machine learning',
-    'education'
+    'coding challenges',
+    'AI-powered learning',
+    'personalized coding roadmap',
+    'tech community',
+    'full-stack development',
+    'data structures and algorithms',
+    'coding statistics',
+    'continuous learning',
+    'career advancement',
+    'coding best practices',
+    'tech skills assessment'
   ],
   openGraph: {
     title,

@@ -131,13 +131,13 @@ export default function LoginForm() {
           </Link>
         </span>
       </form>
-      <div className="relative pt-5 pb-3 col-span-full">
+      <div className="relative pt-5 pb-1 col-span-full">
         <Separator className=" bg-black-50" />
         <span className="absolute top-3 left-1/2 transform -translate-x-1/2 bg-[#000000] px-2 text-xs text-gray-300">
           OR
         </span>
       </div>
-      <div className="flex gap-4 items-center justify-center">
+      <div className="flex gap-1 items-center justify-center">
         <form
           onSubmit={async (event) => {
             event.preventDefault();
@@ -147,6 +147,7 @@ export default function LoginForm() {
           <Button
             type="submit"
             variant="ghost"
+            padding="md"
           >
             <GitHubLogoIcon className="size-4" />
           </Button>
@@ -160,6 +161,7 @@ export default function LoginForm() {
           <Button
             type="submit"
             variant="ghost"
+            padding="md"
           >
             <DiscordLogoIcon className="size-4" />
           </Button>

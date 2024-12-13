@@ -5,8 +5,7 @@ import { prisma } from '@/utils/prisma';
 import type { UserLevel } from '@/types/User';
 
 export const userAuth = async (userRole: UserLevel | UserLevel[]) => {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = await createClient();
   const { data: user, error } = await supabase.auth.getUser();
   const userId = user?.user?.id;
 
@@ -17,8 +16,8 @@ export const userAuth = async (userRole: UserLevel | UserLevel[]) => {
   // get the user's role from the db
   const dbUser = await prisma.users.findUnique({
     where: {
-      uid: userId,
-    },
+      uid: userId
+    }
   });
 
   if (!dbUser) {

@@ -1,12 +1,10 @@
 'use server';
 import { createClient } from '@/utils/supabase/server';
 import { Provider } from '@supabase/supabase-js';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export const oauth = async (provider: Provider) => {
-  const cookieStore = cookies();
-  const supabase = await createClient(cookieStore);
+  const supabase = await createClient();
 
   const callbackUrl = new URL('/auth/callback', process.env.NEXT_PUBLIC_URL);
 

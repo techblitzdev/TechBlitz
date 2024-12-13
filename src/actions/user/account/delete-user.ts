@@ -3,15 +3,12 @@ import { createClient as createServerClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
 import { prisma } from '@/utils/prisma';
 
-export const deleteUser = async (opts: {
-  userUid: string
-}) => {
-  const { userUid } = opts
-  if(!userUid) {
-    throw new Error('User UID is required')
+export const deleteUser = async (opts: { userUid: string }) => {
+  const { userUid } = opts;
+  if (!userUid) {
+    throw new Error('User UID is required');
   }
-  const cookieStore = cookies();
-  const supabase = createServerClient(cookieStore);
+  const supabase = await createServerClient();
 
   // Wrap all Prisma operations in a transaction
   await prisma.$transaction(async (tx) => {
@@ -23,15 +20,13 @@ export const deleteUser = async (opts: {
     });
 
     // delete the user from supabase auth
-    const { error } = await supabase.auth.admin.deleteUser(
-      userUid
-    );
+    const { error } = await supabase.auth.admin.deleteUser(userUid);
 
-    if(error) {
-      throw new Error(error.message)
+    if (error) {
+      throw new Error(error.message);
     }
 
     // sign out the user
     await supabase.auth.signOut();
   });
-}
+};

@@ -11,9 +11,8 @@ import { unstable_cache as NextCache, revalidateTag } from 'next/cache';
  * @returns User | null
  */
 export const getUserFromSession = async () => {
-  const cookieStore = cookies();
-  const supabase = createServerClient(cookieStore);
-  return supabase?.auth?.getUser();
+  const supabase = createServerClient();
+  return await (await supabase)?.auth?.getUser();
 };
 
 export const getUserFromDb = async (
@@ -22,8 +21,8 @@ export const getUserFromDb = async (
   if (!userUid) return null;
   const user = await prisma.users.findUnique({
     where: {
-      uid: userUid,
-    },
+      uid: userUid
+    }
   });
 
   revalidateTag('user-details');

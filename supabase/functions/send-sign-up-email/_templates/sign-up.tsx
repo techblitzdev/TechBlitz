@@ -12,7 +12,7 @@ import {
   Section,
   Text
 } from 'npm:@react-email/components';
-import * as React from 'react';
+import * as React from 'npm:react@18.3.1';
 
 interface TechBlitzSignUpEmailProps {
   username: string;

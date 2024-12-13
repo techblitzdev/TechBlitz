@@ -60,7 +60,7 @@ export default async function MarketingQuestionPage({
 
         {/* Code Section */}
         <div className="w-full md:w-1/2">
-          <div className="h-auto min-h-[45rem] bg-[#111111] border border-black-50 rounded-xl relative overflow-hidden">
+          <div className="h-fit lg:h-[45rem] bg-[#111111] border border-black-50 rounded-xl relative overflow-hidden">
             <div className="p-4 text-sm flex w-full items-center justify-between bg-black-25">
               <p>Code</p>
               {question.codeSnippet && (

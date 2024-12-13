@@ -106,6 +106,12 @@ enable_confirmations = false
 # Template for sending OTP to users
 template = "Your code is {{ .Code }} ."
 
+[auth.hook.send_email]
+enabled = true
+uri = "http://host.docker.internal:54321/functions/v1/send-sign-up-email"
+secrets = "env(SEND_SMS_HOOK_SECRET)"
+
+
 # Use pre-defined map of phone number to OTP for testing.
 [auth.sms.test_otp]
 # 4152127777 = "123456"

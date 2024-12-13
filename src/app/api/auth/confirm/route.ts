@@ -5,7 +5,6 @@ import { cookies } from 'next/headers';
 import { createClient } from '@/utils/supabase/server';
 
 export async function GET(request: NextRequest) {
-  const cookieStore = cookies();
   const { searchParams } = new URL(request.url);
   // pull the token has out of the query params
   // this gets set on the OTP in the email sent to the user
@@ -14,8 +13,8 @@ export async function GET(request: NextRequest) {
   // this will be the type of OTP that was sent to the user
   const type = searchParams.get('type') as EmailOtpType | null;
 
-  // get the next URL from the query params - default to pricing for now
-  const next = searchParams.get('next') ?? '/pricing';
+  // get the next URL from the query params - default to login for now
+  const next = searchParams.get('next') ?? '/login';
 
   // clone the url so we can modify it
   const redirectTo = request.nextUrl.clone();

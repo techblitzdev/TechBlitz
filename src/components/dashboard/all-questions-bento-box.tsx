@@ -19,7 +19,7 @@ export default function AllQuestionsDashboardBentoBox() {
   const [allQuestions] = useState([...questions, ...questions, ...questions]);
 
   return (
-    <section className="h-full flex flex-col gap-y-5 group p-4 relative overflow-hidden max-h-fit">
+    <section className="h-full flex flex-col gap-y-5 group p-4 relative overflow-hidden max-h-80 lg:max-h-fit">
       <div className="space-y-3 z-10 relative">
         <Chip
           color="accent"

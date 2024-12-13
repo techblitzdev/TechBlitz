@@ -12,6 +12,7 @@ import { getRandomQuestion } from '@/actions/questions/get-next-question';
 import { getRelatedQuestions } from '@/actions/questions/get-related';
 import RelatedQuestionCard from '@/components/questions/single/related-question-card';
 import ExpandedCodeModal from '@/components/questions/expanded-code-modal';
+import FeedbackButton from '@/components/ui/feedback-button';
 
 export default async function TodaysQuestionPage({
   params
@@ -42,11 +43,11 @@ export default async function TodaysQuestionPage({
 
   return (
     <>
-      <div className="flex gap-8 mt-3 px-6">
+      <div className="flex flex-col lg:flex-row gap-8 mt-3 px-6">
         {/* Left Section - Question and Stats */}
-        <div className="flex flex-col gap-y-4 w-1/2 relative overflow-hidden h-fit">
+        <div className="flex flex-col gap-y-4 w-full lg:w-1/2 relative overflow-hidden h-fit">
           {/* Question Card */}
-          <Button className="border border-black-50">Question</Button>
+          <FeedbackButton />
           <QuestionCard
             question={question}
             user={user}
@@ -54,7 +55,7 @@ export default async function TodaysQuestionPage({
           />
 
           {/* Stats Card */}
-          <div className="bg-black-75 border border-black-50 rounded-xl overflow-hidden">
+          <div className="bg-black-75 border border-black-50 rounded-xl overflow-hidden min-h-fit">
             <div className="flex items-center gap-x-1 p-4 bg-black-25">
               <ChartColumn className="size-4" />
               <div className="text-sm">Stats</div>
@@ -85,9 +86,9 @@ export default async function TodaysQuestionPage({
         </div>
 
         {/* Right Section - Code Snippet and Related Questions */}
-        <div className="w-1/2 h-3/4 grid-cols-subgrid gap-8 flex flex-col">
+        <div className="w-full lg:w-1/2 lg:h-3/4 grid-cols-subgrid gap-8 flex flex-col">
           {/* Code Snippet */}
-          <div className="h-[45rem] col-span-full bg-black-75 border border-black-50 rounded-xl relative overflow-hidden">
+          <div className="h-fit lg:h-[45rem] col-span-full bg-black-75 border border-black-50 rounded-xl relative overflow-hidden">
             <div className="p-4 text-sm flex w-full items-center justify-between bg-black-25">
               <p>Code</p>
               {question.codeSnippet && (

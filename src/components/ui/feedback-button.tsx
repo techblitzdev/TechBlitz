@@ -26,7 +26,7 @@ export default async function FeedbackButton() {
           Send feedback
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="bg-[#000] border border-black-50">
+      <AlertDialogContent className="bg-black-100 border border-black-50">
         <AlertDialogHeader>
           <AlertDialogTitle>Send feedback</AlertDialogTitle>
           <AlertDialogDescription>
@@ -39,7 +39,7 @@ export default async function FeedbackButton() {
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction>
-            <Link href="mailto:loganfordwd@gmail.com">Send feedback</Link>
+            <Link href="mailto:team@techblitz.dev">Send feedback</Link>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

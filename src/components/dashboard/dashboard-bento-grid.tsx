@@ -24,7 +24,7 @@ export default async function DashboardBentoGrid() {
   const items = [
     {
       header: <TodaysQuestionBentoBox question={todaysQuestion} />,
-      className: 'h-full text-white justify-center',
+      className: 'h-full text-white justify-center min-h-fit',
       // conditionally render the href based on whether there is a question
       href: todaysQuestion?.uid ? `/question/${todaysQuestion?.uid}` : null,
       padded: false,
@@ -32,7 +32,7 @@ export default async function DashboardBentoGrid() {
     },
     {
       header: <YesterdaysQuestionBentoBox question={yesterdaysQuestion} />,
-      className: 'h-full text-white justify-center',
+      className: 'h-full text-white justify-center min-h-fit',
       // conditionally render the href based on whether there is a question
       href: yesterdaysQuestion?.uid
         ? `/question/${yesterdaysQuestion?.uid}`
@@ -54,7 +54,7 @@ export default async function DashboardBentoGrid() {
     },
     {
       header: <ProgressBentoBox />,
-      className: 'md:col-span-2 text-white',
+      className: 'md:col-span-2 text-white min-h-[25rem]',
       padded: false
     },
     {

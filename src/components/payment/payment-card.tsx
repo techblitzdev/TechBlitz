@@ -19,7 +19,7 @@ export function PricingCard(opts: {
       key={product.id}
       className="
         flex flex-col bg-black-75 p-8 border border-black-50
-        w-1/4 justify-between relative rounded-xl min-h-full h-full
+        w-full md:w-1/2 lg:w-1/3 justify-between relative rounded-xl md:min-h-full h-full
       "
     >
       <div className="flex flex-col justify-between h-full gap-y-4">

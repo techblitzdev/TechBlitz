@@ -66,16 +66,20 @@ export default async function MarketingNavigation() {
         {process.env.NEXT_PUBLIC_ENV === 'development' ? (
           <HamburgerMenuIcon className="size-5 block md:hidden" />
         ) : (
-          <div className="flex md:hidden">
-            <Button
-              variant="accent"
-              href="#waitlist-form"
-              className="text-xs sm:text-sm font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
-            >
-              Join the Waitlist
-              <ArrowRight className="ml-1 size-4" />
-            </Button>
-          </div>
+          <>
+            {!user?.email && (
+              <div className="flex md:hidden">
+                <Button
+                  variant="accent"
+                  href="#waitlist-form"
+                  className="text-xs sm:text-sm font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+                >
+                  Join the Waitlist
+                  <ArrowRight className="ml-1 size-4" />
+                </Button>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

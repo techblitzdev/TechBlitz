@@ -14,9 +14,14 @@ export default async function FastestTimes(opts: {
   if (orderedTimes.length === 0) return null;
 
   return (
-    <div className="w-full max-w-md mx-auto">
+    <div className="w-full w-full md:max-w-md mx-auto">
       {orderedTimes.map((entry, index) => {
-        return <DashboardLearderboardUserCard entry={entry} index={index} />;
+        return (
+          <DashboardLearderboardUserCard
+            entry={entry}
+            index={index}
+          />
+        );
       })}
     </div>
   );

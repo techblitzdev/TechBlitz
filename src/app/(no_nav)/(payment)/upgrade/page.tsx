@@ -19,23 +19,23 @@ export default async function UpgradePage() {
       </Link>
       <Link
         href="/dashboard"
-        className="font-semibold top-5 right-5 absolute font-satoshi text-2xl z-30 hover:text-white/80 duration-300"
+        className="font-semibold top-5 right-5 absolute font-satoshi text-2xl z-[10000] hover:text-white/80 duration-300"
       >
         <X className="size-5" />
       </Link>
       <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black-950 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
 
-      <div className="w-full h-svh flex flex-col py-8 container z-50 relative items-center justify-center">
-        <h1 className="text-3xl lg:text-5xl text-center">
+      <div className="w-full lg:h-svh flex flex-col pt-32 md:py-8 container z-50 relative items-center justify-center">
+        <h1 className="!font-onest !font-medium tracking-tight text-3xl lg:text-5xl text-center text-gradient from-white to-white/75">
           Simple and affordable <br /> pricing plans
         </h1>
 
         <div className="flex flex-col w-full mt-6">
-          <p className="font-satoshi text-center text-lg font-semibold">
+          <p className="text-center text-sm">
             Upgrade your account to unlock premium features, plans tailored to
             you.
           </p>
-          <div className="flex gap-10 justify-center mt-16 px-10">
+          <div className="flex flex-col md:flex-row gap-10 justify-center mt-8 md:mt-16 px-10">
             {products?.map((product) => (
               <PricingCard
                 key={product.id}

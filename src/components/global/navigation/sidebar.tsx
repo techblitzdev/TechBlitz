@@ -135,7 +135,7 @@ export function AppSidebar() {
     },
     {
       title: 'Help',
-      url: 'mailto:loganfordwd@gmail.com',
+      url: 'mailto:team@techblitz.dev',
       icon: HelpCircle
     },
     {

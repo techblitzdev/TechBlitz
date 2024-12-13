@@ -11,7 +11,7 @@ import {
   Row,
   Section,
   Text
-} from '@react-email/components';
+} from 'npm:@react-email/components';
 import * as React from 'react';
 
 interface TechBlitzSignUpEmailProps {

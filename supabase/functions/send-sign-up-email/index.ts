@@ -3,7 +3,7 @@ import { Webhook } from 'https://esm.sh/standardwebhooks@1.0.0';
 import { Resend } from 'npm:resend@4.0.0';
 import { renderAsync } from 'npm:@react-email/components@0.0.22';
 import { MagicLinkEmail } from './_templates/magic-link.tsx';
-import { SignUpEmail } from './_templates/sign-up.tsx';
+import { TechBlitzSignUpEmail } from './_templates/sign-up.tsx';
 
 const resend = new Resend(Deno.env.get('RESEND_API_KEY') as string);
 const hookSecret = Deno.env.get('SEND_EMAIL_HOOK_SECRET') as string;
@@ -40,11 +40,11 @@ Deno.serve(async (req) => {
     };
 
     let html: string;
+    let subject: string;
 
     if (email_action_type === 'signup') {
       html = await renderAsync(
-        React.createElement(SignUpEmail, {
-          username: user['user_metadata'].username,
+        React.createElement(TechBlitzSignUpEmail, {
           lang: user['user_metadata'].lang,
           supabase_url: Deno.env.get('SUPABASE_URL') ?? '',
           token,
@@ -53,6 +53,7 @@ Deno.serve(async (req) => {
           email_action_type
         })
       );
+      subject = 'Welcome to TechBlitz!';
     } else if (email_action_type == 'login') {
       html = await renderAsync(
         React.createElement(MagicLinkEmail, {
@@ -69,9 +70,9 @@ Deno.serve(async (req) => {
     }
 
     const { error } = await resend.emails.send({
-      from: 'welcome <team@techblitz.dev>',
+      from: 'qelcome <team@techblitz.dev>',
       to: [user.email],
-      subject: 'Supa Custom MagicLink!',
+      subject: subject || 'Welcome to TechBlitz!',
       html
     });
     if (error) {

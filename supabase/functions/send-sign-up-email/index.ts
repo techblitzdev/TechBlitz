@@ -46,18 +46,14 @@ Deno.serve(async (req) => {
       html = await renderAsync(
         React.createElement(TechBlitzSignUpEmail, {
           lang: user['user_metadata'].lang,
-          supabase_url: Deno.env.get('SUPABASE_URL') ?? '',
-          token,
-          token_hash,
-          redirect_to,
-          email_action_type
+          confirmationLink: `${redirect_to}/confirm?token=${token}&token_hash=${token_hash}`
         })
       );
       subject = 'Welcome to TechBlitz!';
     } else if (email_action_type == 'login') {
       html = await renderAsync(
         React.createElement(MagicLinkEmail, {
-          supabase_url: Deno.env.get('SUPABASE_URL') ?? '',
+          supabase_url: Deno.env.get('NEXT_PUBLIC_SUPABASE_URL') ?? '',
           token,
           token_hash,
           redirect_to,

@@ -109,7 +109,7 @@ template = "Your code is {{ .Code }} ."
 [auth.hook.send_email]
 enabled = true
 uri = "http://host.docker.internal:54321/functions/v1/send-sign-up-email"
-secrets = "env(SEND_SMS_HOOK_SECRET)"
+secrets = "env(SEND_EMAIL_HOOK_SECRET)"
 
 
 # Use pre-defined map of phone number to OTP for testing.

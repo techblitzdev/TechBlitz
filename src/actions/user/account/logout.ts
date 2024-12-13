@@ -6,8 +6,7 @@ import { cookies } from 'next/headers';
  * Method to log the user out of their account
  */
 export const logout = async () => {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = await createClient();
   const { error } = await supabase.auth.signOut();
 
   if (error) {

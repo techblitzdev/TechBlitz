@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
   // if we have the required vars to verify the OTP
   if (token_hash && type) {
     // create a new supabase client from our util
-    const supabase = createClient(cookieStore);
+    const supabase = await createClient();
 
     const { error } = await supabase.auth.verifyOtp({
       type,

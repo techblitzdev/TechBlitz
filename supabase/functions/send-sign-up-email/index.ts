@@ -70,7 +70,7 @@ Deno.serve(async (req) => {
     }
 
     const { error } = await resend.emails.send({
-      from: 'qelcome <team@techblitz.dev>',
+      from: 'welcome <team@techblitz.dev>',
       to: [user.email],
       subject: subject || 'Welcome to TechBlitz!',
       html

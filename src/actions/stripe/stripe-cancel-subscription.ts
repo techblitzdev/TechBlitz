@@ -14,7 +14,8 @@ export const cancelSubscription = async (opts: { userUid: string }) => {
   const userSubscription = await prisma.subscriptions.findUnique({
     where: {
       userUid,
-    },
+      active: false
+    }
   });
 
   if (!userSubscription) {
@@ -28,6 +29,6 @@ export const cancelSubscription = async (opts: { userUid: string }) => {
 
   // cancel the subscription
   await stripe.subscriptions.update(stripeSubscriptionId, {
-    cancel_at_period_end: true,
+    cancel_at_period_end: true
   });
 };

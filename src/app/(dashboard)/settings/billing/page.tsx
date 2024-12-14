@@ -16,15 +16,19 @@ export default async function BillingPage() {
 
   // get the next billng date
   const nextBillingDate = await getSubscriptionDetails(user.uid);
-  if (!nextBillingDate) return;
 
-  const nextBilling = new Date(
-    nextBillingDate.current_period_end * 1000
-  ).toLocaleDateString('en-GB', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
+  const nextBilling = nextBillingDate?.current_period_end
+    ? new Date(nextBillingDate.current_period_end * 1000).toLocaleDateString(
+        'en-GB',
+        {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        }
+      )
+    : nextBillingDate?.cancel_at
+    ? 'Cancelled'
+    : 'N/A';
 
   return (
     <div className="flex flex-col items-start">

@@ -33,6 +33,9 @@ export default function QuestionCard(opts: {
           textColor={getQuestionDifficultyColor(question.difficulty)}
           ghost
         />
+        <span className="text-xs block md:hidden">
+          (Scroll to see code snippet)
+        </span>
         <Stopwatch totalSeconds={totalSeconds} />
       </div>
       <Separator className="bg-black-50" />

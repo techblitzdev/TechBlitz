@@ -141,6 +141,8 @@ model QuestionAnswers {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+
+  isCodeSnippet Boolean   @default(false)
 }
 
 model Answers {

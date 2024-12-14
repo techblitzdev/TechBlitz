@@ -416,7 +416,7 @@ export default function NewQuestionModal({ ...props }) {
               <Button
                 type="button"
                 className="w-fit"
-                onClick={() => append({ text: '' })}
+                onClick={() => append({ text: '', isCodeSnippet: false })}
               >
                 Add Answer
               </Button>

@@ -1,6 +1,7 @@
 import { stripe } from '@/lib/stripe';
 import { NextRequest } from 'next/server';
 import { CancelSubscription } from './subscription-cancelled';
+import { checkoutSessionCompleted } from './checkout-session-complete';
 
 // huge shout-out to dub.co for the inspiration for this approach <3
 export async function POST(req: NextRequest) {
@@ -38,9 +39,22 @@ export async function POST(req: NextRequest) {
     }
 
     switch (event.type) {
+      // when a subscription is deleted
       case 'customer.subscription.deleted':
-        return await CancelSubscription(event);
-
+        await CancelSubscription(event);
+        break;
+      // when a checkout / purchase is completed
+      case 'checkout.session.completed':
+        await checkoutSessionCompleted(event);
+        break;
+      // when a subscription is updated
+      case 'customer.subscription.updated':
+        console.log('Subscription updated');
+        break;
+      // when a payment fails
+      case 'invoice.payment_failed':
+        console.log('Payment failed');
+        break;
       default:
         console.log('Unhandled event type');
         return new Response('Unhandled event type', { status: 400 });

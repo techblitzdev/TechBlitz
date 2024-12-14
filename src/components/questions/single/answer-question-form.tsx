@@ -21,6 +21,7 @@ import { Check } from 'lucide-react';
 import { Separator } from '../../ui/separator';
 import QuestionHintAccordion from './question-hint';
 import { DefaultRoadmapQuestions } from '@/types/Roadmap';
+import CodeDisplay from './code-snippet';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
@@ -173,7 +174,24 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
                           <Check className="h-3 w-3 flex-shrink-0" />
                         )}
                       </div>
-                      <p className="text-sm">{answer.answer}</p>
+                      {/** regex to check if the answer is a code snippet
+                       * if it is, render the code snippet component
+                       * (check for <pre><code)
+                       *
+                       */}
+                      {/<pre><code/.test(answer.answer) ? (
+                        <CodeDisplay
+                          content={answer.answer}
+                          language="javascript"
+                          hideIndex={true}
+                          backgroundColor="transparent"
+                        />
+                      ) : (
+                        <p
+                          className="text-sm"
+                          dangerouslySetInnerHTML={{ __html: answer.answer }}
+                        />
+                      )}
                     </Label>
                   </FormControl>
                 )}

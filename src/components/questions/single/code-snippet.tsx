@@ -6,6 +6,7 @@ interface CodeDisplayProps {
   content: string;
   language?: string;
   backgroundColor?: string;
+  hideIndex?: boolean;
 }
 
 interface HighlightProps {
@@ -25,7 +26,8 @@ interface Token {
 export default function CodeDisplay({
   content,
   language,
-  backgroundColor = '#111111'
+  backgroundColor = '#111111',
+  hideIndex = false
 }: CodeDisplayProps) {
   // Clean the content by removing pre and code tags
   const cleanContent = content
@@ -59,9 +61,11 @@ export default function CodeDisplay({
               {...getLineProps({ line })}
               className="table-row"
             >
-              <span className="table-cell text-gray-500 pr-4 select-none text-right text-sm">
-                {lineIndex + 1}
-              </span>
+              {!hideIndex && (
+                <span className="table-cell text-gray-500 pr-4 select-none text-right text-sm">
+                  {lineIndex + 1}
+                </span>
+              )}
               <span className="table-cell text-sm">
                 {line.map((token, tokenIndex) => (
                   <span

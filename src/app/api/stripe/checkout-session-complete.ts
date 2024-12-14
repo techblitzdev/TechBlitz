@@ -57,6 +57,13 @@ export const checkoutSessionCompleted = async (event: Stripe.Event) => {
       }
     });
 
+    const stripeSubscriptionId = session.id;
+
+    if (!stripeSubscriptionId || typeof stripeSubscriptionId !== 'string') {
+      console.log('No subscription id found');
+      return;
+    }
+
     // update the user's subscription to active
     await prisma.subscriptions.update({
       where: {
@@ -64,7 +71,7 @@ export const checkoutSessionCompleted = async (event: Stripe.Event) => {
       },
       data: {
         active: true,
-        stripeSubscriptionId: session.subscription as string,
+        stripeSubscriptionId,
         stripeCustomerId: session.customer as string,
         updatedAt: new Date()
       }

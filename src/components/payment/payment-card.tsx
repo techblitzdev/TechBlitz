@@ -5,7 +5,8 @@ import { CheckIcon, ReloadIcon } from '@radix-ui/react-icons';
 
 //type imports
 import type { StripeProduct } from '@/types/StripeProduct';
-import { Separator } from '../ui/separator';
+import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
 
 export function PricingCard(opts: {
   product: StripeProduct;
@@ -72,10 +73,26 @@ export function PricingCard(opts: {
             ))}
           </div>
           {/** payment trigger */}
-          <PaymentButton
+          {/* <PaymentButton
             key={product.id}
             product={product}
-          />
+          /> */}
+          <Button
+            href={product.metadata.paymentLink || ''}
+            fullWidth
+            variant="secondary"
+            disabled={product.default_price?.unit_amount === 0}
+          >
+            {isLoading ? (
+              <ReloadIcon className="size-3 animate-spin" />
+            ) : (
+              <div className="font-satoshi">
+                {product.default_price?.unit_amount === 0
+                  ? 'Current plan'
+                  : 'Upgrade'}
+              </div>
+            )}
+          </Button>
         </div>
       </div>
     </div>

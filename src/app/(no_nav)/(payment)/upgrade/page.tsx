@@ -26,7 +26,7 @@ export default async function UpgradePage() {
       <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black-950 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
 
       <div className="w-full lg:h-svh flex flex-col pt-32 md:py-8 container z-50 relative items-center justify-center">
-        <h1 className="!font-onest !font-medium tracking-tight text-3xl lg:text-5xl text-center text-gradient from-white to-white/75">
+        <h1 className="!font-onest !font-medium tracking-tight text-3xl lg:text-5xl text-center text-gradient from-white to-white/75 py-1">
           Simple and affordable <br /> pricing plans
         </h1>
 

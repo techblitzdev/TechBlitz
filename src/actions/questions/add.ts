@@ -29,7 +29,7 @@ export const addQuestion = async (opts: {
     isRoadmapQuestion,
     order,
     aiTitle,
-    difficulty,
+    difficulty
   } = opts;
 
   console.log('hit');
@@ -51,7 +51,7 @@ export const addQuestion = async (opts: {
 
   const answerRecords = answers.map((answer) => ({
     uid: uniqid(),
-    answer,
+    answer
   }));
 
   if (correctAnswer < 0 || correctAnswer >= answers.length) {
@@ -75,21 +75,22 @@ export const addQuestion = async (opts: {
           updatedAt: new Date(),
           answers: {
             createMany: {
-              data: answerRecords,
-            },
+              data: answerRecords
+            }
           },
           userAnswers: {},
           correctAnswer: correctAnswerUid,
           codeSnippet: codeSnippet || null,
           hint: hint || null,
           dailyQuestion: dailyQuestion || false,
+          difficulty,
           tags: {
             connectOrCreate: tags.map((tag) => ({
               where: {
                 questionId_tagId: {
                   questionId: questionUid,
-                  tagId: uniqid(),
-                },
+                  tagId: uniqid()
+                }
               },
               create: {
                 tag: {
@@ -97,14 +98,14 @@ export const addQuestion = async (opts: {
                     where: { name: tag },
                     create: {
                       uid: uniqid(),
-                      name: tag,
-                    },
-                  },
-                },
-              },
-            })),
-          },
-        },
+                      name: tag
+                    }
+                  }
+                }
+              }
+            }))
+          }
+        }
       });
     } else {
       await prisma.defaultRoadmapQuestions.create({
@@ -115,8 +116,8 @@ export const addQuestion = async (opts: {
           updatedAt: new Date(),
           answers: {
             createMany: {
-              data: answerRecords,
-            },
+              data: answerRecords
+            }
           },
           correctAnswer: correctAnswerUid,
           codeSnippet: codeSnippet || null,
@@ -124,8 +125,8 @@ export const addQuestion = async (opts: {
           DefaultRoadmapQuestionsUsersAnswers: {},
           order: order || 0,
           aiTitle: aiTitle || null,
-          difficulty,
-        },
+          difficulty
+        }
       });
     }
 

@@ -70,7 +70,9 @@ const MenuBar = ({ editor }: { editor: any }) => {
       <Button
         variant="default"
         size="sm"
-        onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+        onClick={() => {
+          editor.chain().focus().toggleCodeBlock().run();
+        }}
         className={editor.isActive('codeBlock') ? 'bg-black-50' : ''}
       >
         Code block
@@ -157,7 +159,12 @@ export default function NewQuestionModal({ ...props }) {
     defaultValues: {
       question: '',
       questionDate: '',
-      answers: [{ text: '' }, { text: '' }, { text: '' }, { text: '' }], // Default to 4 answers
+      answers: [
+        { text: '', isCodeSnippet: false },
+        { text: '', isCodeSnippet: false },
+        { text: '', isCodeSnippet: false },
+        { text: '', isCodeSnippet: false }
+      ],
       correctAnswer: null,
       codeSnippet: '',
       hint: '',
@@ -241,6 +248,7 @@ export default function NewQuestionModal({ ...props }) {
                     </FormControl>
                   )}
                 />
+                {form.getValues('difficulty')}
                 {/* Difficulty */}
                 <FormField
                   control={form.control}

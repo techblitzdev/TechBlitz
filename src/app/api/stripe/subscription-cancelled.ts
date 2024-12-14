@@ -1,19 +1,44 @@
+import { stripe } from '@/lib/stripe';
 import { prisma } from '@/utils/prisma';
 import Stripe from 'stripe';
 
 // we know we are in the correct event type as we call it from /stripe/route.ts
 export async function cancelSubscription(event: Stripe.Event) {
-  const subscriptionId = (event.data.object as Stripe.Subscription).id;
+  const session = event.data.object as Stripe.Checkout.Session;
+
+  const subscriptionId = session.id;
 
   try {
     console.log('Subscription deleted');
     // set the user's subscription to inactive
     // and set their userLevel to FREE
 
+    // get the user via their email address
+    const customer = await stripe.customers.retrieve(
+      session.customer as string
+    );
+    const userEmail = (customer as Stripe.Customer).email;
+    if (!userEmail) {
+      console.log('No user email found');
+      return;
+    }
+
+    // go get the user's details from prisma
+    const user = await prisma.users.findFirst({
+      where: {
+        email: userEmail
+      }
+    });
+
+    if (!user) {
+      console.log('No user found');
+      return;
+    }
+
     // get the subscription details from prisma via the subscriptionId
     const subscriptionCanceled = await prisma.subscriptions.findFirst({
       where: {
-        stripeSubscriptionId: subscriptionId
+        userUid: user.uid
       },
       include: {
         user: true
@@ -21,11 +46,12 @@ export async function cancelSubscription(event: Stripe.Event) {
     });
 
     if (!subscriptionCanceled) {
+      console.log('Subscription not found');
       return new Response('Subscription not found', { status: 404 });
     }
 
     await prisma.$transaction([
-      // downgade the user's userLevel to FREE
+      // downgrade the user's userLevel to FREE
       prisma.users.update({
         where: {
           uid: subscriptionCanceled.user.uid
@@ -51,9 +77,10 @@ export async function cancelSubscription(event: Stripe.Event) {
       })
     ]);
   } catch (err) {
-    console.log('Error constructing event');
+    console.log('Error constructing event', err);
     return new Response('Webhook Error', { status: 400 });
   }
 
-  return new Response('Webhook executed', { status: 200 });
+  console.log('Subscription canceled');
+  return true;
 }

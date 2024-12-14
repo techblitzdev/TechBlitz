@@ -3,7 +3,12 @@ import { prisma } from '@/utils/prisma';
 import { resend } from '@/lib/resend';
 import { stripe } from '@/lib/stripe';
 
-export async function checkoutSessionCompleted(event: Stripe.Event) {
+/**
+ * Method is ran on the following events:
+ * - checkout.session.completed
+ * - customer.subscription.updated
+ */
+export const checkoutSessionCompleted = async (event: Stripe.Event) => {
   const session = event.data.object as Stripe.Checkout.Session;
 
   // we only have one product that a user can subscribe to (for now)
@@ -79,4 +84,4 @@ export async function checkoutSessionCompleted(event: Stripe.Event) {
   } catch (error) {
     console.error('Failed to process webhook event:', error);
   }
-}
+};

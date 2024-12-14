@@ -2,6 +2,7 @@ import { stripe } from '@/lib/stripe';
 import { NextRequest } from 'next/server';
 import { cancelSubscription } from './subscription-cancelled';
 import { checkoutSessionCompleted } from './checkout-session-complete';
+import { invoicePaymentFailed } from './invoice-payment-failed';
 
 // huge shout-out to dub.co for the inspiration for this approach <3
 export async function POST(req: NextRequest) {
@@ -50,7 +51,7 @@ export async function POST(req: NextRequest) {
         break;
       // when a payment fails
       case 'invoice.payment_failed':
-        console.log('Payment failed');
+        await invoicePaymentFailed(event);
         break;
       default:
         console.log('Unhandled event type');

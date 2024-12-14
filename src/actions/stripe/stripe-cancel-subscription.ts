@@ -10,19 +10,12 @@ import { stripe } from '@/lib/stripe';
 export const cancelSubscription = async (opts: { userUid: string }) => {
   const { userUid } = opts;
 
-  console.log({
-    userUid
-  });
-
   // get the user's subscription
   const userSubscription = await prisma.subscriptions.findUnique({
     where: {
-      userUid
+      userUid,
+      active: false
     }
-  });
-
-  console.log({
-    userSubscription
   });
 
   if (!userSubscription) {

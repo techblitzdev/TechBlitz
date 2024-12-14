@@ -26,6 +26,8 @@ export default async function BillingPage() {
           day: 'numeric'
         }
       )
+    : nextBillingDate?.cancel_at
+    ? 'Cancelled'
     : 'N/A';
 
   return (

@@ -5,11 +5,11 @@ import { prisma } from '@/utils/prisma';
 export const getSubscriptionDetails = async (userUid: string) => {
   const subscriptionId = await prisma.subscriptions.findFirst({
     where: {
-      userUid,
+      userUid
     },
     select: {
-      stripeSubscriptionId: true,
-    },
+      stripeSubscriptionId: true
+    }
   });
 
   if (!subscriptionId?.stripeSubscriptionId) {
@@ -19,7 +19,7 @@ export const getSubscriptionDetails = async (userUid: string) => {
   return await stripe.subscriptions.retrieve(
     subscriptionId.stripeSubscriptionId,
     {
-      expand: ['latest_invoice.payment_intent'],
+      expand: ['latest_invoice.payment_intent']
     }
   );
 };

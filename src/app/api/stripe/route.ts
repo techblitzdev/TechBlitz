@@ -1,6 +1,6 @@
 import { stripe } from '@/lib/stripe';
 import { NextRequest } from 'next/server';
-import { CancelSubscription } from './subscription-cancelled';
+import { cancelSubscription } from './subscription-cancelled';
 import { checkoutSessionCompleted } from './checkout-session-complete';
 
 // huge shout-out to dub.co for the inspiration for this approach <3
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
 
   let event;
   try {
-    const webhookSecret = process.env.NEXT_PRIVATE_STRIPE_WEBHOOK_SECRET;
+    const webhookSecret = 'whsec_EvMQRESYJmMqMPzPrpYBg0A6XAstosZ1'; //process.env.NEXT_PRIVATE_STRIPE_WEBHOOK_SECRET;
 
     if (!webhookSecret) {
       console.log('No webhook secret found');
@@ -41,15 +41,12 @@ export async function POST(req: NextRequest) {
     switch (event.type) {
       // when a subscription is deleted
       case 'customer.subscription.deleted':
-        await CancelSubscription(event);
+        await cancelSubscription(event);
         break;
       // when a checkout / purchase is completed
       case 'checkout.session.completed':
-        await checkoutSessionCompleted(event);
-        break;
-      // when a subscription is updated
       case 'customer.subscription.updated':
-        console.log('Subscription updated');
+        await checkoutSessionCompleted(event);
         break;
       // when a payment fails
       case 'invoice.payment_failed':
@@ -59,6 +56,8 @@ export async function POST(req: NextRequest) {
         console.log('Unhandled event type');
         return new Response('Unhandled event type', { status: 400 });
     }
+
+    return new Response('Webhook executed', { status: 200 });
   } catch (error) {
     console.error('Failed to process webhook event:', error);
     return new Response('Failed to process webhook event', { status: 400 });

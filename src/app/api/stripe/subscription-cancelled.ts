@@ -2,7 +2,7 @@ import { prisma } from '@/utils/prisma';
 import Stripe from 'stripe';
 
 // we know we are in the correct event type as we call it from /stripe/route.ts
-export async function CancelSubscription(event: Stripe.Event) {
+export async function cancelSubscription(event: Stripe.Event) {
   const subscriptionId = (event.data.object as Stripe.Subscription).id;
 
   try {
@@ -25,6 +25,7 @@ export async function CancelSubscription(event: Stripe.Event) {
     }
 
     await prisma.$transaction([
+      // downgade the user's userLevel to FREE
       prisma.users.update({
         where: {
           uid: subscriptionCanceled.user.uid
@@ -33,6 +34,7 @@ export async function CancelSubscription(event: Stripe.Event) {
           userLevel: 'FREE'
         }
       }),
+      // set the subscription to inactive
       prisma.subscriptions.update({
         where: {
           uid: subscriptionCanceled.uid

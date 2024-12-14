@@ -32,7 +32,7 @@ export default async function UpgradePage() {
       <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black-950 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
 
       <div className="w-full lg:h-svh flex flex-col pt-32 md:py-8 container z-50 relative items-center justify-center text-center">
-        <h1 className=" text-gradient from-white to-white/75 text-3xl lg:text-5xl !font-onest !font-medium tracking-tight py-1">
+        <h1 className="text-gradient from-white to-white/75 text-3xl lg:text-5xl !font-onest tracking-tight py-1">
           Simple and affordable <br /> pricing plans
         </h1>
 
@@ -41,7 +41,7 @@ export default async function UpgradePage() {
             Upgrade your account to unlock premium features, gain access to
             exclusive content, and be the first to experience new updates.
           </p>
-          <div className="flex flex-col md:flex-row gap-10 justify-center mt-8 md:mt-16 px-10">
+          <div className="flex flex-col md:flex-row gap-10 justify-center mt-8 md:mt-16 px-2 md:px-10">
             {products?.map((product) => (
               <PricingCard
                 user={user}

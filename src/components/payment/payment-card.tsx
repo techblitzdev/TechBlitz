@@ -1,13 +1,15 @@
-import Stripe from 'stripe';
-// component imports
-import { PaymentButton } from './payment-card-button';
-import { CheckIcon, ReloadIcon } from '@radix-ui/react-icons';
+'use client';
 
-//type imports
-import type { StripeProduct } from '@/types/StripeProduct';
+import { Stripe } from 'stripe';
+import { motion } from 'framer-motion';
+import { ReloadIcon } from '@radix-ui/react-icons';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
-import { UserRecord } from '@/types/User';
+import AnimatedPricingFeatures from './animated-pricing-features';
+
+// type imports
+import type { StripeProduct } from '@/types/StripeProduct';
+import type { UserRecord } from '@/types/User';
 
 export function PricingCard(opts: {
   user: UserRecord | null;
@@ -21,41 +23,46 @@ export function PricingCard(opts: {
   const paymentLink = product.metadata.paymentLink;
 
   return (
-    <div
+    <motion.div
       key={product.id}
       className="
-        flex flex-col bg-black-75 p-8 border border-black-50
+        flex flex-col p-3 pt-5 md:p-8 border border-black-50
         w-full md:w-1/2 lg:w-1/3 justify-between relative rounded-xl md:min-h-full h-full
+        transition-all duration-300 ease-in-out
       "
+      whileHover={{ scale: 1.02 }}
+      style={{
+        background:
+          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
+      }}
     >
       <div className="flex flex-col justify-between h-full gap-y-4">
         <div className="flex flex-col gap-y-1">
           <div className="flex w-full justify-between items-center">
-            <h2 className="text-xl font-semibold font-poppins">
-              {product.name}
-            </h2>
+            <h2 className="font-onest text-white">{product.name}</h2>
             {product.metadata.mostPopular && (
-              <div className="bg-accent rounded-lg text-white text-xs px-2 py-1">
-                {' '}
+              <div className="bg-accent rounded-lg text-white text-xs px-2 py-1 font-semibold">
                 Most popular
               </div>
             )}
           </div>
-          <div className="flex gap-x-1 items-end">
-            <div className="flex gap-x-1 items-center">
-              £
+          <div className="flex gap-x-1 items-end mt-2">
+            <div className="flex gap-x-1 items-center font-onest text-gradient from-white to-white/75">
+              <span className="text-lg font-semibold">£</span>
               {isLoading ? (
-                <ReloadIcon className="size-3 animate-spin" />
+                <ReloadIcon className="size-5 animate-spin" />
               ) : (
-                <span className="text-4xl font-inter">
+                <span className="text-5xl font-onest">
                   {product.default_price?.unit_amount
                     ? product.default_price?.unit_amount / 100
                     : 0}
                 </span>
               )}
             </div>
-            <span className="text-xs font-inter mb-1.5">
-              per {billingPeriod}, billed monthly
+            <span className="text-sm font-inter mb-1.5 text-gray-300">
+              {product.default_price?.unit_amount !== 0
+                ? `per ${billingPeriod}, billed monthly`
+                : 'forever'}
             </span>
           </div>
         </div>
@@ -64,42 +71,29 @@ export function PricingCard(opts: {
 
         {/** Feature list */}
         <div className="flex flex-col gap-y-6 h-full justify-between">
-          <div className="flex flex-col gap-y-3">
-            {product?.features?.map((feature) => (
-              <div
-                key={product.id + feature.name}
-                className="flex gap-x-2 items-center"
-              >
-                <div className="bg-accent p-0.5 rounded-full">
-                  <CheckIcon className="size-3" />
-                </div>
-                <span className="text-sm">{feature.name}</span>
-              </div>
-            ))}
-          </div>
+          <AnimatedPricingFeatures
+            features={product.features || []}
+            productId={product.id}
+          />
           {/** payment trigger */}
-          {/* <PaymentButton
-            key={product.id}
-            product={product}
-          /> */}
           <Button
             href={paymentLink || ''}
-            fullWidth
+            className="w-full text-lg font-semibold py-6"
             variant="secondary"
             disabled={product.default_price?.unit_amount === 0}
           >
             {isLoading ? (
-              <ReloadIcon className="size-3 animate-spin" />
+              <ReloadIcon className="size-5 animate-spin" />
             ) : (
               <div className="font-satoshi">
                 {product.default_price?.unit_amount === 0
                   ? 'Current plan'
-                  : 'Upgrade'}
+                  : 'Upgrade now'}
               </div>
             )}
           </Button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

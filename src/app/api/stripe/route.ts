@@ -1,6 +1,8 @@
 import { stripe } from '@/lib/stripe';
 import { NextRequest } from 'next/server';
+import { CancelSubscription } from './subscription-cancelled';
 
+// huge shout-out to dub.co for the inspiration for this approach <3
 export async function POST(req: NextRequest) {
   // Ensure that stripe is initialized
   if (!stripe) {
@@ -37,6 +39,7 @@ export async function POST(req: NextRequest) {
 
     switch (event.type) {
       case 'customer.subscription.deleted':
+        return await CancelSubscription(event);
 
       default:
         console.log('Unhandled event type');

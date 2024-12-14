@@ -1,7 +1,7 @@
 import { prisma } from '@/utils/prisma';
 import Stripe from 'stripe';
 
-// we know we are in the correct event type as we call it from /webhooks/stripe/route.ts
+// we know we are in the correct event type as we call it from /stripe/route.ts
 export async function CancelSubscription(event: Stripe.Event) {
   const subscriptionId = (event.data.object as Stripe.Subscription).id;
 

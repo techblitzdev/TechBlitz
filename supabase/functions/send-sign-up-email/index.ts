@@ -7,6 +7,7 @@ import { TechBlitzSignUpEmail } from './_templates/sign-up.tsx';
 
 const resend = new Resend(Deno.env.get('RESEND_API_KEY') as string);
 const hookSecret = Deno.env.get('SEND_EMAIL_HOOK_SECRET') as string;
+const supabaseUrl = Deno.env.get('NEXT_PUBLIC_SUPABASE_URL') as string;
 
 Deno.serve(async (req) => {
   if (req.method !== 'POST') {
@@ -43,10 +44,12 @@ Deno.serve(async (req) => {
     let subject: string;
 
     if (email_action_type === 'signup') {
+      const redirect_to_url = `${redirect_to}/login`;
+
       html = await renderAsync(
         React.createElement(TechBlitzSignUpEmail, {
           lang: user['user_metadata'].lang,
-          confirmationLink: `${redirect_to}/confirm?token=${token}&token_hash=${token_hash}`
+          confirmationLink: `${supabaseUrl}/auth/v1/verify?token=${token_hash}&type=signup&redirect_to=${redirect_to_url}`
         })
       );
       subject = 'Welcome to TechBlitz!';

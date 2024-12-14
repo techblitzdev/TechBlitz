@@ -69,7 +69,8 @@ const WaitlistConfirmationEmail = ({
           </Text>
           <Text style={text}>
             We'll notify you as soon as we're ready to welcome you to TechBlitz.
-            In the meantime, you can follow our progress:
+            In the meantime, you can share TechBlitz with your friends, and
+            follow our progress!
           </Text>
           <Section style={listContainer}>
             <Link

@@ -33,11 +33,15 @@ export default async function UpgradePage() {
 
       <div className="w-full lg:h-svh flex flex-col pt-32 md:py-8 container z-50 relative items-center justify-center text-center">
         <h1 className="text-gradient from-white to-white/75 text-3xl lg:text-5xl !font-onest tracking-tight py-1">
-          Simple and affordable <br /> pricing plans
+          Simple and{' '}
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/55">
+            affordable{' '}
+          </span>
+          <br /> prcing plans
         </h1>
 
         <div className="flex flex-col w-full mt-6">
-          <p className="text-center text-sm">
+          <p className="text-center max-w-xl self-center">
             Upgrade your account to unlock premium features, gain access to
             exclusive content, and be the first to experience new updates.
           </p>

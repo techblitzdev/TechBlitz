@@ -87,7 +87,7 @@ export function PricingCard(opts: {
             ) : (
               <div className="font-satoshi">
                 {product.default_price?.unit_amount === 0
-                  ? 'Current plan'
+                  ? 'Free forever'
                   : 'Upgrade now'}
               </div>
             )}

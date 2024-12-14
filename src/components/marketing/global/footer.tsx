@@ -126,14 +126,6 @@ export default function MarketingFooter() {
                     Privacy Policy
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="/cookie-policy"
-                    className="hover:text-accent duration-300"
-                  >
-                    Cookies
-                  </Link>
-                </li>
               </ul>
             </div>
           </div>

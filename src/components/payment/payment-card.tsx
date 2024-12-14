@@ -7,13 +7,18 @@ import { CheckIcon, ReloadIcon } from '@radix-ui/react-icons';
 import type { StripeProduct } from '@/types/StripeProduct';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
+import { UserRecord } from '@/types/User';
 
 export function PricingCard(opts: {
+  user: UserRecord | null;
   product: StripeProduct;
   isLoading: boolean;
   billingPeriod: Stripe.PriceListParams.Recurring.Interval;
 }) {
   const { product, isLoading, billingPeriod } = opts;
+
+  // payment link with pre-filled email
+  const paymentLink = product.metadata.paymentLink;
 
   return (
     <div
@@ -78,7 +83,7 @@ export function PricingCard(opts: {
             product={product}
           /> */}
           <Button
-            href={product.metadata.paymentLink || ''}
+            href={paymentLink || ''}
             fullWidth
             variant="secondary"
             disabled={product.default_price?.unit_amount === 0}

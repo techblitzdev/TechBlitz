@@ -3,10 +3,14 @@ import Logo from '@/components/ui/logo';
 import { PricingCard } from '@/components/payment/payment-card';
 import { X } from 'lucide-react';
 import Link from 'next/link';
+import { useUserServer } from '@/hooks/useUserServer';
 
 export default async function UpgradePage() {
   // get the products
   const products = await getStripeProducts();
+
+  // get the current user (for prefilling the form)
+  const user = await useUserServer();
 
   return (
     <div className="relative bg-dot-white/[0.2]">
@@ -38,6 +42,7 @@ export default async function UpgradePage() {
           <div className="flex flex-col md:flex-row gap-10 justify-center mt-8 md:mt-16 px-10">
             {products?.map((product) => (
               <PricingCard
+                user={user}
                 key={product.id}
                 product={product}
                 isLoading={false}

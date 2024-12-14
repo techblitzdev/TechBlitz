@@ -9,7 +9,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogTrigger
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField } from '../ui/form';
@@ -26,7 +26,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 } from '@/components/ui/select';
 import { addQuestion } from '@/actions/questions/add';
 import { useMutation } from '@tanstack/react-query';
@@ -88,7 +88,10 @@ const MenuBar = ({ editor }: { editor: any }) => {
           </SelectTrigger>
           <SelectContent className="h-auto">
             {LANGUAGE_OPTIONS.map((lang) => (
-              <SelectItem key={lang.language} value={lang.language}>
+              <SelectItem
+                key={lang.language}
+                value={lang.language}
+              >
                 {lang.config.label}
               </SelectItem>
             ))}
@@ -99,20 +102,54 @@ const MenuBar = ({ editor }: { editor: any }) => {
   );
 };
 
+const AnswerEditor = ({
+  value,
+  onChange
+}: {
+  value: string;
+  onChange: (value: string) => void;
+}) => {
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      CodeBlockLowlight.configure({
+        lowlight,
+        defaultLanguage: 'javascript'
+      })
+    ],
+    content: value || '',
+    onUpdate: ({ editor }) => {
+      const html = editor.getHTML();
+      onChange(html); // Update the form value with the editor's content
+    }
+  });
+
+  return (
+    <div className="border border-black-50 rounded-md">
+      {/* Menu Bar */}
+      <MenuBar editor={editor} />
+      <EditorContent
+        editor={editor}
+        className="prose prose-invert max-w-none p-4"
+      />
+    </div>
+  );
+};
+
 export default function NewQuestionModal({ ...props }) {
   const editor = useEditor({
     extensions: [
       StarterKit,
       CodeBlockLowlight.configure({
         lowlight,
-        defaultLanguage: 'javascript',
-      }),
+        defaultLanguage: 'javascript'
+      })
     ],
     content: '',
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
       form.setValue('codeSnippet', html);
-    },
+    }
   });
 
   const form = useForm<SchemaProps>({
@@ -120,7 +157,7 @@ export default function NewQuestionModal({ ...props }) {
     defaultValues: {
       question: '',
       questionDate: '',
-      answers: [{ text: '' }],
+      answers: [{ text: '' }, { text: '' }, { text: '' }, { text: '' }], // Default to 4 answers
       correctAnswer: null,
       codeSnippet: '',
       hint: '',
@@ -128,13 +165,13 @@ export default function NewQuestionModal({ ...props }) {
       tags: '',
       isRoadmapQuestion: false,
       aiTitle: undefined,
-      difficulty: 'EASY',
-    },
+      difficulty: 'EASY'
+    }
   });
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
-    name: 'answers',
+    name: 'answers'
   });
 
   const toggleCorrectAnswer = (index: number) =>
@@ -152,7 +189,7 @@ export default function NewQuestionModal({ ...props }) {
         correctAnswer: Number(rest.correctAnswer),
         tags: rest.tags ? rest.tags.split(',').map((tag) => tag.trim()) : [],
         aiTitle: rest.aiTitle || undefined,
-        difficulty: rest.difficulty,
+        difficulty: rest.difficulty
       });
     },
     onSuccess: (data) => {
@@ -163,7 +200,7 @@ export default function NewQuestionModal({ ...props }) {
     },
     onError: () => {
       toast.error('Failed to add question');
-    },
+    }
   });
 
   const showAiTitleField =
@@ -247,7 +284,7 @@ export default function NewQuestionModal({ ...props }) {
                   />
                 )}
               </div>
-              {/* TipTap Editor */}
+              {/* TipTap Editor for Code Snippet */}
               <FormField
                 control={form.control}
                 name="codeSnippet"
@@ -340,50 +377,41 @@ export default function NewQuestionModal({ ...props }) {
 
               <p className="text-white font-semibold text-xl">Answers</p>
 
-              {/* Dynamic Answer Fields */}
+              {/* Dynamic Answer Fields with TipTap Editor */}
               {fields.map((item, index) => (
                 <div
                   key={item.id}
                   className="flex flex-col md:flex-row md:items-center gap-4"
                 >
-                  <FormField
-                    control={form.control}
-                    name={`answers.${index}.text`}
-                    render={({ field }) => (
-                      <FormControl>
-                        <InputWithLabel
-                          label={`Answer ${index + 1}`}
-                          type="text"
-                          wrapperclassname="lg:w-96"
-                          {...field}
-                        />
-                      </FormControl>
-                    )}
-                  />
-                  <div className="w-full flex items-center justify-between self-end">
+                  <div className="flex-1">
+                    <AnswerEditor
+                      value={item.text} // Set initial value
+                      onChange={(value) =>
+                        form.setValue(`answers.${index}.text`, value)
+                      } // Update the form field
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
                     <Button
-                      variant="default"
                       type="button"
-                      className="self-end"
                       onClick={() => toggleCorrectAnswer(index)}
+                      className="btn"
                     >
                       {index === form.watch('correctAnswer') &&
                       form.watch('correctAnswer') !== null
                         ? '✅'
                         : 'Mark as correct'}
                     </Button>
-                    <Button
-                      variant="destructive"
+                    <button
                       type="button"
                       onClick={() => remove(index)}
-                      className="self-end"
+                      className="btn"
                     >
                       Remove
-                    </Button>
+                    </button>
                   </div>
                 </div>
               ))}
-
               {/* Add New Answer Button */}
               <Button
                 type="button"
@@ -416,7 +444,11 @@ export default function NewQuestionModal({ ...props }) {
               <Separator className="bg-black-50" />
 
               {/* Submit Button */}
-              <Button type="submit" variant="secondary" disabled={isPending}>
+              <Button
+                type="submit"
+                variant="secondary"
+                disabled={isPending}
+              >
                 {isPending ? 'Adding...' : 'Add Question'}
               </Button>
             </form>

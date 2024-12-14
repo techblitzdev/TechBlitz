@@ -173,7 +173,10 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
                           <Check className="h-3 w-3 flex-shrink-0" />
                         )}
                       </div>
-                      <p className="text-sm">{answer.answer}</p>
+                      <p
+                        className="text-sm"
+                        dangerouslySetInnerHTML={{ __html: answer.answer }}
+                      />
                     </Label>
                   </FormControl>
                 )}

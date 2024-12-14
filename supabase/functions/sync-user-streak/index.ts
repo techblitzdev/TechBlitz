@@ -1,4 +1,4 @@
-import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from 'jsr:@supabase/supabase-js@2';
 import { corsHeaders } from '../_shared/cors.ts';
 
 /**
@@ -64,7 +64,7 @@ const updateStreak = async (
     .update({
       streakStart: null,
       streakEnd: null,
-      currentstreakCount: 0,
+      currentstreakCount: 0
     })
     .in('userUid', usersToUpdate);
 
@@ -92,7 +92,7 @@ const getCorrectAnswers = (answers: any[]) => {
 const getAllUsers = async (supabaseClient: SupabaseClient) => {
   const { data, error } = await supabaseClient.from('Users').select('uid');
   if (error) throw new Error('Unable to fetch users');
-  return data.map((user) => user.uid);
+  return data.map((user: { uid: string }) => user.uid);
 };
 
 /**
@@ -120,14 +120,17 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_ANON_KEY') ?? '',
       {
         global: {
-          headers: { Authorization: req.headers.get('Authorization') ?? '' },
-        },
+          headers: { Authorization: req.headers.get('Authorization') ?? '' }
+        }
       }
     );
 
-    const { question, previousDay } = await getPreviousDaysQuestion(
-      supabaseClient
-    );
+    if (!supabaseClient) {
+      console.log('NO SUPABASE CLIENT');
+      throw new Error('Unable to connect to Supabase');
+    }
+
+    const { question } = await getPreviousDaysQuestion(supabaseClient);
 
     if (!question) {
       throw new Error('No question found for the previous day');
@@ -145,7 +148,7 @@ Deno.serve(async (req) => {
     console.log({
       totalUsers: allUserIds.length,
       correctAnswers: correctUserIds.length,
-      usersToUpdate: usersToUpdate.length,
+      usersToUpdate: usersToUpdate.length
     });
 
     await updateStreak(supabaseClient, usersToUpdate);
@@ -156,19 +159,19 @@ Deno.serve(async (req) => {
         stats: {
           totalUsers: allUserIds.length,
           correctAnswers: correctUserIds.length,
-          usersUpdated: usersToUpdate.length,
-        },
+          usersUpdated: usersToUpdate.length
+        }
       }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 200,
+        status: 200
       }
     );
   } catch (error) {
     console.error('Error:', error);
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify({ error: (error as Error).message }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      status: 500,
+      status: 500
     });
   }
 });

@@ -7,6 +7,7 @@ export const userDetailsSchema = z
     firstName: z.string().min(3).nullable(),
     lastName: z.string().min(3).nullable(),
     showTimeTaken: z.boolean().optional(),
+    sendPushNotifications: z.boolean().optional()
   })
   .transform((data) => {
     // Remove null values from the payload

@@ -21,22 +21,36 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import LoadingSpinner from '@/components/ui/loading';
 import LogoutButton from '@/components/auth/logout';
 import { Separator } from '@/components/ui/separator';
+import { useEffect } from 'react';
 
 type SchemaProps = z.input<typeof userDetailsSchema>;
 
 export default function SettingsProfilePage() {
   const queryClient = useQueryClient();
-  const { user } = useUser();
+  const { user, isLoading } = useUser();
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(userDetailsSchema),
     defaultValues: {
-      username: user?.username || null,
-      firstName: user?.firstName || null,
-      lastName: user?.lastName || null,
-      showTimeTaken: user?.showTimeTaken || false
+      username: user?.username || '',
+      firstName: user?.firstName || '',
+      lastName: user?.lastName || '',
+      showTimeTaken: user?.showTimeTaken || false,
+      sendPushNotifications: user?.sendPushNotifications || false
     }
   });
+
+  useEffect(() => {
+    if (!isLoading && user) {
+      form.reset({
+        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        showTimeTaken: user.showTimeTaken,
+        sendPushNotifications: user.sendPushNotifications
+      });
+    }
+  }, [user, isLoading]);
 
   // Use mutation hook for handling the update
   const { mutate, isPending } = useMutation({
@@ -76,12 +90,6 @@ export default function SettingsProfilePage() {
       console.error(err);
     },
     onSuccess: (updatedUser) => {
-      // Update the cache with the actual response data
-      //queryClient.setQueryData(['user-details'], updatedUser);
-
-      // Refetch to ensure cache is in sync with server
-      //queryClient.invalidateQueries({ queryKey: ['user-details'] });
-
       toast.success('Profile updated successfully');
     }
   });
@@ -166,14 +174,45 @@ export default function SettingsProfilePage() {
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <div className="flex items-center gap-x-1">
+                        <div className="flex items-center gap-x-2">
                           <Switch
                             id="showTimeTaken"
-                            checked={field.value || false}
-                            onCheckedChange={field.onChange}
+                            checked={field.value}
+                            onCheckedChange={(checked) => {
+                              field.onChange(checked);
+                            }}
                             className="bg-black-50"
                           />
                           <Label htmlFor="showTimeTaken">Show time taken</Label>
+                        </div>
+                      </TooltipTrigger>
+                    </Tooltip>
+                  </TooltipProvider>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="sendPushNotifications"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="flex items-center gap-x-2">
+                          <Switch
+                            id="sendPushNotifications"
+                            checked={!!field.value}
+                            onCheckedChange={(checked) => {
+                              field.onChange(checked);
+                            }}
+                            className="bg-black-50"
+                          />
+                          <Label htmlFor="sendPushNotifications">
+                            Send push notifications
+                          </Label>
                         </div>
                       </TooltipTrigger>
                     </Tooltip>

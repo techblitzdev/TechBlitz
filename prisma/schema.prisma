@@ -52,22 +52,20 @@ model Users {
   updatedAt DateTime  @updatedAt
   lastLogin DateTime?
 
-  userLevel userLevel @default(STANDARD)
-
-  answers Answers[]
-
   totalDailyStreak   Int? @default(0)
   correctDailyStreak Int? @default(0)
 
   userProfilePicture String?
 
   showTimeTaken Boolean @default(false)
+  // whether to send the user a reminder to answer the daily question
+  sendPushNotifications Boolean @default(false)
 
+  userLevel userLevel @default(STANDARD)
   subscription Subscriptions?
-
   streak Streaks?
-
   roadmaps UserRoadmaps[]
+  answers Answers[]
 }
 
 model Subscriptions {

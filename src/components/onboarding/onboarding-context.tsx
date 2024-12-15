@@ -36,7 +36,8 @@ export const UserOnboardingContextProvider = ({
     userLevel: 'STANDARD',
     correctDailyStreak: null,
     totalDailyStreak: null,
-    showTimeTaken: false
+    showTimeTaken: false,
+    sendPushNotifications: false
   });
 
   return (

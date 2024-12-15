@@ -4,6 +4,10 @@ import Link from 'next/link';
 import { UserOnboardingContextProvider } from '@/components/onboarding/onboarding-context';
 import OnboardingForm from '@/components/onboarding/onboarding-form';
 
+export const metadata = {
+  title: 'techblitz | Onboarding'
+};
+
 export default function OnboardingPage() {
   return (
     <div className="relative container">

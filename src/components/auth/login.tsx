@@ -45,6 +45,14 @@ export default function LoginForm() {
       });
 
       toast.success('Logged in successfully');
+
+      // check if we have the 'onboarding' key in local storage
+      // if we do, redirect to the onboarding page
+      if (localStorage.getItem('onboarding')) {
+        router.push('/onboarding');
+        return;
+      }
+
       router.push('/dashboard');
     } catch (error) {
       console.error(error);

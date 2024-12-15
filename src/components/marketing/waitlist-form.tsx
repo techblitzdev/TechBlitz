@@ -6,8 +6,6 @@ import { addToWaitlist } from '@/actions/waitlist/add';
 import { toast } from 'sonner';
 import posthog from 'posthog-js';
 import { ChevronRight } from 'lucide-react';
-import { useQuery } from '@tanstack/react-query';
-import { getTodaysQuestion } from '@/actions/questions/get-today';
 import { useRouter } from 'next/navigation';
 import LoadingSpinner from '../ui/loading';
 
@@ -34,23 +32,15 @@ export function WaitlistForm() {
     }
   };
 
-  // get the daily challenge
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['daily-challenge'],
-    queryFn: () => getTodaysQuestion()
-  });
-
   const handleQuestionClick = () => {
     // add loading spinner
     setRedirecting(true);
-    if (!data) {
-      return toast.error('Failed to get the daily challenge. Please try again');
-    }
+
     // track event
     posthog.capture('daily_challenge_click');
 
     // redirect to the daily challenge
-    router.push(data.uid);
+    router.push('daily-challenge');
   };
 
   return (
@@ -84,7 +74,7 @@ export function WaitlistForm() {
           type="button"
           onClick={handleQuestionClick}
         >
-          {!data || redirecting ? (
+          {redirecting ? (
             <LoadingSpinner />
           ) : (
             <>

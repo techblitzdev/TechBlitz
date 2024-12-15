@@ -81,7 +81,10 @@ export default function OpenSourceCard(opts: {
       <CardContent className="rounded-b-md text-white p-4 pb-14 text-sm relative bg-[#000000]">
         {content}
         <Popover>
-          <PopoverTrigger className="absolute bottom-4 left-4 border border-black-50 rounded-full p-1">
+          <PopoverTrigger
+            className="absolute bottom-4 left-4 border border-black-50 rounded-full p-1"
+            aria-label="GitHub card emoji button"
+          >
             <Smile className="size-4 text-gray-200" />
           </PopoverTrigger>
           <PopoverContent

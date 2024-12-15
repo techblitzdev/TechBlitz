@@ -103,6 +103,7 @@ export default function RoadmapFeatureBox() {
         <Progress
           value={progress}
           className="w-full mt-7 "
+          aria-label="Roadmap generation progress"
         />
       </CardFooter>
     </Card>

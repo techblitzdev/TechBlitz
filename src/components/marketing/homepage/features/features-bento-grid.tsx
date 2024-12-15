@@ -4,9 +4,12 @@ import { cn } from '@/utils/cn';
 import { ChevronRight } from 'lucide-react';
 import RoadmapFeatureBox from './roadmap-feature-box';
 import Link from 'next/link';
-import DailyQuestionBox from './daily-question-box';
-import LeaderboardBentoBox from './leaderboard-bento-box';
-import ProgressionBentoBox from './progression-box';
+
+import dynamic from 'next/dynamic';
+
+const DailyQuestionBox = dynamic(() => import('./daily-question-box'));
+const LeaderboardBentoBox = dynamic(() => import('./leaderboard-bento-box'));
+const ProgressionBentoBox = dynamic(() => import('./progression-box'));
 
 const cardClasses = 'border border-black-50 p-6 rounded-lg';
 
@@ -44,9 +47,9 @@ export default function FeaturesBentoGrid() {
           >
             <div className="flex flex-col justify-between">
               <div className="flex flex-col gap-y-1 relative max-w-sm">
-                <h6 className="text-2xl text-gradient from-white to-white/55">
+                <h5 className="text-2xl text-gradient from-white to-white/55">
                   AI Powered Progression Paths
-                </h6>
+                </h5>
                 <p className="text-xs text-gray-400">
                   Personalized learning paths tailored to your goals and skill
                   level.
@@ -75,9 +78,9 @@ export default function FeaturesBentoGrid() {
           >
             <div className="flex flex-col gap-y-4 relative">
               <div className="flex flex-col gap-y-1">
-                <h6 className="text-2xl text-gradient from-white to-white/55">
+                <h5 className="text-2xl text-gradient from-white to-white/55">
                   Progress tracking
-                </h6>
+                </h5>
                 <p className="text-xs text-gray-400">
                   Track your progress and use AI to analysis your coding habits.
                 </p>
@@ -93,9 +96,9 @@ export default function FeaturesBentoGrid() {
           >
             <LeaderboardBentoBox />
             <div className="flex flex-col gap-y-1">
-              <h6 className="text-2xl text-gradient from-white to-white/55">
+              <h5 className="text-2xl text-gradient from-white to-white/55">
                 Leaderboard
-              </h6>
+              </h5>
               <p className="text-xs text-gray-400">
                 Compete with other developers and see how you stack up against
                 them!
@@ -111,9 +114,9 @@ export default function FeaturesBentoGrid() {
           >
             <div className="flex justify-between">
               <div className="flex flex-col gap-y-1 h-fit">
-                <h6 className="text-2xl text-gradient from-white to-white/55">
+                <h5 className="text-2xl text-gradient from-white to-white/55">
                   Daily questions
-                </h6>
+                </h5>
                 <p className="text-xs text-gray-400">
                   Sharpen your skills with practical, industry-relevant coding
                   challenges.

@@ -75,7 +75,7 @@ export default function CodeComparison({
         <div className="relative grid md:grid-cols-2 md:divide-x md:divide-border !divide-black-50">
           <div>
             <div
-              className="flex items-center p-2 text-sm text-foreground"
+              className="flex items-center p-3 text-sm text-foreground"
               style={{
                 background:
                   'radial-gradient(128% 107% at 50% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
@@ -88,7 +88,7 @@ export default function CodeComparison({
           </div>
           <div>
             <div
-              className="flex items-center border-t border-black-50 md:border-none p-2 text-sm text-foreground"
+              className="flex items-center border-t border-black-50 md:border-none p-3 text-sm text-foreground"
               style={{
                 background:
                   'radial-gradient(128% 107% at 50% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
@@ -100,7 +100,7 @@ export default function CodeComparison({
             {renderCode(afterCode, highlightedAfter)}
           </div>
         </div>
-        <div className="hidden md:flex absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-md bg-accent text-xs text-foreground">
+        <div className="font-semibold font-onest hidden md:flex absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-md bg-accent text-xs text-white">
           VS
         </div>
       </div>

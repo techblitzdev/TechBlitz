@@ -6,6 +6,7 @@ export default function Logo() {
       height="26"
       viewBox="0 0 111 26"
       fill="none"
+      aria-label="TechBlitz Logo"
     >
       <g clipPath="url(#clip0_85_7)">
         <rect

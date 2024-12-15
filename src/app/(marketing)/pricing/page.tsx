@@ -21,6 +21,43 @@ export const metadata: Metadata = {
   ]
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'techblitz SaaS Platform',
+  description:
+    'techblitz is an online platform that helps users enhance their development knowledge through interactive questions and quizzes.',
+  brand: {
+    '@type': 'Brand',
+    name: 'techblitz'
+  },
+  offers: [
+    {
+      '@type': 'Offer',
+      name: 'Free Plan',
+      price: '0',
+      priceCurrency: 'GBP',
+      description:
+        'Access to all coding questions and daily challenges, leaderboards, statistics and more.',
+      url: 'https://techblitz.dev/pricing',
+      category: 'Free'
+    },
+    {
+      '@type': 'Offer',
+      name: 'Pro Plan',
+      price: '2.99',
+      priceCurrency: 'GBP',
+      description:
+        'Unlock all questions, daily challenges, and personalized AI roadmaps.',
+      url: 'https://techblitz.dev/pricing',
+      category: 'Paid'
+    }
+  ],
+  url: 'https://techblitz.dev/pricing',
+  image:
+    'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531'
+};
+
 export default function PricingPage() {
   const faqs = [
     {
@@ -81,28 +118,36 @@ export default function PricingPage() {
   ];
 
   return (
-    <div className="text-center min-h-screen container flex flex-col">
-      <div className="flex flex-col gap-y-2 items-center pb-16 pt-28 md:pb-20 md:pt-32 xl:pt-40 xl:pb-32">
-        <div className="group w-fit relative inline-flex overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
-          <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-          <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
-            Pricing
-          </span>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div className="text-center min-h-screen container flex flex-col">
+        <div className="flex flex-col gap-y-2 items-center pb-16 pt-28 md:pb-20 md:pt-32 xl:pt-40 xl:pb-32">
+          <div className="group w-fit relative inline-flex overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+            <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+            <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
+              Pricing
+            </span>
+          </div>
+          <h1 className="text-3xl lg:text-5xl !font-onest !font-medium !leading-[1.1] text-gradient from-white to-white/75">
+            Plans that don't <AnimatedBreak /> the bank
+          </h1>
+          <p className="text-gray-400 max-w-xl">
+            Start your coding journey for free, and unlock premium features
+            including personalized AI roadmaps and beta features with our
+            affordable plans.
+          </p>
+          <div className="mt-10">
+            <PricingCardBlock />
+          </div>
         </div>
-        <h1 className="text-3xl lg:text-5xl !font-onest !font-medium !leading-[1.1] text-gradient from-white to-white/75">
-          Plans that don't <AnimatedBreak /> the bank
-        </h1>
-        <p className="text-gray-400">
-          Start for free and unlock premium features with our affordable plans.
-        </p>
-        <div className="mt-10">
-          <PricingCardBlock />
-        </div>
+
+        <FAQsBlock faqs={faqs} />
+
+        <CallToActionBlock title="Master Coding in Weeks, Not Years" />
       </div>
-
-      <FAQsBlock faqs={faqs} />
-
-      <CallToActionBlock title="Master Coding in Weeks, Not Years" />
-    </div>
+    </>
   );
 }

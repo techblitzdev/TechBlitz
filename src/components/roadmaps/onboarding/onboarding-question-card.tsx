@@ -29,9 +29,12 @@ export default function OnboardingQuestionCard(opts: {
           textColor={getQuestionDifficultyColor(question.difficulty)}
           ghost
         />
-        <span className="text-xs block md:hidden">
-          (Scroll to see code snippet)
-        </span>
+        <a
+          href="#code-snippet"
+          className="text-xs block md:hidden"
+        >
+          (Tap to see code snippet)
+        </a>
       </div>
       <Separator className="bg-black-50" />
       <div className="h-fit bg-black-100">

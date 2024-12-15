@@ -29,7 +29,7 @@ export default function PricingCard(opts: { product: StripeProduct }) {
           'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
       }}
       className={cn(
-        'col-span-3 lg:col-span-4 group-hover:scale-[1.03] duration-300 pb-3 bg-black-75 flex flex-col justify-between h-full gap-y-4',
+        'flex-1 col-span-2 lg:col-span-1 group-hover:scale-[1.03] duration-300 pb-3 bg-black-75 flex flex-col justify-between h-full gap-y-4',
         mostPopular ? 'border-accent' : 'border-black-50'
       )}
     >

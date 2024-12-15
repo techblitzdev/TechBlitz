@@ -9,7 +9,7 @@ export default function Hero(opts: {
 
   return (
     <section className="w-full pt-14 pb-8 group relative">
-      <div className="container flex flex-col gap-y-3 z-10">
+      <div className="md:container flex flex-col gap-y-3 z-10">
         <h1 className="text-3xl text-wrap text-start font-inter max-w-2xl text-gradient from-white to-white/55">
           {heading}
         </h1>

@@ -30,9 +30,12 @@ export default function RoadmapQuestionCard(opts: {
           textColor={getQuestionDifficultyColor(question.difficulty)}
           ghost
         />
-        <span className="text-xs block md:hidden">
-          (Scroll to see code snippet)
-        </span>
+        <a
+          href="#code-snippet"
+          className="text-xs block md:hidden"
+        >
+          (Tap to see code snippet)
+        </a>
         <div className="flex items-center gap-x-1">
           {/** display if the user has already answered the question or not */}
           {question?.completed && (

@@ -74,7 +74,7 @@ export default async function QuestionsDashboard({
         subheading=" Explore a diverse set of questions across multiple topics to enhance
           your knowledge."
       />
-      <div className="container flex flex-col lg:flex-row mt-5 gap-10">
+      <div className="md:container flex flex-col lg:flex-row mt-5 gap-10">
         {/* Left Section: Questions */}
         <div className="w-full lg:w-1/2 space-y-6">
           <Filter />
@@ -99,7 +99,7 @@ export default async function QuestionsDashboard({
 
         {/* Right Section: Statistics */}
         <aside className="w-full lg:w-1/2 relative">
-          <div className="sticky top-10 space-y-10 w-1/2">
+          <div className="sticky top-10 space-y-10 md:w-1/2">
             <div className="w-fit h-fit flex flex-col gap-y-2.5">
               <h6 className="text-xl">Your current streak</h6>
               <DatePicker

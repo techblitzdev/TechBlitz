@@ -1,7 +1,4 @@
-import { ArrowUpRight } from 'lucide-react';
-import Link from 'next/link';
 import React from 'react';
-import HomepageHeroImages from '../hero/hero-images';
 import HomepageHeroEmailSignup from './email-input';
 import { WaitlistForm } from '../../waitlist-form';
 

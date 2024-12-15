@@ -65,7 +65,7 @@ export default function OpenSourceBlock() {
           open-sourced our platform and share our learnings with the community.
         </p>
         <a
-          href="https://git.new/blitz"
+          href="https://github.com/logannford/TechBlitz/"
           target="_blank"
           className="w-fit"
         >

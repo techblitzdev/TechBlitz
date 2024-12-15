@@ -4,12 +4,23 @@
 // this context will be used to store all user onboarding data
 // throughout the different steps of the onboarding flow
 import { createContext, useContext, useState } from 'react';
-import type { UserUpdatePayload } from '@/types/User';
+import type { UpdateableUserFields } from '@/types/User';
 import { useUser } from '@/hooks/useUser';
 
 // context type
 type OnboardingContextType = {
-  user: UserUpdatePayload;
+  user: Omit<
+    UpdateableUserFields,
+    'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'
+  >;
+  setUser: React.Dispatch<
+    React.SetStateAction<
+      Omit<
+        UpdateableUserFields,
+        'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'
+      >
+    >
+  >;
 };
 
 // create the context
@@ -26,17 +37,16 @@ export const UserOnboardingContextProvider = ({
   // get the current user
 
   // user state
-  const [user, setUser] = useState<UserUpdatePayload>({
-    uid: '',
-    email: '',
+  const [user, setUser] = useState<
+    Omit<
+      UpdateableUserFields,
+      'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'
+    >
+  >({
     username: '',
     firstName: '',
     lastName: '',
     userProfilePicture: '',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    lastLogin: null,
-    userLevel: 'STANDARD',
     correctDailyStreak: null,
     totalDailyStreak: null,
     showTimeTaken: false,
@@ -44,7 +54,7 @@ export const UserOnboardingContextProvider = ({
   });
 
   return (
-    <OnboardingContext.Provider value={{ user }}>
+    <OnboardingContext.Provider value={{ user, setUser }}>
       {children}
     </OnboardingContext.Provider>
   );

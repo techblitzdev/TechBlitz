@@ -38,7 +38,7 @@ export const TechBlitzSignUpEmail = ({
               fill="none"
               style={logo}
             >
-              <g clip-path="url(#clip0_85_7)">
+              <g clipPath="url(#clip0_85_7)">
                 <rect
                   width="111"
                   height="26"
@@ -51,9 +51,9 @@ export const TechBlitzSignUpEmail = ({
                 <path
                   d="M101.712 6.37639L104.572 2.00075C104.844 1.58474 105.491 1.77732 105.491 2.27435V5.26249C105.491 5.31772 105.536 5.36249 105.591 5.36249H107.576C107.983 5.36249 108.22 5.82365 107.982 6.15442L105.172 10.0611C104.889 10.4553 104.266 10.2548 104.266 9.76917V7.24999C104.266 7.19476 104.222 7.14999 104.166 7.14999H102.13C101.733 7.14999 101.494 6.70894 101.712 6.37639Z"
                   fill="#5A5FCD"
-                  fill-opacity="0.82"
+                  fillOpacity="0.82"
                   stroke="#5A5FCD"
-                  stroke-width="0.5"
+                  strokeWidth="0.5"
                 />
               </g>
               <defs>

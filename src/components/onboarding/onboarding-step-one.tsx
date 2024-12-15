@@ -1,4 +1,5 @@
 'use client';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -15,7 +16,7 @@ import { Label } from '@/components/ui/label';
 import { Form, FormField, FormItem, FormControl } from '@/components/ui/form';
 import { useOnboardingContext } from './onboarding-context';
 import { onboardingStepOneSchema } from '@/lib/zod/schemas/onboarding/step-one';
-import type { UserUpdatePayload } from '@/types/User';
+import type { UpdateableUserFields } from '@/types/User';
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -23,9 +24,9 @@ const itemVariants = {
 };
 
 export function OnboardingStepOne() {
-  const { user } = useOnboardingContext();
+  const { user, setUser } = useOnboardingContext();
 
-  const form = useForm<UserUpdatePayload>({
+  const form = useForm<UpdateableUserFields>({
     resolver: zodResolver(onboardingStepOneSchema),
     defaultValues: {
       username: user.username ?? '',
@@ -34,11 +35,34 @@ export function OnboardingStepOne() {
     }
   });
 
+  // Watch all form values
+  const watchedValues = form.watch();
+
+  // Automatically update context when form values change
+  useEffect(() => {
+    // Only update if values have actually changed
+    const hasChanges =
+      watchedValues.username !== user.username ||
+      watchedValues.showTimeTaken !== user.showTimeTaken ||
+      watchedValues.sendPushNotifications !== user.sendPushNotifications;
+
+    if (hasChanges) {
+      setUser((prev) => ({
+        ...prev,
+        username: watchedValues.username ?? '',
+        showTimeTaken: watchedValues.showTimeTaken,
+        sendPushNotifications: watchedValues.sendPushNotifications
+      }));
+    }
+  }, [watchedValues, setUser, user]);
+
   return (
     <CardContent>
       <Form {...form}>
         <form className="space-y-5">
           <motion.div
+            initial="hidden"
+            animate="visible"
             className="space-y-2 text-white"
             variants={itemVariants}
           >
@@ -61,7 +85,11 @@ export function OnboardingStepOne() {
               )}
             />
           </motion.div>
-          <motion.div variants={itemVariants}>
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={itemVariants}
+          >
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -95,7 +123,11 @@ export function OnboardingStepOne() {
               </Tooltip>
             </TooltipProvider>
           </motion.div>
-          <motion.div variants={itemVariants}>
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={itemVariants}
+          >
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>

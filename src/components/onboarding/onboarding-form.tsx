@@ -50,10 +50,12 @@ export default function OnboardingForm() {
   const handleContinue = async () => {
     setIsLoading(true);
 
+    console.log('HELLO FROM ONBOARDING-FORM');
+    console.log('User:', user);
+
     // update the user data in the db
     await updateUser({ userDetails: user });
 
-    // Simulate an API call or data processing
     localStorage.removeItem('onboarding');
     router.push('/dashboard');
   };
@@ -114,7 +116,7 @@ export default function OnboardingForm() {
                   type="button"
                   variant="accent"
                   className="text-xs sm:text-sm font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
-                  onClick={handleContinue}
+                  onClick={() => handleContinue()}
                   disabled={isLoading}
                 >
                   {isLoading ? (

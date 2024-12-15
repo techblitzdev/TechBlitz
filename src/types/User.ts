@@ -45,10 +45,10 @@ export type UserRecord = Pick<
 >;
 
 // First, create a type that excludes 'uid' from the partial requirement
-type UpdateableUserFields = Omit<UserRecord, 'uid'>;
+export type UpdateableUserFields = Omit<UserRecord, 'uid'>;
 
 // Then create the type for updates that requires uid and at least one other field
-export type UserUpdatePayload = {
+export type eUserUpdatePayload = {
   uid: UserRecord['uid'];
 } & RequireAtLeastOne<UpdateableUserFields>;
 

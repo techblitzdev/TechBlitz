@@ -17,7 +17,7 @@ export const OnboardingContext = createContext<OnboardingContextType | null>(
 );
 
 // provide the context to all the children components
-export const UserContextProvider = ({
+export const UserOnboardingContextProvider = ({
   children
 }: {
   children: React.ReactNode;

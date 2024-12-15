@@ -37,33 +37,35 @@ export default async function MarketingNavigation() {
           />
         </div>
 
-        {/* Right Section */}
-        {isLoggedIn ? (
-          <Button
-            href="/dashboard"
-            className="hidden md:block font-onest !bg-gradient-to-r !from-accent !via-accent/70 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
-          >
-            Dashboard
-          </Button>
-        ) : (
-          <div className="items-center gap-x-2 hidden md:flex">
+        <div className="hidden md:block">
+          {/* Right Section */}
+          {isLoggedIn ? (
             <Button
-              href="/login"
-              variant="ghost"
-              className="font-onest"
+              href="/dashboard"
+              className="hidden md:block font-onest !bg-gradient-to-r !from-accent !via-accent/70 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
             >
-              Login
+              Dashboard
             </Button>
-            <Button
-              href={isDevelopment ? '/signup' : '#waitlist-form'}
-              variant="accent"
-              className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
-            >
-              {isDevelopment ? 'Get Started' : 'Join the Waitlist'}
-              <ArrowRight className="ml-2 size-4" />
-            </Button>
-          </div>
-        )}
+          ) : (
+            <div className="items-center gap-x-2 hidden md:flex">
+              <Button
+                href="/login"
+                variant="ghost"
+                className="font-onest"
+              >
+                Login
+              </Button>
+              <Button
+                href={isDevelopment ? '/signup' : '#waitlist-form'}
+                variant="accent"
+                className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+              >
+                {isDevelopment ? 'Get Started' : 'Join the Waitlist'}
+                <ArrowRight className="ml-2 size-4" />
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

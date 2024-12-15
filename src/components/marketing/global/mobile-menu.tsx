@@ -4,7 +4,6 @@ import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { NavigationMenuItems } from './navigation-items';
 import { HamburgerMenuIcon, Cross1Icon } from '@radix-ui/react-icons';
 import { ArrowRight } from 'lucide-react';
 

@@ -110,6 +110,22 @@ export default function FAQsPage() {
           .
         </>
       )
+    },
+    {
+      question: 'Do you offer a student discount?',
+      answer: (
+        <>
+          Yes, we offer a 50% discount for students. To claim your discount,
+          please email us at{' '}
+          <a
+            href="mailto:team@techblitz.dev"
+            className="text-accent"
+          >
+            team@techblitz.dev
+          </a>{' '}
+          using your student email address.
+        </>
+      )
     }
   ];
 

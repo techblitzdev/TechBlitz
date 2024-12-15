@@ -1,5 +1,12 @@
+import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 import FAQsBlock from '@/components/marketing/global/faqs';
+import { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'techblitz | Frequently Asked Questions',
+  description: 'Got a question? We have an answer.'
+};
 
 export default function FAQsPage() {
   const faqs = [
@@ -27,7 +34,7 @@ export default function FAQsPage() {
     {
       question: 'Is techblitz free to use?',
       answer:
-        'Yes, techblitz is free to use. You can sign up for a free account and start using our software right away.'
+        'Yes, techblitz will be free to use. You will be able to sign up for a free account and start using our software right away.'
     },
     {
       question: 'What will you be adding to techblitz in the future?',
@@ -91,13 +98,25 @@ export default function FAQsPage() {
     {
       question:
         'My question is not listed here. How can I get in touch with you?',
-      answer: 'testing'
+      answer: (
+        <>
+          If you have any other questions, feel free to reach out to us at{' '}
+          <a
+            href="mailto:team@techblitz.dev"
+            className="text-accent"
+          >
+            team@techblitz.dev
+          </a>
+          .
+        </>
+      )
     }
   ];
 
   return (
     <div className="py-16 md:pb-20 md:pt-32 xl:pt-40 xl:pb-32">
       <FAQsBlock faqs={faqs} />
+      <CallToActionBlock title="The smarter way to stay on top of tech" />
     </div>
   );
 }

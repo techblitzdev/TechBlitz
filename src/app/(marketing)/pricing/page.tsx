@@ -5,19 +5,18 @@ import PricingCardBlock from '@/components/marketing/pricing/pricing-card-block'
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Pricing | techblitz',
-  description: 'techblitz pricing plans',
+  title: 'techblitz | Pricing',
+  description:
+    'Start for free and unlock premium features with our affordable plans to help you become a better developer.',
   keywords: [
-    'techblitz',
-    'pricing',
-    'plans',
-    'features',
+    'coding',
     'subscription',
     'affordable',
     'premium',
-    'free',
+    'free coding courses',
     'most popular',
     'software',
+    'Javascript course',
     'development'
   ]
 };
@@ -25,35 +24,65 @@ export const metadata: Metadata = {
 export default function PricingPage() {
   const faqs = [
     {
-      question: 'What is techblitz?',
+      question: 'When will TechBlitz launch?',
       answer:
-        'techblitz is an online platform that helps developers of all abilities to learn and grow. We offer a range of tools and resources to help you become a better developer, including questions, roadmaps, tutorials, and more.'
+        'TechBlitz is set to launch in Q1 2025! Join our waitlist today to get early access and be notified as soon as we go live.'
     },
     {
-      question: 'Is techblitz open source?',
+      question: 'What is TechBlitz, and how can it help developers?',
       answer:
-        "Yes! techblitz is open source. You can find our source <Link href='https://git.new/blitz' target='_blank' className='text-accent'>here</Link>."
+        'TechBlitz is an innovative online learning platform designed for developers of all skill levels. Our tools, including quizzes, coding roadmaps, and tutorials, help you sharpen your skills, boost productivity, and stay ahead in the tech industry.'
     },
     {
-      question: 'Is techblitz free to use?',
-      answer:
-        'Yes, techblitz is free to use. You can sign up for a free account and start using our software right away.'
+      question: 'Is TechBlitz open source?',
+      answer: (
+        <>
+          Yes, TechBlitz is completely open source! Explore our source code on{' '}
+          <a
+            href="https://git.new/blitz"
+            target="_blank"
+            className="!text-accent underline"
+          >
+            GitHub
+          </a>{' '}
+          and join the growing community of developers contributing to our
+          platform.
+        </>
+      )
     },
     {
-      question: 'What are the benefits of using techblitz?',
+      question: 'Is TechBlitz free to use?',
       answer:
-        'We offer short-form questions on various topics to help you learn and grow.'
+        'Absolutely! TechBlitz offers a free plan to get you started right away. Create an account and dive into our rich library of developer resources today.'
+    },
+    {
+      question: 'What are the key benefits of using TechBlitz?',
+      answer:
+        'TechBlitz provides engaging, short-form coding questions and practical roadmaps to help developers enhance their skills and tackle real-world challenges. Learn faster, smarter, and with less overwhelm!'
     },
     {
       question: 'What will you be adding to techblitz in the future?',
-      answer:
-        "We are always working on new features and improvements to techblitz. You can find our roadmap <Link href='/roadmap' className='text-accent'>here</Link>. Feel free to reach out to us with any feature requests or suggestions you may have."
+      answer: (
+        <>
+          We’re constantly improving TechBlitz with new features and updates.
+          Check out our{' '}
+          <a
+            href="https://github.com/users/Logannford/projects/5"
+            target="_blank"
+            className="text-accent"
+          >
+            roadmap
+          </a>{' '}
+          to see what’s next, and share your suggestions — we’d love to hear
+          your ideas!
+        </>
+      )
     }
   ];
 
   return (
     <div className="text-center min-h-screen container flex flex-col">
-      <div className="flex flex-col gap-y-2 items-center py-16 md:pb-20 md:pt-32 xl:pt-40 xl:pb-32">
+      <div className="flex flex-col gap-y-2 items-center pb-16 pt-28 md:pb-20 md:pt-32 xl:pt-40 xl:pb-32">
         <div className="group w-fit relative inline-flex overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
           <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
           <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">

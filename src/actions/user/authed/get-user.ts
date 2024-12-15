@@ -1,6 +1,5 @@
 'use server';
 import { createClient as createServerClient } from '@/utils/supabase/server';
-import { cookies } from 'next/headers';
 import { prisma } from '@/utils/prisma';
 import { UserRecord } from '@/types/User';
 import { unstable_cache as NextCache, revalidateTag } from 'next/cache';
@@ -11,8 +10,8 @@ import { unstable_cache as NextCache, revalidateTag } from 'next/cache';
  * @returns User | null
  */
 export const getUserFromSession = async () => {
-  const supabase = createServerClient();
-  return await (await supabase)?.auth?.getUser();
+  const supabase = await createServerClient();
+  return await supabase?.auth?.getUser();
 };
 
 export const getUserFromDb = async (

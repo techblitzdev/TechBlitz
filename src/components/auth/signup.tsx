@@ -40,6 +40,10 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
       toast.success(
         'Signup successful! Please check your email to verify your account.'
       );
+      // set a value in local storage to initiate that this is a new user
+      // and will need onboarding once they have logged in.
+      localStorage.setItem('onboarding', 'true');
+
       // redirect to dashboard
       router.push('/login');
     },

@@ -7,13 +7,7 @@ import { ChartColumn, User } from 'lucide-react';
 import QuestionDisplay from '@/components/questions/single/code-snippet';
 import FeedbackButton from '@/components/ui/feedback-button';
 
-export default async function MarketingQuestionPage({
-  params
-}: {
-  params: { uid: string };
-}) {
-  const { uid } = params;
-
+export default async function MarketingQuestionPage() {
   // get the question
   const question = await getTodaysQuestion();
 

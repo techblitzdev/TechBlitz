@@ -23,6 +23,7 @@ export interface User extends BaseRecord {
 
   /** a toggle the user can turn on to indicate how long it took them to answer a question */
   showTimeTaken?: boolean;
+  sendPushNotifications?: boolean;
 }
 
 export type UserRecord = Pick<
@@ -40,10 +41,11 @@ export type UserRecord = Pick<
   | 'correctDailyStreak'
   | 'totalDailyStreak'
   | 'showTimeTaken'
+  | 'sendPushNotifications'
 >;
 
 // First, create a type that excludes 'uid' from the partial requirement
-type UpdateableUserFields = Omit<UserRecord, 'uid'>;
+export type UpdateableUserFields = Omit<UserRecord, 'uid'>;
 
 // Then create the type for updates that requires uid and at least one other field
 export type UserUpdatePayload = {

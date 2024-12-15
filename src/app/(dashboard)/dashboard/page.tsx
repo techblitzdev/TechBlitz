@@ -5,7 +5,6 @@ import {
 import DashboardBentoGrid from '@/components/dashboard/dashboard-bento-grid';
 import CurrentStreak from '@/components/ui/current-streak';
 import Feedback from '@/components/ui/feedback-button';
-import UserProfileDropdown from '@/components/ui/user-profile-dropdown';
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { getUserDisplayName } from '@/utils/user';
@@ -38,9 +37,6 @@ export default async function Dashboard({
             <div className="flex item-center gap-x-3">
               <CurrentStreak />
               {/* <LanguageSwitcher /> */}
-              <div className="lg:hidden flex">
-                <UserProfileDropdown />
-              </div>
             </div>
             <Feedback />
           </div>

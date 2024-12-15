@@ -78,10 +78,10 @@ export default async function ProgressBentoBox() {
         />
         <Separator className="absolute top-1/2 -translate-y-1/2 z-50 bg-black-50" />
       </div>
-      <div className="flex w-full justify-between">
+      <div className="flex flex-col md:flex-row gap-y-2 w-full justify-between">
         <div className="space-y-1">
           <h6 className="text-xl">Progression</h6>
-          <p className="font-satoshi text-xs">
+          <p className="hidden md:block font-satoshi text-xs">
             Your very own, personalised progression framework to help you grow
             as a developer.
           </p>

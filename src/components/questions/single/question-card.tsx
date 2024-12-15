@@ -44,9 +44,12 @@ export default function QuestionCard(opts: {
           textColor={getQuestionDifficultyColor(question.difficulty)}
           ghost
         />
-        <span className="text-xs block md:hidden">
-          (Scroll to see code snippet)
-        </span>
+        <a
+          href="#code-snippet"
+          className="text-xs block md:hidden"
+        >
+          (Tap to see code snippet)
+        </a>
         {user?.showTimeTaken && !isRoadmapQuestion && (
           <Stopwatch totalSeconds={totalSeconds} />
         )}

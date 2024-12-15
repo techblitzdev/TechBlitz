@@ -23,7 +23,7 @@ export default async function FeedbackButton() {
           className="flex items-center gap-2"
         >
           <ChatBubbleIcon className="size-4" />
-          Send feedback
+          <span className="hidden md:block">Send feedback</span>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-black-100 border border-black-50">

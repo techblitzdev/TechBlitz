@@ -43,7 +43,7 @@ export default async function RoadmapPage() {
         </div>
 
         {/** create new roadmap cta */}
-        <aside className="w-full lg:w-1/2 relative">
+        <aside className="order-first md:order-last w-full lg:w-1/2 relative">
           <div className="sticky top-10 space-y-10 w-1/2">
             <CreateRoadmapButton userId={user.uid} />
           </div>

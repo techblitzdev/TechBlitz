@@ -27,7 +27,7 @@ export default async function StreakBentoBox() {
       </div>
       <div className="w-full h-fit flex items-center justify-center">
         <DatePicker
-          className="z-30 text-white border border-black-50 p-2 rounded-md bg-black-100 hover:cursor-default hover:text-black"
+          className="z-30 text-white border border-black-50 p-2 rounded-md hover:cursor-default hover:text-black"
           color="white"
           type="range"
           value={dateArray}
@@ -53,10 +53,6 @@ export default async function StreakBentoBox() {
           <FlameIcon className="fill-red-500 text-orange-500" />
         </div>
       </div>
-      <Grid
-        size={20}
-        position="bottom-left"
-      />
     </div>
   );
 }

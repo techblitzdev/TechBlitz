@@ -88,7 +88,10 @@ export default async function TodaysQuestionPage({
         {/* Right Section - Code Snippet and Related Questions */}
         <div className="w-full lg:w-1/2 lg:h-3/4 grid-cols-subgrid gap-8 flex flex-col">
           {/* Code Snippet */}
-          <div className="h-fit lg:h-[45rem] col-span-full bg-black-75 border border-black-50 rounded-xl relative overflow-hidden">
+          <div
+            id="code-snippet"
+            className="h-fit lg:h-[45rem] col-span-full bg-black-75 border border-black-50 rounded-xl relative overflow-hidden"
+          >
             <div className="p-4 text-sm flex w-full items-center justify-between bg-black-25">
               <p>Code</p>
               {question.codeSnippet && (

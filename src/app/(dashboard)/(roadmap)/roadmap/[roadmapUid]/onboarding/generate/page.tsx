@@ -1,5 +1,4 @@
 import { fetchDefaultUserAnswers } from '@/actions/roadmap/questions/default/fetch-default-user-answers';
-import { Grid } from '@/components/ui/grid';
 import LoadingSpinner from '@/components/ui/loading';
 import { useUserServer } from '@/hooks/useUserServer';
 import { Check, Route, X } from 'lucide-react';
@@ -8,7 +7,7 @@ import { Suspense } from 'react';
 import RoadmapGenerateButton from '@/components/roadmaps/onboarding/onboarding-generate';
 
 export default async function RoadmapGeneratingPage({
-  params,
+  params
 }: {
   params: { roadmapUid: string };
 }) {
@@ -21,7 +20,7 @@ export default async function RoadmapGeneratingPage({
 
   // Fetch user answers
   const userAnswers = await fetchDefaultUserAnswers({
-    roadmapUid,
+    roadmapUid
   });
 
   // Sort answers by question order
@@ -29,7 +28,13 @@ export default async function RoadmapGeneratingPage({
 
   return (
     <div className="h-screen flex items-center justify-center">
-      <div className="w-full max-w-4xl p-8 bg-black-75 border border-black-50 shadow-lg rounded-md relative">
+      <div
+        className="w-full max-w-4xl p-8 border border-black-50 shadow-lg rounded-md relative"
+        style={{
+          background:
+            'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
+        }}
+      >
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
           {/* User Answers Section */}
           <div className="flex-1 z-50">
@@ -83,8 +88,6 @@ export default async function RoadmapGeneratingPage({
             </Suspense>
           </div>
         </div>
-
-        <Grid position="bottom-right" />
       </div>
     </div>
   );

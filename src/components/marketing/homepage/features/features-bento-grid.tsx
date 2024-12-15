@@ -26,7 +26,7 @@ export default function FeaturesBentoGrid() {
         <h1 className="text-2xl lg:text-5xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
           We make Software engineering easy{' '}
         </h1>
-        <span className="text-gray-400 max-w-3xl">
+        <span className="text-sm md:text-base text-gray-400 max-w-3xl">
           Elevate your coding skills with TechBlitz: AI-powered learning paths,
           daily challenges, competitive leaderboards, and a vast question bank
           tackling real-world software problems. Your all-in-one platform for

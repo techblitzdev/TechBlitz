@@ -1,5 +1,4 @@
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
-import MarketingFooter from '@/components/marketing/global/footer';
 import OpenSourceBlock from '@/components/marketing/global/open-source/open-source-block';
 import ComparisonBlock from '@/components/marketing/homepage/comparison/comparison-block';
 import FeaturesBentoGrid from '@/components/marketing/homepage/features/features-bento-grid';

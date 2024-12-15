@@ -9,7 +9,7 @@ export default function HomepageLargeText() {
   const words = text.split(' ');
 
   return (
-    <section className="pt-32 pb-36">
+    <section className="pt-32 pb-24 lg:pb-36">
       <h2 className="text-5xl lg:text-7xl text-gradient from-white to-white/55 py-4">
         <AnimatePresence>
           {words.map((word, index) => (

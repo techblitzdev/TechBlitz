@@ -26,7 +26,14 @@ export default function CommitCard(opts: {
           </Avatar>
           <code className="flex items-center gap-x-2">
             <span className="text-[#9198a1] text-[12px] font-mono">
-              {commitMessage}
+              {/** trim if on mobile */}
+              <span className="block md:hidden">
+                {commitMessage.length > 7
+                  ? `${commitMessage.slice(0, 7)}...`
+                  : commitMessage}
+              </span>
+              {/** show full commit message on desktop */}
+              <span className="hidden md:block">{commitMessage}</span>
             </span>
           </code>
         </div>

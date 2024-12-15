@@ -2,7 +2,7 @@ import Logo from '@/components/ui/logo';
 import { StarsBackground } from '@/components/ui/stars-background';
 import Link from 'next/link';
 import { UserOnboardingContextProvider } from '@/components/onboarding/onboarding-context';
-import OnboardingStepOne from '@/components/onboarding/onboarding-step-one';
+import OnboardingForm from '@/components/onboarding/onboarding-form';
 
 export default function OnboardingPage() {
   return (
@@ -16,7 +16,7 @@ export default function OnboardingPage() {
       </Link>
       <UserOnboardingContextProvider>
         <div className="container text-white h-screen flex items-center justify-center">
-          <OnboardingStepOne />
+          <OnboardingForm />
         </div>
       </UserOnboardingContextProvider>
     </div>

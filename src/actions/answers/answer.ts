@@ -51,6 +51,7 @@ const findQuestion = async (questionUid: string) => {
 };
 
 const findExistingAnswer = async (userUid: string, questionUid: string) => {
+  console.log('hit findExistingAnswer');
   return prisma.answers.findFirst({
     where: {
       user: { is: { uid: userUid } },
@@ -65,6 +66,7 @@ const updateStreakDates = async (
   currentStreak: any,
   correctAnswer: boolean
 ) => {
+  console.log('hit updateStreakDates');
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -79,7 +81,7 @@ const updateStreakDates = async (
   let newCurrentStreak = currentStreak.currentstreakCount;
   let newLongestStreak = currentStreak.longestStreak;
 
-  if (isNextDay && correctAnswer) {
+  if (correctAnswer && (isNextDay || isToday)) {
     // Continue the streak
     newCurrentStreak += 1;
     newLongestStreak = Math.max(newCurrentStreak, newLongestStreak);

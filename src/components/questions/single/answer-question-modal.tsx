@@ -275,28 +275,14 @@ export default function AnswerQuestionModal({
                   Dashboard
                 </Button>
               )}
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Button
-                      variant="secondary"
-                      onClick={handleNextQuestion}
-                      className="flex items-center gap-2"
-                      fullWidth={false}
-                      disabled={user?.userLevel === 'FREE'}
-                    >
-                      Next question
-                      <ArrowRightIcon className="size-4" />
-                      {user?.userLevel === 'FREE' && <LockClosedIcon />}
-                    </Button>
-                    {user?.userLevel === 'FREE' && (
-                      <TooltipContent>
-                        <p>Upgrade to premium to unlock the next question</p>
-                      </TooltipContent>
-                    )}
-                  </TooltipTrigger>
-                </Tooltip>
-              </TooltipProvider>
+              <Button
+                variant="secondary"
+                onClick={handleNextQuestion}
+                className="flex items-center gap-2"
+                fullWidth={false}
+              >
+                Next question
+              </Button>
             </div>
           </div>
         </DialogFooter>

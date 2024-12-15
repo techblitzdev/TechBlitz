@@ -17,11 +17,11 @@ import type { Answer } from '@/types/Answers';
 import { toast } from 'sonner';
 import { Label } from '../../ui/label';
 import { cn } from '@/utils/cn';
-import { Check } from 'lucide-react';
+import { Check, Loader2 } from 'lucide-react';
 import { Separator } from '../../ui/separator';
 import QuestionHintAccordion from './question-hint';
-import { DefaultRoadmapQuestions } from '@/types/Roadmap';
 import CodeDisplay from './code-snippet';
+import LoadingSpinner from '@/components/ui/loading';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
@@ -52,6 +52,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
   const [userAnswer, setUserAnswer] = useState<Answer | null>(null);
   const [newUserData, setNewUserData] = useState<UserRecord | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(answerQuestionSchema),
@@ -75,6 +76,11 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
       console.error('User is not logged in');
       return;
     }
+
+    // Disable multiple submissions and show loading state
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
     stopwatchPause();
 
     try {
@@ -94,6 +100,12 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
         userData: newUserData
       } = await answerQuestion(opts);
 
+      console.log({
+        correctAnswer,
+        userAnswer,
+        newUserData
+      });
+
       setCorrectAnswer(correctAnswer ? 'correct' : 'incorrect');
       setUserAnswer(userAnswer);
       setNewUserData(newUserData);
@@ -101,18 +113,11 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
     } catch (error) {
       console.error('Error submitting answer:', error);
       toast.error('Error submitting answer');
+    } finally {
+      // Always reset submitting state
+      setIsSubmitting(false);
     }
   };
-
-  // const adminClearAnswers = async () => {
-  //   try {
-  //     await clearQuestionsForAdmin(question?.uid);
-  //     toast.success('Successfully cleared all answers for this question');
-  //   } catch (error) {
-  //     console.error('Error clearing answers:', error);
-  //     toast.error('Failed to clear answers. Please try again.');
-  //   }
-  // };
 
   const handleRetry = () => {
     // reset the form
@@ -124,14 +129,25 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
     setCorrectAnswer('init');
     setUserAnswer(null);
     setIsModalOpen(false);
+    setIsSubmitting(false);
   };
 
   return (
     <Form {...form}>
       <form
-        className="font-satoshi flex flex-col"
+        className="font-satoshi flex flex-col relative"
         onSubmit={form.handleSubmit(handleAnswerQuestion)}
       >
+        {/* Loading overlay */}
+        {isSubmitting && (
+          <div className="h-[25rem] absolute flex justify-center items-center w-full z-50">
+            <div className="gap-y-3 flex flex-col items-center">
+              <LoadingSpinner />
+              <p className="text-sm">Submitting</p>
+            </div>
+          </div>
+        )}
+
         <div className="grid grid-cols-12 gap-4 p-4">
           {question?.answers?.map((answer) => (
             <div
@@ -149,9 +165,12 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
                         'p-4 rounded-xl min-h-20 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
                         field.value === answer.uid
                           ? 'bg-black-50'
-                          : 'bg-black hover:bg-black-75'
+                          : 'bg-black hover:bg-black-75',
+                        isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
                       )}
-                      onClick={() => field.onChange(answer.uid)}
+                      onClick={() =>
+                        !isSubmitting && field.onChange(answer.uid)
+                      }
                     >
                       <input
                         type="radio"
@@ -161,24 +180,21 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
                         value={answer.uid}
                         checked={field.value === answer.uid}
                         onChange={() => {}}
+                        disabled={isSubmitting}
                       />
                       <div
                         className={cn(
-                          'size-5 rounded-md border border-black-50 flex items-center justify-center flex-shrink-0', // Fixed size and prevent shrinking
+                          'size-5 rounded-md border border-black-50 flex items-center justify-center flex-shrink-0',
                           field.value === answer.uid
                             ? 'bg-accent text-white'
-                            : ''
+                            : '',
+                          isSubmitting ? 'opacity-50' : ''
                         )}
                       >
                         {field.value === answer.uid && (
                           <Check className="h-3 w-3 flex-shrink-0" />
                         )}
                       </div>
-                      {/** regex to check if the answer is a code snippet
-                       * if it is, render the code snippet component
-                       * (check for <pre><code)
-                       *
-                       */}
                       {/<pre><code/.test(answer.answer) ? (
                         <CodeDisplay
                           content={answer.answer}
@@ -202,35 +218,6 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
         <Separator className="bg-black-50" />
         <div className="w-full space-y-4 px-4">
           {question.hint && <QuestionHintAccordion hint={question.hint} />}
-          {/* <div className="flex items-center gap-4">
-            <Button
-              type="submit"
-              size="lg"
-              variant="secondary"
-              disabled={!form.formState.isDirty}
-              className="w-full"
-            >
-              {isLoading ? (
-                <LoadingSpinner />
-              ) : (
-                <div className="flex items-center gap-x-1">
-                  Submit
-                  <ArrowRight className="size-3" />
-                </div>
-              )}
-            </Button>
-            {userData.userLevel === 'ADMIN' && (
-              <Button
-                size="lg"
-                type="button"
-                variant="default"
-                onClick={adminClearAnswers}
-                className="w-full"
-              >
-                (ADMIN ONLY) clear today&apos;s answer
-              </Button>
-            )}
-          </div> */}
         </div>
         {newUserData != null && (
           <AnswerQuestionModal

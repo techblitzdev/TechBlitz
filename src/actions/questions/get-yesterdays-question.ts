@@ -26,10 +26,6 @@ export const getYesterdaysQuestion = async (): Promise<Question | null> => {
       }
     });
 
-    console.log({
-      res
-    });
-
     if (!res) {
       console.error('No question found for yesterday');
       return null;

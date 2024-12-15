@@ -70,6 +70,6 @@ export const getLongestStreaks = NextCache(
   },
   ['longest-streaks-with-users'],
   {
-    revalidate: 60, // Cache for 1 minute
+    revalidate: 60 // Cache for 1 minute
   }
 );

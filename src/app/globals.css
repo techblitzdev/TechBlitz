@@ -60,21 +60,6 @@ html {
     @apply absolute left-[1px] top-[1px] h-[calc(100%-2px)] w-[calc(100%-2px)];
   }
 
-  .line {
-    position: absolute;
-    width: 4px;
-    background-color: #e5e5e5; /* default color */
-    transition: background-color 0.3s ease;
-  }
-
-  .line.active {
-    background-color: #34d399; /* green when active */
-  }
-
-  .line.inactive {
-    background-color: #f87171; /* red for incorrect answers */
-  }
-
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-b;
   }

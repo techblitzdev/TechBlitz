@@ -1,6 +1,6 @@
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
-import MarketingFooter from '@/components/marketing/global/footer';
 import OpenSourceBlock from '@/components/marketing/global/open-source/open-source-block';
+import ComparisonBlock from '@/components/marketing/homepage/comparison/comparison-block';
 import FeaturesBentoGrid from '@/components/marketing/homepage/features/features-bento-grid';
 import HomepageHero from '@/components/marketing/homepage/hero/hero';
 import HomepageHeroImages from '@/components/marketing/homepage/hero/hero-images';
@@ -19,6 +19,7 @@ export default async function AuthedPage() {
           <HomepageHeroImages />
           <FeaturesBentoGrid />
           <HomepageLargeText />
+          <ComparisonBlock />
           <OpenSourceBlock />
           <CallToActionBlock title="The smarter way to stay on top of tech" />
         </div>

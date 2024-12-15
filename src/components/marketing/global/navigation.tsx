@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Logo from '../../ui/logo';
 import { Button } from '../../ui/button';
-import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 import { ArrowRight } from 'lucide-react';
 
 import { NavigationMenuItems } from './navigation-items';

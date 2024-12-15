@@ -111,7 +111,33 @@ export const getSuggestions = cache(
         take: limit
       });
 
-      // console.log('Found suggestions:', suggestions.length);
+      // if no suggestions found, return 5 random questions
+      if (!suggestions.length) {
+        console.log('No suggestions found, returning random questions');
+        const randomQuestions = await prisma.questions.findMany({
+          where: {
+            NOT: {
+              uid: {
+                in: answeredQuestionIds
+              }
+            }
+          },
+          include: {
+            tags: {
+              include: {
+                tag: true
+              }
+            }
+          },
+          orderBy: {
+            createdAt: 'desc'
+          },
+          take: limit
+        });
+
+        return randomQuestions;
+      }
+
       return suggestions;
     } catch (error) {
       console.error('Error getting suggestions:', error);

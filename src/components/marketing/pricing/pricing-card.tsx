@@ -1,3 +1,4 @@
+import AnimatedPricingFeatures from '@/components/payment/animated-pricing-features';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,11 +14,13 @@ import { CheckIcon } from 'lucide-react';
 export default function PricingCard(opts: { product: StripeProduct }) {
   const { product } = opts;
 
+  const isProd = process.env.NEXT_PUBLIC_ENV === 'production';
   const paymentLink = product?.metadata?.paymentLink;
   const mostPopular = product.metadata.mostPopular == 'true';
   const isFree = !product.default_price?.unit_amount;
+  // if we are on prod, do not show the payment link
   // if it is free, then link to the signup page
-  const href = isFree ? '/signup' : paymentLink;
+  const href = isProd ? '#' : paymentLink || '#';
 
   return (
     <Card
@@ -30,7 +33,7 @@ export default function PricingCard(opts: { product: StripeProduct }) {
         mostPopular ? 'border-accent' : 'border-black-50'
       )}
     >
-      <CardHeader>
+      <CardHeader className="pb-0">
         <div className="flex flex-col gap-2 text-start">
           <div className="text-sm text-white font-satoshi flex gap-x-2">
             <p>{product.name}</p>
@@ -55,26 +58,18 @@ export default function PricingCard(opts: { product: StripeProduct }) {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="text-start pb-2 sm:pb-6 pt-3 sm:pt-6 flex flex-col gap-y-6 justify-between h-full">
-        <div className="flex flex-col gap-y-3">
-          {product?.features?.map((feature) => (
-            <div
-              key={product.id + feature.name}
-              className="flex gap-x-2 items-center"
-            >
-              <div className="bg-accent p-0.5 rounded-full">
-                <CheckIcon className="size-3 text-white" />
-              </div>
-              <span className="text-sm text-white">{feature.name}</span>
-            </div>
-          ))}
-        </div>
+      <CardContent className="text-start pb-2 sm:pb-6 pt-3 sm:pt-0 flex flex-col gap-y-6 justify-between h-full text-white">
+        <AnimatedPricingFeatures
+          features={product.features}
+          productId={product.id}
+        />
         <Button
           fullWidth
           variant={mostPopular ? 'accent' : 'default'}
           href={href}
+          disabled={isProd}
         >
-          {isFree ? 'Sign up' : 'Get started'}
+          {isFree ? 'Sign up' : 'Get started'} {isProd ? '(soon)' : ''}
         </Button>
       </CardContent>
     </Card>

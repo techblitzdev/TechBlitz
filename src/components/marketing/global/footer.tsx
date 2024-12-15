@@ -47,12 +47,28 @@ const footerItems = [
   }
 ];
 
+// just three itemss with no header
+const productionFooterItems = [
+  {
+    title: 'Pricing',
+    link: '/pricing'
+  },
+  {
+    title: 'FAQs',
+    link: '/faqs'
+  },
+  {
+    title: 'Contact',
+    link: 'mailto:team@techblitz.dev'
+  }
+];
+
 export default function MarketingFooter() {
   return (
     <footer className="py-8 container">
       <div className="flex flex-col lg:flex-row justify-between text-white">
         <div className="flex flex-col gap-y-12 w-full">
-          {process.env.NEXT_PUBLIC_ENV === 'development' && (
+          {process.env.NEXT_PUBLIC_ENV === 'development' ? (
             <div className="flex flex-col lg:flex-row w-full justify-between">
               <div className="flex flex-col gap-y-8 lg:flex-row gap-x-28">
                 <div className="space-y-5">
@@ -101,6 +117,32 @@ export default function MarketingFooter() {
                 </Button>
               </div>
             </div>
+          ) : (
+            <div className="flex md:items-center flex-col sm:flex-row gap-y-5 gap-x-16">
+              <Link href="/">
+                <Logo />
+              </Link>
+              {/** pricing, faqs and contact in the footer on prod */}
+              <div className="flex flex-col sm:flex-row gap-x-10 gap-y-6">
+                {productionFooterItems.map((item) => (
+                  <div
+                    key={item.title}
+                    className="flex flex-col gap-y-3"
+                  >
+                    <ul className="flex flex-col gap-y-2">
+                      <li>
+                        <Link
+                          href={item.link}
+                          className="hover:text-accent duration-300 hover:cursor-pointer"
+                        >
+                          {item.title}
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
           <div className="space-y-4">
             <SocialLinks />
@@ -113,7 +155,7 @@ export default function MarketingFooter() {
                 <li>
                   <Link
                     href="/terms"
-                    className="hover:text-accent duration-300"
+                    className="hover:text-accent duration-300 hover:cursor-pointer"
                   >
                     Terms
                   </Link>
@@ -121,7 +163,7 @@ export default function MarketingFooter() {
                 <li>
                   <Link
                     href="/privacy"
-                    className="hover:text-accent duration-300"
+                    className="hover:text-accent duration-300 hover:cursor-pointer"
                   >
                     Privacy Policy
                   </Link>

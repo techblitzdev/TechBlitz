@@ -5,6 +5,7 @@
 // throughout the different steps of the onboarding flow
 import { createContext, useContext, useState } from 'react';
 import type { UserUpdatePayload } from '@/types/User';
+import { useUser } from '@/hooks/useUser';
 
 // context type
 type OnboardingContextType = {
@@ -22,6 +23,8 @@ export const UserOnboardingContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  // get the current user
+
   // user state
   const [user, setUser] = useState<UserUpdatePayload>({
     uid: '',

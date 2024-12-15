@@ -1,153 +1,136 @@
 'use client';
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
   Card,
-  CardContent,
+  CardHeader,
   CardDescription,
-  CardFooter,
-  CardHeader
+  CardFooter
 } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { OnboardingStepOne } from './onboarding-step-one';
+import { Button } from '../ui/button';
+import LoadingSpinner from '../ui/loading';
 import { ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useRef, useState } from 'react';
-import LoadingSpinner from '@/components/ui/loading';
-import { InputWithLabel } from '@/components/ui/input-label';
 import { useOnboardingContext } from './onboarding-context';
-import { motion } from 'motion/react';
-import {
-  Tooltip,
-  TooltipProvider,
-  TooltipTrigger
-} from '@/components/ui/tooltip';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
-import { Form } from '@/components/ui/form';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { onboardingStepOneSchema } from '@/lib/zod/schemas/onboarding/step-one';
+import { updateUser } from '@/actions/user/authed/update-user';
+
+const containerVariants = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut',
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
 
 export default function OnboardingForm() {
-  // grab the onboarding context
-  const { user } = useOnboardingContext();
-
   const router = useRouter();
+  const { user } = useOnboardingContext();
+  const [currentStep, setCurrentStep] = useState<'stepOne' | 'stepTwo'>(
+    'stepOne'
+  );
+  const [isLoading, setIsLoading] = useState(false);
 
-  const form = useForm({
-    resolver: zodResolver(onboardingStepOneSchema),
-    defaultValues: {
-      username: user?.username || '',
-      showTimeTaken: user?.showTimeTaken || false,
-      sendPushNotifications: user?.sendPushNotifications || false
-    }
-  });
-
-  // loading state for skipping
-  const skipping = useRef(false);
   const handleSkip = () => {
-    // Set skipping to true
-    skipping.current = true;
-
-    // Remove the onboarding item from local storage
+    setIsLoading(true);
     localStorage.removeItem('onboarding');
-
-    // Navigate to the dashboard
     router.push('/dashboard');
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    skipping.current = true;
+  const handleContinue = async () => {
+    setIsLoading(true);
 
-    e.preventDefault();
-    // Here you would typically handle form submission,
-    // validate inputs, and potentially send data to backend
+    // update the user data in the db
+    await updateUser({ userDetails: user });
+
+    // Simulate an API call or data processing
     localStorage.removeItem('onboarding');
     router.push('/dashboard');
   };
 
   return (
     <div className="container min-h-screen flex items-center justify-center p-4">
-      <Card
-        className="w-full max-w-md border border-black-50 rounded-lg shadow-xl"
-        style={{
-          background:
-            'radial-gradient(128% 107% at 0% 0%, #212121 0%, rgb(0,0,0) 77.61%)'
-        }}
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
       >
-        <CardHeader className="space-y-1">
-          <motion.h1
-            className="text-3xl font-medium bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-          >
-            Welcome!
-          </motion.h1>
-          <CardDescription className="text-gray-400">
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
+        <Card
+          className="border border-black-50 rounded-lg shadow-xl overflow-hidden w-72 sm:w-96 lg:w-[30rem]"
+          style={{
+            background:
+              'radial-gradient(128% 107% at 0% 0%, #212121 0%, rgb(0,0,0) 77.61%)'
+          }}
+        >
+          <CardHeader className="space-y-1">
+            <motion.h1
+              className="text-3xl font-medium bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent"
+              variants={itemVariants}
             >
-              Let's get started by setting up your account.
-            </motion.span>
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-5"
-            >
-              <div className="space-y-2 text-white">
-                <InputWithLabel
-                  label="Username"
-                  type="email"
-                  name="email"
-                  autoComplete="email"
-                  placeholder="Username"
-                />
-              </div>
-              <div className="">
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <div className="flex items-center gap-x-1">
-                        <Switch
-                          id="showTimeTaken"
-                          className="bg-black-50"
-                        />
-                        <Label
-                          htmlFor="showTimeTaken"
-                          className="text-white"
-                        >
-                          Appear on leaderboards
-                        </Label>
-                      </div>
-                    </TooltipTrigger>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-              <CardFooter className="flex items-center gap-3 justify-end p-0">
+              Welcome!
+            </motion.h1>
+            <CardDescription className="text-gray-400">
+              <motion.span variants={itemVariants}>
+                Let's get started by setting up your account.
+              </motion.span>
+            </CardDescription>
+          </CardHeader>
+          {currentStep === 'stepOne' && <OnboardingStepOne />}
+          <motion.div variants={itemVariants}>
+            <CardFooter className="flex items-center gap-3 justify-end">
+              <AnimatePresence>
+                {!isLoading && currentStep === 'stepOne' && (
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                  >
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      onClick={handleSkip}
+                      disabled={!user?.username?.length}
+                    >
+                      Skip
+                    </Button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 <Button
                   type="button"
-                  variant="secondary"
-                  onClick={handleSkip}
-                >
-                  {skipping.current ? <LoadingSpinner /> : 'Skip'}
-                </Button>
-                <Button
-                  type="submit"
                   variant="accent"
                   className="text-xs sm:text-sm font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+                  onClick={handleContinue}
+                  disabled={isLoading}
                 >
-                  Continue
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  {isLoading ? (
+                    <LoadingSpinner />
+                  ) : (
+                    <>
+                      {currentStep === 'stepOne' ? 'Continue' : 'Finish'}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </>
+                  )}
                 </Button>
-              </CardFooter>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
+              </motion.div>
+            </CardFooter>
+          </motion.div>
+        </Card>
+      </motion.div>
     </div>
   );
 }

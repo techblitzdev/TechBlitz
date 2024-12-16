@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'techblitz | Frequently Asked Questions',
+  title: 'Frequently Asked Questions | techblitz',
   description: 'Got a question? We have an answer.'
 };
 

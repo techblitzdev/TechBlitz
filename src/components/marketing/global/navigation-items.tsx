@@ -42,64 +42,61 @@ export function NavigationMenuItems() {
   return (
     <NavigationMenu>
       <NavigationMenuList>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>Product</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-[.75fr_1fr]">
+              <ListItem
+                href="/features/roadmaps"
+                title="Roadmaps"
+              >
+                Ai powered progression paths
+              </ListItem>
+              <ListItem
+                href="/features/daily-challenges"
+                title="Daily Questions"
+              >
+                Daily challenges to help you grow as a developer
+              </ListItem>
+              <ListItem
+                href="/features/leaderboards"
+                title="Leaderboards"
+              >
+                Leaderboards to battle with friends
+              </ListItem>
+              <ListItem
+                href="/features/"
+                title="Statistics"
+              >
+                Statistics to track your progress
+              </ListItem>
+              <ListItem
+                href="/features/daily-questions"
+                title="Questions"
+              >
+                Questions that are actually useful, not just for the sake of it
+              </ListItem>
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
         {/** hide on production for now */}
         {process.env.NEXT_PUBLIC_ENV === 'development' && (
-          <>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>Product</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-[.75fr_1fr]">
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                {components.map((component) => (
                   <ListItem
-                    href="/features/roadmap"
-                    title="Roadmaps"
+                    key={component.title}
+                    title={component.title}
+                    href={component.href}
                   >
-                    Ai powered progression paths
+                    {component.description}
                   </ListItem>
-                  <ListItem
-                    href="/features/daily-questions"
-                    title="Daily Questions"
-                  >
-                    Daily questions to help you grow as a developer
-                  </ListItem>
-                  <ListItem
-                    href="/features/leaderboards"
-                    title="Leaderboards"
-                  >
-                    Leaderboards to battle with friends
-                  </ListItem>
-                  <ListItem
-                    href="/features/"
-                    title="Statistics"
-                  >
-                    Statistics to track your progress
-                  </ListItem>
-                  <ListItem
-                    href="/features/daily-questions"
-                    title="Questions"
-                  >
-                    Questions that are actually useful, not just for the sake of
-                    it
-                  </ListItem>
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                  {components.map((component) => (
-                    <ListItem
-                      key={component.title}
-                      title={component.title}
-                      href={component.href}
-                    >
-                      {component.description}
-                    </ListItem>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          </>
+                ))}
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
         )}
         <NavigationMenuItem>
           <Link

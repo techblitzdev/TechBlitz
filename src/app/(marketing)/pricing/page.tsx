@@ -5,7 +5,7 @@ import PricingCardBlock from '@/components/marketing/pricing/pricing-card-block'
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'techblitz | Pricing',
+  title: 'Pricing | techblitz',
   description:
     'Start for free and unlock premium features with our affordable plans to help you become a better developer.',
   keywords: [

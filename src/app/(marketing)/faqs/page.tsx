@@ -130,7 +130,7 @@ export default function FAQsPage() {
   ];
 
   return (
-    <div className="py-16 md:pb-20 md:pt-32 xl:pt-40 xl:pb-32">
+    <div className="pt-32 pb-24 md:pb-20 md:pt-32 xl:pt-40 xl:pb-32">
       <FAQsBlock faqs={faqs} />
       <CallToActionBlock title="The smarter way to stay on top of tech" />
     </div>

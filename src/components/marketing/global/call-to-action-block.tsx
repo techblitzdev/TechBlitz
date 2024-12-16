@@ -11,7 +11,7 @@ export default function CallToActionBlock(opts: {
   const { title, description } = opts;
 
   return (
-    <section className="pt-10 pb-20 space-y-7 text-center relative">
+    <section className="pt-10 pb-20 px-2 lg:px-0 space-y-7 text-center relative">
       <div
         aria-hidden="true"
         className="left-1/2 top-0 w-72 md:w-[600px] center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2"

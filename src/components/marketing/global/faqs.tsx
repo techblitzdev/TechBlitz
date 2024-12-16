@@ -23,7 +23,7 @@ export default function FAQsBlock(opts: { faqs: FAQ[] }) {
       <Accordion
         type="single"
         collapsible
-        className="text-start max-w-3xl w-full"
+        className="text-start max-w-3xl w-[85%] lg:w-full"
       >
         {faqs.map((faq, index) => (
           <AccordionItem

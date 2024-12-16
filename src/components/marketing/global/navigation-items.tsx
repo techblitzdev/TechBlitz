@@ -43,38 +43,38 @@ export function NavigationMenuItems() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Product</NavigationMenuTrigger>
+          <NavigationMenuTrigger>Features</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-[.75fr_1fr]">
               <ListItem
                 href="/features/roadmaps"
                 title="Roadmaps"
               >
-                Ai powered progression paths
+                AI-powered paths to accelerate your learning journey.
               </ListItem>
               <ListItem
                 href="/features/daily-challenges"
                 title="Daily Questions"
               >
-                Daily challenges to help you grow as a developer
+                Tackle daily challenges to sharpen your developer skills.
               </ListItem>
               <ListItem
                 href="/features/leaderboards"
                 title="Leaderboards"
               >
-                Leaderboards to battle with friends
+                Compete with friends and rise to the top.
               </ListItem>
               <ListItem
                 href="/features/"
                 title="Statistics"
               >
-                Statistics to track your progress
+                Gain insights and track your growth over time.
               </ListItem>
               <ListItem
                 href="/features/daily-questions"
                 title="Questions"
               >
-                Questions that are actually useful, not just for the sake of it
+                Go beyond interviews — master real-world development.
               </ListItem>
             </ul>
           </NavigationMenuContent>

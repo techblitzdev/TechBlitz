@@ -148,7 +148,10 @@ export default function FeatureDailyQuestionPage() {
       <FeatureRoadmapHeroBlock />
       <FeatureRoadmapCustomizationBlock />
       <FeatureRoadmapThreeGridBlock />
-      <MarketingContentGrid items={featureShowcaseItems} />
+      <MarketingContentGrid
+        title="All of this and more"
+        items={featureShowcaseItems}
+      />
       <FAQsBlock faqs={faqs} />
       <CallToActionBlock
         title="The smarter way to stay on top of tech"

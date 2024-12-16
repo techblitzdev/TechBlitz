@@ -30,7 +30,16 @@ export default function FeatureRoadmapThreeGridBlock() {
         title="How roadmaps works"
         description={description()}
       />
-      <div className="grid grid-cols-12 gap-10 border-t border-black-50 max-w-5xl self-center">
+      {/** demo video */}
+      <div className="grid grid-cols-12 gap-10 max-w-5xl self-center relative">
+        <div
+          aria-hidden="true"
+          className="left-1/2 top-0 md:w-full center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2"
+          style={{
+            background:
+              'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)'
+          }}
+        ></div>
         <RoadmapGridItemOne />
         <RoadmapGridItemTwo />
       </div>

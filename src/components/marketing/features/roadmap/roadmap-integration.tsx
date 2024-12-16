@@ -11,11 +11,12 @@ export default function FeatureRoadmapIntegrationBlock() {
       <div className="flex flex-col gap-y-4 col-span-full md:col-span-5">
         <AnimatedSpan content="Personalized" />
         <h2 className="text-2xl lg:text-5xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
-          Created for Developers
+          Your roadmap, your way
         </h2>
         <p className="text-gray-400 max-w-3xl">
           Our roadmap feature is designed to help developers learn new skills
-          and advance their careers (or get their career started!).
+          and advance their careers (or get their career started!). Don't like a
+          question? Regenerate it.
         </p>
       </div>
       <AnimatedBeamMultipleOutput className="col-span-full md:col-span-7" />

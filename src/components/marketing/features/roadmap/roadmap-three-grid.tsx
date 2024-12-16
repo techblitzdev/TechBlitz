@@ -31,6 +31,9 @@ export default function FeatureRoadmapThreeGridBlock() {
         description={description()}
       />
       {/** demo video */}
+      <div className="grid grid-cols-12 gap-10 w-full max-w-5xl self-center">
+        <div className="w-full h-[28rem] border border-black-50 rounded-lg col-span-full"></div>
+      </div>
       <div className="grid grid-cols-12 gap-10 max-w-5xl self-center relative">
         <div
           aria-hidden="true"

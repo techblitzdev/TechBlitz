@@ -10,7 +10,7 @@ export default function FeatureRoadmapHeroBlock() {
 
       <div className="flex flex-col gap-y-3 items-center z-20 relative">
         <h1 className="text-5xl lg:text-7xl !font-onest !font-medium tracking-tight text-gradient from-white to-white/75 text-center">
-          AI-Powered coding <br /> Roadmaps
+          Personalized Coding <br /> Roadmaps
         </h1>
         <p className="text-gray-400 max-w-xl text-center text-sm md:text-base font-onest">
           Create personalized learning paths with our AI-driven roadmap

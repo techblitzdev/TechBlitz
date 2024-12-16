@@ -1,12 +1,27 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import { Play } from 'lucide-react';
 import { motion } from 'framer-motion';
 import DashboardImg from '../../../../public/images/dashboard-img.png';
 
-export default function HomepageHeroImages() {
+import { FC } from 'react';
+import { cn } from '@/utils/cn';
+
+interface HomepageHeroImagesProps {
+  imageSrc: StaticImageData;
+  videoSrc: string;
+  videoPoster: string;
+  fadeDirection?: 'top' | 'bottom';
+}
+
+const HomepageHeroImages: FC<HomepageHeroImagesProps> = ({
+  imageSrc,
+  videoSrc,
+  videoPoster,
+  fadeDirection = 'bottom'
+}) => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -31,18 +46,16 @@ export default function HomepageHeroImages() {
     window.addEventListener('message', handleMessage);
 
     if (isVideoPlaying && iframeRef.current) {
-      iframeRef.current.src =
-        'https://customer-8s5ov2shcw99ezk2.cloudflarestream.com/340defc1b25f5c2605e6533e8a015f2a/iframe?poster=https%3A%2F%2Fcustomer-8s5ov2shcw99ezk2.cloudflarestream.com%2F340defc1b25f5c2605e6533e8a015f2a%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600&autoplay=true';
+      iframeRef.current.src = `${videoSrc}?poster=${encodeURIComponent(videoPoster)}&autoplay=true`;
     }
 
     return () => {
       window.removeEventListener('message', handleMessage);
     };
-  }, [isVideoPlaying]);
+  }, [isVideoPlaying, videoSrc, videoPoster]);
 
   return (
     <div className="relative h-full overflow-hidden rounded-lg shadow-2xl px-0 md:px-20">
-      {/* Static Image */}
       <motion.div
         initial={{ opacity: 1 }}
         animate={{ opacity: isVideoPlaying ? 0 : 1 }}
@@ -51,7 +64,7 @@ export default function HomepageHeroImages() {
       >
         <Image
           className="rounded-lg bg-black border border-black/50"
-          src={DashboardImg}
+          src={imageSrc}
           fill
           alt="Dashboard preview"
           priority={true}
@@ -59,7 +72,6 @@ export default function HomepageHeroImages() {
         />
       </motion.div>
 
-      {/* Play Button */}
       {!isVideoPlaying && (
         <div className="absolute inset-0 flex items-center justify-center z-20">
           <motion.div
@@ -73,7 +85,6 @@ export default function HomepageHeroImages() {
         </div>
       )}
 
-      {/* Video */}
       <div
         className={`absolute inset-0 z-15 ${
           isVideoPlaying ? 'visible' : 'invisible'
@@ -97,8 +108,18 @@ export default function HomepageHeroImages() {
         ></iframe>
       </div>
 
-      {/* Gradient overlay */}
-      <div className="absolute inset-x-0 bottom-0 h-20 md:h-40 lg:h-80 bg-gradient-to-t from-[#000] to-transparent pointer-events-none z-30"></div>
+      {!isVideoPlaying && (
+        <div
+          className={cn(
+            'absolute inset-x-0  h-20 md:h-40 lg:h-80  from-[#000] to-transparent pointer-events-none z-30',
+            fadeDirection === 'top'
+              ? 'top-0 bg-gradient-to-b'
+              : 'bottom-0 bg-gradient-to-t'
+          )}
+        />
+      )}
     </div>
   );
-}
+};
+
+export default HomepageHeroImages;

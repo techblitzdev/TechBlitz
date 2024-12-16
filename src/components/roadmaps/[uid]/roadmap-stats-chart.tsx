@@ -105,12 +105,12 @@ export default function Component(opts: { roadmap: UserRoadmapsWithAnswers }) {
               dataKey="correct"
               stackId="a"
               cornerRadius={5}
-              fill="var(--color-desktop)"
+              fill="var(--color-mobile)"
               className="stroke-transparent stroke-2"
             />
             <RadialBar
               dataKey="incorrect"
-              fill="var(--color-mobile)"
+              fill="var(--color-desktop)"
               stackId="a"
               cornerRadius={5}
               className="stroke-transparent stroke-2"

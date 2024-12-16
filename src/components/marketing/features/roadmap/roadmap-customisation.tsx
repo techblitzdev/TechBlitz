@@ -5,7 +5,7 @@ const AnimatedBeamMultipleOutput = dynamic(
   { ssr: false }
 );
 
-export default function FeatureRoadmapIntegrationBlock() {
+export default function FeatureRoadmapCustomizationBlock() {
   return (
     <section className="pt-24 pb-32 grid grid-cols-12 gap-8 items-center">
       <div className="flex flex-col gap-y-4 col-span-full md:col-span-5">

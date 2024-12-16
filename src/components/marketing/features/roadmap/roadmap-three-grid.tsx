@@ -3,6 +3,8 @@ import FeaturesContentHeader from '../global/content-header';
 import RoadmapGridItemOne from './grid/roadmap-grid-item-one';
 import RoadmapGridItemTwo from './grid/roadmap-grid-item-two';
 import RoadmapGridItemThree from './grid/roadmap-grid-item-three';
+import HomepageHeroImages from '../../homepage/hero/hero-images';
+import RoadmapImg from '../../../../public/images/roadmap.png';
 
 const description = () => {
   return (
@@ -24,6 +26,9 @@ const description = () => {
 };
 
 export default function FeatureRoadmapThreeGridBlock() {
+  const roadmapIframe =
+    'https://customer-8s5ov2shcw99ezk2.cloudflarestream.com/ff823c820a5dc793c091f43ebae09d63/iframe?muted=true&poster=https%3A%2F%2Fcustomer-8s5ov2shcw99ezk2.cloudflarestream.com%2Fff823c820a5dc793c091f43ebae09d63%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600';
+
   return (
     <section className="py-16 px-4 md:pt-24 md:pb-32 flex flex-col gap-y-16">
       <FeaturesContentHeader
@@ -32,7 +37,14 @@ export default function FeatureRoadmapThreeGridBlock() {
       />
       {/** demo video */}
       <div className="grid grid-cols-12 gap-10 w-full max-w-5xl self-center">
-        <div className="w-full h-[28rem] border border-black-50 rounded-lg col-span-full"></div>
+        <div className="w-full h-[35rem] rounded-lg col-span-full">
+          <HomepageHeroImages
+            imageSrc={RoadmapImg}
+            videoSrc={roadmapIframe}
+            videoPoster="https://customer-8s5ov2shcw99ezk2.cloudflarestream.com/340defc1b25f5c2605e6533e8a015f2a/thumbnails/thumbnail.jpg?time=&height=600"
+            fadeDirection="top"
+          />
+        </div>
       </div>
       <div className="grid grid-cols-12 gap-10 max-w-5xl self-center relative">
         <div

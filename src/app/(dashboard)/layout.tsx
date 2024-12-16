@@ -19,6 +19,7 @@ import { createTheme, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 import { StarsBackground } from '@/components/ui/stars-background';
+import NextTopLoader from 'nextjs-toploader';
 
 export const metadata: Metadata = {
   title: 'techblitz',
@@ -45,6 +46,10 @@ export default function Layout({
 
             {/* Scrollable content */}
             <AppSidebar />
+            <NextTopLoader
+              color="#5b61d6"
+              showSpinner={false}
+            />
             <main className="w-full py-6 lg:pt-4 lg:pb-3">
               <div className="h-[95%]">
                 <CSPostHogProvider>

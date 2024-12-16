@@ -8,7 +8,7 @@ import { ArrowUpRight, Check, X } from 'lucide-react';
 import Link from 'next/link';
 
 export default function RoadmapQuestionCard(opts: {
-  question: RoadmapUserQuestions;
+  question: Partial<RoadmapUserQuestions>;
   roadmapUid: string;
   index: number;
   totalQuestions: number;
@@ -30,7 +30,7 @@ export default function RoadmapQuestionCard(opts: {
     <div className="relative flex gap-7">
       <div
         className={cn(
-          'relative flex flex-col items-center w-0.5',
+          'relative flex-col items-center w-0.5 hidden md:flex',
           index === totalQuestions - 1 && 'pb-6'
         )}
       >
@@ -79,6 +79,7 @@ export default function RoadmapQuestionCard(opts: {
               variant="accent"
               className="size-10"
               padding="none"
+              aria-label="View question details"
             >
               <ArrowUpRight className="size-5 group-hover:rotate-45 duration-300" />
             </Button>

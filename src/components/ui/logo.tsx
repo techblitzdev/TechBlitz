@@ -7,6 +7,7 @@ export default function Logo() {
       viewBox="0 0 111 26"
       fill="none"
       aria-label="TechBlitz Logo"
+      className="hover:cursor-pointer"
     >
       <g clipPath="url(#clip0_85_7)">
         <rect

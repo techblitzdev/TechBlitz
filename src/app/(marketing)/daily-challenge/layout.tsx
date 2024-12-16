@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'techblitz | Daily Challenge | JavaScript',
+  title: 'Daily Challenge | JavaScript Questions | techblitz',
   description: 'Daily coding challenge to improve your coding skills.',
   keywords: [
     'coding',

@@ -7,15 +7,32 @@ import { Separator } from '../../ui/separator';
 
 const footerItems = [
   {
-    title: 'Platform',
+    title: 'Features',
     links: [
       {
-        title: 'Features',
-        href: '/features'
+        title: 'Roadmaps',
+        href: '/features/roadmaps'
       },
       {
-        title: 'How it works',
-        href: '/integrations'
+        title: 'Challenges',
+        href: '/features/challenges'
+      },
+      {
+        title: '',
+        href: '/features/projects'
+      },
+      {
+        title: 'Leaderboard',
+        href: '/features/leaderboard'
+      }
+    ]
+  },
+  {
+    title: 'Resources',
+    links: [
+      {
+        title: 'Changelog',
+        href: '/changelog'
       },
       {
         title: 'FAQs',
@@ -29,10 +46,6 @@ const footerItems = [
       {
         title: 'Plans',
         href: '/pricing'
-      },
-      {
-        title: 'Education',
-        href: '/education'
       }
     ]
   },
@@ -41,7 +54,7 @@ const footerItems = [
     links: [
       {
         title: 'Contact Us',
-        href: '/contact'
+        href: 'mailto:team@techblitz.dev'
       }
     ]
   }
@@ -49,6 +62,10 @@ const footerItems = [
 
 // just three itemss with no header
 const productionFooterItems = [
+  {
+    title: 'Roadmaps',
+    link: '/features/roadmaps'
+  },
   {
     title: 'Pricing',
     link: '/pricing'
@@ -133,7 +150,7 @@ export default function MarketingFooter() {
                       <li>
                         <Link
                           href={item.link}
-                          className="hover:text-accent duration-300 hover:cursor-pointer"
+                          className="hover:text-accent duration-300 hover:cursor-pointer font-onest"
                         >
                           {item.title}
                         </Link>

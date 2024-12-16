@@ -5,6 +5,7 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Progress } from '@/components/ui/progress';
 import { Check } from 'lucide-react';
+import { cn } from '@/utils/cn';
 
 const skeletonVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -22,7 +23,9 @@ const checkVariants = {
   exit: { scale: 0, opacity: 0 }
 };
 
-export default function RoadmapFeatureBox() {
+export default function RoadmapFeatureBox(opts: { absolute?: boolean }) {
+  const { absolute = true } = opts;
+
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
 
@@ -50,7 +53,10 @@ export default function RoadmapFeatureBox() {
         background:
           'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
       }}
-      className="group-hover:scale-[1.03] duration-300 pb-3 rounded-bl-none max-w-md lg:max-w-lg xl:max-w-2xl border-black-50 bg-black-75 shadow-md z-50 sm:absolute -right-3 top-24 lg:top-28"
+      className={cn(
+        'group-hover:scale-[1.03] duration-300 pb-3 rounded-bl-none max-w-md lg:max-w-lg xl:max-w-2xl border-black-50 bg-black-75 shadow-md z-50',
+        absolute && ' sm:absolute -right-3 top-24 lg:top-28'
+      )}
     >
       <CardContent className="pb-2 sm:pb-6 pt-3 sm:pt-6">
         <div className="flex items-center space-x-4 h-7 md:h-14">
@@ -76,8 +82,18 @@ export default function RoadmapFeatureBox() {
                 exit="exit"
                 className="space-y-2 w-full"
               >
-                <Skeleton className="h-7 w-[400px] bg-black-50 hidden md:block" />
-                <Skeleton className="h-4 md:h-7 w-full sm:w-[260px] bg-black-50 md:block" />
+                <Skeleton
+                  className={cn(
+                    'h-7 bg-black-50 hidden md:block',
+                    !absolute ? 'w-[250px]' : 'w-[400px]'
+                  )}
+                />
+                <Skeleton
+                  className={cn(
+                    'h-4 md:h-7 w-full bg-black-50 md:block',
+                    !absolute ? 'w-[180px]' : 'sm:w-[260px]'
+                  )}
+                />
               </motion.div>
             )}
           </AnimatePresence>

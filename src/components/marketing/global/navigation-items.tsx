@@ -13,6 +13,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle
 } from '@/components/ui/navigation-menu';
+import { usePathname } from 'next/navigation';
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -42,65 +43,76 @@ export function NavigationMenuItems() {
   return (
     <NavigationMenu>
       <NavigationMenuList>
+        {process.env.NEXT_PUBLIC_ENV === 'development' && (
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Features</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-[.75fr_1fr]">
+                <ListItem
+                  href="/features/roadmaps"
+                  title="Roadmaps"
+                >
+                  AI-powered paths to accelerate your learning journey.
+                </ListItem>
+                <ListItem
+                  href="/features/daily-challenges"
+                  title="Daily Questions"
+                >
+                  Tackle daily challenges to sharpen your developer skills.
+                </ListItem>
+                <ListItem
+                  href="/features/leaderboards"
+                  title="Leaderboards"
+                >
+                  Compete with friends and rise to the top.
+                </ListItem>
+                <ListItem
+                  href="/features/"
+                  title="Statistics"
+                >
+                  Gain insights and track your growth over time.
+                </ListItem>
+                <ListItem
+                  href="/features/daily-questions"
+                  title="Questions"
+                >
+                  Go beyond interviews — master real-world development.
+                </ListItem>
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        )}
         {/** hide on production for now */}
         {process.env.NEXT_PUBLIC_ENV === 'development' && (
-          <>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>Product</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-[.75fr_1fr]">
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                {components.map((component) => (
                   <ListItem
-                    href="/features/roadmap"
-                    title="Roadmaps"
+                    key={component.title}
+                    title={component.title}
+                    href={component.href}
                   >
-                    Ai powered progression paths
+                    {component.description}
                   </ListItem>
-                  <ListItem
-                    href="/features/daily-questions"
-                    title="Daily Questions"
-                  >
-                    Daily questions to help you grow as a developer
-                  </ListItem>
-                  <ListItem
-                    href="/features/leaderboards"
-                    title="Leaderboards"
-                  >
-                    Leaderboards to battle with friends
-                  </ListItem>
-                  <ListItem
-                    href="/features/"
-                    title="Statistics"
-                  >
-                    Statistics to track your progress
-                  </ListItem>
-                  <ListItem
-                    href="/features/daily-questions"
-                    title="Questions"
-                  >
-                    Questions that are actually useful, not just for the sake of
-                    it
-                  </ListItem>
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                  {components.map((component) => (
-                    <ListItem
-                      key={component.title}
-                      title={component.title}
-                      href={component.href}
-                    >
-                      {component.description}
-                    </ListItem>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          </>
+                ))}
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
         )}
+        <NavigationMenuItem>
+          <Link
+            href="/features/roadmaps"
+            legacyBehavior
+            passHref
+            className="!text-white focus:!text-white"
+          >
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Roadmaps
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
         <NavigationMenuItem>
           <Link
             href="/pricing"
@@ -146,21 +158,20 @@ const ListItem = React.forwardRef<
 >(({ className, title, children, ...props }, ref) => {
   return (
     <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          className={cn(
-            'group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-white hover:!text-white',
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-xs leading-snug text-muted-foreground group-hover:text-white">
-            {children}
-          </p>
-        </a>
-      </NavigationMenuLink>
+      <Link
+        href={props.href || '/'}
+        ref={ref}
+        className={cn(
+          'group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-white hover:!text-white !font-onest',
+          className
+        )}
+        {...props}
+      >
+        <div className="text-sm font-medium leading-none">{title}</div>
+        <p className="line-clamp-2 text-xs leading-snug text-muted-foreground group-hover:text-white">
+          {children}
+        </p>
+      </Link>
     </li>
   );
 });

@@ -24,7 +24,7 @@ export default function CallToActionBlock(opts: {
         <h1 className="text-3xl lg:text-5xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
           {title}
         </h1>
-        <p className="text-gray-400 text-lg">{description}</p>
+        <p className="text-gray-400 text-sm">{description}</p>
       </div>
 
       <div className="z-50 relative flex flex-col sm:flex-row gap-4 items-center justify-center">

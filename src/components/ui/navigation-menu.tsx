@@ -51,7 +51,7 @@ const NavigationMenuTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       navigationMenuTriggerStyle(),
-      'group hover:!text-white',
+      'group hover:!text-white font-onest',
       className
     )}
     {...props}
@@ -80,7 +80,19 @@ const NavigationMenuContent = React.forwardRef<
 ));
 NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName;
 
-const NavigationMenuLink = NavigationMenuPrimitive.Link;
+const NavigationMenuLink = React.forwardRef<
+  React.ElementRef<'a'>,
+  React.ComponentPropsWithoutRef<'a'>
+>(({ className, ...props }, ref) => (
+  <a
+    ref={ref}
+    className={cn(
+      'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-white hover:!text-white !font-onest',
+      className
+    )}
+    {...props}
+  />
+));
 
 const NavigationMenuViewport = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Viewport>,

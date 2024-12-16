@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 
 // this slows down the page speed a bunch (by 30 points in Lighthouse)
 // import it like this as we don't need it on the server
-const CodeComparisonDemo = dynamic(() => import('./code-comparison'), {
+const CodeComparison = dynamic(() => import('./code-comparison'), {
   ssr: false
 });
 
@@ -16,8 +16,8 @@ export default function ComparisonBlock() {
         </h1>
         <p className="text-gray-400 max-w-2xl text-sm md:text-base">
           We don't just create challenges to 'pass the technical interview'. We
-          create real life software problems that you will face in your
-          day-to-day job.
+          create real life software challenges that you will face in your
+          day-to-day activities.
         </p>
       </div>
       <div className=" w-full flex justify-center relative">
@@ -29,7 +29,7 @@ export default function ComparisonBlock() {
               'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)'
           }}
         ></div>
-        <CodeComparisonDemo />
+        <CodeComparison />
       </div>
     </section>
   );

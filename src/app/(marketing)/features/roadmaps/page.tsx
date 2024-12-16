@@ -4,6 +4,11 @@ import FeatureRoadmapThreeGridBlock from '@/components/marketing/features/roadma
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 import FAQsBlock from '@/components/marketing/global/faqs';
 import { Metadata } from 'next';
+import MarketingContentGrid, {
+  type MarketingContentGridProps
+} from '@/components/marketing/global/content-grid';
+import { Code, Globe, MessageSquareCode, Paintbrush, User } from 'lucide-react';
+import { MobileIcon } from '@radix-ui/react-icons';
 
 export const metadata: Metadata = {
   title: 'Roadmaps | techblitz',
@@ -98,12 +103,52 @@ const faqs = [
   }
 ];
 
+const featureShowcaseItems: MarketingContentGridProps[] = [
+  {
+    icon: <User />,
+    title: 'Personalized Learning',
+    description:
+      'Tailor your roadmap to match your unique learning style and pace. Create a plan that works best for your personal development goals.'
+  },
+  {
+    icon: <Globe />,
+    title: 'Real-World Problem Solving',
+    description:
+      'Our expertly crafted roadmaps prepare you to solve real-world software challenges, ensuring you build skills that extend beyond interview success.'
+  },
+  {
+    icon: <MobileIcon />,
+    title: 'Mobile-Friendly Platform',
+    description:
+      'Learn on the go! Access your personalized roadmap anytime, anywhere, on any device, for seamless learning.'
+  },
+  {
+    icon: <Paintbrush />,
+    title: 'Fully Customizable Roadmaps',
+    description:
+      'Easily adapt your roadmap by editing questions or adding new challenges to make it a perfect fit for your learning journey.'
+  },
+  {
+    icon: <MessageSquareCode />,
+    title: 'Real-Time Feedback',
+    description:
+      'Receive immediate insights on your answers, helping you learn from mistakes and solidify your understanding as you progress.'
+  },
+  {
+    icon: <Code />,
+    title: 'From Beginner to Advanced',
+    description:
+      'Whether you’re just starting your coding journey or looking to sharpen advanced skills, our roadmaps are designed to meet you where you are.'
+  }
+];
+
 export default function FeatureDailyQuestionPage() {
   return (
     <div className="container">
       <FeatureRoadmapHeroBlock />
       <FeatureRoadmapCustomizationBlock />
       <FeatureRoadmapThreeGridBlock />
+      <MarketingContentGrid items={featureShowcaseItems} />
       <FAQsBlock faqs={faqs} />
       <CallToActionBlock
         title="The smarter way to stay on top of tech"

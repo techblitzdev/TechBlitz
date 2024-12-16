@@ -2,7 +2,15 @@ import RoadmapFeatureBox from '@/components/marketing/homepage/features/roadmap-
 
 export default function RoadmapGridItemTwo() {
   return (
-    <div className="col-span-full md:col-span-6 pb-0 p-12 flex flex-col gap-10">
+    <div className="col-span-full md:col-span-6 pb-0 p-12 flex flex-col gap-10 relative">
+      <div
+        aria-hidden="true"
+        className="block md:hidden left-1/2 top-0 !w-full center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2"
+        style={{
+          background:
+            'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)'
+        }}
+      ></div>
       {/** top content */}
       <div className="flex flex-col gap-2.5">
         <h3 className="text-3xl text-gradient from-white to-white/75">

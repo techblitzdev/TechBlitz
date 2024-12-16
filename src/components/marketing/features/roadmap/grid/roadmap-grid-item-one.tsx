@@ -51,7 +51,7 @@ export default function RoadmapGridItemOne() {
   }, []);
 
   return (
-    <div className="relative col-span-full md:col-span-6 p-12 flex flex-col gap-10">
+    <div className="relative col-span-full md:col-span-6 pb-0 md:pn-12 p-12 flex flex-col gap-10">
       <div className="flex flex-col gap-2.5">
         <h3 className="text-3xl text-gradient from-white to-white/75">
           Analyze your skills

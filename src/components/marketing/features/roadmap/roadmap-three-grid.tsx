@@ -36,8 +36,8 @@ export default function FeatureRoadmapThreeGridBlock() {
         description={description()}
       />
       {/** demo video */}
-      <div className="grid grid-cols-12 gap-10 w-full max-w-5xl self-center">
-        <div className="w-full h-[35rem] rounded-lg col-span-full">
+      <div className="lg:grid lggrid-cols-12 gap-10 w-full max-w-5xl self-center">
+        <div className="w-full lg:h-[35rem] rounded-lg lg:col-span-full">
           <HomepageHeroImages
             imageSrc={RoadmapImg}
             videoSrc={roadmapIframe}
@@ -49,7 +49,7 @@ export default function FeatureRoadmapThreeGridBlock() {
       <div className="grid grid-cols-12 gap-10 max-w-5xl self-center relative">
         <div
           aria-hidden="true"
-          className="left-1/2 top-0 md:w-full center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2"
+          className="left-1/2 top-0 w-full center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2"
           style={{
             background:
               'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)'

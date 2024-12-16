@@ -1,8 +1,10 @@
 'use client';
-import { FileIcon } from 'lucide-react';
+
+import { FileIcon, CopyIcon, CheckIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { codeToHtml } from 'shiki';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface CodeComparisonProps {
   beforeCode: string;
@@ -24,6 +26,7 @@ export default function CodeComparison({
   const { theme, systemTheme } = useTheme();
   const [highlightedBefore, setHighlightedBefore] = useState('');
   const [highlightedAfter, setHighlightedAfter] = useState('');
+  const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
     const currentTheme = theme === 'system' ? systemTheme : theme;
@@ -53,6 +56,13 @@ export default function CodeComparison({
     darkTheme
   ]);
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(afterCode).then(() => {
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    });
+  };
+
   const renderCode = (code: string, highlighted: string) => {
     if (highlighted) {
       return (
@@ -69,6 +79,7 @@ export default function CodeComparison({
       );
     }
   };
+
   return (
     <div className="mx-auto w-full max-w-5xl">
       <div className="relative w-full overflow-hidden rounded-xl border border-black-50">
@@ -88,14 +99,50 @@ export default function CodeComparison({
           </div>
           <div>
             <div
-              className="flex items-center border-t border-black-50 md:border-none p-3 text-sm text-foreground"
+              className="flex items-center border-t border-black-50 md:border-none p-3 text-sm text-foreground justify-between"
               style={{
                 background:
                   'radial-gradient(128% 107% at 50% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
               }}
             >
-              <FileIcon className="mr-2 h-4 w-4" />
-              <span className="font-medium font-onest">techblitz</span>
+              <div className="flex items-center">
+                <FileIcon className="mr-2 h-4 w-4" />
+                <span className="font-medium font-onest">techblitz</span>
+              </div>
+              <motion.div
+                className="relative flex items-center cursor-pointer"
+                onClick={handleCopy}
+                title="Copy code"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <AnimatePresence
+                  mode="wait"
+                  initial={false}
+                >
+                  {isCopied ? (
+                    <motion.div
+                      key="check"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <CheckIcon className="h-4 w-4 text-green-500" />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="copy"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <CopyIcon className="h-4 w-4 text-white" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             </div>
             {renderCode(afterCode, highlightedAfter)}
           </div>

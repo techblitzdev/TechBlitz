@@ -63,6 +63,10 @@ const footerItems = [
 // just three itemss with no header
 const productionFooterItems = [
   {
+    title: 'Roadmaps',
+    link: '/features/roadmaps'
+  },
+  {
     title: 'Pricing',
     link: '/pricing'
   },
@@ -146,7 +150,7 @@ export default function MarketingFooter() {
                       <li>
                         <Link
                           href={item.link}
-                          className="hover:text-accent duration-300 hover:cursor-pointer"
+                          className="hover:text-accent duration-300 hover:cursor-pointer font-onest"
                         >
                           {item.title}
                         </Link>

@@ -7,15 +7,32 @@ import { Separator } from '../../ui/separator';
 
 const footerItems = [
   {
-    title: 'Platform',
+    title: 'Features',
     links: [
       {
-        title: 'Features',
-        href: '/features'
+        title: 'Roadmaps',
+        href: '/features/roadmaps'
       },
       {
-        title: 'How it works',
-        href: '/integrations'
+        title: 'Challenges',
+        href: '/features/challenges'
+      },
+      {
+        title: '',
+        href: '/features/projects'
+      },
+      {
+        title: 'Leaderboard',
+        href: '/features/leaderboard'
+      }
+    ]
+  },
+  {
+    title: 'Resources',
+    links: [
+      {
+        title: 'Changelog',
+        href: '/changelog'
       },
       {
         title: 'FAQs',
@@ -29,10 +46,6 @@ const footerItems = [
       {
         title: 'Plans',
         href: '/pricing'
-      },
-      {
-        title: 'Education',
-        href: '/education'
       }
     ]
   },
@@ -41,7 +54,7 @@ const footerItems = [
     links: [
       {
         title: 'Contact Us',
-        href: '/contact'
+        href: 'mailto:team@techblitz.dev'
       }
     ]
   }

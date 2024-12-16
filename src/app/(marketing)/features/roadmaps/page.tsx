@@ -8,7 +8,20 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Roadmaps | techblitz',
   description:
-    'Create your own progression path with our AI powered roadmaps, designed to help you grow as a developer.'
+    'Create your own progression path with our AI powered roadmaps, designed to help you grow as a developer.',
+  keywords: [
+    'roadmaps',
+    'techblitz',
+    'ai',
+    'coding',
+    'programming',
+    'software engineering',
+    'developer',
+    'javascript',
+    'learn to code',
+    'coding course',
+    'coding bootcamp'
+  ]
 };
 
 const faqs = [

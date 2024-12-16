@@ -2,7 +2,7 @@ import RoadmapFeatureBox from '@/components/marketing/homepage/features/roadmap-
 
 export default function RoadmapGridItemTwo() {
   return (
-    <div className="col-span-full md:col-span-6 pb-0 p-12 flex flex-col gap-10 relative">
+    <div className="col-span-full md:col-span-6 pt-4 p-0 md:p-12 flex flex-col gap-10 relative">
       <div
         aria-hidden="true"
         className="block md:hidden left-1/2 top-0 !w-full center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2"

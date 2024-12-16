@@ -36,7 +36,7 @@ export default function FeatureRoadmapThreeGridBlock() {
         description={description()}
       />
       {/** demo video */}
-      <div className="lg:grid lggrid-cols-12 gap-10 w-full max-w-5xl self-center">
+      <div className="lg:grid lg:grid-cols-12 gap-10 w-full max-w-5xl self-center">
         <div className="w-full lg:h-[35rem] rounded-lg lg:col-span-full">
           <HomepageHeroImages
             imageSrc={RoadmapImg}
@@ -46,7 +46,7 @@ export default function FeatureRoadmapThreeGridBlock() {
           />
         </div>
       </div>
-      <div className="grid grid-cols-12 gap-10 max-w-5xl self-center relative">
+      <div className="grid grid-cols-3 lg:grid-cols-12 gap-10 max-w-5xl self-center relative">
         <div
           aria-hidden="true"
           className="left-1/2 top-0 w-full center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2"

@@ -1,7 +1,8 @@
 import FeatureRoadmapHeroBlock from '@/components/marketing/features/roadmap/roadmap-hero';
+import FeatureRoadmapIntegrationBlock from '@/components/marketing/features/roadmap/roadmap-integration';
+import FeatureRoadmapThreeGridBlock from '@/components/marketing/features/roadmap/roadmap-three-grid';
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 import FAQsBlock from '@/components/marketing/global/faqs';
-import HomepageLargeText from '@/components/marketing/large-text';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -88,7 +89,8 @@ export default function FeatureDailyQuestionPage() {
   return (
     <div className="container">
       <FeatureRoadmapHeroBlock />
-
+      <FeatureRoadmapIntegrationBlock />
+      <FeatureRoadmapThreeGridBlock />
       <FAQsBlock faqs={faqs} />
       <CallToActionBlock
         title="The smarter way to stay on top of tech"

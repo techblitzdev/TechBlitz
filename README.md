@@ -2,7 +2,7 @@
 
 TechBlitz is an open-source LeetCode alternative to help developers of all abilities stay on top of their tech stack.
 
-## 🚀 Overview
+## Overview
 
 TechBlitz is designed to empower developers at all skill levels by providing a comprehensive platform for learning, practicing, and improving technical skills. Unlike traditional coding platforms, we focus on holistic developer growth across various technologies and skill levels, without taking your hours to complete.
 

@@ -79,6 +79,7 @@ export default function RoadmapQuestionCard(opts: {
               variant="accent"
               className="size-10"
               padding="none"
+              aria-label="View question details"
             >
               <ArrowUpRight className="size-5 group-hover:rotate-45 duration-300" />
             </Button>

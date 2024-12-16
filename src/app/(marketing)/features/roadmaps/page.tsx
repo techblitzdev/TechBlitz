@@ -10,10 +10,13 @@ import MarketingContentGrid, {
 import { Code, Globe, MessageSquareCode, Paintbrush, User } from 'lucide-react';
 import { MobileIcon } from '@radix-ui/react-icons';
 
+const title = 'Roadmaps | techblitz';
+const description =
+  'Create your own progression path with our AI powered roadmaps, designed to help you grow as a developer.';
+
 export const metadata: Metadata = {
-  title: 'Roadmaps | techblitz',
-  description:
-    'Create your own progression path with our AI powered roadmaps, designed to help you grow as a developer.',
+  title,
+  description,
   keywords: [
     'roadmaps',
     'techblitz',
@@ -26,7 +29,35 @@ export const metadata: Metadata = {
     'learn to code',
     'coding course',
     'coding bootcamp'
-  ]
+  ],
+  openGraph: {
+    title,
+    description,
+    type: 'website',
+    url: 'https://techblitz.dev/features/roadmaps',
+    images: {
+      url: 'https://opengraph.b-cdn.net/production/images/93407e33-6a2b-466f-bd37-9e26677c5eb9.png?token=A1xhBmAdOrsarLLyJymgReFPhvXPSjA49YgOsZOdzs0&height=408&width=1200&expires=33270387134',
+      width: 800,
+      height: 630,
+      alt: description
+    }
+  },
+  twitter: {
+    title,
+    description,
+    images: [
+      {
+        url: 'https://opengraph.b-cdn.net/production/images/93407e33-6a2b-466f-bd37-9e26677c5eb9.png?token=A1xhBmAdOrsarLLyJymgReFPhvXPSjA49YgOsZOdzs0&height=408&width=1200&expires=33270387134',
+        width: 800,
+        height: 630,
+        alt: description
+      }
+    ]
+  },
+  robots: {
+    index: true,
+    follow: true
+  }
 };
 
 const faqs = [

@@ -43,43 +43,45 @@ export function NavigationMenuItems() {
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Features</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-[.75fr_1fr]">
-              <ListItem
-                href="/features/roadmaps"
-                title="Roadmaps"
-              >
-                AI-powered paths to accelerate your learning journey.
-              </ListItem>
-              <ListItem
-                href="/features/daily-challenges"
-                title="Daily Questions"
-              >
-                Tackle daily challenges to sharpen your developer skills.
-              </ListItem>
-              <ListItem
-                href="/features/leaderboards"
-                title="Leaderboards"
-              >
-                Compete with friends and rise to the top.
-              </ListItem>
-              <ListItem
-                href="/features/"
-                title="Statistics"
-              >
-                Gain insights and track your growth over time.
-              </ListItem>
-              <ListItem
-                href="/features/daily-questions"
-                title="Questions"
-              >
-                Go beyond interviews — master real-world development.
-              </ListItem>
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
+        {process.env.NEXT_PUBLIC_ENV === 'development' && (
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Features</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-[.75fr_1fr]">
+                <ListItem
+                  href="/features/roadmaps"
+                  title="Roadmaps"
+                >
+                  AI-powered paths to accelerate your learning journey.
+                </ListItem>
+                <ListItem
+                  href="/features/daily-challenges"
+                  title="Daily Questions"
+                >
+                  Tackle daily challenges to sharpen your developer skills.
+                </ListItem>
+                <ListItem
+                  href="/features/leaderboards"
+                  title="Leaderboards"
+                >
+                  Compete with friends and rise to the top.
+                </ListItem>
+                <ListItem
+                  href="/features/"
+                  title="Statistics"
+                >
+                  Gain insights and track your growth over time.
+                </ListItem>
+                <ListItem
+                  href="/features/daily-questions"
+                  title="Questions"
+                >
+                  Go beyond interviews — master real-world development.
+                </ListItem>
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        )}
         {/** hide on production for now */}
         {process.env.NEXT_PUBLIC_ENV === 'development' && (
           <NavigationMenuItem>
@@ -99,6 +101,18 @@ export function NavigationMenuItems() {
             </NavigationMenuContent>
           </NavigationMenuItem>
         )}
+        <NavigationMenuItem>
+          <Link
+            href="/features/roadmaps"
+            legacyBehavior
+            passHref
+            className="!text-white focus:!text-white"
+          >
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Roadmaps
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
         <NavigationMenuItem>
           <Link
             href="/pricing"

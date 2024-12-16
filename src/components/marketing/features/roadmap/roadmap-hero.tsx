@@ -13,28 +13,33 @@ export default function FeatureRoadmapHeroBlock() {
           Personalized Coding <br /> Roadmaps
         </h1>
         <p className="text-gray-400 max-w-xl text-center text-sm md:text-base font-onest">
-          Create personalized learning paths with our AI-driven roadmap
-          functionality to master skills and advance your career as a software
-          engineer.
+          Unlock your potential as a software engineer with personalized
+          learning paths. Our roadmap functionality helps you master essential
+          skills and advance your career in the tech industry.
         </p>
         <div className="mt-2 flex gap-4">
-          <Button variant="default">
+          <Button
+            variant="default"
+            href="#roadmap-customization"
+          >
             Learn more
             <ArrowDown
               size={16}
               className="ml-2"
             />
           </Button>
-          <Button
-            href="/signup?src=features-roadmap"
-            className="font-onest !bg-gradient-to-r !from-accent !via-accent/70 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
-          >
-            Try it now
-            <ChevronRight
-              size={16}
-              className="ml-2"
-            />
-          </Button>
+          {process.env.NEXT_PUBLIC_ENV === 'development' && (
+            <Button
+              href="/signup?src=features-roadmap"
+              className="font-onest !bg-gradient-to-r !from-accent !via-accent/70 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+            >
+              Try it now
+              <ChevronRight
+                size={16}
+                className="ml-2"
+              />
+            </Button>
+          )}
         </div>
       </div>
       <GridPattern

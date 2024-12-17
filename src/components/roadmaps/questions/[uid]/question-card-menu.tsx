@@ -12,7 +12,7 @@ import { MoreHorizontal } from 'lucide-react';
 export default function RoadmapQuestionCardMenu() {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
           padding="none"

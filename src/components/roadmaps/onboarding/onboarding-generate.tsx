@@ -1,4 +1,4 @@
-import { roadmapGenerate } from '@/actions/ai/generate';
+import { roadmapGenerate } from '@/actions/ai/roadmap/generate';
 import Link from 'next/link';
 
 export default async function RoadmapGenerateButton({

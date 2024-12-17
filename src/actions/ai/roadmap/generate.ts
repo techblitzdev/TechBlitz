@@ -1,11 +1,12 @@
 'use server';
 import { prisma } from '@/utils/prisma';
 import { generateDataForAi } from './get-question-data-for-gen';
-import { addUidsToResponse } from './utils/add-uids-to-response';
-import { addOrderToResponseQuestions } from './utils/add-order-to-response-questions';
+import { addUidsToResponse } from '../utils/add-uids-to-response';
+import { addOrderToResponseQuestions } from '../utils/add-order-to-response-questions';
 import { fetchRoadmapQuestions } from '@/actions/roadmap/questions/fetch-roadmap-questions';
-import { generateRoadmapResponse } from './utils/generate-question';
+import { generateRoadmapResponse } from '../utils/generate-question';
 import { revalidateTag } from 'next/cache';
+import { QuestionDifficulty } from '@/types/Questions';
 
 export const roadmapGenerate = async (opts: {
   roadmapUid: string;
@@ -40,24 +41,45 @@ export const roadmapGenerate = async (opts: {
   );
 
   // Prepare database operations in a transaction
-  const roadmapQuestionsData = questionsWithOrder.map((question: any) => ({
-    uid: question.uid,
-    roadmapUid: opts.roadmapUid,
-    question: question.questions,
-    correctAnswerUid: question.correctAnswerUid,
-    codeSnippet: question.codeSnippet,
-    hint: question.hint,
-    completed: false,
-    order: question.order,
-    difficulty: question.difficulty.toUpperCase() || 'EASY',
+  interface RoadmapQuestion {
+    uid: string;
+    roadmapUid: string;
+    question: string;
+    correctAnswerUid: string;
+    codeSnippet: string;
+    hint: string;
+    completed: boolean;
+    order: number;
+    difficulty: QuestionDifficulty;
     RoadmapUserQuestionsAnswers: {
-      create: question.answers.map((answer: any) => ({
-        answer: answer.answer,
-        correct: answer.correct,
-        uid: answer.uid
-      }))
-    }
-  }));
+      create: {
+        answer: string;
+        correct: boolean;
+        uid: string;
+      }[];
+    };
+  }
+
+  const roadmapQuestionsData: RoadmapQuestion[] = questionsWithOrder.map(
+    (question: any) => ({
+      uid: question.uid,
+      roadmapUid: opts.roadmapUid,
+      question: question.questions,
+      correctAnswerUid: question.correctAnswerUid,
+      codeSnippet: question.codeSnippet,
+      hint: question.hint,
+      completed: false,
+      order: question.order,
+      difficulty: question.difficulty.toUpperCase() || 'EASY',
+      RoadmapUserQuestionsAnswers: {
+        create: question.answers.map((answer: any) => ({
+          answer: answer.answer,
+          correct: answer.correct,
+          uid: answer.uid
+        }))
+      }
+    })
+  );
 
   await prisma.$transaction([
     prisma.roadmapUserQuestions.createMany({

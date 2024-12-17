@@ -80,25 +80,6 @@ export function NavigationMenuItems() {
             </NavigationMenuContent>
           </NavigationMenuItem>
         )}
-        {/** hide on production for now */}
-        {process.env.NEXT_PUBLIC_ENV === 'development' && (
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                {components.map((component) => (
-                  <ListItem
-                    key={component.title}
-                    title={component.title}
-                    href={component.href}
-                  >
-                    {component.description}
-                  </ListItem>
-                ))}
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-        )}
         {process.env.NEXT_PUBLIC_ENV === 'production' && (
           <NavigationMenuItem>
             <Link
@@ -113,6 +94,22 @@ export function NavigationMenuItems() {
             </Link>
           </NavigationMenuItem>
         )}
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+              {components.map((component) => (
+                <ListItem
+                  key={component.title}
+                  title={component.title}
+                  href={component.href}
+                >
+                  {component.description}
+                </ListItem>
+              ))}
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
         <NavigationMenuItem>
           <Link
             href="/pricing"

@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { ChevronRight, Star } from 'lucide-react';
 import OpenSourceCard from './open-source-card';
 import CommitCard from './commit-card';
+import Link from 'next/link';
 
 type cardStyle = 'comment' | 'issue' | 'pr';
 type ActionType = 'contributor' | 'comment' | 'owner' | 'issue' | 'author';
@@ -21,7 +22,11 @@ type CommitCardType = {
 
 type GithubCardType = GithubCard | CommitCardType;
 
-export default function OpenSourceBlock() {
+export default function OpenSourceBlock(opts: {
+  linkToInternalPage?: boolean;
+}) {
+  const { linkToInternalPage = false } = opts;
+
   const githubCards: GithubCardType[] = [
     {
       contributorName: 'Anonymous Contributor (you)',
@@ -64,19 +69,29 @@ export default function OpenSourceBlock() {
           We believe in transparency and sharing knowledge. That’s why we
           open-sourced our platform and share our learnings with the community.
         </p>
-        <a
-          href="https://github.com/logannford/TechBlitz/"
-          target="_blank"
-          className="w-fit"
-        >
-          <Button
-            variant="secondary"
-            className="w-fit flex gap-x-1"
+        <div className="flex gap-4">
+          {linkToInternalPage && (
+            <Button
+              href="/open-source"
+              variant="default"
+            >
+              Learn More
+            </Button>
+          )}
+          <Link
+            href="https://github.com/logannford/TechBlitz/"
+            target="_blank"
+            className="w-fit"
           >
-            <Star className="size-5 text-yellow-400 fill-yellow-300" />
-            on GitHub!
-          </Button>
-        </a>
+            <Button
+              variant="secondary"
+              className="w-fit flex gap-x-1"
+            >
+              <Star className="size-5 text-yellow-400 fill-yellow-300" />
+              on GitHub!
+            </Button>
+          </Link>
+        </div>
       </div>
       {/** illustration / GH card area */}
       <div className="col-span-full lg:col-span-7 relative overflow-y-clip h-80 lg:h-auto lg:max-h-[450px] lg:[transform:perspective(4101px)_rotateX(47deg)_rotateY(-13deg)_rotateZ(31deg)] top-8 duration-700">

@@ -26,7 +26,7 @@ export default function FeaturesBentoGrid() {
           We make Software engineering easy{' '}
         </h1>
         <span className="text-sm md:text-base text-gray-400 max-w-3xl">
-          Elevate your coding skills with TechBlitz: AI-powered learning paths,
+          Elevate your coding skills with TechBlitz: AI-powered coding roadmaps,
           daily challenges, competitive leaderboards, and a vast question bank
           tackling real-world software problems. Your all-in-one platform for
           continuous growth and career advancement in tech.

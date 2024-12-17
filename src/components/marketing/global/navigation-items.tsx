@@ -1,5 +1,4 @@
 'use client';
-
 import * as React from 'react';
 import Link from 'next/link';
 
@@ -13,25 +12,24 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle
 } from '@/components/ui/navigation-menu';
-import { usePathname } from 'next/navigation';
 
 const components: { title: string; href: string; description: string }[] = [
-  {
-    title: 'Roadmap',
-    href: '/roadmap',
-    description:
-      'View our upcoming features and vote on what you would like to see next.'
-  },
+  // {
+  //   title: 'Roadmap',
+  //   href: '',
+  //   description:
+  //     'View our upcoming features and vote on what you would like to see next.'
+  // },
   {
     title: 'Open Source',
     href: '/open-source',
     description: 'No secrets here, see how we build our platform.'
   },
-  {
-    title: 'Changelog',
-    href: '/changelog',
-    description: 'Stay up to date with the latest changes to techblitz.'
-  },
+  // {
+  //   title: 'Changelog',
+  //   href: '/changelog',
+  //   description: 'Stay up to date with the latest changes to techblitz.'
+  // },
   {
     title: 'FAQs',
     href: '/faqs',
@@ -101,18 +99,20 @@ export function NavigationMenuItems() {
             </NavigationMenuContent>
           </NavigationMenuItem>
         )}
-        <NavigationMenuItem>
-          <Link
-            href="/features/roadmaps"
-            legacyBehavior
-            passHref
-            className="!text-white focus:!text-white"
-          >
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Roadmaps
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
+        {process.env.NEXT_PUBLIC_ENV === 'production' && (
+          <NavigationMenuItem>
+            <Link
+              href="/features/roadmaps"
+              legacyBehavior
+              passHref
+              className="!text-white focus:!text-white"
+            >
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Roadmaps
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+        )}
         <NavigationMenuItem>
           <Link
             href="/pricing"
@@ -122,17 +122,6 @@ export function NavigationMenuItems() {
           >
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Pricing
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link
-            href="/faqs"
-            legacyBehavior
-            passHref
-          >
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              FAQs
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>

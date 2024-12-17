@@ -1,11 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { HamburgerMenuIcon, Cross1Icon } from '@radix-ui/react-icons';
 import { ArrowRight } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 interface MobileMenuProps {
   isLoggedIn: boolean;
@@ -14,6 +15,12 @@ interface MobileMenuProps {
 
 export function MobileMenu({ isLoggedIn, isDevelopment }: MobileMenuProps) {
   const [isOpen, setIsOpen] = React.useState(false);
+  const pathname = usePathname();
+
+  // Close menu when route changes
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
     <Sheet
@@ -48,6 +55,14 @@ export function MobileMenu({ isLoggedIn, isDevelopment }: MobileMenuProps) {
           </div>
           <nav className="">
             <ul className="flex flex-col space-y-4 py-4 text-2xl font-medium">
+              <li>
+                <Link
+                  href="/features/roadmaps"
+                  className="hover:text-accent duration-300"
+                >
+                  Roadmap
+                </Link>
+              </li>
               <li>
                 <Link
                   href="/faqs"

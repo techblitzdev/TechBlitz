@@ -31,8 +31,8 @@ const footerItems = [
     title: 'Resources',
     links: [
       {
-        title: 'Changelog',
-        href: '/changelog'
+        title: 'Roadmap',
+        href: '/roadmap'
       },
       {
         title: 'FAQs',

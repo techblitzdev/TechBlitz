@@ -9,7 +9,7 @@ import RoadmapImg from '../../../../public/images/roadmap.png';
 const description = () => {
   return (
     <span>
-      But how are we able to create you personalised, real-world applicable
+      But how are we able to create your personalised, real-world applicable
       roadmaps that can be completed from any device? It's a secret! (Just
       kidding, here's the{' '}
       <Link

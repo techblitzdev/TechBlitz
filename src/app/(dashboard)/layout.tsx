@@ -18,7 +18,7 @@ import { createTheme, MantineProvider } from '@mantine/core';
 // All packages except `@mantine/hooks` require styles imports
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
-import { StarsBackground } from '@/components/ui/stars-background';
+import dynamic from 'next/dynamic';
 import NextTopLoader from 'nextjs-toploader';
 
 export const metadata: Metadata = {

@@ -3,7 +3,7 @@ import { prisma } from '@/utils/prisma';
 import { revalidateTag } from 'next/cache';
 import { getUserFromSession } from '../user/authed/get-user';
 
-export async function deleteRoadmap(roadmapUid: string) {
+export const deleteRoadmap = async (roadmapUid: string) => {
   // get the current user
   const user = await getUserFromSession();
 
@@ -25,4 +25,4 @@ export async function deleteRoadmap(roadmapUid: string) {
   revalidateTag('roadmaps');
 
   return roadmap;
-}
+};

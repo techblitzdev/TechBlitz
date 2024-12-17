@@ -33,7 +33,7 @@ export default function RoadmapDropdown(opts: { roadmapUid: string }) {
   };
 
   const handleRoadmapDelete = async () => {
-    await deleteRoadmap(opts.roadmapUid, user.uid);
+    await deleteRoadmap(opts.roadmapUid);
     // redirect to the roadmaps page
     router.push('/roadmaps');
   };

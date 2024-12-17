@@ -220,7 +220,7 @@ const userRoadmapsFaqs = [
 export default function FAQsPage() {
   return (
     <div className="pt-32 pb-24 md:pb-20 md:pt-32 xl:pt-40 xl:pb-32">
-      <section className="pb-36 relative">
+      <section className="pb-36 relative px-4 lg:px-0">
         <div className="mt-28 z-10 absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#000] to-transparent pointer-events-none"></div>
 
         <div className="flex flex-col gap-y-3 items-center z-20 relative">

@@ -35,7 +35,7 @@ export default function FeaturesBentoGrid() {
       <div className="min-h-[1400px] md:min-h-[1000px] lg:min-h-[700px] rounded-lg">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 bg-black-400 rounded-lg">
           <Link
-            href={isProd ? '' : '/features/roadmap'}
+            href={'/features/roadmap'}
             className={cn(
               'h-80 col-span-full lg:col-span-2 relative overflow-hidden group flex flex-col sm:flex-row gap-5',
               cardClasses

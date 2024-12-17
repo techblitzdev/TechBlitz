@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1
     },
     {
-      url: `${baseUrl}/features/roadmaps`,
+      url: `${baseUrl}/features/roadmap`,
       lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 0.9

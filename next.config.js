@@ -14,6 +14,15 @@ module.exports = {
       }
     ]
   },
+  async redirects() {
+    return [
+      {
+        source: '/features/roadmaps',
+        destination: '/features/roadmap',
+        permanent: true
+      }
+    ];
+  },
   async headers() {
     return [
       {

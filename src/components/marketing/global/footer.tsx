@@ -11,7 +11,7 @@ const footerItems = [
     links: [
       {
         title: 'Roadmaps',
-        href: '/features/roadmaps'
+        href: '/features/roadmap'
       }
       // {
       //   title: 'Challenges',

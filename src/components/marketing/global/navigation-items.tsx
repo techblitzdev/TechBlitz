@@ -47,7 +47,7 @@ export function NavigationMenuItems() {
             <NavigationMenuContent>
               <ul className="grid p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-[.75fr_1fr]">
                 <ListItem
-                  href="/features/roadmaps"
+                  href="/features/roadmap"
                   title="Roadmaps"
                 >
                   AI-powered paths to accelerate your learning journey.
@@ -83,7 +83,7 @@ export function NavigationMenuItems() {
         {process.env.NEXT_PUBLIC_ENV === 'production' && (
           <NavigationMenuItem>
             <Link
-              href="/features/roadmaps"
+              href="/features/roadmap"
               legacyBehavior
               passHref
               className="!text-white focus:!text-white"

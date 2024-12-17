@@ -20,6 +20,7 @@ import MarketingNavigation from '@/components/marketing/global/navigation';
 import MarketingFooter from '@/components/marketing/global/footer';
 
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/react';
 
 const title =
   'techblitz | The all-in-one platform for learning software engineering';
@@ -98,6 +99,7 @@ export default function Layout({
             </CSPostHogProvider>
           </main>
           <SpeedInsights />
+          <Analytics />
           <Toaster className="bg-black" />
         </body>
       </html>

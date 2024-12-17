@@ -1,12 +1,10 @@
 'use client';
-
 import { generateNewRoadmapQuestion } from '@/actions/ai/roadmap/questions/generate-new';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { MoreHorizontal, StarsIcon, Trash2 } from 'lucide-react';

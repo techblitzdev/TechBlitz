@@ -1,5 +1,4 @@
 'use client';
-
 import * as React from 'react';
 import Link from 'next/link';
 
@@ -13,25 +12,24 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle
 } from '@/components/ui/navigation-menu';
-import { usePathname } from 'next/navigation';
 
 const components: { title: string; href: string; description: string }[] = [
-  {
-    title: 'Roadmap',
-    href: '/roadmap',
-    description:
-      'View our upcoming features and vote on what you would like to see next.'
-  },
+  // {
+  //   title: 'Roadmap',
+  //   href: '',
+  //   description:
+  //     'View our upcoming features and vote on what you would like to see next.'
+  // },
   {
     title: 'Open Source',
     href: '/open-source',
     description: 'No secrets here, see how we build our platform.'
   },
-  {
-    title: 'Changelog',
-    href: '/changelog',
-    description: 'Stay up to date with the latest changes to techblitz.'
-  },
+  // {
+  //   title: 'Changelog',
+  //   href: '/changelog',
+  //   description: 'Stay up to date with the latest changes to techblitz.'
+  // },
   {
     title: 'FAQs',
     href: '/faqs',
@@ -82,36 +80,35 @@ export function NavigationMenuItems() {
             </NavigationMenuContent>
           </NavigationMenuItem>
         )}
-        {/** hide on production for now */}
-        {process.env.NEXT_PUBLIC_ENV === 'development' && (
+        {process.env.NEXT_PUBLIC_ENV === 'production' && (
           <NavigationMenuItem>
-            <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                {components.map((component) => (
-                  <ListItem
-                    key={component.title}
-                    title={component.title}
-                    href={component.href}
-                  >
-                    {component.description}
-                  </ListItem>
-                ))}
-              </ul>
-            </NavigationMenuContent>
+            <Link
+              href="/features/roadmaps"
+              legacyBehavior
+              passHref
+              className="!text-white focus:!text-white"
+            >
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Roadmaps
+              </NavigationMenuLink>
+            </Link>
           </NavigationMenuItem>
         )}
         <NavigationMenuItem>
-          <Link
-            href="/features/roadmaps"
-            legacyBehavior
-            passHref
-            className="!text-white focus:!text-white"
-          >
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Roadmaps
-            </NavigationMenuLink>
-          </Link>
+          <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+              {components.map((component) => (
+                <ListItem
+                  key={component.title}
+                  title={component.title}
+                  href={component.href}
+                >
+                  {component.description}
+                </ListItem>
+              ))}
+            </ul>
+          </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Link
@@ -122,17 +119,6 @@ export function NavigationMenuItems() {
           >
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Pricing
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link
-            href="/faqs"
-            legacyBehavior
-            passHref
-          >
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              FAQs
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>

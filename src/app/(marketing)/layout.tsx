@@ -15,12 +15,7 @@ import { createTheme, MantineProvider } from '@mantine/core';
 // All packages except `@mantine/hooks` require styles imports
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
-import dynamic from 'next/dynamic';
-
-const StarsBackground = dynamic(
-  () => import('../../components/ui/stars-background')
-);
-
+import StarsBackground from '@/components/ui/stars-background';
 import MarketingNavigation from '@/components/marketing/global/navigation';
 
 import MarketingFooter from '@/components/marketing/global/footer';

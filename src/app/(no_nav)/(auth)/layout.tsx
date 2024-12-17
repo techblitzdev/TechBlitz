@@ -1,11 +1,6 @@
 import Logo from '@/components/ui/logo';
-import dynamic from 'next/dynamic';
-
-const StarsBackground = dynamic(
-  () => import('../../../components/ui/stars-background')
-);
+import StarsBackground from '@/components/ui/stars-background';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 
 export default function AuthLayout({
   children

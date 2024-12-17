@@ -1,9 +1,6 @@
 import Logo from '@/components/ui/logo';
-import dynamic from 'next/dynamic';
+import StarsBackground from '@/components/ui/stars-background';
 
-const StarsBackground = dynamic(
-  () => import('../../../components/ui/stars-background')
-);
 import Link from 'next/link';
 import { UserOnboardingContextProvider } from '@/components/onboarding/onboarding-context';
 import OnboardingForm from '@/components/onboarding/onboarding-form';

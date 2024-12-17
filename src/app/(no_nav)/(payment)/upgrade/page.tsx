@@ -4,11 +4,7 @@ import { PricingCard } from '@/components/payment/payment-card';
 import { X } from 'lucide-react';
 import Link from 'next/link';
 import { useUserServer } from '@/hooks/useUserServer';
-import dynamic from 'next/dynamic';
-
-const StarsBackground = dynamic(
-  () => import('../../../../components/ui/stars-background')
-);
+import StarsBackground from '@/components/ui/stars-background';
 
 export default async function UpgradePage() {
   // get the products

@@ -40,7 +40,7 @@ export default function CodeSnippet({
     highlightCode();
   }, [theme, systemTheme, code, language, lightTheme, darkTheme]);
 
-  const handleCopy = (e: Event) => {
+  const handleCopy = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     navigator.clipboard.writeText(code).then(() => {
       setIsCopied(true);

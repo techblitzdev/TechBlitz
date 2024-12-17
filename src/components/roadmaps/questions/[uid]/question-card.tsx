@@ -1,11 +1,10 @@
 import Chip from '@/components/ui/chip';
-import { Button } from '@/components/ui/button';
-import { Grid } from '@/components/ui/grid';
 import { RoadmapUserQuestions } from '@/types/Roadmap';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import { cn } from '@/utils/cn';
-import { ArrowUpRight, Check, X } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 import Link from 'next/link';
+import RoadmapQuestionCardMenu from './question-card-menu';
 
 export default function RoadmapQuestionCard(opts: {
   question: Partial<RoadmapUserQuestions>;
@@ -75,14 +74,15 @@ export default function RoadmapQuestionCard(opts: {
             <h6 className="text-base text-wrap text-start">
               {question.question}
             </h6>
-            <Button
+            {/* <Button
               variant="accent"
               className="size-10"
               padding="none"
               aria-label="View question details"
             >
               <ArrowUpRight className="size-5 group-hover:rotate-45 duration-300" />
-            </Button>
+            </Button> */}
+            <RoadmapQuestionCardMenu />
           </div>
         </div>
 

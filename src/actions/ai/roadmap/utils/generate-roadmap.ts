@@ -2,7 +2,7 @@
 import { openai } from '@/lib/open-ai';
 import { zodResponseFormat } from 'openai/helpers/zod';
 import { aiQuestionSchema } from '@/lib/zod/schemas/ai/response';
-import type { ReturnType } from '../roadmap/get-question-data-for-gen';
+import type { ReturnType } from '../get-question-data-for-gen';
 
 export const generateRoadmapResponse = async (opts: {
   formattedData: ReturnType[];

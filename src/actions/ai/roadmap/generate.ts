@@ -1,10 +1,10 @@
 'use server';
 import { prisma } from '@/utils/prisma';
 import { generateDataForAi } from './get-question-data-for-gen';
-import { addUidsToResponse } from '../utils/add-uids-to-response';
-import { addOrderToResponseQuestions } from '../utils/add-order-to-response-questions';
+import { addUidsToResponse } from './utils/add-uids-to-response';
+import { addOrderToResponseQuestions } from './utils/add-order-to-response-questions';
 import { fetchRoadmapQuestions } from '@/actions/roadmap/questions/fetch-roadmap-questions';
-import { generateRoadmapResponse } from '../utils/generate-question';
+import { generateRoadmapResponse } from './utils/generate-roadmap';
 import { revalidateTag } from 'next/cache';
 import { QuestionDifficulty } from '@/types/Questions';
 

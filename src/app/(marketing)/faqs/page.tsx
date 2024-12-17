@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'Got a question? We have an answer.'
 };
 
-const faqs = [
+const commonFaqs = [
   {
     question: 'What is techblitz?',
     answer:
@@ -127,10 +127,128 @@ const faqs = [
   }
 ];
 
+const planFaqs = [
+  {
+    question: 'What is the difference between the free and paid plans?',
+    answer: (
+      <>
+        Our premium plans offer additional features and benefits, such as
+        <a
+          href="/features/roadmaps"
+          className="text-accent"
+        >
+          ai-powered roadmaps
+        </a>{' '}
+        , more in-depth analytics, priority support and early access to new
+        features.'
+      </>
+    )
+  },
+  {
+    question: 'How do I upgrade my plan?',
+    answer:
+      'You can upgrade your plan at any time by visiting your account settings.'
+  },
+  {
+    question: 'Can I cancel my plan at any time?',
+    answer:
+      'Yes, you can cancel your plan at any time. Your plan will remain active until the end of your billing cycle.'
+  },
+  {
+    question: 'What payment methods do you accept?',
+    answer: 'We accept all major credit and debit cards, as well as PayPal.'
+  },
+  {
+    question: 'Do you offer a discount for students plans?',
+    answer: (
+      <>
+        Yes, we offer a 50% discount for students. To claim your discount,
+        please email us at{' '}
+        <a
+          href="mailto:team@techblitz.dev"
+          className="text-accent"
+        >
+          team@techblitz.dev
+        </a>{' '}
+        using your student email address.
+      </>
+    )
+  }
+];
+
+const userRoadmapsFaqs = [
+  {
+    question: 'What are user roadmaps?',
+    answer:
+      'User roadmaps are personalized learning paths that help you build upon your existing skills and knowledge in coding.'
+  },
+  {
+    question: 'How do I create a user roadmap?',
+    answer:
+      'You can create a user roadmap by heading over to the roadmap page in your dashboard.'
+  },
+  {
+    question: 'Can I share my user roadmap with others?',
+    answer: (
+      <>
+        No, currently you cannot share your roadmap with other users. However,
+        we are working on adding this feature in the future. You can find our
+        roadmap{' '}
+        <a
+          href="https://github.com/users/Logannford/projects/5?pane=issue&itemId=91140395"
+          className="text-accent"
+          target="_blank"
+        >
+          here
+        </a>
+        .
+      </>
+    )
+  },
+  {
+    question: 'Can I create multiple user roadmaps?',
+    answer:
+      'Yes, you can create multiple user roadmaps to track different learning goals.'
+  },
+  {
+    question: 'Can I delete a user roadmap?',
+    answer:
+      'Yes, you can delete a user roadmap at any time by visiting your account settings.'
+  }
+];
+
 export default function FAQsPage() {
   return (
     <div className="pt-32 pb-24 md:pb-20 md:pt-32 xl:pt-40 xl:pb-32">
-      <FAQsBlock faqs={faqs} />
+      <section className="pb-36 relative">
+        <div className="mt-28 z-10 absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#000] to-transparent pointer-events-none"></div>
+
+        <div className="flex flex-col gap-y-3 items-center z-20 relative">
+          <h1 className="text-5xl lg:text-7xl !font-onest !font-medium tracking-tight text-gradient from-white to-white/75 text-center PY-1">
+            Frequently Asked Questions
+          </h1>
+          <p className="text-gray-400 max-w-xl text-center text-sm md:text-base font-onest">
+            Got a question? We have an answer. Here are some of the most
+            commonly asked questions about techblitz.
+          </p>
+        </div>
+      </section>
+      <div className="flex flex-col gap-y-10">
+        <FAQsBlock
+          title="Most commonly asked questions"
+          faqs={commonFaqs}
+        />
+        <FAQsBlock
+          title="Questions about our plans"
+          faqs={planFaqs}
+          showSpan={false}
+        />
+        <FAQsBlock
+          title="Coding Roadmaps"
+          faqs={userRoadmapsFaqs}
+          showSpan={false}
+        />
+      </div>
       <CallToActionBlock title="The smarter way to stay on top of tech" />
     </div>
   );

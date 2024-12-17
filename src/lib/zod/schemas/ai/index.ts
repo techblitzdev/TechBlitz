@@ -15,3 +15,11 @@ export const questionSchema = z.object({
   difficulty,
   answers: z.array(answerSchema)
 });
+
+export const singleQuestionSchema = z.object({
+  question: z.string(),
+  codeSnippet: z.string(),
+  hint: z.string(),
+  difficulty,
+  answers: z.array(answerSchema)
+});

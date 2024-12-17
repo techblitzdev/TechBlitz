@@ -329,3 +329,12 @@ model DefaultRoadmapQuestionsUsersAnswers {
   roadmapUid String
   roadmap    UserRoadmaps @relation(fields: [roadmapUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
 }
+
+model AIPrompts {
+  uid       String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  prompt String
+  name  String
+}

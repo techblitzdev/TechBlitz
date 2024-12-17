@@ -1,7 +1,7 @@
 'use client';
 import { UserRoadmaps } from '@/types/Roadmap';
 import { Button } from '../../ui/button';
-import { roadmapGenerate } from '@/actions/ai/generate';
+import { roadmapGenerate } from '@/actions/ai/roadmap/generate';
 import { forwardRef, useState } from 'react';
 
 const GenerateMoreQuestionsButton = forwardRef(

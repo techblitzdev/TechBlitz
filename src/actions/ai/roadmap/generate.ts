@@ -10,16 +10,30 @@ import { QuestionDifficulty } from '@/types/Questions';
 
 export const roadmapGenerate = async (opts: {
   roadmapUid: string;
+  // passed in the pass to generate data for ai + fetch questions
   userUid: string;
   generateMore?: boolean;
 }) => {
+  console.log('Generating roadmap:', opts.roadmapUid);
+  const { roadmapUid } = opts;
   opts.generateMore = opts.generateMore ?? false;
 
   // Retrieve and format the necessary data for AI
   const formattedData = await generateDataForAi(opts);
 
+  let existingQuestions = [];
   if (formattedData === 'generated' || formattedData === 'invalid') {
-    return fetchRoadmapQuestions(opts);
+    console.log('No data to generate roadmap');
+    existingQuestions = await fetchRoadmapQuestions({
+      roadmapUid,
+      userUid: opts.userUid
+    });
+
+    if (existingQuestions.length === 0) {
+      throw new Error('No questions found for the roadmap');
+    }
+
+    return existingQuestions;
   }
 
   // Request AI-generated questions
@@ -28,16 +42,18 @@ export const roadmapGenerate = async (opts: {
     throw new Error('AI response is missing content');
   }
 
+  const existingCount = await prisma.roadmapUserQuestions.count({
+    where: { roadmapUid }
+  });
+
   // Parse and process the AI response
   const formattedResponse = JSON.parse(response);
   const questions = addUidsToResponse(formattedResponse.questionData);
 
-  console.log('questions', questions);
-
   // add a order value to each question
   const questionsWithOrder = addOrderToResponseQuestions(
     questions,
-    opts.generateMore ? formattedData.length : 0
+    existingCount || 0
   );
 
   // Prepare database operations in a transaction
@@ -63,7 +79,7 @@ export const roadmapGenerate = async (opts: {
   const roadmapQuestionsData: RoadmapQuestion[] = questionsWithOrder.map(
     (question: any) => ({
       uid: question.uid,
-      roadmapUid: opts.roadmapUid,
+      roadmapUid: roadmapUid,
       question: question.questions,
       correctAnswerUid: question.correctAnswerUid,
       codeSnippet: question.codeSnippet,
@@ -100,7 +116,7 @@ export const roadmapGenerate = async (opts: {
     ),
     prisma.userRoadmaps.update({
       where: {
-        uid: opts.roadmapUid
+        uid: roadmapUid
       },
       data: {
         hasGeneratedRoadmap: true,
@@ -112,6 +128,8 @@ export const roadmapGenerate = async (opts: {
   ]);
 
   revalidateTag('roadmap-data');
+
+  console.log('Generated roadmap:', roadmapUid);
 
   return 'generated';
 };

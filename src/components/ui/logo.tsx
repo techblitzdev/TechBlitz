@@ -31,10 +31,10 @@ export default function Logo() {
           width="102"
           height="23"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
           <feFlood
-            flood-opacity="0"
+            floodOpacity="0"
             result="BackgroundImageFix"
           />
           <feBlend
@@ -74,7 +74,7 @@ export default function Logo() {
           width="100.537"
           height="21.64"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
           <feFlood
             flood-opacity="0"

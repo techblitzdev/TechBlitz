@@ -11,7 +11,7 @@ export default function FeatureDailyChallengeHero() {
           className="text-5xl lg:text-6xl !font-onest font-bold tracking-tight py-1.5
           text-transparent bg-clip-text bg-gradient-to-r from-white to-white/75 leading-tight"
         >
-          Coding Challenges Hero
+          Coding costs time and money, we eliminate both.
         </h1>
 
         <p className="text-white/70 max-w-xl text-base font-onest">
@@ -25,13 +25,13 @@ export default function FeatureDailyChallengeHero() {
             variant="default"
             className="flex items-center gap-2"
           >
-            Today's Challenge
+            Answer today's challenge
           </Button>
           <Button
             variant="accent"
             className="flex items-center gap-2"
           >
-            Sign Up
+            Sign up
           </Button>
         </div>
       </div>

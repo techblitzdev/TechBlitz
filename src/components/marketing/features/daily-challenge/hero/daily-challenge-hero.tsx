@@ -21,12 +21,15 @@ export default function FeatureDailyChallengeHero() {
         </p>
 
         <div className="flex gap-4">
-          <Button
-            variant="default"
-            className="flex items-center gap-2"
-          >
-            Answer today's challenge
-          </Button>
+          <div className="flex flex-col gap-y-2">
+            <Button
+              variant="default"
+              className="flex items-center gap-2"
+            >
+              Answer today's challenge
+            </Button>
+            <p className="text-xs text-gray-400">(No sign up required)</p>
+          </div>
           <Button
             variant="accent"
             className="flex items-center gap-2"

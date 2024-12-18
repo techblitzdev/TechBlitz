@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/ui/grid';
 import { cn } from '@/utils/cn';
 import { ChevronRight } from 'lucide-react';
-import RoadmapFeatureBox from './roadmap-feature-box';
 import Link from 'next/link';
 
 import dynamic from 'next/dynamic';
@@ -13,10 +12,21 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from '@/components/ui/tooltip';
+import { Suspense } from 'react';
+import LoadingSpinner from '@/components/ui/loading';
 
-const DailyQuestionBox = dynamic(() => import('./daily-question-box'));
-const LeaderboardBentoBox = dynamic(() => import('./leaderboard-bento-box'));
-const ProgressionBentoBox = dynamic(() => import('./progression-box'));
+const DailyQuestionBox = dynamic(() => import('./daily-question-box'), {
+  ssr: false
+});
+const LeaderboardBentoBox = dynamic(() => import('./leaderboard-bento-box'), {
+  ssr: false
+});
+const RoadmapFeatureBox = dynamic(() => import('./roadmap-feature-box'), {
+  ssr: false
+});
+const ProgressionBentoBox = dynamic(() => import('./progression-box'), {
+  ssr: false
+});
 
 const cardClasses = 'border border-black-50 p-6 rounded-lg';
 
@@ -81,81 +91,90 @@ export default function FeaturesBentoGrid() {
                 <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
               </Button>
             </div>
-            <RoadmapFeatureBox />
+            <Suspense fallback={<LoadingSpinner />}>
+              <RoadmapFeatureBox />
+            </Suspense>
             <Grid
               size={20}
               position="bottom-left"
             />
           </Link>
-          <Link
-            href={isProd ? '' : '/features/progress-tracking'}
-            className={cn(
-              'h-[390px] lg:h-80 flex flex-col justify-between group overflow-hidden',
-              cardClasses
-            )}
-          >
-            <div className="flex flex-col gap-y-4 relative">
-              <div className="flex flex-col gap-y-1">
+          <Suspense fallback={<LoadingSpinner />}>
+            <Link
+              href={isProd ? '' : '/features/progress-tracking'}
+              className={cn(
+                'h-[390px] lg:h-80 flex flex-col justify-between group overflow-hidden',
+                cardClasses
+              )}
+            >
+              <div className="flex flex-col gap-y-4 relative">
+                <div className="flex flex-col gap-y-1">
+                  <h5 className="text-2xl text-gradient from-white to-white/55">
+                    Progress tracking
+                  </h5>
+                  <p className="text-xs text-gray-400 font-onest">
+                    Track your progress and use AI to analysis your coding
+                    habits.
+                  </p>
+                </div>
+                <div className="w-full h-fit flex items-center justify-center">
+                  <ProgressionBentoBox />
+                </div>
+              </div>
+            </Link>
+          </Suspense>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Link
+              href={isProd ? '' : '/features/leaderboard'}
+              className={cn(
+                'relative overflow-hidden group flex flex-col',
+                cardClasses
+              )}
+            >
+              <LeaderboardBentoBox />
+              <div className="flex flex-col gap-y-1 mt-auto">
                 <h5 className="text-2xl text-gradient from-white to-white/55">
-                  Progress tracking
+                  Leaderboard
                 </h5>
                 <p className="text-xs text-gray-400 font-onest">
-                  Track your progress and use AI to analysis your coding habits.
+                  Compete with other developers and see how you stack up against
+                  them!
                 </p>
               </div>
-              <div className="w-full h-fit flex items-center justify-center">
-                <ProgressionBentoBox />
+            </Link>
+          </Suspense>
+          <Suspense fallback={<LoadingSpinner />}>
+            <Link
+              href="/features/daily-challenges"
+              className={cn(
+                'col-span-full lg:col-span-2 group overflow-hidden',
+                cardClasses
+              )}
+              prefetch
+            >
+              <div className="flex justify-between">
+                <div className="flex flex-col gap-y-1 h-fit">
+                  <h5 className="text-2xl text-gradient from-white to-white/55">
+                    Daily questions
+                  </h5>
+                  <p className="text-xs text-gray-400 font-onest">
+                    Never stop learning; sharpen your skills with practical,
+                    industry-relevant coding challenges.
+                  </p>
+                </div>
+                <Button
+                  variant="accent"
+                  className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+                >
+                  Learn more{' '}
+                  <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
+                </Button>
               </div>
-            </div>
-          </Link>
-          <Link
-            href={isProd ? '' : '/features/leaderboard'}
-            className={cn(
-              'relative overflow-hidden group flex flex-col',
-              cardClasses
-            )}
-          >
-            <LeaderboardBentoBox />
-            <div className="flex flex-col gap-y-1 mt-auto">
-              <h5 className="text-2xl text-gradient from-white to-white/55">
-                Leaderboard
-              </h5>
-              <p className="text-xs text-gray-400 font-onest">
-                Compete with other developers and see how you stack up against
-                them!
-              </p>
-            </div>
-          </Link>
-          <Link
-            href="/features/daily-challenges"
-            className={cn(
-              'col-span-full lg:col-span-2 group overflow-hidden',
-              cardClasses
-            )}
-            prefetch
-          >
-            <div className="flex justify-between">
-              <div className="flex flex-col gap-y-1 h-fit">
-                <h5 className="text-2xl text-gradient from-white to-white/55">
-                  Daily questions
-                </h5>
-                <p className="text-xs text-gray-400 font-onest">
-                  Never stop learning; sharpen your skills with practical,
-                  industry-relevant coding challenges.
-                </p>
+              <div className="relative">
+                <DailyQuestionBox />
               </div>
-              <Button
-                variant="accent"
-                className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
-              >
-                Learn more{' '}
-                <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
-              </Button>
-            </div>
-            <div className="relative">
-              <DailyQuestionBox />
-            </div>
-          </Link>
+            </Link>
+          </Suspense>
         </div>
       </div>
     </section>

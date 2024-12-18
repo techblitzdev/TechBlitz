@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import Logo from '../../ui/logo';
+import Logo from '../../../ui/logo';
 import SocialLinks from './socials';
-import { Button } from '../../ui/button';
+import { Button } from '../../../ui/button';
 import { ArrowRight } from 'lucide-react';
-import { Separator } from '../../ui/separator';
+import { Separator } from '../../../ui/separator';
 
 const footerItems = [
   {

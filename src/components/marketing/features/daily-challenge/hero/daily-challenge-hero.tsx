@@ -5,7 +5,7 @@ import FeatureDailyChallengeHeroGraphic from './graphic';
 export default function FeatureDailyChallengeHero() {
   return (
     <section className="relative flex gap-10 text-white overflow-hidden">
-      <div className="flex flex-col gap-y-6 w-full lg:w-2/5 pt-32 lg:pt-52 pb-36 z-10 pl-12">
+      <div className="flex flex-col gap-y-6 w-full xl:w-2/5 pt-32 lg:pt-52 pb-36 z-10">
         <AnimatedSpan content="Daily Coding Challenges" />
         <h1
           className="text-5xl lg:text-6xl !font-onest font-bold tracking-tight py-1.5
@@ -25,6 +25,7 @@ export default function FeatureDailyChallengeHero() {
             <Button
               variant="default"
               className="flex items-center gap-2"
+              href={`/daily-challenge`}
             >
               Answer today's challenge
             </Button>

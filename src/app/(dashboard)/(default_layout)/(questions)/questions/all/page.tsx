@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { DatePicker } from '@mantine/dates';
 import GlobalPagination from '@/components/global/pagination';
 import QuestionSuggestedCard from '@/components/questions/suggested-questions-table';
@@ -7,7 +8,6 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from '@/components/ui/tooltip';
-
 import { listQuestions } from '@/actions/questions/list';
 import { getUserDailyStats } from '@/actions/user/authed/get-daily-streak';
 import { useUserServer } from '@/hooks/useUserServer';
@@ -15,13 +15,32 @@ import { getSuggestions } from '@/actions/questions/get-suggestions';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import QuestionCard from '@/components/questions/question-card';
 import Filter from '@/components/global/filters/filter';
-import { QuestionDifficulty } from '@/types/Questions';
+import { QuestionDifficulty, QuestionWithoutAnswers } from '@/types/Questions';
 import FilterChips from '@/components/global/filters/chips';
 import Hero from '@/components/global/hero';
-import { Suspense } from 'react';
-import LoadingSpinner from '@/components/ui/loading';
+import QuestionCardLoading from '@/components/questions/question-card-loading';
 
 const ITEMS_PER_PAGE = 20;
+
+function QuestionList({
+  questions,
+  userUid
+}: {
+  questions: QuestionWithoutAnswers[];
+  userUid: string;
+}) {
+  return (
+    <>
+      {questions.map((q) => (
+        <QuestionCard
+          key={q.uid}
+          questionData={q}
+          userUid={userUid}
+        />
+      ))}
+    </>
+  );
+}
 
 export default async function QuestionsDashboard({
   searchParams
@@ -31,7 +50,6 @@ export default async function QuestionsDashboard({
   const user = await useUserServer();
   if (!user) return null;
 
-  // filters from search params
   const currentPage = parseInt(searchParams.page as string) || 1;
   const ascending = searchParams.ascending === 'true';
   const difficulty = searchParams.difficulty as QuestionDifficulty;
@@ -41,7 +59,6 @@ export default async function QuestionsDashboard({
 
   if (currentPage < 1) return null;
 
-  // construct filter object to send up
   const filters = {
     ascending,
     difficulty,
@@ -49,13 +66,11 @@ export default async function QuestionsDashboard({
     tags
   };
 
-  // Fetch user streak statistics
   const userStreak = await getUserDailyStats(user.uid);
   const startDate = userStreak?.streakData?.streakStart as Date;
   const endDate = userStreak?.streakData?.streakEnd as Date;
   const dateArray: [Date, Date] = [startDate, endDate];
 
-  // Fetch questions for the current page
   const { questions, totalPages, total } = await listQuestions({
     page: currentPage,
     pageSize: ITEMS_PER_PAGE,
@@ -71,35 +86,35 @@ export default async function QuestionsDashboard({
     <>
       <Hero
         heading="All Questions"
-        subheading=" Explore a diverse set of questions across multiple topics to enhance
-          your knowledge."
+        subheading="Explore a diverse set of questions across multiple topics to enhance your knowledge."
       />
       <div className="md:container flex flex-col lg:flex-row mt-5 gap-10">
-        {/* Left Section: Questions */}
-        <Suspense fallback={<LoadingSpinner />}>
-          <div className="w-full lg:w-1/2 space-y-6">
-            <Filter />
-            <FilterChips />
-            {questions?.map((q) => (
-              <QuestionCard
-                key={q.uid}
-                questionData={q}
-                userUid={user?.uid || ''}
-              />
-            ))}
-
-            <div className="mt-5 w-full flex justify-center gap-x-2">
-              <GlobalPagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                href="/questions/all"
-                paramName="page"
-              />
-            </div>
+        <div className="w-full lg:w-1/2 space-y-6">
+          <Filter />
+          <FilterChips />
+          <Suspense
+            fallback={
+              <>
+                {[...Array(6)].map((_, i) => (
+                  <QuestionCardLoading key={i} />
+                ))}
+              </>
+            }
+          >
+            <QuestionList
+              questions={questions}
+              userUid={user.uid}
+            />
+          </Suspense>
+          <div className="mt-5 w-full flex justify-center gap-x-2">
+            <GlobalPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              href="/questions/all"
+              paramName="page"
+            />
           </div>
-        </Suspense>
-
-        {/* Right Section: Statistics */}
+        </div>
         <aside className="w-full lg:w-1/2 relative">
           <div className="sticky top-10 space-y-10 md:w-1/2">
             <div className="w-fit h-fit flex flex-col gap-y-2.5">
@@ -118,13 +133,13 @@ export default async function QuestionsDashboard({
                   <Tooltip>
                     <TooltipTrigger>
                       <QuestionMarkCircledIcon className="size-3.5 mt-1 text-gray-300" />
-                      <TooltipContent>
-                        <p>
-                          These question have been suggested based on areas
-                          where some users have struggled in the past.
-                        </p>
-                      </TooltipContent>
                     </TooltipTrigger>
+                    <TooltipContent>
+                      <p>
+                        These questions have been suggested based on areas where
+                        some users have struggled in the past.
+                      </p>
+                    </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
               </div>

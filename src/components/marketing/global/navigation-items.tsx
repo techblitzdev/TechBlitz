@@ -54,7 +54,7 @@ export function NavigationMenuItems() {
                 </ListItem>
                 <ListItem
                   href="/features/daily-challenges"
-                  title="Daily Questions"
+                  title="Daily Challenges"
                 >
                   Tackle daily challenges to sharpen your developer skills.
                 </ListItem>
@@ -65,13 +65,13 @@ export function NavigationMenuItems() {
                   Compete with friends and rise to the top.
                 </ListItem>
                 <ListItem
-                  href="/features/"
+                  href="/features/statistics"
                   title="Statistics"
                 >
                   Gain insights and track your growth over time.
                 </ListItem>
                 <ListItem
-                  href="/features/daily-questions"
+                  href="/features/questions"
                   title="Questions"
                 >
                   Go beyond interviews — master real-world development.

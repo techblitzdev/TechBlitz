@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/ui/grid';
-import { Separator } from '@/components/ui/separator';
 import { ChevronRight } from 'lucide-react';
 import { WaitlistForm } from '../waitlist-form';
 

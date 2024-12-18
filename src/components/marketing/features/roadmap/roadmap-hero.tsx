@@ -9,7 +9,7 @@ export default function FeatureRoadmapHeroBlock() {
       <div className="mt-28 z-10 absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#000] to-transparent pointer-events-none"></div>
 
       <div className="flex flex-col gap-y-3 items-center z-20 relative">
-        <h1 className="text-5xl lg:text-7xl !font-onest !font-medium tracking-tight text-gradient from-white to-white/75 text-center">
+        <h1 className="text-5xl lg:text-7xl !font-onest !font-medium tracking-tight text-gradient from-white to-white/75 text-center py-1">
           Personalized Coding <br /> Roadmaps
         </h1>
         <p className="text-gray-400 max-w-xl text-center text-sm md:text-base font-onest">

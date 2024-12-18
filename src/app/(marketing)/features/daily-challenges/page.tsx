@@ -1,4 +1,4 @@
-import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/daily-challenge-hero';
+import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/hero/daily-challenge-hero';
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 
 export default function FeatureDailyQuestionPage() {

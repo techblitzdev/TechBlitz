@@ -21,16 +21,16 @@ export default async function AuthedPage() {
       <div className="z-30">
         <div className="container">
           <HomepageHero />
-          <HomepageHeroImages
+          {/* <HomepageHeroImages
             imageSrc={homepageHeroImg}
             videoSrc={homepageHeroIframe}
             videoPoster="https://customer-8s5ov2shcw99ezk2.cloudflarestream.com/ff823c820a5dc793c091f43ebae09d63/thumbnails/thumbnail.jpg?time=&height=600"
-          />
-          <FeaturesBentoGrid />
+          /> */}
+          {/* <FeaturesBentoGrid />
           <HomepageLargeText />
           <ComparisonBlock />
           <OpenSourceBlock />
-          <CallToActionBlock title="The smarter way to stay on top of tech" />
+          <CallToActionBlock title="The smarter way to stay on top of tech" /> */}
         </div>
       </div>
     </div>

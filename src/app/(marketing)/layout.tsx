@@ -16,11 +16,12 @@ import { createTheme, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 import { StarsBackground } from '@/components/ui/stars-background';
-import MarketingNavigation from '@/components/marketing/global/navigation';
-import MarketingFooter from '@/components/marketing/global/footer';
+import MarketingNavigation from '@/components/marketing/global/navigation/navigation';
+import MarketingFooter from '@/components/marketing/global/footer/footer';
 
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/react';
+import { Suspense } from 'react';
 
 const title =
   'techblitz | The all-in-one platform for learning software engineering';
@@ -89,7 +90,9 @@ export default function Layout({
           suppressHydrationWarning={true}
         >
           <main>
-            <StarsBackground className="-z-10" />
+            <Suspense fallback={null}>
+              <StarsBackground className="-z-10" />
+            </Suspense>
             <CSPostHogProvider>
               <MantineProvider>
                 <MarketingNavigation />

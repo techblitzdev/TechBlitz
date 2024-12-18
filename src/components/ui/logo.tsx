@@ -8,7 +8,7 @@ export default function Logo() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <g
-        clip-path="url(#clip0_85_7)"
+        clipPath="url(#clip0_85_7)"
         filter="url(#filter0_i_85_7)"
       >
         <rect
@@ -77,7 +77,7 @@ export default function Logo() {
           colorInterpolationFilters="sRGB"
         >
           <feFlood
-            flood-opacity="0"
+            floodOpacity="0"
             result="BackgroundImageFix"
           />
           <feBlend

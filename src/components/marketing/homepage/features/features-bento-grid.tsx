@@ -7,6 +7,12 @@ import Link from 'next/link';
 
 import dynamic from 'next/dynamic';
 import AnimatedSpan from '@/components/ui/animated-span';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from '@/components/ui/tooltip';
 
 const DailyQuestionBox = dynamic(() => import('./daily-question-box'));
 const LeaderboardBentoBox = dynamic(() => import('./leaderboard-bento-box'));
@@ -26,13 +32,21 @@ export default function FeaturesBentoGrid() {
           We make Software engineering easy{' '}
         </h1>
         <span className="text-sm md:text-base text-gray-400 max-w-3xl">
-          Elevate your coding skills with TechBlitz: AI-powered coding roadmaps,
-          daily challenges, competitive leaderboards, and a vast question bank
-          tackling real-world software problems. Your all-in-one platform for
-          continuous growth and career advancement in tech.
+          Personalized coding roadmaps, daily challenges, competitive
+          leaderboards, and a wide{' '}
+          <TooltipProvider>
+            <Tooltip delayDuration={0}>
+              <TooltipTrigger>array</TooltipTrigger>
+              <TooltipContent>
+                <p>Pun intended 😉</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>{' '}
+          of coding questions tackling real-world software problems. TechBlitz
+          is is the ultimate platform for every developer.
         </span>
       </div>
-      <div className="min-h-[1400px] md:min-h-[1000px] lg:min-h-[700px] rounded-lg">
+      <div className="min-h-[1450px] md:min-h-[1000px] lg:min-h-[700px] rounded-lg">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 bg-black-400 rounded-lg">
           <Link
             href={'/features/roadmap'}
@@ -40,16 +54,24 @@ export default function FeaturesBentoGrid() {
               'h-80 col-span-full lg:col-span-2 relative overflow-hidden group flex flex-col sm:flex-row gap-5',
               cardClasses
             )}
+            prefetch
           >
             <div className="flex flex-col justify-between">
               <div className="flex flex-col gap-y-1 relative max-w-sm">
                 <h5 className="text-2xl text-gradient from-white to-white/55">
-                  AI Powered Progression Paths
+                  Coding Roadmaps
                 </h5>
-                <p className="text-xs text-gray-400">
-                  Personalized learning paths tailored to your goals and skill
-                  level.
+                <p className="text-xs text-gray-400 font-onest">
+                  Personalized learning paths that adapt to your coding skills
+                  and build a roadmap to become a better developer.
                 </p>
+                <Button
+                  variant="secondary"
+                  className="flex md:hidden z-10 relative mt-2"
+                >
+                  Learn more{' '}
+                  <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
+                </Button>
               </div>
               <Button
                 variant="secondary"
@@ -77,7 +99,7 @@ export default function FeaturesBentoGrid() {
                 <h5 className="text-2xl text-gradient from-white to-white/55">
                   Progress tracking
                 </h5>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-gray-400 font-onest">
                   Track your progress and use AI to analysis your coding habits.
                 </p>
               </div>
@@ -88,34 +110,38 @@ export default function FeaturesBentoGrid() {
           </Link>
           <Link
             href={isProd ? '' : '/features/leaderboard'}
-            className={cn('relative overflow-hidden group', cardClasses)}
+            className={cn(
+              'relative overflow-hidden group flex flex-col',
+              cardClasses
+            )}
           >
             <LeaderboardBentoBox />
-            <div className="flex flex-col gap-y-1">
+            <div className="flex flex-col gap-y-1 mt-auto">
               <h5 className="text-2xl text-gradient from-white to-white/55">
                 Leaderboard
               </h5>
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-gray-400 font-onest">
                 Compete with other developers and see how you stack up against
                 them!
               </p>
             </div>
           </Link>
           <Link
-            href={isProd ? '' : '/features/daily-questions'}
+            href="/features/daily-challenges"
             className={cn(
               'col-span-full lg:col-span-2 group overflow-hidden',
               cardClasses
             )}
+            prefetch
           >
             <div className="flex justify-between">
               <div className="flex flex-col gap-y-1 h-fit">
                 <h5 className="text-2xl text-gradient from-white to-white/55">
                   Daily questions
                 </h5>
-                <p className="text-xs text-gray-400">
-                  Sharpen your skills with practical, industry-relevant coding
-                  challenges.
+                <p className="text-xs text-gray-400 font-onest">
+                  Never stop learning; sharpen your skills with practical,
+                  industry-relevant coding challenges.
                 </p>
               </div>
               <Button

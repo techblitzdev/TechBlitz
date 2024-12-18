@@ -20,8 +20,8 @@ export default function HomepageHero() {
           </span>
         </h1>
         <h6 className="font-onest max-w-2xl text-gray-400">
-          AI-powered learning paths, daily coding challenges, and a supportive
-          tech community. Tailored for{' '}
+          Personalized coding roadmaps, daily coding challenges, and a
+          supportive tech community. Tailored for{' '}
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/80">
             every{' '}
           </span>

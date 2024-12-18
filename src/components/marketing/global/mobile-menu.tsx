@@ -16,7 +16,7 @@ import { cn } from '@/utils/cn';
 
 interface MenuItem {
   label: string;
-  href: string;
+  href?: string;
   children?: MenuItem[];
 }
 
@@ -28,7 +28,6 @@ interface MobileMenuProps {
 const menuItems: MenuItem[] = [
   {
     label: 'Features',
-    href: '/features',
     children: [{ label: 'Roadmaps', href: '/features/roadmaps' }]
   },
   {
@@ -74,7 +73,7 @@ export function MobileMenu({ isLoggedIn, isDevelopment }: MobileMenuProps) {
       >
         <div className="flex items-center justify-between">
           <Link
-            href={item.href}
+            href={item?.href || '#'}
             className={cn(
               'hover:text-accent duration-300 py-2 block',
               depth === 1 && 'text-sm'

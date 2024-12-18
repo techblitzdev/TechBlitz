@@ -1,6 +1,4 @@
 'use client';
-
-import { useMemo } from 'react';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { shuffle } from 'lodash';
@@ -12,8 +10,6 @@ import {
   ChevronRight,
   Minus
 } from 'lucide-react';
-import { useUser } from '@/hooks/useUser';
-import { getUserDisplayName } from '@/utils/user';
 
 interface LeaderboardItem {
   id: number;
@@ -27,19 +23,11 @@ const spring = {
 };
 
 export default function LeaderboardBentoBox() {
-  // get the current user
-  const { user: user } = useUser();
-
-  // Memoize the username
-  const username = useMemo(() => {
-    return user ? getUserDisplayName(user) : 'Anonymous';
-  }, [user]);
-
   const initialLeaderboard: LeaderboardItem[] = [
     { id: 1, name: 'Elon Musk' },
     { id: 2, name: 'Bill Gates' },
     { id: 3, name: 'Jeff Bezos' },
-    { id: 4, name: `${username} (you)` },
+    { id: 4, name: `you` },
     { id: 5, name: 'Mark Zuckerberg' }
   ];
 

@@ -67,7 +67,7 @@ export default function CodeComparison({
     if (highlighted) {
       return (
         <div
-          className="max-h-64 md:max-h-96 md:h-full overflow-auto bg-background font-inter text-[10px] sm:text-xs [&>pre]:h-full [&>pre]:!bg-transparent [&>pre]:p-4 [&_code]:break-all"
+          className="max-h-64 md:max-h-96 md:h-full max-w-[31rem] overflow-hidden bg-background font-inter text-[10px] sm:text-xs [&>pre]:h-full [&>pre]:!bg-transparent [&>pre]:p-4 [&_code]:break-all"
           dangerouslySetInnerHTML={{ __html: highlighted }}
         />
       );

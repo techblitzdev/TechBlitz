@@ -68,7 +68,7 @@ export default async function QuestionsDashboard({
   });
 
   return (
-    <Suspense fallback={<LoadingSpinner />}>
+    <>
       <Hero
         heading="All Questions"
         subheading=" Explore a diverse set of questions across multiple topics to enhance
@@ -76,26 +76,28 @@ export default async function QuestionsDashboard({
       />
       <div className="md:container flex flex-col lg:flex-row mt-5 gap-10">
         {/* Left Section: Questions */}
-        <div className="w-full lg:w-1/2 space-y-6">
-          <Filter />
-          <FilterChips />
-          {questions?.map((q) => (
-            <QuestionCard
-              key={q.uid}
-              questionData={q}
-              userUid={user?.uid || ''}
-            />
-          ))}
+        <Suspense fallback={<LoadingSpinner />}>
+          <div className="w-full lg:w-1/2 space-y-6">
+            <Filter />
+            <FilterChips />
+            {questions?.map((q) => (
+              <QuestionCard
+                key={q.uid}
+                questionData={q}
+                userUid={user?.uid || ''}
+              />
+            ))}
 
-          <div className="mt-5 w-full flex justify-center gap-x-2">
-            <GlobalPagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              href="/questions/all"
-              paramName="page"
-            />
+            <div className="mt-5 w-full flex justify-center gap-x-2">
+              <GlobalPagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                href="/questions/all"
+                paramName="page"
+              />
+            </div>
           </div>
-        </div>
+        </Suspense>
 
         {/* Right Section: Statistics */}
         <aside className="w-full lg:w-1/2 relative">
@@ -134,6 +136,6 @@ export default async function QuestionsDashboard({
           </div>
         </aside>
       </div>
-    </Suspense>
+    </>
   );
 }

@@ -55,7 +55,7 @@ export default function RoadmapFeatureBox(opts: { absolute?: boolean }) {
       }}
       className={cn(
         'group-hover:scale-[1.03] duration-300 pb-3 rounded-bl-none max-w-md lg:max-w-lg xl:max-w-2xl border-black-50 bg-black-75 shadow-md z-50',
-        absolute && ' sm:absolute -right-3 top-24 lg:top-28'
+        absolute && ' absolute -right-3 top-44 sm:top-32 md:top-24 lg:top-28'
       )}
     >
       <CardContent className="pb-2 sm:pb-6 pt-3 sm:pt-6">
@@ -113,8 +113,8 @@ export default function RoadmapFeatureBox(opts: { absolute?: boolean }) {
           transition={{ duration: 0.3 }}
         >
           {isComplete
-            ? "Your personalized roadmap is ready. Let's explore it together!"
-            : "We're working hard to create a roadmap that's perfect for you."}
+            ? "Your coding roadmap is ready. Let's explore it together!"
+            : "We're working hard to create a coding roadmap that's perfect for you."}
         </motion.p>
         <Progress
           value={progress}

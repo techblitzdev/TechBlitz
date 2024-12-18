@@ -16,9 +16,9 @@ import { createTheme, MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 import StarsBackground from '@/components/ui/stars-background';
-import MarketingNavigation from '@/components/marketing/global/navigation';
+import MarketingNavigation from '@/components/marketing/global/navigation/navigation';
 
-import MarketingFooter from '@/components/marketing/global/footer';
+import MarketingFooter from '@/components/marketing/global/footer/footer';
 
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/react';

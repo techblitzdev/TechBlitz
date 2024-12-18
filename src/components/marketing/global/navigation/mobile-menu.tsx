@@ -13,10 +13,12 @@ import {
 } from '@radix-ui/react-icons';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '@/utils/cn';
+import { useUserServer } from '@/hooks/useUserServer';
+import { useUser } from '@/hooks/useUser';
 
 interface MenuItem {
   label: string;
-  href: string;
+  href?: string;
   children?: MenuItem[];
 }
 
@@ -28,7 +30,6 @@ interface MobileMenuProps {
 const menuItems: MenuItem[] = [
   {
     label: 'Features',
-    href: '/features',
     children: [{ label: 'Roadmaps', href: '/features/roadmaps' }]
   },
   {
@@ -43,10 +44,14 @@ const menuItems: MenuItem[] = [
   { label: 'Contact', href: 'mailto:team@techblitz.dev' }
 ];
 
-export function MobileMenu({ isLoggedIn, isDevelopment }: MobileMenuProps) {
+export function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
   const pathname = usePathname();
+
+  const { user: data } = useUser();
+  const isDevelopment = process.env.NEXT_PUBLIC_ENV === 'development';
+  const isLoggedIn = Boolean(data?.email);
 
   useEffect(() => {
     setIsOpen(false);
@@ -74,7 +79,7 @@ export function MobileMenu({ isLoggedIn, isDevelopment }: MobileMenuProps) {
       >
         <div className="flex items-center justify-between">
           <Link
-            href={item.href}
+            href={item?.href || '#'}
             className={cn(
               'hover:text-accent duration-300 py-2 block',
               depth === 1 && 'text-sm'

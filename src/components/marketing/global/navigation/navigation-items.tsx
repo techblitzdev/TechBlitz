@@ -39,7 +39,7 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function NavigationMenuItems() {
   return (
-    <NavigationMenu>
+    <NavigationMenu className="py-2 px-4 hidden md:block">
       <NavigationMenuList>
         {process.env.NEXT_PUBLIC_ENV === 'development' && (
           <NavigationMenuItem>

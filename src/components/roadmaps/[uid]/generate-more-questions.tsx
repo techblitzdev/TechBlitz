@@ -31,7 +31,7 @@ const GenerateMoreQuestionsButton = forwardRef(
     return (
       <Button
         variant="accent"
-        // disabled={roadmap?.status !== 'COMPLETED'}
+        disabled={roadmap?.status !== 'COMPLETED'}
         onClick={() => generateMoreQuestions()}
       >
         {loading ? 'Generating...' : 'Generate more questions'}

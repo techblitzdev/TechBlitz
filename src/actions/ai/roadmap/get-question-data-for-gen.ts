@@ -11,8 +11,24 @@ export interface ReturnType {
 export const generateDataForAi = async (opts: {
   roadmapUid: string;
   userUid: string;
+  generateMore?: boolean;
 }): Promise<ReturnType[] | 'generated' | 'invalid'> => {
-  const { roadmapUid, userUid } = opts;
+  const { roadmapUid, userUid, generateMore } = opts;
+
+  // If generating more questions, get existing questions to inform AI
+  if (generateMore) {
+    const existingQuestions = await prisma.roadmapUserQuestions.findMany({
+      where: { roadmapUid }
+    });
+
+    // Format existing questions for AI context
+    return existingQuestions.map((question) => ({
+      question: question.question,
+      correctAnswer: question.userCorrect ?? false,
+      difficulty: question.difficulty,
+      previousQuestion: true // Flag to indicate this is an existing question
+    }));
+  }
 
   // check if the user roadmap is complete already
   const roadmapData = await prisma.userRoadmaps.findUnique({

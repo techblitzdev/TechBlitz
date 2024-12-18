@@ -31,7 +31,9 @@ export default function MarketingNavigation() {
           <MobileMenu />
         </div>
 
-        <NavigationButtons />
+        <div className="hidden md:block">
+          <NavigationButtons />
+        </div>
       </div>
     </div>
   );

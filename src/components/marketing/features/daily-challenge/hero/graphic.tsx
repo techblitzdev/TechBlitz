@@ -131,7 +131,7 @@ export default function FeatureDailyChallengeHeroGraphic() {
       <div
         className="
 						bg-black-75 h-96 w-80 absolute -top-40 right-[22rem] 
-          	rounded-2xl backdrop-blur-sm
+          	rounded-2xl backdrop-blur-sm hidden xl:block
 					"
       >
         <CodeSnippet
@@ -145,7 +145,7 @@ export default function FeatureDailyChallengeHeroGraphic() {
       <div
         className="
 						bg-black-75 h-96 w-80 absolute top-[19rem] right-[22rem] 
-          	rounded-2xl backdrop-blur-sm z-20
+          	rounded-2xl backdrop-blur-sm z-20 hidden xl:block
 					"
       >
         <CodeSnippet

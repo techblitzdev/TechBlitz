@@ -30,7 +30,7 @@ export default async function StatisticsPage({
 
   // get the date range from the search params
   let range = searchParams.range as StatsSteps;
-  if (!range) range = '90d';
+  if (!range) range = '7d';
 
   const { step } = STATISTICS[range];
 

@@ -4,7 +4,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 
-const TermsOfService = () => {
+export default function TermsOfService() {
   return (
     <div className="container mx-auto px-4 pb-16 pt-28 md:pb-20 md:pt-32 xl:pb-40 xl:pt-56">
       <Card className="max-w-4xl mx-auto border border-black-50">
@@ -141,6 +141,4 @@ const TermsOfService = () => {
       </Card>
     </div>
   );
-};
-
-export default TermsOfService;
+}

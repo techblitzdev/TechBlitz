@@ -1,7 +1,7 @@
 import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/hero/daily-challenge-hero';
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 import MarketingContentGrid, {
-  MarketingContentGridProps
+  type MarketingContentGridProps
 } from '@/components/marketing/global/content-grid';
 import { Phone } from 'lucide-react';
 

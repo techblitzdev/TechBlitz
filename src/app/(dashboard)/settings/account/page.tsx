@@ -72,7 +72,7 @@ export default function SettingsProfilePage() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-1/2 space-y-6 p-8"
+          className="w-full lg:w-1/2 space-y-6 p-8"
         >
           <FormField
             control={form.control}

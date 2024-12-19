@@ -13,7 +13,7 @@ const description = () => {
       roadmaps that can be completed from any device? It's a secret! (Just
       kidding, here's the{' '}
       <Link
-        href="https://github.com/Logannford/TechBlitz/tree/main/src/actions/ai"
+        href="https://github.com/techblitzdev/TechBlitztree/main/src/actions/ai"
         className="text-accent underline"
         target="_blank"
         aria-label="GitHub link to view TechBlitz's roadmap source code."
@@ -52,7 +52,7 @@ export default function FeatureRoadmapThreeGridBlock() {
           className="left-1/2 top-0 w-full center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2"
           style={{
             background:
-              'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)'
+              'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)',
           }}
         ></div>
         <RoadmapGridItemOne />

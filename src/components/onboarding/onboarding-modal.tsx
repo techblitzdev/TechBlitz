@@ -5,10 +5,10 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "../ui/button";
-import { Star } from "lucide-react";
-import { useEffect, useState } from "react";
+} from '@/components/ui/dialog';
+import { Button } from '../ui/button';
+import { Star } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export default function OnboardingModal(opts: {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -17,7 +17,7 @@ export default function OnboardingModal(opts: {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    if (opts.searchParams.onboarding === "true") {
+    if (opts.searchParams.onboarding === 'true') {
       setIsModalOpen(true);
     }
   }, [opts.searchParams.onboarding]);
@@ -39,7 +39,7 @@ export default function OnboardingModal(opts: {
           <span className="flex flex-col gap-y-2 w-full">
             You can also follow our progress on GitHub.
             <Button
-              href="https://github.com/logannford/TechBlitz/"
+              href="https://github.com/techblitzdev/TechBlitz"
               className="flex items-center gap-x-2"
             >
               <Star className="size-4 text-yellow-400 fill-yellow-600" />

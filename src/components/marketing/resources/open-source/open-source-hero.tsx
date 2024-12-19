@@ -28,7 +28,7 @@ export default function ResourceOpenSourceHeroBlock() {
             />
           </Button> */}
           <Button
-            href="https://github.com/logannford/TechBlitz/"
+            href="https://github.com/techblitzdev/TechBlitz"
             className="text-black font-onest !bg-gradient-to-r !from-white !via-white/80 !to-white animate-shimmer bg-[length:200%_100%] transition-colors flex items-center gap-x-2"
           >
             <Star className="size-5 text-yellow-400 fill-yellow-300" />

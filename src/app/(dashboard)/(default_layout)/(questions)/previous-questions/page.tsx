@@ -1,9 +1,12 @@
 import GlobalPagination from '@/components/global/pagination';
 import QuestionCard from '@/components/questions/question-card';
-import { getPreviousQuestions } from '@/actions/questions/get-previous';
+import QuestionCardLoading from '@/components/questions/question-card-loading';
 import PreviousQuestionPageSidebar from '@/components/questions/previous/previous-question-page-sidebar';
-import { useUserServer } from '@/hooks/useUserServer';
 import Hero from '@/components/global/hero';
+
+import { getPreviousQuestions } from '@/actions/questions/get-previous';
+import { useUserServer } from '@/hooks/useUserServer';
+import { Suspense } from 'react';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -25,7 +28,7 @@ export default async function PreviousQuestionsPage({
   });
 
   return (
-    <div>
+    <>
       <Hero
         heading="Previous Daily Questions"
         subheading="Questions you have answered in the past"
@@ -33,13 +36,23 @@ export default async function PreviousQuestionsPage({
       <div className="flex flex-col h-full justify-between container mt-5">
         <div className="flex w-full gap-10">
           <div className="w-1/2 space-y-6">
-            {data?.questions.map((q) => (
-              <QuestionCard
-                key={q.uid}
-                questionData={q}
-                userUid={user?.uid || ''}
-              />
-            ))}
+          <Suspense 
+            fallback={
+              <>
+                {[...Array(ITEMS_PER_PAGE)].map((_, i) => (
+                  <QuestionCardLoading key={i} />
+                ))}
+              </>
+            }
+            >
+              {data?.questions.map((q) => (
+                <QuestionCard
+                  key={q.uid}
+                  questionData={q}
+                  userUid={user?.uid || ''}
+                />
+              ))}
+            </Suspense>
             <GlobalPagination
               currentPage={currentPage}
               totalPages={data?.totalPages || 1}
@@ -48,9 +61,11 @@ export default async function PreviousQuestionsPage({
             />
           </div>
           {/* Display sidebar with user statistics and suggested questions */}
-          {user && <PreviousQuestionPageSidebar user={user} />}
+          <Suspense fallback={null}>
+            {user && <PreviousQuestionPageSidebar user={user} />}
+          </Suspense>
         </div>
       </div>
-    </div>
+    </>
   );
 }

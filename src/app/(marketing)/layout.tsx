@@ -3,7 +3,7 @@ import {
   InterFont,
   OnestFont,
   SatoshiFont,
-  UbuntuFont
+  UbuntuFont,
 } from '../styles/fonts/font';
 import '../globals.css';
 import { ReactQueryClientProvider } from '@/components/react-query-client-provider';
@@ -22,6 +22,7 @@ import MarketingFooter from '@/components/marketing/global/footer/footer';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/react';
 import { Suspense } from 'react';
+import CookieBanner from '@/components/global/cookie-banner';
 
 const title =
   'techblitz | The all-in-one platform for learning software engineering';
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
     'continuous learning',
     'career advancement',
     'coding best practices',
-    'tech skills assessment'
+    'tech skills assessment',
   ],
   openGraph: {
     title,
@@ -54,8 +55,8 @@ export const metadata: Metadata = {
       url: 'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
       width: 800,
       height: 630,
-      alt: description
-    }
+      alt: description,
+    },
   },
   twitter: {
     title,
@@ -65,20 +66,20 @@ export const metadata: Metadata = {
         url: 'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
         width: 800,
         height: 630,
-        alt: description
-      }
-    ]
+        alt: description,
+      },
+    ],
   },
   robots: {
     index: true,
-    follow: true
-  }
+    follow: true,
+  },
 };
 
 const theme = createTheme({});
 
 export default function Layout({
-  children
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
@@ -97,6 +98,7 @@ export default function Layout({
               <MantineProvider>
                 <MarketingNavigation />
                 {children}
+                <CookieBanner />
                 <MarketingFooter />
               </MantineProvider>
             </CSPostHogProvider>

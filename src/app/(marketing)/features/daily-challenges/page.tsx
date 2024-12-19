@@ -1,4 +1,4 @@
-// import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/hero/daily-challenge-hero';
+import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/hero/daily-challenge-hero';
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 import MarketingContentGrid, {
   type MarketingContentGridProps
@@ -132,7 +132,7 @@ const items: MarketingContentGridProps[] = [
 export default function FeatureDailyQuestionPage() {
   return (
     <div className="container">
-      {/* <FeatureDailyChallengeHero /> */}
+      <FeatureDailyChallengeHero />
       <MarketingContentGrid
         title="Master Coding with Ease"
         items={items}

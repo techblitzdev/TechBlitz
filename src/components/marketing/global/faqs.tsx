@@ -14,9 +14,10 @@ interface FAQ {
 export default function FAQsBlock(opts: {
   faqs: FAQ[];
   title?: string;
+  description?: string;
   showSpan?: boolean;
 }) {
-  const { faqs, title, showSpan = true } = opts;
+  const { faqs, title, description, showSpan = true } = opts;
 
   return (
     <section className="pb-32 flex flex-col items-center gap-10">
@@ -25,6 +26,7 @@ export default function FAQsBlock(opts: {
         <h1 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
           {title || 'Frequently asked questions'}
         </h1>
+        {description && <p className="text-sm text-gray-400">{description}</p>}
       </div>
       <Accordion
         type="single"

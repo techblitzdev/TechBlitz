@@ -4,86 +4,107 @@ import { updateSession } from '@/utils/supabase/middleware';
 import { getBaseUrl } from './utils';
 import { User } from './types/User';
 
-// Define the paths where authentication is not required
-const nonAuthPaths = [
-  '/login',
-  '/signup',
-  '/forgot-password',
-  '/update-password',
-  '/verify-email',
-  '/verify-email/success',
-  '/'
-];
-
-const authedPaths = [
-  '/dashboard',
-  '/admin',
-  '/settings',
-  '/roadmaps',
-  '/roadmap'
-];
-
-// Exclude some paths from the middleware (e.g., API, public files, etc.)
-export const config = {
-  matcher: [
-    /*
-     * Match all paths except for:
-     * 1. /api routes
-     * 2. /_next (Next.js internals)
-     * 3. /_static (inside /public)
-     * 4. all root files inside /public (e.g. /favicon.ico)
-     */
-    '/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)'
-  ]
+// Define the route groups and their auth requirements
+const routeConfig = {
+  // Marketing site routes (no auth required)
+  marketing: {
+    patterns: ['/', '/about', '/pricing', '/contact'],
+    requiresAuth: false,
+  },
+  // Auth-related routes (no auth required)
+  auth: {
+    patterns: [
+      '/login',
+      '/signup',
+      '/forgot-password',
+      '/update-password',
+      '/verify-email',
+    ],
+    requiresAuth: false,
+  },
+  // Dashboard routes (auth required)
+  dashboard: {
+    patterns: ['/dashboard'],
+    requiresAuth: true,
+  },
+  // Admin routes (auth + admin role required)
+  admin: {
+    patterns: ['/admin'],
+    requiresAuth: true,
+    requiresAdmin: true,
+  },
 };
 
-// Middleware function
+// Matcher configuration
+export const config = {
+  matcher: ['/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)'],
+};
+
 export async function middleware(req: NextRequest) {
   const url = req.nextUrl;
   const pathname = url.pathname;
 
-  // redirect sign-up to signup
+  // Helper function to check if path matches any pattern
+  const getRouteGroup = (path: string) => {
+    for (const [group, config] of Object.entries(routeConfig)) {
+      if (
+        config.patterns.some((pattern) => {
+          if (pattern.endsWith('/*')) {
+            // For wildcard patterns, check if the path starts with the pattern prefix
+            const prefix = pattern.slice(0, -2);
+            return path === prefix || path.startsWith(prefix + '/');
+          }
+          // For exact patterns, check for exact match
+          return path === pattern;
+        })
+      ) {
+        return { group, config };
+      }
+    }
+    return null;
+  };
+
+  // Handle legacy redirect
   if (pathname === '/sign-up') {
     return NextResponse.redirect(new URL('/signup', req.url));
   }
 
-  // Early return if on a non-auth path
-  if (nonAuthPaths.some((path) => pathname === path)) {
+  // Get route group for current path
+  const route = getRouteGroup(pathname);
+
+  // If path isn't in any group, treat it as a marketing page
+  if (!route) {
     return NextResponse.next();
   }
 
-  // Get the current user session
+  // Get current user session
   const { user } = await updateSession(req);
+  const isAuthenticated = !!user?.user?.id;
 
-  // If there's no user, redirect to the login page unless it's a non-auth path
-  // if (!user?.user?.id && !nonAuthPaths.some((path) => pathname === path)) {
-  //   return NextResponse.redirect(
-  //     new URL(`/login?r=${encodeURIComponent(pathname)}`, req.url)
-  //   );
-  // }
+  // Handle different route types
+  if (route.config.requiresAuth && !isAuthenticated) {
+    // Redirect to login if auth is required but user isn't authenticated
+    return NextResponse.redirect(
+      new URL(`/login?r=${encodeURIComponent(pathname)}`, req.url)
+    );
+  }
 
-  // Check for admin access if the user is navigating to the admin page
-  if (pathname.startsWith('/admin')) {
-    if (!user?.user?.id) {
-      return NextResponse.redirect(new URL('/login', req.url));
-    }
-    const response = await fetch(`${getBaseUrl()}/api/user/${user.user.id}`, {
-      method: 'GET'
+  // Special handling for admin routes
+  if (route.group === 'admin' && isAuthenticated) {
+    const response = await fetch(`${getBaseUrl()}/api/user/${user?.user?.id}`, {
+      method: 'GET',
     });
-
     const userData: User = await response.json();
 
-    // If the user is not an admin, redirect to the dashboard
     if (userData.userLevel !== 'ADMIN') {
       return NextResponse.redirect(new URL('/dashboard', req.url));
     }
   }
 
-  // check if the user has gone to '/' and is authenticated, redirect to dashboard
-  if (pathname === '/' && user?.user?.id) {
+  // Redirect authenticated users from home page to dashboard
+  if (pathname === '/' && isAuthenticated) {
     return NextResponse.redirect(new URL('/dashboard', req.url));
   }
 
-  // Proceed as normal if the user is authenticated and authorized
   return NextResponse.next();
 }

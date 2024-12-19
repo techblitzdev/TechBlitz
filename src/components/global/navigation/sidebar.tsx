@@ -51,6 +51,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import LogoutButton from '../../auth/logout';
 import Logo from '../../ui/logo';
+import LogoSmall from '@/components/ui/LogoSmall';
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -295,7 +296,7 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar>
+    <Sidebar collapsible="icon">
       <SidebarContent className="py-6 bg-[#000000]">
         <SidebarGroup>
           <SidebarGroupLabel className="w-full flex items-center justify-between">
@@ -308,6 +309,17 @@ export function AppSidebar() {
               <Logo />
             </Link>
           </SidebarGroupLabel>
+          {/* This div will show when the sidebar is collapsed */}
+          <div className="hidden group-data-[collapsible=icon]:flex items-center justify-center h-8 mb-5">
+            <Link
+              href="/dashboard"
+              className="text-sm xl:text-2xl font-ubuntu hover:text-white duration-300 size-10"
+              prefetch
+              aria-label="Go back to dashboard"
+            >
+              <LogoSmall />
+            </Link>
+          </div>
           <SidebarGroupContent className="mt-5 bg-[#000000]">
             <SidebarMenu>
               {items.map((item) => renderSidebarItem(item))}

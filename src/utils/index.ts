@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 /**
  * Method to get the current environment
  *
@@ -10,6 +12,73 @@ export const getBaseUrl = () => {
   return getEnv() === 'development'
     ? 'http://localhost:3000'
     : publicRootDomain;
+};
+
+export const createMetadata = ({
+  title,
+  description,
+  image,
+  keywords
+}: {
+  title: string;
+  description: string;
+  image?: string;
+  keywords?: string[];
+}): Metadata => {
+  const defaultKeywords = [
+    'roadmaps',
+    'techblitz',
+    'ai',
+    'coding',
+    'programming',
+    'software engineering',
+    'developer',
+    'javascript',
+    'learn to code',
+    'coding course',
+    'coding bootcamp'
+  ];
+
+  const ogImage =
+    image ||
+    `${getBaseUrl()}/api/og?text=${encodeURIComponent(title)}&bgColor=%23f0f0f0&textColor=%23000000`;
+
+  return {
+    title,
+    description,
+    keywords: keywords || defaultKeywords,
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      url: 'https://techblitz.dev/features/roadmaps',
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: description
+        }
+      ]
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: description
+        }
+      ]
+    },
+    robots: {
+      index: true,
+      follow: true
+    }
+  };
 };
 
 export const capitalise = (string: string) => {

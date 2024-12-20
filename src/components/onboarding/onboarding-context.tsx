@@ -4,19 +4,18 @@
 // this context will be used to store all user onboarding data
 // throughout the different steps of the onboarding flow
 import { createContext, useContext, useState } from 'react';
-import type { UpdateableUserFields } from '@/types/User';
-import { useUser } from '@/hooks/useUser';
+import type { UpdatableUserFields } from '@/types/User';
 
 // context type
 type OnboardingContextType = {
   user: Omit<
-    UpdateableUserFields,
+    UpdatableUserFields,
     'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'
   >;
   setUser: React.Dispatch<
     React.SetStateAction<
       Omit<
-        UpdateableUserFields,
+        UpdatableUserFields,
         'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'
       >
     >
@@ -30,7 +29,7 @@ export const OnboardingContext = createContext<OnboardingContextType | null>(
 
 // provide the context to all the children components
 export const UserOnboardingContextProvider = ({
-  children
+  children,
 }: {
   children: React.ReactNode;
 }) => {
@@ -39,7 +38,7 @@ export const UserOnboardingContextProvider = ({
   // user state
   const [user, setUser] = useState<
     Omit<
-      UpdateableUserFields,
+      UpdatableUserFields,
       'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'
     >
   >({
@@ -50,7 +49,7 @@ export const UserOnboardingContextProvider = ({
     correctDailyStreak: null,
     totalDailyStreak: null,
     showTimeTaken: false,
-    sendPushNotifications: false
+    sendPushNotifications: false,
   });
 
   return (

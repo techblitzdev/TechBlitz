@@ -9,30 +9,30 @@ import {
   Tooltip,
   TooltipProvider,
   TooltipTrigger,
-  TooltipContent
+  TooltipContent,
 } from '@/components/ui/tooltip';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Form, FormField, FormItem, FormControl } from '@/components/ui/form';
 import { useOnboardingContext } from './onboarding-context';
 import { onboardingStepOneSchema } from '@/lib/zod/schemas/onboarding/step-one';
-import type { UpdateableUserFields } from '@/types/User';
+import type { UpdatableUserFields } from '@/types/User';
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
+  visible: { opacity: 1, y: 0 },
 };
 
 export function OnboardingStepOne() {
   const { user, setUser } = useOnboardingContext();
 
-  const form = useForm<UpdateableUserFields>({
+  const form = useForm<UpdatableUserFields>({
     resolver: zodResolver(onboardingStepOneSchema),
     defaultValues: {
-      username: user.username ?? '',
+      username: user.username || '',
       showTimeTaken: user.showTimeTaken || false,
-      sendPushNotifications: user.sendPushNotifications || false
-    }
+      sendPushNotifications: user.sendPushNotifications || false,
+    },
   });
 
   // Watch all form values
@@ -51,7 +51,7 @@ export function OnboardingStepOne() {
         ...prev,
         username: watchedValues.username ?? '',
         showTimeTaken: watchedValues.showTimeTaken,
-        sendPushNotifications: watchedValues.sendPushNotifications
+        sendPushNotifications: watchedValues.sendPushNotifications,
       }));
     }
   }, [watchedValues, setUser, user]);
@@ -99,10 +99,7 @@ export function OnboardingStepOne() {
                     render={({ field }) => (
                       <FormItem className="flex flex-row items-center justify-between">
                         <div className="space-y-0.5">
-                          <Label
-                            htmlFor="showTimeTaken"
-                            className="text-white"
-                          >
+                          <Label htmlFor="showTimeTaken" className="text-white">
                             Appear on leaderboards
                           </Label>
                         </div>
@@ -163,6 +160,7 @@ export function OnboardingStepOne() {
           </motion.div>
         </form>
       </Form>
+      {JSON.stringify(user)}
     </CardContent>
   );
 }

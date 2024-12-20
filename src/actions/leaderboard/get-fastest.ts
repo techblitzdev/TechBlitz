@@ -25,10 +25,14 @@ export const getFastestTimes = async (opts: {
 
   const skip = (page - 1) * pageSize;
 
+  // only return answer where the user has showTimeTaken set to true
   const answers = await prisma.answers.findMany({
     where: {
       questionUid,
       correctAnswer: true,
+      user: {
+        showTimeTaken: true,
+      },
     },
     take: pageSize, // Correctly set the limit
     skip, // Correctly set the offset

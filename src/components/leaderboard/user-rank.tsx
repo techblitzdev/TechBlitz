@@ -15,16 +15,17 @@ export default async function UserRank(opts: { questionUid: string }) {
 
   const displayName = getUserDisplayName(userData);
 
-  const userRank = await getUserAnswerRank({
-    questionUid,
-    userUid: userData.uid,
-  });
-
-  // go get the answer
-  const userAnswer = await getUserAnswer({
-    questionUid,
-    userUid: userData.uid,
-  });
+  // run this in parallel as they do not depend on each other
+  const [userRank, userAnswer] = await Promise.all([
+    getUserAnswerRank({
+      questionUid,
+      userUid: userData.uid,
+    }),
+    getUserAnswer({
+      questionUid,
+      userUid: userData.uid,
+    }),
+  ]);
 
   if (!userAnswer) {
     return (

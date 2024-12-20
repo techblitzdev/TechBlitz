@@ -43,6 +43,7 @@ export const config = {
 export async function middleware(req: NextRequest) {
   const url = req.nextUrl;
   const pathname = url.pathname;
+  const referer = req.headers.get('referer');
 
   // Helper function to check if path matches any pattern
   const getRouteGroup = (path: string) => {
@@ -67,6 +68,10 @@ export async function middleware(req: NextRequest) {
   // Handle legacy redirect
   if (pathname === '/sign-up') {
     return NextResponse.redirect(new URL('/signup', req.url));
+  }
+
+  if (pathname === '/homepage' || pathname === '/home') {
+    return NextResponse.rewrite(new URL('/', req.url));
   }
 
   // Get route group for current path
@@ -101,8 +106,8 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  // Redirect authenticated users from home page to dashboard
-  if (pathname === '/' && isAuthenticated) {
+  // Only redirect to dashboard if user directly accesses root URL without referer
+  if (pathname === '/' && isAuthenticated && !referer) {
     return NextResponse.redirect(new URL('/dashboard', req.url));
   }
 

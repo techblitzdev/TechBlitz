@@ -1,77 +1,70 @@
-'use client';
 import {
   SidebarFooter,
   SidebarMenu,
-  SidebarMenuItem
+  SidebarMenuButton,
+  SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { useUser } from '@/hooks/useUser';
 import { Button } from '@/components/ui/button';
-
-{
-  /* <DropdownMenu>
-            {/* <DropdownMenuTrigger asChild>
-              <SidebarMenuButton
-                variant="outline"
-                className="bg-black-100 text-white"
-              >
-                <User2 />
-                {isLoading && <LoadingSpinner />}
-                {isError && 'Error'}
-                {user && getUserDisplayName(user)}
-                <ChevronUp className="ml-auto" />
-              </SidebarMenuButton>
-            </DropdownMenuTrigger> */
-}
-{
-  /* <DropdownMenuContent
-              side="top"
-              className="w-[--radix-popper-anchor-width] bg-black-75 border-black-50 text-white"
-            >
-              <DropdownMenuItem className="!hover:bg-black-50">
-                <Link href="/upgrade" className="w-full">
-                  Upgrade
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="!hover:bg-black-50">
-                <Link href="/settings/account" className="w-full">
-                  Account
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="hover:bg-black-50">
-                <Link href="/settings/billing" className="w-full">
-                  Billing
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="hover:bg-black-50 w-full">
-                <LogoutButton variant="ghost" padding="none" />
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu> */
-}
+import { getUserDisplayName } from '@/utils/user';
+import { ChevronUp, User2 } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import Link from 'next/link';
+import LogoutButton from '@/components/auth/logout';
 
 export default function SidebarFooterComponent() {
   const { user, isError, isLoading } = useUser();
 
   return (
-    <SidebarFooter className="bg-[#000000]">
+    <SidebarFooter className="bg-[#000000] ">
       <SidebarMenu>
+        {/** if sidebar is collapsed, hide the upgrade button */}
         {user?.userLevel !== 'PREMIUM' && (
           <SidebarMenuItem className="font-semibold font-ubuntu text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-75 p-6">
             <p className="text-sm">
               Upgrade to{' '}
               {user?.userLevel !== 'STANDARD' ? 'Standard' : 'Premium'}
             </p>
-            <p className="text-xs font-light">Unlock more features.</p>
-            <Button
-              variant="accent"
-              fullWidth
-              className="mt-4"
-              href="/upgrade"
-            >
+            <p className="text-xs font-light">Accelerate your career.</p>
+            <Button variant="accent" fullWidth className="mt-4" href="/upgrade">
               Upgrade
             </Button>
           </SidebarMenuItem>
         )}
+        <SidebarMenuItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <SidebarMenuButton variant="default" className="text-white">
+                <User2 />
+                {user && getUserDisplayName(user)}
+                <ChevronUp className="ml-auto" />
+              </SidebarMenuButton>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56 bg-[#000] !text-white border-black-50">
+              <DropdownMenuItem>
+                <Link href="/upgrade" className="w-full">
+                  Upgrade
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/settings/profile" className="w-full">
+                  Profile
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/homepage">Homepage</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <LogoutButton variant="ghost" padding="none" />
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </SidebarMenuItem>
       </SidebarMenu>
     </SidebarFooter>
   );

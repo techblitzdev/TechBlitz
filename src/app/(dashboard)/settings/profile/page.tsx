@@ -1,27 +1,32 @@
 'use client';
-import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useUser } from '@/hooks/useUser';
-import { InputWithLabel } from '@/components/ui/input-label';
-import { UserUpdatePayload } from '@/types/User';
-import { updateUser } from '@/actions/user/authed/update-user';
-import { toast } from 'sonner';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
+import { useEffect } from 'react';
+
 import {
   Tooltip,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import { InputWithLabel } from '@/components/ui/input-label';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 import LoadingSpinner from '@/components/ui/loading';
 import LogoutButton from '@/components/auth/logout';
 import { Separator } from '@/components/ui/separator';
-import { useEffect } from 'react';
+import { toast } from 'sonner';
+
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+import { useUser } from '@/hooks/useUser';
+import { updateUser } from '@/actions/user/authed/update-user';
+
+import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import { UserUpdatePayload } from '@/types/User';
 
 type SchemaProps = z.input<typeof userDetailsSchema>;
 
@@ -43,9 +48,9 @@ export default function SettingsProfilePage() {
   useEffect(() => {
     if (!isLoading && user) {
       form.reset({
-        username: user.username,
-        firstName: user.firstName,
-        lastName: user.lastName,
+        username: user.username || '',
+        firstName: user.firstName || '',
+        lastName: user.lastName || '',
         showTimeTaken: user.showTimeTaken,
         sendPushNotifications: user.sendPushNotifications,
       });
@@ -55,12 +60,19 @@ export default function SettingsProfilePage() {
   // Use mutation hook for handling the update
   const { mutate, isPending } = useMutation({
     mutationFn: async (values: SchemaProps) => {
-      const cleanedValues = Object.fromEntries(
-        Object.entries(values).filter(([_, value]) => value !== null)
+      // Only include fields that have been changed from their original values
+      const changedValues = Object.entries(values).reduce(
+        (acc, [key, value]) => {
+          if (value !== user?.[key as keyof typeof user]) {
+            acc[key] = value;
+          }
+          return acc;
+        },
+        {} as Record<string, any>
       );
 
       const updatedVals: Partial<UserUpdatePayload> = {
-        ...cleanedValues,
+        ...changedValues,
         uid: user?.uid || '',
       };
 
@@ -183,7 +195,9 @@ export default function SettingsProfilePage() {
                             }}
                             className="bg-black-50"
                           />
-                          <Label htmlFor="showTimeTaken">Show time taken</Label>
+                          <Label htmlFor="showTimeTaken">
+                            Show on leaderboard
+                          </Label>
                         </div>
                       </TooltipTrigger>
                     </Tooltip>

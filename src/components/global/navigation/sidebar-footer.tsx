@@ -25,7 +25,7 @@ export default function SidebarFooterComponent() {
       <SidebarMenu>
         {/** if sidebar is collapsed, hide the upgrade button */}
         {user?.userLevel !== 'PREMIUM' && (
-          <SidebarMenuItem className="font-semibold font-ubuntu text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-75 p-6">
+          <SidebarMenuItem className="font-semibold font-ubuntu text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-75 p-6 group-data-[collapsible=icon]:hidden">
             <p className="text-sm">
               Upgrade to{' '}
               {user?.userLevel !== 'STANDARD' ? 'Standard' : 'Premium'}

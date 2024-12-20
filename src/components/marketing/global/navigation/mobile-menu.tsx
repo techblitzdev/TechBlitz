@@ -8,12 +8,10 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import {
   HamburgerMenuIcon,
   Cross1Icon,
-  ChevronRightIcon,
-  ChevronDownIcon
+  ChevronDownIcon,
 } from '@radix-ui/react-icons';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '@/utils/cn';
-import { useUserServer } from '@/hooks/useUserServer';
 import { useUser } from '@/hooks/useUser';
 
 interface MenuItem {
@@ -30,18 +28,18 @@ interface MobileMenuProps {
 const menuItems: MenuItem[] = [
   {
     label: 'Features',
-    children: [{ label: 'Roadmaps', href: '/features/roadmaps' }]
+    children: [{ label: 'Roadmaps', href: '/features/roadmaps' }],
   },
   {
     label: 'Resources',
     href: '/resources',
     children: [
       { label: 'FAQs', href: '/faqs' },
-      { label: 'Open Source', href: '/open-source' }
-    ]
+      { label: 'Open Source', href: '/open-source' },
+    ],
   },
   { label: 'Pricing', href: '/pricing' },
-  { label: 'Contact', href: 'mailto:team@techblitz.dev' }
+  { label: 'Contact', href: 'mailto:team@techblitz.dev' },
 ];
 
 export function MobileMenu() {
@@ -77,33 +75,37 @@ export function MobileMenu() {
           depth > 0 ? 'ml-4' : ''
         )}
       >
-        <div className="flex items-center justify-between">
-          <Link
-            href={item?.href || '#'}
-            className={cn(
-              'hover:text-accent duration-300 py-2 block',
-              depth === 1 && 'text-sm'
-            )}
-            onClick={() => !hasChildren && setIsOpen(false)}
-            aria-label={item.label}
-          >
-            {item.label}
-          </Link>
-          {hasChildren && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => toggleExpanded(item.label)}
-              aria-expanded={isExpanded}
-              aria-label={`Toggle ${item.label} submenu`}
+        <div
+          className={cn(
+            'flex items-center justify-between',
+            hasChildren && 'cursor-pointer'
+          )}
+          onClick={() => hasChildren && toggleExpanded(item.label)}
+        >
+          {hasChildren ? (
+            <span className={cn('py-2 block', depth === 1 && 'text-sm')}>
+              {item.label}
+            </span>
+          ) : (
+            <Link
+              href={item.href || '#'}
+              className={cn(
+                'hover:text-accent duration-300 py-2 block',
+                depth === 1 && 'text-sm'
+              )}
+              onClick={() => setIsOpen(false)}
+              aria-label={item.label}
             >
-              <ChevronDownIcon
-                className={cn(
-                  'h-4 w-4 transition-transform duration-300',
-                  isExpanded ? 'rotate-180' : ''
-                )}
-              />
-            </Button>
+              {item.label}
+            </Link>
+          )}
+          {hasChildren && (
+            <ChevronDownIcon
+              className={cn(
+                'h-4 w-4 transition-transform duration-300',
+                isExpanded ? 'rotate-180' : ''
+              )}
+            />
           )}
         </div>
         {hasChildren && (
@@ -123,17 +125,27 @@ export function MobileMenu() {
   };
 
   return (
-    <Sheet
-      open={isOpen}
-      onOpenChange={setIsOpen}
-    >
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="md:hidden"
-        >
-          <HamburgerMenuIcon className="h-5 w-5" />
+        <Button variant="ghost" size="icon" className="relative">
+          <div className="relative w-5 h-5">
+            <div
+              className={cn(
+                'absolute inset-0 transition-all duration-300',
+                isOpen ? 'opacity-0' : 'opacity-100'
+              )}
+            >
+              <HamburgerMenuIcon className="h-5 w-5" />
+            </div>
+            <div
+              className={cn(
+                'absolute inset-0 transition-all duration-300',
+                isOpen ? 'opacity-100 rotate-0' : 'opacity-0 rotate-90 scale-50'
+              )}
+            >
+              <Cross1Icon className="h-5 w-5" />
+            </div>
+          </div>
           <span className="sr-only">Toggle menu</span>
         </Button>
       </SheetTrigger>

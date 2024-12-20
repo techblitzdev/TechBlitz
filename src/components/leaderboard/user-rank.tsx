@@ -5,27 +5,25 @@ import { formatSeconds } from '@/utils/time';
 import { getUserDisplayName } from '@/utils/user';
 import { Button } from '../ui/button';
 import { redirect } from 'next/navigation';
+import { useUserServer } from '@/hooks/useUserServer';
 
-export default async function UserRank(opts: {
-  questionUid: string;
-  userUid: string;
-}) {
-  const { questionUid, userUid } = opts;
+export default async function UserRank(opts: { questionUid: string }) {
+  const { questionUid } = opts;
 
-  const userData = await getUserFromDb(userUid);
+  const userData = await useUserServer();
   if (!userData) return null;
 
   const displayName = getUserDisplayName(userData);
 
   const userRank = await getUserAnswerRank({
     questionUid,
-    userUid
+    userUid: userData.uid,
   });
 
   // go get the answer
   const userAnswer = await getUserAnswer({
     questionUid,
-    userUid
+    userUid: userData.uid,
   });
 
   if (!userAnswer) {

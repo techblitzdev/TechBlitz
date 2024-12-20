@@ -6,25 +6,26 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, FlameIcon, Trophy } from 'lucide-react';
 import Link from 'next/link';
 import UserRank from './user-rank';
-import { getUserFromSession } from '@/actions/user/authed/get-user';
 import { getLongestStreaks } from '@/actions/leaderboard/get-longest-streaks';
 import { getUserDisplayName } from '@/utils/user';
 import { Grid } from '../ui/grid';
 import Chip from '../ui/chip';
+import LoadingSpinner from '../ui/loading';
+import { Suspense } from 'react';
 
 export default async function TodaysLeaderboardBentoBox(opts: {
   todaysQuestion: Question | null;
 }) {
   const { todaysQuestion } = opts;
-  //if (!todaysQuestion || !todaysQuestion?.uid) return null;
-  const { data: user } = await getUserFromSession();
 
-  const { fastestTimes } = await getFastestTimes({
-    numberOfResults: 10,
-    questionUid: todaysQuestion?.uid || ''
-  });
-
-  const longestStreaks = await getLongestStreaks();
+  // run this in parallel as they do not depend on each other
+  const [{ fastestTimes }, longestStreaks] = await Promise.all([
+    getFastestTimes({
+      numberOfResults: 10,
+      questionUid: todaysQuestion?.uid || '',
+    }),
+    getLongestStreaks(),
+  ]);
 
   return (
     <div className="overflow-hidden flex flex-col h-full justify-between group">
@@ -36,10 +37,7 @@ export default async function TodaysLeaderboardBentoBox(opts: {
               <ArrowRight className="size-4 ml-1 group-hover:ml-2 duration-300" />
             </div>
             <div className="absolute top-4 right-4">
-              <Chip
-                color="accent"
-                text="Leaderboard"
-              />
+              <Chip color="accent" text="Leaderboard" />
             </div>
             <Separator className="bg-black-50" />
           </div>
@@ -47,10 +45,7 @@ export default async function TodaysLeaderboardBentoBox(opts: {
             <Card className="rounded-none border-none pt-4 group">
               <CardContent className="text-center">
                 <Link href={`/question/${todaysQuestion.uid}`}>
-                  <Trophy
-                    className="mx-auto mb-2 text-yellow-500"
-                    size={24}
-                  />
+                  <Trophy className="mx-auto mb-2 text-yellow-500" size={24} />
                   <p className="text-sm text-white">No fastest times yet!</p>
                   <p className="text-xs text-white mt-1">
                     Be the first to complete today's challenge!
@@ -88,48 +83,17 @@ export default async function TodaysLeaderboardBentoBox(opts: {
             ))}
           </ol>
         </div>
-        <Grid
-          size={20}
-          position="bottom-right"
-        />
+        <Grid size={20} position="bottom-right" />
       </div>
       <div className="flex flex-col overflow-hidden">
         <Separator className="bg-black-50 " />
         <div className="px-4 pb-4 bg-black-50/10 pt-4">
           <p className="text-xs">Your rank:</p>
-          <UserRank
-            questionUid={todaysQuestion?.uid || ''}
-            userUid={user?.user?.id || ''}
-          />
+          <Suspense fallback={<LoadingSpinner />}>
+            <UserRank questionUid={todaysQuestion?.uid || ''} />
+          </Suspense>
         </div>
       </div>
-      {/* <Card className="bg-black-100 border border-black-50 text-white h-full overflow-hidden">
-        <CardContent className="pt-6 pb-4 flex flex-col h-full justify-between p-0">
-          {restOfFastestTimes.length > 0 && (
-            <>
-              <Separator className="my-2" />
-              <ol className="space-y-1">
-                {restOfFastestTimes.map((time, i) => (
-                  <li
-                    key={i}
-                    className="flex items-center justify-between py-1 px-2 rounded hover:bg-black-50 transition-colors"
-                  >
-                    <div className="flex items-center gap-1">
-                      <span className="text-white">{i + 4}.</span>
-                      <span className="font-medium text-white">
-                        {getUserDisplayName(time.user)}
-                      </span>
-                    </div>
-                    <span className="text-white font-satoshi">
-                      {formatSeconds(time.timeTaken || 0)}
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            </>
-          )}
-        </CardContent>
-      </Card> */}
     </div>
   );
 }

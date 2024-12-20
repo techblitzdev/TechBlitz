@@ -13,7 +13,6 @@ import { UserRecord } from '@/types/User';
 import { Question } from '@/types/Questions';
 import { cn } from '@/utils/cn';
 import { useStopwatch } from 'react-timer-hook';
-import { DefaultRoadmapQuestions } from '@/types/Roadmap';
 
 export default function QuestionCard(opts: {
   user: UserRecord;
@@ -27,12 +26,12 @@ export default function QuestionCard(opts: {
     question,
     nextQuestion,
     isRoadmapQuestion = false,
-    index
+    index,
   } = opts;
 
   const answerFormRef = useRef<{ submitForm: () => void }>(null);
   const { seconds, pause, reset, totalSeconds } = useStopwatch({
-    autoStart: true
+    autoStart: true,
   });
 
   return (
@@ -44,10 +43,7 @@ export default function QuestionCard(opts: {
           textColor={getQuestionDifficultyColor(question.difficulty)}
           ghost
         />
-        <a
-          href="#code-snippet"
-          className="text-xs block md:hidden"
-        >
+        <a href="#code-snippet" className="text-xs block md:hidden">
           (Tap to see code snippet)
         </a>
         {user?.showTimeTaken && !isRoadmapQuestion && (

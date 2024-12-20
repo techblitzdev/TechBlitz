@@ -1,8 +1,9 @@
+import FeedbackButton from '@/components/ui/feedback-button';
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 
 export default function ProfileLayout({
-  children
+  children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <div className="text-white flex flex-col gap-y-4 relative">
@@ -10,12 +11,10 @@ export default function ProfileLayout({
         <div className="block md:hidden">
           <SidebarTrigger />
         </div>
-        <h1 className="text-xl md:text-3xl font-onest font-semibold">
-          Settings
-        </h1>
+        <FeedbackButton />
       </div>
       <Separator className="bg-black-50" />
-      <div className="bg-black-75 rounded-xl border border-black-50 mx-6">
+      <div className="bg-black-75 rounded-xl border border-black-50 mx-6 max-w-3xl">
         {children}
       </div>
     </div>

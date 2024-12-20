@@ -196,11 +196,6 @@ export function AppSidebar() {
       url: '/settings/billing',
       icon: CreditCard,
     },
-    {
-      title: 'Notifications',
-      url: '/settings/notifications',
-      icon: Bell,
-    },
   ];
 
   const items = pathname.startsWith('/settings')

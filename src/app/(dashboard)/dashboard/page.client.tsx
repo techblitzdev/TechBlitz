@@ -1,5 +1,5 @@
-"use client";
-import { useEffect, useState } from "react";
+'use client';
+import { useEffect, useState } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -7,9 +7,9 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import OnboardingModal from "@/components/onboarding/onboarding-modal";
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import OnboardingModal from '@/components/onboarding/onboarding-modal';
 
 export default function ClientPage({
   children,
@@ -21,7 +21,7 @@ export default function ClientPage({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    if (searchParams.purchase === "success") {
+    if (searchParams.purchase === 'success') {
       setIsModalOpen(true);
     }
   }, [searchParams]);

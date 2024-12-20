@@ -14,7 +14,7 @@ import { Label } from '@/components/ui/label';
 import {
   Tooltip,
   TooltipProvider,
-  TooltipTrigger
+  TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -36,8 +36,8 @@ export default function SettingsProfilePage() {
       firstName: user?.firstName || '',
       lastName: user?.lastName || '',
       showTimeTaken: user?.showTimeTaken || false,
-      sendPushNotifications: user?.sendPushNotifications || false
-    }
+      sendPushNotifications: user?.sendPushNotifications || false,
+    },
   });
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export default function SettingsProfilePage() {
         firstName: user.firstName,
         lastName: user.lastName,
         showTimeTaken: user.showTimeTaken,
-        sendPushNotifications: user.sendPushNotifications
+        sendPushNotifications: user.sendPushNotifications,
       });
     }
   }, [user, isLoading]);
@@ -61,7 +61,7 @@ export default function SettingsProfilePage() {
 
       const updatedVals: Partial<UserUpdatePayload> = {
         ...cleanedValues,
-        uid: user?.uid || ''
+        uid: user?.uid || '',
       };
 
       const updatedUser = await updateUser({ userDetails: updatedVals });
@@ -77,7 +77,7 @@ export default function SettingsProfilePage() {
       // Optimistically update to the new value
       queryClient.setQueryData(['user-details'], (old: any) => ({
         ...old,
-        ...newUserData
+        ...newUserData,
       }));
 
       // Return a context object with the snapshotted value
@@ -91,7 +91,7 @@ export default function SettingsProfilePage() {
     },
     onSuccess: (updatedUser) => {
       toast.success('Profile updated successfully');
-    }
+    },
   });
 
   const onSubmit = (values: SchemaProps) => {
@@ -108,7 +108,7 @@ export default function SettingsProfilePage() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full lg:w-1/2 space-y-6 p-8"
+          className="w-full space-y-6 p-8"
         >
           <FormField
             control={form.control}
@@ -208,10 +208,11 @@ export default function SettingsProfilePage() {
                             onCheckedChange={(checked) => {
                               field.onChange(checked);
                             }}
+                            disabled={true}
                             className="bg-black-50"
                           />
                           <Label htmlFor="sendPushNotifications">
-                            Send push notifications
+                            Send push notifications (coming soon)
                           </Label>
                         </div>
                       </TooltipTrigger>
@@ -222,12 +223,8 @@ export default function SettingsProfilePage() {
             )}
           />
 
-          <div className="flex gap-4">
-            <Button
-              type="submit"
-              variant="secondary"
-              disabled={isPending}
-            >
+          <div className="flex flex-wrap gap-4">
+            <Button type="submit" variant="secondary" disabled={isPending}>
               {isPending ? <LoadingSpinner /> : 'Save changes'}
             </Button>
             <LogoutButton variant="destructive" />

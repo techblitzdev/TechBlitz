@@ -7,22 +7,25 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger
+  AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 
 import { ChatBubbleIcon } from '@radix-ui/react-icons';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 
-export default async function FeedbackButton() {
+export default async function FeedbackButton(opts: { showText?: boolean }) {
+  const { showText = true } = opts;
+
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
+      <AlertDialogTrigger asChild className="w-full flex justify-end">
         <Button
-          variant="ghost"
-          className="flex items-center p-2"
+          variant={showText ? 'default' : 'ghost'}
+          className="flex items-center gap-2 p-2"
         >
           <ChatBubbleIcon className="size-4" />
+          {showText && <p className="text-sm">Feedback</p>}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-black-100 border border-black-50">

@@ -15,7 +15,7 @@ import ExpandedCodeModal from '@/components/questions/expanded-code-modal';
 import FeedbackButton from '@/components/ui/feedback-button';
 
 export default async function TodaysQuestionPage({
-  params
+  params,
 }: {
   params: { uid: string };
 }) {
@@ -33,12 +33,12 @@ export default async function TodaysQuestionPage({
   const totalSubmissions = await getQuestionStats(uid);
   const nextQuestion = await getRandomQuestion({
     currentQuestionId: uid,
-    userUid: user.uid
+    userUid: user.uid,
   });
 
   const relatedQuestions = await getRelatedQuestions({
     questionUid: uid,
-    tags: question.tags || []
+    tags: question.tags || [],
   });
 
   return (
@@ -93,17 +93,14 @@ export default async function TodaysQuestionPage({
             className="h-fit lg:h-[45rem] col-span-full bg-black-75 border border-black-50 rounded-xl relative overflow-hidden"
           >
             <div className="p-4 text-sm flex w-full items-center justify-between bg-black-25">
-              <p>Code</p>
+              <p className="font-onest">index.js</p>{' '}
               {question.codeSnippet && (
                 <ExpandedCodeModal code={question.codeSnippet} />
               )}
             </div>
             <Separator className="bg-black-50" />
             {question?.codeSnippet && (
-              <QuestionDisplay
-                content={question.codeSnippet}
-                language=""
-              />
+              <QuestionDisplay content={question.codeSnippet} language="" />
             )}
           </div>
 

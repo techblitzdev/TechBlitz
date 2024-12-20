@@ -3,10 +3,10 @@
 import { prisma } from '@/utils/prisma';
 import { revalidateTag } from 'next/cache';
 import { getUserFromSession } from './get-user';
-import { UpdateableUserFields } from '@/types/User';
+import { UpdatableUserFields } from '@/types/User';
 
 export const updateUser = async (opts: {
-  userDetails: Partial<UpdateableUserFields>;
+  userDetails: Partial<UpdatableUserFields>;
 }) => {
   try {
     const { userDetails } = opts;
@@ -37,9 +37,9 @@ export const updateUser = async (opts: {
     // Update the user in the database
     const updatedUser = await prisma.users.update({
       where: {
-        uid: sessionResult.data.user.id
+        uid: sessionResult.data.user.id,
       },
-      data: cleanedUserDetails
+      data: cleanedUserDetails,
     });
 
     console.log('Updated user:', JSON.stringify(updatedUser, null, 2));

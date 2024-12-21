@@ -27,7 +27,7 @@ We love to be transparent with our users, so below are the next features we have
 - **Statistics**: A more in-depth statistics dashboard, giving you a greater insight on your current ability.
 - **Multi-language support**: Currently we only support JavaScript. However, we are looking into: Python, Typescript, and GoLang for our first wave of other languages to support.
 - **Searching**: Implement elastic search to easily find questions that you want to answer
-- **Slack bot**: The daily challenge sent to a Slack channel of your choice. Compete with co-workers and learn new skills!## Tech Stack
+- **Slack bot**: The daily challenge sent to a Slack channel of your choice. Compete with co-workers and learn new skills!
 
 ## Tech stack
 

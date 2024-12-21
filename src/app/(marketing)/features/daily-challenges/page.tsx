@@ -4,7 +4,7 @@ import CallToActionBlock from '@/components/marketing/global/call-to-action-bloc
 import MarketingContentGrid, {
   type MarketingContentGridProps,
 } from '@/components/marketing/global/content-grid';
-import { Phone } from 'lucide-react';
+import { MobileIcon } from '@radix-ui/react-icons';
 
 const items: MarketingContentGridProps[] = [
   {
@@ -18,9 +18,9 @@ const items: MarketingContentGridProps[] = [
         <g
           fill="none"
           stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1.5"
           color="currentColor"
         >
           <path d="M3.5 9.368c0-3.473 0-5.21 1.025-6.289S7.2 2 10.5 2h3c3.3 0 4.95 0 5.975 1.08C20.5 4.157 20.5 5.894 20.5 9.367v5.264c0 3.473 0 5.21-1.025 6.289S16.8 22 13.5 22h-3c-3.3 0-4.95 0-5.975-1.08C3.5 19.843 3.5 18.106 3.5 14.633z" />
@@ -97,12 +97,12 @@ const items: MarketingContentGridProps[] = [
         <g
           fill="none"
           stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
         >
-          <path stroke-miterlimit="5.759" d="M3 3v16a2 2 0 0 0 2 2h16" />
-          <path stroke-miterlimit="5.759" d="m7 14l4-4l4 4l6-6" />
+          <path strokeMiterlimit="5.759" d="M3 3v16a2 2 0 0 0 2 2h16" />
+          <path strokeMiterlimit="5.759" d="m7 14l4-4l4 4l6-6" />
           <path d="M18 8h3v3" />
         </g>
       </svg>
@@ -112,7 +112,7 @@ const items: MarketingContentGridProps[] = [
       'Monitor your growth with detailed statistics. Keep tabs on your performance and see how you stack up against others.',
   },
   {
-    icon: <Phone size={20} color="currentColor" />,
+    icon: <MobileIcon className="size-6" />,
     title: 'Mobile-friendly',
     description:
       'Access challenges on the go. Solve problems from your phone, tablet, or computer.',
@@ -126,8 +126,8 @@ export default function FeatureDailyQuestionPage() {
       <FeatureDailyChallengeBentoGrid />
       <MarketingContentGrid title="Master Coding with Ease" items={items} />
       <CallToActionBlock
-        title="The smarter way to stay on top of tech"
-        description="Create your own progression path with our AI powered roadmaps, designed to help you grow as a developer."
+        title="The fastest way to master coding."
+        description="Daily challenges designed to make you a better developer, faster."
       />
     </div>
   );

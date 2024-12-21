@@ -1,6 +1,7 @@
 import AnimatedSpan from '@/components/ui/animated-span';
 import { Button } from '@/components/ui/button';
-import FeatureDailyChallengeHeroGraphic from './graphic';
+import GridPattern from '@/components/ui/grid-pattern';
+import { cn } from '@/utils/cn';
 
 export default function FeatureDailyChallengeHero() {
   return (
@@ -9,7 +10,7 @@ export default function FeatureDailyChallengeHero() {
         <AnimatedSpan content="Daily Coding Challenges" />
         <h1
           className="
-            text-5xl lg:text-6xl !font-onest font-bold tracking-tight py-1.5 text-center
+            text-5xl lg:text-7xl !font-onest font-bold tracking-tight py-1.5 text-center
             text-transparent bg-clip-text bg-gradient-to-r from-white to-white/75 leading-tight
           "
         >
@@ -37,6 +38,18 @@ export default function FeatureDailyChallengeHero() {
           </Button>
         </div>
       </div>
+
+      <GridPattern
+        width={50}
+        height={50}
+        x={-1}
+        y={-1}
+        strokeDasharray={'4 2'}
+        className={cn(
+          'absolute inset-0 pt-44 [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]'
+        )}
+      />
+      <div className="z-10 absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
     </section>
   );
 }

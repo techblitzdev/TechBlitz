@@ -41,7 +41,6 @@ export default function UpdatePasswordPage() {
 
       if (!access_token || !refresh_token) {
         toast.error('Invalid reset link');
-        router.push('/login');
         return;
       }
 

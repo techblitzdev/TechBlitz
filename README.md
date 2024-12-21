@@ -29,6 +29,8 @@ We love to be transparent with our users, so below are the next features we have
 - **Searching**: Implement elastic search to easily find questions that you want to answer
 - **Slack bot**: The daily challenge sent to a Slack channel of your choice. Compete with co-workers and learn new skills!## Tech Stack
 
+## Tech stack
+
 - **Frameworks/libraries**: [React](https://react.dev/) + [Next.js](https://nextjs.org/) (app router)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **UI Components**: [Shadcn](https://ui.shadcn.com/), [Aceternity](https://ui.aceternity.com/), [MagicUi](https://magicui.design/)

@@ -5,7 +5,7 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormMessage
+  FormMessage,
 } from '@/components/ui/form';
 
 import { useForm } from 'react-hook-form';
@@ -20,7 +20,7 @@ import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
 
 const forgotPasswordSchema = z.object({
-  email: z.string().email()
+  email: z.string().email(),
 });
 
 type SchemaProps = z.infer<typeof forgotPasswordSchema>;
@@ -31,8 +31,8 @@ export default function ForgotPasswordPage() {
   const form = useForm<SchemaProps>({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
-      email: ''
-    }
+      email: '',
+    },
   });
 
   const handlePasswordReset = async (values: SchemaProps) => {
@@ -40,7 +40,7 @@ export default function ForgotPasswordPage() {
     setIsLoading(true);
     try {
       await resetPassword({
-        email
+        email,
       });
       toast.success('Password reset email sent');
       form.reset();
@@ -55,7 +55,13 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="bg-black-100 border border-black-50 p-8 rounded-xl space-y-4 text-center">
+    <div
+      className="p-8 rounded-xl space-y-4 text-center border border-black-50"
+      style={{
+        background:
+          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
+      }}
+    >
       <h1 className="font-bold text-3xl mb-2">Forgot your password?</h1>
       <p className="text-gray-300 mb-8 text-sm font-satoshi text-wrap">
         No need to worry, enter your email below to reset it.

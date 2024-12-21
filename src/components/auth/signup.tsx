@@ -1,22 +1,27 @@
 'use client';
+// components
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormMessage
+  FormMessage,
 } from '@/components/ui/form';
+import { InputWithLabel } from '@/components/ui/input-label';
+import { toast } from 'sonner';
+
+// zod
+import { z } from 'zod';
 import { signupSchema } from '@/lib/zod/schemas/signup';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { useMutation } from '@tanstack/react-query';
+
 import { signUp } from '@/actions/user/account/signup';
-import { InputWithLabel } from '../ui/input-label';
-import { toast } from 'sonner';
+
 import { useRouter } from 'next/navigation';
-import { Separator } from '../ui/separator';
 import Link from 'next/link';
 
 type SchemaProps = z.infer<typeof signupSchema>;
@@ -29,8 +34,8 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
     resolver: zodResolver(signupSchema),
     defaultValues: {
       email: prefilledEmail || '',
-      password: ''
-    }
+      password: '',
+    },
   });
 
   const { mutateAsync: server_signup, isPending } = useMutation({
@@ -50,7 +55,7 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
     onError: (error) => {
       // show error toast
       toast.error(error.message);
-    }
+    },
   });
 
   const handleSignup = (values: SchemaProps) => server_signup(values);
@@ -70,7 +75,7 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
                 <InputWithLabel
                   label="Email"
                   type="email"
-                  placeholder="hello@techblitz.dev"
+                  placeholder="team@techblitz.dev"
                   {...field}
                   autoComplete="email"
                 />
@@ -116,11 +121,7 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
 
         <span className="col-span-full text-sm text-gray-300 hover:text-white duration-300">
           Already have an account?{' '}
-          <Link
-            href="/login"
-            prefetch
-            className="underline"
-          >
+          <Link href="/login" prefetch className="underline">
             Sign in
           </Link>
         </span>

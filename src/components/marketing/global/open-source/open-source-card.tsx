@@ -3,7 +3,7 @@ import { Ellipsis, Smile } from 'lucide-react';
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger
+  PopoverTrigger,
 } from '@/components/ui/popover';
 import { cn } from '@/utils/cn';
 import { capitalise } from '@/utils';
@@ -26,21 +26,21 @@ export default function OpenSourceCard(opts: {
       headerBg: 'bg-[#131D2E]',
       headerColor: '#131D2E',
       border: 'border-[#1F4272]',
-      borderColor: '#1F4272'
+      borderColor: '#1F4272',
     },
     issue: {
       headerBg: 'bg-[#2D1111]',
       headerColor: '#2D1111',
       border: 'border-[#4E1C1C]',
-      borderColor: '#4E1C1C'
+      borderColor: '#4E1C1C',
     },
     pr: {
       headerBg: 'bg-[#151B23]',
       headerColor: '#151B23',
 
       border: 'border-[#3C444D]',
-      borderColor: '#3C444D'
-    }
+      borderColor: '#3C444D',
+    },
   };
 
   return (
@@ -56,7 +56,7 @@ export default function OpenSourceCard(opts: {
         style={
           {
             '--arrow-color': cardColors[cardStyle].headerColor,
-            '--arrow-border-color': cardColors[cardStyle].borderColor
+            '--arrow-border-color': cardColors[cardStyle].borderColor,
           } as React.CSSProperties
         }
       >
@@ -95,7 +95,10 @@ export default function OpenSourceCard(opts: {
           >
             <div className="flex items-center gap-x-1 justify-between">
               {emojis.map((emoji) => (
-                <button className="hover:bg-black-50 py-1 px-1.5 rounded">
+                <button
+                  key={emoji}
+                  className="hover:bg-black-50 py-1 px-1.5 rounded"
+                >
                   {emoji}
                 </button>
               ))}

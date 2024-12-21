@@ -1,25 +1,30 @@
 'use client';
+import { useRef } from 'react';
+// components
 import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormMessage
+  FormMessage,
 } from '@/components/ui/form';
+import { InputWithLabel } from '@/components/ui/input-label';
+import { toast } from 'sonner';
+import { DiscordLogoIcon, GitHubLogoIcon } from '@radix-ui/react-icons';
+
+// zod
 import { loginSchema } from '@/lib/zod/schemas/login';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { login } from '@/actions/user/account/login';
-import { InputWithLabel } from '../ui/input-label';
-import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
-import { useRef } from 'react';
-import { Separator } from '../ui/separator';
-import Link from 'next/link';
-import { DiscordLogoIcon, GitHubLogoIcon } from '@radix-ui/react-icons';
+// actions
 import { oauth } from '@/actions/user/account/oauth';
+import { login } from '@/actions/user/account/login';
+
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import OrSeparator from '@/components/auth/or-separator';
 
 type SchemaProps = z.infer<typeof loginSchema>;
 
@@ -31,8 +36,8 @@ export default function LoginForm() {
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: '',
-      password: ''
-    }
+      password: '',
+    },
   });
 
   const handleLogin = async (values: SchemaProps) => {
@@ -41,7 +46,7 @@ export default function LoginForm() {
     try {
       await login({
         email,
-        password
+        password,
       });
 
       toast.success('Logged in successfully');
@@ -127,21 +132,12 @@ export default function LoginForm() {
 
         <span className="col-span-full text-sm text-gray-300 hover:text-white duration-300">
           Don't have an account?{' '}
-          <Link
-            href="/signup"
-            prefetch
-            className="underline"
-          >
+          <Link href="/signup" prefetch className="underline">
             Sign up
           </Link>
         </span>
       </form>
-      <div className="relative pt-5 pb-1 col-span-full">
-        <Separator className=" bg-black-50" />
-        <span className="absolute top-3 left-1/2 transform -translate-x-1/2 bg-[#000000] px-2 text-xs text-gray-300">
-          OR
-        </span>
-      </div>
+      <OrSeparator />
       <div className="flex gap-1 items-center justify-center">
         <form
           onSubmit={async (event) => {
@@ -149,11 +145,7 @@ export default function LoginForm() {
             await oauth('github');
           }}
         >
-          <Button
-            type="submit"
-            variant="ghost"
-            padding="md"
-          >
+          <Button type="submit" variant="ghost" padding="md">
             <GitHubLogoIcon className="size-4" />
           </Button>
         </form>
@@ -163,11 +155,7 @@ export default function LoginForm() {
             await oauth('discord');
           }}
         >
-          <Button
-            type="submit"
-            variant="ghost"
-            padding="md"
-          >
+          <Button type="submit" variant="ghost" padding="md">
             <DiscordLogoIcon className="size-4" />
           </Button>
         </form>

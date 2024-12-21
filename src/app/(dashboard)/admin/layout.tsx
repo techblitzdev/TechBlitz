@@ -1,10 +1,9 @@
 'use client';
 import NewQuestionModal from '@/components/questions/new-question-modal';
 import { Separator } from '@/components/ui/separator';
-import { usePathname } from 'next/navigation';
 
 export default function AdminLayout({
-  children
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {

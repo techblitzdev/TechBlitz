@@ -4,7 +4,7 @@ import { useRef } from 'react';
 
 export default function HomepageLargeText() {
   const text =
-    'Unlock Your Full-Stack Potential with Daily Coding Challenges, Adaptive Roadmaps, and a Supportive Community.';
+    'Level up your skills one day at a time with our structured, short-form coding challenges. Making you the engineer companies fight to hire.';
   // Split the text into an array of words
   const words = text.split(' ');
 
@@ -13,11 +13,7 @@ export default function HomepageLargeText() {
       <h2 className="text-5xl lg:text-7xl text-gradient from-white to-white/55 py-4">
         <AnimatePresence>
           {words.map((word, index) => (
-            <Word
-              key={index}
-              word={word}
-              index={index}
-            />
+            <Word key={index} word={word} index={index} />
           ))}
         </AnimatePresence>
       </h2>
@@ -39,7 +35,7 @@ function Word({ word, index }: { word: string; index: number }) {
         type: 'spring',
         stiffness: 100,
         damping: 15,
-        delay: index * 0.2
+        delay: index * 0.2,
       }}
       className="inline-block mr-2 text-white"
     >

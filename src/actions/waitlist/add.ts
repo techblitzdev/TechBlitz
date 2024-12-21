@@ -4,6 +4,7 @@ import { prisma } from '@/utils/prisma';
 import WaitlistConfirmationEmail from '@/components/templates/waitlist';
 import { renderAsync } from '@react-email/components';
 import React from 'react';
+import { revalidateTag } from 'next/cache';
 
 export const addToWaitlist = async (email: string) => {
   if (!email || email.length === 0) {
@@ -12,8 +13,8 @@ export const addToWaitlist = async (email: string) => {
 
   const user = await prisma.waitlist.create({
     data: {
-      email
-    }
+      email,
+    },
   });
 
   if (!user) {
@@ -22,7 +23,7 @@ export const addToWaitlist = async (email: string) => {
 
   const html = await renderAsync(
     React.createElement(WaitlistConfirmationEmail, {
-      email
+      email,
     })
   );
 
@@ -31,6 +32,9 @@ export const addToWaitlist = async (email: string) => {
     from: 'welcome <team@techblitz.dev>',
     to: [email],
     subject: 'Waitlist Confirmation',
-    html
+    html,
   });
+
+  // revalidate the waitlist count
+  revalidateTag('waitlist-count');
 };

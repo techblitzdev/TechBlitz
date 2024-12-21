@@ -2,12 +2,13 @@ import { getUserDisplayName } from '@/utils/user';
 import Card from '../global/Card';
 import { FlameIcon, User } from 'lucide-react';
 import { getLongestStreaks } from '@/actions/leaderboard/get-longest-streaks';
+import Image from 'next/image';
 
 const header = () => {
   return (
     <div className="flex items-center w-full justify-between">
       <div className="flex gap-x-2 items-center">
-        <FlameIcon className="fill-red-500 text-orange-500" />
+        <FlameIcon className="fill-red-500 text-orange-500 hidden md:block" />
         <h3 className="text-lg">Longest streaks</h3>
       </div>
     </div>
@@ -44,9 +45,12 @@ export default async function LeaderboardLongestStreaks(opts: {
             {/* User */}
             <div className="flex-1 flex items-center gap-4">
               {streak.user.userProfilePicture ? (
-                <img
+                <Image
                   src={streak.user.userProfilePicture}
                   className="rounded-full size-6"
+                  alt={streak.user.username || 'User Profile Picture'}
+                  width={24}
+                  height={24}
                 />
               ) : (
                 <div className="rounded-full size-6 flex items-center justify-center bg-black-50">

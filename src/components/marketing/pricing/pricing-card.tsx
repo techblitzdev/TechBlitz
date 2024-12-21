@@ -1,15 +1,8 @@
 import AnimatedPricingFeatures from '@/components/payment/animated-pricing-features';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader
-} from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { StripeProduct } from '@/types/StripeProduct';
 import { cn } from '@/utils/cn';
-import { CheckIcon } from 'lucide-react';
 
 export default function PricingCard(opts: { product: StripeProduct }) {
   const { product } = opts;
@@ -26,26 +19,20 @@ export default function PricingCard(opts: { product: StripeProduct }) {
     <Card
       style={{
         background:
-          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
+          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
       className={cn(
-        'flex-1 col-span-2 lg:col-span-1 group-hover:scale-[1.03] duration-300 pb-3 bg-black-75 flex flex-col justify-between h-full gap-y-4',
-        mostPopular ? 'border-accent' : 'border-black-50'
+        'flex-1 col-span-2 lg:col-span-1 group-hover:scale-[1.03] duration-300 pb-3 bg-black-75 flex flex-col justify-between h-full gap-y-4 border-black-50'
       )}
     >
       <CardHeader className="pb-0">
         <div className="flex flex-col gap-2 text-start">
           <div className="text-sm text-white font-satoshi flex gap-x-2">
             <p>{product.name}</p>
-            {mostPopular && (
-              <Badge className="font-onest !bg-gradient-to-r !from-accent !via-accent/60 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors">
-                Most popular
-              </Badge>
-            )}
           </div>
           <div className="flex flex-col gap-y-1">
             <span className="text-4xl font-semibold !leading-[1.1] text-gradient from-white to-white/75 font-onest">
-              £
+              $
               {product.default_price?.unit_amount
                 ? product.default_price?.unit_amount / 100
                 : 0}
@@ -65,7 +52,7 @@ export default function PricingCard(opts: { product: StripeProduct }) {
         />
         <Button
           fullWidth
-          variant={mostPopular ? 'accent' : 'default'}
+          variant={mostPopular ? 'secondary' : 'default'}
           href={href}
           disabled={isProd}
         >

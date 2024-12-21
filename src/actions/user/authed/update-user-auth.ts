@@ -2,7 +2,6 @@
 import { createClient as createServerClient } from '@/utils/supabase/server';
 import type { UserAttributes } from '@supabase/supabase-js';
 import { prisma } from '@/utils/prisma';
-import { cookies } from 'next/headers';
 
 export const updateUserAuth = async (opts: {
   email?: string;
@@ -18,7 +17,7 @@ export const updateUserAuth = async (opts: {
   if (password) updates.password = password;
 
   const { data, error } = await supabase.auth.updateUser(updates, {
-    emailRedirectTo: `${process.env.NEXT_PUBLIC_UPDATE_USER_REDIRECT_URL}?email=${email}`
+    emailRedirectTo: `${process.env.NEXT_PUBLIC_UPDATE_USER_REDIRECT_URL}?email=${email}`,
   });
 
   if (error) {
@@ -31,11 +30,11 @@ export const updateUserAuth = async (opts: {
   if (email) {
     await prisma.users.update({
       where: {
-        uid: userUid
+        uid: userUid,
       },
       data: {
-        email
-      }
+        email,
+      },
     });
   }
 

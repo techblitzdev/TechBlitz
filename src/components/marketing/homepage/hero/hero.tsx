@@ -1,7 +1,8 @@
 import React from 'react';
-import HomepageHeroEmailSignup from './email-input';
-import { WaitlistForm } from '../../waitlist-form';
+import HomepageHeroEmailSignup from '@/components/marketing/homepage/hero/email-input';
+import { WaitlistForm } from '@/components/marketing/global/waitlist-form';
 import AnimatedSpan from '@/components/ui/animated-span';
+import Link from 'next/link';
 
 export default function HomepageHero() {
   return (
@@ -11,21 +12,21 @@ export default function HomepageHero() {
     >
       <div className="flex flex-col gap-y-4 col-span-full items-center text-center">
         <AnimatedSpan content="Sign up to get 50% off your first month" />
-        <h1 className="text-5xl lg:text-7xl !font-onest !font-medium tracking-tight">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/55">
-            Supercharge{' '}
-          </span>
-          <span className="text-gradient from-white to-white/75">
-            Your <br /> Software Engineering Career
-          </span>
+        <h1 className="text-5xl lg:text-[68px] !font-onest !font-medium tracking-tight">
+          The easiest way to master <br /> software engineering
         </h1>
         <h6 className="font-onest max-w-2xl text-gray-400">
-          Personalized coding roadmaps, daily coding challenges, and a
-          supportive tech community. Tailored for{' '}
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/80">
-            you
-          </span>
-          .
+          An{' '}
+          <Link
+            href="https://github.com/techblitzdev/techblitz"
+            target="_blank"
+            className="text-accent"
+          >
+            open-source
+          </Link>
+          , mobile-friendly platform that will transform you into an exceptional
+          developer. Through structured, short-form coding challenges to improve
+          your skills everyday.
         </h6>
         {process.env.NEXT_PUBLIC_ENV === 'development' ? (
           <HomepageHeroEmailSignup />

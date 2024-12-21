@@ -95,13 +95,13 @@ export default function SettingsProfilePage() {
       // Return a context object with the snapshotted value
       return { previousUser };
     },
-    onError: (err, newUserData, context) => {
+    onError: (err, _, context) => {
       // If the mutation fails, use the context returned from onMutate to roll back
       queryClient.setQueryData(['user-details'], context?.previousUser);
       toast.error('An error occurred while updating your profile');
       console.error(err);
     },
-    onSuccess: (updatedUser) => {
+    onSuccess: () => {
       toast.success('Profile updated successfully');
     },
   });

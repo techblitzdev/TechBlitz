@@ -7,7 +7,7 @@ export default async function DashboardLearderboardUserCard(opts: {
   entry: AnswerWithUser;
   index: number;
 }) {
-  let { entry, index } = opts;
+  const { entry, index } = opts;
   const { data: currentUser } = await getUserFromSession();
 
   const isCurrentUser = currentUser?.user?.id === entry.user.uid;

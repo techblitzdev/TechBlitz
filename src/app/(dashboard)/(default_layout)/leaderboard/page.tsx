@@ -6,7 +6,7 @@ import LeaderboardTodayBoard from '@/components/leaderboard/leaderboard-today-bo
 import { useUserServer } from '@/hooks/useUserServer';
 
 export default async function TodaysLeaderboardPage({
-  searchParams
+  searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
@@ -22,7 +22,7 @@ export default async function TodaysLeaderboardPage({
         heading="Top users"
         subheading="See how you stack up against the rest of the community, and try to battle your way to the top!"
       />
-      <div className="container flex flex-col xl:flex-row gap-10 mt-5">
+      <div className="lg:container flex flex-col xl:flex-row gap-10 mt-5">
         <div className="w-full flex flex-col gap-10 xl:w-1/2">
           <LeaderboardTodayBoard
             todayQuestion={todayQuestion}

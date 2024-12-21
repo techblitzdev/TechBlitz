@@ -1,7 +1,6 @@
 import Chip from '@/components/ui/chip'; // Assuming this is your Chip component
 import { Tags } from '@/types/Tags';
 import { capitalise } from '@/utils';
-import { useId } from 'react';
 
 export default function TagDisplay(opts: {
   tags: Tags[];
@@ -21,8 +20,8 @@ export default function TagDisplay(opts: {
     ...tag,
     tag: {
       ...tag.tag,
-      name: tag.tag.name.replace(/-/g, ' ')
-    }
+      name: tag.tag.name.replace(/-/g, ' '),
+    },
   }));
 
   // set text colour based on variant
@@ -31,15 +30,17 @@ export default function TagDisplay(opts: {
   return (
     <div className="space-y-0.5 text-start">
       <div className="flex items-center gap-2 flex-wrap">
-        {visibleTags.map((tag) => (
-          <Chip
-            key={`${tag.tagId}-${useId()}`}
-            color={variant}
-            text={capitalise(tag.tag.name)}
-            textColor={textColor}
-            bold={false}
-          />
-        ))}
+        {visibleTags.map((tag, idx) => {
+          return (
+            <Chip
+              key={`${tag.tagId}-${idx}`}
+              color={variant}
+              text={capitalise(tag.tag.name)}
+              textColor={textColor}
+              bold={false}
+            />
+          );
+        })}
         {remainingCount > 0 && (
           <Chip
             color={variant}

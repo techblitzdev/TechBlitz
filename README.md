@@ -1,22 +1,23 @@
-# TechBlitz
+<h3 align="center">TechBlitz</h3>
 
-TechBlitz is an open-source LeetCode alternative to help developers of all abilities stay on top of their tech stack.
+<p align="center">TechBlitz is an open-source, mobile-friendly software education platform to empower developers to stay on top of tech.</p>
 
 ## Overview
 
-TechBlitz is designed to empower developers at all skill levels by providing a comprehensive platform for learning, practicing, and improving technical skills. Unlike traditional coding platforms, we focus on holistic developer growth across various technologies and skill levels, without taking your hours to complete.
+TechBlitz is designed to empower developers by providing a comprehensive platform for learning, practicing, and improving technical skills. Unlike traditional coding platforms, we focus on holistic developer growth across various technologies and skill levels, without taking your hours to complete, as well as being a mobile-friendly platform. Complete coding challenges from any device, anywhere.
 
 ## Features
 
-- **Adaptive Learning Paths**: Personalized coding challenges generated through a series of onboarding questions to gauge your strengths and weaknesses.
-- **Multi-Language Support**: Practice in your preferred programming language (coming soon)
-- **Daily questions**: Repetition in the form of daily questions, and streaks to ensure you never miss a day!
+- **Adaptive Learning Paths**: [Personalized coding challenges generated through a series of onboarding questions to gauge your strengths and weaknesses.](https://techblitz.dev/features/roadmap)
+- **Daily questions**: [Repetition in the form of daily questions, and streaks to ensure you never miss a day!](https://www.techblitz.dev/daily-challenge)
 - **Skill Tracking**: Monitor your progress and identify areas for improvement
 - **1000's of questions**: A wide variety of short-form coding questions to test your knowledge
 - **Leaderboard**: Battle with other users for a chance to win prizes at the end of each month!
 - **Community-Driven**: Open-source and community-powered platform
+- **Statistics**: Analysis your current skillset, and be guided on how to improve.
 
 ## Roadmap
+
 We love to be transparent with our users, so below are the next features we have planned.
 
 - **Roadmaps**: Sharing roadmaps with other users
@@ -24,41 +25,48 @@ We love to be transparent with our users, so below are the next features we have
 - **Social**: Profiles, friends/coworkers
 - **Statistics**: A more in-depth statistics dashboard, giving you a greater insight on your current ability.
 - **Multi-language support**: Currently we only support JavaScript. However, we are looking into: Python, Typescript, and GoLang for our first wave of other languages to support.
-- **Searching**: Implement elastic search to easily find questions that you want to answer🚀
+- **Searching**: Implement elastic search to easily find questions that you want to answer
+- **Slack bot**:  Daily challenges sent to a Slack channel of your choice. Compete with co-workers and learn new skills!
 
-## Tech Stack
+## Tech stack
 
-- **Frameworks**: React + Next.js (app router)
-- **Styling**: Tailwind CSS
-- **UI Components**: Shadcn/UI, aceternity, recharts
-- **Backend**: Supabase
-- **Payments**: Stripe
-- **Hosting**: Vercel
-- **ORM**: Prisma
-- **Data fetching**: Tanstack Query
-- **Short links**: Dub
+- **Frameworks/libraries**: [React](https://react.dev/) + [Next.js](https://nextjs.org/) (app router)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **UI Components**: [Shadcn](https://ui.shadcn.com/), [Aceternity](https://ui.aceternity.com/), [MagicUi](https://magicui.design/)
+- **Backend (auth, database, storage)**: [Supabase](https://supabase.com/)
+- **Payments**: [Stripe](https://stripe.com/)
+- **Hosting**: [Vercel](https://vercel.com/)
+- **ORM**: [Prisma](https://www.prisma.io/)
+- **Data fetching**: [Tanstack Query](https://tanstack.com/)
+- **Emails**: [Resend](https://resend.com/) + [React Email](https://react.email/)
+- **Short links**: [Dub](https://dub.co/)
 
 ### Installation
 
 1. Clone the repository
    ```bash
-   git clone [https://git.new/blitz](https://github.com/Logannford/TechBlitz.git)
-
+   git clone git@github.com:techblitzdev/TechBlitz.git
    ```
 2. Install dependencies
-  ```bash
-    cd techblitz
-    npm install
-  ```
+
+   ```bash
+   cd techblitz
+   npm install
+   ```
 
 3. Run the development server
    ```bash
-   npm run dev (or npm run dev -- -p (port-of-your-choice))
+   npm run dev
    ```
 
 ## Contributing
-We welcome contributions! Please see our CONTRIBUTING.md for details on:
 
-- Reporting bugs
-- Suggesting features
-- Submitting pull requests
+We welcome contributions! Please see our CONTRIBUTING.md for details.
+
+## Feedback
+
+If you have any feedback, please reach out to us at team@techblitz.dev
+
+## License
+
+[Apache-2.0](http://www.apache.org/licenses/)

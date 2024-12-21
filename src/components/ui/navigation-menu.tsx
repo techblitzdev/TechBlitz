@@ -93,6 +93,7 @@ const NavigationMenuLink = React.forwardRef<
     {...props}
   />
 ));
+NavigationMenuLink.displayName = 'NavigationMenuLink';
 
 const NavigationMenuViewport = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Viewport>,
@@ -143,5 +144,5 @@ export {
   NavigationMenuTrigger,
   NavigationMenuLink,
   NavigationMenuIndicator,
-  NavigationMenuViewport
+  NavigationMenuViewport,
 };

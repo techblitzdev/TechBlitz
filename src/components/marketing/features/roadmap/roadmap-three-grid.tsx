@@ -2,7 +2,6 @@ import Link from 'next/link';
 import FeaturesContentHeader from '../global/content-header';
 import RoadmapGridItemOne from './grid/roadmap-grid-item-one';
 import RoadmapGridItemTwo from './grid/roadmap-grid-item-two';
-import RoadmapGridItemThree from './grid/roadmap-grid-item-three';
 import HomepageHeroImages from '../../homepage/hero/hero-images';
 import RoadmapImg from '../../../../public/images/roadmap.png';
 

@@ -1,5 +1,5 @@
 import { BaseRecord } from './BaseRecord';
-import { User, UserWithOutAnswers } from './User';
+import { UserWithOutAnswers } from './User';
 
 /**
  * The Answer type is the shape of the data when a user

@@ -2,26 +2,27 @@ import {
   Body,
   Container,
   Head,
-  Heading,
   Html,
   Link,
   Preview,
   Section,
   Text,
-} from '@react-email/components';
-import * as React from 'react';
+} from 'npm:@react-email/components';
+import * as React from 'npm:react';
 
-interface WaitlistConfirmationEmailProps {
-  email: string;
+interface ResetPasswordEmailProps {
+  username: string;
+  resetLink: string;
 }
 
-const WaitlistConfirmationEmail = ({
-  email,
-}: WaitlistConfirmationEmailProps) => {
+export const ResetPasswordEmail = ({
+  username,
+  resetLink,
+}: ResetPasswordEmailProps) => {
   return (
     <Html>
       <Head />
-      <Preview>You're on the TechBlitz waitlist!</Preview>
+      <Preview>Reset your TechBlitz password</Preview>
       <Body style={main}>
         <Container style={container}>
           <Section style={logoContainer}>
@@ -54,54 +55,36 @@ const WaitlistConfirmationEmail = ({
               </defs>
             </svg>
           </Section>
-          <Heading style={h1}>You're on the waitlist!</Heading>
+          <Text style={h1}>Reset Your Password</Text>
+          <Text style={text}>Hello {username},</Text>
           <Text style={text}>
-            Hey {email}, thanks for joining the TechBlitz waitlist! We're
-            thrilled to have you on board.
+            We received a request to reset your password for your TechBlitz
+            account. If you didn't make this request, you can safely ignore this
+            email.
           </Text>
-          <Text style={text}>
-            We'll notify you as soon as we're ready to welcome you to TechBlitz.
-            In the meantime, you can share TechBlitz with your friends, and
-            follow our progress!
-          </Text>
-          <Section style={listContainer}>
-            <Link href="https://x.com/techblitz_dev" style={listItem}>
-              <svg
-                data-testid="geist-icon"
-                height="24"
-                strokeLinejoin="round"
-                viewBox="0 0 16 16"
-                width="24"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M1.60022 2H5.80022L8.78759 6.16842L12.4002 2H14.0002L9.5118 7.17895L14.4002 14H10.2002L7.21285 9.83158L3.60022 14H2.00022L6.48864 8.82105L1.60022 2ZM10.8166 12.8L3.93657 3.2H5.18387L12.0639 12.8H10.8166Z"
-                  fill="currentColor"
-                ></path>
-              </svg>
-            </Link>
-            <Link href="https://git.new/techblitz" style={listItem}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"
-                />
-              </svg>
+          <Section style={buttonContainer}>
+            <Link href={resetLink} target="_blank" style={button}>
+              Reset Your Password
             </Link>
           </Section>
           <Text style={text}>
-            If you have any questions, feel free to reply to this email. We're
-            here to help!
+            This password reset link will expire in 1 hour. If you need to
+            request a new password reset, please visit our website.
           </Text>
+          <Text style={text}>
+            If you're having trouble clicking the button, copy and paste the URL
+            below into your web browser:
+          </Text>
+          <Text style={text}>{resetLink}</Text>
           <Section style={footer}>
             <Text style={footerText}>
               © 2024 TechBlitz. All rights reserved.
+            </Text>
+            <Text style={footerText}>
+              If you have any questions, please contact our support team at{' '}
+              <Link href="mailto:support@techblitz.com" style={footerLink}>
+                team@techblitz.com
+              </Link>
             </Text>
           </Section>
         </Container>
@@ -110,7 +93,12 @@ const WaitlistConfirmationEmail = ({
   );
 };
 
-export default WaitlistConfirmationEmail;
+ResetPasswordEmail.PreviewProps = {
+  username: 'John Doe',
+  resetLink: 'https://techblitz.com/reset-password?token=123456',
+} as ResetPasswordEmailProps;
+
+const accent = '#5b61d6';
 
 const main = {
   backgroundColor: '#000000',
@@ -120,15 +108,12 @@ const main = {
 
 const container = {
   margin: '0 auto',
-  padding: '40px 20px 48px',
-  width: '100%',
-  maxWidth: '600px',
+  padding: '20px 0 48px',
   textAlign: 'center' as const,
 };
 
 const logoContainer = {
   marginTop: '32px',
-  marginBottom: '32px',
 };
 
 const logo = {
@@ -138,35 +123,35 @@ const logo = {
 const h1 = {
   color: '#FFFFFF',
   fontSize: '32px',
-  fontWeight: '700',
-  lineHeight: '40px',
-  margin: '0 0 20px',
+  fontWeight: '500',
+  lineHeight: '24px',
+  margin: '40px 0',
   textAlign: 'center' as const,
 };
 
 const text = {
   color: '#FFFFFF',
-  fontSize: '16px',
+  fontSize: '14px',
   lineHeight: '24px',
   textAlign: 'center' as const,
-  margin: '0 0 20px',
+  fontFamily: "'Onest', Verdana, sans-serif",
 };
 
-const listContainer = {
-  margin: '0 0 32px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: '24px', // Increased gap for better spacing
+const buttonContainer = {
+  textAlign: 'center' as const,
+  margin: '32px 0',
 };
 
-const listItem = {
-  color: '#FFFFFF',
-  fontSize: '16px',
-  lineHeight: '24px',
-  display: 'inline-flex', // Align icons and links
-  alignItems: 'center', // Ensure vertical alignment
-  marginBottom: '8px',
+const button = {
+  backgroundColor: accent,
+  borderRadius: '4px',
+  color: '#ffffff',
+  fontSize: '14px',
+  fontWeight: '500',
+  textDecoration: 'none',
+  textAlign: 'center' as const,
+  padding: '10px 28px',
+  fontFamily: "'Onest', Verdana, sans-serif",
 };
 
 const footer = {
@@ -178,5 +163,14 @@ const footerText = {
   color: '#CCCCCC',
   fontSize: '12px',
   lineHeight: '16px',
-  margin: '4px 0',
+  fontFamily: "'Onest', Verdana, sans-serif",
 };
+
+const footerLink = {
+  color: '#CCCCCC',
+  fontSize: '12px',
+  lineHeight: '16px',
+  textDecoration: 'underline',
+};
+
+export default ResetPasswordEmail;

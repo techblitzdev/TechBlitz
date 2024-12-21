@@ -10,7 +10,7 @@ import { ReactQueryClientProvider } from '@/components/react-query-client-provid
 import { Toaster } from '@/components/ui/sonner';
 import { CSPostHogProvider } from '../providers';
 
-import { createTheme, MantineProvider } from '@mantine/core';
+import { MantineProvider } from '@mantine/core';
 // Import styles of packages that you've installed.
 // All packages except `@mantine/hooks` require styles imports
 import '@mantine/core/styles.css';
@@ -77,8 +77,6 @@ export const metadata: Metadata = {
     follow: true,
   },
 };
-
-const theme = createTheme({});
 
 export default function Layout({
   children,

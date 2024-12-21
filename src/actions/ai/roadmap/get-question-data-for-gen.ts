@@ -18,7 +18,7 @@ export const generateDataForAi = async (opts: {
   // If generating more questions, get existing questions to inform AI
   if (generateMore) {
     const existingQuestions = await prisma.roadmapUserQuestions.findMany({
-      where: { roadmapUid }
+      where: { roadmapUid },
     });
 
     // Format existing questions for AI context
@@ -26,7 +26,7 @@ export const generateDataForAi = async (opts: {
       question: question.question,
       correctAnswer: question.userCorrect ?? false,
       difficulty: question.difficulty,
-      previousQuestion: true // Flag to indicate this is an existing question
+      previousQuestion: true, // Flag to indicate this is an existing question
     }));
   }
 
@@ -37,10 +37,10 @@ export const generateDataForAi = async (opts: {
       AND: {
         userUid,
         AND: {
-          status: 'COMPLETED'
-        }
-      }
-    }
+          status: 'COMPLETED',
+        },
+      },
+    },
   });
 
   // if it is complete, the data we give back will be the questions the
@@ -48,14 +48,14 @@ export const generateDataForAi = async (opts: {
   if (roadmapData) {
     const questions = await prisma.roadmapUserQuestions.findMany({
       where: {
-        roadmapUid
-      }
+        roadmapUid,
+      },
     });
 
     const userAnswers = questions.map((question) => ({
       question: question.question,
       correctAnswer: question.userCorrect,
-      difficulty: question.difficulty
+      difficulty: question.difficulty,
     }));
 
     return userAnswers;
@@ -68,9 +68,9 @@ export const generateDataForAi = async (opts: {
     where: {
       uid: roadmapUid,
       AND: {
-        userUid
-      }
-    }
+        userUid,
+      },
+    },
   });
 
   if (roadmap?.hasGeneratedRoadmap) {
@@ -82,8 +82,8 @@ export const generateDataForAi = async (opts: {
   const roadmapDefaultAnswers =
     await prisma.defaultRoadmapQuestionsUsersAnswers.findMany({
       where: {
-        roadmapUid
-      }
+        roadmapUid,
+      },
     });
 
   if (roadmapDefaultAnswers.length === 0) {
@@ -94,11 +94,12 @@ export const generateDataForAi = async (opts: {
   const userAnswers = [];
 
   // now go and get the questions the user answered
-  for (const [index, answer] of roadmapDefaultAnswers.entries()) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  for (const [_, answer] of roadmapDefaultAnswers.entries()) {
     const question = await prisma.defaultRoadmapQuestions.findUnique({
       where: {
-        uid: answer.questionUid
-      }
+        uid: answer.questionUid,
+      },
     });
 
     // push the question along with the user's answer
@@ -106,7 +107,7 @@ export const generateDataForAi = async (opts: {
       userAnswers.push({
         question: question.aiTitle || '',
         correctAnswer: answer.correct,
-        difficulty: question.difficulty
+        difficulty: question.difficulty,
       });
     }
   }

@@ -30,6 +30,7 @@ export const updateUser = async (opts: {
     // Clean up the userDetails to remove any undefined or null values
     const cleanedUserDetails = Object.fromEntries(
       Object.entries(userDetails).filter(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         ([_, v]) => v !== undefined && v !== null
       )
     );

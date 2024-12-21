@@ -22,7 +22,7 @@ export default async function RoadmapOnboardingModal() {
   // get the first 'default' roadmap question
   const firstQuestion = await fetchRoadmapQuestionViaOrder(1);
 
-  const handleButtonClick = async (data: FormData) => {
+  const handleButtonClick = async () => {
     'use server';
     // create a new roadmap record for the user
     const roadmap = await createOrFetchUserRoadmap({

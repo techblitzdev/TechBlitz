@@ -17,8 +17,8 @@ export const metadata: Metadata = {
     'most popular',
     'software',
     'Javascript course',
-    'development'
-  ]
+    'development',
+  ],
 };
 
 const jsonLd = {
@@ -29,7 +29,7 @@ const jsonLd = {
     'techblitz is an online platform that helps users enhance their development knowledge through interactive questions and quizzes.',
   brand: {
     '@type': 'Brand',
-    name: 'techblitz'
+    name: 'techblitz',
   },
   offers: [
     {
@@ -40,7 +40,7 @@ const jsonLd = {
       description:
         'Access to all coding questions and daily challenges, leaderboards, statistics and more.',
       url: 'https://techblitz.dev/pricing',
-      category: 'Free'
+      category: 'Free',
     },
     {
       '@type': 'Offer',
@@ -50,12 +50,12 @@ const jsonLd = {
       description:
         'Unlock all questions, daily challenges, and personalized AI roadmaps.',
       url: 'https://techblitz.dev/pricing',
-      category: 'Paid'
-    }
+      category: 'Paid',
+    },
   ],
   url: 'https://techblitz.dev/pricing',
   image:
-    'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531'
+    'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
 };
 
 export default function PricingPage() {
@@ -63,12 +63,12 @@ export default function PricingPage() {
     {
       question: 'When will TechBlitz launch?',
       answer:
-        'TechBlitz is set to launch in Q1 2025! Join our waitlist today to get early access and be notified as soon as we go live.'
+        'TechBlitz is set to launch in Q1 2025! Join our waitlist today to get early access and be notified as soon as we go live.',
     },
     {
       question: 'What is TechBlitz, and how can it help developers?',
       answer:
-        'TechBlitz is an innovative online learning platform designed for developers of all skill levels. Our tools, including quizzes, coding roadmaps, and tutorials, help you sharpen your skills, boost productivity, and stay ahead in the tech industry.'
+        'TechBlitz is an innovative online learning platform designed for developers of all skill levels. Our tools, including quizzes, coding roadmaps, and tutorials, help you sharpen your skills, boost productivity, and stay ahead in the tech industry.',
     },
     {
       question: 'Is TechBlitz open source?',
@@ -85,17 +85,17 @@ export default function PricingPage() {
           and join the growing community of developers contributing to our
           platform.
         </>
-      )
+      ),
     },
     {
       question: 'Is TechBlitz free to use?',
       answer:
-        'Absolutely! TechBlitz offers a free plan to get you started right away. Create an account and dive into our rich library of developer resources today.'
+        'Absolutely! TechBlitz offers a free plan to get you started right away. Create an account and dive into our rich library of developer resources today.',
     },
     {
       question: 'What are the key benefits of using TechBlitz?',
       answer:
-        'TechBlitz provides engaging, short-form coding questions and practical roadmaps to help developers enhance their skills and tackle real-world challenges. Learn faster, smarter, and with less overwhelm!'
+        'TechBlitz provides engaging, short-form coding questions and practical roadmaps to help developers enhance their skills and tackle real-world challenges. Learn faster, smarter, and with less overwhelm!',
     },
     {
       question: 'What will you be adding to techblitz in the future?',
@@ -113,8 +113,8 @@ export default function PricingPage() {
           to see what’s next, and share your suggestions — we’d love to hear
           your ideas!
         </>
-      )
-    }
+      ),
+    },
   ];
 
   return (
@@ -135,9 +135,8 @@ export default function PricingPage() {
             Plans that don't <AnimatedBreak /> the bank
           </h1>
           <p className="text-gray-400 max-w-xl">
-            Start your coding journey for free, and unlock premium features
-            including personalized AI roadmaps and beta features with our
-            affordable plans.
+            Start your coding journey for free, no credit card required. Upgrade
+            to a paid plan to unlock premium features with our affordable plans.
           </p>
           <div className="mt-10">
             <PricingCardBlock />

@@ -94,6 +94,7 @@ export const generateDataForAi = async (opts: {
   const userAnswers = [];
 
   // now go and get the questions the user answered
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   for (const [_, answer] of roadmapDefaultAnswers.entries()) {
     const question = await prisma.defaultRoadmapQuestions.findUnique({
       where: {

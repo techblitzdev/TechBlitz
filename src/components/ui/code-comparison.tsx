@@ -19,9 +19,8 @@ export default function CodeComparison({
   beforeCode,
   afterCode,
   language,
-  filename,
   lightTheme,
-  darkTheme
+  darkTheme,
 }: CodeComparisonProps) {
   const { theme, systemTheme } = useTheme();
   const [highlightedBefore, setHighlightedBefore] = useState('');
@@ -35,11 +34,11 @@ export default function CodeComparison({
     async function highlightCode() {
       const before = await codeToHtml(beforeCode, {
         lang: language,
-        theme: selectedTheme
+        theme: selectedTheme,
       });
       const after = await codeToHtml(afterCode, {
         lang: language,
-        theme: selectedTheme
+        theme: selectedTheme,
       });
       setHighlightedBefore(before);
       setHighlightedAfter(after);
@@ -53,7 +52,7 @@ export default function CodeComparison({
     afterCode,
     language,
     lightTheme,
-    darkTheme
+    darkTheme,
   ]);
 
   const handleCopy = () => {
@@ -89,7 +88,7 @@ export default function CodeComparison({
               className="flex items-center p-3 text-sm text-foreground"
               style={{
                 background:
-                  'radial-gradient(128% 107% at 50% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
+                  'radial-gradient(128% 107% at 50% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
               }}
             >
               <FileIcon className="mr-2 h-4 w-4" />
@@ -102,7 +101,7 @@ export default function CodeComparison({
               className="flex items-center border-t border-black-50 md:border-none p-3 text-sm text-foreground justify-between"
               style={{
                 background:
-                  'radial-gradient(128% 107% at 50% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
+                  'radial-gradient(128% 107% at 50% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
               }}
             >
               <div className="flex items-center">
@@ -116,10 +115,7 @@ export default function CodeComparison({
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
-                <AnimatePresence
-                  mode="wait"
-                  initial={false}
-                >
+                <AnimatePresence mode="wait" initial={false}>
                   {isCopied ? (
                     <motion.div
                       key="check"

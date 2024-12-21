@@ -87,7 +87,6 @@ export default function AnswerQuestionModal({
   isOpen,
   onOpenChange,
   onRetry,
-  onNext,
   nextQuestion,
   isDailyQuestion,
 }: AnswerQuestionModalProps) {

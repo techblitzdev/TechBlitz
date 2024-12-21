@@ -15,11 +15,10 @@ import { useRouter } from 'next/navigation';
 
 export default function RoadmapDropdown(opts: { roadmapUid: string }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const router = useRouter();
 
   const { user } = useUser();
   if (!user) return null;
-
-  const router = useRouter();
 
   const handleEditRoadmap = () => {
     setIsEditModalOpen(true);

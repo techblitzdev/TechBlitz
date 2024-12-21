@@ -97,6 +97,7 @@ export const roadmapGenerate = async (opts: {
   await prisma.$transaction([
     prisma.roadmapUserQuestions.createMany({
       data: roadmapQuestionsData.map(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         ({ RoadmapUserQuestionsAnswers: _, ...rest }) => rest
       ),
     }),

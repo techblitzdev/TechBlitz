@@ -8,6 +8,7 @@ import type { ErrorCodes } from '@/types/Constants';
 
 export default function SignupPage() {
   const ranToast = useRef(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setUrlParams] = useState({});
 
   return (

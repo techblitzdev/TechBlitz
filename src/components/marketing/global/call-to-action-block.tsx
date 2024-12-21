@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/ui/grid';
 import { ChevronRight } from 'lucide-react';
-import { WaitlistForm } from '../waitlist-form';
+import { WaitlistForm } from './waitlist-form';
 
 export default function CallToActionBlock(opts: {
   title: string;

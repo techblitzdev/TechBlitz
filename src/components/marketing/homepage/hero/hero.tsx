@@ -1,6 +1,6 @@
 import React from 'react';
 import HomepageHeroEmailSignup from '@/components/marketing/homepage/hero/email-input';
-import { WaitlistForm } from '@/components/marketing/waitlist-form';
+import { WaitlistForm } from '@/components/marketing/global/waitlist-form';
 import AnimatedSpan from '@/components/ui/animated-span';
 import Link from 'next/link';
 

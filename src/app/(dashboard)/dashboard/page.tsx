@@ -19,7 +19,7 @@ import { getUserDisplayName } from '@/utils/user';
 import { useUserServer } from '@/hooks/useUserServer';
 
 export default async function Dashboard({
-  searchParams
+  searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
@@ -36,7 +36,7 @@ export default async function Dashboard({
             <div className="space-y-1">
               <SidebarTrigger className="lg:hidden" />
               <h1 className="text-xl md:text-3xl font-onest">
-                Welcome back,
+                Welcome back,{' '}
                 <Suspense fallback={<LoadingSpinner />}>
                   <span>{getUserDisplayName(user)}</span>
                 </Suspense>

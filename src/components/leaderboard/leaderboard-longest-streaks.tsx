@@ -8,7 +8,7 @@ const header = () => {
   return (
     <div className="flex items-center w-full justify-between">
       <div className="flex gap-x-2 items-center">
-        <FlameIcon className="fill-red-500 text-orange-500" />
+        <FlameIcon className="fill-red-500 text-orange-500 hidden md:block" />
         <h3 className="text-lg">Longest streaks</h3>
       </div>
     </div>

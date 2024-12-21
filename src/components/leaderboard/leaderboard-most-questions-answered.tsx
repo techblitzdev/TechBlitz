@@ -8,7 +8,7 @@ const header = () => {
     <div className="flex w-full justify-between items-center">
       <div className="flex flex-col gap-y-0.5">
         <div className="flex gap-x-2 items-center">
-          <Trophy className="size-5 text-yellow-400" />
+          <Trophy className="hidden md:block size-5 text-yellow-400" />
           <h3 className="text-lg">Top users by questions answered</h3>
         </div>
         <p className="text-xs text-gray-400">

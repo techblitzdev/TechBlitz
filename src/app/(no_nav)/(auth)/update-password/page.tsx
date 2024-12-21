@@ -1,4 +1,3 @@
-// app/update-password/page.tsx
 'use client';
 import { Button } from '@/components/ui/button';
 import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form';
@@ -7,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from 'sonner';
 import { InputWithLabel } from '@/components/ui/input-label';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import LoadingSpinner from '@/components/ui/loading';
 import { createClient } from '@/utils/supabase/client';
@@ -23,7 +22,6 @@ export default function UpdatePasswordPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [isValidToken, setIsValidToken] = useState(false);
-  const searchParams = useSearchParams();
   const supabase = createClient();
 
   const form = useForm<SchemaProps>({
@@ -36,8 +34,13 @@ export default function UpdatePasswordPage() {
 
   useEffect(() => {
     const validateToken = async () => {
-      const access_token = searchParams.get('access_token');
-      const refresh_token = searchParams.get('refresh_token');
+      // Parse hash parameters
+      const hashParams = new URLSearchParams(
+        window.location.hash.substring(1) // Remove the # character
+      );
+
+      const access_token = hashParams.get('access_token');
+      const refresh_token = hashParams.get('refresh_token');
 
       if (!access_token || !refresh_token) {
         toast.error('Invalid reset link');
@@ -60,7 +63,7 @@ export default function UpdatePasswordPage() {
     };
 
     validateToken();
-  }, [searchParams, router]);
+  }, [router]);
 
   const handlePasswordReset = async (values: SchemaProps) => {
     const { password, confirmPassword } = values;
@@ -96,7 +99,7 @@ export default function UpdatePasswordPage() {
 
   if (!isValidToken) {
     return (
-      <div className="p-8 rounded-xl space-y-4 text-center">
+      <div className="p-8 rounded-xl text-center flex flex-col items-center">
         <LoadingSpinner />
         <p>Validating reset link...</p>
       </div>

@@ -31,20 +31,20 @@ export const getStatsChartData = async (opts: {
       userUid,
       createdAt: {
         gte: fromDate,
-        lte: toDate
-      }
+        lte: toDate,
+      },
     },
     include: {
       question: {
         select: {
           tags: {
             include: {
-              tag: true
-            }
-          }
-        }
-      }
-    }
+              tag: true,
+            },
+          },
+        },
+      },
+    },
   });
 
   const data: StatsChartData = {};
@@ -85,7 +85,7 @@ export const getStatsChartData = async (opts: {
       data[key] = {
         totalQuestions: 1,
         tagCounts,
-        tags: [...tags]
+        tags: [...tags],
       };
     }
   });
@@ -115,9 +115,9 @@ export const getTotalQuestionCount = async (
       userUid,
       createdAt: {
         gte: fromDate,
-        lte: toDate
-      }
-    }
+        lte: toDate,
+      },
+    },
   });
 
   revalidateTag('statistics');
@@ -145,12 +145,12 @@ export const getTotalTimeTaken = async (
       userUid,
       createdAt: {
         gte: fromDate,
-        lte: toDate
-      }
+        lte: toDate,
+      },
     },
     select: {
-      timeTaken: true
-    }
+      timeTaken: true,
+    },
   });
 
   const totalTime = answers.reduce(
@@ -183,20 +183,20 @@ export const getHighestScoringTag = async (
       userUid,
       createdAt: {
         gte: fromDate,
-        lte: toDate
-      }
+        lte: toDate,
+      },
     },
     include: {
       question: {
         include: {
           tags: {
             include: {
-              tag: true
-            }
-          }
-        }
-      }
-    }
+              tag: true,
+            },
+          },
+        },
+      },
+    },
   });
 
   const tagCounts: Record<string, number> = {};
@@ -217,7 +217,7 @@ export const getHighestScoringTag = async (
 
   return {
     tag: highestScoringTag,
-    count: tagCounts[highestScoringTag]
+    count: tagCounts[highestScoringTag],
   };
 };
 
@@ -229,12 +229,13 @@ export const getData = async (opts: {
 }) => {
   const { userUid, to, from } = opts;
 
+  // run all in parallel as they do not depend on each other
   const [stats, totalQuestions, totalTimeTaken, highestScoringTag] =
     await Promise.all([
       getStatsChartData(opts),
       getTotalQuestionCount(userUid, to, from),
       getTotalTimeTaken(userUid, to, from),
-      getHighestScoringTag(userUid, to, from)
+      getHighestScoringTag(userUid, to, from),
     ]);
 
   return { stats, totalQuestions, totalTimeTaken, highestScoringTag };
@@ -255,7 +256,7 @@ const formatDayLabel = (date: Date) => {
     'Sep',
     'Oct',
     'Nov',
-    'Dec'
+    'Dec',
   ];
 
   const dayOfWeek = days[date.getDay()];

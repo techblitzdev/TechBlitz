@@ -44,13 +44,7 @@ export default function CodeDisplay({
       code={cleanContent}
       language={language || 'js'}
     >
-      {({
-        className,
-        style,
-        tokens,
-        getLineProps,
-        getTokenProps,
-      }: HighlightProps) => (
+      {({ style, tokens, getLineProps, getTokenProps }: HighlightProps) => (
         <pre
           className="overflow-x-auto p-4 h-full text-wrap"
           style={{ ...style, background: backgroundColor }}

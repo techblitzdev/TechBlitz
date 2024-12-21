@@ -31,15 +31,18 @@ export default function TagDisplay(opts: {
   return (
     <div className="space-y-0.5 text-start">
       <div className="flex items-center gap-2 flex-wrap">
-        {visibleTags.map((tag) => (
-          <Chip
-            key={`${tag.tagId}-${useId()}`}
-            color={variant}
-            text={capitalise(tag.tag.name)}
-            textColor={textColor}
-            bold={false}
-          />
-        ))}
+        {visibleTags.map((tag) => {
+          const id = useId();
+          return (
+            <Chip
+              key={`${tag.tagId}-${id}`}
+              color={variant}
+              text={capitalise(tag.tag.name)}
+              textColor={textColor}
+              bold={false}
+            />
+          );
+        })}
         {remainingCount > 0 && (
           <Chip
             color={variant}

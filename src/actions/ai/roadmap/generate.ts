@@ -97,7 +97,7 @@ export const roadmapGenerate = async (opts: {
   await prisma.$transaction([
     prisma.roadmapUserQuestions.createMany({
       data: roadmapQuestionsData.map(
-        ({ RoadmapUserQuestionsAnswers, ...rest }) => rest
+        ({ RoadmapUserQuestionsAnswers: _, ...rest }) => rest
       ),
     }),
     ...roadmapQuestionsData.flatMap((question) =>

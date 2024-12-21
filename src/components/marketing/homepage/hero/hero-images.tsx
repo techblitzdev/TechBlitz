@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { Play } from 'lucide-react';
 import { motion } from 'framer-motion';
-import DashboardImg from '../../../../public/images/dashboard-img.png';
 
 import { FC } from 'react';
 import { cn } from '@/utils/cn';
@@ -20,7 +19,7 @@ const HomepageHeroImages: FC<HomepageHeroImagesProps> = ({
   imageSrc,
   videoSrc,
   videoPoster,
-  fadeDirection = 'bottom'
+  fadeDirection = 'bottom',
 }) => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -101,7 +100,7 @@ const HomepageHeroImages: FC<HomepageHeroImagesProps> = ({
             top: 0,
             left: 0,
             height: '100%',
-            width: '100%'
+            width: '100%',
           }}
           allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
           allowFullScreen={true}

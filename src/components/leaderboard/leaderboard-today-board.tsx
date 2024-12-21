@@ -8,6 +8,7 @@ import { cn } from '@/utils/cn';
 import GlobalPagination from '../global/pagination';
 import { formatSeconds } from '@/utils/time';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -66,7 +67,7 @@ export default async function LeaderboardTodayBoard(opts: {
     numberOfResults: 100,
     questionUid: todayQuestion?.uid || '',
     page: currentPage,
-    pageSize: ITEMS_PER_PAGE
+    pageSize: ITEMS_PER_PAGE,
   });
 
   const startingRank = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -77,7 +78,7 @@ export default async function LeaderboardTodayBoard(opts: {
       footer={footer({
         currentPage,
         totalAnswers: total,
-        totalPages
+        totalPages,
       })}
     >
       {!todayQuestion ? (
@@ -107,9 +108,12 @@ export default async function LeaderboardTodayBoard(opts: {
                 </span>
                 <div className="flex-1 flex items-center gap-2">
                   {time?.user.userProfilePicture ? (
-                    <img
+                    <Image
                       src={time?.user.userProfilePicture}
                       className="rounded-full size-6"
+                      alt={time?.user.username || 'User Profile Picture'}
+                      width={24}
+                      height={24}
                     />
                   ) : (
                     <div className="rounded-full size-6 flex items-center justify-center bg-black-50">

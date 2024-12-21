@@ -7,9 +7,9 @@ import { Separator } from '@/components/ui/separator';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 
 import { UserRecord } from '@/types/User';
-import { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
+import { DefaultRoadmapQuestions } from '@/types/Roadmap';
 import OnboardingRoadmapAnswerQuestionForm from '@/components/roadmaps/onboarding/onboarding-answer-form';
-import { Button } from '../../ui/button';
+import { Button } from '@/components/ui/button';
 
 export default function OnboardingQuestionCard(opts: {
   user: UserRecord;
@@ -29,10 +29,7 @@ export default function OnboardingQuestionCard(opts: {
           textColor={getQuestionDifficultyColor(question.difficulty)}
           ghost
         />
-        <a
-          href="#code-snippet"
-          className="text-xs block md:hidden"
-        >
+        <a href="#code-snippet" className="text-xs block md:hidden">
           (Tap to see code snippet)
         </a>
       </div>

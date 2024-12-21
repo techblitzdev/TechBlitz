@@ -7,7 +7,6 @@ import {
   ChartBarIncreasing,
   LockIcon,
   User,
-  Bell,
   CreditCard,
   RouteIcon,
   HelpCircle,
@@ -48,8 +47,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import LogoutButton from '../../auth/logout';
-import Logo from '../../ui/logo';
+import LogoutButton from '@/components/auth/logout';
+import Logo from '@/components/ui/logo';
 import LogoSmall from '@/components/ui/LogoSmall';
 
 export function AppSidebar() {
@@ -61,7 +60,7 @@ export function AppSidebar() {
     queryFn: () => getTodaysQuestion(),
   });
 
-  const { data: hasAnsweredDailyQuestion, isLoading } = useQuery({
+  const { data: hasAnsweredDailyQuestion } = useQuery({
     queryKey: [`user-has-answered-daily-question-${todaysQuestion?.uid}`],
     queryFn: () =>
       userAnsweredDailyQuestion({

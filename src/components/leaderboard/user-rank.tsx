@@ -1,6 +1,5 @@
 import { getUserAnswer } from '@/actions/answers/get-user-answer';
 import { getUserAnswerRank } from '@/actions/leaderboard/get-user-rank';
-import { getUserFromDb } from '@/actions/user/authed/get-user';
 import { formatSeconds } from '@/utils/time';
 import { getUserDisplayName } from '@/utils/user';
 import { Button } from '../ui/button';

@@ -18,7 +18,7 @@ import Link from 'next/link';
 import LogoutButton from '@/components/auth/logout';
 
 export default function SidebarFooterComponent() {
-  const { user, isError, isLoading } = useUser();
+  const { user } = useUser();
 
   return (
     <SidebarFooter className="bg-[#000000] ">

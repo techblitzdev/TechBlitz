@@ -6,7 +6,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger
+  TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { useUserServer } from '@/hooks/useUserServer';
 import { redirect } from 'next/navigation';
@@ -15,7 +15,7 @@ import Chip from '@/components/ui/chip';
 import { capitalise } from '@/utils';
 
 export default async function RoadmapSinglgePage({
-  params
+  params,
 }: {
   params: { roadmapUid: string };
 }) {
@@ -65,9 +65,8 @@ export default async function RoadmapSinglgePage({
       <div className="flex flex-col lg:flex-row gap-10 mt-5 container">
         <div className="order-last md:order-first w-full lg:w-1/2 relative">
           {roadmap.questions?.map((question, index) => (
-            <div className="flex flex-col justify-center">
+            <div key={question.uid} className="flex flex-col justify-center">
               <RoadmapQuestionCard
-                key={question.uid}
                 question={question}
                 roadmapUid={roadmapUid}
                 index={index}

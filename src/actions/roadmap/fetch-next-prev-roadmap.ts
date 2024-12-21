@@ -1,5 +1,4 @@
 'use server';
-import { prisma } from '@/utils/prisma';
 import { fetchUserRoadmaps } from './fetch-user-roadmaps';
 
 export const fetchNextPrevRoadmap = async (opts: {

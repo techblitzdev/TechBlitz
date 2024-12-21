@@ -5,7 +5,7 @@ import {
   Card,
   CardHeader,
   CardDescription,
-  CardFooter
+  CardFooter,
 } from '@/components/ui/card';
 import { OnboardingStepOne } from './onboarding-step-one';
 import { Button } from '../ui/button';
@@ -23,22 +23,20 @@ const containerVariants = {
     transition: {
       duration: 0.5,
       ease: 'easeOut',
-      staggerChildren: 0.1
-    }
-  }
+      staggerChildren: 0.1,
+    },
+  },
 };
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
+  visible: { opacity: 1, y: 0 },
 };
 
 export default function OnboardingForm() {
   const router = useRouter();
   const { user } = useOnboardingContext();
-  const [currentStep, setCurrentStep] = useState<'stepOne' | 'stepTwo'>(
-    'stepOne'
-  );
+  const currentStep = 'stepOne';
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSkip = () => {
@@ -68,7 +66,7 @@ export default function OnboardingForm() {
           className="border border-black-50 rounded-lg shadow-xl overflow-hidden w-72 sm:w-96 lg:w-[30rem]"
           style={{
             background:
-              'radial-gradient(128% 107% at 0% 0%, #212121 0%, rgb(0,0,0) 77.61%)'
+              'radial-gradient(128% 107% at 0% 0%, #212121 0%, rgb(0,0,0) 77.61%)',
           }}
         >
           <CardHeader className="space-y-1">

@@ -1,6 +1,5 @@
 'use server';
 import { createClient } from '@/utils/supabase/server';
-import { cookies } from 'next/headers';
 import { prisma } from '@/utils/prisma';
 import type { UserLevel } from '@/types/User';
 
@@ -16,8 +15,8 @@ export const userAuth = async (userRole: UserLevel | UserLevel[]) => {
   // get the user's role from the db
   const dbUser = await prisma.users.findUnique({
     where: {
-      uid: userId
-    }
+      uid: userId,
+    },
   });
 
   if (!dbUser) {

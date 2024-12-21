@@ -11,8 +11,7 @@ export const answerRoadmapQuestion = async (opts: {
   userUid: string;
   currentQuestionIndex: number;
 }) => {
-  const { questionUid, answerUid, roadmapUid, userUid, currentQuestionIndex } =
-    opts;
+  const { questionUid, answerUid, roadmapUid, currentQuestionIndex } = opts;
 
   // get the question
   const question = await fetchRoadmapQuestion(questionUid);
@@ -27,8 +26,8 @@ export const answerRoadmapQuestion = async (opts: {
   const existingAnswer = await prisma.roadmapUserQuestionsUserAnswers.findFirst(
     {
       where: {
-        questionUid
-      }
+        questionUid,
+      },
     }
   );
 
@@ -41,8 +40,8 @@ export const answerRoadmapQuestion = async (opts: {
       where: { uid: existingAnswer.uid },
       data: {
         answer: answerUid,
-        correct: correctAnswer
-      }
+        correct: correctAnswer,
+      },
     });
   } else {
     console.log('creating answer');
@@ -51,20 +50,20 @@ export const answerRoadmapQuestion = async (opts: {
       data: {
         questionUid: questionUid,
         correct: correctAnswer,
-        answer: answerUid
-      }
+        answer: answerUid,
+      },
     });
   }
 
   // update the question record to mark it as answered and either correct or incorrect
   await prisma.roadmapUserQuestions.update({
     where: {
-      uid: questionUid
+      uid: questionUid,
     },
     data: {
       userCorrect: correctAnswer,
-      completed: true
-    }
+      completed: true,
+    },
   });
 
   // if this is the last question, and all other questions have been answered
@@ -76,8 +75,8 @@ export const answerRoadmapQuestion = async (opts: {
     where: {
       roadmapUid,
       completed: false,
-      userCorrect: false
-    }
+      userCorrect: false,
+    },
   });
 
   let nextQuestion = null;
@@ -85,19 +84,19 @@ export const answerRoadmapQuestion = async (opts: {
   if (hasAnsweredAllQuestions.length === 0) {
     await prisma.userRoadmaps.update({
       where: {
-        uid: roadmapUid
+        uid: roadmapUid,
       },
       data: {
-        status: 'COMPLETED'
-      }
+        status: 'COMPLETED',
+      },
     });
   } else {
     // get the next question
     nextQuestion = await prisma.roadmapUserQuestions.findFirst({
       where: {
         roadmapUid,
-        order: currentQuestionIndex + 1
-      }
+        order: currentQuestionIndex + 1,
+      },
     });
 
     if (!nextQuestion) {

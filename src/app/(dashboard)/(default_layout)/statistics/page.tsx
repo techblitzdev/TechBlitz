@@ -1,25 +1,16 @@
-import {
-  getStatsChartData,
-  getTotalQuestionCount,
-  getTotalTimeTaken,
-  getHighestScoringTag,
-  getData
-} from '@/actions/statistics/get-stats-chart-data';
+import { getData } from '@/actions/statistics/get-stats-chart-data';
 import StatsRangePicker from '@/components/statistics/range-picker';
 import QuestionChart from '@/components/statistics/total-question-chart';
 import TotalStatsCard from '@/components/statistics/total-stats-card';
-import { Button } from '@/components/ui/button';
 import LoadingSpinner from '@/components/ui/loading';
-import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/useUserServer';
 import { StatsSteps } from '@/types/Stats';
 import { STATISTICS } from '@/utils/constants/statistics-filters';
 import { formatSeconds } from '@/utils/time';
-import { Calendar, Stars } from 'lucide-react';
 import { redirect } from 'next/navigation';
 
 export default async function StatisticsPage({
-  searchParams
+  searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
@@ -39,7 +30,7 @@ export default async function StatisticsPage({
       userUid: user.uid,
       from: range,
       to: new Date().toISOString(),
-      step
+      step,
     });
 
   return (

@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { usePostHog } from 'posthog-js/react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
 import { Button } from '../ui/button';
 
 export function cookieConsentGiven() {

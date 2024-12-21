@@ -1,7 +1,7 @@
 'use server';
 import { getUserFromSession } from '@/actions/user/authed/get-user';
 import { openai } from '@/lib/open-ai';
-import { difficulty, singleQuestionSchema } from '@/lib/zod/schemas/ai';
+import { singleQuestionSchema } from '@/lib/zod/schemas/ai';
 import { prisma } from '@/utils/prisma';
 import { getPrompt } from '../../utils/get-prompt';
 import { zodResponseFormat } from 'openai/helpers/zod.mjs';
@@ -31,10 +31,10 @@ export const generateNewRoadmapQuestion = async (opts: {
       uid: questionUid,
       AND: {
         roadmap: {
-          userUid: user.data.user?.id
-        }
-      }
-    }
+          userUid: user.data.user?.id,
+        },
+      },
+    },
   });
 
   if (!question) {
@@ -45,8 +45,8 @@ export const generateNewRoadmapQuestion = async (opts: {
   const prompts = await getPrompt({
     name: [
       'first-pass-new-roadmap-question',
-      'second-pass-new-roadmap-question'
-    ]
+      'second-pass-new-roadmap-question',
+    ],
   });
 
   // check if the prompt is valid
@@ -60,15 +60,15 @@ export const generateNewRoadmapQuestion = async (opts: {
     messages: [
       {
         role: 'system',
-        content: prompts['first-pass-new-roadmap-question'].content
+        content: prompts['first-pass-new-roadmap-question'].content,
       },
       {
         role: 'user',
-        content: question.question
-      }
+        content: question.question,
+      },
     ],
     response_format: zodResponseFormat(singleQuestionSchema, 'event'),
-    temperature: 0
+    temperature: 0,
   });
 
   if (!firstPass.choices[0]?.message?.content) {
@@ -81,15 +81,15 @@ export const generateNewRoadmapQuestion = async (opts: {
     messages: [
       {
         role: 'assistant',
-        content: prompts['second-pass-new-roadmap-question'].content
+        content: prompts['second-pass-new-roadmap-question'].content,
       },
       {
         role: 'assistant',
-        content: firstPass.choices[0].message.content
-      }
+        content: firstPass.choices[0].message.content,
+      },
     ],
     response_format: zodResponseFormat(singleQuestionSchema, 'event'),
-    temperature: 0
+    temperature: 0,
   });
 
   if (!secondPass.choices[0]?.message?.content) {
@@ -103,7 +103,7 @@ export const generateNewRoadmapQuestion = async (opts: {
   // add a unique id to each answer
   const answers = formattedData.answers.map((answer: any) => ({
     ...answer,
-    uid: nanoid()
+    uid: nanoid(),
   }));
 
   // find the correct answer's uid
@@ -118,22 +118,22 @@ export const generateNewRoadmapQuestion = async (opts: {
     // Delete existing answers for the question
     await prisma.roadmapUserQuestionsAnswers.deleteMany({
       where: {
-        questionUid
-      }
+        questionUid,
+      },
     });
 
     // Update the existing question
     const updatedQuestion = await prisma.roadmapUserQuestions.update({
       where: {
-        uid: questionUid
+        uid: questionUid,
       },
       data: {
         question: formattedData.question,
         correctAnswerUid: correctAnswer.uid,
         codeSnippet: formattedData.codeSnippet || '',
         hint: formattedData.hint || '',
-        difficulty: formattedData.difficulty.toUpperCase() || 'EASY'
-      }
+        difficulty: formattedData.difficulty.toUpperCase() || 'EASY',
+      },
     });
 
     // Create new answers
@@ -142,8 +142,8 @@ export const generateNewRoadmapQuestion = async (opts: {
         answer: answer.answer,
         correct: answer.correct,
         uid: answer.uid,
-        questionUid
-      }))
+        questionUid,
+      })),
     });
 
     return updatedQuestion;

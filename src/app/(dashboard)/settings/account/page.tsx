@@ -15,10 +15,8 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import LoadingSpinner from '@/components/ui/loading';
 import DeleteAccountModal from '@/components/settings/delete-account-modal';

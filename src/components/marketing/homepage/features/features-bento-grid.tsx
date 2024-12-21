@@ -10,22 +10,22 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger
+  TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { Suspense } from 'react';
 import LoadingSpinner from '@/components/ui/loading';
 
 const DailyQuestionBox = dynamic(() => import('./daily-question-box'), {
-  ssr: false
+  ssr: false,
 });
 const LeaderboardBentoBox = dynamic(() => import('./leaderboard-bento-box'), {
-  ssr: false
+  ssr: false,
 });
 const RoadmapFeatureBox = dynamic(() => import('./roadmap-feature-box'), {
-  ssr: false
+  ssr: false,
 });
 const ProgressionBentoBox = dynamic(() => import('./progression-box'), {
-  ssr: false
+  ssr: false,
 });
 
 const cardClasses = 'border border-black-50 p-6 rounded-lg';
@@ -39,7 +39,7 @@ export default function FeaturesBentoGrid() {
       <div className="flex flex-col gap-y-1 items-center text-center">
         <AnimatedSpan content="Features" />
         <h1 className="text-2xl lg:text-5xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
-          We make Software engineering easy{' '}
+          Software Engineering made easy{' '}
         </h1>
         <span className="text-sm md:text-base text-gray-400 max-w-3xl">
           Personalized coding roadmaps, daily challenges, competitive
@@ -52,8 +52,8 @@ export default function FeaturesBentoGrid() {
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>{' '}
-          of coding questions tackling real-world software problems. TechBlitz
-          is is the ultimate platform for every developer.
+          of coding questions tackling real-world software problems. Stand out
+          from the crowd and land your dream job.
         </span>
       </div>
       <div className="min-h-[1450px] md:min-h-[1000px] lg:min-h-[700px] rounded-lg">
@@ -94,10 +94,7 @@ export default function FeaturesBentoGrid() {
             <Suspense fallback={<LoadingSpinner />}>
               <RoadmapFeatureBox />
             </Suspense>
-            <Grid
-              size={20}
-              position="bottom-left"
-            />
+            <Grid size={20} position="bottom-left" />
           </Link>
           <Suspense fallback={<LoadingSpinner />}>
             <Link

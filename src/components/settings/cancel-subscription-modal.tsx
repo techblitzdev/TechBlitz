@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import CancelSubscriptionButton from './cancel-subscription-button';
 import { UserWithOutAnswers } from '@/types/User';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 
 export default function CancelSubscriptionModal(opts: {
   user: UserWithOutAnswers;
@@ -25,7 +25,7 @@ export default function CancelSubscriptionModal(opts: {
       </DialogTrigger>
       <DialogContent
         className="bg-black-75 md:max-w-xl gap-2"
-        aria-description="Cancel subscription modal"
+        aria-label="Cancel subscription modal"
       >
         <DialogTitle className="text-2xl">Cancel subscription</DialogTitle>
         <DialogDescription className="flex flex-col gap-y-1">

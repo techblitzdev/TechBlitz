@@ -1,14 +1,8 @@
 'use server';
 
 import { prisma } from '@/utils/prisma';
-import {
-  extractTagIds,
-  getTagsFromQuestion
-} from './utils/get-tags-from-question';
-import type {
-  QuestionWithoutAnswers,
-  QuestionWithTags
-} from '@/types/Questions';
+import { extractTagIds } from './utils/get-tags-from-question';
+import type { QuestionWithTags } from '@/types/Questions';
 import { cache } from 'react';
 
 type SuggestionsOptions = {
@@ -31,15 +25,15 @@ export const getSuggestions = cache(
             include: {
               tags: {
                 include: {
-                  tag: true
-                }
-              }
-            }
-          }
+                  tag: true,
+                },
+              },
+            },
+          },
         },
         orderBy: {
-          createdAt: 'desc'
-        }
+          createdAt: 'desc',
+        },
       });
 
       if (!userAnswers.length) {
@@ -48,7 +42,7 @@ export const getSuggestions = cache(
       }
 
       // Separate answers into correct and incorrect
-      const { correctAnswers, incorrectAnswers } = userAnswers.reduce<{
+      const { incorrectAnswers } = userAnswers.reduce<{
         correctAnswers: QuestionWithTags[];
         incorrectAnswers: QuestionWithTags[];
       }>(
@@ -64,20 +58,13 @@ export const getSuggestions = cache(
         { correctAnswers: [], incorrectAnswers: [] }
       );
 
-      // console.log('Incorrect answers count:', incorrectAnswers.length);
-      // console.log('Correct answers count:', correctAnswers.length);
-
       // Extract tag IDs from questions
       const tagIds = extractTagIds(incorrectAnswers);
-
-      // console.log('Tag IDs found:', tagIds);
 
       // Find questions with similar tags that haven't been answered
       const answeredQuestionIds = userAnswers.map(
         (answer) => answer.question.uid
       );
-
-      // console.log('Answered question IDs:', answeredQuestionIds);
 
       const suggestions = await prisma.questions.findMany({
         where: {
@@ -87,52 +74,51 @@ export const getSuggestions = cache(
                 some: {
                   tag: {
                     uid: {
-                      in: tagIds
-                    }
-                  }
-                }
-              }
+                      in: tagIds,
+                    },
+                  },
+                },
+              },
             },
             {
-              dailyQuestion: true
-            }
-          ]
+              dailyQuestion: true,
+            },
+          ],
         },
         include: {
           tags: {
             include: {
-              tag: true
-            }
-          }
+              tag: true,
+            },
+          },
         },
         orderBy: {
-          createdAt: 'desc'
+          createdAt: 'desc',
         },
-        take: limit
+        take: limit,
       });
 
       // if no suggestions found, return 5 random questions
       if (!suggestions.length) {
-        console.log('No suggestions found, returning random questions');
         const randomQuestions = await prisma.questions.findMany({
           where: {
             NOT: {
               uid: {
-                in: answeredQuestionIds
-              }
-            }
+                in: answeredQuestionIds,
+              },
+            },
           },
           include: {
             tags: {
               include: {
-                tag: true
-              }
-            }
+                tag: true,
+              },
+            },
           },
           orderBy: {
-            createdAt: 'desc'
+            createdAt: 'desc',
           },
-          take: limit
+          take: limit,
         });
 
         return randomQuestions;

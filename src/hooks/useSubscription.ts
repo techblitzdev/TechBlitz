@@ -3,7 +3,7 @@ import { getSubscription } from '@/actions/stripe/stripe-get-subscription';
 import { useUser } from './useUser';
 
 export const useSubscription = (userUid?: string) => {
-  let uid = userUid;
+  const uid = userUid;
   // get the current user
   const { user } = useUser();
 

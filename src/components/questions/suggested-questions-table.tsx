@@ -14,11 +14,11 @@ export default function QuestionSuggestedCard(opts: {
     return (
       <div className="flex flex-col bg-black-100 border overflow-hidden border-black-50 rounded-md divide-y-[1px] divide-black-50">
         {Array.from({ length: 5 }).map((_, index) => (
-          <div className="flex w-full justify-between items-center p-3">
-            <Skeleton
-              key={index}
-              className="bg-black h-6 w-3/4"
-            />
+          <div
+            key={index}
+            className="flex w-full justify-between items-center p-3"
+          >
+            <Skeleton className="bg-black h-6 w-3/4" />
             <ArrowRight className="size-3 mr-1" />
           </div>
         ))}

@@ -9,7 +9,6 @@ import {
 
 import { Card, CardContent, CardDescription } from '@/components/ui/card';
 import { ChartConfig, ChartContainer } from '@/components/ui/chart';
-import LoadingSpinner from '@/components/ui/loading';
 
 export const description = 'A radial chart with text';
 

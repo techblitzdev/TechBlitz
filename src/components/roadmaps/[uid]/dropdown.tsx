@@ -1,8 +1,12 @@
 'use client';
 import { useState } from 'react';
 import { EllipsisVertical } from 'lucide-react';
-import { Button } from '../../ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover';
+import { Button } from '@/components/ui/button';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import { EditRoadmapModal } from './edit-roadmap-modal';
 import { updateRoadmapDetails } from '@/actions/roadmap/update-roadmap-details';
 import { useUser } from '@/hooks/useUser';
@@ -11,11 +15,10 @@ import { useRouter } from 'next/navigation';
 
 export default function RoadmapDropdown(opts: { roadmapUid: string }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const router = useRouter();
 
   const { user } = useUser();
   if (!user) return null;
-
-  const router = useRouter();
 
   const handleEditRoadmap = () => {
     setIsEditModalOpen(true);
@@ -28,7 +31,7 @@ export default function RoadmapDropdown(opts: { roadmapUid: string }) {
     // Here you would typically save the data to your backend
     await updateRoadmapDetails(opts.roadmapUid, user?.uid, {
       title: data.title,
-      description: data.description
+      description: data.description,
     });
   };
 

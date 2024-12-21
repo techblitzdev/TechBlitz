@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/ui/grid';
-import { Separator } from '@/components/ui/separator';
 import { ChevronRight } from 'lucide-react';
 import { WaitlistForm } from '../waitlist-form';
 
@@ -17,7 +16,7 @@ export default function CallToActionBlock(opts: {
         className="left-1/2 top-0 w-72 md:w-[600px] center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2"
         style={{
           background:
-            'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)'
+            'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)',
         }}
       ></div>
       <div className="space-y-2 z-50 relative max-w-xl place-self-center">
@@ -52,10 +51,7 @@ export default function CallToActionBlock(opts: {
           <WaitlistForm />
         )}
       </div>
-      <Grid
-        size={30}
-        position="bottom-right"
-      />
+      <Grid size={30} position="bottom-right" />
       <div className="absolute inset-x-0 w-full bottom-0 h-20 bg-gradient-to-t from-[#000000] to-transparent pointer-events-none"></div>
     </section>
   );

@@ -1,4 +1,4 @@
-# techblitz
+# TechBlitz
 
 TechBlitz is an open-source LeetCode alternative to help developers of all abilities stay on top of their tech stack.
 
@@ -63,7 +63,7 @@ We welcome contributions! Please see our CONTRIBUTING.md for details.
 
 ## Feedback
 
-If you have any feedback, please reach out to us at fake@fake.com
+If you have any feedback, please reach out to us at team@techblitz.dev
 
 ## License
 

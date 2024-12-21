@@ -38,6 +38,7 @@ We love to be transparent with our users, so below are the next features we have
 - **Hosting**: [Vercel](https://vercel.com/)
 - **ORM**: [Prisma](https://www.prisma.io/)
 - **Data fetching**: [Tanstack Query](https://tanstack.com/)
+- **Emails**: [Resend](https://resend.com/) + [React Email](https://react.email/)
 - **Short links**: [Dub](https://dub.co/)
 
 ### Installation

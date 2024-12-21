@@ -8,23 +8,24 @@ import {
   Section,
   Text,
 } from 'npm:@react-email/components';
-import * as React from 'npm:react@18.3.1';
+import * as React from 'npm:react';
 
 interface ResetPasswordEmailProps {
   username: string;
-  confirmationLink: string;
+  resetLink: string;
 }
 
 export const ResetPasswordEmail = ({
-  confirmationLink,
+  username,
+  resetLink,
 }: ResetPasswordEmailProps) => {
   return (
     <Html>
       <Head />
-      <Preview>Reset your password</Preview>
+      <Preview>Reset your TechBlitz password</Preview>
       <Body style={main}>
         <Container style={container}>
-          <Section style={buttonContainer}>
+          <Section style={logoContainer}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="111"
@@ -53,17 +54,37 @@ export const ResetPasswordEmail = ({
                 </clipPath>
               </defs>
             </svg>
-            <Link href={confirmationLink} target="_blank" style={button}>
-              Confirm Your Email
+          </Section>
+          <Text style={h1}>Reset Your Password</Text>
+          <Text style={text}>Hello {username},</Text>
+          <Text style={text}>
+            We received a request to reset your password for your TechBlitz
+            account. If you didn't make this request, you can safely ignore this
+            email.
+          </Text>
+          <Section style={buttonContainer}>
+            <Link href={resetLink} target="_blank" style={button}>
+              Reset Your Password
             </Link>
           </Section>
           <Text style={text}>
-            If you didn't create an account with TechBlitz, you can safely
-            ignore this email.
+            This password reset link will expire in 1 hour. If you need to
+            request a new password reset, please visit our website.
           </Text>
+          <Text style={text}>
+            If you're having trouble clicking the button, copy and paste the URL
+            below into your web browser:
+          </Text>
+          <Text style={text}>{resetLink}</Text>
           <Section style={footer}>
             <Text style={footerText}>
               © 2024 TechBlitz. All rights reserved.
+            </Text>
+            <Text style={footerText}>
+              If you have any questions, please contact our support team at{' '}
+              <Link href="mailto:support@techblitz.com" style={footerLink}>
+                team@techblitz.com
+              </Link>
             </Text>
           </Section>
         </Container>
@@ -73,8 +94,8 @@ export const ResetPasswordEmail = ({
 };
 
 ResetPasswordEmail.PreviewProps = {
-  username: 'Alice',
-  confirmationLink: 'https://techblitz.com/confirm?token=123456',
+  username: 'John Doe',
+  resetLink: 'https://techblitz.com/reset-password?token=123456',
 } as ResetPasswordEmailProps;
 
 const accent = '#5b61d6';
@@ -151,3 +172,5 @@ const footerLink = {
   lineHeight: '16px',
   textDecoration: 'underline',
 };
+
+export default ResetPasswordEmail;

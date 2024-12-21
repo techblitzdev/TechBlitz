@@ -42,6 +42,7 @@ Deno.serve(async (req) => {
 
     console.log(email_action_type);
 
+    // init for the email template & subject
     let html: string;
     let subject: string;
 
@@ -65,6 +66,7 @@ Deno.serve(async (req) => {
           email_action_type,
         })
       );
+      subject = 'Sign in to TechBlitz';
     }
     // for sending pass word reset emails
     else if (email_action_type === 'recovery') {
@@ -72,9 +74,10 @@ Deno.serve(async (req) => {
       html = await renderAsync(
         React.createElement(ResetPasswordEmail, {
           username: user['user_metadata'].username,
-          confirmationLink: `${supabaseUrl}/auth/v1/verify?token=${token_hash}&type=reset_password&redirect_to=${redirect_to}`,
+          resetLink: `${supabaseUrl}/auth/v1/verify?token=${token_hash}&type=reset_password&redirect_to=${redirect_to}`,
         })
       );
+      subject = 'Reset your password';
     } else {
       throw new Error('Invalid email action type');
     }
@@ -82,10 +85,7 @@ Deno.serve(async (req) => {
     const { error } = await resend.emails.send({
       from: 'welcome <team@techblitz.dev>',
       to: [user.email],
-      subject:
-        email_action_type === 'signup'
-          ? 'Welcome to TechBlitz!'
-          : 'Sign in to TechBlitz',
+      subject,
       html,
     });
     if (error) {

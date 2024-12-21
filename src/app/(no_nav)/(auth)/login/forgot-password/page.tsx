@@ -11,7 +11,6 @@ import OrSeparator from '@/components/auth/or-separator';
 
 import { toast } from 'sonner';
 import { InputWithLabel } from '@/components/ui/input-label';
-import { Separator } from '@/components/ui/separator';
 import { Loader2 } from 'lucide-react';
 
 import { useForm } from 'react-hook-form';

@@ -1,6 +1,6 @@
 <h3 align="center">TechBlitz</h3>
 
-<p align="center">TechBlitz is an open-source, mobile-friendly software education platform to empower developers to stay on top of their tech.</p>
+<p align="center">TechBlitz is an open-source, mobile-friendly software education platform to empower developers to stay on top of tech.</p>
 
 ## Overview
 

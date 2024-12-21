@@ -9,6 +9,12 @@ export const getMostQuestionsAnswered = async () => {
         _count: 'desc', // Order by the count of related answers in descending order
       },
     },
+    // ensure we only get users who have answered at least one question
+    where: {
+      answers: {
+        some: {},
+      },
+    },
     select: {
       uid: true,
       username: true,

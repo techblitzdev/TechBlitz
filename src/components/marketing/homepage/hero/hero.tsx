@@ -13,7 +13,7 @@ export default function HomepageHero() {
       <div className="flex flex-col gap-y-4 col-span-full items-center text-center">
         <AnimatedSpan content="Sign up to get 50% off your first month" />
         <h1 className="text-5xl lg:text-[68px] !font-onest !font-medium tracking-tight">
-          The easier way to master <br /> software engineering
+          The easiest way to master <br /> software engineering
         </h1>
         <h6 className="font-onest max-w-2xl text-gray-400">
           An{' '}
@@ -24,8 +24,9 @@ export default function HomepageHero() {
           >
             open-source
           </Link>
-          , mobile-friendly software engineering platform that helps you build
-          your skills and land your dream job.
+          , mobile-friendly platform that will transform you into an exceptional
+          developer. Through structured, short-form coding challenges to improve
+          your skills everyday.
         </h6>
         {process.env.NEXT_PUBLIC_ENV === 'development' ? (
           <HomepageHeroEmailSignup />

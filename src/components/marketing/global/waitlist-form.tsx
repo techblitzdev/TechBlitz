@@ -46,11 +46,7 @@ export function WaitlistForm() {
     router.push('daily-challenge');
   };
 
-  const {
-    data: waitlistCount,
-    isLoading,
-    isError,
-  } = useQuery({
+  const { data: waitlistCount } = useQuery({
     queryKey: ['waitlist-count'],
     queryFn: () => getWaitlistCount(),
     enabled: true,

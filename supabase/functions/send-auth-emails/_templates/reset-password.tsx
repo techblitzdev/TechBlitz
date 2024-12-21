@@ -16,7 +16,6 @@ interface ResetPasswordEmailProps {
 }
 
 export const ResetPasswordEmail = ({
-  username,
   confirmationLink,
 }: ResetPasswordEmailProps) => {
   return (

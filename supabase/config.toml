@@ -108,7 +108,7 @@ template = "Your code is {{ .Code }} ."
 
 [auth.hook.send_email]
 enabled = true
-uri = "http://host.docker.internal:54321/functions/v1/send-sign-up-email"
+uri = "http://host.docker.internal:54321/functions/v1/send-auth-emails"
 secrets = "env(SEND_EMAIL_HOOK_SECRET)"
 
 

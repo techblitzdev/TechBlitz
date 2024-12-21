@@ -6,14 +6,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogClose,
-  DialogFooter
+  DialogFooter,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import OnboardingModal from '@/components/onboarding/onboarding-modal';
 
 export default function ClientPage({
   children,
-  searchParams
+  searchParams,
 }: {
   children: React.ReactNode;
   searchParams: { [key: string]: string | string[] | undefined };
@@ -35,10 +35,7 @@ export default function ClientPage({
 
   return (
     <>
-      <Dialog
-        open={isModalOpen}
-        onOpenChange={setIsModalOpen}
-      >
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="sm:max-w-[425px] bg-black-100">
           <DialogHeader>
             <DialogTitle className="text-xl">Purchase Successful!</DialogTitle>
@@ -50,15 +47,13 @@ export default function ClientPage({
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button
-              variant="secondary"
-              href="/roadmaps"
-            >
+            <Button variant="secondary" href="/roadmaps">
               Go to roadmaps
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      <OnboardingModal searchParams={searchParams} />
       <div>{children}</div>
     </>
   );

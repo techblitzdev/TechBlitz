@@ -38,6 +38,7 @@ export const signUp = async (
         answers: undefined,
         lastLogin: new Date(),
         userLevel: 'FREE',
+        showTimeTaken: true, // default this to true, the user has change this in the onboarding step one
         //hasAuthenticatedEmail: false
       },
     });

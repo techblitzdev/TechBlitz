@@ -1,6 +1,7 @@
 import Chip from '@/components/ui/chip'; // Assuming this is your Chip component
 import { Tags } from '@/types/Tags';
 import { capitalise } from '@/utils';
+import { useId } from 'react';
 
 export default function TagDisplay(opts: {
   tags: Tags[];
@@ -32,7 +33,7 @@ export default function TagDisplay(opts: {
       <div className="flex items-center gap-2 flex-wrap">
         {visibleTags.map((tag) => (
           <Chip
-            key={tag.tagId}
+            key={`${tag.tagId}-${useId()}`}
             color={variant}
             text={capitalise(tag.tag.name)}
             textColor={textColor}

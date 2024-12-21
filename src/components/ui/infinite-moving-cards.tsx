@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/utils/cn';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 
 export const InfiniteMovingCards = ({
   items,
@@ -95,8 +95,7 @@ export const InfiniteMovingCards = ({
               'bg-[#000] w-[150px] relative rounded-2xl border flex-shrink-0 border-black-50 p-4 md:w-[200px] transition-all',
               idx % 2 === 0 ? '-translate-y-16' : 'translate-y-16'
             )}
-            key={item.name}
-          >
+            key={`${item.name}-${useId()}`}          >
             {/* Roadmap marker line */}
             <div
               className={cn(

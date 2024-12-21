@@ -4,6 +4,8 @@ import Chip from '../ui/chip';
 import { getUserFromSession } from '@/actions/user/authed/get-user';
 import { getUserDailyStats } from '@/actions/user/authed/get-daily-streak';
 import { FlameIcon } from 'lucide-react';
+import ProgressChart from '../marketing/homepage/features/progression-chart';
+import { Suspense } from 'react';
 
 export default async function StreakBentoBox() {
   const { data: user, error } = await getUserFromSession();
@@ -22,36 +24,12 @@ export default async function StreakBentoBox() {
   return (
     <div className="space-y-4 group relative overflow-hidden p-4 h-full">
       <div className="space-y-1">
-        <h6 className="text-xl text-center">Current streak</h6>
-        {/* <p className="font-satoshi text-center">Your current daily streak!</p> */}
+        <h6 className="text-xl">Statistics</h6>
       </div>
-      <div className="w-full h-fit flex items-center justify-center">
-        <DatePicker
-          className="z-30 text-white border border-black-50 p-2 rounded-md hover:cursor-default hover:text-black"
-          color="white"
-          type="range"
-          value={dateArray}
-          c="gray"
-          inputMode="none"
-        />
-      </div>
-      <div className="flex w-full justify-between items-end z-10 relative">
-        <Chip
-          color="accent"
-          text="Streak"
-        />
-        {/* <Button variant="secondary">
-          View more stats
-          <ArrowRight className="size-3 ml-1 group-hover:ml-2 duration-300" />
-        </Button> */}
-        {/** display user's longest streak */}
-        <div className="flex items-center gap-1 font-medium">
-          <p className="font-satoshi">Longest streak:</p>
-          <p className="font-satoshi">
-            {userStreak?.streakData?.longestStreak}
-          </p>
-          <FlameIcon className="fill-red-500 text-orange-500" />
-        </div>
+      <div className="w-full h-fit flex items-center justify-center absolute">
+        <Suspense fallback={null}>
+          <ProgressChart hideHeader={true} isStatic={true} />
+        </Suspense>
       </div>
     </div>
   );

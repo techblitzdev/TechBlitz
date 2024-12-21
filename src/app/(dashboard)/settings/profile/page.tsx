@@ -1,27 +1,32 @@
 'use client';
-import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useUser } from '@/hooks/useUser';
-import { InputWithLabel } from '@/components/ui/input-label';
-import { UserUpdatePayload } from '@/types/User';
-import { updateUser } from '@/actions/user/authed/update-user';
-import { toast } from 'sonner';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
+import { useEffect } from 'react';
+
 import {
   Tooltip,
   TooltipProvider,
-  TooltipTrigger
+  TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import { InputWithLabel } from '@/components/ui/input-label';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 import LoadingSpinner from '@/components/ui/loading';
 import LogoutButton from '@/components/auth/logout';
 import { Separator } from '@/components/ui/separator';
-import { useEffect } from 'react';
+import { toast } from 'sonner';
+
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+import { useUser } from '@/hooks/useUser';
+import { updateUser } from '@/actions/user/authed/update-user';
+
+import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import { UserUpdatePayload } from '@/types/User';
 
 type SchemaProps = z.input<typeof userDetailsSchema>;
 
@@ -36,18 +41,18 @@ export default function SettingsProfilePage() {
       firstName: user?.firstName || '',
       lastName: user?.lastName || '',
       showTimeTaken: user?.showTimeTaken || false,
-      sendPushNotifications: user?.sendPushNotifications || false
-    }
+      sendPushNotifications: user?.sendPushNotifications || false,
+    },
   });
 
   useEffect(() => {
     if (!isLoading && user) {
       form.reset({
-        username: user.username,
-        firstName: user.firstName,
-        lastName: user.lastName,
+        username: user.username || '',
+        firstName: user.firstName || '',
+        lastName: user.lastName || '',
         showTimeTaken: user.showTimeTaken,
-        sendPushNotifications: user.sendPushNotifications
+        sendPushNotifications: user.sendPushNotifications,
       });
     }
   }, [user, isLoading]);
@@ -55,13 +60,20 @@ export default function SettingsProfilePage() {
   // Use mutation hook for handling the update
   const { mutate, isPending } = useMutation({
     mutationFn: async (values: SchemaProps) => {
-      const cleanedValues = Object.fromEntries(
-        Object.entries(values).filter(([_, value]) => value !== null)
+      // Only include fields that have been changed from their original values
+      const changedValues = Object.entries(values).reduce(
+        (acc, [key, value]) => {
+          if (value !== user?.[key as keyof typeof user]) {
+            acc[key] = value;
+          }
+          return acc;
+        },
+        {} as Record<string, any>
       );
 
       const updatedVals: Partial<UserUpdatePayload> = {
-        ...cleanedValues,
-        uid: user?.uid || ''
+        ...changedValues,
+        uid: user?.uid || '',
       };
 
       const updatedUser = await updateUser({ userDetails: updatedVals });
@@ -77,7 +89,7 @@ export default function SettingsProfilePage() {
       // Optimistically update to the new value
       queryClient.setQueryData(['user-details'], (old: any) => ({
         ...old,
-        ...newUserData
+        ...newUserData,
       }));
 
       // Return a context object with the snapshotted value
@@ -91,7 +103,7 @@ export default function SettingsProfilePage() {
     },
     onSuccess: (updatedUser) => {
       toast.success('Profile updated successfully');
-    }
+    },
   });
 
   const onSubmit = (values: SchemaProps) => {
@@ -108,7 +120,7 @@ export default function SettingsProfilePage() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-1/2 space-y-6 p-8"
+          className="w-full space-y-6 p-8"
         >
           <FormField
             control={form.control}
@@ -183,7 +195,9 @@ export default function SettingsProfilePage() {
                             }}
                             className="bg-black-50"
                           />
-                          <Label htmlFor="showTimeTaken">Show time taken</Label>
+                          <Label htmlFor="showTimeTaken">
+                            Show on leaderboard
+                          </Label>
                         </div>
                       </TooltipTrigger>
                     </Tooltip>
@@ -208,10 +222,11 @@ export default function SettingsProfilePage() {
                             onCheckedChange={(checked) => {
                               field.onChange(checked);
                             }}
+                            disabled={true}
                             className="bg-black-50"
                           />
                           <Label htmlFor="sendPushNotifications">
-                            Send push notifications
+                            Send push notifications (coming soon)
                           </Label>
                         </div>
                       </TooltipTrigger>
@@ -222,12 +237,8 @@ export default function SettingsProfilePage() {
             )}
           />
 
-          <div className="flex gap-4">
-            <Button
-              type="submit"
-              variant="secondary"
-              disabled={isPending}
-            >
+          <div className="flex flex-wrap gap-4">
+            <Button type="submit" variant="secondary" disabled={isPending}>
               {isPending ? <LoadingSpinner /> : 'Save changes'}
             </Button>
             <LogoutButton variant="destructive" />

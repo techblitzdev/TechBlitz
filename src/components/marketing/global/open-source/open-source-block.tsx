@@ -34,13 +34,13 @@ export default function OpenSourceBlock(opts: {
       component: 'OpenSourceCard',
       cardStyle: 'pr',
       content:
-        'This pull request address the issue with z-indexing on the questions/all page'
+        'This pull request address the issue with z-indexing on the questions/all page',
     },
     {
       component: 'CommitCard',
       commitMessage:
         'fix(dashboard/questions): fix z-indexing on questions/all page',
-      buildSuccess: true
+      buildSuccess: true,
     },
     {
       contributorName: 'techblitz',
@@ -48,15 +48,15 @@ export default function OpenSourceBlock(opts: {
       component: 'OpenSourceCard',
       cardStyle: 'comment',
       content:
-        'Great work! Thanks for the contribution. Could you add a test for this as well?'
+        'Great work! Thanks for the contribution. Could you add a test for this as well?',
     },
     {
       contributorName: 'Anonymous Contributor (you)',
       actionType: 'author',
       component: 'OpenSourceCard',
       cardStyle: 'comment',
-      content: 'Yes, I can add a test for this. I will update the PR shortly.'
-    }
+      content: 'Yes, I can add a test for this. I will update the PR shortly.',
+    },
   ];
 
   return (
@@ -71,22 +71,16 @@ export default function OpenSourceBlock(opts: {
         </p>
         <div className="flex gap-4">
           {linkToInternalPage && (
-            <Button
-              href="/open-source"
-              variant="default"
-            >
+            <Button href="/open-source" variant="default">
               Learn More
             </Button>
           )}
           <Link
-            href="https://github.com/logannford/TechBlitz/"
+            href="https://github.com/techblitzdev/TechBlitz"
             target="_blank"
             className="w-fit"
           >
-            <Button
-              variant="secondary"
-              className="w-fit flex gap-x-1"
-            >
+            <Button variant="secondary" className="w-fit flex gap-x-1">
               <Star className="size-5 text-yellow-400 fill-yellow-300" />
               on GitHub!
             </Button>
@@ -102,17 +96,14 @@ export default function OpenSourceBlock(opts: {
           className="flex flex-col gap-10 z-10"
           style={
             {
-              '--question-count': githubCards.length
+              '--question-count': githubCards.length,
             } as React.CSSProperties
           }
         >
           {githubCards.map((card, idx) => (
             <>
               {card.component === 'OpenSourceCard' && (
-                <OpenSourceCard
-                  key={idx}
-                  {...card}
-                />
+                <OpenSourceCard key={idx} {...card} />
               )}
               {card.component === 'CommitCard' && (
                 <CommitCard

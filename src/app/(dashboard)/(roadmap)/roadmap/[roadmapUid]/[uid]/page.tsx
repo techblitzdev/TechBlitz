@@ -11,7 +11,7 @@ import RoadmapQuestionCard from '@/components/roadmaps/questions/question-card';
 import ExpandedCodeModal from '@/components/questions/expanded-code-modal';
 
 export default async function RoadmapQuestionPage({
-  params
+  params,
 }: Readonly<{ params: { roadmapUid: string; uid: string } }>) {
   const { roadmapUid, uid } = params;
 
@@ -46,17 +46,14 @@ export default async function RoadmapQuestionPage({
           className="h-[45rem] col-span-full bg-black-75 border border-black-50 rounded-xl relative overflow-hidden"
         >
           <div className="p-4 text-sm flex w-full items-center justify-between bg-black-25">
-            <p>Code</p>
+            <p className="font-onest">index.js</p>{' '}
             {question.codeSnippet && (
               <ExpandedCodeModal code={question.codeSnippet} />
             )}
           </div>
           <Separator className="bg-black-50" />
           {question?.codeSnippet && (
-            <QuestionDisplay
-              content={question.codeSnippet}
-              language=""
-            />
+            <QuestionDisplay content={question.codeSnippet} language="" />
           )}
         </div>
       </div>

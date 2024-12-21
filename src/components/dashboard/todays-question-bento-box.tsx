@@ -26,7 +26,7 @@ export default function TodaysQuestionBentoBox(opts: {
       <div className="flex w-full justify-between">
         <div className="space-y-1">
           <h6 className="text-xl">Today's Question </h6>
-          <p className="text-xs font-satoshi">
+          <p className="text-xs font-onest">
             Answer today's question to keep your streak <br /> going!
           </p>
         </div>

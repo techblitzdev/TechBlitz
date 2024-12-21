@@ -1,15 +1,13 @@
-import type { Metadata } from 'next';
 import {
   InterFont,
   OnestFont,
   SatoshiFont,
-  UbuntuFont
+  UbuntuFont,
 } from '../styles/fonts/font';
 import '../globals.css';
 import { ReactQueryClientProvider } from '@/components/react-query-client-provider';
 import { Toaster } from '@/components/ui/sonner';
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
-import { HydrationOverlay } from '@builder.io/react-hydration-overlay';
+import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/global/navigation/sidebar';
 import { CSPostHogProvider } from '../providers';
 
@@ -18,21 +16,28 @@ import { createTheme, MantineProvider } from '@mantine/core';
 // All packages except `@mantine/hooks` require styles imports
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
+
 import dynamic from 'next/dynamic';
 import NextTopLoader from 'nextjs-toploader';
+import { useUserServer } from '@/hooks/useUserServer';
+import { redirect } from 'next/navigation';
+import { createMetadata } from '@/utils';
 
-export const metadata: Metadata = {
-  title: 'techblitz',
-  description: 'Improve your code knowledge, one day at a time.'
-};
+export async function generateMetadata() {
+  return createMetadata({
+    title: 'techblitz',
+    description: 'Improve your code knowledge, one day at a time.',
+  });
+}
 
-const theme = createTheme({});
-
-export default function Layout({
-  children
+export default async function Layout({
+  children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await useUserServer();
+  if (!user) redirect('/login?r=no-auth');
+
   return (
     <ReactQueryClientProvider>
       <html lang="en">
@@ -46,10 +51,7 @@ export default function Layout({
 
             {/* Scrollable content */}
             <AppSidebar />
-            <NextTopLoader
-              color="#5b61d6"
-              showSpinner={false}
-            />
+            <NextTopLoader color="#5b61d6" showSpinner={false} />
             <main className="w-full py-6 lg:pt-4 lg:pb-3">
               <div className="h-[95%]">
                 <CSPostHogProvider>

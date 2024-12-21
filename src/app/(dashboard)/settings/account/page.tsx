@@ -16,13 +16,14 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import LoadingSpinner from '@/components/ui/loading';
 import DeleteAccountModal from '@/components/settings/delete-account-modal';
 import { Separator } from '@/components/ui/separator';
+import { InputWithLabel } from '@/components/ui/input-label';
 
 type SchemaProps = z.infer<typeof updateUserSchema>;
 
@@ -39,15 +40,15 @@ export default function SettingsProfilePage() {
     },
     onError: (error) => {
       toast.error(`Failed to update user auth: ${error}`);
-    }
+    },
   });
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(updateUserSchema),
     defaultValues: {
       email: user?.email || '',
-      password: ''
-    }
+      password: '',
+    },
   });
 
   const onSubmit = async (values: SchemaProps) => {
@@ -72,18 +73,21 @@ export default function SettingsProfilePage() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-1/2 space-y-6 p-8"
+          className="w-full space-y-6 p-8"
         >
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email Address</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder={user?.email}
+                  <InputWithLabel
+                    label="Email Address"
+                    type="email"
+                    autoComplete="email"
+                    placeholder={user?.email || 'Email Address'}
                     {...field}
+                    value={field.value || ''}
                   />
                 </FormControl>
                 <FormMessage />
@@ -95,12 +99,14 @@ export default function SettingsProfilePage() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input
+                  <InputWithLabel
+                    label="Password"
                     type="password"
+                    autoComplete="password"
                     placeholder="********"
                     {...field}
+                    value={field.value || ''}
                   />
                 </FormControl>
                 <FormDescription>
@@ -110,22 +116,24 @@ export default function SettingsProfilePage() {
               </FormItem>
             )}
           />
-          <Button type="submit">
-            {isPending ? <LoadingSpinner /> : 'Save changes'}
-          </Button>
+          <div className="flex flex-wrap gap-4">
+            <Button type="submit">
+              {isPending ? <LoadingSpinner /> : 'Save changes'}
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={() => setIsDeleteModalOpen(true)}
+              className="w-fit"
+            >
+              Delete account
+            </Button>
+            <DeleteAccountModal
+              isOpen={isDeleteModalOpen}
+              onClose={() => setIsDeleteModalOpen(false)}
+            />
+          </div>
         </form>
       </Form>
-      <Button
-        variant="destructive"
-        onClick={() => setIsDeleteModalOpen(true)}
-        className="w-fit mx-8 mb-8"
-      >
-        Delete account
-      </Button>
-      <DeleteAccountModal
-        isOpen={isDeleteModalOpen}
-        onClose={() => setIsDeleteModalOpen(false)}
-      />
     </div>
   );
 }

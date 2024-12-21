@@ -25,6 +25,7 @@ import { Question } from '@/types/Questions';
 import WaitlistSignup from './waitlist-sign-up';
 import Link from 'next/link';
 import BackToDashboard from '@/components/ui/back-to-dashboard';
+import CodeDisplay from '@/components/questions/single/code-snippet';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 
@@ -175,7 +176,19 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
                             <Check className="h-3 w-3 flex-shrink-0" />
                           )}
                         </div>
-                        <p className="text-sm">{answer.answer}</p>
+                        {/<pre><code/.test(answer.answer) ? (
+                          <CodeDisplay
+                            content={answer.answer}
+                            language="javascript"
+                            hideIndex={true}
+                            backgroundColor="transparent"
+                          />
+                        ) : (
+                          <p
+                            className="text-sm"
+                            dangerouslySetInnerHTML={{ __html: answer.answer }}
+                          />
+                        )}
                       </Label>
                     </FormControl>
                   )}

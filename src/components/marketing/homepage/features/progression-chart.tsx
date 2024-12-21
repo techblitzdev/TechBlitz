@@ -49,11 +49,18 @@ const chartConfig = {
   }
 } satisfies ChartConfig;
 
-export default function ProgressChart() {
+interface ProgressChartProps {
+  hideHeader?: boolean;
+  isStatic?: boolean;
+}
+
+export default function ProgressChart({ hideHeader = false, isStatic = false }: ProgressChartProps) {
   const [chartData, setChartData] = useState(generateRandomData());
   const [trend, setTrend] = useState({ percentage: 0, isUp: true });
 
   useEffect(() => {
+    if (isStatic) return;
+
     const interval = setInterval(() => {
       const newData = generateRandomData();
       setChartData(newData);
@@ -69,7 +76,7 @@ export default function ProgressChart() {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [chartData]);
+  }, [chartData, isStatic]);
 
   return (
     <Card
@@ -79,22 +86,25 @@ export default function ProgressChart() {
       }}
       className="border-black-50"
     >
-      <CardHeader>
-        <CardTitle className="text-white w-full flex justify-between items-center">
-          <span>Your statistics</span>
-          <div className="flex gap-1 items-center text-sm font-medium leading-none text-white">
-            <span className="flex items-center">
-              <NumberFlow value={trend.percentage} />%
-            </span>
-            {trend.isUp ? (
-              <TrendingUp className="h-4 w-4 text-green-500" />
-            ) : (
-              <TrendingDown className="h-4 w-4 text-red-500" />
-            )}
-          </div>
-        </CardTitle>
-        <CardDescription>Last 12 months</CardDescription>
-      </CardHeader>
+      {!hideHeader && (
+        <CardHeader>
+          <CardTitle className="text-white w-full flex justify-between items-center">
+            <span>Your statistics</span>
+            <div className="flex gap-1 items-center text-sm font-medium leading-none text-white">
+              <span className="flex items-center">
+                <NumberFlow value={trend.percentage} />%
+              </span>
+              {trend.isUp ? (
+                <TrendingUp className="h-4 w-4 text-green-500" />
+              ) : (
+                <TrendingDown className="h-4 w-4 text-red-500" />
+              )}
+            </div>
+          </CardTitle>
+          <CardDescription>Last 12 months</CardDescription>
+        </CardHeader>
+      )}
+      {hideHeader && <div className="h-4"></div>}
       <CardContent className="border-black-50">
         <ChartContainer config={chartConfig}>
           <LineChart
@@ -113,10 +123,12 @@ export default function ProgressChart() {
               tickMargin={8}
               tickFormatter={(value) => value.slice(0, 3)}
             />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
+            {!isStatic && (
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent hideLabel />}
+              />
+            )}
             <Line
               dataKey="questions"
               type="natural"
@@ -149,3 +161,4 @@ export default function ProgressChart() {
     </Card>
   );
 }
+

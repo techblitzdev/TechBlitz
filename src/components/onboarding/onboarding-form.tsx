@@ -50,14 +50,11 @@ export default function OnboardingForm() {
   const handleContinue = async () => {
     setIsLoading(true);
 
-    console.log('HELLO FROM ONBOARDING-FORM');
-    console.log('User:', user);
-
     // update the user data in the db
     await updateUser({ userDetails: user });
 
     localStorage.removeItem('onboarding');
-    router.push('/dashboard');
+    router.push('/dashboard?onboarding=true');
   };
 
   return (

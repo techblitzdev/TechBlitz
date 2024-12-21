@@ -3,11 +3,11 @@ import { z } from 'zod';
 // Updated schema to properly handle optional fields
 export const userDetailsSchema = z
   .object({
-    username: z.string().min(3).nullable(),
-    firstName: z.string().min(3).nullable(),
-    lastName: z.string().min(3).nullable(),
+    username: z.string().min(3),
+    firstName: z.string().optional(),
+    lastName: z.string().optional(),
     showTimeTaken: z.boolean().optional(),
-    sendPushNotifications: z.boolean().optional()
+    sendPushNotifications: z.boolean().optional(),
   })
   .transform((data) => {
     // Remove null values from the payload

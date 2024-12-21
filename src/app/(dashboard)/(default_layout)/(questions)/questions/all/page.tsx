@@ -22,26 +22,6 @@ import QuestionCardLoading from '@/components/questions/question-card-loading';
 
 const ITEMS_PER_PAGE = 20;
 
-function QuestionList({
-  questions,
-  userUid
-}: {
-  questions: QuestionWithoutAnswers[];
-  userUid: string;
-}) {
-  return (
-    <>
-      {questions.map((q) => (
-        <QuestionCard
-          key={q.uid}
-          questionData={q}
-          userUid={userUid}
-        />
-      ))}
-    </>
-  );
-}
-
 export default async function QuestionsDashboard({
   searchParams
 }: {
@@ -71,16 +51,18 @@ export default async function QuestionsDashboard({
   const endDate = userStreak?.streakData?.streakEnd as Date;
   const dateArray: [Date, Date] = [startDate, endDate];
 
-  const { questions, totalPages, total } = await listQuestions({
-    page: currentPage,
-    pageSize: ITEMS_PER_PAGE,
-    userUid: user.uid,
-    filters
-  });
-
-  const suggestions = await getSuggestions({
-    userUid: user?.uid || ''
-  });
+  // run all the async functions in parallel
+  const [data, suggestions] = await Promise.all([
+    listQuestions({
+      page: currentPage,
+      pageSize: ITEMS_PER_PAGE,
+      userUid: user.uid,
+      filters
+    }),
+    getSuggestions({
+      userUid: user.uid
+    })
+  ]);
 
   return (
     <>
@@ -101,15 +83,18 @@ export default async function QuestionsDashboard({
               </>
             }
           >
-            <QuestionList
-              questions={questions}
-              userUid={user.uid}
-            />
+            {data.questions.map((q) => (
+              <QuestionCard
+                key={q.uid}
+                questionData={q}
+                userUid={user.uid}
+              />
+            ))}
           </Suspense>
           <div className="mt-5 w-full flex justify-center gap-x-2">
             <GlobalPagination
               currentPage={currentPage}
-              totalPages={totalPages}
+              totalPages={data.totalPages}
               href="/questions/all"
               paramName="page"
             />

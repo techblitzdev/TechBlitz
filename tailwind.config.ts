@@ -13,28 +13,6 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
-  safelist: [
-    // safelist all border-[color] classes
-    {
-      pattern:
-        /^border-\[(#[0-9a-fA-F]{6}|#[0-9a-fA-F]{3}|rgba?\([^)]+\)|[a-zA-Z0-9\-]+)\]$/
-    },
-    // safelist all the after:border-[color] classes
-    {
-      pattern:
-        /^after:bg-\[(#[0-9a-fA-F]{6}|#[0-9a-fA-F]{3}|rgba?\([^)]+\)|[a-zA-Z0-9\-]+)\]$/
-    },
-    // safelist all bg-[color] classes
-    {
-      pattern:
-        /^bg-\[(#[0-9a-fA-F]{6}|#[0-9a-fA-F]{3}|rgba?\([^)]+\)|[a-zA-Z0-9\-]+)\]$/
-    },
-    // safelist the before:bg-[color] classes
-    {
-      pattern:
-        /^before:bg-\[(#[0-9a-fA-F]{6}|#[0-9a-fA-F]{3}|rgba?\([^)]+\)|[a-zA-Z0-9\-]+)\]$/
-    }
-  ],
   theme: {
     extend: {
       fontFamily: {

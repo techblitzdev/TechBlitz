@@ -23,9 +23,9 @@ export default function HomepageHero() {
           Personalized coding roadmaps, daily coding challenges, and a
           supportive tech community. Tailored for{' '}
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/80">
-            every{' '}
+            you
           </span>
-          skill level.
+          .
         </h6>
         {process.env.NEXT_PUBLIC_ENV === 'development' ? (
           <HomepageHeroEmailSignup />

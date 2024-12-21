@@ -14,7 +14,7 @@ export default function NavigationButtons() {
     return (
       <Button
         disabled
-        className="hidden md:block font-onest !bg-gradient-to-r !from-accent !via-accent/70 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+        className="hidden lg:block font-onest !bg-gradient-to-r !from-accent !via-accent/70 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
       >
         <LoadingSpinner />
       </Button>
@@ -25,7 +25,7 @@ export default function NavigationButtons() {
     return (
       <Button
         href="/dashboard"
-        className="hidden md:block font-onest !bg-gradient-to-r !from-accent !via-accent/70 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+        className="hidden lg:block font-onest !bg-gradient-to-r !from-accent !via-accent/70 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
       >
         Dashboard
       </Button>
@@ -33,12 +33,8 @@ export default function NavigationButtons() {
   }
 
   return (
-    <div className="items-center gap-x-2 hidden md:flex">
-      <Button
-        href="/login"
-        variant="ghost"
-        className="font-onest"
-      >
+    <div className="items-center gap-x-2 hidden lg:flex">
+      <Button href="/login" variant="ghost" className="font-onest">
         Login
       </Button>
       <Button

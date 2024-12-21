@@ -145,7 +145,7 @@ export default function FeaturesBentoGrid() {
           </Suspense>
           <Suspense fallback={<LoadingSpinner />}>
             <Link
-              href="/features/daily-challenges"
+              href={isProd ? '' : '/features/daily-questions'}
               className={cn(
                 'col-span-full lg:col-span-2 group overflow-hidden',
                 cardClasses

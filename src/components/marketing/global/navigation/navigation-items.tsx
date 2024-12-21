@@ -10,7 +10,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle
+  navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 
 const components: { title: string; href: string; description: string }[] = [
@@ -23,7 +23,7 @@ const components: { title: string; href: string; description: string }[] = [
   {
     title: 'Open Source',
     href: '/open-source',
-    description: 'No secrets here, see how we build our platform.'
+    description: 'No secrets here, see how we build our platform.',
   },
   // {
   //   title: 'Changelog',
@@ -33,8 +33,8 @@ const components: { title: string; href: string; description: string }[] = [
   {
     title: 'FAQs',
     href: '/faqs',
-    description: 'Got a question? We have an answer.'
-  }
+    description: 'Got a question? We have an answer.',
+  },
 ];
 
 export function NavigationMenuItems() {
@@ -45,11 +45,8 @@ export function NavigationMenuItems() {
           <NavigationMenuItem>
             <NavigationMenuTrigger>Features</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-[.75fr_1fr]">
-                <ListItem
-                  href="/features/roadmap"
-                  title="Roadmaps"
-                >
+              <ul className="grid lg:p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-[.75fr_1fr]">
+                <ListItem href="/features/roadmap" title="Roadmaps">
                   AI-powered paths to accelerate your learning journey.
                 </ListItem>
                 <ListItem
@@ -58,22 +55,13 @@ export function NavigationMenuItems() {
                 >
                   Tackle daily challenges to sharpen your developer skills.
                 </ListItem>
-                <ListItem
-                  href="/features/leaderboards"
-                  title="Leaderboards"
-                >
+                <ListItem href="/features/leaderboards" title="Leaderboards">
                   Compete with friends and rise to the top.
                 </ListItem>
-                <ListItem
-                  href="/features/statistics"
-                  title="Statistics"
-                >
+                <ListItem href="/features/" title="Statistics">
                   Gain insights and track your growth over time.
                 </ListItem>
-                <ListItem
-                  href="/features/questions"
-                  title="Questions"
-                >
+                <ListItem href="/features/daily-questions" title="Questions">
                   Go beyond interviews — master real-world development.
                 </ListItem>
               </ul>
@@ -123,11 +111,7 @@ export function NavigationMenuItems() {
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link
-            href="mailto:team@techblitz.dev"
-            legacyBehavior
-            passHref
-          >
+          <Link href="mailto:team@techblitz.dev" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Contact
             </NavigationMenuLink>

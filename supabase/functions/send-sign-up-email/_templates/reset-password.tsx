@@ -2,7 +2,6 @@ import {
   Body,
   Container,
   Head,
-  Heading,
   Html,
   Link,
   Preview,
@@ -11,22 +10,22 @@ import {
 } from 'npm:@react-email/components';
 import * as React from 'npm:react@18.3.1';
 
-interface TechBlitzSignUpEmailProps {
+interface ResetPasswordEmailProps {
   username: string;
   confirmationLink: string;
 }
 
-export const TechBlitzSignUpEmail = ({
+export const ResetPasswordEmail = ({
   username,
   confirmationLink,
-}: TechBlitzSignUpEmailProps) => {
+}: ResetPasswordEmailProps) => {
   return (
     <Html>
       <Head />
-      <Preview>Welcome to TechBlitz - Confirm Your Email</Preview>
+      <Preview>Reset your password</Preview>
       <Body style={main}>
         <Container style={container}>
-          <Section style={logoContainer}>
+          <Section style={buttonContainer}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="111"
@@ -55,13 +54,6 @@ export const TechBlitzSignUpEmail = ({
                 </clipPath>
               </defs>
             </svg>
-          </Section>
-          <Heading style={h1}>Welcome to TechBlitz!</Heading>
-          <Text style={text}>
-            We're so glad to have you on board, and ready to help you in you
-            software journey! To get started, please confirm your email address.
-          </Text>
-          <Section style={buttonContainer}>
             <Link href={confirmationLink} target="_blank" style={button}>
               Confirm Your Email
             </Link>
@@ -81,12 +73,10 @@ export const TechBlitzSignUpEmail = ({
   );
 };
 
-TechBlitzSignUpEmail.PreviewProps = {
+ResetPasswordEmail.PreviewProps = {
   username: 'Alice',
   confirmationLink: 'https://techblitz.com/confirm?token=123456',
-} as TechBlitzSignUpEmailProps;
-
-export default TechBlitzSignUpEmail;
+} as ResetPasswordEmailProps;
 
 const accent = '#5b61d6';
 

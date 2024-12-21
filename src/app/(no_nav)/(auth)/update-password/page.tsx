@@ -1,3 +1,4 @@
+// app/update-password/page.tsx
 'use client';
 import { Button } from '@/components/ui/button';
 import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form';
@@ -6,10 +7,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from 'sonner';
 import { InputWithLabel } from '@/components/ui/input-label';
-import { updateUserAuth } from '@/actions/user/authed/update-user-auth';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import LoadingSpinner from '@/components/ui/loading';
+import { createClient } from '@/utils/supabase/client';
 
 const passwordSchema = z.object({
   password: z.string().min(8),
@@ -18,12 +19,12 @@ const passwordSchema = z.object({
 
 type SchemaProps = z.infer<typeof passwordSchema>;
 
-/**
- * The page the user hits after they click the link in their email to reset their password.
- */
 export default function UpdatePasswordPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [isValidToken, setIsValidToken] = useState(false);
+  const searchParams = useSearchParams();
+  const supabase = createClient();
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(passwordSchema),
@@ -32,6 +33,35 @@ export default function UpdatePasswordPage() {
       confirmPassword: '',
     },
   });
+
+  useEffect(() => {
+    const validateToken = async () => {
+      const access_token = searchParams.get('access_token');
+      const refresh_token = searchParams.get('refresh_token');
+
+      if (!access_token || !refresh_token) {
+        toast.error('Invalid reset link');
+        router.push('/login');
+        return;
+      }
+
+      try {
+        const { error } = await supabase.auth.setSession({
+          access_token,
+          refresh_token,
+        });
+
+        if (error) throw error;
+        setIsValidToken(true);
+      } catch (error) {
+        console.error('Session error:', error);
+        toast.error('Invalid or expired reset link');
+        router.push('/login');
+      }
+    };
+
+    validateToken();
+  }, [searchParams, router]);
 
   const handlePasswordReset = async (values: SchemaProps) => {
     const { password, confirmPassword } = values;
@@ -44,22 +74,35 @@ export default function UpdatePasswordPage() {
 
     setIsLoading(true);
     try {
-      await updateUserAuth({
-        password,
+      const { error } = await supabase.auth.updateUser({
+        password: password,
       });
 
-      toast.success('Password updated');
+      if (error) throw error;
+
+      toast.success('Password updated successfully');
       form.reset();
       router.push('/login');
     } catch (error) {
-      console.error(error);
+      console.error('Update error:', error);
       if (error instanceof Error) {
         toast.error(error.message);
+      } else {
+        toast.error('Failed to update password');
       }
     } finally {
       setIsLoading(false);
     }
   };
+
+  if (!isValidToken) {
+    return (
+      <div className="p-8 rounded-xl space-y-4 text-center">
+        <LoadingSpinner />
+        <p>Validating reset link...</p>
+      </div>
+    );
+  }
 
   return (
     <div

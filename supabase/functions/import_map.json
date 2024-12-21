@@ -1,5 +1,7 @@
 {
   "imports": {
-    "@supabase/supabase-js": "jsr:@supabase/supabase-js@2"
+    "react": "https://esm.sh/react@18.2.0",
+    "@react-email/components": "https://esm.sh/@react-email/components@0.0.11",
+    "resend": "https://esm.sh/resend@2.0.0"
   }
 }

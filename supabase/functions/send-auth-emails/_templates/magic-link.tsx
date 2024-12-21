@@ -6,8 +6,8 @@ import {
   Html,
   Link,
   Preview,
-  Text
-} from 'npm:@react-email/components@0.0.22';
+  Text,
+} from 'npm:@react-email/components';
 import * as React from 'npm:react@18.3.1';
 
 interface MagicLinkEmailProps {
@@ -23,7 +23,7 @@ export const MagicLinkEmail = ({
   supabase_url,
   email_action_type,
   redirect_to,
-  token_hash
+  token_hash,
 }: MagicLinkEmailProps) => (
   <Html>
     <Head />
@@ -37,7 +37,7 @@ export const MagicLinkEmail = ({
           style={{
             ...link,
             display: 'block',
-            marginBottom: '16px'
+            marginBottom: '16px',
           }}
         >
           Click here to log in with this magic link
@@ -51,7 +51,7 @@ export const MagicLinkEmail = ({
             ...text,
             color: '#ababab',
             marginTop: '14px',
-            marginBottom: '16px'
+            marginBottom: '16px',
           }}
         >
           If you didn&apos;t try to login, you can safely ignore this email.
@@ -74,13 +74,13 @@ export const MagicLinkEmail = ({
 export default MagicLinkEmail;
 
 const main = {
-  backgroundColor: '#ffffff'
+  backgroundColor: '#ffffff',
 };
 
 const container = {
   paddingLeft: '12px',
   paddingRight: '12px',
-  margin: '0 auto'
+  margin: '0 auto',
 };
 
 const h1 = {
@@ -90,7 +90,7 @@ const h1 = {
   fontSize: '24px',
   fontWeight: 'bold',
   margin: '40px 0',
-  padding: '0'
+  padding: '0',
 };
 
 const link = {
@@ -98,7 +98,7 @@ const link = {
   fontFamily:
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   fontSize: '14px',
-  textDecoration: 'underline'
+  textDecoration: 'underline',
 };
 
 const text = {
@@ -106,7 +106,7 @@ const text = {
   fontFamily:
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   fontSize: '14px',
-  margin: '24px 0'
+  margin: '24px 0',
 };
 
 const footer = {
@@ -116,7 +116,7 @@ const footer = {
   fontSize: '12px',
   lineHeight: '22px',
   marginTop: '12px',
-  marginBottom: '24px'
+  marginBottom: '24px',
 };
 
 const code = {
@@ -126,5 +126,5 @@ const code = {
   backgroundColor: '#f4f4f4',
   borderRadius: '5px',
   border: '1px solid #eee',
-  color: '#333'
+  color: '#333',
 };

@@ -1,33 +1,30 @@
 'use client';
 
-import { TrendingUp } from 'lucide-react';
 import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from 'recharts';
 
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle
 } from '@/components/ui/card';
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
-  ChartTooltipContent
+  ChartTooltipContent,
 } from '@/components/ui/chart';
 import { UserRoadmapsWithAnswers } from '@/types/Roadmap';
 
 const chartConfig = {
   desktop: {
     label: 'Desktop',
-    color: 'hsl(var(--chart-1))'
+    color: 'hsl(var(--chart-1))',
   },
   mobile: {
     label: 'Mobile',
-    color: 'hsl(var(--chart-2))'
-  }
+    color: 'hsl(var(--chart-2))',
+  },
 } satisfies ChartConfig;
 
 export default function Component(opts: { roadmap: UserRoadmapsWithAnswers }) {
@@ -42,8 +39,8 @@ export default function Component(opts: { roadmap: UserRoadmapsWithAnswers }) {
   const chartData = [
     {
       correct: correctCount,
-      incorrect: incorrectCount
-    }
+      incorrect: incorrectCount,
+    },
   ];
 
   return (
@@ -67,20 +64,12 @@ export default function Component(opts: { roadmap: UserRoadmapsWithAnswers }) {
               labelClassName="fill-white"
               content={<ChartTooltipContent hideLabel />}
             />
-            <PolarRadiusAxis
-              tick={false}
-              tickLine={false}
-              axisLine={false}
-            >
+            <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
               <Label
                 content={({ viewBox }) => {
                   if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
                     return (
-                      <text
-                        x={viewBox.cx}
-                        y={viewBox.cy}
-                        textAnchor="middle"
-                      >
+                      <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle">
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) - 16}

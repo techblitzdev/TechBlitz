@@ -2,14 +2,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { shuffle } from 'lodash';
-import {
-  Trophy,
-  ChevronUp,
-  ChevronDown,
-  TrophyIcon,
-  ChevronRight,
-  Minus
-} from 'lucide-react';
+import { ChevronUp, ChevronDown, ChevronRight, Minus } from 'lucide-react';
 
 interface LeaderboardItem {
   id: number;
@@ -19,7 +12,7 @@ interface LeaderboardItem {
 const spring = {
   type: 'spring',
   damping: 20,
-  stiffness: 300
+  stiffness: 300,
 };
 
 export default function LeaderboardBentoBox() {
@@ -28,7 +21,7 @@ export default function LeaderboardBentoBox() {
     { id: 2, name: 'Bill Gates' },
     { id: 3, name: 'Jeff Bezos' },
     { id: 4, name: `you` },
-    { id: 5, name: 'Mark Zuckerberg' }
+    { id: 5, name: 'Mark Zuckerberg' },
   ];
 
   const [leaderboard, setLeaderboard] = useState(initialLeaderboard);
@@ -62,7 +55,7 @@ export default function LeaderboardBentoBox() {
     <div
       style={{
         background:
-          'radial-gradient(128% 107% at 100% 100%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
+          'radial-gradient(128% 107% at 100% 100%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
       className="group-hover:scale-[1.03] duration-300 border border-black-50 bg-black-75 overflow-hidden border-t-0 -top-6 -left-8 relative rounded-tr-none rounded-xl"
     >

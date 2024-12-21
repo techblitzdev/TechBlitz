@@ -1,6 +1,5 @@
 import { getUserDailyStats } from '@/actions/user/authed/get-daily-streak';
 import { useUserServer } from '@/hooks/useUserServer';
-import { Flame } from 'lucide-react';
 import { SVGProps } from 'react';
 
 export function SolarFlameBoldDuotone(props: SVGProps<SVGSVGElement>) {

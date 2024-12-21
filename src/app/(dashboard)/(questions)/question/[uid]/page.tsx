@@ -3,7 +3,6 @@ import { Separator } from '@/components/ui/separator';
 import NoDailyQuestion from '@/components/global/errors/no-daily-question';
 import QuestionDisplay from '@/components/questions/single/code-snippet';
 import { ChartColumn, Check, ShieldQuestionIcon, User } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { getQuestionStats } from '@/actions/questions/get-question-stats';
 import { useUserServer } from '@/hooks/useUserServer';
 
@@ -115,6 +114,7 @@ export default async function TodaysQuestionPage({
               {relatedQuestions.length > 0 ? (
                 relatedQuestions.map((relatedQuestion, index) => (
                   <RelatedQuestionCard
+                    key={relatedQuestion.uid}
                     question={relatedQuestion}
                     index={index}
                   />

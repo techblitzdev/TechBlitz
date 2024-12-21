@@ -3,7 +3,6 @@ import { fetchRoadmapQuestion } from '@/actions/roadmap/questions/fetch-roadmap-
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/useUserServer';
-import { Expand } from 'lucide-react';
 import { redirect } from 'next/navigation';
 import QuestionDisplay from '@/components/questions/single/code-snippet';
 import { RoadmapUserQuestions } from '@/types/Roadmap';

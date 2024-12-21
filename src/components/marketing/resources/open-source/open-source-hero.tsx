@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import GridPattern from '@/components/ui/grid-pattern';
 import { cn } from '@/utils/cn';
-import { ArrowDown, Star } from 'lucide-react';
+import { Star } from 'lucide-react';
 
 export default function ResourceOpenSourceHeroBlock() {
   return (

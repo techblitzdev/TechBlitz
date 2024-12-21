@@ -15,10 +15,10 @@ import type { Question } from '@/types/Questions';
 import type { UserRecord } from '@/types/User';
 import type { Answer } from '@/types/Answers';
 import { toast } from 'sonner';
-import { Label } from '../../ui/label';
+import { Label } from '@/components/ui/label';
 import { cn } from '@/utils/cn';
-import { Check, Loader2 } from 'lucide-react';
-import { Separator } from '../../ui/separator';
+import { Check } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 import QuestionHintAccordion from './question-hint';
 import CodeDisplay from './code-snippet';
 import LoadingSpinner from '@/components/ui/loading';
@@ -42,7 +42,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
     time,
     stopwatchPause,
     nextQuestion,
-    resetStopwatch
+    resetStopwatch,
   }: AnswerQuestionFormProps,
   ref: React.Ref<{ submitForm: () => void }>
 ) {
@@ -57,8 +57,8 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
   const form = useForm<SchemaProps>({
     resolver: zodResolver(answerQuestionSchema),
     defaultValues: {
-      answer: ''
-    }
+      answer: '',
+    },
   });
 
   // Expose the `submitForm` method to the parent via ref
@@ -68,7 +68,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
         console.log('Submitting form with values:', values);
         await handleAnswerQuestion(values);
       })();
-    }
+    },
   }));
 
   const handleAnswerQuestion = async (values: SchemaProps) => {
@@ -87,7 +87,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
       const opts: any = {
         questionUid: question?.uid,
         answerUid: values.answer,
-        userUid: userData.uid
+        userUid: userData.uid,
       };
 
       if (time) {
@@ -97,13 +97,13 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
       const {
         correctAnswer,
         userAnswer,
-        userData: newUserData
+        userData: newUserData,
       } = await answerQuestion(opts);
 
       console.log({
         correctAnswer,
         userAnswer,
-        newUserData
+        newUserData,
       });
 
       setCorrectAnswer(correctAnswer ? 'correct' : 'incorrect');
@@ -150,10 +150,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
 
         <div className="grid grid-cols-12 gap-4 p-4">
           {question?.answers?.map((answer) => (
-            <div
-              key={answer.uid}
-              className="col-span-full"
-            >
+            <div key={answer.uid} className="col-span-full">
               <FormField
                 control={form.control}
                 name="answer"

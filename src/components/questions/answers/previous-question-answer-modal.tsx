@@ -4,7 +4,7 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
-  DialogDescription
+  DialogDescription,
 } from '@/components/ui/dialog';
 import JsonDisplay from '@/components/global/json-display';
 // types
@@ -28,19 +28,16 @@ export default function PreviousQuestionAnswerModal(opts: {
     queryFn: async () => {
       return await getAnswer({
         questionUid: questionData.uid,
-        userUid: userAnswer?.userUid || ''
+        userUid: userAnswer?.userUid || '',
       });
-    }
+    },
   });
 
   return (
-    <Dialog
-      open={isOpen}
-      onOpenChange={onClose}
-    >
+    <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent
         className="bg-black-75 md:max-w-xl"
-        aria-description={`Answer question modal`}
+        aria-label={`Answer question modal`}
       >
         <DialogTitle>Answer</DialogTitle>
         <DialogDescription className="flex flex-col gap-y-1">

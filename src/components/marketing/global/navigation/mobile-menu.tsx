@@ -20,11 +20,6 @@ interface MenuItem {
   children?: MenuItem[];
 }
 
-interface MobileMenuProps {
-  isLoggedIn: boolean;
-  isDevelopment: boolean;
-}
-
 const menuItems: MenuItem[] = [
   {
     label: 'Features',

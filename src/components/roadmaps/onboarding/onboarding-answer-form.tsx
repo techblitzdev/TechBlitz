@@ -6,9 +6,8 @@ import QuestionHintAccordion from '@/components/questions/single/question-hint';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
-import { Check, CheckCircle2Icon, XCircleIcon } from 'lucide-react';
+import { Check } from 'lucide-react';
 import LoadingSpinner from '@/components/ui/loading';
-import { Button } from '@/components/ui/button';
 
 // zod
 import { useForm } from 'react-hook-form';
@@ -48,8 +47,8 @@ const OnboardingRoadmapAnswerQuestionForm = forwardRef(
     const form = useForm<SchemaProps>({
       resolver: zodResolver(answerQuestionSchema),
       defaultValues: {
-        answer: ''
-      }
+        answer: '',
+      },
     });
 
     // Expose the `submitForm` method to the parent via ref
@@ -59,7 +58,7 @@ const OnboardingRoadmapAnswerQuestionForm = forwardRef(
           console.log('Submitting form with values:', values);
           await handleAnswerQuestion(values);
         })();
-      }
+      },
     }));
 
     const handleAnswerQuestion = async (values: SchemaProps) => {
@@ -76,14 +75,14 @@ const OnboardingRoadmapAnswerQuestionForm = forwardRef(
           answerUid: values.answer,
           roadmapUid,
           userUid: userData.uid,
-          currentQuestionIndex: question?.order
+          currentQuestionIndex: question?.order,
         };
 
         const answer = await answerDefaultRoadmapQuestion(opts);
 
         // Set user data to show correct/incorrect state
         setNewUserData({
-          correct: answer.correctAnswer || false
+          correct: answer.correctAnswer || false,
         });
 
         // Set next question index or null if last question
@@ -128,10 +127,7 @@ const OnboardingRoadmapAnswerQuestionForm = forwardRef(
               )}
             >
               {question?.answers?.map((answer) => (
-                <div
-                  key={answer.uid}
-                  className="col-span-full"
-                >
+                <div key={answer.uid} className="col-span-full">
                   <FormField
                     control={form.control}
                     name="answer"

@@ -1,6 +1,5 @@
 'use server';
 import { createClient as createServerClient } from '@/utils/supabase/server';
-import { cookies } from 'next/headers';
 import { prisma } from '@/utils/prisma';
 
 export const deleteUser = async (opts: { userUid: string }) => {
@@ -15,8 +14,8 @@ export const deleteUser = async (opts: { userUid: string }) => {
     // delete the user from the database
     await tx.users.delete({
       where: {
-        uid: userUid
-      }
+        uid: userUid,
+      },
     });
 
     // delete the user from supabase auth

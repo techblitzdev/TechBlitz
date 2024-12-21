@@ -7,8 +7,7 @@ import {
   Form,
   FormControl,
   FormField,
-  FormItem,
-  FormMessage
+  FormMessage,
 } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -16,7 +15,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 const Schema = z.object({
-  email: z.string().email()
+  email: z.string().email(),
 });
 
 type SchemaProps = z.infer<typeof Schema>;
@@ -26,8 +25,8 @@ export default function HomepageHeroEmailSignup() {
   const form = useForm<SchemaProps>({
     resolver: zodResolver(Schema),
     defaultValues: {
-      email: ''
-    }
+      email: '',
+    },
   });
 
   // validate the email input

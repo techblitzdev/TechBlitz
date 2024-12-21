@@ -2,7 +2,7 @@
 import { createClient as createServerClient } from '@/utils/supabase/server';
 import { prisma } from '@/utils/prisma';
 import { UserRecord } from '@/types/User';
-import { unstable_cache as NextCache, revalidateTag } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 
 /**
  * Get the user from the server - used in api routes, server componets & server actions
@@ -20,8 +20,8 @@ export const getUserFromDb = async (
   if (!userUid) return null;
   const user = await prisma.users.findUnique({
     where: {
-      uid: userUid
-    }
+      uid: userUid,
+    },
   });
 
   revalidateTag('user-details');

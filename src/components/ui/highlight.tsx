@@ -1,10 +1,10 @@
 'use client';
 import { cn } from '@/utils/cn';
-import { useMotionValue, motion, useMotionTemplate } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export const Highlight = ({
   children,
-  className
+  className,
 }: {
   children: React.ReactNode;
   className?: string;
@@ -12,20 +12,20 @@ export const Highlight = ({
   return (
     <motion.span
       initial={{
-        backgroundSize: '0% 100%'
+        backgroundSize: '0% 100%',
       }}
       animate={{
-        backgroundSize: '100% 100%'
+        backgroundSize: '100% 100%',
       }}
       transition={{
         duration: 2,
         ease: 'anticipate',
-        delay: 0.1
+        delay: 0.1,
       }}
       style={{
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'left center',
-        display: 'inline'
+        display: 'inline',
       }}
       className={cn(
         `relative inline-block pb-1  px-1 rounded-lg bg-gradient-to-r from-accent to-accent`,

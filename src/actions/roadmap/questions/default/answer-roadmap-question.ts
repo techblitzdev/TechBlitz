@@ -1,6 +1,5 @@
 'use server';
 import { prisma } from '@/utils/prisma';
-import { redirect } from 'next/navigation';
 
 export const answerDefaultRoadmapQuestion = async (opts: {
   questionUid: string;

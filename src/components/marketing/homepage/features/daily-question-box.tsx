@@ -1,9 +1,7 @@
 'use client';
 import { motion, useInView } from 'motion/react';
-import CodeDisplay from '@/components/questions/single/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import { useRef } from 'react';
-import CodeComparison from '@/components/ui/code-comparison';
-import CodeSnippet from '../../global/code-snippet';
 
 const codeSnippet1 = `export const fetchData = async () => {
   try {
@@ -54,10 +52,7 @@ export default function DailyQuestionBox() {
   const isInView = useInView(ref, { once: true });
 
   return (
-    <div
-      ref={ref}
-      className="gap-10"
-    >
+    <div ref={ref} className="gap-10">
       <motion.div
         className="
           relative top-8 overflow-hidden 
@@ -69,7 +64,7 @@ export default function DailyQuestionBox() {
         transition={{
           type: 'spring',
           stiffness: 100,
-          damping: 15
+          damping: 15,
         }}
       >
         <CodeSnippet
@@ -92,7 +87,7 @@ export default function DailyQuestionBox() {
           type: 'spring',
           stiffness: 100,
           damping: 15,
-          delay: 0.2
+          delay: 0.2,
         }}
       >
         <CodeSnippet

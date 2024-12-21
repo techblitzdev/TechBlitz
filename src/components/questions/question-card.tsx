@@ -1,13 +1,11 @@
 import { QuestionWithoutAnswers } from '@/types/Questions';
-import { Button } from '@/components/ui/button';
-import { ArrowUpRight } from 'lucide-react';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
-import TagDisplay from './previous/tag-display';
+import TagDisplay from '@/components/questions/previous/tag-display';
 import { getQuestionStats } from '@/actions/questions/get-question-stats';
 import Link from 'next/link';
-import Chip from '../ui/chip';
+import Chip from '@/components/ui/chip';
 import { Suspense } from 'react';
-import QuestionCardLoading from './question-card-loading';
+import QuestionCardLoading from '@/components/questions/question-card-loading';
 
 export default async function QuestionCard(opts: {
   questionData: QuestionWithoutAnswers;

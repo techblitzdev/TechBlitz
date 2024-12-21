@@ -6,7 +6,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger
+  TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { listQuestions } from '@/actions/questions/list';
 import { getUserDailyStats } from '@/actions/user/authed/get-daily-streak';
@@ -15,7 +15,7 @@ import { getSuggestions } from '@/actions/questions/get-suggestions';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import QuestionCard from '@/components/questions/question-card';
 import Filter from '@/components/global/filters/filter';
-import { QuestionDifficulty, QuestionWithoutAnswers } from '@/types/Questions';
+import { QuestionDifficulty } from '@/types/Questions';
 import FilterChips from '@/components/global/filters/chips';
 import Hero from '@/components/global/hero';
 import QuestionCardLoading from '@/components/questions/question-card-loading';
@@ -23,7 +23,7 @@ import QuestionCardLoading from '@/components/questions/question-card-loading';
 const ITEMS_PER_PAGE = 20;
 
 export default async function QuestionsDashboard({
-  searchParams
+  searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
@@ -43,7 +43,7 @@ export default async function QuestionsDashboard({
     ascending,
     difficulty,
     completed,
-    tags
+    tags,
   };
 
   const userStreak = await getUserDailyStats(user.uid);
@@ -57,11 +57,11 @@ export default async function QuestionsDashboard({
       page: currentPage,
       pageSize: ITEMS_PER_PAGE,
       userUid: user.uid,
-      filters
+      filters,
     }),
     getSuggestions({
-      userUid: user.uid
-    })
+      userUid: user.uid,
+    }),
   ]);
 
   return (
@@ -84,11 +84,7 @@ export default async function QuestionsDashboard({
             }
           >
             {data.questions.map((q) => (
-              <QuestionCard
-                key={q.uid}
-                questionData={q}
-                userUid={user.uid}
-              />
+              <QuestionCard key={q.uid} questionData={q} userUid={user.uid} />
             ))}
           </Suspense>
           <div className="mt-5 w-full flex justify-center gap-x-2">

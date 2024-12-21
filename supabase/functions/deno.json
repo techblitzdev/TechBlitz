@@ -1,0 +1,12 @@
+{
+  "tasks": {
+    "serve": "deno run --allow-net --allow-env --watch index.ts"
+  },
+  "importMap": {
+    "imports": {
+      "react": "https://esm.sh/react@18.3.1",
+      "resend": "https://esm.sh/resend@4.0.0",
+      "@react-email/components": "https://esm.sh/@react-email/components@0.0.22"
+    }
+  }
+}

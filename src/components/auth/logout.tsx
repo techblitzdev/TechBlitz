@@ -2,8 +2,9 @@
 import { logout } from '@/actions/user/account/logout';
 import { useRouter } from 'next/navigation';
 
+// components
 import { ExitIcon } from '@radix-ui/react-icons';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
 export default function LogoutButton(otps: {

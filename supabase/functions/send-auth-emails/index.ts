@@ -1,13 +1,10 @@
-import React from 'npm:react@18.3.1';
+import React from 'react';
 import { Webhook } from 'https://esm.sh/standardwebhooks@1.0.0';
-import { Resend } from 'npm:resend';
-
-// templates
+import { Resend } from 'resend';
+import { renderAsync } from '@react-email/components';
 import { MagicLinkEmail } from './_templates/magic-link.tsx';
 import { TechBlitzSignUpEmail } from './_templates/sign-up.tsx';
 import { ResetPasswordEmail } from './_templates/reset-password.tsx';
-import { renderAsync } from 'npm:@react-email/components';
-
 const resend = new Resend(Deno.env.get('RESEND_API_KEY') as string);
 const hookSecret = Deno.env.get('SEND_EMAIL_HOOK_SECRET') as string;
 const supabaseUrl = Deno.env.get('NEXT_PUBLIC_SUPABASE_URL') as string;
@@ -43,27 +40,22 @@ Deno.serve(async (req) => {
       };
     };
 
+    console.log(email_action_type);
+
     let html: string;
-    let subjectString = 'Welcome to TechBlitz!';
+    let subject: string;
 
     if (email_action_type === 'signup') {
       const redirect_to_url = `${redirect_to}/login`;
 
       html = await renderAsync(
         React.createElement(TechBlitzSignUpEmail, {
-          lang: user['user_metadata'].lang,
+          username: user['user_metadata'].lang,
           confirmationLink: `${supabaseUrl}/auth/v1/verify?token=${token_hash}&type=signup&redirect_to=${redirect_to_url}`,
         })
       );
-      subjectString = 'Welcome to TechBlitz!';
-    } else if (email_action_type === 'reset_password') {
-      html = await renderAsync(
-        React.createElement(ResetPasswordEmail, {
-          confirmationLink: `${supabaseUrl}/auth/v1/verify?token=${token_hash}&type=reset_password&redirect_to=${redirect_to}`,
-        })
-      );
-      subjectString = 'Reset Your Password';
-    } else if (email_action_type === 'login') {
+      subject = 'Welcome to TechBlitz!';
+    } else if (email_action_type == 'login') {
       html = await renderAsync(
         React.createElement(MagicLinkEmail, {
           supabase_url: Deno.env.get('NEXT_PUBLIC_SUPABASE_URL') ?? '',
@@ -73,26 +65,48 @@ Deno.serve(async (req) => {
           email_action_type,
         })
       );
-    } else {
-      return new Response(`Invalid email action type: ${email_action_type}`, {
-        status: 400,
-      });
     }
-
-    console.log(html);
+    // for sending pass word reset emails
+    else if (email_action_type === 'recovery') {
+      // go grab the react email template
+      html = await renderAsync(
+        React.createElement(ResetPasswordEmail, {
+          username: user['user_metadata'].username,
+          confirmationLink: `${supabaseUrl}/auth/v1/verify?token=${token_hash}&type=reset_password&redirect_to=${redirect_to}`,
+        })
+      );
+    } else {
+      throw new Error('Invalid email action type');
+    }
 
     const { error } = await resend.emails.send({
       from: 'welcome <team@techblitz.dev>',
       to: [user.email],
-      subject: subjectString,
-      html: html,
+      subject:
+        email_action_type === 'signup'
+          ? 'Welcome to TechBlitz!'
+          : 'Sign in to TechBlitz',
+      html,
     });
     if (error) {
       throw error;
     }
   } catch (error) {
     console.log(error);
-    return new Response('Error processing request', { status: 500 });
+    return new Response(
+      JSON.stringify({
+        error: {
+          http_code: (error as { code?: number })?.code ?? 500,
+          message:
+            (error as { message?: string })?.message ??
+            'An unknown error occurred',
+        },
+      }),
+      {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
 
   const responseHeaders = new Headers();

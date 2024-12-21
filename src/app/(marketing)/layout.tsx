@@ -23,7 +23,6 @@ import MarketingFooter from '@/components/marketing/global/footer/footer';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/react';
 
-import { Suspense } from 'react';
 import CookieBanner from '@/components/global/cookie-banner';
 
 const title =

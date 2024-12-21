@@ -17,7 +17,6 @@ import { MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 
-import dynamic from 'next/dynamic';
 import NextTopLoader from 'nextjs-toploader';
 import { useUserServer } from '@/hooks/useUserServer';
 import { redirect } from 'next/navigation';

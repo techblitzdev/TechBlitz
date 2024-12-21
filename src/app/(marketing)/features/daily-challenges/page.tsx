@@ -1,7 +1,8 @@
+import FeatureDailyChallengeBentoGrid from '@/components/marketing/features/daily-challenge/bento-grid/grid';
 import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/hero/daily-challenge-hero';
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 import MarketingContentGrid, {
-  type MarketingContentGridProps
+  type MarketingContentGridProps,
 } from '@/components/marketing/global/content-grid';
 import { Phone } from 'lucide-react';
 
@@ -29,7 +30,7 @@ const items: MarketingContentGridProps[] = [
     ),
     title: 'Short-form challenges',
     description:
-      'Dive into coding challenges that are quick yet impactful. Designed to sharpen your skills in minutes, these challenges offer real-world problem-solving without the lengthy commitment.'
+      'Dive into coding challenges that are quick yet impactful. Designed to sharpen your skills in minutes, these challenges offer real-world problem-solving without the lengthy commitment.',
   },
   {
     icon: (
@@ -47,7 +48,7 @@ const items: MarketingContentGridProps[] = [
     ),
     title: 'Microlearning',
     description:
-      'Master software concepts daily with bite-sized problems that fit into your schedule. Stay consistent and learn without spending hours on a single task.s'
+      'Master software concepts daily with bite-sized problems that fit into your schedule. Stay consistent and learn without spending hours on a single task.s',
   },
   {
     icon: (
@@ -65,7 +66,7 @@ const items: MarketingContentGridProps[] = [
     ),
     title: 'Collaborative learning',
     description:
-      'Join a community of like-minded learners! Opt to solve challenges alongside others, exchange ideas, and grow through shared knowledge.'
+      'Join a community of like-minded learners! Opt to solve challenges alongside others, exchange ideas, and grow through shared knowledge.',
   },
   {
     icon: (
@@ -83,7 +84,7 @@ const items: MarketingContentGridProps[] = [
     ),
     title: 'Instant feedback',
     description:
-      'Receive immediate feedback on your solutions. Understand where you went wrong and how to improve.'
+      'Receive immediate feedback on your solutions. Understand where you went wrong and how to improve.',
   },
   {
     icon: (
@@ -100,43 +101,30 @@ const items: MarketingContentGridProps[] = [
           stroke-linejoin="round"
           stroke-width="2"
         >
-          <path
-            stroke-miterlimit="5.759"
-            d="M3 3v16a2 2 0 0 0 2 2h16"
-          />
-          <path
-            stroke-miterlimit="5.759"
-            d="m7 14l4-4l4 4l6-6"
-          />
+          <path stroke-miterlimit="5.759" d="M3 3v16a2 2 0 0 0 2 2h16" />
+          <path stroke-miterlimit="5.759" d="m7 14l4-4l4 4l6-6" />
           <path d="M18 8h3v3" />
         </g>
       </svg>
     ),
     title: 'Track your progress',
     description:
-      'Monitor your growth with detailed statistics. Keep tabs on your performance and see how you stack up against others.'
+      'Monitor your growth with detailed statistics. Keep tabs on your performance and see how you stack up against others.',
   },
   {
-    icon: (
-      <Phone
-        size={20}
-        color="currentColor"
-      />
-    ),
+    icon: <Phone size={20} color="currentColor" />,
     title: 'Mobile-friendly',
     description:
-      'Access challenges on the go. Solve problems from your phone, tablet, or computer.'
-  }
+      'Access challenges on the go. Solve problems from your phone, tablet, or computer.',
+  },
 ];
 
 export default function FeatureDailyQuestionPage() {
   return (
     <div className="container">
       <FeatureDailyChallengeHero />
-      <MarketingContentGrid
-        title="Master Coding with Ease"
-        items={items}
-      />
+      <FeatureDailyChallengeBentoGrid />
+      <MarketingContentGrid title="Master Coding with Ease" items={items} />
       <CallToActionBlock
         title="The smarter way to stay on top of tech"
         description="Create your own progression path with our AI powered roadmaps, designed to help you grow as a developer."

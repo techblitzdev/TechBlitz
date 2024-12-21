@@ -1,7 +1,6 @@
 'use client';
 // components
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import {
   Form,
   FormControl,
@@ -23,6 +22,7 @@ import { signUp } from '@/actions/user/account/signup';
 
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import OrSeparator from './or-separator';
 
 type SchemaProps = z.infer<typeof signupSchema>;
 
@@ -117,7 +117,7 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
           </Button>
         </FormItem>
 
-        <Separator className="mt-1 col-span-full bg-black-50" />
+        <OrSeparator />
 
         <span className="col-span-full text-sm text-gray-300 hover:text-white duration-300">
           Already have an account?{' '}

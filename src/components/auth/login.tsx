@@ -11,7 +11,6 @@ import {
 } from '@/components/ui/form';
 import { InputWithLabel } from '@/components/ui/input-label';
 import { toast } from 'sonner';
-import { Separator } from '@/components/ui/separator';
 import { DiscordLogoIcon, GitHubLogoIcon } from '@radix-ui/react-icons';
 
 // zod
@@ -25,6 +24,7 @@ import { login } from '@/actions/user/account/login';
 
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import OrSeparator from '@/components/auth/or-separator';
 
 type SchemaProps = z.infer<typeof loginSchema>;
 
@@ -137,12 +137,7 @@ export default function LoginForm() {
           </Link>
         </span>
       </form>
-      <div className="relative pt-5 pb-1 col-span-full">
-        <Separator className=" bg-black-50" />
-        <span className="absolute top-3 left-1/2 transform -translate-x-1/2 bg-[#000000] px-2 text-xs text-gray-300">
-          OR
-        </span>
-      </div>
+      <OrSeparator />
       <div className="flex gap-1 items-center justify-center">
         <form
           onSubmit={async (event) => {

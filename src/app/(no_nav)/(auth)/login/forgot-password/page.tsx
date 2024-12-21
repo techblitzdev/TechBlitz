@@ -7,6 +7,7 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
+import OrSeparator from '@/components/auth/or-separator';
 
 import { toast } from 'sonner';
 import { InputWithLabel } from '@/components/ui/input-label';
@@ -113,10 +114,10 @@ export default function ForgotPasswordPage() {
             </Button>
           </FormItem>
 
-          <Separator className="mt-1 col-span-full bg-black-50" />
+          <OrSeparator />
 
           <span className="col-span-full text-sm text-gray-300 hover:text-white duration-300">
-            <Link href="/login">or sign in</Link>
+            <Link href="/login">sign in</Link>
           </span>
         </form>
       </Form>

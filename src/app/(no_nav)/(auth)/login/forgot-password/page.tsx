@@ -44,15 +44,12 @@ export default function ForgotPasswordPage() {
       await resetPassword({
         email,
       });
-      toast.success('Password reset email sent');
       form.reset();
     } catch (error) {
       console.error(error);
-      if (error instanceof Error) {
-        toast.error(error.message);
-      }
     } finally {
       setIsLoading(false);
+      toast.success('Password reset email sent');
     }
   };
 

@@ -40,15 +40,14 @@ Deno.serve(async (req) => {
       };
     };
 
-    console.log(email_action_type);
-
     // init for the email template & subject
     let html: string;
     let subject: string;
+    let from: string = 'TechBlitz <team@techblitz.dev>';
 
     if (email_action_type === 'signup') {
       const redirect_to_url = `${redirect_to}/login`;
-
+      from = 'welcome <team@techblitz.dev>';
       html = await renderAsync(
         React.createElement(TechBlitzSignUpEmail, {
           username: user['user_metadata'].lang,
@@ -70,11 +69,14 @@ Deno.serve(async (req) => {
     }
     // for sending pass word reset emails
     else if (email_action_type === 'recovery') {
+      // redirect the user to the update password page
+      const redirect_to_url = `${redirect_to}/update-password`;
+      from = 'TechBlitz <team@techblitz.dev>';
       // go grab the react email template
       html = await renderAsync(
         React.createElement(ResetPasswordEmail, {
           username: user['user_metadata'].username,
-          resetLink: `${supabaseUrl}/auth/v1/verify?token=${token_hash}&type=reset_password&redirect_to=${redirect_to}`,
+          resetLink: `${supabaseUrl}/auth/v1/verify?token=${token_hash}&type=recovery&redirect_to=${redirect_to_url}&code=${token}`,
         })
       );
       subject = 'Reset your password';
@@ -83,7 +85,7 @@ Deno.serve(async (req) => {
     }
 
     const { error } = await resend.emails.send({
-      from: 'welcome <team@techblitz.dev>',
+      from,
       to: [user.email],
       subject,
       html,

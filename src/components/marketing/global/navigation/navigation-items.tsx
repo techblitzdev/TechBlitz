@@ -51,7 +51,7 @@ export function NavigationMenuItems() {
                 </ListItem>
                 <ListItem
                   href="/features/daily-challenges"
-                  title="Daily Questions"
+                  title="Daily Challenges"
                 >
                   Tackle daily challenges to sharpen your developer skills.
                 </ListItem>

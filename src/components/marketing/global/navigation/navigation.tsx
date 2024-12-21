@@ -25,6 +25,7 @@ export default function MarketingNavigation() {
           {/* Mobile Menu */}
           <MobileMenu />
         </div>
+
         <NavigationButtons />
       </div>
     </div>

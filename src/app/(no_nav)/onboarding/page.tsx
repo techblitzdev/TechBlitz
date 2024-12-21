@@ -1,5 +1,6 @@
 import Logo from '@/components/ui/logo';
-import { StarsBackground } from '@/components/ui/stars-background';
+import StarsBackground from '@/components/ui/stars-background';
+
 import Link from 'next/link';
 import { UserOnboardingContextProvider } from '@/components/onboarding/onboarding-context';
 import OnboardingForm from '@/components/onboarding/onboarding-form';

@@ -1,15 +1,19 @@
+// components
 import FeatureRoadmapHeroBlock from '@/components/marketing/features/roadmap/roadmap-hero';
 import FeatureRoadmapCustomizationBlock from '@/components/marketing/features/roadmap/roadmap-customisation';
 import FeatureRoadmapThreeGridBlock from '@/components/marketing/features/roadmap/roadmap-three-grid';
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 import FAQsBlock from '@/components/marketing/global/faqs';
-import { Metadata } from 'next';
+import { Code, Globe, MessageSquareCode, Paintbrush, User } from 'lucide-react';
+
 import MarketingContentGrid, {
   type MarketingContentGridProps,
 } from '@/components/marketing/global/content-grid';
-import { Code, Globe, MessageSquareCode, Paintbrush, User } from 'lucide-react';
+
+import { Metadata } from 'next';
 import { MobileIcon } from '@radix-ui/react-icons';
 
+// generate metadata
 const title = 'Roadmaps | techblitz';
 const description =
   'Create your own progression path with our AI powered roadmaps, designed to help you grow as a developer.';
@@ -60,6 +64,7 @@ export const metadata: Metadata = {
   },
 };
 
+// faqs
 const faqs = [
   {
     question: 'When will TechBlitz launch?',

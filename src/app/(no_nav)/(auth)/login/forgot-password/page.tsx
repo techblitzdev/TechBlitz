@@ -8,16 +8,18 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 
+import { toast } from 'sonner';
+import { InputWithLabel } from '@/components/ui/input-label';
+import { Separator } from '@/components/ui/separator';
+import { Loader2 } from 'lucide-react';
+
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { resetPassword } from '@/actions/user/account/reset-password';
-import { toast } from 'sonner';
-import { InputWithLabel } from '@/components/ui/input-label';
+
 import Link from 'next/link';
-import { Separator } from '@/components/ui/separator';
 import { useState } from 'react';
-import { Loader2 } from 'lucide-react';
 
 const forgotPasswordSchema = z.object({
   email: z.string().email(),
@@ -62,8 +64,10 @@ export default function ForgotPasswordPage() {
           'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
     >
-      <h1 className="font-bold text-3xl mb-2">Forgot your password?</h1>
-      <p className="text-gray-300 mb-8 text-sm font-satoshi text-wrap">
+      <h1 className="font-bold text-3xl mb-2 font-onest">
+        Forgot your password?
+      </h1>
+      <p className="text-gray-300 mb-8 text-sm font-onest text-wrap">
         No need to worry, enter your email below to reset it.
       </p>
       <Form {...form}>

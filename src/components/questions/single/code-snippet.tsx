@@ -27,7 +27,7 @@ export default function CodeDisplay({
   content,
   language,
   backgroundColor = '#111111',
-  hideIndex = false
+  hideIndex = false,
 }: CodeDisplayProps) {
   // Clean the content by removing pre and code tags
   const cleanContent = content
@@ -49,7 +49,7 @@ export default function CodeDisplay({
         style,
         tokens,
         getLineProps,
-        getTokenProps
+        getTokenProps,
       }: HighlightProps) => (
         <pre
           className="overflow-x-auto p-4 h-full text-wrap"
@@ -68,10 +68,7 @@ export default function CodeDisplay({
               )}
               <span className="table-cell text-sm">
                 {line.map((token, tokenIndex) => (
-                  <span
-                    key={tokenIndex}
-                    {...getTokenProps({ token })}
-                  />
+                  <span key={tokenIndex} {...getTokenProps({ token })} />
                 ))}
               </span>
             </div>

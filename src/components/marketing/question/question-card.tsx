@@ -20,8 +20,8 @@ export default function QuestionCard(opts: {
   const { question } = opts;
 
   const answerFormRef = useRef<{ submitForm: () => void }>(null);
-  const { seconds, pause, reset, totalSeconds } = useStopwatch({
-    autoStart: true
+  const { seconds, totalSeconds } = useStopwatch({
+    autoStart: true,
   });
 
   return (
@@ -33,10 +33,7 @@ export default function QuestionCard(opts: {
           textColor={getQuestionDifficultyColor(question.difficulty)}
           ghost
         />
-        <a
-          href="#code-snippet"
-          className="text-xs block md:hidden"
-        >
+        <a href="#code-snippet" className="text-xs block md:hidden">
           (Tap to see code snippet)
         </a>
         <Stopwatch totalSeconds={totalSeconds} />

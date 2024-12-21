@@ -10,22 +10,15 @@ import { Form, FormControl, FormField } from '@/components/ui/form';
 import { toast } from 'sonner';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/utils/cn';
-import {
-  Check,
-  CheckCircle2Icon,
-  ChevronLeftIcon,
-  XCircleIcon
-} from 'lucide-react';
+import { Check, CheckCircle2Icon, XCircleIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import QuestionHintAccordion from '@/components/questions/single/question-hint';
 import LoadingSpinner from '@/components/ui/loading';
-import { Button } from '@/components/ui/button';
 import { answerDailyQuestionDemo } from '@/actions/demo/answer-question-demo';
 import { Question } from '@/types/Questions';
 import WaitlistSignup from './waitlist-sign-up';
-import Link from 'next/link';
-import BackToDashboard from '@/components/ui/back-to-dashboard';
 import CodeDisplay from '@/components/questions/single/code-snippet';
+import BackToDashboard from '@/components/ui/back-to-dashboard';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 
@@ -44,8 +37,8 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
   const form = useForm<SchemaProps>({
     resolver: zodResolver(answerQuestionSchema),
     defaultValues: {
-      answer: ''
-    }
+      answer: '',
+    },
   });
 
   // Expose the `submitForm` method to the parent via ref
@@ -55,7 +48,7 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
         console.log('Submitting form with values:', values);
         await handleAnswerQuestion(values);
       })();
-    }
+    },
   }));
 
   const handleAnswerQuestion = async (values: SchemaProps) => {
@@ -64,7 +57,7 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
       const opts = {
         questionUid: question?.uid,
         userAnswerUid: values.answer,
-        timeTaken: seconds
+        timeTaken: seconds,
       };
 
       const correct = await answerDailyQuestionDemo(opts);
@@ -136,10 +129,7 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
             )}
           >
             {question?.answers?.map((answer) => (
-              <div
-                key={answer.uid}
-                className="col-span-full"
-              >
+              <div key={answer.uid} className="col-span-full">
                 <FormField
                   control={form.control}
                   name="answer"

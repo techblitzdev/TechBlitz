@@ -1,6 +1,7 @@
 import { getMostQuestionsAnswered } from '@/actions/leaderboard/get-most-questions-answered';
 import Card from '../global/Card';
 import { Trophy, User } from 'lucide-react';
+import Image from 'next/image';
 
 const header = () => {
   return (
@@ -48,9 +49,12 @@ export default async function LeaderboardMostQuestionsAnswered(opts: {
             {/* User */}
             <div className="flex flex-1 items-center gap-4">
               {user?.userProfilePicture ? (
-                <img
+                <Image
                   src={user.userProfilePicture}
                   className="rounded-full size-6"
+                  alt={user.username || 'User Profile Picture'}
+                  width={24}
+                  height={24}
                 />
               ) : (
                 <div className="rounded-full size-6 flex items-center justify-center bg-black-50">

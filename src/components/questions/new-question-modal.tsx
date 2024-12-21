@@ -9,7 +9,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField } from '../ui/form';
@@ -26,7 +26,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from '@/components/ui/select';
 import { addQuestion } from '@/actions/questions/add';
 import { useMutation } from '@tanstack/react-query';
@@ -90,10 +90,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
           </SelectTrigger>
           <SelectContent className="h-auto">
             {LANGUAGE_OPTIONS.map((lang) => (
-              <SelectItem
-                key={lang.language}
-                value={lang.language}
-              >
+              <SelectItem key={lang.language} value={lang.language}>
                 {lang.config.label}
               </SelectItem>
             ))}
@@ -106,7 +103,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
 
 const AnswerEditor = ({
   value,
-  onChange
+  onChange,
 }: {
   value: string;
   onChange: (value: string) => void;
@@ -116,14 +113,14 @@ const AnswerEditor = ({
       StarterKit,
       CodeBlockLowlight.configure({
         lowlight,
-        defaultLanguage: 'javascript'
-      })
+        defaultLanguage: 'javascript',
+      }),
     ],
     content: value || '',
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
       onChange(html); // Update the form value with the editor's content
-    }
+    },
   });
 
   return (
@@ -144,14 +141,14 @@ export default function NewQuestionModal({ ...props }) {
       StarterKit,
       CodeBlockLowlight.configure({
         lowlight,
-        defaultLanguage: 'javascript'
-      })
+        defaultLanguage: 'javascript',
+      }),
     ],
     content: '',
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
       form.setValue('codeSnippet', html);
-    }
+    },
   });
 
   const form = useForm<SchemaProps>({
@@ -163,7 +160,7 @@ export default function NewQuestionModal({ ...props }) {
         { text: '', isCodeSnippet: false },
         { text: '', isCodeSnippet: false },
         { text: '', isCodeSnippet: false },
-        { text: '', isCodeSnippet: false }
+        { text: '', isCodeSnippet: false },
       ],
       correctAnswer: null,
       codeSnippet: '',
@@ -172,13 +169,13 @@ export default function NewQuestionModal({ ...props }) {
       tags: '',
       isRoadmapQuestion: false,
       aiTitle: undefined,
-      difficulty: 'EASY'
-    }
+      difficulty: 'EASY',
+    },
   });
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
-    name: 'answers'
+    name: 'answers',
   });
 
   const toggleCorrectAnswer = (index: number) =>
@@ -196,10 +193,10 @@ export default function NewQuestionModal({ ...props }) {
         correctAnswer: Number(rest.correctAnswer),
         tags: rest.tags ? rest.tags.split(',').map((tag) => tag.trim()) : [],
         aiTitle: rest.aiTitle || undefined,
-        difficulty: rest.difficulty
+        difficulty: rest.difficulty,
       });
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success('Question added successfully');
       form.reset();
       form.setValue('tags', '');
@@ -207,7 +204,7 @@ export default function NewQuestionModal({ ...props }) {
     },
     onError: () => {
       toast.error('Failed to add question');
-    }
+    },
   });
 
   const showAiTitleField =
@@ -452,11 +449,7 @@ export default function NewQuestionModal({ ...props }) {
               <Separator className="bg-black-50" />
 
               {/* Submit Button */}
-              <Button
-                type="submit"
-                variant="secondary"
-                disabled={isPending}
-              >
+              <Button type="submit" variant="secondary" disabled={isPending}>
                 {isPending ? 'Adding...' : 'Add Question'}
               </Button>
             </form>

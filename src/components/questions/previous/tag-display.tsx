@@ -21,8 +21,8 @@ export default function TagDisplay(opts: {
     ...tag,
     tag: {
       ...tag.tag,
-      name: tag.tag.name.replace(/-/g, ' ')
-    }
+      name: tag.tag.name.replace(/-/g, ' '),
+    },
   }));
 
   // set text colour based on variant

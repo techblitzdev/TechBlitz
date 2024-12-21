@@ -8,28 +8,25 @@ import type { ErrorCodes } from '@/types/Constants';
 
 export default function SignupPage() {
   const ranToast = useRef(false);
-  const [params, setUrlParams] = useState({});
+  const [_, setUrlParams] = useState({});
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <SignupContent
-        ranToast={ranToast.current}
-        setUrlParams={setUrlParams}
-      />
+      <SignupContent ranToast={ranToast.current} setUrlParams={setUrlParams} />
     </Suspense>
   );
 }
 
 function SignupContent({
   ranToast,
-  setUrlParams
+  setUrlParams,
 }: {
   ranToast: boolean;
   setUrlParams: any;
 }) {
   // check if we have any query parameters
   const urlParams = useGetQueryParams({
-    keys: ['r', 'email']
+    keys: ['r', 'email'],
   });
 
   // if we have a query parameter, we can use it to display a toast message
@@ -52,13 +49,13 @@ function SignupContent({
     if (typeof errorDetail === 'string') {
       toast.error(errorDetail, {
         duration: 5000,
-        position: 'bottom-right'
+        position: 'bottom-right',
       });
     } else {
       toast.error(errorDetail.title, {
         description: errorDetail.description,
         duration: 5000,
-        position: 'bottom-right'
+        position: 'bottom-right',
       });
     }
   }
@@ -68,7 +65,7 @@ function SignupContent({
       className="border border-black-50 p-8 rounded-xl space-y-4 text-center"
       style={{
         background:
-          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
+          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
     >
       <h1 className="font-bold text-3xl mb-2">Join today!</h1>

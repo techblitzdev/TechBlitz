@@ -1,6 +1,5 @@
 'use server';
 import { prisma } from '@/utils/prisma';
-import { revalidateTag } from 'next/cache';
 import { userAuth } from '@/actions/questions/admin/utils/user-auth';
 
 type GetQuestionsOpts = { from: number; to: number };
@@ -20,11 +19,11 @@ export const getQuestions = async (opts: GetQuestionsOpts) => {
       skip: from,
       take: to,
       orderBy: {
-        questionDate: 'asc'
+        questionDate: 'asc',
       },
       include: {
-        answers: true
-      }
+        answers: true,
+      },
     });
 
     // revalidate the 'questions' tag
@@ -37,7 +36,7 @@ export const getQuestions = async (opts: GetQuestionsOpts) => {
     const {
       today: todayQuestions,
       future: futureQuestions,
-      past: pastQuestions
+      past: pastQuestions,
     } = res.reduce(
       (acc, question) => {
         const questionDate = new Date(question.questionDate);
@@ -60,7 +59,7 @@ export const getQuestions = async (opts: GetQuestionsOpts) => {
     return {
       today: todayQuestions,
       future: futureQuestions,
-      past: pastQuestions
+      past: pastQuestions,
     };
   } catch (error) {
     console.error('Failed to get questions:', error);

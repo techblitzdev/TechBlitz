@@ -1,6 +1,5 @@
 import { type EmailOtpType } from '@supabase/supabase-js';
 import { type NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 
 import { createClient } from '@/utils/supabase/server';
 
@@ -37,7 +36,7 @@ export async function GET(request: NextRequest) {
 
     const { error } = await supabase.auth.verifyOtp({
       type,
-      token_hash
+      token_hash,
     });
     if (!error) {
       // get the current user from the supabase client

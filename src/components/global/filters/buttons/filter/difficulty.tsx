@@ -65,7 +65,7 @@ export default function FilterButtonDifficulty() {
   };
 
   const currentDifficulty = getCurrentDifficulty();
-  const { color, label } = DIFFICULTY_MAP[currentDifficulty];
+  const { color } = DIFFICULTY_MAP[currentDifficulty];
 
   const handleFilterClick = (difficulty: QuestionDifficulty) => {
     // Clear the filter if the current difficulty is clicked again

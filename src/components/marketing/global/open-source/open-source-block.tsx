@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { ChevronRight, Star } from 'lucide-react';
+import { Star } from 'lucide-react';
 import OpenSourceCard from './open-source-card';
 import CommitCard from './commit-card';
 import Link from 'next/link';

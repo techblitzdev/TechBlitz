@@ -6,8 +6,6 @@ import Stripe from 'stripe';
 export async function cancelSubscription(event: Stripe.Event) {
   const session = event.data.object as Stripe.Checkout.Session;
 
-  const subscriptionId = session.id;
-
   try {
     console.log('Subscription deleted');
     // set the user's subscription to inactive
@@ -26,8 +24,8 @@ export async function cancelSubscription(event: Stripe.Event) {
     // go get the user's details from prisma
     const user = await prisma.users.findFirst({
       where: {
-        email: userEmail
-      }
+        email: userEmail,
+      },
     });
 
     if (!user) {
@@ -38,11 +36,11 @@ export async function cancelSubscription(event: Stripe.Event) {
     // get the subscription details from prisma via the subscriptionId
     const subscriptionCanceled = await prisma.subscriptions.findFirst({
       where: {
-        userUid: user.uid
+        userUid: user.uid,
       },
       include: {
-        user: true
-      }
+        user: true,
+      },
     });
 
     if (!subscriptionCanceled) {
@@ -54,16 +52,16 @@ export async function cancelSubscription(event: Stripe.Event) {
       // downgrade the user's userLevel to FREE
       prisma.users.update({
         where: {
-          uid: subscriptionCanceled.user.uid
+          uid: subscriptionCanceled.user.uid,
         },
         data: {
-          userLevel: 'FREE'
-        }
+          userLevel: 'FREE',
+        },
       }),
       // set the subscription to inactive
       prisma.subscriptions.update({
         where: {
-          uid: subscriptionCanceled.uid
+          uid: subscriptionCanceled.uid,
         },
         data: {
           active: false,
@@ -72,9 +70,9 @@ export async function cancelSubscription(event: Stripe.Event) {
           stripeCustomerId: null,
           stripeSubscriptionItemId: null,
           endDate: new Date(),
-          productId: ''
-        }
-      })
+          productId: '',
+        },
+      }),
     ]);
   } catch (err) {
     console.log('Error constructing event', err);

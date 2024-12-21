@@ -1,9 +1,8 @@
 'use client';
 import React, { useState } from 'react';
-import Chip from '../ui/chip';
+import Chip from '@/components/ui/chip';
 import DashboardQuestionCard from './dashboard-question-card';
 import { ArrowRight } from 'lucide-react';
-import { Grid } from '../ui/grid';
 
 export default function AllQuestionsDashboardBentoBox() {
   const questions = [
@@ -12,7 +11,7 @@ export default function AllQuestionsDashboardBentoBox() {
     'What will be the outcome of the following JavaScript snippet?',
     'What are the differences objects and arrays?',
     'What is the difference between .map and .forEach?',
-    'Explain component lifecycle'
+    'Explain component lifecycle',
   ];
 
   // Triple the questions to ensure smooth infinite scroll
@@ -21,10 +20,7 @@ export default function AllQuestionsDashboardBentoBox() {
   return (
     <section className="h-full flex flex-col gap-y-5 group p-4 relative overflow-hidden max-h-80 lg:max-h-fit">
       <div className="space-y-3 z-10 relative">
-        <Chip
-          color="accent"
-          text="Questions"
-        />
+        <Chip color="accent" text="Questions" />
         <h6 className="text-lg lg:text-xl flex items-center">
           View all Questions
           <ArrowRight className="size-4 inline-block ml-1 group-hover:ml-2 duration-300" />

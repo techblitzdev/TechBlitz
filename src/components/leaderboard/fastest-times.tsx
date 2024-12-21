@@ -1,5 +1,5 @@
 import { AnswerWithUser } from '@/types/Answers';
-import DashboardLearderboardUserCard from './user-card';
+import DashboardLeaderboardUserCard from './user-card';
 
 export default async function FastestTimes(opts: {
   fastestTimes: AnswerWithUser[];
@@ -14,10 +14,11 @@ export default async function FastestTimes(opts: {
   if (orderedTimes.length === 0) return null;
 
   return (
-    <div className="w-full w-full md:max-w-md mx-auto">
+    <div className="w-full md:max-w-md mx-auto">
       {orderedTimes.map((entry, index) => {
         return (
-          <DashboardLearderboardUserCard
+          <DashboardLeaderboardUserCard
+            key={entry.uid}
             entry={entry}
             index={index}
           />

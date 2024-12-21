@@ -1,6 +1,5 @@
 'use server';
 import { createClient } from '@/utils/supabase/server';
-import { cookies } from 'next/headers';
 
 /**
  * Method to log the user out of their account

@@ -16,7 +16,7 @@ export default function CancelSubscriptionButton(opts: {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
 
-  const handleCancelSubscription = async (formData: FormData) => {
+  const handleCancelSubscription = async () => {
     setError(null);
     startTransition(async () => {
       try {

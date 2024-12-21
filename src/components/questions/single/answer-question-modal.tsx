@@ -1,23 +1,22 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
-  DialogTitle
+  DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import type { UserRecord } from '@/types/User';
 import type { Answer } from '@/types/Answers';
 import LoadingSpinner from '@/components/ui/loading';
-import { convertSecondsToTime, formatSeconds } from '@/utils/time';
-import JsonDisplay from '../../global/json-display';
-import { LockClosedIcon, ResetIcon } from '@radix-ui/react-icons';
+import { formatSeconds } from '@/utils/time';
+import { ResetIcon } from '@radix-ui/react-icons';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger
+  TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -27,15 +26,14 @@ import {
   CheckCircle2Icon,
   XCircleIcon,
   ClockIcon,
-  ArrowRightIcon,
   LinkIcon,
   TrophyIcon,
-  Flame
+  Flame,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   CORRECT_ANSWER_CONTENT,
-  INCORRECT_ANSWER_CONTENT
+  INCORRECT_ANSWER_CONTENT,
 } from '@/utils/constants/answer-content';
 
 type AnswerQuestionModalProps = {
@@ -70,7 +68,7 @@ const dialogContent: DialogContentType = {
         Math.floor(Math.random() * CORRECT_ANSWER_CONTENT.length)
       ] + ` ${name || 'learner'}!`,
     description: 'You got the answer right, great job! Try another one?',
-    icon: <CheckCircle2Icon className="text-green-500 size-16" />
+    icon: <CheckCircle2Icon className="text-green-500 size-16" />,
   }),
   incorrect: {
     heading:
@@ -78,8 +76,8 @@ const dialogContent: DialogContentType = {
         Math.floor(Math.random() * INCORRECT_ANSWER_CONTENT.length)
       ],
     description: 'Learning from mistakes is how we grow, try again?',
-    icon: <XCircleIcon className="text-red-500 size-16" />
-  }
+    icon: <XCircleIcon className="text-red-500 size-16" />,
+  },
 };
 
 export default function AnswerQuestionModal({
@@ -91,10 +89,9 @@ export default function AnswerQuestionModal({
   onRetry,
   onNext,
   nextQuestion,
-  isDailyQuestion
+  isDailyQuestion,
 }: AnswerQuestionModalProps) {
   const router = useRouter();
-  const [showQuestionData, setShowQuestionData] = useState(false);
 
   const getDialogContent = useCallback(() => {
     if (correct === 'init') {
@@ -107,20 +104,14 @@ export default function AnswerQuestionModal({
 
   const content = getDialogContent();
 
-  const timeTaken = convertSecondsToTime(userAnswer?.timeTaken || 0);
-
-  const {
-    data: streakData,
-    refetch: refetchStreak,
-    isLoading: streakLoading
-  } = useQuery({
+  const { data: streakData } = useQuery({
     queryKey: ['streak-data', user.uid],
-    queryFn: async () => await getUserDailyStats(user.uid)
+    queryFn: async () => await getUserDailyStats(user.uid),
   });
 
   const dateArray = [
     streakData?.streakData?.streakStart,
-    streakData?.streakData?.streakEnd
+    streakData?.streakData?.streakEnd,
   ] as [Date, Date];
 
   const handleNextQuestion = () => {
@@ -139,10 +130,7 @@ export default function AnswerQuestionModal({
   };
 
   return (
-    <Dialog
-      open={isOpen}
-      onOpenChange={onOpenChange}
-    >
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent
         className="bg-black-75 sm:border sm:border-black-50 shadow-2xl py-6 px-8 md:max-w-2xl max-h-screen overflow-y-scroll rounded-none sm:rounded-xl"
         aria-description="Answer question modal"
@@ -232,12 +220,6 @@ export default function AnswerQuestionModal({
                 streak.
               </div>
             )}
-
-            {showQuestionData && (
-              <div className="mt-4">
-                <JsonDisplay data={userAnswer} />
-              </div>
-            )}
           </div>
         )}
         <DialogFooter className="flex w-full justify-between gap-3 mt-6">
@@ -245,10 +227,7 @@ export default function AnswerQuestionModal({
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <Button
-                    variant="default"
-                    onClick={() => copyLink()}
-                  >
+                  <Button variant="default" onClick={() => copyLink()}>
                     <LinkIcon className="size-4" />
                   </Button>
                 </TooltipTrigger>

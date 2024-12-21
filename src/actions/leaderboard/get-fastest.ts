@@ -1,7 +1,6 @@
 'use server';
 import { AnswerWithUser } from '@/types/Answers';
 import { prisma } from '@/utils/prisma';
-import { revalidateTag } from 'next/cache';
 
 type GetFastestTimesReturnType = {
   fastestTimes: AnswerWithUser[];
@@ -17,7 +16,7 @@ export const getFastestTimes = async (opts: {
   page?: number;
   pageSize?: number;
 }): Promise<GetFastestTimesReturnType> => {
-  const { questionUid, numberOfResults, page = 1, pageSize = 20 } = opts;
+  const { questionUid, page = 1, pageSize = 20 } = opts;
 
   if (!questionUid) {
     return { fastestTimes: [], total: 0, page: 1, pageSize, totalPages: 1 };

@@ -48,7 +48,7 @@ const items: MarketingContentGridProps[] = [
     ),
     title: 'Microlearning',
     description:
-      'Master software concepts daily with bite-sized problems that fit into your schedule. Stay consistent and learn without spending hours on a single task.s',
+      'Master software concepts daily with bite-sized problems that fit into your schedule. Stay consistent and learn without spending hours on a single tasks.',
   },
   {
     icon: (

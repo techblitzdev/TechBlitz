@@ -1,3 +1,10 @@
+/**
+ * This is different to to the '@/components/ui/bento-grid.tsx'
+ * as the shadcn bento grid is only used for the dashboard.
+ *
+ * This is a more generic bento grid that can be used for other things.
+ */
+
 import { ReactNode } from 'react';
 import { ArrowRightIcon } from '@radix-ui/react-icons';
 

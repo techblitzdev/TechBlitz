@@ -1,13 +1,13 @@
 import LeftRightBlock from '@/components/marketing/global/left-right-block';
+import Image from 'next/image';
+import mobileDailyChallenge from '../../../../../public/images/mobile-daily-question.png';
 
 export default function FeatureLeftRightSectionTwo() {
   return (
     <LeftRightBlock
       left={
-        <div className="flex flex-col gap-y-6">
-          <h2 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
-            LEFT SIDE CONTENT
-          </h2>
+        <div className="relative w-full h-full">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background z-10" />
         </div>
       }
       right={

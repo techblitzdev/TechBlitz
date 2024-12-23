@@ -5,9 +5,16 @@ import CallToActionBlock from '@/components/marketing/global/call-to-action-bloc
 import MarketingContentGrid, {
   type MarketingContentGridProps,
 } from '@/components/marketing/global/content-grid';
-import FAQsBlock, { FAQ } from '@/components/marketing/global/faqs';
+import FAQsBlock, { type FAQ } from '@/components/marketing/global/faqs';
 import { MobileIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Daily Coding Challenges | TechBlitz',
+  description:
+    'Improve your coding skills with our daily challenges. Perfect for developers who want consistent growth through bite-sized practice.',
+};
 
 const items: MarketingContentGridProps[] = [
   {

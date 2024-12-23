@@ -1,3 +1,5 @@
+'use client';
+
 import LeftRightBlock from '@/components/marketing/global/left-right-block';
 import {
   LeftSectionOne,

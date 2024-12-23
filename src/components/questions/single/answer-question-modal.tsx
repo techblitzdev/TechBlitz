@@ -132,7 +132,7 @@ export default function AnswerQuestionModal({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent
         className="bg-black-75 sm:border sm:border-black-50 shadow-2xl py-6 px-8 md:max-w-2xl max-h-screen overflow-y-scroll rounded-none sm:rounded-xl"
-        aria-description="Answer question modal"
+        aria-label="Answer question modal"
         showCloseButton={false}
         onInteractOutside={(e) => {
           e.preventDefault();

@@ -1,3 +1,66 @@
+import CodeSnippet from '@/components/marketing/global/code-snippet';
+
+const codeSnippet = `// Challenge: Implement a smart caching system for API responses
+// Difficulty: Intermediate 🌟
+
+interface CacheConfig {
+  maxAge: number;    // Maximum age in seconds
+  maxSize: number;   // Maximum cache size in items
+}
+
+class SmartCache {
+  private cache: Map<string, {data: any, timestamp: number}>;
+  private config: CacheConfig;
+
+  constructor(config: CacheConfig) {
+    this.cache = new Map();
+    this.config = config;
+  }
+
+  async get(key: string, fetchFn: () => Promise<any>) {
+    const cached = this.cache.get(key);
+    const now = Date.now();
+
+    // Check if we have a valid cached value
+    if (cached && (now - cached.timestamp) / 1000 < this.config.maxAge) {
+      console.log('Cache hit!');
+      return cached.data;
+    }
+
+    // Fetch fresh data
+    const freshData = await fetchFn();
+    
+    // Implement cache eviction if we're at capacity
+    if (this.cache.size >= this.config.maxSize) {
+      // TODO: Implement LRU eviction strategy
+      // Hint: Consider tracking access patterns
+    }
+
+    // Store in cache
+    this.cache.set(key, {
+      data: freshData,
+      timestamp: now
+    });
+
+    return freshData;
+  }
+}
+
+// Example usage:
+const cache = new SmartCache({ maxAge: 300, maxSize: 100 });
+
+async function fetchUserProfile(userId: string) {
+  const profile = await cache.get(
+    \`user:\${userId}\`,
+    async () => {
+      // Simulated API call
+      const response = await fetch(\`/api/users/\${userId}\`);
+      return response.json();
+    }
+  );
+  return profile;
+}`;
+
 /**
  * The first section with the text on the left
  * and the illustration on the right
@@ -9,9 +72,11 @@ export function LeftSectionOne() {
         Software simplified.
       </h2>
       <p className="text-white/70 max-w-xl text-base font-onest ">
-        Our daily challenges are designed to be challenging, but not take up too
-        much of your time. TechBlitz ensures you get the most out of your
-        learning experience.
+        Struggling to keep your coding skills fresh while juggling a busy
+        schedule? Our bite-sized daily challenges help you maintain and improve
+        your skills in just 15-20 minutes a day. Perfect for developers who want
+        consistent growth without the overwhelm of lengthy tutorials or complex
+        projects.
       </p>
     </div>
   );
@@ -19,10 +84,15 @@ export function LeftSectionOne() {
 
 export function RightSectionOne() {
   return (
-    <div className="flex flex-col gap-y-6">
-      <h2 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
-        RIGHT SIDE CONTENT
-      </h2>
+    <div className="flex flex-col gap-y-6 relative">
+      <CodeSnippet
+        code={codeSnippet}
+        language="typescript"
+        filename="smart-cache.ts"
+        lightTheme="one-dark-pro"
+        darkTheme="one-dark-pro"
+      />
+      <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none z-30"></div>
     </div>
   );
 }

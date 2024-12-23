@@ -182,13 +182,17 @@ export default function FeatureDailyQuestionPage() {
       <FeatureRoadmapCustomizationBlock />
       <FeatureRoadmapThreeGridBlock />
       <MarketingContentGrid
-        title="All of this and more"
+        title="All of this and more."
         items={featureShowcaseItems}
       />
       <FAQsBlock faqs={faqs} />
       <CallToActionBlock
-        title="The smarter way to stay on top of tech"
+        title="The smarter way to stay on top of tech."
         description="Create your own progression path with our AI powered roadmaps, designed to help you grow as a developer."
+        leftCta={{
+          title: 'Get Started',
+          href: '/signup',
+        }}
       />
     </div>
   );

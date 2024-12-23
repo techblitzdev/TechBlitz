@@ -1,5 +1,5 @@
 import { BentoGrid, BentoCard } from '@/components/ui/magicui/bento-grid';
-import { BellIcon, CalendarIcon, InputIcon } from '@radix-ui/react-icons';
+import { CalendarIcon, InputIcon } from '@radix-ui/react-icons';
 import { FileTextIcon, GlobeIcon } from 'lucide-react';
 
 const features = [
@@ -10,7 +10,7 @@ const features = [
     href: '/daily-challenge',
     cta: 'Answer the daily challenge',
     background: <img className="absolute -right-20 -top-20 opacity-60" />,
-    className: 'lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3',
+    className: 'col-span-3 lg:col-span-1',
   },
   {
     Icon: InputIcon,
@@ -20,7 +20,7 @@ const features = [
     href: '/',
     cta: 'Learn more',
     background: <img className="absolute -right-20 -top-20 opacity-60" />,
-    className: 'lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3',
+    className: 'col-span-3 lg:col-span-2',
   },
   {
     Icon: GlobeIcon,
@@ -30,7 +30,7 @@ const features = [
     href: '/',
     cta: 'Learn more',
     background: <img className="absolute -right-20 -top-20 opacity-60" />,
-    className: 'lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4',
+    className: 'col-span-3 lg:col-span-2',
   },
   {
     Icon: CalendarIcon,
@@ -40,17 +40,7 @@ const features = [
     href: '/',
     cta: 'Learn more',
     background: <img className="absolute -right-20 -top-20 opacity-60" />,
-    className: 'lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-2',
-  },
-  {
-    Icon: BellIcon,
-    name: 'Notifications',
-    description:
-      'Want to be notified when the daily challenge is available? We got you!',
-    href: '/',
-    cta: 'Learn more',
-    background: <img className="absolute -right-20 -top-20 opacity-60" />,
-    className: 'lg:col-start-3 lg:col-end-3 lg:row-start-2 lg:row-end-4',
+    className: 'col-span-3 lg:col-span-1',
   },
 ];
 
@@ -61,10 +51,16 @@ const features = [
  * - the type of challenges (maybe not a code snippet)
  * - The streak aspect (show a nice calendar)
  * - Show the social aspect (show a nice grid of users)
+ * - The notifications aspect (show a nice notification icon)
+ * - The micro challenges aspect (show a nice code snippet)
+ * - The convenience aspect (show a nice icon of a phone)
  */
 export default function FeatureDailyChallengeBentoGrid() {
   return (
-    <section className="py-16 pb-36">
+    <section className="py-16 pb-36 flex flex-col items-center gap-5">
+      <h2 className="text-center text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
+        Become the best developer you can be.
+      </h2>
       <BentoGrid className="lg:grid-rows-3">
         {features.map((feature) => (
           <BentoCard key={feature.name} {...feature} />

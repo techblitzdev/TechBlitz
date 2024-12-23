@@ -6,8 +6,16 @@ import { WaitlistForm } from './waitlist-form';
 export default function CallToActionBlock(opts: {
   title: string;
   description?: string;
+  leftCta?: {
+    title: string;
+    href: string;
+  };
+  rightCta?: {
+    title: string;
+    href: string;
+  };
 }) {
-  const { title, description } = opts;
+  const { title, description, leftCta, rightCta } = opts;
 
   return (
     <section className="pt-10 pb-20 px-2 lg:px-0 space-y-7 text-center relative">
@@ -33,19 +41,21 @@ export default function CallToActionBlock(opts: {
               variant="accent"
               size="lg"
               className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
-              href="/signup"
+              href={leftCta?.href || '/signup'}
             >
-              <span>Get Started</span>
+              <span>{leftCta?.title || 'Get Started'}</span>
             </Button>
-            <Button
-              variant="secondary"
-              size="lg"
-              className="font-onest group"
-              href="/features"
-            >
-              <span>Learn More</span>
-              <ChevronRight size={16} />
-            </Button>
+            {rightCta && (
+              <Button
+                variant="secondary"
+                size="lg"
+                className="font-onest group"
+                href={rightCta?.href || '/features'}
+              >
+                <span>{rightCta?.title || 'Learn More'}</span>
+                <ChevronRight size={16} />
+              </Button>
+            )}
           </>
         ) : (
           <WaitlistForm />

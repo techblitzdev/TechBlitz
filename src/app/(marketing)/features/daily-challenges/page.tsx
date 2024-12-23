@@ -4,7 +4,9 @@ import CallToActionBlock from '@/components/marketing/global/call-to-action-bloc
 import MarketingContentGrid, {
   type MarketingContentGridProps,
 } from '@/components/marketing/global/content-grid';
+import FAQsBlock, { FAQ } from '@/components/marketing/global/faqs';
 import { MobileIcon } from '@radix-ui/react-icons';
+import Link from 'next/link';
 
 const items: MarketingContentGridProps[] = [
   {
@@ -119,12 +121,50 @@ const items: MarketingContentGridProps[] = [
   },
 ];
 
+const faqs: FAQ[] = [
+  {
+    question: 'What is the daily challenge?',
+    answer:
+      'The daily challenge is a coding challenge that is available every day.',
+  },
+  {
+    question: 'Can I skip a day?',
+    answer: 'Yes, you can skip a day. But you will lose your streak.',
+  },
+  {
+    question: "What if I don't have time to complete the challenge?",
+    answer: 'No problem! You can always come back tomorrow.',
+  },
+  {
+    question: 'How many times can I answer the daily challenge?',
+    answer: 'You can answer the daily challenge as many times as you want.',
+  },
+  {
+    question: 'Can I track my progress?',
+    answer:
+      'Yes, you can track your progress by looking at the leaderboard, or checking our your statistics with out statistics page.',
+  },
+  {
+    question: 'Do I need to pay to use the daily challenge?',
+    answer: (
+      <>
+        No, the daily challenge is free to use for everyone. You can{' '}
+        <Link href="/signup" className="text-accent">
+          sign up
+        </Link>{' '}
+        for free and start solving challenges today
+      </>
+    ),
+  },
+];
+
 export default function FeatureDailyQuestionPage() {
   return (
     <div className="container">
       <FeatureDailyChallengeHero />
       <FeatureDailyChallengeBentoGrid />
-      <MarketingContentGrid title="Master Coding with Ease" items={items} />
+      <MarketingContentGrid title="Coding made easy." items={items} />
+      <FAQsBlock faqs={faqs} />
       <CallToActionBlock
         title="The fastest way to master coding."
         description="Daily challenges designed to make you a better developer, faster."

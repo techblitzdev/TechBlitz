@@ -1,8 +1,4 @@
-import {
-  BentoGrid,
-  BentoCard,
-  type BentoCardProps,
-} from '@/components/ui/magicui/bento-grid';
+import { BentoGrid, BentoCard } from '@/components/ui/magicui/bento-grid';
 import { BellIcon, CalendarIcon, InputIcon } from '@radix-ui/react-icons';
 import { FileTextIcon, GlobeIcon } from 'lucide-react';
 
@@ -10,16 +6,17 @@ const features = [
   {
     Icon: FileTextIcon,
     name: 'Micro challenges',
-    description: 'We automatically save your files as you type.',
-    href: '/',
-    cta: 'Learn more',
+    description: 'Challenges that improve your knowledge and save you time.',
+    href: '/daily-challenge',
+    cta: 'Answer the daily challenge',
     background: <img className="absolute -right-20 -top-20 opacity-60" />,
     className: 'lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3',
   },
   {
     Icon: InputIcon,
-    name: 'Daily challenges',
-    description: 'Search through all your files in one place.',
+    name: 'Any device',
+    description:
+      'All daily challenges are available to be completed on any device. The ultimate convenience.',
     href: '/',
     cta: 'Learn more',
     background: <img className="absolute -right-20 -top-20 opacity-60" />,
@@ -28,7 +25,8 @@ const features = [
   {
     Icon: GlobeIcon,
     name: 'Social',
-    description: 'Supports 100+ languages and counting.',
+    description:
+      'Battle with your friends, family or coworker, and see who is the best!',
     href: '/',
     cta: 'Learn more',
     background: <img className="absolute -right-20 -top-20 opacity-60" />,
@@ -37,7 +35,8 @@ const features = [
   {
     Icon: CalendarIcon,
     name: 'Streaks',
-    description: 'Use the calendar to filter your files by date.',
+    description:
+      'Keep track of your daily challenges and see how long you can go without missing a day.',
     href: '/',
     cta: 'Learn more',
     background: <img className="absolute -right-20 -top-20 opacity-60" />,
@@ -47,7 +46,7 @@ const features = [
     Icon: BellIcon,
     name: 'Notifications',
     description:
-      'Get notified when someone shares a file or mentions you in a comment.',
+      'Want to be notified when the daily challenge is available? We got you!',
     href: '/',
     cta: 'Learn more',
     background: <img className="absolute -right-20 -top-20 opacity-60" />,

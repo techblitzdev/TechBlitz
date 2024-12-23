@@ -1,7 +1,3 @@
-const {
-  withHydrationOverlay
-} = require('@builder.io/react-hydration-overlay/next');
-
 /** @type {import('next').NextConfig} */
 module.exports = {
   images: {
@@ -10,17 +6,17 @@ module.exports = {
         protocol: 'https',
         hostname: 'www.gravatar.com',
         port: '',
-        pathname: '/avatar/**'
-      }
-    ]
+        pathname: '/avatar/**',
+      },
+    ],
   },
   async redirects() {
     return [
       {
         source: '/features/roadmaps',
         destination: '/features/roadmap',
-        permanent: true
-      }
+        permanent: true,
+      },
     ];
   },
   async headers() {
@@ -30,31 +26,31 @@ module.exports = {
         headers: [
           {
             key: 'Referrer-Policy',
-            value: 'no-referrer-when-downgrade'
+            value: 'no-referrer-when-downgrade',
           },
           {
             key: 'X-DNS-Prefetch-Control',
-            value: 'on'
+            value: 'on',
           },
           {
             key: 'X-Frame-Options',
-            value: 'DENY'
+            value: 'DENY',
           },
           {
             key: 'X-Content-Type-Options',
-            value: 'nosniff'
-          }
-        ]
+            value: 'nosniff',
+          },
+        ],
       },
       {
         source: '/embed/:path*',
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: 'frame-ancestors *'
-          }
-        ]
-      }
+            value: 'frame-ancestors *',
+          },
+        ],
+      },
     ];
-  }
+  },
 };

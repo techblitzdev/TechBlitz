@@ -19,7 +19,7 @@ export default function CodeSnippet({
   language,
   filename,
   lightTheme,
-  darkTheme
+  darkTheme,
 }: CodeSnippetProps) {
   const { theme, systemTheme } = useTheme();
   const [highlightedCode, setHighlightedCode] = useState('');
@@ -32,7 +32,7 @@ export default function CodeSnippet({
     async function highlightCode() {
       const highlighted = await codeToHtml(code, {
         lang: language,
-        theme: selectedTheme
+        theme: selectedTheme,
       });
       setHighlightedCode(highlighted);
     }
@@ -73,7 +73,7 @@ export default function CodeSnippet({
             className="flex items-center p-3 text-sm text-foreground justify-between"
             style={{
               background:
-                'radial-gradient(128% 107% at 50% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
+                'radial-gradient(128% 107% at 50% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
             }}
           >
             <div className="flex items-center">
@@ -87,10 +87,7 @@ export default function CodeSnippet({
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <AnimatePresence
-                mode="wait"
-                initial={false}
-              >
+              <AnimatePresence mode="wait" initial={false}>
                 {isCopied ? (
                   <motion.div
                     key="check"

@@ -1,6 +1,7 @@
 import CodeSnippet from '@/components/marketing/global/code-snippet';
+import LeftRightBlock from '@/components/marketing/global/left-right-block';
 
-const codeSnippet = `// Challenge: Implement a smart caching system for API responses
+const codeSnippet1 = `// Challenge: Implement a smart caching system for API responses
 // Difficulty: Intermediate 🌟
 
 interface CacheConfig {
@@ -65,34 +66,35 @@ async function fetchUserProfile(userId: string) {
  * The first section with the text on the left
  * and the illustration on the right
  */
-export function LeftSectionOne() {
+export default function FeatureLeftRightSectionOne() {
   return (
-    <div className="flex flex-col gap-y-6">
-      <h2 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
-        Software simplified.
-      </h2>
-      <p className="text-white/70 max-w-xl text-base font-onest ">
-        Struggling to keep your coding skills fresh while juggling a busy
-        schedule? Our bite-sized daily challenges help you maintain and improve
-        your skills in just 15-20 minutes a day. Perfect for developers who want
-        consistent growth without the overwhelm of lengthy tutorials or complex
-        projects.
-      </p>
-    </div>
-  );
-}
-
-export function RightSectionOne() {
-  return (
-    <div className="flex flex-col gap-y-6 relative">
-      <CodeSnippet
-        code={codeSnippet}
-        language="typescript"
-        filename="smart-cache.ts"
-        lightTheme="one-dark-pro"
-        darkTheme="one-dark-pro"
-      />
-      <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none z-30"></div>
-    </div>
+    <LeftRightBlock
+      left={
+        <div className="flex flex-col gap-y-6">
+          <h2 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
+            Software simplified.
+          </h2>
+          <p className="text-white/70 max-w-xl text-base font-onest ">
+            Struggling to keep your coding skills fresh while juggling a busy
+            schedule? Our bite-sized daily challenges help you maintain and
+            improve your skills in just 15-20 minutes a day. Perfect for
+            developers who want consistent growth without the overwhelm of
+            lengthy tutorials or complex projects.
+          </p>
+        </div>
+      }
+      right={
+        <div className="flex flex-col gap-y-6 relative">
+          <CodeSnippet
+            code={codeSnippet1}
+            language="typescript"
+            filename="smart-cache.ts"
+            lightTheme="one-dark-pro"
+            darkTheme="one-dark-pro"
+          />
+          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none z-30"></div>
+        </div>
+      }
+    />
   );
 }

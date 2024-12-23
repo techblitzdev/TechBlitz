@@ -57,11 +57,11 @@ const features = [
  */
 export default function FeatureDailyChallengeBentoGrid() {
   return (
-    <section className="py-16 pb-36 flex flex-col items-center gap-5">
-      <h2 className="text-center text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
-        Become the best developer you can be.
+    <section className="py-16 pb-36 flex flex-col gap-10">
+      <h2 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
+        LORUM IPSUM
       </h2>
-      <BentoGrid className="lg:grid-rows-3">
+      <BentoGrid className="lg:grid-rows-2">
         {features.map((feature) => (
           <BentoCard key={feature.name} {...feature} />
         ))}

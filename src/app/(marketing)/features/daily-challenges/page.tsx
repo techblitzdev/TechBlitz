@@ -1,4 +1,5 @@
 import FeatureDailyChallengeBentoGrid from '@/components/marketing/features/daily-challenge/bento-grid/grid';
+import FeatureLeftRightSection from '@/components/marketing/features/daily-challenge/feature-left-right/features-section';
 import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/hero/daily-challenge-hero';
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 import MarketingContentGrid, {
@@ -48,9 +49,9 @@ const items: MarketingContentGridProps[] = [
         />
       </svg>
     ),
-    title: 'Microlearning',
+    title: 'Never miss a day',
     description:
-      'Master software concepts daily with bite-sized problems that fit into your schedule. Stay consistent and learn without spending hours on a single tasks.',
+      'We send you a daily challenge every day, so you never miss a day.',
   },
   {
     icon: (
@@ -162,6 +163,7 @@ export default function FeatureDailyQuestionPage() {
   return (
     <div className="container">
       <FeatureDailyChallengeHero />
+      <FeatureLeftRightSection />
       <FeatureDailyChallengeBentoGrid />
       <MarketingContentGrid title="Coding made easy." items={items} />
       <FAQsBlock faqs={faqs} />

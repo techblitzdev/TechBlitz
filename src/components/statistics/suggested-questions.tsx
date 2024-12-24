@@ -1,7 +1,7 @@
 import { getSuggestions } from '@/actions/questions/get-suggestions';
 import { useUserServer } from '@/hooks/useUserServer';
 import { redirect } from 'next/navigation';
-import QuestionSuggestedCard from '../questions/suggested-questions-table';
+import QuestionSuggestedCard from '@/components/questions/suggested-questions-table';
 
 export default async function SuggestedQuestions() {
   const user = await useUserServer();
@@ -16,7 +16,8 @@ export default async function SuggestedQuestions() {
       <div className="flex flex-col gap-1.5 px-3 py-4">
         <h2 className="text-2xl font-onest">Suggested Questions</h2>
         <p className="text-sm text-gray-400">
-          Here are some questions that we think you might find interesting.
+          Based on your answer history, here are some questions we think will
+          help you improve your coding skills.
         </p>
       </div>
       <QuestionSuggestedCard

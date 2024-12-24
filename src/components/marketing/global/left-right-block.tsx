@@ -7,7 +7,7 @@ export default function LeftRightBlock(opts: {
   return (
     <section className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
       <div className="col-span-6">{left}</div>
-      <div className="col-span-6">{right}</div>
+      <div className="col-span-6 overflow-hidden">{right}</div>
     </section>
   );
 }

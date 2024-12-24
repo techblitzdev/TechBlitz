@@ -1,4 +1,3 @@
-import FeatureDailyChallengeBentoGrid from '@/components/marketing/features/daily-challenge/bento-grid/grid';
 import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/hero/daily-challenge-hero';
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 import MarketingContentGrid from '@/components/marketing/global/content-grid';
@@ -169,7 +168,7 @@ export default function FeatureDailyQuestionPage() {
     <div className="container">
       <FeatureDailyChallengeHero />
       <FeatureLeftRightSection />
-      <FeatureDailyChallengeBentoGrid />
+
       <MarketingContentGrid title="Coding made easy." items={items} />
       <FAQsBlock faqs={faqs} />
       <CallToActionBlock

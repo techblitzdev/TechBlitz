@@ -1,14 +1,15 @@
+import { Suspense } from 'react';
+
 import GlobalPagination from '@/components/global/pagination';
 import QuestionCard from '@/components/questions/question-card';
 import QuestionCardLoading from '@/components/questions/question-card-loading';
 import PreviousQuestionPageSidebar from '@/components/questions/previous/previous-question-page-sidebar';
 import Hero from '@/components/global/hero';
+import Filter from '@/components/global/filters/filter';
+import FilterChips from '@/components/global/filters/chips';
 
 import { getPreviousQuestions } from '@/actions/questions/get-previous';
 import { useUserServer } from '@/hooks/useUserServer';
-import { Suspense } from 'react';
-import Filter from '@/components/global/filters/filter';
-import FilterChips from '@/components/global/filters/chips';
 import { QuestionDifficulty } from '@/types/Questions';
 
 const ITEMS_PER_PAGE = 10;
@@ -38,7 +39,6 @@ export default async function PreviousQuestionsPage({
   if (currentPage < 1) return null;
   const data = await getPreviousQuestions({
     user,
-    orderBy: 'asc',
     page: currentPage,
     pageSize: ITEMS_PER_PAGE,
     filters,

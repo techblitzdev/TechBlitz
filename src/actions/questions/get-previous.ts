@@ -1,9 +1,10 @@
 'use server';
 import { prisma } from '@/utils/prisma';
-import { Question, QuestionDifficulty } from '@/types/Questions';
+import { Question } from '@/types/Questions';
 import { Answer } from '@/types/Answers';
 
 import { UserRecord } from '@/types/User';
+import { QuestionFilters } from '@/types/Filters';
 interface PaginatedResponse {
   questions: Question[]; // Replace 'any' with your Question type
   total: number;
@@ -15,17 +16,11 @@ interface PaginatedResponse {
 
 export const getPreviousQuestions = async (opts: {
   user: UserRecord;
-  orderBy: 'asc' | 'desc';
   page?: number;
   pageSize?: number;
-  filters: {
-    ascending: boolean;
-    difficulty: QuestionDifficulty;
-    completed: boolean;
-    tags: string[];
-  };
+  filters: QuestionFilters;
 }): Promise<PaginatedResponse | undefined> => {
-  const { user, orderBy, page = 0, pageSize = 5, filters } = opts;
+  const { user, page = 0, pageSize = 5, filters } = opts;
 
   // only allow authed users to hit this endpoint
   if (!user) {
@@ -59,7 +54,7 @@ export const getPreviousQuestions = async (opts: {
                 },
               }
             : {},
-        filters?.tags.length > 0
+        filters?.tags && filters.tags.length > 0
           ? {
               tags: {
                 some: {
@@ -99,7 +94,7 @@ export const getPreviousQuestions = async (opts: {
     prisma.questions.findMany({
       ...whereClause,
       orderBy: {
-        questionDate: orderBy,
+        questionDate: filters?.ascending ? 'asc' : 'desc',
       },
       skip,
       take: pageSize, // Calculate the correct number of items to take

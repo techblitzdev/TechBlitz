@@ -1,27 +1,31 @@
 'use client';
 import { useState, forwardRef, useImperativeHandle } from 'react';
+
 // components
 import { Form, FormControl, FormField } from '@/components/ui/form';
 import AnswerQuestionModal from '@/components/questions/single/answer-question-modal';
+import LoadingSpinner from '@/components/ui/loading';
+import { toast } from 'sonner';
+import { cn } from '@/utils/cn';
+import { Label } from '@/components/ui/label';
+import { Check } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
+import QuestionHintAccordion from './question-hint';
+import CodeDisplay from './code-snippet';
+
 // actions
 import { answerQuestion } from '@/actions/answers/answer';
+
 // zod
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
+
 // types
 import type { Question } from '@/types/Questions';
 import type { UserRecord } from '@/types/User';
 import type { Answer } from '@/types/Answers';
-import { toast } from 'sonner';
-import { Label } from '@/components/ui/label';
-import { cn } from '@/utils/cn';
-import { Check } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
-import QuestionHintAccordion from './question-hint';
-import CodeDisplay from './code-snippet';
-import LoadingSpinner from '@/components/ui/loading';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
@@ -100,12 +104,6 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
         userData: newUserData,
       } = await answerQuestion(opts);
 
-      console.log({
-        correctAnswer,
-        userAnswer,
-        newUserData,
-      });
-
       setCorrectAnswer(correctAnswer ? 'correct' : 'incorrect');
       setUserAnswer(userAnswer);
       setNewUserData(newUserData);
@@ -162,7 +160,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
                         'p-4 rounded-xl min-h-20 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
                         field.value === answer.uid
                           ? 'bg-black-50'
-                          : 'bg-black hover:bg-black-75',
+                          : 'bg-black-75 hover:border-accent',
                         isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
                       )}
                       onClick={() =>
@@ -181,7 +179,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
                       />
                       <div
                         className={cn(
-                          'size-5 rounded-md border border-black-50 flex items-center justify-center flex-shrink-0',
+                          'size-5 rounded-lg border border-black-50 flex items-center justify-center flex-shrink-0',
                           field.value === answer.uid
                             ? 'bg-accent text-white'
                             : '',
@@ -189,7 +187,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
                         )}
                       >
                         {field.value === answer.uid && (
-                          <Check className="h-3 w-3 flex-shrink-0" />
+                          <Check className="size-3 flex-shrink-0" />
                         )}
                       </div>
                       {/<pre><code/.test(answer.answer) ? (

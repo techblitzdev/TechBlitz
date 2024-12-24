@@ -45,7 +45,7 @@ export default function QuestionCard(opts: {
         )}
       </div>
       <Separator className="bg-black-50" />
-      <div className="h-fit bg-black-100">
+      <div className="h-fit bg-[#000000]">
         {'dailyQuestion' in question && question.dailyQuestion && (
           <div className="p-4">
             <h3 className="font-inter text-gray-400 text-xs font-light">

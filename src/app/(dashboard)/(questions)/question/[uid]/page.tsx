@@ -11,6 +11,8 @@ import { getRandomQuestion } from '@/actions/questions/get-next-question';
 import { getRelatedQuestions } from '@/actions/questions/get-related';
 import RelatedQuestionCard from '@/components/questions/single/related-question-card';
 import ExpandedCodeModal from '@/components/questions/expanded-code-modal';
+import { Suspense } from 'react';
+import RelatedQuestions from '@/components/questions/single/related-question-card';
 
 export default async function TodaysQuestionPage({
   params,
@@ -70,30 +72,16 @@ export default async function TodaysQuestionPage({
             </div>
             <Separator className="bg-black-50" />
             {question?.codeSnippet && (
-              <QuestionDisplay content={question.codeSnippet} language="" />
+              <QuestionDisplay
+                content={question.codeSnippet}
+                backgroundColor="#000000"
+              />
             )}
           </div>
 
           {/* Related Questions Card */}
           <div className="min-h-fit bg-black-75 border border-black-50 rounded-xl overflow-hidden">
-            <div className="flex items-center bg-black-25 gap-x-1 p-4">
-              <ShieldQuestionIcon className="size-4" />
-              <div className="text-sm">Related Questions</div>
-            </div>
-            <Separator className="bg-black-50" />
-            <div className="divide-y-[1px] divide-black-50">
-              {relatedQuestions.length > 0 ? (
-                relatedQuestions.map((relatedQuestion, index) => (
-                  <RelatedQuestionCard
-                    key={relatedQuestion.uid}
-                    question={relatedQuestion}
-                    index={index}
-                  />
-                ))
-              ) : (
-                <div className="p-4 text-sm">No related questions found</div>
-              )}
-            </div>
+            <RelatedQuestions uid={uid} tags={question.tags || []} />
           </div>
 
           {/* Stats Card */}

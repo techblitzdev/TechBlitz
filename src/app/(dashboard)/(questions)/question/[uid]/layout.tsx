@@ -5,10 +5,11 @@ import CurrentStreak from '@/components/ui/current-streak';
 import QuestionNavigation from '@/components/global/navigation/question-navigation';
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/useUserServer';
+import FeedbackButton from '@/components/ui/feedback-button';
 
 export default async function QuestionUidLayout({
   children,
-  params
+  params,
 }: Readonly<{ children: React.ReactNode; params: { uid: string } }>) {
   const { uid } = params;
 
@@ -18,7 +19,7 @@ export default async function QuestionUidLayout({
 
   const nextQuestion = await getRandomQuestion({
     currentQuestionId: uid,
-    userUid: user.uid
+    userUid: user.uid,
   });
 
   return (
@@ -40,6 +41,7 @@ export default async function QuestionUidLayout({
             previousQuestion={null}
             navigationType="question"
           />
+          <FeedbackButton reference={question?.uid} />
         </div>
       </div>
       <Separator className="bg-black-50" />

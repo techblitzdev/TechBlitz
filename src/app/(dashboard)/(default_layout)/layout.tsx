@@ -4,15 +4,15 @@ import Feedback from '@/components/ui/feedback-button';
 import { Separator } from '@/components/ui/separator';
 
 export default function StatisticsLayout({
-  children
+  children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <div className="text-white flex flex-col gap-y-4 relative h-full">
       <div className="flex w-full justify-between container">
         <BackToDashboard />
         <div className="flex items-center gap-x-4">
-          <Feedback />
           <CurrentStreak />
+          <Feedback />
         </div>
       </div>
       <Separator className="bg-black-50" />

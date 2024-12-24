@@ -11,7 +11,6 @@ import { getRandomQuestion } from '@/actions/questions/get-next-question';
 import { getRelatedQuestions } from '@/actions/questions/get-related';
 import RelatedQuestionCard from '@/components/questions/single/related-question-card';
 import ExpandedCodeModal from '@/components/questions/expanded-code-modal';
-import FeedbackButton from '@/components/ui/feedback-button';
 
 export default async function TodaysQuestionPage({
   params,
@@ -24,16 +23,19 @@ export default async function TodaysQuestionPage({
     return;
   }
 
-  const question = await getQuestion(uid);
+  // run all of these in parallel as they do not depend on each other
+  const [question, totalSubmissions, nextQuestion] = await Promise.all([
+    getQuestion(uid),
+    getQuestionStats(uid),
+    getRandomQuestion({
+      currentQuestionId: uid,
+      userUid: user.uid,
+    }),
+  ]);
+
   if (!question) {
     return <NoDailyQuestion textAlign="center" />;
   }
-
-  const totalSubmissions = await getQuestionStats(uid);
-  const nextQuestion = await getRandomQuestion({
-    currentQuestionId: uid,
-    userUid: user.uid,
-  });
 
   const relatedQuestions = await getRelatedQuestions({
     questionUid: uid,
@@ -46,42 +48,11 @@ export default async function TodaysQuestionPage({
         {/* Left Section - Question and Stats */}
         <div className="flex flex-col gap-y-4 w-full lg:w-1/2 relative overflow-hidden h-fit">
           {/* Question Card */}
-          <FeedbackButton />
           <QuestionCard
             question={question}
             user={user}
             nextQuestion={nextQuestion}
           />
-
-          {/* Stats Card */}
-          <div className="bg-black-75 border border-black-50 rounded-xl overflow-hidden min-h-fit">
-            <div className="flex items-center gap-x-1 p-4 bg-black-25">
-              <ChartColumn className="size-4" />
-              <div className="text-sm">Stats</div>
-            </div>
-            <Separator className="bg-black-50" />
-            <div className="p-4 flex items-center">
-              <div className="flex items-start gap-4 text-sm text-gray-400">
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-0.5">
-                    <User className="size-4" />
-                    <p>Total submissions:</p>
-                  </div>
-                  <p>{totalSubmissions?.totalSubmissions}</p>
-                </div>
-                {totalSubmissions?.percentageCorrect > 0 && (
-                  <>
-                    |
-                    <div className="flex items-center gap-0.5">
-                      <Check className="size-4" />
-                      <p>Success rate:</p>
-                      <p>{totalSubmissions?.percentageCorrect}%</p>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Right Section - Code Snippet and Related Questions */}
@@ -122,6 +93,36 @@ export default async function TodaysQuestionPage({
               ) : (
                 <div className="p-4 text-sm">No related questions found</div>
               )}
+            </div>
+          </div>
+
+          {/* Stats Card */}
+          <div className="bg-black-75 border border-black-50 rounded-xl overflow-hidden min-h-fit">
+            <div className="flex items-center gap-x-1 p-4 bg-black-25">
+              <ChartColumn className="size-4" />
+              <div className="text-sm">Stats</div>
+            </div>
+            <Separator className="bg-black-50" />
+            <div className="p-4 flex items-center">
+              <div className="flex items-start gap-4 text-sm text-gray-400">
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-0.5">
+                    <User className="size-4" />
+                    <p>Total submissions:</p>
+                  </div>
+                  <p>{totalSubmissions?.totalSubmissions}</p>
+                </div>
+                {totalSubmissions?.percentageCorrect > 0 && (
+                  <>
+                    |
+                    <div className="flex items-center gap-0.5">
+                      <Check className="size-4" />
+                      <p>Success rate:</p>
+                      <p>{totalSubmissions?.percentageCorrect}%</p>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>

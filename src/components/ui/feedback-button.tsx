@@ -14,8 +14,11 @@ import { ChatBubbleIcon } from '@radix-ui/react-icons';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 
-export default async function FeedbackButton(opts: { showText?: boolean }) {
-  const { showText = true } = opts;
+export default async function FeedbackButton(opts: {
+  showText?: boolean;
+  reference?: string;
+}) {
+  const { showText = true, reference } = opts;
 
   return (
     <AlertDialog>
@@ -31,9 +34,15 @@ export default async function FeedbackButton(opts: { showText?: boolean }) {
       <AlertDialogContent className="bg-black-100 border border-black-50">
         <AlertDialogHeader>
           <AlertDialogTitle>Send feedback</AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogDescription className="flex flex-col gap-y-2">
             We really value your feedback, please let us know how we can improve
-            our questions/product to better suit your needs.
+            our questions/product to better suit your needs. <br />
+            {reference && (
+              <span>
+                Please use the reference:{' '}
+                <span className="font-bold">{reference}</span>
+              </span>
+            )}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

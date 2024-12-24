@@ -17,7 +17,6 @@ import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
 import {
   Select,
-  SelectValue,
   SelectTrigger,
   SelectContent,
   SelectItem,

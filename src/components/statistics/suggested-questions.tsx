@@ -17,7 +17,7 @@ export default async function SuggestedQuestions() {
         <h2 className="text-2xl font-onest">Suggested Questions</h2>
         <p className="text-sm text-gray-400">
           Based on your answer history, here are some questions we think will
-          help you improve your coding skills.
+          help you improve.
         </p>
       </div>
       <QuestionSuggestedCard

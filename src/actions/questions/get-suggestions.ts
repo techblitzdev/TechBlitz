@@ -43,12 +43,10 @@ export const getSuggestions = cache(
 
       // Separate answers into incorrect ones
       const incorrectAnswers = userAnswers.reduce<QuestionWithTags[]>(
-        (
-          acc: QuestionWithTags[],
-          answer: { question: QuestionWithTags; correctAnswer: boolean }
-        ) => {
-          const question = answer.question;
+        // @ts-ignore
+        (acc: QuestionWithTags[], answer) => {
           if (!answer.correctAnswer) {
+            const question = answer.question as unknown as QuestionWithTags;
             acc.push(question);
           }
           return acc;

@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import GlobalPagination from '@/components/global/pagination';
 import QuestionCard from '@/components/questions/question-card';
 import QuestionCardLoading from '@/components/questions/question-card-loading';
-import PreviousQuestionPageSidebar from '@/components/questions/previous/previous-question-page-sidebar';
+import QuestionPageSidebar from '@/components/questions/question-page-sidebar';
 import Hero from '@/components/global/hero';
 import Filter from '@/components/global/filters/filter';
 import FilterChips from '@/components/global/filters/chips';
@@ -81,7 +81,7 @@ export default async function PreviousQuestionsPage({
           </div>
           {/* Display sidebar with user statistics and suggested questions */}
           <Suspense fallback={null}>
-            {user && <PreviousQuestionPageSidebar user={user} />}
+            {user && <QuestionPageSidebar user={user} />}
           </Suspense>
         </div>
       </div>

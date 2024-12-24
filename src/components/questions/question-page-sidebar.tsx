@@ -4,7 +4,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger
+  TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 
@@ -12,7 +12,7 @@ import { UserRecord } from '@/types/User';
 import { getSuggestions } from '@/actions/questions/get-suggestions';
 import { getUserDailyStats } from '@/actions/user/authed/get-daily-streak';
 
-export default async function PreviousQuestionPageSidebar(opts: {
+export default async function QuestionPageSidebar(opts: {
   user: UserRecord | null;
 }) {
   const { user } = opts;
@@ -28,7 +28,7 @@ export default async function PreviousQuestionPageSidebar(opts: {
   const dateArray: [Date, Date] = [startDate, endDate];
 
   const suggestions = await getSuggestions({
-    userUid: user?.uid || ''
+    userUid: user?.uid || '',
   });
 
   return (

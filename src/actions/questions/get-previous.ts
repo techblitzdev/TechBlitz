@@ -20,7 +20,7 @@ export const getPreviousQuestions = async (opts: {
   pageSize?: number;
   filters: QuestionFilters;
 }): Promise<PaginatedResponse | undefined> => {
-  const { user, page = 0, pageSize = 5, filters } = opts;
+  const { user, page = 1, pageSize = 5, filters } = opts;
 
   // only allow authed users to hit this endpoint
   if (!user) {
@@ -79,17 +79,10 @@ export const getPreviousQuestions = async (opts: {
     },
   };
 
-  // get the current date
-  const todayDate = new Date().toISOString();
-
   // Get total count and questions in parallel
   const [total, questions, answers] = await Promise.all([
     prisma.questions.count({
-      where: {
-        questionDate: {
-          lt: todayDate,
-        },
-      },
+      where: whereClause.where, // Use the same where clause as the query
     }),
     prisma.questions.findMany({
       ...whereClause,
@@ -97,9 +90,9 @@ export const getPreviousQuestions = async (opts: {
         questionDate: filters?.ascending ? 'asc' : 'desc',
       },
       skip,
-      take: pageSize, // Calculate the correct number of items to take
+      take: pageSize,
       include: {
-        answers: true, // Include the answers in the query
+        answers: true,
         tags: {
           include: {
             tag: true,

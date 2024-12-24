@@ -6,7 +6,7 @@ import { cn } from '@/utils/cn';
 export default function FeatureDailyChallengeHero() {
   return (
     <section className="relative flex gap-10 text-white overflow-hidden justify-center">
-      <div className="flex flex-col gap-y-6 w-full xl:w-2/5 pt-32 lg:pt-52 pb-36 z-10 items-center">
+      <div className="flex flex-col gap-y-6 w-full xl:w-2/5 pt-32 lg:pt-52 pb-8 lg:pb-36 z-10 items-center">
         <AnimatedSpan content="Daily Coding Challenges" />
         <h1
           className="

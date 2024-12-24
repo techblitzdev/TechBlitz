@@ -24,6 +24,9 @@ export interface User extends BaseRecord {
   /** a toggle the user can turn on to indicate how long it took them to answer a question */
   showTimeTaken?: boolean;
   sendPushNotifications?: boolean;
+
+  /** the user's code editor theme */
+  codeEditorTheme?: string;
 }
 
 export type UserRecord = Pick<
@@ -42,6 +45,7 @@ export type UserRecord = Pick<
   | 'totalDailyStreak'
   | 'showTimeTaken'
   | 'sendPushNotifications'
+  | 'codeEditorTheme'
 >;
 
 // First, create a type that excludes 'uid' from the partial requirement

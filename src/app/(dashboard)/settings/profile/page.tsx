@@ -15,6 +15,13 @@ import LoadingSpinner from '@/components/ui/loading';
 import LogoutButton from '@/components/auth/logout';
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
+import {
+  Select,
+  SelectValue,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+} from '@/components/ui/select';
 
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
@@ -27,6 +34,7 @@ import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { UserUpdatePayload } from '@/types/User';
+import { themes } from 'prism-react-renderer';
 
 type SchemaProps = z.input<typeof userDetailsSchema>;
 
@@ -42,6 +50,7 @@ export default function SettingsProfilePage() {
       lastName: user?.lastName || '',
       showTimeTaken: user?.showTimeTaken || false,
       sendPushNotifications: user?.sendPushNotifications || false,
+      codeEditorTheme: user?.codeEditorTheme || 'vs-dark',
     },
   });
 
@@ -53,9 +62,10 @@ export default function SettingsProfilePage() {
         lastName: user.lastName || '',
         showTimeTaken: user.showTimeTaken,
         sendPushNotifications: user.sendPushNotifications,
+        codeEditorTheme: user.codeEditorTheme || 'vs-dark',
       });
     }
-  }, [user, isLoading]);
+  }, [user, isLoading, form]);
 
   // Use mutation hook for handling the update
   const { mutate, isPending } = useMutation({
@@ -232,6 +242,34 @@ export default function SettingsProfilePage() {
                       </TooltipTrigger>
                     </Tooltip>
                   </TooltipProvider>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="codeEditorTheme"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Select
+                    value={field.value || 'vs-dark'}
+                    onValueChange={field.onChange}
+                  >
+                    <SelectTrigger className="border border-black-50 w-[250px]">
+                      {field.value ||
+                        user?.codeEditorTheme ||
+                        'Select a code editor theme'}
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.entries(themes).map(([key]) => (
+                        <SelectItem key={key} value={key}>
+                          {key}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </FormControl>
               </FormItem>
             )}

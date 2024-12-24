@@ -11,7 +11,7 @@ import { Suspense } from 'react';
 const ITEMS_PER_PAGE = 10;
 
 export default async function PreviousQuestionsPage({
-  searchParams
+  searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
@@ -21,10 +21,10 @@ export default async function PreviousQuestionsPage({
   const currentPage = parseInt(searchParams.page as string) || 1;
 
   const data = await getPreviousQuestions({
-    userUid: user.uid,
+    user,
     orderBy: 'asc',
     page: currentPage,
-    pageSize: ITEMS_PER_PAGE
+    pageSize: ITEMS_PER_PAGE,
   });
 
   return (
@@ -36,14 +36,14 @@ export default async function PreviousQuestionsPage({
       <div className="flex flex-col h-full justify-between container mt-5">
         <div className="flex w-full gap-10">
           <div className="w-1/2 space-y-6">
-          <Suspense 
-            fallback={
-              <>
-                {[...Array(ITEMS_PER_PAGE)].map((_, i) => (
-                  <QuestionCardLoading key={i} />
-                ))}
-              </>
-            }
+            <Suspense
+              fallback={
+                <>
+                  {[...Array(ITEMS_PER_PAGE)].map((_, i) => (
+                    <QuestionCardLoading key={i} />
+                  ))}
+                </>
+              }
             >
               {data?.questions.map((q) => (
                 <QuestionCard

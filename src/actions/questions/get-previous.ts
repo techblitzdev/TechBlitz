@@ -1,9 +1,9 @@
 'use server';
 import { prisma } from '@/utils/prisma';
-import { getUserFromDb } from '../user/authed/get-user';
 import { Question } from '@/types/Questions';
 import { Answer } from '@/types/Answers';
 
+import { UserRecord } from '@/types/User';
 interface PaginatedResponse {
   questions: Question[]; // Replace 'any' with your Question type
   total: number;
@@ -14,15 +14,12 @@ interface PaginatedResponse {
 }
 
 export const getPreviousQuestions = async (opts: {
-  userUid: string;
+  user: UserRecord;
   orderBy: 'asc' | 'desc';
   page?: number;
   pageSize?: number;
 }): Promise<PaginatedResponse | undefined> => {
-  const { userUid, orderBy, page = 0, pageSize = 5 } = opts;
-
-  // get the user
-  const user = await getUserFromDb(userUid);
+  const { user, orderBy, page = 0, pageSize = 5 } = opts;
 
   // only allow authed users to hit this endpoint
   if (!user) {
@@ -70,7 +67,7 @@ export const getPreviousQuestions = async (opts: {
     // get the user's answers to the questions
     prisma.answers.findMany({
       where: {
-        userUid,
+        userUid: user.uid,
       },
     }),
   ]);

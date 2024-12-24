@@ -9,7 +9,6 @@ import QuestionCardLoading from '@/components/questions/question-card-loading';
 import QuestionPageSidebar from '@/components/questions/question-page-sidebar';
 
 import { listQuestions } from '@/actions/questions/list';
-import { getUserDailyStats } from '@/actions/user/authed/get-daily-streak';
 
 import { useUserServer } from '@/hooks/useUserServer';
 import { QuestionDifficulty } from '@/types/Questions';
@@ -39,11 +38,6 @@ export default async function QuestionsDashboard({
     completed,
     tags,
   };
-
-  const userStreak = await getUserDailyStats(user.uid);
-  const startDate = userStreak?.streakData?.streakStart as Date;
-  const endDate = userStreak?.streakData?.streakEnd as Date;
-  const dateArray: [Date, Date] = [startDate, endDate];
 
   const data = await listQuestions({
     page: currentPage,

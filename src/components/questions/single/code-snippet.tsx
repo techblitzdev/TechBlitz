@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { Highlight, themes } from 'prism-react-renderer';
+import { useUser } from '@/hooks/useUser';
 
 interface CodeDisplayProps {
   content: string;
@@ -38,9 +39,11 @@ export default function CodeDisplay({
     .replace(/&gt;/g, '>')
     .trim();
 
+  const { user } = useUser();
+
   return (
     <Highlight
-      theme={themes.vsDark}
+      theme={themes[(user?.codeEditorTheme as keyof typeof themes) || 'vsDark']}
       code={cleanContent}
       language={language || 'js'}
     >

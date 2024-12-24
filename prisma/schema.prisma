@@ -66,6 +66,9 @@ model Users {
   streak Streaks?
   roadmaps UserRoadmaps[]
   answers Answers[]
+
+  // allowing the user to choose their code editor theme
+  codeEditorTheme String? @default("vs-dark")
 }
 
 model Subscriptions {

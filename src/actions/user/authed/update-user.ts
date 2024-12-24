@@ -20,7 +20,6 @@ export const updateUser = async (opts: {
 
     // Get the user details from the session
     const sessionResult = await getUserFromSession();
-    console.log('Session data:', JSON.stringify(sessionResult, null, 2));
 
     // Ensure we have a valid user ID
     if (!sessionResult?.data?.user?.id) {
@@ -42,8 +41,6 @@ export const updateUser = async (opts: {
       },
       data: cleanedUserDetails,
     });
-
-    console.log('Updated user:', JSON.stringify(updatedUser, null, 2));
 
     // Revalidate the user details cache
     revalidateTag('user-details');

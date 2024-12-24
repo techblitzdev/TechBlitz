@@ -1,10 +1,6 @@
 import { Suspense } from 'react';
 
 import { redirect } from 'next/navigation';
-import dynamic from 'next/dynamic';
-const DashboardBentoGrid = dynamic(
-  () => import('../../../components/dashboard/dashboard-bento-grid')
-);
 
 // components
 import CurrentStreak from '@/components/ui/current-streak';
@@ -17,6 +13,8 @@ import LoadingSpinner from '@/components/ui/loading';
 // utils
 import { getUserDisplayName } from '@/utils/user';
 import { useUserServer } from '@/hooks/useUserServer';
+import DashboardLoading from '@/components/dashboard/loading';
+import DashboardBentoGrid from '@/components/dashboard/dashboard-bento-grid';
 
 export default async function Dashboard({
   searchParams,
@@ -47,13 +45,14 @@ export default async function Dashboard({
             </div>
             <div className="flex items-center gap-3">
               <CurrentStreak />
-              {/* <LanguageSwitcher /> */}
               <Feedback />
             </div>
           </div>
           <Separator className="bg-black-50" />
           <div className="h-full mt-1 px-6">
-            <DashboardBentoGrid />
+            <Suspense fallback={<DashboardLoading />}>
+              <DashboardBentoGrid />
+            </Suspense>
           </div>
         </div>
       </ClientPage>

@@ -8,7 +8,6 @@ import { useUserServer } from '@/hooks/useUserServer';
 
 import QuestionCard from '@/components/questions/single/question-card';
 import { getRandomQuestion } from '@/actions/questions/get-next-question';
-import { getRelatedQuestions } from '@/actions/questions/get-related';
 import ExpandedCodeModal from '@/components/questions/expanded-code-modal';
 import RelatedQuestions from '@/components/questions/single/related-question-card';
 
@@ -36,12 +35,6 @@ export default async function TodaysQuestionPage({
   if (!question) {
     return <NoDailyQuestion textAlign="center" />;
   }
-
-  const relatedQuestions = await getRelatedQuestions({
-    questionUid: uid,
-    tags: question.tags || [],
-  });
-
   return (
     <>
       <div className="flex flex-col lg:flex-row gap-8 mt-3 px-6">

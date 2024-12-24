@@ -19,7 +19,7 @@ export default function RelatedQuestionCard(opts: {
       )}
     >
       <p className="text-sm">{question.question}</p>
-      <ArrowRight className="size-4 mr-1 group-hover:mr-0 duration-300" />
+      <ArrowRight className="size-4 mr-1 group-hover:mr-0 duration-300 flex-shrink-0" />
     </Link>
   );
 }

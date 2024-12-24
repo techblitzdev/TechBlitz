@@ -6,12 +6,6 @@ import Link from 'next/link';
 
 import dynamic from 'next/dynamic';
 import AnimatedSpan from '@/components/ui/animated-span';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
 import { Suspense } from 'react';
 import LoadingSpinner from '@/components/ui/loading';
 

@@ -1,14 +1,20 @@
-import { getData } from '@/actions/statistics/get-stats-chart-data';
+import { Suspense } from 'react';
+import { redirect } from 'next/navigation';
+
 import StatsRangePicker from '@/components/statistics/range-picker';
 import QuestionChart from '@/components/statistics/total-question-chart';
 import TotalStatsCard from '@/components/statistics/total-stats-card';
 import LoadingSpinner from '@/components/ui/loading';
+
 import { useUserServer } from '@/hooks/useUserServer';
 import { StatsSteps } from '@/types/Stats';
+
 import { STATISTICS } from '@/utils/constants/statistics-filters';
 import { formatSeconds } from '@/utils/time';
-import { redirect } from 'next/navigation';
-import { Suspense } from 'react';
+
+import { getData } from '@/actions/statistics/get-stats-chart-data';
+import Hero from '@/components/global/hero';
+import SuggestedQuestions from '@/components/statistics/suggested-questions';
 
 // Add metadata for better SEO and caching
 export const metadata = {
@@ -45,9 +51,7 @@ export default async function StatisticsPage({
   return (
     <div>
       <div className="pt-14 pb-5 flex flex-col gap-3 md:flex-row w-full justify-between md:items-center">
-        <h1 className="text-3xl text-gradient from-white to-white/55">
-          Statistics
-        </h1>
+        <Hero heading="Statistics" container={false} />
         <div className="flex gap-3">
           <StatsRangePicker selectedRange={STATISTICS[range].label} />
         </div>
@@ -73,11 +77,11 @@ export default async function StatisticsPage({
             description={`Highest Scoring Tag (${highestScoringTag?.count || 0})`}
           />
         </Suspense>
-        <div className="max-h-[28rem] col-span-12">
-          <Suspense fallback={<LoadingSpinner />}>
-            {stats && <QuestionChart questionData={stats} />}
-          </Suspense>
+        <div className="max-h-[28rem] col-span-12 mb-4">
+          {stats && <QuestionChart questionData={stats} />}
         </div>
+        <SuggestedQuestions />
+        <SuggestedQuestions />
       </div>
     </div>
   );

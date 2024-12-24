@@ -22,6 +22,7 @@ import {
   SelectContent,
   SelectItem,
 } from '@/components/ui/select';
+import CodeEditorPreview from '@/components/settings/code-preview';
 
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
@@ -67,10 +68,8 @@ export default function SettingsProfilePage() {
     }
   }, [user, isLoading, form]);
 
-  // Use mutation hook for handling the update
   const { mutate, isPending } = useMutation({
     mutationFn: async (values: SchemaProps) => {
-      // Only include fields that have been changed from their original values
       const changedValues = Object.entries(values).reduce(
         (acc, [key, value]) => {
           if (value !== user?.[key as keyof typeof user]) {
@@ -90,23 +89,15 @@ export default function SettingsProfilePage() {
       return updatedUser;
     },
     onMutate: async (newUserData) => {
-      // Cancel any outgoing refetches
       await queryClient.cancelQueries({ queryKey: ['user-details'] });
-
-      // Snapshot the previous value
       const previousUser = queryClient.getQueryData(['user-details']);
-
-      // Optimistically update to the new value
       queryClient.setQueryData(['user-details'], (old: any) => ({
         ...old,
         ...newUserData,
       }));
-
-      // Return a context object with the snapshotted value
       return { previousUser };
     },
     onError: (err, _, context) => {
-      // If the mutation fails, use the context returned from onMutate to roll back
       queryClient.setQueryData(['user-details'], context?.previousUser);
       toast.error('An error occurred while updating your profile');
       console.error(err);
@@ -253,23 +244,28 @@ export default function SettingsProfilePage() {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Select
-                    value={field.value || 'vs-dark'}
-                    onValueChange={field.onChange}
-                  >
-                    <SelectTrigger className="border border-black-50 w-[250px]">
-                      {field.value ||
-                        user?.codeEditorTheme ||
-                        'Select a code editor theme'}
-                    </SelectTrigger>
-                    <SelectContent>
-                      {Object.entries(themes).map(([key]) => (
-                        <SelectItem key={key} value={key}>
-                          {key}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <div className="space-y-4">
+                    <Select
+                      value={field.value || 'vs-dark'}
+                      onValueChange={field.onChange}
+                    >
+                      <SelectTrigger className="border border-black-50 w-[250px]">
+                        {field.value ||
+                          user?.codeEditorTheme ||
+                          'Select a code editor theme'}
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.entries(themes).map(([key]) => (
+                          <SelectItem key={key} value={key}>
+                            {key}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <CodeEditorPreview
+                      theme={(field.value as keyof typeof themes) || 'vs-dark'}
+                    />
+                  </div>
                 </FormControl>
               </FormItem>
             )}

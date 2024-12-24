@@ -50,7 +50,7 @@ export default async function StatisticsPage({
 
   return (
     <div>
-      <div className="pt-14 pb-5 flex flex-col gap-3 md:flex-row w-full justify-between md:items-center">
+      <div className="pt-7 pb-5 flex flex-col gap-3 md:flex-row w-full justify-between md:items-center">
         <Hero heading="Statistics" container={false} />
         <div className="flex gap-3">
           <StatsRangePicker selectedRange={STATISTICS[range].label} />
@@ -80,7 +80,6 @@ export default async function StatisticsPage({
         <div className="max-h-[28rem] col-span-12 mb-4">
           {stats && <QuestionChart questionData={stats} />}
         </div>
-        <SuggestedQuestions />
         <SuggestedQuestions />
       </div>
     </div>

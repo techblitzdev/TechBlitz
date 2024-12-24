@@ -68,20 +68,6 @@ export default function FeatureLeftRightSectionOne() {
   return (
     <LeftRightBlock
       left={
-        <div className="flex flex-col gap-y-6">
-          <h2 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
-            Software simplified.
-          </h2>
-          <p className="text-white/70 max-w-xl text-base font-onest ">
-            Struggling to keep your coding skills fresh while juggling a busy
-            schedule? Our bite-sized daily challenges help you maintain and
-            improve your skills in just 15-20 minutes a day. Perfect for
-            developers who want consistent growth without the overwhelm of
-            lengthy tutorials or complex projects.
-          </p>
-        </div>
-      }
-      right={
         <div className="flex flex-col gap-y-6 relative overflow-hidden">
           <Suspense fallback={<div>Loading...</div>}>
             <CodeSnippet
@@ -93,6 +79,20 @@ export default function FeatureLeftRightSectionOne() {
             />
           </Suspense>
           <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none z-30"></div>
+        </div>
+      }
+      right={
+        <div className="flex flex-col gap-y-6">
+          <h2 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
+            Software simplified.
+          </h2>
+          <p className="text-white/70 max-w-xl text-base font-onest ">
+            Struggling to keep your coding skills fresh while juggling a busy
+            schedule? Our bite-sized daily challenges help you maintain and
+            improve your skills in just 15-20 minutes a day. Perfect for
+            developers who want consistent growth without the overwhelm of
+            lengthy tutorials or complex projects.
+          </p>
         </div>
       }
     />

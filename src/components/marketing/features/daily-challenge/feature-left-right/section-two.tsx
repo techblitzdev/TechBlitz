@@ -1,36 +1,40 @@
 import LeftRightBlock from '@/components/marketing/global/left-right-block';
 import Image from 'next/image';
 import mobileDailyChallenge from '../../../../../public/images/mobile-daily-question.png';
+import { Button } from '@/components/ui/button';
+import { ArrowRightIcon } from '@radix-ui/react-icons';
 
 export default function FeatureLeftRightSectionTwo() {
   return (
     <LeftRightBlock
       left={
-        <div className="flex flex-col gap-y-6 relative h-[400px] md:h-[500px] lg:h-[600px] w-1/2 overflow-hidden">
-          <div className="relative w-full h-full">
-            <Image
-              src={mobileDailyChallenge}
-              alt="Mobile view of daily coding challenge"
-              width={1000}
-              height={1000}
-              className="object-cover object-top rounded-lg"
-              priority
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background z-10" />
-          </div>
+        <div className="flex flex-col gap-y-6">
+          <Image
+            src={mobileDailyChallenge}
+            alt="Phone"
+            width={350}
+            height={600}
+          />
         </div>
       }
       right={
         <div className="flex flex-col gap-y-6">
           <h2 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
-            Coding at your convenience.
+            Code on the go.
           </h2>
           <p className="text-white/70 max-w-xl text-base font-onest">
             Unable to get to a computer? No problem. TechBlitz questions can be
             completed from the comfort of your phone, enabling you to learn on
             the go.
           </p>
+          <Button
+            href="/daily-challenge"
+            variant="secondary"
+            className="flex items-center gap-x-2 w-fit"
+          >
+            Try today's challenge
+            <ArrowRightIcon className="size-4" />
+          </Button>
         </div>
       }
     />

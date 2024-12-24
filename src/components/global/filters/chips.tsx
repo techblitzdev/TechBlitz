@@ -11,7 +11,9 @@ export default function FilterChips() {
 
   // Convert search params to an object
   const paramsObj = Object.fromEntries(
-    searchParams.entries().filter(([key]) => key !== 'page')
+    Array.from(searchParams.entries()).filter(
+      ([key]: [string, string]) => key !== 'page'
+    )
   );
 
   const removeFilter = (key: string, value?: string) => {

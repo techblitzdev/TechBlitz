@@ -11,7 +11,7 @@ import { forwardRef, useImperativeHandle, useState } from 'react';
 import { Form, FormControl, FormField } from '@/components/ui/form';
 import {
   RoadmapUserQuestions,
-  RoadmapUserQuestionsAnswers
+  RoadmapUserQuestionsAnswers,
 } from '@/types/Roadmap';
 import { answerRoadmapQuestion } from '@/actions/roadmap/questions/answer-roadmap-question';
 import { useRouter } from 'next/navigation';
@@ -52,8 +52,8 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
   const form = useForm<SchemaProps>({
     resolver: zodResolver(answerQuestionSchema),
     defaultValues: {
-      answer: ''
-    }
+      answer: '',
+    },
   });
 
   // Expose the `submitForm` method to the parent via ref
@@ -63,7 +63,10 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
         console.log('Submitting form with values:', values);
         await handleAnswerQuestion(values);
       })();
-    }
+    },
+    resetForm: () => {
+      form.reset();
+    },
   }));
 
   const handleAnswerQuestion = async (values: SchemaProps) => {
@@ -79,7 +82,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
         answerUid: values.answer,
         roadmapUid,
         userUid: userData.uid,
-        currentQuestionIndex: question?.order
+        currentQuestionIndex: question?.order,
       };
 
       // there is a chance nothing get's returned as we perform a redirect
@@ -145,10 +148,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
                   </p>
 
                   <div className="flex items-center gap-x-3">
-                    <Button
-                      href="/dashboard"
-                      variant="secondary"
-                    >
+                    <Button href="/dashboard" variant="secondary">
                       Dashboard
                     </Button>
                     <Button
@@ -170,10 +170,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
                     Don't worry, learning is a process. Keep trying!
                   </p>
                   <div className="flex items-center gap-x-3">
-                    <Button
-                      href="/dashboard"
-                      variant="secondary"
-                    >
+                    <Button href="/dashboard" variant="secondary">
                       Dashboard
                     </Button>
                     <Button
@@ -196,10 +193,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
             )}
           >
             {question?.answers?.map((answer) => (
-              <div
-                key={answer.uid}
-                className="col-span-full"
-              >
+              <div key={answer.uid} className="col-span-full">
                 <FormField
                   control={form.control}
                   name="answer"

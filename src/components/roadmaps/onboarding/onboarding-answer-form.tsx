@@ -59,6 +59,9 @@ const OnboardingRoadmapAnswerQuestionForm = forwardRef(
           await handleAnswerQuestion(values);
         })();
       },
+      resetForm: () => {
+        form.reset();
+      },
     }));
 
     const handleAnswerQuestion = async (values: SchemaProps) => {

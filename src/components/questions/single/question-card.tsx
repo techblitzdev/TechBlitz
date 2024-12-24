@@ -23,7 +23,11 @@ export default function QuestionCard(opts: {
 }) {
   const { user, question, nextQuestion, isRoadmapQuestion = false } = opts;
 
-  const answerFormRef = useRef<{ submitForm: () => void }>(null);
+  const answerFormRef = useRef<{
+    submitForm: () => void;
+    resetForm: () => void;
+  }>(null);
+
   const { pause, reset, totalSeconds } = useStopwatch({
     autoStart: true,
   });

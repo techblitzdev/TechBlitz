@@ -19,7 +19,10 @@ export default function RoadmapQuestionCard(opts: {
 }) {
   const { user, question, roadmapUid } = opts;
 
-  const answerFormRef = useRef<{ submitForm: () => void }>(null);
+  const answerFormRef = useRef<{
+    submitForm: () => void;
+    resetForm: () => void;
+  }>(null);
 
   return (
     <div className="col-span-full lg:col-span-6 h-fit bg-black-75 border border-black-50 rounded-xl overflow-hidden">
@@ -30,10 +33,7 @@ export default function RoadmapQuestionCard(opts: {
           textColor={getQuestionDifficultyColor(question.difficulty)}
           ghost
         />
-        <a
-          href="#code-snippet"
-          className="text-xs block md:hidden"
-        >
+        <a href="#code-snippet" className="text-xs block md:hidden">
           (Tap to see code snippet)
         </a>
         <div className="flex items-center gap-x-1">
@@ -69,7 +69,12 @@ export default function RoadmapQuestionCard(opts: {
       <Separator className="bg-black-50" />
       <div className="p-4 w-full flex justify-between items-center bg-black-25">
         <div className="flex items-center gap-4 self-end">
-          <Button variant="destructive">Reset</Button>
+          <Button
+            variant="destructive"
+            onClick={() => answerFormRef.current?.resetForm()}
+          >
+            Reset
+          </Button>
           <Button
             variant="accent"
             onClick={() => answerFormRef.current?.submitForm()}

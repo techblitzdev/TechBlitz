@@ -73,6 +73,9 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
         await handleAnswerQuestion(values);
       })();
     },
+    resetForm: () => {
+      form.reset();
+    },
   }));
 
   const handleAnswerQuestion = async (values: SchemaProps) => {

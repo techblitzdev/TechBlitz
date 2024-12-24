@@ -1,7 +1,6 @@
 import React from 'react';
 import HomepageHeroEmailSignup from '@/components/marketing/homepage/hero/email-input';
 import { WaitlistForm } from '@/components/marketing/global/waitlist-form';
-import AnimatedSpan from '@/components/ui/animated-span';
 import Link from 'next/link';
 
 export default function HomepageHero() {
@@ -11,9 +10,11 @@ export default function HomepageHero() {
       className="pb-16 pt-28 md:pb-20 md:pt-32 xl:pb-40 xl:pt-56 grid grid-cols-12 gap-4 lg:gap-16 items-center"
     >
       <div className="flex flex-col gap-y-4 col-span-full items-center text-center">
-        <AnimatedSpan content="Sign up to get 50% off your first month" />
+        <span className="text-sm flex items-center gap-x-2 border border-black-50 rounded-full px-4 py-2">
+          Sign up to get 50% off your first month when we launch
+        </span>
         <h1 className="text-5xl lg:text-[68px] !font-onest !font-medium tracking-tight">
-          The easiest way to master <br /> software engineering
+          The best way to master <br /> software engineering
         </h1>
         <h6 className="font-onest max-w-2xl text-gray-400">
           An{' '}

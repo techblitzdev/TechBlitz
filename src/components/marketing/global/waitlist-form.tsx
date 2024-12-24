@@ -94,7 +94,7 @@ export function WaitlistForm() {
       </div>
       <div className="h-9 w-full">
         <Button
-          variant="secondary"
+          variant="default"
           fullWidth
           type="button"
           onClick={handleQuestionClick}

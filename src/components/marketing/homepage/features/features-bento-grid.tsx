@@ -39,27 +39,18 @@ export default function FeaturesBentoGrid() {
       <div className="flex flex-col gap-y-1 items-center text-center">
         <AnimatedSpan content="Features" />
         <h1 className="text-2xl lg:text-5xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
-          Software Engineering made easy{' '}
+          Master Software Engineering, Effortlessly
         </h1>
         <span className="text-sm md:text-base text-gray-400 max-w-3xl">
-          Personalized coding roadmaps, daily challenges, competitive
-          leaderboards, and a wide{' '}
-          <TooltipProvider>
-            <Tooltip delayDuration={0}>
-              <TooltipTrigger>array</TooltipTrigger>
-              <TooltipContent>
-                <p>Pun intended 😉</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>{' '}
-          of coding questions tackling real-world software problems. Stand out
-          from the crowd and land your dream job.
+          Discover our suite of tools & features crafted to help you master
+          software engineering with ease. <br /> 1000+ free daily coding
+          challenges, personalized learning paths, and more.
         </span>
       </div>
       <div className="min-h-[1450px] md:min-h-[1000px] lg:min-h-[700px] rounded-lg">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 bg-black-400 rounded-lg">
           <Link
-            href={'/features/roadmap'}
+            href="/features/roadmap"
             className={cn(
               'h-80 col-span-full lg:col-span-2 relative overflow-hidden group flex flex-col sm:flex-row gap-5',
               cardClasses
@@ -67,13 +58,14 @@ export default function FeaturesBentoGrid() {
             prefetch
           >
             <div className="flex flex-col justify-between">
-              <div className="flex flex-col gap-y-1 relative max-w-sm">
+              <div className="flex flex-col gap-y-1 relative max-w-md">
                 <h5 className="text-2xl text-gradient from-white to-white/55">
                   Coding Roadmaps
                 </h5>
                 <p className="text-xs text-gray-400 font-onest">
-                  Personalized learning paths that adapt to your coding skills
-                  and build a roadmap to become a better developer.
+                  Tailored learning paths that adapt to your coding skills and
+                  build you a personalized roadmap to ensure you become a better
+                  developer.
                 </p>
                 <Button
                   variant="secondary"
@@ -110,8 +102,8 @@ export default function FeaturesBentoGrid() {
                     Progress tracking
                   </h5>
                   <p className="text-xs text-gray-400 font-onest">
-                    Track your progress and use AI to analysis your coding
-                    habits.
+                    Know exactly where you are in your learning journey. Get
+                    insights on your coding habits and improve your skills.
                   </p>
                 </div>
                 <div className="w-full h-fit flex items-center justify-center">
@@ -134,15 +126,15 @@ export default function FeaturesBentoGrid() {
                   Leaderboard
                 </h5>
                 <p className="text-xs text-gray-400 font-onest">
-                  Compete with other developers and see how you stack up against
-                  them!
+                  Opt-in to see how you stack up against other developers, no
+                  pressure.
                 </p>
               </div>
             </Link>
           </Suspense>
           <Suspense fallback={<LoadingSpinner />}>
             <Link
-              href={isProd ? '' : '/features/daily-questions'}
+              href="/features/daily-questions"
               className={cn(
                 'col-span-full lg:col-span-2 group overflow-hidden',
                 cardClasses
@@ -155,11 +147,12 @@ export default function FeaturesBentoGrid() {
                     Daily questions
                   </h5>
                   <p className="text-xs text-gray-400 font-onest">
-                    Never stop learning; sharpen your skills with practical,
-                    industry-relevant coding challenges.
+                    Daily coding challenge to build habits and improve your
+                    skills.
                   </p>
                 </div>
                 <Button
+                  href="/features/daily-questions"
                   variant="accent"
                   className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
                 >

@@ -1,10 +1,12 @@
+import { Button } from '@/components/ui/button';
+
 import { getUserAnswer } from '@/actions/answers/get-user-answer';
 import { getUserAnswerRank } from '@/actions/leaderboard/get-user-rank';
+import { useUserServer } from '@/hooks/useUserServer';
+
 import { formatSeconds } from '@/utils/time';
 import { getUserDisplayName } from '@/utils/user';
-import { Button } from '../ui/button';
-import { redirect } from 'next/navigation';
-import { useUserServer } from '@/hooks/useUserServer';
+import Link from 'next/link';
 
 export default async function UserRank(opts: { questionUid: string }) {
   const { questionUid } = opts;
@@ -28,18 +30,14 @@ export default async function UserRank(opts: { questionUid: string }) {
 
   if (!userAnswer) {
     return (
-      <form
-        action={async () => {
-          'use server';
-          redirect(`/question/${questionUid}`);
-        }}
-        className="flex justify-between w-full items-center"
-      >
-        <p className="text-white text-sm font-semibold font-satoshi">
+      <div className="flex justify-between w-full items-center">
+        <p className="text-white text-sm font-semibold font-onest">
           Not ranked
         </p>
-        <Button variant="accent">Answer now!</Button>
-      </form>
+        <Link href={`/question/${questionUid}`}>
+          <Button variant="accent">Answer now!</Button>
+        </Link>
+      </div>
     );
   }
 

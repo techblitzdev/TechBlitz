@@ -17,36 +17,44 @@ const items: {
   title: string;
 }[] = [
   {
-    name: 'JavaScript',
-    title: 'Objects',
+    name: 'ES6+',
+    title: 'Modern ES6+ Features',
   },
   {
-    name: 'JavaScript',
-    title: 'Arrays',
+    name: 'DOM',
+    title: 'Advanced DOM Manipulation',
   },
   {
-    name: 'JavaScript',
-    title: 'Data types',
+    name: 'Patterns',
+    title: 'Design Patterns',
   },
   {
-    name: 'JavaScript',
-    title: 'Array methods',
+    name: 'Performance',
+    title: 'Performance Optimization',
   },
   {
-    name: 'JavaScript',
-    title: 'Asynchronous programming',
+    name: 'State',
+    title: 'State Management',
   },
   {
-    name: 'JavaScript',
-    title: 'Promises',
+    name: 'Testing',
+    title: 'Testing & Debugging',
   },
   {
-    name: 'JavaScript',
-    title: 'Callbacks',
+    name: 'APIs',
+    title: 'Web APIs & Integration',
   },
   {
-    name: 'JavaScript',
-    title: 'Closures',
+    name: 'Security',
+    title: 'Security Best Practices',
+  },
+  {
+    name: 'Functional',
+    title: 'Functional Programming',
+  },
+  {
+    name: 'DSA',
+    title: 'Data Structures & Algorithms',
   },
 ];
 
@@ -71,7 +79,7 @@ export default async function ProgressBentoBox() {
       <div className="flex flex-col md:flex-row gap-y-2 w-full justify-between">
         <div className="space-y-1">
           <h6 className="text-xl">Progression</h6>
-          <p className="hidden md:block font-satoshi text-xs">
+          <p className="hidden md:block font-satoshi text-sm">
             Your very own, personalised progression framework to help you grow
             as a developer.
           </p>

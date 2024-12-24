@@ -8,9 +8,9 @@ import Link from 'next/link';
 import UserRank from './user-rank';
 import { getLongestStreaks } from '@/actions/leaderboard/get-longest-streaks';
 import { getUserDisplayName } from '@/utils/user';
-import { Grid } from '../ui/grid';
-import Chip from '../ui/chip';
-import LoadingSpinner from '../ui/loading';
+import { Grid } from '@/components/ui/grid';
+import Chip from '@/components/ui/chip';
+import LoadingSpinner from '@/components/ui/loading';
 import { Suspense } from 'react';
 
 export default async function TodaysLeaderboardBentoBox(opts: {
@@ -88,7 +88,7 @@ export default async function TodaysLeaderboardBentoBox(opts: {
       <div className="flex flex-col overflow-hidden">
         <Separator className="bg-black-50 " />
         <div className="px-4 pb-4 bg-black-50/10 pt-4">
-          <p className="text-xs">Your rank:</p>
+          <p className="text-xs text-gray-400">Your rank:</p>
           <Suspense fallback={<LoadingSpinner />}>
             <UserRank questionUid={todaysQuestion?.uid || ''} />
           </Suspense>

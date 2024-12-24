@@ -46,7 +46,13 @@ export const getSuggestions = cache(
         correctAnswers: QuestionWithTags[];
         incorrectAnswers: QuestionWithTags[];
       }>(
-        (acc, answer) => {
+        (
+          acc: {
+            correctAnswers: QuestionWithTags[];
+            incorrectAnswers: QuestionWithTags[];
+          },
+          answer: { question: QuestionWithTags; correctAnswer: boolean }
+        ) => {
           const question = answer.question as QuestionWithTags;
           if (answer.correctAnswer) {
             acc.correctAnswers.push(question);
@@ -63,7 +69,7 @@ export const getSuggestions = cache(
 
       // Find questions with similar tags that haven't been answered
       const answeredQuestionIds = userAnswers.map(
-        (answer) => answer.question.uid
+        (answer: { question: { uid: string } }) => answer.question.uid
       );
 
       const suggestions = await prisma.questions.findMany({

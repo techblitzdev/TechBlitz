@@ -7,12 +7,18 @@ import { Skeleton } from '@/components/ui/skeleton';
 export default function QuestionSuggestedCard(opts: {
   questions?: QuestionWithoutAnswers[];
   isLoading: boolean;
+  border?: boolean;
 }) {
-  const { questions, isLoading } = opts;
+  const { questions, isLoading, border = true } = opts;
 
   if (isLoading) {
     return (
-      <div className="flex flex-col bg-black-100 border overflow-hidden border-black-50 rounded-md divide-y-[1px] divide-black-50">
+      <div
+        className={cn(
+          'flex flex-col overflow-hidden divide-y-[1px] divide-black-50',
+          border ? 'border border-black-50 rounded-md' : ''
+        )}
+      >
         {Array.from({ length: 5 }).map((_, index) => (
           <div
             key={index}
@@ -27,7 +33,12 @@ export default function QuestionSuggestedCard(opts: {
   }
 
   return (
-    <div className="flex flex-col bg-black-100 border overflow-hidden border-black-50 rounded-md divide-y-[1px] divide-black-50">
+    <div
+      className={cn(
+        'flex flex-col overflow-hidden divide-y-[1px] divide-black-50',
+        border ? 'border border-black-50 rounded-md' : ''
+      )}
+    >
       {questions?.map((question, index) => (
         <Link
           key={question.uid}

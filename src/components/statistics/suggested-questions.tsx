@@ -1,18 +1,29 @@
-export default function SuggestedQuestions() {
+import { getSuggestions } from '@/actions/questions/get-suggestions';
+import { useUserServer } from '@/hooks/useUserServer';
+import { redirect } from 'next/navigation';
+import QuestionSuggestedCard from '../questions/suggested-questions-table';
+
+export default async function SuggestedQuestions() {
+  const user = await useUserServer();
+  if (!user) {
+    redirect('/login');
+  }
+
+  const suggestions = await getSuggestions({ userUid: user.uid });
+
   return (
-    <section
-      className="col-span-full md:col-span-6 border border-black-50 rounded-lg p-4"
-      style={{
-        background:
-          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
-      }}
-    >
-      <div className="flex flex-col gap-2">
+    <section className="col-span-full md:col-span-6 border border-black-50 rounded-lg flex flex-col divide-y-[1px] divide-black-50 overflow-hidden">
+      <div className="flex flex-col gap-1.5 px-3 py-4">
         <h2 className="text-2xl font-onest">Suggested Questions</h2>
         <p className="text-sm text-gray-400">
           Here are some questions that we think you might find interesting.
         </p>
       </div>
+      <QuestionSuggestedCard
+        questions={suggestions ?? []}
+        isLoading={false}
+        border={false}
+      />
     </section>
   );
 }

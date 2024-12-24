@@ -68,7 +68,12 @@ export default function MarketingFooter() {
           <div className="flex flex-col lg:flex-row w-full justify-between">
             <div className="flex flex-col gap-y-8 lg:flex-row gap-x-28">
               <div className="space-y-5">
-                <Logo />
+                <div className="flex flex-col gap-y-3">
+                  <Logo />
+                  <p className="text-xs text-gray-400 font-onest max-w-[13rem]">
+                    The simplest way to master software engineering.
+                  </p>
+                </div>
                 <Button
                   variant="accent"
                   className="items-center flex md:hidden w-fit font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"

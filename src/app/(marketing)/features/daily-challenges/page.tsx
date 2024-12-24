@@ -37,7 +37,7 @@ const items = [
     ),
     title: 'Short-form challenges',
     description:
-      'Dive into coding challenges that are quick yet impactful. Designed to sharpen your skills in minutes, these challenges offer real-world problem-solving without the lengthy commitment.',
+      'Quick, impactful tasks designed to sharpen your skills in minutes. Solve real-world problems without long commitments.',
   },
   {
     icon: (
@@ -53,9 +53,9 @@ const items = [
         />
       </svg>
     ),
-    title: 'Never miss a day',
+    title: 'Daily challenges',
     description:
-      'We send you a daily challenge every day, so you never miss a day.',
+      'Stay consistent with a fresh challenge delivered to you every day. Build habits and never miss a beat.',
   },
   {
     icon: (
@@ -73,7 +73,7 @@ const items = [
     ),
     title: 'Collaborative learning',
     description:
-      'Join a community of like-minded learners! Opt to solve challenges alongside others, exchange ideas, and grow through shared knowledge.',
+      'Join a community of developers. Share insights, solve problems together, and grow as a team.',
   },
   {
     icon: (
@@ -91,7 +91,7 @@ const items = [
     ),
     title: 'Instant feedback',
     description:
-      'Receive immediate feedback on your solutions. Understand where you went wrong and how to improve.',
+      'Get real-time feedback on your solutions. Learn from mistakes and improve faster.',
   },
   {
     icon: (
@@ -114,15 +114,15 @@ const items = [
         </g>
       </svg>
     ),
-    title: 'Track your progress',
+    title: 'Progress tracking',
     description:
-      'Monitor your growth with detailed statistics. Keep tabs on your performance and see how you stack up against others.',
+      'Monitor your performance with detailed stats. See your growth over time and celebrate milestones.',
   },
   {
     icon: <MobileIcon className="size-6" />,
     title: 'Mobile-friendly',
     description:
-      'Access challenges on the go. Solve problems from your phone, tablet, or computer.',
+      'Learn anywhere, anytime. Access challenges seamlessly from your phone, tablet, or desktop.',
   },
 ];
 

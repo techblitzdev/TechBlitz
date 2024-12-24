@@ -17,17 +17,19 @@ type MarketingContentGridComponentProps = {
 export default function MarketingContentGrid({
   title,
   subheading,
-  items
+  items,
 }: MarketingContentGridComponentProps) {
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pb-36">
-      <h6 className="text-2xl md:text-5xl !font-onest !font-medium tracking-tight text-gradient from-white to-white/75 px-6 py-1">
+      <h6 className="px-6 text-2xl md:text-5xl !font-onest !font-medium tracking-tight text-gradient from-white to-white/75 py-1">
         {title}
       </h6>
       {subheading && (
-        <span className="text-accent font-semibold text-lg">{subheading}</span>
+        <span className="w-full mt-2 px-6 max-w-4xl block text-gray-400">
+          {subheading}
+        </span>
       )}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-3">
         {items?.map((item, index) => (
           <div
             key={index}

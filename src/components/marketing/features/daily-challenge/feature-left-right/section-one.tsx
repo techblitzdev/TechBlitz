@@ -40,12 +40,13 @@ export default function FeatureLeftRightSectionThree() {
       left={
         <div className="flex flex-col gap-y-6">
           <h2 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
-            Making progress has never been easier.
+            Achieve Your Goals Effortlessly
           </h2>
           <p className="text-white/70 max-w-xl text-base font-onest">
-            TechBlitz tracks your progress and provides you with a streak count,
-            showing you how many days in a row you've completed the challenge.
-            Encouraging you to keep going.
+            TechBlitz empowers your growth with intuitive progress tracking. See
+            how far you've come with streak counts that celebrate your
+            dedication and keep you motivated. Stay on track, achieve
+            consistency, and make self-improvement a daily habit.
           </p>
         </div>
       }

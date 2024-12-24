@@ -14,13 +14,13 @@ export default function FeatureDailyChallengeHero() {
             text-transparent bg-clip-text bg-gradient-to-r from-white to-white/75 leading-tight
           "
         >
-          Learn to code faster.
+          Simplify learning to code.
         </h1>
 
         <p className="text-white/70 max-w-xl text-base font-onest text-center">
-          Code challenges do not need to be time consuming or boring. With
-          techblitz, you can learn something new every day. In 5 minutes, from
-          any device.
+          TechBlitz transforms coding challenges into bite-sized, engaging
+          experiences. Master new skills in just 5 minutes a day—anytime,
+          anywhere, on any device.
         </p>
 
         <div className="flex gap-4">

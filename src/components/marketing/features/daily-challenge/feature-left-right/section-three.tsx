@@ -9,6 +9,7 @@ const CodeSnippet = dynamic(
 
 import LeftRightBlock from '@/components/marketing/global/left-right-block';
 import { Suspense } from 'react';
+import LoadingSpinner from '@/components/ui/loading';
 
 const codeSnippet1 = `// Challenge: Implement a smart caching system for API responses
 // Difficulty: Intermediate 🌟
@@ -69,7 +70,7 @@ export default function FeatureLeftRightSectionOne() {
     <LeftRightBlock
       left={
         <div className="flex flex-col gap-y-6 relative overflow-hidden">
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<LoadingSpinner />}>
             <CodeSnippet
               code={codeSnippet1}
               language="typescript"
@@ -84,14 +85,18 @@ export default function FeatureLeftRightSectionOne() {
       right={
         <div className="flex flex-col gap-y-6">
           <h2 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
-            Software simplified.
+            Master complex concepts, one step at a time.
           </h2>
-          <p className="text-white/70 max-w-xl text-base font-onest ">
-            Struggling to keep your coding skills fresh while juggling a busy
-            schedule? Our bite-sized daily challenges help you maintain and
-            improve your skills in just 15-20 minutes a day. Perfect for
-            developers who want consistent growth without the overwhelm of
-            lengthy tutorials or complex projects.
+          <p className="text-white/70 max-w-xl text-base font-onest">
+            Whether you're tackling intermediate challenges or exploring
+            advanced topics, TechBlitz transforms learning into a stress-free
+            experience. Spend just 15-20 minutes a day solving real-world coding
+            problems designed to enhance your skills and confidence.
+          </p>
+          <p className="text-white/70 max-w-xl text-base font-onest">
+            Our structured, bite-sized tasks ensure you're always moving forward
+            without the overwhelm of lengthy tutorials. Perfect for busy
+            developers seeking steady growth and tangible results.
           </p>
         </div>
       }

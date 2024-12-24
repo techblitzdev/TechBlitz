@@ -8,6 +8,12 @@ module.exports = {
         port: '',
         pathname: '/avatar/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'img.shields.io',
+        port: '',
+        pathname: '/github/stars/**',
+      },
     ],
   },
   async redirects() {

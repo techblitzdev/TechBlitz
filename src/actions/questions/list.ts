@@ -2,7 +2,7 @@
 import { prisma } from '@/utils/prisma';
 import type {
   QuestionDifficulty,
-  QuestionWithoutAnswers
+  QuestionWithoutAnswers,
 } from '@/types/Questions';
 import { getTagsFromQuestion } from './utils/get-tags-from-question';
 import { QuestionFilters } from '@/types/Filters';
@@ -35,7 +35,8 @@ export const listQuestions = async (
       AND: [
         filters?.difficulty
           ? {
-              difficulty: filters.difficulty.toUpperCase() as QuestionDifficulty
+              difficulty:
+                filters.difficulty.toUpperCase() as QuestionDifficulty,
             }
           : {},
         filters?.completed === true
@@ -43,52 +44,57 @@ export const listQuestions = async (
               userAnswers: {
                 some: {
                   // Check if there are answers by the current user
-                  userUid
-                }
-              }
+                  userUid,
+                },
+              },
             }
           : filters?.completed === false
-          ? {
-              userAnswers: {
-                none: {
-                  // Exclude questions answered by the current user
-                  userUid
-                }
+            ? {
+                userAnswers: {
+                  none: {
+                    // Exclude questions answered by the current user
+                    userUid,
+                  },
+                },
               }
-            }
-          : {},
+            : {},
         filters?.tags?.length
           ? {
               tags: {
                 some: {
                   tag: {
                     name: {
-                      in: filters.tags
-                    }
-                  }
-                }
-              }
+                      in: filters.tags,
+                    },
+                  },
+                },
+              },
             }
-          : {}
-      ]
-    }
+          : {},
+        {
+          // ensure no daily question in the future are fetched
+          questionDate: {
+            lte: new Date().toISOString(),
+          },
+        },
+      ],
+    },
   };
-
   // fetch the paginated questions
   const questions = await prisma.questions.findMany({
     skip,
     take: pageSize,
     orderBy: {
-      questionDate: filters?.ascending ? 'asc' : 'desc'
+      questionDate: filters?.ascending ? 'asc' : 'desc',
     },
-    ...whereClause,
+    where: whereClause.where,
     include: {
       tags: {
         include: {
-          tag: true
-        }
-      }
-    }
+          tag: true,
+        },
+      },
+    },
   });
 
   // transform the questions to match the expected format
@@ -98,7 +104,7 @@ export const listQuestions = async (
 
   // fetch the total number of matching questions (without pagination)
   const total = await prisma.questions.count({
-    where: whereClause.where
+    where: whereClause.where,
   });
 
   return {
@@ -106,6 +112,6 @@ export const listQuestions = async (
     total,
     page,
     pageSize,
-    totalPages: Math.ceil(total / pageSize)
+    totalPages: Math.ceil(total / pageSize),
   };
 };

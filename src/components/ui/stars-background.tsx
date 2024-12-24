@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useRef,
   RefObject,
-  useCallback,
+  useCallback
 } from 'react';
 
 interface StarProps {
@@ -25,14 +25,17 @@ interface StarBackgroundProps {
   className?: string;
 }
 
-export const StarsBackground: React.FC<StarBackgroundProps> = ({
-  starDensity = 0.00015,
-  allStarsTwinkle = true,
-  twinkleProbability = 0.7,
-  minTwinkleSpeed = 0.5,
-  maxTwinkleSpeed = 1,
-  className,
-}) => {
+export default function StarsBackground(
+  props: StarBackgroundProps
+): JSX.Element {
+  const {
+    starDensity = 0.00015,
+    allStarsTwinkle = true,
+    twinkleProbability = 0.7,
+    minTwinkleSpeed = 0.5,
+    maxTwinkleSpeed = 1,
+    className
+  } = props;
   const [stars, setStars] = useState<StarProps[]>([]);
   const canvasRef: RefObject<HTMLCanvasElement> =
     useRef<HTMLCanvasElement>(null);
@@ -52,7 +55,7 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
           twinkleSpeed: shouldTwinkle
             ? minTwinkleSpeed +
               Math.random() * (maxTwinkleSpeed - minTwinkleSpeed)
-            : null,
+            : null
         };
       });
     },
@@ -61,7 +64,7 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
       allStarsTwinkle,
       twinkleProbability,
       minTwinkleSpeed,
-      maxTwinkleSpeed,
+      maxTwinkleSpeed
     ]
   );
 
@@ -97,7 +100,7 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
     twinkleProbability,
     minTwinkleSpeed,
     maxTwinkleSpeed,
-    generateStars,
+    generateStars
   ]);
 
   useEffect(() => {
@@ -140,4 +143,4 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
       className={cn('h-full w-full absolute inset-0', className)}
     />
   );
-};
+}

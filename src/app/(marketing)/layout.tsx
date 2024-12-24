@@ -15,13 +15,14 @@ import { MantineProvider } from '@mantine/core';
 // All packages except `@mantine/hooks` require styles imports
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
-import { StarsBackground } from '@/components/ui/stars-background';
+import StarsBackground from '@/components/ui/stars-background';
 import MarketingNavigation from '@/components/marketing/global/navigation/navigation';
+
 import MarketingFooter from '@/components/marketing/global/footer/footer';
 
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/react';
-import { Suspense } from 'react';
+
 import CookieBanner from '@/components/global/cookie-banner';
 
 const title =
@@ -89,9 +90,7 @@ export default function Layout({
           suppressHydrationWarning={true}
         >
           <main>
-            <Suspense fallback={null}>
-              <StarsBackground className="-z-10" />
-            </Suspense>
+            <StarsBackground className="-z-10" />
             <CSPostHogProvider>
               <MantineProvider>
                 <MarketingNavigation />

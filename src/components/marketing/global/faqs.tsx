@@ -2,11 +2,11 @@ import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
-  AccordionContent
+  AccordionContent,
 } from '@/components/ui/accordion';
 import AnimatedSpan from '@/components/ui/animated-span';
 
-interface FAQ {
+export interface FAQ {
   question: string;
   answer: string | React.ReactNode;
 }

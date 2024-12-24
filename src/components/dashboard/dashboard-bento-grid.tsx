@@ -1,12 +1,12 @@
-import { BentoGrid, BentoGridItem } from '../ui/bento-grid';
+import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid';
 
 import { getTodaysQuestion } from '@/actions/questions/get-today';
 
 import TodaysLeaderboardBentoBox from '@/components/leaderboard/bento-box';
-import AllQuestionsDashboardBentoBox from '../dashboard/all-questions-bento-box';
-import TodaysQuestionBentoBox from './todays-question-bento-box';
-import ProgressBentoBox from './progression-bento-box';
-import StreakBentoBox from './streak-bento-box';
+import AllQuestionsDashboardBentoBox from '@/components/dashboard/all-questions-bento-box';
+import TodaysQuestionBentoBox from '@/components/dashboard/todays-question-bento-box';
+import ProgressBentoBox from '@/components/dashboard/progression-bento-box';
+import StreakBentoBox from '@/components/dashboard/streak-bento-box';
 
 export default async function DashboardBentoGrid() {
   // run all the async functions in parallel
@@ -19,31 +19,31 @@ export default async function DashboardBentoGrid() {
       // conditionally render the href based on whether there is a question
       href: todaysQuestion?.uid ? `/question/${todaysQuestion?.uid}` : null,
       padded: false,
-      gradientBg: true
+      gradientBg: true,
     },
     {
       header: <StreakBentoBox />,
       className: 'h-full text-white justify-center min-h-fit',
       href: '/statistics',
       padded: false,
-      gradientBg: true
+      gradientBg: true,
     },
     {
       header: <AllQuestionsDashboardBentoBox />,
       className: 'md:col-span-2 text-white',
       href: '/questions/all',
-      padded: false
+      padded: false,
     },
     {
       header: <TodaysLeaderboardBentoBox todaysQuestion={todaysQuestion} />,
       className: 'md:col-span-1 md:row-span-2 text-white h-full',
       href: '/leaderboard',
-      padded: false
+      padded: false,
     },
     {
       header: <ProgressBentoBox />,
       className: 'md:col-span-3 text-white min-h-[25rem]',
-      padded: false
+      padded: false,
     },
   ];
 

@@ -1,5 +1,5 @@
 import Logo from '@/components/ui/logo';
-import { StarsBackground } from '@/components/ui/stars-background';
+import StarsBackground from '@/components/ui/stars-background';
 import Link from 'next/link';
 
 export default function AuthLayout({

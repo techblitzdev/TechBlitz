@@ -11,12 +11,12 @@ const footerItems = [
     links: [
       {
         title: 'Roadmaps',
-        href: '/features/roadmap'
-      }
-      // {
-      //   title: 'Challenges',
-      //   href: '/features/challenges'
-      // },
+        href: '/features/roadmap',
+      },
+      {
+        title: 'Daily Challenges',
+        href: '/features/daily-challenges',
+      },
       // {
       //   title: '',
       //   href: '/features/projects'
@@ -25,39 +25,39 @@ const footerItems = [
       //   title: 'Leaderboard',
       //   href: '/features/leaderboard'
       // }
-    ]
+    ],
   },
   {
     title: 'Resources',
     links: [
       {
         title: 'Open Source',
-        href: '/open-source'
+        href: '/open-source',
       },
       {
         title: 'FAQs',
-        href: '/faqs'
-      }
-    ]
+        href: '/faqs',
+      },
+    ],
   },
   {
     title: 'Pricing',
     links: [
       {
         title: 'Plans',
-        href: '/pricing'
-      }
-    ]
+        href: '/pricing',
+      },
+    ],
   },
   {
     title: 'Contact',
     links: [
       {
         title: 'Contact Us',
-        href: 'mailto:team@techblitz.dev'
-      }
-    ]
-  }
+        href: 'mailto:team@techblitz.dev',
+      },
+    ],
+  },
 ];
 
 export default function MarketingFooter() {
@@ -80,10 +80,7 @@ export default function MarketingFooter() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-4 gap-x-10 gap-y-6">
                 {footerItems.map((item) => (
-                  <div
-                    key={item.title}
-                    className="flex flex-col gap-y-3"
-                  >
+                  <div key={item.title} className="flex flex-col gap-y-3">
                     <h6 className="font-bold">{item.title}</h6>
                     <ul className="flex flex-col gap-y-2">
                       {item.links &&

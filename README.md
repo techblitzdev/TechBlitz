@@ -1,6 +1,13 @@
+<img src="https://github.com/user-attachments/assets/a67688cd-1ee7-4f8d-b2d8-ab7400ee71a7" alt="Logo">
 <h3 align="center">TechBlitz</h3>
 
-<p align="center">TechBlitz is an open-source, mobile-friendly software education platform to empower developers to stay on top of tech.</p>
+<div align="center">
+   <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/techblitzdev/techblitz">
+   <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/y/techblitzdev/techblitz">
+   <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/techblitzdev/techblitz">
+   <img alt="GitHub branch status" src="https://img.shields.io/github/checks-status/techblitzdev/techblitz/main">
+</div>
+
 
 ## Overview
 

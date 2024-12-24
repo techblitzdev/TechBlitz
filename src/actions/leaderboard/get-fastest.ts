@@ -49,9 +49,14 @@ export const getFastestTimes = async (opts: {
       correctAnswer: true,
     },
   });
-
   return {
-    fastestTimes: answers,
+    fastestTimes: answers.map((answer) => ({
+      ...answer,
+      user: {
+        ...answer.user,
+        codeEditorTheme: answer.user.codeEditorTheme ?? undefined,
+      },
+    })),
     total,
     page,
     pageSize,

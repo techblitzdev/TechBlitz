@@ -26,5 +26,10 @@ export const getUserFromDb = async (
 
   revalidateTag('user-details');
 
-  return user;
+  if (!user) return null;
+
+  return {
+    ...user,
+    codeEditorTheme: user.codeEditorTheme || undefined,
+  };
 };

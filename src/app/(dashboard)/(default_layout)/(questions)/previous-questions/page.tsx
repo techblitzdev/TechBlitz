@@ -7,6 +7,9 @@ import Hero from '@/components/global/hero';
 import { getPreviousQuestions } from '@/actions/questions/get-previous';
 import { useUserServer } from '@/hooks/useUserServer';
 import { Suspense } from 'react';
+import Filter from '@/components/global/filters/filter';
+import FilterChips from '@/components/global/filters/chips';
+import { QuestionDifficulty } from '@/types/Questions';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -19,12 +22,26 @@ export default async function PreviousQuestionsPage({
   if (!user) return null;
 
   const currentPage = parseInt(searchParams.page as string) || 1;
+  const ascending = searchParams.ascending === 'true';
+  const difficulty = searchParams.difficulty as QuestionDifficulty;
+  const completed =
+    'completed' in searchParams ? searchParams.completed === 'true' : undefined;
+  const tags = (searchParams.tags as string)?.split(',') || [];
 
+  const filters = {
+    ascending,
+    difficulty,
+    completed: completed ?? false,
+    tags,
+  };
+
+  if (currentPage < 1) return null;
   const data = await getPreviousQuestions({
     user,
     orderBy: 'asc',
     page: currentPage,
     pageSize: ITEMS_PER_PAGE,
+    filters,
   });
 
   return (
@@ -35,7 +52,9 @@ export default async function PreviousQuestionsPage({
       />
       <div className="flex flex-col h-full justify-between container mt-5">
         <div className="flex w-full gap-10">
-          <div className="w-1/2 space-y-6">
+          <div className="w-full lg:w-1/2 space-y-6">
+            <Filter />
+            <FilterChips />
             <Suspense
               fallback={
                 <>

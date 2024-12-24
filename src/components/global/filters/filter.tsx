@@ -10,11 +10,6 @@ export default async function Filter() {
 
   return (
     <div className="flex gap-2 w-full justify-between">
-      {/* <Button variant="secondary" className="flex items-center gap-x-2">
-        <FilterIcon className="size-4" />
-        Filter
-        <ChevronDown className="size-3" />
-      </Button> */}
       <div className="flex flex-wrap gap-2 items-end">
         <FilterButtonTags tags={tags} />
         <FilterButtonDifficulty />

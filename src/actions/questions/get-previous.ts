@@ -1,6 +1,6 @@
 'use server';
 import { prisma } from '@/utils/prisma';
-import { Question } from '@/types/Questions';
+import { Question, QuestionDifficulty } from '@/types/Questions';
 import { Answer } from '@/types/Answers';
 
 import { UserRecord } from '@/types/User';
@@ -18,8 +18,14 @@ export const getPreviousQuestions = async (opts: {
   orderBy: 'asc' | 'desc';
   page?: number;
   pageSize?: number;
+  filters: {
+    ascending: boolean;
+    difficulty: QuestionDifficulty;
+    completed: boolean;
+    tags: string[];
+  };
 }): Promise<PaginatedResponse | undefined> => {
-  const { user, orderBy, page = 0, pageSize = 5 } = opts;
+  const { user, orderBy, page = 0, pageSize = 5, filters } = opts;
 
   // only allow authed users to hit this endpoint
   if (!user) {
@@ -27,6 +33,56 @@ export const getPreviousQuestions = async (opts: {
   }
 
   const skip = (page - 1) * pageSize;
+
+  const whereClause = {
+    where: {
+      AND: [
+        filters?.difficulty
+          ? {
+              difficulty: filters.difficulty,
+            }
+          : {},
+        filters?.completed === true
+          ? {
+              userAnswers: {
+                some: {
+                  userUid: user.uid,
+                },
+              },
+            }
+          : filters?.completed === false
+            ? {
+                userAnswers: {
+                  none: {
+                    userUid: user.uid,
+                  },
+                },
+              }
+            : {},
+        filters?.tags.length > 0
+          ? {
+              tags: {
+                some: {
+                  tag: {
+                    name: { in: filters.tags },
+                  },
+                },
+              },
+            }
+          : {},
+        {
+          // ensure no daily question in the future are fetched
+          questionDate: {
+            lte: new Date().toISOString(),
+          },
+        },
+        {
+          // ensure only daily questions are fetched
+          dailyQuestion: true,
+        },
+      ],
+    },
+  };
 
   // get the current date
   const todayDate = new Date().toISOString();
@@ -41,14 +97,7 @@ export const getPreviousQuestions = async (opts: {
       },
     }),
     prisma.questions.findMany({
-      where: {
-        questionDate: {
-          lt: todayDate,
-        },
-        AND: {
-          dailyQuestion: true,
-        },
-      },
+      ...whereClause,
       orderBy: {
         questionDate: orderBy,
       },

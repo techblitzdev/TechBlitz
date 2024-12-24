@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "prisma generate && next dev && email dev",
+    "dev": "npx prisma generate && next dev && email dev",
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
@@ -17,7 +17,7 @@
     "@mantine/core": "^7.13.5",
     "@mantine/dates": "^7.13.5",
     "@number-flow/react": "^0.4.2",
-    "@prisma/client": "^5.19.1",
+    "@prisma/client": "^6.1.0",
     "@radix-ui/react-accordion": "^1.2.1",
     "@radix-ui/react-alert-dialog": "^1.1.2",
     "@radix-ui/react-avatar": "^1.1.1",
@@ -102,7 +102,7 @@
     "postcss": "^8.4.47",
     "postcss-preset-mantine": "^1.17.0",
     "postcss-simple-vars": "^7.0.1",
-    "prisma": "^5.19.1",
+    "prisma": "^6.1.0",
     "react-email": "3.0.4",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"

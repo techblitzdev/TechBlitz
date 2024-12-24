@@ -41,21 +41,17 @@ export const getSuggestions = cache(
         return null;
       }
 
-      // Separate answers into correct and incorrect
-      const { incorrectAnswers } = userAnswers.reduce<{
-        correctAnswers: QuestionWithTags[];
-        incorrectAnswers: QuestionWithTags[];
-      }>(
-        (acc, answer) => {
-          const question = answer.question as QuestionWithTags;
-          if (answer.correctAnswer) {
-            acc.correctAnswers.push(question);
-          } else {
-            acc.incorrectAnswers.push(question);
+      // Separate answers into incorrect ones
+      const incorrectAnswers = userAnswers.reduce<QuestionWithTags[]>(
+        // @ts-ignore
+        (acc: QuestionWithTags[], answer) => {
+          if (!answer.correctAnswer) {
+            const question = answer.question as unknown as QuestionWithTags;
+            acc.push(question);
           }
           return acc;
         },
-        { correctAnswers: [], incorrectAnswers: [] }
+        []
       );
 
       // Extract tag IDs from questions
@@ -63,7 +59,7 @@ export const getSuggestions = cache(
 
       // Find questions with similar tags that haven't been answered
       const answeredQuestionIds = userAnswers.map(
-        (answer) => answer.question.uid
+        (answer: { question: { uid: string } }) => answer.question.uid
       );
 
       const suggestions = await prisma.questions.findMany({

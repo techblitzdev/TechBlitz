@@ -6,7 +6,7 @@ export default function FeatureLeftRightSectionTwo() {
   return (
     <LeftRightBlock
       left={
-        <div className="flex flex-col gap-y-6 relative h-[400px] md:h-[500px] lg:h-[600px] w-3/4 overflow-hidden">
+        <div className="flex flex-col gap-y-6 relative h-[400px] md:h-[500px] lg:h-[600px] w-1/2 overflow-hidden">
           <div className="relative w-full h-full">
             <Image
               src={mobileDailyChallenge}

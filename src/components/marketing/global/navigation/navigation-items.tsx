@@ -70,16 +70,20 @@ export function NavigationMenuItems() {
         )}
         {process.env.NEXT_PUBLIC_ENV === 'production' && (
           <NavigationMenuItem>
-            <Link
-              href="/features/roadmap"
-              legacyBehavior
-              passHref
-              className="!text-white focus:!text-white"
-            >
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Roadmaps
-              </NavigationMenuLink>
-            </Link>
+            <NavigationMenuTrigger>Features</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                <ListItem href="/features/roadmap" title="Roadmaps">
+                  AI-powered paths to accelerate your learning journey.
+                </ListItem>
+                <ListItem
+                  href="/features/daily-challenges"
+                  title="Daily Challenges"
+                >
+                  Tackle daily challenges to sharpen your developer skills.
+                </ListItem>
+              </ul>
+            </NavigationMenuContent>
           </NavigationMenuItem>
         )}
         <NavigationMenuItem>

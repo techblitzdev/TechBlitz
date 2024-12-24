@@ -48,7 +48,7 @@ export default async function PreviousQuestionsPage({
     <>
       <Hero
         heading="Previous Daily Questions"
-        subheading="Questions you have answered in the past"
+        subheading="All daily questions that have been asked in the past."
       />
       <div className="flex flex-col h-full justify-between container mt-5">
         <div className="flex w-full gap-10">
@@ -72,12 +72,14 @@ export default async function PreviousQuestionsPage({
                 />
               ))}
             </Suspense>
-            <GlobalPagination
-              currentPage={currentPage}
-              totalPages={data?.totalPages || 1}
-              href="/previous-questions"
-              paramName="page"
-            />
+            <div className="mt-5 w-full flex justify-center gap-x-2">
+              <GlobalPagination
+                currentPage={currentPage}
+                totalPages={data?.totalPages || 1}
+                href="/previous-questions"
+                paramName="page"
+              />
+            </div>
           </div>
           {/* Display sidebar with user statistics and suggested questions */}
           <Suspense fallback={null}>

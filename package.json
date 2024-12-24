@@ -64,7 +64,7 @@
     "lucide-react": "^0.439.0",
     "mini-svg-data-uri": "^1.4.4",
     "motion": "^11.12.0",
-    "nanoid": "^5.0.8",
+    "nanoid": "^5.0.9",
     "next": "^14.2.15",
     "next-themes": "^0.3.0",
     "nextjs-toploader": "^3.7.15",

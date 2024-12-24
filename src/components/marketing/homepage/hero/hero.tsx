@@ -14,7 +14,7 @@ export default function HomepageHero() {
           Sign up to get 50% off your first month when we launch
         </span>
         <h1 className="text-5xl lg:text-[68px] !font-onest !font-medium tracking-tight">
-          The best way to master <br /> software engineering
+          The simplest way to master <br /> software engineering
         </h1>
         <h6 className="font-onest max-w-2xl text-gray-400">
           An{' '}

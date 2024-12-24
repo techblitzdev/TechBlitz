@@ -146,7 +146,6 @@ export default function FeaturesBentoGrid() {
                   </p>
                 </div>
                 <Button
-                  href="/features/daily-questions"
                   variant="accent"
                   className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
                 >

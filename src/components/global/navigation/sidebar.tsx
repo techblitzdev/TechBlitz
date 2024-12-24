@@ -106,10 +106,10 @@ export function AppSidebar() {
           user?.userLevel === 'PREMIUM' ||
           (user?.userLevel === 'STANDARD' &&
             !pathname.startsWith('/settings')) ? (
-            <p>Progression</p>
+            <p>Roadmaps</p>
           ) : (
             <div className="flex items-center gap-3">
-              <p>Progression</p>
+              <p>Roadmaps</p>
               <LockIcon className="size-4" />
             </div>
           )}

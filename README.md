@@ -68,7 +68,7 @@ We love to be transparent with our users, so below are the next features we have
 
 ## Contributing
 
-We welcome contributions! Please see our CONTRIBUTING.md for details.
+We welcome contributions! Please see our <a href="https://github.com/techblitzdev/TechBlitz/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> for details.
 
 ## Feedback
 

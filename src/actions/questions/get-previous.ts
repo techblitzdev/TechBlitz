@@ -1,9 +1,10 @@
 'use server';
 import { prisma } from '@/utils/prisma';
-import { getUserFromDb } from '../user/authed/get-user';
 import { Question } from '@/types/Questions';
 import { Answer } from '@/types/Answers';
 
+import { UserRecord } from '@/types/User';
+import { QuestionFilters } from '@/types/Filters';
 interface PaginatedResponse {
   questions: Question[]; // Replace 'any' with your Question type
   total: number;
@@ -14,15 +15,12 @@ interface PaginatedResponse {
 }
 
 export const getPreviousQuestions = async (opts: {
-  userUid: string;
-  orderBy: 'asc' | 'desc';
+  user: UserRecord;
   page?: number;
   pageSize?: number;
+  filters: QuestionFilters;
 }): Promise<PaginatedResponse | undefined> => {
-  const { userUid, orderBy, page = 0, pageSize = 5 } = opts;
-
-  // get the user
-  const user = await getUserFromDb(userUid);
+  const { user, page = 1, pageSize = 5, filters } = opts;
 
   // only allow authed users to hit this endpoint
   if (!user) {
@@ -31,34 +29,70 @@ export const getPreviousQuestions = async (opts: {
 
   const skip = (page - 1) * pageSize;
 
-  // get the current date
-  const todayDate = new Date().toISOString();
+  const whereClause = {
+    where: {
+      AND: [
+        filters?.difficulty
+          ? {
+              difficulty: filters.difficulty,
+            }
+          : {},
+        filters?.completed === true
+          ? {
+              userAnswers: {
+                some: {
+                  userUid: user.uid,
+                },
+              },
+            }
+          : filters?.completed === false
+            ? {
+                userAnswers: {
+                  none: {
+                    userUid: user.uid,
+                  },
+                },
+              }
+            : {},
+        filters?.tags && filters.tags.length > 0
+          ? {
+              tags: {
+                some: {
+                  tag: {
+                    name: { in: filters.tags },
+                  },
+                },
+              },
+            }
+          : {},
+        {
+          // ensure no daily question in the future are fetched
+          questionDate: {
+            lte: new Date().toISOString(),
+          },
+        },
+        {
+          // ensure only daily questions are fetched
+          dailyQuestion: true,
+        },
+      ],
+    },
+  };
 
   // Get total count and questions in parallel
   const [total, questions, answers] = await Promise.all([
     prisma.questions.count({
-      where: {
-        questionDate: {
-          lt: todayDate,
-        },
-      },
+      where: whereClause.where, // Use the same where clause as the query
     }),
     prisma.questions.findMany({
-      where: {
-        questionDate: {
-          lt: todayDate,
-        },
-        AND: {
-          dailyQuestion: true,
-        },
-      },
+      ...whereClause,
       orderBy: {
-        questionDate: orderBy,
+        questionDate: filters?.ascending ? 'asc' : 'desc',
       },
       skip,
-      take: pageSize, // Calculate the correct number of items to take
+      take: pageSize,
       include: {
-        answers: true, // Include the answers in the query
+        answers: true,
         tags: {
           include: {
             tag: true,
@@ -70,7 +104,7 @@ export const getPreviousQuestions = async (opts: {
     // get the user's answers to the questions
     prisma.answers.findMany({
       where: {
-        userUid,
+        userUid: user.uid,
       },
     }),
   ]);

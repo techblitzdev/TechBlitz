@@ -10,7 +10,7 @@ export default function SuggestedQuestions() {
       <div className="flex flex-col gap-2">
         <h2 className="text-2xl font-onest">Suggested Questions</h2>
         <p className="text-sm text-gray-400">
-          These are questions that we think you might find interesting.
+          Here are some questions that we think you might find interesting.
         </p>
       </div>
     </section>

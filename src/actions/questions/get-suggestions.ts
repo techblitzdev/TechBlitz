@@ -41,23 +41,19 @@ export const getSuggestions = cache(
         return null;
       }
 
-      // Separate answers into correct and incorrect
-      const { incorrectAnswers } = userAnswers.reduce<{
-        incorrectAnswers: QuestionWithTags[];
-      }>(
+      // Separate answers into incorrect ones
+      const incorrectAnswers = userAnswers.reduce<QuestionWithTags[]>(
         (
-          acc: {
-            incorrectAnswers: QuestionWithTags[];
-          },
+          acc: QuestionWithTags[],
           answer: { question: QuestionWithTags; correctAnswer: boolean }
         ) => {
-          const question = answer.question as QuestionWithTags;
+          const question = answer.question;
           if (!answer.correctAnswer) {
-            acc.incorrectAnswers.push(question);
+            acc.push(question);
           }
           return acc;
         },
-        { incorrectAnswers: [] }
+        []
       );
 
       // Extract tag IDs from questions

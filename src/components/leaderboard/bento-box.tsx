@@ -9,7 +9,6 @@ import UserRank from './user-rank';
 import { getLongestStreaks } from '@/actions/leaderboard/get-longest-streaks';
 import { getUserDisplayName } from '@/utils/user';
 import { Grid } from '@/components/ui/grid';
-import Chip from '@/components/ui/chip';
 import LoadingSpinner from '@/components/ui/loading';
 import { Suspense } from 'react';
 

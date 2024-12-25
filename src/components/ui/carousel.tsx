@@ -210,7 +210,6 @@ const CarouselPrevious = React.forwardRef<
           : '-top-8 left-1/2 -translate-x-1/2 rotate-90',
         className
       )}
-      // @ts-expect-error - disabled is not a valid prop for Button
       disabled={!canScrollPrev}
       onClick={scrollPrev}
       {...props}
@@ -240,7 +239,6 @@ const CarouselNext = React.forwardRef<
         className
       )}
       onClick={scrollNext}
-      // @ts-expect-error - disabled is not a valid prop for Button
       disabled={!canScrollNext}
       {...props}
     >

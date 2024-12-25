@@ -51,8 +51,8 @@ export default async function PreviousQuestionsPage({
         subheading="All daily questions that have been asked in the past."
       />
       <div className="flex flex-col h-full justify-between container mt-5">
-        <div className="flex w-full gap-10">
-          <div className="w-full lg:w-1/2 space-y-6">
+        <div className="flex flex-col lg:flex-row w-full gap-16">
+          <div className="w-full lg:w-[55%] space-y-6">
             <Filter />
             <FilterChips />
             <Suspense

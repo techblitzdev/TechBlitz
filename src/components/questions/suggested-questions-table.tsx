@@ -51,11 +51,11 @@ export default function QuestionSuggestedCard(opts: {
           href={`/question/${question.uid}`}
         >
           <p className="text-sm font-satoshi">
-            {question.question.length > 40
-              ? `${question.question.substring(0, 40)}...`
+            {question.question.length > 35
+              ? `${question.question.substring(0, 35)}...`
               : question.question}
           </p>
-          <ArrowRight className="size-3 mr-1 group-hover:mr-0 duration-300" />
+          <ArrowRight className="size-3 mr-1 group-hover:mr-0 duration-300 flex-shrink-0" />
         </Link>
       ))}
     </div>

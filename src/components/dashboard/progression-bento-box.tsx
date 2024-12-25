@@ -68,7 +68,7 @@ export default async function ProgressBentoBox() {
     >
       {user?.userLevel !== 'FREE' && user?.userLevel !== 'STANDARD' && (
         <div className="absolute z-10">
-          <Chip color="accent" text="Roadmap" />
+          <Chip textColor="black" color="secondary" text="Roadmap" />
         </div>
       )}
       <Grid size={20} position="top-right" />

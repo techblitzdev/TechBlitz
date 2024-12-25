@@ -36,7 +36,10 @@ export default function SidebarFooterComponent() {
         <SidebarMenuItem>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <SidebarMenuButton variant="default" className="text-white">
+              <SidebarMenuButton
+                variant="default"
+                className="text-white border border-black-50"
+              >
                 <User2 />
                 {user && getUserDisplayName(user)}
                 <ChevronUp className="ml-auto" />

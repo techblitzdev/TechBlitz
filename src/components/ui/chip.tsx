@@ -28,7 +28,7 @@ export default function Chip(opts: {
     ? `border border-${color} text-${color} bg-transparent`
     : `bg-${color} text-${textColor}`;
 
-  const boldClasses = bold ? 'font-semibold' : '';
+  const boldClasses = bold ? 'font-medium' : '';
 
   const borderClasses = border
     ? `border !border-${border}`

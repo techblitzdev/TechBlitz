@@ -30,11 +30,7 @@ export default function TodaysQuestionBentoBox(opts: {
             Answer today's question to keep your streak <br /> going!
           </p>
         </div>
-        <Button
-          variant="accent"
-          className="size-10"
-          padding="none"
-        >
+        <Button variant="accent" className="size-10" padding="none">
           <ArrowUpRight className="size-5 group-hover:rotate-45 duration-300" />
         </Button>
         {/* <ArrowRight className="size-4 ml-1 group-hover:ml-2 duration-300" /> */}
@@ -43,10 +39,7 @@ export default function TodaysQuestionBentoBox(opts: {
         <div className="space-y-1">
           <h6>Topics:</h6>
           <div className="flex gap-x-2 mt-2">
-            <TagDisplay
-              tags={tags}
-              numberOfTags={2}
-            />
+            <TagDisplay tags={tags} numberOfTags={2} variant="secondary" />
           </div>
         </div>
         <Chip

@@ -10,6 +10,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { cn } from '@/utils/cn';
+import { useState } from 'react';
 
 interface Tag {
   uid: string;
@@ -24,6 +26,10 @@ export default function FilterTagsCarousel({ tags }: FilterTagsCarouselProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  // keep track of the tags that are currently selected in the query
+  // this is used to highlight the tags that are currently selected
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
   const updateTagsInQuery = (tag: string) => {
     const params = new URLSearchParams(searchParams.toString());
     const currentTags = params.get('tags')?.split(',') || [];
@@ -36,10 +42,14 @@ export default function FilterTagsCarousel({ tags }: FilterTagsCarouselProps) {
       } else {
         params.delete('tags');
       }
+      // update the selected tags state
+      setSelectedTags(updatedTags);
     } else {
       // Add tag if it doesn't exist
       currentTags.push(tag);
       params.set('tags', currentTags.join(','));
+      // update the selected tags state
+      setSelectedTags([...selectedTags, tag]);
     }
 
     // Reset the page to 1 whenever tags are updated
@@ -59,15 +69,18 @@ export default function FilterTagsCarousel({ tags }: FilterTagsCarouselProps) {
             <Button
               onClick={() => updateTagsInQuery(tag.name)}
               variant="outline"
-              className="text-white border border-black-50"
+              className={cn(
+                'text-white hover:text-white border border-black-50',
+                selectedTags.includes(tag.name) && 'bg-accent'
+              )}
             >
               {capitalise(tag.name)}
             </Button>
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="border-none text-white" />
-      <CarouselNext className="border-none text-white" />
+      <CarouselPrevious className="border-none text-white" variant="ghost" />
+      <CarouselNext className="border-none text-white" variant="ghost" />
     </Carousel>
   );
 }

@@ -11,13 +11,13 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from '@/components/ui/card';
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
-  ChartTooltipContent
+  ChartTooltipContent,
 } from '@/components/ui/chart';
 
 const months = [
@@ -32,21 +32,21 @@ const months = [
   'September',
   'October',
   'November',
-  'December'
+  'December',
 ];
 
 const generateRandomData = () => {
   return months.map((month) => ({
     month,
-    questions: Math.floor(Math.random() * 50) + 25
+    questions: Math.floor(Math.random() * 50) + 25,
   }));
 };
 
 const chartConfig = {
   questions: {
     label: 'Questions',
-    color: 'hsl(var(--chart-1))'
-  }
+    color: 'hsl(var(--chart-1))',
+  },
 } satisfies ChartConfig;
 
 interface ProgressChartProps {
@@ -54,7 +54,10 @@ interface ProgressChartProps {
   isStatic?: boolean;
 }
 
-export default function ProgressChart({ hideHeader = false, isStatic = false }: ProgressChartProps) {
+export default function ProgressChart({
+  hideHeader = false,
+  isStatic = false,
+}: ProgressChartProps) {
   const [chartData, setChartData] = useState(generateRandomData());
   const [trend, setTrend] = useState({ percentage: 0, isUp: true });
 
@@ -71,7 +74,7 @@ export default function ProgressChart({ hideHeader = false, isStatic = false }: 
       const trendPercentage = ((newTotal - oldTotal) / oldTotal) * 100;
       setTrend({
         percentage: Number(Math.abs(trendPercentage).toFixed(1)),
-        isUp: trendPercentage >= 0
+        isUp: trendPercentage >= 0,
       });
     }, 5000);
 
@@ -82,7 +85,7 @@ export default function ProgressChart({ hideHeader = false, isStatic = false }: 
     <Card
       style={{
         background:
-          'radial-gradient(128% 107% at 100% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
+          'radial-gradient(128% 107% at 100% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
       className="border-black-50"
     >
@@ -112,7 +115,7 @@ export default function ProgressChart({ hideHeader = false, isStatic = false }: 
             data={chartData}
             margin={{
               left: 12,
-              right: 12
+              right: 12,
             }}
           >
             <CartesianGrid vertical={false} />
@@ -121,7 +124,7 @@ export default function ProgressChart({ hideHeader = false, isStatic = false }: 
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={(value: string) => value.slice(0, 3)}
             />
             {!isStatic && (
               <ChartTooltip
@@ -135,10 +138,10 @@ export default function ProgressChart({ hideHeader = false, isStatic = false }: 
               stroke="hsl(var(--accent))"
               strokeWidth={2}
               dot={{
-                fill: 'hsl(var(--accent))'
+                fill: 'hsl(var(--accent))',
               }}
               activeDot={{
-                r: 6
+                r: 6,
               }}
             />
           </LineChart>
@@ -161,4 +164,3 @@ export default function ProgressChart({ hideHeader = false, isStatic = false }: 
     </Card>
   );
 }
-

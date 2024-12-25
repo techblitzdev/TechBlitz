@@ -80,7 +80,7 @@
     "react-dom": "18.3.1",
     "react-hook-form": "^7.53.0",
     "react-timer-hook": "^3.0.7",
-    "recharts": "^2.12.7",
+    "recharts": "^2.13.0-alpha.5",
     "resend": "^4.0.1",
     "shiki": "^1.24.2",
     "sonner": "^1.5.0",

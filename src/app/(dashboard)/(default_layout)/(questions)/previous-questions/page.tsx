@@ -51,8 +51,8 @@ export default async function PreviousQuestionsPage({
         subheading="All daily questions that have been asked in the past."
       />
       <div className="flex flex-col h-full justify-between container mt-5">
-        <div className="flex w-full gap-10">
-          <div className="w-full lg:w-1/2 space-y-6">
+        <div className="flex flex-col lg:flex-row w-full gap-16">
+          <div className="w-full lg:w-[55%] space-y-6">
             <Filter />
             <FilterChips />
             <Suspense
@@ -64,22 +64,30 @@ export default async function PreviousQuestionsPage({
                 </>
               }
             >
-              {data?.questions.map((q) => (
-                <QuestionCard
-                  key={q.uid}
-                  questionData={q}
-                  userUid={user?.uid || ''}
-                />
-              ))}
+              {data?.questions.length === 0 ? (
+                <div className="text-center py-8">
+                  No questions found matching your filters.
+                </div>
+              ) : (
+                data?.questions.map((q) => (
+                  <QuestionCard
+                    key={q.uid}
+                    questionData={q}
+                    userUid={user?.uid || ''}
+                  />
+                ))
+              )}
             </Suspense>
-            <div className="mt-5 w-full flex justify-center gap-x-2">
-              <GlobalPagination
-                currentPage={currentPage}
-                totalPages={data?.totalPages || 1}
-                href="/previous-questions"
-                paramName="page"
-              />
-            </div>
+            {data?.questions.length !== 0 && (
+              <div className="mt-5 w-full flex justify-center gap-x-2">
+                <GlobalPagination
+                  currentPage={currentPage}
+                  totalPages={data?.totalPages || 1}
+                  href="/previous-questions"
+                  paramName="page"
+                />
+              </div>
+            )}
           </div>
           {/* Display sidebar with user statistics and suggested questions */}
           <Suspense fallback={null}>

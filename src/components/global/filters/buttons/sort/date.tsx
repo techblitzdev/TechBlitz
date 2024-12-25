@@ -62,7 +62,7 @@ export default function FilterButtonsSort() {
         <Button
           padding="sm"
           size="sm"
-          variant="secondary"
+          variant="default"
           className="flex items-center gap-x-1 text-xs group"
         >
           <ArrowUpDown className="size-4" />

@@ -1,19 +1,17 @@
-import { fetchUserRoadmaps } from '@/actions/roadmap/fetch-user-roadmaps';
-import RoadmapOnboarding from '@/components/roadmaps/empty/onboarding';
-import { useUserServer } from '@/hooks/useUserServer';
-import PostHogClient from '@/app/posthog';
-import RoadmapsCard from '@/components/roadmaps/[uid]/roadmaps-card';
-import CreateRoadmapButton from '@/components/roadmaps/create-roadmap-button';
-import Hero from '@/components/global/hero';
 import { redirect } from 'next/navigation';
 
+import RoadmapOnboarding from '@/components/roadmaps/empty/onboarding';
+import Hero from '@/components/global/hero';
+import CreateRoadmapButton from '@/components/roadmaps/create-roadmap-button';
+import RoadmapsCard from '@/components/roadmaps/[uid]/roadmaps-card';
+
+import { fetchUserRoadmaps } from '@/actions/roadmap/fetch-user-roadmaps';
+import { useUserServer } from '@/hooks/useUserServer';
+
 export default async function RoadmapPage() {
+  // middleware should catch this, but just in case
   const user = await useUserServer();
   if (!user) return redirect('/login');
-
-  const posthog = PostHogClient();
-  await posthog.getAllFlags('user_distinct_id');
-  await posthog.shutdown();
 
   // fetch the user's roadmaps
   const userRoadmaps = await fetchUserRoadmaps(user.uid);
@@ -28,16 +26,17 @@ export default async function RoadmapPage() {
     <>
       <Hero
         heading="Roadmaps"
-        subheading="Welcome to your roadmap overview. Here you can view all of your
-        roadmaps and their progress, as well as create new ones."
+        subheading="Here you can view all of your roadmaps and their progress, as well as create new ones."
       />
       <div className="flex flex-col lg:flex-row gap-10 mt-5 container">
         <div className="w-full lg:w-1/2 relative">
           {userRoadmaps.map((roadmap) => (
             <RoadmapsCard
               key={roadmap.uid}
-              // @ts-ignore
-              roadmap={roadmap}
+              roadmap={{
+                ...roadmap,
+                DefaultRoadmapQuestionsUsersAnswers: [],
+              }}
             />
           ))}
         </div>

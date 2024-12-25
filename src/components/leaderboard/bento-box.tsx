@@ -30,13 +30,13 @@ export default async function TodaysLeaderboardBentoBox(opts: {
     <div className="overflow-hidden flex flex-col h-full justify-between group">
       <div className="flex flex-col h-full justify-between relative overflow-hidden">
         <div>
-          <div className="bg-black-50/10 relative">
+          <Link href="/leaderboard" className="bg-black-50/10 relative">
             <div className="flex items-center p-4">
               <h6 className="text-xl">Today's Top User's</h6>
               <ArrowRight className="size-4 ml-1 group-hover:ml-2 duration-300" />
             </div>
             <Separator className="bg-black-50" />
-          </div>
+          </Link>
           {fastestTimes.length === 0 && todaysQuestion?.uid ? (
             <Card className="rounded-none border-none pt-4 group">
               <CardContent className="text-center">

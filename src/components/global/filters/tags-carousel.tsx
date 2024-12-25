@@ -53,20 +53,21 @@ export default function FilterTagsCarousel({ tags }: FilterTagsCarouselProps) {
         loop: false,
       }}
     >
-      <CarouselContent className="">
+      <CarouselContent>
         {tags.map((tag) => (
           <CarouselItem key={tag.uid} className="basis-[1/8]">
             <Button
               onClick={() => updateTagsInQuery(tag.name)}
-              variant="default"
+              variant="outline"
+              className="text-white border border-black-50"
             >
               {capitalise(tag.name)}
             </Button>
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <CarouselPrevious className="border-none text-white" />
+      <CarouselNext className="border-none text-white" />
     </Carousel>
   );
 }

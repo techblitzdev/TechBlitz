@@ -1,5 +1,16 @@
+import createMDX from '@next/mdx';
+
+const withMDX = createMDX({
+  // Add markdown plugins here, if needed
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
+});
+
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   images: {
     remotePatterns: [
       {
@@ -60,3 +71,5 @@ module.exports = {
     ];
   },
 };
+
+export default withMDX(nextConfig);

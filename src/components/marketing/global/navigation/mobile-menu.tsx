@@ -32,8 +32,9 @@ const menuItems: MenuItem[] = [
     label: 'Resources',
     href: '/resources',
     children: [
-      { label: 'FAQs', href: '/faqs' },
+      { label: 'Blog', href: '/blog' },
       { label: 'Open Source', href: '/open-source' },
+      { label: 'FAQs', href: '/faqs' },
     ],
   },
   { label: 'Pricing', href: '/pricing' },

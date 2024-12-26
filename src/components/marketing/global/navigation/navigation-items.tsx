@@ -21,6 +21,12 @@ const components: { title: string; href: string; description: string }[] = [
   //     'View our upcoming features and vote on what you would like to see next.'
   // },
   {
+    title: 'Blog',
+    href: '/blog',
+    description:
+      'Read our latest blog posts for more insights on how to level up your skills.',
+  },
+  {
     title: 'Open Source',
     href: '/open-source',
     description: 'No secrets here, see how we build our platform.',

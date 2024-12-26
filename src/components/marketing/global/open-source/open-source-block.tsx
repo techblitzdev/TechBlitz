@@ -1,7 +1,13 @@
 import { Button } from '@/components/ui/button';
 import { Star } from 'lucide-react';
-import OpenSourceCard from './open-source-card';
-import CommitCard from './commit-card';
+
+import dynamic from 'next/dynamic';
+// import these dynamically for performance reasons
+// they do not need to be in the main bundle
+const OpenSourceCard = dynamic(() => import('./open-source-card'), {
+  ssr: false,
+});
+const CommitCard = dynamic(() => import('./commit-card'), { ssr: false });
 import Link from 'next/link';
 
 type cardStyle = 'comment' | 'issue' | 'pr';

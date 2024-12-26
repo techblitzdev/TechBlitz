@@ -1,10 +1,16 @@
-import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
-import OpenSourceBlock from '@/components/marketing/global/open-source/open-source-block';
-import ComparisonBlock from '@/components/marketing/homepage/comparison/comparison-block';
-import FeaturesBentoGrid from '@/components/marketing/homepage/features/features-bento-grid';
+import dynamic from 'next/dynamic';
+
 import HomepageHero from '@/components/marketing/homepage/hero/hero';
 import HomepageHeroImages from '@/components/marketing/homepage/hero/hero-images';
-import HomepageLargeText from '@/components/marketing/large-text';
+import FeaturesBentoGrid from '@/components/marketing/homepage/features/features-bento-grid';
+const HomepageLargeText = dynamic(
+  () => import('@/components/marketing/large-text'),
+  { ssr: false }
+);
+import ComparisonBlock from '@/components/marketing/homepage/comparison/comparison-block';
+import OpenSourceBlock from '@/components/marketing/global/open-source/open-source-block';
+import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
+
 import DashboardImg from '../../public/images/dashboard-img.png';
 
 import posthog from 'posthog-js';

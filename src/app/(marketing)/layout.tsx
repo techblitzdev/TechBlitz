@@ -9,21 +9,36 @@ import '../globals.css';
 import { ReactQueryClientProvider } from '@/components/react-query-client-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { CSPostHogProvider } from '../providers';
-
 import { MantineProvider } from '@mantine/core';
-// Import styles of packages that you've installed.
-// All packages except `@mantine/hooks` require styles imports
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
-import StarsBackground from '@/components/ui/stars-background';
-import MarketingNavigation from '@/components/marketing/global/navigation/navigation';
-
-import MarketingFooter from '@/components/marketing/global/footer/footer';
-
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import dynamic from 'next/dynamic';
 import { Analytics } from '@vercel/analytics/react';
 
-import CookieBanner from '@/components/global/cookie-banner';
+// Dynamically import components that are not needed immediately
+const MarketingNavigation = dynamic(
+  () => import('@/components/marketing/global/navigation/navigation'),
+  { ssr: true } // Keep SSR for SEO
+);
+
+const MarketingFooter = dynamic(
+  () => import('@/components/marketing/global/footer/footer'),
+  { ssr: false }
+);
+
+const CookieBanner = dynamic(
+  () => import('@/components/global/cookie-banner'),
+  {
+    ssr: false,
+  }
+);
+
+const StarsBackground = dynamic(
+  () => import('@/components/ui/stars-background'),
+  {
+    ssr: false,
+  }
+);
 
 const title =
   'techblitz | The all-in-one platform for learning software engineering';
@@ -87,7 +102,6 @@ export default function Layout({
       <html lang="en">
         <body
           className={`${InterFont.variable} ${SatoshiFont.variable} ${UbuntuFont.variable} ${OnestFont.variable} antialiased`}
-          suppressHydrationWarning={true}
         >
           <main>
             <StarsBackground className="-z-10" />
@@ -100,7 +114,6 @@ export default function Layout({
               </MantineProvider>
             </CSPostHogProvider>
           </main>
-          <SpeedInsights />
           <Analytics />
           <Toaster className="bg-black" />
         </body>

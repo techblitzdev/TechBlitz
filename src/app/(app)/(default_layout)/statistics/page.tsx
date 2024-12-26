@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
 
-import StatsRangePicker from '@/components/statistics/range-picker';
-import QuestionChart from '@/components/statistics/total-question-chart';
-import TotalStatsCard from '@/components/statistics/total-stats-card';
+import StatsRangePicker from '@/components/app/statistics/range-picker';
+import QuestionChart from '@/components/app/statistics/total-question-chart';
+import TotalStatsCard from '@/components/app/statistics/total-stats-card';
 import LoadingSpinner from '@/components/ui/loading';
 
 import { useUserServer } from '@/hooks/useUserServer';
@@ -14,7 +14,7 @@ import { formatSeconds } from '@/utils/time';
 
 import { getData } from '@/actions/statistics/get-stats-chart-data';
 import Hero from '@/components/global/hero';
-import SuggestedQuestions from '@/components/statistics/suggested-questions';
+import SuggestedQuestions from '@/components/app/statistics/suggested-questions';
 
 // Add metadata for better SEO and caching
 export const metadata = {

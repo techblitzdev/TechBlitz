@@ -13,8 +13,8 @@ import LoadingSpinner from '@/components/ui/loading';
 // utils
 import { getUserDisplayName } from '@/utils/user';
 import { useUserServer } from '@/hooks/useUserServer';
-import DashboardLoading from '@/components/dashboard/loading';
-import DashboardBentoGrid from '@/components/dashboard/dashboard-bento-grid';
+import DashboardLoading from '@/components/app/dashboard/loading';
+import DashboardBentoGrid from '@/components/app/dashboard/dashboard-bento-grid';
 
 export default async function Dashboard({
   searchParams,

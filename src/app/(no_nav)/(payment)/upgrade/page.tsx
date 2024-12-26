@@ -1,6 +1,6 @@
 import { getStripeProducts } from '@/actions/stripe/stripe-products';
 import Logo from '@/components/ui/logo';
-import { PricingCard } from '@/components/payment/payment-card';
+import { PricingCard } from '@/components/global/payment/payment-card';
 import { X } from 'lucide-react';
 import Link from 'next/link';
 import { useUserServer } from '@/hooks/useUserServer';

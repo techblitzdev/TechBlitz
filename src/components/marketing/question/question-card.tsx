@@ -5,7 +5,7 @@ import Chip from '@/components/ui/chip';
 import { Separator } from '@/components/ui/separator';
 import AnswerQuestionForm from './answer-question-form';
 import QuestionCardFooter from './question-card-footer';
-import Stopwatch from '@/components/questions/single/stopwatch';
+import Stopwatch from '@/components/app/questions/single/stopwatch';
 
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 

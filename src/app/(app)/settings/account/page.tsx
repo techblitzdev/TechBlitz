@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/form';
 import { toast } from 'sonner';
 import LoadingSpinner from '@/components/ui/loading';
-import DeleteAccountModal from '@/components/settings/delete-account-modal';
+import DeleteAccountModal from '@/components/app/settings/delete-account-modal';
 import { Separator } from '@/components/ui/separator';
 import { InputWithLabel } from '@/components/ui/input-label';
 

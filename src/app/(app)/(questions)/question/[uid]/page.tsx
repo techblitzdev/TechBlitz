@@ -1,15 +1,15 @@
 import { getQuestion } from '@/actions/questions/get';
 import { Separator } from '@/components/ui/separator';
 import NoDailyQuestion from '@/components/global/errors/no-daily-question';
-import QuestionDisplay from '@/components/questions/single/code-snippet';
+import QuestionDisplay from '@/components/app/questions/single/code-snippet';
 import { ChartColumn, Check, User } from 'lucide-react';
 import { getQuestionStats } from '@/actions/questions/get-question-stats';
 import { useUserServer } from '@/hooks/useUserServer';
 
-import QuestionCard from '@/components/questions/single/question-card';
+import QuestionCard from '@/components/app/questions/single/question-card';
 import { getRandomQuestion } from '@/actions/questions/get-next-question';
-import ExpandedCodeModal from '@/components/questions/expanded-code-modal';
-import RelatedQuestions from '@/components/questions/single/related-question-card';
+import ExpandedCodeModal from '@/components/app/questions/expanded-code-modal';
+import RelatedQuestions from '@/components/app/questions/single/related-question-card';
 
 export default async function TodaysQuestionPage({
   params,

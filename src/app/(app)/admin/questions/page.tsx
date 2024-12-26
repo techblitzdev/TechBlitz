@@ -1,4 +1,4 @@
-import AdminQuestionList from '@/components/questions/admin/question-list';
+import AdminQuestionList from '@/components/app/questions/admin/question-list';
 
 export default function AdminQuestionsPage() {
   return (

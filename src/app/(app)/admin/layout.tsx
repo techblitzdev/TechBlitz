@@ -1,5 +1,5 @@
 'use client';
-import NewQuestionModal from '@/components/questions/new-question-modal';
+import NewQuestionModal from '@/components/app/questions/new-question-modal';
 import { Separator } from '@/components/ui/separator';
 
 export default function AdminLayout({

@@ -2,21 +2,18 @@ import Logo from '@/components/ui/logo';
 import StarsBackground from '@/components/ui/stars-background';
 
 import Link from 'next/link';
-import { UserOnboardingContextProvider } from '@/components/onboarding/onboarding-context';
-import OnboardingForm from '@/components/onboarding/onboarding-form';
+import { UserOnboardingContextProvider } from '@/components/app/onboarding/onboarding-context';
+import OnboardingForm from '@/components/app/onboarding/onboarding-form';
 
 export const metadata = {
-  title: 'techblitz | Onboarding'
+  title: 'techblitz | Onboarding',
 };
 
 export default function OnboardingPage() {
   return (
     <div className="relative container">
       <StarsBackground className="-z-10" />
-      <Link
-        href="/"
-        className="absolute top-8 left-0 lg:left-8"
-      >
+      <Link href="/" className="absolute top-8 left-0 lg:left-8">
         <Logo />
       </Link>
       <UserOnboardingContextProvider>

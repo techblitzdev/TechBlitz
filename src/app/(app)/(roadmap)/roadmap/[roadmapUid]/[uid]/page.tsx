@@ -4,10 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/useUserServer';
 import { redirect } from 'next/navigation';
-import QuestionDisplay from '@/components/questions/single/code-snippet';
+import QuestionDisplay from '@/components/app/questions/single/code-snippet';
 import { RoadmapUserQuestions } from '@/types/Roadmap';
-import RoadmapQuestionCard from '@/components/roadmaps/questions/question-card';
-import ExpandedCodeModal from '@/components/questions/expanded-code-modal';
+import RoadmapQuestionCard from '@/components/app/roadmaps/questions/question-card';
+import ExpandedCodeModal from '@/components/app/questions/expanded-code-modal';
 
 export default async function RoadmapQuestionPage({
   params,

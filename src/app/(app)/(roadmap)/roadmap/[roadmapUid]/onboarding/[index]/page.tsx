@@ -1,13 +1,13 @@
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/useUserServer';
-import QuestionDisplay from '@/components/questions/single/code-snippet';
+import QuestionDisplay from '@/components/app/questions/single/code-snippet';
 import { fetchRoadmapQuestionViaOrder } from '@/actions/roadmap/questions/default/fetch-roadmap-question-via-order';
-import OnboardingQuestionCard from '@/components/roadmaps/onboarding/onboarding-question-card';
+import OnboardingQuestionCard from '@/components/app/roadmaps/onboarding/onboarding-question-card';
 import { redirect } from 'next/navigation';
 import { checkIfUserIsOnCorrectQuestionIndex } from '@/actions/roadmap/questions/check-user-is-on-correct-index';
 import LoadingSpinner from '@/components/ui/loading';
-import ExpandedCodeModal from '@/components/questions/expanded-code-modal';
+import ExpandedCodeModal from '@/components/app/questions/expanded-code-modal';
 
 export default async function RoadmapQuestionPage({
   params,

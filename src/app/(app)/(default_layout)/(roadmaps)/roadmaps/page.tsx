@@ -1,9 +1,9 @@
 import { redirect } from 'next/navigation';
 
-import RoadmapOnboarding from '@/components/roadmaps/empty/onboarding';
+import RoadmapOnboarding from '@/components/app/roadmaps/empty/onboarding';
 import Hero from '@/components/global/hero';
-import CreateRoadmapButton from '@/components/roadmaps/create-roadmap-button';
-import RoadmapsCard from '@/components/roadmaps/[uid]/roadmaps-card';
+import CreateRoadmapButton from '@/components/app/roadmaps/create-roadmap-button';
+import RoadmapsCard from '@/components/app/roadmaps/[uid]/roadmaps-card';
 
 import { fetchUserRoadmaps } from '@/actions/roadmap/fetch-user-roadmaps';
 import { useUserServer } from '@/hooks/useUserServer';

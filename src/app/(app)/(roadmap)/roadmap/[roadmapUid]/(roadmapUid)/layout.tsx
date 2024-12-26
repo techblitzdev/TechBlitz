@@ -1,7 +1,7 @@
 import { fetchNextPrevRoadmap } from '@/actions/roadmap/fetch-next-prev-roadmap';
 import BackToDashboard from '@/components/ui/back-to-dashboard';
 import QuestionNavigation from '@/components/global/navigation/question-navigation';
-import RoadmapDropdown from '@/components/roadmaps/[uid]/dropdown';
+import RoadmapDropdown from '@/components/app/roadmaps/[uid]/dropdown';
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/useUserServer';
 

@@ -21,7 +21,7 @@ import {
   SelectContent,
   SelectItem,
 } from '@/components/ui/select';
-import CodeEditorPreview from '@/components/settings/code-preview';
+import CodeEditorPreview from '@/components/app/settings/code-preview';
 
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';

@@ -12,12 +12,12 @@ import { Label } from '@/components/ui/label';
 import { cn } from '@/utils/cn';
 import { Check, CheckCircle2Icon, XCircleIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
-import QuestionHintAccordion from '@/components/questions/single/question-hint';
+import QuestionHintAccordion from '@/components/app/questions/single/question-hint';
 import LoadingSpinner from '@/components/ui/loading';
 import { answerDailyQuestionDemo } from '@/actions/demo/answer-question-demo';
 import { Question } from '@/types/Questions';
 import WaitlistSignup from './waitlist-sign-up';
-import CodeDisplay from '@/components/questions/single/code-snippet';
+import CodeDisplay from '@/components/app/questions/single/code-snippet';
 import BackToDashboard from '@/components/ui/back-to-dashboard';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;

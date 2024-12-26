@@ -2,9 +2,9 @@ import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
 import GlobalPagination from '@/components/global/pagination';
-import QuestionCard from '@/components/questions/question-card';
-import QuestionCardLoading from '@/components/questions/question-card-loading';
-import QuestionPageSidebar from '@/components/questions/question-page-sidebar';
+import QuestionCard from '@/components/app/questions/question-card';
+import QuestionCardLoading from '@/components/app/questions/question-card-loading';
+import QuestionPageSidebar from '@/components/app/questions/question-page-sidebar';
 import Hero from '@/components/global/hero';
 const Filter = dynamic(() => import('@/components/global/filters/filter'));
 
@@ -13,7 +13,7 @@ import FilterChips from '@/components/global/filters/chips';
 import { getPreviousQuestions } from '@/actions/questions/get-previous';
 import { useUserServer } from '@/hooks/useUserServer';
 import { QuestionDifficulty } from '@/types/Questions';
-import QuestionPageSidebarLoading from '@/components/questions/question-page-sidebar-loading';
+import QuestionPageSidebarLoading from '@/components/app/questions/question-page-sidebar-loading';
 
 const ITEMS_PER_PAGE = 20;
 

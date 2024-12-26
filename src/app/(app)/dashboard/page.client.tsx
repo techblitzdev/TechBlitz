@@ -9,7 +9,7 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import OnboardingModal from '@/components/onboarding/onboarding-modal';
+import OnboardingModal from '@/components/app/onboarding/onboarding-modal';
 
 export default function ClientPage({
   children,

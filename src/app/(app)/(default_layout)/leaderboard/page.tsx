@@ -1,8 +1,8 @@
 import { getTodaysQuestion } from '@/actions/questions/get-today';
 import Hero from '@/components/global/hero';
-import LeaderboardLongestStreaks from '@/components/leaderboard/leaderboard-longest-streaks';
-import LeaderboardMostQuestionsAnswered from '@/components/leaderboard/leaderboard-most-questions-answered';
-import LeaderboardTodayBoard from '@/components/leaderboard/leaderboard-today-board';
+import LeaderboardLongestStreaks from '@/components/app/leaderboard/leaderboard-longest-streaks';
+import LeaderboardMostQuestionsAnswered from '@/components/app/leaderboard/leaderboard-most-questions-answered';
+import LeaderboardTodayBoard from '@/components/app/leaderboard/leaderboard-today-board';
 import { useUserServer } from '@/hooks/useUserServer';
 
 export default async function TodaysLeaderboardPage({

@@ -12,7 +12,7 @@ type DashboardQuestionCardProps = {
 export default function DashboardQuestionCard(
   opts: DashboardQuestionCardProps
 ) {
-  const { name, correct, label } = opts.question;
+  const { name, correct } = opts.question;
 
   return (
     <div className="bg-black-100 border border-black-50 rounded-md p-4 mb-4">

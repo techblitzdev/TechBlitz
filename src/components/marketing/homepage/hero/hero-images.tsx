@@ -68,6 +68,7 @@ const HomepageHeroImages: FC<HomepageHeroImagesProps> = ({
           alt="Dashboard preview"
           priority={true}
           style={{ objectFit: 'cover' }}
+          loading="eager"
         />
       </motion.div>
 

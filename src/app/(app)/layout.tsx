@@ -45,9 +45,6 @@ export default async function Layout({
           suppressHydrationWarning={true}
         >
           <SidebarProvider>
-            {/* Fixed background gradient */}
-            {/* <div className="fixed inset-0 bg-gradient-to-t from-[#f0db4f]/5 via-transparent to-transparent pointer-events-none"></div> */}
-
             {/* Scrollable content */}
             <AppSidebar />
             <NextTopLoader color="#5b61d6" showSpinner={false} />

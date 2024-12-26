@@ -6,12 +6,36 @@ import { ArrowRight } from 'lucide-react';
 
 export default function AllQuestionsDashboardBentoBox() {
   const questions = [
-    'What does the spread operator do?',
-    "What's the difference between '==' and '==='?",
-    'What will be the outcome of the following JavaScript snippet?',
-    'What are the differences objects and arrays?',
-    'What is the difference between .map and .forEach?',
-    'Explain component lifecycle',
+    {
+      label: 'spread-operator',
+      name: 'What does the spread operator do?',
+      correct: false,
+    },
+    {
+      label: 'equality-operators',
+      name: "What's the difference between '==' and '==='?",
+      correct: true,
+    },
+    {
+      label: 'code-analysis',
+      name: 'What will be the outcome of the following JavaScript snippet?',
+      correct: false,
+    },
+    {
+      label: 'data-structures',
+      name: 'What are the differences objects and arrays?',
+      correct: true,
+    },
+    {
+      label: 'array-methods',
+      name: 'What is the difference between .map and .forEach?',
+      correct: false,
+    },
+    {
+      label: 'component-lifecycle',
+      name: 'Explain component lifecycle',
+      correct: true,
+    },
   ];
 
   // Triple the questions to ensure smooth infinite scroll
@@ -40,7 +64,7 @@ export default function AllQuestionsDashboardBentoBox() {
         >
           {allQuestions.map((question, index) => (
             <DashboardQuestionCard
-              key={`${question}-${index}`}
+              key={`${question.label}-${index}`}
               question={question}
             />
           ))}

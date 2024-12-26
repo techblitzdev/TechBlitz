@@ -5,14 +5,19 @@ import Link from 'next/link';
 
 export const BentoGrid = ({
   className,
-  children
+  children,
 }: {
   className?: string;
   children?: React.ReactNode[];
 }) => {
   return (
-    <div className={cn('grid grid-cols-1 md:grid-cols-4 gap-6', className)}>
-      <div className="flex flex-col gap-6 md:col-span-1">
+    <div
+      className={cn(
+        'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6',
+        className
+      )}
+    >
+      <div className="flex flex-col gap-4 md:gap-6 md:col-span-1">
         {children?.[0]}
         {children?.[1]}
       </div>
@@ -29,7 +34,7 @@ export const BentoGridItem = ({
   icon,
   href,
   padded,
-  gradientBg
+  gradientBg,
 }: {
   className?: string;
   title?: string | React.ReactNode;
@@ -50,12 +55,12 @@ export const BentoGridItem = ({
           <div className="group-hover/bento:translate-x-2 transition duration-200">
             {icon}
             {title && (
-              <div className="font-bold text-white mb-1 mt-2 font-satoshi text-lg">
+              <div className="font-bold text-white mb-1 mt-2 font-satoshi text-base md:text-lg">
                 {title}
               </div>
             )}
             {description && (
-              <div className="font-normal text-sm text-white">
+              <div className="font-normal text-xs md:text-sm text-white">
                 {description}
               </div>
             )}
@@ -67,17 +72,13 @@ export const BentoGridItem = ({
 
   const baseClasses = cn(
     'rounded-xl group/bento overflow-hidden hover:shadow-xl transition duration-200 shadow-input border border-black-50 justify-between flex flex-col',
-    header || title || description || icon ? 'space-y-4' : '',
+    header || title || description || icon ? 'space-y-3 md:space-y-4' : '',
     className,
-    padded ? 'p-4' : ''
+    padded ? 'p-3 md:p-4' : ''
   );
 
   return href ? (
-    <Link
-      href={href}
-      className={baseClasses}
-      prefetch
-    >
+    <Link href={href} className={baseClasses} prefetch>
       {renderContent()}
     </Link>
   ) : (
@@ -87,7 +88,7 @@ export const BentoGridItem = ({
         gradientBg
           ? {
               background:
-                'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
+                'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
             }
           : undefined
       }

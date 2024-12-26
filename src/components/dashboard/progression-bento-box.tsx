@@ -1,15 +1,15 @@
 import { ArrowRight, Lock } from 'lucide-react';
-import { InfiniteMovingCards } from '../ui/infinite-moving-cards';
-import { Separator } from '../ui/separator';
-import { Grid } from '../ui/grid';
+import { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards';
+import { Separator } from '@/components/ui/separator';
+import { Grid } from '@/components/ui/grid';
 import { useUserServer } from '@/hooks/useUserServer';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '../ui/tooltip';
-import Chip from '../ui/chip';
+} from '@/components/ui/tooltip';
+import Chip from '@/components/ui/chip';
 import Link from 'next/link';
 
 const items: {

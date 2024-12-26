@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import ProgressChart from '../marketing/homepage/features/progression-chart';
+import ProgressChart from '@/components/marketing/homepage/features/progression-chart';
 
 export default function StreakBentoBox() {
   return (

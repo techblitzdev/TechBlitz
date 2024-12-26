@@ -1,9 +1,16 @@
+import dynamic from 'next/dynamic';
+
 import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid';
 
 import { getTodaysQuestion } from '@/actions/questions/get-today';
 
 import TodaysLeaderboardBentoBox from '@/components/leaderboard/bento-box';
-import AllQuestionsDashboardBentoBox from '@/components/dashboard/all-questions-bento-box';
+
+const AllQuestionsDashboardBentoBox = dynamic(
+  () => import('@/components/dashboard/all-questions-bento-box'),
+  { ssr: false }
+);
+
 import TodaysQuestionBentoBox from '@/components/dashboard/todays-question-bento-box';
 import ProgressBentoBox from '@/components/dashboard/progression-bento-box';
 import StreakBentoBox from '@/components/dashboard/streak-bento-box';
@@ -36,7 +43,8 @@ export default async function DashboardBentoGrid() {
     },
     {
       header: <TodaysLeaderboardBentoBox todaysQuestion={todaysQuestion} />,
-      className: 'md:col-span-1 md:row-span-2 text-white h-full',
+      className:
+        'col-span-full md:col-span-1 md:row-span-2 text-white h-full hidden lg:block',
       padded: false,
     },
     {

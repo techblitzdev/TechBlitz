@@ -1,11 +1,11 @@
 import { Question } from '@/types/Questions';
-import Chip from '../ui/chip';
+import Chip from '@/components/ui/chip';
 import { capitalise } from '@/utils';
 import { ArrowUpRight } from 'lucide-react';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import { getQuestionDifficultyColor } from '@/utils';
-import TagDisplay from '../questions/previous/tag-display';
-import NoDailyQuestion from '../global/errors/no-daily-question';
+import TagDisplay from '@/components/questions/previous/tag-display';
+import NoDailyQuestion from '@/components/global/errors/no-daily-question';
 
 export default function TodaysQuestionBentoBox(opts: {
   question: Question | null;

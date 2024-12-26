@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-const baseUrl = 'https://techblitz.dev';
+export const baseUrl = 'https://techblitz.dev';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

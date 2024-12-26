@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { processMDX } from '../mdx';
 
-const POSTS_PATH = path.join(process.cwd(), 'src/app/(marketing)/blog/content');
+const POSTS_PATH = path.join(process.cwd(), 'src/app/(marketing)/blog/posts');
 
 export async function getBlogPosts() {
   // Create directory if it doesn't exist

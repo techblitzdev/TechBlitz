@@ -33,7 +33,7 @@ export default function FeaturesBentoGrid() {
       <div className="flex flex-col gap-y-1 items-center text-center">
         <AnimatedSpan content="Features" />
         <h1 className="text-2xl lg:text-5xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
-          Master Software Engineering, Effortlessly
+          Improve coding knowledge effortlessly
         </h1>
         <span className="text-sm md:text-base text-gray-400 max-w-3xl">
           Discover our suite of tools & features crafted to help you master

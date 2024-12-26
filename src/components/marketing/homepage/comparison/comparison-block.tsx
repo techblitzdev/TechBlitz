@@ -12,7 +12,7 @@ export default function ComparisonBlock() {
     <section className="pt-10 lg:pt-6 pb-20 md:pb-28 flex flex-col gap-y-7 relative items-center w-full">
       <div className="flex flex-col gap-y-3 items-center text-center">
         <h1 className="text-4xl lg:text-6xl font-onest !font-medium tracking-tight text-gradient from-white to-white/55 py-1">
-          Real life software problems
+          Learn with real-world problems
         </h1>
         <p className="text-gray-400 max-w-2xl text-sm md:text-base">
           We don't just create challenges to 'pass the technical interview'. We

@@ -74,7 +74,7 @@ export default async function MarketingFooter() {
                 <div className="flex flex-col gap-y-3">
                   <Logo />
                   <p className="text-xs text-gray-400 font-onest max-w-[13rem]">
-                    The simplest way to master software engineering.
+                    The ultimate platform to fast-track your coding career
                   </p>
                   <Button
                     href="https://git.new/blitz"

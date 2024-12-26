@@ -13,6 +13,9 @@ import { listQuestions } from '@/actions/questions/list';
 import { useUserServer } from '@/hooks/useUserServer';
 import { QuestionDifficulty } from '@/types/Questions';
 
+export const revalidate = 0;
+export const dynamic = 'force-dynamic';
+
 const ITEMS_PER_PAGE = 20;
 
 export default async function QuestionsDashboard({
@@ -39,13 +42,6 @@ export default async function QuestionsDashboard({
     tags,
   };
 
-  const data = await listQuestions({
-    page: currentPage,
-    pageSize: ITEMS_PER_PAGE,
-    userUid: user.uid,
-    filters,
-  });
-
   return (
     <>
       <Hero
@@ -57,6 +53,7 @@ export default async function QuestionsDashboard({
           <Filter />
           <FilterChips />
           <Suspense
+            key={JSON.stringify(searchParams)}
             fallback={
               <>
                 {[...Array(6)].map((_, i) => (
@@ -65,22 +62,54 @@ export default async function QuestionsDashboard({
               </>
             }
           >
-            {data.questions.map((q) => (
-              <QuestionCard key={q.uid} questionData={q} userUid={user.uid} />
-            ))}
-          </Suspense>
-          <div className="mt-5 w-full flex justify-center gap-x-2">
-            <GlobalPagination
+            <QuestionsList
+              userUid={user.uid}
               currentPage={currentPage}
-              totalPages={data.totalPages}
-              href="/questions/all"
-              paramName="page"
+              filters={filters}
             />
-          </div>
+          </Suspense>
         </div>
         <Suspense fallback={null}>
           {user && <QuestionPageSidebar user={user} />}
         </Suspense>
+      </div>
+    </>
+  );
+}
+
+async function QuestionsList({
+  userUid,
+  currentPage,
+  filters,
+}: {
+  userUid: string;
+  currentPage: number;
+  filters: {
+    ascending: boolean;
+    difficulty: QuestionDifficulty;
+    completed: boolean | undefined;
+    tags: string[];
+  };
+}) {
+  const data = await listQuestions({
+    page: currentPage,
+    pageSize: ITEMS_PER_PAGE,
+    userUid,
+    filters,
+  });
+
+  return (
+    <>
+      {data.questions.map((q) => (
+        <QuestionCard key={q.uid} questionData={q} userUid={userUid} />
+      ))}
+      <div className="mt-5 w-full flex justify-center gap-x-2">
+        <GlobalPagination
+          currentPage={currentPage}
+          totalPages={data.totalPages}
+          href="/questions/all"
+          paramName="page"
+        />
       </div>
     </>
   );

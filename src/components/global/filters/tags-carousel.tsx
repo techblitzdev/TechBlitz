@@ -11,7 +11,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { cn } from '@/utils/cn';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Tag {
   uid: string;
@@ -30,6 +30,12 @@ export default function FilterTagsCarousel({ tags }: FilterTagsCarouselProps) {
   // this is used to highlight the tags that are currently selected
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
+  // Watch for changes in search params and update selected tags accordingly
+  useEffect(() => {
+    const currentTags = searchParams.get('tags')?.split(',') || [];
+    setSelectedTags(currentTags);
+  }, [searchParams]);
+
   const updateTagsInQuery = (tag: string) => {
     const params = new URLSearchParams(searchParams.toString());
     const currentTags = params.get('tags')?.split(',') || [];
@@ -42,14 +48,10 @@ export default function FilterTagsCarousel({ tags }: FilterTagsCarouselProps) {
       } else {
         params.delete('tags');
       }
-      // update the selected tags state
-      setSelectedTags(updatedTags);
     } else {
       // Add tag if it doesn't exist
       currentTags.push(tag);
       params.set('tags', currentTags.join(','));
-      // update the selected tags state
-      setSelectedTags([...selectedTags, tag]);
     }
 
     // Reset the page to 1 whenever tags are updated

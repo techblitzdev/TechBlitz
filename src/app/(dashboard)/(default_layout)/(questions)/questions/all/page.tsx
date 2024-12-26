@@ -1,8 +1,11 @@
 import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
 
 import GlobalPagination from '@/components/global/pagination';
 import QuestionCard from '@/components/questions/question-card';
-import Filter from '@/components/global/filters/filter';
+
+const Filter = dynamic(() => import('@/components/global/filters/filter'));
+
 import FilterChips from '@/components/global/filters/chips';
 import Hero from '@/components/global/hero';
 import QuestionCardLoading from '@/components/questions/question-card-loading';
@@ -12,9 +15,7 @@ import { listQuestions } from '@/actions/questions/list';
 
 import { useUserServer } from '@/hooks/useUserServer';
 import { QuestionDifficulty } from '@/types/Questions';
-
-export const revalidate = 0;
-export const dynamic = 'force-dynamic';
+import QuestionPageSidebarLoading from '@/components/questions/question-page-sidebar-loading';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -48,8 +49,8 @@ export default async function QuestionsDashboard({
         heading="All Questions"
         subheading="Explore a diverse set of questions across multiple topics to enhance your knowledge."
       />
-      <div className="md:container flex flex-col lg:flex-row mt-5 gap-10">
-        <div className="w-full lg:w-1/2 space-y-6">
+      <div className="md:container flex flex-col lg:flex-row mt-5 gap-16">
+        <div className="w-full lg:w-[55%] space-y-6">
           <Filter />
           <FilterChips />
           <Suspense
@@ -69,7 +70,7 @@ export default async function QuestionsDashboard({
             />
           </Suspense>
         </div>
-        <Suspense fallback={null}>
+        <Suspense fallback={<QuestionPageSidebarLoading />}>
           {user && <QuestionPageSidebar user={user} />}
         </Suspense>
       </div>

@@ -1,7 +1,7 @@
 'use client';
 import { Skeleton } from '@/components/ui/skeleton';
 
-export default function QuestionCard() {
+export default function QuestionCardLoading() {
   return (
     <div className="space-y-5 items-start border border-black-50 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden">
       <div className="flex flex-row justify-between items-center w-full">

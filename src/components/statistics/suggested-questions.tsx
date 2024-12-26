@@ -20,11 +20,7 @@ export default async function SuggestedQuestions() {
           help you improve.
         </p>
       </div>
-      <QuestionSuggestedCard
-        questions={suggestions ?? []}
-        isLoading={false}
-        border={false}
-      />
+      <QuestionSuggestedCard questions={suggestions ?? []} border={false} />
     </section>
   );
 }

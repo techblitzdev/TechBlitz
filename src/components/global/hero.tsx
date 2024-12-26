@@ -1,5 +1,5 @@
 import { cn } from '@/utils/cn';
-import { Grid } from '../ui/grid';
+import { Grid } from '@/components/ui/grid';
 
 export default function Hero(opts: {
   heading: string;
@@ -21,7 +21,7 @@ export default function Hero(opts: {
           {heading}
         </h1>
         {subheading && (
-          <h6 className="text-sm text-gray-400 font-inter max-w-lg z-50">
+          <h6 className="text-sm text-gray-400 font-inter max-w-xl z-50">
             {subheading}
           </h6>
         )}

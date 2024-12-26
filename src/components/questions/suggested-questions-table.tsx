@@ -2,35 +2,12 @@ import type { QuestionWithoutAnswers } from '@/types/Questions';
 import { cn } from '@/utils/cn';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { Skeleton } from '@/components/ui/skeleton';
 
 export default function QuestionSuggestedCard(opts: {
   questions?: QuestionWithoutAnswers[];
-  isLoading: boolean;
   border?: boolean;
 }) {
-  const { questions, isLoading, border = true } = opts;
-
-  if (isLoading) {
-    return (
-      <div
-        className={cn(
-          'flex flex-col overflow-hidden divide-y-[1px] divide-black-50',
-          border ? 'border border-black-50 rounded-md' : ''
-        )}
-      >
-        {Array.from({ length: 5 }).map((_, index) => (
-          <div
-            key={index}
-            className="flex w-full justify-between items-center p-3"
-          >
-            <Skeleton className="bg-black h-6 w-3/4" />
-            <ArrowRight className="size-3 mr-1" />
-          </div>
-        ))}
-      </div>
-    );
-  }
+  const { questions, border = true } = opts;
 
   return (
     <div

@@ -62,10 +62,7 @@ export default async function QuestionPageSidebar(opts: {
               </Tooltip>
             </TooltipProvider>
           </div>
-          <QuestionSuggestedCard
-            questions={suggestions ?? []}
-            isLoading={false}
-          />
+          <QuestionSuggestedCard questions={suggestions ?? []} />
         </div>
       </div>
     </aside>

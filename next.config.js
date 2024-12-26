@@ -1,4 +1,4 @@
-import createMDX from '@next/mdx';
+const createMDX = require('@next/mdx');
 
 const withMDX = createMDX({
   // Add markdown plugins here, if needed
@@ -72,4 +72,4 @@ const nextConfig = {
   },
 };
 
-export default withMDX(nextConfig);
+module.exports = withMDX(nextConfig);

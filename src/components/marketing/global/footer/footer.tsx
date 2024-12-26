@@ -2,9 +2,8 @@ import Link from 'next/link';
 import Logo from '@/components/ui/logo';
 import SocialLinks from './socials';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Star } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
-import { fetchGithubStars } from '@/actions/misc/get-github-stars';
 
 const footerItems = [
   {
@@ -61,9 +60,7 @@ const footerItems = [
   },
 ];
 
-export default async function MarketingFooter() {
-  const githubStars = await fetchGithubStars();
-
+export default function MarketingFooter() {
   return (
     <footer className="py-8 container">
       <div className="flex flex-col lg:flex-row justify-between text-white">
@@ -76,19 +73,6 @@ export default async function MarketingFooter() {
                   <p className="text-xs text-gray-400 font-onest max-w-[13rem]">
                     The ultimate platform to fast-track your coding career
                   </p>
-                  <Button
-                    href="https://git.new/blitz"
-                    variant="default"
-                    className="relative group hover:text-white transition-all duration-200"
-                  >
-                    <div className="flex items-center gap-x-2">
-                      <Star className="size-4 text-yellow-400 fill-yellow-300" />
-                      <span className="font-medium">Star</span>
-                    </div>
-                    <span className="tabular-nums ml-2">
-                      {githubStars.stargazers_count}
-                    </span>
-                  </Button>
                 </div>
                 <Button
                   variant="accent"

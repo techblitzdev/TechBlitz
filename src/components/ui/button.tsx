@@ -16,6 +16,7 @@ export interface ButtonProps extends VariantProps<typeof buttonVariants> {
   fullWidth?: boolean;
   wrapperClassName?: string;
   disabled?: boolean;
+  target?: string;
 }
 
 const buttonVariants = cva(
@@ -91,6 +92,7 @@ const Button = React.forwardRef<
       fullWidth,
       wrapperClassName,
       disabled,
+      target,
       ...props
     },
     ref
@@ -121,6 +123,7 @@ const Button = React.forwardRef<
           )}
           ref={ref}
           disabled={disabled}
+          target={target}
           {...compProps}
         >
           {props.children}

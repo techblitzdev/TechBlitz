@@ -123,6 +123,16 @@ export function AppSidebar() {
       title: 'Stats',
       url: '/statistics',
       icon: ChartBarIncreasing,
+      subItems: [
+        {
+          title: 'Overview',
+          url: '/statistics',
+        },
+        {
+          title: 'Reports',
+          url: '/statistics/reports',
+        },
+      ],
     },
     {
       title: 'Leaderboard',

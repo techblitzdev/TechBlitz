@@ -1,8 +1,10 @@
+// src/mdx.ts
 import { compileMDX } from 'next-mdx-remote/rsc';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
+import { useMDXComponents } from '@/app/mdx-components';
 
 const prettyCodeOptions = {
   theme: 'one-dark-pro',
@@ -22,6 +24,8 @@ const prettyCodeOptions = {
 export async function processMDX(content: string) {
   const { content: processedContent, frontmatter } = await compileMDX({
     source: content,
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    components: useMDXComponents({}),
     options: {
       parseFrontmatter: true,
       mdxOptions: {

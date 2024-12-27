@@ -1,27 +1,28 @@
 ---
-title: 'Welcome to TechBlitz'
-description: 'Learn about our mission to help developers grow their skills through daily challenges and interactive learning.'
-date: '2024-03-20'
-author: 'TechBlitz Team'
+title: 'Adding MDX to a NextJs project'
+description: 'MDX is a '
+date: '2024-12-26'
+author: 'TechBlitz'
 readingTime: 3
 ---
 
-# Welcome to TechBlitz
+import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 
-At TechBlitz, we believe in making software engineering education accessible, engaging, and effective. Our platform is designed to help developers of all skill levels improve their coding knowledge through daily challenges, personalized learning paths, and a supportive community.
+We have recently added MDX support to TechBlitz to write blog posts like this one!
+MDX has become increasingly popular in the Next.js ecosystem, so we wanted to share
+our implementation. You can find the source code for this blog post [here](<https://github.com/techblitz/techblitz/blob/main/app/(marketing)/blog/posts/mdx-in-nextjs.mdx>).
 
-## What We Offer
+<h1 className="text-4xl font-bold mb-4 my-5">What is MDX?</h1>
 
-- **Daily Coding Challenges**: Start each day with a new programming challenge designed to test and improve your skills
-- **AI-Powered Roadmaps**: Get personalized learning paths tailored to your goals and current skill level
-- **Community Learning**: Learn alongside other developers and share your knowledge
-- **Progress Tracking**: Monitor your growth with detailed statistics and insights
+MDX is a very popular way to combine both regular text and JSX into a single file.
 
-## Getting Started
-
-1. Sign up for a free account
-2. Complete your first daily challenge
-3. Track your progress
-4. Join our community
-
-Stay tuned for more blog posts about software engineering, coding tips, and platform updates!
+<div className="mt-10">
+  <CallToActionBlock
+    title="Learn more code, in less time"
+    description="Join TechBlitz today to level up your coding skills"
+    leftCta={{
+      title: 'Get Started',
+      href: '/signup',
+    }}
+  />
+</div>

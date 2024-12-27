@@ -26,7 +26,7 @@ export default function MarketingNavigation() {
         {/* Right side content */}
         <div className="flex items-center gap-x-2">
           {/* Show NavigationButtons only on desktop */}
-          <div className="hidden lg:block">
+          <div className="hidden lg:block h-9">
             <NavigationButtons />
           </div>
 

@@ -2,9 +2,8 @@ import { cn } from '@/utils/cn';
 import { getBlogPosts } from '@/lib/blog';
 
 import { GridPattern } from '@/components/ui/grid-pattern';
-import Image from 'next/image';
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import BlogCard from '@/components/marketing/resources/blog/blog-card';
 
 export default async function BlogPage() {
   const posts = await getBlogPosts();
@@ -53,36 +52,7 @@ export default async function BlogPage() {
           )}
 
           {posts.map((post: any) => (
-            <Link
-              key={post.slug}
-              href={`/blog/${post.slug}`}
-              className="group p-4 border border-black-50 rounded-xl hover:border-accent transition-colors"
-            >
-              {post.image && (
-                <Image
-                  src={post.image}
-                  alt={post.title}
-                  width={600}
-                  height={400}
-                  className="rounded-lg mb-4"
-                />
-              )}
-              <h2 className="text-xl font-medium mb-2 group-hover:text-accent">
-                {post.title}
-              </h2>
-              <p className="text-gray-400 text-sm">{post.description}</p>
-              <div className="flex items-center gap-2 mt-4 text-sm text-gray-500">
-                <time dateTime={post.date}>
-                  {new Date(post.date).toLocaleDateString('en-US', {
-                    month: 'long',
-                    day: 'numeric',
-                    year: 'numeric',
-                  })}
-                </time>
-                <span>•</span>
-                <span>{post.readingTime} min read</span>
-              </div>
-            </Link>
+            <BlogCard post={post} />
           ))}
         </div>
       </section>

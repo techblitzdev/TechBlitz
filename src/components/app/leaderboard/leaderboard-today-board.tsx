@@ -9,6 +9,7 @@ import GlobalPagination from '@/components/global/pagination';
 import { formatSeconds } from '@/utils/time';
 import Link from 'next/link';
 import Image from 'next/image';
+import { shortenText } from '@/utils';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -120,12 +121,7 @@ export default async function LeaderboardTodayBoard(opts: {
                       <User className="size-4" />
                     </div>
                   )}
-                  {/** truncate */}
-                  <p>
-                    {getUserDisplayName(time.user).length > 15
-                      ? `${getUserDisplayName(time.user).substring(0, 15)}...`
-                      : getUserDisplayName(time.user)}
-                  </p>
+                  <p>{shortenText(getUserDisplayName(time.user), 15)}</p>
                   <p>
                     {userUid === time.user.uid && (
                       <span className="text-xs text-gray-500">(You)</span>

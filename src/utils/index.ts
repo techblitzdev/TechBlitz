@@ -18,7 +18,7 @@ export const createMetadata = ({
   title,
   description,
   image,
-  keywords
+  keywords,
 }: {
   title: string;
   description: string;
@@ -36,7 +36,7 @@ export const createMetadata = ({
     'javascript',
     'learn to code',
     'coding course',
-    'coding bootcamp'
+    'coding bootcamp',
   ];
 
   const ogImage =
@@ -57,9 +57,9 @@ export const createMetadata = ({
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: description
-        }
-      ]
+          alt: description,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
@@ -70,14 +70,14 @@ export const createMetadata = ({
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: description
-        }
-      ]
+          alt: description,
+        },
+      ],
     },
     robots: {
       index: true,
-      follow: true
-    }
+      follow: true,
+    },
   };
 };
 
@@ -100,4 +100,16 @@ export const getQuestionDifficultyColor = (difficulty: string) => {
     default:
       return 'gray';
   }
+};
+
+/**
+ * A method to easily truncate and add ellipsis to any string.
+ *
+ * @param content
+ * @param wordLimit
+ */
+export const shortenText = (content: string, wordLimit: number) => {
+  return content.length > wordLimit
+    ? `${content.substring(0, wordLimit)}...`
+    : content;
 };

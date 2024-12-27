@@ -3,6 +3,7 @@ import Card from '@/components/global/Card';
 import { FlameIcon, User } from 'lucide-react';
 import { getLongestStreaks } from '@/actions/leaderboard/get-longest-streaks';
 import Image from 'next/image';
+import { shortenText } from '@/utils';
 
 const header = () => {
   return (
@@ -57,11 +58,7 @@ export default async function LeaderboardLongestStreaks(opts: {
                   <User className="size-4" />
                 </div>
               )}
-              <span>
-                {getUserDisplayName(streak.user).length > 15
-                  ? `${getUserDisplayName(streak.user).substring(0, 15)}...`
-                  : getUserDisplayName(streak.user)}
-              </span>
+              <span>{shortenText(getUserDisplayName(streak.user), 15)}</span>
               {userUid === streak.user.uid && (
                 <span className="text-xs text-gray-500">(You)</span>
               )}

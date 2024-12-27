@@ -31,6 +31,10 @@ const footerItems = [
     title: 'Resources',
     links: [
       {
+        title: 'Blog',
+        href: '/blog',
+      },
+      {
         title: 'Open Source',
         href: '/open-source',
       },

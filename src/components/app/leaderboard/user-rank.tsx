@@ -7,6 +7,7 @@ import { useUserServer } from '@/hooks/useUserServer';
 import { formatSeconds } from '@/utils/time';
 import { getUserDisplayName } from '@/utils/user';
 import Link from 'next/link';
+import { shortenText } from '@/utils';
 
 export default async function UserRank(opts: { questionUid: string }) {
   const { questionUid } = opts;
@@ -47,11 +48,7 @@ export default async function UserRank(opts: { questionUid: string }) {
     <div className="gap-x-4 text-white text-sm font-semibold font-satoshi flex w-full justify-between items-center">
       <p className="flex items-center gap-x-4">
         <span>{userRank ? `#${userRank}` : 'Not ranked'} </span>
-        <span>
-          {displayName.length > 15
-            ? `${displayName.substring(0, 15)}...`
-            : displayName}
-        </span>
+        <span>{shortenText(displayName, 15)}</span>
       </p>
       <div className="text-xs bg-white text-black py-1 px-2 rounded-md">
         <p>{displayTime}</p>

@@ -1,5 +1,6 @@
 import { getUserFromSession } from '@/actions/user/authed/get-user';
 import { AnswerWithUser } from '@/types/Answers';
+import { shortenText } from '@/utils';
 import { formatSeconds } from '@/utils/time';
 import { getUserDisplayName } from '@/utils/user';
 
@@ -27,9 +28,7 @@ export default async function DashboardLearderboardUserCard(opts: {
         </span>
         <div className="flex items-center gap-x-1">
           <span className={`text-sm font-semibold font-satoshi`}>
-            {displayName.length > 15
-              ? `${displayName.substring(0, 15)}...`
-              : displayName}
+            {shortenText(displayName, 15)}
           </span>
           {isCurrentUser && (
             <span className="text-xs text-gray-500">(You)</span>

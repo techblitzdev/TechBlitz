@@ -1,4 +1,5 @@
 import type { QuestionWithoutAnswers } from '@/types/Questions';
+import { shortenText } from '@/utils';
 import { cn } from '@/utils/cn';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
@@ -28,9 +29,7 @@ export default function QuestionSuggestedCard(opts: {
           href={`/question/${question.uid}`}
         >
           <p className="text-sm font-satoshi">
-            {question.question.length > 35
-              ? `${question.question.substring(0, 35)}...`
-              : question.question}
+            {shortenText(question.question, 35)}
           </p>
           <ArrowRight className="size-3 mr-1 group-hover:mr-0 duration-300 flex-shrink-0" />
         </Link>

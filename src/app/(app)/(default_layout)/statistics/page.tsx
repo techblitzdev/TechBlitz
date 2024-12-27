@@ -15,6 +15,7 @@ import { formatSeconds } from '@/utils/time';
 import { getData } from '@/actions/statistics/get-stats-chart-data';
 import Hero from '@/components/global/hero';
 import SuggestedQuestions from '@/components/app/statistics/suggested-questions';
+import StatisticsReview from '@/components/app/statistics/statistics-review';
 
 // Add metadata for better SEO and caching
 export const metadata = {
@@ -51,7 +52,11 @@ export default async function StatisticsPage({
   return (
     <div>
       <div className="pt-7 pb-5 flex flex-col gap-3 md:flex-row w-full justify-between md:items-center">
-        <Hero heading="Statistics" container={false} />
+        <Hero
+          heading="Statistics"
+          container={false}
+          subheading="A detailed overview of your coding journey."
+        />
         <div className="flex gap-3">
           <StatsRangePicker selectedRange={STATISTICS[range].label} />
         </div>
@@ -80,7 +85,9 @@ export default async function StatisticsPage({
         <div className="max-h-[28rem] col-span-12 mb-4">
           {stats && <QuestionChart questionData={stats} />}
         </div>
+        {/** suggested q's and analysis blocks */}
         <SuggestedQuestions />
+        <StatisticsReview />
       </div>
     </div>
   );

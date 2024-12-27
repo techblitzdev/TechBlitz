@@ -48,7 +48,7 @@ export default function StatsRangePicker(opts: { selectedRange: string }) {
           {Object.values(STATISTICS).map((step) => (
             <DropdownMenuItem
               key={step.value}
-              className="hover:!text-white"
+              className="hover:!text-white hover:cursor-pointer"
               onClick={() => updateDateRange(step.value)}
             >
               {step.label}

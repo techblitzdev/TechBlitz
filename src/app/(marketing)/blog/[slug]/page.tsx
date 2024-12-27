@@ -53,6 +53,7 @@ export async function generateStaticParams() {
 export default async function BlogPost({ params }: BlogPostParams) {
   try {
     const { content, frontmatter } = await getBlogPost(params.slug);
+    // typeFrontmatter is the metadata for this blog post
     const typedFrontmatter = frontmatter as unknown as BlogFrontmatter;
 
     return (

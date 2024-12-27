@@ -4,6 +4,7 @@ import { getBlogPosts } from '@/lib/blog';
 import { GridPattern } from '@/components/ui/grid-pattern';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default async function BlogPage() {
   const posts = await getBlogPosts();
@@ -36,6 +37,21 @@ export default async function BlogPage() {
         <div className="z-10 absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+          {posts.length === 0 && (
+            <div className="col-span-full flex flex-col gap-y-4 items-center">
+              <p className="text-center">
+                It look's like there are no blog posts posted at the moment.{' '}
+                <br /> Why not try out today's challenge instead?
+              </p>
+              <div className="flex flex-wrap items-center gap-4">
+                <Button href="/">Homepage</Button>
+                <Button href="/daily-challenge" variant="secondary">
+                  Daily challenge
+                </Button>
+              </div>
+            </div>
+          )}
+
           {posts.map((post: any) => (
             <Link
               key={post.slug}

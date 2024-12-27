@@ -5,7 +5,7 @@ export default function StatisticsReview() {
   return (
     <section
       className="
-            col-span-full lg:col-span-6 border border-black-50 rounded-lg flex flex-col divide-y-[1px] divide-black-50 overflow-hidden
+            col-span-full lg:col-span-6 border border-black-50 rounded-lg flex flex-col overflow-hidden
         "
     >
       <div className="flex flex-col gap-2.5 px-3 py-4">
@@ -17,7 +17,7 @@ export default function StatisticsReview() {
       <Separator className="bg-black-50" />
       <div className="px-3 py-4 h-full flex items-center justify-center">
         <Button variant="secondary" className="flex items-center gap-x-2">
-          Generate Review
+          Generate Report
         </Button>
       </div>
     </section>

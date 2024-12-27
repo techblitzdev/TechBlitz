@@ -4,17 +4,19 @@ import { processMDX } from '../mdx';
 
 const POSTS_PATH = path.join(process.cwd(), 'src/app/(marketing)/blog/posts');
 
-export async function getBlogPosts() {
-  // Create directory if it doesn't exist
+export const getBlogPosts = async () => {
+  // create directory if it doesn't exist
   if (!fs.existsSync(POSTS_PATH)) {
     fs.mkdirSync(POSTS_PATH, { recursive: true });
-    return []; // Return empty array if no posts exist yet
+    // return empty array if no posts exist yet
+    return [];
   }
 
   const files = fs.readdirSync(POSTS_PATH);
 
+  // return empty array if no posts exist yet
   if (files.length === 0) {
-    return []; // Return empty array if no posts exist yet
+    return [];
   }
 
   const posts = await Promise.all(
@@ -38,9 +40,9 @@ export async function getBlogPosts() {
     if (a.date > b.date) return -1;
     return 0;
   });
-}
+};
 
-export async function getBlogPost(slug: string) {
+export const getBlogPost = async (slug: string) => {
   const filePath = path.join(POSTS_PATH, `${slug}.mdx`);
 
   if (!fs.existsSync(filePath)) {
@@ -49,4 +51,4 @@ export async function getBlogPost(slug: string) {
 
   const content = fs.readFileSync(filePath, 'utf8');
   return processMDX(content);
-}
+};

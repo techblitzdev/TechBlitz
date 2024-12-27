@@ -16,7 +16,7 @@ interface BlogFrontmatter {
   readingTime: number;
 }
 
-// Generate metadata for the blog post
+// generate metadata for the blog post
 export async function generateMetadata({
   params,
 }: BlogPostParams): Promise<Metadata> {
@@ -42,7 +42,7 @@ export async function generateMetadata({
   }
 }
 
-// Generate static params for all blog posts
+// generate static params for all blog posts
 export async function generateStaticParams() {
   const posts = await getBlogPosts();
   return posts.map((post) => ({
@@ -58,6 +58,7 @@ export default async function BlogPost({ params }: BlogPostParams) {
     return (
       <div className="container">
         <article className="max-w-3xl mx-auto pt-32 pb-20">
+          {/** global hero that displays on all blog posts */}
           <div className="mb-8">
             <h1 className="text-4xl lg:text-5xl font-medium mb-4">
               {typedFrontmatter.title}
@@ -81,6 +82,7 @@ export default async function BlogPost({ params }: BlogPostParams) {
             </div>
           </div>
 
+          {/** output the mdx content below the hero */}
           <div className="prose prose-invert prose-pre:bg-black-75 prose-pre:border prose-pre:border-black-50 max-w-none">
             {content}
           </div>

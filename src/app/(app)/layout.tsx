@@ -5,7 +5,7 @@ import {
   UbuntuFont,
 } from '../styles/fonts/font';
 import '../globals.css';
-import { ReactQueryClientProvider } from '@/components/react-query-client-provider';
+import { ReactQueryClientProvider } from '@/components/global/react-query-client-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/global/navigation/sidebar';

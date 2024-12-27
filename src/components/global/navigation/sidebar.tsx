@@ -129,8 +129,20 @@ export function AppSidebar() {
           url: '/statistics',
         },
         {
-          title: 'Reports',
+          title: (
+            <>
+              {user?.userLevel === 'PREMIUM' ? (
+                'Reports'
+              ) : (
+                <div className="flex items-center gap-3">
+                  <p>Reports</p>
+                  <LockIcon className="size-4" />
+                </div>
+              )}
+            </>
+          ),
           url: '/statistics/reports',
+          disabled: user?.userLevel !== 'PREMIUM',
         },
       ],
     },

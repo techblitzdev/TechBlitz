@@ -52,7 +52,7 @@ export default async function BlogPage() {
           )}
 
           {posts.map((post: any) => (
-            <BlogCard post={post} />
+            <BlogCard key={post.slug} post={post} />
           ))}
         </div>
       </section>

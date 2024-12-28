@@ -5,11 +5,11 @@ enum QuestionDifficulty {
 }
 
 model Questions {
-  uid          String   @id @default(cuid())
-  question     String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  questionDate String
+  uid           String   @id @default(uuid())
+  question      String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  questionDate  String
 
   answers       QuestionAnswers[]
   correctAnswer String
@@ -17,20 +17,21 @@ model Questions {
   userAnswers    Answers[]
   answerResource String?
 
-  codeSnippet String?
+  codeSnippet    String?
+  hint           String?
 
-  hint String?
+  dailyQuestion  Boolean @default(false)
+  customQuestion Boolean @default(false) // Indicates if this is exclusive to a report
 
-  dailyQuestion Boolean @default(false)
+  tags           QuestionTags[]
+  difficulty     QuestionDifficulty @default(EASY)
 
-  tags QuestionTags[]
-
-  difficulty QuestionDifficulty @default(EASY)
+  // Relation to reports using this question (shared or custom)
+  linkedReports StatisticsReport[] @relation("SharedQuestions")
 
   DemoAnswers DemoAnswers[]
-
-  StatisticsReport StatisticsReport[]
 }
+
 
 model Tag {
   uid       String         @id @default(uuid())

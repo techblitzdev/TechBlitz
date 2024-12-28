@@ -80,26 +80,3 @@ model Subscriptions {
   stripeSubscriptionId     String?
   stripeSubscriptionItemId String?
 }
-
-// the report that we generate for the user
-model StatisticsReport {
-  // standard fields
-  uid       String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // connect to the user
-  userUid String
-  user    Users  @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
-
-  // the tags that the user has answered correctly
-  correctTags String[]
-  // the tags that the user has answered incorrectly
-  incorrectTags String[]
-
-  // the questions that we will suggest to the user to answer
-  questionsToAnswer Questions[]
-
-  // the html report of the user's statistics
-  htmlReport String?
-}

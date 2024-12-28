@@ -4,6 +4,7 @@ import {
   getUserFromDb,
   getUserFromSession,
 } from '@/actions/user/authed/get-user';
+import { getTagsReport } from '@/actions/ai/statistics/utils/get-tags-report';
 
 /**
  * A method to analysis a users question responses and generate
@@ -29,63 +30,15 @@ export const generateStatisticsReport = async () => {
     throw new Error('User is not a premium user');
   }
 
-  // now we know the user is a premium user, we can go and get all the user responses.
-  // we need to grab the tags attached to the answers
-  const userAnswers = await prisma.answers.findMany({
-    where: {
-      userUid: data?.user?.id,
-    },
-    include: {
-      question: {
-        include: {
-          tags: {
-            include: {
-              tag: true,
-            },
-          },
-        },
-      },
-    },
-  });
-
-  // Create objects to store tag counts
-  const correctTagCounts: { [key: string]: number } = {};
-  const incorrectTagCounts: { [key: string]: number } = {};
-
-  // Count occurrences of each tag
-  userAnswers.forEach((answer) => {
-    const tags = answer.question.tags.map((t) => t.tag.name);
-    const targetCounts = answer.correctAnswer
-      ? correctTagCounts
-      : incorrectTagCounts;
-
-    tags.forEach((tagName) => {
-      targetCounts[tagName] = (targetCounts[tagName] || 0) + 1;
-    });
-  });
-
-  // Convert to array of objects format
-  const correctTagsArray = Object.entries(correctTagCounts).map(
-    ([tagName, count]) => ({
-      tagName,
-      count,
-    })
-  );
-
-  const incorrectTagsArray = Object.entries(incorrectTagCounts).map(
-    ([tagName, count]) => ({
-      tagName,
-      count,
-    })
-  );
+  const { correctTags, incorrectTags } = await getTagsReport({ user });
 
   console.log({
-    correctTags: correctTagsArray,
-    incorrectTags: incorrectTagsArray,
+    correctTags,
+    incorrectTags,
   });
 
   return {
-    correctTags: correctTagsArray,
-    incorrectTags: incorrectTagsArray,
+    correctTags,
+    incorrectTags,
   };
 };

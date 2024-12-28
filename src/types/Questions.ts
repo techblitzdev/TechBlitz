@@ -1,3 +1,4 @@
+import { StatisticsReport } from '@prisma/client';
 import { QuestionAnswer } from './QuestionAnswers';
 import { Tags } from './Tags';
 
@@ -25,6 +26,8 @@ export type Question = {
   tags?: Tags[];
 
   difficulty: QuestionDifficulty;
+
+  linkedReports?: StatisticsReport[];
 };
 
 export type QuestionWithoutAnswers = Omit<Question, 'answers'>;

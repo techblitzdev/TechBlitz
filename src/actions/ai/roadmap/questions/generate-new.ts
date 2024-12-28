@@ -3,7 +3,7 @@ import { getUserFromSession } from '@/actions/user/authed/get-user';
 import { openai } from '@/lib/open-ai';
 import { singleQuestionSchema } from '@/lib/zod/schemas/ai';
 import { prisma } from '@/utils/prisma';
-import { getPrompt } from '../../utils/get-prompt';
+import { getPrompt } from '@/actions/ai/utils/get-prompt';
 import { zodResponseFormat } from 'openai/helpers/zod.mjs';
 import { revalidateTag } from 'next/cache';
 import { nanoid } from 'nanoid';
@@ -97,8 +97,6 @@ export const generateNewRoadmapQuestion = async (opts: {
   }
 
   const formattedData = JSON.parse(secondPass.choices[0].message.content);
-
-  console.log('formattedData.questions', formattedData.question);
 
   // add a unique id to each answer
   const answers = formattedData.answers.map((answer: any) => ({

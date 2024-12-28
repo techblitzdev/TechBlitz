@@ -4,40 +4,108 @@ import {
   getUserFromSession,
 } from '@/actions/user/authed/get-user';
 import { getTagsReport } from '@/actions/ai/statistics/utils/get-tags-report';
+import { generateStatisticsCustomQuestions } from './utils/generate-custom-questions';
+import { prisma } from '@/utils/prisma';
+import { nanoid } from 'nanoid';
+
+type QuestionData = {
+  questions: string;
+  answers: Array<{
+    answer: string;
+    correct: boolean;
+  }>;
+  codeSnippet?: string;
+  hint?: string;
+  difficulty: string;
+  tags: string[];
+};
 
 /**
- * A method to analysis a users question responses and generate
- * a report back to the user.
- *
- * @returns An object containing arrays of tag counts for correct and incorrect answers
+ * Analyzes a user's question responses and generates a statistics report with custom questions.
+ * @returns The generated statistics report or null if user validation fails
  */
 export const generateStatisticsReport = async () => {
-  // we need the user so we can get their responses
+  // Validate user and permissions
   const { data } = await getUserFromSession();
-  if (!data || !data?.user?.id) {
-    return null;
+  if (!data?.user?.id) return null;
+
+  const user = await getUserFromDb(data.user.id);
+  if (!user) return null;
+
+  if (!['PREMIUM', 'ADMIN'].includes(user.userLevel)) {
+    throw new Error('Premium access required');
   }
 
-  // now check that the user is a premium user via their userLevel
-  const user = await getUserFromDb(data?.user?.id);
-  if (!user) {
-    return null;
-  }
-
-  // now check that the user is a premium user via their userLevel
-  if (user.userLevel !== 'PREMIUM' && user.userLevel !== 'ADMIN') {
-    throw new Error('User is not a premium user');
-  }
-
+  // Get user performance data
   const { correctTags, incorrectTags } = await getTagsReport({ user });
-
-  console.log({
-    correctTags,
+  const customQuestionsResponse = await generateStatisticsCustomQuestions({
     incorrectTags,
   });
 
-  // the incorrect tags are the ones that the user got wrong
-  // we need to use these to:
-  // 1. generate a report
-  // 2. go and get questions similar to these tags
+  if (!customQuestionsResponse) {
+    throw new Error('Failed to generate custom questions');
+  }
+
+  // Process questions data
+  const { questionData } = JSON.parse(customQuestionsResponse);
+  const questions = questionData.map((question: QuestionData) => {
+    const answers = question.answers.map((answer) => ({
+      ...answer,
+      uid: nanoid(),
+    }));
+
+    const correctAnswer = answers.find((answer) => answer.correct);
+    if (!correctAnswer) {
+      throw new Error(
+        `Missing correct answer for question: ${question.questions}`
+      );
+    }
+
+    return {
+      uid: nanoid(),
+      customQuestion: true,
+      question: question.questions,
+      correctAnswer: correctAnswer.uid,
+      codeSnippet: question.codeSnippet || null,
+      hint: question.hint || null,
+      difficulty: question.difficulty.toUpperCase(),
+      tags: question.tags,
+      questionDate: '',
+      answers: {
+        create: answers.map(({ uid, answer }) => ({
+          uid,
+          answer,
+          isCodeSnippet: false,
+        })),
+      },
+    };
+  });
+
+  // Create report and questions in transaction
+  return await prisma.$transaction(async (prisma) => {
+    const report = await prisma.statisticsReport.create({
+      data: {
+        userUid: user.uid,
+        correctTags: correctTags.map((tag) => tag.tagName),
+        incorrectTags: incorrectTags.map((tag) => tag.tagName),
+        htmlReport: `<p>Your statistics report for ${new Date().toLocaleDateString()}</p>`,
+      },
+    });
+
+    // TODO: Fix the any type
+    await Promise.all(
+      questions.map((question: any) =>
+        prisma.questions.create({
+          data: {
+            ...question,
+            linkedReports: {
+              connect: { uid: report.uid },
+            },
+          },
+        })
+      )
+    );
+
+    return report;
+  });
 };

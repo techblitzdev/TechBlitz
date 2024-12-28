@@ -4,7 +4,13 @@ import { zodResponseFormat } from 'openai/helpers/zod';
 import { getPrompt } from '@/actions/ai/utils/get-prompt';
 import { aiQuestionSchema } from '@/lib/zod/schemas/ai/response';
 
-export const generateStatisticsResponse = async (opts: {
+/**
+ * Generate custom questions for a user based on their incorrect tags
+ *
+ * @param opts
+ * @returns
+ */
+export const generateStatisticsCustomQuestions = async (opts: {
   incorrectTags: { tagName: string; count: number }[];
 }) => {
   // the tags that we will pass to the prompt
@@ -18,17 +24,18 @@ export const generateStatisticsResponse = async (opts: {
     throw new Error('Prompt not found');
   }
 
-  // TODO: generate the response
+  // generate the response that will create questions for the user
+  // these questions are not accessible by other users (yet 😏)
   const firstPass = await openai.chat.completions.create({
     model: 'gpt-4o-mini-2024-07-18',
     messages: [
       {
         role: 'system',
-        content: JSON.stringify(incorrectTags),
+        content: prompts['statistics-generate-report'].content,
       },
       {
-        role: 'system',
-        content: prompts['statistics-generate-report'].content,
+        role: 'user',
+        content: JSON.stringify(incorrectTags),
       },
     ],
     response_format: zodResponseFormat(aiQuestionSchema, 'event'),

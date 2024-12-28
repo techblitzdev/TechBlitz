@@ -36,8 +36,8 @@ export const generateStatisticsReport = async () => {
     incorrectTags,
   });
 
-  return {
-    correctTags,
-    incorrectTags,
-  };
+  // the incorrect tags are the ones that the user got wrong
+  // we need to use these to:
+  // 1. generate a report
+  // 2. go and get questions similar to these tags
 };

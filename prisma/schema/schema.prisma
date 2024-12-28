@@ -9,8 +9,9 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-// MODELS
+// MISC MODELS
 
+// hold the waitlist emails
 model Waitlist {
   uid       String   @id @default(cuid())
   email     String   @unique
@@ -18,6 +19,7 @@ model Waitlist {
   updatedAt DateTime @updatedAt
 }
 
+// hold the answers for the demo questions
 model DemoAnswers {
   uid      String   @id @default(cuid())
   createdAt DateTime @default(now())
@@ -30,6 +32,7 @@ model DemoAnswers {
 }
 
 
+// the prompts for the AI (stored in the database)
 model AIPrompts {
   uid       String   @id @default(cuid())
   createdAt DateTime @default(now())

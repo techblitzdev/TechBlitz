@@ -89,10 +89,12 @@ model StatisticsReport {
 
   // the tags that the user has answered correctly
   correctTags String[]
-
   // the tags that the user has answered incorrectly
   incorrectTags String[]
 
-  // the ids of the questions the user should answer
+  // the questions that we will suggest to the user to answer
   questionsToAnswer Questions[]
+
+  // the html report of the user's statistics
+  htmlReport String?
 }

@@ -1,5 +1,4 @@
 'use server';
-import { prisma } from '@/utils/prisma';
 import {
   getUserFromDb,
   getUserFromSession,

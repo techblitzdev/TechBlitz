@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["prismaSchemaFolder"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// MISC MODELS
+
+// hold the waitlist emails
+model Waitlist {
+  uid       String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// hold the answers for the demo questions
+model DemoAnswers {
+  uid      String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  questionUid String
+  question    Questions @relation(fields: [questionUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+  correctAnswer Boolean @default(false)
+  userAnswer   String
+  timeTaken    Int?
+}
+
+
+// the prompts for the AI (stored in the database)
+model AIPrompts {
+  uid       String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  prompt String
+  name  String
+}

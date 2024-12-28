@@ -6,6 +6,7 @@ enum userLevel {
   PREMIUM
 }
 
+// the user model
 model Users {
   uid       String  @id()
   email     String  @unique
@@ -39,6 +40,7 @@ model Users {
   StatisticsReport StatisticsReport[]
 }
 
+// the streak model for tracking the user's streak
 model Streaks {
   uid       String   @id @default(cuid())
   createdAt DateTime @default(now())
@@ -59,6 +61,7 @@ model Streaks {
   longestStreak Int @default(0)
 }
 
+// the subscription model for storing the user's subscription
 model Subscriptions {
   uid           String    @id @default(cuid())
   createdAt     DateTime  @default(now())
@@ -78,7 +81,9 @@ model Subscriptions {
   stripeSubscriptionItemId String?
 }
 
+// the report that we generate for the user
 model StatisticsReport {
+  // standard fields
   uid       String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

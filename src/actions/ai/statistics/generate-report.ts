@@ -1,6 +1,5 @@
 'use server';
 import { prisma } from '@/utils/prisma';
-import { openai } from '@/lib/open-ai';
 import { getUserFromSession } from '@/actions/user/authed/get-user';
 
 /**
@@ -16,9 +15,9 @@ export const generateStatisticsReport = async () => {
     return null;
   }
 
-  // go and get the user responses.
+  // go and get all the user responses.
   // we need to grab the tags attached to the answers
-  const userResponses = await prisma.answers.findMany({
+  return await prisma.answers.findMany({
     where: {
       userUid: data?.user?.id,
     },
@@ -35,6 +34,7 @@ export const generateStatisticsReport = async () => {
     },
   });
 
-  // we need to get the tags from the responses
-  const tags = userResponses.map((response) => response.question.tags);
+  // we need to create two arrays of tags, one for how many the
+  // user got answered correctly and one for how many they got
+  // answered incorrectly.
 };

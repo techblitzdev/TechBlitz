@@ -108,9 +108,9 @@ export function AppSidebar() {
             !pathname.startsWith('/settings')) ? (
             <p>Roadmaps</p>
           ) : (
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 opacity-50 hover:cursor-not-allowed">
               <p>Roadmaps</p>
-              <LockIcon className="size-4" />
+              <LockIcon className="size-3" />
             </div>
           )}
         </>
@@ -131,12 +131,12 @@ export function AppSidebar() {
         {
           title: (
             <>
-              {user?.userLevel === 'PREMIUM' ? (
+              {user?.userLevel === 'PREMIUM' || user?.userLevel === 'ADMIN' ? (
                 'Reports'
               ) : (
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 opacity-50 hover:cursor-not-allowed">
                   <p>Reports</p>
-                  <LockIcon className="size-4" />
+                  <LockIcon className="size-3" />
                 </div>
               )}
             </>

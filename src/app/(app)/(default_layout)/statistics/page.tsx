@@ -17,7 +17,7 @@ import Hero from '@/components/global/hero';
 import SuggestedQuestions from '@/components/app/statistics/suggested-questions';
 import StatisticsReview from '@/components/app/statistics/statistics-review';
 import { Button } from '@/components/ui/button';
-import { EllipsisVertical, FileText, LockIcon } from 'lucide-react';
+import { EllipsisVertical, FileText } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuItem,

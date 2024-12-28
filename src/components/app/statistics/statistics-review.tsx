@@ -1,3 +1,4 @@
+import { generateStatisticsReport } from '@/actions/ai/statistics/generate-report';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 
@@ -15,11 +16,14 @@ export default function StatisticsReview() {
         </p>
       </div>
       <Separator className="bg-black-50" />
-      <div className="px-3 py-4 h-full flex items-center justify-center">
+      <form
+        className="px-3 py-4 h-full flex items-center justify-center"
+        action={generateStatisticsReport}
+      >
         <Button variant="secondary" className="flex items-center gap-x-2">
           Generate Report
         </Button>
-      </div>
+      </form>
     </section>
   );
 }

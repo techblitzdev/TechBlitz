@@ -15,7 +15,7 @@ import { formatSeconds } from '@/utils/time';
 import { getData } from '@/actions/statistics/get-stats-chart-data';
 import Hero from '@/components/global/hero';
 import SuggestedQuestions from '@/components/app/statistics/suggested-questions';
-import StatisticsReview from '@/components/app/statistics/statistics-review';
+import StatisticsReport from '@/components/app/statistics/statistics-report';
 import { Button } from '@/components/ui/button';
 import { EllipsisVertical, FileText } from 'lucide-react';
 import {
@@ -118,7 +118,7 @@ export default async function StatisticsPage({
         </div>
         {/** suggested q's and analysis blocks */}
         <SuggestedQuestions />
-        <StatisticsReview />
+        <StatisticsReport />
       </div>
     </div>
   );

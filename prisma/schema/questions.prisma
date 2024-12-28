@@ -1,0 +1,78 @@
+enum QuestionDifficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+model Questions {
+  uid          String   @id @default(cuid())
+  question     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  questionDate String
+
+  answers       QuestionAnswers[]
+  correctAnswer String
+
+  userAnswers    Answers[]
+  answerResource String?
+
+  codeSnippet String?
+
+  hint String?
+
+  dailyQuestion Boolean @default(false)
+
+  tags QuestionTags[]
+
+  difficulty QuestionDifficulty @default(EASY)
+
+  DemoAnswers DemoAnswers[]
+
+  StatisticsReport StatisticsReport[]
+}
+
+model Tag {
+  uid       String         @id @default(uuid())
+  name      String         @unique
+  questions QuestionTags[]
+}
+
+// Junction table for the many-to-many relationship between Questions and Tags
+model QuestionTags {
+  question   Questions @relation(fields: [questionId], references: [uid], onDelete: Cascade)
+  questionId String
+  tag        Tag       @relation(fields: [tagId], references: [uid], onDelete: Cascade)
+  tagId      String
+
+  @@id([questionId, tagId])
+  @@index([tagId])
+  @@index([questionId])
+}
+
+model QuestionAnswers {
+  uid         String    @id @default(cuid())
+  questionUid String
+  question    Questions @relation(fields: [questionUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+  answer      String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  isCodeSnippet Boolean   @default(false)
+}
+
+model Answers {
+  uid       String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  userUid       String    @default("legacy_user")
+  questionUid   String    @default("legacy_question")
+  user          Users     @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+  question      Questions @relation(fields: [questionUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+  userAnswerUid String
+  correctAnswer Boolean   @default(false)
+  questionDate  String    @default("")
+  timeTaken     Int?
+}

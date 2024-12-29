@@ -7,6 +7,7 @@ import { getTagsReport } from '@/actions/ai/statistics/utils/get-tags-report';
 import { generateStatisticsCustomQuestions } from './utils/generate-custom-questions';
 import { prisma } from '@/utils/prisma';
 import { nanoid } from 'nanoid';
+import { generateReportHtml } from './utils/generate-report-html';
 
 type QuestionData = {
   questions: string;
@@ -38,9 +39,18 @@ export const generateStatisticsReport = async () => {
 
   // Get user performance data
   const { correctTags, incorrectTags } = await getTagsReport({ user });
-  const customQuestionsResponse = await generateStatisticsCustomQuestions({
-    incorrectTags,
-  });
+
+  // the report html and question generations do not rely on each other
+  // so we can run them in parallel
+  const [customQuestionsResponse, reportHtmlResponse] = await Promise.all([
+    generateStatisticsCustomQuestions({
+      incorrectTags,
+    }),
+    generateReportHtml({
+      correctTags,
+      incorrectTags,
+    }),
+  ]);
 
   if (!customQuestionsResponse) {
     throw new Error('Failed to generate custom questions');
@@ -88,7 +98,7 @@ export const generateStatisticsReport = async () => {
         userUid: user.uid,
         correctTags: correctTags.map((tag) => tag.tagName),
         incorrectTags: incorrectTags.map((tag) => tag.tagName),
-        htmlReport: `<p>Your statistics report for ${new Date().toLocaleDateString()}</p>`,
+        htmlReport: reportHtmlResponse,
       },
     });
 

@@ -20,7 +20,7 @@ export default function StatsReportCard({ report }: { report: StatsReport }) {
           <h6 className="text-lg font-semibold">
             Report from {timeAgo(report.createdAt)}
           </h6>
-          <MoreHorizontal className="size-5 text-gray-500" />
+          <MoreHorizontal className="size-4 text-white" />
         </div>
 
         {/* Progress Bar */}

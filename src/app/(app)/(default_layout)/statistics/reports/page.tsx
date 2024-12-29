@@ -13,7 +13,7 @@ export default async function StatisticsReportsPage() {
     <>
       <Hero
         heading="Reports"
-        subheading="View all of your previously generated reports."
+        subheading="An overview of your generated reports. You can view the accuracy of your questions, the tags you've used, and the questions you've answered."
       />
       <div className="md:container flex flex-col lg:flex-row mt-5 gap-16">
         <div className="w-full lg:w-[55%] flex flex-col gap-6">

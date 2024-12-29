@@ -28,10 +28,10 @@ type QuestionData = {
 export const generateStatisticsReport = async () => {
   // Validate user and permissions
   const { data } = await getUserFromSession();
-  if (!data?.user?.id) return null;
+  if (!data?.user?.id) throw new Error('User not found');
 
   const user = await getUserFromDb(data.user.id);
-  if (!user) return null;
+  if (!user) throw new Error('User not found');
 
   if (!['PREMIUM', 'ADMIN'].includes(user.userLevel)) {
     throw new Error('Premium access required');

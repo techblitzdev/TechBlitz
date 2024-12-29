@@ -1,11 +1,12 @@
 import { UserRecord } from '@/types/User';
+import { filterBadWords } from '.';
 
 export const getUserDisplayName = (user: UserRecord) => {
-  return (
+  return filterBadWords(
     user?.username ||
-    (user?.firstName && user?.lastName
-      ? `${user.firstName} ${user.lastName}`
-      : null) ||
-    'Anonymous'
+      (user?.firstName && user?.lastName
+        ? `${user.firstName} ${user.lastName}`
+        : null) ||
+      'Anonymous'
   );
 };

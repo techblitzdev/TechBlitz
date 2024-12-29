@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { Filter } from 'bad-words';
 
 /**
  * Method to get the current environment
@@ -112,4 +113,9 @@ export const shortenText = (content: string, wordLimit: number) => {
   return content.length > wordLimit
     ? `${content.substring(0, wordLimit)}...`
     : content;
+};
+
+export const filterBadWords = (content: string) => {
+  const filter = new Filter({ placeHolder: '*' });
+  return filter.clean(content);
 };

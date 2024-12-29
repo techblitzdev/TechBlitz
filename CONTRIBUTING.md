@@ -104,7 +104,7 @@ npm run lint
 - `bug/` - for bug fixes
 - `docs/` - for documentation
 - `test/` - for test additions or improvements
-- `refactor/` - for code refactoring
+- `chore/` - for code refactoring & general code maintaince
 
 ## Styleguides
 

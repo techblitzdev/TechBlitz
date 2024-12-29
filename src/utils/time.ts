@@ -4,7 +4,7 @@ export const convertSecondsToTime = (seconds: number) => {
 
   return {
     minutes,
-    seconds: remainingSeconds
+    seconds: remainingSeconds,
   };
 };
 
@@ -36,4 +36,17 @@ export const formatSeconds = (seconds: number, shortForm?: boolean) => {
   }
 
   return result;
+};
+
+// Calculate time difference
+export const timeAgo = (createdAt: Date) => {
+  const now = new Date();
+  const created = new Date(createdAt);
+  const diff = now.getTime() - created.getTime();
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+  if (days === 0) return 'Today';
+  if (days === 1) return 'Yesterday';
+  if (days < 7) return `${days} days ago`;
+  return created.toLocaleDateString();
 };

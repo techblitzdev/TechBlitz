@@ -4,8 +4,8 @@ import { UserRoadmaps } from '@/types/Roadmap';
 import Link from 'next/link';
 import { Grid } from '@/components/ui/grid';
 import Chip from '@/components/ui/chip';
-import { capitalise } from '@/utils';
-import RoadmapCardMenu from './roadmap-card-menu';
+import { capitalise, shortenText } from '@/utils';
+import RoadmapCardMenu from '@/components/app/roadmaps/[uid]/roadmap-card-menu';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -75,9 +75,7 @@ export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {
               ) : (
                 roadmapRef.current.description && (
                   <p className="text-sm">
-                    {roadmapRef.current.description.length > 100
-                      ? `${roadmapRef.current.description.slice(0, 100)}...`
-                      : roadmapRef.current.description}
+                    {shortenText(roadmapRef.current.description, 100)}
                   </p>
                 )
               )}

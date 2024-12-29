@@ -1,21 +1,13 @@
 import React from 'react';
-import { MoreHorizontal, CheckCircle, XCircle, FileText } from 'lucide-react';
+import { MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
 import { StatsReport } from '@/types/Stats';
+import { timeAgo } from '@/utils/time';
+import Chip from '@/components/ui/chip';
 
 export default function StatsReportCard({ report }: { report: StatsReport }) {
-  // Calculate time difference
-  const timeAgo = () => {
-    const now = new Date();
-    const created = new Date(report.createdAt);
-    const diff = now.getTime() - created.getTime();
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-    if (days === 0) return 'Today';
-    if (days === 1) return 'Yesterday';
-    if (days < 7) return `${days} days ago`;
-    return created.toLocaleDateString();
-  };
+  const totalTags = report.correctTags.length + report.incorrectTags.length;
+  const correctPercentage = (report.correctTags.length / totalTags) * 100;
 
   return (
     <Link
@@ -25,42 +17,56 @@ export default function StatsReportCard({ report }: { report: StatsReport }) {
       <div className="space-y-4 border border-black-50 p-5 rounded-lg relative overflow-hidden">
         {/* Header */}
         <div className="flex w-full justify-between items-center">
-          <h6 className="text-lg font-semibold">Report from {timeAgo()}</h6>
+          <h6 className="text-lg font-semibold">
+            Report from {timeAgo(report.createdAt)}
+          </h6>
           <MoreHorizontal className="size-5 text-gray-500" />
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 gap-4 py-2">
-          <div className="flex items-center gap-2">
-            <CheckCircle className="size-4 text-green-500" />
-            <span className="text-sm">
-              {report.correctTags.length} Correct Tags
-            </span>
+        {/* Progress Bar */}
+        <div className="space-y-2">
+          <div className="flex gap-2 items-center">
+            <p className="text-xs">Accuracy:</p>
+            <p className="text-xs text-muted-foreground">
+              {correctPercentage.toFixed(1)}% correct
+            </p>
           </div>
-          <div className="flex items-center gap-2">
-            <XCircle className="size-4 text-red-500" />
-            <span className="text-sm">
-              {report.incorrectTags.length} Incorrect Tags
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <FileText className="size-4 text-blue-500" />
-            <span className="text-sm">
-              {report.questions.length} Custom questions
-            </span>
-          </div>
-        </div>
 
-        {/* Progress Bar 
-        <div className="w-full bg-gray-200 rounded-full h-2">
-          <div
-            className="bg-green-500 h-2 rounded-full transition-all duration-300"
-            style={{
-              width: `${(report.correctTags.length / (report.correctTags.length + report.incorrectTags.length)) * 100}%`,
-            }}
-          />
+          <div className="h-2 w-full rounded-full bg-secondary">
+            <div
+              className="h-2 rounded-full bg-green-500"
+              style={{ width: `${correctPercentage}%` }}
+            />
+          </div>
         </div>
-        */}
+        {/* Stats Grid */}
+        <div className="w-full flex justify-between">
+          <div className="flex gap-2">
+            <Chip
+              text={`${report.correctTags.length} Correct Tags`}
+              color="green-500"
+              textColor="green-500"
+              ghost
+              bold
+            />
+            <Chip
+              text={`${report.incorrectTags.length} Incorrect Tags`}
+              color="red-500"
+              textColor="red-500"
+              ghost
+              bold
+            />
+          </div>
+          <div className="w-fit">
+            <Chip
+              text={`${report.questions.length} Custom questions`}
+              color="black-100"
+              border="black-50"
+              ghost
+              bold
+            />
+          </div>
+        </div>
       </div>
     </Link>
   );

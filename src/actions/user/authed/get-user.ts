@@ -33,3 +33,19 @@ export const getUserFromDb = async (
     codeEditorTheme: user.codeEditorTheme || undefined,
   };
 };
+
+/**
+ * Method to get the user from the session, then return
+ * the user's details from the database.
+ *
+ * We use this when we need to validate the user and their
+ * permissions on the server, and cannot trust the client
+ * to send the correct user details.
+ *
+ * @returns UserRecord | null
+ */
+export const getUser = async () => {
+  const { data } = await getUserFromSession();
+  if (!data?.user?.id) throw new Error('User not found');
+  return await getUserFromDb(data.user.id);
+};

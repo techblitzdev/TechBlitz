@@ -18,5 +18,15 @@ export const getUserReports = async () => {
     where: {
       userUid: user.uid,
     },
+    include: {
+      questions: {
+        include: {
+          answers: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
   });
 };

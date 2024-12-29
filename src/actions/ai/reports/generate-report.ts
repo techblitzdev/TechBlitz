@@ -1,9 +1,5 @@
 'use server';
-import {
-  getUser,
-  getUserFromDb,
-  getUserFromSession,
-} from '@/actions/user/authed/get-user';
+import { getUser } from '@/actions/user/authed/get-user';
 import { getTagsReport } from '@/actions/ai/reports/utils/get-tags-report';
 import { generateStatisticsCustomQuestions } from '@/actions/ai/reports/utils/generate-custom-questions';
 import { prisma } from '@/utils/prisma';

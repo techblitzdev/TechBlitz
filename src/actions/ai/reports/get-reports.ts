@@ -3,7 +3,7 @@
 import { getUser } from '@/actions/user/authed/get-user';
 import { prisma } from '@/utils/prisma';
 
-export const getUserLevel = async () => {
+export const getUserReports = async () => {
   // validate that we have a user before grabbing their user level
   const user = await getUser();
   if (!user) throw new Error('User not found');
@@ -14,11 +14,9 @@ export const getUserLevel = async () => {
   }
 
   // get the user's reports
-  const reports = await prisma.statisticsReport.findMany({
+  return await prisma.statisticsReport.findMany({
     where: {
       userUid: user.uid,
     },
   });
-
-  return reports;
 };

@@ -2,7 +2,7 @@ import { generateStatisticsReport } from '@/actions/ai/statistics/generate-repor
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 
-export default function StatisticsReview() {
+export default async function StatisticsReport() {
   return (
     <section
       className="

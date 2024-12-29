@@ -1,9 +1,11 @@
 import React from 'react';
-import { MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
-import { StatsReport } from '@/types/Stats';
-import { timeAgo } from '@/utils/time';
+
 import Chip from '@/components/ui/chip';
+import { MoreHorizontal } from 'lucide-react';
+
+import { timeAgo } from '@/utils/time';
+import { StatsReport } from '@/types/Stats';
 
 export default function StatsReportCard({ report }: { report: StatsReport }) {
   const totalTags = report.correctTags.length + report.incorrectTags.length;
@@ -26,7 +28,7 @@ export default function StatsReportCard({ report }: { report: StatsReport }) {
         {/* Progress Bar */}
         <div className="space-y-2">
           <div className="flex gap-2 items-center">
-            <p className="text-xs">Accuracy:</p>
+            <p className="text-xs">Question accuracy:</p>
             <p className="text-xs text-muted-foreground">
               {correctPercentage.toFixed(1)}% correct
             </p>
@@ -39,7 +41,7 @@ export default function StatsReportCard({ report }: { report: StatsReport }) {
             />
           </div>
         </div>
-        {/* Stats Grid */}
+        {/* Stats Grid 
         <div className="w-full flex justify-between">
           <div className="flex gap-2">
             <Chip
@@ -67,6 +69,7 @@ export default function StatsReportCard({ report }: { report: StatsReport }) {
             />
           </div>
         </div>
+        */}
       </div>
     </Link>
   );

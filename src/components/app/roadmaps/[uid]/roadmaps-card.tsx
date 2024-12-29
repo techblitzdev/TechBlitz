@@ -2,7 +2,6 @@
 
 import { UserRoadmaps } from '@/types/Roadmap';
 import Link from 'next/link';
-import { Grid } from '@/components/ui/grid';
 import Chip from '@/components/ui/chip';
 import { capitalise, shortenText } from '@/utils';
 import RoadmapCardMenu from '@/components/app/roadmaps/[uid]/roadmap-card-menu';
@@ -126,7 +125,6 @@ export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {
           )}
         </motion.div>
       </AnimatePresence>
-      <Grid size={20} position="bottom-right" />
     </Link>
   );
 }

@@ -19,7 +19,7 @@ This project and everyone participating in it is governed by our Code of Conduct
 ## Getting Started
 
 1. Fork the repository
-2. Clone your fork: `git clone git@github.com/tecjblitzdev/TechBlitz.git`
+2. Clone your fork: `git clone git@github.com/techblitzdev/TechBlitz.git`
 3. Create your feature branch: `git checkout -b feature/your-feature-name`
 4. Make your changes
 5. Commit your changes: `git commit -m 'Add some feature'`
@@ -104,7 +104,7 @@ npm run lint
 - `bug/` - for bug fixes
 - `docs/` - for documentation
 - `test/` - for test additions or improvements
-- `refactor/` - for code refactoring
+- `chore/` - for code refactoring & general code maintaince
 
 ## Styleguides
 

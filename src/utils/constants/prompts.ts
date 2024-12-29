@@ -11,6 +11,7 @@ export const PROMPT_NAMES = [
 
   // STATISTICS
   'statistics-generate-report',
+  'statistics-generate-report-html',
 ] as const;
 
 export type PromptName = (typeof PROMPT_NAMES)[number];

@@ -1,11 +1,18 @@
 import React from 'react';
 import Link from 'next/link';
 
-import Chip from '@/components/ui/chip';
 import { MoreHorizontal } from 'lucide-react';
 
 import { timeAgo } from '@/utils/time';
 import { StatsReport } from '@/types/Stats';
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 
 export default function StatsReportCard({ report }: { report: StatsReport }) {
   const totalTags = report.correctTags.length + report.incorrectTags.length;
@@ -32,6 +39,19 @@ export default function StatsReportCard({ report }: { report: StatsReport }) {
             <p className="text-xs text-muted-foreground">
               {correctPercentage.toFixed(1)}% correct
             </p>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild className="w-fit">
+                  <QuestionMarkCircledIcon className="size-3 text-gray-400" />
+                </TooltipTrigger>
+                <TooltipContent align="center">
+                  <p>
+                    This is the percentage of the total questions that you have
+                    answered correctly.
+                  </p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
 
           <div className="h-2 w-full rounded-full bg-secondary">

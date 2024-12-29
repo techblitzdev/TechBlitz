@@ -1,4 +1,4 @@
-import { generateStatisticsReport } from '@/actions/ai/statistics/generate-report';
+import { generateStatisticsReport } from '@/actions/ai/reports/generate-report';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 

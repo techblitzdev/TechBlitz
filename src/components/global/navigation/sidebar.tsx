@@ -30,8 +30,8 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
-import AppSidebarSubMenuItem from './sidebar-submenu-item';
-import SidebarFooterComponent from './sidebar-footer';
+import AppSidebarSubMenuItem from '@/components/global/navigation/sidebar-submenu-item';
+import SidebarFooterComponent from '@/components/global/navigation/sidebar-footer';
 
 import type { SidebarItemType } from '@/types/Sidebar';
 
@@ -263,7 +263,7 @@ export function AppSidebar() {
           <div className="flex items-center w-full">
             <SidebarMenuButton asChild className="flex-grow">
               {item.disabled ? (
-                <div className="flex items-center font-inter font-medium  text-sm p-2 gap-x-2 opacity-50 hover:cursor-not-allowed h-8">
+                <div className="flex items-center font-inter font-medium text-sm p-2 gap-x-2 opacity-50 hover:cursor-not-allowed h-8">
                   {item.icon && <item.icon />}
                   <span className="text-sm font-inter">{item.title}</span>
                   <div className="ms-auto">{item.chip && <item.chip />}</div>
@@ -305,7 +305,7 @@ export function AppSidebar() {
           <SidebarGroupLabel className="w-full flex items-center justify-between">
             <Link
               href="/dashboard"
-              className="text-sm xl:text-2xl font-ubuntu hover:text-white duration-300"
+              className="text-sm xl:text-2xl font-inter hover:text-white duration-300"
               prefetch
               aria-label="Go back to dashboard"
             >
@@ -316,7 +316,7 @@ export function AppSidebar() {
           <div className="hidden group-data-[collapsible=icon]:flex items-center justify-center h-8 mb-5">
             <Link
               href="/dashboard"
-              className="text-sm xl:text-2xl font-ubuntu hover:text-white duration-300 size-10"
+              className="text-sm xl:text-2xl font-inter hover:text-white duration-300 size-10"
               prefetch
               aria-label="Go back to dashboard"
             >

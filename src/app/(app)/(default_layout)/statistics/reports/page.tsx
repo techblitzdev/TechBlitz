@@ -1,10 +1,11 @@
 import { Suspense } from 'react';
 import { getUserReports } from '@/actions/ai/reports/get-reports';
-import LoadingSpinner from '@/components/ui/loading';
+
 import StatsReportCard from '@/components/app/statistics/stats-report-card';
 import Hero from '@/components/global/hero';
 import { Button } from '@/components/ui/button';
 import { generateStatisticsReport } from '@/actions/ai/reports/generate-report';
+import StatsReportCardSkeleton from '@/components/app/statistics/stats-report-card-loading';
 
 export default async function StatisticsReportsPage() {
   const reports = await getUserReports();
@@ -13,11 +14,19 @@ export default async function StatisticsReportsPage() {
     <>
       <Hero
         heading="Reports"
-        subheading="An overview of your generated reports. You can view the accuracy of your questions, the tags you've used, and the questions you've answered."
+        subheading="You can view the accuracy of your questions and the questions you've answered. We have also generated personalized questions to help you improve your skills."
       />
       <div className="md:container flex flex-col lg:flex-row mt-5 gap-16">
         <div className="w-full lg:w-[55%] flex flex-col gap-6">
-          <Suspense fallback={<LoadingSpinner />}>
+          <Suspense
+            fallback={
+              <>
+                {[...Array(6)].map((_, i) => (
+                  <StatsReportCardSkeleton key={i} />
+                ))}
+              </>
+            }
+          >
             {reports.map((report) => (
               <StatsReportCard key={report.uid} report={report} />
             ))}

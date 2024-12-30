@@ -1,4 +1,3 @@
-import React from 'react';
 import Link from 'next/link';
 
 import { MoreHorizontal } from 'lucide-react';
@@ -14,7 +13,11 @@ import {
 } from '@/components/ui/tooltip';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 
-export default function StatsReportCard({ report }: { report: StatsReport }) {
+export default async function StatsReportCard({
+  report,
+}: {
+  report: StatsReport;
+}) {
   const totalTags = report.correctTags.length + report.incorrectTags.length;
   const correctPercentage = (report.correctTags.length / totalTags) * 100;
 

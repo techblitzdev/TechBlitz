@@ -9,28 +9,24 @@ export async function GET(request: Request) {
   const text = searchParams.get('text') || 'Hello, World!';
 
   // Get background color from query parameter or use default
-  const bgColor = searchParams.get('bgColor') || '#f0f0f0';
+  const bgColor = searchParams.get('bgColor') || '#000000';
 
   // Get text color from query parameter or use default
-  const textColor = searchParams.get('textColor') || '#000000';
+  const textColor = searchParams.get('textColor') || '#ffffff';
 
   return new ImageResponse(
     (
       <div
+        tw={`flex items-center justify-center w-full h-full`}
         style={{
-          fontSize: 60,
-          color: textColor,
           background: bgColor,
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontFamily: 'sans-serif',
-          fontWeight: 'bold',
         }}
       >
-        {text}
+        <div tw="flex flex-col items-center justify-center">
+          <h1 tw={`text-6xl font-bold`} style={{ color: textColor }}>
+            {text}
+          </h1>
+        </div>
       </div>
     ),
     {

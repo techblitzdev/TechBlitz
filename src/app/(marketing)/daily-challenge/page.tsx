@@ -6,6 +6,17 @@ import { Separator } from '@/components/ui/separator';
 import { ChartColumn, User } from 'lucide-react';
 import QuestionDisplay from '@/components/app/questions/single/code-snippet';
 import FeedbackButton from '@/components/ui/feedback-button';
+import { createMetadata } from '@/utils';
+
+export const metadata = createMetadata({
+  title: 'Daily Challenge | TechBlitz',
+  description: 'Daily coding challenge to level up your skills.',
+  image: {
+    text: `Daily Challenge ${new Date().toLocaleDateString()} | TechBlitz`,
+    bgColor: '#000',
+    textColor: '#fff',
+  },
+});
 
 export default async function MarketingQuestionPage() {
   // get the question

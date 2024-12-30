@@ -2,12 +2,17 @@ import CallToActionBlock from '@/components/marketing/global/call-to-action-bloc
 import FAQsBlock from '@/components/marketing/global/faqs';
 import { AnimatedBreak } from '@/components/marketing/pricing/animated-break';
 import PricingCardBlock from '@/components/marketing/pricing/pricing-card-block';
-import { Metadata } from 'next';
+import { createMetadata } from '@/utils';
 
-export const metadata: Metadata = {
-  title: 'Pricing | techblitz',
+export const metadata = createMetadata({
+  title: 'Pricing | TechBlitz',
   description:
     'Start for free and unlock premium features with our affordable plans to help you become a better developer.',
+  image: {
+    text: 'Pricing | TechBlitz',
+    bgColor: '#000',
+    textColor: '#fff',
+  },
   keywords: [
     'coding',
     'subscription',
@@ -19,7 +24,7 @@ export const metadata: Metadata = {
     'Javascript course',
     'development',
   ],
-};
+});
 
 const jsonLd = {
   '@context': 'https://schema.org',

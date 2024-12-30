@@ -1,8 +1,11 @@
-import { getBlogPost, getBlogPosts } from '@/lib/blog';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Link from 'next/link';
+
 import { ChevronLeft } from 'lucide-react';
+
+import { getBlogPost, getBlogPosts } from '@/lib/blog';
+import { createMetadata } from '@/utils';
 
 interface BlogPostParams {
   params: {
@@ -26,17 +29,17 @@ export async function generateMetadata({
     const { frontmatter } = await getBlogPost(params.slug);
     const typedFrontmatter = frontmatter as unknown as BlogFrontmatter;
 
-    return {
+    // generate the metadata for the blog post
+    return createMetadata({
       title: `${typedFrontmatter.title} | TechBlitz Blog`,
       description: typedFrontmatter.description,
-      openGraph: {
-        title: typedFrontmatter.title,
-        description: typedFrontmatter.description,
-        type: 'article',
-        publishedTime: typedFrontmatter.date,
-        authors: [typedFrontmatter.author],
+      keywords: ['blog', 'article', typedFrontmatter.title.toLowerCase()],
+      image: {
+        text: typedFrontmatter.title,
+        bgColor: '#000',
+        textColor: '#fff',
       },
-    };
+    });
   } catch {
     return {
       title: 'Blog Post Not Found',

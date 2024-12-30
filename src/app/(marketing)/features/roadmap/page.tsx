@@ -10,59 +10,18 @@ import MarketingContentGrid, {
   type MarketingContentGridProps,
 } from '@/components/marketing/global/content-grid';
 
-import { Metadata } from 'next';
 import { MobileIcon } from '@radix-ui/react-icons';
+import { createMetadata } from '@/utils';
 
-// generate metadata
-const title = 'Roadmaps | techblitz';
-const description =
-  'Create your own progression path with our AI powered roadmaps, designed to help you grow as a developer.';
-
-export const metadata: Metadata = {
-  title,
-  description,
-  keywords: [
-    'roadmaps',
-    'techblitz',
-    'ai',
-    'coding',
-    'programming',
-    'software engineering',
-    'developer',
-    'javascript',
-    'learn to code',
-    'coding course',
-    'coding bootcamp',
-  ],
-  openGraph: {
-    title,
-    description,
-    type: 'website',
-    url: 'https://techblitz.dev/features/roadmaps',
-    images: {
-      url: 'https://opengraph.b-cdn.net/production/images/93407e33-6a2b-466f-bd37-9e26677c5eb9.png?token=A1xhBmAdOrsarLLyJymgReFPhvXPSjA49YgOsZOdzs0&height=408&width=1200&expires=33270387134',
-      width: 800,
-      height: 630,
-      alt: description,
-    },
+export const metadata = createMetadata({
+  title: 'Roadmap | TechBlitz',
+  description: 'Create your own progression path with our AI powered roadmaps.',
+  image: {
+    text: 'Roadmap | TechBlitz',
+    bgColor: '#000',
+    textColor: '#fff',
   },
-  twitter: {
-    title,
-    description,
-    images: [
-      {
-        url: 'https://opengraph.b-cdn.net/production/images/93407e33-6a2b-466f-bd37-9e26677c5eb9.png?token=A1xhBmAdOrsarLLyJymgReFPhvXPSjA49YgOsZOdzs0&height=408&width=1200&expires=33270387134',
-        width: 800,
-        height: 630,
-        alt: description,
-      },
-    ],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+});
 
 // faqs
 const faqs = [

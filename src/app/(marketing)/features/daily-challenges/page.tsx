@@ -1,17 +1,24 @@
+import Link from 'next/link';
+
 import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/hero/daily-challenge-hero';
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 import MarketingContentGrid from '@/components/marketing/global/content-grid';
 import FAQsBlock from '@/components/marketing/global/faqs';
 import { MobileIcon } from '@radix-ui/react-icons';
-import Link from 'next/link';
-import { Metadata } from 'next';
 import FeatureLeftRightSection from '@/components/marketing/features/daily-challenge/feature-left-right/features-section';
 
-export const metadata: Metadata = {
+import { createMetadata } from '@/utils';
+
+export const metadata = createMetadata({
   title: 'Daily Coding Challenges | TechBlitz',
   description:
     'Improve your coding skills with our daily challenges. Perfect for developers who want consistent growth through bite-sized practice.',
-};
+  image: {
+    text: 'Daily Coding Challenges | TechBlitz',
+    bgColor: '#000',
+    textColor: '#fff',
+  },
+});
 
 const items = [
   {

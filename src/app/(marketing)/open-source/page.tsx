@@ -1,30 +1,30 @@
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 import MarketingContentGrid, {
-  type MarketingContentGridProps
+  type MarketingContentGridProps,
 } from '@/components/marketing/global/content-grid';
 import OpenSourceBlock from '@/components/marketing/global/open-source/open-source-block';
 import ResourceOpenSourceHeroBlock from '@/components/marketing/resources/open-source/open-source-hero';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { Building2Icon } from 'lucide-react';
-import { Metadata } from 'next';
+import { createMetadata } from '@/utils';
 
-export const metadata: Metadata = {
+export const metadata = createMetadata({
   title: 'Open Source | TechBlitz',
   description:
-    'TechBlitz is open-source and community-driven. Learn more about our mission and how you can contribute to our platform.'
-};
+    'TechBlitz is open-source and community-driven. Learn more about our mission and how you can contribute to our platform.',
+  image: {
+    text: 'Open Source | TechBlitz',
+    bgColor: '#000',
+    textColor: '#fff',
+  },
+});
 
 const items: MarketingContentGridProps[] = [
   {
-    icon: (
-      <MagnifyingGlassIcon
-        width={24}
-        height={24}
-      />
-    ),
+    icon: <MagnifyingGlassIcon width={24} height={24} />,
     title: 'Transparency',
     description:
-      'At TechBlitz, transparency is key. We openly share our source code to foster trust and collaboration with the developer community.'
+      'At TechBlitz, transparency is key. We openly share our source code to foster trust and collaboration with the developer community.',
   },
   {
     icon: (
@@ -42,14 +42,14 @@ const items: MarketingContentGridProps[] = [
     ),
     title: 'Community-driven',
     description:
-      'Our thriving community shapes TechBlitz’s direction. Share your ideas and help us create tools and features that meet your needs.'
+      'Our thriving community shapes TechBlitz’s direction. Share your ideas and help us create tools and features that meet your needs.',
   },
   {
     icon: <Building2Icon size={24} />,
     title: 'Cutting-edge Education',
     description:
-      'Stay ahead in tech with TechBlitz. Our innovative platform delivers targeted, AI-powered learning tools to enhance your skills effectively.'
-  }
+      'Stay ahead in tech with TechBlitz. Our innovative platform delivers targeted, AI-powered learning tools to enhance your skills effectively.',
+  },
 ];
 
 export default function OpenSourcePage() {

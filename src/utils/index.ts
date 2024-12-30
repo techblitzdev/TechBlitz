@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { Filter } from 'bad-words';
 
 /**
  * Method to get the current environment
@@ -8,11 +9,17 @@ import { Metadata } from 'next';
 export const getEnv = () => process.env.NODE_ENV;
 
 export const getBaseUrl = () => {
-  const publicRootDomain = process.env.NEXT_PUBLIC_ROOT_DOMAIN || '';
+  const publicRootDomain = process.env.NEXT_PUBLIC_URL || '';
   return getEnv() === 'development'
     ? 'http://localhost:3000'
     : publicRootDomain;
 };
+
+interface OgImageProps {
+  text: string;
+  bgColor?: string;
+  textColor?: string;
+}
 
 export const createMetadata = ({
   title,
@@ -22,7 +29,7 @@ export const createMetadata = ({
 }: {
   title: string;
   description: string;
-  image?: string;
+  image?: OgImageProps;
   keywords?: string[];
 }): Metadata => {
   const defaultKeywords = [
@@ -39,9 +46,12 @@ export const createMetadata = ({
     'coding bootcamp',
   ];
 
+  const bgColor = image?.bgColor || '#f0f0f0';
+  const textColor = image?.textColor || '#000000';
+
   const ogImage =
     image ||
-    `${getBaseUrl()}/api/og?text=${encodeURIComponent(title)}&bgColor=%23f0f0f0&textColor=%23000000`;
+    `${getBaseUrl()}/api/og?text=${encodeURIComponent(title)}&bgColor=${bgColor}&textColor=${textColor}`;
 
   return {
     title,
@@ -51,10 +61,13 @@ export const createMetadata = ({
       title,
       description,
       type: 'website',
-      url: 'https://techblitz.dev/features/roadmaps',
+      url: getBaseUrl(),
       images: [
         {
-          url: ogImage,
+          url:
+            typeof ogImage === 'string'
+              ? ogImage
+              : `${getBaseUrl()}/api/og?text=${encodeURIComponent(image?.text || '')}&bgColor=${bgColor}&textColor=${textColor}`,
           width: 1200,
           height: 630,
           alt: description,
@@ -67,7 +80,10 @@ export const createMetadata = ({
       description,
       images: [
         {
-          url: ogImage,
+          url:
+            typeof ogImage === 'string'
+              ? ogImage
+              : `${getBaseUrl()}/api/og?text=${encodeURIComponent(image?.text || '')}&bgColor=${bgColor}&textColor=${textColor}`,
           width: 1200,
           height: 630,
           alt: description,
@@ -112,4 +128,9 @@ export const shortenText = (content: string, wordLimit: number) => {
   return content.length > wordLimit
     ? `${content.substring(0, wordLimit)}...`
     : content;
+};
+
+export const filterBadWords = (content: string) => {
+  const filter = new Filter({ placeHolder: '*' });
+  return filter.clean(content);
 };

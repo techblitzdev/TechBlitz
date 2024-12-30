@@ -7,11 +7,11 @@ import BlogCard from '@/components/marketing/resources/blog/blog-card';
 import { createMetadata } from '@/utils';
 
 export const metadata = createMetadata({
-  title: 'Blog | TechBlitz',
+  title: 'Blog',
   description:
     'Stay up to date with the latest news and insights from TechBlitz. Gather insights on how to level up your skills, beyond our coding challenges.',
   image: {
-    text: 'Blog | TechBlitz',
+    text: 'Blog',
     bgColor: '#000',
     textColor: '#fff',
   },

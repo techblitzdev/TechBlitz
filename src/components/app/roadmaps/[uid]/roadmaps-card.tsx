@@ -38,7 +38,7 @@ export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {
   return (
     <Link
       href={href}
-      className="py-6 mb-6 space-y-5 items-start border border-black-50 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
+      className="py-6 mb-6 space-y-5 items-start border border-black-50 hover:border-accent duration-300 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
     >
       <div className="flex w-full justify-between gap-3">
         <div className="flex flex-col gap-y-3 font-ubuntu w-full">

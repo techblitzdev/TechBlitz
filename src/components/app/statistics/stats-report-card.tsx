@@ -21,9 +21,9 @@ export default function StatsReportCard({ report }: { report: StatsReport }) {
   return (
     <Link
       href={`/statistics/reports/${report.uid}`}
-      className="group w-full h-auto hover:shadow-md transition-all duration-200"
+      className="group w-full h-auto transition-all duration-200"
     >
-      <div className="space-y-4 border border-black-50 p-5 rounded-lg relative overflow-hidden">
+      <div className="space-y-4 border border-black-50 hover:border-accent duration-300 p-5 rounded-lg relative overflow-hidden">
         {/* Header */}
         <div className="flex w-full justify-between items-center">
           <h6 className="text-lg font-semibold">
@@ -35,11 +35,11 @@ export default function StatsReportCard({ report }: { report: StatsReport }) {
         {/* Progress Bar */}
         <div className="space-y-2">
           <div className="flex gap-2 items-center">
-            <p className="text-xs">Question accuracy:</p>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs font-ubuntu">Question accuracy:</p>
+            <p className="text-xs text-muted-foreground font-ubuntu">
               {correctPercentage.toFixed(1)}% correct
             </p>
-            <TooltipProvider>
+            <TooltipProvider delayDuration={0} skipDelayDuration={100}>
               <Tooltip>
                 <TooltipTrigger asChild className="w-fit">
                   <QuestionMarkCircledIcon className="size-3 text-gray-400" />

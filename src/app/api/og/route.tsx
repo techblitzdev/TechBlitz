@@ -18,15 +18,16 @@ export async function GET(request: Request) {
     (
       <div
         style={{
+          fontSize: 60,
+          color: textColor,
+          background: bgColor,
           width: '100%',
           height: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontSize: 60,
+          fontFamily: 'sans-serif',
           fontWeight: 'bold',
-          background: bgColor,
-          color: textColor
         }}
       >
         {text}
@@ -34,7 +35,7 @@ export async function GET(request: Request) {
     ),
     {
       width: 1200,
-      height: 630
+      height: 630,
     }
   );
 }

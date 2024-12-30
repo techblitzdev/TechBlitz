@@ -1,5 +1,5 @@
 <img src="https://github.com/user-attachments/assets/a67688cd-1ee7-4f8d-b2d8-ab7400ee71a7" alt="Logo">
-<h3 align="center">[TechBlitz](https://techblitz.dev)</h3>
+<h3 align="center">TechBlitz</h3>
 
 <div align="center">
    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/techblitzdev/techblitz">

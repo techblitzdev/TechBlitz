@@ -1,5 +1,5 @@
 'use client';
-import { deleteReport } from '@/actions/ai/reports/delete';
+import { deleteReport } from '@/actions/statistics/reports/delete';
 import { MoreHorizontal, Trash2 } from 'lucide-react';
 
 import {

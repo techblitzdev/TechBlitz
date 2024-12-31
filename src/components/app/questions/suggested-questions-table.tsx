@@ -7,8 +7,9 @@ import Link from 'next/link';
 export default function QuestionSuggestedCard(opts: {
   questions?: QuestionWithoutAnswers[];
   border?: boolean;
+  textLimit?: number;
 }) {
-  const { questions, border = true } = opts;
+  const { questions, border = true, textLimit = 35 } = opts;
 
   return (
     <div
@@ -28,8 +29,8 @@ export default function QuestionSuggestedCard(opts: {
           )}
           href={`/question/${question.uid}`}
         >
-          <p className="text-sm font-satoshi">
-            {shortenText(question.question, 35)}
+          <p className="text-sm font-satoshi line-clamp-1">
+            {shortenText(question.question, textLimit)}
           </p>
           <ArrowRight className="size-3 mr-1 group-hover:mr-0 duration-300 flex-shrink-0" />
         </Link>

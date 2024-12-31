@@ -42,7 +42,7 @@ export default function StatisticsReportContent({
       totalQuestions,
       correctAnswers: report.correctTags.length,
       incorrectAnswers: report.incorrectTags.length,
-      accuracy: correctPercentage,
+      accuracy: correctPercentage.toFixed(1),
     };
   }, [report]);
 

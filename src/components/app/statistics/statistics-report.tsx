@@ -1,8 +1,18 @@
 import { generateStatisticsReport } from '@/actions/ai/reports/generate-report';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import { useUserServer } from '@/hooks/useUserServer';
+import { LockIcon } from 'lucide-react';
 
 export default async function StatisticsReport() {
+  const user = await useUserServer();
+
   return (
     <section
       className="
@@ -20,9 +30,25 @@ export default async function StatisticsReport() {
         className="px-3 py-4 h-full flex items-center justify-center"
         action={generateStatisticsReport}
       >
-        <Button variant="secondary" className="flex items-center gap-x-2">
-          Generate Report
-        </Button>
+        <TooltipProvider>
+          <Tooltip delayDuration={0}>
+            <TooltipTrigger asChild>
+              <Button
+                variant="secondary"
+                className="flex items-center gap-x-2"
+                disabled={user?.userLevel === 'FREE'}
+              >
+                Generate Report
+                {user?.userLevel === 'FREE' && <LockIcon className="size-4" />}
+              </Button>
+            </TooltipTrigger>
+            {user?.userLevel === 'FREE' && (
+              <TooltipContent>
+                <p>You need to be a premium user to generate a report.</p>
+              </TooltipContent>
+            )}
+          </Tooltip>
+        </TooltipProvider>
       </form>
     </section>
   );

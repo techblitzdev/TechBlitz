@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/tooltip';
 import { useUserServer } from '@/hooks/useUserServer';
 import { cn } from '@/utils/cn';
-import { ArrowRight, ArrowRightIcon, LockIcon } from 'lucide-react';
+import { ArrowRight, ChevronRight, LockIcon } from 'lucide-react';
 import Link from 'next/link';
 
 export default async function StatisticsReport() {
@@ -29,12 +29,13 @@ export default async function StatisticsReport() {
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-onest">Statistics Review</h2>
           <Button
-            variant="ghost"
+            variant="secondary"
             className="flex items-center gap-x-2 text-sm"
             href="/statistics/reports"
+            disabled={reports.length === 0 || user?.userLevel === 'FREE'}
           >
             Reports overview
-            <ArrowRightIcon className="size-4" />
+            <ChevronRight className="size-4" />
           </Button>
         </div>
         <p className="text-sm text-gray-400">

@@ -6,6 +6,7 @@ import { prisma } from '@/utils/prisma';
 import { nanoid } from 'nanoid';
 import { generateReportHtml } from '@/actions/ai/reports/utils/generate-report-html';
 import { revalidateTag } from 'next/cache';
+import { getTotalTimeTaken } from '@/actions/statistics/get-stats-chart-data';
 
 type QuestionData = {
   questions: string;
@@ -86,6 +87,9 @@ export const generateStatisticsReport = async () => {
     };
   });
 
+  // get the total time taken
+  const totalTimeTaken = await getTotalTimeTaken(user.uid);
+
   // Create report and questions in transaction
   return await prisma.$transaction(async (prisma) => {
     const report = await prisma.statisticsReport.create({
@@ -94,6 +98,7 @@ export const generateStatisticsReport = async () => {
         correctTags: correctTags.map((tag) => tag.tagName),
         incorrectTags: incorrectTags.map((tag) => tag.tagName),
         htmlReport: reportHtmlResponse,
+        totalTimeTaken: totalTimeTaken || 0,
       },
     });
 

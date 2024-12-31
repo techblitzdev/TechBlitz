@@ -10,20 +10,20 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from '@/components/ui/card';
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
-  ChartTooltipContent
+  ChartTooltipContent,
 } from '@/components/ui/chart';
 
 const chartConfig = {
   questions: {
     label: 'Questions',
-    color: 'hsl(var(--chart-1))'
-  }
+    color: 'hsl(var(--chart-1))',
+  },
 } satisfies ChartConfig;
 
 export interface StatsChartData {
@@ -35,7 +35,7 @@ export interface StatsChartData {
 }
 
 export default function QuestionChart({
-  questionData
+  questionData,
 }: {
   questionData: StatsChartData;
 }) {
@@ -45,7 +45,7 @@ export default function QuestionChart({
     // Directly use the keys as they should now be pre-formatted
     return entries.map(([date, data]) => ({
       date: date,
-      questions: data.totalQuestions
+      questions: data.totalQuestions,
     }));
   }, [questionData]);
 
@@ -64,7 +64,7 @@ export default function QuestionChart({
 
     return {
       percentage: Math.abs(percentageChange).toFixed(2),
-      isUp: percentageChange > 0
+      isUp: percentageChange > 0,
     };
   }, [chartData]);
 
@@ -80,18 +80,12 @@ export default function QuestionChart({
   }, [chartData]);
 
   const yAxisDomain = useMemo(() => {
-    const maxY = Math.ceil(maxQuestions * 1.1); // Add 10% padding
+    const maxY = Math.ceil(maxQuestions * 1.1);
     return [0, maxY];
   }, [maxQuestions]);
 
   return (
-    <Card
-      className="border-black-50 max-h-[28rem]"
-      style={{
-        background:
-          'radial-gradient(128% 107% at 100% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
-      }}
-    >
+    <Card className="border-black-50 max-h-[28rem]">
       <CardHeader>
         <CardTitle className="text-white w-full flex justify-between items-center">
           <span>Questions Answered </span>
@@ -116,7 +110,7 @@ export default function QuestionChart({
           className="max-h-80"
           style={{
             aspectRatio: '10 / 4',
-            width: '100%'
+            width: '100%',
           }}
         >
           <LineChart
@@ -126,7 +120,7 @@ export default function QuestionChart({
               left: 12,
               right: 12,
               top: 20,
-              bottom: 10
+              bottom: 10,
             }}
           >
             <CartesianGrid vertical={false} />
@@ -155,10 +149,10 @@ export default function QuestionChart({
               stroke="hsl(var(--accent))"
               strokeWidth={2}
               dot={{
-                fill: 'hsl(var(--accent))'
+                fill: 'hsl(var(--accent))',
               }}
               activeDot={{
-                r: 6
+                r: 6,
               }}
             />
           </LineChart>

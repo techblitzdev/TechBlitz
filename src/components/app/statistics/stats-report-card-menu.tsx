@@ -10,14 +10,25 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+import { cn } from '@/utils/cn';
 
-export default function StatsReportCardMenu(opts: { reportUid: string }) {
-  const { reportUid } = opts;
+export default function StatsReportCardMenu(opts: {
+  reportUid: string;
+  redirect?: string;
+  triggerBackground?: boolean;
+}) {
+  const { reportUid, redirect, triggerBackground } = opts;
+
+  const router = useRouter();
 
   const handleDeleteReport = async () => {
     try {
       await deleteReport(reportUid);
       toast.success('Report deleted');
+      if (redirect) {
+        router.push(redirect);
+      }
     } catch (error) {
       toast.error('Failed to delete report');
     }
@@ -27,9 +38,12 @@ export default function StatsReportCardMenu(opts: { reportUid: string }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="ghost"
-          padding="none"
-          className="hover:bg-black-50 h-fit p-0.5"
+          variant={triggerBackground ? 'default' : 'ghost'}
+          padding={triggerBackground ? 'sm' : 'none'}
+          className={cn(
+            'hover:bg-black-50',
+            triggerBackground ? '' : 'p-0.5 h-fit'
+          )}
         >
           <MoreHorizontal className="size-4 text-white" />
         </Button>

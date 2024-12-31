@@ -3,7 +3,7 @@
 import { getUser } from '@/actions/user/authed/get-user';
 import { prisma } from '@/utils/prisma';
 
-export const getUserReports = async () => {
+export const getUserReports = async (take: number = 5) => {
   // validate that we have a user before grabbing their user level
   const user = await getUser();
   if (!user) throw new Error('User not found');
@@ -28,5 +28,6 @@ export const getUserReports = async () => {
     orderBy: {
       createdAt: 'desc',
     },
+    take,
   });
 };

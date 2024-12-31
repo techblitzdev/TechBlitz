@@ -43,12 +43,10 @@ export default function StatisticsReportContent({
     redirect('/login');
   }
 
-  const [activeTab, setActiveTab] = useState<
-    'summary' | 'details' | 'questions'
-  >(
+  const [activeTab, setActiveTab] = useState<'tags' | 'details' | 'questions'>(
     () =>
-      (searchParams.get('tab') as 'summary' | 'details' | 'questions') ||
-      'summary'
+      (searchParams.get('tab') as 'tags' | 'details' | 'questions') ||
+      'questions'
   );
 
   const stats = useMemo(() => {
@@ -71,7 +69,7 @@ export default function StatisticsReportContent({
   });
 
   const handleTabChange = (value: string) => {
-    const newTab = value as 'summary' | 'details' | 'questions';
+    const newTab = value as 'tags' | 'details' | 'questions';
     setActiveTab(newTab);
     router.push(`?tab=${newTab}`, { scroll: false });
   };
@@ -122,11 +120,11 @@ export default function StatisticsReportContent({
 
       <Tabs value={activeTab} onValueChange={handleTabChange}>
         <TabsList className="grid w-full grid-cols-3 text-white bg-[#000]">
-          <TabsTrigger value="summary">Summary</TabsTrigger>
           <TabsTrigger value="details">Detailed Report</TabsTrigger>
           <TabsTrigger value="questions">Questions</TabsTrigger>
+          <TabsTrigger value="tags">Tags</TabsTrigger>
         </TabsList>
-        <TabsContent value="summary">
+        <TabsContent value="tags">
           <Card className="border-black-50">
             <CardHeader>
               <CardTitle className="text-white text-center text-xl">
@@ -219,12 +217,10 @@ export default function StatisticsReportContent({
         </TabsContent>
         <TabsContent value="questions">
           <Card className="border-black-50">
-            <CardContent className="grid grid-cols-2 gap-4 pt-6">
+            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-4 pt-6">
               <div className="flex flex-col gap-y-4 text-center text-white">
-                <div className="">
-                  <h3 className="text-lg font-semibold mb-2 ">
-                    Suggested Questions
-                  </h3>
+                <div className="flex flex-col gap-y-2">
+                  <h3 className="text-lg font-semibold">Suggested Questions</h3>
                   <p className="text-sm text-gray-400">
                     These questions have been suggested based on this report.
                   </p>
@@ -247,14 +243,13 @@ export default function StatisticsReportContent({
                 )}
               </div>
               <div className="flex flex-col gap-y-4 text-center text-white">
-                <div className="">
-                  <h3 className="text-lg font-semibold mb-2">
-                    Custom Questions
-                  </h3>
+                <div className="flex flex-col gap-y-2">
+                  <h3 className="text-lg font-semibold">Custom Questions</h3>
                   <p className="text-sm text-gray-400">
                     These questions have been created based on the report.
                   </p>
                 </div>
+
                 <QuestionSuggestedCard
                   questions={report.questions ?? []}
                   textLimit={75}

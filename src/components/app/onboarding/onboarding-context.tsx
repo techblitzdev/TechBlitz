@@ -1,8 +1,10 @@
 'use client';
 
-// wrapper to provide a context for the onboarding flow
-// this context will be used to store all user onboarding data
-// throughout the different steps of the onboarding flow
+/**
+ * wrapper to provide a context for the onboarding flow
+ * this context will be used to store all user onboarding data
+ * throughout the different steps of the onboarding flow
+ */
 import { createContext, useContext, useState } from 'react';
 import type { UpdatableUserFields } from '@/types/User';
 

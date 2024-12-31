@@ -18,6 +18,7 @@ import { StatisticsReport } from '@prisma/client';
 import { Question } from '@/types/Questions';
 import StatisticsReportTabs from './statistics-report-tabs';
 import NumberFlow from '@number-flow/react';
+import BackToDashboard from '@/components/ui/back-to-dashboard';
 
 const MemoizedNumberFlow = React.memo(NumberFlow);
 
@@ -48,9 +49,12 @@ export default function StatisticsReportContent({
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6 text-gradient from-white/55 to-white">
-        Statistics Report
-      </h1>
+      <div className="flex items-center gap-6 mb-6">
+        <BackToDashboard href="/statistics" />
+        <h1 className="text-3xl font-bold text-gradient from-white/55 to-white">
+          Statistics Report
+        </h1>
+      </div>
       <Card className="mb-8 border-black-50">
         <CardHeader>
           <CardTitle className="text-white">Report Summary</CardTitle>

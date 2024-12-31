@@ -12,24 +12,12 @@ import { getData } from '@/actions/statistics/get-stats-chart-data';
 import Hero from '@/components/global/hero';
 import SuggestedQuestions from '@/components/app/statistics/suggested-questions';
 import StatisticsReport from '@/components/app/statistics/statistics-report';
-import { Button } from '@/components/ui/button';
-import { EllipsisVertical, FileText } from 'lucide-react';
-import {
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { cn } from '@/utils/cn';
+import StatisticsOverviewMenu from '@/components/app/statistics/statistics-overview-menu';
 
-// Add metadata for better SEO and caching
 export const metadata = {
   title: 'Statistics | techblitz',
   description: 'View your coding statistics and progress',
 };
-
-// Add revalidate to cache page for 1 hour
-export const revalidate = 3600;
 
 export default async function StatisticsPage({
   searchParams,
@@ -63,28 +51,7 @@ export default async function StatisticsPage({
         />
         <div className="flex gap-3">
           <StatsRangePicker selectedRange={STATISTICS[range].label} />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button className="px-2" variant="default" padding="md" size="sm">
-                <EllipsisVertical className="size-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              className="bg-black-75 border border-black-50 text-white hover:text-white"
-            >
-              <DropdownMenuItem
-                className={cn(
-                  'hover:cursor-pointer flex items-center gap-x-2',
-                  user?.userLevel === 'PREMIUM' &&
-                    'opacity-50 hover:cursor-not-allowed'
-                )}
-              >
-                <FileText className="size-3.5" />
-                Generate Report
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <StatisticsOverviewMenu user={user} />
         </div>
       </div>
 

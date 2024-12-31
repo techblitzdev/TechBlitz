@@ -32,10 +32,6 @@ export default function StatisticsReportContent({
 }) {
   const { user, isLoading } = useUser();
 
-  if (!user && !isLoading) {
-    return redirect('/login');
-  }
-
   const stats = useMemo(() => {
     const totalQuestions =
       report.correctTags.length + report.incorrectTags.length;
@@ -49,6 +45,10 @@ export default function StatisticsReportContent({
       accuracy: correctPercentage.toFixed(1),
     };
   }, [report]);
+
+  if (!user && !isLoading) {
+    return redirect('/login');
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">

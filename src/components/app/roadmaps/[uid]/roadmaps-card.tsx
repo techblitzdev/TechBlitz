@@ -35,6 +35,13 @@ export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {
       ? `/roadmap/${roadmapRef.current.uid}`
       : `/roadmap/${roadmapRef.current.uid}/onboarding/${roadmapRef.current.currentQuestionIndex}`;
 
+  const correctCount = roadmapRef.current.questions.filter(
+    (f) => f.userCorrect
+  ).length;
+  const correctPercentage = Math.round(
+    (correctCount / roadmapRef.current.questions.length) * 100
+  );
+
   return (
     <Link
       href={href}
@@ -123,6 +130,24 @@ export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {
               </div>
             </>
           )}
+        </motion.div>
+      </AnimatePresence>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={isLoading ? 'loading' : 'content'}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="space-y-2 w-full"
+        >
+          <p className="text-xs font-ubuntu">Roadmap progress</p>
+          <div className="h-2 w-full rounded-full bg-black-50">
+            <div
+              className="h-2 rounded-full bg-green-500"
+              style={{ width: `${correctPercentage}%` }}
+            />
+          </div>
         </motion.div>
       </AnimatePresence>
     </Link>

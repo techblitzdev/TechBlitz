@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { getUserReports } from '@/actions/ai/reports/get-reports';
+import { getUserReports } from '@/actions/statistics/reports/get-reports';
 import StatsReportCard from '@/components/app/statistics/stats-report-card';
 import Hero from '@/components/global/hero';
 import StatsReportCardSkeleton from '@/components/app/statistics/stats-report-card-loading';

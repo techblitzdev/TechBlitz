@@ -7,7 +7,11 @@ export const PROMPT_NAMES = [
   'roadmap-generate-pass-one-teacher',
   'roadmap-generate-pass-one-question',
   'roadmap-generate-pass-one-topics',
-  'roadmap-generate-pass-two'
+  'roadmap-generate-pass-two',
+
+  // STATISTICS
+  'statistics-generate-report',
+  'statistics-generate-report-html',
 ] as const;
 
 export type PromptName = (typeof PROMPT_NAMES)[number];

@@ -28,8 +28,8 @@ export default async function RoadmapPage() {
         heading="Roadmaps"
         subheading="Here you can view all of your roadmaps and their progress, as well as create new ones."
       />
-      <div className="flex flex-col lg:flex-row gap-10 mt-5 container">
-        <div className="w-full lg:w-1/2 relative">
+      <div className="flex flex-col lg:flex-row gap-16 mt-5 container">
+        <div className="w-full lg:w-[55%] relative">
           {userRoadmaps.map((roadmap) => (
             <RoadmapsCard
               key={roadmap.uid}
@@ -42,7 +42,7 @@ export default async function RoadmapPage() {
         </div>
 
         {/** create new roadmap cta */}
-        <aside className="order-first md:order-last w-full lg:w-1/2 relative">
+        <aside className="order-first md:order-last w-full lg:w-[45%] relative">
           <div className="sticky top-10 space-y-10 w-1/2">
             <CreateRoadmapButton userId={user.uid} />
           </div>

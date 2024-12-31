@@ -1,195 +1,9 @@
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
-}
-
-// ENUMS
-
-enum userLevel {
-  STANDARD
-  ADMIN
-  TRIAL
-  FREE
-  PREMIUM
-}
-
-enum QuestionDifficulty {
-  EASY
-  MEDIUM
-  HARD
-}
-
 // Enums for roadmap and question statuses
 enum RoadmapStatus {
   ACTIVE
   COMPLETED
   ARCHIVED
   CREATING
-}
-
-// MODELS
-
-model Waitlist {
-  uid       String   @id @default(cuid())
-  email     String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Users {
-  uid       String  @id()
-  email     String  @unique
-  username  String?
-  firstName String?
-  lastName  String?
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  lastLogin DateTime?
-
-  totalDailyStreak   Int? @default(0)
-  correctDailyStreak Int? @default(0)
-
-  userProfilePicture String?
-
-  showTimeTaken Boolean @default(false)
-  // whether to send the user a reminder to answer the daily question
-  sendPushNotifications Boolean @default(false)
-
-  userLevel userLevel @default(STANDARD)
-  subscription Subscriptions?
-  streak Streaks?
-  roadmaps UserRoadmaps[]
-  answers Answers[]
-
-  // allowing the user to choose their code editor theme
-  codeEditorTheme String? @default("vs-dark")
-}
-
-model Subscriptions {
-  uid           String    @id @default(cuid())
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  userUid       String    @unique
-  user          Users     @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
-  startDate     DateTime?
-  endDate       DateTime?
-  active        Boolean   @default(true)
-  planId        String
-  productId     String
-  planTrial     Boolean   @default(false)
-  planTrialDays Int?
-
-  stripeCustomerId         String?
-  stripeSubscriptionId     String?
-  stripeSubscriptionItemId String?
-}
-
-model Questions {
-  uid          String   @id @default(cuid())
-  question     String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  questionDate String
-
-  answers       QuestionAnswers[]
-  correctAnswer String
-
-  userAnswers    Answers[]
-  answerResource String?
-
-  codeSnippet String?
-
-  hint String?
-
-  dailyQuestion Boolean @default(false)
-
-  tags QuestionTags[]
-
-  difficulty QuestionDifficulty @default(EASY)
-
-  DemoAnswers DemoAnswers[]
-}
-
-model Tag {
-  uid       String         @id @default(uuid())
-  name      String         @unique
-  questions QuestionTags[]
-}
-
-// Junction table for the many-to-many relationship between Questions and Tags
-model QuestionTags {
-  question   Questions @relation(fields: [questionId], references: [uid], onDelete: Cascade)
-  questionId String
-  tag        Tag       @relation(fields: [tagId], references: [uid], onDelete: Cascade)
-  tagId      String
-
-  @@id([questionId, tagId])
-  @@index([tagId])
-  @@index([questionId])
-}
-
-model QuestionAnswers {
-  uid         String    @id @default(cuid())
-  questionUid String
-  question    Questions @relation(fields: [questionUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
-  answer      String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-
-  isCodeSnippet Boolean   @default(false)
-}
-
-model Answers {
-  uid       String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-
-  userUid       String    @default("legacy_user")
-  questionUid   String    @default("legacy_question")
-  user          Users     @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
-  question      Questions @relation(fields: [questionUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
-  userAnswerUid String
-  correctAnswer Boolean   @default(false)
-  questionDate  String    @default("")
-  timeTaken     Int?
-}
-
-model DemoAnswers {
-  uid      String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  questionUid String
-  question    Questions @relation(fields: [questionUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
-  correctAnswer Boolean @default(false)
-  userAnswer   String
-  timeTaken    Int?
-}
-
-model Streaks {
-  uid       String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // connect to user
-  userUid String @unique
-  user    Users  @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
-
-  // how we calculate the user's streak
-  streakStart DateTime?
-  streakEnd   DateTime?
-
-  // easy way to pluck out the user's current streak
-  currentstreakCount Int @default(0)
-
-  // easy way to pluck out the user's longest streak
-  longestStreak Int @default(0)
 }
 
 // Main roadmap associated with a user
@@ -249,6 +63,7 @@ model RoadmapUserQuestions {
   order Int
 }
 
+
 model RoadmapUserQuestionsAnswers {
   uid       String   @id @default(cuid())
   createdAt DateTime @default(now())
@@ -264,6 +79,7 @@ model RoadmapUserQuestionsAnswers {
   // the string answer 
   answer String
 }
+
 
 model RoadmapUserQuestionsUserAnswers {
   uid       String   @id @default(cuid())
@@ -331,13 +147,4 @@ model DefaultRoadmapQuestionsUsersAnswers {
   // connect to the roadmap
   roadmapUid String
   roadmap    UserRoadmaps @relation(fields: [roadmapUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
-}
-
-model AIPrompts {
-  uid       String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  prompt String
-  name  String
 }

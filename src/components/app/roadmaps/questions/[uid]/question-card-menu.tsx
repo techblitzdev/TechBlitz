@@ -5,7 +5,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { MoreHorizontal, StarsIcon, Trash2 } from 'lucide-react';
 import { useState } from 'react';
@@ -25,7 +25,7 @@ export default function RoadmapQuestionCardMenu(opts: {
     onRegenerateStart();
     try {
       await generateNewRoadmapQuestion({
-        questionUid
+        questionUid,
       });
     } finally {
       setIsRegenerating(false);
@@ -44,16 +44,9 @@ export default function RoadmapQuestionCardMenu(opts: {
           <MoreHorizontal className="size-4 text-white" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent
-        side="bottom"
-        align="end"
-        className="bg-black-75 border border-black-50 text-white hover:text-white"
-      >
+      <DropdownMenuContent side="bottom" align="end">
         {!questionAnswered && (
-          <DropdownMenuItem
-            className="font-onest"
-            disabled={isRegenerating}
-          >
+          <DropdownMenuItem className="font-onest" disabled={isRegenerating}>
             <button
               className="flex items-center gap-2"
               onClick={regenerateQuestion}

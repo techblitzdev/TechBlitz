@@ -2,10 +2,9 @@
 
 import { UserRoadmaps } from '@/types/Roadmap';
 import Link from 'next/link';
-import { Grid } from '@/components/ui/grid';
 import Chip from '@/components/ui/chip';
-import { capitalise } from '@/utils';
-import RoadmapCardMenu from './roadmap-card-menu';
+import { capitalise, shortenText } from '@/utils';
+import RoadmapCardMenu from '@/components/app/roadmaps/[uid]/roadmap-card-menu';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -39,7 +38,7 @@ export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {
   return (
     <Link
       href={href}
-      className="py-6 mb-6 space-y-5 items-start border border-black-50 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
+      className="py-6 mb-6 space-y-5 items-start border border-black-50 hover:border-accent duration-300 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
     >
       <div className="flex w-full justify-between gap-3">
         <div className="flex flex-col gap-y-3 font-ubuntu w-full">
@@ -75,9 +74,7 @@ export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {
               ) : (
                 roadmapRef.current.description && (
                   <p className="text-sm">
-                    {roadmapRef.current.description.length > 100
-                      ? `${roadmapRef.current.description.slice(0, 100)}...`
-                      : roadmapRef.current.description}
+                    {shortenText(roadmapRef.current.description, 100)}
                   </p>
                 )
               )}
@@ -128,7 +125,6 @@ export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {
           )}
         </motion.div>
       </AnimatePresence>
-      <Grid size={20} position="bottom-right" />
     </Link>
   );
 }

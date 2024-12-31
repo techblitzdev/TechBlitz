@@ -1,0 +1,82 @@
+enum userLevel {
+  STANDARD
+  ADMIN
+  TRIAL
+  FREE
+  PREMIUM
+}
+
+// the user model
+model Users {
+  uid       String  @id()
+  email     String  @unique
+  username  String?
+  firstName String?
+  lastName  String?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  lastLogin DateTime?
+
+  totalDailyStreak   Int? @default(0)
+  correctDailyStreak Int? @default(0)
+
+  userProfilePicture String?
+
+  showTimeTaken Boolean @default(false)
+  // whether to send the user a reminder to answer the daily question
+  sendPushNotifications Boolean @default(false)
+
+  userLevel userLevel @default(STANDARD)
+  subscription Subscriptions?
+  streak Streaks?
+  roadmaps UserRoadmaps[]
+  answers Answers[]
+
+  // allowing the user to choose their code editor theme
+  codeEditorTheme String? @default("vs-dark")
+
+  // a user can have multiple statistics reports
+  StatisticsReport StatisticsReport[]
+}
+
+// the streak model for tracking the user's streak
+model Streaks {
+  uid       String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // connect to user
+  userUid String @unique
+  user    Users  @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+
+  // how we calculate the user's streak
+  streakStart DateTime?
+  streakEnd   DateTime?
+
+  // easy way to pluck out the user's current streak
+  currentstreakCount Int @default(0)
+
+  // easy way to pluck out the user's longest streak
+  longestStreak Int @default(0)
+}
+
+// the subscription model for storing the user's subscription
+model Subscriptions {
+  uid           String    @id @default(cuid())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  userUid       String    @unique
+  user          Users     @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+  startDate     DateTime?
+  endDate       DateTime?
+  active        Boolean   @default(true)
+  planId        String
+  productId     String
+  planTrial     Boolean   @default(false)
+  planTrialDays Int?
+
+  stripeCustomerId         String?
+  stripeSubscriptionId     String?
+  stripeSubscriptionItemId String?
+}

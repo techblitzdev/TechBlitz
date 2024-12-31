@@ -2,8 +2,8 @@
 import { openai } from '@/lib/open-ai';
 import { zodResponseFormat } from 'openai/helpers/zod';
 import { aiQuestionSchema } from '@/lib/zod/schemas/ai/response';
-import type { ReturnType } from '../get-question-data-for-gen';
-import { getPrompt } from '../../utils/get-prompt';
+import type { ReturnType } from '@/actions/ai/roadmap/get-question-data-for-gen';
+import { getPrompt } from '@/actions/ai/utils/get-prompt';
 
 export const generateRoadmapResponse = async (opts: {
   formattedData: ReturnType[];
@@ -15,8 +15,8 @@ export const generateRoadmapResponse = async (opts: {
       'roadmap-generate-pass-one-teacher',
       'roadmap-generate-pass-one-question',
       'roadmap-generate-pass-one-topics',
-      'roadmap-generate-pass-two'
-    ]
+      'roadmap-generate-pass-two',
+    ],
   });
 
   if (!prompts) {
@@ -28,23 +28,23 @@ export const generateRoadmapResponse = async (opts: {
     messages: [
       {
         role: 'system',
-        content: prompts['roadmap-generate-pass-one-teacher'].content
+        content: prompts['roadmap-generate-pass-one-teacher'].content,
       },
       {
         role: 'system',
-        content: prompts['roadmap-generate-pass-one-question'].content
+        content: prompts['roadmap-generate-pass-one-question'].content,
       },
       {
         role: 'system',
-        content: prompts['roadmap-generate-pass-one-topics'].content
+        content: prompts['roadmap-generate-pass-one-topics'].content,
       },
       {
         role: 'user',
-        content: JSON.stringify(formattedData)
-      }
+        content: JSON.stringify(formattedData),
+      },
     ],
     response_format: zodResponseFormat(aiQuestionSchema, 'event'),
-    temperature: 0.7
+    temperature: 0.7,
   });
 
   if (!firstPass.choices[0]?.message?.content) {
@@ -57,15 +57,15 @@ export const generateRoadmapResponse = async (opts: {
     messages: [
       {
         role: 'assistant',
-        content: prompts['roadmap-generate-pass-two'].content
+        content: prompts['roadmap-generate-pass-two'].content,
       },
       {
         role: 'assistant',
-        content: firstPass.choices[0].message.content
-      }
+        content: firstPass.choices[0].message.content,
+      },
     ],
     response_format: zodResponseFormat(aiQuestionSchema, 'event'),
-    temperature: 0
+    temperature: 0,
   });
 
   console.log('Second pass:', secondPass.choices[0].message.content);

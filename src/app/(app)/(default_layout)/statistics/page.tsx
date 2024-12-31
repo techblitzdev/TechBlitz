@@ -1,16 +1,12 @@
-import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
 
 import StatsRangePicker from '@/components/app/statistics/range-picker';
 import QuestionChart from '@/components/app/statistics/total-question-chart';
-import TotalStatsCard from '@/components/app/statistics/total-stats-card';
-import LoadingSpinner from '@/components/ui/loading';
 
 import { useUserServer } from '@/hooks/useUserServer';
 import { StatsSteps } from '@/types/Stats';
 
 import { STATISTICS } from '@/utils/constants/statistics-filters';
-import { formatSeconds } from '@/utils/time';
 
 import { getData } from '@/actions/statistics/get-stats-chart-data';
 import Hero from '@/components/global/hero';
@@ -50,21 +46,20 @@ export default async function StatisticsPage({
   const { step } = STATISTICS[range];
 
   // Prefetch data
-  const { stats, highestScoringTag, totalQuestions, totalTimeTaken } =
-    await getData({
-      userUid: user.uid,
-      from: range,
-      to: new Date().toISOString(),
-      step,
-    });
+  const { stats } = await getData({
+    userUid: user.uid,
+    from: range,
+    to: new Date().toISOString(),
+    step,
+  });
 
   return (
     <div>
-      <div className="pt-7 pb-5 flex flex-col gap-3 md:flex-row w-full justify-between md:items-center">
+      <div className="flex flex-col gap-3 md:flex-row w-full justify-between md:items-center">
         <Hero
           heading="Statistics"
           container={false}
-          subheading="A detailed overview of your coding journey."
+          subheading="An overview of your coding journey on techblitz."
         />
         <div className="flex gap-3">
           <StatsRangePicker selectedRange={STATISTICS[range].label} />
@@ -94,25 +89,6 @@ export default async function StatisticsPage({
       </div>
 
       <div className="grid grid-cols-12 gap-y-4 gap-x-8">
-        <Suspense fallback={<LoadingSpinner />}>
-          <TotalStatsCard
-            className="-left-3 relative"
-            header={Number(totalQuestions)}
-            description="Total Questions Answered"
-          />
-        </Suspense>
-        <Suspense fallback={<LoadingSpinner />}>
-          <TotalStatsCard
-            header={formatSeconds(totalTimeTaken || 0, true)}
-            description="Total Time Answering"
-          />
-        </Suspense>
-        <Suspense fallback={<LoadingSpinner />}>
-          <TotalStatsCard
-            header={highestScoringTag?.tag || '-'}
-            description={`Highest Scoring Tag (${highestScoringTag?.count || 0})`}
-          />
-        </Suspense>
         <div className="max-h-[28rem] col-span-12 mb-4">
           {stats && <QuestionChart questionData={stats} />}
         </div>

@@ -6,9 +6,12 @@ import CountUp from 'react-countup';
 import { useQuery } from '@tanstack/react-query';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
 import Link from 'next/link';
+import { useUser } from '@/hooks/useUser';
 
 export default function NotFound() {
   const router = useRouter();
+
+  const { user } = useUser();
 
   const {
     data: todaysQuestion,
@@ -23,9 +26,7 @@ export default function NotFound() {
     router.push(`/question/${todaysQuestion?.uid}`);
 
   return (
-    <div className="w-full flex items-center justify-center min-h-screen bg-dot-white/[0.2] relative">
-      <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black-950 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
-
+    <div className="w-full flex items-center justify-center min-h-screen relative">
       <div className="flex flex-col text-center gap-x-5 items-center font-inter">
         <CountUp
           end={404}
@@ -38,14 +39,24 @@ export default function NotFound() {
             found.
           </p>
           <div className="mt-4 flex flex-col md:flex-row gap-4 self-center justify-center w-[75%] md:w-auto">
-            <Link
-              href="/dashboard"
-              prefetch
-              className="self-center !text-black inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-white text-primary-foreground shadow hover:bg-white/90 h-9 px-4 py-2"
-            >
-              Back to dashboard
-            </Link>
-            {isError || !todaysQuestion?.uid ? (
+            {user ? (
+              <Link
+                href="/dashboard"
+                prefetch
+                className="self-center !text-black inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-white text-primary-foreground shadow hover:bg-white/90 h-9 px-4 py-2"
+              >
+                Back to dashboard
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                prefetch
+                className="self-center !text-black inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-white text-primary-foreground shadow hover:bg-white/90 h-9 px-4 py-2"
+              >
+                Login
+              </Link>
+            )}
+            {isError || !todaysQuestion?.uid || !user ? (
               ''
             ) : (
               <Button variant="default" onClick={goToDailyQuestion}>

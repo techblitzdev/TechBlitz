@@ -1,11 +1,4 @@
-import {
-  InterFont,
-  OnestFont,
-  SatoshiFont,
-  UbuntuFont,
-} from '../styles/fonts/font';
 import '../globals.css';
-import { ReactQueryClientProvider } from '@/components/global/react-query-client-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/global/navigation/sidebar';
@@ -38,27 +31,18 @@ export default async function Layout({
   if (!user) redirect('/login?r=no-auth');
 
   return (
-    <ReactQueryClientProvider>
-      <html lang="en">
-        <body
-          className={`${InterFont.variable} ${SatoshiFont.variable} ${UbuntuFont.variable} ${OnestFont.variable} antialiased`}
-          suppressHydrationWarning={true}
-        >
-          <SidebarProvider>
-            {/* Scrollable content */}
-            <AppSidebar />
-            <NextTopLoader color="#5b61d6" showSpinner={false} />
-            <main className="w-full py-6 lg:pt-4 lg:pb-3">
-              <div className="h-[95%]">
-                <CSPostHogProvider>
-                  <MantineProvider>{children}</MantineProvider>
-                </CSPostHogProvider>
-              </div>
-            </main>
-            <Toaster className="bg-black" />
-          </SidebarProvider>
-        </body>
-      </html>
-    </ReactQueryClientProvider>
+    <SidebarProvider>
+      {/* Scrollable content */}
+      <AppSidebar />
+      <NextTopLoader color="#5b61d6" showSpinner={false} />
+      <main className="w-full py-6 lg:pt-4 lg:pb-3">
+        <div className="h-[95%]">
+          <CSPostHogProvider>
+            <MantineProvider>{children}</MantineProvider>
+          </CSPostHogProvider>
+        </div>
+      </main>
+      <Toaster className="bg-black" />
+    </SidebarProvider>
   );
 }

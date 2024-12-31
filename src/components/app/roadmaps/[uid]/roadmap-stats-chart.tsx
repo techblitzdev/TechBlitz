@@ -45,7 +45,7 @@ export default function Component(opts: { roadmap: UserRoadmapsWithAnswers }) {
 
   return (
     <Card className="flex flex-col border border-black-50 bg-black-75">
-      <CardHeader className="items-center pb-0 pt-4 px-3 text-white font-inter font-semibold">
+      <CardHeader className="items-center pb-0 pt-4 px-3 text-white font-ubuntu">
         Roadmap Stats
       </CardHeader>
       <CardContent className="flex flex-1 items-center pb-0 px-3 max-h-[150px] pt-16">

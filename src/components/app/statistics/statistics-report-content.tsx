@@ -82,7 +82,7 @@ export default function StatisticsReportContent({
             </div>
             <div className="text-center">
               <p className="text-2xl font-semibold text-white">
-                <MemoizedNumberFlow value={stats.accuracy} suffix="%" />
+                <MemoizedNumberFlow value={Number(stats.accuracy)} suffix="%" />
               </p>
               <p className="text-sm text-muted-foreground">Accuracy</p>
             </div>

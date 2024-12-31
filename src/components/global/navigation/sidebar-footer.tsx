@@ -27,7 +27,9 @@ export default function SidebarFooterComponent() {
         {user?.userLevel !== 'PREMIUM' && (
           <SidebarMenuItem className="font-semibold font-inter text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-75 p-6 group-data-[collapsible=icon]:hidden">
             <p className="text-sm">Upgrade to Premium</p>
-            <p className="text-xs font-light">Accelerate your career.</p>
+            <p className="text-xs font-light">
+              Get access to all features and unlock your full potential.
+            </p>
             <Button variant="accent" fullWidth className="mt-4" href="/upgrade">
               Upgrade
             </Button>

@@ -24,7 +24,7 @@ export default function SidebarFooterComponent() {
     <SidebarFooter className="bg-[#000000] ">
       <SidebarMenu>
         {/** if sidebar is collapsed, hide the upgrade button */}
-        {user?.userLevel !== 'PREMIUM' && (
+        {user?.userLevel === 'FREE' && (
           <SidebarMenuItem className="font-semibold font-inter text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-75 p-6 group-data-[collapsible=icon]:hidden">
             <p className="text-sm">Upgrade to Premium</p>
             <p className="text-xs font-light">

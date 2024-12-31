@@ -37,7 +37,7 @@ export default async function UpgradePage() {
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/55">
             affordable{' '}
           </span>
-          <br /> prcing plans
+          <br /> pricing plans
         </h1>
 
         <div className="flex flex-col w-full mt-6">

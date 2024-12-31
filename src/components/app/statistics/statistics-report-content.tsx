@@ -1,8 +1,7 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
-import { redirect } from 'next/navigation';
-
+import React, { useState, useMemo } from 'react';
+import { redirect, useRouter, useSearchParams } from 'next/navigation';
 import { format } from 'date-fns';
 
 import {
@@ -17,6 +16,7 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import NumberFlow from '@number-flow/react';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 
 import { useUser } from '@/hooks/useUser';
 import { getUserDisplayName } from '@/utils/user';
@@ -26,6 +26,9 @@ import { Question } from '@/types/Questions';
 import QuestionSuggestedCard from '@/components/app/questions/suggested-questions-table';
 import { getSuggestions } from '@/actions/questions/get-suggestions';
 import { useQuery } from '@tanstack/react-query';
+import { capitalise } from '@/utils';
+
+const MemoizedNumberFlow = React.memo(NumberFlow);
 
 export default function StatisticsReportContent({
   report,
@@ -33,50 +36,45 @@ export default function StatisticsReportContent({
   report: StatisticsReport & { questions: Question[] };
 }) {
   const { user, isLoading } = useUser();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   if (!user && !isLoading) {
     redirect('/login');
   }
 
   const [activeTab, setActiveTab] = useState<
     'summary' | 'details' | 'questions'
-  >('summary');
-  const [stats, setStats] = useState({
-    totalQuestions: 0,
-    correctAnswers: 0,
-    incorrectAnswers: 0,
-    accuracy: 0,
-  });
+  >(
+    () =>
+      (searchParams.get('tab') as 'summary' | 'details' | 'questions') ||
+      'summary'
+  );
 
-  useEffect(() => {
+  const stats = useMemo(() => {
     const totalQuestions =
       report.correctTags.length + report.incorrectTags.length;
     const correctPercentage =
       (report.correctTags.length / totalQuestions) * 100;
 
-    setStats({
-      totalQuestions: 0,
-      correctAnswers: 0,
-      incorrectAnswers: 0,
-      accuracy: 0,
-    });
-
-    setTimeout(() => {
-      setStats({
-        totalQuestions,
-        correctAnswers: report.correctTags.length,
-        incorrectAnswers: report.incorrectTags.length,
-        accuracy: correctPercentage,
-      });
-    }, 100);
+    return {
+      totalQuestions,
+      correctAnswers: report.correctTags.length,
+      incorrectAnswers: report.incorrectTags.length,
+      accuracy: correctPercentage,
+    };
   }, [report]);
 
-  // get the suggested questions. We have to use useQuery here due
-  // to the fact that the component we pass the suggestions to is a
-  // server component.
   const { data: suggestions, isLoading: isLoadingSuggestions } = useQuery({
     queryKey: ['suggested-questions'],
     queryFn: () => getSuggestions({ userUid: user?.uid ?? '', limit: 8 }),
   });
+
+  const handleTabChange = (value: string) => {
+    const newTab = value as 'summary' | 'details' | 'questions';
+    setActiveTab(newTab);
+    router.push(`?tab=${newTab}`, { scroll: false });
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -96,25 +94,25 @@ export default function StatisticsReportContent({
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="text-center">
               <p className="text-2xl font-semibold text-white">
-                <NumberFlow value={stats.totalQuestions} />
+                <MemoizedNumberFlow value={stats.totalQuestions} />
               </p>
               <p className="text-sm text-muted-foreground">Total Questions</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-semibold text-white">
-                <NumberFlow value={stats.correctAnswers} />
+                <MemoizedNumberFlow value={stats.correctAnswers} />
               </p>
               <p className="text-sm text-muted-foreground">Correct Answers</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-semibold text-white">
-                <NumberFlow value={stats.incorrectAnswers} />
+                <MemoizedNumberFlow value={stats.incorrectAnswers} />
               </p>
               <p className="text-sm text-muted-foreground">Incorrect Answers</p>
             </div>
             <div className="text-center">
               <p className="text-2xl font-semibold text-white">
-                <NumberFlow value={stats.accuracy} suffix="%" />
+                <MemoizedNumberFlow value={stats.accuracy} suffix="%" />
               </p>
               <p className="text-sm text-muted-foreground">Accuracy</p>
             </div>
@@ -122,12 +120,7 @@ export default function StatisticsReportContent({
         </CardContent>
       </Card>
 
-      <Tabs
-        value={activeTab}
-        onValueChange={(value) =>
-          setActiveTab(value as 'summary' | 'details' | 'questions')
-        }
-      >
+      <Tabs value={activeTab} onValueChange={handleTabChange}>
         <TabsList className="grid w-full grid-cols-3 text-white bg-[#000]">
           <TabsTrigger value="summary">Summary</TabsTrigger>
           <TabsTrigger value="details">Detailed Report</TabsTrigger>
@@ -136,42 +129,59 @@ export default function StatisticsReportContent({
         <TabsContent value="summary">
           <Card className="border-black-50">
             <CardHeader>
-              <CardTitle className="text-white">Tags Overview</CardTitle>
+              <CardTitle className="text-white text-center text-xl">
+                Tags Overview
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <div>
-                  <h3 className="text-lg font-semibold mb-2 text-white">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold mb-3 text-white flex items-center gap-2">
+                    <span className="inline-block w-2 h-2 rounded-full bg-green-500"></span>
                     Correct Tags
                   </h3>
-                  <ScrollArea className="h-32">
+                  <ScrollArea className="h-40">
                     <div className="flex flex-wrap gap-2">
                       {report.correctTags.map((tag, index) => (
-                        <Badge
+                        <Button
                           key={index}
-                          variant="secondary"
-                          className="bg-green-100 text-green-800"
+                          variant="ghost"
+                          className="p-0"
+                          href={`/questions/all?tag=${tag}`}
                         >
-                          {tag}
-                        </Badge>
+                          <Badge
+                            variant="secondary"
+                            className="bg-green-500/20 text-green-300 border border-green-500/30 hover:bg-green-500/30 transition-colors"
+                          >
+                            {capitalise(tag)}
+                          </Badge>
+                        </Button>
                       ))}
                     </div>
                   </ScrollArea>
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold mb-2 text-white">
+
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold mb-3 text-white flex items-center gap-2">
+                    <span className="inline-block w-2 h-2 rounded-full bg-red-500"></span>
                     Incorrect Tags
                   </h3>
-                  <ScrollArea className="h-32">
+                  <ScrollArea className="h-40">
                     <div className="flex flex-wrap gap-2">
                       {report.incorrectTags.map((tag, index) => (
-                        <Badge
+                        <Button
                           key={index}
-                          variant="secondary"
-                          className="bg-red-100 text-red-800"
+                          variant="ghost"
+                          className="p-0"
+                          href={`/questions/all?tag=${tag}`}
                         >
-                          {tag}
-                        </Badge>
+                          <Badge
+                            variant="secondary"
+                            className="bg-red-500/20 text-red-300 border border-red-500/30 hover:bg-red-500/30 transition-colors"
+                          >
+                            {capitalise(tag)}
+                          </Badge>
+                        </Button>
                       ))}
                     </div>
                   </ScrollArea>
@@ -183,7 +193,9 @@ export default function StatisticsReportContent({
         <TabsContent value="details">
           <Card className="border-black-50">
             <CardHeader>
-              <CardTitle className="text-white">Detailed Report</CardTitle>
+              <CardTitle className="text-white text-center text-xl">
+                Detailed Report
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <ScrollArea className="h-[400px]">
@@ -197,7 +209,7 @@ export default function StatisticsReportContent({
                 <div className="flex flex-col gap-y-2 mt-6 text-white">
                   Why not check out the custom questions we have created for you
                   based on this report?
-                  <Button onClick={() => setActiveTab('questions')}>
+                  <Button onClick={() => handleTabChange('questions')}>
                     View Questions
                   </Button>
                 </div>
@@ -207,7 +219,6 @@ export default function StatisticsReportContent({
         </TabsContent>
         <TabsContent value="questions">
           <Card className="border-black-50">
-            {/** a 2 x 2 grid of suggested questions and custom questions */}
             <CardContent className="grid grid-cols-2 gap-4 pt-6">
               <div className="flex flex-col gap-y-4 text-center text-white">
                 <div className="">
@@ -219,7 +230,21 @@ export default function StatisticsReportContent({
                   </p>
                 </div>
 
-                <QuestionSuggestedCard questions={suggestions ?? []} />
+                {isLoadingSuggestions ? (
+                  <div className="space-y-4">
+                    {[...Array(8)].map((_, index) => (
+                      <Skeleton
+                        key={index}
+                        className="h-8 w-full bg-black-50"
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <QuestionSuggestedCard
+                    questions={suggestions ?? []}
+                    textLimit={75}
+                  />
+                )}
               </div>
               <div className="flex flex-col gap-y-4 text-center text-white">
                 <div className="">
@@ -230,7 +255,10 @@ export default function StatisticsReportContent({
                     These questions have been created based on the report.
                   </p>
                 </div>
-                <QuestionSuggestedCard questions={report.questions ?? []} />
+                <QuestionSuggestedCard
+                  questions={report.questions ?? []}
+                  textLimit={75}
+                />
               </div>
             </CardContent>
           </Card>

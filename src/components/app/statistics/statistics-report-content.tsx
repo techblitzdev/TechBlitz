@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { redirect } from 'next/navigation';
 
 import { format } from 'date-fns';
@@ -16,16 +16,21 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import NumberFlow from '@number-flow/react';
+import { Button } from '@/components/ui/button';
 
 import { useUser } from '@/hooks/useUser';
 import { getUserDisplayName } from '@/utils/user';
 import { StatisticsReport } from '@prisma/client';
-import { Button } from '@/components/ui/button';
+
+import { Question } from '@/types/Questions';
+import QuestionSuggestedCard from '@/components/app/questions/suggested-questions-table';
+import { getSuggestions } from '@/actions/questions/get-suggestions';
+import { useQuery } from '@tanstack/react-query';
 
 export default function StatisticsReportContent({
   report,
 }: {
-  report: StatisticsReport;
+  report: StatisticsReport & { questions: Question[] };
 }) {
   const { user, isLoading } = useUser();
   if (!user && !isLoading) {
@@ -64,6 +69,14 @@ export default function StatisticsReportContent({
       });
     }, 100);
   }, [report]);
+
+  // get the suggested questions. We have to use useQuery here due
+  // to the fact that the component we pass the suggestions to is a
+  // server component.
+  const { data: suggestions, isLoading: isLoadingSuggestions } = useQuery({
+    queryKey: ['suggested-questions'],
+    queryFn: () => getSuggestions({ userUid: user?.uid ?? '', limit: 8 }),
+  });
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -111,12 +124,14 @@ export default function StatisticsReportContent({
 
       <Tabs
         value={activeTab}
-        onValueChange={(value) => setActiveTab(value as 'summary' | 'details')}
+        onValueChange={(value) =>
+          setActiveTab(value as 'summary' | 'details' | 'questions')
+        }
       >
         <TabsList className="grid w-full grid-cols-3 text-white bg-[#000]">
           <TabsTrigger value="summary">Summary</TabsTrigger>
           <TabsTrigger value="details">Detailed Report</TabsTrigger>
-          <TabsTrigger value="analysis">Questions</TabsTrigger>
+          <TabsTrigger value="questions">Questions</TabsTrigger>
         </TabsList>
         <TabsContent value="summary">
           <Card className="border-black-50">
@@ -187,6 +202,36 @@ export default function StatisticsReportContent({
                   </Button>
                 </div>
               </ScrollArea>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="questions">
+          <Card className="border-black-50">
+            {/** a 2 x 2 grid of suggested questions and custom questions */}
+            <CardContent className="grid grid-cols-2 gap-4 pt-6">
+              <div className="flex flex-col gap-y-4 text-center text-white">
+                <div className="">
+                  <h3 className="text-lg font-semibold mb-2 ">
+                    Suggested Questions
+                  </h3>
+                  <p className="text-sm text-gray-400">
+                    These questions have been suggested based on this report.
+                  </p>
+                </div>
+
+                <QuestionSuggestedCard questions={suggestions ?? []} />
+              </div>
+              <div className="flex flex-col gap-y-4 text-center text-white">
+                <div className="">
+                  <h3 className="text-lg font-semibold mb-2">
+                    Custom Questions
+                  </h3>
+                  <p className="text-sm text-gray-400">
+                    These questions have been created based on the report.
+                  </p>
+                </div>
+                <QuestionSuggestedCard questions={report.questions ?? []} />
+              </div>
             </CardContent>
           </Card>
         </TabsContent>

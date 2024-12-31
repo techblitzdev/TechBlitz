@@ -130,15 +130,24 @@ export const getTotalQuestionCount = async (
  */
 export const getTotalTimeTaken = async (
   userUid: string,
-  to: string,
-  from: StatsSteps
+  to?: string,
+  from?: StatsSteps
 ) => {
   if (!userUid) {
     return null;
   }
 
-  const toDate = new Date(to);
-  const fromDate = getRange(from);
+  // if no to or from, get all time taken
+  if (!to && !from) {
+    const answers = await prisma.answers.findMany({
+      where: { userUid },
+      select: { timeTaken: true },
+    });
+    return answers.reduce((acc, answer) => acc + (answer.timeTaken || 0), 0);
+  }
+
+  const toDate = new Date(to || new Date().toISOString());
+  const fromDate = getRange(from || '7d');
 
   const answers = await prisma.answers.findMany({
     where: {

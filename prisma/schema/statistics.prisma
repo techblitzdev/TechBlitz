@@ -11,6 +11,8 @@ model StatisticsReport {
 
   htmlReport      String?
 
+  totalTimeTaken  Int? @default(0)
+
   // Questions linked to this report
   questions Questions[] @relation("SharedQuestions")
 }

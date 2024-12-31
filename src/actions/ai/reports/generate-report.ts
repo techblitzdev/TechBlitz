@@ -5,6 +5,7 @@ import { generateStatisticsCustomQuestions } from '@/actions/ai/reports/utils/ge
 import { prisma } from '@/utils/prisma';
 import { nanoid } from 'nanoid';
 import { generateReportHtml } from '@/actions/ai/reports/utils/generate-report-html';
+import { revalidateTag } from 'next/cache';
 
 type QuestionData = {
   questions: string;
@@ -109,6 +110,8 @@ export const generateStatisticsReport = async () => {
         })
       )
     );
+
+    revalidateTag('reports');
 
     return report;
   });

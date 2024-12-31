@@ -10,7 +10,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
-import StatsReportCardMenu from './stats-report-card-menu';
+import StatsReportCardMenu from '@/components/app/statistics/stats-report-card-menu';
 
 export default async function StatsReportCard({
   report,

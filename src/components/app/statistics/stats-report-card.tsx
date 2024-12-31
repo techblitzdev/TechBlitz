@@ -1,7 +1,5 @@
 import Link from 'next/link';
 
-import { MoreHorizontal } from 'lucide-react';
-
 import { timeAgo } from '@/utils/time';
 import { StatsReport } from '@/types/Stats';
 
@@ -12,6 +10,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
+import StatsReportCardMenu from '@/components/app/statistics/stats-report-card-menu';
 
 export default async function StatsReportCard({
   report,
@@ -32,7 +31,7 @@ export default async function StatsReportCard({
           <h6 className="text-lg font-semibold">
             Report from {timeAgo(report.createdAt)}
           </h6>
-          <MoreHorizontal className="size-4 text-white" />
+          <StatsReportCardMenu reportUid={report.uid} />
         </div>
 
         {/* Progress Bar */}

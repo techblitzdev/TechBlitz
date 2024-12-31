@@ -1,5 +1,5 @@
 import { QuestionWithoutAnswers } from '@/types/Questions';
-import { capitalise, getQuestionDifficultyColor } from '@/utils';
+import { capitalise, getQuestionDifficultyColor, shortenText } from '@/utils';
 import TagDisplay from '@/components/app/questions/previous/tag-display';
 import { getQuestionStats } from '@/actions/questions/get-question-stats';
 import Link from 'next/link';
@@ -25,17 +25,8 @@ export default async function QuestionCard(opts: {
         <div className="flex flex-col gap-y-2 w-full">
           <div className="flex w-full justify-between">
             <h6 className="text-base text-wrap text-start">
-              {questionData?.question?.length > 100
-                ? `${questionData.question.slice(0, 100)}...`
-                : questionData?.question}
+              {shortenText(questionData?.question, 100)}
             </h6>
-            {/* <Button
-              variant="accent"
-              className="size-10"
-              padding="none"
-            >
-              <ArrowUpRight className="size-5 group-hover:rotate-45 duration-300" />
-            </Button> */}
           </div>
           <div className="text-start text-[10px]">
             <p className="font-ubuntu text-sm">

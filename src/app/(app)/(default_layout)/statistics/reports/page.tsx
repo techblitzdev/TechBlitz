@@ -1,11 +1,9 @@
 import { Suspense } from 'react';
 import { getUserReports } from '@/actions/ai/reports/get-reports';
-
 import StatsReportCard from '@/components/app/statistics/stats-report-card';
 import Hero from '@/components/global/hero';
-import { Button } from '@/components/ui/button';
-import { generateStatisticsReport } from '@/actions/ai/reports/generate-report';
 import StatsReportCardSkeleton from '@/components/app/statistics/stats-report-card-loading';
+import GenerateReportButton from '@/components/app/statistics/generate-report-button';
 
 export default async function StatisticsReportsPage() {
   const reports = await getUserReports();
@@ -22,20 +20,22 @@ export default async function StatisticsReportsPage() {
             fallback={
               <>
                 {[...Array(6)].map((_, i) => (
-                  <StatsReportCardSkeleton key={i} />
+                  <StatsReportCardSkeleton key={`skeleton-${i}`} />
                 ))}
               </>
             }
           >
-            {reports.map((report) => (
-              <StatsReportCard key={report.uid} report={report} />
-            ))}
+            {reports.length > 0 &&
+              reports.map((report) => (
+                <StatsReportCard key={report.uid} report={report} />
+              ))}
+            {reports.length === 0 && (
+              <p className="text-lg text-muted-foreground">No reports found.</p>
+            )}
           </Suspense>
         </div>
         <aside className="w-full lg:w-[45%] relative">
-          <form action={generateStatisticsReport}>
-            <Button variant="accent">Generate Report</Button>
-          </form>
+          <GenerateReportButton />
         </aside>
       </div>
     </>

@@ -1,8 +1,5 @@
 'use server';
-import {
-  getUserFromDb,
-  getUserFromSession,
-} from '@/actions/user/authed/get-user';
+import { getUser } from '@/actions/user/authed/get-user';
 import { getTagsReport } from '@/actions/ai/reports/utils/get-tags-report';
 import { generateStatisticsCustomQuestions } from '@/actions/ai/reports/utils/generate-custom-questions';
 import { prisma } from '@/utils/prisma';
@@ -26,11 +23,8 @@ type QuestionData = {
  * @returns The generated statistics report or null if user validation fails
  */
 export const generateStatisticsReport = async () => {
-  // Validate user and permissions
-  const { data } = await getUserFromSession();
-  if (!data?.user?.id) throw new Error('User not found');
-
-  const user = await getUserFromDb(data.user.id);
+  // Validate user and permissions on the server to prevent cheating
+  const user = await getUser();
   if (!user) throw new Error('User not found');
 
   if (!['PREMIUM', 'ADMIN'].includes(user.userLevel)) {

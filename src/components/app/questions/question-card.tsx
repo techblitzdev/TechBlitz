@@ -20,7 +20,7 @@ export default async function QuestionCard(opts: {
       <Link
         href={`/question/${questionData.uid}`}
         key={questionData.uid}
-        className="space-y-5 items-start border border-black-50 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
+        className="space-y-5 items-start border border-black-50 hover:border-accent duration-300 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
       >
         <div className="flex flex-col gap-y-2 w-full">
           <div className="flex w-full justify-between">

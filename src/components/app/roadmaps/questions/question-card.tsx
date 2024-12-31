@@ -25,7 +25,7 @@ export default function RoadmapQuestionCard(opts: {
   }>(null);
 
   return (
-    <div className="col-span-full lg:col-span-6 h-fit bg-black-75 border border-black-50 rounded-xl overflow-hidden">
+    <div className="col-span-full lg:col-span-6 h-fit bg-black-75 border border-black-50 hover:border-accent duration-300 rounded-xl overflow-hidden">
       <div className="p-4 w-full flex justify-between bg-black-25 items-center">
         <Chip
           color={getQuestionDifficultyColor(question.difficulty)}

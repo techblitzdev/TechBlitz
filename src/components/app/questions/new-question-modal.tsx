@@ -68,6 +68,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         italic
       </Button>
       <Button
+        type="button"
         variant="default"
         size="sm"
         onClick={() => {

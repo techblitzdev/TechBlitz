@@ -94,6 +94,19 @@ export default function QuestionChart({
     const firstPeriod = chartData[0];
     const lastPeriod = chartData[chartData.length - 1];
 
+    // Handle case where first period has 0 questions
+    if (firstPeriod.questions === 0) {
+      if (lastPeriod.questions === 0) {
+        return { percentage: 0, isNeutral: true };
+      }
+      // If starting from 0, treat treat as 0 * lastPeriod.questions increase
+      return {
+        percentage: 100 * lastPeriod.questions,
+        isNeutral: false,
+        isUp: true,
+      };
+    }
+
     // calculate the percentage change between the first and last period
     const percentageChange =
       ((lastPeriod.questions - firstPeriod.questions) / firstPeriod.questions) *

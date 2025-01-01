@@ -49,6 +49,49 @@ export const getStatsChartData = async (opts: {
 
   const data: StatsChartData = {};
 
+  // Generate all dates in range, excluding the fromDate
+  let currentDate = new Date(fromDate);
+  currentDate.setDate(currentDate.getDate() + 1); // Start from the day after fromDate
+
+  while (currentDate <= toDate) {
+    let key: string;
+    const year = currentDate.getFullYear();
+
+    switch (step) {
+      case 'month':
+        key = `${currentDate.toISOString().slice(0, 7)},${year}`;
+        break;
+      case 'week':
+        const weekStart = new Date(currentDate);
+        weekStart.setDate(currentDate.getDate() - currentDate.getDay());
+        key = `${weekStart.toISOString().slice(0, 10)},${year}`;
+        break;
+      case 'day':
+        key = `${formatDayLabel(currentDate)},${year}`;
+        break;
+    }
+
+    data[key] = {
+      totalQuestions: 0,
+      tagCounts: {},
+      tags: [],
+    };
+
+    // Increment date based on step
+    switch (step) {
+      case 'month':
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        break;
+      case 'week':
+        currentDate.setDate(currentDate.getDate() + 7);
+        break;
+      case 'day':
+        currentDate.setDate(currentDate.getDate() + 1);
+        break;
+    }
+  }
+
+  // Fill in actual data
   questions.forEach((answer) => {
     let key: string;
     const year = answer.createdAt.getFullYear();
@@ -69,9 +112,8 @@ export const getStatsChartData = async (opts: {
         break;
     }
 
-    const tags = answer.question.tags.map((tag) => tag.tag.name);
-
     if (data[key]) {
+      const tags = answer.question.tags.map((tag) => tag.tag.name);
       data[key].totalQuestions++;
       tags.forEach((tag) => {
         data[key].tagCounts[tag] = (data[key].tagCounts[tag] || 0) + 1;
@@ -79,16 +121,6 @@ export const getStatsChartData = async (opts: {
           data[key].tags.push(tag);
         }
       });
-    } else {
-      const tagCounts: Record<string, number> = {};
-      tags.forEach((tag) => {
-        tagCounts[tag] = 1;
-      });
-      data[key] = {
-        totalQuestions: 1,
-        tagCounts,
-        tags: [...tags],
-      };
     }
   });
 

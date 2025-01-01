@@ -147,18 +147,13 @@ export default function QuestionChart({
           tick={{ fill: 'hsl(var(--muted-foreground))' }}
           domain={yAxisDomain}
         />
-        <ChartTooltip
-          cursor={
-            chartType === 'bar' ? { fill: 'rgba(255, 255, 255, 0.1)' } : false
-          }
-          content={<ChartTooltipContent />}
-        />
+        <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
         {chartType === 'bar' ? (
           <Bar
             dataKey="questions"
             fill="hsl(var(--accent))"
             radius={[4, 4, 0, 0]}
-            className="hover:bg-transparent"
+            className="hover:!bg-transparent"
           />
         ) : (
           <Line
@@ -198,17 +193,23 @@ export default function QuestionChart({
               value={chartType}
               onValueChange={(value: 'bar' | 'line') => setChartType(value)}
             >
-              <SelectTrigger className="border border-black-50 w-[180px] text-white">
+              <SelectTrigger className="border border-black-50 w-[180px] text-white bg-primary">
                 <SelectValue placeholder="Select chart type" />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="bar">
+              <SelectContent className="bg-black">
+                <SelectItem
+                  value="bar"
+                  className="hover:cursor-pointer hover:text-white"
+                >
                   <div className="flex items-center">
                     <BarChartIcon className="mr-2 h-4 w-4" />
                     Bar Chart
                   </div>
                 </SelectItem>
-                <SelectItem value="line">
+                <SelectItem
+                  value="line"
+                  className="hover:cursor-pointer hover:text-white"
+                >
                   <div className="flex items-center">
                     <LineChartIcon className="mr-2 h-4 w-4" />
                     Line Chart

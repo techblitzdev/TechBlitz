@@ -57,7 +57,7 @@ export default async function StatisticsPage({
 
       <div className="grid grid-cols-12 gap-y-4 gap-x-8 mt-8 md:mt-0">
         <div className="max-h-[28rem] col-span-12 mb-4">
-          {stats && <QuestionChart questionData={stats} />}
+          {stats && <QuestionChart questionData={stats} step={step} />}
         </div>
         {/** suggested q's and analysis blocks */}
         <SuggestedQuestions />

@@ -50,8 +50,9 @@ export const getStatsChartData = async (opts: {
   const data: StatsChartData = {};
 
   // Generate all dates in range, excluding the fromDate
-  let currentDate = new Date(fromDate);
-  currentDate.setDate(currentDate.getDate() + 1); // Start from the day after fromDate
+  const currentDate = new Date(fromDate);
+  // Start from the day after fromDate
+  currentDate.setDate(currentDate.getDate() + 1);
 
   while (currentDate <= toDate) {
     let key: string;
@@ -83,7 +84,7 @@ export const getStatsChartData = async (opts: {
         currentDate.setMonth(currentDate.getMonth() + 1);
         break;
       case 'week':
-        currentDate.setDate(currentDate.getDate() + 7);
+        currentDate.setDate(currentDate.getDate() + 8);
         break;
       case 'day':
         currentDate.setDate(currentDate.getDate() + 1);

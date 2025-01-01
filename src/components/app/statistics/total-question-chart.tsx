@@ -57,8 +57,10 @@ export interface StatsChartData {
 
 export default function QuestionChart({
   questionData,
+  step,
 }: {
   questionData: StatsChartData;
+  step: 'day' | 'week' | 'month';
 }) {
   const [chartType, setChartType] = useState<'bar' | 'line'>('bar');
 
@@ -74,7 +76,7 @@ export default function QuestionChart({
 
     // Directly use the keys as they should now be pre-formatted
     return entries.map(([date, data]) => ({
-      date: date,
+      date: date.split(',')[0],
       questions: data.totalQuestions,
     }));
   }, [questionData]);
@@ -118,13 +120,6 @@ export default function QuestionChart({
       isUp: percentageChange > 0,
     };
   }, [chartData]);
-
-  const periodText = useMemo(() => {
-    const entryKeys = Object.keys(questionData);
-    if (entryKeys[0]?.includes(',')) return 'days';
-    if (entryKeys[0]?.length === 10) return 'weeks';
-    return 'months';
-  }, [questionData]);
 
   const maxQuestions = useMemo(() => {
     return Math.max(...chartData.map((data) => data.questions));
@@ -241,7 +236,7 @@ export default function QuestionChart({
         </div>
         <div className="flex justify-between items-center">
           <CardDescription>
-            Last {chartData.length} {periodText}
+            Last {chartData.length} {step}s
           </CardDescription>
         </div>
       </CardHeader>

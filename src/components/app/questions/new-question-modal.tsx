@@ -35,6 +35,7 @@ import { LANGUAGE_OPTIONS } from '@/utils/constants/language-options';
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import { TrashIcon } from 'lucide-react';
 
 const lowlight = createLowlight(common);
 
@@ -219,7 +220,7 @@ export default function NewQuestionModal({ ...props }) {
       <DialogTrigger asChild>
         <Button {...props}>Create New Question</Button>
       </DialogTrigger>
-      <DialogContent className="bg-black-75 md:max-w-4xl max-h-[600px] overflow-y-scroll">
+      <DialogContent className="bg-black-75 md:max-w-4xl max-h-[800px] overflow-y-scroll">
         <DialogHeader>
           <DialogTitle className="text-2xl">
             Add new Question
@@ -397,7 +398,7 @@ export default function NewQuestionModal({ ...props }) {
                       } // Update the form field
                     />
                   </div>
-                  <div className="flex items-center justify-between">
+                  <div className="flex gap-4 items-center justify-between">
                     <Button
                       type="button"
                       onClick={() => toggleCorrectAnswer(index)}
@@ -408,13 +409,13 @@ export default function NewQuestionModal({ ...props }) {
                         ? '✅'
                         : 'Mark as correct'}
                     </Button>
-                    <button
+                    <Button
                       type="button"
                       onClick={() => remove(index)}
                       className="btn"
                     >
-                      Remove
-                    </button>
+                      <TrashIcon className="w-4 h-4 text-destructive" />
+                    </Button>
                   </div>
                 </div>
               ))}

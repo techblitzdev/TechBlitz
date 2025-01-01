@@ -40,12 +40,12 @@ export default function OpenSourceBlock(opts: {
       component: 'OpenSourceCard',
       cardStyle: 'pr',
       content:
-        'This pull request address the issue with z-indexing on the questions/all page',
+        'This pull request address the issue with z-indexing on the questions page',
     },
     {
       component: 'CommitCard',
       commitMessage:
-        'fix(dashboard/questions): fix z-indexing on questions/all page',
+        'fix(dashboard/questions): fix z-indexing on questions page',
       buildSuccess: true,
     },
     {

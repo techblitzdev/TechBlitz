@@ -1,4 +1,8 @@
 'use client';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
+
 import {
   FileQuestion,
   Home,
@@ -11,6 +15,7 @@ import {
   RouteIcon,
   HelpCircle,
   MoreHorizontal,
+  ChevronDown,
 } from 'lucide-react';
 import {
   Sidebar,
@@ -32,15 +37,6 @@ import {
 } from '@/components/ui/collapsible';
 import AppSidebarSubMenuItem from '@/components/global/navigation/sidebar-submenu-item';
 import SidebarFooterComponent from '@/components/global/navigation/sidebar-footer';
-
-import type { SidebarItemType } from '@/types/Sidebar';
-
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
-import { useQuery } from '@tanstack/react-query';
-import { getTodaysQuestion } from '@/actions/questions/get-today';
-import { useUser } from '@/hooks/useUser';
-import { userAnsweredDailyQuestion } from '@/actions/questions/user-answered-daily-question';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -50,6 +46,12 @@ import {
 import LogoutButton from '@/components/auth/logout';
 import Logo from '@/components/ui/logo';
 import LogoSmall from '@/components/ui/LogoSmall';
+
+import type { SidebarItemType } from '@/types/Sidebar';
+
+import { getTodaysQuestion } from '@/actions/questions/get-today';
+import { useUser } from '@/hooks/useUser';
+import { userAnsweredDailyQuestion } from '@/actions/questions/user-answered-daily-question';
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -78,15 +80,17 @@ export function AppSidebar() {
       title: 'Dashboard',
       url: '/dashboard',
       icon: Home,
+      tooltip: 'Dashboard',
     },
     {
       title: 'Questions',
       url: '/questions',
       icon: FileQuestion,
+      tooltip: 'Questions',
       subItems: [
         {
           title: 'All',
-          url: '/questions/all',
+          url: '/questions',
         },
         {
           title: 'Daily Question',
@@ -115,14 +119,16 @@ export function AppSidebar() {
           )}
         </>
       ),
+      tooltip: 'Roadmaps',
       url: '/roadmaps',
       icon: RouteIcon,
-      disabled: user?.userLevel !== 'ADMIN' && user?.userLevel !== 'PREMIUM',
+      disabled: user?.userLevel === 'FREE',
     },
     {
       title: 'Stats',
       url: '/statistics',
       icon: ChartBarIncreasing,
+      tooltip: 'Statistics',
       subItems: [
         {
           title: 'Overview',
@@ -141,6 +147,7 @@ export function AppSidebar() {
               )}
             </>
           ),
+          tooltip: 'Reports',
           url: '/statistics/reports',
           disabled: user?.userLevel !== 'PREMIUM',
         },
@@ -150,6 +157,7 @@ export function AppSidebar() {
       title: 'Leaderboard',
       url: '/leaderboard',
       icon: Award,
+      tooltip: 'Leaderboard',
     },
     {
       groupLabel: 'Support',
@@ -158,11 +166,13 @@ export function AppSidebar() {
       title: 'Help',
       url: 'mailto:team@techblitz.dev',
       icon: HelpCircle,
+      tooltip: 'Help',
     },
     {
       title: 'Settings',
       url: '/settings/profile',
       icon: Settings,
+      tooltip: 'Settings',
       dropdownMenu: (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -247,12 +257,19 @@ export function AppSidebar() {
         {item.subItems ? (
           <Collapsible defaultOpen className="group/collapsible">
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton asChild>
-                <div className="flex items-center w-full">
+              <SidebarMenuButton asChild tooltip={item.tooltip}>
+                <Link href={item.url} className="flex items-center w-full">
                   {item.icon && <item.icon />}
-                  <span className="text-sm font-inter">{item.title}</span>
-                  <div className="ms-auto">{item.chip && <item.chip />}</div>
-                </div>
+                  <span className="text-sm font-inter group-data-[collapsible=icon]:hidden">
+                    {item.title}
+                  </span>
+                  <div className="ms-auto group-data-[collapsible=icon]:hidden">
+                    {item.chip && <item.chip />}
+                  </div>
+                  <div className="group-data-[collapsible=icon]:hidden">
+                    <ChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-180" />
+                  </div>
+                </Link>
               </SidebarMenuButton>
             </CollapsibleTrigger>
             <CollapsibleContent>
@@ -261,37 +278,53 @@ export function AppSidebar() {
           </Collapsible>
         ) : (
           <div className="flex items-center w-full">
-            <SidebarMenuButton asChild className="flex-grow">
+            <SidebarMenuButton
+              asChild
+              className="flex-grow"
+              tooltip={item.tooltip}
+            >
               {item.disabled ? (
                 <div className="flex items-center font-inter font-medium text-sm p-2 gap-x-2 opacity-50 hover:cursor-not-allowed h-8">
                   {item.icon && <item.icon />}
-                  <span className="text-sm font-inter">{item.title}</span>
-                  <div className="ms-auto">{item.chip && <item.chip />}</div>
+                  <span className="text-sm font-inter group-data-[collapsible=icon]:hidden">
+                    {item.title}
+                  </span>
+                  <div className="ms-auto group-data-[collapsible=icon]:hidden">
+                    {item.chip && <item.chip />}
+                  </div>
                 </div>
               ) : (
                 <Link
                   href={item.url}
                   prefetch
-                  className={`flex items-center font-inter font-medium  text-sm py-2 ${
+                  className={`flex items-center font-inter font-medium text-sm py-2 ${
                     pathname === item.url
                       ? 'bg-black-25 text-white border border-black-50'
                       : ''
                   }`}
                 >
                   {item.icon && <item.icon />}
-                  <span className="text-sm">{item.title}</span>
+                  <span className="text-sm group-data-[collapsible=icon]:hidden">
+                    {item.title}
+                  </span>
                   {item.chip && (
-                    <div className="ms-auto">{item.chip && <item.chip />}</div>
+                    <div className="ms-auto group-data-[collapsible=icon]:hidden">
+                      {item.chip && <item.chip />}
+                    </div>
                   )}
                   {item.badge && (
-                    <SidebarMenuBadge className="bg-accent !text-xs text-white">
+                    <SidebarMenuBadge className="bg-accent !text-xs text-white group-data-[collapsible=icon]:hidden">
                       {item.badge}
                     </SidebarMenuBadge>
                   )}
                 </Link>
               )}
             </SidebarMenuButton>
-            {item.dropdownMenu && <div className="">{item.dropdownMenu}</div>}
+            {item.dropdownMenu && (
+              <div className="group-data-[collapsible=icon]:hidden">
+                {item.dropdownMenu}
+              </div>
+            )}
           </div>
         )}
       </SidebarMenuItem>

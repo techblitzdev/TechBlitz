@@ -1,11 +1,11 @@
-import { Question } from '@/types/Questions';
 import Chip from '@/components/ui/chip';
-import { capitalise } from '@/utils';
-import { ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { getQuestionDifficultyColor } from '@/utils';
 import TagDisplay from '@/components/app/questions/previous/tag-display';
 import NoDailyQuestion from '@/components/global/errors/no-daily-question';
+import { ArrowUpRight } from 'lucide-react';
+
+import { getQuestionDifficultyColor, capitalise } from '@/utils';
+import { Question } from '@/types/Questions';
 
 export default function TodaysQuestionBentoBox(opts: {
   question: Question | null;
@@ -33,7 +33,6 @@ export default function TodaysQuestionBentoBox(opts: {
         <Button variant="accent" className="size-10" padding="none">
           <ArrowUpRight className="size-5 group-hover:rotate-45 duration-300" />
         </Button>
-        {/* <ArrowRight className="size-4 ml-1 group-hover:ml-2 duration-300" /> */}
       </div>
       <div className="flex flex-wrap space-y-2 w-full items-end justify-between">
         <div className="space-y-1">

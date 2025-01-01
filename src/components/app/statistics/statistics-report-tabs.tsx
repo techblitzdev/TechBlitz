@@ -75,7 +75,7 @@ export default function StatisticsReportTabs(opts: {
                         key={index}
                         variant="ghost"
                         className="p-0"
-                        href={`/questions/all?tags=${tag}`}
+                        href={`/questions?tags=${tag}`}
                       >
                         <Badge
                           variant="secondary"
@@ -101,7 +101,7 @@ export default function StatisticsReportTabs(opts: {
                         key={index}
                         variant="ghost"
                         className="p-0"
-                        href={`/questions/all?tags=${tag}`}
+                        href={`/questions?tags=${tag}`}
                       >
                         <Badge
                           variant="secondary"

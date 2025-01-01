@@ -8,6 +8,7 @@ export interface SidebarItem {
   disabled?: boolean;
   badge?: string;
   dropdownMenu?: React.ReactNode;
+  tooltip?: string;
 }
 
 export interface SidebarGroupItem {

@@ -108,7 +108,7 @@ async function QuestionsList({
         <GlobalPagination
           currentPage={currentPage}
           totalPages={data.totalPages}
-          href="/questions/all"
+          href="/questions"
           paramName="page"
         />
       </div>

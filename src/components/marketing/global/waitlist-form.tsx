@@ -78,7 +78,7 @@ export function WaitlistForm() {
             name="email"
             autoComplete="email"
             placeholder="Email Address"
-            wrapperclassname="w-full"
+            wrapperclassname="w-full bg-[#000]"
             className="w-full"
             inputClassName="w-full"
           />

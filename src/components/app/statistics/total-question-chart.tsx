@@ -78,8 +78,13 @@ export default function QuestionChart({
     }));
   }, [questionData]);
 
+  // order the chart data by the date. Ensuring that the oldest date is first
+  const orderedChartData = chartData.sort((a, b) => {
+    return new Date(a.date).getTime() - new Date(b.date).getTime();
+  });
+
   const trend = useMemo(() => {
-    if (chartData.length < 2) {
+    if (orderedChartData.length < 2) {
       return { percentage: 0, isUp: true };
     }
 

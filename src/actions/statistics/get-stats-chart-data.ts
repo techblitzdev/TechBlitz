@@ -51,19 +51,21 @@ export const getStatsChartData = async (opts: {
 
   questions.forEach((answer) => {
     let key: string;
+    const year = answer.createdAt.getFullYear();
+
     switch (step) {
       case 'month':
-        key = answer.createdAt.toISOString().slice(0, 7);
+        key = `${answer.createdAt.toISOString().slice(0, 7)},${year}`;
         break;
       case 'week':
         const weekStart = new Date(answer.createdAt);
         weekStart.setDate(
           answer.createdAt.getDate() - answer.createdAt.getDay()
         );
-        key = weekStart.toISOString().slice(0, 10);
+        key = `${weekStart.toISOString().slice(0, 10)},${year}`;
         break;
       case 'day':
-        key = formatDayLabel(answer.createdAt);
+        key = `${formatDayLabel(answer.createdAt)},${year}`;
         break;
     }
 

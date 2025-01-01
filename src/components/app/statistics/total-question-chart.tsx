@@ -6,6 +6,7 @@ import {
   TrendingDown,
   BarChartIcon,
   LineChartIcon,
+  Circle,
 } from 'lucide-react';
 import {
   CartesianGrid,
@@ -84,19 +85,23 @@ export default function QuestionChart({
   });
 
   const trend = useMemo(() => {
+    // if there is less than 2 periods, return 0
     if (orderedChartData.length < 2) {
-      return { percentage: 0, isUp: true };
+      return { percentage: 0, isNeutral: true };
     }
 
+    // get the first and last period of the chart data
     const firstPeriod = chartData[0];
     const lastPeriod = chartData[chartData.length - 1];
 
+    // calculate the percentage change between the first and last period
     const percentageChange =
       ((lastPeriod.questions - firstPeriod.questions) / firstPeriod.questions) *
       100;
 
     return {
       percentage: Math.abs(percentageChange).toFixed(2),
+      isNeutral: percentageChange === 0,
       isUp: percentageChange > 0,
     };
   }, [chartData]);
@@ -183,10 +188,12 @@ export default function QuestionChart({
               <span className="flex items-center">
                 <NumberFlow value={Number(trend.percentage)} />%
               </span>
-              {trend.isUp ? (
-                <TrendingUp className="h-4 w-4 text-green-500" />
+              {trend.isUp && !trend.isNeutral ? (
+                <TrendingUp className="size-4 text-green-500" />
+              ) : !trend.isNeutral ? (
+                <TrendingDown className="size-4 text-red-500" />
               ) : (
-                <TrendingDown className="h-4 w-4 text-red-500" />
+                <Circle className="size-2 fill-yellow-400 text-yellow-500" />
               )}
             </div>
             <Select

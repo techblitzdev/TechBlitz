@@ -18,7 +18,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     value: 'STANDARD',
   },
   {
-    uid: 'prod_RCUoLWmEitsaH1',
+    uid: 'prod_RVbQaH3ydY4F3g',
     name: 'Premium',
     value: 'PREMIUM',
   },

@@ -57,8 +57,8 @@ export default function FeaturesBentoGrid() {
                   Coding Roadmaps
                 </h5>
                 <p className="text-xs text-gray-400 font-onest">
-                  Tailored learning paths that adapt to your coding skills and
-                  build you a personalized roadmap to ensure you become a better
+                  Personalized learning paths that adapt to your coding skills
+                  and build you a roadmap to ensure you become a better
                   developer.
                 </p>
                 <Button

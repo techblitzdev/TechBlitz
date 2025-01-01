@@ -15,7 +15,7 @@ export default function HomepageHero() {
         <h1 className="text-5xl lg:text-[68px] !font-onest !font-medium tracking-tight max-w-5xl">
           The ultimate platform to fast-track your coding career
         </h1>
-        <h6 className="font-onest max-w-xl text-gray-400">
+        <h6 className="font-onest max-w-xl text-gray-400 text-lg">
           An{' '}
           <Link
             href="https://github.com/techblitzdev/techblitz"
@@ -24,8 +24,8 @@ export default function HomepageHero() {
           >
             open-source
           </Link>
-          , mobile-friendly software engineering platform that will transform
-          you into an exceptional developer.
+          , mobile-friendly coding platform designed to help you become an
+          exceptional software engineer.
         </h6>
         {process.env.NEXT_PUBLIC_ENV === 'development' ? (
           <HomepageHeroEmailSignup />

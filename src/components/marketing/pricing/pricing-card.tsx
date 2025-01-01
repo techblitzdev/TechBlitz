@@ -27,7 +27,7 @@ export default function PricingCard(opts: { product: StripeProduct }) {
     >
       <CardHeader className="pb-0">
         <div className="flex flex-col gap-2 text-start">
-          <div className="text-sm text-white font-satoshi flex gap-x-2">
+          <div className="text-sm text-white font-onest flex gap-x-2">
             <p>{product.name}</p>
           </div>
           <div className="flex flex-col gap-y-1">

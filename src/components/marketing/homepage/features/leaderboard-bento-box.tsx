@@ -17,11 +17,11 @@ const spring = {
 
 export default function LeaderboardBentoBox() {
   const initialLeaderboard: LeaderboardItem[] = [
-    { id: 1, name: 'Elon Musk' },
-    { id: 2, name: 'Bill Gates' },
-    { id: 3, name: 'Jeff Bezos' },
+    { id: 1, name: 'User one' },
+    { id: 2, name: 'User two' },
+    { id: 3, name: 'User three' },
     { id: 4, name: `you` },
-    { id: 5, name: 'Mark Zuckerberg' },
+    { id: 5, name: 'User four' },
   ];
 
   const [leaderboard, setLeaderboard] = useState(initialLeaderboard);

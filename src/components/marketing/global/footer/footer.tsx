@@ -124,7 +124,8 @@ export default function MarketingFooter() {
             <Separator className="bg-black-50" />
             <div className="flex flex-col sm:flex-row w-full justify-between items-center">
               <p className="text-xs">
-                &copy; 2024 techblitz. All rights reserved.
+                &copy; {new Date().getFullYear()} techblitz. All rights
+                reserved.
               </p>
               <ul className="flex items-center gap-x-4 text-xs mt-4 sm:mt-0">
                 <li>

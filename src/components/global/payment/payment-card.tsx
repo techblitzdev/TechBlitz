@@ -8,19 +8,27 @@ import { Button } from '@/components/ui/button';
 import AnimatedPricingFeatures from './animated-pricing-features';
 
 // type imports
-import type { StripeProduct } from '@/types/StripeProduct';
 import type { UserRecord } from '@/types/User';
+import { Plan } from '@/utils/constants/pricing';
+import { cn } from '@/utils/cn';
 
 export function PricingCard(opts: {
   user: UserRecord | null;
-  product: StripeProduct;
+  product: Plan;
   isLoading: boolean;
   billingPeriod: Stripe.PriceListParams.Recurring.Interval;
 }) {
-  const { product, isLoading, billingPeriod } = opts;
+  const { product, isLoading } = opts;
 
-  // payment link with pre-filled email
-  const paymentLink = product.metadata.paymentLink;
+  // get the payment link depending on if this is local env or production
+  const paymentLink =
+    process.env.NODE_ENV === 'development'
+      ? typeof product.cta.href === 'object'
+        ? product.cta.href.local
+        : product.cta.href
+      : typeof product.cta.href === 'object'
+        ? product.cta.href.production
+        : product.cta.href;
 
   return (
     <motion.div
@@ -33,14 +41,14 @@ export function PricingCard(opts: {
       whileHover={{ scale: 1.02 }}
       style={{
         background:
-          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
+          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
     >
       <div className="flex flex-col justify-between h-full gap-y-4">
         <div className="flex flex-col gap-y-1">
           <div className="flex w-full justify-between items-center">
             <h2 className="font-onest text-white">{product.name}</h2>
-            {product.metadata.mostPopular && (
+            {product.mostPopular && (
               <div className="bg-accent rounded-lg text-white text-xs px-2 py-1 font-semibold">
                 Most popular
               </div>
@@ -52,17 +60,11 @@ export function PricingCard(opts: {
               {isLoading ? (
                 <ReloadIcon className="size-5 animate-spin" />
               ) : (
-                <span className="text-5xl font-onest">
-                  {product.default_price?.unit_amount
-                    ? product.default_price?.unit_amount / 100
-                    : 0}
-                </span>
+                <span className="text-5xl font-onest">{product.price}</span>
               )}
             </div>
             <span className="text-sm font-inter mb-1.5 text-gray-300">
-              {product.default_price?.unit_amount !== 0
-                ? `per ${billingPeriod}, billed monthly`
-                : 'forever'}
+              {product.frequencyText}
             </span>
           </div>
         </div>
@@ -77,19 +79,17 @@ export function PricingCard(opts: {
           />
           {/** payment trigger */}
           <Button
-            href={paymentLink || ''}
-            className="w-full text-lg font-semibold py-6"
+            href={paymentLink}
+            className={cn(
+              'w-full text-lg font-semibold py-6',
+              product.disabled && 'opacity-50 cursor-not-allowed'
+            )}
             variant="secondary"
-            disabled={product.default_price?.unit_amount === 0}
           >
             {isLoading ? (
               <ReloadIcon className="size-5 animate-spin" />
             ) : (
-              <div className="font-satoshi">
-                {product.default_price?.unit_amount === 0
-                  ? 'Free forever'
-                  : 'Upgrade now'}
-              </div>
+              <div className="font-satoshi">{product.cta.text}</div>
             )}
           </Button>
         </div>

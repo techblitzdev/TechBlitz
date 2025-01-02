@@ -1,0 +1,2 @@
+# Ignore all files in the src/components/mdx directory
+*.mdx

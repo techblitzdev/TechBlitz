@@ -4,7 +4,7 @@ import { cancelSubscription } from './subscription-cancelled';
 import { checkoutSessionCompleted } from './checkout-session-complete';
 import { invoicePaymentFailed } from './invoice-payment-failed';
 
-// huge shout-out to dub.co for the inspiration for this approach <3
+// huge shout-out to dub.co (https://github.com/dubinc/dub) for the inspiration for this approach <3
 export async function POST(req: NextRequest) {
   // Ensure that stripe is initialized
   if (!stripe) {

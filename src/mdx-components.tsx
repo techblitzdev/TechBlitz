@@ -4,11 +4,15 @@ import MdxHeading from '@/components/mdx/mdx-heading';
 
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 import MdxList from './components/mdx/mdx-list';
+import { Button } from './components/ui/button';
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     a: (props) => <MdxLink {...props} href={props.href || ''} />,
     ul: (props) => <MdxList {...props}>{props.children}</MdxList>,
+    button: (props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+      <Button {...(props as any)}>{props.children}</Button>
+    ),
     h1: (props) => (
       <MdxHeading {...props} heading="h1">
         {props.children}

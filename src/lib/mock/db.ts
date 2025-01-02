@@ -18,6 +18,8 @@ type MockDb = {
   stripeSubscriptions: Map<string, any>;
   tags: Map<string, Tag>;
   questionTags: Map<string, any>;
+  roadmapQuestions: Map<string, any>;
+  defaultRoadmapQuestions: Map<string, any>;
 };
 
 // Mock database storage
@@ -36,7 +38,9 @@ const mockDb: MockDb = {
   stripeCustomers: new Map(),
   stripeSubscriptions: new Map(),
   tags: new Map(),
-  questionTags: new Map()
+  questionTags: new Map(),
+  roadmapQuestions: new Map(),
+  defaultRoadmapQuestions: new Map()
 };
 
 // Initialize with mock data
@@ -520,6 +524,243 @@ export const mockDatabase = {
       }
 
       return questions.length;
+    }
+  },
+  defaultRoadmapQuestions: {
+    findFirst: async ({ 
+      where,
+      include
+    }: { 
+      where?: { 
+        order?: number;
+      };
+      include?: {
+        answers?: boolean;
+      }
+    } = {}) => {
+      let questions = Array.from(mockDb.defaultRoadmapQuestions.values());
+
+      // Filter by order
+      if (where?.order !== undefined) {
+        questions = questions.filter(question => question.order === where.order);
+      }
+
+      // Get the first matching question
+      const question = questions[0];
+      if (!question) return null;
+
+      // Handle includes
+      if (include?.answers) {
+        return {
+          ...question,
+          answers: Array.from(mockDb.answers.values())
+            .filter(answer => answer.questionUid === question.questionUid)
+        };
+      }
+
+      return question;
+    },
+    findMany: async ({ 
+      where,
+      include,
+      orderBy
+    }: { 
+      where?: { 
+        order?: number;
+      };
+      include?: {
+        answers?: boolean;
+      };
+      orderBy?: {
+        order?: 'asc' | 'desc';
+      }
+    } = {}) => {
+      let questions = Array.from(mockDb.defaultRoadmapQuestions.values());
+
+      // Filter by order
+      if (where?.order !== undefined) {
+        questions = questions.filter(question => question.order === where.order);
+      }
+
+      // Handle ordering
+      if (orderBy?.order) {
+        questions.sort((a, b) => {
+          if (orderBy.order === 'desc') {
+            return b.order - a.order;
+          }
+          return a.order - b.order;
+        });
+      }
+
+      // Handle includes
+      if (include?.answers) {
+        questions = questions.map(question => ({
+          ...question,
+          answers: Array.from(mockDb.answers.values())
+            .filter(answer => answer.questionUid === question.questionUid)
+        }));
+      }
+
+      return questions;
+    },
+    create: async ({ 
+      data 
+    }: { 
+      data: { 
+        questionUid: string;
+        order: number;
+      } 
+    }) => {
+      const defaultQuestion = {
+        uid: `default_roadmap_question_${Date.now()}`,
+        questionUid: data.questionUid,
+        order: data.order,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+      mockDb.defaultRoadmapQuestions.set(defaultQuestion.uid, defaultQuestion);
+      return defaultQuestion;
+    },
+    update: async ({ 
+      where,
+      data 
+    }: { 
+      where: { 
+        uid: string 
+      };
+      data: {
+        order?: number;
+      }
+    }) => {
+      const question = mockDb.defaultRoadmapQuestions.get(where.uid);
+      if (!question) return null;
+
+      const updatedQuestion = {
+        ...question,
+        ...data,
+        updatedAt: new Date()
+      };
+      mockDb.defaultRoadmapQuestions.set(where.uid, updatedQuestion);
+      return updatedQuestion;
+    },
+    delete: async ({ where }: { where: { uid: string } }) => {
+      const question = mockDb.defaultRoadmapQuestions.get(where.uid);
+      if (!question) return null;
+
+      mockDb.defaultRoadmapQuestions.delete(where.uid);
+      return question;
+    }
+  },
+  userRoadmaps: {
+    findMany: async ({ 
+      where,
+      include,
+      orderBy
+    }: { 
+      where?: { 
+        userUid?: string 
+      };
+      include?: {
+        questions?: {
+          include?: {
+            answers?: boolean
+          }
+        }
+      };
+      orderBy?: {
+        createdAt?: 'asc' | 'desc'
+      }
+    } = {}) => {
+      let roadmaps = Array.from(mockDb.userRoadmaps.values());
+
+      // Filter by user
+      if (where?.userUid) {
+        roadmaps = roadmaps.filter(roadmap => roadmap.userUid === where.userUid);
+      }
+
+      // Handle ordering
+      if (orderBy?.createdAt) {
+        roadmaps.sort((a, b) => {
+          if (orderBy.createdAt === 'desc') {
+            return b.createdAt.getTime() - a.createdAt.getTime();
+          }
+          return a.createdAt.getTime() - b.createdAt.getTime();
+        });
+      }
+
+      // Handle includes
+      if (include?.questions?.include?.answers) {
+        roadmaps = roadmaps.map(roadmap => {
+          const questions = mockDb.roadmapQuestions.get(roadmap.uid) || [];
+          return {
+            ...roadmap,
+            questions: questions.map((questionId: string) => {
+              const question = mockDb.questions.get(questionId);
+              if (!question) return null;
+
+              const answers = Array.from(mockDb.answers.values())
+                .filter(answer => answer.questionUid === questionId);
+
+              return {
+                ...question,
+                answers
+              };
+            }).filter(Boolean)
+          };
+        });
+      }
+
+      return roadmaps;
+    },
+    create: async ({ 
+      data 
+    }: { 
+      data: { 
+        userUid: string;
+        name: string;
+        description?: string;
+      } 
+    }) => {
+      const roadmap = {
+        uid: `roadmap_${Date.now()}`,
+        userUid: data.userUid,
+        name: data.name,
+        description: data.description || '',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+      mockDb.userRoadmaps.set(roadmap.uid, roadmap);
+      return roadmap;
+    },
+    update: async ({ 
+      where,
+      data 
+    }: { 
+      where: { 
+        uid: string 
+      };
+      data: {
+        name?: string;
+        description?: string;
+      }
+    }) => {
+      const roadmap = mockDb.userRoadmaps.get(where.uid);
+      if (!roadmap) return null;
+
+      const updatedRoadmap = {
+        ...roadmap,
+        ...data,
+        updatedAt: new Date()
+      };
+      mockDb.userRoadmaps.set(where.uid, updatedRoadmap);
+      return updatedRoadmap;
+    },
+    delete: async ({ where }: { where: { uid: string } }) => {
+      const roadmap = mockDb.userRoadmaps.get(where.uid);
+      if (!roadmap) return null;
+
+      mockDb.userRoadmaps.delete(where.uid);
+      return roadmap;
     }
   },
   $queryRaw: async <T extends { rank: number }[]>(

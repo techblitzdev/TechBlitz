@@ -39,8 +39,8 @@ export default async function Dashboard({
                   <span>{getUserDisplayName(user)}</span>
                 </Suspense>
               </h1>
-              <p className="text-xs md:text-sm font-satoshi text-gray-400">
-                Here's your daily dose of learning!
+              <p className="text-xs md:text-sm font-onest text-gray-400">
+                Ready to level up your coding skills today?
               </p>
             </div>
             <div className="flex items-center gap-3">

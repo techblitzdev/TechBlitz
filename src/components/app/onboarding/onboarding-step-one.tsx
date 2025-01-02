@@ -146,6 +146,8 @@ export function OnboardingStepOne() {
                             checked={field.value}
                             onCheckedChange={field.onChange}
                             className="bg-black-50"
+                            // disable for now
+                            disabled={true}
                           />
                         </FormControl>
                       </FormItem>

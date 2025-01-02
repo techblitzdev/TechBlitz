@@ -1,9 +1,9 @@
 import { getUserDisplayName } from '@/utils/user';
 import Card from '@/components/global/Card';
-import { FlameIcon, User } from 'lucide-react';
+import { FlameIcon } from 'lucide-react';
 import { getLongestStreaks } from '@/actions/leaderboard/get-longest-streaks';
-import Image from 'next/image';
 import { shortenText } from '@/utils';
+import ProfilePicture from '@/components/ui/profile-picture';
 
 const header = () => {
   return (
@@ -45,19 +45,10 @@ export default async function LeaderboardLongestStreaks(opts: {
 
             {/* User */}
             <div className="flex-1 flex items-center gap-4">
-              {streak.user.userProfilePicture ? (
-                <Image
-                  src={streak.user.userProfilePicture}
-                  className="rounded-full size-6"
-                  alt={streak.user.username || 'User Profile Picture'}
-                  width={24}
-                  height={24}
-                />
-              ) : (
-                <div className="rounded-full size-6 flex items-center justify-center bg-black-50">
-                  <User className="size-4" />
-                </div>
-              )}
+              <ProfilePicture
+                src={streak.user.userProfilePicture}
+                alt={streak.user.username}
+              />
               <span>{shortenText(getUserDisplayName(streak.user), 15)}</span>
               {userUid === streak.user.uid && (
                 <span className="text-xs text-gray-500">(You)</span>

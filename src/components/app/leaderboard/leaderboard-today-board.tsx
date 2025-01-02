@@ -1,15 +1,18 @@
-import NoDailyQuestion from '@/components/global/errors/no-daily-question';
-import { getFastestTimes } from '@/actions/leaderboard/get-fastest';
-import Card from '@/components/global/Card';
-import { QuestionWithoutAnswers } from '@/types/Questions';
-import { getUserDisplayName } from '@/utils/user';
-import { ArrowRight, Medal, User } from 'lucide-react';
-import { cn } from '@/utils/cn';
-import GlobalPagination from '@/components/global/pagination';
-import { formatSeconds } from '@/utils/time';
 import Link from 'next/link';
-import Image from 'next/image';
+import NoDailyQuestion from '@/components/global/errors/no-daily-question';
+import Card from '@/components/global/Card';
+import GlobalPagination from '@/components/global/pagination';
+import { ArrowRight, Medal } from 'lucide-react';
+
+import { getFastestTimes } from '@/actions/leaderboard/get-fastest';
+
+import { QuestionWithoutAnswers } from '@/types/Questions';
+
+import { getUserDisplayName } from '@/utils/user';
+import { formatSeconds } from '@/utils/time';
 import { shortenText } from '@/utils';
+import { cn } from '@/utils/cn';
+import ProfilePicture from '@/components/ui/profile-picture';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -108,19 +111,10 @@ export default async function LeaderboardTodayBoard(opts: {
                   #{1 + (startingRank + index)}
                 </span>
                 <div className="flex-1 flex items-center gap-2">
-                  {time?.user.userProfilePicture ? (
-                    <Image
-                      src={time?.user.userProfilePicture}
-                      className="rounded-full size-6"
-                      alt={time?.user.username || 'User Profile Picture'}
-                      width={24}
-                      height={24}
-                    />
-                  ) : (
-                    <div className="rounded-full size-6 flex items-center justify-center bg-black-50">
-                      <User className="size-4" />
-                    </div>
-                  )}
+                  <ProfilePicture
+                    src={time.user.userProfilePicture}
+                    alt={time.user.username}
+                  />
                   <p>{shortenText(getUserDisplayName(time.user), 15)}</p>
                   <p>
                     {userUid === time.user.uid && (

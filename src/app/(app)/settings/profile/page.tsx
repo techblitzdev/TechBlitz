@@ -35,6 +35,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { UserUpdatePayload } from '@/types/User';
 import { themes } from 'prism-react-renderer';
+import { Input } from '@/components/ui/input';
 
 type SchemaProps = z.input<typeof userDetailsSchema>;
 
@@ -51,6 +52,7 @@ export default function SettingsProfilePage() {
       showTimeTaken: user?.showTimeTaken || false,
       sendPushNotifications: user?.sendPushNotifications || false,
       codeEditorTheme: user?.codeEditorTheme || 'vs-dark',
+      userProfilePicture: user?.userProfilePicture || '',
     },
   });
 
@@ -63,6 +65,7 @@ export default function SettingsProfilePage() {
         showTimeTaken: user.showTimeTaken,
         sendPushNotifications: user.sendPushNotifications,
         codeEditorTheme: user.codeEditorTheme || 'vs-dark',
+        userProfilePicture: user.userProfilePicture || '',
       });
     }
   }, [user, isLoading, form]);
@@ -106,6 +109,39 @@ export default function SettingsProfilePage() {
     },
   });
 
+  const onSubmitProfilePicture = async (data: any) => {
+    if (!user?.uid || !data.target.files[0]) return;
+
+    const file = data.target.files[0];
+    const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+
+    if (file.size > maxSize) {
+      toast.error('File size must be less than 2MB');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('files', file);
+    formData.append('userId', user?.uid);
+    formData.append('route', 'user-profile-pictures');
+
+    try {
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const { logoUrl } = await res.json();
+
+      if (logoUrl) {
+        form.setValue('userProfilePicture', logoUrl);
+        mutate({ ...form.getValues(), userProfilePicture: logoUrl });
+      }
+    } catch (e) {
+      console.error(e);
+      toast.error('Failed to upload profile picture');
+    }
+  };
+
   const onSubmit = (values: SchemaProps) => {
     mutate(values);
   };
@@ -122,6 +158,59 @@ export default function SettingsProfilePage() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-full space-y-6 p-8"
         >
+          {/** profile picture */}
+          <FormField
+            control={form.control}
+            name="userProfilePicture"
+            render={({ field }) => (
+              <FormItem>
+                <div className="flex flex-col md:flex-row md:items-center gap-4">
+                  <div className="relative size-16 md:size-24 rounded-full overflow-hidden border-2 border-black-50">
+                    {field.value ? (
+                      <img
+                        src={field.value}
+                        alt="Profile"
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="h-full w-full bg-black flex items-center justify-center">
+                        <span className="text-gray-400">No image</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <Label
+                      htmlFor="logo-file-upload"
+                      className="text-sm font-medium"
+                    >
+                      Profile Picture
+                    </Label>
+                    <div className="flex gap-2">
+                      <label
+                        htmlFor="logo-file-upload"
+                        className="cursor-pointer bg-primary hover:bg-primary/90 border border-black-50 text-primary-foreground px-4 py-2 rounded-md text-sm"
+                      >
+                        Choose File
+                      </label>
+                      <Input
+                        id="logo-file-upload"
+                        type="file"
+                        onChange={(e) => {
+                          onSubmitProfilePicture(e);
+                        }}
+                        className="hidden"
+                        accept="image/*"
+                      />
+                    </div>
+                    <p className="text-xs text-gray-500">
+                      Recommended: Square image, at least 200x200px (max 2MB)
+                    </p>
+                  </div>
+                </div>
+              </FormItem>
+            )}
+          />
+          {/** Username */}
           <FormField
             control={form.control}
             name="username"
@@ -140,6 +229,8 @@ export default function SettingsProfilePage() {
               </FormItem>
             )}
           />
+
+          {/** First Name */}
           <FormField
             control={form.control}
             name="firstName"
@@ -158,6 +249,8 @@ export default function SettingsProfilePage() {
               </FormItem>
             )}
           />
+
+          {/** Last Name */}
           <FormField
             control={form.control}
             name="lastName"
@@ -177,6 +270,7 @@ export default function SettingsProfilePage() {
             )}
           />
 
+          {/** Show on leaderboard */}
           <FormField
             control={form.control}
             name="showTimeTaken"
@@ -206,6 +300,8 @@ export default function SettingsProfilePage() {
               </FormItem>
             )}
           />
+
+          {/** Send push notifications */}
           <FormField
             control={form.control}
             name="sendPushNotifications"
@@ -237,6 +333,7 @@ export default function SettingsProfilePage() {
             )}
           />
 
+          {/** Code editor theme */}
           <FormField
             control={form.control}
             name="codeEditorTheme"
@@ -248,7 +345,7 @@ export default function SettingsProfilePage() {
                       value={field.value || 'vs-dark'}
                       onValueChange={field.onChange}
                     >
-                      <SelectTrigger className="border border-black-50 w-[250px]">
+                      <SelectTrigger className="border border-black-50 w-full md:w-[250px]">
                         {field.value ||
                           user?.codeEditorTheme ||
                           'Select a code editor theme'}

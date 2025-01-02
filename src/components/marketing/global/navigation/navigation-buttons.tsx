@@ -17,7 +17,8 @@ export default function NavigationButtons() {
         <GithubStars />
         <Button
           disabled
-          className="hidden lg:block font-onest !bg-gradient-to-r !from-accent !via-accent/70 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+          variant="secondary"
+          className="hidden lg:block font-onest"
         >
           <LoadingSpinner />
         </Button>
@@ -29,12 +30,13 @@ export default function NavigationButtons() {
     return (
       <div className="flex items-center gap-x-2">
         <GithubStars />
-        <a
+        <Button
           href="/dashboard"
-          className="px-4 py-2 rounded-md text-sm font-medium hidden lg:block font-onest !bg-gradient-to-r !from-accent !via-accent/70 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+          variant="secondary"
+          className="px-4 py-2 rounded-md text-sm font-medium hidden lg:block font-onest"
         >
           Dashboard
-        </a>
+        </Button>
       </div>
     );
   }

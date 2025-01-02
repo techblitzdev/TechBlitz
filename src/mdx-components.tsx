@@ -3,10 +3,12 @@ import MdxLink from '@/components/mdx/mdx-link';
 import MdxHeading from '@/components/mdx/mdx-heading';
 
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
+import MdxList from './components/mdx/mdx-list';
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     a: (props) => <MdxLink {...props} href={props.href || ''} />,
+    ul: (props) => <MdxList {...props}>{props.children}</MdxList>,
     h1: (props) => (
       <MdxHeading {...props} heading="h1">
         {props.children}

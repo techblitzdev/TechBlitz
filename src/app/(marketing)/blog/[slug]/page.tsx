@@ -14,6 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import LogoSmall from '@/components/ui/LogoSmall';
 
 interface BlogPostParams {
   params: {
@@ -100,7 +101,12 @@ export default async function BlogPost({ params }: BlogPostParams) {
               {typedFrontmatter.author && (
                 <>
                   <span>•</span>
-                  <span>{typedFrontmatter.author}</span>
+                  <span className="flex items-center gap-x-2">
+                    <div className="size-7 p-1 border border-black-50 rounded-lg">
+                      <LogoSmall />
+                    </div>
+                    {typedFrontmatter.author}
+                  </span>
                 </>
               )}
             </div>

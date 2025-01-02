@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
 
   let event;
   try {
-    const webhookSecret = 'whsec_EvMQRESYJmMqMPzPrpYBg0A6XAstosZ1'; //process.env.NEXT_PRIVATE_STRIPE_WEBHOOK_SECRET;
+    const webhookSecret = process.env.NEXT_PRIVATE_STRIPE_WEBHOOK_SECRET;
 
     if (!webhookSecret) {
       console.log('No webhook secret found');

@@ -7,7 +7,7 @@ import {
 import { useUser } from '@/hooks/useUser';
 import { Button } from '@/components/ui/button';
 import { getUserDisplayName } from '@/utils/user';
-import { ChevronUp, User2 } from 'lucide-react';
+import { ChevronUp } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,

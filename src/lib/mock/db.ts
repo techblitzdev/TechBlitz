@@ -187,6 +187,95 @@ export const mockDatabase = {
       if (!user) return null;
       return user;
     },
+    findMany: async ({ 
+      where,
+      orderBy,
+      take,
+      select,
+      include
+    }: { 
+      where?: {
+        answers?: {
+          some: {}
+        }
+      },
+      orderBy?: {
+        answers?: {
+          _count: 'asc' | 'desc'
+        }
+      },
+      take?: number,
+      select?: {
+        uid?: boolean,
+        username?: boolean,
+        email?: boolean,
+        answers?: boolean,
+        userProfilePicture?: boolean,
+        _count?: {
+          select: { answers: boolean }
+        }
+      },
+      include?: {
+        answers?: boolean
+      }
+    }) => {
+      let users = Array.from(mockDb.users.values());
+
+      // Filter users who have answered questions
+      if (where?.answers?.some) {
+        users = users.filter(user => {
+          const userAnswers = Array.from(mockDb.answers.values()).filter(
+            answer => answer.userUid === user.uid
+          );
+          return userAnswers.length > 0;
+        });
+      }
+
+      // Order by answer count
+      if (orderBy?.answers?._count) {
+        users.sort((a, b) => {
+          const aCount = Array.from(mockDb.answers.values()).filter(
+            answer => answer.userUid === a.uid
+          ).length;
+          const bCount = Array.from(mockDb.answers.values()).filter(
+            answer => answer.userUid === b.uid
+          ).length;
+
+          return orderBy?.answers?._count === 'desc' ? bCount - aCount : aCount - bCount;
+        });
+      }
+
+      // Apply pagination
+      if (typeof take === 'number') {
+        users = users.slice(0, take);
+      }
+
+      // Apply selection
+      if (select) {
+        users = users.map(user => {
+          const result: any = {};
+          if (select.uid) result.uid = user.uid;
+          if (select.username) result.username = user.username;
+          if (select.email) result.email = user.email;
+          if (select.userProfilePicture) result.userProfilePicture = user.userProfilePicture;
+          if (select.answers) {
+            result.answers = Array.from(mockDb.answers.values()).filter(
+              answer => answer.userUid === user.uid
+            );
+          }
+          if (select._count?.select?.answers) {
+            result._count = {
+              answers: Array.from(mockDb.answers.values()).filter(
+                answer => answer.userUid === user.uid
+              ).length
+            };
+          }
+          return result;
+        });
+      }
+
+      return users;
+    },
     update: async ({ where, data }: { where: { uid: string }; data: Partial<Users> }) => {
       const user = mockDb.users.get(where.uid);
       if (!user) return null;
@@ -221,119 +310,354 @@ export const mockDatabase = {
     }
   },
   questions: {
-    findMany: async ({ skip = 0, take = 10, where, orderBy, include }: {
-      skip?: number;
-      take?: number;
-      where?: any;
-      orderBy?: any;
-      include?: any;
+    findMany: async ({ 
+      where,
+      include,
+      orderBy,
+      take,
+      skip = 0
+    }: { 
+      where?: {
+        AND?: Array<{
+          tags?: {
+            some?: {
+              tag?: {
+                uid?: {
+                  in?: string[]
+                }
+              }
+            }
+          },
+          dailyQuestion?: boolean
+        }>,
+        NOT?: {
+          uid?: {
+            in?: string[]
+          }
+        }
+      },
+      include?: {
+        tags?: {
+          include?: {
+            tag?: boolean
+          }
+        }
+      },
+      orderBy?: {
+        createdAt?: 'asc' | 'desc'
+      },
+      take?: number,
+      skip?: number
     }) => {
       let questions = Array.from(mockDb.questions.values());
 
-      // Apply filters
       if (where?.AND) {
-        where.AND.forEach((condition: any) => {
-          if (condition.difficulty) {
-            questions = questions.filter(q => q.difficulty === condition.difficulty);
-          }
-          if (condition.userAnswers?.some) {
-            questions = questions.filter(q => 
-              (q as any).userAnswers.some((a: any) => a.userUid === condition.userAnswers.some.userUid)
-            );
-          }
-          if (condition.userAnswers?.none) {
-            questions = questions.filter(q => 
-              !(q as any).userAnswers.some((a: any) => a.userUid === condition.userAnswers.none.userUid)
-            );
-          }
-          if (condition.tags?.some) {
-            questions = questions.filter(q =>
-              (mockDb.questionTags.get(q.uid) || []).some((tagId: string) => 
-                condition.tags.some.tag.name.in.includes(mockDb.tags.get(tagId)?.name)
-              )
-            );
-          }
-          if (condition.questionDate?.lte) {
-            const date = new Date(condition.questionDate.lte);
-            questions = questions.filter(q => new Date(q.questionDate) <= date);
-          }
+        questions = questions.filter(question => {
+          return where.AND!.every((condition: { 
+            tags?: { 
+              some?: { 
+                tag?: { 
+                  uid?: { 
+                    in?: string[] 
+                  } 
+                } 
+              } 
+            };
+            dailyQuestion?: boolean 
+          }) => {
+            if (condition.tags?.some?.tag) {
+              const questionTags = mockDb.questionTags.get(question.uid) || [];
+              return questionTags.some((tagId: string) => {
+                const tag = mockDb.tags.get(tagId);
+                return condition.tags?.some?.tag?.uid?.in?.includes(tag?.uid || '');
+              });
+            }
+            if (condition.dailyQuestion !== undefined) {
+              return question.dailyQuestion === condition.dailyQuestion;
+            }
+            return true;
+          });
         });
       }
 
-      // Apply ordering
-      if (orderBy?.questionDate) {
+      if (where?.NOT?.uid?.in) {
+        questions = questions.filter(question => 
+          !where.NOT?.uid?.in?.includes(question.uid)
+        );
+      }
+
+      // Handle ordering
+      if (orderBy?.createdAt) {
         questions.sort((a, b) => {
-          if (orderBy.questionDate === 'asc') {
-            return new Date(a.questionDate).getTime() - new Date(b.questionDate).getTime();
-          } else {
-            return new Date(b.questionDate).getTime() - new Date(a.questionDate).getTime();
+          if (orderBy.createdAt === 'desc') {
+            return b.createdAt.getTime() - a.createdAt.getTime();
           }
+          return a.createdAt.getTime() - b.createdAt.getTime();
         });
       }
 
-      // Apply pagination
-      const paginatedQuestions = questions.slice(skip, skip + take);
-
-      // Include relations if requested
+      // Handle includes
       if (include?.tags) {
-        return paginatedQuestions.map(q => ({
-          ...q,
-          tags: (mockDb.questionTags.get(q.uid) || []).map((tagId: string) => ({ tag: mockDb.tags.get(tagId) }))
-        }));
+        questions = questions.map(question => {
+          type QuestionWithTags = typeof question & {
+            tags?: Array<{ tag?: { uid: string } | undefined }>;
+          };
+          
+          let questionWithIncludes = { ...question } as QuestionWithTags;
+
+          if (include.tags?.include?.tag) {
+            const tags = mockDb.questionTags.get(question.uid) || [];
+            questionWithIncludes.tags = tags.map((tagId: string) => ({
+              tag: mockDb.tags.get(tagId)
+            }));
+          }
+
+          return questionWithIncludes;
+        });
       }
+
+      // Handle pagination
+      const paginatedQuestions = questions.slice(skip, skip + (take || questions.length));
 
       return paginatedQuestions;
+    },
+    findFirst: async ({ 
+      where,
+      include,
+      orderBy 
+    }: { 
+      where?: { 
+        uid?: { 
+          not?: string 
+        } 
+      };
+      include?: {
+        tags?: {
+          include?: {
+            tag?: boolean
+          }
+        }
+      };
+      orderBy?: {
+        createdAt?: 'asc' | 'desc'
+      }
+    } = {}) => {
+      let questions = Array.from(mockDb.questions.values());
+
+      if (where?.uid?.not !== undefined) {
+        questions = questions.filter(question => question.uid !== where?.uid?.not);
+      }
+
+      // Handle ordering
+      if (orderBy?.createdAt) {
+        questions.sort((a, b) => {
+          if (orderBy.createdAt === 'desc') {
+            return b.createdAt.getTime() - a.createdAt.getTime();
+          }
+          return a.createdAt.getTime() - b.createdAt.getTime();
+        });
+      }
+
+      // Handle includes
+      let result = questions[0];
+      if (!result) return null;
+
+      type QuestionWithIncludes = typeof result & {
+        tags?: Array<{
+          tag?: { uid: string } | undefined;
+        }>;
+      };
+
+      if (include?.tags) {
+        const tags = mockDb.questionTags.get(result.uid) || [];
+        result = {
+          ...result,
+          tags: tags.map((tagId: string) => ({
+            tag: include.tags?.include?.tag ? mockDb.tags.get(tagId) : undefined
+          }))
+        } as QuestionWithIncludes;
+      }
+
+      return result;
     },
     count: async ({ where }: { where?: any }) => {
       let questions = Array.from(mockDb.questions.values());
 
       // Apply the same filters as findMany for consistency
       if (where?.AND) {
-        where.AND.forEach((condition: any) => {
-          if (condition.difficulty) {
-            questions = questions.filter(q => q.difficulty === condition.difficulty);
-          }
-          if (condition.userAnswers?.some) {
-            questions = questions.filter(q => 
-              (q as any).userAnswers.some((a: any) => a.userUid === condition.userAnswers.some.userUid)
-            );
-          }
-          if (condition.userAnswers?.none) {
-            questions = questions.filter(q => 
-              !(q as any).userAnswers.some((a: any) => a.userUid === condition.userAnswers.none.userUid)
-            );
-          }
-          if (condition.tags?.some) {
-            questions = questions.filter(q =>
-              (mockDb.questionTags.get(q.uid) || []).some((tagId: string) => 
-                condition.tags.some.tag.name.in.includes(mockDb.tags.get(tagId)?.name)
-              )
-            );
-          }
-          if (condition.questionDate?.lte) {
-            const date = new Date(condition.questionDate.lte);
-            questions = questions.filter(q => new Date(q.questionDate) <= date);
-          }
+        questions = questions.filter(question => {
+          return where.AND!.every((condition: { 
+            tags?: { 
+              some?: { 
+                tag?: { 
+                  uid?: { 
+                    in?: string[] 
+                  } 
+                } 
+              } 
+            };
+            dailyQuestion?: boolean 
+          }) => {
+            if (condition.tags?.some?.tag) {
+              const questionTags = mockDb.questionTags.get(question.uid) || [];
+              return questionTags.some((tagId: string) => {
+                const tag = mockDb.tags.get(tagId);
+                return condition.tags?.some?.tag?.uid?.in?.includes(tag?.uid || '');
+              });
+            }
+            if (condition.dailyQuestion !== undefined) {
+              return question.dailyQuestion === condition.dailyQuestion;
+            }
+            return true;
+          });
         });
+      }
+
+      if (where?.NOT?.uid?.in) {
+        questions = questions.filter(question => 
+          !where.NOT?.uid?.in?.includes(question.uid)
+        );
       }
 
       return questions.length;
     }
   },
+  $queryRaw: async <T extends { rank: number }[]>(
+    strings: TemplateStringsArray,
+    questionUid: string,
+    userUid: string
+  ): Promise<T> => {
+    // Get all answers for the question
+    const answers = Array.from(mockDb.answers.values())
+      .filter(answer => answer.questionUid === questionUid)
+      .sort((a, b) => (a.timeTaken || 0) - (b.timeTaken || 0));
+
+    // Find the rank of the user
+    const userRank = answers.findIndex(answer => answer.userUid === userUid) + 1;
+
+    // Return in the expected format
+    return [{ rank: userRank }] as T;
+  },
   answers: {
     findFirst: async ({ where }: { where: { questionUid?: string; userUid?: string } }) => {
-      return Array.from(mockDb.answers.values()).find(answer => {
-        if (where?.questionUid && answer.questionUid !== where.questionUid) return false;
-        if (where?.userUid && answer.userUid !== where.userUid) return false;
-        return true;
-      }) || null;
+      return Array.from(mockDb.answers.values()).find(
+        answer =>
+          (!where.questionUid || answer.questionUid === where.questionUid) &&
+          (!where.userUid || answer.userUid === where.userUid)
+      );
     },
-    findMany: async ({ where }: { where: { questionUid?: string; userUid?: string } }) => {
-      return Array.from(mockDb.answers.values()).filter(answer => {
-        if (where?.questionUid && answer.questionUid !== where.questionUid) return false;
-        if (where?.userUid && answer.userUid !== where.userUid) return false;
+    findMany: async ({ 
+      where, 
+      include,
+      orderBy,
+      take,
+      skip = 0
+    }: { 
+      where?: { 
+        questionUid?: string; 
+        userUid?: string;
+        questionDate?: string;
+        correctAnswer?: boolean;
+        user?: {
+          showTimeTaken?: boolean;
+        }
+      };
+      include?: {
+        question?: {
+          include?: {
+            tags?: {
+              include?: {
+                tag?: boolean
+              }
+            }
+          }
+        };
+        user?: boolean;
+      };
+      orderBy?: {
+        createdAt?: 'asc' | 'desc';
+        timeTaken?: 'asc' | 'desc';
+      };
+      take?: number;
+      skip?: number;
+    }) => {
+      let answers = Array.from(mockDb.answers.values()).filter((answer) => {
+        if (!where) return true;
+        if (where.questionDate && answer.questionDate !== where.questionDate) return false;
+        if (where.questionUid && answer.questionUid !== where.questionUid) return false;
+        if (where.userUid && answer.userUid !== where.userUid) return false;
+        if (where.correctAnswer !== undefined && answer.correctAnswer !== where.correctAnswer) return false;
+        if (where.user?.showTimeTaken !== undefined) {
+          const user = mockDb.users.get(answer.userUid);
+          if (!user || user.showTimeTaken !== where.user.showTimeTaken) return false;
+        }
         return true;
       });
+
+      // Handle ordering
+      if (orderBy?.createdAt) {
+        answers.sort((a, b) => {
+          if (orderBy.createdAt === 'desc') {
+            return b.createdAt.getTime() - a.createdAt.getTime();
+          }
+          return a.createdAt.getTime() - b.createdAt.getTime();
+        });
+      } else if (orderBy?.timeTaken) {
+        answers.sort((a, b) => {
+          const aTime = a.timeTaken || 0;
+          const bTime = b.timeTaken || 0;
+          if (orderBy.timeTaken === 'desc') {
+            return bTime - aTime;
+          }
+          return aTime - bTime;
+        });
+      }
+
+      // Handle pagination
+      if (typeof skip === 'number' && typeof take === 'number') {
+        answers = answers.slice(skip, skip + take);
+      }
+
+      // Handle includes
+      if (include?.question) {
+        answers = answers.map(answer => {
+          const question = mockDb.questions.get(answer.questionUid);
+          if (!question) return answer;
+
+          let questionWithIncludes: any = { ...question };
+
+          if (include.question?.include?.tags?.include?.tag) {
+            const tags = mockDb.questionTags.get(question.uid) || [];
+            questionWithIncludes.tags = tags.map((tagId: string) => ({
+              tag: mockDb.tags.get(tagId)
+            }));
+          }
+
+          return {
+            ...answer,
+            question: questionWithIncludes
+          };
+        });
+      }
+
+      if (include?.user) {
+        answers = answers.map(answer => {
+          const user = mockDb.users.get(answer.userUid);
+          return {
+            ...answer,
+            user: user || null
+          };
+        });
+      }
+
+      return answers;
+    },
+    count: async ({ where }: { where: { questionUid?: string; userUid?: string } }) => {
+      return Array.from(mockDb.answers.values()).filter(
+        answer =>
+          (!where.questionUid || answer.questionUid === where.questionUid) &&
+          (!where.userUid || answer.userUid === where.userUid)
+      ).length;
     },
     create: async ({ data }: { data: Partial<Answers> }) => {
       const newAnswer = {

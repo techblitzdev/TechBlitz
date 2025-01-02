@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { mockUser } from './index';
+import { mockDatabase } from './db';
 
 const mockUserData = {
   ...mockUser,
@@ -27,6 +28,12 @@ const mockUserData = {
     createdAt: new Date(),
     updatedAt: new Date()
   }
+};
+
+export const mockPrisma = {
+  ...mockDatabase,
+  $connect: async () => {},
+  $disconnect: async () => {}
 };
 
 export const mockPrismaClient = {

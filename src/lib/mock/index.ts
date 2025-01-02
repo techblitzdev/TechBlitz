@@ -1,6 +1,39 @@
 import * as React from 'react';
 
-// Mock data for development
+// Mock user data
+export const mockUser = {
+  id: 'mock-user-1',
+  email: 'test@example.com',
+  name: 'Test User',
+  avatar_url: 'https://example.com/avatar.jpg'
+};
+
+// Mock questions data
+export const mockQuestions = [
+  {
+    id: 1,
+    uid: 'mock-question-1',
+    question: 'What is React?',
+    codeSnippet: 'const App = () => { return <div>Hello World</div> }',
+    hint: 'Think about component-based architecture',
+    difficulty: 'BEGINNER',
+    questionDate: new Date('2024-01-01'),
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    id: 2,
+    uid: 'mock-question-2',
+    question: 'Explain TypeScript interfaces',
+    codeSnippet: 'interface User { name: string; age: number; }',
+    hint: 'Think about type definitions',
+    difficulty: 'INTERMEDIATE',
+    questionDate: new Date('2024-01-02'),
+    createdAt: new Date(),
+    updatedAt: new Date()
+  }
+];
+
 export const mockPricingPlans = [
   {
     id: 'mock-free-plan',
@@ -15,48 +48,6 @@ export const mockPricingPlans = [
     price: 10,
     features: ['Advanced features', 'Unlimited usage'],
     interval: 'month'
-  }
-];
-
-export const mockUser = {
-  id: 'mock-user-id',
-  email: 'dev@example.com',
-  name: 'Dev User',
-  avatar_url: 'https://via.placeholder.com/150',
-  subscription: {
-    status: 'active',
-    plan: 'pro'
-  }
-};
-
-export const mockQuestions = [
-  {
-    id: 1,
-    uid: 'mock-question-1',
-    title: 'Introduction to React',
-    description: 'Learn the basics of React',
-    difficulty: 'BEGINNER',
-    category: 'FRONTEND',
-    tags: ['react', 'javascript'],
-    content: '# React Basics\n\nReact is a JavaScript library for building user interfaces.',
-    solution: 'Example solution code here',
-    hints: ['Think about components', 'Consider state management'],
-    createdAt: new Date(),
-    updatedAt: new Date()
-  },
-  {
-    id: 2,
-    uid: 'mock-question-2',
-    title: 'Node.js Fundamentals',
-    description: 'Master Node.js basics',
-    difficulty: 'INTERMEDIATE',
-    category: 'BACKEND',
-    tags: ['node', 'javascript'],
-    content: '# Node.js Basics\n\nNode.js is a JavaScript runtime built on Chrome\'s V8 JavaScript engine.',
-    solution: 'Example solution code here',
-    hints: ['Consider async/await', 'Think about error handling'],
-    createdAt: new Date(),
-    updatedAt: new Date()
   }
 ];
 

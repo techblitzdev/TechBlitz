@@ -1,11 +1,14 @@
-import * as React from 'react';
 import { PrismaClient } from '@prisma/client';
-import { mockDatabase } from '@/lib/mock/db';
+import { mockPrisma } from '@/lib/mock/prisma';
 
-let prismaGlobal: any;
+declare global {
+  var prisma: PrismaClient | undefined;
+}
+
+let prismaGlobal: PrismaClient;
 
 if (process.env.NODE_ENV === 'development') {
-  prismaGlobal = mockDatabase;
+  prismaGlobal = mockPrisma as unknown as PrismaClient;
 } else {
   if (!global.prisma) {
     global.prisma = new PrismaClient();

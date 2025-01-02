@@ -164,8 +164,8 @@ export default function SettingsProfilePage() {
             name="userProfilePicture"
             render={({ field }) => (
               <FormItem>
-                <div className="flex items-center gap-4">
-                  <div className="relative h-24 w-24 rounded-full overflow-hidden border-2 border-black-50">
+                <div className="flex flex-col md:flex-row md:items-center gap-4">
+                  <div className="relative size-16 md:size-24 rounded-full overflow-hidden border-2 border-black-50">
                     {field.value ? (
                       <img
                         src={field.value}
@@ -345,7 +345,7 @@ export default function SettingsProfilePage() {
                       value={field.value || 'vs-dark'}
                       onValueChange={field.onChange}
                     >
-                      <SelectTrigger className="border border-black-50 w-[250px]">
+                      <SelectTrigger className="border border-black-50 w-full md:w-[250px]">
                         {field.value ||
                           user?.codeEditorTheme ||
                           'Select a code editor theme'}

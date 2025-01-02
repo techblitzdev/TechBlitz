@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import Link from 'next/link';
 import LogoutButton from '@/components/auth/logout';
+import ProfilePicture from '@/components/ui/profile-picture';
 
 export default function SidebarFooterComponent() {
   const { user } = useUser();
@@ -39,7 +40,10 @@ export default function SidebarFooterComponent() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <SidebarMenuButton variant="default" className="text-white">
-                <User2 />
+                <ProfilePicture
+                  src={user?.userProfilePicture}
+                  alt="Profile Picture"
+                />
                 {user && getUserDisplayName(user)}
                 <ChevronUp className="ml-auto" />
               </SidebarMenuButton>

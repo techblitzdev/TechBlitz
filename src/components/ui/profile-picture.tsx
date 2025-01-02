@@ -1,4 +1,6 @@
 import { User } from 'lucide-react';
+import { Suspense } from 'react';
+import LoadingSpinner from './loading';
 
 export default function ProfilePicture(opts: {
   src?: string | null;
@@ -16,10 +18,12 @@ export default function ProfilePicture(opts: {
   }
 
   return (
-    <img
-      src={src}
-      className="rounded-full size-6"
-      alt={alt || 'User Profile Picture'}
-    />
+    <Suspense fallback={<LoadingSpinner />}>
+      <img
+        src={src}
+        className="rounded-full size-6"
+        alt={alt || 'User Profile Picture'}
+      />
+    </Suspense>
   );
 }

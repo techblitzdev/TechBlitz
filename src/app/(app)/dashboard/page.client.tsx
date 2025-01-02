@@ -42,7 +42,7 @@ export default function ClientPage({
             <DialogDescription className="flex flex-col gap-y-2">
               <span>
                 You now have access to all the features on techblitz, why not
-                one out now?
+                try one out now?
               </span>
             </DialogDescription>
           </DialogHeader>

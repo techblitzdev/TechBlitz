@@ -9,6 +9,7 @@ export const userDetailsSchema = z
     showTimeTaken: z.boolean().optional(),
     sendPushNotifications: z.boolean().optional(),
     codeEditorTheme: z.string().optional(),
+    userProfilePicture: z.string().optional(),
   })
   .transform((data) => {
     // Remove null values from the payload

@@ -71,7 +71,7 @@ export default async function BlogPost({ params }: BlogPostParams) {
     const typedFrontmatter = frontmatter as unknown as BlogFrontmatter;
 
     return (
-      <div className="container flex gap-10 mx-64 pt-32 pb-20">
+      <div className="container px-4 lg:px-0 flex flex-col md:flex-row gap-10 max-w-7xl mx-auto pt-32 pb-20">
         <article className="w-full md:w-3/5">
           {/** global hero that displays on all blog posts */}
           <div className="mb-8">
@@ -117,8 +117,8 @@ export default async function BlogPost({ params }: BlogPostParams) {
             {content}
           </div>
         </article>
-        <aside className="relative w-full md:w-2/5">
-          <div className="order-first md:order-last sticky top-32 space-y-5 w-3/5">
+        <aside className="w-full md:w-2/5 order-first md:order-last">
+          <div className="sticky top-32 md:max-w-[320px] mx-auto space-y-5">
             <Card className="w-full border border-black-50 text-white shadow-lg">
               <CardHeader className="pb-2">
                 <CardTitle className="font-onest text-2xl flex items-center justify-center">

@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Link from 'next/link';
 
-import { ChevronLeft, Rocket, Star } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 
 import { getBlogPost, getBlogPosts } from '@/lib/blog';
 import { createMetadata } from '@/utils';

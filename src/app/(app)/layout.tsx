@@ -27,22 +27,31 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isDevelopment = process.env.NODE_ENV === 'development';
   const user = await useUserServer();
-  if (!user) redirect('/login?r=no-auth');
+  
+  if (!isDevelopment && !user) {
+    redirect('/login?r=no-auth');
+  }
 
   return (
-    <SidebarProvider>
-      {/* Scrollable content */}
-      <AppSidebar />
-      <NextTopLoader color="#5b61d6" showSpinner={false} />
-      <main className="w-full py-6 lg:pt-4 lg:pb-3">
-        <div className="h-[95%]">
-          <CSPostHogProvider>
+    <MantineProvider>
+      {!isDevelopment &&   
+             <CSPostHogProvider>
             <MantineProvider>{children}</MantineProvider>
-          </CSPostHogProvider>
+          </CSPostHogProvider>}
+      <NextTopLoader color="#000" />
+      <SidebarProvider>
+        <div className="flex min-h-screen">
+          <AppSidebar />
+          <div className="flex-1 overflow-x-hidden">
+            <main className="min-h-screen bg-background">
+              {children}
+              <Toaster />
+            </main>
+          </div>
         </div>
-      </main>
-      <Toaster className="bg-black" />
-    </SidebarProvider>
+      </SidebarProvider>
+    </MantineProvider>
   );
 }

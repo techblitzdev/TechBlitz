@@ -1,5 +1,6 @@
 'use client';
 
+import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import LoadingSpinner from '@/components/ui/loading';
 import { useUser } from '@/hooks/useUser';
@@ -8,10 +9,10 @@ import GithubLogo from '@/components/ui/icons/github';
 
 export default function NavigationButtons() {
   const { user, isLoading } = useUser();
-  const isDevelopment = process.env.NEXT_PUBLIC_ENV === 'development';
-  const isLoggedIn = Boolean(user?.email);
+  const isDevelopment = process.env.NODE_ENV === 'development';
+  const isLoggedIn = isDevelopment || Boolean(user?.email);
 
-  if (isLoading) {
+  if (isLoading && !isDevelopment) {
     return (
       <div className="flex items-center gap-x-2">
         <GithubStars />
@@ -42,15 +43,15 @@ export default function NavigationButtons() {
   return (
     <div className="items-center gap-x-2 hidden lg:flex">
       <GithubStars hideText={true} />
-      <Button href="/login" variant="ghost" className="font-onest">
-        Login
+      <Button href="/dashboard" variant="ghost" className="font-onest">
+        Dashboard
       </Button>
       <Button
-        href={isDevelopment ? '/signup' : '#waitlist-form'}
+        href="/dashboard"
         variant="accent"
         className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
       >
-        {isDevelopment ? 'Get Started' : 'Join the Waitlist'}
+        Get Started
         <ArrowRight className="ml-2 size-4" />
       </Button>
     </div>

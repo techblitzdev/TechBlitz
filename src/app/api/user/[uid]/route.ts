@@ -1,5 +1,7 @@
+import * as React from 'react';
 import { getUserFromDb } from '@/actions/user/authed/get-user';
 import { NextRequest, NextResponse } from 'next/server';
+import { mockUser } from '@/lib/mock';
 
 export async function GET(
   req: NextRequest,
@@ -11,8 +13,8 @@ export async function GET(
     };
   }
 ) {
-  // get the userId from the params
   const userId = params.uid;
+  const isDevelopment = process.env.NODE_ENV === 'development';
 
   if (!userId) {
     return NextResponse.json({
@@ -20,7 +22,14 @@ export async function GET(
     });
   }
 
-  // now go get the user from the db
+  if (isDevelopment) {
+    return NextResponse.json({
+      ...mockUser,
+      uid: userId,
+      userLevel: 'ADMIN'
+    });
+  }
+
   const user = await getUserFromDb(userId);
 
   if (!user || !user.uid) {
@@ -28,5 +37,6 @@ export async function GET(
       error: 'No user found'
     });
   }
+
   return NextResponse.json(user);
 }

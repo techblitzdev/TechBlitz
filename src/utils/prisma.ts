@@ -1,13 +1,16 @@
+import * as React from 'react';
 import { PrismaClient } from '@prisma/client';
+import { mockDatabase } from '@/lib/mock/db';
 
-const prismaClientSingleton = () => {
-  return new PrismaClient();
-};
+let prismaGlobal: any;
 
-declare const globalThis: {
-  prismaGlobal: ReturnType<typeof prismaClientSingleton>;
-} & typeof global;
+if (process.env.NODE_ENV === 'development') {
+  prismaGlobal = mockDatabase;
+} else {
+  if (!global.prisma) {
+    global.prisma = new PrismaClient();
+  }
+  prismaGlobal = global.prisma;
+}
 
-export const prisma = globalThis.prismaGlobal ?? prismaClientSingleton();
-
-if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma;
+export const prisma = prismaGlobal;

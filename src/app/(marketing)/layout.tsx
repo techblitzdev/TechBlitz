@@ -28,9 +28,7 @@ const MarketingFooter = dynamic(
 
 const CookieBanner = dynamic(
   () => import('@/components/global/cookie-banner'),
-  {
-    ssr: false,
-  }
+  { ssr: false }
 );
 
 const StarsBackground = dynamic(
@@ -97,25 +95,29 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isDevelopment = process.env.NODE_ENV === 'development';
+
   return (
     <ReactQueryClientProvider>
-      <html lang="en">
-        <body
-          className={`${InterFont.variable} ${SatoshiFont.variable} ${UbuntuFont.variable} ${OnestFont.variable} antialiased`}
-        >
-          <main>
+      <html
+        lang="en"
+        className={`${InterFont.variable} ${OnestFont.variable} ${SatoshiFont.variable} ${UbuntuFont.variable}`}
+      >
+        <body className="min-h-screen bg-background font-sans antialiased">
+          <MantineProvider>
+            {!isDevelopment && <CSPostHogProvider children={undefined} />}
             <StarsBackground className="-z-10" />
-            <CSPostHogProvider>
-              <MantineProvider>
-                <MarketingNavigation />
-                {children}
+            <MarketingNavigation />
+            <main>{children}</main>
+            <MarketingFooter />
+            <Toaster className="bg-black" />
+            {!isDevelopment && (
+              <>
                 <CookieBanner />
-                <MarketingFooter />
-              </MantineProvider>
-            </CSPostHogProvider>
-          </main>
-          <Analytics />
-          <Toaster className="bg-black" />
+                <Analytics />
+              </>
+            )}
+          </MantineProvider>
         </body>
       </html>
     </ReactQueryClientProvider>

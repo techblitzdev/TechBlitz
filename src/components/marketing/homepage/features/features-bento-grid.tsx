@@ -145,10 +145,7 @@ export default function FeaturesBentoGrid() {
                     skills.
                   </p>
                 </div>
-                <Button
-                  variant="accent"
-                  className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
-                >
+                <Button variant="secondary" className="font-onest">
                   Learn more{' '}
                   <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
                 </Button>

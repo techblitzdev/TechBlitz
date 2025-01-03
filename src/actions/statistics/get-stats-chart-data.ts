@@ -284,28 +284,3 @@ export const getData = async (opts: {
 
   return { stats, totalQuestions, totalTimeTaken, highestScoringTag };
 };
-
-// Helper function to format day label
-const formatDayLabel = (date: Date) => {
-  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ];
-
-  const dayOfWeek = days[date.getDay()];
-  const month = months[date.getMonth()];
-  const dayOfMonth = date.getDate();
-
-  return `${dayOfWeek}, ${month} ${dayOfMonth}`;
-};

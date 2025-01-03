@@ -14,7 +14,7 @@ export default function QuestionCardFooter(opts: {
       {questionTags && (
         <>
           <Separator className="bg-black-100 w-full" />
-          <div className="p-4 w-full flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="bg-black-100 p-4 w-full flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="w-full md:w-auto">
               <TagDisplay tags={questionTags} variant="secondary" />
             </div>

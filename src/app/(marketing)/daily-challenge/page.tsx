@@ -77,7 +77,11 @@ export default async function MarketingQuestionPage() {
             </div>
             <Separator className="bg-black-50" />
             {question?.codeSnippet && (
-              <QuestionDisplay content={question.codeSnippet} language="" />
+              <QuestionDisplay
+                content={question.codeSnippet}
+                language=""
+                backgroundColor="#111111"
+              />
             )}
           </div>
         </div>

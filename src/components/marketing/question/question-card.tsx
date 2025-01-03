@@ -35,23 +35,12 @@ export default function QuestionCard(opts: {
           border={getQuestionDifficultyColor(question.difficulty).border}
         />
         <a href="#code-snippet" className="text-xs block md:hidden">
-          (Tap to see code snippet)
+          (Code snippet)
         </a>
         <Stopwatch totalSeconds={totalSeconds} />
       </div>
       <Separator className="bg-black-50" />
       <div className="h-fit bg-black-100">
-        {question?.question && (
-          <div
-            className={cn(
-              'p-4',
-              'dailyQuestion' in question && !question.dailyQuestion && 'pt-4'
-            )}
-          >
-            <h3 className="font-inter font-light">{question.question}</h3>
-          </div>
-        )}
-
         <QuestionTabs
           question={question}
           renderAnswerForm={() => (

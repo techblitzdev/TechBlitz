@@ -65,7 +65,7 @@ export default async function TodaysQuestionPage({
             {question?.codeSnippet && (
               <QuestionDisplay
                 content={question.codeSnippet}
-                backgroundColor="#000000"
+                backgroundColor="#111111"
               />
             )}
           </div>

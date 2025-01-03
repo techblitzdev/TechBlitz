@@ -77,6 +77,10 @@ export const listQuestions = async (
             lte: new Date().toISOString(),
           },
         },
+        // ensure no custom questions are fetched
+        {
+          customQuestion: false,
+        },
       ],
     },
   };

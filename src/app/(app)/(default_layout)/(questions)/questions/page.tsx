@@ -17,7 +17,7 @@ import { useUserServer } from '@/hooks/useUserServer';
 import { QuestionDifficulty } from '@/types/Questions';
 import QuestionPageSidebarLoading from '@/components/app/questions/question-page-sidebar-loading';
 
-const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 15;
 
 export default async function QuestionsDashboard({
   searchParams,

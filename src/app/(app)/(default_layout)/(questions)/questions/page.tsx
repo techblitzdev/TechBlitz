@@ -14,8 +14,9 @@ import QuestionPageSidebar from '@/components/app/questions/question-page-sideba
 import { listQuestions } from '@/actions/questions/list';
 
 import { useUserServer } from '@/hooks/use-user-server';
-import { QuestionDifficulty } from '@/types/Questions';
 import QuestionPageSidebarLoading from '@/components/app/questions/question-page-sidebar-loading';
+import { FilterParams, validateSearchParams } from '@/utils/search-params';
+import { parseSearchParams } from '@/utils/search-params';
 
 const ITEMS_PER_PAGE = 15;
 
@@ -27,21 +28,8 @@ export default async function QuestionsDashboard({
   const user = await useUserServer();
   if (!user) return null;
 
-  const currentPage = parseInt(searchParams.page as string) || 1;
-  const ascending = searchParams.ascending === 'true';
-  const difficulty = searchParams.difficulty as QuestionDifficulty;
-  const completed =
-    'completed' in searchParams ? searchParams.completed === 'true' : undefined;
-  const tags = (searchParams.tags as string)?.split(',') || [];
-
-  if (currentPage < 1) return null;
-
-  const filters = {
-    ascending,
-    difficulty,
-    completed,
-    tags,
-  };
+  const filters = parseSearchParams(searchParams);
+  if (!validateSearchParams(filters)) return null;
 
   return (
     <>
@@ -65,7 +53,7 @@ export default async function QuestionsDashboard({
           >
             <QuestionsList
               userUid={user.uid}
-              currentPage={currentPage}
+              currentPage={filters.page}
               filters={filters}
             />
           </Suspense>
@@ -85,12 +73,7 @@ async function QuestionsList({
 }: {
   userUid: string;
   currentPage: number;
-  filters: {
-    ascending: boolean;
-    difficulty: QuestionDifficulty;
-    completed: boolean | undefined;
-    tags: string[];
-  };
+  filters: FilterParams;
 }) {
   const data = await listQuestions({
     page: currentPage,

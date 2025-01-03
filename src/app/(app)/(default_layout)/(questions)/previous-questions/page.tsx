@@ -12,8 +12,9 @@ import FilterChips from '@/components/global/filters/chips';
 
 import { getPreviousQuestions } from '@/actions/questions/get-previous';
 import { useUserServer } from '@/hooks/use-user-server';
-import { QuestionDifficulty } from '@/types/Questions';
 import QuestionPageSidebarLoading from '@/components/app/questions/question-page-sidebar-loading';
+import { FilterParams, validateSearchParams } from '@/utils/search-params';
+import { parseSearchParams } from '@/utils/search-params';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -25,21 +26,8 @@ export default async function PreviousQuestionsPage({
   const user = await useUserServer();
   if (!user) return null;
 
-  const currentPage = parseInt(searchParams.page as string) || 1;
-  const ascending = searchParams.ascending === 'true';
-  const difficulty = searchParams.difficulty as QuestionDifficulty;
-  const completed =
-    'completed' in searchParams ? searchParams.completed === 'true' : undefined;
-  const tags = (searchParams.tags as string)?.split(',') || [];
-
-  const filters = {
-    ascending,
-    difficulty,
-    completed: completed ?? false,
-    tags,
-  };
-
-  if (currentPage < 1) return null;
+  const filters = parseSearchParams(searchParams);
+  if (!validateSearchParams(filters)) return null;
 
   return (
     <>
@@ -62,7 +50,7 @@ export default async function PreviousQuestionsPage({
               }
             >
               <PreviousQuestionsList
-                currentPage={currentPage}
+                currentPage={filters.page}
                 filters={filters}
               />
             </Suspense>
@@ -81,12 +69,7 @@ async function PreviousQuestionsList({
   filters,
 }: {
   currentPage: number;
-  filters: {
-    ascending: boolean;
-    difficulty: QuestionDifficulty;
-    completed: boolean | undefined;
-    tags: string[];
-  };
+  filters: FilterParams;
 }) {
   const user = await useUserServer();
   if (!user) return null;

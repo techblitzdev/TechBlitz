@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useSearchParams } from 'next/navigation';
 
 interface QueryParams {
@@ -11,11 +11,13 @@ interface GetQueryParamsProps {
 
 /**
  * Custom hook to get query parameters from the URL.
- * 
+ *
  * @param keys Optional list of keys to filter specific parameters.
  * @returns QueryParams
  */
-export const useGetQueryParams = ({ keys = [] }: GetQueryParamsProps = {}): QueryParams => {
+export const useGetQueryParams = ({
+  keys = [],
+}: GetQueryParamsProps = {}): QueryParams => {
   const searchParams = useSearchParams();
   const searchParamsKeys = Array.from(searchParams.keys());
 

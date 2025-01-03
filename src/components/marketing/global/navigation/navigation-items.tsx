@@ -43,6 +43,24 @@ const components: { title: string; href: string; description: string }[] = [
   },
 ];
 
+const features = [
+  {
+    title: 'Roadmaps',
+    href: '/features/roadmap',
+    description: 'AI-powered paths to accelerate your learning journey.',
+  },
+  {
+    title: 'Daily Challenges',
+    href: '/features/daily-challenges',
+    description: 'Tackle daily challenges to sharpen your developer skills.',
+  },
+  {
+    title: 'Statistics',
+    href: '/features/statistics',
+    description: 'Track your progress and see how you stack up against others.',
+  },
+];
+
 export function NavigationMenuItems() {
   return (
     <NavigationMenu className="py-2 px-4 hidden md:block">
@@ -79,15 +97,15 @@ export function NavigationMenuItems() {
             <NavigationMenuTrigger>Features</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                <ListItem href="/features/roadmap" title="Roadmaps">
-                  AI-powered paths to accelerate your learning journey.
-                </ListItem>
-                <ListItem
-                  href="/features/daily-challenges"
-                  title="Daily Challenges"
-                >
-                  Tackle daily challenges to sharpen your developer skills.
-                </ListItem>
+                {features.map((feature) => (
+                  <ListItem
+                    key={feature.title}
+                    href={feature.href}
+                    title={feature.title}
+                  >
+                    {feature.description}
+                  </ListItem>
+                ))}
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>

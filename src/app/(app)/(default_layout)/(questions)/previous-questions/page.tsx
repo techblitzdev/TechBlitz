@@ -11,7 +11,7 @@ const Filter = dynamic(() => import('@/components/global/filters/filter'));
 import FilterChips from '@/components/global/filters/chips';
 
 import { getPreviousQuestions } from '@/actions/questions/get-previous';
-import { useUserServer } from '@/hooks/useUserServer';
+import { useUserServer } from '@/hooks/use-user-server';
 import { QuestionDifficulty } from '@/types/Questions';
 import QuestionPageSidebarLoading from '@/components/app/questions/question-page-sidebar-loading';
 

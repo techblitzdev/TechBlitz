@@ -4,7 +4,7 @@ import BackToDashboard from '@/components/ui/back-to-dashboard';
 import CurrentStreak from '@/components/ui/current-streak';
 import QuestionNavigation from '@/components/global/navigation/question-navigation';
 import { Separator } from '@/components/ui/separator';
-import { useUserServer } from '@/hooks/useUserServer';
+import { useUserServer } from '@/hooks/use-user-server';
 import FeedbackButton from '@/components/ui/feedback-button';
 
 export default async function QuestionUidLayout({

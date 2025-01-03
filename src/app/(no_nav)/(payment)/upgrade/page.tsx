@@ -5,7 +5,7 @@ import { PricingCard } from '@/components/global/payment/payment-card';
 import StarsBackground from '@/components/ui/stars-background';
 import { X } from 'lucide-react';
 
-import { useUserServer } from '@/hooks/useUserServer';
+import { useUserServer } from '@/hooks/use-user-server';
 import { getPlans } from '@/utils/constants/pricing';
 
 export default async function UpgradePage() {

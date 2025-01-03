@@ -6,7 +6,7 @@ import CreateRoadmapButton from '@/components/app/roadmaps/create-roadmap-button
 import RoadmapsCard from '@/components/app/roadmaps/[uid]/roadmaps-card';
 
 import { fetchUserRoadmaps } from '@/actions/roadmap/fetch-user-roadmaps';
-import { useUserServer } from '@/hooks/useUserServer';
+import { useUserServer } from '@/hooks/use-user-server';
 
 export default async function RoadmapPage() {
   // middleware should catch this, but just in case

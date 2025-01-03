@@ -5,7 +5,7 @@ import BillingHistoryTable from '@/components/app/settings/billing-history-table
 import CancelSubscriptionModal from '@/components/app/settings/cancel-subscription-modal';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { useUserServer } from '@/hooks/useUserServer';
+import { useUserServer } from '@/hooks/use-user-server';
 
 export default async function BillingPage() {
   const user = await useUserServer();

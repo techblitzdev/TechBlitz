@@ -13,7 +13,7 @@ import QuestionPageSidebar from '@/components/app/questions/question-page-sideba
 
 import { listQuestions } from '@/actions/questions/list';
 
-import { useUserServer } from '@/hooks/useUserServer';
+import { useUserServer } from '@/hooks/use-user-server';
 import { QuestionDifficulty } from '@/types/Questions';
 import QuestionPageSidebarLoading from '@/components/app/questions/question-page-sidebar-loading';
 

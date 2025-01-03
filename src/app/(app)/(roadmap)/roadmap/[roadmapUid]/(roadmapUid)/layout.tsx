@@ -3,7 +3,7 @@ import BackToDashboard from '@/components/ui/back-to-dashboard';
 import QuestionNavigation from '@/components/global/navigation/question-navigation';
 import RoadmapDropdown from '@/components/app/roadmaps/[uid]/dropdown';
 import { Separator } from '@/components/ui/separator';
-import { useUserServer } from '@/hooks/useUserServer';
+import { useUserServer } from '@/hooks/use-user-server';
 
 export default async function RoadmapOverviewPage({
   children,

@@ -51,7 +51,7 @@ import LogoSmall from '@/components/ui/LogoSmall';
 import type { SidebarItemType } from '@/types/Sidebar';
 
 import { getTodaysQuestion } from '@/actions/questions/get-today';
-import { useUser } from '@/hooks/useUser';
+import { useUser } from '@/hooks/use-user';
 import { userAnsweredDailyQuestion } from '@/actions/questions/user-answered-daily-question';
 
 export function AppSidebar() {
@@ -101,6 +101,10 @@ export function AppSidebar() {
         {
           title: 'All Daily Questions',
           url: '/previous-questions',
+        },
+        {
+          title: 'Custom Questions',
+          url: '/questions/custom',
         },
       ],
     },

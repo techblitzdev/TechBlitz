@@ -2,7 +2,7 @@ import { ArrowRight, Lock } from 'lucide-react';
 import { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards';
 import { Separator } from '@/components/ui/separator';
 import { Grid } from '@/components/ui/grid';
-import { useUserServer } from '@/hooks/useUserServer';
+import { useUserServer } from '@/hooks/use-user-server';
 import {
   Tooltip,
   TooltipContent,

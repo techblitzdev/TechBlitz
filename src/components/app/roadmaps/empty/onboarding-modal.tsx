@@ -10,7 +10,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { useUserServer } from '@/hooks/useUserServer';
+import { useUserServer } from '@/hooks/use-user-server';
 import { redirect } from 'next/navigation';
 
 export default async function RoadmapOnboardingModal() {

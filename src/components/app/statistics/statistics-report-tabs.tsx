@@ -11,7 +11,7 @@ import QuestionSuggestedCard from '@/components/app/questions/suggested-question
 import { Badge } from '@/components/ui/badge';
 
 import { getSuggestions } from '@/actions/questions/get-suggestions';
-import { useUser } from '@/hooks/useUser';
+import { useUser } from '@/hooks/use-user';
 import { capitalise } from '@/utils';
 import { StatisticsReport } from '@prisma/client';
 import { Question } from '@/types/Questions';

@@ -11,7 +11,7 @@ import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 
 import NextTopLoader from 'nextjs-toploader';
-import { useUserServer } from '@/hooks/useUserServer';
+import { useUserServer } from '@/hooks/use-user-server';
 import { redirect } from 'next/navigation';
 import { createMetadata } from '@/utils';
 

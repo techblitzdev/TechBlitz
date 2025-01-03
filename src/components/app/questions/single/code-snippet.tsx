@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { Highlight, themes } from 'prism-react-renderer';
-import { useUser } from '@/hooks/useUser';
+import { useUser } from '@/hooks/use-user';
 
 interface CodeDisplayProps {
   content: string;

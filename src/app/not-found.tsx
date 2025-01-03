@@ -6,7 +6,7 @@ import CountUp from 'react-countup';
 import { useQuery } from '@tanstack/react-query';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
 import Link from 'next/link';
-import { useUser } from '@/hooks/useUser';
+import { useUser } from '@/hooks/use-user';
 
 export default function NotFound() {
   const router = useRouter();

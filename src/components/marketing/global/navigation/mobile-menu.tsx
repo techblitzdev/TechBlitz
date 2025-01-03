@@ -12,7 +12,7 @@ import {
 } from '@radix-ui/react-icons';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '@/utils/cn';
-import { useUser } from '@/hooks/useUser';
+import { useUser } from '@/hooks/use-user';
 
 interface MenuItem {
   label: string;

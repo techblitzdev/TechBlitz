@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { useMutation } from '@tanstack/react-query';
-import { useUser } from '@/hooks/useUser';
+import { useUser } from '@/hooks/use-user';
 import { deleteUser } from '@/actions/user/account/delete-user';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';

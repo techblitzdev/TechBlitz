@@ -14,7 +14,7 @@ import {
 import StatisticsReportTabs from '@/components/app/statistics/statistics-report-tabs';
 import BackToDashboard from '@/components/ui/back-to-dashboard';
 
-import { useUser } from '@/hooks/useUser';
+import { useUser } from '@/hooks/use-user';
 import { getUserDisplayName } from '@/utils/user';
 import { StatisticsReport } from '@prisma/client';
 

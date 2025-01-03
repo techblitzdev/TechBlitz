@@ -14,7 +14,6 @@ import { capitalise, getQuestionDifficultyColor } from '@/utils';
 
 import { UserRecord } from '@/types/User';
 import { Question } from '@/types/Questions';
-import { cn } from '@/utils/cn';
 import { useStopwatch } from 'react-timer-hook';
 
 export default function QuestionCard(opts: {

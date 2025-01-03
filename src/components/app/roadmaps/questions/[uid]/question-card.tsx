@@ -152,13 +152,21 @@ export default function RoadmapQuestionCard(opts: {
                     {questionRef.current?.difficulty && (
                       <Chip
                         text={capitalise(questionRef.current.difficulty)}
-                        color={getQuestionDifficultyColor(
-                          questionRef.current.difficulty
-                        )}
-                        textColor={getQuestionDifficultyColor(
-                          questionRef.current.difficulty
-                        )}
-                        ghost
+                        color={
+                          getQuestionDifficultyColor(
+                            questionRef.current.difficulty
+                          ).bg
+                        }
+                        textColor={
+                          getQuestionDifficultyColor(
+                            questionRef.current.difficulty
+                          ).text
+                        }
+                        border={
+                          getQuestionDifficultyColor(
+                            questionRef.current.difficulty
+                          ).border
+                        }
                         small
                       />
                     )}

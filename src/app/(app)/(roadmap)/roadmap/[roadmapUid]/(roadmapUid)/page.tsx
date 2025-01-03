@@ -49,15 +49,16 @@ export default async function RoadmapSinglgePage({
               {roadmap?.status && (
                 <Chip
                   text={capitalise(roadmap.status)}
-                  color="black-100"
-                  border="black-50"
+                  color="bg-black-100"
+                  border="border-black-50"
                 />
               )}
             </div>
             <Chip
               text={roadmap?.questions.length.toString() + ' ' + 'Questions'}
-              color="white"
-              textColor="black"
+              color="bg-white"
+              textColor="text-black"
+              border="border-black-50"
             />
           </div>
         </Hero>

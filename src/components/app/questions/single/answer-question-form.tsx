@@ -1,5 +1,5 @@
 'use client';
-import { useState, forwardRef, useImperativeHandle, Suspense } from 'react';
+import { useState, forwardRef, useImperativeHandle } from 'react';
 
 // components
 import { Form, FormControl, FormField } from '@/components/ui/form';

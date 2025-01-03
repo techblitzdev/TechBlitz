@@ -53,18 +53,22 @@ export default async function QuestionCard(opts: {
             {questionData?.difficulty && (
               <Chip
                 text={capitalise(questionData.difficulty)}
-                color={getQuestionDifficultyColor(questionData.difficulty)}
-                textColor={getQuestionDifficultyColor(questionData.difficulty)}
-                ghost
+                color={getQuestionDifficultyColor(questionData.difficulty).bg}
+                textColor={
+                  getQuestionDifficultyColor(questionData.difficulty).text
+                }
+                border={
+                  getQuestionDifficultyColor(questionData.difficulty).border
+                }
                 small
               />
             )}
             {/** question date */}
             {questionData?.questionDate && questionData?.dailyQuestion && (
               <Chip
-                color="black-100"
+                color="bg-black-100"
                 text={questionData.questionDate}
-                border="black-50"
+                border="border-black-50"
               />
             )}
           </div>

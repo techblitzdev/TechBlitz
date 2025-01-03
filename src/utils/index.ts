@@ -104,17 +104,36 @@ export const capitalise = (string: string) => {
   return lowercaseString[0]?.toUpperCase() + lowercaseString?.slice(1);
 };
 
-// border-green-500 border-yellow-500 border-red-500 text-green-500 text-yellow-500 text-red-500
 export const getQuestionDifficultyColor = (difficulty: string) => {
   switch (difficulty) {
     case 'EASY':
-      return 'green-500';
+      return {
+        bg: 'bg-green-500/20',
+        text: 'text-green-300',
+        border: 'border-green-500/30',
+        hover: 'hover:bg-green-500/30',
+      };
     case 'MEDIUM':
-      return 'yellow-500';
+      return {
+        bg: 'bg-yellow-500/20',
+        text: 'text-yellow-300',
+        border: 'border-yellow-500/30',
+        hover: 'hover:bg-yellow-500/30',
+      };
     case 'HARD':
-      return 'red-500';
+      return {
+        bg: 'bg-red-500/20',
+        text: 'text-red-300',
+        border: 'border-red-500/30',
+        hover: 'hover:bg-red-500/30',
+      };
     default:
-      return 'gray';
+      return {
+        bg: 'bg-gray-500/20',
+        text: 'text-gray-300',
+        border: 'border-gray-500/30',
+        hover: 'hover:bg-gray-500/30',
+      };
   }
 };
 

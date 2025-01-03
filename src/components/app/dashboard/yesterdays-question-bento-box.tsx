@@ -46,9 +46,10 @@ export default function YesterdaysQuestionBentoBox(opts: {
           </div>
         )}
         <Chip
-          color={getQuestionDifficultyColor(question?.difficulty)}
+          color={getQuestionDifficultyColor(question?.difficulty).bg}
           text={capitalise(question?.difficulty)}
-          textColor={getQuestionDifficultyColor(question?.difficulty)}
+          textColor={getQuestionDifficultyColor(question?.difficulty).text}
+          border={getQuestionDifficultyColor(question?.difficulty).border}
           ghost
         />
       </div>

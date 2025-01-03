@@ -116,15 +116,16 @@ export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {
                   ' ' +
                   'Questions'
                 }
-                color="white"
-                textColor="black"
+                color="bg-white"
+                textColor="text-black"
+                border="border-black-50"
               />
               <div className="flex items-center gap-x-3">
                 {roadmapRef.current.status && (
                   <Chip
                     text={capitalise(roadmapRef.current.status)}
-                    color="black-100"
-                    border="black-50"
+                    color="bg-black-100"
+                    border="border-black-50"
                   />
                 )}
               </div>

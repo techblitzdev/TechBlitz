@@ -28,7 +28,7 @@ export default async function FeedbackButton(opts: {
           className="flex items-center gap-2 p-2"
         >
           <ChatBubbleIcon className="size-4" />
-          {showText && <p className="text-sm">Feedback</p>}
+          {showText && <p className="text-sm hidden md:block">Feedback</p>}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-black-100 border border-black-50">

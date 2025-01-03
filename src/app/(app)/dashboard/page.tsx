@@ -6,15 +6,15 @@ import { redirect } from 'next/navigation';
 import CurrentStreak from '@/components/ui/current-streak';
 import Feedback from '@/components/ui/feedback-button';
 import { Separator } from '@/components/ui/separator';
-import { SidebarTrigger } from '@/components/ui/sidebar';
 import ClientPage from './page.client';
 import LoadingSpinner from '@/components/ui/loading';
+import DashboardBentoGrid from '@/components/app/dashboard/dashboard-bento-grid';
+import DashboardLoading from '@/components/app/dashboard/loading';
 
 // utils
 import { getUserDisplayName } from '@/utils/user';
 import { useUserServer } from '@/hooks/useUserServer';
-import DashboardLoading from '@/components/app/dashboard/loading';
-import DashboardBentoGrid from '@/components/app/dashboard/dashboard-bento-grid';
+import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-trigger';
 
 export default async function Dashboard({
   searchParams,
@@ -31,17 +31,14 @@ export default async function Dashboard({
       <ClientPage searchParams={searchParams}>
         <div className="text-white flex flex-col gap-y-4 h-full">
           <div className="flex w-full justify-between px-6">
-            <div className="space-y-1">
-              <SidebarTrigger className="lg:hidden" />
-              <h1 className="text-xl md:text-3xl font-onest">
+            <div className="flex items-center gap-3">
+              <SidebarLayoutTrigger />
+              <h1 className="text-base md:text-3xl font-onest">
                 Welcome back,{' '}
                 <Suspense fallback={<LoadingSpinner />}>
                   <span>{getUserDisplayName(user)}</span>
                 </Suspense>
               </h1>
-              <p className="text-xs md:text-sm font-onest text-gray-400">
-                Ready to level up your coding skills today?
-              </p>
             </div>
             <div className="flex items-center gap-3">
               <CurrentStreak />

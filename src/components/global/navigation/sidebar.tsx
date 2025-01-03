@@ -29,6 +29,7 @@ import {
   SidebarMenuBadge,
   SidebarMenuAction,
   SidebarRail,
+  SidebarTrigger,
 } from '@/components/ui/sidebar';
 import {
   Collapsible,
@@ -344,6 +345,7 @@ export function AppSidebar() {
             >
               <Logo />
             </Link>
+            <SidebarTrigger />
           </SidebarGroupLabel>
           {/* This div will show when the sidebar is collapsed */}
           <div className="hidden group-data-[collapsible=icon]:flex items-center justify-center h-8 mb-5">

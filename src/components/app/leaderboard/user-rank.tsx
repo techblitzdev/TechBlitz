@@ -35,7 +35,7 @@ export default async function UserRank(opts: { questionUid: string }) {
         <p className="text-white text-sm font-semibold font-onest">
           Not ranked
         </p>
-        <Link href={`/question/${questionUid}`}>
+        <Link href={`/question/${questionUid}`} className="hidden xl:block">
           <Button variant="accent">Answer now!</Button>
         </Link>
       </div>

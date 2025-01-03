@@ -68,7 +68,7 @@ export const getStatsChartData = async (opts: {
         key = `${weekStart.toISOString().slice(0, 10)},${year}`;
         break;
       case 'day':
-        key = `${formatDayLabel(currentDate)},${year}`;
+        key = `${currentDate.toISOString().slice(0, 10)},${year}`;
         break;
     }
 
@@ -109,7 +109,7 @@ export const getStatsChartData = async (opts: {
         key = `${weekStart.toISOString().slice(0, 10)},${year}`;
         break;
       case 'day':
-        key = `${formatDayLabel(answer.createdAt)},${year}`;
+        key = `${answer.createdAt.toISOString().slice(0, 10)},${year}`;
         break;
     }
 

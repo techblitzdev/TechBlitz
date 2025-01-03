@@ -30,9 +30,12 @@ model Questions {
   linkedReports StatisticsReport[] @relation("SharedQuestions")
 
   DemoAnswers DemoAnswers[]
+
+  // Resources for this question
+  QuestionResources QuestionResources[]
 }
 
-
+// Tags for this question
 model Tag {
   uid       String         @id @default(uuid())
   name      String         @unique
@@ -51,6 +54,7 @@ model QuestionTags {
   @@index([questionId])
 }
 
+// Answers for this question
 model QuestionAnswers {
   uid         String    @id @default(cuid())
   questionUid String
@@ -63,6 +67,7 @@ model QuestionAnswers {
   isCodeSnippet Boolean   @default(false)
 }
 
+// user answers for this question
 model Answers {
   uid       String   @id @default(cuid())
   createdAt DateTime @default(now())
@@ -76,4 +81,12 @@ model Answers {
   correctAnswer Boolean   @default(false)
   questionDate  String    @default("")
   timeTaken     Int?
+}
+
+// Resources (learning resources) for this question
+model QuestionResources {
+  uid       String   @id @default(cuid())
+  questionUid String
+  question    Questions @relation(fields: [questionUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+  resource    String
 }

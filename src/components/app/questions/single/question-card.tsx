@@ -1,19 +1,25 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { BookOpen, FileText } from 'lucide-react';
+import { BookIcon, BookOpen, FileIcon, FileText } from 'lucide-react';
 
+// components
 import Chip from '@/components/ui/chip';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import AnswerQuestionForm from './answer-question-form';
-import QuestionCardFooter from './question-card-footer';
-import Stopwatch from './stopwatch';
+import AnswerQuestionForm from '@/components/app/questions/single/answer-question-form';
+import QuestionCardFooter from '@/components/app/questions/single/question-card-footer';
+import Stopwatch from '@/components/app/questions/single/stopwatch';
+import QuestionHintAccordion from '@/components/app/questions/single/question-hint';
 
+// utils
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 
+// types
 import { UserRecord } from '@/types/User';
 import { Question } from '@/types/Questions';
+
+// hooks
 import { useStopwatch } from 'react-timer-hook';
 
 export default function QuestionCard(opts: {
@@ -60,27 +66,44 @@ export default function QuestionCard(opts: {
             </h3>
           </div>
         )}
-        <Tabs defaultValue="description" className="w-full p-4">
-          <TabsList className="grid w-full grid-cols-2 text-white bg-[#000]">
+        <Tabs defaultValue="description" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 text-white bg-[#000] p-4">
             <TabsTrigger
               value="description"
               onClick={() => setActiveTab('description')}
             >
-              <FileText className="mr-2 h-4 w-4" />
+              {activeTab === 'description' ? (
+                <FileText className="mr-2 size-4" />
+              ) : (
+                <FileIcon className="mr-2 size-4" />
+              )}
               Description
             </TabsTrigger>
             <TabsTrigger
               value="resources"
               onClick={() => setActiveTab('resources')}
             >
-              <BookOpen className="mr-2 h-4 w-4" />
+              {activeTab === 'resources' ? (
+                <BookOpen className="mr-2 size-4" />
+              ) : (
+                <BookIcon className="mr-2 size-4" />
+              )}
               Resources
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="description" className="px-4 py-4">
+          <TabsContent value="description">
             {question?.question && (
-              <h3 className="font-inter font-light">{question.question}</h3>
+              <h3 className="font-inter font-light p-4">{question.question}</h3>
             )}
+            <AnswerQuestionForm
+              ref={answerFormRef}
+              userData={user}
+              question={question}
+              stopwatchPause={pause}
+              time={totalSeconds}
+              nextQuestion={nextQuestion}
+              resetStopwatch={reset}
+            />
           </TabsContent>
           <TabsContent value="resources" className="px-4 py-4">
             <h3 className="font-inter font-light">
@@ -105,18 +128,10 @@ export default function QuestionCard(opts: {
             </ul>
           </TabsContent>
         </Tabs>
-
-        {activeTab === 'description' && (
-          <AnswerQuestionForm
-            ref={answerFormRef}
-            userData={user}
-            question={question}
-            stopwatchPause={pause}
-            time={totalSeconds}
-            nextQuestion={nextQuestion}
-            resetStopwatch={reset}
-          />
-        )}
+      </div>
+      <Separator className="bg-black-50" />
+      <div className="w-full space-y-4 px-4 bg-[#000]">
+        {question.hint && <QuestionHintAccordion hint={question.hint} />}
       </div>
       <Separator className="bg-black-50" />
       <QuestionCardFooter

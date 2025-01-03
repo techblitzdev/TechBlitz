@@ -9,8 +9,6 @@ import { toast } from 'sonner';
 import { cn } from '@/utils/cn';
 import { Label } from '@/components/ui/label';
 import { Check } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
-import QuestionHintAccordion from '@/components/app/questions/single/question-hint';
 import CodeDisplay from '@/components/app/questions/single/code-snippet';
 
 // actions
@@ -136,7 +134,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
   return (
     <Form {...form}>
       <form
-        className="font-satoshi flex flex-col relative"
+        className="font-inter flex flex-col relative"
         onSubmit={form.handleSubmit(handleAnswerQuestion)}
       >
         {/* Loading overlay */}
@@ -160,7 +158,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
                     <Label
                       htmlFor={answer.uid}
                       className={cn(
-                        'p-4 rounded-xl min-h-20 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
+                        'px-4 rounded-xl min-h-20 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
                         field.value === answer.uid
                           ? 'bg-black-50'
                           : 'bg-black-75 hover:border-accent',
@@ -212,10 +210,6 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
               />
             </div>
           ))}
-        </div>
-        <Separator className="bg-black-50" />
-        <div className="w-full space-y-4 px-4">
-          {question.hint && <QuestionHintAccordion hint={question.hint} />}
         </div>
         {newUserData != null && (
           <AnswerQuestionModal

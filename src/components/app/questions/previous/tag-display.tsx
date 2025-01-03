@@ -25,7 +25,7 @@ export default function TagDisplay(opts: {
   }));
 
   // set text colour based on variant
-  const textColor = variant === 'accent' ? 'white' : 'black';
+  const textColor = variant === 'accent' ? 'text-white' : 'text-black';
 
   return (
     <div className="space-y-0.5 text-start">
@@ -34,18 +34,20 @@ export default function TagDisplay(opts: {
           return (
             <Chip
               key={`${tag.tagId}-${idx}`}
-              color={variant}
+              color={`bg-${variant}`}
               text={capitalise(tag.tag.name)}
               textColor={textColor}
+              border={`border-${variant}`}
               bold={false}
             />
           );
         })}
         {remainingCount > 0 && (
           <Chip
-            color={variant}
+            color={`bg-${variant}`}
             text={`+${remainingCount}`}
             textColor={textColor}
+            border={`border-${variant}`}
             bold={false}
           />
         )}

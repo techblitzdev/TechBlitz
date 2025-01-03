@@ -27,7 +27,7 @@ export default async function QuestionUidLayout({
       <div className="flex items-center justify-between px-6">
         <div className="flex items-center gap-x-5 py-2">
           {/** Previous question button */}
-          <BackToDashboard />
+          <BackToDashboard href="/questions/" />
           {question?.dailyQuestion && question?.questionDate && (
             <div className="font-ubuntu flex gap-x-5 items-center">
               <p>Daily question</p>

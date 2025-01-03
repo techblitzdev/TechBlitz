@@ -10,8 +10,8 @@ import Stopwatch from '@/components/app/questions/single/stopwatch';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 
 import { Question } from '@/types/Questions';
-import { cn } from '@/utils/cn';
 import { useStopwatch } from 'react-timer-hook';
+import QuestionTabs from '@/components/app/questions/resources/question-tabs';
 
 export default function QuestionCard(opts: {
   question: Question;
@@ -28,33 +28,27 @@ export default function QuestionCard(opts: {
     <div className="col-span-full lg:col-span-6 h-fit bg-black-75 border border-black-50 rounded-xl overflow-hidden">
       <div className="p-4 w-full flex justify-between bg-black-25 items-center">
         <Chip
-          color={getQuestionDifficultyColor(question.difficulty)}
+          color={getQuestionDifficultyColor(question.difficulty).bg}
           text={capitalise(question.difficulty)}
-          textColor={getQuestionDifficultyColor(question.difficulty)}
-          ghost
+          textColor={getQuestionDifficultyColor(question.difficulty).text}
+          border={getQuestionDifficultyColor(question.difficulty).border}
         />
         <a href="#code-snippet" className="text-xs block md:hidden">
-          (Tap to see code snippet)
+          (Code snippet)
         </a>
         <Stopwatch totalSeconds={totalSeconds} />
       </div>
       <Separator className="bg-black-50" />
       <div className="h-fit bg-black-100">
-        {question?.question && (
-          <div
-            className={cn(
-              'p-4',
-              'dailyQuestion' in question && !question.dailyQuestion && 'pt-4'
-            )}
-          >
-            <h3 className="font-inter font-light">{question.question}</h3>
-          </div>
-        )}
-
-        <AnswerQuestionForm
-          ref={answerFormRef}
+        <QuestionTabs
           question={question}
-          seconds={seconds}
+          renderAnswerForm={() => (
+            <AnswerQuestionForm
+              ref={answerFormRef}
+              question={question}
+              seconds={seconds}
+            />
+          )}
         />
       </div>
       <Separator className="bg-black-50" />

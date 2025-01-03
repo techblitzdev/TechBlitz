@@ -9,8 +9,6 @@ import { toast } from 'sonner';
 import { cn } from '@/utils/cn';
 import { Label } from '@/components/ui/label';
 import { Check } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
-import QuestionHintAccordion from '@/components/app/questions/single/question-hint';
 import CodeDisplay from '@/components/app/questions/single/code-snippet';
 
 // actions
@@ -91,7 +89,12 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
     stopwatchPause();
 
     try {
-      const opts: any = {
+      const opts: {
+        questionUid: string;
+        answerUid: string;
+        userUid: string;
+        timeTaken?: number;
+      } = {
         questionUid: question?.uid,
         answerUid: values.answer,
         userUid: userData.uid,
@@ -136,7 +139,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
   return (
     <Form {...form}>
       <form
-        className="font-satoshi flex flex-col relative"
+        className="font-inter flex flex-col relative"
         onSubmit={form.handleSubmit(handleAnswerQuestion)}
       >
         {/* Loading overlay */}
@@ -149,7 +152,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
           </div>
         )}
 
-        <div className="grid grid-cols-12 gap-4 p-4">
+        <div className="grid grid-cols-12 gap-4 p-4 pt-0">
           {question?.answers?.map((answer) => (
             <div key={answer.uid} className="col-span-full">
               <FormField
@@ -160,10 +163,10 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
                     <Label
                       htmlFor={answer.uid}
                       className={cn(
-                        'p-4 rounded-xl min-h-20 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
+                        'px-4 rounded-lg min-h-16 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
                         field.value === answer.uid
-                          ? 'bg-black-50'
-                          : 'bg-black-75 hover:border-accent',
+                          ? 'bg-black-25'
+                          : 'bg-black hover:border-accent',
                         isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
                       )}
                       onClick={() =>
@@ -182,7 +185,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
                       />
                       <div
                         className={cn(
-                          'size-5 rounded-lg border border-black-50 flex items-center justify-center flex-shrink-0',
+                          'size-5 rounded-md border border-black-50 flex items-center justify-center flex-shrink-0',
                           field.value === answer.uid
                             ? 'bg-accent text-white'
                             : '',
@@ -212,10 +215,6 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
               />
             </div>
           ))}
-        </div>
-        <Separator className="bg-black-50" />
-        <div className="w-full space-y-4 px-4">
-          {question.hint && <QuestionHintAccordion hint={question.hint} />}
         </div>
         {newUserData != null && (
           <AnswerQuestionModal

@@ -42,10 +42,10 @@ export default function TodaysQuestionBentoBox(opts: {
           </div>
         </div>
         <Chip
-          color={getQuestionDifficultyColor(question.difficulty)}
+          color={getQuestionDifficultyColor(question.difficulty).bg}
           text={capitalise(question.difficulty)}
-          textColor={getQuestionDifficultyColor(question.difficulty)}
-          ghost
+          textColor={getQuestionDifficultyColor(question.difficulty).text}
+          border={getQuestionDifficultyColor(question.difficulty).border}
         />
       </div>
     </section>

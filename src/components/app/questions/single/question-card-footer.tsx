@@ -16,10 +16,10 @@ export default function QuestionCardFooter(opts: {
     <>
       {questionTags && (
         <>
-          <Separator className="bg-black-100 w-full" />
-          <div className="p-4 w-full flex justify-between items-center">
+          <Separator className="bg-black w-full" />
+          <div className="p-4 w-full flex flex-col md:flex-row gap-3 justify-between md:items-center">
             <TagDisplay tags={questionTags} variant="secondary" />
-            <div className="flex items-center gap-4 self-end">
+            <div className="flex items-center gap-4 md:self-end">
               <Button
                 variant="destructive"
                 onClick={() => answerFormRef.current?.resetForm()}

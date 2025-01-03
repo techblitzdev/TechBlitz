@@ -44,7 +44,12 @@ export default function AllQuestionsDashboardBentoBox() {
   return (
     <section className="h-full flex flex-col gap-y-5 group p-4 relative overflow-hidden max-h-96 lg:max-h-fit">
       <div className="space-y-3 z-10 relative">
-        <Chip color="accent" text="Questions" />
+        <Chip
+          color="bg-white"
+          text="Questions"
+          textColor="text-black"
+          border="border-black-50"
+        />
         <h6 className="text-lg lg:text-xl flex items-center">
           View all Questions
           <ArrowRight className="size-4 inline-block ml-1 group-hover:ml-2 duration-300" />

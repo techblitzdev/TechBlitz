@@ -1,9 +1,13 @@
 'use client';
 import React from 'react';
+
+// tip tap
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import { common, createLowlight } from 'lowlight';
+
+// components
 import {
   Dialog,
   DialogContent,
@@ -13,14 +17,9 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField } from '@/components/ui/form';
-import { useForm, useFieldArray } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { newQuestionSchema } from '@/lib/zod/schemas/new-question-schema';
-import { z } from 'zod';
 import { InputWithLabel } from '@/components/ui/input-label';
-import { toast } from 'sonner';
 import { DatePicker } from '@/components/ui/date-picker';
-import { formatISO } from 'date-fns';
+import { toast } from 'sonner';
 import {
   Select,
   SelectContent,
@@ -28,16 +27,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { addQuestion } from '@/actions/questions/add';
-import { useMutation } from '@tanstack/react-query';
-
-import { LANGUAGE_OPTIONS } from '@/utils/constants/language-options';
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+const lowlight = createLowlight(common);
 import { TrashIcon } from 'lucide-react';
 
-const lowlight = createLowlight(common);
+// react hook form
+import { useForm, useFieldArray } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { newQuestionSchema } from '@/lib/zod/schemas/new-question-schema';
+import { z } from 'zod';
+import { formatISO } from 'date-fns';
+
+// react query
+import { useMutation } from '@tanstack/react-query';
+
+// actions
+import { addQuestion } from '@/actions/questions/add';
+
+// constants
+import { LANGUAGE_OPTIONS } from '@/utils/constants/language-options';
+import { QuestionDifficulty } from '@/types/Questions';
 
 type SchemaProps = z.infer<typeof newQuestionSchema>;
 
@@ -172,12 +183,27 @@ export default function NewQuestionModal({ ...props }) {
       isRoadmapQuestion: false,
       aiTitle: undefined,
       difficulty: 'EASY',
+      questionResources: [
+        {
+          title: '',
+          url: '',
+        },
+      ],
     },
   });
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: 'answers',
+  });
+
+  const {
+    fields: resourceFields,
+    append: appendResource,
+    remove: removeResource,
+  } = useFieldArray({
+    control: form.control,
+    name: 'questionResources',
   });
 
   const toggleCorrectAnswer = (index: number) =>
@@ -195,7 +221,7 @@ export default function NewQuestionModal({ ...props }) {
         correctAnswer: Number(rest.correctAnswer),
         tags: rest.tags ? rest.tags.split(',').map((tag) => tag.trim()) : [],
         aiTitle: rest.aiTitle || undefined,
-        difficulty: rest.difficulty,
+        difficulty: rest.difficulty as QuestionDifficulty,
       });
     },
     onSuccess: () => {
@@ -220,7 +246,7 @@ export default function NewQuestionModal({ ...props }) {
       <DialogTrigger asChild>
         <Button {...props}>Create New Question</Button>
       </DialogTrigger>
-      <DialogContent className="bg-black-75 md:max-w-4xl max-h-[800px] overflow-y-scroll">
+      <DialogContent className="bg-black-75 md:max-w-4xl max-h-[1000px] overflow-y-scroll">
         <DialogHeader>
           <DialogTitle className="text-2xl">
             Add new Question
@@ -449,6 +475,57 @@ export default function NewQuestionModal({ ...props }) {
               />
 
               <Separator className="bg-black-50" />
+
+              <p className="text-white font-semibold text-xl">Resources</p>
+
+              {/* Resources */}
+              {resourceFields.map((item, index) => (
+                <div key={item.id} className="flex gap-4 items-end">
+                  <FormField
+                    control={form.control}
+                    name={`questionResources.${index}.title`}
+                    render={({ field }) => (
+                      <FormControl>
+                        <InputWithLabel
+                          label="Resource Title"
+                          type="text"
+                          wrapperclassname="lg:w-72"
+                          {...field}
+                        />
+                      </FormControl>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name={`questionResources.${index}.url`}
+                    render={({ field: { value, ...fieldProps } }) => (
+                      <FormControl>
+                        <InputWithLabel
+                          label="Resource Link"
+                          type="text"
+                          wrapperclassname="lg:w-72"
+                          value={value?.toString() ?? ''}
+                          {...fieldProps}
+                        />
+                      </FormControl>
+                    )}
+                  />
+                  <Button
+                    type="button"
+                    onClick={() => appendResource({ title: '', url: '' })}
+                    className="btn"
+                  >
+                    Add Resource
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={() => removeResource(index)}
+                    className="btn"
+                  >
+                    <TrashIcon className="size-4 text-destructive" />
+                  </Button>
+                </div>
+              ))}
 
               {/* Submit Button */}
               <Button type="submit" variant="secondary" disabled={isPending}>

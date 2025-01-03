@@ -1,5 +1,5 @@
 'use client';
-// zod
+
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -41,7 +41,6 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
     },
   });
 
-  // Expose the `submitForm` method to the parent via ref
   useImperativeHandle(ref, () => ({
     submitForm: () => {
       form.handleSubmit(async (values) => {
@@ -99,7 +98,6 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
                       Correct!
                     </h3>
                   </div>
-                  {/** waitlist form */}
                   <WaitlistSignup />
                 </div>
               ) : (
@@ -114,7 +112,6 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
                         Incorrect
                       </h3>
                     </div>
-                    {/** waitlist form */}
                     <WaitlistSignup />
                   </div>
                 </div>
@@ -138,10 +135,10 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
                       <Label
                         htmlFor={answer.uid}
                         className={cn(
-                          'p-4 rounded-xl min-h-20 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
+                          'px-4 py-4 rounded-lg min-h-16 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
                           field.value === answer.uid
-                            ? ''
-                            : 'bg-black hover:bg-black-75'
+                            ? 'bg-black-25'
+                            : 'bg-black-100 hover:border-accent'
                         )}
                         onClick={() => field.onChange(answer.uid)}
                       >
@@ -156,7 +153,7 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
                         />
                         <div
                           className={cn(
-                            'size-5 rounded-md border border-black-50 flex items-center justify-center flex-shrink-0', // Fixed size and prevent shrinking
+                            'size-5 rounded-md border border-black-50 flex items-center justify-center flex-shrink-0',
                             field.value === answer.uid
                               ? 'bg-accent text-white'
                               : ''

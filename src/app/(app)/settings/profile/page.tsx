@@ -27,7 +27,7 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useUser } from '@/hooks/useUser';
+import { useUser } from '@/hooks/use-user';
 import { updateUser } from '@/actions/user/authed/update-user';
 
 import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';

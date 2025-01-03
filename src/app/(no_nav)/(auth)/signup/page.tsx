@@ -1,7 +1,7 @@
 'use client';
 import SignupForm from '@/components/auth/signup';
 import { ERROR_CODES } from '@/utils/constants/error-codes';
-import { useGetQueryParams } from '@/utils/get-query-params';
+import { useGetQueryParams } from '@/hooks/use-get-query-params';
 import { Suspense, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import type { ErrorCodes } from '@/types/Constants';

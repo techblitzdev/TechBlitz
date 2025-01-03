@@ -23,6 +23,8 @@ export type Question = {
 
   dailyQuestion: boolean;
 
+  customQuestion: boolean;
+
   tags?: Tags[];
 
   difficulty: QuestionDifficulty;

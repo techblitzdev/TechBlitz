@@ -4,7 +4,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { useUser } from '@/hooks/useUser';
+import { useUser } from '@/hooks/use-user';
 import { Button } from '@/components/ui/button';
 import { getUserDisplayName } from '@/utils/user';
 import { ChevronUp } from 'lucide-react';

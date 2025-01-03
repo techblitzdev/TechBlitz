@@ -1,5 +1,5 @@
 import { getSuggestions } from '@/actions/questions/get-suggestions';
-import { useUserServer } from '@/hooks/useUserServer';
+import { useUserServer } from '@/hooks/use-user-server';
 import { redirect } from 'next/navigation';
 import QuestionSuggestedCard from '@/components/app/questions/suggested-questions-table';
 

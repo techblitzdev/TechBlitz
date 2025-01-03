@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 
 import { getUserAnswer } from '@/actions/answers/get-user-answer';
 import { getUserAnswerRank } from '@/actions/leaderboard/get-user-rank';
-import { useUserServer } from '@/hooks/useUserServer';
+import { useUserServer } from '@/hooks/use-user-server';
 
 import { formatSeconds } from '@/utils/time';
 import { getUserDisplayName } from '@/utils/user';

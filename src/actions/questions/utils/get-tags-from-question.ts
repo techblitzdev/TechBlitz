@@ -5,7 +5,7 @@ import type {
 } from '@/types/Questions';
 
 export const getTagsFromQuestion = (
-  questions: Question | Omit<Question, 'answers'>[]
+  questions: Question | QuestionWithoutAnswers[]
 ) => {
   if (!questions) return [];
 

@@ -3,7 +3,7 @@ import Hero from '@/components/global/hero';
 import LeaderboardLongestStreaks from '@/components/app/leaderboard/leaderboard-longest-streaks';
 import LeaderboardMostQuestionsAnswered from '@/components/app/leaderboard/leaderboard-most-questions-answered';
 import LeaderboardTodayBoard from '@/components/app/leaderboard/leaderboard-today-board';
-import { useUserServer } from '@/hooks/useUserServer';
+import { useUserServer } from '@/hooks/use-user-server';
 
 export default async function TodaysLeaderboardPage({
   searchParams,

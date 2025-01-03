@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import LoadingSpinner from '@/components/ui/loading';
-import { useUser } from '@/hooks/useUser';
+import { useUser } from '@/hooks/use-user';
 import { ArrowRight } from 'lucide-react';
 import GithubLogo from '@/components/ui/icons/github';
 

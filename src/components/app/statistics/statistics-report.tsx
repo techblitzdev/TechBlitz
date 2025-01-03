@@ -8,7 +8,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { useUserServer } from '@/hooks/useUserServer';
+import { useUserServer } from '@/hooks/use-user-server';
 import { cn } from '@/utils/cn';
 import { ArrowRight, ChevronRight, LockIcon } from 'lucide-react';
 import Link from 'next/link';

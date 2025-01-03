@@ -13,7 +13,7 @@ import DashboardLoading from '@/components/app/dashboard/loading';
 
 // utils
 import { getUserDisplayName } from '@/utils/user';
-import { useUserServer } from '@/hooks/useUserServer';
+import { useUserServer } from '@/hooks/use-user-server';
 import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-trigger';
 
 export default async function Dashboard({

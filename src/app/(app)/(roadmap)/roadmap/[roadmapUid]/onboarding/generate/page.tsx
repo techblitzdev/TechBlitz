@@ -1,6 +1,6 @@
 import { fetchDefaultUserAnswers } from '@/actions/roadmap/questions/default/fetch-default-user-answers';
 import LoadingSpinner from '@/components/ui/loading';
-import { useUserServer } from '@/hooks/useUserServer';
+import { useUserServer } from '@/hooks/use-user-server';
 import { Check, Route, X } from 'lucide-react';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';

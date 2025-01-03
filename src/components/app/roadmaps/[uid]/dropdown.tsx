@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/popover';
 import { EditRoadmapModal } from './edit-roadmap-modal';
 import { updateRoadmapDetails } from '@/actions/roadmap/update-roadmap-details';
-import { useUser } from '@/hooks/useUser';
+import { useUser } from '@/hooks/use-user';
 import { deleteRoadmap } from '@/actions/roadmap/delete-roadmap';
 import { useRouter } from 'next/navigation';
 

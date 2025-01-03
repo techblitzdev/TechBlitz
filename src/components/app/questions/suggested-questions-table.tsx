@@ -11,6 +11,17 @@ export default function QuestionSuggestedCard(opts: {
 }) {
   const { questions, border = true, textLimit = 35 } = opts;
 
+  if (!questions || questions.length === 0) {
+    return (
+      <div className="flex flex-col gap-y-4 items-center mt-4 border border-black-50 rounded-md p-4">
+        <p className="text-sm font-medium text-gray-400">
+          No questions answered, try answering 5 questions to get suggested
+          questions!
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div
       className={cn(

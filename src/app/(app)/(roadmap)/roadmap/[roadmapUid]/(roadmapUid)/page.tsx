@@ -8,7 +8,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { useUserServer } from '@/hooks/useUserServer';
+import { useUserServer } from '@/hooks/use-user-server';
 import { redirect } from 'next/navigation';
 import Hero from '@/components/global/hero';
 import Chip from '@/components/ui/chip';

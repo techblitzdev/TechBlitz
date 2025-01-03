@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useMutation } from '@tanstack/react-query';
-import { useUser } from '@/hooks/useUser';
+import { useUser } from '@/hooks/use-user';
 import { updateUserAuth } from '@/actions/user/authed/update-user-auth';
 import { updateUserSchema } from '@/lib/zod/schemas/update-user';
 

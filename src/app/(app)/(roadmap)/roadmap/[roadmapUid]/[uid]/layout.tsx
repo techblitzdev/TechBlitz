@@ -4,10 +4,11 @@ import BackToDashboard from '@/components/ui/back-to-dashboard';
 import QuestionNavigation from '@/components/global/navigation/question-navigation';
 import { Separator } from '@/components/ui/separator';
 import { redirect } from 'next/navigation';
+import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-trigger';
 
 export default async function RoadmapQuestionLayout({
   children,
-  params
+  params,
 }: Readonly<{
   children: React.ReactNode;
   params: { roadmapUid: string; uid: string };
@@ -23,17 +24,18 @@ export default async function RoadmapQuestionLayout({
   // Fetch the previous and next questions
   const nextQuestion = await fetchRoadmapQuestionViaOrder({
     order: question.order + 1,
-    roadmapUid
+    roadmapUid,
   });
   const previousQuestion = await fetchRoadmapQuestionViaOrder({
     order: question.order - 1,
-    roadmapUid
+    roadmapUid,
   });
 
   return (
     <>
       <div className="flex items-center justify-between px-6">
         <div className="flex items-center gap-x-5 py-2">
+          <SidebarLayoutTrigger />
           <BackToDashboard href={`/roadmap/${roadmapUid}`} />
         </div>
         <QuestionNavigation

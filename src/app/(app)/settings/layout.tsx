@@ -1,6 +1,6 @@
+import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-trigger';
 import FeedbackButton from '@/components/ui/feedback-button';
 import { Separator } from '@/components/ui/separator';
-import { SidebarTrigger } from '@/components/ui/sidebar';
 
 export default function ProfileLayout({
   children,
@@ -8,9 +8,7 @@ export default function ProfileLayout({
   return (
     <div className="text-white flex flex-col gap-y-4 relative">
       <div className="flex gap-2 items-center px-6">
-        <div className="block md:hidden">
-          <SidebarTrigger />
-        </div>
+        <SidebarLayoutTrigger />
         <FeedbackButton />
       </div>
       <Separator className="bg-black-50" />

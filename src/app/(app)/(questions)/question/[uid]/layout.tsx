@@ -6,6 +6,7 @@ import QuestionNavigation from '@/components/global/navigation/question-navigati
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/use-user-server';
 import FeedbackButton from '@/components/ui/feedback-button';
+import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-trigger';
 
 export default async function QuestionUidLayout({
   children,
@@ -26,6 +27,7 @@ export default async function QuestionUidLayout({
     <>
       <div className="flex items-center justify-between px-6">
         <div className="flex items-center gap-x-5 py-2">
+          <SidebarLayoutTrigger />
           {/** Previous question button */}
           <BackToDashboard href="/questions/" />
           {question?.dailyQuestion && question?.questionDate && (

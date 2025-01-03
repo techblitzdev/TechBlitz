@@ -30,6 +30,7 @@ import {
   SidebarMenuAction,
   SidebarRail,
   SidebarTrigger,
+  useSidebar,
 } from '@/components/ui/sidebar';
 import {
   Collapsible,
@@ -57,6 +58,8 @@ import { userAnsweredDailyQuestion } from '@/actions/questions/user-answered-dai
 export function AppSidebar() {
   const pathname = usePathname();
   const { user } = useUser();
+
+  const { state } = useSidebar();
 
   const { data: todaysQuestion } = useQuery({
     queryKey: ['not-found'],
@@ -263,18 +266,33 @@ export function AppSidebar() {
           <Collapsible defaultOpen className="group/collapsible">
             <CollapsibleTrigger asChild>
               <SidebarMenuButton asChild tooltip={item.tooltip}>
-                <Link href={item.url} className="flex items-center w-full">
-                  {item.icon && <item.icon />}
-                  <span className="text-sm font-inter group-data-[collapsible=icon]:hidden">
-                    {item.title}
-                  </span>
-                  <div className="ms-auto group-data-[collapsible=icon]:hidden">
-                    {item.chip && <item.chip />}
+                {state === 'collapsed' ? (
+                  <Link href={item.url} className="flex items-center w-full">
+                    {item.icon && <item.icon />}
+                    <span className="text-sm font-inter group-data-[collapsible=icon]:hidden">
+                      {item.title}
+                    </span>
+                    <div className="ms-auto group-data-[collapsible=icon]:hidden">
+                      {item.chip && <item.chip />}
+                    </div>
+                    <div className="group-data-[collapsible=icon]:hidden">
+                      <ChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-180" />
+                    </div>
+                  </Link>
+                ) : (
+                  <div className="flex items-center w-full">
+                    {item.icon && <item.icon />}
+                    <span className="text-sm font-inter group-data-[collapsible=icon]:hidden">
+                      {item.title}
+                    </span>
+                    <div className="ms-auto group-data-[collapsible=icon]:hidden">
+                      {item.chip && <item.chip />}
+                    </div>
+                    <div className="group-data-[collapsible=icon]:hidden">
+                      <ChevronDown className="size-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-180" />
+                    </div>
                   </div>
-                  <div className="group-data-[collapsible=icon]:hidden">
-                    <ChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-180" />
-                  </div>
-                </Link>
+                )}
               </SidebarMenuButton>
             </CollapsibleTrigger>
             <CollapsibleContent>

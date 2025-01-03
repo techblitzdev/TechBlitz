@@ -4,6 +4,7 @@ import QuestionNavigation from '@/components/global/navigation/question-navigati
 import RoadmapDropdown from '@/components/app/roadmaps/[uid]/dropdown';
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/use-user-server';
+import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-trigger';
 
 export default async function RoadmapOverviewPage({
   children,
@@ -22,8 +23,9 @@ export default async function RoadmapOverviewPage({
 
   return (
     <div className="text-white flex flex-col gap-y-4 relative h-full">
-      <div className="flex items-center justify-between gap-4 container">
+      <div className="flex items-center justify-between gap-4 px-6">
         <div className="flex items-center gap-x-5 py-2">
+          <SidebarLayoutTrigger />
           {/** Previous question button */}
           <BackToDashboard href="/roadmaps" />
         </div>

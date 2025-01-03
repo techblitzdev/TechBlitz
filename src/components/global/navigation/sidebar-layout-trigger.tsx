@@ -10,5 +10,9 @@ import { cn } from '@/utils/cn';
 export default function SidebarLayoutTrigger() {
   const { state } = useSidebar();
 
-  return <SidebarTrigger className={cn(state === 'expanded' && 'hidden')} />;
+  return (
+    <SidebarTrigger
+      className={cn(state === 'expanded' ? 'hidden opacity-0' : 'h-7')}
+    />
+  );
 }

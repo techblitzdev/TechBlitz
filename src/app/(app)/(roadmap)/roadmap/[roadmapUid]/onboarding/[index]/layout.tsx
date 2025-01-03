@@ -10,6 +10,7 @@ import {
 import { useUserServer } from '@/hooks/use-user-server';
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-trigger';
 
 export default async function RoadmapUidLayout({
   children,
@@ -24,6 +25,7 @@ export default async function RoadmapUidLayout({
     <>
       <div className="flex items-center justify-between px-6">
         <div className="flex items-center gap-x-5 py-2">
+          <SidebarLayoutTrigger />
           {/** Previous question button */}
           <BackToDashboard href="/roadmaps" />
         </div>

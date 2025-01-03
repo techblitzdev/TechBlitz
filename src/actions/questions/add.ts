@@ -16,6 +16,10 @@ export const addQuestion = async (opts: {
   order?: number;
   difficulty: QuestionDifficulty;
   aiTitle?: string;
+  questionResources?: {
+    title: string;
+    url: string;
+  }[];
 }) => {
   const {
     question,
@@ -29,7 +33,8 @@ export const addQuestion = async (opts: {
     isRoadmapQuestion,
     order,
     aiTitle,
-    difficulty
+    difficulty,
+    questionResources,
   } = opts;
 
   console.log('hit');
@@ -51,7 +56,7 @@ export const addQuestion = async (opts: {
 
   const answerRecords = answers.map((answer) => ({
     uid: uniqid(),
-    answer
+    answer,
   }));
 
   if (correctAnswer < 0 || correctAnswer >= answers.length) {
@@ -75,8 +80,8 @@ export const addQuestion = async (opts: {
           updatedAt: new Date(),
           answers: {
             createMany: {
-              data: answerRecords
-            }
+              data: answerRecords,
+            },
           },
           userAnswers: {},
           correctAnswer: correctAnswerUid,
@@ -84,13 +89,24 @@ export const addQuestion = async (opts: {
           hint: hint || null,
           dailyQuestion: dailyQuestion || false,
           difficulty,
+          QuestionResources: questionResources
+            ? {
+                createMany: {
+                  data: questionResources.map((resource) => ({
+                    title: resource.title,
+                    resource: resource.url,
+                    uid: uniqid(),
+                  })),
+                },
+              }
+            : undefined,
           tags: {
             connectOrCreate: tags.map((tag) => ({
               where: {
                 questionId_tagId: {
                   questionId: questionUid,
-                  tagId: uniqid()
-                }
+                  tagId: uniqid(),
+                },
               },
               create: {
                 tag: {
@@ -98,14 +114,14 @@ export const addQuestion = async (opts: {
                     where: { name: tag },
                     create: {
                       uid: uniqid(),
-                      name: tag
-                    }
-                  }
-                }
-              }
-            }))
-          }
-        }
+                      name: tag,
+                    },
+                  },
+                },
+              },
+            })),
+          },
+        },
       });
     } else {
       await prisma.defaultRoadmapQuestions.create({
@@ -116,8 +132,8 @@ export const addQuestion = async (opts: {
           updatedAt: new Date(),
           answers: {
             createMany: {
-              data: answerRecords
-            }
+              data: answerRecords,
+            },
           },
           correctAnswer: correctAnswerUid,
           codeSnippet: codeSnippet || null,
@@ -125,8 +141,8 @@ export const addQuestion = async (opts: {
           DefaultRoadmapQuestionsUsersAnswers: {},
           order: order || 0,
           aiTitle: aiTitle || null,
-          difficulty
-        }
+          difficulty,
+        },
       });
     }
 

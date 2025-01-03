@@ -1,5 +1,4 @@
 'use client';
-import NewQuestionModal from '@/components/app/questions/new-question-modal';
 import { Separator } from '@/components/ui/separator';
 
 export default function AdminLayout({
@@ -13,7 +12,6 @@ export default function AdminLayout({
         <h1 className="text-xl md:text-3xl font-satoshi font-semibold">
           Questions
         </h1>
-        <NewQuestionModal className="w-fit" />
       </div>
       <>
         <Separator className="bg-black-50" />

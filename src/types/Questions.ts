@@ -29,7 +29,7 @@ export type Question = {
 
   linkedReports?: StatisticsReport[];
 
-  resources?: QuestionResources[];
+  QuestionResources?: QuestionResources[];
 };
 
 export type QuestionWithoutAnswers = Omit<Question, 'answers'>;

@@ -9,7 +9,7 @@ export const newQuestionSchema = z
       .array(
         z.object({
           text: z.string().min(1, 'Answer is required'),
-          isCodeSnippet: z.boolean().default(false)
+          isCodeSnippet: z.boolean().default(false),
         })
       )
       .nonempty('At least one answer is required'),
@@ -23,10 +23,18 @@ export const newQuestionSchema = z
     // either easy, medium, or hard
     difficulty: z.enum(['EASY', 'MEDIUM', 'HARD'], {
       required_error: 'Difficulty is required',
-      invalid_type_error: 'Difficulty must be one of: easy, medium, or hard'
-    })
+      invalid_type_error: 'Difficulty must be one of: easy, medium, or hard',
+    }),
+    questionResources: z
+      .array(
+        z.object({
+          title: z.string().min(1, 'Title is required'),
+          url: z.string().min(1, 'URL is required'),
+        })
+      )
+      .optional(),
   })
   .refine((data) => !data.dailyQuestion || data.questionDate, {
     message: 'Date is required when Daily Question is enabled',
-    path: ['questionDate'] // Error will be associated with questionDate
+    path: ['questionDate'], // Error will be associated with questionDate
   });

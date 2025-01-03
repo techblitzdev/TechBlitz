@@ -12,16 +12,17 @@ export const getQuestion = async (uid: string) => {
   try {
     const res = await prisma.questions.findUnique({
       where: {
-        uid
+        uid,
       },
       include: {
         answers: true,
         tags: {
           include: {
-            tag: true
-          }
-        }
-      }
+            tag: true,
+          },
+        },
+        QuestionResources: true,
+      },
     });
 
     if (!res) {

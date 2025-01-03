@@ -98,39 +98,39 @@ const faqs = [
 const featureShowcaseItems: MarketingContentGridProps[] = [
   {
     icon: <User />,
-    title: 'Personalized Learning',
+    title: 'Personalized Learning Path',
     description:
-      'Tailor your roadmap to match your unique learning style and pace. Create a plan that works best for your personal development goals.',
+      'Experience adaptive learning with our roadmaps that evolve with your progress. Get a customized curriculum that matches your skill level and career goals.',
   },
   {
     icon: <Globe />,
-    title: 'Real-World Problem Solving',
+    title: 'Industry-Standard Problem Solving',
     description:
-      'Our expertly crafted roadmaps prepare you to solve real-world software challenges, ensuring you build skills that extend beyond interview success.',
+      'Master professional software development with real enterprise challenges. Build a portfolio of solutions that top tech companies actually use.',
   },
   {
     icon: <MobileIcon />,
-    title: 'Mobile-Friendly Platform',
+    title: 'Learn Anywhere with Mobile Access',
     description:
-      'Learn on the go! Access your personalized roadmap anytime, anywhere, on any device, for seamless learning.',
+      'Never miss a learning opportunity with our responsive platform. Study during commutes, breaks, or whenever inspiration strikes - available 24/7 on all devices.',
   },
   {
     icon: <Paintbrush />,
-    title: 'Fully Customizable Roadmaps',
+    title: 'Create Your Perfect Learning Journey',
     description:
-      'Easily adapt your roadmap by editing questions or adding new challenges to make it a perfect fit for your learning journey.',
+      'Take control of your education with fully customizable learning paths. Add, remove, or modify content to create the exact curriculum you need for career success.',
   },
   {
     icon: <MessageSquareCode />,
-    title: 'Real-Time Feedback',
+    title: 'Instant Expert Feedback System',
     description:
-      'Receive immediate insights on your answers, helping you learn from mistakes and solidify your understanding as you progress.',
+      'Accelerate your learning with our intelligent feedback engine. Get detailed explanations and suggestions that help you understand concepts deeply and fix mistakes instantly.',
   },
   {
     icon: <Code />,
-    title: 'From Beginner to Advanced',
+    title: 'Complete Developer Evolution',
     description:
-      'Whether you’re just starting your coding journey or looking to sharpen advanced skills, our roadmaps are designed to meet you where you are.',
+      'Transform from coding novice to industry expert with our comprehensive curriculum. Join thousands who’ve accelerated their tech careers through our proven learning system.',
   },
 ];
 
@@ -147,7 +147,7 @@ export default function FeatureDailyQuestionPage() {
       <FAQsBlock faqs={faqs} />
       <CallToActionBlock
         title="The smarter way to stay on top of tech."
-        description="Create your own progression path with our AI powered roadmaps, designed to help you grow as a developer."
+        description="Create your own progression path with our personalized roadmaps, designed to help you grow as a developer."
         leftCta={{
           title: 'Get Started',
           href: '/signup',

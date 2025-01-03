@@ -42,9 +42,9 @@ const items = [
         </g>
       </svg>
     ),
-    title: 'Short-form challenges',
+    title: 'Bite-sized Learning',
     description:
-      'Quick, impactful tasks designed to sharpen your skills in minutes. Solve real-world problems without long commitments.',
+      'Master complex programming concepts in just 15 minutes a day with our expertly crafted micro-challenges. Perfect for busy developers.',
   },
   {
     icon: (
@@ -60,9 +60,9 @@ const items = [
         />
       </svg>
     ),
-    title: 'Daily challenges',
+    title: 'Daily Growth System',
     description:
-      'Stay consistent with a fresh challenge delivered to you every day. Build habits and never miss a beat.',
+      'Build unstoppable momentum with our proven daily challenge system. Join thousands of developers who’ve transformed their careers through consistent practice.',
   },
   {
     icon: (
@@ -78,9 +78,9 @@ const items = [
         />
       </svg>
     ),
-    title: 'Collaborative learning',
+    title: 'Vibrant Developer Community',
     description:
-      'Join a community of developers. Share insights, solve problems together, and grow as a team.',
+      'Connect with a community of passionate developers worldwide. Share solutions, discuss approaches, and accelerate your learning through peer collaboration.',
   },
   {
     icon: (
@@ -121,15 +121,15 @@ const items = [
         </g>
       </svg>
     ),
-    title: 'Progress tracking',
+    title: 'Advanced Analytics Dashboard',
     description:
-      'Monitor your performance with detailed stats. See your growth over time and celebrate milestones.',
+      'Visualize your coding journey with detailed performance metrics. Track your progress across topics, algorithms, and problem-solving patterns.',
   },
   {
     icon: <MobileIcon className="size-6" />,
-    title: 'Mobile-friendly',
+    title: 'Seamless Mobile Experience',
     description:
-      'Learn anywhere, anytime. Access challenges seamlessly from your phone, tablet, or desktop.',
+      'Code on any device with our responsive platform. Practice during commutes or breaks with our optimized mobile interface - never miss a day of learning.',
   },
 ];
 

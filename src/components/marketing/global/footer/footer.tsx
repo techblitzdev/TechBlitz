@@ -80,7 +80,7 @@ export default function MarketingFooter() {
                 </div>
                 <Button
                   variant="secondary"
-                  className="items-center flex md:hidden w-fit font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+                  className="items-center flex md:hidden w-fit font-onest"
                   href="/signup"
                 >
                   Get Started for Free

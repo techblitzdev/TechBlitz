@@ -10,7 +10,6 @@ import Stopwatch from '@/components/app/questions/single/stopwatch';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 
 import { Question } from '@/types/Questions';
-import { cn } from '@/utils/cn';
 import { useStopwatch } from 'react-timer-hook';
 import QuestionTabs from '@/components/app/questions/resources/question-tabs';
 

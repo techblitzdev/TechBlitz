@@ -1,10 +1,23 @@
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { QuestionResources } from '@prisma/client';
+import Link from 'next/link';
 
 export default function QuestionResourceTab(opts: {
   resources: QuestionResources[] | undefined;
+  reference?: string;
 }) {
-  const { resources } = opts;
+  const { resources, reference } = opts;
 
   if (!resources || resources.length === 0) {
     return (
@@ -12,7 +25,35 @@ export default function QuestionResourceTab(opts: {
         <p className="text-sm text-gray-400">
           No resources found for this question.
         </p>
-        <Button>Suggest a resource</Button>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button>Suggest a resource</Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent className="bg-black-100 border border-black-50">
+            <AlertDialogHeader>
+              <AlertDialogTitle>Suggest a resource</AlertDialogTitle>
+              <AlertDialogDescription className="flex flex-col gap-y-2">
+                If you have a resource that you think would be helpful for this
+                question, please let us know!
+                <br />
+                {reference && (
+                  <span>
+                    Please use the reference:{' '}
+                    <span className="font-bold">{reference}</span>
+                  </span>
+                )}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel className="bg-white text-black">
+                Cancel
+              </AlertDialogCancel>
+              <AlertDialogAction>
+                <Link href="mailto:team@techblitz.dev">Send feedback</Link>
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     );
   }

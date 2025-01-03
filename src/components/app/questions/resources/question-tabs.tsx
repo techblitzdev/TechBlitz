@@ -65,7 +65,10 @@ export default function QuestionTabs({
         <h3 className="font-inter font-light text-base md:text-xl">
           Helpful resources for this question
         </h3>
-        <QuestionResourceTab resources={question.QuestionResources} />
+        <QuestionResourceTab
+          resources={question.QuestionResources}
+          reference={question.uid}
+        />
       </TabsContent>
     </Tabs>
   );

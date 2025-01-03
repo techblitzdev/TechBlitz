@@ -1,24 +1,17 @@
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
-import GlobalPagination from '@/components/global/pagination';
-import QuestionCard from '@/components/app/questions/question-card';
-
 const Filter = dynamic(() => import('@/components/global/filters/filter'));
 
 import FilterChips from '@/components/global/filters/chips';
 import Hero from '@/components/global/hero';
-import QuestionCardLoading from '@/components/app/questions/question-card-loading';
 import QuestionPageSidebar from '@/components/app/questions/question-page-sidebar';
-
-import { listQuestions } from '@/actions/questions/list';
 
 import { useUserServer } from '@/hooks/use-user-server';
 import QuestionPageSidebarLoading from '@/components/app/questions/question-page-sidebar-loading';
-import { FilterParams, validateSearchParams } from '@/utils/search-params';
+import { validateSearchParams } from '@/utils/search-params';
 import { parseSearchParams } from '@/utils/search-params';
-
-const ITEMS_PER_PAGE = 15;
+import QuestionsList from '@/components/app/questions/questions-list';
 
 export default async function QuestionsDashboard({
   searchParams,
@@ -41,59 +34,16 @@ export default async function QuestionsDashboard({
         <div className="w-full lg:w-[55%] space-y-6">
           <Filter />
           <FilterChips />
-          <Suspense
-            key={JSON.stringify(searchParams)}
-            fallback={
-              <>
-                {[...Array(6)].map((_, i) => (
-                  <QuestionCardLoading key={i} />
-                ))}
-              </>
-            }
-          >
-            <QuestionsList
-              userUid={user.uid}
-              currentPage={filters.page}
-              filters={filters}
-            />
-          </Suspense>
+          <QuestionsList
+            user={user}
+            currentPage={filters.page}
+            filters={filters}
+            customQuestions={false}
+          />
         </div>
         <Suspense fallback={<QuestionPageSidebarLoading />}>
           {user && <QuestionPageSidebar user={user} />}
         </Suspense>
-      </div>
-    </>
-  );
-}
-
-async function QuestionsList({
-  userUid,
-  currentPage,
-  filters,
-}: {
-  userUid: string;
-  currentPage: number;
-  filters: FilterParams;
-}) {
-  const data = await listQuestions({
-    page: currentPage,
-    pageSize: ITEMS_PER_PAGE,
-    userUid,
-    filters,
-  });
-
-  return (
-    <>
-      {data.questions.map((q) => (
-        <QuestionCard key={q.uid} questionData={q} userUid={userUid} />
-      ))}
-      <div className="mt-5 w-full flex justify-center gap-x-2">
-        <GlobalPagination
-          currentPage={currentPage}
-          totalPages={data.totalPages}
-          href="/questions"
-          paramName="page"
-        />
       </div>
     </>
   );

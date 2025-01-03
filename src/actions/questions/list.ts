@@ -1,14 +1,17 @@
 'use server';
+
 import { prisma } from '@/utils/prisma';
 import type {
+  Question,
   QuestionDifficulty,
   QuestionWithoutAnswers,
 } from '@/types/Questions';
 import { getTagsFromQuestion } from './utils/get-tags-from-question';
 import { QuestionFilters } from '@/types/Filters';
+import { getUser } from '../user/authed/get-user';
 
 type ListQuestionsReturnType = {
-  questions: QuestionWithoutAnswers[];
+  questions: Question[] | QuestionWithoutAnswers[];
   total: number;
   page: number;
   pageSize: number;
@@ -20,99 +23,149 @@ type GetQuestionsOpts = {
   pageSize?: number;
   filters?: QuestionFilters;
   userUid: string;
+  customQuestions?: boolean;
+  previousQuestions?: boolean;
 };
 
 export const listQuestions = async (
   opts: GetQuestionsOpts
 ): Promise<ListQuestionsReturnType> => {
-  const { page = 1, pageSize = 10, filters, userUid } = opts;
+  const {
+    page = 1,
+    pageSize = 10,
+    filters,
+    userUid,
+    customQuestions = false,
+    previousQuestions = false,
+  } = opts;
 
   const skip = (page - 1) * pageSize;
 
-  // define the where clause for filtering based on difficulty
-  const whereClause = {
-    where: {
-      AND: [
-        filters?.difficulty
-          ? {
-              difficulty:
-                filters.difficulty.toUpperCase() as QuestionDifficulty,
-            }
-          : {},
-        filters?.completed === true
+  // Always get the authenticated user when dealing with custom questions
+  let authenticatedUser = null;
+  if (customQuestions) {
+    authenticatedUser = await getUser();
+
+    if (!authenticatedUser || authenticatedUser.uid !== userUid) {
+      throw new Error('Unauthorized access to custom questions');
+    }
+  }
+
+  // Base where clause
+  const baseWhereClause: any = {
+    AND: [
+      // Difficulty filter
+      filters?.difficulty
+        ? {
+            difficulty: filters.difficulty.toUpperCase() as QuestionDifficulty,
+          }
+        : {},
+
+      // Completion filter
+      filters?.completed === true
+        ? {
+            userAnswers: {
+              some: {
+                userUid,
+              },
+            },
+          }
+        : filters?.completed === false
           ? {
               userAnswers: {
-                some: {
-                  // Check if there are answers by the current user
+                none: {
                   userUid,
                 },
               },
             }
-          : filters?.completed === false
-            ? {
-                userAnswers: {
-                  none: {
-                    // Exclude questions answered by the current user
-                    userUid,
-                  },
-                },
-              }
-            : {},
-        filters?.tags?.length
-          ? {
-              tags: {
-                some: {
-                  tag: {
-                    name: {
-                      in: filters.tags,
-                    },
+          : {},
+
+      // Tags filter
+      filters?.tags?.length
+        ? {
+            tags: {
+              some: {
+                tag: {
+                  name: {
+                    in: filters.tags,
                   },
                 },
               },
-            }
-          : {},
-        {
-          // ensure no daily question in the future are fetched
-          questionDate: {
-            lte: new Date().toISOString(),
+            },
+          }
+        : {},
+
+      // Date constraints
+      previousQuestions
+        ? {
+            questionDate: {
+              lte: new Date().toISOString(),
+            },
+            dailyQuestion: true,
+          }
+        : {
+            questionDate: {
+              lte: new Date().toISOString(),
+            },
           },
-        },
-        // ensure no custom questions are fetched
-        {
-          customQuestion: false,
-        },
-      ],
-    },
+    ],
   };
-  // fetch the paginated questions
+
+  // Add custom questions filter
+  if (customQuestions) {
+    baseWhereClause.AND.push({
+      customQuestion: true,
+      linkedReports: {
+        some: {
+          userUid: userUid,
+        },
+      },
+    });
+  } else {
+    baseWhereClause.AND.push({
+      customQuestion: false,
+    });
+  }
+
+  // Fetch questions with security constraints
   const questions = await prisma.questions.findMany({
     skip,
     take: pageSize,
     orderBy: {
       questionDate: filters?.ascending ? 'asc' : 'desc',
     },
-    where: whereClause.where,
+    where: baseWhereClause,
     include: {
       tags: {
         include: {
           tag: true,
         },
       },
+      linkedReports: {
+        select: {
+          userUid: true,
+        },
+        where: {
+          userUid,
+        },
+      },
     },
   });
 
-  // transform the questions to match the expected format
+  // Transform the questions
   const transformedQuestions = getTagsFromQuestion(
-    questions
-  ) as unknown as QuestionWithoutAnswers[];
+    questions.filter((question) => {
+      if (!question.customQuestion) return true;
+      return question.linkedReports.length > 0;
+    }) as Question[]
+  );
 
-  // fetch the total number of matching questions (without pagination)
+  // Get total count with same security constraints
   const total = await prisma.questions.count({
-    where: whereClause.where,
+    where: baseWhereClause,
   });
-
   return {
-    questions: transformedQuestions,
+    questions: transformedQuestions as Question[] | QuestionWithoutAnswers[],
     total,
     page,
     pageSize,

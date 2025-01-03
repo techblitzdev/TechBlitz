@@ -37,7 +37,7 @@ export default async function QuestionPageSidebar(opts: {
         <div className="w-fit h-fit flex flex-col gap-y-2.5">
           <h6 className="text-xl">Your current streak</h6>
           <DatePicker
-            className="z-30 text-white border border-black-50 p-2 rounded-md hover:cursor-default"
+            className="z-30 text-white bg-black-100 border border-black-50 p-2 rounded-md hover:cursor-default"
             color="white"
             type="range"
             value={dateArray}

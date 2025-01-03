@@ -1,5 +1,5 @@
 'use client';
-import { useState, forwardRef, useImperativeHandle } from 'react';
+import { useState, forwardRef, useImperativeHandle, Suspense } from 'react';
 
 // components
 import { Form, FormControl, FormField } from '@/components/ui/form';
@@ -89,7 +89,12 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
     stopwatchPause();
 
     try {
-      const opts: any = {
+      const opts: {
+        questionUid: string;
+        answerUid: string;
+        userUid: string;
+        timeTaken?: number;
+      } = {
         questionUid: question?.uid,
         answerUid: values.answer,
         userUid: userData.uid,
@@ -147,7 +152,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
           </div>
         )}
 
-        <div className="grid grid-cols-12 gap-4 p-4">
+        <div className="grid grid-cols-12 gap-4 p-4 pt-0">
           {question?.answers?.map((answer) => (
             <div key={answer.uid} className="col-span-full">
               <FormField
@@ -158,10 +163,10 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
                     <Label
                       htmlFor={answer.uid}
                       className={cn(
-                        'px-4 rounded-xl min-h-20 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
+                        'px-4 rounded-lg min-h-16 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
                         field.value === answer.uid
-                          ? 'bg-black-50'
-                          : 'bg-black-75 hover:border-accent',
+                          ? 'bg-black-25'
+                          : 'bg-black hover:border-accent',
                         isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
                       )}
                       onClick={() =>
@@ -180,7 +185,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
                       />
                       <div
                         className={cn(
-                          'size-5 rounded-lg border border-black-50 flex items-center justify-center flex-shrink-0',
+                          'size-5 rounded-md border border-black-50 flex items-center justify-center flex-shrink-0',
                           field.value === answer.uid
                             ? 'bg-accent text-white'
                             : '',

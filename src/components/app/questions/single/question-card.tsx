@@ -21,6 +21,7 @@ import { Question } from '@/types/Questions';
 
 // hooks
 import { useStopwatch } from 'react-timer-hook';
+import QuestionResourceTab from '@/components/app/questions/question-resource-tab';
 
 export default function QuestionCard(opts: {
   user: UserRecord;
@@ -57,17 +58,9 @@ export default function QuestionCard(opts: {
         )}
       </div>
       <Separator className="bg-black-50" />
-      <div className="h-fit bg-[#000000]">
-        {'dailyQuestion' in question && question.dailyQuestion && (
-          <div className="p-4">
-            <h3 className="font-inter text-gray-400 text-xs font-light">
-              This question is a daily question and will count towards your
-              daily streak.
-            </h3>
-          </div>
-        )}
+      <div className="h-fit bg-black">
         <Tabs defaultValue="description" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 text-white bg-[#000] p-4">
+          <TabsList className="h-auto grid w-full grid-cols-2 text-white rounded-none bg-transparent p-4">
             <TabsTrigger
               value="description"
               onClick={() => setActiveTab('description')}
@@ -91,9 +84,18 @@ export default function QuestionCard(opts: {
               Resources
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="description">
+          <Separator className="bg-black-50" />
+          <TabsContent value="description" className="pt-4">
+            {'dailyQuestion' in question && question.dailyQuestion && (
+              <h3 className="font-inter text-gray-400 text-sm font-light px-4 pb-2">
+                This question is a daily question and will count towards your
+                daily streak.
+              </h3>
+            )}
             {question?.question && (
-              <h3 className="font-inter font-light p-4">{question.question}</h3>
+              <h3 className="font-inter font-light p-4 pt-0 text-base md:text-xl">
+                {question.question}
+              </h3>
             )}
             <AnswerQuestionForm
               ref={answerFormRef}
@@ -105,32 +107,16 @@ export default function QuestionCard(opts: {
               resetStopwatch={reset}
             />
           </TabsContent>
-          <TabsContent value="resources" className="px-4 py-4">
-            <h3 className="font-inter font-light">
-              Helpful resources for this question:
+          <TabsContent value="resources" className="p-4">
+            <h3 className="font-inter font-light text-base md:text-xl">
+              Helpful resources for this question
             </h3>
-            <ul className="list-disc list-inside mt-2">
-              <li>
-                <a href="#" className="text-accent hover:underline">
-                  Resource 1
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-accent hover:underline">
-                  Resource 2
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-accent hover:underline">
-                  Resource 3
-                </a>
-              </li>
-            </ul>
+            <QuestionResourceTab resources={question.resources} />
           </TabsContent>
         </Tabs>
       </div>
       <Separator className="bg-black-50" />
-      <div className="w-full space-y-4 px-4 bg-[#000]">
+      <div className="w-full space-y-4 px-4 bg-black">
         {question.hint && <QuestionHintAccordion hint={question.hint} />}
       </div>
       <Separator className="bg-black-50" />

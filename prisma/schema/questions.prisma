@@ -86,7 +86,11 @@ model Answers {
 // Resources (learning resources) for this question
 model QuestionResources {
   uid       String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
   questionUid String
   question    Questions @relation(fields: [questionUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
   resource    String
+  title       String
 }

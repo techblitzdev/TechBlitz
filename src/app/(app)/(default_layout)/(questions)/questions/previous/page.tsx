@@ -90,7 +90,7 @@ async function PreviousQuestionsList({
         <GlobalPagination
           currentPage={currentPage}
           totalPages={data?.totalPages || 1}
-          href="/previous-questions"
+          href="/questions/previous"
           paramName="page"
         />
       </div>

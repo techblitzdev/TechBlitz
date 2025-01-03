@@ -100,7 +100,7 @@ export function AppSidebar() {
         },
         {
           title: 'All Daily Questions',
-          url: '/previous-questions',
+          url: '/questions/previous',
         },
         {
           title: 'Custom Questions',

@@ -17,6 +17,10 @@ const footerItems = [
         title: 'Daily Challenges',
         href: '/features/daily-challenges',
       },
+      {
+        title: 'Statistics',
+        href: '/features/statistics',
+      },
       // {
       //   title: '',
       //   href: '/features/projects'

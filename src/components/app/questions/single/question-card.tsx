@@ -1,8 +1,11 @@
 'use client';
-import { useRef } from 'react';
+
+import { useRef, useState } from 'react';
+import { BookOpen, FileText } from 'lucide-react';
 
 import Chip from '@/components/ui/chip';
 import { Separator } from '@/components/ui/separator';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import AnswerQuestionForm from './answer-question-form';
 import QuestionCardFooter from './question-card-footer';
 import Stopwatch from './stopwatch';
@@ -22,6 +25,9 @@ export default function QuestionCard(opts: {
   index?: number;
 }) {
   const { user, question, nextQuestion, isRoadmapQuestion = false } = opts;
+  const [activeTab, setActiveTab] = useState<'description' | 'resources'>(
+    'description'
+  );
 
   const answerFormRef = useRef<{
     submitForm: () => void;
@@ -41,9 +47,6 @@ export default function QuestionCard(opts: {
           textColor={getQuestionDifficultyColor(question.difficulty)}
           ghost
         />
-        <a href="#code-snippet" className="text-xs block md:hidden">
-          (Tap to see code snippet)
-        </a>
         {user?.showTimeTaken && !isRoadmapQuestion && (
           <Stopwatch totalSeconds={totalSeconds} />
         )}
@@ -58,27 +61,63 @@ export default function QuestionCard(opts: {
             </h3>
           </div>
         )}
-        {question?.question && (
-          <div
-            className={cn(
-              'px-4',
-              'dailyQuestion' in question && !question.dailyQuestion && 'pt-4',
-              isRoadmapQuestion && 'pt-4'
+        <Tabs defaultValue="description" className="w-full p-4">
+          <TabsList className="grid w-full grid-cols-2 text-white bg-[#000]">
+            <TabsTrigger
+              value="description"
+              onClick={() => setActiveTab('description')}
+            >
+              <FileText className="mr-2 h-4 w-4" />
+              Description
+            </TabsTrigger>
+            <TabsTrigger
+              value="resources"
+              onClick={() => setActiveTab('resources')}
+            >
+              <BookOpen className="mr-2 h-4 w-4" />
+              Resources
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="description" className="px-4 py-4">
+            {question?.question && (
+              <h3 className="font-inter font-light">{question.question}</h3>
             )}
-          >
-            <h3 className="font-inter font-light">{question.question}</h3>
-          </div>
-        )}
+          </TabsContent>
+          <TabsContent value="resources" className="px-4 py-4">
+            <h3 className="font-inter font-light">
+              Helpful resources for this question:
+            </h3>
+            <ul className="list-disc list-inside mt-2">
+              <li>
+                <a href="#" className="text-accent hover:underline">
+                  Resource 1
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-accent hover:underline">
+                  Resource 2
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-accent hover:underline">
+                  Resource 3
+                </a>
+              </li>
+            </ul>
+          </TabsContent>
+        </Tabs>
 
-        <AnswerQuestionForm
-          ref={answerFormRef}
-          userData={user}
-          question={question}
-          stopwatchPause={pause}
-          time={totalSeconds}
-          nextQuestion={nextQuestion}
-          resetStopwatch={reset}
-        />
+        {activeTab === 'description' && (
+          <AnswerQuestionForm
+            ref={answerFormRef}
+            userData={user}
+            question={question}
+            stopwatchPause={pause}
+            time={totalSeconds}
+            nextQuestion={nextQuestion}
+            resetStopwatch={reset}
+          />
+        )}
       </div>
       <Separator className="bg-black-50" />
       <QuestionCardFooter

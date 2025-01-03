@@ -14,7 +14,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import LogoSmall from '@/components/ui/LogoSmall';
 
 interface BlogPostParams {
   params: {
@@ -28,6 +27,7 @@ interface BlogFrontmatter {
   date: string;
   author: string;
   readingTime: number;
+  authorImage: string;
 }
 
 // generate metadata for the blog post
@@ -102,9 +102,11 @@ export default async function BlogPost({ params }: BlogPostParams) {
                 <>
                   <span>•</span>
                   <span className="flex items-center gap-x-2">
-                    <div className="size-7 p-1 border border-black-50 rounded-lg">
-                      <LogoSmall />
-                    </div>
+                    <img
+                      src={typedFrontmatter.authorImage}
+                      alt={typedFrontmatter.author}
+                      className="size-7 rounded-lg"
+                    />
                     {typedFrontmatter.author}
                   </span>
                 </>

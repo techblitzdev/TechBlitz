@@ -1,17 +1,19 @@
-import { getStripeProducts } from '@/actions/stripe/stripe-products';
+import Link from 'next/link';
+
 import Logo from '@/components/ui/logo';
 import { PricingCard } from '@/components/global/payment/payment-card';
-import { X } from 'lucide-react';
-import Link from 'next/link';
-import { useUserServer } from '@/hooks/useUserServer';
 import StarsBackground from '@/components/ui/stars-background';
+import { X } from 'lucide-react';
+
+import { useUserServer } from '@/hooks/useUserServer';
+import { getPlans } from '@/utils/constants/pricing';
 
 export default async function UpgradePage() {
-  // get the products
-  const products = await getStripeProducts();
-
   // get the current user (for prefilling the form)
   const user = await useUserServer();
+
+  // grab the products from the constants
+  const products = getPlans(user);
 
   return (
     <div className="relative">

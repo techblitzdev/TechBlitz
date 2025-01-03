@@ -6,7 +6,7 @@ export default function QuestionResourceTab(opts: {
 }) {
   const { resources } = opts;
 
-  if (!resources) {
+  if (!resources || resources.length === 0) {
     return (
       <div className="flex flex-col gap-y-2 mt-2">
         <p className="text-sm text-gray-400">
@@ -25,7 +25,7 @@ export default function QuestionResourceTab(opts: {
             href={resource.resource}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-accent hover:underline"
+            className="underline hover:text-accent duration-300"
           >
             {resource.title}
           </a>

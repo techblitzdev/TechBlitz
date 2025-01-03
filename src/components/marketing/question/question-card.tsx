@@ -12,6 +12,7 @@ import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import { Question } from '@/types/Questions';
 import { cn } from '@/utils/cn';
 import { useStopwatch } from 'react-timer-hook';
+import QuestionTabs from '@/components/app/questions/resources/question-tabs';
 
 export default function QuestionCard(opts: {
   question: Question;
@@ -51,10 +52,15 @@ export default function QuestionCard(opts: {
           </div>
         )}
 
-        <AnswerQuestionForm
-          ref={answerFormRef}
+        <QuestionTabs
           question={question}
-          seconds={seconds}
+          renderAnswerForm={() => (
+            <AnswerQuestionForm
+              ref={answerFormRef}
+              question={question}
+              seconds={seconds}
+            />
+          )}
         />
       </div>
       <Separator className="bg-black-50" />

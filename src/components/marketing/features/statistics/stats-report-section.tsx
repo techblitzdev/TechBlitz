@@ -72,7 +72,11 @@ export default function StatsReportSection() {
             </p>
           </div>
           <div className="relative">
-            <QuestionChart questionData={fakeStatsData} step="day" />
+            <QuestionChart
+              questionData={fakeStatsData}
+              step="day"
+              backgroundColor="bg-black"
+            />
             <div className="z-10 absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
             <div className="z-10 absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#000] to-transparent pointer-events-none"></div>
           </div>

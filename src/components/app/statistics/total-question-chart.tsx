@@ -39,6 +39,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { cn } from '@/utils/cn';
 
 const chartConfig = {
   questions: {
@@ -58,9 +59,11 @@ export interface StatsChartData {
 export default function QuestionChart({
   questionData,
   step,
+  backgroundColor,
 }: {
   questionData: StatsChartData;
   step: 'day' | 'week' | 'month';
+  backgroundColor?: string;
 }) {
   const [chartType, setChartType] = useState<'bar' | 'line'>('bar');
 
@@ -187,7 +190,12 @@ export default function QuestionChart({
   };
 
   return (
-    <Card className="border-black-50 max-h-[28rem]">
+    <Card
+      className={cn(
+        'border-black-50 max-h-[28rem]',
+        backgroundColor && backgroundColor
+      )}
+    >
       <CardHeader>
         <div className="flex justify-between items-center">
           <CardTitle className="text-white">Questions Answered</CardTitle>

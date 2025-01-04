@@ -1,6 +1,6 @@
 'use server';
-import { useUserServer } from '@/hooks/use-user-server';
 import { prisma } from '@/utils/prisma';
+import { getUser } from '@/actions/user/authed/get-user';
 
 /**
  * Retrieve a random question
@@ -15,7 +15,7 @@ export const getRandomQuestion = async (opts: {
 
   // if the we have a user, we will get a question that the user hasn't answered
   // if the user is not logged in, we will get a random question
-  const user = await useUserServer();
+  const user = await getUser();
 
   let question;
 

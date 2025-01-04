@@ -10,7 +10,6 @@ import QuestionCard from '@/components/app/questions/single/question-card';
 import { getRandomQuestion } from '@/actions/questions/get-next-question';
 import ExpandedCodeModal from '@/components/app/questions/expanded-code-modal';
 import RelatedQuestions from '@/components/app/questions/single/related-question-card';
-import { redirect } from 'next/navigation';
 
 export default async function TodaysQuestionPage({
   params,

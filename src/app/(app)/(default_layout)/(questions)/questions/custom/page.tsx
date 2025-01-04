@@ -33,7 +33,7 @@ export default async function CustomQuestionsPage({
         subheading="Questions created just for you."
       />
       <div className="md:container flex flex-col lg:flex-row mt-5 gap-16">
-        <div className="w-full lg:w-[55%] space-y-6">
+        <div className="w-full lg:min-w-[55%] space-y-6">
           <Filter />
           <FilterChips />
           <Suspense

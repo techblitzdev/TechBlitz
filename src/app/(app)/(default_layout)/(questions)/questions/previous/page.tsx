@@ -32,7 +32,7 @@ export default async function PreviousQuestionsPage({
       />
       <div className="flex flex-col h-full justify-between container mt-5">
         <div className="flex flex-col lg:flex-row w-full gap-16">
-          <div className="w-full lg:w-[55%] space-y-6">
+          <div className="w-full lg:min-w-[55%] space-y-6">
             <Filter />
             <FilterChips />
             <QuestionsList

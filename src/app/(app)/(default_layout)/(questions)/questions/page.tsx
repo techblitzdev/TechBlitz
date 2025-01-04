@@ -31,7 +31,7 @@ export default async function QuestionsDashboard({
         subheading="Explore a diverse set of questions across multiple topics to enhance your knowledge."
       />
       <div className="md:container flex flex-col lg:flex-row mt-5 gap-16">
-        <div className="w-full lg:w-[55%] space-y-6">
+        <div className="w-full lg:min-w-[55%] space-y-6">
           <Filter />
           <FilterChips />
           <QuestionsList

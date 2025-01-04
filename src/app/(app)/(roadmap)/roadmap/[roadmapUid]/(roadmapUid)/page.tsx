@@ -24,14 +24,16 @@ export default async function RoadmapSinglgePage({
   // better safe than sorry!
   const user = await useUserServer();
   if (!user) {
-    return redirect('/login');
+    return redirect(`/login?redirect=/roadmaps`);
   }
 
   // go get the roadmap
-  const roadmap = await fetchRoadmap({ roadmapUid, userUid: user.uid });
+  const roadmap = await fetchRoadmap({ roadmapUid });
 
+  // put the user back to the roadmap page if the roadmap is not found
+  // do not redirect to the login page as the user is already logged in
   if (!roadmap) {
-    redirect('/roadmaps?error=roadmap_not_found');
+    redirect(`/roadmaps?error=roadmap_not_found`);
   }
 
   // order the questions via the order

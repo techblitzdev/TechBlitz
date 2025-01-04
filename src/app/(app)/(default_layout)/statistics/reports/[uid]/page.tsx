@@ -1,5 +1,7 @@
 import { getReport } from '@/actions/statistics/reports/get-report';
 import StatisticsReportContent from '@/components/app/statistics/statistics-report-content';
+import { useUserServer } from '@/hooks/use-user-server';
+import { redirect } from 'next/navigation';
 
 export default async function StatisticsReportPage({
   params,
@@ -8,6 +10,11 @@ export default async function StatisticsReportPage({
 }) {
   const { uid } = params;
   const report = await getReport(uid);
+
+  const user = await useUserServer();
+  if (!user || user.userLevel === 'FREE') {
+    return redirect('/dashboard');
+  }
 
   if (!report) {
     return (

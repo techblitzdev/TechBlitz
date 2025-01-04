@@ -24,11 +24,19 @@ export async function generateMetadata() {
 
 export default async function Layout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: { slug: string };
 }>) {
+  console.log('params', params);
+
   const user = await useUserServer();
-  if (!user) redirect('/login?r=no-auth');
+  if (!user) {
+    // Encode the current URL to redirect back after login
+    const currentPath = encodeURIComponent(params.slug || '/dashboard');
+    redirect(`/login?redirectUrl=${currentPath}`);
+  }
 
   return (
     <SidebarProvider>

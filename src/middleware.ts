@@ -24,7 +24,17 @@ const routeConfig = {
   },
   // Dashboard routes (auth required)
   dashboard: {
-    patterns: ['/dashboard'],
+    patterns: [
+      '/dashboard',
+      '/statistics',
+      '/settings',
+      '/questions',
+      '/statistics/reports',
+      '/questions/previous',
+      '/questions/custom',
+      '/leaderboard',
+      '/roadmaps',
+    ],
     requiresAuth: true,
   },
   // Admin routes (auth + admin role required)
@@ -90,7 +100,7 @@ export async function middleware(req: NextRequest) {
   if (route.config.requiresAuth && !isAuthenticated) {
     // Redirect to login if auth is required but user isn't authenticated
     return NextResponse.redirect(
-      new URL(`/login?r=${encodeURIComponent(pathname)}`, req.url)
+      new URL(`/login?redirectUrl=${encodeURIComponent(pathname)}`, req.url)
     );
   }
 

@@ -9,16 +9,12 @@ import {
 } from '@/components/ui/popover';
 import { EditRoadmapModal } from './edit-roadmap-modal';
 import { updateRoadmapDetails } from '@/actions/roadmap/update-roadmap-details';
-import { useUser } from '@/hooks/use-user';
 import { deleteRoadmap } from '@/actions/roadmap/delete-roadmap';
 import { useRouter } from 'next/navigation';
 
 export default function RoadmapDropdown(opts: { roadmapUid: string }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const router = useRouter();
-
-  const { user } = useUser();
-  if (!user) return null;
 
   const handleEditRoadmap = () => {
     setIsEditModalOpen(true);
@@ -28,8 +24,7 @@ export default function RoadmapDropdown(opts: { roadmapUid: string }) {
     title: string;
     description: string;
   }) => {
-    // Here you would typically save the data to your backend
-    await updateRoadmapDetails(opts.roadmapUid, user?.uid, {
+    await updateRoadmapDetails(opts.roadmapUid, {
       title: data.title,
       description: data.description,
     });
@@ -82,7 +77,6 @@ export default function RoadmapDropdown(opts: { roadmapUid: string }) {
           setIsEditModalOpen(false);
         }}
         roadmapUid={opts.roadmapUid}
-        userUid={user.uid}
       />
     </>
   );

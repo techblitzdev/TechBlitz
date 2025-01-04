@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import FeaturesContentHeader from '../global/content-header';
-import RoadmapGridItemOne from './grid/roadmap-grid-item-one';
-import RoadmapGridItemTwo from './grid/roadmap-grid-item-two';
-import HomepageHeroImages from '../../homepage/hero/hero-images';
+import FeaturesContentHeader from '@/components/marketing/features/global/content-header';
+import RoadmapGridItemOne from '@/components/marketing/features/roadmap/grid/roadmap-grid-item-one';
+import RoadmapGridItemTwo from '@/components/marketing/features/roadmap/grid/roadmap-grid-item-two';
+import HomepageHeroImages from '@/components/marketing/homepage/hero/hero-images';
 import RoadmapImg from '../../../../public/images/roadmap.png';
 
 const description = () => {

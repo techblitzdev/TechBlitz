@@ -1,4 +1,5 @@
 import StatsHero from '@/components/marketing/features/statistics/stats-hero';
+import StatsReportSection from '@/components/marketing/features/statistics/stats-report-section';
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 import MarketingContentGrid from '@/components/marketing/global/content-grid';
 import { MobileIcon } from '@radix-ui/react-icons';
@@ -64,6 +65,13 @@ export default function StatisticsPage() {
   return (
     <div className="container">
       <StatsHero />
+      {/**
+       * Sections needed:
+       * 1. Talking about interactive charts
+       * 2. easy to use and understand
+       * 3. Reports / creating custom questions
+       */}
+      <StatsReportSection />
       <MarketingContentGrid
         title="Tracking your coding journey made simple."
         items={featureShowcaseItems}

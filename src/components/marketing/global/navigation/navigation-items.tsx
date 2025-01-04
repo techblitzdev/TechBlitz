@@ -47,7 +47,7 @@ const features = [
   {
     title: 'Roadmaps',
     href: '/features/roadmap',
-    description: 'AI-powered paths to accelerate your learning journey.',
+    description: 'Personalized paths to accelerate your learning journey.',
   },
   {
     title: 'Daily Challenges',
@@ -57,7 +57,7 @@ const features = [
   {
     title: 'Statistics',
     href: '/features/statistics',
-    description: 'Track your progress and see how you stack up against others.',
+    description: 'Track your progress and see your growth over time.',
   },
 ];
 

@@ -3,7 +3,6 @@ import dynamic from 'next/dynamic';
 
 import QuestionPageSidebar from '@/components/app/questions/question-page-sidebar';
 import Hero from '@/components/global/hero';
-const Filter = dynamic(() => import('@/components/global/filters/filter'));
 
 import FilterChips from '@/components/global/filters/chips';
 
@@ -12,6 +11,10 @@ import QuestionPageSidebarLoading from '@/components/app/questions/question-page
 import { validateSearchParams } from '@/utils/search-params';
 import { parseSearchParams } from '@/utils/search-params';
 import QuestionsList from '@/components/app/questions/questions-list';
+
+const FiltersWrapper = dynamic(
+  () => import('@/components/global/filters/filters-wrapper')
+);
 
 export default async function PreviousQuestionsPage({
   searchParams,
@@ -33,7 +36,7 @@ export default async function PreviousQuestionsPage({
       <div className="flex flex-col h-full justify-between container mt-5">
         <div className="flex flex-col lg:flex-row w-full gap-16">
           <div className="w-full lg:min-w-[55%] space-y-6">
-            <Filter />
+            <FiltersWrapper />
             <FilterChips />
             <QuestionsList
               user={user}

@@ -1,7 +1,10 @@
 import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
 
 // Components
-import Filter from '@/components/global/filters/filter';
+const FiltersWrapper = dynamic(
+  () => import('@/components/global/filters/filters-wrapper')
+);
 import FilterChips from '@/components/global/filters/chips';
 import Hero from '@/components/global/hero';
 import QuestionPageSidebarLoading from '@/components/app/questions/question-page-sidebar-loading';
@@ -34,7 +37,7 @@ export default async function CustomQuestionsPage({
       />
       <div className="md:container flex flex-col lg:flex-row mt-5 gap-16">
         <div className="w-full lg:min-w-[55%] space-y-6">
-          <Filter />
+          <FiltersWrapper />
           <FilterChips />
           <Suspense
             key={JSON.stringify(searchParams)}

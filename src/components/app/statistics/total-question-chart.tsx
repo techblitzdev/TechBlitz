@@ -39,6 +39,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { cn } from '@/utils/cn';
 
 const chartConfig = {
   questions: {
@@ -58,9 +59,11 @@ export interface StatsChartData {
 export default function QuestionChart({
   questionData,
   step,
+  backgroundColor,
 }: {
   questionData: StatsChartData;
   step: 'day' | 'week' | 'month';
+  backgroundColor?: string;
 }) {
   const [chartType, setChartType] = useState<'bar' | 'line'>('bar');
 
@@ -187,7 +190,12 @@ export default function QuestionChart({
   };
 
   return (
-    <Card className="border-black-50 max-h-[28rem]">
+    <Card
+      className={cn(
+        'border-black-50 max-h-[28rem]',
+        backgroundColor && backgroundColor
+      )}
+    >
       <CardHeader>
         <div className="flex justify-between items-center">
           <CardTitle className="text-white">Questions Answered</CardTitle>
@@ -208,7 +216,7 @@ export default function QuestionChart({
               value={chartType}
               onValueChange={(value: 'bar' | 'line') => setChartType(value)}
             >
-              <SelectTrigger className="border border-black-50 w-[180px] text-white bg-primary">
+              <SelectTrigger className="border border-black-50 md:w-[180px] text-white bg-primary">
                 <SelectValue placeholder="Select chart type" />
               </SelectTrigger>
               <SelectContent className="bg-black">
@@ -217,8 +225,8 @@ export default function QuestionChart({
                   className="hover:cursor-pointer hover:text-white"
                 >
                   <div className="flex items-center">
-                    <BarChartIcon className="mr-2 h-4 w-4" />
-                    Bar Chart
+                    <BarChartIcon className="mr-2 size-4" />
+                    <span className="hidden md:block">Bar Chart</span>
                   </div>
                 </SelectItem>
                 <SelectItem
@@ -226,8 +234,8 @@ export default function QuestionChart({
                   className="hover:cursor-pointer hover:text-white"
                 >
                   <div className="flex items-center">
-                    <LineChartIcon className="mr-2 h-4 w-4" />
-                    Line Chart
+                    <LineChartIcon className="mr-2 size-4" />
+                    <span className="hidden md:block">Line Chart</span>
                   </div>
                 </SelectItem>
               </SelectContent>
@@ -240,7 +248,7 @@ export default function QuestionChart({
           </CardDescription>
         </div>
       </CardHeader>
-      <CardContent className="border-black-50 max-h-[28rem]">
+      <CardContent className="border-black-50 max-h-[28rem] p-2 md:p-6">
         <ChartContainer
           config={chartConfig}
           className="max-h-80"

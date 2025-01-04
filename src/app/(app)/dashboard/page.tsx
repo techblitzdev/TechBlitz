@@ -1,7 +1,5 @@
 import { Suspense } from 'react';
 
-import { redirect } from 'next/navigation';
-
 // components
 import CurrentStreak from '@/components/ui/current-streak';
 import Feedback from '@/components/ui/feedback-button';

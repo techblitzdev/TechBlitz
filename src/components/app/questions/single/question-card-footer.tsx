@@ -2,6 +2,7 @@ import { Tags } from '@/types/Tags';
 import { Separator } from '@/components/ui/separator';
 import TagDisplay from '@/components/app/questions/previous/tag-display';
 import { Button } from '@/components/ui/button';
+import { UserRecord } from '@/types/User';
 
 export default function QuestionCardFooter(opts: {
   questionTags?: Tags[];
@@ -9,8 +10,9 @@ export default function QuestionCardFooter(opts: {
     submitForm: () => void;
     resetForm: () => void;
   }>;
+  user: UserRecord | null;
 }) {
-  const { questionTags, answerFormRef } = opts;
+  const { questionTags, answerFormRef, user } = opts;
 
   return (
     <>
@@ -26,12 +28,19 @@ export default function QuestionCardFooter(opts: {
               >
                 Reset
               </Button>
-              <Button
-                variant="accent"
-                onClick={() => answerFormRef.current?.submitForm()}
-              >
-                Submit
-              </Button>
+              {/** only allow submit if user is logged in */}
+              {user ? (
+                <Button
+                  variant="accent"
+                  onClick={() => answerFormRef.current?.submitForm()}
+                >
+                  Submit
+                </Button>
+              ) : (
+                <Button variant="accent" href="/login">
+                  Login to Submit
+                </Button>
+              )}
             </div>
           </div>
         </>

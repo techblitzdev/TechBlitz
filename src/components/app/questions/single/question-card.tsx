@@ -77,6 +77,7 @@ export default function QuestionCard(opts: {
       <QuestionCardFooter
         questionTags={'tags' in question ? question.tags : []}
         answerFormRef={answerFormRef}
+        user={user}
       />
     </div>
   );

@@ -23,9 +23,6 @@ export default async function Dashboard({
 }) {
   const user = await useUserServer();
 
-  // middleware should handle this, no harm in adding here
-  if (!user) redirect('/login');
-
   return (
     <Suspense fallback={null}>
       <ClientPage searchParams={searchParams}>
@@ -36,7 +33,7 @@ export default async function Dashboard({
               <h1 className="text-base md:text-3xl font-onest">
                 Welcome back,{' '}
                 <Suspense fallback={<LoadingSpinner />}>
-                  <span>{getUserDisplayName(user)}</span>
+                  <span>{user && getUserDisplayName(user)}</span>
                 </Suspense>
               </h1>
             </div>

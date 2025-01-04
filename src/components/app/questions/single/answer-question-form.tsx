@@ -165,7 +165,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
                     <Label
                       htmlFor={answer.uid}
                       className={cn(
-                        'px-4 rounded-lg min-h-16 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
+                        'px-4 py-2 rounded-lg min-h-16 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
                         field.value === answer.uid
                           ? 'bg-black-25'
                           : 'bg-black hover:border-accent',

@@ -36,38 +36,47 @@ export default function SidebarFooterComponent() {
             </Button>
           </SidebarMenuItem>
         )}
-        <SidebarMenuItem>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <SidebarMenuButton variant="default" className="text-white">
-                <ProfilePicture
-                  src={user?.userProfilePicture}
-                  alt="Profile Picture"
-                />
-                {user && getUserDisplayName(user)}
-                <ChevronUp className="ml-auto" />
-              </SidebarMenuButton>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-[#000] !text-white border-black-50">
-              <DropdownMenuItem>
-                <Link href="/upgrade" className="w-full">
-                  Upgrade
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href="/settings/profile" className="w-full">
-                  Profile
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href="/homepage">Homepage</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <LogoutButton variant="ghost" padding="none" />
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </SidebarMenuItem>
+        {/** if there is no user, we render a login button */}
+        {!user ? (
+          <SidebarMenuItem>
+            <Button variant="accent" fullWidth className="mt-4" href="/login">
+              Login
+            </Button>
+          </SidebarMenuItem>
+        ) : (
+          <SidebarMenuItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <SidebarMenuButton variant="default" className="text-white">
+                  <ProfilePicture
+                    src={user?.userProfilePicture}
+                    alt="Profile Picture"
+                  />
+                  {user && getUserDisplayName(user)}
+                  <ChevronUp className="ml-auto" />
+                </SidebarMenuButton>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56 bg-[#000] !text-white border-black-50">
+                <DropdownMenuItem>
+                  <Link href="/upgrade" className="w-full">
+                    Upgrade
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/settings/profile" className="w-full">
+                    Profile
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/homepage">Homepage</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <LogoutButton variant="ghost" padding="none" />
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </SidebarMenuItem>
+        )}
       </SidebarMenu>
     </SidebarFooter>
   );

@@ -10,7 +10,7 @@ export default function AuthLayout({
   return (
     <div className="relative container">
       <StarsBackground className="-z-10" />
-      <Link href="/" className="absolute top-8 left-0 lg:left-8">
+      <Link href="/" className="absolute top-8 left-8">
         <Logo />
       </Link>
       <div className="container text-white h-screen flex items-center justify-center">

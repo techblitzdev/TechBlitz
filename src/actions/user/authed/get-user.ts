@@ -46,6 +46,6 @@ export const getUserFromDb = async (
  */
 export const getUser = async () => {
   const { data } = await getUserFromSession();
-  if (!data?.user?.id) throw new Error('User not found');
+  if (!data?.user?.id) return null;
   return await getUserFromDb(data.user.id);
 };

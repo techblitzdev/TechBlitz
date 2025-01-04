@@ -11,8 +11,6 @@ import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 
 import NextTopLoader from 'nextjs-toploader';
-import { useUserServer } from '@/hooks/use-user-server';
-import { redirect } from 'next/navigation';
 import { createMetadata } from '@/utils';
 
 export async function generateMetadata() {
@@ -24,20 +22,9 @@ export async function generateMetadata() {
 
 export default async function Layout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { slug: string };
 }>) {
-  console.log('params', params);
-
-  const user = await useUserServer();
-  if (!user) {
-    // Encode the current URL to redirect back after login
-    const currentPath = encodeURIComponent(params.slug || '/dashboard');
-    redirect(`/login?redirectUrl=${currentPath}`);
-  }
-
   return (
     <SidebarProvider>
       {/* Scrollable content */}

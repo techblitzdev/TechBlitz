@@ -18,7 +18,7 @@ export default function HomepageHero() {
         <h6 className="font-onest max-w-xl text-gray-400 text-lg">
           An{' '}
           <Link
-            href="https://github.com/techblitzdev/techblitz"
+            href="https://git.new/blitz"
             target="_blank"
             className="text-accent"
           >

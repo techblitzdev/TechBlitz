@@ -25,7 +25,6 @@ export const useUser = () => {
           return null;
         }
 
-        console.log('User data fetched:', userData);
         return userData;
       } catch (err) {
         console.error('Error fetching user:', err);
@@ -33,13 +32,13 @@ export const useUser = () => {
       }
     },
     retry: 1,
-    staleTime: 1000 * 60 * 5
+    staleTime: 1000 * 60 * 5,
   });
 
   return {
     user: data,
     isLoading,
     isError,
-    error
+    error,
   };
 };

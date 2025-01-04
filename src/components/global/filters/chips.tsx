@@ -4,6 +4,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { X } from 'lucide-react';
 import { capitalise } from '@/utils';
 import { cn } from '@/utils/cn';
+import { Button } from '@/components/ui/button';
 
 export default function FilterChips() {
   const searchParams = useSearchParams();
@@ -39,43 +40,65 @@ export default function FilterChips() {
     router.push(`?${params.toString()}`);
   };
 
+  const clearAllFilters = () => {
+    router.push('?');
+  };
+
   if (Object.keys(paramsObj).length === 0) return null;
 
   // Render chips for each query parameter
   return (
-    <div
-      className={cn(
-        'flex gap-2 flex-wrap duration-300',
-        Object.keys(paramsObj).length === 0 ? 'h-0' : ''
-      )}
-    >
-      {Object.entries(paramsObj).map(([key, value]) => {
-        if (key === 'page') return null;
-        // Handle 'tags' as a comma-separated list
-        if (key === 'tags') {
-          return (value.split(',') as string[]).map((tag) => (
-            <div
-              key={`${key}-${tag}`}
-              className="flex items-center gap-2 px-3 py-1 text-xs border border-black-50 rounded-md hover:bg-black-25 duration-300"
-            >
-              <span>{capitalise(tag)}</span>
-              <button
-                onClick={() => removeFilter(key, tag)}
-                className="bg-black-50 rounded-full p-0.5"
+    <div className="space-y-2 flex flex-wrap justify-between">
+      <div
+        className={cn(
+          'flex gap-2 flex-wrap duration-300',
+          Object.keys(paramsObj).length === 0 ? 'h-0' : ''
+        )}
+      >
+        {Object.entries(paramsObj).map(([key, value]) => {
+          if (key === 'page') return null;
+          // Handle 'tags' as a comma-separated list
+          if (key === 'tags') {
+            return (value.split(',') as string[]).map((tag) => (
+              <div
+                key={`${key}-${tag}`}
+                className="flex items-center gap-2 px-3 py-1 text-xs border border-black-50 rounded-md hover:bg-black-25 duration-300"
               >
-                <X className="size-2.5" />
-              </button>
-            </div>
-          ));
-        }
+                <span>{capitalise(tag)}</span>
+                <button
+                  onClick={() => removeFilter(key, tag)}
+                  className="bg-black-50 rounded-full p-0.5"
+                >
+                  <X className="size-2.5" />
+                </button>
+              </div>
+            ));
+          }
 
-        if (key === 'completed') {
+          if (key === 'completed') {
+            return (
+              <div
+                key={key}
+                className="flex items-center gap-2 px-3 py-1 text-sm border border-black-50 rounded-md hover:bg-black-25 duration-300"
+              >
+                <span>{value === 'true' ? 'Completed' : 'Incomplete'}</span>
+                <button
+                  onClick={() => removeFilter(key)}
+                  className="bg-black-50 rounded-full p-0.5"
+                >
+                  <X className="size-2.5" />
+                </button>
+              </div>
+            );
+          }
+
+          // Render chips for other parameters
           return (
             <div
               key={key}
               className="flex items-center gap-2 px-3 py-1 text-sm border border-black-50 rounded-md hover:bg-black-25 duration-300"
             >
-              <span>{value === 'true' ? 'Completed' : 'Incomplete'}</span>
+              <span>{capitalise(value)}</span>
               <button
                 onClick={() => removeFilter(key)}
                 className="bg-black-50 rounded-full p-0.5"
@@ -84,24 +107,15 @@ export default function FilterChips() {
               </button>
             </div>
           );
-        }
-
-        // Render chips for other parameters
-        return (
-          <div
-            key={key}
-            className="flex items-center gap-2 px-3 py-1 text-sm border border-black-50 rounded-md hover:bg-black-25 duration-300"
-          >
-            <span>{capitalise(value)}</span>
-            <button
-              onClick={() => removeFilter(key)}
-              className="bg-black-50 rounded-full p-0.5"
-            >
-              <X className="size-2.5" />
-            </button>
-          </div>
-        );
-      })}
+        })}
+      </div>
+      <Button
+        onClick={clearAllFilters}
+        variant="destructive"
+        className="py-0.5 px-2 h-fit"
+      >
+        Clear all
+      </Button>
     </div>
   );
 }

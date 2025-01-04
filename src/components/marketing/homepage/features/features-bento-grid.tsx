@@ -84,7 +84,7 @@ export default function FeaturesBentoGrid() {
           </Link>
           <Suspense fallback={<LoadingSpinner />}>
             <Link
-              href={isProd ? '' : '/features/progress-tracking'}
+              href="/features/statistics"
               className={cn(
                 'h-[390px] lg:h-80 flex flex-col justify-between group overflow-hidden',
                 cardClasses

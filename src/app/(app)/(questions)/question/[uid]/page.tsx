@@ -18,10 +18,10 @@ export default async function TodaysQuestionPage({
   params: { uid: string };
 }) {
   const { uid } = params;
+
+  // this page does not require auth to be viewed, however we will not
+  // allow the user to submit the question if they are not logged in
   const user = await useUserServer();
-  if (!user) {
-    return redirect(`/login?redirectUrl=/question/${uid}`);
-  }
 
   // run all of these in parallel as they do not depend on each other
   const [question, totalSubmissions, nextQuestion] = await Promise.all([

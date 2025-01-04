@@ -22,7 +22,8 @@ import { Question } from '@/types/Questions';
 import { useStopwatch } from 'react-timer-hook';
 
 export default function QuestionCard(opts: {
-  user: UserRecord;
+  // optional as this is not required to render the card
+  user: UserRecord | null;
   question: Question;
   nextQuestion?: string;
   isRoadmapQuestion?: boolean;

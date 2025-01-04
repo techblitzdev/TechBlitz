@@ -3,6 +3,12 @@ import { prisma } from '@/utils/prisma';
 import { getTagsFromQuestion } from './utils/get-tags-from-question';
 import { Question } from '@/types/Questions';
 
+/**
+ * Retrieve a question via its uid
+ *
+ * @param uid - The uid of the question to retrieve
+ * @returns The question object
+ */
 export const getQuestion = async (uid: string) => {
   if (!uid) {
     console.error('Please provide a uid');

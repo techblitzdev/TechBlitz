@@ -43,10 +43,7 @@ export default function NavigationButtons() {
 
   return (
     <div className="items-center gap-x-2 hidden lg:flex">
-      <GithubStars hideText={true} />
-      <Button href="/login" variant="ghost" className="font-onest">
-        Login
-      </Button>
+      <GithubStars hideText={false} />
       <Button
         href={isDevelopment ? '/signup' : '#waitlist-form'}
         variant="accent"

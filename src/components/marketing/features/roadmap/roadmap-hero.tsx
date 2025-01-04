@@ -10,7 +10,7 @@ export default function FeatureRoadmapHeroBlock() {
 
       <div className="flex flex-col gap-y-6 items-center z-20 relative">
         <h1 className="text-5xl lg:text-7xl !font-onest !font-medium tracking-tight text-gradient from-white to-white/75 text-center py-1.5">
-          Code your <br /> way.
+          Questions created for <br /> you.
         </h1>
         <p className="text-gray-400 max-w-xl text-center text-sm md:text-base font-onest">
           Unlock your potential as a software engineer with personalized

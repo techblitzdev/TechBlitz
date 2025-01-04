@@ -69,7 +69,6 @@ export default function StatisticsPage() {
        * Sections needed:
        * 1. Talking about interactive charts
        * 2. easy to use and understand
-       * 3. Reports / creating custom questions
        */}
       <StatsReportSection />
       <MarketingContentGrid

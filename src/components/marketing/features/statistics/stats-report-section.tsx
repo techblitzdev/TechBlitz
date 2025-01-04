@@ -79,7 +79,10 @@ export default function StatsReportSection() {
   }, []);
 
   return (
-    <section className="py-8 sm:py-12 md:py-28 px-4 flex flex-col gap-y-8 sm:gap-y-12 md:gap-y-16 relative">
+    <section
+      id="statistics-report"
+      className="py-8 sm:py-12 md:py-28 px-4 flex flex-col gap-y-8 sm:gap-y-12 md:gap-y-16 relative"
+    >
       <div className="flex flex-col gap-y-4">
         <h2 className="text-2xl sm:text-3xl lg:text-5xl text-gradient from-white to-white/75 !font-onest !font-medium tracking-tight py-1.5">
           Detailed Analytics & Progress <br /> Reports to Accelerate Your Growth

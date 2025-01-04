@@ -17,7 +17,7 @@ export default function StatsHero() {
           across topics, and visualize your growth with interactive charts.
         </p>
         <div className="mt-2 flex gap-4">
-          <Button variant="default" href="#roadmap-customization">
+          <Button variant="default" href="#statistics-report">
             Learn more
             <ArrowDown size={16} className="ml-2" />
           </Button>

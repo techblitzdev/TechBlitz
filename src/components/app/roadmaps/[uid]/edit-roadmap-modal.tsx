@@ -21,7 +21,6 @@ interface EditRoadmapModalProps {
   onClose: () => void;
   onSave: (data: { title: string; description: string }) => void;
   roadmapUid: string;
-  userUid: string;
 }
 
 export function EditRoadmapModal({
@@ -29,17 +28,15 @@ export function EditRoadmapModal({
   onClose,
   onSave,
   roadmapUid,
-  userUid,
 }: EditRoadmapModalProps) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ['roadmap-fetch', roadmapUid, userUid],
+    queryKey: ['roadmap-fetch', roadmapUid],
     queryFn: async () => {
       return await fetchRoadmap({
         roadmapUid,
-        userUid,
       });
     },
     enabled: isOpen, // Only fetch when the modal is open

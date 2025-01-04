@@ -1,5 +1,3 @@
-import { redirect } from 'next/navigation';
-
 import StatsRangePicker from '@/components/app/statistics/range-picker';
 import QuestionChart from '@/components/app/statistics/total-question-chart';
 
@@ -24,9 +22,10 @@ export default async function StatisticsPage({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  // ensure only premiums users can access this page
   const user = await useUserServer();
-  if (!user) {
-    redirect('/login');
+  if (!user || user.userLevel === 'FREE') {
+    return null;
   }
 
   // Get and validate range param

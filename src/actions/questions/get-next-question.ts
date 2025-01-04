@@ -3,7 +3,6 @@ import { prisma } from '@/utils/prisma';
 
 export const getRandomQuestion = async (opts: {
   currentQuestionId: string;
-  userUid: string;
 }) => {
   const { currentQuestionId } = opts;
 

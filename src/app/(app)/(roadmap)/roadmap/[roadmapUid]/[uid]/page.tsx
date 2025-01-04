@@ -15,8 +15,8 @@ export default async function RoadmapQuestionPage({
   const { roadmapUid, uid } = params;
 
   const user = await useUserServer();
-  if (!user) {
-    return;
+  if (!user || user.userLevel === 'FREE') {
+    return redirect('/dashboard');
   }
 
   // grab the question from the db

@@ -1,12 +1,15 @@
 'use server';
 import { prisma } from '@/utils/prisma';
 import { revalidateTag } from 'next/cache';
+import { getUser } from '@/actions/user/authed/get-user';
 
-export const fetchRoadmap = async (opts: {
-  roadmapUid: string;
-  userUid: string;
-}) => {
-  const { roadmapUid, userUid } = opts;
+export const fetchRoadmap = async (opts: { roadmapUid: string }) => {
+  const user = await getUser();
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  const { roadmapUid } = opts;
 
   revalidateTag('roadmap-data');
 
@@ -14,15 +17,15 @@ export const fetchRoadmap = async (opts: {
     where: {
       uid: roadmapUid,
       AND: {
-        userUid
-      }
+        userUid: user.uid,
+      },
     },
     include: {
       questions: {
         include: {
-          answers: true
-        }
-      }
-    }
+          answers: true,
+        },
+      },
+    },
   });
 };

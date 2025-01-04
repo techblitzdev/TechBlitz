@@ -7,6 +7,7 @@ import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/use-user-server';
 import FeedbackButton from '@/components/ui/feedback-button';
 import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-trigger';
+import { redirect } from 'next/navigation';
 
 export default async function QuestionUidLayout({
   children,
@@ -15,12 +16,14 @@ export default async function QuestionUidLayout({
   const { uid } = params;
 
   const question = await getQuestion(uid);
+
   const user = await useUserServer();
-  if (!user) return;
+  if (!user) {
+    return redirect(`/login?redirectUrl=/question/${uid}`);
+  }
 
   const nextQuestion = await getRandomQuestion({
     currentQuestionId: uid,
-    userUid: user.uid,
   });
 
   return (

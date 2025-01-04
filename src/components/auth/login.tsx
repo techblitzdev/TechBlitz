@@ -22,13 +22,17 @@ import { z } from 'zod';
 import { oauth } from '@/actions/user/account/oauth';
 import { login } from '@/actions/user/account/login';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import OrSeparator from '@/components/auth/or-separator';
 
 type SchemaProps = z.infer<typeof loginSchema>;
 
 export default function LoginForm() {
+  // get the redirectUrl from the url
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get('redirectUrl');
+
   const router = useRouter();
   const isPending = useRef(false);
 
@@ -58,7 +62,11 @@ export default function LoginForm() {
         return;
       }
 
-      router.push('/dashboard');
+      if (redirectUrl) {
+        router.push(redirectUrl);
+      } else {
+        router.push('/dashboard');
+      }
     } catch (error) {
       console.error(error);
       if (error instanceof Error) {

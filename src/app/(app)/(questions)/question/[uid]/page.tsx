@@ -10,6 +10,7 @@ import QuestionCard from '@/components/app/questions/single/question-card';
 import { getRandomQuestion } from '@/actions/questions/get-next-question';
 import ExpandedCodeModal from '@/components/app/questions/expanded-code-modal';
 import RelatedQuestions from '@/components/app/questions/single/related-question-card';
+import { redirect } from 'next/navigation';
 
 export default async function TodaysQuestionPage({
   params,
@@ -19,7 +20,7 @@ export default async function TodaysQuestionPage({
   const { uid } = params;
   const user = await useUserServer();
   if (!user) {
-    return;
+    return redirect(`/login?redirectUrl=/question/${uid}`);
   }
 
   // run all of these in parallel as they do not depend on each other
@@ -28,7 +29,6 @@ export default async function TodaysQuestionPage({
     getQuestionStats(uid),
     getRandomQuestion({
       currentQuestionId: uid,
-      userUid: user.uid,
     }),
   ]);
 

@@ -29,7 +29,7 @@ const questions: QuestionCard[] = [
 
 export default function SkewedQuestionCards() {
   return (
-    <div className="relative h-[215px] w-full max-w-md mx-auto">
+    <div className="relative h-[320px] md:h-[215px] w-full max-w-md mx-auto">
       {questions.map((card, index) => (
         <div
           key={card.id}

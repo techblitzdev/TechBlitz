@@ -1,4 +1,4 @@
-<img src="https://github.com/user-attachments/assets/a67688cd-1ee7-4f8d-b2d8-ab7400ee71a7" alt="Logo">
+<img src="https://github.com/user-attachments/assets/4c980ba7-59ba-471c-ac24-6a45b131f836" alt="Logo">
 <div align="center">
   <h3><a href="https://www.techblitz.dev">TechBlitz</a></h3>
 </div>

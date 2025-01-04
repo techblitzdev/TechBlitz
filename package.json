@@ -12,6 +12,7 @@
     "stripe-cancel": "stripe listen --forward-to localhost:3000/api/webhooks/stripe/cancel"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.33.1",
     "@builder.io/react-hydration-overlay": "^0.3.0",
     "@hookform/resolvers": "^3.9.0",
     "@mantine/core": "^7.13.5",

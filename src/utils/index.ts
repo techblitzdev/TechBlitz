@@ -1,6 +1,8 @@
 import { Metadata } from 'next';
 import { Filter } from 'bad-words';
 
+import type { StatsChartData } from '@/components/app/statistics/total-question-chart';
+
 /**
  * Method to get the current environment
  *
@@ -153,3 +155,34 @@ export const filterBadWords = (content: string) => {
   const filter = new Filter({ placeHolder: '*' });
   return filter.clean(content);
 };
+
+function randomInt(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+export function generateFakeData(days: number): StatsChartData {
+  const data: StatsChartData = {};
+  const tags = ['Arrays', 'Strings', 'Dynamic Programming', 'Trees', 'Graphs'];
+  const startDate = new Date();
+  startDate.setDate(startDate.getDate() - days);
+
+  for (let i = 0; i < days; i++) {
+    const currentDate = new Date(startDate);
+    currentDate.setDate(currentDate.getDate() + i);
+    const dateString = currentDate.toISOString().split('T')[0];
+
+    const totalQuestions = randomInt(5, 30);
+    const tagCounts: Record<string, number> = {};
+    tags.forEach((tag) => {
+      tagCounts[tag] = randomInt(0, Math.floor(totalQuestions / 2));
+    });
+
+    data[dateString] = {
+      totalQuestions,
+      tagCounts,
+      tags,
+    };
+  }
+
+  return data;
+}

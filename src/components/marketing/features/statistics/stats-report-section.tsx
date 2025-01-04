@@ -1,4 +1,6 @@
+import QuestionChart from '@/components/app/statistics/total-question-chart';
 import SkewedQuestionCards from './skewed-question-cards';
+import { generateFakeData } from '@/utils';
 
 /**
  * 1. Showing off the customised questions
@@ -6,6 +8,8 @@ import SkewedQuestionCards from './skewed-question-cards';
  * 3. showing off the progress report
  */
 export default function StatsReportSection() {
+  const fakeStatsData = generateFakeData(30);
+
   return (
     <section className="py-16 px-4 md:pt-24 md:pb-32 flex flex-col gap-y-16 relative">
       <div className="flex flex-col gap-y-4">
@@ -57,10 +61,21 @@ export default function StatsReportSection() {
           ></div>
         </div>
 
-        <div className="col-span-7">
-          <h6 className="text-2xl lg:text-4xl text-gradient from-white to-white/75 !font-onest !font-medium tracking-tight py-1.5">
-            Progress report
-          </h6>
+        <div className="col-span-7 flex flex-col gap-y-8">
+          <div className="flex flex-col">
+            <h6 className="text-2xl lg:text-4xl text-gradient from-white to-white/75 !font-onest !font-medium tracking-tight py-1.5">
+              Progress report
+            </h6>
+            <p className="text-gray-400 w-3/4">
+              Visualize your progress in an easy to digest format. View your
+              progress over time and see how you&apos;re progressing.
+            </p>
+          </div>
+          <div className="relative">
+            <QuestionChart questionData={fakeStatsData} step="day" />
+            <div className="z-10 absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
+            <div className="z-10 absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#000] to-transparent pointer-events-none"></div>
+          </div>
         </div>
       </div>
     </section>

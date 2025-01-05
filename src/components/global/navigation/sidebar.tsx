@@ -414,7 +414,7 @@ export function AppSidebar(opts: { user: UserRecord | null }) {
                 <Logo />
               </div>
             )}
-            <SidebarTrigger />
+            <SidebarTrigger className="size-5 h-7" />
           </SidebarGroupLabel>
           {/* This div will show when the sidebar is collapsed */}
           <div className="hidden group-data-[collapsible=icon]:flex items-center justify-center h-8 mb-5">

@@ -17,7 +17,7 @@ export const getPlans = (user: UserRecord | null) => [
         name: 'Compete with other users Daily question',
       },
       {
-        name: `Access to ${QUESTIONS_COUNT}+ questions`,
+        name: `Access to ${QUESTIONS_COUNT}+ questions (more being added every day!)`,
       },
       {
         name: 'Stats and progress tracking',
@@ -52,7 +52,7 @@ export const getPlans = (user: UserRecord | null) => [
         name: 'Compete with other users everyday',
       },
       {
-        name: `Access to ${QUESTIONS_COUNT}+ questions`,
+        name: `Access to ${QUESTIONS_COUNT}+ questions (more being added every day!)`,
       },
       {
         name: 'In depth stats and progress tracking',

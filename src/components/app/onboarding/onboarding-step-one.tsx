@@ -162,7 +162,6 @@ export function OnboardingStepOne() {
           </motion.div>
         </form>
       </Form>
-      {JSON.stringify(user)}
     </CardContent>
   );
 }

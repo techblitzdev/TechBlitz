@@ -10,9 +10,10 @@ import { Tag } from '@prisma/client';
 
 interface FilterProps {
   tags: Tag[];
+  showSort?: boolean;
 }
 
-export default function Filter({ tags }: FilterProps) {
+export default function Filter({ tags, showSort = true }: FilterProps) {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
@@ -23,7 +24,7 @@ export default function Filter({ tags }: FilterProps) {
           <FilterButtonCompleted />
           <FilterSearchTag value={searchQuery} onChange={setSearchQuery} />
         </div>
-        <FilterButtonsSort />
+        {showSort && <FilterButtonsSort />}
       </div>
       <FilterTagsCarousel tags={tags} searchQuery={searchQuery} />
     </div>

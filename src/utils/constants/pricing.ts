@@ -1,4 +1,5 @@
 import { UserRecord } from '@/types/User';
+import { QUESTIONS_COUNT } from './misc';
 
 export const getPlans = (user: UserRecord | null) => [
   {
@@ -16,7 +17,7 @@ export const getPlans = (user: UserRecord | null) => [
         name: 'Compete with other users Daily question',
       },
       {
-        name: 'Compete with other users Daily question',
+        name: `Access to ${QUESTIONS_COUNT}+ questions`,
       },
       {
         name: 'Stats and progress tracking',
@@ -51,7 +52,7 @@ export const getPlans = (user: UserRecord | null) => [
         name: 'Compete with other users everyday',
       },
       {
-        name: 'Access to 1000+ of questions',
+        name: `Access to ${QUESTIONS_COUNT}+ questions`,
       },
       {
         name: 'In depth stats and progress tracking',

@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic';
 import AnimatedSpan from '@/components/ui/animated-span';
 import { Suspense } from 'react';
 import LoadingSpinner from '@/components/ui/loading';
+import { QUESTIONS_COUNT } from '@/utils/constants/misc';
 
 const DailyQuestionBox = dynamic(() => import('./daily-question-box'), {
   ssr: false,
@@ -37,8 +38,8 @@ export default function FeaturesBentoGrid() {
         </h1>
         <span className="text-sm md:text-base text-gray-400 max-w-3xl">
           Discover our suite of tools & features crafted to help you master
-          software engineering with ease. <br /> 1000+ free daily coding
-          challenges, personalized learning paths, and more.
+          software engineering with ease. <br /> {QUESTIONS_COUNT}+ free daily
+          coding challenges, personalized learning paths, and more.
         </span>
       </div>
       <div className="min-h-[1450px] md:min-h-[1000px] lg:min-h-[700px] rounded-lg">

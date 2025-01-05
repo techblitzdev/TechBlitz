@@ -14,6 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { QUESTIONS_COUNT } from '@/utils/constants/misc';
 
 interface BlogPostParams {
   params: {
@@ -130,8 +131,8 @@ export default async function BlogPost({ params }: BlogPostParams) {
               <CardContent className="text-center">
                 <p className="text-gray-400 text-xs">
                   Level up your coding skills with our daily challenges,
-                  personalized roadmaps, access to 1000+ questions, and a
-                  community of like-minded individuals.
+                  personalized roadmaps, access to {QUESTIONS_COUNT} questions,
+                  and a community of like-minded individuals.
                 </p>
               </CardContent>
               <CardFooter>

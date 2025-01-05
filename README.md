@@ -10,7 +10,6 @@
    <img alt="GitHub branch status" src="https://img.shields.io/github/checks-status/techblitzdev/techblitz/main">
 </div>
 
-
 ## Overview
 
 TechBlitz is designed to empower developers by providing a comprehensive platform for learning, practicing, and improving technical skills. Unlike traditional coding platforms, we focus on holistic developer growth across various technologies and skill levels, without taking your hours to complete, as well as being a mobile-friendly platform. Complete coding challenges from any device, anywhere.
@@ -20,7 +19,7 @@ TechBlitz is designed to empower developers by providing a comprehensive platfor
 - **Adaptive Learning Paths**: [Personalized coding challenges generated through a series of onboarding questions to gauge your strengths and weaknesses.](https://techblitz.dev/features/roadmap)
 - **Daily questions**: [Repetition in the form of daily questions, and streaks to ensure you never miss a day!](https://www.techblitz.dev/daily-challenge)
 - **Skill Tracking**: Monitor your progress and identify areas for improvement
-- **1000's of questions**: A wide variety of short-form coding questions to test your knowledge
+- **100's of questions**: A wide variety of short-form coding questions to test your knowledge
 - **Leaderboard**: Battle with other users for a chance to win prizes at the end of each month!
 - **Community-Driven**: Open-source and community-powered platform
 - **Statistics**: Analysis your current skillset, and be guided on how to improve.
@@ -35,7 +34,7 @@ We love to be transparent with our users, so below are the next features we have
 - **Statistics**: A more in-depth statistics dashboard, giving you a greater insight on your current ability.
 - **Multi-language support**: Currently we only support JavaScript. However, we are looking into: Python, Typescript, and GoLang for our first wave of other languages to support.
 - **Searching**: Implement elastic search to easily find questions that you want to answer
-- **Slack bot**:  Daily challenges sent to a Slack channel of your choice. Compete with co-workers and learn new skills!
+- **Slack bot**: Daily challenges sent to a Slack channel of your choice. Compete with co-workers and learn new skills!
 
 ## Tech stack
 

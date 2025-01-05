@@ -1,7 +1,7 @@
 // components
 import { createOrFetchUserRoadmap } from '@/actions/roadmap/create-or-fetch-user-roadmap';
 import { fetchRoadmapQuestionViaOrder } from '@/actions/roadmap/questions/default/fetch-roadmap-question-via-order';
-import NoDailyQuestion from '@/components/global/errors/no-daily-question';
+import NoDailyQuestion from '@/components/global/no-daily-question';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,

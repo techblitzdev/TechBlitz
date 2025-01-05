@@ -49,7 +49,7 @@ export default function QuestionResourceTab(opts: {
                 Cancel
               </AlertDialogCancel>
               <AlertDialogAction>
-                <Link href="mailto:team@techblitz.dev">Send feedback</Link>
+                <Link href="mailto:team@techblitz.dev">Send resource</Link>
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>

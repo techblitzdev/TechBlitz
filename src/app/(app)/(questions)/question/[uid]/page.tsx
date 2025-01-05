@@ -1,13 +1,13 @@
 import { getQuestion } from '@/actions/questions/get';
 import { Separator } from '@/components/ui/separator';
-import NoDailyQuestion from '@/components/global/errors/no-daily-question';
+import NoDailyQuestion from '@/components/global/no-daily-question';
 import QuestionDisplay from '@/components/app/questions/single/code-snippet';
 import { ChartColumn, Check, User } from 'lucide-react';
 import { getQuestionStats } from '@/actions/questions/get-question-stats';
 import { useUserServer } from '@/hooks/use-user-server';
 
 import QuestionCard from '@/components/app/questions/single/question-card';
-import { getRandomQuestion } from '@/actions/questions/get-next-question';
+import { getRandomQuestion } from '@/actions/questions/get-random';
 import ExpandedCodeModal from '@/components/app/questions/expanded-code-modal';
 import RelatedQuestions from '@/components/app/questions/single/related-question-card';
 
@@ -20,6 +20,8 @@ export default async function TodaysQuestionPage({
 
   // this page does not require auth to be viewed, however we will not
   // allow the user to submit the question if they are not logged in
+
+  // getting here on the server
   const user = await useUserServer();
 
   // run all of these in parallel as they do not depend on each other
@@ -27,7 +29,7 @@ export default async function TodaysQuestionPage({
     getQuestion(uid),
     getQuestionStats(uid),
     getRandomQuestion({
-      currentQuestionId: uid,
+      currentQuestionUid: uid,
     }),
   ]);
 

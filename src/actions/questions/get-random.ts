@@ -9,9 +9,9 @@ import { getUser } from '@/actions/user/authed/get-user';
  * @returns The uid of the next question
  */
 export const getRandomQuestion = async (opts: {
-  currentQuestionId: string;
+  currentQuestionUid: string;
 }) => {
-  const { currentQuestionId } = opts;
+  const { currentQuestionUid } = opts;
 
   // if the we have a user, we will get a question that the user hasn't answered
   // if the user is not logged in, we will get a random question
@@ -24,7 +24,7 @@ export const getRandomQuestion = async (opts: {
     question = await prisma.questions.findFirst({
       where: {
         uid: {
-          not: currentQuestionId,
+          not: currentQuestionUid,
         },
         AND: {
           userAnswers: {
@@ -41,7 +41,7 @@ export const getRandomQuestion = async (opts: {
   question = await prisma.questions.findFirst({
     where: {
       uid: {
-        not: currentQuestionId,
+        not: currentQuestionUid,
       },
     },
   });

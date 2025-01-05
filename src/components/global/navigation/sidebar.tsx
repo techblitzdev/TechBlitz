@@ -400,14 +400,20 @@ export function AppSidebar(opts: { user: UserRecord | null }) {
       <SidebarContent className="py-6 bg-[#000000]">
         <SidebarGroup>
           <SidebarGroupLabel className="w-full flex items-center justify-between">
-            <Link
-              href="/dashboard"
-              className="text-sm xl:text-2xl font-inter hover:text-white duration-300"
-              prefetch
-              aria-label="Go back to dashboard"
-            >
-              <Logo />
-            </Link>
+            {user ? (
+              <Link
+                href="/dashboard"
+                className="text-sm xl:text-2xl font-inter hover:text-white duration-300"
+                prefetch
+                aria-label="Go back to dashboard"
+              >
+                <Logo />
+              </Link>
+            ) : (
+              <div className="text-sm xl:text-2xl font-inter hover:text-white duration-300">
+                <Logo />
+              </div>
+            )}
             <SidebarTrigger />
           </SidebarGroupLabel>
           {/* This div will show when the sidebar is collapsed */}

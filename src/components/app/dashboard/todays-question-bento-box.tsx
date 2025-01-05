@@ -1,7 +1,7 @@
 import Chip from '@/components/ui/chip';
 import { Button } from '@/components/ui/button';
 import TagDisplay from '@/components/app/questions/previous/tag-display';
-import NoDailyQuestion from '@/components/global/errors/no-daily-question';
+import NoDailyQuestion from '@/components/global/no-daily-question';
 import { ArrowUpRight } from 'lucide-react';
 
 import { getQuestionDifficultyColor, capitalise } from '@/utils';

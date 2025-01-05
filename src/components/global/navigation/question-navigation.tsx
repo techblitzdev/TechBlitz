@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import {
   Tooltip,
   TooltipContent,
@@ -5,8 +7,11 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import Link from 'next/link';
 
+/**
+ * Component for navigation between different questions from within the
+ * app.
+ */
 export default function QuestionNavigation(opts: {
   nextQuestion: string | null;
   previousQuestion: string | null;

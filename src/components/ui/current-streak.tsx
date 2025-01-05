@@ -24,6 +24,7 @@ export function SolarFlameBoldDuotone(props: SVGProps<SVGSVGElement>) {
 }
 
 export default async function CurrentStreak() {
+  // only show the streak if the user is logged in
   const user = await useUserServer();
   if (!user) return;
 

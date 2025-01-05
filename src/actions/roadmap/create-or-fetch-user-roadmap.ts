@@ -1,17 +1,23 @@
 'use server';
 import { prisma } from '@/utils/prisma';
+import { getUser } from '../user/authed/get-user';
 
 export const createOrFetchUserRoadmap = async (opts: { userUid: string }) => {
-  const { userUid } = opts;
+  const user = await getUser();
+  const userUid = user?.uid;
+
+  if (!userUid) {
+    throw new Error('User does not exist');
+  }
 
   try {
-    // Check if the user exists
-    const userExists = await prisma.users.findUnique({
-      where: { uid: userUid },
+    // check if the user has more than 10 roadmaps
+    const userRoadmapsCount = await prisma.userRoadmaps.count({
+      where: { userUid },
     });
 
-    if (!userExists) {
-      throw new Error('User does not exist');
+    if (userRoadmapsCount >= 10) {
+      throw new Error('Maximum number of roadmaps (10) reached');
     }
 
     // check if the user already has a roadmap that has not been completed

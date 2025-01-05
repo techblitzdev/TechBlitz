@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dialog';
 import { useUserServer } from '@/hooks/use-user-server';
 import { redirect } from 'next/navigation';
+import { toast } from 'sonner';
 
 export default async function RoadmapOnboardingModal() {
   const user = await useUserServer();
@@ -24,13 +25,17 @@ export default async function RoadmapOnboardingModal() {
 
   const handleButtonClick = async () => {
     'use server';
-    // create a new roadmap record for the user
-    const roadmap = await createOrFetchUserRoadmap({
-      userUid: user?.uid,
-    });
-
-    // redirect the user to the new page
-    redirect(`/roadmap/${roadmap.uid}/onboarding/1`);
+    try {
+      // create a new roadmap record for the user
+      const roadmap = await createOrFetchUserRoadmap({
+        userUid: user?.uid,
+      });
+      // redirect the user to the new page
+      redirect(`/roadmap/${roadmap.uid}/onboarding/1`);
+    } catch (error) {
+      console.error('Failed to create roadmap:', error);
+      toast.error('Failed to create roadmap: ' + error);
+    }
   };
 
   return (

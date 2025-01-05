@@ -36,7 +36,7 @@ export default async function AuthedPage() {
           <HomepageLargeText />
           <ComparisonBlock />
           <OpenSourceBlock />
-          <CallToActionBlock title="Your gateway to your dream job" />
+          <CallToActionBlock title="Your gateway to your dream career" />
         </div>
       </div>
     </div>

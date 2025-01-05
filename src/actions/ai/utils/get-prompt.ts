@@ -1,5 +1,5 @@
 'use server';
-import { PromptName } from '@/utils/constants/prompts';
+import type { PromptName } from '@/utils/constants/prompts';
 import { prisma } from '@/utils/prisma';
 
 export const getPrompt = async (opts: { name: PromptName | PromptName[] }) => {
@@ -9,9 +9,9 @@ export const getPrompt = async (opts: { name: PromptName | PromptName[] }) => {
     const prompts = await prisma.aIPrompts.findMany({
       where: {
         name: {
-          in: name
-        }
-      }
+          in: name,
+        },
+      },
     });
 
     return prompts.reduce(
@@ -28,8 +28,8 @@ export const getPrompt = async (opts: { name: PromptName | PromptName[] }) => {
 
   const prompt = await prisma.aIPrompts.findFirst({
     where: {
-      name: name
-    }
+      name: name,
+    },
   });
 
   if (!prompt) {
@@ -37,6 +37,6 @@ export const getPrompt = async (opts: { name: PromptName | PromptName[] }) => {
   }
 
   return {
-    [prompt.name]: { content: prompt.prompt }
+    [prompt.name]: { content: prompt.prompt },
   };
 };

@@ -25,9 +25,7 @@ type OnboardingContextType = {
 };
 
 // create the context
-export const OnboardingContext = createContext<OnboardingContextType | null>(
-  null
-);
+const OnboardingContext = createContext<OnboardingContextType | null>(null);
 
 // provide the context to all the children components
 export const UserOnboardingContextProvider = ({

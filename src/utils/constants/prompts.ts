@@ -1,4 +1,4 @@
-export const PROMPT_NAMES = [
+const PROMPT_NAMES = [
   // NEW ROADMAP QUESTIONS
   'first-pass-new-roadmap-question',
   'second-pass-new-roadmap-question',

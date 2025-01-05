@@ -11,7 +11,7 @@ import { revalidateTag } from 'next/cache';
  * We return the data in the following format:
  * [key]: { totalQuestions: number, tags: string[], tagCounts: Record<string, number> }
  */
-export const getStatsChartData = async (opts: {
+const getStatsChartData = async (opts: {
   userUid: string;
   to: string;
   from: StatsSteps;
@@ -133,7 +133,7 @@ export const getStatsChartData = async (opts: {
 /**
  * Gets the total number of questions the user has answered within a specific range.
  */
-export const getTotalQuestionCount = async (
+const getTotalQuestionCount = async (
   userUid: string,
   to: string,
   from: StatsSteps
@@ -210,7 +210,7 @@ export const getTotalTimeTaken = async (
 /**
  * Gets the highest scoring tag within a specific range.
  */
-export const getHighestScoringTag = async (
+const getHighestScoringTag = async (
   userUid: string,
   to: string,
   from: StatsSteps

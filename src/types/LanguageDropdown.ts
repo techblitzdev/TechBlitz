@@ -1,6 +1,6 @@
-export type Languages = 'javascript' | 'typescript' | 'python' | 'go';
+type Languages = 'javascript' | 'typescript' | 'python' | 'go';
 
-export type LanguageConfig = {
+type LanguageConfig = {
   label: string;
   isActive: boolean;
 };

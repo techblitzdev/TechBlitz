@@ -17,11 +17,15 @@ import Link from 'next/link';
 import LogoutButton from '@/components/auth/logout';
 import ProfilePicture from '@/components/ui/profile-picture';
 import { UserRecord } from '@/types/User';
+import { usePathname } from 'next/navigation';
 
 export default function SidebarFooterComponent(opts: {
   user: UserRecord | null;
 }) {
   const { user } = opts;
+
+  // get the current route so we can add the redirectUrl to the login button
+  const pathname = usePathname();
 
   return (
     <SidebarFooter className="bg-[#000000] ">
@@ -41,7 +45,12 @@ export default function SidebarFooterComponent(opts: {
         {/** if there is no user, we render a login button */}
         {!user ? (
           <SidebarMenuItem>
-            <Button variant="accent" fullWidth className="mt-4" href="/login">
+            <Button
+              variant="accent"
+              fullWidth
+              className="mt-4"
+              href={`/login?redirectUrl=${pathname}`}
+            >
               Login
             </Button>
           </SidebarMenuItem>

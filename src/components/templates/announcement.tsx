@@ -8,7 +8,6 @@ import {
   Preview,
   Section,
   Text,
-  Button,
 } from '@react-email/components';
 import * as React from 'react';
 

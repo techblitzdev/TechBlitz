@@ -9,7 +9,8 @@
     "lint": "next lint",
     "postinstall": "prisma generate",
     "types": "tsc --noEmit",
-    "stripe-cancel": "stripe listen --forward-to localhost:3000/api/webhooks/stripe/cancel"
+    "stripe-cancel": "stripe listen --forward-to localhost:3000/api/webhooks/stripe/cancel",
+    "knip": "knip"
   },
   "dependencies": {
     "@builder.io/react-hydration-overlay": "^0.3.0",
@@ -107,18 +108,19 @@
   "devDependencies": {
     "@types/dompurify": "^3.0.5",
     "@types/lodash": "^4.17.13",
-    "@types/node": "^20",
+    "@types/node": "^20.17.11",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/uniqid": "^5.3.4",
     "eslint": "^8",
     "eslint-config-next": "14.2.9",
+    "knip": "^5.41.1",
     "postcss": "^8.4.47",
     "postcss-preset-mantine": "^1.17.0",
     "postcss-simple-vars": "^7.0.1",
     "prisma": "^6.1.0",
     "react-email": "3.0.4",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5.7.2"
   }
 }

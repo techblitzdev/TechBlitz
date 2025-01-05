@@ -61,7 +61,7 @@ export const getPlans = (user: UserRecord | null) => [
         name: "Top user's entered into weekly prize draws",
       },
       {
-        name: 'Bespoke learning plans and progression frameworks',
+        name: '10 Bespoke learning plans and progression frameworks',
       },
       {
         name: 'Access to upcoming beta features',

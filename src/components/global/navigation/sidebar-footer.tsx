@@ -1,3 +1,6 @@
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
 import {
   SidebarFooter,
   SidebarMenu,
@@ -5,7 +8,6 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
-import { getUserDisplayName } from '@/utils/user';
 import { ChevronUp } from 'lucide-react';
 import {
   DropdownMenu,
@@ -13,12 +15,19 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import Link from 'next/link';
 import LogoutButton from '@/components/auth/logout';
 import ProfilePicture from '@/components/ui/profile-picture';
-import { UserRecord } from '@/types/User';
-import { usePathname } from 'next/navigation';
 
+import { UserRecord } from '@/types/User';
+import { getUserDisplayName } from '@/utils/user';
+
+/**
+/**
+ * Sidebar footer component
+ *
+ * @param opts - The options for the sidebar footer
+ * @returns The sidebar footer component
+ */
 export default function SidebarFooterComponent(opts: {
   user: UserRecord | null;
 }) {

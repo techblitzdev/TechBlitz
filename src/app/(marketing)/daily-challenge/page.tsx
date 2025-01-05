@@ -34,14 +34,14 @@ export default async function MarketingQuestionPage() {
   });
 
   const leftContent = (
-    <div className="flex flex-col gap-y-4 p-3">
+    <div className="flex flex-col gap-y-4 pl-6 p-3">
       {/* Question Card */}
       <QuestionCard question={question} />
     </div>
   );
 
   const rightContent = (
-    <div className="flex flex-col gap-4 p-3">
+    <div className="flex flex-col gap-4 pr-6 p-3">
       <div
         id="code-snippet"
         className="h-fit lg:h-[45rem] bg-[#111111] border border-black-50 rounded-xl relative overflow-hidden"

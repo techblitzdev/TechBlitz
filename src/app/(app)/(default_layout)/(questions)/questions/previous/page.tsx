@@ -1,20 +1,16 @@
 import { Suspense } from 'react';
-import dynamic from 'next/dynamic';
 
 import QuestionPageSidebar from '@/components/app/questions/question-page-sidebar';
 import Hero from '@/components/global/hero';
-
+import Filter from '@/components/global/filters/filter';
 import FilterChips from '@/components/global/filters/chips';
-
-import { useUserServer } from '@/hooks/use-user-server';
 import QuestionPageSidebarLoading from '@/components/app/questions/question-page-sidebar-loading';
-import { validateSearchParams } from '@/utils/search-params';
-import { parseSearchParams } from '@/utils/search-params';
 import QuestionsList from '@/components/app/questions/questions-list';
 
-const FiltersWrapper = dynamic(
-  () => import('@/components/global/filters/filters-wrapper')
-);
+import { useUserServer } from '@/hooks/use-user-server';
+import { validateSearchParams } from '@/utils/search-params';
+import { parseSearchParams } from '@/utils/search-params';
+import { getTags } from '@/actions/questions/tags/get-tags';
 
 export default async function PreviousQuestionsPage({
   searchParams,
@@ -22,6 +18,7 @@ export default async function PreviousQuestionsPage({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const user = await useUserServer();
+  const tags = await getTags();
 
   const filters = parseSearchParams(searchParams);
   if (!validateSearchParams(filters)) return null;
@@ -35,7 +32,7 @@ export default async function PreviousQuestionsPage({
       <div className="flex flex-col h-full justify-between container mt-5">
         <div className="flex flex-col lg:flex-row w-full gap-16">
           <div className="w-full lg:min-w-[55%] space-y-6">
-            <FiltersWrapper />
+            <Filter tags={tags} />
             <FilterChips />
             <QuestionsList
               user={user}

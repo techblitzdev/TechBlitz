@@ -34,7 +34,7 @@ export default async function Layout({
       <AppSidebar user={user} />
       <NextTopLoader color="#5b61d6" showSpinner={false} />
       <main className="w-full py-6 lg:pt-4 lg:pb-3">
-        <div className="h-[95%]">
+        <div className="">
           <CSPostHogProvider>
             <MantineProvider>{children}</MantineProvider>
           </CSPostHogProvider>

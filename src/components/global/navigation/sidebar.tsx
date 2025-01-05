@@ -52,13 +52,13 @@ import LogoSmall from '@/components/ui/LogoSmall';
 import type { SidebarItemType } from '@/types/Sidebar';
 
 import { getTodaysQuestion } from '@/actions/questions/get-today';
-import { useUser } from '@/hooks/use-user';
 import { userAnsweredDailyQuestion } from '@/actions/questions/user-answered-daily-question';
 import { useMemo } from 'react';
+import { UserRecord } from '@/types/User';
 
-export function AppSidebar() {
+export function AppSidebar(opts: { user: UserRecord | null }) {
+  const { user } = opts;
   const pathname = usePathname();
-  const { user } = useUser();
 
   const { state } = useSidebar();
 
@@ -270,17 +270,25 @@ export function AppSidebar() {
   // if user is not authed, show nonAuthedUserItems
   const items = useMemo(() => {
     if (!user) return nonAuthedUserItems;
-    if (pathname.startsWith('/settings')) return settingsItems;
-    return standardItems;
-  }, [user, pathname]);
 
-  if (user?.userLevel === 'ADMIN') {
-    items.push({
-      title: 'Admin',
-      url: '/admin',
-      icon: LockIcon,
-    });
-  }
+    let menuItems = pathname.startsWith('/settings')
+      ? settingsItems
+      : standardItems;
+
+    // Add admin item only once for admin users
+    if (user.userLevel === 'ADMIN') {
+      menuItems = [
+        ...menuItems,
+        {
+          title: 'Admin',
+          url: '/admin',
+          icon: LockIcon,
+        },
+      ];
+    }
+
+    return menuItems;
+  }, [user, pathname]);
 
   const renderSidebarItem = (item: SidebarItemType) => {
     if ('groupLabel' in item) {
@@ -420,7 +428,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooterComponent />
+      <SidebarFooterComponent user={user} />
       <SidebarRail />
     </Sidebar>
   );

@@ -12,6 +12,7 @@ import '@mantine/dates/styles.css';
 
 import NextTopLoader from 'nextjs-toploader';
 import { createMetadata } from '@/utils';
+import { useUserServer } from '@/hooks/use-user-server';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -25,10 +26,12 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await useUserServer();
+
   return (
     <SidebarProvider>
       {/* Scrollable content */}
-      <AppSidebar />
+      <AppSidebar user={user} />
       <NextTopLoader color="#5b61d6" showSpinner={false} />
       <main className="w-full py-6 lg:pt-4 lg:pb-3">
         <div className="h-[95%]">

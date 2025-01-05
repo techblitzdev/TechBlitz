@@ -17,9 +17,12 @@ import {
 import Link from 'next/link';
 import LogoutButton from '@/components/auth/logout';
 import ProfilePicture from '@/components/ui/profile-picture';
+import { UserRecord } from '@/types/User';
 
-export default function SidebarFooterComponent() {
-  const { user } = useUser();
+export default function SidebarFooterComponent(opts: {
+  user: UserRecord | null;
+}) {
+  const { user } = opts;
 
   return (
     <SidebarFooter className="bg-[#000000] ">

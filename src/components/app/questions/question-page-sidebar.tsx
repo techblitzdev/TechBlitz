@@ -50,7 +50,7 @@ export default async function QuestionPageSidebar(opts: {
             ) : (
               <div className="relative">
                 <div className="absolute inset-0 backdrop-blur-[2px] z-10 flex items-center justify-center rounded-md">
-                  <Button variant="secondary" href="/login">
+                  <Button variant="default" href="/login">
                     Log in to start a streak
                   </Button>
                 </div>
@@ -90,7 +90,7 @@ export default async function QuestionPageSidebar(opts: {
             <QuestionSuggestedCard questions={suggestions ?? []} />
             {!user && (
               <div className="absolute inset-0 backdrop-blur-[2px] z-10 flex items-center justify-center rounded-md">
-                <Button variant="secondary" href="/login">
+                <Button variant="default" href="/login">
                   Log in to see suggestions
                 </Button>
               </div>

@@ -54,6 +54,7 @@ import type { SidebarItemType } from '@/types/Sidebar';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
 import { useUser } from '@/hooks/use-user';
 import { userAnsweredDailyQuestion } from '@/actions/questions/user-answered-daily-question';
+import { useMemo } from 'react';
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -75,6 +76,35 @@ export function AppSidebar() {
       }),
     enabled: !!todaysQuestion?.uid,
   });
+
+  const nonAuthedUserItems: SidebarItemType[] = [
+    {
+      title: 'Questions',
+      url: '/questions',
+      icon: FileQuestion,
+      tooltip: 'Questions',
+      subItems: [
+        {
+          title: 'All',
+          url: '/questions',
+        },
+        {
+          title: 'Daily Question',
+          url: `/question/${todaysQuestion?.uid}`,
+        },
+        {
+          title: 'All Daily Questions',
+          url: '/questions/previous',
+        },
+      ],
+    },
+    {
+      title: 'Leaderboard',
+      url: '/leaderboard',
+      icon: Award,
+      tooltip: 'Leaderboard',
+    },
+  ];
 
   const standardItems: SidebarItemType[] = [
     {
@@ -237,9 +267,12 @@ export function AppSidebar() {
     },
   ];
 
-  const items = pathname.startsWith('/settings')
-    ? settingsItems
-    : standardItems;
+  // if user is not authed, show nonAuthedUserItems
+  const items = useMemo(() => {
+    if (!user) return nonAuthedUserItems;
+    if (pathname.startsWith('/settings')) return settingsItems;
+    return standardItems;
+  }, [user, pathname]);
 
   if (user?.userLevel === 'ADMIN') {
     items.push({

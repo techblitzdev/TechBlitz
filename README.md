@@ -76,6 +76,10 @@ We welcome contributions! Please see our <a href="https://github.com/techblitzde
 
 If you have any feedback, please reach out to us at team@techblitz.dev
 
+## Security
+
+You can view our security policy [here](https://github.com/techblitzdev/TechBlitz/blob/main/SECURITY.MD)
+
 ## License
 
 [Apache-2.0](http://www.apache.org/licenses/)

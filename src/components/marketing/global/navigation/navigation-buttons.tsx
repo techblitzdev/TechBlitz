@@ -30,13 +30,12 @@ export default function NavigationButtons() {
     return (
       <div className="flex items-center gap-x-2">
         <GithubStars />
-        <Button
+        <a
           href="/dashboard"
-          variant="secondary"
-          className="px-4 py-2 rounded-md text-sm font-medium hidden lg:block font-onest"
+          className="px-4 py-2 rounded-md text-sm font-medium hidden lg:block font-onest bg-secondary text-black border border-black-50"
         >
           Dashboard
-        </Button>
+        </a>
       </div>
     );
   }

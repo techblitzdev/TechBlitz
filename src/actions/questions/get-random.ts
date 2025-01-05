@@ -5,7 +5,7 @@ import { getUser } from '@/actions/user/authed/get-user';
 /**
  * Retrieve a random question
  *
- * @param currentQuestionId - The uid of the current question
+ * @param currentQuestionUid - The uid of the current question
  * @returns The uid of the next question
  */
 export const getRandomQuestion = async (opts: {
@@ -17,34 +17,39 @@ export const getRandomQuestion = async (opts: {
   // if the user is not logged in, we will get a random question
   const user = await getUser();
 
-  let question;
+  // any here is to avoid type errors
+  let question: any;
 
   if (user) {
-    // Get a question that the user hasn't answered
-    question = await prisma.questions.findFirst({
-      where: {
-        uid: {
-          not: currentQuestionUid,
-        },
-        AND: {
-          userAnswers: {
-            none: {
-              userUid: user.uid,
-            },
-          },
-        },
-      },
-    });
+    // get a random question that the user hasn't answered using raw SQL
+    question = await prisma.$queryRaw`
+      SELECT q.uid 
+      FROM "Questions" q
+      LEFT JOIN "UserAnswers" ua 
+        ON ua."questionUid" = q.uid 
+        AND ua."userUid" = ${user.uid}
+      WHERE q.uid != ${currentQuestionUid}
+        AND ua.uid IS NULL
+      ORDER BY RANDOM()
+      LIMIT 1
+    `;
+
+    // extract first result if exists
+    question = question[0];
+  } else {
+    // get a random question for non-logged in users using raw SQL
+    question = await prisma.$queryRaw`
+      SELECT uid
+      FROM "Questions"
+      WHERE uid != ${currentQuestionUid}
+      ORDER BY RANDOM()
+      LIMIT 1
+    `;
+
+    // extract first result if exists
+    question = question[0];
   }
 
-  // get a random question as the user is not logged in
-  question = await prisma.questions.findFirst({
-    where: {
-      uid: {
-        not: currentQuestionUid,
-      },
-    },
-  });
-
+  // we only need the uid to redirect to the questions
   return question?.uid;
 };

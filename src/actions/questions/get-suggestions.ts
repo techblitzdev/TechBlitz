@@ -12,6 +12,8 @@ type SuggestionsOptions = {
 
 export const getSuggestions = cache(
   async ({ userUid, limit = 5 }: SuggestionsOptions) => {
+    if (!userUid) return null;
+
     try {
       if (!userUid) {
         throw new Error('User ID is required');

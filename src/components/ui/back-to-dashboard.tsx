@@ -1,8 +1,14 @@
+import { useUserServer } from '@/hooks/use-user-server';
 import { ChevronLeft, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-export default function BackToDashboard(opts: { href?: string }) {
+export default async function BackToDashboard(opts: { href?: string }) {
   const { href = '/dashboard' } = opts;
+
+  const user = await useUserServer();
+  if (!user) {
+    return null;
+  }
 
   return (
     <Link

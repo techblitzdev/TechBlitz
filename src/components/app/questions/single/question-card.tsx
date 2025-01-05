@@ -61,7 +61,7 @@ export default function QuestionCard(opts: {
           textColor={getQuestionDifficultyColor(question.difficulty).text}
           border={getQuestionDifficultyColor(question.difficulty).border}
         />
-        {user?.showTimeTaken && !isRoadmapQuestion && (
+        {user && user?.showTimeTaken && !isRoadmapQuestion && (
           <Stopwatch totalSeconds={totalSeconds} />
         )}
       </div>

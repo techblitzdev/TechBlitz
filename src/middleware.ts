@@ -28,7 +28,6 @@ const routeConfig = {
       '/dashboard',
       '/statistics',
       '/settings',
-      '/questions',
       '/statistics/reports',
       '/questions/previous',
       '/questions/custom',

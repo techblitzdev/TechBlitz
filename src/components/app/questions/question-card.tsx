@@ -9,10 +9,14 @@ import QuestionCardLoading from '@/components/app/questions/question-card-loadin
 
 export default async function QuestionCard(opts: {
   questionData: QuestionWithoutAnswers;
+  showSubmissions?: boolean;
 }) {
-  const { questionData } = opts;
+  const { questionData, showSubmissions = true } = opts;
 
-  const questionStats = await getQuestionStats(questionData.uid);
+  // only get question stats if showSubmissions is true
+  const questionStats = showSubmissions
+    ? await getQuestionStats(questionData.uid)
+    : null;
 
   return (
     <Suspense fallback={<QuestionCardLoading />}>
@@ -27,14 +31,23 @@ export default async function QuestionCard(opts: {
               {shortenText(questionData?.question, 100)}
             </h6>
           </div>
-          <div className="text-start text-[10px]">
-            <p className="font-ubuntu text-sm">
-              Submissions:{' '}
-              <span className="font-medium underline">
-                {questionStats?.totalSubmissions}
-              </span>
-            </p>
-          </div>
+          {showSubmissions && (
+            <div className="text-start text-[10px]">
+              <p className="font-ubuntu text-sm">
+                Submissions:{' '}
+                <span className="font-medium underline">
+                  {questionStats?.totalSubmissions}
+                </span>
+              </p>
+            </div>
+          )}
+          {!showSubmissions && (
+            <div className="text-start text-[10px]">
+              <p className="font-ubuntu text-sm">
+                Created on: {questionData.createdAt.toLocaleDateString()}
+              </p>
+            </div>
+          )}
         </div>
         <div className="mt-5 w-full flex justify-between items-end z-10 relative">
           <div className="flex gap-4 items-end">

@@ -15,12 +15,14 @@ export default async function QuestionsList({
   filters,
   customQuestions = false,
   previousQuestions = false,
+  showSubmissions = true,
 }: {
   user: UserRecord | null;
   currentPage: number;
   filters: FilterParams;
   customQuestions: boolean;
   previousQuestions?: boolean;
+  showSubmissions?: boolean;
 }) {
   const data = await listQuestions({
     page: currentPage,
@@ -62,7 +64,11 @@ export default async function QuestionsList({
   return (
     <>
       {data.questions.map((q) => (
-        <QuestionCard key={q.uid} questionData={q} />
+        <QuestionCard
+          key={q.uid}
+          questionData={q}
+          showSubmissions={showSubmissions}
+        />
       ))}
       <div className="mt-5 w-full flex justify-center gap-x-2">
         <GlobalPagination

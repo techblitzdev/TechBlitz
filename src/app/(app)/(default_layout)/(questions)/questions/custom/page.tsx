@@ -54,6 +54,7 @@ export default async function CustomQuestionsPage({
               currentPage={filters.page}
               filters={filters}
               customQuestions={true}
+              showSubmissions={false}
             />
           </Suspense>
         </div>

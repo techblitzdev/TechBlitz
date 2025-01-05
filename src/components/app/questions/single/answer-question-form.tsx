@@ -27,7 +27,8 @@ import type { Answer } from '@/types/Answers';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
-  userData: UserRecord;
+  // optional as this is not required to render the form
+  userData: UserRecord | null;
   question: Question;
   time: number;
   stopwatchPause: () => void;
@@ -77,6 +78,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
   }));
 
   const handleAnswerQuestion = async (values: SchemaProps) => {
+    // but prevent the submissions if the user is not logged in
     if (!userData) {
       console.error('User is not logged in');
       return;
@@ -163,7 +165,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
                     <Label
                       htmlFor={answer.uid}
                       className={cn(
-                        'px-4 rounded-lg min-h-16 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
+                        'px-4 py-2 rounded-lg min-h-16 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
                         field.value === answer.uid
                           ? 'bg-black-25'
                           : 'bg-black hover:border-accent',

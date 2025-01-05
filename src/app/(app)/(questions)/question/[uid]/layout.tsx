@@ -1,13 +1,13 @@
-import { getQuestion } from '@/actions/questions/get';
-import { getRandomQuestion } from '@/actions/questions/get-next-question';
+// Components
 import BackToDashboard from '@/components/ui/back-to-dashboard';
 import CurrentStreak from '@/components/ui/current-streak';
-import QuestionNavigation from '@/components/global/navigation/question-navigation';
 import { Separator } from '@/components/ui/separator';
-import { useUserServer } from '@/hooks/use-user-server';
 import FeedbackButton from '@/components/ui/feedback-button';
 import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-trigger';
-import { redirect } from 'next/navigation';
+import RandomQuestion from '@/components/global/random-question';
+
+// Actions
+import { getQuestion } from '@/actions/questions/get';
 
 export default async function QuestionUidLayout({
   children,
@@ -16,15 +16,6 @@ export default async function QuestionUidLayout({
   const { uid } = params;
 
   const question = await getQuestion(uid);
-
-  const user = await useUserServer();
-  if (!user) {
-    return redirect(`/login?redirectUrl=/question/${uid}`);
-  }
-
-  const nextQuestion = await getRandomQuestion({
-    currentQuestionId: uid,
-  });
 
   return (
     <>
@@ -39,13 +30,9 @@ export default async function QuestionUidLayout({
             </div>
           )}
         </div>
-        <div className="flex items-center gap-x-5">
+        <div className="flex items-center gap-x-3">
           <CurrentStreak />
-          <QuestionNavigation
-            nextQuestion={nextQuestion ? `/question/${nextQuestion}` : null}
-            previousQuestion={null}
-            navigationType="question"
-          />
+          <RandomQuestion currentQuestionUid={uid} />
           <FeedbackButton reference={question?.uid} />
         </div>
       </div>

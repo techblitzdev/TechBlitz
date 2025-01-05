@@ -4,6 +4,8 @@ import { prisma } from '@/utils/prisma';
 import { revalidateTag } from 'next/cache';
 
 export const getUserDailyStats = async (userUid: string) => {
+  if (!userUid) return null;
+
   const userData = await prisma.users.findUnique({
     where: {
       uid: userUid,

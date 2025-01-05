@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import NoDailyQuestion from '@/components/global/errors/no-daily-question';
+import NoDailyQuestion from '@/components/global/no-daily-question';
 import Card from '@/components/global/Card';
 import GlobalPagination from '@/components/global/pagination';
 import { ArrowRight, Medal } from 'lucide-react';

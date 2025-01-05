@@ -20,7 +20,6 @@ export default async function QuestionsDashboard({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const user = await useUserServer();
-  if (!user) return null;
 
   const filters = parseSearchParams(searchParams);
   if (!validateSearchParams(filters)) return null;
@@ -43,7 +42,7 @@ export default async function QuestionsDashboard({
           />
         </div>
         <Suspense fallback={<QuestionPageSidebarLoading />}>
-          {user && <QuestionPageSidebar user={user} />}
+          <QuestionPageSidebar user={user} />
         </Suspense>
       </div>
     </>

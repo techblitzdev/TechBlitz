@@ -52,12 +52,13 @@ import LogoSmall from '@/components/ui/LogoSmall';
 import type { SidebarItemType } from '@/types/Sidebar';
 
 import { getTodaysQuestion } from '@/actions/questions/get-today';
-import { useUser } from '@/hooks/use-user';
 import { userAnsweredDailyQuestion } from '@/actions/questions/user-answered-daily-question';
+import { useMemo } from 'react';
+import { UserRecord } from '@/types/User';
 
-export function AppSidebar() {
+export function AppSidebar(opts: { user: UserRecord | null }) {
+  const { user } = opts;
   const pathname = usePathname();
-  const { user } = useUser();
 
   const { state } = useSidebar();
 
@@ -75,6 +76,35 @@ export function AppSidebar() {
       }),
     enabled: !!todaysQuestion?.uid,
   });
+
+  const nonAuthedUserItems: SidebarItemType[] = [
+    {
+      title: 'Questions',
+      url: '/questions',
+      icon: FileQuestion,
+      tooltip: 'Questions',
+      subItems: [
+        {
+          title: 'All',
+          url: '/questions',
+        },
+        {
+          title: 'Daily Question',
+          url: `/question/${todaysQuestion?.uid}`,
+        },
+        {
+          title: 'All Daily Questions',
+          url: '/questions/previous',
+        },
+      ],
+    },
+    {
+      title: 'Leaderboard',
+      url: '/leaderboard',
+      icon: Award,
+      tooltip: 'Leaderboard',
+    },
+  ];
 
   const standardItems: SidebarItemType[] = [
     {
@@ -237,17 +267,28 @@ export function AppSidebar() {
     },
   ];
 
-  const items = pathname.startsWith('/settings')
-    ? settingsItems
-    : standardItems;
+  // if user is not authed, show nonAuthedUserItems
+  const items = useMemo(() => {
+    if (!user) return nonAuthedUserItems;
 
-  if (user?.userLevel === 'ADMIN') {
-    items.push({
-      title: 'Admin',
-      url: '/admin',
-      icon: LockIcon,
-    });
-  }
+    let menuItems = pathname.startsWith('/settings')
+      ? settingsItems
+      : standardItems;
+
+    // Add admin item only once for admin users
+    if (user.userLevel === 'ADMIN') {
+      menuItems = [
+        ...menuItems,
+        {
+          title: 'Admin',
+          url: '/admin',
+          icon: LockIcon,
+        },
+      ];
+    }
+
+    return menuItems;
+  }, [user, pathname]);
 
   const renderSidebarItem = (item: SidebarItemType) => {
     if ('groupLabel' in item) {
@@ -359,14 +400,20 @@ export function AppSidebar() {
       <SidebarContent className="py-6 bg-[#000000]">
         <SidebarGroup>
           <SidebarGroupLabel className="w-full flex items-center justify-between">
-            <Link
-              href="/dashboard"
-              className="text-sm xl:text-2xl font-inter hover:text-white duration-300"
-              prefetch
-              aria-label="Go back to dashboard"
-            >
-              <Logo />
-            </Link>
+            {user ? (
+              <Link
+                href="/dashboard"
+                className="text-sm xl:text-2xl font-inter hover:text-white duration-300"
+                prefetch
+                aria-label="Go back to dashboard"
+              >
+                <Logo />
+              </Link>
+            ) : (
+              <div className="text-sm xl:text-2xl font-inter hover:text-white duration-300">
+                <Logo />
+              </div>
+            )}
             <SidebarTrigger />
           </SidebarGroupLabel>
           {/* This div will show when the sidebar is collapsed */}
@@ -387,7 +434,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooterComponent />
+      <SidebarFooterComponent user={user} />
       <SidebarRail />
     </Sidebar>
   );

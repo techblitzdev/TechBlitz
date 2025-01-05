@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { getQuestionDifficultyColor } from '@/utils';
 import { Grid } from '@/components/ui/grid';
 import TagDisplay from '@/components/app/questions/previous/tag-display';
-import NoDailyQuestion from '@/components/global/errors/no-daily-question';
+import NoDailyQuestion from '@/components/global/no-daily-question';
 
 export default function YesterdaysQuestionBentoBox(opts: {
   question: Question | null;

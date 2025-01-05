@@ -16,7 +16,7 @@ export default async function QuestionsList({
   customQuestions = false,
   previousQuestions = false,
 }: {
-  user: UserRecord;
+  user: UserRecord | null;
   currentPage: number;
   filters: FilterParams;
   customQuestions: boolean;
@@ -25,14 +25,14 @@ export default async function QuestionsList({
   const data = await listQuestions({
     page: currentPage,
     pageSize: ITEMS_PER_PAGE,
-    userUid: user.uid,
+    userUid: user?.uid || '',
     filters,
     customQuestions,
     previousQuestions,
   });
 
   // if we are on custom questions and the user is not a premium user, show a message
-  if (customQuestions && user.userLevel === 'FREE') {
+  if (customQuestions && user && user.userLevel === 'FREE') {
     return (
       <div className="flex flex-col gap-y-4 items-center justify-center mt-4">
         <p className="text-lg font-medium text-gray-400">
@@ -62,7 +62,7 @@ export default async function QuestionsList({
   return (
     <>
       {data.questions.map((q) => (
-        <QuestionCard key={q.uid} questionData={q} userUid={user.uid} />
+        <QuestionCard key={q.uid} questionData={q} />
       ))}
       <div className="mt-5 w-full flex justify-center gap-x-2">
         <GlobalPagination

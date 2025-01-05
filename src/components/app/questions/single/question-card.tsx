@@ -22,7 +22,8 @@ import { Question } from '@/types/Questions';
 import { useStopwatch } from 'react-timer-hook';
 
 export default function QuestionCard(opts: {
-  user: UserRecord;
+  // optional as this is not required to render the card
+  user: UserRecord | null;
   question: Question;
   nextQuestion?: string;
   isRoadmapQuestion?: boolean;
@@ -60,7 +61,7 @@ export default function QuestionCard(opts: {
           textColor={getQuestionDifficultyColor(question.difficulty).text}
           border={getQuestionDifficultyColor(question.difficulty).border}
         />
-        {user?.showTimeTaken && !isRoadmapQuestion && (
+        {user && user?.showTimeTaken && !isRoadmapQuestion && (
           <Stopwatch totalSeconds={totalSeconds} />
         )}
       </div>
@@ -76,6 +77,7 @@ export default function QuestionCard(opts: {
       <QuestionCardFooter
         questionTags={'tags' in question ? question.tags : []}
         answerFormRef={answerFormRef}
+        user={user}
       />
     </div>
   );

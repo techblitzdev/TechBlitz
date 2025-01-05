@@ -27,8 +27,8 @@ export const useUser = () => {
 
         return userData;
       } catch (err) {
-        console.error('Error fetching user:', err);
-        throw err;
+        // silently fail as we have routes that don't require a user
+        return null;
       }
     },
     retry: 1,

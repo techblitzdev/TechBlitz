@@ -11,9 +11,8 @@ import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 
 import NextTopLoader from 'nextjs-toploader';
-import { useUserServer } from '@/hooks/use-user-server';
-import { redirect } from 'next/navigation';
 import { createMetadata } from '@/utils';
+import { useUserServer } from '@/hooks/use-user-server';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -24,24 +23,15 @@ export async function generateMetadata() {
 
 export default async function Layout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { slug: string };
 }>) {
-  console.log('params', params);
-
   const user = await useUserServer();
-  if (!user) {
-    // Encode the current URL to redirect back after login
-    const currentPath = encodeURIComponent(params.slug || '/dashboard');
-    redirect(`/login?redirectUrl=${currentPath}`);
-  }
 
   return (
     <SidebarProvider>
       {/* Scrollable content */}
-      <AppSidebar />
+      <AppSidebar user={user} />
       <NextTopLoader color="#5b61d6" showSpinner={false} />
       <main className="w-full py-6 lg:pt-4 lg:pb-3">
         <div className="h-[95%]">

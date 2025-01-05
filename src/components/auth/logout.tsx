@@ -1,6 +1,6 @@
 'use client';
 import { logout } from '@/actions/user/account/logout';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 // components
 import { ExitIcon } from '@radix-ui/react-icons';
@@ -22,10 +22,12 @@ export default function LogoutButton(otps: {
   const { variant = 'default', padding = 'md' } = otps;
 
   const router = useRouter();
+  const pathname = usePathname();
+
   const handleLogout = async () => {
     try {
       await logout();
-      router.push('/login');
+      router.push(`/login?redirectUrl=${pathname}`);
     } catch (err) {
       toast.error('Failed to logout');
     }

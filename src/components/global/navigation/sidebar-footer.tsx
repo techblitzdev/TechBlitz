@@ -1,12 +1,13 @@
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
 import {
   SidebarFooter,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { useUser } from '@/hooks/use-user';
 import { Button } from '@/components/ui/button';
-import { getUserDisplayName } from '@/utils/user';
 import { ChevronUp } from 'lucide-react';
 import {
   DropdownMenu,
@@ -14,12 +15,26 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import Link from 'next/link';
 import LogoutButton from '@/components/auth/logout';
 import ProfilePicture from '@/components/ui/profile-picture';
 
-export default function SidebarFooterComponent() {
-  const { user } = useUser();
+import { UserRecord } from '@/types/User';
+import { getUserDisplayName } from '@/utils/user';
+
+/**
+/**
+ * Sidebar footer component
+ *
+ * @param opts - The options for the sidebar footer
+ * @returns The sidebar footer component
+ */
+export default function SidebarFooterComponent(opts: {
+  user: UserRecord | null;
+}) {
+  const { user } = opts;
+
+  // get the current route so we can add the redirectUrl to the login button
+  const pathname = usePathname();
 
   return (
     <SidebarFooter className="bg-[#000000] ">
@@ -36,38 +51,52 @@ export default function SidebarFooterComponent() {
             </Button>
           </SidebarMenuItem>
         )}
-        <SidebarMenuItem>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <SidebarMenuButton variant="default" className="text-white">
-                <ProfilePicture
-                  src={user?.userProfilePicture}
-                  alt="Profile Picture"
-                />
-                {user && getUserDisplayName(user)}
-                <ChevronUp className="ml-auto" />
-              </SidebarMenuButton>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-[#000] !text-white border-black-50">
-              <DropdownMenuItem>
-                <Link href="/upgrade" className="w-full">
-                  Upgrade
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href="/settings/profile" className="w-full">
-                  Profile
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href="/homepage">Homepage</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <LogoutButton variant="ghost" padding="none" />
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </SidebarMenuItem>
+        {/** if there is no user, we render a login button */}
+        {!user ? (
+          <SidebarMenuItem>
+            <Button
+              variant="accent"
+              fullWidth
+              className="mt-4"
+              href={`/login?redirectUrl=${pathname}`}
+            >
+              Login
+            </Button>
+          </SidebarMenuItem>
+        ) : (
+          <SidebarMenuItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <SidebarMenuButton variant="default" className="text-white">
+                  <ProfilePicture
+                    src={user?.userProfilePicture}
+                    alt="Profile Picture"
+                  />
+                  {user && getUserDisplayName(user)}
+                  <ChevronUp className="ml-auto" />
+                </SidebarMenuButton>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56 bg-[#000] !text-white border-black-50">
+                <DropdownMenuItem>
+                  <Link href="/upgrade" className="w-full">
+                    Upgrade
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/settings/profile" className="w-full">
+                    Profile
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/homepage">Homepage</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <LogoutButton variant="ghost" padding="none" />
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </SidebarMenuItem>
+        )}
       </SidebarMenu>
     </SidebarFooter>
   );

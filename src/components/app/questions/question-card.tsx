@@ -9,7 +9,6 @@ import QuestionCardLoading from '@/components/app/questions/question-card-loadin
 
 export default async function QuestionCard(opts: {
   questionData: QuestionWithoutAnswers;
-  userUid: string;
 }) {
   const { questionData } = opts;
 

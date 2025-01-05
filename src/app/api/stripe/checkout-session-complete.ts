@@ -35,8 +35,8 @@ export const checkoutSessionCompleted = async (event: Stripe.Event) => {
     // find the user via their email they have entered in the checkout session
     const user = await prisma.users.findFirst({
       where: {
-        email: userEmail
-      }
+        email: userEmail,
+      },
     });
 
     // we need the user in order to update their details
@@ -50,11 +50,11 @@ export const checkoutSessionCompleted = async (event: Stripe.Event) => {
     // update the user's userLevel to 'PREMIUM'
     await prisma.users.update({
       where: {
-        uid: userUid
+        uid: userUid,
       },
       data: {
-        userLevel: 'PREMIUM'
-      }
+        userLevel: 'PREMIUM',
+      },
     });
 
     const stripeSubscriptionId = session.id;
@@ -67,22 +67,22 @@ export const checkoutSessionCompleted = async (event: Stripe.Event) => {
     // update the user's subscription to active
     await prisma.subscriptions.update({
       where: {
-        userUid
+        userUid,
       },
       data: {
         active: true,
         stripeSubscriptionId,
         stripeCustomerId: session.customer as string,
-        updatedAt: new Date()
-      }
+        updatedAt: new Date(),
+      },
     });
 
     // send my self an email to notify me that a user has subscribed
     await resend.emails.send({
-      to: '',
+      to: 'team@techblitz.dev',
       from: 'team@techblitz.dev',
       subject: 'User subscribed',
-      text: `User ${userEmail}, has subscribed to TechBlitz premium.`
+      text: `User ${userEmail}, has subscribed to TechBlitz premium.`,
     });
 
     console.log('User subscribed:', userEmail);

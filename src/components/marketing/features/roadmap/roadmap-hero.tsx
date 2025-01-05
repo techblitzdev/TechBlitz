@@ -22,15 +22,13 @@ export default function FeatureRoadmapHeroBlock() {
             Learn more
             <ArrowDown size={16} className="ml-2" />
           </Button>
-          {process.env.NEXT_PUBLIC_ENV === 'development' && (
-            <Button
-              href="/signup?src=features-roadmap"
-              className="font-onest !bg-gradient-to-r !from-accent !via-accent/70 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
-            >
-              Try it now
-              <ChevronRight size={16} className="ml-2" />
-            </Button>
-          )}
+          <Button
+            href="/signup?src=features-roadmap"
+            className="font-onest !bg-gradient-to-r !from-accent !via-accent/70 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+          >
+            Try it now
+            <ChevronRight size={16} className="ml-2" />
+          </Button>
         </div>
       </div>
       <GridPattern

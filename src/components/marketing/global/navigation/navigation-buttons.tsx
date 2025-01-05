@@ -8,7 +8,6 @@ import GithubLogo from '@/components/ui/icons/github';
 
 export default function NavigationButtons() {
   const { user, isLoading } = useUser();
-  const isDevelopment = process.env.NEXT_PUBLIC_ENV === 'development';
   const isLoggedIn = Boolean(user?.email);
 
   if (isLoading) {
@@ -43,12 +42,15 @@ export default function NavigationButtons() {
   return (
     <div className="items-center gap-x-2 hidden lg:flex">
       <GithubStars hideText={false} />
+      <Button href="/login" variant="default">
+        Login
+      </Button>
       <Button
-        href={isDevelopment ? '/signup' : '#waitlist-form'}
+        href={'/signup'}
         variant="accent"
         className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
       >
-        {isDevelopment ? 'Get Started' : 'Join the Waitlist'}
+        Get started
         <ArrowRight className="ml-2 size-4" />
       </Button>
     </div>
@@ -70,7 +72,7 @@ export function GithubStars(opts: { hideText?: boolean }) {
           <GithubLogo />
         </div>
         {!hideText && (
-          <span className="font-medium hidden lg:block">Star us</span>
+          <span className="font-medium hidden xl:block">Star us</span>
         )}
       </div>
     </Button>

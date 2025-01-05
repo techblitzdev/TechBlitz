@@ -25,9 +25,9 @@ export const getRandomQuestion = async (opts: {
     question = await prisma.$queryRaw`
       SELECT q.uid 
       FROM "Questions" q
-      LEFT JOIN "UserAnswers" ua 
+      LEFT JOIN "QuestionAnswers" ua 
         ON ua."questionUid" = q.uid 
-        AND ua."userUid" = ${user.uid}
+        AND ua."uid" = ${user.uid}
       WHERE q.uid != ${currentQuestionUid}
         AND ua.uid IS NULL
       ORDER BY RANDOM()

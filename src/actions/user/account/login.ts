@@ -52,6 +52,7 @@ export const login = async (opts: { email: string; password: string }) => {
           createdAt: new Date(),
           updatedAt: new Date(),
           lastLogin: new Date(),
+          userLevel: 'FREE',
         },
       });
     } else {
@@ -71,6 +72,8 @@ export const login = async (opts: { email: string; password: string }) => {
     return user.user;
   } catch (error) {
     console.error('Database error:', error);
-    throw error;
+    return {
+      error,
+    };
   }
 };

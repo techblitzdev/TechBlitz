@@ -13,18 +13,20 @@ export const sendLiveEmail = async () => {
     },
   });
 
-  // render the email
-  const html = await renderAsync(
-    React.createElement(WaitlistAnnouncementEmail, {
-      email: 'team@techblitz.dev',
-    })
-  );
+  // loop through each user and send them an email
+  for (const user of waitlistUsers) {
+    const html = await renderAsync(
+      React.createElement(WaitlistAnnouncementEmail, {
+        email: user.email,
+      })
+    );
 
-  // TESTING
-  await resend.emails.send({
-    from: 'team@techblitz.dev',
-    to: 'logan@hiyield.co.uk',
-    subject: 'TechBlitz is live!',
-    html,
-  });
+    // send the user the email
+    await resend.emails.send({
+      from: 'team@techblitz.dev',
+      to: user.email,
+      subject: 'TechBlitz is live!',
+      html,
+    });
+  }
 };

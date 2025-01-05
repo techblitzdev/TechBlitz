@@ -8,7 +8,7 @@ import { cn } from '@/utils/cn';
 type ButtonElementProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 type AnchorElementProps = React.LinkHTMLAttributes<LinkProps>;
 
-interface ButtonProps extends VariantProps<typeof buttonVariants> {
+export interface ButtonProps extends VariantProps<typeof buttonVariants> {
   href?: string;
   asChild?: boolean;
   special?: boolean;

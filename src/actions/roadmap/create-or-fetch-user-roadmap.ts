@@ -2,7 +2,7 @@
 import { prisma } from '@/utils/prisma';
 import { getUser } from '../user/authed/get-user';
 
-export const createOrFetchUserRoadmap = async (opts: { userUid: string }) => {
+export const createOrFetchUserRoadmap = async () => {
   const user = await getUser();
   const userUid = user?.uid;
 

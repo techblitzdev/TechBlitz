@@ -27,9 +27,7 @@ export default async function RoadmapOnboardingModal() {
     'use server';
     try {
       // create a new roadmap record for the user
-      const roadmap = await createOrFetchUserRoadmap({
-        userUid: user?.uid,
-      });
+      const roadmap = await createOrFetchUserRoadmap();
       // redirect the user to the new page
       redirect(`/roadmap/${roadmap.uid}/onboarding/1`);
     } catch (error) {

@@ -5,7 +5,7 @@ import { BookOpen, FileText } from 'lucide-react';
 
 export default function Loading() {
   const leftContent = (
-    <div className="flex flex-col gap-y-4 pl-6 p-3">
+    <div className="flex flex-col gap-y-4 lg:pl-6 p-3">
       <div className="bg-black border border-black-50 rounded-xl overflow-hidden">
         {/** Question Card Header */}
         <div className="p-4 bg-black-25 flex justify-between">
@@ -58,7 +58,7 @@ export default function Loading() {
   );
 
   const rightContent = (
-    <div className="flex flex-col gap-4 pr-6 p-3">
+    <div className="flex flex-col gap-4 lg:pr-6 p-3">
       <div className="h-[45rem] bg-black-75 border border-black-50 rounded-xl overflow-hidden">
         <div className="p-4 bg-black-25">
           <Skeleton className="h-5 w-20" />

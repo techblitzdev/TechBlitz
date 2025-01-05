@@ -33,7 +33,7 @@ export default async function TodaysQuestionPage({
   }
 
   const leftContent = (
-    <div className="flex flex-col gap-y-4 pl-6 p-3">
+    <div className="flex flex-col gap-y-4 lg:pl-6 p-3">
       <QuestionCard
         question={question}
         user={user}
@@ -43,7 +43,7 @@ export default async function TodaysQuestionPage({
   );
 
   const rightContent = (
-    <div className="flex flex-col gap-4 pr-6 p-3">
+    <div className="flex flex-col gap-4 lg;pr-6 p-3">
       <div
         id="code-snippet"
         className="h-fit lg:h-[45rem] bg-black-75 border border-black-50 rounded-xl relative overflow-hidden"

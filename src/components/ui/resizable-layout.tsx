@@ -14,6 +14,7 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
   initialLeftWidth = 50,
 }) => {
   const [leftWidth, setLeftWidth] = useState(initialLeftWidth);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const resizerRef = useRef<HTMLDivElement>(null);
 
@@ -28,7 +29,8 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
       const containerRect = containerRef.current.getBoundingClientRect();
       const newLeftWidth =
         ((e.clientX - containerRect.left) / containerRect.width) * 100;
-      setLeftWidth(Math.min(Math.max(newLeftWidth, 30), 70));
+      const clampedWidth = Math.min(Math.max(newLeftWidth, 30), 70);
+      setLeftWidth(clampedWidth);
     }
   }, []);
 

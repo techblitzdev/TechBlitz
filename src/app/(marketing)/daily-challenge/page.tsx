@@ -7,6 +7,7 @@ import { ChartColumn, User } from 'lucide-react';
 import QuestionDisplay from '@/components/app/questions/single/code-snippet';
 import FeedbackButton from '@/components/ui/feedback-button';
 import { createMetadata } from '@/utils';
+
 import ResizableLayout from '@/components/ui/resizable-layout';
 
 export const metadata = createMetadata({
@@ -61,7 +62,7 @@ export default async function MarketingQuestionPage() {
         )}
       </div>
 
-      {/* Stats Card */}
+      {/* Stats Card - Mobile */}
       <div className="bg-black-75 border border-black-50 rounded-xl overflow-hidden">
         <div className="flex items-center gap-x-1 p-4 bg-black-25">
           <ChartColumn className="size-4" />

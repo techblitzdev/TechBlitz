@@ -61,7 +61,10 @@ const WaitlistAnnouncementEmail = ({
             <Text style={couponText}>50% off lifetime premium access</Text>
           </Section>
           <Section style={buttonContainer}>
-            <Link href="https://techblitz.dev/signup" style={button}>
+            <Link
+              href={`https://techblitz.dev/signup?email=${email}`}
+              style={button}
+            >
               Sign Up Now!
             </Link>
           </Section>

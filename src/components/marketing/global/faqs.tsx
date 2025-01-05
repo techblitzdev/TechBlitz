@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/accordion';
 import AnimatedSpan from '@/components/ui/animated-span';
 
-export interface FAQ {
+interface FAQ {
   question: string;
   answer: string | React.ReactNode;
 }

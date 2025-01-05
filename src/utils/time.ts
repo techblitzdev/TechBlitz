@@ -1,13 +1,10 @@
-export const convertSecondsToTime = (seconds: number) => {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-
-  return {
-    minutes,
-    seconds: remainingSeconds,
-  };
-};
-
+/**
+ * Formats seconds into a human readable string.
+ *
+ * @param seconds - The number of seconds to format.
+ * @param shortForm - Whether to use short form (e.g. "m" instead of "minute").
+ * @returns A string representing the formatted time.
+ */
 export const formatSeconds = (seconds: number, shortForm?: boolean) => {
   if (seconds < 0) {
     return 'Invalid input';

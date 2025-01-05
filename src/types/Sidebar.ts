@@ -11,7 +11,7 @@ export interface SidebarItem {
   tooltip?: string;
 }
 
-export interface SidebarGroupItem {
+interface SidebarGroupItem {
   groupLabel: string;
 }
 

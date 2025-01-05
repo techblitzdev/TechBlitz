@@ -8,7 +8,7 @@ import type { StatsChartData } from '@/components/app/statistics/total-question-
  *
  * @returns 'development' | 'production' | 'test'
  */
-export const getEnv = () => process.env.NODE_ENV;
+const getEnv = () => process.env.NODE_ENV;
 
 export const getBaseUrl = () => {
   const publicRootDomain = process.env.NEXT_PUBLIC_URL || '';

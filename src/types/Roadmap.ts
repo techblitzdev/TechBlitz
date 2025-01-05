@@ -2,7 +2,7 @@ import { BaseRecord } from './BaseRecord';
 import { QuestionDifficulty } from './Questions';
 import { User } from './User';
 
-export type RoadmapStatus = 'ACTIVE' | 'COMPLETED' | 'ARCHIVED' | 'CREATING';
+type RoadmapStatus = 'ACTIVE' | 'COMPLETED' | 'ARCHIVED' | 'CREATING';
 
 // Main roadmap associated with a user
 export interface UserRoadmaps extends BaseRecord {
@@ -70,7 +70,7 @@ export interface RoadmapUserQuestionsAnswers extends BaseRecord {
 }
 
 // User-provided answers to roadmap questions
-export interface RoadmapUserQuestionsUserAnswers extends BaseRecord {
+interface RoadmapUserQuestionsUserAnswers extends BaseRecord {
   // Connects to the associated roadmap question
   questionUid: string;
   // Relation to the RoadmapUserQuestions type
@@ -102,7 +102,7 @@ export interface DefaultRoadmapQuestions extends BaseRecord {
 }
 
 // User answers to the default roadmap questions
-export interface DefaultRoadmapQuestionsAnswers extends BaseRecord {
+interface DefaultRoadmapQuestionsAnswers extends BaseRecord {
   // Connects to the associated default question
   questionUid: string;
   // User-provided answer text
@@ -110,7 +110,7 @@ export interface DefaultRoadmapQuestionsAnswers extends BaseRecord {
 }
 
 // User-specific answers to default roadmap questions
-export interface DefaultRoadmapQuestionsUsersAnswers extends BaseRecord {
+interface DefaultRoadmapQuestionsUsersAnswers extends BaseRecord {
   // Connects to the associated default question
   questionUid: string;
   // Relation to the DefaultRoadmapQuestions type

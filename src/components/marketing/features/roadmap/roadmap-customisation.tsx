@@ -3,7 +3,7 @@ import AnimatedSpan from '@/components/ui/animated-span';
 
 import { RoadmapUserQuestions } from '@/types/Roadmap';
 
-export const dummyQuestions: Partial<RoadmapUserQuestions>[] = [
+const dummyQuestions: Partial<RoadmapUserQuestions>[] = [
   {
     uid: 'question-1',
     question: 'What is the time complexity of binary search?',
@@ -41,9 +41,9 @@ export const dummyQuestions: Partial<RoadmapUserQuestions>[] = [
   },
 ];
 
-export const dummyRoadmapUid = 'roadmap-12345';
+const dummyRoadmapUid = 'roadmap-12345';
 
-export const dummyTotalQuestions = dummyQuestions.length;
+const dummyTotalQuestions = dummyQuestions.length;
 
 export default function FeatureRoadmapCustomizationBlock() {
   return (

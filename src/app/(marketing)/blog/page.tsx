@@ -1,7 +1,7 @@
 import { cn } from '@/utils/cn';
 import { getBlogPosts } from '@/lib/blog';
 
-import { GridPattern } from '@/components/ui/grid-pattern';
+import GridPattern from '@/components/ui/grid-pattern';
 import { Button } from '@/components/ui/button';
 import BlogCard from '@/components/marketing/resources/blog/blog-card';
 import { createMetadata } from '@/utils';

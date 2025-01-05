@@ -1,8 +1,6 @@
-import QuestionTabs from '@/components/app/questions/resources/question-tabs';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
-import { TabsList } from '@/components/ui/tabs';
-import { Tabs, TabsTrigger } from '@/components/ui/tabs';
+import { TabsList, Tabs, TabsTrigger } from '@/components/ui/tabs';
 import { BookOpen, FileText } from 'lucide-react';
 
 export default function Loading() {

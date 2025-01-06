@@ -82,8 +82,8 @@ export const ResetPasswordEmail = ({
             </Text>
             <Text style={footerText}>
               If you have any questions, please contact our support team at{' '}
-              <Link href="mailto:support@techblitz.com" style={footerLink}>
-                team@techblitz.com
+              <Link href="mailto:team@techblitz.dev" style={footerLink}>
+                team@techblitz.dev
               </Link>
             </Text>
           </Section>

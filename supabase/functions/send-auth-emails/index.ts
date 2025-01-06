@@ -5,11 +5,15 @@ import { renderAsync } from '@react-email/components';
 import { MagicLinkEmail } from './_templates/magic-link.tsx';
 import { TechBlitzSignUpEmail } from './_templates/sign-up.tsx';
 import { ResetPasswordEmail } from './_templates/reset-password.tsx';
+import { EmailChangeEmail } from './_templates/email-change.tsx';
 const resend = new Resend(Deno.env.get('RESEND_API_KEY') as string);
 const hookSecret = Deno.env.get('SEND_EMAIL_HOOK_SECRET') as string;
 const supabaseUrl = Deno.env.get('NEXT_PUBLIC_SUPABASE_URL') as string;
+const updateUserRedirectUrl = Deno.env.get(
+  'UPDATE_USER_REDIRECT_URL'
+) as string;
 
-Deno.serve(async (req) => {
+Deno.serve(async (req: Request): Promise<Response> => {
   if (req.method !== 'POST') {
     return new Response('not allowed', { status: 400 });
   }
@@ -80,8 +84,19 @@ Deno.serve(async (req) => {
         })
       );
       subject = 'Reset your password';
+    } else if (email_action_type === 'email_change') {
+      const redirect_to_url = `${redirect_to}/dashboard`;
+      html = await renderAsync(
+        React.createElement(EmailChangeEmail, {
+          username: user['user_metadata'].username,
+          redirect_to: `${supabaseUrl}/auth/v1/verify?token=${token_hash}&type=email_change&redirect_to=${redirect_to_url}`,
+        })
+      );
+      subject = 'Email Address Updated';
     } else {
-      throw new Error('Invalid email action type');
+      return new Response(`email action type not found: ${email_action_type}`, {
+        status: 400,
+      });
     }
 
     const { error } = await resend.emails.send({

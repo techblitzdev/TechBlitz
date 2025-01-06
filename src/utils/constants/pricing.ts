@@ -80,6 +80,55 @@ export const getPlans = (user: UserRecord | null) => [
     mostPopular: false,
     disabled: user?.userLevel === 'PREMIUM',
   },
+  {
+    id: 'lifetime',
+    name: 'Lifetime',
+    price: 39.99,
+    currencySymbol: '$',
+    frequency: 'once',
+    frequencyText: 'pay once, yours forever',
+    features: [
+      {
+        name: 'Daily question',
+      },
+      {
+        name: 'Compete with other users everyday',
+      },
+      {
+        name: `Access to ${QUESTIONS_COUNT}+ questions (more being added every day!)`,
+      },
+      {
+        name: 'In depth stats and progress tracking',
+      },
+      {
+        name: "Top user's entered into weekly prize draws",
+      },
+      {
+        name: '10 Bespoke learning plans and progression frameworks',
+      },
+      {
+        name: 'Access to upcoming beta features',
+      },
+      {
+        name: 'Priority support',
+      },
+      {
+        name: 'No recurring payments',
+      },
+    ],
+    paymentLink: {
+      local: 'https://buy.stripe.com/cN229C4Es4qY5fqdQV',
+      production: 'https://buy.stripe.com/cN229C4Es4qY5fqdQV',
+    },
+    cta: {
+      text: user?.userLevel === 'PREMIUM' ? 'Current plan' : 'Get started',
+      href: {
+        local: 'https://buy.stripe.com/cN229C4Es4qY5fqdQV',
+        production: 'https://buy.stripe.com/cN229C4Es4qY5fqdQV',
+      },
+    },
+    mostPopular: true,
+  },
 ];
 
 export type Plan = ReturnType<typeof getPlans>[number];

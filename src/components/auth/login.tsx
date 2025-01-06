@@ -69,9 +69,6 @@ export default function LoginForm() {
       }
     } catch (error) {
       console.error(error);
-      if (error instanceof Error) {
-        toast.error(error.message);
-      }
     } finally {
       isPending.current = false;
     }

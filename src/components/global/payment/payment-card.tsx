@@ -21,8 +21,9 @@ export function PricingCard(opts: {
   const { product, isLoading } = opts;
 
   // get the payment link depending on if this is local env or production
-  const paymentLink =
-    process.env.NODE_ENV === 'development'
+  const paymentLink = !product.price
+    ? '/sign-up'
+    : process.env.NODE_ENV === 'development'
       ? typeof product.cta.href === 'object'
         ? product.cta.href.local
         : product.cta.href
@@ -35,7 +36,7 @@ export function PricingCard(opts: {
       key={product.id}
       className="
         flex flex-col p-3 pt-5 md:p-8 border border-black-50
-        w-full md:w-1/2 lg:w-1/3 justify-between relative rounded-xl md:min-h-full h-full
+        w-full lg:w-1/3 justify-between relative rounded-xl md:min-h-full h-full
         transition-all duration-300 ease-in-out
       "
       whileHover={{ scale: 1.02 }}
@@ -54,7 +55,7 @@ export function PricingCard(opts: {
               </div>
             )}
           </div>
-          <div className="flex gap-x-1 items-end mt-2">
+          <div className="flex gap-x-1 items-center lg:items-end mt-2">
             <div className="flex gap-x-1 items-center font-onest text-gradient from-white to-white/75">
               <span className="text-lg font-semibold">
                 {product.currencySymbol}
@@ -91,7 +92,9 @@ export function PricingCard(opts: {
             {isLoading ? (
               <ReloadIcon className="size-5 animate-spin" />
             ) : (
-              <div className="font-satoshi">{product.cta.text}</div>
+              <div className="font-satoshi">
+                {!product.price ? 'Sign up' : product.cta.text}
+              </div>
             )}
           </Button>
         </div>

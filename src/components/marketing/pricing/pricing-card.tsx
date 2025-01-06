@@ -8,12 +8,8 @@ import { Plan } from '@/utils/constants/pricing';
 export default function PricingCard(opts: { product: Plan }) {
   const { product } = opts;
 
-  const isProd = process.env.NEXT_PUBLIC_ENV === 'production';
   const paymentLink = product?.paymentLink;
   const isFree = !product.price;
-  // if we are on prod, do not show the payment link
-  // if it is free, then link to the signup page
-  const href = isProd ? '#' : paymentLink || '#';
 
   return (
     <Card
@@ -30,7 +26,7 @@ export default function PricingCard(opts: { product: Plan }) {
           <div className="text-sm text-white font-onest flex gap-x-2">
             <p>{product.name}</p>
           </div>
-          <div className="flex gap-x-1 items-end mt-2">
+          <div className="flex gap-x-1 items-center lg:items-end mt-2">
             <div className="flex gap-x-1 items-center font-onest text-gradient from-white to-white/75">
               <span className="text-lg font-semibold">
                 {product.currencySymbol}
@@ -50,13 +46,8 @@ export default function PricingCard(opts: { product: Plan }) {
           features={product.features}
           productId={product.id}
         />
-        <Button
-          fullWidth
-          variant="secondary"
-          href={typeof href === 'string' ? href : href.production}
-          disabled={isProd}
-        >
-          {isFree ? 'Sign up' : 'Get started'} {isProd ? '(soon)' : ''}
+        <Button fullWidth variant="secondary" href={'/signup'}>
+          {isFree ? 'Sign up' : 'Get started'}
         </Button>
       </CardContent>
     </Card>

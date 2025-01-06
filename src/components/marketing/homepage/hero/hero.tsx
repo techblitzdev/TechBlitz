@@ -17,7 +17,7 @@ export default async function HomepageHero() {
   return (
     <section
       id="#waitlist-form"
-      className="pb-6 pt-28 md:pb-8 md:pt-32 xl:pb-20 xl:pt-56 grid grid-cols-12 gap-4 lg:gap-16 items-center"
+      className="pb-16 pt-28 md:pb-20 md:pt-32 xl:pb-40 xl:pt-56 grid grid-cols-12 gap-4 lg:gap-16 items-center"
     >
       <div className="flex flex-col gap-y-4 col-span-full items-center text-center">
         <Link href="/signup">

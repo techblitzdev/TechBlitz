@@ -2,6 +2,7 @@ import { type EmailOtpType } from '@supabase/supabase-js';
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { createClient } from '@/utils/supabase/server';
+import { prisma } from '@/utils/prisma';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -42,39 +43,20 @@ export async function GET(request: NextRequest) {
       // get the current user from the supabase client
       const { data: userSession } = await supabase.auth.getUser();
 
-      console.log(userSession);
+      // check if we have the user in the db and if not, create them
+      const existingUser = await prisma.users.findUnique({
+        where: { uid: userSession.user?.id },
+      });
 
-      if (userSession.user) {
-        // if the OTP is verified, check the user has been added to the db
-        // const user = await prisma.user.findFirst({
-        //   where: {
-        //     uid: userSession.user.id
-        //   }
-        // });
-        // if the user is not in the db, add them
-        //if (!user && userSession.user.email) {
-        // await prisma.user.create({
-        //   data: {
-        //     uid: userSession.user.id,
-        //     email: userSession.user.email,
-        //     createdAt: new Date(),
-        //     updatedAt: new Date(),
-        //     firstName: '',
-        //     lastName: '',
-        //     hasAuthenticatedEmail: true
-        //   }
-        // });
-        //} else {
-        // if the user is in the db, update the hasAuthenticatedEmail field
-        // await prisma.user.update({
-        //   where: {
-        //     uid: userSession.user.id
-        //   },
-        //   data: {
-        //     hasAuthenticatedEmail: true
-        //   }
-        // });
-        //}
+      if (!existingUser) {
+        await prisma.users.create({
+          data: {
+            uid: userSession.user?.id ?? '',
+            email: userSession.user?.email ?? '',
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+        });
       }
 
       // redirect the user to the next page

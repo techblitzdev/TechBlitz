@@ -13,18 +13,7 @@ import CallToActionBlock from '@/components/marketing/global/call-to-action-bloc
 
 import DashboardImg from '../../public/images/dashboard-img.png';
 
-import posthog from 'posthog-js';
-import { prisma } from '@/utils/prisma';
-import SocialProof from '@/components/marketing/global/social-proof';
-
-export default async function AuthedPage() {
-  posthog.capture('page_view', { page_name: 'Landing Page' });
-
-  const count = await prisma.users.count();
-
-  // round to the nearest 10
-  const roundedCount = Math.round(count / 10) * 10;
-
+export default async function Page() {
   const homepageHeroImg = DashboardImg;
   const homepageHeroIframe =
     'https://customer-8s5ov2shcw99ezk2.cloudflarestream.com/ff823c820a5dc793c091f43ebae09d63/iframe?poster=https%3A%2F%2Fcustomer-8s5ov2shcw99ezk2.cloudflarestream.com%2Fff823c820a5dc793c091f43ebae09d63%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600';
@@ -34,7 +23,6 @@ export default async function AuthedPage() {
       <div className="z-30">
         <div className="container">
           <HomepageHero />
-          <SocialProof userCount={roundedCount} />
           <HomepageHeroImages
             imageSrc={homepageHeroImg}
             videoSrc={homepageHeroIframe}

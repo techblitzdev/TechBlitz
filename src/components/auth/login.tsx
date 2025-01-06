@@ -32,7 +32,7 @@ export default function LoginForm() {
   // get the redirectUrl from the url
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get('redirectUrl');
-  const onboarding = searchParams.get('onboarding');
+  const onboarding = searchParams.get('onboarding') === 'true';
 
   const router = useRouter();
   const isPending = useRef(false);
@@ -149,7 +149,7 @@ export default function LoginForm() {
         <form
           onSubmit={async (event) => {
             event.preventDefault();
-            await oauth('github');
+            await oauth('github', onboarding);
           }}
         >
           <Button type="submit" variant="ghost" padding="md">
@@ -159,7 +159,7 @@ export default function LoginForm() {
         <form
           onSubmit={async (event) => {
             event.preventDefault();
-            await oauth('discord');
+            await oauth('discord', onboarding);
           }}
         >
           <Button type="submit" variant="ghost" padding="md">

@@ -1,24 +1,39 @@
 import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
 
-import FilterChips from '@/components/global/filters/chips';
+const FilterChips = dynamic(() => import('@/components/global/filters/chips'), {
+  ssr: false,
+});
+
+const Filter = dynamic(() => import('@/components/global/filters/filter'), {
+  ssr: false,
+});
+
+const QuestionsList = dynamic(
+  () => import('@/components/app/questions/questions-list'),
+  {
+    ssr: false,
+    loading: () => <LoadingSpinner />,
+  }
+);
+
 import Hero from '@/components/global/hero';
 import QuestionPageSidebar from '@/components/app/questions/question-page-sidebar';
-import Filter from '@/components/global/filters/filter';
 import QuestionPageSidebarLoading from '@/components/app/questions/question-page-sidebar-loading';
-import QuestionsList from '@/components/app/questions/questions-list';
 
 import { useUserServer } from '@/hooks/use-user-server';
 import { validateSearchParams } from '@/utils/search-params';
 import { parseSearchParams } from '@/utils/search-params';
 import { getTags } from '@/actions/questions/tags/get-tags';
+import LoadingSpinner from '@/components/ui/loading';
 
 export default async function QuestionsDashboard({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const user = await useUserServer();
-  const tags = await getTags();
+  // Fetch data in parallel using Promise.all
+  const [user, tags] = await Promise.all([useUserServer(), getTags()]);
 
   const filters = parseSearchParams(searchParams);
   if (!validateSearchParams(filters)) return null;
@@ -31,8 +46,12 @@ export default async function QuestionsDashboard({
       />
       <div className="md:container flex flex-col lg:flex-row mt-5 gap-16">
         <div className="w-full lg:min-w-[55%] space-y-6">
-          <Filter tags={tags} />
-          <FilterChips />
+          <div className="min-h-[84px]">
+            <Suspense fallback={<LoadingSpinner />}>
+              <Filter tags={tags} />
+              <FilterChips />
+            </Suspense>
+          </div>
           <QuestionsList
             user={user}
             currentPage={filters.page}

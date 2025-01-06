@@ -1,11 +1,26 @@
 import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
+
+const FilterChips = dynamic(() => import('@/components/global/filters/chips'), {
+  ssr: false,
+});
+
+const Filter = dynamic(() => import('@/components/global/filters/filter'), {
+  ssr: false,
+});
+
+const QuestionsList = dynamic(
+  () => import('@/components/app/questions/questions-list'),
+  {
+    ssr: false,
+    loading: () => <LoadingSpinner />,
+  }
+);
 
 import QuestionPageSidebar from '@/components/app/questions/question-page-sidebar';
 import Hero from '@/components/global/hero';
-import Filter from '@/components/global/filters/filter';
-import FilterChips from '@/components/global/filters/chips';
 import QuestionPageSidebarLoading from '@/components/app/questions/question-page-sidebar-loading';
-import QuestionsList from '@/components/app/questions/questions-list';
+import LoadingSpinner from '@/components/ui/loading';
 
 import { useUserServer } from '@/hooks/use-user-server';
 import { validateSearchParams } from '@/utils/search-params';
@@ -32,8 +47,12 @@ export default async function PreviousQuestionsPage({
       <div className="flex flex-col h-full justify-between container mt-5">
         <div className="flex flex-col lg:flex-row w-full gap-16">
           <div className="w-full lg:min-w-[55%] space-y-6">
-            <Filter tags={tags} />
-            <FilterChips />
+            <div className="min-h-[84px]">
+              <Suspense fallback={<LoadingSpinner />}>
+                <Filter tags={tags} />
+                <FilterChips />
+              </Suspense>
+            </div>
             <QuestionsList
               user={user}
               currentPage={filters.page}

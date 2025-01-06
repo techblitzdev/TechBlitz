@@ -1,5 +1,6 @@
 'use server';
 
+import { unstable_cache } from 'next/cache';
 import { prisma } from '@/utils/prisma';
 import type {
   Question,
@@ -39,136 +40,150 @@ export const listQuestions = async (
     previousQuestions = false,
   } = opts;
 
-  const skip = (page - 1) * pageSize;
+  return unstable_cache(
+    async () => {
+      const skip = (page - 1) * pageSize;
 
-  // Always get the authenticated user when dealing with custom questions
-  let authenticatedUser = null;
-  if (customQuestions) {
-    authenticatedUser = await getUser();
+      // Always get the authenticated user when dealing with custom questions
+      let authenticatedUser = null;
+      if (customQuestions) {
+        authenticatedUser = await getUser();
 
-    if (!authenticatedUser || authenticatedUser.uid !== userUid) {
-      throw new Error('Unauthorized access to custom questions');
-    }
-  }
+        if (!authenticatedUser || authenticatedUser.uid !== userUid) {
+          throw new Error('Unauthorized access to custom questions');
+        }
+      }
 
-  // Base where clause
-  const baseWhereClause: any = {
-    AND: [
-      // Difficulty filter
-      filters?.difficulty
-        ? {
-            difficulty: filters.difficulty.toUpperCase() as QuestionDifficulty,
-          }
-        : {},
+      // Base where clause
+      const baseWhereClause: any = {
+        AND: [
+          // Difficulty filter
+          filters?.difficulty
+            ? {
+                difficulty:
+                  filters.difficulty.toUpperCase() as QuestionDifficulty,
+              }
+            : {},
 
-      // Completion filter
-      filters?.completed === true
-        ? {
-            userAnswers: {
-              some: {
-                userUid,
-              },
-            },
-          }
-        : filters?.completed === false
-          ? {
-              userAnswers: {
-                none: {
-                  userUid,
-                },
-              },
-            }
-          : {},
-
-      // Tags filter
-      filters?.tags?.length
-        ? {
-            tags: {
-              some: {
-                tag: {
-                  name: {
-                    in: filters.tags,
+          // Completion filter
+          filters?.completed === true
+            ? {
+                userAnswers: {
+                  some: {
+                    userUid,
                   },
                 },
-              },
-            },
-          }
-        : {},
+              }
+            : filters?.completed === false
+              ? {
+                  userAnswers: {
+                    none: {
+                      userUid,
+                    },
+                  },
+                }
+              : {},
 
-      // Date constraints
-      previousQuestions
-        ? {
-            questionDate: {
-              lte: new Date().toISOString(),
-            },
-            dailyQuestion: true,
-          }
-        : {
-            questionDate: {
-              lte: new Date().toISOString(),
+          // Tags filter
+          filters?.tags?.length
+            ? {
+                tags: {
+                  some: {
+                    tag: {
+                      name: {
+                        in: filters.tags,
+                      },
+                    },
+                  },
+                },
+              }
+            : {},
+
+          // Date constraints
+          previousQuestions
+            ? {
+                questionDate: {
+                  lte: new Date().toISOString(),
+                },
+                dailyQuestion: true,
+              }
+            : {
+                questionDate: {
+                  lte: new Date().toISOString(),
+                },
+              },
+        ],
+      };
+
+      // Add custom questions filter
+      if (customQuestions) {
+        baseWhereClause.AND.push({
+          customQuestion: true,
+          linkedReports: {
+            some: {
+              userUid: userUid,
             },
           },
-    ],
-  };
+        });
+      } else {
+        baseWhereClause.AND.push({
+          customQuestion: false,
+        });
+      }
 
-  // Add custom questions filter
-  if (customQuestions) {
-    baseWhereClause.AND.push({
-      customQuestion: true,
-      linkedReports: {
-        some: {
-          userUid: userUid,
+      // Fetch questions with security constraints
+      const questions = await prisma.questions.findMany({
+        skip,
+        take: pageSize,
+        orderBy: {
+          questionDate: filters?.ascending ? 'asc' : 'desc',
         },
-      },
-    });
-  } else {
-    baseWhereClause.AND.push({
-      customQuestion: false,
-    });
-  }
-
-  // Fetch questions with security constraints
-  const questions = await prisma.questions.findMany({
-    skip,
-    take: pageSize,
-    orderBy: {
-      questionDate: filters?.ascending ? 'asc' : 'desc',
-    },
-    where: baseWhereClause,
-    include: {
-      tags: {
+        where: baseWhereClause,
         include: {
-          tag: true,
+          tags: {
+            include: {
+              tag: true,
+            },
+          },
+          linkedReports: {
+            select: {
+              userUid: true,
+            },
+            where: {
+              userUid,
+            },
+          },
         },
-      },
-      linkedReports: {
-        select: {
-          userUid: true,
-        },
-        where: {
-          userUid,
-        },
-      },
+      });
+
+      // Transform the questions
+      const transformedQuestions = getTagsFromQuestion(
+        questions.filter((question) => {
+          if (!question.customQuestion) return true;
+          return question.linkedReports.length > 0;
+        }) as Question[]
+      );
+
+      // Get total count with same security constraints
+      const total = await prisma.questions.count({
+        where: baseWhereClause,
+      });
+      return {
+        questions: transformedQuestions as
+          | Question[]
+          | QuestionWithoutAnswers[],
+        total,
+        page,
+        pageSize,
+        totalPages: Math.ceil(total / pageSize),
+      };
     },
-  });
-
-  // Transform the questions
-  const transformedQuestions = getTagsFromQuestion(
-    questions.filter((question) => {
-      if (!question.customQuestion) return true;
-      return question.linkedReports.length > 0;
-    }) as Question[]
-  );
-
-  // Get total count with same security constraints
-  const total = await prisma.questions.count({
-    where: baseWhereClause,
-  });
-  return {
-    questions: transformedQuestions as Question[] | QuestionWithoutAnswers[],
-    total,
-    page,
-    pageSize,
-    totalPages: Math.ceil(total / pageSize),
-  };
+    [
+      `questions-list-${userUid}-${page}-${pageSize}-${JSON.stringify(filters)}-${customQuestions}-${previousQuestions}`,
+    ],
+    {
+      revalidate: 60, // Cache for 1 minute
+      tags: ['questions-list'],
+    }
+  )();
 };

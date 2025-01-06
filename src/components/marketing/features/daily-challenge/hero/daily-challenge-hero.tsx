@@ -1,9 +1,12 @@
+import { getTodaysQuestion } from '@/actions/questions/get-today';
 import AnimatedSpan from '@/components/ui/animated-span';
 import { Button } from '@/components/ui/button';
 import GridPattern from '@/components/ui/grid-pattern';
 import { cn } from '@/utils/cn';
 
-export default function FeatureDailyChallengeHero() {
+export default async function FeatureDailyChallengeHero() {
+  const dailyQuestion = await getTodaysQuestion();
+
   return (
     <section className="relative flex gap-10 text-white overflow-hidden justify-center">
       <div className="flex flex-col gap-y-6 w-full xl:w-2/5 pt-32 lg:pt-52 pb-8 lg:pb-36 z-10 items-center">
@@ -28,7 +31,7 @@ export default function FeatureDailyChallengeHero() {
             <Button
               variant="default"
               className="flex items-center gap-2"
-              href={`/daily-challenge`}
+              href={`/question/${dailyQuestion?.uid}`}
             >
               Answer today's challenge
             </Button>

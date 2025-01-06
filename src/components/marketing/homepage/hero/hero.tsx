@@ -39,9 +39,6 @@ export default async function HomepageHero() {
           exceptional software engineer.
         </h6>
         {dailyQuestion && <SignupForm todayQuestion={dailyQuestion} />}
-        <div className="flex flex-col gap-y-4 items-center">
-          <p className="text-gray-400 text-sm">No credit card required.</p>
-        </div>
       </div>
     </section>
   );

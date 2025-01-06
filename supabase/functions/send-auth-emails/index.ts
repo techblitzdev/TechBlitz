@@ -50,7 +50,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
     let from: string = 'TechBlitz <team@techblitz.dev>';
 
     if (email_action_type === 'signup') {
-      const redirect_to_url = `${redirect_to}/login`;
+      const redirect_to_url = `${redirect_to}/login?onboarding=true`;
       from = 'welcome <team@techblitz.dev>';
       html = await renderAsync(
         React.createElement(TechBlitzSignUpEmail, {

@@ -1,5 +1,5 @@
 'use client';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 // components
 import { Button } from '@/components/ui/button';
 import {
@@ -37,6 +37,12 @@ export default function LoginForm() {
   const router = useRouter();
   const isPending = useRef(false);
 
+  useEffect(() => {
+    if (onboarding) {
+      localStorage.setItem('onboarding', 'true');
+    }
+  }, [onboarding]);
+
   const form = useForm<SchemaProps>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -58,7 +64,7 @@ export default function LoginForm() {
 
       // check if we have the 'onboarding' key in local storage
       // if we do, redirect to the onboarding page
-      if (localStorage.getItem('onboarding') || onboarding) {
+      if (localStorage.getItem('onboarding')) {
         router.push('/onboarding');
         return;
       }

@@ -8,7 +8,6 @@ import { Plan } from '@/utils/constants/pricing';
 export default function PricingCard(opts: { product: Plan }) {
   const { product } = opts;
 
-  const paymentLink = product?.paymentLink;
   const isFree = !product.price;
 
   return (

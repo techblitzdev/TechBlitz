@@ -13,14 +13,16 @@ export default function OnboardingPage() {
   return (
     <div className="relative container">
       <StarsBackground className="-z-10" />
-      <Link href="/" className="absolute top-8 left-8">
-        <Logo />
-      </Link>
-      <UserOnboardingContextProvider>
-        <div className="container text-white h-screen flex items-center justify-center">
-          <OnboardingForm />
-        </div>
-      </UserOnboardingContextProvider>
+      <div className="flex flex-col min-h-screen">
+        <Link href="/" className="pl-0 md:pl-8 p-8 pb-0 flex justify-center">
+          <Logo />
+        </Link>
+        <UserOnboardingContextProvider>
+          <div className="flex-1 flex items-center justify-center">
+            <OnboardingForm />
+          </div>
+        </UserOnboardingContextProvider>
+      </div>
     </div>
   );
 }

@@ -7,7 +7,10 @@
  */
 import { createContext, useContext, useState } from 'react';
 import type { UpdatableUserFields } from '@/types/User';
-
+import { QuestionWithTags } from '@/types/Questions';
+import { getOnboardingQuestions } from '@/actions/questions/get-onboarding';
+import { getTodaysQuestion } from '@/actions/questions/get-today';
+import { useRouter } from 'next/navigation';
 // context type
 type OnboardingContextType = {
   user: Omit<
@@ -22,6 +25,15 @@ type OnboardingContextType = {
       >
     >
   >;
+  selectedTags: string[];
+  setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
+  currentStep: 'stepOne' | 'stepTwo' | 'stepThree';
+  setCurrentStep: React.Dispatch<
+    React.SetStateAction<'stepOne' | 'stepTwo' | 'stepThree'>
+  >;
+  onboardingQuestions: QuestionWithTags[];
+  handleGetOnboardingQuestions: () => Promise<void>;
+  handleGetDailyQuestion: () => Promise<void>;
 };
 
 // create the context
@@ -33,6 +45,7 @@ export const UserOnboardingContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const router = useRouter();
   // get the current user
 
   // user state
@@ -52,8 +65,42 @@ export const UserOnboardingContextProvider = ({
     sendPushNotifications: false,
   });
 
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+  const [currentStep, setCurrentStep] = useState<
+    'stepOne' | 'stepTwo' | 'stepThree'
+  >('stepOne');
+
+  const [onboardingQuestions, setOnboardingQuestions] = useState<any[]>([]);
+
+  const handleGetOnboardingQuestions = async () => {
+    const questions = await getOnboardingQuestions(selectedTags);
+    setOnboardingQuestions(questions);
+
+    console.log(questions);
+  };
+
+  const handleGetDailyQuestion = async () => {
+    const question = await getTodaysQuestion();
+
+    // redirect to the question page
+    router.push(`/question/${question?.uid}`);
+  };
+
   return (
-    <OnboardingContext.Provider value={{ user, setUser }}>
+    <OnboardingContext.Provider
+      value={{
+        user,
+        setUser,
+        selectedTags,
+        setSelectedTags,
+        currentStep,
+        setCurrentStep,
+        onboardingQuestions,
+        handleGetOnboardingQuestions,
+        handleGetDailyQuestion,
+      }}
+    >
       {children}
     </OnboardingContext.Provider>
   );

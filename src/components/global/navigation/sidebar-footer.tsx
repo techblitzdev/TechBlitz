@@ -91,6 +91,9 @@ export default function SidebarFooterComponent(opts: {
                   <Link href="/homepage">Homepage</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
+                  <Link href="/onboarding">Onboarding</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
                   <LogoutButton variant="ghost" padding="none" />
                 </DropdownMenuItem>
               </DropdownMenuContent>

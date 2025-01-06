@@ -32,6 +32,7 @@ export default function LoginForm() {
   // get the redirectUrl from the url
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get('redirectUrl');
+  const onboarding = searchParams.get('onboarding');
 
   const router = useRouter();
   const isPending = useRef(false);
@@ -57,7 +58,7 @@ export default function LoginForm() {
 
       // check if we have the 'onboarding' key in local storage
       // if we do, redirect to the onboarding page
-      if (localStorage.getItem('onboarding')) {
+      if (localStorage.getItem('onboarding') || onboarding) {
         router.push('/onboarding');
         return;
       }

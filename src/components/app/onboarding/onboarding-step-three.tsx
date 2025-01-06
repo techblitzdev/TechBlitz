@@ -72,7 +72,10 @@ export default function OnboardingStepThree() {
         >
           {onboardingQuestions.map((question) => (
             <motion.div key={question.uid} variants={itemVariants}>
-              <Link href={`/question/${question.uid}`} className="block h-full">
+              <Link
+                href={`/question/${question.uid}`}
+                className="block h-full group"
+              >
                 <Card className="h-full  transition-colors duration-300 border border-black-50 hover:border-accent">
                   <CardContent className="p-4 flex flex-col justify-between h-full">
                     <h3 className="text-lg font-semibold text-gray-200 mb-2 line-clamp-2">
@@ -82,7 +85,7 @@ export default function OnboardingStepThree() {
                       <span className="text-sm text-gray-400">
                         View question
                       </span>
-                      <ArrowRight className="w-4 h-4 text-gray-400" />
+                      <ArrowRight className="w-4 h-4 text-gray-400 group-hover:translate-x-1 transition-all duration-300" />
                     </div>
                   </CardContent>
                 </Card>

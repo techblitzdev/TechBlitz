@@ -9,7 +9,7 @@ export default async function HomepageHero() {
 
   const animatedSpanContent = (
     <div className="flex items-center group">
-      TechBlitz is now open to the public!
+      Grab our limited lifetime deal!
       <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-all duration-300" />
     </div>
   );
@@ -24,21 +24,19 @@ export default async function HomepageHero() {
           <AnimatedSpan content={animatedSpanContent} />
         </Link>
         <h1 className="text-5xl lg:text-[68px] !font-onest !font-medium tracking-tight max-w-5xl">
-          The ultimate platform to fast-track your coding career
+          Learning to code <br /> made easy
         </h1>
-        <h6 className="font-onest max-w-xl text-gray-400 text-lg">
-          An{' '}
-          <Link
-            href="https://git.new/blitz"
-            target="_blank"
-            className="text-accent"
-          >
-            open-source
-          </Link>
-          , mobile-friendly coding platform designed to help you become an
-          exceptional software engineer.
+        <h6 className="font-onest max-w-3xl text-gray-400 text-lg">
+          Improve your coding ability effortlessly, with our short-form,
+          personalized challenges.
+          <br />
+          Accelerate your programming knowledge in less than 10 minutes per day.
         </h6>
-        {dailyQuestion && <SignupForm todayQuestion={dailyQuestion} />}
+        {dailyQuestion && (
+          <div className="mt-3">
+            <SignupForm todayQuestion={dailyQuestion} />
+          </div>
+        )}
       </div>
     </section>
   );

@@ -34,10 +34,10 @@ export default function SignupForm(opts: { todayQuestion: Question }) {
           href={`/question/${todayQuestion?.uid}`}
           variant="default"
           size="lg"
-          className="flex-1"
+          className="flex-1 group"
         >
           Try demo
-          <ChevronRight className="ml-2 size-3" />
+          <ChevronRight className="ml-2 size-4 group-hover:translate-x-1 transition-all" />
         </Button>
       </div>
     </div>

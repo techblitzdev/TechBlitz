@@ -61,10 +61,10 @@ export async function GET(request: NextRequest) {
 
       // redirect the user to the next page
       redirectTo.searchParams.delete('next');
+      // Add onboarding query param
+      redirectTo.searchParams.set('onboarding', 'true');
 
-      // this is the first time the user has logged in
-      // so we need to redirect them to the onboarding page after they login
-      return NextResponse.redirect('/login?onboarding=true');
+      return NextResponse.redirect(redirectTo);
     } else {
       console.error('Error verifying OTP:', error.message);
     }

@@ -1,9 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/ui/grid';
 import { ChevronRight } from 'lucide-react';
-import { WaitlistForm } from './waitlist-form';
+import SignupForm from './waitlist-form';
+import { getTodaysQuestion } from '@/actions/questions/get-today';
 
-export default function CallToActionBlock(opts: {
+export default async function CallToActionBlock(opts: {
   title: string;
   description?: string;
   leftCta?: {
@@ -16,6 +17,13 @@ export default function CallToActionBlock(opts: {
   };
 }) {
   const { title, description, leftCta, rightCta } = opts;
+
+  // get the daily question uid
+  const dailyQuestion = await getTodaysQuestion();
+
+  if (!dailyQuestion) {
+    return null;
+  }
 
   return (
     <section className="pt-10 pb-20 px-2 lg:px-0 space-y-7 text-center relative">
@@ -58,7 +66,7 @@ export default function CallToActionBlock(opts: {
             )}
           </>
         ) : (
-          <WaitlistForm />
+          <SignupForm todayQuestion={dailyQuestion} />
         )}
       </div>
       <Grid size={30} position="bottom-right" />

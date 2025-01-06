@@ -1,8 +1,10 @@
+import { getTodaysQuestion } from '@/actions/questions/get-today';
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 import FAQsBlock from '@/components/marketing/global/faqs';
 import { AnimatedBreak } from '@/components/marketing/pricing/animated-break';
 import PricingCardBlock from '@/components/marketing/pricing/pricing-card-block';
 import { createMetadata } from '@/utils';
+import Link from 'next/link';
 
 export const metadata = createMetadata({
   title: 'Pricing | TechBlitz',
@@ -41,7 +43,7 @@ const jsonLd = {
       '@type': 'Offer',
       name: 'Free Plan',
       price: '0',
-      priceCurrency: 'GBP',
+      priceCurrency: 'USD',
       description:
         'Access to all coding questions and daily challenges, leaderboards, statistics and more.',
       url: 'https://techblitz.dev/pricing',
@@ -51,9 +53,19 @@ const jsonLd = {
       '@type': 'Offer',
       name: 'Pro Plan',
       price: '2.99',
-      priceCurrency: 'GBP',
+      priceCurrency: 'USD',
       description:
         'Unlock all questions, daily challenges, and personalized AI roadmaps.',
+      url: 'https://techblitz.dev/pricing',
+      category: 'Paid',
+    },
+    {
+      '@type': 'Offer',
+      name: 'Lifetime Access',
+      price: '39.99',
+      priceCurrency: 'USD',
+      description:
+        'Unlock all questions, daily challenges, and personalized AI roadmaps. Lifetime access.',
       url: 'https://techblitz.dev/pricing',
       category: 'Paid',
     },
@@ -63,13 +75,10 @@ const jsonLd = {
     'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
 };
 
-export default function PricingPage() {
+export default async function PricingPage() {
+  const todayQuestion = await getTodaysQuestion();
+
   const faqs = [
-    {
-      question: 'When will TechBlitz launch?',
-      answer:
-        'TechBlitz is set to launch in Q1 2025! Join our waitlist today to get early access and be notified as soon as we go live.',
-    },
     {
       question: 'What is TechBlitz, and how can it help developers?',
       answer:
@@ -94,13 +103,35 @@ export default function PricingPage() {
     },
     {
       question: 'Is TechBlitz free to use?',
-      answer:
-        'Absolutely! TechBlitz offers a free plan to get you started right away. Create an account and dive into our rich library of developer resources today.',
+      answer: (
+        <>
+          Absolutely! TechBlitz offers a free plan to get you started right
+          away.{' '}
+          <Link href="/signup" className="text-accent">
+            Sign up for a free account
+          </Link>{' '}
+          and dive into our rich library of developer resources today.
+        </>
+      ),
     },
     {
       question: 'What are the key benefits of using TechBlitz?',
-      answer:
-        'TechBlitz provides engaging, short-form coding questions and practical roadmaps to help developers enhance their skills and tackle real-world challenges. Learn faster, smarter, and with less overwhelm!',
+      answer: (
+        <>
+          TechBlitz provides engaging, short-form coding questions and practical
+          roadmaps to help developers enhance their skills and tackle real-world
+          challenges. We aim to improve your skills as a developer by only 10
+          minutes a day. You can check today's question{' '}
+          <Link
+            href={`/question/${todayQuestion?.uid}`}
+            className="text-accent"
+            target="_blank"
+          >
+            here
+          </Link>{' '}
+          to get a taste of what we offer.
+        </>
+      ),
     },
     {
       question: 'What will you be adding to techblitz in the future?',
@@ -117,6 +148,46 @@ export default function PricingPage() {
           </a>{' '}
           to see what’s next, and share your suggestions — we’d love to hear
           your ideas!
+        </>
+      ),
+    },
+    {
+      question: 'How can I get started with TechBlitz?',
+      answer: (
+        <>
+          It’s easy!{' '}
+          <Link href="/signup" className="text-accent">
+            Sign up for a free account
+          </Link>{' '}
+          . Ready to take your skills to the next level? Upgrade to a paid plan
+          and unlock all our features.
+        </>
+      ),
+    },
+    {
+      question: 'What is the refund policy?',
+      answer: (
+        <>
+          Yes, you can get a refund within 14 days of your purchase. Please
+          contact us at{' '}
+          <Link href="mailto:team@techblitz.dev" className="text-accent">
+            team@techblitz.dev
+          </Link>{' '}
+          to request a refund.
+        </>
+      ),
+    },
+    {
+      question: 'Do you offer a student discount?',
+      answer: (
+        <>
+          Yes, we offer a 50% discount for students. To claim your discount,
+          please email us at{' '}
+          <Link href="mailto:team@techblitz.dev" className="text-accent">
+            team@techblitz.dev
+          </Link>{' '}
+          and provide proof of your student status. We will then send you a
+          discount code to apply to your purchase to all paid plans.
         </>
       ),
     },

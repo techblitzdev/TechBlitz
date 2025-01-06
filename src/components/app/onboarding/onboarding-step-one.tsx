@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CardContent } from '@/components/ui/card';
+import { CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import { InputWithLabel } from '@/components/ui/input-label';
 import {
   Tooltip,
@@ -23,7 +23,7 @@ const itemVariants = {
   visible: { opacity: 1, y: 0 },
 };
 
-export function OnboardingStepOne() {
+export default function OnboardingStepOne() {
   const { user, setUser } = useOnboardingContext();
 
   const form = useForm<UpdatableUserFields>({
@@ -57,111 +57,129 @@ export function OnboardingStepOne() {
   }, [watchedValues, setUser, user]);
 
   return (
-    <CardContent>
-      <Form {...form}>
-        <form className="space-y-5">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            className="space-y-2 text-white"
-            variants={itemVariants}
-          >
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <InputWithLabel
-                      label="Username"
-                      type="text"
-                      autoComplete="username"
-                      placeholder="Username"
-                      {...field}
-                      value={field.value ?? ''}
+    <>
+      <CardHeader className="space-y-1">
+        <motion.h1
+          className="text-3xl font-medium bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent"
+          variants={itemVariants}
+        >
+          Welcome!
+        </motion.h1>
+        <CardDescription className="text-gray-400">
+          <motion.span variants={itemVariants}>
+            Let's get started by setting up your account.
+          </motion.span>
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form className="space-y-5">
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              className="space-y-2 text-white"
+              variants={itemVariants}
+            >
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <InputWithLabel
+                        label="Username"
+                        type="text"
+                        autoComplete="username"
+                        placeholder="Username"
+                        {...field}
+                        value={field.value ?? ''}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </motion.div>
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={itemVariants}
+            >
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <FormField
+                      control={form.control}
+                      name="showTimeTaken"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-center justify-between">
+                          <div className="space-y-0.5">
+                            <Label
+                              htmlFor="showTimeTaken"
+                              className="text-white"
+                            >
+                              Appear on leaderboards
+                            </Label>
+                          </div>
+                          <FormControl>
+                            <Switch
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              className="bg-black-50"
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
                     />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-          </motion.div>
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={itemVariants}
-          >
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <FormField
-                    control={form.control}
-                    name="showTimeTaken"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center justify-between">
-                        <div className="space-y-0.5">
-                          <Label htmlFor="showTimeTaken" className="text-white">
-                            Appear on leaderboards
-                          </Label>
-                        </div>
-                        <FormControl>
-                          <Switch
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                            className="bg-black-50"
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Your progress will be visible to others</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </motion.div>
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={itemVariants}
-          >
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <FormField
-                    control={form.control}
-                    name="sendPushNotifications"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center justify-between">
-                        <div className="space-y-0.5">
-                          <Label
-                            htmlFor="sendPushNotifications"
-                            className="text-white"
-                          >
-                            Send daily reminders to complete tasks
-                          </Label>
-                        </div>
-                        <FormControl>
-                          <Switch
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                            className="bg-black-50"
-                            // disable for now
-                            disabled={true}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Receive notifications to stay on track</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </motion.div>
-        </form>
-      </Form>
-    </CardContent>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Your progress will be visible to others</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </motion.div>
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={itemVariants}
+            >
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <FormField
+                      control={form.control}
+                      name="sendPushNotifications"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-center justify-between">
+                          <div className="space-y-0.5">
+                            <Label
+                              htmlFor="sendPushNotifications"
+                              className="text-white"
+                            >
+                              Send daily reminders to complete tasks
+                            </Label>
+                          </div>
+                          <FormControl>
+                            <Switch
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              className="bg-black-50"
+                              // disable for now
+                              disabled={true}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Receive notifications to stay on track</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </motion.div>
+          </form>
+        </Form>
+      </CardContent>
+    </>
   );
 }

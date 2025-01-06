@@ -49,7 +49,7 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
       // and will need onboarding once they have logged in.
       localStorage.setItem('onboarding', 'true');
 
-      // redirect to verify email page
+      // redirect to
       router.push('/verify-email');
     },
     onError: (error) => {
@@ -119,7 +119,7 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
 
         <OrSeparator />
 
-        <span className="col-span-full text-sm text-gray-300 hover:text-white duration-300">
+        <span className="col-span-full text-sm text-gray-400 hover:text-white duration-300 place-self-center">
           Already have an account?{' '}
           <Link href="/login" prefetch className="underline">
             Sign in

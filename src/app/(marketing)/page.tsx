@@ -13,15 +13,15 @@ import CallToActionBlock from '@/components/marketing/global/call-to-action-bloc
 
 import DashboardImg from '../../public/images/dashboard-img.png';
 import SocialProof from '@/components/marketing/global/social-proof';
-import { prisma } from '@/utils/prisma';
 import { fetchGithubStars } from '@/actions/misc/get-github-stars';
 import { getTodaysQuestion } from '@/actions/questions/get-today';
+import { getUserCount } from '@/actions/user/get-user-count';
 
 export default async function Page() {
   // run all actions in parallel
   const [dailyQuestion, userCount, githubStars] = await Promise.all([
     getTodaysQuestion(),
-    prisma.users.count(),
+    getUserCount(),
     fetchGithubStars(),
   ]);
 

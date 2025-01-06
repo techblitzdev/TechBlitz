@@ -3,20 +3,26 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import GithubLogo from '@/components/ui/icons/github';
 import { UserIcon } from 'lucide-react';
+import NumberFlow from '@number-flow/react';
 
 import { Question } from '@/types/Questions';
+import { cn } from '@/utils/cn';
 
 export default function SocialProof({
   userCount,
   githubStars,
   dailyQuestion,
+  padding = 'py-16 md:py-24 md:pt-40',
+  showDescription = true,
 }: {
   userCount: number;
   githubStars: number;
   dailyQuestion: Question | null;
+  padding?: string;
+  showDescription?: boolean;
 }) {
   return (
-    <section className="relative py-16 md:py-24 md:pt-40">
+    <section className={cn('relative', padding)}>
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center gap-2">
           <div className="flex flex-col items-center text-center max-w-3xl">
@@ -27,7 +33,7 @@ export default function SocialProof({
               <div className="flex items-center gap-x-2">
                 <UserIcon className="size-6 text-white" />
                 <span className="text-base text-white font-onest">
-                  {userCount.toLocaleString()}+ Developers
+                  <NumberFlow value={userCount} />+ Developers
                 </span>
               </div>
               <Link
@@ -37,15 +43,17 @@ export default function SocialProof({
               >
                 <GithubLogo className="size-6" />
                 <span className="text-base text-white font-onest">
-                  {githubStars.toLocaleString()} GitHub Stars
+                  <NumberFlow value={githubStars} /> GitHub Stars
                 </span>
               </Link>
             </div>
-            <p className="text-gray-400 mb-8">
-              Join a thriving community of developers who are revolutionizing
-              their coding skills and fast-tracking their careers with our
-              cutting-edge platform.
-            </p>
+            {showDescription && (
+              <p className="text-gray-400 mb-8">
+                Join a thriving community of developers who are revolutionizing
+                their coding skills and fast-tracking their careers with our
+                cutting-edge platform.
+              </p>
+            )}
           </div>
 
           {dailyQuestion && (

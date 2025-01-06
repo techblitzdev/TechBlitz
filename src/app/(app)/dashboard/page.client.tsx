@@ -19,19 +19,45 @@ export default function ClientPage({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
 
+  // Handle purchase success modal
   useEffect(() => {
     if (searchParams.purchase === 'success') {
       setIsModalOpen(true);
     }
   }, [searchParams]);
 
-  // if we close the modal, remove the query param
+  // First effect to check onboarding status
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const onboardingRequired = localStorage.getItem('onboarding');
+    console.log('Onboarding status:', onboardingRequired);
+
+    if (onboardingRequired === 'true') {
+      setShouldRedirect(true);
+    }
+  }, []);
+
+  // Second effect to handle the actual redirect
+  useEffect(() => {
+    if (shouldRedirect) {
+      window.location.href = '/onboarding';
+    }
+  }, [shouldRedirect]);
+
+  // Clean up query params when modal closes
   useEffect(() => {
     if (!isModalOpen) {
       window.history.replaceState({}, document.title, window.location.pathname);
     }
   }, [isModalOpen]);
+
+  // Prevent flash of content during redirect
+  if (shouldRedirect) {
+    return null;
+  }
 
   return (
     <>

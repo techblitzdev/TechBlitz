@@ -49,8 +49,8 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
       // and will need onboarding once they have logged in.
       localStorage.setItem('onboarding', 'true');
 
-      // redirect to dashboard
-      router.push('/login');
+      // redirect to verify email page
+      router.push('/verify-email');
     },
     onError: (error) => {
       // show error toast

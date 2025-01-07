@@ -15,7 +15,7 @@ const header = () => {
           <h3 className="text-lg">Top users by questions answered</h3>
         </div>
         <p className="text-xs text-gray-400">
-          Become a top user for a chance to win a prize at the end of the month!
+          Battle your way to the top of TechBlitz!
         </p>
       </div>
     </div>

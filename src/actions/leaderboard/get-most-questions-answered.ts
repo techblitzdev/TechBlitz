@@ -14,6 +14,7 @@ export const getMostQuestionsAnswered = async () => {
       answers: {
         some: {},
       },
+      showTimeTaken: true,
     },
     select: {
       uid: true,

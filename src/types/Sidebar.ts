@@ -6,7 +6,7 @@ export interface SidebarItem {
   chip?: React.ComponentType;
   groupLabel?: string;
   disabled?: boolean;
-  badge?: string;
+  badge?: string | React.ReactNode;
   dropdownMenu?: React.ReactNode;
   tooltip?: string;
 }

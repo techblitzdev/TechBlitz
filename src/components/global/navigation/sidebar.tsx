@@ -91,6 +91,7 @@ export function AppSidebar(opts: { user: UserRecord | null }) {
         {
           title: 'Daily Question',
           url: `/question/${todaysQuestion?.uid}`,
+          badge: 'New',
         },
         {
           title: 'All Daily Questions',

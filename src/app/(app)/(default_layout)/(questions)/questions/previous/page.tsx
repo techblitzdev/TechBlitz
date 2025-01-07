@@ -7,17 +7,31 @@ const FilterChips = dynamic(() => import('@/components/global/filters/chips'), {
 
 const Filter = dynamic(() => import('@/components/global/filters/filter'), {
   ssr: false,
+  loading: () => <FilterLoading />,
 });
 
 const QuestionsList = dynamic(
   () => import('@/components/app/questions/questions-list'),
   {
     ssr: false,
-    loading: () => <LoadingSpinner />,
+    loading: () => (
+      <>
+        {Array.from({ length: 10 }).map((_, index) => (
+          <QuestionCardLoading key={index} />
+        ))}
+      </>
+    ),
   }
 );
 
-import QuestionPageSidebar from '@/components/app/questions/question-page-sidebar';
+const QuestionPageSidebar = dynamic(
+  () => import('@/components/app/questions/question-page-sidebar'),
+  {
+    ssr: false,
+    loading: () => <QuestionPageSidebarLoading />,
+  }
+);
+
 import Hero from '@/components/global/hero';
 import QuestionPageSidebarLoading from '@/components/app/questions/question-page-sidebar-loading';
 import LoadingSpinner from '@/components/ui/loading';
@@ -26,6 +40,8 @@ import { useUserServer } from '@/hooks/use-user-server';
 import { validateSearchParams } from '@/utils/search-params';
 import { parseSearchParams } from '@/utils/search-params';
 import { getTags } from '@/actions/questions/tags/get-tags';
+import QuestionCardLoading from '@/components/app/questions/question-card-loading';
+import FilterLoading from '@/components/global/filters/filters-loading';
 
 export default async function PreviousQuestionsPage({
   searchParams,

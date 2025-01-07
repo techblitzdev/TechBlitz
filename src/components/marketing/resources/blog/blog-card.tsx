@@ -9,15 +9,13 @@ export default function BlogCard(opts: { post: any }) {
     <Link
       key={post.slug}
       href={`/blog/${post.slug}`}
-      className="group p-4 border border-black-50 rounded-xl hover:border-accent transition-colors"
+      className="group p-4 bg-[#000] border border-black-50 rounded-xl hover:border-accent transition-colors"
     >
       {post.image && (
-        <Image
+        <img
           src={post.image}
           alt={post.title}
-          width={600}
-          height={400}
-          className="rounded-lg mb-4"
+          className="rounded-lg mb-4 w-full h-60 object-scale-down"
         />
       )}
       <h2 className="text-xl font-medium mb-2 group-hover:text-accent">

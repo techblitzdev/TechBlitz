@@ -15,6 +15,9 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { QUESTIONS_COUNT } from '@/utils/constants/misc';
+import BlogCard from '@/components/marketing/resources/blog/blog-card';
+import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
+import ShareThisPost from '@/components/mdx/share-this-post';
 
 interface BlogPostParams {
   params: {
@@ -68,6 +71,7 @@ export async function generateStaticParams() {
 export default async function BlogPost({ params }: BlogPostParams) {
   try {
     const { content, frontmatter } = await getBlogPost(params.slug);
+    const posts = await getBlogPosts();
     // typeFrontmatter is the metadata for this blog post
     const typedFrontmatter = frontmatter as unknown as BlogFrontmatter;
 
@@ -118,6 +122,32 @@ export default async function BlogPost({ params }: BlogPostParams) {
           {/** output the mdx content below the hero */}
           <div className="prose prose-invert prose-pre:bg-black-75 prose-pre:border prose-pre:border-black-50 max-w-none mt-10">
             {content}
+
+            <div className="mt-10">
+              <CallToActionBlock
+                title="Start Your Software Engineering Evolution"
+                description="Join developers who are accelerating their careers with TechBlitz"
+                leftCta={{
+                  title: 'Begin Your Journey',
+                  href: '/signup',
+                }}
+              />
+            </div>
+
+            {/** read related posts */}
+            <div className="mt-10">
+              <h3 className="text-2xl font-medium">Read related articles</h3>
+              <div className="flex flex-col gap-6 mt-8">
+                {posts
+                  .filter((post) => post.slug !== params.slug)
+                  .map((post: any) => (
+                    <BlogCard key={post.slug} post={post} />
+                  ))}
+              </div>
+            </div>
+
+            {/** share this post */}
+            <ShareThisPost title={typedFrontmatter.title} slug={params.slug} />
           </div>
         </article>
         <aside className="w-full md:w-2/5 order-first md:order-last">

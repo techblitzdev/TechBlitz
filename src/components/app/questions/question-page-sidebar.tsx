@@ -21,7 +21,7 @@ export default async function QuestionPageSidebar(opts: {
   // get the user streak and suggestion in one go
   const [userStreak, suggestions] = await Promise.all([
     getUserDailyStats(user?.uid || ''),
-    getSuggestions({ userUid: user?.uid || '' }),
+    getSuggestions({ limit: 8 }),
   ]);
 
   // get the streak start date and streak end date

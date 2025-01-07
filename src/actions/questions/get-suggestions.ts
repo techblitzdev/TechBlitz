@@ -4,24 +4,25 @@ import { prisma } from '@/lib/prisma';
 import { extractTagIds } from './utils/get-tags-from-question';
 import type { QuestionWithTags } from '@/types/Questions';
 import { cache } from 'react';
+import { getUser } from '../user/authed/get-user';
 
 type SuggestionsOptions = {
-  userUid: string;
   limit?: number;
 };
 
 export const getSuggestions = cache(
-  async ({ userUid, limit = 5 }: SuggestionsOptions) => {
-    if (!userUid) return null;
+  async ({ limit = 5 }: SuggestionsOptions) => {
+    // get the user server side
+    const user = await getUser();
 
     try {
-      if (!userUid) {
+      if (!user) {
         throw new Error('User ID is required');
       }
 
       // Get user's answer history with questions and tags
       const userAnswers = await prisma.answers.findMany({
-        where: { userUid },
+        where: { userUid: user.uid },
         include: {
           question: {
             include: {
@@ -121,6 +122,10 @@ export const getSuggestions = cache(
 
         return randomQuestions;
       }
+
+      console.log({
+        suggestions,
+      });
 
       return suggestions;
     } catch (error) {

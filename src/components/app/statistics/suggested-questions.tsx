@@ -9,7 +9,7 @@ export default async function SuggestedQuestions() {
     redirect('/login');
   }
 
-  const suggestions = await getSuggestions({ userUid: user.uid });
+  const suggestions = await getSuggestions({ limit: 8 });
 
   return (
     <section className="col-span-full lg:col-span-6 border border-black-50 rounded-lg flex flex-col divide-y-[1px] divide-black-50 overflow-hidden">

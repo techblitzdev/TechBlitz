@@ -38,7 +38,7 @@ export default function StatisticsReportTabs(opts: {
 
   const { data: suggestions, isLoading: isLoadingSuggestions } = useQuery({
     queryKey: ['suggested-questions'],
-    queryFn: () => getSuggestions({ userUid: user?.uid ?? '', limit: 8 }),
+    queryFn: () => getSuggestions({ limit: 8 }),
   });
 
   const handleTabChange = (value: string) => {

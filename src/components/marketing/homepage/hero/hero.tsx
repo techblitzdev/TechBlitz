@@ -23,7 +23,7 @@ export default async function HomepageHero() {
         <Link href="/pricing">
           <AnimatedSpan content={animatedSpanContent} />
         </Link>
-        <h1 className="text-5xl lg:text-[68px] !font-onest !font-medium tracking-tight max-w-5xl">
+        <h1 className="mt-3 text-5xl lg:text-[68px] !font-onest !font-medium tracking-tight max-w-5xl">
           Learn to code, <br /> faster
         </h1>
         <h6 className="font-onest max-w-3xl text-gray-400 text-lg">

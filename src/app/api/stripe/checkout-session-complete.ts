@@ -1,6 +1,5 @@
 import Stripe from 'stripe';
 import { prisma } from '@/utils/prisma';
-import { resend } from '@/lib/resend';
 import { stripe } from '@/lib/stripe';
 
 export const checkoutSessionCompleted = async (event: Stripe.Event) => {

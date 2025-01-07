@@ -37,6 +37,9 @@ export default async function RoadmapPage() {
     return <RoadmapOnboarding />;
   }
 
+  // order the roadmaps by the createdAt date
+  userRoadmaps.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+
   return (
     <>
       <Hero

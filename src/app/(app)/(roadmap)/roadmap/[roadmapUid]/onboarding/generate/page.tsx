@@ -69,7 +69,7 @@ export default async function RoadmapGeneratingPage({
           </div>
 
           {/* Roadmap Generating Section */}
-          <div className="flex-1 flex flex-col items-center justify-center space-y-4">
+          <div className="flex-1 flex flex-col items-center justify-center space-y-4 order-first lg:order-last">
             <div className="space flex flex-col gap-y-2 items-center">
               <Route />
               <h1 className="text-2xl font-semibold text-white">

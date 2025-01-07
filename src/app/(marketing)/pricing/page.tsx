@@ -181,13 +181,14 @@ export default async function PricingPage() {
       question: 'Do you offer a student discount?',
       answer: (
         <>
-          Yes, we offer a 50% discount for students. To claim your discount,
-          please email us at{' '}
-          <Link href="mailto:team@techblitz.dev" className="text-accent">
+          Yes! We believe that TechBlitz should be available to all students. To
+          claim your discount, please email us at{' '}
+          <a href="mailto:team@techblitz.dev" className="text-accent">
             team@techblitz.dev
-          </Link>{' '}
-          and provide proof of your student status. We will then send you a
-          discount code to apply to your purchase to all paid plans.
+          </a>{' '}
+          using your student email address. We are currently running a limited
+          time, 50% discount for students. This will be available until the end
+          of February 2025, after which the discount will be 30% off.
         </>
       ),
     },

@@ -17,6 +17,16 @@ export const checkoutSessionCompleted = async (event: Stripe.Event) => {
       throw new Error('No client_reference_id found in session');
     }
 
+    // we first NEED to ensure that the userLevel is set to PREMIUM
+    await prisma.users.update({
+      where: {
+        uid: userId,
+      },
+      data: {
+        userLevel: 'PREMIUM',
+      },
+    });
+
     // Find user by uid
     const user = await prisma.users.findUnique({
       where: {
@@ -30,10 +40,25 @@ export const checkoutSessionCompleted = async (event: Stripe.Event) => {
     }
 
     // Get the email used in this purchase (might be different from user's registered email)
-    const customer = await stripe.customers.retrieve(
-      session.customer as string
-    );
-    const customerEmail = (customer as Stripe.Customer).email;
+    let customerEmail: string | null = null;
+    if (session.customer) {
+      try {
+        const customer = await stripe.customers.retrieve(
+          session.customer as string
+        );
+        if (customer && !('deleted' in customer)) {
+          customerEmail = (customer as Stripe.Customer).email;
+        }
+
+        // if the customer is null, set the customer email to the session email
+        if (!customer) {
+          customerEmail = session.customer_details?.email || null;
+        }
+      } catch (error) {
+        // silently fail and log
+        console.log('Error retrieving customer:', error);
+      }
+    }
     const sessionEmail = session.customer_details?.email;
 
     console.log('User email:', user.email);
@@ -52,16 +77,6 @@ export const checkoutSessionCompleted = async (event: Stripe.Event) => {
       });
     }
 
-    // Update the user's userLevel
-    await prisma.users.update({
-      where: {
-        uid: userId,
-      },
-      data: {
-        userLevel: 'PREMIUM',
-      },
-    });
-
     // Update the subscription
     await prisma.subscriptions.update({
       where: {
@@ -70,17 +85,9 @@ export const checkoutSessionCompleted = async (event: Stripe.Event) => {
       data: {
         active: true,
         stripeSubscriptionId: session.id,
-        stripeCustomerId: session.customer as string,
+        stripeCustomerId: customerEmail,
         updatedAt: new Date(),
       },
-    });
-
-    // Send notification email
-    await resend.emails.send({
-      to: 'team@techblitz.dev',
-      from: 'team@techblitz.dev',
-      subject: 'User subscribed',
-      text: `User ${user.email} (${customerEmail || 'no customer email'}) has subscribed to TechBlitz Premium.`,
     });
 
     console.log('User subscribed:', user.email);

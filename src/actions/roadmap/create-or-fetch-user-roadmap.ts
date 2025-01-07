@@ -1,5 +1,5 @@
 'use server';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { getUser } from '../user/authed/get-user';
 
 export const createOrFetchUserRoadmap = async () => {

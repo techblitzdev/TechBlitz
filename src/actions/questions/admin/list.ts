@@ -1,5 +1,5 @@
 'use server';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { userAuth } from '@/actions/questions/admin/utils/user-auth';
 
 type GetQuestionsOpts = { from: number; to: number };

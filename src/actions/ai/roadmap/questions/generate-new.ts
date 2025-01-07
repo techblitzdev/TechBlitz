@@ -2,7 +2,7 @@
 import { getUserFromSession } from '@/actions/user/authed/get-user';
 import { openai } from '@/lib/open-ai';
 import { singleQuestionSchema } from '@/lib/zod/schemas/ai';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { getPrompt } from '@/actions/ai/utils/get-prompt';
 import { zodResponseFormat } from 'openai/helpers/zod.mjs';
 import { revalidateTag } from 'next/cache';

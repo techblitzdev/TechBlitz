@@ -1,6 +1,6 @@
 'use server';
 import { QuestionDifficulty } from '@/types/Questions';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 
 export interface ReturnType {
   question: string;

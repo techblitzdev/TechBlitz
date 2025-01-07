@@ -1,5 +1,5 @@
 'use server';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 
 export const answerDailyQuestionDemo = async (opts: {
   questionUid: string;
@@ -11,8 +11,8 @@ export const answerDailyQuestionDemo = async (opts: {
   // get the question
   const question = await prisma.questions.findUnique({
     where: {
-      uid: questionUid
-    }
+      uid: questionUid,
+    },
   });
 
   // if the question does not exist, return null
@@ -29,8 +29,8 @@ export const answerDailyQuestionDemo = async (opts: {
       questionUid,
       userAnswer: userAnswerUid,
       correctAnswer: isCorrect,
-      timeTaken
-    }
+      timeTaken,
+    },
   });
 
   // if the answer is correct, return true

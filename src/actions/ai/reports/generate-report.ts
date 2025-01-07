@@ -2,7 +2,7 @@
 import { getUser } from '@/actions/user/authed/get-user';
 import { getTagsReport } from '@/actions/ai/reports/utils/get-tags-report';
 import { generateStatisticsCustomQuestions } from '@/actions/ai/reports/utils/generate-custom-questions';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { nanoid } from 'nanoid';
 import { generateReportHtml } from '@/actions/ai/reports/utils/generate-report-html';
 import { revalidateTag } from 'next/cache';

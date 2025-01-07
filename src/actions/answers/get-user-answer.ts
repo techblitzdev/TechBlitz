@@ -1,5 +1,5 @@
 'use server';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 
 /**
  * Get's the answer for a given question uid

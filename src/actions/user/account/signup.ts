@@ -2,7 +2,7 @@
 import { supabase } from '@/lib/supabase';
 import { type AuthResponse } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 
 const cookiesStore = cookies();
 

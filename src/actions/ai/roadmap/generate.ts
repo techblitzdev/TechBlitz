@@ -1,5 +1,5 @@
 'use server';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { generateDataForAi } from './get-question-data-for-gen';
 import { addUidsToResponse } from './utils/add-uids-to-response';
 import { addOrderToResponseQuestions } from './utils/add-order-to-response-questions';

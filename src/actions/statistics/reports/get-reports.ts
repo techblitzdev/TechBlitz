@@ -1,7 +1,7 @@
 'use server';
 
 import { getUser } from '@/actions/user/authed/get-user';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 
 export const getUserReports = async (take: number = 5) => {
   // validate that we have a user before grabbing their user level

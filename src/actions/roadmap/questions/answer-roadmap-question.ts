@@ -1,5 +1,5 @@
 'use server';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { fetchRoadmapQuestion } from './fetch-roadmap-question';
 import { redirect } from 'next/navigation';
 import { revalidateTag } from 'next/cache';

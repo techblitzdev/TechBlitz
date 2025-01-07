@@ -1,5 +1,5 @@
 'use server';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { unstable_cache as NextCache } from 'next/cache';
 
 export const getUserAnswerRank = NextCache(

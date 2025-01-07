@@ -1,5 +1,5 @@
 'use server';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { getTagsFromQuestion } from './utils/get-tags-from-question';
 import { Question } from '@/types/Questions';
 

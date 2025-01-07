@@ -1,6 +1,6 @@
 'use server';
 import { Question } from '@/types/Questions';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { getTagsFromQuestion } from './utils/get-tags-from-question';
 
 export const getTodaysQuestion = async (): Promise<Question | null> => {
@@ -11,16 +11,16 @@ export const getTodaysQuestion = async (): Promise<Question | null> => {
     // Find a question where `questionDate` is today
     const res = await prisma.questions.findFirst({
       where: {
-        questionDate: todayStart
+        questionDate: todayStart,
       },
       include: {
         answers: true,
         tags: {
           include: {
-            tag: true
-          }
-        }
-      }
+            tag: true,
+          },
+        },
+      },
     });
 
     if (!res) {

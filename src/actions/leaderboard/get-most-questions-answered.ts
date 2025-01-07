@@ -1,5 +1,5 @@
 'use server';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 
 export const getMostQuestionsAnswered = async () => {
   return await prisma.users.findMany({

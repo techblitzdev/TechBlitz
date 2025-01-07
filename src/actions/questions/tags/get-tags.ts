@@ -1,6 +1,6 @@
 'use server';
 import { capitalise } from '@/utils';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 
 export const getTags = async () => {
   const tags = await prisma.tag.findMany();

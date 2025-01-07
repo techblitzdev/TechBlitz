@@ -1,6 +1,6 @@
 'use server';
 import { QuestionDifficulty } from '@/types/Questions';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import uniqid from 'uniqid';
 
 export const addQuestion = async (opts: {

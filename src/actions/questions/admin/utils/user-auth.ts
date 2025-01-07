@@ -1,6 +1,6 @@
 'use server';
 import { createClient } from '@/utils/supabase/server';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import type { UserLevel } from '@/types/User';
 
 export const userAuth = async (userRole: UserLevel | UserLevel[]) => {

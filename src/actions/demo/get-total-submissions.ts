@@ -1,5 +1,5 @@
 'use server';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 
 export const getTotalSubmissions = async (opts: { questionUid: string }) => {
   const { questionUid } = opts;
@@ -7,11 +7,11 @@ export const getTotalSubmissions = async (opts: { questionUid: string }) => {
   // get the total submissions for the question
   const totalSubmissions = await prisma.demoAnswers.count({
     where: {
-      questionUid
-    }
+      questionUid,
+    },
   });
 
   return {
-    totalSubmissions
+    totalSubmissions,
   };
 };

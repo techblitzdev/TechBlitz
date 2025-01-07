@@ -1,6 +1,6 @@
 'use server';
 
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { revalidateTag } from 'next/cache';
 
 export const getUserDailyStats = async (userUid: string) => {

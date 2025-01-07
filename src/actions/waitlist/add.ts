@@ -1,6 +1,6 @@
 'use server';
 import { resend } from '@/lib/resend';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import WaitlistConfirmationEmail from '@/components/templates/waitlist';
 import { renderAsync } from '@react-email/components';
 import React from 'react';

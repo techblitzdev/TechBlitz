@@ -1,6 +1,6 @@
 'use server';
 import { StatsChartData, StatsSteps } from '@/types/Stats';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { getRange } from '@/utils/stats/get-range';
 import { revalidateTag } from 'next/cache';
 

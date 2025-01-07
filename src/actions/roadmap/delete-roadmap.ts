@@ -1,5 +1,5 @@
 'use server';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { revalidateTag } from 'next/cache';
 import { getUser } from '@/actions/user/authed/get-user';
 

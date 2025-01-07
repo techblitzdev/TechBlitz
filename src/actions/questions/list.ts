@@ -1,7 +1,7 @@
 'use server';
 
 import { unstable_cache } from 'next/cache';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import type {
   Question,
   QuestionDifficulty,

@@ -1,5 +1,5 @@
 'use server';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 /**
  * Method to get questions after the user has selected their tags
  * in the onboarding process

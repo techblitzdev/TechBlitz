@@ -1,5 +1,5 @@
 import Stripe from 'stripe';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { resend } from '@/lib/resend';
 import { stripe } from '@/lib/stripe';
 

@@ -1,6 +1,6 @@
 'use server';
 import { Question } from '@/types/Questions';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { getTagsFromQuestion } from './utils/get-tags-from-question';
 
 export const getYesterdaysQuestion = async (): Promise<Question | null> => {
@@ -14,16 +14,16 @@ export const getYesterdaysQuestion = async (): Promise<Question | null> => {
     // Find a question where `questionDate` is yesterday
     const res = await prisma.questions.findFirst({
       where: {
-        questionDate: yesterdayISOString
+        questionDate: yesterdayISOString,
       },
       include: {
         answers: true,
         tags: {
           include: {
-            tag: true
-          }
-        }
-      }
+            tag: true,
+          },
+        },
+      },
     });
 
     if (!res) {

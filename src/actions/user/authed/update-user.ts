@@ -1,6 +1,6 @@
 'use server';
 
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { revalidateTag } from 'next/cache';
 import { getUserFromSession } from './get-user';
 import { UpdatableUserFields } from '@/types/User';

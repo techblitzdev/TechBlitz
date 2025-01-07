@@ -1,6 +1,6 @@
 'use server';
 import { AnswerWithUser } from '@/types/Answers';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 
 type GetFastestTimesReturnType = {
   fastestTimes: AnswerWithUser[];

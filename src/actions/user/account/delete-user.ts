@@ -1,6 +1,6 @@
 'use server';
 import { createClient as createServerClient } from '@/utils/supabase/server';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 
 export const deleteUser = async (opts: { userUid: string }) => {
   const { userUid } = opts;

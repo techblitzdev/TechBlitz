@@ -1,5 +1,5 @@
 import { stripe } from '@/lib/stripe';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import Stripe from 'stripe';
 
 // we know we are in the correct event type as we call it from /stripe/route.ts

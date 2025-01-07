@@ -1,6 +1,6 @@
 'use server';
 import type { PromptName } from '@/utils/constants/prompts';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 
 export const getPrompt = async (opts: { name: PromptName | PromptName[] }) => {
   const { name } = opts;

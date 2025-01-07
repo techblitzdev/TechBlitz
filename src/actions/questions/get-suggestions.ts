@@ -1,6 +1,6 @@
 'use server';
 
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { extractTagIds } from './utils/get-tags-from-question';
 import type { QuestionWithTags } from '@/types/Questions';
 import { cache } from 'react';

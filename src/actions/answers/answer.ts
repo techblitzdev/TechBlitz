@@ -1,7 +1,7 @@
 'use server';
 import { Answer } from '@/types/Answers';
 import { UserRecord } from '@/types/User';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { revalidateTag } from 'next/cache';
 
 // Types

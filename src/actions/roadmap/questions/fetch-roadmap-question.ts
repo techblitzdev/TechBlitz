@@ -1,6 +1,6 @@
 'use server';
 import { getUser } from '@/actions/user/authed/get-user';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 
 export const fetchRoadmapQuestion = async (questionUid: string) => {
   const user = await getUser();

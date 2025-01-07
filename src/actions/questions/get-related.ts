@@ -1,6 +1,6 @@
 'use server';
 import { Tags } from '@/types/Tags';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 
 /**
  * Method to get questions that are related to the current question

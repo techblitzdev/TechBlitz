@@ -1,5 +1,5 @@
 'use server';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { createClient as createServerClient } from '@/utils/supabase/server';
 
 /**

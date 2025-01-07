@@ -1,6 +1,6 @@
 'use server';
 import { createClient as createServerClient } from '@/utils/supabase/server';
-import { prisma } from '@/utils/prisma';
+import { prisma } from '@/lib/prisma';
 import { UserRecord } from '@/types/User';
 import { revalidateTag } from 'next/cache';
 

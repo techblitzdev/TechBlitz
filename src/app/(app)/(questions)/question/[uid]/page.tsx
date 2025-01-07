@@ -43,7 +43,7 @@ export default async function TodaysQuestionPage({
   );
 
   const rightContent = (
-    <div className="flex flex-col gap-4 lg;pr-6 p-3">
+    <div className="flex flex-col gap-4 lg:pr-6 p-3">
       <div
         id="code-snippet"
         className="h-fit lg:h-[45rem] bg-black-75 border border-black-50 rounded-xl relative overflow-hidden"
@@ -63,38 +63,42 @@ export default async function TodaysQuestionPage({
         )}
       </div>
 
-      <div className="min-h-fit bg-black-75 border border-black-50 rounded-xl overflow-hidden">
-        <RelatedQuestions uid={uid} tags={question.tags || []} />
-      </div>
-
-      <div className="bg-black-75 border border-black-50 rounded-xl overflow-hidden min-h-fit">
-        <div className="flex items-center gap-x-1 p-4 bg-black-25">
-          <ChartColumn className="size-4" />
-          <div className="text-sm">Stats</div>
+      {!question.customQuestion && (
+        <div className="min-h-fit bg-black-75 border border-black-50 rounded-xl overflow-hidden">
+          <RelatedQuestions uid={uid} tags={question.tags || []} />
         </div>
-        <Separator className="bg-black-50" />
-        <div className="p-4 flex items-center">
-          <div className="flex items-start gap-4 text-sm text-gray-400">
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-0.5">
-                <User className="size-4" />
-                <p>Total submissions:</p>
-              </div>
-              <p>{totalSubmissions?.totalSubmissions}</p>
-            </div>
-            {totalSubmissions?.percentageCorrect > 0 && (
-              <>
-                |
+      )}
+
+      {!question.customQuestion && (
+        <div className="bg-black-75 border border-black-50 rounded-xl overflow-hidden min-h-fit">
+          <div className="flex items-center gap-x-1 p-4 bg-black-25">
+            <ChartColumn className="size-4" />
+            <div className="text-sm">Stats</div>
+          </div>
+          <Separator className="bg-black-50" />
+          <div className="p-4 flex items-center">
+            <div className="flex items-start gap-4 text-sm text-gray-400">
+              <div className="flex items-center gap-2">
                 <div className="flex items-center gap-0.5">
-                  <Check className="size-4" />
-                  <p>Success rate:</p>
-                  <p>{totalSubmissions?.percentageCorrect}%</p>
+                  <User className="size-4" />
+                  <p>Total submissions:</p>
                 </div>
-              </>
-            )}
+                <p>{totalSubmissions?.totalSubmissions}</p>
+              </div>
+              {totalSubmissions?.percentageCorrect > 0 && (
+                <>
+                  |
+                  <div className="flex items-center gap-0.5">
+                    <Check className="size-4" />
+                    <p>Success rate:</p>
+                    <p>{totalSubmissions?.percentageCorrect}%</p>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 

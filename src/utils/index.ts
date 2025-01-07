@@ -31,7 +31,7 @@ export const createMetadata = ({
 }: {
   title: string;
   description: string;
-  image?: OgImageProps;
+  image?: OgImageProps | string;
   keywords?: string[];
 }): Metadata => {
   const defaultKeywords = [
@@ -48,12 +48,50 @@ export const createMetadata = ({
     'coding bootcamp',
   ];
 
+  // If image is a string, use it directly as the OG image URL
+  if (typeof image === 'string') {
+    return {
+      title,
+      description,
+      keywords: keywords || defaultKeywords,
+      openGraph: {
+        title,
+        description,
+        type: 'website',
+        url: getBaseUrl(),
+        images: [
+          {
+            url: image,
+            width: 1200,
+            height: 630,
+            alt: description,
+          },
+        ],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title,
+        description,
+        images: [
+          {
+            url: image,
+            width: 1200,
+            height: 630,
+            alt: description,
+          },
+        ],
+      },
+      robots: {
+        index: true,
+        follow: true,
+      },
+    };
+  }
+
+  // Handle OgImageProps case
   const bgColor = image?.bgColor || '#f0f0f0';
   const textColor = image?.textColor || '#000000';
-
-  const ogImage =
-    image ||
-    `${getBaseUrl()}/api/og?text=${encodeURIComponent(title)}&bgColor=${bgColor}&textColor=${textColor}`;
+  const ogImageUrl = `${getBaseUrl()}/api/og?text=${encodeURIComponent(image?.text || title)}&bgColor=${encodeURIComponent(bgColor)}&textColor=${encodeURIComponent(textColor)}`;
 
   return {
     title,
@@ -66,10 +104,7 @@ export const createMetadata = ({
       url: getBaseUrl(),
       images: [
         {
-          url:
-            typeof ogImage === 'string'
-              ? ogImage
-              : `${getBaseUrl()}/api/og?text=${encodeURIComponent(image?.text || '')}&bgColor=${bgColor}&textColor=${textColor}`,
+          url: ogImageUrl,
           width: 1200,
           height: 630,
           alt: description,
@@ -82,10 +117,7 @@ export const createMetadata = ({
       description,
       images: [
         {
-          url:
-            typeof ogImage === 'string'
-              ? ogImage
-              : `${getBaseUrl()}/api/og?text=${encodeURIComponent(image?.text || '')}&bgColor=${bgColor}&textColor=${textColor}`,
+          url: ogImageUrl,
           width: 1200,
           height: 630,
           alt: description,

@@ -1,30 +1,15 @@
-import Link from 'next/link';
-import dynamic from 'next/dynamic';
-
-const StarsBackground = dynamic(
-  () => import('@/components/ui/stars-background'),
-  {
-    ssr: false,
-  }
-);
-
-import Logo from '@/components/ui/logo';
 import { PricingCard } from '@/components/global/payment/payment-card';
-
+import Logo from '@/components/ui/logo';
+import { getPlans } from '@/utils/constants/pricing';
 import { X } from 'lucide-react';
 
-import { useUserServer } from '@/hooks/use-user-server';
-import { getPlans } from '@/utils/constants/pricing';
+import Link from 'next/link';
 
-export default async function UpgradePage() {
-  // get the current user (for prefilling the form)
-  const user = await useUserServer();
-  // grab the products from the constants
-  const products = getPlans(user);
+export default async function Loading() {
+  const products = getPlans(null);
 
   return (
     <div className="relative">
-      <StarsBackground className="-z-10" />
       <Link
         href="/dashboard"
         className="absolute top-8 left-8 z-50"
@@ -38,7 +23,6 @@ export default async function UpgradePage() {
       >
         <X className="size-5" />
       </Link>
-      <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black-950 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
 
       <div className="w-full lg:h-svh flex flex-col pt-32 md:py-8 container z-50 relative items-center justify-center text-center">
         <h1 className="text-gradient from-white to-white/75 text-3xl lg:text-5xl !font-onest tracking-tight py-1">
@@ -57,10 +41,10 @@ export default async function UpgradePage() {
           <div className="flex flex-col lg:flex-row gap-10 justify-center mt-8 md:mt-16 px-2 md:px-10">
             {products?.map((product) => (
               <PricingCard
-                user={user}
+                user={null}
                 key={product.id}
                 product={product}
-                isLoading={false}
+                isLoading={true}
                 billingPeriod="month"
               />
             ))}

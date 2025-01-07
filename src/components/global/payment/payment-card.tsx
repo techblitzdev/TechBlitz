@@ -79,7 +79,9 @@ export function PricingCard(opts: {
           <AnimatedPricingFeatures
             features={product.features || []}
             productId={product.id}
+            loading={isLoading}
           />
+
           {/** payment trigger */}
           <Button
             href={paymentLink}

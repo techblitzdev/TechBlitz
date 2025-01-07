@@ -2,8 +2,8 @@ import { cn } from '@/utils/cn';
 import { Grid } from '@/components/ui/grid';
 
 export default function Hero(opts: {
-  heading: string;
-  subheading?: string;
+  heading: string | React.ReactNode;
+  subheading?: string | React.ReactNode;
   children?: React.ReactNode;
   container?: boolean;
 }) {
@@ -17,13 +17,19 @@ export default function Hero(opts: {
           container ? 'md:container' : ''
         )}
       >
-        <h1 className="text-3xl text-wrap text-start font-inter max-w-2xl text-gradient from-white to-white/55">
-          {heading}
-        </h1>
-        {subheading && (
+        {typeof heading === 'string' ? (
+          <h1 className="text-3xl text-wrap text-start font-inter max-w-2xl text-gradient from-white to-white/55">
+            {heading}
+          </h1>
+        ) : (
+          heading
+        )}
+        {typeof subheading === 'string' ? (
           <h6 className="text-sm text-gray-400 font-inter max-w-xl z-50">
             {subheading}
           </h6>
+        ) : (
+          subheading
         )}
         {children}
       </div>

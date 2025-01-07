@@ -1,26 +1,44 @@
+import { redirect } from 'next/navigation';
+//dynamic imports
+import dynamic from 'next/dynamic';
+
+const RoadmapQuestionCard = dynamic(
+  () => import('@/components/app/roadmaps/questions/question-card'),
+  {
+    ssr: false,
+  }
+);
+
+// actions
 import { fetchRoadmapQuestion } from '@/actions/roadmap/questions/fetch-roadmap-question';
 
+// components
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { useUserServer } from '@/hooks/use-user-server';
-import { redirect } from 'next/navigation';
 import QuestionDisplay from '@/components/app/questions/single/code-snippet';
-import { RoadmapUserQuestions } from '@/types/Roadmap';
-import RoadmapQuestionCard from '@/components/app/roadmaps/questions/question-card';
 import ExpandedCodeModal from '@/components/app/questions/expanded-code-modal';
+
+import { useUserServer } from '@/hooks/use-user-server';
+// types
+import { RoadmapUserQuestions } from '@/types/Roadmap';
+import { UserRecord } from '@/types/User';
 
 export default async function RoadmapQuestionPage({
   params,
 }: Readonly<{ params: { roadmapUid: string; uid: string } }>) {
   const { roadmapUid, uid } = params;
 
-  const user = await useUserServer();
+  // run user and get question in parallel as they do not depend on each other
+  const [user, question] = (await Promise.all([
+    useUserServer(),
+    fetchRoadmapQuestion(uid),
+  ])) as [UserRecord, RoadmapUserQuestions];
+
+  // free users do not have access to the roadmap (we also check if the user owns the roadmap in the fetchRoadmapQuestion action)
   if (!user || user.userLevel === 'FREE') {
     return redirect('/dashboard');
   }
 
-  // grab the question from the db
-  const question = (await fetchRoadmapQuestion(uid)) as RoadmapUserQuestions;
   if (!question) {
     return redirect(`/roadmap/${roadmapUid}?error_question_not_found`);
   }

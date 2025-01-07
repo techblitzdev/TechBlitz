@@ -1,9 +1,13 @@
+import { redirect } from 'next/navigation';
+
+// actions
 import { fetchRoadmapQuestionViaOrder } from '@/actions/roadmap/questions/fetch-question-via-order';
 import { fetchRoadmapQuestion } from '@/actions/roadmap/questions/fetch-roadmap-question';
+
+// components
 import BackToDashboard from '@/components/ui/back-to-dashboard';
 import QuestionNavigation from '@/components/global/navigation/question-navigation';
 import { Separator } from '@/components/ui/separator';
-import { redirect } from 'next/navigation';
 import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-trigger';
 
 export default async function RoadmapQuestionLayout({
@@ -21,15 +25,17 @@ export default async function RoadmapQuestionLayout({
     redirect(`/roadmap/${roadmapUid}`);
   }
 
-  // Fetch the previous and next questions
-  const nextQuestion = await fetchRoadmapQuestionViaOrder({
-    order: question.order + 1,
-    roadmapUid,
-  });
-  const previousQuestion = await fetchRoadmapQuestionViaOrder({
-    order: question.order - 1,
-    roadmapUid,
-  });
+  // run next and previous questions in parallel as they do not depend on each other
+  const [nextQuestion, previousQuestion] = await Promise.all([
+    fetchRoadmapQuestionViaOrder({
+      order: question.order + 1,
+      roadmapUid,
+    }),
+    fetchRoadmapQuestionViaOrder({
+      order: question.order - 1,
+      roadmapUid,
+    }),
+  ]);
 
   return (
     <>

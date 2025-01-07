@@ -9,7 +9,7 @@ export default async function HomepageHero() {
 
   const animatedSpanContent = (
     <div className="flex items-center group">
-      Grab our limited lifetime deal!
+      Limited Time Offer: 50% Student Discount - Lock in Lifetime Access Today!
       <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-all duration-300" />
     </div>
   );
@@ -20,7 +20,7 @@ export default async function HomepageHero() {
       className="pb-16 pt-28 md:pb-20 md:pt-32 xl:pb-40 xl:pt-56 grid grid-cols-12 gap-4 lg:gap-16 items-center"
     >
       <div className="flex flex-col gap-y-4 col-span-full items-center text-center">
-        <Link href="/signup">
+        <Link href="/pricing">
           <AnimatedSpan content={animatedSpanContent} />
         </Link>
         <h1 className="text-5xl lg:text-[68px] !font-onest !font-medium tracking-tight max-w-5xl">

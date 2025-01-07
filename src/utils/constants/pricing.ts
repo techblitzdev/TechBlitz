@@ -14,13 +14,13 @@ export const getPlans = (user: UserRecord | null) => [
         name: 'Daily question',
       },
       {
-        name: 'Compete with other users Daily question',
+        name: 'Compete with other users everyday',
       },
       {
         name: `Access to ${QUESTIONS_COUNT}+ questions (more being added every day!)`,
       },
       {
-        name: 'Stats and progress tracking',
+        name: 'Basic stats and progress tracking',
       },
       {
         name: 'Basic support',
@@ -58,13 +58,16 @@ export const getPlans = (user: UserRecord | null) => [
         name: 'In depth stats and progress tracking',
       },
       {
-        name: "Top user's entered into weekly prize draws",
-      },
-      {
         name: '10 Bespoke learning plans and progression frameworks',
       },
       {
+        name: 'Personalized code analysis & custom questions.',
+      },
+      {
         name: 'Access to upcoming beta features',
+      },
+      {
+        name: '50% student discount available',
       },
       {
         name: 'Priority support',
@@ -101,19 +104,22 @@ export const getPlans = (user: UserRecord | null) => [
         name: 'In depth stats and progress tracking',
       },
       {
-        name: "Top user's entered into weekly prize draws",
-      },
-      {
         name: '10 Bespoke learning plans and progression frameworks',
       },
       {
         name: 'Access to upcoming beta features',
       },
       {
+        name: 'Personalized code analysis & custom questions.',
+      },
+      {
         name: 'Priority support',
       },
       {
-        name: 'No recurring payments',
+        name: '50% student discount available',
+      },
+      {
+        name: 'Lifetime access to all features',
       },
     ],
     paymentLink: {

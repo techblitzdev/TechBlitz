@@ -22,8 +22,13 @@ export default function PricingCard(opts: { product: Plan }) {
     >
       <CardHeader className="pb-0">
         <div className="flex flex-col gap-2 text-start">
-          <div className="text-sm text-white font-onest flex gap-x-2">
-            <p>{product.name}</p>
+          <div className="flex w-full justify-between items-center">
+            <h2 className="font-onest text-white">{product.name}</h2>
+            {product.mostPopular && (
+              <div className="bg-accent rounded-lg text-white text-xs px-2 py-1 font-semibold">
+                Most popular
+              </div>
+            )}
           </div>
           <div className="flex gap-x-1 items-center lg:items-end mt-2">
             <div className="flex gap-x-1 items-center font-onest text-gradient from-white to-white/75">

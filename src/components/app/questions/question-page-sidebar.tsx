@@ -18,8 +18,11 @@ export default async function QuestionPageSidebar(opts: {
 }) {
   const { user } = opts;
 
-  // get the user's daily streak if they are logged in
-  const userStreak = await getUserDailyStats(user?.uid || '');
+  // get the user streak and suggestion in one go
+  const [userStreak, suggestions] = await Promise.all([
+    getUserDailyStats(user?.uid || ''),
+    getSuggestions({ userUid: user?.uid || '' }),
+  ]);
 
   // get the streak start date and streak end date
   const startDate = userStreak?.streakData?.streakStart as Date;
@@ -27,10 +30,6 @@ export default async function QuestionPageSidebar(opts: {
 
   // create an array of dates between the start and end date
   const dateArray: [Date, Date] = [startDate, endDate];
-
-  const suggestions = await getSuggestions({
-    userUid: user?.uid || '',
-  });
 
   return (
     <aside className="w-full lg:w-[45%] relative">

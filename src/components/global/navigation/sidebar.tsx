@@ -135,6 +135,10 @@ export function AppSidebar(opts: { user: UserRecord | null }) {
           title: 'All Daily Questions',
           url: '/questions/previous',
         },
+        {
+          title: 'Custom Questions',
+          url: '/questions/custom',
+        },
       ],
     },
     {

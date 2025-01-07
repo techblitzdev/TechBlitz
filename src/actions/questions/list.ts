@@ -40,19 +40,19 @@ export const listQuestions = async (
     previousQuestions = false,
   } = opts;
 
+  // Move authentication outside of cache to avoid cookie access inside cache
+  let authenticatedUser = null;
+  if (customQuestions) {
+    authenticatedUser = await getUser();
+
+    if (!authenticatedUser || authenticatedUser.uid !== userUid) {
+      throw new Error('Unauthorized access to custom questions');
+    }
+  }
+
   return unstable_cache(
     async () => {
       const skip = (page - 1) * pageSize;
-
-      // Always get the authenticated user when dealing with custom questions
-      let authenticatedUser = null;
-      if (customQuestions) {
-        authenticatedUser = await getUser();
-
-        if (!authenticatedUser || authenticatedUser.uid !== userUid) {
-          throw new Error('Unauthorized access to custom questions');
-        }
-      }
 
       // Base where clause
       const baseWhereClause: any = {

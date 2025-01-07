@@ -34,7 +34,6 @@ const QuestionPageSidebar = dynamic(
 
 import Hero from '@/components/global/hero';
 import QuestionPageSidebarLoading from '@/components/app/questions/question-page-sidebar-loading';
-import LoadingSpinner from '@/components/ui/loading';
 
 import { useUserServer } from '@/hooks/use-user-server';
 import { validateSearchParams } from '@/utils/search-params';
@@ -64,10 +63,8 @@ export default async function PreviousQuestionsPage({
         <div className="flex flex-col lg:flex-row w-full gap-16">
           <div className="w-full lg:min-w-[55%] space-y-6">
             <div className="min-h-[84px]">
-              <Suspense fallback={<LoadingSpinner />}>
-                <Filter tags={tags} />
-                <FilterChips />
-              </Suspense>
+              <Filter tags={tags} />
+              <FilterChips />
             </div>
             <QuestionsList
               user={user}

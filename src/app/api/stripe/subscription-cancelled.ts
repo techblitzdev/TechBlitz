@@ -24,7 +24,7 @@ export async function cancelSubscription(event: Stripe.Event) {
     // go get the user's details from prisma
     const user = await prisma.users.findFirst({
       where: {
-        email: userEmail,
+        OR: [{ email: userEmail }, { stripeEmails: { has: userEmail } }],
       },
     });
 

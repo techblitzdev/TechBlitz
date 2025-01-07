@@ -1,13 +1,24 @@
-import { Suspense } from 'react';
-import { getUserReports } from '@/actions/statistics/reports/get-reports';
-import StatsReportCard from '@/components/app/statistics/stats-report-card';
+import dynamic from 'next/dynamic';
+
+const StatsReportCardsWrapper = dynamic(
+  () => import('@/components/app/statistics/stats-report-cards-wrapper'),
+  {
+    ssr: false,
+    loading: () => (
+      <>
+        {[...Array(6)].map((_, i) => (
+          <StatsReportCardSkeleton key={`skeleton-${i}`} />
+        ))}
+      </>
+    ),
+  }
+);
+
 import Hero from '@/components/global/hero';
 import StatsReportCardSkeleton from '@/components/app/statistics/stats-report-card-loading';
 import GenerateReportButton from '@/components/app/statistics/generate-report-button';
 
-export default async function StatisticsReportsPage() {
-  const reports = await getUserReports();
-
+export default function StatisticsReportsPage() {
   return (
     <>
       <Hero
@@ -16,23 +27,7 @@ export default async function StatisticsReportsPage() {
       />
       <div className="md:container flex flex-col lg:flex-row mt-5 gap-16">
         <div className="w-full lg:w-[55%] flex flex-col gap-6">
-          <Suspense
-            fallback={
-              <>
-                {[...Array(6)].map((_, i) => (
-                  <StatsReportCardSkeleton key={`skeleton-${i}`} />
-                ))}
-              </>
-            }
-          >
-            {reports.length > 0 &&
-              reports.map((report) => (
-                <StatsReportCard key={report.uid} report={report} />
-              ))}
-            {reports.length === 0 && (
-              <p className="text-lg text-muted-foreground">No reports found.</p>
-            )}
-          </Suspense>
+          <StatsReportCardsWrapper />
         </div>
         <aside className="w-full lg:w-[45%] relative">
           <GenerateReportButton />

@@ -12,7 +12,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import StatisticsReportTabs from '@/components/app/statistics/statistics-report-tabs';
-import BackToDashboard from '@/components/ui/back-to-dashboard';
 
 import { useUser } from '@/hooks/use-user';
 import { getUserDisplayName } from '@/utils/user';
@@ -53,7 +52,6 @@ export default function StatisticsReportContent({
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center gap-6 mb-6">
-        <BackToDashboard href="/statistics" />
         <div className="flex items-center w-full justify-between">
           <h1 className="text-3xl font-bold text-gradient from-white/55 to-white">
             Statistics Report

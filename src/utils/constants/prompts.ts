@@ -8,10 +8,14 @@ const PROMPT_NAMES = [
   'roadmap-generate-pass-one-question',
   'roadmap-generate-pass-one-topics',
   'roadmap-generate-pass-two',
+  'roadmap-chat-gpt-formatter',
 
   // STATISTICS
   'statistics-generate-report',
   'statistics-generate-report-html',
+
+  // CLAUDE
+  'claude-ai-first-pass',
 ] as const;
 
 export type PromptName = (typeof PROMPT_NAMES)[number];

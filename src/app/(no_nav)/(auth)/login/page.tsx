@@ -1,4 +1,6 @@
 import LoginForm from '@/components/auth/login';
+import LoadingSpinner from '@/components/ui/loading';
+import { Suspense } from 'react';
 
 export default function LoginPage() {
   return (
@@ -13,7 +15,9 @@ export default function LoginPage() {
       <p className="text-gray-300 mb-8 text-sm font-satoshi text-wrap">
         Sign in to your account to continue.
       </p>
-      <LoginForm />
+      <Suspense fallback={<LoadingSpinner />}>
+        <LoginForm />
+      </Suspense>
     </div>
   );
 }

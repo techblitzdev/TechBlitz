@@ -22,6 +22,7 @@ import { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
 import { cn } from '@/utils/cn';
 import { answerDefaultRoadmapQuestion } from '@/actions/roadmap/questions/default/answer-roadmap-question';
 import AnswerSubmittedForm from '../answer-submitted-form';
+import CodeDisplay from '../../questions/single/code-snippet';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
@@ -167,7 +168,21 @@ const OnboardingRoadmapAnswerQuestionForm = forwardRef(
                               <Check className="size-3 flex-shrink-0" />
                             )}
                           </div>
-                          <p className="text-sm">{answer.answer}</p>
+                          {/<pre><code/.test(answer.answer) ? (
+                            <CodeDisplay
+                              content={answer.answer}
+                              language="javascript"
+                              hideIndex={true}
+                              backgroundColor="transparent"
+                            />
+                          ) : (
+                            <p
+                              className="text-sm"
+                              dangerouslySetInnerHTML={{
+                                __html: answer.answer,
+                              }}
+                            />
+                          )}
                         </Label>
                       </FormControl>
                     )}

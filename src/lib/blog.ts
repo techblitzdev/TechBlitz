@@ -30,6 +30,7 @@ export const getBlogPosts = async () => {
 
         return {
           slug: filename.replace('.mdx', ''),
+          date: frontmatter.date,
           ...frontmatter,
         };
       })

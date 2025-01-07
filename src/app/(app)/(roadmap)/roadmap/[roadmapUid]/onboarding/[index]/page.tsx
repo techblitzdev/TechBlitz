@@ -48,7 +48,7 @@ export default async function RoadmapQuestionPage({
         {/* Left Section - Question and Stats */}
         <div className="flex flex-col gap-y-4 w-full lg:w-1/2 relative overflow-hidden h-fit">
           {/* Question Card */}
-          <Button className="border border-black-50">Question</Button>
+          <Button className="border border-black-50">Question {index}</Button>
           <OnboardingQuestionCard
             question={question}
             user={user}

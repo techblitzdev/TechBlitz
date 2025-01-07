@@ -37,8 +37,8 @@ export const getPlans = (user: UserRecord | null) => [
     id: 'premium',
     name: 'Premium',
     paymentLink: {
-      local: 'https://buy.stripe.com/test_8wMfZ07x02DraeQ289',
-      production: 'https://buy.stripe.com/bIY3dG4Es6z65fq4gk ',
+      local: `https://buy.stripe.com/test_8wMfZ07x02DraeQ289?client_reference_id=${user?.uid}`,
+      production: `https://buy.stripe.com/bIY3dG4Es6z65fq4gk?client_reference_id=${user?.uid}`,
     },
     price: 4.99,
     currencySymbol: '$',
@@ -73,8 +73,8 @@ export const getPlans = (user: UserRecord | null) => [
     cta: {
       text: user?.userLevel === 'PREMIUM' ? 'Current plan' : 'Get started',
       href: {
-        local: 'https://buy.stripe.com/test_8wMfZ07x02DraeQ289',
-        production: 'https://buy.stripe.com/bIY3dG4Es6z65fq4gk ',
+        local: `https://buy.stripe.com/test_8wMfZ07x02DraeQ289?client_reference_id=${user?.uid}`,
+        production: `https://buy.stripe.com/bIY3dG4Es6z65fq4gk?client_reference_id=${user?.uid}`,
       },
     },
     mostPopular: false,
@@ -117,14 +117,14 @@ export const getPlans = (user: UserRecord | null) => [
       },
     ],
     paymentLink: {
-      local: 'https://buy.stripe.com/cN229C4Es4qY5fqdQV',
-      production: 'https://buy.stripe.com/cN229C4Es4qY5fqdQV',
+      local: `https://buy.stripe.com/cN229C4Es4qY5fqdQV?client_reference_id=${user?.uid}`,
+      production: `https://buy.stripe.com/cN229C4Es4qY5fqdQV?client_reference_id=${user?.uid}`,
     },
     cta: {
       text: user?.userLevel === 'PREMIUM' ? 'Current plan' : 'Get started',
       href: {
-        local: 'https://buy.stripe.com/cN229C4Es4qY5fqdQV',
-        production: 'https://buy.stripe.com/cN229C4Es4qY5fqdQV',
+        local: `https://buy.stripe.com/cN229C4Es4qY5fqdQV?client_reference_id=${user?.uid}`,
+        production: `https://buy.stripe.com/cN229C4Es4qY5fqdQV?client_reference_id=${user?.uid}`,
       },
     },
     mostPopular: true,

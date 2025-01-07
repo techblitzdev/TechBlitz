@@ -10,6 +10,7 @@ enum userLevel {
 model Users {
   uid       String  @id()
   email     String  @unique
+  stripeEmails String[] @default([])
   username  String?
   firstName String?
   lastName  String?

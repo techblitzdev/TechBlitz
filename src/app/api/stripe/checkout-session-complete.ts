@@ -3,92 +3,90 @@ import { prisma } from '@/utils/prisma';
 import { resend } from '@/lib/resend';
 import { stripe } from '@/lib/stripe';
 
-/**
- * Method is ran on the following events:
- * - checkout.session.completed
- * - customer.subscription.updated
- */
 export const checkoutSessionCompleted = async (event: Stripe.Event) => {
   const session = event.data.object as Stripe.Checkout.Session;
 
-  // we only have one product that a user can subscribe to (for now)
-  // so we will just be updating the users userLevel to 'PREMIUM'
-  // and setting their subscription to active
+  console.log('checkoutSessionCompleted', session);
+
   try {
-    // get the user's email address from the session
-    // this is what we use to upgrade the user's account.
-    // from their email, we get the userUid to then update the user's userLevel,
-    // as well as get the user's subscription to update the subscription status
-    // Get the customer email
-    const customer = await stripe.customers.retrieve(
-      session.customer as string
-    );
-    const userEmail = (customer as Stripe.Customer).email;
+    // Get the client_reference_id which contains the user.uid
+    const userId = session.client_reference_id;
 
-    console.log('userEmail', userEmail);
-
-    if (!userEmail) {
-      console.log('No user email found');
-      return;
+    if (!userId) {
+      console.log('No client_reference_id found in session');
+      throw new Error('No client_reference_id found in session');
     }
 
-    // find the user via their email they have entered in the checkout session
-    const user = await prisma.users.findFirst({
+    // Find user by uid
+    const user = await prisma.users.findUnique({
       where: {
-        email: userEmail,
+        uid: userId,
       },
     });
 
-    // we need the user in order to update their details
     if (!user) {
-      console.log('No user found');
-      return;
+      console.log(`No user found with uid: ${userId}`);
+      throw new Error(`No user found with uid: ${userId}`);
     }
 
-    const userUid = user.uid;
+    // Get the email used in this purchase (might be different from user's registered email)
+    const customer = await stripe.customers.retrieve(
+      session.customer as string
+    );
+    const customerEmail = (customer as Stripe.Customer).email;
+    const sessionEmail = session.customer_details?.email;
 
-    // update the user's userLevel to 'PREMIUM'
+    console.log('User email:', user.email);
+    console.log('Customer email:', customerEmail);
+    console.log('Session email:', sessionEmail);
+
+    // If the customer used a different email with Link, store it
+    if (customerEmail && customerEmail !== user.email) {
+      await prisma.users.update({
+        where: { uid: userId },
+        data: {
+          stripeEmails: {
+            push: customerEmail,
+          },
+        },
+      });
+    }
+
+    // Update the user's userLevel
     await prisma.users.update({
       where: {
-        uid: userUid,
+        uid: userId,
       },
       data: {
         userLevel: 'PREMIUM',
       },
     });
 
-    const stripeSubscriptionId = session.id;
-
-    if (!stripeSubscriptionId || typeof stripeSubscriptionId !== 'string') {
-      console.log('No subscription id found');
-      return;
-    }
-
-    // update the user's subscription to active
+    // Update the subscription
     await prisma.subscriptions.update({
       where: {
-        userUid,
+        userUid: userId,
       },
       data: {
         active: true,
-        stripeSubscriptionId,
+        stripeSubscriptionId: session.id,
         stripeCustomerId: session.customer as string,
         updatedAt: new Date(),
       },
     });
 
-    // send my self an email to notify me that a user has subscribed
+    // Send notification email
     await resend.emails.send({
       to: 'team@techblitz.dev',
       from: 'team@techblitz.dev',
       subject: 'User subscribed',
-      text: `User ${userEmail}, has subscribed to TechBlitz premium.`,
+      text: `User ${user.email} (${customerEmail || 'no customer email'}) has subscribed to TechBlitz Premium.`,
     });
 
-    console.log('User subscribed:', userEmail);
-
+    console.log('User subscribed:', user.email);
     return true;
   } catch (error) {
     console.error('Failed to process webhook event:', error);
+    throw error; // Re-throw to ensure the webhook knows there was an error
   }
 };

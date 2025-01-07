@@ -24,7 +24,7 @@ export default async function HomepageHero() {
           <AnimatedSpan content={animatedSpanContent} />
         </Link>
         <h1 className="text-5xl lg:text-[68px] !font-onest !font-medium tracking-tight max-w-5xl">
-          Learning to code <br /> made easy
+          Learn to code, <br /> faster
         </h1>
         <h6 className="font-onest max-w-3xl text-gray-400 text-lg">
           Improve your coding ability effortlessly, with our short-form,

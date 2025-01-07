@@ -14,7 +14,7 @@ import Hero from '@/components/global/hero';
 import Chip from '@/components/ui/chip';
 import { capitalise } from '@/utils';
 
-export default async function RoadmapSinglgePage({
+export default async function RoadmapSinglePage({
   params,
 }: {
   params: { roadmapUid: string };
@@ -39,13 +39,22 @@ export default async function RoadmapSinglgePage({
   // order the questions via the order
   roadmap.questions.sort((a, b) => a.order - b.order);
 
+  // determine the roadmap title and description via the status
+  // if the roadmap is 'creating' then we output 'Creation in progress'
+  const roadmapTitle =
+    roadmap.status === 'CREATING'
+      ? 'Creation in progress'
+      : roadmap.title || 'Untitled Roadmap';
+
+  const roadmapDescription =
+    roadmap.status === 'CREATING'
+      ? 'We are creating your roadmap, this may take a few minutes'
+      : roadmap.description || 'No description';
+
   return (
     <>
       <div className="px-8">
-        <Hero
-          heading={roadmap.title || 'Untitled Roadmap'}
-          subheading={roadmap.description || 'No description'}
-        >
+        <Hero heading={roadmapTitle} subheading={roadmapDescription}>
           <div className="mt-5 w-fit flex gap-3 z-10">
             <div className="flex items-center gap-x-3">
               {roadmap?.status && (

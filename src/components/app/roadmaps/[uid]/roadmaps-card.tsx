@@ -42,6 +42,18 @@ export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {
     (correctCount / roadmapRef.current.questions.length) * 100
   );
 
+  // determine the roadmap title and description via the status
+  // if the roadmap is 'creating' then we output 'Creation in progress'
+  const roadmapTitle =
+    roadmapRef.current.status === 'CREATING'
+      ? 'Creation in progress'
+      : roadmapRef.current.title || 'Untitled Roadmap';
+
+  const roadmapDescription =
+    roadmapRef.current.status === 'CREATING'
+      ? 'You are in the process of creating your roadmap. Resume it now!'
+      : roadmapRef.current.description || 'No description';
+
   return (
     <Link
       href={href}
@@ -58,11 +70,7 @@ export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {
               transition={{ duration: 0.3 }}
               className="text-base text-wrap text-start"
             >
-              {isLoading ? (
-                <Skeleton className="h-6 w-3/4" />
-              ) : (
-                roadmapRef.current.title
-              )}
+              {isLoading ? <Skeleton className="h-6 w-3/4" /> : roadmapTitle}
             </motion.h6>
           </AnimatePresence>
           <AnimatePresence mode="wait">
@@ -81,7 +89,7 @@ export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {
               ) : (
                 roadmapRef.current.description && (
                   <p className="text-sm">
-                    {shortenText(roadmapRef.current.description, 100)}
+                    {shortenText(roadmapDescription, 100)}
                   </p>
                 )
               )}

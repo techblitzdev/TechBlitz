@@ -203,7 +203,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
                       <Label
                         htmlFor={answer.uid}
                         className={cn(
-                          'p-4 rounded-xl min-h-20 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
+                          'p-4 rounded-xl min-h-20 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50  hover:border-accent',
                           field.value === answer.uid
                             ? ''
                             : 'bg-black hover:bg-black-75'

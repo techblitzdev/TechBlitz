@@ -2,8 +2,12 @@ import AnimatedPricingFeatures from '@/components/global/payment/animated-pricin
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { cn } from '@/utils/cn';
+
+// constants
 import { Plan } from '@/utils/constants/pricing';
+
+// utils
+import { cn } from '@/utils/cn';
 
 export default function PricingCard(opts: { product: Plan }) {
   const { product } = opts;

@@ -1,5 +1,4 @@
 import { shortenText } from '@/utils';
-import Image from 'next/image';
 import Link from 'next/link';
 
 export default function BlogCard(opts: { post: any }) {

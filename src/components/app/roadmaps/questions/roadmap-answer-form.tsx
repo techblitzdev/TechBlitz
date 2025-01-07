@@ -23,6 +23,7 @@ import { Separator } from '@/components/ui/separator';
 import QuestionHintAccordion from '@/components/app/questions/single/question-hint';
 import LoadingSpinner from '@/components/ui/loading';
 import { Button } from '@/components/ui/button';
+import CodeDisplay from '../../questions/single/code-snippet';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 
@@ -230,7 +231,19 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
                             <Check className="h-3 w-3 flex-shrink-0" />
                           )}
                         </div>
-                        <p className="text-sm">{answer.answer}</p>
+                        {/<pre><code/.test(answer.answer) ? (
+                          <CodeDisplay
+                            content={answer.answer}
+                            language="javascript"
+                            hideIndex={true}
+                            backgroundColor="transparent"
+                          />
+                        ) : (
+                          <p
+                            className="text-sm"
+                            dangerouslySetInnerHTML={{ __html: answer.answer }}
+                          />
+                        )}
                       </Label>
                     </FormControl>
                   )}

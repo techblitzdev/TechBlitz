@@ -1,4 +1,4 @@
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { Grid } from '@/components/ui/grid';
 
 export default function Hero(opts: {

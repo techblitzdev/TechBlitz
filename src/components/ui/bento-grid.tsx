@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
 export const BentoGrid = ({
@@ -13,15 +13,11 @@ export const BentoGrid = ({
   return (
     <div
       className={cn(
-        'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6',
+        'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6',
         className
       )}
     >
-      <div className="flex flex-col gap-4 md:gap-6 md:col-span-1">
-        {children?.[0]}
-        {children?.[1]}
-      </div>
-      {children?.slice(2)}
+      {children}
     </div>
   );
 };

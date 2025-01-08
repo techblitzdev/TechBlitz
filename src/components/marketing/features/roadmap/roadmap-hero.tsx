@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowDown, ChevronRight } from 'lucide-react';
 import GridPattern from '@/components/ui/grid-pattern';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 
 export default function FeatureRoadmapHeroBlock() {
   return (

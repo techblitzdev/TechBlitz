@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 
 export default function NoDailyQuestion(opts: {
   variant?: 'default' | 'secondary' | 'accent';
@@ -9,7 +9,7 @@ export default function NoDailyQuestion(opts: {
   const {
     variant = 'secondary',
     textSize = 'base',
-    textAlign = 'start'
+    textAlign = 'start',
   } = opts;
 
   return (
@@ -30,11 +30,7 @@ export default function NoDailyQuestion(opts: {
             <br />
             our support team to help resolve this.
           </p>
-          <Button
-            variant={variant}
-            href="/contact"
-            className="mt-2"
-          >
+          <Button variant={variant} href="/contact" className="mt-2">
             Contact Support
           </Button>
         </>

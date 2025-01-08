@@ -7,7 +7,7 @@ import { Separator } from '@/components/ui/separator';
 import { Plan } from '@/utils/constants/pricing';
 
 // utils
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 
 export default function PricingCard(opts: { product: Plan }) {
   const { product } = opts;

@@ -19,7 +19,7 @@ import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
 import type { UserRecord } from '@/types/User';
 import { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
 
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { answerDefaultRoadmapQuestion } from '@/actions/roadmap/questions/default/answer-roadmap-question';
 import AnswerSubmittedForm from '../answer-submitted-form';
 import CodeDisplay from '../../questions/single/code-snippet';

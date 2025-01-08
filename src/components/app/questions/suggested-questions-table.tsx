@@ -1,6 +1,6 @@
 import type { QuestionWithoutAnswers } from '@/types/Questions';
 import { shortenText } from '@/utils';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 

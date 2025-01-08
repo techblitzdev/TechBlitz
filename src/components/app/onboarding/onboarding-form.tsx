@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation';
 
 import { useOnboardingContext } from './onboarding-context';
 import { updateUser } from '@/actions/user/authed/update-user';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 
 const containerVariants = {
   hidden: { opacity: 0, scale: 0.95 },

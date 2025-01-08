@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/ui/grid';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 

@@ -2,7 +2,7 @@ import { getTodaysQuestion } from '@/actions/questions/get-today';
 import AnimatedSpan from '@/components/ui/animated-span';
 import { Button } from '@/components/ui/button';
 import GridPattern from '@/components/ui/grid-pattern';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 
 export default async function FeatureDailyChallengeHero() {
   const dailyQuestion = await getTodaysQuestion();

@@ -1,7 +1,7 @@
 'use client';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { useSearchParams } from 'next/navigation';
 
 export default function GlobalPagination(opts: {

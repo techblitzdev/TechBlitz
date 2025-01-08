@@ -6,7 +6,7 @@ import { Form, FormControl, FormField } from '@/components/ui/form';
 import AnswerQuestionModal from '@/components/app/questions/single/answer-question-modal';
 import LoadingSpinner from '@/components/ui/loading';
 import { toast } from 'sonner';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { Label } from '@/components/ui/label';
 import { Check } from 'lucide-react';
 import CodeDisplay from '@/components/app/questions/single/code-snippet';

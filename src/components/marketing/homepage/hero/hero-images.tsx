@@ -6,7 +6,7 @@ import { Play } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 import { FC } from 'react';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 
 interface HomepageHeroImagesProps {
   imageSrc: StaticImageData;

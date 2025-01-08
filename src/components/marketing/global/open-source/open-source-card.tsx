@@ -5,7 +5,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { capitalise } from '@/utils';
 
 type cardStyle = 'comment' | 'issue' | 'pr';

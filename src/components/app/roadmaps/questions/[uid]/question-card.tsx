@@ -3,7 +3,7 @@
 import Chip from '@/components/ui/chip';
 import { RoadmapUserQuestions } from '@/types/Roadmap';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { Check, X } from 'lucide-react';
 import Link from 'next/link';
 import RoadmapQuestionCardMenu from './question-card-menu';

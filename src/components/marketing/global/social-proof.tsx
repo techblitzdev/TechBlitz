@@ -6,7 +6,7 @@ import { UserIcon } from 'lucide-react';
 import NumberFlow from '@number-flow/react';
 
 import { Question } from '@/types/Questions';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 
 export default function SocialProof({
   userCount,

@@ -11,7 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 
 export default function StatsReportCardMenu(opts: {
   reportUid: string;

@@ -38,13 +38,6 @@ export default async function QuestionCard(opts: {
             </p>
           </div>
         )}
-        {!showSubmissions && (
-          <div className="text-start text-[10px]">
-            <p className="font-ubuntu text-sm">
-              Created on: {questionData.createdAt.toLocaleDateString()}
-            </p>
-          </div>
-        )}
       </div>
       <div className="mt-5 w-full flex justify-between items-end z-10 relative">
         <div className="flex gap-4 items-end">

@@ -11,16 +11,11 @@ type SuggestionsOptions = {
 export const getSuggestions = async ({ limit = 5 }: SuggestionsOptions) => {
   const user = await getUser();
 
-  // get the user server side
-  if (!user) {
-    throw new Error('User ID is required');
-  }
-
   return NextCache(
     async () => {
       // Get user's answer history with questions and tags
       const userAnswers = await prisma.answers.findMany({
-        where: { userUid: user.uid },
+        where: { userUid: user?.uid },
         include: {
           question: {
             include: {
@@ -123,7 +118,7 @@ export const getSuggestions = async ({ limit = 5 }: SuggestionsOptions) => {
 
       return suggestions;
     },
-    ['suggestions', user.uid],
+    ['suggestions'],
     {
       tags: ['suggestions'],
       revalidate: 60 * 60 * 24, // 24 hours

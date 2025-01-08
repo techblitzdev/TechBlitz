@@ -56,7 +56,7 @@ export default async function StatisticsReport() {
             href={`/statistics/reports/${report.uid}`}
           >
             <p className="text-sm font-satoshi line-clamp-1">
-              Report for {report.createdAt.toLocaleDateString()}
+              Report for {report.createdAt?.toLocaleDateString()}
             </p>
             <ArrowRight className="size-3 mr-1 group-hover:mr-0 duration-300 flex-shrink-0" />
           </Link>

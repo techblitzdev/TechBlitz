@@ -1,10 +1,10 @@
-import React, { Suspense } from 'react';
 import { ArrowRight, ShieldQuestionIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { getRelatedQuestions } from '@/utils/data/questions/get-related';
 import { cn } from '@/lib/utils';
 import { Tags } from '@/types/Tags';
 import Link from 'next/link';
+
 const RelatedQuestionsList = async ({
   uid,
   tags,
@@ -56,13 +56,8 @@ export default function RelatedQuestions({
         <div className="text-sm">Related Questions</div>
       </div>
       <Separator className="bg-black-50" />
-      <Suspense
-        fallback={
-          <div className="p-4 text-sm">Loading related questions...</div>
-        }
-      >
-        <RelatedQuestionsList uid={uid} tags={tags} />
-      </Suspense>
+
+      <RelatedQuestionsList uid={uid} tags={tags} />
     </>
   );
 }

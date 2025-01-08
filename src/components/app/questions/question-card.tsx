@@ -4,8 +4,6 @@ import TagDisplay from '@/components/app/questions/previous/tag-display';
 import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
 import Link from 'next/link';
 import Chip from '@/components/ui/chip';
-import { Suspense } from 'react';
-import QuestionCardLoading from '@/components/app/questions/question-card-loading';
 
 export default async function QuestionCard(opts: {
   questionData: QuestionWithoutAnswers;

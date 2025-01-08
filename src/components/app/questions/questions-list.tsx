@@ -16,6 +16,7 @@ export default async function QuestionsList({
   customQuestions = false,
   previousQuestions = false,
   showSubmissions = true,
+  paginationUrl,
 }: {
   user: UserRecord | null;
   currentPage: number;
@@ -23,6 +24,7 @@ export default async function QuestionsList({
   customQuestions: boolean;
   previousQuestions?: boolean;
   showSubmissions?: boolean;
+  paginationUrl: string;
 }) {
   const data = await listQuestions({
     page: currentPage,
@@ -74,7 +76,7 @@ export default async function QuestionsList({
         <GlobalPagination
           currentPage={currentPage}
           totalPages={data.totalPages}
-          href={customQuestions ? '/questions/custom' : '/questions'}
+          href={paginationUrl}
           paramName="page"
         />
       </div>

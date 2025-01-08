@@ -40,6 +40,7 @@ export default async function QuestionsDashboard({
             currentPage={filters.page}
             filters={filters}
             customQuestions={false}
+            paginationUrl="/questions"
           />
         </div>
         <QuestionPageSidebar user={user} />

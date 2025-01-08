@@ -6,8 +6,10 @@ export default function TagDisplay(opts: {
   tags: Tags[];
   numberOfTags?: number;
   variant?: 'default' | 'outline' | 'secondary' | 'destructive' | 'accent';
+  // the tag we want to have at the top of the list
+  showcaseTag?: string;
 }) {
-  const { tags, numberOfTags = 3, variant = 'accent' } = opts;
+  const { tags, numberOfTags = 3, variant = 'accent', showcaseTag } = opts;
 
   let visibleTags = tags.slice(0, numberOfTags);
   const remainingCount = Math.max(0, tags.length - numberOfTags);
@@ -23,6 +25,19 @@ export default function TagDisplay(opts: {
       name: tag.tag.name.replace(/-/g, ' '),
     },
   }));
+
+  // if the showcase tag is in the list, move it to the top
+  if (showcaseTag && visibleTags.some((tag) => tag.tag.name === showcaseTag)) {
+    const showcaseTagIndex = visibleTags.findIndex(
+      (tag) => tag.tag.name === showcaseTag
+    );
+    visibleTags.splice(showcaseTagIndex, 1);
+    visibleTags.unshift({
+      tag: { name: showcaseTag, uid: '' },
+      questionId: '',
+      tagId: '',
+    });
+  }
 
   // set text colour based on variant
   const textColor = variant === 'accent' ? 'text-white' : 'text-black';

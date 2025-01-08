@@ -1,8 +1,8 @@
 import Filter from '@/components/global/filters/filter';
 import FilterChips from '@/components/global/filters/chips';
 
-import QuestionsList from '@/components/app/questions/questions-list';
-import QuestionPageSidebar from '@/components/app/questions/question-page-sidebar';
+import QuestionsList from '@/components/app/questions/layout/questions-list';
+import QuestionPageSidebar from '@/components/app/questions/layout/question-page-sidebar';
 
 // Components
 import Hero from '@/components/global/hero';

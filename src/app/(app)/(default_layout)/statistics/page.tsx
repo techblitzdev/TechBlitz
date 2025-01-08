@@ -1,5 +1,48 @@
-import StatsRangePicker from '@/components/app/statistics/range-picker';
-import QuestionChart from '@/components/app/statistics/total-question-chart';
+import dynamic from 'next/dynamic';
+import { Skeleton } from '@/components/ui/skeleton';
+
+const StatsRangePicker = dynamic(
+  () => import('@/components/app/statistics/range-picker'),
+  {
+    ssr: false,
+    loading: () => <Skeleton className="h-10 w-full rounded-md" />,
+  }
+);
+const QuestionChart = dynamic(
+  () => import('@/components/app/statistics/total-question-chart'),
+  {
+    ssr: false,
+    loading: () => <Skeleton className="min-h-[28rem] w-full rounded-lg" />,
+  }
+);
+
+const StatisticsOverviewMenu = dynamic(
+  () => import('@/components/app/statistics/statistics-overview-menu'),
+  {
+    ssr: false,
+    loading: () => <Skeleton className="h-10 w-full rounded-md" />,
+  }
+);
+
+const SuggestedQuestions = dynamic(
+  () => import('@/components/app/statistics/suggested-questions'),
+  {
+    ssr: false,
+    loading: () => (
+      <Skeleton className="min-h-96 col-span-12 lg:col-span-6 rounded-md" />
+    ),
+  }
+);
+
+const StatisticsReport = dynamic(
+  () => import('@/components/app/statistics/statistics-report'),
+  {
+    ssr: false,
+    loading: () => (
+      <Skeleton className="min-h-96 col-span-12 lg:col-span-6 rounded-md" />
+    ),
+  }
+);
 
 import { useUserServer } from '@/hooks/use-user-server';
 import { StatsSteps } from '@/types/Stats';
@@ -8,9 +51,6 @@ import { STATISTICS } from '@/utils/constants/statistics-filters';
 
 import { getData } from '@/actions/statistics/get-stats-chart-data';
 import Hero from '@/components/global/hero';
-import SuggestedQuestions from '@/components/app/statistics/suggested-questions';
-import StatisticsReport from '@/components/app/statistics/statistics-report';
-import StatisticsOverviewMenu from '@/components/app/statistics/statistics-overview-menu';
 
 export const metadata = {
   title: 'Statistics | techblitz',
@@ -41,7 +81,7 @@ export default async function StatisticsPage({
   });
 
   return (
-    <div>
+    <>
       <div className="flex flex-col gap-3 md:flex-row w-full justify-between md:items-center">
         <Hero
           heading="Statistics"
@@ -62,6 +102,6 @@ export default async function StatisticsPage({
         <SuggestedQuestions />
         <StatisticsReport />
       </div>
-    </div>
+    </>
   );
 }

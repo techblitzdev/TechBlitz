@@ -1,4 +1,4 @@
-import { defaultRoadmapQuestionCount } from '@/actions/roadmap/questions/default/fetch-roadmap-questions';
+import { defaultRoadmapQuestionCount } from '@/utils/data/roadmap/questions/default/fetch-roadmap-questions';
 
 export default async function OnboardingProgressBar({ currentStep = 0 }) {
   const defaultQuestions = await defaultRoadmapQuestionCount();
@@ -12,7 +12,7 @@ export default async function OnboardingProgressBar({ currentStep = 0 }) {
       <div
         className="absolute top-1/2 transform -translate-y-1/2 h-1 bg-green-500 rounded-full"
         style={{
-          width: `${((currentStep - 1) / (defaultQuestions - 1)) * 100}%`
+          width: `${((currentStep - 1) / (defaultQuestions - 1)) * 100}%`,
         }}
       ></div>
 

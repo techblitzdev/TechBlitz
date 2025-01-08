@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/ui/grid';
 import { ChevronRight } from 'lucide-react';
 import SignupForm from './waitlist-form';
-import { getTodaysQuestion } from '@/actions/questions/get-today';
+import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 
 export default async function CallToActionBlock(opts: {
   title: string;

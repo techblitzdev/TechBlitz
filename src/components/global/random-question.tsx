@@ -1,4 +1,4 @@
-import { getRandomQuestion } from '@/actions/questions/get-random';
+import { getRandomQuestion } from '@/utils/data/questions/get-random';
 import { Button } from '@/components/ui/button';
 import { ShuffleIcon } from 'lucide-react';
 import { redirect } from 'next/navigation';

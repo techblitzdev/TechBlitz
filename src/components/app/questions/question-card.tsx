@@ -1,7 +1,7 @@
 import { QuestionWithoutAnswers } from '@/types/Questions';
 import { capitalise, getQuestionDifficultyColor, shortenText } from '@/utils';
 import TagDisplay from '@/components/app/questions/previous/tag-display';
-import { getQuestionStats } from '@/actions/questions/get-question-stats';
+import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
 import Link from 'next/link';
 import Chip from '@/components/ui/chip';
 import { Suspense } from 'react';

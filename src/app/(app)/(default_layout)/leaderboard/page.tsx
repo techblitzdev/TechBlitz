@@ -1,4 +1,4 @@
-import { getTodaysQuestion } from '@/actions/questions/get-today';
+import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 import Hero from '@/components/global/hero';
 import LeaderboardLongestStreaks from '@/components/app/leaderboard/leaderboard-longest-streaks';
 import LeaderboardMostQuestionsAnswered from '@/components/app/leaderboard/leaderboard-most-questions-answered';
@@ -12,9 +12,10 @@ export default async function TodaysLeaderboardPage({
 }) {
   const currentPage = parseInt(searchParams.page as string) || 1;
 
-  const user = await useUserServer();
-
-  const todayQuestion = await getTodaysQuestion();
+  const [user, todayQuestion] = await Promise.all([
+    useUserServer(),
+    getTodaysQuestion(),
+  ]);
 
   return (
     <>

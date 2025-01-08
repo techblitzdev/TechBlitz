@@ -1,4 +1,4 @@
-import { getUserReports } from '@/actions/statistics/reports/get-reports';
+import { getUserReports } from '@/utils/data/statistics/reports/get-reports';
 import StatsReportCard from './stats-report-card';
 
 export default async function StatsReportCardsWrapper() {

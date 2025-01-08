@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { generateDataForAi } from './get-question-data-for-gen';
 import { addUidsToResponse } from './utils/add-uids-to-response';
 import { addOrderToResponseQuestions } from './utils/add-order-to-response-questions';
-import { fetchRoadmapQuestions } from '@/actions/roadmap/questions/fetch-roadmap-questions';
+import { fetchRoadmapQuestions } from '@/utils/data/roadmap/questions/fetch-roadmap-questions';
 import { generateRoadmapResponse } from './utils/generate-roadmap';
 import { revalidateTag } from 'next/cache';
 import { QuestionDifficulty } from '@/types/Questions';

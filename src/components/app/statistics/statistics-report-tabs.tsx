@@ -1,16 +1,13 @@
 import { useState } from 'react';
 import { redirect, useRouter, useSearchParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
 
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import QuestionSuggestedCard from '@/components/app/questions/suggested-questions-table';
 import { Badge } from '@/components/ui/badge';
 
-import { getSuggestions } from '@/actions/questions/get-suggestions';
 import { useUser } from '@/hooks/use-user';
 import { capitalise } from '@/utils';
 import { StatisticsReport } from '@prisma/client';
@@ -35,11 +32,6 @@ export default function StatisticsReportTabs(opts: {
       (searchParams.get('tab') as 'tags' | 'details' | 'questions') ||
       'questions'
   );
-
-  const { data: suggestions, isLoading: isLoadingSuggestions } = useQuery({
-    queryKey: ['suggested-questions'],
-    queryFn: () => getSuggestions({ limit: 8 }),
-  });
 
   const handleTabChange = (value: string) => {
     const newTab = value as 'tags' | 'details' | 'questions';
@@ -155,18 +147,7 @@ export default function StatisticsReportTabs(opts: {
                 </p>
               </div>
 
-              {isLoadingSuggestions ? (
-                <div className="space-y-4">
-                  {[...Array(8)].map((_, index) => (
-                    <Skeleton key={index} className="h-8 w-full bg-black-50" />
-                  ))}
-                </div>
-              ) : (
-                <QuestionSuggestedCard
-                  questions={suggestions ?? []}
-                  textLimit={75}
-                />
-              )}
+              <QuestionSuggestedCard textLimit={75} />
             </div>
             <div className="flex flex-col gap-y-4 text-center text-white">
               <div className="flex flex-col gap-y-2">
@@ -177,7 +158,7 @@ export default function StatisticsReportTabs(opts: {
               </div>
 
               <QuestionSuggestedCard
-                questions={report.questions ?? []}
+                customQuestions={report.questions ?? []}
                 textLimit={75}
               />
             </div>

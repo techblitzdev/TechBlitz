@@ -1,4 +1,4 @@
-import { getMostQuestionsAnswered } from '@/actions/leaderboard/get-most-questions-answered';
+import { getMostQuestionsAnswered } from '@/utils/data/leaderboard/get-most-questions-answered';
 import Card from '@/components/global/Card';
 import ProfilePicture from '@/components/ui/profile-picture';
 import { UserRecord } from '@/types/User';

@@ -1,16 +1,6 @@
-import { getSuggestions } from '@/actions/questions/get-suggestions';
-import { useUserServer } from '@/hooks/use-user-server';
-import { redirect } from 'next/navigation';
 import QuestionSuggestedCard from '@/components/app/questions/suggested-questions-table';
 
-export default async function SuggestedQuestions() {
-  const user = await useUserServer();
-  if (!user) {
-    redirect('/login');
-  }
-
-  const suggestions = await getSuggestions({ limit: 8 });
-
+export default function SuggestedQuestions() {
   return (
     <section className="col-span-full lg:col-span-6 border border-black-50 rounded-lg flex flex-col divide-y-[1px] divide-black-50 overflow-hidden">
       <div className="flex flex-col gap-2.5 px-3 py-4">
@@ -20,7 +10,7 @@ export default async function SuggestedQuestions() {
           help you improve.
         </p>
       </div>
-      <QuestionSuggestedCard questions={suggestions ?? []} border={false} />
+      <QuestionSuggestedCard border={false} />
     </section>
   );
 }

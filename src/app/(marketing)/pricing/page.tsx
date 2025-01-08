@@ -1,4 +1,4 @@
-import { getTodaysQuestion } from '@/actions/questions/get-today';
+import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 import FAQsBlock from '@/components/marketing/global/faqs';
 import { AnimatedBreak } from '@/components/marketing/pricing/animated-break';

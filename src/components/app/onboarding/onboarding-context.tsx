@@ -8,8 +8,8 @@
 import { createContext, useContext, useState } from 'react';
 import type { UpdatableUserFields } from '@/types/User';
 import { QuestionWithTags } from '@/types/Questions';
-import { getOnboardingQuestions } from '@/actions/questions/get-onboarding';
-import { getTodaysQuestion } from '@/actions/questions/get-today';
+import { getOnboardingQuestions } from '@/utils/data/questions/get-onboarding';
+import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 import { useRouter } from 'next/navigation';
 // context type
 type OnboardingContextType = {

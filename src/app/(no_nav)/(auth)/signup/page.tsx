@@ -7,8 +7,8 @@ import { toast } from 'sonner';
 import type { ErrorCodes } from '@/types/Constants';
 import SocialProof from '@/components/marketing/global/social-proof';
 import { useQuery } from '@tanstack/react-query';
-import { fetchGithubStars } from '@/actions/misc/get-github-stars';
-import { getUserCount } from '@/actions/user/get-user-count';
+import { fetchGithubStars } from '@/utils/data/misc/get-github-stars';
+import { getUserCount } from '@/utils/data/user/get-user-count';
 import { RoadmapUserQuestions } from '@/types/Roadmap';
 import RoadmapQuestionCard from '@/components/app/roadmaps/questions/[uid]/question-card';
 

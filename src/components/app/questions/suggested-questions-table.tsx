@@ -1,15 +1,18 @@
-import type { QuestionWithoutAnswers } from '@/types/Questions';
-import { shortenText } from '@/utils';
-import { cn } from '@/lib/utils';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-
-export default function QuestionSuggestedCard(opts: {
-  questions?: QuestionWithoutAnswers[];
+import { getSuggestions } from '@/utils/data/questions/get-suggestions';
+import { cn } from '@/lib/utils';
+import { shortenText } from '@/utils';
+import { Question } from '@/types/Questions';
+export default async function QuestionSuggestedCard(opts: {
   border?: boolean;
   textLimit?: number;
+  customQuestions?: Question[];
 }) {
-  const { questions, border = true, textLimit = 35 } = opts;
+  const { border = true, textLimit = 35, customQuestions } = opts;
+
+  // if custom questions are provided, use them over the getSuggestions
+  const questions = customQuestions ?? (await getSuggestions({ limit: 5 }));
 
   if (!questions || questions.length === 0) {
     return (

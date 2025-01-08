@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { ArrowRight, ShieldQuestionIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
-import { getRelatedQuestions } from '@/actions/questions/get-related';
+import { getRelatedQuestions } from '@/utils/data/questions/get-related';
 import { cn } from '@/lib/utils';
 import { Tags } from '@/types/Tags';
 import Link from 'next/link';

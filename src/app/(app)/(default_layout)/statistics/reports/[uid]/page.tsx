@@ -1,4 +1,4 @@
-import { getReport } from '@/actions/statistics/reports/get-report';
+import { getReport } from '@/utils/data/statistics/reports/get-report';
 import StatisticsReportContent from '@/components/app/statistics/statistics-report-content';
 import { useUserServer } from '@/hooks/use-user-server';
 import { redirect } from 'next/navigation';

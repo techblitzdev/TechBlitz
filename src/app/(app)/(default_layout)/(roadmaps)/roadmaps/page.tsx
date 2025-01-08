@@ -17,9 +17,15 @@ const RoadmapsCard = dynamic(
 
 import RoadmapOnboarding from '@/components/app/roadmaps/empty/onboarding';
 import Hero from '@/components/global/hero';
-import CreateRoadmapButton from '@/components/app/roadmaps/create-roadmap-button';
 
-import { fetchUserRoadmaps } from '@/actions/roadmap/fetch-user-roadmaps';
+const CreateRoadmapButton = dynamic(
+  () => import('@/components/app/roadmaps/create-roadmap-button'),
+  {
+    ssr: false,
+  }
+);
+
+import { fetchUserRoadmaps } from '@/utils/data/roadmap/fetch-user-roadmaps';
 import { useUserServer } from '@/hooks/use-user-server';
 import RoadmapsCardSkeleton from '@/components/app/roadmaps/[uid]/roadmaps-card-loading';
 

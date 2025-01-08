@@ -4,7 +4,7 @@ import LoadingSpinner from '@/components/ui/loading';
 import { useRouter } from 'next/navigation';
 import CountUp from 'react-countup';
 import { useQuery } from '@tanstack/react-query';
-import { getTodaysQuestion } from '@/actions/questions/get-today';
+import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 import Link from 'next/link';
 import { useUser } from '@/hooks/use-user';
 

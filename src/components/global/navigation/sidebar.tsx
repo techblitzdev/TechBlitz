@@ -51,31 +51,20 @@ import LogoSmall from '@/components/ui/LogoSmall';
 
 import type { SidebarItemType } from '@/types/Sidebar';
 
-import { getTodaysQuestion } from '@/actions/questions/get-today';
-import { userAnsweredDailyQuestion } from '@/actions/questions/user-answered-daily-question';
+import { userAnsweredDailyQuestion } from '@/utils/data/questions/user-answered-daily-question';
 import { useMemo } from 'react';
 import { UserRecord } from '@/types/User';
+import { Question } from '@/types/Questions';
 
-export function AppSidebar(opts: { user: UserRecord | null }) {
-  const { user } = opts;
+export function AppSidebar(opts: {
+  user: UserRecord | null;
+  todaysQuestion: Question | null;
+  hasAnsweredDailyQuestion: boolean;
+}) {
+  const { user, todaysQuestion, hasAnsweredDailyQuestion } = opts;
   const pathname = usePathname();
 
   const { state } = useSidebar();
-
-  const { data: todaysQuestion } = useQuery({
-    queryKey: ['not-found'],
-    queryFn: () => getTodaysQuestion(),
-  });
-
-  const { data: hasAnsweredDailyQuestion } = useQuery({
-    queryKey: [`user-has-answered-daily-question-${todaysQuestion?.uid}`],
-    queryFn: () =>
-      userAnsweredDailyQuestion({
-        questionUid: todaysQuestion?.uid || '',
-        userUid: user?.uid || '',
-      }),
-    enabled: !!todaysQuestion?.uid,
-  });
 
   const nonAuthedUserItems: SidebarItemType[] = [
     {

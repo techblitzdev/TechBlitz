@@ -4,7 +4,7 @@ import Card from '@/components/global/Card';
 import GlobalPagination from '@/components/global/pagination';
 import { ArrowRight, Medal } from 'lucide-react';
 
-import { getFastestTimes } from '@/actions/leaderboard/get-fastest';
+import { getFastestTimes } from '@/utils/data/leaderboard/get-fastest';
 
 import { QuestionWithoutAnswers } from '@/types/Questions';
 

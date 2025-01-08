@@ -1,5 +1,5 @@
 import { generateStatisticsReport } from '@/actions/ai/reports/generate-report';
-import { getUserReports } from '@/actions/statistics/reports/get-reports';
+import { getUserReports } from '@/utils/data/statistics/reports/get-reports';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import {

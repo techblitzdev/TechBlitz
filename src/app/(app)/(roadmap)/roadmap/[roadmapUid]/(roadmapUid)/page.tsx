@@ -1,4 +1,4 @@
-import { fetchRoadmap } from '@/actions/roadmap/fetch-single-roadmap';
+import { fetchRoadmap } from '@/utils/data/roadmap/fetch-single-roadmap';
 import GenerateMoreQuestionsButton from '@/components/app/roadmaps/[uid]/generate-more-questions';
 import RoadmapQuestionCard from '@/components/app/roadmaps/questions/[uid]/question-card';
 import RoadmapStats from '@/components/app/roadmaps/[uid]/roadmap-stats';

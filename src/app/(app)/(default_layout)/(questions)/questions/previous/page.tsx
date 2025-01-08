@@ -1,54 +1,23 @@
-import { Suspense } from 'react';
-import dynamic from 'next/dynamic';
+import Filter from '@/components/global/filters/filter';
+import FilterChips from '@/components/global/filters/chips';
 
-const FilterChips = dynamic(() => import('@/components/global/filters/chips'), {
-  ssr: false,
-});
+import QuestionsList from '@/components/app/questions/questions-list';
 
-const Filter = dynamic(() => import('@/components/global/filters/filter'), {
-  ssr: false,
-  loading: () => <FilterLoading />,
-});
-
-const QuestionsList = dynamic(
-  () => import('@/components/app/questions/questions-list'),
-  {
-    ssr: false,
-    loading: () => (
-      <>
-        {Array.from({ length: 10 }).map((_, index) => (
-          <QuestionCardLoading key={index} />
-        ))}
-      </>
-    ),
-  }
-);
-
-const QuestionPageSidebar = dynamic(
-  () => import('@/components/app/questions/question-page-sidebar'),
-  {
-    ssr: false,
-    loading: () => <QuestionPageSidebarLoading />,
-  }
-);
+import QuestionPageSidebar from '@/components/app/questions/question-page-sidebar';
 
 import Hero from '@/components/global/hero';
-import QuestionPageSidebarLoading from '@/components/app/questions/question-page-sidebar-loading';
 
 import { useUserServer } from '@/hooks/use-user-server';
 import { validateSearchParams } from '@/utils/search-params';
 import { parseSearchParams } from '@/utils/search-params';
-import { getTags } from '@/actions/questions/tags/get-tags';
-import QuestionCardLoading from '@/components/app/questions/question-card-loading';
-import FilterLoading from '@/components/global/filters/filters-loading';
+import { getTags } from '@/utils/data/questions/tags/get-tags';
 
 export default async function PreviousQuestionsPage({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const user = await useUserServer();
-  const tags = await getTags();
+  const [user, tags] = await Promise.all([useUserServer(), getTags()]);
 
   const filters = parseSearchParams(searchParams);
   if (!validateSearchParams(filters)) return null;
@@ -62,7 +31,7 @@ export default async function PreviousQuestionsPage({
       <div className="flex flex-col h-full justify-between container mt-5">
         <div className="flex flex-col lg:flex-row w-full gap-16">
           <div className="w-full lg:min-w-[55%] space-y-6">
-            <div className="min-h-[84px]">
+            <div className="min-h-[84px] flex flex-col gap-y-2">
               <Filter tags={tags} />
               <FilterChips />
             </div>
@@ -74,9 +43,7 @@ export default async function PreviousQuestionsPage({
               previousQuestions={true}
             />
           </div>
-          <Suspense fallback={<QuestionPageSidebarLoading />}>
-            <QuestionPageSidebar user={user} />
-          </Suspense>
+          <QuestionPageSidebar user={user} />
         </div>
       </div>
     </>

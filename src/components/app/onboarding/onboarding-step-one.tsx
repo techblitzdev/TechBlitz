@@ -155,7 +155,7 @@ export default function OnboardingStepOne() {
                               htmlFor="sendPushNotifications"
                               className="text-white"
                             >
-                              Send daily reminders to complete tasks
+                              Send promotional emails
                             </Label>
                           </div>
                           <FormControl>
@@ -172,7 +172,10 @@ export default function OnboardingStepOne() {
                     />
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Receive notifications to stay on track</p>
+                    <p>
+                      Receive promotional emails on offers, new features and
+                      more
+                    </p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>

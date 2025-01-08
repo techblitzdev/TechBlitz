@@ -6,7 +6,7 @@ import { StatsSteps } from '@/types/Stats';
 
 import { STATISTICS } from '@/utils/constants/statistics-filters';
 
-import { getData } from '@/actions/statistics/get-stats-chart-data';
+import { getData } from '@/utils/data/statistics/get-stats-chart-data';
 import Hero from '@/components/global/hero';
 import SuggestedQuestions from '@/components/app/statistics/suggested-questions';
 import StatisticsReport from '@/components/app/statistics/statistics-report';

@@ -1,4 +1,4 @@
-import { getUserDailyStats } from '@/actions/user/authed/get-daily-streak';
+import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak';
 import { useUserServer } from '@/hooks/use-user-server';
 import { SVGProps } from 'react';
 

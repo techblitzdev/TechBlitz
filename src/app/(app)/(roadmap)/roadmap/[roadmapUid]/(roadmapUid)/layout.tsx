@@ -1,4 +1,4 @@
-import { fetchNextPrevRoadmap } from '@/actions/roadmap/fetch-next-prev-roadmap';
+import { fetchNextPrevRoadmap } from '@/utils/data/roadmap/fetch-next-prev-roadmap';
 import BackToDashboard from '@/components/ui/back-to-dashboard';
 import QuestionNavigation from '@/components/global/navigation/question-navigation';
 import RoadmapDropdown from '@/components/app/roadmaps/[uid]/dropdown';

@@ -1,48 +1,46 @@
-'use client';
-import React, { useState } from 'react';
 import Chip from '@/components/ui/chip';
 import DashboardQuestionCard from './dashboard-question-card';
 import { ArrowRight } from 'lucide-react';
 
+const questions = [
+  {
+    label: 'spread-operator',
+    name: 'What does the spread operator do?',
+    correct: false,
+  },
+  {
+    label: 'equality-operators',
+    name: "What's the difference between '==' and '==='?",
+    correct: true,
+  },
+  {
+    label: 'code-analysis',
+    name: 'What will be the outcome of the following JavaScript snippet?',
+    correct: false,
+  },
+  {
+    label: 'data-structures',
+    name: 'What are the differences objects and arrays?',
+    correct: true,
+  },
+  {
+    label: 'array-methods',
+    name: 'What is the difference between .map and .forEach?',
+    correct: false,
+  },
+  {
+    label: 'component-lifecycle',
+    name: 'Explain component lifecycle',
+    correct: true,
+  },
+];
+
+// Triple the questions to ensure smooth infinite scroll
+const allQuestions = [...questions, ...questions, ...questions];
+
 export default function AllQuestionsDashboardBentoBox() {
-  const questions = [
-    {
-      label: 'spread-operator',
-      name: 'What does the spread operator do?',
-      correct: false,
-    },
-    {
-      label: 'equality-operators',
-      name: "What's the difference between '==' and '==='?",
-      correct: true,
-    },
-    {
-      label: 'code-analysis',
-      name: 'What will be the outcome of the following JavaScript snippet?',
-      correct: false,
-    },
-    {
-      label: 'data-structures',
-      name: 'What are the differences objects and arrays?',
-      correct: true,
-    },
-    {
-      label: 'array-methods',
-      name: 'What is the difference between .map and .forEach?',
-      correct: false,
-    },
-    {
-      label: 'component-lifecycle',
-      name: 'Explain component lifecycle',
-      correct: true,
-    },
-  ];
-
-  // Triple the questions to ensure smooth infinite scroll
-  const [allQuestions] = useState([...questions, ...questions, ...questions]);
-
   return (
-    <section className="h-full flex flex-col gap-y-5 group p-4 relative overflow-hidden max-h-96 lg:max-h-fit">
+    <section className="flex flex-col gap-y-5 group p-4 relative overflow-hidden h-[450px] lg:max-h-fit">
       <div className="space-y-3 z-10 relative">
         <Chip
           color="bg-white"

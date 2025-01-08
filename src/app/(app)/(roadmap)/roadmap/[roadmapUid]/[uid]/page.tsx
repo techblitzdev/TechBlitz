@@ -10,7 +10,7 @@ const RoadmapQuestionCard = dynamic(
 );
 
 // actions
-import { fetchRoadmapQuestion } from '@/actions/roadmap/questions/fetch-roadmap-question';
+import { fetchRoadmapQuestion } from '@/utils/data/roadmap/questions/fetch-roadmap-question';
 
 // components
 import { Button } from '@/components/ui/button';

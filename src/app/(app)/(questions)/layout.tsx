@@ -7,7 +7,7 @@ import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-
 import RandomQuestion from '@/components/global/random-question';
 
 // Actions
-import { getQuestion } from '@/actions/questions/get';
+import { getQuestion } from '@/utils/data/questions/get';
 
 export default async function QuestionUidLayout({
   children,

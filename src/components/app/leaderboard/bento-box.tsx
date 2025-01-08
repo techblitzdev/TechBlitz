@@ -1,12 +1,12 @@
 import { Question } from '@/types/Questions';
-import { getFastestTimes } from '@/actions/leaderboard/get-fastest';
+import { getFastestTimes } from '@/utils/data/leaderboard/get-fastest';
 import FastestTimes from './fastest-times';
 import { Separator } from '@/components/ui/separator';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, FlameIcon, Trophy } from 'lucide-react';
 import Link from 'next/link';
 import UserRank from './user-rank';
-import { getLongestStreaks } from '@/actions/leaderboard/get-longest-streaks';
+import { getLongestStreaks } from '@/utils/data/leaderboard/get-longest-streaks';
 import { getUserDisplayName } from '@/utils/user';
 import { Grid } from '@/components/ui/grid';
 import LoadingSpinner from '@/components/ui/loading';

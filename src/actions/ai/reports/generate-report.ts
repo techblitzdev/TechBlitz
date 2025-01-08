@@ -6,7 +6,7 @@ import { prisma } from '@/lib/prisma';
 import { nanoid } from 'nanoid';
 import { generateReportHtml } from '@/actions/ai/reports/utils/generate-report-html';
 import { revalidateTag } from 'next/cache';
-import { getTotalTimeTaken } from '@/actions/statistics/get-stats-chart-data';
+import { getTotalTimeTaken } from '@/utils/data/statistics/get-stats-chart-data';
 
 type QuestionData = {
   questions: string;

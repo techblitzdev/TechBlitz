@@ -13,7 +13,7 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { useQuery } from '@tanstack/react-query';
-import { fetchRoadmap } from '@/actions/roadmap/fetch-single-roadmap';
+import { fetchRoadmap } from '@/utils/data/roadmap/fetch-single-roadmap';
 import { Loader2 } from 'lucide-react';
 
 interface EditRoadmapModalProps {

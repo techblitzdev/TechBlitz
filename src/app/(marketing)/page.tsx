@@ -13,9 +13,9 @@ import CallToActionBlock from '@/components/marketing/global/call-to-action-bloc
 
 import DashboardImg from '../../public/images/dashboard-img-2.png';
 import SocialProof from '@/components/marketing/global/social-proof';
-import { fetchGithubStars } from '@/actions/misc/get-github-stars';
-import { getTodaysQuestion } from '@/actions/questions/get-today';
-import { getUserCount } from '@/actions/user/get-user-count';
+import { fetchGithubStars } from '@/utils/data/misc/get-github-stars';
+import { getTodaysQuestion } from '@/utils/data/questions/get-today';
+import { getUserCount } from '@/utils/data/user/get-user-count';
 
 export default async function Page() {
   // run all actions in parallel

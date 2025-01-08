@@ -1,4 +1,4 @@
-import { fetchDefaultUserAnswers } from '@/actions/roadmap/questions/default/fetch-default-user-answers';
+import { fetchDefaultUserAnswers } from '@/utils/data/roadmap/questions/default/fetch-default-user-answers';
 import LoadingSpinner from '@/components/ui/loading';
 import { useUserServer } from '@/hooks/use-user-server';
 import { Check, Route, X } from 'lucide-react';

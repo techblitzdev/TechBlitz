@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import ProgressChart from '@/components/marketing/homepage/features/progression-chart';
 
 export default function StreakBentoBox() {
@@ -7,10 +6,8 @@ export default function StreakBentoBox() {
       <div className="space-y-1">
         <h6 className="text-xl">Statistics</h6>
       </div>
-      <div className="w-full h-fit flex items-center justify-center absolute">
-        <Suspense fallback={null}>
-          <ProgressChart hideHeader={true} isStatic={true} />
-        </Suspense>
+      <div className="w-full h-fit flex items-center justify-center absolute md:scale-150 md:-right-36 top-16 md:top-36">
+        <ProgressChart hideHeader={true} isStatic={true} />
       </div>
     </div>
   );

@@ -9,8 +9,7 @@ import {
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 
 import { UserRecord } from '@/types/User';
-import { getSuggestions } from '@/actions/questions/get-suggestions';
-import { getUserDailyStats } from '@/actions/user/authed/get-daily-streak';
+import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak';
 import { Button } from '@/components/ui/button';
 
 export default async function QuestionPageSidebar(opts: {
@@ -19,10 +18,7 @@ export default async function QuestionPageSidebar(opts: {
   const { user } = opts;
 
   // get the user streak and suggestion in one go
-  const [userStreak, suggestions] = await Promise.all([
-    getUserDailyStats(user?.uid || ''),
-    getSuggestions({ limit: 8 }),
-  ]);
+  const userStreak = await getUserDailyStats(user?.uid || '');
 
   // get the streak start date and streak end date
   const startDate = userStreak?.streakData?.streakStart as Date;
@@ -86,7 +82,7 @@ export default async function QuestionPageSidebar(opts: {
             </TooltipProvider>
           </div>
           <div className="relative">
-            <QuestionSuggestedCard questions={suggestions ?? []} />
+            <QuestionSuggestedCard />
             {!user && (
               <div className="absolute inset-0 backdrop-blur-[2px] z-10 flex items-center justify-center rounded-md">
                 <Button variant="default" href="/login">

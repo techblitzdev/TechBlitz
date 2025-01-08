@@ -1,7 +1,7 @@
 import GlobalPagination from '@/components/global/pagination';
 import QuestionCard from '@/components/app/questions/question-card';
 
-import { listQuestions } from '@/actions/questions/list';
+import { listQuestions } from '@/utils/data/questions/list';
 
 import { FilterParams } from '@/utils/search-params';
 import { Button } from '@/components/ui/button';

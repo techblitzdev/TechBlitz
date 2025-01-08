@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation';
 
 // actions
-import { fetchRoadmapQuestionViaOrder } from '@/actions/roadmap/questions/fetch-question-via-order';
-import { fetchRoadmapQuestion } from '@/actions/roadmap/questions/fetch-roadmap-question';
+import { fetchRoadmapQuestionViaOrder } from '@/utils/data/roadmap/questions/fetch-question-via-order';
+import { fetchRoadmapQuestion } from '@/utils/data/roadmap/questions/fetch-roadmap-question';
 
 // components
 import BackToDashboard from '@/components/ui/back-to-dashboard';

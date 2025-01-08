@@ -41,7 +41,7 @@ export default async function QuestionCard(opts: {
         {!showSubmissions && (
           <div className="text-start text-[10px]">
             <p className="font-ubuntu text-sm">
-              Created on: {questionData.createdAt.toLocaleDateString()}
+              Created on: {questionData.createdAt?.toLocaleDateString()}
             </p>
           </div>
         )}

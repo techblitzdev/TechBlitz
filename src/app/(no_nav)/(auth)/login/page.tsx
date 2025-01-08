@@ -1,10 +1,7 @@
 import LoginForm from '@/components/auth/login';
 import { Suspense } from 'react';
 
-export default function LoginPage(searchParams: {
-  redirectUrl: string;
-  onboarding: string;
-}) {
+export default function LoginPage() {
   return (
     <div
       className="border border-black-50 p-8 rounded-xl space-y-4 text-center"

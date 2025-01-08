@@ -9,7 +9,8 @@ import {
   Section,
   Text,
 } from 'npm:@react-email/components';
-import * as React from 'npm:react@18.3.1';
+import * as React from 'npm:react';
+import { GitHubLogoIcon, TwitterLogoIcon } from 'npm:@radix-ui/react-icons';
 
 interface TechBlitzSignUpEmailProps {
   username: string;
@@ -72,18 +73,18 @@ export const TechBlitzSignUpEmail = ({
           </Text>
           <Section style={socialButtonsContainer}>
             <Link
-              href="https://twitter.com/techblitz"
+              href="https://x.com/techblitz_dev"
               target="_blank"
               style={socialButton}
             >
-              Follow us on Twitter
+              <TwitterLogoIcon />
             </Link>
             <Link
-              href="https://github.com/techblitz"
+              href="https://github.com/techblitzdev/techblitz"
               target="_blank"
               style={socialButton}
             >
-              Star us on GitHub
+              <GitHubLogoIcon />
             </Link>
           </Section>
           <Section style={footer}>
@@ -161,7 +162,7 @@ const socialButtonsContainer = {
 };
 
 const socialButton = {
-  backgroundColor: '#333333',
+  backgroundColor: '',
   borderRadius: '4px',
   color: '#ffffff',
   fontSize: '12px',

@@ -11,7 +11,7 @@ import { QuestionWithoutAnswers } from '@/types/Questions';
 import { getUserDisplayName } from '@/utils/user';
 import { formatSeconds } from '@/utils/time';
 import { shortenText } from '@/utils';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import ProfilePicture from '@/components/ui/profile-picture';
 
 const ITEMS_PER_PAGE = 20;

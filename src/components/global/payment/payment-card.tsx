@@ -10,7 +10,7 @@ import AnimatedPricingFeatures from './animated-pricing-features';
 // type imports
 import type { UserRecord } from '@/types/User';
 import { Plan } from '@/utils/constants/pricing';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 
 export function PricingCard(opts: {
   user: UserRecord | null;

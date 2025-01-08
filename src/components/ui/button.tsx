@@ -3,7 +3,7 @@ import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { ArrowRightIcon } from '@radix-ui/react-icons';
 import Link, { LinkProps } from 'next/link';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 
 type ButtonElementProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 type AnchorElementProps = React.LinkHTMLAttributes<LinkProps>;

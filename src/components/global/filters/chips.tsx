@@ -3,7 +3,7 @@
 import { useSearchParams, useRouter } from 'next/navigation';
 import { X } from 'lucide-react';
 import { capitalise } from '@/utils';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
 export default function FilterChips() {

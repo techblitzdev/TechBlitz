@@ -9,7 +9,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { useUserServer } from '@/hooks/use-user-server';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { ArrowRight, ChevronRight, LockIcon } from 'lucide-react';
 import Link from 'next/link';
 

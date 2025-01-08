@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { EllipsisVertical, FileText } from 'lucide-react';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { generateStatisticsReport } from '@/actions/ai/reports/generate-report';
 import { UserWithOutAnswers } from '@/types/User';
 import { useRouter } from 'next/navigation';

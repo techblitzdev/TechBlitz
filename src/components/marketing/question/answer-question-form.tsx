@@ -9,7 +9,7 @@ import { forwardRef, useImperativeHandle, useState } from 'react';
 import { Form, FormControl, FormField } from '@/components/ui/form';
 import { toast } from 'sonner';
 import { Label } from '@/components/ui/label';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { Check, CheckCircle2Icon, XCircleIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import QuestionHintAccordion from '@/components/app/questions/single/question-hint';

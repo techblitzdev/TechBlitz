@@ -5,7 +5,7 @@ import {
   SidebarMenuBadge,
 } from '@/components/ui/sidebar';
 import type { SidebarItem } from '@/types/Sidebar';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 

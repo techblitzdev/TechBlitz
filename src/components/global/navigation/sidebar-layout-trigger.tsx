@@ -1,7 +1,7 @@
 'use client';
 
 import { SidebarTrigger, useSidebar } from '@/components/ui/sidebar';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 
 /**
  * This component is used to trigger the sidebar layout.

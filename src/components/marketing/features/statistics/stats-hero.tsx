@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import GridPattern from '@/components/ui/grid-pattern';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { ArrowDown, ChevronRight } from 'lucide-react';
 
 export default function StatsHero() {

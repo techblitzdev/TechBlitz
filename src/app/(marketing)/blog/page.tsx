@@ -1,4 +1,4 @@
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { getBlogPosts } from '@/lib/blog';
 
 import GridPattern from '@/components/ui/grid-pattern';

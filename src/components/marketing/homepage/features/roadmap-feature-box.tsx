@@ -5,12 +5,12 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Progress } from '@/components/ui/progress';
 import { Check } from 'lucide-react';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 
 const skeletonVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -20 }
+  exit: { opacity: 0, y: -20 },
 };
 
 const checkVariants = {
@@ -18,9 +18,9 @@ const checkVariants = {
   visible: {
     scale: 1,
     opacity: 1,
-    transition: { type: 'spring', stiffness: 300, damping: 20 }
+    transition: { type: 'spring', stiffness: 300, damping: 20 },
   },
-  exit: { scale: 0, opacity: 0 }
+  exit: { scale: 0, opacity: 0 },
 };
 
 export default function RoadmapFeatureBox(opts: { absolute?: boolean }) {
@@ -51,7 +51,7 @@ export default function RoadmapFeatureBox(opts: { absolute?: boolean }) {
     <Card
       style={{
         background:
-          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
+          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
       className={cn(
         'group-hover:scale-[1.03] duration-300 pb-3 rounded-bl-none max-w-md lg:max-w-lg xl:max-w-2xl border-black-50 bg-black-75 shadow-md z-50',

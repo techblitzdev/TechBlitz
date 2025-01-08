@@ -11,7 +11,7 @@ import {
   ChevronDownIcon,
 } from '@radix-ui/react-icons';
 import { ArrowRight } from 'lucide-react';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { useUser } from '@/hooks/use-user';
 
 interface MenuItem {

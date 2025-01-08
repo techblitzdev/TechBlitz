@@ -1,11 +1,11 @@
 'use client';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import React, {
   useState,
   useEffect,
   useRef,
   RefObject,
-  useCallback
+  useCallback,
 } from 'react';
 
 interface StarProps {
@@ -34,7 +34,7 @@ export default function StarsBackground(
     twinkleProbability = 0.7,
     minTwinkleSpeed = 0.5,
     maxTwinkleSpeed = 1,
-    className
+    className,
   } = props;
   const [stars, setStars] = useState<StarProps[]>([]);
   const canvasRef: RefObject<HTMLCanvasElement> =
@@ -55,7 +55,7 @@ export default function StarsBackground(
           twinkleSpeed: shouldTwinkle
             ? minTwinkleSpeed +
               Math.random() * (maxTwinkleSpeed - minTwinkleSpeed)
-            : null
+            : null,
         };
       });
     },
@@ -64,7 +64,7 @@ export default function StarsBackground(
       allStarsTwinkle,
       twinkleProbability,
       minTwinkleSpeed,
-      maxTwinkleSpeed
+      maxTwinkleSpeed,
     ]
   );
 
@@ -100,7 +100,7 @@ export default function StarsBackground(
     twinkleProbability,
     minTwinkleSpeed,
     maxTwinkleSpeed,
-    generateStars
+    generateStars,
   ]);
 
   useEffect(() => {

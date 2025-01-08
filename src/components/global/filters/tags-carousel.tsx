@@ -10,7 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 
 interface Tag {

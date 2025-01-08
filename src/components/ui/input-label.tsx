@@ -1,11 +1,11 @@
 import React from 'react';
 import { Input } from './input';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger
+  TooltipTrigger,
 } from '@/components/ui/tooltip';
 
 // react hook form

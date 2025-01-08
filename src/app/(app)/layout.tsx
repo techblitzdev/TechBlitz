@@ -14,7 +14,6 @@ import NextTopLoader from 'nextjs-toploader';
 import { createMetadata } from '@/utils';
 import { useUserServer } from '@/hooks/use-user-server';
 import { getTodaysQuestion } from '@/utils/data/questions/get-today';
-import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak';
 import { userAnsweredDailyQuestion } from '@/utils/data/questions/user-answered-daily-question';
 
 export async function generateMetadata() {

@@ -1,7 +1,6 @@
 'use client';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { useQuery } from '@tanstack/react-query';
 
 import {
   FileQuestion,
@@ -51,7 +50,6 @@ import LogoSmall from '@/components/ui/LogoSmall';
 
 import type { SidebarItemType } from '@/types/Sidebar';
 
-import { userAnsweredDailyQuestion } from '@/utils/data/questions/user-answered-daily-question';
 import { useMemo } from 'react';
 import { UserRecord } from '@/types/User';
 import { Question } from '@/types/Questions';

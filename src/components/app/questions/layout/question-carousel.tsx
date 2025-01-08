@@ -1,8 +1,6 @@
 import {
   Carousel,
   CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
   CarouselContent,
 } from '@/components/ui/carousel';
 import { QuestionWithTags } from '@/types/Questions';
@@ -22,6 +20,8 @@ export default function QuestionCarousel(opts: {
   tag: 'javascript' | 'react' | 'web-dev' | 'async';
 }) {
   const { heading, description, image, questions, tag } = opts;
+
+  console.log(image);
 
   return (
     <div className="flex flex-col gap-y-8">

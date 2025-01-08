@@ -49,6 +49,7 @@ export default async function CustomQuestionsPage({
               customQuestions={true}
               previousQuestions={false}
               showSubmissions={false}
+              paginationUrl="/questions/custom"
             />
           </div>
           <QuestionPageSidebar user={user} />

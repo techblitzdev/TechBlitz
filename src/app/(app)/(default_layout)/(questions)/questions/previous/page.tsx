@@ -41,6 +41,7 @@ export default async function PreviousQuestionsPage({
               filters={filters}
               customQuestions={false}
               previousQuestions={true}
+              paginationUrl="/questions"
             />
           </div>
           <QuestionPageSidebar user={user} />

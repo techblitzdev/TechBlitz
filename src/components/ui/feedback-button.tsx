@@ -23,7 +23,7 @@ export default function FeedbackButton({
   const [isPending, startTransition] = useTransition();
   const [isSent, setIsSent] = useState(false);
 
-  const handleSubmit = async (formData: FormData) => {
+  const handleSubmit = async () => {
     startTransition(async () => {
       await sendFeedback(feedback);
       setFeedback('');

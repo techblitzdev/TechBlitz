@@ -1,14 +1,7 @@
-import dynamic from 'next/dynamic';
-
 import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid';
 
-const AllQuestionsDashboardBentoBox = dynamic(
-  () => import('@/components/app/dashboard/all-questions-bento-box'),
-  { ssr: false }
-);
-
+import AllQuestionsDashboardBentoBox from '@/components/app/dashboard/all-questions-bento-box';
 import TodaysQuestionBentoBox from '@/components/app/dashboard/todays-question-bento-box';
-
 import ProgressBentoBox from '@/components/app/dashboard/progression-bento-box';
 import StreakBentoBox from '@/components/app/dashboard/streak-bento-box';
 

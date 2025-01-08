@@ -1,13 +1,5 @@
-import dynamic from 'next/dynamic';
-
-const FilterChips = dynamic(() => import('@/components/global/filters/chips'), {
-  ssr: false,
-});
-
-const Filter = dynamic(() => import('@/components/global/filters/filter'), {
-  ssr: false,
-  loading: () => <FilterLoading />,
-});
+import Filter from '@/components/global/filters/filter';
+import FilterChips from '@/components/global/filters/chips';
 
 import QuestionsList from '@/components/app/questions/questions-list';
 import QuestionPageSidebar from '@/components/app/questions/question-page-sidebar';
@@ -22,7 +14,6 @@ import { useUserServer } from '@/hooks/use-user-server';
 import { parseSearchParams, validateSearchParams } from '@/utils/search-params';
 import { getTags } from '@/utils/data/questions/tags/get-tags';
 import { redirect } from 'next/navigation';
-import FilterLoading from '@/components/global/filters/filters-loading';
 
 export default async function CustomQuestionsPage({
   searchParams,

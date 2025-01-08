@@ -9,7 +9,8 @@ import {
   Section,
   Text,
 } from 'npm:@react-email/components';
-import * as React from 'npm:react@18.3.1';
+import * as React from 'npm:react';
+import { GitHubLogoIcon, TwitterLogoIcon } from 'npm:@radix-ui/react-icons';
 
 interface TechBlitzSignUpEmailProps {
   username: string;
@@ -58,7 +59,7 @@ export const TechBlitzSignUpEmail = ({
           </Section>
           <Heading style={h1}>Welcome to TechBlitz!</Heading>
           <Text style={text}>
-            We're so glad to have you on board, and ready to help you in you
+            We're so glad to have you on board, and ready to help you in your
             software journey! To get started, please confirm your email address.
           </Text>
           <Section style={buttonContainer}>
@@ -70,6 +71,22 @@ export const TechBlitzSignUpEmail = ({
             If you didn't create an account with TechBlitz, you can safely
             ignore this email.
           </Text>
+          <Section style={socialButtonsContainer}>
+            <Link
+              href="https://x.com/techblitz_dev"
+              target="_blank"
+              style={socialButton}
+            >
+              <TwitterLogoIcon />
+            </Link>
+            <Link
+              href="https://github.com/techblitzdev/techblitz"
+              target="_blank"
+              style={socialButton}
+            >
+              <GitHubLogoIcon />
+            </Link>
+          </Section>
           <Section style={footer}>
             <Text style={footerText}>
               © 2024 TechBlitz. All rights reserved.
@@ -100,14 +117,6 @@ const container = {
   margin: '0 auto',
   padding: '20px 0 48px',
   textAlign: 'center' as const,
-};
-
-const logoContainer = {
-  marginTop: '32px',
-};
-
-const logo = {
-  margin: '0 auto',
 };
 
 const h1 = {
@@ -144,6 +153,26 @@ const button = {
   fontFamily: "'Onest', Verdana, sans-serif",
 };
 
+const socialButtonsContainer = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '16px',
+  margin: '32px 0',
+};
+
+const socialButton = {
+  backgroundColor: '',
+  borderRadius: '4px',
+  color: '#ffffff',
+  fontSize: '12px',
+  fontWeight: '500',
+  textDecoration: 'none',
+  textAlign: 'center' as const,
+  padding: '8px 16px',
+  fontFamily: "'Onest', Verdana, sans-serif",
+};
+
 const footer = {
   marginTop: '32px',
   textAlign: 'center' as const,
@@ -156,9 +185,10 @@ const footerText = {
   fontFamily: "'Onest', Verdana, sans-serif",
 };
 
-const footerLink = {
-  color: '#CCCCCC',
-  fontSize: '12px',
-  lineHeight: '16px',
-  textDecoration: 'underline',
+const logoContainer = {
+  marginTop: '32px',
+};
+
+const logo = {
+  margin: '0 auto',
 };

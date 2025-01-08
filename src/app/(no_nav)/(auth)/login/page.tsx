@@ -1,6 +1,10 @@
 import LoginForm from '@/components/auth/login';
+import { Suspense } from 'react';
 
-export default function LoginPage() {
+export default function LoginPage(searchParams: {
+  redirectUrl: string;
+  onboarding: string;
+}) {
   return (
     <div
       className="border border-black-50 p-8 rounded-xl space-y-4 text-center"
@@ -13,7 +17,9 @@ export default function LoginPage() {
       <p className="text-gray-300 mb-8 text-sm font-satoshi text-wrap">
         Sign in to your account to continue.
       </p>
-      <LoginForm />
+      <Suspense fallback={null}>
+        <LoginForm />
+      </Suspense>
     </div>
   );
 }

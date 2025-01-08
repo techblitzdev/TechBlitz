@@ -48,6 +48,7 @@ export default async function CustomQuestionsPage({
               filters={filters}
               customQuestions={true}
               previousQuestions={false}
+              showSubmissions={false}
             />
           </div>
           <QuestionPageSidebar user={user} />

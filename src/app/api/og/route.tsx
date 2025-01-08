@@ -6,14 +6,6 @@ export const runtime = 'edge';
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
 
-  // fetch the Ubuntu font from Google Fonts
-  const ubuntuFont = await fetch(
-    new URL(
-      'https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap',
-      request.url
-    )
-  ).then((res) => res.arrayBuffer());
-
   // get text from query parameter or use default
   const text = searchParams.get('text') || 'Hello, World!';
 
@@ -37,7 +29,6 @@ export async function GET(request: NextRequest) {
           backgroundColor: bgColor,
           fontSize: 32,
           fontWeight: 600,
-          fontFamily: 'Ubuntu',
         }}
       >
         <div style={{ marginTop: 40, color: textColor }}>{text}</div>
@@ -49,14 +40,6 @@ export async function GET(request: NextRequest) {
     {
       width: 1200,
       height: 630,
-      fonts: [
-        {
-          name: 'Ubuntu',
-          data: ubuntuFont,
-          style: 'normal',
-          weight: 400,
-        },
-      ],
     }
   );
 }

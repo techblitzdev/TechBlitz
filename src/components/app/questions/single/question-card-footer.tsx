@@ -11,8 +11,9 @@ export default function QuestionCardFooter(opts: {
     resetForm: () => void;
   }>;
   user: UserRecord | null;
+  redirectUrl?: string;
 }) {
-  const { questionTags, answerFormRef, user } = opts;
+  const { questionTags, answerFormRef, user, redirectUrl } = opts;
 
   return (
     <>
@@ -37,7 +38,10 @@ export default function QuestionCardFooter(opts: {
                   Submit
                 </Button>
               ) : (
-                <Button variant="accent" href="/login">
+                <Button
+                  variant="accent"
+                  href={`/login?redirectUrl=${redirectUrl}`}
+                >
                   Login to Submit
                 </Button>
               )}

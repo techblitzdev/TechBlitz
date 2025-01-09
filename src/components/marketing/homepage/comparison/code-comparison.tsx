@@ -2,7 +2,9 @@
 import CodeComparison from '@/components/ui/code-comparison';
 
 // Example before/after code for the comparison component
-const beforeCode = `function mysteryFunction(arr) {
+const beforeCode = `// this is a challenge to learn JavaScript
+
+function mysteryFunction(arr) {
   let result = [];
   for (let i = 0; i < arr.length; i++) {
     result.push(arr[i] * (Math.random() * 10));
@@ -19,7 +21,10 @@ console.log(mysteryFunction([1, 2, 3]));
 console.log(reverseString('TechBlitz'));
 `;
 
-const afterCode = `import { prisma } from '@/lib/prisma';
+const afterCode = `// this is a challenge to learn JavaScript,
+// perfect for beginners
+
+import { prisma } from '@/lib/prisma';
 
 export const fetchAndTransformUsers = async() => {
   try {

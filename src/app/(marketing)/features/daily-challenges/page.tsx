@@ -14,6 +14,12 @@ export async function generateMetadata() {
     title: 'Daily Coding Challenges | TechBlitz',
     description:
       'Improve your coding skills with our daily challenges. Perfect for developers who want consistent growth through bite-sized practice.',
+    keywords: [
+      'daily coding challenges',
+      'learn to code for free',
+      'coding challenges',
+      'coding practice',
+    ],
     image: {
       text: 'Daily Coding Challenges | TechBlitz',
       bgColor: '#000',

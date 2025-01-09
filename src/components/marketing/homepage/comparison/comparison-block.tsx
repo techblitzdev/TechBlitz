@@ -14,10 +14,11 @@ export default function ComparisonBlock() {
         <h1 className="text-4xl lg:text-6xl font-onest !font-medium tracking-tight text-gradient from-white to-white/55 py-1">
           Learn with interactive <br /> coding challenges
         </h1>
-        <p className="text-gray-400 max-w-2xl text-sm md:text-base">
+        <p className="text-gray-400 max-w-4xl text-sm md:text-base">
           We don't just create challenges to 'pass the technical interview'. We
           ensure that all of our interactive coding challenges are real-world
-          problems that you will face in your day-to-day activities.
+          problems that you will face in your day-to-day activities. Learning to
+          code has never been easier.
         </p>
       </div>
       <div className=" w-full flex justify-center relative">

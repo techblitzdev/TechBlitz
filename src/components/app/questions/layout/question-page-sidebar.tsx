@@ -11,6 +11,10 @@ import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import { UserRecord } from '@/types/User';
 import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import CurrentStreak, {
+  SolarFlameBoldDuotone,
+} from '@/components/ui/current-streak';
 
 export default async function QuestionPageSidebar(opts: {
   user: UserRecord | null;
@@ -34,14 +38,32 @@ export default async function QuestionPageSidebar(opts: {
           <h6 className="text-xl">Your current streak</h6>
           <div className="relative">
             {user ? (
-              <DatePicker
-                className="z-30 text-white bg-black-100 border border-black-50 p-2 rounded-md hover:cursor-default"
-                color="white"
-                type="range"
-                value={dateArray}
-                c="gray"
-                inputMode="none"
-              />
+              <div className="flex flex-col gap-y-4 text-white bg-black-75 border border-black-50 p-4 rounded-lg hover:cursor-default">
+                <DatePicker
+                  className="z-30"
+                  color="white"
+                  type="range"
+                  value={dateArray}
+                  c="gray"
+                  inputMode="none"
+                />
+                <Separator className="w-full bg-black-50" />
+                <div className="grid grid-cols-2 gap-4 pt-2">
+                  <div className="flex flex-col gap-y-2 items-center">
+                    <p className="text-sm text-gray-400">Longest streak</p>
+                    <div className="flex items-center gap-x-1">
+                      <p className="font-onest font-bold">
+                        {userStreak?.streakData?.longestStreak}
+                      </p>
+                      <SolarFlameBoldDuotone className="size-6" />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-y-2 items-center">
+                    <p className="text-sm text-gray-400">Current streak</p>
+                    <CurrentStreak />
+                  </div>
+                </div>
+              </div>
             ) : (
               <div className="relative">
                 <div className="absolute inset-0 backdrop-blur-[2px] z-10 flex items-center justify-center rounded-md">

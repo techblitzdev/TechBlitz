@@ -384,7 +384,7 @@ export function AppSidebar(opts: {
   };
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="icon" className="z-50">
       <SidebarContent className="py-6 bg-[#000000]">
         <SidebarGroup>
           <SidebarGroupLabel className="w-full flex items-center justify-between">

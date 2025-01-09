@@ -10,6 +10,15 @@ export async function generateMetadata() {
     title: 'Explore Questions | TechBlitz',
     description:
       'Explore a diverse set of questions across multiple topics to enhance your knowledge.',
+    keywords: [
+      'javascript coding questions',
+      'react coding questions',
+      'web development coding questions',
+      'coding challenges',
+      'coding tutorials',
+      'coding practice',
+      'coding practice questions',
+    ],
     image: {
       text: 'Explore Questions | TechBlitz',
       bgColor: '#000',
@@ -22,9 +31,8 @@ export async function generateMetadata() {
 const heroDescription = (
   <div className="flex flex-col gap-y-4 z-20 relative font-inter max-w-3xl">
     <p className="text-sm md:text-base text-gray-400">
-      Curated lists of hot topics to help you level up your programming skills.
-      Browse through our carefully selected collection of coding challenges and
-      tutorials.
+      Curated lists of coding questions, ranging from Javascript, React, Node,
+      Web Development, and more to help you level up your programming skills.
     </p>
     <div className="flex flex-col gap-y-2">
       <p className="text-gray-400">Can't find what you're looking for?</p>

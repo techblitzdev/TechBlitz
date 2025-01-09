@@ -32,10 +32,10 @@ export default async function CurrentStreak() {
 
   return (
     <div className="flex items-center gap-x-1">
-      <SolarFlameBoldDuotone className="size-6" />
-      <p className="font-ubuntu font-bold">
+      <p className="font-onest font-bold">
         {userStreak?.streakData?.currentstreakCount}{' '}
       </p>
+      <SolarFlameBoldDuotone className="size-6" />
     </div>
   );
 }

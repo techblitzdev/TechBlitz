@@ -5,51 +5,40 @@ import { QuestionWithTags } from '@/types/Questions';
 export default async function QuestionsCarouselList() {
   const questionsCarousels = [
     {
-      tag: 'javascript',
+      tag: ['javascript', 'JavaScript', 'javaScript', 'generators'],
       title: 'Javascript Questions',
       description:
-        'Explore a diverse set of Javascript questions to enhance your knowledge.',
+        'Learn how to use JavaScript to build more efficient and scalable applications.',
       image: '/images/javascript.png',
       questions: [],
     },
     {
-      tag: 'react',
+      tag: ['react'],
       title: 'React Questions',
-      description:
-        'Explore a diverse set of React questions to enhance your knowledge.',
+      description: 'Explore the most popular JavaScript framework, React.',
       image: '/images/react.png',
       questions: [],
     },
     {
-      tag: 'async',
-      title: 'Async Questions',
+      tag: ['react-hooks'],
+      title: 'React Hooks',
       description:
-        'Explore a diverse set of questions relating to asynchronous programming.',
+        'Learn how to use React Hooks to build more efficient and scalable applications.',
+      image: '/images/react.png',
+      questions: [],
+    },
+    {
+      tag: ['arrays', 'Array', 'array-methods'],
+      title: 'Arrays',
+      description: 'Learn all the key concepts of arrays in JavaScript.',
+      image: '/images/arrays.png',
+      questions: [],
+    },
+    {
+      tag: ['async', 'promises'],
+      title: 'Asynchronous Programming',
+      description: 'Learn how to handle asynchronous operations in JavaScript.',
       image: '/images/async.png',
-      questions: [],
-    },
-    {
-      tag: 'promises',
-      title: 'Web Development Questions',
-      description:
-        'Explore a diverse set of questions relating to web development.',
-      image: '/images/web-dev.png',
-      questions: [],
-    },
-    {
-      tag: 'promises',
-      title: 'Web Development Questions',
-      description:
-        'Explore a diverse set of questions relating to web development.',
-      image: '/images/web-dev.png',
-      questions: [],
-    },
-    {
-      tag: 'promises',
-      title: 'Web Development Questions',
-      description:
-        'Explore a diverse set of questions relating to web development.',
-      image: '/images/web-dev.png',
       questions: [],
     },
   ];
@@ -66,12 +55,16 @@ export default async function QuestionsCarouselList() {
     <div className="flex flex-col gap-y-16 md:gap-y-28 pt-10">
       {questionsByTag.map((carousel) => (
         <QuestionCarousel
-          key={carousel.tag}
+          key={carousel.title}
           heading={carousel.title}
           description={carousel.description}
           image={carousel.image}
-          questions={carousel.questions as unknown as QuestionWithTags[]}
-          tag={carousel.tag as 'javascript' | 'react' | 'async' | 'web-dev'}
+          questions={
+            (carousel.questions[0]?.questions.map(
+              (q) => q.question
+            ) as unknown as QuestionWithTags[]) || []
+          }
+          tag={carousel.tag}
         />
       ))}
     </div>

@@ -4,6 +4,20 @@ import CallToActionBlock from '@/components/marketing/global/call-to-action-bloc
 import MarketingContentGrid from '@/components/marketing/global/content-grid';
 import { MobileIcon } from '@radix-ui/react-icons';
 import { BarChart, Code, FileBadge2, LaptopIcon } from 'lucide-react';
+import { createMetadata } from '@/utils';
+
+export async function generateMetadata() {
+  return createMetadata({
+    title: 'Statistics | TechBlitz',
+    description: 'Track your coding journey with our statistics dashboard.',
+    image: {
+      text: 'Statistics | TechBlitz',
+      bgColor: '#000',
+      textColor: '#fff',
+    },
+    canonicalUrl: '/features/statistics',
+  });
+}
 
 const featureShowcaseItems = [
   {

@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import { InterFont, SatoshiFont, UbuntuFont } from '../styles/fonts/font';
 import '../globals.css';
 import { ReactQueryClientProvider } from '@/components/global/react-query-client-provider';

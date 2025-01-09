@@ -9,16 +9,19 @@ import FeatureLeftRightSection from '@/components/marketing/features/daily-chall
 
 import { createMetadata } from '@/utils';
 
-export const metadata = createMetadata({
-  title: 'Daily Coding Challenges | TechBlitz',
-  description:
-    'Improve your coding skills with our daily challenges. Perfect for developers who want consistent growth through bite-sized practice.',
-  image: {
-    text: 'Daily Coding Challenges | TechBlitz',
-    bgColor: '#000',
-    textColor: '#fff',
-  },
-});
+export async function generateMetadata() {
+  return createMetadata({
+    title: 'Daily Coding Challenges | TechBlitz',
+    description:
+      'Improve your coding skills with our daily challenges. Perfect for developers who want consistent growth through bite-sized practice.',
+    image: {
+      text: 'Daily Coding Challenges | TechBlitz',
+      bgColor: '#000',
+      textColor: '#fff',
+    },
+    canonicalUrl: '/features/daily-challenges',
+  });
+}
 
 const items = [
   {

@@ -6,27 +6,30 @@ import PricingCardBlock from '@/components/marketing/pricing/pricing-card-block'
 import { createMetadata } from '@/utils';
 import Link from 'next/link';
 
-export const metadata = createMetadata({
-  title: 'Pricing | TechBlitz',
-  description:
-    'Start for free and unlock premium features with our affordable plans to help you become a better developer.',
-  image: {
-    text: 'Pricing | TechBlitz',
-    bgColor: '#000',
-    textColor: '#fff',
-  },
-  keywords: [
-    'coding',
-    'subscription',
-    'affordable',
-    'premium',
-    'free coding courses',
-    'most popular',
-    'software',
-    'Javascript course',
-    'development',
-  ],
-});
+export async function generateMetadata() {
+  return createMetadata({
+    title: 'Pricing | TechBlitz',
+    description:
+      'Start for free and unlock premium features with our affordable plans to help you become a better developer.',
+    image: {
+      text: 'Pricing | TechBlitz',
+      bgColor: '#000',
+      textColor: '#fff',
+    },
+    keywords: [
+      'coding',
+      'subscription',
+      'affordable',
+      'premium',
+      'free coding courses',
+      'most popular',
+      'software',
+      'Javascript course',
+      'development',
+    ],
+    canonicalUrl: '/pricing',
+  });
+}
 
 const jsonLd = {
   '@context': 'https://schema.org',

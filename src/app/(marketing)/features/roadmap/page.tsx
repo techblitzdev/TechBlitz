@@ -13,15 +13,19 @@ import MarketingContentGrid, {
 import { MobileIcon } from '@radix-ui/react-icons';
 import { createMetadata } from '@/utils';
 
-export const metadata = createMetadata({
-  title: 'Roadmap | TechBlitz',
-  description: 'Create your own progression path with our AI powered roadmaps.',
-  image: {
-    text: 'Roadmap | TechBlitz',
-    bgColor: '#000',
-    textColor: '#fff',
-  },
-});
+export async function generateMetadata() {
+  return createMetadata({
+    title: 'Roadmap | TechBlitz',
+    description:
+      'Create your own progression path with our AI powered roadmaps.',
+    image: {
+      text: 'Roadmap | TechBlitz',
+      bgColor: '#000',
+      textColor: '#fff',
+    },
+    canonicalUrl: '/features/roadmap',
+  });
+}
 
 // faqs
 const faqs = [

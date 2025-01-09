@@ -12,6 +12,7 @@ export async function generateMetadata() {
       bgColor: '#000',
       textColor: '#fff',
     },
+    canonicalUrl: '/faqs',
   });
 }
 

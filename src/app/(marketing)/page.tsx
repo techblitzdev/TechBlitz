@@ -16,6 +16,63 @@ import SocialProof from '@/components/marketing/global/social-proof';
 import { fetchGithubStars } from '@/utils/data/misc/get-github-stars';
 import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 import { getUserCount } from '@/utils/data/user/get-user-count';
+import { Metadata } from 'next';
+import { getBaseUrl } from '@/utils';
+
+const title =
+  'techblitz | The all-in-one platform for learning software engineering';
+const description =
+  'TechBlitz is a community of like-minded software engineers looking to expand their knowledge. Daily coding challenges, ai-powered coding roadmaps, in depths statistics and much more. Sign up for free now!';
+
+export const metadata: Metadata = {
+  title,
+  description,
+  keywords: [
+    'software engineering',
+    'coding challenges',
+    'AI-powered learning',
+    'personalized coding roadmap',
+    'tech community',
+    'full-stack development',
+    'data structures and algorithms',
+    'coding statistics',
+    'continuous learning',
+    'career advancement',
+    'coding best practices',
+    'tech skills assessment',
+  ],
+  openGraph: {
+    title,
+    description,
+    type: 'website',
+    url: 'https://techblitz.dev',
+    images: {
+      url: 'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
+      width: 800,
+      height: 630,
+      alt: description,
+    },
+  },
+  twitter: {
+    title,
+    description,
+    images: [
+      {
+        url: 'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
+        width: 800,
+        height: 630,
+        alt: description,
+      },
+    ],
+  },
+  alternates: {
+    canonical: getBaseUrl(),
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
 export default async function Page() {
   // run all actions in parallel

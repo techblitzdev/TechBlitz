@@ -32,6 +32,8 @@ export type Question = {
   linkedReports?: StatisticsReport[];
 
   QuestionResources?: QuestionResources[];
+
+  slug: string | null;
 };
 
 export type QuestionWithoutAnswers = Omit<Question, 'answers'>;

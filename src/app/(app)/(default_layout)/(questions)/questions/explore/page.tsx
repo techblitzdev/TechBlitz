@@ -32,7 +32,7 @@ const heroDescription = (
   <div className="flex flex-col gap-y-4 z-20 relative font-inter max-w-3xl">
     <p className="text-sm md:text-base text-gray-400">
       Curated lists of coding questions, ranging from Javascript, React, Node,
-      Web Development, and more to help you level up your programming skills.
+      Web Development. Perfect for your daily coding practice.
     </p>
     <div className="flex flex-col gap-y-2">
       <p className="text-gray-400">Can't find what you're looking for?</p>

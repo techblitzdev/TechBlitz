@@ -26,6 +26,7 @@ const menuItems: MenuItem[] = [
     children: [
       { label: 'Roadmaps', href: '/features/roadmaps' },
       { label: 'Daily Challenges', href: '/features/daily-challenges' },
+      { label: 'Statistics', href: '/features/statistics' },
     ],
   },
   {

@@ -2,7 +2,10 @@ import dynamic from 'next/dynamic';
 
 import HomepageHero from '@/components/marketing/homepage/hero/hero';
 import HomepageHeroImages from '@/components/marketing/homepage/hero/hero-images';
-import FeaturesBentoGrid from '@/components/marketing/homepage/features/features-bento-grid';
+const FeaturesBentoGrid = dynamic(
+  () => import('@/components/marketing/homepage/features/features-bento-grid'),
+  { ssr: false }
+);
 const HomepageLargeText = dynamic(
   () => import('@/components/marketing/large-text'),
   { ssr: false }

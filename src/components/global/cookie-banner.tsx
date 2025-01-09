@@ -57,9 +57,9 @@ export default function Banner() {
             </p>
             <div className="flex gap-3 shrink-0">
               <Button
-                variant="destructive"
                 type="button"
                 onClick={handleDeclineCookies}
+                variant="destructive"
               >
                 Decline
               </Button>

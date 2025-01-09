@@ -17,7 +17,7 @@ export async function generateMetadata() {
   return createMetadata({
     title: 'Roadmap | TechBlitz',
     description:
-      'Create your own progression path with our AI powered roadmaps.',
+      'Create your own progression path with our personalized roadmaps.',
     image: {
       text: 'Roadmap | TechBlitz',
       bgColor: '#000',

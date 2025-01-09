@@ -8,10 +8,20 @@ import { createMetadata } from '@/utils';
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Statistics | TechBlitz',
+    title: 'Track your coding journey | TechBlitz',
     description: 'Track your coding journey with our statistics dashboard.',
+    keywords: [
+      'track coding progress',
+      'coding statistics',
+      'developer analytics',
+      'coding performance insights',
+      'improve coding skills',
+      'coding improvement tools',
+      'coding mastery',
+      'coding challenges dashboard',
+    ],
     image: {
-      text: 'Statistics | TechBlitz',
+      text: 'Track your coding journey | TechBlitz',
       bgColor: '#000',
       textColor: '#fff',
     },
@@ -52,7 +62,7 @@ const featureShowcaseItems = [
   {
     title: 'Personalized Learning Insights',
     description:
-      'Receive data-driven recommendations and personalized learning paths based on your unique strengths and areas for improvement.',
+      'Receive data-driven recommendations and personalized learning paths based on your unique strengths and areas to achieve coding mastery.',
     icon: <FileBadge2 />,
   },
   {
@@ -70,7 +80,7 @@ const featureShowcaseItems = [
   {
     title: 'Learn Anywhere, Anytime',
     description:
-      'Track your coding journey seamlessly across all devices with our responsive, mobile-first statistics dashboard.',
+      'Track your coding journey seamlessly across all devices with our responsive, mobile-first coding statistics dashboard.',
     icon: <MobileIcon />,
   },
 ];
@@ -79,14 +89,9 @@ export default function StatisticsPage() {
   return (
     <div className="container">
       <StatsHero />
-      {/**
-       * Sections needed:
-       * 1. Talking about interactive charts
-       * 2. easy to use and understand
-       */}
       <StatsReportSection />
       <MarketingContentGrid
-        title="Tracking your coding journey made simple."
+        title="Tracking coding progress made simple."
         items={featureShowcaseItems}
       />
       <CallToActionBlock

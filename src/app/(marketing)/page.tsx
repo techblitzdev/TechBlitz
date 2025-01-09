@@ -19,27 +19,23 @@ import { getUserCount } from '@/utils/data/user/get-user-count';
 import { Metadata } from 'next';
 import { getBaseUrl } from '@/utils';
 
-const title =
-  'techblitz | The all-in-one platform for learning software engineering';
-const description =
-  'TechBlitz is a community of like-minded software engineers looking to expand their knowledge. Daily coding challenges, ai-powered coding roadmaps, in depths statistics and much more. Sign up for free now!';
+const title = 'Learn to code | TechBlitz';
+const description = 'Learning to code made simple';
 
 export const metadata: Metadata = {
   title,
   description,
   keywords: [
-    'software engineering',
-    'coding challenges',
-    'AI-powered learning',
+    'learn to code',
+    'coding platform',
+    'AI-powered coding challenges',
+    'interactive coding challenges',
+    'daily programming practice',
+    'beginner-friendly coding lessons',
     'personalized coding roadmap',
-    'tech community',
-    'full-stack development',
-    'data structures and algorithms',
-    'coding statistics',
-    'continuous learning',
-    'career advancement',
-    'coding best practices',
-    'tech skills assessment',
+    'improve coding skills',
+    'best platform to learn coding',
+    'AI-assisted coding',
   ],
   openGraph: {
     title,

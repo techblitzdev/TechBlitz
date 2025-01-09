@@ -15,10 +15,7 @@ import dynamic from 'next/dynamic';
 import { Analytics } from '@vercel/analytics/react';
 
 // Dynamically import components that are not needed immediately
-const MarketingNavigation = dynamic(
-  () => import('@/components/marketing/global/navigation/navigation'),
-  { ssr: true } // Keep SSR for SEO
-);
+import MarketingNavigation from '@/components/marketing/global/navigation/navigation';
 
 const MarketingFooter = dynamic(
   () => import('@/components/marketing/global/footer/footer'),

@@ -1,15 +1,9 @@
 import Link from 'next/link';
 import Logo from '@/components/ui/logo';
-
-import { NavigationMenuItems } from './navigation-items';
-import { MobileMenu } from './mobile-menu';
-
-import dynamic from 'next/dynamic';
-const NavigationButtons = dynamic(() => import('./navigation-buttons'), {
-  ssr: false,
-});
-
-import { GithubStars } from './navigation-buttons';
+import { NavigationMenuItems } from '@/components/marketing/global/navigation/navigation-items';
+import { MobileMenu } from '@/components/marketing/global/navigation/mobile-menu';
+import NavigationButtons from '@/components/marketing/global/navigation/navigation-buttons';
+import { GithubStars } from '@/components/marketing/global/navigation/navigation-buttons';
 
 export default function MarketingNavigation() {
   return (

@@ -51,6 +51,7 @@ export default function FeaturesBentoGrid() {
               cardClasses
             )}
             prefetch
+            aria-label="Navigate to Roadmaps"
           >
             <div className="flex flex-col justify-between">
               <div className="flex flex-col gap-y-1 relative max-w-md">
@@ -90,6 +91,7 @@ export default function FeaturesBentoGrid() {
                 'h-[390px] lg:h-80 flex flex-col justify-between group overflow-hidden',
                 cardClasses
               )}
+              aria-label="Navigate to Statistics"
             >
               <div className="flex flex-col gap-y-4 relative">
                 <div className="flex flex-col gap-y-1">
@@ -114,6 +116,7 @@ export default function FeaturesBentoGrid() {
                 'relative overflow-hidden group flex flex-col',
                 cardClasses
               )}
+              aria-label="Navigate to Leaderboard"
             >
               <LeaderboardBentoBox />
               <div className="flex flex-col gap-y-1 mt-auto">
@@ -129,12 +132,13 @@ export default function FeaturesBentoGrid() {
           </Suspense>
           <Suspense fallback={<LoadingSpinner />}>
             <Link
-              href="/features/daily-questions"
+              href="/features/daily-challenges"
               className={cn(
                 'col-span-full lg:col-span-2 group overflow-hidden',
                 cardClasses
               )}
               prefetch
+              aria-label="Navigate to Daily Challenges"
             >
               <div className="flex justify-between">
                 <div className="flex flex-col gap-y-1 h-fit">

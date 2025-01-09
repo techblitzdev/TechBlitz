@@ -32,6 +32,7 @@ const menuItems: MenuItem[] = [
   {
     label: 'Resources',
     href: '/resources',
+    // TODO: add this in a constants file
     children: [
       { label: 'Blog', href: '/blog' },
       { label: 'Open Source', href: '/open-source' },

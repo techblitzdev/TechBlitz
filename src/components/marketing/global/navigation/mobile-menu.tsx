@@ -26,11 +26,13 @@ const menuItems: MenuItem[] = [
     children: [
       { label: 'Roadmaps', href: '/features/roadmaps' },
       { label: 'Daily Challenges', href: '/features/daily-challenges' },
+      { label: 'Statistics', href: '/features/statistics' },
     ],
   },
   {
     label: 'Resources',
     href: '/resources',
+    // TODO: add this in a constants file
     children: [
       { label: 'Blog', href: '/blog' },
       { label: 'Open Source', href: '/open-source' },

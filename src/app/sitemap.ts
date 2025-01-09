@@ -1,12 +1,20 @@
 import type { MetadataRoute } from 'next';
 import { getBlogPosts } from '@/lib/blog';
 import { listQuestions } from '@/utils/data/questions/list';
+import { getBaseUrl } from '@/utils';
 
-export const baseUrl = 'https://techblitz.dev';
+export const baseUrl = getBaseUrl();
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // Fetch all blog posts
-  const posts = await getBlogPosts();
+  // Fetch all blog posts and questions
+  const [posts, questions] = await Promise.all([
+    getBlogPosts(),
+    listQuestions({
+      page: 1,
+      pageSize: 1000,
+      userUid: '',
+    }),
+  ]);
 
   // Create sitemap entries for blog posts
   const blogPosts = posts.map((post) => ({
@@ -14,13 +22,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Using the post date as lastModified
     lastModified: new Date(post.date as string),
   }));
-
-  // get all questions
-  const questions = await listQuestions({
-    page: 1,
-    pageSize: 1000,
-    userUid: '',
-  });
 
   const questionsPosts = questions.questions.map((question) => ({
     url: `${baseUrl}/questions/${question.uid}`,
@@ -71,6 +72,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/terms`,
+      lastModified: new Date(),
+    },
+    // access routes
+    {
+      url: `${baseUrl}/signup`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/login`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/forgot-password`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/questions`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/questions/previous`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/questions/previous`,
       lastModified: new Date(),
     },
   ];

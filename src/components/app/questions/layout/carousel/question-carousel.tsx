@@ -4,7 +4,8 @@ import {
   CarouselContent,
 } from '@/components/ui/carousel';
 import { QuestionWithTags } from '@/types/Questions';
-import QuestionCard from './question-card';
+
+import QuestionCarouselCard from './question-carousel-card';
 
 /**
  * A carousel that will showcase a set of questions.
@@ -21,7 +22,13 @@ export default function QuestionCarousel(opts: {
 }) {
   const { heading, description, image, questions, tag } = opts;
 
-  console.log(image);
+  console.log({
+    heading,
+    description,
+    image,
+    questions,
+    tag,
+  });
 
   return (
     <div className="flex flex-col gap-y-8">
@@ -32,8 +39,8 @@ export default function QuestionCarousel(opts: {
         <p className="text-sm text-wrap text-start">{description}</p>
       </div>
       <div className="relative w-full">
-        <div className="absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-[#000] to-transparent z-10" />
-        <div className="absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-[#000000] to-transparent z-10" />
+        <div className="hidden md:block absolute left-0 top-0 h-full w-12 bg-gradient-to-r from-[#000] to-transparent z-10" />
+        <div className="hidden md:block absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-[#000000] to-transparent z-10" />
         <Carousel
           opts={{
             loop: false,
@@ -42,14 +49,10 @@ export default function QuestionCarousel(opts: {
           }}
           className="w-full"
         >
-          <CarouselContent className="-ml-2">
+          <CarouselContent className="grid grid-flow-col auto-cols-[calc(100%-8px)] md:auto-cols-[calc(50%-8px)] lg:auto-cols-[calc(33.33%-8px)] gap-4">
             {questions.map((q) => (
-              <CarouselItem key={q.uid} className="pl-2 basis-1/3 h-full">
-                <QuestionCard
-                  questionData={q}
-                  numberOfTags={1}
-                  showcaseTag={tag}
-                />
+              <CarouselItem key={q.uid} className="flex">
+                <QuestionCarouselCard key={q.uid} questionData={q} />
               </CarouselItem>
             ))}
           </CarouselContent>

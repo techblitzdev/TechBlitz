@@ -115,13 +115,13 @@ export function AppSidebar(opts: {
           url: '/questions',
         },
         {
+          title: 'All Daily Questions',
+          url: '/questions/previous',
+        },
+        {
           title: 'Daily Question',
           url: `/question/${todaysQuestion?.uid}`,
           badge: hasAnsweredDailyQuestion ? '' : 'New',
-        },
-        {
-          title: 'All Daily Questions',
-          url: '/questions/previous',
         },
         {
           title: 'Custom Questions',

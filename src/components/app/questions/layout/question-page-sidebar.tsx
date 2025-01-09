@@ -28,8 +28,8 @@ export default async function QuestionPageSidebar(opts: {
   const dateArray: [Date, Date] = [startDate, endDate];
 
   return (
-    <aside className="w-full lg:w-[35%] relative">
-      <div className="sticky top-10 space-y-10 w-3/4">
+    <aside className="w-full lg:w-[25%] relative">
+      <div className="sticky top-10 space-y-10 w-full">
         <div className="w-fit h-fit flex flex-col gap-y-2.5">
           <h6 className="text-xl">Your current streak</h6>
           <div className="relative">

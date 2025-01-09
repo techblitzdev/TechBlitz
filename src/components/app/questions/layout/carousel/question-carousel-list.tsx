@@ -28,6 +28,30 @@ export default async function QuestionsCarouselList() {
       image: '/images/async.png',
       questions: [],
     },
+    {
+      tag: 'promises',
+      title: 'Web Development Questions',
+      description:
+        'Explore a diverse set of questions relating to web development.',
+      image: '/images/web-dev.png',
+      questions: [],
+    },
+    {
+      tag: 'promises',
+      title: 'Web Development Questions',
+      description:
+        'Explore a diverse set of questions relating to web development.',
+      image: '/images/web-dev.png',
+      questions: [],
+    },
+    {
+      tag: 'promises',
+      title: 'Web Development Questions',
+      description:
+        'Explore a diverse set of questions relating to web development.',
+      image: '/images/web-dev.png',
+      questions: [],
+    },
   ];
 
   // fetch questions by tag via the questionsCarousels array
@@ -39,14 +63,14 @@ export default async function QuestionsCarouselList() {
   );
 
   return (
-    <div className="flex flex-col gap-y-16">
+    <div className="flex flex-col gap-y-16 md:gap-y-28 pt-10">
       {questionsByTag.map((carousel) => (
         <QuestionCarousel
           key={carousel.tag}
           heading={carousel.title}
           description={carousel.description}
           image={carousel.image}
-          questions={carousel.questions as QuestionWithTags[]}
+          questions={carousel.questions as unknown as QuestionWithTags[]}
           tag={carousel.tag as 'javascript' | 'react' | 'async' | 'web-dev'}
         />
       ))}

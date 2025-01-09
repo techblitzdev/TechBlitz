@@ -54,12 +54,13 @@ export default function FeatureRoadmapCustomizationBlock() {
       <div className="flex flex-col gap-y-4 col-span-full md:col-span-5">
         <AnimatedSpan content="Personalized" />
         <h2 className="text-2xl lg:text-5xl !font-sans !leading-[normal] text-gradient from-white to-white/55">
-          Your roadmap, your way
+          Your personalized coding roadmap.
         </h2>
         <p className="text-gray-400 max-w-3xl">
-          Our roadmap feature is designed to help developers learn new skills
-          and advance their careers (or get their career started!). Don't like a
-          question? Regenerate it.
+          Start your journey to learn to code with our AI-powered learning
+          paths. Whether you're a beginner or advancing your skills, we'll
+          create a personalized programming roadmap to guide your tech skills
+          progression.
         </p>
       </div>
       <div className="col-span-full md:col-span-7 max-h-[26rem] relative -right-4">

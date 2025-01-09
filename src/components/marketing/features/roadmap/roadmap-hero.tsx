@@ -14,8 +14,8 @@ export default function FeatureRoadmapHeroBlock() {
         </h1>
         <p className="text-gray-400 max-w-xl text-center text-sm md:text-base font-onest">
           Unlock your potential as a software engineer with personalized
-          learning paths. Our roadmap functionality helps you master essential
-          skills and advance your career in the tech industry.
+          learning paths. We create a personalized coding experience for you
+          based on your answers.
         </p>
         <div className="mt-2 flex gap-4">
           <Button variant="default" href="#roadmap-customization">

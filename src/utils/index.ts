@@ -28,11 +28,13 @@ export const createMetadata = ({
   description,
   image,
   keywords,
+  canonicalUrl,
 }: {
   title: string;
   description: string;
   image?: OgImageProps | string;
   keywords?: string[];
+  canonicalUrl?: string;
 }): Metadata => {
   const defaultKeywords = [
     'roadmaps',
@@ -80,6 +82,9 @@ export const createMetadata = ({
             alt: description,
           },
         ],
+      },
+      alternates: {
+        canonical: canonicalUrl || getBaseUrl(),
       },
       robots: {
         index: true,

@@ -7,7 +7,7 @@ import type {
 } from '@/types/Questions';
 import { getTagsFromQuestion } from './tags/get-tags-from-question';
 import { QuestionFilters } from '@/types/Filters';
-import { getUser } from '../../../actions/user/authed/get-user';
+import { getUser } from '@/actions/user/authed/get-user';
 
 type ListQuestionsReturnType = {
   questions: Question[] | QuestionWithoutAnswers[];

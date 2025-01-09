@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getBlogPosts } from '@/lib/blog';
+import { listQuestions } from '@/utils/data/questions/list';
 
 export const baseUrl = 'https://techblitz.dev';
 
@@ -12,6 +13,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${baseUrl}/blog/${post.slug}`,
     // Using the post date as lastModified
     lastModified: new Date(post.date as string),
+  }));
+
+  // get all questions
+  const questions = await listQuestions({
+    page: 1,
+    pageSize: 1000,
+    userUid: '',
+  });
+
+  const questionsPosts = questions.questions.map((question) => ({
+    url: `${baseUrl}/questions/${question.uid}`,
+    lastModified: new Date(question.createdAt),
   }));
 
   // Static routes
@@ -63,5 +76,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // Combine static routes with dynamic blog posts
-  return [...routes, ...blogPosts];
+  return [...routes, ...blogPosts, ...questionsPosts];
 }

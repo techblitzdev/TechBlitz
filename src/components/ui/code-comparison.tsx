@@ -69,7 +69,7 @@ export default async function CodeComparison({
                 <span className="font-medium font-onest">techblitz</span>
               </div>
               {/* Move CopyCode outside of Suspense since dynamic import already handles loading */}
-              <CopyCode text={afterCode} />
+              <CopyCode />
             </div>
             {renderCode(afterCode, highlightedAfter)}
           </div>

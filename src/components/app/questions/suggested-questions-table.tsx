@@ -4,6 +4,7 @@ import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 import { cn } from '@/lib/utils';
 import { shortenText } from '@/utils';
 import { Question } from '@/types/Questions';
+
 export default async function QuestionSuggestedCard(opts: {
   border?: boolean;
   textLimit?: number;

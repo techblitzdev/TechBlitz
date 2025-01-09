@@ -3,10 +3,9 @@ import { Toaster } from '@/components/ui/sonner';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/global/navigation/sidebar';
 import { CSPostHogProvider } from '../providers';
+import SidebarLayout from './providers';
 
 import { MantineProvider } from '@mantine/core';
-// Import styles of packages that you've installed.
-// All packages except `@mantine/hooks` require styles imports
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 
@@ -23,11 +22,11 @@ export async function generateMetadata() {
   });
 }
 
-export default async function Layout({
+export default async function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   const [user, todaysQuestion] = await Promise.all([
     useUserServer(),
     getTodaysQuestion(),
@@ -39,22 +38,23 @@ export default async function Layout({
   });
 
   return (
-    <SidebarProvider>
-      {/* Scrollable content */}
-      <AppSidebar
-        user={user}
-        todaysQuestion={todaysQuestion}
-        hasAnsweredDailyQuestion={hasAnsweredDailyQuestion}
-      />
-      <NextTopLoader color="#5b61d6" showSpinner={false} />
-      <main className="w-full py-6 lg:pt-4 lg:pb-3">
-        <div className="">
-          <CSPostHogProvider>
-            <MantineProvider>{children}</MantineProvider>
-          </CSPostHogProvider>
-        </div>
-      </main>
-      <Toaster className="bg-black" />
-    </SidebarProvider>
+    <html lang="en">
+      <body>
+        <SidebarProvider>
+          <AppSidebar
+            user={user}
+            todaysQuestion={todaysQuestion}
+            hasAnsweredDailyQuestion={hasAnsweredDailyQuestion}
+          />
+          <NextTopLoader color="#5b61d6" showSpinner={false} />
+          <SidebarLayout>
+            <CSPostHogProvider>
+              <MantineProvider>{children}</MantineProvider>
+            </CSPostHogProvider>
+          </SidebarLayout>
+          <Toaster className="bg-black" />
+        </SidebarProvider>
+      </body>
+    </html>
   );
 }

@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { redirect, useRouter, useSearchParams } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,39 +7,24 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import QuestionSuggestedCard from '@/components/app/questions/suggested-questions-table';
 import { Badge } from '@/components/ui/badge';
 
-import { useUser } from '@/hooks/use-user';
 import { capitalise } from '@/utils';
 import { StatisticsReport } from '@prisma/client';
 import { Question } from '@/types/Questions';
+import { useUserServer } from '@/hooks/use-user-server';
 
-export default function StatisticsReportTabs(opts: {
+export default async function StatisticsReportTabs(opts: {
   report: StatisticsReport & { questions: Question[] };
 }) {
   const { report } = opts;
 
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const user = await useUserServer();
 
-  const { user, isLoading } = useUser();
-
-  if (!user && !isLoading) {
-    redirect('/login');
+  if (!user) {
+    return redirect('/login');
   }
 
-  const [activeTab, setActiveTab] = useState<'tags' | 'details' | 'questions'>(
-    () =>
-      (searchParams.get('tab') as 'tags' | 'details' | 'questions') ||
-      'questions'
-  );
-
-  const handleTabChange = (value: string) => {
-    const newTab = value as 'tags' | 'details' | 'questions';
-    setActiveTab(newTab);
-    router.push(`?tab=${newTab}`, { scroll: false });
-  };
-
   return (
-    <Tabs value={activeTab} onValueChange={handleTabChange}>
+    <Tabs defaultValue="questions">
       <TabsList className="grid w-full grid-cols-3 text-white bg-[#000]">
         <TabsTrigger value="details">Detailed Report</TabsTrigger>
         <TabsTrigger value="questions">Questions</TabsTrigger>
@@ -128,9 +112,7 @@ export default function StatisticsReportTabs(opts: {
               <div className="flex flex-col gap-y-2 mt-6 text-white">
                 Why not check out the custom questions we have created for you
                 based on this report?
-                <Button onClick={() => handleTabChange('questions')}>
-                  View Questions
-                </Button>
+                <Button href="?tab=questions">View Questions</Button>
               </div>
             </ScrollArea>
           </CardContent>

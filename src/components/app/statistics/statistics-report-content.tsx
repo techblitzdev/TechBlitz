@@ -1,6 +1,3 @@
-'use client';
-
-import React, { useMemo } from 'react';
 import { redirect } from 'next/navigation';
 import { format } from 'date-fns';
 
@@ -13,41 +10,32 @@ import {
 } from '@/components/ui/card';
 import StatisticsReportTabs from '@/components/app/statistics/statistics-report-tabs';
 
-import { useUser } from '@/hooks/use-user';
 import { getUserDisplayName } from '@/utils/user';
 import { StatisticsReport } from '@prisma/client';
 
 import { Question } from '@/types/Questions';
-import NumberFlow from '@number-flow/react';
 import StatsReportCardMenu from './stats-report-card-menu';
 import { formatSeconds } from '@/utils/time';
+import { useUserServer } from '@/hooks/use-user-server';
 
-const MemoizedNumberFlow = React.memo(NumberFlow);
-
-export default function StatisticsReportContent({
+export default async function StatisticsReportContent({
   report,
 }: {
   report: StatisticsReport & { questions: Question[] };
 }) {
-  const { user, isLoading } = useUser();
+  const user = await useUserServer();
 
-  const stats = useMemo(() => {
-    const totalQuestions =
-      report.correctTags.length + report.incorrectTags.length;
-    const correctPercentage =
-      (report.correctTags.length / totalQuestions) * 100;
-
-    return {
-      totalQuestions,
-      correctAnswers: report.correctTags.length,
-      incorrectAnswers: report.incorrectTags.length,
-      accuracy: correctPercentage.toFixed(1),
-    };
-  }, [report]);
-
-  if (!user && !isLoading) {
+  if (!report) {
     return redirect('/login');
   }
+
+  // Calculate stats
+  const totalQuestions = report.questions.length;
+  const correctAnswers = report.correctTags.length;
+  const incorrectAnswers = report.incorrectTags.length;
+  const correctPercentage = Math.round(
+    (correctAnswers / (correctAnswers + incorrectAnswers)) * 100
+  );
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -68,7 +56,7 @@ export default function StatisticsReportContent({
           <CardTitle className="text-white">Report Summary</CardTitle>
           <CardDescription className="text-gray-400">
             Created on {format(report.createdAt, 'MMMM d, yyyy')} at{' '}
-            {format(report.createdAt, 'h:mm a')}, for{' '}
+            {format(report.createdAt, 'h:mm a')} for{' '}
             {user && getUserDisplayName(user)}
           </CardDescription>
         </CardHeader>
@@ -76,7 +64,7 @@ export default function StatisticsReportContent({
           <div className="flex flex-wrap justify-center">
             <div className="text-center w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2">
               <p className="text-2xl font-semibold text-white">
-                <MemoizedNumberFlow value={stats.totalQuestions} />
+                {totalQuestions}
               </p>
               <p className="text-sm text-muted-foreground">Total Questions</p>
             </div>
@@ -88,19 +76,19 @@ export default function StatisticsReportContent({
             </div>
             <div className="text-center w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2">
               <p className="text-2xl font-semibold text-white">
-                <MemoizedNumberFlow value={stats.correctAnswers} />
+                {correctAnswers}
               </p>
               <p className="text-sm text-muted-foreground">Correct Answers</p>
             </div>
             <div className="text-center w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2">
               <p className="text-2xl font-semibold text-white">
-                <MemoizedNumberFlow value={stats.incorrectAnswers} />
+                {incorrectAnswers}
               </p>
               <p className="text-sm text-muted-foreground">Incorrect Answers</p>
             </div>
             <div className="text-center w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2">
               <p className="text-2xl font-semibold text-white">
-                <MemoizedNumberFlow value={Number(stats.accuracy)} suffix="%" />
+                {correctPercentage}%
               </p>
               <p className="text-sm text-muted-foreground">Accuracy</p>
             </div>

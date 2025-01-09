@@ -8,16 +8,19 @@ import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { Building2Icon } from 'lucide-react';
 import { createMetadata } from '@/utils';
 
-export const metadata = createMetadata({
-  title: 'Open Source | TechBlitz',
-  description:
-    'TechBlitz is open-source and community-driven. Learn more about our mission and how you can contribute to our platform.',
-  image: {
-    text: 'Open Source | TechBlitz',
-    bgColor: '#000',
-    textColor: '#fff',
-  },
-});
+export async function generateMetadata() {
+  return createMetadata({
+    title: 'Open Source | TechBlitz',
+    description:
+      'TechBlitz is open-source and community-driven. Learn more about our mission and how you can contribute to our platform.',
+    image: {
+      text: 'Open Source | TechBlitz',
+      bgColor: '#000',
+      textColor: '#fff',
+    },
+    canonicalUrl: '/open-source',
+  });
+}
 
 const items: MarketingContentGridProps[] = [
   {

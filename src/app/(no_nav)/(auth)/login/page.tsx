@@ -1,5 +1,19 @@
 import LoginForm from '@/components/auth/login';
 import { Suspense } from 'react';
+import { createMetadata } from '@/utils';
+
+export async function generateMetadata() {
+  return createMetadata({
+    title: 'Login | TechBlitz',
+    description: 'Login to your account to continue.',
+    image: {
+      text: 'Login | TechBlitz',
+      bgColor: '#000',
+      textColor: '#fff',
+    },
+    canonicalUrl: '/login',
+  });
+}
 
 export default function LoginPage() {
   return (

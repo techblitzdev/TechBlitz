@@ -3,6 +3,20 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
+import { createMetadata } from '@/utils';
+
+export async function generateMetadata() {
+  return createMetadata({
+    title: 'Privacy Policy | TechBlitz',
+    description: 'Privacy Policy for TechBlitz',
+    image: {
+      text: 'Privacy Policy | TechBlitz',
+      bgColor: '#000',
+      textColor: '#fff',
+    },
+    canonicalUrl: '/privacy',
+  });
+}
 
 export default function PrivacyPolicyPage() {
   return (

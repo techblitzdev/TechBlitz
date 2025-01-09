@@ -52,6 +52,7 @@ export async function generateMetadata({
         bgColor: '#000',
         textColor: '#fff',
       },
+      canonicalUrl: `/blog/${params.slug}`,
     });
   } catch {
     return {

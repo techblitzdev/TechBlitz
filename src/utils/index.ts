@@ -28,11 +28,13 @@ export const createMetadata = ({
   description,
   image,
   keywords,
+  canonicalUrl,
 }: {
   title: string;
   description: string;
   image?: OgImageProps | string;
   keywords?: string[];
+  canonicalUrl?: string;
 }): Metadata => {
   const defaultKeywords = [
     'roadmaps',
@@ -48,6 +50,11 @@ export const createMetadata = ({
     'coding bootcamp',
   ];
 
+  // Ensure canonical URL is always the full URL of the current page
+  const fullCanonicalUrl = canonicalUrl
+    ? `${getBaseUrl()}${canonicalUrl}`
+    : getBaseUrl();
+
   // If image is a string, use it directly as the OG image URL
   if (typeof image === 'string') {
     return {
@@ -58,7 +65,7 @@ export const createMetadata = ({
         title,
         description,
         type: 'website',
-        url: getBaseUrl(),
+        url: fullCanonicalUrl,
         images: [
           {
             url: image,
@@ -81,6 +88,9 @@ export const createMetadata = ({
           },
         ],
       },
+      alternates: {
+        canonical: fullCanonicalUrl,
+      },
       robots: {
         index: true,
         follow: true,
@@ -101,7 +111,7 @@ export const createMetadata = ({
       title,
       description,
       type: 'website',
-      url: getBaseUrl(),
+      url: fullCanonicalUrl,
       images: [
         {
           url: ogImageUrl,

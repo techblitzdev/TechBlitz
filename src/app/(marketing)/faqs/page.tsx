@@ -3,15 +3,18 @@ import FAQsBlock from '@/components/marketing/global/faqs';
 import Link from 'next/link';
 import { createMetadata } from '@/utils';
 
-export const metadata = createMetadata({
-  title: 'Frequently Asked Questions | TechBlitz',
-  description: 'Got a question? We have an answer.',
-  image: {
-    text: 'Frequently Asked Questions | TechBlitz',
-    bgColor: '#000',
-    textColor: '#fff',
-  },
-});
+export async function generateMetadata() {
+  return createMetadata({
+    title: 'Frequently Asked Questions | TechBlitz',
+    description: 'Got a question? We have an answer.',
+    image: {
+      text: 'Frequently Asked Questions | TechBlitz',
+      bgColor: '#000',
+      textColor: '#fff',
+    },
+    canonicalUrl: '/faqs',
+  });
+}
 
 const commonFaqs = [
   {

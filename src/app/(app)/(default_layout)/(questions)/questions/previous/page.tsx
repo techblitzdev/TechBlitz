@@ -11,6 +11,20 @@ import { useUserServer } from '@/hooks/use-user-server';
 import { validateSearchParams } from '@/utils/search-params';
 import { parseSearchParams } from '@/utils/search-params';
 import { getTags } from '@/utils/data/questions/tags/get-tags';
+import { createMetadata } from '@/utils';
+
+export async function generateMetadata() {
+  return createMetadata({
+    title: 'Previous Daily Questions | TechBlitz',
+    description: 'All daily questions that have been asked in the past.',
+    image: {
+      text: 'Previous Daily Questions | TechBlitz',
+      bgColor: '#000',
+      textColor: '#fff',
+    },
+    canonicalUrl: '/questions/previous',
+  });
+}
 
 export default async function PreviousQuestionsPage({
   searchParams,

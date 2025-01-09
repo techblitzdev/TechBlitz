@@ -11,6 +11,20 @@ import { fetchGithubStars } from '@/utils/data/misc/get-github-stars';
 import { getUserCount } from '@/utils/data/user/get-user-count';
 import { RoadmapUserQuestions } from '@/types/Roadmap';
 import RoadmapQuestionCard from '@/components/app/roadmaps/questions/[uid]/question-card';
+import { createMetadata } from '@/utils';
+
+export async function generateMetadata() {
+  return createMetadata({
+    title: 'Sign Up | TechBlitz',
+    description: 'Sign up for TechBlitz to get started.',
+    image: {
+      text: 'Sign Up | TechBlitz',
+      bgColor: '#000',
+      textColor: '#fff',
+    },
+    canonicalUrl: '/signup',
+  });
+}
 
 const dummyQuestions: Partial<RoadmapUserQuestions>[] = [
   {

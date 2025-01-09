@@ -1,13 +1,7 @@
-import type { Metadata } from 'next';
 import { InterFont, SatoshiFont, UbuntuFont } from '../styles/fonts/font';
 import '../globals.css';
 import { ReactQueryClientProvider } from '@/components/global/react-query-client-provider';
 import { Toaster } from '@/components/ui/sonner';
-
-export const metadata: Metadata = {
-  title: 'techblitz',
-  description: 'Improve your code knowledge, one day at a time.',
-};
 
 export default function Layout({
   children,

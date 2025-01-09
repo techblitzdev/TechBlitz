@@ -6,7 +6,7 @@ import { UserOnboardingContextProvider } from '@/components/app/onboarding/onboa
 import OnboardingForm from '@/components/app/onboarding/onboarding-form';
 
 export const metadata = {
-  title: 'techblitz | Onboarding',
+  title: 'Onboarding | TechBlitz',
 };
 
 export default function OnboardingPage() {

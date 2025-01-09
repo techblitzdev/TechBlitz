@@ -1,29 +1,11 @@
-'use client';
-
 import { Button } from '@/components/ui/button';
-import LoadingSpinner from '@/components/ui/loading';
-import { useUser } from '@/hooks/use-user';
 import { ArrowRight } from 'lucide-react';
 import GithubLogo from '@/components/ui/icons/github';
+import { useUserServer } from '@/hooks/use-user-server';
 
-export default function NavigationButtons() {
-  const { user, isLoading } = useUser();
+export default async function NavigationButtons() {
+  const user = await useUserServer();
   const isLoggedIn = Boolean(user?.email);
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center gap-x-2">
-        <GithubStars />
-        <Button
-          disabled
-          variant="secondary"
-          className="hidden lg:block font-onest"
-        >
-          <LoadingSpinner />
-        </Button>
-      </div>
-    );
-  }
 
   if (isLoggedIn) {
     return (

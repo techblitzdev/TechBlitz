@@ -6,13 +6,9 @@ import Link from 'next/link';
 
 import dynamic from 'next/dynamic';
 import AnimatedSpan from '@/components/ui/animated-span';
-import { Suspense } from 'react';
-import LoadingSpinner from '@/components/ui/loading';
 import { QUESTIONS_COUNT } from '@/utils/constants/misc';
 
-const DailyQuestionBox = dynamic(() => import('./daily-question-box'), {
-  ssr: false,
-});
+import DailyQuestionBox from './daily-question-box';
 const LeaderboardBentoBox = dynamic(() => import('./leaderboard-bento-box'), {
   ssr: false,
 });
@@ -25,7 +21,7 @@ const ProgressionBentoBox = dynamic(() => import('./progression-box'), {
 
 const cardClasses = 'border border-black-50 p-6 rounded-lg';
 
-export default function FeaturesBentoGrid() {
+export default async function FeaturesBentoGrid() {
   // if on prod, make all links be disabled go to '/'
   const isProd = process.env.NEXT_PUBLIC_ENV === 'production';
 
@@ -36,10 +32,11 @@ export default function FeaturesBentoGrid() {
         <h1 className="text-2xl lg:text-5xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
           Improve coding knowledge effortlessly
         </h1>
-        <span className="text-sm md:text-base text-gray-400 max-w-3xl">
+        <span className="text-sm md:text-base text-gray-400 max-w-4xl">
           Discover our suite of tools & features crafted to help you master
           software engineering with ease. <br /> {QUESTIONS_COUNT}+ free daily
-          coding challenges, personalized learning paths, and more.
+          coding challenges, in depth statistics and personalized learning paths
+          created to improve coding skills.
         </span>
       </div>
       <div className="min-h-[1450px] md:min-h-[1000px] lg:min-h-[700px] rounded-lg">
@@ -51,6 +48,7 @@ export default function FeaturesBentoGrid() {
               cardClasses
             )}
             prefetch
+            aria-label="Navigate to Roadmaps"
           >
             <div className="flex flex-col justify-between">
               <div className="flex flex-col gap-y-1 relative max-w-md">
@@ -58,9 +56,9 @@ export default function FeaturesBentoGrid() {
                   Coding Roadmaps
                 </h5>
                 <p className="text-xs text-gray-400 font-onest">
-                  Personalized learning paths that adapt to your coding skills
-                  and build you a roadmap to ensure you become a better
-                  developer.
+                  Created a personalized coding roadmap that adapt to your
+                  coding skills and craft you a learning path to ensure you
+                  become a better developer.
                 </p>
                 <Button
                   variant="secondary"
@@ -78,84 +76,81 @@ export default function FeaturesBentoGrid() {
                 <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
               </Button>
             </div>
-            <Suspense fallback={<LoadingSpinner />}>
-              <RoadmapFeatureBox />
-            </Suspense>
+            <RoadmapFeatureBox />
             <Grid size={20} position="bottom-left" />
           </Link>
-          <Suspense fallback={<LoadingSpinner />}>
-            <Link
-              href="/features/statistics"
-              className={cn(
-                'h-[390px] lg:h-80 flex flex-col justify-between group overflow-hidden',
-                cardClasses
-              )}
-            >
-              <div className="flex flex-col gap-y-4 relative">
-                <div className="flex flex-col gap-y-1">
-                  <h5 className="text-2xl text-gradient from-white to-white/55">
-                    Progress tracking
-                  </h5>
-                  <p className="text-xs text-gray-400 font-onest">
-                    Know exactly where you are in your learning journey. Get
-                    insights on your coding habits and improve your skills.
-                  </p>
-                </div>
-                <div className="w-full h-fit flex items-center justify-center">
-                  <ProgressionBentoBox />
-                </div>
-              </div>
-            </Link>
-          </Suspense>
-          <Suspense fallback={<LoadingSpinner />}>
-            <Link
-              href={isProd ? '' : '/features/leaderboard'}
-              className={cn(
-                'relative overflow-hidden group flex flex-col',
-                cardClasses
-              )}
-            >
-              <LeaderboardBentoBox />
-              <div className="flex flex-col gap-y-1 mt-auto">
+          <Link
+            href="/features/statistics"
+            className={cn(
+              'h-[390px] lg:h-80 flex flex-col justify-between group overflow-hidden',
+              cardClasses
+            )}
+            aria-label="Navigate to Statistics"
+          >
+            <div className="flex flex-col gap-y-4 relative">
+              <div className="flex flex-col gap-y-1">
                 <h5 className="text-2xl text-gradient from-white to-white/55">
-                  Leaderboard
+                  Progress tracking
                 </h5>
                 <p className="text-xs text-gray-400 font-onest">
-                  Opt-in to see how you stack up against other developers, no
-                  pressure.
+                  Know exactly where you are in your learning journey. Get
+                  insights on your coding habits and how to improve your coding
+                  skills.
                 </p>
               </div>
-            </Link>
-          </Suspense>
-          <Suspense fallback={<LoadingSpinner />}>
-            <Link
-              href="/features/daily-questions"
-              className={cn(
-                'col-span-full lg:col-span-2 group overflow-hidden',
-                cardClasses
-              )}
-              prefetch
-            >
-              <div className="flex justify-between">
-                <div className="flex flex-col gap-y-1 h-fit">
-                  <h5 className="text-2xl text-gradient from-white to-white/55">
-                    Daily questions
-                  </h5>
-                  <p className="text-xs text-gray-400 font-onest">
-                    Daily coding challenge to build habits and improve your
-                    skills.
-                  </p>
-                </div>
-                <Button variant="secondary" className="font-onest">
-                  Learn more{' '}
-                  <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
-                </Button>
+              <div className="w-full h-fit flex items-center justify-center">
+                <ProgressionBentoBox />
               </div>
-              <div className="relative">
-                <DailyQuestionBox />
+            </div>
+          </Link>
+          <Link
+            href={isProd ? '' : '/features/leaderboard'}
+            className={cn(
+              'relative overflow-hidden group flex flex-col',
+              cardClasses
+            )}
+            aria-label="Navigate to Leaderboard"
+          >
+            <LeaderboardBentoBox />
+            <div className="flex flex-col gap-y-1 mt-auto">
+              <h5 className="text-2xl text-gradient from-white to-white/55">
+                Leaderboard
+              </h5>
+              <p className="text-xs text-gray-400 font-onest">
+                Opt-in to see how you stack up against other developers, no
+                pressure.
+              </p>
+            </div>
+          </Link>
+          <Link
+            href="/features/daily-challenges"
+            className={cn(
+              'col-span-full lg:col-span-2 group overflow-hidden',
+              cardClasses
+            )}
+            prefetch
+            aria-label="Navigate to Daily Challenges"
+          >
+            <div className="flex justify-between">
+              <div className="flex flex-col gap-y-1 h-fit">
+                <h5 className="text-2xl text-gradient from-white to-white/55">
+                  Daily questions
+                </h5>
+                <p className="text-xs text-gray-400 font-onest">
+                  Beginner-friendly coding questions delivered straight to your
+                  inbox. Daily programming practice to improve your ability to
+                  code.
+                </p>
               </div>
-            </Link>
-          </Suspense>
+              <Button variant="secondary" className="font-onest">
+                Learn more{' '}
+                <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
+              </Button>
+            </div>
+            <div className="relative">
+              <DailyQuestionBox />
+            </div>
+          </Link>
         </div>
       </div>
     </section>

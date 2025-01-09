@@ -4,7 +4,13 @@ import FeatureRoadmapCustomizationBlock from '@/components/marketing/features/ro
 import FeatureRoadmapThreeGridBlock from '@/components/marketing/features/roadmap/roadmap-three-grid';
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 import FAQsBlock from '@/components/marketing/global/faqs';
-import { Code, Globe, MessageSquareCode, Paintbrush, User } from 'lucide-react';
+import {
+  Code,
+  MessageSquareCode,
+  Paintbrush,
+  BookOpen,
+  Target,
+} from 'lucide-react';
 
 import MarketingContentGrid, {
   type MarketingContentGridProps,
@@ -17,7 +23,17 @@ export async function generateMetadata() {
   return createMetadata({
     title: 'Roadmap | TechBlitz',
     description:
-      'Create your own progression path with our AI powered roadmaps.',
+      'Create your own coding progression paths with our personalized roadmaps.',
+    keywords: [
+      'learn to code',
+      'personalized coding',
+      'coding roadmap',
+      'learn to code with ai',
+      'coding for beginners',
+      'programming learning path',
+      'developer career roadmap',
+      'tech skills progression',
+    ],
     image: {
       text: 'Roadmap | TechBlitz',
       bgColor: '#000',
@@ -29,11 +45,6 @@ export async function generateMetadata() {
 
 // faqs
 const faqs = [
-  {
-    question: 'When will TechBlitz launch?',
-    answer:
-      'TechBlitz is set to launch in Q1 2025! Join our waitlist today to get early access and be notified as soon as we go live.',
-  },
   {
     question: "How can I access the roadmaps on TechBlitz's platform?",
     answer: (
@@ -83,7 +94,7 @@ const faqs = [
     question: 'What will you be adding to techblitz in the future?',
     answer: (
       <>
-        We’re constantly improving TechBlitz with new features and updates.
+        We're constantly improving TechBlitz with new features and updates.
         Check out our{' '}
         <a
           href="https://github.com/users/Logannford/projects/5"
@@ -92,7 +103,7 @@ const faqs = [
         >
           roadmap
         </a>{' '}
-        to see what’s next, and share your suggestions — we’d love to hear your
+        to see what's next, and share your suggestions — we'd love to hear your
         ideas!
       </>
     ),
@@ -101,40 +112,40 @@ const faqs = [
 
 const featureShowcaseItems: MarketingContentGridProps[] = [
   {
-    icon: <User />,
-    title: 'Personalized Learning Path',
+    icon: <Target />,
+    title: 'Beginner-Friendly Learning Path',
     description:
-      'Experience adaptive learning with our roadmaps that evolve with your progress. Get a customized curriculum that matches your skill level and career goals.',
+      'Start your coding journey with confidence using our beginner-focused roadmaps. Progress from basic concepts to advanced skills at your own pace.',
   },
   {
-    icon: <Globe />,
-    title: 'Industry-Standard Problem Solving',
+    icon: <BookOpen />,
+    title: 'Free Coding Resources',
     description:
-      'Master professional software development with real enterprise challenges. Build a portfolio of solutions that top tech companies actually use.',
+      'Access a wealth of free programming tutorials, guides, and interactive lessons. Perfect for self-paced learning and skill development.',
   },
   {
     icon: <MobileIcon />,
-    title: 'Learn Anywhere with Mobile Access',
+    title: 'Learn to Code Anywhere',
     description:
-      'Never miss a learning opportunity with our responsive platform. Study during commutes, breaks, or whenever inspiration strikes - available 24/7 on all devices.',
+      'Practice coding on any device with our mobile-optimized platform. Turn your commute time into learning time with accessible programming lessons.',
   },
   {
     icon: <Paintbrush />,
-    title: 'Create Your Perfect Learning Journey',
+    title: 'Personalized Learning Experience',
     description:
-      'Take control of your education with fully customizable learning paths. Add, remove, or modify content to create the exact curriculum you need for career success.',
+      "Create custom learning paths tailored to your goals. Whether you're a complete beginner or advancing your skills, find the perfect route for your journey.",
   },
   {
     icon: <MessageSquareCode />,
-    title: 'Instant Expert Feedback System',
+    title: 'AI-Powered Assistance',
     description:
-      'Accelerate your learning with our intelligent feedback engine. Get detailed explanations and suggestions that help you understand concepts deeply and fix mistakes instantly.',
+      'Get instant help with our AI tutor. Receive personalized questions, and guidance to accelerate your programming journey.',
   },
   {
     icon: <Code />,
-    title: 'Complete Developer Evolution',
+    title: 'Practical Coding Skills',
     description:
-      'Transform from coding novice to industry expert with our comprehensive curriculum. Join thousands who’ve accelerated their tech careers through our proven learning system.',
+      'Learn real-world programming through hands-on projects and exercises. Build a strong foundation in coding with our comprehensive curriculum.',
   },
 ];
 
@@ -150,7 +161,7 @@ export default function FeatureDailyQuestionPage() {
       />
       <FAQsBlock faqs={faqs} />
       <CallToActionBlock
-        title="The smarter way to stay on top of tech."
+        title="Personalized coding for everyone."
         description="Create your own progression path with our personalized roadmaps, designed to help you grow as a developer."
         leftCta={{
           title: 'Get Started',

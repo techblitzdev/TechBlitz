@@ -8,10 +8,20 @@ import { createMetadata } from '@/utils';
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Statistics | TechBlitz',
+    title: 'Track your coding journey | TechBlitz',
     description: 'Track your coding journey with our statistics dashboard.',
+    keywords: [
+      'track coding progress',
+      'coding statistics',
+      'developer analytics',
+      'coding performance insights',
+      'improve coding skills',
+      'coding improvement tools',
+      'coding mastery',
+      'coding challenges dashboard',
+    ],
     image: {
-      text: 'Statistics | TechBlitz',
+      text: 'Track your coding journey | TechBlitz',
       bgColor: '#000',
       textColor: '#fff',
     },
@@ -21,15 +31,15 @@ export async function generateMetadata() {
 
 const featureShowcaseItems = [
   {
-    title: 'Build Unbreakable Coding Habits',
+    title: 'Track Your Coding Progress',
     description:
-      'Stay motivated with daily coding streaks and achievement milestones that reinforce consistent learning habits.',
+      'Monitor your daily coding activity with detailed statistics and progress tracking to build consistent learning habits.',
     icon: <Code />,
   },
   {
-    title: 'Comprehensive Skill Analytics',
+    title: 'Developer Analytics Dashboard',
     description:
-      'Monitor your mastery across programming languages, algorithms, and system design with detailed performance metrics.',
+      'Get deep insights into your coding performance with comprehensive analytics across different programming concepts and challenges.',
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -50,27 +60,27 @@ const featureShowcaseItems = [
     ),
   },
   {
-    title: 'Personalized Learning Insights',
+    title: 'Measure Coding Mastery',
     description:
-      'Receive data-driven recommendations and personalized learning paths based on your unique strengths and areas for improvement.',
+      'Track your journey to coding mastery with detailed performance metrics and achievement milestones that showcase your growing expertise.',
     icon: <FileBadge2 />,
   },
   {
-    title: 'Adaptive Learning Technology',
+    title: 'Performance Insights',
     description:
-      'Experience dynamic question generation that evolves with your skill level, ensuring optimal learning progression.',
+      'Leverage powerful analytics tools to identify your strengths and areas for improvement, helping you become a better developer.',
     icon: <LaptopIcon />,
   },
   {
-    title: 'Interactive Progress Dashboard',
+    title: 'Coding Improvement Tools',
     description:
-      'Transform your learning data into actionable insights with beautiful, interactive charts and progress visualizations.',
+      'Access a suite of statistical tools and visualizations designed to help you track and improve your coding skills over time.',
     icon: <BarChart />,
   },
   {
-    title: 'Learn Anywhere, Anytime',
+    title: 'Challenge Dashboard',
     description:
-      'Track your coding journey seamlessly across all devices with our responsive, mobile-first statistics dashboard.',
+      'Monitor your progress through coding challenges with a comprehensive dashboard that tracks your solutions and learning patterns.',
     icon: <MobileIcon />,
   },
 ];
@@ -79,18 +89,13 @@ export default function StatisticsPage() {
   return (
     <div className="container">
       <StatsHero />
-      {/**
-       * Sections needed:
-       * 1. Talking about interactive charts
-       * 2. easy to use and understand
-       */}
       <StatsReportSection />
       <MarketingContentGrid
-        title="Tracking your coding journey made simple."
+        title="Tracking coding progress made simple."
         items={featureShowcaseItems}
       />
       <CallToActionBlock
-        title="The simplest way to track your progress."
+        title="Improve coding skills effortlessly."
         leftCta={{
           title: 'Get Started',
           href: '/signup',

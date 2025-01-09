@@ -79,7 +79,7 @@ export default function MarketingFooter() {
                 <div className="flex flex-col gap-y-3">
                   <Logo />
                   <p className="text-xs text-gray-400 font-onest max-w-[13rem]">
-                    The ultimate platform to fast-track your coding career
+                    The ultimate platform to learn to code for free
                   </p>
                 </div>
                 <Button

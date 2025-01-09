@@ -41,9 +41,9 @@ export const getPlans = (user: UserRecord | null) => [
     name: 'Premium',
     paymentLink: {
       local: `https://buy.stripe.com/test_8wMfZ07x02DraeQ289?client_reference_id=${user?.uid}`,
-      production: `https://buy.stripe.com/bIY3dG4Es6z65fq4gk?client_reference_id=${user?.uid}`,
+      production: `https://buy.stripe.com/eVabKc0oc0aI23e28e?client_reference_id=${user?.uid}`,
     },
-    price: 4.99,
+    price: 3.99,
     currencySymbol: '$',
     frequency: 'month',
     frequencyText: 'per month, billed monthly',

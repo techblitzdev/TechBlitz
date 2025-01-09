@@ -62,6 +62,7 @@ export default function SocialProof({
                 variant="secondary"
                 size="lg"
                 href={`/question/${dailyQuestion?.uid}`}
+                aria-label="Navigate to the Daily Challenge"
               >
                 Try the demo
               </Button>
@@ -69,6 +70,7 @@ export default function SocialProof({
                 variant="default"
                 size="lg"
                 href="/features/daily-challenges"
+                aria-label="Navigate to Daily Challenges"
               >
                 Learn more
               </Button>

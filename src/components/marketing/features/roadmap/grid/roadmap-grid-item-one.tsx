@@ -9,7 +9,7 @@ const sampleAnswers = [
   {
     id: 3,
     text: 'What is the difference between let and var?',
-    correct: false
+    correct: false,
   },
   { id: 4, text: 'How does prototypal inheritance work?', correct: true },
   { id: 5, text: "What is the purpose of the 'this' keyword?", correct: false },
@@ -19,8 +19,8 @@ const sampleAnswers = [
   {
     id: 9,
     text: 'What is the difference between null and undefined?',
-    correct: true
-  }
+    correct: true,
+  },
 ];
 
 export default function RoadmapGridItemOne() {
@@ -40,7 +40,7 @@ export default function RoadmapGridItemOne() {
           return [
             sampleAnswers[nextIndex],
             sampleAnswers[(nextIndex + 1) % sampleAnswers.length],
-            sampleAnswers[(nextIndex + 2) % sampleAnswers.length]
+            sampleAnswers[(nextIndex + 2) % sampleAnswers.length],
           ];
         });
         setIsTransitioning(false);
@@ -59,7 +59,7 @@ export default function RoadmapGridItemOne() {
         <p className="text-gray-400">
           First, we need to understand how much you already know. We start by
           getting you to answer a few coding questions to gauge your current
-          skill level.
+          skill level. This enables us to create the perfect coding roadmap.
         </p>
       </div>
       <div className="relative overflow-hidden h-full">
@@ -67,7 +67,7 @@ export default function RoadmapGridItemOne() {
           className="border border-black-50 rounded-lg h-full p-6"
           style={{
             background:
-              'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
+              'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
           }}
         >
           <p className="font-onest text-base sm:text-xl md:text-2xl font-semibold leading-none tracking-tight text-white mb-4">
@@ -115,7 +115,7 @@ export default function RoadmapGridItemOne() {
         className="hidden md:block absolute right-0 top-0 h-full w-px pointer-events-none"
         style={{
           background:
-            'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(143, 143, 143, 0.67) 0%, rgba(0, 0, 0, 0) 100%)'
+            'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(143, 143, 143, 0.67) 0%, rgba(0, 0, 0, 0) 100%)',
         }}
       ></div>
     </div>

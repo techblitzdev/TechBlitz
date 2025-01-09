@@ -19,8 +19,9 @@ import { getPlans } from '@/utils/constants/pricing';
 export default async function UpgradePage() {
   // get the current user (for prefilling the form)
   const user = await useUserServer();
-  // grab the products from the constants
-  const products = getPlans(user);
+  // grab the products from the constants - filter out the free plan
+  // as the user will be signed in viewing this page
+  const products = getPlans(user).filter((product) => product.id !== 'free');
 
   return (
     <div className="relative">
@@ -55,7 +56,7 @@ export default async function UpgradePage() {
             exclusive content, and be the first to experience new updates.
           </p>
           <div className="flex flex-col lg:flex-row gap-10 justify-center mt-8 md:mt-16 px-2 md:px-10">
-            {products?.map((product) => (
+            {products.map((product) => (
               <PricingCard
                 user={user}
                 key={product.id}

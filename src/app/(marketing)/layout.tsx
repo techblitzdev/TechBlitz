@@ -45,7 +45,7 @@ export default function Layout({
     <ReactQueryClientProvider>
       <html lang="en">
         <body
-          className={`${InterFont.variable} ${SatoshiFont.variable} ${UbuntuFont.variable} ${OnestFont.variable} antialiased`}
+          className={`${InterFont.variable} ${SatoshiFont.variable} ${UbuntuFont.variable} ${OnestFont.variable} overflow-x-hidden  antialiased`}
         >
           <main>
             <StarsBackground className="-z-10" />

@@ -28,14 +28,14 @@ export const metadata: Metadata = {
   keywords: [
     'learn to code',
     'coding platform',
-    'AI-powered coding challenges',
+    'beginner-friendly coding lessons',
     'interactive coding challenges',
     'daily programming practice',
-    'beginner-friendly coding lessons',
     'personalized coding roadmap',
     'improve coding skills',
     'best platform to learn coding',
     'AI-assisted coding',
+    'open-source coding platform',
   ],
   openGraph: {
     title,
@@ -102,7 +102,7 @@ export default async function Page() {
           <HomepageLargeText />
           <ComparisonBlock />
           <OpenSourceBlock />
-          <CallToActionBlock title="Your gateway to your dream career" />
+          <CallToActionBlock title="The best platform to learn coding" />
         </div>
       </div>
     </div>

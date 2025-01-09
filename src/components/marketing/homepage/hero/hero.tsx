@@ -26,11 +26,12 @@ export default async function HomepageHero() {
         <h1 className="mt-3 text-5xl lg:text-[68px] !font-onest !font-medium tracking-tight max-w-5xl">
           Learn to code, <br /> faster
         </h1>
-        <h6 className="font-onest max-w-3xl text-gray-400 text-lg">
-          Improve your coding ability effortlessly, with our short-form,
-          personalized challenges.
+        <h6 className="font-onest max-w-4xl text-gray-400 text-lg">
+          Improve your coding skills effortlessly, with our short-form,
+          interactive coding challenges.
           <br />
-          Accelerate your programming knowledge in less than 10 minutes per day.
+          Accelerate your programming knowledge in less than 10 minutes per day,
+          perfect for aspiring developers.
         </h6>
         {dailyQuestion && (
           <div className="mt-3">

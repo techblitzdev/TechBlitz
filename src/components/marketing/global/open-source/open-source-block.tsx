@@ -72,8 +72,9 @@ export default function OpenSourceBlock(opts: {
           Secrets are for Magicians, Not Software
         </h1>
         <p className="text-gray-400">
-          We believe in transparency and sharing knowledge. That’s why we
-          open-sourced our platform and share our learnings with the community.
+          We believe in transparency and sharing knowledge. That’s why we are an
+          open-source coding platform. Giving you insights into how we build our
+          platform.
         </p>
         <div className="flex gap-4">
           {linkToInternalPage && (

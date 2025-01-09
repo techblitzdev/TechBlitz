@@ -36,10 +36,11 @@ export default function FeaturesBentoGrid() {
         <h1 className="text-2xl lg:text-5xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
           Improve coding knowledge effortlessly
         </h1>
-        <span className="text-sm md:text-base text-gray-400 max-w-3xl">
+        <span className="text-sm md:text-base text-gray-400 max-w-4xl">
           Discover our suite of tools & features crafted to help you master
           software engineering with ease. <br /> {QUESTIONS_COUNT}+ free daily
-          coding challenges, personalized learning paths, and more.
+          coding challenges, in depth statistics and personalized learning paths
+          created to improve coding skills.
         </span>
       </div>
       <div className="min-h-[1450px] md:min-h-[1000px] lg:min-h-[700px] rounded-lg">
@@ -59,9 +60,9 @@ export default function FeaturesBentoGrid() {
                   Coding Roadmaps
                 </h5>
                 <p className="text-xs text-gray-400 font-onest">
-                  Personalized learning paths that adapt to your coding skills
-                  and build you a roadmap to ensure you become a better
-                  developer.
+                  Created a personalized coding roadmap that adapt to your
+                  coding skills and craft you a learning path to ensure you
+                  become a better developer.
                 </p>
                 <Button
                   variant="secondary"
@@ -100,7 +101,8 @@ export default function FeaturesBentoGrid() {
                   </h5>
                   <p className="text-xs text-gray-400 font-onest">
                     Know exactly where you are in your learning journey. Get
-                    insights on your coding habits and improve your skills.
+                    insights on your coding habits and how to improve your
+                    coding skills.
                   </p>
                 </div>
                 <div className="w-full h-fit flex items-center justify-center">
@@ -146,8 +148,9 @@ export default function FeaturesBentoGrid() {
                     Daily questions
                   </h5>
                   <p className="text-xs text-gray-400 font-onest">
-                    Daily coding challenge to build habits and improve your
-                    skills.
+                    Beginner-friendly coding questions delivered straight to
+                    your inbox. Daily programming practice to improve your
+                    ability to code.
                   </p>
                 </div>
                 <Button variant="secondary" className="font-onest">

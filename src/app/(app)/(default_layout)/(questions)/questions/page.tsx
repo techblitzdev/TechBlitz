@@ -1,6 +1,8 @@
 import Filter from '@/components/global/filters/filter';
 import FilterChips from '@/components/global/filters/chips';
 
+import QuestionsList from '@/components/app/questions/layout/questions-list';
+
 import QuestionPageSidebar from '@/components/app/questions/layout/question-page-sidebar';
 
 import Hero from '@/components/global/hero';
@@ -10,6 +12,7 @@ import { validateSearchParams } from '@/utils/search-params';
 import { parseSearchParams } from '@/utils/search-params';
 import { getTags } from '@/utils/data/questions/tags/get-tags';
 import { createMetadata } from '@/utils';
+import { Button } from '@/components/ui/button';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -24,19 +27,21 @@ export async function generateMetadata() {
     canonicalUrl: '/questions',
   });
 }
-import QuestionsCarouselList from '@/components/app/questions/layout/carousel/question-carousel-list';
-import { Button } from '@/components/ui/button';
 
 const heroDescription = (
   <div className="flex flex-col gap-y-4 z-20 relative font-inter max-w-3xl">
-    <p className="text-sm md:text-lg text-gray-400">
-      Curated lists of hot topics to help you level up your programming skills.
-      Browse through our carefully selected collection of coding challenges and
-      tutorials.
+    <p className="text-sm md:text-base text-gray-400">
+      Explore all the questions we have to offer. Filter by tags, difficulty,
+      and more.
     </p>
-    <div className="flex flex-col gap-y-2">
-      <p className="text-gray-400">Can't find what you're looking for?</p>
-      <Button variant="secondary">View all questions</Button>
+    <p className="text-gray-400">Want a more curated set of questions?</p>
+    <div className="flex flex-col md:flex-row gap-2 md:items-center">
+      <Button href="/questions/previous" variant="default">
+        View previous daily questions
+      </Button>
+      <Button href="/questions/explore" variant="secondary">
+        Explore curated questions
+      </Button>
     </div>
   </div>
 );
@@ -54,18 +59,20 @@ export default async function QuestionsDashboard({
 
   return (
     <>
-      <Hero
-        heading="Explore Questions"
-        subheading={heroDescription}
-        container={false}
-      />
-      <div className="flex flex-col lg:flex-row mt-5 gap-16">
-        <div className="w-full lg:min-w-[75%] space-y-6">
+      <Hero heading="All Questions" subheading={heroDescription} />
+      <div className="w-full md:container flex flex-col xl:flex-row mt-5 gap-16">
+        <div className="w-full lg:min-w-[55%] space-y-6">
           <div className="min-h-[84px] flex flex-col gap-y-2">
             <Filter tags={tags} />
             <FilterChips />
           </div>
-          <QuestionsCarouselList />
+          <QuestionsList
+            user={user}
+            currentPage={filters.page}
+            filters={filters}
+            customQuestions={false}
+            paginationUrl="/questions"
+          />
         </div>
         <QuestionPageSidebar user={user} />
       </div>

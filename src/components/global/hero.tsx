@@ -25,7 +25,7 @@ export default function Hero(opts: {
           heading
         )}
         {typeof subheading === 'string' ? (
-          <h6 className="text-sm md:text-lg text-gray-400 font-inter max-w-xl z-50">
+          <h6 className="text-sm md:text-base text-gray-400 font-inter max-w-xl z-50">
             {subheading}
           </h6>
         ) : (

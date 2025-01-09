@@ -36,6 +36,7 @@ model Questions {
 
   // slug for the question - this is used for the URL and is better than the uid
   // for readability and seo
+  slug String? 
 }
 
 // Tags for this question

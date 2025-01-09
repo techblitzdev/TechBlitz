@@ -81,8 +81,8 @@ export function AppSidebar(opts: {
           badge: 'New',
         },
         {
-          title: 'All Daily Questions',
-          url: '/questions/previous',
+          title: 'Explore',
+          url: '/questions/explore',
         },
       ],
     },
@@ -115,8 +115,8 @@ export function AppSidebar(opts: {
           url: '/questions',
         },
         {
-          title: 'All Daily Questions',
-          url: '/questions/previous',
+          title: 'Explore',
+          url: '/questions/explore',
         },
         {
           title: 'Daily Question',

@@ -10,6 +10,21 @@ import { validateSearchParams } from '@/utils/search-params';
 import { parseSearchParams } from '@/utils/search-params';
 import { getTags } from '@/utils/data/questions/tags/get-tags';
 import QuestionsCarouselList from '@/components/app/questions/layout/carousel/question-carousel-list';
+import { Button } from '@/components/ui/button';
+
+const heroDescription = (
+  <div className="flex flex-col gap-y-4 z-20 relative font-inter max-w-3xl">
+    <p className="text-sm md:text-lg text-gray-400">
+      Curated lists of hot topics to help you level up your programming skills.
+      Browse through our carefully selected collection of coding challenges and
+      tutorials.
+    </p>
+    <div className="flex flex-col gap-y-2">
+      <p className="text-gray-400">Can't find what you're looking for?</p>
+      <Button variant="secondary">View all questions</Button>
+    </div>
+  </div>
+);
 
 export default async function QuestionsDashboard({
   searchParams,
@@ -26,7 +41,7 @@ export default async function QuestionsDashboard({
     <>
       <Hero
         heading="Explore Questions"
-        subheading="Curated lists of hot topics to help you learn."
+        subheading={heroDescription}
         container={false}
       />
       <div className="flex flex-col lg:flex-row mt-5 gap-16">

@@ -10,11 +10,12 @@ export default function StatsHero() {
 
       <div className="flex flex-col gap-y-6 items-center z-20 relative">
         <h1 className="text-5xl lg:text-7xl !font-onest !font-medium tracking-tight text-gradient from-white to-white/75 text-center py-1.5">
-          Tracking your progress has <br /> never been easier.
+          Track coding progress with <br /> ease.
         </h1>
         <p className="text-gray-400 max-w-xl text-center text-sm md:text-base font-onest">
-          Track your coding journey with detailed insights, monitor progress
-          across topics, and visualize your growth with interactive charts.
+          Track your coding journey with detailed insights, monitor your coding
+          performance and visualize your growth with interactive charts with our
+          coding improvements tools.
         </p>
         <div className="mt-2 flex gap-4">
           <Button variant="default" href="#statistics-report">

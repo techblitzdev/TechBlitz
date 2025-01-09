@@ -1,9 +1,9 @@
 import Filter from '@/components/global/filters/filter';
 import FilterChips from '@/components/global/filters/chips';
 
-import QuestionsList from '@/components/app/questions/questions-list';
+import QuestionsList from '@/components/app/questions/layout/questions-list';
 
-import QuestionPageSidebar from '@/components/app/questions/question-page-sidebar';
+import QuestionPageSidebar from '@/components/app/questions/layout/question-page-sidebar';
 
 import Hero from '@/components/global/hero';
 
@@ -12,6 +12,7 @@ import { validateSearchParams } from '@/utils/search-params';
 import { parseSearchParams } from '@/utils/search-params';
 import { getTags } from '@/utils/data/questions/tags/get-tags';
 import { createMetadata } from '@/utils';
+import { Button } from '@/components/ui/button';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -26,6 +27,20 @@ export async function generateMetadata() {
   });
 }
 
+const heroDescription = (
+  <div className="flex flex-col gap-y-4 z-20 relative font-inter max-w-3xl">
+    <p className="text-sm md:text-base text-gray-400">
+      All daily questions that have been asked in the past.
+    </p>
+    <div className="flex flex-col gap-y-2">
+      <p className="text-gray-400">Want to see more questions?</p>
+      <Button href="/questions" variant="secondary">
+        View all questions
+      </Button>
+    </div>
+  </div>
+);
+
 export default async function PreviousQuestionsPage({
   searchParams,
 }: {
@@ -38,13 +53,10 @@ export default async function PreviousQuestionsPage({
 
   return (
     <>
-      <Hero
-        heading="Previous Daily Questions"
-        subheading="All daily questions that have been asked in the past."
-      />
+      <Hero heading="Previous Daily Questions" subheading={heroDescription} />
       <div className="flex flex-col h-full justify-between container mt-5">
         <div className="flex flex-col lg:flex-row w-full gap-16">
-          <div className="w-full lg:min-w-[55%] space-y-6">
+          <div className="w-full lg:min-w-[65%] space-y-6">
             <div className="min-h-[84px] flex flex-col gap-y-2">
               <Filter tags={tags} />
               <FilterChips />
@@ -55,7 +67,7 @@ export default async function PreviousQuestionsPage({
               filters={filters}
               customQuestions={false}
               previousQuestions={true}
-              paginationUrl="/questions/previous"
+              paginationUrl="/questions"
             />
           </div>
           <QuestionPageSidebar user={user} />

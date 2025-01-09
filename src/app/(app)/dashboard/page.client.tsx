@@ -9,7 +9,6 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import OnboardingModal from '@/components/app/onboarding/onboarding-modal';
 
 export default function ClientPage({
   children,
@@ -79,7 +78,6 @@ export default function ClientPage({
           </DialogFooter>
         </DialogContent>
       </Dialog>
-      <OnboardingModal searchParams={searchParams} />
       <div>{children}</div>
     </>
   );

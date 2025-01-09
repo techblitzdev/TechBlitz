@@ -18,14 +18,14 @@ export default function Hero(opts: {
         )}
       >
         {typeof heading === 'string' ? (
-          <h1 className="text-3xl text-wrap text-start font-inter max-w-2xl text-gradient from-white to-white/55">
+          <h1 className="text-3xl md:text-5xl text-wrap text-start font-inter max-w-2xl text-gradient from-white to-white/55">
             {heading}
           </h1>
         ) : (
           heading
         )}
         {typeof subheading === 'string' ? (
-          <h6 className="text-sm text-gray-400 font-inter max-w-xl z-50">
+          <h6 className="text-sm md:text-base text-gray-400 font-inter max-w-xl z-50">
             {subheading}
           </h6>
         ) : (

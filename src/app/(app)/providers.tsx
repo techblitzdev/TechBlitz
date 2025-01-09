@@ -13,12 +13,13 @@ export default function RootProvider({
   return (
     <main
       className={cn(
-        '!w-full lg:w-auto transition-[width] duration-200 ease-in-out py-6 lg:pt-4 lg:pb-3'
+        'w-full transition-[width] duration-200 ease-in-out py-6',
+        'lg:py-4 lg:pb-3',
+        {
+          'lg:w-[calc(100%-15rem)]': state === 'expanded',
+          'lg:w-[calc(100%-3rem)]': state === 'collapsed',
+        }
       )}
-      style={{
-        width:
-          state === 'expanded' ? 'calc(100% - 15rem)' : 'calc(100% - 3rem)',
-      }}
     >
       {children}
     </main>

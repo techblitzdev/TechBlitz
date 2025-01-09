@@ -33,6 +33,10 @@ model Questions {
 
   // Resources for this question
   QuestionResources QuestionResources[]
+
+  // slug for the question - this is used for the URL and is better than the uid
+  // for readability and seo
+  slug String? @unique @default(uuid())
 }
 
 // Tags for this question

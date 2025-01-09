@@ -81,8 +81,8 @@ export function AppSidebar(opts: {
           badge: 'New',
         },
         {
-          title: 'All Daily Questions',
-          url: '/questions/previous',
+          title: 'Explore',
+          url: '/questions/explore',
         },
       ],
     },
@@ -115,13 +115,13 @@ export function AppSidebar(opts: {
           url: '/questions',
         },
         {
+          title: 'Explore',
+          url: '/questions/explore',
+        },
+        {
           title: 'Daily Question',
           url: `/question/${todaysQuestion?.uid}`,
           badge: hasAnsweredDailyQuestion ? '' : 'New',
-        },
-        {
-          title: 'All Daily Questions',
-          url: '/questions/previous',
         },
         {
           title: 'Custom Questions',
@@ -384,7 +384,7 @@ export function AppSidebar(opts: {
   };
 
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar collapsible="icon" className="z-50">
       <SidebarContent className="py-6 bg-[#000000]">
         <SidebarGroup>
           <SidebarGroupLabel className="w-full flex items-center justify-between">

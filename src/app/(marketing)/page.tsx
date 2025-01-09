@@ -16,7 +16,7 @@ import ComparisonBlock from '@/components/marketing/homepage/comparison/comparis
 import OpenSourceBlock from '@/components/marketing/global/open-source/open-source-block';
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 
-import DashboardImg from '../../public/images/dashboard-img-2.png';
+import DashboardImg from '../../public/images/dashboard-img-3.png';
 const SocialProof = dynamic(
   () => import('@/components/marketing/global/social-proof'),
   { ssr: false }

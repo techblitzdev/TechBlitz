@@ -13,19 +13,23 @@ export async function generateMetadata() {
   return createMetadata({
     title: 'Daily Coding Challenges | TechBlitz',
     description:
-      'Improve your coding skills with our daily challenges. Perfect for developers who want consistent growth through bite-sized practice.',
+      'Daily coding challenges to improve your coding skills. Learn to code for free, with our short-form, interactive coding challenges.',
     keywords: [
-      'daily coding challenges',
+      'learn to coding',
       'learn to code for free',
+      'learn javascript',
       'coding challenges',
-      'coding practice',
+      'daily coding challenges',
+      'web development',
+      'tech skills assessment',
+      'learn to code on phone',
     ],
     image: {
-      text: 'Daily Coding Challenges | TechBlitz',
+      text: `Daily Coding Challenges | TechBlitz`,
       bgColor: '#000',
       textColor: '#fff',
     },
-    canonicalUrl: '/features/daily-challenges',
+    canonicalUrl: 'features/daily-challenge',
   });
 }
 
@@ -69,9 +73,9 @@ const items = [
         />
       </svg>
     ),
-    title: 'Daily Growth System',
+    title: 'Daily Coding Challenges',
     description:
-      'Build unstoppable momentum with our proven daily challenge system. Join thousands of developers who’ve transformed their careers through consistent practice.',
+      'Daily coding challenges to improve your coding skills. Learn to code for free, with our short-form, interactive coding challenges from a range of topics including JavaScript, React, Node.js, web development, and more.',
   },
   {
     icon: (
@@ -105,7 +109,7 @@ const items = [
         />
       </svg>
     ),
-    title: 'Instant feedback',
+    title: 'Instant Feedback',
     description:
       'Get real-time feedback on your solutions. Learn from mistakes and improve faster.',
   },
@@ -138,7 +142,7 @@ const items = [
     icon: <MobileIcon className="size-6" />,
     title: 'Seamless Mobile Experience',
     description:
-      'Code on any device with our responsive platform. Practice during commutes or breaks with our optimized mobile interface - never miss a day of learning.',
+      'Learn to code on your phone. Practice during commutes or breaks with our optimized mobile interface - never miss a day of learning.',
   },
 ];
 
@@ -185,11 +189,11 @@ export default function FeatureDailyQuestionPage() {
       <FeatureDailyChallengeHero />
       <FeatureLeftRightSection />
 
-      <MarketingContentGrid title="Coding made easy." items={items} />
+      <MarketingContentGrid title="Learn to code, faster." items={items} />
       <FAQsBlock faqs={faqs} />
       <CallToActionBlock
         title="The fastest way to master coding."
-        description="Daily challenges designed to make you a better developer, faster."
+        description="Daily coding challenges designed to make you a better developer, faster."
       />
     </div>
   );

@@ -12,12 +12,23 @@ import ResizableLayout from '@/components/ui/resizable-layout';
 
 export const metadata = createMetadata({
   title: 'Daily Challenge | TechBlitz',
-  description: 'Daily coding challenge to level up your skills.',
+  description:
+    'Daily coding challenge to improve your coding skills. Learn to code for free, with our short-form, interactive coding challenges.',
+  keywords: [
+    'coding',
+    'learn to code for free',
+    'learn javascript',
+    'coding challenges',
+    'daily coding challenges',
+    'web development',
+    'tech skills assessment',
+  ],
   image: {
     text: `Daily Challenge ${new Date().toLocaleDateString()} | TechBlitz`,
     bgColor: '#000',
     textColor: '#fff',
   },
+  canonicalUrl: '/daily-challenge',
 });
 
 export default async function MarketingQuestionPage() {

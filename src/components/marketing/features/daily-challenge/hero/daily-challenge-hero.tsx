@@ -21,9 +21,9 @@ export default async function FeatureDailyChallengeHero() {
         </h1>
 
         <p className="text-white/70 max-w-xl text-base font-onest text-center">
-          TechBlitz transforms coding challenges into bite-sized, engaging
-          experiences. Master new skills in just 5 minutes a day—anytime,
-          anywhere, on any device.
+          TechBlitz transforms learning to code into bite-sized, engaging daily
+          coding challenges. Master new skills in just 5 minutes a day—anytime,
+          anywhere, on any device. Even learn to code on your phone!
         </p>
 
         <div className="flex gap-4">

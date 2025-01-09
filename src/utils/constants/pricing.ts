@@ -17,7 +17,10 @@ export const getPlans = (user: UserRecord | null) => [
         name: 'Compete with other users everyday',
       },
       {
-        name: `Access to ${QUESTIONS_COUNT}+ questions (more being added every day!)`,
+        name: `Access to 250+ Javascript, React, Node and Web Development questions (more added daily!)`,
+      },
+      {
+        name: 'View leaderboards and compete with other users',
       },
       {
         name: 'Basic stats and progress tracking',
@@ -52,16 +55,19 @@ export const getPlans = (user: UserRecord | null) => [
         name: 'Compete with other users everyday',
       },
       {
-        name: `Access to ${QUESTIONS_COUNT}+ questions (more being added every day!)`,
+        name: `Access to ${QUESTIONS_COUNT}+ Javascript, React, Node and Web Development questions (more added daily!)`,
       },
       {
-        name: 'In depth stats and progress tracking',
+        name: 'View leaderboards and compete with other users',
+      },
+      {
+        name: 'In depth stat analysis and progress tracking',
       },
       {
         name: '10 Bespoke learning plans and progression frameworks',
       },
       {
-        name: 'Personalized code analysis & custom questions.',
+        name: 'Custom coding questions',
       },
       {
         name: 'Access to upcoming beta features',
@@ -98,10 +104,13 @@ export const getPlans = (user: UserRecord | null) => [
         name: 'Compete with other users everyday',
       },
       {
-        name: `Access to ${QUESTIONS_COUNT}+ questions (more being added every day!)`,
+        name: `Access to 250+ Javascript, React, Node and Web Development questions (more added daily!)`,
       },
       {
-        name: 'In depth stats and progress tracking',
+        name: 'View leaderboards and compete with other users',
+      },
+      {
+        name: 'In depth stat analysis and progress tracking',
       },
       {
         name: '10 Bespoke learning plans and progression frameworks',
@@ -110,7 +119,7 @@ export const getPlans = (user: UserRecord | null) => [
         name: 'Access to upcoming beta features',
       },
       {
-        name: 'Personalized code analysis & custom questions.',
+        name: 'Custom coding questions',
       },
       {
         name: 'Priority support',

@@ -100,7 +100,7 @@ export default async function Page() {
           />
           <SocialProof
             userCount={userCount}
-            githubStars={githubStars}
+            githubStars={githubStars.stargazers_count}
             dailyQuestion={dailyQuestion}
           />
           <FeaturesBentoGrid />

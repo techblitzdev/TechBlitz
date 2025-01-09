@@ -81,6 +81,7 @@ export default function QuestionCard(opts: {
         questionTags={'tags' in question ? question.tags : []}
         answerFormRef={answerFormRef}
         user={user}
+        redirectUrl={`/question/${question.uid}`}
       />
     </div>
   );

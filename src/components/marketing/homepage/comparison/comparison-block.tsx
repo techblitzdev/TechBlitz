@@ -1,13 +1,6 @@
-// dynamic import
-import dynamic from 'next/dynamic';
+import CodeComparison from './code-comparison';
 
-// this slows down the page speed a bunch (by 30 points in Lighthouse)
-// import it like this as we don't need it on the server
-const CodeComparison = dynamic(() => import('./code-comparison'), {
-  ssr: false,
-});
-
-export default function ComparisonBlock() {
+export default async function ComparisonBlock() {
   return (
     <section className="pt-10 lg:pt-6 pb-20 md:pb-28 flex flex-col gap-y-7 relative items-center w-full">
       <div className="flex flex-col gap-y-3 items-center text-center">

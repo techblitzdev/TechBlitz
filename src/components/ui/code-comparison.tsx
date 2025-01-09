@@ -1,10 +1,7 @@
-'use client';
-
-import { FileIcon, CopyIcon, CheckIcon } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
+import { FileIcon } from 'lucide-react';
 import { codeToHtml } from 'shiki';
-import { motion, AnimatePresence } from 'framer-motion';
+
+import CopyCode from './copy-code';
 
 interface CodeComparisonProps {
   beforeCode: string;
@@ -15,68 +12,31 @@ interface CodeComparisonProps {
   darkTheme: string;
 }
 
-export default function CodeComparison({
+export default async function CodeComparison({
   beforeCode,
   afterCode,
   language,
-  lightTheme,
   darkTheme,
 }: CodeComparisonProps) {
-  const { theme, systemTheme } = useTheme();
-  const [highlightedBefore, setHighlightedBefore] = useState('');
-  const [highlightedAfter, setHighlightedAfter] = useState('');
-  const [isCopied, setIsCopied] = useState(false);
-
-  useEffect(() => {
-    const currentTheme = theme === 'system' ? systemTheme : theme;
-    const selectedTheme = currentTheme === 'dark' ? darkTheme : lightTheme;
-
-    async function highlightCode() {
-      const before = await codeToHtml(beforeCode, {
-        lang: language,
-        theme: selectedTheme,
-      });
-      const after = await codeToHtml(afterCode, {
-        lang: language,
-        theme: selectedTheme,
-      });
-      setHighlightedBefore(before);
-      setHighlightedAfter(after);
-    }
-
-    highlightCode();
-  }, [
-    theme,
-    systemTheme,
-    beforeCode,
-    afterCode,
-    language,
-    lightTheme,
-    darkTheme,
+  // Pre-render the highlighted code on the server
+  const [highlightedBefore, highlightedAfter] = await Promise.all([
+    codeToHtml(beforeCode, {
+      lang: language,
+      theme: darkTheme, // Default to dark theme
+    }),
+    codeToHtml(afterCode, {
+      lang: language,
+      theme: darkTheme,
+    }),
   ]);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(afterCode).then(() => {
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
-    });
-  };
-
   const renderCode = (code: string, highlighted: string) => {
-    if (highlighted) {
-      return (
-        <div
-          className="max-h-64 md:max-h-96 md:h-full max-w-[31rem] overflow-hidden bg-background font-inter text-[10px] sm:text-xs [&>pre]:h-full [&>pre]:!bg-transparent [&>pre]:p-4 [&_code]:break-all"
-          dangerouslySetInnerHTML={{ __html: highlighted }}
-        />
-      );
-    } else {
-      return (
-        <pre className="h-full overflow-auto break-all bg-background p-4 font-inter text-xs">
-          {code}
-        </pre>
-      );
-    }
+    return (
+      <div
+        className="max-h-64 md:max-h-96 md:h-full max-w-[31rem] overflow-hidden bg-background font-inter text-[10px] sm:text-xs [&>pre]:h-full [&>pre]:!bg-transparent [&>pre]:p-4 [&_code]:break-all"
+        dangerouslySetInnerHTML={{ __html: highlighted }}
+      />
+    );
   };
 
   return (
@@ -108,37 +68,8 @@ export default function CodeComparison({
                 <FileIcon className="mr-2 h-4 w-4" />
                 <span className="font-medium font-onest">techblitz</span>
               </div>
-              <motion.div
-                className="relative flex items-center cursor-pointer"
-                onClick={handleCopy}
-                title="Copy code"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <AnimatePresence mode="wait" initial={false}>
-                  {isCopied ? (
-                    <motion.div
-                      key="check"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <CheckIcon className="h-4 w-4 text-green-500" />
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="copy"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <CopyIcon className="h-4 w-4 text-white" />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
+              {/* Move CopyCode outside of Suspense since dynamic import already handles loading */}
+              <CopyCode text={afterCode} />
             </div>
             {renderCode(afterCode, highlightedAfter)}
           </div>

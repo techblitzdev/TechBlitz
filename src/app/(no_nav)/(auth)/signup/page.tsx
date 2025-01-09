@@ -1,16 +1,23 @@
-'use client';
 import SignupForm from '@/components/auth/signup';
-import { ERROR_CODES } from '@/utils/constants/error-codes';
-import { useGetQueryParams } from '@/hooks/use-get-query-params';
-import { Suspense, useRef, useState } from 'react';
-import { toast } from 'sonner';
-import type { ErrorCodes } from '@/types/Constants';
-import SocialProof from '@/components/marketing/global/social-proof';
-import { useQuery } from '@tanstack/react-query';
-import { fetchGithubStars } from '@/utils/data/misc/get-github-stars';
-import { getUserCount } from '@/utils/data/user/get-user-count';
+import { createMetadata } from '@/utils';
 import { RoadmapUserQuestions } from '@/types/Roadmap';
 import RoadmapQuestionCard from '@/components/app/roadmaps/questions/[uid]/question-card';
+import SocialProof from '@/components/marketing/global/social-proof';
+import { fetchGithubStars } from '@/utils/data/misc/get-github-stars';
+import { getUserCount } from '@/utils/data/user/get-user-count';
+
+export async function generateMetadata() {
+  return createMetadata({
+    title: 'Sign Up | TechBlitz',
+    description: 'Sign up for TechBlitz to get started.',
+    image: {
+      text: 'Sign Up | TechBlitz',
+      bgColor: '#000',
+      textColor: '#fff',
+    },
+    canonicalUrl: '/signup',
+  });
+}
 
 const dummyQuestions: Partial<RoadmapUserQuestions>[] = [
   {
@@ -41,77 +48,11 @@ const dummyRoadmapUid = 'roadmap-12345';
 
 const dummyTotalQuestions = dummyQuestions.length;
 
-export default function SignupPage() {
-  const ranToast = useRef(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setUrlParams] = useState({});
-
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <SignupContent ranToast={ranToast.current} setUrlParams={setUrlParams} />
-    </Suspense>
-  );
-}
-
-function SignupContent({
-  ranToast,
-  setUrlParams,
-}: {
-  ranToast: boolean;
-  setUrlParams: any;
-}) {
-  // check if we have any query parameters
-  const urlParams = useGetQueryParams({
-    keys: ['r', 'email'],
-  });
-
-  // if we have a query parameter, we can use it to display a toast message
-  if (
-    Object.keys(urlParams).length > 0 &&
-    urlParams.r === 'no-user' &&
-    !ranToast
-  ) {
-    ranToast = true;
-
-    // Cast the query parameter to one of the valid keys in ErrorCodes
-    const firstError = urlParams.r as keyof ErrorCodes;
-
-    // set the params to the first error
-    setUrlParams(urlParams);
-
-    // Now TypeScript knows that firstError is a valid key of ERROR_CODES
-    const errorDetail = ERROR_CODES[firstError];
-
-    if (typeof errorDetail === 'string') {
-      toast.error(errorDetail, {
-        duration: 5000,
-        position: 'bottom-right',
-      });
-    } else {
-      toast.error(errorDetail.title, {
-        description: errorDetail.description,
-        duration: 5000,
-        position: 'bottom-right',
-      });
-    }
-  }
-
-  const { data: githubStars } = useQuery({
-    queryKey: ['github-stars'],
-    queryFn: () => fetchGithubStars(),
-    staleTime: 3600,
-  });
-
-  const { data: userCount } = useQuery({
-    queryKey: ['user-count'],
-    queryFn: async () => {
-      const count = await getUserCount();
-
-      // round to nearest 10
-      return Math.round(count / 10) * 10;
-    },
-    staleTime: 3600,
-  });
+export default async function SignupPage() {
+  const [githubStars, userCount] = await Promise.all([
+    fetchGithubStars(),
+    getUserCount().then((count) => Math.round(count / 10) * 10),
+  ]);
 
   return (
     <div className="flex min-h-screen items-center overflow-hidden">
@@ -121,14 +62,14 @@ function SignupContent({
           <div className="text-center">
             <h1 className="font-bold text-3xl mb-2">Get started for free</h1>
           </div>
-          <SignupForm prefilledEmail={urlParams?.email || ''} />
+          <SignupForm prefilledEmail="" />
         </div>
       </div>
 
       {/* right side - Hero/Marketing Content */}
       <div className="relative hidden xl:flex xl:w-1/2 flex-col items-center justify-center overflow-hidden">
         <SocialProof
-          userCount={userCount || 0}
+          userCount={userCount}
           githubStars={githubStars?.stargazers_count || 0}
           dailyQuestion={null}
           padding="pb-5"

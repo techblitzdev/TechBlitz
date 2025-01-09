@@ -1,4 +1,3 @@
-'use client';
 import CodeComparison from '@/components/ui/code-comparison';
 
 // Example before/after code for the comparison component

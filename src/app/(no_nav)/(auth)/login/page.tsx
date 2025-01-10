@@ -1,6 +1,6 @@
 import LoginForm from '@/components/auth/login';
 import { Suspense } from 'react';
-import { createMetadata } from '@/utils';
+import { createMetadata } from '@/utils/seo';
 
 export async function generateMetadata() {
   return createMetadata({

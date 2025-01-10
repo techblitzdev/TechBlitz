@@ -1,7 +1,7 @@
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 import FAQsBlock from '@/components/marketing/global/faqs';
 import Link from 'next/link';
-import { createMetadata } from '@/utils';
+import { createMetadata } from '@/utils/seo';
 
 export async function generateMetadata() {
   return createMetadata({

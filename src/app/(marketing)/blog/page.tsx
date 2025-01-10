@@ -4,7 +4,7 @@ import { getBlogPosts } from '@/lib/blog';
 import GridPattern from '@/components/ui/grid-pattern';
 import { Button } from '@/components/ui/button';
 import BlogCard from '@/components/marketing/resources/blog/blog-card';
-import { createMetadata } from '@/utils';
+import { createMetadata } from '@/utils/seo';
 
 export async function generateMetadata() {
   return createMetadata({

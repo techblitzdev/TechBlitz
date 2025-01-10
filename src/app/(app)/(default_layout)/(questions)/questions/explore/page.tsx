@@ -1,7 +1,7 @@
 import QuestionPageSidebar from '@/components/app/questions/layout/question-page-sidebar';
 import QuestionsCarouselList from '@/components/app/questions/layout/carousel/question-carousel-list';
 import Hero from '@/components/global/hero';
-import { createMetadata } from '@/utils';
+import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/use-user-server';
 

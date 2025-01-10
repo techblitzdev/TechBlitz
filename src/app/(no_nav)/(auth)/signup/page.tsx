@@ -1,5 +1,5 @@
 import SignupForm from '@/components/auth/signup';
-import { createMetadata } from '@/utils';
+import { createMetadata } from '@/utils/seo';
 import { RoadmapUserQuestions } from '@/types/Roadmap';
 import RoadmapQuestionCard from '@/components/app/roadmaps/questions/[uid]/question-card';
 import SocialProof from '@/components/marketing/global/social-proof';

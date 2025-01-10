@@ -17,7 +17,7 @@ import MarketingContentGrid, {
 } from '@/components/marketing/global/content-grid';
 
 import { MobileIcon } from '@radix-ui/react-icons';
-import { createMetadata } from '@/utils';
+import { createMetadata } from '@/utils/seo';
 
 export async function generateMetadata() {
   return createMetadata({

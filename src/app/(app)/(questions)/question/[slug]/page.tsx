@@ -10,28 +10,6 @@ import { getRandomQuestion } from '@/utils/data/questions/get-random';
 import ExpandedCodeModal from '@/components/app/questions/expanded-code-modal';
 import RelatedQuestions from '@/components/app/questions/single/related-question-card';
 import ResizableLayout from '@/components/ui/resizable-layout';
-import { capitalise, createMetadata } from '@/utils';
-
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const question = await getQuestion('slug', params.slug);
-  // get the title via slug and removing the - from the slug
-  const title = question?.slug?.replace(/-/g, ' ') || 'Coding Question';
-
-  return createMetadata({
-    title: `${capitalise(title)} | TechBlitz`,
-    description: 'Boost your coding skills for free with TechBlitz',
-    image: {
-      text: `${title} | TechBlitz`,
-      bgColor: '#000000',
-      textColor: '#ffffff',
-    },
-    canonicalUrl: `/question/${params.slug}`,
-  });
-}
 
 export default async function TodaysQuestionPage({
   params,

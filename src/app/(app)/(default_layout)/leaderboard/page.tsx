@@ -4,7 +4,7 @@ import LeaderboardLongestStreaks from '@/components/app/leaderboard/leaderboard-
 import LeaderboardMostQuestionsAnswered from '@/components/app/leaderboard/leaderboard-most-questions-answered';
 import LeaderboardTodayBoard from '@/components/app/leaderboard/leaderboard-today-board';
 import { useUserServer } from '@/hooks/use-user-server';
-import { createMetadata } from '@/utils';
+import { createMetadata } from '@/utils/seo';
 
 export async function generateMetadata() {
   return createMetadata({

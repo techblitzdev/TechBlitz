@@ -4,7 +4,7 @@ import CallToActionBlock from '@/components/marketing/global/call-to-action-bloc
 import MarketingContentGrid from '@/components/marketing/global/content-grid';
 import { MobileIcon } from '@radix-ui/react-icons';
 import { BarChart, Code, FileBadge2, LaptopIcon } from 'lucide-react';
-import { createMetadata } from '@/utils';
+import { createMetadata } from '@/utils/seo';
 
 export async function generateMetadata() {
   return createMetadata({

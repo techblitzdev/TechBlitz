@@ -11,7 +11,7 @@ import { useUserServer } from '@/hooks/use-user-server';
 import { validateSearchParams } from '@/utils/search-params';
 import { parseSearchParams } from '@/utils/search-params';
 import { getTags } from '@/utils/data/questions/tags/get-tags';
-import { createMetadata } from '@/utils';
+import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
 import LoadingQuestions from '@/components/app/questions/loading/loading-questions';
 import { Suspense } from 'react';

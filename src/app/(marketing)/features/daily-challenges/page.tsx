@@ -7,7 +7,7 @@ import FAQsBlock from '@/components/marketing/global/faqs';
 import { MobileIcon } from '@radix-ui/react-icons';
 import FeatureLeftRightSection from '@/components/marketing/features/daily-challenge/feature-left-right/features-section';
 
-import { createMetadata } from '@/utils';
+import { createMetadata } from '@/utils/seo';
 
 export async function generateMetadata() {
   return createMetadata({

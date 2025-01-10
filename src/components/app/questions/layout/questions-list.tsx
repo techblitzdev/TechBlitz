@@ -44,7 +44,7 @@ export default async function QuestionsList({
         </p>
         <div className="flex gap-x-2">
           <Button href="/questions">Back to all questions</Button>
-          <Button href="/upgrade" variant="secondary">
+          <Button href="https://dub.sh/upgrade-techblitz" variant="secondary">
             Upgrade
           </Button>
         </div>

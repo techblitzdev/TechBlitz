@@ -46,7 +46,12 @@ export default function SidebarFooterComponent(opts: {
             <p className="text-xs font-light">
               Get access to all features and unlock your full potential.
             </p>
-            <Button variant="accent" fullWidth className="mt-4" href="/upgrade">
+            <Button
+              variant="accent"
+              fullWidth
+              className="mt-4"
+              href="https://dub.sh/upgrade-techblitz"
+            >
               Upgrade
             </Button>
           </SidebarMenuItem>
@@ -78,7 +83,10 @@ export default function SidebarFooterComponent(opts: {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56 bg-[#000] !text-white border-black-50">
                 <DropdownMenuItem>
-                  <Link href="/upgrade" className="w-full">
+                  <Link
+                    href="https://dub.sh/upgrade-techblitz"
+                    className="w-full"
+                  >
                     Upgrade
                   </Link>
                 </DropdownMenuItem>

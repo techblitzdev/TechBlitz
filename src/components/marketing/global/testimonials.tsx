@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { QuoteIcon } from 'lucide-react';
 import JakeMackieTestimonial from '@/public/images/testimonials/jake-mackie-techblitz-testimonial.jpeg';
+import AnimatedSpan from '@/components/ui/animated-span';
 
 const testimonials = [
   {
@@ -25,29 +25,30 @@ export default function Testimonials() {
             'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)',
         }}
       ></div>
-      <div className="container mx-auto px-4 flex flex-col lg:flex-row gap-20 items-center">
-        <div className="flex flex-col gap-y-1 lg:w-1/3">
+      <div className="container mx-auto px-4 flex flex-col lg:flex-row gap-12 lg:gap-24 items-center">
+        <div className="flex flex-col gap-y-1 lg:w-1/3 items-center lg:items-start">
+          <AnimatedSpan content="Testimonials" />
           <h2 className="text-4xl font-bold text-center lg:text-left text-gradient from-white to-white/75 py-1.5">
             Endorsed by developers just like you
           </h2>
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-400 text-sm text-center lg:text-left">
             Discover how TechBlitz has empowered developers to level up their
             coding skills.
           </p>
         </div>
-        <div className="flex gap-y-10 lg:w-2/3">
+        <div className="flex flex-col lg:flex-row gap-y-10 lg:w-2/3">
           {testimonials.map((testimonial) => (
             <div
               key={testimonial.name}
-              className="flex flex-col rounded-lg p-6 shadow-lg"
+              className="flex flex-col rounded-lg shadow-lg items-center lg:items-start"
             >
-              <div className="flex items-center mb-4">
+              <div className="flex items-center order-first lg:order-first">
                 <Image
                   src={testimonial.image}
                   alt={testimonial.name}
                   width={52}
                   height={52}
-                  className="rounded-full"
+                  className="rounded-full mb-4 lg:mb-0 lg:mr-4"
                 />
                 <div className="ml-4">
                   <p className="font-semibold text-white font-onest">
@@ -58,7 +59,7 @@ export default function Testimonials() {
                   </p>
                 </div>
               </div>
-              <p className="text-white mb-4 font-onest">
+              <p className="text-white font-onest text-base lg:text-lg text-center lg:text-left order-last">
                 "{testimonial.shortQuote}"
               </p>
             </div>

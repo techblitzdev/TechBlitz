@@ -13,6 +13,10 @@ export const getUserAnswer = async (opts: { questionUid: string }) => {
 
   const user = await getUser();
 
+  if (!user) {
+    return false;
+  }
+
   try {
     // find the answer to the question
     return await prisma.answers.findFirst({

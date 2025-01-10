@@ -3,7 +3,7 @@ import CallToActionBlock from '@/components/marketing/global/call-to-action-bloc
 import FAQsBlock from '@/components/marketing/global/faqs';
 import { AnimatedBreak } from '@/components/marketing/pricing/animated-break';
 import PricingCardBlock from '@/components/marketing/pricing/pricing-card-block';
-import { createMetadata } from '@/utils';
+import { createMetadata } from '@/utils/seo';
 import Link from 'next/link';
 
 export async function generateMetadata() {
@@ -55,7 +55,7 @@ const jsonLd = {
     {
       '@type': 'Offer',
       name: 'Pro Plan',
-      price: '2.99',
+      price: '3.99',
       priceCurrency: 'USD',
       description:
         'Unlock all questions, daily challenges, and personalized AI roadmaps.',

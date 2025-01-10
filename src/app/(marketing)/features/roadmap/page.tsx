@@ -17,7 +17,9 @@ import MarketingContentGrid, {
 } from '@/components/marketing/global/content-grid';
 
 import { MobileIcon } from '@radix-ui/react-icons';
-import { createMetadata } from '@/utils';
+import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { WebPageJsonLd } from '@/types/Seo';
+import { getBaseUrl } from '@/utils';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -150,24 +152,62 @@ const featureShowcaseItems: MarketingContentGridProps[] = [
 ];
 
 export default function FeatureDailyQuestionPage() {
+  const jsonLd: WebPageJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    url: getBaseUrl(),
+    headline: 'Roadmap | TechBlitz',
+    description:
+      'Create your own coding progression paths with our personalized roadmaps.',
+    image: 'https://techblitz.dev/favicon.ico',
+    breadcrumb: WebPageJsonLdBreadcrumb,
+    author: {
+      '@type': 'Organization',
+      name: 'TechBlitz',
+      url: getBaseUrl(),
+    },
+    dateModified: new Date().toISOString(),
+    datePublished: new Date().toISOString(),
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': getBaseUrl(),
+    },
+    keywords:
+      'learn to code, learn to code for free, learn javascript, coding challenges, daily coding challenges, web development, tech skills assessment, learn to code on phone',
+    publisher: {
+      '@type': 'Organization',
+      name: 'TechBlitz',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://techblitz.dev/favicon.ico',
+      },
+    },
+  };
+
   return (
-    <div className="container">
-      <FeatureRoadmapHeroBlock />
-      <FeatureRoadmapCustomizationBlock />
-      <FeatureRoadmapThreeGridBlock />
-      <MarketingContentGrid
-        title="All of this and more."
-        items={featureShowcaseItems}
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <FAQsBlock faqs={faqs} />
-      <CallToActionBlock
-        title="Personalized coding for everyone."
-        description="Create your own progression path with our personalized roadmaps, designed to help you grow as a developer."
-        leftCta={{
-          title: 'Get Started',
-          href: '/signup',
-        }}
-      />
-    </div>
+      <div className="container">
+        <FeatureRoadmapHeroBlock />
+        <FeatureRoadmapCustomizationBlock />
+        <FeatureRoadmapThreeGridBlock />
+        <MarketingContentGrid
+          title="All of this and more."
+          items={featureShowcaseItems}
+        />
+        <FAQsBlock faqs={faqs} />
+        <CallToActionBlock
+          title="Personalized coding for everyone."
+          description="Create your own progression path with our personalized roadmaps, designed to help you grow as a developer."
+          leftCta={{
+            title: 'Get Started',
+            href: '/signup',
+          }}
+        />
+      </div>
+    </>
   );
 }

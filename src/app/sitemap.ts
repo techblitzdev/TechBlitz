@@ -39,7 +39,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
     },
     {
-      url: `${baseUrl}/features/daily-challenges`,
+      url: `${baseUrl}/features/daily-coding-challenges`,
       lastModified: new Date(),
     },
     {

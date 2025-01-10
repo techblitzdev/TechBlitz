@@ -6,7 +6,7 @@ import OpenSourceBlock from '@/components/marketing/global/open-source/open-sour
 import ResourceOpenSourceHeroBlock from '@/components/marketing/resources/open-source/open-source-hero';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import { Building2Icon } from 'lucide-react';
-import { createMetadata } from '@/utils';
+import { createMetadata } from '@/utils/seo';
 
 export async function generateMetadata() {
   return createMetadata({

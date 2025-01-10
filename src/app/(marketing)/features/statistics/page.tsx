@@ -4,7 +4,9 @@ import CallToActionBlock from '@/components/marketing/global/call-to-action-bloc
 import MarketingContentGrid from '@/components/marketing/global/content-grid';
 import { MobileIcon } from '@radix-ui/react-icons';
 import { BarChart, Code, FileBadge2, LaptopIcon } from 'lucide-react';
-import { createMetadata } from '@/utils';
+import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { WebPageJsonLd } from '@/types/Seo';
+import { getBaseUrl } from '@/utils';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -86,21 +88,58 @@ const featureShowcaseItems = [
 ];
 
 export default function StatisticsPage() {
+  const jsonLd: WebPageJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    url: getBaseUrl(),
+    headline: 'Track your coding journey | TechBlitz',
+    description: 'Track your coding journey with our statistics dashboard.',
+    image: 'https://techblitz.dev/favicon.ico',
+    breadcrumb: WebPageJsonLdBreadcrumb,
+    author: {
+      '@type': 'Organization',
+      name: 'TechBlitz',
+      url: getBaseUrl(),
+    },
+    dateModified: new Date().toISOString(),
+    datePublished: new Date().toISOString(),
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': getBaseUrl(),
+    },
+    keywords:
+      'track coding progress, coding statistics, developer analytics, coding performance insights, improve coding skills, coding improvement tools, coding mastery, coding challenges dashboard',
+    publisher: {
+      '@type': 'Organization',
+      name: 'TechBlitz',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://techblitz.dev/favicon.ico',
+      },
+    },
+  };
+
   return (
-    <div className="container">
-      <StatsHero />
-      <StatsReportSection />
-      <MarketingContentGrid
-        title="Tracking coding progress made simple."
-        items={featureShowcaseItems}
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <CallToActionBlock
-        title="Improve coding skills effortlessly."
-        leftCta={{
-          title: 'Get Started',
-          href: '/signup',
-        }}
-      />
-    </div>
+      <div className="container">
+        <StatsHero />
+        <StatsReportSection />
+        <MarketingContentGrid
+          title="Tracking coding progress made simple."
+          items={featureShowcaseItems}
+        />
+        <CallToActionBlock
+          title="Improve coding skills effortlessly."
+          leftCta={{
+            title: 'Get Started',
+            href: '/signup',
+          }}
+        />
+      </div>
+    </>
   );
 }

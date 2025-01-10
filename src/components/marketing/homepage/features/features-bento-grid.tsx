@@ -123,7 +123,7 @@ export default async function FeaturesBentoGrid() {
             </div>
           </Link>
           <Link
-            href="/features/daily-challenges"
+            href="/features/daily-coding-challenges"
             className={cn(
               'col-span-full lg:col-span-2 group overflow-hidden',
               cardClasses

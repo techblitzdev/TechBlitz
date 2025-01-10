@@ -6,7 +6,7 @@ import { Separator } from '@/components/ui/separator';
 import { ChartColumn, User } from 'lucide-react';
 import QuestionDisplay from '@/components/app/questions/single/code-snippet';
 import FeedbackButton from '@/components/ui/feedback-button';
-import { createMetadata } from '@/utils';
+import { createMetadata } from '@/utils/seo';
 
 import ResizableLayout from '@/components/ui/resizable-layout';
 

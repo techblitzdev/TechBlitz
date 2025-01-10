@@ -10,7 +10,7 @@ import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 
 import NextTopLoader from 'nextjs-toploader';
-import { createMetadata } from '@/utils';
+import { createMetadata } from '@/utils/seo';
 import { useUserServer } from '@/hooks/use-user-server';
 import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 import { userAnsweredDailyQuestion } from '@/utils/data/questions/user-answered-daily-question';

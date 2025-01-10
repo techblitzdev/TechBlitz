@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
 
 import { getBlogPost, getBlogPosts } from '@/lib/blog';
-import { createMetadata } from '@/utils';
+import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -32,6 +32,10 @@ interface BlogFrontmatter {
   author: string;
   readingTime: number;
   authorImage: string;
+  headings: {
+    title: string;
+    level: number;
+  }[];
 }
 
 // generate metadata for the blog post
@@ -77,7 +81,7 @@ export default async function BlogPost({ params }: BlogPostParams) {
     const typedFrontmatter = frontmatter as unknown as BlogFrontmatter;
 
     return (
-      <div className="container px-4 lg:px-0 flex flex-col md:flex-row gap-10 max-w-7xl mx-auto pt-32 pb-20">
+      <div className="container flex flex-col md:flex-row gap-10 max-w-7xl mx-auto pt-32 pb-20">
         <article className="w-full md:w-3/5">
           {/** global hero that displays on all blog posts */}
           <div className="mb-8">
@@ -152,7 +156,15 @@ export default async function BlogPost({ params }: BlogPostParams) {
           </div>
         </article>
         <aside className="w-full md:w-2/5 order-first md:order-last">
-          <div className="sticky top-32 md:max-w-[320px] mx-auto space-y-5">
+          <h3 className="text-2xl font-medium">Table of contents</h3>
+          <div className="mt-8">
+            {typedFrontmatter.headings.map((heading) => (
+              <div key={heading.title}>
+                <h4 className="text-lg font-medium">{heading.title}</h4>
+              </div>
+            ))}
+          </div>
+          <div className="sticky top-32 md:max-w-[320px] ml-auto space-y-5">
             <Card className="w-full border border-black-50 text-white shadow-lg">
               <CardHeader className="pb-2">
                 <CardTitle className="font-onest text-2xl flex items-center justify-center">

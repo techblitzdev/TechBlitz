@@ -70,9 +70,9 @@ export default async function TodaysQuestionBentoBox() {
         </div>
       </Link>
 
-      <div className="w-fit flex self-center relative -bottom-10 md:-bottom-20">
+      <div className="w-fit flex self-center relative -bottom-8 sm:-bottom-20 md:-bottom-8 lg:-bottom-20">
         <DatePicker
-          className="z-30 text-white bg-black-100 border border-black-50 p-2 rounded-md hover:cursor-default md:scale-[1.23]"
+          className="z-30 text-white bg-black-100 border border-black-50 p-2 rounded-md hover:cursor-default xs:scale-100 sm:scale-125 md:scale-110 xl:scale-[1.23]"
           color="white"
           type="range"
           value={dateArray}

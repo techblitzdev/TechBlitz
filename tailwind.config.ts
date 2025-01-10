@@ -103,6 +103,9 @@ const config: Config = {
           ring: 'hsl(var(--sidebar-ring))',
         },
       },
+      screens: {
+        xs: '380px',
+      },
       container: {
         center: true,
         padding: '2rem',

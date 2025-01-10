@@ -70,7 +70,7 @@ export default async function QuestionsList({
           key={q.uid}
           questionData={q}
           showSubmissions={showSubmissions}
-          identifier="uid"
+          identifier={customQuestions ? 'uid' : 'slug'}
         />
       ))}
       <div className="mt-5 w-full flex justify-center gap-x-2">

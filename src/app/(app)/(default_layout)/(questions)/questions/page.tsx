@@ -13,6 +13,8 @@ import { parseSearchParams } from '@/utils/search-params';
 import { getTags } from '@/utils/data/questions/tags/get-tags';
 import { createMetadata } from '@/utils';
 import { Button } from '@/components/ui/button';
+import LoadingQuestions from '@/components/app/questions/loading/loading-questions';
+import { Suspense } from 'react';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -66,13 +68,15 @@ export default async function QuestionsDashboard({
             <Filter tags={tags} />
             <FilterChips />
           </div>
-          <QuestionsList
-            user={user}
-            currentPage={filters.page}
-            filters={filters}
-            customQuestions={false}
-            paginationUrl="/questions"
-          />
+          <Suspense fallback={<LoadingQuestions />}>
+            <QuestionsList
+              user={user}
+              currentPage={filters.page}
+              filters={filters}
+              customQuestions={false}
+              paginationUrl="/questions"
+            />
+          </Suspense>
         </div>
         <QuestionPageSidebar user={user} />
       </div>

@@ -26,6 +26,10 @@ export default function QuestionCarousel(opts: {
 }) {
   const { heading, description, image, questions, tag } = opts;
 
+  console.log({
+    image,
+  });
+
   return (
     <Carousel
       opts={{

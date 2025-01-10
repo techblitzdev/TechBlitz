@@ -2,15 +2,15 @@ import { QuestionWithTags } from '@/types/Questions';
 import Link from 'next/link';
 import Chip from '@/components/ui/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
-import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
-import { CheckCircle, ChevronRight, Circle } from 'lucide-react';
+//import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
+//import { CheckCircle, ChevronRight, Circle } from 'lucide-react';
 
 export default async function QuestionCarouselCard(opts: {
   questionData: QuestionWithTags;
 }) {
   const { questionData } = opts;
 
-  const userAnswered = await getUserAnswer({ questionUid: questionData.uid });
+  //const userAnswered = await getUserAnswer({ questionUid: questionData.uid });
 
   return (
     <Link
@@ -22,7 +22,7 @@ export default async function QuestionCarouselCard(opts: {
           {questionData?.question}
         </h6>
         <div className="flex w-full justify-between items-center">
-          <div className="flex items-center gap-x-2">
+          {/*<div className="flex items-center gap-x-2">
             {userAnswered ? (
               <CheckCircle className="flex-shrink-0 size-5 text-green-500" />
             ) : (
@@ -43,7 +43,7 @@ export default async function QuestionCarouselCard(opts: {
                 </div>
               )}
             </div>
-          </div>
+          </div> */}
           <Chip
             text={capitalise(questionData?.difficulty)}
             color={getQuestionDifficultyColor(questionData?.difficulty).bg}

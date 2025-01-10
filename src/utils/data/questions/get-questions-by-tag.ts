@@ -38,6 +38,6 @@ export const getQuestionsByTag = async (tag: string | string[]) => {
         },
       },
     },
-    take: 30,
+    take: 20,
   });
 };

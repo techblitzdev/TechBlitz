@@ -107,7 +107,7 @@ export default async function Page() {
       name: 'TechBlitz',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
+        url: 'https://techblitz.dev/favicon.ico',
       },
     },
   };

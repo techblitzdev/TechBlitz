@@ -7,7 +7,9 @@ import FAQsBlock from '@/components/marketing/global/faqs';
 import { MobileIcon } from '@radix-ui/react-icons';
 import FeatureLeftRightSection from '@/components/marketing/features/daily-challenge/feature-left-right/features-section';
 
-import { createMetadata } from '@/utils/seo';
+import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { getBaseUrl } from '@/utils';
+import { WebPageJsonLd } from '@/types/Seo';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -184,17 +186,55 @@ const faqs = [
 ];
 
 export default function FeatureDailyQuestionPage() {
-  return (
-    <div className="container">
-      <FeatureDailyChallengeHero />
-      <FeatureLeftRightSection />
+  const jsonLd: WebPageJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    url: getBaseUrl(),
+    headline: 'Daily Coding Challenges | TechBlitz',
+    description: 'Daily coding challenges to improve your coding skills.',
+    image:
+      'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
+    breadcrumb: WebPageJsonLdBreadcrumb,
+    author: {
+      '@type': 'Organization',
+      name: 'TechBlitz',
+      url: getBaseUrl(),
+    },
+    dateModified: new Date().toISOString(),
+    datePublished: new Date().toISOString(),
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': getBaseUrl(),
+    },
+    keywords:
+      'learn to code, learn to code for free, learn javascript, coding challenges, daily coding challenges, web development, tech skills assessment, learn to code on phone',
+    publisher: {
+      '@type': 'Organization',
+      name: 'TechBlitz',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://techblitz.dev/favicon.ico',
+      },
+    },
+  };
 
-      <MarketingContentGrid title="Learn to code, faster." items={items} />
-      <FAQsBlock faqs={faqs} />
-      <CallToActionBlock
-        title="The fastest way to master coding."
-        description="Daily coding challenges designed to make you a better developer, faster."
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-    </div>
+      <div className="container">
+        <FeatureDailyChallengeHero />
+        <FeatureLeftRightSection />
+
+        <MarketingContentGrid title="Learn to code, faster." items={items} />
+        <FAQsBlock faqs={faqs} />
+        <CallToActionBlock
+          title="The fastest way to master coding."
+          description="Daily coding challenges designed to make you a better developer, faster."
+        />
+      </div>
+    </>
   );
 }

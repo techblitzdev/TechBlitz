@@ -2,6 +2,7 @@ import CallToActionBlock from '@/components/marketing/global/call-to-action-bloc
 import FAQsBlock from '@/components/marketing/global/faqs';
 import Link from 'next/link';
 import { createMetadata } from '@/utils/seo';
+import { FaqJsonLd } from '@/types/Seo';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -20,30 +21,35 @@ const commonFaqs = [
   {
     question: 'What is techblitz?',
     answer:
-      'techblitz is an online platform that helps developers of all abilities to learn and grow. We offer a range of tools and resources to help you become a better developer, including questions, roadmaps, tutorials, and more.',
+      'TechBlitz is an online platform that helps developers of all abilities to learn and grow. We offer a range of tools and resources to help you become a better developer, including questions, roadmaps, tutorials, and more.',
+    jsonLdText:
+      'TechBlitz is an online platform that helps developers of all abilities to learn and grow. We offer a range of tools and resources to help you become a better developer, including questions, roadmaps, tutorials, and more.',
   },
   {
     question: 'Is techblitz open source?',
     answer: (
       <>
-        Yes! techblitz is open source. You can find our source{' '}
+        Yes! TechBlitz is open source. You can find our source{' '}
         <a href="https://git.new/blitz" target="_blank" className="text-accent">
           here
         </a>
         .
       </>
     ),
+    jsonLdText: 'Yes! TechBlitz is open source. You can find our source here.',
   },
   {
     question: 'Is techblitz free to use?',
     answer:
-      'Yes, techblitz will be free to use. You will be able to sign up for a free account and start using our software right away.',
+      'Yes, TechBlitz will be free to use. You will be able to sign up for a free account and start using our software right away.',
+    jsonLdText:
+      'Yes, TechBlitz will be free to use. You will be able to sign up for a free account and start using our software right away.',
   },
   {
     question: 'What will you be adding to techblitz in the future?',
     answer: (
       <>
-        We are always working on new features and improvements to techblitz. You
+        We are always working on new features and improvements to TechBlitz. You
         can find our roadmap{' '}
         <a href="/roadmap" className="text-accent">
           here
@@ -52,17 +58,21 @@ const commonFaqs = [
         you may have.
       </>
     ),
+    jsonLdText:
+      'We are always working on new features and improvements to TechBlitz. You can find our roadmap here.',
   },
   {
     question: 'What are the benefits of using techblitz?',
     answer:
+      'We offer short-form questions on various topics to help you learn and grow.',
+    jsonLdText:
       'We offer short-form questions on various topics to help you learn and grow.',
   },
   {
     question: 'How do I get started with techblitz?',
     answer: (
       <>
-        To get started with techblitz, simply sign up for a free account. You
+        To get started with TechBlitz, simply sign up for a free account. You
         can sign up{' '}
         <Link href="/signup" className="text-accent">
           here
@@ -70,22 +80,27 @@ const commonFaqs = [
         .
       </>
     ),
+    jsonLdText:
+      'To get started with TechBlitz, simply sign up for a free account. You can sign up here.',
   },
   {
     question: 'Can I contribute to techblitz?',
     answer: (
       <>
-        Yes! You can contribute to techblitz by submitting a pull request on our{' '}
+        Yes! You can contribute to TechBlitz by submitting a pull request on our{' '}
         <a href="https://git.new/blitz" target="_blank" className="text-accent">
           GitHub repository
         </a>
         .
       </>
     ),
+    jsonLdText:
+      'Yes! You can contribute to TechBlitz by submitting a pull request on our GitHub repository.',
   },
   {
     question: 'Can I get a refund?',
     answer: 'Yes, you can get a refund within 14 days of your purchase. ',
+    jsonLdText: 'Yes, you can get a refund within 14 days of your purchase. ',
   },
   {
     question:
@@ -99,6 +114,8 @@ const commonFaqs = [
         .
       </>
     ),
+    jsonLdText:
+      'If you have any other questions, feel free to reach out to us at team@techblitz.dev.',
   },
   {
     question: 'Do you offer a student discount?',
@@ -114,6 +131,8 @@ const commonFaqs = [
         February 2025, after which the discount will be 30%.
       </>
     ),
+    jsonLdText:
+      'Yes! We believe that TechBlitz should be available to all students. To claim your discount, please email us at team@techblitz.dev using your student email address.',
   },
 ];
 
@@ -202,26 +221,45 @@ const userRoadmapsFaqs = [
 ];
 
 export default function FAQsPage() {
+  const faqJsonLd: FaqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: commonFaqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.jsonLdText,
+      },
+    })),
+  };
+
   return (
-    <div className="pt-32 pb-24 md:pb-20 md:pt-32 xl:pt-40 xl:pb-32">
-      <div className="flex flex-col gap-y-10">
-        <FAQsBlock
-          title="Most commonly asked questions"
-          description="Got a question? We have an answer. Here are some of the most commonly asked questions about techblitz."
-          faqs={commonFaqs}
-        />
-        <FAQsBlock
-          title="Questions about our plans"
-          faqs={planFaqs}
-          showSpan={false}
-        />
-        <FAQsBlock
-          title="Coding Roadmaps"
-          faqs={userRoadmapsFaqs}
-          showSpan={false}
-        />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <div className="pt-32 pb-24 md:pb-20 md:pt-32 xl:pt-40 xl:pb-32">
+        <div className="flex flex-col gap-y-10">
+          <FAQsBlock
+            title="Most commonly asked questions"
+            description="Got a question? We have an answer. Here are some of the most commonly asked questions about techblitz."
+            faqs={commonFaqs}
+          />
+          <FAQsBlock
+            title="Questions about our plans"
+            faqs={planFaqs}
+            showSpan={false}
+          />
+          <FAQsBlock
+            title="Coding Roadmaps"
+            faqs={userRoadmapsFaqs}
+            showSpan={false}
+          />
+        </div>
+        <CallToActionBlock title="The smarter way to stay on top of tech" />
       </div>
-      <CallToActionBlock title="The smarter way to stay on top of tech" />
-    </div>
+    </>
   );
 }

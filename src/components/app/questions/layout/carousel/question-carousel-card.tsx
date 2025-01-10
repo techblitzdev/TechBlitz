@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Chip from '@/components/ui/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
-import { CheckCircle, Circle } from 'lucide-react';
+import { CheckCircle, ChevronRight, Circle } from 'lucide-react';
 
 export default async function QuestionCarouselCard(opts: {
   questionData: QuestionWithTags;
@@ -28,9 +28,21 @@ export default async function QuestionCarouselCard(opts: {
             ) : (
               <Circle className="flex-shrink-0 size-5 text-black-50" />
             )}
-            <p className="text-sm font-medium">
-              {userAnswered ? 'Answered' : 'Not Answered'}
-            </p>
+            <div className="text-sm font-medium">
+              {userAnswered ? (
+                <p>Answered</p>
+              ) : (
+                <div className="relative">
+                  <p className="group-hover:opacity-0 transition-opacity duration-300">
+                    Not Answered
+                  </p>
+                  <div className="absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap flex items-center gap-x-1">
+                    <p>Learn Now</p>
+                    <ChevronRight className="flex-shrink-0 size-4 text-white group-hover:translate-x-2 transition-transform duration-300" />
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
           <Chip
             text={capitalise(questionData?.difficulty)}

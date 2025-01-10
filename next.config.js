@@ -29,6 +29,11 @@ const nextConfig = {
         destination: '/features/roadmap',
         permanent: true,
       },
+      {
+        source: '/features/daily-challenges',
+        destination: '/features/daily-coding-challenges',
+        permanent: true,
+      },
     ];
   },
   async headers() {

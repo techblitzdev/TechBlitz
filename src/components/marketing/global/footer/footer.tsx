@@ -16,7 +16,7 @@ const footerItems = [
       },
       {
         title: 'Daily Challenges',
-        href: '/features/daily-challenges',
+        href: '/features/daily-coding-challenges',
         ariaLabel: 'Daily Challenges',
       },
       {

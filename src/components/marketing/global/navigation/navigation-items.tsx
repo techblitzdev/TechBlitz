@@ -52,7 +52,7 @@ const features = [
   },
   {
     title: 'Daily Challenges',
-    href: '/features/daily-challenges',
+    href: '/features/daily-coding-challenges',
     description: 'Tackle daily challenges to sharpen your developer skills.',
     ariaLabel: 'Navigate to Daily Challenges',
   },
@@ -86,7 +86,7 @@ export function NavigationMenuItems() {
                   AI-powered paths to accelerate your learning journey.
                 </ListItem>
                 <ListItem
-                  href="/features/daily-challenges"
+                  href="/features/daily-coding-challenges"
                   title="Daily Challenges"
                   aria-label="Navigate to Daily Challenges"
                 >
@@ -107,7 +107,7 @@ export function NavigationMenuItems() {
                   Gain insights and track your growth over time.
                 </ListItem>
                 <ListItem
-                  href="/features/daily-challenges"
+                  href="/features/daily-coding-challenges"
                   title="Daily Challenges"
                   aria-label="Navigate to Daily Challenges"
                 >

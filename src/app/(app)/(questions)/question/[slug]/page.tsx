@@ -21,9 +21,10 @@ export default async function TodaysQuestionPage({
   const user = await useUserServer();
 
   const [question, totalSubmissions, nextQuestion] = await Promise.all([
-    getQuestion(slug),
+    getQuestion('slug', slug),
     getQuestionStats('slug', slug),
     getRandomQuestion({
+      identifier: 'slug',
       currentQuestionSlug: slug,
     }),
   ]);
@@ -38,6 +39,7 @@ export default async function TodaysQuestionPage({
         question={question}
         user={user}
         nextQuestion={nextQuestion}
+        identifier="slug"
       />
     </div>
   );

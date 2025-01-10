@@ -24,9 +24,15 @@ export default async function QuestionCard(opts: {
     ? await getQuestionStats(identifier, questionData[identifier] || '')
     : null;
 
+  // if identifier is uid, this is a custom question
+  const href =
+    identifier === 'uid'
+      ? `/question/custom/${questionData[identifier]}`
+      : `/question/${questionData[identifier]}`;
+
   return (
     <Link
-      href={`/question/${questionData[identifier]}`}
+      href={href}
       key={questionData.uid}
       className="flex flex-col space-y-5 items-start border border-black-50 hover:border-accent duration-300 p-5 rounded-lg group w-full relative overflow-hidden"
     >

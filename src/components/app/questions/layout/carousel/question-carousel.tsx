@@ -26,14 +26,6 @@ export default function QuestionCarousel(opts: {
 }) {
   const { heading, description, image, questions, tag } = opts;
 
-  console.log({
-    heading,
-    description,
-    image,
-    questions,
-    tag,
-  });
-
   return (
     <Carousel
       opts={{
@@ -52,7 +44,10 @@ export default function QuestionCarousel(opts: {
             <p className="text-sm text-wrap text-start">{description}</p>
           </div>
           <div className="flex items-center gap-2 justify-between">
-            <Button href={`/questions?tag=${tag}`} variant="default">
+            <Button
+              href={`/questions?tag=${Array.isArray(tag) ? tag[0] : tag}`}
+              variant="default"
+            >
               View more
               <ChevronRight className="size-4 ml-2" />
             </Button>

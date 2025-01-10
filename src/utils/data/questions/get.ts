@@ -8,17 +8,18 @@ import { Question } from '@/types/Questions';
  * @param uid - The uid of the question to retrieve
  * @returns The question object
  */
-export const getQuestion = async (slug: string) => {
-  if (!slug) {
+export const getQuestion = async (
+  identifier: 'slug' | 'uid' = 'slug',
+  value: string
+) => {
+  if (!value) {
     console.error('Please provide a uid');
     return null;
   }
 
   try {
     const res = await prisma.questions.findUnique({
-      where: {
-        slug,
-      },
+      where: identifier === 'uid' ? { uid: value } : { slug: value },
       include: {
         answers: true,
         tags: {

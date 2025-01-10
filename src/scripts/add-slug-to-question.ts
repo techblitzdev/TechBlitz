@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { Questions } from '@prisma/client';
 import Anthropic from '@anthropic-ai/sdk';
 
-export const addUrlToQuestion = async () => {
+export const addSlugToQuestion = async () => {
   // fetch all questions that need slugs
   const questions = await prisma.questions.findMany({
     where: {
@@ -19,11 +19,11 @@ export const addUrlToQuestion = async () => {
   });
 
   for (const question of questions) {
-    await addSlugToQuestion(question);
+    await addSlug(question);
   }
 };
 
-const addSlugToQuestion = async (question: Questions) => {
+const addSlug = async (question: Questions) => {
   const MAX_RETRIES = 5;
   let retries = 0;
 

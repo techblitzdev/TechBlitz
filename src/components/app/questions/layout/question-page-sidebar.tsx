@@ -49,15 +49,30 @@ export default async function QuestionPageSidebar(opts: {
                 />
                 <Separator className="w-full bg-black-50" />
                 <div className="grid grid-cols-2 gap-4 pt-2">
-                  <div className="flex flex-col gap-y-2 items-center">
-                    <p className="text-sm text-gray-400">Longest streak</p>
-                    <div className="flex items-center gap-x-1">
-                      <p className="font-onest font-bold">
-                        {userStreak?.streakData?.longestStreak}
-                      </p>
-                      <SolarFlameBoldDuotone className="size-6" />
-                    </div>
-                  </div>
+                  <TooltipProvider>
+                    <Tooltip delayDuration={100}>
+                      <TooltipTrigger>
+                        <div className="flex flex-col gap-y-2 items-center">
+                          <p className="text-sm text-gray-400">
+                            Longest streak
+                          </p>
+                          <div className="flex items-center gap-x-1">
+                            <p className="font-onest font-bold">
+                              {userStreak?.streakData?.longestStreak}
+                            </p>
+                            <SolarFlameBoldDuotone className="size-6" />
+                          </div>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>
+                          Your longest streak was{' '}
+                          {userStreak?.streakData?.longestStreak} days.
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+
                   <div className="flex flex-col gap-y-2 items-center">
                     <p className="text-sm text-gray-400">Current streak</p>
                     <CurrentStreak />

@@ -18,7 +18,7 @@ export const getQuestion = async (
   }
 
   try {
-    const res = await prisma.questions.findUnique({
+    let res = await prisma.questions.findUnique({
       where: identifier === 'uid' ? { uid: value } : { slug: value },
       include: {
         answers: true,
@@ -30,6 +30,22 @@ export const getQuestion = async (
         QuestionResources: true,
       },
     });
+
+    // If not found, try the other identifier
+    if (!res) {
+      res = await prisma.questions.findUnique({
+        where: identifier === 'uid' ? { slug: value } : { uid: value },
+        include: {
+          answers: true,
+          tags: {
+            include: {
+              tag: true,
+            },
+          },
+          QuestionResources: true,
+        },
+      });
+    }
 
     if (!res) {
       console.error('Question not found');

@@ -38,7 +38,7 @@ export default async function TodaysQuestionBentoBox() {
 
   return (
     <div className="flex flex-col p-4 h-full group relative">
-      <Link href={`/question/${todaysQuestion.uid}`}>
+      <Link href={`/question/${todaysQuestion.slug}`}>
         <div className="flex w-full justify-between mb-4">
           <div className="space-y-1">
             <h6 className="text-xl">Today's Question </h6>

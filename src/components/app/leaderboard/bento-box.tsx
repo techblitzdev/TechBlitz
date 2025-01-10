@@ -40,7 +40,7 @@ export default async function TodaysLeaderboardBentoBox(opts: {
           {fastestTimes.length === 0 && todaysQuestion?.uid ? (
             <Card className="rounded-none border-none pt-4 group">
               <CardContent className="text-center">
-                <Link href={`/question/${todaysQuestion.uid}`}>
+                <Link href={`/question/${todaysQuestion.slug}`}>
                   <Trophy className="mx-auto mb-2 text-yellow-500" size={24} />
                   <p className="text-sm text-white">No fastest times yet!</p>
                   <p className="text-xs text-white mt-1">

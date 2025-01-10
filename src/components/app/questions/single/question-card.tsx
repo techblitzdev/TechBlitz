@@ -28,6 +28,7 @@ export default function QuestionCard(opts: {
   nextQuestion?: string;
   isRoadmapQuestion?: boolean;
   index?: number;
+  identifier: 'slug' | 'uid';
 }) {
   const { user, question, nextQuestion, isRoadmapQuestion = false } = opts;
 

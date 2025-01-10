@@ -61,7 +61,7 @@ export default function SocialProof({
               <Button
                 variant="secondary"
                 size="lg"
-                href={`/question/${dailyQuestion?.uid}`}
+                href={`/question/${dailyQuestion?.slug}`}
                 aria-label="Navigate to the Daily Challenge"
               >
                 Try the demo

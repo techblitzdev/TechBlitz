@@ -1,9 +1,12 @@
+import { getUser } from '@/actions/user/authed/get-user';
 import { prisma } from '@/lib/prisma';
 import { unstable_cache as NextCache } from 'next/cache';
 
 export const getUserAnswerRank = NextCache(
-  async (opts: { questionUid: string; userUid: string }) => {
-    const { questionUid, userUid } = opts;
+  async (opts: { questionUid: string }) => {
+    const { questionUid } = opts;
+
+    const user = await getUser();
 
     const result = await prisma.$queryRaw<{ rank: number }[]>`
     SELECT CAST(rank AS INTEGER) as rank
@@ -14,7 +17,7 @@ export const getUserAnswerRank = NextCache(
       FROM "Answers"
       WHERE "questionUid" = ${questionUid}
     ) AS ranked_answers
-    WHERE "userUid" = ${userUid}
+    WHERE "userUid" = ${user?.uid}
   `;
 
     return result.length > 0 ? result[0].rank : null;

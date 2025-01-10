@@ -67,7 +67,7 @@ export default function QuestionTabs({
         </h3>
         <QuestionResourceTab
           resources={question.QuestionResources}
-          reference={question.uid}
+          reference={question.slug || undefined}
         />
       </TabsContent>
     </Tabs>

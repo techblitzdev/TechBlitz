@@ -6,14 +6,14 @@ import { Tags } from '@/types/Tags';
 import Link from 'next/link';
 
 const RelatedQuestionsList = async ({
-  uid,
+  slug,
   tags,
 }: {
-  uid: string;
+  slug: string;
   tags: Tags[];
 }) => {
   const relatedQuestions = await getRelatedQuestions({
-    questionUid: uid,
+    questionSlug: slug,
     tags: tags || [],
   });
 
@@ -23,7 +23,7 @@ const RelatedQuestionsList = async ({
         relatedQuestions.map((question, index) => (
           <Link
             key={question.uid}
-            href={`/question/${question.uid}`}
+            href={`/question/${question.slug}`}
             className={cn(
               'px-4 py-3 w-full flex justify-between items-center group hover:bg-black-75 transition-colors',
               index % 2 === 0
@@ -43,10 +43,10 @@ const RelatedQuestionsList = async ({
 };
 
 export default function RelatedQuestions({
-  uid,
+  slug,
   tags,
 }: {
-  uid: string;
+  slug: string;
   tags: Tags[];
 }) {
   return (
@@ -57,7 +57,7 @@ export default function RelatedQuestions({
       </div>
       <Separator className="bg-black-50" />
 
-      <RelatedQuestionsList uid={uid} tags={tags} />
+      <RelatedQuestionsList slug={slug} tags={tags} />
     </>
   );
 }

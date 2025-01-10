@@ -23,7 +23,7 @@ export default function NotFound() {
   });
 
   const goToDailyQuestion = () =>
-    router.push(`/question/${todaysQuestion?.uid}`);
+    router.push(`/question/${todaysQuestion?.slug}`);
 
   return (
     <div className="w-full flex items-center justify-center min-h-screen relative">
@@ -56,7 +56,7 @@ export default function NotFound() {
                 Login
               </Link>
             )}
-            {isError || !todaysQuestion?.uid || !user ? (
+            {isError || !todaysQuestion?.slug || !user ? (
               ''
             ) : (
               <Button variant="default" onClick={goToDailyQuestion}>

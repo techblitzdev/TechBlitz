@@ -27,11 +27,7 @@ export default function QuestionCarousel(opts: {
   const { heading, description, image, questions, tag } = opts;
 
   console.log({
-    heading,
-    description,
     image,
-    questions,
-    tag,
   });
 
   return (
@@ -52,7 +48,10 @@ export default function QuestionCarousel(opts: {
             <p className="text-sm text-wrap text-start">{description}</p>
           </div>
           <div className="flex items-center gap-2 justify-between">
-            <Button href={`/questions?tag=${tag}`} variant="default">
+            <Button
+              href={`/questions?tag=${Array.isArray(tag) ? tag[0] : tag}`}
+              variant="default"
+            >
               View more
               <ChevronRight className="size-4 ml-2" />
             </Button>
@@ -69,7 +68,6 @@ export default function QuestionCarousel(opts: {
           </div>
         </div>
         <div className="relative w-full">
-          <div className="hidden md:block absolute left-0 top-0 h-full w-12 bg-gradient-to-r from-[#000] to-transparent z-10" />
           <div className="hidden md:block absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-[#000000] to-transparent z-10" />
           <CarouselContent className="grid grid-flow-col auto-cols-[calc(100%-8px)] md:auto-cols-[calc(50%-8px)] lg:auto-cols-[calc(33.33%-8px)] gap-4">
             {questions.map((q) => (
@@ -79,11 +77,11 @@ export default function QuestionCarousel(opts: {
             ))}
           </CarouselContent>
           <CarouselPrevious
-            className="hidden md:block border-none text-white -top-12 left-0 z-10"
+            className="hidden md:block border-none text-white -top-14 -left-6 z-10"
             variant="ghost"
           />
           <CarouselNext
-            className="hidden md:block border-none text-white -top-12"
+            className="hidden md:block border-none text-white -top-14"
             variant="ghost"
           />
         </div>

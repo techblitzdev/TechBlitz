@@ -10,12 +10,12 @@ import { prisma } from '@/lib/prisma';
  * to the current question.
  */
 export const getRelatedQuestions = async (opts: {
-  questionUid: string;
+  questionSlug: string;
   tags: Tags[];
   limit?: number;
 }) => {
-  const { questionUid, tags, limit = 3 } = opts;
-  if (!questionUid) return [];
+  const { questionSlug, tags, limit = 3 } = opts;
+  if (!questionSlug) return [];
 
   return await prisma.questions.findMany({
     where: {
@@ -29,8 +29,8 @@ export const getRelatedQuestions = async (opts: {
         },
       },
       AND: {
-        uid: {
-          not: questionUid,
+        slug: {
+          not: questionSlug,
         },
         AND: {
           dailyQuestion: true,

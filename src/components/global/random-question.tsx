@@ -9,18 +9,23 @@ import { redirect } from 'next/navigation';
  * @returns
  */
 export default async function RandomQuestion(opts: {
-  currentQuestionUid: string;
+  identifier: 'slug' | 'uid';
+  currentQuestionSlug: string;
 }) {
-  const { currentQuestionUid } = opts;
+  const { identifier, currentQuestionSlug } = opts;
 
   return (
     <form
       action={async () => {
         'use server';
-        const randomQuestionUid = await getRandomQuestion({
-          currentQuestionUid,
+        const randomQuestion = await getRandomQuestion({
+          identifier,
+          currentQuestionSlug,
         });
-        redirect(`/question/${randomQuestionUid}`);
+
+        console.log('randomQuestion', randomQuestion);
+
+        redirect(`/question/${randomQuestion}`);
       }}
     >
       <Button variant="default" size="icon">

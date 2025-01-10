@@ -1,3 +1,4 @@
+import { getUser } from '@/actions/user/authed/get-user';
 import { prisma } from '@/lib/prisma';
 
 /**
@@ -7,18 +8,17 @@ import { prisma } from '@/lib/prisma';
  * @param opts
  * @returns
  */
-export const getUserAnswer = async (opts: {
-  questionUid: string;
-  userUid: string;
-}) => {
-  const { questionUid, userUid } = opts;
+export const getUserAnswer = async (opts: { questionUid: string }) => {
+  const { questionUid } = opts;
+
+  const user = await getUser();
 
   try {
     // find the answer to the question
     return await prisma.answers.findFirst({
       where: {
         questionUid,
-        userUid,
+        userUid: user?.uid,
       },
     });
   } catch (error) {

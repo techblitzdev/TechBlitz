@@ -12,22 +12,15 @@ import { shortenText } from '@/utils';
 export default async function UserRank(opts: { questionUid: string }) {
   const { questionUid } = opts;
 
-  const userData = await useUserServer();
+  // run this in parallel as they do not depend on each other
+  const [userData, userRank, userAnswer] = await Promise.all([
+    useUserServer(),
+    getUserAnswerRank({ questionUid }),
+    getUserAnswer({ questionUid }),
+  ]);
   if (!userData) return null;
 
   const displayName = getUserDisplayName(userData);
-
-  // run this in parallel as they do not depend on each other
-  const [userRank, userAnswer] = await Promise.all([
-    getUserAnswerRank({
-      questionUid,
-      userUid: userData.uid,
-    }),
-    getUserAnswer({
-      questionUid,
-      userUid: userData.uid,
-    }),
-  ]);
 
   if (!userAnswer) {
     return (

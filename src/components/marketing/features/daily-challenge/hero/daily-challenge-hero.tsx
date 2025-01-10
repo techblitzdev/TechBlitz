@@ -31,7 +31,7 @@ export default async function FeatureDailyChallengeHero() {
             <Button
               variant="default"
               className="flex items-center gap-2"
-              href={`/question/${dailyQuestion?.uid}`}
+              href={`/question/${dailyQuestion?.slug}`}
             >
               Answer today's challenge
             </Button>

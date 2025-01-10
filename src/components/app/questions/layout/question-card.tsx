@@ -22,14 +22,11 @@ export default async function QuestionCard(opts: {
     identifier = 'slug',
   } = opts;
 
-  const questionStats = showSubmissions
-    ? await getQuestionStats(identifier, questionData[identifier] || '')
-    : null;
-
-  // has the user answered this question?
-  const userAnswered = Boolean(
-    await getUserAnswer({ questionUid: questionData.uid })
-  );
+  // get question stats and user answered at the same time
+  const [questionStats, userAnswered] = await Promise.all([
+    getQuestionStats(identifier, questionData[identifier] || ''),
+    getUserAnswer({ questionUid: questionData.uid }),
+  ]);
 
   // if identifier is uid, this is a custom question
   const href =

@@ -28,6 +28,7 @@ import { fetchGithubStars } from '@/utils/data/misc/get-github-stars';
 import { getUserCount } from '@/utils/data/user/get-user-count';
 import { WebPageJsonLd } from '@/types/Seo';
 import { WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import Testimonials from '@/components/marketing/global/testimonials';
 
 const title = 'Learn to code | TechBlitz';
 const description = 'Learning to code made simple';
@@ -131,16 +132,8 @@ export default async function Page() {
         <div className="z-30">
           <div className="container">
             <HomepageHero />
-            <HomepageHeroImages
-              imageSrc={DashboardImg}
-              videoSrc={homepageHeroIframe}
-              videoPoster="https://customer-8s5ov2shcw99ezk2.cloudflarestream.com/e49b63ed5ee42085d838a50928855776/iframe?poster=https%3A%2F%2Fcustomer-8s5ov2shcw99ezk2.cloudflarestream.com%2Fe49b63ed5ee42085d838a50928855776%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600"
-            />
-            <SocialProof
-              userCount={userCount}
-              githubStars={githubStars.stargazers_count}
-              dailyQuestion={dailyQuestion}
-            />
+            <Testimonials />
+
             <FeaturesBentoGrid />
             <HomepageLargeText />
             <ComparisonBlock />

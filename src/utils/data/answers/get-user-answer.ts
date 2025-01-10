@@ -17,16 +17,11 @@ export const getUserAnswer = async (opts: { questionUid: string }) => {
     return false;
   }
 
-  try {
-    // find the answer to the question
-    return await prisma.answers.findFirst({
-      where: {
-        questionUid,
-        userUid: user?.uid,
-      },
-    });
-  } catch (error) {
-    console.error(error);
-    throw new Error('Error getting user answer');
-  }
+  // find the answer to the question
+  return await prisma.answers.findFirst({
+    where: {
+      questionUid,
+      userUid: user?.uid,
+    },
+  });
 };

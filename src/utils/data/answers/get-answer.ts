@@ -12,18 +12,6 @@ export const getAnswer = async (opts: {
 }) => {
   const { questionUid } = opts;
 
-  // check if the user has answered the question
-  // const userHasAnswered = await prisma.answers.findFirst({
-  //   where: {
-  //     userUid,
-  //     questionUid,
-  //   },
-  // });
-
-  // if (!userHasAnswered) {
-  //   throw new Error('User has not answered this question');
-  // }
-
   try {
     // find the answer to the question
     return await prisma.questionAnswers.findFirst({

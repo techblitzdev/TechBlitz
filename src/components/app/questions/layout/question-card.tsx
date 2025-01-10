@@ -10,21 +10,23 @@ export default async function QuestionCard(opts: {
   showSubmissions?: boolean;
   numberOfTags?: number;
   showcaseTag?: string;
+  identifier: 'slug' | 'uid';
 }) {
   const {
     questionData,
     showSubmissions = true,
     numberOfTags = 3,
     showcaseTag,
+    identifier = 'slug',
   } = opts;
 
   const questionStats = showSubmissions
-    ? await getQuestionStats(questionData.uid)
+    ? await getQuestionStats(identifier, questionData[identifier] || '')
     : null;
 
   return (
     <Link
-      href={`/question/${questionData.uid}`}
+      href={`/question/${questionData[identifier]}`}
       key={questionData.uid}
       className="flex flex-col space-y-5 items-start border border-black-50 hover:border-accent duration-300 p-5 rounded-lg group w-full relative overflow-hidden"
     >

@@ -42,7 +42,7 @@ export default async function QuestionSuggestedCard(opts: {
               ? 'bg-[#000] hover:bg-black-100'
               : 'bg-black hover:bg-black-75'
           )}
-          href={`/question/${question.uid}`}
+          href={`/question/${question.slug}`}
         >
           <p className="text-sm font-satoshi line-clamp-1">
             {shortenText(question.question, textLimit)}

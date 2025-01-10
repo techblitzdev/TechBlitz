@@ -84,7 +84,7 @@ export const UserOnboardingContextProvider = ({
     const question = await getTodaysQuestion();
 
     // redirect to the question page
-    router.push(`/question/${question?.uid}`);
+    router.push(`/question/${question?.slug}`);
   };
 
   return (

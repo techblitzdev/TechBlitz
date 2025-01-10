@@ -28,8 +28,15 @@ export default function QuestionCard(opts: {
   nextQuestion?: string;
   isRoadmapQuestion?: boolean;
   index?: number;
+  identifier: 'slug' | 'uid';
 }) {
-  const { user, question, nextQuestion, isRoadmapQuestion = false } = opts;
+  const {
+    user,
+    question,
+    nextQuestion,
+    isRoadmapQuestion = false,
+    identifier,
+  } = opts;
 
   const answerFormRef = useRef<{
     submitForm: () => void;

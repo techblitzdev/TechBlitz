@@ -12,10 +12,10 @@ import { getQuestion } from '@/utils/data/questions/get';
 export default async function QuestionUidLayout({
   children,
   params,
-}: Readonly<{ children: React.ReactNode; params: { uid: string } }>) {
-  const { uid } = params;
+}: Readonly<{ children: React.ReactNode; params: { slug: string } }>) {
+  const { slug } = params;
 
-  const question = await getQuestion(uid);
+  const question = await getQuestion(slug);
 
   return (
     <>
@@ -32,8 +32,8 @@ export default async function QuestionUidLayout({
         </div>
         <div className="flex items-center gap-x-3">
           <CurrentStreak />
-          <RandomQuestion currentQuestionUid={uid} />
-          <FeedbackButton reference={question?.uid} />
+          <RandomQuestion currentQuestionSlug={slug} />
+          <FeedbackButton reference={question?.slug || undefined} />
         </div>
       </div>
       <Separator className="bg-black-50" />

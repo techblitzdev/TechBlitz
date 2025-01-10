@@ -14,17 +14,17 @@ import ResizableLayout from '@/components/ui/resizable-layout';
 export default async function TodaysQuestionPage({
   params,
 }: {
-  params: { uid: string };
+  params: { slug: string };
 }) {
-  const { uid } = params;
+  const { slug } = params;
 
   const user = await useUserServer();
 
   const [question, totalSubmissions, nextQuestion] = await Promise.all([
-    getQuestion(uid),
-    getQuestionStats(uid),
+    getQuestion(slug),
+    getQuestionStats('slug', slug),
     getRandomQuestion({
-      currentQuestionUid: uid,
+      currentQuestionSlug: slug,
     }),
   ]);
 
@@ -65,7 +65,7 @@ export default async function TodaysQuestionPage({
 
       {!question.customQuestion && (
         <div className="min-h-fit bg-black-75 border border-black-50 rounded-xl overflow-hidden">
-          <RelatedQuestions uid={uid} tags={question.tags || []} />
+          <RelatedQuestions slug={slug} tags={question.tags || []} />
         </div>
       )}
 

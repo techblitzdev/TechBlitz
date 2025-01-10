@@ -77,7 +77,7 @@ export function AppSidebar(opts: {
         },
         {
           title: 'Daily Question',
-          url: `/question/${todaysQuestion?.uid}`,
+          url: `/question/${todaysQuestion?.slug}`,
           badge: 'New',
         },
         {
@@ -120,7 +120,7 @@ export function AppSidebar(opts: {
         },
         {
           title: 'Daily Question',
-          url: `/question/${todaysQuestion?.uid}`,
+          url: `/question/${todaysQuestion?.slug}`,
           badge: hasAnsweredDailyQuestion ? '' : 'New',
         },
         {

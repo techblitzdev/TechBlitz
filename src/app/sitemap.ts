@@ -24,7 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const questionsPosts = questions.questions.map((question) => ({
-    url: `${baseUrl}/questions/${question.uid}`,
+    url: `${baseUrl}/questions/${question.slug}`,
     lastModified: new Date(question.createdAt),
   }));
 

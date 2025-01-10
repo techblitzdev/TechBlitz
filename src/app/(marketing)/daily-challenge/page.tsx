@@ -41,7 +41,7 @@ export default async function MarketingQuestionPage() {
 
   // get the total submissions for the question
   const { totalSubmissions } = await getTotalSubmissions({
-    questionUid: question.uid,
+    questionSlug: question.slug || '',
   });
 
   const leftContent = (

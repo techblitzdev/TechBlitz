@@ -126,7 +126,7 @@ export default async function PricingPage() {
           challenges. We aim to improve your skills as a developer by only 10
           minutes a day. You can check today's question{' '}
           <Link
-            href={`/question/${todayQuestion?.uid}`}
+            href={`/question/${todayQuestion?.slug}`}
             className="text-accent"
             target="_blank"
           >

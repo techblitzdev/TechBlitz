@@ -71,9 +71,9 @@ export default function OnboardingStepThree() {
           animate="visible"
         >
           {onboardingQuestions.map((question) => (
-            <motion.div key={question.uid} variants={itemVariants}>
+            <motion.div key={question.slug} variants={itemVariants}>
               <Link
-                href={`/question/${question.uid}`}
+                href={`/question/${question.slug}`}
                 className="block h-full group"
               >
                 <Card className="h-full  transition-colors duration-300 border border-black-50 hover:border-accent">

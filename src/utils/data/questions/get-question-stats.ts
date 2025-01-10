@@ -8,19 +8,24 @@ import { prisma } from '@/lib/prisma';
  * - number of correct submissions
  * - percentage of correct submissions
  *
- * @param questionUid
+ * @param questionSlug
  * @returns
  */
-export const getQuestionStats = async (questionUid: string) => {
+export const getQuestionStats = async (
+  identifier: 'slug' | 'uid',
+  value: string
+) => {
+  const whereClause = identifier === 'slug' ? { slug: value } : { uid: value };
+
   const totalSubmissions = await prisma.answers.count({
     where: {
-      questionUid,
+      question: whereClause,
     },
   });
 
   const totalCorrectSubmissions = await prisma.answers.count({
     where: {
-      questionUid,
+      question: whereClause,
       correctAnswer: true,
     },
   });

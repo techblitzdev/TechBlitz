@@ -3,14 +3,11 @@ import Link from 'next/link';
 
 export default async function RoadmapGenerateButton({
   roadmapUid,
-  userUid
 }: {
   roadmapUid: string;
-  userUid: string;
 }) {
   const generate = await roadmapGenerate({
     roadmapUid,
-    userUid
   });
 
   if (generate.length || generate === 'generated') {

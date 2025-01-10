@@ -7,6 +7,7 @@ import { fetchRoadmapQuestions } from '@/utils/data/roadmap/questions/fetch-road
 import { generateRoadmapResponse } from './utils/generate-roadmap';
 import { revalidateTag } from 'next/cache';
 import { QuestionDifficulty } from '@/types/Questions';
+import { getUser } from '@/actions/user/authed/get-user';
 
 interface RoadmapQuestion {
   uid: string;
@@ -29,21 +30,29 @@ interface RoadmapQuestion {
 
 export const roadmapGenerate = async (opts: {
   roadmapUid: string;
-  // passed in the pass to generate data for ai + fetch questions
-  userUid: string;
   generateMore?: boolean;
 }) => {
   const { roadmapUid } = opts;
   opts.generateMore = opts.generateMore ?? false;
 
+  // get the user
+  const user = await getUser();
+  if (!user || user?.userLevel === 'FREE') {
+    throw new Error('User not found');
+  }
+
   // Retrieve and format the necessary data for AI
-  const formattedData = await generateDataForAi(opts);
+  const formattedData = await generateDataForAi({
+    roadmapUid,
+    userUid: user?.uid,
+    generateMore: opts.generateMore,
+  });
 
   let existingQuestions = [];
   if (formattedData === 'generated' || formattedData === 'invalid') {
     existingQuestions = await fetchRoadmapQuestions({
       roadmapUid,
-      userUid: opts.userUid,
+      userUid: user?.uid,
     });
 
     if (existingQuestions.length === 0) {

@@ -18,7 +18,6 @@ const GenerateMoreQuestionsButton = forwardRef(
       try {
         await roadmapGenerate({
           roadmapUid: roadmap.uid,
-          userUid: roadmap.userUid,
           generateMore: true,
         });
       } catch (error) {

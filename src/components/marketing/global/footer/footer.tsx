@@ -12,14 +12,17 @@ const footerItems = [
       {
         title: 'Roadmaps',
         href: '/features/roadmap',
+        ariaLabel: 'Roadmaps',
       },
       {
         title: 'Daily Challenges',
         href: '/features/daily-challenges',
+        ariaLabel: 'Daily Challenges',
       },
       {
         title: 'Statistics',
         href: '/features/statistics',
+        ariaLabel: 'Statistics',
       },
       // {
       //   title: '',
@@ -37,14 +40,17 @@ const footerItems = [
       {
         title: 'Blog',
         href: '/blog',
+        ariaLabel: 'Blog',
       },
       {
         title: 'Open Source',
         href: '/open-source',
+        ariaLabel: 'Open Source',
       },
       {
         title: 'FAQs',
         href: '/faqs',
+        ariaLabel: 'FAQs',
       },
     ],
   },
@@ -54,6 +60,7 @@ const footerItems = [
       {
         title: 'Plans',
         href: '/pricing',
+        ariaLabel: 'Plans',
       },
     ],
   },
@@ -63,6 +70,7 @@ const footerItems = [
       {
         title: 'Contact Us',
         href: 'mailto:team@techblitz.dev',
+        ariaLabel: 'Contact Us',
       },
     ],
   },
@@ -102,6 +110,7 @@ export default function MarketingFooter() {
                             <Link
                               href={link.href}
                               className="text-sm hover:text-gray-400 duration-300"
+                              aria-label={link.ariaLabel}
                             >
                               {link.title}
                             </Link>

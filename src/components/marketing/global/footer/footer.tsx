@@ -65,6 +65,16 @@ const footerItems = [
     ],
   },
   {
+    title: 'Explore',
+    links: [
+      {
+        title: 'Explore',
+        href: '/questions/explore',
+        ariaLabel: 'Explore',
+      },
+    ],
+  },
+  {
     title: 'Contact',
     links: [
       {
@@ -99,7 +109,7 @@ export default function MarketingFooter() {
                   <ArrowRight className="ml-2 size-4" />
                 </Button>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-4 gap-x-10 gap-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-x-10 gap-y-6">
                 {footerItems.map((item) => (
                   <div key={item.title} className="flex flex-col gap-y-3">
                     <h6 className="font-bold">{item.title}</h6>

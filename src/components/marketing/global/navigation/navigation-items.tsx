@@ -71,73 +71,25 @@ export function NavigationMenuItems() {
       aria-label="Main navigation"
     >
       <NavigationMenuList>
-        {process.env.NEXT_PUBLIC_ENV === 'development' && (
-          <NavigationMenuItem>
-            <NavigationMenuTrigger aria-label="Features menu">
-              Features
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid lg:p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-[.75fr_1fr]">
+        <NavigationMenuItem>
+          <NavigationMenuTrigger aria-label="Features menu">
+            Features
+          </NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+              {features.map((feature) => (
                 <ListItem
-                  href="/features/roadmap"
-                  title="Roadmaps"
-                  aria-label="Navigate to Roadmaps"
+                  key={feature.title}
+                  href={feature.href}
+                  title={feature.title}
+                  aria-label={feature.ariaLabel}
                 >
-                  AI-powered paths to accelerate your learning journey.
+                  {feature.description}
                 </ListItem>
-                <ListItem
-                  href="/features/daily-coding-challenges"
-                  title="Daily Challenges"
-                  aria-label="Navigate to Daily Challenges"
-                >
-                  Tackle daily challenges to sharpen your developer skills.
-                </ListItem>
-                <ListItem
-                  href="/features/leaderboards"
-                  title="Leaderboards"
-                  aria-label="Navigate to Leaderboards"
-                >
-                  Compete with friends and rise to the top.
-                </ListItem>
-                <ListItem
-                  href="/features/"
-                  title="Statistics"
-                  aria-label="Navigate to Statistics"
-                >
-                  Gain insights and track your growth over time.
-                </ListItem>
-                <ListItem
-                  href="/features/daily-coding-challenges"
-                  title="Daily Challenges"
-                  aria-label="Navigate to Daily Challenges"
-                >
-                  Go beyond interviews — master real-world development.
-                </ListItem>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-        )}
-        {process.env.NEXT_PUBLIC_ENV === 'production' && (
-          <NavigationMenuItem>
-            <NavigationMenuTrigger aria-label="Features menu">
-              Features
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                {features.map((feature) => (
-                  <ListItem
-                    key={feature.title}
-                    href={feature.href}
-                    title={feature.title}
-                    aria-label={feature.ariaLabel}
-                  >
-                    {feature.description}
-                  </ListItem>
-                ))}
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-        )}
+              ))}
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuTrigger aria-label="Resources menu">
             Resources
@@ -159,6 +111,17 @@ export function NavigationMenuItems() {
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Link
+            href="/questions/explore"
+            className="!text-white focus:!text-white"
+            aria-label="Navigate to Explore"
+          >
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Explore
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Link
             href="/pricing"
             legacyBehavior
             passHref
@@ -167,18 +130,6 @@ export function NavigationMenuItems() {
           >
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Pricing
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link
-            href="mailto:team@techblitz.dev"
-            legacyBehavior
-            passHref
-            aria-label="Contact us via email"
-          >
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Contact
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>

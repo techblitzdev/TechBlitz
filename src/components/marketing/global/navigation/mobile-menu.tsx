@@ -39,8 +39,8 @@ const menuItems: MenuItem[] = [
       { label: 'FAQs', href: '/faqs' },
     ],
   },
+  { label: 'Explore', href: '/questions/explore' },
   { label: 'Pricing', href: '/pricing' },
-  { label: 'Contact', href: 'mailto:team@techblitz.dev' },
 ];
 
 export function MobileMenu() {

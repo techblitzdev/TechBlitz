@@ -123,7 +123,7 @@ export default async function Page() {
             <HomepageLargeText />
             <ComparisonBlock />
             <OpenSourceBlock />
-            <CallToActionBlock title="The best platform to learn to code" />
+            <CallToActionBlock title="Learn to code for free, forever" />
           </div>
         </div>
       </div>

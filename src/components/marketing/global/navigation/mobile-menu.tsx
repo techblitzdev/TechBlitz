@@ -49,7 +49,6 @@ export function MobileMenu() {
   const pathname = usePathname();
 
   const { user: data } = useUser();
-  const isDevelopment = process.env.NEXT_PUBLIC_ENV === 'development';
   const isLoggedIn = Boolean(data?.email);
 
   useEffect(() => {

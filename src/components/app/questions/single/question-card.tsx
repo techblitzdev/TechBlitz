@@ -25,12 +25,22 @@ export default function QuestionCard(opts: {
   // optional as this is not required to render the card
   user: UserRecord | null;
   question: Question;
+  totalSubmissions?: {
+    totalSubmissions: number;
+    percentageCorrect: number;
+  };
   nextQuestion?: string;
   isRoadmapQuestion?: boolean;
   index?: number;
   identifier: 'slug' | 'uid';
 }) {
-  const { user, question, nextQuestion, isRoadmapQuestion = false } = opts;
+  const {
+    user,
+    question,
+    nextQuestion,
+    isRoadmapQuestion = false,
+    totalSubmissions,
+  } = opts;
 
   const answerFormRef = useRef<{
     submitForm: () => void;
@@ -54,7 +64,7 @@ export default function QuestionCard(opts: {
   );
 
   return (
-    <div className="col-span-full lg:col-span-6 h-fit bg-black-75 border border-black-50 rounded-xl overflow-hidden">
+    <div className="min-h-fit lg:min-h-[45rem] bg-black-75 border border-black-50 rounded-xl flex flex-col overflow-hidden">
       <div className="p-4 w-full flex justify-between bg-black-25 items-center">
         <Chip
           color={getQuestionDifficultyColor(question.difficulty).bg}
@@ -70,8 +80,12 @@ export default function QuestionCard(opts: {
         )}
       </div>
       <Separator className="bg-black-50" />
-      <div className="h-fit bg-black">
-        <QuestionTabs question={question} renderAnswerForm={renderAnswerForm} />
+      <div className="flex-1 bg-black">
+        <QuestionTabs
+          question={question}
+          renderAnswerForm={renderAnswerForm}
+          totalSubmissions={totalSubmissions}
+        />
       </div>
       <Separator className="bg-black-50" />
       <div className="w-full space-y-4 px-4 bg-black">

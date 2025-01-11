@@ -1,28 +1,34 @@
 'use client';
 
 import { useState, ReactNode } from 'react';
-import { BookIcon, BookOpen, FileIcon, FileText } from 'lucide-react';
+import { BarChart, BookIcon, BookOpen, FileIcon, FileText } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
 import { Question } from '@/types/Questions';
 import QuestionResourceTab from '@/components/app/questions/resources/question-resource-tab';
+import QuestionStatsTab from './question-stats-tab';
 
 interface QuestionTabsProps {
   question: Question;
   renderAnswerForm: () => ReactNode;
+  totalSubmissions?: {
+    totalSubmissions: number;
+    percentageCorrect: number;
+  };
 }
 
 export default function QuestionTabs({
   question,
   renderAnswerForm,
+  totalSubmissions,
 }: QuestionTabsProps) {
-  const [activeTab, setActiveTab] = useState<'description' | 'resources'>(
-    'description'
-  );
+  const [activeTab, setActiveTab] = useState<
+    'description' | 'resources' | 'stats'
+  >('description');
 
   return (
     <Tabs defaultValue="description" className="w-full">
-      <TabsList className="h-auto grid w-full grid-cols-2 text-white rounded-none bg-transparent p-4">
+      <TabsList className="h-auto grid w-full grid-cols-3 text-white rounded-none bg-transparent p-4">
         <TabsTrigger
           value="description"
           onClick={() => setActiveTab('description')}
@@ -45,6 +51,10 @@ export default function QuestionTabs({
           )}
           Resources
         </TabsTrigger>
+        <TabsTrigger value="stats" onClick={() => setActiveTab('stats')}>
+          <BarChart className="mr-2 size-4" />
+          Stats
+        </TabsTrigger>
       </TabsList>
       <Separator className="bg-black-50" />
       <TabsContent value="description" className="pt-4">
@@ -63,12 +73,15 @@ export default function QuestionTabs({
       </TabsContent>
       <TabsContent value="resources" className="p-4">
         <h3 className="font-inter font-light text-base md:text-xl">
-          Helpful resources for this question
+          A list of helpful resources to help you answer this question.
         </h3>
         <QuestionResourceTab
           resources={question.QuestionResources}
           reference={question.slug || undefined}
         />
+      </TabsContent>
+      <TabsContent value="stats" className="p-4">
+        <QuestionStatsTab totalSubmissions={totalSubmissions} />
       </TabsContent>
     </Tabs>
   );

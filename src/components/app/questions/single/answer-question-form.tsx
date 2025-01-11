@@ -24,6 +24,7 @@ import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
 import type { Question } from '@/types/Questions';
 import type { UserRecord } from '@/types/User';
 import type { Answer } from '@/types/Answers';
+import { Separator } from '@/components/ui/separator';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
@@ -153,8 +154,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
             </div>
           </div>
         )}
-
-        <div className="grid grid-cols-12 gap-4 p-4 pt-0">
+        <div className="grid grid-cols-12 gap-4 p-4">
           {question?.answers?.map((answer) => (
             <div key={answer.uid} className="col-span-full">
               <FormField
@@ -218,6 +218,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm(
             </div>
           ))}
         </div>
+        {/** TODO: REDESIGN THIS */}
         {newUserData != null && (
           <AnswerQuestionModal
             user={newUserData}

@@ -1,3 +1,5 @@
+'use server';
+
 import { prisma } from '@/lib/prisma';
 /**
  * Method to get questions after the user has selected their tags

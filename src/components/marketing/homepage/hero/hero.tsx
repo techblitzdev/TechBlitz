@@ -9,7 +9,7 @@ export default async function HomepageHero() {
 
   const animatedSpanContent = (
     <div className="flex items-center group">
-      Limited Time Offer: 50% Student Discount - Lock in Lifetime Access Today!
+      50% Student Discount - Lock in Lifetime Access Today!
       <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-all duration-300" />
     </div>
   );
@@ -23,15 +23,12 @@ export default async function HomepageHero() {
         <Link href="/pricing">
           <AnimatedSpan content={animatedSpanContent} />
         </Link>
-        <h1 className="mt-3 text-5xl lg:text-[68px] !font-onest !font-medium tracking-tight max-w-5xl">
-          Learn to code, <br /> faster
+        <h1 className="mt-3 text-5xl lg:text-[68px] !font-onest !font-medium tracking-tight max-w-5xl text-gradient from-white to-white/75 py-1.5">
+          Learning to code <br /> made simple
         </h1>
         <h6 className="font-onest max-w-4xl text-gray-400 text-lg">
-          Improve your coding skills effortlessly, with our short-form,
-          interactive coding challenges.
-          <br />
-          Accelerate your programming knowledge in less than 10 minutes per day,
-          perfect for aspiring developers.
+          Learn to code effortlessly, with our short-form, interactive coding
+          challenges. <br /> Built to boost your coding skills rapidly.
         </h6>
         {dailyQuestion && (
           <div className="mt-3">

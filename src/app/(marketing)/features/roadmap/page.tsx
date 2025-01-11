@@ -115,13 +115,13 @@ const faqs = [
 const featureShowcaseItems: MarketingContentGridProps[] = [
   {
     icon: <Target />,
-    title: 'Beginner-Friendly Learning Path',
+    title: 'Beginner-Friendly Coding Roadmaps',
     description:
       'Start your coding journey with confidence using our beginner-focused roadmaps. Progress from basic concepts to advanced skills at your own pace.',
   },
   {
     icon: <BookOpen />,
-    title: 'Free Coding Resources',
+    title: 'Free Coding Challenges',
     description:
       'Access a wealth of free programming tutorials, guides, and interactive lessons. Perfect for self-paced learning and skill development.',
   },
@@ -200,7 +200,7 @@ export default function FeatureDailyQuestionPage() {
         />
         <FAQsBlock faqs={faqs} />
         <CallToActionBlock
-          title="Personalized coding for everyone."
+          title="Learning to code made easy."
           description="Create your own progression path with our personalized roadmaps, designed to help you grow as a developer."
           leftCta={{
             title: 'Get Started',

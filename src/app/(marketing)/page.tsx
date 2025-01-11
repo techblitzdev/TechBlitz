@@ -8,7 +8,7 @@ const FeaturesBentoGrid = dynamic(
 );
 
 const HomepageLargeText = dynamic(
-  () => import('@/components/marketing/large-text'),
+  () => import('@/components/marketing/global/large-text'),
   { ssr: false }
 );
 import ComparisonBlock from '@/components/marketing/homepage/comparison/comparison-block';

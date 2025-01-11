@@ -4,12 +4,15 @@ import StarsBackground from '@/components/ui/stars-background';
 import Link from 'next/link';
 import { UserOnboardingContextProvider } from '@/components/app/onboarding/onboarding-context';
 import OnboardingForm from '@/components/app/onboarding/onboarding-form';
+import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 
 export const metadata = {
   title: 'Onboarding | TechBlitz',
 };
 
-export default function OnboardingPage() {
+export default async function OnboardingPage() {
+  const dailyQuestion = await getTodaysQuestion();
+
   return (
     <div className="relative container">
       <StarsBackground className="-z-10" />
@@ -17,7 +20,7 @@ export default function OnboardingPage() {
         <Link href="/" className="pl-0 md:pl-8 p-8 pb-0 flex justify-center">
           <Logo />
         </Link>
-        <UserOnboardingContextProvider>
+        <UserOnboardingContextProvider dailyQuestion={dailyQuestion}>
           <div className="flex-1 flex items-center justify-center">
             <OnboardingForm />
           </div>

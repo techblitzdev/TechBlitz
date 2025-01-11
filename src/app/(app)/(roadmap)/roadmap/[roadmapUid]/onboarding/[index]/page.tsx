@@ -7,7 +7,7 @@ import OnboardingQuestionCard from '@/components/app/roadmaps/onboarding/onboard
 import { redirect } from 'next/navigation';
 import { checkIfUserIsOnCorrectQuestionIndex } from '@/utils/data/roadmap/questions/check-user-is-on-correct-index';
 import LoadingSpinner from '@/components/ui/loading';
-import ExpandedCodeModal from '@/components/app/questions/expanded-code-modal';
+import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal';
 
 export default async function RoadmapQuestionPage({
   params,

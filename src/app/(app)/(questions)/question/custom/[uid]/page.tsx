@@ -7,7 +7,7 @@ import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
 import { useUserServer } from '@/hooks/use-user-server';
 import QuestionCard from '@/components/app/questions/single/question-card';
 import { getRandomQuestion } from '@/utils/data/questions/get-random';
-import ExpandedCodeModal from '@/components/app/questions/expanded-code-modal';
+import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal';
 import RelatedQuestions from '@/components/app/questions/single/related-question-card';
 import ResizableLayout from '@/components/ui/resizable-layout';
 

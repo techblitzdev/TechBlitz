@@ -2,52 +2,51 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidateTag } from 'next/cache';
-import { getUserFromSession } from './get-user';
+import { getUser } from './get-user';
 import { UpdatableUserFields } from '@/types/User';
 
 export const updateUser = async (opts: {
   userDetails: Partial<UpdatableUserFields>;
 }) => {
-  try {
-    const { userDetails } = opts;
+  console.log('updateUser', opts);
 
-    console.log('Received update request');
-    console.log('Raw userDetails:', JSON.stringify(userDetails, null, 2));
+  const { userDetails } = opts;
 
-    if (!userDetails) {
-      throw new Error('User data is required');
-    }
-
-    // Get the user details from the session
-    const sessionResult = await getUserFromSession();
-
-    // Ensure we have a valid user ID
-    if (!sessionResult?.data?.user?.id) {
-      throw new Error('No user found in session');
-    }
-
-    // Clean up the userDetails to remove any undefined or null values
-    const cleanedUserDetails = Object.fromEntries(
-      Object.entries(userDetails).filter(
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        ([_, v]) => v !== undefined && v !== null
-      )
-    );
-
-    // Update the user in the database
-    const updatedUser = await prisma.users.update({
-      where: {
-        uid: sessionResult.data.user.id,
-      },
-      data: cleanedUserDetails,
-    });
-
-    // Revalidate the user details cache
-    revalidateTag('user-details');
-
-    return updatedUser;
-  } catch (error) {
-    console.error('Error in updateUser:', error);
-    throw error;
+  if (!userDetails) {
+    throw new Error('User data is required');
   }
+
+  // Get the user details from the session
+  const user = await getUser();
+
+  // Ensure we have a valid user ID
+  if (!user?.uid) {
+    throw new Error('No user found in session');
+  }
+
+  // Clean up the userDetails to remove any undefined or null values
+  const cleanedUserDetails = Object.fromEntries(
+    Object.entries(userDetails).filter(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      ([_, v]) => v !== undefined && v !== null
+    )
+  );
+
+  // Ensure codeEditorTheme is included if provided
+  if (userDetails.codeEditorTheme !== undefined) {
+    cleanedUserDetails.codeEditorTheme = userDetails.codeEditorTheme;
+  }
+
+  // Update the user in the database
+  const updatedUser = await prisma.users.update({
+    where: {
+      uid: user.uid,
+    },
+    data: cleanedUserDetails,
+  });
+
+  // Revalidate the user details cache
+  revalidateTag('user-details');
+
+  return updatedUser;
 };

@@ -1,15 +1,15 @@
 import { getQuestion } from '@/utils/data/questions/get';
 import { Separator } from '@/components/ui/separator';
 import NoDailyQuestion from '@/components/global/no-daily-question';
-import QuestionDisplay from '@/components/app/questions/single/code-snippet';
+import CodeDisplay from '@/components/app/questions/single/code-snippet';
 import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
 import { useUserServer } from '@/hooks/use-user-server';
 import QuestionCard from '@/components/app/questions/single/question-card';
 import { getRandomQuestion } from '@/utils/data/questions/get-random';
-import ExpandedCodeModal from '@/components/app/questions/expanded-code-modal';
+import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal';
 import ResizableLayout from '@/components/ui/resizable-layout';
-import EditorIcon from '@/components/ui/icons/editor';
-import AiQuestionHelp from '@/components/app/questions/ai-question-help';
+import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help';
+import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
 
 export default async function TodaysQuestionPage({
   params,
@@ -55,7 +55,7 @@ export default async function TodaysQuestionPage({
           {/** explain question ai button */}
           <AiQuestionHelp question={question} user={user} />
           {/** code theme selector */}
-          <EditorIcon />
+          <ChangeCodeTheme user={user} />
           {/** code snippet */}
           {question.codeSnippet && (
             <ExpandedCodeModal code={question.codeSnippet} />
@@ -63,9 +63,10 @@ export default async function TodaysQuestionPage({
         </div>
         <Separator className="bg-black-50" />
         {question?.codeSnippet && (
-          <QuestionDisplay
+          <CodeDisplay
             content={question.codeSnippet}
             backgroundColor="#111111"
+            user={user}
           />
         )}
       </div>

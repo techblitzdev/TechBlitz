@@ -1,7 +1,7 @@
 import { getTotalSubmissions } from '@/actions/demo/get-total-submissions';
 import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 import QuestionCard from '@/components/marketing/question/question-card';
-import ExpandedCodeModal from '@/components/app/questions/expanded-code-modal';
+import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal';
 import { Separator } from '@/components/ui/separator';
 import { ChartColumn, User } from 'lucide-react';
 import QuestionDisplay from '@/components/app/questions/single/code-snippet';

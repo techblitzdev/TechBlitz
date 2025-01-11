@@ -1,4 +1,3 @@
-import { Separator } from '@/components/ui/separator';
 import { Check, User } from 'lucide-react';
 
 export default function QuestionStatsTab(opts: {

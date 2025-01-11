@@ -24,7 +24,6 @@ import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
 import type { Question } from '@/types/Questions';
 import type { UserRecord } from '@/types/User';
 import type { Answer } from '@/types/Answers';
-import { Separator } from '@/components/ui/separator';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {

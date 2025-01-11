@@ -231,7 +231,7 @@ export default function FeatureDailyQuestionPage() {
         <MarketingContentGrid title="Learn to code, faster." items={items} />
         <FAQsBlock faqs={faqs} />
         <CallToActionBlock
-          title="The fastest way to master coding."
+          title="Learning to code made simple."
           description="Daily coding challenges designed to make you a better developer, faster."
         />
       </div>

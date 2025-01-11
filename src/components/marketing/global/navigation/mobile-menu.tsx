@@ -49,7 +49,6 @@ export function MobileMenu() {
   const pathname = usePathname();
 
   const { user: data } = useUser();
-  const isDevelopment = process.env.NEXT_PUBLIC_ENV === 'development';
   const isLoggedIn = Boolean(data?.email);
 
   useEffect(() => {
@@ -192,29 +191,16 @@ export function MobileMenu() {
                 >
                   Login
                 </Button>
-                {isDevelopment ? (
-                  <Button
-                    href="/signup"
-                    variant="accent"
-                    className="w-full font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
-                    onClick={() => setIsOpen(false)}
-                    aria-label="Get started link"
-                  >
-                    Get Started
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                ) : (
-                  <Button
-                    variant="accent"
-                    href="#waitlist-form"
-                    className="w-full font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
-                    onClick={() => setIsOpen(false)}
-                    aria-label="Join the waitlist link"
-                  >
-                    Join the Waitlist
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                )}
+                <Button
+                  href="/signup"
+                  variant="accent"
+                  className="w-full font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+                  onClick={() => setIsOpen(false)}
+                  aria-label="Get started link"
+                >
+                  Get Started
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
               </>
             )}
           </div>

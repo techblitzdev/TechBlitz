@@ -20,7 +20,10 @@ export default function QuestionCardFooter(opts: {
       {questionTags && (
         <>
           <Separator className="bg-black w-full" />
-          <div className="p-4 w-full flex flex-col md:flex-row gap-3 justify-between md:items-center bg-black-100">
+          <div
+            id="question-card-footer"
+            className="p-4 w-full flex flex-col md:flex-row gap-3 justify-between md:items-center bg-black-100"
+          >
             <TagDisplay tags={questionTags} variant="secondary" />
             <div className="flex items-center gap-4 md:self-end">
               <Button

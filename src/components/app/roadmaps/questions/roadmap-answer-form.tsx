@@ -235,7 +235,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
                           <CodeDisplay
                             content={answer.answer}
                             language="javascript"
-                            hideIndex={true}
+                            hideIndex
                             backgroundColor="transparent"
                           />
                         ) : (

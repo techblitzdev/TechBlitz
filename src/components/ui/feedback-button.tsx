@@ -37,7 +37,8 @@ export default function FeedbackButton({
       <PopoverTrigger asChild>
         <Button
           variant={showText ? 'default' : 'ghost'}
-          className="flex items-center gap-2 p-2"
+          className="items-center gap-2 p-2"
+          wrapperClassName="hidden sm:flex"
         >
           <ChatBubbleIcon className="size-4" />
           {showText && <p className="text-sm hidden md:block">Feedback</p>}

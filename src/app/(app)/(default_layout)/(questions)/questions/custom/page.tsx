@@ -46,8 +46,7 @@ export default async function CustomQuestionsPage({
               user={user}
               currentPage={filters.page}
               filters={filters}
-              customQuestions={true}
-              previousQuestions={false}
+              customQuestions
               showSubmissions={false}
               paginationUrl="/questions/custom"
             />

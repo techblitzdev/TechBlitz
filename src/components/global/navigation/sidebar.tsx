@@ -53,6 +53,7 @@ import type { SidebarItemType } from '@/types/Sidebar';
 import { useMemo } from 'react';
 import { UserRecord } from '@/types/User';
 import { Question } from '@/types/Questions';
+import { Badge } from '@/components/ui/badge';
 
 export function AppSidebar(opts: {
   user: UserRecord | null;
@@ -115,7 +116,12 @@ export function AppSidebar(opts: {
           url: '/questions',
         },
         {
-          title: 'Explore',
+          title: (
+            <>
+              Explore
+              <Badge className="bg-accent text-xs text-white">New!</Badge>
+            </>
+          ),
           url: '/questions/explore',
         },
         {

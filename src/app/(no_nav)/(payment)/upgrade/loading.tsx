@@ -44,7 +44,7 @@ export default async function Loading() {
                 user={null}
                 key={product.id}
                 product={product}
-                isLoading={true}
+                isLoading
                 billingPeriod="month"
               />
             ))}

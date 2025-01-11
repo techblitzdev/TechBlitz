@@ -47,7 +47,7 @@ export default async function StatisticsReportContent({
           <StatsReportCardMenu
             reportUid={report.uid}
             redirect="/statistics/reports"
-            triggerBackground={true}
+            triggerBackground
           />
         </div>
       </div>

@@ -18,8 +18,7 @@ import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import { UserRecord } from '@/types/User';
 import { Question } from '@/types/Questions';
 
-// hooks
-import { useStopwatch } from 'react-timer-hook';
+import { useQuestionSingle } from './layout/question-single-context';
 
 export default function QuestionCard(opts: {
   // optional as this is not required to render the card
@@ -42,20 +41,15 @@ export default function QuestionCard(opts: {
     totalSubmissions,
   } = opts;
 
+  const { pause, reset, totalSeconds } = useQuestionSingle();
+
   const answerFormRef = useRef<{
     submitForm: () => void;
     resetForm: () => void;
   }>(null);
 
-  const { pause, reset, totalSeconds } = useStopwatch({
-    autoStart: true,
-  });
-
   const renderAnswerForm = () => (
     <AnswerQuestionForm
-      ref={answerFormRef}
-      userData={user}
-      question={question}
       stopwatchPause={pause}
       time={totalSeconds}
       nextQuestion={nextQuestion}

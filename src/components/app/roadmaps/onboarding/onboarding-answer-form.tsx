@@ -172,7 +172,7 @@ const OnboardingRoadmapAnswerQuestionForm = forwardRef(
                             <CodeDisplay
                               content={answer.answer}
                               language="javascript"
-                              hideIndex={true}
+                              hideIndex
                               backgroundColor="transparent"
                             />
                           ) : (

@@ -167,7 +167,7 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
                           <CodeDisplay
                             content={answer.answer}
                             language="javascript"
-                            hideIndex={true}
+                            hideIndex
                             backgroundColor="transparent"
                           />
                         ) : (

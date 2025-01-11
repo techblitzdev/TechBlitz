@@ -15,7 +15,7 @@ export default function RootLayout({
       <html lang="en">
         <body
           className={`${InterFont.variable} ${SatoshiFont.variable} ${UbuntuFont.variable} ${OnestFont.variable} antialiased`}
-          suppressHydrationWarning={true}
+          suppressHydrationWarning
         >
           {children}
         </body>

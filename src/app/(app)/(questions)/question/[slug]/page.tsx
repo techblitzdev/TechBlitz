@@ -34,7 +34,7 @@ export default async function TodaysQuestionPage({
   }
 
   const leftContent = (
-    <div className="flex flex-col gap-y-4 p-6 pr-3">
+    <div className="flex flex-col gap-y-4 p-3 lg:p-6 lg:pr-3">
       <QuestionCard
         question={question}
         totalSubmissions={totalSubmissions}
@@ -46,7 +46,7 @@ export default async function TodaysQuestionPage({
   );
 
   const rightContent = (
-    <div className="flex flex-col gap-4 p-6 pl-3">
+    <div className="flex flex-col gap-4 p-3 lg:p-6 lg:pl-3">
       <div
         id="code-snippet"
         className="h-fit lg:h-[45rem] bg-black-75 border border-black-50 rounded-xl relative overflow-hidden"

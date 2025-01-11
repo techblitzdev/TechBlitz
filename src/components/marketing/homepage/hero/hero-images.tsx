@@ -66,7 +66,7 @@ const HomepageHeroImages: FC<HomepageHeroImagesProps> = ({
           src={imageSrc}
           fill
           alt="Dashboard preview"
-          priority={true}
+          priority
           style={{ objectFit: 'cover' }}
           loading="eager"
         />
@@ -104,7 +104,7 @@ const HomepageHeroImages: FC<HomepageHeroImagesProps> = ({
             width: '100%',
           }}
           allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-          allowFullScreen={true}
+          allowFullScreen
         ></iframe>
       </div>
 

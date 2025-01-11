@@ -37,7 +37,7 @@ export default async function RoadmapOnboardingModal() {
   };
 
   return (
-    <Dialog open={true}>
+    <Dialog open>
       <DialogContent
         className="bg-black-75 md:max-w-xl"
         showCloseButton={false}

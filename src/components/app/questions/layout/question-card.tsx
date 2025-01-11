@@ -4,10 +4,28 @@ import TagDisplay from '@/components/app/questions/previous/tag-display';
 import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
 import Link from 'next/link';
 import Chip from '@/components/ui/chip';
-//import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
-//import { CheckCircle } from 'lucide-react';
+import { Suspense } from 'react';
 
-export default async function QuestionCard(opts: {
+// separate async component for stats to avoid blocking render
+async function QuestionStats({
+  identifier,
+  value,
+}: {
+  identifier: 'slug' | 'uid';
+  value: string;
+}) {
+  const stats = await getQuestionStats(identifier, value);
+  return (
+    <div className="text-start text-[10px]">
+      <p className="font-ubuntu text-sm">
+        Submissions:{' '}
+        <span className="font-medium">{stats.totalSubmissions}</span>
+      </p>
+    </div>
+  );
+}
+
+export default function QuestionCard(opts: {
   questionData: QuestionWithoutAnswers;
   showSubmissions?: boolean;
   numberOfTags?: number;
@@ -23,12 +41,6 @@ export default async function QuestionCard(opts: {
     identifier = 'slug',
     customQuestion = false,
   } = opts;
-
-  // get question stats and user answered at the same time
-  const [questionStats] = await Promise.all([
-    getQuestionStats(identifier, questionData[identifier] || ''),
-    //getUserAnswer({ questionUid: questionData.uid }),
-  ]);
 
   // if identifier is uid, this is a custom question
   const href =
@@ -49,14 +61,18 @@ export default async function QuestionCard(opts: {
           </h6>
         </div>
         {showSubmissions && (
-          <div className="text-start text-[10px]">
-            <p className="font-ubuntu text-sm">
-              Submissions:{' '}
-              <span className="font-medium">
-                {questionStats?.totalSubmissions}
-              </span>
-            </p>
-          </div>
+          <Suspense
+            fallback={
+              <div className="text-start text-[10px]">
+                <p className="font-ubuntu text-sm">Loading stats...</p>
+              </div>
+            }
+          >
+            <QuestionStats
+              identifier={identifier}
+              value={questionData[identifier] || ''}
+            />
+          </Suspense>
         )}
       </div>
       <div className="mt-5 w-full flex justify-between items-end z-10 relative">

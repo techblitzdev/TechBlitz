@@ -72,7 +72,7 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
           before:absolute before:inset-x-0 lg:before:inset-y-0 before:h-3 lg:before:h-auto 
           before:-top-1 lg:before:top-0 lg:before:-left-1 before:w-full lg:before:w-3 
           before:cursor-row-resize lg:before:cursor-col-resize
-          after:absolute after:left-1/2 after:top-[45%] after:-translate-x-1/2 after:-translate-y-1/2
+          after:absolute after:left-1/2 after:top-1/2 after:-translate-x-1/2 after:-translate-y-1/2
           after:w-24 lg:after:w-[3px] after:h-[3px] lg:after:h-24 
           after:rounded-full after:bg-black-50 after:transition-all
           hover:after:bg-black-25 hover:after:w-32 lg:hover:after:w-[3px] 

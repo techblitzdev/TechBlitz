@@ -94,7 +94,7 @@ export default function QuestionCard(opts: {
         </div>
       </div>
       <Separator className="bg-black-50" />
-      <div className="flex-1 bg-black">
+      <div className="flex-1 bg-black overflow-y-scroll">
         {currentLayout === 'questions' && (
           <QuestionTabs
             question={question}

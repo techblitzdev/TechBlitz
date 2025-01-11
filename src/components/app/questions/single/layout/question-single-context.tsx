@@ -28,6 +28,8 @@ type QuestionSingleContextType = {
   totalSeconds: number;
   currentLayout: 'questions' | 'codeSnippet';
   setCurrentLayout: (layout: 'questions' | 'codeSnippet') => void;
+  customQuestion: boolean;
+  setCustomQuestion: (customQuestion: boolean) => void;
 };
 
 export const QuestionSingleContext = createContext<QuestionSingleContextType>(
@@ -62,6 +64,7 @@ export const QuestionSingleContextProvider = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
   const [timeTaken, setTimeTaken] = useState<number>(0);
+  const [customQuestion, setCustomQuestion] = useState(false);
 
   // this determines if the code snippet or question is shown in the question card on mobile
   // on button click, it acts as a toggle
@@ -156,6 +159,8 @@ export const QuestionSingleContextProvider = ({
         totalSeconds,
         currentLayout,
         setCurrentLayout,
+        customQuestion,
+        setCustomQuestion,
       }}
     >
       {children}

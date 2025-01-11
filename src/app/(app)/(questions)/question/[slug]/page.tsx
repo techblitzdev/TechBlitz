@@ -53,7 +53,7 @@ export default async function TodaysQuestionPage({
       >
         <div className="p-4 text-sm flex w-full items-center justify-end bg-black-25 gap-x-3">
           {/** explain question ai button */}
-          <AiQuestionHelp question={question} />
+          <AiQuestionHelp question={question} user={user} />
           {/** code theme selector */}
           <EditorIcon />
           {/** code snippet */}

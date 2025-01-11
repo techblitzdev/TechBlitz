@@ -1,6 +1,7 @@
 'use server';
 import { prisma } from '@/lib/prisma';
 import { createClient as createServerClient } from '@/utils/supabase/server';
+import { revalidateTag } from 'next/cache';
 
 /**
  * Logs the user into the application
@@ -67,7 +68,7 @@ export const login = async (opts: { email: string; password: string }) => {
       });
     }
 
-    console.log('User logged in', user);
+    revalidateTag('user-details');
 
     return user.user;
   } catch (error) {

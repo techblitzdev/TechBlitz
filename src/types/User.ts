@@ -27,6 +27,9 @@ export interface User extends BaseRecord {
 
   /** the user's code editor theme */
   codeEditorTheme?: string;
+
+  /** the number of ai question help tokens the user has */
+  aiQuestionHelpTokens?: number;
 }
 
 export type UserRecord = Pick<
@@ -46,6 +49,7 @@ export type UserRecord = Pick<
   | 'showTimeTaken'
   | 'sendPushNotifications'
   | 'codeEditorTheme'
+  | 'aiQuestionHelpTokens'
 >;
 
 // First, create a type that excludes 'uid' from the partial requirement

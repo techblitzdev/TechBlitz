@@ -16,6 +16,9 @@ const PROMPT_NAMES = [
 
   // CLAUDE
   'claude-ai-first-pass',
+
+  // QUESTION HELP
+  'ai-question-generation-help',
 ] as const;
 
 export type PromptName = (typeof PROMPT_NAMES)[number];

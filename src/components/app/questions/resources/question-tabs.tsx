@@ -1,7 +1,14 @@
 'use client';
 
 import { useState, ReactNode } from 'react';
-import { BarChart, BookIcon, BookOpen, FileIcon, FileText } from 'lucide-react';
+import {
+  BarChart,
+  BookIcon,
+  BookOpen,
+  FileIcon,
+  FileText,
+  PieChart,
+} from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
 import { Question } from '@/types/Questions';
@@ -52,7 +59,11 @@ export default function QuestionTabs({
           Resources
         </TabsTrigger>
         <TabsTrigger value="stats" onClick={() => setActiveTab('stats')}>
-          <BarChart className="mr-2 size-4" />
+          {activeTab === 'stats' ? (
+            <BarChart className="mr-2 size-4" />
+          ) : (
+            <PieChart className="mr-2 size-4" />
+          )}
           Stats
         </TabsTrigger>
       </TabsList>

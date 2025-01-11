@@ -15,7 +15,13 @@ export async function generateMetadata() {
   });
 }
 
-export default function LoginPage() {
+export default function LoginPage({
+  searchParams,
+}: {
+  searchParams: { redirectUrl: string; onboarding: string };
+}) {
+  const { redirectUrl, onboarding } = searchParams;
+
   return (
     <div
       className="border border-black-50 p-8 rounded-xl space-y-4 text-center"
@@ -28,7 +34,7 @@ export default function LoginPage() {
       <p className="text-gray-300 mb-8 text-sm font-satoshi text-wrap">
         Sign in to your account to continue.
       </p>
-      <LoginForm />
+      <LoginForm redirectUrl={redirectUrl} onboarding={onboarding} />
     </div>
   );
 }

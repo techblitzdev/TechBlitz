@@ -97,10 +97,10 @@ export default async function QuestionUidLayout({
               </div>
             )}
           </div>
-          <div className="col-span-7 lg:col-span-4 flex items-center gap-x-3 justify-center">
+          <div className="col-span-7 lg:col-span-4 flex items-center justify-center">
             <QuestionActionButtons />
           </div>
-          <div className="col-span-3 lg:col-span-4 flex items-center gap-x-3 justify-end">
+          <div className="col-span-3 lg:col-span-4 flex items-center gap-x-1 md:gap-x-3 justify-end">
             <CurrentStreak />
             <RandomQuestion identifier="slug" currentQuestionSlug={slug} />
             <FeedbackButton reference={question?.slug || undefined} />

@@ -116,6 +116,7 @@ export const QuestionSingleContextProvider = ({
   };
 
   const resetQuestionState = () => {
+    reset();
     setCorrectAnswer('init');
     setUserAnswer(null);
     setNewUserData(null);

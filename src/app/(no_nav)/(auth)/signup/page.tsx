@@ -57,7 +57,7 @@ export default async function SignupPage() {
   return (
     <div className="flex min-h-screen items-center overflow-hidden">
       {/* left side - Sign up form */}
-      <div className="w-full xl:w-1/2 flex items-center justify-center p-8">
+      <div className="w-full xl:w-1/2 flex items-center justify-center lg:p-8">
         <div className="w-full max-w-lg space-y-6 bg-black/50 backdrop-blur-sm border border-black-50 rounded-xl p-8 shadow-xl place-items-center">
           <div className="text-center">
             <h1 className="font-bold text-3xl mb-2">Get started for free</h1>

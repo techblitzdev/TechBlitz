@@ -13,7 +13,7 @@ export default function AuthLayout({
       <Link href="/" className="absolute top-8 left-8">
         <Logo />
       </Link>
-      <div className="container text-white h-screen flex items-center justify-center">
+      <div className="md:container text-white h-screen flex items-center justify-center">
         {children}
       </div>
     </div>

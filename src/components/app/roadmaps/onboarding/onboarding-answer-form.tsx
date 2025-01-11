@@ -22,7 +22,7 @@ import { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
 import { cn } from '@/lib/utils';
 import { answerDefaultRoadmapQuestion } from '@/actions/roadmap/questions/default/answer-roadmap-question';
 import AnswerSubmittedForm from '../answer-submitted-form';
-import CodeDisplay from '../../questions/single/code-snippet';
+import CodeDisplay from '../../questions/single/layout/code-snippet';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {

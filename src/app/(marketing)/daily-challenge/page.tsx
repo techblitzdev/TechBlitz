@@ -4,7 +4,7 @@ import QuestionCard from '@/components/marketing/question/question-card';
 import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal';
 import { Separator } from '@/components/ui/separator';
 import { ChartColumn, User } from 'lucide-react';
-import QuestionDisplay from '@/components/app/questions/single/code-snippet';
+import QuestionDisplay from '@/components/app/questions/single/layout/code-snippet';
 import FeedbackButton from '@/components/ui/feedback-button';
 import { createMetadata } from '@/utils/seo';
 

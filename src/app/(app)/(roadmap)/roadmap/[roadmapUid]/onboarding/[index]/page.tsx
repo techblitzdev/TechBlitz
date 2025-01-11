@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/use-user-server';
-import QuestionDisplay from '@/components/app/questions/single/code-snippet';
+import QuestionDisplay from '@/components/app/questions/single/layout/code-snippet';
 import { fetchRoadmapQuestionViaOrder } from '@/utils/data/roadmap/questions/fetch-roadmap-question-via-order';
 import OnboardingQuestionCard from '@/components/app/roadmaps/onboarding/onboarding-question-card';
 import { redirect } from 'next/navigation';

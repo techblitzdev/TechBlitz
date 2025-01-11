@@ -1,11 +1,11 @@
 import { getQuestion } from '@/utils/data/questions/get';
 import { Separator } from '@/components/ui/separator';
 import NoDailyQuestion from '@/components/global/no-daily-question';
-import QuestionDisplay from '@/components/app/questions/single/code-snippet';
+import QuestionDisplay from '@/components/app/questions/single/layout/code-snippet';
 import { BarChartIcon as ChartColumn, Check, User } from 'lucide-react';
 import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
 import { useUserServer } from '@/hooks/use-user-server';
-import QuestionCard from '@/components/app/questions/single/question-card';
+import QuestionCard from '@/components/app/questions/single/layout/question-card';
 import { getRandomQuestion } from '@/utils/data/questions/get-random';
 import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal';
 import RelatedQuestions from '@/components/app/questions/single/related-question-card';

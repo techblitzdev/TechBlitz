@@ -5,7 +5,7 @@ import { useRef } from 'react';
 // components
 import Chip from '@/components/ui/chip';
 import { Separator } from '@/components/ui/separator';
-import QuestionCardFooter from '@/components/app/questions/single/question-card-footer';
+import QuestionCardFooter from '@/components/app/questions/single/layout/question-card-footer';
 import Stopwatch from '@/components/app/questions/single/stopwatch';
 import QuestionHintAccordion from '@/components/app/questions/single/question-hint';
 import QuestionTabs from '@/components/app/questions/resources/question-tabs';
@@ -18,7 +18,9 @@ import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import { UserRecord } from '@/types/User';
 import { Question } from '@/types/Questions';
 
-import { useQuestionSingle } from './layout/question-single-context';
+import { useQuestionSingle } from './question-single-context';
+import { Button } from '@/components/ui/button';
+import CodeDisplay from './code-snippet';
 
 export default function QuestionCard(opts: {
   // optional as this is not required to render the card
@@ -41,7 +43,8 @@ export default function QuestionCard(opts: {
     totalSubmissions,
   } = opts;
 
-  const { pause, reset, totalSeconds } = useQuestionSingle();
+  const { pause, reset, totalSeconds, currentLayout, setCurrentLayout } =
+    useQuestionSingle();
 
   const answerFormRef = useRef<{
     submitForm: () => void;
@@ -57,29 +60,51 @@ export default function QuestionCard(opts: {
     />
   );
 
+  const toggleLayout = () => {
+    setCurrentLayout(
+      currentLayout === 'questions' ? 'codeSnippet' : 'questions'
+    );
+  };
+
   return (
-    <div className="min-h-fit lg:min-h-[45rem] bg-black-75 border border-black-50 rounded-xl flex flex-col overflow-hidden">
-      <div className="p-4 w-full flex justify-between bg-black-25 items-center">
-        <Chip
-          color={getQuestionDifficultyColor(question.difficulty).bg}
-          text={capitalise(question.difficulty)}
-          textColor={getQuestionDifficultyColor(question.difficulty).text}
-          border={getQuestionDifficultyColor(question.difficulty).border}
-        />
-        <a href="#code-snippet" className="text-xs block md:hidden">
-          (Tap to see code snippet)
-        </a>
-        {user && user?.showTimeTaken && !isRoadmapQuestion && (
-          <Stopwatch totalSeconds={totalSeconds} />
-        )}
+    <div className="h-full bg-black-75 border border-black-50 rounded-xl flex flex-col overflow-hidden">
+      <div className="p-2 lg:p-4 w-full flex flex-col gap-2 md:flex-row justify-between bg-black-25 md:items-center">
+        <div className="w-fit">
+          <Chip
+            color={getQuestionDifficultyColor(question.difficulty).bg}
+            text={capitalise(question.difficulty)}
+            textColor={getQuestionDifficultyColor(question.difficulty).text}
+            border={getQuestionDifficultyColor(question.difficulty).border}
+          />
+        </div>
+        <div className="flex flex-wrap gap-2 justify-between items-center">
+          <Button
+            variant="ghost"
+            onClick={toggleLayout}
+            className="text-xs block lg:hidden"
+            padding="none"
+          >
+            {currentLayout === 'questions'
+              ? '(Tap to view code snippet)'
+              : '(Tap to view question)'}
+          </Button>
+          {user && user?.showTimeTaken && !isRoadmapQuestion && (
+            <Stopwatch totalSeconds={totalSeconds} />
+          )}
+        </div>
       </div>
       <Separator className="bg-black-50" />
       <div className="flex-1 bg-black">
-        <QuestionTabs
-          question={question}
-          renderAnswerForm={renderAnswerForm}
-          totalSubmissions={totalSubmissions}
-        />
+        {currentLayout === 'questions' && (
+          <QuestionTabs
+            question={question}
+            renderAnswerForm={renderAnswerForm}
+            totalSubmissions={totalSubmissions}
+          />
+        )}
+        {currentLayout === 'codeSnippet' && question.codeSnippet && (
+          <CodeDisplay content={question.codeSnippet} user={user} />
+        )}
       </div>
       <Separator className="bg-black-50" />
       <div className="w-full space-y-4 px-4 bg-black">

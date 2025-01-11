@@ -23,7 +23,7 @@ import { Separator } from '@/components/ui/separator';
 import QuestionHintAccordion from '@/components/app/questions/single/question-hint';
 import LoadingSpinner from '@/components/ui/loading';
 import { Button } from '@/components/ui/button';
-import CodeDisplay from '../../questions/single/code-snippet';
+import CodeDisplay from '../../questions/single/layout/code-snippet';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 

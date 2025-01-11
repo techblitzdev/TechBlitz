@@ -51,7 +51,7 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
   return (
     <div
       ref={containerRef}
-      className="flex flex-col lg:flex-row w-full overflow-hidden"
+      className="flex flex-col lg:flex-row w-full overflow-hidden lg:h-[calc(100vh-4rem)]"
     >
       <div
         className="w-full lg:w-[var(--left-width)] overflow-y-auto"

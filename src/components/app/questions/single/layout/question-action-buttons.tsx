@@ -9,6 +9,8 @@ export default function QuestionActionButtons() {
     submitQuestionAnswer,
     isSubmitting,
     selectedAnswer,
+    user,
+    question,
   } = useQuestionSingle();
 
   return (
@@ -19,11 +21,20 @@ export default function QuestionActionButtons() {
           <RefreshCcwIcon className="w-4 h-4" />
         </span>
       </Button>
-      <form onSubmit={(e) => submitQuestionAnswer(e)}>
-        <Button type="submit" disabled={isSubmitting || !selectedAnswer}>
-          Submit
+      {user ? (
+        <form onSubmit={(e) => submitQuestionAnswer(e)}>
+          <Button type="submit" disabled={isSubmitting || !selectedAnswer}>
+            Submit
+          </Button>
+        </form>
+      ) : (
+        <Button
+          variant="accent"
+          href={`/login?redirectUrl=question/${question.uid}`}
+        >
+          Login to Submit
         </Button>
-      </form>
+      )}
     </div>
   );
 }

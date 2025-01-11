@@ -1,10 +1,10 @@
 import { getQuestion } from '@/utils/data/questions/get';
 import { Separator } from '@/components/ui/separator';
 import NoDailyQuestion from '@/components/global/no-daily-question';
-import CodeDisplay from '@/components/app/questions/single/code-snippet';
+import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
 import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
 import { useUserServer } from '@/hooks/use-user-server';
-import QuestionCard from '@/components/app/questions/single/question-card';
+import QuestionCard from '@/components/app/questions/single/layout/question-card';
 import { getRandomQuestion } from '@/utils/data/questions/get-random';
 import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal';
 import ResizableLayout from '@/components/ui/resizable-layout';
@@ -34,7 +34,7 @@ export default async function TodaysQuestionPage({
   }
 
   const leftContent = (
-    <div className="flex flex-col gap-y-4 p-3 lg:p-6 lg:pr-3">
+    <div className="flex flex-col gap-y-4 p-3 lg:p-6 lg:pr-3 h-full">
       <QuestionCard
         question={question}
         totalSubmissions={totalSubmissions}
@@ -46,10 +46,10 @@ export default async function TodaysQuestionPage({
   );
 
   const rightContent = (
-    <div className="flex flex-col gap-4 p-3 lg:p-6 lg:pl-3">
+    <div className="hidden lg:flex flex-col gap-4 p-3 lg:p-6 lg:pl-3 h-full">
       <div
         id="code-snippet"
-        className="h-fit lg:h-[45rem] bg-black-75 border border-black-50 rounded-xl relative overflow-hidden"
+        className="bg-black-75 border border-black-50 rounded-xl relative overflow-hidden h-full"
       >
         <div className="p-4 text-sm flex w-full items-center justify-end bg-black-25 gap-x-3">
           {/** explain question ai button */}

@@ -11,6 +11,10 @@ import { capitalise, getBaseUrl } from '@/utils';
 // Actions
 import { getQuestion } from '@/utils/data/questions/get';
 import { QuizJsonLd } from '@/types/Seo';
+import { QuestionSingleContextProvider } from '@/components/app/questions/single/layout/question-single-context';
+import { getUser } from '@/actions/user/authed/get-user';
+import { redirect } from 'next/navigation';
+import QuestionActionButtons from '@/components/app/questions/single/layout/question-action-buttons';
 
 export async function generateMetadata({
   params,
@@ -40,6 +44,10 @@ export default async function QuestionUidLayout({
   const { slug } = params;
 
   const question = await getQuestion('slug', slug);
+  if (!question) {
+    return redirect('/questions');
+  }
+  const user = await getUser();
 
   // determine the education level based on the question
 
@@ -77,25 +85,30 @@ export default async function QuestionUidLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="flex items-center justify-between py-2 px-6">
-        <div className="flex items-center gap-x-5 py-2">
-          <SidebarLayoutTrigger />
-          {/** Previous question button */}
-          <BackToDashboard href="/questions/" />
-          {question?.dailyQuestion && question?.questionDate && (
-            <div className="font-ubuntu flex gap-x-5 items-center">
-              <p>Daily question</p>
-            </div>
-          )}
+      <QuestionSingleContextProvider question={question} user={user}>
+        <div className="grid grid-cols-12 items-center justify-between pb-2 px-3 lg:px-6 relative">
+          <div className="col-span-2 lg:col-span-4 flex items-center gap-x-5 py-2 justify-start">
+            <SidebarLayoutTrigger />
+            {/** Previous question button */}
+            <BackToDashboard href="/questions/" />
+            {question?.dailyQuestion && question?.questionDate && (
+              <div className="font-ubuntu gap-x-5 items-center hidden md:flex">
+                <p>Daily question</p>
+              </div>
+            )}
+          </div>
+          <div className="col-span-7 lg:col-span-4 flex items-center justify-center">
+            <QuestionActionButtons />
+          </div>
+          <div className="col-span-3 lg:col-span-4 flex items-center gap-x-1 md:gap-x-3 justify-end">
+            <CurrentStreak />
+            <RandomQuestion identifier="slug" currentQuestionSlug={slug} />
+            <FeedbackButton reference={question?.slug || undefined} />
+          </div>
         </div>
-        <div className="flex items-center gap-x-3">
-          <CurrentStreak />
-          <RandomQuestion identifier="slug" currentQuestionSlug={slug} />
-          <FeedbackButton reference={question?.slug || undefined} />
-        </div>
-      </div>
-      <Separator className="bg-black-50" />
-      {children}
+        <Separator className="bg-black-50" />
+        {children}
+      </QuestionSingleContextProvider>
     </>
   );
 }

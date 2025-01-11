@@ -35,6 +35,7 @@ import {
   CORRECT_ANSWER_CONTENT,
   INCORRECT_ANSWER_CONTENT,
 } from '@/utils/constants/answer-content';
+import { useQuestionSingle } from './layout/question-single-context';
 
 type AnswerQuestionModalProps = {
   user: UserRecord;
@@ -83,7 +84,6 @@ const dialogContent: DialogContentType = {
 export default function AnswerQuestionModal({
   user,
   correct,
-  userAnswer,
   isOpen,
   onOpenChange,
   onRetry,
@@ -91,6 +91,8 @@ export default function AnswerQuestionModal({
   isDailyQuestion,
 }: AnswerQuestionModalProps) {
   const router = useRouter();
+
+  const { timeTaken } = useQuestionSingle();
 
   const getDialogContent = useCallback(() => {
     if (correct === 'init') {
@@ -179,11 +181,11 @@ export default function AnswerQuestionModal({
                     <h6 className="text-base font-bold underline">Stats</h6>
                     {user.showTimeTaken &&
                       correct === 'correct' &&
-                      userAnswer.timeTaken && (
+                      timeTaken && (
                         <div className="rounded-xl flex items-center gap-2">
                           <ClockIcon className="text-gray-500 size-5" />
                           <p className="text-gray-200">
-                            Answered in: {formatSeconds(userAnswer.timeTaken)}
+                            Answered in: {formatSeconds(timeTaken)}
                           </p>
                         </div>
                       )}

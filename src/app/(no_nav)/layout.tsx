@@ -13,7 +13,7 @@ export default function Layout({
       <html lang="en">
         <body
           className={`${InterFont.variable} ${SatoshiFont.variable} ${UbuntuFont.variable} antialiased`}
-          suppressHydrationWarning={true}
+          suppressHydrationWarning
         >
           {/* Scrollable content */}
           <main>{children}</main>

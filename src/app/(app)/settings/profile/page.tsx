@@ -318,7 +318,7 @@ export default function SettingsProfilePage() {
                             onCheckedChange={(checked) => {
                               field.onChange(checked);
                             }}
-                            disabled={true}
+                            disabled
                             className="bg-black-50"
                           />
                           <Label htmlFor="sendPushNotifications">

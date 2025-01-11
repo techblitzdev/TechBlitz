@@ -71,16 +71,19 @@ export default async function QuestionsList({
           questionData={q}
           showSubmissions={showSubmissions}
           identifier={customQuestions ? 'uid' : 'slug'}
+          customQuestion={customQuestions}
         />
       ))}
-      <div className="mt-5 w-full flex justify-center gap-x-2">
-        <GlobalPagination
-          currentPage={currentPage}
-          totalPages={data.totalPages}
-          href={paginationUrl}
-          paramName="page"
-        />
-      </div>
+      {!customQuestions && (
+        <div className="mt-5 w-full flex justify-center gap-x-2">
+          <GlobalPagination
+            currentPage={currentPage}
+            totalPages={data.totalPages}
+            href={paginationUrl}
+            paramName="page"
+          />
+        </div>
+      )}
     </>
   );
 }

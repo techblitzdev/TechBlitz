@@ -26,6 +26,9 @@ export const getPlans = (user: UserRecord | null) => [
         name: 'Basic stats and progress tracking',
       },
       {
+        name: '20 AI question help tokens',
+      },
+      {
         name: 'Basic support',
       },
     ],
@@ -68,6 +71,9 @@ export const getPlans = (user: UserRecord | null) => [
       },
       {
         name: 'Custom coding questions',
+      },
+      {
+        name: 'Unlimited AI question help tokens',
       },
       {
         name: 'Access to upcoming beta features',
@@ -120,6 +126,9 @@ export const getPlans = (user: UserRecord | null) => [
       },
       {
         name: 'Custom coding questions',
+      },
+      {
+        name: 'Unlimited AI question help tokens',
       },
       {
         name: 'Priority support',

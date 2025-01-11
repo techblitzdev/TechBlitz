@@ -15,8 +15,8 @@ import { fetchRoadmapQuestion } from '@/utils/data/roadmap/questions/fetch-roadm
 // components
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import QuestionDisplay from '@/components/app/questions/single/code-snippet';
-import ExpandedCodeModal from '@/components/app/questions/expanded-code-modal';
+import QuestionDisplay from '@/components/app/questions/single/layout/code-snippet';
+import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal';
 
 import { useUserServer } from '@/hooks/use-user-server';
 // types

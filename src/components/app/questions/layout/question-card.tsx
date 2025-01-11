@@ -4,8 +4,8 @@ import TagDisplay from '@/components/app/questions/previous/tag-display';
 import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
 import Link from 'next/link';
 import Chip from '@/components/ui/chip';
-import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
-import { CheckCircle } from 'lucide-react';
+//import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
+//import { CheckCircle } from 'lucide-react';
 
 export default async function QuestionCard(opts: {
   questionData: QuestionWithoutAnswers;
@@ -13,6 +13,7 @@ export default async function QuestionCard(opts: {
   numberOfTags?: number;
   showcaseTag?: string;
   identifier: 'slug' | 'uid';
+  customQuestion?: boolean;
 }) {
   const {
     questionData,
@@ -20,12 +21,13 @@ export default async function QuestionCard(opts: {
     numberOfTags = 3,
     showcaseTag,
     identifier = 'slug',
+    customQuestion = false,
   } = opts;
 
   // get question stats and user answered at the same time
-  const [questionStats, userAnswered] = await Promise.all([
+  const [questionStats] = await Promise.all([
     getQuestionStats(identifier, questionData[identifier] || ''),
-    getUserAnswer({ questionUid: questionData.uid }),
+    //getUserAnswer({ questionUid: questionData.uid }),
   ]);
 
   // if identifier is uid, this is a custom question
@@ -45,11 +47,6 @@ export default async function QuestionCard(opts: {
           <h6 className="text-base text-wrap text-start line-clamp-2 flex-grow">
             {questionData?.question}
           </h6>
-          {userAnswered && (
-            <div className="flex-shrink-0 ml-2">
-              <CheckCircle className="size-5 text-green-500" />
-            </div>
-          )}
         </div>
         {showSubmissions && (
           <div className="text-start text-[10px]">
@@ -63,19 +60,19 @@ export default async function QuestionCard(opts: {
         )}
       </div>
       <div className="mt-5 w-full flex justify-between items-end z-10 relative">
-        <div className="flex gap-4 items-end">
-          {questionData?.tags?.length && questionData?.tags?.length > 0 && (
-            <div className="space-y-0.5 text-start">
-              <div className="flex items-center gap-1">
+        {!customQuestion && (
+          <div className="flex gap-4 items-end">
+            {questionData?.tags?.length && questionData?.tags?.length > 0 && (
+              <div className="flex items-center gap-1 space-y-0.5 text-start">
                 <TagDisplay
                   tags={questionData?.tags || []}
                   numberOfTags={numberOfTags}
                   showcaseTag={showcaseTag}
                 />
               </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
         <div className="flex items-center gap-x-3">
           {questionData?.difficulty && (
             <Chip

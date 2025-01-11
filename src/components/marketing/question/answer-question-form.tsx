@@ -17,7 +17,7 @@ import LoadingSpinner from '@/components/ui/loading';
 import { answerDailyQuestionDemo } from '@/actions/demo/answer-question-demo';
 import { Question } from '@/types/Questions';
 import WaitlistSignup from './waitlist-sign-up';
-import CodeDisplay from '@/components/app/questions/single/code-snippet';
+import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
 import BackToDashboard from '@/components/ui/back-to-dashboard';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
@@ -167,7 +167,7 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
                           <CodeDisplay
                             content={answer.answer}
                             language="javascript"
-                            hideIndex={true}
+                            hideIndex
                             backgroundColor="transparent"
                           />
                         ) : (

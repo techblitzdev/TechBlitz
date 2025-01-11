@@ -37,8 +37,11 @@ export default async function TodaysQuestionBentoBox() {
   const tags = todaysQuestion?.tags || [];
 
   return (
-    <div className="flex flex-col p-4 h-full group relative">
-      <Link href={`/question/${todaysQuestion.slug}`}>
+    <Link
+      href={`/question/${todaysQuestion.slug}`}
+      className="flex flex-col p-4 h-full group relative"
+    >
+      <>
         <div className="flex w-full justify-between mb-4">
           <div className="space-y-1">
             <h6 className="text-xl">Today's Question </h6>
@@ -68,18 +71,18 @@ export default async function TodaysQuestionBentoBox() {
             }
           />
         </div>
-      </Link>
 
-      <div className="w-fit flex self-center relative -bottom-8 sm:-bottom-20 md:-bottom-8 lg:-bottom-20">
-        <DatePicker
-          className="z-30 text-white bg-black-100 border border-black-50 p-2 rounded-md hover:cursor-default xs:scale-100 sm:scale-125 md:scale-110 xl:scale-[1.23]"
-          color="white"
-          type="range"
-          value={dateArray}
-          c="gray"
-          inputMode="none"
-        />
-      </div>
-    </div>
+        <div className="w-fit flex self-center relative -bottom-8 sm:-bottom-20 md:-bottom-8 lg:-bottom-20">
+          <DatePicker
+            className="z-30 text-white bg-black-100 border border-black-50 p-2 rounded-md hover:cursor-default xs:scale-100 sm:scale-125 md:scale-110 xl:scale-[1.23]"
+            color="white"
+            type="range"
+            value={dateArray}
+            c="gray"
+            inputMode="none"
+          />
+        </div>
+      </>
+    </Link>
   );
 }

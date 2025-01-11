@@ -39,6 +39,8 @@ model Users {
 
   // a user can have multiple statistics reports
   StatisticsReport StatisticsReport[]
+
+  aiQuestionHelpTokens Int @default(20)
 }
 
 // the streak model for tracking the user's streak

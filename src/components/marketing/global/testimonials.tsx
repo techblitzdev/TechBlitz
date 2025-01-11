@@ -65,14 +65,16 @@ export default function Testimonials() {
               <p className="text-white font-onest text-base lg:text-lg text-center lg:text-left">
                 "{testimonial.shortQuote}"
               </p>
-              <Link
-                href={testimonial.githubUrl}
-                target="_blank"
-                className="text-gray-400 text-sm font-onest order-last flex items-center gap-2 group-hover:text-accent transition-colors duration-300 mt-0 lg:mt-2"
-              >
-                <GithubLogo className="w-4 h-4" />
-                Check out {testimonial.name.split(' ')[0]}'s work on GitHub!
-              </Link>
+              <div className="h-5">
+                <Link
+                  href={testimonial.githubUrl}
+                  target="_blank"
+                  className="opacity-0 group-hover:opacity-100 text-gray-400 text-sm font-onest flex order-last items-center gap-2 group-hover:text-accent transition-opacity duration-300 mt-0 lg:mt-2"
+                >
+                  <GithubLogo className="w-4 h-4" />
+                  Check out {testimonial.name.split(' ')[0]}'s work on GitHub!
+                </Link>
+              </div>
             </div>
           ))}
         </div>

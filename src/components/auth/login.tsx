@@ -22,17 +22,17 @@ import { z } from 'zod';
 import { oauth } from '@/actions/user/account/oauth';
 import { login } from '@/actions/user/account/login';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import OrSeparator from '@/components/auth/or-separator';
 
 type SchemaProps = z.infer<typeof loginSchema>;
 
-export default function LoginForm() {
-  // get the redirectUrl from the url
-  const searchParams = useSearchParams();
-  const redirectUrl = searchParams.get('redirectUrl');
-  const onboarding = searchParams.get('onboarding') === 'true';
+export default function LoginForm(opts: {
+  redirectUrl: string;
+  onboarding: string;
+}) {
+  const { redirectUrl, onboarding } = opts;
 
   const router = useRouter();
   const isPending = useRef(false);
@@ -155,7 +155,7 @@ export default function LoginForm() {
         <form
           onSubmit={async (event) => {
             event.preventDefault();
-            await oauth('github', onboarding);
+            await oauth('github', Boolean(onboarding));
           }}
         >
           <Button type="submit" variant="ghost" padding="md">
@@ -165,7 +165,7 @@ export default function LoginForm() {
         <form
           onSubmit={async (event) => {
             event.preventDefault();
-            await oauth('discord', onboarding);
+            await oauth('discord', Boolean(onboarding));
           }}
         >
           <Button type="submit" variant="ghost" padding="md">

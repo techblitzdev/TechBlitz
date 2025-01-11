@@ -7,9 +7,8 @@
  */
 import { createContext, useContext, useState } from 'react';
 import type { UpdatableUserFields } from '@/types/User';
-import { QuestionWithTags } from '@/types/Questions';
+import { Question, QuestionWithTags } from '@/types/Questions';
 import { getOnboardingQuestions } from '@/utils/data/questions/get-onboarding';
-import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 import { useRouter } from 'next/navigation';
 // context type
 type OnboardingContextType = {
@@ -42,8 +41,10 @@ const OnboardingContext = createContext<OnboardingContextType | null>(null);
 // provide the context to all the children components
 export const UserOnboardingContextProvider = ({
   children,
+  dailyQuestion,
 }: {
   children: React.ReactNode;
+  dailyQuestion: Question | null;
 }) => {
   const router = useRouter();
   // get the current user
@@ -81,10 +82,8 @@ export const UserOnboardingContextProvider = ({
   };
 
   const handleGetDailyQuestion = async () => {
-    const question = await getTodaysQuestion();
-
     // redirect to the question page
-    router.push(`/question/${question?.slug}`);
+    router.push(`/question/${dailyQuestion?.slug}`);
   };
 
   return (

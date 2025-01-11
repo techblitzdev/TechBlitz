@@ -60,11 +60,10 @@ export default async function QuestionUidLayout({
       url: getBaseUrl(),
     },
     assesses: ['coding'],
-    dateCreated: new Date(question?.createdAt || '').toISOString(),
-    dateModified: new Date(question?.updatedAt || '').toISOString(),
-    datePublished: new Date(
-      question?.questionDate || question?.createdAt || ''
-    ).toISOString(),
+    dateCreated: question?.createdAt.toISOString() || '',
+    dateModified: question?.updatedAt.toISOString() || '',
+    datePublished:
+      question?.questionDate || question?.createdAt.toISOString() || '',
     headline: question?.question || '',
     interactivityType: 'mixed',
     isAccessibleForFree: true,

@@ -1,17 +1,14 @@
 import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
+import LeftRightBlock from '@/components/marketing/global/left-right-block';
+import LoadingSpinner from '@/components/ui/loading';
 
 const CodeSnippet = dynamic(
   () => import('@/components/marketing/global/code-snippet'),
-  {
-    ssr: false,
-  }
+  { ssr: false }
 );
 
-import LeftRightBlock from '@/components/marketing/global/left-right-block';
-import { Suspense } from 'react';
-import LoadingSpinner from '@/components/ui/loading';
-
-const codeSnippet1 = `// Challenge: Implement a smart caching system for API responses
+const codeSnippet1 = `// JavaScript Daily Challenge: Build a Smart Cache
 // Difficulty: Intermediate 🌟
 
 interface CacheConfig {
@@ -57,14 +54,9 @@ class SmartCache {
   }
 }
 
-// Example usage:
-const cache = new SmartCache({ maxAge: 300, maxSize: 100 });
-`;
+// Example usage: 
+const cache = new SmartCache({ maxAge: 300, maxSize: 100 });`;
 
-/**
- * The first section with the text on the left
- * and the illustration on the right
- */
 export default function FeatureLeftRightSectionOne() {
   return (
     <LeftRightBlock
@@ -73,8 +65,8 @@ export default function FeatureLeftRightSectionOne() {
           <Suspense fallback={<LoadingSpinner />}>
             <CodeSnippet
               code={codeSnippet1}
-              language="typescript"
-              filename="smart-cache.ts"
+              language="javascript"
+              filename="daily-challenge.js"
               lightTheme="one-dark-pro"
               darkTheme="one-dark-pro"
             />
@@ -85,18 +77,19 @@ export default function FeatureLeftRightSectionOne() {
       right={
         <div className="flex flex-col gap-y-6">
           <h2 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
-            Master complex concepts, one step at a time.
+            Learn to Code for Free with Daily JavaScript Challenges
           </h2>
           <p className="text-white/70 max-w-xl text-base font-onest">
-            Whether you're tackling intermediate challenges or exploring
-            advanced topics, TechBlitz transforms learning into a stress-free
-            experience. Spend just 15-20 minutes a day solving real-world coding
-            problems designed to enhance your skills and confidence.
+            Master web development through hands-on practice with our free daily
+            coding challenges. Perfect for learning JavaScript and essential
+            tech skills, our platform works seamlessly on both desktop and phone
+            – making it easy to learn to code anywhere, anytime.
           </p>
           <p className="text-white/70 max-w-xl text-base font-onest">
-            Our structured, bite-sized tasks ensure you're always moving forward
-            without the overwhelm of lengthy tutorials. Perfect for busy
-            developers seeking steady growth and tangible results.
+            Each challenge includes a built-in tech skills assessment to track
+            your progress as you grow from beginner to professional developer.
+            Start your coding journey today with practical exercises that take
+            just 5-10 minutes to complete.
           </p>
         </div>
       }

@@ -5,6 +5,8 @@ import RoadmapDropdown from '@/components/app/roadmaps/[uid]/dropdown';
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/use-user-server';
 import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-trigger';
+import { fetchRoadmap } from '@/utils/data/roadmap/fetch-single-roadmap';
+import { UserRoadmaps } from '@/types/Roadmap';
 
 export default async function RoadmapOverviewPage({
   children,
@@ -12,7 +14,11 @@ export default async function RoadmapOverviewPage({
 }: Readonly<{ children: React.ReactNode; params: { roadmapUid: string } }>) {
   const { roadmapUid } = params;
 
-  const user = await useUserServer();
+  const [user, roadmap] = await Promise.all([
+    useUserServer(),
+    fetchRoadmap({ roadmapUid }),
+  ]);
+
   if (!user) return;
 
   // get the next and previous roadmaps
@@ -41,7 +47,7 @@ export default async function RoadmapOverviewPage({
               navigationType="roadmap"
             />
           </div>
-          <RoadmapDropdown roadmapUid={roadmapUid} />
+          {roadmap && <RoadmapDropdown roadmap={roadmap as UserRoadmaps} />}
         </div>
       </div>
       <Separator className="bg-black-50" />

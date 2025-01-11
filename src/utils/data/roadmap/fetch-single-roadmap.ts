@@ -1,5 +1,4 @@
 import { prisma } from '@/lib/prisma';
-import { revalidateTag } from 'next/cache';
 import { getUser } from '@/actions/user/authed/get-user';
 
 export const fetchRoadmap = async (opts: { roadmapUid: string }) => {
@@ -9,8 +8,6 @@ export const fetchRoadmap = async (opts: { roadmapUid: string }) => {
   }
 
   const { roadmapUid } = opts;
-
-  revalidateTag('roadmap-data');
 
   return await prisma.userRoadmaps.findUnique({
     where: {

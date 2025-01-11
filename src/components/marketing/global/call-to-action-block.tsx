@@ -66,7 +66,7 @@ export default async function CallToActionBlock(opts: {
             )}
           </>
         ) : (
-          <SignupForm todayQuestion={dailyQuestion} />
+          <SignupForm />
         )}
       </div>
       <Grid size={30} position="bottom-right" />

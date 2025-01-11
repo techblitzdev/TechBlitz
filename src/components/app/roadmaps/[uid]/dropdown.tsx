@@ -11,8 +11,9 @@ import { EditRoadmapModal } from './edit-roadmap-modal';
 import { updateRoadmapDetails } from '@/actions/roadmap/update-roadmap-details';
 import { deleteRoadmap } from '@/actions/roadmap/delete-roadmap';
 import { useRouter } from 'next/navigation';
+import { UserRoadmaps } from '@/types/Roadmap';
 
-export default function RoadmapDropdown(opts: { roadmapUid: string }) {
+export default function RoadmapDropdown(opts: { roadmap: UserRoadmaps }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const router = useRouter();
 
@@ -24,14 +25,14 @@ export default function RoadmapDropdown(opts: { roadmapUid: string }) {
     title: string;
     description: string;
   }) => {
-    await updateRoadmapDetails(opts.roadmapUid, {
+    await updateRoadmapDetails(opts.roadmap.uid, {
       title: data.title,
       description: data.description,
     });
   };
 
   const handleRoadmapDelete = async () => {
-    await deleteRoadmap(opts.roadmapUid);
+    await deleteRoadmap(opts.roadmap.uid);
     // redirect to the roadmaps page
     router.push('/roadmaps');
   };
@@ -43,7 +44,7 @@ export default function RoadmapDropdown(opts: { roadmapUid: string }) {
           <Button
             variant="ghost"
             size="icon"
-            className="size-8 hover:bg-black-100 hover:text-white border border-black-50 rounded-md relative group duration-200"
+            className="size-8 bg-black-100 hover:text-white border border-black-50 rounded-md relative group duration-200"
           >
             <EllipsisVertical className="size-4" />
           </Button>
@@ -76,7 +77,7 @@ export default function RoadmapDropdown(opts: { roadmapUid: string }) {
           handleSaveRoadmap(data);
           setIsEditModalOpen(false);
         }}
-        roadmapUid={opts.roadmapUid}
+        roadmap={opts.roadmap}
       />
     </>
   );

@@ -5,11 +5,8 @@ import { Button } from '@/components/ui/button';
 import LoadingSpinner from '@/components/ui/loading';
 import { ChevronRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { Question } from '@/types/Questions';
 
-export default function SignupForm(opts: { todayQuestion: Question }) {
-  const { todayQuestion } = opts;
-
+export default function SignupForm() {
   const router = useRouter();
   const [redirecting, setRedirecting] = useState(false);
 
@@ -25,18 +22,18 @@ export default function SignupForm(opts: { todayQuestion: Question }) {
           variant="accent"
           size="lg"
           onClick={handleJoinClick}
-          className="flex-1"
+          className="flex-1 px-5"
         >
           {redirecting ? <LoadingSpinner /> : 'Start for free'}
         </Button>
 
         <Button
-          href={`/question/${todayQuestion?.uid}`}
+          href={`/questions`}
           variant="default"
           size="lg"
-          className="flex-1 group"
+          className="group px-5"
         >
-          Try demo
+          Browse questions
           <ChevronRight className="ml-2 size-4 group-hover:translate-x-1 transition-all" />
         </Button>
       </div>

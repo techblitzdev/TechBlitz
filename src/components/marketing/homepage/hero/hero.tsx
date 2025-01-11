@@ -35,7 +35,7 @@ export default async function HomepageHero() {
         </h6>
         {dailyQuestion && (
           <div className="mt-3">
-            <SignupForm todayQuestion={dailyQuestion} />
+            <SignupForm />
           </div>
         )}
       </div>

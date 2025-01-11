@@ -12,42 +12,31 @@ import {
   DialogTitle,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { useQuery } from '@tanstack/react-query';
-import { fetchRoadmap } from '@/utils/data/roadmap/fetch-single-roadmap';
 import { Loader2 } from 'lucide-react';
+import { UserRoadmaps } from '@/types/Roadmap';
 
 interface EditRoadmapModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (data: { title: string; description: string }) => void;
-  roadmapUid: string;
+  roadmap: UserRoadmaps;
 }
 
 export function EditRoadmapModal({
   isOpen,
   onClose,
   onSave,
-  roadmapUid,
+  roadmap,
 }: EditRoadmapModalProps) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ['roadmap-fetch', roadmapUid],
-    queryFn: async () => {
-      return await fetchRoadmap({
-        roadmapUid,
-      });
-    },
-    enabled: isOpen, // Only fetch when the modal is open
-  });
-
   useEffect(() => {
-    if (data) {
-      setTitle(data.title || '');
-      setDescription(data.description || '');
+    if (roadmap) {
+      setTitle(roadmap.title || '');
+      setDescription(roadmap.description || '');
     }
-  }, [data]);
+  }, [roadmap]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,14 +50,9 @@ export function EditRoadmapModal({
         <DialogHeader>
           <DialogTitle>Edit Roadmap Details</DialogTitle>
         </DialogHeader>
-        {isLoading ? (
+        {!roadmap ? (
           <div className="flex justify-center items-center h-40">
             <Loader2 className="h-8 w-8 animate-spin" />
-          </div>
-        ) : isError ? (
-          <div className="text-red-500 text-center">
-            Error loading roadmap data:{' '}
-            {error instanceof Error ? error.message : 'Unknown error'}
           </div>
         ) : (
           <form onSubmit={handleSubmit}>

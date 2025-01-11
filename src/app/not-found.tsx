@@ -1,40 +1,21 @@
-'use client';
 import { Button } from '@/components/ui/button';
-import LoadingSpinner from '@/components/ui/loading';
-import { useRouter } from 'next/navigation';
-import CountUp from 'react-countup';
-import { useQuery } from '@tanstack/react-query';
 import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 import Link from 'next/link';
-import { useUser } from '@/hooks/use-user';
+import { useUserServer } from '@/hooks/use-user-server';
+import ErrorPageCountUp from '@/components/global/404';
 
-export default function NotFound() {
-  const router = useRouter();
-
-  const { user } = useUser();
-
-  const {
-    data: todaysQuestion,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ['not-found'],
-    queryFn: () => getTodaysQuestion(),
-  });
-
-  const goToDailyQuestion = () =>
-    router.push(`/question/${todaysQuestion?.slug}`);
+export default async function NotFound() {
+  const [user, todaysQuestion] = await Promise.all([
+    useUserServer(),
+    getTodaysQuestion(),
+  ]);
 
   return (
     <div className="w-full flex items-center justify-center min-h-screen relative">
       <div className="flex flex-col text-center gap-x-5 items-center font-inter">
-        <CountUp
-          end={404}
-          className="min-h-24 text-8xl font-semibold"
-          duration={2}
-        />
+        <ErrorPageCountUp />
         <div className="flex flex-col max-w-96 items-center">
-          <p className="text-sm w-[90%]">
+          <p className="text-sm w-[90%] font-onest">
             Sorry, it look&apos;s like the page you have requested could not be
             found.
           </p>
@@ -56,13 +37,12 @@ export default function NotFound() {
                 Login
               </Link>
             )}
-            {isError || !todaysQuestion?.slug || !user ? (
-              ''
-            ) : (
-              <Button variant="default" onClick={goToDailyQuestion}>
-                {isLoading ? <LoadingSpinner /> : 'Go to daily question'}
-              </Button>
-            )}
+            <Button
+              variant="default"
+              href={`/question/${todaysQuestion?.slug}`}
+            >
+              Go to daily question
+            </Button>
           </div>
         </div>
       </div>

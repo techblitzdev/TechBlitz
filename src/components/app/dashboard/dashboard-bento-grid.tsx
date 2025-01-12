@@ -10,7 +10,7 @@ export default async function DashboardBentoGrid() {
     {
       header: <TodaysQuestionBentoBox />,
       className:
-        'h-full text-white justify-center min-h-fit col-span-2 lg:col-span-1',
+        'h-full text-white justify-center min-h-[450px] col-span-2 lg:col-span-1',
       padded: false,
       gradientBg: true,
     },

@@ -10,6 +10,7 @@ import { QuestionWithTags } from '@/types/Questions';
 import QuestionCarouselCard from './question-carousel-card';
 import { Button } from '@/components/ui/button';
 import { ChevronRight } from 'lucide-react';
+import { Answer } from '@/types/Answers';
 
 /**
  * A carousel that will showcase a set of questions.
@@ -21,7 +22,9 @@ export default function QuestionCarousel(opts: {
   heading: string | React.ReactNode;
   description: string | React.ReactNode;
   image: string;
-  questions: QuestionWithTags[];
+  questions: QuestionWithTags[] & {
+    userAnswers: Answer;
+  };
   tag: string | string[];
 }) {
   const { heading, description, image, questions, tag } = opts;
@@ -72,7 +75,12 @@ export default function QuestionCarousel(opts: {
           <CarouselContent className="grid grid-flow-col auto-cols-[calc(100%-8px)] md:auto-cols-[calc(50%-8px)] lg:auto-cols-[calc(33.33%-8px)] gap-4">
             {questions.map((q) => (
               <CarouselItem key={q.uid} className="flex">
-                <QuestionCarouselCard key={q.uid} questionData={q} />
+                <QuestionCarouselCard
+                  key={q.uid}
+                  questionData={
+                    q as QuestionWithTags & { userAnswers: Answer[] }
+                  }
+                />
               </CarouselItem>
             ))}
           </CarouselContent>

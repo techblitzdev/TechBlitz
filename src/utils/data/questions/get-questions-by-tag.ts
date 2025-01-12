@@ -1,3 +1,4 @@
+import { getUser } from '@/actions/user/authed/get-user';
 import { prisma } from '@/lib/prisma';
 
 /**
@@ -8,12 +9,51 @@ import { prisma } from '@/lib/prisma';
  * @returns - the questions
  */
 export const getQuestionsByTag = async (tag: string | string[]) => {
-  return await prisma.tag.findMany({
+  const user = await getUser();
+
+  // if we the user is logged in, we want to include the user's answers in the questions
+  const includeUserAnswers = user ? true : false;
+
+  // First find the questions directly with a take limit
+  const questions = await prisma.questions.findMany({
+    where: {
+      tags: {
+        some: {
+          tag: {
+            name: typeof tag === 'string' ? tag : { in: tag },
+          },
+        },
+      },
+    },
+    include: {
+      tags: {
+        include: {
+          tag: true,
+        },
+      },
+      userAnswers: includeUserAnswers
+        ? {
+            where: {
+              userUid: user?.uid,
+            },
+          }
+        : undefined,
+    },
+    take: 10,
+  });
+
+  // Then structure the response to match the expected format
+  const tags = await prisma.tag.findMany({
     where: {
       name: typeof tag === 'string' ? tag : { in: tag },
     },
     include: {
       questions: {
+        where: {
+          questionId: {
+            in: questions.map((q) => q.uid),
+          },
+        },
         include: {
           question: {
             include: {
@@ -22,22 +62,19 @@ export const getQuestionsByTag = async (tag: string | string[]) => {
                   tag: true,
                 },
               },
-            },
-          },
-        },
-        where: {
-          question: {
-            tags: {
-              some: {
-                tag: {
-                  name: typeof tag === 'string' ? tag : { in: tag },
-                },
-              },
+              userAnswers: includeUserAnswers
+                ? {
+                    where: {
+                      userUid: user?.uid,
+                    },
+                  }
+                : undefined,
             },
           },
         },
       },
     },
-    take: 20,
   });
+
+  return tags;
 };

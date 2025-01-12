@@ -22,8 +22,9 @@ export const getMostQuestionsAnswered = async (take: number = 20) => {
       answers: true,
       userProfilePicture: true,
       _count: {
-        select: { answers: true }, // Count on actual references
+        select: { answers: true },
       },
+      userLevel: true,
     },
   });
 };

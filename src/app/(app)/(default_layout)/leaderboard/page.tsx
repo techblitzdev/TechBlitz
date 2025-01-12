@@ -25,7 +25,7 @@ export default async function TodaysLeaderboardPage() {
       {/** @ts-ignore - this is the valid type */}
       <LeaderboardHero topThreeUsers={topThreeUsers} />
       <div className="lg:container flex flex-col xl:flex-row gap-10 mt-5">
-        <LeaderboardMostQuestionsAnswered userUid={user?.uid} />
+        <LeaderboardMostQuestionsAnswered user={user} />
       </div>
     </>
   );

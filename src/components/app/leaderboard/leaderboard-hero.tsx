@@ -62,12 +62,18 @@ export default function LeaderboardHero(opts: {
                     <ProfilePicture
                       src={user.userProfilePicture}
                       alt={`${user.username} profile picture`}
-                      className="size-6 md:size-8 rounded-full shadow-lg"
+                      className="size-8 md:size-12 rounded-full shadow-lg"
                     />
                     {/** if first, add a crown top right of the profile picture */}
                     {position === 1 && (
-                      <div className="absolute -top-3 left-2 size-4">
+                      <div className="absolute -top-3 left-4 size-4">
                         <Crown className="size-4 text-yellow-500 fill-yellow-400" />
+                      </div>
+                    )}
+                    {/** if the user is a premium users */}
+                    {user.userLevel === 'PREMIUM' && (
+                      <div className="relative -top-3 left-1.5 w-fit bg-accent text-xs flex items-center justify-center px-2 py-0.5 rounded-full">
+                        <span className="text-[10px]">PRO</span>
                       </div>
                     )}
                   </div>
@@ -82,7 +88,7 @@ export default function LeaderboardHero(opts: {
                 <div
                   className={`absolute inset-0 transform-3d rotate-x-55 rotate-y-45 ${
                     position === 1
-                      ? 'bg-[#202020]'
+                      ? 'bg-[#252525]'
                       : position === 2
                         ? 'bg-black-100'
                         : 'bg-black-100'

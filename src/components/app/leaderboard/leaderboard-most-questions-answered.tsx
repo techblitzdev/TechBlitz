@@ -1,4 +1,4 @@
-import { Trophy } from 'lucide-react';
+import { FileQuestion, Trophy } from 'lucide-react';
 import { getMostQuestionsAnswered } from '@/utils/data/leaderboard/get-most-questions-answered';
 import ProfilePicture from '@/components/ui/profile-picture';
 import { UserRecord } from '@/types/User';
@@ -23,17 +23,17 @@ import { Badge } from '@/components/ui/badge';
 import ShowTimeTakenToggle from './show-time-taken';
 
 export default async function LeaderboardMostQuestionsAnswered({
-  userUid,
+  user,
 }: {
-  userUid?: string;
+  user?: UserRecord | null;
 }) {
   const topUsersByQuestionCount = await getMostQuestionsAnswered();
 
   return (
     <Card className="border-none">
       <CardHeader className="p-0 md:p-6 w-full flex gap-2 justify-between">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-x-2">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="order-last md:order-first flex items-center gap-x-2">
             <Trophy className="size-5 text-accent" />
             <div>
               <CardTitle className="text-white">
@@ -44,7 +44,7 @@ export default async function LeaderboardMostQuestionsAnswered({
               </CardDescription>
             </div>
           </div>
-          <ShowTimeTakenToggle />
+          <ShowTimeTakenToggle user={user} />
         </div>
       </CardHeader>
       <CardContent className="p-0 pt-6 md:p-6 md:pt-0">
@@ -57,15 +57,18 @@ export default async function LeaderboardMostQuestionsAnswered({
               <TableHead className="!border-t-0 text-white bg-transparent">
                 User
               </TableHead>
-              <TableHead className="!border-t-0 text-right text-white bg-transparent">
-                Questions Solved
+              <TableHead className="!border-t-0 flex justify-center items-center xs:justify-end gap-2 md:text-right text-white bg-transparent">
+                <span className="hidden sm:block">Questions Solved</span>
+                <span className="block sm:hidden">
+                  <FileQuestion className="size-4 text-white" />
+                </span>
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {topUsersByQuestionCount.map((user, index) => (
+            {topUsersByQuestionCount.map((userData, index) => (
               <TableRow
-                key={user.uid}
+                key={userData.uid}
                 className="border-white/10 hover:bg-white/5 transition-colors"
               >
                 <TableCell className="font-medium text-white">
@@ -87,18 +90,18 @@ export default async function LeaderboardMostQuestionsAnswered({
                 <TableCell>
                   <div className="flex items-center gap-4">
                     <ProfilePicture
-                      src={user.userProfilePicture}
-                      alt={`${user.username} profile picture`}
+                      src={userData.userProfilePicture}
+                      alt={`${userData.username} profile picture`}
                       className="text-white"
                     />
                     <div className="flex gap-2">
-                      <span className="text-white font-medium">
-                        {shortenText(
-                          getUserDisplayName(user as unknown as UserRecord),
-                          25
-                        )}
+                      <span className="text-white font-medium hidden md:block">
+                        {shortenText(getUserDisplayName(userData as any), 25)}
                       </span>
-                      {userUid === user.uid && (
+                      <span className="text-white font-medium block md:hidden">
+                        {shortenText(getUserDisplayName(userData as any), 10)}
+                      </span>
+                      {user?.uid === userData.uid && (
                         <span className="text-xs text-white">(You)</span>
                       )}
                     </div>
@@ -109,7 +112,7 @@ export default async function LeaderboardMostQuestionsAnswered({
                     variant="outline"
                     className="border-white/10 text-white"
                   >
-                    {user._count.answers}
+                    {userData._count.answers}
                   </Badge>
                 </TableCell>
               </TableRow>

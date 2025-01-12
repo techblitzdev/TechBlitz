@@ -54,9 +54,8 @@ export default function AllQuestionsDashboardBentoBox() {
         </h6>
       </div>
 
-      <div className="relative overflow-hidden mt-3 md:h-64 xl:h-[17rem]">
+      <div className="relative overflow-hidden mt-3 md:h-64 xl:h-[20rem]">
         <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-[#000] to-transparent z-10" />
-        {/* Top fade effect */}
 
         {/* Scrolling content */}
         <div

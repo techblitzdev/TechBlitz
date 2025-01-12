@@ -115,9 +115,7 @@ export function NavigationMenuItems() {
             className="!text-white focus:!text-white"
             aria-label="Navigate to Explore"
           >
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Explore
-            </NavigationMenuLink>
+            <span className={navigationMenuTriggerStyle()}>Explore</span>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>

@@ -1,5 +1,6 @@
 import { getQuestionsByTag } from '@/utils/data/questions/get-questions-by-tag';
 import QuestionCarousel from './question-carousel';
+import { Answer } from '@/types/Answers';
 import { QuestionWithTags } from '@/types/Questions';
 
 export default async function QuestionsCarouselList() {
@@ -47,22 +48,30 @@ export default async function QuestionsCarouselList() {
   const questionsByTag = await Promise.all(
     questionsCarousels.map(async (carousel) => {
       const questions = await getQuestionsByTag(carousel.tag);
-      return { ...carousel, questions };
+      return {
+        ...carousel,
+        questions: questions.flatMap((q) =>
+          q.questions.map((question) => question.question)
+        ),
+        userAnswers: questions.flatMap((q) =>
+          q.questions.map((question) => question.question.userAnswers)
+        ),
+      };
     })
   );
 
   return (
     <div className="flex flex-col gap-y-16 md:gap-y-28 pt-10">
-      {questionsByTag.map((carousel) => (
+      {questionsByTag.map((carousel, index) => (
         <QuestionCarousel
-          key={carousel.title}
+          key={`carousel-${index}-${carousel.tag}-${carousel.title}`}
           heading={carousel.title}
           description={carousel.description}
           image={carousel.image}
           questions={
-            (carousel.questions[0]?.questions.map(
-              (q) => q.question
-            ) as unknown as QuestionWithTags[]) || []
+            carousel.questions as unknown as QuestionWithTags[] & {
+              userAnswers: Answer;
+            }
           }
           tag={carousel.tag}
         />

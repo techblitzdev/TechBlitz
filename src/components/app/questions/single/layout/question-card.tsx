@@ -21,6 +21,9 @@ import { Question } from '@/types/Questions';
 import { useQuestionSingle } from './question-single-context';
 import { Button } from '@/components/ui/button';
 import CodeDisplay from './code-snippet';
+import ExpandedCodeModal from './expanded-code-modal';
+import ChangeCodeTheme from './change-code-theme';
+import AiQuestionHelp from './ai-question-help';
 
 export default function QuestionCard(opts: {
   // optional as this is not required to render the card
@@ -69,13 +72,25 @@ export default function QuestionCard(opts: {
   return (
     <div className="h-full bg-black-75 border border-black-50 rounded-xl flex flex-col overflow-hidden">
       <div className="p-2 lg:p-4 w-full flex flex-col gap-2 md:flex-row justify-between bg-black-25 md:items-center">
-        <div className="w-fit">
-          <Chip
-            color={getQuestionDifficultyColor(question.difficulty).bg}
-            text={capitalise(question.difficulty)}
-            textColor={getQuestionDifficultyColor(question.difficulty).text}
-            border={getQuestionDifficultyColor(question.difficulty).border}
-          />
+        <div className="flex items-center gap-2 justify-between">
+          <div className="w-fit">
+            <Chip
+              color={getQuestionDifficultyColor(question.difficulty).bg}
+              text={capitalise(question.difficulty)}
+              textColor={getQuestionDifficultyColor(question.difficulty).text}
+              border={getQuestionDifficultyColor(question.difficulty).border}
+            />
+          </div>
+          <div className="flex lg:hidden text-sm w-full items-center justify-end bg-black-25 gap-x-3">
+            {/** explain question ai button */}
+            <AiQuestionHelp question={question} user={user} />
+            {/** code theme selector */}
+            <ChangeCodeTheme user={user} />
+            {/** code snippet */}
+            {question.codeSnippet && (
+              <ExpandedCodeModal code={question.codeSnippet} />
+            )}
+          </div>
         </div>
         <div className="flex flex-wrap gap-2 justify-between items-center">
           <Button

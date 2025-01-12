@@ -8,9 +8,16 @@ import type {
 import { getTagsFromQuestion } from './tags/get-tags-from-question';
 import { QuestionFilters } from '@/types/Filters';
 import { getUser } from '@/actions/user/authed/get-user';
+import { Answer } from '@/types/Answers';
 
 type ListQuestionsReturnType = {
-  questions: Question[] | QuestionWithoutAnswers[];
+  questions:
+    | (Question[] & {
+        userAnswers: Answer[] | null;
+      })
+    | (QuestionWithoutAnswers[] & {
+        userAnswers: Answer[] | null;
+      });
   total: number;
   page: number;
   pageSize: number;
@@ -38,15 +45,14 @@ export const listQuestions = async (
     previousQuestions = false,
   } = opts;
 
-  // Move authentication outside of cache to avoid cookie access inside cache
-  let authenticatedUser = null;
-  if (customQuestions) {
-    authenticatedUser = await getUser();
+  const user = await getUser();
 
-    if (!authenticatedUser || authenticatedUser.uid !== userUid) {
-      throw new Error('Unauthorized access to custom questions');
-    }
+  if (customQuestions && !user) {
+    throw new Error('Unauthorized access to custom questions');
   }
+
+  // if we have an authenticated user, we include the userAnswers in the query
+  const includeUserAnswers = Boolean(user);
 
   return unstable_cache(
     async () => {
@@ -143,6 +149,13 @@ export const listQuestions = async (
               tag: true,
             },
           },
+          userAnswers: includeUserAnswers
+            ? {
+                where: {
+                  userUid: userUid,
+                },
+              }
+            : undefined,
           linkedReports: {
             select: {
               userUid: true,
@@ -159,7 +172,9 @@ export const listQuestions = async (
         questions.filter((question) => {
           if (!question.customQuestion) return true;
           return question.linkedReports.length > 0;
-        }) as Question[]
+        }) as unknown as Question[] & {
+          userAnswers: Answer[] | null;
+        }
       );
 
       // Get total count with same security constraints
@@ -168,8 +183,12 @@ export const listQuestions = async (
       });
       return {
         questions: transformedQuestions as
-          | Question[]
-          | QuestionWithoutAnswers[],
+          | (Question[] & {
+              userAnswers: Answer[] | null;
+            })
+          | (QuestionWithoutAnswers[] & {
+              userAnswers: Answer[] | null;
+            }),
         total,
         page,
         pageSize,

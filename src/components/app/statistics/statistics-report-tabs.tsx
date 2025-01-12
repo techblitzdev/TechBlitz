@@ -142,6 +142,7 @@ export default async function StatisticsReportTabs(opts: {
               <QuestionSuggestedCard
                 customQuestions={report.questions ?? []}
                 textLimit={75}
+                isCustomQuestion
               />
             </div>
           </CardContent>

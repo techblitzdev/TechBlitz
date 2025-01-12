@@ -5,6 +5,10 @@ import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
 import Link from 'next/link';
 import Chip from '@/components/ui/chip';
 import { Suspense } from 'react';
+import { ChevronRight } from 'lucide-react';
+import { Circle } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
+import { Answer } from '@/types/Answers';
 
 // separate async component for stats to avoid blocking render
 async function QuestionStats({
@@ -16,7 +20,7 @@ async function QuestionStats({
 }) {
   const stats = await getQuestionStats(identifier, value);
   return (
-    <div className="text-start text-[10px]">
+    <div className="text-start text-xs">
       <p className="font-ubuntu text-sm">
         Submissions:{' '}
         <span className="font-medium">{stats.totalSubmissions}</span>
@@ -26,7 +30,7 @@ async function QuestionStats({
 }
 
 export default function QuestionCard(opts: {
-  questionData: QuestionWithoutAnswers;
+  questionData: QuestionWithoutAnswers & { userAnswers: Answer[] };
   showSubmissions?: boolean;
   numberOfTags?: number;
   showcaseTag?: string;
@@ -74,6 +78,38 @@ export default function QuestionCard(opts: {
             />
           </Suspense>
         )}
+      </div>
+      <div className="flex items-center gap-x-2">
+        {questionData.userAnswers && questionData.userAnswers.length > 0 ? (
+          <div>
+            {questionData.userAnswers[0].correctAnswer ? (
+              <CheckCircle className="flex-shrink-0 size-5 text-green-500" />
+            ) : (
+              <Circle className="flex-shrink-0 size-5 text-black-50" />
+            )}
+          </div>
+        ) : (
+          <Circle className="flex-shrink-0 size-5 text-black-50" />
+        )}
+        <div className="text-sm font-medium">
+          {questionData.userAnswers && questionData.userAnswers.length > 0 ? (
+            questionData.userAnswers[0].correctAnswer ? (
+              <p>Correct</p>
+            ) : (
+              <p>Incorrect</p>
+            )
+          ) : (
+            <div className="relative">
+              <p className="group-hover:opacity-0 transition-opacity duration-300">
+                Not Answered
+              </p>
+              <div className="absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap flex items-center gap-x-1">
+                <p>Learn Now</p>
+                <ChevronRight className="flex-shrink-0 size-4 text-white group-hover:translate-x-2 transition-transform duration-300" />
+              </div>
+            </div>
+          )}
+        </div>
       </div>
       <div className="mt-5 w-full flex justify-between items-end z-10 relative">
         {!customQuestion && (

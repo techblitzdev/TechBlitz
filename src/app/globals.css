@@ -22,6 +22,30 @@ html {
 }
 
 @layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .transform-3d {
+    transform-style: preserve-3d;
+  }
+
+  .rotate-x-55 {
+    transform: rotateX(55deg);
+  }
+
+  .rotate-y-45 {
+    transform: rotateY(45deg);
+  }
+
+  .rotate-x-90 {
+    transform: rotateX(90deg);
+  }
+
+  .rotate-y-90 {
+    transform: rotateY(90deg);
+  }
+
   ::selection {
     @apply bg-accent text-white;
   }

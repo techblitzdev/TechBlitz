@@ -110,13 +110,22 @@ export function NavigationMenuItems() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link
-            href="/questions/explore"
-            className="!text-white focus:!text-white"
-            aria-label="Navigate to Explore"
-          >
-            <span className={navigationMenuTriggerStyle()}>Explore</span>
-          </Link>
+          <NavigationMenuTrigger aria-label="Learn menu">
+            Learn
+          </NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+              <ListItem href="/questions?tag=javascript" title="JavaScript">
+                Learn JavaScript with our easy-to-understand coding questions.
+              </ListItem>
+              <ListItem href="/questions?tag=react" title="React">
+                Learn the most popular frontend library.
+              </ListItem>
+              <ListItem href="/questions/explore" title="Explore">
+                Not sure where to start? Explore our questions.
+              </ListItem>
+            </ul>
+          </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Link

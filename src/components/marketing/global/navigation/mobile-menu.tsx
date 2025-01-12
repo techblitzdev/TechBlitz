@@ -39,7 +39,15 @@ const menuItems: MenuItem[] = [
       { label: 'FAQs', href: '/faqs' },
     ],
   },
-  { label: 'Explore', href: '/questions/explore' },
+  {
+    label: 'Learn',
+    href: '/questions/explore',
+    children: [
+      { label: 'JavaScript', href: '/questions?tag=javascript' },
+      { label: 'React', href: '/questions?tag=react' },
+      { label: 'Explore', href: '/questions/explore' },
+    ],
+  },
   { label: 'Pricing', href: '/pricing' },
 ];
 

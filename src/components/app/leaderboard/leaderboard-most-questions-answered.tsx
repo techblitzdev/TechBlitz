@@ -37,7 +37,7 @@ export default async function LeaderboardMostQuestionsAnswered({
             <Trophy className="size-5 text-accent" />
             <div>
               <CardTitle className="text-white">
-                Top Users Leaderboard
+                Most Questions Answered
               </CardTitle>
               <CardDescription className="text-gray-400">
                 Battle your way to the top of TechBlitz!
@@ -94,7 +94,7 @@ export default async function LeaderboardMostQuestionsAnswered({
                       alt={`${userData.username} profile picture`}
                       className="text-white"
                     />
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 items-center">
                       <span className="text-white font-medium hidden md:block">
                         {shortenText(getUserDisplayName(userData as any), 25)}
                       </span>
@@ -103,6 +103,11 @@ export default async function LeaderboardMostQuestionsAnswered({
                       </span>
                       {user?.uid === userData.uid && (
                         <span className="text-xs text-white">(You)</span>
+                      )}
+                      {userData?.userLevel === 'PREMIUM' && (
+                        <div className="relative w-fit bg-accent text-xs flex items-center justify-center px-2 py-0.5 rounded-full text-white">
+                          <span className="text-[10px]">PRO</span>
+                        </div>
                       )}
                     </div>
                   </div>

@@ -1,6 +1,9 @@
+'use client';
+import AnimatedSpan from '@/components/ui/animated-span';
 import ProfilePicture from '@/components/ui/profile-picture';
 import { UserRecord } from '@/types/User';
 import { getUserDisplayName } from '@/utils/user';
+import { motion } from 'framer-motion';
 import { Crown } from 'lucide-react';
 
 /**
@@ -19,8 +22,8 @@ export default function LeaderboardHero(opts: {
   const podiumOrder = [1, 0, 2]; // 2nd, 1st, 3rd
 
   return (
-    <section className="w-full py-8 md:pb-40 flex flex-col gap-y-4 justify-between items-center">
-      <div className="flex flex-col gap-y-3 md:mb-8 relative">
+    <section className="w-full py-8 md:pb-28 flex flex-col gap-y-4 justify-between items-center">
+      <div className="flex flex-col gap-y-3 md:mb-8 relative items-center">
         <h1 className="text-3xl md:text-5xl text-wrap text-center font-inter max-w-2xl text-gradient from-white to-white/55 relative z-10">
           Leaderboard
         </h1>
@@ -28,14 +31,23 @@ export default function LeaderboardHero(opts: {
           See how you stack up against the rest of the community, and try to
           battle your way to the top!
         </p>
+        <AnimatedSpan content="Top Users" />
       </div>
       <div className="hidden md:flex justify-center items-end perspective-1000 relative">
         {podiumOrder.map((index) => {
           const user = topThreeUsers[index];
           const position = index + 1;
           return (
-            <div
+            <motion.div
               key={user.uid}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.5,
+                delay: position * 0.3,
+                type: 'spring',
+                stiffness: 100,
+              }}
               className={`flex flex-col items-center ${
                 position === 1
                   ? 'order-2'
@@ -53,42 +65,87 @@ export default function LeaderboardHero(opts: {
                       : 'size-24 md:h-40 md:w-64'
                 }`}
               >
-                <div
+                <motion.div
                   className={`flex flex-col items-center mb-2 md:mb-4 z-20 relative ${
                     position === 3 ? '-top-4' : ''
                   }`}
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{
+                    duration: 0.3,
+                    delay: position * 0.3 + 0.3,
+                    type: 'spring',
+                    bounce: 0.4,
+                  }}
                 >
-                  <div className="relative">
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="relative"
+                  >
                     <ProfilePicture
                       src={user.userProfilePicture}
                       alt={`${user.username} profile picture`}
                       className="size-8 md:size-12 rounded-full shadow-lg"
                     />
-                    {/** if first, add a crown top right of the profile picture */}
                     {position === 1 && (
-                      <div className="absolute -top-3 left-4 size-4">
+                      <motion.div
+                        className="absolute -top-3 left-4 size-4"
+                        initial={{ y: -10, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{
+                          delay: 1.2,
+                          type: 'spring',
+                          stiffness: 300,
+                          damping: 10,
+                        }}
+                      >
                         <Crown className="size-4 text-yellow-500 fill-yellow-400" />
-                      </div>
+                      </motion.div>
                     )}
-                    {/** if the user is a premium users */}
                     {user.userLevel === 'PREMIUM' && (
-                      <div className="relative -top-3 left-1.5 w-fit bg-accent text-xs flex items-center justify-center px-2 py-0.5 rounded-full">
+                      <motion.div
+                        initial={{ x: -10, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: position * 0.3 + 0.6 }}
+                        className="relative -top-3 left-1.5 w-fit bg-accent text-xs flex items-center justify-center px-2 py-0.5 rounded-full"
+                      >
                         <span className="text-[10px]">PRO</span>
-                      </div>
+                      </motion.div>
                     )}
-                  </div>
-                  <span className="mt-2 text-sm md:text-base font-semibold line-clamp-1">
+                    {user.userLevel === 'ADMIN' && (
+                      <motion.div
+                        initial={{ x: -10, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: position * 0.3 + 0.6 }}
+                        className="relative -top-3 w-fit bg-accent text-xs flex items-center justify-center px-2 py-0.5 rounded-full"
+                      >
+                        <span className="text-[10px]">ADMIN</span>
+                      </motion.div>
+                    )}
+                  </motion.div>
+                  <motion.span
+                    initial={{ y: 10, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: position * 0.3 + 0.4 }}
+                    className="text-sm md:text-base font-semibold line-clamp-1"
+                  >
                     {getUserDisplayName(user as unknown as UserRecord)}
-                  </span>
-                  <span className="text-sm text-white">
+                  </motion.span>
+                  <motion.span
+                    initial={{ y: 10, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: position * 0.3 + 0.5 }}
+                    className="text-sm text-white"
+                  >
                     {user._count.answers} answers
-                  </span>
-                </div>
+                  </motion.span>
+                </motion.div>
                 {/** top of the podium */}
                 <div
                   className={`absolute inset-0 transform-3d rotate-x-55 rotate-y-45 ${
                     position === 1
-                      ? 'bg-[#252525]'
+                      ? 'bg-[#383737]'
                       : position === 2
                         ? 'bg-black-100'
                         : 'bg-black-100'
@@ -115,6 +172,7 @@ export default function LeaderboardHero(opts: {
                     >
                       <span className="text-2xl md:text-5xl font-bold text-gradient from-white to-white/55 font-onest">
                         {position}
+                        {position === 1 ? 'st' : position === 2 ? 'nd' : 'rd'}
                       </span>
                     </div>
                     {/** bottom fade */}
@@ -123,7 +181,7 @@ export default function LeaderboardHero(opts: {
                   <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#000] to-transparent rotate-180 -top-px"></div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>

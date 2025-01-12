@@ -33,10 +33,10 @@ export default async function FeaturesBentoGrid() {
           Improve coding knowledge effortlessly
         </h1>
         <span className="text-sm md:text-base text-gray-400 max-w-4xl">
-          Discover our suite of tools & features crafted to help you master
-          software engineering with ease. <br /> {QUESTIONS_COUNT}+ free daily
-          coding challenges, in depth statistics and personalized learning paths
-          created to improve coding skills.
+          Discover why TechBlitz is the best free leetcode alternative as you
+          master software engineering with ease. <br /> {QUESTIONS_COUNT}+ free
+          daily coding challenges, in depth statistics and personalized learning
+          paths created to improve coding skills.
         </span>
       </div>
       <div className="min-h-[1450px] md:min-h-[1000px] lg:min-h-[700px] rounded-lg">
@@ -134,12 +134,11 @@ export default async function FeaturesBentoGrid() {
             <div className="flex justify-between">
               <div className="flex flex-col gap-y-1 h-fit">
                 <h5 className="text-2xl text-gradient from-white to-white/55">
-                  Daily questions
+                  Daily coding challenges
                 </h5>
                 <p className="text-xs text-gray-400 font-onest">
-                  Beginner-friendly coding questions delivered straight to your
-                  inbox. Daily programming practice to improve your ability to
-                  code.
+                  Beginner-friendly coding challenges delivered straight to your
+                  inbox. Improving your coding skills in just 5 minutes a day.
                 </p>
               </div>
               <Button variant="secondary" className="font-onest">

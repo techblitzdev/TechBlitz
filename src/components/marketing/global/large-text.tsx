@@ -4,7 +4,7 @@ import { useRef } from 'react';
 
 export default function HomepageLargeText() {
   const text =
-    'Boost your coding skills with daily, beginner-friendly coding lessons that fit into your busy schedule.';
+    'Boost your coding skills with free, beginner-friendly coding challenges that fit into your busy schedule.';
   // Split the text into an array of words
   const words = text.split(' ');
 

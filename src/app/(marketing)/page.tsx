@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   description,
   keywords: [
     'learn to code for free',
-    'beginner-friendly coding lessons',
+    'beginner-friendly coding challenges',
     'interactive coding challenges',
     'daily programming practice',
     'personalized coding roadmap',

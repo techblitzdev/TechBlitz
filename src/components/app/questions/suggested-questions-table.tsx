@@ -9,8 +9,14 @@ export default async function QuestionSuggestedCard(opts: {
   border?: boolean;
   textLimit?: number;
   customQuestions?: Question[];
+  isCustomQuestion?: boolean;
 }) {
-  const { border = true, textLimit = 35, customQuestions } = opts;
+  const {
+    border = true,
+    textLimit = 35,
+    customQuestions,
+    isCustomQuestion,
+  } = opts;
 
   // if custom questions are provided, use them over the getSuggestions
   const questions = customQuestions ?? (await getSuggestions({ limit: 5 }));
@@ -42,7 +48,11 @@ export default async function QuestionSuggestedCard(opts: {
               ? 'bg-[#000] hover:bg-black-100'
               : 'bg-black hover:bg-black-75'
           )}
-          href={`/question/${question.slug}`}
+          href={
+            isCustomQuestion
+              ? `/question/custom/${question.uid}`
+              : `/question/${question.slug}`
+          }
         >
           <p className="text-sm font-satoshi line-clamp-1">
             {shortenText(question.question, textLimit)}

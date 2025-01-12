@@ -8,6 +8,7 @@ type MarketingContentGridComponentProps = {
   title: string;
   subheading?: string;
   items: MarketingContentGridProps[];
+  center?: boolean;
 };
 
 /**
@@ -18,6 +19,7 @@ export default function MarketingContentGrid({
   title,
   subheading,
   items,
+  center = false,
 }: MarketingContentGridComponentProps) {
   return (
     <section className="lg:max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 py-16 pb-24 lg:pb-36">
@@ -25,15 +27,17 @@ export default function MarketingContentGrid({
         {title}
       </h6>
       {subheading && (
-        <span className="w-full mt-2 lg:px-6 max-w-4xl block text-gray-400">
+        <span className="w-full mt-2 lg:px-6 max-w-4xl block text-gray-400 font-onest">
           {subheading}
         </span>
       )}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-6 mt-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-6 mt-10 lg:mt-3">
         {items?.map((item, index) => (
           <div
             key={index}
-            className="flex flex-col gap-3 lg:p-6 shadow-md rounded-lg hover:shadow-lg transition-shadow duration-300"
+            className={`flex flex-col gap-3 lg:p-6 shadow-md rounded-lg hover:shadow-lg transition-shadow duration-300 ${
+              center ? 'items-center' : ''
+            }`}
           >
             <div className="flex items-center gap-2">
               <div className="text-accent">{item.icon}</div>

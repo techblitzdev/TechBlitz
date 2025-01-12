@@ -22,6 +22,11 @@ import { getBaseUrl } from '@/utils';
 import { WebPageJsonLd } from '@/types/Seo';
 import { WebPageJsonLdBreadcrumb } from '@/utils/seo';
 import Testimonials from '@/components/marketing/global/testimonials';
+import MarketingContentGrid, {
+  MarketingContentGridProps,
+} from '@/components/marketing/global/content-grid';
+import { MobileIcon } from '@radix-ui/react-icons';
+import { CodeIcon, Users2 } from 'lucide-react';
 
 const title = 'Learn to code for free | TechBlitz';
 const description = 'Learning to code made simple';
@@ -40,6 +45,8 @@ export const metadata: Metadata = {
     'AI-assisted coding',
     'learn javascript',
     'free leetcode alternative',
+    'mobile-friendly coding platform',
+    'coding challenges for beginners',
   ],
   openGraph: {
     title,
@@ -107,6 +114,27 @@ export default async function Page() {
     },
   };
 
+  const contentGridItems: MarketingContentGridProps[] = [
+    {
+      title: 'Interactive Coding Challenges',
+      description:
+        'Master programming concepts through simple, interactive coding challenges. With your AI assistant providing instant feedback and step-by-step guidance.',
+      icon: <CodeIcon className="size-6" />,
+    },
+    {
+      title: 'Beginner-Friendly Platform',
+      description:
+        'Perfect for beginners - start with basic challenges and gradually advance your skills. Our step-by-step approach and clear explanations makes improving coding skills easy and enjoyable.',
+      icon: <Users2 className="size-6" />,
+    },
+    {
+      title: 'Seamless mobile experience',
+      description:
+        'Practice on the go with our mobile-friendly coding platform. Access your dashboard from any device, anywhere.',
+      icon: <MobileIcon className="size-6" />,
+    },
+  ];
+
   //const homepageHeroIframe =
   //  'https://customer-8s5ov2shcw99ezk2.cloudflarestream.com/e49b63ed5ee42085d838a50928855776/iframe?poster=https%3A%2F%2Fcustomer-8s5ov2shcw99ezk2.cloudflarestream.com%2Fe49b63ed5ee42085d838a50928855776%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600';
 
@@ -126,6 +154,11 @@ export default async function Page() {
             <HomepageLargeText />
             <PersonalizedBlock />
             <ComparisonBlock />
+            <MarketingContentGrid
+              title="Learning to code for everyone"
+              subheading="Join aspiring developers worldwide learning to code through TechBlitz's free, interactive programming challenges. Get personalized practice, instant feedback, and step-by-step guidance on your coding journey."
+              items={contentGridItems}
+            />
             <OpenSourceBlock />
             <CallToActionBlock title="Learn to code for free, forever" />
           </div>

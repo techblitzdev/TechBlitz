@@ -117,7 +117,6 @@ export function AppSidebar(opts: {
         {
           title: 'Explore',
           url: '/questions/explore',
-          badge: 'New!',
         },
         {
           title: 'Daily Question',
@@ -185,6 +184,7 @@ export function AppSidebar(opts: {
       url: '/leaderboard',
       icon: Award,
       tooltip: 'Leaderboard',
+      badge: 'New!',
     },
     {
       groupLabel: 'Support',

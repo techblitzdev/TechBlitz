@@ -23,7 +23,7 @@ export const getUserAnswer = async (opts: { questionUid: string }) => {
     return await prisma.answers.findFirst({
       where: {
         questionUid,
-        userUid: user.uid, // user?.uid is unnecessary since we check for user existence
+        userUid: user.uid,
       },
     });
   } catch (error) {

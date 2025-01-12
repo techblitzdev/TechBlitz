@@ -1,75 +1,130 @@
+import { FileQuestion, Trophy } from 'lucide-react';
 import { getMostQuestionsAnswered } from '@/utils/data/leaderboard/get-most-questions-answered';
-import Card from '@/components/global/Card';
 import ProfilePicture from '@/components/ui/profile-picture';
 import { UserRecord } from '@/types/User';
 import { shortenText } from '@/utils';
 import { getUserDisplayName } from '@/utils/user';
-import { Trophy } from 'lucide-react';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import ShowTimeTakenToggle from './show-time-taken';
 
-const header = () => {
-  return (
-    <div className="flex w-full justify-between items-center">
-      <div className="flex flex-col gap-y-0.5">
-        <div className="flex gap-x-2 items-center">
-          <Trophy className="hidden md:block size-5 text-yellow-400" />
-          <h3 className="text-lg">Top users by questions answered</h3>
-        </div>
-        <p className="text-xs text-gray-400">
-          Battle your way to the top of TechBlitz!
-        </p>
-      </div>
-    </div>
-  );
-};
-
-export default async function LeaderboardMostQuestionsAnswered(opts: {
-  userUid?: string;
+export default async function LeaderboardMostQuestionsAnswered({
+  user,
+}: {
+  user?: UserRecord | null;
 }) {
-  const { userUid } = opts;
   const topUsersByQuestionCount = await getMostQuestionsAnswered();
 
   return (
-    <Card header={header()}>
-      <div className="flex flex-col divide-y-[1px] divide-black-50">
-        {/* Headings Row */}
-        <div className="flex items-center px-4 py-2 bg-black-75 font-medium font-ubuntu text-xs">
-          <span className="w-[30%]">Position</span>
-          <span className="w-[50%]">User</span>
-          <span className="w-[20%] text-right">Answered</span>
-        </div>
-
-        {topUsersByQuestionCount.map((user, index) => (
-          <div
-            key={user.uid}
-            className={`flex items-center px-4 py-3 ${
-              index % 2 === 0 ? 'bg-black' : 'bg-[#000]'
-            }`}
-          >
-            {/* Position */}
-            <span className="w-[30%]">#{index + 1}</span>
-
-            {/* User */}
-            <div className="w-[50%] flex items-center gap-4">
-              <ProfilePicture
-                src={user.userProfilePicture}
-                alt={`${user.username} profile picture`}
-              />
-              <span>
-                {shortenText(
-                  getUserDisplayName(user as unknown as UserRecord),
-                  25
-                )}
-              </span>
-              {userUid === user.uid && (
-                <span className="text-xs text-gray-500">(You)</span>
-              )}
+    <Card className="border-none">
+      <CardHeader className="p-0 md:p-6 w-full flex gap-2 justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="order-last md:order-first flex items-center gap-x-2">
+            <Trophy className="size-5 text-accent" />
+            <div>
+              <CardTitle className="text-white">
+                Most Questions Answered
+              </CardTitle>
+              <CardDescription className="text-gray-400">
+                Battle your way to the top of TechBlitz!
+              </CardDescription>
             </div>
-
-            {/* Answered */}
-            <span className="w-[20%] text-right">{user._count.answers}</span>
           </div>
-        ))}
-      </div>
+          <ShowTimeTakenToggle user={user} />
+        </div>
+      </CardHeader>
+      <CardContent className="p-0 pt-6 md:p-6 md:pt-0">
+        <Table>
+          <TableHeader className="bg-transparent">
+            <TableRow className="bg-transparent">
+              <TableHead className="!border-t-0 w-12 md:w-[100px] text-white bg-transparent">
+                Rank
+              </TableHead>
+              <TableHead className="!border-t-0 text-white bg-transparent">
+                User
+              </TableHead>
+              <TableHead className="!border-t-0 flex justify-center items-center xs:justify-end gap-2 md:text-right text-white bg-transparent">
+                <span className="hidden sm:block">Questions Solved</span>
+                <span className="block sm:hidden">
+                  <FileQuestion className="size-4 text-white" />
+                </span>
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {topUsersByQuestionCount.map((userData, index) => (
+              <TableRow
+                key={userData.uid}
+                className="border-white/10 hover:bg-white/5 transition-colors"
+              >
+                <TableCell className="font-medium text-white">
+                  {index < 3 ? (
+                    <Badge
+                      variant={index === 0 ? 'default' : 'secondary'}
+                      className={`
+                        ${index === 0 && 'bg-yellow-500/20 text-yellow-300 hover:bg-yellow-500/30'}
+                        ${index === 1 && 'bg-gray-400/20 text-gray-300 hover:bg-gray-400/30'}
+                        ${index === 2 && 'bg-amber-700/20 text-amber-500 hover:bg-amber-700/30'}
+                      `}
+                    >
+                      #{index + 1}
+                    </Badge>
+                  ) : (
+                    <span className="text-gray-400">#{index + 1}</span>
+                  )}
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center gap-4">
+                    <ProfilePicture
+                      src={userData.userProfilePicture}
+                      alt={`${userData.username} profile picture`}
+                      className="text-white"
+                    />
+                    <div className="flex gap-2 items-center">
+                      <span className="text-white font-medium hidden md:block">
+                        {shortenText(getUserDisplayName(userData as any), 25)}
+                      </span>
+                      <span className="text-white font-medium block md:hidden">
+                        {shortenText(getUserDisplayName(userData as any), 10)}
+                      </span>
+                      {user?.uid === userData.uid && (
+                        <span className="text-xs text-white">(You)</span>
+                      )}
+                      {userData?.userLevel === 'PREMIUM' && (
+                        <div className="relative w-fit bg-accent text-xs flex items-center justify-center px-2 py-0.5 rounded-full text-white">
+                          <span className="text-[10px]">PRO</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </TableCell>
+                <TableCell className="text-right">
+                  <Badge
+                    variant="outline"
+                    className="border-white/10 text-white"
+                  >
+                    {userData._count.answers}
+                  </Badge>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
     </Card>
   );
 }

@@ -7,7 +7,7 @@ export default function StatisticsLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="text-white flex flex-col gap-y-4 relative h-full">
+    <div className="text-white flex flex-col gap-y-2 relative h-full">
       <div className="flex w-full items-center px-6">
         <div className="flex-1">
           <SidebarLayoutTrigger />

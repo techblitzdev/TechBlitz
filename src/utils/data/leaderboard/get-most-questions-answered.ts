@@ -1,8 +1,8 @@
 import { prisma } from '@/lib/prisma';
 
-export const getMostQuestionsAnswered = async () => {
+export const getMostQuestionsAnswered = async (take: number = 20) => {
   return await prisma.users.findMany({
-    take: 20,
+    take,
     orderBy: {
       answers: {
         _count: 'desc', // Order by the count of related answers in descending order
@@ -22,8 +22,9 @@ export const getMostQuestionsAnswered = async () => {
       answers: true,
       userProfilePicture: true,
       _count: {
-        select: { answers: true }, // Count on actual references
+        select: { answers: true },
       },
+      userLevel: true,
     },
   });
 };

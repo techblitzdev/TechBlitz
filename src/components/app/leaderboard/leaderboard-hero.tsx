@@ -1,7 +1,5 @@
-import { Grid } from '@/components/ui/grid';
 import ProfilePicture from '@/components/ui/profile-picture';
 import { UserRecord } from '@/types/User';
-import { shortenText } from '@/utils';
 import { getUserDisplayName } from '@/utils/user';
 import { Crown } from 'lucide-react';
 
@@ -21,17 +19,17 @@ export default function LeaderboardHero(opts: {
   const podiumOrder = [1, 0, 2]; // 2nd, 1st, 3rd
 
   return (
-    <section className="w-full py-8 flex flex-col gap-y-4 justify-between items-center">
-      <div className="flex flex-col gap-y-3 mb-8 relative">
+    <section className="w-full py-8 md:pb-40 flex flex-col gap-y-4 justify-between items-center">
+      <div className="flex flex-col gap-y-3 md:mb-8 relative">
         <h1 className="text-3xl md:text-5xl text-wrap text-center font-inter max-w-2xl text-gradient from-white to-white/55 relative z-10">
           Leaderboard
         </h1>
-        <p className="text-sm text-gray-400 relative z-10">
+        <p className="text-sm text-gray-400 relative z-10 text-center">
           See how you stack up against the rest of the community, and try to
           battle your way to the top!
         </p>
       </div>
-      <div className="flex justify-center items-end perspective-1000 relative">
+      <div className="hidden md:flex justify-center items-end perspective-1000 relative">
         {podiumOrder.map((index) => {
           const user = topThreeUsers[index];
           const position = index + 1;
@@ -90,7 +88,7 @@ export default function LeaderboardHero(opts: {
                         : 'bg-black-100'
                   }`}
                   style={{
-                    transform: `rotateX(78deg)`,
+                    transform: `rotateX(81deg)`,
                   }}
                 >
                   {/** bottom of the podium */}

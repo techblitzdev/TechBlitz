@@ -1,11 +1,7 @@
-import { getTodaysQuestion } from '@/utils/data/questions/get-today';
-import Hero from '@/components/global/hero';
-import LeaderboardLongestStreaks from '@/components/app/leaderboard/leaderboard-longest-streaks';
+import LeaderboardHero from '@/components/app/leaderboard/leaderboard-hero';
 import LeaderboardMostQuestionsAnswered from '@/components/app/leaderboard/leaderboard-most-questions-answered';
-import LeaderboardTodayBoard from '@/components/app/leaderboard/leaderboard-today-board';
 import { useUserServer } from '@/hooks/use-user-server';
 import { createMetadata } from '@/utils/seo';
-import LeaderboardHero from '@/components/app/leaderboard/leaderboard-hero';
 import { getMostQuestionsAnswered } from '@/utils/data/leaderboard/get-most-questions-answered';
 
 export async function generateMetadata() {
@@ -16,24 +12,21 @@ export async function generateMetadata() {
   });
 }
 
-export default async function TodaysLeaderboardPage({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
-  const currentPage = parseInt(searchParams.page as string) || 1;
+export default async function TodaysLeaderboardPage() {
+  //const currentPage = parseInt(searchParams.page as string) || 1;
 
-  const topThreeUsers = await getMostQuestionsAnswered(3);
-
-  const [user, todayQuestion] = await Promise.all([
+  const [user, topThreeUsers] = await Promise.all([
     useUserServer(),
-    getTodaysQuestion(),
+    getMostQuestionsAnswered(3),
   ]);
 
   return (
     <>
+      {/** @ts-ignore - this is the valid type */}
       <LeaderboardHero topThreeUsers={topThreeUsers} />
-      <div className="lg:container flex flex-col xl:flex-row gap-10 mt-5"></div>
+      <div className="lg:container flex flex-col xl:flex-row gap-10 mt-5">
+        <LeaderboardMostQuestionsAnswered userUid={user?.uid} />
+      </div>
     </>
   );
 }

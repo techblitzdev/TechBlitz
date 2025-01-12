@@ -5,12 +5,9 @@ import { Separator } from '@/components/ui/separator';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, FlameIcon, Trophy } from 'lucide-react';
 import Link from 'next/link';
-import UserRank from './user-rank';
 import { getLongestStreaks } from '@/utils/data/leaderboard/get-longest-streaks';
 import { getUserDisplayName } from '@/utils/user';
 import { Grid } from '@/components/ui/grid';
-import LoadingSpinner from '@/components/ui/loading';
-import { Suspense } from 'react';
 
 export default async function TodaysLeaderboardBentoBox(opts: {
   todaysQuestion: Question | null;
@@ -85,9 +82,6 @@ export default async function TodaysLeaderboardBentoBox(opts: {
         <Separator className="bg-black-50 " />
         <div className="px-4 pb-4 bg-black-50/10 pt-4">
           <p className="text-xs text-gray-400">Your rank:</p>
-          <Suspense fallback={<LoadingSpinner />}>
-            <UserRank questionUid={todaysQuestion?.uid || ''} />
-          </Suspense>
         </div>
       </div>
     </div>

@@ -81,18 +81,16 @@ export default function QuestionCard(opts: {
               border={getQuestionDifficultyColor(question.difficulty).border}
             />
           </div>
-          {currentLayout === 'questions' && (
-            <div className="flex lg:hidden text-sm w-full items-center justify-end bg-black-25 gap-x-3">
-              {/** explain question ai button */}
-              <AiQuestionHelp question={question} user={user} />
-              {/** code theme selector */}
-              <ChangeCodeTheme user={user} />
-              {/** code snippet */}
-              {question.codeSnippet && (
-                <ExpandedCodeModal code={question.codeSnippet} />
-              )}
-            </div>
-          )}
+          <div className="flex lg:hidden text-sm w-full items-center justify-end bg-black-25 gap-x-3">
+            {/** explain question ai button */}
+            <AiQuestionHelp question={question} user={user} />
+            {/** code theme selector */}
+            <ChangeCodeTheme user={user} />
+            {/** code snippet */}
+            {question.codeSnippet && (
+              <ExpandedCodeModal code={question.codeSnippet} />
+            )}
+          </div>
         </div>
         <div className="flex flex-wrap gap-2 justify-between items-center">
           <Button

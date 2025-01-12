@@ -53,7 +53,6 @@ import type { SidebarItemType } from '@/types/Sidebar';
 import { useMemo } from 'react';
 import { UserRecord } from '@/types/User';
 import { Question } from '@/types/Questions';
-import { Badge } from '@/components/ui/badge';
 
 export function AppSidebar(opts: {
   user: UserRecord | null;

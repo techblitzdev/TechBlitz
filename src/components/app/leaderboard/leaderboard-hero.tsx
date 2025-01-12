@@ -28,10 +28,12 @@ export default function LeaderboardHero(opts: {
           Leaderboard
         </h1>
         <p className="text-sm text-gray-400 relative z-10 text-center">
-          See how you stack up against the rest of the community, and try to
-          battle your way to the top!
+          See how you stack up against the rest of the community and become the
+          best!
         </p>
-        <AnimatedSpan content="Top Users" />
+        <div className="hidden md:flex">
+          <AnimatedSpan content="Top Users" />
+        </div>
       </div>
       <div className="hidden md:flex justify-center items-end perspective-1000 relative">
         {podiumOrder.map((index) => {
@@ -69,18 +71,18 @@ export default function LeaderboardHero(opts: {
                   className={`flex flex-col items-center mb-2 md:mb-4 z-20 relative ${
                     position === 3 ? '-top-4' : ''
                   }`}
-                  initial={{ scale: 0.5, opacity: 0 }}
+                  initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{
-                    duration: 0.3,
-                    delay: position * 0.3 + 0.3,
+                    duration: 0.4,
+                    delay: position * 0.2,
                     type: 'spring',
-                    bounce: 0.4,
+                    bounce: 0.2,
                   }}
                 >
                   <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
                     className="relative"
                   >
                     <ProfilePicture
@@ -91,13 +93,13 @@ export default function LeaderboardHero(opts: {
                     {position === 1 && (
                       <motion.div
                         className="absolute -top-3 left-4 size-4"
-                        initial={{ y: -10, opacity: 0 }}
+                        initial={{ y: -5, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{
-                          delay: 1.2,
+                          delay: 0.8,
                           type: 'spring',
-                          stiffness: 300,
-                          damping: 10,
+                          stiffness: 200,
+                          damping: 15,
                         }}
                       >
                         <Crown className="size-4 text-yellow-500 fill-yellow-400" />
@@ -105,9 +107,9 @@ export default function LeaderboardHero(opts: {
                     )}
                     {user.userLevel === 'PREMIUM' && (
                       <motion.div
-                        initial={{ x: -10, opacity: 0 }}
+                        initial={{ x: -5, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: position * 0.3 + 0.6 }}
+                        transition={{ delay: position * 0.2 + 0.3 }}
                         className="relative -top-3 left-1.5 w-fit bg-accent text-xs flex items-center justify-center px-2 py-0.5 rounded-full"
                       >
                         <span className="text-[10px]">PRO</span>
@@ -115,9 +117,9 @@ export default function LeaderboardHero(opts: {
                     )}
                     {user.userLevel === 'ADMIN' && (
                       <motion.div
-                        initial={{ x: -10, opacity: 0 }}
+                        initial={{ x: -5, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: position * 0.3 + 0.6 }}
+                        transition={{ delay: position * 0.2 + 0.3 }}
                         className="relative -top-3 w-fit bg-accent text-xs flex items-center justify-center px-2 py-0.5 rounded-full"
                       >
                         <span className="text-[10px]">ADMIN</span>
@@ -125,17 +127,17 @@ export default function LeaderboardHero(opts: {
                     )}
                   </motion.div>
                   <motion.span
-                    initial={{ y: 10, opacity: 0 }}
+                    initial={{ y: 5, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: position * 0.3 + 0.4 }}
+                    transition={{ delay: position * 0.2 + 0.2 }}
                     className="text-sm md:text-base font-semibold line-clamp-1"
                   >
                     {getUserDisplayName(user as unknown as UserRecord)}
                   </motion.span>
                   <motion.span
-                    initial={{ y: 10, opacity: 0 }}
+                    initial={{ y: 5, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: position * 0.3 + 0.5 }}
+                    transition={{ delay: position * 0.2 + 0.3 }}
                     className="text-sm text-white"
                   >
                     {user._count.answers} answers

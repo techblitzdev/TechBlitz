@@ -11,6 +11,8 @@ const HomepageLargeText = dynamic(
   () => import('@/components/marketing/global/large-text'),
   { ssr: false }
 );
+
+import PersonalizedBlock from '@/components/marketing/homepage/personalized/block';
 import ComparisonBlock from '@/components/marketing/homepage/comparison/comparison-block';
 import OpenSourceBlock from '@/components/marketing/global/open-source/open-source-block';
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
@@ -21,7 +23,7 @@ import { WebPageJsonLd } from '@/types/Seo';
 import { WebPageJsonLdBreadcrumb } from '@/utils/seo';
 import Testimonials from '@/components/marketing/global/testimonials';
 
-const title = 'Learn to code | TechBlitz';
+const title = 'Learn to code for free | TechBlitz';
 const description = 'Learning to code made simple';
 
 export const metadata: Metadata = {
@@ -37,6 +39,7 @@ export const metadata: Metadata = {
     'best platform to learn coding',
     'AI-assisted coding',
     'learn javascript',
+    'free leetcode alternative',
   ],
   openGraph: {
     title,
@@ -76,7 +79,7 @@ export default async function Page() {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     url: getBaseUrl(),
-    headline: 'Learn to code | TechBlitz',
+    headline: 'Learn to code for free | TechBlitz',
     description: 'Learning to code made simple',
     image:
       'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/Screenshot%202025-01-11%20at%2002.24.28.png',
@@ -121,6 +124,7 @@ export default async function Page() {
 
             <FeaturesBentoGrid />
             <HomepageLargeText />
+            <PersonalizedBlock />
             <ComparisonBlock />
             <OpenSourceBlock />
             <CallToActionBlock title="Learn to code for free, forever" />

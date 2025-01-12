@@ -112,7 +112,7 @@ export default function RoadmapGridItemOne() {
       </div>
       <div
         aria-hidden="true"
-        className="hidden md:block absolute right-0 top-0 h-full w-px pointer-events-none"
+        className="hidden md:block absolute right-0 top-0 h-[calc(100%-1px)] w-px pointer-events-none "
         style={{
           background:
             'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 10%, rgba(143, 143, 143, 0.67) 100%)',

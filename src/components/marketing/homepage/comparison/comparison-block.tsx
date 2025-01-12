@@ -8,9 +8,9 @@ export default async function ComparisonBlock() {
           Learn with interactive <br /> coding challenges
         </h1>
         <p className="text-gray-400 max-w-4xl text-sm md:text-base">
-          Discover why TechBlitz is the best LeetCode alternative for beginners.
-          Our coding challenges are designed to mimic real-world problems that
-          you will face in your day-to-day activities.
+          Discover why TechBlitz is the best free LeetCode alternative for
+          beginners. Our coding challenges are designed to mimic real-world
+          problems that you will face in your day-to-day activities.
         </p>
       </div>
       <div className=" w-full flex justify-center relative">

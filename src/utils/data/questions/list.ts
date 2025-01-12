@@ -172,7 +172,9 @@ export const listQuestions = async (
         questions.filter((question) => {
           if (!question.customQuestion) return true;
           return question.linkedReports.length > 0;
-        }) as unknown as Question[]
+        }) as unknown as Question[] & {
+          userAnswers: Answer[] | null;
+        }
       );
 
       // Get total count with same security constraints
@@ -181,8 +183,12 @@ export const listQuestions = async (
       });
       return {
         questions: transformedQuestions as
-          | Question[]
-          | QuestionWithoutAnswers[],
+          | (Question[] & {
+              userAnswers: Answer[] | null;
+            })
+          | (QuestionWithoutAnswers[] & {
+              userAnswers: Answer[] | null;
+            }),
         total,
         page,
         pageSize,

@@ -20,7 +20,7 @@ async function QuestionStats({
 }) {
   const stats = await getQuestionStats(identifier, value);
   return (
-    <div className="text-start text-[10px]">
+    <div className="text-start text-xs">
       <p className="font-ubuntu text-sm">
         Submissions:{' '}
         <span className="font-medium">{stats.totalSubmissions}</span>

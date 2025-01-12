@@ -6,6 +6,8 @@ import { listQuestions } from '@/utils/data/questions/list';
 import { FilterParams } from '@/utils/search-params';
 import { Button } from '@/components/ui/button';
 import type { UserRecord } from '@/types/User';
+import { QuestionWithoutAnswers } from '@/types/Questions';
+import { Answer } from '@/types/Answers';
 
 const ITEMS_PER_PAGE = 15;
 
@@ -68,7 +70,7 @@ export default async function QuestionsList({
       {data.questions.map((q) => (
         <QuestionCard
           key={q.uid}
-          questionData={q}
+          questionData={q as QuestionWithoutAnswers & { userAnswers: Answer[] }}
           showSubmissions={showSubmissions}
           identifier={customQuestions ? 'uid' : 'slug'}
           customQuestion={customQuestions}

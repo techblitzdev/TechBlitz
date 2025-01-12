@@ -116,18 +116,14 @@ export function AppSidebar(opts: {
           url: '/questions',
         },
         {
-          title: (
-            <>
-              Explore
-              <Badge className="bg-accent text-xs text-white">New!</Badge>
-            </>
-          ),
+          title: 'Explore',
           url: '/questions/explore',
+          badge: 'New!',
         },
         {
           title: 'Daily Question',
           url: `/question/${todaysQuestion?.slug}`,
-          badge: hasAnsweredDailyQuestion ? '' : 'New',
+          badge: hasAnsweredDailyQuestion ? '' : 'New!',
         },
         {
           title: 'Custom Questions',

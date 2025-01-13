@@ -130,7 +130,7 @@ export default async function BlogPost({ params }: BlogPostParams) {
 
             <div className="mt-10">
               <CallToActionBlock
-                title="Start Your Software Engineering Evolution"
+                title="Learn to code, faster"
                 description="Join developers who are accelerating their careers with TechBlitz"
                 leftCta={{
                   title: 'Begin Your Journey',

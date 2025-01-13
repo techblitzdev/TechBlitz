@@ -10,6 +10,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     a: (props) => <MdxLink {...props} href={props.href || ''} />,
     ul: (props) => <MdxList {...props}>{props.children}</MdxList>,
+    ol: (props) => (
+      <MdxList {...props} ordered>
+        {props.children}
+      </MdxList>
+    ),
     button: (props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
       <Button {...(props as any)}>{props.children}</Button>
     ),

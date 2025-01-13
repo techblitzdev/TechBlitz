@@ -53,7 +53,7 @@ import type { SidebarItemType } from '@/types/Sidebar';
 import { useMemo } from 'react';
 import { UserRecord } from '@/types/User';
 import { Question } from '@/types/Questions';
-import { Profile } from '@prisma/client';
+import { Profile } from '@/types/Profile';
 
 export function AppSidebar(opts: {
   user: UserRecord | null;
@@ -61,7 +61,7 @@ export function AppSidebar(opts: {
   todaysQuestion: Question | null;
   hasAnsweredDailyQuestion: boolean;
 }) {
-  const { user, todaysQuestion, hasAnsweredDailyQuestion } = opts;
+  const { user, todaysQuestion, hasAnsweredDailyQuestion, profile } = opts;
   const pathname = usePathname();
 
   const { state } = useSidebar();
@@ -272,7 +272,7 @@ export function AppSidebar(opts: {
         ...menuItems,
         {
           title: 'Admin',
-          url: '/admin',
+          url: '/dashboard/admin',
           icon: LockIcon,
         },
       ];
@@ -425,7 +425,7 @@ export function AppSidebar(opts: {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooterComponent user={user} />
+      <SidebarFooterComponent user={user} profile={profile} />
       <SidebarRail />
     </Sidebar>
   );

@@ -3,28 +3,28 @@ export type Profile = {
   userUid: string;
 
   // Social links
-  instagram?: string;
-  github?: string;
-  linkedin?: string;
-  twitter?: string;
-  youtube?: string;
-  tiktok?: string;
-  twitch?: string;
-  website?: string;
+  instagram?: string | null;
+  github?: string | null;
+  linkedin?: string | null;
+  twitter?: string | null;
+  youtube?: string | null;
+  tiktok?: string | null;
+  twitch?: string | null;
+  website?: string | null;
 
   // Profile URL
   handle: string;
 
   // Bio and location
-  bio?: string;
-  location?: string;
-  country?: string;
-  timezone?: string;
+  bio?: string | null;
+  location?: string | null;
+  country?: string | null;
+  timezone?: string | null;
 
   // Professional info
-  company?: string;
-  jobTitle?: string;
-  yearsOfExperience?: number;
+  company?: string | null;
+  jobTitle?: string | null;
+  yearsOfExperience?: number | null;
 
   // Skills and interests
   programmingLanguages: string[];
@@ -40,12 +40,12 @@ export type Profile = {
   showLocation: boolean;
 
   // Customization
-  accentColor?: string;
-  bannerImage?: string;
+  accentColor?: string | null;
+  bannerImage?: string | null;
 
   // Stats
-  viewCount: number;
-  lastViewed?: Date;
+  viewCount: number | null;
+  lastViewed?: Date | null;
 
   // Timestamps
   createdAt: Date;

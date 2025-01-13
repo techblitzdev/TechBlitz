@@ -3,7 +3,7 @@ import { z } from 'zod';
 // Updated schema to properly handle optional fields
 export const userDetailsSchema = z
   .object({
-    username: z.string().min(3),
+    username: z.string().min(2),
     firstName: z.string().optional(),
     lastName: z.string().optional(),
     showTimeTaken: z.boolean().optional(),

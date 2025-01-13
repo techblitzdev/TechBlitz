@@ -9,6 +9,11 @@ export async function generateMetadata() {
     title: 'Leaderboard | TechBlitz',
     description: 'See how you stack up against the rest of the community.',
     canonicalUrl: '/leaderboard',
+    image: {
+      text: 'Leaderboard | TechBlitz',
+      bgColor: '#000000',
+      textColor: '#ffffff',
+    },
   });
 }
 

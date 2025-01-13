@@ -52,6 +52,8 @@ model Users {
 
   // the user's experience level (asked on onboarding)
   experienceLevel UserExperienceLevel @default(BEGINNER)
+
+  Profile Profile[]
 }
 
 // the streak model for tracking the user's streak
@@ -93,4 +95,63 @@ model Subscriptions {
   stripeCustomerId         String?
   stripeSubscriptionId     String?
   stripeSubscriptionItemId String?
+}
+
+// profile model for storing the user's profile
+model Profile {
+  uid String @id @default(cuid())
+  userUid String @unique
+  user Users @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+
+  // the users social links with their associated platforms
+  instagram String?
+  github String?
+  linkedin String?
+  twitter String?
+  youtube String?
+  tiktok String?
+  twitch String?
+  website String?
+
+  // this is the url of the user's profile
+  // e.g. https://techblitz.me/admin 
+  handle String
+
+  // the users bio
+  bio String? @db.Text
+  
+  // the users location
+  location String?
+  country String?
+  timezone String?
+
+  // professional info
+  company String?
+  jobTitle String?
+  yearsOfExperience Int?
+  
+  // skills and interests
+  programmingLanguages String[] @default([])
+  frameworks String[] @default([])
+  interests String[] @default([])
+
+  // the users projects - a string array of links to their projects
+  projects String[] @default([])
+  
+  // profile visibility settings
+  isPublic Boolean @default(true)
+  showEmail Boolean @default(false)
+  showLocation Boolean @default(true)
+  
+  // profile customization
+  accentColor String? // For UI customization
+  bannerImage String? // Profile banner/cover image
+  
+  // profile stats
+  viewCount Int @default(0)
+  lastViewed DateTime?
+  
+  // timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

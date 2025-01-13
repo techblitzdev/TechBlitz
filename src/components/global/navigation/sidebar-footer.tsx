@@ -20,6 +20,7 @@ import ProfilePicture from '@/components/ui/profile-picture';
 
 import { UserRecord } from '@/types/User';
 import { getUserDisplayName } from '@/utils/user';
+import { Profile } from '@/types/Profile';
 
 /**
 /**
@@ -30,8 +31,9 @@ import { getUserDisplayName } from '@/utils/user';
  */
 export default function SidebarFooterComponent(opts: {
   user: UserRecord | null;
+  profile: Profile | null;
 }) {
-  const { user } = opts;
+  const { user, profile } = opts;
 
   // get the current route so we can add the redirectUrl to the login button
   const pathname = usePathname();

@@ -53,9 +53,11 @@ import type { SidebarItemType } from '@/types/Sidebar';
 import { useMemo } from 'react';
 import { UserRecord } from '@/types/User';
 import { Question } from '@/types/Questions';
+import { Profile } from '@prisma/client';
 
 export function AppSidebar(opts: {
   user: UserRecord | null;
+  profile: Profile | null;
   todaysQuestion: Question | null;
   hasAnsweredDailyQuestion: boolean;
 }) {

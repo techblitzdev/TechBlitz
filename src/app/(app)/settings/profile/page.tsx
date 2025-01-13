@@ -7,7 +7,13 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form';
 import { InputWithLabel } from '@/components/ui/input-label';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
@@ -207,6 +213,7 @@ export default function SettingsProfilePage() {
                     </p>
                   </div>
                 </div>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -226,6 +233,7 @@ export default function SettingsProfilePage() {
                     value={field.value || ''}
                   />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -246,6 +254,7 @@ export default function SettingsProfilePage() {
                     value={field.value || ''}
                   />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -266,6 +275,7 @@ export default function SettingsProfilePage() {
                     value={field.value || ''}
                   />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -297,6 +307,7 @@ export default function SettingsProfilePage() {
                     </Tooltip>
                   </TooltipProvider>
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -329,6 +340,7 @@ export default function SettingsProfilePage() {
                     </Tooltip>
                   </TooltipProvider>
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -363,6 +375,7 @@ export default function SettingsProfilePage() {
                     />
                   </div>
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />

@@ -13,7 +13,13 @@ import {
 } from '@/components/ui/tooltip';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { Form, FormField, FormItem, FormControl } from '@/components/ui/form';
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormControl,
+  FormMessage,
+} from '@/components/ui/form';
 import { useOnboardingContext } from './onboarding-context';
 import { onboardingStepOneSchema } from '@/lib/zod/schemas/onboarding/step-one';
 import type { UpdatableUserFields } from '@/types/User';
@@ -95,6 +101,9 @@ export default function OnboardingStepOne() {
                         value={field.value ?? ''}
                       />
                     </FormControl>
+                    <FormMessage className="mt-0.5 text-start">
+                      {form.formState?.errors?.username?.message}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
@@ -127,6 +136,9 @@ export default function OnboardingStepOne() {
                               className="bg-black-50"
                             />
                           </FormControl>
+                          <FormMessage className="mt-0.5 text-start">
+                            {form.formState?.errors?.showTimeTaken?.message}
+                          </FormMessage>
                         </FormItem>
                       )}
                     />
@@ -167,6 +179,12 @@ export default function OnboardingStepOne() {
                               disabled
                             />
                           </FormControl>
+                          <FormMessage className="mt-0.5 text-start">
+                            {
+                              form.formState?.errors?.sendPushNotifications
+                                ?.message
+                            }
+                          </FormMessage>
                         </FormItem>
                       )}
                     />

@@ -132,6 +132,9 @@ export const listQuestions = async (
       } else {
         baseWhereClause.AND.push({
           customQuestion: false,
+          // the slug must be generated in order to return it from here
+          // otherwise we will not be able to fetch the question by slug
+          slugGenerated: true,
         });
       }
 

@@ -16,7 +16,7 @@ export default async function QuestionCarouselCard(opts: {
   return (
     <Link
       href={`/question/${questionData?.slug}`}
-      className="h-full bg-black-75 group"
+      className="h-full bg-black-75 group w-full"
     >
       <div className="flex flex-col justify-between space-y-5 items-start border border-black-50 hover:border-accent duration-300 p-6 rounded-lg group w-full h-full relative overflow-hidden">
         <h6 className="text-wrap text-start line-clamp-2">

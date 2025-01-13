@@ -11,7 +11,7 @@ import {
 import { Check, ChevronDown } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-type QuestionDifficulty = 'EASY' | 'MEDIUM' | 'HARD';
+type QuestionDifficulty = 'BEGINNER' | 'EASY' | 'MEDIUM' | 'HARD';
 
 interface DifficultyConfig {
   color: string;
@@ -20,6 +20,10 @@ interface DifficultyConfig {
 
 const DIFFICULTY_MAP: Record<QuestionDifficulty | 'DEFAULT', DifficultyConfig> =
   {
+    BEGINNER: {
+      color: '#10B981',
+      label: 'Beginner',
+    },
     EASY: {
       color: '#10B981',
       label: 'Easy',

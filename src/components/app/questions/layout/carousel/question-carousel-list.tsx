@@ -1,10 +1,19 @@
 import { getQuestionsByTag } from '@/utils/data/questions/get-questions-by-tag';
 import QuestionCarousel from './question-carousel';
 import { Answer } from '@/types/Answers';
-import { QuestionWithTags } from '@/types/Questions';
+import { QuestionDifficulty, QuestionWithTags } from '@/types/Questions';
 
 export default async function QuestionsCarouselList() {
   const questionsCarousels = [
+    {
+      tag: [],
+      title: 'Beginner Questions',
+      description:
+        'Learn the basics of programming with these beginner questions.',
+      image: '/images/beginner.png',
+      questions: [],
+      difficulty: 'BEGINNER' as QuestionDifficulty,
+    },
     {
       tag: ['javascript', 'JavaScript', 'javaScript', 'generators'],
       title: 'Javascript Questions',
@@ -47,7 +56,10 @@ export default async function QuestionsCarouselList() {
   // fetch questions by tag via the questionsCarousels array
   const questionsByTag = await Promise.all(
     questionsCarousels.map(async (carousel) => {
-      const questions = await getQuestionsByTag(carousel.tag);
+      const questions = await getQuestionsByTag(
+        carousel.tag,
+        carousel.difficulty
+      );
       return {
         ...carousel,
         questions: questions.flatMap((q) =>
@@ -74,6 +86,7 @@ export default async function QuestionsCarouselList() {
             }
           }
           tag={carousel.tag}
+          difficulty={carousel.difficulty}
         />
       ))}
     </div>

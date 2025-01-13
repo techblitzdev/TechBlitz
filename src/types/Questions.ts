@@ -2,7 +2,7 @@ import { QuestionResources, StatisticsReport } from '@prisma/client';
 import { QuestionAnswer } from './QuestionAnswers';
 import { Tags } from './Tags';
 
-export type QuestionDifficulty = 'EASY' | 'MEDIUM' | 'HARD';
+export type QuestionDifficulty = 'BEGINNER' | 'EASY' | 'MEDIUM' | 'HARD';
 
 /**
  * This type represents the shape of the data of a question.

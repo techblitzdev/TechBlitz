@@ -3,11 +3,35 @@ import { prisma } from '@/lib/prisma';
 import { Questions } from '@prisma/client';
 import Anthropic from '@anthropic-ai/sdk';
 
+// scripts used to add slug data to the questions.
+// its not the most optimized script, but it works :)
+export const addSlugFlagToQuestion = async () => {
+  // only apply to question that have a slug and are not custom questions
+  await prisma.questions.updateMany({
+    where: {
+      slug: {
+        not: null,
+      },
+      AND: {
+        customQuestion: false,
+      },
+    },
+    data: {
+      slugGenerated: true,
+    },
+  });
+};
+
 export const addSlugToQuestion = async () => {
   // fetch all questions that need slugs
   const questions = await prisma.questions.findMany({
     where: {
       customQuestion: false,
+      AND: {
+        slug: {
+          equals: null,
+        },
+      },
     },
     include: {
       tags: {
@@ -18,9 +42,14 @@ export const addSlugToQuestion = async () => {
     },
   });
 
+  console.log('question count', questions.length);
+
   for (const question of questions) {
     await addSlug(question);
   }
+
+  // re run addSlugFlagToQuestion to generate the slug
+  await addSlugFlagToQuestion();
 };
 
 const addSlug = async (question: Questions) => {

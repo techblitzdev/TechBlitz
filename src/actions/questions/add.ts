@@ -2,6 +2,7 @@
 import { QuestionDifficulty } from '@/types/Questions';
 import { prisma } from '@/lib/prisma';
 import uniqid from 'uniqid';
+import { addSlugToQuestion } from '@/scripts/add-slug-to-question';
 
 export const addQuestion = async (opts: {
   question: string;
@@ -71,6 +72,9 @@ export const addQuestion = async (opts: {
     if (!isRoadmapQuestion) {
       await prisma.questions.create({
         data: {
+          // we do not generate the slug here
+          slugGenerated: false,
+          slug: null,
           uid: questionUid,
           question,
           questionDate: questionDate
@@ -145,6 +149,9 @@ export const addQuestion = async (opts: {
         },
       });
     }
+
+    // re run addSlugToQuestion to generate the slug
+    await addSlugToQuestion();
 
     return 'ok';
   } catch (error) {

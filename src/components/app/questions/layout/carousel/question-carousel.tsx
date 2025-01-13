@@ -5,7 +5,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { QuestionWithTags } from '@/types/Questions';
+import { QuestionDifficulty, QuestionWithTags } from '@/types/Questions';
 
 import QuestionCarouselCard from './question-carousel-card';
 import { Button } from '@/components/ui/button';
@@ -26,12 +26,18 @@ export default function QuestionCarousel(opts: {
     userAnswers: Answer;
   };
   tag: string | string[];
+  difficulty?: QuestionDifficulty;
 }) {
-  const { heading, description, image, questions, tag } = opts;
+  const { heading, description, image, questions, tag, difficulty } = opts;
 
   console.log({
     image,
   });
+
+  const viewMoreHref =
+    Array.isArray(tag) && tag.length > 0
+      ? `/questions?tag=${tag.join(',')}`
+      : `/questions?difficulty=${difficulty}`;
 
   return (
     <Carousel
@@ -51,10 +57,7 @@ export default function QuestionCarousel(opts: {
             <p className="text-sm text-wrap text-start">{description}</p>
           </div>
           <div className="flex items-center gap-2 justify-between">
-            <Button
-              href={`/questions?tag=${Array.isArray(tag) ? tag[0] : tag}`}
-              variant="default"
-            >
+            <Button href={viewMoreHref} variant="default">
               View more
               <ChevronRight className="size-4 ml-2" />
             </Button>
@@ -73,8 +76,8 @@ export default function QuestionCarousel(opts: {
         <div className="relative w-full">
           <div className="hidden md:block absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-[#000000] to-transparent z-10" />
           <CarouselContent className="grid grid-flow-col auto-cols-[calc(100%-8px)] md:auto-cols-[calc(50%-8px)] lg:auto-cols-[calc(33.33%-8px)] gap-4">
-            {questions.map((q) => (
-              <CarouselItem key={q.uid} className="flex">
+            {questions.map((q, index) => (
+              <CarouselItem key={`${q.uid}-${index}`} className="flex">
                 <QuestionCarouselCard
                   key={q.uid}
                   questionData={

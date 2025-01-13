@@ -21,7 +21,7 @@ export const newQuestionSchema = z
     isRoadmapQuestion: z.boolean().default(false),
     aiTitle: z.string().optional(),
     // either easy, medium, or hard
-    difficulty: z.enum(['EASY', 'MEDIUM', 'HARD'], {
+    difficulty: z.enum(['BEGINNER', 'EASY', 'MEDIUM', 'HARD'], {
       required_error: 'Difficulty is required',
       invalid_type_error: 'Difficulty must be one of: easy, medium, or hard',
     }),

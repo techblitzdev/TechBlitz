@@ -23,8 +23,6 @@ export default async function RandomQuestion(opts: {
           currentQuestionSlug,
         });
 
-        console.log('randomQuestion', randomQuestion);
-
         redirect(`/question/${randomQuestion}`);
       }}
     >

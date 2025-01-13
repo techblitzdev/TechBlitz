@@ -156,6 +156,8 @@ export default async function BlogPost({ params }: BlogPostParams) {
           </div>
         </article>
         <aside className="w-full md:w-2/5 order-first md:order-last">
+          {/**
+         * 
           <h3 className="text-2xl font-medium">Table of contents</h3>
           <div className="mt-8">
             {typedFrontmatter.headings.map((heading) => (
@@ -164,6 +166,7 @@ export default async function BlogPost({ params }: BlogPostParams) {
               </div>
             ))}
           </div>
+              */}
           <div className="sticky top-32 md:max-w-[320px] ml-auto space-y-5">
             <Card className="w-full border border-black-50 text-white shadow-lg">
               <CardHeader className="pb-2">

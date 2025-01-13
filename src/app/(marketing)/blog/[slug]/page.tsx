@@ -159,9 +159,11 @@ export default async function BlogPost({ params }: BlogPostParams) {
         </article>
         <aside className="w-full md:w-2/5 order-first md:order-last">
           <div className="sticky top-32 md:max-w-[320px] ml-auto space-y-5">
-            <div className="hidden md:block">
-              <TableOfContents headings={typedFrontmatter.headings} />
-            </div>
+            {typedFrontmatter?.headings?.length > 0 && (
+              <div className="hidden md:block">
+                <TableOfContents headings={typedFrontmatter.headings} />
+              </div>
+            )}
             <Card className="w-full border border-black-50 text-white shadow-lg">
               <CardHeader className="pb-2">
                 <CardTitle className="font-onest text-2xl flex items-center justify-center">

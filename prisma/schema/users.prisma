@@ -6,6 +6,13 @@ enum userLevel {
   PREMIUM
 }
 
+enum UserExperienceLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  MASTER
+}
+
 // the user model
 model Users {
   uid       String  @id()
@@ -40,7 +47,11 @@ model Users {
   // a user can have multiple statistics reports
   StatisticsReport StatisticsReport[]
 
+  // the number of ai question help tokens the user has (infinite for premium users)
   aiQuestionHelpTokens Int @default(20)
+
+  // the user's experience level (asked on onboarding)
+  experienceLevel UserExperienceLevel @default(BEGINNER)
 }
 
 // the streak model for tracking the user's streak

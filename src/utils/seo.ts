@@ -129,12 +129,14 @@ export const createMetadata = ({
 
 export const getQuestionEducationLevel = (question: Question['difficulty']) => {
   switch (question) {
+    case 'BEGINNER':
+      return 'beginner';
     case 'EASY':
       return 'beginner';
     case 'MEDIUM':
       return 'intermediate';
     case 'HARD':
-      return 'intermediate';
+      return 'advanced';
   }
 };
 

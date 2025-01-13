@@ -1,4 +1,5 @@
 enum QuestionDifficulty {
+  BEGINNER
   EASY
   MEDIUM
   HARD

@@ -3,6 +3,7 @@ import MdxLink from '@/components/mdx/mdx-link';
 import MdxHeading from '@/components/mdx/mdx-heading';
 import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
+import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 import MdxList from './components/mdx/mdx-list';
 import { Button } from './components/ui/button';
 
@@ -50,6 +51,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     CodeSnippet,
     CallToActionBlock,
+    MdxQuestionDisplay,
     ...components,
   };
 }

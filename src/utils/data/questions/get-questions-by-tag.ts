@@ -12,7 +12,8 @@ import { QuestionDifficulty } from '@/types/Questions';
  */
 export const getQuestionsByTag = async (
   tag?: string | string[],
-  difficulty?: QuestionDifficulty | undefined
+  difficulty?: QuestionDifficulty | undefined,
+  take?: number
 ) => {
   const user = await getUser();
   const includeUserAnswers = user ? true : false;
@@ -48,7 +49,7 @@ export const getQuestionsByTag = async (
           }
         : undefined,
     },
-    take: 10,
+    take: take ?? 10,
   });
 
   // If no tag provided, return questions grouped under a null tag

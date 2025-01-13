@@ -25,8 +25,14 @@ export default function MdxHeading({
   // get the headingSize for the component passed in
   const headingSize = headingSizes[heading];
 
+  const id = children?.toString().toLowerCase().replace(/\s+/g, '-');
+
   return (
-    <Component className={cn('font-bold mt-10 mb-5', headingSize)} {...props}>
+    <Component
+      id={id}
+      className={cn('font-bold mt-10 mb-5', headingSize)}
+      {...props}
+    >
       {children}
     </Component>
   );

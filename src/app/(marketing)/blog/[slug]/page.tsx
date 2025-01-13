@@ -18,6 +18,7 @@ import { QUESTIONS_COUNT } from '@/utils/constants/misc';
 import BlogCard from '@/components/marketing/resources/blog/blog-card';
 import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
 import ShareThisPost from '@/components/mdx/share-this-post';
+import TableOfContents from '@/components/mdx/mdx-table-of-contents';
 
 interface BlogPostParams {
   params: {
@@ -76,7 +77,8 @@ export async function generateStaticParams() {
 export default async function BlogPost({ params }: BlogPostParams) {
   try {
     const { content, frontmatter } = await getBlogPost(params.slug);
-    const posts = await getBlogPosts();
+    // get three most recent blog posts
+    const posts = await (await getBlogPosts()).slice(0, 3);
     // typeFrontmatter is the metadata for this blog post
     const typedFrontmatter = frontmatter as unknown as BlogFrontmatter;
 
@@ -156,18 +158,10 @@ export default async function BlogPost({ params }: BlogPostParams) {
           </div>
         </article>
         <aside className="w-full md:w-2/5 order-first md:order-last">
-          {/**
-         * 
-          <h3 className="text-2xl font-medium">Table of contents</h3>
-          <div className="mt-8">
-            {typedFrontmatter.headings.map((heading) => (
-              <div key={heading.title}>
-                <h4 className="text-lg font-medium">{heading.title}</h4>
-              </div>
-            ))}
-          </div>
-              */}
           <div className="sticky top-32 md:max-w-[320px] ml-auto space-y-5">
+            <div className="hidden md:block">
+              <TableOfContents headings={typedFrontmatter.headings} />
+            </div>
             <Card className="w-full border border-black-50 text-white shadow-lg">
               <CardHeader className="pb-2">
                 <CardTitle className="font-onest text-2xl flex items-center justify-center">

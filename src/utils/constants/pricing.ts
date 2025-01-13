@@ -79,10 +79,10 @@ export const getPlans = (user: UserRecord | null) => [
         name: 'Access to upcoming beta features',
       },
       {
-        name: '50% student discount available',
+        name: 'Priority support',
       },
       {
-        name: 'Priority support',
+        name: '50% student discount available',
       },
     ],
     cta: {
@@ -98,7 +98,7 @@ export const getPlans = (user: UserRecord | null) => [
   {
     id: 'lifetime',
     name: 'Lifetime',
-    price: 39.99,
+    price: 59.99,
     currencySymbol: '$',
     frequency: 'once',
     frequencyText: 'pay once, yours forever',
@@ -141,14 +141,14 @@ export const getPlans = (user: UserRecord | null) => [
       },
     ],
     paymentLink: {
-      local: `https://buy.stripe.com/cN229C4Es4qY5fqdQV?client_reference_id=${user?.uid}`,
-      production: `https://buy.stripe.com/cN229C4Es4qY5fqdQV?client_reference_id=${user?.uid}`,
+      local: `https://buy.stripe.com/00g29C1sg3mU37i9AI?client_reference_id=${user?.uid}`,
+      production: `https://buy.stripe.com/00g29C1sg3mU37i9AI?client_reference_id=${user?.uid}`,
     },
     cta: {
       text: user?.userLevel === 'PREMIUM' ? 'Current plan' : 'Get started',
       href: {
-        local: `https://buy.stripe.com/cN229C4Es4qY5fqdQV?client_reference_id=${user?.uid}`,
-        production: `https://buy.stripe.com/cN229C4Es4qY5fqdQV?client_reference_id=${user?.uid}`,
+        local: `https://buy.stripe.com/00g29C1sg3mU37i9AI?client_reference_id=${user?.uid}`,
+        production: `https://buy.stripe.com/00g29C1sg3mU37i9AI?client_reference_id=${user?.uid}`,
       },
     },
     mostPopular: true,

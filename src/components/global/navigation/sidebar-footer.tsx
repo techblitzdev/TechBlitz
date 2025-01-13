@@ -33,7 +33,7 @@ export default function SidebarFooterComponent(opts: {
   user: UserRecord | null;
   profile: Profile | null;
 }) {
-  const { user, profile } = opts;
+  const { user } = opts;
 
   // determine the 'profile' href, if the user's username is not set, we use the user's uid
   const profileHref = user?.username ? `/${user?.username}` : `/${user?.uid}`;

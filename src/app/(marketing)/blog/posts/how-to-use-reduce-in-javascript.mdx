@@ -1,0 +1,60 @@
+---
+title: 'How to use reduce in JavaScript'
+description: 'Learn how to use the reduce function in JavaScript with this step-by-step guide.'
+image: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images/Screenshot%202025-01-07%20at%2023.38.46.png?t=2025-01-07T23%3A38%3A52.593Z'
+date: '2025-01-07'
+author: 'Logan Ford'
+authorImage: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/user-profile-pictures/3a57d7e8-8b80-483b-93d0-70fe1f06b0c0/logo.png?u=1l5im5h5n6e5'
+readingTime: 5
+status: unpublished
+---
+
+import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+
+# What is Array reduce in JavaScript?
+
+Array.reduce is a powerful array method in JavaScript. It allows you to 'reduce' (or you can think of it as 'summarize') an array of values into a single value. This 
+is useful for when you need to get a single value of a list of values. 
+
+<br />
+
+<div className="my-4">
+Let's take a look at an example:
+</div>
+
+<CodeSnippet language="javascript" content={`const numbers = [1, 2, 3, 4, 5];
+const sum = numbers.reduce((acc, curr) => acc + curr, 0);
+console.log(sum); // 15`} />
+
+<br />
+
+<div className="my-4">
+In this example, we are adding up all the numbers in the array to get their total sum. Let's break down how it works:
+
+<br />
+
+The reduce function needs two things:
+1. A function that tells it what to do with each number (we tell it to add them together)
+2. A starting value (we use 0 as our starting point)
+
+<br />
+
+Think of it like a running total:
+- We start with 0 (our initial value)
+- First, we add 1 to get 1
+- Then we add 2 to get 3
+- Then we add 3 to get 6
+- Then we add 4 to get 10
+- Finally, we add 5 to get 15
+
+<br />
+
+The accumulator (acc) is like our notepad where we keep track of this running total. The current value (curr) is just the next number we're adding to our total.
+</div>
+
+<div className="my-4">
+### Syntax:
+</div>
+
+<CodeSnippet language="javascript" content={`Array.reduce(function(total, currentValue, currentIndex, arr), initialValue)`} />
+

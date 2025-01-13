@@ -26,6 +26,18 @@ const config: Config = {
       pattern: /border-yellow/,
       variants: ['hover'],
     },
+    {
+      pattern: /bg-blue/,
+      variants: ['hover'],
+    },
+    {
+      pattern: /text-blue/,
+      variants: ['hover'],
+    },
+    {
+      pattern: /border-blue/,
+      variants: ['hover'],
+    },
   ],
   theme: {
     extend: {

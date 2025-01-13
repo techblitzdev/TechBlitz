@@ -1,29 +1,38 @@
 import { getUser } from '@/actions/user/authed/get-user';
 import { prisma } from '@/lib/prisma';
+import { QuestionDifficulty } from '@/types/Questions';
 
 /**
- * Method for getting questions by tag or an array of tags.
- * Will return questions that match any of the provided tags.
+ * Method for getting questions by difficulty or tag.
+ * If no difficulty or tag is provided, returns all questions.
  *
- * @param tag - the tag or an array of tags
+ * @param tag - optional tag or array of tags to filter by
+ * @param difficulty - optional difficulty level to filter by
  * @returns - the questions
  */
-export const getQuestionsByTag = async (tag: string | string[]) => {
+export const getQuestionsByTag = async (
+  tag?: string | string[],
+  difficulty?: QuestionDifficulty | undefined
+) => {
   const user = await getUser();
-
-  // if we the user is logged in, we want to include the user's answers in the questions
   const includeUserAnswers = user ? true : false;
 
-  // First find the questions directly with a take limit
+  // Get questions filtered by difficulty and/or tags
   const questions = await prisma.questions.findMany({
     where: {
-      tags: {
-        some: {
-          tag: {
-            name: typeof tag === 'string' ? tag : { in: tag },
+      slugGenerated: true,
+      customQuestion: false,
+      ...(difficulty && { difficulty }),
+      ...(tag &&
+        tag.length > 0 && {
+          tags: {
+            some: {
+              tag: {
+                name: typeof tag === 'string' ? tag : { in: tag },
+              },
+            },
           },
-        },
-      },
+        }),
     },
     include: {
       tags: {
@@ -42,7 +51,23 @@ export const getQuestionsByTag = async (tag: string | string[]) => {
     take: 10,
   });
 
-  // Then structure the response to match the expected format
+  // If no tag provided, return questions grouped under a null tag
+  if (!tag || (Array.isArray(tag) && tag.length === 0)) {
+    return [
+      {
+        name: null,
+        questions: questions.map((q) => ({
+          question: {
+            ...q,
+            tags: q.tags,
+            userAnswers: q.userAnswers,
+          },
+        })),
+      },
+    ];
+  }
+
+  // Otherwise structure response by tags
   const tags = await prisma.tag.findMany({
     where: {
       name: typeof tag === 'string' ? tag : { in: tag },

@@ -288,6 +288,7 @@ export default function NewQuestionModal({ ...props }) {
                           <SelectValue placeholder="Select difficulty" />
                         </SelectTrigger>
                         <SelectContent>
+                          <SelectItem value="BEGINNER">Beginner</SelectItem>
                           <SelectItem value="EASY">Easy</SelectItem>
                           <SelectItem value="MEDIUM">Medium</SelectItem>
                           <SelectItem value="HARD">Hard</SelectItem>

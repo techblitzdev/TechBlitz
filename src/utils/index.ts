@@ -25,6 +25,13 @@ export const capitalise = (string: string) => {
 
 export const getQuestionDifficultyColor = (difficulty: string) => {
   switch (difficulty) {
+    case 'BEGINNER':
+      return {
+        bg: 'bg-blue-600/20',
+        text: 'text-blue-300',
+        border: 'border-blue-600/30',
+        hover: 'hover:bg-blue-600/30',
+      };
     case 'EASY':
       return {
         bg: 'bg-green-500/20',

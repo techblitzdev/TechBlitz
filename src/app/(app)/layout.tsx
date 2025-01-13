@@ -14,7 +14,7 @@ import { createMetadata } from '@/utils/seo';
 import { useUserServer } from '@/hooks/use-user-server';
 import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 import { userAnsweredDailyQuestion } from '@/utils/data/questions/user-answered-daily-question';
-import { getUserProfile } from '@/utils/data/user/profile/get-user-profile';
+import { getOrCreateUserProfile } from '@/utils/data/user/profile/get-user-profile';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -31,7 +31,7 @@ export default async function RootLayout({
   const [user, todaysQuestion, profile] = await Promise.all([
     useUserServer(),
     getTodaysQuestion(),
-    getUserProfile(),
+    getOrCreateUserProfile(),
   ]);
 
   const hasAnsweredDailyQuestion = await userAnsweredDailyQuestion({

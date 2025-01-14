@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/card';
 import { QUESTIONS_COUNT } from '@/utils/constants/misc';
 import BlogCard from '@/components/marketing/resources/blog/blog-card';
-import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
+import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
 import ShareThisPost from '@/components/mdx/share-this-post';
 import TableOfContents from '@/components/mdx/mdx-table-of-contents';
 

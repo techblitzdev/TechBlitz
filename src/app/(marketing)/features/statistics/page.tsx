@@ -1,7 +1,7 @@
 import StatsHero from '@/components/marketing/features/statistics/stats-hero';
 import StatsReportSection from '@/components/marketing/features/statistics/stats-report-section';
-import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
-import MarketingContentGrid from '@/components/marketing/global/content-grid';
+import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
+import MarketingContentGrid from '@/components/marketing/global/blocks/content-grid';
 import { MobileIcon } from '@radix-ui/react-icons';
 import { BarChart, Code, FileBadge2, LaptopIcon } from 'lucide-react';
 import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';

@@ -1,6 +1,7 @@
-import FeaturesContentHeader from '@/components/marketing/features/global/content-header';
 import RoadmapGridItemOne from '@/components/marketing/features/roadmap/grid/roadmap-grid-item-one';
 import RoadmapGridItemTwo from '@/components/marketing/features/roadmap/grid/roadmap-grid-item-two';
+
+import FeaturesContentHeader from '@/components/marketing/features/global/content-header';
 import HomepageHeroImages from '@/components/marketing/homepage/hero/hero-images';
 import RoadmapImg from '../../../../public/images/roadmap.png';
 

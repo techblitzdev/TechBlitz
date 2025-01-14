@@ -1,9 +1,9 @@
 import Link from 'next/link';
 
 import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/hero/daily-challenge-hero';
-import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
-import MarketingContentGrid from '@/components/marketing/global/content-grid';
-import FAQsBlock from '@/components/marketing/global/faqs';
+import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
+import MarketingContentGrid from '@/components/marketing/global/blocks/content-grid';
+import FAQsBlock from '@/components/marketing/global/blocks/faqs';
 import { MobileIcon } from '@radix-ui/react-icons';
 import FeatureLeftRightSection from '@/components/marketing/features/daily-challenge/feature-left-right/features-section';
 

@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
-import LeftRightBlock from '@/components/marketing/global/left-right-block';
-import LoadingSpinner from '@/components/ui/loading';
+import LeftRightBlock from '@/components/marketing/global/blocks/left-right-block';
 
 const CodeSnippet = dynamic(
   () => import('@/components/marketing/global/code-snippet'),
@@ -62,7 +61,11 @@ export default function FeatureLeftRightSectionOne() {
     <LeftRightBlock
       left={
         <div className="flex flex-col gap-y-6 relative overflow-hidden">
-          <Suspense fallback={<LoadingSpinner />}>
+          <Suspense
+            fallback={
+              <div className="min-h-[430px] w-full animate-pulse"></div>
+            }
+          >
             <CodeSnippet
               code={codeSnippet1}
               language="javascript"

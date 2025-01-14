@@ -1,7 +1,7 @@
-import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
+import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
 import MarketingContentGrid, {
   type MarketingContentGridProps,
-} from '@/components/marketing/global/content-grid';
+} from '@/components/marketing/global/blocks/content-grid';
 import OpenSourceBlock from '@/components/marketing/global/open-source/open-source-block';
 import ResourceOpenSourceHeroBlock from '@/components/marketing/resources/open-source/open-source-hero';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';

@@ -1,5 +1,5 @@
-import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
-import FAQsBlock from '@/components/marketing/global/faqs';
+import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
+import FAQsBlock from '@/components/marketing/global/blocks/faqs';
 import Link from 'next/link';
 import { createMetadata } from '@/utils/seo';
 import { FaqJsonLd } from '@/types/Seo';

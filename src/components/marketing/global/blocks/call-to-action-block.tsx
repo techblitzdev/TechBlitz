@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/ui/grid';
 import { ChevronRight } from 'lucide-react';
-import SignupForm from './waitlist-form';
+import SignupForm from '@/components/marketing/global/waitlist-form';
 import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 
 export default async function CallToActionBlock(opts: {

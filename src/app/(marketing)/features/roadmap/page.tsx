@@ -2,8 +2,8 @@
 import FeatureRoadmapHeroBlock from '@/components/marketing/features/roadmap/roadmap-hero';
 import FeatureRoadmapCustomizationBlock from '@/components/marketing/features/roadmap/roadmap-customisation';
 import FeatureRoadmapThreeGridBlock from '@/components/marketing/features/roadmap/roadmap-three-grid';
-import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
-import FAQsBlock from '@/components/marketing/global/faqs';
+import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
+import FAQsBlock from '@/components/marketing/global/blocks/faqs';
 import {
   Code,
   MessageSquareCode,
@@ -14,7 +14,7 @@ import {
 
 import MarketingContentGrid, {
   type MarketingContentGridProps,
-} from '@/components/marketing/global/content-grid';
+} from '@/components/marketing/global/blocks/content-grid';
 
 import { MobileIcon } from '@radix-ui/react-icons';
 import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';

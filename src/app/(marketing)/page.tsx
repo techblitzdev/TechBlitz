@@ -8,23 +8,23 @@ const FeaturesBentoGrid = dynamic(
 );
 
 const HomepageLargeText = dynamic(
-  () => import('@/components/marketing/global/large-text'),
+  () => import('@/components/marketing/global/blocks/large-text'),
   { ssr: false }
 );
 
 import PersonalizedBlock from '@/components/marketing/homepage/personalized/block';
 import ComparisonBlock from '@/components/marketing/homepage/comparison/comparison-block';
 import OpenSourceBlock from '@/components/marketing/global/open-source/open-source-block';
-import CallToActionBlock from '@/components/marketing/global/call-to-action-block';
+import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
 
 import { Metadata } from 'next';
 import { getBaseUrl } from '@/utils';
 import { WebPageJsonLd } from '@/types/Seo';
 import { WebPageJsonLdBreadcrumb } from '@/utils/seo';
-import Testimonials from '@/components/marketing/global/testimonials';
+import Testimonials from '@/components/marketing/global/blocks/testimonials';
 import MarketingContentGrid, {
   MarketingContentGridProps,
-} from '@/components/marketing/global/content-grid';
+} from '@/components/marketing/global/blocks/content-grid';
 import { MobileIcon } from '@radix-ui/react-icons';
 import { CodeIcon, Users2 } from 'lucide-react';
 

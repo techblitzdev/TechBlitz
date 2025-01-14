@@ -116,6 +116,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/questions/previous`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/free-leetcode-alternative`,
+      lastModified: new Date(),
+    },
   ];
 
   // Combine static routes with dynamic blog posts

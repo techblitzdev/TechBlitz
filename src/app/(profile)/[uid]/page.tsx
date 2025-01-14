@@ -10,7 +10,7 @@ export default async function ProfilePage({
   const { uid } = params;
 
   // get the profile of the user
-  const { user, profile } = await getUserProfileByUsername(uid);
+  const { user } = await getUserProfileByUsername(uid);
 
   if (!user) {
     return notFound();

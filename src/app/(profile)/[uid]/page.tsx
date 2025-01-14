@@ -1,4 +1,5 @@
-import ProfileHero from '@/components/profile/hero';
+import ProfileHero from '@/components/profile/hero/hero';
+import { useUserServer } from '@/hooks/use-user-server';
 import { getUserProfileByUsername } from '@/utils/data/user/profile/get-user-profile';
 import { notFound } from 'next/navigation';
 
@@ -9,16 +10,17 @@ export default async function ProfilePage({
 }) {
   const { uid } = params;
 
-  // get the profile of the user
-  const { user } = await getUserProfileByUsername(uid);
+  // get the profile of the user - this is different to the user viewing
+  const { user: userProfileData } = await getUserProfileByUsername(uid);
+  const user = await useUserServer();
 
-  if (!user) {
+  if (!userProfileData) {
     return notFound();
   }
 
   return (
     <>
-      <ProfileHero user={user} />
+      <ProfileHero userProfileData={userProfileData} user={user} />
     </>
   );
 }

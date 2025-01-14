@@ -10,24 +10,35 @@ import { createMetadata } from '@/utils/seo';
 
 const Filter = dynamic(() => import('@/components/global/filters/filter'), {
   ssr: false,
+  loading: () => <FilterLoading />,
 });
+
 const FilterChips = dynamic(() => import('@/components/global/filters/chips'), {
   ssr: false,
+  loading: () => <div className="h-8"></div>,
 });
 const QuestionsList = dynamic(
-  () => import('@/components/app/questions/layout/questions-list')
+  () => import('@/components/app/questions/layout/questions-list'),
+  {
+    loading: () => (
+      <div className="flex flex-col gap-6">
+        {Array.from({ length: 9 }).map((_, index) => (
+          <QuestionCardSkeleton key={index} />
+        ))}
+      </div>
+    ),
+  }
 );
 const QuestionPageSidebar = dynamic(
-  () => import('@/components/app/questions/layout/question-page-sidebar')
-);
-const QuestionCardSkeleton = dynamic(() =>
-  import('@/components/app/questions/layout/question-card').then(
-    (mod) => mod.QuestionCardSkeleton
-  )
+  () => import('@/components/app/questions/layout/question-page-sidebar'),
+  {
+    loading: () => <QuestionPageSidebarLoading />,
+  }
 );
 
 import FilterLoading from '@/components/global/filters/filters-loading';
 import QuestionPageSidebarLoading from '@/components/app/questions/layout/question-page-sidebar-loading';
+import { QuestionCardSkeleton } from '@/components/app/questions/layout/question-card';
 
 export const revalidate = 600;
 
@@ -85,28 +96,15 @@ export default async function QuestionsDashboard({
                 <FilterChips />
               </Suspense>
             </div>
-
-            <Suspense
-              fallback={
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {Array.from({ length: 9 }).map((_, index) => (
-                    <QuestionCardSkeleton key={index} />
-                  ))}
-                </div>
-              }
-            >
-              <QuestionsList
-                currentPage={filters.page}
-                filters={filters}
-                customQuestions={false}
-                paginationUrl="/questions"
-              />
-            </Suspense>
+            <QuestionsList
+              currentPage={filters.page}
+              filters={filters}
+              customQuestions={false}
+              paginationUrl="/questions"
+            />
           </div>
           <div className="w-full xl:w-1/4">
-            <Suspense fallback={<QuestionPageSidebarLoading />}>
-              <QuestionPageSidebar />
-            </Suspense>
+            <QuestionPageSidebar />
           </div>
         </div>
       </div>

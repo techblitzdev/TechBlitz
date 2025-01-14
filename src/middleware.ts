@@ -36,7 +36,7 @@ const routeConfig = {
   },
   // Admin routes (auth + admin role required)
   admin: {
-    patterns: ['/admin'],
+    patterns: ['/dashboard/admin'],
     requiresAuth: true,
     requiresAdmin: true,
   },

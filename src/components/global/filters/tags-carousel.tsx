@@ -113,11 +113,11 @@ export default function FilterTagsCarousel({
             ))}
           </CarouselContent>
           <CarouselPrevious
-            className="border-none text-white z-30 -left-12"
+            className="border-none text-white z-30 -left-8"
             variant="ghost"
           />
           <CarouselNext
-            className="border-none text-white z-10 -right-12"
+            className="border-none text-white z-10 -right-8"
             variant="ghost"
           />
         </Carousel>

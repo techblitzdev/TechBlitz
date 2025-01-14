@@ -15,27 +15,27 @@ export function QuestionCardSkeleton() {
     <div className="flex flex-col space-y-5 items-start bg-black-75 border border-black-50 p-5 rounded-lg w-full relative overflow-hidden">
       <div className="flex flex-col gap-y-2 w-full">
         <div className="flex w-full justify-between items-center">
-          <div className="h-6 w-3/4 bg-gray-200 rounded animate-pulse" />
+          <div className="h-6 w-3/4 bg-black-50 rounded animate-pulse" />
         </div>
         <div className="text-start text-xs">
-          <div className="h-5 w-24 bg-gray-200 rounded animate-pulse" />
+          <div className="h-5 w-24 bg-black-50 rounded animate-pulse" />
         </div>
       </div>
       <div className="flex items-center gap-x-2">
-        <div className="h-5 w-5 rounded-full bg-gray-200 animate-pulse" />
-        <div className="h-5 w-20 bg-gray-200 rounded animate-pulse" />
+        <div className="h-5 w-5 rounded-full bg-black-50 animate-pulse" />
+        <div className="h-5 w-20 bg-black-50 rounded animate-pulse" />
       </div>
       <div className="mt-5 w-full flex justify-between items-end z-10 relative">
         <div className="flex gap-4 items-end">
           <div className="flex items-center gap-1">
-            <div className="h-6 w-16 bg-gray-200 rounded animate-pulse" />
-            <div className="h-6 w-16 bg-gray-200 rounded animate-pulse" />
-            <div className="h-6 w-16 bg-gray-200 rounded animate-pulse" />
+            <div className="h-6 w-16 bg-black-50 rounded animate-pulse" />
+            <div className="h-6 w-16 bg-black-50 rounded animate-pulse" />
+            <div className="h-6 w-16 bg-black-50 rounded animate-pulse" />
           </div>
         </div>
         <div className="flex items-center gap-x-3">
-          <div className="h-6 w-20 bg-gray-200 rounded animate-pulse" />
-          <div className="h-6 w-24 bg-gray-200 rounded animate-pulse" />
+          <div className="h-6 w-20 bg-black-50 rounded animate-pulse" />
+          <div className="h-6 w-24 bg-black-50 rounded animate-pulse" />
         </div>
       </div>
     </div>
@@ -84,6 +84,8 @@ export default function QuestionCard(opts: {
       ? `/question/custom/${questionData[identifier]}`
       : `/question/${questionData[identifier]}`;
 
+  const title = questionData?.title || questionData?.question;
+
   return (
     <Link
       href={href}
@@ -93,7 +95,7 @@ export default function QuestionCard(opts: {
       <div className="flex flex-col gap-y-2 w-full">
         <div className="flex w-full justify-between items-center">
           <h6 className="text-base text-wrap text-start line-clamp-2 flex-grow">
-            {questionData?.question}
+            {title}
           </h6>
         </div>
         {showSubmissions && (

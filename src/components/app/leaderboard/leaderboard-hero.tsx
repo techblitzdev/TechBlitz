@@ -5,6 +5,7 @@ import { UserRecord } from '@/types/User';
 import { getUserDisplayName } from '@/utils/user';
 import { motion } from 'framer-motion';
 import { Crown } from 'lucide-react';
+import Link from 'next/link';
 
 /**
  * This will show the top three users on TechBlitz in a podium style with a 3D isometric look.
@@ -80,52 +81,54 @@ export default function LeaderboardHero(opts: {
                     bounce: 0.2,
                   }}
                 >
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="relative"
-                  >
-                    <ProfilePicture
-                      src={user.userProfilePicture}
-                      alt={`${user.username} profile picture`}
-                      className="size-8 md:size-12 rounded-full shadow-lg"
-                    />
-                    {position === 1 && (
-                      <motion.div
-                        className="absolute -top-3 left-4 size-4"
-                        initial={{ y: -5, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{
-                          delay: 0.8,
-                          type: 'spring',
-                          stiffness: 200,
-                          damping: 15,
-                        }}
-                      >
-                        <Crown className="size-4 text-yellow-500 fill-yellow-400" />
-                      </motion.div>
-                    )}
-                    {user.userLevel === 'PREMIUM' && (
-                      <motion.div
-                        initial={{ x: -5, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: position * 0.2 + 0.3 }}
-                        className="relative -top-3 left-1.5 w-fit bg-accent text-xs flex items-center justify-center px-2 py-0.5 rounded-full"
-                      >
-                        <span className="text-[10px]">PRO</span>
-                      </motion.div>
-                    )}
-                    {user.userLevel === 'ADMIN' && (
-                      <motion.div
-                        initial={{ x: -5, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: position * 0.2 + 0.3 }}
-                        className="relative -top-3 w-fit bg-accent text-xs flex items-center justify-center px-2 py-0.5 rounded-full"
-                      >
-                        <span className="text-[10px]">ADMIN</span>
-                      </motion.div>
-                    )}
-                  </motion.div>
+                  <Link href={`/${user.username}`}>
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="relative"
+                    >
+                      <ProfilePicture
+                        src={user.userProfilePicture}
+                        alt={`${user.username} profile picture`}
+                        className="size-8 md:size-12 rounded-full shadow-lg"
+                      />
+                      {position === 1 && (
+                        <motion.div
+                          className="absolute -top-3 left-4 size-4"
+                          initial={{ y: -5, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          transition={{
+                            delay: 0.8,
+                            type: 'spring',
+                            stiffness: 200,
+                            damping: 15,
+                          }}
+                        >
+                          <Crown className="size-4 text-yellow-500 fill-yellow-400" />
+                        </motion.div>
+                      )}
+                      {user.userLevel === 'PREMIUM' && (
+                        <motion.div
+                          initial={{ x: -5, opacity: 0 }}
+                          animate={{ x: 0, opacity: 1 }}
+                          transition={{ delay: position * 0.2 + 0.3 }}
+                          className="relative -top-3 left-1.5 w-fit bg-accent text-xs flex items-center justify-center px-2 py-0.5 rounded-full"
+                        >
+                          <span className="text-[10px]">PRO</span>
+                        </motion.div>
+                      )}
+                      {user.userLevel === 'ADMIN' && (
+                        <motion.div
+                          initial={{ x: -5, opacity: 0 }}
+                          animate={{ x: 0, opacity: 1 }}
+                          transition={{ delay: position * 0.2 + 0.3 }}
+                          className="relative -top-3 w-fit bg-accent text-xs flex items-center justify-center px-2 py-0.5 rounded-full"
+                        >
+                          <span className="text-[10px]">ADMIN</span>
+                        </motion.div>
+                      )}
+                    </motion.div>
+                  </Link>
                   <motion.span
                     initial={{ y: 5, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}

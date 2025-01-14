@@ -71,7 +71,7 @@ export default async function LeaderboardMostQuestionsAnswered({
                 key={userData.uid}
                 className="border-white/10 hover:bg-white/5 transition-colors"
               >
-                <TableCell className="font-medium text-white">
+                <TableCell className="font-medium text-white p-0">
                   {index < 3 ? (
                     <Badge
                       variant={index === 0 ? 'default' : 'secondary'}
@@ -87,7 +87,7 @@ export default async function LeaderboardMostQuestionsAnswered({
                     <span className="text-gray-400">#{index + 1}</span>
                   )}
                 </TableCell>
-                <TableCell>
+                <TableCell className="p-0">
                   <div className="flex items-center gap-4">
                     <ProfilePicture
                       src={userData.userProfilePicture}
@@ -112,13 +112,15 @@ export default async function LeaderboardMostQuestionsAnswered({
                     </div>
                   </div>
                 </TableCell>
-                <TableCell className="text-right">
-                  <Badge
-                    variant="outline"
-                    className="border-white/10 text-white"
-                  >
-                    {userData._count.answers}
-                  </Badge>
+                <TableCell className="p-0">
+                  <div className="flex h-full w-full p-4 justify-end">
+                    <Badge
+                      variant="outline"
+                      className="border-white/10 text-white"
+                    >
+                      {userData._count.answers}
+                    </Badge>
+                  </div>
                 </TableCell>
               </TableRow>
             ))}

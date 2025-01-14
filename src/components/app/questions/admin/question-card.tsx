@@ -10,7 +10,7 @@ export default function AdminQuestionCard({
   return (
     <Link
       key={question.uid}
-      href={`/admin/questions/${question.slug}`}
+      href={`/dashboard/admin/questions/${question.slug}`}
       className="p-2 border border-black-50 bg-black-75 rounded-sm font-inter hover:bg-black-50 duration-300 w-full"
     >
       <p>

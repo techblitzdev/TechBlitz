@@ -167,13 +167,15 @@ export default function NewQuestionModal({ ...props }) {
   const form = useForm<SchemaProps>({
     resolver: zodResolver(newQuestionSchema),
     defaultValues: {
+      title: '',
+      description: '',
       question: '',
       questionDate: '',
       answers: [
-        { text: '', isCodeSnippet: false },
-        { text: '', isCodeSnippet: false },
-        { text: '', isCodeSnippet: false },
-        { text: '', isCodeSnippet: false },
+        { text: '', isCodeSnippet: false, answerFullSnippet: '' },
+        { text: '', isCodeSnippet: false, answerFullSnippet: '' },
+        { text: '', isCodeSnippet: false, answerFullSnippet: '' },
+        { text: '', isCodeSnippet: false, answerFullSnippet: '' },
       ],
       correctAnswer: null,
       codeSnippet: '',
@@ -211,13 +213,19 @@ export default function NewQuestionModal({ ...props }) {
 
   const { mutateAsync: server_addQuestion, isPending } = useMutation({
     mutationFn: (values: SchemaProps) => {
-      console.log('hit');
       const { answers, ...rest } = values;
-      const answerTexts = answers.map((answer) => answer.text);
+      const answerFullSnippets = answers.map(
+        (answer) => answer.answerFullSnippet
+      );
 
       return addQuestion({
         ...rest,
-        answers: answerTexts,
+        answers: answers.map((answer) => ({
+          text: answer.text,
+          isCodeSnippet: answer.isCodeSnippet,
+          answerFullSnippet: answer.answerFullSnippet,
+          answerType: answerFullSnippets.length > 0 ? 'PREFILL' : 'STANDARD',
+        })),
         correctAnswer: Number(rest.correctAnswer),
         tags: rest.tags ? rest.tags.split(',').map((tag) => tag.trim()) : [],
         aiTitle: rest.aiTitle || undefined,
@@ -246,7 +254,7 @@ export default function NewQuestionModal({ ...props }) {
       <DialogTrigger asChild>
         <Button {...props}>Create New Question</Button>
       </DialogTrigger>
-      <DialogContent className="bg-black-75 md:max-w-4xl max-h-[1000px] overflow-y-scroll">
+      <DialogContent className="bg-black-75 md:max-w-7xl max-h-[1000px] overflow-y-scroll">
         <DialogHeader>
           <DialogTitle className="text-2xl">
             Add new Question
@@ -258,14 +266,46 @@ export default function NewQuestionModal({ ...props }) {
               className="flex flex-col gap-y-4 !mt-6"
             >
               <div className="flex gap-4 items-end">
-                {/* Question */}
+                <div className="flex flex-col gap-2">
+                  {/* Question */}
+                  <FormField
+                    control={form.control}
+                    name="question"
+                    render={({ field }) => (
+                      <FormControl>
+                        <InputWithLabel
+                          label="Question"
+                          type="text"
+                          wrapperclassname="lg:w-96"
+                          {...field}
+                        />
+                      </FormControl>
+                    )}
+                  />
+                  {/* Title */}
+                  <FormField
+                    control={form.control}
+                    name="title"
+                    render={({ field }) => (
+                      <FormControl>
+                        <InputWithLabel
+                          label="Title"
+                          type="text"
+                          wrapperclassname="lg:w-96"
+                          {...field}
+                        />
+                      </FormControl>
+                    )}
+                  />
+                </div>
+                {/* Description */}
                 <FormField
                   control={form.control}
-                  name="question"
+                  name="description"
                   render={({ field }) => (
                     <FormControl>
                       <InputWithLabel
-                        label="Question"
+                        label="Description"
                         type="text"
                         wrapperclassname="lg:w-96"
                         {...field}
@@ -273,7 +313,6 @@ export default function NewQuestionModal({ ...props }) {
                     </FormControl>
                   )}
                 />
-                {form.getValues('difficulty')}
                 {/* Difficulty */}
                 <FormField
                   control={form.control}
@@ -425,6 +464,17 @@ export default function NewQuestionModal({ ...props }) {
                       } // Update the form field
                     />
                   </div>
+                  <div className="flex-1">
+                    <AnswerEditor
+                      value={item.text} // Set initial value
+                      onChange={(value) =>
+                        form.setValue(
+                          `answers.${index}.answerFullSnippet`,
+                          value
+                        )
+                      } // Update the form field
+                    />
+                  </div>
                   <div className="flex gap-4 items-center justify-between">
                     <Button
                       type="button"
@@ -450,7 +500,13 @@ export default function NewQuestionModal({ ...props }) {
               <Button
                 type="button"
                 className="w-fit"
-                onClick={() => append({ text: '', isCodeSnippet: false })}
+                onClick={() =>
+                  append({
+                    text: '',
+                    isCodeSnippet: false,
+                    answerFullSnippet: '',
+                  })
+                }
               >
                 Add Answer
               </Button>

@@ -20,6 +20,7 @@ import ProfilePicture from '@/components/ui/profile-picture';
 
 import { UserRecord } from '@/types/User';
 import { getUserDisplayName } from '@/utils/user';
+import { Profile } from '@/types/Profile';
 
 /**
 /**
@@ -30,11 +31,18 @@ import { getUserDisplayName } from '@/utils/user';
  */
 export default function SidebarFooterComponent(opts: {
   user: UserRecord | null;
+  profile: Profile | null;
 }) {
   const { user } = opts;
 
   // get the current route so we can add the redirectUrl to the login button
   const pathname = usePathname();
+
+  // profile link determined on env (dev or prod)
+  const profileLink =
+    process.env.NEXT_PUBLIC_ENV === 'production'
+      ? '/settings/profile'
+      : `/${user?.username}`;
 
   return (
     <SidebarFooter className="bg-[#000000] ">
@@ -91,7 +99,7 @@ export default function SidebarFooterComponent(opts: {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="/settings/profile" className="w-full">
+                  <Link href={profileLink} className="w-full">
                     Profile
                   </Link>
                 </DropdownMenuItem>

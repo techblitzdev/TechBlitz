@@ -3,6 +3,8 @@ import { z } from 'zod';
 // Define the schema for the question form
 export const newQuestionSchema = z
   .object({
+    title: z.string().optional(),
+    description: z.string().optional(),
     question: z.string().min(1, 'Question is required'),
     questionDate: z.string().optional(), // Make questionDate optional initially
     answers: z
@@ -10,6 +12,7 @@ export const newQuestionSchema = z
         z.object({
           text: z.string().min(1, 'Answer is required'),
           isCodeSnippet: z.boolean().default(false),
+          answerFullSnippet: z.string().optional(),
         })
       )
       .nonempty('At least one answer is required'),

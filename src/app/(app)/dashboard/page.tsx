@@ -5,7 +5,6 @@ import DashboardBentoGrid from '@/components/app/dashboard/dashboard-bento-grid'
 import DashboardHeader from '@/components/app/dashboard/dashboard-header';
 import WelcomeMessage from '@/components/app/dashboard/welcome-banner';
 import { useUserServer } from '@/hooks/use-user-server';
-import LoadingSpinner from '@/components/ui/loading';
 
 interface DashboardProps {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -26,9 +25,7 @@ export default async function Dashboard({ searchParams }: DashboardProps) {
           >
             <WelcomeMessage user={user} />
           </Suspense>
-          <Suspense fallback={<LoadingSpinner />}>
-            <DashboardBentoGrid />
-          </Suspense>
+          <DashboardBentoGrid />
         </div>
       </div>
     </ClientPage>

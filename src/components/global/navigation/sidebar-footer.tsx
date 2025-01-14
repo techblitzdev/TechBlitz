@@ -35,9 +35,6 @@ export default function SidebarFooterComponent(opts: {
 }) {
   const { user } = opts;
 
-  // determine the 'profile' href, if the user's username is not set, we use the user's uid
-  const profileHref = user?.username ? `/${user?.username}` : `/${user?.uid}`;
-
   // get the current route so we can add the redirectUrl to the login button
   const pathname = usePathname();
 
@@ -96,7 +93,7 @@ export default function SidebarFooterComponent(opts: {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href={`/${user?.uid}`} className="w-full">
+                  <Link href={`/${user?.username}`} className="w-full">
                     Profile
                   </Link>
                 </DropdownMenuItem>

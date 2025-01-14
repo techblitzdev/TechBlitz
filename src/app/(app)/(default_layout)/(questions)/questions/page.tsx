@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic';
 import Hero from '@/components/global/hero';
 import { Button } from '@/components/ui/button';
 
-import { useUserServer } from '@/hooks/use-user-server';
 import { validateSearchParams, parseSearchParams } from '@/utils/search-params';
 import { getTags } from '@/utils/data/questions/tags/get-tags';
 import { createMetadata } from '@/utils/seo';
@@ -69,7 +68,7 @@ export default async function QuestionsDashboard({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const [user, tags] = await Promise.all([useUserServer(), getTags()]);
+  const tags = await getTags();
 
   const filters = parseSearchParams(searchParams);
   if (!validateSearchParams(filters)) return null;
@@ -97,7 +96,6 @@ export default async function QuestionsDashboard({
               }
             >
               <QuestionsList
-                user={user}
                 currentPage={filters.page}
                 filters={filters}
                 customQuestions={false}
@@ -107,7 +105,7 @@ export default async function QuestionsDashboard({
           </div>
           <div className="w-full xl:w-1/4">
             <Suspense fallback={<QuestionPageSidebarLoading />}>
-              <QuestionPageSidebar user={user} />
+              <QuestionPageSidebar />
             </Suspense>
           </div>
         </div>

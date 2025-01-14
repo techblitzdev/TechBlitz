@@ -1,9 +1,19 @@
-import QuestionPageSidebar from '@/components/app/questions/layout/question-page-sidebar';
-import QuestionsCarouselList from '@/components/app/questions/layout/carousel/question-carousel-list';
+import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
+
+const QuestionPageSidebar = dynamic(
+  () => import('@/components/app/questions/layout/question-page-sidebar')
+);
+import QuestionPageSidebarLoading from '@/components/app/questions/layout/question-page-sidebar-loading';
+
+const QuestionsCarouselList = dynamic(
+  () =>
+    import('@/components/app/questions/layout/carousel/question-carousel-list')
+);
+
 import Hero from '@/components/global/hero';
 import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
-import { useUserServer } from '@/hooks/use-user-server';
 
 // revalidate every 10 minutes
 export const revalidate = 600;
@@ -47,8 +57,6 @@ const heroDescription = (
 );
 
 export default async function ExploreQuestionsPage() {
-  const user = await useUserServer();
-
   return (
     <>
       <Hero
@@ -60,7 +68,11 @@ export default async function ExploreQuestionsPage() {
         <div className="w-full lg:min-w-[55%] space-y-6">
           <QuestionsCarouselList />
         </div>
-        <QuestionPageSidebar user={user} />
+        <div className="w-full xl:w-1/4">
+          <Suspense fallback={<QuestionPageSidebarLoading />}>
+            <QuestionPageSidebar />
+          </Suspense>
+        </div>
       </div>
     </>
   );

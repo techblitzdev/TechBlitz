@@ -1,46 +1,54 @@
-import { QuestionWithTags } from '@/types/Questions';
+'use client';
+
+import { useMemo } from 'react';
 import Link from 'next/link';
+import { QuestionWithTags } from '@/types/Questions';
 import Chip from '@/components/ui/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
-import { CheckCircle, ChevronRight } from 'lucide-react';
-
-import { Circle } from 'lucide-react';
+import { CheckCircle, ChevronRight, Circle } from 'lucide-react';
 import { Answer } from '@/types/Answers';
-export default async function QuestionCarouselCard(opts: {
-  questionData: QuestionWithTags & { userAnswers: Answer[] };
-}) {
-  const { questionData } = opts;
 
-  console.log(questionData);
+interface QuestionCarouselCardProps {
+  questionData: QuestionWithTags & { userAnswers: Answer[] };
+}
+
+export default function QuestionCarouselCard({
+  questionData,
+}: QuestionCarouselCardProps) {
+  const answerStatus = useMemo(() => {
+    if (questionData.userAnswers && questionData.userAnswers.length > 0) {
+      return questionData.userAnswers[0].correctAnswer
+        ? 'correct'
+        : 'incorrect';
+    }
+    return 'not-answered';
+  }, [questionData.userAnswers]);
+
+  const difficultyColor = useMemo(
+    () => getQuestionDifficultyColor(questionData.difficulty),
+    [questionData.difficulty]
+  );
 
   return (
     <Link
-      href={`/question/${questionData?.slug}`}
+      href={`/question/${questionData.slug}`}
       className="h-full bg-black-75 group w-full"
     >
       <div className="flex flex-col justify-between space-y-5 items-start border border-black-50 hover:border-accent duration-300 p-6 rounded-lg group w-full h-full relative overflow-hidden">
-        <h6 className="text-wrap text-start line-clamp-2">
-          {questionData?.question}
-        </h6>
+        <h3 className="text-wrap text-start line-clamp-2">
+          {questionData.question}
+        </h3>
         <div className="flex items-center gap-x-2">
-          {questionData.userAnswers && questionData.userAnswers.length > 0 ? (
-            <div>
-              {questionData.userAnswers[0].correctAnswer ? (
-                <CheckCircle className="flex-shrink-0 size-5 text-green-500" />
-              ) : (
-                <Circle className="flex-shrink-0 size-5 text-black-50" />
-              )}
-            </div>
+          {answerStatus === 'correct' ? (
+            <CheckCircle className="flex-shrink-0 size-5 text-green-500" />
           ) : (
             <Circle className="flex-shrink-0 size-5 text-black-50" />
           )}
           <div className="text-sm font-medium">
-            {questionData.userAnswers && questionData.userAnswers.length > 0 ? (
-              questionData.userAnswers[0].correctAnswer ? (
-                <p>Correct</p>
-              ) : (
-                <p>Incorrect</p>
-              )
+            {answerStatus === 'correct' ? (
+              <p>Correct</p>
+            ) : answerStatus === 'incorrect' ? (
+              <p>Incorrect</p>
             ) : (
               <div className="relative">
                 <p className="group-hover:opacity-0 transition-opacity duration-300">
@@ -56,12 +64,10 @@ export default async function QuestionCarouselCard(opts: {
         </div>
         <div className="flex w-full justify-between items-center">
           <Chip
-            text={capitalise(questionData?.difficulty)}
-            color={getQuestionDifficultyColor(questionData?.difficulty).bg}
-            textColor={
-              getQuestionDifficultyColor(questionData?.difficulty).text
-            }
-            border={getQuestionDifficultyColor(questionData?.difficulty).border}
+            text={capitalise(questionData.difficulty)}
+            color={difficultyColor.bg}
+            textColor={difficultyColor.text}
+            border={difficultyColor.border}
           />
         </div>
       </div>

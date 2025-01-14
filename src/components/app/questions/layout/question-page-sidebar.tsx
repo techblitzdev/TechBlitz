@@ -8,18 +8,16 @@ import {
 } from '@/components/ui/tooltip';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 
-import { UserRecord } from '@/types/User';
 import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import CurrentStreak, {
   SolarFlameBoldDuotone,
 } from '@/components/ui/current-streak';
+import { useUserServer } from '@/hooks/use-user-server';
 
-export default async function QuestionPageSidebar(opts: {
-  user: UserRecord | null;
-}) {
-  const { user } = opts;
+export default async function QuestionPageSidebar() {
+  const user = await useUserServer();
 
   // get the user streak and suggestion in one go
   const userStreak = await getUserDailyStats();

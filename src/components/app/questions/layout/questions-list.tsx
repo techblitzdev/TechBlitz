@@ -5,14 +5,13 @@ import { listQuestions } from '@/utils/data/questions/list';
 
 import { FilterParams } from '@/utils/search-params';
 import { Button } from '@/components/ui/button';
-import type { UserRecord } from '@/types/User';
 import { QuestionWithoutAnswers } from '@/types/Questions';
 import { Answer } from '@/types/Answers';
+import { useUserServer } from '@/hooks/use-user-server';
 
 const ITEMS_PER_PAGE = 15;
 
 export default async function QuestionsList({
-  user,
   currentPage,
   filters,
   customQuestions = false,
@@ -20,7 +19,6 @@ export default async function QuestionsList({
   showSubmissions = true,
   paginationUrl,
 }: {
-  user: UserRecord | null;
   currentPage: number;
   filters: FilterParams;
   customQuestions: boolean;
@@ -28,6 +26,8 @@ export default async function QuestionsList({
   showSubmissions?: boolean;
   paginationUrl: string;
 }) {
+  const user = await useUserServer();
+
   const data = await listQuestions({
     page: currentPage,
     pageSize: ITEMS_PER_PAGE,

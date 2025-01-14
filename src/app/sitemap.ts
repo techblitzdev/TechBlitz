@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { getBlogPosts } from '@/lib/blog';
+//import { getBlogPosts } from '@/lib/blog';
 import { listQuestions } from '@/utils/data/questions/list';
 import { getBaseUrl } from '@/utils';
 
@@ -7,8 +7,7 @@ export const baseUrl = getBaseUrl();
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Fetch all blog posts and questions
-  const [posts, questions] = await Promise.all([
-    getBlogPosts(),
+  const [questions] = await Promise.all([
     listQuestions({
       page: 1,
       pageSize: 1000,

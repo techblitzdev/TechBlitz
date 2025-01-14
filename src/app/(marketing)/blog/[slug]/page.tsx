@@ -157,7 +157,7 @@ export default async function BlogPost({ params }: BlogPostParams) {
             <ShareThisPost title={typedFrontmatter.title} slug={params.slug} />
           </div>
         </article>
-        <aside className="w-full md:w-2/5 order-first md:order-last">
+        <aside className="w-full md:w-2/5 order-first md:order-last hidden md:block">
           <div className="sticky top-32 md:max-w-[320px] ml-auto space-y-5">
             {typedFrontmatter?.headings?.length > 0 && (
               <div className="hidden md:block">

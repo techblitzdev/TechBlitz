@@ -5,6 +5,9 @@ import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/use-user-server';
 
+// revalidate every 10 minutes
+export const revalidate = 600;
+
 export async function generateMetadata() {
   return createMetadata({
     title: 'Explore Questions | TechBlitz',

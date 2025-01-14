@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 
 import { Button } from '@/components/ui/button';
 import { ChevronRight } from 'lucide-react';
+import { Suspense } from 'react';
 const StaticAIQuestionHelp = dynamic(() => import('./ai-help-demo'), {
   ssr: false,
 });
@@ -10,7 +11,9 @@ export default function PersonalizedLeft() {
   return (
     <div className="col-span-full md:col-span-6 pb-12 pt-4 p-0 md:p-12 flex flex-col gap-10 relative">
       <div className="h-72 overflow-hidden relative">
-        <StaticAIQuestionHelp />
+        <Suspense fallback={<div className="h-72 w-full bg-gray-200" />}>
+          <StaticAIQuestionHelp />
+        </Suspense>
         <div className="z-10 absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
       </div>
       <div className="flex flex-col gap-2.5">

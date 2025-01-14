@@ -14,6 +14,9 @@ import { getTags } from '@/utils/data/questions/tags/get-tags';
 import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
 
+// revalidate every 10 minutes
+export const revalidate = 600;
+
 export async function generateMetadata() {
   return createMetadata({
     title: 'Previous Daily Questions | TechBlitz',

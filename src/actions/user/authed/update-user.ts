@@ -37,6 +37,11 @@ export const updateUser = async (opts: {
     cleanedUserDetails.codeEditorTheme = userDetails.codeEditorTheme;
   }
 
+  // if the user is updated their username, set the isCustomUsername flag to true
+  if (userDetails.username !== undefined) {
+    cleanedUserDetails.isCustomUsername = true;
+  }
+
   // Update the user in the database
   const updatedUser = await prisma.users.update({
     where: {

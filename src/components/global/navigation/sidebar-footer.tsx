@@ -35,11 +35,14 @@ export default function SidebarFooterComponent(opts: {
 }) {
   const { user } = opts;
 
-  // determine the 'profile' href, if the user's username is not set, we use the user's uid
-  const profileHref = user?.username ? `/${user?.username}` : `/${user?.uid}`;
-
   // get the current route so we can add the redirectUrl to the login button
   const pathname = usePathname();
+
+  // profile link determined on env (dev or prod)
+  const profileLink =
+    process.env.NEXT_PUBLIC_ENV === 'production'
+      ? '/settings/profile'
+      : `/${user?.username}`;
 
   return (
     <SidebarFooter className="bg-[#000000] ">
@@ -96,7 +99,7 @@ export default function SidebarFooterComponent(opts: {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href={profileHref} className="w-full">
+                  <Link href={profileLink} className="w-full">
                     Profile
                   </Link>
                 </DropdownMenuItem>

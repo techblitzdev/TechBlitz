@@ -3,7 +3,7 @@
 import { Question } from '@/types/Questions';
 import { UserRecord } from '@/types/User';
 import { Answer } from '@/types/Answers';
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext, useEffect } from 'react';
 import { answerQuestion } from '@/actions/answers/answer';
 import { toast } from 'sonner';
 import { useStopwatch } from 'react-timer-hook';
@@ -30,6 +30,7 @@ type QuestionSingleContextType = {
   setCurrentLayout: (layout: 'questions' | 'codeSnippet') => void;
   customQuestion: boolean;
   setCustomQuestion: (customQuestion: boolean) => void;
+  prefilledCodeSnippet: string | null;
 };
 
 export const QuestionSingleContext = createContext<QuestionSingleContextType>(
@@ -59,12 +60,37 @@ export const QuestionSingleContextProvider = ({
   const [correctAnswer, setCorrectAnswer] = useState<
     'init' | 'incorrect' | 'correct'
   >('init');
+  // stored here so we can start to change the codeSnippet based on the user's answer
+  // (prefilling the code snippet)
   const [userAnswer, setUserAnswer] = useState<Answer | null>(null);
   const [newUserData, setNewUserData] = useState<UserRecord | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
   const [timeTaken, setTimeTaken] = useState<number>(0);
   const [customQuestion, setCustomQuestion] = useState(false);
+
+  // The prefilled code snippet
+  const [prefilledCodeSnippet, setPrefilledCodeSnippet] = useState<
+    string | null
+  >(null);
+  // on answer selected change, check if the answer is a code snippet
+  // if it is, set the prefilled code snippet to the answer
+  useEffect(() => {
+    // Check if the selected answer is a prefill answer
+    // everytime the answer changes, we need to check if we can update
+    // the prefilled code snippet
+    if (selectedAnswer) {
+      const answer = question.answers.find(
+        (answer) => answer.uid === selectedAnswer
+      )?.answerFullSnippet;
+
+      if (answer) {
+        setPrefilledCodeSnippet(answer);
+      } else {
+        setPrefilledCodeSnippet(question.codeSnippet);
+      }
+    }
+  }, [selectedAnswer]);
 
   // this determines if the code snippet or question is shown in the question card on mobile
   // on button click, it acts as a toggle
@@ -135,6 +161,7 @@ export const QuestionSingleContextProvider = ({
     setSelectedAnswer('');
     setTimeTaken(0);
     setIsModalOpen(false);
+    setPrefilledCodeSnippet(question.codeSnippet);
   };
 
   return (
@@ -161,6 +188,7 @@ export const QuestionSingleContextProvider = ({
         setCurrentLayout,
         customQuestion,
         setCustomQuestion,
+        prefilledCodeSnippet,
       }}
     >
       {children}

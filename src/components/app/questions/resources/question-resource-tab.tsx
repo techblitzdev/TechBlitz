@@ -66,7 +66,7 @@ export default function QuestionResourceTab(opts: {
             href={resource.resource}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline hover:text-accent duration-300"
+            className="underline hover:text-accent duration-300 text-lg"
           >
             {resource.title}
           </a>

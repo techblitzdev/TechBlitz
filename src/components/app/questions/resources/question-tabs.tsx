@@ -89,7 +89,7 @@ export default function QuestionTabs({
         {renderAnswerForm()}
       </TabsContent>
       <TabsContent value="resources" className="p-4">
-        <h3 className="font-inter font-light text-base md:text-xl">
+        <h3 className="font-inter font-light text-lg md:text-2xl">
           A list of helpful resources to help you answer this question.
         </h3>
         <QuestionResourceTab

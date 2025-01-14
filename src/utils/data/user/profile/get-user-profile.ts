@@ -34,3 +34,33 @@ export const getOrCreateUserProfile = async () => {
 
   return profile;
 };
+
+/**
+ * getting the a users profile by their username
+ *
+ * @param username
+ * @returns
+ */
+export const getUserProfileByUsername = async (username: string) => {
+  const user = await prisma.users.findFirst({
+    where: { username },
+    include: {
+      Profile: true,
+    },
+  });
+
+  if (!user) {
+    return {
+      user: null,
+      profile: null,
+    };
+  }
+
+  // remove the profile from the user object
+  const { Profile, ...userWithoutProfile } = user;
+
+  return {
+    user: userWithoutProfile,
+    profile: Profile,
+  };
+};

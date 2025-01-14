@@ -96,7 +96,7 @@ export default function SidebarFooterComponent(opts: {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href={profileHref} className="w-full">
+                  <Link href={`/${user?.uid}`} className="w-full">
                     Profile
                   </Link>
                 </DropdownMenuItem>

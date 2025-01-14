@@ -30,6 +30,9 @@ export interface User extends BaseRecord {
 
   /** the number of ai question help tokens the user has */
   aiQuestionHelpTokens?: number;
+
+  /** a flag to indicate if the user has a custom username */
+  isCustomUsername?: boolean;
 }
 
 export type UserRecord = Pick<
@@ -50,6 +53,7 @@ export type UserRecord = Pick<
   | 'sendPushNotifications'
   | 'codeEditorTheme'
   | 'aiQuestionHelpTokens'
+  | 'isCustomUsername'
 >;
 
 // First, create a type that excludes 'uid' from the partial requirement

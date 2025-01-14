@@ -19,6 +19,9 @@ model Users {
   email     String  @unique
   stripeEmails String[] @default([])
   username  String?
+  // this is a flag as I forgot to add this to the user model... 
+  // need this for migration for ensuring that the username is unique
+  isCustomUsername Boolean @default(false)
   firstName String?
   lastName  String?
 

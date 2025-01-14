@@ -18,7 +18,7 @@ export default function Hero(opts: {
         )}
       >
         {typeof heading === 'string' ? (
-          <h1 className="text-3xl md:text-5xl text-wrap text-start font-inter max-w-2xl text-gradient from-white to-white/55">
+          <h1 className="text-3xl md:text-5xl text-wrap text-start font-inter max-w-2xl text-gradient from-white to-white/55 py-1">
             {heading}
           </h1>
         ) : (

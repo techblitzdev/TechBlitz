@@ -9,14 +9,11 @@ import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 import Link from 'next/link';
 import { DatePicker } from '@mantine/dates';
 import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak';
-import { useUserServer } from '@/hooks/use-user-server';
 
 export default async function TodaysQuestionBentoBox() {
-  const user = await useUserServer();
-
   // get the user streak and suggestion in one go
   const [userStreak, todaysQuestion] = await Promise.all([
-    getUserDailyStats(user?.uid || ''),
+    getUserDailyStats(),
     getTodaysQuestion(),
   ]);
 

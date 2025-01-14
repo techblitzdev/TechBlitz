@@ -1,3 +1,6 @@
+'use client';
+
+import { useMemo } from 'react';
 import {
   Carousel,
   CarouselItem,
@@ -6,38 +9,36 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { QuestionDifficulty, QuestionWithTags } from '@/types/Questions';
-
 import QuestionCarouselCard from './question-carousel-card';
 import { Button } from '@/components/ui/button';
 import { ChevronRight } from 'lucide-react';
 import { Answer } from '@/types/Answers';
 
-/**
- * A carousel that will showcase a set of questions.
- *
- * opts: - the questions to display
- *       - the question tag
- */
-export default function QuestionCarousel(opts: {
+interface QuestionCarouselProps {
   heading: string | React.ReactNode;
   description: string | React.ReactNode;
   image: string;
-  questions: QuestionWithTags[] & {
-    userAnswers: Answer;
-  };
+  questions: (QuestionWithTags & { userAnswers: Answer[] })[];
   tag: string | string[];
   difficulty?: QuestionDifficulty;
-}) {
-  const { heading, description, image, questions, tag, difficulty } = opts;
+}
 
-  console.log({
-    image,
-  });
+export default function QuestionCarousel({
+  heading,
+  description,
+  image,
+  questions,
+  tag,
+  difficulty,
+}: QuestionCarouselProps) {
+  const viewMoreHref = useMemo(() => {
+    if (Array.isArray(tag) && tag.length > 0) {
+      return `/questions?tag=${tag.join(',')}`;
+    }
+    return `/questions?difficulty=${difficulty}`;
+  }, [tag, difficulty]);
 
-  const viewMoreHref =
-    Array.isArray(tag) && tag.length > 0
-      ? `/questions?tag=${tag.join(',')}`
-      : `/questions?difficulty=${difficulty}`;
+  console.log(image);
 
   return (
     <Carousel
@@ -51,9 +52,9 @@ export default function QuestionCarousel(opts: {
       <div className="flex flex-col gap-y-8">
         <div className="flex flex-col md:flex-row gap-4 w-full md:justify-between md:items-end">
           <div className="flex flex-col gap-y-2">
-            <h6 className="text-xl lg:text-3xl text-wrap text-start text-gradient from-white to-white/55">
+            <h2 className="text-xl lg:text-3xl text-wrap text-start text-gradient from-white to-white/55">
               {heading}
-            </h6>
+            </h2>
             <p className="text-sm text-wrap text-start">{description}</p>
           </div>
           <div className="flex items-center gap-2 justify-between">
@@ -61,13 +62,13 @@ export default function QuestionCarousel(opts: {
               View more
               <ChevronRight className="size-4 ml-2" />
             </Button>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 md:hidden">
               <CarouselPrevious
-                className="md:hidden border-none text-white top-0 left-0 right-0 relative translate-y-0"
+                className="border-none text-white top-0 left-0 right-0 relative translate-y-0"
                 variant="default"
               />
               <CarouselNext
-                className="md:hidden border-none text-white top-0 left-0 right-0 relative translate-y-0"
+                className="border-none text-white top-0 left-0 right-0 relative translate-y-0"
                 variant="default"
               />
             </div>
@@ -76,14 +77,9 @@ export default function QuestionCarousel(opts: {
         <div className="relative w-full">
           <div className="hidden md:block absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-[#000000] to-transparent z-10" />
           <CarouselContent className="grid grid-flow-col auto-cols-[calc(100%-8px)] md:auto-cols-[calc(50%-8px)] lg:auto-cols-[calc(33.33%-8px)] gap-4">
-            {questions.map((q, index) => (
-              <CarouselItem key={`${q.uid}-${index}`} className="flex">
-                <QuestionCarouselCard
-                  key={q.uid}
-                  questionData={
-                    q as QuestionWithTags & { userAnswers: Answer[] }
-                  }
-                />
+            {questions.map((q) => (
+              <CarouselItem key={q.uid} className="flex">
+                <QuestionCarouselCard questionData={q} />
               </CarouselItem>
             ))}
           </CarouselContent>

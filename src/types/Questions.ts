@@ -41,7 +41,7 @@ export type QuestionWithoutAnswers = Omit<Question, 'answers'>;
 export type QuestionWithTags = QuestionWithoutAnswers & {
   tags: Array<{
     tag: {
-      id: string;
+      uid: string;
       name: string;
     };
   }>;

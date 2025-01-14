@@ -7,12 +7,14 @@ import QuestionPageSidebar from '@/components/app/questions/layout/question-page
 
 import Hero from '@/components/global/hero';
 
-import { useUserServer } from '@/hooks/use-user-server';
 import { validateSearchParams } from '@/utils/search-params';
 import { parseSearchParams } from '@/utils/search-params';
 import { getTags } from '@/utils/data/questions/tags/get-tags';
 import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
+
+// revalidate every 10 minutes
+export const revalidate = 600;
 
 export async function generateMetadata() {
   return createMetadata({
@@ -46,7 +48,7 @@ export default async function PreviousQuestionsPage({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const [user, tags] = await Promise.all([useUserServer(), getTags()]);
+  const tags = await getTags();
 
   const filters = parseSearchParams(searchParams);
   if (!validateSearchParams(filters)) return null;
@@ -62,7 +64,6 @@ export default async function PreviousQuestionsPage({
               <FilterChips />
             </div>
             <QuestionsList
-              user={user}
               currentPage={filters.page}
               filters={filters}
               customQuestions={false}
@@ -70,7 +71,7 @@ export default async function PreviousQuestionsPage({
               paginationUrl="/questions"
             />
           </div>
-          <QuestionPageSidebar user={user} />
+          <QuestionPageSidebar />
         </div>
       </div>
     </>

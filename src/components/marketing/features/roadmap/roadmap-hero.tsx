@@ -10,12 +10,12 @@ export default function FeatureRoadmapHeroBlock() {
 
       <div className="flex flex-col gap-y-6 items-center z-20 relative">
         <h1 className="text-5xl lg:text-7xl !font-onest !font-medium tracking-tight text-gradient from-white to-white/75 text-center py-1.5">
-          Questions created for <br /> you.
+          Personalized <br /> coding roadmaps.
         </h1>
         <p className="text-gray-400 max-w-xl text-center text-sm md:text-base font-onest">
           Unlock your potential as a software engineer with personalized
-          learning paths. We create a personalized coding experience for you
-          based on your answers.
+          learning paths. Giving you a personalized coding experience for you
+          based on your current skills
         </p>
         <div className="mt-2 flex gap-4">
           <Button variant="default" href="#roadmap-customization">

@@ -1,6 +1,6 @@
 import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak';
-import { useUserServer } from '@/hooks/use-user-server';
-import { SVGProps } from 'react';
+import { Suspense, SVGProps } from 'react';
+import LoadingSpinner from './loading';
 
 export function SolarFlameBoldDuotone(props: SVGProps<SVGSVGElement>) {
   return (
@@ -23,18 +23,24 @@ export function SolarFlameBoldDuotone(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export default async function CurrentStreak() {
-  // only show the streak if the user is logged in
-  const user = await useUserServer();
-  if (!user) return;
-
-  const userStreak = await getUserDailyStats(user?.uid);
+async function CurrentStreakData() {
+  const userStreak = await getUserDailyStats();
 
   return (
     <div className="flex items-center gap-x-1">
       <p className="font-onest font-bold">
-        {userStreak?.streakData?.currentstreakCount}{' '}
+        {userStreak?.streakData?.currentstreakCount}
       </p>
+    </div>
+  );
+}
+
+export default async function CurrentStreak() {
+  return (
+    <div className="flex items-center gap-x-1">
+      <Suspense fallback={<LoadingSpinner />}>
+        <CurrentStreakData />
+      </Suspense>
       <SolarFlameBoldDuotone className="size-6" />
     </div>
   );

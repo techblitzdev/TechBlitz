@@ -107,7 +107,7 @@ export default function AnswerQuestionModal({
 
   const { data: streakData } = useQuery({
     queryKey: ['streak-data', user.uid],
-    queryFn: async () => await getUserDailyStats(user.uid),
+    queryFn: async () => await getUserDailyStats(),
   });
 
   const dateArray = [

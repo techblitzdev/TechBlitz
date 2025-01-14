@@ -8,21 +8,19 @@ import {
 } from '@/components/ui/tooltip';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 
-import { UserRecord } from '@/types/User';
 import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import CurrentStreak, {
   SolarFlameBoldDuotone,
 } from '@/components/ui/current-streak';
+import { useUserServer } from '@/hooks/use-user-server';
 
-export default async function QuestionPageSidebar(opts: {
-  user: UserRecord | null;
-}) {
-  const { user } = opts;
+export default async function QuestionPageSidebar() {
+  const user = await useUserServer();
 
   // get the user streak and suggestion in one go
-  const userStreak = await getUserDailyStats(user?.uid || '');
+  const userStreak = await getUserDailyStats();
 
   // get the streak start date and streak end date
   const startDate = userStreak?.streakData?.streakStart as Date;
@@ -32,7 +30,7 @@ export default async function QuestionPageSidebar(opts: {
   const dateArray: [Date, Date] = [startDate, endDate];
 
   return (
-    <aside className="w-full lg:w-[25%] relative">
+    <aside className="w-full relative">
       <div className="sticky top-10 space-y-10 w-full">
         <div className="w-fit h-fit flex flex-col gap-y-2.5">
           <h6 className="text-xl">Your current streak</h6>

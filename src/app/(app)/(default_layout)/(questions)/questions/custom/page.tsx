@@ -33,7 +33,6 @@ export default async function CustomQuestionsPage({
         <div className="flex flex-col lg:flex-row w-full gap-16">
           <div className="w-full lg:min-w-[65%] space-y-6">
             <QuestionsList
-              user={user}
               currentPage={filters.page}
               filters={filters}
               customQuestions
@@ -41,7 +40,7 @@ export default async function CustomQuestionsPage({
               paginationUrl="/questions/custom"
             />
           </div>
-          <QuestionPageSidebar user={user} />
+          <QuestionPageSidebar />
         </div>
       </div>
     </>

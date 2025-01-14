@@ -1,14 +1,16 @@
 'use server';
 
+import { getUser } from '@/actions/user/authed/get-user';
 import { prisma } from '@/lib/prisma';
 import { revalidateTag } from 'next/cache';
 
-export const getUserDailyStats = async (userUid: string) => {
-  if (!userUid) return null;
+export const getUserDailyStats = async () => {
+  const user = await getUser();
+  if (!user) return null;
 
   const userData = await prisma.users.findUnique({
     where: {
-      uid: userUid,
+      uid: user.uid,
     },
     include: {
       streak: true,
@@ -18,7 +20,7 @@ export const getUserDailyStats = async (userUid: string) => {
 
   const streakData = userData.streak;
 
-  revalidateTag(`user-streak-${userUid}`);
+  revalidateTag(`user-streak-${user.uid}`);
 
   return { streakData };
 };

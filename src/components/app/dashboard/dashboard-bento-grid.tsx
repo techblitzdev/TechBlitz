@@ -41,17 +41,19 @@ export default async function DashboardBentoGrid() {
   });
 
   return (
-    <BentoGrid className="grid-rows-[auto_auto_auto] md:grid-rows-[repeat(2,minmax(0,1fr))] h-full">
-      {items.map((item, i) => (
-        <BentoGridItem
-          key={i}
-          header={item.header}
-          className={item.className}
-          href={item?.href}
-          padded={item.padded}
-          gradientBg={item.gradientBg}
-        />
-      ))}
-    </BentoGrid>
+    <div className="max-w-7xl mx-auto">
+      <BentoGrid className="grid-rows-[auto_auto_auto] md:grid-rows-[repeat(2,minmax(0,1fr))] h-full">
+        {items.map((item, i) => (
+          <BentoGridItem
+            key={i}
+            header={item.header}
+            className={item.className}
+            href={item?.href}
+            padded={item.padded}
+            gradientBg={item.gradientBg}
+          />
+        ))}
+      </BentoGrid>
+    </div>
   );
 }

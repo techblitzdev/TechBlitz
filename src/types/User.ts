@@ -26,13 +26,18 @@ export interface User extends BaseRecord {
   sendPushNotifications?: boolean;
 
   /** the user's code editor theme */
-  codeEditorTheme?: string;
+  codeEditorTheme?: string | null;
 
   /** the number of ai question help tokens the user has */
   aiQuestionHelpTokens?: number;
 
   /** a flag to indicate if the user has a custom username */
   isCustomUsername?: boolean;
+
+  experienceLevel?: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' | 'MASTER';
+
+  // optional stripe emails for paid users
+  stripeEmails?: string[];
 }
 
 export type UserRecord = Pick<
@@ -54,6 +59,8 @@ export type UserRecord = Pick<
   | 'codeEditorTheme'
   | 'aiQuestionHelpTokens'
   | 'isCustomUsername'
+  | 'experienceLevel'
+  | 'stripeEmails'
 >;
 
 // First, create a type that excludes 'uid' from the partial requirement

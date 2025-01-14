@@ -23,8 +23,12 @@ export default async function ProfilePage({
       <div className="absolute flex flex-col md:flex-row items-center gap-10 bottom-[calc(-96px)] md:bottom-[-64px] left-6">
         <div className="relative size-48 overflow-hidden rounded-full border-4 border-black-50">
           <ProfilePicture
-            src={user?.userProfilePicture || ''}
-            alt={`${getUserDisplayName(user)}'s profile photo`}
+            src={user?.userProfilePicture ?? ''}
+            alt={
+              user
+                ? `${getUserDisplayName(user)}'s profile photo`
+                : 'Profile photo'
+            }
             className="size-full"
           />
         </div>

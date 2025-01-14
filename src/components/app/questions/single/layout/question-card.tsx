@@ -46,8 +46,14 @@ export default function QuestionCard(opts: {
     totalSubmissions,
   } = opts;
 
-  const { pause, reset, totalSeconds, currentLayout, setCurrentLayout } =
-    useQuestionSingle();
+  const {
+    pause,
+    reset,
+    totalSeconds,
+    currentLayout,
+    setCurrentLayout,
+    prefilledCodeSnippet,
+  } = useQuestionSingle();
 
   const answerFormRef = useRef<{
     submitForm: () => void;
@@ -118,7 +124,10 @@ export default function QuestionCard(opts: {
           />
         )}
         {currentLayout === 'codeSnippet' && question.codeSnippet && (
-          <CodeDisplay content={question.codeSnippet} user={user} />
+          <CodeDisplay
+            content={prefilledCodeSnippet || question.codeSnippet}
+            user={user}
+          />
         )}
       </div>
       <Separator className="bg-black-50" />

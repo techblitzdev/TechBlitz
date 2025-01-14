@@ -5,12 +5,22 @@ enum QuestionDifficulty {
   HARD
 }
 
+enum QuestionAnswerType {
+  // when the user clicks an answer, it is prefilled in the code snippet
+  PREFILL
+  // when the user clicks an answer, it is a standard answer - this is the default
+  STANDARD
+}
+
 model Questions {
   uid           String   @id @default(uuid())
   question      String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   questionDate  String
+
+  title String?
+  description String?
 
   answers       QuestionAnswers[]
   correctAnswer String
@@ -67,6 +77,13 @@ model QuestionAnswers {
   questionUid String
   question    Questions @relation(fields: [questionUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
   answer      String
+
+  // full snippet of the answer implemented into the code snippet
+  // not required, will only be used if the answer is a code snippet  
+  answerFullSnippet String?
+
+  // keeping this flag for future use- determines if the answer is prefilled or standard
+  answerType QuestionAnswerType @default(STANDARD)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())

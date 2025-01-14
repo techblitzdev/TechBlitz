@@ -34,12 +34,16 @@ export default function CodeDisplay({
 }: CodeDisplayProps) {
   // Clean the content by removing pre and code tags
   const cleanContent = content
-    .replace(/<pre><code[^>]*>/g, '')
-    .replace(/<\/code><\/pre>/g, '')
-    .replace(/=&gt;/g, '=>')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .trim();
+    ?.replace(/<pre><code[^>]*>/g, '')
+    ?.replace(/<\/code><\/pre>/g, '')
+    ?.replace(/=&gt;/g, '=>')
+    ?.replace(/&lt;/g, '<')
+    ?.replace(/&gt;/g, '>')
+    ?.trim();
+
+  if (!cleanContent) {
+    return null;
+  }
 
   return (
     <Highlight

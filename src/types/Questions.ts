@@ -8,6 +8,8 @@ export type QuestionDifficulty = 'BEGINNER' | 'EASY' | 'MEDIUM' | 'HARD';
  * This type represents the shape of the data of a question.
  */
 export type Question = {
+  title: string | null;
+  description: string | null;
   answers: QuestionAnswer[];
   uid: string;
   question: string;

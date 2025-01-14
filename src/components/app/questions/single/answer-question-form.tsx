@@ -1,6 +1,6 @@
 'use client';
 
-import { forwardRef } from 'react';
+import { forwardRef, useEffect } from 'react';
 
 // components
 import { Form, FormControl, FormField } from '@/components/ui/form';
@@ -39,6 +39,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm({
     isSubmitting,
     correctAnswer,
     userAnswer,
+    selectedAnswer,
     newUserData,
     resetQuestionState,
     isModalOpen,
@@ -54,20 +55,17 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm({
     },
   });
 
-  // Expose the `submitForm` method to the parent via ref
-  //useImperativeHandle(ref, () => ({
-  //  submitForm: () => {
-  //    form.handleSubmit(async (values) => {
-  //      await submitQuestionAnswer(values.answer, time);
-  //    })();
-  //  },
-  //  resetForm: () => {
-  //    form.reset();
-  //  },
-  //}));
+  // reset the selected answer when the userAnswer changes
+  useEffect(() => {
+    if (userAnswer) {
+      form.reset();
+      setSelectedAnswer('');
+    }
+  }, [userAnswer, setSelectedAnswer, form]);
 
   const handleRetry = () => {
     form.reset();
+    setSelectedAnswer('');
     stopwatchPause();
     resetStopwatch();
     resetQuestionState();
@@ -99,7 +97,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm({
                       htmlFor={answer.uid}
                       className={cn(
                         'px-2 lg:px-4 lg:py-2 rounded-lg min-h-16 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
-                        field.value === answer.uid
+                        selectedAnswer === answer.uid
                           ? 'bg-black-25'
                           : 'bg-black hover:border-accent',
                         isSubmitting ? 'opacity-50 cursor-not-allowed' : ''

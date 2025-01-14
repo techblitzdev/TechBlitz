@@ -3,10 +3,18 @@ import { QuestionDifficulty } from '@/types/Questions';
 import { prisma } from '@/lib/prisma';
 import uniqid from 'uniqid';
 import { addSlugToQuestion } from '@/scripts/add-slug-to-question';
+import { QuestionAnswerType } from '@/types/QuestionAnswers';
 
 export const addQuestion = async (opts: {
+  title?: string;
+  description?: string;
   question: string;
-  answers: string[];
+  answers: {
+    text: string;
+    isCodeSnippet: boolean;
+    answerFullSnippet?: string | null;
+    answerType?: QuestionAnswerType | null;
+  }[];
   questionDate?: string;
   correctAnswer: number;
   codeSnippet?: string;
@@ -23,6 +31,8 @@ export const addQuestion = async (opts: {
   }[];
 }) => {
   const {
+    title,
+    description,
     question,
     answers,
     questionDate,
@@ -47,17 +57,13 @@ export const addQuestion = async (opts: {
     return 'Please provide a question, at least one answer, and a question date';
   }
 
-  if (
-    !Array.isArray(answers) ||
-    !answers.every((answer) => typeof answer === 'string')
-  ) {
-    console.error('Each answer must be a string');
-    return 'Each answer must be a string';
-  }
-
   const answerRecords = answers.map((answer) => ({
     uid: uniqid(),
-    answer,
+    answer: answer.text,
+    answerFullSnippet: answer.answerFullSnippet || null,
+    answerType: answer.isCodeSnippet
+      ? 'PREFILL'
+      : ('STANDARD' as QuestionAnswerType),
   }));
 
   if (correctAnswer < 0 || correctAnswer >= answers.length) {
@@ -77,6 +83,8 @@ export const addQuestion = async (opts: {
           slug: null,
           uid: questionUid,
           question,
+          title: title || null,
+          description: description || null,
           questionDate: questionDate
             ? new Date(questionDate).toISOString().split('T')[0]
             : '',

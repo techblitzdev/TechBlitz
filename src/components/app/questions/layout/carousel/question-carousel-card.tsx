@@ -29,15 +29,15 @@ export default function QuestionCarouselCard({
     [questionData.difficulty]
   );
 
+  const title = questionData?.title || questionData?.question;
+
   return (
     <Link
       href={`/question/${questionData.slug}`}
       className="h-full bg-black-75 group w-full"
     >
       <div className="flex flex-col justify-between space-y-5 items-start border border-black-50 hover:border-accent duration-300 p-6 rounded-lg group w-full h-full relative overflow-hidden">
-        <h3 className="text-wrap text-start line-clamp-2">
-          {questionData.question}
-        </h3>
+        <h3 className="text-wrap text-start line-clamp-2">{title}</h3>
         <div className="flex items-center gap-x-2">
           {answerStatus === 'correct' ? (
             <CheckCircle className="flex-shrink-0 size-5 text-green-500" />

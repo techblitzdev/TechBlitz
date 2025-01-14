@@ -1,7 +1,6 @@
 import { getQuestion } from '@/utils/data/questions/get';
 import { Separator } from '@/components/ui/separator';
 import NoDailyQuestion from '@/components/global/no-daily-question';
-import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
 import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
 import { useUserServer } from '@/hooks/use-user-server';
 import QuestionCard from '@/components/app/questions/single/layout/question-card';
@@ -10,6 +9,7 @@ import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded
 import ResizableLayout from '@/components/ui/resizable-layout';
 import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help';
 import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
+import CodeDisplayWrapper from '@/components/app/questions/single/layout/code-display-wrapper';
 
 export default async function TodaysQuestionPage({
   params,
@@ -62,13 +62,7 @@ export default async function TodaysQuestionPage({
           )}
         </div>
         <Separator className="bg-black-50" />
-        {question?.codeSnippet && (
-          <CodeDisplay
-            content={question.codeSnippet}
-            backgroundColor="#111111"
-            user={user}
-          />
-        )}
+        {question?.codeSnippet && <CodeDisplayWrapper />}
       </div>
     </div>
   );

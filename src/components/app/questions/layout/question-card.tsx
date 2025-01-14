@@ -84,6 +84,8 @@ export default function QuestionCard(opts: {
       ? `/question/custom/${questionData[identifier]}`
       : `/question/${questionData[identifier]}`;
 
+  const title = questionData?.title || questionData?.question;
+
   return (
     <Link
       href={href}
@@ -93,7 +95,7 @@ export default function QuestionCard(opts: {
       <div className="flex flex-col gap-y-2 w-full">
         <div className="flex w-full justify-between items-center">
           <h6 className="text-base text-wrap text-start line-clamp-2 flex-grow">
-            {questionData?.question}
+            {title}
           </h6>
         </div>
         {showSubmissions && (

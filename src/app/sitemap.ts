@@ -16,11 +16,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
   ]);
 
+  // for some reason, the blog posts are not being when invoking
+  // the getBlogPosts function, but only from here.
+  // manually adding the blog post slugs for now (TODO: fix this)
+
   // Create sitemap entries for blog posts
-  const blogPosts = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    // Using the post date as lastModified
-    lastModified: new Date(post.date as string),
+  //const blogPosts = posts.map((post) => ({
+  //  url: `${baseUrl}/blog/${post.slug}`,
+  //  // Using the post date as lastModified
+  //  lastModified: new Date(post.date as string),
+  //}))
+
+  const blogPostSlugs = [
+    'how-to-become-a-software-engineer-2025',
+    'how-to-use-filter-in-javascript',
+    'how-to-use-map-in-javascript',
+    'how-to-use-reduce-in-javascript',
+    'introducing-techblitz',
+    'what-are-callback-functions',
+  ];
+
+  const blogPosts = blogPostSlugs.map((slug) => ({
+    url: `${baseUrl}/blog/${slug}`,
+    lastModified: new Date(),
   }));
 
   const questionsPosts = questions.questions.map((question) => ({

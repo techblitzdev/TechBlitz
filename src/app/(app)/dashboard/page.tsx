@@ -25,9 +25,7 @@ export default async function Dashboard({ searchParams }: DashboardProps) {
           >
             <WelcomeMessage user={user} />
           </Suspense>
-          <Suspense fallback={null}>
-            <DashboardBentoGrid />
-          </Suspense>
+          <DashboardBentoGrid />
         </div>
       </div>
     </ClientPage>

@@ -10,21 +10,13 @@ const CodeSnippet = dynamic(
 const codeSnippet1 = `// JavaScript Daily Challenge: Build a Smart Cache
 // Difficulty: Intermediate 🌟
 
-interface CacheConfig {
-  maxAge: number;    // Maximum age in seconds
-  maxSize: number;   // Maximum cache size in items
-}
-
 class SmartCache {
-  private cache: Map<string, {data: any, timestamp: number}>;
-  private config: CacheConfig;
-
-  constructor(config: CacheConfig) {
+  constructor(config) {
     this.cache = new Map();
     this.config = config;
   }
 
-  async get(key: string, fetchFn: () => Promise<any>) {
+  async get(key, fetchFn) {
     const cached = this.cache.get(key);
     const now = Date.now();
 

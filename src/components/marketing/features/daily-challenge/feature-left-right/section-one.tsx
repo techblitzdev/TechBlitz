@@ -1,11 +1,13 @@
 import LeftRightBlock from '@/components/marketing/global/blocks/left-right-block';
+import { Button } from '@/components/ui/button';
 import { DatePicker } from '@mantine/dates';
 
 export default function FeatureLeftRightSectionOne(opts: {
   leftHeader?: string;
   leftSubheader?: string;
+  learnMoreLink?: boolean;
 }) {
-  const { leftHeader, leftSubheader } = opts;
+  const { leftHeader, leftSubheader, learnMoreLink } = opts;
 
   const today = new Date();
   const nextWeek = new Date(today);
@@ -24,6 +26,14 @@ export default function FeatureLeftRightSectionOne(opts: {
               ? leftSubheader
               : "TechBlitz empowers your growth with intuitive progress tracking. See how far you've come with streak counts that celebrate your dedication and keep you motivated. Stay on track, achieve consistency, and make self-improvement a daily habit."}
           </p>
+          {learnMoreLink && (
+            <Button
+              variant="secondary"
+              href={'/features/daily-coding-challenges'}
+            >
+              Learn more
+            </Button>
+          )}
         </div>
       }
       right={

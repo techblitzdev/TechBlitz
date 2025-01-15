@@ -120,6 +120,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/free-leetcode-alternative`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/learn-javascript`,
+      lastModified: new Date(),
+    },
   ];
 
   // Combine static routes with dynamic blog posts

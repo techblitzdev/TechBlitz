@@ -1,16 +1,21 @@
 import CodeComparison from './code-comparison';
 
-export default async function ComparisonBlock() {
+export default async function ComparisonBlock(opts: {
+  header?: string;
+  subheader?: string;
+}) {
+  const { header, subheader } = opts;
+
   return (
     <section className="pt-10 lg:pt-6 pb-20 md:pb-28 flex flex-col gap-y-7 relative items-center w-full">
       <div className="flex flex-col gap-y-3 items-center text-center">
         <h1 className="text-4xl lg:text-6xl font-onest !font-medium tracking-tight text-gradient from-white to-white/55 py-1">
-          Learn with interactive <br /> coding challenges
+          {header ? header : 'Learn with interactive <br /> coding challenges'}
         </h1>
         <p className="text-gray-400 max-w-4xl text-sm md:text-base">
-          Discover why TechBlitz is the best free LeetCode alternative for
-          beginners. Our coding challenges are designed to mimic real-world
-          problems that you will face in your day-to-day activities.
+          {subheader
+            ? subheader
+            : 'Discover why TechBlitz is the best free LeetCode alternative for beginners. Our coding challenges are designed to mimic real-world problems that you will face in your day-to-day activities.'}
         </p>
       </div>
       <div className=" w-full flex justify-center relative">

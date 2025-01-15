@@ -5,7 +5,7 @@ import FeaturesContentHeader from '@/components/marketing/features/global/conten
 import HomepageHeroImages from '@/components/marketing/homepage/hero/hero-images';
 import RoadmapImg from '../../../../public/images/roadmap.png';
 
-const description = () => {
+const defaultDescription = () => {
   return (
     <span>
       Every coding roadmap is created based on your current coding skills. We
@@ -16,15 +16,19 @@ const description = () => {
   );
 };
 
-export default function FeatureRoadmapThreeGridBlock() {
+export default function FeatureRoadmapThreeGridBlock(opts: {
+  title?: string;
+  description?: string;
+}) {
+  const { title, description } = opts;
   const roadmapIframe =
     'https://customer-8s5ov2shcw99ezk2.cloudflarestream.com/ff823c820a5dc793c091f43ebae09d63/iframe?muted=true&poster=https%3A%2F%2Fcustomer-8s5ov2shcw99ezk2.cloudflarestream.com%2Fff823c820a5dc793c091f43ebae09d63%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600';
 
   return (
     <section className="py-16 px-4 md:pt-24 md:pb-32 flex flex-col gap-y-16">
       <FeaturesContentHeader
-        title="Coding roadmaps for everyone"
-        description={description()}
+        title={title || 'Coding roadmaps for everyone'}
+        description={description || defaultDescription()}
       />
       <div className="grid grid-cols-3 lg:grid-cols-12 gap-10 max-w-5xl self-center relative">
         <div

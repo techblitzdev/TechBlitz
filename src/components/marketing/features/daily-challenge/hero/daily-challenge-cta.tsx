@@ -1,16 +1,13 @@
 import { Button } from '@/components/ui/button';
-import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 
-export default async function DailyChallengeCTA() {
-  const dailyQuestion = await getTodaysQuestion();
-
+export default function DailyChallengeCTA() {
   return (
     <Button
       variant="default"
       className="flex items-center gap-2"
-      href={`/question/${dailyQuestion?.slug}`}
+      href={`/questions/explore`}
     >
-      Answer today's challenge
+      Explore questions
     </Button>
   );
 }

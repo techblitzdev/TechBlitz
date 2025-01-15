@@ -11,6 +11,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { motion, AnimatePresence } from 'framer-motion';
 import Chip from '@/components/ui/chip';
+import { Button } from '@/components/ui/button';
 
 const tags = [
   {
@@ -54,7 +55,12 @@ const QuestionCard = ({ tag }: { tag: (typeof tags)[0] }) => (
   </motion.div>
 );
 
-export default function StatsReportSection() {
+export default function StatsReportSection(opts: {
+  header?: string;
+  subheader?: string;
+  learnMoreLink?: boolean;
+}) {
+  const { header, subheader, learnMoreLink } = opts;
   const [activeTag, setActiveTag] = useState(tags[0].id);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -85,13 +91,25 @@ export default function StatsReportSection() {
     >
       <div className="flex flex-col gap-y-4">
         <h2 className="text-2xl sm:text-3xl lg:text-5xl text-gradient from-white to-white/75 !font-onest !font-medium tracking-tight py-1.5">
-          Detailed Analytics & Progress <br /> Reports to Accelerate Your Growth
+          {header ? (
+            header
+          ) : (
+            <>
+              Detailed Analytics & Progress <br /> Reports to Accelerate Your
+              Growth
+            </>
+          )}
         </h2>
         <p className="text-gray-400 max-w-5xl text-sm sm:text-base md:text-lg">
-          Get actionable insights with personalized performance analytics. Track
-          your coding journey, identify areas for improvement, and celebrate
-          your achievements with comprehensive progress reports.
+          {subheader
+            ? subheader
+            : 'Get actionable insights with personalized performance analytics. Track your coding journey, identify areas for improvement, and celebrate your achievements with comprehensive progress reports.'}
         </p>
+        {learnMoreLink && (
+          <Button variant="secondary" href={'/features/statistics'}>
+            Learn more
+          </Button>
+        )}
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 lg:gap-10">
         <div className="lg:col-span-5 flex flex-col gap-y-6 relative">

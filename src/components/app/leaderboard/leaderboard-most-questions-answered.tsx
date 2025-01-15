@@ -1,17 +1,7 @@
 import { FileQuestion, Trophy } from 'lucide-react';
 import { getMostQuestionsAnswered } from '@/utils/data/leaderboard/get-most-questions-answered';
-import ProfilePicture from '@/components/ui/profile-picture';
-import { UserRecord } from '@/types/User';
-import { shortenText } from '@/utils';
-import { getUserDisplayName } from '@/utils/user';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+
+import { Table, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import {
   Card,
   CardHeader,
@@ -19,14 +9,14 @@ import {
   CardDescription,
   CardContent,
 } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import ShowTimeTakenToggle from './show-time-taken';
+import { useUserServer } from '@/hooks/use-user-server';
+import LeaderboardMostAnsweredTable from './leaderboard-most-answered-table';
+import { UserRecord } from '@/types/User';
 
-export default async function LeaderboardMostQuestionsAnswered({
-  user,
-}: {
-  user?: UserRecord | null;
-}) {
+export default async function LeaderboardMostQuestionsAnswered() {
+  const userPromise = useUserServer();
+
   const topUsersByQuestionCount = await getMostQuestionsAnswered();
 
   return (
@@ -44,7 +34,7 @@ export default async function LeaderboardMostQuestionsAnswered({
               </CardDescription>
             </div>
           </div>
-          <ShowTimeTakenToggle user={user} />
+          <ShowTimeTakenToggle userPromise={userPromise} />
         </div>
       </CardHeader>
       <CardContent className="p-0 pt-6 md:p-6 md:pt-0">
@@ -65,66 +55,14 @@ export default async function LeaderboardMostQuestionsAnswered({
               </TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {topUsersByQuestionCount.map((userData, index) => (
-              <TableRow
-                key={userData.uid}
-                className="border-white/10 hover:bg-white/5 transition-colors"
-              >
-                <TableCell className="font-medium text-white p-0">
-                  {index < 3 ? (
-                    <Badge
-                      variant={index === 0 ? 'default' : 'secondary'}
-                      className={`
-                        ${index === 0 && 'bg-yellow-500/20 text-yellow-300 hover:bg-yellow-500/30'}
-                        ${index === 1 && 'bg-gray-400/20 text-gray-300 hover:bg-gray-400/30'}
-                        ${index === 2 && 'bg-amber-700/20 text-amber-500 hover:bg-amber-700/30'}
-                      `}
-                    >
-                      #{index + 1}
-                    </Badge>
-                  ) : (
-                    <span className="text-gray-400">#{index + 1}</span>
-                  )}
-                </TableCell>
-                <TableCell className="p-0">
-                  <div className="flex items-center gap-4">
-                    <ProfilePicture
-                      src={userData.userProfilePicture}
-                      alt={`${userData.username} profile picture`}
-                      className="text-white"
-                    />
-                    <div className="flex gap-2 items-center">
-                      <span className="text-white font-medium hidden md:block">
-                        {shortenText(getUserDisplayName(userData as any), 25)}
-                      </span>
-                      <span className="text-white font-medium block md:hidden">
-                        {shortenText(getUserDisplayName(userData as any), 10)}
-                      </span>
-                      {user?.uid === userData.uid && (
-                        <span className="text-xs text-white">(You)</span>
-                      )}
-                      {userData?.userLevel === 'PREMIUM' && (
-                        <div className="relative w-fit bg-accent text-xs flex items-center justify-center px-2 py-0.5 rounded-full text-white">
-                          <span className="text-[10px]">PRO</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </TableCell>
-                <TableCell className="p-0">
-                  <div className="flex h-full w-full p-4 justify-end">
-                    <Badge
-                      variant="outline"
-                      className="border-white/10 text-white"
-                    >
-                      {userData._count.answers}
-                    </Badge>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+          <LeaderboardMostAnsweredTable
+            topUsersByQuestionCount={
+              topUsersByQuestionCount as unknown as (UserRecord & {
+                _count: { answers: number };
+              })[]
+            }
+            userPromise={userPromise}
+          />
         </Table>
       </CardContent>
     </Card>

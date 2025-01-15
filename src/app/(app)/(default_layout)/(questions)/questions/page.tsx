@@ -89,7 +89,7 @@ export default async function QuestionsDashboard({
       <Hero heading="Coding Questions" subheading={heroDescription} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 group">
         <div className="flex flex-col xl:flex-row gap-8">
-          <div className="w-full lg:min-w-[55%] space-y-6">
+          <div className="w-full lg:min-w-[75%] space-y-6">
             <div className="min-h-[84px] flex flex-col gap-y-2">
               <Suspense fallback={<FilterLoading />}>
                 <Filter tagsPromise={tagsPromise} />

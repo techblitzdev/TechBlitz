@@ -3,14 +3,18 @@
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { updateUser } from '@/actions/user/authed/update-user';
-import { useState } from 'react';
+import { use, useState } from 'react';
 import { toast } from 'sonner';
 import { UserRecord } from '@/types/User';
 
 export default function ShowTimeTakenToggle(opts: {
-  user?: UserRecord | null;
+  userPromise: Promise<UserRecord | null>;
 }) {
-  const [checked, setChecked] = useState(opts.user?.showTimeTaken ?? true);
+  const { userPromise } = opts;
+
+  const user = use(userPromise);
+
+  const [checked, setChecked] = useState(user?.showTimeTaken ?? true);
 
   const handleSubmit = async (formData: FormData) => {
     const showTimeTaken = formData.get('showTimeTaken') === 'on';
@@ -42,7 +46,7 @@ export default function ShowTimeTakenToggle(opts: {
           handleSubmit(formData);
         }}
         className="bg-black-50"
-        disabled={!opts.user}
+        disabled={!user}
       />
       <Label htmlFor="showTimeTaken" className="text-white">
         {checked ? 'Hide' : 'Show'} on leaderboard?

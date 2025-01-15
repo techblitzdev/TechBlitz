@@ -1,8 +1,14 @@
+import dynamic from 'next/dynamic';
+
 import LeaderboardHero from '@/components/app/leaderboard/leaderboard-hero';
-import LeaderboardMostQuestionsAnswered from '@/components/app/leaderboard/leaderboard-most-questions-answered';
-import { useUserServer } from '@/hooks/use-user-server';
 import { createMetadata } from '@/utils/seo';
 import { getMostQuestionsAnswered } from '@/utils/data/leaderboard/get-most-questions-answered';
+import { Suspense } from 'react';
+
+const LeaderboardMostQuestionsAnswered = dynamic(
+  () =>
+    import('@/components/app/leaderboard/leaderboard-most-questions-answered')
+);
 
 export async function generateMetadata() {
   return createMetadata({
@@ -20,17 +26,16 @@ export async function generateMetadata() {
 export default async function TodaysLeaderboardPage() {
   //const currentPage = parseInt(searchParams.page as string) || 1;
 
-  const [user, topThreeUsers] = await Promise.all([
-    useUserServer(),
-    getMostQuestionsAnswered(3),
-  ]);
+  const topThreeUsers = getMostQuestionsAnswered(3);
 
   return (
     <>
       {/** @ts-ignore - this is the valid type */}
-      <LeaderboardHero topThreeUsers={topThreeUsers} />
+      <LeaderboardHero topThreeUsersPromise={topThreeUsers} />
       <div className="lg:container flex flex-col xl:flex-row gap-10 mt-5">
-        <LeaderboardMostQuestionsAnswered user={user} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <LeaderboardMostQuestionsAnswered />
+        </Suspense>
       </div>
     </>
   );

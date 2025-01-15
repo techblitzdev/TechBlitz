@@ -31,13 +31,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
-
 export default function OnboardingStepOne() {
-  const { user, setUser } = useOnboardingContext();
+  const { user, setUser, itemVariants } = useOnboardingContext();
 
   const form = useForm<UpdatableUserFields>({
     resolver: zodResolver(onboardingStepOneSchema),
@@ -189,12 +184,30 @@ export default function OnboardingStepOne() {
                             />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="BEGINNER">Beginner</SelectItem>
-                            <SelectItem value="INTERMEDIATE">
+                            <SelectItem
+                              className="hover:text-white"
+                              value="BEGINNER"
+                            >
+                              Beginner
+                            </SelectItem>
+                            <SelectItem
+                              className="hover:text-white"
+                              value="INTERMEDIATE"
+                            >
                               Intermediate
                             </SelectItem>
-                            <SelectItem value="ADVANCED">Advanced</SelectItem>
-                            <SelectItem value="MASTER">Master</SelectItem>
+                            <SelectItem
+                              className="hover:text-white"
+                              value="ADVANCED"
+                            >
+                              Advanced
+                            </SelectItem>
+                            <SelectItem
+                              className="hover:text-white"
+                              value="MASTER"
+                            >
+                              Master
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                       </div>

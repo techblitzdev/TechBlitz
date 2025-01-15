@@ -9,8 +9,12 @@ import { Plan } from '@/utils/constants/pricing';
 // utils
 import { cn } from '@/lib/utils';
 
-export default function PricingCard(opts: { product: Plan }) {
-  const { product } = opts;
+export default function PricingCard(opts: {
+  product: Plan;
+  compact?: boolean;
+  paymentTrigger?: boolean;
+}) {
+  const { product, compact, paymentTrigger } = opts;
 
   const isFree = !product.price;
 
@@ -52,10 +56,14 @@ export default function PricingCard(opts: { product: Plan }) {
 
       <CardContent className="text-start pb-2 sm:pb-6 pt-3 sm:pt-0 flex flex-col gap-y-6 justify-between h-full text-white">
         <AnimatedPricingFeatures
-          features={product.features}
+          features={compact ? product.compactFeatures : product.features}
           productId={product.id}
         />
-        <Button fullWidth variant="secondary" href={'/signup'}>
+        <Button
+          fullWidth
+          variant="secondary"
+          href={paymentTrigger ? product.paymentLink?.production : '/upgrade'}
+        >
           {isFree ? 'Sign up' : 'Get started'}
         </Button>
       </CardContent>

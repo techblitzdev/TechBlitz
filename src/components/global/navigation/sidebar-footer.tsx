@@ -107,7 +107,7 @@ export default function SidebarFooterComponent(opts: {
                   <Link href="/homepage">Homepage</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="/onboarding">Onboarding</Link>
+                  <Link href="/onboarding?ref=dashboard">Onboarding</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href="https://git.new/blitz">GitHub</Link>

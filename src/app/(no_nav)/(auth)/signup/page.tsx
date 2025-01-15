@@ -5,6 +5,7 @@ import RoadmapQuestionCard from '@/components/app/roadmaps/questions/[uid]/quest
 import SocialProof from '@/components/marketing/global/social-proof';
 import { fetchGithubStars } from '@/utils/data/misc/get-github-stars';
 import { getUserCount } from '@/utils/data/user/get-user-count';
+import { Suspense } from 'react';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -62,7 +63,9 @@ export default async function SignupPage() {
           <div className="text-center">
             <h1 className="font-bold text-3xl mb-2">Get started for free</h1>
           </div>
-          <SignupForm prefilledEmail="" />
+          <Suspense>
+            <SignupForm prefilledEmail="" />
+          </Suspense>
         </div>
       </div>
 

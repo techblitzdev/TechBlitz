@@ -62,7 +62,7 @@ export const UserOnboardingContextProvider = ({
     userProfilePicture: '',
     correctDailyStreak: null,
     totalDailyStreak: null,
-    showTimeTaken: false,
+    showTimeTaken: true,
     sendPushNotifications: false,
   });
 

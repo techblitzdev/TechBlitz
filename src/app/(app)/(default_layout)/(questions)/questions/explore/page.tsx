@@ -68,7 +68,7 @@ export default async function ExploreQuestionsPage() {
         container={false}
       />
       <div className="flex flex-col xl:flex-row mt-5 gap-16">
-        <div className="w-full lg:min-w-[55%] space-y-6">
+        <div className="w-full lg:min-w-[70%] space-y-6">
           <QuestionsCarouselList />
         </div>
         <Suspense fallback={<QuestionPageSidebarLoading />}>

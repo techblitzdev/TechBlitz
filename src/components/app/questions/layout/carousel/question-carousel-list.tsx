@@ -1,5 +1,9 @@
+import { Suspense } from 'react';
 import { getQuestionsByTag } from '@/utils/data/questions/get-questions-by-tag';
 import QuestionCarousel from './question-carousel';
+import QuestionCarouselCard from './question-carousel-card';
+import { CarouselItem } from '@/components/ui/carousel';
+import QuestionCarouselLoading from './question-carousel-loading';
 import { QuestionDifficulty } from '@/types/Questions';
 
 const questionsCarousels = [
@@ -45,41 +49,60 @@ const questionsCarousels = [
   },
 ];
 
-export default async function QuestionsCarouselList() {
-  const questionsByTag = await Promise.all(
-    questionsCarousels.map(async (carousel) => {
-      const questions = await getQuestionsByTag(
-        carousel.tag,
-        carousel.difficulty
-      );
-      return {
-        ...carousel,
-        questions: questions.flatMap((q) =>
-          q.questions.map((question) => ({
-            ...question.question,
-            userAnswers: question.question.userAnswers,
-          }))
-        ),
-      };
-    })
+export default function QuestionsCarouselList() {
+  return (
+    <div className="flex flex-col gap-y-16 md:gap-y-28 pt-10">
+      {questionsCarousels.map((carousel, index) => (
+        <div
+          key={`carousel-${index}-${carousel.tag.join('-')}-${carousel.title}`}
+        >
+          <QuestionCarousel
+            heading={carousel.title}
+            description={carousel.description}
+            image={carousel.image}
+            tag={carousel.tag}
+            difficulty={carousel.difficulty}
+          >
+            <Suspense fallback={<QuestionCarouselLoading />}>
+              <QuestionCarouselContent
+                tag={carousel.tag}
+                difficulty={carousel.difficulty}
+              />
+            </Suspense>
+          </QuestionCarousel>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+async function QuestionCarouselContent({
+  tag,
+  difficulty,
+}: {
+  tag: string[];
+  difficulty?: QuestionDifficulty;
+}) {
+  const questions = await getQuestionsByTag(tag, difficulty);
+  const flattenedQuestions = questions.flatMap((q) =>
+    q.questions.map((question) => ({
+      ...question.question,
+      userAnswers: question.question.userAnswers,
+    }))
   );
 
   return (
-    <div className="flex flex-col gap-y-16 md:gap-y-28 pt-10">
-      {questionsByTag.map((carousel, index) => (
-        <QuestionCarousel
-          key={`carousel-${index}-${carousel.tag.join('-')}-${carousel.title}`}
-          heading={carousel.title}
-          description={carousel.description}
-          image={carousel.image}
-          questions={carousel.questions.map((question) => ({
-            ...question,
-            userAnswers: question.userAnswers || [],
-          }))}
-          tag={carousel.tag}
-          difficulty={carousel.difficulty}
-        />
+    <>
+      {flattenedQuestions.map((question, index) => (
+        <CarouselItem key={`${question.uid}-${index}`} className="flex">
+          <QuestionCarouselCard
+            questionData={{
+              ...question,
+              userAnswers: question.userAnswers || [],
+            }}
+          />
+        </CarouselItem>
       ))}
-    </div>
+    </>
   );
 }

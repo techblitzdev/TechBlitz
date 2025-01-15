@@ -1,35 +1,32 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, ReactNode } from 'react';
 import {
   Carousel,
-  CarouselItem,
   CarouselContent,
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { QuestionDifficulty, QuestionWithTags } from '@/types/Questions';
-import QuestionCarouselCard from './question-carousel-card';
+import { QuestionDifficulty } from '@/types/Questions';
 import { Button } from '@/components/ui/button';
 import { ChevronRight } from 'lucide-react';
-import { Answer } from '@/types/Answers';
 
 interface QuestionCarouselProps {
   heading: string | React.ReactNode;
   description: string | React.ReactNode;
   image: string;
-  questions: (QuestionWithTags & { userAnswers: Answer[] })[];
   tag: string | string[];
   difficulty?: QuestionDifficulty;
+  children: ReactNode;
 }
 
 export default function QuestionCarousel({
   heading,
   description,
   image,
-  questions,
   tag,
   difficulty,
+  children,
 }: QuestionCarouselProps) {
   const viewMoreHref = useMemo(() => {
     if (Array.isArray(tag) && tag.length > 0) {
@@ -77,11 +74,7 @@ export default function QuestionCarousel({
         <div className="relative w-full">
           <div className="hidden md:block absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-[#000000] to-transparent z-10" />
           <CarouselContent className="grid grid-flow-col auto-cols-[calc(100%-8px)] md:auto-cols-[calc(50%-8px)] lg:auto-cols-[calc(33.33%-8px)] gap-4">
-            {questions.map((q, index) => (
-              <CarouselItem key={`${q.uid}-${index}`} className="flex">
-                <QuestionCarouselCard questionData={q} />
-              </CarouselItem>
-            ))}
+            {children}
           </CarouselContent>
           <CarouselPrevious
             className="hidden md:block border-none text-white -top-14 -left-6 z-10"

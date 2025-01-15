@@ -62,7 +62,7 @@ const heroDescription = (
       Explore all the questions we have to offer. Filter by tags, difficulty,
       and more.
     </p>
-    <p className="text-gray-400">Want a more guided set of questions?</p>
+    <p className="text-gray-400">Need a more guided set of questions?</p>
     <div className="flex flex-col md:flex-row gap-2 md:items-center">
       <Button href="/questions/previous" variant="default">
         View previous daily questions
@@ -103,9 +103,7 @@ export default async function QuestionsDashboard({
               paginationUrl="/questions"
             />
           </div>
-          <div className="w-full xl:w-1/4">
-            <QuestionPageSidebar />
-          </div>
+          <QuestionPageSidebar />
         </div>
       </div>
     </div>

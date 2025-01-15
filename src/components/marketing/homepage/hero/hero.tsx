@@ -29,10 +29,11 @@ export default async function HomepageHero() {
         <h1 className="mt-3 text-5xl lg:text-[68px] !font-onest !font-medium tracking-tight max-w-5xl text-gradient from-white to-white/75 py-1.5">
           Learning to code <br /> made simple
         </h1>
-        <h6 className="font-onest max-w-4xl text-gray-400 text-lg">
-          Learn to code effortlessly, with our short-form, interactive coding
-          challenges. <br /> Built to boost your coding skills rapidly.
-        </h6>
+        <p className="font-onest max-w-4xl text-gray-400 text-lg">
+          Learn with personalized learning paths, progress tracking, and
+          interactive coding challenges. <br />
+          Replace boring coding exercises with industry-standard questions.
+        </p>
         {dailyQuestion && (
           <div className="mt-3">
             <SignupForm />

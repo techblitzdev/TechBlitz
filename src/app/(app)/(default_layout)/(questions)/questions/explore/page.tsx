@@ -2,7 +2,10 @@ import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
 const QuestionPageSidebar = dynamic(
-  () => import('@/components/app/questions/layout/question-page-sidebar')
+  () => import('@/components/app/questions/layout/question-page-sidebar'),
+  {
+    loading: () => <QuestionPageSidebarLoading />,
+  }
 );
 import QuestionPageSidebarLoading from '@/components/app/questions/layout/question-page-sidebar-loading';
 
@@ -68,11 +71,9 @@ export default async function ExploreQuestionsPage() {
         <div className="w-full lg:min-w-[55%] space-y-6">
           <QuestionsCarouselList />
         </div>
-        <div className="w-full xl:w-1/4">
-          <Suspense fallback={<QuestionPageSidebarLoading />}>
-            <QuestionPageSidebar />
-          </Suspense>
-        </div>
+        <Suspense fallback={<QuestionPageSidebarLoading />}>
+          <QuestionPageSidebar />
+        </Suspense>
       </div>
     </>
   );

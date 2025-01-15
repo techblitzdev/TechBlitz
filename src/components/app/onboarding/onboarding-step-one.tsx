@@ -23,6 +23,13 @@ import {
 import { useOnboardingContext } from './onboarding-context';
 import { onboardingStepOneSchema } from '@/lib/zod/schemas/onboarding/step-one';
 import type { UpdatableUserFields } from '@/types/User';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -38,6 +45,7 @@ export default function OnboardingStepOne() {
       username: user.username || '',
       showTimeTaken: user.showTimeTaken || false,
       sendPushNotifications: user.sendPushNotifications || false,
+      experienceLevel: user.experienceLevel || 'BEGINNER',
     },
   });
 
@@ -50,14 +58,20 @@ export default function OnboardingStepOne() {
     const hasChanges =
       watchedValues.username !== user.username ||
       watchedValues.showTimeTaken !== user.showTimeTaken ||
-      watchedValues.sendPushNotifications !== user.sendPushNotifications;
-
+      watchedValues.sendPushNotifications !== user.sendPushNotifications ||
+      watchedValues.experienceLevel !== user.experienceLevel;
     if (hasChanges) {
       setUser((prev) => ({
         ...prev,
         username: watchedValues.username ?? '',
         showTimeTaken: watchedValues.showTimeTaken,
         sendPushNotifications: watchedValues.sendPushNotifications,
+        experienceLevel: watchedValues.experienceLevel?.toUpperCase() as
+          | 'BEGINNER'
+          | 'INTERMEDIATE'
+          | 'ADVANCED'
+          | 'MASTER'
+          | undefined,
       }));
     }
   }, [watchedValues, setUser, user]);
@@ -148,6 +162,46 @@ export default function OnboardingStepOne() {
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
+            </motion.div>
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={itemVariants}
+            >
+              <FormField
+                control={form.control}
+                name="experienceLevel"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <div className="flex flex-row items-center justify-between">
+                        <div className="text-white placeholder:text-white">
+                          Experience Level
+                        </div>
+                        <Select
+                          value={field.value}
+                          onValueChange={field.onChange}
+                        >
+                          <SelectTrigger className="w-40 border border-black-50">
+                            <SelectValue
+                              className="text-white placeholder:text-white [&:not(:placeholder-shown)]:text-white"
+                              placeholder="Select experience level"
+                            />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="BEGINNER">Beginner</SelectItem>
+                            <SelectItem value="INTERMEDIATE">
+                              Intermediate
+                            </SelectItem>
+                            <SelectItem value="ADVANCED">Advanced</SelectItem>
+                            <SelectItem value="MASTER">Master</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
             </motion.div>
             <motion.div
               initial="hidden"

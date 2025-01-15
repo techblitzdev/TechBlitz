@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -23,14 +23,25 @@ import {
 import { useOnboardingContext } from './onboarding-context';
 import { onboardingStepOneSchema } from '@/lib/zod/schemas/onboarding/step-one';
 import type { UpdatableUserFields } from '@/types/User';
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { toast } from 'sonner';
+import { checkUsername } from '@/actions/user/authed/check-username';
 
 export default function OnboardingStepOne() {
-  const { user, setUser } = useOnboardingContext();
+  const { user, setUser, itemVariants, setCanContinue } =
+    useOnboardingContext();
+  const [username, setUsername] = useState(user.username || '');
+  const [isUsernameValid, setIsUsernameValid] = useState(true);
+
+  const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(
+    null
+  );
 
   const form = useForm<UpdatableUserFields>({
     resolver: zodResolver(onboardingStepOneSchema),
@@ -38,29 +49,48 @@ export default function OnboardingStepOne() {
       username: user.username || '',
       showTimeTaken: user.showTimeTaken || false,
       sendPushNotifications: user.sendPushNotifications || false,
+      experienceLevel: user.experienceLevel || 'BEGINNER',
+      howDidYouHearAboutTechBlitz: user.howDidYouHearAboutTechBlitz || '',
     },
   });
 
-  // Watch all form values
-  const watchedValues = form.watch();
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newUsername = e.target.value;
+    setUsername(newUsername);
 
-  // Automatically update context when form values change
+    // Clear previous timeout
+    if (debounceTimeout) {
+      clearTimeout(debounceTimeout);
+    }
+
+    // Set a new timeout
+    const timeout = setTimeout(async () => {
+      const isUnique = await checkUsername(newUsername);
+      setIsUsernameValid(Boolean(isUnique));
+
+      toast.info(
+        Boolean(isUnique) ? 'Username is unique' : 'Username is taken'
+      );
+
+      if (!isUnique) {
+        toast.error('Username is already taken. Please choose another one.');
+      }
+      setCanContinue(Boolean(isUnique));
+    }, 1000);
+
+    setDebounceTimeout(timeout);
+  };
+
   useEffect(() => {
-    // Only update if values have actually changed
-    const hasChanges =
-      watchedValues.username !== user.username ||
-      watchedValues.showTimeTaken !== user.showTimeTaken ||
-      watchedValues.sendPushNotifications !== user.sendPushNotifications;
-
+    // Automatically update context when form values change
+    const hasChanges = username !== user.username;
     if (hasChanges) {
       setUser((prev) => ({
         ...prev,
-        username: watchedValues.username ?? '',
-        showTimeTaken: watchedValues.showTimeTaken,
-        sendPushNotifications: watchedValues.sendPushNotifications,
+        username: username || '',
       }));
     }
-  }, [watchedValues, setUser, user]);
+  }, [username, setUser, user]);
 
   return (
     <>
@@ -98,7 +128,9 @@ export default function OnboardingStepOne() {
                         autoComplete="username"
                         placeholder="Username"
                         {...field}
-                        value={field.value ?? ''}
+                        value={username}
+                        onChange={handleUsernameChange}
+                        className={`input ${!isUsernameValid && 'border-red-500'}`}
                       />
                     </FormControl>
                     <FormMessage className="mt-0.5 text-start">
@@ -154,6 +186,64 @@ export default function OnboardingStepOne() {
               animate="visible"
               variants={itemVariants}
             >
+              <FormField
+                control={form.control}
+                name="experienceLevel"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <div className="flex flex-row items-center justify-between">
+                        <div className="text-white placeholder:text-white">
+                          Experience Level
+                        </div>
+                        <Select
+                          value={field.value}
+                          onValueChange={field.onChange}
+                        >
+                          <SelectTrigger className="w-40 border border-black-50">
+                            <SelectValue
+                              className="text-white placeholder:text-white [&:not(:placeholder-shown)]:text-white"
+                              placeholder="Select experience level"
+                            />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem
+                              className="hover:text-white"
+                              value="BEGINNER"
+                            >
+                              Beginner
+                            </SelectItem>
+                            <SelectItem
+                              className="hover:text-white"
+                              value="INTERMEDIATE"
+                            >
+                              Intermediate
+                            </SelectItem>
+                            <SelectItem
+                              className="hover:text-white"
+                              value="ADVANCED"
+                            >
+                              Advanced
+                            </SelectItem>
+                            <SelectItem
+                              className="hover:text-white"
+                              value="MASTER"
+                            >
+                              Master
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </motion.div>
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={itemVariants}
+            >
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -197,6 +287,30 @@ export default function OnboardingStepOne() {
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
+            </motion.div>
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={itemVariants}
+              className="space-y-2 text-white"
+            >
+              <FormField
+                control={form.control}
+                name="howDidYouHearAboutTechBlitz"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <InputWithLabel
+                        label="How did you hear about TechBlitz?"
+                        type="text"
+                        autoComplete="howDidYouHearAboutTechBlitz"
+                        {...field}
+                        value={field.value ?? ''}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
             </motion.div>
           </form>
         </Form>

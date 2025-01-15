@@ -3,10 +3,10 @@
 import { prisma } from '@/lib/prisma';
 import { revalidateTag } from 'next/cache';
 import { getUser } from './get-user';
-import { UpdatableUserFields } from '@/types/User';
+import { UserRecord } from '@/types/User';
 
 export const updateUser = async (opts: {
-  userDetails: Partial<UpdatableUserFields>;
+  userDetails: Partial<UserRecord>;
 }) => {
   console.log('updateUser', opts);
 

@@ -3,17 +3,19 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Card, CardFooter } from '@/components/ui/card';
-import OnboardingStepOne from './onboarding-step-one';
-import OnboardingStepTwo from './onboarding-step-two';
-import OnboardingStepThree from './onboarding-step-three';
+import OnboardingUserDetails from './onboarding-user-details';
+import OnboardingTags from './onboarding-tags';
+import OnboardingQuestions from './onboarding-questions';
 import { Button } from '@/components/ui/button';
 import LoadingSpinner from '@/components/ui/loading';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { useOnboardingContext } from './onboarding-context';
 import { updateUser } from '@/actions/user/authed/update-user';
 import { cn } from '@/lib/utils';
+import OnboardingPricing from './onboarding-pricing';
+import OnboardingShare from './onboarding-share';
 
 const containerVariants = {
   hidden: { opacity: 0, scale: 0.95 },
@@ -28,41 +30,56 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
-
 export default function OnboardingForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const {
     user,
     currentStep,
     setCurrentStep,
     selectedTags,
     handleGetOnboardingQuestions,
+    itemVariants,
+    canContinue,
   } = useOnboardingContext();
   const [isLoading, setIsLoading] = useState(false);
 
+  // skip goes to the next step
   const handleSkip = () => {
-    setIsLoading(true);
-    localStorage.removeItem('onboarding');
-    router.push('/dashboard?onboarding=true');
+    if (currentStep === 'stepOne') {
+      setCurrentStep('stepTwo');
+    } else if (currentStep === 'stepTwo') {
+      setCurrentStep('stepThree');
+    } else if (currentStep === 'stepThree') {
+      setCurrentStep('stepFour');
+    } else if (currentStep === 'stepFour') {
+      localStorage.removeItem('onboarding');
+      router.push('/dashboard?onboarding=true');
+    }
   };
 
   const handleContinue = async () => {
+    if (!user) return;
+
+    if (!canContinue) return;
+
     setIsLoading(true);
 
     await updateUser({ userDetails: user });
-
     if (currentStep === 'stepOne') {
       setCurrentStep('stepTwo');
       setIsLoading(false);
     } else if (currentStep === 'stepTwo') {
-      await handleGetOnboardingQuestions();
       setCurrentStep('stepThree');
       setIsLoading(false);
-    } else {
+    } else if (currentStep === 'stepThree') {
+      setCurrentStep('stepFour');
+      setIsLoading(false);
+    } else if (currentStep === 'stepFour') {
+      await handleGetOnboardingQuestions();
+      setCurrentStep('stepFive');
+      setIsLoading(false);
+    } else if (currentStep === 'stepFive') {
       localStorage.removeItem('onboarding');
       router.push('/dashboard?onboarding=true');
     }
@@ -76,6 +93,18 @@ export default function OnboardingForm() {
     }
   };
 
+  const showSkipButton = () => {
+    const refInUrl = searchParams.get('ref') !== null;
+    const isStepOne = currentStep === 'stepOne';
+    const hasUsername = (user?.username?.length ?? 0) > 0;
+
+    return (
+      refInUrl ||
+      (!isStepOne && hasUsername) ||
+      (isStepOne && refInUrl && hasUsername)
+    );
+  };
+
   return (
     <div className="container min-h-screen flex items-center justify-center p-4">
       <motion.div
@@ -85,18 +114,23 @@ export default function OnboardingForm() {
       >
         <Card
           className={cn(
-            'border border-black-50 rounded-lg shadow-xl overflow-hidden min-w-72 sm:min-w-96 lg:min-w-[30rem] relative',
+            'rounded-lg shadow-xl overflow-hidden min-w-72 sm:min-w-96 lg:min-w-[30rem] relative',
             (currentStep === 'stepTwo' || currentStep === 'stepThree') &&
-              'lg:min-w-[50rem]'
+              'lg:min-w-[50rem]',
+            currentStep === 'stepTwo' ? 'border-none' : 'border border-black-50'
           )}
           style={{
             background:
-              'radial-gradient(128% 107% at 0% 0%, #212121 0%, rgb(0,0,0) 77.61%)',
+              currentStep === 'stepTwo'
+                ? 'none'
+                : 'radial-gradient(128% 107% at 0% 0%, #212121 0%, rgb(0,0,0) 77.61%)',
           }}
         >
-          {currentStep === 'stepOne' && <OnboardingStepOne />}
-          {currentStep === 'stepTwo' && <OnboardingStepTwo />}
-          {currentStep === 'stepThree' && <OnboardingStepThree />}
+          {currentStep === 'stepOne' && <OnboardingUserDetails />}
+          {currentStep === 'stepTwo' && <OnboardingPricing />}
+          {currentStep === 'stepThree' && <OnboardingShare />}
+          {currentStep === 'stepFour' && <OnboardingTags />}
+          {currentStep === 'stepFive' && <OnboardingQuestions />}
           <motion.div variants={itemVariants}>
             <CardFooter
               className={cn(
@@ -105,7 +139,9 @@ export default function OnboardingForm() {
               )}
             >
               <AnimatePresence>
-                {(currentStep === 'stepTwo' || currentStep === 'stepThree') && (
+                {(currentStep === 'stepTwo' ||
+                  currentStep === 'stepThree' ||
+                  currentStep === 'stepFour') && (
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -125,7 +161,7 @@ export default function OnboardingForm() {
               </AnimatePresence>
               <div className="flex items-center gap-3">
                 <AnimatePresence>
-                  {!isLoading && currentStep !== 'stepThree' && (
+                  {!isLoading && showSkipButton() && (
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -135,7 +171,6 @@ export default function OnboardingForm() {
                         type="button"
                         variant="default"
                         onClick={handleSkip}
-                        disabled={!user?.username?.length}
                       >
                         Skip
                       </Button>
@@ -153,14 +188,18 @@ export default function OnboardingForm() {
                     onClick={() => handleContinue()}
                     disabled={
                       isLoading ||
-                      (currentStep === 'stepTwo' && selectedTags.length === 0)
+                      (currentStep === 'stepTwo' &&
+                        selectedTags.length === 0) ||
+                      (currentStep === 'stepOne' &&
+                        (user?.username?.length ?? 0) < 2) ||
+                      !canContinue
                     }
                   >
                     {isLoading ? (
                       <LoadingSpinner />
                     ) : (
                       <>
-                        {currentStep === 'stepThree'
+                        {currentStep === 'stepFive'
                           ? 'Go to dashboard'
                           : 'Continue'}
                         <ArrowRight className="ml-2 size-4" />

@@ -8,7 +8,8 @@ const cookiesStore = cookies();
 
 export const signUp = async (
   email: string,
-  password: string
+  password: string,
+  referralCode?: string
 ): Promise<AuthResponse['data']['user'] | null> => {
   try {
     const { data, error } = await supabase.auth.signUp({
@@ -40,6 +41,7 @@ export const signUp = async (
         userLevel: 'FREE',
         showTimeTaken: true, // default this to true, the user has change this in the onboarding step one
         //hasAuthenticatedEmail: false
+        referralCode,
       },
     });
 

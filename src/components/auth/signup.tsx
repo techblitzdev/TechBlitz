@@ -20,7 +20,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { signUp } from '@/actions/user/account/signup';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import OrSeparator from './or-separator';
 
@@ -30,16 +30,21 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
   const { prefilledEmail } = opts;
 
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const ref = searchParams.get('ref');
+
   const form = useForm<SchemaProps>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
       email: prefilledEmail || '',
       password: '',
+      referralCode: ref || undefined,
     },
   });
 
   const { mutateAsync: server_signup, isPending } = useMutation({
-    mutationFn: (values: SchemaProps) => signUp(values.email, values.password),
+    mutationFn: (values: SchemaProps) =>
+      signUp(values.email, values.password, ref || undefined),
     onSuccess: () => {
       // show success toast
       toast.success(

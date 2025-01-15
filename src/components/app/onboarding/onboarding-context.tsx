@@ -6,7 +6,7 @@
  * throughout the different steps of the onboarding flow
  */
 import { createContext, useContext, useState } from 'react';
-import type { UpdatableUserFields } from '@/types/User';
+import type { UpdatableUserFields, UserRecord } from '@/types/User';
 import { Question, QuestionWithTags } from '@/types/Questions';
 import { getOnboardingQuestions } from '@/utils/data/questions/get-onboarding';
 import { useRouter } from 'next/navigation';
@@ -24,15 +24,21 @@ type OnboardingContextType = {
       >
     >
   >;
+  serverUser: UserRecord | null;
   selectedTags: string[];
   setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
-  currentStep: 'stepOne' | 'stepTwo' | 'stepThree';
+  currentStep: 'stepOne' | 'stepTwo' | 'stepThree' | 'stepFour' | 'stepFive';
   setCurrentStep: React.Dispatch<
-    React.SetStateAction<'stepOne' | 'stepTwo' | 'stepThree'>
+    React.SetStateAction<
+      'stepOne' | 'stepTwo' | 'stepThree' | 'stepFour' | 'stepFive'
+    >
   >;
   onboardingQuestions: QuestionWithTags[];
   handleGetOnboardingQuestions: () => Promise<void>;
   handleGetDailyQuestion: () => Promise<void>;
+  itemVariants: any;
+  canContinue: boolean;
+  setCanContinue: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 // create the context
@@ -42,12 +48,18 @@ const OnboardingContext = createContext<OnboardingContextType | null>(null);
 export const UserOnboardingContextProvider = ({
   children,
   dailyQuestion,
+  serverUser,
 }: {
   children: React.ReactNode;
   dailyQuestion: Question | null;
+  serverUser: UserRecord | null;
 }) => {
   const router = useRouter();
-  // get the current user
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
 
   // user state
   const [user, setUser] = useState<
@@ -55,21 +67,18 @@ export const UserOnboardingContextProvider = ({
       UpdatableUserFields,
       'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'
     >
-  >({
-    username: '',
-    firstName: '',
-    lastName: '',
-    userProfilePicture: '',
-    correctDailyStreak: null,
-    totalDailyStreak: null,
-    showTimeTaken: true,
-    sendPushNotifications: false,
-  });
+  >(
+    serverUser as Omit<
+      UpdatableUserFields,
+      'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'
+    >
+  );
 
+  const [canContinue, setCanContinue] = useState(true);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const [currentStep, setCurrentStep] = useState<
-    'stepOne' | 'stepTwo' | 'stepThree'
+    'stepOne' | 'stepTwo' | 'stepThree' | 'stepFour' | 'stepFive'
   >('stepOne');
 
   const [onboardingQuestions, setOnboardingQuestions] = useState<any[]>([]);
@@ -91,6 +100,7 @@ export const UserOnboardingContextProvider = ({
       value={{
         user,
         setUser,
+        serverUser,
         selectedTags,
         setSelectedTags,
         currentStep,
@@ -98,6 +108,9 @@ export const UserOnboardingContextProvider = ({
         onboardingQuestions,
         handleGetOnboardingQuestions,
         handleGetDailyQuestion,
+        itemVariants,
+        setCanContinue,
+        canContinue,
       }}
     >
       {children}

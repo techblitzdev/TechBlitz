@@ -38,6 +38,12 @@ export interface User extends BaseRecord {
 
   // optional stripe emails for paid users
   stripeEmails?: string[];
+
+  // where the user found out about techblitz
+  howDidYouHearAboutTechBlitz?: string | null;
+
+  // the user's referral code
+  referralCode?: string | null;
 }
 
 export type UserRecord = Pick<
@@ -61,6 +67,8 @@ export type UserRecord = Pick<
   | 'isCustomUsername'
   | 'experienceLevel'
   | 'stripeEmails'
+  | 'howDidYouHearAboutTechBlitz'
+  | 'referralCode'
 >;
 
 // First, create a type that excludes 'uid' from the partial requirement

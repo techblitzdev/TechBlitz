@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -30,9 +30,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { toast } from 'sonner';
+import { checkUsername } from '@/actions/user/authed/check-username';
 
 export default function OnboardingStepOne() {
-  const { user, setUser, itemVariants } = useOnboardingContext();
+  const { user, setUser, itemVariants, setCanContinue } =
+    useOnboardingContext();
+  const [username, setUsername] = useState(user.username || '');
+  const [isUsernameValid, setIsUsernameValid] = useState(true);
+
+  const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(
+    null
+  );
 
   const form = useForm<UpdatableUserFields>({
     resolver: zodResolver(onboardingStepOneSchema),
@@ -41,35 +50,47 @@ export default function OnboardingStepOne() {
       showTimeTaken: user.showTimeTaken || false,
       sendPushNotifications: user.sendPushNotifications || false,
       experienceLevel: user.experienceLevel || 'BEGINNER',
+      howDidYouHearAboutTechBlitz: user.howDidYouHearAboutTechBlitz || '',
     },
   });
 
-  // Watch all form values
-  const watchedValues = form.watch();
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newUsername = e.target.value;
+    setUsername(newUsername);
 
-  // Automatically update context when form values change
+    // Clear previous timeout
+    if (debounceTimeout) {
+      clearTimeout(debounceTimeout);
+    }
+
+    // Set a new timeout
+    const timeout = setTimeout(async () => {
+      const isUnique = await checkUsername(newUsername);
+      setIsUsernameValid(Boolean(isUnique));
+
+      toast.info(
+        Boolean(isUnique) ? 'Username is unique' : 'Username is taken'
+      );
+
+      if (!isUnique) {
+        toast.error('Username is already taken. Please choose another one.');
+      }
+      setCanContinue(Boolean(isUnique));
+    }, 1000);
+
+    setDebounceTimeout(timeout);
+  };
+
   useEffect(() => {
-    // Only update if values have actually changed
-    const hasChanges =
-      watchedValues.username !== user.username ||
-      watchedValues.showTimeTaken !== user.showTimeTaken ||
-      watchedValues.sendPushNotifications !== user.sendPushNotifications ||
-      watchedValues.experienceLevel !== user.experienceLevel;
+    // Automatically update context when form values change
+    const hasChanges = username !== user.username;
     if (hasChanges) {
       setUser((prev) => ({
         ...prev,
-        username: watchedValues.username ?? '',
-        showTimeTaken: watchedValues.showTimeTaken,
-        sendPushNotifications: watchedValues.sendPushNotifications,
-        experienceLevel: watchedValues.experienceLevel?.toUpperCase() as
-          | 'BEGINNER'
-          | 'INTERMEDIATE'
-          | 'ADVANCED'
-          | 'MASTER'
-          | undefined,
+        username: username || '',
       }));
     }
-  }, [watchedValues, setUser, user]);
+  }, [username, setUser, user]);
 
   return (
     <>
@@ -107,7 +128,9 @@ export default function OnboardingStepOne() {
                         autoComplete="username"
                         placeholder="Username"
                         {...field}
-                        value={field.value ?? ''}
+                        value={username}
+                        onChange={handleUsernameChange}
+                        className={`input ${!isUsernameValid && 'border-red-500'}`}
                       />
                     </FormControl>
                     <FormMessage className="mt-0.5 text-start">
@@ -264,6 +287,30 @@ export default function OnboardingStepOne() {
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
+            </motion.div>
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={itemVariants}
+              className="space-y-2 text-white"
+            >
+              <FormField
+                control={form.control}
+                name="howDidYouHearAboutTechBlitz"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <InputWithLabel
+                        label="How did you hear about TechBlitz?"
+                        type="text"
+                        autoComplete="howDidYouHearAboutTechBlitz"
+                        {...field}
+                        value={field.value ?? ''}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
             </motion.div>
           </form>
         </Form>

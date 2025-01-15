@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -9,14 +9,27 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { UserRecord } from '@/types/User';
+import { useRouter } from 'next/navigation';
 
 export default function ClientPage({
   children,
   searchParams,
+  userPromise,
 }: {
   children: React.ReactNode;
   searchParams: { [key: string]: string | string[] | undefined };
+  userPromise: Promise<UserRecord | null>;
 }) {
+  const router = useRouter();
+
+  const user = use(userPromise);
+
+  // if we do not have a user, or the username is not set, we need to redirect to onboarding
+  if (!user || !user.username) {
+    router.push('/onboarding');
+  }
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [shouldRedirect, setShouldRedirect] = useState(false);
 

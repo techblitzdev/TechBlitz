@@ -40,6 +40,7 @@ export default function OnboardingForm() {
     selectedTags,
     handleGetOnboardingQuestions,
     itemVariants,
+    canContinue,
   } = useOnboardingContext();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -52,12 +53,15 @@ export default function OnboardingForm() {
     } else if (currentStep === 'stepThree') {
       setCurrentStep('stepFour');
     } else if (currentStep === 'stepFour') {
+      localStorage.removeItem('onboarding');
       router.push('/dashboard?onboarding=true');
     }
   };
 
   const handleContinue = async () => {
     if (!user) return;
+
+    if (!canContinue) return;
 
     setIsLoading(true);
 
@@ -187,7 +191,8 @@ export default function OnboardingForm() {
                       (currentStep === 'stepTwo' &&
                         selectedTags.length === 0) ||
                       (currentStep === 'stepOne' &&
-                        (user?.username?.length ?? 0) < 2)
+                        (user?.username?.length ?? 0) < 2) ||
+                      !canContinue
                     }
                   >
                     {isLoading ? (

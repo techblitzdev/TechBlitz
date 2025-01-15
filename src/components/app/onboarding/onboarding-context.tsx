@@ -37,6 +37,8 @@ type OnboardingContextType = {
   handleGetOnboardingQuestions: () => Promise<void>;
   handleGetDailyQuestion: () => Promise<void>;
   itemVariants: any;
+  canContinue: boolean;
+  setCanContinue: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 // create the context
@@ -72,6 +74,7 @@ export const UserOnboardingContextProvider = ({
     >
   );
 
+  const [canContinue, setCanContinue] = useState(true);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const [currentStep, setCurrentStep] = useState<
@@ -106,6 +109,8 @@ export const UserOnboardingContextProvider = ({
         handleGetOnboardingQuestions,
         handleGetDailyQuestion,
         itemVariants,
+        setCanContinue,
+        canContinue,
       }}
     >
       {children}

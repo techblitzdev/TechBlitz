@@ -5,10 +5,13 @@ import { X } from 'lucide-react';
 import { capitalise } from '@/utils';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { useTransition } from 'react';
 
 export default function FilterChips() {
   const searchParams = useSearchParams();
   const router = useRouter();
+
+  const [isPending, startTransition] = useTransition();
 
   // Convert search params to an object
   const paramsObj = Object.fromEntries(
@@ -48,7 +51,10 @@ export default function FilterChips() {
 
   // Render chips for each query parameter
   return (
-    <div className="space-y-2 flex flex-wrap justify-between">
+    <div
+      data-pending={isPending ? '' : undefined}
+      className="space-y-2 flex flex-wrap justify-between"
+    >
       <div
         className={cn(
           'flex gap-2 flex-wrap duration-300',
@@ -66,7 +72,7 @@ export default function FilterChips() {
               >
                 <span>{capitalise(tag)}</span>
                 <button
-                  onClick={() => removeFilter(key, tag)}
+                  onClick={() => startTransition(() => removeFilter(key, tag))}
                   className="bg-black-50 rounded-full p-0.5"
                 >
                   <X className="size-2.5" />
@@ -83,7 +89,7 @@ export default function FilterChips() {
               >
                 <span>{value === 'true' ? 'Completed' : 'Incomplete'}</span>
                 <button
-                  onClick={() => removeFilter(key)}
+                  onClick={() => startTransition(() => removeFilter(key))}
                   className="bg-black-50 rounded-full p-0.5"
                 >
                   <X className="size-2.5" />
@@ -100,7 +106,7 @@ export default function FilterChips() {
             >
               <span>{capitalise(value)}</span>
               <button
-                onClick={() => removeFilter(key)}
+                onClick={() => startTransition(() => removeFilter(key))}
                 className="bg-black-50 rounded-full p-0.5"
               >
                 <X className="size-2.5" />
@@ -110,7 +116,7 @@ export default function FilterChips() {
         })}
       </div>
       <Button
-        onClick={clearAllFilters}
+        onClick={() => startTransition(() => clearAllFilters())}
         variant="destructive"
         className="py-0.5 px-2 h-fit"
       >

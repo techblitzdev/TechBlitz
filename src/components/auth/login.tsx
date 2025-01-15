@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useCallback } from 'react';
 // components
 import { Button } from '@/components/ui/button';
 import {
@@ -51,35 +51,44 @@ export default function LoginForm(opts: {
     },
   });
 
-  const handleLogin = async (values: SchemaProps) => {
-    isPending.current = true;
-    const { email, password } = values;
-    try {
-      await login({
-        email,
-        password,
-      });
+  const handleLogin = useCallback(
+    async (values: SchemaProps) => {
+      isPending.current = true;
+      const { email, password } = values;
+      try {
+        const user = await login({
+          email,
+          password,
+        });
 
-      toast.success('Logged in successfully');
+        if (user) {
+          toast.success('Logged in successfully');
 
-      // check if we have the 'onboarding' key in local storage
-      // if we do, redirect to the onboarding page
-      if (localStorage.getItem('onboarding')) {
-        router.push('/onboarding');
-        return;
+          // Preload the dashboard page to improve perceived performance
+          router.prefetch('/dashboard');
+
+          // check if we have the 'onboarding' key in local storage
+          // if we do, redirect to the onboarding page
+          if (localStorage.getItem('onboarding')) {
+            router.push('/onboarding');
+            return;
+          }
+
+          if (redirectUrl) {
+            router.push(redirectUrl);
+          } else {
+            router.push('/dashboard');
+          }
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error('An error has occurred, please try again.');
+      } finally {
+        isPending.current = false;
       }
-
-      if (redirectUrl) {
-        router.push(redirectUrl);
-      } else {
-        router.push('/dashboard');
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      isPending.current = false;
-    }
-  };
+    },
+    [redirectUrl, router]
+  );
 
   return (
     <Form {...form}>

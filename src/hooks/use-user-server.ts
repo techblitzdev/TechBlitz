@@ -2,8 +2,9 @@ import {
   getUserFromDb,
   getUserFromSession,
 } from '@/actions/user/authed/get-user';
+import { cache } from 'react';
 
-export const useUserServer = async () => {
+export const useUserServer = cache(async () => {
   const userSession = await getUserFromSession();
   if (!userSession?.data?.user?.id) return null;
 
@@ -14,4 +15,4 @@ export const useUserServer = async () => {
   }
 
   return userData;
-};
+});

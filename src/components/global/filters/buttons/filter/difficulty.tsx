@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Check, ChevronDown } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useTransition } from 'react';
 
 type QuestionDifficulty = 'BEGINNER' | 'EASY' | 'MEDIUM' | 'HARD';
 
@@ -46,6 +47,8 @@ export default function FilterButtonDifficulty() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const [isPending, startTransition] = useTransition();
+
   const updateQueryParams = (key: string, value: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
 
@@ -81,55 +84,61 @@ export default function FilterButtonDifficulty() {
   };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="default"
-          padding="sm"
-          size="sm"
-          className="flex items-center gap-x-2.5 text-xs group"
+    <div data-pending={isPending ? '' : undefined}>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="default"
+            padding="sm"
+            size="sm"
+            className="flex items-center gap-x-2.5 text-xs group"
+          >
+            <div
+              className="size-1.5 ml-1 rounded-full"
+              style={{ backgroundColor: color }}
+            />
+            <span>Difficulty</span>
+            <ChevronDown className="size-3 duration-200 group-data-[state=open]:-rotate-180" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          align="center"
+          className="!p-0 w-40 bg-black border border-black-50 text-white text-sm"
         >
-          <div
-            className="size-1.5 ml-1 rounded-full"
-            style={{ backgroundColor: color }}
-          />
-          <span>Difficulty</span>
-          <ChevronDown className="size-3 duration-200 group-data-[state=open]:-rotate-180" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent
-        align="center"
-        className="!p-0 w-40 bg-black border border-black-50 text-white text-sm"
-      >
-        <DropdownMenuGroup className="p-1">
-          {Object.entries(DIFFICULTY_MAP).map(
-            ([key, { color, label }]) =>
-              key !== 'DEFAULT' && (
-                <DropdownMenuItem
-                  key={key}
-                  asChild
-                  className="hover:!text-white hover:cursor-pointer"
-                >
-                  <button
-                    onClick={() => handleFilterClick(key as QuestionDifficulty)}
-                    className="h-full w-full text-left flex items-center gap-x-2"
+          <DropdownMenuGroup className="p-1">
+            {Object.entries(DIFFICULTY_MAP).map(
+              ([key, { color, label }]) =>
+                key !== 'DEFAULT' && (
+                  <DropdownMenuItem
+                    key={key}
+                    asChild
+                    className="hover:!text-white hover:cursor-pointer"
                   >
-                    <div
-                      className="size-2 rounded-full"
-                      style={{ backgroundColor: color }}
-                    />
-                    <div className="flex items-center w-full justify-between">
-                      {label}
-                      {currentDifficulty === key && (
-                        <Check className="size-3 text-white" />
-                      )}
-                    </div>
-                  </button>
-                </DropdownMenuItem>
-              )
-          )}
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+                    <button
+                      onClick={() =>
+                        startTransition(() =>
+                          handleFilterClick(key as QuestionDifficulty)
+                        )
+                      }
+                      className="h-full w-full text-left flex items-center gap-x-2"
+                    >
+                      <div
+                        className="size-2 rounded-full"
+                        style={{ backgroundColor: color }}
+                      />
+                      <div className="flex items-center w-full justify-between">
+                        {label}
+                        {currentDifficulty === key && (
+                          <Check className="size-3 text-white" />
+                        )}
+                      </div>
+                    </button>
+                  </DropdownMenuItem>
+                )
+            )}
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 }

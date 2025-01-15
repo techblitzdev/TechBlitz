@@ -11,29 +11,27 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
-import { useEffect, useState } from 'react';
+import { useEffect, useOptimistic, useState, useTransition } from 'react';
+import { useFilterContext } from './filter-context';
 
 interface Tag {
   uid: string;
   name: string;
 }
 
-interface FilterTagsCarouselProps {
-  tags: Tag[];
-  searchQuery: string;
-}
-
-export default function FilterTagsCarousel({
-  tags,
-  searchQuery,
-}: FilterTagsCarouselProps) {
+export default function FilterTagsCarousel() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [filteredTags, setFilteredTags] = useState<Tag[]>(tags);
+  const { searchQuery, tags } = useFilterContext();
+  const [filteredTags, setFilteredTags] = useState<Tag[]>([]);
+
+  const [isPending, startTransition] = useTransition();
 
   // keep track of the tags that are currently selected in the query
   // this is used to highlight the tags that are currently selected
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useOptimistic<string[]>(
+    searchParams.get('tags')?.split(',') || []
+  );
 
   // Watch for changes in search params and update selected tags accordingly
   useEffect(() => {
@@ -73,15 +71,17 @@ export default function FilterTagsCarousel({
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" data-pending={isPending ? '' : undefined}>
       {filteredTags.length === 0 ? (
         <div className="flex flex-col gap-y-3 items-center">
           <p className="text-gray-400 text-center">No tags found</p>
           <Button
             variant="default"
             onClick={() => {
-              updateTagsInQuery('');
-              setFilteredTags(tags);
+              startTransition(() => {
+                updateTagsInQuery('');
+                setFilteredTags(tags);
+              });
             }}
           >
             Clear filters
@@ -100,7 +100,9 @@ export default function FilterTagsCarousel({
             {filteredTags.map((tag) => (
               <CarouselItem key={tag.uid} className="pl-2 basis-auto">
                 <Button
-                  onClick={() => updateTagsInQuery(tag.name)}
+                  onClick={() => {
+                    startTransition(() => updateTagsInQuery(tag.name));
+                  }}
                   variant="outline"
                   className={cn(
                     'text-white hover:text-white border border-black-50',

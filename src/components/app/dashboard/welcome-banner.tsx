@@ -1,11 +1,11 @@
 import { getUserDisplayName } from '@/utils/user';
-import { UserRecord } from '@/types/User';
+import { useUserServer } from '@/hooks/use-user-server';
+import { redirect } from 'next/navigation';
 
-interface WelcomeMessageProps {
-  user: UserRecord;
-}
+export default async function WelcomeMessage() {
+  const user = await useUserServer();
+  if (!user) return redirect('/login');
 
-export default function WelcomeMessage({ user }: WelcomeMessageProps) {
   return (
     <h1 className="text-2xl font-bold">
       Welcome back, {getUserDisplayName(user)}

@@ -90,7 +90,7 @@ export default function QuestionCard(opts: {
     <Link
       href={href}
       key={questionData.uid}
-      className="flex flex-col space-y-5 items-start bg-black-75 border border-black-50 hover:border-accent duration-300 p-5 rounded-lg group w-full relative overflow-hidden"
+      className="flex flex-col space-y-5 items-start bg-black-75 border border-black-50 hover:border-accent duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-[[data-pending]]:animate-pulse"
     >
       <div className="flex flex-col gap-y-2 w-full">
         <div className="flex w-full justify-between items-center">

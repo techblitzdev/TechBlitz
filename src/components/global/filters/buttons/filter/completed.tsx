@@ -10,10 +10,13 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useTransition } from 'react';
 
 export default function FilterButtonCompleted() {
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const [isPending, startTransition] = useTransition();
 
   // Get the current value of the filter
   const completedFilter = searchParams.get('completed');
@@ -35,55 +38,61 @@ export default function FilterButtonCompleted() {
   };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          padding="sm"
-          variant="default"
-          size="sm"
-          className="flex items-center gap-x-1 text-xs group"
+    <div data-pending={isPending ? '' : undefined}>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            padding="sm"
+            variant="default"
+            size="sm"
+            className="flex items-center gap-x-1 text-xs group"
+          >
+            <Check className="size-3" />
+            Completed
+            <ChevronDown className="size-3 duration-200 group-data-[state=open]:-rotate-180" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          align="end"
+          className="!p-0 w-40 bg-black border border-black-50 text-white text-sm"
         >
-          <Check className="size-3" />
-          Completed
-          <ChevronDown className="size-3 duration-200 group-data-[state=open]:-rotate-180" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent
-        align="end"
-        className="!p-0 w-40 bg-black border border-black-50 text-white text-sm"
-      >
-        <DropdownMenuGroup className="p-1">
-          <DropdownMenuItem
-            asChild
-            className="flex items-center justify-between hover:!text-white hover:cursor-pointer"
-          >
-            <button
-              className="h-full w-full text-left flex items-center gap-x-2"
-              onClick={() => updateQueryParams('completed', 'true')}
+          <DropdownMenuGroup className="p-1">
+            <DropdownMenuItem
+              asChild
+              className="flex items-center justify-between hover:!text-white hover:cursor-pointer"
             >
-              <div className="flex items-center w-full justify-between">
-                Completed
-                {completedFilter === 'true' && <Check className="size-3" />}
-              </div>
-            </button>
-          </DropdownMenuItem>
+              <button
+                className="h-full w-full text-left flex items-center gap-x-2"
+                onClick={() =>
+                  startTransition(() => updateQueryParams('completed', 'true'))
+                }
+              >
+                <div className="flex items-center w-full justify-between">
+                  Completed
+                  {completedFilter === 'true' && <Check className="size-3" />}
+                </div>
+              </button>
+            </DropdownMenuItem>
 
-          <DropdownMenuItem
-            asChild
-            className="flex items-center justify-between hover:!text-white hover:cursor-pointer"
-          >
-            <button
-              onClick={() => updateQueryParams('completed', 'false')}
-              className="h-full w-full text-left flex items-center gap-x-2"
+            <DropdownMenuItem
+              asChild
+              className="flex items-center justify-between hover:!text-white hover:cursor-pointer"
             >
-              <div className="flex items-center w-full justify-between">
-                Incomplete
-                {completedFilter === 'false' && <Check className="size-3" />}
-              </div>
-            </button>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+              <button
+                onClick={() =>
+                  startTransition(() => updateQueryParams('completed', 'false'))
+                }
+                className="h-full w-full text-left flex items-center gap-x-2"
+              >
+                <div className="flex items-center w-full justify-between">
+                  Incomplete
+                  {completedFilter === 'false' && <Check className="size-3" />}
+                </div>
+              </button>
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 }

@@ -1,32 +1,38 @@
-'use client';
-import { useState } from 'react';
+import dynamic from 'next/dynamic';
 
 import FilterButtonsSort from '@/components/global/filters/buttons/sort/date';
-import FilterButtonDifficulty from '@/components/global/filters/buttons/filter/difficulty';
+const FilterButtonDifficulty = dynamic(
+  () => import('@/components/global/filters/buttons/filter/difficulty'),
+  { ssr: false }
+);
 import FilterButtonCompleted from '@/components/global/filters/buttons/filter/completed';
 import FilterTagsCarousel from '@/components/global/filters/tags-carousel';
 import FilterSearchTag from '@/components/global/filters/search/tag-search';
 import { Tag } from '@prisma/client';
+import { FilterContextProvider } from './filter-context';
+import { use } from 'react';
 
 interface FilterProps {
-  tags: Tag[];
+  tagsPromise: Promise<Tag[]>;
   showSort?: boolean;
 }
 
-export default function Filter({ tags, showSort = true }: FilterProps) {
-  const [searchQuery, setSearchQuery] = useState('');
+export default function Filter({ tagsPromise, showSort = true }: FilterProps) {
+  const tags = use(tagsPromise);
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex gap-2 w-full justify-between">
-        <div className="flex flex-wrap gap-2 items-end">
-          <FilterButtonDifficulty />
-          <FilterButtonCompleted />
-          <FilterSearchTag value={searchQuery} onChange={setSearchQuery} />
+    <FilterContextProvider tags={tags}>
+      <div className="flex flex-col gap-4">
+        <div className="flex gap-2 w-full justify-between">
+          <div className="flex flex-wrap gap-2 items-end">
+            <FilterButtonDifficulty />
+            <FilterButtonCompleted />
+            <FilterSearchTag />
+          </div>
+          {showSort && <FilterButtonsSort />}
         </div>
-        {showSort && <FilterButtonsSort />}
+        <FilterTagsCarousel />
       </div>
-      <FilterTagsCarousel tags={tags} searchQuery={searchQuery} />
-    </div>
+    </FilterContextProvider>
   );
 }

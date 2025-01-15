@@ -79,7 +79,7 @@ export default async function QuestionsDashboard({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const tags = await getTags();
+  const tagsPromise = getTags();
 
   const filters = parseSearchParams(searchParams);
   if (!validateSearchParams(filters)) return null;
@@ -87,12 +87,12 @@ export default async function QuestionsDashboard({
   return (
     <div>
       <Hero heading="Coding Questions" subheading={heroDescription} />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 group">
         <div className="flex flex-col xl:flex-row gap-8">
           <div className="w-full lg:min-w-[55%] space-y-6">
             <div className="min-h-[84px] flex flex-col gap-y-2">
               <Suspense fallback={<FilterLoading />}>
-                <Filter tags={tags} />
+                <Filter tagsPromise={tagsPromise} />
                 <FilterChips />
               </Suspense>
             </div>

@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { getBlogPosts } from '@/lib/blog';
+//import { getBlogPosts } from '@/lib/blog';
 import { listQuestions } from '@/utils/data/questions/list';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

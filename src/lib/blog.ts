@@ -1,14 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import { processMDX } from '../mdx';
-import { getBaseUrl } from '@/utils';
 
-const POSTS_PATH = path.join(getBaseUrl(), 'src/app/(marketing)/blog/posts');
+const POSTS_PATH = path.join(process.cwd(), 'src/app/(marketing)/blog/posts');
 
 export const getBlogPosts = async () => {
-  console.log({
-    POSTS_PATH,
-  });
   // create directory if it doesn't exist
   if (!fs.existsSync(POSTS_PATH)) {
     console.log('Creating blog posts directory');
@@ -42,9 +38,9 @@ export const getBlogPosts = async () => {
   );
 
   // remove any posts that status is 'unpublished' if we are on the production environment
-  if (process.env.NODE_ENV === 'production') {
-    return posts.filter((post: any) => post.status !== 'unpublished');
-  }
+  //if (process.env.NODE_ENV === 'production') {
+  //  return posts.filter((post: any) => post.status !== 'unpublished');
+  //}
 
   return posts.sort((a: any, b: any) => {
     if (a.date < b.date) return 1;

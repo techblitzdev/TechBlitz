@@ -1,8 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import { processMDX } from '../mdx';
+import { getBaseUrl } from '@/utils';
 
-const POSTS_PATH = path.join(process.cwd(), 'src/app/(marketing)/blog/posts');
+const POSTS_PATH = path.join(getBaseUrl(), 'src/app/(marketing)/blog/posts');
 
 export const getBlogPosts = async () => {
   console.log({

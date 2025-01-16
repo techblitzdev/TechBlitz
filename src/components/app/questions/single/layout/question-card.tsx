@@ -25,6 +25,7 @@ import ExpandedCodeModal from './expanded-code-modal';
 import ChangeCodeTheme from './change-code-theme';
 import AiQuestionHelp from './ai-question-help';
 import NoDailyQuestion from '@/components/global/no-daily-question';
+import QuestionSubmitted from './question-submitted';
 
 export default function QuestionCard(opts: {
   // optional as this is not required to render the card
@@ -114,7 +115,7 @@ export default function QuestionCard(opts: {
         </div>
       </div>
       <Separator className="bg-black-50" />
-      <div className="flex-1 bg-black overflow-y-scroll">
+      <div className="flex-1 bg-black overflow-y-auto scrollable-element">
         {currentLayout === 'questions' && (
           <QuestionTabs
             question={question}
@@ -128,6 +129,7 @@ export default function QuestionCard(opts: {
             user={user}
           />
         )}
+        {currentLayout === 'answer' && <QuestionSubmitted />}
       </div>
       <Separator className="bg-black-50" />
       <div className="w-full space-y-4 px-4 bg-black">

@@ -22,6 +22,28 @@ html {
 }
 
 @layer utilities {
+  .scrollable-element::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  .scrollable-element::-webkit-scrollbar-track {
+    @apply bg-black;
+  }
+
+  .scrollable-element::-webkit-scrollbar-thumb {
+    @apply bg-black;
+    border-radius: 10px;
+  }
+
+  .scrollable-element::-webkit-scrollbar-thumb:hover {
+    @apply bg-black;
+  }
+
+  .scrollable-element {
+    scrollbar-width: thin;
+    scrollbar-color: #000000 #0e0e0e;
+  }
+
   .perspective-1000 {
     perspective: 1000px;
   }

@@ -4,7 +4,7 @@ import { createContext, useState, useContext, useEffect } from 'react';
 import { useStopwatch } from 'react-timer-hook';
 import { toast } from 'sonner';
 import { answerQuestion } from '@/actions/answers/answer';
-import { Question } from '@/types/Questions';
+import { Question, QuestionWithoutAnswers } from '@/types/Questions';
 import { UserRecord } from '@/types/User';
 import { Answer } from '@/types/Answers';
 
@@ -29,6 +29,7 @@ type QuestionSingleContextType = {
   customQuestion: boolean;
   setCustomQuestion: (customQuestion: boolean) => void;
   prefilledCodeSnippet: string | null;
+  relatedQuestions: Promise<QuestionWithoutAnswers[]>;
 };
 
 export const QuestionSingleContext = createContext<QuestionSingleContextType>(
@@ -49,10 +50,12 @@ export const QuestionSingleContextProvider = ({
   children,
   question,
   user,
+  relatedQuestions,
 }: {
   children: React.ReactNode;
   question: Question;
   user: UserRecord | null;
+  relatedQuestions: Promise<QuestionWithoutAnswers[]>;
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState<
@@ -147,7 +150,8 @@ export const QuestionSingleContextProvider = ({
     setIsSubmitting(false);
     setSelectedAnswer('');
     setTimeTaken(0);
-    setPrefilledCodeSnippet(question.codeSnippet);
+    setPrefilledCodeSnippet(null);
+    setCurrentLayout('questions');
   };
 
   return (
@@ -173,6 +177,7 @@ export const QuestionSingleContextProvider = ({
         customQuestion,
         setCustomQuestion,
         prefilledCodeSnippet,
+        relatedQuestions,
       }}
     >
       {children}

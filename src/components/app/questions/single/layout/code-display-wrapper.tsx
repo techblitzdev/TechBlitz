@@ -22,7 +22,7 @@ export default function CodeDisplayWrapper() {
   }, [prefilledCodeSnippet, question?.codeSnippet]);
 
   return (
-    <div className="h-full overflow-y-scroll pb-4">
+    <div className="h-full overflow-y-auto pb-4 scrollable-element">
       <AnimatePresence mode="wait">
         {codeSnippet && (
           <motion.div

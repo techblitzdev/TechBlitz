@@ -5,6 +5,9 @@ import { processMDX } from '../mdx';
 const POSTS_PATH = path.join(process.cwd(), 'src/app/(marketing)/blog/posts');
 
 export const getBlogPosts = async () => {
+  console.log({
+    POSTS_PATH,
+  });
   // create directory if it doesn't exist
   if (!fs.existsSync(POSTS_PATH)) {
     console.log('Creating blog posts directory');

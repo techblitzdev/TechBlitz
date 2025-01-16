@@ -22,10 +22,19 @@ import {
 } from '@/components/ui/tooltip';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { toast } from 'sonner';
+import { formatSeconds } from '@/utils/time';
+import { AnswerDifficulty } from '@prisma/client';
+import { updateAnswerDifficulty } from '@/actions/answers/answer';
+import { Answer } from '@/types/Answers';
 
 export default function QuestionSubmitted() {
-  const { question, userAnswer, correctAnswer, relatedQuestions } =
-    useQuestionSingle();
+  const {
+    question,
+    userAnswer,
+    correctAnswer,
+    relatedQuestions,
+    totalSeconds,
+  } = useQuestionSingle();
 
   // resolve the related q's here
   const relatedQuestionData = use(relatedQuestions);
@@ -33,6 +42,16 @@ export default function QuestionSubmitted() {
   const copyLink = () => {
     navigator.clipboard.writeText(window.location.href);
     toast.success('Question link copied to clipboard!');
+  };
+
+  const handleDifficultySelect = async (value: string) => {
+    await updateAnswerDifficulty(
+      userAnswer?.uid || '',
+      value.toUpperCase() as AnswerDifficulty
+    );
+    toast.success(
+      'Question difficulty updated, we will now serve more personalized questions to you.'
+    );
   };
 
   return (
@@ -76,11 +95,11 @@ export default function QuestionSubmitted() {
           </TooltipProvider>
         </div>
         <div className="flex flex-col gap-y-2">
-          {userAnswer?.timeTaken && userAnswer.correctAnswer ? (
+          {userAnswer?.correctAnswer && (
             <p className="text-sm text-gray-400">
-              in {userAnswer.timeTaken} seconds
+              in {formatSeconds(totalSeconds || 0)} seconds
             </p>
-          ) : null}
+          )}
         </div>
       </motion.div>
       <motion.div
@@ -139,7 +158,7 @@ export default function QuestionSubmitted() {
             help us improve the personalization of questions served to you.
           </p>
           <div className="flex flex-col gap-y-2">
-            <Select>
+            <Select onValueChange={handleDifficultySelect}>
               <SelectTrigger className="w-40 border border-black-50">
                 <SelectValue placeholder="Select Difficulty" />
               </SelectTrigger>
@@ -156,7 +175,9 @@ export default function QuestionSubmitted() {
           <div className="flex flex-col gap-y-2">
             <h2 className="text-xl font-bold">Related Questions</h2>
             <p className="text-sm text-gray-400">
-              Here are some questions that are similar to this one.
+              {correctAnswer === 'correct' && relatedQuestionData.length > 0
+                ? 'Here are some questions that are similar to this one.'
+                : 'Here are some questions that will help you understand this concept better.'}
             </p>
           </div>
           <motion.div

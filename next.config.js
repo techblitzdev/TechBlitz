@@ -1,4 +1,4 @@
-import createMDX from '@next/mdx';
+const createMDX = require('@next/mdx')();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -69,13 +69,5 @@ const nextConfig = {
   },
 };
 
-const withMDX = createMDX({
-  // Add markdown plugins here, as desired
-  options: {
-    remarkPlugins: [],
-    rehypePlugins: [],
-  },
-});
-
-// Wrap MDX and Next.js config with each other
-export default withMDX(nextConfig);
+// Merge MDX config with Next.js config
+module.exports = createMDX(nextConfig);

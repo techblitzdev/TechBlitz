@@ -27,6 +27,7 @@ import MarketingContentGrid, {
 } from '@/components/marketing/global/blocks/content-grid';
 import { MobileIcon } from '@radix-ui/react-icons';
 import { CodeIcon, Users2 } from 'lucide-react';
+import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
 
 const title = 'Learn to code for free | TechBlitz';
 const description = 'Learning to code made simple';
@@ -149,13 +150,16 @@ export default async function Page() {
           <div className="container">
             <HomepageHero />
             <Testimonials />
-
             <FeaturesBentoGrid />
             <HomepageLargeText />
             <PersonalizedBlock />
+            <QuestionMarquee
+              header="The best beginner-friendly coding platform"
+              subheader="From your first challenge to your first job. TechBlitz assists you every step of the way."
+            />
             <ComparisonBlock />
             <MarketingContentGrid
-              title="Learning to code for everyone"
+              title="Beginner-friendly coding challenges"
               subheading="Join aspiring developers worldwide learning to code through TechBlitz's free, interactive programming challenges. Get personalized practice, instant feedback, and step-by-step guidance on your coding journey."
               items={contentGridItems}
             />

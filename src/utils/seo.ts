@@ -120,6 +120,9 @@ export const createMetadata = ({
         },
       ],
     },
+    alternates: {
+      canonical: fullCanonicalUrl,
+    },
     robots: {
       index: true,
       follow: true,

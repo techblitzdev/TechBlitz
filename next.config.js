@@ -1,7 +1,4 @@
-const withMDX = require('@next/mdx')();
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
+const createMDX = require('@next/mdx')();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -72,4 +69,5 @@ const nextConfig = {
   },
 };
 
-module.exports = withBundleAnalyzer(withMDX(nextConfig));
+// Merge MDX config with Next.js config
+module.exports = createMDX(nextConfig);

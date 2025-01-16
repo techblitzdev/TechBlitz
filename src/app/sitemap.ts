@@ -1,11 +1,10 @@
 import type { MetadataRoute } from 'next';
 //import { getBlogPosts } from '@/lib/blog';
 import { listQuestions } from '@/utils/data/questions/list';
-import { getBaseUrl } from '@/utils';
-
-export const baseUrl = getBaseUrl();
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const baseUrl = 'https://techblitz.dev';
+
   // Fetch all blog posts and questions
   const [questions] = await Promise.all([
     listQuestions({

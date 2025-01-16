@@ -10,7 +10,7 @@ export default async function HomepageHero() {
   const animatedSpanContent = (
     <div className="flex items-center group">
       <span className="hidden md:block">
-        50% Student Discount - Lock in Lifetime Access Today!
+        50% Lifetime Student Discount available
       </span>
       <span className="block md:hidden">50% lifetime student discount</span>
       <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-all duration-300" />

@@ -14,12 +14,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     userUid: '',
   });
 
-  // Create sitemap entries for blog posts
-  const blogPosts = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    // Using the post date as lastModified
-    lastModified: new Date(post.date as string),
-  }));
+  let blogPosts: { url: string; lastModified: Date }[] = [];
+
+  try {
+    const posts = await getBlogPosts();
+    blogPosts = posts.map((post) => ({
+      url: `${baseUrl}/blog/${post.slug}`,
+      lastModified: new Date(post.date as string),
+    }));
+  } catch (error) {
+    console.error('Error fetching blog posts for sitemap:', error);
+  }
 
   const questionsPosts = questions.questions.map((question) => ({
     url: `${baseUrl}/question/${question.slug}`,

@@ -15,7 +15,6 @@ import { Question } from '@/types/Questions';
 import QuestionResourceTab from '@/components/app/questions/resources/question-resource-tab';
 import QuestionStatsTab from './question-stats-tab';
 import { cn } from '@/lib/utils';
-import { useQuestionSingle } from '../single/layout/question-single-context';
 
 interface QuestionTabsProps {
   question: Question;

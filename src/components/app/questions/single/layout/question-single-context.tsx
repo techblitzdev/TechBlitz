@@ -7,6 +7,9 @@ import { answerQuestion } from '@/actions/answers/answer';
 import { Question, QuestionWithoutAnswers } from '@/types/Questions';
 import { UserRecord } from '@/types/User';
 import { Answer } from '@/types/Answers';
+import { generateAnswerHelp } from '@/actions/ai/questions/answer-help';
+import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
+import { z } from 'zod';
 
 type QuestionSingleContextType = {
   question: Question;
@@ -29,7 +32,10 @@ type QuestionSingleContextType = {
   customQuestion: boolean;
   setCustomQuestion: (customQuestion: boolean) => void;
   prefilledCodeSnippet: string | null;
-  relatedQuestions: Promise<QuestionWithoutAnswers[]>;
+  relatedQuestions: Promise<QuestionWithoutAnswers[]> | null;
+  generateAiAnswerHelp: (setCodeSnippetLayout?: boolean) => Promise<void>;
+  answerHelp: z.infer<typeof answerHelpSchema> | null;
+  setAnswerHelp: (answerHelp: z.infer<typeof answerHelpSchema> | null) => void;
 };
 
 export const QuestionSingleContext = createContext<QuestionSingleContextType>(
@@ -55,7 +61,7 @@ export const QuestionSingleContextProvider = ({
   children: React.ReactNode;
   question: Question;
   user: UserRecord | null;
-  relatedQuestions: Promise<QuestionWithoutAnswers[]>;
+  relatedQuestions: Promise<QuestionWithoutAnswers[]> | null;
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState<
@@ -81,6 +87,11 @@ export const QuestionSingleContextProvider = ({
     string | null
   >(null);
 
+  // track the answer help
+  const [answerHelp, setAnswerHelp] = useState<z.infer<
+    typeof answerHelpSchema
+  > | null>(null);
+
   // the current layout of the page
   const [currentLayout, setCurrentLayout] = useState<
     'questions' | 'codeSnippet' | 'answer'
@@ -89,7 +100,7 @@ export const QuestionSingleContextProvider = ({
   const { pause, reset, totalSeconds } = useStopwatch({ autoStart: true });
 
   useEffect(() => {
-    if (selectedAnswer) {
+    if (selectedAnswer && !prefilledCodeSnippet) {
       const answer = question.answers.find(
         (answer) => answer.uid === selectedAnswer
       )?.answerFullSnippet;
@@ -142,6 +153,26 @@ export const QuestionSingleContextProvider = ({
     }
   };
 
+  const generateAiAnswerHelp = async (setCodeSnippetLayout?: boolean) => {
+    // if the user has asked for assistance for the answer, set the current layout to 'codeSnippet'
+    // this is so mobile view switches to the code snippet view
+    if (setCodeSnippetLayout) {
+      setCurrentLayout('codeSnippet');
+    }
+    const answerHelp = await generateAnswerHelp(
+      question.uid,
+      correctAnswer === 'correct'
+    );
+    if (!answerHelp) {
+      toast.error('Error generating answer help');
+      return;
+    }
+
+    console.log(answerHelp);
+
+    setAnswerHelp(answerHelp);
+  };
+
   const resetQuestionState = () => {
     reset();
     setCorrectAnswer('init');
@@ -152,6 +183,7 @@ export const QuestionSingleContextProvider = ({
     setTimeTaken(0);
     setPrefilledCodeSnippet(null);
     setCurrentLayout('questions');
+    setAnswerHelp(null);
   };
 
   return (
@@ -178,6 +210,9 @@ export const QuestionSingleContextProvider = ({
         setCustomQuestion,
         prefilledCodeSnippet,
         relatedQuestions,
+        generateAiAnswerHelp,
+        answerHelp,
+        setAnswerHelp,
       }}
     >
       {children}

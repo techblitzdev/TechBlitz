@@ -1,11 +1,7 @@
 import { BaseRecord } from './BaseRecord';
 import { UserWithOutAnswers } from './User';
 
-enum AnswerDifficulty {
-  EASY = 'easy',
-  MEDIUM = 'medium',
-  HARD = 'hard',
-}
+type AnswerDifficulty = 'EASY' | 'MEDIUM' | 'HARD';
 
 /**
  * The Answer type is the shape of the data when a user

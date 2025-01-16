@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CodeDisplay from './code-snippet';
 import { useQuestionSingle } from './question-single-context';
+import { capitalize } from 'lodash';
 
 export default function CodeDisplayWrapper() {
-  const { prefilledCodeSnippet, user, question } = useQuestionSingle();
+  const { prefilledCodeSnippet, user, question, answerHelp } =
+    useQuestionSingle();
 
   const [codeSnippet, setCodeSnippet] = useState<string | null>(
     question?.codeSnippet
@@ -20,6 +22,25 @@ export default function CodeDisplayWrapper() {
       setCodeSnippet(question?.codeSnippet);
     }
   }, [prefilledCodeSnippet, question?.codeSnippet]);
+
+  // if the user has asked for assistance for the answer, show them plain text
+  if (answerHelp) {
+    return (
+      <AnimatePresence mode="wait">
+        <div className="flex flex-col gap-y-4 p-4">
+          <h2 className="text-lg font-bold">Answer Help</h2>
+          {Object.entries(answerHelp).map(([key, value], index) => (
+            <div key={index}>
+              <h3 className="text-md font-bold underline">
+                {capitalize(key.replace(/-/g, ' '))}
+              </h3>
+              <p className="text-gray-200">{value.replace(/```/g, '')}</p>
+            </div>
+          ))}
+        </div>
+      </AnimatePresence>
+    );
+  }
 
   return (
     <div className="h-full overflow-y-auto pb-4 scrollable-element">

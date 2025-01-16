@@ -1,5 +1,6 @@
 import { AnswerWithUser } from '@/types/Answers';
 import { prisma } from '@/lib/prisma';
+import { AnswerDifficulty } from '@prisma/client';
 
 type GetFastestTimesReturnType = {
   fastestTimes: AnswerWithUser[];
@@ -58,6 +59,9 @@ export const getFastestTimes = async (opts: {
           answer.user.howDidYouHearAboutTechBlitz ?? undefined,
         referralCode: answer.user.referralCode ?? undefined,
       },
+      difficulty:
+        AnswerDifficulty[answer.difficulty as keyof typeof AnswerDifficulty] ??
+        AnswerDifficulty.EASY,
     })),
     total,
     page,

@@ -26,6 +26,8 @@ import ChangeCodeTheme from './change-code-theme';
 import AiQuestionHelp from './ai-question-help';
 import NoDailyQuestion from '@/components/global/no-daily-question';
 import QuestionSubmitted from './question-submitted';
+import { capitalize } from 'lodash';
+import { AnimatePresence } from 'framer-motion';
 
 export default function QuestionCard(opts: {
   // optional as this is not required to render the card
@@ -54,6 +56,7 @@ export default function QuestionCard(opts: {
     currentLayout,
     setCurrentLayout,
     prefilledCodeSnippet,
+    answerHelp,
   } = useQuestionSingle();
 
   const answerFormRef = useRef<{
@@ -123,11 +126,28 @@ export default function QuestionCard(opts: {
             totalSubmissions={totalSubmissions}
           />
         )}
-        {currentLayout === 'codeSnippet' && question.codeSnippet && (
-          <CodeDisplay
-            content={prefilledCodeSnippet || question.codeSnippet}
-            user={user}
-          />
+        {currentLayout === 'codeSnippet' &&
+          question.codeSnippet &&
+          !answerHelp && (
+            <CodeDisplay
+              content={prefilledCodeSnippet || question.codeSnippet}
+              user={user}
+            />
+          )}
+        {answerHelp && currentLayout === 'codeSnippet' && (
+          <AnimatePresence mode="wait">
+            <div className="flex flex-col gap-y-4 p-4">
+              <h2 className="text-lg font-bold">Answer Help</h2>
+              {Object.entries(answerHelp).map(([key, value], index) => (
+                <div key={index}>
+                  <h3 className="text-md font-bold underline">
+                    {capitalize(key.replace(/-/g, ' '))}
+                  </h3>
+                  <p className="text-gray-200">{value.replace(/```/g, '')}</p>
+                </div>
+              ))}
+            </div>
+          </AnimatePresence>
         )}
         {currentLayout === 'answer' && <QuestionSubmitted />}
       </div>

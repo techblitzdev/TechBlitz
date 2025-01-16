@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { use, useRef } from 'react';
 
 // components
 import Chip from '@/components/ui/chip';
@@ -24,11 +24,12 @@ import CodeDisplay from './code-snippet';
 import ExpandedCodeModal from './expanded-code-modal';
 import ChangeCodeTheme from './change-code-theme';
 import AiQuestionHelp from './ai-question-help';
+import NoDailyQuestion from '@/components/global/no-daily-question';
 
 export default function QuestionCard(opts: {
   // optional as this is not required to render the card
   user: UserRecord | null;
-  question: Question;
+  questionPromise: Promise<Question | null>;
   totalSubmissions?: {
     totalSubmissions: number;
     percentageCorrect: number;
@@ -40,11 +41,17 @@ export default function QuestionCard(opts: {
 }) {
   const {
     user,
-    question,
+    questionPromise,
     nextQuestion,
     isRoadmapQuestion = false,
     totalSubmissions,
   } = opts;
+
+  const question = use(questionPromise);
+
+  if (!question) {
+    return <NoDailyQuestion textAlign="center" />;
+  }
 
   const {
     pause,
@@ -69,6 +76,8 @@ export default function QuestionCard(opts: {
     />
   );
 
+  // toggle layout only between questions and codeSnippet
+  // the answer is after the user has submitted their answer
   const toggleLayout = () => {
     setCurrentLayout(
       currentLayout === 'questions' ? 'codeSnippet' : 'questions'

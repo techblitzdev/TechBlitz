@@ -4,7 +4,6 @@ import { forwardRef, useEffect } from 'react';
 
 // components
 import { Form, FormControl, FormField } from '@/components/ui/form';
-import AnswerQuestionModal from '@/components/app/questions/single/answer-question-modal';
 import LoadingSpinner from '@/components/ui/loading';
 import { cn } from '@/lib/utils';
 import { Label } from '@/components/ui/label';
@@ -16,9 +15,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
-
-// types
-import type { Answer } from '@/types/Answers';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
@@ -37,13 +33,8 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm({
   const {
     question,
     isSubmitting,
-    correctAnswer,
     userAnswer,
     selectedAnswer,
-    newUserData,
-    resetQuestionState,
-    isModalOpen,
-    setIsModalOpen,
     setTimeTaken,
     setSelectedAnswer,
   } = useQuestionSingle();
@@ -62,14 +53,6 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm({
       setSelectedAnswer('');
     }
   }, [userAnswer, setSelectedAnswer, form]);
-
-  const handleRetry = () => {
-    form.reset();
-    setSelectedAnswer('');
-    stopwatchPause();
-    resetStopwatch();
-    resetQuestionState();
-  };
 
   return (
     <Form {...form}>
@@ -141,18 +124,6 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm({
             </div>
           ))}
         </div>
-        {newUserData != null && (
-          <AnswerQuestionModal
-            user={newUserData}
-            correct={correctAnswer}
-            userAnswer={userAnswer || ({} as Answer)}
-            isOpen={isModalOpen}
-            onOpenChange={setIsModalOpen}
-            onRetry={handleRetry}
-            nextQuestion={nextQuestion}
-            isDailyQuestion={question?.dailyQuestion || false}
-          />
-        )}
       </form>
     </Form>
   );

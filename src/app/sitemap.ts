@@ -5,26 +5,39 @@ import { listQuestions } from '@/utils/data/questions/list';
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://techblitz.dev';
 
-  const posts = await getBlogPosts();
-
   // Fetch all blog posts and questions
-  const questions = await listQuestions({
-    page: 1,
-    pageSize: 1000,
-    userUid: '',
-  });
+  const [questions] = await Promise.all([
+    listQuestions({
+      page: 1,
+      pageSize: 1000,
+      userUid: '',
+    }),
+  ]);
 
-  let blogPosts: { url: string; lastModified: Date }[] = [];
+  // for some reason, the blog posts are not being when invoking
+  // the getBlogPosts function, but only from here.
+  // manually adding the blog post slugs for now (TODO: fix this)
 
-  try {
-    const posts = await getBlogPosts();
-    blogPosts = posts.map((post) => ({
-      url: `${baseUrl}/blog/${post.slug}`,
-      lastModified: new Date(post.date as string),
-    }));
-  } catch (error) {
-    console.error('Error fetching blog posts for sitemap:', error);
-  }
+  // Create sitemap entries for blog posts
+  //const blogPosts = posts.map((post) => ({
+  //  url: `${baseUrl}/blog/${post.slug}`,
+  //  // Using the post date as lastModified
+  //  lastModified: new Date(post.date as string),
+  //}))
+
+  const blogPostSlugs = [
+    'how-to-become-a-software-engineer-2025',
+    'how-to-use-filter-in-javascript',
+    'how-to-use-map-in-javascript',
+    'how-to-use-reduce-in-javascript',
+    'introducing-techblitz',
+    'what-are-callback-functions',
+  ];
+
+  const blogPosts = blogPostSlugs.map((slug) => ({
+    url: `${baseUrl}/blog/${slug}`,
+    lastModified: new Date(),
+  }));
 
   const questionsPosts = questions.questions.map((question) => ({
     url: `${baseUrl}/question/${question.slug}`,

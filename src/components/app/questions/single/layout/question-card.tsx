@@ -42,20 +42,13 @@ export default function QuestionCard(opts: {
   const {
     user,
     questionPromise,
-    nextQuestion,
     isRoadmapQuestion = false,
     totalSubmissions,
   } = opts;
 
   const question = use(questionPromise);
 
-  if (!question) {
-    return <NoDailyQuestion textAlign="center" />;
-  }
-
   const {
-    pause,
-    reset,
     totalSeconds,
     currentLayout,
     setCurrentLayout,
@@ -67,14 +60,11 @@ export default function QuestionCard(opts: {
     resetForm: () => void;
   }>(null);
 
-  const renderAnswerForm = () => (
-    <AnswerQuestionForm
-      stopwatchPause={pause}
-      time={totalSeconds}
-      nextQuestion={nextQuestion}
-      resetStopwatch={reset}
-    />
-  );
+  if (!question) {
+    return <NoDailyQuestion textAlign="center" />;
+  }
+
+  const renderAnswerForm = () => <AnswerQuestionForm time={totalSeconds} />;
 
   // toggle layout only between questions and codeSnippet
   // the answer is after the user has submitted their answer

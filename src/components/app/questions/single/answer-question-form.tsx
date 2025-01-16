@@ -19,16 +19,10 @@ import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
   time: number;
-  stopwatchPause: () => void;
-  resetStopwatch: () => void;
-  nextQuestion?: string;
 };
 
 const AnswerQuestionForm = forwardRef(function AnswerQuestionForm({
   time,
-  stopwatchPause,
-  nextQuestion,
-  resetStopwatch,
 }: AnswerQuestionFormProps) {
   const {
     question,

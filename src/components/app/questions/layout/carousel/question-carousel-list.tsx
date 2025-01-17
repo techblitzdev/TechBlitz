@@ -53,8 +53,9 @@ export default function QuestionsCarouselList() {
   return (
     <div className="flex flex-col gap-y-16 md:gap-y-28 pt-10">
       {questionsCarousels.map((carousel, index) => (
-        <div
+        <Suspense
           key={`carousel-${index}-${carousel.tag.join('-')}-${carousel.title}`}
+          fallback={<QuestionCarouselLoading />}
         >
           <QuestionCarousel
             heading={carousel.title}
@@ -63,14 +64,12 @@ export default function QuestionsCarouselList() {
             tag={carousel.tag}
             difficulty={carousel.difficulty}
           >
-            <Suspense fallback={<QuestionCarouselLoading />}>
-              <QuestionCarouselContent
-                tag={carousel.tag}
-                difficulty={carousel.difficulty}
-              />
-            </Suspense>
+            <QuestionCarouselContent
+              tag={carousel.tag}
+              difficulty={carousel.difficulty}
+            />
           </QuestionCarousel>
-        </div>
+        </Suspense>
       ))}
     </div>
   );

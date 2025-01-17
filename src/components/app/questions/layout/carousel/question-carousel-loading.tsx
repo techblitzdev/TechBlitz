@@ -1,9 +1,13 @@
 import { Skeleton } from '@/components/ui/skeleton';
-import { CarouselItem, CarouselContent } from '@/components/ui/carousel';
+import {
+  CarouselItem,
+  CarouselContent,
+  Carousel,
+} from '@/components/ui/carousel';
 
 export default function QuestionCarouselLoading() {
   return (
-    <div className="relative w-full">
+    <Carousel className="relative w-full">
       <div className="hidden md:block absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-[#000000] to-transparent z-10" />
       <CarouselContent className="flex flex-col gap-4">
         <CarouselItem className="flex">
@@ -19,6 +23,6 @@ export default function QuestionCarouselLoading() {
           </div>
         </CarouselItem>
       </CarouselContent>
-    </div>
+    </Carousel>
   );
 }

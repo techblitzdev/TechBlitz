@@ -1,5 +1,8 @@
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import { X } from 'lucide-react';
+import { cookies } from 'next/headers';
+import { revalidatePath } from 'next/cache';
 
 const StarsBackground = dynamic(
   () => import('@/components/ui/stars-background'),
@@ -10,18 +13,26 @@ const StarsBackground = dynamic(
 
 import Logo from '@/components/ui/logo';
 import { PricingCard } from '@/components/global/payment/payment-card';
-
-import { X } from 'lucide-react';
-
 import { useUserServer } from '@/hooks/use-user-server';
 import { getPlans } from '@/utils/constants/pricing';
+import FrequencyToggle from '@/components/global/payment/frequency-toggle';
+
+async function updateFrequency(frequency: 'month' | 'year') {
+  'use server';
+  const cookieStore = cookies();
+  cookieStore.set('billing_frequency', frequency);
+  revalidatePath('/upgrade');
+}
 
 export default async function UpgradePage() {
-  // get the current user (for prefilling the form)
   const user = await useUserServer();
-  // grab the products from the constants - filter out the free plan
-  // as the user will be signed in viewing this page
-  const products = getPlans(user).filter((product) => product.id !== 'free');
+  const cookieStore = cookies();
+  const billingPeriod =
+    (cookieStore.get('billing_frequency')?.value as 'month' | 'year') || 'year';
+
+  const products = getPlans(user, true, billingPeriod).filter(
+    (product) => product && product.id !== 'free'
+  );
 
   return (
     <div className="relative">
@@ -55,16 +66,23 @@ export default async function UpgradePage() {
             Upgrade your account to unlock premium features, gain access to
             exclusive content, and be the first to experience new updates.
           </p>
+          <FrequencyToggle
+            initialFrequency={billingPeriod}
+            onFrequencyChange={updateFrequency}
+          />
           <div className="flex flex-col lg:flex-row gap-10 justify-center mt-8 md:mt-16 px-2 md:px-10">
-            {products.map((product) => (
-              <PricingCard
-                user={user}
-                key={product.id}
-                product={product}
-                isLoading={false}
-                billingPeriod="month"
-              />
-            ))}
+            {products.map(
+              (product) =>
+                product && (
+                  <PricingCard
+                    user={user}
+                    key={product.id}
+                    product={product}
+                    isLoading={false}
+                    billingPeriod={billingPeriod}
+                  />
+                )
+            )}
           </div>
         </div>
       </div>

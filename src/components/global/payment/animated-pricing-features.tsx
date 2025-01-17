@@ -59,7 +59,7 @@ export default function AnimatedPricingFeatures({
           <div className="bg-accent p-0.5 rounded-full">
             <CheckIcon className="size-3" />
           </div>
-          <span className="text-sm text-start">{feature.name}</span>
+          <span className="text-sm text-start font-onest">{feature.name}</span>
         </motion.div>
       ))}
     </motion.div>

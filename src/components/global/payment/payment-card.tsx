@@ -6,6 +6,7 @@ import { ReloadIcon } from '@radix-ui/react-icons';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import AnimatedPricingFeatures from './animated-pricing-features';
+import NumberFlow from '@number-flow/react';
 
 // type imports
 import type { UserRecord } from '@/types/User';
@@ -20,11 +21,13 @@ export function PricingCard(opts: {
 }) {
   const { product, isLoading } = opts;
 
+  if (!product) return null;
+
   // get the payment link depending on if this is local env or production
   const paymentLink = !product.price
     ? '/sign-up'
     : process.env.NODE_ENV === 'development'
-      ? typeof product.cta.href === 'object'
+      ? typeof product.cta === 'object' && typeof product.cta.href === 'object'
         ? product.cta.href.local
         : product.cta.href
       : typeof product.cta.href === 'object'
@@ -55,7 +58,7 @@ export function PricingCard(opts: {
               </div>
             )}
           </div>
-          <div className="flex gap-x-1 items-center lg:items-end mt-2">
+          <div className="flex gap-x-1 items-center mt-2">
             <div className="flex gap-x-1 items-center font-onest text-gradient from-white to-white/75">
               <span className="text-lg font-semibold">
                 {product.currencySymbol}
@@ -63,10 +66,13 @@ export function PricingCard(opts: {
               {isLoading ? (
                 <ReloadIcon className="size-5 animate-spin" />
               ) : (
-                <span className="text-5xl font-onest">{product.price}</span>
+                <NumberFlow
+                  className="text-5xl font-onest text-white"
+                  value={Number(product.price)}
+                />
               )}
             </div>
-            <span className="text-sm font-inter mb-1.5 text-gray-300">
+            <span className="text-sm font-inter mt-3 text-gray-300">
               {product.frequencyText}
             </span>
           </div>
@@ -84,7 +90,11 @@ export function PricingCard(opts: {
 
           {/** payment trigger */}
           <Button
-            href={paymentLink}
+            href={
+              typeof paymentLink === 'string'
+                ? paymentLink
+                : paymentLink.production
+            }
             className={cn(
               'w-full text-lg font-semibold py-6',
               product.disabled && 'opacity-50 cursor-not-allowed'

@@ -39,15 +39,18 @@ export default async function Loading() {
             exclusive content, and be the first to experience new updates.
           </p>
           <div className="flex flex-col lg:flex-row gap-10 justify-center mt-8 md:mt-16 px-2 md:px-10">
-            {products?.map((product) => (
-              <PricingCard
-                user={null}
-                key={product.id}
-                product={product}
-                isLoading={false}
-                billingPeriod="month"
-              />
-            ))}
+            {products?.map(
+              (product) =>
+                product && (
+                  <PricingCard
+                    user={null}
+                    key={product.id}
+                    product={product}
+                    isLoading={false}
+                    billingPeriod="month"
+                  />
+                )
+            )}
           </div>
         </div>
       </div>

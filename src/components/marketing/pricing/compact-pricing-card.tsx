@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Plan } from '@/utils/constants/pricing';
 import { cn } from '@/lib/utils';
+import NumberFlow from '@number-flow/react';
 
 interface CompactPricingCardProps {
   product: Plan;
@@ -15,6 +16,8 @@ export default function CompactPricingCard({
   onSelect,
   isSelected,
 }: CompactPricingCardProps) {
+  if (!product) return null;
+
   const isFree = !product.price;
 
   return (
@@ -44,7 +47,10 @@ export default function CompactPricingCard({
               <span className="text-base font-semibold">
                 {product.currencySymbol}
               </span>
-              <span className="text-3xl font-onest">{product.price}</span>
+              <NumberFlow
+                value={product.price}
+                className="text-3xl font-onest text-white"
+              />
             </div>
             <span className="text-xs font-inter mb-0.5 text-gray-300">
               {product.frequencyText}

@@ -42,12 +42,12 @@ export default function FilterButtonCompleted() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            padding="sm"
+            padding="md"
             variant="default"
-            size="sm"
-            className="flex items-center gap-x-1 text-xs group"
+            size="lg"
+            className="flex items-center gap-x-2 text-sm group"
           >
-            <Check className="size-3" />
+            <Check className="size-5" />
             Completed
             <ChevronDown className="size-3 duration-200 group-data-[state=open]:-rotate-180" />
           </Button>

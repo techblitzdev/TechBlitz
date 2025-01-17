@@ -4,7 +4,7 @@ export default function FilterLoading() {
   return (
     <div className="flex flex-col gap-4">
       {/* Top row with filters */}
-      <div className="flex gap-2 w-full justify-between">
+      <div className="flex flex-col md:flex-row gap-2 w-full justify-between">
         <div className="flex flex-wrap gap-2 items-end">
           {/* Difficulty Button Loading */}
           <Skeleton className="h-8 w-[105px] bg-black-50" />

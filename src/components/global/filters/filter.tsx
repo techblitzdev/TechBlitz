@@ -23,8 +23,8 @@ export default function Filter({ tagsPromise, showSort = true }: FilterProps) {
   return (
     <FilterContextProvider tags={tags}>
       <div className="flex flex-col gap-4">
-        <div className="flex gap-2 w-full justify-between">
-          <div className="flex flex-wrap gap-2 items-end">
+        <div className="flex flex-col md:flex-row gap-2 w-full justify-between">
+          <div className="flex flex-wrap gap-2 items-end order-last md:order-first">
             <FilterButtonDifficulty />
             <FilterButtonCompleted />
             <FilterSearchTag />

@@ -9,10 +9,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Separator } from '@/components/ui/separator';
-import { Switch } from '@/components/ui/switch';
-import { ArrowUpDown, ChevronDown } from 'lucide-react';
+//import { Separator } from '@/components/ui/separator';
+import { Check } from 'lucide-react';
 import { useState, useTransition } from 'react';
+import SortIcon from '@/components/ui/icons/sort';
 
 export default function FilterButtonsSort() {
   const router = useRouter();
@@ -31,74 +31,62 @@ export default function FilterButtonsSort() {
     router.push(`?${params.toString()}`);
   };
 
-  // State for switches
+  // State for sorting
   const [ascending, setAscending] = useState(
     searchParams.get('ascending') === 'true'
   );
 
-  const handleSwitchChange = (
-    key: string,
-    stateSetter: React.Dispatch<React.SetStateAction<boolean>>,
-    value: boolean
-  ) => {
-    stateSetter(value);
-    updateQueryParams(key, value ? 'true' : null);
+  const toggleSortOrder = () => {
+    const newAscending = !ascending;
+    setAscending(newAscending);
+    updateQueryParams('ascending', newAscending ? 'true' : null);
   };
 
-  const clearSorting = () => {
-    const params = new URLSearchParams(searchParams.toString());
-
-    // Remove both parameters
-    params.delete('ascending');
-
-    // Reset local state
-    setAscending(false);
-
-    // Update the URL
-    router.push(`?${params.toString()}`);
-  };
+  //const clearSorting = () => {
+  //  const params = new URLSearchParams(searchParams.toString());
+  //
+  //  // Remove both parameters
+  //  params.delete('ascending');
+  //
+  //  // Reset local state
+  //  setAscending(false);
+  //
+  //  // Update the URL
+  //  router.push(`?${params.toString()}`);
+  //};
 
   return (
     <div data-pending={isPending ? '' : undefined}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            padding="sm"
-            size="sm"
+            padding="md"
+            size="lg"
             variant="default"
-            className="flex items-center gap-x-1 text-xs group"
+            className="flex items-center justify-center gap-x-1 text-sm group"
           >
-            <ArrowUpDown className="size-4" />
+            {ascending && (
+              <span className="text-[10px] bg-white text-black px-2 rounded-full mr-1">
+                1
+              </span>
+            )}
             Sort
-            <ChevronDown className="size-3 duration-200 group-data-[state=open]:-rotate-180" />
+            <SortIcon className="size-5" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="end"
-          className="!p-0 w-56 bg-black border border-black-50 text-white text-sm"
+          className="!p-0 w-40 bg-black border border-black-50 text-white text-sm"
         >
           <DropdownMenuGroup className="p-1">
-            <DropdownMenuItem className="flex items-center justify-between hover:!bg-transparent">
+            <DropdownMenuItem
+              className="flex items-center justify-between hover:cursor-pointer"
+              onClick={() => startTransition(() => toggleSortOrder())}
+            >
               <span className="text-white">Date</span>
-              <Switch
-                className="data-[state=checked]:bg-accent data-[state=unchecked]:bg-primary"
-                checked={ascending}
-                onCheckedChange={(checked) =>
-                  startTransition(() =>
-                    handleSwitchChange('ascending', setAscending, checked)
-                  )
-                }
-              />
+              {ascending && <Check className="size-4 text-white" />}
             </DropdownMenuItem>
           </DropdownMenuGroup>
-
-          <Separator className="bg-black-50" />
-          <DropdownMenuItem
-            className="text-red-500 px-4 py-2 flex justify-end text-right hover:!bg-transparent hover:!text-red-800 duration-300 hover:cursor-pointer !text-xs"
-            onClick={() => startTransition(() => clearSorting())}
-          >
-            Clear
-          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

@@ -89,12 +89,12 @@ export default function FilterButtonDifficulty() {
         <DropdownMenuTrigger asChild>
           <Button
             variant="default"
-            padding="sm"
-            size="sm"
-            className="flex items-center gap-x-2.5 text-xs group"
+            padding="md"
+            size="lg"
+            className="flex items-center gap-x-2.5 text-sm group"
           >
             <div
-              className="size-1.5 ml-1 rounded-full"
+              className="size-2.5 ml-1 rounded-full"
               style={{ backgroundColor: color }}
             />
             <span>Difficulty</span>

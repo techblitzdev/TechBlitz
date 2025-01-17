@@ -68,7 +68,7 @@ export default function FilterChips() {
             return (value.split(',') as string[]).map((tag) => (
               <div
                 key={`${key}-${tag}`}
-                className="flex items-center gap-2 px-3 py-1 text-xs border border-black-50 rounded-md hover:bg-black-25 duration-300"
+                className="flex items-center gap-2 px-3 py-1 text-sm border border-black-50 rounded-md hover:bg-black-25 duration-300"
               >
                 <span>{capitalise(tag)}</span>
                 <button

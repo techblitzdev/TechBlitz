@@ -5,7 +5,6 @@ import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
 import Link from 'next/link';
 import Chip from '@/components/ui/chip';
 import { Suspense } from 'react';
-import { ChevronRight } from 'lucide-react';
 import { Circle } from 'lucide-react';
 import { CheckCircle } from 'lucide-react';
 import { Answer } from '@/types/Answers';
@@ -134,13 +133,9 @@ export default function QuestionCard(opts: {
             )
           ) : (
             <div className="relative">
-              <p className="group-hover:opacity-0 transition-opacity duration-300">
+              <p className="hover:opacity-0 transition-opacity duration-300 whitespace-nowrap flex items-center gap-x-1">
                 Not Answered
               </p>
-              <div className="absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap flex items-center gap-x-1">
-                <p>Learn Now</p>
-                <ChevronRight className="flex-shrink-0 size-4 text-white group-hover:translate-x-2 transition-transform duration-300" />
-              </div>
             </div>
           )}
         </div>

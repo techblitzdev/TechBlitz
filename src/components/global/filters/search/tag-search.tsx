@@ -17,7 +17,7 @@ export default function FilterSearchTag() {
         placeholder="Search tags..."
         value={searchQuery}
         onChange={(e) => startTransition(() => setSearchQuery(e.target.value))}
-        className="h-8 max-w-xs bg-transparent text-white placeholder:text-gray-400 border border-black-50 pl-8"
+        className="h-10 max-w-xs bg-transparent text-white placeholder:text-gray-400 border border-black-50 pl-8"
       />
       {isPending ? (
         <div className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4">

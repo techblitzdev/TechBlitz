@@ -36,6 +36,8 @@ type QuestionSingleContextType = {
   generateAiAnswerHelp: (setCodeSnippetLayout?: boolean) => Promise<void>;
   answerHelp: z.infer<typeof answerHelpSchema> | null;
   setAnswerHelp: (answerHelp: z.infer<typeof answerHelpSchema> | null) => void;
+  tokensUsed: number;
+  setTokensUsed: (tokensUsed: number) => void;
 };
 
 export const QuestionSingleContext = createContext<QuestionSingleContextType>(
@@ -91,6 +93,11 @@ export const QuestionSingleContextProvider = ({
   const [answerHelp, setAnswerHelp] = useState<z.infer<
     typeof answerHelpSchema
   > | null>(null);
+
+  // track the tokens used
+  const [tokensUsed, setTokensUsed] = useState<number>(
+    user?.userLevel === 'PREMIUM' ? Infinity : user?.aiQuestionHelpTokens || 0
+  );
 
   // the current layout of the page
   const [currentLayout, setCurrentLayout] = useState<
@@ -159,7 +166,7 @@ export const QuestionSingleContextProvider = ({
     if (setCodeSnippetLayout) {
       setCurrentLayout('codeSnippet');
     }
-    const answerHelp = await generateAnswerHelp(
+    const { content, tokensUsed } = await generateAnswerHelp(
       question.uid,
       correctAnswer === 'correct'
     );
@@ -168,9 +175,8 @@ export const QuestionSingleContextProvider = ({
       return;
     }
 
-    console.log(answerHelp);
-
-    setAnswerHelp(answerHelp);
+    setTokensUsed(tokensUsed);
+    setAnswerHelp(content);
   };
 
   const resetQuestionState = () => {
@@ -213,6 +219,8 @@ export const QuestionSingleContextProvider = ({
         generateAiAnswerHelp,
         answerHelp,
         setAnswerHelp,
+        tokensUsed,
+        setTokensUsed,
       }}
     >
       {children}

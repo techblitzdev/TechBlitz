@@ -78,16 +78,24 @@ export const generateAnswerHelp = async (
     throw new Error('AI response is missing content');
   }
 
-  // now decrement the user's aiQuestionHelpTokens if they are on the free plan
-  // (premium gets unlimited)
-  if (user.userLevel === 'FREE') {
-    await prisma.users.update({
-      where: { uid: user.uid },
-      data: { aiQuestionHelpTokens: { decrement: 1 } },
-    });
-  }
-
   const formattedData = JSON.parse(answerHelp.choices[0].message.content);
 
-  return formattedData;
+  // now decrement the user's aiQuestionHelpTokens if they are on the free plan
+  // (premium gets unlimited)
+  if (user.userLevel === 'PREMIUM') {
+    return {
+      ...formattedData,
+      tokensUsed: Infinity,
+    };
+  }
+
+  const updatedUser = await prisma.users.update({
+    where: { uid: user.uid },
+    data: { aiQuestionHelpTokens: { decrement: 1 } },
+  });
+
+  return {
+    content: formattedData,
+    tokensUsed: updatedUser.aiQuestionHelpTokens,
+  };
 };

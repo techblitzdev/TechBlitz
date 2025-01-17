@@ -34,6 +34,8 @@ export default function QuestionSubmitted() {
     relatedQuestions,
     totalSeconds,
     generateAiAnswerHelp,
+    user,
+    tokensUsed,
   } = useQuestionSingle();
 
   const [isPending, setTransition] = useTransition();
@@ -116,7 +118,13 @@ export default function QuestionSubmitted() {
         <div className="flex flex-col gap-y-6">
           <div className="flex flex-col gap-y-2">
             <h2 className="text-xl font-bold">Your Answer</h2>
-            {userAnswer && (
+            {/** test if this is a code question */}
+            {userAnswer &&
+            /<pre><code/.test(
+              question?.answers.find(
+                (answer) => answer.uid === userAnswer?.userAnswerUid
+              )?.answer || ''
+            ) ? (
               <CodeDisplay
                 content={
                   question?.answers.find(
@@ -124,6 +132,18 @@ export default function QuestionSubmitted() {
                   )?.answer || ''
                 }
               />
+            ) : (
+              <div className="p-3 bg-black-75">
+                <p
+                  className="text-sm"
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      question?.answers.find(
+                        (answer) => answer.uid === userAnswer?.userAnswerUid
+                      )?.answer || '',
+                  }}
+                />
+              </div>
             )}
           </div>
 
@@ -150,6 +170,22 @@ export default function QuestionSubmitted() {
             Don't understand this answer? Click the button below to get an
             explanation.
           </p>
+          <p className="text-sm text-white">
+            You have {user?.userLevel === 'PREMIUM' ? 'unlimited' : tokensUsed}{' '}
+            tokens remaining <br />
+            {user?.userLevel === 'FREE' && (
+              <span className="text-xs text-gray-400">
+                (Free users get 20 tokens,{' '}
+                <Link
+                  href="https://dub.sh/upgrade-techblitz"
+                  className="text-accent underline"
+                >
+                  upgrade to Premium
+                </Link>{' '}
+                to get unlimited tokens!)
+              </span>
+            )}
+          </p>
           <Button
             variant="secondary"
             onClick={() => {
@@ -159,6 +195,7 @@ export default function QuestionSubmitted() {
             }}
             disabled={isPending}
             className="hidden lg:flex"
+            wrapperClassName="w-fit"
           >
             {isPending ? 'Generating...' : 'Explain Answer'}
           </Button>

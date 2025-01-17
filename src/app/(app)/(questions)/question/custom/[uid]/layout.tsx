@@ -14,7 +14,6 @@ import { QuestionSingleContextProvider } from '@/components/app/questions/single
 import { getUser } from '@/actions/user/authed/get-user';
 import { redirect } from 'next/navigation';
 import QuestionActionButtons from '@/components/app/questions/single/layout/question-action-buttons';
-import { getRelatedQuestions } from '@/utils/data/questions/get-related';
 
 export async function generateMetadata({
   params,

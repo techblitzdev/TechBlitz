@@ -10,6 +10,7 @@ import FeatureLeftRightSection from '@/components/marketing/features/daily-chall
 import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
 import { getBaseUrl } from '@/utils';
 import { WebPageJsonLd } from '@/types/Seo';
+import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -227,6 +228,12 @@ export default function FeatureDailyQuestionPage() {
       <div className="container">
         <FeatureDailyChallengeHero />
         <FeatureLeftRightSection />
+
+        <QuestionMarquee
+          header="100's of coding challenges"
+          subheader="From your first challenge to your first job. TechBlitz assists you every step of the way."
+          cta={true}
+        />
 
         <MarketingContentGrid title="Learn to code, faster." items={items} />
         <FAQsBlock faqs={faqs} />

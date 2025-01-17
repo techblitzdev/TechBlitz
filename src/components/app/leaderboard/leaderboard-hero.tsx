@@ -116,7 +116,7 @@ function UserInfo({
       <motion.div
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.98 }}
-        className="relative"
+        className="relative flex flex-col items-center"
       >
         <ProfilePicture
           src={user.userProfilePicture}
@@ -164,7 +164,7 @@ function UserBadge({
       initial={{ x: -5, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ delay: position * 0.2 + 0.3 }}
-      className="relative -top-3 left-1.5 w-fit bg-accent text-xs flex items-center justify-center px-2 py-0.5 rounded-full"
+      className="relative -top-3 w-fit bg-accent text-xs flex items-center justify-center px-2 py-0.5 rounded-full"
     >
       <span className="text-[10px]">
         {userLevel === 'PREMIUM' ? 'PRO' : 'ADMIN'}

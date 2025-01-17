@@ -63,7 +63,7 @@ export const roadmapGenerate = async (opts: {
   }
 
   // Request AI-generated questions
-  const response = await generateRoadmapResponse({ formattedData });
+  const response = await generateRoadmapResponse({ formattedData, user });
   if (!response) {
     throw new Error('AI response is missing content');
   }

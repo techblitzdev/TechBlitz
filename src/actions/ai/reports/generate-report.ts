@@ -41,10 +41,12 @@ export const generateStatisticsReport = async () => {
   const [customQuestionsResponse, reportHtmlResponse] = await Promise.all([
     generateStatisticsCustomQuestions({
       incorrectTags,
+      user,
     }),
     generateReportHtml({
       correctTags,
       incorrectTags,
+      user,
     }),
   ]);
 

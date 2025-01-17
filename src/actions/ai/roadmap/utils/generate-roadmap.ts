@@ -5,11 +5,13 @@ import { aiQuestionSchema } from '@/lib/zod/schemas/ai/response';
 import type { ReturnType } from '@/actions/ai/roadmap/get-question-data-for-gen';
 import { getPrompt } from '@/actions/ai/utils/get-prompt';
 import Anthropic from '@anthropic-ai/sdk';
+import { UserRecord } from '@/types/User';
 
 export const generateRoadmapResponse = async (opts: {
   formattedData: ReturnType[];
+  user: UserRecord;
 }) => {
-  const { formattedData } = opts;
+  const { formattedData, user } = opts;
 
   const prompts = await getPrompt({
     name: [
@@ -39,6 +41,15 @@ export const generateRoadmapResponse = async (opts: {
       {
         role: 'user',
         content: prompts['claude-ai-first-pass'].content,
+      },
+      {
+        role: 'assistant',
+        content:
+          'The user has provided the following information about themselves, tailor your answer to this information:',
+      },
+      {
+        role: 'user',
+        content: user?.aboutMeAiHelp || '',
       },
       {
         role: 'assistant',

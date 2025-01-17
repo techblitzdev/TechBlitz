@@ -67,6 +67,15 @@ export const generateAnswerHelp = async (
             : 'The user answered incorrectly, provide a more detailed explanation'),
       },
       {
+        role: 'system',
+        content:
+          'The user has provided the following information about themselves, tailor your answer to this information:',
+      },
+      {
+        role: 'user',
+        content: user?.aboutMeAiHelp || '',
+      },
+      {
         role: 'user',
         content: question.codeSnippet || '',
       },

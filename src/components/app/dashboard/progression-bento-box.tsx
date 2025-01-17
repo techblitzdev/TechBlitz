@@ -63,7 +63,7 @@ export default async function ProgressBentoBox() {
 
   return (
     <Link
-      href="/roadmaps"
+      href={`${user?.userLevel === 'FREE' ? 'https://dub.sh/upgrade-techblitz' : '/roadmaps'}`}
       className="h-full flex flex-col p-4 relative group overflow-hidden"
     >
       {user?.userLevel !== 'FREE' && user?.userLevel !== 'STANDARD' && (
@@ -72,6 +72,16 @@ export default async function ProgressBentoBox() {
             textColor="text-black"
             color="bg-secondary"
             text="Roadmap"
+            border="border-secondary"
+          />
+        </div>
+      )}
+      {user?.userLevel === 'FREE' && (
+        <div className="absolute z-10">
+          <Chip
+            textColor="text-black"
+            color="bg-secondary"
+            text="Upgrade to access Roadmaps"
             border="border-secondary"
           />
         </div>

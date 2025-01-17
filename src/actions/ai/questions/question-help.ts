@@ -56,6 +56,15 @@ export const generateQuestionHelp = async (
         content: 'This is the reason as to why the user is asking for help: ',
       },
       {
+        role: 'system',
+        content:
+          'The user has provided the following information about themselves, tailor your answer to this information:',
+      },
+      {
+        role: 'user',
+        content: user?.aboutMeAiHelp || '',
+      },
+      {
         role: 'user',
         content: userContent || '',
       },

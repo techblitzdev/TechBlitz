@@ -380,10 +380,10 @@ export default function SettingsProfilePage() {
                     />
                     {user?.userLevel === 'FREE' && (
                       <div className="mt-2 text-sm text-red-500">
-                        Upgrade to a premium account to personalize your AI.
+                        Upgrade to a premium account to enhance your AI.
                         <a
-                          href="/upgrade"
-                          className="text-blue-500 underline ml-1"
+                          href="https://dub.sh/upgrade-techblitz"
+                          className="text-accent underline ml-1"
                         >
                           Upgrade now
                         </a>

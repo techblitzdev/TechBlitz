@@ -32,10 +32,12 @@ export default async function TodaysLeaderboardPage() {
     <>
       {/** @ts-ignore - this is the valid type */}
       <LeaderboardHero topThreeUsersPromise={topThreeUsers} />
-      <div className="lg:container flex flex-col xl:flex-row gap-10 mt-5">
-        <Suspense fallback={<div>Loading...</div>}>
-          <LeaderboardMostQuestionsAnswered />
-        </Suspense>
+      <div className="lg:container gap-10 mt-16 grid grid-cols-12">
+        <div className="col-span-12 md:col-span-8">
+          <Suspense fallback={<div>Loading...</div>}>
+            <LeaderboardMostQuestionsAnswered />
+          </Suspense>
+        </div>
       </div>
     </>
   );

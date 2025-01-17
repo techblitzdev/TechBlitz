@@ -1,7 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
 import { Crown } from 'lucide-react';
 import AnimatedSpan from '@/components/ui/animated-span';
 import ProfilePicture from '@/components/ui/profile-picture';
@@ -114,21 +113,19 @@ function UserInfo({
         bounce: 0.2,
       }}
     >
-      <Link href={`/${user.username}`}>
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.98 }}
-          className="relative"
-        >
-          <ProfilePicture
-            src={user.userProfilePicture}
-            alt={`${user.username} profile picture`}
-            className="size-8 md:size-12 rounded-full shadow-lg"
-          />
-          {position === 1 && <CrownIcon />}
-          <UserBadge userLevel={user.userLevel} position={position} />
-        </motion.div>
-      </Link>
+      <motion.div
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.98 }}
+        className="relative"
+      >
+        <ProfilePicture
+          src={user.userProfilePicture}
+          alt={`${user.username} profile picture`}
+          className="size-8 md:size-12 rounded-full shadow-lg"
+        />
+        {position === 1 && <CrownIcon />}
+        <UserBadge userLevel={user.userLevel} position={position} />
+      </motion.div>
       <UserName user={user} position={position} />
       <UserAnswerCount count={user._count.answers} position={position} />
     </motion.div>

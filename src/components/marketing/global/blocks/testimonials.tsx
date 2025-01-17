@@ -17,7 +17,10 @@ const testimonials = [
   },
 ];
 
-export default function Testimonials() {
+export default function Testimonials(opts: {
+  header?: string;
+  subheader?: string;
+}) {
   return (
     <section id="testimonials" className="pb-16 pt-10 relative group">
       <div
@@ -32,7 +35,7 @@ export default function Testimonials() {
         <div className="flex flex-col gap-y-1 lg:w-1/3 items-center lg:items-start">
           <AnimatedSpan content="Testimonials" />
           <h2 className="text-4xl font-bold text-center lg:text-left text-gradient from-white to-white/75 py-1.5">
-            Endorsed by developers just like you
+            {opts.header || 'Endorsed by developers just like you'}
           </h2>
           <p className="text-gray-400 text-sm text-center lg:text-left">
             Discover how TechBlitz has empowered developers to level up their

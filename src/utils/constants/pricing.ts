@@ -3,10 +3,11 @@ import { QUESTIONS_COUNT } from './misc';
 
 export const getPlans = (
   user: Partial<UserRecord> | null,
-  hideFree: boolean = false
+  hideFree: boolean = false,
+  billingPeriod: 'month' | 'year' = 'month'
 ) => {
   const plans = [
-    {
+    !hideFree && {
       id: 'free',
       name: 'Free',
       currencySymbol: '$',
@@ -42,13 +43,22 @@ export const getPlans = (
       id: 'premium',
       name: 'Premium',
       paymentLink: {
-        local: `https://buy.stripe.com/test_8wMfZ07x02DraeQ289?client_reference_id=${user?.uid}`,
-        production: `https://buy.stripe.com/eVabKc0oc0aI23e28e?client_reference_id=${user?.uid}`,
+        local:
+          billingPeriod === 'month'
+            ? `https://buy.stripe.com/eVabKc0oc0aI23e28e?client_reference_id=${user?.uid}`
+            : `https://buy.stripe.com/3cs4hKgna7DagY814d?client_reference_id=${user?.uid}`,
+        production:
+          billingPeriod === 'month'
+            ? `https://buy.stripe.com/eVabKc0oc0aI23e28e?client_reference_id=${user?.uid}`
+            : `https://buy.stripe.com/3cs4hKgna7DagY814d?client_reference_id=${user?.uid}`,
       },
-      price: 3.99,
+      price: billingPeriod === 'month' ? 3.99 : 3.33,
       currencySymbol: '$',
-      frequency: 'month',
-      frequencyText: 'per month, billed monthly',
+      frequency: billingPeriod,
+      frequencyText:
+        billingPeriod === 'month'
+          ? 'per month, billed monthly'
+          : 'per month, billed yearly',
       features: [
         { name: 'Daily question' },
         { name: 'Compete with other users everyday' },
@@ -75,8 +85,14 @@ export const getPlans = (
       cta: {
         text: user?.userLevel === 'PREMIUM' ? 'Current plan' : 'Get started',
         href: {
-          local: `https://buy.stripe.com/test_8wMfZ07x02DraeQ289?client_reference_id=${user?.uid}`,
-          production: `https://buy.stripe.com/bIY3dG4Es6z65fq4gk?client_reference_id=${user?.uid}`,
+          local:
+            billingPeriod === 'month'
+              ? `https://buy.stripe.com/eVabKc0oc0aI23e28e?client_reference_id=${user?.uid}`
+              : `https://buy.stripe.com/3cs4hKgna7DagY814d?client_reference_id=${user?.uid}`,
+          production:
+            billingPeriod === 'month'
+              ? `https://buy.stripe.com/eVabKc0oc0aI23e28e?client_reference_id=${user?.uid}`
+              : `https://buy.stripe.com/3cs4hKgna7DagY814d?client_reference_id=${user?.uid}`,
         },
       },
       mostPopular: false,
@@ -129,7 +145,7 @@ export const getPlans = (
     },
   ];
 
-  return hideFree ? plans.filter((plan) => plan.id !== 'free') : plans;
+  return plans;
 };
 
 export type Plan = ReturnType<typeof getPlans>[number];

@@ -5,6 +5,10 @@ import { AnimatedBreak } from '@/components/marketing/pricing/animated-break';
 import PricingCardBlock from '@/components/marketing/pricing/pricing-card-block';
 import { createMetadata } from '@/utils/seo';
 import Link from 'next/link';
+import FrequencyToggle from '@/components/global/payment/frequency-toggle';
+import { cookies } from 'next/headers';
+import { revalidatePath } from 'next/cache';
+import Testimonials from '@/components/marketing/global/blocks/testimonials';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -78,7 +82,14 @@ const jsonLd = {
     'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
 };
 
+async function updateFrequency(frequency: 'month' | 'year') {
+  'use server';
+  cookies().set('billing_frequency', frequency);
+  revalidatePath('/pricing');
+}
+
 export default async function PricingPage() {
+  const cookieStore = cookies();
   const todayQuestion = await getTodaysQuestion();
 
   const faqs = [
@@ -197,6 +208,9 @@ export default async function PricingPage() {
     },
   ];
 
+  const billingPeriod =
+    (cookieStore.get('billing_frequency')?.value as 'month' | 'year') || 'year';
+
   return (
     <>
       <script
@@ -218,9 +232,17 @@ export default async function PricingPage() {
             Start your coding journey for free, no credit card required. Upgrade
             to a paid plan to unlock premium features with our affordable plans.
           </p>
+          <FrequencyToggle
+            initialFrequency={billingPeriod}
+            onFrequencyChange={updateFrequency}
+          />
           <div className="mt-10">
-            <PricingCardBlock />
+            <PricingCardBlock frequency={billingPeriod} />
           </div>
+        </div>
+
+        <div className="mt-10 mb-28">
+          <Testimonials header="Loved by developers just like you" />
         </div>
 
         <FAQsBlock faqs={faqs} />

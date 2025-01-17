@@ -34,10 +34,10 @@ export default async function TodaysQuestionPage({
   const leftContent = (
     <div className="flex flex-col gap-y-4 p-3 lg:p-6 lg:pr-3 h-full">
       <QuestionCard
-        question={question}
+        questionPromise={Promise.resolve(question)}
         user={user}
         nextQuestion={nextQuestion}
-        identifier="slug"
+        identifier="uid"
       />
     </div>
   );

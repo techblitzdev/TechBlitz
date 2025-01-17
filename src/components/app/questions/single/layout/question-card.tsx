@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { use, useRef } from 'react';
 
 // components
 import Chip from '@/components/ui/chip';
@@ -24,11 +24,15 @@ import CodeDisplay from './code-snippet';
 import ExpandedCodeModal from './expanded-code-modal';
 import ChangeCodeTheme from './change-code-theme';
 import AiQuestionHelp from './ai-question-help';
+import NoDailyQuestion from '@/components/global/no-daily-question';
+import QuestionSubmitted from './question-submitted';
+import { capitalize } from 'lodash';
+import { AnimatePresence } from 'framer-motion';
 
 export default function QuestionCard(opts: {
   // optional as this is not required to render the card
   user: UserRecord | null;
-  question: Question;
+  questionPromise: Promise<Question | null>;
   totalSubmissions?: {
     totalSubmissions: number;
     percentageCorrect: number;
@@ -40,19 +44,19 @@ export default function QuestionCard(opts: {
 }) {
   const {
     user,
-    question,
-    nextQuestion,
+    questionPromise,
     isRoadmapQuestion = false,
     totalSubmissions,
   } = opts;
 
+  const question = use(questionPromise);
+
   const {
-    pause,
-    reset,
     totalSeconds,
     currentLayout,
     setCurrentLayout,
     prefilledCodeSnippet,
+    answerHelp,
   } = useQuestionSingle();
 
   const answerFormRef = useRef<{
@@ -60,15 +64,14 @@ export default function QuestionCard(opts: {
     resetForm: () => void;
   }>(null);
 
-  const renderAnswerForm = () => (
-    <AnswerQuestionForm
-      stopwatchPause={pause}
-      time={totalSeconds}
-      nextQuestion={nextQuestion}
-      resetStopwatch={reset}
-    />
-  );
+  if (!question) {
+    return <NoDailyQuestion textAlign="center" />;
+  }
 
+  const renderAnswerForm = () => <AnswerQuestionForm time={totalSeconds} />;
+
+  // toggle layout only between questions and codeSnippet
+  // the answer is after the user has submitted their answer
   const toggleLayout = () => {
     setCurrentLayout(
       currentLayout === 'questions' ? 'codeSnippet' : 'questions'
@@ -115,7 +118,7 @@ export default function QuestionCard(opts: {
         </div>
       </div>
       <Separator className="bg-black-50" />
-      <div className="flex-1 bg-black overflow-y-scroll">
+      <div className="flex-1 bg-black overflow-y-auto scrollable-element">
         {currentLayout === 'questions' && (
           <QuestionTabs
             question={question}
@@ -123,12 +126,30 @@ export default function QuestionCard(opts: {
             totalSubmissions={totalSubmissions}
           />
         )}
-        {currentLayout === 'codeSnippet' && question.codeSnippet && (
-          <CodeDisplay
-            content={prefilledCodeSnippet || question.codeSnippet}
-            user={user}
-          />
+        {currentLayout === 'codeSnippet' &&
+          question.codeSnippet &&
+          !answerHelp && (
+            <CodeDisplay
+              content={prefilledCodeSnippet || question.codeSnippet}
+              user={user}
+            />
+          )}
+        {answerHelp && currentLayout === 'codeSnippet' && (
+          <AnimatePresence mode="wait">
+            <div className="flex flex-col gap-y-4 p-4">
+              <h2 className="text-lg font-bold">Answer Help</h2>
+              {Object.entries(answerHelp).map(([key, value], index) => (
+                <div key={index}>
+                  <h3 className="text-md font-bold underline">
+                    {capitalize(key.replace(/-/g, ' '))}
+                  </h3>
+                  <p className="text-gray-200">{value.replace(/```/g, '')}</p>
+                </div>
+              ))}
+            </div>
+          </AnimatePresence>
         )}
+        {currentLayout === 'answer' && <QuestionSubmitted />}
       </div>
       <Separator className="bg-black-50" />
       <div className="w-full space-y-4 px-4 bg-black">

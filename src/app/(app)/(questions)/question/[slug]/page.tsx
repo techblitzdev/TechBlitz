@@ -33,10 +33,12 @@ export default async function TodaysQuestionPage({
     return <NoDailyQuestion textAlign="center" />;
   }
 
+  const questionPromise = getQuestion('slug', slug);
+
   const leftContent = (
     <div className="flex flex-col gap-y-4 p-3 lg:p-6 lg:pr-3 h-full">
       <QuestionCard
-        question={question}
+        questionPromise={questionPromise}
         totalSubmissions={totalSubmissions}
         user={user}
         nextQuestion={nextQuestion}

@@ -36,6 +36,8 @@ export type Question = {
   QuestionResources?: QuestionResources[];
 
   slug: string | null;
+
+  slugGenerated: boolean;
 };
 
 export type QuestionWithoutAnswers = Omit<Question, 'answers'>;

@@ -14,6 +14,7 @@ import { Separator } from '@/components/ui/separator';
 import { Question } from '@/types/Questions';
 import QuestionResourceTab from '@/components/app/questions/resources/question-resource-tab';
 import QuestionStatsTab from './question-stats-tab';
+import { cn } from '@/lib/utils';
 
 interface QuestionTabsProps {
   question: Question;
@@ -34,7 +35,7 @@ export default function QuestionTabs({
   >('description');
 
   return (
-    <Tabs defaultValue="description" className="w-full">
+    <Tabs defaultValue="description" className={cn('w-full relative')}>
       <TabsList className="h-auto grid w-full grid-cols-3 text-white rounded-none bg-transparent p-2 lg:p-4">
         <TabsTrigger
           value="description"

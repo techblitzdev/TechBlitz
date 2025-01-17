@@ -1,6 +1,8 @@
 import { BaseRecord } from './BaseRecord';
 import { UserWithOutAnswers } from './User';
 
+type AnswerDifficulty = 'EASY' | 'MEDIUM' | 'HARD';
+
 /**
  * The Answer type is the shape of the data when a user
  * answers a question.
@@ -18,6 +20,9 @@ export interface Answer extends BaseRecord {
   questionDate: string;
   /** How long it took the user to answer this question */
   timeTaken: number | null;
+
+  /** The difficulty the user found this question */
+  difficulty: AnswerDifficulty;
 }
 
 export interface AnswerWithUser extends Answer {

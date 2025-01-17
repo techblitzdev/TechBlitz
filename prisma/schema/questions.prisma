@@ -5,6 +5,12 @@ enum QuestionDifficulty {
   HARD
 }
 
+enum AnswerDifficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
 enum QuestionAnswerType {
   // when the user clicks an answer, it is prefilled in the code snippet
   PREFILL
@@ -105,6 +111,9 @@ model Answers {
   correctAnswer Boolean   @default(false)
   questionDate  String    @default("")
   timeTaken     Int?
+
+  // the difficulty the user found this question
+  difficulty AnswerDifficulty @default(EASY)
 }
 
 // Resources (learning resources) for this question

@@ -1,12 +1,15 @@
 'use client';
 
-import { Question } from '@/types/Questions';
+import { createContext, useState, useContext, useEffect } from 'react';
+import { useStopwatch } from 'react-timer-hook';
+import { toast } from 'sonner';
+import { answerQuestion } from '@/actions/answers/answer';
+import { Question, QuestionWithoutAnswers } from '@/types/Questions';
 import { UserRecord } from '@/types/User';
 import { Answer } from '@/types/Answers';
-import { createContext, useState, useContext, useEffect } from 'react';
-import { answerQuestion } from '@/actions/answers/answer';
-import { toast } from 'sonner';
-import { useStopwatch } from 'react-timer-hook';
+import { generateAnswerHelp } from '@/actions/ai/questions/answer-help';
+import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
+import { z } from 'zod';
 
 type QuestionSingleContextType = {
   question: Question;
@@ -21,16 +24,20 @@ type QuestionSingleContextType = {
   setTimeTaken: (time: number) => void;
   submitQuestionAnswer: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
   resetQuestionState: () => void;
-  isModalOpen: boolean;
-  setIsModalOpen: (open: boolean) => void;
   pause: () => void;
   reset: () => void;
   totalSeconds: number;
-  currentLayout: 'questions' | 'codeSnippet';
-  setCurrentLayout: (layout: 'questions' | 'codeSnippet') => void;
+  currentLayout: 'questions' | 'codeSnippet' | 'answer';
+  setCurrentLayout: (layout: 'questions' | 'codeSnippet' | 'answer') => void;
   customQuestion: boolean;
   setCustomQuestion: (customQuestion: boolean) => void;
   prefilledCodeSnippet: string | null;
+  relatedQuestions: Promise<QuestionWithoutAnswers[]> | null;
+  generateAiAnswerHelp: (setCodeSnippetLayout?: boolean) => Promise<void>;
+  answerHelp: z.infer<typeof answerHelpSchema> | null;
+  setAnswerHelp: (answerHelp: z.infer<typeof answerHelpSchema> | null) => void;
+  tokensUsed: number;
+  setTokensUsed: (tokensUsed: number) => void;
 };
 
 export const QuestionSingleContext = createContext<QuestionSingleContextType>(
@@ -51,62 +58,66 @@ export const QuestionSingleContextProvider = ({
   children,
   question,
   user,
+  relatedQuestions,
 }: {
   children: React.ReactNode;
   question: Question;
   user: UserRecord | null;
+  relatedQuestions: Promise<QuestionWithoutAnswers[]> | null;
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState<
     'init' | 'incorrect' | 'correct'
   >('init');
-  // stored here so we can start to change the codeSnippet based on the user's answer
-  // (prefilling the code snippet)
+  // the users answer to the question
   const [userAnswer, setUserAnswer] = useState<Answer | null>(null);
+
+  // the new user data after the question is answered
   const [newUserData, setNewUserData] = useState<UserRecord | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // the selected answer by the user
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
+
+  // the time taken to answer the question
   const [timeTaken, setTimeTaken] = useState<number>(0);
+
+  // whether the question is a custom question
   const [customQuestion, setCustomQuestion] = useState(false);
 
-  // The prefilled code snippet
+  // the prefilled code snippet based on the user's answer
   const [prefilledCodeSnippet, setPrefilledCodeSnippet] = useState<
     string | null
   >(null);
-  // on answer selected change, check if the answer is a code snippet
-  // if it is, set the prefilled code snippet to the answer
+
+  // track the answer help
+  const [answerHelp, setAnswerHelp] = useState<z.infer<
+    typeof answerHelpSchema
+  > | null>(null);
+
+  // track the tokens used
+  const [tokensUsed, setTokensUsed] = useState<number>(
+    user?.userLevel === 'PREMIUM' ? Infinity : user?.aiQuestionHelpTokens || 0
+  );
+
+  // the current layout of the page
+  const [currentLayout, setCurrentLayout] = useState<
+    'questions' | 'codeSnippet' | 'answer'
+  >('questions');
+
+  const { pause, reset, totalSeconds } = useStopwatch({ autoStart: true });
+
   useEffect(() => {
-    // Check if the selected answer is a prefill answer
-    // everytime the answer changes, we need to check if we can update
-    // the prefilled code snippet
-    if (selectedAnswer) {
+    if (selectedAnswer && !prefilledCodeSnippet) {
       const answer = question.answers.find(
         (answer) => answer.uid === selectedAnswer
       )?.answerFullSnippet;
-
-      if (answer) {
-        setPrefilledCodeSnippet(answer);
-      } else {
-        setPrefilledCodeSnippet(question.codeSnippet);
-      }
+      setPrefilledCodeSnippet(answer || question.codeSnippet);
     }
-  }, [selectedAnswer]);
-
-  // this determines if the code snippet or question is shown in the question card on mobile
-  // on button click, it acts as a toggle
-  const [currentLayout, setCurrentLayout] = useState<
-    'questions' | 'codeSnippet'
-  >('questions');
-
-  const { pause, reset, totalSeconds } = useStopwatch({
-    autoStart: true,
-  });
+  }, [selectedAnswer, question.answers, question.codeSnippet]);
 
   const submitQuestionAnswer = async (e: React.FormEvent<HTMLFormElement>) => {
-    // stop the stopwatch
-    pause();
-
     e.preventDefault();
+    pause();
 
     if (!user) {
       console.error('User is not logged in');
@@ -122,16 +133,11 @@ export const QuestionSingleContextProvider = ({
     setIsSubmitting(true);
 
     try {
-      const opts: {
-        questionUid: string;
-        answerUid: string;
-        userUid: string;
-        timeTaken: number;
-      } = {
-        questionUid: question?.uid,
+      const opts = {
+        questionUid: question.uid,
         answerUid: selectedAnswer,
         userUid: user.uid,
-        timeTaken: timeTaken,
+        timeTaken,
       };
 
       const {
@@ -143,13 +149,34 @@ export const QuestionSingleContextProvider = ({
       setCorrectAnswer(isCorrect ? 'correct' : 'incorrect');
       setUserAnswer(submittedAnswer);
       setNewUserData(newUserData);
-      setIsModalOpen(true);
+
+      // once we have submitted the answer, we can set the current layout to 'answer'
+      setCurrentLayout('answer');
     } catch (error) {
       console.error('Error submitting answer:', error);
       toast.error('Error submitting answer');
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const generateAiAnswerHelp = async (setCodeSnippetLayout?: boolean) => {
+    // if the user has asked for assistance for the answer, set the current layout to 'codeSnippet'
+    // this is so mobile view switches to the code snippet view
+    if (setCodeSnippetLayout) {
+      setCurrentLayout('codeSnippet');
+    }
+    const { content, tokensUsed } = await generateAnswerHelp(
+      question.uid,
+      correctAnswer === 'correct'
+    );
+    if (!answerHelp) {
+      toast.error('Error generating answer help');
+      return;
+    }
+
+    setTokensUsed(tokensUsed);
+    setAnswerHelp(content);
   };
 
   const resetQuestionState = () => {
@@ -160,8 +187,9 @@ export const QuestionSingleContextProvider = ({
     setIsSubmitting(false);
     setSelectedAnswer('');
     setTimeTaken(0);
-    setIsModalOpen(false);
-    setPrefilledCodeSnippet(question.codeSnippet);
+    setPrefilledCodeSnippet(null);
+    setCurrentLayout('questions');
+    setAnswerHelp(null);
   };
 
   return (
@@ -179,8 +207,6 @@ export const QuestionSingleContextProvider = ({
         setTimeTaken,
         submitQuestionAnswer,
         resetQuestionState,
-        isModalOpen,
-        setIsModalOpen,
         pause,
         reset,
         totalSeconds,
@@ -189,6 +215,12 @@ export const QuestionSingleContextProvider = ({
         customQuestion,
         setCustomQuestion,
         prefilledCodeSnippet,
+        relatedQuestions,
+        generateAiAnswerHelp,
+        answerHelp,
+        setAnswerHelp,
+        tokensUsed,
+        setTokensUsed,
       }}
     >
       {children}

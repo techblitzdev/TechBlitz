@@ -19,6 +19,7 @@ const PROMPT_NAMES = [
 
   // QUESTION HELP
   'ai-question-generation-help',
+  'question-answer-help',
 ] as const;
 
 export type PromptName = (typeof PROMPT_NAMES)[number];

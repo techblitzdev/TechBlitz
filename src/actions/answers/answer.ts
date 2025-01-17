@@ -3,6 +3,7 @@ import { Answer } from '@/types/Answers';
 import { UserRecord } from '@/types/User';
 import { prisma } from '@/lib/prisma';
 import { revalidateTag } from 'next/cache';
+import { AnswerDifficulty } from '@prisma/client';
 
 // Types
 interface AnswerQuestionInput {
@@ -175,8 +176,8 @@ const updateOrCreateAnswer = async (
     if (
       // Change from incorrect to correct
       correctAnswer !== existingAnswer.correctAnswer ||
-      (timeTaken !== undefined &&
-        timeTaken < (existingAnswer.timeTaken ?? Infinity))
+      // update time taken no matter what
+      timeTaken !== undefined
     ) {
       return tx.answers.update({
         where: { uid: existingAnswer.uid },
@@ -247,4 +248,21 @@ export async function answerQuestion({
     userAnswer,
     userData: userData as UserRecord | null,
   };
+}
+
+/**
+ * Allows the user to specify how hard they found a question.
+ * We will use this to serve more personalized questions to the user.
+ *
+ * @param answerUid - The uid of the answer to update.
+ * @param difficulty - The difficulty the user found the question.
+ */
+export async function updateAnswerDifficulty(
+  answerUid: string,
+  difficulty: AnswerDifficulty
+) {
+  await prisma.answers.update({
+    where: { uid: answerUid },
+    data: { difficulty },
+  });
 }

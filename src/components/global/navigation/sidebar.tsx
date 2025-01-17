@@ -359,7 +359,7 @@ export function AppSidebar(opts: {
   };
 
   return (
-    <Sidebar collapsible="icon" className="z-50">
+    <Sidebar collapsible="icon" className="z-50 group">
       <SidebarContent className="py-6 bg-[#000000]">
         <SidebarGroup>
           <SidebarGroupLabel className="w-full flex items-center justify-between">
@@ -377,7 +377,7 @@ export function AppSidebar(opts: {
                 <Logo />
               </div>
             )}
-            <SidebarTrigger className="size-5 h-7" />
+            <SidebarTrigger className="size-5 h-7 opacity-0 group-hover:opacity-100 duration-300 -right-1 group-hover:right-0 transition-all" />
           </SidebarGroupLabel>
           {/* This div will show when the sidebar is collapsed */}
           <div className="hidden group-data-[collapsible=icon]:flex items-center justify-center h-8 mb-5">

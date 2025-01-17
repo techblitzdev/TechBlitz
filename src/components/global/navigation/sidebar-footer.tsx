@@ -8,7 +8,7 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
-import { ChevronUp } from 'lucide-react';
+import { ChevronsUpDown } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,6 +21,7 @@ import ProfilePicture from '@/components/ui/profile-picture';
 import { UserRecord } from '@/types/User';
 import { getUserDisplayName } from '@/utils/user';
 import { Profile } from '@/types/Profile';
+import { capitalise } from '@/utils';
 
 /**
 /**
@@ -80,13 +81,25 @@ export default function SidebarFooterComponent(opts: {
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton variant="default" className="text-white">
+                <SidebarMenuButton
+                  variant="default"
+                  className="text-white h-fit"
+                >
                   <ProfilePicture
                     src={user?.userProfilePicture}
                     alt="Profile Picture"
+                    className="size-9"
                   />
-                  {user && getUserDisplayName(user)}
-                  <ChevronUp className="ml-auto" />
+
+                  <div className="flex flex-col">
+                    <span className="text-white font-medium text-lg line-clamp-1">
+                      {user && getUserDisplayName(user)}
+                    </span>
+                    <span className="text-xs text-white">
+                      {capitalise(user.userLevel)}
+                    </span>
+                  </div>
+                  <ChevronsUpDown className="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56 bg-[#000] !text-white border-black-50">

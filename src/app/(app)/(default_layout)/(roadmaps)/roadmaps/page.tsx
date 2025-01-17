@@ -28,12 +28,20 @@ const CreateRoadmapButton = dynamic(
 import { fetchUserRoadmaps } from '@/utils/data/roadmap/fetch-user-roadmaps';
 import { useUserServer } from '@/hooks/use-user-server';
 import RoadmapsCardSkeleton from '@/components/app/roadmaps/[uid]/roadmaps-card-loading';
+import UpgradeLayout from '@/components/global/upgrade-layout';
 
 export default async function RoadmapPage() {
   // middleware should catch this, but just in case
   const user = await useUserServer();
   if (!user) return redirect('/login');
-
+  if (user.userLevel === 'FREE') {
+    return (
+      <UpgradeLayout
+        title="Personalized Coding Roadmaps"
+        description="In order to create personalized coding roadmaps, you need to upgrade to Premium."
+      />
+    );
+  }
   // fetch the user's roadmaps
   const userRoadmaps = await fetchUserRoadmaps(user.uid);
 

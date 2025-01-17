@@ -10,6 +10,7 @@ export const userDetailsSchema = z
     sendPushNotifications: z.boolean().optional(),
     codeEditorTheme: z.string().optional(),
     userProfilePicture: z.string().optional(),
+    aboutMeAiHelp: z.string().optional(),
   })
   .transform((data) => {
     // Remove null values from the payload

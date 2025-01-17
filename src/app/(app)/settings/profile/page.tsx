@@ -42,6 +42,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UserUpdatePayload } from '@/types/User';
 import { themes } from 'prism-react-renderer';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
 type SchemaProps = z.input<typeof userDetailsSchema>;
 
@@ -59,6 +60,7 @@ export default function SettingsProfilePage() {
       sendPushNotifications: user?.sendPushNotifications || false,
       codeEditorTheme: user?.codeEditorTheme || 'vs-dark',
       userProfilePicture: user?.userProfilePicture || '',
+      aboutMeAiHelp: user?.aboutMeAiHelp || '',
     },
   });
 
@@ -72,6 +74,7 @@ export default function SettingsProfilePage() {
         sendPushNotifications: user.sendPushNotifications,
         codeEditorTheme: user.codeEditorTheme || 'vs-dark',
         userProfilePicture: user.userProfilePicture || '',
+        aboutMeAiHelp: user.aboutMeAiHelp || '',
       });
     }
   }, [user, isLoading, form]);
@@ -155,8 +158,10 @@ export default function SettingsProfilePage() {
   return (
     <div className="flex flex-col">
       <div className="space-y-1 p-8">
-        <h1 className="text-2xl">Profile Settings</h1>
-        <p className="text-sm">Update your profile details and preferences.</p>
+        <h1 className="text-3xl">Profile Settings</h1>
+        <p className="text-base">
+          Update your profile details and preferences.
+        </p>
       </div>
       <Separator className="w-full bg-black-50" />
       <Form {...form}>
@@ -187,14 +192,14 @@ export default function SettingsProfilePage() {
                   <div className="flex flex-col gap-2">
                     <Label
                       htmlFor="logo-file-upload"
-                      className="text-sm font-medium"
+                      className="text-base font-medium"
                     >
                       Profile Picture
                     </Label>
                     <div className="flex gap-2">
                       <label
                         htmlFor="logo-file-upload"
-                        className="cursor-pointer bg-primary hover:bg-primary/90 border border-black-50 text-primary-foreground px-4 py-2 rounded-md text-sm"
+                        className="cursor-pointer bg-primary hover:bg-primary/90 border border-black-50 text-primary-foreground px-4 py-2 rounded-md text-base"
                       >
                         Choose File
                       </label>
@@ -208,7 +213,7 @@ export default function SettingsProfilePage() {
                         accept="image/*"
                       />
                     </div>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-sm text-gray-500">
                       Recommended: Square image, at least 200x200px (max 2MB)
                     </p>
                   </div>
@@ -299,7 +304,7 @@ export default function SettingsProfilePage() {
                             }}
                             className="bg-black-50"
                           />
-                          <Label htmlFor="showTimeTaken">
+                          <Label htmlFor="showTimeTaken" className="text-base">
                             Show on leaderboard
                           </Label>
                         </div>
@@ -332,13 +337,59 @@ export default function SettingsProfilePage() {
                             disabled
                             className="bg-black-50"
                           />
-                          <Label htmlFor="sendPushNotifications">
+                          <Label
+                            htmlFor="sendPushNotifications"
+                            className="text-base"
+                          >
                             Send push notifications (coming soon)
                           </Label>
                         </div>
                       </TooltipTrigger>
                     </Tooltip>
                   </TooltipProvider>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/** About me - only allow premium users to edit this */}
+          <FormField
+            control={form.control}
+            name="aboutMeAiHelp"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <>
+                    <Label htmlFor="aboutMeAiHelp" className="text-base">
+                      Personalize your AI
+                    </Label>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      Provide a short description of yourself to help our AI
+                      understand you better. This can include topics that
+                      interest you, or code weaknesses you want to improve on.
+                    </p>
+                    <Textarea
+                      id="aboutMeAiHelp"
+                      placeholder="Enter a short description to help us make TechBlitz a more personalized experience for you."
+                      className="resize-none"
+                      {...field}
+                      value={field.value || ''}
+                      disabled={user?.userLevel === 'FREE'}
+                      rows={4}
+                    />
+                    {user?.userLevel === 'FREE' && (
+                      <div className="mt-2 text-sm text-red-500">
+                        Upgrade to a premium account to enhance your AI.
+                        <a
+                          href="https://dub.sh/upgrade-techblitz"
+                          className="text-accent underline ml-1"
+                        >
+                          Upgrade now
+                        </a>
+                      </div>
+                    )}
+                  </>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -381,7 +432,12 @@ export default function SettingsProfilePage() {
           />
 
           <div className="flex flex-wrap gap-4">
-            <Button type="submit" variant="secondary" disabled={isPending}>
+            <Button
+              type="submit"
+              variant="secondary"
+              disabled={isPending}
+              className="text-base"
+            >
               {isPending ? <LoadingSpinner /> : 'Save changes'}
             </Button>
             <LogoutButton variant="destructive" />

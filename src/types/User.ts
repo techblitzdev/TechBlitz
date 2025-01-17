@@ -44,6 +44,9 @@ export interface User extends BaseRecord {
 
   // the user's referral code
   referralCode?: string | null;
+
+  // user entered text that will be used to assist in ai generation
+  aboutMeAiHelp?: string | null;
 }
 
 export type UserRecord = Pick<
@@ -69,6 +72,7 @@ export type UserRecord = Pick<
   | 'stripeEmails'
   | 'howDidYouHearAboutTechBlitz'
   | 'referralCode'
+  | 'aboutMeAiHelp'
 >;
 
 // First, create a type that excludes 'uid' from the partial requirement

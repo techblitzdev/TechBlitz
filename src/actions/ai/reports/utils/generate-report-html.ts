@@ -2,6 +2,7 @@
 
 import { getPrompt } from '@/actions/ai/utils/get-prompt';
 import { openai } from '@/lib/open-ai';
+import { UserRecord } from '@/types/User';
 
 type Tag = {
   tagName: string;
@@ -16,8 +17,9 @@ type Tag = {
 export const generateReportHtml = async (opts: {
   correctTags: Tag[];
   incorrectTags: Tag[];
+  user: UserRecord;
 }) => {
-  const { correctTags, incorrectTags } = opts;
+  const { correctTags, incorrectTags, user } = opts;
 
   // go and get the prompt from the db
   const prompts = await getPrompt({
@@ -36,6 +38,15 @@ export const generateReportHtml = async (opts: {
       {
         role: 'system',
         content: prompt,
+      },
+      {
+        role: 'system',
+        content:
+          'The user has provided the following information about themselves, tailor your answer to this information:',
+      },
+      {
+        role: 'user',
+        content: user?.aboutMeAiHelp || '',
       },
       {
         role: 'user',

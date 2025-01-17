@@ -3,6 +3,7 @@ import { openai } from '@/lib/open-ai';
 import { zodResponseFormat } from 'openai/helpers/zod';
 import { getPrompt } from '@/actions/ai/utils/get-prompt';
 import { aiQuestionSchema } from '@/lib/zod/schemas/ai/response';
+import { UserRecord } from '@/types/User';
 
 /**
  * Generate custom questions for a user based on their incorrect tags
@@ -12,9 +13,10 @@ import { aiQuestionSchema } from '@/lib/zod/schemas/ai/response';
  */
 export const generateStatisticsCustomQuestions = async (opts: {
   incorrectTags: { tagName: string; count: number }[];
+  user: UserRecord;
 }) => {
   // the tags that we will pass to the prompt
-  const { incorrectTags } = opts;
+  const { incorrectTags, user } = opts;
 
   const prompts = await getPrompt({
     name: ['statistics-generate-report'],
@@ -32,6 +34,15 @@ export const generateStatisticsCustomQuestions = async (opts: {
       {
         role: 'system',
         content: prompts['statistics-generate-report'].content,
+      },
+      {
+        role: 'system',
+        content:
+          'The user has provided the following information about themselves, tailor your answer to this information:',
+      },
+      {
+        role: 'user',
+        content: user?.aboutMeAiHelp || '',
       },
       {
         role: 'user',

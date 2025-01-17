@@ -63,6 +63,9 @@ model Users {
 
   // the user's referral code
   referralCode String?
+
+  // user entered text that will be used to assist in ai generation
+  aboutMeAiHelp String?
 }
 
 // the streak model for tracking the user's streak

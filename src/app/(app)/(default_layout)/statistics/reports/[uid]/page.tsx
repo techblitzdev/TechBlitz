@@ -1,7 +1,7 @@
 import { getReport } from '@/utils/data/statistics/reports/get-report';
 import StatisticsReportContent from '@/components/app/statistics/statistics-report-content';
 import { useUserServer } from '@/hooks/use-user-server';
-import { redirect } from 'next/navigation';
+import UpgradeLayout from '@/components/global/upgrade-layout';
 
 export default async function StatisticsReportPage({
   params,
@@ -13,7 +13,12 @@ export default async function StatisticsReportPage({
 
   const user = await useUserServer();
   if (!user || user.userLevel === 'FREE') {
-    return redirect('/dashboard');
+    return (
+      <UpgradeLayout
+        title="Reports"
+        description="In order to view reports, you need to upgrade to Premium."
+      />
+    );
   }
 
   if (!report) {

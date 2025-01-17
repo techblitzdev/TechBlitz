@@ -132,25 +132,10 @@ export function AppSidebar(opts: {
       ],
     },
     {
-      title: (
-        <>
-          {user?.userLevel === 'ADMIN' ||
-          user?.userLevel === 'PREMIUM' ||
-          (user?.userLevel === 'STANDARD' &&
-            !pathname.startsWith('/settings')) ? (
-            <p>Roadmaps</p>
-          ) : (
-            <div className="flex items-center gap-3 opacity-50 hover:cursor-not-allowed">
-              <p>Roadmaps</p>
-              <LockIcon className="size-3" />
-            </div>
-          )}
-        </>
-      ),
+      title: 'Roadmaps',
       tooltip: 'Roadmaps',
       url: '/roadmaps',
       icon: RouteIcon,
-      disabled: user?.userLevel === 'FREE',
     },
     {
       title: 'Stats',
@@ -163,21 +148,9 @@ export function AppSidebar(opts: {
           url: '/statistics',
         },
         {
-          title: (
-            <>
-              {user?.userLevel === 'PREMIUM' || user?.userLevel === 'ADMIN' ? (
-                'Reports'
-              ) : (
-                <div className="flex items-center gap-3 opacity-50 hover:cursor-not-allowed">
-                  <p>Reports</p>
-                  <LockIcon className="size-3" />
-                </div>
-              )}
-            </>
-          ),
+          title: 'Reports',
           tooltip: 'Reports',
           url: '/statistics/reports',
-          disabled: user?.userLevel !== 'PREMIUM',
         },
       ],
     },
@@ -186,7 +159,6 @@ export function AppSidebar(opts: {
       url: '/leaderboard',
       icon: Award,
       tooltip: 'Leaderboard',
-      badge: 'New!',
     },
     {
       groupLabel: 'Support',

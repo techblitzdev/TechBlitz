@@ -24,7 +24,7 @@ export default async function StatisticsPage({
 }) {
   // ensure only premiums users can access this page
   const user = await useUserServer();
-  if (!user || user.userLevel === 'FREE') {
+  if (!user) {
     return null;
   }
 

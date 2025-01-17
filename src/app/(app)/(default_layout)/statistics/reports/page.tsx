@@ -17,8 +17,22 @@ const StatsReportCardsWrapper = dynamic(
 import Hero from '@/components/global/hero';
 import StatsReportCardSkeleton from '@/components/app/statistics/stats-report-card-loading';
 import GenerateReportButton from '@/components/app/statistics/generate-report-button';
+import UpgradeLayout from '@/components/global/upgrade-layout';
+import { useUserServer } from '@/hooks/use-user-server';
+import { redirect } from 'next/navigation';
 
-export default function StatisticsReportsPage() {
+export default async function StatisticsReportsPage() {
+  const user = await useUserServer();
+  if (!user) return redirect('/login');
+  if (user.userLevel === 'FREE') {
+    return (
+      <UpgradeLayout
+        title="Reports"
+        description="In order to generate reports, you need to upgrade to Premium."
+      />
+    );
+  }
+
   return (
     <>
       <Hero

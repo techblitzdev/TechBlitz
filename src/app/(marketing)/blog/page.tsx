@@ -27,27 +27,28 @@ export default async function BlogPage() {
     <div className="container">
       <section className="pt-32 lg:pt-52 pb-36 relative">
         <div className="mt-28 z-10 absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#000] to-transparent pointer-events-none"></div>
-
-        <div className="flex flex-col gap-y-3 z-20 relative items-center">
-          <h1 className="text-center text-5xl lg:text-7xl !font-onest !font-medium tracking-tight text-gradient from-white to-white/75 py-1.5">
-            Blog
-          </h1>
-          <p className="text-gray-400 max-w-xl text-sm md:text-base font-onest text-center">
-            Stay up to date with the latest news and insights from TechBlitz.
-            Gather insights on how to level up your skills, beyond our coding
-            challenges.
-          </p>
+        <div className="relative">
+          <div className="flex flex-col gap-y-3 z-20 relative items-center">
+            <h1 className="text-center text-5xl lg:text-7xl !font-onest !font-medium tracking-tight text-gradient from-white to-white/75 py-1.5">
+              Blog
+            </h1>
+            <p className="text-gray-400 max-w-xl text-sm md:text-base font-onest text-center">
+              Stay up to date with the latest news and insights from TechBlitz.
+              Gather insights on how to level up your skills, beyond our coding
+              challenges.
+            </p>
+          </div>
+          <GridPattern
+            width={50}
+            height={50}
+            x={-1}
+            y={-1}
+            strokeDasharray={'4 2'}
+            className={cn(
+              'absolute inset-0 pt-44 [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]'
+            )}
+          />
         </div>
-        <GridPattern
-          width={50}
-          height={50}
-          x={-1}
-          y={-1}
-          strokeDasharray={'4 2'}
-          className={cn(
-            'absolute inset-0 pt-44 [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]'
-          )}
-        />
         <div className="z-10 absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">

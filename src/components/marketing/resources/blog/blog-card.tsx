@@ -26,6 +26,15 @@ export default function BlogCard(opts: { post: any }) {
         </p>
       )}
       <div className="flex items-center gap-2 mt-4 text-sm text-gray-500">
+        <div className="flex items-center gap-2">
+          <img
+            src={post.authorImage}
+            alt={post.author}
+            className="w-4 h-4 rounded-full"
+          />
+          <span className="text-sm text-gray-500">{post.author}</span>
+        </div>
+        <span>•</span>
         <time dateTime={post.date}>
           {new Date(post.date).toLocaleDateString('en-US', {
             month: 'long',

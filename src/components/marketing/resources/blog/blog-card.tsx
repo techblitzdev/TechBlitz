@@ -8,23 +8,25 @@ export default function BlogCard(opts: { post: any }) {
     <Link
       key={post.slug}
       href={`/blog/${post.slug}`}
-      className="group p-4 bg-[#000] border border-black-50 rounded-xl hover:border-accent transition-colors"
+      className="group p-4 bg-[#000] border border-black-50 rounded-xl hover:border-accent transition-colors flex flex-col justify-between h-full"
     >
-      {post.image && (
-        <img
-          src={post.image}
-          alt={post.title}
-          className="rounded-lg mb-4 w-full h-60 object-scale-down"
-        />
-      )}
-      <h2 className="text-xl font-medium mb-2 group-hover:text-accent">
-        {post.title}
-      </h2>
-      {post.description && (
-        <p className="text-gray-400 text-sm">
-          {shortenText(post.description, 75)}
-        </p>
-      )}
+      <div>
+        {post.image && (
+          <img
+            src={post.image}
+            alt={post.title}
+            className="rounded-lg mb-4 w-full h-60 object-scale-down"
+          />
+        )}
+        <h2 className="text-xl font-medium mb-2 group-hover:text-accent line-clamp-2">
+          {post.title}
+        </h2>
+        {post.description && (
+          <p className="text-gray-400 text-sm">
+            {shortenText(post.description, 75)}
+          </p>
+        )}
+      </div>
       <div className="flex items-center gap-2 mt-4 text-sm text-gray-500">
         <div className="flex items-center gap-2">
           <img

@@ -31,6 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'how-to-use-map-in-javascript',
     'how-to-use-reduce-in-javascript',
     'how-to-use-sort-in-javascript',
+    'how-to-use-some-in-javascript',
     'introducing-techblitz',
     'what-are-callback-functions',
   ];

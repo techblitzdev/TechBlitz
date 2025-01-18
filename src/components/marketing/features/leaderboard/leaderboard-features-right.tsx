@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/use-user-server';
-import { Code, FileQuestion, Flame } from 'lucide-react';
+import { Code, FileQuestion, Flame, User } from 'lucide-react';
+import ProfileImage from '@/components/profile/hero/profile-image';
+import ProfilePicture from '@/components/ui/profile-picture';
 
 export default async function LeaderboardFeaturesRight() {
   const user = await useUserServer();
@@ -28,15 +30,13 @@ export default async function LeaderboardFeaturesRight() {
     <div className="col-span-full md:col-span-6 pb-0 md:py-12 pt-4 p-0 md:p-12 flex flex-col gap-10">
       <div className="flex flex-col items-center gap-y-6 h-auto md:h-72 overflow-hidden relative">
         <div className="flex flex-col items-center gap-y-2">
-          <Image
-            src={user?.userProfilePicture || '/placeholder-avatar.png'}
+          <ProfilePicture
+            src={user?.userProfilePicture || ''}
             alt={user?.username || 'User'}
-            width={48}
-            height={48}
-            className="rounded-full aspect-square"
+            className="rounded-full aspect-square size-12"
           />
           <div className="text-center">
-            <h2 className="text-xl font-bold">{user?.username || 'Coder'}</h2>
+            <h2 className="text-xl font-bold">{user?.username || 'You'}</h2>
             <p className="text-sm text-gray-400">Level 5 Developer</p>
           </div>
         </div>

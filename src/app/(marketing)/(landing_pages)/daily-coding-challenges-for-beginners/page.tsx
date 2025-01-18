@@ -236,7 +236,7 @@ export default function DailyCodingChallengesForBeginnersPage() {
         />
         <FeatureLeftRightSection
           leftHeader="Beginner-friendly coding challenges"
-          leftSubheader="Beginner-friendly coding challenges that mimic real-world problems. Ensuring you can learn essential coding skills faster than ever."
+          leftSubheader="Beginner-friendly coding challenges that mimic real-world problems. Ensuring you can learn essential coding skills faster than ever. Ensure you never miss a day of learning with streaks, making it easier to stay consistent."
           learnMoreLink={true}
         />
         <ComparisonBlock

@@ -3,6 +3,10 @@
     {
       "path": "/api/cron/send-daily-challenge",
       "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/cron/sync-user-streak",
+      "schedule": "0 1 * * *"
     }
   ]
 }

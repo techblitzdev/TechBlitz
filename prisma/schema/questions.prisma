@@ -18,6 +18,11 @@ enum QuestionAnswerType {
   STANDARD
 }
 
+enum QuestionType {
+  CODE
+  MULTIPLE_CHOICE
+}
+
 model Questions {
   uid           String   @id @default(uuid())
   question      String
@@ -56,6 +61,9 @@ model Questions {
   slug String? @unique @default(uuid())
 
   slugGenerated Boolean @default(false)
+
+  // the type of question - either multiple choice or write code
+  questionType QuestionType @default(MULTIPLE_CHOICE)
 }
 
 // Tags for this question

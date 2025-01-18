@@ -1,0 +1,56 @@
+/**
+ * Badges are awarded to users for their achievements.
+ * Badges are awarded for a variety of reasons, such as:
+ * - Longest streak
+ * - Most questions answered
+ * - Most questions correct
+ */
+
+enum BadgeType {
+    STREAK
+    QUESTION_ANSWERED
+    QUESTION_CORRECT
+    TIME_TAKEN
+    LEADERBOARD_POSITION
+}
+
+enum CompletionStatus {
+    INCOMPLETE
+    COMPLETED
+}
+
+model Badge {
+    uid String @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    name String
+    description String
+    imageUrl String
+    type BadgeType
+
+    // store as json
+    requirements Json 
+
+    achievements Achievement[]
+}
+
+model Achievement {
+    uid String @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    badgeUid String
+    badge Badge @relation(fields: [badgeUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+
+    userUid String
+    user Users @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
+
+    // when the user unlocked the badge
+    unlockedAt DateTime
+
+    // the status of the achievement
+    status CompletionStatus @default(INCOMPLETE)
+    // Track progress towards completion
+    progress Int 
+}

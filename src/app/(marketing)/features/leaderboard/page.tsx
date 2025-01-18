@@ -16,6 +16,7 @@ import {
   Users,
 } from 'lucide-react';
 import { MobileIcon } from '@radix-ui/react-icons';
+import Testimonials from '@/components/marketing/global/blocks/testimonials';
 
 // metadata
 export async function generateMetadata() {
@@ -59,6 +60,11 @@ const faqs = [
       'You can get on the leaderboard by completing challenges. The more challenges you complete, the higher you will climb on the leaderboard.',
   },
   {
+    question: "But I don't want to be on the leaderboard?",
+    answer:
+      'That\'s fine! You can opt out of the leaderboard by going to your profile settings and toggling the "Show on leaderboard" option. No pressure!',
+  },
+  {
     question: 'Is TechBlitz free?',
     answer:
       'Yes! TechBlitz is 100% free. We believe that everyone should have access to the tools and resources they need to learn to code. You can sign up for free and start coding today!',
@@ -93,7 +99,7 @@ const faqs = [
         <a href="/signup" className="!text-accent underline">
           here
         </a>
-        .
+        ! We're excited to see you on the leaderboard!
       </>
     ),
   },
@@ -102,9 +108,9 @@ const faqs = [
 const featureShowcaseItems: MarketingContentGridProps[] = [
   {
     icon: <Code />,
-    title: 'Practical Coding Skills',
+    title: 'Enjoyable way to learn',
     description:
-      'Learn real-world programming through hands-on projects and exercises. Build a strong foundation in coding with our comprehensive curriculum of challenges including JavaScript, React, Node.js, and more.',
+      'The TechBlitz is a great way to make coding fun and engaging. We have a wide range of challenges to choose from, and you can even generate your own challenges, personalized to you!',
   },
   {
     icon: <MobileIcon />,
@@ -146,8 +152,20 @@ const featureShowcaseItems: MarketingContentGridProps[] = [
   {
     icon: <Sun />,
     title: 'Daily Coding Challenges',
-    description:
-      'Bite-sized coding challenges to keep you engaged and learning. Perfect for busy developers who want to stay sharp and improve their skills.',
+    description: (
+      <>
+        Bite-sized coding challenges to keep you engaged and learning. Perfect
+        for busy developers who want to stay sharp and improve their skills. You
+        can learn more{' '}
+        <a
+          href="/features/daily-coding-challenges"
+          className="!text-accent underline"
+        >
+          here
+        </a>
+        .
+      </>
+    ),
   },
 ];
 
@@ -198,8 +216,12 @@ export default function LeaderboardPage() {
           subheading="Everything you need in one place to learn to code."
           items={featureShowcaseItems}
         />
+        <FAQsBlock faqs={faqs} />
+        <div className="pb-20">
+          <Testimonials />
+        </div>
         <CallToActionBlock
-          title="Learn to code for free."
+          title="Get started for free."
           description="See how you stack up against the rest of the community - and improve your skills along the way."
           leftCta={{
             title: 'Get Started',

@@ -37,7 +37,7 @@ export async function generateMetadata() {
       'learn to code on phone',
     ],
     image: {
-      text: `Daily Coding Challenges | TechBlitz`,
+      text: `Leaderboard | TechBlitz`,
       bgColor: '#000',
       textColor: '#fff',
     },

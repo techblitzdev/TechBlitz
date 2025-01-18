@@ -18,16 +18,16 @@ export default function FeatureRoadmapHeroBlock() {
           based on your current skills
         </p>
         <div className="mt-2 flex gap-4">
+          <Button
+            href="/signup"
+            className="font-onest !bg-gradient-to-r !from-accent !via-accent/70 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+          >
+            Get started for free
+            <ChevronRight size={16} className="ml-2" />
+          </Button>
           <Button variant="default" href="#roadmap-customization">
             Learn more
             <ArrowDown size={16} className="ml-2" />
-          </Button>
-          <Button
-            href="/signup?src=features-roadmap"
-            className="font-onest !bg-gradient-to-r !from-accent !via-accent/70 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
-          >
-            Try it now
-            <ChevronRight size={16} className="ml-2" />
           </Button>
         </div>
       </div>

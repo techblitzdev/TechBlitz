@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { MobileIcon } from '@radix-ui/react-icons';
 import Testimonials from '@/components/marketing/global/blocks/testimonials';
+import LeaderboardPodiumShowcase from '@/components/marketing/features/leaderboard/leaderboard-podium-showcase';
 
 // metadata
 export async function generateMetadata() {
@@ -61,7 +62,7 @@ const faqs = [
   {
     question: "But I don't want to be on the leaderboard?",
     answer:
-      'That\'s fine! You can opt out of the leaderboard by going to your profile settings and toggling the "Show on leaderboard" option. No pressure!',
+      'That\'s fine! You can opt out of the leaderboard by going to your profile settings and toggling the "Show on leaderboard" option. No pressure.',
   },
   {
     question: 'Is TechBlitz free?',
@@ -145,8 +146,16 @@ const featureShowcaseItems: MarketingContentGridProps[] = [
   {
     icon: <BarChart />,
     title: 'Track Your Progress',
-    description:
-      'Keep track of your coding progress with our comprehensive leaderboard. See how you stack up against the rest of the community and stay motivated to keep coding.',
+    description: (
+      <>
+        Keep track of your coding progress with our coding analytics. See your
+        progression, create custom coding challenges, and more. Learn more{' '}
+        <a href="/features/statistics" className="!text-accent underline">
+          here
+        </a>
+        .
+      </>
+    ),
   },
   {
     icon: <Sun />,
@@ -209,7 +218,8 @@ export default function LeaderboardPage() {
       />
       <div className="container">
         <LeaderboardHero />
-
+        {/** @ts-ignore - this is the valid type */}
+        <LeaderboardPodiumShowcase />
         <MarketingContentGrid
           title="Coding made enjoyable."
           subheading="Everything you need in one place to learn to code."

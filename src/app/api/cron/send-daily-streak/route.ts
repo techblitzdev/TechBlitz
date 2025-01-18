@@ -8,6 +8,8 @@ export const dynamic = 'force-dynamic'; // static by default, unless reading the
 const TEST_USER_UID = '3a57d7e8-8b80-483b-93d0-70fe1f06b0c0';
 
 export async function GET(request: NextRequest) {
+  console.log(request);
+
   const user = await prisma.users.findUnique({
     where: {
       uid: TEST_USER_UID,
@@ -25,5 +27,5 @@ export async function GET(request: NextRequest) {
     html: '<p>Hello, world!</p>',
   });
 
-  return Response.json({ success: true });
+  return new Response('Email sent', { status: 200 });
 }

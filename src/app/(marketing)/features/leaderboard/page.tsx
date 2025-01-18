@@ -17,6 +17,8 @@ import {
 import { MobileIcon } from '@radix-ui/react-icons';
 import Testimonials from '@/components/marketing/global/blocks/testimonials';
 import LeaderboardPodiumShowcase from '@/components/marketing/features/leaderboard/leaderboard-podium-showcase';
+import LeaderboardFeatures from '@/components/marketing/features/leaderboard/leaderboard-features';
+import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
 
 // metadata
 export async function generateMetadata() {
@@ -220,11 +222,18 @@ export default function LeaderboardPage() {
         <LeaderboardHero />
         {/** @ts-ignore - this is the valid type */}
         <LeaderboardPodiumShowcase />
+        <LeaderboardFeatures />
         <MarketingContentGrid
           title="Coding made enjoyable."
           subheading="Everything you need in one place to learn to code."
           items={featureShowcaseItems}
         />
+
+        <QuestionMarquee
+          header="Coding questions for everyone."
+          subheader="A wide range of coding questions to choose from, from your first challenge to first job."
+        />
+
         <FAQsBlock faqs={faqs} />
         <div className="pb-20">
           <Testimonials />

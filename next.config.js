@@ -17,6 +17,12 @@ const nextConfig = {
         port: '',
         pathname: '/github/stars/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'lbycuccwrcmdaxjqyxut.supabase.co',
+        port: '',
+        pathname: '/storage/v1/object/public/**',
+      },
     ],
   },
   async redirects() {

@@ -13,7 +13,6 @@ import {
   MessageSquareCode,
   Paintbrush,
   Sun,
-  Users,
 } from 'lucide-react';
 import { MobileIcon } from '@radix-ui/react-icons';
 import Testimonials from '@/components/marketing/global/blocks/testimonials';

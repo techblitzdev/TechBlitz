@@ -1,5 +1,6 @@
 'use client';
 
+import ReferralToast from '@/components/global/referral-toast';
 import { useSidebar } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
 
@@ -22,6 +23,7 @@ export default function RootProvider({
       )}
     >
       {children}
+      <ReferralToast />
     </main>
   );
 }

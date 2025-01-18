@@ -2,11 +2,12 @@
 
 import React from 'react';
 import { Editor } from '@monaco-editor/react';
-import { Check, X, ChevronRight } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useQuestionSingle } from '../questions/single/layout/question-single-context';
 import LoadingSpinner from '@/components/ui/loading';
 import { motion, AnimatePresence } from 'framer-motion';
+import ResultCard from './result-card';
 
 export default function CodeChallenge(opts: { defaultCode: string }) {
   const { defaultCode } = opts;
@@ -57,37 +58,11 @@ export default function CodeChallenge(opts: { defaultCode: string }) {
             {!result.passed && result.details && (
               <div className="space-y-2">
                 {result.details.map((detail, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                  >
-                    <Alert
-                      variant={detail.passed ? 'default' : 'default'}
-                      className={`border-l-4 ${
-                        detail.passed
-                          ? 'border-l-green-500'
-                          : 'border-l-red-500'
-                      }`}
-                    >
-                      <AlertDescription>
-                        <div className="flex flex-col space-y-2">
-                          <div className="flex items-center">
-                            <ChevronRight className="h-4 w-4 mr-2" />
-                            <span className="font-medium">
-                              Test Case {index + 1}
-                            </span>
-                          </div>
-                          <div className="ml-6 space-y-1 text-sm">
-                            <p>Input: ({detail.input.join(', ')})</p>
-                            <p>Expected: {detail.expected}</p>
-                            <p>Received: {detail.received}</p>
-                          </div>
-                        </div>
-                      </AlertDescription>
-                    </Alert>
-                  </motion.div>
+                  <ResultCard
+                    key={`result-${index}`}
+                    result={detail}
+                    index={index}
+                  />
                 ))}
               </div>
             )}

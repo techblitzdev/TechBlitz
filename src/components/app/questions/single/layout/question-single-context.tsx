@@ -211,7 +211,7 @@ export const QuestionSingleContextProvider = ({
       console.log('Code is a function');
 
       // Run test cases
-      const results = challenge.testCases.map((test) => {
+      const results = challenge.testCases.map((test: any) => {
         const result = userFunction(...test.input);
         return {
           passed: result === test.expected,
@@ -221,7 +221,7 @@ export const QuestionSingleContextProvider = ({
         };
       });
 
-      const allPassed = results.every((r) => r.passed);
+      const allPassed = results.every((r: any) => r.passed);
       setResult({ passed: allPassed, details: results });
     } catch (error: any) {
       setResult({

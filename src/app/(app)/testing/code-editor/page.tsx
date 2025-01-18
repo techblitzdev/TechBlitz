@@ -12,7 +12,11 @@ export default async function CodeEditorPage() {
 
   return (
     <div className="flex items-center justify-center">
-      <CodeEditor />
+      <CodeEditor
+        defaultCode={`function add(a, b) {
+  return a + b;
+}`}
+      />
     </div>
   );
 }

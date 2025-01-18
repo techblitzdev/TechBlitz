@@ -81,6 +81,7 @@
     "react-day-picker": "^8.10.1",
     "react-dom": "18.3.1",
     "react-hook-form": "^7.53.0",
+    "react-markdown": "^9.0.3",
     "react-timer-hook": "^3.0.7",
     "recharts": "^2.13.0-alpha.5",
     "rehype-autolink-headings": "^7.1.0",

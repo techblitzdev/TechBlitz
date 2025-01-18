@@ -43,14 +43,13 @@ export type Question = {
 
   questionType: QuestionType;
 
-  testCases: {
-    input: number[];
-    expected: number;
-  }[];
+  // i am so sorry typescript lords (Json from prisma isn't nice to work with)
+  testCases: any;
 
-  functionName: string;
+  functionName: string | null;
 
-  expectedParams: string[];
+  // i am so sorry typescript lords
+  expectedParams: any;
 };
 
 export type QuestionWithoutAnswers = Omit<

@@ -12,9 +12,14 @@ export const dynamic = 'force-dynamic'; // static by default, unless reading the
 const TEST_USER_UID = '3a57d7e8-8b80-483b-93d0-70fe1f06b0c0';
 
 export async function GET(request: NextRequest) {
-  console.log('Sending daily challenge email');
+  const authHeader = request.headers.get('authorization');
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return new Response('Unauthorized', {
+      status: 401,
+    });
+  }
 
-  console.log(request);
+  console.log('Sending daily challenge email');
 
   // get the daily challenge
   const dailyChallenge = await getTodaysQuestion();

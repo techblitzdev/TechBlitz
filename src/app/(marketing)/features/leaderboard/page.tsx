@@ -1,7 +1,23 @@
 import { WebPageJsonLd } from '@/types/Seo';
 import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
 import { getBaseUrl } from '@/utils';
+import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
+import LeaderboardHero from '@/components/marketing/features/leaderboard/leaderboard-hero';
+import FAQsBlock from '@/components/marketing/global/blocks/faqs';
+import MarketingContentGrid, {
+  MarketingContentGridProps,
+} from '@/components/marketing/global/blocks/content-grid';
+import {
+  BarChart,
+  Code,
+  MessageSquareCode,
+  Paintbrush,
+  Sun,
+  Users,
+} from 'lucide-react';
+import { MobileIcon } from '@radix-ui/react-icons';
 
+// metadata
 export async function generateMetadata() {
   return createMetadata({
     title: 'Leaderboard | TechBlitz',
@@ -25,6 +41,115 @@ export async function generateMetadata() {
     canonicalUrl: '/features/leaderboard',
   });
 }
+
+const faqs = [
+  {
+    question: 'What is the leaderboard?',
+    answer:
+      'The leaderboard is a showcase of the top developers on TechBlitz. Giving you a chance to see how you stack up against the rest of the community.',
+  },
+  {
+    question: 'How is the leaderboard calculated?',
+    answer:
+      'Currently, the leaderboard is calculated based on the number of challenges you have completed. We are working on adding more metrics to the leaderboard as we speak!',
+  },
+  {
+    question: 'How do I get on the leaderboard?',
+    answer:
+      'You can get on the leaderboard by completing challenges. The more challenges you complete, the higher you will climb on the leaderboard.',
+  },
+  {
+    question: 'Is TechBlitz free?',
+    answer:
+      'Yes! TechBlitz is 100% free. We believe that everyone should have access to the tools and resources they need to learn to code. You can sign up for free and start coding today!',
+  },
+  {
+    question: 'What are the key benefits of using TechBlitz?',
+    answer:
+      'TechBlitz provides engaging, short-form coding questions and practical roadmaps to help developers enhance their skills and tackle real-world challenges. Learn faster, smarter, and with less overwhelm!',
+  },
+  {
+    question: 'Is TechBlitz open source?',
+    answer: (
+      <>
+        Yes, TechBlitz is completely open source! Explore our source code on{' '}
+        <a
+          href="https://git.new/blitz"
+          target="_blank"
+          className="!text-accent underline"
+        >
+          GitHub
+        </a>{' '}
+        and join the growing community of developers contributing to our
+        platform.
+      </>
+    ),
+  },
+  {
+    question: 'This sounds great! Where do I sign up?',
+    answer: (
+      <>
+        You can sign up for a free account{' '}
+        <a href="/signup" className="!text-accent underline">
+          here
+        </a>
+        .
+      </>
+    ),
+  },
+];
+
+const featureShowcaseItems: MarketingContentGridProps[] = [
+  {
+    icon: <Code />,
+    title: 'Practical Coding Skills',
+    description:
+      'Learn real-world programming through hands-on projects and exercises. Build a strong foundation in coding with our comprehensive curriculum of challenges including JavaScript, React, Node.js, and more.',
+  },
+  {
+    icon: <MobileIcon />,
+    title: 'Learn to Code Anywhere',
+    description:
+      'Learn to code on any device with our mobile-optimized platform. Turn your morning commute time into productive learning time with accessible programming lessons.',
+  },
+  {
+    icon: <Paintbrush />,
+    title: 'Personalized Learning Experience',
+    description: (
+      <>
+        Create custom learning paths tailored to your goals. Whether you're a
+        complete beginner or advancing your skills, find the perfect route for
+        your journey. Learn more{' '}
+        <a href="/features/roadmap" className="!text-accent underline">
+          here
+        </a>
+        .
+      </>
+    ),
+  },
+  {
+    icon: <MessageSquareCode />,
+    title: 'AI-Powered Assistance',
+    description: (
+      <>
+        Get instant help with our AI tutor. Receive personalized questions, and
+        guidance to accelerate your programming journey.
+      </>
+    ),
+  },
+  {
+    icon: <BarChart />,
+    title: 'Track Your Progress',
+    description:
+      'Keep track of your coding progress with our comprehensive leaderboard. See how you stack up against the rest of the community and stay motivated to keep coding.',
+  },
+  {
+    icon: <Sun />,
+    title: 'Daily Coding Challenges',
+    description:
+      'Bite-sized coding challenges to keep you engaged and learning. Perfect for busy developers who want to stay sharp and improve their skills.',
+  },
+];
 
 export default function LeaderboardPage() {
   const jsonLd: WebPageJsonLd = {
@@ -65,6 +190,23 @@ export default function LeaderboardPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <div className="container">
+        <LeaderboardHero />
+
+        <MarketingContentGrid
+          title="Coding made enjoyable."
+          subheading="Everything you need in one place to learn to code."
+          items={featureShowcaseItems}
+        />
+        <CallToActionBlock
+          title="Learn to code for free."
+          description="See how you stack up against the rest of the community - and improve your skills along the way."
+          leftCta={{
+            title: 'Get Started',
+            href: '/signup',
+          }}
+        />
+      </div>
     </>
   );
 }

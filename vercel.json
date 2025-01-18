@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/cron/send-daily-streak",
+      "path": "/api/cron/send-daily-challenge",
       "schedule": "*/5 * * * *"
     }
   ]

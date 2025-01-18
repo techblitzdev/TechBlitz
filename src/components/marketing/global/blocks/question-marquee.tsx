@@ -112,15 +112,15 @@ export default function QuestionMarquee({
 }) {
   return (
     <section className="relative flex h-auto w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background pt-12 pb-12 md:pt-12 md:pb-36">
-      <h2 className="text-3xl md:text-5xl font-bold text-center mb-2 text-gradient from-white/55 to-white py-1">
+      <h2 className="text-3xl md:text-5xl font-bold text-center mb-2 text-gradient from-white/55 to-white py-1 max-w-5xl">
         {header}
       </h2>
       <p className="text-center mb-4 text-gradient from-white/55 to-white">
         {subheader}
       </p>
       {cta && (
-        <Button variant="secondary" className="mb-8" href="/questions">
-          Explore challenges
+        <Button variant="secondary" className="mb-8" href="/signup">
+          Sign up for free!
         </Button>
       )}
 

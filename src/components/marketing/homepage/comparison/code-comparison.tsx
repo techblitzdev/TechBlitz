@@ -23,39 +23,20 @@ console.log(reverseString('TechBlitz'));
 const afterCode = `// this is a challenge to learn JavaScript,
 // perfect for beginners
 
-import { prisma } from '@/lib/prisma';
+export const fetchLatestData = async () => {
+  const response = await fetch('https://api.example.com/data');
+  const data = await response.json();
 
-export const fetchAndTransformUsers = async() => {
-  try {
-    // Fetch users from the database
-    const users = await prisma.user.findMany({
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        createdAt: true
-      }
-    });
+  // transform the data
+  const transformedData = data.map(item => ({
+    ...item,
+    formattedDate: new Date(item.date).toLocaleDateString()
+  }));
 
-    // how can we transform the users data?
-    const transformedUsers = /* missing code here */;
-      const signupDuration = Math.floor((Date.now() - new Date(user.createdAt).getTime()) / (1000 * 60 * 60 * 24));
-      return {
-        ...user,
-        signupDurationInDays: signupDuration
-      };
-    });
-
-    console.log('Transformed Users:', transformedUsers);
-    return transformedUsers;
-  } catch (error) {
-    console.error('Error fetching users:', error);
-  } finally {
-    await prisma.$disconnect();
-  }
+  return transformedData;
 }
 
-fetchAndTransformUsers();
+fetchLatestData();
 `;
 
 export default function CodeComparisonDemo() {

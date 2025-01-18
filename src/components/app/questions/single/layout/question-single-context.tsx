@@ -38,6 +38,19 @@ type QuestionSingleContextType = {
   setAnswerHelp: (answerHelp: z.infer<typeof answerHelpSchema> | null) => void;
   tokensUsed: number;
   setTokensUsed: (tokensUsed: number) => void;
+  validateCode: (e: React.FormEvent<HTMLFormElement>) => void;
+  code: string;
+  setCode: (code: string) => void;
+  result: {
+    passed: boolean;
+    details?: Array<{
+      passed: boolean;
+      input: number[];
+      expected: number;
+      received: number;
+    }>;
+  } | null;
+  submitAnswer: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
 };
 
 export const QuestionSingleContext = createContext<QuestionSingleContextType>(
@@ -115,6 +128,7 @@ export const QuestionSingleContextProvider = ({
     }
   }, [selectedAnswer, question.answers, question.codeSnippet]);
 
+  // submits the answer for a non-CODING_CHALLENGE question
   const submitQuestionAnswer = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     pause();
@@ -160,6 +174,78 @@ export const QuestionSingleContextProvider = ({
     }
   };
 
+  const [code, setCode] = useState('');
+  const [result, setResult] = useState<{
+    passed: boolean;
+    details?: Array<{
+      passed: boolean;
+      input: number[];
+      expected: number;
+      received: number;
+    }>;
+    error?: string;
+  } | null>(null);
+
+  // validates the code for a CODING_CHALLENGE question
+  const validateCode = (e: React.FormEvent<HTMLFormElement>) => {
+    // prevent page from reloading
+    e.preventDefault();
+
+    // get the challenge from the question
+    const challenge =
+      question.questionType === 'CODING_CHALLENGE' ? question : null;
+
+    if (!challenge) {
+      toast.error('No challenge found');
+      return;
+    }
+
+    try {
+      // Create a new function from the user's code
+      const userFunction = eval(`(${code})`);
+
+      if (typeof userFunction !== 'function') {
+        throw new Error('Provided code does not define a function.');
+      }
+
+      console.log('Code is a function');
+
+      // Run test cases
+      const results = challenge.testCases.map((test) => {
+        const result = userFunction(...test.input);
+        return {
+          passed: result === test.expected,
+          input: test.input,
+          expected: test.expected,
+          received: result,
+        };
+      });
+
+      const allPassed = results.every((r) => r.passed);
+      setResult({ passed: allPassed, details: results });
+    } catch (error: any) {
+      setResult({
+        passed: false,
+        error: error.message,
+      });
+    }
+  };
+
+  // method to submit the answer depending on the question type
+  const submitAnswer = async (e: React.FormEvent<HTMLFormElement>) => {
+    if (!user) {
+      toast.error('User is not logged in');
+      return;
+    }
+
+    // determine method to use based on question type
+    if (question.questionType === 'CODING_CHALLENGE') {
+      validateCode(e);
+    } else {
+      submitQuestionAnswer(e);
+    }
+  };
+
   const generateAiAnswerHelp = async (setCodeSnippetLayout?: boolean) => {
     // if the user has asked for assistance for the answer, set the current layout to 'codeSnippet'
     // this is so mobile view switches to the code snippet view
@@ -190,6 +276,8 @@ export const QuestionSingleContextProvider = ({
     setPrefilledCodeSnippet(null);
     setCurrentLayout('questions');
     setAnswerHelp(null);
+    setCode(question.codeSnippet || '');
+    setResult(null);
   };
 
   return (
@@ -221,6 +309,11 @@ export const QuestionSingleContextProvider = ({
         setAnswerHelp,
         tokensUsed,
         setTokensUsed,
+        validateCode,
+        code,
+        setCode,
+        result,
+        submitAnswer,
       }}
     >
       {children}

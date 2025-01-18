@@ -10,6 +10,7 @@ import ResizableLayout from '@/components/ui/resizable-layout';
 import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help';
 import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
 import CodeDisplayWrapper from '@/components/app/questions/single/layout/code-display-wrapper';
+import CodeEditor from '@/components/app/code-editor/editor';
 
 export default async function TodaysQuestionPage({
   params,
@@ -64,7 +65,16 @@ export default async function TodaysQuestionPage({
           )}
         </div>
         <Separator className="bg-black-50" />
-        {question?.codeSnippet && <CodeDisplayWrapper />}
+        {/** changes based on question type */}
+        {question?.questionType === 'CODING_CHALLENGE' ? (
+          <>
+            {question.codeSnippet && (
+              <CodeEditor defaultCode={question.codeSnippet} />
+            )}
+          </>
+        ) : (
+          <CodeDisplayWrapper />
+        )}
       </div>
     </div>
   );

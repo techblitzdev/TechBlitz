@@ -19,7 +19,7 @@ enum QuestionAnswerType {
 }
 
 enum QuestionType {
-  CODE
+  CODING_CHALLENGE
   MULTIPLE_CHOICE
 }
 
@@ -62,8 +62,19 @@ model Questions {
 
   slugGenerated Boolean @default(false)
 
+  // CODING_CHALLENGE specific fields
+
   // the type of question - either multiple choice or write code
   questionType QuestionType @default(MULTIPLE_CHOICE)
+
+  // Store test cases as JSON - these need to be run against the user's code
+  testCases      Json?        
+  // Expected function name
+  functionName   String?      
+  // Expected parameter types/names
+  expectedParams Json?        
+  // Expected return type
+  returnType     String?      
 }
 
 // Tags for this question

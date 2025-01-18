@@ -49,6 +49,7 @@ type QuestionSingleContextType = {
       expected: number;
       received: number;
     }>;
+    error?: string;
   } | null;
   submitAnswer: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
 };

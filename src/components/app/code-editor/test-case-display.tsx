@@ -1,6 +1,6 @@
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { Check, X } from 'lucide-react';
 import { useQuestionSingle } from '../questions/single/layout/question-single-context';
 import ResultCard from './result-card';
@@ -48,9 +48,9 @@ const TestCaseDisplay = () => {
               </AlertDescription>
             </Alert>
 
-            {!result.passed && result.details && (
+            {result.details ? (
               <div className="space-y-4">
-                {result.details.map((detail, index) => (
+                {result.details.map((detail: ResultProps, index: number) => (
                   <ResultCard
                     key={`test-case-${index}`}
                     result={detail}
@@ -58,6 +58,12 @@ const TestCaseDisplay = () => {
                   />
                 ))}
               </div>
+            ) : (
+              result.error && (
+                <div className="space-y-4">
+                  <span className="text-red-700">Error: {result.error}</span>
+                </div>
+              )
             )}
           </div>
         )}

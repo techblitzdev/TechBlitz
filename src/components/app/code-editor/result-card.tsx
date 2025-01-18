@@ -1,6 +1,5 @@
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
-import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 
 interface ResultProps {
@@ -9,6 +8,7 @@ interface ResultProps {
     input: any[];
     expected: any;
     received: any;
+    error?: string;
   };
   index: number;
 }
@@ -54,6 +54,17 @@ export default function ResultCard({ result, index }: ResultProps) {
                 {isPassed ? 'Passed' : 'Failed'}
               </span>
             </div>
+
+            {result.error && (
+              <div className="ml-6 space-y-2 text-sm">
+                <div className="flex flex-col space-y-1">
+                  <span className="font-medium text-white">Error:</span>
+                  <code className="px-2 py-1 bg-black-50 rounded">
+                    {result.error}
+                  </code>
+                </div>
+              </div>
+            )}
 
             <div className="ml-6 space-y-2 text-sm">
               <div className="flex flex-col space-y-1">

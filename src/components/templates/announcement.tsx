@@ -118,7 +118,7 @@ const WaitlistAnnouncementEmail = ({
           </Text>
           <Section style={footer}>
             <Text style={footerText}>
-              © 2024 TechBlitz. All rights reserved.
+              © 2025 TechBlitz. All rights reserved.
             </Text>
           </Section>
         </Container>

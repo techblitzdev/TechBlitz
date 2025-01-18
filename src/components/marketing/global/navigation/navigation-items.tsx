@@ -62,6 +62,12 @@ const features = [
     description: 'Track your progress and see your growth over time.',
     ariaLabel: 'Navigate to Statistics',
   },
+  {
+    title: 'Leaderboard',
+    href: '/features/leaderboard',
+    description: 'See how you stack up against the rest of the community.',
+    ariaLabel: 'Navigate to Leaderboard',
+  },
 ];
 
 export function NavigationMenuItems() {

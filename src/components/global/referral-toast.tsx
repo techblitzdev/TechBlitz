@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { sendInvite } from '@/actions/misc/send-invite';
 
 export default function ReferralToast() {
   const { value: hasBeenShown, setValue: setHasBeenShown } = useLocalStorage({
@@ -26,10 +27,9 @@ export default function ReferralToast() {
     return null;
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the email to your backend
-    console.log('Referral email submitted:', email);
+    await sendInvite(email);
     setHasBeenShown(true);
     setIsVisible(false);
   };

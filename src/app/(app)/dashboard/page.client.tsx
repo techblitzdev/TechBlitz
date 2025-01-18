@@ -11,6 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { UserRecord } from '@/types/User';
 import { useRouter } from 'next/navigation';
+import ReferralToast from '@/components/global/referral-toast';
 
 export default function ClientPage({
   children,
@@ -91,7 +92,10 @@ export default function ClientPage({
           </DialogFooter>
         </DialogContent>
       </Dialog>
-      <div>{children}</div>
+      <div>
+        {children}
+        <ReferralToast />
+      </div>
     </>
   );
 }

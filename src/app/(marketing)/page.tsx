@@ -164,7 +164,10 @@ export default async function Page() {
               items={contentGridItems}
             />
             <OpenSourceBlock />
-            <CallToActionBlock title="Learn to code for free, forever" />
+            <CallToActionBlock
+              title="Get started for free"
+              description="See why TechBlitz is loved by developers worldwide."
+            />
           </div>
         </div>
       </div>

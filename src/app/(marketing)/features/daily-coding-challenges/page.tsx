@@ -32,7 +32,7 @@ export async function generateMetadata() {
       bgColor: '#000',
       textColor: '#fff',
     },
-    canonicalUrl: 'features/daily-challenge',
+    canonicalUrl: '/features/daily-coding-challenges',
   });
 }
 

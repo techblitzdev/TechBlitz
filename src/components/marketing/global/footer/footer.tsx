@@ -24,6 +24,11 @@ const footerItems = [
         href: '/features/statistics',
         ariaLabel: 'Statistics',
       },
+      {
+        title: 'Leaderboard',
+        href: '/features/leaderboard',
+        ariaLabel: 'Leaderboard',
+      },
       // {
       //   title: '',
       //   href: '/features/projects'

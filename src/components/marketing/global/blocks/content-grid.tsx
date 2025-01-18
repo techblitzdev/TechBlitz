@@ -1,6 +1,6 @@
 export interface MarketingContentGridProps {
   title: string;
-  description: string;
+  description: string | React.ReactNode;
   icon: React.ReactNode;
 }
 
@@ -43,6 +43,7 @@ export default function MarketingContentGrid({
               <div className="text-accent">{item.icon}</div>
               <h3 className="text-lg font-semibold">{item?.title}</h3>
             </div>
+
             <p className="text-sm text-gray-400 font-onest">
               {item?.description}
             </p>

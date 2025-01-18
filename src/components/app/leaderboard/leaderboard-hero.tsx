@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { use } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Crown } from 'lucide-react';
 import AnimatedSpan from '@/components/ui/animated-span';
@@ -14,13 +14,7 @@ export default function LeaderboardHero({
     (UserRecord & { _count: { answers: number } })[]
   >;
 }) {
-  const [topThreeUsers, setTopThreeUsers] = useState<
-    (UserRecord & { _count: { answers: number } })[]
-  >([]);
-
-  useEffect(() => {
-    topThreeUsersPromise.then(setTopThreeUsers);
-  }, [topThreeUsersPromise]);
+  const topThreeUsers = use(topThreeUsersPromise);
 
   const podiumOrder = [1, 0, 2]; // 2nd, 1st, 3rd
 
@@ -54,7 +48,7 @@ export default function LeaderboardHero({
   );
 }
 
-function PodiumItem({
+export function PodiumItem({
   user,
   position,
 }: {
@@ -92,7 +86,7 @@ function PodiumItem({
   );
 }
 
-function UserInfo({
+export function UserInfo({
   user,
   position,
 }: {
@@ -132,7 +126,7 @@ function UserInfo({
   );
 }
 
-function CrownIcon() {
+export function CrownIcon() {
   return (
     <motion.div
       className="absolute -top-3 left-4 size-4"

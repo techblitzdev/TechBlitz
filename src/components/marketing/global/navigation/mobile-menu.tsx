@@ -27,6 +27,7 @@ const menuItems: MenuItem[] = [
       { label: 'Roadmaps', href: '/features/roadmaps' },
       { label: 'Daily Challenges', href: '/features/daily-coding-challenges' },
       { label: 'Statistics', href: '/features/statistics' },
+      { label: 'Leaderboard', href: '/features/leaderboard' },
     ],
   },
   {

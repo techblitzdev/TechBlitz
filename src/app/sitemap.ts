@@ -65,6 +65,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
     },
     {
+      url: `${baseUrl}/features/leaderboard`,
+      lastModified: '2025-01-18',
+    },
+    {
       url: `${baseUrl}/daily-challenge`,
       lastModified: new Date(),
     },

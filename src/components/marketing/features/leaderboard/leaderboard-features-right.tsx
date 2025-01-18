@@ -1,8 +1,6 @@
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/use-user-server';
-import { Code, FileQuestion, Flame, User } from 'lucide-react';
-import ProfileImage from '@/components/profile/hero/profile-image';
+import { Code, FileQuestion, Flame } from 'lucide-react';
 import ProfilePicture from '@/components/ui/profile-picture';
 
 export default async function LeaderboardFeaturesRight() {

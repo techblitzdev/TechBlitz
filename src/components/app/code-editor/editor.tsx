@@ -13,23 +13,21 @@ export default function CodeChallenge(opts: { defaultCode: string }) {
   const { setCode, result } = useQuestionSingle();
 
   return (
-    <div className="w-full border-none p-0">
-      <div className="">
-        <Editor
-          height="80vh"
-          defaultLanguage="javascript"
-          defaultValue={defaultCode}
-          onChange={(value) => setCode(value || '')}
-          theme="vs-dark"
-          options={{
-            minimap: {
-              enabled: false,
-            },
-            fontSize: 16,
-          }}
-          loading={<LoadingSpinner />}
-        />
-      </div>
+    <div className="w-full relative">
+      <Editor
+        height="80vh"
+        defaultLanguage="javascript"
+        defaultValue={defaultCode}
+        onChange={(value) => setCode(value || '')}
+        theme="vs-dark"
+        options={{
+          minimap: {
+            enabled: false,
+          },
+          fontSize: 16,
+        }}
+        loading={<LoadingSpinner />}
+      />
 
       <AnimatePresence>
         {result && (
@@ -38,7 +36,7 @@ export default function CodeChallenge(opts: { defaultCode: string }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.3 }}
-            className="mt-4 space-y-4 min-h-fit"
+            className="mt-4 space-y-4 min-h-fit absolute bottom-0"
           >
             <Alert variant="default" className="border-2">
               <AlertDescription className="flex items-center gap-2 text-lg font-semibold">

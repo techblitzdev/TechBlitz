@@ -15,6 +15,7 @@ import { Question } from '@/types/Questions';
 import QuestionResourceTab from '@/components/app/questions/resources/question-resource-tab';
 import QuestionStatsTab from './question-stats-tab';
 import { cn } from '@/lib/utils';
+import CodingChallengeDescription from '../../code-editor/description-tab';
 
 interface QuestionTabsProps {
   question: Question;
@@ -76,18 +77,24 @@ export default function QuestionTabs({
       </TabsList>
       <Separator className="bg-black-50" />
       <TabsContent value="description" className="pt-2 lg:pt-4">
-        {'dailyQuestion' in question && question.dailyQuestion && (
-          <h3 className="font-inter text-gray-400 text-sm font-light px-4 pb-2">
-            This question is a daily question and will count towards your daily
-            streak.
-          </h3>
+        {question.questionType === 'CODING_CHALLENGE' ? (
+          <CodingChallengeDescription question={question} />
+        ) : (
+          <>
+            {'dailyQuestion' in question && question.dailyQuestion && (
+              <h3 className="font-inter text-gray-400 text-sm font-light px-4 pb-2">
+                This question is a daily question and will count towards your
+                daily streak.
+              </h3>
+            )}
+            {question?.question && (
+              <h3 className="font-onest font-light p-4 pt-0 text-base md:text-xl">
+                {question.question}
+              </h3>
+            )}
+            {renderAnswerForm()}
+          </>
         )}
-        {question?.question && (
-          <h3 className="font-inter font-light p-4 pt-0 text-base md:text-xl">
-            {question.question}
-          </h3>
-        )}
-        {renderAnswerForm()}
       </TabsContent>
       <TabsContent value="resources" className="p-4">
         <h3 className="font-inter font-light text-lg md:text-2xl">

@@ -8,9 +8,10 @@ import { AnswerDifficulty } from '@prisma/client';
 // Types
 interface AnswerQuestionInput {
   questionUid: string;
-  answerUid: string;
+  answerUid?: string;
   userUid: string;
   timeTaken?: number;
+  allPassed?: boolean;
 }
 
 interface AnswerQuestionResponse {
@@ -51,6 +52,13 @@ const findQuestion = async (questionUid: string) => {
   return question;
 };
 
+/**
+ * Getting an existing answer for a question based on the user and question uid
+ *
+ * @param userUid
+ * @param questionUid
+ * @returns
+ */
 const findExistingAnswer = async (userUid: string, questionUid: string) => {
   console.log('hit findExistingAnswer');
   return prisma.answers.findFirst({
@@ -166,7 +174,7 @@ const updateOrCreateAnswer = async (
     existingAnswer: any;
     userUid: string;
     questionUid: string;
-    answerUid: string;
+    answerUid?: string;
     correctAnswer: boolean;
     timeTaken?: number;
   }
@@ -204,10 +212,32 @@ export async function answerQuestion({
   answerUid,
   userUid,
   timeTaken,
+  allPassed,
 }: AnswerQuestionInput): Promise<AnswerQuestionResponse> {
+  console.log({
+    questionUid,
+    answerUid,
+    userUid,
+    timeTaken,
+    allPassed,
+  });
+
   const question = await findQuestion(questionUid);
-  const correctAnswer = question.correctAnswer === answerUid;
+
+  const questionType = question.questionType;
+
+  let correctAnswer = false;
+  if (questionType === 'CODING_CHALLENGE') {
+    correctAnswer = allPassed || false;
+  } else {
+    correctAnswer = question.correctAnswer === answerUid;
+  }
+
   const existingAnswer = await findExistingAnswer(userUid, questionUid);
+
+  console.log({
+    existingAnswer,
+  });
 
   const { userData, userAnswer } = await prisma.$transaction(async (tx) => {
     // Only update streaks if this is a new answer

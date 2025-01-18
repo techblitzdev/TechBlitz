@@ -128,11 +128,13 @@ export const QuestionSingleContextProvider = ({
     }
   }, [selectedAnswer, question.answers, question.codeSnippet]);
 
+  useEffect(() => {
+    setTimeTaken(totalSeconds);
+  }, [totalSeconds]);
+
   // submits the answer for a non-CODING_CHALLENGE question
   const submitQuestionAnswer = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    pause();
-
     if (!user) {
       console.error('User is not logged in');
       return;
@@ -187,7 +189,7 @@ export const QuestionSingleContextProvider = ({
   } | null>(null);
 
   // validates the code for a CODING_CHALLENGE question
-  const validateCode = (e: React.FormEvent<HTMLFormElement>) => {
+  const validateCode = async (e: React.FormEvent<HTMLFormElement>) => {
     // prevent page from reloading
     e.preventDefault();
 
@@ -223,6 +225,16 @@ export const QuestionSingleContextProvider = ({
 
       const allPassed = results.every((r: any) => r.passed);
       setResult({ passed: allPassed, details: results });
+
+      // submit the answer
+      await answerQuestion({
+        questionUid: question.uid,
+        userUid: user?.uid || '',
+        timeTaken,
+        allPassed,
+      });
+
+      setCorrectAnswer(allPassed ? 'correct' : 'incorrect');
     } catch (error: any) {
       setResult({
         passed: false,
@@ -238,12 +250,18 @@ export const QuestionSingleContextProvider = ({
       return;
     }
 
+    // pause the timer
+    pause();
+
     // determine method to use based on question type
     if (question.questionType === 'CODING_CHALLENGE') {
       validateCode(e);
     } else {
       submitQuestionAnswer(e);
     }
+
+    // set the current layout to 'answer' to show the answer submitted
+    setCurrentLayout('answer');
   };
 
   const generateAiAnswerHelp = async (setCodeSnippetLayout?: boolean) => {

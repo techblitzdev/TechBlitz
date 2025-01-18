@@ -28,6 +28,7 @@ import NoDailyQuestion from '@/components/global/no-daily-question';
 import QuestionSubmitted from './question-submitted';
 import { capitalize } from 'lodash';
 import { AnimatePresence } from 'framer-motion';
+import CodeEditorQuestionSubmitted from '@/components/app/code-editor/answer-submitted';
 
 export default function QuestionCard(opts: {
   // optional as this is not required to render the card
@@ -149,7 +150,15 @@ export default function QuestionCard(opts: {
             </div>
           </AnimatePresence>
         )}
-        {currentLayout === 'answer' && <QuestionSubmitted />}
+        {currentLayout === 'answer' && (
+          <>
+            {question.questionType === 'CODING_CHALLENGE' ? (
+              <CodeEditorQuestionSubmitted />
+            ) : (
+              <QuestionSubmitted />
+            )}
+          </>
+        )}
       </div>
       <Separator className="bg-black-50" />
       <div className="w-full space-y-4 px-4 bg-black">

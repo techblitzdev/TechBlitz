@@ -9,7 +9,7 @@ import LoadingSpinner from '@/components/ui/loading';
 import { motion, AnimatePresence } from 'framer-motion';
 import ResultCard from './result-card';
 
-export default function CodeChallenge(opts: { defaultCode: string }) {
+export default function CodeEditor(opts: { defaultCode: string }) {
   const { defaultCode } = opts;
   const { setCode, result } = useQuestionSingle();
 
@@ -21,6 +21,7 @@ export default function CodeChallenge(opts: { defaultCode: string }) {
         defaultValue={defaultCode}
         onChange={(value) => setCode(value || '')}
         theme="vs-dark"
+        language="javascript"
         options={{
           minimap: {
             enabled: false,

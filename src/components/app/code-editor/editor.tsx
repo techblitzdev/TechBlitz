@@ -41,7 +41,7 @@ export default function CodeEditor(opts: { defaultCode: string }) {
   return (
     <div className="w-full relative">
       <Editor
-        height="80vh"
+        height="83vh"
         defaultLanguage="javascript"
         defaultValue={defaultCode}
         onChange={(value) => setCode(value || '')}
@@ -52,6 +52,14 @@ export default function CodeEditor(opts: { defaultCode: string }) {
             enabled: false,
           },
           fontSize: 16,
+          automaticLayout: true,
+          guides: {
+            indentation: true,
+            bracketPairs: true,
+            bracketPairsHorizontal: true,
+            highlightActiveBracketPair: true,
+            highlightActiveIndentation: true,
+          },
         }}
         loading={<LoadingSpinner />}
       />

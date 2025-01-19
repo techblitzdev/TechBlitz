@@ -33,9 +33,7 @@ export default async function QuestionPageSidebar() {
     <aside className="w-full xl:w-1/4">
       <div className="sticky top-10 space-y-10 w-full">
         <div className="w-fit h-fit flex flex-col gap-y-2.5">
-          <h6 className="text-xl">
-            Your current streak: {JSON.stringify(dateArray)}
-          </h6>
+          <h6 className="text-xl">Your current streak</h6>
           <div className="relative">
             {user ? (
               <div className="flex flex-col gap-y-4 text-white bg-black-75 border border-black-50 p-4 rounded-lg hover:cursor-default">

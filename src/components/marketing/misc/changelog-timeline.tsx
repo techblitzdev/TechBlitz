@@ -37,7 +37,7 @@ export default function ChangelogTimeline() {
             to solve the problem directly in the browser. Receive helpful hints.
             ai-assistance & more.{` `}
             <Link
-              href="/signup"
+              href="/question/sum-all-numbers-in-array"
               className="text-accent"
             >
               Try it out now!

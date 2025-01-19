@@ -50,6 +50,13 @@ export default function FilterDropdown() {
     });
   };
 
+  // get the total number of active filters
+  const activeFilters = [
+    difficultyFilter,
+    completedFilter,
+    questionTypeFilter
+  ].filter((filter) => filter !== null).length;
+
   return (
     <div
       className="flex items-center space-x-2"
@@ -65,6 +72,11 @@ export default function FilterDropdown() {
           >
             <MaterialSymbolsFilterListRounded className="size-5" />
             Filter
+            {activeFilters > 0 && (
+              <span className="text-[10px] bg-white text-black px-2 rounded-full mr-1">
+                {activeFilters}
+              </span>
+            )}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent

@@ -22,8 +22,8 @@ export default function TagDisplay(opts: {
     ...tag,
     tag: {
       ...tag.tag,
-      name: tag.tag.name.replace(/-/g, ' '),
-    },
+      name: tag.tag.name.replace(/-/g, ' ')
+    }
   }));
 
   // if the showcase tag is in the list, move it to the top
@@ -35,7 +35,7 @@ export default function TagDisplay(opts: {
     visibleTags.unshift({
       tag: { name: showcaseTag, uid: '' },
       questionId: '',
-      tagId: '',
+      tagId: ''
     });
   }
 

@@ -51,12 +51,9 @@ async function QuestionStats({
 }) {
   const stats = await getQuestionStats(identifier, value);
   return (
-    <div className="text-start text-xs">
-      <p className="font-ubuntu text-sm">
-        Submissions:{' '}
-        <span className="font-medium">{stats.totalSubmissions}</span>
-      </p>
-    </div>
+    <p className="font-ubuntu text-sm text-gray-300">
+      Submissions: <span>{stats.totalSubmissions}</span>
+    </p>
   );
 }
 
@@ -89,13 +86,27 @@ export default function QuestionCard(opts: {
     <Link
       href={href}
       key={questionData.uid}
-      className="flex flex-col space-y-5 items-start bg-black-75 border border-black-50 hover:border-white duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-[[data-pending]]:animate-pulse"
+      className="flex flex-col space-y-5 items-start bg-black-75 border border-black-50 hover:border-black-100 duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-[[data-pending]]:animate-pulse"
     >
-      <div className="flex flex-col gap-y-2 w-full">
-        <div className="flex w-full justify-between items-center">
-          <h6 className="text-base text-wrap text-start line-clamp-2 flex-grow">
+      <div className="flex flex-col gap-y-4 md:gap-y-5 w-full">
+        <div className="flex flex-col md:flex-row w-full justify-between gap-2 md:gap-5">
+          <h6 className="text-lg text-wrap text-start line-clamp-2 flex-grow">
             {title}
           </h6>
+          {questionData?.difficulty && (
+            <div className="h-fit order-first md:order-last">
+              <Chip
+                text={capitalise(questionData.difficulty)}
+                color={getQuestionDifficultyColor(questionData.difficulty).bg}
+                textColor={
+                  getQuestionDifficultyColor(questionData.difficulty).text
+                }
+                border={
+                  getQuestionDifficultyColor(questionData.difficulty).border
+                }
+              />
+            </div>
+          )}
         </div>
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
           <div className="flex items-center gap-x-2">
@@ -110,7 +121,7 @@ export default function QuestionCard(opts: {
             ) : (
               <Circle className="flex-shrink-0 size-5 text-black-50" />
             )}
-            <div className="text-sm font-medium">
+            <div className="text-sm text-gray-300">
               {questionData.userAnswers &&
               questionData.userAnswers.length > 0 ? (
                 questionData.userAnswers[0].correctAnswer ? (
@@ -131,11 +142,13 @@ export default function QuestionCard(opts: {
             <Suspense
               fallback={
                 <div className="text-start text-[10px]">
-                  <p className="font-ubuntu text-sm">Submissions: loading...</p>
+                  <p className="font-ubuntu text-sm text-gray-400">
+                    Submissions: loading...
+                  </p>
                 </div>
               }
             >
-              <span className="hidden sm:block">•</span>
+              <span className="hidden sm:block text-gray-300">•</span>
               <QuestionStats
                 identifier={identifier}
                 value={questionData[identifier] || ''}
@@ -153,25 +166,13 @@ export default function QuestionCard(opts: {
                   tags={questionData?.tags || []}
                   numberOfTags={numberOfTags}
                   showcaseTag={showcaseTag}
+                  variant="secondary"
                 />
               </div>
             )}
           </div>
         )}
         <div className="flex items-center gap-x-3">
-          {questionData?.difficulty && (
-            <Chip
-              text={capitalise(questionData.difficulty)}
-              color={getQuestionDifficultyColor(questionData.difficulty).bg}
-              textColor={
-                getQuestionDifficultyColor(questionData.difficulty).text
-              }
-              border={
-                getQuestionDifficultyColor(questionData.difficulty).border
-              }
-              small
-            />
-          )}
           {questionData?.questionDate && questionData?.dailyQuestion && (
             <Chip
               color="bg-black-100"

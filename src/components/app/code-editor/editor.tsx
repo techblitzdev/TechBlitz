@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Editor } from '@monaco-editor/react';
+import { Editor, useMonaco } from '@monaco-editor/react';
 import LoadingSpinner from '@/components/ui/loading';
 import { useQuestionSingle } from '../questions/single/layout/question-single-context';
 import TestCaseDisplay from './test-case-display';
@@ -9,6 +9,17 @@ import { capitalize } from 'lodash';
 import { AnimatePresence } from 'framer-motion';
 
 export default function CodeEditor(opts: { defaultCode: string }) {
+  const monaco = useMonaco();
+
+  monaco?.editor.defineTheme('vs-dark', {
+    base: 'vs-dark',
+    inherit: true,
+    rules: [],
+    colors: {
+      'editor.background': '#0e0e0e',
+    },
+  });
+
   const { defaultCode } = opts;
   const { setCode, currentLayout, answerHelp } = useQuestionSingle();
 
@@ -52,7 +63,6 @@ export default function CodeEditor(opts: { defaultCode: string }) {
             enabled: false,
           },
           fontSize: 16,
-          automaticLayout: true,
           guides: {
             indentation: true,
             bracketPairs: true,

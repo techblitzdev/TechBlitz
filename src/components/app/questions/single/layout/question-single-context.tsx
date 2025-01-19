@@ -129,10 +129,6 @@ export const QuestionSingleContextProvider = ({
     }
   }, [selectedAnswer, question.answers, question.codeSnippet]);
 
-  useEffect(() => {
-    setTimeTaken(totalSeconds);
-  }, [totalSeconds]);
-
   // submits the answer for a non-CODING_CHALLENGE question
   const submitQuestionAnswer = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -227,8 +223,9 @@ export const QuestionSingleContextProvider = ({
       // submit the answer
       await answerQuestion({
         questionUid: question.uid,
+        answerUid: null,
         userUid: user?.uid || '',
-        timeTaken,
+        timeTaken: totalSeconds,
         allPassed,
       });
 

@@ -10,7 +10,7 @@ import { getUser } from '../user/authed/get-user';
 // Types
 interface AnswerQuestionInput {
   questionUid: string;
-  answerUid?: string;
+  answerUid: string | null;
   userUid: string;
   timeTaken?: number;
   allPassed?: boolean;

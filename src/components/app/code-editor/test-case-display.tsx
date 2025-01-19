@@ -1,5 +1,3 @@
-import { Alert, AlertDescription } from '@/components/ui/alert';
-
 import { AnimatePresence, motion } from 'framer-motion';
 import { useQuestionSingle } from '../questions/single/layout/question-single-context';
 import ResultCard from './result-card';

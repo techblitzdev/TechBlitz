@@ -81,6 +81,17 @@ export default function QuestionCard(opts: {
     );
   };
 
+  const switcherText = () => {
+    if (question.questionType === 'CODING_CHALLENGE') {
+      return currentLayout === 'questions'
+        ? '(Tap to view editor)'
+        : '(Tap to view question)';
+    }
+    return currentLayout === 'questions'
+      ? '(Tap to view code snippet)'
+      : '(Tap to view question)';
+  };
+
   return (
     <div className="h-full bg-black-75 border border-black-50 rounded-xl flex flex-col overflow-hidden">
       <div className="p-2 lg:p-4 w-full flex flex-col gap-2 md:flex-row justify-between bg-black-25 md:items-center">

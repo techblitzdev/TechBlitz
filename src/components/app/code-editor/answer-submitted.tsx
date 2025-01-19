@@ -75,12 +75,12 @@ export default function CodeEditorQuestionSubmitted() {
             {correctAnswer === 'correct' ? (
               <div className="flex items-center gap-x-2">
                 <CheckCircle className="size-7 text-green-500" />
-                You answered correctly!
+                All test cases passed.
               </div>
             ) : (
               <div className="flex items-center gap-x-2">
                 <XCircle className="size-7 text-red-500" />
-                That was incorrect, let's review:
+                Some test cases failed, let's review:
               </div>
             )}
           </h1>

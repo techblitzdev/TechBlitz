@@ -39,16 +39,6 @@ export default function ResultCard({ result, index }: ResultProps) {
               <span className={`font-medium text-white`}>
                 Test Case {index + 1}
               </span>
-              <span
-                className={`ml-3 px-2 py-0.5 text-xs rounded-full font-onest
-                ${
-                  isPassed
-                    ? 'bg-green-100 text-green-700'
-                    : 'bg-red-100 text-red-700'
-                }`}
-              >
-                {isPassed ? 'Passed' : 'Failed'}
-              </span>
             </div>
 
             {result.error && (

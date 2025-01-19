@@ -23,7 +23,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { toast } from 'sonner';
 import { formatSeconds } from '@/utils/time';
 import { AnswerDifficulty } from '@prisma/client';
-import { updateAnswerDifficulty } from '@/actions/answers/answer';
+import { updateAnswerDifficultyByQuestionUid } from '@/actions/answers/answer';
 
 export default function CodeEditorQuestionSubmitted() {
   const {
@@ -34,6 +34,7 @@ export default function CodeEditorQuestionSubmitted() {
     generateAiAnswerHelp,
     user,
     tokensUsed,
+    question,
   } = useQuestionSingle();
 
   const [isPending, setTransition] = useTransition();
@@ -47,7 +48,10 @@ export default function CodeEditorQuestionSubmitted() {
   };
 
   const handleDifficultySelect = async (value: string) => {
-    await updateAnswerDifficulty('', value.toUpperCase() as AnswerDifficulty);
+    await updateAnswerDifficultyByQuestionUid(
+      question?.uid || '',
+      value.toUpperCase() as AnswerDifficulty
+    );
     toast.success(
       'Question difficulty updated, we will now serve more personalized questions to you.'
     );

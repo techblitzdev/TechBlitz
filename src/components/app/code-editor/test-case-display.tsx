@@ -1,7 +1,6 @@
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { CheckCircle, XCircle } from 'lucide-react';
 import { useQuestionSingle } from '../questions/single/layout/question-single-context';
 import ResultCard from './result-card';
 
@@ -21,32 +20,17 @@ export default function TestCaseDisplay() {
       <div className="space-y-6 p-6 overflow-y-auto">
         {result && (
           <div className="space-y-6">
-            <Alert
-              variant="default"
-              className={`border border-black-50 bg-black`}
-            >
-              <AlertDescription className="flex items-center gap-3 py-2">
-                {result.passed ? (
-                  <>
-                    <div className="flex items-center justify-center rounded-full">
-                      <CheckCircle className="size-7 text-green-500" />
-                    </div>
-                    <span className="text-lg font-semibold text-white font-onest">
-                      All tests passed!
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <div className="flex items-center justify-center rounded-full">
-                      <XCircle className="size-7 text-red-500" />
-                    </div>
-                    <span className="text-lg font-semibold text-white">
-                      Some tests failed. Let's review:
-                    </span>
-                  </>
-                )}
-              </AlertDescription>
-            </Alert>
+            <div className="flex items-center gap-3 py-2">
+              {result.passed ? (
+                <span className="text-xl font-semibold text-green-500 font-onest">
+                  Accepted
+                </span>
+              ) : (
+                <span className="text-xl font-semibold text-red-500 font-onest">
+                  Rejected
+                </span>
+              )}
+            </div>
 
             {result.details ? (
               <div className="space-y-4">

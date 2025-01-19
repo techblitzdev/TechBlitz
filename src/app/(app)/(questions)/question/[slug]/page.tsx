@@ -54,7 +54,7 @@ export default async function TodaysQuestionPage({
         id="code-snippet"
         className="bg-black-75 border border-black-50 rounded-xl relative overflow-scroll h-full"
       >
-        <div className="p-4 text-sm flex w-full items-center justify-end bg-black-25 gap-x-3">
+        <div className="px-4 py-5 text-sm flex w-full items-center justify-end bg-black-25 gap-x-3">
           {/** explain question ai button */}
           <AiQuestionHelp question={question} user={user} />
           {/** code theme selector */}

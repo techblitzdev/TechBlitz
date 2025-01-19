@@ -11,22 +11,22 @@ export default function ChangelogTimeline() {
           <div className="grid grid-cols-2 gap-4">
             <img
               src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/code-editor-autocomplete-showcase.png"
-              alt="startup template"
+              alt="code editor question feature showcase"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
             <img
               src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/code-editor-test-case-fail.png"
-              alt="startup template"
+              alt="code editor question feature showcase"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
             <img
               src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/code-editor-ai-help.png"
-              alt="startup template"
+              alt="code editor question feature showcase"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
             <img
               src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/code-editor-ai-assistance.png"
-              alt="startup template"
+              alt="code editor question feature showcase"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
           </div>
@@ -53,12 +53,12 @@ export default function ChangelogTimeline() {
           <div className="grid grid-cols-2 gap-4">
             <img
               src="https://assets.aceternity.com/pro/hero-sections.png"
-              alt="hero template"
+              alt="Daily challenge email notification showcase"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
             <img
               src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/daily-challenge-email.png"
-              alt="feature template"
+              alt="Daily challenge email notification showcase"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
           </div>
@@ -78,12 +78,12 @@ export default function ChangelogTimeline() {
           <div className="grid grid-cols-2 gap-4">
             <img
               src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/leaderboard-hero-redesign.png"
-              alt="hero template"
+              alt="Leaderboard redesign showcase"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
             <img
               src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/leaderboard-redesign-table.png"
-              alt="feature template"
+              alt="Leaderboard redesign showcase"
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
           </div>

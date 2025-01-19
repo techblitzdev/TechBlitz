@@ -9,16 +9,17 @@ import { capitalize } from 'lodash';
 import { AnimatePresence } from 'framer-motion';
 
 export default function CodeEditor(opts: { defaultCode: string }) {
-  const monaco = useMonaco();
-
-  monaco?.editor.defineTheme('vs-dark', {
-    base: 'vs-dark',
-    inherit: true,
-    rules: [],
-    colors: {
-      'editor.background': '#0e0e0e',
-    },
-  });
+  //const monaco = useMonaco();
+  //
+  //monaco?.editor.defineTheme('vs-dark', {
+  //  base: 'vs-dark',
+  //  inherit: true,
+  //  rules: [],
+  //  encodedTokensColors: [],
+  //  colors: {
+  //    'editor.background': '#0e0e0e',
+  //  },
+  //});
 
   const { defaultCode } = opts;
   const { setCode, currentLayout, answerHelp } = useQuestionSingle();

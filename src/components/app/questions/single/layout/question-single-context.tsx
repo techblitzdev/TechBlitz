@@ -244,7 +244,6 @@ export const QuestionSingleContextProvider = ({
       toast.error('User is not logged in');
       return;
     }
-
     // pause the timer
     pause();
 

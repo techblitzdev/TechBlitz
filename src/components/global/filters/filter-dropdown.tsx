@@ -17,6 +17,38 @@ import MaterialSymbolsFilterListRounded from '@/components/ui/icons/filter';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
 import { capitalise } from '@/utils';
+import { Check } from 'lucide-react';
+
+type QuestionDifficulty = 'BEGINNER' | 'EASY' | 'MEDIUM' | 'HARD';
+
+interface DifficultyConfig {
+  color: string;
+  label: string;
+}
+
+const DIFFICULTY_MAP: Record<QuestionDifficulty | 'DEFAULT', DifficultyConfig> =
+  {
+    BEGINNER: {
+      color: '#2563eb33',
+      label: 'Beginner'
+    },
+    EASY: {
+      color: '#10B981',
+      label: 'Easy'
+    },
+    MEDIUM: {
+      color: '#F59E0B',
+      label: 'Medium'
+    },
+    HARD: {
+      color: '#EF4444',
+      label: 'Hard'
+    },
+    DEFAULT: {
+      color: 'white',
+      label: 'All'
+    }
+  };
 
 export default function FilterDropdown() {
   const router = useRouter();
@@ -25,6 +57,7 @@ export default function FilterDropdown() {
 
   const [showDifficulty, setShowDifficulty] = useState(false);
   const [showQuestionType, setShowQuestionType] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const completedFilter = searchParams.get('completed');
   const difficultyFilter = searchParams.get('difficulty');
@@ -50,6 +83,12 @@ export default function FilterDropdown() {
     });
   };
 
+  const clearAllFilters = () => {
+    startTransition(() => {
+      router.push('?page=1');
+    });
+  };
+
   // get the total number of active filters
   const activeFilters = [
     difficultyFilter,
@@ -57,12 +96,24 @@ export default function FilterDropdown() {
     questionTypeFilter
   ].filter((filter) => filter !== null).length;
 
+  const getCurrentDifficulty = (): QuestionDifficulty | 'DEFAULT' => {
+    return (
+      (searchParams.get('difficulty')?.toUpperCase() as QuestionDifficulty) ||
+      'DEFAULT'
+    );
+  };
+
+  const currentDifficulty = getCurrentDifficulty();
+
   return (
     <div
       className="flex items-center space-x-2"
       data-pending={isPending ? '' : undefined}
     >
-      <DropdownMenu>
+      <DropdownMenu
+        open={isOpen}
+        onOpenChange={setIsOpen}
+      >
         <DropdownMenuTrigger asChild>
           <Button
             padding="md"
@@ -92,17 +143,36 @@ export default function FilterDropdown() {
                 Difficulty
               </DropdownMenuSubTrigger>
               <DropdownMenuSubContent className="bg-black border border-black-50 text-white">
-                {['Beginner', 'Easy', 'Medium', 'Hard'].map((difficulty) => (
-                  <DropdownMenuItem
-                    key={difficulty}
-                    onClick={() =>
-                      updateQueryParams('difficulty', difficulty.toLowerCase())
-                    }
-                    className="py-2 hover:!text-white hover:cursor-pointer"
-                  >
-                    {difficulty}
-                  </DropdownMenuItem>
-                ))}
+                {Object.entries(DIFFICULTY_MAP).map(
+                  ([key, { color, label }]) =>
+                    key !== 'DEFAULT' && (
+                      <DropdownMenuItem
+                        key={key}
+                        asChild
+                        className="hover:!text-white hover:cursor-pointer"
+                      >
+                        <button
+                          onClick={() =>
+                            startTransition(() =>
+                              updateQueryParams('difficulty', key)
+                            )
+                          }
+                          className="h-full w-full text-left flex items-center gap-x-2"
+                        >
+                          <div
+                            className="size-2 rounded-full"
+                            style={{ backgroundColor: color }}
+                          />
+                          <div className="flex items-center w-full justify-between">
+                            {label}
+                            {currentDifficulty === key && (
+                              <Check className="size-3 text-white" />
+                            )}
+                          </div>
+                        </button>
+                      </DropdownMenuItem>
+                    )
+                )}
               </DropdownMenuSubContent>
             </DropdownMenuSub>
             <DropdownMenuItem
@@ -136,6 +206,20 @@ export default function FilterDropdown() {
               </DropdownMenuSubContent>
             </DropdownMenuSub>
           </DropdownMenuGroup>
+          <div
+            className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${
+              activeFilters > 0 ? 'max-h-14 p-2 pt-0' : 'max-h-0'
+            }`}
+          >
+            <Button
+              variant="destructive"
+              size="sm"
+              onClick={clearAllFilters}
+              className="w-full"
+            >
+              Clear Filters
+            </Button>
+          </div>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

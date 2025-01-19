@@ -7,7 +7,7 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 //import { Separator } from '@/components/ui/separator';
 import { Check } from 'lucide-react';
@@ -80,10 +80,17 @@ export default function FilterButtonsSort() {
         >
           <DropdownMenuGroup className="p-1">
             <DropdownMenuItem
-              className="flex items-center justify-between hover:cursor-pointer"
+              className="flex items-center justify-between hover:cursor-pointer py-2"
               onClick={() => startTransition(() => toggleSortOrder())}
             >
               <span className="text-white">Date</span>
+              {ascending && <Check className="size-4 text-white" />}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="flex items-center justify-between hover:cursor-pointer py-2"
+              onClick={() => startTransition(() => toggleSortOrder())}
+            >
+              <span className="text-white">Submissions</span>
               {ascending && <Check className="size-4 text-white" />}
             </DropdownMenuItem>
           </DropdownMenuGroup>

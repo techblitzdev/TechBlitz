@@ -25,6 +25,7 @@ import { toast } from 'sonner';
 import { formatSeconds } from '@/utils/time';
 import { AnswerDifficulty } from '@prisma/client';
 import { updateAnswerDifficulty } from '@/actions/answers/answer';
+import LoadingSpinner from '@/components/ui/loading';
 
 export default function QuestionSubmitted() {
   const {
@@ -78,10 +79,14 @@ export default function QuestionSubmitted() {
                 <CheckCircle className="size-7 text-green-500" />
                 You answered correctly!
               </div>
-            ) : (
+            ) : correctAnswer === 'incorrect' ? (
               <div className="flex items-center gap-x-2">
                 <XCircle className="size-7 text-red-500" />
                 That was incorrect, try again!
+              </div>
+            ) : (
+              <div className="flex items-center gap-x-2">
+                <LoadingSpinner />
               </div>
             )}
           </h1>

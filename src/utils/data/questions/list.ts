@@ -2,7 +2,7 @@ import { prisma } from '@/lib/prisma';
 import type {
   Question,
   QuestionDifficulty,
-  QuestionWithoutAnswers,
+  QuestionWithoutAnswers
 } from '@/types/Questions';
 import { getTagsFromQuestion } from './tags/get-tags-from-question';
 import { QuestionFilters } from '@/types/Filters';
@@ -42,7 +42,7 @@ export const listQuestions = async (
     filters,
     userUid,
     customQuestions = false,
-    previousQuestions = false,
+    previousQuestions = false
   } = opts;
 
   const user = await getUser();
@@ -63,8 +63,7 @@ export const listQuestions = async (
         // Difficulty filter
         filters?.difficulty
           ? {
-              difficulty:
-                filters.difficulty.toUpperCase() as QuestionDifficulty,
+              difficulty: filters.difficulty.toUpperCase() as QuestionDifficulty
             }
           : {},
 
@@ -73,17 +72,17 @@ export const listQuestions = async (
           ? {
               userAnswers: {
                 some: {
-                  userUid,
-                },
-              },
+                  userUid
+                }
+              }
             }
           : filters?.completed === false
             ? {
                 userAnswers: {
                   none: {
-                    userUid,
-                  },
-                },
+                    userUid
+                  }
+                }
               }
             : {},
 
@@ -94,28 +93,33 @@ export const listQuestions = async (
                 some: {
                   tag: {
                     name: {
-                      in: filters.tags,
-                    },
-                  },
-                },
-              },
+                      in: filters.tags
+                    }
+                  }
+                }
+              }
             }
           : {},
-
         // Date constraints
         previousQuestions
           ? {
               questionDate: {
-                lte: new Date().toISOString(),
+                lte: new Date().toISOString()
               },
-              dailyQuestion: true,
+              dailyQuestion: true
             }
           : {
               questionDate: {
-                lte: new Date().toISOString(),
-              },
+                lte: new Date().toISOString()
+              }
             },
-      ],
+        // question type filter
+        filters?.questionType !== undefined
+          ? {
+              questionType: filters.questionType
+            }
+          : {}
+      ]
     };
 
     // Add custom questions filter
@@ -124,16 +128,16 @@ export const listQuestions = async (
         customQuestion: true,
         linkedReports: {
           some: {
-            userUid: userUid,
-          },
-        },
+            userUid: userUid
+          }
+        }
       });
     } else {
       baseWhereClause.AND.push({
         customQuestion: false,
         // the slug must be generated in order to return it from here
         // otherwise we will not be able to fetch the question by slug
-        slugGenerated: true,
+        slugGenerated: true
       });
     }
 
@@ -142,31 +146,31 @@ export const listQuestions = async (
       skip,
       take: pageSize,
       orderBy: {
-        questionDate: filters?.ascending ? 'asc' : 'desc',
+        questionDate: filters?.ascending ? 'asc' : 'desc'
       },
       where: baseWhereClause,
       include: {
         tags: {
           include: {
-            tag: true,
-          },
+            tag: true
+          }
         },
         userAnswers: includeUserAnswers
           ? {
               where: {
-                userUid: userUid,
-              },
+                userUid: userUid
+              }
             }
           : undefined,
         linkedReports: {
           select: {
-            userUid: true,
+            userUid: true
           },
           where: {
-            userUid,
-          },
-        },
-      },
+            userUid
+          }
+        }
+      }
     });
 
     // Transform the questions
@@ -181,7 +185,7 @@ export const listQuestions = async (
 
     // Get total count with same security constraints
     const total = await prisma.questions.count({
-      where: baseWhereClause,
+      where: baseWhereClause
     });
     return {
       questions: transformedQuestions as
@@ -194,7 +198,7 @@ export const listQuestions = async (
       total,
       page,
       pageSize,
-      totalPages: Math.ceil(total / pageSize),
+      totalPages: Math.ceil(total / pageSize)
     };
   })();
 };

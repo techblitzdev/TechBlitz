@@ -6,6 +6,7 @@ export interface FilterParams {
   difficulty?: QuestionDifficulty;
   completed?: boolean;
   tags: string[];
+  questionType?: string;
 }
 
 export const parseSearchParams = (searchParams: {
@@ -20,6 +21,7 @@ export const parseSearchParams = (searchParams: {
         ? searchParams.completed === 'true'
         : undefined,
     tags: (searchParams.tags as string)?.split(',').filter(Boolean) || [],
+    questionType: searchParams.questionType as string
   };
 };
 

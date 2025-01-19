@@ -65,16 +65,16 @@ const heroDescription = (
     <p className="text-gray-400">Need a more guided set of questions?</p>
     <div className="flex flex-col md:flex-row gap-2 md:items-center">
       <Button
-        href="/questions/previous"
-        variant="default"
-      >
-        View previous daily questions
-      </Button>
-      <Button
         href="/questions/study-paths"
         variant="secondary"
       >
         Explore study paths
+      </Button>
+      <Button
+        href="/questions/previous"
+        variant="default"
+      >
+        View previous daily questions
       </Button>
     </div>
   </div>

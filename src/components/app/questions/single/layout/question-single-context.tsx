@@ -210,7 +210,7 @@ export const QuestionSingleContextProvider = ({
         const received =
           typeof result === 'object' ? JSON.stringify(result) : result;
         return {
-          passed: received === test.expected,
+          passed: received == test.expected,
           input: test.input,
           expected: test.expected,
           received,

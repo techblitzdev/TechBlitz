@@ -48,6 +48,11 @@ const footerItems = [
         ariaLabel: 'Blog',
       },
       {
+        title: 'Changelog',
+        href: '/changelog',
+        ariaLabel: 'Changelog',
+      },
+      {
         title: 'Open Source',
         href: '/open-source',
         ariaLabel: 'Open Source',

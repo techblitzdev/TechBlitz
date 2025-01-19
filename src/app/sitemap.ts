@@ -10,8 +10,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     listQuestions({
       page: 1,
       pageSize: 1000,
-      userUid: '',
-    }),
+      userUid: ''
+    })
   ]);
 
   // for some reason, the blog posts are not being when invoking
@@ -33,106 +33,110 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'how-to-use-sort-in-javascript',
     'how-to-use-some-in-javascript',
     'introducing-techblitz',
-    'what-are-callback-functions',
+    'what-are-callback-functions'
   ];
 
   const blogPosts = blogPostSlugs.map((slug) => ({
     url: `${baseUrl}/blog/${slug}`,
-    lastModified: new Date(),
+    lastModified: new Date()
   }));
 
   const questionsPosts = questions.questions.map((question) => ({
     url: `${baseUrl}/question/${question.slug}`,
-    lastModified: new Date(question.createdAt),
+    lastModified: new Date(question.createdAt)
   }));
 
   // Static routes
   const routes = [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified: new Date()
     },
     {
       url: `${baseUrl}/features/roadmap`,
-      lastModified: new Date(),
+      lastModified: new Date()
     },
     {
       url: `${baseUrl}/features/daily-coding-challenges`,
-      lastModified: new Date(),
+      lastModified: new Date()
     },
     {
       url: `${baseUrl}/features/statistics`,
-      lastModified: new Date(),
+      lastModified: new Date()
     },
     {
       url: `${baseUrl}/features/leaderboard`,
-      lastModified: '2025-01-18',
+      lastModified: '2025-01-18'
     },
     {
       url: `${baseUrl}/daily-challenge`,
-      lastModified: new Date(),
+      lastModified: new Date()
     },
     {
       url: `${baseUrl}/blog`,
-      lastModified: new Date(),
+      lastModified: new Date()
     },
     {
       url: `${baseUrl}/pricing`,
-      lastModified: new Date(),
+      lastModified: new Date()
     },
     {
       url: `${baseUrl}/faqs`,
-      lastModified: new Date(),
+      lastModified: new Date()
     },
     {
       url: `${baseUrl}/open-source`,
-      lastModified: new Date(),
+      lastModified: new Date()
     },
     {
       url: `${baseUrl}/privacy`,
-      lastModified: new Date(),
+      lastModified: new Date()
     },
     {
       url: `${baseUrl}/terms`,
-      lastModified: new Date(),
+      lastModified: new Date()
+    },
+    {
+      url: `${baseUrl}/changelog`,
+      lastModified: new Date()
     },
     // access routes
     {
       url: `${baseUrl}/signup`,
-      lastModified: new Date(),
+      lastModified: new Date()
     },
     {
       url: `${baseUrl}/login`,
-      lastModified: new Date(),
+      lastModified: new Date()
     },
     {
       url: `${baseUrl}/forgot-password`,
-      lastModified: new Date(),
+      lastModified: new Date()
     },
     {
       url: `${baseUrl}/questions`,
-      lastModified: new Date(),
+      lastModified: new Date()
     },
     {
       url: `${baseUrl}/questions/explore`,
-      lastModified: new Date(),
+      lastModified: new Date()
     },
     {
       url: `${baseUrl}/questions/previous`,
-      lastModified: new Date(),
+      lastModified: new Date()
     },
     {
       url: `${baseUrl}/free-leetcode-alternative`,
-      lastModified: new Date(),
+      lastModified: new Date()
     },
     {
       url: `${baseUrl}/learn-javascript`,
-      lastModified: new Date(),
+      lastModified: new Date()
     },
     {
       url: `${baseUrl}/daily-coding-challenges-for-beginners`,
-      lastModified: new Date(),
-    },
+      lastModified: new Date()
+    }
   ];
 
   // Combine static routes with dynamic blog posts

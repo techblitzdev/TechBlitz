@@ -122,9 +122,7 @@ export default function QuestionCard(opts: {
             className="text-xs block lg:hidden"
             padding="none"
           >
-            {currentLayout === 'questions'
-              ? '(Tap to view code snippet)'
-              : '(Tap to view question)'}
+            {switcherText()}
           </Button>
           {user && user?.showTimeTaken && !isRoadmapQuestion && (
             <Stopwatch totalSeconds={totalSeconds} />

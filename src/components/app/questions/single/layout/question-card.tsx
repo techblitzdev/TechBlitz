@@ -28,6 +28,8 @@ import NoDailyQuestion from '@/components/global/no-daily-question';
 import QuestionSubmitted from './question-submitted';
 import { capitalize } from 'lodash';
 import { AnimatePresence } from 'framer-motion';
+import CodeEditorQuestionSubmitted from '@/components/app/code-editor/answer-submitted';
+import CodeEditor from '@/components/app/code-editor/editor';
 
 export default function QuestionCard(opts: {
   // optional as this is not required to render the card
@@ -73,9 +75,21 @@ export default function QuestionCard(opts: {
   // toggle layout only between questions and codeSnippet
   // the answer is after the user has submitted their answer
   const toggleLayout = () => {
+    // determine what type
     setCurrentLayout(
       currentLayout === 'questions' ? 'codeSnippet' : 'questions'
     );
+  };
+
+  const switcherText = () => {
+    if (question.questionType === 'CODING_CHALLENGE') {
+      return currentLayout === 'questions'
+        ? '(Tap to view editor)'
+        : '(Tap to view question)';
+    }
+    return currentLayout === 'questions'
+      ? '(Tap to view code snippet)'
+      : '(Tap to view question)';
   };
 
   return (
@@ -108,9 +122,7 @@ export default function QuestionCard(opts: {
             className="text-xs block lg:hidden"
             padding="none"
           >
-            {currentLayout === 'questions'
-              ? '(Tap to view code snippet)'
-              : '(Tap to view question)'}
+            {switcherText()}
           </Button>
           {user && user?.showTimeTaken && !isRoadmapQuestion && (
             <Stopwatch totalSeconds={totalSeconds} />
@@ -129,10 +141,18 @@ export default function QuestionCard(opts: {
         {currentLayout === 'codeSnippet' &&
           question.codeSnippet &&
           !answerHelp && (
-            <CodeDisplay
-              content={prefilledCodeSnippet || question.codeSnippet}
-              user={user}
-            />
+            <>
+              {question.questionType === 'CODING_CHALLENGE' ? (
+                <CodeEditor
+                  defaultCode={prefilledCodeSnippet || question.codeSnippet}
+                />
+              ) : (
+                <CodeDisplay
+                  content={prefilledCodeSnippet || question.codeSnippet}
+                  user={user}
+                />
+              )}
+            </>
           )}
         {answerHelp && currentLayout === 'codeSnippet' && (
           <AnimatePresence mode="wait">
@@ -149,7 +169,15 @@ export default function QuestionCard(opts: {
             </div>
           </AnimatePresence>
         )}
-        {currentLayout === 'answer' && <QuestionSubmitted />}
+        {currentLayout === 'answer' && (
+          <>
+            {question.questionType === 'CODING_CHALLENGE' ? (
+              <CodeEditorQuestionSubmitted />
+            ) : (
+              <QuestionSubmitted />
+            )}
+          </>
+        )}
       </div>
       <Separator className="bg-black-50" />
       <div className="w-full space-y-4 px-4 bg-black">

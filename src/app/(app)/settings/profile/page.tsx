@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import {
   Tooltip,
   TooltipProvider,
-  TooltipTrigger,
+  TooltipTrigger
 } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
 import {
@@ -12,7 +12,7 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form';
 import { InputWithLabel } from '@/components/ui/input-label';
 import { Switch } from '@/components/ui/switch';
@@ -25,7 +25,7 @@ import {
   Select,
   SelectTrigger,
   SelectContent,
-  SelectItem,
+  SelectItem
 } from '@/components/ui/select';
 import CodeEditorPreview from '@/components/app/settings/code-preview';
 
@@ -60,8 +60,8 @@ export default function SettingsProfilePage() {
       sendPushNotifications: user?.sendPushNotifications || false,
       codeEditorTheme: user?.codeEditorTheme || 'vs-dark',
       userProfilePicture: user?.userProfilePicture || '',
-      aboutMeAiHelp: user?.aboutMeAiHelp || '',
-    },
+      aboutMeAiHelp: user?.aboutMeAiHelp || ''
+    }
   });
 
   useEffect(() => {
@@ -74,7 +74,7 @@ export default function SettingsProfilePage() {
         sendPushNotifications: user.sendPushNotifications,
         codeEditorTheme: user.codeEditorTheme || 'vs-dark',
         userProfilePicture: user.userProfilePicture || '',
-        aboutMeAiHelp: user.aboutMeAiHelp || '',
+        aboutMeAiHelp: user.aboutMeAiHelp || ''
       });
     }
   }, [user, isLoading, form]);
@@ -93,7 +93,7 @@ export default function SettingsProfilePage() {
 
       const updatedVals: Partial<UserUpdatePayload> = {
         ...changedValues,
-        uid: user?.uid || '',
+        uid: user?.uid || ''
       };
 
       const updatedUser = await updateUser({ userDetails: updatedVals });
@@ -104,7 +104,7 @@ export default function SettingsProfilePage() {
       const previousUser = queryClient.getQueryData(['user-details']);
       queryClient.setQueryData(['user-details'], (old: any) => ({
         ...old,
-        ...newUserData,
+        ...newUserData
       }));
       return { previousUser };
     },
@@ -115,7 +115,7 @@ export default function SettingsProfilePage() {
     },
     onSuccess: () => {
       toast.success('Profile updated successfully');
-    },
+    }
   });
 
   const onSubmitProfilePicture = async (data: any) => {
@@ -137,7 +137,7 @@ export default function SettingsProfilePage() {
     try {
       const res = await fetch('/api/upload', {
         method: 'POST',
-        body: formData,
+        body: formData
       });
       const { logoUrl } = await res.json();
 
@@ -304,7 +304,10 @@ export default function SettingsProfilePage() {
                             }}
                             className="bg-black-50"
                           />
-                          <Label htmlFor="showTimeTaken" className="text-base">
+                          <Label
+                            htmlFor="showTimeTaken"
+                            className="text-base"
+                          >
                             Show on leaderboard
                           </Label>
                         </div>
@@ -334,14 +337,13 @@ export default function SettingsProfilePage() {
                             onCheckedChange={(checked) => {
                               field.onChange(checked);
                             }}
-                            disabled
                             className="bg-black-50"
                           />
                           <Label
                             htmlFor="sendPushNotifications"
                             className="text-base"
                           >
-                            Send push notifications (coming soon)
+                            Send daily reminders
                           </Label>
                         </div>
                       </TooltipTrigger>
@@ -361,7 +363,10 @@ export default function SettingsProfilePage() {
               <FormItem>
                 <FormControl>
                   <>
-                    <Label htmlFor="aboutMeAiHelp" className="text-base">
+                    <Label
+                      htmlFor="aboutMeAiHelp"
+                      className="text-base"
+                    >
                       Personalize your AI
                     </Label>
                     <p className="text-sm text-muted-foreground mb-2">
@@ -415,7 +420,10 @@ export default function SettingsProfilePage() {
                       </SelectTrigger>
                       <SelectContent>
                         {Object.entries(themes).map(([key]) => (
-                          <SelectItem key={key} value={key}>
+                          <SelectItem
+                            key={key}
+                            value={key}
+                          >
                             {key}
                           </SelectItem>
                         ))}

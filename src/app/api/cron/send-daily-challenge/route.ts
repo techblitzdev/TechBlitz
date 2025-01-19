@@ -8,14 +8,11 @@ import React from 'react';
 
 export const dynamic = 'force-dynamic'; // static by default, unless reading the request
 
-// my user uid for testing this.
-const TEST_USER_UID = '3a57d7e8-8b80-483b-93d0-70fe1f06b0c0';
-
 export async function GET(request: NextRequest) {
   const authHeader = request.headers.get('authorization');
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return new Response('Unauthorized', {
-      status: 401,
+      status: 401
     });
   }
 
@@ -31,20 +28,20 @@ export async function GET(request: NextRequest) {
       from: 'team@techblitz.dev',
       to: 'team@techblitz.dev',
       subject: 'No daily challenge found',
-      html: '<p>No daily challenge found</p>',
+      html: '<p>No daily challenge found</p>'
     });
     // return a 404s
     return new Response('No daily challenge found', { status: 404 });
   }
 
   // get the users
-  const user = await prisma.users.findUnique({
+  const users = await prisma.users.findMany({
     where: {
-      uid: TEST_USER_UID,
-    },
+      sendPushNotifications: true
+    }
   });
 
-  if (!user) {
+  if (!users) {
     return new Response('User not found', { status: 404 });
   }
 
@@ -57,16 +54,18 @@ export async function GET(request: NextRequest) {
       description: '',
       tags: dailyChallenge?.tags?.map((tag) => tag.tag.name) || [],
       link,
-      difficulty: dailyChallenge.difficulty,
+      difficulty: dailyChallenge.difficulty
     })
   );
 
-  await resend.emails.send({
-    from: 'team@techblitz.dev',
-    to: user.email,
-    subject: 'Your Daily Challenge is ready!',
-    html,
-  });
+  for (const user of users) {
+    await resend.emails.send({
+      from: 'team@techblitz.dev',
+      to: user.email,
+      subject: 'Your Daily Challenge is ready!',
+      html
+    });
+  }
 
   return new Response('Email sent', { status: 200 });
 }

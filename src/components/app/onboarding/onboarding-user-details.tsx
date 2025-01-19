@@ -9,7 +9,7 @@ import {
   Tooltip,
   TooltipProvider,
   TooltipTrigger,
-  TooltipContent,
+  TooltipContent
 } from '@/components/ui/tooltip';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
@@ -18,7 +18,7 @@ import {
   FormField,
   FormItem,
   FormControl,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form';
 import { useOnboardingContext } from './onboarding-context';
 import { onboardingStepOneSchema } from '@/lib/zod/schemas/onboarding/step-one';
@@ -28,7 +28,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 } from '@/components/ui/select';
 import { toast } from 'sonner';
 import { checkUsername } from '@/actions/user/authed/check-username';
@@ -50,8 +50,8 @@ export default function OnboardingStepOne() {
       showTimeTaken: user.showTimeTaken || false,
       sendPushNotifications: user.sendPushNotifications || false,
       experienceLevel: user.experienceLevel || 'BEGINNER',
-      howDidYouHearAboutTechBlitz: user.howDidYouHearAboutTechBlitz || '',
-    },
+      howDidYouHearAboutTechBlitz: user.howDidYouHearAboutTechBlitz || ''
+    }
   });
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,7 +87,7 @@ export default function OnboardingStepOne() {
     if (hasChanges) {
       setUser((prev) => ({
         ...prev,
-        username: username || '',
+        username: username || ''
       }));
     }
   }, [username, setUser, user]);
@@ -257,7 +257,7 @@ export default function OnboardingStepOne() {
                               htmlFor="sendPushNotifications"
                               className="text-white"
                             >
-                              Send promotional emails
+                              Send daily challenge reminders
                             </Label>
                           </div>
                           <FormControl>
@@ -265,8 +265,6 @@ export default function OnboardingStepOne() {
                               checked={field.value}
                               onCheckedChange={field.onChange}
                               className="bg-black-50"
-                              // disable for now
-                              disabled
                             />
                           </FormControl>
                           <FormMessage className="mt-0.5 text-start">

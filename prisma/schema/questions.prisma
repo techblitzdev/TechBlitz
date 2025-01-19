@@ -18,6 +18,11 @@ enum QuestionAnswerType {
   STANDARD
 }
 
+enum QuestionType {
+  CODING_CHALLENGE
+  MULTIPLE_CHOICE
+}
+
 model Questions {
   uid           String   @id @default(uuid())
   question      String
@@ -56,6 +61,20 @@ model Questions {
   slug String? @unique @default(uuid())
 
   slugGenerated Boolean @default(false)
+
+  // CODING_CHALLENGE specific fields
+
+  // the type of question - either multiple choice or write code
+  questionType QuestionType @default(MULTIPLE_CHOICE)
+
+  // Store test cases as JSON - these need to be run against the user's code
+  testCases      Json?        
+  // Expected function name
+  functionName   String?      
+  // Expected parameter types/names
+  expectedParams Json?        
+  // Expected return type
+  returnType     String?      
 }
 
 // Tags for this question
@@ -107,7 +126,7 @@ model Answers {
   questionUid   String    @default("legacy_question")
   user          Users     @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
   question      Questions @relation(fields: [questionUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
-  userAnswerUid String
+  userAnswerUid String?
   correctAnswer Boolean   @default(false)
   questionDate  String    @default("")
   timeTaken     Int?

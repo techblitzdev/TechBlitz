@@ -6,11 +6,12 @@ import { RefreshCcwIcon } from 'lucide-react';
 export default function QuestionActionButtons() {
   const {
     resetQuestionState,
-    submitQuestionAnswer,
+    submitAnswer,
     isSubmitting,
     selectedAnswer,
     user,
     question,
+    code,
   } = useQuestionSingle();
 
   return (
@@ -22,8 +23,11 @@ export default function QuestionActionButtons() {
         </span>
       </Button>
       {user ? (
-        <form onSubmit={(e) => submitQuestionAnswer(e)}>
-          <Button type="submit" disabled={isSubmitting || !selectedAnswer}>
+        <form onSubmit={(e) => submitAnswer(e)}>
+          <Button
+            type="submit"
+            disabled={isSubmitting || (!selectedAnswer && !code)}
+          >
             Submit
           </Button>
         </form>

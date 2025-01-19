@@ -4,6 +4,8 @@ import { Tags } from './Tags';
 
 export type QuestionDifficulty = 'BEGINNER' | 'EASY' | 'MEDIUM' | 'HARD';
 
+export type QuestionType = 'MULTIPLE_CHOICE' | 'CODING_CHALLENGE';
+
 /**
  * This type represents the shape of the data of a question.
  */
@@ -38,9 +40,22 @@ export type Question = {
   slug: string | null;
 
   slugGenerated: boolean;
+
+  questionType: QuestionType;
+
+  // i am so sorry typescript lords (Json from prisma isn't nice to work with)
+  testCases: any;
+
+  functionName: string | null;
+
+  // i am so sorry typescript lords
+  expectedParams: any;
 };
 
-export type QuestionWithoutAnswers = Omit<Question, 'answers'>;
+export type QuestionWithoutAnswers = Omit<
+  Question,
+  'answers' | 'testCases' | 'functionName' | 'expectedParams'
+>;
 
 export type QuestionWithTags = QuestionWithoutAnswers & {
   tags: Array<{

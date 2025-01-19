@@ -10,6 +10,7 @@ import ResizableLayout from '@/components/ui/resizable-layout';
 import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help';
 import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
 import CodeDisplayWrapper from '@/components/app/questions/single/layout/code-display-wrapper';
+import CodeEditor from '@/components/app/code-editor/editor';
 
 export default async function TodaysQuestionPage({
   params,
@@ -51,9 +52,9 @@ export default async function TodaysQuestionPage({
     <div className="hidden lg:flex flex-col gap-4 p-3 lg:p-6 lg:pl-3 h-full">
       <div
         id="code-snippet"
-        className="bg-black-75 border border-black-50 rounded-xl relative overflow-hidden h-full"
+        className="bg-black-75 border border-black-50 rounded-xl relative overflow-scroll h-full"
       >
-        <div className="p-4 text-sm flex w-full items-center justify-end bg-black-25 gap-x-3">
+        <div className="px-4 py-5 text-sm flex w-full items-center justify-end bg-black-25 gap-x-3">
           {/** explain question ai button */}
           <AiQuestionHelp question={question} user={user} />
           {/** code theme selector */}
@@ -64,7 +65,16 @@ export default async function TodaysQuestionPage({
           )}
         </div>
         <Separator className="bg-black-50" />
-        {question?.codeSnippet && <CodeDisplayWrapper />}
+        {/** changes based on question type */}
+        {question?.questionType === 'CODING_CHALLENGE' ? (
+          <>
+            {question.codeSnippet && (
+              <CodeEditor defaultCode={question.codeSnippet} />
+            )}
+          </>
+        ) : (
+          <CodeDisplayWrapper />
+        )}
       </div>
     </div>
   );

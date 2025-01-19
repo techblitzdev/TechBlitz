@@ -13,7 +13,8 @@ export interface Answer extends BaseRecord {
   /** The uid of the question this answer is for */
   questionUid: string;
   /** The uid of the questionAnswer (the answer the user selected) */
-  userAnswerUid: string;
+  // optional due to code editor answers
+  userAnswerUid: string | null;
   /** If the question was correct or incorrect */
   correctAnswer: boolean;
   /** The date when the user answered this question */

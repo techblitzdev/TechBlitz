@@ -4,13 +4,16 @@ import { UserRecord } from '@/types/User';
 import { prisma } from '@/lib/prisma';
 import { revalidateTag } from 'next/cache';
 import { AnswerDifficulty } from '@prisma/client';
+import { uniqueId } from 'lodash';
+import { getUser } from '../user/authed/get-user';
 
 // Types
 interface AnswerQuestionInput {
   questionUid: string;
-  answerUid: string;
+  answerUid: string | null;
   userUid: string;
   timeTaken?: number;
+  allPassed?: boolean;
 }
 
 interface AnswerQuestionResponse {
@@ -51,6 +54,13 @@ const findQuestion = async (questionUid: string) => {
   return question;
 };
 
+/**
+ * Getting an existing answer for a question based on the user and question uid
+ *
+ * @param userUid
+ * @param questionUid
+ * @returns
+ */
 const findExistingAnswer = async (userUid: string, questionUid: string) => {
   console.log('hit findExistingAnswer');
   return prisma.answers.findFirst({
@@ -166,7 +176,7 @@ const updateOrCreateAnswer = async (
     existingAnswer: any;
     userUid: string;
     questionUid: string;
-    answerUid: string;
+    answerUid?: string;
     correctAnswer: boolean;
     timeTaken?: number;
   }
@@ -204,9 +214,24 @@ export async function answerQuestion({
   answerUid,
   userUid,
   timeTaken,
+  allPassed,
 }: AnswerQuestionInput): Promise<AnswerQuestionResponse> {
+  // if no answerUid, then we are submitting a coding challenge
+  if (!answerUid) {
+    answerUid = uniqueId();
+  }
+
   const question = await findQuestion(questionUid);
-  const correctAnswer = question.correctAnswer === answerUid;
+
+  const questionType = question.questionType;
+
+  let correctAnswer = false;
+  if (questionType === 'CODING_CHALLENGE') {
+    correctAnswer = allPassed || false;
+  } else {
+    correctAnswer = question.correctAnswer === answerUid;
+  }
+
   const existingAnswer = await findExistingAnswer(userUid, questionUid);
 
   const { userData, userAnswer } = await prisma.$transaction(async (tx) => {
@@ -263,6 +288,33 @@ export async function updateAnswerDifficulty(
 ) {
   await prisma.answers.update({
     where: { uid: answerUid },
+    data: { difficulty },
+  });
+}
+
+/**
+ * Updates the difficulty of all answers for a given question.
+ *
+ * @param questionUid - The uid of the question to update.
+ * @param difficulty - The difficulty to set for the answers.
+ */
+export async function updateAnswerDifficultyByQuestionUid(
+  questionUid: string,
+  difficulty: AnswerDifficulty
+) {
+  const user = await getUser();
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  await prisma.answers.updateMany({
+    where: {
+      questionUid,
+      AND: {
+        userUid: user.uid,
+      },
+    },
     data: { difficulty },
   });
 }

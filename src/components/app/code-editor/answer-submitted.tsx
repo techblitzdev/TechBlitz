@@ -1,7 +1,6 @@
 'use client';
 
 import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
-import CodeDisplay from './code-snippet';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -24,19 +23,19 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { toast } from 'sonner';
 import { formatSeconds } from '@/utils/time';
 import { AnswerDifficulty } from '@prisma/client';
-import { updateAnswerDifficulty } from '@/actions/answers/answer';
+import { updateAnswerDifficultyByQuestionUid } from '@/actions/answers/answer';
 import LoadingSpinner from '@/components/ui/loading';
 
-export default function QuestionSubmitted() {
+export default function CodeEditorQuestionSubmitted() {
   const {
-    question,
-    userAnswer,
+    result,
     correctAnswer,
     relatedQuestions,
     totalSeconds,
     generateAiAnswerHelp,
     user,
     tokensUsed,
+    question,
   } = useQuestionSingle();
 
   const [isPending, setTransition] = useTransition();
@@ -50,8 +49,8 @@ export default function QuestionSubmitted() {
   };
 
   const handleDifficultySelect = async (value: string) => {
-    await updateAnswerDifficulty(
-      userAnswer?.uid || '',
+    await updateAnswerDifficultyByQuestionUid(
+      question?.uid || '',
       value.toUpperCase() as AnswerDifficulty
     );
     toast.success(
@@ -73,41 +72,39 @@ export default function QuestionSubmitted() {
         transition={{ delay: 0.2, duration: 0.5 }}
       >
         <div className="flex w-full justify-between items-center">
-          <h1 className="text-4xl font-bold">
+          <h1 className="text-3xl font-bold">
             {correctAnswer === 'correct' ? (
               <div className="flex items-center gap-x-2">
                 <CheckCircle className="size-7 text-green-500" />
-                You answered correctly!
+                All test cases passed.
               </div>
             ) : correctAnswer === 'incorrect' ? (
               <div className="flex items-center gap-x-2">
                 <XCircle className="size-7 text-red-500" />
-                That was incorrect, try again!
+                Some test cases failed, let's review:
               </div>
             ) : (
               <div className="flex items-center gap-x-2">
                 <LoadingSpinner />
+                Loading...
               </div>
             )}
           </h1>
-          {/** Do not show on custom questions - they are not meant to be shared */}
-          {!question?.customQuestion && (
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button variant="default" onClick={() => copyLink()}>
-                    <LinkIcon className="size-4" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Copy link</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          )}
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Button variant="default" onClick={() => copyLink()}>
+                  <LinkIcon className="size-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Copy link</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
         <div className="flex flex-col gap-y-2">
-          {userAnswer?.correctAnswer && (
+          {result?.passed && (
             <p className="text-sm text-gray-400">
               in {formatSeconds(totalSeconds || 0)} seconds
             </p>
@@ -120,54 +117,6 @@ export default function QuestionSubmitted() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.5 }}
       >
-        <div className="flex flex-col gap-y-6">
-          <div className="flex flex-col gap-y-2">
-            <h2 className="text-xl font-bold">Your Answer</h2>
-            {/** test if this is a code question */}
-            {userAnswer &&
-            /<pre><code/.test(
-              question?.answers.find(
-                (answer) => answer.uid === userAnswer?.userAnswerUid
-              )?.answer || ''
-            ) ? (
-              <CodeDisplay
-                content={
-                  question?.answers.find(
-                    (answer) => answer.uid === userAnswer?.userAnswerUid
-                  )?.answer || ''
-                }
-              />
-            ) : (
-              <div className="p-3 bg-black-75">
-                <p
-                  className="text-sm"
-                  dangerouslySetInnerHTML={{
-                    __html:
-                      question?.answers.find(
-                        (answer) => answer.uid === userAnswer?.userAnswerUid
-                      )?.answer || '',
-                  }}
-                />
-              </div>
-            )}
-          </div>
-
-          {/** if the user answered correctly, show the correct answer */}
-          {correctAnswer === 'incorrect' && (
-            <div className="flex flex-col gap-y-2">
-              <h2 className="text-lg font-bold">Correct Answer</h2>
-              <CodeDisplay
-                content={
-                  question?.answers.find(
-                    (answer) => answer.uid === question.correctAnswer
-                  )?.answer || ''
-                }
-              />
-            </div>
-          )}
-        </div>
-        {/** you answered faster than 90% of users */}
-
         <div className="flex flex-col gap-y-2">
           {/** ai explain answer (on button click) */}
           <h2 className="text-xl font-bold">Explain this answer</h2>

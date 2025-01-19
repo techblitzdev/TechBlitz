@@ -27,6 +27,11 @@ const components: { title: string; href: string; description: string }[] = [
       'Read our latest blog posts for more insights on how to level up your skills.',
   },
   {
+    title: 'Changelog',
+    href: '/changelog',
+    description: 'Release notes for the latest updates.',
+  },
+  {
     title: 'Open Source',
     href: '/open-source',
     description: 'No secrets here, see how we build our platform.',

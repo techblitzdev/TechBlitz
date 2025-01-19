@@ -38,6 +38,20 @@ type QuestionSingleContextType = {
   setAnswerHelp: (answerHelp: z.infer<typeof answerHelpSchema> | null) => void;
   tokensUsed: number;
   setTokensUsed: (tokensUsed: number) => void;
+  validateCode: (e: React.FormEvent<HTMLFormElement>) => void;
+  code: string;
+  setCode: (code: string) => void;
+  result: {
+    passed: boolean;
+    details?: Array<{
+      passed: boolean;
+      input: number[];
+      expected: number;
+      received: number;
+    }>;
+    error?: string;
+  } | null;
+  submitAnswer: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
 };
 
 export const QuestionSingleContext = createContext<QuestionSingleContextType>(
@@ -115,10 +129,9 @@ export const QuestionSingleContextProvider = ({
     }
   }, [selectedAnswer, question.answers, question.codeSnippet]);
 
+  // submits the answer for a non-CODING_CHALLENGE question
   const submitQuestionAnswer = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    pause();
-
     if (!user) {
       console.error('User is not logged in');
       return;
@@ -160,6 +173,91 @@ export const QuestionSingleContextProvider = ({
     }
   };
 
+  const [code, setCode] = useState('');
+  const [result, setResult] = useState<{
+    passed: boolean;
+    details?: Array<{
+      passed: boolean;
+      input: number[];
+      expected: number;
+      received: number;
+    }>;
+    error?: string;
+  } | null>(null);
+
+  // validates the code for a CODING_CHALLENGE question
+  const validateCode = async (e: React.FormEvent<HTMLFormElement>) => {
+    // prevent page from reloading
+    e.preventDefault();
+
+    // get the challenge from the question
+    const challenge =
+      question.questionType === 'CODING_CHALLENGE' ? question : null;
+
+    if (!challenge) {
+      toast.error('No challenge found');
+      return;
+    }
+
+    try {
+      // Create a new function from the user's code
+      const userFunction = eval(`(${code})`);
+
+      // Run test cases
+      const results = challenge.testCases.map((test: any) => {
+        const result = userFunction(...test.input);
+        // Check if the result is an object and convert it to a string if so
+        const received =
+          typeof result === 'object' ? JSON.stringify(result) : result;
+        return {
+          passed: received == test.expected,
+          input: test.input,
+          expected: test.expected,
+          received,
+        };
+      });
+
+      const allPassed = results.every((r: any) => r.passed);
+      setResult({ passed: allPassed, details: results });
+
+      // submit the answer
+      await answerQuestion({
+        questionUid: question.uid,
+        answerUid: null,
+        userUid: user?.uid || '',
+        timeTaken: totalSeconds,
+        allPassed,
+      });
+
+      setCorrectAnswer(allPassed ? 'correct' : 'incorrect');
+    } catch (error: any) {
+      setResult({
+        passed: false,
+        error: error.message,
+      });
+    }
+  };
+
+  // method to submit the answer depending on the question type
+  const submitAnswer = async (e: React.FormEvent<HTMLFormElement>) => {
+    if (!user) {
+      toast.error('User is not logged in');
+      return;
+    }
+    // pause the timer
+    pause();
+
+    // determine method to use based on question type
+    if (question.questionType === 'CODING_CHALLENGE') {
+      validateCode(e);
+    } else {
+      submitQuestionAnswer(e);
+    }
+
+    // set the current layout to 'answer' to show the answer submitted
+    setCurrentLayout('answer');
+  };
+
   const generateAiAnswerHelp = async (setCodeSnippetLayout?: boolean) => {
     // if the user has asked for assistance for the answer, set the current layout to 'codeSnippet'
     // this is so mobile view switches to the code snippet view
@@ -168,9 +266,12 @@ export const QuestionSingleContextProvider = ({
     }
     const { content, tokensUsed } = await generateAnswerHelp(
       question.uid,
-      correctAnswer === 'correct'
+      question.questionType === 'CODING_CHALLENGE'
+        ? result?.passed || false
+        : correctAnswer === 'correct'
     );
-    if (!answerHelp) {
+
+    if (!content) {
       toast.error('Error generating answer help');
       return;
     }
@@ -190,6 +291,8 @@ export const QuestionSingleContextProvider = ({
     setPrefilledCodeSnippet(null);
     setCurrentLayout('questions');
     setAnswerHelp(null);
+    setCode(question.codeSnippet || '');
+    setResult(null);
   };
 
   return (
@@ -221,6 +324,11 @@ export const QuestionSingleContextProvider = ({
         setAnswerHelp,
         tokensUsed,
         setTokensUsed,
+        validateCode,
+        code,
+        setCode,
+        result,
+        submitAnswer,
       }}
     >
       {children}

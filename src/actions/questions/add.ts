@@ -169,3 +169,98 @@ export const addQuestion = async (opts: {
       : 'Failed to add new question';
   }
 };
+
+export const addCodingChallengeQuestion = async (opts: {
+  question: string;
+  title: string;
+  description: string;
+  testCases: {
+    expected: any;
+    input: any;
+  }[];
+  codeSnippet: string;
+  hint: string;
+  dailyQuestion: boolean;
+  questionDate: string | undefined;
+  tags: string[];
+  aiTitle: string | undefined;
+  difficulty: QuestionDifficulty | undefined;
+  questionResources: {
+    title: string;
+    url: string;
+  }[];
+}) => {
+  const {
+    question,
+    title,
+    description,
+    testCases,
+    codeSnippet,
+    hint,
+    dailyQuestion,
+    questionDate,
+    tags,
+    difficulty,
+    questionResources,
+  } = opts;
+
+  const questionUid = uniqid();
+
+  try {
+    await prisma.questions.create({
+      data: {
+        uid: questionUid,
+        question,
+        title: title || null,
+        description: description || null,
+        questionDate: questionDate
+          ? new Date(questionDate).toISOString().split('T')[0]
+          : '',
+        correctAnswer: '-',
+        codeSnippet: codeSnippet || null,
+        hint: hint || null,
+        dailyQuestion: dailyQuestion || false,
+        difficulty,
+        questionType: 'CODING_CHALLENGE',
+        tags: {
+          connectOrCreate: tags.map((tag) => ({
+            where: {
+              questionId_tagId: {
+                questionId: questionUid,
+                tagId: uniqid(),
+              },
+            },
+            create: {
+              tag: {
+                connectOrCreate: {
+                  where: { name: tag },
+                  create: {
+                    uid: uniqid(),
+                    name: tag,
+                  },
+                },
+              },
+            },
+          })),
+        },
+        testCases: testCases || null,
+        QuestionResources: questionResources
+          ? {
+              createMany: {
+                data: questionResources.map((resource) => ({
+                  title: resource.title,
+                  resource: resource.url,
+                  uid: uniqid(),
+                })),
+              },
+            }
+          : undefined,
+      },
+    });
+  } catch (error) {
+    console.error('Failed to add new coding challenge question:', error);
+    return error instanceof Error
+      ? error.message
+      : 'Failed to add new coding challenge question';
+  }
+};

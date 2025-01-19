@@ -75,8 +75,9 @@ export async function GET(request: NextRequest) {
         },
       },
       data: {
-        streakStart: null,
-        streakEnd: null,
+        // update streak start to the previous day
+        streakStart: new Date(previousDay),
+        streakEnd: new Date(previousDay),
         currentstreakCount: 0,
       },
     });

@@ -42,9 +42,6 @@ export default function ChangelogTimeline() {
             >
               Try it out now!
             </Link>{' '}
-            <br />
-            <i>Note:</i> We are in the process of adding more questions to our
-            platform everyday, so make sure to check back often.
           </p>
         </div>
       )
@@ -93,7 +90,14 @@ export default function ChangelogTimeline() {
           <p className="text-white font-normal mt-8">
             We have revamped our existing leaderboard to make it more engaging
             and interactive. Now you can see your progress in real-time and
-            compete with your friends.
+            compete with your friends. <br />
+            View the leaderboard{' '}
+            <Link
+              href="/leaderboard"
+              className="text-accent"
+            >
+              here
+            </Link>
           </p>
         </div>
       )

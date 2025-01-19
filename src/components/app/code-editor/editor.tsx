@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Editor, useMonaco } from '@monaco-editor/react';
+import { Editor } from '@monaco-editor/react';
 import LoadingSpinner from '@/components/ui/loading';
 import { useQuestionSingle } from '../questions/single/layout/question-single-context';
 import TestCaseDisplay from './test-case-display';

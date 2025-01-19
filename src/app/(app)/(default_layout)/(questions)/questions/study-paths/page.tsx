@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 const QuestionPageSidebar = dynamic(
   () => import('@/components/app/questions/layout/question-page-sidebar'),
   {
-    loading: () => <QuestionPageSidebarLoading />,
+    loading: () => <QuestionPageSidebarLoading />
   }
 );
 import QuestionPageSidebarLoading from '@/components/app/questions/layout/question-page-sidebar-loading';
@@ -23,9 +23,9 @@ export const revalidate = 600;
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Explore Questions | TechBlitz',
+    title: 'Study paths | TechBlitz',
     description:
-      'Explore a diverse set of questions across multiple topics to enhance your knowledge.',
+      'A collection of coding questions, ranging from Javascript, React, Node, Web Development. Aimed to enhance your coding skills in each domain.',
     keywords: [
       'javascript coding questions',
       'react coding questions',
@@ -33,14 +33,14 @@ export async function generateMetadata() {
       'coding challenges',
       'coding tutorials',
       'coding practice',
-      'coding practice questions',
+      'coding practice questions'
     ],
     image: {
-      text: 'Explore Questions | TechBlitz',
+      text: 'Study paths | TechBlitz',
       bgColor: '#000',
-      textColor: '#fff',
+      textColor: '#fff'
     },
-    canonicalUrl: '/questions/explore',
+    canonicalUrl: '/questions/study-paths'
   });
 }
 
@@ -52,7 +52,10 @@ const heroDescription = (
     </p>
     <div className="flex flex-col gap-y-2">
       <p className="text-gray-400">Can't find what you're looking for?</p>
-      <Button href="/questions" variant="secondary">
+      <Button
+        href="/questions"
+        variant="secondary"
+      >
         View all questions
       </Button>
     </div>
@@ -63,7 +66,7 @@ export default async function ExploreQuestionsPage() {
   return (
     <>
       <Hero
-        heading="Explore Questions"
+        heading="Study paths"
         subheading={heroDescription}
         container={false}
       />

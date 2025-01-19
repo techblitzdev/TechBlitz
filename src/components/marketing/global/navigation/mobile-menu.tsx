@@ -8,7 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import {
   HamburgerMenuIcon,
   Cross1Icon,
-  ChevronDownIcon,
+  ChevronDownIcon
 } from '@radix-ui/react-icons';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -27,8 +27,8 @@ const menuItems: MenuItem[] = [
       { label: 'Roadmaps', href: '/features/roadmaps' },
       { label: 'Daily Challenges', href: '/features/daily-coding-challenges' },
       { label: 'Statistics', href: '/features/statistics' },
-      { label: 'Leaderboard', href: '/features/leaderboard' },
-    ],
+      { label: 'Leaderboard', href: '/features/leaderboard' }
+    ]
   },
   {
     label: 'Resources',
@@ -38,19 +38,19 @@ const menuItems: MenuItem[] = [
       { label: 'Blog', href: '/blog' },
       { label: 'Changelog', href: '/changelog' },
       { label: 'Open Source', href: '/open-source' },
-      { label: 'FAQs', href: '/faqs' },
-    ],
+      { label: 'FAQs', href: '/faqs' }
+    ]
   },
   {
     label: 'Learn',
-    href: '/questions/explore',
+    href: '/questions/study-paths',
     children: [
       { label: 'JavaScript', href: '/questions?tag=javascript' },
       { label: 'React', href: '/questions?tag=react' },
-      { label: 'Explore', href: '/questions/explore' },
-    ],
+      { label: 'Study Paths', href: '/questions/study-paths' }
+    ]
   },
-  { label: 'Pricing', href: '/pricing' },
+  { label: 'Pricing', href: '/pricing' }
 ];
 
 export function MobileMenu() {
@@ -135,9 +135,16 @@ export function MobileMenu() {
   };
 
   return (
-    <Sheet open={isOpen} onOpenChange={setIsOpen}>
+    <Sheet
+      open={isOpen}
+      onOpenChange={setIsOpen}
+    >
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="relative"
+        >
           <div className="relative w-5 h-5">
             <div
               className={cn(

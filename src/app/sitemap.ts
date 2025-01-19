@@ -118,7 +118,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date()
     },
     {
-      url: `${baseUrl}/questions/explore`,
+      url: `${baseUrl}/questions/study-paths`,
       lastModified: new Date()
     },
     {

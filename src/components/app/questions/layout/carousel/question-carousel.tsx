@@ -5,7 +5,7 @@ import {
   Carousel,
   CarouselContent,
   CarouselNext,
-  CarouselPrevious,
+  CarouselPrevious
 } from '@/components/ui/carousel';
 import { QuestionDifficulty } from '@/types/Questions';
 import { Button } from '@/components/ui/button';
@@ -26,11 +26,11 @@ export default function QuestionCarousel({
   image,
   tag,
   difficulty,
-  children,
+  children
 }: QuestionCarouselProps) {
   const viewMoreHref = useMemo(() => {
     if (Array.isArray(tag) && tag.length > 0) {
-      return `/questions?tag=${tag.join(',')}`;
+      return `/questions?tag=${tag.join('&')}`;
     }
     return `/questions?difficulty=${difficulty}`;
   }, [tag, difficulty]);
@@ -42,7 +42,7 @@ export default function QuestionCarousel({
       opts={{
         loop: false,
         dragFree: true,
-        align: 'start',
+        align: 'start'
       }}
       className="w-full"
     >
@@ -55,7 +55,10 @@ export default function QuestionCarousel({
             <p className="text-sm text-wrap text-start">{description}</p>
           </div>
           <div className="flex items-center gap-2 justify-between">
-            <Button href={viewMoreHref} variant="default">
+            <Button
+              href={viewMoreHref}
+              variant="default"
+            >
               View more
               <ChevronRight className="size-4 ml-2" />
             </Button>
@@ -77,11 +80,11 @@ export default function QuestionCarousel({
             {children}
           </CarouselContent>
           <CarouselPrevious
-            className="hidden md:block border-none text-white -top-14 -left-6 z-10"
+            className="hidden md:block border-none text-white -top-20 -left-6 z-10"
             variant="ghost"
           />
           <CarouselNext
-            className="hidden md:block border-none text-white -top-14"
+            className="hidden md:block border-none text-white -top-20"
             variant="ghost"
           />
         </div>

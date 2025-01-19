@@ -44,7 +44,7 @@ export function QuestionCardSkeleton() {
 // separate async component for stats to avoid blocking render
 async function QuestionStats({
   identifier,
-  value,
+  value
 }: {
   identifier: 'slug' | 'uid';
   value: string;
@@ -74,7 +74,7 @@ export default function QuestionCard(opts: {
     numberOfTags = 3,
     showcaseTag,
     identifier = 'slug',
-    customQuestion = false,
+    customQuestion = false
   } = opts;
 
   // if identifier is uid, this is a custom question
@@ -89,7 +89,7 @@ export default function QuestionCard(opts: {
     <Link
       href={href}
       key={questionData.uid}
-      className="flex flex-col space-y-5 items-start bg-black-75 border border-black-50 hover:border-accent duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-[[data-pending]]:animate-pulse"
+      className="flex flex-col space-y-5 items-start bg-black-75 border border-black-50 hover:border-white duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-[[data-pending]]:animate-pulse"
     >
       <div className="flex flex-col gap-y-2 w-full">
         <div className="flex w-full justify-between items-center">
@@ -97,46 +97,50 @@ export default function QuestionCard(opts: {
             {title}
           </h6>
         </div>
-        {showSubmissions && (
-          <Suspense
-            fallback={
-              <div className="text-start text-[10px]">
-                <p className="font-ubuntu text-sm">Loading stats...</p>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+          <div className="flex items-center gap-x-2">
+            {questionData.userAnswers && questionData.userAnswers.length > 0 ? (
+              <div>
+                {questionData.userAnswers[0].correctAnswer ? (
+                  <CheckCircle className="flex-shrink-0 size-5 text-green-500" />
+                ) : (
+                  <Circle className="flex-shrink-0 size-5 text-black-50" />
+                )}
               </div>
-            }
-          >
-            <QuestionStats
-              identifier={identifier}
-              value={questionData[identifier] || ''}
-            />
-          </Suspense>
-        )}
-      </div>
-      <div className="flex items-center gap-x-2">
-        {questionData.userAnswers && questionData.userAnswers.length > 0 ? (
-          <div>
-            {questionData.userAnswers[0].correctAnswer ? (
-              <CheckCircle className="flex-shrink-0 size-5 text-green-500" />
             ) : (
               <Circle className="flex-shrink-0 size-5 text-black-50" />
             )}
-          </div>
-        ) : (
-          <Circle className="flex-shrink-0 size-5 text-black-50" />
-        )}
-        <div className="text-sm font-medium">
-          {questionData.userAnswers && questionData.userAnswers.length > 0 ? (
-            questionData.userAnswers[0].correctAnswer ? (
-              <p>Correct</p>
-            ) : (
-              <p>Incorrect</p>
-            )
-          ) : (
-            <div className="relative">
-              <p className="hover:opacity-0 transition-opacity duration-300 whitespace-nowrap flex items-center gap-x-1">
-                Not Answered
-              </p>
+            <div className="text-sm font-medium">
+              {questionData.userAnswers &&
+              questionData.userAnswers.length > 0 ? (
+                questionData.userAnswers[0].correctAnswer ? (
+                  <p>Correct</p>
+                ) : (
+                  <p>Incorrect</p>
+                )
+              ) : (
+                <div className="relative">
+                  <p className="hover:opacity-0 transition-opacity duration-300 whitespace-nowrap flex items-center gap-x-1">
+                    Not Answered
+                  </p>
+                </div>
+              )}
             </div>
+          </div>
+          {showSubmissions && (
+            <Suspense
+              fallback={
+                <div className="text-start text-[10px]">
+                  <p className="font-ubuntu text-sm">Submissions: loading...</p>
+                </div>
+              }
+            >
+              <span className="hidden sm:block">•</span>
+              <QuestionStats
+                identifier={identifier}
+                value={questionData[identifier] || ''}
+              />
+            </Suspense>
           )}
         </div>
       </div>

@@ -14,7 +14,7 @@ export const createMetadata = ({
   description,
   image,
   keywords,
-  canonicalUrl,
+  canonicalUrl
 }: {
   title: string;
   description: string;
@@ -33,7 +33,7 @@ export const createMetadata = ({
     'javascript',
     'learn to code',
     'coding course',
-    'coding bootcamp',
+    'coding bootcamp'
   ];
 
   // Ensure canonical URL is always the full URL of the current page
@@ -57,9 +57,9 @@ export const createMetadata = ({
             url: image,
             width: 1200,
             height: 630,
-            alt: description,
-          },
-        ],
+            alt: description
+          }
+        ]
       },
       twitter: {
         card: 'summary_large_image',
@@ -70,17 +70,17 @@ export const createMetadata = ({
             url: image,
             width: 1200,
             height: 630,
-            alt: description,
-          },
-        ],
+            alt: description
+          }
+        ]
       },
       alternates: {
-        canonical: fullCanonicalUrl,
+        canonical: fullCanonicalUrl
       },
       robots: {
         index: true,
-        follow: true,
-      },
+        follow: true
+      }
     };
   }
 
@@ -103,9 +103,9 @@ export const createMetadata = ({
           url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: description,
-        },
-      ],
+          alt: description
+        }
+      ]
     },
     twitter: {
       card: 'summary_large_image',
@@ -116,17 +116,17 @@ export const createMetadata = ({
           url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: description,
-        },
-      ],
+          alt: description
+        }
+      ]
     },
     alternates: {
-      canonical: fullCanonicalUrl,
+      canonical: fullCanonicalUrl
     },
     robots: {
       index: true,
-      follow: true,
-    },
+      follow: true
+    }
   };
 };
 
@@ -150,66 +150,66 @@ export const WebPageJsonLdBreadcrumb: WebPageJsonLd['breadcrumb'] = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: getBaseUrl(),
+      item: getBaseUrl()
     },
     // dashboard questions
     {
       '@type': 'ListItem',
       position: 2,
       name: 'Questions',
-      item: getBaseUrl() + '/questions',
+      item: getBaseUrl() + '/questions'
     },
     {
       '@type': 'ListItem',
       position: 3,
-      name: 'Explore Questions',
-      item: getBaseUrl() + '/questions/explore',
+      name: 'Study Paths',
+      item: getBaseUrl() + '/questions/study-paths'
     },
     {
       '@type': 'ListItem',
       position: 4,
       name: 'Daily Challenge',
-      item: getBaseUrl() + '/daily-challenge',
+      item: getBaseUrl() + '/daily-challenge'
     },
     // features
     {
       '@type': 'ListItem',
       position: 5,
       name: 'Roadmap',
-      item: getBaseUrl() + '/features/roadmap',
+      item: getBaseUrl() + '/features/roadmap'
     },
     {
       '@type': 'ListItem',
       position: 6,
       name: 'Features',
-      item: getBaseUrl() + '/features/daily-coding-challenges',
+      item: getBaseUrl() + '/features/daily-coding-challenges'
     },
     {
       '@type': 'ListItem',
       position: 7,
       name: 'Statistics',
-      item: getBaseUrl() + '/features/statistics',
+      item: getBaseUrl() + '/features/statistics'
     },
     // blog
     {
       '@type': 'ListItem',
       position: 8,
       name: 'Blog',
-      item: getBaseUrl() + '/blog',
+      item: getBaseUrl() + '/blog'
     },
     // pricing
     {
       '@type': 'ListItem',
       position: 9,
       name: 'Pricing',
-      item: getBaseUrl() + '/pricing',
+      item: getBaseUrl() + '/pricing'
     },
     // faqs
     {
       '@type': 'ListItem',
       position: 10,
       name: 'FAQs',
-      item: getBaseUrl() + '/faqs',
-    },
-  ],
+      item: getBaseUrl() + '/faqs'
+    }
+  ]
 };

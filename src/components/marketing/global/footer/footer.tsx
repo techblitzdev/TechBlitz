@@ -12,23 +12,23 @@ const footerItems = [
       {
         title: 'Roadmaps',
         href: '/features/roadmap',
-        ariaLabel: 'Roadmaps',
+        ariaLabel: 'Roadmaps'
       },
       {
         title: 'Daily Challenges',
         href: '/features/daily-coding-challenges',
-        ariaLabel: 'Daily Challenges',
+        ariaLabel: 'Daily Challenges'
       },
       {
         title: 'Statistics',
         href: '/features/statistics',
-        ariaLabel: 'Statistics',
+        ariaLabel: 'Statistics'
       },
       {
         title: 'Leaderboard',
         href: '/features/leaderboard',
-        ariaLabel: 'Leaderboard',
-      },
+        ariaLabel: 'Leaderboard'
+      }
       // {
       //   title: '',
       //   href: '/features/projects'
@@ -37,7 +37,7 @@ const footerItems = [
       //   title: 'Leaderboard',
       //   href: '/features/leaderboard'
       // }
-    ],
+    ]
   },
   {
     title: 'Resources',
@@ -45,24 +45,24 @@ const footerItems = [
       {
         title: 'Blog',
         href: '/blog',
-        ariaLabel: 'Blog',
+        ariaLabel: 'Blog'
       },
       {
         title: 'Changelog',
         href: '/changelog',
-        ariaLabel: 'Changelog',
+        ariaLabel: 'Changelog'
       },
       {
         title: 'Open Source',
         href: '/open-source',
-        ariaLabel: 'Open Source',
+        ariaLabel: 'Open Source'
       },
       {
         title: 'FAQs',
         href: '/faqs',
-        ariaLabel: 'FAQs',
-      },
-    ],
+        ariaLabel: 'FAQs'
+      }
+    ]
   },
   {
     title: 'Pricing',
@@ -70,19 +70,19 @@ const footerItems = [
       {
         title: 'Plans',
         href: '/pricing',
-        ariaLabel: 'Plans',
-      },
-    ],
+        ariaLabel: 'Plans'
+      }
+    ]
   },
   {
-    title: 'Explore',
+    title: 'Study Paths',
     links: [
       {
-        title: 'Explore',
-        href: '/questions/explore',
-        ariaLabel: 'Explore',
-      },
-    ],
+        title: 'study Paths',
+        href: '/questions/study-paths',
+        ariaLabel: 'Study Paths'
+      }
+    ]
   },
   {
     title: 'Contact',
@@ -90,10 +90,10 @@ const footerItems = [
       {
         title: 'Contact Us',
         href: 'mailto:team@techblitz.dev',
-        ariaLabel: 'Contact Us',
-      },
-    ],
-  },
+        ariaLabel: 'Contact Us'
+      }
+    ]
+  }
 ];
 
 export default function MarketingFooter() {
@@ -121,7 +121,10 @@ export default function MarketingFooter() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-x-10 gap-y-6">
                 {footerItems.map((item) => (
-                  <div key={item.title} className="flex flex-col gap-y-3">
+                  <div
+                    key={item.title}
+                    className="flex flex-col gap-y-3"
+                  >
                     <h6 className="font-bold">{item.title}</h6>
                     <ul className="flex flex-col gap-y-2">
                       {item.links &&

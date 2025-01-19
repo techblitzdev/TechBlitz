@@ -14,7 +14,7 @@ import {
   RouteIcon,
   HelpCircle,
   MoreHorizontal,
-  ChevronDown,
+  ChevronDown
 } from 'lucide-react';
 import {
   Sidebar,
@@ -29,12 +29,12 @@ import {
   SidebarMenuAction,
   SidebarRail,
   SidebarTrigger,
-  useSidebar,
+  useSidebar
 } from '@/components/ui/sidebar';
 import {
   Collapsible,
   CollapsibleContent,
-  CollapsibleTrigger,
+  CollapsibleTrigger
 } from '@/components/ui/collapsible';
 import AppSidebarSubMenuItem from '@/components/global/navigation/sidebar-submenu-item';
 import SidebarFooterComponent from '@/components/global/navigation/sidebar-footer';
@@ -42,7 +42,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import LogoutButton from '@/components/auth/logout';
 import Logo from '@/components/ui/logo';
@@ -75,36 +75,36 @@ export function AppSidebar(opts: {
       subItems: [
         {
           title: 'All',
-          url: '/questions',
+          url: '/questions'
         },
         {
           title: 'Daily Question',
           url: `/question/${todaysQuestion?.slug}`,
-          badge: 'New',
+          badge: 'New'
         },
         {
-          title: 'Explore',
-          url: '/questions/explore',
-        },
-      ],
+          title: 'Study Paths',
+          url: '/questions/study-paths'
+        }
+      ]
     },
     {
       title: 'Leaderboard',
       url: '/leaderboard',
       icon: Award,
-      tooltip: 'Leaderboard',
-    },
+      tooltip: 'Leaderboard'
+    }
   ];
 
   const standardItems: SidebarItemType[] = [
     {
-      groupLabel: 'Menu',
+      groupLabel: 'Menu'
     },
     {
       title: 'Dashboard',
       url: '/dashboard',
       icon: Home,
-      tooltip: 'Dashboard',
+      tooltip: 'Dashboard'
     },
     {
       title: 'Questions',
@@ -114,28 +114,28 @@ export function AppSidebar(opts: {
       subItems: [
         {
           title: 'All',
-          url: '/questions',
+          url: '/questions'
         },
         {
-          title: 'Explore',
-          url: '/questions/explore',
+          title: 'Study Paths',
+          url: '/questions/study-paths'
         },
         {
           title: 'Daily Question',
           url: `/question/${todaysQuestion?.slug}`,
-          badge: hasAnsweredDailyQuestion ? '' : 'New!',
+          badge: hasAnsweredDailyQuestion ? '' : 'New!'
         },
         {
           title: 'Custom Questions',
-          url: '/questions/custom',
-        },
-      ],
+          url: '/questions/custom'
+        }
+      ]
     },
     {
       title: 'Roadmaps',
       tooltip: 'Roadmaps',
       url: '/roadmaps',
-      icon: RouteIcon,
+      icon: RouteIcon
     },
     {
       title: 'Stats',
@@ -145,29 +145,29 @@ export function AppSidebar(opts: {
       subItems: [
         {
           title: 'Overview',
-          url: '/statistics',
+          url: '/statistics'
         },
         {
           title: 'Reports',
           tooltip: 'Reports',
-          url: '/statistics/reports',
-        },
-      ],
+          url: '/statistics/reports'
+        }
+      ]
     },
     {
       title: 'Leaderboard',
       url: '/leaderboard',
       icon: Award,
-      tooltip: 'Leaderboard',
+      tooltip: 'Leaderboard'
     },
     {
-      groupLabel: 'Support',
+      groupLabel: 'Support'
     },
     {
       title: 'Help',
       url: 'mailto:team@techblitz.dev',
       icon: HelpCircle,
-      tooltip: 'Help',
+      tooltip: 'Help'
     },
     {
       title: 'Settings',
@@ -187,7 +187,10 @@ export function AppSidebar(opts: {
             className="bg-black-75 border border-black-50 text-white hover:text-white"
           >
             <DropdownMenuItem>
-              <LogoutButton variant="ghost" padding="none" />
+              <LogoutButton
+                variant="ghost"
+                padding="none"
+              />
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Link href="/settings/profile">Profile</Link>
@@ -200,34 +203,34 @@ export function AppSidebar(opts: {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      ),
-    },
+      )
+    }
   ];
 
   const settingsItems: SidebarItemType[] = [
     {
       title: 'Home',
       url: '/dashboard',
-      icon: Home,
+      icon: Home
     },
     {
-      groupLabel: 'Settings',
+      groupLabel: 'Settings'
     },
     {
       title: 'Profile',
       url: '/settings/profile',
-      icon: User,
+      icon: User
     },
     {
       title: 'Account',
       url: '/settings/account',
-      icon: Settings,
+      icon: Settings
     },
     {
       title: 'Billing',
       url: '/settings/billing',
-      icon: CreditCard,
-    },
+      icon: CreditCard
+    }
   ];
 
   // if user is not authed, show nonAuthedUserItems
@@ -245,8 +248,8 @@ export function AppSidebar(opts: {
         {
           title: 'Admin',
           url: '/dashboard/admin',
-          icon: LockIcon,
-        },
+          icon: LockIcon
+        }
       ];
     }
 
@@ -256,7 +259,10 @@ export function AppSidebar(opts: {
   const renderSidebarItem = (item: SidebarItemType) => {
     if ('groupLabel' in item) {
       return (
-        <SidebarGroup key={item.groupLabel} className="mt-2">
+        <SidebarGroup
+          key={item.groupLabel}
+          className="mt-2"
+        >
           <SidebarGroupLabel className="px-0 py-0 h-fit text-sm font-inter">
             {item.groupLabel}
           </SidebarGroupLabel>
@@ -267,11 +273,20 @@ export function AppSidebar(opts: {
     return (
       <SidebarMenuItem key={item.url}>
         {item.subItems ? (
-          <Collapsible defaultOpen className="group/collapsible">
+          <Collapsible
+            defaultOpen
+            className="group/collapsible"
+          >
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton asChild tooltip={item.tooltip}>
+              <SidebarMenuButton
+                asChild
+                tooltip={item.tooltip}
+              >
                 {state === 'collapsed' ? (
-                  <Link href={item.url} className="flex items-center w-full">
+                  <Link
+                    href={item.url}
+                    className="flex items-center w-full"
+                  >
                     {item.icon && <item.icon />}
                     <span className="text-sm font-inter group-data-[collapsible=icon]:hidden">
                       {item.title}
@@ -359,7 +374,10 @@ export function AppSidebar(opts: {
   };
 
   return (
-    <Sidebar collapsible="icon" className="z-50 group">
+    <Sidebar
+      collapsible="icon"
+      className="z-50 group"
+    >
       <SidebarContent className="py-6 bg-[#000000]">
         <SidebarGroup>
           <SidebarGroupLabel className="w-full flex items-center justify-between">
@@ -397,7 +415,10 @@ export function AppSidebar(opts: {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooterComponent user={user} profile={profile} />
+      <SidebarFooterComponent
+        user={user}
+        profile={profile}
+      />
       <SidebarRail />
     </Sidebar>
   );

@@ -24,12 +24,18 @@ export const generateAnswerHelp = async (
 
   // we need the user in order to check if they have enough tokens
   if (!user) {
-    return false;
+    return {
+      content: null,
+      tokensUsed: 0,
+    };
   }
 
   // check if the user has enough tokens, if not return false
   if (user.aiQuestionHelpTokens && user.aiQuestionHelpTokens <= 0) {
-    return false;
+    return {
+      content: null,
+      tokensUsed: 0,
+    };
   }
 
   // get the question
@@ -39,7 +45,10 @@ export const generateAnswerHelp = async (
 
   // if no question, return error
   if (!question) {
-    return false;
+    return {
+      content: null,
+      tokensUsed: 0,
+    };
   }
 
   // get the answer help prompt
@@ -91,9 +100,9 @@ export const generateAnswerHelp = async (
 
   // now decrement the user's aiQuestionHelpTokens if they are on the free plan
   // (premium gets unlimited)
-  if (user.userLevel === 'PREMIUM') {
+  if (user.userLevel === 'PREMIUM' || user.userLevel === 'ADMIN') {
     return {
-      ...formattedData,
+      content: formattedData,
       tokensUsed: Infinity,
     };
   }

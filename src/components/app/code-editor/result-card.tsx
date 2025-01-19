@@ -21,7 +21,7 @@ export default function ResultCard({ result, index }: ResultProps) {
       <Alert
         variant="default"
         className={`
-          border-l-4 transition-all duration-200 bg-black-75 border-black-50
+          border-l-4 transition-all duration-200 bg-black border-black-50 rounded-l-none overflow-hidden
           ${
             isPassed
               ? 'border-l-green-500 hover:border-l-green-600'
@@ -36,15 +36,11 @@ export default function ResultCard({ result, index }: ResultProps) {
                 className={`h-4 w-4 mr-2 transition-transform group-hover:translate-x-1
                   ${isPassed ? 'text-green-600' : 'text-red-600'}`}
               />
-              <span
-                className={`font-medium ${
-                  isPassed ? 'text-green-700' : 'text-red-700'
-                }`}
-              >
+              <span className={`font-medium text-white`}>
                 Test Case {index + 1}
               </span>
               <span
-                className={`ml-3 px-2 py-0.5 text-sm rounded-full
+                className={`ml-3 px-2 py-0.5 text-xs rounded-full font-onest
                 ${
                   isPassed
                     ? 'bg-green-100 text-green-700'
@@ -59,7 +55,7 @@ export default function ResultCard({ result, index }: ResultProps) {
               <div className="ml-6 space-y-2 text-sm">
                 <div className="flex flex-col space-y-1">
                   <span className="font-medium text-white">Error:</span>
-                  <code className="px-2 py-1 bg-black-50 rounded">
+                  <code className="px-2 py-1 bg-black-25 rounded">
                     {result.error}
                   </code>
                 </div>
@@ -69,7 +65,7 @@ export default function ResultCard({ result, index }: ResultProps) {
             <div className="ml-6 space-y-2 text-sm">
               <div className="flex flex-col space-y-1">
                 <span className="font-medium text-white">Input:</span>
-                <code className="px-2 py-1 bg-black-50 rounded">
+                <code className="px-2 py-1 bg-black-25 rounded">
                   ({result.input.join(', ')})
                 </code>
               </div>
@@ -77,14 +73,14 @@ export default function ResultCard({ result, index }: ResultProps) {
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col space-y-1">
                   <span className="font-medium text-white">Expected:</span>
-                  <code className="px-2 py-1 bg-black-50 rounded">
+                  <code className="px-2 py-1 bg-black-25 rounded">
                     {result.expected}
                   </code>
                 </div>
 
                 <div className="flex flex-col space-y-1">
                   <span className="font-medium text-white">Received:</span>
-                  <code className={`px-2 py-1 rounded bg-black-50`}>
+                  <code className={`px-2 py-1 rounded bg-black-25 h-full`}>
                     {result.received}
                   </code>
                 </div>

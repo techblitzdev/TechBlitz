@@ -1,7 +1,7 @@
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
-import { AnimatePresence } from 'framer-motion';
-import { Check, X } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { CheckCircle, XCircle } from 'lucide-react';
 import { useQuestionSingle } from '../questions/single/layout/question-single-context';
 import ResultCard from './result-card';
 
@@ -13,7 +13,7 @@ interface ResultProps {
   received: any;
 }
 
-const TestCaseDisplay = () => {
+export default function TestCaseDisplay() {
   const { result } = useQuestionSingle();
 
   return (
@@ -28,19 +28,19 @@ const TestCaseDisplay = () => {
               <AlertDescription className="flex items-center gap-3 py-2">
                 {result.passed ? (
                   <>
-                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-green-100">
-                      <Check className="h-5 w-5 text-green-600" />
+                    <div className="flex items-center justify-center rounded-full">
+                      <CheckCircle className="size-7 text-green-500" />
                     </div>
                     <span className="text-lg font-semibold text-white font-onest">
-                      All tests passed! Great job!
+                      All tests passed!
                     </span>
                   </>
                 ) : (
                   <>
-                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-red-100">
-                      <X className="h-5 w-5 text-red-600" />
+                    <div className="flex items-center justify-center rounded-full">
+                      <XCircle className="size-7 text-red-500" />
                     </div>
-                    <span className="text-lg font-semibold text-red-700">
+                    <span className="text-lg font-semibold text-white">
                       Some tests failed. Let's review:
                     </span>
                   </>
@@ -51,11 +51,15 @@ const TestCaseDisplay = () => {
             {result.details ? (
               <div className="space-y-4">
                 {result.details.map((detail: ResultProps, index: number) => (
-                  <ResultCard
+                  <motion.div
+                    initial={{ opacity: 0, y: 100 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -100 }}
                     key={`test-case-${index}`}
-                    result={detail}
-                    index={index}
-                  />
+                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                  >
+                    <ResultCard result={detail} index={index} />
+                  </motion.div>
                 ))}
               </div>
             ) : (
@@ -70,6 +74,4 @@ const TestCaseDisplay = () => {
       </div>
     </AnimatePresence>
   );
-};
-
-export default TestCaseDisplay;
+}

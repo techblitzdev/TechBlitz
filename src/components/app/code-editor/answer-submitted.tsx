@@ -67,7 +67,7 @@ export default function CodeEditorQuestionSubmitted() {
         transition={{ delay: 0.2, duration: 0.5 }}
       >
         <div className="flex w-full justify-between items-center">
-          <h1 className="text-4xl font-bold">
+          <h1 className="text-3xl font-bold">
             {correctAnswer === 'correct' ? (
               <div className="flex items-center gap-x-2">
                 <CheckCircle className="size-7 text-green-500" />
@@ -76,7 +76,7 @@ export default function CodeEditorQuestionSubmitted() {
             ) : (
               <div className="flex items-center gap-x-2">
                 <XCircle className="size-7 text-red-500" />
-                That was incorrect, try again!
+                That was incorrect, let's review:
               </div>
             )}
           </h1>

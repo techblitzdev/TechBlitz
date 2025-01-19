@@ -207,20 +207,17 @@ export const QuestionSingleContextProvider = ({
       // Create a new function from the user's code
       const userFunction = eval(`(${code})`);
 
-      if (typeof userFunction !== 'function') {
-        throw new Error('Provided code does not define a function.');
-      }
-
-      console.log('Code is a function');
-
       // Run test cases
       const results = challenge.testCases.map((test: any) => {
         const result = userFunction(...test.input);
+        // Check if the result is an object and convert it to a string if so
+        const received =
+          typeof result === 'object' ? JSON.stringify(result) : result;
         return {
-          passed: result === test.expected,
+          passed: received === test.expected,
           input: test.input,
           expected: test.expected,
-          received: result,
+          received,
         };
       });
 
@@ -273,9 +270,12 @@ export const QuestionSingleContextProvider = ({
     }
     const { content, tokensUsed } = await generateAnswerHelp(
       question.uid,
-      correctAnswer === 'correct'
+      question.questionType === 'CODING_CHALLENGE'
+        ? result?.passed || false
+        : correctAnswer === 'correct'
     );
-    if (!answerHelp) {
+
+    if (!content) {
       toast.error('Error generating answer help');
       return;
     }

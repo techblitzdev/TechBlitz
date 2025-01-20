@@ -10,12 +10,12 @@ import { createMetadata } from '@/utils/seo';
 
 const Filter = dynamic(() => import('@/components/global/filters/filter'), {
   ssr: false,
-  loading: () => <FilterLoading />
+  loading: () => <FilterLoading />,
 });
 
 const FilterChips = dynamic(() => import('@/components/global/filters/chips'), {
   ssr: false,
-  loading: () => <div className="h-8"></div>
+  loading: () => <div className="h-8"></div>,
 });
 const QuestionsList = dynamic(
   () => import('@/components/app/questions/layout/questions-list'),
@@ -26,13 +26,13 @@ const QuestionsList = dynamic(
           <QuestionCardSkeleton key={index} />
         ))}
       </div>
-    )
+    ),
   }
 );
 const QuestionPageSidebar = dynamic(
   () => import('@/components/app/questions/layout/question-page-sidebar'),
   {
-    loading: () => <QuestionPageSidebarLoading />
+    loading: () => <QuestionPageSidebarLoading />,
   }
 );
 
@@ -50,30 +50,24 @@ export async function generateMetadata() {
     image: {
       text: 'Coding Questions | TechBlitz',
       bgColor: '#000',
-      textColor: '#fff'
+      textColor: '#fff',
     },
-    canonicalUrl: '/questions'
+    canonicalUrl: '/questions',
   });
 }
 
 const heroDescription = (
   <div className="flex flex-col gap-y-4 z-20 relative font-inter max-w-3xl">
     <p className="text-sm md:text-base text-gray-400">
-      Explore all the questions we have to offer. Filter by tags, difficulty,
-      and more.
+      Explore all the questions we have to offer. Filter by tags, question type,
+      difficulty, and more.
     </p>
     <p className="text-gray-400">Need a more guided set of questions?</p>
     <div className="flex flex-col md:flex-row gap-2 md:items-center">
-      <Button
-        href="/questions/study-paths"
-        variant="secondary"
-      >
+      <Button href="/questions/study-paths" variant="secondary">
         Explore study paths
       </Button>
-      <Button
-        href="/questions/previous"
-        variant="default"
-      >
+      <Button href="/questions/previous" variant="default">
         View previous daily questions
       </Button>
     </div>
@@ -81,7 +75,7 @@ const heroDescription = (
 );
 
 export default async function QuestionsDashboard({
-  searchParams
+  searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
@@ -92,10 +86,7 @@ export default async function QuestionsDashboard({
 
   return (
     <div>
-      <Hero
-        heading="Coding Questions"
-        subheading={heroDescription}
-      />
+      <Hero heading="Coding Challenges" subheading={heroDescription} />
       <div className="mx-auto px-4 sm:px-6 lg:px-8 py-12 group">
         <div className="flex flex-col xl:flex-row gap-12">
           <div className="w-full lg:min-w-[75%] space-y-6">

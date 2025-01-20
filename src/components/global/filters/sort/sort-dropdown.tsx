@@ -20,7 +20,6 @@ export default function SortDropdown() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
-  const ascending = searchParams.get('ascending') === 'true';
   const sortBy = searchParams.get('sortBy') as string;
 
   // Helper to update query params

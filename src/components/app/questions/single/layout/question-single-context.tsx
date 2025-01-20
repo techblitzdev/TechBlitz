@@ -235,6 +235,7 @@ export const QuestionSingleContextProvider = ({
         passed: false,
         error: error.message,
       });
+      setCorrectAnswer('incorrect');
     }
   };
 

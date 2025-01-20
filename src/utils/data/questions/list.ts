@@ -101,7 +101,6 @@ export const listQuestions = async (
               },
             }
           : {},
-
         // Date constraints
         previousQuestions
           ? {
@@ -115,6 +114,12 @@ export const listQuestions = async (
                 lte: new Date().toISOString(),
               },
             },
+        // question type filter
+        filters?.questionType !== undefined
+          ? {
+              questionType: filters.questionType,
+            }
+          : {},
       ],
     };
 
@@ -141,9 +146,16 @@ export const listQuestions = async (
     const questions = await prisma.questions.findMany({
       skip,
       take: pageSize,
-      orderBy: {
-        questionDate: filters?.ascending ? 'asc' : 'desc',
-      },
+      orderBy: [
+        {
+          questionDate: filters?.ascending ? 'asc' : 'desc',
+        },
+        {
+          userAnswers: {
+            _count: filters?.sortBy === 'submissions' ? 'asc' : 'desc',
+          },
+        },
+      ],
       where: baseWhereClause,
       include: {
         tags: {

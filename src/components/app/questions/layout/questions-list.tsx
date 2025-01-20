@@ -28,15 +28,6 @@ export default async function QuestionsList({
 }) {
   const user = await useUserServer();
 
-  const data = await listQuestions({
-    page: currentPage,
-    pageSize: ITEMS_PER_PAGE,
-    userUid: user?.uid || '',
-    filters,
-    customQuestions,
-    previousQuestions,
-  });
-
   // if we are on custom questions and the user is not a premium user, show a message
   if (customQuestions && user && user.userLevel === 'FREE') {
     return (
@@ -53,6 +44,16 @@ export default async function QuestionsList({
       </div>
     );
   }
+
+  // do the fetch after we know the user can access this
+  const data = await listQuestions({
+    page: currentPage,
+    pageSize: ITEMS_PER_PAGE,
+    userUid: user?.uid || '',
+    filters,
+    customQuestions,
+    previousQuestions,
+  });
 
   if (!data.questions || data.questions.length === 0) {
     return (

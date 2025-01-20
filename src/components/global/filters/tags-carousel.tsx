@@ -8,7 +8,7 @@ import {
   CarouselContent,
   CarouselItem,
   CarouselNext,
-  CarouselPrevious,
+  CarouselPrevious
 } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
 import { useEffect, useOptimistic, useState, useTransition } from 'react';
@@ -37,7 +37,7 @@ export default function FilterTagsCarousel() {
   useEffect(() => {
     const currentTags = searchParams.get('tags')?.split(',') || [];
     setSelectedTags(currentTags);
-  }, [searchParams]);
+  }, [searchParams, setSelectedTags]);
 
   // Filter tags based on search query
   useEffect(() => {
@@ -71,7 +71,10 @@ export default function FilterTagsCarousel() {
   };
 
   return (
-    <div className="space-y-4" data-pending={isPending ? '' : undefined}>
+    <div
+      className="space-y-4"
+      data-pending={isPending ? '' : undefined}
+    >
       {filteredTags.length === 0 ? (
         <div className="flex flex-col gap-y-3 items-center">
           <p className="text-gray-400 text-center">No tags found</p>
@@ -92,13 +95,16 @@ export default function FilterTagsCarousel() {
           opts={{
             loop: false,
             dragFree: true,
-            align: 'start',
+            align: 'start'
           }}
           className="w-full"
         >
           <CarouselContent className="-ml-2">
             {filteredTags.map((tag) => (
-              <CarouselItem key={tag.uid} className="pl-2 basis-auto">
+              <CarouselItem
+                key={tag.uid}
+                className="pl-2 basis-auto"
+              >
                 <Button
                   onClick={() => {
                     startTransition(() => updateTagsInQuery(tag.name));

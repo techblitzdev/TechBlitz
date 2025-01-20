@@ -6,4 +6,6 @@ export interface QuestionFilters {
   completed?: boolean;
   ascending?: boolean;
   page?: number;
+  questionType?: string;
+  sortBy?: string;
 }

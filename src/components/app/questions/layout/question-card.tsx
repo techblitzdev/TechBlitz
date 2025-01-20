@@ -157,30 +157,29 @@ export default function QuestionCard(opts: {
           )}
         </div>
       </div>
-      <div className="mt-5 w-full flex justify-between items-end z-10 relative">
-        {!customQuestion && (
-          <div className="flex gap-4 items-end">
-            {questionData?.tags?.length && questionData?.tags?.length > 0 && (
-              <div className="flex items-center gap-1 space-y-0.5 text-start">
-                <TagDisplay
-                  tags={questionData?.tags || []}
-                  numberOfTags={numberOfTags}
-                  showcaseTag={showcaseTag}
-                  variant="secondary"
-                />
-              </div>
-            )}
+
+      <div className="w-full flex justify-between items-end z-10 relative">
+        {!customQuestion && (questionData?.tags?.length ?? 0) > 0 && (
+          <div className="flex gap-4 items-end mt-5 ">
+            <div className="flex items-center gap-1 space-y-0.5 text-start">
+              <TagDisplay
+                tags={questionData?.tags || []}
+                numberOfTags={numberOfTags}
+                showcaseTag={showcaseTag}
+                variant="secondary"
+              />
+            </div>
           </div>
         )}
-        <div className="flex items-center gap-x-3">
-          {questionData?.questionDate && questionData?.dailyQuestion && (
+        {questionData?.questionDate && questionData?.dailyQuestion && (
+          <div className="flex items-center gap-x-3 mt-5">
             <Chip
               color="bg-black-100"
               text={questionData.questionDate}
               border="border-black-50"
             />
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </Link>
   );

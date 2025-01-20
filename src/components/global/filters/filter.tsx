@@ -1,12 +1,10 @@
-//import dynamic from 'next/dynamic';
-
-import FilterButtonsSort from '@/components/global/filters/buttons/sort/date';
 import FilterTagsCarousel from '@/components/global/filters/tags-carousel';
 import FilterSearchTag from '@/components/global/filters/search/tag-search';
 import { Tag } from '@prisma/client';
 import { FilterContextProvider } from './filter-context';
 import { use } from 'react';
 import FilterDropdown from './filter-dropdown';
+import SortDropdown from './sort/sort-dropdown';
 
 interface FilterProps {
   tagsPromise: Promise<Tag[]>;
@@ -24,7 +22,7 @@ export default function Filter({ tagsPromise, showSort = true }: FilterProps) {
             <FilterDropdown />
             <FilterSearchTag />
           </div>
-          {showSort && <FilterButtonsSort />}
+          {showSort && <SortDropdown />}
         </div>
         <FilterTagsCarousel />
       </div>

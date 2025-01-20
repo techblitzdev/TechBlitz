@@ -1,8 +1,12 @@
 import { QuestionDifficulty } from '@/types/Questions';
 
 export interface FilterParams {
+  // pagination
   page: number;
+  // sorting
   ascending: boolean;
+  sortBy: string;
+  // filters
   difficulty?: QuestionDifficulty;
   completed?: boolean;
   tags: string[];
@@ -15,13 +19,14 @@ export const parseSearchParams = (searchParams: {
   return {
     page: parseInt(searchParams.page as string) || 1,
     ascending: searchParams.ascending === 'true',
+    sortBy: searchParams.sortBy as string,
     difficulty: searchParams.difficulty as QuestionDifficulty,
     completed:
       'completed' in searchParams
         ? searchParams.completed === 'true'
         : undefined,
     tags: (searchParams.tags as string)?.split(',').filter(Boolean) || [],
-    questionType: searchParams.questionType as string
+    questionType: searchParams.questionType as string,
   };
 };
 

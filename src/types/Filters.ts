@@ -7,4 +7,5 @@ export interface QuestionFilters {
   ascending?: boolean;
   page?: number;
   questionType?: string;
+  sortBy?: string;
 }

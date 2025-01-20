@@ -104,6 +104,9 @@ export default function CodingChallengeDescription(opts: {
                 <h6 className="text-xs font-bold underline">{children}</h6>
               );
             },
+            hr: () => {
+              return <hr className="border-b border-black-50 my-4" />;
+            },
           }}
         >
           {question.description}

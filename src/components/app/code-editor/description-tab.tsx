@@ -21,7 +21,7 @@ export default function CodingChallengeDescription(opts: {
           remarkPlugins={[remarkGfm]}
           className="whitespace-pre-wrap"
           components={{
-            code: ({ node, ...props }) => {
+            code: ({ ...props }) => {
               return (
                 <Highlight
                   theme={themes.vsDark}

@@ -33,6 +33,7 @@ import {
 } from '@/components/ui/select';
 import { toast } from 'sonner';
 import { checkUsername } from '@/actions/user/authed/check-username';
+import { Input } from '@/components/ui/input';
 
 const whereDidYouHearAboutTechBlitz = [
   'Reddit',
@@ -46,7 +47,7 @@ const whereDidYouHearAboutTechBlitz = [
 ];
 
 export default function OnboardingStepOne() {
-  const { user, setUser, itemVariants, setCanContinue } =
+  const { user, setUser, itemVariants, setCanContinue, serverUser } =
     useOnboardingContext();
   const [username, setUsername] = useState(user.username || '');
   const [isUsernameValid, setIsUsernameValid] = useState(true);
@@ -58,6 +59,7 @@ export default function OnboardingStepOne() {
   const form = useForm<UpdatableUserFields>({
     resolver: zodResolver(onboardingStepOneSchema),
     defaultValues: {
+      userProfilePicture: user.userProfilePicture || '',
       username: user.username || '',
       showTimeTaken: user.showTimeTaken || false,
       sendPushNotifications: user.sendPushNotifications || false,
@@ -110,6 +112,42 @@ export default function OnboardingStepOne() {
     return () => subscription.unsubscribe();
   }, [form, setUser]);
 
+  const onSubmitProfilePicture = async (data: any) => {
+    if (!serverUser?.uid || !data.target.files[0]) return;
+
+    const file = data.target.files[0];
+    const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+
+    if (file.size > maxSize) {
+      toast.error('File size must be less than 2MB');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('files', file);
+    formData.append('userId', serverUser.uid);
+    formData.append('route', 'user-profile-pictures');
+
+    try {
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const { logoUrl } = await res.json();
+
+      if (logoUrl) {
+        form.setValue('userProfilePicture', logoUrl);
+        setUser((prev) => ({
+          ...prev,
+          userProfilePicture: logoUrl,
+        }));
+      }
+    } catch (e) {
+      console.error(e);
+      toast.error('Failed to upload profile picture');
+    }
+  };
+
   return (
     <>
       <CardHeader className="space-y-1">
@@ -137,6 +175,59 @@ export default function OnboardingStepOne() {
             })}
             className="space-y-5"
           >
+            {/** profile picture */}
+            <FormField
+              control={form.control}
+              name="userProfilePicture"
+              render={({ field }) => (
+                <FormItem>
+                  <div className="flex flex-col md:flex-row md:items-center gap-4">
+                    <div className="relative size-16 md:size-24 rounded-full overflow-hidden border-2 border-black-50">
+                      {field.value ? (
+                        <img
+                          src={field.value}
+                          alt="Profile"
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div className="h-full w-full bg-black flex items-center justify-center">
+                          <span className="text-gray-400">No image</span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <Label
+                        htmlFor="logo-file-upload"
+                        className="text-base font-medium text-white"
+                      >
+                        Profile Picture
+                      </Label>
+                      <div className="flex gap-2">
+                        <label
+                          htmlFor="logo-file-upload"
+                          className="cursor-pointer bg-primary hover:bg-primary/90 border border-black-50 text-primary-foreground px-4 py-2 rounded-md text-base"
+                        >
+                          Choose File
+                        </label>
+                        <Input
+                          id="logo-file-upload"
+                          type="file"
+                          onChange={(e) => {
+                            onSubmitProfilePicture(e);
+                          }}
+                          className="hidden"
+                          accept="image/*"
+                        />
+                      </div>
+                      <p className="text-sm text-gray-500">
+                        Recommended: Square image, at least 200x200px (max 2MB)
+                      </p>
+                    </div>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <motion.div
               initial="hidden"
               animate="visible"

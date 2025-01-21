@@ -17,42 +17,29 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // Fetch the previous day's question
+    // Get yesterday's date range
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
-    const previousDay = yesterday.toISOString().split('T')[0];
+    yesterday.setHours(0, 0, 0, 0);
 
-    const question = await prisma.questions.findFirst({
+    const endOfYesterday = new Date(yesterday);
+    endOfYesterday.setHours(23, 59, 59, 999);
+
+    // Fetch all users who answered any question yesterday
+    const usersWhoAnswered = await prisma.answers.findMany({
       where: {
-        questionDate: previousDay,
-      },
-      select: {
-        uid: true,
-        correctAnswer: true,
-      },
-    });
-
-    if (!question) {
-      throw new Error('No question found for the previous day');
-    }
-
-    // Fetch all answers for the given question UID
-    const answers = await prisma.answers.findMany({
-      where: {
-        questionUid: question.uid,
+        createdAt: {
+          gte: yesterday,
+          lte: endOfYesterday,
+        },
       },
       select: {
         userUid: true,
-        correctAnswer: true,
       },
+      distinct: ['userUid'],
     });
 
-    // Extract correct answers
-    const correctUserIds = answers
-      .filter((answer) => answer.correctAnswer)
-      .map((answer) => answer.userUid);
-
-    // Fetch all users
+    // Get all users
     const allUsers = await prisma.users.findMany({
       select: {
         uid: true,
@@ -60,14 +47,15 @@ export async function GET(request: NextRequest) {
     });
 
     const allUserIds = allUsers.map((user) => user.uid);
+    const activeUserIds = usersWhoAnswered.map((user) => user.userUid);
 
-    // Get users who haven't answered correctly
-    const correctUserSet = new Set(correctUserIds);
+    // Get users who haven't answered any question
+    const activeUserSet = new Set(activeUserIds);
     const usersToUpdate = allUserIds.filter(
-      (userId) => !correctUserSet.has(userId)
+      (userId) => !activeUserSet.has(userId)
     );
 
-    // Update streaks for users who haven't answered correctly
+    // Update streaks for users who haven't answered any question
     await prisma.streaks.updateMany({
       where: {
         userUid: {
@@ -75,16 +63,15 @@ export async function GET(request: NextRequest) {
         },
       },
       data: {
-        // update streak start to the previous day
-        streakStart: new Date(previousDay),
-        streakEnd: new Date(previousDay),
+        streakStart: yesterday,
+        streakEnd: yesterday,
         currentstreakCount: 0,
       },
     });
 
     console.log({
       totalUsers: allUserIds.length,
-      correctAnswers: correctUserIds.length,
+      activeUsers: activeUserIds.length,
       usersToUpdate: usersToUpdate.length,
     });
 
@@ -94,7 +81,7 @@ export async function GET(request: NextRequest) {
       subject: 'Streaks updated successfully',
       html: `<p>Streaks updated successfully</p>
       <p>Total users: ${allUserIds.length}</p>
-      <p>Correct answers: ${correctUserIds.length}</p>
+      <p>Active users: ${activeUserIds.length}</p>
       <p>Users updated: ${usersToUpdate.length}</p>`,
     });
 
@@ -103,7 +90,7 @@ export async function GET(request: NextRequest) {
         message: 'Streaks updated successfully',
         stats: {
           totalUsers: allUserIds.length,
-          correctAnswers: correctUserIds.length,
+          activeUsers: activeUserIds.length,
           usersUpdated: usersToUpdate.length,
         },
       }),

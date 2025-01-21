@@ -74,8 +74,7 @@ const findExistingAnswer = async (userUid: string, questionUid: string) => {
 const updateStreakDates = async (
   tx: any,
   userUid: string,
-  currentStreak: any,
-  correctAnswer: boolean
+  currentStreak: any
 ) => {
   console.log('hit updateStreakDates');
   const today = new Date();
@@ -87,41 +86,34 @@ const updateStreakDates = async (
   const isNextDay = today.getTime() - lastUpdate.getTime() === 86400000; // 24 hours in ms
   const isToday = today.getTime() === lastUpdate.getTime();
 
+  // Check if user has answered any question today
+  const answeredToday = await tx.answers.findFirst({
+    where: {
+      userUid,
+      createdAt: {
+        gte: today,
+      },
+    },
+  });
+
   let newStreakStart = new Date(currentStreak.streakStart);
   let newStreakEnd = new Date();
   let newCurrentStreak = currentStreak.currentstreakCount;
   let newLongestStreak = currentStreak.longestStreak;
 
-  if (correctAnswer && (isNextDay || isToday)) {
-    // Continue the streak
+  // Only update streak if it's a new day and no answer today
+  if (isNextDay || (!isToday && !answeredToday)) {
     newCurrentStreak += 1;
     newLongestStreak = Math.max(newCurrentStreak, newLongestStreak);
-    // Update end date to today
     newStreakEnd = new Date();
-  } else if (!isToday) {
+  } else if (!isToday && !answeredToday) {
     // Break in streak (more than one day gap)
-    if (correctAnswer) {
-      // Start new streak
-      newCurrentStreak = 1;
-      // Reset start date to today
-      newStreakStart = new Date();
-      newStreakEnd = new Date();
-    } else {
-      // Wrong answer after gap
-      newCurrentStreak = 0;
-      // Reset start date
-      newStreakStart = new Date();
-      newStreakEnd = new Date();
-    }
-  } else if (!correctAnswer) {
-    // Wrong answer today
-    newCurrentStreak = 0;
-    // Reset start date
+    newCurrentStreak = 1;
     newStreakStart = new Date();
     newStreakEnd = new Date();
   }
 
-  // If it's the same day and correct, keep current streak (no change)
+  // Update streak regardless of answer correctness
   await tx.streaks.update({
     where: { userUid },
     data: {
@@ -139,28 +131,24 @@ const updateStreakDates = async (
       correctDailyStreak: newCurrentStreak,
       totalDailyStreak:
         currentStreak.totalDailyStreak +
-        (isNextDay || (!isToday && correctAnswer) ? 1 : 0),
+        (isNextDay || (!isToday && !answeredToday) ? 1 : 0),
     },
   });
 };
 
 const handleStreakUpdates = async (
   tx: any,
-  dailyQuestion: boolean,
   {
     userUid,
-    correctAnswer,
   }: {
     userUid: string;
-    correctAnswer: boolean;
   }
 ) => {
-  if (!dailyQuestion) return;
-
+  // Remove dailyQuestion check to handle streaks for all questions
   const userStreak = await findOrCreateUserStreak(userUid);
   if (!userStreak) return;
 
-  await updateStreakDates(tx, userUid, userStreak, correctAnswer);
+  await updateStreakDates(tx, userUid, userStreak);
 };
 
 const updateOrCreateAnswer = async (
@@ -237,9 +225,8 @@ export async function answerQuestion({
   const { userData, userAnswer } = await prisma.$transaction(async (tx) => {
     // Only update streaks if this is a new answer
     if (!existingAnswer) {
-      await handleStreakUpdates(tx, question.dailyQuestion, {
+      await handleStreakUpdates(tx, {
         userUid,
-        correctAnswer,
       });
     }
 

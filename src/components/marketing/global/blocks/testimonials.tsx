@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import JakeMackieTestimonial from '@/public/images/testimonials/jake-mackie-techblitz-testimonial.jpeg';
-import AnimatedSpan from '@/components/ui/animated-span';
+
 import Link from 'next/link';
 import GithubLogo from '@/components/ui/icons/github';
 
@@ -14,6 +14,15 @@ const testimonials = [
       '"After landing my first job as a Software Developer, I wanted to keep up with my peers by learning programming languages in more depth. TechBlitz made that learning curve feel less daunting compared to LeetCode. Initially, advanced JavaScript and React seemed overwhelming, but with clear question breakdowns and insightful tooltips, I realized that upskilling isn\'t as hard as it seems."',
     image: JakeMackieTestimonial,
     githubUrl: 'https://github.com/jakemackie',
+  },
+  {
+    name: 'britishpowerlifter',
+    title: 'Software Developer',
+    shortQuote:
+      'I use TechBlitz and recommend it to anyone who wants to learn to code!',
+    longQuote:
+      'I use TechBlitz and recommend it to anyone who wants to learn to code!',
+    image: '',
   },
 ];
 
@@ -33,7 +42,6 @@ export default function Testimonials(opts: {
       ></div>
       <div className="container mx-auto px-4 flex flex-col lg:flex-row gap-12 lg:gap-24 items-center">
         <div className="flex flex-col gap-y-1 lg:w-1/3 items-center lg:items-start">
-          <AnimatedSpan content="Testimonials" />
           <h2 className="text-4xl font-bold text-center lg:text-left text-gradient from-white to-white/75 py-1.5">
             {opts.header || 'Endorsed by developers just like you'}
           </h2>
@@ -42,20 +50,28 @@ export default function Testimonials(opts: {
             coding skills.
           </p>
         </div>
-        <div className="flex flex-col lg:flex-row gap-y-10 lg:w-2/3">
+        <div className="flex flex-col lg:flex-row gap-10 lg:w-2/3">
           {testimonials.map((testimonial) => (
             <div
               key={testimonial.name}
-              className="flex flex-col rounded-lg shadow-lg items-center lg:items-start"
+              className="flex flex-col gap-4 rounded-lg shadow-lg items-center lg:items-start"
             >
               <div className="flex items-center order-first lg:order-first mb-0 lg:mb-4">
-                <Image
-                  src={testimonial.image}
-                  alt={testimonial.name}
-                  width={52}
-                  height={52}
-                  className="rounded-full mb-4 lg:mb-0 lg:mr-4"
-                />
+                {testimonial.image ? (
+                  <Image
+                    src={testimonial.image}
+                    alt={testimonial.name}
+                    width={52}
+                    height={52}
+                    className="rounded-full mb-0 lg:mr-4"
+                  />
+                ) : (
+                  <div className="w-[52px] h-[52px] rounded-full bg-accent/10 flex items-center justify-center mb-4 lg:mb-0 lg:mr-4">
+                    <span className="text-accent text-lg font-semibold">
+                      {testimonial.name[0].toUpperCase()}
+                    </span>
+                  </div>
+                )}
                 <div className="ml-1">
                   <p className="font-semibold text-white font-onest">
                     {testimonial.name}
@@ -69,14 +85,16 @@ export default function Testimonials(opts: {
                 "{testimonial.shortQuote}"
               </p>
               <div className="h-5">
-                <Link
-                  href={testimonial.githubUrl}
-                  target="_blank"
-                  className="opacity-0 group-hover:opacity-100 text-gray-400 text-sm font-onest flex order-last items-center gap-2 group-hover:text-accent transition-opacity duration-300 mt-0 lg:mt-2"
-                >
-                  <GithubLogo className="w-4 h-4" />
-                  Check out {testimonial.name.split(' ')[0]}'s work on GitHub!
-                </Link>
+                {testimonial.githubUrl && (
+                  <Link
+                    href={testimonial.githubUrl}
+                    target="_blank"
+                    className="opacity-0 group-hover:opacity-100 text-gray-400 text-sm font-onest flex order-last items-center gap-2 group-hover:text-accent transition-opacity duration-300 mt-0 lg:mt-2"
+                  >
+                    <GithubLogo className="w-4 h-4" />
+                    Check out {testimonial.name.split(' ')[0]}'s work on GitHub!
+                  </Link>
+                )}
               </div>
             </div>
           ))}

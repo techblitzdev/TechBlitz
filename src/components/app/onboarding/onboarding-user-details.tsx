@@ -110,13 +110,6 @@ export default function OnboardingStepOne() {
     return () => subscription.unsubscribe();
   }, [form, setUser]);
 
-  const onSubmit = (data: UpdatableUserFields) => {
-    setUser((prev) => ({
-      ...prev,
-      ...data,
-    }));
-  };
-
   return (
     <>
       <CardHeader className="space-y-1">

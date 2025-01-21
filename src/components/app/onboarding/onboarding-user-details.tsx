@@ -9,7 +9,7 @@ import {
   Tooltip,
   TooltipProvider,
   TooltipTrigger,
-  TooltipContent
+  TooltipContent,
 } from '@/components/ui/tooltip';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
@@ -18,7 +18,8 @@ import {
   FormField,
   FormItem,
   FormControl,
-  FormMessage
+  FormMessage,
+  FormLabel,
 } from '@/components/ui/form';
 import { useOnboardingContext } from './onboarding-context';
 import { onboardingStepOneSchema } from '@/lib/zod/schemas/onboarding/step-one';
@@ -28,10 +29,21 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from '@/components/ui/select';
 import { toast } from 'sonner';
 import { checkUsername } from '@/actions/user/authed/check-username';
+
+const whereDidYouHearAboutTechBlitz = [
+  'Reddit',
+  'Google',
+  'Twitter',
+  'LinkedIn',
+  'Daily.dev',
+  'Github',
+  'Friend',
+  'Other',
+];
 
 export default function OnboardingStepOne() {
   const { user, setUser, itemVariants, setCanContinue } =
@@ -50,29 +62,26 @@ export default function OnboardingStepOne() {
       showTimeTaken: user.showTimeTaken || false,
       sendPushNotifications: user.sendPushNotifications || false,
       experienceLevel: user.experienceLevel || 'BEGINNER',
-      howDidYouHearAboutTechBlitz: user.howDidYouHearAboutTechBlitz || ''
-    }
+      howDidYouHearAboutTechBlitz: user.howDidYouHearAboutTechBlitz || '',
+    },
   });
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newUsername = e.target.value;
     setUsername(newUsername);
+    form.setValue('username', newUsername);
 
-    // Clear previous timeout
     if (debounceTimeout) {
       clearTimeout(debounceTimeout);
     }
 
-    // Set a new timeout
     const timeout = setTimeout(async () => {
       const isUnique = await checkUsername(newUsername);
       setIsUsernameValid(Boolean(isUnique));
 
-      toast.info(
-        Boolean(isUnique) ? 'Username is unique' : 'Username is taken'
-      );
-
-      if (!isUnique) {
+      if (isUnique) {
+        toast.success('Username is available');
+      } else {
         toast.error('Username is already taken. Please choose another one.');
       }
       setCanContinue(Boolean(isUnique));
@@ -82,15 +91,31 @@ export default function OnboardingStepOne() {
   };
 
   useEffect(() => {
-    // Automatically update context when form values change
-    const hasChanges = username !== user.username;
-    if (hasChanges) {
-      setUser((prev) => ({
-        ...prev,
-        username: username || ''
-      }));
-    }
-  }, [username, setUser, user]);
+    const subscription = form.watch((value) => {
+      console.log('Form values changed:', value);
+      setUser((prev) => {
+        // Filter out any undefined values from arrays to ensure type safety
+        const sanitizedValue = {
+          ...value,
+          stripeEmails: value.stripeEmails?.filter(
+            (email): email is string => email !== undefined
+          ),
+        };
+        return {
+          ...prev,
+          ...sanitizedValue,
+        };
+      });
+    });
+    return () => subscription.unsubscribe();
+  }, [form, setUser]);
+
+  const onSubmit = (data: UpdatableUserFields) => {
+    setUser((prev) => ({
+      ...prev,
+      ...data,
+    }));
+  };
 
   return (
     <>
@@ -109,7 +134,16 @@ export default function OnboardingStepOne() {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form className="space-y-5">
+          <form
+            onSubmit={form.handleSubmit((data) => {
+              console.log('Form submitted with data:', data);
+              setUser((prev) => ({
+                ...prev,
+                ...data,
+              }));
+            })}
+            className="space-y-5"
+          >
             <motion.div
               initial="hidden"
               animate="visible"
@@ -164,7 +198,16 @@ export default function OnboardingStepOne() {
                           <FormControl>
                             <Switch
                               checked={field.value}
-                              onCheckedChange={field.onChange}
+                              onCheckedChange={(checked) => {
+                                field.onChange(checked);
+                                setUser((prev) => {
+                                  console.log(
+                                    'showTimeTaken changed:',
+                                    checked
+                                  );
+                                  return { ...prev, [field.name]: checked };
+                                });
+                              }}
                               className="bg-black-50"
                             />
                           </FormControl>
@@ -198,7 +241,18 @@ export default function OnboardingStepOne() {
                         </div>
                         <Select
                           value={field.value}
-                          onValueChange={field.onChange}
+                          onValueChange={(
+                            value:
+                              | 'BEGINNER'
+                              | 'INTERMEDIATE'
+                              | 'ADVANCED'
+                              | 'MASTER'
+                          ) => {
+                            field.onChange(value);
+                            setUser((prev) => {
+                              return { ...prev, [field.name]: value };
+                            });
+                          }}
                         >
                           <SelectTrigger className="w-40 border border-black-50">
                             <SelectValue
@@ -263,7 +317,16 @@ export default function OnboardingStepOne() {
                           <FormControl>
                             <Switch
                               checked={field.value}
-                              onCheckedChange={field.onChange}
+                              onCheckedChange={(checked) => {
+                                field.onChange(checked);
+                                setUser((prev) => {
+                                  console.log(
+                                    'sendPushNotifications changed:',
+                                    checked
+                                  );
+                                  return { ...prev, [field.name]: checked };
+                                });
+                              }}
                               className="bg-black-50"
                             />
                           </FormControl>
@@ -297,19 +360,41 @@ export default function OnboardingStepOne() {
                 name="howDidYouHearAboutTechBlitz"
                 render={({ field }) => (
                   <FormItem>
+                    <FormLabel>How did you hear about TechBlitz?</FormLabel>
                     <FormControl>
-                      <InputWithLabel
-                        label="How did you hear about TechBlitz?"
-                        type="text"
-                        autoComplete="howDidYouHearAboutTechBlitz"
-                        {...field}
+                      <Select
                         value={field.value ?? ''}
-                      />
+                        onValueChange={(value) => {
+                          field.onChange(value);
+                          setUser((prev) => {
+                            console.log(
+                              'howDidYouHearAboutTechBlitz changed:',
+                              value
+                            );
+                            return { ...prev, [field.name]: value };
+                          });
+                        }}
+                      >
+                        <SelectTrigger className="w-full border border-black-50">
+                          {field.value ? field.value : 'Select an option'}
+                        </SelectTrigger>
+                        <SelectContent>
+                          {whereDidYouHearAboutTechBlitz.map((option) => (
+                            <SelectItem key={option} value={option}>
+                              {option}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
             </motion.div>
+            <button type="submit" className="hidden">
+              Submit
+            </button>
           </form>
         </Form>
       </CardContent>

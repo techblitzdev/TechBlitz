@@ -188,8 +188,6 @@ export default function OnboardingForm() {
                     onClick={() => handleContinue()}
                     disabled={
                       isLoading ||
-                      (currentStep === 'stepTwo' &&
-                        selectedTags.length === 0) ||
                       (currentStep === 'stepOne' &&
                         (user?.username?.length ?? 0) < 2) ||
                       !canContinue

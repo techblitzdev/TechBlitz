@@ -220,7 +220,6 @@ export default function LeaderboardPage() {
       />
       <div className="container">
         <LeaderboardHero />
-        {/** @ts-ignore - this is the valid type */}
         <LeaderboardPodiumShowcase />
         <LeaderboardFeatures />
         <MarketingContentGrid

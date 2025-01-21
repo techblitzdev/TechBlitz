@@ -1,6 +1,12 @@
 import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak';
 import { Suspense, SVGProps } from 'react';
 import LoadingSpinner from './loading';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from './tooltip';
 
 export function SolarFlameBoldDuotone(props: SVGProps<SVGSVGElement>) {
   return (
@@ -37,11 +43,20 @@ async function CurrentStreakData() {
 
 export default async function CurrentStreak() {
   return (
-    <div className="flex items-center gap-x-1">
-      <Suspense fallback={<LoadingSpinner />}>
-        <CurrentStreakData />
-      </Suspense>
-      <SolarFlameBoldDuotone className="size-6" />
-    </div>
+    <TooltipProvider>
+      <Tooltip delayDuration={0}>
+        <TooltipTrigger>
+          <div className="flex items-center gap-x-1">
+            <Suspense fallback={<LoadingSpinner />}>
+              <CurrentStreakData />
+            </Suspense>
+            <SolarFlameBoldDuotone className="size-6" />
+          </div>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Your current streak</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 }

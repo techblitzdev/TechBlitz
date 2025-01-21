@@ -23,7 +23,7 @@ export default async function RandomQuestion(opts: {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={0}>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <form
             action={async () => {
               'use server';

@@ -8,14 +8,10 @@ import { UserRecord } from '@/types/User';
 import { getUserDisplayName } from '@/utils/user';
 
 export default function LeaderboardHero({
-  topThreeUsersPromise,
+  topThreeUsers,
 }: {
-  topThreeUsersPromise: Promise<
-    (UserRecord & { _count: { answers: number } })[]
-  >;
+  topThreeUsers: (UserRecord & { _count: { answers: number } })[];
 }) {
-  const topThreeUsers = use(topThreeUsersPromise);
-
   const podiumOrder = [1, 0, 2]; // 2nd, 1st, 3rd
 
   return (

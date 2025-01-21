@@ -30,9 +30,12 @@ export default function QuestionCarousel({
 }: QuestionCarouselProps) {
   const viewMoreHref = useMemo(() => {
     if (Array.isArray(tag) && tag.length > 0) {
-      return `/questions?tag=${tag.join('&')}`;
+      return `/questions?tag=${tag.join("&")}`;
+    } else if (difficulty) {
+      return `/questions?difficulty=${difficulty}`;
     }
-    return `/questions?difficulty=${difficulty}`;
+
+    return "/questions";
   }, [tag, difficulty]);
 
   console.log(image);

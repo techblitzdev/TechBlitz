@@ -39,7 +39,7 @@ export default async function LeaderboardMostQuestionsAnswered({
                 Most Questions Answered
               </CardTitle>
               <CardDescription className="text-gray-400">
-                Battle your way to the top of TechBlitz! page {page}
+                Battle your way to the top of TechBlitz!
               </CardDescription>
             </div>
           </div>
@@ -71,6 +71,8 @@ export default async function LeaderboardMostQuestionsAnswered({
               })[]
             }
             userPromise={userPromise}
+            page={page}
+            postsPerPage={postsPerPage}
           />
         </Table>
       </CardContent>

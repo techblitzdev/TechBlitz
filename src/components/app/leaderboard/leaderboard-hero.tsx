@@ -1,5 +1,4 @@
 'use client';
-import { use } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Crown } from 'lucide-react';
 import AnimatedSpan from '@/components/ui/animated-span';

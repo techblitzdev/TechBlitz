@@ -8,6 +8,7 @@ import { QuestionWithoutAnswers } from '@/types/Questions';
 import { Answer } from '@/types/Answers';
 import { useUserServer } from '@/hooks/use-user-server';
 import { QuestionFilters } from '@/types/Filters';
+import ClearFilters from './clear-filters';
 
 const ITEMS_PER_PAGE = 15;
 
@@ -61,7 +62,7 @@ export default async function QuestionsList({
         <p className="text-lg font-medium text-gray-400">
           No questions match your filters.
         </p>
-        <Button>Clear filters</Button>
+        <ClearFilters />
       </div>
     );
   }
@@ -77,7 +78,7 @@ export default async function QuestionsList({
           customQuestion={customQuestions}
         />
       ))}
-      {!customQuestions && (
+      {!customQuestions && data.totalPages > 1 && (
         <div className="mt-5 w-full flex justify-center gap-x-2">
           <GlobalPagination
             currentPage={currentPage}

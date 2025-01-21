@@ -2,6 +2,12 @@ import { getRandomQuestion } from '@/utils/data/questions/get-random';
 import { Button } from '@/components/ui/button';
 import { ShuffleIcon } from 'lucide-react';
 import { redirect } from 'next/navigation';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../ui/tooltip';
 
 /**
  * Component for redirecting the user to a random question.
@@ -15,20 +21,29 @@ export default async function RandomQuestion(opts: {
   const { identifier, currentQuestionSlug } = opts;
 
   return (
-    <form
-      action={async () => {
-        'use server';
-        const randomQuestion = await getRandomQuestion({
-          identifier,
-          currentQuestionSlug,
-        });
+    <TooltipProvider>
+      <Tooltip delayDuration={0}>
+        <TooltipTrigger>
+          <form
+            action={async () => {
+              'use server';
+              const randomQuestion = await getRandomQuestion({
+                identifier,
+                currentQuestionSlug,
+              });
 
-        redirect(`/question/${randomQuestion}`);
-      }}
-    >
-      <Button variant="default" size="icon">
-        <ShuffleIcon size={16} />
-      </Button>
-    </form>
+              redirect(`/question/${randomQuestion}`);
+            }}
+          >
+            <Button variant="default" size="icon">
+              <ShuffleIcon size={16} />
+            </Button>
+          </form>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Go to a Random question</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 }

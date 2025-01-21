@@ -27,6 +27,7 @@ export default function QuestionActionButtons() {
           <Button
             type="submit"
             disabled={isSubmitting || (!selectedAnswer && !code)}
+            className="text-green-500"
           >
             Submit
           </Button>

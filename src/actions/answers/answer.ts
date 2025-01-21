@@ -74,8 +74,7 @@ const findExistingAnswer = async (userUid: string, questionUid: string) => {
 const updateStreakDates = async (
   tx: any,
   userUid: string,
-  currentStreak: any,
-  correctAnswer: boolean
+  currentStreak: any
 ) => {
   console.log('hit updateStreakDates');
   const today = new Date();
@@ -141,17 +140,15 @@ const handleStreakUpdates = async (
   tx: any,
   {
     userUid,
-    correctAnswer,
   }: {
     userUid: string;
-    correctAnswer: boolean;
   }
 ) => {
   // Remove dailyQuestion check to handle streaks for all questions
   const userStreak = await findOrCreateUserStreak(userUid);
   if (!userStreak) return;
 
-  await updateStreakDates(tx, userUid, userStreak, correctAnswer);
+  await updateStreakDates(tx, userUid, userStreak);
 };
 
 const updateOrCreateAnswer = async (
@@ -230,7 +227,6 @@ export async function answerQuestion({
     if (!existingAnswer) {
       await handleStreakUpdates(tx, {
         userUid,
-        correctAnswer,
       });
     }
 

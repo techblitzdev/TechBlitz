@@ -26,7 +26,6 @@ export const getPlans = (
         { name: 'Basic support' },
       ],
       compactFeatures: [
-        { name: 'Daily question' },
         { name: 'Compete with other users everyday' },
         { name: 'Basic stats and progress tracking' },
         { name: '20 AI question help tokens' },
@@ -75,7 +74,6 @@ export const getPlans = (
         { name: '50% student discount available' },
       ],
       compactFeatures: [
-        { name: 'Daily question' },
         { name: '10 Bespoke learning plans and progression frameworks' },
         { name: 'In depth stat analysis and progress tracking' },
         { name: 'Unlimited AI question help tokens' },
@@ -122,13 +120,12 @@ export const getPlans = (
         { name: 'Lifetime access to all features' },
       ],
       compactFeatures: [
-        { name: 'Daily question' },
         { name: '10 Bespoke learning plans and progression frameworks' },
         { name: 'In depth stat analysis and progress tracking' },
         { name: 'Unlimited AI question help tokens' },
         { name: 'Priority support' },
         { name: '50% student discount available' },
-        { name: 'Lifetime access to all features' },
+        { name: 'Lifetime access to all features and future updates!' },
       ],
       paymentLink: {
         local: `https://buy.stripe.com/00g29C1sg3mU37i9AI?client_reference_id=${user?.uid}`,

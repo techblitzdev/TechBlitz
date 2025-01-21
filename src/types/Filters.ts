@@ -8,4 +8,5 @@ export interface QuestionFilters {
   page?: number;
   questionType?: string;
   sortBy?: 'date' | 'submissions';
+  postsPerPage?: number;
 }

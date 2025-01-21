@@ -13,6 +13,7 @@ export const parseSearchParams = (searchParams: {
     tags: (searchParams.tags as string)?.split(',').filter(Boolean) || [],
     questionType: searchParams.questionType as string,
     sortBy: searchParams.sortBy as 'date' | 'submissions',
+    postsPerPage: parseInt(searchParams.postsPerPage as string) || 15,
   };
 };
 

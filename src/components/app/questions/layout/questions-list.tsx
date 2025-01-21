@@ -10,8 +10,6 @@ import { useUserServer } from '@/hooks/use-user-server';
 import { QuestionFilters } from '@/types/Filters';
 import ClearFilters from './clear-filters';
 
-const ITEMS_PER_PAGE = 15;
-
 export default async function QuestionsList({
   currentPage,
   filters,
@@ -19,6 +17,7 @@ export default async function QuestionsList({
   previousQuestions = false,
   showSubmissions = true,
   paginationUrl,
+  postsPerPage = 15,
 }: {
   currentPage: number;
   filters: QuestionFilters;
@@ -26,6 +25,7 @@ export default async function QuestionsList({
   previousQuestions?: boolean;
   showSubmissions?: boolean;
   paginationUrl: string;
+  postsPerPage?: number;
 }) {
   const user = await useUserServer();
 
@@ -49,7 +49,7 @@ export default async function QuestionsList({
   // do the fetch after we know the user can access this
   const data = await listQuestions({
     page: currentPage,
-    pageSize: ITEMS_PER_PAGE,
+    pageSize: postsPerPage,
     userUid: user?.uid || '',
     filters,
     customQuestions,
@@ -85,6 +85,7 @@ export default async function QuestionsList({
             totalPages={data.totalPages}
             href={paginationUrl}
             paramName="page"
+            postsPerPage={postsPerPage}
           />
         </div>
       )}

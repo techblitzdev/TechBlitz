@@ -101,6 +101,7 @@ export default async function QuestionsDashboard({
               filters={filters}
               customQuestions={false}
               paginationUrl="/questions"
+              postsPerPage={filters.postsPerPage || 15}
             />
           </div>
           <QuestionPageSidebar />

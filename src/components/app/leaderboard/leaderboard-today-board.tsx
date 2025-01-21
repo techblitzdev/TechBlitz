@@ -54,6 +54,7 @@ const footer = (opts: {
         href="/leaderboard"
         paramName="page"
         margin="mt-0 justify-start"
+        postsPerPage={ITEMS_PER_PAGE}
       />
       <div className="font-ubuntu text-nowrap">{totalAnswers} answers</div>
     </div>

@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma';
 
-export const getMostQuestionsAnswered = async (take: number = 20) => {
+export const getMostQuestionsAnswered = async (take: number = 30) => {
   return await prisma.users.findMany({
     take,
     orderBy: {

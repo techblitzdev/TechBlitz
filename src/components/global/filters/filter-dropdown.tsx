@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSub,
   DropdownMenuSubTrigger,
-  DropdownMenuSubContent
+  DropdownMenuSubContent,
 } from '@/components/ui/dropdown-menu';
 import MaterialSymbolsFilterListRounded from '@/components/ui/icons/filter';
 
@@ -30,24 +30,24 @@ const DIFFICULTY_MAP: Record<QuestionDifficulty | 'DEFAULT', DifficultyConfig> =
   {
     BEGINNER: {
       color: '#2563eb33',
-      label: 'Beginner'
+      label: 'Beginner',
     },
     EASY: {
       color: '#10B981',
-      label: 'Easy'
+      label: 'Easy',
     },
     MEDIUM: {
       color: '#F59E0B',
-      label: 'Medium'
+      label: 'Medium',
     },
     HARD: {
       color: '#EF4444',
-      label: 'Hard'
+      label: 'Hard',
     },
     DEFAULT: {
       color: 'white',
-      label: 'All'
-    }
+      label: 'All',
+    },
   };
 
 export default function FilterDropdown() {
@@ -59,7 +59,7 @@ export default function FilterDropdown() {
   const [showQuestionType, setShowQuestionType] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const completedFilter = searchParams.get('completed');
+  const answeredFilter = searchParams.get('answered');
   const difficultyFilter = searchParams.get('difficulty');
   const questionTypeFilter = searchParams.get('questionType');
 
@@ -69,7 +69,7 @@ export default function FilterDropdown() {
 
     if (
       value === null ||
-      (key === 'completed' && value === completedFilter) ||
+      (key === 'answered' && value === answeredFilter) ||
       (key === 'difficulty' && value === difficultyFilter) ||
       (key === 'questionType' && value === questionTypeFilter)
     ) {
@@ -92,8 +92,8 @@ export default function FilterDropdown() {
   // get the total number of active filters
   const activeFilters = [
     difficultyFilter,
-    completedFilter,
-    questionTypeFilter
+    answeredFilter,
+    questionTypeFilter,
   ].filter((filter) => filter !== null).length;
 
   const getCurrentDifficulty = (): QuestionDifficulty | 'DEFAULT' => {
@@ -110,10 +110,7 @@ export default function FilterDropdown() {
       className="flex items-center space-x-2"
       data-pending={isPending ? '' : undefined}
     >
-      <DropdownMenu
-        open={isOpen}
-        onOpenChange={setIsOpen}
-      >
+      <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
         <DropdownMenuTrigger asChild>
           <Button
             padding="md"
@@ -178,13 +175,13 @@ export default function FilterDropdown() {
             <DropdownMenuItem
               onClick={() =>
                 updateQueryParams(
-                  'completed',
-                  completedFilter === 'true' ? null : 'true'
+                  'answered',
+                  answeredFilter === 'true' ? null : 'true'
                 )
               }
               className="py-2 flex items-center hover:!text-white hover:cursor-pointer"
             >
-              Completed
+              Answered
             </DropdownMenuItem>
             <DropdownMenuSub
               open={showQuestionType}

@@ -97,7 +97,7 @@ export default async function QuestionsDashboard({
               </Suspense>
             </div>
             <QuestionsList
-              currentPage={filters.page}
+              currentPage={filters.page || 1}
               filters={filters}
               customQuestions={false}
               paginationUrl="/questions"

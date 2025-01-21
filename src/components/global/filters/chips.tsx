@@ -81,13 +81,13 @@ export default function FilterChips() {
             ));
           }
 
-          if (key === 'completed') {
+          if (key === 'answered') {
             return (
               <div
                 key={key}
                 className="flex items-center gap-2 px-3 py-1 text-sm border border-black-50 rounded-md hover:bg-black-25 duration-300"
               >
-                <span>{value === 'true' ? 'Completed' : 'Incomplete'}</span>
+                <span>{value === 'true' ? 'Answered' : 'Unanswered'}</span>
                 <button
                   onClick={() => startTransition(() => removeFilter(key))}
                   className="bg-black-50 rounded-full p-0.5"
@@ -104,7 +104,7 @@ export default function FilterChips() {
               key={key}
               className="flex items-center gap-2 px-3 py-1 text-sm border border-black-50 rounded-md hover:bg-black-25 duration-300"
             >
-              <span>{capitalise(value)}</span>
+              <span>{capitalise(value).replace('_', ' ')}</span>
               <button
                 onClick={() => startTransition(() => removeFilter(key))}
                 className="bg-black-50 rounded-full p-0.5"

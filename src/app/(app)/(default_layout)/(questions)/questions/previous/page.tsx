@@ -64,7 +64,7 @@ export default async function PreviousQuestionsPage({
               <FilterChips />
             </div>
             <QuestionsList
-              currentPage={filters.page}
+              currentPage={filters.page || 1}
               filters={filters}
               customQuestions={false}
               previousQuestions

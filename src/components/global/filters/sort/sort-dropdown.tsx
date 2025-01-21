@@ -1,6 +1,9 @@
 'use client';
 
+import { useTransition } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
+
+// components
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -9,16 +12,15 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-//import { Separator } from '@/components/ui/separator';
-import { Check } from 'lucide-react';
-import { useState, useTransition } from 'react';
 import SortIcon from '@/components/ui/icons/sort';
+import { Check } from 'lucide-react';
 
-export default function FilterButtonsSort() {
-  const router = useRouter();
+export default function SortDropdown() {
   const searchParams = useSearchParams();
-
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
+
+  const sortBy = searchParams.get('sortBy') as string;
 
   // Helper to update query params
   const updateQueryParams = (key: string, value: string | null) => {
@@ -31,30 +33,6 @@ export default function FilterButtonsSort() {
     router.push(`?${params.toString()}`);
   };
 
-  // State for sorting
-  const [ascending, setAscending] = useState(
-    searchParams.get('ascending') === 'true'
-  );
-
-  const toggleSortOrder = () => {
-    const newAscending = !ascending;
-    setAscending(newAscending);
-    updateQueryParams('ascending', newAscending ? 'true' : null);
-  };
-
-  //const clearSorting = () => {
-  //  const params = new URLSearchParams(searchParams.toString());
-  //
-  //  // Remove both parameters
-  //  params.delete('ascending');
-  //
-  //  // Reset local state
-  //  setAscending(false);
-  //
-  //  // Update the URL
-  //  router.push(`?${params.toString()}`);
-  //};
-
   return (
     <div data-pending={isPending ? '' : undefined}>
       <DropdownMenu>
@@ -65,7 +43,7 @@ export default function FilterButtonsSort() {
             variant="default"
             className="flex items-center justify-center gap-x-1 text-sm group"
           >
-            {ascending && (
+            {sortBy && (
               <span className="text-[10px] bg-white text-black px-2 rounded-full mr-1">
                 1
               </span>
@@ -80,13 +58,42 @@ export default function FilterButtonsSort() {
         >
           <DropdownMenuGroup className="p-1">
             <DropdownMenuItem
-              className="flex items-center justify-between hover:cursor-pointer"
-              onClick={() => startTransition(() => toggleSortOrder())}
+              className="flex items-center justify-between hover:cursor-pointer py-2"
+              onClick={() =>
+                startTransition(() => updateQueryParams('sortBy', 'date'))
+              }
             >
               <span className="text-white">Date</span>
-              {ascending && <Check className="size-4 text-white" />}
+              {sortBy === 'date' && <Check className="size-4 text-white" />}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="flex items-center justify-between hover:cursor-pointer py-2"
+              onClick={() =>
+                startTransition(() =>
+                  updateQueryParams('sortBy', 'submissions')
+                )
+              }
+            >
+              <span className="text-white">Submissions</span>
+              {sortBy === 'submissions' && (
+                <Check className="size-4 text-white" />
+              )}
             </DropdownMenuItem>
           </DropdownMenuGroup>
+          <div
+            className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${
+              sortBy ? 'max-h-14 p-2 pt-0' : 'max-h-0'
+            }`}
+          >
+            <Button
+              variant="destructive"
+              size="sm"
+              onClick={() => updateQueryParams('sortBy', null)}
+              className="w-full"
+            >
+              Clear Sort
+            </Button>
+          </div>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

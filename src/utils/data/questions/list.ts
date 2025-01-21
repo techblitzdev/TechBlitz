@@ -51,6 +51,8 @@ export const listQuestions = async (
     throw new Error('Unauthorized access to custom questions');
   }
 
+  console.log({ ...filters });
+
   // if we have an authenticated user, we include the userAnswers in the query
   const includeUserAnswers = Boolean(user);
 
@@ -69,7 +71,7 @@ export const listQuestions = async (
           : {},
 
         // Completion filter
-        filters?.completed === true
+        filters?.answered === true
           ? {
               userAnswers: {
                 some: {
@@ -77,7 +79,7 @@ export const listQuestions = async (
                 },
               },
             }
-          : filters?.completed === false
+          : filters?.answered === false
             ? {
                 userAnswers: {
                   none: {
@@ -101,7 +103,6 @@ export const listQuestions = async (
               },
             }
           : {},
-
         // Date constraints
         previousQuestions
           ? {
@@ -115,6 +116,12 @@ export const listQuestions = async (
                 lte: new Date().toISOString(),
               },
             },
+        // question type filter
+        filters?.questionType !== undefined
+          ? {
+              questionType: filters.questionType,
+            }
+          : {},
       ],
     };
 
@@ -141,9 +148,19 @@ export const listQuestions = async (
     const questions = await prisma.questions.findMany({
       skip,
       take: pageSize,
-      orderBy: {
-        questionDate: filters?.ascending ? 'asc' : 'desc',
-      },
+      orderBy: [
+        filters?.sortBy === 'date'
+          ? {
+              questionDate: filters?.ascending ? 'asc' : 'desc',
+            }
+          : filters?.sortBy === 'submissions'
+            ? {
+                userAnswers: {
+                  _count: 'desc',
+                },
+              }
+            : {},
+      ],
       where: baseWhereClause,
       include: {
         tags: {
@@ -183,6 +200,7 @@ export const listQuestions = async (
     const total = await prisma.questions.count({
       where: baseWhereClause,
     });
+
     return {
       questions: transformedQuestions as
         | (Question[] & {

@@ -1,29 +1,22 @@
+import { QuestionFilters } from '@/types/Filters';
 import { QuestionDifficulty } from '@/types/Questions';
-
-export interface FilterParams {
-  page: number;
-  ascending: boolean;
-  difficulty?: QuestionDifficulty;
-  completed?: boolean;
-  tags: string[];
-}
 
 export const parseSearchParams = (searchParams: {
   [key: string]: string | string[] | undefined;
-}): FilterParams => {
+}): QuestionFilters => {
   return {
     page: parseInt(searchParams.page as string) || 1,
     ascending: searchParams.ascending === 'true',
     difficulty: searchParams.difficulty as QuestionDifficulty,
-    completed:
-      'completed' in searchParams
-        ? searchParams.completed === 'true'
-        : undefined,
+    answered:
+      'answered' in searchParams ? searchParams.answered === 'true' : undefined,
     tags: (searchParams.tags as string)?.split(',').filter(Boolean) || [],
+    questionType: searchParams.questionType as string,
+    sortBy: searchParams.sortBy as 'date' | 'submissions',
   };
 };
 
-export const validateSearchParams = (params: FilterParams): boolean => {
-  if (params.page < 1) return false;
+export const validateSearchParams = (params: QuestionFilters): boolean => {
+  if (params.page && params.page < 1) return false;
   return true;
 };

@@ -3,11 +3,11 @@ import QuestionCard from '@/components/app/questions/layout/question-card';
 
 import { listQuestions } from '@/utils/data/questions/list';
 
-import { FilterParams } from '@/utils/search-params';
 import { Button } from '@/components/ui/button';
 import { QuestionWithoutAnswers } from '@/types/Questions';
 import { Answer } from '@/types/Answers';
 import { useUserServer } from '@/hooks/use-user-server';
+import { QuestionFilters } from '@/types/Filters';
 
 const ITEMS_PER_PAGE = 15;
 
@@ -20,22 +20,13 @@ export default async function QuestionsList({
   paginationUrl,
 }: {
   currentPage: number;
-  filters: FilterParams;
+  filters: QuestionFilters;
   customQuestions: boolean;
   previousQuestions?: boolean;
   showSubmissions?: boolean;
   paginationUrl: string;
 }) {
   const user = await useUserServer();
-
-  const data = await listQuestions({
-    page: currentPage,
-    pageSize: ITEMS_PER_PAGE,
-    userUid: user?.uid || '',
-    filters,
-    customQuestions,
-    previousQuestions,
-  });
 
   // if we are on custom questions and the user is not a premium user, show a message
   if (customQuestions && user && user.userLevel === 'FREE') {
@@ -53,6 +44,16 @@ export default async function QuestionsList({
       </div>
     );
   }
+
+  // do the fetch after we know the user can access this
+  const data = await listQuestions({
+    page: currentPage,
+    pageSize: ITEMS_PER_PAGE,
+    userUid: user?.uid || '',
+    filters,
+    customQuestions,
+    previousQuestions,
+  });
 
   if (!data.questions || data.questions.length === 0) {
     return (

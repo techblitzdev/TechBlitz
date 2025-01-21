@@ -33,7 +33,7 @@ export default async function CustomQuestionsPage({
         <div className="flex flex-col lg:flex-row w-full gap-16">
           <div className="w-full lg:min-w-[65%] space-y-6">
             <QuestionsList
-              currentPage={filters.page}
+              currentPage={filters.page || 1}
               filters={filters}
               customQuestions
               showSubmissions={false}

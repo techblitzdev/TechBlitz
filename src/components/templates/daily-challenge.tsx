@@ -116,6 +116,12 @@ export const DailyChallengeEmailTemplate: React.FC<EmailTemplateProps> = ({
               <Text style={styles.footerText}>
                 © 2025 TechBlitz. All rights reserved.
               </Text>
+              <Text style={styles.footerText}>
+                Want to stop receiving these emails?{' '}
+                <Link href="/settings/profile" style={styles.listItem}>
+                  Manage your email preferences
+                </Link>
+              </Text>
             </Section>
           </Section>
         </Container>

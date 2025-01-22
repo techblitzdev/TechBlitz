@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useCallback, useState } from 'react';
 // components
 import { Button } from '@/components/ui/button';
 import {
@@ -12,6 +12,7 @@ import {
 import { InputWithLabel } from '@/components/ui/input-label';
 import { toast } from 'sonner';
 import { DiscordLogoIcon, GitHubLogoIcon } from '@radix-ui/react-icons';
+import { EyeIcon, EyeOffIcon } from 'lucide-react';
 
 // zod
 import { loginSchema } from '@/lib/zod/schemas/login';
@@ -36,6 +37,7 @@ export default function LoginForm(opts: {
 
   const router = useRouter();
   const isPending = useRef(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (onboarding) {
@@ -107,6 +109,7 @@ export default function LoginForm(opts: {
                   type="email"
                   {...field}
                   autoComplete="email"
+                  inputClassName="gap-x-0"
                 />
                 <FormMessage className="mt-0.5 text-start">
                   {form.formState?.errors?.email?.message}
@@ -123,10 +126,22 @@ export default function LoginForm(opts: {
               <div className="col-span-12 relative">
                 <InputWithLabel
                   label="Password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   {...field}
                   autoComplete="current-password"
+                  inputClassName="gap-x-0"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-[34px] text-gray-400 hover:text-white transition-colors"
+                >
+                  {showPassword ? (
+                    <EyeOffIcon className="size-5" />
+                  ) : (
+                    <EyeIcon className="size-5" />
+                  )}
+                </button>
                 <FormMessage className="mt-0.5 text-start">
                   {form.formState?.errors?.password?.message}
                 </FormMessage>

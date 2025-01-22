@@ -23,7 +23,7 @@ export default async function LeaderboardPodiumShowcase() {
       </div>
       <div className="flex justify-center items-end perspective-1000 relative">
         {podiumOrder.map((index: number) => {
-          const user = topThreeUsers[index];
+          const user = topThreeUsers.users[index];
           if (!user) return null;
           const position = index + 1;
           return (

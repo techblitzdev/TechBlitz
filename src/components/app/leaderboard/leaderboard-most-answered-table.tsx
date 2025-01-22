@@ -11,8 +11,15 @@ export default function LeaderboardMostAnsweredTable(opts: {
     _count: { answers: number };
   })[];
   userPromise: Promise<UserRecord | null>;
+  page?: number;
+  postsPerPage?: number;
 }) {
-  const { topUsersByQuestionCount, userPromise } = opts;
+  const {
+    topUsersByQuestionCount,
+    userPromise,
+    page = 1,
+    postsPerPage = 15,
+  } = opts;
 
   const user = use(userPromise);
 
@@ -24,7 +31,7 @@ export default function LeaderboardMostAnsweredTable(opts: {
           className="border-white/10 hover:bg-white/5 transition-colors"
         >
           <TableCell className="font-medium text-white p-0">
-            {index < 3 ? (
+            {page === 1 && index < 3 ? (
               <Badge
                 variant={index === 0 ? 'default' : 'secondary'}
                 className={`
@@ -36,7 +43,9 @@ export default function LeaderboardMostAnsweredTable(opts: {
                 #{index + 1}
               </Badge>
             ) : (
-              <span className="text-gray-400">#{index + 1}</span>
+              <span className="text-gray-400">
+                #{(page - 1) * postsPerPage + index + 1}
+              </span>
             )}
           </TableCell>
           <TableCell className="p-0">

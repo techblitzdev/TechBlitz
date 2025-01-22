@@ -14,10 +14,19 @@ import { useUserServer } from '@/hooks/use-user-server';
 import LeaderboardMostAnsweredTable from './leaderboard-most-answered-table';
 import { UserRecord } from '@/types/User';
 
-export default async function LeaderboardMostQuestionsAnswered() {
+export default async function LeaderboardMostQuestionsAnswered({
+  page,
+  postsPerPage,
+}: {
+  page: number;
+  postsPerPage: number;
+}) {
   const userPromise = useUserServer();
 
-  const topUsersByQuestionCount = await getMostQuestionsAnswered();
+  const { users: topUsersByQuestionCount } = await getMostQuestionsAnswered(
+    postsPerPage,
+    page
+  );
 
   return (
     <Card className="border-none">
@@ -62,6 +71,8 @@ export default async function LeaderboardMostQuestionsAnswered() {
               })[]
             }
             userPromise={userPromise}
+            page={page}
+            postsPerPage={postsPerPage}
           />
         </Table>
       </CardContent>

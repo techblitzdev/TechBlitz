@@ -18,7 +18,7 @@ export default function HasAnswered(opts: { userAnswered: Answer | null }) {
           <TooltipProvider>
             <Tooltip delayDuration={0}>
               <TooltipTrigger>
-                <div className="bg-black border border-black-50 rounded-lg px-2 py-1 flex items-center gap-1 text-sm font-onest font-light">
+                <div className="flex items-center gap-1 text-sm font-onest font-light">
                   Correct
                   <CheckIcon className="size-4 text-green-500" />
                 </div>

@@ -18,6 +18,7 @@ import { cn } from '@/lib/utils';
 import CodingChallengeDescription from '../../code-editor/description-tab';
 import HasAnswered from '../single/has-answered';
 import { useQuestionSingle } from '../single/layout/question-single-context';
+import BookmarkQuestion from '../single/bookmark';
 
 interface QuestionTabsProps {
   question: Question;
@@ -86,23 +87,20 @@ export default function QuestionTabs({
         {question.questionType === 'CODING_CHALLENGE' ? (
           <CodingChallengeDescription question={question} />
         ) : (
-          <>
-            {'dailyQuestion' in question && question.dailyQuestion && (
-              <h3 className="font-inter text-gray-400 text-sm font-light px-4 pb-2">
-                This question is a daily question and will count towards your
-                daily streak.
-              </h3>
-            )}
+          <div className="flex flex-col gap-4 p-4 pt-0">
+            <div className="flex w-full gap-2 items-center">
+              <BookmarkQuestion />
+              <HasAnswered userAnswered={hasUserAnswered} />
+            </div>
             {question?.question && (
-              <div className="flex w-full gap-10 justify-between p-4 pt-0">
+              <div className="flex w-full gap-10 justify-between">
                 <h3 className="font-onest font-light text-base md:text-xl">
                   {question.question}
                 </h3>
-                <HasAnswered userAnswered={hasUserAnswered} />
               </div>
             )}
             {renderAnswerForm()}
-          </>
+          </div>
         )}
       </TabsContent>
       <TabsContent value="resources" className="p-4">

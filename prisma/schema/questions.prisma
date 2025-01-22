@@ -81,6 +81,9 @@ model Questions {
   expectedParams Json?        
   // Expected return type
   returnType     String?      
+
+  // bookmarked questions
+  bookmarkedBy Users[] @relation("UserBookmarks")
 }
 
 // Tags for this question

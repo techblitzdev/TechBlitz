@@ -1,4 +1,5 @@
 import { BaseRecord } from './BaseRecord';
+import { Question } from './Questions';
 import { RequireAtLeastOne } from './Utils';
 
 export type UserLevel = 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE' | 'PREMIUM';
@@ -47,6 +48,9 @@ export interface User extends BaseRecord {
 
   // user entered text that will be used to assist in ai generation
   aboutMeAiHelp?: string | null;
+
+  // the user's bookmarked questions (an array of question ids)
+  bookmarkedQuestions?: Question[];
 }
 
 export type UserRecord = Pick<

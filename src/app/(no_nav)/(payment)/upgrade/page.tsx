@@ -52,7 +52,7 @@ export default async function UpgradePage() {
       </Link>
       <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black-950 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
 
-      <div className="w-full lg:h-svh flex flex-col pt-32 md:py-8 container z-50 relative items-center justify-center text-center">
+      <div className="w-full flex flex-col pt-32 md:py-16 container z-50 relative items-center justify-center text-center">
         <h1 className="text-gradient from-white to-white/75 text-3xl lg:text-5xl !font-onest tracking-tight py-1">
           Simple and{' '}
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/55">

@@ -43,19 +43,24 @@ export default function PricingCard(opts: {
               </div>
             )}
           </div>
-          <div className="flex gap-x-1 items-center mt-2">
-            <div className="flex gap-x-1 items-center font-onest text-gradient from-white to-white/75">
-              <span className="text-lg font-semibold">
-                {product.currencySymbol}
+          <div className="flex flex-col gap-y-1 mb-2">
+            <div className="flex gap-x-1 items-center mt-2">
+              <div className="flex gap-x-1 items-center font-onest text-gradient from-white to-white/75">
+                <span className="text-lg font-semibold">
+                  {product.currencySymbol}
+                </span>
+                <NumberFlow
+                  value={product.price}
+                  className="text-5xl font-onest text-white"
+                />
+              </div>
+              <span className="text-sm font-inter mt-3 text-gray-300">
+                {product.frequencyText}
               </span>
-              <NumberFlow
-                value={product.price}
-                className="text-5xl font-onest text-white"
-              />
             </div>
-            <span className="text-sm font-inter mt-3 text-gray-300">
-              {product.frequencyText}
-            </span>
+            <p className="text-sm font-onest text-gray-300">
+              {product.shortText}
+            </p>
           </div>
         </div>
         <Separator className="bg-black-50" />

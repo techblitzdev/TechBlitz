@@ -25,7 +25,7 @@ export default function AnimatedPricingFeatures({
     return (
       <div className="flex flex-col gap-y-3 py-5 min-h-80">
         {!isFree && (
-          <div className="text-sm text-white font-medium font-onest">
+          <div className="text-sm text-white font-medium font-onest text-start">
             Everything in the free, plus:
           </div>
         )}
@@ -55,7 +55,7 @@ export default function AnimatedPricingFeatures({
       className="flex flex-col gap-y-3 py-3"
     >
       {!isFree && (
-        <div className="text-sm text-white font-medium font-onest">
+        <div className="text-sm text-white font-medium font-onest text-start">
           Everything in the free, plus:
         </div>
       )}

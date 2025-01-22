@@ -14,6 +14,7 @@ export const getPlans = (
       price: 0,
       frequency: 'forever',
       frequencyText: 'forever',
+      shortText: 'Great for beginners wanting to get started with coding.',
       features: [
         { name: 'Daily coding challenge sent straight to your inbox' },
         { name: 'Compete with other users everyday' },
@@ -58,6 +59,7 @@ export const getPlans = (
         billingPeriod === 'month'
           ? 'per month, billed monthly'
           : 'per month, billed yearly',
+      shortText: 'Perfect for those wanting a personalized coding experience.',
       features: [
         {
           name: 'Enhanced question suggestions',
@@ -101,6 +103,8 @@ export const getPlans = (
       currencySymbol: '$',
       frequency: 'once',
       frequencyText: 'pay once, yours forever',
+      shortText:
+        'Perfect for those wanting to master coding concepts for life.',
       features: [
         {
           name: 'Enhanced question suggestions',

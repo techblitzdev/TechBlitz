@@ -76,15 +76,15 @@ const updateStreakDates = async (
   userUid: string,
   currentStreak: any
 ) => {
-  console.log('hit updateStreakDates');
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
   const lastUpdate = new Date(currentStreak.updatedAt);
   lastUpdate.setHours(0, 0, 0, 0);
 
-  const isNextDay = today.getTime() - lastUpdate.getTime() === 86400000; // 24 hours in ms
-  const isToday = today.getTime() === lastUpdate.getTime();
+  const daysDifference = Math.floor(
+    (today.getTime() - lastUpdate.getTime()) / (24 * 60 * 60 * 1000)
+  );
 
   // Check if user has answered any question today
   const answeredToday = await tx.answers.findFirst({
@@ -101,19 +101,23 @@ const updateStreakDates = async (
   let newCurrentStreak = currentStreak.currentstreakCount;
   let newLongestStreak = currentStreak.longestStreak;
 
-  // Only update streak if it's a new day and no answer today
-  if (isNextDay || (!isToday && !answeredToday)) {
-    newCurrentStreak += 1;
-    newLongestStreak = Math.max(newCurrentStreak, newLongestStreak);
-    newStreakEnd = new Date();
-  } else if (!isToday && !answeredToday) {
-    // Break in streak (more than one day gap)
-    newCurrentStreak = 1;
-    newStreakStart = new Date();
-    newStreakEnd = new Date();
+  // If this is the first answer of the day
+  if (!answeredToday) {
+    if (daysDifference === 1) {
+      // Continue streak
+      newCurrentStreak += 1;
+      newLongestStreak = Math.max(newCurrentStreak, newLongestStreak);
+    } else if (daysDifference > 1) {
+      // Break streak - more than one day gap
+      newCurrentStreak = 1;
+      newStreakStart = new Date();
+    } else if (daysDifference === 0) {
+      // Same day, don't increment streak but maintain it
+      newCurrentStreak = Math.max(1, newCurrentStreak);
+    }
   }
 
-  // Update streak regardless of answer correctness
+  // Update streak
   await tx.streaks.update({
     where: { userUid },
     data: {
@@ -125,13 +129,13 @@ const updateStreakDates = async (
     },
   });
 
+  // Update user's streak counts
   await tx.users.update({
     where: { uid: userUid },
     data: {
       correctDailyStreak: newCurrentStreak,
       totalDailyStreak:
-        currentStreak.totalDailyStreak +
-        (isNextDay || (!isToday && !answeredToday) ? 1 : 0),
+        currentStreak.totalDailyStreak + (daysDifference === 1 ? 1 : 0),
     },
   });
 };

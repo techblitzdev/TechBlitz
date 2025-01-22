@@ -4,17 +4,27 @@ import { Highlight, themes } from 'prism-react-renderer';
 // markdown to render the question description
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { useQuestionSingle } from '../questions/single/layout/question-single-context';
+import { use } from 'react';
+import HasAnswered from '../questions/single/has-answered';
 
 export default function CodingChallengeDescription(opts: {
   question: Question;
 }) {
   const { question } = opts;
 
+  const { userAnswered } = useQuestionSingle();
+
+  const hasUserAnswered = use(userAnswered);
+
   return (
-    <div className="p-4 flex flex-col gap-6">
-      <h3 className="font-onest font-light text-base md:text-2xl">
-        {question.question}
-      </h3>
+    <div className="p-4 pt-0 flex flex-col gap-6">
+      <div className="flex w-full gap-5 justify-between">
+        <h3 className="font-onest font-light text-base md:text-2xl">
+          {question.question}
+        </h3>
+        <HasAnswered userAnswered={hasUserAnswered} />
+      </div>
       <div className="prose prose-sm prose-invert">
         <span className="underline">Description</span>
         <Markdown

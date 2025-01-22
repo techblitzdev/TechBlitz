@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, ReactNode } from 'react';
+import { useState, ReactNode, use } from 'react';
 import {
   BarChart,
   BookIcon,
@@ -16,6 +16,8 @@ import QuestionResourceTab from '@/components/app/questions/resources/question-r
 import QuestionStatsTab from './question-stats-tab';
 import { cn } from '@/lib/utils';
 import CodingChallengeDescription from '../../code-editor/description-tab';
+import HasAnswered from '../single/has-answered';
+import { useQuestionSingle } from '../single/layout/question-single-context';
 
 interface QuestionTabsProps {
   question: Question;
@@ -34,6 +36,10 @@ export default function QuestionTabs({
   const [activeTab, setActiveTab] = useState<
     'description' | 'resources' | 'stats'
   >('description');
+
+  const { userAnswered } = useQuestionSingle();
+
+  const hasUserAnswered = use(userAnswered);
 
   return (
     <Tabs defaultValue="description" className={cn('w-full relative')}>
@@ -88,9 +94,12 @@ export default function QuestionTabs({
               </h3>
             )}
             {question?.question && (
-              <h3 className="font-onest font-light p-4 pt-0 text-base md:text-xl">
-                {question.question}
-              </h3>
+              <div className="flex w-full gap-10 justify-between p-4 pt-0">
+                <h3 className="font-onest font-light text-base md:text-xl">
+                  {question.question}
+                </h3>
+                <HasAnswered userAnswered={hasUserAnswered} />
+              </div>
             )}
             {renderAnswerForm()}
           </>

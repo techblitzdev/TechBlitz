@@ -239,6 +239,22 @@ export default function QuestionSubmitted() {
             </Select>
           </div>
         </div>
+        {/** if the next question slug is not null, show a button to go to the next question */}
+        {question?.nextQuestionSlug && (
+          <div className="flex flex-col gap-y-2">
+            <p className="text-sm text-gray-400">
+              Want to continue the flow? Click the button below to go to the
+              next question.
+            </p>
+            <Button
+              variant="secondary"
+              href={`/question/${question.nextQuestionSlug}`}
+              className="w-fit"
+            >
+              Next Question
+            </Button>
+          </div>
+        )}
         {/** show related questions */}
         <div className="flex flex-col gap-y-5">
           <div className="flex flex-col gap-y-2">

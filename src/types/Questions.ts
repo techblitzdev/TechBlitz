@@ -43,6 +43,10 @@ export type Question = {
 
   questionType: QuestionType;
 
+  nextQuestionSlug: string | null;
+
+  previousQuestionSlug: string | null;
+
   // i am so sorry typescript lords (Json from prisma isn't nice to work with)
   testCases: any;
 

@@ -62,6 +62,12 @@ model Questions {
 
   slugGenerated Boolean @default(false)
 
+  // ALLOWING THE USER TO NAVIGATE BETWEEN QUESTIONS (will be used to have a 'flow' of questions)
+
+  nextQuestionSlug String?
+
+  previousQuestionSlug String?
+
   // CODING_CHALLENGE specific fields
 
   // the type of question - either multiple choice or write code

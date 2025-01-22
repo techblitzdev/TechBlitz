@@ -1,4 +1,3 @@
-import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
 import FAQsBlock from '@/components/marketing/global/blocks/faqs';
 import { AnimatedBreak } from '@/components/marketing/pricing/animated-break';
@@ -90,7 +89,6 @@ async function updateFrequency(frequency: 'month' | 'year') {
 
 export default async function PricingPage() {
   const cookieStore = cookies();
-  const todayQuestion = await getTodaysQuestion();
 
   const faqs = [
     {

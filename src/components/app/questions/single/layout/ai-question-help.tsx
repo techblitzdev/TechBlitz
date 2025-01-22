@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/tooltip';
 import Link from 'next/link';
 import { UserRecord } from '@/types/User';
+import { capitalize } from 'lodash';
 
 export default function AiQuestionHelp(opts: {
   question: Question;
@@ -71,21 +72,18 @@ export default function AiQuestionHelp(opts: {
             >
               <h5 className="text-lg font-semibold mb-2">AI Assistance</h5>
               <motion.div
-                className="bg-black-100 border border-black-50 p-3 rounded-md text-sm"
+                className="bg-black-100 border border-black-50 p-3 rounded-md text-sm flex flex-col gap-y-4"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
               >
-                {aiHelp.split(' ').map((word, index) => (
-                  <motion.span
-                    key={index}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: index * 0.02 }}
-                    className="inline-block mr-1"
-                  >
-                    {word}
-                  </motion.span>
+                {Object.entries(aiHelp).map(([key, value], index) => (
+                  <div key={index}>
+                    <h3 className="text-md font-bold underline">
+                      {capitalize(key.replace(/-/g, ' '))}
+                    </h3>
+                    <p className="text-gray-200">{value.replace(/```/g, '')}</p>
+                  </div>
                 ))}
               </motion.div>
               <motion.div

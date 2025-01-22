@@ -52,8 +52,8 @@ const featureShowcaseItems = [
         <g
           fill="none"
           stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
           <circle cx="7" cy="7" r="6.5" />
           <path d="M7 .5V7l4.6 4.6" />

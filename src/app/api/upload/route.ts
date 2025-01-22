@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import { NextRequest, NextResponse } from 'next/server';
 import uniqid from 'uniqid';
+import { prisma } from '@/lib/prisma';
 
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
@@ -10,11 +11,16 @@ export async function POST(req: NextRequest) {
   const userId = formData.get('userId') as string;
   const route = formData.get('route') as string;
 
-  console.log({
-    files,
-    userId,
-    route,
+  // check if the user exists
+  const user = await prisma.users.findUnique({
+    where: {
+      uid: userId,
+    },
   });
+
+  if (!user) {
+    return NextResponse.json({ message: 'User not found' }, { status: 404 });
+  }
 
   const fileLocation = `${userId}/logo.png`;
 

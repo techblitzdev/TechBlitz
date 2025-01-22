@@ -32,9 +32,7 @@ export const getRelatedQuestions = async (opts: {
         slug: {
           not: questionSlug,
         },
-        AND: {
-          dailyQuestion: true,
-        },
+        customQuestion: false,
       },
     },
     take: limit,

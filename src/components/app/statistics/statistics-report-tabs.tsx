@@ -129,7 +129,7 @@ export default async function StatisticsReportTabs(opts: {
                 </p>
               </div>
 
-              <QuestionSuggestedCard textLimit={75} />
+              <QuestionSuggestedCard />
             </div>
             <div className="flex flex-col gap-y-4 text-center text-white">
               <div className="flex flex-col gap-y-2">
@@ -141,7 +141,6 @@ export default async function StatisticsReportTabs(opts: {
 
               <QuestionSuggestedCard
                 customQuestions={report.questions ?? []}
-                textLimit={75}
                 isCustomQuestion
               />
             </div>

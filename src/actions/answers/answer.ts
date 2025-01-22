@@ -97,7 +97,7 @@ const updateStreakDates = async (
   });
 
   let newStreakStart = new Date(currentStreak.streakStart);
-  let newStreakEnd = new Date();
+  const newStreakEnd = new Date();
   let newCurrentStreak = currentStreak.currentstreakCount;
   let newLongestStreak = currentStreak.longestStreak;
 

@@ -3,7 +3,16 @@ import { openai } from '@/lib/open-ai';
 import { prisma } from '@/lib/prisma';
 import { getPrompt } from '../utils/get-prompt';
 import { getUser } from '@/actions/user/authed/get-user';
+import { questionHelpSchema } from '@/lib/zod/schemas/ai/question-help';
+import { zodResponseFormat } from 'openai/helpers/zod.mjs';
 
+/**
+ * Method to generate question help for a question.
+ *
+ * @param questionUid - The uid of the question to generate help for.
+ * @param userContent - The user's content to generate help for.
+ * @returns
+ */
 export const generateQuestionHelp = async (
   questionUid: string,
   userContent?: string
@@ -11,7 +20,7 @@ export const generateQuestionHelp = async (
   // get the current user requesting help
   const user = await getUser();
 
-  // if no user, return error
+  // if no user, return false
   if (!user) {
     return false;
   }
@@ -69,12 +78,19 @@ export const generateQuestionHelp = async (
         content: userContent || '',
       },
     ],
+    response_format: zodResponseFormat(questionHelpSchema, 'event'),
   });
+
+  if (!questionHelp.choices[0]?.message?.content) {
+    throw new Error('AI response is missing content');
+  }
+
+  const formattedData = JSON.parse(questionHelp.choices[0].message.content);
 
   // if the user is a premium users, do not deduct tokens
   if (user.userLevel === 'PREMIUM') {
     return {
-      content: questionHelp.choices[0].message.content,
+      content: formattedData,
       tokens: Infinity,
     };
   }
@@ -86,7 +102,7 @@ export const generateQuestionHelp = async (
   });
 
   return {
-    content: questionHelp.choices[0].message.content,
+    content: formattedData,
     tokens: updatedUser.aiQuestionHelpTokens,
   };
 };

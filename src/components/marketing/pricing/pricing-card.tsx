@@ -14,8 +14,9 @@ export default function PricingCard(opts: {
   product: Plan;
   compact?: boolean;
   paymentTrigger?: boolean;
+  showSignup?: boolean;
 }) {
-  const { product, compact, paymentTrigger } = opts;
+  const { product, compact, paymentTrigger, showSignup } = opts;
 
   if (!product) return null;
 
@@ -33,7 +34,7 @@ export default function PricingCard(opts: {
       )}
     >
       <CardHeader className="pb-0">
-        <div className="flex flex-col gap-2 text-start">
+        <div className="flex flex-col text-start">
           <div className="flex w-full justify-between items-center">
             <h2 className="font-onest text-white">{product.name}</h2>
             {product.mostPopular && (
@@ -64,13 +65,22 @@ export default function PricingCard(opts: {
         <AnimatedPricingFeatures
           features={compact ? product.compactFeatures : product.features}
           productId={product.id}
+          isFree={isFree}
         />
         <Button
           fullWidth
           variant="secondary"
-          href={paymentTrigger ? product.paymentLink?.production : '/upgrade'}
+          href={
+            showSignup
+              ? '/signup'
+              : paymentTrigger
+                ? product.paymentLink?.production
+                : isFree
+                  ? '/signup'
+                  : '/upgrade'
+          }
         >
-          {isFree ? 'Sign up' : 'Get started'}
+          {isFree ? 'Start for free' : 'Get Premium'}
         </Button>
       </CardContent>
     </Card>

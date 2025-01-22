@@ -94,29 +94,7 @@ export default async function PricingPage() {
 
   const faqs = [
     {
-      question: 'What is TechBlitz, and how can it help developers?',
-      answer:
-        'TechBlitz is an innovative online learning platform designed for developers of all skill levels. Our tools, including quizzes, coding roadmaps, and tutorials, help you sharpen your skills, boost productivity, and stay ahead in the tech industry.',
-    },
-    {
-      question: 'Is TechBlitz open source?',
-      answer: (
-        <>
-          Yes, TechBlitz is completely open source! Explore our source code on{' '}
-          <a
-            href="https://git.new/blitz"
-            target="_blank"
-            className="!text-accent underline"
-          >
-            GitHub
-          </a>{' '}
-          and join the growing community of developers contributing to our
-          platform.
-        </>
-      ),
-    },
-    {
-      question: 'Is TechBlitz free to use?',
+      question: 'Can I use TechBlitz for free?',
       answer: (
         <>
           Absolutely! TechBlitz offers a free plan to get you started right
@@ -124,9 +102,25 @@ export default async function PricingPage() {
           <Link href="/signup" className="text-accent">
             Sign up for a free account
           </Link>{' '}
-          and dive into our rich library of developer resources today.
+          and dive into our rich library of developer resources today. Upgrade
+          to a paid plan to unlock all our features at any time.
         </>
       ),
+    },
+    {
+      question: 'What is TechBlitz, and how can it help developers?',
+      answer:
+        'TechBlitz is an innovative online learning platform designed for developers of all skill levels. Our tools, including quizzes, coding roadmaps, and tutorials, help you sharpen your skills, boost productivity, and stay ahead in the tech industry.',
+    },
+    {
+      question: 'What makes TechBlitz different from other coding platforms?',
+      answer:
+        'TechBlitz stands out by offering concise, interactive coding challenges that are both fun and educational. Our platform is designed to be a quick and efficient way to improve your skills, without the need for extensive tutorials or long-form content.',
+    },
+    {
+      question: 'What is the AI assistant?',
+      answer:
+        "The AI assistant is your own personal coding assistant that can give you tips and guidance to answer our challenges. Struggling to answer a question? Ask the AI assistant for help. Don't understand an answer? Ask the AI assistant for help!",
     },
     {
       question: 'What are the key benefits of using TechBlitz?',
@@ -135,33 +129,11 @@ export default async function PricingPage() {
           TechBlitz provides engaging, short-form coding questions and practical
           roadmaps to help developers enhance their skills and tackle real-world
           challenges. We aim to improve your skills as a developer by only 10
-          minutes a day. You can check today's question{' '}
-          <Link
-            href={`/question/${todayQuestion?.slug}`}
-            className="text-accent"
-            target="_blank"
-          >
+          minutes a day. You can check out our study paths{' '}
+          <Link href={`/questions/explore`} className="text-accent">
             here
           </Link>{' '}
           to get a taste of what we offer.
-        </>
-      ),
-    },
-    {
-      question: 'What will you be adding to techblitz in the future?',
-      answer: (
-        <>
-          We’re constantly improving TechBlitz with new features and updates.
-          Check out our{' '}
-          <a
-            href="https://github.com/users/Logannford/projects/5"
-            target="_blank"
-            className="text-accent"
-          >
-            roadmap
-          </a>{' '}
-          to see what’s next, and share your suggestions — we’d love to hear
-          your ideas!
         </>
       ),
     },
@@ -182,8 +154,8 @@ export default async function PricingPage() {
       question: 'What is the refund policy?',
       answer: (
         <>
-          Yes, you can get a refund within 14 days of your purchase. Please
-          contact us at{' '}
+          You can get a refund within 14 days of your purchase. Please contact
+          us at{' '}
           <Link href="mailto:team@techblitz.dev" className="text-accent">
             team@techblitz.dev
           </Link>{' '}
@@ -192,7 +164,7 @@ export default async function PricingPage() {
       ),
     },
     {
-      question: 'Do you offer a student discount?',
+      question: 'Do you offer any discounts?',
       answer: (
         <>
           Yes! We believe that TechBlitz should be available to all students. To
@@ -203,6 +175,18 @@ export default async function PricingPage() {
           using your student email address. We are currently running a limited
           time, 50% discount for students. This will be available until the end
           of February 2025, after which the discount will be 30% off.
+        </>
+      ),
+    },
+    {
+      question: 'I have more questions, how can I contact you?',
+      answer: (
+        <>
+          Please contact us at{' '}
+          <Link href="mailto:team@techblitz.dev" className="text-accent">
+            team@techblitz.dev
+          </Link>{' '}
+          and we will get back to you as soon as possible.
         </>
       ),
     },
@@ -241,11 +225,11 @@ export default async function PricingPage() {
           </div>
         </div>
 
+        <FAQsBlock faqs={faqs} />
+
         <div className="mt-10 mb-28">
           <Testimonials header="Loved by developers just like you" />
         </div>
-
-        <FAQsBlock faqs={faqs} />
 
         <CallToActionBlock title="Master Coding in Weeks, Not Years" />
       </div>

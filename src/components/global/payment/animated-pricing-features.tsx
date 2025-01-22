@@ -12,16 +12,23 @@ interface AnimatedPricingFeaturesProps {
   features: Feature[];
   productId: string;
   loading?: boolean;
+  isFree?: boolean;
 }
 
 export default function AnimatedPricingFeatures({
   features,
   productId,
   loading = false,
+  isFree = false,
 }: AnimatedPricingFeaturesProps) {
   if (loading) {
     return (
       <div className="flex flex-col gap-y-3 py-5 min-h-80">
+        {!isFree && (
+          <div className="text-sm text-white font-medium font-onest">
+            Everything in the free, plus:
+          </div>
+        )}
         {[1, 2, 3].map((i) => (
           <div key={i} className="flex gap-x-2 items-center">
             <Skeleton className="h-4 w-4 rounded-full" />
@@ -45,8 +52,13 @@ export default function AnimatedPricingFeatures({
           },
         },
       }}
-      className="flex flex-col gap-y-3 py-5"
+      className="flex flex-col gap-y-3 py-3"
     >
+      {!isFree && (
+        <div className="text-sm text-white font-medium font-onest">
+          Everything in the free, plus:
+        </div>
+      )}
       {features.map((feature, index) => (
         <motion.div
           key={`${productId}-${feature.name}-${index}`}

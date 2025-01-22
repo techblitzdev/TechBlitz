@@ -1,1 +1,1 @@
-export const QUESTIONS_COUNT = 250;
+export const QUESTIONS_COUNT = 260;

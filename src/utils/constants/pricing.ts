@@ -15,10 +15,10 @@ export const getPlans = (
       frequency: 'forever',
       frequencyText: 'forever',
       features: [
-        { name: 'Daily question' },
+        { name: 'Daily coding challenge sent straight to your inbox' },
         { name: 'Compete with other users everyday' },
         {
-          name: 'Access to 250+ Javascript, React, Node and Web Development questions (more added daily!)',
+          name: `Access to ${QUESTIONS_COUNT}+ Javascript, React, Node and Web Development multiple choice and code editor challenges (more added daily!)`,
         },
         { name: 'View leaderboards and compete with other users' },
         { name: 'Basic stats and progress tracking' },
@@ -59,16 +59,13 @@ export const getPlans = (
           ? 'per month, billed monthly'
           : 'per month, billed yearly',
       features: [
-        { name: 'Daily question' },
-        { name: 'Compete with other users everyday' },
         {
-          name: `Access to ${QUESTIONS_COUNT}+ Javascript, React, Node and Web Development questions (more added daily!)`,
+          name: 'Enhanced question suggestions',
         },
-        { name: 'View leaderboards and compete with other users' },
         { name: 'In depth stat analysis and progress tracking' },
         { name: '10 Bespoke learning plans and progression frameworks' },
-        { name: 'Custom coding questions' },
-        { name: 'Unlimited AI question help tokens' },
+        { name: 'Personalized coding challenges' },
+        { name: 'Unlimited AI assistant tokens' },
         { name: 'Access to upcoming beta features' },
         { name: 'Priority support' },
         { name: '50% student discount available' },
@@ -76,7 +73,8 @@ export const getPlans = (
       compactFeatures: [
         { name: '10 Bespoke learning plans and progression frameworks' },
         { name: 'In depth stat analysis and progress tracking' },
-        { name: 'Unlimited AI question help tokens' },
+        { name: 'Personalized coding challenges' },
+        { name: 'Unlimited AI assistant tokens' },
         { name: 'Priority support' },
         { name: '50% student discount available' },
       ],
@@ -104,17 +102,14 @@ export const getPlans = (
       frequency: 'once',
       frequencyText: 'pay once, yours forever',
       features: [
-        { name: 'Daily question' },
-        { name: 'Compete with other users everyday' },
         {
-          name: 'Access to 250+ Javascript, React, Node and Web Development questions (more added daily!)',
+          name: 'Enhanced question suggestions',
         },
-        { name: 'View leaderboards and compete with other users' },
         { name: 'In depth stat analysis and progress tracking' },
         { name: '10 Bespoke learning plans and progression frameworks' },
+        { name: 'Personalized coding challenges' },
+        { name: 'Unlimited AI assistant tokens' },
         { name: 'Access to upcoming beta features' },
-        { name: 'Custom coding questions' },
-        { name: 'Unlimited AI question help tokens' },
         { name: 'Priority support' },
         { name: '50% student discount available' },
         { name: 'Lifetime access to all features' },
@@ -122,7 +117,8 @@ export const getPlans = (
       compactFeatures: [
         { name: '10 Bespoke learning plans and progression frameworks' },
         { name: 'In depth stat analysis and progress tracking' },
-        { name: 'Unlimited AI question help tokens' },
+        { name: 'Personalized coding challenges' },
+        { name: 'Unlimited AI assistant tokens' },
         { name: 'Priority support' },
         { name: '50% student discount available' },
         { name: 'Lifetime access to all features and future updates!' },

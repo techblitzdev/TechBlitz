@@ -11,7 +11,9 @@ export default function PricingCardBlock(opts: {
     <section className="max-w-7xl grid grid-cols-1 lg:grid-cols-3 gap-10 self-center ">
       {products.map(
         (product) =>
-          product && <PricingCard key={product.id} product={product} />
+          product && (
+            <PricingCard key={product.id} product={product} showSignup={true} />
+          )
       )}
     </section>
   );

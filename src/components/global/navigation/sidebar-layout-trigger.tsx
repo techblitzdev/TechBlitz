@@ -14,9 +14,9 @@ export default function SidebarLayoutTrigger() {
   return (
     <SidebarTrigger
       className={cn(
-        'h-7 flex',
+        'h-7',
         // Only hide on desktop when expanded
-        state === 'expanded' ? 'lg:hidden' : ''
+        state === 'expanded' ? 'lg:hidden' : 'flex mr-3'
       )}
     />
   );

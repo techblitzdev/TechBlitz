@@ -21,7 +21,7 @@ export const bookmarkQuestion = async (questionUid: string) => {
   return await prisma.users.update({
     where: { uid: user.uid },
     data: {
-      bookmarkedQuestions: {
+      bookmarks: {
         connect: { uid: questionUid },
       },
     },

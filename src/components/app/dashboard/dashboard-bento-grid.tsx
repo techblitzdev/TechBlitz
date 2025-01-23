@@ -10,25 +10,25 @@ export default async function DashboardBentoGrid() {
     {
       header: <TodaysQuestionBentoBox />,
       className:
-        'h-full text-white justify-center min-h-[450px] col-span-2 lg:col-span-1',
+        'h-full text-white justify-center lg:min-h-auto lg:h-[370px] col-span-2 lg:col-span-1',
       padded: false,
       gradientBg: true,
     },
     {
       header: <AllQuestionsDashboardBentoBox />,
-      className: 'col-span-2 text-white min-h-[450px]',
+      className: 'col-span-2 text-white lg:min-h-auto lg:h-[370px]',
       href: '/questions',
       padded: false,
     },
     {
       header: <ProgressBentoBox />,
-      className: 'col-span-2 text-white min-h-[25rem]',
+      className: 'col-span-2 text-white lg:h-[370px]',
       padded: false,
     },
     {
       header: <StreakBentoBox />,
       className:
-        'h-full text-white justify-center min-h-[18rem] col-span-2 lg:col-span-1',
+        'h-full text-white justify-center min-h-[18rem] lg:h-[370px] col-span-2 lg:col-span-1',
       href: '/statistics',
       padded: false,
       gradientBg: true,
@@ -42,7 +42,7 @@ export default async function DashboardBentoGrid() {
 
   return (
     <div className="max-w-7xl mx-auto">
-      <BentoGrid className="grid-rows-[auto_auto_auto] md:grid-rows-[repeat(2,minmax(0,1fr))] h-full">
+      <BentoGrid className="grid-rows-[auto_auto] md:grid-rows-[repeat(2,minmax(0,1fr))] h-full">
         {items.map((item, i) => (
           <BentoGridItem
             key={i}

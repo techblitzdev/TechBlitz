@@ -3,7 +3,6 @@
 import { use, useRef, useState } from 'react';
 
 // components
-import Chip from '@/components/ui/chip';
 import { Separator } from '@/components/ui/separator';
 import QuestionCardFooter from '@/components/app/questions/single/layout/question-card-footer';
 import Stopwatch from '@/components/app/questions/single/stopwatch';
@@ -18,9 +17,6 @@ import {
   FileText,
   PieChart,
 } from 'lucide-react';
-
-// utils
-import { capitalise, getQuestionDifficultyColor } from '@/utils';
 
 // types
 import type { UserRecord } from '@/types/User';
@@ -53,12 +49,7 @@ export default function QuestionCard(opts: {
   index?: number;
   identifier: 'slug' | 'uid';
 }) {
-  const {
-    user,
-    questionPromise,
-    isRoadmapQuestion = false,
-    totalSubmissions,
-  } = opts;
+  const { user, questionPromise, totalSubmissions } = opts;
 
   const [activeTab, setActiveTab] = useState<
     'description' | 'resources' | 'stats'
@@ -110,13 +101,13 @@ export default function QuestionCard(opts: {
       defaultValue="description"
       className="h-full bg-black-75 border border-black-50 rounded-lg flex flex-col overflow-hidden"
     >
-      <div className="px-3 py-2 w-full flex flex-col gap-3 md:flex-row justify-between bg-black-25 md:items-center">
+      <div className="p-4 lg:px-3 lg:py-2 w-full flex flex-col gap-3 md:flex-row justify-between bg-black-25 md:items-center">
         <div className="flex items-center gap-2 justify-between w-full">
-          <TabsList className="h-auto grid w-fit grid-cols-3 gap-5 text-white rounded-lg bg-transparent p-1">
+          <TabsList className="hidden lg:grid h-auto w-fit grid-cols-3 gap-5 text-white rounded-lg bg-transparent p-1">
             <TabsTrigger
               value="description"
               onClick={() => setActiveTab('description')}
-              className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white border-0 w-fit px-0"
+              className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline border-0 w-fit px-0"
             >
               <div className="mr-2">
                 {activeTab === 'description' ? (
@@ -130,7 +121,7 @@ export default function QuestionCard(opts: {
             <TabsTrigger
               value="resources"
               onClick={() => setActiveTab('resources')}
-              className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white w-fit border-0 px-0"
+              className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline w-fit border-0 px-0"
             >
               <div className="mr-2">
                 {activeTab === 'resources' ? (
@@ -144,7 +135,7 @@ export default function QuestionCard(opts: {
             <TabsTrigger
               value="stats"
               onClick={() => setActiveTab('stats')}
-              className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white w-fit border-0 px-0"
+              className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline w-fit border-0 px-0"
             >
               <div className="mr-2">
                 {activeTab === 'stats' ? (
@@ -190,7 +181,6 @@ export default function QuestionCard(opts: {
             question={question}
             renderAnswerForm={renderAnswerForm}
             totalSubmissions={totalSubmissions}
-            activeTab={activeTab}
           />
         )}
         {currentLayout === 'codeSnippet' &&

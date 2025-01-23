@@ -16,7 +16,6 @@ import { getUser } from '@/actions/user/authed/get-user';
 import { redirect } from 'next/navigation';
 import QuestionActionButtons from '@/components/app/questions/single/layout/question-action-buttons';
 import { getRelatedQuestions } from '@/utils/data/questions/get-related';
-import ShareQuestion from '@/components/global/share-question';
 import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
 
 export async function generateMetadata({
@@ -105,14 +104,14 @@ export default async function QuestionUidLayout({
         userAnswered={userAnswered}
       >
         <div className="grid grid-cols-12 items-center justify-between pb-2 px-3 relative">
-          <div className="col-span-2 lg:col-span-4 flex items-center gap-x-5 py-2 justify-start">
+          <div className="col-span-2 lg:col-span-4 flex items-center py-2 justify-start">
             <SidebarLayoutTrigger />
             <div className="items-center gap-x-2 hidden md:flex">
               <BackToDashboard href="/questions/" />
               <RandomQuestion identifier="slug" currentQuestionSlug={slug} />
             </div>
             {question?.dailyQuestion && question?.questionDate && (
-              <div className="font-ubuntu gap-x-5 items-center hidden md:flex">
+              <div className="font-ubuntu gap-x-5 items-center hidden md:flex pl-4">
                 <p>Daily question</p>
               </div>
             )}

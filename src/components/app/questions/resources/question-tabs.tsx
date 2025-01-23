@@ -1,12 +1,10 @@
 'use client';
 
-import { useState, ReactNode, use } from 'react';
-import { Tabs, TabsContent } from '@/components/ui/tabs';
-import { Separator } from '@/components/ui/separator';
+import { ReactNode, use, useState } from 'react';
+import { TabsContent, TabsTrigger, TabsList } from '@/components/ui/tabs';
 import { Question } from '@/types/Questions';
 import QuestionResourceTab from '@/components/app/questions/resources/question-resource-tab';
 import QuestionStatsTab from './question-stats-tab';
-import { cn } from '@/lib/utils';
 import CodingChallengeDescription from '../../code-editor/description-tab';
 import HasAnswered from '../single/has-answered';
 import { useQuestionSingle } from '../single/layout/question-single-context';
@@ -14,10 +12,10 @@ import BookmarkQuestion from '../single/bookmark';
 import { capitalise } from '@/utils';
 import Chip from '@/components/ui/chip';
 import { getQuestionDifficultyColor } from '@/utils';
-import Stopwatch from '../single/stopwatch';
-import { ShareIcon } from 'lucide-react';
 import ShareQuestion from '@/components/global/share-question';
-import { Button } from '@/components/ui/button';
+import { BarChart, BookIcon, PieChart } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
+import { FileIcon, FileText } from 'lucide-react';
 
 interface QuestionTabsProps {
   question: Question;
@@ -26,22 +24,67 @@ interface QuestionTabsProps {
     totalSubmissions: number;
     percentageCorrect: number;
   };
-  activeTab: 'description' | 'resources' | 'stats';
 }
 
 export default function QuestionTabs({
   question,
   renderAnswerForm,
   totalSubmissions,
-  activeTab,
 }: QuestionTabsProps) {
-  const { userAnswered, user, totalSeconds } = useQuestionSingle();
+  const { userAnswered } = useQuestionSingle();
+
+  const [activeTab, setActiveTab] = useState<
+    'description' | 'resources' | 'stats'
+  >('description');
 
   const hasUserAnswered = use(userAnswered);
 
   return (
     <>
-      <Separator className="bg-black-50" />
+      <TabsList className="p-4 grid lg:hidden h-auto w-full place-items-center grid-cols-3 gap-5 text-white rounded-lg bg-transparent">
+        <TabsTrigger
+          value="description"
+          onClick={() => setActiveTab('description')}
+          className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline border-0 w-fit px-0"
+        >
+          <div className="mr-2 hidden md:block">
+            {activeTab === 'description' ? (
+              <FileText className="size-4" />
+            ) : (
+              <FileIcon className="size-4" />
+            )}
+          </div>
+          Description
+        </TabsTrigger>
+        <TabsTrigger
+          value="resources"
+          onClick={() => setActiveTab('resources')}
+          className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline border-0 w-fit px-0"
+        >
+          <div className="mr-2 hidden md:block">
+            {activeTab === 'resources' ? (
+              <BookOpen className="size-4" />
+            ) : (
+              <BookIcon className="size-4" />
+            )}
+          </div>
+          Resources
+        </TabsTrigger>
+        <TabsTrigger
+          value="stats"
+          onClick={() => setActiveTab('stats')}
+          className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline border-0 w-fit px-0"
+        >
+          <div className="mr-2 hidden md:block">
+            {activeTab === 'stats' ? (
+              <BarChart className="size-4" />
+            ) : (
+              <PieChart className="size-4" />
+            )}
+          </div>
+          Stats
+        </TabsTrigger>
+      </TabsList>
       <TabsContent value="description" className="pt-2 lg:pt-4">
         {question.questionType === 'CODING_CHALLENGE' ? (
           <CodingChallengeDescription question={question} />
@@ -63,7 +106,7 @@ export default function QuestionTabs({
               </div>
               <div className="flex items-center">
                 <ShareQuestion />
-                <BookmarkQuestion />
+                <BookmarkQuestion question={question} />
               </div>
             </div>
             {question?.question && (

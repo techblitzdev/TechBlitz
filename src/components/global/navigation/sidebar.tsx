@@ -13,7 +13,6 @@ import {
   CreditCard,
   RouteIcon,
   HelpCircle,
-  MoreHorizontal,
   ChevronDown,
 } from 'lucide-react';
 import {
@@ -26,7 +25,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuBadge,
-  SidebarMenuAction,
   SidebarRail,
   SidebarTrigger,
   useSidebar,
@@ -38,13 +36,6 @@ import {
 } from '@/components/ui/collapsible';
 import AppSidebarSubMenuItem from '@/components/global/navigation/sidebar-submenu-item';
 import SidebarFooterComponent from '@/components/global/navigation/sidebar-footer';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import LogoutButton from '@/components/auth/logout';
 import Logo from '@/components/ui/logo';
 import LogoSmall from '@/components/ui/LogoSmall';
 

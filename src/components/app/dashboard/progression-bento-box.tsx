@@ -67,7 +67,7 @@ export default async function ProgressBentoBox() {
       className="h-full flex flex-col p-4 relative group overflow-hidden"
     >
       {user?.userLevel !== 'FREE' && user?.userLevel !== 'STANDARD' && (
-        <div className="absolute z-10">
+        <div className="absolute z-30">
           <Chip
             textColor="text-black"
             color="bg-secondary"

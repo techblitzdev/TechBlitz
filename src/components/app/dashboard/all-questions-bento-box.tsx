@@ -40,7 +40,7 @@ const allQuestions = [...questions, ...questions, ...questions];
 
 export default function AllQuestionsDashboardBentoBox() {
   return (
-    <section className="flex flex-col gap-y-5 group p-4 relative overflow-hidden h-[450px] lg:max-h-fit">
+    <section className="flex flex-col gap-y-5 group p-4 relative overflow-hidden h-[350px] lg:h-fit">
       <div className="space-y-3 z-10 relative">
         <Chip
           color="bg-white"

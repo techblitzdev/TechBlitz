@@ -10,4 +10,5 @@ export interface QuestionFilters {
   sortBy?: 'date' | 'submissions';
   postsPerPage?: number;
   bookmarked?: boolean;
+  isPremiumQuestion?: boolean;
 }

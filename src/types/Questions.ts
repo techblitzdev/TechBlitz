@@ -60,6 +60,8 @@ export type Question = {
   expectedParams: any;
 
   bookmarks?: UserBookmarks[];
+
+  isPremiumQuestion: boolean;
 };
 
 export type QuestionWithoutAnswers = Omit<

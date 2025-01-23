@@ -8,7 +8,7 @@ export default function Personalized() {
       <div className="flex flex-col gap-2.5 md:px-12">
         <AnimatedSpan content="Personalized Learning" />
         <h1 className="text-3xl lg:text-5xl font-onest !font-medium tracking-tight text-gradient from-white to-white/55 py-1">
-          Master Programming with AI-Powered Personalized Learning
+          Master Programming with Personalized Learning
         </h1>
         <p className="text-gray-400">
           Accelerate your coding journey with instant AI assistance, custom

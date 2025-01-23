@@ -3,6 +3,7 @@ import { supabase } from '@/lib/supabase';
 import { type AuthResponse } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
 import { prisma } from '@/lib/prisma';
+import { resend } from '@/lib/resend';
 
 const cookiesStore = cookies();
 
@@ -44,6 +45,25 @@ export const signUp = async (
         referralCode,
       },
     });
+
+    // if there is a referral code, get the user with that uid, and send an email
+    if (referralCode) {
+      const referralUser = await prisma.users.findUnique({
+        where: {
+          uid: referralCode,
+        },
+      });
+
+      if (referralUser) {
+        // send the referral user an email wih the discount code
+        await resend.emails.send({
+          from: 'team@techblitz.dev',
+          to: referralUser.email,
+          subject: 'Your discount code for TechBlitz!',
+          html: `<p>You have referred a friend to TechBlitz! Use the code ${process.env.REFERRAL_CODE} to get 10% off any premium plan.</p>`,
+        });
+      }
+    }
 
     // set the user level on the supabase user object
     user.user_metadata.userLevel = 'FREE';

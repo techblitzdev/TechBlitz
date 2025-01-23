@@ -18,6 +18,8 @@ import Hero from '@/components/global/hero';
 import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/use-user-server';
+import ContinueJourney from '@/components/global/navigation/continue-journey';
+import { ArrowRightIcon } from 'lucide-react';
 
 // revalidate every 10 minutes
 export const revalidate = 600;
@@ -53,9 +55,21 @@ const heroDescription = (
     </p>
     <div className="flex flex-col gap-y-2">
       <p className="text-gray-400">Can't find what you're looking for?</p>
-      <Button href="/questions" variant="secondary">
-        View all questions
-      </Button>
+      <div className="flex items-center gap-x-2">
+        <Button href="/questions" variant="secondary">
+          View all questions
+        </Button>
+        <Suspense
+          fallback={
+            <Button variant="default" className="w-full">
+              Resume your journey
+              <ArrowRightIcon className="w-4 h-4" />
+            </Button>
+          }
+        >
+          <ContinueJourney text="Resume your journey" variant="default" />
+        </Suspense>
+      </div>
     </div>
   </div>
 );

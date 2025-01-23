@@ -59,19 +59,27 @@ export default function QuestionResourceTab(opts: {
   }
 
   return (
-    <ul className="list-disc list-inside mt-2">
-      {resources?.map((resource) => (
-        <li key={resource.uid}>
-          <a
-            href={resource.resource}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:text-accent duration-300 text-lg"
-          >
-            {resource.title}
-          </a>
-        </li>
-      ))}
-    </ul>
+    <div className="flex flex-col gap-y-5">
+      <ul className="list-disc list-inside mt-2">
+        {resources?.map((resource) => (
+          <li key={resource.uid}>
+            <a
+              href={resource.resource}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-accent duration-300 text-lg"
+            >
+              {resource.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div className="flex flex-col gap-y-3 w-full gap-5">
+        <p className="text-sm font-onest font-light">
+          Have a resource that you think would help others answer this question?
+        </p>
+        <Button variant="secondary">Suggest a resource</Button>
+      </div>
+    </div>
   );
 }

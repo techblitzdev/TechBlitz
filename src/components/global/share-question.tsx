@@ -20,8 +20,8 @@ export default function ShareQuestion() {
     <TooltipProvider>
       <Tooltip delayDuration={0}>
         <TooltipTrigger asChild>
-          <Button variant="default" size="icon" onClick={copyLink}>
-            <ShareIcon className="size-4" />
+          <Button variant="ghost" size="icon" padding="none" onClick={copyLink}>
+            <ShareIcon className="size-5" />
           </Button>
         </TooltipTrigger>
         <TooltipContent>

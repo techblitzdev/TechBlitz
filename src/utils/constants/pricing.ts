@@ -61,6 +61,7 @@ export const getPlans = (
           : 'per month, billed yearly',
       shortText: 'Perfect for those wanting a personalized coding experience.',
       features: [
+        { name: 'Access to premium questions' },
         {
           name: 'Enhanced question suggestions',
         },
@@ -73,6 +74,7 @@ export const getPlans = (
         { name: '50% student discount available' },
       ],
       compactFeatures: [
+        { name: 'Access to premium questions' },
         { name: '10 Bespoke learning plans and progression frameworks' },
         { name: 'In depth stat analysis and progress tracking' },
         { name: 'Personalized coding challenges' },
@@ -106,6 +108,7 @@ export const getPlans = (
       shortText:
         'Perfect for those wanting to master coding concepts for life.',
       features: [
+        { name: 'Access to premium questions' },
         {
           name: 'Enhanced question suggestions',
         },
@@ -119,6 +122,7 @@ export const getPlans = (
         { name: 'Lifetime access to all features' },
       ],
       compactFeatures: [
+        { name: 'Access to premium questions' },
         { name: '10 Bespoke learning plans and progression frameworks' },
         { name: 'In depth stat analysis and progress tracking' },
         { name: 'Personalized coding challenges' },

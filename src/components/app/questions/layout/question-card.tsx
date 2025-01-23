@@ -5,9 +5,11 @@ import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
 import Link from 'next/link';
 import Chip from '@/components/ui/chip';
 import { Suspense } from 'react';
-import { Circle } from 'lucide-react';
+import { Bookmark, Circle } from 'lucide-react';
 import { CheckCircle } from 'lucide-react';
 import { Answer } from '@/types/Answers';
+import { TooltipContent, Tooltip } from '@/components/ui/tooltip';
+import { TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 export function QuestionCardSkeleton() {
   return (
@@ -44,7 +46,7 @@ export function QuestionCardSkeleton() {
 // separate async component for stats to avoid blocking render
 async function QuestionStats({
   identifier,
-  value
+  value,
 }: {
   identifier: 'slug' | 'uid';
   value: string;
@@ -71,7 +73,7 @@ export default function QuestionCard(opts: {
     numberOfTags = 3,
     showcaseTag,
     identifier = 'slug',
-    customQuestion = false
+    customQuestion = false,
   } = opts;
 
   // if identifier is uid, this is a custom question
@@ -169,6 +171,26 @@ export default function QuestionCard(opts: {
                 variant="secondary"
               />
             </div>
+          </div>
+        )}
+        {questionData?.bookmarks && questionData?.bookmarks.length > 0 && (
+          <div className="flex items-center gap-x-3 mt-5">
+            <TooltipProvider>
+              <Tooltip delayDuration={0}>
+                <TooltipTrigger>
+                  <Bookmark
+                    className={`size-5 ${
+                      questionData?.bookmarks.length > 0
+                        ? 'text-yellow-500 fill-yellow-500'
+                        : 'text-white'
+                    } transition-colors duration-200`}
+                  />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>You have bookmarked this question</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         )}
         {questionData?.questionDate && questionData?.dailyQuestion && (

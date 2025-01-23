@@ -64,7 +64,7 @@ export type Question = {
 
 export type QuestionWithoutAnswers = Omit<
   Question,
-  'answers' | 'testCases' | 'functionName' | 'expectedParams' | 'bookmarks'
+  'answers' | 'testCases' | 'functionName' | 'expectedParams'
 >;
 
 export type QuestionWithTags = QuestionWithoutAnswers & {

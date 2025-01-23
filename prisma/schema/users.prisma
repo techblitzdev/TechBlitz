@@ -51,7 +51,7 @@ model Users {
   StatisticsReport StatisticsReport[]
 
   // the number of ai question help tokens the user has (infinite for premium users)
-  aiQuestionHelpTokens Int @default(20)
+  aiQuestionHelpTokens Int @default(10)
 
   // the user's experience level (asked on onboarding)
   experienceLevel UserExperienceLevel @default(BEGINNER)

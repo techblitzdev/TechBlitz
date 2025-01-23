@@ -23,7 +23,7 @@ export const getPlans = (
         },
         { name: 'View leaderboards and compete with other users' },
         { name: 'Basic stats and progress tracking' },
-        { name: '20 AI question help tokens' },
+        { name: '10 AI question help tokens' },
         { name: 'Basic support' },
       ],
       compactFeatures: [

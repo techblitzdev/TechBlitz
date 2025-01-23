@@ -190,10 +190,8 @@ export const QuestionSingleContextProvider = ({
 
   // validates the code for a CODING_CHALLENGE question
   const validateCode = async (e: React.FormEvent<HTMLFormElement>) => {
-    // prevent page from reloading
     e.preventDefault();
 
-    // get the challenge from the question
     const challenge =
       question.questionType === 'CODING_CHALLENGE' ? question : null;
 
@@ -203,27 +201,55 @@ export const QuestionSingleContextProvider = ({
     }
 
     try {
-      // Create a new function from the user's code
-      const userFunction = eval(`(${code})`);
+      // Create function using Function constructor with more robust parsing
+      const createSafeFunction = (code: string) => {
+        try {
+          // Wrap code in a return statement to ensure function creation
+          const wrappedCode = `return (${code})`;
+          const safeFunction = new Function(wrappedCode)();
 
-      // Run test cases
+          // Validate function properties
+          if (typeof safeFunction !== 'function') {
+            throw new Error('Invalid function');
+          }
+
+          return safeFunction;
+        } catch (error: any) {
+          throw new Error('Function creation failed: ' + error?.message);
+        }
+      };
+
+      const userFunction = createSafeFunction(code);
+
+      // Run test cases with comprehensive error handling
       const results = challenge.testCases.map((test: any) => {
-        const result = userFunction(...test.input);
-        // Check if the result is an object and convert it to a string if so
-        const received =
-          typeof result === 'object' ? JSON.stringify(result) : result;
-        return {
-          passed: received == test.expected,
-          input: test.input,
-          expected: test.expected,
-          received,
-        };
+        try {
+          const result = userFunction(...test.input);
+          const received =
+            typeof result === 'object' ? JSON.stringify(result) : result;
+
+          return {
+            passed: received == test.expected,
+            input: test.input,
+            expected: test.expected,
+            received,
+          };
+        } catch (execError) {
+          return {
+            passed: false,
+            input: test.input,
+            expected: test.expected,
+            received:
+              execError instanceof Error
+                ? execError.message
+                : 'Execution failed',
+          };
+        }
       });
 
       const allPassed = results.every((r: any) => r.passed);
       setResult({ passed: allPassed, details: results });
 
-      // submit the answer
       await answerQuestion({
         questionUid: question.uid,
         answerUid: null,

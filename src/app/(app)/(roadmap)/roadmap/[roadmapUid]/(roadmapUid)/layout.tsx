@@ -33,7 +33,7 @@ export default async function RoadmapOverviewPage({
         <div className="flex items-center gap-x-5 py-2">
           <SidebarLayoutTrigger />
           {/** Previous question button */}
-          <BackToDashboard href="/roadmaps" />
+          <BackToDashboard href="/roadmaps" backTo="roadmaps" />
         </div>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-x-5">

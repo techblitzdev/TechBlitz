@@ -27,7 +27,7 @@ export default async function RoadmapUidLayout({
         <div className="flex items-center gap-x-5 py-2">
           <SidebarLayoutTrigger />
           {/** Previous question button */}
-          <BackToDashboard href="/roadmaps" />
+          <BackToDashboard href="/roadmaps" backTo="roadmaps" />
         </div>
         <OnboardingProgressBar currentStep={index} />
         <div className="flex items-center gap-x-5">

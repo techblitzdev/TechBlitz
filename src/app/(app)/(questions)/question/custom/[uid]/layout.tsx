@@ -63,7 +63,10 @@ export default async function QuestionUidLayout({
           <div className="col-span-2 lg:col-span-4 flex items-center gap-x-5 py-2 justify-start">
             <SidebarLayoutTrigger />
             <div className="items-center gap-x-2 hidden md:flex">
-              <BackToDashboard href="/questions/custom" />
+              <BackToDashboard
+                href="/questions/custom"
+                backTo="custom questions"
+              />
               <RandomQuestion identifier="uid" currentQuestionSlug={uid} />
             </div>
           </div>

@@ -90,7 +90,7 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
               {correct ? (
                 <div className="flex flex-col gap-y-2 relative">
                   <div className="md:absolute">
-                    <BackToDashboard href="/" />
+                    <BackToDashboard href="/" backTo="dashboard" />
                   </div>
                   <div className="flex gap-2 items-center justify-center">
                     <CheckCircle2Icon className="text-green-500 size-6" />
@@ -103,7 +103,7 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
               ) : (
                 <div className="flex flex-col gap-y-4 relative items-center">
                   <div className="w-full md:absolute md:left-0 md:top-0">
-                    <BackToDashboard href="/" />
+                    <BackToDashboard href="/" backTo="dashboard" />
                   </div>
                   <div className="flex flex-col items-center gap-y-4 w-full max-w-md">
                     <div className="flex gap-x-2 items-center justify-center">

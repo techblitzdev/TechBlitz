@@ -42,7 +42,7 @@ export default async function RoadmapQuestionLayout({
       <div className="flex items-center justify-between px-6">
         <div className="flex items-center gap-x-5 py-2">
           <SidebarLayoutTrigger />
-          <BackToDashboard href={`/roadmap/${roadmapUid}`} />
+          <BackToDashboard href={`/roadmap/${roadmapUid}`} backTo="roadmap" />
         </div>
         <QuestionNavigation
           nextQuestion={

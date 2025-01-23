@@ -56,8 +56,7 @@ export default function PremiumQuestionDeniedAccess() {
               transition={{ delay: 0.3 }}
             >
               <CardDescription className="text-white">
-                Unlock exclusive questions, personalized learning paths, and
-                more!
+                This question is only available to premium users.
               </CardDescription>
             </motion.div>
           </CardHeader>

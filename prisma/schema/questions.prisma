@@ -81,6 +81,9 @@ model Questions {
   expectedParams Json?        
   // Expected return type
   returnType     String?      
+
+  // Replace the direct many-to-many relationship
+  bookmarks UserBookmarks[]
 }
 
 // Tags for this question
@@ -151,4 +154,23 @@ model QuestionResources {
   question    Questions @relation(fields: [questionUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
   resource    String
   title       String
+}
+
+// Add new junction table for bookmarks
+model UserBookmarks {
+  uid        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relation to user
+  userId    String
+  user      Users     @relation(fields: [userId], references: [uid], onDelete: Cascade)
+
+  // Relation to question
+  questionId String
+  question   Questions @relation(fields: [questionId], references: [uid], onDelete: Cascade)
+
+  @@unique([userId, questionId])
+  @@index([userId])
+  @@index([questionId])
 }

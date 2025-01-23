@@ -202,6 +202,12 @@ export default function FilterDropdown() {
                 ))}
               </DropdownMenuSubContent>
             </DropdownMenuSub>
+            <DropdownMenuItem
+              onClick={() => updateQueryParams('bookmarked', 'true')}
+              className="py-2 hover:!text-white hover:cursor-pointer"
+            >
+              Bookmarked
+            </DropdownMenuItem>
           </DropdownMenuGroup>
           <div
             className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${

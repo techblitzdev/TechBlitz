@@ -52,6 +52,7 @@ type QuestionSingleContextType = {
     error?: string;
   } | null;
   submitAnswer: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  userAnswered: Promise<Answer | null>;
 };
 
 export const QuestionSingleContext = createContext<QuestionSingleContextType>(
@@ -73,11 +74,13 @@ export const QuestionSingleContextProvider = ({
   question,
   user,
   relatedQuestions,
+  userAnswered,
 }: {
   children: React.ReactNode;
   question: Question;
   user: UserRecord | null;
   relatedQuestions: Promise<QuestionWithoutAnswers[]> | null;
+  userAnswered: Promise<Answer | null>;
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState<
@@ -330,6 +333,7 @@ export const QuestionSingleContextProvider = ({
         setCode,
         result,
         submitAnswer,
+        userAnswered,
       }}
     >
       {children}

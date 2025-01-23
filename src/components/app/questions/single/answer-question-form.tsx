@@ -59,10 +59,10 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm({
             </div>
           </div>
         )}
-        <p className="text-sm text-gray-400 font-light px-4 font-onest">
+        <p className="text-sm text-gray-400 font-light font-onest mt-3">
           Choose an option below
         </p>
-        <div className="grid grid-cols-12 gap-4 p-2 lg:p-4 pt-2">
+        <div className="grid grid-cols-12 gap-4 pt-2">
           {question?.answers?.map((answer) => (
             <div key={answer.uid} className="col-span-full">
               <FormField

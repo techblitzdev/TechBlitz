@@ -69,6 +69,9 @@ model Users {
 
   // the user's achievements
   achievements Achievement[]
+
+  // the user's bookmarked questions (an array of question objects)
+  bookmarks UserBookmarks[]
 }
 
 // the streak model for tracking the user's streak

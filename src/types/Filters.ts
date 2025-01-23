@@ -9,4 +9,5 @@ export interface QuestionFilters {
   questionType?: string;
   sortBy?: 'date' | 'submissions';
   postsPerPage?: number;
+  bookmarked?: boolean;
 }

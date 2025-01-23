@@ -37,7 +37,7 @@ export default async function TodaysQuestionPage({
   const questionPromise = getQuestion('slug', slug);
 
   const leftContent = (
-    <div className="flex flex-col gap-y-4 p-3 lg:p-6 lg:pr-3 h-full">
+    <div className="flex flex-col gap-y-4 p-3 lg:pr-1.5 h-full">
       <QuestionCard
         questionPromise={questionPromise}
         totalSubmissions={totalSubmissions}
@@ -49,7 +49,7 @@ export default async function TodaysQuestionPage({
   );
 
   const rightContent = (
-    <div className="hidden lg:flex flex-col gap-4 p-3 lg:p-6 lg:pl-3 h-full">
+    <div className="hidden lg:flex flex-col gap-4 p-3 lg:pl-1.5 h-full">
       <div
         id="code-snippet"
         className="bg-black-75 border border-black-50 rounded-xl relative overflow-scroll h-full"

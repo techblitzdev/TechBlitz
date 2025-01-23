@@ -1,22 +1,26 @@
 'use client';
 
-import { use, useRef } from 'react';
+import { use, useRef, useState } from 'react';
 
 // components
-import Chip from '@/components/ui/chip';
 import { Separator } from '@/components/ui/separator';
 import QuestionCardFooter from '@/components/app/questions/single/layout/question-card-footer';
 import Stopwatch from '@/components/app/questions/single/stopwatch';
 import QuestionHintAccordion from '@/components/app/questions/single/question-hint';
 import QuestionTabs from '@/components/app/questions/resources/question-tabs';
 import AnswerQuestionForm from '@/components/app/questions/single/answer-question-form';
-
-// utils
-import { capitalise, getQuestionDifficultyColor } from '@/utils';
+import {
+  BarChart,
+  BookIcon,
+  BookOpen,
+  FileIcon,
+  FileText,
+  PieChart,
+} from 'lucide-react';
 
 // types
-import { UserRecord } from '@/types/User';
-import { Question } from '@/types/Questions';
+import type { UserRecord } from '@/types/User';
+import type { Question } from '@/types/Questions';
 
 import { useQuestionSingle } from './question-single-context';
 import { Button } from '@/components/ui/button';
@@ -30,6 +34,7 @@ import { capitalize } from 'lodash';
 import { AnimatePresence } from 'framer-motion';
 import CodeEditorQuestionSubmitted from '@/components/app/code-editor/answer-submitted';
 import CodeEditor from '@/components/app/code-editor/editor';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export default function QuestionCard(opts: {
   // optional as this is not required to render the card
@@ -44,12 +49,11 @@ export default function QuestionCard(opts: {
   index?: number;
   identifier: 'slug' | 'uid';
 }) {
-  const {
-    user,
-    questionPromise,
-    isRoadmapQuestion = false,
-    totalSubmissions,
-  } = opts;
+  const { user, questionPromise, totalSubmissions } = opts;
+
+  const [activeTab, setActiveTab] = useState<
+    'description' | 'resources' | 'stats'
+  >('description');
 
   const question = use(questionPromise);
 
@@ -93,16 +97,60 @@ export default function QuestionCard(opts: {
   };
 
   return (
-    <div className="h-full bg-black-75 border border-black-50 rounded-xl flex flex-col overflow-hidden">
-      <div className="p-2 lg:p-4 w-full flex flex-col gap-2 md:flex-row justify-between bg-black-25 md:items-center">
-        <div className="flex items-center gap-2 justify-between">
-          <div className="w-fit">
-            <Chip
-              color={getQuestionDifficultyColor(question.difficulty).bg}
-              text={capitalise(question.difficulty)}
-              textColor={getQuestionDifficultyColor(question.difficulty).text}
-              border={getQuestionDifficultyColor(question.difficulty).border}
-            />
+    <Tabs
+      defaultValue="description"
+      className="h-full bg-black-75 border border-black-50 rounded-lg flex flex-col overflow-hidden"
+    >
+      <div className="p-4 lg:px-3 lg:py-2 w-full flex flex-col gap-3 md:flex-row justify-between bg-black-25 md:items-center">
+        <div className="flex items-center gap-2 justify-between w-full">
+          <TabsList className="hidden lg:grid h-auto w-fit grid-cols-3 gap-5 text-white rounded-lg bg-transparent p-1">
+            <TabsTrigger
+              value="description"
+              onClick={() => setActiveTab('description')}
+              className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline border-0 w-fit px-0"
+            >
+              <div className="mr-2">
+                {activeTab === 'description' ? (
+                  <FileText className="size-4" />
+                ) : (
+                  <FileIcon className="size-4" />
+                )}
+              </div>
+              Description
+            </TabsTrigger>
+            <TabsTrigger
+              value="resources"
+              onClick={() => setActiveTab('resources')}
+              className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline w-fit border-0 px-0"
+            >
+              <div className="mr-2">
+                {activeTab === 'resources' ? (
+                  <BookOpen className="size-4" />
+                ) : (
+                  <BookIcon className="size-4" />
+                )}
+              </div>
+              Resources
+            </TabsTrigger>
+            <TabsTrigger
+              value="stats"
+              onClick={() => setActiveTab('stats')}
+              className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline w-fit border-0 px-0"
+            >
+              <div className="mr-2">
+                {activeTab === 'stats' ? (
+                  <BarChart className="size-4" />
+                ) : (
+                  <PieChart className="size-4" />
+                )}
+              </div>
+              Stats
+            </TabsTrigger>
+          </TabsList>
+          <div className="min-w-fit">
+            {user && user?.showTimeTaken && (
+              <Stopwatch totalSeconds={totalSeconds} />
+            )}
           </div>
           <div className="flex lg:hidden text-sm w-full items-center justify-end bg-black-25 gap-x-3">
             {/** explain question ai button */}
@@ -124,9 +172,6 @@ export default function QuestionCard(opts: {
           >
             {switcherText()}
           </Button>
-          {user && user?.showTimeTaken && !isRoadmapQuestion && (
-            <Stopwatch totalSeconds={totalSeconds} />
-          )}
         </div>
       </div>
       <Separator className="bg-black-50" />
@@ -190,6 +235,6 @@ export default function QuestionCard(opts: {
         user={user}
         redirectUrl={`/question/${question.slug}`}
       />
-    </div>
+    </Tabs>
   );
 }

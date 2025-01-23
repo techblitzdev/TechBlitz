@@ -68,9 +68,9 @@ export default function PremiumQuestionDeniedAccess() {
               transition={{ delay: 0.4 }}
               className="text-white"
             >
-              This premium question offers in-depth analysis and expert
-              perspectives. Upgrade now to access this and many more
-              high-quality resources.
+              Looking to level up your coding skills? Upgrade to Premium to
+              access premium questions, personalized learning paths, reports,
+              and more!
             </motion.p>
           </CardContent>
           <CardFooter className="flex justify-center">
@@ -82,6 +82,7 @@ export default function PremiumQuestionDeniedAccess() {
               whileTap={{ scale: 0.95 }}
             >
               <Button
+                variant="accent"
                 size="lg"
                 className="w-full sm:w-auto"
                 onClick={() =>

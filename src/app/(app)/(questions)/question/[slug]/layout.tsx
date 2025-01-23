@@ -93,7 +93,7 @@ export default async function QuestionUidLayout({
   };
 
   // if this is a premium question, and the user is not a premium user, show a message
-  if ((question.isPremiumQuestion && !user) || user?.userLevel === 'ADMIN') {
+  if ((question.isPremiumQuestion && !user) || user?.userLevel === 'FREE') {
     return <PremiumQuestionDeniedAccess />;
   }
 

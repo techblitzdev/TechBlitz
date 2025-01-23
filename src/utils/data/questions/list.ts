@@ -51,8 +51,6 @@ export const listQuestions = async (
     throw new Error('Unauthorized access to custom questions');
   }
 
-  console.log({ ...filters });
-
   // if we have an authenticated user, we include the userAnswers in the query
   const includeUserAnswers = Boolean(user);
 
@@ -122,6 +120,17 @@ export const listQuestions = async (
               questionType: filters.questionType,
             }
           : {},
+
+        // bookmarked filter
+        filters?.bookmarked === true
+          ? {
+              bookmarks: {
+                some: {
+                  userId: user?.uid,
+                },
+              },
+            }
+          : {},
       ],
     };
 
@@ -181,6 +190,11 @@ export const listQuestions = async (
           },
           where: {
             userUid,
+          },
+        },
+        bookmarks: {
+          select: {
+            userId: true,
           },
         },
       },

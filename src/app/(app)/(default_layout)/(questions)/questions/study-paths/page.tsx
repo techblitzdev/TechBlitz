@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 const QuestionPageSidebar = dynamic(
   () => import('@/components/app/questions/layout/question-page-sidebar'),
   {
-    loading: () => <QuestionPageSidebarLoading />
+    loading: () => <QuestionPageSidebarLoading />,
   }
 );
 import QuestionPageSidebarLoading from '@/components/app/questions/layout/question-page-sidebar-loading';
@@ -17,6 +17,7 @@ const QuestionsCarouselList = dynamic(
 import Hero from '@/components/global/hero';
 import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
+import { useUserServer } from '@/hooks/use-user-server';
 
 // revalidate every 10 minutes
 export const revalidate = 600;
@@ -33,14 +34,14 @@ export async function generateMetadata() {
       'coding challenges',
       'coding tutorials',
       'coding practice',
-      'coding practice questions'
+      'coding practice questions',
     ],
     image: {
       text: 'Study paths | TechBlitz',
       bgColor: '#000',
-      textColor: '#fff'
+      textColor: '#fff',
     },
-    canonicalUrl: '/questions/study-paths'
+    canonicalUrl: '/questions/study-paths',
   });
 }
 
@@ -52,10 +53,7 @@ const heroDescription = (
     </p>
     <div className="flex flex-col gap-y-2">
       <p className="text-gray-400">Can't find what you're looking for?</p>
-      <Button
-        href="/questions"
-        variant="secondary"
-      >
+      <Button href="/questions" variant="secondary">
         View all questions
       </Button>
     </div>
@@ -63,6 +61,8 @@ const heroDescription = (
 );
 
 export default async function ExploreQuestionsPage() {
+  const user = await useUserServer();
+
   return (
     <>
       <Hero
@@ -72,7 +72,7 @@ export default async function ExploreQuestionsPage() {
       />
       <div className="flex flex-col xl:flex-row mt-5 gap-16">
         <div className="w-full lg:min-w-[70%] space-y-6">
-          <QuestionsCarouselList />
+          <QuestionsCarouselList user={user} />
         </div>
         <Suspense fallback={<QuestionPageSidebarLoading />}>
           <QuestionPageSidebar />

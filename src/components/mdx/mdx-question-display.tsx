@@ -20,6 +20,7 @@ export default async function MdxQuestionDisplay(opts: {
           key={question.uid}
           questionData={question}
           identifier="slug"
+          user={null}
         />
       ))}
     </section>

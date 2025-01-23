@@ -45,6 +45,12 @@ import { useMemo } from 'react';
 import { UserRecord } from '@/types/User';
 import { Question } from '@/types/Questions';
 import { Profile } from '@/types/Profile';
+import {
+  TooltipContent,
+  Tooltip,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 export function AppSidebar(opts: {
   user: UserRecord | null;
@@ -71,7 +77,6 @@ export function AppSidebar(opts: {
         {
           title: 'Daily Question',
           url: `/question/${todaysQuestion?.slug}`,
-          badge: 'New',
         },
         {
           title: 'Study Paths',
@@ -114,7 +119,22 @@ export function AppSidebar(opts: {
         {
           title: 'Daily Question',
           url: `/question/${todaysQuestion?.slug}`,
-          badge: hasAnsweredDailyQuestion ? '' : 'New!',
+          badge: (
+            <>
+              {!hasAnsweredDailyQuestion && (
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="size-2 rounded-full bg-red-500" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Answer today's question!</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )}
+            </>
+          ),
         },
         {
           title: 'Personalized Questions',
@@ -304,7 +324,7 @@ export function AppSidebar(opts: {
                     </div>
                   )}
                   {item.badge && (
-                    <SidebarMenuBadge className="bg-accent !text-xs text-white group-data-[collapsible=icon]:hidden">
+                    <SidebarMenuBadge className="!bg-transparent group-data-[collapsible=icon]:hidden">
                       {item.badge}
                     </SidebarMenuBadge>
                   )}

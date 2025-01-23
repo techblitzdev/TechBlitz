@@ -68,7 +68,12 @@ export default function UpgradeLayout(opts: {
             <p className="text-lg text-gray-300">
               Upgrade to Premium and supercharge your coding journey!
             </p>
-            <Button variant="secondary" size="lg">
+            <Button
+              href="https://dub.sh/upgrade-techblitz"
+              variant="secondary"
+              size="lg"
+              target="_blank"
+            >
               Upgrade to Premium
             </Button>
           </CardFooter>

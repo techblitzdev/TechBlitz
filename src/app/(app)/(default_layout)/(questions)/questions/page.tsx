@@ -39,6 +39,8 @@ const QuestionPageSidebar = dynamic(
 import FilterLoading from '@/components/global/filters/filters-loading';
 import QuestionPageSidebarLoading from '@/components/app/questions/layout/question-page-sidebar-loading';
 import { QuestionCardSkeleton } from '@/components/app/questions/layout/question-card';
+import ContinueJourney from '@/components/global/navigation/continue-journey';
+import { ArrowRightIcon } from 'lucide-react';
 
 export const revalidate = 600;
 
@@ -67,9 +69,16 @@ const heroDescription = (
       <Button href="/questions/study-paths" variant="secondary">
         Explore study paths
       </Button>
-      <Button href="/questions/previous" variant="default">
-        View previous daily questions
-      </Button>
+      <Suspense
+        fallback={
+          <Button variant="default" className="w-full">
+            Resume your journey
+            <ArrowRightIcon className="w-4 h-4" />
+          </Button>
+        }
+      >
+        <ContinueJourney text="Resume your journey" variant="default" />
+      </Suspense>
     </div>
   </div>
 );

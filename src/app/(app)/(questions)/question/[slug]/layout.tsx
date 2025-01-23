@@ -91,9 +91,8 @@ export default async function QuestionUidLayout({
     isFamilyFriendly: true,
     teaches: 'coding',
   };
-
-  // if this is a premium question, and the user is not a premium user, show a message
-  if ((question.isPremiumQuestion && !user) || user?.userLevel === 'FREE') {
+  // Check if this is a premium question and user has free access level
+  if (question.isPremiumQuestion && (!user || user.userLevel === 'FREE')) {
     return <PremiumQuestionDeniedAccess />;
   }
 

@@ -7,6 +7,10 @@ import remarkGfm from 'remark-gfm';
 import { useQuestionSingle } from '../questions/single/layout/question-single-context';
 import { use } from 'react';
 import HasAnswered from '../questions/single/has-answered';
+import BookmarkQuestion from '../questions/single/bookmark';
+import ShareQuestion from '@/components/global/share-question';
+import Chip from '@/components/ui/chip';
+import { capitalise, getQuestionDifficultyColor } from '@/utils';
 
 export default function CodingChallengeDescription(opts: {
   question: Question;
@@ -19,11 +23,29 @@ export default function CodingChallengeDescription(opts: {
 
   return (
     <div className="p-4 pt-0 flex flex-col gap-6">
-      <div className="flex w-full gap-5 justify-between">
-        <h3 className="font-onest font-light text-base md:text-2xl">
-          {question.question}
-        </h3>
-        <HasAnswered userAnswered={hasUserAnswered} />
+      <div className="flex flex-col gap-4">
+        <div className="flex w-full justify-between gap-5 mb-5">
+          <div className="flex w-full gap-2 items-center">
+            <Chip
+              color={getQuestionDifficultyColor(question.difficulty).bg}
+              text={capitalise(question.difficulty)}
+              textColor={getQuestionDifficultyColor(question.difficulty).text}
+              border={getQuestionDifficultyColor(question.difficulty).border}
+            />
+            <HasAnswered userAnswered={hasUserAnswered} />
+          </div>
+          <div className="flex items-center">
+            <ShareQuestion />
+            <BookmarkQuestion question={question} />
+          </div>
+        </div>
+        {question?.question && (
+          <div className="flex w-full gap-10 justify-between">
+            <h3 className="font-onest font-light text-lg md:text-2xl">
+              {question.question}
+            </h3>
+          </div>
+        )}
       </div>
       <div className="prose prose-sm prose-invert">
         <span className="underline">Description</span>

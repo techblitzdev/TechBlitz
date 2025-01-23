@@ -18,12 +18,27 @@ export const bookmarkQuestion = async (questionUid: string) => {
     throw new Error('Question not found');
   }
 
-  return await prisma.users.update({
-    where: { uid: user.uid },
-    data: {
-      bookmarks: {
-        connect: { uid: questionUid },
-      },
+  const existingBookmark = await prisma.userBookmarks.findFirst({
+    where: {
+      userId: user.uid,
+      questionId: question.uid,
     },
   });
+
+  if (existingBookmark) {
+    // If the bookmark exists, remove it
+    await prisma.userBookmarks.delete({
+      where: { uid: existingBookmark.uid },
+    });
+    return { action: 'unbookmarked' };
+  } else {
+    // If the bookmark doesn't exist, create it
+    await prisma.userBookmarks.create({
+      data: {
+        userId: user.uid,
+        questionId: question.uid,
+      },
+    });
+    return { action: 'bookmarked' };
+  }
 };

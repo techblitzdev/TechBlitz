@@ -111,7 +111,7 @@ export default function QuestionTabs({
             </div>
             {question?.question && (
               <div className="flex w-full gap-10 justify-between">
-                <h3 className="font-onest font-light text-base md:text-xl">
+                <h3 className="font-onest font-light text-lg md:text-2xl">
                   {question.question}
                 </h3>
               </div>

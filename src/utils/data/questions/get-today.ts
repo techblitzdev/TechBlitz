@@ -18,6 +18,7 @@ export const getTodaysQuestion = async (): Promise<Question | null> => {
           tag: true,
         },
       },
+      bookmarks: true,
     },
   });
 

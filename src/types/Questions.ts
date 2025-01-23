@@ -1,4 +1,8 @@
-import { QuestionResources, StatisticsReport } from '@prisma/client';
+import {
+  QuestionResources,
+  StatisticsReport,
+  UserBookmarks,
+} from '@prisma/client';
 import { QuestionAnswer } from './QuestionAnswers';
 import { Tags } from './Tags';
 
@@ -54,11 +58,13 @@ export type Question = {
 
   // i am so sorry typescript lords
   expectedParams: any;
+
+  bookmarks?: UserBookmarks[];
 };
 
 export type QuestionWithoutAnswers = Omit<
   Question,
-  'answers' | 'testCases' | 'functionName' | 'expectedParams'
+  'answers' | 'testCases' | 'functionName' | 'expectedParams' | 'bookmarks'
 >;
 
 export type QuestionWithTags = QuestionWithoutAnswers & {

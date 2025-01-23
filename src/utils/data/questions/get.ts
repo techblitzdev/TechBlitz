@@ -28,6 +28,7 @@ export const getQuestion = async (
           },
         },
         QuestionResources: true,
+        bookmarks: true,
       },
     });
 
@@ -43,6 +44,7 @@ export const getQuestion = async (
             },
           },
           QuestionResources: true,
+          bookmarks: true,
         },
       });
     }

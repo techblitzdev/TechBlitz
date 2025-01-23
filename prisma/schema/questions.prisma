@@ -84,6 +84,8 @@ model Questions {
 
   // Replace the direct many-to-many relationship
   bookmarks UserBookmarks[]
+
+  isPremiumQuestion Boolean @default(false)
 }
 
 // Tags for this question

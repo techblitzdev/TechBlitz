@@ -131,6 +131,13 @@ export const listQuestions = async (
               },
             }
           : {},
+
+        // premium question filter
+        filters?.isPremiumQuestion === true
+          ? {
+              isPremiumQuestion: true,
+            }
+          : {},
       ],
     };
 

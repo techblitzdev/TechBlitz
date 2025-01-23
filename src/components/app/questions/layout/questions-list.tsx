@@ -76,6 +76,7 @@ export default async function QuestionsList({
           showSubmissions={showSubmissions}
           identifier={customQuestions ? 'uid' : 'slug'}
           customQuestion={customQuestions}
+          user={user}
         />
       ))}
       {!customQuestions && data.totalPages > 1 && (

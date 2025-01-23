@@ -15,6 +15,7 @@ export const parseSearchParams = (searchParams: {
     sortBy: searchParams.sortBy as 'date' | 'submissions',
     postsPerPage: parseInt(searchParams.postsPerPage as string) || 15,
     bookmarked: searchParams.bookmarked === 'true',
+    isPremiumQuestion: searchParams.isPremiumQuestion === 'true',
   };
 };
 

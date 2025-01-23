@@ -17,6 +17,7 @@ import { redirect } from 'next/navigation';
 import QuestionActionButtons from '@/components/app/questions/single/layout/question-action-buttons';
 import { getRelatedQuestions } from '@/utils/data/questions/get-related';
 import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
+import PremiumQuestionDeniedAccess from '@/components/app/questions/premium-question-denied-access';
 
 export async function generateMetadata({
   params,
@@ -90,6 +91,11 @@ export default async function QuestionUidLayout({
     isFamilyFriendly: true,
     teaches: 'coding',
   };
+
+  // if this is a premium question, and the user is not a premium user, show a message
+  if ((question.isPremiumQuestion && !user) || user?.userLevel === 'FREE') {
+    return <PremiumQuestionDeniedAccess />;
+  }
 
   return (
     <>

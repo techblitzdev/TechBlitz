@@ -7,13 +7,22 @@ import Chip from '@/components/ui/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import { CheckCircle, ChevronRight, Circle } from 'lucide-react';
 import { Answer } from '@/types/Answers';
+import {
+  TooltipProvider,
+  TooltipTrigger,
+  TooltipContent,
+  Tooltip,
+} from '@/components/ui/tooltip';
+import { UserRecord } from '@/types/User';
 
 interface QuestionCarouselCardProps {
   questionData: QuestionWithTags & { userAnswers: Answer[] };
+  user: UserRecord | null;
 }
 
 export default function QuestionCarouselCard({
   questionData,
+  user,
 }: QuestionCarouselCardProps) {
   const answerStatus = useMemo(() => {
     if (questionData.userAnswers && questionData.userAnswers.length > 0) {
@@ -69,6 +78,26 @@ export default function QuestionCarouselCard({
             textColor={difficultyColor.text}
             border={difficultyColor.border}
           />
+          {questionData.isPremiumQuestion &&
+            (user?.userLevel === 'FREE' || !user) && (
+              <TooltipProvider>
+                <Tooltip delayDuration={0}>
+                  <TooltipTrigger>
+                    <div className="h-fit order-first md:order-last">
+                      <Chip
+                        text="Premium"
+                        color="bg-gradient-to-r from-yellow-400 to-yellow-600"
+                        textColor="text-black"
+                        border="border-yellow-500"
+                      />
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Upgrade to Premium to access this question</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
         </div>
       </div>
     </Link>

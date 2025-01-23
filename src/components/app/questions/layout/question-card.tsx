@@ -1,4 +1,4 @@
-import { QuestionWithoutAnswers } from '@/types/Questions';
+import type { QuestionWithoutAnswers } from '@/types/Questions';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import TagDisplay from '@/components/app/questions/previous/tag-display';
 import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
@@ -7,9 +7,14 @@ import Chip from '@/components/ui/chip';
 import { Suspense } from 'react';
 import { Bookmark, Circle } from 'lucide-react';
 import { CheckCircle } from 'lucide-react';
-import { Answer } from '@/types/Answers';
-import { TooltipContent, Tooltip } from '@/components/ui/tooltip';
-import { TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import type { Answer } from '@/types/Answers';
+import {
+  TooltipProvider,
+  TooltipTrigger,
+  TooltipContent,
+  Tooltip,
+} from '@/components/ui/tooltip';
+import type { UserRecord } from '@/types/User';
 
 export function QuestionCardSkeleton() {
   return (
@@ -66,6 +71,7 @@ export default function QuestionCard(opts: {
   showcaseTag?: string;
   identifier: 'slug' | 'uid';
   customQuestion?: boolean;
+  user: UserRecord | null;
 }) {
   const {
     questionData,
@@ -74,6 +80,7 @@ export default function QuestionCard(opts: {
     showcaseTag,
     identifier = 'slug',
     customQuestion = false,
+    user,
   } = opts;
 
   // if identifier is uid, this is a custom question
@@ -83,6 +90,9 @@ export default function QuestionCard(opts: {
       : `/question/${questionData[identifier]}`;
 
   const title = questionData?.title || questionData?.question;
+
+  const userCanAccess =
+    user?.userLevel === 'PREMIUM' || !questionData?.isPremiumQuestion;
 
   return (
     <Link
@@ -95,7 +105,7 @@ export default function QuestionCard(opts: {
           <h6 className="text-lg text-wrap text-start line-clamp-2 flex-grow">
             {title}
           </h6>
-          {questionData?.difficulty && (
+          {questionData?.difficulty && userCanAccess ? (
             <div className="h-fit order-first md:order-last">
               <Chip
                 text={capitalise(questionData.difficulty)}
@@ -108,6 +118,24 @@ export default function QuestionCard(opts: {
                 }
               />
             </div>
+          ) : (
+            <TooltipProvider>
+              <Tooltip delayDuration={0}>
+                <TooltipTrigger>
+                  <div className="h-fit order-first md:order-last">
+                    <Chip
+                      text="Premium"
+                      color="bg-gradient-to-r from-yellow-400 to-yellow-600"
+                      textColor="text-black"
+                      border="border-yellow-500"
+                    />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Upgrade to Premium to access this question</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           )}
         </div>
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">

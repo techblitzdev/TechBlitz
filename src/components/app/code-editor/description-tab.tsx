@@ -11,6 +11,8 @@ import BookmarkQuestion from '../questions/single/bookmark';
 import ShareQuestion from '@/components/global/share-question';
 import Chip from '@/components/ui/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
+import { Lightbulb } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function CodingChallengeDescription(opts: {
   question: Question;
@@ -35,6 +37,9 @@ export default function CodingChallengeDescription(opts: {
             <HasAnswered userAnswered={hasUserAnswered} />
           </div>
           <div className="flex items-center">
+            <Button variant="ghost" size="icon" padding="none">
+              <Lightbulb className="size-5" />
+            </Button>
             <ShareQuestion />
             <BookmarkQuestion question={question} />
           </div>
@@ -47,11 +52,11 @@ export default function CodingChallengeDescription(opts: {
           </div>
         )}
       </div>
-      <div className="prose prose-sm prose-invert">
+      <div className="prose prose-sm prose-invert [&>p+h1]:mt-6 [&>p+h2]:mt-6 [&>p+h3]:mt-6 [&>p+h4]:mt-6 [&>p+h5]:mt-6 [&>p+h6]:mt-6">
         <span className="underline">Description</span>
         <Markdown
           remarkPlugins={[remarkGfm]}
-          className="whitespace-pre-wrap"
+          className="flex flex-col gap-4"
           components={{
             code: ({ ...props }) => {
               return (
@@ -75,6 +80,7 @@ export default function CodingChallengeDescription(opts: {
                         ...style,
                         padding: '1rem',
                         fontSize: '0.875rem',
+                        overflow: 'auto',
                       }}
                     >
                       {tokens.map((line, i) => (
@@ -94,7 +100,7 @@ export default function CodingChallengeDescription(opts: {
             },
             ul: ({ children }) => {
               return (
-                <ul className="list-disc px-4  flex flex-col gap-3">
+                <ul className="list-disc px-4 flex flex-col gap-3">
                   {children}
                 </ul>
               );

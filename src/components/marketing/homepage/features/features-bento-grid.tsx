@@ -61,7 +61,7 @@ export default async function FeaturesBentoGrid() {
                   become a better developer.
                 </p>
                 <Button
-                  variant="secondary"
+                  variant="default"
                   className="flex md:hidden z-10 relative mt-2"
                 >
                   Learn more{' '}
@@ -69,7 +69,7 @@ export default async function FeaturesBentoGrid() {
                 </Button>
               </div>
               <Button
-                variant="secondary"
+                variant="default"
                 className="z-10 relative gap-x-2 items-center w-fit font-onest hidden md:flex"
               >
                 Learn more{' '}
@@ -104,7 +104,7 @@ export default async function FeaturesBentoGrid() {
             </div>
           </Link>
           <Link
-            href={isProd ? '' : '/features/leaderboard'}
+            href={'/features/leaderboard'}
             className={cn(
               'relative overflow-hidden group flex flex-col',
               cardClasses
@@ -141,7 +141,7 @@ export default async function FeaturesBentoGrid() {
                   inbox. Improving your coding skills in just 5 minutes a day.
                 </p>
               </div>
-              <Button variant="secondary" className="font-onest">
+              <Button variant="default" className="font-onest">
                 Learn more{' '}
                 <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
               </Button>

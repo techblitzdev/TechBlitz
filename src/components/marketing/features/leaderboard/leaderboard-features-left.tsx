@@ -34,7 +34,7 @@ export default async function LeaderboardFeaturesLeft() {
             </TableHeader>
             <LeaderboardMostAnsweredTable
               topUsersByQuestionCount={
-                topUsersByQuestionCount as unknown as (UserRecord & {
+                topUsersByQuestionCount.users as unknown as (UserRecord & {
                   _count: { answers: number };
                 })[]
               }

@@ -25,7 +25,7 @@ export default function LeaderboardMostAnsweredTable(opts: {
 
   return (
     <TableBody>
-      {topUsersByQuestionCount.map((userData, index) => (
+      {topUsersByQuestionCount?.map((userData, index) => (
         <TableRow
           key={userData.uid}
           className="border-white/10 hover:bg-white/5 transition-colors"

@@ -1,5 +1,4 @@
 // Components
-import BackToDashboard from '@/components/ui/back-to-dashboard';
 import CurrentStreak from '@/components/ui/current-streak';
 import { Separator } from '@/components/ui/separator';
 import FeedbackButton from '@/components/ui/feedback-button';
@@ -15,6 +14,8 @@ import { getUser } from '@/actions/user/authed/get-user';
 import { redirect } from 'next/navigation';
 import QuestionActionButtons from '@/components/app/questions/single/layout/question-action-buttons';
 import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
+import QuestionNavigation from '@/components/global/navigation/question-navigation';
+import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation';
 
 export async function generateMetadata({
   params,
@@ -51,6 +52,12 @@ export default async function QuestionUidLayout({
 
   const userAnswered = getUserAnswer({ questionUid: question.uid });
 
+  const nextAndPreviousQuestion = await getNextAndPreviousQuestion(uid);
+  const { nextQuestion, previousQuestion } = nextAndPreviousQuestion || {
+    nextQuestion: undefined,
+    previousQuestion: undefined,
+  };
+
   return (
     <>
       <QuestionSingleContextProvider
@@ -63,9 +70,10 @@ export default async function QuestionUidLayout({
           <div className="col-span-2 lg:col-span-4 flex items-center gap-x-5 py-2 justify-start">
             <SidebarLayoutTrigger />
             <div className="items-center gap-x-2 hidden md:flex">
-              <BackToDashboard
-                href="/questions/custom"
-                backTo="custom questions"
+              <QuestionNavigation
+                navigationType="question"
+                nextQuestion={nextQuestion || null}
+                previousQuestion={previousQuestion || null}
               />
               <RandomQuestion identifier="uid" currentQuestionSlug={uid} />
             </div>

@@ -27,7 +27,7 @@ export default function QuestionNavigation(opts: {
           <TooltipTrigger>
             <Link
               href={previousQuestion || '#'}
-              className={`bg-black-100 border border-black-50 p-2 rounded-md relative group duration-200 size-8 flex items-center justify-center ${
+              className={`bg-primary border border-black-50 p-2 rounded-md relative group duration-200 size-9 flex items-center justify-center ${
                 !previousQuestion ? 'opacity-50 pointer-events-none' : ''
               }`}
             >
@@ -49,7 +49,7 @@ export default function QuestionNavigation(opts: {
           <TooltipTrigger>
             <Link
               href={nextQuestion || '#'}
-              className={`bg-black-100 border border-black-50 p-2 rounded-md relative group duration-200 size-8 flex items-center justify-center ${
+              className={`bg-primary border border-black-50 p-2 rounded-md relative group duration-200 size-9 flex items-center justify-center ${
                 !nextQuestion ? 'opacity-50 pointer-events-none' : ''
               }`}
             >

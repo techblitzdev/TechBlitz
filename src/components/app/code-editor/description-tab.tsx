@@ -11,8 +11,7 @@ import BookmarkQuestion from '../questions/single/bookmark';
 import ShareQuestion from '@/components/global/share-question';
 import Chip from '@/components/ui/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
-import { Lightbulb } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import QuestionHintTrigger from '../questions/question-hint-trigger';
 
 export default function CodingChallengeDescription(opts: {
   question: Question;
@@ -37,9 +36,7 @@ export default function CodingChallengeDescription(opts: {
             <HasAnswered userAnswered={hasUserAnswered} />
           </div>
           <div className="flex items-center">
-            <Button variant="ghost" size="icon" padding="none">
-              <Lightbulb className="size-5" />
-            </Button>
+            <QuestionHintTrigger />
             <ShareQuestion />
             <BookmarkQuestion question={question} />
           </div>

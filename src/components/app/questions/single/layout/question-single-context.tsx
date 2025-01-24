@@ -53,6 +53,8 @@ type QuestionSingleContextType = {
   } | null;
   submitAnswer: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
   userAnswered: Promise<Answer | null>;
+  showHint: boolean;
+  setShowHint: (showHint: boolean) => void;
 };
 
 export const QuestionSingleContext = createContext<QuestionSingleContextType>(
@@ -133,6 +135,8 @@ export const QuestionSingleContextProvider = ({
     }>;
     error?: string;
   } | null>(null);
+
+  const [showHint, setShowHint] = useState(false);
 
   // stopwatch
 
@@ -365,6 +369,8 @@ export const QuestionSingleContextProvider = ({
         result,
         submitAnswer,
         userAnswered,
+        showHint,
+        setShowHint,
       }}
     >
       {children}

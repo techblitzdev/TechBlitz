@@ -6,12 +6,9 @@ import {
   FileQuestion,
   Home,
   Settings,
-  Award,
-  ChartBarIncreasing,
   LockIcon,
   User,
   CreditCard,
-  RouteIcon,
   HelpCircle,
   ChevronDown,
 } from 'lucide-react';
@@ -52,6 +49,67 @@ import {
 } from '@/components/ui/tooltip';
 import { TooltipProvider } from '@/components/ui/tooltip';
 
+const LeaderboardIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill="currentColor"
+      d="M2 21V9h5.5v12zm7.25 0V3h5.5v18zm7.25 0V11H22v10z"
+    />
+  </svg>
+);
+
+const statsIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill="currentColor"
+      d="m3.5 18.49l6-6.01l4 4L22 6.92l-1.41-1.41l-7.09 7.97l-4-4L2 16.99z"
+    />
+  </svg>
+);
+
+const roadmapIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 14 14"
+  >
+    <g
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M7 11.643h6.5m-1.857-1.857l1.857 1.857l-1.857 1.857M3.286 1.893a1.393 1.393 0 1 0 2.786 0a1.393 1.393 0 1 0-2.786 0M7 6.536a1.393 1.393 0 1 0 2.786 0a1.393 1.393 0 1 0-2.786 0m-2.786 5.107a1.393 1.393 0 1 0 2.786 0a1.393 1.393 0 1 0-2.786 0" />
+      <path d="M7 6.536H3.054a2.554 2.554 0 0 0 0 5.107h1.16m5.572-5.107h1.393a2.321 2.321 0 0 0 0-4.643H6.07m-2.784 0H.5" />
+    </g>
+  </svg>
+);
+
+const homeIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill="currentColor"
+      d="M3 21V3h18v18zm7-2v-6H5v6zm2 0h7v-6h-7zm-7-8h14V5H5z"
+    />
+  </svg>
+);
+
 export function AppSidebar(opts: {
   user: UserRecord | null;
   profile: Profile | null;
@@ -87,7 +145,7 @@ export function AppSidebar(opts: {
     {
       title: 'Leaderboard',
       url: '/leaderboard',
-      icon: Award,
+      icon: LeaderboardIcon,
       tooltip: 'Leaderboard',
     },
   ];
@@ -99,7 +157,7 @@ export function AppSidebar(opts: {
     {
       title: 'Dashboard',
       url: '/dashboard',
-      icon: Home,
+      icon: homeIcon,
       tooltip: 'Dashboard',
     },
     {
@@ -146,12 +204,12 @@ export function AppSidebar(opts: {
       title: 'Roadmaps',
       tooltip: 'Roadmaps',
       url: '/roadmaps',
-      icon: RouteIcon,
+      icon: roadmapIcon,
     },
     {
       title: 'Stats',
       url: '/statistics',
-      icon: ChartBarIncreasing,
+      icon: statsIcon,
       tooltip: 'Statistics',
       subItems: [
         {
@@ -168,7 +226,7 @@ export function AppSidebar(opts: {
     {
       title: 'Leaderboard',
       url: '/leaderboard',
-      icon: Award,
+      icon: LeaderboardIcon,
       tooltip: 'Leaderboard',
     },
     {

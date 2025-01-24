@@ -9,6 +9,7 @@ import { Answer } from '@/types/Answers';
 import { useUserServer } from '@/hooks/use-user-server';
 import { QuestionFilters } from '@/types/Filters';
 import ClearFilters from './clear-filters';
+import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 
 export default async function QuestionsList({
   currentPage,
@@ -46,6 +47,8 @@ export default async function QuestionsList({
     );
   }
 
+  const recommendedQuestion = await getSuggestions({ limit: 10 });
+
   // do the fetch after we know the user can access this
   const data = await listQuestions({
     page: currentPage,
@@ -67,6 +70,30 @@ export default async function QuestionsList({
     );
   }
 
+  // if we are showing just recommended questions, just show the recommended questions
+  if (filters.recommended) {
+    return (
+      <>
+        {recommendedQuestion?.map((q) => (
+          <QuestionCard
+            key={q.uid}
+            questionData={
+              {
+                ...q,
+                userAnswers: [],
+              } as QuestionWithoutAnswers & { userAnswers: Answer[] }
+            }
+            showSubmissions={showSubmissions}
+            identifier={customQuestions ? 'uid' : 'slug'}
+            customQuestion={customQuestions}
+            user={user}
+            recommendedQuestion={true}
+          />
+        ))}
+      </>
+    );
+  }
+
   return (
     <>
       {data.questions.map((q) => (
@@ -77,6 +104,9 @@ export default async function QuestionsList({
           identifier={customQuestions ? 'uid' : 'slug'}
           customQuestion={customQuestions}
           user={user}
+          recommendedQuestion={
+            recommendedQuestion?.find((rq) => rq.uid === q.uid) ? true : false
+          }
         />
       ))}
       {!customQuestions && data.totalPages > 1 && (

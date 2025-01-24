@@ -11,4 +11,5 @@ export interface QuestionFilters {
   postsPerPage?: number;
   bookmarked?: boolean;
   isPremiumQuestion?: boolean;
+  recommended?: boolean;
 }

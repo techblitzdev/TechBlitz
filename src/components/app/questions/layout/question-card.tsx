@@ -15,6 +15,7 @@ import {
   Tooltip,
 } from '@/components/ui/tooltip';
 import type { UserRecord } from '@/types/User';
+import { cn } from '@/lib/utils';
 
 export function QuestionCardSkeleton() {
   return (
@@ -72,6 +73,7 @@ export default function QuestionCard(opts: {
   identifier: 'slug' | 'uid';
   customQuestion?: boolean;
   user: UserRecord | null;
+  recommendedQuestion?: boolean;
 }) {
   const {
     questionData,
@@ -81,6 +83,7 @@ export default function QuestionCard(opts: {
     identifier = 'slug',
     customQuestion = false,
     user,
+    recommendedQuestion = false,
   } = opts;
 
   // if identifier is uid, this is a custom question
@@ -98,7 +101,10 @@ export default function QuestionCard(opts: {
     <Link
       href={href}
       key={questionData.uid}
-      className="flex flex-col space-y-5 items-start bg-black-75 border border-black-50 hover:border-black-100 duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-[[data-pending]]:animate-pulse"
+      className={cn(
+        'flex flex-col space-y-5 items-start bg-black-75 border border-black-50 hover:border-black-100 duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-[[data-pending]]:animate-pulse',
+        recommendedQuestion && 'border-accent'
+      )}
     >
       <div className="flex flex-col gap-y-4 md:gap-y-5 w-full">
         <div className="flex flex-col md:flex-row w-full justify-between gap-2 md:gap-5">
@@ -161,7 +167,7 @@ export default function QuestionCard(opts: {
                 )
               ) : (
                 <div className="relative">
-                  <p className="hover:opacity-0 transition-opacity duration-300 whitespace-nowrap flex items-center gap-x-1">
+                  <p className="transition-opacity duration-300 whitespace-nowrap flex items-center gap-x-1">
                     Not Answered
                   </p>
                 </div>
@@ -184,6 +190,24 @@ export default function QuestionCard(opts: {
                 value={questionData[identifier] || ''}
               />
             </Suspense>
+          )}
+          {recommendedQuestion && (
+            <TooltipProvider>
+              <Tooltip delayDuration={0}>
+                <TooltipTrigger>
+                  <div className="flex items-center gap-x-2">
+                    <span className="hidden sm:block text-gray-300">•</span>
+                    <p className="text-sm text-gray-300">Recommended for you</p>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>
+                    Based on your previous answers and current skill level, we
+                    recommend this question to advance your skills
+                  </p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           )}
         </div>
       </div>

@@ -49,7 +49,39 @@ export default function FilterChips() {
 
   if (Object.keys(paramsObj).length === 0) return null;
 
-  // Render chips for each query parameter
+  const getChipText = (key: string, value: string) => {
+    const textMap: Record<string, string | ((val: string) => string)> = {
+      tags: (tag) => capitalise(tag),
+      answered: (val) => (val === 'true' ? 'Answered' : 'Unanswered'),
+      bookmarked: () => 'Bookmarked',
+      isPremiumQuestion: () => 'Premium',
+      recommended: () => 'Recommended',
+      default: (val) => capitalise(val).replace('_', ' '),
+    };
+
+    const textGenerator = textMap[key] || textMap.default;
+    return typeof textGenerator === 'function'
+      ? textGenerator(value)
+      : textGenerator;
+  };
+
+  const renderChip = (key: string, value: string, tag?: string) => {
+    return (
+      <div
+        key={tag ? `${key}-${tag}` : key}
+        className="flex items-center gap-2 px-3 py-1 text-sm border border-black-50 rounded-md hover:bg-black-25 duration-300"
+      >
+        <span>{getChipText(key, tag || value)}</span>
+        <button
+          onClick={() => startTransition(() => removeFilter(key, tag))}
+          className="bg-black-50 rounded-full p-0.5"
+        >
+          <X className="size-2.5" />
+        </button>
+      </div>
+    );
+  };
+
   return (
     <div
       data-pending={isPending ? '' : undefined}
@@ -63,90 +95,10 @@ export default function FilterChips() {
       >
         {Object.entries(paramsObj).map(([key, value]) => {
           if (key === 'page') return null;
-          // Handle 'tags' as a comma-separated list
           if (key === 'tags') {
-            return (value.split(',') as string[]).map((tag) => (
-              <div
-                key={`${key}-${tag}`}
-                className="flex items-center gap-2 px-3 py-1 text-sm border border-black-50 rounded-md hover:bg-black-25 duration-300"
-              >
-                <span>{capitalise(tag)}</span>
-                <button
-                  onClick={() => startTransition(() => removeFilter(key, tag))}
-                  className="bg-black-50 rounded-full p-0.5"
-                >
-                  <X className="size-2.5" />
-                </button>
-              </div>
-            ));
+            return value.split(',').map((tag) => renderChip(key, value, tag));
           }
-
-          if (key === 'answered') {
-            return (
-              <div
-                key={key}
-                className="flex items-center gap-2 px-3 py-1 text-sm border border-black-50 rounded-md hover:bg-black-25 duration-300"
-              >
-                <span>{value === 'true' ? 'Answered' : 'Unanswered'}</span>
-                <button
-                  onClick={() => startTransition(() => removeFilter(key))}
-                  className="bg-black-50 rounded-full p-0.5"
-                >
-                  <X className="size-2.5" />
-                </button>
-              </div>
-            );
-          }
-
-          if (key === 'bookmarked') {
-            return (
-              <div
-                key={key}
-                className="flex items-center gap-2 px-3 py-1 text-sm border border-black-50 rounded-md hover:bg-black-25 duration-300"
-              >
-                <span>Bookmarked</span>
-                <button
-                  onClick={() => startTransition(() => removeFilter(key))}
-                  className="bg-black-50 rounded-full p-0.5"
-                >
-                  <X className="size-2.5" />
-                </button>
-              </div>
-            );
-          }
-
-          if (key === 'isPremiumQuestion') {
-            return (
-              <div
-                key={key}
-                className="flex items-center gap-2 px-3 py-1 text-sm border border-black-50 rounded-md hover:bg-black-25 duration-300"
-              >
-                <span>Premium</span>
-                <button
-                  onClick={() => startTransition(() => removeFilter(key))}
-                  className="bg-black-50 rounded-full p-0.5"
-                >
-                  <X className="size-2.5" />
-                </button>
-              </div>
-            );
-          }
-
-          // Render chips for other parameters
-          return (
-            <div
-              key={key}
-              className="flex items-center gap-2 px-3 py-1 text-sm border border-black-50 rounded-md hover:bg-black-25 duration-300"
-            >
-              <span>{capitalise(value).replace('_', ' ')}</span>
-              <button
-                onClick={() => startTransition(() => removeFilter(key))}
-                className="bg-black-50 rounded-full p-0.5"
-              >
-                <X className="size-2.5" />
-              </button>
-            </div>
-          );
+          return renderChip(key, value);
         })}
       </div>
       <Button

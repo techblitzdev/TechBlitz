@@ -22,9 +22,6 @@ const ProgressionBentoBox = dynamic(() => import('./progression-box'), {
 const cardClasses = 'border border-black-50 p-6 rounded-lg';
 
 export default async function FeaturesBentoGrid() {
-  // if on prod, make all links be disabled go to '/'
-  const isProd = process.env.NEXT_PUBLIC_ENV === 'production';
-
   return (
     <section className="pt-10 lg:pt-28 pb-10 md:pb-20 flex flex-col gap-y-7 relative">
       <div className="flex flex-col gap-y-1 items-center text-center">

@@ -9,7 +9,7 @@ import { capitalize } from 'lodash';
 import { AnimatePresence } from 'framer-motion';
 
 export default function CodeEditor(opts: { defaultCode: string }) {
-  //const monaco = useMonaco();
+  //  const monaco = useMonaco();
   //
   //monaco?.editor.defineTheme('vs-dark', {
   //  base: 'vs-dark',
@@ -72,6 +72,7 @@ export default function CodeEditor(opts: { defaultCode: string }) {
             highlightActiveIndentation: true,
           },
         }}
+        className="bg-black-50"
         loading={<LoadingSpinner />}
       />
     </div>

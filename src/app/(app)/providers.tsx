@@ -14,7 +14,7 @@ export default function RootProvider({
     <main
       className={cn(
         'w-full transition-[width] duration-200 ease-in-out',
-        'pt-4 pb-2 lg:pb-3',
+        'py-2 lg:pb-3',
         {
           'lg:w-[calc(100%-15rem)]': state === 'expanded',
           'lg:w-[calc(100%-3rem)]': state === 'collapsed',

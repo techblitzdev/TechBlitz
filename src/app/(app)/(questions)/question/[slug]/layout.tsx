@@ -1,5 +1,4 @@
 // Components
-import BackToDashboard from '@/components/ui/back-to-dashboard';
 import CurrentStreak from '@/components/ui/current-streak';
 import { Separator } from '@/components/ui/separator';
 import FeedbackButton from '@/components/ui/feedback-button';
@@ -18,6 +17,8 @@ import QuestionActionButtons from '@/components/app/questions/single/layout/ques
 import { getRelatedQuestions } from '@/utils/data/questions/get-related';
 import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
 import PremiumQuestionDeniedAccess from '@/components/app/questions/premium-question-denied-access';
+import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation';
+import QuestionNavigation from '@/components/global/navigation/question-navigation';
 
 export async function generateMetadata({
   params,
@@ -96,6 +97,15 @@ export default async function QuestionUidLayout({
     return <PremiumQuestionDeniedAccess />;
   }
 
+  const nextAndPreviousQuestion = await getNextAndPreviousQuestion(
+    question.uid
+  );
+
+  const { nextQuestion, previousQuestion } = nextAndPreviousQuestion || {
+    nextQuestion: undefined,
+    previousQuestion: undefined,
+  };
+
   return (
     <>
       <script
@@ -112,7 +122,11 @@ export default async function QuestionUidLayout({
           <div className="col-span-2 lg:col-span-4 flex items-center py-2 justify-start">
             <SidebarLayoutTrigger />
             <div className="items-center gap-x-2 hidden md:flex">
-              <BackToDashboard href="/questions" backTo="questions" />
+              <QuestionNavigation
+                navigationType="question"
+                nextQuestion={nextQuestion || null}
+                previousQuestion={previousQuestion || null}
+              />
               <RandomQuestion identifier="slug" currentQuestionSlug={slug} />
             </div>
             {question?.dailyQuestion && question?.questionDate && (

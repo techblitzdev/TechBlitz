@@ -58,7 +58,7 @@ export default function BookmarkQuestion({ question }: { question: Question }) {
           </Button>
         </TooltipTrigger>
         <TooltipContent>
-          <p>{isBookmarked ? 'Remove bookmark' : 'Bookmark this question'}: </p>
+          <p>{isBookmarked ? 'Remove bookmark' : 'Bookmark this question'} </p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

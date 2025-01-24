@@ -53,6 +53,8 @@ type QuestionSingleContextType = {
   } | null;
   submitAnswer: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
   userAnswered: Promise<Answer | null>;
+  showHint: boolean;
+  setShowHint: (showHint: boolean) => void;
 };
 
 export const QuestionSingleContext = createContext<QuestionSingleContextType>(
@@ -82,6 +84,7 @@ export const QuestionSingleContextProvider = ({
   relatedQuestions: Promise<QuestionWithoutAnswers[]> | null;
   userAnswered: Promise<Answer | null>;
 }) => {
+  // STATE VARIABLES
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState<
     'init' | 'incorrect' | 'correct'
@@ -121,8 +124,25 @@ export const QuestionSingleContextProvider = ({
     'questions' | 'codeSnippet' | 'answer'
   >('questions');
 
+  const [code, setCode] = useState('');
+  const [result, setResult] = useState<{
+    passed: boolean;
+    details?: Array<{
+      passed: boolean;
+      input: number[];
+      expected: number;
+      received: number;
+    }>;
+    error?: string;
+  } | null>(null);
+
+  const [showHint, setShowHint] = useState(false);
+
+  // stopwatch
+
   const { pause, reset, totalSeconds } = useStopwatch({ autoStart: true });
 
+  // EFFECTS
   useEffect(() => {
     if (selectedAnswer && !prefilledCodeSnippet) {
       const answer = question.answers.find(
@@ -132,6 +152,7 @@ export const QuestionSingleContextProvider = ({
     }
   }, [selectedAnswer, question.answers, question.codeSnippet]);
 
+  // METHODS
   // submits the answer for a non-CODING_CHALLENGE question
   const submitQuestionAnswer = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -175,18 +196,6 @@ export const QuestionSingleContextProvider = ({
       setIsSubmitting(false);
     }
   };
-
-  const [code, setCode] = useState('');
-  const [result, setResult] = useState<{
-    passed: boolean;
-    details?: Array<{
-      passed: boolean;
-      input: number[];
-      expected: number;
-      received: number;
-    }>;
-    error?: string;
-  } | null>(null);
 
   // validates the code for a CODING_CHALLENGE question
   const validateCode = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -360,6 +369,8 @@ export const QuestionSingleContextProvider = ({
         result,
         submitAnswer,
         userAnswered,
+        showHint,
+        setShowHint,
       }}
     >
       {children}

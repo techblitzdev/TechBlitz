@@ -16,6 +16,7 @@ export const parseSearchParams = (searchParams: {
     postsPerPage: parseInt(searchParams.postsPerPage as string) || 15,
     bookmarked: searchParams.bookmarked === 'true',
     isPremiumQuestion: searchParams.isPremiumQuestion === 'true',
+    recommended: searchParams.recommended === 'true',
   };
 };
 

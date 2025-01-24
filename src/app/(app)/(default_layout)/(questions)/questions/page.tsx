@@ -72,12 +72,15 @@ const heroDescription = (
       <Suspense
         fallback={
           <Button variant="default" className="w-full">
-            Resume your journey
+            Your next recommended question
             <ArrowRightIcon className="w-4 h-4" />
           </Button>
         }
       >
-        <ContinueJourney text="Resume your journey" variant="default" />
+        <ContinueJourney
+          text="Your next recommended question"
+          variant="default"
+        />
       </Suspense>
     </div>
   </div>

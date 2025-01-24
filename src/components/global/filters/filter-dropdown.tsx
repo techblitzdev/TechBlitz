@@ -214,6 +214,12 @@ export default function FilterDropdown() {
             >
               Premium
             </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => updateQueryParams('recommended', 'true')}
+              className="py-2 hover:!text-white hover:cursor-pointer"
+            >
+              Recommended
+            </DropdownMenuItem>
           </DropdownMenuGroup>
           <div
             className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${

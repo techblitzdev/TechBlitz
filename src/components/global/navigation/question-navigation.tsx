@@ -20,14 +20,14 @@ export default function QuestionNavigation(opts: {
   const { nextQuestion, previousQuestion, navigationType = 'question' } = opts;
 
   return (
-    <div className="flex gap-x-2 items-center">
+    <div className="flex items-center">
       {/* Previous Question */}
       <TooltipProvider delayDuration={0} skipDelayDuration={100}>
         <Tooltip>
           <TooltipTrigger>
             <Link
               href={previousQuestion || '#'}
-              className={`bg-primary border border-black-50 p-2 rounded-md relative group duration-200 size-9 flex items-center justify-center ${
+              className={`bg-primary border border-black-50 p-2 rounded-l-md relative group duration-200 size-9 flex items-center justify-center border-r-0 ${
                 !previousQuestion ? 'opacity-50 pointer-events-none' : ''
               }`}
             >
@@ -49,7 +49,7 @@ export default function QuestionNavigation(opts: {
           <TooltipTrigger>
             <Link
               href={nextQuestion || '#'}
-              className={`bg-primary border border-black-50 p-2 rounded-md relative group duration-200 size-9 flex items-center justify-center ${
+              className={`bg-primary border border-black-50 p-2 rounded-r-md relative group duration-200 size-9 flex items-center justify-center ${
                 !nextQuestion ? 'opacity-50 pointer-events-none' : ''
               }`}
             >

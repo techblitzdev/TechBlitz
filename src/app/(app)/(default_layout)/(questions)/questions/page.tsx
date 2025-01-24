@@ -39,7 +39,7 @@ const QuestionPageSidebar = dynamic(
 import FilterLoading from '@/components/global/filters/filters-loading';
 import QuestionPageSidebarLoading from '@/components/app/questions/layout/question-page-sidebar-loading';
 import { QuestionCardSkeleton } from '@/components/app/questions/layout/question-card';
-import ContinueJourney from '@/components/global/navigation/continue-journey';
+import ContinueJourney from '@/components/global/navigation/continue-journey-button';
 import { ArrowRightIcon } from 'lucide-react';
 
 export const revalidate = 600;

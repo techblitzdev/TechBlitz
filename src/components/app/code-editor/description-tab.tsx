@@ -41,10 +41,10 @@ export default function CodingChallengeDescription(opts: {
             <BookmarkQuestion question={question} />
           </div>
         </div>
-        {question?.question && (
+        {question?.title && (
           <div className="flex w-full gap-10 justify-between">
             <h3 className="font-onest font-light text-lg md:text-2xl">
-              {question.question}
+              {question.title}
             </h3>
           </div>
         )}

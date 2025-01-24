@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { addUidAsUsername } from '@/scripts/add-uid-as-username';
 import { addIsCustomUsernameToUser } from '@/scripts/add-is-custom-username-to-user';
 import NewCodingChallengeQuestionModal from '@/components/app/questions/admin/new-coding-challenge-modal';
+import { addTitleToQuestion } from '@/scripts/add-title-to-question';
 
 export default function AdminPage() {
   return (
@@ -27,6 +28,9 @@ export default function AdminPage() {
       </form>
       <form action={addIsCustomUsernameToUser}>
         <Button type="submit">Add isCustomUsername to User</Button>
+      </form>
+      <form action={addTitleToQuestion}>
+        <Button type="submit">Add Title to Questions</Button>
       </form>
     </div>
   );

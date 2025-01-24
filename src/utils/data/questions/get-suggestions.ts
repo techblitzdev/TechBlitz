@@ -65,6 +65,7 @@ export const getSuggestions = cache(
       (answer) => answer.question.uid
     );
 
+    // ensure the user has not answered the question
     const suggestions = await prisma.questions.findMany({
       where: {
         // filter by difficulty of the users experience level
@@ -85,6 +86,13 @@ export const getSuggestions = cache(
           },
           {
             customQuestion: false,
+          },
+          {
+            NOT: {
+              uid: {
+                in: answeredQuestionIds,
+              },
+            },
           },
         ],
       },

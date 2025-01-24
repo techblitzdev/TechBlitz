@@ -111,13 +111,16 @@ export default function QuestionTabs({
                 <BookmarkQuestion question={question} />
               </div>
             </div>
-            {question?.question && (
+            {question?.title && (
               <div className="flex w-full gap-10 justify-between">
                 <h3 className="font-onest font-light text-lg md:text-2xl">
-                  {question.question}
+                  {question.title}
                 </h3>
               </div>
             )}
+            <p className="text-sm text-gray-400 font-light font-onest mt-3">
+              {question.question}
+            </p>
             {renderAnswerForm()}
           </div>
         )}

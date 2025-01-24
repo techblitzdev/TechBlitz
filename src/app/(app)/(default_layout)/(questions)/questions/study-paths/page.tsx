@@ -18,7 +18,7 @@ import Hero from '@/components/global/hero';
 import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/use-user-server';
-import ContinueJourney from '@/components/global/navigation/continue-journey';
+import ContinueJourney from '@/components/global/navigation/continue-journey-button';
 import { ArrowRightIcon } from 'lucide-react';
 
 // revalidate every 10 minutes

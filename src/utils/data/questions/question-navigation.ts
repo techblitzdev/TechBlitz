@@ -34,10 +34,43 @@ export const getNextAndPreviousQuestion = async (uid: string) => {
         : null,
     ]);
 
-    if (nextQuestion || previousQuestion) {
+    // If one exists but not the other, get a random question for the missing one
+    if (nextQuestion && !previousQuestion) {
+      const randomPrevious = await prisma.questions.findFirst({
+        where: {
+          uid: { not: uid },
+          isPremiumQuestion: user?.userLevel === 'FREE' ? false : true,
+          customQuestion: user?.userLevel === 'FREE' ? false : true,
+        },
+        orderBy: { createdAt: 'desc' },
+      });
+
       return {
-        nextQuestion: nextQuestion?.slug,
-        previousQuestion: previousQuestion?.slug,
+        nextQuestion: nextQuestion.slug,
+        previousQuestion: randomPrevious?.slug,
+      };
+    }
+
+    if (!nextQuestion && previousQuestion) {
+      const randomNext = await prisma.questions.findFirst({
+        where: {
+          uid: { not: uid },
+          isPremiumQuestion: user?.userLevel === 'FREE' ? false : true,
+          customQuestion: user?.userLevel === 'FREE' ? false : true,
+        },
+        orderBy: { createdAt: 'desc' },
+      });
+
+      return {
+        nextQuestion: randomNext?.slug,
+        previousQuestion: previousQuestion.slug,
+      };
+    }
+
+    if (nextQuestion && previousQuestion) {
+      return {
+        nextQuestion: nextQuestion.slug,
+        previousQuestion: previousQuestion.slug,
       };
     }
   }

@@ -16,6 +16,7 @@ import ShareQuestion from '@/components/global/share-question';
 import { BarChart, BookIcon, PieChart } from 'lucide-react';
 import { BookOpen } from 'lucide-react';
 import { FileIcon, FileText } from 'lucide-react';
+import QuestionHintTrigger from '../question-hint-trigger';
 
 interface QuestionTabsProps {
   question: Question;
@@ -105,6 +106,7 @@ export default function QuestionTabs({
                 <HasAnswered userAnswered={hasUserAnswered} />
               </div>
               <div className="flex items-center">
+                <QuestionHintTrigger />
                 <ShareQuestion />
                 <BookmarkQuestion question={question} />
               </div>

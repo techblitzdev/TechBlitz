@@ -34,6 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'how-to-use-some-in-javascript',
     'introducing-techblitz',
     'what-are-callback-functions',
+    '250-users-on-techblitz',
   ];
 
   const blogPosts = blogPostSlugs.map((slug) => ({

@@ -9,8 +9,12 @@ export default async function HomepageHero() {
 
   const animatedSpanContent = (
     <div className="flex items-center group">
-      <span className="hidden md:block">Code editor questions out now!</span>
-      <span className="block md:hidden">Code editor questions out now!</span>
+      <span className="hidden md:block">
+        Celebrating 250+ users - a special thank you
+      </span>
+      <span className="block md:hidden">
+        Celebrating 250+ users - a special thank you
+      </span>
       <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-all duration-300" />
     </div>
   );

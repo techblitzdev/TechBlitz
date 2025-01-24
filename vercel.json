@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/cron/send-daily-challenge",
-      "schedule": "0 8 * * *"
+      "schedule": "0 8 * * 1-5"
     },
     {
       "path": "/api/cron/sync-user-streak",

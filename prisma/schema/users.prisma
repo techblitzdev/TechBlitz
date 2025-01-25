@@ -72,6 +72,16 @@ model Users {
 
   // the user's bookmarked questions (an array of question objects)
   bookmarks UserBookmarks[]
+
+  // the study paths the user has enrolled in
+  studyPathEnrollments UserStudyPath[]
+
+  // the study path goals the user has set for themselves
+  // different from the enrollments, as this means the 
+  // user wants to complete the study path by a certain date
+  // we also send push notifications daily to the user to remind 
+  // them to complete the study path
+  studyPathGoals StudyPathGoal[]
 }
 
 // the streak model for tracking the user's streak

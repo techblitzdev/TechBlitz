@@ -4,7 +4,7 @@ export interface StudyPath {
   description: string;
   heroChip: React.ReactNode;
   questionSlugs: string[];
-  educationLevel: 'beginner' | 'intermediate' | 'advanced';
+  educationLevel: string;
 }
 
 export const studyPaths: StudyPath[] = [
@@ -15,29 +15,16 @@ export const studyPaths: StudyPath[] = [
       'Learn the essential concepts of JavaScript to get you started on your journey to becoming a JavaScript developer. Learn the basics of variables, flow control, functions, arrays, objects, and more.',
     heroChip: 'Everything you need to kickstart your JavaScript journey',
     questionSlugs: [
-      // if statement basics
       'javascript-if-statement-basics',
-      // determine age group with if statement
       'determine-age-group',
-      // sum of two numbers
-      'sum-two-numbers',
-      // is number even or odd
       'number-is-odd-or-even',
-      // string concatenation
       'javascript-string-concatenation',
-      // string concatenation re-enforced
       'javascript-greeting-string-concatenation',
-      // reverse a string
       'reverse-a-string',
-      // count the vowels
       'count-the-vowels',
-      // capitalize each word
       'capitalize-each-word',
-      // remove duplicate characters
       'remove-duplicate-characters',
-      // find longest word in sentence
       'find-longest-word-in-sentence',
-      // sum of array with for loop
       'for-loop-sum-of-array',
     ],
     educationLevel: 'beginner',

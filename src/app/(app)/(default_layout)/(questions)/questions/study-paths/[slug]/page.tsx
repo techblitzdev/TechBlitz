@@ -9,6 +9,7 @@ import { QuizJsonLd } from '@/types/Seo';
 import { UserRecord } from '@/types/User';
 import { capitalise, getBaseUrl } from '@/utils';
 import { StudyPath, studyPaths } from '@/utils/constants/study-paths';
+import { getStudyPath } from '@/utils/data/study-paths/get';
 import { createMetadata } from '@/utils/seo';
 import { ArrowRightIcon, Sparkles } from 'lucide-react';
 import { redirect } from 'next/navigation';
@@ -18,7 +19,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }) {
-  const studyPath = studyPaths.find((path) => path.slug === params.slug);
+  const studyPath = await getStudyPath(params.slug);
 
   if (!studyPath) {
     return createMetadata({
@@ -94,7 +95,7 @@ export default async function StudyPathPage({
 }: {
   params: { slug: string };
 }) {
-  const studyPath = studyPaths.find((path) => path.slug === params.slug);
+  const studyPath = await getStudyPath(params.slug);
 
   // create json ld
   const jsonLd: QuizJsonLd = {

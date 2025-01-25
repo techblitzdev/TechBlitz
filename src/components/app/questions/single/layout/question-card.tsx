@@ -6,7 +6,7 @@ import { use, useRef, useState } from 'react';
 import { Separator } from '@/components/ui/separator';
 import QuestionCardFooter from '@/components/app/questions/single/layout/question-card-footer';
 import Stopwatch from '@/components/app/questions/single/stopwatch';
-import QuestionHintAccordion from '@/components/app/questions/single/question-hint';
+import QuestionAccordion from '@/components/app/questions/single/question-accordion';
 import QuestionTabs from '@/components/app/questions/resources/question-tabs';
 import AnswerQuestionForm from '@/components/app/questions/single/answer-question-form';
 import {
@@ -225,8 +225,8 @@ export default function QuestionCard(opts: {
         )}
       </div>
       <Separator className="bg-black-50" />
-      <div className="w-full space-y-4 px-4 bg-black">
-        {question.hint && <QuestionHintAccordion hint={question.hint} />}
+      <div className="w-full space-y-4 bg-black">
+        {question.hint && <QuestionAccordion hint={question.hint} />}
       </div>
       <Separator className="bg-black-50" />
       <QuestionCardFooter

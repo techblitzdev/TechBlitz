@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import { Check, CheckCircle2Icon, XCircleIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
-import QuestionHintAccordion from '@/components/app/questions/single/question-hint';
+import QuestionAccordion from '@/components/app/questions/single/question-accordion';
 import LoadingSpinner from '@/components/ui/loading';
 import { answerDailyQuestionDemo } from '@/actions/demo/answer-question-demo';
 import { Question } from '@/types/Questions';
@@ -186,7 +186,7 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
         )}
         <Separator className="bg-black-50" />
         <div className="w-full space-y-4 px-4">
-          {question.hint && <QuestionHintAccordion hint={question.hint} />}
+          {question.hint && <QuestionAccordion hint={question.hint} />}
         </div>
       </form>
     </Form>

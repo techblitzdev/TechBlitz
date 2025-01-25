@@ -34,6 +34,7 @@ import {
 import { toast } from 'sonner';
 import { checkUsername } from '@/actions/user/authed/check-username';
 import { Input } from '@/components/ui/input';
+import { QuestionMarkIcon } from '@radix-ui/react-icons';
 
 const whereDidYouHearAboutTechBlitz = [
   'Reddit',
@@ -320,7 +321,7 @@ export default function OnboardingStepOne() {
                   <FormItem>
                     <FormControl>
                       <div className="flex flex-row items-center justify-between">
-                        <div className="text-white placeholder:text-white">
+                        <div className="text-white placeholder:text-white text-sm">
                           Experience Level
                         </div>
                         <Select
@@ -390,13 +391,27 @@ export default function OnboardingStepOne() {
                       name="sendPushNotifications"
                       render={({ field }) => (
                         <FormItem className="flex flex-row items-center justify-between">
-                          <div className="space-y-0.5">
+                          <div className="flex items-center gap-2">
                             <Label
                               htmlFor="sendPushNotifications"
                               className="text-white"
                             >
                               Send daily challenge reminders
                             </Label>
+                            <TooltipProvider>
+                              <Tooltip delayDuration={0}>
+                                <TooltipTrigger>
+                                  <QuestionMarkIcon className="size-3 text-white" />
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p>
+                                    Don't worry, we only send you the daily
+                                    challenge reminder between Monday and
+                                    Friday.
+                                  </p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
                           </div>
                           <FormControl>
                             <Switch

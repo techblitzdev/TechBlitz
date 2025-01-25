@@ -1,8 +1,9 @@
-interface StudyPath {
+export interface StudyPath {
   slug: string;
   title: string;
   description: string;
   questionUids: string[];
+  educationLevel: 'beginner' | 'intermediate' | 'advanced';
 }
 
 export const studyPaths: StudyPath[] = [
@@ -25,29 +26,34 @@ export const studyPaths: StudyPath[] = [
       // capitalize each word
       '1kk8m6c3j1n8',
     ],
+    educationLevel: 'beginner',
   },
   {
     title: 'React Fundamentals',
     slug: 'react-fundamentals',
     description: 'Learn the basics of React',
     questionUids: [],
+    educationLevel: 'beginner',
   },
   {
     title: 'React Hooks',
     slug: 'react-hooks',
     description: 'Learn the basics of React Hooks',
     questionUids: [],
+    educationLevel: 'intermediate',
   },
   {
     title: 'Arrays',
     slug: 'arrays',
     description: 'Learn the basics of Arrays',
     questionUids: [],
+    educationLevel: 'beginner',
   },
   {
     title: 'Asynchronous Programming',
     slug: 'asynchronous-programming',
     description: 'Learn the basics of Asynchronous Programming',
     questionUids: [],
+    educationLevel: 'intermediate',
   },
 ];

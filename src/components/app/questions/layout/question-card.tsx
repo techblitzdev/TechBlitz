@@ -74,6 +74,7 @@ export default function QuestionCard(opts: {
   customQuestion?: boolean;
   user: UserRecord | null;
   recommendedQuestion?: boolean;
+  type?: 'study-path' | 'standard-question';
 }) {
   const {
     questionData,
@@ -84,10 +85,11 @@ export default function QuestionCard(opts: {
     customQuestion = false,
     user,
     recommendedQuestion = false,
+    type = 'standard-question',
   } = opts;
 
   // if identifier is uid, this is a custom question
-  const href =
+  let href =
     identifier === 'uid'
       ? `/question/custom/${questionData[identifier]}`
       : `/question/${questionData[identifier]}`;
@@ -96,6 +98,11 @@ export default function QuestionCard(opts: {
 
   const userCanAccess =
     user?.userLevel === 'PREMIUM' || !questionData?.isPremiumQuestion;
+
+  // if type is study-path, add query param to href
+  if (type === 'study-path') {
+    href += `?type=study-path`;
+  }
 
   return (
     <Link

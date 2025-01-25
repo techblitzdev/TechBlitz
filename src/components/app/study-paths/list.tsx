@@ -15,8 +15,8 @@ export default async function StudyPathsList(opts: {
   const studyPathQuestions = await questions;
 
   // Sort questions to match study path order
-  const sortedQuestions = studyPath.questionUids
-    .map((uid) => studyPathQuestions.find((q) => q.uid === uid))
+  const sortedQuestions = studyPath.questionSlugs
+    .map((slug) => studyPathQuestions.find((q) => q.slug === slug))
     .filter((q): q is QuestionWithoutAnswers => q !== undefined);
 
   return (
@@ -32,6 +32,7 @@ export default async function StudyPathsList(opts: {
             identifier="slug"
             user={user || null}
             numberOfTags={3}
+            type="study-path"
           />
         ))}
       </Suspense>

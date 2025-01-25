@@ -1,14 +1,14 @@
 import { prisma } from '@/lib/prisma';
 
-type GetQuestionsOpts = { questionUids: string[] };
+type GetQuestionsOpts = { questionSlugs: string[] };
 
 export const getQuestions = async (opts: GetQuestionsOpts) => {
-  const { questionUids } = opts;
+  const { questionSlugs } = opts;
 
   const res = await prisma.questions.findMany({
     where: {
-      uid: {
-        in: questionUids,
+      slug: {
+        in: questionSlugs,
       },
     },
     include: {

@@ -26,7 +26,7 @@ export default function StudyPathSidebar({
             <span>Set a Goal</span>
           </div>
           <p className="text-sm text-muted-foreground">
-            Set a goal to complete the study path and track your progress.
+            Set a goal to complete this study path and track your progress.
           </p>
           <Button className="w-full mt-2">Create Goal</Button>
         </div>

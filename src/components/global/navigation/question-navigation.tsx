@@ -1,4 +1,6 @@
+'use client';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import {
   Tooltip,
@@ -7,17 +9,81 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { studyPaths } from '@/utils/constants/study-paths';
 
 /**
  * Component for navigation between different questions from within the
  * app.
  */
 export default function QuestionNavigation(opts: {
-  nextQuestion: string | null;
-  previousQuestion: string | null;
+  nextPrevPromise: Promise<{
+    nextQuestion: string | null | undefined;
+    previousQuestion: string | null | undefined;
+  } | null>;
   navigationType: 'question' | 'roadmap';
+  slug: string;
 }) {
-  const { nextQuestion, previousQuestion, navigationType = 'question' } = opts;
+  const { nextPrevPromise, navigationType = 'question', slug } = opts;
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const type = searchParams?.get('type');
+
+  const [nextQuestion, setNextQuestion] = useState<string | null | undefined>(
+    null
+  );
+  const [previousQuestion, setPreviousQuestion] = useState<
+    string | null | undefined
+  >(null);
+
+  useEffect(() => {
+    // if this is a study-path, get the next/prev questions from the study-path object
+    const studyPath =
+      type === 'study-path'
+        ? studyPaths.find((path) => path.questionSlugs.includes(slug))
+        : null;
+
+    console.log({
+      studyPath,
+      slug,
+    });
+
+    if (studyPath) {
+      // Find the current question's index in the study path
+      const currentIndex = studyPath.questionSlugs.indexOf(slug);
+
+      console.log({
+        currentIndex,
+        studyPath,
+      });
+
+      // Get next and previous questions based on index
+      setNextQuestion(
+        currentIndex < studyPath.questionSlugs.length - 1
+          ? studyPath.questionSlugs[currentIndex + 1]
+          : null
+      );
+      setPreviousQuestion(
+        currentIndex > 0 ? studyPath.questionSlugs[currentIndex - 1] : null
+      );
+    } else {
+      // Use the provided promise for non-study-path questions
+      nextPrevPromise.then((nextPrev) => {
+        setNextQuestion(nextPrev?.nextQuestion);
+        setPreviousQuestion(nextPrev?.previousQuestion);
+      });
+    }
+  }, [pathname, searchParams, slug, type, nextPrevPromise]);
+
+  // if this is a study-path, add the type to the previous question
+  const previousQuestionUrl =
+    type === 'study-path'
+      ? `${previousQuestion}?type=${type}`
+      : previousQuestion;
+
+  const nextQuestionUrl =
+    type === 'study-path' ? `${nextQuestion}?type=${type}` : nextQuestion;
 
   return (
     <div className="flex items-center">
@@ -26,7 +92,7 @@ export default function QuestionNavigation(opts: {
         <Tooltip>
           <TooltipTrigger>
             <Link
-              href={previousQuestion || '#'}
+              href={previousQuestionUrl || '#'}
               className={`bg-primary border border-black-50 p-2 rounded-l-md relative group duration-200 size-9 flex items-center justify-center border-r-0 ${
                 !previousQuestion ? 'opacity-50 pointer-events-none' : ''
               }`}
@@ -48,7 +114,7 @@ export default function QuestionNavigation(opts: {
         <Tooltip>
           <TooltipTrigger>
             <Link
-              href={nextQuestion || '#'}
+              href={nextQuestionUrl || '#'}
               className={`bg-primary border border-black-50 p-2 rounded-r-md relative group duration-200 size-9 flex items-center justify-center ${
                 !nextQuestion ? 'opacity-50 pointer-events-none' : ''
               }`}

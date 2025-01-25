@@ -44,10 +44,14 @@ export async function generateMetadata({
   });
 }
 
-const getStartedCta = () => {
+const getStartedCta = (studyPath: StudyPath) => {
   return (
-    <Button href="/questions" variant="secondary" className="z-30">
-      Get started
+    <Button
+      href={`/questions/${studyPath.questionSlugs[0]}`}
+      variant="secondary"
+      className="z-30"
+    >
+      Start learning
       <ArrowRightIcon className="w-4 h-4" />
     </Button>
   );
@@ -116,7 +120,7 @@ export default async function StudyPathPage({
         container={true}
         chip={heroChip(studyPath)}
       >
-        {getStartedCta()}
+        {getStartedCta(studyPath)}
       </Hero>
       <div className="container flex gap-12">
         <div className="w-full lg:w-[65%] space-y-6">

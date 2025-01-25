@@ -109,7 +109,7 @@ export default function QuestionCard(opts: {
       href={href}
       key={questionData.uid}
       className={cn(
-        'flex flex-col space-y-5 items-start border border-black-50 hover:border-black-100 duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-[[data-pending]]:animate-pulse',
+        'flex flex-col gap-y-5 items-start border border-black-50 hover:border-black-100 duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-[[data-pending]]:animate-pulse',
         recommendedQuestion && 'border-accent'
       )}
     >
@@ -200,49 +200,53 @@ export default function QuestionCard(opts: {
         </div>
       </div>
 
-      <div className="w-full flex justify-between items-end z-10 relative">
-        {!customQuestion && (questionData?.tags?.length ?? 0) > 0 && (
-          <div className="flex gap-4 items-end ">
-            <div className="flex items-center gap-1 space-y-0.5 text-start">
-              <TagDisplay
-                tags={questionData?.tags || []}
-                numberOfTags={numberOfTags}
-                showcaseTag={showcaseTag}
-                variant="default"
+      {((!customQuestion && (questionData?.tags?.length ?? 0) > 0) ||
+        (questionData?.bookmarks && questionData?.bookmarks.length > 0) ||
+        (questionData?.questionDate && questionData?.dailyQuestion)) && (
+        <div className="w-full flex justify-between items-end z-10 relative">
+          {!customQuestion && (questionData?.tags?.length ?? 0) > 0 && (
+            <div className="flex gap-4 items-end ">
+              <div className="flex items-center gap-1 space-y-0.5 text-start">
+                <TagDisplay
+                  tags={questionData?.tags || []}
+                  numberOfTags={numberOfTags}
+                  showcaseTag={showcaseTag}
+                  variant="default"
+                />
+              </div>
+            </div>
+          )}
+          {questionData?.bookmarks && questionData?.bookmarks.length > 0 && (
+            <div className="flex items-center gap-x-3">
+              <TooltipProvider>
+                <Tooltip delayDuration={0}>
+                  <TooltipTrigger>
+                    <Bookmark
+                      className={`size-5 ${
+                        questionData?.bookmarks.length > 0
+                          ? 'text-yellow-500 fill-yellow-500'
+                          : 'text-white'
+                      } transition-colors duration-200`}
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>You have bookmarked this question</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+          )}
+          {questionData?.questionDate && questionData?.dailyQuestion && (
+            <div className="flex items-center gap-x-3">
+              <Chip
+                color="bg-black-100"
+                text={questionData.questionDate}
+                border="border-black-50"
               />
             </div>
-          </div>
-        )}
-        {questionData?.bookmarks && questionData?.bookmarks.length > 0 && (
-          <div className="flex items-center gap-x-3">
-            <TooltipProvider>
-              <Tooltip delayDuration={0}>
-                <TooltipTrigger>
-                  <Bookmark
-                    className={`size-5 ${
-                      questionData?.bookmarks.length > 0
-                        ? 'text-yellow-500 fill-yellow-500'
-                        : 'text-white'
-                    } transition-colors duration-200`}
-                  />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>You have bookmarked this question</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
-        )}
-        {questionData?.questionDate && questionData?.dailyQuestion && (
-          <div className="flex items-center gap-x-3">
-            <Chip
-              color="bg-black-100"
-              text={questionData.questionDate}
-              border="border-black-50"
-            />
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </Link>
   );
 }

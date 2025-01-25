@@ -33,6 +33,7 @@ export default async function StudyPathsList(opts: {
             user={user || null}
             numberOfTags={3}
             type="study-path"
+            showSubmissions={false}
           />
         ))}
       </Suspense>

@@ -103,16 +103,97 @@ export default async function StatisticsReportTabs(opts: {
           </CardHeader>
           <CardContent>
             <ScrollArea className="h-[400px]">
-              <div
-                className="prose dark:prose-invert max-w-none text-white [&>div]:space-y-2"
-                dangerouslySetInnerHTML={{
-                  __html: report.htmlReport || 'No detailed report available.',
-                }}
-              />
-              <div className="flex flex-col gap-y-2 mt-6 text-white">
-                Why not check out the custom questions we have created for you
-                based on this report?
-                <Button href="?tab=questions">View Questions</Button>
+              <div className="prose max-w-none text-white [&>div]:space-y-2">
+                {(() => {
+                  // test if the report is json
+                  if (
+                    typeof report.htmlReport === 'object' &&
+                    report.htmlReport !== null
+                  ) {
+                    return (
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: report.htmlReport,
+                        }}
+                      />
+                    );
+                  }
+
+                  const reportData = JSON?.parse(report?.htmlReport || '{}');
+                  return (
+                    <>
+                      <div className="mb-6">
+                        <h3 className="text-xl font-semibold mb-2 underline">
+                          Brief Summary
+                        </h3>
+                        <p className="text-gray-400 font-onest">
+                          {reportData.briefSummary}
+                        </p>
+                      </div>
+
+                      <div className="mb-6">
+                        <h3 className="text-xl font-semibold mb-2 underline">
+                          Performance Overview
+                        </h3>
+                        <p className="text-gray-400 font-onest">
+                          {reportData.userPerformance}
+                        </p>
+                      </div>
+
+                      <div className="mb-6">
+                        <h3 className="text-xl font-semibold mb-2 underline">
+                          Strengths
+                        </h3>
+                        <ul className="list-disc pl-6 text-green-300 font-onest">
+                          {reportData.strengths.map(
+                            (strength: string, index: number) => (
+                              <li key={index}>{strength}</li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+
+                      <div className="mb-6">
+                        <h3 className="text-xl font-semibold mb-2 underline">
+                          Areas for Improvement
+                        </h3>
+                        <ul className="list-disc pl-6 text-red-300 font-onest">
+                          {reportData.weaknesses.map(
+                            (weakness: string, index: number) => (
+                              <li key={index}>{weakness}</li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+
+                      <div className="mb-6">
+                        <h3 className="text-xl font-semibold mb-2 underline">
+                          Suggestions
+                        </h3>
+                        <ul className="list-disc pl-6 text-blue-300 font-onest">
+                          {reportData.suggestions.map(
+                            (suggestion: string, index: number) => (
+                              <li key={index}>{suggestion}</li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h3 className="text-xl font-semibold mb-2 underline">
+                          Focus Areas
+                        </h3>
+                        <ul className="list-disc pl-6 text-purple-300 font-onest">
+                          {reportData.topicsToFocusOn.map(
+                            (topic: string, index: number) => (
+                              <li key={index}>{topic}</li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+                    </>
+                  );
+                })()}
               </div>
             </ScrollArea>
           </CardContent>

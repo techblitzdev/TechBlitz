@@ -3,7 +3,6 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
 import {
-  FileQuestion,
   Home,
   Settings,
   LockIcon,
@@ -12,6 +11,7 @@ import {
   HelpCircle,
   ChevronDown,
 } from 'lucide-react';
+import { ListBulletIcon } from '@radix-ui/react-icons';
 import {
   Sidebar,
   SidebarContent,
@@ -125,7 +125,7 @@ export function AppSidebar(opts: {
     {
       title: 'Questions',
       url: '/questions',
-      icon: FileQuestion,
+      icon: ListBulletIcon,
       tooltip: 'Questions',
       subItems: [
         {
@@ -163,7 +163,7 @@ export function AppSidebar(opts: {
     {
       title: 'Questions',
       url: '/questions',
-      icon: FileQuestion,
+      icon: ListBulletIcon,
       tooltip: 'Questions',
       subItems: [
         {

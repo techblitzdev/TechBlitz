@@ -2,7 +2,7 @@
 import { useState, forwardRef, useImperativeHandle } from 'react';
 // components
 import { Form, FormControl, FormField } from '@/components/ui/form';
-import QuestionHintAccordion from '@/components/app/questions/single/question-hint';
+import QuestionAccordion from '@/components/app/questions/single/question-accordion';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
@@ -195,7 +195,7 @@ const OnboardingRoadmapAnswerQuestionForm = forwardRef(
           <Separator className="bg-black-50" />
 
           <div className="w-full space-y-4 px-4">
-            {question.hint && <QuestionHintAccordion hint={question.hint} />}
+            {question.hint && <QuestionAccordion hint={question.hint} />}
           </div>
         </form>
       </Form>

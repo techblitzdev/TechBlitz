@@ -2,7 +2,9 @@
 
 import { getPrompt } from '@/actions/ai/utils/get-prompt';
 import { openai } from '@/lib/open-ai';
+import { reportHtmlSchema } from '@/lib/zod/schemas/ai/report-html';
 import { UserRecord } from '@/types/User';
+import { zodResponseFormat } from 'openai/helpers/zod.mjs';
 
 type Tag = {
   tagName: string;
@@ -53,6 +55,8 @@ export const generateReportHtml = async (opts: {
         content: JSON.stringify({ correctTags, incorrectTags }),
       },
     ],
+    response_format: zodResponseFormat(reportHtmlSchema, 'event'),
+    temperature: 0.7,
   });
 
   return response.choices[0].message.content;

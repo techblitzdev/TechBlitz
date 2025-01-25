@@ -10,7 +10,7 @@ import ResizableLayout from '@/components/ui/resizable-layout';
 import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help';
 import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
 import CodeDisplayWrapper from '@/components/app/questions/single/layout/code-display-wrapper';
-import CodeEditor from '@/components/app/code-editor/editor';
+import CodeEditor from '@/components/app/questions/code-editor/editor';
 
 export default async function TodaysQuestionPage({
   params,

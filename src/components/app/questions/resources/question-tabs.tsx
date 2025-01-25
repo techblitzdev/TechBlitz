@@ -5,7 +5,7 @@ import { TabsContent, TabsTrigger, TabsList } from '@/components/ui/tabs';
 import { Question } from '@/types/Questions';
 import QuestionResourceTab from '@/components/app/questions/resources/question-resource-tab';
 import QuestionStatsTab from './question-stats-tab';
-import CodingChallengeDescription from '../../code-editor/description-tab';
+import CodingChallengeDescription from '@/components/app/questions/code-editor/description-tab';
 import HasAnswered from '../single/has-answered';
 import { useQuestionSingle } from '../single/layout/question-single-context';
 import BookmarkQuestion from '../single/bookmark';

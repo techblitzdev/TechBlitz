@@ -5,7 +5,7 @@ import {
   Carousel,
   CarouselContent,
   CarouselNext,
-  CarouselPrevious
+  CarouselPrevious,
 } from '@/components/ui/carousel';
 import { QuestionDifficulty } from '@/types/Questions';
 import { Button } from '@/components/ui/button';
@@ -18,6 +18,7 @@ interface QuestionCarouselProps {
   tag: string | string[];
   difficulty?: QuestionDifficulty;
   children: ReactNode;
+  studyPath?: string;
 }
 
 export default function QuestionCarousel({
@@ -26,18 +27,9 @@ export default function QuestionCarousel({
   image,
   tag,
   difficulty,
-  children
+  children,
+  studyPath,
 }: QuestionCarouselProps) {
-  const viewMoreHref = useMemo(() => {
-    if (Array.isArray(tag) && tag.length > 0) {
-      return `/questions?tag=${tag.join("&")}`;
-    } else if (difficulty) {
-      return `/questions?difficulty=${difficulty}`;
-    }
-
-    return "/questions";
-  }, [tag, difficulty]);
-
   console.log(image);
 
   return (
@@ -45,7 +37,7 @@ export default function QuestionCarousel({
       opts={{
         loop: false,
         dragFree: true,
-        align: 'start'
+        align: 'start',
       }}
       className="w-full"
     >
@@ -59,10 +51,10 @@ export default function QuestionCarousel({
           </div>
           <div className="flex items-center gap-2 justify-between">
             <Button
-              href={viewMoreHref}
+              href={`/questions/study-paths/${studyPath}`}
               variant="default"
             >
-              View more
+              View study path
               <ChevronRight className="size-4 ml-2" />
             </Button>
             <div className="flex items-center gap-2 md:hidden">

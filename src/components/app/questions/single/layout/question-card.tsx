@@ -32,8 +32,8 @@ import NoDailyQuestion from '@/components/global/no-daily-question';
 import QuestionSubmitted from './question-submitted';
 import { capitalize } from 'lodash';
 import { AnimatePresence } from 'framer-motion';
-import CodeEditorQuestionSubmitted from '@/components/app/code-editor/answer-submitted';
-import CodeEditor from '@/components/app/code-editor/editor';
+import CodeEditorQuestionSubmitted from '@/components/app/questions/code-editor/answer-submitted';
+import CodeEditor from '@/components/app/questions/code-editor/editor';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export default function QuestionCard(opts: {

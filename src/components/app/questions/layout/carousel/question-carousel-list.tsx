@@ -14,6 +14,7 @@ const questionsCarousels = [
     description: 'Learn the basics of JavaScript by completing code snippets.',
     image: '/images/javascript.png',
     type: 'CODING_CHALLENGE' as QuestionType,
+    studyPath: 'javascript-fundamentals',
   },
   {
     tag: [],
@@ -22,6 +23,7 @@ const questionsCarousels = [
       'Learn the basics of programming with these beginner questions.',
     image: '/images/beginner.png',
     difficulty: 'BEGINNER' as QuestionDifficulty,
+    studyPath: 'beginner-questions',
   },
   {
     tag: ['javascript', 'JavaScript', 'javaScript', 'generators'],
@@ -29,12 +31,14 @@ const questionsCarousels = [
     description:
       'Learn how to use JavaScript to build more efficient and scalable applications.',
     image: '/images/javascript.png',
+    studyPath: 'javascript-questions',
   },
   {
     tag: ['react'],
     title: 'React Questions',
     description: 'Explore the most popular JavaScript framework, React.',
     image: '/images/react.png',
+    studyPath: 'react-fundamentals',
   },
   {
     tag: ['react-hooks'],
@@ -42,18 +46,21 @@ const questionsCarousels = [
     description:
       'Learn how to use React Hooks to build more efficient and scalable applications.',
     image: '/images/react.png',
+    studyPath: 'react-hooks',
   },
   {
     tag: ['arrays', 'Array', 'array-methods'],
     title: 'Arrays',
     description: 'Learn all the key concepts of arrays in JavaScript.',
     image: '/images/arrays.png',
+    studyPath: 'arrays',
   },
   {
     tag: ['async', 'promises'],
     title: 'Asynchronous Programming',
     description: 'Learn how to handle asynchronous operations in JavaScript.',
     image: '/images/async.png',
+    studyPath: 'asynchronous-programming',
   },
 ];
 
@@ -75,6 +82,7 @@ export default function QuestionsCarouselList({
             image={carousel.image}
             tag={carousel.tag}
             difficulty={carousel.difficulty}
+            studyPath={carousel.studyPath}
           >
             <QuestionCarouselContent
               tag={carousel.tag}

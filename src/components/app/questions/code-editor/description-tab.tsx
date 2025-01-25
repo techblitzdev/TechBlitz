@@ -4,14 +4,14 @@ import { Highlight, themes } from 'prism-react-renderer';
 // markdown to render the question description
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { useQuestionSingle } from '../questions/single/layout/question-single-context';
+import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
 import { use } from 'react';
-import HasAnswered from '../questions/single/has-answered';
-import BookmarkQuestion from '../questions/single/bookmark';
+import HasAnswered from '@/components/app/questions/single/has-answered';
+import BookmarkQuestion from '@/components/app/questions/single/bookmark';
 import ShareQuestion from '@/components/global/share-question';
 import Chip from '@/components/ui/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
-import QuestionHintTrigger from '../questions/question-hint-trigger';
+import QuestionHintTrigger from '@/components/app/questions/question-hint-trigger';
 
 export default function CodingChallengeDescription(opts: {
   question: Question;

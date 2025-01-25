@@ -52,9 +52,6 @@ export const DailyChallengeEmailTemplate: React.FC<EmailTemplateProps> = ({
                 </clipPath>
               </defs>
             </svg>
-            <Text style={styles.preheader}>
-              Your daily coding challenge awaits!
-            </Text>
             <Text style={styles.title}>{title}</Text>
             <Hr style={styles.hr} />
             <Text style={styles.description}>{description}</Text>
@@ -70,7 +67,10 @@ export const DailyChallengeEmailTemplate: React.FC<EmailTemplateProps> = ({
             {tags?.length > 0 && (
               <Section style={styles.tagContainer}>
                 {tags?.map((tag, index) => (
-                  <Text key={index} style={styles.tag}>
+                  <Text
+                    key={index}
+                    style={{ ...styles.tag, margin: '4px 4px' }}
+                  >
                     {tag}
                   </Text>
                 ))}
@@ -118,7 +118,10 @@ export const DailyChallengeEmailTemplate: React.FC<EmailTemplateProps> = ({
               </Text>
               <Text style={styles.footerText}>
                 Want to stop receiving these emails?{' '}
-                <Link href="/settings/profile" style={styles.listItem}>
+                <Link
+                  href={`${process.env.NEXT_PUBLIC_URL}/settings/profile`}
+                  style={styles.listItem}
+                >
                   Manage your email preferences
                 </Link>
               </Text>
@@ -218,19 +221,20 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap' as const,
     justifyContent: 'center',
-    gap: '8px',
+    gap: '4px',
     margin: '0 0 24px',
     alignItems: 'center',
     textAlign: 'center' as const,
   },
   tag: {
-    backgroundColor: '#222222',
-    color: '#5A5FCD',
+    backgroundColor: '#111111',
+    color: 'white',
     fontSize: '14px',
     fontWeight: 'bold',
     padding: '6px 12px',
-    borderRadius: '20px',
+    borderRadius: '8px',
     display: 'inline-block',
+    border: '1px solid #2d2d2d',
   },
   button: {
     backgroundColor: '#5A5FCD',

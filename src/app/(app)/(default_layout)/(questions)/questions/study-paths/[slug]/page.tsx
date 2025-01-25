@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { QuizJsonLd } from '@/types/Seo';
 import { capitalise, getBaseUrl } from '@/utils';
 import { studyPaths } from '@/utils/constants/study-paths';
-import { createMetadata, getQuestionEducationLevel } from '@/utils/seo';
+import { createMetadata } from '@/utils/seo';
 import { ArrowRightIcon } from 'lucide-react';
 
 export async function generateMetadata({
@@ -102,14 +102,12 @@ export default async function StudyPathPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Hero
-        heading={studyPath?.title}
-        container={true}
-        children={getStartedCta()}
-      />
+      <Hero heading={studyPath?.title} container={true}>
+        {getStartedCta()}
+      </Hero>
       <div className="container flex gap-12">
         <div className="w-full lg:w-[65%] space-y-6">
-          <StudyPathsList questions={questions} />
+          <StudyPathsList questions={questions} studyPath={studyPath} />
         </div>
         <StudyPathSidebar studyPath={studyPath} />
       </div>

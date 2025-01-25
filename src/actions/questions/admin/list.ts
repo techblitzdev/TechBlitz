@@ -13,6 +13,11 @@ export const getQuestions = async (opts: GetQuestionsOpts) => {
     },
     include: {
       answers: true,
+      tags: {
+        include: {
+          tag: true,
+        },
+      },
     },
   });
 

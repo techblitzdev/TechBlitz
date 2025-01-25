@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import {
   Carousel,
   CarouselContent,
@@ -25,8 +25,6 @@ export default function QuestionCarousel({
   heading,
   description,
   image,
-  tag,
-  difficulty,
   children,
   studyPath,
 }: QuestionCarouselProps) {

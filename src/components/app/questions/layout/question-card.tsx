@@ -21,7 +21,8 @@ export function QuestionCardSkeleton() {
   return (
     <div className="flex flex-col space-y-5 items-start bg-black-75 border border-black-50 p-5 rounded-lg w-full relative overflow-hidden">
       <div className="flex flex-col gap-y-2 w-full">
-        <div className="flex w-full justify-between items-center">
+        <div className="flex items-center gap-x-2">
+          <div className="h-5 w-5 rounded-full bg-black-50 animate-pulse" />
           <div className="h-6 w-3/4 bg-black-50 rounded animate-pulse" />
         </div>
         <div className="text-start text-xs">
@@ -29,7 +30,6 @@ export function QuestionCardSkeleton() {
         </div>
       </div>
       <div className="flex items-center gap-x-2">
-        <div className="h-5 w-5 rounded-full bg-black-50 animate-pulse" />
         <div className="h-5 w-20 bg-black-50 rounded animate-pulse" />
       </div>
       <div className="mt-5 w-full flex justify-between items-end z-10 relative">
@@ -108,9 +108,20 @@ export default function QuestionCard(opts: {
     >
       <div className="flex flex-col gap-y-4 md:gap-y-5 w-full">
         <div className="flex flex-col md:flex-row w-full justify-between gap-2 md:gap-5">
-          <h6 className="text-lg text-wrap text-start line-clamp-2 flex-grow">
-            {title}
-          </h6>
+          <div className="flex items-center gap-x-2">
+            {questionData.userAnswers && questionData.userAnswers.length > 0 ? (
+              questionData.userAnswers[0].correctAnswer ? (
+                <CheckCircle className="flex-shrink-0 size-5 text-green-500" />
+              ) : (
+                <Circle className="flex-shrink-0 size-5 text-black-50" />
+              )
+            ) : (
+              <Circle className="flex-shrink-0 size-5 text-black-50" />
+            )}
+            <h6 className="text-lg text-wrap text-start line-clamp-2 flex-grow">
+              {title}
+            </h6>
+          </div>
           {questionData?.difficulty && userCanAccess ? (
             <div className="h-fit order-first md:order-last">
               <Chip
@@ -145,35 +156,6 @@ export default function QuestionCard(opts: {
           )}
         </div>
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
-          <div className="flex items-center gap-x-2">
-            {questionData.userAnswers && questionData.userAnswers.length > 0 ? (
-              <div>
-                {questionData.userAnswers[0].correctAnswer ? (
-                  <CheckCircle className="flex-shrink-0 size-5 text-green-500" />
-                ) : (
-                  <Circle className="flex-shrink-0 size-5 text-black-50" />
-                )}
-              </div>
-            ) : (
-              <Circle className="flex-shrink-0 size-5 text-black-50" />
-            )}
-            <div className="text-sm text-gray-300">
-              {questionData.userAnswers &&
-              questionData.userAnswers.length > 0 ? (
-                questionData.userAnswers[0].correctAnswer ? (
-                  <p>Correct</p>
-                ) : (
-                  <p>Incorrect</p>
-                )
-              ) : (
-                <div className="relative">
-                  <p className="transition-opacity duration-300 whitespace-nowrap flex items-center gap-x-1">
-                    Not Answered
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
           {showSubmissions && (
             <Suspense
               fallback={
@@ -184,7 +166,6 @@ export default function QuestionCard(opts: {
                 </div>
               }
             >
-              <span className="hidden sm:block text-gray-300">•</span>
               <QuestionStats
                 identifier={identifier}
                 value={questionData[identifier] || ''}
@@ -214,7 +195,7 @@ export default function QuestionCard(opts: {
 
       <div className="w-full flex justify-between items-end z-10 relative">
         {!customQuestion && (questionData?.tags?.length ?? 0) > 0 && (
-          <div className="flex gap-4 items-end mt-5 ">
+          <div className="flex gap-4 items-end ">
             <div className="flex items-center gap-1 space-y-0.5 text-start">
               <TagDisplay
                 tags={questionData?.tags || []}
@@ -226,7 +207,7 @@ export default function QuestionCard(opts: {
           </div>
         )}
         {questionData?.bookmarks && questionData?.bookmarks.length > 0 && (
-          <div className="flex items-center gap-x-3 mt-5">
+          <div className="flex items-center gap-x-3">
             <TooltipProvider>
               <Tooltip delayDuration={0}>
                 <TooltipTrigger>
@@ -246,7 +227,7 @@ export default function QuestionCard(opts: {
           </div>
         )}
         {questionData?.questionDate && questionData?.dailyQuestion && (
-          <div className="flex items-center gap-x-3 mt-5">
+          <div className="flex items-center gap-x-3">
             <Chip
               color="bg-black-100"
               text={questionData.questionDate}

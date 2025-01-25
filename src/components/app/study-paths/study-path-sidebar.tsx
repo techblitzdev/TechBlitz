@@ -10,6 +10,12 @@ export default function StudyPathSidebar(opts: { studyPath: StudyPath }) {
           <h6 className="text-xl underline">Summary</h6>
           <p className="text-sm text-gray-400">{studyPath.description}</p>
         </div>
+        <div className="">
+          <h6 className="text-xl underline">Create a goal</h6>
+          <p className="text-sm text-gray-400">
+            Set a goal to complete the study path.
+          </p>
+        </div>
       </div>
     </aside>
   );

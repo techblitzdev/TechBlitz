@@ -19,10 +19,10 @@ export const studyPaths: StudyPath[] = [
       '1kk8m6cea9w9',
       // reverse a string
       'hsrm641thqy',
-      // count the vowels
-      '162am6bd9zxl',
       // find largest number in array
       'hsrm641odxl',
+      // count the vowels
+      '162am6bd9zxl',
       // capitalize each word
       '1kk8m6c3j1n8',
     ],

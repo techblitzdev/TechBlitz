@@ -1,12 +1,9 @@
 import SignupForm from '@/components/marketing/global/waitlist-form';
 import Link from 'next/link';
 import AnimatedSpan from '@/components/ui/animated-span';
-import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 import { ArrowRight } from 'lucide-react';
 
-export default async function HomepageHero() {
-  const dailyQuestion = await getTodaysQuestion();
-
+export default function HomepageHero() {
   const animatedSpanContent = (
     <div className="flex items-center group">
       <span className="hidden md:block">
@@ -32,15 +29,13 @@ export default async function HomepageHero() {
           Learning to code <br /> made simple
         </h1>
         <p className="font-onest max-w-4xl text-gray-400 text-lg">
-          Learn with personalized learning paths, progress tracking, and
-          interactive coding challenges. <br />
-          Replace boring coding exercises with industry-standard questions.
+          Learn to code with personalized learning paths, progress tracking, and
+          interactive <br /> coding challenges. Replace boring coding exercises
+          with industry-standard questions.
         </p>
-        {dailyQuestion && (
-          <div className="mt-3">
-            <SignupForm />
-          </div>
-        )}
+        <div className="mt-3">
+          <SignupForm />
+        </div>
       </div>
     </section>
   );

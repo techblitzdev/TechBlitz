@@ -65,16 +65,24 @@ export default function SidebarFooterComponent(opts: {
             </Button>
           </SidebarMenuItem>
         )}
-        {/** if there is no user, we render a login button */}
+        {/** if there is no user, we render a login / signup button */}
         {!user ? (
-          <SidebarMenuItem>
+          <SidebarMenuItem className="group-data-[collapsible=icon]:hidden flex flex-col gap-2">
             <Button
-              variant="accent"
+              variant="default"
               fullWidth
-              className="mt-4"
+              className=""
               href={`/login?redirectUrl=${pathname}`}
             >
               Login
+            </Button>
+            <Button
+              variant="accent"
+              fullWidth
+              className=""
+              href={`/signup?redirectUrl=${pathname}`}
+            >
+              Signup
             </Button>
           </SidebarMenuItem>
         ) : (

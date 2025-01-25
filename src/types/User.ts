@@ -84,6 +84,8 @@ export type UserRecord = Pick<
   | 'howDidYouHearAboutTechBlitz'
   | 'referralCode'
   | 'aboutMeAiHelp'
+  | 'studyPathEnrollments'
+  | 'studyPathGoals'
 >;
 
 // First, create a type that excludes 'uid' from the partial requirement

@@ -1,13 +1,17 @@
 import { getQuestions } from '@/actions/questions/admin/list';
+import { enrollInStudyPath } from '@/actions/study-paths/enroll';
 import StudyPathsList from '@/components/app/study-paths/list';
 import StudyPathSidebar from '@/components/app/study-paths/study-path-sidebar';
 import Hero from '@/components/global/hero';
 import { Button } from '@/components/ui/button';
+import { useUserServer } from '@/hooks/use-user-server';
 import { QuizJsonLd } from '@/types/Seo';
+import { UserRecord } from '@/types/User';
 import { capitalise, getBaseUrl } from '@/utils';
 import { StudyPath, studyPaths } from '@/utils/constants/study-paths';
 import { createMetadata } from '@/utils/seo';
 import { ArrowRightIcon, Sparkles } from 'lucide-react';
+import { redirect } from 'next/navigation';
 
 export async function generateMetadata({
   params,
@@ -44,16 +48,35 @@ export async function generateMetadata({
   });
 }
 
-const getStartedCta = (studyPath: StudyPath) => {
+const getStartedCta = async (studyPath: StudyPath) => {
+  const user = await useUserServer();
+
+  // the button will be disabled if the user is a free user and has reached the maximum number of study paths
+  // the button will be disabled if the user is already enrolled in the study path
+  const isDisabled =
+    user?.userLevel === 'FREE' &&
+    (user?.studyPathEnrollments?.length ?? 0) === 0;
+
   return (
-    <Button
-      href={`/questions/${studyPath.questionSlugs[0]}`}
-      variant="secondary"
-      className="z-30 relative"
+    <form
+      action={async () => {
+        'use server';
+        await enrollInStudyPath(studyPath.slug);
+
+        // redirect to the first question in the study path
+        redirect(`/questions/${studyPath.questionSlugs[0]}`);
+      }}
     >
-      Start learning
-      <ArrowRightIcon className="w-4 h-4" />
-    </Button>
+      <Button
+        type="submit"
+        variant="secondary"
+        className="z-30 relative flex items-center gap-x-2"
+        disabled={isDisabled}
+      >
+        Enroll now
+        <ArrowRightIcon className="w-4 h-4" />
+      </Button>
+    </form>
   );
 };
 
@@ -100,6 +123,7 @@ export default async function StudyPathPage({
     teaches: 'coding',
   };
 
+  // TODO: BETTER DISPLAY ERRORS
   if (!studyPath) {
     return <div>Study path not found</div>;
   }

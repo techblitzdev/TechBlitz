@@ -15,10 +15,16 @@ export const studyPaths: StudyPath[] = [
       'Learn the essential concepts of JavaScript to get you started on your journey to becoming a JavaScript developer. Learn the basics of variables, flow control, functions, arrays, objects, and more.',
     heroChip: 'Everything you need to kickstart your JavaScript journey',
     questionSlugs: [
+      // if statement basics
+      'javascript-if-statement-basics',
       // sum of two numbers
       'sum-two-numbers',
       // is number even or odd
       'number-is-odd-or-even',
+      // string concatenation
+      'javascript-string-concatenation',
+      // string concatenation re-enforced
+      'javascript-greeting-string-concatenation',
       // reverse a string
       'reverse-a-string',
       // find largest number in array

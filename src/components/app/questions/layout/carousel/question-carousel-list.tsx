@@ -17,13 +17,11 @@ const questionsCarousels = [
     studyPath: 'javascript-fundamentals',
   },
   {
-    tag: [],
-    title: 'Beginner Questions',
-    description:
-      'Learn the basics of programming with these beginner questions.',
-    image: '/images/beginner.png',
-    difficulty: 'BEGINNER' as QuestionDifficulty,
-    studyPath: 'beginner-questions',
+    tag: ['arrays', 'Array', 'array-methods'],
+    title: 'Arrays',
+    description: 'Learn all the key concepts of arrays in JavaScript.',
+    image: '/images/arrays.png',
+    studyPath: 'arrays',
   },
   {
     tag: ['javascript', 'JavaScript', 'javaScript', 'generators'],
@@ -49,13 +47,6 @@ const questionsCarousels = [
     studyPath: 'react-hooks',
   },
   {
-    tag: ['arrays', 'Array', 'array-methods'],
-    title: 'Arrays',
-    description: 'Learn all the key concepts of arrays in JavaScript.',
-    image: '/images/arrays.png',
-    studyPath: 'arrays',
-  },
-  {
     tag: ['async', 'promises'],
     title: 'Asynchronous Programming',
     description: 'Learn how to handle asynchronous operations in JavaScript.',
@@ -70,7 +61,7 @@ export default function QuestionsCarouselList({
   user: UserRecord | null;
 }) {
   return (
-    <div className="flex flex-col gap-y-16 md:gap-y-28 pt-10">
+    <div className="flex flex-col gap-y-16 md:gap-y-20 pt-10">
       {questionsCarousels.map((carousel, index) => (
         <Suspense
           key={`carousel-${index}-${carousel.tag.join('-')}-${carousel.title}`}
@@ -81,12 +72,10 @@ export default function QuestionsCarouselList({
             description={carousel.description}
             image={carousel.image}
             tag={carousel.tag}
-            difficulty={carousel.difficulty}
             studyPath={carousel.studyPath}
           >
             <QuestionCarouselContent
               tag={carousel.tag}
-              difficulty={carousel.difficulty}
               type={carousel.type}
               user={user}
             />

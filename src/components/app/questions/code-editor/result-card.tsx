@@ -56,7 +56,7 @@ export default function ResultCard({ result, index }: ResultProps) {
               <div className="flex flex-col space-y-1">
                 <span className="font-medium text-white">Input:</span>
                 <code className="px-2 py-1 bg-black-25 rounded">
-                  ({result.input.join(', ')})
+                  {JSON.stringify(result.input)}
                 </code>
               </div>
 

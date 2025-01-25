@@ -17,6 +17,8 @@ export const studyPaths: StudyPath[] = [
     questionSlugs: [
       // if statement basics
       'javascript-if-statement-basics',
+      // determine age group with if statement
+      'determine-age-group',
       // sum of two numbers
       'sum-two-numbers',
       // is number even or odd
@@ -27,12 +29,43 @@ export const studyPaths: StudyPath[] = [
       'javascript-greeting-string-concatenation',
       // reverse a string
       'reverse-a-string',
-      // find largest number in array
-      'find-largest-number',
       // count the vowels
       'count-the-vowels',
       // capitalize each word
       'capitalize-each-word',
+      // remove duplicate characters
+      'remove-duplicate-characters',
+      // find longest word in sentence
+      'find-longest-word-in-sentence',
+      // sum of array with for loop
+      'for-loop-sum-of-array',
+    ],
+    educationLevel: 'beginner',
+  },
+  {
+    title: 'Arrays',
+    slug: 'arrays',
+    description: 'Learn how to use different array methods in JavaScript.',
+    heroChip: 'Learn how to use Arrays in JavaScript',
+    questionSlugs: [
+      // getting the length of an array
+      'get-array-length-javascript',
+      // find largest number in array
+      'find-largest-number',
+      // sum of array with for loop
+      'for-loop-sum-of-array',
+      // merge two arrays without modifying original
+      'merge-arrays-without-modifying-original',
+      // difference between map and foreach
+      'difference-map-foreach-javascript-array-methods',
+      // array reassignment push output
+      'array-reassignment-push-output',
+      // Calculate Sum of Even Numbers in JavaScript Array Using Array Methods
+      'combining-array-methods',
+      // remove falsy values from array
+      'remove-falsy-values-from-array',
+      // double the numbers
+      'double-the-numbers',
     ],
     educationLevel: 'beginner',
   },
@@ -52,14 +85,6 @@ export const studyPaths: StudyPath[] = [
       'Learn how to use React Hooks through interactive coding challenges',
     questionSlugs: [],
     educationLevel: 'intermediate',
-  },
-  {
-    title: 'Arrays',
-    slug: 'arrays',
-    description: 'Learn the basics of Arrays',
-    heroChip: 'Learn how to use Arrays in JavaScript',
-    questionSlugs: [],
-    educationLevel: 'beginner',
   },
   {
     title: 'Asynchronous Programming',

@@ -237,10 +237,15 @@ export const QuestionSingleContextProvider = ({
           const received =
             typeof result === 'object' ? JSON.stringify(result) : result;
 
+          // check if the expected is an array, if it is, convert wrap it in an array
+          const expected = Array.isArray(test.expected)
+            ? `[${test.expected.join(',')}]`
+            : test.expected;
+
           return {
-            passed: received == test.expected,
+            passed: expected == received,
             input: test.input,
-            expected: test.expected,
+            expected,
             received,
           };
         } catch (execError) {

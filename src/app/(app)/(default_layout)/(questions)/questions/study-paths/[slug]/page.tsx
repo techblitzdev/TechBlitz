@@ -49,7 +49,7 @@ const getStartedCta = (studyPath: StudyPath) => {
     <Button
       href={`/questions/${studyPath.questionSlugs[0]}`}
       variant="secondary"
-      className="z-30"
+      className="z-30 relative"
     >
       Start learning
       <ArrowRightIcon className="w-4 h-4" />
@@ -59,7 +59,7 @@ const getStartedCta = (studyPath: StudyPath) => {
 
 const heroChip = (studyPath: StudyPath) => {
   return (
-    <span className="text-xs text-white px-2 py-1 rounded-full w-fit flex items-center gap-x-2">
+    <span className="text-xs text-white px-2 py-1 rounded-full w-fit flex items-center gap-x-2 z-20">
       <Sparkles className="size-3 text-yellow-400 fill-yellow-500" />
       {studyPath?.heroChip}
     </span>
@@ -115,18 +115,20 @@ export default async function StudyPathPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Hero
-        heading={studyPath?.title}
-        container={true}
-        chip={heroChip(studyPath)}
-      >
-        {getStartedCta(studyPath)}
-      </Hero>
-      <div className="container flex gap-12">
-        <div className="w-full lg:w-[65%] space-y-6">
-          <StudyPathsList questions={questions} studyPath={studyPath} />
+      <div className="flex flex-col gap-y-12">
+        <Hero
+          heading={studyPath?.title}
+          container={true}
+          chip={heroChip(studyPath)}
+        >
+          {getStartedCta(studyPath)}
+        </Hero>
+        <div className="container flex gap-12">
+          <div className="w-full lg:w-[65%] space-y-6">
+            <StudyPathsList questions={questions} studyPath={studyPath} />
+          </div>
+          <StudyPathSidebar studyPath={studyPath} />
         </div>
-        <StudyPathSidebar studyPath={studyPath} />
       </div>
     </>
   );

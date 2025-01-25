@@ -102,7 +102,7 @@ export default function QuestionCard(opts: {
       href={href}
       key={questionData.uid}
       className={cn(
-        'flex flex-col space-y-5 items-start bg-black-75 border border-black-50 hover:border-black-100 duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-[[data-pending]]:animate-pulse',
+        'flex flex-col space-y-5 items-start border border-black-50 hover:border-black-100 duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-[[data-pending]]:animate-pulse',
         recommendedQuestion && 'border-accent'
       )}
     >
@@ -201,7 +201,7 @@ export default function QuestionCard(opts: {
                 tags={questionData?.tags || []}
                 numberOfTags={numberOfTags}
                 showcaseTag={showcaseTag}
-                variant="secondary"
+                variant="default"
               />
             </div>
           </div>

@@ -2,12 +2,13 @@ import { getQuestions } from '@/actions/questions/admin/list';
 import StudyPathsList from '@/components/app/study-paths/list';
 import StudyPathSidebar from '@/components/app/study-paths/study-path-sidebar';
 import Hero from '@/components/global/hero';
+import AnimatedSpan from '@/components/ui/animated-span';
 import { Button } from '@/components/ui/button';
 import { QuizJsonLd } from '@/types/Seo';
 import { capitalise, getBaseUrl } from '@/utils';
 import { studyPaths } from '@/utils/constants/study-paths';
 import { createMetadata } from '@/utils/seo';
-import { ArrowRightIcon } from 'lucide-react';
+import { ArrowRightIcon, Sparkles } from 'lucide-react';
 
 export async function generateMetadata({
   params,
@@ -50,6 +51,15 @@ const getStartedCta = () => {
       Get started
       <ArrowRightIcon className="w-4 h-4" />
     </Button>
+  );
+};
+
+const heroChip = () => {
+  return (
+    <span className="text-xs text-white px-2 py-1 rounded-full w-fit flex items-center gap-x-2">
+      <Sparkles className="size-3 text-yellow-400 fill-yellow-500" />
+      Everything you need to kickstart your learning
+    </span>
   );
 };
 
@@ -102,7 +112,7 @@ export default async function StudyPathPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Hero heading={studyPath?.title} container={true}>
+      <Hero heading={studyPath?.title} container={true} chip={heroChip()}>
         {getStartedCta()}
       </Hero>
       <div className="container flex gap-12">

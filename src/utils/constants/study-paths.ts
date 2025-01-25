@@ -11,7 +11,7 @@ export const studyPaths: StudyPath[] = [
     title: 'JavaScript Fundamentals',
     slug: 'javascript-fundamentals',
     description:
-      'Learn the essential concepts of JavaScript to get you started on your journey to becoming a JavaScript developer.',
+      'Learn the essential concepts of JavaScript to get you started on your journey to becoming a JavaScript developer. Learn the basics of variables, flow control, functions, arrays, objects, and more.',
     questionUids: [
       // sum of two numbers
       '3h39wdw39d3qw-9di3jj3w890jwdio',

@@ -1,5 +1,4 @@
 import type { StudyPath } from '@/utils/constants/study-paths';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { BookOpen, Sparkles, Target } from 'lucide-react';
 
@@ -39,7 +38,7 @@ export default function StudyPathSidebar({
           </div>
           <p className="text-sm text-muted-foreground">
             Upgrade to premium to get a personalized study plan to accelerate
-            your learning.
+            your learning by 3x.
           </p>
           <Button
             href="https://dub.sh/upgrade-techblitz"

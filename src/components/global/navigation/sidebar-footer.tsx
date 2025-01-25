@@ -50,10 +50,10 @@ export default function SidebarFooterComponent(opts: {
       <SidebarMenu>
         {/** if sidebar is collapsed, hide the upgrade button */}
         {user?.userLevel === 'FREE' && (
-          <SidebarMenuItem className="font-semibold font-inter text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-75 p-6 group-data-[collapsible=icon]:hidden">
-            <p className="text-sm">Upgrade to Premium</p>
+          <SidebarMenuItem className="font-semibold font-inter text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-75 p-4 group-data-[collapsible=icon]:hidden">
+            <p className="text-sm">25% off all premium plans!</p>
             <p className="text-xs font-light">
-              Get access to all features and unlock your full potential.
+              Code 250USERS. Offer ends 31st January.
             </p>
             <Button
               variant="accent"

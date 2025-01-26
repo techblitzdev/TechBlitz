@@ -12,10 +12,6 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
   return (
     <Link
       href={`/questions/study-paths/${studyPath.slug}`}
-      style={{
-        background:
-          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
-      }}
       className="rounded-lg h-fit w-full overflow-hidden transition-all duration-300 hover:border-black border border-black-50"
     >
       <CardHeader className="relative p-0">

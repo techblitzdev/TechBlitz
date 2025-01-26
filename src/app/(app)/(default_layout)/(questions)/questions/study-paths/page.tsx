@@ -19,10 +19,10 @@ import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/use-user-server';
 import ContinueJourney from '@/components/global/navigation/continue-journey-button';
-import { ArrowRightIcon } from 'lucide-react';
-
-// revalidate every 10 minutes
-export const revalidate = 600;
+import { ArrowRightIcon, Sparkles } from 'lucide-react';
+import { getAllStudyPaths } from '@/utils/data/study-paths/get';
+import { StudyPathCard } from '@/components/app/study-paths/study-path-card';
+import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -80,21 +80,76 @@ const heroDescription = (
 export default async function ExploreQuestionsPage() {
   const user = await useUserServer();
 
+  const studyPaths = await getAllStudyPaths();
+
+  // group study paths by category
+  const studyPathsByCategory: Record<string, typeof studyPaths> =
+    studyPaths.reduce(
+      (acc, studyPath) => {
+        const category = studyPath.category || 'Uncategorized';
+        if (!acc[category]) {
+          acc[category] = [];
+        }
+        acc[category].push(studyPath);
+        return acc;
+      },
+      {} as Record<string, typeof studyPaths>
+    );
+
   return (
-    <>
+    <div className="flex flex-col gap-y-12 max-w-7xl mx-auto">
       <Hero
         heading="Study paths"
         subheading={heroDescription}
-        container={false}
+        container={true}
       />
-      <div className="flex flex-col xl:flex-row mt-5 gap-16">
-        <div className="w-full lg:min-w-[70%] space-y-6">
-          <QuestionsCarouselList user={user} />
+      <div className="lg:container flex flex-col lg:flex-row mt-5 gap-16">
+        <div className="w-full lg:w-[70%] flex flex-col gap-12">
+          {Object.entries(studyPathsByCategory).map(([category, paths]) => (
+            <div key={category} className="space-y-6">
+              <h2 className="text-2xl font-bold text-white">{category}</h2>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {paths.map((studyPath) => (
+                  <StudyPathCard key={studyPath.uid} studyPath={studyPath} />
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
-        <Suspense fallback={<QuestionPageSidebarLoading />}>
-          <QuestionPageSidebar />
-        </Suspense>
+        <aside className="w-full lg:w-[30%] flex flex-row lg:flex-col gap-5 order-first lg:order-last">
+          <div className="flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit">
+            <div className="flex items-center space-x-2 text-white">
+              <QuestionMarkCircledIcon className="size-5 text-white" />
+              <span>What are study paths?</span>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Study paths are a curated list of coding challenges. They are
+              designed to ensure that you are getting the most out of your
+              learning, by providing a structured way to practice and improve
+              your skills.
+            </p>
+          </div>
+          {user?.userLevel === 'FREE' && (
+            <div className="flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit">
+              <div className="flex items-center space-x-2 text-white">
+                <Sparkles className="size-5 text-yellow-400 fill-yellow-500" />
+                <span>Looking for a personalized study plan?</span>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Upgrade to premium to get a personalized study plan to
+                accelerate your learning by 3x.
+              </p>
+              <Button
+                href="https://dub.sh/upgrade-techblitz"
+                className="mt-2 w-full"
+                variant="accent"
+              >
+                Upgrade to Premium
+              </Button>
+            </div>
+          )}
+        </aside>
       </div>
-    </>
+    </div>
   );
 }

@@ -189,26 +189,31 @@ export default async function StudyPathPage({
         >
           <GetStartedCta studyPath={studyPath} />
         </Hero>
-        <div className="container flex gap-12">
+        <div className="lg:container flex flex-col lg:flex-row gap-12">
           <div className="w-full lg:w-[65%] space-y-6">
-            <div className="flex flex-col gap-y-2 w-full">
-              <p className="text-sm text-gray-400 font-onest">
-                {Math.round(
-                  user?.studyPathEnrollments?.find(
-                    (e) => e.studyPathUid === studyPath.uid
-                  )?.progress ?? 0
-                )}
-                % completed
-              </p>
-              <Progress
-                className="border border-black-50 bg-black-50"
-                value={
-                  user?.studyPathEnrollments?.find(
-                    (e) => e.studyPathUid === studyPath.uid
-                  )?.progress ?? 0
-                }
-              />
-            </div>
+            {/** only show if user is enrolled */}
+            {user?.studyPathEnrollments?.find(
+              (e) => e.studyPathUid === studyPath.uid
+            ) && (
+              <div className="flex flex-col gap-y-2 w-full">
+                <p className="text-sm text-gray-400 font-onest">
+                  {Math.round(
+                    user?.studyPathEnrollments?.find(
+                      (e) => e.studyPathUid === studyPath.uid
+                    )?.progress ?? 0
+                  )}
+                  % completed
+                </p>
+                <Progress
+                  className="border border-black-50 bg-black-50"
+                  value={
+                    user?.studyPathEnrollments?.find(
+                      (e) => e.studyPathUid === studyPath.uid
+                    )?.progress ?? 0
+                  }
+                />
+              </div>
+            )}
             <StudyPathsList questions={questions} studyPath={studyPath} />
           </div>
           <StudyPathSidebar studyPath={studyPath} />

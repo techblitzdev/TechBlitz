@@ -21,6 +21,8 @@ model StudyPath {
 
     // the average completion time for the study path (days)
     averageCompletionTime Int?
+
+    category String?
 }
 
 // Pivot model to handle the many-to-many relationship

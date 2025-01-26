@@ -15,6 +15,26 @@ export const getStudyPath = async (slug: string) => {
   });
 };
 
+export const getAllStudyPaths = async () => {
+  return await prisma.studyPath.findMany({
+    orderBy: {
+      createdAt: 'asc',
+    },
+  });
+};
+
+export const getUserStudyPaths = async () => {
+  const user = await getUser();
+  return await prisma.userStudyPath.findMany({
+    where: {
+      userUid: user?.uid,
+    },
+    include: {
+      studyPath: true,
+    },
+  });
+};
+
 /**
  * Check if a user is enrolled in a study path
  * @param studyPathUid - The uid of the study path

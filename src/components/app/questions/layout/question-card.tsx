@@ -75,6 +75,7 @@ export default function QuestionCard(opts: {
   user: UserRecord | null;
   recommendedQuestion?: boolean;
   type?: 'study-path' | 'standard-question';
+  studyPathSlug?: string;
 }) {
   const {
     questionData,
@@ -86,6 +87,7 @@ export default function QuestionCard(opts: {
     user,
     recommendedQuestion = false,
     type = 'standard-question',
+    studyPathSlug,
   } = opts;
 
   // if identifier is uid, this is a custom question
@@ -101,7 +103,7 @@ export default function QuestionCard(opts: {
 
   // if type is study-path, add query param to href
   if (type === 'study-path') {
-    href += `?type=study-path`;
+    href += `?type=study-path&study-path=${studyPathSlug}`;
   }
 
   return (

@@ -32,6 +32,7 @@ export default async function StudyPathsList(opts: {
               numberOfTags={3}
               type="study-path"
               showSubmissions={false}
+              studyPathSlug={studyPath.slug}
             />
           </>
         ))}

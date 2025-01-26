@@ -30,6 +30,7 @@ export default function QuestionNavigation(opts: {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const type = searchParams?.get('type');
+  const studyPathSlug = searchParams?.get('study-path');
 
   const [nextQuestion, setNextQuestion] = useState<string | null | undefined>(
     null
@@ -43,8 +44,8 @@ export default function QuestionNavigation(opts: {
   useEffect(() => {
     // if this is a study-path, get the next/prev questions from the study-path object
     const studyPath =
-      type === 'study-path'
-        ? studyPaths.find((path) => path.questionSlugs.includes(slug))
+      type === 'study-path' && studyPathSlug
+        ? studyPaths.find((path) => path.slug === studyPathSlug)
         : null;
 
     if (studyPath) {
@@ -68,16 +69,18 @@ export default function QuestionNavigation(opts: {
         setPreviousQuestion(nextPrev?.previousQuestion);
       });
     }
-  }, [pathname, searchParams, slug, type, nextPrevPromise]);
+  }, [pathname, searchParams, slug, type, nextPrevPromise, studyPathSlug]);
 
   // if this is a study-path, add the type to the previous question
   const previousQuestionUrl =
-    type === 'study-path'
-      ? `${previousQuestion}?type=${type}`
+    type === 'study-path' && studyPathSlug
+      ? `${previousQuestion}?type=${type}&study-path=${studyPathSlug}`
       : previousQuestion;
 
   const nextQuestionUrl =
-    type === 'study-path' ? `${nextQuestion}?type=${type}` : nextQuestion;
+    type === 'study-path' && studyPathSlug
+      ? `${nextQuestion}?type=${type}&study-path=${studyPathSlug}`
+      : nextQuestion;
 
   return (
     <div className="flex items-center">

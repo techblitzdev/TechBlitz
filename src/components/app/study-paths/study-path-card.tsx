@@ -73,8 +73,8 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
           {user?.studyPathEnrollments?.find(
             (e) => e.studyPathUid === studyPath.uid
           )
-            ? 'Continue Learning'
-            : 'Start Learning'}
+            ? 'In progress'
+            : 'Start learning'}
         </Button>
       </CardFooter>
     </Link>

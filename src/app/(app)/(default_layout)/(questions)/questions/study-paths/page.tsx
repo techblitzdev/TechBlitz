@@ -5,10 +5,11 @@ import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/use-user-server';
 import ContinueJourney from '@/components/global/navigation/continue-journey-button';
-import { ArrowRightIcon, Sparkles } from 'lucide-react';
+import { ArrowRightIcon, Mail, Sparkles } from 'lucide-react';
 import { getAllStudyPaths } from '@/utils/data/study-paths/get';
 import { StudyPathCard } from '@/components/app/study-paths/study-path-card';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
+import FeedbackButton from '@/components/ui/feedback-button';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -114,6 +115,17 @@ export default async function ExploreQuestionsPage() {
               learning, by providing a structured way to practice and improve
               your skills.
             </p>
+          </div>
+          <div className="flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit">
+            <div className="flex items-center space-x-2 text-white">
+              <Mail className="size-5 text-white" />
+              <span>Suggest a study path</span>
+            </div>
+
+            <FeedbackButton
+              title="Suggest a study path"
+              description="If you have a study path that you would like to see on TechBlitz, please let us know and we will happily add it to our collection."
+            />
           </div>
           {user?.userLevel === 'FREE' && (
             <div className="flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit">

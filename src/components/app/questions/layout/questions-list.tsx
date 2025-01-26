@@ -77,12 +77,7 @@ export default async function QuestionsList({
         {recommendedQuestion?.map((q) => (
           <QuestionCard
             key={q.uid}
-            questionData={
-              {
-                ...q,
-                userAnswers: [],
-              } as QuestionWithoutAnswers & { userAnswers: Answer[] }
-            }
+            questionData={q}
             showSubmissions={showSubmissions}
             identifier={customQuestions ? 'uid' : 'slug'}
             customQuestion={customQuestions}
@@ -99,7 +94,7 @@ export default async function QuestionsList({
       {data.questions.map((q) => (
         <QuestionCard
           key={q.uid}
-          questionData={q as QuestionWithoutAnswers & { userAnswers: Answer[] }}
+          questionData={q}
           showSubmissions={showSubmissions}
           identifier={customQuestions ? 'uid' : 'slug'}
           customQuestion={customQuestions}

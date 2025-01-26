@@ -1,4 +1,4 @@
-import type { QuestionWithoutAnswers } from '@/types/Questions';
+import type { Question, QuestionWithoutAnswers } from '@/types/Questions';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import TagDisplay from '@/components/app/questions/previous/tag-display';
 import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
@@ -66,7 +66,7 @@ async function QuestionStats({
 }
 
 export default function QuestionCard(opts: {
-  questionData: QuestionWithoutAnswers & { userAnswers: Answer[] };
+  questionData: Question | QuestionWithoutAnswers;
   showSubmissions?: boolean;
   numberOfTags?: number;
   showcaseTag?: string;

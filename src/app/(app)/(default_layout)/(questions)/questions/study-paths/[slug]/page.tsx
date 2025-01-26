@@ -4,7 +4,7 @@ import StudyPathsList from '@/components/app/study-paths/list';
 import StudyPathSidebar from '@/components/app/study-paths/study-path-sidebar';
 import Hero from '@/components/global/hero';
 import { Button } from '@/components/ui/button';
-import { ArrowRightIcon, Sparkles } from 'lucide-react';
+import { ArrowRightIcon, ChevronLeft, Sparkles } from 'lucide-react';
 
 import { getQuestions } from '@/actions/questions/admin/list';
 import { enrollInStudyPath } from '@/actions/study-paths/enroll';
@@ -19,6 +19,12 @@ import { createMetadata } from '@/utils/seo';
 
 import { QuizJsonLd } from '@/types/Seo';
 import type { StudyPath } from '@prisma/client';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 export async function generateMetadata({
   params,
@@ -56,11 +62,11 @@ export async function generateMetadata({
 }
 
 const getStartedCta = async (studyPath: StudyPath) => {
-  const user = await useUserServer();
-
-  const isEnrolled = await isUserEnrolledInStudyPath(studyPath.uid);
-
-  console.log('isEnrolled', isEnrolled);
+  // run in parallel
+  const [user, isEnrolled] = await Promise.all([
+    useUserServer(),
+    isUserEnrolledInStudyPath(studyPath.uid),
+  ]);
 
   // the button will be disabled if the user is a free user and has reached the maximum number of study paths
   // the button will be disabled if the user is already enrolled in the study path
@@ -72,8 +78,9 @@ const getStartedCta = async (studyPath: StudyPath) => {
     <form
       action={async () => {
         'use server';
-        await enrollInStudyPath(studyPath.uid);
-
+        if (!isEnrolled) {
+          await enrollInStudyPath(studyPath.uid);
+        }
         // redirect to the first question in the study path
         redirect(`/question/${studyPath.questionSlugs[0]}?type=study-path`);
       }}
@@ -93,10 +100,27 @@ const getStartedCta = async (studyPath: StudyPath) => {
 
 const heroChip = (studyPath: StudyPath) => {
   return (
-    <span className="text-xs text-white px-2 py-1 rounded-full w-fit flex items-center gap-x-2 z-20">
+    <div className="text-xs text-white px-2 py-1 rounded-full w-fit flex items-center gap-x-2 z-20">
+      <TooltipProvider>
+        <Tooltip delayDuration={0}>
+          <TooltipTrigger asChild>
+            <Button
+              href="/questions/study-paths"
+              variant="default"
+              size="sm"
+              className="p-1 h-fit"
+            >
+              <ChevronLeft className="size-4 text-white" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Back to study paths</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
       <Sparkles className="size-3 text-yellow-400 fill-yellow-500" />
       {studyPath?.heroChip}
-    </span>
+    </div>
   );
 };
 

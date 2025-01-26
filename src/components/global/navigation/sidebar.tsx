@@ -194,10 +194,6 @@ export function AppSidebar(opts: {
             </>
           ),
         },
-        {
-          title: 'Personalized Questions',
-          url: '/questions/custom',
-        },
       ],
     },
     {

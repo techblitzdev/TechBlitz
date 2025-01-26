@@ -18,6 +18,7 @@ export const getQuestions = async (opts: GetQuestionsOpts) => {
           tag: true,
         },
       },
+      userAnswers: true,
     },
   });
 

@@ -40,11 +40,39 @@ export const enrollInStudyPath = async (studyPathUid: string) => {
     throw new Error('User already enrolled in study path');
   }
 
+  // check how many of the questions in the study path have been completed
+  // from outside the study path
+  const studyPathQuestions = await prisma.studyPath.findUnique({
+    where: {
+      uid: studyPathUid,
+    },
+  });
+
+  // from this, we need to get a % of the questions that have been completed
+  // from outside the study path
+  const completedQuestions = await prisma.answers.findMany({
+    where: {
+      question: {
+        slug: {
+          in: studyPathQuestions?.questionSlugs ?? [],
+        },
+      },
+      userUid: user.uid,
+    },
+  });
+
+  // get the percentage of questions that have been completed
+  const percentageCompleted =
+    (completedQuestions.length /
+      (studyPathQuestions?.questionSlugs?.length ?? 0)) *
+    100;
+
   // create the enrollment
   const enrollment = await prisma.userStudyPath.create({
     data: {
       userUid: user.uid,
       studyPathUid: studyPathUid,
+      progress: percentageCompleted,
     },
   });
 

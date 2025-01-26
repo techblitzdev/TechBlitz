@@ -1,8 +1,10 @@
+import { getUser } from '@/actions/user/authed/get-user';
 import { prisma } from '@/lib/prisma';
 
 type GetQuestionsOpts = { questionSlugs: string[] };
 
 export const getQuestions = async (opts: GetQuestionsOpts) => {
+  const user = await getUser();
   const { questionSlugs } = opts;
 
   const res = await prisma.questions.findMany({
@@ -18,7 +20,11 @@ export const getQuestions = async (opts: GetQuestionsOpts) => {
           tag: true,
         },
       },
-      userAnswers: true,
+      userAnswers: {
+        where: {
+          userUid: user?.uid,
+        },
+      },
     },
   });
 

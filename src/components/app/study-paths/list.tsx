@@ -1,7 +1,7 @@
 import QuestionCard from '@/components/app/questions/layout/question-card';
 import { useUserServer } from '@/hooks/use-user-server';
 
-import { Question, QuestionWithoutAnswers } from '@/types/Questions';
+import { Question } from '@/types/Questions';
 import type { StudyPath } from '@/utils/constants/study-paths';
 import { Suspense } from 'react';
 
@@ -23,15 +23,17 @@ export default async function StudyPathsList(opts: {
     <div className="space-y-6">
       <Suspense fallback={<div>Loading questions...</div>}>
         {sortedQuestions.map((question) => (
-          <QuestionCard
-            key={question.slug}
-            questionData={question}
-            identifier="slug"
-            user={user || null}
-            numberOfTags={3}
-            type="study-path"
-            showSubmissions={false}
-          />
+          <>
+            <QuestionCard
+              key={question.slug}
+              questionData={question}
+              identifier="slug"
+              user={user || null}
+              numberOfTags={3}
+              type="study-path"
+              showSubmissions={false}
+            />
+          </>
         ))}
       </Suspense>
     </div>

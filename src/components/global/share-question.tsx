@@ -10,22 +10,33 @@ import {
 } from '../ui/tooltip';
 import { toast } from 'sonner';
 
-export default function ShareQuestion() {
+export default function ShareQuestion({
+  content,
+  variant,
+}: {
+  content?: string;
+  variant?: 'outline' | 'ghost' | 'default';
+}) {
   const copyLink = () => {
     navigator.clipboard.writeText(window.location.href);
-    toast.success('Question link copied to clipboard!');
+    toast.success('Link copied to clipboard!');
   };
 
   return (
     <TooltipProvider>
       <Tooltip delayDuration={0}>
         <TooltipTrigger asChild>
-          <Button variant="ghost" size="icon" padding="none" onClick={copyLink}>
+          <Button
+            variant={variant || 'ghost'}
+            size="icon"
+            padding="none"
+            onClick={copyLink}
+          >
             <ShareIcon className="size-5" />
           </Button>
         </TooltipTrigger>
         <TooltipContent>
-          <p>Share this question!</p>
+          <p>{content || 'Share this question!'}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

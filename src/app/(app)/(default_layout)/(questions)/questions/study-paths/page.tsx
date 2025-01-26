@@ -1,18 +1,4 @@
 import { Suspense } from 'react';
-import dynamic from 'next/dynamic';
-
-const QuestionPageSidebar = dynamic(
-  () => import('@/components/app/questions/layout/question-page-sidebar'),
-  {
-    loading: () => <QuestionPageSidebarLoading />,
-  }
-);
-import QuestionPageSidebarLoading from '@/components/app/questions/layout/question-page-sidebar-loading';
-
-const QuestionsCarouselList = dynamic(
-  () =>
-    import('@/components/app/questions/layout/carousel/question-carousel-list')
-);
 
 import Hero from '@/components/global/hero';
 import { createMetadata } from '@/utils/seo';

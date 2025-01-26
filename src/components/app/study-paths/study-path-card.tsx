@@ -1,20 +1,8 @@
 import type { StudyPath } from '@prisma/client';
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
-import {
-  BookOpen,
-  CheckCircle,
-  Clock,
-  GraduationCap,
-  Users,
-} from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 import { useUserServer } from '@/hooks/use-user-server';
 import Link from 'next/link';
 
@@ -28,7 +16,7 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
         background:
           'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
-      className="rounded-lg h-fit w-full overflow-hidden transition-all duration-300 hover:shadow-lg border border-black-50"
+      className="rounded-lg h-fit w-full overflow-hidden transition-all duration-300 hover:border-black border border-black-50"
     >
       <CardHeader className="relative p-0">
         <div className="relative p-4 text-primary-foreground">

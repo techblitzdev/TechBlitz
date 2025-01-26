@@ -97,7 +97,7 @@ export default function OnboardingStepOne() {
     const subscription = form.watch((value) => {
       // TODO: fix this
       // @ts-ignore
-      setUser((prev) => {
+      setUser(() => {
         // Filter out any undefined values from arrays to ensure type safety
         const sanitizedValue = {
           ...value,

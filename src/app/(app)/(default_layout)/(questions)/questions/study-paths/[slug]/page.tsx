@@ -26,6 +26,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { Progress } from '@/components/ui/progress';
+import ShareQuestion from '@/components/global/share-question';
 
 export async function generateMetadata({
   params,
@@ -127,6 +128,18 @@ function HeroChip({ studyPath }: { studyPath: StudyPath }) {
   );
 }
 
+function HeroHeading({ studyPath }: { studyPath: StudyPath }) {
+  return (
+    <div className="flex w-full justify-between item-center">
+      <h1 className="relative z-20 text-3xl md:text-5xl text-wrap text-start font-inter max-w-2xl text-gradient from-white to-white/55 py-1">
+        {studyPath?.title}
+      </h1>
+      {/** share button */}
+      <ShareQuestion content="Share this study path" variant="default" />
+    </div>
+  );
+}
+
 export default async function StudyPathPage({
   params,
 }: {
@@ -183,7 +196,7 @@ export default async function StudyPathPage({
       />
       <div className="flex flex-col gap-y-12">
         <Hero
-          heading={studyPath?.title}
+          heading={<HeroHeading studyPath={studyPath} />}
           container={true}
           chip={<HeroChip studyPath={studyPath} />}
         >

@@ -13,14 +13,36 @@ export async function GET(request: Request) {
     const supabase = await createClient();
     const { data, error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error && data.user) {
-      // Check if user exists in database
-      const existingUser = await prisma.users.findUnique({
+      // First try to find user by uid
+      let existingUser = await prisma.users.findUnique({
         where: {
           uid: data.user.id,
         },
       });
 
-      // If user doesn't exist, create new user
+      // If not found by uid, try to find by email
+      if (!existingUser && data.user.email) {
+        existingUser = await prisma.users.findUnique({
+          where: {
+            email: data.user.email,
+          },
+        });
+
+        // If found by email but uid is different, update the uid
+        if (existingUser) {
+          existingUser = await prisma.users.update({
+            where: {
+              email: data.user.email,
+            },
+            data: {
+              uid: data.user.id,
+              updatedAt: new Date(),
+            },
+          });
+        }
+      }
+
+      // If user doesn't exist at all, create new user
       if (!existingUser) {
         await prisma.users.create({
           data: {

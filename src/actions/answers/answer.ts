@@ -377,4 +377,6 @@ const updateStudyPathProgress = async ({
       },
     });
   }
+
+  revalidateTag(`study-path-${studyPathSlug}`);
 };

@@ -1,4 +1,4 @@
-import { StudyPath, StudyPathGoal } from '@prisma/client';
+import { StudyPath, StudyPathGoal, UserStudyPath } from '@prisma/client';
 import { BaseRecord } from './BaseRecord';
 import { Question } from './Questions';
 import { RequireAtLeastOne } from './Utils';
@@ -54,10 +54,10 @@ export interface User extends BaseRecord {
   bookmarkedQuestions?: Question[];
 
   // the study paths the user has enrolled in
-  studyPathEnrollments?: StudyPath[];
+  studyPathEnrollments?: UserStudyPath[] | null;
 
   // the study path goals the user has set for themselves
-  studyPathGoals?: StudyPathGoal[];
+  studyPathGoals?: StudyPathGoal[] | null;
 }
 
 export type UserRecord = Pick<

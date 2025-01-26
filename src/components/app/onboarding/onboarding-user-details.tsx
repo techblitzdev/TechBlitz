@@ -95,19 +95,18 @@ export default function OnboardingStepOne() {
 
   useEffect(() => {
     const subscription = form.watch((value) => {
-      console.log('Form values changed:', value);
       setUser((prev) => {
         // Filter out any undefined values from arrays to ensure type safety
         const sanitizedValue = {
+          ...prev,
           ...value,
           stripeEmails: value.stripeEmails?.filter(
             (email): email is string => email !== undefined
           ),
+          studyPathEnrollments: prev.studyPathEnrollments,
+          studyPathGoals: prev.studyPathGoals,
         };
-        return {
-          ...prev,
-          ...sanitizedValue,
-        };
+        return sanitizedValue;
       });
     });
     return () => subscription.unsubscribe();

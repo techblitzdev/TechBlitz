@@ -25,6 +25,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { Progress } from '@/components/ui/progress';
 
 export async function generateMetadata({
   params,
@@ -75,26 +76,28 @@ const getStartedCta = async (studyPath: StudyPath) => {
     (user?.studyPathEnrollments?.length ?? 0) === 0;
 
   return (
-    <form
-      action={async () => {
-        'use server';
-        if (!isEnrolled) {
-          await enrollInStudyPath(studyPath.uid);
-        }
-        // redirect to the first question in the study path
-        redirect(`/question/${studyPath.questionSlugs[0]}?type=study-path`);
-      }}
-    >
-      <Button
-        type="submit"
-        variant="secondary"
-        className="z-30 relative flex items-center gap-x-2"
-        disabled={isDisabled}
+    <div className="flex flex-col gap-y-4 z-30 relative ">
+      <form
+        action={async () => {
+          'use server';
+          if (!isEnrolled) {
+            await enrollInStudyPath(studyPath.uid);
+          }
+          // redirect to the first question in the study path
+          redirect(`/question/${studyPath.questionSlugs[0]}?type=study-path`);
+        }}
       >
-        {isEnrolled ? 'Continue' : 'Enroll now'}
-        <ArrowRightIcon className="w-4 h-4" />
-      </Button>
-    </form>
+        <Button
+          type="submit"
+          variant="secondary"
+          className="flex items-center gap-x-2"
+          disabled={isDisabled}
+        >
+          {isEnrolled ? 'Continue' : 'Enroll now'}
+          <ArrowRightIcon className="w-4 h-4" />
+        </Button>
+      </form>
+    </div>
   );
 };
 
@@ -168,6 +171,8 @@ export default async function StudyPathPage({
     questionSlugs: studyPath?.questionSlugs ?? [],
   });
 
+  const user = await useUserServer();
+
   return (
     <>
       <script
@@ -184,6 +189,24 @@ export default async function StudyPathPage({
         </Hero>
         <div className="container flex gap-12">
           <div className="w-full lg:w-[65%] space-y-6">
+            <div className="flex flex-col gap-y-2 w-full">
+              <p className="text-sm text-gray-400 font-onest">
+                {Math.round(
+                  user?.studyPathEnrollments?.find(
+                    (e) => e.studyPathUid === studyPath.uid
+                  )?.progress ?? 0
+                )}
+                % completed
+              </p>
+              <Progress
+                className="border border-black-50 bg-black-50"
+                value={
+                  user?.studyPathEnrollments?.find(
+                    (e) => e.studyPathUid === studyPath.uid
+                  )?.progress ?? 0
+                }
+              />
+            </div>
             <StudyPathsList questions={questions} studyPath={studyPath} />
           </div>
           <StudyPathSidebar studyPath={studyPath} />

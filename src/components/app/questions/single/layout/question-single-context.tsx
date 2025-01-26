@@ -10,6 +10,7 @@ import { Answer } from '@/types/Answers';
 import { generateAnswerHelp } from '@/actions/ai/questions/answer-help';
 import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
 import { z } from 'zod';
+import { useSearchParams } from 'next/navigation';
 
 type QuestionSingleContextType = {
   question: Question;
@@ -84,6 +85,10 @@ export const QuestionSingleContextProvider = ({
   relatedQuestions: Promise<QuestionWithoutAnswers[]> | null;
   userAnswered: Promise<Answer | null>;
 }) => {
+  // for handling study path progress
+  const searchParams = useSearchParams();
+  const studyPathSlug = searchParams?.get('study-path');
+
   // STATE VARIABLES
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState<
@@ -175,6 +180,7 @@ export const QuestionSingleContextProvider = ({
         answerUid: selectedAnswer,
         userUid: user.uid,
         timeTaken,
+        studyPathSlug: studyPathSlug || undefined,
       };
 
       const {
@@ -270,6 +276,7 @@ export const QuestionSingleContextProvider = ({
         userUid: user?.uid || '',
         timeTaken: totalSeconds,
         allPassed,
+        studyPathSlug: studyPathSlug || undefined,
       });
 
       setCorrectAnswer(allPassed ? 'correct' : 'incorrect');

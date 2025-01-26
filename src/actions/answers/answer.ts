@@ -14,6 +14,8 @@ interface AnswerQuestionInput {
   userUid: string;
   timeTaken?: number;
   allPassed?: boolean;
+  // for handling study path progress
+  studyPathSlug?: string;
 }
 
 interface AnswerQuestionResponse {
@@ -207,6 +209,7 @@ export async function answerQuestion({
   userUid,
   timeTaken,
   allPassed,
+  studyPathSlug,
 }: AnswerQuestionInput): Promise<AnswerQuestionResponse> {
   // if no answerUid, then we are submitting a coding challenge
   if (!answerUid) {
@@ -248,6 +251,14 @@ export async function answerQuestion({
       correctAnswer,
       timeTaken,
     });
+
+    // if this is a study path, update the study path progress
+    if (studyPathSlug) {
+      await updateStudyPathProgress({
+        userUid,
+        studyPathSlug,
+      });
+    }
 
     return { userData, userAnswer };
   });
@@ -309,3 +320,61 @@ export async function updateAnswerDifficultyByQuestionUid(
     data: { difficulty },
   });
 }
+
+const updateStudyPathProgress = async ({
+  userUid,
+  studyPathSlug,
+}: {
+  userUid: string;
+  studyPathSlug: string;
+}) => {
+  // update the study path progress
+  const studyPath = await prisma.studyPath.findUnique({
+    where: { slug: studyPathSlug },
+  });
+
+  if (!studyPath) {
+    throw new Error('Study path not found');
+  }
+
+  const completedQuestions = await prisma.answers.findMany({
+    where: {
+      question: {
+        slug: {
+          in: studyPath?.questionSlugs ?? [],
+        },
+      },
+      userUid,
+    },
+  });
+
+  // get the percentage of questions that have been completed
+  const percentageCompleted =
+    (completedQuestions.length / (studyPath?.questionSlugs?.length ?? 0)) * 100;
+
+  // update with the percentage completed
+  await prisma.userStudyPath.update({
+    where: {
+      userUid_studyPathUid: {
+        userUid,
+        studyPathUid: studyPath.uid,
+      },
+    },
+    data: { progress: percentageCompleted },
+  });
+
+  // if the percentage completed is 100%, then we need to update the user's study path status
+  if (percentageCompleted === 100) {
+    await prisma.userStudyPath.update({
+      where: {
+        userUid_studyPathUid: {
+          userUid,
+          studyPathUid: studyPath.uid,
+        },
+      },
+      data: {
+        completedAt: new Date(),
+      },
+    });
+  }
+};

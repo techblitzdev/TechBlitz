@@ -2,7 +2,7 @@ import QuestionCard from '@/components/app/questions/layout/question-card';
 import { useUserServer } from '@/hooks/use-user-server';
 
 import { QuestionWithoutAnswers } from '@/types/Questions';
-import { StudyPath } from '@/utils/constants/study-paths';
+import type { StudyPath } from '@/utils/constants/study-paths';
 import { Suspense } from 'react';
 
 export default async function StudyPathsList(opts: {

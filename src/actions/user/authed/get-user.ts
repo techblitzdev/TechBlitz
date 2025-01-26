@@ -22,6 +22,13 @@ export const getUserFromDb = async (
     where: {
       uid: userUid,
     },
+    include: {
+      studyPathEnrollments: {
+        include: {
+          studyPath: true,
+        },
+      },
+    },
   });
 
   revalidateTag('user-details');

@@ -1,18 +1,24 @@
-import { getQuestions } from '@/actions/questions/admin/list';
-import { enrollInStudyPath } from '@/actions/study-paths/enroll';
+import { redirect } from 'next/navigation';
+
 import StudyPathsList from '@/components/app/study-paths/list';
 import StudyPathSidebar from '@/components/app/study-paths/study-path-sidebar';
 import Hero from '@/components/global/hero';
 import { Button } from '@/components/ui/button';
-import { useUserServer } from '@/hooks/use-user-server';
-import { QuizJsonLd } from '@/types/Seo';
-import { UserRecord } from '@/types/User';
-import { capitalise, getBaseUrl } from '@/utils';
-import { StudyPath, studyPaths } from '@/utils/constants/study-paths';
-import { getStudyPath } from '@/utils/data/study-paths/get';
-import { createMetadata } from '@/utils/seo';
 import { ArrowRightIcon, Sparkles } from 'lucide-react';
-import { redirect } from 'next/navigation';
+
+import { getQuestions } from '@/actions/questions/admin/list';
+import { enrollInStudyPath } from '@/actions/study-paths/enroll';
+import { useUserServer } from '@/hooks/use-user-server';
+
+import { capitalise, getBaseUrl } from '@/utils';
+import {
+  getStudyPath,
+  isUserEnrolledInStudyPath,
+} from '@/utils/data/study-paths/get';
+import { createMetadata } from '@/utils/seo';
+
+import { QuizJsonLd } from '@/types/Seo';
+import type { StudyPath } from '@prisma/client';
 
 export async function generateMetadata({
   params,
@@ -52,6 +58,10 @@ export async function generateMetadata({
 const getStartedCta = async (studyPath: StudyPath) => {
   const user = await useUserServer();
 
+  const isEnrolled = await isUserEnrolledInStudyPath(studyPath.uid);
+
+  console.log('isEnrolled', isEnrolled);
+
   // the button will be disabled if the user is a free user and has reached the maximum number of study paths
   // the button will be disabled if the user is already enrolled in the study path
   const isDisabled =
@@ -62,10 +72,10 @@ const getStartedCta = async (studyPath: StudyPath) => {
     <form
       action={async () => {
         'use server';
-        await enrollInStudyPath(studyPath.slug);
+        await enrollInStudyPath(studyPath.uid);
 
         // redirect to the first question in the study path
-        redirect(`/questions/${studyPath.questionSlugs[0]}`);
+        redirect(`/question/${studyPath.questionSlugs[0]}?type=study-path`);
       }}
     >
       <Button
@@ -74,7 +84,7 @@ const getStartedCta = async (studyPath: StudyPath) => {
         className="z-30 relative flex items-center gap-x-2"
         disabled={isDisabled}
       >
-        Enroll now
+        {isEnrolled ? 'Continue' : 'Enroll now'}
         <ArrowRightIcon className="w-4 h-4" />
       </Button>
     </form>

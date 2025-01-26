@@ -43,7 +43,7 @@ export default function Testimonials(opts: {
       <div className="container mx-auto px-4 flex flex-col lg:flex-row gap-12 lg:gap-24 items-center">
         <div className="flex flex-col gap-y-1 lg:w-1/3 items-center lg:items-start">
           <h2 className="text-4xl font-bold text-center lg:text-left text-gradient from-white to-white/75 py-1.5">
-            {opts.header || 'Endorsed by developers just like you'}
+            {opts.header || 'Loved by developers just like you'}
           </h2>
           <p className="text-gray-400 text-sm text-center lg:text-left">
             Discover how TechBlitz has empowered developers to level up their

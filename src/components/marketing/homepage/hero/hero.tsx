@@ -26,12 +26,11 @@ export default function HomepageHero() {
           <AnimatedSpan content={animatedSpanContent} />
         </Link>
         <h1 className="mt-3 text-5xl lg:text-[68px] !font-onest !font-medium tracking-tight max-w-5xl text-gradient from-white to-white/75 py-1.5">
-          Learning to code <br /> made simple
+          Learning to code <br /> made easy
         </h1>
         <p className="font-onest max-w-4xl text-gray-400 text-lg">
-          Learn to code with personalized learning paths, progress tracking, and
-          interactive <br /> coding challenges. Replace boring coding exercises
-          with industry-standard questions.
+          Replace boring coding exercises with industry-standard coding
+          challenges. <br /> Your dream career in tech is just a click away.
         </p>
         <div className="mt-3">
           <SignupForm />

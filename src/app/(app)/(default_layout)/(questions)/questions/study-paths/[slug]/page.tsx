@@ -62,7 +62,7 @@ export async function generateMetadata({
   });
 }
 
-const getStartedCta = async (studyPath: StudyPath) => {
+async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
   // run in parallel
   const [user, isEnrolled] = await Promise.all([
     useUserServer(),
@@ -99,9 +99,9 @@ const getStartedCta = async (studyPath: StudyPath) => {
       </form>
     </div>
   );
-};
+}
 
-const heroChip = (studyPath: StudyPath) => {
+function HeroChip({ studyPath }: { studyPath: StudyPath }) {
   return (
     <div className="text-xs text-white px-2 py-1 rounded-full w-fit flex items-center gap-x-2 z-20">
       <TooltipProvider>
@@ -125,14 +125,18 @@ const heroChip = (studyPath: StudyPath) => {
       {studyPath?.heroChip}
     </div>
   );
-};
+}
 
 export default async function StudyPathPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const studyPath = await getStudyPath(params.slug);
+  // run in parallel
+  const [studyPath, user] = await Promise.all([
+    getStudyPath(params.slug),
+    useUserServer(),
+  ]);
 
   // create json ld
   const jsonLd: QuizJsonLd = {
@@ -171,8 +175,6 @@ export default async function StudyPathPage({
     questionSlugs: studyPath?.questionSlugs ?? [],
   });
 
-  const user = await useUserServer();
-
   return (
     <>
       <script
@@ -183,9 +185,9 @@ export default async function StudyPathPage({
         <Hero
           heading={studyPath?.title}
           container={true}
-          chip={heroChip(studyPath)}
+          chip={<HeroChip studyPath={studyPath} />}
         >
-          {getStartedCta(studyPath)}
+          <GetStartedCta studyPath={studyPath} />
         </Hero>
         <div className="container flex gap-12">
           <div className="w-full lg:w-[65%] space-y-6">

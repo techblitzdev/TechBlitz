@@ -1,4 +1,4 @@
-import { StudyPath, StudyPathGoal, UserStudyPath } from '@prisma/client';
+import { StudyPathGoal, UserStudyPath } from '@prisma/client';
 import { BaseRecord } from './BaseRecord';
 import { Question } from './Questions';
 import { RequireAtLeastOne } from './Utils';

@@ -7,7 +7,6 @@ import Chip from '@/components/ui/chip';
 import { Suspense } from 'react';
 import { Bookmark, Circle } from 'lucide-react';
 import { CheckCircle } from 'lucide-react';
-import type { Answer } from '@/types/Answers';
 import {
   TooltipProvider,
   TooltipTrigger,

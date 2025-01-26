@@ -94,7 +94,7 @@ async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
           className="flex items-center gap-x-2"
           disabled={isDisabled}
         >
-          {isEnrolled ? 'Continue' : 'Enroll now'}
+          {isEnrolled ? 'Continue learning' : 'Enroll now'}
           <ArrowRightIcon className="w-4 h-4" />
         </Button>
       </form>

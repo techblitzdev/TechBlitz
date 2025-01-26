@@ -29,7 +29,8 @@ export default async function StudyPathSidebar({
             <span>Set a Goal</span>
           </div>
           <p className="text-sm text-muted-foreground">
-            Set a goal to complete this study path and track your progress.
+            Set a goal date to complete this study path. Receive a daily
+            reminder to complete the next question.
           </p>
           <Button className="w-full mt-2" disabled>
             Coming soon

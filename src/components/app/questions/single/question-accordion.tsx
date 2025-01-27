@@ -72,8 +72,8 @@ export default function QuestionAccordion(opts: { hint: string }) {
         </AccordionTrigger>
         <AccordionContent className="pb-4 px-2">
           <div className="flex flex-col gap-y-2">
-            {relatedQuestionsData &&
-              relatedQuestionsData?.map((question) => (
+            {relatedQuestionsData && relatedQuestionsData.length > 0 ? (
+              relatedQuestionsData.map((question) => (
                 <Link
                   href={`/question/${question.slug}`}
                   key={question.slug}
@@ -84,7 +84,12 @@ export default function QuestionAccordion(opts: { hint: string }) {
                   </p>
                   <ArrowRight className="size-4 flex-shrink-0" />
                 </Link>
-              ))}
+              ))
+            ) : (
+              <p className="text-sm text-gray-400">
+                No related questions found
+              </p>
+            )}
           </div>
         </AccordionContent>
       </AccordionItem>

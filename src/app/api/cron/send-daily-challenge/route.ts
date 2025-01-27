@@ -2,6 +2,7 @@ import { DailyChallengeEmailTemplate } from '@/components/templates/daily-challe
 import { prisma } from '@/lib/prisma';
 import { resend } from '@/lib/resend';
 import { getTodaysQuestion } from '@/utils/data/questions/get-today';
+import { getUserDisplayName } from '@/utils/user';
 import { renderAsync } from '@react-email/components';
 import { NextRequest } from 'next/server';
 import React from 'react';
@@ -12,7 +13,7 @@ export async function GET(request: NextRequest) {
   const authHeader = request.headers.get('authorization');
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return new Response('Unauthorized', {
-      status: 401
+      status: 401,
     });
   }
 
@@ -28,7 +29,7 @@ export async function GET(request: NextRequest) {
       from: 'team@techblitz.dev',
       to: 'team@techblitz.dev',
       subject: 'No daily challenge found',
-      html: '<p>No daily challenge found</p>'
+      html: '<p>No daily challenge found</p>',
     });
     // return a 404s
     return new Response('No daily challenge found', { status: 404 });
@@ -37,8 +38,8 @@ export async function GET(request: NextRequest) {
   // get the users
   const users = await prisma.users.findMany({
     where: {
-      sendPushNotifications: true
-    }
+      sendPushNotifications: true,
+    },
   });
 
   if (!users) {
@@ -54,7 +55,7 @@ export async function GET(request: NextRequest) {
       description: '',
       tags: dailyChallenge?.tags?.map((tag) => tag.tag.name) || [],
       link,
-      difficulty: dailyChallenge.difficulty
+      difficulty: dailyChallenge.difficulty,
     })
   );
 
@@ -62,8 +63,8 @@ export async function GET(request: NextRequest) {
     await resend.emails.send({
       from: 'team@techblitz.dev',
       to: user.email,
-      subject: 'Your Daily Challenge is ready!',
-      html
+      subject: `${getUserDisplayName(user)}, your Daily Challenge is ready!`,
+      html,
     });
   }
 

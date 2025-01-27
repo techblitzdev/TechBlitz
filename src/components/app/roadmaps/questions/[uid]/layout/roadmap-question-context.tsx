@@ -4,21 +4,23 @@ import { answerRoadmapQuestion } from '@/actions/roadmap/questions/answer-roadma
 import { RoadmapUserQuestions } from '@/types/Roadmap';
 import { UserRecord } from '@/types/User';
 import {
-  Answers,
   RoadmapUserQuestionsAnswers,
   RoadmapUserQuestionsUserAnswers,
 } from '@prisma/client';
-import { createContext, useState, useContext, useEffect } from 'react';
+import { createContext, useState, useContext } from 'react';
 import { toast } from 'sonner';
 
-type RoadmapQuestionContextType = {
+type Layout = 'questions' | 'codeSnippet' | 'answer';
+type AnswerStatus = 'correct' | 'incorrect' | 'init';
+
+interface RoadmapQuestionContextType {
   roadmapQuestion: RoadmapUserQuestions & {
     userAnswers: RoadmapUserQuestionsUserAnswers[];
   };
   roadmapUid: string;
   user: UserRecord;
-  currentLayout: 'questions' | 'codeSnippet' | 'answer';
-  setCurrentLayout: (layout: 'questions' | 'codeSnippet' | 'answer') => void;
+  currentLayout: Layout;
+  setCurrentLayout: (layout: Layout) => void;
   handleAnswerRoadmapQuestion: (
     e: React.FormEvent<HTMLFormElement>
   ) => Promise<void>;
@@ -34,13 +36,14 @@ type RoadmapQuestionContextType = {
   ) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
-  correctAnswer: 'correct' | 'incorrect' | 'init';
-  setCorrectAnswer: (correctAnswer: 'correct' | 'incorrect' | 'init') => void;
+  correctAnswer: AnswerStatus;
+  setCorrectAnswer: (correctAnswer: AnswerStatus) => void;
   userAnswer: RoadmapUserQuestionsAnswers | null;
   setUserAnswer: (userAnswer: RoadmapUserQuestionsAnswers | null) => void;
-};
+  resetQuestionState: () => void;
+}
 
-export const RoadmapQuestionContext = createContext<RoadmapQuestionContextType>(
+const RoadmapQuestionContext = createContext<RoadmapQuestionContextType>(
   {} as RoadmapQuestionContextType
 );
 
@@ -54,51 +57,36 @@ export const useRoadmapQuestion = () => {
   return context;
 };
 
-export const RoadmapQuestionContextProvider = ({
-  children,
-  roadmapQuestion,
-  roadmapUid,
-  user,
-}: {
+interface ProviderProps {
   children: React.ReactNode;
   roadmapQuestion: RoadmapUserQuestions & {
     userAnswers: RoadmapUserQuestionsUserAnswers[];
   };
   roadmapUid: string;
   user: UserRecord;
-}) => {
+}
+
+export const RoadmapQuestionContextProvider = ({
+  children,
+  roadmapQuestion,
+  roadmapUid,
+  user,
+}: ProviderProps) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-
-  // the current layout of the page
-  const [currentLayout, setCurrentLayout] = useState<
-    'questions' | 'codeSnippet' | 'answer'
-  >('questions');
-
-  // loading state
+  const [currentLayout, setCurrentLayout] = useState<Layout>('questions');
   const [loading, setLoading] = useState(false);
-
-  // the new user data
   const [newUserData, setNewUserData] = useState<Omit<
     RoadmapUserQuestionsAnswers,
     'answers'
   > | null>(null);
-
-  // handling the next question
   const [nextQuestion, setNextQuestion] = useState<Omit<
     RoadmapUserQuestions,
     'answers'
   > | null>();
-
-  // the correct answer
-  const [correctAnswer, setCorrectAnswer] = useState<
-    'correct' | 'incorrect' | 'init'
-  >('init');
-
-  // the users answer
+  const [correctAnswer, setCorrectAnswer] = useState<AnswerStatus>('init');
   const [userAnswer, setUserAnswer] =
     useState<RoadmapUserQuestionsAnswers | null>(null);
 
-  // answering a roadmap question
   const handleAnswerRoadmapQuestion = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
@@ -109,9 +97,14 @@ export const RoadmapQuestionContextProvider = ({
       return;
     }
 
+    if (!selectedAnswer) {
+      toast.error('Please select an answer');
+      return;
+    }
+
     setLoading(true);
+
     try {
-      // Find the selected answer's text from the roadmapQuestion answers
       const selectedAnswerText = roadmapQuestion.answers.find(
         (a) => a.uid === selectedAnswer
       )?.answer;
@@ -120,28 +113,35 @@ export const RoadmapQuestionContextProvider = ({
         throw new Error('Selected answer not found');
       }
 
-      const opts = {
+      const { userAnswer, nextQuestion } = await answerRoadmapQuestion({
         questionUid: roadmapQuestion.uid,
-        answerUid: selectedAnswer, // This is the UID of the selected answer
+        answerUid: selectedAnswer,
         roadmapUid,
         userUid: user.uid,
         currentQuestionIndex: roadmapQuestion.order,
-        answer: selectedAnswerText, // This is the actual answer text
-      };
-
-      const { userAnswer, nextQuestion } = await answerRoadmapQuestion(opts);
+        answer: selectedAnswerText,
+      });
 
       setUserAnswer(userAnswer);
       setNewUserData(userAnswer);
       setNextQuestion(nextQuestion);
-
       setCorrectAnswer(userAnswer?.correct ? 'correct' : 'incorrect');
+      setCurrentLayout('answer');
     } catch (error) {
       console.error('Error submitting answer:', error);
       toast.error('Error submitting answer');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-    setCurrentLayout('answer');
+  };
+
+  const resetQuestionState = () => {
+    setSelectedAnswer(null);
+    setCurrentLayout('questions');
+    setNewUserData(null);
+    setNextQuestion(null);
+    setCorrectAnswer('init');
+    setUserAnswer(null);
   };
 
   return (
@@ -165,6 +165,7 @@ export const RoadmapQuestionContextProvider = ({
         setUserAnswer,
         correctAnswer,
         setCorrectAnswer,
+        resetQuestionState,
       }}
     >
       {children}

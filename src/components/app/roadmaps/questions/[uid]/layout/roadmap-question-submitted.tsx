@@ -76,18 +76,21 @@ export default function RoadmapQuestionSubmitted() {
             </div>
           )}
         </div>
-        <div className="flex flex-col gap-y-2">
+        <div className="flex flex-col gap-y-2 mt-5">
           {/** ai explain answer (on button click) */}
           <h2 className="text-xl font-bold">Explain this answer</h2>
           <p className="text-sm text-gray-400">
             Don't understand this answer? Click the button below to get an
             explanation.
           </p>
-          <Button variant="secondary">Explain Answer</Button>
+          <Button variant="default">Explain Answer</Button>
         </div>
         {/** if the next question slug is not null, show a button to go to the next question */}
         {nextQuestion?.uid && (
           <div className="flex flex-col gap-y-2">
+            <h2 className="text-xl font-bold">
+              Ready for your next challenge?
+            </h2>
             <p className="text-sm text-gray-400">
               Your next roadmap question is:
             </p>

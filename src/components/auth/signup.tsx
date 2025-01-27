@@ -199,9 +199,7 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
         className="w-full"
         variant="default"
       >
-        {showEmailForm
-          ? 'Continue with Google/GitHub/Discord'
-          : 'Continue with Email'}
+        {showEmailForm ? 'Continue with GitHub/Discord' : 'Continue with Email'}
       </Button>
     </div>
   );

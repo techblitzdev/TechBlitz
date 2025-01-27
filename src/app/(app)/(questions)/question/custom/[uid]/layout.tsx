@@ -52,11 +52,7 @@ export default async function QuestionUidLayout({
 
   const userAnswered = getUserAnswer({ questionUid: question.uid });
 
-  const nextAndPreviousQuestion = await getNextAndPreviousQuestion(uid);
-  const { nextQuestion, previousQuestion } = nextAndPreviousQuestion || {
-    nextQuestion: undefined,
-    previousQuestion: undefined,
-  };
+  const nextAndPreviousQuestion = getNextAndPreviousQuestion(uid);
 
   return (
     <>
@@ -72,8 +68,8 @@ export default async function QuestionUidLayout({
             <div className="items-center gap-x-2 hidden md:flex">
               <QuestionNavigation
                 navigationType="question"
-                nextQuestion={nextQuestion || null}
-                previousQuestion={previousQuestion || null}
+                nextPrevPromise={nextAndPreviousQuestion}
+                slug={uid}
               />
               <RandomQuestion identifier="uid" currentQuestionSlug={uid} />
             </div>

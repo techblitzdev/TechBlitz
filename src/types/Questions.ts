@@ -5,6 +5,7 @@ import {
 } from '@prisma/client';
 import { QuestionAnswer } from './QuestionAnswers';
 import { Tags } from './Tags';
+import { Answer } from './Answers';
 
 export type QuestionDifficulty = 'BEGINNER' | 'EASY' | 'MEDIUM' | 'HARD';
 
@@ -62,6 +63,8 @@ export type Question = {
   bookmarks?: UserBookmarks[];
 
   isPremiumQuestion: boolean;
+
+  userAnswers?: Answer[];
 };
 
 export type QuestionWithoutAnswers = Omit<

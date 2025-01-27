@@ -15,9 +15,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function FeedbackButton({
   showText = true,
   reference,
+  title,
+  description,
 }: {
   showText?: boolean;
   reference?: string;
+  title?: string;
+  description?: string;
 }) {
   const [feedback, setFeedback] = useState('');
   const [isPending, startTransition] = useTransition();
@@ -41,7 +45,9 @@ export default function FeedbackButton({
           wrapperClassName="hidden sm:flex"
         >
           <ChatBubbleIcon className="size-4 block md:hidden" />
-          {showText && <p className="text-sm hidden md:block">Feedback</p>}
+          {showText && (
+            <p className="text-sm hidden md:block">{title || 'Feedback'}</p>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent
@@ -49,10 +55,12 @@ export default function FeedbackButton({
         align="end"
       >
         <form action={handleSubmit}>
-          <h2 className="text-lg font-semibold mb-2">Send feedback</h2>
+          <h2 className="text-lg font-semibold mb-2">
+            {title || 'Send feedback'}
+          </h2>
           <p className="text-sm text-muted-foreground mb-4">
-            We value your feedback. Please let us know how we can improve our
-            questions/product to better suit your needs.
+            {description ||
+              'We value your feedback. Please let us know how we can improve our questions/product to better suit your needs.'}
           </p>
           {reference && (
             <p className="text-sm mb-2">

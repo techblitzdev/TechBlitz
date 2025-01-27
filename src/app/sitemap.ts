@@ -1,18 +1,25 @@
 import type { MetadataRoute } from 'next';
 //import { getBlogPosts } from '@/lib/blog';
 import { listQuestions } from '@/utils/data/questions/list';
+import { getAllStudyPaths } from '@/utils/data/study-paths/get';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://techblitz.dev';
 
   // Fetch all blog posts and questions
-  const [questions] = await Promise.all([
+  const [questions, studyPaths] = await Promise.all([
     listQuestions({
       page: 1,
       pageSize: 1000,
       userUid: '',
     }),
+    getAllStudyPaths(),
   ]);
+
+  const studyPathSlugs = studyPaths.map((studyPath) => ({
+    url: `${baseUrl}/study-paths/${studyPath.slug}`,
+    lastModified: new Date(studyPath.createdAt),
+  }));
 
   // for some reason, the blog posts are not being when invoking
   // the getBlogPosts function, but only from here.
@@ -119,7 +126,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
     },
     {
-      url: `${baseUrl}/questions/study-paths`,
+      url: `${baseUrl}/study-paths`,
       lastModified: new Date(),
     },
     {
@@ -145,5 +152,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // Combine static routes with dynamic blog posts
-  return [...routes, ...blogPosts, ...questionsPosts];
+  return [...routes, ...blogPosts, ...questionsPosts, ...studyPathSlugs];
 }

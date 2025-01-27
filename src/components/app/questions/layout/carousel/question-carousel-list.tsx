@@ -14,14 +14,14 @@ const questionsCarousels = [
     description: 'Learn the basics of JavaScript by completing code snippets.',
     image: '/images/javascript.png',
     type: 'CODING_CHALLENGE' as QuestionType,
+    studyPath: 'javascript-fundamentals',
   },
   {
-    tag: [],
-    title: 'Beginner Questions',
-    description:
-      'Learn the basics of programming with these beginner questions.',
-    image: '/images/beginner.png',
-    difficulty: 'BEGINNER' as QuestionDifficulty,
+    tag: ['arrays', 'Array', 'array-methods'],
+    title: 'Arrays',
+    description: 'Learn all the key concepts of arrays in JavaScript.',
+    image: '/images/arrays.png',
+    studyPath: 'arrays',
   },
   {
     tag: ['javascript', 'JavaScript', 'javaScript', 'generators'],
@@ -29,12 +29,14 @@ const questionsCarousels = [
     description:
       'Learn how to use JavaScript to build more efficient and scalable applications.',
     image: '/images/javascript.png',
+    studyPath: 'javascript-questions',
   },
   {
     tag: ['react'],
     title: 'React Questions',
     description: 'Explore the most popular JavaScript framework, React.',
     image: '/images/react.png',
+    studyPath: 'react-fundamentals',
   },
   {
     tag: ['react-hooks'],
@@ -42,18 +44,14 @@ const questionsCarousels = [
     description:
       'Learn how to use React Hooks to build more efficient and scalable applications.',
     image: '/images/react.png',
-  },
-  {
-    tag: ['arrays', 'Array', 'array-methods'],
-    title: 'Arrays',
-    description: 'Learn all the key concepts of arrays in JavaScript.',
-    image: '/images/arrays.png',
+    studyPath: 'react-hooks',
   },
   {
     tag: ['async', 'promises'],
     title: 'Asynchronous Programming',
     description: 'Learn how to handle asynchronous operations in JavaScript.',
     image: '/images/async.png',
+    studyPath: 'asynchronous-programming',
   },
 ];
 
@@ -63,7 +61,7 @@ export default function QuestionsCarouselList({
   user: UserRecord | null;
 }) {
   return (
-    <div className="flex flex-col gap-y-16 md:gap-y-28 pt-10">
+    <div className="flex flex-col gap-y-16 md:gap-y-20 pt-10">
       {questionsCarousels.map((carousel, index) => (
         <Suspense
           key={`carousel-${index}-${carousel.tag.join('-')}-${carousel.title}`}
@@ -74,11 +72,10 @@ export default function QuestionsCarouselList({
             description={carousel.description}
             image={carousel.image}
             tag={carousel.tag}
-            difficulty={carousel.difficulty}
+            studyPath={carousel.studyPath}
           >
             <QuestionCarouselContent
               tag={carousel.tag}
-              difficulty={carousel.difficulty}
               type={carousel.type}
               user={user}
             />

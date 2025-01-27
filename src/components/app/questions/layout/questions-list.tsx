@@ -4,8 +4,6 @@ import QuestionCard from '@/components/app/questions/layout/question-card';
 import { listQuestions } from '@/utils/data/questions/list';
 
 import { Button } from '@/components/ui/button';
-import { QuestionWithoutAnswers } from '@/types/Questions';
-import { Answer } from '@/types/Answers';
 import { useUserServer } from '@/hooks/use-user-server';
 import { QuestionFilters } from '@/types/Filters';
 import ClearFilters from './clear-filters';
@@ -77,12 +75,7 @@ export default async function QuestionsList({
         {recommendedQuestion?.map((q) => (
           <QuestionCard
             key={q.uid}
-            questionData={
-              {
-                ...q,
-                userAnswers: [],
-              } as QuestionWithoutAnswers & { userAnswers: Answer[] }
-            }
+            questionData={q}
             showSubmissions={showSubmissions}
             identifier={customQuestions ? 'uid' : 'slug'}
             customQuestion={customQuestions}
@@ -99,7 +92,7 @@ export default async function QuestionsList({
       {data.questions.map((q) => (
         <QuestionCard
           key={q.uid}
-          questionData={q as QuestionWithoutAnswers & { userAnswers: Answer[] }}
+          questionData={q}
           showSubmissions={showSubmissions}
           identifier={customQuestions ? 'uid' : 'slug'}
           customQuestion={customQuestions}

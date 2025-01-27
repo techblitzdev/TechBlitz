@@ -1,4 +1,4 @@
-import CodeEditor from '@/components/app/code-editor/editor';
+import CodeEditor from '@/components/app/questions/code-editor/editor';
 import { useUserServer } from '@/hooks/use-user-server';
 import { redirect } from 'next/navigation';
 

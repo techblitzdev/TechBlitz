@@ -6,8 +6,9 @@ export default function Hero(opts: {
   subheading?: string | React.ReactNode;
   children?: React.ReactNode;
   container?: boolean;
+  chip?: React.ReactNode;
 }) {
-  const { heading, subheading, children, container = true } = opts;
+  const { heading, subheading, children, container = true, chip } = opts;
 
   return (
     <section className="w-full pt-14 pb-8 group relative">
@@ -17,8 +18,9 @@ export default function Hero(opts: {
           container ? 'md:container' : ''
         )}
       >
+        {chip}
         {typeof heading === 'string' ? (
-          <h1 className="text-3xl md:text-5xl text-wrap text-start font-inter max-w-2xl text-gradient from-white to-white/55 py-1">
+          <h1 className="relative z-20 text-3xl md:text-5xl text-wrap text-start font-inter max-w-2xl text-gradient from-white to-white/55 py-1">
             {heading}
           </h1>
         ) : (

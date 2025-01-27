@@ -1,12 +1,12 @@
 import { redirect } from 'next/navigation';
 
 // actions
-import { fetchRoadmapQuestionViaOrder } from '@/utils/data/roadmap/questions/fetch-question-via-order';
+//import { fetchRoadmapQuestionViaOrder } from '@/utils/data/roadmap/questions/fetch-question-via-order';
 import { fetchRoadmapQuestion } from '@/utils/data/roadmap/questions/fetch-roadmap-question';
 
 // components
 import BackToDashboard from '@/components/ui/back-to-dashboard';
-import QuestionNavigation from '@/components/global/navigation/question-navigation';
+//import QuestionNavigation from '@/components/global/navigation/question-navigation';
 import { Separator } from '@/components/ui/separator';
 import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-trigger';
 
@@ -26,16 +26,16 @@ export default async function RoadmapQuestionLayout({
   }
 
   // run next and previous questions in parallel as they do not depend on each other
-  const [nextQuestion, previousQuestion] = await Promise.all([
-    fetchRoadmapQuestionViaOrder({
-      order: question.order + 1,
-      roadmapUid,
-    }),
-    fetchRoadmapQuestionViaOrder({
-      order: question.order - 1,
-      roadmapUid,
-    }),
-  ]);
+  //const [nextQuestion, previousQuestion] = await Promise.all([
+  //  fetchRoadmapQuestionViaOrder({
+  //    order: question.order + 1,
+  //    roadmapUid,
+  //  }),
+  //  fetchRoadmapQuestionViaOrder({
+  //    order: question.order - 1,
+  //    roadmapUid,
+  //  }),
+  //]);
 
   return (
     <>
@@ -44,6 +44,8 @@ export default async function RoadmapQuestionLayout({
           <SidebarLayoutTrigger />
           <BackToDashboard href={`/roadmap/${roadmapUid}`} backTo="roadmap" />
         </div>
+        {/** TODO: Add back in
+         * 
         <QuestionNavigation
           nextQuestion={
             nextQuestion ? `/roadmap/${roadmapUid}/${nextQuestion.uid}` : null
@@ -55,6 +57,7 @@ export default async function RoadmapQuestionLayout({
           }
           navigationType="question"
         />
+            */}
       </div>
       <Separator className="bg-black-50 mt-4" />
       <div className="px-6 h-full mt-1">{children}</div>

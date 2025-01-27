@@ -66,7 +66,7 @@ const heroDescription = (
     </p>
     <p className="text-gray-400">Need a more guided set of questions?</p>
     <div className="flex flex-col md:flex-row gap-2 md:items-center">
-      <Button href="/questions/study-paths" variant="secondary">
+      <Button href="/study-paths" variant="secondary">
         Explore study paths
       </Button>
       <Suspense

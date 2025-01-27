@@ -1,3 +1,4 @@
+import { StudyPathGoal, UserStudyPath } from '@prisma/client';
 import { BaseRecord } from './BaseRecord';
 import { Question } from './Questions';
 import { RequireAtLeastOne } from './Utils';
@@ -51,6 +52,12 @@ export interface User extends BaseRecord {
 
   // the user's bookmarked questions (an array of question ids)
   bookmarkedQuestions?: Question[];
+
+  // the study paths the user has enrolled in
+  studyPathEnrollments?: UserStudyPath[] | null;
+
+  // the study path goals the user has set for themselves
+  studyPathGoals?: StudyPathGoal[] | null;
 }
 
 export type UserRecord = Pick<
@@ -77,6 +84,8 @@ export type UserRecord = Pick<
   | 'howDidYouHearAboutTechBlitz'
   | 'referralCode'
   | 'aboutMeAiHelp'
+  | 'studyPathEnrollments'
+  | 'studyPathGoals'
 >;
 
 // First, create a type that excludes 'uid' from the partial requirement

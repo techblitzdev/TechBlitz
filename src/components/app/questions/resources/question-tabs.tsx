@@ -5,10 +5,10 @@ import { TabsContent, TabsTrigger, TabsList } from '@/components/ui/tabs';
 import { Question } from '@/types/Questions';
 import QuestionResourceTab from '@/components/app/questions/resources/question-resource-tab';
 import QuestionStatsTab from './question-stats-tab';
-import CodingChallengeDescription from '../../code-editor/description-tab';
-import HasAnswered from '../single/has-answered';
-import { useQuestionSingle } from '../single/layout/question-single-context';
-import BookmarkQuestion from '../single/bookmark';
+import CodingChallengeDescription from '@/components/app/questions/code-editor/description-tab';
+import HasAnswered from '@/components/app/questions/single/has-answered';
+import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
+import BookmarkQuestion from '@/components/app/questions/single/bookmark';
 import { capitalise } from '@/utils';
 import Chip from '@/components/ui/chip';
 import { getQuestionDifficultyColor } from '@/utils';
@@ -16,7 +16,7 @@ import ShareQuestion from '@/components/global/share-question';
 import { BarChart, BookIcon, PieChart } from 'lucide-react';
 import { BookOpen } from 'lucide-react';
 import { FileIcon, FileText } from 'lucide-react';
-import QuestionHintTrigger from '../question-hint-trigger';
+import QuestionHintTrigger from '@/components/app/questions/question-hint-trigger';
 
 interface QuestionTabsProps {
   question: Question;
@@ -38,7 +38,7 @@ export default function QuestionTabs({
     'description' | 'resources' | 'stats'
   >('description');
 
-  const hasUserAnswered = use(userAnswered);
+  const hasUserAnswered = use(userAnswered || false);
 
   return (
     <>

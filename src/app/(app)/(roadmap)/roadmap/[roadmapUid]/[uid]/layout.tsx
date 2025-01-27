@@ -1,14 +1,15 @@
 import { redirect } from 'next/navigation';
 
 // actions
-//import { fetchRoadmapQuestionViaOrder } from '@/utils/data/roadmap/questions/fetch-question-via-order';
 import { fetchRoadmapQuestion } from '@/utils/data/roadmap/questions/fetch-roadmap-question';
 
 // components
-import BackToDashboard from '@/components/ui/back-to-dashboard';
-//import QuestionNavigation from '@/components/global/navigation/question-navigation';
 import { Separator } from '@/components/ui/separator';
 import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-trigger';
+import CurrentStreak from '@/components/ui/current-streak';
+import FeedbackButton from '@/components/ui/feedback-button';
+import RoadmapQuestionActionButtons from '@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-action-buttons';
+import { RoadmapQuestionContextProvider } from '@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-context';
 
 export default async function RoadmapQuestionLayout({
   children,
@@ -25,41 +26,22 @@ export default async function RoadmapQuestionLayout({
     redirect(`/roadmap/${roadmapUid}`);
   }
 
-  // run next and previous questions in parallel as they do not depend on each other
-  //const [nextQuestion, previousQuestion] = await Promise.all([
-  //  fetchRoadmapQuestionViaOrder({
-  //    order: question.order + 1,
-  //    roadmapUid,
-  //  }),
-  //  fetchRoadmapQuestionViaOrder({
-  //    order: question.order - 1,
-  //    roadmapUid,
-  //  }),
-  //]);
-
   return (
-    <>
-      <div className="flex items-center justify-between px-6">
-        <div className="flex-1">
+    <RoadmapQuestionContextProvider roadmapQuestion={question}>
+      <div className="grid grid-cols-12 items-center justify-between pb-2 px-3 relative">
+        <div className="col-span-2 lg:col-span-4 flex items-center py-2 justify-start">
           <SidebarLayoutTrigger />
         </div>
-        {/** TODO: Add back in
-         * 
-        <QuestionNavigation
-          nextQuestion={
-            nextQuestion ? `/roadmap/${roadmapUid}/${nextQuestion.uid}` : null
-          }
-          previousQuestion={
-            previousQuestion
-              ? `/roadmap/${roadmapUid}/${previousQuestion.uid}`
-              : null
-          }
-          navigationType="question"
-        />
-            */}
+        <div className="col-span-7 lg:col-span-4 flex items-center justify-center">
+          <RoadmapQuestionActionButtons />
+        </div>
+        <div className="col-span-3 lg:col-span-4 flex items-center gap-x-1 md:gap-x-3 justify-end">
+          <CurrentStreak />
+          <FeedbackButton reference={question?.uid || undefined} />
+        </div>
       </div>
-      <Separator className="bg-black-50 mt-4" />
-      <div className="px-6 h-full mt-1">{children}</div>
-    </>
+      <Separator className="bg-black-50" />
+      {children}
+    </RoadmapQuestionContextProvider>
   );
 }

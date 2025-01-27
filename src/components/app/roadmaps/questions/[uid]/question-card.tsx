@@ -103,7 +103,7 @@ export default function RoadmapQuestionCard(opts: {
       <Link
         href={`/roadmap/${roadmapUid}/${questionRef.current.uid}`}
         key={questionRef.current.uid}
-        className="py-6 mb-6 space-y-5 items-start border border-black-50 hover:border-accent duration-300 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
+        className="py-6 mb-6 space-y-5 items-start bg-[#090909] border border-black-50 hover:border-accent duration-300 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
       >
         <div className="flex w-full justify-between gap-3">
           <AnimatePresence mode="wait">

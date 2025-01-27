@@ -144,7 +144,6 @@ export const QuestionSingleContextProvider = ({
   const [showHint, setShowHint] = useState(false);
 
   // stopwatch
-
   const { pause, reset, totalSeconds } = useStopwatch({ autoStart: true });
 
   // EFFECTS

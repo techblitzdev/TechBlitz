@@ -77,10 +77,12 @@ export function EditRoadmapModal({
               </div>
             </div>
             <DialogFooter className="mt-4">
-              <Button type="button" variant="outline" onClick={onClose}>
+              <Button type="button" variant="default" onClick={onClose}>
                 Cancel
               </Button>
-              <Button type="submit">Save changes</Button>
+              <Button type="submit" variant="secondary">
+                Save changes
+              </Button>
             </DialogFooter>
           </form>
         )}

@@ -1,5 +1,4 @@
 // import { fetchNextPrevRoadmap } from '@/utils/data/roadmap/fetch-next-prev-roadmap';
-import BackToDashboard from '@/components/ui/back-to-dashboard';
 //import QuestionNavigation from '@/components/global/navigation/question-navigation';
 import RoadmapDropdown from '@/components/app/roadmaps/[uid]/dropdown';
 import { Separator } from '@/components/ui/separator';
@@ -28,12 +27,10 @@ export default async function RoadmapOverviewPage({
   //});
 
   return (
-    <div className="text-white flex flex-col gap-y-4 relative h-full">
+    <div className="text-white flex flex-col gap-y-2 relative h-full">
       <div className="flex items-center justify-between gap-4 px-6">
-        <div className="flex items-center gap-x-5 py-2">
+        <div className="flex-1 relative h-7">
           <SidebarLayoutTrigger />
-          {/** Previous question button */}
-          <BackToDashboard href="/roadmaps" backTo="roadmaps" />
         </div>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-x-5">

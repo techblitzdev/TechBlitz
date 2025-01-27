@@ -94,6 +94,9 @@ model RoadmapUserQuestionsUserAnswers {
 
   // User-provided answer
   answer String
+
+  // the answer uid
+  answerUid String @default("")
 }
 
 // Default questions used to generate user roadmaps

@@ -20,6 +20,7 @@ import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import LoadingSpinner from '@/components/ui/loading';
 import CodeDisplay from '../../questions/single/layout/code-snippet';
+import { useRoadmapQuestion } from './[uid]/layout/roadmap-question-context';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 
@@ -33,18 +34,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
   { userData, question, roadmapUid }: AnswerQuestionFormProps,
   ref: React.Ref<{ submitForm: () => void }>
 ) {
-  const router = useRouter();
-
-  const [loading, setLoading] = useState(false);
-  const [nextQuestion, setNextQuestion] = useState<Omit<
-    RoadmapUserQuestions,
-    'answers'
-  > | null>();
-  const [newUserData, setNewUserData] = useState<Omit<
-    RoadmapUserQuestionsAnswers,
-    'answers'
-  > | null>(null);
-  const [redirecting, setRedirecting] = useState(false);
+  const { selectedAnswer, setSelectedAnswer, loading } = useRoadmapQuestion();
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(answerQuestionSchema),
@@ -53,70 +43,9 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
     },
   });
 
-  // Expose the `submitForm` method to the parent via ref
-  useImperativeHandle(ref, () => ({
-    submitForm: () => {
-      form.handleSubmit(async (values) => {
-        console.log('Submitting form with values:', values);
-        await handleAnswerQuestion(values);
-      })();
-    },
-    resetForm: () => {
-      form.reset();
-    },
-  }));
-
-  const handleAnswerQuestion = async (values: SchemaProps) => {
-    if (!userData) {
-      console.error('User is not logged in');
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const opts: any = {
-        questionUid: question?.uid,
-        answerUid: values.answer,
-        roadmapUid,
-        userUid: userData.uid,
-        currentQuestionIndex: question?.order,
-      };
-
-      // there is a chance nothing get's returned as we perform a redirect
-      // if this is the last question to answer
-      const { userAnswer, nextQuestion } = await answerRoadmapQuestion(opts);
-
-      setNewUserData(userAnswer);
-      setNextQuestion(nextQuestion);
-    } catch (error) {
-      console.error('Error submitting answer:', error);
-      toast.error('Error submitting answer');
-    }
-    setLoading(false);
-  };
-
-  const handleNextQuestion = () => {
-    if (redirecting) return;
-    setRedirecting(true);
-    // if there is no next question, redirect to the roadmap page
-    // TODO: show a completion message
-    if (!nextQuestion) {
-      router.push(`/roadmap/${roadmapUid}`);
-      return;
-    }
-
-    // redirect to the page
-    router.push(`/roadmap/${roadmapUid}/${nextQuestion?.uid}`);
-
-    setRedirecting(false);
-  };
-
   return (
     <Form {...form}>
-      <form
-        className="font-satoshi flex flex-col relative"
-        onSubmit={form.handleSubmit(handleAnswerQuestion)}
-      >
+      <form className="font-satoshi flex flex-col relative">
         {loading && (
           <div className="h-[25rem] absolute flex justify-center items-center w-full">
             <div className="gap-y-3 flex flex-col items-center">
@@ -133,7 +62,6 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
           {question?.answers?.map((answer) => (
             <div key={answer.uid} className="col-span-full">
               <FormField
-                control={form.control}
                 name="answer"
                 render={({ field }) => (
                   <FormControl>
@@ -141,11 +69,14 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
                       htmlFor={answer.uid}
                       className={cn(
                         'px-2 lg:px-4 lg:py-2 rounded-lg min-h-16 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
-                        field.value === answer.uid
+                        selectedAnswer === answer.uid
                           ? 'bg-black-25'
                           : 'bg-black hover:border-accent'
                       )}
-                      onClick={() => field.onChange(answer.uid)}
+                      onClick={() => {
+                        setSelectedAnswer(answer.uid);
+                        field.onChange(answer.uid);
+                      }}
                     >
                       <input
                         type="radio"
@@ -153,7 +84,7 @@ const RoadmapAnswerQuestionForm = forwardRef(function RoadmapAnswerQuestionForm(
                         className="hidden"
                         name="answer"
                         value={answer.uid}
-                        checked={field.value === answer.uid}
+                        checked={selectedAnswer === answer.uid}
                         onChange={() => {}}
                       />
                       {/<pre><code/.test(answer.answer) ? (

@@ -14,6 +14,7 @@ import { Separator } from '@/components/ui/separator';
 import RoadmapQuestionTabs from './[uid]/layout/roadmap-question-tabs';
 import { useRoadmapQuestion } from './[uid]/layout/roadmap-question-context';
 import QuestionAccordion from '../../questions/single/question-accordion';
+import RoadmapQuestionSubmitted from './[uid]/layout/roadmap-question-submitted';
 
 export default function RoadmapQuestionCard(opts: {
   user: UserRecord;
@@ -104,6 +105,8 @@ export default function RoadmapQuestionCard(opts: {
       <Separator className="bg-black-50" />
       <div className="flex-1 bg-black overflow-y-auto scrollable-element">
         {currentLayout === 'questions' && <RoadmapQuestionTabs />}
+        {currentLayout === 'codeSnippet' && <RoadmapQuestionTabs />}
+        {currentLayout === 'answer' && <RoadmapQuestionSubmitted />}
       </div>
       <Separator className="bg-black-50" />
       <div className="w-full space-y-4 bg-black">

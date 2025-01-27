@@ -42,14 +42,24 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
     },
   });
 
-  const { mutateAsync: server_signup, isPending } = useMutation({
-    mutationFn: (values: SchemaProps) =>
-      signUp(values.email, values.password, ref || undefined),
+  const { mutateAsync: handleSignUp, isPending } = useMutation({
+    mutationFn: async (values: SchemaProps) => {
+      const result = await signUp(
+        values.email,
+        values.password,
+        ref || undefined
+      );
+      if (result.error) {
+        throw new Error(result.error);
+      }
+      return result;
+    },
     onSuccess: () => {
       // show success toast
       toast.success(
         'Signup successful! Please check your email to verify your account.'
       );
+
       // set a value in local storage to initiate that this is a new user
       // and will need onboarding once they have logged in.
       localStorage.setItem('onboarding', 'true');
@@ -57,18 +67,16 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
       // redirect to
       router.push('/verify-email');
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       // show error toast
       toast.error(error.message);
     },
   });
 
-  const handleSignup = (values: SchemaProps) => server_signup(values);
-
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(handleSignup)}
+        onSubmit={form.handleSubmit((values) => handleSignUp(values))}
         className="grid grid-cols-12 gap-4 w-full lg:w-96 mt-8"
       >
         <FormField

@@ -11,40 +11,64 @@ export const signUp = async (
   email: string,
   password: string,
   referralCode?: string
-): Promise<AuthResponse['data']['user'] | null> => {
+): Promise<{
+  user: AuthResponse['data']['user'] | null;
+  error?: string;
+}> => {
   try {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
     });
 
+    // If there's an auth error, return it
+    if (error) {
+      return {
+        user: null,
+        error: error.message,
+      };
+    }
+
     // easy access to the user object
     const user = data.user;
 
     // throw an error if required fields cannot be found
-    if (!user || !user.id || !user.email) throw new Error(error?.message);
+    if (!user || !user.id || !user.email) {
+      return {
+        user: null,
+        error: 'Missing required user information',
+      };
+    }
 
     // only set the cookie if the auth sign up is successful
     const userId = user.id;
     cookiesStore.set('userId', userId);
 
-    // REMEMBER EMAIL AUTH IS OFF!
-
-    // if the user sign up is successful, add the user to the database
-    await prisma.users.create({
-      data: {
-        uid: user.id,
-        email: user.email,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        answers: undefined,
-        lastLogin: new Date(),
-        userLevel: 'FREE',
-        showTimeTaken: true, // default this to true, the user has change this in the onboarding step one
-        //hasAuthenticatedEmail: false
-        referralCode,
-      },
-    });
+    try {
+      // if the user sign up is successful, add the user to the database
+      await prisma.users.create({
+        data: {
+          uid: user.id,
+          email: user.email,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          answers: undefined,
+          lastLogin: new Date(),
+          userLevel: 'FREE',
+          showTimeTaken: true, // default this to true, the user has change this in the onboarding step one
+          referralCode,
+        },
+      });
+    } catch (dbError: any) {
+      // Check for unique constraint violation (user already exists)
+      if (dbError.code === 'P2002') {
+        return {
+          user: null,
+          error: 'User already exists',
+        };
+      }
+      throw dbError;
+    }
 
     // if there is a referral code, get the user with that uid, and send an email
     if (referralCode) {
@@ -82,9 +106,15 @@ export const signUp = async (
     });
 
     // return the user object so we can extract the user.id on the front end
-    return user;
-  } catch (error) {
+    return {
+      user,
+      error: undefined,
+    };
+  } catch (error: any) {
     console.error('Error signing up:', error);
-    return null;
+    return {
+      user: null,
+      error: error.message || 'An unexpected error occurred',
+    };
   }
 };

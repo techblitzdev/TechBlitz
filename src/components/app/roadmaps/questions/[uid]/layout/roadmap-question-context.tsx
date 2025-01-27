@@ -1,6 +1,7 @@
 'use client';
 
 import { RoadmapUserQuestions } from '@/types/Roadmap';
+import { UserRecord } from '@/types/User';
 import { Answers, RoadmapUserQuestionsUserAnswers } from '@prisma/client';
 import { createContext, useState, useContext, useEffect } from 'react';
 
@@ -8,6 +9,8 @@ type RoadmapQuestionContextType = {
   roadmapQuestion: RoadmapUserQuestions & {
     userAnswers: RoadmapUserQuestionsUserAnswers[];
   };
+  roadmapUid: string;
+  user: UserRecord;
   currentLayout: 'questions' | 'codeSnippet' | 'answer';
   setCurrentLayout: (layout: 'questions' | 'codeSnippet' | 'answer') => void;
 };
@@ -29,11 +32,15 @@ export const useRoadmapQuestion = () => {
 export const RoadmapQuestionContextProvider = ({
   children,
   roadmapQuestion,
+  roadmapUid,
+  user,
 }: {
   children: React.ReactNode;
   roadmapQuestion: RoadmapUserQuestions & {
     userAnswers: RoadmapUserQuestionsUserAnswers[];
   };
+  roadmapUid: string;
+  user: UserRecord;
 }) => {
   // setting
   // the current layout of the page
@@ -43,7 +50,13 @@ export const RoadmapQuestionContextProvider = ({
 
   return (
     <RoadmapQuestionContext.Provider
-      value={{ currentLayout, setCurrentLayout, roadmapQuestion }}
+      value={{
+        currentLayout,
+        setCurrentLayout,
+        roadmapQuestion,
+        roadmapUid,
+        user,
+      }}
     >
       {children}
     </RoadmapQuestionContext.Provider>

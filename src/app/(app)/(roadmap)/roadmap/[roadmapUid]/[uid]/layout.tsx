@@ -10,6 +10,7 @@ import CurrentStreak from '@/components/ui/current-streak';
 import FeedbackButton from '@/components/ui/feedback-button';
 import RoadmapQuestionActionButtons from '@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-action-buttons';
 import { RoadmapQuestionContextProvider } from '@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-context';
+import { useUserServer } from '@/hooks/use-user-server';
 
 export default async function RoadmapQuestionLayout({
   children,
@@ -20,6 +21,12 @@ export default async function RoadmapQuestionLayout({
 }>) {
   const { roadmapUid, uid } = params;
 
+  const user = await useUserServer();
+  // TODO: check if the user owns the roadmap (soon these will be public and shareable)
+  if (!user || user.userLevel === 'FREE') {
+    return redirect('/dashboard');
+  }
+
   // Fetch the current question
   const question = await fetchRoadmapQuestion(uid);
   if (!question) {
@@ -27,7 +34,11 @@ export default async function RoadmapQuestionLayout({
   }
 
   return (
-    <RoadmapQuestionContextProvider roadmapQuestion={question}>
+    <RoadmapQuestionContextProvider
+      roadmapQuestion={question}
+      roadmapUid={roadmapUid}
+      user={user}
+    >
       <div className="grid grid-cols-12 items-center justify-between pb-2 px-3 relative">
         <div className="col-span-2 lg:col-span-4 flex items-center py-2 justify-start">
           <SidebarLayoutTrigger />

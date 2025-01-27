@@ -1,15 +1,17 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 import { UserRecord } from '@/types/User';
 import { RoadmapUserQuestions } from '@/types/Roadmap';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import AiQuestionHelp from '../../questions/single/layout/ai-question-help';
-import ChangeCodeTheme from '../../questions/single/layout/change-code-theme';
-import ExpandedCodeModal from '../../questions/single/layout/expanded-code-modal';
+import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help';
+import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
+import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal';
 import { BookIcon, BookOpen, FileIcon } from 'lucide-react';
 import { FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import RoadmapQuestionTabs from './[uid]/layout/roadmap-question-tabs';
 import { useRoadmapQuestion } from './[uid]/layout/roadmap-question-context';
 
 export default function RoadmapQuestionCard(opts: {
@@ -97,6 +99,10 @@ export default function RoadmapQuestionCard(opts: {
             {switcherText()}
           </Button>
         </div>
+      </div>
+      <Separator className="bg-black-50" />
+      <div className="flex-1 bg-black overflow-y-auto scrollable-element">
+        {currentLayout === 'questions' && <RoadmapQuestionTabs />}
       </div>
     </Tabs>
   );

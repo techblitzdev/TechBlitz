@@ -46,8 +46,8 @@ export default async function ContinueJourneyCard() {
       <Link
         href={
           studyPaths?.[0]
-            ? `/questions/study-paths/${studyPaths[0].studyPath.slug}`
-            : '/questions/study-paths'
+            ? `/study-paths/${studyPaths[0].studyPath.slug}`
+            : '/study-paths'
         }
         style={{
           background:

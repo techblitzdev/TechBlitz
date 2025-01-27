@@ -5,7 +5,7 @@ import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
 import Link from 'next/link';
 import Chip from '@/components/ui/chip';
 import { Suspense } from 'react';
-import { Bookmark, Circle } from 'lucide-react';
+import { ArrowRight, Bookmark, Circle } from 'lucide-react';
 import { CheckCircle } from 'lucide-react';
 import {
   TooltipProvider,
@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/tooltip';
 import type { UserRecord } from '@/types/User';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 export function QuestionCardSkeleton() {
   return (
@@ -110,7 +111,7 @@ export default function QuestionCard(opts: {
       href={href}
       key={questionData.uid}
       className={cn(
-        'flex flex-col gap-y-5 items-start border border-black-50 hover:border-black-100 duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-[[data-pending]]:animate-pulse',
+        'flex flex-col gap-y-5 items-start bg-[#090909] border border-black-50 hover:border-black-100 duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-[[data-pending]]:animate-pulse',
         recommendedQuestion && 'border-accent'
       )}
     >
@@ -126,42 +127,64 @@ export default function QuestionCard(opts: {
             ) : (
               <Circle className="flex-shrink-0 size-5 text-black-50" />
             )}
-            <h6 className="text-lg text-wrap text-start line-clamp-2 flex-grow">
+            <h6 className="text-lg text-wrap text-start line-clamp-2 lg:line-clamp-1 flex-grow">
               {title}
             </h6>
           </div>
-          {questionData?.difficulty && userCanAccess ? (
-            <div className="h-fit order-first md:order-last">
-              <Chip
-                text={capitalise(questionData.difficulty)}
-                color={getQuestionDifficultyColor(questionData.difficulty).bg}
-                textColor={
-                  getQuestionDifficultyColor(questionData.difficulty).text
-                }
-                border={
-                  getQuestionDifficultyColor(questionData.difficulty).border
-                }
-              />
-            </div>
-          ) : (
-            <TooltipProvider>
-              <Tooltip delayDuration={0}>
-                <TooltipTrigger>
-                  <div className="h-fit order-first md:order-last">
-                    <Chip
-                      text="Premium"
-                      color="bg-gradient-to-r from-yellow-400 to-yellow-600"
-                      textColor="text-black"
-                      border="border-yellow-500"
-                    />
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Upgrade to Premium to access this question</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          )}
+          <div className="flex items-center gap-x-2">
+            {questionData?.difficulty && userCanAccess ? (
+              <div className="h-fit">
+                <Chip
+                  text={capitalise(questionData.difficulty)}
+                  color={getQuestionDifficultyColor(questionData.difficulty).bg}
+                  textColor={
+                    getQuestionDifficultyColor(questionData.difficulty).text
+                  }
+                  border={
+                    getQuestionDifficultyColor(questionData.difficulty).border
+                  }
+                />
+              </div>
+            ) : (
+              <TooltipProvider>
+                <Tooltip delayDuration={0}>
+                  <TooltipTrigger>
+                    <div className="h-fit">
+                      <Chip
+                        text="Premium"
+                        color="bg-gradient-to-r from-yellow-400 to-yellow-600"
+                        textColor="text-black"
+                        border="border-yellow-500"
+                      />
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Upgrade to Premium to access this question</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+            {questionData?.bookmarks && questionData?.bookmarks.length > 0 && (
+              <div className="flex items-center gap-x-3">
+                <TooltipProvider>
+                  <Tooltip delayDuration={0}>
+                    <TooltipTrigger>
+                      <Bookmark
+                        className={`size-5 ${
+                          questionData?.bookmarks.length > 0
+                            ? 'text-yellow-500 fill-yellow-500'
+                            : 'text-white'
+                        } transition-colors duration-200`}
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>You have bookmarked this question</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+            )}
+          </div>
         </div>
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
           {showSubmissions && (
@@ -217,35 +240,10 @@ export default function QuestionCard(opts: {
               </div>
             </div>
           )}
-          {questionData?.bookmarks && questionData?.bookmarks.length > 0 && (
-            <div className="flex items-center gap-x-3">
-              <TooltipProvider>
-                <Tooltip delayDuration={0}>
-                  <TooltipTrigger>
-                    <Bookmark
-                      className={`size-5 ${
-                        questionData?.bookmarks.length > 0
-                          ? 'text-yellow-500 fill-yellow-500'
-                          : 'text-white'
-                      } transition-colors duration-200`}
-                    />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>You have bookmarked this question</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-          )}
-          {questionData?.questionDate && questionData?.dailyQuestion && (
-            <div className="flex items-center gap-x-3">
-              <Chip
-                color="bg-black-100"
-                text={questionData.questionDate}
-                border="border-black-50"
-              />
-            </div>
-          )}
+          <p className="flex items-center gap-x-2 text-sm text-gray-300">
+            Answer now
+            <ArrowRight className="size-4" />
+          </p>
         </div>
       )}
     </Link>

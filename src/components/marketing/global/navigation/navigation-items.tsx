@@ -10,7 +10,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle
+  navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 
 const components: { title: string; href: string; description: string }[] = [
@@ -24,17 +24,17 @@ const components: { title: string; href: string; description: string }[] = [
     title: 'Blog',
     href: '/blog',
     description:
-      'Read our latest blog posts for more insights on how to level up your skills.'
+      'Read our latest blog posts for more insights on how to level up your skills.',
   },
   {
     title: 'Changelog',
     href: '/changelog',
-    description: 'Release notes for the latest updates.'
+    description: 'Release notes for the latest updates.',
   },
   {
     title: 'Open Source',
     href: '/open-source',
-    description: 'No secrets here, see how we build our platform.'
+    description: 'No secrets here, see how we build our platform.',
   },
   // {
   //   title: 'Changelog',
@@ -44,8 +44,8 @@ const components: { title: string; href: string; description: string }[] = [
   {
     title: 'FAQs',
     href: '/faqs',
-    description: 'Got a question? We have an answer.'
-  }
+    description: 'Got a question? We have an answer.',
+  },
 ];
 
 const features = [
@@ -53,26 +53,26 @@ const features = [
     title: 'Roadmaps',
     href: '/features/roadmap',
     description: 'Personalized paths to accelerate your learning journey.',
-    ariaLabel: 'Navigate to Roadmaps'
+    ariaLabel: 'Navigate to Roadmaps',
   },
   {
     title: 'Daily Challenges',
     href: '/features/daily-coding-challenges',
     description: 'Tackle daily challenges to sharpen your developer skills.',
-    ariaLabel: 'Navigate to Daily Challenges'
+    ariaLabel: 'Navigate to Daily Challenges',
   },
   {
     title: 'Statistics',
     href: '/features/statistics',
     description: 'Track your progress and see your growth over time.',
-    ariaLabel: 'Navigate to Statistics'
+    ariaLabel: 'Navigate to Statistics',
   },
   {
     title: 'Leaderboard',
     href: '/features/leaderboard',
     description: 'See how you stack up against the rest of the community.',
-    ariaLabel: 'Navigate to Leaderboard'
-  }
+    ariaLabel: 'Navigate to Leaderboard',
+  },
 ];
 
 export function NavigationMenuItems() {
@@ -126,22 +126,13 @@ export function NavigationMenuItems() {
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-              <ListItem
-                href="/questions?tag=javascript"
-                title="JavaScript"
-              >
+              <ListItem href="/questions?tag=javascript" title="JavaScript">
                 Learn JavaScript with our easy-to-understand coding questions.
               </ListItem>
-              <ListItem
-                href="/questions?tag=react"
-                title="React"
-              >
+              <ListItem href="/questions?tag=react" title="React">
                 Learn the most popular frontend library.
               </ListItem>
-              <ListItem
-                href="/questions/study-paths"
-                title="Study Paths"
-              >
+              <ListItem href="/study-paths" title="Study Paths">
                 Not sure where to start? Explore our study paths.
               </ListItem>
             </ul>

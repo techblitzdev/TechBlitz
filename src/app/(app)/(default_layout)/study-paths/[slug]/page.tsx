@@ -59,7 +59,7 @@ export async function generateMetadata({
       bgColor: '#000',
       textColor: '#fff',
     },
-    canonicalUrl: `/questions/study-paths/${params.slug}`,
+    canonicalUrl: `/study-paths/${params.slug}`,
   });
 }
 
@@ -85,7 +85,9 @@ async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
             await enrollInStudyPath(studyPath.uid);
           }
           // redirect to the first question in the study path
-          redirect(`/question/${studyPath.questionSlugs[0]}?type=study-path`);
+          redirect(
+            `/question/${studyPath.questionSlugs[0]}?type=study-path&study-path=${studyPath.slug}`
+          );
         }}
       >
         <Button
@@ -109,7 +111,7 @@ function HeroChip({ studyPath }: { studyPath: StudyPath }) {
         <Tooltip delayDuration={0}>
           <TooltipTrigger asChild>
             <Button
-              href="/questions/study-paths"
+              href="/study-paths"
               variant="default"
               size="sm"
               className="p-1 h-fit"
@@ -158,7 +160,7 @@ export default async function StudyPathPage({
     // replace the - with a space and
     name: capitalise(params.slug?.replace(/-/g, ' ') || ''),
     description: studyPath?.description || '',
-    url: `${getBaseUrl()}/questions/study-paths/${params.slug}`,
+    url: `${getBaseUrl()}/study-paths/${params.slug}`,
     educationalUse: 'practice',
     learningResourceType: ['quiz', 'learning activity'],
     creator: {

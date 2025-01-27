@@ -29,7 +29,7 @@ export async function generateMetadata() {
       bgColor: '#000',
       textColor: '#fff',
     },
-    canonicalUrl: '/questions/study-paths',
+    canonicalUrl: '/study-paths',
   });
 }
 

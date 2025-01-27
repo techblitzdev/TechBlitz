@@ -48,10 +48,7 @@ export default function QuestionCarousel({
             <p className="text-sm text-wrap text-start">{description}</p>
           </div>
           <div className="flex items-center gap-2 justify-between">
-            <Button
-              href={`/questions/study-paths/${studyPath}`}
-              variant="default"
-            >
+            <Button href={`/study-paths/${studyPath}`} variant="default">
               View study path
               <ChevronRight className="size-4 ml-2" />
             </Button>

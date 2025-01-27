@@ -5,7 +5,7 @@ export default function DailyChallengeCTA() {
     <Button
       variant="default"
       className="flex items-center gap-2"
-      href={`/questions/study-paths`}
+      href={`/study-paths`}
     >
       Explore study paths
     </Button>

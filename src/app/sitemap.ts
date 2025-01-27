@@ -119,7 +119,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
     },
     {
-      url: `${baseUrl}/questions/study-paths`,
+      url: `${baseUrl}/study-paths`,
       lastModified: new Date(),
     },
     {

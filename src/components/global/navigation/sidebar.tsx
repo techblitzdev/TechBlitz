@@ -138,7 +138,7 @@ export function AppSidebar(opts: {
         },
         {
           title: 'Study Paths',
-          url: '/questions/study-paths',
+          url: '/study-paths',
         },
       ],
     },
@@ -172,7 +172,7 @@ export function AppSidebar(opts: {
         },
         {
           title: 'Study Paths',
-          url: '/questions/study-paths',
+          url: '/study-paths',
         },
         {
           title: 'Daily Question',

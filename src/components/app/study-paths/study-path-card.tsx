@@ -5,14 +5,22 @@ import { Button } from '@/components/ui/button';
 import { CheckCircle } from 'lucide-react';
 import { useUserServer } from '@/hooks/use-user-server';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
   const user = await useUserServer();
 
   return (
     <Link
-      href={`/questions/study-paths/${studyPath.slug}`}
-      className="rounded-lg h-fit w-full overflow-hidden transition-all duration-300 hover:border-black border border-black-50"
+      href={`/study-paths/${studyPath.slug}`}
+      className={cn(
+        'rounded-lg h-fit w-full overflow-hidden transition-all duration-300 hover:border-black border border-black-50',
+        user?.studyPathEnrollments?.find(
+          (e) => e.studyPathUid === studyPath.uid
+        )
+          ? 'border-accent'
+          : 'border-black-50'
+      )}
     >
       <CardHeader className="relative p-0">
         <div className="relative p-4 text-primary-foreground">

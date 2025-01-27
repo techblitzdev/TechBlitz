@@ -13,7 +13,7 @@ export default async function StudyPathSidebar({
   return (
     <aside className="w-full lg:w-1/4 space-y-6 order-first lg:order-last">
       <div className="sticky top-10 space-y-6">
-        <div className="flex flex-col gap-y-2 border border-black-50 p-4 rounded-lg">
+        <div className="flex flex-col bg-[#090909] gap-y-2 border border-black-50 p-4 rounded-lg">
           <div className="flex items-center space-x-2 text-white">
             <BookOpen className="size-5" />
             <span>Summary</span>
@@ -23,7 +23,7 @@ export default async function StudyPathSidebar({
           </p>
         </div>
 
-        <div className="flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg">
+        <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg">
           <div className="flex items-center space-x-2 text-white">
             <Target className="size-5" />
             <span>Set a Goal</span>

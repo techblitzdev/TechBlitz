@@ -103,7 +103,7 @@ export default async function ExploreQuestionsPage() {
           ))}
         </div>
         <aside className="w-full lg:w-[30%] flex flex-col gap-5 order-first lg:order-last">
-          <div className="flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit">
+          <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit">
             <div className="flex items-center space-x-2 text-white">
               <Mail className="size-5 text-white" />
               <span>Suggest a study path</span>
@@ -116,7 +116,7 @@ export default async function ExploreQuestionsPage() {
             <FeedbackButton title="Suggest a study path" />
           </div>
           {user?.userLevel === 'FREE' && (
-            <div className="flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit order-first md:order-last">
+            <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit order-first md:order-last">
               <div className="flex items-center space-x-2 text-white">
                 <Sparkles className="size-5 text-yellow-400 fill-yellow-500" />
                 <span>Looking for a personalized study plan?</span>

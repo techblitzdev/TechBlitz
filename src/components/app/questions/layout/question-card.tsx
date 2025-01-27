@@ -15,7 +15,6 @@ import {
 } from '@/components/ui/tooltip';
 import type { UserRecord } from '@/types/User';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
 
 export function QuestionCardSkeleton() {
   return (

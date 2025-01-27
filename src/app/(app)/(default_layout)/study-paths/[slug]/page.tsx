@@ -1,6 +1,18 @@
 import { redirect } from 'next/navigation';
+import dynamic from 'next/dynamic';
 
-import StudyPathsList from '@/components/app/study-paths/list';
+const StudyPathsList = dynamic(
+  () => import('@/components/app/study-paths/list'),
+  {
+    loading: () => (
+      <div className="flex flex-col gap-6">
+        {Array.from({ length: 9 }).map((_, index) => (
+          <QuestionCardSkeleton key={index} />
+        ))}
+      </div>
+    ),
+  }
+);
 import StudyPathSidebar from '@/components/app/study-paths/study-path-sidebar';
 import Hero from '@/components/global/hero';
 import { Button } from '@/components/ui/button';
@@ -27,6 +39,7 @@ import {
 } from '@/components/ui/tooltip';
 import { Progress } from '@/components/ui/progress';
 import ShareQuestion from '@/components/global/share-question';
+import { QuestionCardSkeleton } from '@/components/app/questions/layout/question-card';
 
 export async function generateMetadata({
   params,

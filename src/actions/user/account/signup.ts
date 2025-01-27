@@ -60,14 +60,11 @@ export const signUp = async (
         },
       });
     } catch (dbError: any) {
-      // Check for unique constraint violation (user already exists)
-      if (dbError.code === 'P2002') {
-        return {
-          user: null,
-          error: 'User already exists',
-        };
-      }
-      throw dbError;
+      return {
+        user: null,
+        error:
+          'Failed to sign up with the provided credentials, please contact support.',
+      };
     }
 
     // if there is a referral code, get the user with that uid, and send an email

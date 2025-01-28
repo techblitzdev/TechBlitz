@@ -14,10 +14,10 @@ const StatsReportCardsWrapper = dynamic(
   }
 );
 
-import Hero from '@/components/global/hero';
+import Hero from '@/components/shared/hero';
 import StatsReportCardSkeleton from '@/components/app/statistics/stats-report-card-loading';
 import GenerateReportButton from '@/components/app/statistics/generate-report-button';
-import UpgradeLayout from '@/components/global/upgrade-layout';
+import UpgradeLayout from '@/components/app/shared/upgrade-layout';
 import { useUserServer } from '@/hooks/use-user-server';
 import { redirect } from 'next/navigation';
 

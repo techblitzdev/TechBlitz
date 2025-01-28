@@ -1,7 +1,6 @@
 // components
 import { createOrFetchUserRoadmap } from '@/actions/roadmap/create-or-fetch-user-roadmap';
 import { fetchRoadmapQuestionViaOrder } from '@/utils/data/roadmap/questions/fetch-roadmap-question-via-order';
-import NoDailyQuestion from '@/components/global/no-daily-question';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -13,6 +12,7 @@ import {
 import { useUserServer } from '@/hooks/use-user-server';
 import { redirect } from 'next/navigation';
 import { toast } from 'sonner';
+import NoDailyQuestion from '@/components/shared/no-daily-question';
 
 export default async function RoadmapOnboardingModal() {
   const user = await useUserServer();

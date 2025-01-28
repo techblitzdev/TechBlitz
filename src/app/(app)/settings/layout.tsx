@@ -1,4 +1,4 @@
-import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-trigger';
+import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
 import FeedbackButton from '@/components/ui/feedback-button';
 import { Separator } from '@/components/ui/separator';
 

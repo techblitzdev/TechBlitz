@@ -28,7 +28,7 @@ import CodeDisplay from './code-snippet';
 import ExpandedCodeModal from './expanded-code-modal';
 import ChangeCodeTheme from './change-code-theme';
 import AiQuestionHelp from './ai-question-help';
-import NoDailyQuestion from '@/components/global/no-daily-question';
+import NoDailyQuestion from '@/components/shared/no-daily-question';
 import QuestionSubmitted from './question-submitted';
 import { capitalize } from 'lodash';
 import { AnimatePresence } from 'framer-motion';

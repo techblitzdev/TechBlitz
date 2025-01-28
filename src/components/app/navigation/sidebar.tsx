@@ -31,8 +31,8 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
-import AppSidebarSubMenuItem from '@/components/global/navigation/sidebar-submenu-item';
-import SidebarFooterComponent from '@/components/global/navigation/sidebar-footer';
+import AppSidebarSubMenuItem from '@/components/app/navigation/sidebar-submenu-item';
+import SidebarFooterComponent from '@/components/app/navigation/sidebar-footer';
 import Logo from '@/components/ui/logo';
 import LogoSmall from '@/components/ui/LogoSmall';
 

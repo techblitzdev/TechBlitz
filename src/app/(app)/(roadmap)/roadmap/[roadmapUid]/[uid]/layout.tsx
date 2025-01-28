@@ -5,7 +5,7 @@ import { fetchRoadmapQuestion } from '@/utils/data/roadmap/questions/fetch-roadm
 
 // components
 import { Separator } from '@/components/ui/separator';
-import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-trigger';
+import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
 import CurrentStreak from '@/components/ui/current-streak';
 import FeedbackButton from '@/components/ui/feedback-button';
 import RoadmapQuestionActionButtons from '@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-action-buttons';

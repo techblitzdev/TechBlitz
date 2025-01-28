@@ -1,6 +1,6 @@
 import type { Question, QuestionWithoutAnswers } from '@/types/Questions';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
-import TagDisplay from '@/components/app/questions/previous/tag-display';
+import TagDisplay from '@/components/app/questions/tag-display';
 import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
 import Link from 'next/link';
 import Chip from '@/components/ui/chip';

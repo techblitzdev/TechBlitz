@@ -8,7 +8,7 @@ import { useQuestionSingle } from '@/components/app/questions/single/layout/ques
 import { use } from 'react';
 import HasAnswered from '@/components/app/questions/single/has-answered';
 import BookmarkQuestion from '@/components/app/questions/single/bookmark';
-import ShareQuestion from '@/components/global/share-question';
+import ShareQuestion from '@/components/app/shared/share-question';
 import Chip from '@/components/ui/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import QuestionHintTrigger from '@/components/app/questions/question-hint-trigger';

@@ -1,6 +1,6 @@
 import { getQuestion } from '@/utils/data/questions/get';
 import { Separator } from '@/components/ui/separator';
-import NoDailyQuestion from '@/components/global/no-daily-question';
+import NoDailyQuestion from '@/components/shared/no-daily-question';
 import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
 import { useUserServer } from '@/hooks/use-user-server';
 import QuestionCard from '@/components/app/questions/single/layout/question-card';

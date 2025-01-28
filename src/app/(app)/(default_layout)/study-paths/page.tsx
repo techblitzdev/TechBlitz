@@ -1,10 +1,10 @@
 import { Suspense } from 'react';
 
-import Hero from '@/components/global/hero';
+import Hero from '@/components/shared/hero';
 import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/use-user-server';
-import ContinueJourney from '@/components/global/navigation/continue-journey-button';
+import ContinueJourney from '@/components/app/navigation/continue-journey-button';
 import { ArrowRightIcon, Mail, Sparkles } from 'lucide-react';
 import { getAllStudyPaths } from '@/utils/data/study-paths/get';
 import { StudyPathCard } from '@/components/app/study-paths/study-path-card';

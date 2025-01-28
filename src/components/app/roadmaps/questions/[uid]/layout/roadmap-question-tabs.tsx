@@ -4,8 +4,6 @@ import { TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BookIcon, BookOpen, FileIcon, FileText } from 'lucide-react';
 import QuestionHintTrigger from '@/components/app/questions/question-hint-trigger';
 import BookmarkQuestion from '@/components/app/questions/single/bookmark';
-import HasAnswered from '@/components/app/questions/single/has-answered';
-import ShareQuestion from '@/components/global/share-question';
 import Chip from '@/components/ui/chip';
 import { getQuestionDifficultyColor, capitalise } from '@/utils';
 import { useRoadmapQuestion } from './roadmap-question-context';

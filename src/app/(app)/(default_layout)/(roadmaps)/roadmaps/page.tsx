@@ -16,7 +16,7 @@ const RoadmapsCard = dynamic(
 );
 
 import RoadmapOnboarding from '@/components/app/roadmaps/empty/onboarding';
-import Hero from '@/components/global/hero';
+import Hero from '@/components/shared/hero';
 
 const CreateRoadmapButton = dynamic(
   () => import('@/components/app/roadmaps/create-roadmap-button'),
@@ -28,7 +28,7 @@ const CreateRoadmapButton = dynamic(
 import { fetchUserRoadmaps } from '@/utils/data/roadmap/fetch-user-roadmaps';
 import { useUserServer } from '@/hooks/use-user-server';
 import RoadmapsCardSkeleton from '@/components/app/roadmaps/[uid]/roadmaps-card-loading';
-import UpgradeLayout from '@/components/global/upgrade-layout';
+import UpgradeLayout from '@/components/app/shared/upgrade-layout';
 
 export default async function RoadmapPage() {
   // middleware should catch this, but just in case

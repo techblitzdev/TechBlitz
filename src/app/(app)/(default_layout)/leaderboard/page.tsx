@@ -4,7 +4,7 @@ import LeaderboardHero from '@/components/app/leaderboard/leaderboard-hero';
 import { createMetadata } from '@/utils/seo';
 import { getMostQuestionsAnswered } from '@/utils/data/leaderboard/get-most-questions-answered';
 import { Suspense } from 'react';
-import GlobalPagination from '@/components/global/pagination';
+import GlobalPagination from '@/components/app/shared/pagination';
 
 const LeaderboardMostQuestionsAnswered = dynamic(
   () =>

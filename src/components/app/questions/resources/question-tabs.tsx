@@ -12,11 +12,11 @@ import BookmarkQuestion from '@/components/app/questions/single/bookmark';
 import { capitalise } from '@/utils';
 import Chip from '@/components/ui/chip';
 import { getQuestionDifficultyColor } from '@/utils';
-import ShareQuestion from '@/components/global/share-question';
 import { BarChart, BookIcon, PieChart } from 'lucide-react';
 import { BookOpen } from 'lucide-react';
 import { FileIcon, FileText } from 'lucide-react';
 import QuestionHintTrigger from '@/components/app/questions/question-hint-trigger';
+import ShareQuestion from '../../shared/share-question';
 
 interface QuestionTabsProps {
   question: Question;

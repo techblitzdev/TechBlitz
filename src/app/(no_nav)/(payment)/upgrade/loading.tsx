@@ -1,4 +1,4 @@
-import { PricingCard } from '@/components/global/payment/payment-card';
+import { PricingCard } from '@/components/shared/payment/payment-card';
 import Logo from '@/components/ui/logo';
 import { getPlans } from '@/utils/constants/pricing';
 import { X } from 'lucide-react';

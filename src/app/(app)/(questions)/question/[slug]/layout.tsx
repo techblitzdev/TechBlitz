@@ -17,17 +17,17 @@ import { QuizJsonLd } from '@/types/Seo';
 const CurrentStreak = lazy(() => import('@/components/ui/current-streak'));
 const FeedbackButton = lazy(() => import('@/components/ui/feedback-button'));
 const SidebarLayoutTrigger = lazy(
-  () => import('@/components/global/navigation/sidebar-layout-trigger')
+  () => import('@/components/app/navigation/sidebar-layout-trigger')
 );
 const RandomQuestion = lazy(
-  () => import('@/components/global/random-question')
+  () => import('@/components/shared/random-question')
 );
 const QuestionActionButtons = lazy(
   () =>
     import('@/components/app/questions/single/layout/question-action-buttons')
 );
 const QuestionNavigation = lazy(
-  () => import('@/components/global/navigation/question-navigation')
+  () => import('@/components/app/navigation/question-navigation')
 );
 const PremiumQuestionDeniedAccess = lazy(
   () => import('@/components/app/questions/premium-question-denied-access')

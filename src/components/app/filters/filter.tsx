@@ -1,5 +1,5 @@
-import FilterTagsCarousel from '@/components/global/filters/tags-carousel';
-import FilterSearchTag from '@/components/global/filters/search/tag-search';
+import FilterTagsCarousel from '@/components/app/filters/tags-carousel';
+import FilterSearchTag from '@/components/app/filters/search/tag-search';
 import { Tag } from '@prisma/client';
 import { FilterContextProvider } from './filter-context';
 import { use } from 'react';

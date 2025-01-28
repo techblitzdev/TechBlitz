@@ -1,9 +1,12 @@
-import Card from '@/components/global/Card';
 import { CheckCircle } from 'lucide-react';
-import { CardContent, CardFooter } from '@/components/ui/card';
-import { CardDescription } from '@/components/ui/card';
-import { CardTitle } from '@/components/ui/card';
-import { CardHeader } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 export default function UpgradeLayout(opts: {

@@ -1,4 +1,4 @@
-import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-trigger';
+import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
 import CurrentStreak from '@/components/ui/current-streak';
 import Feedback from '@/components/ui/feedback-button';
 import { Separator } from '@/components/ui/separator';

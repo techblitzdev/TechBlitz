@@ -1,17 +1,16 @@
-import Filter from '@/components/global/filters/filter';
-import FilterChips from '@/components/global/filters/chips';
-
 import QuestionsList from '@/components/app/questions/layout/questions-list';
 
 import QuestionPageSidebar from '@/components/app/questions/layout/question-page-sidebar';
 
-import Hero from '@/components/global/hero';
+import Hero from '@/components/shared/hero';
 
 import { validateSearchParams } from '@/utils/search-params';
 import { parseSearchParams } from '@/utils/search-params';
 import { getTags } from '@/utils/data/questions/tags/get-tags';
 import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
+import FilterChips from '@/components/app/filters/chips';
+import Filter from '@/components/app/filters/filter';
 
 // revalidate every 10 minutes
 export const revalidate = 600;

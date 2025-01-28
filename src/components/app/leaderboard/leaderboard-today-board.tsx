@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import NoDailyQuestion from '@/components/global/no-daily-question';
+import NoDailyQuestion from '@/components/shared/no-daily-question';
 import Card from '@/components/global/Card';
-import GlobalPagination from '@/components/global/pagination';
+import GlobalPagination from '@/components/app/shared/pagination';
 import { ArrowRight, Medal } from 'lucide-react';
 
 import { getFastestTimes } from '@/utils/data/leaderboard/get-fastest';

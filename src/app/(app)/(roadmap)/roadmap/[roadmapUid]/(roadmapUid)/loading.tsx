@@ -1,5 +1,5 @@
 import { Skeleton } from '@/components/ui/skeleton';
-import Hero from '@/components/global/hero';
+import Hero from '@/components/shared/hero';
 
 export default function Loading() {
   return (

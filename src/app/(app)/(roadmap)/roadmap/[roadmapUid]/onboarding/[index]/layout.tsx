@@ -10,7 +10,7 @@ import {
 import { useUserServer } from '@/hooks/use-user-server';
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
-import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-trigger';
+import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
 
 export default async function RoadmapUidLayout({
   children,

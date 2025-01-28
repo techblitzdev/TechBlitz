@@ -14,7 +14,7 @@ const StudyPathsList = dynamic(
   }
 );
 import StudyPathSidebar from '@/components/app/study-paths/study-path-sidebar';
-import Hero from '@/components/global/hero';
+import Hero from '@/components/shared/hero';
 import { Button } from '@/components/ui/button';
 import { ArrowRightIcon, ChevronLeft, Sparkles } from 'lucide-react';
 
@@ -38,7 +38,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { Progress } from '@/components/ui/progress';
-import ShareQuestion from '@/components/global/share-question';
+import ShareQuestion from '@/components/app/shared/share-question';
 import { QuestionCardSkeleton } from '@/components/app/questions/layout/question-card';
 
 export async function generateMetadata({

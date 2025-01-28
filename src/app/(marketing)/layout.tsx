@@ -5,7 +5,7 @@ import {
   UbuntuFont,
 } from '../styles/fonts/font';
 import '../globals.css';
-import { ReactQueryClientProvider } from '@/components/global/react-query-client-provider';
+import { ReactQueryClientProvider } from '@/components/shared/react-query-client-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { CSPostHogProvider } from '../providers';
 import { MantineProvider } from '@mantine/core';
@@ -23,7 +23,7 @@ const MarketingFooter = dynamic(
 );
 
 const CookieBanner = dynamic(
-  () => import('@/components/global/cookie-banner'),
+  () => import('@/components/shared/cookie-banner'),
   {
     ssr: false,
   }

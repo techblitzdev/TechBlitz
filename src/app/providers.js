@@ -1,6 +1,6 @@
 // app/providers.js
 'use client';
-import { cookieConsentGiven } from '@/components/global/cookie-banner';
+import { cookieConsentGiven } from '@/components/shared/cookie-banner';
 import posthog from 'posthog-js';
 import { PostHogProvider } from 'posthog-js/react';
 

@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import RoadmapQuestionTabs from './[uid]/layout/roadmap-question-tabs';
 import { useRoadmapQuestion } from './[uid]/layout/roadmap-question-context';
-import QuestionAccordion from '../../questions/single/question-accordion';
+import QuestionAccordion from '@/components/app/questions/single/question-accordion';
 import QuestionResult from '../../shared/answer-submitted';
 import { toast } from 'sonner';
 
@@ -103,7 +103,11 @@ export default function RoadmapQuestionCard(opts: {
           </TabsList>
           <div className="flex lg:hidden text-sm w-full items-center justify-end bg-black-25 gap-x-3">
             {/** explain question ai button */}
-            <AiQuestionHelp question={question} user={user} />
+            <AiQuestionHelp
+              question={question}
+              user={user}
+              isRoadmapQuestion={true}
+            />
             {/** code theme selector */}
             <ChangeCodeTheme user={user} />
             {/** code snippet */}
@@ -137,6 +141,7 @@ export default function RoadmapQuestionCard(opts: {
             isCodeEditorQuestion={false}
             isRoadmapQuestion={true}
             roadmapUid={roadmapUid}
+            generateAiAnswerHelp={() => {}}
           />
         )}
       </div>

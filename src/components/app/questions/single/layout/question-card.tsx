@@ -155,7 +155,11 @@ export default function QuestionCard(opts: {
           </div>
           <div className="flex lg:hidden text-sm w-full items-center justify-end bg-black-25 gap-x-3">
             {/** explain question ai button */}
-            <AiQuestionHelp question={question} user={user} />
+            <AiQuestionHelp
+              question={question}
+              user={user}
+              isRoadmapQuestion={false}
+            />
             {/** code theme selector */}
             <ChangeCodeTheme user={user} />
             {/** code snippet */}

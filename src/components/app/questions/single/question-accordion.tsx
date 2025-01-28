@@ -20,7 +20,7 @@ export default function QuestionAccordion(opts: {
 }) {
   const { relatedQuestions } = useQuestionSingle();
 
-  const { hint, showHint, setShowHint } = opts;
+  const { hint, showHint } = opts;
   if (!hint) return null;
 
   const relatedQuestionsData = relatedQuestions ? use(relatedQuestions) : null;
@@ -39,7 +39,7 @@ export default function QuestionAccordion(opts: {
         <AccordionTrigger className="text-sm duration-300">
           <div className="flex items-center gap-x-1">
             <Lightbulb className="size-4" />
-            <p>Hint: {showHint ? 'Hide' : 'Show'}</p>
+            <p>Hint</p>
           </div>
         </AccordionTrigger>
         <AccordionContent className="pb-4 px-4">

@@ -21,12 +21,14 @@ import {
 import Link from 'next/link';
 import { UserRecord } from '@/types/User';
 import { capitalize } from 'lodash';
+import { RoadmapUserQuestions } from '@/types/Roadmap';
 
 export default function AiQuestionHelp(opts: {
-  question: Question;
+  question: Question | RoadmapUserQuestions;
   user: UserRecord | null;
+  isRoadmapQuestion: boolean;
 }) {
-  const { question, user } = opts;
+  const { question, user, isRoadmapQuestion } = opts;
   const [aiHelp, setAiHelp] = useState<string | null>(null);
   const [tokensUsed, setTokensUsed] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +40,11 @@ export default function AiQuestionHelp(opts: {
   const handleSubmit = async (formData: FormData) => {
     setIsLoading(true);
     const userContent = formData.get('userContent') as string;
-    const questionHelp = await generateQuestionHelp(question.uid, userContent);
+    const questionHelp = await generateQuestionHelp(
+      question.uid,
+      userContent,
+      isRoadmapQuestion
+    );
 
     if (questionHelp) {
       setAiHelp(questionHelp.content);

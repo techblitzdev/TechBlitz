@@ -19,6 +19,7 @@ import { Question } from '@/types/Questions';
 import WaitlistSignup from './waitlist-sign-up';
 import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
 import BackToDashboard from '@/components/ui/back-to-dashboard';
+import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 
@@ -31,6 +32,8 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
   { question, seconds }: AnswerQuestionFormProps,
   ref: React.Ref<{ submitForm: () => void }>
 ) {
+  const { showHint, setShowHint } = useQuestionSingle();
+
   const [loading, setLoading] = useState(false);
   const [correct, setCorrect] = useState<boolean | null>(null);
 
@@ -186,7 +189,9 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
         )}
         <Separator className="bg-black-50" />
         <div className="w-full space-y-4 px-4">
-          {question.hint && <QuestionAccordion hint={question.hint} />}
+          {question.hint && (
+            <QuestionAccordion hint={question.hint} showHint={showHint} />
+          )}
         </div>
       </form>
     </Form>

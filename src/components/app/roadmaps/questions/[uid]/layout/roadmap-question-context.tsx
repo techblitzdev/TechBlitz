@@ -41,6 +41,8 @@ interface RoadmapQuestionContextType {
   userAnswer: RoadmapUserQuestionsAnswers | null;
   setUserAnswer: (userAnswer: RoadmapUserQuestionsAnswers | null) => void;
   resetQuestionState: () => void;
+  showHint: boolean;
+  setShowHint: (showHint: boolean) => void;
 }
 
 const RoadmapQuestionContext = createContext<RoadmapQuestionContextType>(
@@ -86,6 +88,8 @@ export const RoadmapQuestionContextProvider = ({
   const [correctAnswer, setCorrectAnswer] = useState<AnswerStatus>('init');
   const [userAnswer, setUserAnswer] =
     useState<RoadmapUserQuestionsAnswers | null>(null);
+
+  const [showHint, setShowHint] = useState(false);
 
   const handleAnswerRoadmapQuestion = async (
     e: React.FormEvent<HTMLFormElement>
@@ -166,6 +170,8 @@ export const RoadmapQuestionContextProvider = ({
         correctAnswer,
         setCorrectAnswer,
         resetQuestionState,
+        showHint,
+        setShowHint,
       }}
     >
       {children}

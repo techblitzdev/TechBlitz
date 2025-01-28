@@ -31,6 +31,7 @@ export default function RoadmapQuestionCard(opts: {
     userAnswer,
     roadmapQuestion,
     nextQuestion,
+    showHint,
   } = useRoadmapQuestion();
 
   const [activeTab, setActiveTab] = useState<
@@ -135,12 +136,15 @@ export default function RoadmapQuestionCard(opts: {
             handleDifficultySelect={handleDifficultySelect}
             isCodeEditorQuestion={false}
             isRoadmapQuestion={true}
+            roadmapUid={roadmapUid}
           />
         )}
       </div>
       <Separator className="bg-black-50" />
       <div className="w-full space-y-4 bg-black">
-        {question.hint && <QuestionAccordion hint={question.hint} />}
+        {question.hint && (
+          <QuestionAccordion hint={question.hint} showHint={showHint} />
+        )}
       </div>
     </Tabs>
   );

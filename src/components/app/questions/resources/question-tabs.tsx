@@ -32,7 +32,7 @@ export default function QuestionTabs({
   renderAnswerForm,
   totalSubmissions,
 }: QuestionTabsProps) {
-  const { userAnswered } = useQuestionSingle();
+  const { userAnswered, showHint, setShowHint } = useQuestionSingle();
 
   const [activeTab, setActiveTab] = useState<
     'description' | 'resources' | 'stats'
@@ -106,7 +106,10 @@ export default function QuestionTabs({
                 <HasAnswered userAnswered={hasUserAnswered} />
               </div>
               <div className="flex items-center">
-                <QuestionHintTrigger />
+                <QuestionHintTrigger
+                  showHint={showHint}
+                  setShowHint={setShowHint}
+                />
                 <ShareQuestion />
                 <BookmarkQuestion question={question} />
               </div>

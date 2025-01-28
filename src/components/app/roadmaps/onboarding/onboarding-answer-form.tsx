@@ -195,7 +195,9 @@ const OnboardingRoadmapAnswerQuestionForm = forwardRef(
           <Separator className="bg-black-50" />
 
           <div className="w-full space-y-4 px-4">
-            {question.hint && <QuestionAccordion hint={question.hint} />}
+            {question.hint && (
+              <QuestionAccordion hint={question.hint} showHint={showHint} />
+            )}
           </div>
         </form>
       </Form>

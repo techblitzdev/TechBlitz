@@ -7,10 +7,14 @@ import BookmarkQuestion from '@/components/app/questions/single/bookmark';
 import Chip from '@/components/ui/chip';
 import { getQuestionDifficultyColor, capitalise } from '@/utils';
 import { useRoadmapQuestion } from './roadmap-question-context';
-import RoadmapAnswerQuestionForm from '../../roadmap-answer-form';
+import RoadmapAnswerQuestionForm from '@/components/app/roadmaps/questions/roadmap-answer-form';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { Lightbulb } from 'lucide-react';
 
 export default function RoadmapQuestionTabs() {
-  const { roadmapQuestion, roadmapUid, user } = useRoadmapQuestion();
+  const { roadmapQuestion, roadmapUid, user, showHint, setShowHint } =
+    useRoadmapQuestion();
 
   const [activeTab, setActiveTab] = useState<
     'description' | 'resources' | 'stats'
@@ -74,10 +78,38 @@ export default function RoadmapQuestionTabs() {
               />
             </div>
             <div className="flex items-center">
-              <QuestionHintTrigger />
+              <QuestionHintTrigger
+                showHint={showHint}
+                setShowHint={setShowHint}
+              />
               <BookmarkQuestion question={roadmapQuestion} />
             </div>
           </div>
+          {showHint && roadmapQuestion.hint && (
+            <div className="bg-black-50 rounded-lg p-4 mt-2">
+              <div className="flex items-center gap-x-2 mb-2">
+                <Lightbulb className="size-4" />
+                <p className="text-sm font-medium">Hint</p>
+              </div>
+              <Markdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  ul: ({ children }) => (
+                    <ul className="list-disc px-4 flex flex-col gap-3">
+                      {children}
+                    </ul>
+                  ),
+                  ol: ({ children }) => (
+                    <ol className="list-decimal px-4 flex flex-col gap-3">
+                      {children}
+                    </ol>
+                  ),
+                }}
+              >
+                {roadmapQuestion.hint}
+              </Markdown>
+            </div>
+          )}
           {roadmapQuestion?.question && (
             <div className="flex w-full gap-10 justify-between">
               <h3 className="font-onest font-light text-lg md:text-2xl">

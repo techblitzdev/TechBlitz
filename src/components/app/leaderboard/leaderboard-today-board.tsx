@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import NoDailyQuestion from '@/components/shared/no-daily-question';
-import Card from '@/components/global/Card';
+import Card from '@/components/shared/Card';
 import GlobalPagination from '@/components/app/shared/pagination';
 import { ArrowRight, Medal } from 'lucide-react';
 

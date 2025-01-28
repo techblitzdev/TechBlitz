@@ -18,7 +18,7 @@ export default function CodingChallengeDescription(opts: {
 }) {
   const { question } = opts;
 
-  const { userAnswered } = useQuestionSingle();
+  const { userAnswered, showHint, setShowHint } = useQuestionSingle();
 
   const hasUserAnswered = use(userAnswered);
 
@@ -36,7 +36,10 @@ export default function CodingChallengeDescription(opts: {
             <HasAnswered userAnswered={hasUserAnswered} />
           </div>
           <div className="flex items-center">
-            <QuestionHintTrigger />
+            <QuestionHintTrigger
+              showHint={showHint}
+              setShowHint={setShowHint}
+            />
             <ShareQuestion />
             <BookmarkQuestion question={question} />
           </div>

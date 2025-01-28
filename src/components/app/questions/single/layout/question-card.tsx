@@ -63,6 +63,7 @@ export default function QuestionCard(opts: {
     setCurrentLayout,
     prefilledCodeSnippet,
     answerHelp,
+    showHint,
   } = useQuestionSingle();
 
   const answerFormRef = useRef<{
@@ -226,7 +227,9 @@ export default function QuestionCard(opts: {
       </div>
       <Separator className="bg-black-50" />
       <div className="w-full space-y-4 bg-black">
-        {question.hint && <QuestionAccordion hint={question.hint} />}
+        {question.hint && (
+          <QuestionAccordion hint={question.hint} showHint={showHint} />
+        )}
       </div>
       <Separator className="bg-black-50" />
       <QuestionCardFooter

@@ -14,8 +14,8 @@ import { Separator } from '@/components/ui/separator';
 import RoadmapQuestionTabs from './[uid]/layout/roadmap-question-tabs';
 import { useRoadmapQuestion } from './[uid]/layout/roadmap-question-context';
 import QuestionAccordion from '../../questions/single/question-accordion';
-import RoadmapQuestionSubmitted from './[uid]/layout/roadmap-question-submitted';
 import QuestionResult from '../../shared/answer-submitted';
+import { toast } from 'sonner';
 
 export default function RoadmapQuestionCard(opts: {
   user: UserRecord;
@@ -37,6 +37,7 @@ export default function RoadmapQuestionCard(opts: {
     'description' | 'resources' | 'stats'
   >('description');
 
+  // TODO: add difficulty selection for roadmap questions (schema changes needed)
   const handleDifficultySelect = async (value: string) => {
     //await updateAnswerDifficulty(
     //  userAnswer?.uid || '',
@@ -133,6 +134,7 @@ export default function RoadmapQuestionCard(opts: {
             nextQuestion={nextQuestion}
             handleDifficultySelect={handleDifficultySelect}
             isCodeEditorQuestion={false}
+            isRoadmapQuestion={true}
           />
         )}
       </div>

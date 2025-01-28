@@ -151,9 +151,7 @@ export default function QuestionResult({
         {!isCodeEditorQuestion && (
           <div className="flex flex-col gap-y-6">
             <div className="flex flex-col gap-y-2">
-              <h2 className="text-xl font-bold">
-                Your Answer:{JSON.stringify(userAnswer)}
-              </h2>
+              <h2 className="text-xl font-bold">Your Answer</h2>
               <CodeDisplay
                 content={
                   isRoadmapQuestion
@@ -188,12 +186,13 @@ export default function QuestionResult({
             )}
           </div>
         )}
-        <div className="flex flex-col gap-y-2 mt-5 bg-black border border-black-50 p-4 rounded-lg">
+        <div className="flex flex-col gap-y-2 mt-5 bg-[#111111] border border-black-50 p-4 rounded-lg">
           <h2 className="text-xl font-bold">Explain this answer</h2>
           <p className="text-sm text-gray-400">
             Don't understand this answer? Click the button below to get an
             explanation.
           </p>
+          {/** roadmap users get unlimited tokens - no need to show token count */}
           {!isRoadmapQuestion && (
             <p className="text-sm text-white">
               You have{' '}
@@ -214,7 +213,7 @@ export default function QuestionResult({
             </p>
           )}
           <Button
-            variant="secondary"
+            variant="default"
             onClick={() => {
               startTransition(() => {
                 generateAiAnswerHelp();
@@ -238,7 +237,7 @@ export default function QuestionResult({
             {isPending ? 'Generating...' : 'Explain Answer'}
           </Button>
         </div>
-        <div className="flex flex-col gap-y-2 mt-3 bg-black border border-black-50 p-4 rounded-lg">
+        <div className="flex flex-col gap-y-2 mt-3 bg-[#111111] border border-black-50 p-4 rounded-lg">
           <h2 className="text-xl font-bold">
             How difficult was this question?
           </h2>
@@ -260,7 +259,7 @@ export default function QuestionResult({
           </div>
         </div>
         {nextQuestion && (
-          <div className="flex flex-col gap-y-2 bg-black border border-black-50 p-4 rounded-lg">
+          <div className="flex flex-col gap-y-2 bg-[#111111] border border-black-50 p-4 rounded-lg">
             <h2 className="text-xl font-bold">
               Ready for your next challenge?
             </h2>

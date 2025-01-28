@@ -5,10 +5,28 @@ import { useRoadmapQuestion } from './roadmap-question-context';
 import LoadingSpinner from '@/components/ui/loading';
 import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
 import { Button } from '@/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { toast } from 'sonner';
 
 export default function RoadmapQuestionSubmitted() {
   const { correctAnswer, userAnswer, roadmapQuestion, nextQuestion } =
     useRoadmapQuestion();
+
+  const handleDifficultySelect = async (value: string) => {
+    //await updateAnswerDifficulty(
+    //  userAnswer?.uid || '',
+    //  value.toUpperCase() as AnswerDifficulty
+    //);
+    toast.success(
+      'Question difficulty updated, we will now serve more personalized questions to you.'
+    );
+  };
 
   return (
     <motion.div
@@ -76,7 +94,7 @@ export default function RoadmapQuestionSubmitted() {
             </div>
           )}
         </div>
-        <div className="flex flex-col gap-y-2 mt-5">
+        <div className="flex flex-col gap-y-2 mt-5 bg-black border border-black-50 p-4 rounded-lg">
           {/** ai explain answer (on button click) */}
           <h2 className="text-xl font-bold">Explain this answer</h2>
           <p className="text-sm text-gray-400">
@@ -85,9 +103,31 @@ export default function RoadmapQuestionSubmitted() {
           </p>
           <Button variant="default">Explain Answer</Button>
         </div>
+        {/** how difficult was this question? */}
+        <div className="flex flex-col gap-y-2 mt-3 bg-black border border-black-50 p-4 rounded-lg">
+          <h2 className="text-xl font-bold">
+            How difficult was this question?
+          </h2>
+          <p className="text-sm text-gray-400">
+            Rate this question based on how difficult it was to solve. This will
+            help us improve the personalization of questions served to you.
+          </p>
+          <div className="flex flex-col gap-y-2">
+            <Select onValueChange={handleDifficultySelect}>
+              <SelectTrigger className="w-40 border border-black-50">
+                <SelectValue placeholder="Select Difficulty" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="easy">Easy</SelectItem>
+                <SelectItem value="medium">Medium</SelectItem>
+                <SelectItem value="hard">Hard</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
         {/** if the next question slug is not null, show a button to go to the next question */}
         {nextQuestion?.uid && (
-          <div className="flex flex-col gap-y-2">
+          <div className="flex flex-col gap-y-2 bg-black border border-black-50 p-4 rounded-lg">
             <h2 className="text-xl font-bold">
               Ready for your next challenge?
             </h2>

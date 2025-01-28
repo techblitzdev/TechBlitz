@@ -79,7 +79,6 @@ export const getPlans = (
         { name: 'In depth stat analysis and progress tracking' },
         { name: 'Personalized coding challenges' },
         { name: 'Unlimited AI assistant tokens' },
-        { name: 'Priority support' },
         { name: '50% student discount available' },
       ],
       cta: {
@@ -127,7 +126,6 @@ export const getPlans = (
         { name: 'In depth stat analysis and progress tracking' },
         { name: 'Personalized coding challenges' },
         { name: 'Unlimited AI assistant tokens' },
-        { name: 'Priority support' },
         { name: '50% student discount available' },
         { name: 'Lifetime access to all features and future updates!' },
       ],

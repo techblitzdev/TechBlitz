@@ -28,7 +28,10 @@ export const updateUser = async (opts: {
   const cleanedUserDetails = Object.fromEntries(
     Object.entries(userDetails).filter(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ([_, v]) => v !== undefined && v !== null
+      ([_, v]) =>
+        v !== undefined &&
+        v !== null &&
+        !['studyPathEnrollments', 'studyPathGoals'].includes(_)
     )
   );
 
@@ -37,9 +40,33 @@ export const updateUser = async (opts: {
     cleanedUserDetails.codeEditorTheme = userDetails.codeEditorTheme;
   }
 
+  // Handle studyPathEnrollments separately if provided
+  const updateData: any = {
+    ...cleanedUserDetails,
+  };
+
+  if (userDetails.studyPathEnrollments !== undefined) {
+    updateData.studyPathEnrollments = {
+      updateMany: userDetails.studyPathEnrollments?.map((enrollment: any) => ({
+        where: { uid: enrollment.uid },
+        data: {
+          progress: enrollment.progress,
+          completedAt: enrollment.completedAt,
+          updatedAt: new Date(),
+        },
+      })),
+    };
+  }
+
+  if (userDetails.studyPathGoals !== undefined) {
+    updateData.studyPathGoals = {
+      set: userDetails.studyPathGoals,
+    };
+  }
+
   // if the user is updated their username, set the isCustomUsername flag to true
   if (userDetails.username !== undefined) {
-    cleanedUserDetails.isCustomUsername = true;
+    updateData.isCustomUsername = true;
   }
 
   // Update the user in the database
@@ -47,7 +74,7 @@ export const updateUser = async (opts: {
     where: {
       uid: user.uid,
     },
-    data: cleanedUserDetails,
+    data: updateData,
   });
 
   // Revalidate the user details cache

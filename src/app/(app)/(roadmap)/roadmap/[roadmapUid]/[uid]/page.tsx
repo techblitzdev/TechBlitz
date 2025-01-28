@@ -32,7 +32,7 @@ export default async function RoadmapQuestionPage({
   const [user, question] = (await Promise.all([
     useUserServer(),
     fetchRoadmapQuestion(uid),
-  ])) as [UserRecord, RoadmapUserQuestions];
+  ])) as unknown as [UserRecord, RoadmapUserQuestions];
 
   // free users do not have access to the roadmap (we also check if the user owns the roadmap in the fetchRoadmapQuestion action)
   if (!user || user.userLevel === 'FREE') {

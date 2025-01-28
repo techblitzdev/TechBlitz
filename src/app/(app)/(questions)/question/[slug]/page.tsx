@@ -52,7 +52,7 @@ export default async function TodaysQuestionPage({
     <div className="hidden lg:flex flex-col gap-4 p-3 lg:pl-1.5 h-full">
       <div
         id="code-snippet"
-        className="bg-black-75 border border-black-50 rounded-xl relative overflow-scroll h-full"
+        className="bg-black-75 border border-black-50 rounded-xl relative h-full overflow-y-auto scrollable-element"
       >
         <div className="px-4 py-[18px] text-sm flex w-full items-center justify-end bg-black-25 gap-x-3">
           {/** explain question ai button */}

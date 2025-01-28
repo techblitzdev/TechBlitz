@@ -72,7 +72,7 @@ export default function CodeEditor(opts: { defaultCode: string }) {
             highlightActiveIndentation: true,
           },
         }}
-        className="bg-black-50"
+        className="bg-black-50 !overflow-y-auto !scrollable-element"
         loading={<LoadingSpinner />}
       />
     </div>

@@ -1,6 +1,8 @@
 'use client';
 
+import { generateAnswerHelp } from '@/actions/ai/questions/answer-help';
 import { answerRoadmapQuestion } from '@/actions/roadmap/questions/answer-roadmap-question';
+import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
 import { RoadmapUserQuestions } from '@/types/Roadmap';
 import { UserRecord } from '@/types/User';
 import {
@@ -9,6 +11,7 @@ import {
 } from '@prisma/client';
 import { createContext, useState, useContext } from 'react';
 import { toast } from 'sonner';
+import { z } from 'zod';
 
 type Layout = 'questions' | 'codeSnippet' | 'answer';
 type AnswerStatus = 'correct' | 'incorrect' | 'init';
@@ -41,8 +44,15 @@ interface RoadmapQuestionContextType {
   userAnswer: RoadmapUserQuestionsUserAnswers | null;
   setUserAnswer: (userAnswer: RoadmapUserQuestionsUserAnswers | null) => void;
   resetQuestionState: () => void;
+
+  // hint
   showHint: boolean;
   setShowHint: (showHint: boolean) => void;
+
+  // ai answer help
+  generateAiAnswerHelp: (setCodeSnippetLayout?: boolean) => Promise<void>;
+  answerHelp: z.infer<typeof answerHelpSchema> | null;
+  setAnswerHelp: (answerHelp: z.infer<typeof answerHelpSchema> | null) => void;
 }
 
 const RoadmapQuestionContext = createContext<RoadmapQuestionContextType>(
@@ -90,6 +100,42 @@ export const RoadmapQuestionContextProvider = ({
     useState<RoadmapUserQuestionsUserAnswers | null>(null);
 
   const [showHint, setShowHint] = useState(false);
+
+  const [answerHelp, setAnswerHelp] = useState<z.infer<
+    typeof answerHelpSchema
+  > | null>(null);
+
+  /**
+   * Method for generating answer help for a roadmap question
+   *
+   * @param setCodeSnippetLayout - optional boolean to set the current layout to 'codeSnippet'
+   * @returns void
+   */
+  const generateAiAnswerHelp = async (setCodeSnippetLayout?: boolean) => {
+    // if the user has asked for assistance for the answer, set the current layout to 'codeSnippet'
+    // this is so mobile view switches to the code snippet view
+    if (setCodeSnippetLayout) {
+      setCurrentLayout('codeSnippet');
+    }
+
+    // we don't need to check if the user has enough tokens because the user is on a roadmap
+    // and they have unlimited tokens
+    const { content } = await generateAnswerHelp(
+      roadmapQuestion.uid,
+      userAnswer?.correct || false,
+      true
+    );
+
+    console.log('content', content);
+
+    if (!content) {
+      toast.error('Error generating answer help');
+      return;
+    }
+
+    // set the answer help
+    setAnswerHelp(content);
+  };
 
   const handleAnswerRoadmapQuestion = async (
     e: React.FormEvent<HTMLFormElement>
@@ -172,6 +218,9 @@ export const RoadmapQuestionContextProvider = ({
         resetQuestionState,
         showHint,
         setShowHint,
+        generateAiAnswerHelp,
+        answerHelp,
+        setAnswerHelp,
       }}
     >
       {children}

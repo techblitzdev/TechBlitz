@@ -8,6 +8,7 @@ import Chip from '@/components/ui/chip';
 import { getQuestionDifficultyColor, capitalise } from '@/utils';
 import { useRoadmapQuestion } from './roadmap-question-context';
 import RoadmapAnswerQuestionForm from '@/components/app/roadmaps/questions/roadmap-answer-form';
+import QuestionResourceTab from '@/components/app/questions/resources/question-resource-tab';
 
 export default function RoadmapQuestionTabs() {
   const { roadmapQuestion, roadmapUid, user, showHint, setShowHint } =
@@ -91,6 +92,15 @@ export default function RoadmapQuestionTabs() {
           )}
           {renderAnswerForm()}
         </div>
+      </TabsContent>
+      <TabsContent value="resources" className="p-4">
+        <h3 className="font-inter font-light text-lg md:text-2xl">
+          A list of helpful resources to help you answer this question.
+        </h3>
+        <QuestionResourceTab
+          resources={[]}
+          reference={roadmapQuestion.uid || undefined}
+        />
       </TabsContent>
     </>
   );

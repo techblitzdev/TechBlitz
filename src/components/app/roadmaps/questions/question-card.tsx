@@ -16,6 +16,7 @@ import { useRoadmapQuestion } from './[uid]/layout/roadmap-question-context';
 import QuestionAccordion from '@/components/app/questions/single/question-accordion';
 import QuestionResult from '../../shared/answer-submitted';
 import { toast } from 'sonner';
+import QuestionCodeDisplay from '../../shared/question-code-display';
 
 export default function RoadmapQuestionCard(opts: {
   user: UserRecord;
@@ -31,6 +32,8 @@ export default function RoadmapQuestionCard(opts: {
     userAnswer,
     nextQuestion,
     showHint,
+    answerHelp,
+    generateAiAnswerHelp,
   } = useRoadmapQuestion();
 
   const [activeTab, setActiveTab] = useState<
@@ -129,7 +132,15 @@ export default function RoadmapQuestionCard(opts: {
       <Separator className="bg-black-50" />
       <div className="flex-1 bg-black overflow-y-auto scrollable-element">
         {currentLayout === 'questions' && <RoadmapQuestionTabs />}
-        {currentLayout === 'codeSnippet' && <RoadmapQuestionTabs />}
+        {currentLayout === 'codeSnippet' && (
+          <>
+            <QuestionCodeDisplay
+              question={question}
+              user={user}
+              answerHelp={answerHelp}
+            />
+          </>
+        )}
         {currentLayout === 'answer' && (
           <QuestionResult
             correctAnswer={correctAnswer}
@@ -140,7 +151,7 @@ export default function RoadmapQuestionCard(opts: {
             isCodeEditorQuestion={false}
             isRoadmapQuestion={true}
             roadmapUid={roadmapUid}
-            generateAiAnswerHelp={() => {}}
+            generateAiAnswerHelp={generateAiAnswerHelp}
           />
         )}
       </div>

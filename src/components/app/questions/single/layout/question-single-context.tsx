@@ -299,12 +299,12 @@ export const QuestionSingleContextProvider = ({
 
     // determine method to use based on question type
     if (question.questionType === 'CODING_CHALLENGE') {
-      validateCode(e);
+      await validateCode(e);
     } else {
-      submitQuestionAnswer(e);
+      await submitQuestionAnswer(e);
     }
 
-    // set the current layout to 'answer' to show the answer submitted
+    // Only switch layout after validation is complete
     setCurrentLayout('answer');
   };
 

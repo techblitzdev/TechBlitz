@@ -128,6 +128,7 @@ export const generateAnswerHelp = async (
   }
 
   if (!question) {
+    console.error('Question not found');
     return {
       content: null,
       tokensUsed: 0,

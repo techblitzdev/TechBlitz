@@ -23,7 +23,8 @@ import { UserRecord } from '@/types/User';
 import ResizableLayout from '@/components/ui/resizable-layout';
 import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help';
 import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
-import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
+
+import QuestionCodeDisplayWrapper from '@/components/app/roadmaps/questions/[uid]/layout/question-code-display-wrapper';
 
 export default async function RoadmapQuestionPage({
   params,
@@ -76,7 +77,7 @@ export default async function RoadmapQuestionPage({
           )}
         </div>
         <Separator className="bg-black-50" />
-        {question.codeSnippet && <CodeDisplay content={question.codeSnippet} />}
+        <QuestionCodeDisplayWrapper />
       </div>
     </div>
   );

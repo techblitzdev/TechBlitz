@@ -1,15 +1,7 @@
 import BackToDashboard from '@/components/ui/back-to-dashboard';
 import OnboardingProgressBar from '@/components/app/roadmaps/onboarding/onboarding-progress-bar';
 import { Separator } from '@/components/ui/separator';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
 import { useUserServer } from '@/hooks/use-user-server';
-import { ArrowRight, ChevronRight } from 'lucide-react';
-import Link from 'next/link';
 import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
 
 export default async function RoadmapUidLayout({

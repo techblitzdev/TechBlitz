@@ -8,7 +8,7 @@ import { useQuestionSingle } from '@/components/app/questions/single/layout/ques
 import { use } from 'react';
 import HasAnswered from '@/components/app/questions/single/has-answered';
 import BookmarkQuestion from '@/components/app/questions/single/bookmark';
-import ShareQuestion from '@/components/global/share-question';
+import ShareQuestion from '@/components/app/shared/share-question';
 import Chip from '@/components/ui/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import QuestionHintTrigger from '@/components/app/questions/question-hint-trigger';
@@ -18,7 +18,7 @@ export default function CodingChallengeDescription(opts: {
 }) {
   const { question } = opts;
 
-  const { userAnswered } = useQuestionSingle();
+  const { userAnswered, showHint, setShowHint } = useQuestionSingle();
 
   const hasUserAnswered = use(userAnswered);
 
@@ -36,7 +36,10 @@ export default function CodingChallengeDescription(opts: {
             <HasAnswered userAnswered={hasUserAnswered} />
           </div>
           <div className="flex items-center">
-            <QuestionHintTrigger />
+            <QuestionHintTrigger
+              showHint={showHint}
+              setShowHint={setShowHint}
+            />
             <ShareQuestion />
             <BookmarkQuestion question={question} />
           </div>

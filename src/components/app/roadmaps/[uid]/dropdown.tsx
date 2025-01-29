@@ -44,7 +44,7 @@ export default function RoadmapDropdown(opts: { roadmap: UserRoadmaps }) {
           <Button
             variant="ghost"
             size="icon"
-            className="size-8 bg-black-100 hover:text-white border border-black-50 rounded-md relative group duration-200"
+            className="size-7 bg-black-100 hover:bg-black-50 hover:text-white border border-black-50 rounded-md relative group duration-200"
           >
             <EllipsisVertical className="size-4" />
           </Button>
@@ -55,14 +55,14 @@ export default function RoadmapDropdown(opts: { roadmap: UserRoadmaps }) {
         >
           <Button
             variant="ghost"
-            className="w-full justify-start text-left font-normal px-2 hover:text-white"
+            className="w-full justify-start text-left font-normal px-2 hover:bg-black-50 hover:text-white transition-colors duration-200"
             onClick={handleEditRoadmap}
           >
             Edit roadmap details
           </Button>
           <Button
             variant="ghost"
-            className="w-full justify-start text-left font-normal px-2 py-1.5 text-destructive hover:text-white"
+            className="w-full justify-start text-left font-normal px-2 py-1.5 text-destructive hover:bg-destructive/10 hover:text-destructive transition-colors duration-200"
             onClick={handleRoadmapDelete}
           >
             Delete roadmap

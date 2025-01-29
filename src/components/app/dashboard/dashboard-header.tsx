@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-trigger';
+import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
 import LoadingSpinner from '@/components/ui/loading';
 
 const CurrentStreak = dynamic(() => import('@/components/ui/current-streak'), {

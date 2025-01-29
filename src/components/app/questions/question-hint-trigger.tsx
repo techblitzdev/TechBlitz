@@ -3,11 +3,14 @@ import { TooltipContent, TooltipProvider } from '@/components/ui/tooltip';
 import { Tooltip } from '@/components/ui/tooltip';
 import { TooltipTrigger } from '@/components/ui/tooltip';
 import { Lightbulb } from 'lucide-react';
-import { useQuestionSingle } from './single/layout/question-single-context';
 
-export default function QuestionHintTrigger() {
-  const { showHint, setShowHint } = useQuestionSingle();
-
+export default function QuestionHintTrigger({
+  showHint,
+  setShowHint,
+}: {
+  showHint: boolean;
+  setShowHint: (showHint: boolean) => void;
+}) {
   const toggleHint = () => {
     setShowHint(!showHint);
   };

@@ -5,37 +5,66 @@ import { getPrompt } from '../utils/get-prompt';
 import { getUser } from '@/actions/user/authed/get-user';
 import { questionHelpSchema } from '@/lib/zod/schemas/ai/question-help';
 import { zodResponseFormat } from 'openai/helpers/zod.mjs';
+import type { Question } from '@/types/Questions';
+import type { RoadmapUserQuestions } from '@/types/Roadmap';
 
 /**
- * Method to generate question help for a question.
+ * Method to generate question help for both regular and roadmap questions.
  *
  * @param questionUid - The uid of the question to generate help for.
  * @param userContent - The user's content to generate help for.
+ * @param isRoadmapQuestion - Whether this is a roadmap question or not
  * @returns
  */
 export const generateQuestionHelp = async (
   questionUid: string,
-  userContent?: string
+  userContent?: string,
+  isRoadmapQuestion = false
 ) => {
   // get the current user requesting help
   const user = await getUser();
 
-  // if no user, return false
   if (!user) {
     return false;
   }
 
-  // now check if the user has enough tokens
-  if (user.aiQuestionHelpTokens && user.aiQuestionHelpTokens <= 0) {
+  // For regular questions, check if the user has enough tokens
+  if (
+    !isRoadmapQuestion &&
+    user.aiQuestionHelpTokens &&
+    user.aiQuestionHelpTokens <= 0
+  ) {
     return false;
   }
 
-  // get the question
-  const question = await prisma.questions.findUnique({
-    where: {
-      uid: questionUid,
-    },
-  });
+  let question: Question | RoadmapUserQuestions | null;
+
+  if (isRoadmapQuestion) {
+    // Get the roadmap question
+    question = (await prisma.roadmapUserQuestions.findUnique({
+      where: {
+        uid: questionUid,
+        AND: {
+          roadmap: {
+            userUid: user.uid,
+          },
+        },
+      },
+      include: {
+        answers: true,
+      },
+    })) as RoadmapUserQuestions | null;
+  } else {
+    // Get the regular question
+    question = await prisma.questions.findUnique({
+      where: {
+        uid: questionUid,
+      },
+      include: {
+        answers: true,
+      },
+    });
+  }
 
   // if no question, return error
   if (!question) {
@@ -87,22 +116,27 @@ export const generateQuestionHelp = async (
 
   const formattedData = JSON.parse(questionHelp.choices[0].message.content);
 
-  // if the user is a premium users, do not deduct tokens
-  if (user.userLevel === 'PREMIUM') {
+  // Handle token management based on question type and user level
+  if (
+    !isRoadmapQuestion &&
+    user.userLevel !== 'PREMIUM' &&
+    user.userLevel !== 'ADMIN'
+  ) {
+    // Deduct tokens for regular questions from non-premium users
+    const updatedUser = await prisma.users.update({
+      where: { uid: user.uid },
+      data: { aiQuestionHelpTokens: { decrement: 1 } },
+    });
+
     return {
       content: formattedData,
-      tokens: Infinity,
+      tokens: updatedUser.aiQuestionHelpTokens,
     };
   }
 
-  // deduct the tokens from free users
-  const updatedUser = await prisma.users.update({
-    where: { uid: user.uid },
-    data: { aiQuestionHelpTokens: { decrement: 1 } },
-  });
-
+  // For roadmap questions or premium users, return infinite tokens
   return {
     content: formattedData,
-    tokens: updatedUser.aiQuestionHelpTokens,
+    tokens: Number.POSITIVE_INFINITY,
   };
 };

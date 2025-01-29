@@ -11,7 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { UserRecord } from '@/types/User';
 import { useRouter } from 'next/navigation';
-import ReferralToast from '@/components/global/referral-toast';
+import ReferralToast from '@/components/shared/referral-toast';
 
 export default function ClientPage({
   children,

@@ -1,7 +1,7 @@
 import '../globals.css';
 import { Toaster } from '@/components/ui/sonner';
 import { SidebarProvider } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/global/navigation/sidebar';
+import { AppSidebar } from '@/components/app/navigation/sidebar';
 import { CSPostHogProvider } from '../providers';
 import SidebarLayout from './providers';
 

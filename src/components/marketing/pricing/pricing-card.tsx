@@ -1,4 +1,4 @@
-import AnimatedPricingFeatures from '@/components/global/payment/animated-pricing-features';
+import AnimatedPricingFeatures from '@/components/shared/payment/animated-pricing-features';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';

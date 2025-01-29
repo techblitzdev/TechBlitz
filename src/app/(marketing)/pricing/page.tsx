@@ -4,7 +4,7 @@ import { AnimatedBreak } from '@/components/marketing/pricing/animated-break';
 import PricingCardBlock from '@/components/marketing/pricing/pricing-card-block';
 import { createMetadata } from '@/utils/seo';
 import Link from 'next/link';
-import FrequencyToggle from '@/components/global/payment/frequency-toggle';
+import FrequencyToggle from '@/components/shared/payment/frequency-toggle';
 import { cookies } from 'next/headers';
 import { revalidatePath } from 'next/cache';
 import Testimonials from '@/components/marketing/global/blocks/testimonials';

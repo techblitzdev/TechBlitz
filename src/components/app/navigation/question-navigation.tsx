@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { StudyPath, studyPaths } from '@/utils/constants/study-paths';
 import { Button } from '@/components/ui/button';
+import { RoadmapUserQuestions } from '@prisma/client';
 
 /**
  * Component for navigation between different questions from within the
@@ -146,6 +147,86 @@ export default function QuestionNavigation(opts: {
               {nextQuestion
                 ? `Next ${navigationType}`
                 : `No next ${navigationType}`}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
+    </div>
+  );
+}
+
+export function RoadmapQuestionNavigation(opts: {
+  nextRoadmapQuestion: RoadmapUserQuestions | null | undefined;
+  prevRoadmapQuestion: RoadmapUserQuestions | null | undefined;
+  roadmap: {
+    title: string;
+    uid: string;
+  };
+}) {
+  const { nextRoadmapQuestion, prevRoadmapQuestion, roadmap } = opts;
+
+  return (
+    <div className="flex items-center">
+      <div className="flex items-center gap-x-2">
+        <TooltipProvider delayDuration={0} skipDelayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger>
+              <Button
+                variant="default"
+                className="z-30 flex items-center gap-x-2 mr-2"
+                href={`/roadmap/${roadmap?.uid}`}
+              >
+                <ArrowLeft className="size-4" />
+                <span className="text-sm hidden sm:block">Back</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
+              Back to {roadmap?.title}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
+      <div className="flex items-center">
+        {/* Previous Question */}
+        <TooltipProvider delayDuration={0} skipDelayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger>
+              <Link
+                href={`/roadmap/${prevRoadmapQuestion?.roadmapUid}/${prevRoadmapQuestion?.uid}`}
+                className={`bg-primary border border-black-50 p-2 rounded-l-md relative group duration-200 size-9 flex items-center justify-center border-r-0 ${
+                  !prevRoadmapQuestion ? 'opacity-50 pointer-events-none' : ''
+                }`}
+              >
+                <ChevronLeft className="size-4 opacity-100 group-hover:opacity-0 absolute duration-100" />
+                <ArrowLeft className="size-4 opacity-0 group-hover:opacity-100 absolute duration-100" />
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="bottom" className="text-white font-inter">
+              {prevRoadmapQuestion
+                ? `Previous Roadmap Question`
+                : `No previous Roadmap Question`}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+
+        {/* Next Question */}
+        <TooltipProvider delayDuration={0} skipDelayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger>
+              <Link
+                href={`/roadmap/${nextRoadmapQuestion?.roadmapUid}/${nextRoadmapQuestion?.uid}`}
+                className={`bg-primary border border-black-50 p-2 rounded-r-md relative group duration-200 size-9 flex items-center justify-center ${
+                  !nextRoadmapQuestion ? 'opacity-50 pointer-events-none' : ''
+                }`}
+              >
+                <ChevronRight className="size-4 opacity-100 group-hover:opacity-0 absolute duration-100" />
+                <ArrowRight className="size-4 opacity-0 group-hover:opacity-100 absolute duration-100" />
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
+              {nextRoadmapQuestion
+                ? `Next Roadmap Question`
+                : `No next Roadmap Question`}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

@@ -23,7 +23,9 @@ export default function QuestionResourceTab(opts: {
     return (
       <div className="flex flex-col gap-y-2 mt-2">
         <p className="text-sm text-gray-400">
-          No resources found for this question.
+          It looks like there are no resources for this question. If you have a
+          resource that you think would be helpful for this question, please let
+          us know!
         </p>
         <AlertDialog>
           <AlertDialogTrigger asChild>

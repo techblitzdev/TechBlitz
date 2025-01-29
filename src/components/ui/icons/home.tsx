@@ -8,26 +8,26 @@ export default function HomeIcon() {
     >
       <title>home</title>
       <g
-        stroke-linejoin="miter"
+        strokeLinejoin="miter"
         fill="currentColor"
-        stroke-linecap="butt"
+        strokeLinecap="butt"
         className="nc-icon-wrapper"
       >
         <polyline
           points="1 11 12 2 23 11"
           fill="none"
           stroke="currentColor"
-          stroke-miterlimit="10"
-          stroke-width="2"
+          strokeMiterlimit="10"
+          strokeWidth="2"
           data-color="color-2"
         ></polyline>
         <path
           d="m5,13v7c0,1.105.895,2,2,2h10c1.105,0,2-.895,2-2v-7"
           fill="none"
           stroke="currentColor"
-          stroke-linecap="square"
-          stroke-miterlimit="10"
-          stroke-width="2"
+          strokeLinecap="square"
+          strokeMiterlimit="10"
+          strokeWidth="2"
         ></path>
         <line
           x1="12"
@@ -36,9 +36,9 @@ export default function HomeIcon() {
           y2="18"
           fill="none"
           stroke="currentColor"
-          stroke-linecap="square"
-          stroke-miterlimit="10"
-          stroke-width="2"
+          strokeLinecap="square"
+          strokeMiterlimit="10"
+          strokeWidth="2"
         ></line>
       </g>
     </svg>

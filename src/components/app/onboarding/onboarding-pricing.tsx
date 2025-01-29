@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import PricingCard from '@/components/marketing/pricing/pricing-card';
 import { getPlans } from '@/utils/constants/pricing';
 import { useOnboardingContext } from './onboarding-context';
-import FrequencyTabs from '@/components/global/payment/frequency-toggle';
+import FrequencyTabs from '@/components/shared/payment/frequency-toggle';
 import { useState } from 'react';
 
 const itemVariants = {

@@ -61,6 +61,9 @@ model RoadmapUserQuestions {
 
   // the order of the question in the roadmap
   order Int
+
+  // Replace the direct many-to-many relationship
+  bookmarks UserBookmarks[]
 }
 
 
@@ -94,6 +97,12 @@ model RoadmapUserQuestionsUserAnswers {
 
   // User-provided answer
   answer String
+
+  // the answer uid
+  answerUid String @default("")
+
+  // the difficulty of the answer
+  difficulty AnswerDifficulty @default(EASY)
 }
 
 // Default questions used to generate user roadmaps

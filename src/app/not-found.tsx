@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 import Link from 'next/link';
 import { useUserServer } from '@/hooks/use-user-server';
-import ErrorPageCountUp from '@/components/global/404';
+import ErrorPageCountUp from '@/components/shared/404';
 
 export default async function NotFound() {
   const [user, todaysQuestion] = await Promise.all([

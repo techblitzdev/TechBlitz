@@ -1,4 +1,3 @@
-import GlobalPagination from '@/components/global/pagination';
 import QuestionCard from '@/components/app/questions/layout/question-card';
 
 import { listQuestions } from '@/utils/data/questions/list';
@@ -8,6 +7,7 @@ import { useUserServer } from '@/hooks/use-user-server';
 import { QuestionFilters } from '@/types/Filters';
 import ClearFilters from './clear-filters';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
+import GlobalPagination from '../../shared/pagination';
 
 export default async function QuestionsList({
   currentPage,

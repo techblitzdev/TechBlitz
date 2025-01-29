@@ -12,11 +12,11 @@ import BookmarkQuestion from '@/components/app/questions/single/bookmark';
 import { capitalise } from '@/utils';
 import Chip from '@/components/ui/chip';
 import { getQuestionDifficultyColor } from '@/utils';
-import ShareQuestion from '@/components/global/share-question';
 import { BarChart, BookIcon, PieChart } from 'lucide-react';
 import { BookOpen } from 'lucide-react';
 import { FileIcon, FileText } from 'lucide-react';
 import QuestionHintTrigger from '@/components/app/questions/question-hint-trigger';
+import ShareQuestion from '../../shared/share-question';
 
 interface QuestionTabsProps {
   question: Question;
@@ -32,7 +32,7 @@ export default function QuestionTabs({
   renderAnswerForm,
   totalSubmissions,
 }: QuestionTabsProps) {
-  const { userAnswered } = useQuestionSingle();
+  const { userAnswered, showHint, setShowHint } = useQuestionSingle();
 
   const [activeTab, setActiveTab] = useState<
     'description' | 'resources' | 'stats'
@@ -106,7 +106,10 @@ export default function QuestionTabs({
                 <HasAnswered userAnswered={hasUserAnswered} />
               </div>
               <div className="flex items-center">
-                <QuestionHintTrigger />
+                <QuestionHintTrigger
+                  showHint={showHint}
+                  setShowHint={setShowHint}
+                />
                 <ShareQuestion />
                 <BookmarkQuestion question={question} />
               </div>

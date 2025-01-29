@@ -28,7 +28,7 @@ import CodeDisplay from './code-snippet';
 import ExpandedCodeModal from './expanded-code-modal';
 import ChangeCodeTheme from './change-code-theme';
 import AiQuestionHelp from './ai-question-help';
-import NoDailyQuestion from '@/components/global/no-daily-question';
+import NoDailyQuestion from '@/components/shared/no-daily-question';
 import QuestionSubmitted from './question-submitted';
 import { capitalize } from 'lodash';
 import { AnimatePresence } from 'framer-motion';
@@ -63,6 +63,7 @@ export default function QuestionCard(opts: {
     setCurrentLayout,
     prefilledCodeSnippet,
     answerHelp,
+    showHint,
   } = useQuestionSingle();
 
   const answerFormRef = useRef<{
@@ -154,7 +155,11 @@ export default function QuestionCard(opts: {
           </div>
           <div className="flex lg:hidden text-sm w-full items-center justify-end bg-black-25 gap-x-3">
             {/** explain question ai button */}
-            <AiQuestionHelp question={question} user={user} />
+            <AiQuestionHelp
+              question={question}
+              user={user}
+              isRoadmapQuestion={false}
+            />
             {/** code theme selector */}
             <ChangeCodeTheme user={user} />
             {/** code snippet */}
@@ -226,7 +231,9 @@ export default function QuestionCard(opts: {
       </div>
       <Separator className="bg-black-50" />
       <div className="w-full space-y-4 bg-black">
-        {question.hint && <QuestionAccordion hint={question.hint} />}
+        {question.hint && (
+          <QuestionAccordion hint={question.hint} showHint={showHint} />
+        )}
       </div>
       <Separator className="bg-black-50" />
       <QuestionCardFooter

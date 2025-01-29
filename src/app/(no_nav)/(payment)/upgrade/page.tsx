@@ -12,10 +12,10 @@ const StarsBackground = dynamic(
 );
 
 import Logo from '@/components/ui/logo';
-import { PricingCard } from '@/components/global/payment/payment-card';
+import { PricingCard } from '@/components/shared/payment/payment-card';
 import { useUserServer } from '@/hooks/use-user-server';
 import { getPlans } from '@/utils/constants/pricing';
-import FrequencyToggle from '@/components/global/payment/frequency-toggle';
+import FrequencyToggle from '@/components/shared/payment/frequency-toggle';
 
 async function updateFrequency(frequency: 'month' | 'year') {
   'use server';

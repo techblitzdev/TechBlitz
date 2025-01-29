@@ -2,7 +2,7 @@ import QuestionsList from '@/components/app/questions/layout/questions-list';
 import QuestionPageSidebar from '@/components/app/questions/layout/question-page-sidebar';
 
 // Components
-import Hero from '@/components/global/hero';
+import Hero from '@/components/shared/hero';
 
 // Hooks
 import { useUserServer } from '@/hooks/use-user-server';

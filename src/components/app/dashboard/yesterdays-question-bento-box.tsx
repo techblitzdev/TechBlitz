@@ -5,8 +5,8 @@ import { ArrowDownLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { getQuestionDifficultyColor } from '@/utils';
 import { Grid } from '@/components/ui/grid';
-import TagDisplay from '@/components/app/questions/previous/tag-display';
-import NoDailyQuestion from '@/components/global/no-daily-question';
+import TagDisplay from '@/components/app/questions/tag-display';
+import NoDailyQuestion from '@/components/shared/no-daily-question';
 
 export default function YesterdaysQuestionBentoBox(opts: {
   question: Question | null;

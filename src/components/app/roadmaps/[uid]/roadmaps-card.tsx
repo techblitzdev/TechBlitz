@@ -1,14 +1,21 @@
 'use client';
 
-import { UserRoadmaps } from '@/types/Roadmap';
+import { UserRoadmaps } from '@prisma/client';
 import Link from 'next/link';
 import Chip from '@/components/ui/chip';
 import { capitalise, shortenText } from '@/utils';
 import RoadmapCardMenu from '@/components/app/roadmaps/[uid]/roadmap-card-menu';
 import { useState, useRef, useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
+import { RoadmapUserQuestions } from '@prisma/client';
+import { Progress } from '@/components/ui/progress';
 
-export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {
+// Define the extended type that includes the questions
+type RoadmapWithQuestions = UserRoadmaps & {
+  questions: RoadmapUserQuestions[];
+};
+
+export default function RoadmapsCard(opts: { roadmap: RoadmapWithQuestions }) {
   const { roadmap: initialRoadmap } = opts;
 
   const [isLoading, setIsLoading] = useState(false);
@@ -114,15 +121,15 @@ export default function RoadmapsCard(opts: { roadmap: UserRoadmaps }) {
           </>
         )}
       </div>
-      <div className="space-y-2 w-full">
-        <p className="text-xs font-ubuntu">Roadmap progress</p>
-        <div className="h-2 w-full rounded-full bg-black-50">
-          <div
-            className="h-2 rounded-full bg-green-500"
-            style={{ width: `${correctPercentage}%` }}
-          />
+      {/** roadmap progress */}
+      {roadmapRef.current.status === 'ACTIVE' && (
+        <div className="space-y-2 w-full">
+          <p className="text-xs font-ubuntu">
+            Roadmap progress: {correctPercentage}%
+          </p>
+          <Progress value={correctPercentage} />
         </div>
-      </div>
+      )}
     </Link>
   );
 }

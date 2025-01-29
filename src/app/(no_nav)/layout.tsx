@@ -1,6 +1,6 @@
 import { InterFont, SatoshiFont, UbuntuFont } from '../styles/fonts/font';
 import '../globals.css';
-import { ReactQueryClientProvider } from '@/components/global/react-query-client-provider';
+import { ReactQueryClientProvider } from '@/components/shared/react-query-client-provider';
 import { Toaster } from '@/components/ui/sonner';
 
 export default function Layout({

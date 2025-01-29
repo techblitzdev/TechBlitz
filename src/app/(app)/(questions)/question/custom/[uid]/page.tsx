@@ -1,6 +1,6 @@
 import { getQuestion } from '@/utils/data/questions/get';
 import { Separator } from '@/components/ui/separator';
-import NoDailyQuestion from '@/components/global/no-daily-question';
+import NoDailyQuestion from '@/components/shared/no-daily-question';
 import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
 import { useUserServer } from '@/hooks/use-user-server';
 import QuestionCard from '@/components/app/questions/single/layout/question-card';
@@ -50,7 +50,11 @@ export default async function TodaysQuestionPage({
       >
         <div className="p-4 text-sm flex w-full items-center justify-end bg-black-25 gap-x-3">
           {/** explain question ai button */}
-          <AiQuestionHelp question={question} user={user} />
+          <AiQuestionHelp
+            question={question}
+            user={user}
+            isRoadmapQuestion={false}
+          />
           {/** code theme selector */}
           <ChangeCodeTheme user={user} />
           {/** code snippet */}

@@ -10,9 +10,10 @@ import {
 } from '@/components/ui/tooltip';
 import { useUserServer } from '@/hooks/use-user-server';
 import { redirect } from 'next/navigation';
-import Hero from '@/components/global/hero';
 import Chip from '@/components/ui/chip';
 import { capitalise } from '@/utils';
+import Hero from '@/components/shared/hero';
+import { RoadmapUserQuestions } from '@prisma/client';
 
 export default async function RoadmapSinglePage({
   params,
@@ -53,7 +54,7 @@ export default async function RoadmapSinglePage({
 
   return (
     <>
-      <div className="px-8">
+      <div className="lg:px-8">
         <Hero heading={roadmapTitle} subheading={roadmapDescription}>
           <div className="mt-5 w-fit flex gap-3 z-10">
             <div className="flex items-center gap-x-3">
@@ -74,9 +75,9 @@ export default async function RoadmapSinglePage({
           </div>
         </Hero>
       </div>
-      <div className="flex flex-col lg:flex-row gap-10 mt-5 container">
-        <div className="order-last md:order-first w-full lg:w-1/2 relative">
-          {roadmap.questions?.map((question, index) => (
+      <div className="flex flex-col lg:flex-row gap-10 mt-5 lg:container">
+        <div className="order-last md:order-first w-full lg:w-[70%] relative">
+          {roadmap.questions?.map((question: RoadmapUserQuestions, index) => (
             <div key={question.uid} className="flex flex-col justify-center">
               <RoadmapQuestionCard
                 question={question}
@@ -92,8 +93,8 @@ export default async function RoadmapSinglePage({
           ))}
         </div>
 
-        <aside className="w-full lg:w-1/2 relative">
-          <div className="order-first md:order-last sticky top-10 space-y-5 w-full md:w-3/4 xl:w-2/5">
+        <aside className="w-full lg:w-[30%] relative order-first md:order-last ">
+          <div className="sticky top-10 space-y-5 w-full">
             {/** @ts-ignore */}
             <RoadmapStats roadmap={roadmap} />
             <TooltipProvider>
@@ -103,6 +104,7 @@ export default async function RoadmapSinglePage({
                   asChild
                   className="w-fit"
                 >
+                  {/** @ts-ignore */}
                   <GenerateMoreQuestionsButton roadmap={roadmap} />
                 </TooltipTrigger>
                 <TooltipContent align="center">

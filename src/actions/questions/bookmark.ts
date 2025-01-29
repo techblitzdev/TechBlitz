@@ -3,16 +3,34 @@
 import { prisma } from '@/lib/prisma';
 import { getUser } from '../user/authed/get-user';
 
-export const bookmarkQuestion = async (questionUid: string) => {
+export const bookmarkQuestion = async (
+  questionUid: string,
+  isRoadmap = false
+) => {
   const user = await getUser();
 
   if (!user) {
     throw new Error('User not found');
   }
 
-  const question = await prisma.questions.findUnique({
-    where: { uid: questionUid },
-  });
+  // if isRoadmap is true, we are fetching a roadmap question and not a standard
+  // question.
+  let question;
+  if (isRoadmap) {
+    question = await prisma.roadmapUserQuestions.findUnique({
+      where: { uid: questionUid },
+      select: {
+        uid: true,
+      },
+    });
+  } else {
+    question = await prisma.questions.findUnique({
+      where: { uid: questionUid },
+      select: {
+        uid: true,
+      },
+    });
+  }
 
   if (!question) {
     throw new Error('Question not found');
@@ -36,7 +54,9 @@ export const bookmarkQuestion = async (questionUid: string) => {
     await prisma.userBookmarks.create({
       data: {
         userId: user.uid,
-        questionId: question.uid,
+        ...(isRoadmap
+          ? { roadmapUserQuestionId: questionUid }
+          : { questionId: questionUid }),
       },
     });
     return { action: 'bookmarked' };

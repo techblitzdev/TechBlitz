@@ -2,8 +2,7 @@
 import CurrentStreak from '@/components/ui/current-streak';
 import { Separator } from '@/components/ui/separator';
 import FeedbackButton from '@/components/ui/feedback-button';
-import SidebarLayoutTrigger from '@/components/global/navigation/sidebar-layout-trigger';
-import RandomQuestion from '@/components/global/random-question';
+import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
 import { createMetadata } from '@/utils/seo';
 import { capitalise } from '@/utils';
 
@@ -14,8 +13,9 @@ import { getUser } from '@/actions/user/authed/get-user';
 import { redirect } from 'next/navigation';
 import QuestionActionButtons from '@/components/app/questions/single/layout/question-action-buttons';
 import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
-import QuestionNavigation from '@/components/global/navigation/question-navigation';
+import QuestionNavigation from '@/components/app/navigation/question-navigation';
 import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation';
+import RandomQuestion from '@/components/shared/random-question';
 
 export async function generateMetadata({
   params,

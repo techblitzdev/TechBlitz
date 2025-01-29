@@ -14,10 +14,13 @@ import Link from 'next/link';
 import { use } from 'react';
 import { ListBulletIcon } from '@radix-ui/react-icons';
 
-export default function QuestionAccordion(opts: { hint: string }) {
-  const { showHint, relatedQuestions } = useQuestionSingle();
+export default function QuestionAccordion(opts: {
+  hint: string;
+  showHint: boolean;
+}) {
+  const { relatedQuestions } = useQuestionSingle();
 
-  const { hint } = opts;
+  const { hint, showHint } = opts;
   if (!hint) return null;
 
   const relatedQuestionsData = relatedQuestions ? use(relatedQuestions) : null;
@@ -72,8 +75,8 @@ export default function QuestionAccordion(opts: { hint: string }) {
         </AccordionTrigger>
         <AccordionContent className="pb-4 px-2">
           <div className="flex flex-col gap-y-2">
-            {relatedQuestionsData &&
-              relatedQuestionsData?.map((question) => (
+            {relatedQuestionsData && relatedQuestionsData.length > 0 ? (
+              relatedQuestionsData.map((question) => (
                 <Link
                   href={`/question/${question.slug}`}
                   key={question.slug}
@@ -84,7 +87,12 @@ export default function QuestionAccordion(opts: { hint: string }) {
                   </p>
                   <ArrowRight className="size-4 flex-shrink-0" />
                 </Link>
-              ))}
+              ))
+            ) : (
+              <p className="text-sm text-gray-400">
+                No related questions found
+              </p>
+            )}
           </div>
         </AccordionContent>
       </AccordionItem>

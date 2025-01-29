@@ -15,9 +15,13 @@ export const fetchRoadmapQuestion = async (questionUid: string) => {
       },
     },
     include: {
-      answers: true,
-      // so we can determine if the user has already answered the question
+      answers: {
+        include: {
+          question: true,
+        },
+      },
       userAnswers: true,
+      roadmap: true,
     },
   });
 };

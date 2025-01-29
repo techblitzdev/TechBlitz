@@ -1,19 +1,19 @@
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
-import Hero from '@/components/global/hero';
+import Hero from '@/components/shared/hero';
 import { Button } from '@/components/ui/button';
 
 import { validateSearchParams, parseSearchParams } from '@/utils/search-params';
 import { getTags } from '@/utils/data/questions/tags/get-tags';
 import { createMetadata } from '@/utils/seo';
 
-const Filter = dynamic(() => import('@/components/global/filters/filter'), {
+const Filter = dynamic(() => import('@/components/app/filters/filter'), {
   ssr: false,
   loading: () => <FilterLoading />,
 });
 
-const FilterChips = dynamic(() => import('@/components/global/filters/chips'), {
+const FilterChips = dynamic(() => import('@/components/app/filters/chips'), {
   ssr: false,
   loading: () => <div className="h-8"></div>,
 });
@@ -36,10 +36,10 @@ const QuestionPageSidebar = dynamic(
   }
 );
 
-import FilterLoading from '@/components/global/filters/filters-loading';
+import FilterLoading from '@/components/app/filters/filters-loading';
 import QuestionPageSidebarLoading from '@/components/app/questions/layout/question-page-sidebar-loading';
 import { QuestionCardSkeleton } from '@/components/app/questions/layout/question-card';
-import ContinueJourney from '@/components/global/navigation/continue-journey-button';
+import ContinueJourney from '@/components/app/navigation/continue-journey-button';
 import { ArrowRightIcon } from 'lucide-react';
 
 export const revalidate = 600;

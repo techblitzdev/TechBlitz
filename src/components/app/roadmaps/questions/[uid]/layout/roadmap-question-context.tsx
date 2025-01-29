@@ -192,6 +192,7 @@ export const RoadmapQuestionContextProvider = ({
     setNextQuestion(null);
     setCorrectAnswer('init');
     setUserAnswer(null);
+    setAnswerHelp(null);
   };
 
   return (

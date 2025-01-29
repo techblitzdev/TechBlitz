@@ -7,12 +7,18 @@ import QuestionAccordion from '../../questions/single/question-accordion';
 export default function OnboardingQuestionCard({
   question,
   showHint,
+  roadmapUid,
 }: {
   question: DefaultRoadmapQuestions;
   showHint: boolean;
+  roadmapUid: string;
 }) {
   const footerContent = question.hint && (
-    <QuestionAccordion hint={question.hint} showHint={showHint} />
+    <QuestionAccordion
+      hint={question.hint}
+      showHint={showHint}
+      showRelatedQuestions={false}
+    />
   );
 
   return (

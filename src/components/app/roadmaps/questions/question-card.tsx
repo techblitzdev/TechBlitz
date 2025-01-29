@@ -127,7 +127,11 @@ export default function RoadmapQuestionCard(opts: {
   );
 
   const footerContent = question.hint && (
-    <QuestionAccordion hint={question.hint} showHint={showHint} />
+    <QuestionAccordion
+      hint={question.hint}
+      showHint={showHint}
+      showRelatedQuestions={false}
+    />
   );
 
   return (

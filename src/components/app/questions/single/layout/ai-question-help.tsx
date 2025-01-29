@@ -22,9 +22,10 @@ import Link from 'next/link';
 import { UserRecord } from '@/types/User';
 import { capitalize } from 'lodash';
 import { RoadmapUserQuestions } from '@/types/Roadmap';
+import { DefaultRoadmapQuestions } from '@prisma/client';
 
 export default function AiQuestionHelp(opts: {
-  question: Question | RoadmapUserQuestions;
+  question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions;
   user: UserRecord | null;
   isRoadmapQuestion: boolean;
 }) {

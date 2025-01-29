@@ -15,7 +15,7 @@ const itemVariants = {
 export default function OnboardingPricing() {
   const { user } = useOnboardingContext();
 
-  const [billingPeriod, setBillingPeriod] = useState<'month' | 'year'>('month');
+  const [billingPeriod, setBillingPeriod] = useState<'month' | 'year'>('year');
 
   const products = getPlans(user, true, billingPeriod);
 
@@ -27,10 +27,10 @@ export default function OnboardingPricing() {
             className="text-4xl flex flex-col items-center font-medium bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent text-center"
             variants={itemVariants}
           >
-            Want to get more out of TechBlitz?
+            Looking for a more personalized experience?
           </motion.h1>
           <motion.p
-            className="text-center text-gray-400 max-w-2xl"
+            className="text-center text-gray-400 max-w-2xl text-sm"
             variants={itemVariants}
           >
             Upgrade to a paid plan to unlock premium features, gain access to
@@ -41,8 +41,16 @@ export default function OnboardingPricing() {
           initialFrequency={billingPeriod}
           onFrequencyChange={setBillingPeriod}
         />
+        <motion.p
+          className="text-center text-white max-w-2xl mx-auto pt-2"
+          variants={itemVariants}
+        >
+          Limited time offer: 60% off all plans - use code{' '}
+          <span className="font-bold underline">250USERS</span>. Valid until
+          31st January 2025.
+        </motion.p>
       </CardHeader>
-      <CardContent className="flex flex-col lg:flex-row gap-10 justify-center mt-4 md:mt-6 mb-5 px-2 md:px-10">
+      <CardContent className="flex flex-col lg:flex-row gap-10 justify-center mt-4 mb-5 px-2 md:px-10">
         <div className="flex flex-col lg:flex-row gap-10 justify-center items-stretch w-full">
           {products.map(
             (product) =>

@@ -66,7 +66,7 @@ export default function PricingCard(opts: {
         <Separator className="bg-black-50" />
       </CardHeader>
 
-      <CardContent className="text-start pb-2 sm:pb-6 pt-3 sm:pt-0 flex flex-col gap-y-6 justify-between h-full text-white">
+      <CardContent className="text-start pb-2 sm:pb-2 pt-2 sm:pt-0 flex flex-col gap-y-3 justify-between h-full text-white">
         <AnimatedPricingFeatures
           features={compact ? product.compactFeatures : product.features}
           productId={product.id}

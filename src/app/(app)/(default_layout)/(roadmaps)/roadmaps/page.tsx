@@ -63,13 +63,7 @@ export default async function RoadmapPage() {
       <div className="flex flex-col lg:flex-row gap-16 mt-5 md:container">
         <div className="w-full lg:w-[55%] relative">
           {userRoadmaps.map((roadmap) => (
-            <RoadmapsCard
-              key={roadmap.uid}
-              roadmap={{
-                ...roadmap,
-                DefaultRoadmapQuestionsUsersAnswers: [],
-              }}
-            />
+            <RoadmapsCard key={roadmap.uid} roadmap={roadmap} />
           ))}
         </div>
 

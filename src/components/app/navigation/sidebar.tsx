@@ -88,7 +88,7 @@ export function AppSidebar(opts: {
   const { user, todaysQuestion, hasAnsweredDailyQuestion, profile } = opts;
   const pathname = usePathname();
 
-  const { state, setOpen, setOpenMobile } = useSidebar();
+  const { state, setOpenMobile } = useSidebar();
 
   // close the sidebar whenever the path changes
   // only on mobile

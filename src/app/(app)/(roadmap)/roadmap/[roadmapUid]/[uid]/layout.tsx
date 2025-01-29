@@ -1,7 +1,9 @@
 import { redirect } from 'next/navigation';
+import { Suspense } from 'react';
 
 // actions
 import { fetchRoadmapQuestion } from '@/utils/data/roadmap/questions/fetch-roadmap-question';
+import { fetchNextPrevRoadmapQuestion } from '@/utils/data/roadmap/questions/fetchNextPrevRoadmapQuestion';
 
 // components
 import { Separator } from '@/components/ui/separator';
@@ -10,7 +12,12 @@ import CurrentStreak from '@/components/ui/current-streak';
 import FeedbackButton from '@/components/ui/feedback-button';
 import RoadmapQuestionActionButtons from '@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-action-buttons';
 import { RoadmapQuestionContextProvider } from '@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-context';
+import { RoadmapQuestionNavigation } from '@/components/app/navigation/question-navigation';
+
+// hooks
 import { useUserServer } from '@/hooks/use-user-server';
+import { RoadmapUserQuestions } from '@/types/Roadmap';
+import { UserRecord } from '@/types/User';
 
 export default async function RoadmapQuestionLayout({
   children,
@@ -21,14 +28,28 @@ export default async function RoadmapQuestionLayout({
 }>) {
   const { roadmapUid, uid } = params;
 
-  const user = await useUserServer();
-  // TODO: check if the user owns the roadmap (soon these will be public and shareable)
+  const [user, question, { nextQuestion, prevQuestion, roadmap }] =
+    (await Promise.all([
+      useUserServer(),
+      fetchRoadmapQuestion(uid),
+      fetchNextPrevRoadmapQuestion({ roadmapUid, questionUid: uid }),
+    ])) as unknown as [
+      UserRecord,
+      RoadmapUserQuestions,
+      {
+        nextQuestion: RoadmapUserQuestions | null | undefined;
+        prevQuestion: RoadmapUserQuestions | null | undefined;
+        roadmap: {
+          title: string;
+          uid: string;
+        };
+      },
+    ];
+
   if (!user || user.userLevel === 'FREE') {
-    return redirect('/dashboard');
+    redirect('/dashboard');
   }
 
-  // Fetch the current question
-  const question = await fetchRoadmapQuestion(uid);
   if (!question) {
     redirect(`/roadmap/${roadmapUid}`);
   }
@@ -42,13 +63,25 @@ export default async function RoadmapQuestionLayout({
       <div className="grid grid-cols-12 items-center justify-between pb-2 px-3 relative">
         <div className="col-span-2 lg:col-span-4 flex items-center py-2 justify-start">
           <SidebarLayoutTrigger />
+          <Suspense
+            fallback={<div className="h-8 w-32 bg-gray-200 animate-pulse" />}
+          >
+            <RoadmapQuestionNavigation
+              nextRoadmapQuestion={nextQuestion}
+              prevRoadmapQuestion={prevQuestion}
+              roadmap={{
+                title: roadmap?.title || '',
+                uid: roadmap?.uid || '',
+              }}
+            />
+          </Suspense>
         </div>
         <div className="col-span-7 lg:col-span-4 flex items-center justify-center">
           <RoadmapQuestionActionButtons />
         </div>
         <div className="col-span-3 lg:col-span-4 flex items-center gap-x-1 md:gap-x-3 justify-end">
           <CurrentStreak />
-          <FeedbackButton reference={question?.uid || undefined} />
+          <FeedbackButton reference={question.uid} />
         </div>
       </div>
       <Separator className="bg-black-50" />

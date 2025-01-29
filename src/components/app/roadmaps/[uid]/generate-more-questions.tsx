@@ -1,5 +1,5 @@
 'use client';
-import { UserRoadmaps } from '@/types/Roadmap';
+import { RoadmapUserQuestions, UserRoadmaps } from '@/types/Roadmap';
 import { Button } from '@/components/ui/button';
 import { roadmapGenerate } from '@/actions/ai/roadmap/generate';
 import { forwardRef, useState } from 'react';
@@ -7,7 +7,9 @@ import { toast } from 'sonner';
 
 const GenerateMoreQuestionsButton = forwardRef(
   function GenerateMoreQuestionsButton(opts: {
-    roadmap: Omit<UserRoadmaps, 'DefaultRoadmapQuestionsUsersAnswers'>;
+    roadmap: Omit<UserRoadmaps, 'DefaultRoadmapQuestionsUsersAnswers'> & {
+      questions: RoadmapUserQuestions[];
+    };
   }) {
     const { roadmap } = opts;
 

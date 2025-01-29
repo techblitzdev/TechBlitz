@@ -13,6 +13,7 @@ import { redirect } from 'next/navigation';
 import Chip from '@/components/ui/chip';
 import { capitalise } from '@/utils';
 import Hero from '@/components/shared/hero';
+import { RoadmapUserQuestions } from '@prisma/client';
 
 export default async function RoadmapSinglePage({
   params,
@@ -76,7 +77,7 @@ export default async function RoadmapSinglePage({
       </div>
       <div className="flex flex-col lg:flex-row gap-10 mt-5 lg:container">
         <div className="order-last md:order-first w-full lg:w-[70%] relative">
-          {roadmap.questions?.map((question, index) => (
+          {roadmap.questions?.map((question: RoadmapUserQuestions, index) => (
             <div key={question.uid} className="flex flex-col justify-center">
               <RoadmapQuestionCard
                 question={question}
@@ -103,6 +104,7 @@ export default async function RoadmapSinglePage({
                   asChild
                   className="w-fit"
                 >
+                  {/** @ts-ignore */}
                   <GenerateMoreQuestionsButton roadmap={roadmap} />
                 </TooltipTrigger>
                 <TooltipContent align="center">

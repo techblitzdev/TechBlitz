@@ -52,7 +52,8 @@ export default function QuestionSubmitted() {
   const handleDifficultySelect = async (value: string) => {
     await updateAnswerDifficulty(
       userAnswer?.uid || '',
-      value.toUpperCase() as AnswerDifficulty
+      value.toUpperCase() as AnswerDifficulty,
+      false
     );
     toast.success(
       'Question difficulty updated, we will now serve more personalized questions to you.'

@@ -17,9 +17,7 @@ type Layout = 'questions' | 'codeSnippet' | 'answer';
 type AnswerStatus = 'correct' | 'incorrect' | 'init';
 
 interface RoadmapQuestionContextType {
-  roadmapQuestion: RoadmapUserQuestions & {
-    userAnswers: RoadmapUserQuestionsUserAnswers[];
-  };
+  roadmapQuestion: RoadmapUserQuestions;
   roadmapUid: string;
   user: UserRecord;
   currentLayout: Layout;
@@ -71,9 +69,7 @@ export const useRoadmapQuestion = () => {
 
 interface ProviderProps {
   children: React.ReactNode;
-  roadmapQuestion: RoadmapUserQuestions & {
-    userAnswers: RoadmapUserQuestionsUserAnswers[];
-  };
+  roadmapQuestion: RoadmapUserQuestions;
   roadmapUid: string;
   user: UserRecord;
 }

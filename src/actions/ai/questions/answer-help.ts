@@ -104,7 +104,7 @@ export const generateAnswerHelp = async (
 
   if (isRoadmapQuestion) {
     // Get the roadmap question
-    question = await prisma.roadmapUserQuestions.findUnique({
+    question = (await prisma.roadmapUserQuestions.findUnique({
       where: {
         uid: questionUid,
         AND: {
@@ -116,7 +116,7 @@ export const generateAnswerHelp = async (
       include: {
         answers: true,
       },
-    });
+    })) as RoadmapUserQuestions | null;
   } else {
     // Get the regular question
     question = await prisma.questions.findUnique({

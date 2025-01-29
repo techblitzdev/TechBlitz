@@ -15,10 +15,7 @@ import RoadmapQuestionTabs from './[uid]/layout/roadmap-question-tabs';
 import { useRoadmapQuestion } from './[uid]/layout/roadmap-question-context';
 import QuestionAccordion from '@/components/app/questions/single/question-accordion';
 import QuestionResult from '../../shared/answer-submitted';
-import { toast } from 'sonner';
 import QuestionCodeDisplay from '../../shared/question-code-display';
-import { AnswerDifficulty } from '@prisma/client';
-import { updateAnswerDifficulty } from '@/actions/answers/answer';
 
 export default function RoadmapQuestionCard(opts: {
   user: UserRecord;

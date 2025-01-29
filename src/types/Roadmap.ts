@@ -14,7 +14,7 @@ export interface UserRoadmaps extends BaseRecord {
   // Status of the roadmap (active, completed, archived, creating)
   status: RoadmapStatus;
   // User answers to default questions
-  DefaultRoadmapQuestionsUsersAnswers: DefaultRoadmapQuestionsUsersAnswers[];
+  DefaultRoadmapQuestionsUsersAnswers?: DefaultRoadmapQuestionsUsersAnswers[];
   // Index of the user's current question
   currentQuestionIndex: number;
   // Indicates if the roadmap has been generated

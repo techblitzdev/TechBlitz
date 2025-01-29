@@ -9,9 +9,9 @@ export default async function RoadmapUidLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { index: number; roadmapUid: string };
+  params: { index: number };
 }>) {
-  const { index, roadmapUid } = params;
+  const { index } = params;
 
   const user = await useUserServer();
   if (!user) return;

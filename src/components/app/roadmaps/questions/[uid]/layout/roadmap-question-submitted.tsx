@@ -18,7 +18,7 @@ export default function RoadmapQuestionSubmitted() {
   const { correctAnswer, userAnswer, roadmapQuestion, nextQuestion } =
     useRoadmapQuestion();
 
-  const handleDifficultySelect = async (value: string) => {
+  const handleDifficultySelect = async () => {
     //await updateAnswerDifficulty(
     //  userAnswer?.uid || '',
     //  value.toUpperCase() as AnswerDifficulty

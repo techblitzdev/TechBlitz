@@ -1,14 +1,18 @@
 'use server';
-
+// lib
 import { openai } from '@/lib/open-ai';
 import { prisma } from '@/lib/prisma';
+import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
+
+// helpers
 import { getPrompt } from '../utils/get-prompt';
 import { getUser } from '@/actions/user/authed/get-user';
-import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
 import { zodResponseFormat } from 'openai/helpers/zod.mjs';
+
+// types
 import type { UserRecord } from '@/types/User';
-import type { Question } from '@/types/Questions';
 import type { RoadmapUserQuestions } from '@/types/Roadmap';
+import type { Question } from '@/types/Questions';
 
 const answerHelp = async (
   userCorrect: boolean,

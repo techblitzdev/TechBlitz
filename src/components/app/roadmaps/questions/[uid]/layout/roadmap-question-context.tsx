@@ -38,8 +38,8 @@ interface RoadmapQuestionContextType {
   setLoading: (loading: boolean) => void;
   correctAnswer: AnswerStatus;
   setCorrectAnswer: (correctAnswer: AnswerStatus) => void;
-  userAnswer: RoadmapUserQuestionsAnswers | null;
-  setUserAnswer: (userAnswer: RoadmapUserQuestionsAnswers | null) => void;
+  userAnswer: RoadmapUserQuestionsUserAnswers | null;
+  setUserAnswer: (userAnswer: RoadmapUserQuestionsUserAnswers | null) => void;
   resetQuestionState: () => void;
   showHint: boolean;
   setShowHint: (showHint: boolean) => void;
@@ -87,7 +87,7 @@ export const RoadmapQuestionContextProvider = ({
   > | null>();
   const [correctAnswer, setCorrectAnswer] = useState<AnswerStatus>('init');
   const [userAnswer, setUserAnswer] =
-    useState<RoadmapUserQuestionsAnswers | null>(null);
+    useState<RoadmapUserQuestionsUserAnswers | null>(null);
 
   const [showHint, setShowHint] = useState(false);
 

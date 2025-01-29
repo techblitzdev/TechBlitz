@@ -8,9 +8,6 @@ import Chip from '@/components/ui/chip';
 import { getQuestionDifficultyColor, capitalise } from '@/utils';
 import { useRoadmapQuestion } from './roadmap-question-context';
 import RoadmapAnswerQuestionForm from '@/components/app/roadmaps/questions/roadmap-answer-form';
-import Markdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { Lightbulb } from 'lucide-react';
 
 export default function RoadmapQuestionTabs() {
   const { roadmapQuestion, roadmapUid, user, showHint, setShowHint } =
@@ -82,7 +79,7 @@ export default function RoadmapQuestionTabs() {
                 showHint={showHint}
                 setShowHint={setShowHint}
               />
-              <BookmarkQuestion question={roadmapQuestion} />
+              <BookmarkQuestion question={roadmapQuestion} isRoadmap={true} />
             </div>
           </div>
           {roadmapQuestion?.question && (

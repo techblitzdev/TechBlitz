@@ -1,3 +1,4 @@
+import { UserBookmarks } from '@prisma/client';
 import { BaseRecord } from './BaseRecord';
 import { QuestionDifficulty } from './Questions';
 import { User } from './User';
@@ -50,13 +51,16 @@ export interface RoadmapUserQuestions extends BaseRecord {
   // Connects to the correct answer
   correctAnswerUid: string;
   // Array of possible answers
-  answers: RoadmapUserQuestionsAnswers[];
+  answers: RoadmapUserQuestionsUserAnswers[];
   // User-specific answers
   userAnswers?: RoadmapUserQuestionsUserAnswers[];
   // Order of the question in the roadmap
   order: number;
   // Indicates if the user answered the question correctly
   userCorrect: boolean;
+
+  // the bookmark
+  bookmarks?: UserBookmarks[];
 }
 
 // Possible answers for roadmap questions
@@ -67,6 +71,8 @@ export interface RoadmapUserQuestionsAnswers extends BaseRecord {
   correct: boolean;
   // Answer text
   answer: string;
+  // Connects to the user who answered the question
+  answerUid: string;
 }
 
 // User-provided answers to roadmap questions

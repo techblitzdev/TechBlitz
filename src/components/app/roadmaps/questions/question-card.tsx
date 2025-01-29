@@ -29,7 +29,6 @@ export default function RoadmapQuestionCard(opts: {
     setCurrentLayout,
     correctAnswer,
     userAnswer,
-    roadmapQuestion,
     nextQuestion,
     showHint,
   } = useRoadmapQuestion();
@@ -39,7 +38,7 @@ export default function RoadmapQuestionCard(opts: {
   >('description');
 
   // TODO: add difficulty selection for roadmap questions (schema changes needed)
-  const handleDifficultySelect = async (value: string) => {
+  const handleDifficultySelect = async () => {
     //await updateAnswerDifficulty(
     //  userAnswer?.uid || '',
     //  value.toUpperCase() as AnswerDifficulty

@@ -1,37 +1,38 @@
 'use client';
 
-import { useState } from 'react';
-import { useTransition } from 'react';
-import { bookmarkQuestion } from '@/actions/questions/bookmark';
+import { useState, useTransition } from 'react';
+
 import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 import {
   TooltipContent,
   TooltipTrigger,
   Tooltip,
   TooltipProvider,
 } from '@/components/ui/tooltip';
-import type { Question } from '@/types/Questions';
 import { Bookmark } from 'lucide-react';
-import { toast } from 'sonner';
 
-export default function BookmarkQuestion({ question }: { question: Question }) {
+import { bookmarkQuestion } from '@/actions/questions/bookmark';
+import type { Question } from '@/types/Questions';
+import { RoadmapUserQuestions } from '@/types/Roadmap';
+
+export default function BookmarkQuestion({
+  question,
+  isRoadmap = false,
+}: {
+  question: Question | RoadmapUserQuestions;
+  isRoadmap?: boolean;
+}) {
   const [isBookmarked, setIsBookmarked] = useState(
     question.bookmarks && question.bookmarks.length > 0
-  );
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setBookmarkCount] = useState(
-    question.bookmarks && question.bookmarks.length
   );
   const [isPending, startTransition] = useTransition();
 
   const handleBookmark = () => {
     startTransition(async () => {
       try {
-        await bookmarkQuestion(question.uid);
+        await bookmarkQuestion(question.uid, isRoadmap);
         setIsBookmarked((prev) => !prev);
-        setBookmarkCount((prevCount = 0) =>
-          isBookmarked ? prevCount - 1 : prevCount + 1
-        );
       } catch (error) {
         toast.error('Failed to bookmark question. Please try again.');
       }

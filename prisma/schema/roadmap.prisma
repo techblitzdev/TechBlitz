@@ -61,6 +61,9 @@ model RoadmapUserQuestions {
 
   // the order of the question in the roadmap
   order Int
+
+  // Replace the direct many-to-many relationship
+  bookmarks UserBookmarks[]
 }
 
 

@@ -168,11 +168,16 @@ model UserBookmarks {
   userId    String
   user      Users     @relation(fields: [userId], references: [uid], onDelete: Cascade)
 
-  // Relation to question
-  questionId String
-  question   Questions @relation(fields: [questionId], references: [uid], onDelete: Cascade)
+  // Relation to question (optional)
+  questionId String?
+  question   Questions? @relation(fields: [questionId], references: [uid], onDelete: Cascade)
 
-  @@unique([userId, questionId])
+  // Relation to roadmap user questions (optional)
+  roadmapUserQuestionId String?
+  RoadmapUserQuestions RoadmapUserQuestions? @relation(fields: [roadmapUserQuestionId], references: [uid], onDelete: Cascade)
+
+  @@unique([userId, questionId, roadmapUserQuestionId])
   @@index([userId])
   @@index([questionId])
+  @@index([roadmapUserQuestionId])
 }

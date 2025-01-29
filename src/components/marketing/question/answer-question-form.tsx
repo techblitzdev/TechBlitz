@@ -32,7 +32,7 @@ const MarketingAnswerForm = forwardRef(function MarketingAnswerForm(
   { question, seconds }: AnswerQuestionFormProps,
   ref: React.Ref<{ submitForm: () => void }>
 ) {
-  const { showHint, setShowHint } = useQuestionSingle();
+  const { showHint } = useQuestionSingle();
 
   const [loading, setLoading] = useState(false);
   const [correct, setCorrect] = useState<boolean | null>(null);

@@ -13,9 +13,7 @@ const RoadmapQuestionCard = dynamic(
 import { fetchRoadmapQuestion } from '@/utils/data/roadmap/questions/fetch-roadmap-question';
 
 // components
-import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import QuestionDisplay from '@/components/app/questions/single/layout/code-snippet';
 import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal';
 
 import { useUserServer } from '@/hooks/use-user-server';
@@ -25,7 +23,6 @@ import { UserRecord } from '@/types/User';
 import ResizableLayout from '@/components/ui/resizable-layout';
 import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help';
 import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
-import CodeDisplayWrapper from '@/components/app/questions/single/layout/code-display-wrapper';
 import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
 
 export default async function RoadmapQuestionPage({
@@ -79,7 +76,7 @@ export default async function RoadmapQuestionPage({
           )}
         </div>
         <Separator className="bg-black-50" />
-        <CodeDisplay content={question.codeSnippet} />
+        {question.codeSnippet && <CodeDisplay content={question.codeSnippet} />}
       </div>
     </div>
   );

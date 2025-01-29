@@ -38,7 +38,7 @@ import LogoSmall from '@/components/ui/LogoSmall';
 
 import type { SidebarItemType } from '@/types/Sidebar';
 
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { UserRecord } from '@/types/User';
 import { Question } from '@/types/Questions';
 import { Profile } from '@/types/Profile';
@@ -88,7 +88,13 @@ export function AppSidebar(opts: {
   const { user, todaysQuestion, hasAnsweredDailyQuestion, profile } = opts;
   const pathname = usePathname();
 
-  const { state } = useSidebar();
+  const { state, setOpen, setOpenMobile } = useSidebar();
+
+  // close the sidebar whenever the path changes
+  // only on mobile
+  useEffect(() => {
+    setOpenMobile(false);
+  }, [pathname]);
 
   const nonAuthedUserItems: SidebarItemType[] = [
     {

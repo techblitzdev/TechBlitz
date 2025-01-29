@@ -53,6 +53,11 @@ export default function AiQuestionHelp(opts: {
     setIsLoading(false);
   };
 
+  // TODO: TEMP FIX
+  const loginHref = isRoadmapQuestion
+    ? `/login?redirectUrl=dashboard`
+    : `/login?redirectUrl=question/${(question as Question).slug}`;
+
   return (
     <Popover>
       <PopoverTrigger>
@@ -172,7 +177,7 @@ export default function AiQuestionHelp(opts: {
                   variant="secondary"
                   disabled
                   className="w-full"
-                  href={`/login?redirectUrl=question/${question.slug}`}
+                  href={loginHref}
                 >
                   Login to request AI assistance
                 </Button>

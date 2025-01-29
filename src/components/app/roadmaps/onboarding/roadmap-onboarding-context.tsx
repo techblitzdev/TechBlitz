@@ -5,10 +5,37 @@ import { createContext, useState, useContext } from 'react';
 import { SchemaProps } from '../../questions/single/answer-question-form';
 import { answerDefaultRoadmapQuestion } from '@/actions/roadmap/questions/default/answer-roadmap-question';
 import { DefaultRoadmapQuestions } from '@prisma/client';
+import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
+import { z } from 'zod';
 
-export const OnboardingContext = createContext({});
+export const OnboardingContext = createContext<OnboardingContextType>(
+  {} as OnboardingContextType
+);
 
-export const useOnboardingContext = () => useContext(OnboardingContext);
+type Layout = 'questions' | 'codeSnippet' | 'answer';
+type AnswerStatus = 'correct' | 'incorrect' | 'init';
+
+interface OnboardingContextType {
+  question: DefaultRoadmapQuestions;
+  user: UserRecord;
+  roadmapUid: string;
+  currentLayout: Layout;
+  setCurrentLayout: (layout: Layout) => void;
+
+  // generating answer help for the onboarding question
+  answerHelp: z.infer<typeof answerHelpSchema> | null;
+  setAnswerHelp: (answerHelp: z.infer<typeof answerHelpSchema>) => void;
+}
+
+export const useRoadmapOnboardingContext = () => {
+  const context = useContext(OnboardingContext);
+  if (!context) {
+    throw new Error(
+      'useOnboardingContext must be used within a OnboardingContextProvider'
+    );
+  }
+  return context;
+};
 
 export const RoadmapOnboardingContextProvider = ({
   children,
@@ -21,14 +48,27 @@ export const RoadmapOnboardingContextProvider = ({
   roadmapUid: string;
   question: DefaultRoadmapQuestions;
 }) => {
+  // loading state
   const [loading, setLoading] = useState(false);
+
+  // keeping track of the user data once they answer the onboarding question
   const [newUserData, setNewUserData] = useState<{
     correct: boolean;
     message?: string;
   } | null>(null);
+
+  // keeping track of the next question index
   const [nextQuestionIndex, setNextQuestionIndex] = useState<number | null>(
     null
   );
+
+  // setting the current layout through the onboarding question
+  const [currentLayout, setCurrentLayout] = useState<Layout>('questions');
+
+  // generating answer help for the onboarding question
+  const [answerHelp, setAnswerHelp] = useState<z.infer<
+    typeof answerHelpSchema
+  > | null>(null);
 
   const answerRoadmapOnboardingQuestion = async (values: SchemaProps) => {
     if (!user || user.userLevel === 'FREE') {
@@ -63,7 +103,17 @@ export const RoadmapOnboardingContextProvider = ({
   };
 
   return (
-    <OnboardingContext.Provider value={{}}>
+    <OnboardingContext.Provider
+      value={{
+        question,
+        user,
+        roadmapUid,
+        currentLayout,
+        setCurrentLayout,
+        answerHelp,
+        setAnswerHelp,
+      }}
+    >
       {children}
     </OnboardingContext.Provider>
   );

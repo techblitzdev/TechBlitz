@@ -11,11 +11,12 @@ import type { RoadmapUserQuestions } from '@/types/Roadmap';
 import type { UserRecord } from '@/types/User';
 import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
 import LoadingSpinner from '@/components/ui/loading';
+import { DefaultRoadmapQuestions } from '@prisma/client';
 
 type QuestionCodeDisplayProps = {
   user: UserRecord | null;
   answerHelp?: z.infer<typeof answerHelpSchema> | null;
-  question: Question | RoadmapUserQuestions;
+  question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions;
   prefilledCodeSnippet?: string | null;
   isEditable?: boolean;
   onCodeChange?: (code: string) => void;

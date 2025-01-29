@@ -9,8 +9,8 @@ import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded
 
 import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help';
 import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
-import QuestionCodeDisplayWrapper from '@/components/app/roadmaps/questions/[uid]/layout/question-code-display-wrapper';
 import ResizableLayout from '@/components/ui/resizable-layout';
+import OnboardingCodeDisplayWrapper from '@/components/app/roadmaps/onboarding/onboarding-code-display-wrapper';
 
 export default async function RoadmapQuestionPage({
   params,
@@ -76,7 +76,7 @@ export default async function RoadmapQuestionPage({
           )}
         </div>
         <Separator className="bg-black-50" />
-        <QuestionCodeDisplayWrapper />
+        <OnboardingCodeDisplayWrapper />
       </div>
     </div>
   );

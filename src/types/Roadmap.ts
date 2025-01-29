@@ -1,4 +1,4 @@
-import { UserBookmarks } from '@prisma/client';
+import { AnswerDifficulty, UserBookmarks } from '@prisma/client';
 import { BaseRecord } from './BaseRecord';
 import { QuestionDifficulty } from './Questions';
 import { User } from './User';
@@ -85,6 +85,8 @@ interface RoadmapUserQuestionsUserAnswers extends BaseRecord {
   correct: boolean;
   // User-provided answer text
   answer: string;
+  // the difficulty of the answer
+  difficulty: AnswerDifficulty;
 }
 
 // Default questions used to generate user roadmaps

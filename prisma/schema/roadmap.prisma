@@ -100,6 +100,9 @@ model RoadmapUserQuestionsUserAnswers {
 
   // the answer uid
   answerUid String @default("")
+
+  // the difficulty of the answer
+  difficulty AnswerDifficulty @default(EASY)
 }
 
 // Default questions used to generate user roadmaps

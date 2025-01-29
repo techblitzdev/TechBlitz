@@ -23,6 +23,8 @@ import {
 import { cn } from '@/lib/utils';
 import { formatSeconds } from '@/utils/time';
 import { useTransition } from 'react';
+import { updateAnswerDifficulty } from '@/actions/answers/answer';
+import { AnswerDifficulty } from '@prisma/client';
 
 interface QuestionResultProps {
   correctAnswer: 'correct' | 'incorrect' | 'init';
@@ -38,7 +40,6 @@ interface QuestionResultProps {
   isRoadmapQuestion?: boolean;
   isCodeEditorQuestion?: boolean;
   roadmapUid?: string;
-  handleDifficultySelect: (value: string) => void;
 }
 
 /**
@@ -68,7 +69,6 @@ export default function QuestionResult({
   isRoadmapQuestion = false,
   isCodeEditorQuestion = false,
   roadmapUid,
-  handleDifficultySelect,
 }: QuestionResultProps) {
   const [isPending, startTransition] = useTransition();
 
@@ -86,6 +86,26 @@ export default function QuestionResult({
     return correctAnswer === 'correct'
       ? 'You answered correctly!'
       : 'That was incorrect, try again!';
+  };
+
+  const handleDifficultySelect = async (value: AnswerDifficulty) => {
+    try {
+      if (!userAnswer?.uid) {
+        toast.error('No answer found to update difficulty');
+        return;
+      }
+
+      await updateAnswerDifficulty(
+        userAnswer.uid,
+        value.toUpperCase() as AnswerDifficulty,
+        isRoadmapQuestion
+      );
+
+      toast.success('Question difficulty updated successfully');
+    } catch (error) {
+      console.error('Error updating difficulty:', error);
+      toast.error('Failed to update question difficulty');
+    }
   };
 
   return (

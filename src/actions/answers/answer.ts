@@ -286,12 +286,20 @@ export async function answerQuestion({
  */
 export async function updateAnswerDifficulty(
   answerUid: string,
-  difficulty: AnswerDifficulty
+  difficulty: AnswerDifficulty,
+  isRoadmapQuestion: boolean
 ) {
-  await prisma.answers.update({
-    where: { uid: answerUid },
-    data: { difficulty },
-  });
+  if (isRoadmapQuestion) {
+    await prisma.roadmapUserQuestionsUserAnswers.update({
+      where: { uid: answerUid },
+      data: { difficulty },
+    });
+  } else {
+    await prisma.answers.update({
+      where: { uid: answerUid },
+      data: { difficulty },
+    });
+  }
 }
 
 /**

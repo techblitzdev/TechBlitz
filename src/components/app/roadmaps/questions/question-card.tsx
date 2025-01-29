@@ -17,6 +17,8 @@ import QuestionAccordion from '@/components/app/questions/single/question-accord
 import QuestionResult from '../../shared/answer-submitted';
 import { toast } from 'sonner';
 import QuestionCodeDisplay from '../../shared/question-code-display';
+import { AnswerDifficulty } from '@prisma/client';
+import { updateAnswerDifficulty } from '@/actions/answers/answer';
 
 export default function RoadmapQuestionCard(opts: {
   user: UserRecord;
@@ -39,17 +41,6 @@ export default function RoadmapQuestionCard(opts: {
   const [activeTab, setActiveTab] = useState<
     'description' | 'resources' | 'stats'
   >('description');
-
-  // TODO: add difficulty selection for roadmap questions (schema changes needed)
-  const handleDifficultySelect = async () => {
-    //await updateAnswerDifficulty(
-    //  userAnswer?.uid || '',
-    //  value.toUpperCase() as AnswerDifficulty
-    //);
-    toast.success(
-      'Question difficulty updated, we will now serve more personalized questions to you.'
-    );
-  };
 
   // toggle layout only between questions and codeSnippet
   // the answer is after the user has submitted their answer
@@ -147,7 +138,6 @@ export default function RoadmapQuestionCard(opts: {
             userAnswer={userAnswer}
             question={question}
             nextQuestion={nextQuestion}
-            handleDifficultySelect={handleDifficultySelect}
             isCodeEditorQuestion={false}
             isRoadmapQuestion={true}
             roadmapUid={roadmapUid}

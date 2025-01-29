@@ -4,7 +4,10 @@ import { UserRecord } from '@/types/User';
 import { createContext, useState, useContext } from 'react';
 import { SchemaProps } from '../../questions/single/answer-question-form';
 import { answerDefaultRoadmapQuestion } from '@/actions/roadmap/questions/default/answer-roadmap-question';
-import { DefaultRoadmapQuestions } from '@prisma/client';
+import {
+  DefaultRoadmapQuestions,
+  DefaultRoadmapQuestionsAnswers,
+} from '@prisma/client';
 import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
 import { z } from 'zod';
 
@@ -16,7 +19,9 @@ type Layout = 'questions' | 'codeSnippet' | 'answer';
 type AnswerStatus = 'correct' | 'incorrect' | 'init';
 
 interface OnboardingContextType {
-  question: DefaultRoadmapQuestions;
+  question: DefaultRoadmapQuestions & {
+    answers: DefaultRoadmapQuestionsAnswers[];
+  };
   user: UserRecord;
   roadmapUid: string;
   currentLayout: Layout;
@@ -25,6 +30,24 @@ interface OnboardingContextType {
   // generating answer help for the onboarding question
   answerHelp: z.infer<typeof answerHelpSchema> | null;
   setAnswerHelp: (answerHelp: z.infer<typeof answerHelpSchema>) => void;
+
+  // loading state
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
+
+  // keeping track of the user data once they answer the onboarding question
+  newUserData: {
+    correct: boolean;
+    message?: string;
+  } | null;
+  setNewUserData: (newUserData: { correct: boolean; message?: string }) => void;
+
+  // keeping track of the next question index
+  nextQuestionIndex: number | null;
+  setNextQuestionIndex: (nextQuestionIndex: number | null) => void;
+
+  // answer roadmap onboarding question
+  answerRoadmapOnboardingQuestion: (values: SchemaProps) => void;
 }
 
 export const useRoadmapOnboardingContext = () => {
@@ -46,7 +69,9 @@ export const RoadmapOnboardingContextProvider = ({
   children: React.ReactNode;
   user: UserRecord;
   roadmapUid: string;
-  question: DefaultRoadmapQuestions;
+  question: DefaultRoadmapQuestions & {
+    answers: DefaultRoadmapQuestionsAnswers[];
+  };
 }) => {
   // loading state
   const [loading, setLoading] = useState(false);
@@ -112,6 +137,13 @@ export const RoadmapOnboardingContextProvider = ({
         setCurrentLayout,
         answerHelp,
         setAnswerHelp,
+        loading,
+        setLoading,
+        newUserData,
+        setNewUserData,
+        nextQuestionIndex,
+        setNextQuestionIndex,
+        answerRoadmapOnboardingQuestion,
       }}
     >
       {children}

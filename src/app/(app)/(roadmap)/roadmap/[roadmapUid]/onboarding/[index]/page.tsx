@@ -47,11 +47,7 @@ export default async function RoadmapQuestionPage({
 
   const leftContent = (
     <div className="flex flex-col gap-y-4 p-3 lg:pr-1.5 h-full">
-      <OnboardingQuestionCard
-        question={question}
-        showHint={false}
-        roadmapUid={roadmapUid}
-      />
+      <OnboardingQuestionCard question={question} showHint={false} />
     </div>
   );
 

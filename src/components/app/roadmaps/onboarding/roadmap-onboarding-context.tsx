@@ -16,7 +16,7 @@ export const OnboardingContext = createContext<OnboardingContextType>(
 );
 
 type Layout = 'questions' | 'codeSnippet' | 'answer';
-type AnswerStatus = 'correct' | 'incorrect' | 'init';
+export type AnswerStatus = 'correct' | 'incorrect' | 'init';
 
 interface OnboardingContextType {
   question: DefaultRoadmapQuestions & {

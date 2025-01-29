@@ -1,11 +1,7 @@
 'use client';
-import { useState, forwardRef, useImperativeHandle } from 'react';
 // components
 import { Form, FormControl, FormField } from '@/components/ui/form';
-//import QuestionAccordion from '@/components/app/questions/single/question-accordion';
 import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
-import { toast } from 'sonner';
 import { Check } from 'lucide-react';
 import LoadingSpinner from '@/components/ui/loading';
 
@@ -15,32 +11,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
 
-// types
-import type { UserRecord } from '@/types/User';
-import { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
-
 import { cn } from '@/lib/utils';
-import { answerDefaultRoadmapQuestion } from '@/actions/roadmap/questions/default/answer-roadmap-question';
 import AnswerSubmittedForm from '../answer-submitted-form';
 import CodeDisplay from '../../questions/single/layout/code-snippet';
 import { useRoadmapOnboardingContext } from './roadmap-onboarding-context';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
-type AnswerQuestionFormProps = {
-  userData: UserRecord;
-  question: DefaultRoadmapQuestions | RoadmapUserQuestions;
-  roadmapUid: string;
-};
 
 export default function OnboardingRoadmapAnswerQuestionForm() {
   const {
     question,
-    user,
     roadmapUid,
-    setAnswerHelp,
-    setCurrentLayout,
-    setLoading,
-    setNewUserData,
     answerRoadmapOnboardingQuestion,
     loading,
     newUserData,

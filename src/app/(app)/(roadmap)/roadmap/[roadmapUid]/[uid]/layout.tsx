@@ -63,18 +63,20 @@ export default async function RoadmapQuestionLayout({
       <div className="grid grid-cols-12 items-center justify-between pb-2 px-3 relative">
         <div className="col-span-2 lg:col-span-4 flex items-center py-2 justify-start">
           <SidebarLayoutTrigger />
-          <Suspense
-            fallback={<div className="h-8 w-32 bg-gray-200 animate-pulse" />}
-          >
-            <RoadmapQuestionNavigation
-              nextRoadmapQuestion={nextQuestion}
-              prevRoadmapQuestion={prevQuestion}
-              roadmap={{
-                title: roadmap?.title || '',
-                uid: roadmap?.uid || '',
-              }}
-            />
-          </Suspense>
+          <div className="hidden lg:block">
+            <Suspense
+              fallback={<div className="h-8 w-32 bg-gray-200 animate-pulse" />}
+            >
+              <RoadmapQuestionNavigation
+                nextRoadmapQuestion={nextQuestion}
+                prevRoadmapQuestion={prevQuestion}
+                roadmap={{
+                  title: roadmap?.title || '',
+                  uid: roadmap?.uid || '',
+                }}
+              />
+            </Suspense>
+          </div>
         </div>
         <div className="col-span-7 lg:col-span-4 flex items-center justify-center">
           <RoadmapQuestionActionButtons />

@@ -17,7 +17,10 @@ export const createOrFetchUserRoadmap = async () => {
     });
 
     if (userRoadmapsCount >= 10) {
-      throw new Error('Maximum number of roadmaps (10) reached');
+      return {
+        code: 'MAX_ROADMAPS_REACHED',
+        error: 'Maximum number of roadmaps (10) reached',
+      };
     }
 
     // check if the user already has a roadmap that has not been completed

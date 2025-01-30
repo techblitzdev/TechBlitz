@@ -1,10 +1,25 @@
 import { fetchDefaultUserAnswers } from '@/utils/data/roadmap/questions/default/fetch-default-user-answers';
-import { roadmapGenerate } from '@/actions/ai/roadmap/generate';
 import { Suspense } from 'react';
 import LoadingSpinner from '@/components/ui/loading';
 import RoadmapGenerateButton from '@/components/app/roadmaps/onboarding/onboarding-generate';
 import UserAnswers from '@/components/app/roadmaps/onboarding/onboarding-user-answers';
 import RoadmapStatus from '@/components/app/roadmaps/onboarding/onboarding-roadmap-status';
+
+async function RoadmapGenerateWrapper({ roadmapUid }: { roadmapUid: string }) {
+  try {
+    const { roadmapGenerate } = await import('@/actions/ai/roadmap/generate');
+    const generate = await roadmapGenerate({ roadmapUid });
+    return (
+      <RoadmapGenerateButton
+        roadmapUid={roadmapUid}
+        generate={generate.length ? 'generated' : ''}
+      />
+    );
+  } catch (error) {
+    console.error('Error in roadmap generation:', error);
+    return null;
+  }
+}
 
 export default async function RoadmapGeneratingPage({
   params,
@@ -14,10 +29,7 @@ export default async function RoadmapGeneratingPage({
   const { roadmapUid } = params;
 
   try {
-    const [userAnswers, generate] = await Promise.all([
-      fetchDefaultUserAnswers({ roadmapUid }),
-      roadmapGenerate({ roadmapUid }),
-    ]);
+    const userAnswers = await fetchDefaultUserAnswers({ roadmapUid });
 
     // Sort answers by question order
     userAnswers.sort((a, b) => a.question.order - b.question.order);
@@ -34,13 +46,10 @@ export default async function RoadmapGeneratingPage({
               className="flex-1 flex flex-col items-center justify-center space-y-8 lg:border-l lg:border-black-50 lg:pl-12"
               aria-labelledby="roadmap-status"
             >
-              <RoadmapStatus isGenerated={generate.length > 0} />
+              <RoadmapStatus isGenerated={false} />
               <div className="w-full max-w-xs">
                 <Suspense fallback={<LoadingSpinner />}>
-                  <RoadmapGenerateButton
-                    roadmapUid={roadmapUid}
-                    generate={generate.length ? 'generated' : ''}
-                  />
+                  <RoadmapGenerateWrapper roadmapUid={roadmapUid} />
                 </Suspense>
               </div>
             </section>
@@ -57,8 +66,8 @@ export default async function RoadmapGeneratingPage({
             Oops! Something went wrong.
           </h1>
           <p className="text-gray-400">
-            We're having trouble generating your roadmap. Please try again
-            later.
+            We're having trouble generating your roadmap. Please contact support
+            so we can help you out.
           </p>
         </div>
       </main>

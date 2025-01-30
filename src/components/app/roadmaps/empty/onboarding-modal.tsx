@@ -28,8 +28,13 @@ export default async function RoadmapOnboardingModal() {
     try {
       // create a new roadmap record for the user
       const roadmap = await createOrFetchUserRoadmap();
+
       // redirect the user to the new page
-      redirect(`/roadmap/${roadmap.uid}/onboarding/1`);
+      if ('uid' in roadmap) {
+        redirect(`/roadmap/${roadmap.uid}/onboarding/1`);
+      } else {
+        toast.error('Failed to create roadmap');
+      }
     } catch (error) {
       console.error('Failed to create roadmap:', error);
       toast.error('Failed to create roadmap: ' + error);

@@ -111,6 +111,8 @@ export default function OnboardingQuestionCard({
               showQuestionDifficulty={false} // onboarding question, don't show difficulty
               showCorrectAnswer={false} // onboarding question, don't give away the answer
               nextQuestionHref={nextQuestionHref}
+              isOnboardingQuestion={true}
+              isLastQuestion={isLastQuestion}
             />
           </>
         )}

@@ -404,7 +404,7 @@ export default function OnboardingStepOne() {
                                 <TooltipContent>
                                   <p>
                                     We'll send you a personalized challenge
-                                    reminder every day. Only on weekdays.
+                                    reminder every week day.
                                   </p>
                                 </TooltipContent>
                               </Tooltip>

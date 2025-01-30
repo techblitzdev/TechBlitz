@@ -17,6 +17,9 @@ export const answerDefaultRoadmapQuestion = async (opts: {
 
   const question = await prisma.defaultRoadmapQuestions.findUnique({
     where: { uid: questionUid },
+    include: {
+      answers: true,
+    },
   });
 
   if (!question) {
@@ -88,10 +91,19 @@ export const answerDefaultRoadmapQuestion = async (opts: {
 
   const isLastQuestion = currentQuestionIndex === totalQuestions;
 
+  // Find the answer text from the question's answers
+  const answerText =
+    question.answers.find((a) => a.uid === answerUid)?.answer || '';
+
   return {
     correctAnswer,
-    userAnswer,
+    userAnswer: {
+      ...userAnswer,
+      answer: answerText,
+    },
     currentQuestionIndex: question.order,
     isLastQuestion,
+    userAnswerContent: answerText,
+    nextQuestion: currentQuestionIndex + 1,
   };
 };

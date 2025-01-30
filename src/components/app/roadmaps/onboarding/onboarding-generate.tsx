@@ -1,24 +1,17 @@
-import { roadmapGenerate } from '@/actions/ai/roadmap/generate';
-import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default async function RoadmapGenerateButton({
   roadmapUid,
+  generate,
 }: {
   roadmapUid: string;
+  generate: string;
 }) {
-  const generate = await roadmapGenerate({
-    roadmapUid,
-  });
-
   if (generate.length || generate === 'generated') {
     return (
-      <Link
-        href={`/roadmap/${roadmapUid}`}
-        prefetch
-        className="bg-accent text-white px-4 py-2 rounded-md text-sm font-semibold font-ubuntu relative z-10"
-      >
+      <Button href={`/roadmap/${roadmapUid}`} variant="accent" fullWidth>
         Go to Roadmap
-      </Link>
+      </Button>
     );
   }
 

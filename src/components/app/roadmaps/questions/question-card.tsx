@@ -66,7 +66,11 @@ export default function RoadmapQuestionCard(opts: {
           correctAnswer={correctAnswer}
           userAnswer={userAnswer}
           question={question}
-          nextQuestion={nextQuestion}
+          nextQuestionHref={
+            nextQuestion
+              ? `/roadmap/${roadmapUid}/${nextQuestion.uid}`
+              : undefined
+          }
           isCodeEditorQuestion={false}
           isRoadmapQuestion={true}
           roadmapUid={roadmapUid}

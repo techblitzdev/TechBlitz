@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import { checkIfUserIsOnCorrectQuestionIndex } from '@/utils/data/roadmap/questions/check-user-is-on-correct-index';
 
 export default async function RoadmapUidLayout({
   children,
@@ -30,11 +31,20 @@ export default async function RoadmapUidLayout({
   // if no question no party
   if (!question) return;
 
+  // check if the current index is the current question index
+  // on the roadmap
+  const isCorrectQuestion = await checkIfUserIsOnCorrectQuestionIndex({
+    currentQuestionIndex: index,
+    roadmapUid,
+    userUid: user.uid,
+  });
+
   return (
     <RoadmapOnboardingContextProvider
       user={user}
       roadmapUid={roadmapUid}
       question={question}
+      isCorrectQuestion={isCorrectQuestion}
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center py-2 px-3">

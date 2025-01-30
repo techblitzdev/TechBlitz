@@ -27,9 +27,17 @@ export default function OnboardingQuestionCard({
     currentLayout,
     correctAnswer,
     userAnswer,
-    nextQuestion,
+    nextQuestionIndex,
     roadmapUid,
+    loading,
+    isLastQuestion,
   } = useRoadmapOnboardingContext();
+
+  console.log(nextQuestionIndex);
+
+  const nextQuestionHref = isLastQuestion
+    ? `/roadmap/${roadmapUid}/onboarding/generate`
+    : `/roadmap/${roadmapUid}/onboarding/${nextQuestionIndex}`;
 
   const descriptionContent = () => {
     return (
@@ -63,20 +71,24 @@ export default function OnboardingQuestionCard({
                 </h3>
               </div>
             )}
+            <OnboardingRoadmapAnswerQuestionForm />
           </>
         )}
-        <OnboardingRoadmapAnswerQuestionForm />
         {currentLayout === 'answer' && (
-          <QuestionResult
-            correctAnswer={correctAnswer}
-            userAnswer={userAnswer}
-            question={question}
-            nextQuestion={nextQuestion}
-            isCodeEditorQuestion={false}
-            isRoadmapQuestion={true}
-            roadmapUid={roadmapUid}
-            generateAiAnswerHelp={() => {}}
-          />
+          <>
+            <QuestionResult
+              correctAnswer={correctAnswer}
+              userAnswer={userAnswer}
+              question={question}
+              isCodeEditorQuestion={false}
+              isRoadmapQuestion={true}
+              roadmapUid={roadmapUid}
+              generateAiAnswerHelp={() => {}}
+              showQuestionDifficulty={false} // onboarding question, don't show difficulty
+              showCorrectAnswer={false} // onboarding question, don't give away the answer
+              nextQuestionHref={nextQuestionHref}
+            />
+          </>
         )}
       </TabsContent>
     );
@@ -95,13 +107,18 @@ export default function OnboardingQuestionCard({
         <Separator className="bg-black-50" />
         {/** submit buttons */}
         <div className="flex w-full justify-end gap-3 p-4">
-          <Button variant="destructive" onClick={resetQuestionState}>
+          <Button
+            variant="destructive"
+            onClick={resetQuestionState}
+            disabled={loading || correctAnswer !== 'init'}
+          >
             Reset
           </Button>
           <Button
             variant="default"
             onClick={answerRoadmapOnboardingQuestion}
             className="text-green-500"
+            disabled={loading || !userAnswer}
           >
             Submit
           </Button>

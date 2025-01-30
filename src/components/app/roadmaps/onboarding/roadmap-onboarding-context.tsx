@@ -9,6 +9,7 @@ import {
 } from '@prisma/client';
 import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
 import { z } from 'zod';
+import { useRouter } from 'next/navigation';
 
 export const OnboardingContext = createContext<OnboardingContextType>(
   {} as OnboardingContextType
@@ -59,9 +60,9 @@ interface OnboardingContextType {
   correctAnswer: AnswerStatus;
   setCorrectAnswer: (correctAnswer: AnswerStatus) => void;
 
-  // the next question to be answered
-  nextQuestion: DefaultRoadmapQuestions | null;
-  setNextQuestion: (nextQuestion: DefaultRoadmapQuestions | null) => void;
+  // is the last question
+  isLastQuestion: boolean;
+  setIsLastQuestion: (isLastQuestion: boolean) => void;
 }
 
 export const useRoadmapOnboardingContext = () => {
@@ -79,6 +80,7 @@ export const RoadmapOnboardingContextProvider = ({
   user,
   roadmapUid,
   question,
+  isCorrectQuestion,
 }: {
   children: React.ReactNode;
   user: UserRecord;
@@ -86,10 +88,15 @@ export const RoadmapOnboardingContextProvider = ({
   question: DefaultRoadmapQuestions & {
     answers: DefaultRoadmapQuestionsAnswers[];
   };
+  // is the current question the correct question
+  isCorrectQuestion: boolean | number;
 }) => {
+  const router = useRouter();
+
   // loading state
   const [loading, setLoading] = useState(false);
 
+  // the users answer to the question
   const [userAnswer, setUserAnswer] = useState<string | null>(null);
 
   // keeping track of the user data once they answer the onboarding question
@@ -103,6 +110,8 @@ export const RoadmapOnboardingContextProvider = ({
     null
   );
 
+  const [isLastQuestion, setIsLastQuestion] = useState(false);
+
   // setting the current layout through the onboarding question
   const [currentLayout, setCurrentLayout] = useState<Layout>('questions');
 
@@ -114,9 +123,10 @@ export const RoadmapOnboardingContextProvider = ({
   // the correct answer to the onboarding question
   const [correctAnswer, setCorrectAnswer] = useState<AnswerStatus>('init');
 
-  // the next question to be answered
-  const [nextQuestion, setNextQuestion] =
-    useState<DefaultRoadmapQuestions | null>(null);
+  // Check if we should redirect - only if not on correct question and not showing answer
+  if (isCorrectQuestion !== true && currentLayout !== 'answer') {
+    router.push(`/roadmap/${roadmapUid}/onboarding/${isCorrectQuestion}`);
+  }
 
   const answerRoadmapOnboardingQuestion = async () => {
     if (!user || user.userLevel === 'FREE') {
@@ -137,13 +147,20 @@ export const RoadmapOnboardingContextProvider = ({
         currentQuestionIndex: question?.order,
       };
 
-      const { correctAnswer, isLastQuestion, currentQuestionIndex } =
-        await answerDefaultRoadmapQuestion(opts);
+      const {
+        correctAnswer,
+        isLastQuestion,
+        userAnswerContent,
+        currentQuestionIndex,
+      } = await answerDefaultRoadmapQuestion(opts);
 
-      // Set user data to show correct/incorrect state
-      setNewUserData({
-        correct: correctAnswer || false,
-      });
+      // set the correct answer
+      setCorrectAnswer(correctAnswer ? 'correct' : 'incorrect');
+
+      setUserAnswer(userAnswerContent);
+
+      setIsLastQuestion(isLastQuestion);
+      setNextQuestionIndex(currentQuestionIndex + 1);
 
       // change the layout to the next question
       setCurrentLayout('answer');
@@ -152,10 +169,15 @@ export const RoadmapOnboardingContextProvider = ({
     }
   };
 
+  // reset the question state
   const resetQuestionState = () => {
+    // put the layout back to the question
+    setCorrectAnswer('init');
+    setUserAnswer(null);
     setNewUserData(null);
+    setCurrentLayout('questions');
     setAnswerHelp(null);
-    setLoading(false);
+    setNextQuestionIndex(null);
   };
 
   return (
@@ -180,8 +202,8 @@ export const RoadmapOnboardingContextProvider = ({
         setUserAnswer,
         correctAnswer,
         setCorrectAnswer,
-        nextQuestion,
-        setNextQuestion,
+        isLastQuestion,
+        setIsLastQuestion,
       }}
     >
       {children}

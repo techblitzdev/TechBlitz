@@ -40,6 +40,9 @@ interface QuestionResultProps {
   isRoadmapQuestion?: boolean;
   isCodeEditorQuestion?: boolean;
   roadmapUid?: string;
+  showQuestionDifficulty?: boolean;
+  showCorrectAnswer?: boolean;
+  nextQuestionHref?: string;
 }
 
 /**
@@ -60,7 +63,6 @@ export default function QuestionResult({
   userAnswer,
   result,
   question,
-  nextQuestion,
   totalSeconds,
   generateAiAnswerHelp,
   user,
@@ -68,7 +70,9 @@ export default function QuestionResult({
   relatedQuestions,
   isRoadmapQuestion = false,
   isCodeEditorQuestion = false,
-  roadmapUid,
+  showQuestionDifficulty = true,
+  showCorrectAnswer = true,
+  nextQuestionHref,
 }: QuestionResultProps) {
   const [isPending, startTransition] = useTransition();
 
@@ -186,7 +190,7 @@ export default function QuestionResult({
                 hideIndex={isRoadmapQuestion}
               />
             </div>
-            {correctAnswer === 'incorrect' && (
+            {correctAnswer === 'incorrect' && showCorrectAnswer && (
               <div className="flex flex-col gap-y-2">
                 <h2 className="text-lg font-bold">Correct Answer</h2>
                 <CodeDisplay
@@ -257,28 +261,31 @@ export default function QuestionResult({
             {isPending ? 'Generating...' : 'Explain Answer'}
           </Button>
         </div>
-        <div className="flex flex-col gap-y-2 mt-3 bg-[#111111] border border-black-50 p-4 rounded-lg">
-          <h2 className="text-xl font-bold">
-            How difficult was this question?
-          </h2>
-          <p className="text-sm text-gray-400">
-            Rate this question based on how difficult it was to solve. This will
-            help us improve the personalization of questions served to you.
-          </p>
-          <div className="flex flex-col gap-y-2">
-            <Select onValueChange={handleDifficultySelect}>
-              <SelectTrigger className="w-40 border border-black-50">
-                <SelectValue placeholder="Select Difficulty" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="easy">Easy</SelectItem>
-                <SelectItem value="medium">Medium</SelectItem>
-                <SelectItem value="hard">Hard</SelectItem>
-              </SelectContent>
-            </Select>
+        {showQuestionDifficulty && (
+          <div className="flex flex-col gap-y-2 mt-3 bg-[#111111] border border-black-50 p-4 rounded-lg">
+            <h2 className="text-xl font-bold">
+              How difficult was this question?
+            </h2>
+            <p className="text-sm text-gray-400">
+              Rate this question based on how difficult it was to solve. This
+              will help us improve the personalization of questions served to
+              you.
+            </p>
+            <div className="flex flex-col gap-y-2">
+              <Select onValueChange={handleDifficultySelect}>
+                <SelectTrigger className="w-40 border border-black-50">
+                  <SelectValue placeholder="Select Difficulty" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="easy">Easy</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="hard">Hard</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
-        </div>
-        {nextQuestion && (
+        )}
+        {nextQuestionHref && (
           <div className="flex flex-col gap-y-2 bg-[#111111] border border-black-50 p-4 rounded-lg">
             <h2 className="text-xl font-bold">
               Ready for your next challenge?
@@ -290,11 +297,7 @@ export default function QuestionResult({
             </p>
             <Button
               variant="secondary"
-              href={
-                isRoadmapQuestion
-                  ? `/roadmap/${roadmapUid}/${nextQuestion.uid}`
-                  : `/question/${nextQuestion.slug}`
-              }
+              href={nextQuestionHref}
               className="w-fit"
             >
               Next Question

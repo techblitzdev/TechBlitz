@@ -51,8 +51,8 @@ export const getUserFromDb = async (
  *
  * @returns UserRecord | null
  */
-export const getUser = async () => {
+export const getUser = async (userUid?: string) => {
   const { data } = await getUserFromSession();
   if (!data?.user?.id) return null;
-  return await getUserFromDb(data.user.id);
+  return await getUserFromDb(userUid || data.user.id);
 };

@@ -16,10 +16,15 @@ export const getPlans = (
       frequencyText: 'forever',
       shortText: 'Great for beginners wanting to get started with coding.',
       features: [
-        { name: 'Daily coding challenge sent straight to your inbox' },
+        {
+          name: 'A coding challenge picked just for you sent straight to your inbox',
+        },
         { name: 'Compete with other users everyday' },
         {
           name: `Access to ${QUESTIONS_COUNT}+ Javascript, React, Node and Web Development multiple choice and code editor challenges (more added daily!)`,
+        },
+        {
+          name: 'Access to pre-built study plans and progression frameworks',
         },
         { name: 'View leaderboards and compete with other users' },
         { name: 'Basic stats and progress tracking' },
@@ -29,7 +34,7 @@ export const getPlans = (
       compactFeatures: [
         { name: 'Compete with other users everyday' },
         { name: 'Basic stats and progress tracking' },
-        { name: '20 AI question help tokens' },
+        { name: '10 AI question help tokens' },
         { name: 'Basic support' },
       ],
       cta: {
@@ -67,7 +72,7 @@ export const getPlans = (
           name: 'Enhanced question suggestions',
         },
         { name: 'In depth stat analysis and progress tracking' },
-        { name: '10 Bespoke learning plans and progression frameworks' },
+        { name: '10 Bespoke learning plans tailored to your goals' },
         { name: 'Personalized coding challenges' },
         { name: 'Unlimited AI assistant tokens' },
         { name: 'Access to upcoming beta features' },
@@ -76,7 +81,7 @@ export const getPlans = (
       ],
       compactFeatures: [
         { name: 'Access to premium questions' },
-        { name: '10 Bespoke learning plans and progression frameworks' },
+        { name: '10 Bespoke learning plans tailored to your goals' },
         { name: 'In depth stat analysis and progress tracking' },
         { name: 'Personalized coding challenges' },
         { name: 'Unlimited AI assistant tokens' },
@@ -113,7 +118,7 @@ export const getPlans = (
           name: 'Enhanced question suggestions',
         },
         { name: 'In depth stat analysis and progress tracking' },
-        { name: '10 Bespoke learning plans and progression frameworks' },
+        { name: '10 Bespoke learning plans tailored to your goals' },
         { name: 'Personalized coding challenges' },
         { name: 'Unlimited AI assistant tokens' },
         { name: 'Access to upcoming beta features' },
@@ -123,7 +128,7 @@ export const getPlans = (
       ],
       compactFeatures: [
         { name: 'Access to premium questions' },
-        { name: '10 Bespoke learning plans and progression frameworks' },
+        { name: '10 Bespoke learning plans tailored to your goals' },
         { name: 'In depth stat analysis and progress tracking' },
         { name: 'Personalized coding challenges' },
         { name: 'Unlimited AI assistant tokens' },

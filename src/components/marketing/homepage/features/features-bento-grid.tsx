@@ -27,13 +27,13 @@ export default async function FeaturesBentoGrid() {
       <div className="flex flex-col gap-y-1 items-center text-center">
         <AnimatedSpan content="Features" />
         <h1 className="text-2xl lg:text-5xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
-          A personalized approach to learning coding
+          A personalized approach to learning <br /> to code
         </h1>
         <span className="text-sm md:text-base text-gray-400 max-w-4xl">
-          Discover why TechBlitz is the best free leetcode alternative as you
-          master software engineering with ease. <br /> {QUESTIONS_COUNT}+ free
-          daily coding challenges, in depth statistics and personalized learning
-          paths created to improve coding skills.
+          Experience a tailored coding journey that adapts to your skill level
+          and goals. With {QUESTIONS_COUNT}+ coding challenges, detailed
+          progress tracking, and customized learning paths. We ensure you
+          improve day by day.
         </span>
       </div>
       <div className="min-h-[1450px] md:min-h-[1000px] lg:min-h-[700px] rounded-lg">

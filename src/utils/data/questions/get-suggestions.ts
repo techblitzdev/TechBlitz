@@ -1,16 +1,19 @@
 import { prisma } from '@/lib/prisma';
 import { extractTagIds } from './tags/get-tags-from-question';
 import type { QuestionDifficulty, QuestionWithTags } from '@/types/Questions';
-import { getUser } from '../../../actions/user/authed/get-user';
+import { getUser, getUserFromDb } from '../../../actions/user/authed/get-user';
 import { cache } from 'react';
 
 type SuggestionsOptions = {
   limit?: number;
+  // optional - need to pass in if we want to get a suggested challenge for a user
+  // from the cron job
+  userUid?: string;
 };
 
 export const getSuggestions = cache(
-  async ({ limit = 5 }: SuggestionsOptions) => {
-    const user = await getUser();
+  async ({ limit = 5, userUid }: SuggestionsOptions) => {
+    const user = userUid ? await getUserFromDb(userUid) : await getUser();
 
     // create a difficult map for the user
     const difficultyMap = {

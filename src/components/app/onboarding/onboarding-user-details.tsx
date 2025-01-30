@@ -394,7 +394,7 @@ export default function OnboardingStepOne() {
                               htmlFor="sendPushNotifications"
                               className="text-white"
                             >
-                              Send daily challenge reminders
+                              Send personalized challenge reminders
                             </Label>
                             <TooltipProvider>
                               <Tooltip delayDuration={0}>
@@ -403,9 +403,8 @@ export default function OnboardingStepOne() {
                                 </TooltipTrigger>
                                 <TooltipContent>
                                   <p>
-                                    Don't worry, we only send you the daily
-                                    challenge reminder between Monday and
-                                    Friday.
+                                    We'll send you a personalized challenge
+                                    reminder every day. Only on weekdays.
                                   </p>
                                 </TooltipContent>
                               </Tooltip>

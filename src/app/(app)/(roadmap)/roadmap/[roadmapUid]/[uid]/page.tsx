@@ -67,7 +67,7 @@ export default async function RoadmapQuestionPage({
           <AiQuestionHelp
             question={question}
             user={user}
-            isRoadmapQuestion={true}
+            questionType="roadmap"
           />
           {/** code theme selector */}
           <ChangeCodeTheme user={user} />

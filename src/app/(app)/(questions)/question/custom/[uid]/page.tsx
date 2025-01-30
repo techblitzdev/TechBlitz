@@ -53,7 +53,7 @@ export default async function TodaysQuestionPage({
           <AiQuestionHelp
             question={question}
             user={user}
-            isRoadmapQuestion={false}
+            questionType="regular"
           />
           {/** code theme selector */}
           <ChangeCodeTheme user={user} />

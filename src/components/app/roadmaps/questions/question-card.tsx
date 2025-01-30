@@ -110,11 +110,7 @@ export default function RoadmapQuestionCard(opts: {
 
   const headerContent = (
     <div className="flex lg:hidden text-sm w-full items-center justify-end bg-black-25 gap-x-3">
-      <AiQuestionHelp
-        question={question}
-        user={user}
-        isRoadmapQuestion={true}
-      />
+      <AiQuestionHelp question={question} user={user} questionType="roadmap" />
       <ChangeCodeTheme user={user} />
       {question.codeSnippet && (
         <ExpandedCodeModal code={question.codeSnippet} />

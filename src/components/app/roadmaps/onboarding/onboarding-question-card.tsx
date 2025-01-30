@@ -13,6 +13,10 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useRoadmapOnboardingContext } from './roadmap-onboarding-context';
 import QuestionResult from '../../shared/answer-submitted';
+import AiQuestionHelp from '../../questions/single/layout/ai-question-help';
+import ChangeCodeTheme from '../../questions/single/layout/change-code-theme';
+import ExpandedCodeModal from '../../questions/single/layout/expanded-code-modal';
+import QuestionCodeDisplay from '../../shared/question-code-display';
 
 export default function OnboardingQuestionCard({
   question,
@@ -31,9 +35,21 @@ export default function OnboardingQuestionCard({
     roadmapUid,
     loading,
     isLastQuestion,
+    setCurrentLayout,
+    user,
   } = useRoadmapOnboardingContext();
 
-  console.log(nextQuestionIndex);
+  const toggleLayout = () => {
+    setCurrentLayout(
+      currentLayout === 'questions' ? 'codeSnippet' : 'questions'
+    );
+  };
+
+  const switcherText = () => {
+    return currentLayout === 'questions'
+      ? '(Tap to view code snippet)'
+      : '(Tap to view question)';
+  };
 
   const nextQuestionHref = isLastQuestion
     ? `/roadmap/${roadmapUid}/onboarding/generate`
@@ -41,9 +57,9 @@ export default function OnboardingQuestionCard({
 
   const descriptionContent = () => {
     return (
-      <TabsContent value="description" className="flex flex-col gap-4 p-4 pt-0">
+      <TabsContent value="description" className="flex flex-col gap-4">
         {currentLayout === 'questions' && (
-          <>
+          <div className="flex flex-col gap-4 p-4 pt-0">
             <div className="flex w-full justify-between gap-5 mb-5 pt-4">
               <div className="flex w-full gap-2 items-center">
                 <Chip
@@ -72,7 +88,14 @@ export default function OnboardingQuestionCard({
               </div>
             )}
             <OnboardingRoadmapAnswerQuestionForm />
-          </>
+          </div>
+        )}
+        {currentLayout === 'codeSnippet' && (
+          <QuestionCodeDisplay
+            question={question}
+            user={user}
+            answerHelp={null}
+          />
         )}
         {currentLayout === 'answer' && (
           <>
@@ -93,6 +116,28 @@ export default function OnboardingQuestionCard({
       </TabsContent>
     );
   };
+
+  const headerContent = (
+    <div className="flex lg:hidden text-sm w-full items-center justify-end bg-black-25 gap-x-3">
+      <AiQuestionHelp
+        question={question}
+        user={user}
+        questionType="onboarding"
+      />
+      <ChangeCodeTheme user={user} />
+      {question.codeSnippet && (
+        <ExpandedCodeModal code={question.codeSnippet} />
+      )}
+      <Button
+        variant="ghost"
+        className="text-xs block lg:hidden"
+        padding="none"
+        onClick={toggleLayout}
+      >
+        {switcherText()}
+      </Button>
+    </div>
+  );
 
   const footer = () => {
     return (
@@ -129,6 +174,7 @@ export default function OnboardingQuestionCard({
 
   return (
     <QuestionTabs
+      headerContent={headerContent}
       tabs={[
         {
           value: 'description',

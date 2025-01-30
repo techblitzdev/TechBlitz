@@ -73,7 +73,7 @@ export default async function RoadmapUidLayout({
         <OnboardingProgressBar currentStep={index} />
         <div className="flex items-center gap-x-5"></div>
       </div>
-      <Separator className="bg-black-50 mt-2" />
+      <Separator className="bg-black-50" />
       {children}
     </RoadmapOnboardingContextProvider>
   );

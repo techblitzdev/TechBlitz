@@ -27,9 +27,9 @@ import { DefaultRoadmapQuestions } from '@prisma/client';
 export default function AiQuestionHelp(opts: {
   question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions;
   user: UserRecord | null;
-  isRoadmapQuestion: boolean;
+  questionType: 'roadmap' | 'regular' | 'onboarding';
 }) {
-  const { question, user, isRoadmapQuestion } = opts;
+  const { question, user, questionType } = opts;
   const [aiHelp, setAiHelp] = useState<string | null>(null);
   const [tokensUsed, setTokensUsed] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -44,7 +44,7 @@ export default function AiQuestionHelp(opts: {
     const questionHelp = await generateQuestionHelp(
       question.uid,
       userContent,
-      isRoadmapQuestion
+      questionType
     );
 
     if (questionHelp) {
@@ -55,9 +55,10 @@ export default function AiQuestionHelp(opts: {
   };
 
   // TODO: TEMP FIX
-  const loginHref = isRoadmapQuestion
-    ? `/login?redirectUrl=dashboard`
-    : `/login?redirectUrl=question/${(question as Question).slug}`;
+  const loginHref =
+    questionType === 'roadmap'
+      ? `/login?redirectUrl=dashboard`
+      : `/login?redirectUrl=question/${(question as Question).slug}`;
 
   return (
     <Popover>

@@ -86,7 +86,7 @@ export default function QuestionCodeDisplay({
   }
 
   return (
-    <div className="h-full overflow-y-auto pb-4 scrollable-element">
+    <div className="h-full overflow-y-auto scrollable-element">
       <AnimatePresence mode="wait">
         {codeSnippet && (
           <motion.div
@@ -95,7 +95,7 @@ export default function QuestionCodeDisplay({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="h-full pb-5"
+            className="h-full"
           >
             {isEditable ? (
               <Editor

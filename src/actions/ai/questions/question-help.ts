@@ -6,7 +6,10 @@ import { getUser } from '@/actions/user/authed/get-user';
 import { questionHelpSchema } from '@/lib/zod/schemas/ai/question-help';
 import { zodResponseFormat } from 'openai/helpers/zod.mjs';
 import type { Question } from '@/types/Questions';
-import type { RoadmapUserQuestions } from '@/types/Roadmap';
+import type {
+  DefaultRoadmapQuestions,
+  RoadmapUserQuestions,
+} from '@/types/Roadmap';
 
 /**
  * Method to generate question help for both regular and roadmap questions.
@@ -19,7 +22,7 @@ import type { RoadmapUserQuestions } from '@/types/Roadmap';
 export const generateQuestionHelp = async (
   questionUid: string,
   userContent?: string,
-  isRoadmapQuestion = false
+  questionType: 'roadmap' | 'regular' | 'onboarding' = 'regular'
 ) => {
   // get the current user requesting help
   const user = await getUser();
@@ -30,16 +33,22 @@ export const generateQuestionHelp = async (
 
   // For regular questions, check if the user has enough tokens
   if (
-    !isRoadmapQuestion &&
+    questionType === 'regular' &&
     user.aiQuestionHelpTokens &&
     user.aiQuestionHelpTokens <= 0
   ) {
     return false;
   }
 
-  let question: Question | RoadmapUserQuestions | null;
+  // Initialize question variable
+  let question:
+    | Question
+    | RoadmapUserQuestions
+    | DefaultRoadmapQuestions
+    | null = null;
 
-  if (isRoadmapQuestion) {
+  // Get the appropriate question based on type
+  if (questionType === 'roadmap') {
     // Get the roadmap question
     question = (await prisma.roadmapUserQuestions.findUnique({
       where: {
@@ -54,9 +63,19 @@ export const generateQuestionHelp = async (
         answers: true,
       },
     })) as RoadmapUserQuestions | null;
-  } else {
+  } else if (questionType === 'regular') {
     // Get the regular question
     question = await prisma.questions.findUnique({
+      where: {
+        uid: questionUid,
+      },
+      include: {
+        answers: true,
+      },
+    });
+  } else if (questionType === 'onboarding') {
+    // Get the onboarding question
+    question = await prisma.defaultRoadmapQuestions.findUnique({
       where: {
         uid: questionUid,
       },
@@ -118,7 +137,7 @@ export const generateQuestionHelp = async (
 
   // Handle token management based on question type and user level
   if (
-    !isRoadmapQuestion &&
+    questionType === 'regular' &&
     user.userLevel !== 'PREMIUM' &&
     user.userLevel !== 'ADMIN'
   ) {

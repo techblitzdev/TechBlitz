@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import type { z } from 'zod';
 
 import { Form, FormControl, FormField } from '@/components/ui/form';
-import { Label } from '@/components/ui/label';
 import LoadingSpinner from '@/components/ui/loading';
 import { cn } from '@/lib/utils';
 import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';

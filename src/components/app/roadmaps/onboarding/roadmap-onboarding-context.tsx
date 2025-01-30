@@ -2,7 +2,6 @@
 
 import { UserRecord } from '@/types/User';
 import { createContext, useState, useContext } from 'react';
-import { SchemaProps } from '../../questions/single/answer-question-form';
 import { answerDefaultRoadmapQuestion } from '@/actions/roadmap/questions/default/answer-roadmap-question';
 import {
   DefaultRoadmapQuestions,
@@ -51,7 +50,7 @@ interface OnboardingContextType {
   setNextQuestionIndex: (nextQuestionIndex: number | null) => void;
 
   // answer roadmap onboarding question
-  answerRoadmapOnboardingQuestion: (values: SchemaProps) => void;
+  answerRoadmapOnboardingQuestion: () => void;
 
   // reset the question state
   resetQuestionState: () => void;
@@ -130,10 +129,8 @@ export const RoadmapOnboardingContextProvider = ({
         correct: answer.correctAnswer || false,
       });
 
-      // Set next question index or null if last question
-      setNextQuestionIndex(
-        answer.isLastQuestion ? null : (answer?.currentQuestionIndex || 0) + 1
-      );
+      // change the layout to the next question
+      setCurrentLayout('answer');
     } catch (error) {
       console.error('Error answering roadmap onboarding question', error);
     }

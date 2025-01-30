@@ -68,10 +68,13 @@ export default function OnboardingQuestionCard({
             Reset
           </Button>
           <Button
-            variant="accent"
-            onClick={() => answerRoadmapOnboardingQuestion}
+            variant="default"
+            onClick={() => {
+              answerRoadmapOnboardingQuestion();
+            }}
+            className="text-green-500"
           >
-            Next
+            Submit
           </Button>
         </div>
       </div>

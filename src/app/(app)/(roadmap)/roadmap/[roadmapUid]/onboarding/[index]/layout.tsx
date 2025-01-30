@@ -1,4 +1,3 @@
-import BackToDashboard from '@/components/ui/back-to-dashboard';
 import OnboardingProgressBar from '@/components/app/roadmaps/onboarding/onboarding-progress-bar';
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/use-user-server';

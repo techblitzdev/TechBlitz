@@ -1,4 +1,5 @@
 'use server';
+import { getUser } from '@/actions/user/authed/get-user';
 import { prisma } from '@/lib/prisma';
 
 export const answerDefaultRoadmapQuestion = async (opts: {
@@ -6,10 +7,13 @@ export const answerDefaultRoadmapQuestion = async (opts: {
   answerUid: string;
   roadmapUid: string;
   currentQuestionIndex: number;
-  userUid: string;
 }) => {
-  const { questionUid, answerUid, roadmapUid, currentQuestionIndex, userUid } =
-    opts;
+  const { questionUid, answerUid, roadmapUid, currentQuestionIndex } = opts;
+
+  const user = await getUser();
+  if (!user) {
+    throw new Error('User not found');
+  }
 
   const question = await prisma.defaultRoadmapQuestions.findUnique({
     where: { uid: questionUid },
@@ -63,7 +67,7 @@ export const answerDefaultRoadmapQuestion = async (opts: {
         where: {
           uid: roadmapUid,
           AND: {
-            userUid,
+            userUid: user.uid,
           },
         },
         data: {

@@ -104,7 +104,7 @@ export const RoadmapOnboardingContextProvider = ({
     typeof answerHelpSchema
   > | null>(null);
 
-  const answerRoadmapOnboardingQuestion = async (values: SchemaProps) => {
+  const answerRoadmapOnboardingQuestion = async () => {
     if (!user || user.userLevel === 'FREE') {
       return;
     }
@@ -113,10 +113,13 @@ export const RoadmapOnboardingContextProvider = ({
 
     try {
       const opts: any = {
+        // the question being answered
         questionUid: question?.uid,
-        answerUid: values.answer,
+        // the answer the user has selected and is being submitted
+        answerUid: userAnswer,
+        // the roadmap the user is on
         roadmapUid,
-        userUid: user.uid,
+        // the question index the user is on
         currentQuestionIndex: question?.order,
       };
 

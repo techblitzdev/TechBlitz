@@ -16,8 +16,14 @@ import AnswerOption from './onboarding-answer-option';
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 
 export default function OnboardingRoadmapAnswerQuestionForm() {
-  const { question, roadmapUid, loading, newUserData, nextQuestionIndex } =
-    useRoadmapOnboardingContext();
+  const {
+    question,
+    roadmapUid,
+    loading,
+    newUserData,
+    nextQuestionIndex,
+    userAnswer,
+  } = useRoadmapOnboardingContext();
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(answerQuestionSchema),
@@ -48,7 +54,7 @@ export default function OnboardingRoadmapAnswerQuestionForm() {
         )}
 
         <p className="text-sm text-gray-400 font-light font-onest mt-3">
-          Choose an option below
+          Choose an option below: {userAnswer}
         </p>
 
         <div

@@ -5,10 +5,11 @@ import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/use-user-server';
 import ContinueJourney from '@/components/app/navigation/continue-journey-button';
-import { ArrowRightIcon, Mail, Sparkles } from 'lucide-react';
+import { ArrowRightIcon, Mail } from 'lucide-react';
 import { getAllStudyPaths } from '@/utils/data/study-paths/get';
 import { StudyPathCard } from '@/components/app/study-paths/study-path-card';
 import FeedbackButton from '@/components/ui/feedback-button';
+import UpgradeCard from '@/components/app/shared/upgrade-card';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -115,25 +116,7 @@ export default async function ExploreQuestionsPage() {
             </p>
             <FeedbackButton title="Suggest a study path" />
           </div>
-          {user?.userLevel === 'FREE' && (
-            <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit order-first md:order-last">
-              <div className="flex items-center space-x-2 text-white">
-                <Sparkles className="size-5 text-yellow-400 fill-yellow-500" />
-                <span>Looking for a personalized study plan?</span>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Upgrade to premium to get a personalized study plan to
-                accelerate your learning by 3x.
-              </p>
-              <Button
-                href="https://dub.sh/upgrade-techblitz"
-                className="mt-2 w-full"
-                variant="accent"
-              >
-                Upgrade to Premium
-              </Button>
-            </div>
-          )}
+          {user?.userLevel === 'FREE' && <UpgradeCard />}
         </aside>
       </div>
     </div>

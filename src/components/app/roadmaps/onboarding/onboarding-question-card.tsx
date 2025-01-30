@@ -20,12 +20,13 @@ export default function OnboardingQuestionCard({
   question: DefaultRoadmapQuestions;
   showHint: boolean;
 }) {
-  const { answerRoadmapOnboardingQuestion } = useRoadmapOnboardingContext();
+  const { answerRoadmapOnboardingQuestion, resetQuestionState } =
+    useRoadmapOnboardingContext();
 
   const descriptionContent = () => {
     return (
       <TabsContent value="description" className="flex flex-col gap-4 p-4 pt-0">
-        <div className="flex w-full justify-between gap-5 mb-5">
+        <div className="flex w-full justify-between gap-5 mb-5 pt-4">
           <div className="flex w-full gap-2 items-center">
             <Chip
               color={getQuestionDifficultyColor(question.difficulty).bg}
@@ -63,7 +64,9 @@ export default function OnboardingQuestionCard({
         <Separator className="bg-black-50" />
         {/** submit buttons */}
         <div className="flex w-full justify-end gap-3 p-4">
-          <Button variant="destructive">Reset</Button>
+          <Button variant="destructive" onClick={resetQuestionState}>
+            Reset
+          </Button>
           <Button
             variant="accent"
             onClick={() => answerRoadmapOnboardingQuestion}

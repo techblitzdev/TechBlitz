@@ -16,14 +16,8 @@ import AnswerOption from './onboarding-answer-option';
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 
 export default function OnboardingRoadmapAnswerQuestionForm() {
-  const {
-    question,
-    roadmapUid,
-    answerRoadmapOnboardingQuestion,
-    loading,
-    newUserData,
-    nextQuestionIndex,
-  } = useRoadmapOnboardingContext();
+  const { question, roadmapUid, loading, newUserData, nextQuestionIndex } =
+    useRoadmapOnboardingContext();
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(answerQuestionSchema),
@@ -43,10 +37,7 @@ export default function OnboardingRoadmapAnswerQuestionForm() {
 
   return (
     <Form {...form}>
-      <form
-        className="flex flex-col relative"
-        onSubmit={form.handleSubmit(answerRoadmapOnboardingQuestion)}
-      >
+      <form className="flex flex-col relative">
         {loading && (
           <div className="h-[25rem] absolute flex justify-center items-center w-full z-50">
             <div className="gap-y-3 flex flex-col items-center">

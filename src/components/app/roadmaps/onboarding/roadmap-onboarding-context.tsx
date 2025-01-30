@@ -27,6 +27,10 @@ interface OnboardingContextType {
   currentLayout: Layout;
   setCurrentLayout: (layout: Layout) => void;
 
+  // user answer
+  userAnswer: string | null;
+  setUserAnswer: (userAnswer: string | null) => void;
+
   // generating answer help for the onboarding question
   answerHelp: z.infer<typeof answerHelpSchema> | null;
   setAnswerHelp: (answerHelp: z.infer<typeof answerHelpSchema>) => void;
@@ -48,6 +52,9 @@ interface OnboardingContextType {
 
   // answer roadmap onboarding question
   answerRoadmapOnboardingQuestion: (values: SchemaProps) => void;
+
+  // reset the question state
+  resetQuestionState: () => void;
 }
 
 export const useRoadmapOnboardingContext = () => {
@@ -75,6 +82,8 @@ export const RoadmapOnboardingContextProvider = ({
 }) => {
   // loading state
   const [loading, setLoading] = useState(false);
+
+  const [userAnswer, setUserAnswer] = useState<string | null>(null);
 
   // keeping track of the user data once they answer the onboarding question
   const [newUserData, setNewUserData] = useState<{
@@ -127,6 +136,12 @@ export const RoadmapOnboardingContextProvider = ({
     }
   };
 
+  const resetQuestionState = () => {
+    setNewUserData(null);
+    setAnswerHelp(null);
+    setLoading(false);
+  };
+
   return (
     <OnboardingContext.Provider
       value={{
@@ -144,6 +159,9 @@ export const RoadmapOnboardingContextProvider = ({
         nextQuestionIndex,
         setNextQuestionIndex,
         answerRoadmapOnboardingQuestion,
+        resetQuestionState,
+        userAnswer,
+        setUserAnswer,
       }}
     >
       {children}

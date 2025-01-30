@@ -5,6 +5,14 @@ import { useUserServer } from '@/hooks/use-user-server';
 import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
 import { RoadmapOnboardingContextProvider } from '@/components/app/roadmaps/onboarding/roadmap-onboarding-context';
 import { fetchRoadmapQuestionViaOrder } from '@/utils/data/roadmap/questions/fetch-roadmap-question-via-order';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
 
 export default async function RoadmapUidLayout({
   children,
@@ -30,12 +38,28 @@ export default async function RoadmapUidLayout({
       question={question}
     >
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-x-5 py-2">
-          <div className="flex-1">
-            <SidebarLayoutTrigger />
-          </div>
+        <div className="flex items-center py-2 px-3">
+          <SidebarLayoutTrigger />
           {/** Previous question button */}
-          <BackToDashboard href="/roadmaps" backTo="roadmaps" />
+          <div className="flex items-center gap-x-2">
+            <TooltipProvider delayDuration={0} skipDelayDuration={100}>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button
+                    variant="default"
+                    className="z-30 flex items-center gap-x-2 mr-2"
+                    href="/roadmaps"
+                  >
+                    <ArrowLeft className="size-4" />
+                    <span className="text-sm hidden sm:block">Back</span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">
+                  Back to Roadmap overview
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
         </div>
         <OnboardingProgressBar currentStep={index} />
         <div className="flex items-center gap-x-5"></div>

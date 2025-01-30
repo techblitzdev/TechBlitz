@@ -37,6 +37,7 @@ export default function OnboardingQuestionCard({
     user,
     setShowHint,
     showHint,
+    generateAiAnswerHelp,
   } = useRoadmapOnboardingContext();
 
   const toggleLayout = () => {
@@ -106,7 +107,7 @@ export default function OnboardingQuestionCard({
               isCodeEditorQuestion={false}
               isRoadmapQuestion={true}
               roadmapUid={roadmapUid}
-              generateAiAnswerHelp={() => {}}
+              generateAiAnswerHelp={generateAiAnswerHelp}
               showQuestionDifficulty={false} // onboarding question, don't show difficulty
               showCorrectAnswer={false} // onboarding question, don't give away the answer
               nextQuestionHref={nextQuestionHref}

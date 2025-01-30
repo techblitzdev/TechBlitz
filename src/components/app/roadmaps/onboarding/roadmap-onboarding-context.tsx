@@ -10,6 +10,8 @@ import {
 import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
+import { generateAnswerHelp } from '@/actions/ai/questions/answer-help';
+import { toast } from 'sonner';
 
 export const OnboardingContext = createContext<OnboardingContextType>(
   {} as OnboardingContextType
@@ -67,6 +69,9 @@ interface OnboardingContextType {
   // hint
   showHint: boolean;
   setShowHint: (showHint: boolean) => void;
+
+  // generate answer help for the onboarding question
+  generateAiAnswerHelp: (setCodeSnippetLayout?: boolean) => void;
 }
 
 export const useRoadmapOnboardingContext = () => {
@@ -133,6 +138,38 @@ export const RoadmapOnboardingContextProvider = ({
   if (isCorrectQuestion !== true && currentLayout !== 'answer') {
     router.push(`/roadmap/${roadmapUid}/onboarding/${isCorrectQuestion}`);
   }
+
+  /**
+   * Method for generating answer help for a roadmap question
+   *
+   * @param setCodeSnippetLayout - optional boolean to set the current layout to 'codeSnippet'
+   * @returns void
+   */
+  const generateAiAnswerHelp = async (setCodeSnippetLayout?: boolean) => {
+    // if the user has asked for assistance for the answer, set the current layout to 'codeSnippet'
+    // this is so mobile view switches to the code snippet view
+    if (setCodeSnippetLayout) {
+      setCurrentLayout('codeSnippet');
+    }
+
+    // we don't need to check if the user has enough tokens because the user is on a roadmap
+    // and they have unlimited tokens
+    const { content } = await generateAnswerHelp(
+      question.uid,
+      correctAnswer === 'correct',
+      'onboarding'
+    );
+
+    console.log('content', content);
+
+    if (!content) {
+      toast.error('Error generating answer help');
+      return;
+    }
+
+    // set the answer help
+    setAnswerHelp(content);
+  };
 
   const answerRoadmapOnboardingQuestion = async () => {
     if (!user || user.userLevel === 'FREE') {
@@ -212,6 +249,7 @@ export const RoadmapOnboardingContextProvider = ({
         setIsLastQuestion,
         showHint,
         setShowHint,
+        generateAiAnswerHelp,
       }}
     >
       {children}

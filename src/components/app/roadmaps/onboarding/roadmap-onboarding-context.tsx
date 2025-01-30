@@ -54,6 +54,14 @@ interface OnboardingContextType {
 
   // reset the question state
   resetQuestionState: () => void;
+
+  // the correct answer to the onboarding question
+  correctAnswer: AnswerStatus;
+  setCorrectAnswer: (correctAnswer: AnswerStatus) => void;
+
+  // the next question to be answered
+  nextQuestion: DefaultRoadmapQuestions | null;
+  setNextQuestion: (nextQuestion: DefaultRoadmapQuestions | null) => void;
 }
 
 export const useRoadmapOnboardingContext = () => {
@@ -103,6 +111,13 @@ export const RoadmapOnboardingContextProvider = ({
     typeof answerHelpSchema
   > | null>(null);
 
+  // the correct answer to the onboarding question
+  const [correctAnswer, setCorrectAnswer] = useState<AnswerStatus>('init');
+
+  // the next question to be answered
+  const [nextQuestion, setNextQuestion] =
+    useState<DefaultRoadmapQuestions | null>(null);
+
   const answerRoadmapOnboardingQuestion = async () => {
     if (!user || user.userLevel === 'FREE') {
       return;
@@ -122,11 +137,12 @@ export const RoadmapOnboardingContextProvider = ({
         currentQuestionIndex: question?.order,
       };
 
-      const answer = await answerDefaultRoadmapQuestion(opts);
+      const { correctAnswer, isLastQuestion, currentQuestionIndex } =
+        await answerDefaultRoadmapQuestion(opts);
 
       // Set user data to show correct/incorrect state
       setNewUserData({
-        correct: answer.correctAnswer || false,
+        correct: correctAnswer || false,
       });
 
       // change the layout to the next question
@@ -162,6 +178,10 @@ export const RoadmapOnboardingContextProvider = ({
         resetQuestionState,
         userAnswer,
         setUserAnswer,
+        correctAnswer,
+        setCorrectAnswer,
+        nextQuestion,
+        setNextQuestion,
       }}
     >
       {children}

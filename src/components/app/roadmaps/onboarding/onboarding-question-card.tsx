@@ -12,6 +12,7 @@ import { TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useRoadmapOnboardingContext } from './roadmap-onboarding-context';
+import QuestionResult from '../../shared/answer-submitted';
 
 export default function OnboardingQuestionCard({
   question,
@@ -20,33 +21,63 @@ export default function OnboardingQuestionCard({
   question: DefaultRoadmapQuestions;
   showHint: boolean;
 }) {
-  const { answerRoadmapOnboardingQuestion, resetQuestionState } =
-    useRoadmapOnboardingContext();
+  const {
+    answerRoadmapOnboardingQuestion,
+    resetQuestionState,
+    currentLayout,
+    correctAnswer,
+    userAnswer,
+    nextQuestion,
+    roadmapUid,
+  } = useRoadmapOnboardingContext();
 
   const descriptionContent = () => {
     return (
       <TabsContent value="description" className="flex flex-col gap-4 p-4 pt-0">
-        <div className="flex w-full justify-between gap-5 mb-5 pt-4">
-          <div className="flex w-full gap-2 items-center">
-            <Chip
-              color={getQuestionDifficultyColor(question.difficulty).bg}
-              text={capitalise(question.difficulty)}
-              textColor={getQuestionDifficultyColor(question.difficulty).text}
-              border={getQuestionDifficultyColor(question.difficulty).border}
-            />
-          </div>
-          <div className="flex items-center">
-            <QuestionHintTrigger showHint={showHint} setShowHint={() => {}} />
-          </div>
-        </div>
-        {question?.question && (
-          <div className="flex w-full gap-10 justify-between">
-            <h3 className="font-onest font-light text-lg md:text-2xl">
-              {question.question}
-            </h3>
-          </div>
+        {currentLayout === 'questions' && (
+          <>
+            <div className="flex w-full justify-between gap-5 mb-5 pt-4">
+              <div className="flex w-full gap-2 items-center">
+                <Chip
+                  color={getQuestionDifficultyColor(question.difficulty).bg}
+                  text={capitalise(question.difficulty)}
+                  textColor={
+                    getQuestionDifficultyColor(question.difficulty).text
+                  }
+                  border={
+                    getQuestionDifficultyColor(question.difficulty).border
+                  }
+                />
+              </div>
+              <div className="flex items-center">
+                <QuestionHintTrigger
+                  showHint={showHint}
+                  setShowHint={() => {}}
+                />
+              </div>
+            </div>
+            {question?.question && (
+              <div className="flex w-full gap-10 justify-between">
+                <h3 className="font-onest font-light text-lg md:text-2xl">
+                  {question.question}
+                </h3>
+              </div>
+            )}
+          </>
         )}
         <OnboardingRoadmapAnswerQuestionForm />
+        {currentLayout === 'answer' && (
+          <QuestionResult
+            correctAnswer={correctAnswer}
+            userAnswer={userAnswer}
+            question={question}
+            nextQuestion={nextQuestion}
+            isCodeEditorQuestion={false}
+            isRoadmapQuestion={true}
+            roadmapUid={roadmapUid}
+            generateAiAnswerHelp={() => {}}
+          />
+        )}
       </TabsContent>
     );
   };
@@ -69,9 +100,7 @@ export default function OnboardingQuestionCard({
           </Button>
           <Button
             variant="default"
-            onClick={() => {
-              answerRoadmapOnboardingQuestion();
-            }}
+            onClick={answerRoadmapOnboardingQuestion}
             className="text-green-500"
           >
             Submit

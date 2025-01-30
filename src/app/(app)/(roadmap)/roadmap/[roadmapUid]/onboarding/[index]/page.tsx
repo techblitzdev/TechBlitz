@@ -1,37 +1,26 @@
-import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/use-user-server';
-import QuestionDisplay from '@/components/app/questions/single/layout/code-snippet';
 import { fetchRoadmapQuestionViaOrder } from '@/utils/data/roadmap/questions/fetch-roadmap-question-via-order';
 import OnboardingQuestionCard from '@/components/app/roadmaps/onboarding/onboarding-question-card';
-import { redirect } from 'next/navigation';
-import { checkIfUserIsOnCorrectQuestionIndex } from '@/utils/data/roadmap/questions/check-user-is-on-correct-index';
 import LoadingSpinner from '@/components/ui/loading';
 import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal';
+
+import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help';
+import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
+import ResizableLayout from '@/components/ui/resizable-layout';
+import OnboardingCodeDisplayWrapper from '@/components/app/roadmaps/onboarding/onboarding-code-display-wrapper';
 
 export default async function RoadmapQuestionPage({
   params,
 }: {
   params: { roadmapUid: string; index: number };
 }) {
-  const { index, roadmapUid } = params;
+  const { index } = params;
 
   // ensure the user is logged in
   const user = await useUserServer();
   if (!user) {
     return;
-  }
-
-  // check if the current index is the current question index
-  // on the roadmap
-  const isCorrectQuestion = await checkIfUserIsOnCorrectQuestionIndex({
-    currentQuestionIndex: index,
-    roadmapUid,
-    userUid: user.uid,
-  });
-
-  if (isCorrectQuestion !== true) {
-    return redirect(`/roadmap/${roadmapUid}/onboarding/${isCorrectQuestion}`);
   }
 
   // get the question
@@ -42,40 +31,43 @@ export default async function RoadmapQuestionPage({
     return <LoadingSpinner />;
   }
 
-  return (
-    <>
-      <div className="flex flex-col lg:flex-row gap-8 mt-5 px-6">
-        {/* Left Section - Question and Stats */}
-        <div className="flex flex-col gap-y-4 w-full lg:w-1/2 relative overflow-hidden h-fit">
-          {/* Question Card */}
-          <Button className="border border-black-50">Question {index}</Button>
-          <OnboardingQuestionCard
+  const leftContent = (
+    <div className="flex flex-col gap-y-4 p-3 lg:pr-1.5 h-full">
+      <OnboardingQuestionCard question={question} />
+    </div>
+  );
+
+  const rightContent = (
+    <div className="hidden lg:flex flex-col gap-4 p-3 lg:pl-1.5 h-full">
+      <div
+        id="code-snippet"
+        className="bg-black-75 border border-black-50 rounded-xl relative overflow-scroll h-full"
+      >
+        <div className="px-4 py-[18px] text-sm flex w-full items-center justify-end bg-black-25 gap-x-3">
+          {/** explain question ai button */}
+          <AiQuestionHelp
             question={question}
             user={user}
-            roadmapUid={roadmapUid}
+            questionType="onboarding"
           />
+          {/** code theme selector */}
+          <ChangeCodeTheme user={user} />
+          {/** code snippet */}
+          {question.codeSnippet && (
+            <ExpandedCodeModal code={question.codeSnippet} />
+          )}
         </div>
-
-        {/* Right Section - Code Snippet and Related Questions */}
-        <div className="w-full lg:w-1/2 h-3/4 grid-cols-subgrid gap-8 flex flex-col">
-          {/* Code Snippet */}
-          <div
-            id="code-snippet"
-            className="h-[45rem] col-span-full bg-black-75 border border-black-50 rounded-xl relative overflow-hidden"
-          >
-            <div className="p-4 text-sm flex w-full items-center justify-between bg-black-25">
-              <p className="font-onest">index.js</p>
-              {question.codeSnippet && (
-                <ExpandedCodeModal code={question.codeSnippet} />
-              )}
-            </div>
-            <Separator className="bg-black-50" />
-            {question?.codeSnippet && (
-              <QuestionDisplay content={question.codeSnippet} language="" />
-            )}
-          </div>
-        </div>
+        <Separator className="bg-black-50" />
+        <OnboardingCodeDisplayWrapper />
       </div>
-    </>
+    </div>
+  );
+
+  return (
+    <ResizableLayout
+      leftContent={leftContent}
+      rightContent={rightContent}
+      initialLeftWidth={50}
+    />
   );
 }

@@ -158,7 +158,7 @@ export default function QuestionCard(opts: {
             <AiQuestionHelp
               question={question}
               user={user}
-              isRoadmapQuestion={false}
+              questionType="regular"
             />
             {/** code theme selector */}
             <ChangeCodeTheme user={user} />
@@ -232,7 +232,11 @@ export default function QuestionCard(opts: {
       <Separator className="bg-black-50" />
       <div className="w-full space-y-4 bg-black">
         {question.hint && (
-          <QuestionAccordion hint={question.hint} showHint={showHint} />
+          <QuestionAccordion
+            hint={question.hint}
+            showHint={showHint}
+            showRelatedQuestions={true}
+          />
         )}
       </div>
       <Separator className="bg-black-50" />

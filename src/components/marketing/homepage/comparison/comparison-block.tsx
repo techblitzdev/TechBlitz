@@ -14,14 +14,14 @@ export default async function ComparisonBlock(opts: {
             header
           ) : (
             <>
-              Learn with interactive <br /> coding challenges
+              Learn with personalized <br /> coding challenges
             </>
           )}
         </h1>
         <p className="text-gray-400 max-w-4xl text-sm md:text-base">
           {subheader
             ? subheader
-            : 'Discover why TechBlitz is the best free LeetCode alternative for beginners. Our coding challenges are designed to mimic real-world problems that you will face in your day-to-day activities.'}
+            : 'Everyone learns differently. TechBlitz is designed to cater to your weaknesses, ensuring you get the most out of your coding journey.'}
         </p>
       </div>
       <div className=" w-full flex justify-center relative">

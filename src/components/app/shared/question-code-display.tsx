@@ -11,11 +11,12 @@ import type { RoadmapUserQuestions } from '@/types/Roadmap';
 import type { UserRecord } from '@/types/User';
 import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
 import LoadingSpinner from '@/components/ui/loading';
+import { DefaultRoadmapQuestions } from '@prisma/client';
 
 type QuestionCodeDisplayProps = {
   user: UserRecord | null;
   answerHelp?: z.infer<typeof answerHelpSchema> | null;
-  question: Question | RoadmapUserQuestions;
+  question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions;
   prefilledCodeSnippet?: string | null;
   isEditable?: boolean;
   onCodeChange?: (code: string) => void;
@@ -85,7 +86,7 @@ export default function QuestionCodeDisplay({
   }
 
   return (
-    <div className="h-full overflow-y-auto pb-4 scrollable-element">
+    <div className="h-full overflow-y-auto scrollable-element">
       <AnimatePresence mode="wait">
         {codeSnippet && (
           <motion.div
@@ -94,7 +95,7 @@ export default function QuestionCodeDisplay({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="h-full pb-5"
+            className="h-full"
           >
             {isEditable ? (
               <Editor

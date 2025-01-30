@@ -318,7 +318,8 @@ export const QuestionSingleContextProvider = ({
       question.uid,
       question.questionType === 'CODING_CHALLENGE'
         ? result?.passed || false
-        : correctAnswer === 'correct'
+        : correctAnswer === 'correct',
+      'regular'
     );
 
     if (!content) {

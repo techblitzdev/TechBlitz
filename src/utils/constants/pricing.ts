@@ -59,7 +59,8 @@ export const getPlans = (
         billingPeriod === 'month'
           ? 'per month, billed monthly'
           : 'per month, billed yearly',
-      shortText: 'Perfect for those wanting a personalized coding experience.',
+      shortText:
+        'Perfect for those looking for a more personalized coding experience.',
       features: [
         { name: 'Access to premium questions' },
         {

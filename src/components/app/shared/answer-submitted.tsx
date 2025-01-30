@@ -40,6 +40,11 @@ interface QuestionResultProps {
   isRoadmapQuestion?: boolean;
   isCodeEditorQuestion?: boolean;
   roadmapUid?: string;
+  showQuestionDifficulty?: boolean;
+  showCorrectAnswer?: boolean;
+  nextQuestionHref?: string;
+  isOnboardingQuestion?: boolean;
+  isLastQuestion?: boolean;
 }
 
 /**
@@ -51,6 +56,7 @@ interface QuestionResultProps {
  * - Single question page
  * - Roadmap question page
  * - Code editor question page
+ * - Onboarding question page
  *
  * @param props
  * @returns
@@ -60,7 +66,6 @@ export default function QuestionResult({
   userAnswer,
   result,
   question,
-  nextQuestion,
   totalSeconds,
   generateAiAnswerHelp,
   user,
@@ -68,7 +73,11 @@ export default function QuestionResult({
   relatedQuestions,
   isRoadmapQuestion = false,
   isCodeEditorQuestion = false,
-  roadmapUid,
+  showQuestionDifficulty = true,
+  showCorrectAnswer = true,
+  nextQuestionHref,
+  isOnboardingQuestion = false,
+  isLastQuestion = false,
 }: QuestionResultProps) {
   const [isPending, startTransition] = useTransition();
 
@@ -107,6 +116,8 @@ export default function QuestionResult({
       toast.error('Failed to update question difficulty');
     }
   };
+
+  const isCode = /<pre><code/.test(userAnswer);
 
   return (
     <motion.div
@@ -172,21 +183,29 @@ export default function QuestionResult({
           <div className="flex flex-col gap-y-6">
             <div className="flex flex-col gap-y-2">
               <h2 className="text-xl font-bold">Your Answer</h2>
-              <CodeDisplay
-                content={
-                  isRoadmapQuestion
-                    ? question?.answers.find(
-                        (answer: any) => answer.uid === userAnswer?.answerUid
-                      )?.answer || ''
-                    : question?.answers.find(
-                        (answer: any) =>
-                          answer.uid === userAnswer?.userAnswerUid
-                      )?.answer || ''
-                }
-                hideIndex={isRoadmapQuestion}
-              />
+              {/** test if userAnswer */}
+              {isOnboardingQuestion && !isCode ? (
+                <p>{userAnswer}</p>
+              ) : (
+                <CodeDisplay
+                  content={
+                    isOnboardingQuestion
+                      ? userAnswer
+                      : isRoadmapQuestion
+                        ? question?.answers.find(
+                            (answer: any) =>
+                              answer.uid === userAnswer?.answerUid
+                          )?.answer || ''
+                        : question?.answers.find(
+                            (answer: any) =>
+                              answer.uid === userAnswer?.userAnswerUid
+                          )?.answer || ''
+                  }
+                  hideIndex={isRoadmapQuestion}
+                />
+              )}
             </div>
-            {correctAnswer === 'incorrect' && (
+            {correctAnswer === 'incorrect' && showCorrectAnswer && (
               <div className="flex flex-col gap-y-2">
                 <h2 className="text-lg font-bold">Correct Answer</h2>
                 <CodeDisplay
@@ -257,28 +276,31 @@ export default function QuestionResult({
             {isPending ? 'Generating...' : 'Explain Answer'}
           </Button>
         </div>
-        <div className="flex flex-col gap-y-2 mt-3 bg-[#111111] border border-black-50 p-4 rounded-lg">
-          <h2 className="text-xl font-bold">
-            How difficult was this question?
-          </h2>
-          <p className="text-sm text-gray-400">
-            Rate this question based on how difficult it was to solve. This will
-            help us improve the personalization of questions served to you.
-          </p>
-          <div className="flex flex-col gap-y-2">
-            <Select onValueChange={handleDifficultySelect}>
-              <SelectTrigger className="w-40 border border-black-50">
-                <SelectValue placeholder="Select Difficulty" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="easy">Easy</SelectItem>
-                <SelectItem value="medium">Medium</SelectItem>
-                <SelectItem value="hard">Hard</SelectItem>
-              </SelectContent>
-            </Select>
+        {showQuestionDifficulty && (
+          <div className="flex flex-col gap-y-2 mt-3 bg-[#111111] border border-black-50 p-4 rounded-lg">
+            <h2 className="text-xl font-bold">
+              How difficult was this question?
+            </h2>
+            <p className="text-sm text-gray-400">
+              Rate this question based on how difficult it was to solve. This
+              will help us improve the personalization of questions served to
+              you.
+            </p>
+            <div className="flex flex-col gap-y-2">
+              <Select onValueChange={handleDifficultySelect}>
+                <SelectTrigger className="w-40 border border-black-50">
+                  <SelectValue placeholder="Select Difficulty" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="easy">Easy</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="hard">Hard</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
-        </div>
-        {nextQuestion && (
+        )}
+        {nextQuestionHref && !isLastQuestion && (
           <div className="flex flex-col gap-y-2 bg-[#111111] border border-black-50 p-4 rounded-lg">
             <h2 className="text-xl font-bold">
               Ready for your next challenge?
@@ -290,14 +312,23 @@ export default function QuestionResult({
             </p>
             <Button
               variant="secondary"
-              href={
-                isRoadmapQuestion
-                  ? `/roadmap/${roadmapUid}/${nextQuestion.uid}`
-                  : `/question/${nextQuestion.slug}`
-              }
+              href={nextQuestionHref}
               className="w-fit"
             >
               Next Question
+            </Button>
+          </div>
+        )}
+        {isLastQuestion && (
+          <div className="flex flex-col gap-y-2 bg-[#111111] border border-black-50 p-4 rounded-lg">
+            <h2 className="text-xl font-bold">
+              You've answered all questions!
+            </h2>
+            <p className="text-sm text-gray-400">
+              Click the button below to generate your roadmap.
+            </p>
+            <Button variant="accent" href={nextQuestionHref}>
+              Generate Roadmap
             </Button>
           </div>
         )}

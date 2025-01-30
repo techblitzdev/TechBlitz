@@ -119,7 +119,7 @@ export const RoadmapQuestionContextProvider = ({
     const { content } = await generateAnswerHelp(
       roadmapQuestion.uid,
       userAnswer?.correct || false,
-      true
+      'roadmap'
     );
 
     console.log('content', content);

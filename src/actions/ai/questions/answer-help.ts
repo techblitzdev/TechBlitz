@@ -11,13 +11,16 @@ import { zodResponseFormat } from 'openai/helpers/zod.mjs';
 
 // types
 import type { UserRecord } from '@/types/User';
-import type { RoadmapUserQuestions } from '@/types/Roadmap';
+import type {
+  DefaultRoadmapQuestions,
+  RoadmapUserQuestions,
+} from '@/types/Roadmap';
 import type { Question } from '@/types/Questions';
 
 const answerHelp = async (
   userCorrect: boolean,
   user: UserRecord,
-  question: Question | RoadmapUserQuestions
+  question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions
 ) => {
   const answerHelpPrompt = await getPrompt({
     name: 'question-answer-help',
@@ -77,7 +80,7 @@ const answerHelp = async (
 export const generateAnswerHelp = async (
   questionUid: string,
   userCorrect: boolean,
-  isRoadmapQuestion = false
+  questionType: 'regular' | 'roadmap' | 'onboarding'
 ) => {
   const user = await getUser();
 
@@ -90,7 +93,7 @@ export const generateAnswerHelp = async (
 
   // For regular questions, check if the user has enough tokens
   if (
-    !isRoadmapQuestion &&
+    questionType === 'regular' &&
     user.aiQuestionHelpTokens &&
     user.aiQuestionHelpTokens <= 0
   ) {
@@ -100,9 +103,13 @@ export const generateAnswerHelp = async (
     };
   }
 
-  let question: Question | RoadmapUserQuestions | null;
+  let question:
+    | Question
+    | RoadmapUserQuestions
+    | DefaultRoadmapQuestions
+    | null = null;
 
-  if (isRoadmapQuestion) {
+  if (questionType === 'roadmap') {
     // Get the roadmap question
     question = (await prisma.roadmapUserQuestions.findUnique({
       where: {
@@ -117,9 +124,17 @@ export const generateAnswerHelp = async (
         answers: true,
       },
     })) as RoadmapUserQuestions | null;
-  } else {
+  } else if (questionType === 'regular') {
     // Get the regular question
     question = await prisma.questions.findUnique({
+      where: { uid: questionUid },
+      include: {
+        answers: true,
+      },
+    });
+  } else if (questionType === 'onboarding') {
+    // Get the onboarding question
+    question = await prisma.defaultRoadmapQuestions.findUnique({
       where: { uid: questionUid },
       include: {
         answers: true,
@@ -140,7 +155,7 @@ export const generateAnswerHelp = async (
 
   // Handle token decrement for regular questions
   if (
-    !isRoadmapQuestion &&
+    questionType === 'regular' &&
     user.userLevel !== 'PREMIUM' &&
     user.userLevel !== 'ADMIN'
   ) {

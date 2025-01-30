@@ -1,5 +1,3 @@
-// import { fetchNextPrevRoadmap } from '@/utils/data/roadmap/fetch-next-prev-roadmap';
-//import QuestionNavigation from '@/components/global/navigation/question-navigation';
 import RoadmapDropdown from '@/components/app/roadmaps/[uid]/dropdown';
 import { Separator } from '@/components/ui/separator';
 import { useUserServer } from '@/hooks/use-user-server';
@@ -17,14 +15,7 @@ export default async function RoadmapOverviewPage({
     useUserServer(),
     fetchRoadmap({ roadmapUid }),
   ]);
-
   if (!user) return;
-
-  // get the next and previous roadmaps
-  //const nextPrevPromise = fetchNextPrevRoadmap({
-  //  roadmapUid,
-  //  userUid: user.uid,
-  //});
 
   return (
     <div className="text-white flex flex-col gap-y-2 relative h-full">
@@ -33,16 +24,7 @@ export default async function RoadmapOverviewPage({
           <SidebarLayoutTrigger />
         </div>
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-x-5">
-            {/**
-             * TODO: Add back in
-            <QuestionNavigation
-              nextPrevPromise={nextPrevPromise}
-              navigationType="roadmap"
-              slug={roadmapUid}
-            />
-             */}
-          </div>
+          <div className="flex items-center gap-x-5"></div>
           {roadmap && <RoadmapDropdown roadmap={roadmap as UserRoadmaps} />}
         </div>
       </div>

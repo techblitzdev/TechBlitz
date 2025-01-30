@@ -27,7 +27,7 @@ export default async function FeaturesBentoGrid() {
       <div className="flex flex-col gap-y-1 items-center text-center">
         <AnimatedSpan content="Features" />
         <h1 className="text-2xl lg:text-5xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
-          Improve coding knowledge effortlessly
+          A personalized approach to learning coding
         </h1>
         <span className="text-sm md:text-base text-gray-400 max-w-4xl">
           Discover why TechBlitz is the best free leetcode alternative as you

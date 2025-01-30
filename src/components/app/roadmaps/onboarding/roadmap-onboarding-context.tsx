@@ -63,6 +63,10 @@ interface OnboardingContextType {
   // is the last question
   isLastQuestion: boolean;
   setIsLastQuestion: (isLastQuestion: boolean) => void;
+
+  // hint
+  showHint: boolean;
+  setShowHint: (showHint: boolean) => void;
 }
 
 export const useRoadmapOnboardingContext = () => {
@@ -92,6 +96,8 @@ export const RoadmapOnboardingContextProvider = ({
   isCorrectQuestion: boolean | number;
 }) => {
   const router = useRouter();
+
+  const [showHint, setShowHint] = useState<boolean>(false);
 
   // loading state
   const [loading, setLoading] = useState(false);
@@ -204,6 +210,8 @@ export const RoadmapOnboardingContextProvider = ({
         setCorrectAnswer,
         isLastQuestion,
         setIsLastQuestion,
+        showHint,
+        setShowHint,
       }}
     >
       {children}

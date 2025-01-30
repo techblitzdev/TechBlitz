@@ -20,10 +20,8 @@ import QuestionCodeDisplay from '../../shared/question-code-display';
 
 export default function OnboardingQuestionCard({
   question,
-  showHint,
 }: {
   question: DefaultRoadmapQuestions;
-  showHint: boolean;
 }) {
   const {
     answerRoadmapOnboardingQuestion,
@@ -37,6 +35,8 @@ export default function OnboardingQuestionCard({
     isLastQuestion,
     setCurrentLayout,
     user,
+    setShowHint,
+    showHint,
   } = useRoadmapOnboardingContext();
 
   const toggleLayout = () => {
@@ -76,7 +76,7 @@ export default function OnboardingQuestionCard({
               <div className="flex items-center">
                 <QuestionHintTrigger
                   showHint={showHint}
-                  setShowHint={() => {}}
+                  setShowHint={setShowHint}
                 />
               </div>
             </div>

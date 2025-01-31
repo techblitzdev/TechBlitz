@@ -13,6 +13,7 @@ import { z } from 'zod';
 import { useSearchParams } from 'next/navigation';
 import { executeQuestionCode } from '@/actions/questions/execute';
 
+// Define the context type for the question single page
 type QuestionSingleContextType = {
   question: Question;
   user: UserRecord | null;
@@ -57,12 +58,18 @@ type QuestionSingleContextType = {
   userAnswered: Promise<Answer | null>;
   showHint: boolean;
   setShowHint: (showHint: boolean) => void;
+  nextQuestion: string | null | undefined;
+  previousQuestion: string | null | undefined;
+  setNextQuestion: (nextQuestion: string | null | undefined) => void;
+  setPreviousQuestion: (previousQuestion: string | null | undefined) => void;
 };
 
+// Create the context
 export const QuestionSingleContext = createContext<QuestionSingleContextType>(
   {} as QuestionSingleContextType
 );
 
+// Custom hook to use the context
 export const useQuestionSingle = () => {
   const context = useContext(QuestionSingleContext);
   if (!context) {
@@ -73,6 +80,7 @@ export const useQuestionSingle = () => {
   return context;
 };
 
+// Context provider component
 export const QuestionSingleContextProvider = ({
   children,
   question,
@@ -86,7 +94,7 @@ export const QuestionSingleContextProvider = ({
   relatedQuestions: Promise<QuestionWithoutAnswers[]> | null;
   userAnswered: Promise<Answer | null>;
 }) => {
-  // for handling study path progress
+  // Get study path slug from URL search params
   const searchParams = useSearchParams();
   const studyPathSlug = searchParams?.get('study-path');
 
@@ -95,41 +103,23 @@ export const QuestionSingleContextProvider = ({
   const [correctAnswer, setCorrectAnswer] = useState<
     'init' | 'incorrect' | 'correct'
   >('init');
-  // the users answer to the question
   const [userAnswer, setUserAnswer] = useState<Answer | null>(null);
-
-  // the new user data after the question is answered
   const [newUserData, setNewUserData] = useState<UserRecord | null>(null);
-
-  // the selected answer by the user
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
-
-  // the time taken to answer the question
   const [timeTaken, setTimeTaken] = useState<number>(0);
-
-  // whether the question is a custom question
   const [customQuestion, setCustomQuestion] = useState(false);
-
-  // the prefilled code snippet based on the user's answer
   const [prefilledCodeSnippet, setPrefilledCodeSnippet] = useState<
     string | null
   >(null);
-
-  // track the answer help
   const [answerHelp, setAnswerHelp] = useState<z.infer<
     typeof answerHelpSchema
   > | null>(null);
-
-  // track the tokens used
   const [tokensUsed, setTokensUsed] = useState<number>(
     user?.userLevel === 'PREMIUM' ? Infinity : user?.aiQuestionHelpTokens || 0
   );
-
-  // the current layout of the page
   const [currentLayout, setCurrentLayout] = useState<
     'questions' | 'codeSnippet' | 'answer'
   >('questions');
-
   const [code, setCode] = useState('');
   const [result, setResult] = useState<{
     passed: boolean;
@@ -141,14 +131,19 @@ export const QuestionSingleContextProvider = ({
     }>;
     error?: string;
   } | null>(null);
-
   const [showHint, setShowHint] = useState(false);
-
-  // stopwatch
+  const [nextQuestion, setNextQuestion] = useState<string | null | undefined>(
+    null
+  );
+  const [previousQuestion, setPreviousQuestion] = useState<
+    string | null | undefined
+  >(null);
+  // Stopwatch for tracking time
   const { pause, reset, totalSeconds } = useStopwatch({ autoStart: true });
 
   // EFFECTS
   useEffect(() => {
+    // Set prefilled code snippet based on the selected answer
     if (selectedAnswer && !prefilledCodeSnippet) {
       const answer = question.answers.find(
         (answer) => answer.uid === selectedAnswer
@@ -158,7 +153,7 @@ export const QuestionSingleContextProvider = ({
   }, [selectedAnswer, question.answers, question.codeSnippet]);
 
   // METHODS
-  // submits the answer for a non-CODING_CHALLENGE question
+  // Submit the answer for a non-CODING_CHALLENGE question
   const submitQuestionAnswer = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!user) {
@@ -193,7 +188,7 @@ export const QuestionSingleContextProvider = ({
       setUserAnswer(submittedAnswer);
       setNewUserData(newUserData);
 
-      // once we have submitted the answer, we can set the current layout to 'answer'
+      // Switch to the answer layout after submission
       setCurrentLayout('answer');
     } catch (error) {
       console.error('Error submitting answer:', error);
@@ -203,7 +198,7 @@ export const QuestionSingleContextProvider = ({
     }
   };
 
-  // validates the code for a CODING_CHALLENGE question
+  // Validate the code for a CODING_CHALLENGE question
   const validateCode = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -245,29 +240,26 @@ export const QuestionSingleContextProvider = ({
     }
   };
 
-  // method to submit the answer depending on the question type
+  // Submit the answer based on the question type
   const submitAnswer = async (e: React.FormEvent<HTMLFormElement>) => {
     if (!user) {
       toast.error('User is not logged in');
       return;
     }
-    // pause the timer
-    pause();
+    pause(); // Pause the timer
 
-    // determine method to use based on question type
+    // Use the appropriate method based on the question type
     if (question.questionType === 'CODING_CHALLENGE') {
       await validateCode(e);
     } else {
       await submitQuestionAnswer(e);
     }
 
-    // Only switch layout after validation is complete
-    setCurrentLayout('answer');
+    setCurrentLayout('answer'); // Switch to the answer layout
   };
 
+  // Generate AI-based answer help
   const generateAiAnswerHelp = async (setCodeSnippetLayout?: boolean) => {
-    // if the user has asked for assistance for the answer, set the current layout to 'codeSnippet'
-    // this is so mobile view switches to the code snippet view
     if (setCodeSnippetLayout) {
       setCurrentLayout('codeSnippet');
     }
@@ -288,6 +280,7 @@ export const QuestionSingleContextProvider = ({
     setAnswerHelp(content);
   };
 
+  // Reset the question state
   const resetQuestionState = () => {
     reset();
     setCorrectAnswer('init');
@@ -340,6 +333,10 @@ export const QuestionSingleContextProvider = ({
         userAnswered,
         showHint,
         setShowHint,
+        nextQuestion,
+        setNextQuestion,
+        previousQuestion,
+        setPreviousQuestion,
       }}
     >
       {children}

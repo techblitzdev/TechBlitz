@@ -38,6 +38,7 @@ export default function CodeEditorQuestionSubmitted() {
     user,
     tokensUsed,
     question,
+    nextQuestion,
   } = useQuestionSingle();
 
   const [isPending, setTransition] = useTransition();
@@ -122,6 +123,23 @@ export default function CodeEditorQuestionSubmitted() {
           )}
         </div>
       </motion.div>
+      {/** if the next question slug is not null, show a button to go to the next question */}
+      {nextQuestion && (
+        <div className="flex flex-col gap-y-2">
+          <h2 className="text-xl font-bold">Next Question</h2>
+          <p className="text-sm text-gray-400">
+            Want to continue the flow? Click the button below to go to the next
+            question.
+          </p>
+          <Button
+            variant="secondary"
+            href={`/question/${nextQuestion}`}
+            className="w-fit"
+          >
+            Next Question
+          </Button>
+        </div>
+      )}
       <motion.div
         className="flex flex-col gap-y-6"
         initial={{ opacity: 0 }}
@@ -152,7 +170,7 @@ export default function CodeEditorQuestionSubmitted() {
             )}
           </p>
           <Button
-            variant="secondary"
+            variant="default"
             onClick={() => {
               setTransition(() => {
                 generateAiAnswerHelp();
@@ -199,22 +217,6 @@ export default function CodeEditorQuestionSubmitted() {
             </Select>
           </div>
         </div>
-        {/** if the next question slug is not null, show a button to go to the next question */}
-        {question?.nextQuestionSlug && (
-          <div className="flex flex-col gap-y-2">
-            <p className="text-sm text-gray-400">
-              Want to continue the flow? Click the button below to go to the
-              next question.
-            </p>
-            <Button
-              variant="secondary"
-              href={`/question/${question.nextQuestionSlug}`}
-              className="w-fit"
-            >
-              Next Question
-            </Button>
-          </div>
-        )}
         {/** show related questions */}
         <div className="flex flex-col gap-y-5">
           <div className="flex flex-col gap-y-2">

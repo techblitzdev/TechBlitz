@@ -1,77 +1,49 @@
-/**
- * StudyPath is a study path that a user can enroll in.
- */
+/// *
+///  * StudyPath is a study path that a user can enroll in.
 model StudyPath {
-    uid String @id @default(uuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    slug String @unique
-    title String
-    description String
-    heroChip String
-    questionSlugs String[]
-    educationLevel String
-
-    // the users who have enrolled in the study path
-    enrollments UserStudyPath[]
-
-    // the goals for the study path
-    goals StudyPathGoal[]
-
-    // the average completion time for the study path (days)
-    averageCompletionTime Int?
-
-    category String?
+  uid                   String          @id @default(uuid())
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
+  slug                  String          @unique
+  title                 String
+  description           String
+  heroChip              String
+  questionSlugs         String[]
+  educationLevel        String
+  averageCompletionTime Int?
+  category              String?
+  goals                 StudyPathGoal[]
+  enrollments           UserStudyPath[]
+  icon                  String?
 }
 
-// Pivot model to handle the many-to-many relationship
 model UserStudyPath {
-    uid String @id @default(uuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  uid          String    @id @default(uuid())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  userUid      String
+  studyPathUid String
+  enrolledAt   DateTime  @default(now())
+  completedAt  DateTime?
+  progress     Float     @default(0)
+  studyPath    StudyPath @relation(fields: [studyPathUid], references: [uid], onDelete: Cascade)
+  user         Users     @relation(fields: [userUid], references: [uid], onDelete: Cascade)
 
-    // User relation
-    userUid String
-    user Users @relation(fields: [userUid], references: [uid], onDelete: Cascade)
-
-    // StudyPath relation
-    studyPathUid String
-    studyPath StudyPath @relation(fields: [studyPathUid], references: [uid], onDelete: Cascade)
-
-    enrolledAt DateTime @default(now())
-    completedAt DateTime?
-    progress Float @default(0)
-
-    @@unique([userUid, studyPathUid])
+  @@unique([userUid, studyPathUid])
 }
-
-/**
- * StudyPathGoal is a goal that a user can set for themselves when they start a study path.
- * It is used to track the user's progress through the study path.
- */
 
 model StudyPathGoal {
-    uid String @id @default(uuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  uid          String    @id @default(uuid())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  dateSet      DateTime
+  targetDate   DateTime
+  completed    Boolean   @default(false)
+  completedAt  DateTime?
+  userUid      String
+  studyPathUid String
+  studyPath    StudyPath @relation(fields: [studyPathUid], references: [uid], onDelete: Cascade)
+  user         Users     @relation(fields: [userUid], references: [uid], onDelete: Cascade)
 
-    // date the goal was set
-    dateSet DateTime
-
-    // target date for completion
-    targetDate DateTime
-
-    completed Boolean @default(false)
-    completedAt DateTime?
-
-    // User relation
-    userUid String
-    user Users @relation(fields: [userUid], references: [uid], onDelete: Cascade)
-
-    // StudyPath relation (using uid instead of slug for consistency)
-    studyPathUid String
-    studyPath StudyPath @relation(fields: [studyPathUid], references: [uid], onDelete: Cascade)
-
-    @@unique([userUid, studyPathUid])
+  @@unique([userUid, studyPathUid])
 }

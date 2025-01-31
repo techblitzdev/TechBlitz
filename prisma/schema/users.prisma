@@ -1,3 +1,103 @@
+model Users {
+  uid                         String              @id
+  email                       String              @unique
+  createdAt                   DateTime            @default(now())
+  updatedAt                   DateTime            @updatedAt
+  lastLogin                   DateTime?
+  userLevel                   userLevel           @default(STANDARD)
+  correctDailyStreak          Int?                @default(0)
+  totalDailyStreak            Int?                @default(0)
+  userProfilePicture          String?
+  showTimeTaken               Boolean             @default(false)
+  firstName                   String?
+  lastName                    String?
+  username                    String?
+  sendPushNotifications       Boolean             @default(false)
+  codeEditorTheme             String?             @default("vs-dark")
+  stripeEmails                String[]            @default([])
+  aiQuestionHelpTokens        Int                 @default(10)
+  experienceLevel             UserExperienceLevel @default(BEGINNER)
+  isCustomUsername            Boolean             @default(false)
+  howDidYouHearAboutTechBlitz String?
+  referralCode                String?
+  aboutMeAiHelp               String?
+  achievements                Achievement[]
+  answers                     Answers[]
+  Profile                     Profile?
+  StatisticsReport            StatisticsReport[]
+  streak                      Streaks?
+  studyPathGoals              StudyPathGoal[]
+  subscription                Subscriptions?
+  bookmarks                   UserBookmarks[]
+  roadmaps                    UserRoadmaps[]
+  studyPathEnrollments        UserStudyPath[]
+}
+
+model Streaks {
+  uid                String    @id @default(cuid())
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  userUid            String    @unique
+  streakStart        DateTime?
+  streakEnd          DateTime?
+  currentstreakCount Int       @default(0)
+  longestStreak      Int       @default(0)
+  user               Users     @relation(fields: [userUid], references: [uid], onDelete: Cascade)
+}
+
+model Subscriptions {
+  uid                      String    @id @default(cuid())
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime  @updatedAt
+  userUid                  String    @unique
+  startDate                DateTime?
+  endDate                  DateTime?
+  active                   Boolean   @default(true)
+  planId                   String
+  planTrial                Boolean   @default(false)
+  planTrialDays            Int?
+  productId                String
+  stripeCustomerId         String?
+  stripeSubscriptionId     String?
+  stripeSubscriptionItemId String?
+  user                     Users     @relation(fields: [userUid], references: [uid], onDelete: Cascade)
+}
+
+model Profile {
+  uid                  String    @id @default(cuid())
+  userUid              String    @unique
+  instagram            String?
+  github               String?
+  linkedin             String?
+  twitter              String?
+  youtube              String?
+  tiktok               String?
+  twitch               String?
+  website              String?
+  bio                  String?
+  location             String?
+  country              String?
+  timezone             String?
+  company              String?
+  jobTitle             String?
+  yearsOfExperience    Int?
+  programmingLanguages String[]  @default([])
+  frameworks           String[]  @default([])
+  interests            String[]  @default([])
+  projects             String[]  @default([])
+  isPublic             Boolean   @default(true)
+  showEmail            Boolean   @default(false)
+  showLocation         Boolean   @default(true)
+  accentColor          String?
+  bannerImage          String?
+  viewCount            Int       @default(0)
+  lastViewed           DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  handle               String
+  user                 Users     @relation(fields: [userUid], references: [uid], onDelete: Cascade)
+}
+
 enum userLevel {
   STANDARD
   ADMIN
@@ -11,175 +111,4 @@ enum UserExperienceLevel {
   INTERMEDIATE
   ADVANCED
   MASTER
-}
-
-// the user model
-model Users {
-  uid       String  @id()
-  email     String  @unique
-  stripeEmails String[] @default([])
-  username  String?
-  // this is a flag as I forgot to add this to the user model... 
-  // need this for migration for ensuring that the username is unique
-  isCustomUsername Boolean @default(false)
-  firstName String?
-  lastName  String?
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  lastLogin DateTime?
-
-  totalDailyStreak   Int? @default(0)
-  correctDailyStreak Int? @default(0)
-
-  userProfilePicture String?
-
-  showTimeTaken Boolean @default(false)
-  // whether to send the user a reminder to answer the daily question
-  sendPushNotifications Boolean @default(false)
-
-  userLevel userLevel @default(STANDARD)
-  subscription Subscriptions?
-  streak Streaks?
-  roadmaps UserRoadmaps[]
-  answers Answers[]
-
-  // allowing the user to choose their code editor theme
-  codeEditorTheme String? @default("vs-dark")
-
-  // a user can have multiple statistics reports
-  StatisticsReport StatisticsReport[]
-
-  // the number of ai question help tokens the user has (infinite for premium users)
-  aiQuestionHelpTokens Int @default(10)
-
-  // the user's experience level (asked on onboarding)
-  experienceLevel UserExperienceLevel @default(BEGINNER)
-
-  Profile Profile[]
-
-  // where the user found out about techblitz
-  howDidYouHearAboutTechBlitz String?
-
-  // the user's referral code
-  referralCode String?
-
-  // user entered text that will be used to assist in ai generation
-  aboutMeAiHelp String?
-
-  // the user's achievements
-  achievements Achievement[]
-
-  // the user's bookmarked questions (an array of question objects)
-  bookmarks UserBookmarks[]
-
-  // the study paths the user has enrolled in
-  studyPathEnrollments UserStudyPath[]
-
-  // the study path goals the user has set for themselves
-  // different from the enrollments, as this means the 
-  // user wants to complete the study path by a certain date
-  // we also send push notifications daily to the user to remind 
-  // them to complete the study path
-  studyPathGoals StudyPathGoal[]
-}
-
-// the streak model for tracking the user's streak
-model Streaks {
-  uid       String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // connect to user
-  userUid String @unique
-  user    Users  @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
-
-  // how we calculate the user's streak
-  streakStart DateTime?
-  streakEnd   DateTime?
-
-  // easy way to pluck out the user's current streak
-  currentstreakCount Int @default(0)
-
-  // easy way to pluck out the user's longest streak
-  longestStreak Int @default(0)
-}
-
-// the subscription model for storing the user's subscription
-model Subscriptions {
-  uid           String    @id @default(cuid())
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  userUid       String    @unique
-  user          Users     @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
-  startDate     DateTime?
-  endDate       DateTime?
-  active        Boolean   @default(true)
-  planId        String
-  productId     String
-  planTrial     Boolean   @default(false)
-  planTrialDays Int?
-
-  stripeCustomerId         String?
-  stripeSubscriptionId     String?
-  stripeSubscriptionItemId String?
-}
-
-// profile model for storing the user's profile
-model Profile {
-  uid String @id @default(cuid())
-  userUid String @unique
-  user Users @relation(fields: [userUid], references: [uid], onDelete: Cascade, onUpdate: Cascade)
-
-  // the users social links with their associated platforms
-  instagram String?
-  github String?
-  linkedin String?
-  twitter String?
-  youtube String?
-  tiktok String?
-  twitch String?
-  website String?
-
-  // this is the url of the user's profile
-  // e.g. https://techblitz.me/admin 
-  handle String
-
-  // the users bio
-  bio String? @db.Text
-  
-  // the users location
-  location String?
-  country String?
-  timezone String?
-
-  // professional info
-  company String?
-  jobTitle String?
-  yearsOfExperience Int?
-  
-  // skills and interests
-  programmingLanguages String[] @default([])
-  frameworks String[] @default([])
-  interests String[] @default([])
-
-  // the users projects - a string array of links to their projects
-  projects String[] @default([])
-  
-  // profile visibility settings
-  isPublic Boolean @default(true)
-  showEmail Boolean @default(false)
-  showLocation Boolean @default(true)
-  
-  // profile customization
-  accentColor String? // For UI customization
-  bannerImage String? // Profile banner/cover image
-  
-  // profile stats
-  viewCount Int @default(0)
-  lastViewed DateTime?
-  
-  // timestamps
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }

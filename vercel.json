@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/cron/send-daily-challenge",
+      "path": "/api/cron/send-suggested-challenge",
       "schedule": "0 8 * * 1-5"
     },
     {

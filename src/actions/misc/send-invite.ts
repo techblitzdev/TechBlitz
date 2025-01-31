@@ -21,7 +21,7 @@ export const sendInvite = async (email: string) => {
   );
 
   await resend.emails.send({
-    from: 'team@techblitz.dev',
+    from: 'TechBlitz <team@techblitz.dev>',
     to: email,
     subject: 'Invite to TechBlitz from ' + user.email,
     html,

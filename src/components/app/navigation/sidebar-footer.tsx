@@ -50,7 +50,13 @@ export default function SidebarFooterComponent(opts: {
       <SidebarMenu>
         {/** if sidebar is collapsed, hide the upgrade button */}
         {user?.userLevel === 'FREE' && (
-          <SidebarMenuItem className="font-semibold font-inter text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-75 p-4 group-data-[collapsible=icon]:hidden">
+          <SidebarMenuItem
+            className="font-semibold font-inter text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-75 p-4 group-data-[collapsible=icon]:hidden"
+            style={{
+              background:
+                'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
+            }}
+          >
             <p className="font-onest">Don't miss out!</p>
             <p className="text-xs font-light font-onest">
               60% special offer on all premium plans, ends 31st January.

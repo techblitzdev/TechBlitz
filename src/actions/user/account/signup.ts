@@ -78,7 +78,7 @@ export const signUp = async (
       if (referralUser) {
         // send the referral user an email wih the discount code
         await resend.emails.send({
-          from: 'team@techblitz.dev',
+          from: 'TechBlitz <team@techblitz.dev>',
           to: referralUser.email,
           subject: 'Your discount code for TechBlitz!',
           html: `<p>You have referred a friend to TechBlitz! Use the code ${process.env.REFERRAL_CODE} to get 10% off any premium plan.</p>`,

@@ -63,15 +63,17 @@ export default function ResultCard({ result, index }: ResultProps) {
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col space-y-1">
                   <span className="font-medium text-white">Expected:</span>
-                  <code className="px-2 py-1 bg-black-25 rounded">
-                    {result.expected}
+                  <code className="px-2 py-1 bg-black-25 rounded whitespace-pre-wrap">
+                    {JSON.stringify(result.expected)}
                   </code>
                 </div>
 
                 <div className="flex flex-col space-y-1">
                   <span className="font-medium text-white">Received:</span>
-                  <code className={`px-2 py-1 rounded bg-black-25 h-full`}>
-                    {result.received}
+                  <code
+                    className={`px-2 py-1 rounded bg-black-25 h-full whitespace-pre-wrap`}
+                  >
+                    {JSON.stringify(result.received)}
                   </code>
                 </div>
               </div>

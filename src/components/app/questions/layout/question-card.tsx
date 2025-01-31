@@ -1,10 +1,8 @@
 import type { Question, QuestionWithoutAnswers } from '@/types/Questions';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import TagDisplay from '@/components/app/questions/tag-display';
-import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
 import Link from 'next/link';
 import Chip from '@/components/ui/chip';
-import { Suspense } from 'react';
 import { ArrowRight, Bookmark, Circle } from 'lucide-react';
 import { CheckCircle } from 'lucide-react';
 import {
@@ -45,22 +43,6 @@ export function QuestionCardSkeleton() {
         </div>
       </div>
     </div>
-  );
-}
-
-// separate async component for stats to avoid blocking render
-async function QuestionStats({
-  identifier,
-  value,
-}: {
-  identifier: 'slug' | 'uid';
-  value: string;
-}) {
-  const stats = await getQuestionStats(identifier, value);
-  return (
-    <p className="font-ubuntu text-sm text-gray-300">
-      Submissions: <span>{stats.totalSubmissions}</span>
-    </p>
   );
 }
 
@@ -186,22 +168,6 @@ export default function QuestionCard(opts: {
           </div>
         </div>
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
-          {showSubmissions && (
-            <Suspense
-              fallback={
-                <div className="text-start text-[10px]">
-                  <p className="font-ubuntu text-sm text-gray-400">
-                    Submissions: loading...
-                  </p>
-                </div>
-              }
-            >
-              <QuestionStats
-                identifier={identifier}
-                value={questionData[identifier] || ''}
-              />
-            </Suspense>
-          )}
           {recommendedQuestion && (
             <TooltipProvider>
               <Tooltip delayDuration={0}>

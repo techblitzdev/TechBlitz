@@ -11,6 +11,7 @@ import { generateAnswerHelp } from '@/actions/ai/questions/answer-help';
 import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
 import { z } from 'zod';
 import { useSearchParams } from 'next/navigation';
+import { executeQuestionCode } from '@/actions/questions/execute';
 
 type QuestionSingleContextType = {
   question: Question;
@@ -215,55 +216,11 @@ export const QuestionSingleContextProvider = ({
     }
 
     try {
-      // Create function using Function constructor with more robust parsing
-      const createSafeFunction = (code: string) => {
-        try {
-          // Wrap code in a return statement to ensure function creation
-          const wrappedCode = `return (${code})`;
-          const safeFunction = new Function(wrappedCode)();
-
-          // Validate function properties
-          if (typeof safeFunction !== 'function') {
-            throw new Error('Invalid function');
-          }
-
-          return safeFunction;
-        } catch (error: any) {
-          throw new Error('Function creation failed: ' + error?.message);
-        }
-      };
-
-      const userFunction = createSafeFunction(code);
-
-      // Run test cases with comprehensive error handling
-      const results = challenge.testCases.map((test: any) => {
-        try {
-          const result = userFunction(...test.input);
-          const received =
-            typeof result === 'object' ? JSON.stringify(result) : result;
-
-          // check if the expected is an array, if it is, convert wrap it in an array
-          const expected = Array.isArray(test.expected)
-            ? `[${test.expected.join(',')}]`
-            : test.expected;
-
-          return {
-            passed: expected == received,
-            input: test.input,
-            expected,
-            received,
-          };
-        } catch (execError) {
-          return {
-            passed: false,
-            input: test.input,
-            expected: test.expected,
-            received:
-              execError instanceof Error
-                ? execError.message
-                : 'Execution failed',
-          };
-        }
+      // Execute the user's code with test cases
+      const results = await executeQuestionCode({
+        code,
+        language: 'javascript',
+        testCases: challenge.testCases,
       });
 
       const allPassed = results.every((r: any) => r.passed);

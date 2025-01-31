@@ -14,6 +14,7 @@ import { useSearchParams } from 'next/navigation';
 import { StudyPath, studyPaths } from '@/utils/constants/study-paths';
 import { Button } from '@/components/ui/button';
 import { RoadmapUserQuestions } from '@prisma/client';
+import { useQuestionSingle } from '../questions/single/layout/question-single-context';
 
 /**
  * Component for navigation between different questions from within the
@@ -33,12 +34,12 @@ export default function QuestionNavigation(opts: {
   const type = searchParams?.get('type');
   const studyPathSlug = searchParams?.get('study-path');
 
-  const [nextQuestion, setNextQuestion] = useState<string | null | undefined>(
-    null
-  );
-  const [previousQuestion, setPreviousQuestion] = useState<
-    string | null | undefined
-  >(null);
+  const {
+    previousQuestion,
+    setPreviousQuestion,
+    nextQuestion,
+    setNextQuestion,
+  } = useQuestionSingle();
 
   const [studyPath, setStudyPath] = useState<StudyPath | null>(null);
 
@@ -55,13 +56,19 @@ export default function QuestionNavigation(opts: {
       const currentIndex = studyPath.questionSlugs.indexOf(slug);
 
       // Get next and previous questions based on index
-      setNextQuestion(
+      const nextSlug =
         currentIndex < studyPath.questionSlugs.length - 1
           ? studyPath.questionSlugs[currentIndex + 1]
-          : null
-      );
+          : null;
+      const prevSlug =
+        currentIndex > 0 ? studyPath.questionSlugs[currentIndex - 1] : null;
+
+      // Set the full URLs in context
       setPreviousQuestion(
-        currentIndex > 0 ? studyPath.questionSlugs[currentIndex - 1] : null
+        prevSlug ? `${prevSlug}?type=${type}&study-path=${studyPathSlug}` : null
+      );
+      setNextQuestion(
+        nextSlug ? `${nextSlug}?type=${type}&study-path=${studyPathSlug}` : null
       );
     } else {
       // Use the provided promise for non-study-path questions
@@ -71,17 +78,6 @@ export default function QuestionNavigation(opts: {
       });
     }
   }, [pathname, searchParams, slug, type, nextPrevPromise, studyPathSlug]);
-
-  // if this is a study-path, add the type to the previous question
-  const previousQuestionUrl =
-    type === 'study-path' && studyPathSlug
-      ? `${previousQuestion}?type=${type}&study-path=${studyPathSlug}`
-      : previousQuestion;
-
-  const nextQuestionUrl =
-    type === 'study-path' && studyPathSlug
-      ? `${nextQuestion}?type=${type}&study-path=${studyPathSlug}`
-      : nextQuestion;
 
   return (
     <div className="flex items-center">
@@ -112,7 +108,7 @@ export default function QuestionNavigation(opts: {
           <Tooltip>
             <TooltipTrigger>
               <Link
-                href={previousQuestionUrl || '#'}
+                href={previousQuestion || '#'}
                 className={`bg-primary border border-black-50 p-2 rounded-l-md relative group duration-200 size-9 flex items-center justify-center border-r-0 ${
                   !previousQuestion ? 'opacity-50 pointer-events-none' : ''
                 }`}
@@ -134,7 +130,7 @@ export default function QuestionNavigation(opts: {
           <Tooltip>
             <TooltipTrigger>
               <Link
-                href={nextQuestionUrl || '#'}
+                href={nextQuestion || '#'}
                 className={`bg-primary border border-black-50 p-2 rounded-r-md relative group duration-200 size-9 flex items-center justify-center ${
                   !nextQuestion ? 'opacity-50 pointer-events-none' : ''
                 }`}

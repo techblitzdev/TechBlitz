@@ -23,7 +23,7 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
       )}
     >
       <CardHeader className="relative p-0">
-        <div className="relative p-4 text-primary-foreground">
+        <div className="relative p-4 text-primary-foreground group-hover:opacity-80 transition-all duration-300">
           <h3 className="text-xl font-bold mb-2">{studyPath.title}</h3>
           <p className="text-xs text-gray-400 line-clamp-2">
             {studyPath.description}
@@ -62,10 +62,10 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
             }
           />
         </div>
-        <div className="absolute -bottom-28 -right-7 group-hover:-bottom-24 group-hover:-right-5 transition-all duration-300">
+        <div className="absolute -bottom-28 -right-7 group-hover:-bottom-24 group-hover:-right-5 transition-all duration-300 group-hover:z-30">
           {studyPath.icon && (
             <div
-              className="size-[200px] opacity-10 group-hover:opacity-80 transition-all duration-300"
+              className="size-[200px] opacity-10 group-hover:opacity-100 transition-all duration-300"
               dangerouslySetInnerHTML={{
                 __html: studyPath.icon.replace(
                   '<svg',

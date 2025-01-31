@@ -9,7 +9,7 @@ import { fetchNextPrevRoadmapQuestion } from '@/utils/data/roadmap/questions/fet
 import { Separator } from '@/components/ui/separator';
 import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
 import CurrentStreak from '@/components/ui/current-streak';
-import FeedbackButton from '@/components/ui/feedback-button';
+import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
 import RoadmapQuestionActionButtons from '@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-action-buttons';
 import { RoadmapQuestionContextProvider } from '@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-context';
 import { RoadmapQuestionNavigation } from '@/components/app/navigation/question-navigation';

@@ -1,7 +1,7 @@
 // Components
 import CurrentStreak from '@/components/ui/current-streak';
 import { Separator } from '@/components/ui/separator';
-import FeedbackButton from '@/components/ui/feedback-button';
+import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
 import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
 import { createMetadata } from '@/utils/seo';
 import { capitalise } from '@/utils';

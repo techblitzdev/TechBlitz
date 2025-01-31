@@ -155,7 +155,7 @@ export default function QuestionResult({
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <Button variant="default" onClick={copyLink}>
+                  <Button variant="ghost" onClick={copyLink}>
                     <LinkIcon className="size-4" />
                   </Button>
                 </TooltipTrigger>

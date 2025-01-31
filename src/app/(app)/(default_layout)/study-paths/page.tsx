@@ -8,7 +8,7 @@ import ContinueJourney from '@/components/app/navigation/continue-journey-button
 import { ArrowRightIcon, Mail } from 'lucide-react';
 import { getAllStudyPaths } from '@/utils/data/study-paths/get';
 import { StudyPathCard } from '@/components/app/study-paths/study-path-card';
-import FeedbackButton from '@/components/ui/feedback-button';
+import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
 import UpgradeCard from '@/components/app/shared/upgrade-card';
 
 export async function generateMetadata() {

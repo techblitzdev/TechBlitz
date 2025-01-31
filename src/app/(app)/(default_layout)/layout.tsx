@@ -1,6 +1,6 @@
 import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
 import CurrentStreak from '@/components/ui/current-streak';
-import Feedback from '@/components/ui/feedback-button';
+import Feedback from '@/components/app/shared/feedback/feedback-button';
 import { Separator } from '@/components/ui/separator';
 
 export default function StatisticsLayout({

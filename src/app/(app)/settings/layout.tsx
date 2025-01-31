@@ -1,5 +1,5 @@
 import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
-import FeedbackButton from '@/components/ui/feedback-button';
+import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
 import { Separator } from '@/components/ui/separator';
 
 export default function ProfileLayout({

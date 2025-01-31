@@ -25,6 +25,8 @@ import { formatSeconds } from '@/utils/time';
 import { AnswerDifficulty } from '@prisma/client';
 import { updateAnswerDifficultyByQuestionUid } from '@/actions/answers/answer';
 import LoadingSpinner from '@/components/ui/loading';
+import FlagIcon from '@/components/ui/icons/flag';
+import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
 
 export default function CodeEditorQuestionSubmitted() {
   const {
@@ -36,6 +38,7 @@ export default function CodeEditorQuestionSubmitted() {
     user,
     tokensUsed,
     question,
+    nextQuestion,
   } = useQuestionSingle();
 
   const [isPending, setTransition] = useTransition();
@@ -90,18 +93,27 @@ export default function CodeEditorQuestionSubmitted() {
               </div>
             )}
           </h1>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <Button variant="default" onClick={() => copyLink()}>
-                  <LinkIcon className="size-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Copy link</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <div className="flex items-center">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button variant="ghost" onClick={() => copyLink()}>
+                    <LinkIcon className="size-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Copy link</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <FeedbackButton
+              reference={question?.slug || question?.uid}
+              title="Report Question"
+              description="Something wrong with this question? Report it and we will fix it."
+              showText={false}
+              icon={<FlagIcon width="16px" height="16px" />}
+            />
+          </div>
         </div>
         <div className="flex flex-col gap-y-2">
           {result?.passed && (
@@ -111,6 +123,23 @@ export default function CodeEditorQuestionSubmitted() {
           )}
         </div>
       </motion.div>
+      {/** if the next question slug is not null, show a button to go to the next question */}
+      {nextQuestion && (
+        <div className="flex flex-col gap-y-2">
+          <h2 className="text-xl font-bold">Next Question</h2>
+          <p className="text-sm text-gray-400">
+            Want to continue the flow? Click the button below to go to the next
+            question.
+          </p>
+          <Button
+            variant="secondary"
+            href={`/question/${nextQuestion}`}
+            className="w-fit"
+          >
+            Next Question
+          </Button>
+        </div>
+      )}
       <motion.div
         className="flex flex-col gap-y-6"
         initial={{ opacity: 0 }}
@@ -141,7 +170,7 @@ export default function CodeEditorQuestionSubmitted() {
             )}
           </p>
           <Button
-            variant="secondary"
+            variant="default"
             onClick={() => {
               setTransition(() => {
                 generateAiAnswerHelp();
@@ -188,22 +217,6 @@ export default function CodeEditorQuestionSubmitted() {
             </Select>
           </div>
         </div>
-        {/** if the next question slug is not null, show a button to go to the next question */}
-        {question?.nextQuestionSlug && (
-          <div className="flex flex-col gap-y-2">
-            <p className="text-sm text-gray-400">
-              Want to continue the flow? Click the button below to go to the
-              next question.
-            </p>
-            <Button
-              variant="secondary"
-              href={`/question/${question.nextQuestionSlug}`}
-              className="w-fit"
-            >
-              Next Question
-            </Button>
-          </div>
-        )}
         {/** show related questions */}
         <div className="flex flex-col gap-y-5">
           <div className="flex flex-col gap-y-2">

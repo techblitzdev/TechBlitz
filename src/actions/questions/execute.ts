@@ -27,6 +27,25 @@ export const executeQuestionCode = async ({
             // Wrap code in a function and add test case execution
             content: `
             ${code}
+
+            // Helper function to sort object keys
+            function sortObjectKeys(obj) {
+                if (typeof obj !== 'object' || obj === null) {
+                    // Return primitives, null, and undefined as-is
+                    return obj;
+                }
+                if (Array.isArray(obj)) {
+                    // Recursively sort keys of array elements
+                    return obj.map(sortObjectKeys);
+                }
+                // Recursively sort keys of objects
+                return Object.keys(obj)
+                    .sort()
+                    .reduce((sortedObj, key) => {
+                    sortedObj[key] = sortObjectKeys(obj[key]);
+                    return sortedObj;
+                    }, {});
+            }
             
             // Execute test cases
             const fn = ${code};
@@ -40,9 +59,9 @@ export const executeQuestionCode = async ({
                   input: ${JSON.stringify(test.input)},
                   expected: ${JSON.stringify(test.expected)},
                   received: result${i},
-                  passed: JSON.stringify(result${i}) == JSON.stringify(${JSON.stringify(
+                  passed: JSON.stringify(sortObjectKeys(result${i})) === JSON.stringify(sortObjectKeys(${JSON.stringify(
                     test.expected
-                  )}),
+                  )})),
                 }));
               } catch (e) {
                 console.log(JSON.stringify({

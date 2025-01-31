@@ -60,7 +60,6 @@ export default function QuestionCard(opts: {
 }) {
   const {
     questionData,
-    showSubmissions = true,
     numberOfTags = 3,
     showcaseTag,
     identifier = 'slug',

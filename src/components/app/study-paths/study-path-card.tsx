@@ -14,11 +14,11 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
     <Link
       href={`/study-paths/${studyPath.slug}`}
       className={cn(
-        'rounded-lg h-fit w-full overflow-hidden transition-all duration-300 hover:border-black border border-black-50',
+        'rounded-lg h-fit w-full overflow-hidden transition-all duration-300 hover:border-black border border-black-50 group',
         user?.studyPathEnrollments?.find(
           (e) => e.studyPathUid === studyPath.uid
         )
-          ? 'border-accent'
+          ? ''
           : 'border-black-50'
       )}
     >
@@ -30,7 +30,7 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
           </p>
         </div>
       </CardHeader>
-      <CardContent className="p-4 pt-3">
+      <CardContent className="p-4 pt-3 relative">
         <div className="flex flex-col gap-y-2 w-full">
           <p className="text-sm text-gray-400 font-onest">
             {/** if 100% then show 100% else show the progress */}
@@ -54,13 +54,26 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
             )}
           </p>
           <Progress
-            className="border border-black-50 bg-black-50"
+            className="border border-black-50 bg-black-50 relative z-10"
             value={
               user?.studyPathEnrollments?.find(
                 (e) => e.studyPathUid === studyPath.uid
               )?.progress ?? 0
             }
           />
+        </div>
+        <div className="absolute -bottom-28 -right-7 group-hover:-bottom-24 group-hover:-right-5 transition-all duration-300">
+          {studyPath.icon && (
+            <div
+              className="size-[200px] opacity-10 group-hover:opacity-80 transition-all duration-300"
+              dangerouslySetInnerHTML={{
+                __html: studyPath.icon.replace(
+                  '<svg',
+                  '<svg width="200" height="200"'
+                ),
+              }}
+            />
+          )}
         </div>
       </CardContent>
       <CardFooter className="p-4 pt-0">

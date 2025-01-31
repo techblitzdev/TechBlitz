@@ -25,6 +25,8 @@ import { formatSeconds } from '@/utils/time';
 import { AnswerDifficulty } from '@prisma/client';
 import { updateAnswerDifficultyByQuestionUid } from '@/actions/answers/answer';
 import LoadingSpinner from '@/components/ui/loading';
+import FlagIcon from '@/components/ui/icons/flag';
+import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
 
 export default function CodeEditorQuestionSubmitted() {
   const {
@@ -90,18 +92,27 @@ export default function CodeEditorQuestionSubmitted() {
               </div>
             )}
           </h1>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <Button variant="default" onClick={() => copyLink()}>
-                  <LinkIcon className="size-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Copy link</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <div className="flex items-center">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button variant="ghost" onClick={() => copyLink()}>
+                    <LinkIcon className="size-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Copy link</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <FeedbackButton
+              reference={question?.slug || question?.uid}
+              title="Report Question"
+              description="Something wrong with this question? Report it and we will fix it."
+              showText={false}
+              icon={<FlagIcon width="16px" height="16px" />}
+            />
+          </div>
         </div>
         <div className="flex flex-col gap-y-2">
           {result?.passed && (

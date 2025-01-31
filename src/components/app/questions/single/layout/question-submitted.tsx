@@ -73,7 +73,7 @@ export default function QuestionSubmitted() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
       >
-        <div className="flex w-full justify-between items-center">
+        <div className="flex w-full justify-between items-center gap-5">
           <h1 className="text-4xl font-bold">
             {correctAnswer === 'correct' ? (
               <div className="flex items-center gap-x-2">
@@ -96,7 +96,7 @@ export default function QuestionSubmitted() {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <Button variant="default" onClick={() => copyLink()}>
+                  <Button variant="ghost" onClick={() => copyLink()}>
                     <LinkIcon className="size-4" />
                   </Button>
                 </TooltipTrigger>

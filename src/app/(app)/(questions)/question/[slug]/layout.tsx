@@ -15,7 +15,9 @@ import { QuizJsonLd } from '@/types/Seo';
 
 // Components
 const CurrentStreak = lazy(() => import('@/components/ui/current-streak'));
-const FeedbackButton = lazy(() => import('@/components/ui/feedback-button'));
+const FeedbackButton = lazy(
+  () => import('@/components/app/shared/feedback/feedback-button')
+);
 const SidebarLayoutTrigger = lazy(
   () => import('@/components/app/navigation/sidebar-layout-trigger')
 );

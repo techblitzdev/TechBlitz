@@ -42,85 +42,131 @@ export const getSuggestions = cache(
       },
     });
 
-    if (!userAnswers.length) {
-      console.log('No user answers found');
-      return null;
-    }
-
-    // Separate answers into incorrect ones
-    const incorrectAnswers = userAnswers.reduce<QuestionWithTags[]>(
-      (acc, answer) => {
-        if (!answer.correctAnswer) {
-          // Explicitly cast the question to QuestionWithTags
-          const question = answer.question as unknown as QuestionWithTags;
-          acc.push(question);
-        }
-        return acc;
-      },
-      []
-    );
-
-    // Extract tag IDs from questions
-    const tagIds = extractTagIds(incorrectAnswers);
-
-    // Find questions with similar tags that haven't been answered
+    // Get all answered question IDs
     const answeredQuestionIds = userAnswers.map(
       (answer) => answer.question.uid
     );
 
-    // ensure the user has not answered the question
-    const suggestions = await prisma.questions.findMany({
-      where: {
-        // filter by difficulty of the users experience level
-        difficulty: difficultyMap[
-          user?.experienceLevel || 'BEGINNER'
-        ] as QuestionDifficulty,
-        AND: [
-          {
-            tags: {
-              some: {
-                tag: {
-                  uid: {
-                    in: tagIds,
+    // Try to get questions matching user's experience level and incorrect answers
+    let suggestions: QuestionWithTags[] = [];
+
+    if (userAnswers.length) {
+      // Separate answers into incorrect ones
+      const incorrectAnswers = userAnswers.reduce<QuestionWithTags[]>(
+        (acc, answer) => {
+          if (!answer.correctAnswer) {
+            const question = answer.question as unknown as QuestionWithTags;
+            acc.push(question);
+          }
+          return acc;
+        },
+        []
+      );
+
+      // Extract tag IDs from questions
+      const tagIds = extractTagIds(incorrectAnswers);
+
+      // Find questions with similar tags that haven't been answered
+      suggestions = await prisma.questions.findMany({
+        where: {
+          difficulty: difficultyMap[
+            user?.experienceLevel || 'BEGINNER'
+          ] as QuestionDifficulty,
+          AND: [
+            {
+              tags: {
+                some: {
+                  tag: {
+                    uid: {
+                      in: tagIds,
+                    },
                   },
                 },
               },
             },
-          },
-          {
-            customQuestion: false,
-          },
-          {
-            NOT: {
-              uid: {
-                in: answeredQuestionIds,
+            {
+              customQuestion: false,
+            },
+            {
+              NOT: {
+                uid: {
+                  in: answeredQuestionIds,
+                },
               },
             },
-          },
-        ],
-      },
-      include: {
-        tags: {
-          include: {
-            tag: true,
+          ],
+        },
+        include: {
+          tags: {
+            include: {
+              tag: true,
+            },
           },
         },
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-      take: limit,
-    });
+        orderBy: {
+          createdAt: 'desc',
+        },
+        take: limit,
+      });
+    }
 
-    // if no suggestions found, return 5 questions with any difficulty
+    // If no suggestions found, try questions matching user's experience level
     if (!suggestions.length) {
-      const randomQuestions = await prisma.questions.findMany({
+      suggestions = await prisma.questions.findMany({
         where: {
+          difficulty: difficultyMap[
+            user?.experienceLevel || 'BEGINNER'
+          ] as QuestionDifficulty,
+          customQuestion: false,
           NOT: {
             uid: {
               in: answeredQuestionIds,
             },
           },
+        },
+        include: {
+          tags: {
+            include: {
+              tag: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+        take: limit,
+      });
+    }
+
+    // If still no suggestions, get any unanswered questions
+    if (!suggestions.length) {
+      suggestions = await prisma.questions.findMany({
+        where: {
+          customQuestion: false,
+          NOT: {
+            uid: {
+              in: answeredQuestionIds,
+            },
+          },
+        },
+        include: {
+          tags: {
+            include: {
+              tag: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+        take: limit,
+      });
+    }
+
+    // As a final fallback, get any questions even if already answered
+    if (!suggestions.length) {
+      suggestions = await prisma.questions.findMany({
+        where: {
           customQuestion: false,
         },
         include: {
@@ -135,8 +181,6 @@ export const getSuggestions = cache(
         },
         take: limit,
       });
-
-      return randomQuestions;
     }
 
     return suggestions;

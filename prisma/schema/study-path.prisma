@@ -15,6 +15,7 @@ model StudyPath {
   goals                 StudyPathGoal[]
   enrollments           UserStudyPath[]
   icon                  String?
+  isPublished           Boolean         @default(false)
 }
 
 model UserStudyPath {

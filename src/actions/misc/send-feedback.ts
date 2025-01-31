@@ -10,7 +10,7 @@ export const sendFeedback = async (feedback: string) => {
   }
 
   await resend.emails.send({
-    from: 'team@techblitz.dev',
+    from: 'TechBlitz <team@techblitz.dev>',
     to: 'team@techblitz.dev',
     subject: 'Feedback from ' + user.email,
     text: `Feedback from ${user.email}:\n\n${feedback}`,

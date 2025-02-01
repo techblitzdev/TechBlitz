@@ -7,7 +7,6 @@ import FAQsBlock from '@/components/marketing/global/blocks/faqs';
 import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
 import { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
-import { QUESTIONS_COUNT } from '@/utils/constants/misc';
 import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
 import { MobileIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';

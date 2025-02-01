@@ -10,12 +10,52 @@ export const executeQuestionCode = async ({
   testCases: { input: any[]; expected: any }[];
 }) => {
   try {
-    // Validate the code
     if (code.includes('eval')) {
       throw new Error('Invalid code: Dangerous patterns detected');
     }
 
-    // Send code to Piston API for execution
+    // Helper functions for string comparison
+    const helperFunctions = `
+      function deepEqual(a, b) {
+        // Handle array comparison with sorting
+        if (Array.isArray(a) && Array.isArray(b)) {
+          if (a.length !== b.length) return false;
+          
+          // Sort arrays if they contain strings
+          if (a.every(item => typeof item === 'string') && b.every(item => typeof item === 'string')) {
+            const sortedA = [...a].sort();
+            const sortedB = [...b].sort();
+            return sortedA.every((item, index) => item === sortedB[index]);
+          }
+          
+          // For non-string arrays, compare each element
+          return a.every((item, index) => deepEqual(item, b[index]));
+        }
+        
+        if (a === b) return true;
+        
+        if (typeof a !== 'object' || typeof b !== 'object' || a === null || b === null) {
+          if (Number.isNaN(a) && Number.isNaN(b)) return true;
+          return a === b;
+        }
+        
+        const keysA = Object.keys(a);
+        const keysB = Object.keys(b);
+        
+        if (keysA.length !== keysB.length) return false;
+        
+        return keysA.every(key => 
+          keysB.includes(key) && deepEqual(a[key], b[key])
+        );
+      }
+    `;
+
+    // Extract function name if it exists
+    const functionMatch = code.match(
+      /function\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\(/
+    );
+    const functionName = functionMatch ? functionMatch[1] : 'solution';
+
     const response = await fetch(process.env.EXECUTE_CODE_URL || '', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -24,51 +64,30 @@ export const executeQuestionCode = async ({
         version: '18.15.0',
         files: [
           {
-            // Wrap code in a function and add test case execution
             content: `
+            ${helperFunctions}
             ${code}
-
-            // Helper function to sort object keys
-            function sortObjectKeys(obj) {
-                if (typeof obj !== 'object' || obj === null) {
-                    // Return primitives, null, and undefined as-is
-                    return obj;
-                }
-                if (Array.isArray(obj)) {
-                    // Recursively sort keys of array elements
-                    return obj.map(sortObjectKeys);
-                }
-                // Recursively sort keys of objects
-                return Object.keys(obj)
-                    .sort()
-                    .reduce((sortedObj, key) => {
-                    sortedObj[key] = sortObjectKeys(obj[key]);
-                    return sortedObj;
-                    }, {});
-            }
-            
-            // Execute test cases
-            const fn = ${code};
             
             ${testCases
               .map(
                 (test, i) => `
               try {
-                const result${i} = fn(...${JSON.stringify(test.input)});
+                const result${i} = ${functionName}(...${JSON.stringify(test.input)});
+                const expected${i} = ${JSON.stringify(test.expected)};
+                const passed${i} = deepEqual(result${i}, expected${i});
+                
                 console.log(JSON.stringify({
                   input: ${JSON.stringify(test.input)},
-                  expected: ${JSON.stringify(test.expected)},
+                  expected: expected${i},
                   received: result${i},
-                  passed: JSON.stringify(sortObjectKeys(result${i})) === JSON.stringify(sortObjectKeys(${JSON.stringify(
-                    test.expected
-                  )})),
+                  passed: passed${i}
                 }));
               } catch (e) {
                 console.log(JSON.stringify({
                   input: ${JSON.stringify(test.input)},
                   expected: ${JSON.stringify(test.expected)},
                   error: e.message,
-                  passed: false,
+                  passed: false
                 }));
               }
             `
@@ -86,11 +105,21 @@ export const executeQuestionCode = async ({
       throw new Error(data.run.stderr);
     }
 
-    // Parse results from stdout
     const executionResults = data.run.stdout
       .trim()
       .split('\n')
-      .map((line: string) => JSON.parse(line));
+      .filter((line: string) => line.trim())
+      .map((line: string) => {
+        try {
+          return JSON.parse(line);
+        } catch (e) {
+          console.error('Failed to parse result line:', line);
+          return {
+            error: 'Failed to parse execution result',
+            passed: false,
+          };
+        }
+      });
 
     return executionResults.map(
       (result: {

@@ -4,7 +4,6 @@ import React, { memo, useEffect, useState } from 'react';
 import { Editor } from '@monaco-editor/react';
 import LoadingSpinner from '@/components/ui/loading';
 import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
-import TestCaseDisplay from './test-case-display';
 import { capitalize } from 'lodash';
 import { AnimatePresence } from 'framer-motion';
 import { useMonaco } from '@monaco-editor/react';
@@ -21,7 +20,10 @@ const LoadingState = memo(function LoadingState() {
     <div className="w-full relative flex flex-col items-center justify-center max-w-xl px-10">
       <LoadingSpinner />
       {/** a random coding fact */}
-      <p className="text-gray-200">{randomFact}</p>
+      <div className="flex flex-col items-center justify-center">
+        <h6 className="text-gray-200 text-center">Did you know?</h6>
+        <p className="text-gray-200 text-center">{randomFact}</p>
+      </div>
     </div>
   );
 });
@@ -40,7 +42,7 @@ export default function CodeEditor(opts: { defaultCode: string }) {
   });
 
   const { defaultCode } = opts;
-  const { setCode, currentLayout, answerHelp, code } = useQuestionSingle();
+  const { setCode, answerHelp, code } = useQuestionSingle();
 
   // when the code changes (from a reset) we need to update the code in the editor
   useEffect(() => {
@@ -62,14 +64,6 @@ export default function CodeEditor(opts: { defaultCode: string }) {
           ))}
         </div>
       </AnimatePresence>
-    );
-  }
-
-  if (currentLayout === 'answer') {
-    return (
-      <div className="w-full relative">
-        <TestCaseDisplay />
-      </div>
     );
   }
 

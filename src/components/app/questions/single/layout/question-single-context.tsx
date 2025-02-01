@@ -1,7 +1,6 @@
 'use client';
 
 import { createContext, useState, useContext, useEffect } from 'react';
-import { useStopwatch } from 'react-timer-hook';
 import { toast } from 'sonner';
 import { answerQuestion } from '@/actions/answers/answer';
 import { Question, QuestionWithoutAnswers } from '@/types/Questions';
@@ -25,11 +24,11 @@ type QuestionSingleContextType = {
   timeTaken: number;
   setSelectedAnswer: (answer: string) => void;
   setTimeTaken: (time: number) => void;
-  submitQuestionAnswer: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  submitQuestionAnswer: (
+    e: React.FormEvent<HTMLFormElement>,
+    totalSeconds: number
+  ) => Promise<void>;
   resetQuestionState: () => void;
-  pause: () => void;
-  reset: () => void;
-  totalSeconds: number;
   currentLayout: 'questions' | 'codeSnippet' | 'answer';
   setCurrentLayout: (layout: 'questions' | 'codeSnippet' | 'answer') => void;
   customQuestion: boolean;
@@ -41,7 +40,7 @@ type QuestionSingleContextType = {
   setAnswerHelp: (answerHelp: z.infer<typeof answerHelpSchema> | null) => void;
   tokensUsed: number;
   setTokensUsed: (tokensUsed: number) => void;
-  validateCode: (e: React.FormEvent<HTMLFormElement>) => void;
+  validateCode: (e: React.FormEvent<HTMLFormElement>, totalSeconds: number) => Promise<void>;
   code: string;
   setCode: (code: string) => void;
   result: {
@@ -54,7 +53,7 @@ type QuestionSingleContextType = {
     }>;
     error?: string;
   } | null;
-  submitAnswer: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  submitAnswer: (e: React.FormEvent<HTMLFormElement>, totalSeconds: number) => Promise<void>;
   userAnswered: Promise<Answer | null>;
   showHint: boolean;
   setShowHint: (showHint: boolean) => void;
@@ -62,6 +61,8 @@ type QuestionSingleContextType = {
   previousQuestion: string | null | undefined;
   setNextQuestion: (nextQuestion: string | null | undefined) => void;
   setPreviousQuestion: (previousQuestion: string | null | undefined) => void;
+  totalSeconds: number;
+  setTotalSeconds: (totalSeconds: number) => void;
 };
 
 // Create the context
@@ -126,13 +127,7 @@ export const QuestionSingleContextProvider = ({
   const [showHint, setShowHint] = useState(false);
   const [nextQuestion, setNextQuestion] = useState<string | null | undefined>(null);
   const [previousQuestion, setPreviousQuestion] = useState<string | null | undefined>(null);
-  // Stopwatch for tracking time
-  const { pause, reset, totalSeconds } = {
-    pause: () => {},
-    reset: () => {},
-    totalSeconds: 0,
-  };
-  // useStopwatch({ autoStart: true });
+  const [totalSeconds, setTotalSeconds] = useState<number>(0);
 
   // EFFECTS
   useEffect(() => {
@@ -147,7 +142,10 @@ export const QuestionSingleContextProvider = ({
 
   // METHODS
   // Submit the answer for a non-CODING_CHALLENGE question
-  const submitQuestionAnswer = async (e: React.FormEvent<HTMLFormElement>) => {
+  const submitQuestionAnswer = async (
+    e: React.FormEvent<HTMLFormElement>,
+    totalSeconds: number
+  ) => {
     e.preventDefault();
     if (!user) {
       console.error('User is not logged in');
@@ -167,7 +165,7 @@ export const QuestionSingleContextProvider = ({
         questionUid: question.uid,
         answerUid: selectedAnswer,
         userUid: user.uid,
-        timeTaken,
+        timeTaken: totalSeconds,
         studyPathSlug: studyPathSlug || undefined,
       };
 
@@ -192,7 +190,7 @@ export const QuestionSingleContextProvider = ({
   };
 
   // Validate the code for a CODING_CHALLENGE question
-  const validateCode = async (e: React.FormEvent<HTMLFormElement>) => {
+  const validateCode = async (e: React.FormEvent<HTMLFormElement>, totalSeconds: number) => {
     e.preventDefault();
 
     const challenge = question.questionType === 'CODING_CHALLENGE' ? question : null;
@@ -233,18 +231,17 @@ export const QuestionSingleContextProvider = ({
   };
 
   // Submit the answer based on the question type
-  const submitAnswer = async (e: React.FormEvent<HTMLFormElement>) => {
+  const submitAnswer = async (e: React.FormEvent<HTMLFormElement>, totalSeconds: number) => {
     if (!user) {
       toast.error('User is not logged in');
       return;
     }
-    pause(); // Pause the timer
 
     // Use the appropriate method based on the question type
     if (question.questionType === 'CODING_CHALLENGE') {
-      await validateCode(e);
+      await validateCode(e, totalSeconds);
     } else {
-      await submitQuestionAnswer(e);
+      await submitQuestionAnswer(e, totalSeconds);
     }
 
     setCurrentLayout('answer'); // Switch to the answer layout
@@ -274,8 +271,6 @@ export const QuestionSingleContextProvider = ({
 
   // Reset the question state
   const resetQuestionState = () => {
-    // reset the stopwatch
-    reset();
     // reset the question state
     setCorrectAnswer('init');
     setUserAnswer(null);
@@ -291,6 +286,7 @@ export const QuestionSingleContextProvider = ({
 
     // reset the code editor
     setCode(question.codeSnippet || '');
+    setTotalSeconds(0);
   };
 
   return (
@@ -308,9 +304,6 @@ export const QuestionSingleContextProvider = ({
         setTimeTaken,
         submitQuestionAnswer,
         resetQuestionState,
-        pause,
-        reset,
-        totalSeconds,
         currentLayout,
         setCurrentLayout,
         customQuestion,
@@ -334,6 +327,8 @@ export const QuestionSingleContextProvider = ({
         setNextQuestion,
         previousQuestion,
         setPreviousQuestion,
+        totalSeconds,
+        setTotalSeconds,
       }}
     >
       {children}

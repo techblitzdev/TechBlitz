@@ -38,7 +38,7 @@ export default async function TodaysQuestionPage({ params }: { params: { uid: st
     </div>
   );
 
-  const rightContent = (
+  const rightTopContent = (
     <div className="hidden lg:flex flex-col gap-4 p-3 lg:p-6 lg:pl-3 h-full">
       <div
         id="code-snippet"
@@ -61,6 +61,11 @@ export default async function TodaysQuestionPage({ params }: { params: { uid: st
   );
 
   return (
-    <ResizableLayout leftContent={leftContent} rightContent={rightContent} initialLeftWidth={50} />
+    <ResizableLayout
+      leftContent={leftContent}
+      rightTopContent={rightTopContent}
+      initialLeftWidth={50}
+      rightBottomContent={null}
+    />
   );
 }

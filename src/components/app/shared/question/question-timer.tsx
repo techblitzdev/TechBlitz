@@ -1,28 +1,28 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, Pause } from 'lucide-react';
-import { useStopwatch } from 'react-timer-hook';
 
 interface AnimatedStopwatchButtonProps {
-  onToggle: () => void;
-  stopwatchOffset: Date;
+  isRunning: boolean;
+  start: () => void;
+  pause: () => void;
+  seconds: number;
+  minutes: number;
 }
 
 export function AnimatedStopwatchButton({
-  onToggle,
-  stopwatchOffset,
+  isRunning,
+  start,
+  pause,
+  seconds,
+  minutes,
 }: AnimatedStopwatchButtonProps) {
-  const { seconds, minutes, isRunning, start, pause, totalSeconds } = useStopwatch({
-    offsetTimestamp: stopwatchOffset,
-  });
-
   const handleClick = () => {
     if (isRunning) {
       pause();
     } else {
       start();
     }
-    onToggle();
   };
 
   const formatTime = (value: number) => value.toString().padStart(2, '0');

@@ -11,6 +11,7 @@ import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question
 import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
 import CodeDisplayWrapper from '@/components/app/questions/single/layout/code-display-wrapper';
 import CodeEditor from '@/components/app/questions/code-editor/editor';
+import TestCaseSection from '@/components/app/questions/code-editor/test-case-section';
 
 export default async function TodaysQuestionPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
@@ -45,21 +46,21 @@ export default async function TodaysQuestionPage({ params }: { params: { slug: s
   );
 
   const rightContent = (
-    <div className="hidden lg:flex flex-col gap-4 p-3 lg:pl-1.5 h-full">
+    <div
+      className={`hidden lg:flex flex-col gap-4 p-3 lg:pl-1.5 h-full ${
+        question?.testCases?.length ? 'lg:pb-1.5' : 'lg:pb-3'
+      }`}
+    >
       <div
         id="code-snippet"
         className="bg-black-75 border border-black-50 rounded-xl relative h-full overflow-y-auto scrollable-element"
       >
         <div className="px-4 py-[18px] text-sm flex w-full items-center justify-end bg-black-25 gap-x-3">
-          {/** explain question ai button */}
           <AiQuestionHelp question={question} user={user} questionType="regular" />
-          {/** code theme selector */}
           <ChangeCodeTheme user={user} />
-          {/** code snippet */}
           {question.codeSnippet && <ExpandedCodeModal code={question.codeSnippet} />}
         </div>
         <Separator className="bg-black-50" />
-        {/** changes based on question type */}
         {question?.questionType === 'CODING_CHALLENGE' ? (
           <>{question.codeSnippet && <CodeEditor defaultCode={question.codeSnippet} />}</>
         ) : (
@@ -69,7 +70,15 @@ export default async function TodaysQuestionPage({ params }: { params: { slug: s
     </div>
   );
 
+  const rightBottomContent = question?.testCases?.length ? <TestCaseSection /> : null;
+
   return (
-    <ResizableLayout leftContent={leftContent} rightContent={rightContent} initialLeftWidth={50} />
+    <ResizableLayout
+      leftContent={leftContent}
+      rightTopContent={rightContent}
+      rightBottomContent={rightBottomContent}
+      initialLeftWidth={50}
+      initialRightTopHeight={question?.testCases?.length ? 70 : 100}
+    />
   );
 }

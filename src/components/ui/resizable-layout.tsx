@@ -1,30 +1,37 @@
 'use client';
 
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import type React from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 
 interface ResizableLayoutProps {
   leftContent: React.ReactNode;
-  rightContent: React.ReactNode;
+  rightTopContent: React.ReactNode;
+  rightBottomContent: React.ReactNode;
   initialLeftWidth?: number;
+  initialRightTopHeight?: number;
 }
 
 const ResizableLayout: React.FC<ResizableLayoutProps> = ({
   leftContent,
-  rightContent,
+  rightTopContent,
+  rightBottomContent,
   initialLeftWidth = 50,
+  initialRightTopHeight = 50,
 }) => {
   const [leftWidth, setLeftWidth] = useState(initialLeftWidth);
+  const [rightTopHeight, setRightTopHeight] = useState(initialRightTopHeight);
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const resizerRef = useRef<HTMLDivElement>(null);
+  const horizontalResizerRef = useRef<HTMLDivElement>(null);
+  const verticalResizerRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+  const handleHorizontalMouseDown = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('mousemove', handleHorizontalMouseMove);
+    document.addEventListener('mouseup', handleHorizontalMouseUp);
   }, []);
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
+  const handleHorizontalMouseMove = useCallback((e: MouseEvent) => {
     if (containerRef.current) {
       const containerRect = containerRef.current.getBoundingClientRect();
       const newLeftWidth = ((e.clientX - containerRect.left) / containerRect.width) * 100;
@@ -33,19 +40,45 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
     }
   }, []);
 
-  const handleMouseUp = useCallback(() => {
-    document.removeEventListener('mousemove', handleMouseMove);
-    document.removeEventListener('mouseup', handleMouseUp);
-  }, [handleMouseMove]);
+  const handleHorizontalMouseUp = useCallback(() => {
+    document.removeEventListener('mousemove', handleHorizontalMouseMove);
+    document.removeEventListener('mouseup', handleHorizontalMouseUp);
+  }, [handleHorizontalMouseMove]);
+
+  const handleVerticalMouseDown = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    document.addEventListener('mousemove', handleVerticalMouseMove);
+    document.addEventListener('mouseup', handleVerticalMouseUp);
+  }, []);
+
+  const handleVerticalMouseMove = useCallback((e: MouseEvent) => {
+    if (containerRef.current) {
+      const rightSideRect = containerRef.current.lastElementChild?.getBoundingClientRect();
+      if (rightSideRect) {
+        const newTopHeight = ((e.clientY - rightSideRect.top) / rightSideRect.height) * 100;
+        const clampedHeight = Math.min(Math.max(newTopHeight, 30), 70);
+        setRightTopHeight(clampedHeight);
+      }
+    }
+  }, []);
+
+  const handleVerticalMouseUp = useCallback(() => {
+    document.removeEventListener('mousemove', handleVerticalMouseMove);
+    document.removeEventListener('mouseup', handleVerticalMouseUp);
+  }, [handleVerticalMouseMove]);
 
   useEffect(() => {
-    const resizer = resizerRef.current;
-    resizer?.addEventListener('mousedown', handleMouseDown as any);
+    const horizontalResizer = horizontalResizerRef.current;
+    const verticalResizer = verticalResizerRef.current;
+
+    horizontalResizer?.addEventListener('mousedown', handleHorizontalMouseDown as any);
+    verticalResizer?.addEventListener('mousedown', handleVerticalMouseDown as any);
 
     return () => {
-      resizer?.removeEventListener('mousedown', handleMouseDown as any);
+      horizontalResizer?.removeEventListener('mousedown', handleHorizontalMouseDown as any);
+      verticalResizer?.removeEventListener('mousedown', handleVerticalMouseDown as any);
     };
-  }, [handleMouseDown]);
+  }, [handleHorizontalMouseDown, handleVerticalMouseDown]);
 
   return (
     <div
@@ -57,14 +90,13 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
         style={
           {
             '--left-width': `${leftWidth}%`,
-            '--left-height': '100%',
           } as React.CSSProperties
         }
       >
         {leftContent}
       </div>
       <div
-        ref={resizerRef}
+        ref={horizontalResizerRef}
         className={`
           group relative w-full h-1 lg:h-auto lg:w-1 cursor-row-resize lg:cursor-col-resize 
           transition-all duration-150 hidden lg:block
@@ -79,15 +111,52 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
         `}
       />
       <div
-        className="w-full lg:w-[var(--right-width)] overflow-y-auto"
+        className="w-full lg:w-[var(--right-width)] overflow-hidden flex flex-col"
         style={
           {
             '--right-width': `${100 - leftWidth}%`,
-            '--right-height': '100%',
           } as React.CSSProperties
         }
       >
-        {rightContent}
+        <div
+          className="h-[var(--right-top-height)] overflow-y-auto"
+          style={
+            {
+              '--right-top-height': `${rightTopHeight}%`,
+            } as React.CSSProperties
+          }
+        >
+          {rightTopContent}
+        </div>
+        {rightBottomContent && (
+          <>
+            <div
+              ref={verticalResizerRef}
+              className={`
+                group relative w-full h-1 cursor-row-resize
+                transition-all duration-150
+                before:absolute before:inset-x-0 before:h-3
+                before:-top-1 before:w-full
+                before:cursor-row-resize
+                after:absolute after:left-1/2 after:top-1/2 after:-translate-x-1/2 after:-translate-y-1/2
+                after:w-24 after:h-[3px]
+                after:rounded-full after:bg-black-50 after:transition-all
+                hover:after:bg-black-25 hover:after:w-32
+                hover:after:h-[3px] hidden lg:block
+                `}
+            />
+            <div
+              className="h-[var(--right-bottom-height)] overflow-y-auto"
+              style={
+                {
+                  '--right-bottom-height': `${100 - rightTopHeight}%`,
+                } as React.CSSProperties
+              }
+            >
+              {rightBottomContent}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

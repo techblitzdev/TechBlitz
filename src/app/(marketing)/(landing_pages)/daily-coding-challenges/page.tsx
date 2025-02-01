@@ -211,7 +211,7 @@ export async function generateMetadata() {
   });
 }
 
-export default function LearnToCodePage() {
+export default function DailyCodingChallengesPage() {
   const jsonLd: WebPageJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -242,6 +242,11 @@ export default function LearnToCodePage() {
         '@type': 'ImageObject',
         url: 'https://techblitz.dev/favicon.ico',
       },
+    },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${getBaseUrl()}/search?q={search_term_string}`,
+      'query-input': 'required name=search_term_string',
     },
   };
   return (

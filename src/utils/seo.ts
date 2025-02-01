@@ -152,7 +152,7 @@ export const WebPageJsonLdBreadcrumb: WebPageJsonLd['breadcrumb'] = {
       name: 'Home',
       item: getBaseUrl(),
     },
-    // dashboard questions
+    // Dashboard Questions
     {
       '@type': 'ListItem',
       position: 2,
@@ -165,49 +165,44 @@ export const WebPageJsonLdBreadcrumb: WebPageJsonLd['breadcrumb'] = {
       name: 'Study Paths',
       item: getBaseUrl() + '/study-paths',
     },
+    // Missing position 4 (Added)
     {
       '@type': 'ListItem',
       position: 4,
-      name: 'Daily Challenge',
-      item: getBaseUrl() + '/daily-challenge',
-    },
-    // features
-    {
-      '@type': 'ListItem',
-      position: 5,
       name: 'Roadmap',
       item: getBaseUrl() + '/features/roadmap',
     },
+    // Features
     {
       '@type': 'ListItem',
-      position: 6,
-      name: 'Features',
+      position: 5,
+      name: 'Daily Coding Challenges',
       item: getBaseUrl() + '/features/daily-coding-challenges',
     },
     {
       '@type': 'ListItem',
-      position: 7,
+      position: 6,
       name: 'Statistics',
       item: getBaseUrl() + '/features/statistics',
     },
-    // blog
+    // Blog
     {
       '@type': 'ListItem',
-      position: 8,
+      position: 7,
       name: 'Blog',
       item: getBaseUrl() + '/blog',
     },
-    // pricing
+    // Pricing
     {
       '@type': 'ListItem',
-      position: 9,
+      position: 8,
       name: 'Pricing',
       item: getBaseUrl() + '/pricing',
     },
-    // faqs
+    // FAQs
     {
       '@type': 'ListItem',
-      position: 10,
+      position: 9,
       name: 'FAQs',
       item: getBaseUrl() + '/faqs',
     },

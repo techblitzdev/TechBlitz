@@ -52,6 +52,7 @@ import HomeIcon from '@/components/ui/icons/home';
 import ChallengeIcon from '@/components/ui/icons/challenge';
 import RoadmapIcon from '@/components/ui/icons/roadmap';
 import StatsIcon from '@/components/ui/icons/stats';
+import Award from '@/components/ui/icons/award';
 
 const LeaderboardIcon = () => (
   <svg
@@ -197,7 +198,7 @@ export function AppSidebar(opts: {
     {
       title: 'Leaderboard',
       url: '/leaderboard',
-      icon: LeaderboardIcon,
+      icon: Award,
       tooltip: 'Leaderboard',
     },
     {

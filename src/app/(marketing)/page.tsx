@@ -145,31 +145,27 @@ export default async function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="overflow-x-hidden">
-        <div className="z-30">
-          <div className="container">
-            <HomepageHero />
-            <Testimonials />
-            <FeaturesBentoGrid />
-            <HomepageLargeText />
-            <PersonalizedBlock />
-            <QuestionMarquee
-              header="The best beginner-friendly coding platform"
-              subheader="From your first challenge to your first job. TechBlitz assists you every step of the way."
-            />
-            <ComparisonBlock />
-            <MarketingContentGrid
-              title="Beginner-friendly coding challenges"
-              subheading="Join aspiring developers worldwide learning to code through TechBlitz's free, interactive programming challenges. Get personalized practice, instant feedback, and step-by-step guidance on your coding journey."
-              items={contentGridItems}
-            />
-            <OpenSourceBlock />
-            <CallToActionBlock
-              title="Your dream career in tech is just a click away"
-              description="Personalized coding challenges, because everyone learns differently."
-            />
-          </div>
-        </div>
+      <div className="overflow-x-hidden container z-30">
+        <HomepageHero />
+        <Testimonials />
+        <FeaturesBentoGrid />
+        <HomepageLargeText />
+        <PersonalizedBlock />
+        <QuestionMarquee
+          header="The best beginner-friendly coding platform"
+          subheader="From your first challenge to your first job. TechBlitz assists you every step of the way."
+        />
+        <ComparisonBlock />
+        <MarketingContentGrid
+          title="Beginner-friendly coding challenges"
+          subheading="Join aspiring developers worldwide learning to code through TechBlitz's free, interactive programming challenges. Get personalized practice, instant feedback, and step-by-step guidance on your coding journey."
+          items={contentGridItems}
+        />
+        <OpenSourceBlock />
+        <CallToActionBlock
+          title="Your dream career in tech is just a click away"
+          description="Personalized coding challenges, because everyone learns differently."
+        />
       </div>
     </>
   );

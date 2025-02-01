@@ -41,14 +41,6 @@ export default function OnboardingPricing() {
           initialFrequency={billingPeriod}
           onFrequencyChange={setBillingPeriod}
         />
-        <motion.p
-          className="text-center text-white max-w-2xl mx-auto pt-2"
-          variants={itemVariants}
-        >
-          Limited time offer: 60% off all plans - use code{' '}
-          <span className="font-bold underline">250USERS</span>. Valid until
-          31st January 2025.
-        </motion.p>
       </CardHeader>
       <CardContent className="flex flex-col lg:flex-row gap-10 justify-center mt-4 mb-5 px-2 md:px-10">
         <div className="flex flex-col lg:flex-row gap-10 justify-center items-stretch w-full">

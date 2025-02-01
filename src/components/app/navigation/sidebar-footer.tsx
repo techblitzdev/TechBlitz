@@ -46,20 +46,21 @@ export default function SidebarFooterComponent(opts: {
       : `/${user?.username}`;
 
   return (
-    <SidebarFooter className="bg-[#000000] ">
+    <SidebarFooter className="bg-[#000000]">
       <SidebarMenu>
         {/** if sidebar is collapsed, hide the upgrade button */}
         {user?.userLevel === 'FREE' && (
           <SidebarMenuItem
-            className="font-semibold font-inter text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-75 p-4 group-data-[collapsible=icon]:hidden"
+            className="font-semibold font-inter text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-50 p-4 group-data-[collapsible=icon]:hidden"
             style={{
               background:
                 'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
             }}
           >
-            <p className="font-onest">Don't miss out!</p>
+            <p className="font-onest">Unlock Your Full Potential</p>
             <p className="text-xs font-light font-onest">
-              60% special offer on all premium plans, ends 31st January.
+              Get AI-powered study paths, premium challenges, and learn 3x
+              faster with personalized guidance!
             </p>
             <Button
               variant="accent"
@@ -67,7 +68,7 @@ export default function SidebarFooterComponent(opts: {
               className="mt-4"
               href="https://dub.sh/upgrade-techblitz"
             >
-              Upgrade
+              Upgrade to Premium
             </Button>
           </SidebarMenuItem>
         )}

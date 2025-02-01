@@ -145,6 +145,12 @@ export default async function ExploreQuestionsPage() {
             ))}
           </div>
           <aside className="w-full lg:w-[30%] flex flex-col gap-5 order-first lg:order-last">
+            {user?.userLevel === 'FREE' && (
+              <UpgradeCard
+                title="Looking for a more personalized experience?"
+                description="Unlock your full potential with a personalized study plan tailored just for you. Get focused learning paths, progress tracking, and expert guidance to learn 3x faster."
+              />
+            )}
             <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit">
               <div className="flex items-center space-x-2 text-white">
                 <Mail className="size-5 text-white" />
@@ -157,7 +163,6 @@ export default async function ExploreQuestionsPage() {
               </p>
               <FeedbackButton title="Suggest a study path" />
             </div>
-            {user?.userLevel === 'FREE' && <UpgradeCard />}
           </aside>
         </div>
       </div>

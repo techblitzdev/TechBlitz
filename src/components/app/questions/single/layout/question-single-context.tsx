@@ -232,6 +232,7 @@ export const QuestionSingleContextProvider = ({
 
   // Submit the answer based on the question type
   const submitAnswer = async (e: React.FormEvent<HTMLFormElement>, totalSeconds: number) => {
+    setIsSubmitting(true);
     if (!user) {
       toast.error('User is not logged in');
       return;
@@ -244,6 +245,7 @@ export const QuestionSingleContextProvider = ({
       await submitQuestionAnswer(e, totalSeconds);
     }
 
+    setIsSubmitting(false);
     setCurrentLayout('answer'); // Switch to the answer layout
   };
 

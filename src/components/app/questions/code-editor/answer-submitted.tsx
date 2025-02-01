@@ -112,7 +112,7 @@ export default function CodeEditorQuestionSubmitted() {
           </div>
         </div>
         <div className="flex flex-col gap-y-2">
-          {result?.passed && (
+          {result?.passed && totalSeconds > 0 && (
             <p className="text-sm text-gray-400">in {formatSeconds(totalSeconds || 0)} seconds</p>
           )}
         </div>

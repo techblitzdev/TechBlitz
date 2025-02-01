@@ -17,6 +17,7 @@ import { BookOpen } from 'lucide-react';
 import { FileIcon, FileText } from 'lucide-react';
 import QuestionHintTrigger from '@/components/app/questions/question-hint-trigger';
 import ShareQuestion from '@/components/app/shared/question/share-question';
+import LoadingSpinner from '@/components/ui/loading';
 
 interface QuestionTabsProps {
   question: Question;
@@ -32,11 +33,22 @@ export default function QuestionTabs({
   renderAnswerForm,
   totalSubmissions,
 }: QuestionTabsProps) {
-  const { userAnswered, showHint, setShowHint } = useQuestionSingle();
+  const { userAnswered, showHint, setShowHint, isSubmitting } = useQuestionSingle();
 
   const [activeTab, setActiveTab] = useState<'description' | 'resources' | 'stats'>('description');
 
   const hasUserAnswered = use(userAnswered || false);
+
+  if (isSubmitting) {
+    return (
+      <div className="h-[25rem] absolute flex justify-center items-center w-full z-50">
+        <div className="gap-y-3 flex flex-col items-center">
+          <LoadingSpinner />
+          <p className="text-sm">Submitting</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>

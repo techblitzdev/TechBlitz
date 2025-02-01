@@ -8,9 +8,7 @@ import { getBaseUrl } from '@/utils';
 import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
 import Link from 'next/link';
 import { QUESTIONS_COUNT } from '@/utils/constants/misc';
-import ComparisonTable, {
-  Feature,
-} from '@/components/marketing/global/blocks/comparison-table';
+import ComparisonTable, { Feature } from '@/components/marketing/global/blocks/comparison-table';
 import Testimonials from '@/components/marketing/global/blocks/testimonials';
 import { Button } from '@/components/ui/button';
 
@@ -237,9 +235,8 @@ export default function Page() {
               Product Comparison
             </h1>
             <p className="text-center text-lg max-w-xl mx-auto">
-              TechBlitz is the best free LeetCode alternative. A more
-              personalized and engaging experience with real-world coding
-              challenges.
+              TechBlitz is the best free LeetCode alternative. A more personalized and engaging
+              experience with real-world coding challenges.
             </p>
             <Button href="/signup" variant="accent">
               Start for free

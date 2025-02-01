@@ -1,8 +1,5 @@
 'use client';
-import {
-  addSlugFlagToQuestion,
-  addSlugToQuestion,
-} from '@/scripts/add-slug-to-question';
+import { addSlugFlagToQuestion, addSlugToQuestion } from '@/scripts/add-slug-to-question';
 import NewQuestionModal from '@/components/app/questions/admin/new-question-modal';
 import { Button } from '@/components/ui/button';
 import { addUidAsUsername } from '@/scripts/add-uid-as-username';

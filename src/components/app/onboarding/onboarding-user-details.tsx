@@ -5,12 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import { InputWithLabel } from '@/components/ui/input-label';
-import {
-  Tooltip,
-  TooltipProvider,
-  TooltipTrigger,
-  TooltipContent,
-} from '@/components/ui/tooltip';
+import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import {
@@ -48,14 +43,11 @@ const whereDidYouHearAboutTechBlitz = [
 ];
 
 export default function OnboardingStepOne() {
-  const { user, setUser, itemVariants, setCanContinue, serverUser } =
-    useOnboardingContext();
+  const { user, setUser, itemVariants, setCanContinue, serverUser } = useOnboardingContext();
   const [username, setUsername] = useState(user.username || '');
   const [isUsernameValid, setIsUsernameValid] = useState(true);
 
-  const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(
-    null
-  );
+  const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(null);
 
   const form = useForm<UpdatableUserFields>({
     resolver: zodResolver(onboardingStepOneSchema),
@@ -101,9 +93,7 @@ export default function OnboardingStepOne() {
         // Filter out any undefined values from arrays to ensure type safety
         const sanitizedValue = {
           ...value,
-          stripeEmails: value.stripeEmails?.filter(
-            (email): email is string => email !== undefined
-          ),
+          stripeEmails: value.stripeEmails?.filter((email): email is string => email !== undefined),
         };
         return sanitizedValue;
       });
@@ -257,11 +247,7 @@ export default function OnboardingStepOne() {
                 )}
               />
             </motion.div>
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={itemVariants}
-            >
+            <motion.div initial="hidden" animate="visible" variants={itemVariants}>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -271,10 +257,7 @@ export default function OnboardingStepOne() {
                       render={({ field }) => (
                         <FormItem className="flex flex-row items-center justify-between">
                           <div className="space-y-0.5">
-                            <Label
-                              htmlFor="showTimeTaken"
-                              className="text-white"
-                            >
+                            <Label htmlFor="showTimeTaken" className="text-white">
                               Appear on leaderboards
                             </Label>
                           </div>
@@ -284,10 +267,7 @@ export default function OnboardingStepOne() {
                               onCheckedChange={(checked) => {
                                 field.onChange(checked);
                                 setUser((prev) => {
-                                  console.log(
-                                    'showTimeTaken changed:',
-                                    checked
-                                  );
+                                  console.log('showTimeTaken changed:', checked);
                                   return { ...prev, [field.name]: checked };
                                 });
                               }}
@@ -307,11 +287,7 @@ export default function OnboardingStepOne() {
                 </Tooltip>
               </TooltipProvider>
             </motion.div>
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={itemVariants}
-            >
+            <motion.div initial="hidden" animate="visible" variants={itemVariants}>
               <FormField
                 control={form.control}
                 name="experienceLevel"
@@ -325,11 +301,7 @@ export default function OnboardingStepOne() {
                         <Select
                           value={field.value}
                           onValueChange={(
-                            value:
-                              | 'BEGINNER'
-                              | 'INTERMEDIATE'
-                              | 'ADVANCED'
-                              | 'MASTER'
+                            value: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' | 'MASTER'
                           ) => {
                             field.onChange(value);
                             setUser((prev) => {
@@ -344,28 +316,16 @@ export default function OnboardingStepOne() {
                             />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem
-                              className="hover:text-white"
-                              value="BEGINNER"
-                            >
+                            <SelectItem className="hover:text-white" value="BEGINNER">
                               Beginner
                             </SelectItem>
-                            <SelectItem
-                              className="hover:text-white"
-                              value="INTERMEDIATE"
-                            >
+                            <SelectItem className="hover:text-white" value="INTERMEDIATE">
                               Intermediate
                             </SelectItem>
-                            <SelectItem
-                              className="hover:text-white"
-                              value="ADVANCED"
-                            >
+                            <SelectItem className="hover:text-white" value="ADVANCED">
                               Advanced
                             </SelectItem>
-                            <SelectItem
-                              className="hover:text-white"
-                              value="MASTER"
-                            >
+                            <SelectItem className="hover:text-white" value="MASTER">
                               Master
                             </SelectItem>
                           </SelectContent>
@@ -376,11 +336,7 @@ export default function OnboardingStepOne() {
                 )}
               />
             </motion.div>
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={itemVariants}
-            >
+            <motion.div initial="hidden" animate="visible" variants={itemVariants}>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -390,10 +346,7 @@ export default function OnboardingStepOne() {
                       render={({ field }) => (
                         <FormItem className="flex flex-row items-center justify-between">
                           <div className="flex items-center gap-2">
-                            <Label
-                              htmlFor="sendPushNotifications"
-                              className="text-white"
-                            >
+                            <Label htmlFor="sendPushNotifications" className="text-white">
                               Send personalized challenge reminders
                             </Label>
                             <TooltipProvider>
@@ -403,8 +356,7 @@ export default function OnboardingStepOne() {
                                 </TooltipTrigger>
                                 <TooltipContent>
                                   <p>
-                                    We'll send you a personalized challenge
-                                    reminder every week day.
+                                    We'll send you a personalized challenge reminder every week day.
                                   </p>
                                 </TooltipContent>
                               </Tooltip>
@@ -416,10 +368,7 @@ export default function OnboardingStepOne() {
                               onCheckedChange={(checked) => {
                                 field.onChange(checked);
                                 setUser((prev) => {
-                                  console.log(
-                                    'sendPushNotifications changed:',
-                                    checked
-                                  );
+                                  console.log('sendPushNotifications changed:', checked);
                                   return { ...prev, [field.name]: checked };
                                 });
                               }}
@@ -427,20 +376,14 @@ export default function OnboardingStepOne() {
                             />
                           </FormControl>
                           <FormMessage className="mt-0.5 text-start">
-                            {
-                              form.formState?.errors?.sendPushNotifications
-                                ?.message
-                            }
+                            {form.formState?.errors?.sendPushNotifications?.message}
                           </FormMessage>
                         </FormItem>
                       )}
                     />
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>
-                      Receive promotional emails on offers, new features and
-                      more
-                    </p>
+                    <p>Receive promotional emails on offers, new features and more</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
@@ -463,10 +406,7 @@ export default function OnboardingStepOne() {
                         onValueChange={(value) => {
                           field.onChange(value);
                           setUser((prev) => {
-                            console.log(
-                              'howDidYouHearAboutTechBlitz changed:',
-                              value
-                            );
+                            console.log('howDidYouHearAboutTechBlitz changed:', value);
                             return { ...prev, [field.name]: value };
                           });
                         }}

@@ -8,10 +8,7 @@ import { Question } from '@/types/Questions';
  * @param uid - The uid of the question to retrieve
  * @returns The question object
  */
-export const getQuestion = async (
-  identifier: 'slug' | 'uid' = 'slug',
-  value: string
-) => {
+export const getQuestion = async (identifier: 'slug' | 'uid' = 'slug', value: string) => {
   if (!value) {
     console.error('Please provide a uid');
     return null;

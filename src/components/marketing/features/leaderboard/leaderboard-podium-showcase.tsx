@@ -14,8 +14,8 @@ export default async function LeaderboardPodiumShowcase() {
           Climb to the Top of the Leaderboard
         </h2>
         <p className="text-sm md:text-lg text-gray-400 text-center lg:text-left max-w-3xl">
-          Challenge yourself and see how you rank against the community. The top
-          3 achievers earn a prestigious spot on the podium!
+          Challenge yourself and see how you rank against the community. The top 3 achievers earn a
+          prestigious spot on the podium!
         </p>
         <Button href="/leaderboard" variant="secondary">
           Explore the Leaderboard
@@ -29,9 +29,7 @@ export default async function LeaderboardPodiumShowcase() {
           return (
             <PodiumItem
               key={user.uid}
-              user={
-                user as unknown as UserRecord & { _count: { answers: number } }
-              }
+              user={user as unknown as UserRecord & { _count: { answers: number } }}
               position={position}
             />
           );

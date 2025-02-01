@@ -46,9 +46,7 @@ export default function OnboardingRoadmapAnswerQuestionForm() {
           </div>
         )}
 
-        <p className="text-sm text-gray-400 font-light font-onest mt-3">
-          Choose an option below
-        </p>
+        <p className="text-sm text-gray-400 font-light font-onest mt-3">Choose an option below</p>
 
         <div
           className={cn(

@@ -16,10 +16,7 @@ export default function CodeEditorPreview({ theme }: CodeEditorPreviewProps) {
     <div className="w-full max-w-md rounded-md overflow-hidden">
       <Highlight theme={themes[theme]} code={sampleCode} language="javascript">
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <pre
-            className={className}
-            style={{ ...style, padding: '1rem', fontSize: '0.875rem' }}
-          >
+          <pre className={className} style={{ ...style, padding: '1rem', fontSize: '0.875rem' }}>
             {tokens.map((line, i) => (
               <div key={i} {...getLineProps({ line, key: i })}>
                 {line.map((token, key) => (

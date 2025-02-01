@@ -1,10 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import { revalidateTag } from 'next/cache';
 
-export const fetchRoadmapQuestions = async (opts: {
-  roadmapUid: string;
-  userUid: string;
-}) => {
+export const fetchRoadmapQuestions = async (opts: { roadmapUid: string; userUid: string }) => {
   revalidateTag('roadmap-list');
 
   return await prisma.roadmapUserQuestions.findMany({

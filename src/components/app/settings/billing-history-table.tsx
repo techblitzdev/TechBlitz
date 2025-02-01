@@ -10,11 +10,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-export default function BillingHistoryTable({
-  invoices,
-}: {
-  invoices: Stripe.Invoice[];
-}) {
+export default function BillingHistoryTable({ invoices }: { invoices: Stripe.Invoice[] }) {
   // Convert the invoices into something we can iterate over
   const invoiceData = invoices.map((invoice) => {
     return {

@@ -3,10 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Check, GitCommitHorizontal, X } from 'lucide-react';
 import { useMemo } from 'react';
 
-export default function CommitCard(opts: {
-  commitMessage: string;
-  buildSuccess?: boolean;
-}) {
+export default function CommitCard(opts: { commitMessage: string; buildSuccess?: boolean }) {
   const { commitMessage, buildSuccess } = opts;
 
   // generate a random commit hash
@@ -28,9 +25,7 @@ export default function CommitCard(opts: {
             <span className="text-[#9198a1] text-[12px] font-mono">
               {/** trim if on mobile */}
               <span className="block md:hidden">
-                {commitMessage.length > 7
-                  ? `${commitMessage.slice(0, 7)}...`
-                  : commitMessage}
+                {commitMessage.length > 7 ? `${commitMessage.slice(0, 7)}...` : commitMessage}
               </span>
               {/** show full commit message on desktop */}
               <span className="hidden md:block">{commitMessage}</span>
@@ -52,9 +47,7 @@ export default function CommitCard(opts: {
         ) : (
           <X className="w-3 h-3 text-[#FF0000]" />
         )}
-        <div className="text-sm text-[#9198a1] text-[12px] font-mono">
-          {commitHash}
-        </div>
+        <div className="text-sm text-[#9198a1] text-[12px] font-mono">{commitHash}</div>
       </div>
     </div>
   );

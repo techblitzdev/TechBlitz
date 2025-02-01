@@ -15,31 +15,20 @@ import { QuizJsonLd } from '@/types/Seo';
 
 // Components
 const CurrentStreak = lazy(() => import('@/components/ui/current-streak'));
-const FeedbackButton = lazy(
-  () => import('@/components/app/shared/feedback/feedback-button')
-);
+const FeedbackButton = lazy(() => import('@/components/app/shared/feedback/feedback-button'));
 const SidebarLayoutTrigger = lazy(
   () => import('@/components/app/navigation/sidebar-layout-trigger')
 );
-const RandomQuestion = lazy(
-  () => import('@/components/shared/random-question')
-);
+const RandomQuestion = lazy(() => import('@/components/shared/random-question'));
 const QuestionActionButtons = lazy(
-  () =>
-    import('@/components/app/questions/single/layout/question-action-buttons')
+  () => import('@/components/app/questions/single/layout/question-action-buttons')
 );
-const QuestionNavigation = lazy(
-  () => import('@/components/app/navigation/question-navigation')
-);
+const QuestionNavigation = lazy(() => import('@/components/app/navigation/question-navigation'));
 const PremiumQuestionDeniedAccess = lazy(
   () => import('@/components/app/questions/premium-question-denied-access')
 );
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export async function generateMetadata({ params }: { params: { slug: string } }) {
   const question = await getQuestion('slug', params.slug);
   const title = question?.slug?.replace(/-/g, ' ') || 'Coding Question';
 
@@ -61,10 +50,7 @@ export default async function QuestionUidLayout({
 }: Readonly<{ children: React.ReactNode; params: { slug: string } }>) {
   const { slug } = params;
 
-  const [user, question] = await Promise.all([
-    getUser(),
-    getQuestion('slug', slug),
-  ]);
+  const [user, question] = await Promise.all([getUser(), getQuestion('slug', slug)]);
 
   if (!question || !question.slug || !question.tags) {
     return redirect('/questions');
@@ -84,8 +70,7 @@ export default async function QuestionUidLayout({
     assesses: ['coding'],
     dateCreated: question?.createdAt.toISOString() || '',
     dateModified: question?.updatedAt.toISOString() || '',
-    datePublished:
-      question?.questionDate || question?.createdAt.toISOString() || '',
+    datePublished: question?.questionDate || question?.createdAt.toISOString() || '',
     headline: question?.question || '',
     interactivityType: 'mixed',
     isAccessibleForFree: true,

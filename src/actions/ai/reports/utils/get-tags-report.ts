@@ -49,9 +49,7 @@ export const getTagsReport = async (opts: {
   // Count occurrences of each tag
   userAnswers.forEach((answer) => {
     const tags = answer.question.tags.map((t) => t.tag.name);
-    const targetCounts = answer.correctAnswer
-      ? correctTagCounts
-      : incorrectTagCounts;
+    const targetCounts = answer.correctAnswer ? correctTagCounts : incorrectTagCounts;
 
     tags.forEach((tagName) => {
       targetCounts[tagName] = (targetCounts[tagName] || 0) + 1;
@@ -59,19 +57,15 @@ export const getTagsReport = async (opts: {
   });
 
   // Convert to array of objects format
-  const correctTagsArray = Object.entries(correctTagCounts).map(
-    ([tagName, count]) => ({
-      tagName,
-      count,
-    })
-  );
+  const correctTagsArray = Object.entries(correctTagCounts).map(([tagName, count]) => ({
+    tagName,
+    count,
+  }));
 
-  const incorrectTagsArray = Object.entries(incorrectTagCounts).map(
-    ([tagName, count]) => ({
-      tagName,
-      count,
-    })
-  );
+  const incorrectTagsArray = Object.entries(incorrectTagCounts).map(([tagName, count]) => ({
+    tagName,
+    count,
+  }));
 
   return {
     correctTags: correctTagsArray,

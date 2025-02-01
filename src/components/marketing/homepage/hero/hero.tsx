@@ -29,8 +29,8 @@ export default function HomepageHero() {
           <HeroText />
         </h1>
         <p className="font-onest max-w-4xl text-gray-400 text-lg">
-          Replace boring coding exercises with industry-standard coding
-          challenges. <br /> Your dream career in tech is just a click away.
+          Replace boring coding exercises with industry-standard coding challenges. <br /> Your
+          dream career in tech is just a click away.
         </p>
         <div className="mt-3 flex items-center justify-center gap-4">
           <Button

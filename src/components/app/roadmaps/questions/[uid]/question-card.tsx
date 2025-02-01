@@ -62,12 +62,8 @@ export default function RoadmapQuestionCard(opts: {
           className={cn(
             'bg-black-50 w-0.5 relative h-1/2',
             index === 0 && 'opacity-0', // First question has no top line
-            questionRef.current?.completed &&
-              questionRef.current?.userCorrect &&
-              'bg-green-500',
-            questionRef.current?.completed &&
-              !questionRef.current?.userCorrect &&
-              'bg-destructive',
+            questionRef.current?.completed && questionRef.current?.userCorrect && 'bg-green-500',
+            questionRef.current?.completed && !questionRef.current?.userCorrect && 'bg-destructive',
             prevQuestionAnswered && !prevQuestionCorrect && 'bg-destructive',
             prevQuestionCorrect && 'bg-green-500'
           )}
@@ -77,12 +73,8 @@ export default function RoadmapQuestionCard(opts: {
         <div
           className={cn(
             'size-3 rounded-full bg-black-50', // Default dot
-            questionRef.current?.completed &&
-              questionRef.current?.userCorrect &&
-              'bg-green-500',
-            questionRef.current?.completed &&
-              !questionRef.current?.userCorrect &&
-              'bg-destructive'
+            questionRef.current?.completed && questionRef.current?.userCorrect && 'bg-green-500',
+            questionRef.current?.completed && !questionRef.current?.userCorrect && 'bg-destructive'
           )}
         />
 
@@ -91,12 +83,8 @@ export default function RoadmapQuestionCard(opts: {
           className={cn(
             'bg-black-50 w-0.5 relative h-1/2',
             index === totalQuestions - 1 && 'opacity-0', // Last question has no bottom line
-            questionRef.current?.completed &&
-              questionRef.current?.userCorrect &&
-              'bg-green-500',
-            questionRef.current?.completed &&
-              !questionRef.current?.userCorrect &&
-              'bg-destructive'
+            questionRef.current?.completed && questionRef.current?.userCorrect && 'bg-green-500',
+            questionRef.current?.completed && !questionRef.current?.userCorrect && 'bg-destructive'
           )}
         />
       </div>
@@ -152,21 +140,9 @@ export default function RoadmapQuestionCard(opts: {
                     {questionRef.current?.difficulty && (
                       <Chip
                         text={capitalise(questionRef.current.difficulty)}
-                        color={
-                          getQuestionDifficultyColor(
-                            questionRef.current.difficulty
-                          ).bg
-                        }
-                        textColor={
-                          getQuestionDifficultyColor(
-                            questionRef.current.difficulty
-                          ).text
-                        }
-                        border={
-                          getQuestionDifficultyColor(
-                            questionRef.current.difficulty
-                          ).border
-                        }
+                        color={getQuestionDifficultyColor(questionRef.current.difficulty).bg}
+                        textColor={getQuestionDifficultyColor(questionRef.current.difficulty).text}
+                        border={getQuestionDifficultyColor(questionRef.current.difficulty).border}
                         small
                       />
                     )}

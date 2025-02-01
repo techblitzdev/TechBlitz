@@ -8,9 +8,7 @@ export const getUserDisplayName = (user: UserRecord | null) => {
   if (!user.isCustomUsername) {
     return filterBadWords(
       user?.username ||
-        (user?.firstName && user?.lastName
-          ? `${user.firstName} ${user.lastName}`
-          : null) ||
+        (user?.firstName && user?.lastName ? `${user.firstName} ${user.lastName}` : null) ||
         'Anonymous'
     );
   }

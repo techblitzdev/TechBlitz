@@ -33,12 +33,9 @@ export default function OnboardingShare() {
         >
           TechBlitz is more fun with friends!
         </motion.h1>
-        <motion.p
-          className="text-gray-400 max-w-xl text-center"
-          variants={itemVariants}
-        >
-          TechBlitz thrives on community. Share TechBlitz with your friends, and
-          receive 10% off a premium plan!
+        <motion.p className="text-gray-400 max-w-xl text-center" variants={itemVariants}>
+          TechBlitz thrives on community. Share TechBlitz with your friends, and receive 10% off a
+          premium plan!
         </motion.p>
       </CardHeader>
       <CardContent>

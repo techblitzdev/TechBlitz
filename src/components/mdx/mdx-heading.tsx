@@ -5,11 +5,7 @@ interface MdxHeadingProps {
   heading: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 }
 
-export default function MdxHeading({
-  children,
-  heading,
-  ...props
-}: MdxHeadingProps) {
+export default function MdxHeading({ children, heading, ...props }: MdxHeadingProps) {
   const Component = heading || 'h1';
 
   // create a map of heading: text-size
@@ -28,11 +24,7 @@ export default function MdxHeading({
   const id = children?.toString().toLowerCase().replace(/\s+/g, '-');
 
   return (
-    <Component
-      id={id}
-      className={cn('font-bold mt-10 mb-5', headingSize)}
-      {...props}
-    >
+    <Component id={id} className={cn('font-bold mt-10 mb-5', headingSize)} {...props}>
       {children}
     </Component>
   );

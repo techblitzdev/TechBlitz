@@ -68,8 +68,7 @@ export const studyPaths: StudyPath[] = [
     title: 'React Hooks',
     slug: 'react-hooks',
     description: 'Learn the basics of React Hooks',
-    heroChip:
-      'Learn how to use React Hooks through interactive coding challenges',
+    heroChip: 'Learn how to use React Hooks through interactive coding challenges',
     questionSlugs: [],
     educationLevel: 'intermediate',
   },
@@ -77,8 +76,7 @@ export const studyPaths: StudyPath[] = [
     title: 'Asynchronous Programming',
     slug: 'asynchronous-programming',
     description: 'Learn the basics of Asynchronous Programming',
-    heroChip:
-      'Learn what Asynchronous Programming is and how to use it in JavaScript',
+    heroChip: 'Learn what Asynchronous Programming is and how to use it in JavaScript',
     questionSlugs: [],
     educationLevel: 'intermediate',
   },

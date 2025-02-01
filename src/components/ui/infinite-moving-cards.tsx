@@ -61,9 +61,7 @@ export const InfiniteMovingCards = ({
                 className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
               ></div>
               <div className="relative z-20 flex size-full justify-center items-center">
-                <span className="text-white font-onest text-center">
-                  {item.title}
-                </span>
+                <span className="text-white font-onest text-center">{item.title}</span>
               </div>
             </div>
           );

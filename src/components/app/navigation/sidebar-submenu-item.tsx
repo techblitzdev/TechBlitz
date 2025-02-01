@@ -24,9 +24,7 @@ export default function AppSidebarSubMenuItem(opts: { item: SidebarItem }) {
               href={subItem.url}
               prefetch
               className={`flex items-center justify-between font-inter text-sm py-2 ${
-                pathname === subItem.url
-                  ? 'bg-black-25 text-white border border-black-50'
-                  : ''
+                pathname === subItem.url ? 'bg-black-25 text-white border border-black-50' : ''
               }`}
             >
               {subItem.title}

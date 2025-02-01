@@ -8,9 +8,7 @@ import { Grid } from '@/components/ui/grid';
 import TagDisplay from '@/components/app/questions/tag-display';
 import NoDailyQuestion from '@/components/shared/no-daily-question';
 
-export default function YesterdaysQuestionBentoBox(opts: {
-  question: Question | null;
-}) {
+export default function YesterdaysQuestionBentoBox(opts: { question: Question | null }) {
   const { question } = opts;
 
   if (!question)
@@ -30,9 +28,7 @@ export default function YesterdaysQuestionBentoBox(opts: {
         </Button>
         <div className="space-y-1 text-end">
           <h6 className="text-xl">Yesterday's Question </h6>
-          <p className="text-xs font-satoshi">
-            Missed yesterday’s question? Answer now!
-          </p>
+          <p className="text-xs font-satoshi">Missed yesterday’s question? Answer now!</p>
         </div>
         {/* <ArrowRight className="size-4 ml-1 group-hover:ml-2 duration-300" /> */}
       </div>

@@ -1,19 +1,16 @@
 import { redirect } from 'next/navigation';
 import dynamic from 'next/dynamic';
 
-const RoadmapsCard = dynamic(
-  () => import('@/components/app/roadmaps/[uid]/roadmaps-card'),
-  {
-    ssr: false,
-    loading: () => (
-      <>
-        {Array.from({ length: 3 }).map((_, index) => (
-          <RoadmapsCardSkeleton key={index} />
-        ))}
-      </>
-    ),
-  }
-);
+const RoadmapsCard = dynamic(() => import('@/components/app/roadmaps/[uid]/roadmaps-card'), {
+  ssr: false,
+  loading: () => (
+    <>
+      {Array.from({ length: 3 }).map((_, index) => (
+        <RoadmapsCardSkeleton key={index} />
+      ))}
+    </>
+  ),
+});
 
 import RoadmapOnboarding from '@/components/app/roadmaps/empty/onboarding';
 import Hero from '@/components/shared/hero';
@@ -78,9 +75,8 @@ export default async function RoadmapPage() {
                 <span>Enjoying Roadmaps?</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                Our goal is to make learning to code as personalized as
-                possible. If you have any feedback, please let us know and we
-                will get back to you as soon as possible.
+                Our goal is to make learning to code as personalized as possible. If you have any
+                feedback, please let us know and we will get back to you as soon as possible.
               </p>
               <FeedbackButton title="Roadmaps feedback" />
             </div>

@@ -78,22 +78,16 @@ const addSlug = async (question: Questions) => {
     } catch (error: any) {
       if (error.code === 'P2002') {
         // Prisma unique constraint violation
-        console.warn(
-          `Slug conflict for question "${question.uid}". Retrying...`
-        );
+        console.warn(`Slug conflict for question "${question.uid}". Retrying...`);
       } else {
-        console.error(
-          `Error updating question "${question.uid}": ${error.message}`
-        );
+        console.error(`Error updating question "${question.uid}": ${error.message}`);
         throw error;
       }
     }
     retries++;
   }
 
-  console.error(
-    `Failed to add slug to question "${question.uid}" after ${MAX_RETRIES} attempts.`
-  );
+  console.error(`Failed to add slug to question "${question.uid}" after ${MAX_RETRIES} attempts.`);
 };
 
 const generateSlug = async (question: any): Promise<string> => {

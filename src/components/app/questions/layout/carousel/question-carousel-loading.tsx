@@ -1,9 +1,5 @@
 import { Skeleton } from '@/components/ui/skeleton';
-import {
-  CarouselItem,
-  CarouselContent,
-  Carousel,
-} from '@/components/ui/carousel';
+import { CarouselItem, CarouselContent, Carousel } from '@/components/ui/carousel';
 
 export default function QuestionCarouselLoading() {
   return (

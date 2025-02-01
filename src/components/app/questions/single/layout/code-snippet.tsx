@@ -47,9 +47,7 @@ export default function CodeDisplay({
 
   return (
     <Highlight
-      theme={
-        themes[user?.codeEditorTheme as keyof typeof themes] || themes.vsDark
-      }
+      theme={themes[user?.codeEditorTheme as keyof typeof themes] || themes.vsDark}
       code={cleanContent}
       language={language || 'javascript'}
     >
@@ -59,11 +57,7 @@ export default function CodeDisplay({
           style={{ ...style, background: backgroundColor }}
         >
           {tokens.map((line, lineIndex) => (
-            <div
-              key={lineIndex}
-              {...getLineProps({ line })}
-              className="table-row"
-            >
+            <div key={lineIndex} {...getLineProps({ line })} className="table-row">
               {!hideIndex && (
                 <span className="table-cell text-gray-500 pr-4 select-none text-right text-sm">
                   {lineIndex + 1}

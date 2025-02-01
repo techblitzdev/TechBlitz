@@ -1,12 +1,6 @@
-import type {
-  Question,
-  QuestionWithoutAnswers,
-  QuestionWithTags,
-} from '@/types/Questions';
+import type { Question, QuestionWithoutAnswers, QuestionWithTags } from '@/types/Questions';
 
-export const getTagsFromQuestion = (
-  questions: Question | QuestionWithoutAnswers[]
-) => {
+export const getTagsFromQuestion = (questions: Question | QuestionWithoutAnswers[]) => {
   if (!questions) return [];
 
   const processQuestion = (question: Question | QuestionWithoutAnswers) => ({
@@ -22,9 +16,7 @@ export const getTagsFromQuestion = (
   });
 
   // Check if `questions` is an array or a single object
-  return Array.isArray(questions)
-    ? questions.map(processQuestion)
-    : processQuestion(questions);
+  return Array.isArray(questions) ? questions.map(processQuestion) : processQuestion(questions);
 };
 
 export const extractTagIds = (questions: QuestionWithTags[]) => {

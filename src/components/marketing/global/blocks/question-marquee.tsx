@@ -28,8 +28,7 @@ const questions = [
   },
   {
     uid: '4',
-    question:
-      'How to implement a collaborative editor with WebSocket in React?',
+    question: 'How to implement a collaborative editor with WebSocket in React?',
     slug: 'react-collaborative-editor-websocket-hook-implementation',
     difficulty: 'HARD',
   },
@@ -68,8 +67,7 @@ export const QuestionCard = ({
         'border border-black-50'
       )}
       style={{
-        background:
-          'radial-gradient(128% 107% at 50% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
+        background: 'radial-gradient(128% 107% at 50% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
     >
       <CardContent className="p-6 flex flex-col gap-y-2">
@@ -81,9 +79,7 @@ export const QuestionCard = ({
             border={difficultyColor.border}
           />
         </div>
-        <h3 className="font-semibold mb-2 text-white line-clamp-2">
-          {question}
-        </h3>
+        <h3 className="font-semibold mb-2 text-white line-clamp-2">{question}</h3>
       </CardContent>
       <CardFooter>
         <Link
@@ -122,9 +118,7 @@ export default function QuestionMarquee({
       <h2 className="text-3xl md:text-5xl font-bold text-center mb-2 text-gradient from-white/55 to-white py-1 max-w-5xl">
         {header}
       </h2>
-      <p className="text-center mb-4 text-gradient from-white/55 to-white">
-        {subheader}
-      </p>
+      <p className="text-center mb-4 text-gradient from-white/55 to-white">{subheader}</p>
       {cta && (
         <Button variant="secondary" className="mb-8" href="/signup">
           Sign up for free!
@@ -139,11 +133,7 @@ export default function QuestionMarquee({
             </div>
           ))}
         </Marquee>
-        <Marquee
-          reverse
-          pauseOnHover
-          className="[--duration:20s] hidden md:flex"
-        >
+        <Marquee reverse pauseOnHover className="[--duration:20s] hidden md:flex">
           {secondRow.map((question) => (
             <div key={question.uid} className="mx-4">
               <QuestionCard {...question} />

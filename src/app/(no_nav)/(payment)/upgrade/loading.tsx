@@ -35,8 +35,8 @@ export default async function Loading() {
 
         <div className="flex flex-col w-full mt-6">
           <p className="text-center max-w-xl self-center">
-            Upgrade your account to unlock premium features, gain access to
-            exclusive content, and be the first to experience new updates.
+            Upgrade your account to unlock premium features, gain access to exclusive content, and
+            be the first to experience new updates.
           </p>
           <div className="flex flex-col lg:flex-row gap-10 justify-center mt-8 md:mt-16 px-2 md:px-10">
             {products?.map(

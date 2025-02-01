@@ -1,11 +1,6 @@
 export default function EditorIcon({ ...props }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 48 48"
-      className="size-4"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className="size-4" {...props}>
       <rect
         width="31"
         height="39"

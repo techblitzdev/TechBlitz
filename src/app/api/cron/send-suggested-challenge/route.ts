@@ -16,8 +16,7 @@ import React from 'react';
 
 export const dynamic = 'force-dynamic';
 
-const getRandomElement = (arr: string[]) =>
-  arr[Math.floor(Math.random() * arr.length)];
+const getRandomElement = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
 
 async function getChallenge(userUid: string) {
   const suggestions = await getSuggestions({ limit: 1, userUid });
@@ -29,12 +28,8 @@ async function getChallenge(userUid: string) {
 
 async function sendEmail(user: UserRecord, challenge: QuestionWithTags) {
   const displayName = getUserDisplayName(user);
-  const subject = getRandomElement(
-    SUGGESTED_CHALLENGE_EMAIL_SUBJECT(displayName)
-  );
-  const description = getRandomElement(
-    SUGGESTED_CHALLENGE_EMAIL_DESCRIPTION(displayName)
-  );
+  const subject = getRandomElement(SUGGESTED_CHALLENGE_EMAIL_SUBJECT(displayName));
+  const description = getRandomElement(SUGGESTED_CHALLENGE_EMAIL_DESCRIPTION(displayName));
 
   // very minor chance the question will not have a slug, so we use the uid as a fallback
   const challengeSlug = challenge.slug || challenge.uid;
@@ -45,9 +40,7 @@ async function sendEmail(user: UserRecord, challenge: QuestionWithTags) {
     React.createElement(SuggestedChallengeEmailTemplate, {
       title: subject,
       description,
-      tags:
-        challenge.tags?.map((tag: { tag: { name: string } }) => tag.tag.name) ||
-        [],
+      tags: challenge.tags?.map((tag: { tag: { name: string } }) => tag.tag.name) || [],
       link,
     })
   );
@@ -119,9 +112,6 @@ export async function GET(request: NextRequest) {
     );
   } catch (error) {
     console.error('Failed to send daily challenge emails:', error);
-    return NextResponse.json(
-      { message: 'Internal server error' },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
   }
 }

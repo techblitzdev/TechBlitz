@@ -97,25 +97,16 @@ export default function OnboardingForm() {
     const isStepOne = currentStep === 'stepOne';
     const hasUsername = (user?.username?.length ?? 0) > 0;
 
-    return (
-      refInUrl ||
-      (!isStepOne && hasUsername) ||
-      (isStepOne && refInUrl && hasUsername)
-    );
+    return refInUrl || (!isStepOne && hasUsername) || (isStepOne && refInUrl && hasUsername);
   };
 
   return (
     <div className="container min-h-screen flex items-center justify-center p-4">
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-      >
+      <motion.div initial="hidden" animate="visible" variants={containerVariants}>
         <Card
           className={cn(
             'rounded-lg shadow-xl overflow-hidden min-w-72 sm:min-w-96 lg:min-w-[30rem] relative',
-            (currentStep === 'stepTwo' || currentStep === 'stepThree') &&
-              'lg:min-w-[50rem]',
+            (currentStep === 'stepTwo' || currentStep === 'stepThree') && 'lg:min-w-[50rem]',
             currentStep === 'stepTwo' ? 'border-none' : 'border border-black-50'
           )}
           style={{
@@ -166,20 +157,13 @@ export default function OnboardingForm() {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
                     >
-                      <Button
-                        type="button"
-                        variant="default"
-                        onClick={handleSkip}
-                      >
+                      <Button type="button" variant="default" onClick={handleSkip}>
                         Skip
                       </Button>
                     </motion.div>
                   )}
                 </AnimatePresence>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Button
                     type="button"
                     variant="accent"
@@ -187,8 +171,7 @@ export default function OnboardingForm() {
                     onClick={() => handleContinue()}
                     disabled={
                       isLoading ||
-                      (currentStep === 'stepOne' &&
-                        (user?.username?.length ?? 0) < 2) ||
+                      (currentStep === 'stepOne' && (user?.username?.length ?? 0) < 2) ||
                       !canContinue
                     }
                   >
@@ -196,9 +179,7 @@ export default function OnboardingForm() {
                       <LoadingSpinner />
                     ) : (
                       <>
-                        {currentStep === 'stepFive'
-                          ? 'Go to dashboard'
-                          : 'Continue'}
+                        {currentStep === 'stepFive' ? 'Go to dashboard' : 'Continue'}
                         <ArrowRight className="ml-2 size-4" />
                       </>
                     )}

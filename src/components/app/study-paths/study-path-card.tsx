@@ -15,9 +15,7 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
       href={`/study-paths/${studyPath.slug}`}
       className={cn(
         'rounded-lg h-fit w-full overflow-hidden transition-all duration-300 hover:border-black border border-black-50 group',
-        user?.studyPathEnrollments?.find(
-          (e) => e.studyPathUid === studyPath.uid
-        )
+        user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
           ? ''
           : 'border-black-50'
       )}
@@ -25,9 +23,7 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
       <CardHeader className="relative p-0">
         <div className="relative p-4 text-primary-foreground group-hover:opacity-80 transition-all duration-300">
           <h3 className="text-xl font-bold mb-2">{studyPath.title}</h3>
-          <p className="text-xs text-gray-400 line-clamp-2">
-            {studyPath.description}
-          </p>
+          <p className="text-xs text-gray-400 line-clamp-2">{studyPath.description}</p>
         </div>
       </CardHeader>
       <CardContent className="p-4 pt-3 relative">
@@ -35,9 +31,8 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
           <div className="text-sm text-gray-400 font-onest">
             {/** if 100% then show 100% else show the progress */}
             {Math.round(
-              user?.studyPathEnrollments?.find(
-                (e) => e.studyPathUid === studyPath.uid
-              )?.progress ?? 0
+              user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)?.progress ??
+                0
             ) === 100 ? (
               <div className="flex items-center gap-x-2">
                 <CheckCircle className="size-4 text-green-500" />
@@ -45,18 +40,16 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
               </div>
             ) : (
               `${Math.round(
-                user?.studyPathEnrollments?.find(
-                  (e) => e.studyPathUid === studyPath.uid
-                )?.progress ?? 0
+                user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
+                  ?.progress ?? 0
               )}% completed`
             )}
           </div>
           <Progress
             className="border border-black-50 bg-black-50 relative z-10"
             value={
-              user?.studyPathEnrollments?.find(
-                (e) => e.studyPathUid === studyPath.uid
-              )?.progress ?? 0
+              user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)?.progress ??
+              0
             }
           />
         </div>
@@ -65,10 +58,7 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
             <div
               className="size-[200px] opacity-10 group-hover:opacity-100 transition-all duration-300"
               dangerouslySetInnerHTML={{
-                __html: studyPath.icon.replace(
-                  '<svg',
-                  '<svg width="200" height="200"'
-                ),
+                __html: studyPath.icon.replace('<svg', '<svg width="200" height="200"'),
               }}
             />
           )}
@@ -78,16 +68,12 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
         <Button
           className="w-full"
           variant={
-            user?.studyPathEnrollments?.find(
-              (e) => e.studyPathUid === studyPath.uid
-            )
+            user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
               ? 'default'
               : 'secondary'
           }
         >
-          {user?.studyPathEnrollments?.find(
-            (e) => e.studyPathUid === studyPath.uid
-          )
+          {user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
             ? 'In progress'
             : 'Start learning'}
         </Button>

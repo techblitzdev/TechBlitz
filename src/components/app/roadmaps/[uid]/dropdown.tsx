@@ -2,11 +2,7 @@
 import { useState } from 'react';
 import { EllipsisVertical } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { EditRoadmapModal } from './edit-roadmap-modal';
 import { updateRoadmapDetails } from '@/actions/roadmap/update-roadmap-details';
 import { deleteRoadmap } from '@/actions/roadmap/delete-roadmap';
@@ -21,10 +17,7 @@ export default function RoadmapDropdown(opts: { roadmap: UserRoadmaps }) {
     setIsEditModalOpen(true);
   };
 
-  const handleSaveRoadmap = async (data: {
-    title: string;
-    description: string;
-  }) => {
+  const handleSaveRoadmap = async (data: { title: string; description: string }) => {
     await updateRoadmapDetails(opts.roadmap.uid, {
       title: data.title,
       description: data.description,

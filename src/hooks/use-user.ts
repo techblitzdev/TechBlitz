@@ -6,15 +6,11 @@ import { getUserFromDb } from '@/actions/user/authed/get-user';
 export const useUser = () => {
   const supabase = createClient();
 
-  const { data, isLoading, isError, error } = useQuery<
-    UserRecord | null,
-    Error
-  >({
+  const { data, isLoading, isError, error } = useQuery<UserRecord | null, Error>({
     queryKey: ['user-details'],
     queryFn: async () => {
       try {
-        const { data: authData, error: authError } =
-          await supabase.auth.getUser();
+        const { data: authData, error: authError } = await supabase.auth.getUser();
 
         if (authError) throw authError;
         if (!authData?.user?.id) return null;

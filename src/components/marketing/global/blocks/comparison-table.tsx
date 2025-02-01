@@ -9,12 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 export interface FeatureValue {
   value: boolean | string | number;
@@ -47,9 +42,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[40%] text-white font-onest">
-              Feature
-            </TableHead>
+            <TableHead className="w-[40%] text-white font-onest">Feature</TableHead>
             <TableHead className="text-center text-white font-onest">
               <div className="flex items-center justify-center space-x-2">
                 {yourCompanyLogo && (
@@ -82,13 +75,8 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({
         </TableHeader>
         <TableBody>
           {features.map((feature, index) => (
-            <TableRow
-              key={index}
-              className={index % 2 === 0 ? 'bg-[#000000]' : 'bg-black'}
-            >
-              <TableCell className="font-medium p-2 text-lg font-onest">
-                {feature.name}
-              </TableCell>
+            <TableRow key={index} className={index % 2 === 0 ? 'bg-[#000000]' : 'bg-black'}>
+              <TableCell className="font-medium p-2 text-lg font-onest">{feature.name}</TableCell>
               <TableCell className="text-center p-2 text-lg font-onest">
                 {renderFeatureValue(feature.yourCompany)}
               </TableCell>

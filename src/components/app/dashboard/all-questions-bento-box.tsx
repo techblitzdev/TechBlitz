@@ -42,12 +42,7 @@ export default function AllQuestionsDashboardBentoBox() {
   return (
     <section className="flex flex-col gap-y-5 group p-4 relative overflow-hidden h-[350px] lg:h-fit">
       <div className="space-y-3 z-10 relative">
-        <Chip
-          color="bg-white"
-          text="Questions"
-          textColor="text-black"
-          border="border-black-50"
-        />
+        <Chip color="bg-white" text="Questions" textColor="text-black" border="border-black-50" />
         <h6 className="text-lg lg:text-xl flex items-center">
           View all Questions
           <ArrowRight className="size-4 inline-block ml-1 group-hover:ml-2 duration-300" />
@@ -60,15 +55,10 @@ export default function AllQuestionsDashboardBentoBox() {
         {/* Scrolling content */}
         <div
           className="animate-scroll hover:pause-animation relative z-0"
-          style={
-            { '--question-count': questions.length } as React.CSSProperties
-          }
+          style={{ '--question-count': questions.length } as React.CSSProperties}
         >
           {allQuestions.map((question, index) => (
-            <DashboardQuestionCard
-              key={`${question.label}-${index}`}
-              question={question}
-            />
+            <DashboardQuestionCard key={`${question.label}-${index}`} question={question} />
           ))}
         </div>
 

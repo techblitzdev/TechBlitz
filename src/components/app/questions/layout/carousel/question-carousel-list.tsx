@@ -26,8 +26,7 @@ const questionsCarousels = [
   {
     tag: ['javascript', 'JavaScript', 'javaScript', 'generators'],
     title: 'Javascript Questions',
-    description:
-      'Learn how to use JavaScript to build more efficient and scalable applications.',
+    description: 'Learn how to use JavaScript to build more efficient and scalable applications.',
     image: '/images/javascript.png',
     studyPath: 'javascript-questions',
   },
@@ -41,8 +40,7 @@ const questionsCarousels = [
   {
     tag: ['react-hooks'],
     title: 'React Hooks',
-    description:
-      'Learn how to use React Hooks to build more efficient and scalable applications.',
+    description: 'Learn how to use React Hooks to build more efficient and scalable applications.',
     image: '/images/react.png',
     studyPath: 'react-hooks',
   },
@@ -55,11 +53,7 @@ const questionsCarousels = [
   },
 ];
 
-export default function QuestionsCarouselList({
-  user,
-}: {
-  user: UserRecord | null;
-}) {
+export default function QuestionsCarouselList({ user }: { user: UserRecord | null }) {
   return (
     <div className="flex flex-col gap-y-16 md:gap-y-20 pt-10">
       {questionsCarousels.map((carousel, index) => (
@@ -74,11 +68,7 @@ export default function QuestionsCarouselList({
             tag={carousel.tag}
             studyPath={carousel.studyPath}
           >
-            <QuestionCarouselContent
-              tag={carousel.tag}
-              type={carousel.type}
-              user={user}
-            />
+            <QuestionCarouselContent tag={carousel.tag} type={carousel.type} user={user} />
           </QuestionCarousel>
         </Suspense>
       ))}

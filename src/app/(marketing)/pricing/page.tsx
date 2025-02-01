@@ -60,8 +60,7 @@ const jsonLd = {
       name: 'Pro Plan',
       price: '3.99',
       priceCurrency: 'USD',
-      description:
-        'Unlock all questions, daily challenges, and personalized AI roadmaps.',
+      description: 'Unlock all questions, daily challenges, and personalized AI roadmaps.',
       url: 'https://techblitz.dev/pricing',
       category: 'Paid',
     },
@@ -95,13 +94,12 @@ export default async function PricingPage() {
       question: 'Can I use TechBlitz for free?',
       answer: (
         <>
-          Absolutely! TechBlitz offers a free plan to get you started right
-          away.{' '}
+          Absolutely! TechBlitz offers a free plan to get you started right away.{' '}
           <Link href="/signup" className="text-accent">
             Sign up for a free account
           </Link>{' '}
-          and dive into our rich library of developer resources today. Upgrade
-          to a paid plan to unlock all our features at any time.
+          and dive into our rich library of developer resources today. Upgrade to a paid plan to
+          unlock all our features at any time.
         </>
       ),
     },
@@ -124,10 +122,9 @@ export default async function PricingPage() {
       question: 'What are the key benefits of using TechBlitz?',
       answer: (
         <>
-          TechBlitz provides engaging, short-form coding questions and practical
-          roadmaps to help developers enhance their skills and tackle real-world
-          challenges. We aim to improve your skills as a developer by only 10
-          minutes a day. You can check out our study paths{' '}
+          TechBlitz provides engaging, short-form coding questions and practical roadmaps to help
+          developers enhance their skills and tackle real-world challenges. We aim to improve your
+          skills as a developer by only 10 minutes a day. You can check out our study paths{' '}
           <Link href={`/questions/explore`} className="text-accent">
             here
           </Link>{' '}
@@ -143,8 +140,8 @@ export default async function PricingPage() {
           <Link href="/signup" className="text-accent">
             Sign up for a free account
           </Link>{' '}
-          . Ready to take your skills to the next level? Upgrade to a paid plan
-          and unlock all our features.
+          . Ready to take your skills to the next level? Upgrade to a paid plan and unlock all our
+          features.
         </>
       ),
     },
@@ -152,8 +149,7 @@ export default async function PricingPage() {
       question: 'What is the refund policy?',
       answer: (
         <>
-          You can get a refund within 14 days of your purchase. Please contact
-          us at{' '}
+          You can get a refund within 14 days of your purchase. Please contact us at{' '}
           <Link href="mailto:team@techblitz.dev" className="text-accent">
             team@techblitz.dev
           </Link>{' '}
@@ -165,14 +161,14 @@ export default async function PricingPage() {
       question: 'Do you offer any discounts?',
       answer: (
         <>
-          Yes! We believe that TechBlitz should be available to all students. To
-          claim your discount, please email us at{' '}
+          Yes! We believe that TechBlitz should be available to all students. To claim your
+          discount, please email us at{' '}
           <a href="mailto:team@techblitz.dev" className="text-accent">
             team@techblitz.dev
           </a>{' '}
-          using your student email address. We are currently running a limited
-          time, 50% discount for students. This will be available until the end
-          of February 2025, after which the discount will be 30% off.
+          using your student email address. We are currently running a limited time, 50% discount
+          for students. This will be available until the end of February 2025, after which the
+          discount will be 30% off.
         </>
       ),
     },
@@ -190,8 +186,7 @@ export default async function PricingPage() {
     },
   ];
 
-  const billingPeriod =
-    (cookieStore.get('billing_frequency')?.value as 'month' | 'year') || 'year';
+  const billingPeriod = (cookieStore.get('billing_frequency')?.value as 'month' | 'year') || 'year';
 
   return (
     <>
@@ -211,13 +206,10 @@ export default async function PricingPage() {
             Plans that don't <AnimatedBreak /> the bank
           </h1>
           <p className="text-gray-400 max-w-xl">
-            Start your coding journey for free, no credit card required. Upgrade
-            to a paid plan to unlock premium features with our affordable plans.
+            Start your coding journey for free, no credit card required. Upgrade to a paid plan to
+            unlock premium features with our affordable plans.
           </p>
-          <FrequencyToggle
-            initialFrequency={billingPeriod}
-            onFrequencyChange={updateFrequency}
-          />
+          <FrequencyToggle initialFrequency={billingPeriod} onFrequencyChange={updateFrequency} />
           <div className="mt-10">
             <PricingCardBlock frequency={billingPeriod} />
           </div>

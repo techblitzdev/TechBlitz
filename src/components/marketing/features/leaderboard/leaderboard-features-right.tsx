@@ -49,12 +49,8 @@ export default async function LeaderboardFeaturesRight() {
               }}
             >
               <div className="p-2">{badge.icon}</div>
-              <p className="text-sm font-medium text-center font-onest">
-                {badge.name}
-              </p>
-              <p className="text-xs text-gray-400 text-center font-onest">
-                {badge.description}
-              </p>
+              <p className="text-sm font-medium text-center font-onest">{badge.name}</p>
+              <p className="text-xs text-gray-400 text-center font-onest">{badge.description}</p>
             </div>
           ))}
         </div>
@@ -65,8 +61,7 @@ export default async function LeaderboardFeaturesRight() {
           Earn rewards for your progress
         </h3>
         <p className="text-gray-400 font-onest">
-          Level up your skills, earn badges, and compete with friends on the
-          leaderboard.
+          Level up your skills, earn badges, and compete with friends on the leaderboard.
         </p>
         <Button href="#" variant="secondary" disabled>
           Coming soon!

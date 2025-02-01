@@ -28,20 +28,10 @@ export default function FAQsBlock(opts: {
         </h1>
         {description && <p className="text-sm text-gray-400">{description}</p>}
       </div>
-      <Accordion
-        type="single"
-        collapsible
-        className="text-start max-w-3xl w-[85%] lg:w-full"
-      >
+      <Accordion type="single" collapsible className="text-start max-w-3xl w-[85%] lg:w-full">
         {faqs.map((faq, index) => (
-          <AccordionItem
-            key={index}
-            value={faq.question}
-            className="border-b border-black-50"
-          >
-            <AccordionTrigger className="text-xl duration-300">
-              {faq.question}
-            </AccordionTrigger>
+          <AccordionItem key={index} value={faq.question} className="border-b border-black-50">
+            <AccordionTrigger className="text-xl duration-300">{faq.question}</AccordionTrigger>
             <AccordionContent className="pb-4">
               {typeof faq.answer === 'string' ? (
                 <div dangerouslySetInnerHTML={{ __html: faq.answer }} />

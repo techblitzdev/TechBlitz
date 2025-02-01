@@ -15,10 +15,7 @@ interface ResetPasswordEmailProps {
   resetLink: string;
 }
 
-export const ResetPasswordEmail = ({
-  username,
-  resetLink,
-}: ResetPasswordEmailProps) => {
+export const ResetPasswordEmail = ({ username, resetLink }: ResetPasswordEmailProps) => {
   return (
     <Html>
       <Head />
@@ -58,9 +55,8 @@ export const ResetPasswordEmail = ({
           <Text style={h1}>Reset Your Password</Text>
           <Text style={text}>Hello {username},</Text>
           <Text style={text}>
-            We received a request to reset your password for your TechBlitz
-            account. If you didn't make this request, you can safely ignore this
-            email.
+            We received a request to reset your password for your TechBlitz account. If you didn't
+            make this request, you can safely ignore this email.
           </Text>
           <Section style={buttonContainer}>
             <Link href={resetLink} target="_blank" style={button}>
@@ -68,18 +64,16 @@ export const ResetPasswordEmail = ({
             </Link>
           </Section>
           <Text style={text}>
-            This password reset link will expire in 1 hour. If you need to
-            request a new password reset, please visit our website.
+            This password reset link will expire in 1 hour. If you need to request a new password
+            reset, please visit our website.
           </Text>
           <Text style={text}>
-            If you're having trouble clicking the button, copy and paste the URL
-            below into your web browser:
+            If you're having trouble clicking the button, copy and paste the URL below into your web
+            browser:
           </Text>
           <Text style={text}>{resetLink}</Text>
           <Section style={footer}>
-            <Text style={footerText}>
-              © 2024 TechBlitz. All rights reserved.
-            </Text>
+            <Text style={footerText}>© 2024 TechBlitz. All rights reserved.</Text>
             <Text style={footerText}>
               If you have any questions, please contact our support team at{' '}
               <Link href="mailto:team@techblitz.dev" style={footerLink}>

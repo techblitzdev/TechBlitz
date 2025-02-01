@@ -11,10 +11,7 @@ export default async function RoadmapOverviewPage({
 }: Readonly<{ children: React.ReactNode; params: { roadmapUid: string } }>) {
   const { roadmapUid } = params;
 
-  const [user, roadmap] = await Promise.all([
-    useUserServer(),
-    fetchRoadmap({ roadmapUid }),
-  ]);
+  const [user, roadmap] = await Promise.all([useUserServer(), fetchRoadmap({ roadmapUid })]);
   if (!user) return;
 
   return (

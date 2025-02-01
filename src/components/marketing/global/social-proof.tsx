@@ -49,9 +49,8 @@ export default function SocialProof({
             </div>
             {showDescription && (
               <p className="text-gray-400 mb-8">
-                Join a thriving community of developers who are revolutionizing
-                their coding skills and fast-tracking their careers with our
-                cutting-edge platform.
+                Join a thriving community of developers who are revolutionizing their coding skills
+                and fast-tracking their careers with our cutting-edge platform.
               </p>
             )}
           </div>

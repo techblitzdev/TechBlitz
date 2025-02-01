@@ -24,9 +24,7 @@ export default function AnswerOption({ answer, field }: AnswerOptionProps) {
       htmlFor={answer.uid}
       className={cn(
         'px-2 lg:px-4 lg:py-2 rounded-lg min-h-16 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
-        userAnswer === answer.uid
-          ? 'bg-black-25'
-          : 'bg-black hover:border-accent'
+        userAnswer === answer.uid ? 'bg-black-25' : 'bg-black hover:border-accent'
       )}
       onClick={() => {
         field.onChange(answer.uid);
@@ -52,10 +50,7 @@ export default function AnswerOption({ answer, field }: AnswerOptionProps) {
           backgroundColor="transparent"
         />
       ) : (
-        <p
-          className="text-sm"
-          dangerouslySetInnerHTML={{ __html: answer.answer }}
-        />
+        <p className="text-sm" dangerouslySetInnerHTML={{ __html: answer.answer }} />
       )}
     </Label>
   );

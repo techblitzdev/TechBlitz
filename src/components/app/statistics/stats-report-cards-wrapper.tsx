@@ -7,12 +7,8 @@ export default async function StatsReportCardsWrapper() {
   return (
     <>
       {reports.length > 0 &&
-        reports.map((report) => (
-          <StatsReportCard key={report.uid} report={report} />
-        ))}
-      {reports.length === 0 && (
-        <p className="text-lg text-muted-foreground">No reports found.</p>
-      )}
+        reports.map((report) => <StatsReportCard key={report.uid} report={report} />)}
+      {reports.length === 0 && <p className="text-lg text-muted-foreground">No reports found.</p>}
     </>
   );
 }

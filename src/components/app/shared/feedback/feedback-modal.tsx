@@ -61,11 +61,7 @@ export function FeedbackModal({
           Cancel
         </Button>
         <AnimatePresence mode="wait">
-          <Button
-            type="submit"
-            variant="secondary"
-            disabled={isPending || feedback.trim() === ''}
-          >
+          <Button type="submit" variant="secondary" disabled={isPending || feedback.trim() === ''}>
             <AnimatePresence mode="wait">
               {isPending ? (
                 <motion.div

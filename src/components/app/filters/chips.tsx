@@ -15,9 +15,7 @@ export default function FilterChips() {
 
   // Convert search params to an object
   const paramsObj = Object.fromEntries(
-    Array.from(searchParams.entries()).filter(
-      ([key]: [string, string]) => key !== 'page'
-    )
+    Array.from(searchParams.entries()).filter(([key]: [string, string]) => key !== 'page')
   );
 
   const removeFilter = (key: string, value?: string) => {
@@ -60,9 +58,7 @@ export default function FilterChips() {
     };
 
     const textGenerator = textMap[key] || textMap.default;
-    return typeof textGenerator === 'function'
-      ? textGenerator(value)
-      : textGenerator;
+    return typeof textGenerator === 'function' ? textGenerator(value) : textGenerator;
   };
 
   const renderChip = (key: string, value: string, tag?: string) => {

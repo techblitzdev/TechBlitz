@@ -8,10 +8,9 @@ import RoadmapImg from '../../../../public/images/roadmap.png';
 const defaultDescription = () => {
   return (
     <span>
-      Every coding roadmap is created based on your current coding skills. We
-      analyze your current skills set, and are able to create a roadmap that is
-      tailored to you. Meaning every user will be getting a unique experience
-      with TechBlitz.
+      Every coding roadmap is created based on your current coding skills. We analyze your current
+      skills set, and are able to create a roadmap that is tailored to you. Meaning every user will
+      be getting a unique experience with TechBlitz.
     </span>
   );
 };

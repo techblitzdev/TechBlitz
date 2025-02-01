@@ -30,10 +30,7 @@ const getPreviousDaysQuestion = async (supabaseClient: SupabaseClient) => {
 /**
  * Fetch all answers for the given question UID.
  */
-const getTodaysAnswers = async (
-  supabaseClient: SupabaseClient,
-  questionUid: string
-) => {
+const getTodaysAnswers = async (supabaseClient: SupabaseClient, questionUid: string) => {
   console.log('Fetching answers for question:', questionUid);
 
   const { data, error } = await supabaseClient
@@ -53,10 +50,7 @@ const getTodaysAnswers = async (
 /**
  * Update streaks for users who haven't answered correctly.
  */
-const updateStreak = async (
-  supabaseClient: SupabaseClient,
-  usersToUpdate: string[]
-) => {
+const updateStreak = async (supabaseClient: SupabaseClient, usersToUpdate: string[]) => {
   console.log('Updating streaks for users:', usersToUpdate);
 
   const { error } = await supabaseClient
@@ -64,7 +58,7 @@ const updateStreak = async (
     .update({
       streakStart: null,
       streakEnd: null,
-      currentstreakCount: 0
+      currentstreakCount: 0,
     })
     .in('userUid', usersToUpdate);
 
@@ -81,9 +75,7 @@ const updateStreak = async (
  * Helper to extract correct answers from the list of answers.
  */
 const getCorrectAnswers = (answers: any[]) => {
-  return answers
-    .filter((answer) => answer.correctAnswer)
-    .map((answer) => answer.userUid);
+  return answers.filter((answer) => answer.correctAnswer).map((answer) => answer.userUid);
 };
 
 /**
@@ -98,10 +90,7 @@ const getAllUsers = async (supabaseClient: SupabaseClient) => {
 /**
  * Get users who haven't answered correctly.
  */
-const getUsersWhoHaventAnsweredCorrectly = (
-  allUsers: string[],
-  correctUserIds: string[]
-) => {
+const getUsersWhoHaventAnsweredCorrectly = (allUsers: string[], correctUserIds: string[]) => {
   const correctUserSet = new Set(correctUserIds);
   return allUsers.filter((userId) => !correctUserSet.has(userId));
 };
@@ -120,8 +109,8 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_ANON_KEY') ?? '',
       {
         global: {
-          headers: { Authorization: req.headers.get('Authorization') ?? '' }
-        }
+          headers: { Authorization: req.headers.get('Authorization') ?? '' },
+        },
       }
     );
 
@@ -140,15 +129,12 @@ Deno.serve(async (req) => {
     const correctUserIds = getCorrectAnswers(answers);
 
     const allUserIds = await getAllUsers(supabaseClient);
-    const usersToUpdate = getUsersWhoHaventAnsweredCorrectly(
-      allUserIds,
-      correctUserIds
-    );
+    const usersToUpdate = getUsersWhoHaventAnsweredCorrectly(allUserIds, correctUserIds);
 
     console.log({
       totalUsers: allUserIds.length,
       correctAnswers: correctUserIds.length,
-      usersToUpdate: usersToUpdate.length
+      usersToUpdate: usersToUpdate.length,
     });
 
     await updateStreak(supabaseClient, usersToUpdate);
@@ -159,19 +145,19 @@ Deno.serve(async (req) => {
         stats: {
           totalUsers: allUserIds.length,
           correctAnswers: correctUserIds.length,
-          usersUpdated: usersToUpdate.length
-        }
+          usersUpdated: usersToUpdate.length,
+        },
       }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 200
+        status: 200,
       }
     );
   } catch (error) {
     console.error('Error:', error);
     return new Response(JSON.stringify({ error: (error as Error).message }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      status: 500
+      status: 500,
     });
   }
 });

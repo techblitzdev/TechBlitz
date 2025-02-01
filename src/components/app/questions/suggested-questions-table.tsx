@@ -18,8 +18,7 @@ export default async function QuestionSuggestedCard(opts: {
     return (
       <div className="flex flex-col gap-y-4 items-center mt-4 border border-black-50 rounded-md p-4">
         <p className="text-sm font-medium text-gray-400">
-          No questions answered, try answering 5 questions to get suggested
-          questions!
+          No questions answered, try answering 5 questions to get suggested questions!
         </p>
       </div>
     );
@@ -37,19 +36,13 @@ export default async function QuestionSuggestedCard(opts: {
           key={question.uid}
           className={cn(
             'p-3 truncate w-full flex justify-between items-center group gap-5',
-            index % 2 === 0
-              ? 'bg-[#000] hover:bg-black-100'
-              : 'bg-black hover:bg-black-75'
+            index % 2 === 0 ? 'bg-[#000] hover:bg-black-100' : 'bg-black hover:bg-black-75'
           )}
           href={
-            isCustomQuestion
-              ? `/question/custom/${question.uid}`
-              : `/question/${question.slug}`
+            isCustomQuestion ? `/question/custom/${question.uid}` : `/question/${question.slug}`
           }
         >
-          <p className="text-sm font-satoshi line-clamp-1">
-            {question.question}
-          </p>
+          <p className="text-sm font-satoshi line-clamp-1">{question.question}</p>
           <ArrowRight className="size-3 mr-1 group-hover:mr-0 duration-300 flex-shrink-0" />
         </Link>
       ))}

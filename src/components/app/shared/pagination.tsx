@@ -3,13 +3,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { useRouter, useSearchParams } from 'next/navigation';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '../../ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select';
 
 export default function GlobalPagination(opts: {
   currentPage: number;
@@ -19,14 +13,7 @@ export default function GlobalPagination(opts: {
   postsPerPage: number;
   margin?: string;
 }) {
-  const {
-    currentPage,
-    totalPages,
-    href,
-    paramName,
-    margin = 'mt-5',
-    postsPerPage,
-  } = opts;
+  const { currentPage, totalPages, href, paramName, margin = 'mt-5', postsPerPage } = opts;
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -45,16 +32,11 @@ export default function GlobalPagination(opts: {
 
   return (
     <div
-      className={cn(
-        'flex flex-col sm:flex-row items-center gap-4 w-full',
-        margin ? margin : ''
-      )}
+      className={cn('flex flex-col sm:flex-row items-center gap-4 w-full', margin ? margin : '')}
     >
       {/** per page dropdown */}
       <div className="w-full sm:w-auto">
-        <Select
-          onValueChange={(value) => updateQueryParam('postsPerPage', value)}
-        >
+        <Select onValueChange={(value) => updateQueryParam('postsPerPage', value)}>
           <SelectTrigger className="h-8 border border-black-50 rounded-md">
             <SelectValue placeholder={`${postsPerPage} per page`} />
           </SelectTrigger>
@@ -85,9 +67,7 @@ export default function GlobalPagination(opts: {
             href={getPaginationLink(i + 1)}
             className={cn(
               'bg-black-75 border border-black-50 hover:bg-black-50 duration-300 rounded-md size-8 flex items-center justify-center p-1 text-sm',
-              `${
-                currentPage === i + 1 ? 'pointer-events-none border-accent' : ''
-              }`
+              `${currentPage === i + 1 ? 'pointer-events-none border-accent' : ''}`
             )}
           >
             {i + 1}
@@ -106,11 +86,7 @@ export default function GlobalPagination(opts: {
             href={getPaginationLink(totalPages)}
             className={cn(
               'bg-black-75 border border-black-50 hover:bg-black-50 duration-300 rounded-md size-8 flex items-center justify-center p-1 text-sm',
-              `${
-                currentPage === totalPages
-                  ? 'pointer-events-none opacity-50'
-                  : ''
-              }`
+              `${currentPage === totalPages ? 'pointer-events-none opacity-50' : ''}`
             )}
           >
             {totalPages}
@@ -118,14 +94,10 @@ export default function GlobalPagination(opts: {
         )}
 
         <Link
-          href={
-            currentPage < totalPages ? getPaginationLink(currentPage + 1) : '#'
-          }
+          href={currentPage < totalPages ? getPaginationLink(currentPage + 1) : '#'}
           className={cn(
             'bg-black-75 border border-black-50 hover:bg-black-50 duration-300 rounded-md size-8 flex justify-center items-center',
-            `${
-              currentPage === totalPages ? 'pointer-events-none opacity-50' : ''
-            }`
+            `${currentPage === totalPages ? 'pointer-events-none opacity-50' : ''}`
           )}
         >
           <ArrowRight className="size-5" />

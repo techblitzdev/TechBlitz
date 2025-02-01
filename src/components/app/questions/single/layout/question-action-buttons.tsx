@@ -4,15 +4,8 @@ import { useQuestionSingle } from '@/components/app/questions/single/layout/ques
 import { RefreshCcwIcon } from 'lucide-react';
 
 export default function QuestionActionButtons() {
-  const {
-    resetQuestionState,
-    submitAnswer,
-    isSubmitting,
-    selectedAnswer,
-    user,
-    question,
-    code,
-  } = useQuestionSingle();
+  const { resetQuestionState, submitAnswer, isSubmitting, selectedAnswer, user, question, code } =
+    useQuestionSingle();
 
   return (
     <div className="flex gap-x-1 md:gap-x-3 items-center">
@@ -33,10 +26,7 @@ export default function QuestionActionButtons() {
           </Button>
         </form>
       ) : (
-        <Button
-          variant="accent"
-          href={`/login?redirectUrl=question/${question.uid}`}
-        >
+        <Button variant="accent" href={`/login?redirectUrl=question/${question.uid}`}>
           Login to Submit
         </Button>
       )}

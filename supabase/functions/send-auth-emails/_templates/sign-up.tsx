@@ -17,10 +17,7 @@ interface TechBlitzSignUpEmailProps {
   confirmationLink: string;
 }
 
-export const TechBlitzSignUpEmail = ({
-  username,
-  confirmationLink,
-}: TechBlitzSignUpEmailProps) => {
+export const TechBlitzSignUpEmail = ({ username, confirmationLink }: TechBlitzSignUpEmailProps) => {
   return (
     <Html>
       <Head />
@@ -59,8 +56,8 @@ export const TechBlitzSignUpEmail = ({
           </Section>
           <Heading style={h1}>Welcome to TechBlitz!</Heading>
           <Text style={text}>
-            We're so glad to have you on board, and ready to help you in your
-            software journey! To get started, please confirm your email address.
+            We're so glad to have you on board, and ready to help you in your software journey! To
+            get started, please confirm your email address.
           </Text>
           <Section style={buttonContainer}>
             <Link href={confirmationLink} target="_blank" style={button}>
@@ -68,15 +65,10 @@ export const TechBlitzSignUpEmail = ({
             </Link>
           </Section>
           <Text style={text}>
-            If you didn't create an account with TechBlitz, you can safely
-            ignore this email.
+            If you didn't create an account with TechBlitz, you can safely ignore this email.
           </Text>
           <Section style={socialButtonsContainer}>
-            <Link
-              href="https://x.com/techblitz_dev"
-              target="_blank"
-              style={socialButton}
-            >
+            <Link href="https://x.com/techblitz_dev" target="_blank" style={socialButton}>
               <TwitterLogoIcon />
             </Link>
             <Link
@@ -88,9 +80,7 @@ export const TechBlitzSignUpEmail = ({
             </Link>
           </Section>
           <Section style={footer}>
-            <Text style={footerText}>
-              © 2024 TechBlitz. All rights reserved.
-            </Text>
+            <Text style={footerText}>© 2024 TechBlitz. All rights reserved.</Text>
           </Section>
         </Container>
       </Body>

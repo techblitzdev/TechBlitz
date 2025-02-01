@@ -17,18 +17,15 @@ const FilterChips = dynamic(() => import('@/components/app/filters/chips'), {
   ssr: false,
   loading: () => <div className="h-8"></div>,
 });
-const QuestionsList = dynamic(
-  () => import('@/components/app/questions/layout/questions-list'),
-  {
-    loading: () => (
-      <div className="flex flex-col gap-6">
-        {Array.from({ length: 9 }).map((_, index) => (
-          <QuestionCardSkeleton key={index} />
-        ))}
-      </div>
-    ),
-  }
-);
+const QuestionsList = dynamic(() => import('@/components/app/questions/layout/questions-list'), {
+  loading: () => (
+    <div className="flex flex-col gap-6">
+      {Array.from({ length: 9 }).map((_, index) => (
+        <QuestionCardSkeleton key={index} />
+      ))}
+    </div>
+  ),
+});
 const QuestionPageSidebar = dynamic(
   () => import('@/components/app/questions/layout/question-page-sidebar'),
   {
@@ -63,8 +60,8 @@ export async function generateMetadata() {
 const heroDescription = (
   <div className="flex flex-col gap-y-4 z-20 relative font-inter max-w-3xl">
     <p className="text-sm md:text-base text-gray-400">
-      Explore all the questions we have to offer. Filter by tags, question type,
-      difficulty, and more.
+      Explore all the questions we have to offer. Filter by tags, question type, difficulty, and
+      more.
     </p>
     <p className="text-gray-400">Need a more guided set of questions?</p>
     <div className="flex flex-col md:flex-row gap-2 md:items-center">
@@ -79,10 +76,7 @@ const heroDescription = (
           </Button>
         }
       >
-        <ContinueJourney
-          text="Your next recommended question"
-          variant="default"
-        />
+        <ContinueJourney text="Your next recommended question" variant="default" />
       </Suspense>
     </div>
   </div>

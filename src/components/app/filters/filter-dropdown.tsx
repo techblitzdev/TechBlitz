@@ -26,29 +26,28 @@ interface DifficultyConfig {
   label: string;
 }
 
-const DIFFICULTY_MAP: Record<QuestionDifficulty | 'DEFAULT', DifficultyConfig> =
-  {
-    BEGINNER: {
-      color: '#2563eb33',
-      label: 'Beginner',
-    },
-    EASY: {
-      color: '#10B981',
-      label: 'Easy',
-    },
-    MEDIUM: {
-      color: '#F59E0B',
-      label: 'Medium',
-    },
-    HARD: {
-      color: '#EF4444',
-      label: 'Hard',
-    },
-    DEFAULT: {
-      color: 'white',
-      label: 'All',
-    },
-  };
+const DIFFICULTY_MAP: Record<QuestionDifficulty | 'DEFAULT', DifficultyConfig> = {
+  BEGINNER: {
+    color: '#2563eb33',
+    label: 'Beginner',
+  },
+  EASY: {
+    color: '#10B981',
+    label: 'Easy',
+  },
+  MEDIUM: {
+    color: '#F59E0B',
+    label: 'Medium',
+  },
+  HARD: {
+    color: '#EF4444',
+    label: 'Hard',
+  },
+  DEFAULT: {
+    color: 'white',
+    label: 'All',
+  },
+};
 
 export default function FilterDropdown() {
   const router = useRouter();
@@ -90,26 +89,18 @@ export default function FilterDropdown() {
   };
 
   // get the total number of active filters
-  const activeFilters = [
-    difficultyFilter,
-    answeredFilter,
-    questionTypeFilter,
-  ].filter((filter) => filter !== null).length;
+  const activeFilters = [difficultyFilter, answeredFilter, questionTypeFilter].filter(
+    (filter) => filter !== null
+  ).length;
 
   const getCurrentDifficulty = (): QuestionDifficulty | 'DEFAULT' => {
-    return (
-      (searchParams.get('difficulty')?.toUpperCase() as QuestionDifficulty) ||
-      'DEFAULT'
-    );
+    return (searchParams.get('difficulty')?.toUpperCase() as QuestionDifficulty) || 'DEFAULT';
   };
 
   const currentDifficulty = getCurrentDifficulty();
 
   return (
-    <div
-      className="flex items-center space-x-2"
-      data-pending={isPending ? '' : undefined}
-    >
+    <div className="flex items-center space-x-2" data-pending={isPending ? '' : undefined}>
       <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
         <DropdownMenuTrigger asChild>
           <Button
@@ -132,10 +123,7 @@ export default function FilterDropdown() {
           className="!p-0 w-40 bg-black border border-black-50 text-white text-sm"
         >
           <DropdownMenuGroup className="p-1">
-            <DropdownMenuSub
-              open={showDifficulty}
-              onOpenChange={setShowDifficulty}
-            >
+            <DropdownMenuSub open={showDifficulty} onOpenChange={setShowDifficulty}>
               <DropdownMenuSubTrigger className="py-2 flex items-center justify-between hover:!text-white hover:cursor-pointer">
                 Difficulty
               </DropdownMenuSubTrigger>
@@ -150,21 +138,14 @@ export default function FilterDropdown() {
                       >
                         <button
                           onClick={() =>
-                            startTransition(() =>
-                              updateQueryParams('difficulty', key)
-                            )
+                            startTransition(() => updateQueryParams('difficulty', key))
                           }
                           className="h-full w-full text-left flex items-center gap-x-2"
                         >
-                          <div
-                            className="size-2 rounded-full"
-                            style={{ backgroundColor: color }}
-                          />
+                          <div className="size-2 rounded-full" style={{ backgroundColor: color }} />
                           <div className="flex items-center w-full justify-between">
                             {label}
-                            {currentDifficulty === key && (
-                              <Check className="size-3 text-white" />
-                            )}
+                            {currentDifficulty === key && <Check className="size-3 text-white" />}
                           </div>
                         </button>
                       </DropdownMenuItem>
@@ -174,19 +155,13 @@ export default function FilterDropdown() {
             </DropdownMenuSub>
             <DropdownMenuItem
               onClick={() =>
-                updateQueryParams(
-                  'answered',
-                  answeredFilter === 'true' ? null : 'true'
-                )
+                updateQueryParams('answered', answeredFilter === 'true' ? null : 'true')
               }
               className="py-2 flex items-center hover:!text-white hover:cursor-pointer"
             >
               Answered
             </DropdownMenuItem>
-            <DropdownMenuSub
-              open={showQuestionType}
-              onOpenChange={setShowQuestionType}
-            >
+            <DropdownMenuSub open={showQuestionType} onOpenChange={setShowQuestionType}>
               <DropdownMenuSubTrigger className="py-2 flex items-center justify-between hover:!text-white hover:cursor-pointer">
                 Question Type
               </DropdownMenuSubTrigger>
@@ -226,12 +201,7 @@ export default function FilterDropdown() {
               activeFilters > 0 ? 'max-h-14 p-2 pt-0' : 'max-h-0'
             }`}
           >
-            <Button
-              variant="destructive"
-              size="sm"
-              onClick={clearAllFilters}
-              className="w-full"
-            >
+            <Button variant="destructive" size="sm" onClick={clearAllFilters} className="w-full">
               Clear Filters
             </Button>
           </div>

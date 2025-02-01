@@ -23,8 +23,7 @@ export default function CompactPricingCard({
   return (
     <Card
       style={{
-        background:
-          'radial-gradient(128% 107% at 0% 0%, #212121 0%, rgb(0,0,0) 77.61%)',
+        background: 'radial-gradient(128% 107% at 0% 0%, #212121 0%, rgb(0,0,0) 77.61%)',
       }}
       className={cn(
         'flex-1 group-hover:scale-[1.03] duration-300 bg-black-75 flex flex-col justify-between h-full border-black-50',
@@ -44,17 +43,10 @@ export default function CompactPricingCard({
           </div>
           <div className="flex gap-x-1 items-center">
             <div className="flex gap-x-1 items-center font-onest text-gradient from-white to-white/75">
-              <span className="text-base font-semibold">
-                {product.currencySymbol}
-              </span>
-              <NumberFlow
-                value={product.price}
-                className="text-3xl font-onest text-white"
-              />
+              <span className="text-base font-semibold">{product.currencySymbol}</span>
+              <NumberFlow value={product.price} className="text-3xl font-onest text-white" />
             </div>
-            <span className="text-xs font-inter mb-0.5 text-gray-300">
-              {product.frequencyText}
-            </span>
+            <span className="text-xs font-inter mb-0.5 text-gray-300">{product.frequencyText}</span>
           </div>
         </div>
       </CardHeader>

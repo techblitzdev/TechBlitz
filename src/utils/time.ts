@@ -16,9 +16,7 @@ export const formatSeconds = (seconds: number, shortForm?: boolean) => {
   let result = '';
 
   if (minutes > 0) {
-    result += `${minutes}${
-      shortForm ? 'm' : ` minute${minutes !== 1 ? 's' : ''}`
-    }`;
+    result += `${minutes}${shortForm ? 'm' : ` minute${minutes !== 1 ? 's' : ''}`}`;
   }
 
   if (remainingSeconds > 0) {

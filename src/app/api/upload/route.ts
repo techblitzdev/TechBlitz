@@ -24,10 +24,7 @@ export async function POST(req: NextRequest) {
 
   // Validate required fields
   if (!files.length || !userId || !route) {
-    return NextResponse.json(
-      { message: 'Missing required fields' },
-      { status: 400 }
-    );
+    return NextResponse.json({ message: 'Missing required fields' }, { status: 400 });
   }
 
   // Validate file
@@ -56,13 +53,11 @@ export async function POST(req: NextRequest) {
   // Upload the files to the storage
   // The file will be stored in the user-profile-pictures bucket with the key `userId/logo`
   // upsert set to true so the user can replace the logo if they want to
-  const { error } = await supabase.storage
-    .from(route)
-    .upload(fileLocation, file, {
-      cacheControl: '3600',
-      upsert: true,
-      contentType: file.type,
-    });
+  const { error } = await supabase.storage.from(route).upload(fileLocation, file, {
+    cacheControl: '3600',
+    upsert: true,
+    contentType: file.type,
+  });
 
   // Update the database with the new logo
   if (error && error instanceof Error) {
@@ -70,9 +65,7 @@ export async function POST(req: NextRequest) {
   }
 
   // get the public url for the newly uploaded file
-  const { data: url } = await supabase.storage
-    .from(route)
-    .getPublicUrl(fileLocation);
+  const { data: url } = await supabase.storage.from(route).getPublicUrl(fileLocation);
 
   // append a unique id to the url to refetch the image every time we upload it
   // this is to prevent the browser from caching the image

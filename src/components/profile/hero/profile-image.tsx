@@ -7,23 +7,14 @@ import { Input } from '@/components/ui/input';
 import { UserRecord } from '@/types/User';
 import { toast } from 'sonner';
 import { useState } from 'react';
-import {
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-  Tooltip,
-} from '@/components/ui/tooltip';
+import { TooltipContent, TooltipProvider, TooltipTrigger, Tooltip } from '@/components/ui/tooltip';
 
 export default function ProfileImage(opts: { user: UserRecord }) {
   const { user } = opts;
 
-  const [userProfilePicture, setUserProfilePicture] = useState(
-    user?.userProfilePicture
-  );
+  const [userProfilePicture, setUserProfilePicture] = useState(user?.userProfilePicture);
 
-  const onProfilePictureChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const onProfilePictureChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!user?.uid || !event.target.files) return;
 
     const formData = new FormData();
@@ -56,17 +47,10 @@ export default function ProfileImage(opts: { user: UserRecord }) {
         <TooltipProvider>
           <Tooltip delayDuration={0}>
             <TooltipTrigger className="cursor-pointer block w-full h-full">
-              <label
-                htmlFor="logo-file-upload"
-                className="cursor-pointer block w-full h-full"
-              >
+              <label htmlFor="logo-file-upload" className="cursor-pointer block w-full h-full">
                 <ProfilePicture
                   src={userProfilePicture ?? ''}
-                  alt={
-                    user
-                      ? `${getUserDisplayName(user)}'s profile photo`
-                      : 'Profile photo'
-                  }
+                  alt={user ? `${getUserDisplayName(user)}'s profile photo` : 'Profile photo'}
                   className="w-full h-full"
                 />
                 {user.userLevel !== 'FREE' && (

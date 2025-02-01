@@ -23,11 +23,7 @@ export default function QuestionCardFooter(opts: {
             id="question-card-footer"
             className="p-4 w-full flex flex-col md:flex-row gap-3 justify-between md:items-center bg-black"
           >
-            <TagDisplay
-              tags={questionTags}
-              variant="secondary"
-              numberOfTags={6}
-            />
+            <TagDisplay tags={questionTags} variant="secondary" numberOfTags={6} />
           </div>
         </>
       )}

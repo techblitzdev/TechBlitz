@@ -19,9 +19,7 @@ export default function Card({
       {footer && (
         <>
           <Separator className="bg-black-50" />
-          <div className="p-4 text-sm flex w-full items-center justify-between">
-            {footer}
-          </div>
+          <div className="p-4 text-sm flex w-full items-center justify-between">{footer}</div>
         </>
       )}
     </div>

@@ -4,12 +4,7 @@ import { useState, useTransition } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
-import {
-  TooltipContent,
-  TooltipTrigger,
-  Tooltip,
-  TooltipProvider,
-} from '@/components/ui/tooltip';
+import { TooltipContent, TooltipTrigger, Tooltip, TooltipProvider } from '@/components/ui/tooltip';
 import { Bookmark } from 'lucide-react';
 
 import { bookmarkQuestion } from '@/actions/questions/bookmark';

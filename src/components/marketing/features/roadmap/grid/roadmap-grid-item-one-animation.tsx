@@ -25,9 +25,7 @@ const sampleAnswers = [
 ];
 
 export default function RoadmapGridItemOneAnimation() {
-  const [currentAnswers, setCurrentAnswers] = useState(
-    sampleAnswers.slice(0, 3)
-  );
+  const [currentAnswers, setCurrentAnswers] = useState(sampleAnswers.slice(0, 3));
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
@@ -36,8 +34,7 @@ export default function RoadmapGridItemOneAnimation() {
       setTimeout(() => {
         setCurrentAnswers((prev) => {
           const nextIndex =
-            (sampleAnswers.findIndex((a) => a.id === prev[0].id) + 1) %
-            sampleAnswers.length;
+            (sampleAnswers.findIndex((a) => a.id === prev[0].id) + 1) % sampleAnswers.length;
           return [
             sampleAnswers[nextIndex],
             sampleAnswers[(nextIndex + 1) % sampleAnswers.length],
@@ -75,9 +72,7 @@ export default function RoadmapGridItemOneAnimation() {
               ) : (
                 <X className="size-4 text-red-400" />
               )}
-              <p className="text-white text-sm sm:text-base font-onest">
-                {answer.text}
-              </p>
+              <p className="text-white text-sm sm:text-base font-onest">{answer.text}</p>
             </motion.div>
           ))}
         </motion.div>

@@ -5,11 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import {
-  HamburgerMenuIcon,
-  Cross1Icon,
-  ChevronDownIcon,
-} from '@radix-ui/react-icons';
+import { HamburgerMenuIcon, Cross1Icon, ChevronDownIcon } from '@radix-ui/react-icons';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useUser } from '@/hooks/use-user';
@@ -67,9 +63,7 @@ export function MobileMenu() {
 
   const toggleExpanded = (label: string) => {
     setExpandedItems((prev) =>
-      prev.includes(label)
-        ? prev.filter((item) => item !== label)
-        : [...prev, label]
+      prev.includes(label) ? prev.filter((item) => item !== label) : [...prev, label]
     );
   };
 
@@ -86,23 +80,15 @@ export function MobileMenu() {
         )}
       >
         <div
-          className={cn(
-            'flex items-center justify-between',
-            hasChildren && 'cursor-pointer'
-          )}
+          className={cn('flex items-center justify-between', hasChildren && 'cursor-pointer')}
           onClick={() => hasChildren && toggleExpanded(item.label)}
         >
           {hasChildren ? (
-            <span className={cn('py-2 block', depth === 1 && 'text-sm')}>
-              {item.label}
-            </span>
+            <span className={cn('py-2 block', depth === 1 && 'text-sm')}>{item.label}</span>
           ) : (
             <Link
               href={item.href || '#'}
-              className={cn(
-                'hover:text-accent duration-300 py-2 block',
-                depth === 1 && 'text-sm'
-              )}
+              className={cn('hover:text-accent duration-300 py-2 block', depth === 1 && 'text-sm')}
               onClick={() => setIsOpen(false)}
               aria-label={item.label}
             >
@@ -159,18 +145,11 @@ export function MobileMenu() {
           <span className="sr-only">Toggle menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent
-        side="right"
-        className="w-[300px] sm:w-[400px] bg-[#000000]"
-      >
+      <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-[#000000]">
         <div className="flex flex-col h-full">
           <div className="flex justify-between items-center py-4">
             <span className="text-lg font-semibold">Menu</span>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsOpen(false)}
-            >
+            <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
               <Cross1Icon className="h-5 w-5" />
               <span className="sr-only">Close menu</span>
             </Button>

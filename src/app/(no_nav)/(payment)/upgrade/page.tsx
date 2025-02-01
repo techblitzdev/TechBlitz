@@ -4,12 +4,9 @@ import { X } from 'lucide-react';
 import { cookies } from 'next/headers';
 import { revalidatePath } from 'next/cache';
 
-const StarsBackground = dynamic(
-  () => import('@/components/ui/stars-background'),
-  {
-    ssr: false,
-  }
-);
+const StarsBackground = dynamic(() => import('@/components/ui/stars-background'), {
+  ssr: false,
+});
 
 import Logo from '@/components/ui/logo';
 import { PricingCard } from '@/components/shared/payment/payment-card';
@@ -27,8 +24,7 @@ async function updateFrequency(frequency: 'month' | 'year') {
 export default async function UpgradePage() {
   const user = await useUserServer();
   const cookieStore = cookies();
-  const billingPeriod =
-    (cookieStore.get('billing_frequency')?.value as 'month' | 'year') || 'year';
+  const billingPeriod = (cookieStore.get('billing_frequency')?.value as 'month' | 'year') || 'year';
 
   const products = getPlans(user, true, billingPeriod).filter(
     (product) => product && product.id !== 'free'
@@ -63,13 +59,10 @@ export default async function UpgradePage() {
 
         <div className="flex flex-col w-full mt-6">
           <p className="text-center max-w-xl self-center">
-            Upgrade your account to unlock premium features, gain access to
-            exclusive content, and be the first to experience new updates.
+            Upgrade your account to unlock premium features, gain access to exclusive content, and
+            be the first to experience new updates.
           </p>
-          <FrequencyToggle
-            initialFrequency={billingPeriod}
-            onFrequencyChange={updateFrequency}
-          />
+          <FrequencyToggle initialFrequency={billingPeriod} onFrequencyChange={updateFrequency} />
           <div className="flex flex-col lg:flex-row gap-10 justify-center mt-8 md:mt-16 px-2 md:px-10">
             {products.map(
               (product) =>

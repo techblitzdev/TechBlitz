@@ -14,9 +14,7 @@ type SubscriptionResponse = {
 /**
  * Looks up or creates a customer and creates a subscription for them
  */
-export const createSubscription = async (
-  priceId: string
-): Promise<SubscriptionResponse> => {
+export const createSubscription = async (priceId: string): Promise<SubscriptionResponse> => {
   const { data } = await getUserFromSession();
   if (!data) {
     throw new Error('User not found');
@@ -37,19 +35,15 @@ export const createSubscription = async (
       const customerParams: Stripe.CustomerCreateParams = {
         email,
         metadata: {
-          createdAt: new Date().toISOString()
-        }
+          createdAt: new Date().toISOString(),
+        },
       };
       customer = await createCustomer(customerParams, stripe);
       isNewCustomer = true;
     }
 
     // Check if the user already has an active subscription
-    const existingSubscription = await hasActiveSubscription(
-      customer.id,
-      priceId,
-      stripe
-    );
+    const existingSubscription = await hasActiveSubscription(customer.id, priceId, stripe);
 
     let subscription: Stripe.Subscription;
 
@@ -58,18 +52,15 @@ export const createSubscription = async (
     if (existingSubscription.data.length > 0) {
       console.log('existing subscription');
       // Update the existing Stripe subscription with the new price
-      subscription = await stripe.subscriptions.update(
-        existingSubscription.data[0].id,
-        {
-          items: [
-            {
-              id: existingSubscription.data[0].items.data[0].id,
-              price: priceId
-            }
-          ],
-          proration_behavior: 'create_prorations'
-        }
-      );
+      subscription = await stripe.subscriptions.update(existingSubscription.data[0].id, {
+        items: [
+          {
+            id: existingSubscription.data[0].items.data[0].id,
+            price: priceId,
+          },
+        ],
+        proration_behavior: 'create_prorations',
+      });
     } else {
       console.log('new subscription');
       // Create a new subscription
@@ -79,12 +70,12 @@ export const createSubscription = async (
         payment_behavior: 'default_incomplete',
         payment_settings: {
           save_default_payment_method: 'on_subscription',
-          payment_method_types: ['card']
+          payment_method_types: ['card'],
         },
         expand: ['latest_invoice.payment_intent'],
         metadata: {
-          email: customer.email
-        }
+          email: customer.email,
+        },
       });
     }
 
@@ -103,7 +94,7 @@ export const createSubscription = async (
       clientSecret: paymentIntent.client_secret,
       customerId: customer.id,
       isNewCustomer,
-      stripeSubscriptionItemId: subscription.items.data[0].id
+      stripeSubscriptionItemId: subscription.items.data[0].id,
     };
   } catch (error) {
     console.error('Error in createSubscription:', error);
@@ -120,7 +111,7 @@ export const lookupCustomer = async (
 ): Promise<Stripe.Customer | null> => {
   const existingCustomer = await stripe.customers.list({
     email: email,
-    limit: 1
+    limit: 1,
   });
 
   return existingCustomer.data.length ? existingCustomer.data[0] : null;
@@ -153,7 +144,7 @@ export const hasActiveSubscription = async (
     return await stripe.subscriptions.list({
       customer: customerId,
       status: 'active',
-      expand: ['data.items.data.price']
+      expand: ['data.items.data.price'],
     });
   } catch (error) {
     console.error('Error checking active subscription:', error);

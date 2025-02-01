@@ -1,9 +1,6 @@
 import CodeComparison from './code-comparison';
 
-export default async function ComparisonBlock(opts: {
-  header?: string;
-  subheader?: string;
-}) {
+export default async function ComparisonBlock(opts: { header?: string; subheader?: string }) {
   const { header, subheader } = opts;
 
   return (

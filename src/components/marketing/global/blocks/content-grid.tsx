@@ -44,9 +44,7 @@ export default function MarketingContentGrid({
               <h3 className="text-lg font-semibold">{item?.title}</h3>
             </div>
 
-            <p className="text-sm text-gray-400 font-onest">
-              {item?.description}
-            </p>
+            <p className="text-sm text-gray-400 font-onest">{item?.description}</p>
           </div>
         ))}
       </div>

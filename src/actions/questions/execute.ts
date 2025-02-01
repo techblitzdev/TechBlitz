@@ -51,9 +51,7 @@ export const executeQuestionCode = async ({
     `;
 
     // Extract function name if it exists
-    const functionMatch = code.match(
-      /function\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\(/
-    );
+    const functionMatch = code.match(/function\s+([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\(/);
     const functionName = functionMatch ? functionMatch[1] : 'solution';
 
     const response = await fetch(process.env.EXECUTE_CODE_URL || '', {
@@ -138,8 +136,6 @@ export const executeQuestionCode = async ({
     );
   } catch (error) {
     console.error('Code execution failed:', error);
-    throw new Error(
-      error instanceof Error ? error.message : 'Failed to execute code'
-    );
+    throw new Error(error instanceof Error ? error.message : 'Failed to execute code');
   }
 };

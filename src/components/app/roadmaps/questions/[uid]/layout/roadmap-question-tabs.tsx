@@ -11,19 +11,12 @@ import RoadmapAnswerQuestionForm from '@/components/app/roadmaps/questions/roadm
 import QuestionResourceTab from '@/components/app/questions/resources/question-resource-tab';
 
 export default function RoadmapQuestionTabs() {
-  const { roadmapQuestion, roadmapUid, user, showHint, setShowHint } =
-    useRoadmapQuestion();
+  const { roadmapQuestion, roadmapUid, user, showHint, setShowHint } = useRoadmapQuestion();
 
-  const [activeTab, setActiveTab] = useState<
-    'description' | 'resources' | 'stats'
-  >('description');
+  const [activeTab, setActiveTab] = useState<'description' | 'resources' | 'stats'>('description');
 
   const renderAnswerForm = () => (
-    <RoadmapAnswerQuestionForm
-      question={roadmapQuestion}
-      userData={user}
-      roadmapUid={roadmapUid}
-    />
+    <RoadmapAnswerQuestionForm question={roadmapQuestion} userData={user} roadmapUid={roadmapUid} />
   );
 
   return (
@@ -63,23 +56,14 @@ export default function RoadmapQuestionTabs() {
           <div className="flex w-full justify-between gap-5 mb-5">
             <div className="flex w-full gap-2 items-center">
               <Chip
-                color={
-                  getQuestionDifficultyColor(roadmapQuestion.difficulty).bg
-                }
+                color={getQuestionDifficultyColor(roadmapQuestion.difficulty).bg}
                 text={capitalise(roadmapQuestion.difficulty)}
-                textColor={
-                  getQuestionDifficultyColor(roadmapQuestion.difficulty).text
-                }
-                border={
-                  getQuestionDifficultyColor(roadmapQuestion.difficulty).border
-                }
+                textColor={getQuestionDifficultyColor(roadmapQuestion.difficulty).text}
+                border={getQuestionDifficultyColor(roadmapQuestion.difficulty).border}
               />
             </div>
             <div className="flex items-center">
-              <QuestionHintTrigger
-                showHint={showHint}
-                setShowHint={setShowHint}
-              />
+              <QuestionHintTrigger showHint={showHint} setShowHint={setShowHint} />
               <BookmarkQuestion question={roadmapQuestion} isRoadmap={true} />
             </div>
           </div>
@@ -97,10 +81,7 @@ export default function RoadmapQuestionTabs() {
         <h3 className="font-inter font-light text-lg md:text-2xl">
           A list of helpful resources to help you answer this question.
         </h3>
-        <QuestionResourceTab
-          resources={[]}
-          reference={roadmapQuestion.uid || undefined}
-        />
+        <QuestionResourceTab resources={[]} reference={roadmapQuestion.uid || undefined} />
       </TabsContent>
     </>
   );

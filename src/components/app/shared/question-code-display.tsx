@@ -65,9 +65,7 @@ export default function QuestionCodeDisplay({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
             >
-              <h3 className="text-md font-bold underline">
-                {capitalize(key.replace(/-/g, ' '))}
-              </h3>
+              <h3 className="text-md font-bold underline">{capitalize(key.replace(/-/g, ' '))}</h3>
               <p className="text-gray-200">{value.replace(/```/g, '')}</p>
             </motion.div>
           ))}
@@ -119,11 +117,7 @@ export default function QuestionCodeDisplay({
                 loading={<LoadingSpinner />}
               />
             ) : (
-              <CodeDisplay
-                content={codeSnippet}
-                user={user}
-                backgroundColor="#111111"
-              />
+              <CodeDisplay content={codeSnippet} user={user} backgroundColor="#111111" />
             )}
           </motion.div>
         )}

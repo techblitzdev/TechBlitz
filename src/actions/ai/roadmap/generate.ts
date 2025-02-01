@@ -28,10 +28,7 @@ interface RoadmapQuestion {
   };
 }
 
-export const roadmapGenerate = async (opts: {
-  roadmapUid: string;
-  generateMore?: boolean;
-}) => {
+export const roadmapGenerate = async (opts: { roadmapUid: string; generateMore?: boolean }) => {
   const { roadmapUid } = opts;
   opts.generateMore = opts.generateMore ?? false;
 
@@ -77,31 +74,26 @@ export const roadmapGenerate = async (opts: {
   const questions = addUidsToResponse(formattedResponse.questionData);
 
   // add a order value to each question
-  const questionsWithOrder = addOrderToResponseQuestions(
-    questions,
-    existingCount || 0
-  );
+  const questionsWithOrder = addOrderToResponseQuestions(questions, existingCount || 0);
 
-  const roadmapQuestionsData: RoadmapQuestion[] = questionsWithOrder.map(
-    (question: any) => ({
-      uid: question.uid,
-      roadmapUid,
-      question: question.questions,
-      correctAnswerUid: question.correctAnswerUid,
-      codeSnippet: question.codeSnippet,
-      hint: question.hint,
-      completed: false,
-      order: question.order,
-      difficulty: question.difficulty.toUpperCase() || 'EASY',
-      RoadmapUserQuestionsAnswers: {
-        create: question.answers.map((answer: any) => ({
-          answer: answer.answer,
-          correct: answer.correct,
-          uid: answer.uid,
-        })),
-      },
-    })
-  );
+  const roadmapQuestionsData: RoadmapQuestion[] = questionsWithOrder.map((question: any) => ({
+    uid: question.uid,
+    roadmapUid,
+    question: question.questions,
+    correctAnswerUid: question.correctAnswerUid,
+    codeSnippet: question.codeSnippet,
+    hint: question.hint,
+    completed: false,
+    order: question.order,
+    difficulty: question.difficulty.toUpperCase() || 'EASY',
+    RoadmapUserQuestionsAnswers: {
+      create: question.answers.map((answer: any) => ({
+        answer: answer.answer,
+        correct: answer.correct,
+        uid: answer.uid,
+      })),
+    },
+  }));
 
   await prisma.$transaction([
     prisma.roadmapUserQuestions.createMany({

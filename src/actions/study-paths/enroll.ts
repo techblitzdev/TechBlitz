@@ -52,9 +52,7 @@ export const enrollInStudyPath = async (studyPathUid: string) => {
 
   // get the percentage of questions that have been completed
   const percentageCompleted =
-    (completedQuestions.length /
-      (studyPathQuestions?.questionSlugs?.length ?? 0)) *
-    100;
+    (completedQuestions.length / (studyPathQuestions?.questionSlugs?.length ?? 0)) * 100;
 
   // create the enrollment
   const enrollment = await prisma.userStudyPath.create({

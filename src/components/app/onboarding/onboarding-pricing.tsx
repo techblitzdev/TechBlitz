@@ -29,18 +29,12 @@ export default function OnboardingPricing() {
           >
             Looking for a more personalized experience?
           </motion.h1>
-          <motion.p
-            className="text-center text-gray-400 max-w-2xl text-sm"
-            variants={itemVariants}
-          >
-            Upgrade to a paid plan to unlock premium features, gain access to
-            exclusive content, and be the first to experience new updates.
+          <motion.p className="text-center text-gray-400 max-w-2xl text-sm" variants={itemVariants}>
+            Upgrade to a paid plan to unlock premium features, gain access to exclusive content, and
+            be the first to experience new updates.
           </motion.p>
         </div>
-        <FrequencyTabs
-          initialFrequency={billingPeriod}
-          onFrequencyChange={setBillingPeriod}
-        />
+        <FrequencyTabs initialFrequency={billingPeriod} onFrequencyChange={setBillingPeriod} />
       </CardHeader>
       <CardContent className="flex flex-col lg:flex-row gap-10 justify-center mt-4 mb-5 px-2 md:px-10">
         <div className="flex flex-col lg:flex-row gap-10 justify-center items-stretch w-full">

@@ -18,25 +18,17 @@ export default function UserAnswers({ answers }: { answers: Answer[] }) {
             key={answer.questionUid}
             className="flex items-center gap-4 px-2 py-1 transition-all duration-300"
           >
-            <span className="text-lg font-medium">
-              {answer.question.order}.
-            </span>
+            <span className="text-lg font-medium">{answer.question.order}.</span>
             <span className="text-sm font-semibold flex-grow">
               {answer.correct ? (
                 <div className="flex items-center">
                   <span className="text-lg">Correct</span>
-                  <Check
-                    className="size-5 ml-2 text-green-400"
-                    aria-hidden="true"
-                  />
+                  <Check className="size-5 ml-2 text-green-400" aria-hidden="true" />
                 </div>
               ) : (
                 <div className="flex items-center">
                   <span className="text-lg">Incorrect</span>
-                  <X
-                    className="size-5 ml-2 text-destructive"
-                    aria-hidden="true"
-                  />
+                  <X className="size-5 ml-2 text-destructive" aria-hidden="true" />
                 </div>
               )}
             </span>

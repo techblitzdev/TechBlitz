@@ -12,11 +12,7 @@ import ChangeCodeTheme from '@/components/app/questions/single/layout/change-cod
 import CodeDisplayWrapper from '@/components/app/questions/single/layout/code-display-wrapper';
 import CodeEditor from '@/components/app/questions/code-editor/editor';
 
-export default async function TodaysQuestionPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function TodaysQuestionPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
 
   const user = await useUserServer();
@@ -56,26 +52,16 @@ export default async function TodaysQuestionPage({
       >
         <div className="px-4 py-[18px] text-sm flex w-full items-center justify-end bg-black-25 gap-x-3">
           {/** explain question ai button */}
-          <AiQuestionHelp
-            question={question}
-            user={user}
-            questionType="regular"
-          />
+          <AiQuestionHelp question={question} user={user} questionType="regular" />
           {/** code theme selector */}
           <ChangeCodeTheme user={user} />
           {/** code snippet */}
-          {question.codeSnippet && (
-            <ExpandedCodeModal code={question.codeSnippet} />
-          )}
+          {question.codeSnippet && <ExpandedCodeModal code={question.codeSnippet} />}
         </div>
         <Separator className="bg-black-50" />
         {/** changes based on question type */}
         {question?.questionType === 'CODING_CHALLENGE' ? (
-          <>
-            {question.codeSnippet && (
-              <CodeEditor defaultCode={question.codeSnippet} />
-            )}
-          </>
+          <>{question.codeSnippet && <CodeEditor defaultCode={question.codeSnippet} />}</>
         ) : (
           <CodeDisplayWrapper />
         )}
@@ -84,10 +70,6 @@ export default async function TodaysQuestionPage({
   );
 
   return (
-    <ResizableLayout
-      leftContent={leftContent}
-      rightContent={rightContent}
-      initialLeftWidth={50}
-    />
+    <ResizableLayout leftContent={leftContent} rightContent={rightContent} initialLeftWidth={50} />
   );
 }

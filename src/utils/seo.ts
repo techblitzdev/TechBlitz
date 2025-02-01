@@ -37,9 +37,7 @@ export const createMetadata = ({
   ];
 
   // Ensure canonical URL is always the full URL of the current page
-  const fullCanonicalUrl = canonicalUrl
-    ? `${getBaseUrl()}${canonicalUrl}`
-    : getBaseUrl();
+  const fullCanonicalUrl = canonicalUrl ? `${getBaseUrl()}${canonicalUrl}` : getBaseUrl();
 
   // If image is a string, use it directly as the OG image URL
   if (typeof image === 'string') {

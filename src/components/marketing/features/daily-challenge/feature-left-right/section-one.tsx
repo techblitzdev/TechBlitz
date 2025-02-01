@@ -27,10 +27,7 @@ export default function FeatureLeftRightSectionOne(opts: {
               : "TechBlitz empowers your growth with intuitive progress tracking. See how far you've come with streak counts that celebrate your dedication and keep you motivated. Stay on track, achieve consistency, and make self-improvement a daily habit."}
           </p>
           {learnMoreLink && (
-            <Button
-              variant="secondary"
-              href={'/features/daily-coding-challenges'}
-            >
+            <Button variant="secondary" href={'/features/daily-coding-challenges'}>
               Learn more
             </Button>
           )}

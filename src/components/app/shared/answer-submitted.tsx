@@ -14,12 +14,7 @@ import { toast } from 'sonner';
 import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
 import LoadingSpinner from '@/components/ui/loading';
 import Link from 'next/link';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 import { formatSeconds } from '@/utils/time';
 import { useTransition } from 'react';
@@ -166,11 +161,8 @@ export default function QuestionResult({
             </TooltipProvider>
           )}
         </div>
-        {((userAnswer?.correctAnswer && totalSeconds) ||
-          (result?.passed && totalSeconds)) && (
-          <p className="text-sm text-gray-400">
-            in {formatSeconds(totalSeconds)} seconds
-          </p>
+        {((userAnswer?.correctAnswer && totalSeconds) || (result?.passed && totalSeconds)) && (
+          <p className="text-sm text-gray-400">in {formatSeconds(totalSeconds)} seconds</p>
         )}
       </motion.div>
       <motion.div
@@ -193,12 +185,10 @@ export default function QuestionResult({
                       ? userAnswer
                       : isRoadmapQuestion
                         ? question?.answers.find(
-                            (answer: any) =>
-                              answer.uid === userAnswer?.answerUid
+                            (answer: any) => answer.uid === userAnswer?.answerUid
                           )?.answer || ''
                         : question?.answers.find(
-                            (answer: any) =>
-                              answer.uid === userAnswer?.userAnswerUid
+                            (answer: any) => answer.uid === userAnswer?.userAnswerUid
                           )?.answer || ''
                   }
                   hideIndex={isRoadmapQuestion}
@@ -212,8 +202,7 @@ export default function QuestionResult({
                   content={
                     isRoadmapQuestion
                       ? question?.answers.find(
-                          (answer: any) =>
-                            answer.uid === question.correctAnswerUid
+                          (answer: any) => answer.uid === question.correctAnswerUid
                         )?.answer || ''
                       : question?.answers.find(
                           (answer: any) => answer.uid === question.correctAnswer
@@ -228,22 +217,17 @@ export default function QuestionResult({
         <div className="flex flex-col gap-y-2 mt-5 bg-[#111111] border border-black-50 p-4 rounded-lg">
           <h2 className="text-xl font-bold">Explain this answer</h2>
           <p className="text-sm text-gray-400">
-            Don't understand this answer? Click the button below to get an
-            explanation.
+            Don't understand this answer? Click the button below to get an explanation.
           </p>
           {/** roadmap users get unlimited tokens - no need to show token count */}
           {!isRoadmapQuestion && (
             <p className="text-sm text-white">
-              You have{' '}
-              {user?.userLevel === 'PREMIUM' ? 'unlimited' : tokensUsed} tokens
-              remaining <br />
+              You have {user?.userLevel === 'PREMIUM' ? 'unlimited' : tokensUsed} tokens remaining{' '}
+              <br />
               {user?.userLevel === 'FREE' && (
                 <span className="text-xs text-gray-400">
                   (Free users get 20 tokens,{' '}
-                  <Link
-                    href="https://dub.sh/upgrade-techblitz"
-                    className="text-accent underline"
-                  >
+                  <Link href="https://dub.sh/upgrade-techblitz" className="text-accent underline">
                     upgrade to Premium
                   </Link>{' '}
                   to get unlimited tokens!)
@@ -278,13 +262,10 @@ export default function QuestionResult({
         </div>
         {showQuestionDifficulty && (
           <div className="flex flex-col gap-y-2 mt-3 bg-[#111111] border border-black-50 p-4 rounded-lg">
-            <h2 className="text-xl font-bold">
-              How difficult was this question?
-            </h2>
+            <h2 className="text-xl font-bold">How difficult was this question?</h2>
             <p className="text-sm text-gray-400">
-              Rate this question based on how difficult it was to solve. This
-              will help us improve the personalization of questions served to
-              you.
+              Rate this question based on how difficult it was to solve. This will help us improve
+              the personalization of questions served to you.
             </p>
             <div className="flex flex-col gap-y-2">
               <Select onValueChange={handleDifficultySelect}>
@@ -302,28 +283,20 @@ export default function QuestionResult({
         )}
         {nextQuestionHref && !isLastQuestion && (
           <div className="flex flex-col gap-y-2 bg-[#111111] border border-black-50 p-4 rounded-lg">
-            <h2 className="text-xl font-bold">
-              Ready for your next challenge?
-            </h2>
+            <h2 className="text-xl font-bold">Ready for your next challenge?</h2>
             <p className="text-sm text-gray-400">
               {isRoadmapQuestion
                 ? 'Your next roadmap question is:'
                 : 'Want to continue the flow? Click the button below to go to the next question.'}
             </p>
-            <Button
-              variant="secondary"
-              href={nextQuestionHref}
-              className="w-fit"
-            >
+            <Button variant="secondary" href={nextQuestionHref} className="w-fit">
               Next Question
             </Button>
           </div>
         )}
         {isLastQuestion && (
           <div className="flex flex-col gap-y-2 bg-[#111111] border border-black-50 p-4 rounded-lg">
-            <h2 className="text-xl font-bold">
-              You've answered all questions!
-            </h2>
+            <h2 className="text-xl font-bold">You've answered all questions!</h2>
             <p className="text-sm text-gray-400">
               Click the button below to generate your roadmap.
             </p>
@@ -332,39 +305,37 @@ export default function QuestionResult({
             </Button>
           </div>
         )}
-        {!isRoadmapQuestion &&
-          relatedQuestions &&
-          relatedQuestions.length > 0 && (
-            <div className="flex flex-col gap-y-5">
-              <div className="flex flex-col gap-y-2">
-                <h2 className="text-xl font-bold">Related Questions</h2>
-                <p className="text-sm text-gray-400">
-                  {correctAnswer === 'correct'
-                    ? 'Here are some questions that are similar to this one.'
-                    : 'Here are some questions that will help you understand this concept better.'}
-                </p>
-              </div>
-              <motion.div
-                className="flex flex-col divide-y divide-black-50 border border-black-50 rounded-xl overflow-hidden"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
-              >
-                {relatedQuestions.map((question: any) => (
-                  <Link
-                    key={question.slug}
-                    href={`/question/${question.slug}`}
-                    className={cn(
-                      'px-4 py-3 w-full flex justify-between items-center group bg-black-75 transition-colors'
-                    )}
-                  >
-                    <p className="text-sm text-white">{question.question}</p>
-                    <ArrowRight className="size-4 mr-1 group-hover:mr-0 duration-300 flex-shrink-0" />
-                  </Link>
-                ))}
-              </motion.div>
+        {!isRoadmapQuestion && relatedQuestions && relatedQuestions.length > 0 && (
+          <div className="flex flex-col gap-y-5">
+            <div className="flex flex-col gap-y-2">
+              <h2 className="text-xl font-bold">Related Questions</h2>
+              <p className="text-sm text-gray-400">
+                {correctAnswer === 'correct'
+                  ? 'Here are some questions that are similar to this one.'
+                  : 'Here are some questions that will help you understand this concept better.'}
+              </p>
             </div>
-          )}
+            <motion.div
+              className="flex flex-col divide-y divide-black-50 border border-black-50 rounded-xl overflow-hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
+            >
+              {relatedQuestions.map((question: any) => (
+                <Link
+                  key={question.slug}
+                  href={`/question/${question.slug}`}
+                  className={cn(
+                    'px-4 py-3 w-full flex justify-between items-center group bg-black-75 transition-colors'
+                  )}
+                >
+                  <p className="text-sm text-white">{question.question}</p>
+                  <ArrowRight className="size-4 mr-1 group-hover:mr-0 duration-300 flex-shrink-0" />
+                </Link>
+              ))}
+            </motion.div>
+          </div>
+        )}
       </motion.div>
     </motion.div>
   );

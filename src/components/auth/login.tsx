@@ -2,13 +2,7 @@
 import { useRef, useEffect, useCallback, useState } from 'react';
 // components
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { InputWithLabel } from '@/components/ui/input-label';
 import { toast } from 'sonner';
 import { DiscordLogoIcon, GitHubLogoIcon } from '@radix-ui/react-icons';
@@ -29,10 +23,7 @@ import OrSeparator from '@/components/auth/or-separator';
 
 type SchemaProps = z.infer<typeof loginSchema>;
 
-export default function LoginForm(opts: {
-  redirectUrl: string;
-  onboarding: string;
-}) {
+export default function LoginForm(opts: { redirectUrl: string; onboarding: string }) {
   const { redirectUrl, onboarding } = opts;
 
   const router = useRouter();
@@ -157,12 +148,7 @@ export default function LoginForm(opts: {
           )}
         />
         <FormItem className="col-span-full">
-          <Button
-            type="submit"
-            disabled={isPending.current}
-            className="w-full"
-            variant="secondary"
-          >
+          <Button type="submit" disabled={isPending.current} className="w-full" variant="secondary">
             {isPending.current ? 'Loading...' : 'Login'}
           </Button>
         </FormItem>

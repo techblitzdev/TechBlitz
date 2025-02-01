@@ -33,9 +33,8 @@ export default async function BlogPage() {
               Blog
             </h1>
             <p className="text-gray-400 max-w-xl text-sm md:text-base font-onest text-center">
-              Stay up to date with the latest news and insights from TechBlitz.
-              Gather insights on how to level up your skills, beyond our coding
-              challenges.
+              Stay up to date with the latest news and insights from TechBlitz. Gather insights on
+              how to level up your skills, beyond our coding challenges.
             </p>
           </div>
           <GridPattern
@@ -55,8 +54,8 @@ export default async function BlogPage() {
           {posts.length === 0 && (
             <div className="col-span-full flex flex-col gap-y-4 items-center">
               <p className="text-center">
-                It look's like there are no blog posts posted at the moment.{' '}
-                <br /> Why not try out today's challenge instead?
+                It look's like there are no blog posts posted at the moment. <br /> Why not try out
+                today's challenge instead?
               </p>
               <div className="flex flex-wrap items-center gap-4">
                 <Button href="/">Homepage</Button>

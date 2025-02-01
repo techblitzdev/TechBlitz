@@ -21,15 +21,10 @@ export default function PersonalizedLeft() {
           Your personal learning assistant
         </h3>
         <p className="text-gray-400 font-onest">
-          Stuck on a problem? Ask your very own AI coding assistant. Giving you
-          the ultimate learning experience no matter what challenge you are
-          facing.
+          Stuck on a problem? Ask your very own AI coding assistant. Giving you the ultimate
+          learning experience no matter what challenge you are facing.
         </p>
-        <Button
-          variant="secondary"
-          href="/questions"
-          className="w-fit flex items-center gap-1"
-        >
+        <Button variant="secondary" href="/questions" className="w-fit flex items-center gap-1">
           Try it out
           <ChevronRight className="size-3 ml-1" />
         </Button>

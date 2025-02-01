@@ -1,9 +1,6 @@
 import { prisma } from '@/lib/prisma';
 
-export const getMostQuestionsAnswered = async (
-  take: number = 30,
-  page: number = 1
-) => {
+export const getMostQuestionsAnswered = async (take: number = 30, page: number = 1) => {
   const skip = (page - 1) * take;
 
   const [users, totalCount] = await Promise.all([

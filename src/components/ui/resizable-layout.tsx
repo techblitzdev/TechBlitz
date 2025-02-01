@@ -27,8 +27,7 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (containerRef.current) {
       const containerRect = containerRef.current.getBoundingClientRect();
-      const newLeftWidth =
-        ((e.clientX - containerRect.left) / containerRect.width) * 100;
+      const newLeftWidth = ((e.clientX - containerRect.left) / containerRect.width) * 100;
       const clampedWidth = Math.min(Math.max(newLeftWidth, 30), 70);
       setLeftWidth(clampedWidth);
     }

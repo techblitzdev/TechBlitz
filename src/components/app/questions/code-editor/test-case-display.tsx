@@ -20,13 +20,9 @@ export default function TestCaseDisplay() {
           <div className="space-y-6">
             <div className="flex items-center gap-3 py-2">
               {result.passed ? (
-                <span className="text-xl font-semibold text-green-500 font-onest">
-                  Accepted
-                </span>
+                <span className="text-xl font-semibold text-green-500 font-onest">Accepted</span>
               ) : (
-                <span className="text-xl font-semibold text-red-500 font-onest">
-                  Rejected
-                </span>
+                <span className="text-xl font-semibold text-red-500 font-onest">Rejected</span>
               )}
             </div>
 

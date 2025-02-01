@@ -17,9 +17,8 @@ export default function ChangelogPage() {
           </h1>
 
           <p className="text-white/70 max-w-xl text-base font-onest text-center">
-            View the latest updates and improvements to our platform. We're
-            always working to improve your experience and make learning more
-            enjoyable.
+            View the latest updates and improvements to our platform. We're always working to
+            improve your experience and make learning more enjoyable.
           </p>
         </div>
 

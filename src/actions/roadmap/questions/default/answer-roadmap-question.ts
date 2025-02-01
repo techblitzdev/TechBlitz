@@ -28,72 +28,65 @@ export const answerDefaultRoadmapQuestion = async (opts: {
 
   const correctAnswer = question.correctAnswer === answerUid;
 
-  const { userAnswer, totalQuestions } = await prisma.$transaction(
-    async (prisma) => {
-      // Check if the answer already exists
-      const existingAnswer =
-        await prisma.defaultRoadmapQuestionsUsersAnswers.findFirst({
-          where: {
-            questionUid,
-            roadmapUid,
-          },
-        });
+  const { userAnswer, totalQuestions } = await prisma.$transaction(async (prisma) => {
+    // Check if the answer already exists
+    const existingAnswer = await prisma.defaultRoadmapQuestionsUsersAnswers.findFirst({
+      where: {
+        questionUid,
+        roadmapUid,
+      },
+    });
 
-      let userAnswer;
+    let userAnswer;
 
-      if (existingAnswer) {
-        // If the answer already exists, update it instead of creating a new one
-        userAnswer = await prisma.defaultRoadmapQuestionsUsersAnswers.update({
-          where: { uid: existingAnswer.uid },
-          data: {
-            answer: answerUid,
-            correct: correctAnswer,
-          },
-        });
-      } else {
-        // Create a new answer record
-        userAnswer = await prisma.defaultRoadmapQuestionsUsersAnswers.create({
-          data: {
-            questionUid: questionUid,
-            correct: correctAnswer,
-            roadmapUid: roadmapUid,
-            answer: answerUid,
-          },
-        });
-      }
-
-      // If this is the last question, mark the roadmap as completed
-      const totalQuestions = await prisma.defaultRoadmapQuestions.count();
-
-      // Update the user's roadmap progress
-      await prisma.userRoadmaps.update({
-        where: {
-          uid: roadmapUid,
-          AND: {
-            userUid: user.uid,
-          },
-        },
+    if (existingAnswer) {
+      // If the answer already exists, update it instead of creating a new one
+      userAnswer = await prisma.defaultRoadmapQuestionsUsersAnswers.update({
+        where: { uid: existingAnswer.uid },
         data: {
-          // set the current question to the next question, unless this is the last question
-          currentQuestionIndex:
-            currentQuestionIndex === totalQuestions
-              ? currentQuestionIndex
-              : currentQuestionIndex + 1,
-          // If this is the last question, mark the roadmap as completed
-          status:
-            currentQuestionIndex === totalQuestions ? 'ACTIVE' : 'CREATING',
+          answer: answerUid,
+          correct: correctAnswer,
         },
       });
-
-      return { userAnswer, totalQuestions };
+    } else {
+      // Create a new answer record
+      userAnswer = await prisma.defaultRoadmapQuestionsUsersAnswers.create({
+        data: {
+          questionUid: questionUid,
+          correct: correctAnswer,
+          roadmapUid: roadmapUid,
+          answer: answerUid,
+        },
+      });
     }
-  );
+
+    // If this is the last question, mark the roadmap as completed
+    const totalQuestions = await prisma.defaultRoadmapQuestions.count();
+
+    // Update the user's roadmap progress
+    await prisma.userRoadmaps.update({
+      where: {
+        uid: roadmapUid,
+        AND: {
+          userUid: user.uid,
+        },
+      },
+      data: {
+        // set the current question to the next question, unless this is the last question
+        currentQuestionIndex:
+          currentQuestionIndex === totalQuestions ? currentQuestionIndex : currentQuestionIndex + 1,
+        // If this is the last question, mark the roadmap as completed
+        status: currentQuestionIndex === totalQuestions ? 'ACTIVE' : 'CREATING',
+      },
+    });
+
+    return { userAnswer, totalQuestions };
+  });
 
   const isLastQuestion = currentQuestionIndex === totalQuestions;
 
   // Find the answer text from the question's answers
-  const answerText =
-    question.answers.find((a) => a.uid === answerUid)?.answer || '';
+  const answerText = question.answers.find((a) => a.uid === answerUid)?.answer || '';
 
   return {
     correctAnswer,

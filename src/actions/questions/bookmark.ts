@@ -3,10 +3,7 @@
 import { prisma } from '@/lib/prisma';
 import { getUser } from '../user/authed/get-user';
 
-export const bookmarkQuestion = async (
-  questionUid: string,
-  isRoadmap = false
-) => {
+export const bookmarkQuestion = async (questionUid: string, isRoadmap = false) => {
   const user = await getUser();
 
   if (!user) {
@@ -54,9 +51,7 @@ export const bookmarkQuestion = async (
     await prisma.userBookmarks.create({
       data: {
         userId: user.uid,
-        ...(isRoadmap
-          ? { roadmapUserQuestionId: questionUid }
-          : { questionId: questionUid }),
+        ...(isRoadmap ? { roadmapUserQuestionId: questionUid } : { questionId: questionUid }),
       },
     });
     return { action: 'bookmarked' };

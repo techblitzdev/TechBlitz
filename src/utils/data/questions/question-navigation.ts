@@ -17,10 +17,7 @@ export const getNextAndPreviousQuestion = async (uid: string) => {
   if (!currentQuestion) return null;
 
   // If next/prev questions are stored, fetch them
-  if (
-    currentQuestion.nextQuestionSlug ||
-    currentQuestion.previousQuestionSlug
-  ) {
+  if (currentQuestion.nextQuestionSlug || currentQuestion.previousQuestionSlug) {
     const [nextQuestion, previousQuestion] = await Promise.all([
       currentQuestion.nextQuestionSlug
         ? prisma.questions.findUnique({

@@ -102,9 +102,7 @@ const getStatsChartData = async (opts: {
         break;
       case 'week':
         const weekStart = new Date(answer.createdAt);
-        weekStart.setDate(
-          answer.createdAt.getDate() - answer.createdAt.getDay()
-        );
+        weekStart.setDate(answer.createdAt.getDate() - answer.createdAt.getDay());
         key = `${weekStart.toISOString().slice(0, 10)},${year}`;
         break;
       case 'day':
@@ -132,11 +130,7 @@ const getStatsChartData = async (opts: {
 /**
  * Gets the total number of questions the user has answered within a specific range.
  */
-const getTotalQuestionCount = async (
-  userUid: string,
-  to: string,
-  from: StatsSteps
-) => {
+const getTotalQuestionCount = async (userUid: string, to: string, from: StatsSteps) => {
   if (!userUid) {
     return null;
   }
@@ -162,11 +156,7 @@ const getTotalQuestionCount = async (
 /**
  * Gets the total time taken for questions answered within a specific range.
  */
-export const getTotalTimeTaken = async (
-  userUid: string,
-  to?: string,
-  from?: StatsSteps
-) => {
+export const getTotalTimeTaken = async (userUid: string, to?: string, from?: StatsSteps) => {
   if (!userUid) {
     return null;
   }
@@ -196,10 +186,7 @@ export const getTotalTimeTaken = async (
     },
   });
 
-  const totalTime = answers.reduce(
-    (acc, answer) => acc + (answer.timeTaken || 0),
-    0
-  );
+  const totalTime = answers.reduce((acc, answer) => acc + (answer.timeTaken || 0), 0);
 
   revalidateTag('statistics');
 
@@ -209,11 +196,7 @@ export const getTotalTimeTaken = async (
 /**
  * Gets the highest scoring tag within a specific range.
  */
-const getHighestScoringTag = async (
-  userUid: string,
-  to: string,
-  from: StatsSteps
-) => {
+const getHighestScoringTag = async (userUid: string, to: string, from: StatsSteps) => {
   if (!userUid) {
     return null;
   }
@@ -273,13 +256,12 @@ export const getData = async (opts: {
   const { userUid, to, from } = opts;
 
   // run all in parallel as they do not depend on each other
-  const [stats, totalQuestions, totalTimeTaken, highestScoringTag] =
-    await Promise.all([
-      getStatsChartData(opts),
-      getTotalQuestionCount(userUid, to, from),
-      getTotalTimeTaken(userUid, to, from),
-      getHighestScoringTag(userUid, to, from),
-    ]);
+  const [stats, totalQuestions, totalTimeTaken, highestScoringTag] = await Promise.all([
+    getStatsChartData(opts),
+    getTotalQuestionCount(userUid, to, from),
+    getTotalTimeTaken(userUid, to, from),
+    getHighestScoringTag(userUid, to, from),
+  ]);
 
   return { stats, totalQuestions, totalTimeTaken, highestScoringTag };
 };

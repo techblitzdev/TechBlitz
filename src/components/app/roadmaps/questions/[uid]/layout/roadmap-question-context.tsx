@@ -5,10 +5,7 @@ import { answerRoadmapQuestion } from '@/actions/roadmap/questions/answer-roadma
 import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
 import { RoadmapUserQuestions } from '@/types/Roadmap';
 import { UserRecord } from '@/types/User';
-import {
-  RoadmapUserQuestionsAnswers,
-  RoadmapUserQuestionsUserAnswers,
-} from '@prisma/client';
+import { RoadmapUserQuestionsAnswers, RoadmapUserQuestionsUserAnswers } from '@prisma/client';
 import { createContext, useState, useContext } from 'react';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -22,19 +19,13 @@ interface RoadmapQuestionContextType {
   user: UserRecord;
   currentLayout: Layout;
   setCurrentLayout: (layout: Layout) => void;
-  handleAnswerRoadmapQuestion: (
-    e: React.FormEvent<HTMLFormElement>
-  ) => Promise<void>;
+  handleAnswerRoadmapQuestion: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
   selectedAnswer: string | null;
   setSelectedAnswer: (answer: string | null) => void;
   newUserData: Omit<RoadmapUserQuestionsAnswers, 'answers'> | null;
-  setNewUserData: (
-    userData: Omit<RoadmapUserQuestionsAnswers, 'answers'> | null
-  ) => void;
+  setNewUserData: (userData: Omit<RoadmapUserQuestionsAnswers, 'answers'> | null) => void;
   nextQuestion: Omit<RoadmapUserQuestions, 'answers'> | null;
-  setNextQuestion: (
-    question: Omit<RoadmapUserQuestions, 'answers'> | null
-  ) => void;
+  setNextQuestion: (question: Omit<RoadmapUserQuestions, 'answers'> | null) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
   correctAnswer: AnswerStatus;
@@ -60,9 +51,7 @@ const RoadmapQuestionContext = createContext<RoadmapQuestionContextType>(
 export const useRoadmapQuestion = () => {
   const context = useContext(RoadmapQuestionContext);
   if (!context) {
-    throw new Error(
-      'useRoadmapQuestion must be used within a RoadmapQuestionContextProvider'
-    );
+    throw new Error('useRoadmapQuestion must be used within a RoadmapQuestionContextProvider');
   }
   return context;
 };
@@ -87,19 +76,13 @@ export const RoadmapQuestionContextProvider = ({
     RoadmapUserQuestionsAnswers,
     'answers'
   > | null>(null);
-  const [nextQuestion, setNextQuestion] = useState<Omit<
-    RoadmapUserQuestions,
-    'answers'
-  > | null>();
+  const [nextQuestion, setNextQuestion] = useState<Omit<RoadmapUserQuestions, 'answers'> | null>();
   const [correctAnswer, setCorrectAnswer] = useState<AnswerStatus>('init');
-  const [userAnswer, setUserAnswer] =
-    useState<RoadmapUserQuestionsUserAnswers | null>(null);
+  const [userAnswer, setUserAnswer] = useState<RoadmapUserQuestionsUserAnswers | null>(null);
 
   const [showHint, setShowHint] = useState(false);
 
-  const [answerHelp, setAnswerHelp] = useState<z.infer<
-    typeof answerHelpSchema
-  > | null>(null);
+  const [answerHelp, setAnswerHelp] = useState<z.infer<typeof answerHelpSchema> | null>(null);
 
   /**
    * Method for generating answer help for a roadmap question
@@ -133,9 +116,7 @@ export const RoadmapQuestionContextProvider = ({
     setAnswerHelp(content);
   };
 
-  const handleAnswerRoadmapQuestion = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
+  const handleAnswerRoadmapQuestion = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!user) {

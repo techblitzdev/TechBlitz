@@ -3,19 +3,14 @@
 import { UserRecord } from '@/types/User';
 import { createContext, useState, useContext } from 'react';
 import { answerDefaultRoadmapQuestion } from '@/actions/roadmap/questions/default/answer-roadmap-question';
-import {
-  DefaultRoadmapQuestions,
-  DefaultRoadmapQuestionsAnswers,
-} from '@prisma/client';
+import { DefaultRoadmapQuestions, DefaultRoadmapQuestionsAnswers } from '@prisma/client';
 import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
 import { generateAnswerHelp } from '@/actions/ai/questions/answer-help';
 import { toast } from 'sonner';
 
-export const OnboardingContext = createContext<OnboardingContextType>(
-  {} as OnboardingContextType
-);
+export const OnboardingContext = createContext<OnboardingContextType>({} as OnboardingContextType);
 
 type Layout = 'questions' | 'codeSnippet' | 'answer';
 export type AnswerStatus = 'correct' | 'incorrect' | 'init';
@@ -77,9 +72,7 @@ interface OnboardingContextType {
 export const useRoadmapOnboardingContext = () => {
   const context = useContext(OnboardingContext);
   if (!context) {
-    throw new Error(
-      'useOnboardingContext must be used within a OnboardingContextProvider'
-    );
+    throw new Error('useOnboardingContext must be used within a OnboardingContextProvider');
   }
   return context;
 };
@@ -117,9 +110,7 @@ export const RoadmapOnboardingContextProvider = ({
   } | null>(null);
 
   // keeping track of the next question index
-  const [nextQuestionIndex, setNextQuestionIndex] = useState<number | null>(
-    null
-  );
+  const [nextQuestionIndex, setNextQuestionIndex] = useState<number | null>(null);
 
   const [isLastQuestion, setIsLastQuestion] = useState(false);
 
@@ -127,9 +118,7 @@ export const RoadmapOnboardingContextProvider = ({
   const [currentLayout, setCurrentLayout] = useState<Layout>('questions');
 
   // generating answer help for the onboarding question
-  const [answerHelp, setAnswerHelp] = useState<z.infer<
-    typeof answerHelpSchema
-  > | null>(null);
+  const [answerHelp, setAnswerHelp] = useState<z.infer<typeof answerHelpSchema> | null>(null);
 
   // the correct answer to the onboarding question
   const [correctAnswer, setCorrectAnswer] = useState<AnswerStatus>('init');
@@ -190,12 +179,8 @@ export const RoadmapOnboardingContextProvider = ({
         currentQuestionIndex: question?.order,
       };
 
-      const {
-        correctAnswer,
-        isLastQuestion,
-        userAnswerContent,
-        currentQuestionIndex,
-      } = await answerDefaultRoadmapQuestion(opts);
+      const { correctAnswer, isLastQuestion, userAnswerContent, currentQuestionIndex } =
+        await answerDefaultRoadmapQuestion(opts);
 
       // set the correct answer
       setCorrectAnswer(correctAnswer ? 'correct' : 'incorrect');

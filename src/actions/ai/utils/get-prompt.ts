@@ -15,10 +15,7 @@ export const getPrompt = async (opts: { name: PromptName | PromptName[] }) => {
     });
 
     return prompts.reduce(
-      (
-        acc: { [key: string]: { content: string } },
-        prompt: { name: string; prompt: string }
-      ) => {
+      (acc: { [key: string]: { content: string } }, prompt: { name: string; prompt: string }) => {
         acc[prompt.name] = { content: prompt.prompt };
         return acc;
       },

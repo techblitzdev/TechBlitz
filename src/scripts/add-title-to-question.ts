@@ -34,9 +34,7 @@ export const addTitleToQuestion = async () => {
         console.log(`Title "${title}" added to question "${question.uid}".`);
         break; // Break out of retry loop on success
       } catch (error: any) {
-        console.error(
-          `Error updating question "${question.uid}": ${error.message}`
-        );
+        console.error(`Error updating question "${question.uid}": ${error.message}`);
         retries++;
         if (retries === MAX_RETRIES) {
           throw error; // Only throw after all retries exhausted

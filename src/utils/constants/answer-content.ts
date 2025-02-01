@@ -7,7 +7,7 @@ export const CORRECT_ANSWER_CONTENT = [
   'You got it,',
   'You nailed it,',
   'You are correct,',
-  'You are right, '
+  'You are right, ',
 ];
 
 export const INCORRECT_ANSWER_CONTENT = [
@@ -19,5 +19,5 @@ export const INCORRECT_ANSWER_CONTENT = [
   'You are on the right track!',
   'You are doing great!',
   'You are doing well!',
-  'You are doing good!'
+  'You are doing good!',
 ];

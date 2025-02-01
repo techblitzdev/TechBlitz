@@ -12,9 +12,7 @@ export async function cancelSubscription(event: Stripe.Event) {
     // and set their userLevel to FREE
 
     // get the user via their email address
-    const customer = await stripe.customers.retrieve(
-      session.customer as string
-    );
+    const customer = await stripe.customers.retrieve(session.customer as string);
     const userEmail = (customer as Stripe.Customer).email;
     if (!userEmail) {
       console.log('No user email found');

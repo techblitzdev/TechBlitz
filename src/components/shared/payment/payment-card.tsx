@@ -44,8 +44,7 @@ export function PricingCard(opts: {
       "
       whileHover={{ scale: 1.02 }}
       style={{
-        background:
-          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
+        background: 'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
     >
       <div className="flex flex-col justify-between h-full gap-y-4">
@@ -61,9 +60,7 @@ export function PricingCard(opts: {
           <div className="flex flex-col gap-y-1 mb-2">
             <div className="flex gap-x-1 items-center mt-2">
               <div className="flex gap-x-1 items-center font-onest text-gradient from-white to-white/75">
-                <span className="text-lg font-semibold">
-                  {product.currencySymbol}
-                </span>
+                <span className="text-lg font-semibold">{product.currencySymbol}</span>
                 {isLoading ? (
                   <ReloadIcon className="size-5 animate-spin" />
                 ) : (
@@ -73,13 +70,9 @@ export function PricingCard(opts: {
                   />
                 )}
               </div>
-              <span className="text-sm font-inter mt-3 text-gray-300">
-                {product.frequencyText}
-              </span>
+              <span className="text-sm font-inter mt-3 text-gray-300">{product.frequencyText}</span>
             </div>
-            <p className="text-sm font-onest text-gray-300 text-start">
-              {product.shortText}
-            </p>
+            <p className="text-sm font-onest text-gray-300 text-start">{product.shortText}</p>
           </div>
         </div>
 
@@ -95,11 +88,7 @@ export function PricingCard(opts: {
 
           {/** payment trigger */}
           <Button
-            href={
-              typeof paymentLink === 'string'
-                ? paymentLink
-                : paymentLink.production
-            }
+            href={typeof paymentLink === 'string' ? paymentLink : paymentLink.production}
             className={cn(
               'w-full text-lg font-semibold py-6',
               product.disabled && 'opacity-50 cursor-not-allowed'
@@ -109,9 +98,7 @@ export function PricingCard(opts: {
             {isLoading ? (
               <ReloadIcon className="size-5 animate-spin" />
             ) : (
-              <div className="font-satoshi">
-                {!product.price ? 'Sign up' : product.cta.text}
-              </div>
+              <div className="font-satoshi">{!product.price ? 'Sign up' : product.cta.text}</div>
             )}
           </Button>
         </div>

@@ -23,11 +23,7 @@ const checkVariants = {
   exit: { scale: 0, opacity: 0 },
 };
 
-export default function RoadmapFeatureBoxAnimation({
-  absolute,
-}: {
-  absolute: boolean;
-}) {
+export default function RoadmapFeatureBoxAnimation({ absolute }: { absolute: boolean }) {
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
 

@@ -9,9 +9,7 @@ import { EmailChangeEmail } from './_templates/email-change.tsx';
 const resend = new Resend(Deno.env.get('RESEND_API_KEY') as string);
 const hookSecret = Deno.env.get('SEND_EMAIL_HOOK_SECRET') as string;
 const supabaseUrl = Deno.env.get('NEXT_PUBLIC_SUPABASE_URL') as string;
-const updateUserRedirectUrl = Deno.env.get(
-  'UPDATE_USER_REDIRECT_URL'
-) as string;
+const updateUserRedirectUrl = Deno.env.get('UPDATE_USER_REDIRECT_URL') as string;
 
 Deno.serve(async (req: Request): Promise<Response> => {
   if (req.method !== 'POST') {
@@ -114,9 +112,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
       JSON.stringify({
         error: {
           http_code: (error as { code?: number })?.code ?? 500,
-          message:
-            (error as { message?: string })?.message ??
-            'An unknown error occurred',
+          message: (error as { message?: string })?.message ?? 'An unknown error occurred',
         },
       }),
       {

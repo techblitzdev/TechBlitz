@@ -140,10 +140,7 @@ const AnswerEditor = ({
     <div className="border border-black-50 rounded-md">
       {/* Menu Bar */}
       <MenuBar editor={editor} />
-      <EditorContent
-        editor={editor}
-        className="prose prose-invert max-w-none p-4"
-      />
+      <EditorContent editor={editor} className="prose prose-invert max-w-none p-4" />
     </div>
   );
 };
@@ -208,15 +205,12 @@ export default function NewQuestionModal({ ...props }) {
     name: 'questionResources',
   });
 
-  const toggleCorrectAnswer = (index: number) =>
-    form.setValue('correctAnswer', index);
+  const toggleCorrectAnswer = (index: number) => form.setValue('correctAnswer', index);
 
   const { mutateAsync: server_addQuestion, isPending } = useMutation({
     mutationFn: (values: SchemaProps) => {
       const { answers, ...rest } = values;
-      const answerFullSnippets = answers.map(
-        (answer) => answer.answerFullSnippet
-      );
+      const answerFullSnippets = answers.map((answer) => answer.answerFullSnippet);
 
       return addQuestion({
         ...rest,
@@ -243,11 +237,9 @@ export default function NewQuestionModal({ ...props }) {
     },
   });
 
-  const showAiTitleField =
-    form.watch('isRoadmapQuestion') && !form.watch('dailyQuestion');
+  const showAiTitleField = form.watch('isRoadmapQuestion') && !form.watch('dailyQuestion');
 
-  const handleNewQuestion = async (values: SchemaProps) =>
-    await server_addQuestion(values);
+  const handleNewQuestion = async (values: SchemaProps) => await server_addQuestion(values);
 
   return (
     <Dialog>
@@ -319,10 +311,7 @@ export default function NewQuestionModal({ ...props }) {
                   name="difficulty"
                   render={({ field }) => (
                     <FormControl>
-                      <Select
-                        value={field.value}
-                        onValueChange={field.onChange}
-                      >
+                      <Select value={field.value} onValueChange={field.onChange}>
                         <SelectTrigger className="w-40">
                           <SelectValue placeholder="Select difficulty" />
                         </SelectTrigger>
@@ -346,10 +335,7 @@ export default function NewQuestionModal({ ...props }) {
                         <DatePicker
                           date={field.value ? new Date(field.value) : undefined}
                           setDate={(date) =>
-                            form.setValue(
-                              'questionDate',
-                              date ? formatISO(date) : ''
-                            )
+                            form.setValue('questionDate', date ? formatISO(date) : '')
                           }
                         />
                       </FormControl>
@@ -420,9 +406,7 @@ export default function NewQuestionModal({ ...props }) {
                           checked={field.value || false}
                           onCheckedChange={field.onChange}
                         />
-                        <Label htmlFor="isRoadmapQuestion">
-                          Roadmap Question?
-                        </Label>
+                        <Label htmlFor="isRoadmapQuestion">Roadmap Question?</Label>
                       </div>
                     </FormControl>
                   )}
@@ -452,26 +436,18 @@ export default function NewQuestionModal({ ...props }) {
 
               {/* Dynamic Answer Fields with TipTap Editor */}
               {fields.map((item, index) => (
-                <div
-                  key={item.id}
-                  className="flex flex-col md:flex-row md:items-center gap-4"
-                >
+                <div key={item.id} className="flex flex-col md:flex-row md:items-center gap-4">
                   <div className="flex-1">
                     <AnswerEditor
                       value={item.text} // Set initial value
-                      onChange={(value) =>
-                        form.setValue(`answers.${index}.text`, value)
-                      } // Update the form field
+                      onChange={(value) => form.setValue(`answers.${index}.text`, value)} // Update the form field
                     />
                   </div>
                   <div className="flex-1">
                     <AnswerEditor
                       value={item.text} // Set initial value
                       onChange={(value) =>
-                        form.setValue(
-                          `answers.${index}.answerFullSnippet`,
-                          value
-                        )
+                        form.setValue(`answers.${index}.answerFullSnippet`, value)
                       } // Update the form field
                     />
                   </div>
@@ -481,16 +457,11 @@ export default function NewQuestionModal({ ...props }) {
                       onClick={() => toggleCorrectAnswer(index)}
                       className="btn"
                     >
-                      {index === form.watch('correctAnswer') &&
-                      form.watch('correctAnswer') !== null
+                      {index === form.watch('correctAnswer') && form.watch('correctAnswer') !== null
                         ? '✅'
                         : 'Mark as correct'}
                     </Button>
-                    <Button
-                      type="button"
-                      onClick={() => remove(index)}
-                      className="btn"
-                    >
+                    <Button type="button" onClick={() => remove(index)} className="btn">
                       <TrashIcon className="w-4 h-4 text-destructive" />
                     </Button>
                   </div>
@@ -574,11 +545,7 @@ export default function NewQuestionModal({ ...props }) {
                   >
                     Add Resource
                   </Button>
-                  <Button
-                    type="button"
-                    onClick={() => removeResource(index)}
-                    className="btn"
-                  >
+                  <Button type="button" onClick={() => removeResource(index)} className="btn">
                     <TrashIcon className="size-4 text-destructive" />
                   </Button>
                 </div>

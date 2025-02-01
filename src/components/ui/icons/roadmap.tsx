@@ -18,12 +18,7 @@ export default function RoadmapIcon(props: iconProps) {
   const title = props.title || 'timeline vertical 2';
 
   return (
-    <svg
-      height={height}
-      width={width}
-      viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg height={height} width={width} viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
       <title>{title}</title>
       <g fill={fill}>
         <line

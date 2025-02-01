@@ -11,9 +11,8 @@ export default function Personalized() {
           Master Programming with Personalized Learning
         </h1>
         <p className="text-gray-400">
-          Accelerate your coding journey with instant AI assistance, custom
-          practice questions, and personalized learning paths designed for your
-          success.
+          Accelerate your coding journey with instant AI assistance, custom practice questions, and
+          personalized learning paths designed for your success.
         </p>
       </div>
       <div className="grid grid-cols-3 lg:grid-cols-12 gap-10 self-center relative">

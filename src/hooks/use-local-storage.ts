@@ -6,12 +6,7 @@ export const useLocalStorage = <T>(opts: {
   serialize?: (value: T) => string;
   deserialize?: (value: string) => T;
 }) => {
-  const {
-    key,
-    defaultValue,
-    serialize = JSON.stringify,
-    deserialize = JSON.parse,
-  } = opts;
+  const { key, defaultValue, serialize = JSON.stringify, deserialize = JSON.parse } = opts;
 
   // Function to safely get the value from localStorage
   const getStoredValue = (): T => {
@@ -35,8 +30,7 @@ export const useLocalStorage = <T>(opts: {
   const setValue = (value: T | ((prevValue: T) => T)) => {
     try {
       // Handle function updates
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value;
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
 
       setStoredValue(valueToStore);
 

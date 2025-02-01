@@ -60,12 +60,8 @@ export default async function TodaysQuestionBentoBox() {
           <Chip
             color={getQuestionDifficultyColor(todaysQuestion.difficulty).bg}
             text={capitalise(todaysQuestion.difficulty)}
-            textColor={
-              getQuestionDifficultyColor(todaysQuestion.difficulty).text
-            }
-            border={
-              getQuestionDifficultyColor(todaysQuestion.difficulty).border
-            }
+            textColor={getQuestionDifficultyColor(todaysQuestion.difficulty).text}
+            border={getQuestionDifficultyColor(todaysQuestion.difficulty).border}
           />
         </div>
 

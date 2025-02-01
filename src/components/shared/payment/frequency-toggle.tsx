@@ -9,13 +9,8 @@ interface FrequencyTabsProps {
   onFrequencyChange: (frequency: 'month' | 'year') => void;
 }
 
-export default function FrequencyTabs({
-  initialFrequency,
-  onFrequencyChange,
-}: FrequencyTabsProps) {
-  const [frequency, setFrequency] = useState<'month' | 'year'>(
-    initialFrequency
-  );
+export default function FrequencyTabs({ initialFrequency, onFrequencyChange }: FrequencyTabsProps) {
+  const [frequency, setFrequency] = useState<'month' | 'year'>(initialFrequency);
 
   const handleFrequencyChange = (newFrequency: 'month' | 'year') => {
     setFrequency(newFrequency);
@@ -29,10 +24,7 @@ export default function FrequencyTabs({
           variant={frequency === 'month' ? 'secondary' : 'ghost'}
           size="sm"
           onClick={() => handleFrequencyChange('month')}
-          className={cn(
-            frequency === 'month' ? 'text-black' : 'text-white',
-            'relative'
-          )}
+          className={cn(frequency === 'month' ? 'text-black' : 'text-white', 'relative')}
         >
           Monthly
         </Button>

@@ -60,10 +60,9 @@ export default function FeatureRoadmapCustomizationBlock({
           Your personalized coding roadmap.
         </h2>
         <p className="text-gray-400 max-w-3xl">
-          Start your journey to learn to code with our AI-powered learning
-          paths. Whether you're a beginner or advancing your skills, we'll
-          create a personalized programming roadmap to guide your tech skills
-          progression.
+          Start your journey to learn to code with our AI-powered learning paths. Whether you're a
+          beginner or advancing your skills, we'll create a personalized programming roadmap to
+          guide your tech skills progression.
         </p>
       </div>
       <div className="col-span-full md:col-span-7 max-h-[26rem] relative -right-4">
@@ -74,12 +73,8 @@ export default function FeatureRoadmapCustomizationBlock({
             roadmapUid={dummyRoadmapUid}
             index={index}
             totalQuestions={dummyTotalQuestions}
-            prevQuestionCorrect={
-              index > 0 ? dummyQuestions[index - 1]?.userCorrect : undefined
-            }
-            prevQuestionAnswered={
-              index > 0 ? dummyQuestions[index - 1]?.completed : undefined
-            }
+            prevQuestionCorrect={index > 0 ? dummyQuestions[index - 1]?.userCorrect : undefined}
+            prevQuestionAnswered={index > 0 ? dummyQuestions[index - 1]?.completed : undefined}
           />
         ))}
       </div>

@@ -31,9 +31,7 @@ export default function CodeEditor(opts: { defaultCode: string }) {
           <h2 className="text-lg font-bold">Answer Help</h2>
           {Object.entries(answerHelp).map(([key, value], index) => (
             <div key={index}>
-              <h3 className="text-md font-bold underline">
-                {capitalize(key.replace(/-/g, ' '))}
-              </h3>
+              <h3 className="text-md font-bold underline">{capitalize(key.replace(/-/g, ' '))}</h3>
               <p className="text-gray-200">{value.replace(/```/g, '')}</p>
             </div>
           ))}

@@ -4,16 +4,15 @@ import { NextResponse, type NextRequest } from 'next/server';
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({
     request: {
-      headers: request.headers
-    }
+      headers: request.headers,
+    },
   });
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   // we need the env variables to be set
-  if (!supabaseUrl || !supabaseKey)
-    throw new Error('Missing env variables for Supabase');
+  if (!supabaseUrl || !supabaseKey) throw new Error('Missing env variables for Supabase');
 
   // this is used in this file to access the user
   const supabase = createServerClient(supabaseUrl, supabaseKey, {
@@ -25,43 +24,44 @@ export async function updateSession(request: NextRequest) {
         request.cookies.set({
           name,
           value,
-          ...options
+          ...options,
         });
         response = NextResponse.next({
           request: {
-            headers: request.headers
-          }
+            headers: request.headers,
+          },
         });
         response.cookies.set({
           name,
           value,
-          ...options
+          ...options,
         });
       },
       remove(name: string, options: CookieOptions) {
         request.cookies.set({
           name,
           value: '',
-          ...options
+          ...options,
         });
         response = NextResponse.next({
           request: {
-            headers: request.headers
-          }
+            headers: request.headers,
+          },
         });
         response.cookies.set({
           name,
           value: '',
-          ...options
+          ...options,
         });
-      }
-    }
+      },
+    },
   });
 
-  const { data: user } = await supabase.auth?.getUser();
+  const { data: user, error } = await supabase.auth?.getUser();
 
   return {
     response,
-    user
+    user,
+    error,
   };
 }

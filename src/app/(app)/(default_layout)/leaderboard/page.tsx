@@ -7,8 +7,7 @@ import { Suspense } from 'react';
 import GlobalPagination from '@/components/app/shared/pagination';
 
 const LeaderboardMostQuestionsAnswered = dynamic(
-  () =>
-    import('@/components/app/leaderboard/leaderboard-most-questions-answered')
+  () => import('@/components/app/leaderboard/leaderboard-most-questions-answered')
 );
 
 export async function generateMetadata() {
@@ -41,16 +40,11 @@ export default async function TodaysLeaderboardPage({
       <LeaderboardHero topThreeUsers={topThreeUsers} />
       <div className="lg:container flex flex-col gap-10 mt-10">
         <Suspense fallback={<div>Loading...</div>}>
-          <LeaderboardMostQuestionsAnswered
-            page={currentPage}
-            postsPerPage={postsPerPage}
-          />
+          <LeaderboardMostQuestionsAnswered page={currentPage} postsPerPage={postsPerPage} />
           <div className="w-full flex justify-center gap-x-2">
             <GlobalPagination
               currentPage={currentPage}
-              totalPages={Math.ceil(
-                topThreeUsersData.totalCount / postsPerPage
-              )}
+              totalPages={Math.ceil(topThreeUsersData.totalCount / postsPerPage)}
               href={'/leaderboard'}
               paramName="page"
               postsPerPage={postsPerPage}

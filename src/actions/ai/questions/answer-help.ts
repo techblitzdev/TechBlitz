@@ -11,10 +11,7 @@ import { zodResponseFormat } from 'openai/helpers/zod.mjs';
 
 // types
 import type { UserRecord } from '@/types/User';
-import type {
-  DefaultRoadmapQuestions,
-  RoadmapUserQuestions,
-} from '@/types/Roadmap';
+import type { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
 import type { Question } from '@/types/Questions';
 
 const answerHelp = async (
@@ -92,22 +89,14 @@ export const generateAnswerHelp = async (
   }
 
   // For regular questions, check if the user has enough tokens
-  if (
-    questionType === 'regular' &&
-    user.aiQuestionHelpTokens &&
-    user.aiQuestionHelpTokens <= 0
-  ) {
+  if (questionType === 'regular' && user.aiQuestionHelpTokens && user.aiQuestionHelpTokens <= 0) {
     return {
       content: null,
       tokensUsed: 0,
     };
   }
 
-  let question:
-    | Question
-    | RoadmapUserQuestions
-    | DefaultRoadmapQuestions
-    | null = null;
+  let question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions | null = null;
 
   if (questionType === 'roadmap') {
     // Get the roadmap question
@@ -154,11 +143,7 @@ export const generateAnswerHelp = async (
   const formattedData = await answerHelp(userCorrect, user, question);
 
   // Handle token decrement for regular questions
-  if (
-    questionType === 'regular' &&
-    user.userLevel !== 'PREMIUM' &&
-    user.userLevel !== 'ADMIN'
-  ) {
+  if (questionType === 'regular' && user.userLevel !== 'PREMIUM' && user.userLevel !== 'ADMIN') {
     const updatedUser = await prisma.users.update({
       where: { uid: user.uid },
       data: { aiQuestionHelpTokens: { decrement: 1 } },

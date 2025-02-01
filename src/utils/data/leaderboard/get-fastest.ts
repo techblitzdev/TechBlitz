@@ -55,8 +55,7 @@ export const getFastestTimes = async (opts: {
       user: {
         ...answer.user,
         codeEditorTheme: answer.user.codeEditorTheme ?? undefined,
-        howDidYouHearAboutTechBlitz:
-          answer.user.howDidYouHearAboutTechBlitz ?? undefined,
+        howDidYouHearAboutTechBlitz: answer.user.howDidYouHearAboutTechBlitz ?? undefined,
         referralCode: answer.user.referralCode ?? undefined,
       },
       difficulty:

@@ -2,12 +2,7 @@ import { fetchRoadmap } from '@/utils/data/roadmap/fetch-single-roadmap';
 import GenerateMoreQuestionsButton from '@/components/app/roadmaps/[uid]/generate-more-questions';
 import RoadmapQuestionCard from '@/components/app/roadmaps/questions/[uid]/question-card';
 import RoadmapStats from '@/components/app/roadmaps/[uid]/roadmap-stats';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useUserServer } from '@/hooks/use-user-server';
 import { redirect } from 'next/navigation';
 import Chip from '@/components/ui/chip';
@@ -15,11 +10,7 @@ import { capitalise } from '@/utils';
 import Hero from '@/components/shared/hero';
 import { RoadmapUserQuestions } from '@prisma/client';
 
-export default async function RoadmapSinglePage({
-  params,
-}: {
-  params: { roadmapUid: string };
-}) {
+export default async function RoadmapSinglePage({ params }: { params: { roadmapUid: string } }) {
   const { roadmapUid } = params;
 
   // better safe than sorry!
@@ -43,9 +34,7 @@ export default async function RoadmapSinglePage({
   // determine the roadmap title and description via the status
   // if the roadmap is 'creating' then we output 'Creation in progress'
   const roadmapTitle =
-    roadmap.status === 'CREATING'
-      ? 'Creation in progress'
-      : roadmap.title || 'Untitled Roadmap';
+    roadmap.status === 'CREATING' ? 'Creation in progress' : roadmap.title || 'Untitled Roadmap';
 
   const roadmapDescription =
     roadmap.status === 'CREATING'
@@ -108,10 +97,7 @@ export default async function RoadmapSinglePage({
                   <GenerateMoreQuestionsButton roadmap={roadmap} />
                 </TooltipTrigger>
                 <TooltipContent align="center">
-                  <p>
-                    You can only generate more questions once you have completed
-                    the roadmap
-                  </p>
+                  <p>You can only generate more questions once you have completed the roadmap</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>

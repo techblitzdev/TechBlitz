@@ -11,8 +11,7 @@ export const getTags = async () => {
   // capitalise the name of the tag and remove any duplicates
   const uniqueTags = sortedTags.filter(
     (tag, index, self) =>
-      index ===
-      self.findIndex((t) => capitalise(t.name) === capitalise(tag.name))
+      index === self.findIndex((t) => capitalise(t.name) === capitalise(tag.name))
   );
 
   // clear out any empty tags

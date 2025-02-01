@@ -5,12 +5,7 @@ import Link from 'next/link';
 import Chip from '@/components/ui/chip';
 import { ArrowRight, Bookmark, Circle } from 'lucide-react';
 import { CheckCircle } from 'lucide-react';
-import {
-  TooltipProvider,
-  TooltipTrigger,
-  TooltipContent,
-  Tooltip,
-} from '@/components/ui/tooltip';
+import { TooltipProvider, TooltipTrigger, TooltipContent, Tooltip } from '@/components/ui/tooltip';
 import type { UserRecord } from '@/types/User';
 import { cn } from '@/lib/utils';
 
@@ -78,8 +73,7 @@ export default function QuestionCard(opts: {
 
   const title = questionData?.title || questionData?.question;
 
-  const userCanAccess =
-    user?.userLevel === 'PREMIUM' || !questionData?.isPremiumQuestion;
+  const userCanAccess = user?.userLevel === 'PREMIUM' || !questionData?.isPremiumQuestion;
 
   // if type is study-path, add query param to href
   if (type === 'study-path') {
@@ -117,12 +111,8 @@ export default function QuestionCard(opts: {
                 <Chip
                   text={capitalise(questionData.difficulty)}
                   color={getQuestionDifficultyColor(questionData.difficulty).bg}
-                  textColor={
-                    getQuestionDifficultyColor(questionData.difficulty).text
-                  }
-                  border={
-                    getQuestionDifficultyColor(questionData.difficulty).border
-                  }
+                  textColor={getQuestionDifficultyColor(questionData.difficulty).text}
+                  border={getQuestionDifficultyColor(questionData.difficulty).border}
                 />
               </div>
             ) : (
@@ -178,8 +168,8 @@ export default function QuestionCard(opts: {
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>
-                    Based on your previous answers and current skill level, we
-                    recommend this question to advance your skills
+                    Based on your previous answers and current skill level, we recommend this
+                    question to advance your skills
                   </p>
                 </TooltipContent>
               </Tooltip>

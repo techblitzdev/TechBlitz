@@ -64,9 +64,7 @@ export const generateStatisticsReport = async () => {
 
     const correctAnswer = answers.find((answer) => answer.correct);
     if (!correctAnswer) {
-      throw new Error(
-        `Missing correct answer for question: ${question.questions}`
-      );
+      throw new Error(`Missing correct answer for question: ${question.questions}`);
     }
 
     return {

@@ -7,12 +7,7 @@ export const Grid = ({
 }: {
   pattern?: number[][];
   size?: number;
-  position?:
-    | 'top-left'
-    | 'top-right'
-    | 'bottom-left'
-    | 'bottom-right'
-    | 'cover';
+  position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'cover';
 }) => {
   const p = pattern ?? [
     [Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
@@ -67,12 +62,7 @@ export function GridPattern({ width, height, x, y, squares, ...props }: any) {
           <path d={`M.5 ${height}V.5H${width}`} fill="none" />
         </pattern>
       </defs>
-      <rect
-        width="100%"
-        height="100%"
-        strokeWidth={0}
-        fill={`url(#${patternId})`}
-      />
+      <rect width="100%" height="100%" strokeWidth={0} fill={`url(#${patternId})`} />
       {squares && (
         <svg x={x} y={y} className="overflow-visible">
           {squares.map(([x, y]: any, idx: number) => (

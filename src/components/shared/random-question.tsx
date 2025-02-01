@@ -2,12 +2,7 @@ import { getRandomQuestion } from '@/utils/data/questions/get-random';
 import { Button } from '@/components/ui/button';
 import { ShuffleIcon } from 'lucide-react';
 import { redirect } from 'next/navigation';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '../ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 
 /**
  * Component for redirecting the user to a random question.

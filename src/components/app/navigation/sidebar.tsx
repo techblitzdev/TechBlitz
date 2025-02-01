@@ -2,15 +2,7 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
-import {
-  Home,
-  Settings,
-  LockIcon,
-  User,
-  CreditCard,
-  HelpCircle,
-  ChevronDown,
-} from 'lucide-react';
+import { Home, Settings, LockIcon, User, CreditCard, HelpCircle, ChevronDown } from 'lucide-react';
 import { ListBulletIcon } from '@radix-ui/react-icons';
 import {
   Sidebar,
@@ -26,11 +18,7 @@ import {
   SidebarTrigger,
   useSidebar,
 } from '@/components/ui/sidebar';
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui/collapsible';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import AppSidebarSubMenuItem from '@/components/app/navigation/sidebar-submenu-item';
 import SidebarFooterComponent from '@/components/app/navigation/sidebar-footer';
 import Logo from '@/components/ui/logo';
@@ -42,11 +30,7 @@ import { useEffect, useMemo } from 'react';
 import { UserRecord } from '@/types/User';
 import { Question } from '@/types/Questions';
 import { Profile } from '@/types/Profile';
-import {
-  TooltipContent,
-  Tooltip,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+import { TooltipContent, Tooltip, TooltipTrigger } from '@/components/ui/tooltip';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import HomeIcon from '@/components/ui/icons/home';
 import ChallengeIcon from '@/components/ui/icons/challenge';
@@ -55,30 +39,16 @@ import StatsIcon from '@/components/ui/icons/stats';
 import Award from '@/components/ui/icons/award';
 
 const LeaderboardIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="32"
-    height="32"
-    viewBox="0 0 24 24"
-  >
-    <path
-      fill="currentColor"
-      d="M2 21V9h5.5v12zm7.25 0V3h5.5v18zm7.25 0V11H22v10z"
-    />
+  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M2 21V9h5.5v12zm7.25 0V3h5.5v18zm7.25 0V11H22v10z" />
   </svg>
 );
 
-const statsIcon = () => (
-  <StatsIcon fill="white" strokewidth={2} secondaryfill="white" />
-);
+const statsIcon = () => <StatsIcon fill="white" strokewidth={2} secondaryfill="white" />;
 
-const roadmapIcon = () => (
-  <RoadmapIcon fill="white" strokewidth={2} secondaryfill="white" />
-);
+const roadmapIcon = () => <RoadmapIcon fill="white" strokewidth={2} secondaryfill="white" />;
 
-const challengeIcon = () => (
-  <ChallengeIcon fill="white" strokewidth={2} secondaryfill="white" />
-);
+const challengeIcon = () => <ChallengeIcon fill="white" strokewidth={2} secondaryfill="white" />;
 
 export function AppSidebar(opts: {
   user: UserRecord | null;
@@ -248,9 +218,7 @@ export function AppSidebar(opts: {
   const items = useMemo(() => {
     if (!user) return nonAuthedUserItems;
 
-    let menuItems = pathname.startsWith('/settings')
-      ? settingsItems
-      : standardItems;
+    let menuItems = pathname.startsWith('/settings') ? settingsItems : standardItems;
 
     // Add admin item only once for admin users
     if (user.userLevel === 'ADMIN') {
@@ -319,11 +287,7 @@ export function AppSidebar(opts: {
           </Collapsible>
         ) : (
           <div className="flex items-center w-full">
-            <SidebarMenuButton
-              asChild
-              className="flex-grow"
-              tooltip={item.tooltip}
-            >
+            <SidebarMenuButton asChild className="flex-grow" tooltip={item.tooltip}>
               {item.disabled ? (
                 <div className="flex items-center font-inter font-medium text-sm p-2 gap-x-2 opacity-50 hover:cursor-not-allowed h-8">
                   {item.icon && <item.icon />}
@@ -339,15 +303,11 @@ export function AppSidebar(opts: {
                   href={item.url}
                   prefetch
                   className={`flex items-center font-inter font-medium text-sm py-2 ${
-                    pathname === item.url
-                      ? 'bg-black-25 text-white border border-black-50'
-                      : ''
+                    pathname === item.url ? 'bg-black-25 text-white border border-black-50' : ''
                   }`}
                 >
                   {item.icon && <item.icon />}
-                  <span className="text-sm group-data-[collapsible=icon]:hidden">
-                    {item.title}
-                  </span>
+                  <span className="text-sm group-data-[collapsible=icon]:hidden">{item.title}</span>
                   {item.chip && (
                     <div className="ms-auto group-data-[collapsible=icon]:hidden">
                       {item.chip && <item.chip />}
@@ -362,9 +322,7 @@ export function AppSidebar(opts: {
               )}
             </SidebarMenuButton>
             {item.dropdownMenu && (
-              <div className="group-data-[collapsible=icon]:hidden">
-                {item.dropdownMenu}
-              </div>
+              <div className="group-data-[collapsible=icon]:hidden">{item.dropdownMenu}</div>
             )}
           </div>
         )}
@@ -405,9 +363,7 @@ export function AppSidebar(opts: {
             </Link>
           </div>
           <SidebarGroupContent className="mt-5 bg-[#000000]">
-            <SidebarMenu>
-              {items.map((item) => renderSidebarItem(item))}
-            </SidebarMenu>
+            <SidebarMenu>{items.map((item) => renderSidebarItem(item))}</SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>

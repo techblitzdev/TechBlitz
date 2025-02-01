@@ -69,10 +69,7 @@ export default function SettingsProfilePage() {
       </div>
       <Separator className="w-full bg-black-50" />
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full space-y-6 p-8"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6 p-8">
           <FormField
             control={form.control}
             name="email"
@@ -107,17 +104,13 @@ export default function SettingsProfilePage() {
                     value={field.value || ''}
                   />
                 </FormControl>
-                <FormDescription>
-                  Leave blank to keep your current password
-                </FormDescription>
+                <FormDescription>Leave blank to keep your current password</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
           <div className="flex flex-wrap gap-4">
-            <Button type="submit">
-              {isPending ? <LoadingSpinner /> : 'Save changes'}
-            </Button>
+            <Button type="submit">{isPending ? <LoadingSpinner /> : 'Save changes'}</Button>
             <Button
               variant="destructive"
               onClick={() => setIsDeleteModalOpen(true)}

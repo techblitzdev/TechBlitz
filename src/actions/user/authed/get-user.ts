@@ -14,9 +14,7 @@ export const getUserFromSession = async () => {
   return await supabase?.auth?.getUser();
 };
 
-export const getUserFromDb = async (
-  userUid: string
-): Promise<UserRecord | null> => {
+export const getUserFromDb = async (userUid: string): Promise<UserRecord | null> => {
   if (!userUid) return null;
   const user = await prisma.users.findUnique({
     where: {

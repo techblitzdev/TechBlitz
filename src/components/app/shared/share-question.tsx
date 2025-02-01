@@ -2,12 +2,7 @@
 
 import { ShareIcon } from 'lucide-react';
 import { Button } from '../../ui/button';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '../../ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../ui/tooltip';
 import { toast } from 'sonner';
 
 export default function ShareQuestion({
@@ -26,12 +21,7 @@ export default function ShareQuestion({
     <TooltipProvider>
       <Tooltip delayDuration={0}>
         <TooltipTrigger asChild>
-          <Button
-            variant={variant || 'ghost'}
-            size="icon"
-            padding="none"
-            onClick={copyLink}
-          >
+          <Button variant={variant || 'ghost'} size="icon" padding="none" onClick={copyLink}>
             <ShareIcon className="size-5" />
           </Button>
         </TooltipTrigger>

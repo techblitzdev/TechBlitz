@@ -11,9 +11,7 @@ const getEnv = () => process.env.NODE_ENV;
 
 export const getBaseUrl = () => {
   const publicRootDomain = process.env.NEXT_PUBLIC_URL || '';
-  return getEnv() === 'development'
-    ? 'http://localhost:3000'
-    : publicRootDomain;
+  return getEnv() === 'development' ? 'http://localhost:3000' : publicRootDomain;
 };
 
 export const capitalise = (string: string) => {
@@ -70,9 +68,7 @@ export const getQuestionDifficultyColor = (difficulty: string) => {
  * @param wordLimit
  */
 export const shortenText = (content: string, wordLimit: number) => {
-  return content.length > wordLimit
-    ? `${content.substring(0, wordLimit)}...`
-    : content;
+  return content.length > wordLimit ? `${content.substring(0, wordLimit)}...` : content;
 };
 
 export const filterBadWords = (content: string) => {

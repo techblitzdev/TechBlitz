@@ -60,9 +60,7 @@ export default async function QuestionsList({
   if (!data.questions || data.questions.length === 0) {
     return (
       <div className="flex flex-col gap-y-4 items-center justify-center mt-4">
-        <p className="text-lg font-medium text-gray-400">
-          No questions match your filters.
-        </p>
+        <p className="text-lg font-medium text-gray-400">No questions match your filters.</p>
         <ClearFilters />
       </div>
     );
@@ -97,9 +95,7 @@ export default async function QuestionsList({
           identifier={customQuestions ? 'uid' : 'slug'}
           customQuestion={customQuestions}
           user={user}
-          recommendedQuestion={
-            recommendedQuestion?.find((rq) => rq.uid === q.uid) ? true : false
-          }
+          recommendedQuestion={recommendedQuestion?.find((rq) => rq.uid === q.uid) ? true : false}
         />
       ))}
       {!customQuestions && data.totalPages > 1 && (

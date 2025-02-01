@@ -28,23 +28,22 @@ export default async function RoadmapQuestionLayout({
 }>) {
   const { roadmapUid, uid } = params;
 
-  const [user, question, { nextQuestion, prevQuestion, roadmap }] =
-    (await Promise.all([
-      useUserServer(),
-      fetchRoadmapQuestion(uid),
-      fetchNextPrevRoadmapQuestion({ roadmapUid, questionUid: uid }),
-    ])) as unknown as [
-      UserRecord,
-      RoadmapUserQuestions,
-      {
-        nextQuestion: RoadmapUserQuestions | null | undefined;
-        prevQuestion: RoadmapUserQuestions | null | undefined;
-        roadmap: {
-          title: string;
-          uid: string;
-        };
-      },
-    ];
+  const [user, question, { nextQuestion, prevQuestion, roadmap }] = (await Promise.all([
+    useUserServer(),
+    fetchRoadmapQuestion(uid),
+    fetchNextPrevRoadmapQuestion({ roadmapUid, questionUid: uid }),
+  ])) as unknown as [
+    UserRecord,
+    RoadmapUserQuestions,
+    {
+      nextQuestion: RoadmapUserQuestions | null | undefined;
+      prevQuestion: RoadmapUserQuestions | null | undefined;
+      roadmap: {
+        title: string;
+        uid: string;
+      };
+    },
+  ];
 
   if (!user || user.userLevel === 'FREE') {
     redirect('/dashboard');
@@ -55,18 +54,12 @@ export default async function RoadmapQuestionLayout({
   }
 
   return (
-    <RoadmapQuestionContextProvider
-      roadmapQuestion={question}
-      roadmapUid={roadmapUid}
-      user={user}
-    >
+    <RoadmapQuestionContextProvider roadmapQuestion={question} roadmapUid={roadmapUid} user={user}>
       <div className="grid grid-cols-12 items-center justify-between pb-2 px-3 relative">
         <div className="col-span-2 lg:col-span-4 flex items-center py-2 justify-start">
           <SidebarLayoutTrigger />
           <div className="hidden lg:block">
-            <Suspense
-              fallback={<div className="h-8 w-32 bg-gray-200 animate-pulse" />}
-            >
+            <Suspense fallback={<div className="h-8 w-32 bg-gray-200 animate-pulse" />}>
               <RoadmapQuestionNavigation
                 nextRoadmapQuestion={nextQuestion}
                 prevRoadmapQuestion={prevQuestion}

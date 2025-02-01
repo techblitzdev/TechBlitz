@@ -26,12 +26,10 @@ const buttonVariants = cva(
       variant: {
         default:
           'bg-primary text-primary-foreground shadow hover:bg-primary/90 border border-black-50',
-        destructive:
-          'bg-red-600 text-destructive-foreground shadow-sm hover:bg-destructive/90',
+        destructive: 'bg-red-600 text-destructive-foreground shadow-sm hover:bg-destructive/90',
         outline:
           'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
-        secondary:
-          'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
+        secondary: 'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
         ghost: 'hover:text-gray-400 duration-300',
         link: 'text-primary underline-offset-4 hover:underline',
         accent: 'bg-accent text-white shadow-sm hover:bg-accent/90 font-onest',
@@ -101,12 +99,7 @@ const Button = React.forwardRef<
     const compProps = href ? { href, ...props } : { ...props };
 
     return (
-      <div
-        className={cn(
-          { 'w-full': fullWidth, relative: true },
-          wrapperClassName
-        )}
-      >
+      <div className={cn({ 'w-full': fullWidth, relative: true }, wrapperClassName)}>
         {/** @ts-expect-error - the element tag has been changed */}
         <Comp
           className={cn(

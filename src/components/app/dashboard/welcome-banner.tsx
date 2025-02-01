@@ -6,9 +6,5 @@ export default async function WelcomeMessage() {
   const user = await useUserServer();
   if (!user) return redirect('/login');
 
-  return (
-    <h1 className="text-2xl font-bold">
-      Welcome back, {getUserDisplayName(user)}
-    </h1>
-  );
+  return <h1 className="text-2xl font-bold">Welcome back, {getUserDisplayName(user)}</h1>;
 }

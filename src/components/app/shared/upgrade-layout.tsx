@@ -9,10 +9,7 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
-export default function UpgradeLayout(opts: {
-  title: string;
-  description: string;
-}) {
+export default function UpgradeLayout(opts: { title: string; description: string }) {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div className="flex flex-col items-center justify-center">
@@ -23,9 +20,7 @@ export default function UpgradeLayout(opts: {
                 {opts.title}
               </span>
             </CardTitle>
-            <CardDescription className="text-xl text-gray-300">
-              {opts.description}
-            </CardDescription>
+            <CardDescription className="text-xl text-gray-300">{opts.description}</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

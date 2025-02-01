@@ -6,10 +6,7 @@ import { prisma } from '@/lib/prisma';
  * @param opts
  * @returns
  */
-export const getAnswer = async (opts: {
-  questionUid: string;
-  userUid: string;
-}) => {
+export const getAnswer = async (opts: { questionUid: string; userUid: string }) => {
   const { questionUid } = opts;
 
   try {

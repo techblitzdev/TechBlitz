@@ -1,7 +1,4 @@
-export default function LeftRightBlock(opts: {
-  left: React.ReactNode;
-  right: React.ReactNode;
-}) {
+export default function LeftRightBlock(opts: { left: React.ReactNode; right: React.ReactNode }) {
   const { left, right } = opts;
 
   return (

@@ -42,9 +42,7 @@ export const checkoutSessionCompleted = async (event: Stripe.Event) => {
     let customerEmail: string | null = null;
     if (session.customer) {
       try {
-        const customer = await stripe.customers.retrieve(
-          session.customer as string
-        );
+        const customer = await stripe.customers.retrieve(session.customer as string);
         if (customer && !('deleted' in customer)) {
           customerEmail = (customer as Stripe.Customer).email;
         }

@@ -56,18 +56,10 @@ export default function Banner() {
               or opt our of cookies.
             </p>
             <div className="flex gap-3 shrink-0">
-              <Button
-                type="button"
-                onClick={handleDeclineCookies}
-                variant="destructive"
-              >
+              <Button type="button" onClick={handleDeclineCookies} variant="destructive">
                 Decline
               </Button>
-              <Button
-                variant="secondary"
-                type="button"
-                onClick={handleAcceptCookies}
-              >
+              <Button variant="secondary" type="button" onClick={handleAcceptCookies}>
                 Accept cookies
               </Button>
             </div>

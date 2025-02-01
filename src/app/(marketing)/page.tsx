@@ -88,7 +88,7 @@ export default async function Page() {
     '@type': 'WebPage',
     url: getBaseUrl(),
     headline: 'Learn to code for free | TechBlitz',
-    description: 'Learning to code made simple',
+    description: "The world's best free platform to learn to code.",
     image:
       'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/Screenshot%202025-01-11%20at%2002.24.28.png',
     breadcrumb: WebPageJsonLdBreadcrumb,

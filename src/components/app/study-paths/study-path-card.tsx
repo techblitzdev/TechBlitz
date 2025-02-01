@@ -32,7 +32,7 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
       </CardHeader>
       <CardContent className="p-4 pt-3 relative">
         <div className="flex flex-col gap-y-2 w-full">
-          <p className="text-sm text-gray-400 font-onest">
+          <div className="text-sm text-gray-400 font-onest">
             {/** if 100% then show 100% else show the progress */}
             {Math.round(
               user?.studyPathEnrollments?.find(
@@ -41,9 +41,7 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
             ) === 100 ? (
               <div className="flex items-center gap-x-2">
                 <CheckCircle className="size-4 text-green-500" />
-                <span className="text-sm text-gray-400 font-onest">
-                  completed
-                </span>
+                <p className="text-sm text-gray-400 font-onest">completed</p>
               </div>
             ) : (
               `${Math.round(
@@ -52,7 +50,7 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
                 )?.progress ?? 0
               )}% completed`
             )}
-          </p>
+          </div>
           <Progress
             className="border border-black-50 bg-black-50 relative z-10"
             value={

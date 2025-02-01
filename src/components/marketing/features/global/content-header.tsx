@@ -1,11 +1,13 @@
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 export default function FeaturesContentHeader(opts: {
   title: string;
   description?: string | JSX.Element;
   id?: string;
+  cta?: boolean;
 }) {
-  const { title, description, id } = opts;
+  const { title, description, id, cta } = opts;
 
   return (
     <div
@@ -19,6 +21,16 @@ export default function FeaturesContentHeader(opts: {
         <p className="text-gray-400 max-w-4xl text-center text-base md:text-lg">
           {description}
         </p>
+      )}
+      {cta && (
+        <Button
+          variant="accent"
+          className="mt-4"
+          href="/features/roadmap"
+          size="lg"
+        >
+          Learn More
+        </Button>
       )}
     </div>
   );

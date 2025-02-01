@@ -19,8 +19,9 @@ const defaultDescription = () => {
 export default function FeatureRoadmapThreeGridBlock(opts: {
   title?: string;
   description?: string;
+  cta?: boolean;
 }) {
-  const { title, description } = opts;
+  const { title, description, cta } = opts;
   const roadmapIframe =
     'https://customer-8s5ov2shcw99ezk2.cloudflarestream.com/ff823c820a5dc793c091f43ebae09d63/iframe?muted=true&poster=https%3A%2F%2Fcustomer-8s5ov2shcw99ezk2.cloudflarestream.com%2Fff823c820a5dc793c091f43ebae09d63%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600';
 
@@ -29,6 +30,7 @@ export default function FeatureRoadmapThreeGridBlock(opts: {
       <FeaturesContentHeader
         title={title || 'Coding roadmaps for everyone'}
         description={description || defaultDescription()}
+        cta={cta}
       />
       <div className="grid grid-cols-3 lg:grid-cols-12 gap-10 max-w-5xl self-center relative">
         <div

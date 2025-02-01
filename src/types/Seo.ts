@@ -30,6 +30,12 @@ export type QuizJsonLd = {
   isFamilyFriendly: boolean;
 
   teaches: string;
+
+  potentialAction?: {
+    '@type': 'SearchAction';
+    target: string;
+    'query-input': string;
+  };
 };
 
 export type WebPageJsonLd = {
@@ -82,6 +88,11 @@ export type WebPageJsonLd = {
       // URL of the breadcrumb item
       item: string;
     }[];
+  };
+  potentialAction?: {
+    '@type': 'SearchAction';
+    target: string;
+    'query-input': string;
   };
 };
 

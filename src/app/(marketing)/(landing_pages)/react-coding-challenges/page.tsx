@@ -169,6 +169,11 @@ export default function ReactCodingChallengesPage() {
         url: 'https://techblitz.dev/favicon.ico',
       },
     },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${getBaseUrl()}/search?q={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
   };
 
   return (

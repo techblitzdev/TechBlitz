@@ -1,4 +1,4 @@
-import { WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
 
 import { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
@@ -188,6 +188,21 @@ const items = [
   },
 ];
 
+// metadata
+export async function generateMetadata() {
+  return createMetadata({
+    title: 'Daily Coding Challenges for Beginners | TechBlitz',
+    description:
+      'TechBlitz transforms your coding journey into a personalized, engaging, and effective experience. Ensuring you learn essential coding skills faster than ever.',
+    image: {
+      text: 'Daily Coding Challenges for Beginners | TechBlitz',
+      bgColor: '#000',
+      textColor: '#fff',
+    },
+    canonicalUrl: '/daily-coding-challenges-for-beginners',
+  });
+}
+
 export default function DailyCodingChallengesForBeginnersPage() {
   const jsonLd: WebPageJsonLd = {
     '@context': 'https://schema.org',
@@ -219,6 +234,11 @@ export default function DailyCodingChallengesForBeginnersPage() {
         '@type': 'ImageObject',
         url: 'https://techblitz.dev/favicon.ico',
       },
+    },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${getBaseUrl()}/search?q={search_term_string}`,
+      'query-input': 'required name=search_term_string',
     },
   };
 

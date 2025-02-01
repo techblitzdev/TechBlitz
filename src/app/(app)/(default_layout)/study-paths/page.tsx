@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 
 import Hero from '@/components/shared/hero';
-import { createMetadata } from '@/utils/seo';
+import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/use-user-server';
 import ContinueJourney from '@/components/app/navigation/continue-journey-button';
@@ -10,6 +10,8 @@ import { getAllStudyPaths } from '@/utils/data/study-paths/get';
 import { StudyPathCard } from '@/components/app/study-paths/study-path-card';
 import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
 import UpgradeCard from '@/components/app/shared/upgrade-card';
+import { WebPageJsonLd } from '@/types/Seo';
+import { getBaseUrl } from '@/utils';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -65,6 +67,40 @@ const heroDescription = (
 );
 
 export default async function ExploreQuestionsPage() {
+  // create json ld
+  const jsonLd: WebPageJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    url: `${getBaseUrl()}/study-paths`,
+    headline: 'Study paths | TechBlitz',
+    description:
+      'Curated lists of coding questions, ranging from Javascript, React, Node, Web Development. Perfect for your daily coding practice.',
+    image:
+      'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/Screenshot%202025-01-11%20at%2002.24.28.png',
+    breadcrumb: WebPageJsonLdBreadcrumb,
+    author: {
+      '@type': 'Organization',
+      name: 'TechBlitz',
+      url: getBaseUrl(),
+    },
+    dateModified: new Date().toISOString(),
+    datePublished: new Date().toISOString(),
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': getBaseUrl(),
+    },
+    keywords:
+      'learn to code for free, beginner-friendly coding lessons, interactive coding challenges, daily programming practice, personalized coding roadmap, improve coding skills, best platform to learn coding, AI-assisted coding, learn javascript',
+    publisher: {
+      '@type': 'Organization',
+      name: 'TechBlitz',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://techblitz.dev/favicon.ico',
+      },
+    },
+  };
+
   const user = await useUserServer();
 
   const studyPaths = await getAllStudyPaths();
@@ -84,41 +120,47 @@ export default async function ExploreQuestionsPage() {
     );
 
   return (
-    <div className="flex flex-col gap-y-12 max-w-7xl mx-auto">
-      <Hero
-        heading="Study paths"
-        subheading={heroDescription}
-        container={true}
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="lg:container flex flex-col lg:flex-row mt-5 gap-16">
-        <div className="w-full lg:w-[70%] flex flex-col gap-12">
-          {Object.entries(studyPathsByCategory).map(([category, paths]) => (
-            <div key={category} className="space-y-6">
-              <h2 className="text-2xl font-bold text-white">{category}</h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {paths.map((studyPath) => (
-                  <StudyPathCard key={studyPath.uid} studyPath={studyPath} />
-                ))}
+      <div className="flex flex-col gap-y-12 max-w-7xl mx-auto">
+        <Hero
+          heading="Study paths"
+          subheading={heroDescription}
+          container={true}
+        />
+        <div className="lg:container flex flex-col lg:flex-row mt-5 gap-16">
+          <div className="w-full lg:w-[70%] flex flex-col gap-12">
+            {Object.entries(studyPathsByCategory).map(([category, paths]) => (
+              <div key={category} className="space-y-6">
+                <h2 className="text-2xl font-bold text-white">{category}</h2>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {paths.map((studyPath) => (
+                    <StudyPathCard key={studyPath.uid} studyPath={studyPath} />
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-        <aside className="w-full lg:w-[30%] flex flex-col gap-5 order-first lg:order-last">
-          <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit">
-            <div className="flex items-center space-x-2 text-white">
-              <Mail className="size-5 text-white" />
-              <span>Suggest a study path</span>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              We are adding new study paths every week. If you have a study path
-              in mind, please let us know and we will get back to you as soon as
-              possible.
-            </p>
-            <FeedbackButton title="Suggest a study path" />
+            ))}
           </div>
-          {user?.userLevel === 'FREE' && <UpgradeCard />}
-        </aside>
+          <aside className="w-full lg:w-[30%] flex flex-col gap-5 order-first lg:order-last">
+            <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit">
+              <div className="flex items-center space-x-2 text-white">
+                <Mail className="size-5 text-white" />
+                <span>Suggest a study path</span>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                We are adding new study paths every week. If you have a study
+                path in mind, please let us know and we will get back to you as
+                soon as possible.
+              </p>
+              <FeedbackButton title="Suggest a study path" />
+            </div>
+            {user?.userLevel === 'FREE' && <UpgradeCard />}
+          </aside>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

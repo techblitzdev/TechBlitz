@@ -91,6 +91,11 @@ export default async function QuestionUidLayout({
     isAccessibleForFree: true,
     isFamilyFriendly: true,
     teaches: 'coding',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${getBaseUrl()}/search?q={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
   };
 
   const nextAndPreviousQuestion = getNextAndPreviousQuestion(question.uid);

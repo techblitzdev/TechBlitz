@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 
 import { validateSearchParams, parseSearchParams } from '@/utils/search-params';
 import { getTags } from '@/utils/data/questions/tags/get-tags';
-import { createMetadata } from '@/utils/seo';
+import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
 
 const Filter = dynamic(() => import('@/components/app/filters/filter'), {
   ssr: false,
@@ -41,6 +41,8 @@ import QuestionPageSidebarLoading from '@/components/app/questions/layout/questi
 import { QuestionCardSkeleton } from '@/components/app/questions/layout/question-card';
 import ContinueJourney from '@/components/app/navigation/continue-journey-button';
 import { ArrowRightIcon } from 'lucide-react';
+import { WebPageJsonLd } from '@/types/Seo';
+import { getBaseUrl } from '@/utils';
 
 export const revalidate = 600;
 
@@ -91,13 +93,51 @@ export default async function QuestionsDashboard({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  // create json ld
+  const jsonLd: WebPageJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    url: `${getBaseUrl()}/questions`,
+    headline: 'Coding Challenges | TechBlitz',
+    description:
+      'Explore a diverse set of coding questions across multiple topics to enhance your knowledge.',
+    image:
+      'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/Screenshot%202025-01-11%20at%2002.24.28.png',
+    breadcrumb: WebPageJsonLdBreadcrumb,
+    author: {
+      '@type': 'Organization',
+      name: 'TechBlitz',
+      url: getBaseUrl(),
+    },
+    dateModified: new Date().toISOString(),
+    datePublished: new Date().toISOString(),
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': getBaseUrl(),
+    },
+    keywords:
+      'learn to code for free, beginner-friendly coding lessons, interactive coding challenges, daily programming practice, personalized coding roadmap, improve coding skills, best platform to learn coding, AI-assisted coding, learn javascript',
+    publisher: {
+      '@type': 'Organization',
+      name: 'TechBlitz',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://techblitz.dev/favicon.ico',
+      },
+    },
+  };
+
   const tagsPromise = getTags();
 
   const filters = parseSearchParams(searchParams);
   if (!validateSearchParams(filters)) return null;
 
   return (
-    <div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Hero heading="Coding Challenges" subheading={heroDescription} />
       <div className="mx-auto px-4 sm:px-6 lg:px-8 py-12 group">
         <div className="flex flex-col xl:flex-row gap-12">
@@ -119,6 +159,6 @@ export default async function QuestionsDashboard({
           <QuestionPageSidebar />
         </div>
       </div>
-    </div>
+    </>
   );
 }

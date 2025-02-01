@@ -101,7 +101,8 @@ export async function middleware(req: NextRequest) {
   // Get current user session
   const { user, error: AuthError } = await updateSession(req);
   const isAuthenticated = !!user?.user?.id;
-  const isAuthError = !!AuthError;
+  // just commenting out for the build!
+  //const isAuthError = !!AuthError;
 
   // Handle different route types
   if (route.config.requiresAuth && !isAuthenticated) {

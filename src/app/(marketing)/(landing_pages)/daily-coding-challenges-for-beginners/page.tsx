@@ -1,4 +1,4 @@
-import { WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
 
 import { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
@@ -187,6 +187,21 @@ const items = [
       'Visualize your JavaScript coding journey with detailed performance metrics. Track your progress across topics, algorithms, and problem-solving patterns.',
   },
 ];
+
+// metadata
+export async function generateMetadata() {
+  return createMetadata({
+    title: 'Daily Coding Challenges for Beginners | TechBlitz',
+    description:
+      'TechBlitz transforms your coding journey into a personalized, engaging, and effective experience. Ensuring you learn essential coding skills faster than ever.',
+    image: {
+      text: 'Daily Coding Challenges for Beginners | TechBlitz',
+      bgColor: '#000',
+      textColor: '#fff',
+    },
+    canonicalUrl: '/daily-coding-challenges-for-beginners',
+  });
+}
 
 export default function DailyCodingChallengesForBeginnersPage() {
   const jsonLd: WebPageJsonLd = {

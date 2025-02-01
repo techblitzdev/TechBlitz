@@ -145,6 +145,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/react-coding-challenges`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/learn-to-code`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/how-to-learn-to-code`,
+      lastModified: new Date(),
+    },
   ];
 
   // Combine static routes with dynamic blog posts

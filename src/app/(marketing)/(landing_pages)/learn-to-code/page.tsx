@@ -11,40 +11,73 @@ import { getBaseUrl } from '@/utils';
 import { QUESTIONS_COUNT } from '@/utils/constants/misc';
 import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
 import { MobileIcon } from '@radix-ui/react-icons';
+import Link from 'next/link';
 
 const faqs = [
   {
-    question: 'How will TechBlitz help me learn JavaScript?',
+    question: 'How does TechBlitz help me learn to code effectively?',
     answer:
-      'Our challenges have been crafted to mimic real-world problems, that aim to guide you from a beginner JavaScript developer to a pro.',
+      'TechBlitz offers real-world coding challenges designed to simulate professional scenarios. Our platform adapts to your skill level, providing personalized challenges that guide you from beginner to advanced coding mastery.',
   },
   {
-    question: 'How many JavaScript questions are there for me to complete?',
-    answer: `We currently have ${QUESTIONS_COUNT}+ JavaScript challenges for you to complete. One for each level of JavaScript mastery.`,
+    question: 'How many coding challenges are available on TechBlitz?',
+    answer: `With over ${QUESTIONS_COUNT}+ coding challenges, TechBlitz covers a wide range of topics, including JavaScript, web development, algorithms, and more. Each challenge is crafted to enhance your problem-solving skills.`,
   },
   {
-    question: 'What is TechBlitz?',
+    question: 'What is TechBlitz, and how does it work?',
+    answer: (
+      <>
+        TechBlitz is a cutting-edge coding challenge platform that helps you
+        learn programming through interactive, real-world exercises.{' '}
+        <Link href="/signup" className="text-accent underline">
+          Sign up for a free account
+        </Link>
+        , choose your skill level, and start solving challenges tailored to your
+        needs.
+      </>
+    ),
+  },
+  {
+    question: 'What makes TechBlitz stand out from other coding platforms?',
     answer:
-      'TechBlitz is a coding challenge platform that helps you learn JavaScript.',
+      'TechBlitz stands out with its personalized learning experience, AI-powered feedback, and a vibrant community. Our platform ensures you learn essential coding skills faster with tailored challenges, progress tracking, and expert support.',
   },
   {
-    question: 'How does TechBlitz work?',
+    question: 'How do I get started with TechBlitz?',
+    answer: (
+      <>
+        Getting started is easy! Simply{' '}
+        <Link href="/signup" className="text-accent underline">
+          sign up for a free account
+        </Link>{' '}
+        and begin solving coding challenges tailored to your skill level.
+      </>
+    ),
+  },
+  {
+    question: 'Does TechBlitz offer discounts for students?',
     answer:
-      'TechBlitz works by providing you with a wide range of real-world JavaScript challenges.',
+      'Yes, we offer a 50% discount for students. Contact our support team with your student email to redeem this offer.',
   },
   {
-    question: 'What makes TechBlitz different?',
+    question: 'Can I use TechBlitz on my mobile device?',
     answer:
-      'Our core values are in providing you a personalized experience. We ensure you learn essential coding skills faster than ever with your own AI-assistant, personalized challenges & roadmaps, stats tracking, and more!',
+      'Absolutely! TechBlitz is fully optimized for mobile devices, allowing you to practice coding on your phone or tablet anytime, anywhere.',
   },
   {
-    question: 'How do I get started?',
+    question: 'What programming languages does TechBlitz support?',
     answer:
-      'You can get started by signing up for a free account and starting to answer challenges.',
+      'TechBlitz primarily focuses on JavaScript and web development. We are working on adding more languages in the future.',
   },
   {
-    question: 'Do you offer student discount?',
-    answer: 'Yes! We are currently offering 50% off for students.',
+    question: 'Is TechBlitz suitable for beginners?',
+    answer:
+      'Yes, TechBlitz is perfect for beginners. Our challenges start with foundational concepts and gradually increase in complexity, ensuring a smooth learning curve for all skill levels.',
+  },
+  {
+    question: 'How does TechBlitz ensure my progress is tracked effectively?',
+    answer:
+      'TechBlitz provides detailed analytics and progress reports, allowing you to track your performance, identify weak areas, and celebrate milestones as you advance in your coding journey.',
   },
 ];
 
@@ -70,9 +103,9 @@ const items = [
         </g>
       </svg>
     ),
-    title: 'Bite-sized Learning',
+    title: 'Personalized Learning Paths',
     description:
-      'Master complex JavaScript concepts in just 15 minutes a day with our expertly crafted micro-challenges. Perfect for busy developers.',
+      'Master coding with tailored challenges delivered daily. Whether you’re on your phone, tablet, or computer, our adaptive platform ensures you learn JavaScript and other programming languages at your own pace.',
   },
   {
     icon: (
@@ -88,9 +121,9 @@ const items = [
         />
       </svg>
     ),
-    title: 'Daily JavaScript Challenges',
+    title: 'Daily Coding Challenges',
     description:
-      'Daily coding challenges to improve your JavaScript skills. Learn to code for free, with our short-form, interactive coding challenges from a range of topics including JavaScript, React, Node.js, web development, and more.',
+      'Sharpen your skills with daily coding challenges designed for all levels. From JavaScript fundamentals to advanced web development, our bite-sized exercises make learning fun and effective.',
   },
   {
     icon: (
@@ -106,9 +139,9 @@ const items = [
         />
       </svg>
     ),
-    title: 'Vibrant JavaScript Community',
+    title: 'Engage with a Global Community',
     description:
-      'Connect with a community of passionate JavaScript developers worldwide. Share solutions, discuss approaches, and accelerate your learning through peer collaboration.',
+      'Join a thriving community of JavaScript developers. Share solutions, exchange ideas, and grow together with peers from around the world.',
   },
   {
     icon: (
@@ -124,9 +157,9 @@ const items = [
         />
       </svg>
     ),
-    title: 'Instant Feedback',
+    title: 'Instant Feedback & Solutions',
     description:
-      'Get real-time feedback on your JavaScript solutions. Learn from mistakes and improve faster.',
+      'Get real-time feedback on your code. Learn from detailed explanations and improve your JavaScript skills faster with actionable insights.',
   },
   {
     icon: (
@@ -149,39 +182,39 @@ const items = [
         </g>
       </svg>
     ),
-    title: 'Advanced Analytics',
+    title: 'Track Your Progress',
     description:
-      'Visualize your JavaScript coding journey with detailed performance metrics. Track your progress across topics, algorithms, and problem-solving patterns.',
+      'Visualize your coding journey with advanced analytics. Monitor your performance, identify strengths, and target areas for improvement with detailed progress reports.',
   },
   {
     icon: <MobileIcon className="size-6" />,
-    title: 'Seamless Mobile Learning',
+    title: 'Learn Anywhere, Anytime',
     description:
-      'Learn JavaScript on your phone. Practice during commutes or breaks with our optimized mobile interface - never miss a day of learning.',
+      'Practice coding on the go with our mobile-friendly platform. Perfect for busy schedules, our challenges are optimized for seamless learning on any device.',
   },
 ];
 
 // metadata
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Learn JavaScript | TechBlitz',
+    title: 'Learn to code | TechBlitz',
     description:
       'TechBlitz transforms your coding journey into a personalized, engaging, and effective experience. Ensuring you learn essential coding skills faster than ever.',
     image: {
-      text: 'Learn JavaScript | TechBlitz',
+      text: 'Learn to code | TechBlitz',
       bgColor: '#000',
       textColor: '#fff',
     },
-    canonicalUrl: '/learn-javascript',
+    canonicalUrl: '/learn-to-code',
   });
 }
 
-export default function LearnJavascriptPage() {
+export default function LearnToCodePage() {
   const jsonLd: WebPageJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     url: getBaseUrl(),
-    headline: 'Learn JavaScript | TechBlitz',
+    headline: 'Learn to code | TechBlitz',
     description:
       'TechBlitz transforms your coding journey into a personalized, engaging, and effective experience. Ensuring you learn essential coding skills faster than ever.',
     image:
@@ -217,43 +250,43 @@ export default function LearnJavascriptPage() {
       />
       <div className="container">
         <FeatureDailyChallengeHero
-          header="Learning JavaScript made simple"
-          subheader="TechBlitz is the number one coding challenge platform to learn JavaScript. Supplying you with a wide range of real-world JavaScript challenges."
-          animatedSpan="Learn JavaScript"
+          header="Learning to code made simple"
+          subheader="TechBlitz is the number one coding challenge platform to learn to code. Supplying you with a wide range of real-world coding challenges."
+          animatedSpan="Personalized learning"
         />
 
         <FeatureLeftRightSection
-          leftHeader="Daily coding challenges"
-          leftSubheader="Master JavaScript with our daily coding challenges. Learn new JavaScript skills in as little as 5 minutes a day, start streaks, battle with friends, and more! Our daily coding challenges also work on any device - meaning you can learn JavaScript on your phone, tablet, or computer."
+          leftHeader="Daily suggested coding challenges"
+          leftSubheader="Learn to code with a personalized coding challenge sent to your inbox every weekday. Your coding challenges also work on any device - meaning you can learn JavaScript on your phone, tablet, or computer."
           learnMoreLink={true}
         />
 
         <FeatureRoadmapThreeGridBlock
-          title="JavaScript roadmaps for everyone"
+          title="Coding roadmaps for everyone"
           description="Every coding roadmap is created based on your current coding skills. We analyze your current skills set, and are able to create a roadmap that is tailored to you. Meaning every user will be getting a unique experience with TechBlitz."
         />
 
         <ComparisonBlock
-          header="Learn JavaScript with real-world coding challenges"
-          subheader="Learn JavaScript the best way possible. With real-world coding challenges that mimic real-world problems."
+          header="Learn to code with real-world coding challenges"
+          subheader="Learn to code the best way possible. With real-world coding challenges that mimic real-world problems."
         />
 
         <StatsReportSection
-          header="Track your JavaScript knowledge"
+          header="Track your coding knowledge"
           subheader="Get actionable insights with personalized performance analytics. Track your coding journey, identify areas for improvement, and celebrate your achievements with comprehensive progress reports."
           learnMoreLink={true}
         />
 
         <MarketingContentGrid
-          title="Everything you need to learn JavaScript"
+          title="Everything you need to learn to code"
           items={items}
         />
 
         <FAQsBlock faqs={faqs} />
 
         <CallToActionBlock
-          title="Learning JavaScript Made Simple"
-          description="TechBlitz is the number one place to learn JavaScript. Supplying you with a wide range of real-world JavaScript challenges."
+          title="Learning to code made simple"
+          description="TechBlitz is the number one place to learn to code. Supplying you with a wide range of real-world coding challenges."
         />
       </div>
     </>

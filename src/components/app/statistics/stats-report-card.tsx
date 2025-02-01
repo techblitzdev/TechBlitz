@@ -3,20 +3,11 @@ import Link from 'next/link';
 import { timeAgo } from '@/utils/time';
 import { StatsReport } from '@/types/Stats';
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import StatsReportCardMenu from '@/components/app/statistics/stats-report-card-menu';
 
-export default async function StatsReportCard({
-  report,
-}: {
-  report: StatsReport;
-}) {
+export default async function StatsReportCard({ report }: { report: StatsReport }) {
   const totalTags = report.correctTags.length + report.incorrectTags.length;
   const correctPercentage = (report.correctTags.length / totalTags) * 100;
 
@@ -28,9 +19,7 @@ export default async function StatsReportCard({
       <div className="space-y-4 border border-black-50 hover:border-accent duration-300 p-5 rounded-lg relative overflow-hidden">
         {/* Header */}
         <div className="flex w-full justify-between items-center">
-          <h6 className="text-lg font-semibold">
-            Report from {timeAgo(report.createdAt)}
-          </h6>
+          <h6 className="text-lg font-semibold">Report from {timeAgo(report.createdAt)}</h6>
           <StatsReportCardMenu reportUid={report.uid} />
         </div>
 
@@ -48,8 +37,7 @@ export default async function StatsReportCard({
                 </TooltipTrigger>
                 <TooltipContent align="center">
                   <p>
-                    This is the percentage of the total questions that you have
-                    answered correctly.
+                    This is the percentage of the total questions that you have answered correctly.
                   </p>
                 </TooltipContent>
               </Tooltip>

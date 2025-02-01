@@ -48,11 +48,7 @@ export default async function RoadmapQuestionPage({
 
   const leftContent = (
     <div className="flex flex-col gap-y-4 p-3 lg:pr-1.5 h-full">
-      <RoadmapQuestionCard
-        question={question}
-        user={user}
-        roadmapUid={roadmapUid}
-      />
+      <RoadmapQuestionCard question={question} user={user} roadmapUid={roadmapUid} />
     </div>
   );
 
@@ -64,17 +60,11 @@ export default async function RoadmapQuestionPage({
       >
         <div className="px-4 py-[18px] text-sm flex w-full items-center justify-end bg-black-25 gap-x-3">
           {/** explain question ai button */}
-          <AiQuestionHelp
-            question={question}
-            user={user}
-            questionType="roadmap"
-          />
+          <AiQuestionHelp question={question} user={user} questionType="roadmap" />
           {/** code theme selector */}
           <ChangeCodeTheme user={user} />
           {/** code snippet */}
-          {question.codeSnippet && (
-            <ExpandedCodeModal code={question.codeSnippet} />
-          )}
+          {question.codeSnippet && <ExpandedCodeModal code={question.codeSnippet} />}
         </div>
         <Separator className="bg-black-50" />
         <QuestionCodeDisplayWrapper />
@@ -83,10 +73,6 @@ export default async function RoadmapQuestionPage({
   );
 
   return (
-    <ResizableLayout
-      leftContent={leftContent}
-      rightContent={rightContent}
-      initialLeftWidth={50}
-    />
+    <ResizableLayout leftContent={leftContent} rightContent={rightContent} initialLeftWidth={50} />
   );
 }

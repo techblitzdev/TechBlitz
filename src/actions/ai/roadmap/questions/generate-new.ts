@@ -8,9 +8,7 @@ import { zodResponseFormat } from 'openai/helpers/zod.mjs';
 import { revalidateTag } from 'next/cache';
 import { nanoid } from 'nanoid';
 
-export const generateNewRoadmapQuestion = async (opts: {
-  questionUid: string;
-}) => {
+export const generateNewRoadmapQuestion = async (opts: { questionUid: string }) => {
   const { questionUid } = opts;
 
   // get the current user
@@ -43,10 +41,7 @@ export const generateNewRoadmapQuestion = async (opts: {
 
   // get the content from the db
   const prompts = await getPrompt({
-    name: [
-      'first-pass-new-roadmap-question',
-      'second-pass-new-roadmap-question',
-    ],
+    name: ['first-pass-new-roadmap-question', 'second-pass-new-roadmap-question'],
   });
 
   // check if the prompt is valid

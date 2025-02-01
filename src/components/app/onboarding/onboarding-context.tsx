@@ -12,16 +12,10 @@ import { getOnboardingQuestions } from '@/utils/data/questions/get-onboarding';
 import { useRouter } from 'next/navigation';
 // context type
 type OnboardingContextType = {
-  user: Omit<
-    UpdatableUserFields,
-    'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'
-  >;
+  user: Omit<UpdatableUserFields, 'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'>;
   setUser: React.Dispatch<
     React.SetStateAction<
-      Omit<
-        UpdatableUserFields,
-        'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'
-      >
+      Omit<UpdatableUserFields, 'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'>
     >
   >;
   serverUser: UserRecord | null;
@@ -29,9 +23,7 @@ type OnboardingContextType = {
   setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
   currentStep: 'stepOne' | 'stepTwo' | 'stepThree' | 'stepFour' | 'stepFive';
   setCurrentStep: React.Dispatch<
-    React.SetStateAction<
-      'stepOne' | 'stepTwo' | 'stepThree' | 'stepFour' | 'stepFive'
-    >
+    React.SetStateAction<'stepOne' | 'stepTwo' | 'stepThree' | 'stepFour' | 'stepFive'>
   >;
   onboardingQuestions: QuestionWithTags[];
   handleGetOnboardingQuestions: () => Promise<void>;
@@ -63,10 +55,7 @@ export const UserOnboardingContextProvider = ({
 
   // user state
   const [user, setUser] = useState<
-    Omit<
-      UpdatableUserFields,
-      'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'
-    >
+    Omit<UpdatableUserFields, 'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'>
   >(
     serverUser as Omit<
       UpdatableUserFields,
@@ -122,9 +111,7 @@ export const UserOnboardingContextProvider = ({
 export const useOnboardingContext = () => {
   const context = useContext(OnboardingContext);
   if (!context) {
-    throw new Error(
-      'useOnboardingContext must be used within a UserContextProvider'
-    );
+    throw new Error('useOnboardingContext must be used within a UserContextProvider');
   }
   return context;
 };

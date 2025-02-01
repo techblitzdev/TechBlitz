@@ -1,19 +1,9 @@
 'use client';
 import { useEffect } from 'react';
 
-import {
-  Tooltip,
-  TooltipProvider,
-  TooltipTrigger
-} from '@/components/ui/tooltip';
+import { Tooltip, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { InputWithLabel } from '@/components/ui/input-label';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
@@ -21,12 +11,7 @@ import LoadingSpinner from '@/components/ui/loading';
 import LogoutButton from '@/components/auth/logout';
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
-import {
-  Select,
-  SelectTrigger,
-  SelectContent,
-  SelectItem
-} from '@/components/ui/select';
+import { Select, SelectTrigger, SelectContent, SelectItem } from '@/components/ui/select';
 import CodeEditorPreview from '@/components/app/settings/code-preview';
 
 import { useForm } from 'react-hook-form';
@@ -60,8 +45,8 @@ export default function SettingsProfilePage() {
       sendPushNotifications: user?.sendPushNotifications || false,
       codeEditorTheme: user?.codeEditorTheme || 'vs-dark',
       userProfilePicture: user?.userProfilePicture || '',
-      aboutMeAiHelp: user?.aboutMeAiHelp || ''
-    }
+      aboutMeAiHelp: user?.aboutMeAiHelp || '',
+    },
   });
 
   useEffect(() => {
@@ -74,7 +59,7 @@ export default function SettingsProfilePage() {
         sendPushNotifications: user.sendPushNotifications,
         codeEditorTheme: user.codeEditorTheme || 'vs-dark',
         userProfilePicture: user.userProfilePicture || '',
-        aboutMeAiHelp: user.aboutMeAiHelp || ''
+        aboutMeAiHelp: user.aboutMeAiHelp || '',
       });
     }
   }, [user, isLoading, form]);
@@ -93,7 +78,7 @@ export default function SettingsProfilePage() {
 
       const updatedVals: Partial<UserUpdatePayload> = {
         ...changedValues,
-        uid: user?.uid || ''
+        uid: user?.uid || '',
       };
 
       const updatedUser = await updateUser({ userDetails: updatedVals });
@@ -104,7 +89,7 @@ export default function SettingsProfilePage() {
       const previousUser = queryClient.getQueryData(['user-details']);
       queryClient.setQueryData(['user-details'], (old: any) => ({
         ...old,
-        ...newUserData
+        ...newUserData,
       }));
       return { previousUser };
     },
@@ -115,7 +100,7 @@ export default function SettingsProfilePage() {
     },
     onSuccess: () => {
       toast.success('Profile updated successfully');
-    }
+    },
   });
 
   const onSubmitProfilePicture = async (data: any) => {
@@ -137,7 +122,7 @@ export default function SettingsProfilePage() {
     try {
       const res = await fetch('/api/upload', {
         method: 'POST',
-        body: formData
+        body: formData,
       });
       const { logoUrl } = await res.json();
 
@@ -159,16 +144,11 @@ export default function SettingsProfilePage() {
     <div className="flex flex-col">
       <div className="space-y-1 p-8">
         <h1 className="text-3xl">Profile Settings</h1>
-        <p className="text-base">
-          Update your profile details and preferences.
-        </p>
+        <p className="text-base">Update your profile details and preferences.</p>
       </div>
       <Separator className="w-full bg-black-50" />
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full space-y-6 p-8"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6 p-8">
           {/** profile picture */}
           <FormField
             control={form.control}
@@ -178,11 +158,7 @@ export default function SettingsProfilePage() {
                 <div className="flex flex-col md:flex-row md:items-center gap-4">
                   <div className="relative size-16 md:size-24 rounded-full overflow-hidden border-2 border-black-50">
                     {field.value ? (
-                      <img
-                        src={field.value}
-                        alt="Profile"
-                        className="h-full w-full object-cover"
-                      />
+                      <img src={field.value} alt="Profile" className="h-full w-full object-cover" />
                     ) : (
                       <div className="h-full w-full bg-black flex items-center justify-center">
                         <span className="text-gray-400">No image</span>
@@ -190,10 +166,7 @@ export default function SettingsProfilePage() {
                     )}
                   </div>
                   <div className="flex flex-col gap-2">
-                    <Label
-                      htmlFor="logo-file-upload"
-                      className="text-base font-medium"
-                    >
+                    <Label htmlFor="logo-file-upload" className="text-base font-medium">
                       Profile Picture
                     </Label>
                     <div className="flex gap-2">
@@ -304,10 +277,7 @@ export default function SettingsProfilePage() {
                             }}
                             className="bg-black-50"
                           />
-                          <Label
-                            htmlFor="showTimeTaken"
-                            className="text-base"
-                          >
+                          <Label htmlFor="showTimeTaken" className="text-base">
                             Show on leaderboard
                           </Label>
                         </div>
@@ -339,10 +309,7 @@ export default function SettingsProfilePage() {
                             }}
                             className="bg-black-50"
                           />
-                          <Label
-                            htmlFor="sendPushNotifications"
-                            className="text-base"
-                          >
+                          <Label htmlFor="sendPushNotifications" className="text-base">
                             Send daily reminders
                           </Label>
                         </div>
@@ -363,16 +330,13 @@ export default function SettingsProfilePage() {
               <FormItem>
                 <FormControl>
                   <>
-                    <Label
-                      htmlFor="aboutMeAiHelp"
-                      className="text-base"
-                    >
+                    <Label htmlFor="aboutMeAiHelp" className="text-base">
                       Personalize your AI
                     </Label>
                     <p className="text-sm text-muted-foreground mb-2">
-                      Provide a short description of yourself to help our AI
-                      understand you better. This can include topics that
-                      interest you, or code weaknesses you want to improve on.
+                      Provide a short description of yourself to help our AI understand you better.
+                      This can include topics that interest you, or code weaknesses you want to
+                      improve on.
                     </p>
                     <Textarea
                       id="aboutMeAiHelp"
@@ -409,29 +373,19 @@ export default function SettingsProfilePage() {
               <FormItem>
                 <FormControl>
                   <div className="space-y-4">
-                    <Select
-                      value={field.value || 'vs-dark'}
-                      onValueChange={field.onChange}
-                    >
+                    <Select value={field.value || 'vs-dark'} onValueChange={field.onChange}>
                       <SelectTrigger className="border border-black-50 w-full md:w-[250px]">
-                        {field.value ||
-                          user?.codeEditorTheme ||
-                          'Select a code editor theme'}
+                        {field.value || user?.codeEditorTheme || 'Select a code editor theme'}
                       </SelectTrigger>
                       <SelectContent>
                         {Object.entries(themes).map(([key]) => (
-                          <SelectItem
-                            key={key}
-                            value={key}
-                          >
+                          <SelectItem key={key} value={key}>
                             {key}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
-                    <CodeEditorPreview
-                      theme={(field.value as keyof typeof themes) || 'vs-dark'}
-                    />
+                    <CodeEditorPreview theme={(field.value as keyof typeof themes) || 'vs-dark'} />
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -440,12 +394,7 @@ export default function SettingsProfilePage() {
           />
 
           <div className="flex flex-wrap gap-4">
-            <Button
-              type="submit"
-              variant="secondary"
-              disabled={isPending}
-              className="text-base"
-            >
+            <Button type="submit" variant="secondary" disabled={isPending} className="text-base">
               {isPending ? <LoadingSpinner /> : 'Save changes'}
             </Button>
             <LogoutButton variant="destructive" />

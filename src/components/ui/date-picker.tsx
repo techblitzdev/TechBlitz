@@ -13,11 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-} from './dropdown-menu';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent } from './dropdown-menu';
 
 interface DatePickerProps {
   date: Date | undefined;
@@ -42,11 +38,7 @@ export function DatePicker({ date, setDate }: DatePickerProps) {
       <DropdownMenuContent className="w-auto p-0">
         <Calendar mode="single" selected={date} onSelect={setDate} />
         <div className="p-3 border-t border-border">
-          <Select
-            onValueChange={(value) =>
-              setDate(addDays(new Date(), parseInt(value)))
-            }
-          >
+          <Select onValueChange={(value) => setDate(addDays(new Date(), parseInt(value)))}>
             <SelectTrigger>
               <SelectValue placeholder="Select" />
             </SelectTrigger>

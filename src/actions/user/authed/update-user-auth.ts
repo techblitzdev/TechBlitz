@@ -3,10 +3,7 @@ import { createClient as createServerClient } from '@/utils/supabase/server';
 import type { UserAttributes } from '@supabase/supabase-js';
 import { prisma } from '@/lib/prisma';
 
-export const updateUserAuth = async (opts: {
-  email?: string;
-  password?: string;
-}) => {
+export const updateUserAuth = async (opts: { email?: string; password?: string }) => {
   const { email, password } = opts;
 
   const supabase = await createServerClient();

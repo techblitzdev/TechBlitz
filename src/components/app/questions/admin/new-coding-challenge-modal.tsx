@@ -200,8 +200,7 @@ export default function NewCodingChallengeQuestionModal({ ...props }) {
     },
   });
 
-  const handleNewQuestion = async (values: SchemaProps) =>
-    await server_addQuestion(values);
+  const handleNewQuestion = async (values: SchemaProps) => await server_addQuestion(values);
 
   return (
     <Dialog>
@@ -273,10 +272,7 @@ export default function NewCodingChallengeQuestionModal({ ...props }) {
                   name="difficulty"
                   render={({ field }) => (
                     <FormControl>
-                      <Select
-                        value={field.value}
-                        onValueChange={field.onChange}
-                      >
+                      <Select value={field.value} onValueChange={field.onChange}>
                         <SelectTrigger className="w-40">
                           <SelectValue placeholder="Select difficulty" />
                         </SelectTrigger>
@@ -300,10 +296,7 @@ export default function NewCodingChallengeQuestionModal({ ...props }) {
                         <DatePicker
                           date={field.value ? new Date(field.value) : undefined}
                           setDate={(date) =>
-                            form.setValue(
-                              'questionDate',
-                              date ? formatISO(date) : ''
-                            )
+                            form.setValue('questionDate', date ? formatISO(date) : '')
                           }
                         />
                       </FormControl>
@@ -442,11 +435,7 @@ export default function NewCodingChallengeQuestionModal({ ...props }) {
                   >
                     Add Resource
                   </Button>
-                  <Button
-                    type="button"
-                    onClick={() => removeResource(index)}
-                    className="btn"
-                  >
+                  <Button type="button" onClick={() => removeResource(index)} className="btn">
                     <TrashIcon className="size-4 text-destructive" />
                   </Button>
                 </div>

@@ -7,13 +7,7 @@ import { ChevronLeft } from 'lucide-react';
 import { getBlogPost, getBlogPosts } from '@/lib/blog';
 import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { QUESTIONS_COUNT } from '@/utils/constants/misc';
 import BlogCard from '@/components/marketing/resources/blog/blog-card';
 import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
@@ -40,9 +34,7 @@ interface BlogFrontmatter {
 }
 
 // generate metadata for the blog post
-export async function generateMetadata({
-  params,
-}: BlogPostParams): Promise<Metadata> {
+export async function generateMetadata({ params }: BlogPostParams): Promise<Metadata> {
   try {
     const { frontmatter } = await getBlogPost(params.slug);
     const typedFrontmatter = frontmatter as unknown as BlogFrontmatter;
@@ -94,12 +86,8 @@ export default async function BlogPost({ params }: BlogPostParams) {
               <ChevronLeft size={16} />
               Back to blog
             </Link>
-            <h1 className="text-4xl lg:text-5xl font-medium my-4">
-              {typedFrontmatter.title}
-            </h1>
-            <h6 className="mb-2 text-gray-400">
-              {typedFrontmatter.description}
-            </h6>
+            <h1 className="text-4xl lg:text-5xl font-medium my-4">{typedFrontmatter.title}</h1>
+            <h6 className="mb-2 text-gray-400">{typedFrontmatter.description}</h6>
             <div className="flex items-center gap-x-4 text-gray-400 text-sm">
               <time dateTime={typedFrontmatter.date}>
                 {new Date(typedFrontmatter.date).toLocaleDateString('en-US', {
@@ -172,9 +160,8 @@ export default async function BlogPost({ params }: BlogPostParams) {
               </CardHeader>
               <CardContent className="text-center">
                 <p className="text-gray-400 text-xs">
-                  Level up your coding skills with our daily challenges,
-                  personalized roadmaps, access to {QUESTIONS_COUNT} questions,
-                  and a community of like-minded individuals.
+                  Level up your coding skills with our daily challenges, personalized roadmaps,
+                  access to {QUESTIONS_COUNT} questions, and a community of like-minded individuals.
                 </p>
               </CardContent>
               <CardFooter>

@@ -2,12 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -34,12 +29,8 @@ export default function QuestionNavigation(opts: {
   const type = searchParams?.get('type');
   const studyPathSlug = searchParams?.get('study-path');
 
-  const {
-    previousQuestion,
-    setPreviousQuestion,
-    nextQuestion,
-    setNextQuestion,
-  } = useQuestionSingle();
+  const { previousQuestion, setPreviousQuestion, nextQuestion, setNextQuestion } =
+    useQuestionSingle();
 
   const [studyPath, setStudyPath] = useState<StudyPath | null>(null);
 
@@ -60,16 +51,11 @@ export default function QuestionNavigation(opts: {
         currentIndex < studyPath.questionSlugs.length - 1
           ? studyPath.questionSlugs[currentIndex + 1]
           : null;
-      const prevSlug =
-        currentIndex > 0 ? studyPath.questionSlugs[currentIndex - 1] : null;
+      const prevSlug = currentIndex > 0 ? studyPath.questionSlugs[currentIndex - 1] : null;
 
       // Set the full URLs in context
-      setPreviousQuestion(
-        prevSlug ? `${prevSlug}?type=${type}&study-path=${studyPathSlug}` : null
-      );
-      setNextQuestion(
-        nextSlug ? `${nextSlug}?type=${type}&study-path=${studyPathSlug}` : null
-      );
+      setPreviousQuestion(prevSlug ? `${prevSlug}?type=${type}&study-path=${studyPathSlug}` : null);
+      setNextQuestion(nextSlug ? `${nextSlug}?type=${type}&study-path=${studyPathSlug}` : null);
     } else {
       // Use the provided promise for non-study-path questions
       nextPrevPromise.then((nextPrev) => {
@@ -95,9 +81,7 @@ export default function QuestionNavigation(opts: {
                   <span className="text-sm hidden sm:block">Back</span>
                 </Button>
               </TooltipTrigger>
-              <TooltipContent side="bottom">
-                Back to {studyPath?.title}
-              </TooltipContent>
+              <TooltipContent side="bottom">Back to {studyPath?.title}</TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </div>
@@ -118,9 +102,7 @@ export default function QuestionNavigation(opts: {
               </Link>
             </TooltipTrigger>
             <TooltipContent side="bottom" className="text-white font-inter">
-              {previousQuestion
-                ? `Previous ${navigationType}`
-                : `No previous ${navigationType}`}
+              {previousQuestion ? `Previous ${navigationType}` : `No previous ${navigationType}`}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -140,9 +122,7 @@ export default function QuestionNavigation(opts: {
               </Link>
             </TooltipTrigger>
             <TooltipContent side="bottom">
-              {nextQuestion
-                ? `Next ${navigationType}`
-                : `No next ${navigationType}`}
+              {nextQuestion ? `Next ${navigationType}` : `No next ${navigationType}`}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -176,9 +156,7 @@ export function RoadmapQuestionNavigation(opts: {
                 <span className="text-sm hidden sm:block">Back</span>
               </Button>
             </TooltipTrigger>
-            <TooltipContent side="bottom">
-              Back to {roadmap?.title}
-            </TooltipContent>
+            <TooltipContent side="bottom">Back to {roadmap?.title}</TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </div>
@@ -198,9 +176,7 @@ export function RoadmapQuestionNavigation(opts: {
               </Link>
             </TooltipTrigger>
             <TooltipContent side="bottom" className="text-white font-inter">
-              {prevRoadmapQuestion
-                ? `Previous Roadmap Question`
-                : `No previous Roadmap Question`}
+              {prevRoadmapQuestion ? `Previous Roadmap Question` : `No previous Roadmap Question`}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -220,9 +196,7 @@ export function RoadmapQuestionNavigation(opts: {
               </Link>
             </TooltipTrigger>
             <TooltipContent side="bottom">
-              {nextRoadmapQuestion
-                ? `Next Roadmap Question`
-                : `No next Roadmap Question`}
+              {nextRoadmapQuestion ? `Next Roadmap Question` : `No next Roadmap Question`}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

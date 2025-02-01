@@ -1,9 +1,4 @@
-import {
-  InterFont,
-  OnestFont,
-  SatoshiFont,
-  UbuntuFont,
-} from '../styles/fonts/font';
+import { InterFont, OnestFont, SatoshiFont, UbuntuFont } from '../styles/fonts/font';
 import '../globals.css';
 import { ReactQueryClientProvider } from '@/components/shared/react-query-client-provider';
 import { Toaster } from '@/components/ui/sonner';
@@ -17,24 +12,17 @@ import { Analytics } from '@vercel/analytics/react';
 // Dynamically import components that are not needed immediately
 import MarketingNavigation from '@/components/marketing/global/navigation/navigation';
 
-const MarketingFooter = dynamic(
-  () => import('@/components/marketing/global/footer/footer'),
-  { ssr: false }
-);
+const MarketingFooter = dynamic(() => import('@/components/marketing/global/footer/footer'), {
+  ssr: false,
+});
 
-const CookieBanner = dynamic(
-  () => import('@/components/shared/cookie-banner'),
-  {
-    ssr: false,
-  }
-);
+const CookieBanner = dynamic(() => import('@/components/shared/cookie-banner'), {
+  ssr: false,
+});
 
-const StarsBackground = dynamic(
-  () => import('@/components/ui/stars-background'),
-  {
-    ssr: false,
-  }
-);
+const StarsBackground = dynamic(() => import('@/components/ui/stars-background'), {
+  ssr: false,
+});
 
 export default function Layout({
   children,

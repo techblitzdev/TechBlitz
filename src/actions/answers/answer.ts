@@ -73,11 +73,7 @@ const findExistingAnswer = async (userUid: string, questionUid: string) => {
   });
 };
 
-const updateStreakDates = async (
-  tx: any,
-  userUid: string,
-  currentStreak: any
-) => {
+const updateStreakDates = async (tx: any, userUid: string, currentStreak: any) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -136,8 +132,7 @@ const updateStreakDates = async (
     where: { uid: userUid },
     data: {
       correctDailyStreak: newCurrentStreak,
-      totalDailyStreak:
-        currentStreak.totalDailyStreak + (daysDifference === 1 ? 1 : 0),
+      totalDailyStreak: currentStreak.totalDailyStreak + (daysDifference === 1 ? 1 : 0),
     },
   });
 };

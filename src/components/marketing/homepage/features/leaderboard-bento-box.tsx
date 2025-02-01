@@ -36,9 +36,7 @@ export default function LeaderboardBentoBox() {
       // Calculate trends
       const newTrend: { [key: number]: 'up' | 'down' | 'neutral' } = {};
       newLeaderboard.forEach((item, index) => {
-        const oldIndex = leaderboard.findIndex(
-          (oldItem) => oldItem.id === item.id
-        );
+        const oldIndex = leaderboard.findIndex((oldItem) => oldItem.id === item.id);
         if (oldIndex < index) newTrend[item.id] = 'down';
         else if (oldIndex > index) newTrend[item.id] = 'up';
         else newTrend[item.id] = 'neutral';
@@ -71,18 +69,10 @@ export default function LeaderboardBentoBox() {
               {item.name}
             </p>
             <div className="flex items-center space-x-1">
-              {trend[item.id] === 'up' && (
-                <ChevronUp className="w-4 h-4 text-green-500" />
-              )}
-              {trend[item.id] === 'down' && (
-                <ChevronDown className="w-4 h-4 text-red-500" />
-              )}
-              {trend[item.id] === 'neutral' && (
-                <Minus className="w-4 h-4 text-gray-400" />
-              )}
-              <span className="text-gray-400 text-sm font-bold font-onest">
-                {index + 1}
-              </span>
+              {trend[item.id] === 'up' && <ChevronUp className="w-4 h-4 text-green-500" />}
+              {trend[item.id] === 'down' && <ChevronDown className="w-4 h-4 text-red-500" />}
+              {trend[item.id] === 'neutral' && <Minus className="w-4 h-4 text-gray-400" />}
+              <span className="text-gray-400 text-sm font-bold font-onest">{index + 1}</span>
             </div>
           </motion.li>
         ))}

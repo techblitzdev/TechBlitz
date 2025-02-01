@@ -1,9 +1,6 @@
 import { prisma } from '@/lib/prisma';
 
-export const fetchRoadmapQuestionViaOrder = async (opts: {
-  order: number;
-  roadmapUid: string;
-}) => {
+export const fetchRoadmapQuestionViaOrder = async (opts: { order: number; roadmapUid: string }) => {
   const { order, roadmapUid } = opts;
 
   const number = parseInt(order.toString());

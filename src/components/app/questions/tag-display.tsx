@@ -10,12 +10,10 @@ const tagVariants = cva(
       variant: {
         default:
           'bg-primary text-primary-foreground shadow hover:bg-primary/90 border border-black-50',
-        destructive:
-          'bg-red-600 text-destructive-foreground shadow-sm hover:bg-destructive/90',
+        destructive: 'bg-red-600 text-destructive-foreground shadow-sm hover:bg-destructive/90',
         outline:
           'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
-        secondary:
-          'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
+        secondary: 'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
         accent: 'bg-accent text-white shadow-sm hover:bg-accent/90',
       },
     },
@@ -48,9 +46,7 @@ export default function TagDisplay(opts: {
 
   // if the showcase tag is in the list, move it to the top
   if (showcaseTag && visibleTags.some((tag) => tag.tag.name === showcaseTag)) {
-    const showcaseTagIndex = visibleTags.findIndex(
-      (tag) => tag.tag.name === showcaseTag
-    );
+    const showcaseTagIndex = visibleTags.findIndex((tag) => tag.tag.name === showcaseTag);
     visibleTags.splice(showcaseTagIndex, 1);
     visibleTags.unshift({
       tag: { name: showcaseTag, uid: '' },

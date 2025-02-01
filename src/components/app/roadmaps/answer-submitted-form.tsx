@@ -41,8 +41,7 @@ export default function AnswerSubmittedForm(opts: {
             <CheckCircle2Icon className="mx-auto text-green-500 size-16" />
             <h3 className="text-2xl font-semibold text-green-600">Correct!</h3>
             <p className="text-sm">
-              {newUserData.message ||
-                "Great job! You've answered the question correctly."}
+              {newUserData.message || "Great job! You've answered the question correctly."}
             </p>
           </div>
         ) : (
@@ -50,8 +49,7 @@ export default function AnswerSubmittedForm(opts: {
             <XCircleIcon className="mx-auto text-red-500 size-16" />
             <h3 className="text-2xl font-semibold text-red-600">Incorrect</h3>
             <p className="text-sm">
-              {newUserData.message ||
-                "Don't worry, learning is a process. Keep trying!"}
+              {newUserData.message || "Don't worry, learning is a process. Keep trying!"}
             </p>
           </div>
         )}
@@ -59,11 +57,7 @@ export default function AnswerSubmittedForm(opts: {
           <Button href="/dashboard" variant="secondary">
             Dashboard
           </Button>
-          <Button
-            variant="accent"
-            onClick={() => handleNextQuestion()}
-            type="button"
-          >
+          <Button variant="accent" onClick={() => handleNextQuestion()} type="button">
             {redirecting ? <LoadingSpinner /> : 'Next Question'}
           </Button>
         </div>

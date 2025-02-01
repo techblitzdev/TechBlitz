@@ -41,15 +41,11 @@ export default function OnboardingQuestionCard({
   } = useRoadmapOnboardingContext();
 
   const toggleLayout = () => {
-    setCurrentLayout(
-      currentLayout === 'questions' ? 'codeSnippet' : 'questions'
-    );
+    setCurrentLayout(currentLayout === 'questions' ? 'codeSnippet' : 'questions');
   };
 
   const switcherText = () => {
-    return currentLayout === 'questions'
-      ? '(Tap to view code snippet)'
-      : '(Tap to view question)';
+    return currentLayout === 'questions' ? '(Tap to view code snippet)' : '(Tap to view question)';
   };
 
   const nextQuestionHref = isLastQuestion
@@ -66,37 +62,24 @@ export default function OnboardingQuestionCard({
                 <Chip
                   color={getQuestionDifficultyColor(question.difficulty).bg}
                   text={capitalise(question.difficulty)}
-                  textColor={
-                    getQuestionDifficultyColor(question.difficulty).text
-                  }
-                  border={
-                    getQuestionDifficultyColor(question.difficulty).border
-                  }
+                  textColor={getQuestionDifficultyColor(question.difficulty).text}
+                  border={getQuestionDifficultyColor(question.difficulty).border}
                 />
               </div>
               <div className="flex items-center">
-                <QuestionHintTrigger
-                  showHint={showHint}
-                  setShowHint={setShowHint}
-                />
+                <QuestionHintTrigger showHint={showHint} setShowHint={setShowHint} />
               </div>
             </div>
             {question?.question && (
               <div className="flex w-full gap-10 justify-between">
-                <h3 className="font-onest font-light text-lg md:text-2xl">
-                  {question.question}
-                </h3>
+                <h3 className="font-onest font-light text-lg md:text-2xl">{question.question}</h3>
               </div>
             )}
             <OnboardingRoadmapAnswerQuestionForm />
           </div>
         )}
         {currentLayout === 'codeSnippet' && (
-          <QuestionCodeDisplay
-            question={question}
-            user={user}
-            answerHelp={null}
-          />
+          <QuestionCodeDisplay question={question} user={user} answerHelp={null} />
         )}
         {currentLayout === 'answer' && (
           <>
@@ -122,15 +105,9 @@ export default function OnboardingQuestionCard({
 
   const headerContent = (
     <div className="flex lg:hidden text-sm w-full items-center justify-end bg-black-25 gap-x-3">
-      <AiQuestionHelp
-        question={question}
-        user={user}
-        questionType="onboarding"
-      />
+      <AiQuestionHelp question={question} user={user} questionType="onboarding" />
       <ChangeCodeTheme user={user} />
-      {question.codeSnippet && (
-        <ExpandedCodeModal code={question.codeSnippet} />
-      )}
+      {question.codeSnippet && <ExpandedCodeModal code={question.codeSnippet} />}
       <Button
         variant="ghost"
         className="text-xs block lg:hidden"

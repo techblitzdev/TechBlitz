@@ -16,6 +16,6 @@ export const addOrderToResponseQuestions = (
   return questions.map((question, index) => ({
     ...question,
     // Start ordering from after the last existing question
-    order: existingQuestionsCount + index + 1
+    order: existingQuestionsCount + index + 1,
   }));
 };

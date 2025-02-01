@@ -22,18 +22,12 @@ export default function BlogCard(opts: { post: any }) {
           {post.title}
         </h2>
         {post.description && (
-          <p className="text-gray-400 text-sm">
-            {shortenText(post.description, 75)}
-          </p>
+          <p className="text-gray-400 text-sm">{shortenText(post.description, 75)}</p>
         )}
       </div>
       <div className="flex items-center gap-2 mt-4 text-sm text-gray-500">
         <div className="flex items-center gap-2">
-          <img
-            src={post.authorImage}
-            alt={post.author}
-            className="w-4 h-4 rounded-full"
-          />
+          <img src={post.authorImage} alt={post.author} className="w-4 h-4 rounded-full" />
           <span className="text-sm text-gray-500">{post.author}</span>
         </div>
         <span>•</span>

@@ -5,9 +5,7 @@ import { revalidateTag } from 'next/cache';
 import { getUser } from './get-user';
 import { UserRecord } from '@/types/User';
 
-export const updateUser = async (opts: {
-  userDetails: Partial<UserRecord>;
-}) => {
+export const updateUser = async (opts: { userDetails: Partial<UserRecord> }) => {
   console.log('updateUser', opts);
 
   const { userDetails } = opts;
@@ -29,9 +27,7 @@ export const updateUser = async (opts: {
     Object.entries(userDetails).filter(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       ([_, v]) =>
-        v !== undefined &&
-        v !== null &&
-        !['studyPathEnrollments', 'studyPathGoals'].includes(_)
+        v !== undefined && v !== null && !['studyPathEnrollments', 'studyPathGoals'].includes(_)
     )
   );
 

@@ -6,9 +6,7 @@ import type { UserWithOutAnswers } from '@/types/User';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 
-export default function CancelSubscriptionButton(opts: {
-  user: UserWithOutAnswers;
-}) {
+export default function CancelSubscriptionButton(opts: { user: UserWithOutAnswers }) {
   const router = useRouter();
   const { user } = opts;
   const { userLevel, uid: userUid } = user;
@@ -35,12 +33,7 @@ export default function CancelSubscriptionButton(opts: {
     <div>
       {userLevel !== 'FREE' && (
         <form action={handleCancelSubscription}>
-          <Button
-            type="submit"
-            variant="destructive"
-            className="mt-4"
-            disabled={isPending}
-          >
+          <Button type="submit" variant="destructive" className="mt-4" disabled={isPending}>
             {isPending ? 'Cancelling...' : 'Cancel subscription'}
           </Button>
         </form>

@@ -28,10 +28,10 @@ export default function OnboardingModal(opts: {
           <DialogTitle className="text-xl">Welcome!</DialogTitle>
           <DialogDescription className="flex flex-col gap-y-2">
             <span>
-              Please note that techblitz is still in beta, and as such, there
-              may be some bugs and issues. If you encounter any, please let us
-              know by clicking the feedback button in the top right corner of
-              the screen and we will do our best to fix them in a timely manner.
+              Please note that techblitz is still in beta, and as such, there may be some bugs and
+              issues. If you encounter any, please let us know by clicking the feedback button in
+              the top right corner of the screen and we will do our best to fix them in a timely
+              manner.
             </span>
           </DialogDescription>
         </DialogHeader>

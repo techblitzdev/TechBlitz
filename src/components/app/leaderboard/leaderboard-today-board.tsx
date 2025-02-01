@@ -39,11 +39,7 @@ const header = (todayQuestionUid: string) => {
   );
 };
 
-const footer = (opts: {
-  totalAnswers: number;
-  totalPages: number;
-  currentPage: number;
-}) => {
+const footer = (opts: { totalAnswers: number; totalPages: number; currentPage: number }) => {
   const { totalAnswers, currentPage, totalPages } = opts;
 
   return (
@@ -108,14 +104,9 @@ export default async function LeaderboardTodayBoard(opts: {
                   index % 2 === 0 ? 'bg-[#000]' : 'bg-black-75'
                 )}
               >
-                <span className="flex-1 text-sm font-bold">
-                  #{1 + (startingRank + index)}
-                </span>
+                <span className="flex-1 text-sm font-bold">#{1 + (startingRank + index)}</span>
                 <div className="flex-1 flex items-center gap-2">
-                  <ProfilePicture
-                    src={time.user.userProfilePicture}
-                    alt={time.user.username}
-                  />
+                  <ProfilePicture src={time.user.userProfilePicture} alt={time.user.username} />
                   <p>{shortenText(getUserDisplayName(time.user), 15)}</p>
                   <p>
                     {userUid === time.user.uid && (
@@ -123,9 +114,7 @@ export default async function LeaderboardTodayBoard(opts: {
                     )}
                   </p>
                 </div>
-                <span className="flex-1 text-right">
-                  {formatSeconds(time.timeTaken || 0)}
-                </span>
+                <span className="flex-1 text-right">{formatSeconds(time.timeTaken || 0)}</span>
               </div>
             ))}
         </div>

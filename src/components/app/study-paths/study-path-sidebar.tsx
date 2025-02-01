@@ -4,11 +4,7 @@ import { BookOpen, Target } from 'lucide-react';
 import { useUserServer } from '@/hooks/use-user-server';
 import UpgradeCard from '../shared/upgrade-card';
 
-export default async function StudyPathSidebar({
-  studyPath,
-}: {
-  studyPath: StudyPath;
-}) {
+export default async function StudyPathSidebar({ studyPath }: { studyPath: StudyPath }) {
   const user = await useUserServer();
 
   return (
@@ -19,9 +15,7 @@ export default async function StudyPathSidebar({
             <BookOpen className="size-5" />
             <span>Summary</span>
           </div>
-          <p className="text-sm text-muted-foreground">
-            {studyPath.description}
-          </p>
+          <p className="text-sm text-muted-foreground">{studyPath.description}</p>
         </div>
 
         {user?.userLevel === 'FREE' && (
@@ -37,8 +31,8 @@ export default async function StudyPathSidebar({
             <span>Set a Goal</span>
           </div>
           <p className="text-sm text-muted-foreground">
-            Set a goal date to complete this study path. Receive a daily
-            reminder to complete the next question.
+            Set a goal date to complete this study path. Receive a daily reminder to complete the
+            next question.
           </p>
           <Button className="w-full mt-2" disabled>
             Coming soon

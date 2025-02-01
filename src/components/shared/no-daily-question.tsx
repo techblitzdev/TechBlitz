@@ -6,11 +6,7 @@ export default function NoDailyQuestion(opts: {
   textSize?: 'sm' | 'base' | 'lg';
   textAlign?: 'center' | 'left' | 'right';
 }) {
-  const {
-    variant = 'secondary',
-    textSize = 'base',
-    textAlign = 'start',
-  } = opts;
+  const { variant = 'secondary', textSize = 'base', textAlign = 'start' } = opts;
 
   return (
     <>
@@ -21,12 +17,9 @@ export default function NoDailyQuestion(opts: {
         )}
       >
         <>
-          <p className="text-lg font-semibold">
-            The issue is on our end, not yours!
-          </p>
+          <p className="text-lg font-semibold">The issue is on our end, not yours!</p>
           <p className={`text-${textSize}`}>
-            It seems there's no question available for today. Please reach out
-            to
+            It seems there's no question available for today. Please reach out to
             <br />
             our support team to help resolve this.
           </p>

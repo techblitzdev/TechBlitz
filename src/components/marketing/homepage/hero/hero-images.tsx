@@ -86,9 +86,7 @@ const HomepageHeroImages: FC<HomepageHeroImagesProps> = ({
       )}
 
       <div
-        className={`absolute inset-0 z-15 ${
-          isVideoPlaying ? 'visible' : 'invisible'
-        }`}
+        className={`absolute inset-0 z-15 ${isVideoPlaying ? 'visible' : 'invisible'}`}
         style={{ position: 'relative', paddingTop: '61.64383561643836%' }}
       >
         <iframe
@@ -112,9 +110,7 @@ const HomepageHeroImages: FC<HomepageHeroImagesProps> = ({
         <div
           className={cn(
             'absolute inset-x-0  h-20 md:h-40 lg:h-80  from-[#000] to-transparent pointer-events-none z-30',
-            fadeDirection === 'top'
-              ? 'top-0 bg-gradient-to-b'
-              : 'bottom-0 bg-gradient-to-t'
+            fadeDirection === 'top' ? 'top-0 bg-gradient-to-b' : 'bottom-0 bg-gradient-to-t'
           )}
         />
       )}

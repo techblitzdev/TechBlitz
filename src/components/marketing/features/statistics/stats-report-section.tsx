@@ -3,11 +3,7 @@
 import { useState, useEffect, useMemo, Suspense } from 'react';
 import QuestionChart from '@/components/app/statistics/total-question-chart';
 import SkewedQuestionCards from './skewed-question-cards';
-import {
-  capitalise,
-  generateFakeData,
-  getQuestionDifficultyColor,
-} from '@/utils';
+import { capitalise, generateFakeData, getQuestionDifficultyColor } from '@/utils';
 import { Badge } from '@/components/ui/badge';
 import { motion, AnimatePresence } from 'framer-motion';
 import Chip from '@/components/ui/chip';
@@ -73,8 +69,7 @@ export default function StatsReportSection(opts: {
       setIsAnimating(true);
       setTimeout(() => {
         setActiveTag((prevTag) => {
-          const nextIndex =
-            (tags.findIndex((tag) => tag.id === prevTag) + 1) % tags.length;
+          const nextIndex = (tags.findIndex((tag) => tag.id === prevTag) + 1) % tags.length;
           return tags[nextIndex].id;
         });
         setIsAnimating(false);
@@ -95,8 +90,7 @@ export default function StatsReportSection(opts: {
             header
           ) : (
             <>
-              Detailed Analytics & Progress <br /> Reports to Accelerate Your
-              Growth
+              Detailed Analytics & Progress <br /> Reports to Accelerate Your Growth
             </>
           )}
         </h2>
@@ -120,8 +114,7 @@ export default function StatsReportSection(opts: {
                   Customised Questions
                 </h6>
                 <p className="text-gray-400 w-full sm:w-3/4">
-                  Question created based on your report to help you improve your
-                  skills.
+                  Question created based on your report to help you improve your skills.
                 </p>
               </div>
               <SkewedQuestionCards />
@@ -136,8 +129,8 @@ export default function StatsReportSection(opts: {
                   Tag overview
                 </h6>
                 <p className="text-gray-400">
-                  Instantly identify your skill gaps and transform weaknesses
-                  into mastery with our targeted learning recommendations.
+                  Instantly identify your skill gaps and transform weaknesses into mastery with our
+                  targeted learning recommendations.
                 </p>
               </div>
               <div className="flex flex-col gap-y-6 sm:gap-y-10 h-full">
@@ -186,18 +179,14 @@ export default function StatsReportSection(opts: {
               Progress report
             </h6>
             <p className="text-gray-400 w-full sm:w-3/4">
-              Visualize your progress in an easy to digest format. View your
-              progress over time and see how you&apos;re progressing.
+              Visualize your progress in an easy to digest format. View your progress over time and
+              see how you&apos;re progressing.
             </p>
           </div>
           <div className="relative w-full">
             <div className="relative sm:scale-100 md:scale-110 lg:scale-[1.2] sm:top-12 md:top-16 lg:top-24 sm:-right-8 md:-right-16 lg:-right-24">
               <Suspense>
-                <QuestionChart
-                  questionData={fakeStatsData}
-                  step="day"
-                  backgroundColor="bg-black"
-                />
+                <QuestionChart questionData={fakeStatsData} step="day" backgroundColor="bg-black" />
               </Suspense>
               <div className="z-10 absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
               <div className="z-10 absolute inset-y-0 -right-4 md:right-0 w-20 bg-gradient-to-l from-[#000] to-transparent pointer-events-none"></div>

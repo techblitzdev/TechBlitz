@@ -9,9 +9,7 @@ type DashboardQuestionCardProps = {
   };
 };
 
-export default function DashboardQuestionCard(
-  opts: DashboardQuestionCardProps
-) {
+export default function DashboardQuestionCard(opts: DashboardQuestionCardProps) {
   const { name, correct } = opts.question;
 
   return (

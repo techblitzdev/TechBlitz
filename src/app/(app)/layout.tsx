@@ -23,11 +23,7 @@ export async function generateMetadata() {
   });
 }
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const [user, todaysQuestion, profile] = await Promise.all([
     useUserServer(),
     getTodaysQuestion(),

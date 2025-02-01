@@ -4,13 +4,7 @@ import FeatureRoadmapCustomizationBlock from '@/components/marketing/features/ro
 import FeatureRoadmapThreeGridBlock from '@/components/marketing/features/roadmap/roadmap-three-grid';
 import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
 import FAQsBlock from '@/components/marketing/global/blocks/faqs';
-import {
-  Code,
-  MessageSquareCode,
-  Paintbrush,
-  BookOpen,
-  Target,
-} from 'lucide-react';
+import { Code, MessageSquareCode, Paintbrush, BookOpen, Target } from 'lucide-react';
 
 import MarketingContentGrid, {
   type MarketingContentGridProps,
@@ -24,8 +18,7 @@ import { getBaseUrl } from '@/utils';
 export async function generateMetadata() {
   return createMetadata({
     title: 'Roadmap | TechBlitz',
-    description:
-      'Create your own coding progression paths with our personalized roadmaps.',
+    description: 'Create your own coding progression paths with our personalized roadmaps.',
     keywords: [
       'learn to code',
       'personalized coding',
@@ -51,8 +44,8 @@ const faqs = [
     question: "How can I access the roadmaps on TechBlitz's platform?",
     answer: (
       <>
-        To access the roadmaps on techblitz, you need to have a premium account.
-        You can sign up for a premium account{' '}
+        To access the roadmaps on techblitz, you need to have a premium account. You can sign up for
+        a premium account{' '}
         <a href="/pricing" className="!text-accent underline">
           here
         </a>
@@ -77,8 +70,7 @@ const faqs = [
         >
           GitHub
         </a>{' '}
-        and join the growing community of developers contributing to our
-        platform.
+        and join the growing community of developers contributing to our platform.
       </>
     ),
   },
@@ -96,8 +88,7 @@ const faqs = [
     question: 'What will you be adding to techblitz in the future?',
     answer: (
       <>
-        We're constantly improving TechBlitz with new features and updates.
-        Check out our{' '}
+        We're constantly improving TechBlitz with new features and updates. Check out our{' '}
         <a
           href="https://github.com/users/Logannford/projects/5"
           target="_blank"
@@ -105,8 +96,7 @@ const faqs = [
         >
           roadmap
         </a>{' '}
-        to see what's next, and share your suggestions — we'd love to hear your
-        ideas!
+        to see what's next, and share your suggestions — we'd love to hear your ideas!
       </>
     ),
   },
@@ -157,8 +147,7 @@ export default function FeatureDailyQuestionPage() {
     '@type': 'WebPage',
     url: getBaseUrl(),
     headline: 'Roadmap | TechBlitz',
-    description:
-      'Create your own coding progression paths with our personalized roadmaps.',
+    description: 'Create your own coding progression paths with our personalized roadmaps.',
     image: 'https://techblitz.dev/favicon.ico',
     breadcrumb: WebPageJsonLdBreadcrumb,
     author: {
@@ -194,10 +183,7 @@ export default function FeatureDailyQuestionPage() {
         <FeatureRoadmapHeroBlock />
         <FeatureRoadmapCustomizationBlock />
         <FeatureRoadmapThreeGridBlock />
-        <MarketingContentGrid
-          title="All of this and more."
-          items={featureShowcaseItems}
-        />
+        <MarketingContentGrid title="All of this and more." items={featureShowcaseItems} />
         <FAQsBlock faqs={faqs} />
         <CallToActionBlock
           title="Learning to code made easy."

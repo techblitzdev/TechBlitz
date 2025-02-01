@@ -67,9 +67,8 @@ export default function PremiumQuestionDeniedAccess() {
               transition={{ delay: 0.4 }}
               className="text-white"
             >
-              Looking to level up your coding skills? Upgrade to Premium to
-              access premium questions, personalized learning paths, reports,
-              and more!
+              Looking to level up your coding skills? Upgrade to Premium to access premium
+              questions, personalized learning paths, reports, and more!
             </motion.p>
           </CardContent>
           <CardFooter className="flex justify-center">
@@ -84,9 +83,7 @@ export default function PremiumQuestionDeniedAccess() {
                 variant="accent"
                 size="lg"
                 className="w-full sm:w-auto"
-                onClick={() =>
-                  window.open('https://dub.sh/upgrade-techblitz', '_blank')
-                }
+                onClick={() => window.open('https://dub.sh/upgrade-techblitz', '_blank')}
               >
                 Upgrade to Premium
               </Button>

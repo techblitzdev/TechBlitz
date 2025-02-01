@@ -18,12 +18,7 @@ export default function FlagIcon(props: iconProps) {
   const title = props.title || 'flag 7';
 
   return (
-    <svg
-      height={height}
-      width={width}
-      viewBox="0 0 18 18"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg height={height} width={width} viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
       <title>{title}</title>
       <g fill={fill}>
         <path

@@ -62,8 +62,7 @@ export const signUp = async (
     } catch (dbError: any) {
       return {
         user: null,
-        error:
-          'Failed to sign up with the provided credentials, please contact support.',
+        error: 'Failed to sign up with the provided credentials, please contact support.',
       };
     }
 

@@ -49,9 +49,7 @@ export default async function StatisticsReport() {
               key={report.uid}
               className={cn(
                 'p-3 truncate w-full flex justify-between items-center group',
-                index % 2 === 0
-                  ? 'bg-[#000] hover:bg-black-100'
-                  : 'bg-black hover:bg-black-75'
+                index % 2 === 0 ? 'bg-[#000] hover:bg-black-100' : 'bg-black hover:bg-black-75'
               )}
               href={`/statistics/reports/${report.uid}`}
             >

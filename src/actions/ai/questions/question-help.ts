@@ -6,10 +6,7 @@ import { getUser } from '@/actions/user/authed/get-user';
 import { questionHelpSchema } from '@/lib/zod/schemas/ai/question-help';
 import { zodResponseFormat } from 'openai/helpers/zod.mjs';
 import type { Question } from '@/types/Questions';
-import type {
-  DefaultRoadmapQuestions,
-  RoadmapUserQuestions,
-} from '@/types/Roadmap';
+import type { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
 
 /**
  * Method to generate question help for both regular and roadmap questions.
@@ -32,20 +29,12 @@ export const generateQuestionHelp = async (
   }
 
   // For regular questions, check if the user has enough tokens
-  if (
-    questionType === 'regular' &&
-    user.aiQuestionHelpTokens &&
-    user.aiQuestionHelpTokens <= 0
-  ) {
+  if (questionType === 'regular' && user.aiQuestionHelpTokens && user.aiQuestionHelpTokens <= 0) {
     return false;
   }
 
   // Initialize question variable
-  let question:
-    | Question
-    | RoadmapUserQuestions
-    | DefaultRoadmapQuestions
-    | null = null;
+  let question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions | null = null;
 
   // Get the appropriate question based on type
   if (questionType === 'roadmap') {
@@ -136,11 +125,7 @@ export const generateQuestionHelp = async (
   const formattedData = JSON.parse(questionHelp.choices[0].message.content);
 
   // Handle token management based on question type and user level
-  if (
-    questionType === 'regular' &&
-    user.userLevel !== 'PREMIUM' &&
-    user.userLevel !== 'ADMIN'
-  ) {
+  if (questionType === 'regular' && user.userLevel !== 'PREMIUM' && user.userLevel !== 'ADMIN') {
     // Deduct tokens for regular questions from non-premium users
     const updatedUser = await prisma.users.update({
       where: { uid: user.uid },

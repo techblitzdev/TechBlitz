@@ -13,8 +13,8 @@ export default function ResourceOpenSourceHeroBlock() {
           Open Source
         </h1>
         <p className="text-gray-400 max-w-xl text-sm md:text-base font-onest text-center">
-          All of our source code is available on GitHub for you to view and
-          contribute to. It is open-source under the apache-2.0 license.
+          All of our source code is available on GitHub for you to view and contribute to. It is
+          open-source under the apache-2.0 license.
         </p>
         <div className="mt-2 flex gap-4">
           {/* <Button

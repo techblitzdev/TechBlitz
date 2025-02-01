@@ -17,11 +17,7 @@ import QuestionNavigation from '@/components/app/navigation/question-navigation'
 import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation';
 import RandomQuestion from '@/components/shared/random-question';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { uid: string };
-}) {
+export async function generateMetadata({ params }: { params: { uid: string } }) {
   const question = await getQuestion('uid', params.uid);
   // get the title via slug and removing the - from the slug
   const title = question?.slug?.replace(/-/g, ' ') || 'Coding Question';

@@ -8,8 +8,7 @@ export const parseSearchParams = (searchParams: {
     page: parseInt(searchParams.page as string) || 1,
     ascending: searchParams.ascending === 'true',
     difficulty: searchParams.difficulty as QuestionDifficulty,
-    answered:
-      'answered' in searchParams ? searchParams.answered === 'true' : undefined,
+    answered: 'answered' in searchParams ? searchParams.answered === 'true' : undefined,
     tags: (searchParams.tags as string)?.split(',').filter(Boolean) || [],
     questionType: searchParams.questionType as string,
     sortBy: searchParams.sortBy as 'date' | 'submissions',

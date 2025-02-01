@@ -13,10 +13,7 @@ import { deleteUser } from '@/actions/user/account/delete-user';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
-export default function DeleteAccountModal(opts: {
-  isOpen: boolean;
-  onClose: () => void;
-}) {
+export default function DeleteAccountModal(opts: { isOpen: boolean; onClose: () => void }) {
   const { isOpen, onClose } = opts;
   const { user } = useUser();
   const router = useRouter();
@@ -44,10 +41,7 @@ export default function DeleteAccountModal(opts: {
           This action is irreversible and will delete all your data.
         </DialogDescription>
         <DialogFooter>
-          <Button
-            variant="destructive"
-            onClick={async () => await handleDelete()}
-          >
+          <Button variant="destructive" onClick={async () => await handleDelete()}>
             {isPending ? 'Deleting...' : 'Delete Account'}
           </Button>
           <Button variant="secondary" onClick={onClose}>

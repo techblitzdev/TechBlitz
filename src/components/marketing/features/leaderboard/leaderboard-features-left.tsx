@@ -21,9 +21,7 @@ export default async function LeaderboardFeaturesLeft() {
                 <TableHead className="!border-t-0 w-12 md:w-[100px] text-white bg-transparent">
                   Rank
                 </TableHead>
-                <TableHead className="!border-t-0 text-white bg-transparent">
-                  User
-                </TableHead>
+                <TableHead className="!border-t-0 text-white bg-transparent">User</TableHead>
                 <TableHead className="!border-t-0 flex justify-center items-center xs:justify-end gap-2 md:text-right text-white bg-transparent">
                   <span className="hidden sm:block">Questions Solved</span>
                   <span className="block sm:hidden">
@@ -45,18 +43,12 @@ export default async function LeaderboardFeaturesLeft() {
         <div className="z-10 absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
       </div>
       <div className="flex flex-col gap-2.5">
-        <h3 className="text-3xl text-gradient from-white to-white/75">
-          Battle with your friends
-        </h3>
+        <h3 className="text-3xl text-gradient from-white to-white/75">Battle with your friends</h3>
         <p className="text-gray-400 font-onest">
-          Challenge your friends and see who is the best. You can even create
-          your own challenges and see who is the best.
+          Challenge your friends and see who is the best. You can even create your own challenges
+          and see who is the best.
         </p>
-        <Button
-          variant="secondary"
-          href="/questions"
-          className="w-fit flex items-center gap-1"
-        >
+        <Button variant="secondary" href="/questions" className="w-fit flex items-center gap-1">
           Try it out
           <ChevronRight className="size-3 ml-1" />
         </Button>

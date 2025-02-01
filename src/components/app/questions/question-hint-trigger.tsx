@@ -19,12 +19,7 @@ export default function QuestionHintTrigger({
     <TooltipProvider>
       <Tooltip delayDuration={0}>
         <TooltipTrigger asChild>
-          <Button
-            onClick={toggleHint}
-            variant="ghost"
-            size="icon"
-            padding="none"
-          >
+          <Button onClick={toggleHint} variant="ghost" size="icon" padding="none">
             <Lightbulb className="size-5" />
           </Button>
         </TooltipTrigger>

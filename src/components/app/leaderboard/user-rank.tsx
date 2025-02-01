@@ -25,9 +25,7 @@ export default async function UserRank(opts: { questionUid: string }) {
   if (!userAnswer) {
     return (
       <div className="flex justify-between w-full items-center">
-        <p className="text-white text-sm font-semibold font-onest">
-          Not ranked
-        </p>
+        <p className="text-white text-sm font-semibold font-onest">Not ranked</p>
         <Link href={`/question/${questionUid}`} className="hidden xl:block">
           <Button variant="accent">Answer now!</Button>
         </Link>

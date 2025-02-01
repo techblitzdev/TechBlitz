@@ -24,8 +24,7 @@ export async function generateMetadata() {
 const dummyQuestions: Partial<RoadmapUserQuestions>[] = [
   {
     uid: 'question-1',
-    question:
-      'How can you use Array.filter() to filter out all the even numbers from an array?',
+    question: 'How can you use Array.filter() to filter out all the even numbers from an array?',
     difficulty: 'EASY',
     completed: true,
     userCorrect: true,
@@ -65,9 +64,7 @@ export default async function SignupPage() {
             <h1 className="!text-start font-bold font-onest text-xl lg:text-3xl mb-2">
               Create your TechBlitz account
             </h1>
-            <p className="text-sm text-gray-400">
-              Start your journey to becoming a tech expert.
-            </p>
+            <p className="text-sm text-gray-400">Start your journey to becoming a tech expert.</p>
           </div>
           <Suspense>
             <SignupForm prefilledEmail="" />
@@ -98,12 +95,8 @@ export default async function SignupPage() {
               roadmapUid={dummyRoadmapUid}
               index={index}
               totalQuestions={dummyTotalQuestions}
-              prevQuestionCorrect={
-                index > 0 ? dummyQuestions[index - 1]?.userCorrect : undefined
-              }
-              prevQuestionAnswered={
-                index > 0 ? dummyQuestions[index - 1]?.completed : undefined
-              }
+              prevQuestionCorrect={index > 0 ? dummyQuestions[index - 1]?.userCorrect : undefined}
+              prevQuestionAnswered={index > 0 ? dummyQuestions[index - 1]?.completed : undefined}
             />
           ))}
           <div className="z-10 absolute inset-x-0 -left-8 bottom-0 h-36 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>

@@ -84,10 +84,8 @@ export default function ClientPage({
             </DialogTitle>
             <DialogDescription className="flex flex-col gap-y-4 text-gray-200">
               <p>
-                <span className="font-semibold">
-                  {getUserDisplayName(user)}
-                </span>
-                , thank you for purchasing the
+                <span className="font-semibold">{getUserDisplayName(user)}</span>, thank you for
+                purchasing the
                 <span className="font-bold"> TechBlitz Premium </span>
                 plan!
               </p>
@@ -112,9 +110,7 @@ export default function ClientPage({
                 </li>
                 <li className="flex items-center space-x-3">
                   <CheckIcon className="size-6 text-accent" />
-                  <span className="text-lg font-onest">
-                    Unlimited AI-assistant support
-                  </span>
+                  <span className="text-lg font-onest">Unlimited AI-assistant support</span>
                 </li>
               </ul>
             </DialogDescription>

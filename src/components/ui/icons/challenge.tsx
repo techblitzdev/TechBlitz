@@ -18,12 +18,7 @@ export default function ChallengeIcon(props: iconProps) {
   const title = props.title || 'blog 3';
 
   return (
-    <svg
-      height={height}
-      width={width}
-      viewBox="0 0 32 32"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg height={height} width={width} viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
       <title>{title}</title>
       <g fill={fill} strokeLinecap="butt" strokeLinejoin="miter">
         <rect

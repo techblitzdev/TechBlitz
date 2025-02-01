@@ -1,13 +1,7 @@
 import { redirect } from 'next/navigation';
 import { format } from 'date-fns';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import StatisticsReportTabs from '@/components/app/statistics/statistics-report-tabs';
 
 import { getUserDisplayName } from '@/utils/user';
@@ -56,16 +50,13 @@ export default async function StatisticsReportContent({
           <CardTitle className="text-white">Report Summary</CardTitle>
           <CardDescription className="text-gray-400">
             Created on {format(report.createdAt, 'MMMM d, yyyy')} at{' '}
-            {format(report.createdAt, 'h:mm a')} for{' '}
-            {user && getUserDisplayName(user)}
+            {format(report.createdAt, 'h:mm a')} for {user && getUserDisplayName(user)}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap justify-center">
             <div className="text-center w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2">
-              <p className="text-2xl font-semibold text-white">
-                {totalQuestions}
-              </p>
+              <p className="text-2xl font-semibold text-white">{totalQuestions}</p>
               <p className="text-sm text-muted-foreground">Total Questions</p>
             </div>
             <div className="text-center w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2">
@@ -75,21 +66,15 @@ export default async function StatisticsReportContent({
               <p className="text-sm text-muted-foreground">Total Time Taken</p>
             </div>
             <div className="text-center w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2">
-              <p className="text-2xl font-semibold text-white">
-                {correctAnswers}
-              </p>
+              <p className="text-2xl font-semibold text-white">{correctAnswers}</p>
               <p className="text-sm text-muted-foreground">Correct Answers</p>
             </div>
             <div className="text-center w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2">
-              <p className="text-2xl font-semibold text-white">
-                {incorrectAnswers}
-              </p>
+              <p className="text-2xl font-semibold text-white">{incorrectAnswers}</p>
               <p className="text-sm text-muted-foreground">Incorrect Answers</p>
             </div>
             <div className="text-center w-full sm:w-1/2 md:w-1/3 lg:w-1/5 p-2">
-              <p className="text-2xl font-semibold text-white">
-                {correctPercentage}%
-              </p>
+              <p className="text-2xl font-semibold text-white">{correctPercentage}%</p>
               <p className="text-sm text-muted-foreground">Accuracy</p>
             </div>
           </div>

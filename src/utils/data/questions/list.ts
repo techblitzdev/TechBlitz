@@ -1,9 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import type {
-  Question,
-  QuestionDifficulty,
-  QuestionWithoutAnswers,
-} from '@/types/Questions';
+import type { Question, QuestionDifficulty, QuestionWithoutAnswers } from '@/types/Questions';
 import { getTagsFromQuestion } from './tags/get-tags-from-question';
 import { QuestionFilters } from '@/types/Filters';
 import { getUser } from '@/actions/user/authed/get-user';
@@ -33,9 +29,7 @@ type GetQuestionsOpts = {
   previousQuestions?: boolean;
 };
 
-export const listQuestions = async (
-  opts: GetQuestionsOpts
-): Promise<ListQuestionsReturnType> => {
+export const listQuestions = async (opts: GetQuestionsOpts): Promise<ListQuestionsReturnType> => {
   const {
     page = 1,
     pageSize = 10,
@@ -63,8 +57,7 @@ export const listQuestions = async (
         // Difficulty filter
         filters?.difficulty
           ? {
-              difficulty:
-                filters.difficulty.toUpperCase() as QuestionDifficulty,
+              difficulty: filters.difficulty.toUpperCase() as QuestionDifficulty,
             }
           : {},
 

@@ -10,11 +10,7 @@ import ResizableLayout from '@/components/ui/resizable-layout';
 import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help';
 import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
 
-export default async function TodaysQuestionPage({
-  params,
-}: {
-  params: { uid: string };
-}) {
+export default async function TodaysQuestionPage({ params }: { params: { uid: string } }) {
   const { uid } = params;
 
   const user = await useUserServer();
@@ -50,35 +46,21 @@ export default async function TodaysQuestionPage({
       >
         <div className="p-4 text-sm flex w-full items-center justify-end bg-black-25 gap-x-3">
           {/** explain question ai button */}
-          <AiQuestionHelp
-            question={question}
-            user={user}
-            questionType="regular"
-          />
+          <AiQuestionHelp question={question} user={user} questionType="regular" />
           {/** code theme selector */}
           <ChangeCodeTheme user={user} />
           {/** code snippet */}
-          {question.codeSnippet && (
-            <ExpandedCodeModal code={question.codeSnippet} />
-          )}
+          {question.codeSnippet && <ExpandedCodeModal code={question.codeSnippet} />}
         </div>
         <Separator className="bg-black-50" />
         {question?.codeSnippet && (
-          <CodeDisplay
-            content={question.codeSnippet}
-            backgroundColor="#111111"
-            user={user}
-          />
+          <CodeDisplay content={question.codeSnippet} backgroundColor="#111111" user={user} />
         )}
       </div>
     </div>
   );
 
   return (
-    <ResizableLayout
-      leftContent={leftContent}
-      rightContent={rightContent}
-      initialLeftWidth={50}
-    />
+    <ResizableLayout leftContent={leftContent} rightContent={rightContent} initialLeftWidth={50} />
   );
 }

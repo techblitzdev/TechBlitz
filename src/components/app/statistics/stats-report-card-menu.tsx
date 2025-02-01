@@ -40,20 +40,14 @@ export default function StatsReportCardMenu(opts: {
         <Button
           variant={triggerBackground ? 'default' : 'ghost'}
           padding={triggerBackground ? 'sm' : 'none'}
-          className={cn(
-            'hover:bg-black-50',
-            triggerBackground ? '' : 'p-0.5 h-fit'
-          )}
+          className={cn('hover:bg-black-50', triggerBackground ? '' : 'p-0.5 h-fit')}
         >
           <MoreHorizontal className="size-4 text-white" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent side="bottom" align="end">
         <DropdownMenuItem>
-          <button
-            className="flex items-center gap-2"
-            onClick={handleDeleteReport}
-          >
+          <button className="flex items-center gap-2" onClick={handleDeleteReport}>
             <Trash2 className="size-4 text-destructive" />
             <p>Delete</p>
           </button>

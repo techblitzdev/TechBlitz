@@ -12,8 +12,7 @@ export const answerRoadmapQuestion = async (opts: {
   currentQuestionIndex: number;
   answer: string;
 }) => {
-  const { questionUid, answerUid, roadmapUid, currentQuestionIndex, answer } =
-    opts;
+  const { questionUid, answerUid, roadmapUid, currentQuestionIndex, answer } = opts;
 
   // Get and validate question
   const question = await fetchRoadmapQuestion(questionUid);
@@ -22,11 +21,9 @@ export const answerRoadmapQuestion = async (opts: {
   const correctAnswer = question.correctAnswerUid === answerUid;
 
   // Handle user answer
-  const existingAnswer = await prisma.roadmapUserQuestionsUserAnswers.findFirst(
-    {
-      where: { questionUid },
-    }
-  );
+  const existingAnswer = await prisma.roadmapUserQuestionsUserAnswers.findFirst({
+    where: { questionUid },
+  });
 
   const answerData = {
     questionUid,

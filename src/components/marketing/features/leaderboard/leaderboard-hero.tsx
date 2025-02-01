@@ -15,8 +15,8 @@ export default function LeaderboardHero() {
           Coding leaderboards.
         </h1>
         <p className="text-gray-400 max-w-xl text-center text-sm md:text-base font-onest">
-          Enhance your coding journey with our engaging leaderboard. Compete
-          with developers worldwide and track your progress in real-time!
+          Enhance your coding journey with our engaging leaderboard. Compete with developers
+          worldwide and track your progress in real-time!
         </p>
         <div className="mt-2 flex gap-4">
           <Button

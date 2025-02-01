@@ -3,11 +3,7 @@ import StatisticsReportContent from '@/components/app/statistics/statistics-repo
 import { useUserServer } from '@/hooks/use-user-server';
 import UpgradeLayout from '@/components/app/shared/upgrade-layout';
 
-export default async function StatisticsReportPage({
-  params,
-}: {
-  params: { uid: string };
-}) {
+export default async function StatisticsReportPage({ params }: { params: { uid: string } }) {
   const { uid } = params;
   const report = await getReport(uid);
 

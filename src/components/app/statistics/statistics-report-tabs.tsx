@@ -33,9 +33,7 @@ export default async function StatisticsReportTabs(opts: {
       <TabsContent value="tags">
         <Card className="border-black-50">
           <CardHeader>
-            <CardTitle className="text-white text-center text-xl">
-              Tags Overview
-            </CardTitle>
+            <CardTitle className="text-white text-center text-xl">Tags Overview</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -97,19 +95,14 @@ export default async function StatisticsReportTabs(opts: {
       <TabsContent value="details">
         <Card className="border-black-50">
           <CardHeader>
-            <CardTitle className="text-white text-center text-xl">
-              Detailed Report
-            </CardTitle>
+            <CardTitle className="text-white text-center text-xl">Detailed Report</CardTitle>
           </CardHeader>
           <CardContent>
             <ScrollArea className="h-[400px]">
               <div className="prose max-w-none text-white [&>div]:space-y-2">
                 {(() => {
                   // test if the report is json
-                  if (
-                    typeof report.htmlReport === 'object' &&
-                    report.htmlReport !== null
-                  ) {
+                  if (typeof report.htmlReport === 'object' && report.htmlReport !== null) {
                     return (
                       <div
                         dangerouslySetInnerHTML={{
@@ -123,33 +116,23 @@ export default async function StatisticsReportTabs(opts: {
                   return (
                     <>
                       <div className="mb-6">
-                        <h3 className="text-xl font-semibold mb-2 underline">
-                          Brief Summary
-                        </h3>
-                        <p className="text-gray-400 font-onest">
-                          {reportData.briefSummary}
-                        </p>
+                        <h3 className="text-xl font-semibold mb-2 underline">Brief Summary</h3>
+                        <p className="text-gray-400 font-onest">{reportData.briefSummary}</p>
                       </div>
 
                       <div className="mb-6">
                         <h3 className="text-xl font-semibold mb-2 underline">
                           Performance Overview
                         </h3>
-                        <p className="text-gray-400 font-onest">
-                          {reportData.userPerformance}
-                        </p>
+                        <p className="text-gray-400 font-onest">{reportData.userPerformance}</p>
                       </div>
 
                       <div className="mb-6">
-                        <h3 className="text-xl font-semibold mb-2 underline">
-                          Strengths
-                        </h3>
+                        <h3 className="text-xl font-semibold mb-2 underline">Strengths</h3>
                         <ul className="list-disc pl-6 text-green-300 font-onest">
-                          {reportData.strengths.map(
-                            (strength: string, index: number) => (
-                              <li key={index}>{strength}</li>
-                            )
-                          )}
+                          {reportData.strengths.map((strength: string, index: number) => (
+                            <li key={index}>{strength}</li>
+                          ))}
                         </ul>
                       </div>
 
@@ -158,37 +141,27 @@ export default async function StatisticsReportTabs(opts: {
                           Areas for Improvement
                         </h3>
                         <ul className="list-disc pl-6 text-red-300 font-onest">
-                          {reportData.weaknesses.map(
-                            (weakness: string, index: number) => (
-                              <li key={index}>{weakness}</li>
-                            )
-                          )}
+                          {reportData.weaknesses.map((weakness: string, index: number) => (
+                            <li key={index}>{weakness}</li>
+                          ))}
                         </ul>
                       </div>
 
                       <div className="mb-6">
-                        <h3 className="text-xl font-semibold mb-2 underline">
-                          Suggestions
-                        </h3>
+                        <h3 className="text-xl font-semibold mb-2 underline">Suggestions</h3>
                         <ul className="list-disc pl-6 text-blue-300 font-onest">
-                          {reportData.suggestions.map(
-                            (suggestion: string, index: number) => (
-                              <li key={index}>{suggestion}</li>
-                            )
-                          )}
+                          {reportData.suggestions.map((suggestion: string, index: number) => (
+                            <li key={index}>{suggestion}</li>
+                          ))}
                         </ul>
                       </div>
 
                       <div>
-                        <h3 className="text-xl font-semibold mb-2 underline">
-                          Focus Areas
-                        </h3>
+                        <h3 className="text-xl font-semibold mb-2 underline">Focus Areas</h3>
                         <ul className="list-disc pl-6 text-purple-300 font-onest">
-                          {reportData.topicsToFocusOn.map(
-                            (topic: string, index: number) => (
-                              <li key={index}>{topic}</li>
-                            )
-                          )}
+                          {reportData.topicsToFocusOn.map((topic: string, index: number) => (
+                            <li key={index}>{topic}</li>
+                          ))}
                         </ul>
                       </div>
                     </>
@@ -220,10 +193,7 @@ export default async function StatisticsReportTabs(opts: {
                 </p>
               </div>
 
-              <QuestionSuggestedCard
-                customQuestions={report.questions ?? []}
-                isCustomQuestion
-              />
+              <QuestionSuggestedCard customQuestions={report.questions ?? []} isCustomQuestion />
             </div>
           </CardContent>
         </Card>

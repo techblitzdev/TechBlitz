@@ -5,13 +5,7 @@ import { cn } from '@/lib/utils';
 import { Tags } from '@/types/Tags';
 import Link from 'next/link';
 
-const RelatedQuestionsList = async ({
-  slug,
-  tags,
-}: {
-  slug: string;
-  tags: Tags[];
-}) => {
+const RelatedQuestionsList = async ({ slug, tags }: { slug: string; tags: Tags[] }) => {
   const relatedQuestions = await getRelatedQuestions({
     questionSlug: slug,
     tags: tags || [],
@@ -26,9 +20,7 @@ const RelatedQuestionsList = async ({
             href={`/question/${question.slug}`}
             className={cn(
               'px-4 py-3 w-full flex justify-between items-center group hover:bg-black-75 transition-colors',
-              index % 2 === 0
-                ? 'bg-black hover:bg-black-75'
-                : 'bg-black-75 hover:bg-black-100'
+              index % 2 === 0 ? 'bg-black hover:bg-black-75' : 'bg-black-75 hover:bg-black-100'
             )}
           >
             <p className="text-sm text-white">{question.question}</p>
@@ -42,13 +34,7 @@ const RelatedQuestionsList = async ({
   );
 };
 
-export default function RelatedQuestions({
-  slug,
-  tags,
-}: {
-  slug: string;
-  tags: Tags[];
-}) {
+export default function RelatedQuestions({ slug, tags }: { slug: string; tags: Tags[] }) {
   return (
     <>
       <div className="flex items-center bg-black-25 gap-x-1 p-4">

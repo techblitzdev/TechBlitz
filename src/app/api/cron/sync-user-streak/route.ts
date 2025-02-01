@@ -51,9 +51,7 @@ export async function GET(request: NextRequest) {
 
     // Get users who haven't answered any question
     const activeUserSet = new Set(activeUserIds);
-    const usersToUpdate = allUserIds.filter(
-      (userId) => !activeUserSet.has(userId)
-    );
+    const usersToUpdate = allUserIds.filter((userId) => !activeUserSet.has(userId));
 
     // Update streaks for users who haven't answered any question
     await prisma.streaks.updateMany({

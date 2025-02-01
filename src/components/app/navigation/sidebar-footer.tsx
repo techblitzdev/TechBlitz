@@ -41,9 +41,7 @@ export default function SidebarFooterComponent(opts: {
 
   // profile link determined on env (dev or prod)
   const profileLink =
-    process.env.NEXT_PUBLIC_ENV === 'production'
-      ? '/settings/profile'
-      : `/${user?.username}`;
+    process.env.NEXT_PUBLIC_ENV === 'production' ? '/settings/profile' : `/${user?.username}`;
 
   return (
     <SidebarFooter className="bg-[#000000]">
@@ -59,8 +57,8 @@ export default function SidebarFooterComponent(opts: {
           >
             <p className="font-onest">Unlock Your Full Potential</p>
             <p className="text-xs font-light font-onest">
-              Get AI-powered study paths, premium challenges, and learn 3x
-              faster with personalized guidance!
+              Get AI-powered study paths, premium challenges, and learn 3x faster with personalized
+              guidance!
             </p>
             <Button
               variant="accent"
@@ -96,10 +94,7 @@ export default function SidebarFooterComponent(opts: {
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton
-                  variant="default"
-                  className="text-white h-fit"
-                >
+                <SidebarMenuButton variant="default" className="text-white h-fit">
                   <ProfilePicture
                     src={user?.userProfilePicture}
                     alt="Profile Picture"
@@ -110,19 +105,14 @@ export default function SidebarFooterComponent(opts: {
                     <span className="text-white font-medium text-lg line-clamp-1">
                       {user && getUserDisplayName(user)}
                     </span>
-                    <span className="text-xs text-white">
-                      {capitalise(user.userLevel)}
-                    </span>
+                    <span className="text-xs text-white">{capitalise(user.userLevel)}</span>
                   </div>
                   <ChevronsUpDown className="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56 bg-[#000] !text-white border-black-50">
                 <DropdownMenuItem>
-                  <Link
-                    href="https://dub.sh/upgrade-techblitz"
-                    className="w-full"
-                  >
+                  <Link href="https://dub.sh/upgrade-techblitz" className="w-full">
                     Upgrade
                   </Link>
                 </DropdownMenuItem>

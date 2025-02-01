@@ -127,10 +127,7 @@ export default function ProgressChart({
               tickFormatter={(value: string) => value.slice(0, 3)}
             />
             {!isStatic && (
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent hideLabel />}
-              />
+              <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
             )}
             <Line
               dataKey="questions"
@@ -149,8 +146,7 @@ export default function ProgressChart({
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none text-white">
-          {trend.isUp ? 'Trending up' : 'Trending down'} by {trend.percentage}%
-          this period
+          {trend.isUp ? 'Trending up' : 'Trending down'} by {trend.percentage}% this period
           {trend.isUp ? (
             <TrendingUp className="h-4 w-4 text-green-500" />
           ) : (

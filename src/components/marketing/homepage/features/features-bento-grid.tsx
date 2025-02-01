@@ -30,10 +30,9 @@ export default async function FeaturesBentoGrid() {
           A personalized approach to learning <br /> to code
         </h1>
         <span className="text-sm md:text-base text-gray-400 max-w-4xl">
-          Experience a tailored coding journey that adapts to your skill level
-          and goals. With {QUESTIONS_COUNT}+ coding challenges, detailed
-          progress tracking, and customized learning paths. We ensure you
-          improve day by day.
+          Experience a tailored coding journey that adapts to your skill level and goals. With{' '}
+          {QUESTIONS_COUNT}+ coding challenges, detailed progress tracking, and customized learning
+          paths. We ensure you improve day by day.
         </span>
       </div>
       <div className="min-h-[1450px] md:min-h-[1000px] lg:min-h-[700px] rounded-lg">
@@ -49,28 +48,20 @@ export default async function FeaturesBentoGrid() {
           >
             <div className="flex flex-col justify-between">
               <div className="flex flex-col gap-y-1 relative max-w-md">
-                <h5 className="text-2xl text-gradient from-white to-white/55">
-                  Coding Roadmaps
-                </h5>
+                <h5 className="text-2xl text-gradient from-white to-white/55">Coding Roadmaps</h5>
                 <p className="text-xs text-gray-400 font-onest">
-                  Created a personalized coding roadmap that adapt to your
-                  coding skills and craft you a learning path to ensure you
-                  become a better developer.
+                  Created a personalized coding roadmap that adapt to your coding skills and craft
+                  you a learning path to ensure you become a better developer.
                 </p>
-                <Button
-                  variant="default"
-                  className="flex md:hidden z-10 relative mt-2"
-                >
-                  Learn more{' '}
-                  <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
+                <Button variant="default" className="flex md:hidden z-10 relative mt-2">
+                  Learn more <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
                 </Button>
               </div>
               <Button
                 variant="default"
                 className="z-10 relative gap-x-2 items-center w-fit font-onest hidden md:flex"
               >
-                Learn more{' '}
-                <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
+                Learn more <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
               </Button>
             </div>
             <RoadmapFeatureBox />
@@ -86,13 +77,10 @@ export default async function FeaturesBentoGrid() {
           >
             <div className="flex flex-col gap-y-4 relative">
               <div className="flex flex-col gap-y-1">
-                <h5 className="text-2xl text-gradient from-white to-white/55">
-                  Progress tracking
-                </h5>
+                <h5 className="text-2xl text-gradient from-white to-white/55">Progress tracking</h5>
                 <p className="text-xs text-gray-400 font-onest">
-                  Know exactly where you are in your learning journey. Get
-                  insights on your coding habits and how to improve your coding
-                  skills.
+                  Know exactly where you are in your learning journey. Get insights on your coding
+                  habits and how to improve your coding skills.
                 </p>
               </div>
               <div className="w-full h-fit flex items-center justify-center">
@@ -102,29 +90,20 @@ export default async function FeaturesBentoGrid() {
           </Link>
           <Link
             href={'/features/leaderboard'}
-            className={cn(
-              'relative overflow-hidden group flex flex-col',
-              cardClasses
-            )}
+            className={cn('relative overflow-hidden group flex flex-col', cardClasses)}
             aria-label="Navigate to Leaderboard"
           >
             <LeaderboardBentoBox />
             <div className="flex flex-col gap-y-1 mt-auto">
-              <h5 className="text-2xl text-gradient from-white to-white/55">
-                Leaderboard
-              </h5>
+              <h5 className="text-2xl text-gradient from-white to-white/55">Leaderboard</h5>
               <p className="text-xs text-gray-400 font-onest">
-                Opt-in to see how you stack up against other developers, no
-                pressure.
+                Opt-in to see how you stack up against other developers, no pressure.
               </p>
             </div>
           </Link>
           <Link
             href="/features/daily-coding-challenges"
-            className={cn(
-              'col-span-full lg:col-span-2 group overflow-hidden',
-              cardClasses
-            )}
+            className={cn('col-span-full lg:col-span-2 group overflow-hidden', cardClasses)}
             prefetch
             aria-label="Navigate to Daily Challenges"
           >
@@ -134,13 +113,12 @@ export default async function FeaturesBentoGrid() {
                   Daily coding challenges
                 </h5>
                 <p className="text-xs text-gray-400 font-onest">
-                  Beginner-friendly coding challenges delivered straight to your
-                  inbox. Improving your coding skills in just 5 minutes a day.
+                  Beginner-friendly coding challenges delivered straight to your inbox. Improving
+                  your coding skills in just 5 minutes a day.
                 </p>
               </div>
               <Button variant="default" className="font-onest">
-                Learn more{' '}
-                <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
+                Learn more <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
               </Button>
             </div>
             <div className="relative">

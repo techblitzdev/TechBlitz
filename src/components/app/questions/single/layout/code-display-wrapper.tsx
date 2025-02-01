@@ -7,12 +7,9 @@ import { useQuestionSingle } from './question-single-context';
 import { capitalize } from 'lodash';
 
 export default function CodeDisplayWrapper() {
-  const { prefilledCodeSnippet, user, question, answerHelp } =
-    useQuestionSingle();
+  const { prefilledCodeSnippet, user, question, answerHelp } = useQuestionSingle();
 
-  const [codeSnippet, setCodeSnippet] = useState<string | null>(
-    question?.codeSnippet
-  );
+  const [codeSnippet, setCodeSnippet] = useState<string | null>(question?.codeSnippet);
 
   // update the prefilled code snippet to the answer
   useEffect(() => {
@@ -31,9 +28,7 @@ export default function CodeDisplayWrapper() {
           <h2 className="text-lg font-bold">Answer Help</h2>
           {Object.entries(answerHelp).map(([key, value], index) => (
             <div key={index}>
-              <h3 className="text-md font-bold underline">
-                {capitalize(key.replace(/-/g, ' '))}
-              </h3>
+              <h3 className="text-md font-bold underline">{capitalize(key.replace(/-/g, ' '))}</h3>
               <p className="text-gray-200">{value.replace(/```/g, '')}</p>
             </div>
           ))}
@@ -54,11 +49,7 @@ export default function CodeDisplayWrapper() {
             transition={{ duration: 0.3 }}
             className="h-full pb-5"
           >
-            <CodeDisplay
-              content={codeSnippet}
-              user={user}
-              backgroundColor="#111111"
-            />
+            <CodeDisplay content={codeSnippet} user={user} backgroundColor="#111111" />
           </motion.div>
         )}
       </AnimatePresence>

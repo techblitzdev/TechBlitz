@@ -1,8 +1,4 @@
-import {
-  QuestionResources,
-  StatisticsReport,
-  UserBookmarks,
-} from '@prisma/client';
+import { QuestionResources, StatisticsReport, UserBookmarks } from '@prisma/client';
 import { QuestionAnswer } from './QuestionAnswers';
 import { Tags } from './Tags';
 import { Answer } from './Answers';

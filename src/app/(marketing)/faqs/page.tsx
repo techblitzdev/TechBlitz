@@ -49,13 +49,12 @@ const commonFaqs = [
     question: 'What will you be adding to techblitz in the future?',
     answer: (
       <>
-        We are always working on new features and improvements to TechBlitz. You
-        can find our roadmap{' '}
+        We are always working on new features and improvements to TechBlitz. You can find our
+        roadmap{' '}
         <a href="/roadmap" className="text-accent">
           here
         </a>
-        . Feel free to reach out to us with any feature requests or suggestions
-        you may have.
+        . Feel free to reach out to us with any feature requests or suggestions you may have.
       </>
     ),
     jsonLdText:
@@ -63,17 +62,14 @@ const commonFaqs = [
   },
   {
     question: 'What are the benefits of using techblitz?',
-    answer:
-      'We offer short-form questions on various topics to help you learn and grow.',
-    jsonLdText:
-      'We offer short-form questions on various topics to help you learn and grow.',
+    answer: 'We offer short-form questions on various topics to help you learn and grow.',
+    jsonLdText: 'We offer short-form questions on various topics to help you learn and grow.',
   },
   {
     question: 'How do I get started with techblitz?',
     answer: (
       <>
-        To get started with TechBlitz, simply sign up for a free account. You
-        can sign up{' '}
+        To get started with TechBlitz, simply sign up for a free account. You can sign up{' '}
         <Link href="/signup" className="text-accent">
           here
         </Link>
@@ -103,8 +99,7 @@ const commonFaqs = [
     jsonLdText: 'Yes, you can get a refund within 14 days of your purchase. ',
   },
   {
-    question:
-      'My question is not listed here. How can I get in touch with you?',
+    question: 'My question is not listed here. How can I get in touch with you?',
     answer: (
       <>
         If you have any other questions, feel free to reach out to us at{' '}
@@ -121,14 +116,14 @@ const commonFaqs = [
     question: 'Do you offer a student discount?',
     answer: (
       <>
-        Yes! We believe that TechBlitz should be available to all students. To
-        claim your discount, please email us at{' '}
+        Yes! We believe that TechBlitz should be available to all students. To claim your discount,
+        please email us at{' '}
         <a href="mailto:team@techblitz.dev" className="text-accent">
           team@techblitz.dev
         </a>{' '}
-        using your student email address. We are currently running a limited
-        time 50% discount for students. This will be available until the end of
-        February 2025, after which the discount will be 30%.
+        using your student email address. We are currently running a limited time 50% discount for
+        students. This will be available until the end of February 2025, after which the discount
+        will be 30%.
       </>
     ),
     jsonLdText:
@@ -145,15 +140,13 @@ const planFaqs = [
         <a href="/features/roadmaps" className="text-accent">
           ai-powered roadmaps
         </a>{' '}
-        , more in-depth analytics, priority support and early access to new
-        features.'
+        , more in-depth analytics, priority support and early access to new features.'
       </>
     ),
   },
   {
     question: 'How do I upgrade my plan?',
-    answer:
-      'You can upgrade your plan at any time by visiting your account settings.',
+    answer: 'You can upgrade your plan at any time by visiting your account settings.',
   },
   {
     question: 'Can I cancel my plan at any time?',
@@ -168,8 +161,7 @@ const planFaqs = [
     question: 'Do you offer a discount for students plans?',
     answer: (
       <>
-        Yes, we offer a 50% discount for students. To claim your discount,
-        please email us at{' '}
+        Yes, we offer a 50% discount for students. To claim your discount, please email us at{' '}
         <a href="mailto:team@techblitz.dev" className="text-accent">
           team@techblitz.dev
         </a>{' '}
@@ -187,16 +179,14 @@ const userRoadmapsFaqs = [
   },
   {
     question: 'How do I create a user roadmap?',
-    answer:
-      'You can create a user roadmap by heading over to the roadmap page in your dashboard.',
+    answer: 'You can create a user roadmap by heading over to the roadmap page in your dashboard.',
   },
   {
     question: 'Can I share my user roadmap with others?',
     answer: (
       <>
-        No, currently you cannot share your roadmap with other users. However,
-        we are working on adding this feature in the future. You can find our
-        roadmap{' '}
+        No, currently you cannot share your roadmap with other users. However, we are working on
+        adding this feature in the future. You can find our roadmap{' '}
         <a
           href="https://github.com/users/Logannford/projects/5?pane=issue&itemId=91140395"
           className="text-accent"
@@ -210,13 +200,11 @@ const userRoadmapsFaqs = [
   },
   {
     question: 'Can I create multiple user roadmaps?',
-    answer:
-      'Yes, you can create multiple user roadmaps to track different learning goals.',
+    answer: 'Yes, you can create multiple user roadmaps to track different learning goals.',
   },
   {
     question: 'Can I delete a user roadmap?',
-    answer:
-      'Yes, you can delete a user roadmap at any time by visiting your account settings.',
+    answer: 'Yes, you can delete a user roadmap at any time by visiting your account settings.',
   },
 ];
 
@@ -247,16 +235,8 @@ export default function FAQsPage() {
             description="Got a question? We have an answer. Here are some of the most commonly asked questions about techblitz."
             faqs={commonFaqs}
           />
-          <FAQsBlock
-            title="Questions about our plans"
-            faqs={planFaqs}
-            showSpan={false}
-          />
-          <FAQsBlock
-            title="Coding Roadmaps"
-            faqs={userRoadmapsFaqs}
-            showSpan={false}
-          />
+          <FAQsBlock title="Questions about our plans" faqs={planFaqs} showSpan={false} />
+          <FAQsBlock title="Coding Roadmaps" faqs={userRoadmapsFaqs} showSpan={false} />
         </div>
         <CallToActionBlock title="The smarter way to stay on top of tech" />
       </div>

@@ -34,9 +34,7 @@ export default function QuestionTabs({
 }: QuestionTabsProps) {
   const { userAnswered, showHint, setShowHint } = useQuestionSingle();
 
-  const [activeTab, setActiveTab] = useState<
-    'description' | 'resources' | 'stats'
-  >('description');
+  const [activeTab, setActiveTab] = useState<'description' | 'resources' | 'stats'>('description');
 
   const hasUserAnswered = use(userAnswered || false);
 
@@ -96,34 +94,23 @@ export default function QuestionTabs({
                 <Chip
                   color={getQuestionDifficultyColor(question.difficulty).bg}
                   text={capitalise(question.difficulty)}
-                  textColor={
-                    getQuestionDifficultyColor(question.difficulty).text
-                  }
-                  border={
-                    getQuestionDifficultyColor(question.difficulty).border
-                  }
+                  textColor={getQuestionDifficultyColor(question.difficulty).text}
+                  border={getQuestionDifficultyColor(question.difficulty).border}
                 />
                 <HasAnswered userAnswered={hasUserAnswered} />
               </div>
               <div className="flex items-center">
-                <QuestionHintTrigger
-                  showHint={showHint}
-                  setShowHint={setShowHint}
-                />
+                <QuestionHintTrigger showHint={showHint} setShowHint={setShowHint} />
                 <ShareQuestion />
                 <BookmarkQuestion question={question} />
               </div>
             </div>
             {question?.title && (
               <div className="flex w-full gap-10 justify-between">
-                <h3 className="font-onest font-light text-lg md:text-2xl">
-                  {question.title}
-                </h3>
+                <h3 className="font-onest font-light text-lg md:text-2xl">{question.title}</h3>
               </div>
             )}
-            <p className="text-sm text-gray-400 font-light font-onest mt-3">
-              {question.question}
-            </p>
+            <p className="text-sm text-gray-400 font-light font-onest mt-3">{question.question}</p>
             {renderAnswerForm()}
           </div>
         )}

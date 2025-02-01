@@ -51,9 +51,7 @@ export const addQuestion = async (opts: {
   console.log('hit');
 
   if (!question || !answers.length) {
-    console.error(
-      'Please provide a question, at least one answer, and a question date'
-    );
+    console.error('Please provide a question, at least one answer, and a question date');
     return 'Please provide a question, at least one answer, and a question date';
   }
 
@@ -61,9 +59,7 @@ export const addQuestion = async (opts: {
     uid: uniqid(),
     answer: answer.text,
     answerFullSnippet: answer.answerFullSnippet || null,
-    answerType: answer.isCodeSnippet
-      ? 'PREFILL'
-      : ('STANDARD' as QuestionAnswerType),
+    answerType: answer.isCodeSnippet ? 'PREFILL' : ('STANDARD' as QuestionAnswerType),
   }));
 
   if (correctAnswer < 0 || correctAnswer >= answers.length) {
@@ -85,9 +81,7 @@ export const addQuestion = async (opts: {
           question,
           title: title || null,
           description: description || null,
-          questionDate: questionDate
-            ? new Date(questionDate).toISOString().split('T')[0]
-            : '',
+          questionDate: questionDate ? new Date(questionDate).toISOString().split('T')[0] : '',
           createdAt: new Date(),
           updatedAt: new Date(),
           answers: {
@@ -164,9 +158,7 @@ export const addQuestion = async (opts: {
     return 'ok';
   } catch (error) {
     console.error('Failed to add new question:', error);
-    return error instanceof Error
-      ? error.message
-      : 'Failed to add new question';
+    return error instanceof Error ? error.message : 'Failed to add new question';
   }
 };
 
@@ -213,9 +205,7 @@ export const addCodingChallengeQuestion = async (opts: {
         question,
         title: title || null,
         description: description || null,
-        questionDate: questionDate
-          ? new Date(questionDate).toISOString().split('T')[0]
-          : '',
+        questionDate: questionDate ? new Date(questionDate).toISOString().split('T')[0] : '',
         correctAnswer: '-',
         codeSnippet: codeSnippet || null,
         hint: hint || null,
@@ -259,8 +249,6 @@ export const addCodingChallengeQuestion = async (opts: {
     });
   } catch (error) {
     console.error('Failed to add new coding challenge question:', error);
-    return error instanceof Error
-      ? error.message
-      : 'Failed to add new coding challenge question';
+    return error instanceof Error ? error.message : 'Failed to add new coding challenge question';
   }
 };

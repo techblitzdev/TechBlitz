@@ -25,8 +25,7 @@ export default function PricingCard(opts: {
   return (
     <Card
       style={{
-        background:
-          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
+        background: 'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
       className={cn(
         'flex-1 col-span-2 lg:col-span-1 group-hover:scale-[1.03] duration-300 pb-3 bg-black-75 flex flex-col justify-between h-full gap-y-4 border-black-50',
@@ -46,21 +45,12 @@ export default function PricingCard(opts: {
           <div className="flex flex-col gap-y-1 mb-2">
             <div className="flex gap-x-1 items-center mt-2">
               <div className="flex gap-x-1 items-center font-onest text-gradient from-white to-white/75">
-                <span className="text-lg font-semibold">
-                  {product.currencySymbol}
-                </span>
-                <NumberFlow
-                  value={product.price}
-                  className="text-5xl font-onest text-white"
-                />
+                <span className="text-lg font-semibold">{product.currencySymbol}</span>
+                <NumberFlow value={product.price} className="text-5xl font-onest text-white" />
               </div>
-              <span className="text-sm font-inter mt-3 text-gray-300">
-                {product.frequencyText}
-              </span>
+              <span className="text-sm font-inter mt-3 text-gray-300">{product.frequencyText}</span>
             </div>
-            <p className="text-sm font-onest text-gray-300">
-              {product.shortText}
-            </p>
+            <p className="text-sm font-onest text-gray-300">{product.shortText}</p>
           </div>
         </div>
         <Separator className="bg-black-50" />

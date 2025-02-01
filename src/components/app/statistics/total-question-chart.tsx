@@ -1,31 +1,11 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import {
-  TrendingUp,
-  TrendingDown,
-  BarChartIcon,
-  LineChartIcon,
-  Circle,
-} from 'lucide-react';
-import {
-  CartesianGrid,
-  Bar,
-  BarChart,
-  Line,
-  LineChart,
-  XAxis,
-  YAxis,
-} from 'recharts';
+import { TrendingUp, TrendingDown, BarChartIcon, LineChartIcon, Circle } from 'lucide-react';
+import { CartesianGrid, Bar, BarChart, Line, LineChart, XAxis, YAxis } from 'recharts';
 import NumberFlow from '@number-flow/react';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   ChartConfig,
   ChartContainer,
@@ -114,8 +94,7 @@ export default function QuestionChart({
 
     // calculate the percentage change between the first and last period
     const percentageChange =
-      ((lastPeriod.questions - firstPeriod.questions) / firstPeriod.questions) *
-      100;
+      ((lastPeriod.questions - firstPeriod.questions) / firstPeriod.questions) * 100;
 
     return {
       percentage: Math.abs(percentageChange).toFixed(2),
@@ -190,12 +169,7 @@ export default function QuestionChart({
   };
 
   return (
-    <Card
-      className={cn(
-        'border-black-50 max-h-[28rem]',
-        backgroundColor && backgroundColor
-      )}
-    >
+    <Card className={cn('border-black-50 max-h-[28rem]', backgroundColor && backgroundColor)}>
       <CardHeader>
         <div className="flex justify-between items-center">
           <CardTitle className="text-white">Questions Answered</CardTitle>
@@ -220,19 +194,13 @@ export default function QuestionChart({
                 <SelectValue placeholder="Select chart type" />
               </SelectTrigger>
               <SelectContent className="bg-black">
-                <SelectItem
-                  value="bar"
-                  className="hover:cursor-pointer hover:text-white"
-                >
+                <SelectItem value="bar" className="hover:cursor-pointer hover:text-white">
                   <div className="flex items-center">
                     <BarChartIcon className="mr-2 size-4" />
                     <span className="hidden md:block">Bar Chart</span>
                   </div>
                 </SelectItem>
-                <SelectItem
-                  value="line"
-                  className="hover:cursor-pointer hover:text-white"
-                >
+                <SelectItem value="line" className="hover:cursor-pointer hover:text-white">
                   <div className="flex items-center">
                     <LineChartIcon className="mr-2 size-4" />
                     <span className="hidden md:block">Line Chart</span>

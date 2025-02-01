@@ -3,13 +3,7 @@
 import { Facebook, Linkedin, Twitter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export default function ShareThisPost({
-  title,
-  slug,
-}: {
-  title: string;
-  slug: string;
-}) {
+export default function ShareThisPost({ title, slug }: { title: string; slug: string }) {
   return (
     <div className="mt-10">
       <h3 className="text-2xl font-medium">Share this article</h3>
@@ -19,9 +13,7 @@ export default function ShareThisPost({
             window.open(
               `https://twitter.com/intent/tweet?text=${encodeURIComponent(
                 title
-              )}&url=${encodeURIComponent(
-                `https://techblitz.dev/blog/${slug}`
-              )}`,
+              )}&url=${encodeURIComponent(`https://techblitz.dev/blog/${slug}`)}`,
               '_blank'
             );
           }}

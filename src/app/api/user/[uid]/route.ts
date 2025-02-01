@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(
   req: NextRequest,
   {
-    params
+    params,
   }: {
     params: {
       uid: string;
@@ -16,7 +16,7 @@ export async function GET(
 
   if (!userId) {
     return NextResponse.json({
-      error: 'No user id provided'
+      error: 'No user id provided',
     });
   }
 
@@ -25,7 +25,7 @@ export async function GET(
 
   if (!user || !user.uid) {
     return NextResponse.json({
-      error: 'No user found'
+      error: 'No user found',
     });
   }
   return NextResponse.json(user);

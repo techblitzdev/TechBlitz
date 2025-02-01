@@ -13,13 +13,7 @@ const routeConfig = {
   },
   // Auth-related routes (no auth required)
   auth: {
-    patterns: [
-      '/login',
-      '/signup',
-      '/forgot-password',
-      '/update-password',
-      '/verify-email',
-    ],
+    patterns: ['/login', '/signup', '/forgot-password', '/update-password', '/verify-email'],
     requiresAuth: false,
   },
   // Dashboard routes (auth required)
@@ -39,6 +33,11 @@ const routeConfig = {
     patterns: ['/dashboard/admin'],
     requiresAuth: true,
     requiresAdmin: true,
+  },
+  // API routes to be protected (auth required)
+  api_protected: {
+    patterns: ['/api/upload', '/api/cron'],
+    requiresAuth: true,
   },
 };
 
@@ -100,8 +99,10 @@ export async function middleware(req: NextRequest) {
   }
 
   // Get current user session
-  const { user } = await updateSession(req);
+  const { user, error: AuthError } = await updateSession(req);
   const isAuthenticated = !!user?.user?.id;
+  // just commenting out for the build!
+  //const isAuthError = !!AuthError;
 
   // Handle different route types
   if (route.config.requiresAuth && !isAuthenticated) {
@@ -127,6 +128,27 @@ export async function middleware(req: NextRequest) {
   if (pathname === '/' && isAuthenticated && !referer) {
     return NextResponse.redirect(new URL('/dashboard', req.url));
   }
+
+  /**
+   * This API route is protected: if the user’s authentication session is missing,
+   * the supabaseClient will return an "Auth session missing!" error.
+   * Reference: https://github.com/supabase/auth-js/blob/master/src/GoTrueClient.ts
+   *
+   * Authorization logic specific to each route can be handled within the route itself,
+   * allowing centralized management of protected api endpoints.
+   * You don’t need to define this for every route.
+   * As the logic scales, maintaining it will become difficult.
+   *
+   * TODO:
+   * Implement protection on the actual routes as necessary.
+   * I haven't reviewed the business logic flow in detail.
+   */
+  // if (route.group === "api_protected" && isAuthError) {
+  //   return new NextResponse(JSON.stringify({ error: AuthError.message }), {
+  //     status: 401,
+  //     headers: { "Content-Type": "application/json" },
+  //   });
+  // }
 
   return NextResponse.next();
 }

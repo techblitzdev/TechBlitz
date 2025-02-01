@@ -79,12 +79,11 @@ export const generateDataForAi = async (opts: {
 
   // we need to get all of the answers that the user has answered
   // for this roadmap
-  const roadmapDefaultAnswers =
-    await prisma.defaultRoadmapQuestionsUsersAnswers.findMany({
-      where: {
-        roadmapUid,
-      },
-    });
+  const roadmapDefaultAnswers = await prisma.defaultRoadmapQuestionsUsersAnswers.findMany({
+    where: {
+      roadmapUid,
+    },
+  });
 
   if (roadmapDefaultAnswers.length === 0) {
     return 'invalid';

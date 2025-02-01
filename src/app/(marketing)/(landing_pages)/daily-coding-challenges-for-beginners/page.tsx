@@ -30,8 +30,8 @@ const faqs = [
         <Link href="/signup" className="text-accent">
           Sign up here
         </Link>{' '}
-        to access a world of free daily coding challenges. TechBlitz is your
-        gateway to mastering coding skills with ease and efficiency.
+        to access a world of free daily coding challenges. TechBlitz is your gateway to mastering
+        coding skills with ease and efficiency.
       </>
     ),
   },
@@ -49,9 +49,8 @@ const faqs = [
     question: 'How do I track my progress?',
     answer: (
       <>
-        With our progress tracker, you can track your progress on your coding
-        challenges. Ensuring you can see your progress and celebrate your
-        achievements. Find out more{' '}
+        With our progress tracker, you can track your progress on your coding challenges. Ensuring
+        you can see your progress and celebrate your achievements. Find out more{' '}
         <Link href="/features/statistics" className="text-accent">
           here
         </Link>
@@ -63,9 +62,8 @@ const faqs = [
     question: 'What if I want to learn more?',
     answer: (
       <>
-        We update our coding question suite with new challenges every day.
-        Ensuring you can learn essential coding skills faster than ever. You can
-        view the question suite{' '}
+        We update our coding question suite with new challenges every day. Ensuring you can learn
+        essential coding skills faster than ever. You can view the question suite{' '}
         <Link href="/questions" className="text-accent">
           here
         </Link>
@@ -78,12 +76,7 @@ const faqs = [
 const items = [
   {
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 12 12"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 12 12">
         <path
           fill="currentColor"
           d="M5 2.5a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0M6 7a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M3.55 5H2a1 1 0 0 0-1 1v.207c0 .596.343 1.086.797 1.407c.272.193.597.336.952.42c.269-.488.736-.85 1.292-.981A2.49 2.49 0 0 1 3.55 5m4.41 2.053a2 2 0 0 1 1.291.98c.355-.083.68-.226.952-.419c.454-.32.797-.811.797-1.407V6a1 1 0 0 0-1-1H8.45a2.51 2.51 0 0 1-.49 2.053M4.5 8a1 1 0 0 0-1 1v.167c0 .587.357 1.058.808 1.358C4.763 10.83 5.363 11 6 11s1.237-.171 1.692-.475c.45-.3.808-.771.808-1.358V9a1 1 0 0 0-1-1zM9 4a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3"
@@ -96,12 +89,7 @@ const items = [
   },
   {
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
         <g
           fill="none"
           stroke="currentColor"
@@ -121,12 +109,7 @@ const items = [
   },
   {
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
         <path
           fill="currentColor"
           d="M12 .807L23.835 8.5L22 9.693V16h-2v-5.007l-1 .65V17.5c0 1.47-1.014 2.615-2.253 3.339c-1.265.737-2.945 1.16-4.747 1.16s-3.483-.423-4.747-1.16C6.013 20.115 5 18.969 5 17.499v-5.856L.165 8.5zM7 12.943V17.5c0 .463.33 1.067 1.261 1.61c.908.53 2.227.89 3.739.89s2.831-.36 3.739-.89c.932-.543 1.26-1.147 1.26-1.61v-4.557l-5 3.25zM20.165 8.5L12 3.193L3.835 8.5L12 13.807z"
@@ -145,12 +128,7 @@ const items = [
   },
   {
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
         <path
           fill="currentColor"
           d="M12 15q.425 0 .713-.288T13 14t-.288-.712T12 13t-.712.288T11 14t.288.713T12 15m-1-4h2V5h-2zM2 22V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18H6zm3.15-6H20V4H4v13.125zM4 16V4z"
@@ -163,12 +141,7 @@ const items = [
   },
   {
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
         <g
           fill="none"
           stroke="currentColor"
@@ -263,10 +236,7 @@ export default function DailyCodingChallengesForBeginnersPage() {
           header="Real-world coding challenges"
           subheader="Beginner-friendly coding challenges that mimic real-world problems. Ensuring you can learn essential coding skills faster than ever."
         />
-        <MarketingContentGrid
-          title="Your all in one coding challenge platform"
-          items={items}
-        />
+        <MarketingContentGrid title="Your all in one coding challenge platform" items={items} />
         <QuestionMarquee
           header="Learn to code effortlessly with beginner-friendly coding challenges"
           subheader="Join TechBlitz today and dive into our free daily coding challenges tailored for beginners. Enhance your skills with real-world problems and track your progress."

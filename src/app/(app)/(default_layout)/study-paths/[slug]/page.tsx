@@ -1,18 +1,15 @@
 import { redirect } from 'next/navigation';
 import dynamic from 'next/dynamic';
 
-const StudyPathsList = dynamic(
-  () => import('@/components/app/study-paths/list'),
-  {
-    loading: () => (
-      <div className="flex flex-col gap-6">
-        {Array.from({ length: 9 }).map((_, index) => (
-          <QuestionCardSkeleton key={index} />
-        ))}
-      </div>
-    ),
-  }
-);
+const StudyPathsList = dynamic(() => import('@/components/app/study-paths/list'), {
+  loading: () => (
+    <div className="flex flex-col gap-6">
+      {Array.from({ length: 9 }).map((_, index) => (
+        <QuestionCardSkeleton key={index} />
+      ))}
+    </div>
+  ),
+});
 import StudyPathSidebar from '@/components/app/study-paths/study-path-sidebar';
 import Hero from '@/components/shared/hero';
 import { Button } from '@/components/ui/button';
@@ -23,29 +20,17 @@ import { enrollInStudyPath } from '@/actions/study-paths/enroll';
 import { useUserServer } from '@/hooks/use-user-server';
 
 import { capitalise, getBaseUrl } from '@/utils';
-import {
-  getStudyPath,
-  isUserEnrolledInStudyPath,
-} from '@/utils/data/study-paths/get';
+import { getStudyPath, isUserEnrolledInStudyPath } from '@/utils/data/study-paths/get';
 import { createMetadata } from '@/utils/seo';
 
 import { QuizJsonLd } from '@/types/Seo';
 import type { StudyPath } from '@prisma/client';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Progress } from '@/components/ui/progress';
 import ShareQuestion from '@/components/app/shared/share-question';
 import { QuestionCardSkeleton } from '@/components/app/questions/layout/question-card';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export async function generateMetadata({ params }: { params: { slug: string } }) {
   const studyPath = await getStudyPath(params.slug);
 
   if (!studyPath) {
@@ -85,9 +70,7 @@ async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
 
   // the button will be disabled if the user is a free user and has reached the maximum number of study paths
   // the button will be disabled if the user is already enrolled in the study path
-  const isDisabled =
-    user?.userLevel === 'FREE' &&
-    (user?.studyPathEnrollments?.length ?? 0) === 0;
+  const isDisabled = user?.userLevel === 'FREE' && (user?.studyPathEnrollments?.length ?? 0) === 0;
 
   return (
     <div className="flex flex-col gap-y-4 z-30 relative ">
@@ -123,12 +106,7 @@ function HeroChip({ studyPath }: { studyPath: StudyPath }) {
       <TooltipProvider>
         <Tooltip delayDuration={0}>
           <TooltipTrigger asChild>
-            <Button
-              href="/study-paths"
-              variant="default"
-              size="sm"
-              className="p-1 h-fit"
-            >
+            <Button href="/study-paths" variant="default" size="sm" className="p-1 h-fit">
               <ChevronLeft className="size-4 text-white" />
             </Button>
           </TooltipTrigger>
@@ -155,16 +133,9 @@ function HeroHeading({ studyPath }: { studyPath: StudyPath }) {
   );
 }
 
-export default async function StudyPathPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function StudyPathPage({ params }: { params: { slug: string } }) {
   // run in parallel
-  const [studyPath, user] = await Promise.all([
-    getStudyPath(params.slug),
-    useUserServer(),
-  ]);
+  const [studyPath, user] = await Promise.all([getStudyPath(params.slug), useUserServer()]);
 
   // create json ld
   const jsonLd: QuizJsonLd = {
@@ -220,24 +191,20 @@ export default async function StudyPathPage({
         <div className="lg:container flex flex-col lg:flex-row gap-12">
           <div className="w-full lg:w-[65%] space-y-6">
             {/** only show if user is enrolled */}
-            {user?.studyPathEnrollments?.find(
-              (e) => e.studyPathUid === studyPath.uid
-            ) && (
+            {user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid) && (
               <div className="flex flex-col gap-y-2 w-full">
                 <p className="text-sm text-gray-400 font-onest">
                   {Math.round(
-                    user?.studyPathEnrollments?.find(
-                      (e) => e.studyPathUid === studyPath.uid
-                    )?.progress ?? 0
+                    user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
+                      ?.progress ?? 0
                   )}
                   % completed
                 </p>
                 <Progress
                   className="border border-black-50 bg-black-50"
                   value={
-                    user?.studyPathEnrollments?.find(
-                      (e) => e.studyPathUid === studyPath.uid
-                    )?.progress ?? 0
+                    user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
+                      ?.progress ?? 0
                   }
                 />
               </div>

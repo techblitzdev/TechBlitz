@@ -43,10 +43,7 @@ export default async function RoadmapOnboardingModal() {
 
   return (
     <Dialog open>
-      <DialogContent
-        className="bg-black-75 md:max-w-xl"
-        showCloseButton={false}
-      >
+      <DialogContent className="bg-black-75 md:max-w-xl" showCloseButton={false}>
         {!firstQuestion || !firstQuestion.uid ? (
           <NoDailyQuestion />
         ) : (
@@ -54,12 +51,12 @@ export default async function RoadmapOnboardingModal() {
             <DialogTitle className="text-3xl">Welcome to roadmaps</DialogTitle>
             <DialogDescription className="flex flex-col gap-y-1 mt-3 text-white font-satoshi">
               <p>
-                Roadmaps are personalised learning paths, curated for your needs
-                in order to grow as a developer.
+                Roadmaps are personalised learning paths, curated for your needs in order to grow as
+                a developer.
               </p>
               <p>
-                We just need to know a little bit more about you to get started.
-                This will help us to create a roadmap that is tailored to you.
+                We just need to know a little bit more about you to get started. This will help us
+                to create a roadmap that is tailored to you.
               </p>
             </DialogDescription>
           </>

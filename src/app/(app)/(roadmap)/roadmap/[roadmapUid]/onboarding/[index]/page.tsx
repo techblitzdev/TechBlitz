@@ -45,17 +45,11 @@ export default async function RoadmapQuestionPage({
       >
         <div className="px-4 py-[18px] text-sm flex w-full items-center justify-end bg-black-25 gap-x-3">
           {/** explain question ai button */}
-          <AiQuestionHelp
-            question={question}
-            user={user}
-            questionType="onboarding"
-          />
+          <AiQuestionHelp question={question} user={user} questionType="onboarding" />
           {/** code theme selector */}
           <ChangeCodeTheme user={user} />
           {/** code snippet */}
-          {question.codeSnippet && (
-            <ExpandedCodeModal code={question.codeSnippet} />
-          )}
+          {question.codeSnippet && <ExpandedCodeModal code={question.codeSnippet} />}
         </div>
         <Separator className="bg-black-50" />
         <OnboardingCodeDisplayWrapper />
@@ -64,10 +58,6 @@ export default async function RoadmapQuestionPage({
   );
 
   return (
-    <ResizableLayout
-      leftContent={leftContent}
-      rightContent={rightContent}
-      initialLeftWidth={50}
-    />
+    <ResizableLayout leftContent={leftContent} rightContent={rightContent} initialLeftWidth={50} />
   );
 }

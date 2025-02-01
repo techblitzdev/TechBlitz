@@ -39,8 +39,7 @@ export default function AnimatedAIQuestionHelpCard() {
     <Card
       className="w-full max-w-md h-full overflow-hidden text-white border border-black-50 relative"
       style={{
-        background:
-          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
+        background: 'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
     >
       <CardHeader>
@@ -66,14 +65,12 @@ export default function AnimatedAIQuestionHelpCard() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
               >
-                In JavaScript, you can use the `Array.reduce` method to reduce
-                an array to a single value. This method takes a callback
-                function as an argument and returns a single value. The callback
-                function takes four arguments: the accumulator, the current
-                value, the current index, and the array itself. The accumulator
-                is the value that is returned from the previous callback
-                function. The current value is the current element in the array.
-                The current index is the index of the current element in the
+                In JavaScript, you can use the `Array.reduce` method to reduce an array to a single
+                value. This method takes a callback function as an argument and returns a single
+                value. The callback function takes four arguments: the accumulator, the current
+                value, the current index, and the array itself. The accumulator is the value that is
+                returned from the previous callback function. The current value is the current
+                element in the array. The current index is the index of the current element in the
                 array. The array is the array itself.
               </motion.div>
             </motion.div>
@@ -92,11 +89,7 @@ export default function AnimatedAIQuestionHelpCard() {
                 className="mb-4 text-white border border-black-50"
                 rows={5}
               />
-              <Button
-                onClick={() => setShowAIHelp(true)}
-                variant="secondary"
-                className="w-full"
-              >
+              <Button onClick={() => setShowAIHelp(true)} variant="secondary" className="w-full">
                 Request AI Assistance
               </Button>
             </motion.div>

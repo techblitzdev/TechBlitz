@@ -53,9 +53,7 @@ export function GithubStars(opts: { hideText?: boolean }) {
         <div className="size-4">
           <GithubLogo />
         </div>
-        {!hideText && (
-          <span className="font-medium hidden xl:block">Star us</span>
-        )}
+        {!hideText && <span className="font-medium hidden xl:block">Star us</span>}
       </div>
     </Button>
   );

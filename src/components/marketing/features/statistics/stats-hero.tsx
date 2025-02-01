@@ -13,9 +13,8 @@ export default function StatsHero() {
           Track coding progress with <br /> ease.
         </h1>
         <p className="text-gray-400 max-w-xl text-center text-sm md:text-base font-onest">
-          Track your coding journey with detailed insights, monitor your coding
-          performance and visualize your growth with interactive charts with our
-          coding improvements tools.
+          Track your coding journey with detailed insights, monitor your coding performance and
+          visualize your growth with interactive charts with our coding improvements tools.
         </p>
         <div className="mt-2 flex gap-4">
           <Button variant="default" href="#statistics-report">

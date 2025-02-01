@@ -24,14 +24,8 @@ type AnswerQuestionFormProps = {
 const AnswerQuestionForm = forwardRef(function AnswerQuestionForm({
   time,
 }: AnswerQuestionFormProps) {
-  const {
-    question,
-    isSubmitting,
-    userAnswer,
-    selectedAnswer,
-    setTimeTaken,
-    setSelectedAnswer,
-  } = useQuestionSingle();
+  const { question, isSubmitting, userAnswer, selectedAnswer, setTimeTaken, setSelectedAnswer } =
+    useQuestionSingle();
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(answerQuestionSchema),
@@ -59,9 +53,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm({
             </div>
           </div>
         )}
-        <p className="text-sm text-gray-400 font-light font-onest mt-3">
-          Choose an option below
-        </p>
+        <p className="text-sm text-gray-400 font-light font-onest mt-3">Choose an option below</p>
         <div className="grid grid-cols-12 gap-4 pt-2">
           {question?.answers?.map((answer) => (
             <div key={answer.uid} className="col-span-full">

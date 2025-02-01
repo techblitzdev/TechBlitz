@@ -15,10 +15,7 @@ interface EmailUpdateProps {
   redirect_to: string;
 }
 
-export const EmailChangeEmail = ({
-  username,
-  redirect_to,
-}: EmailUpdateProps) => {
+export const EmailChangeEmail = ({ username, redirect_to }: EmailUpdateProps) => {
   return (
     <Html>
       <Head />
@@ -28,9 +25,9 @@ export const EmailChangeEmail = ({
           <Text style={h1}>Email Address Updated</Text>
           <Text style={text}>Hello {username},</Text>
           <Text style={text}>
-            You have requested to update your email address, please click the
-            button below to confirm the change. If you did not make this
-            request, please contact our support team immediately.
+            You have requested to update your email address, please click the button below to
+            confirm the change. If you did not make this request, please contact our support team
+            immediately.
           </Text>
 
           <Section style={buttonContainer}>
@@ -40,9 +37,7 @@ export const EmailChangeEmail = ({
           </Section>
 
           <Section style={footer}>
-            <Text style={footerText}>
-              © 2025 TechBlitz. All rights reserved.
-            </Text>
+            <Text style={footerText}>© 2025 TechBlitz. All rights reserved.</Text>
             <Text style={footerText}>
               If you have any questions, please contact our support team at{' '}
               <Link href={`mailto:team@techblitz.dev`} style={footerLink}>

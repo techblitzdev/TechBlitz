@@ -6,11 +6,5 @@ import { useRoadmapOnboardingContext } from './roadmap-onboarding-context';
 export default function OnboardingCodeDisplayWrapper() {
   const { question, user, answerHelp } = useRoadmapOnboardingContext();
 
-  return (
-    <QuestionCodeDisplay
-      question={question}
-      user={user}
-      answerHelp={answerHelp}
-    />
-  );
+  return <QuestionCodeDisplay question={question} user={user} answerHelp={answerHelp} />;
 }

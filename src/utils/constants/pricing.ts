@@ -61,11 +61,8 @@ export const getPlans = (
       currencySymbol: '$',
       frequency: billingPeriod,
       frequencyText:
-        billingPeriod === 'month'
-          ? 'per month, billed monthly'
-          : 'per month, billed yearly',
-      shortText:
-        'Perfect for those looking for a more personalized coding experience.',
+        billingPeriod === 'month' ? 'per month, billed monthly' : 'per month, billed yearly',
+      shortText: 'Perfect for those looking for a more personalized coding experience.',
       features: [
         { name: 'Access to premium questions' },
         {
@@ -110,8 +107,7 @@ export const getPlans = (
       currencySymbol: '$',
       frequency: 'once',
       frequencyText: 'pay once, yours forever',
-      shortText:
-        'Perfect for those wanting to master coding concepts for life.',
+      shortText: 'Perfect for those wanting to master coding concepts for life.',
       features: [
         { name: 'Access to premium questions' },
         {

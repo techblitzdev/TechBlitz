@@ -20,8 +20,7 @@ export default function LeaderboardHero({
           Leaderboard
         </h1>
         <p className="text-sm text-gray-400 relative z-10 text-center">
-          See how you stack up against the rest of the community and become the
-          best!
+          See how you stack up against the rest of the community and become the best!
         </p>
         <div className="hidden md:flex">
           <AnimatedSpan content="Top Users" />
@@ -33,9 +32,7 @@ export default function LeaderboardHero({
             const user = topThreeUsers[index];
             if (!user) return null;
             const position = index + 1;
-            return (
-              <PodiumItem key={user.uid} user={user} position={position} />
-            );
+            return <PodiumItem key={user.uid} user={user} position={position} />;
           })}
         </AnimatePresence>
       </div>
@@ -139,13 +136,7 @@ export function CrownIcon() {
   );
 }
 
-function UserBadge({
-  userLevel,
-  position,
-}: {
-  userLevel: string;
-  position: number;
-}) {
+function UserBadge({ userLevel, position }: { userLevel: string; position: number }) {
   if (userLevel !== 'PREMIUM' && userLevel !== 'ADMIN') return null;
 
   return (
@@ -155,9 +146,7 @@ function UserBadge({
       transition={{ delay: position * 0.2 + 0.3 }}
       className="relative -top-3 w-fit bg-accent text-xs flex items-center justify-center px-2 py-0.5 rounded-full"
     >
-      <span className="text-[10px]">
-        {userLevel === 'PREMIUM' ? 'PRO' : 'ADMIN'}
-      </span>
+      <span className="text-[10px]">{userLevel === 'PREMIUM' ? 'PRO' : 'ADMIN'}</span>
     </motion.div>
   );
 }
@@ -175,13 +164,7 @@ function UserName({ user, position }: { user: UserRecord; position: number }) {
   );
 }
 
-function UserAnswerCount({
-  count,
-  position,
-}: {
-  count: number;
-  position: number;
-}) {
+function UserAnswerCount({ count, position }: { count: number; position: number }) {
   return (
     <motion.span
       initial={{ y: 5, opacity: 0 }}

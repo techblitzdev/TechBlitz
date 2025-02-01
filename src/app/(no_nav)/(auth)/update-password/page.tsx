@@ -110,8 +110,7 @@ export default function UpdatePasswordPage() {
     <div
       className="p-8 rounded-xl space-y-4 text-center border border-black-50"
       style={{
-        background:
-          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
+        background: 'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
     >
       <h1 className="font-bold text-3xl mb-2">Update your password</h1>
@@ -119,10 +118,7 @@ export default function UpdatePasswordPage() {
         Enter your new password below.
       </p>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(handlePasswordReset)}
-          className="space-y-4"
-        >
+        <form onSubmit={form.handleSubmit(handlePasswordReset)} className="space-y-4">
           <FormItem>
             <FormField
               name="password"
@@ -158,12 +154,7 @@ export default function UpdatePasswordPage() {
             )}
           />
 
-          <Button
-            type="submit"
-            className="w-full"
-            variant="secondary"
-            disabled={isLoading}
-          >
+          <Button type="submit" className="w-full" variant="secondary" disabled={isLoading}>
             {isLoading ? (
               <>
                 <LoadingSpinner />

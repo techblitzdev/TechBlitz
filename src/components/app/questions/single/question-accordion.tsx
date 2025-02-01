@@ -33,10 +33,7 @@ export default function QuestionAccordion(opts: {
       value={showHint ? 'hint' : undefined}
       className="divide-y divide-black-50"
     >
-      <AccordionItem
-        value="hint"
-        className="border-black-50 duration-300 w-full px-4"
-      >
+      <AccordionItem value="hint" className="border-black-50 duration-300 w-full px-4">
         <AccordionTrigger className="text-sm duration-300">
           <div className="flex items-center gap-x-1">
             <Lightbulb className="size-4" />
@@ -48,18 +45,10 @@ export default function QuestionAccordion(opts: {
             remarkPlugins={[remarkGfm]}
             components={{
               ul: ({ children }) => {
-                return (
-                  <ul className="list-disc px-4 flex flex-col gap-3">
-                    {children}
-                  </ul>
-                );
+                return <ul className="list-disc px-4 flex flex-col gap-3">{children}</ul>;
               },
               ol: ({ children }) => {
-                return (
-                  <ol className="list-decimal px-4 flex flex-col gap-3">
-                    {children}
-                  </ol>
-                );
+                return <ol className="list-decimal px-4 flex flex-col gap-3">{children}</ol>;
               },
             }}
           >
@@ -84,16 +73,12 @@ export default function QuestionAccordion(opts: {
                     key={question.slug}
                     className="w-full flex items-center justify-between duration-300 hover:underline gap-3"
                   >
-                    <p className="line-clamp-1">
-                      {question.title || question.question}
-                    </p>
+                    <p className="line-clamp-1">{question.title || question.question}</p>
                     <ArrowRight className="size-4 flex-shrink-0" />
                   </Link>
                 ))
               ) : (
-                <p className="text-sm text-gray-400">
-                  No related questions found
-                </p>
+                <p className="text-sm text-gray-400">No related questions found</p>
               )}
             </div>
           </AccordionContent>

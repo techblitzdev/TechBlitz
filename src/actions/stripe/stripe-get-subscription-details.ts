@@ -16,10 +16,7 @@ export const getSubscriptionDetails = async (userUid: string) => {
     return null;
   }
 
-  return await stripe.subscriptions.retrieve(
-    subscriptionId.stripeSubscriptionId,
-    {
-      expand: ['latest_invoice.payment_intent'],
-    }
-  );
+  return await stripe.subscriptions.retrieve(subscriptionId.stripeSubscriptionId, {
+    expand: ['latest_invoice.payment_intent'],
+  });
 };

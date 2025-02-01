@@ -1,7 +1,4 @@
-import {
-  getUserFromDb,
-  getUserFromSession,
-} from '@/actions/user/authed/get-user';
+import { getUserFromDb, getUserFromSession } from '@/actions/user/authed/get-user';
 import { cache } from 'react';
 
 export const useUserServer = cache(async () => {

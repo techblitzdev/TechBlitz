@@ -43,18 +43,8 @@ const featureShowcaseItems = [
     description:
       'Get deep insights into your coding performance with comprehensive analytics across different programming concepts and challenges.',
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 14 14"
-      >
-        <g
-          fill="none"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 14 14">
+        <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="7" cy="7" r="6.5" />
           <path d="M7 .5V7l4.6 4.6" />
         </g>

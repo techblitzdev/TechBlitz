@@ -73,9 +73,7 @@ export const QuestionSingleContext = createContext<QuestionSingleContextType>(
 export const useQuestionSingle = () => {
   const context = useContext(QuestionSingleContext);
   if (!context) {
-    throw new Error(
-      'useQuestionSingle must be used within a QuestionSingleContextProvider'
-    );
+    throw new Error('useQuestionSingle must be used within a QuestionSingleContextProvider');
   }
   return context;
 };
@@ -100,26 +98,20 @@ export const QuestionSingleContextProvider = ({
 
   // STATE VARIABLES
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [correctAnswer, setCorrectAnswer] = useState<
-    'init' | 'incorrect' | 'correct'
-  >('init');
+  const [correctAnswer, setCorrectAnswer] = useState<'init' | 'incorrect' | 'correct'>('init');
   const [userAnswer, setUserAnswer] = useState<Answer | null>(null);
   const [newUserData, setNewUserData] = useState<UserRecord | null>(null);
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
   const [timeTaken, setTimeTaken] = useState<number>(0);
   const [customQuestion, setCustomQuestion] = useState(false);
-  const [prefilledCodeSnippet, setPrefilledCodeSnippet] = useState<
-    string | null
-  >(null);
-  const [answerHelp, setAnswerHelp] = useState<z.infer<
-    typeof answerHelpSchema
-  > | null>(null);
+  const [prefilledCodeSnippet, setPrefilledCodeSnippet] = useState<string | null>(null);
+  const [answerHelp, setAnswerHelp] = useState<z.infer<typeof answerHelpSchema> | null>(null);
   const [tokensUsed, setTokensUsed] = useState<number>(
     user?.userLevel === 'PREMIUM' ? Infinity : user?.aiQuestionHelpTokens || 0
   );
-  const [currentLayout, setCurrentLayout] = useState<
-    'questions' | 'codeSnippet' | 'answer'
-  >('questions');
+  const [currentLayout, setCurrentLayout] = useState<'questions' | 'codeSnippet' | 'answer'>(
+    'questions'
+  );
   const [code, setCode] = useState('');
   const [result, setResult] = useState<{
     passed: boolean;
@@ -132,12 +124,8 @@ export const QuestionSingleContextProvider = ({
     error?: string;
   } | null>(null);
   const [showHint, setShowHint] = useState(false);
-  const [nextQuestion, setNextQuestion] = useState<string | null | undefined>(
-    null
-  );
-  const [previousQuestion, setPreviousQuestion] = useState<
-    string | null | undefined
-  >(null);
+  const [nextQuestion, setNextQuestion] = useState<string | null | undefined>(null);
+  const [previousQuestion, setPreviousQuestion] = useState<string | null | undefined>(null);
   // Stopwatch for tracking time
   const { pause, reset, totalSeconds } = useStopwatch({ autoStart: true });
 
@@ -202,8 +190,7 @@ export const QuestionSingleContextProvider = ({
   const validateCode = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const challenge =
-      question.questionType === 'CODING_CHALLENGE' ? question : null;
+    const challenge = question.questionType === 'CODING_CHALLENGE' ? question : null;
 
     if (!challenge) {
       toast.error('No challenge found');

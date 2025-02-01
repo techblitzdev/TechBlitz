@@ -15,9 +15,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { useTransition } from 'react';
 
-export default function StatisticsOverviewMenu(opts: {
-  user: UserWithOutAnswers;
-}) {
+export default function StatisticsOverviewMenu(opts: { user: UserWithOutAnswers }) {
   const { user } = opts;
   const router = useRouter();
 
@@ -48,10 +46,7 @@ export default function StatisticsOverviewMenu(opts: {
         className="bg-black border border-black-50 text-white hover:text-white"
       >
         <DropdownMenuItem
-          className={cn(
-            user?.userLevel === 'PREMIUM' &&
-              'opacity-50 hover:cursor-not-allowed'
-          )}
+          className={cn(user?.userLevel === 'PREMIUM' && 'opacity-50 hover:cursor-not-allowed')}
         >
           <button
             onClick={handleGenerateReport}

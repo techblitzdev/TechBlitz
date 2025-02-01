@@ -3,21 +3,12 @@
 import { useEffect, useState } from 'react';
 import { generateQuestionHelp } from '@/actions/ai/questions/question-help';
 import { Button } from '@/components/ui/button';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Textarea } from '@/components/ui/textarea';
 import { Question } from '@/types/Questions';
 import { StarsIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipProvider,
-  TooltipContent,
-} from '@/components/ui/tooltip';
+import { Tooltip, TooltipTrigger, TooltipProvider, TooltipContent } from '@/components/ui/tooltip';
 import Link from 'next/link';
 import { UserRecord } from '@/types/User';
 import { capitalize } from 'lodash';
@@ -41,11 +32,7 @@ export default function AiQuestionHelp(opts: {
   const handleSubmit = async (formData: FormData) => {
     setIsLoading(true);
     const userContent = formData.get('userContent') as string;
-    const questionHelp = await generateQuestionHelp(
-      question.uid,
-      userContent,
-      questionType
-    );
+    const questionHelp = await generateQuestionHelp(question.uid, userContent, questionType);
 
     if (questionHelp) {
       setAiHelp(questionHelp.content);
@@ -104,14 +91,8 @@ export default function AiQuestionHelp(opts: {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
               >
-                <p className="text-sm text-white">
-                  Tokens remaining: {tokensUsed}
-                </p>
-                <Button
-                  onClick={() => setAiHelp(null)}
-                  variant="default"
-                  className="mt-2"
-                >
+                <p className="text-sm text-white">Tokens remaining: {tokensUsed}</p>
+                <Button onClick={() => setAiHelp(null)} variant="default" className="mt-2">
                   Ask Another Question
                 </Button>
               </motion.div>
@@ -135,9 +116,8 @@ export default function AiQuestionHelp(opts: {
                 Need assistance with this question? Let AI help you!
               </h5>
               <p className="text-sm text-white">
-                You have{' '}
-                {user?.userLevel === 'PREMIUM' ? 'unlimited' : tokensUsed}{' '}
-                tokens remaining <br />
+                You have {user?.userLevel === 'PREMIUM' ? 'unlimited' : tokensUsed} tokens remaining{' '}
+                <br />
                 {user?.userLevel === 'FREE' && (
                   <span className="text-xs text-gray-400">
                     (Free users get 20 tokens,{' '}
@@ -161,11 +141,7 @@ export default function AiQuestionHelp(opts: {
                     )}
                   >
                     <TooltipTrigger asChild>
-                      <Button
-                        type="submit"
-                        variant="secondary"
-                        disabled={isLoading}
-                      >
+                      <Button type="submit" variant="secondary" disabled={isLoading}>
                         {isLoading ? 'Generating...' : 'Request AI Assistance'}
                       </Button>
                     </TooltipTrigger>
@@ -175,12 +151,7 @@ export default function AiQuestionHelp(opts: {
                   </Tooltip>
                 </TooltipProvider>
               ) : (
-                <Button
-                  variant="secondary"
-                  disabled
-                  className="w-full"
-                  href={loginHref}
-                >
+                <Button variant="secondary" disabled className="w-full" href={loginHref}>
                   Login to request AI assistance
                 </Button>
               )}

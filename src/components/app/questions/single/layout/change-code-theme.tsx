@@ -1,17 +1,8 @@
 'use client';
 
 import EditorIcon from '@/components/ui/icons/editor';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import {
-  Select,
-  SelectItem,
-  SelectTrigger,
-  SelectContent,
-} from '@/components/ui/select';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Select, SelectItem, SelectTrigger, SelectContent } from '@/components/ui/select';
 import { UserRecord } from '@/types/User';
 
 import { useState } from 'react';
@@ -45,9 +36,7 @@ export default function ChangeCodeTheme({ user }: { user: UserRecord | null }) {
       >
         <h5 className="text-lg font-semibold mb-2">Code Theme</h5>
         <Select onValueChange={handleThemeChange} value={selectedTheme}>
-          <SelectTrigger className="border border-black-50 w-full">
-            {selectedTheme}
-          </SelectTrigger>
+          <SelectTrigger className="border border-black-50 w-full">{selectedTheme}</SelectTrigger>
           <SelectContent>
             {Object.entries(themes).map(([key]) => (
               <SelectItem key={key} value={key}>

@@ -24,9 +24,7 @@ export const addUidsToResponse = (response: any) => {
     // Find the correct answer's UID
     const correctAnswer = answers.find((answer: any) => answer.correct);
     if (!correctAnswer) {
-      throw new Error(
-        `No correct answer found for question: ${question.questions}`
-      );
+      throw new Error(`No correct answer found for question: ${question.questions}`);
     }
 
     return {

@@ -2,13 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { InputWithLabel } from '@/components/ui/input-label';
 import { toast } from 'sonner';
 import type { z } from 'zod';
@@ -44,20 +38,14 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
 
   const { mutateAsync: handleSignUp, isPending } = useMutation({
     mutationFn: async (values: SchemaProps) => {
-      const result = await signUp(
-        values.email,
-        values.password,
-        ref || undefined
-      );
+      const result = await signUp(values.email, values.password, ref || undefined);
       if (result.error) {
         throw new Error(result.error);
       }
       return result;
     },
     onSuccess: () => {
-      toast.success(
-        'Signup successful! Please check your email to verify your account.'
-      );
+      toast.success('Signup successful! Please check your email to verify your account.');
       localStorage.setItem('onboarding', 'true');
       router.push('/verify-email');
     },
@@ -180,12 +168,7 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
                 </FormItem>
               )}
             />
-            <Button
-              type="submit"
-              disabled={isPending}
-              className="w-full"
-              variant="secondary"
-            >
+            <Button type="submit" disabled={isPending} className="w-full" variant="secondary">
               {isPending ? 'Loading...' : 'Sign Up'}
             </Button>
           </form>
@@ -194,11 +177,7 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
 
       <OrSeparator />
 
-      <Button
-        onClick={() => setShowEmailForm(!showEmailForm)}
-        className="w-full"
-        variant="default"
-      >
+      <Button onClick={() => setShowEmailForm(!showEmailForm)} className="w-full" variant="default">
         {showEmailForm ? 'Continue with GitHub/Discord' : 'Continue with Email'}
       </Button>
     </div>

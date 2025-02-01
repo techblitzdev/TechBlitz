@@ -22,12 +22,7 @@ interface EditRoadmapModalProps {
   roadmap: UserRoadmaps;
 }
 
-export function EditRoadmapModal({
-  isOpen,
-  onClose,
-  onSave,
-  roadmap,
-}: EditRoadmapModalProps) {
+export function EditRoadmapModal({ isOpen, onClose, onSave, roadmap }: EditRoadmapModalProps) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 

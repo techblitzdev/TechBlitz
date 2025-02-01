@@ -7,9 +7,7 @@ import { use, useState } from 'react';
 import { toast } from 'sonner';
 import { UserRecord } from '@/types/User';
 
-export default function ShowTimeTakenToggle(opts: {
-  userPromise: Promise<UserRecord | null>;
-}) {
+export default function ShowTimeTakenToggle(opts: { userPromise: Promise<UserRecord | null> }) {
   const { userPromise } = opts;
 
   const user = use(userPromise);

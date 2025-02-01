@@ -10,7 +10,8 @@
     "postinstall": "prisma generate",
     "types": "tsc --noEmit",
     "stripe-cancel": "stripe listen --forward-to localhost:3000/api/webhooks/stripe/cancel",
-    "knip": "knip"
+    "knip": "knip",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.33.1",

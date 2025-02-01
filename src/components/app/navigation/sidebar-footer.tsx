@@ -22,6 +22,7 @@ import { UserRecord } from '@/types/User';
 import { getUserDisplayName } from '@/utils/user';
 import { Profile } from '@/types/Profile';
 import { capitalise } from '@/utils';
+import SidebarFooterPremium from './sidebar-footer-premium';
 
 /**
 /**
@@ -47,29 +48,7 @@ export default function SidebarFooterComponent(opts: {
     <SidebarFooter className="bg-[#000000]">
       <SidebarMenu>
         {/** if sidebar is collapsed, hide the upgrade button */}
-        {user?.userLevel === 'FREE' && (
-          <SidebarMenuItem
-            className="font-semibold font-inter text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-50 p-4 group-data-[collapsible=icon]:hidden"
-            style={{
-              background:
-                'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
-            }}
-          >
-            <p className="font-onest">Unlock Your Full Potential</p>
-            <p className="text-xs font-light font-onest">
-              Get AI-powered study paths, premium challenges, and learn 3x faster with personalized
-              guidance!
-            </p>
-            <Button
-              variant="accent"
-              fullWidth
-              className="mt-4"
-              href="https://dub.sh/upgrade-techblitz"
-            >
-              Upgrade to Premium
-            </Button>
-          </SidebarMenuItem>
-        )}
+        {user?.userLevel === 'FREE' && <SidebarFooterPremium />}
         {/** if there is no user, we render a login / signup button */}
         {!user ? (
           <SidebarMenuItem className="group-data-[collapsible=icon]:hidden flex flex-col gap-2">

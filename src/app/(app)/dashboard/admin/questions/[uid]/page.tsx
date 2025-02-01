@@ -2,8 +2,8 @@ export default function AdminSingleQuestionPage({
   params,
 }: {
   params: {
-    uid: string;
-  };
+    uid: string
+  }
 }) {
-  return <div className="">Question id: {params.uid}</div>;
+  return <div className="">Question id: {params.uid}</div>
 }

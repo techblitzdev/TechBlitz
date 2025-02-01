@@ -1,52 +1,52 @@
-import FeatureLeftRightSection from "@/components/marketing/features/daily-challenge/feature-left-right/features-section";
-import FeatureDailyChallengeHero from "@/components/marketing/features/daily-challenge/hero/daily-challenge-hero";
-import FeatureRoadmapThreeGridBlock from "@/components/marketing/features/roadmap/roadmap-three-grid";
-import StatsReportSection from "@/components/marketing/features/statistics/stats-report-section";
-import CallToActionBlock from "@/components/marketing/global/blocks/call-to-action-block";
-import MarketingContentGrid from "@/components/marketing/global/blocks/content-grid";
-import FAQsBlock from "@/components/marketing/global/blocks/faqs";
-import ComparisonBlock from "@/components/marketing/homepage/comparison/comparison-block";
-import { WebPageJsonLd } from "@/types/Seo";
-import { getBaseUrl } from "@/utils";
-import { QUESTIONS_COUNT } from "@/utils/constants/misc";
-import { createMetadata, WebPageJsonLdBreadcrumb } from "@/utils/seo";
-import { MobileIcon } from "@radix-ui/react-icons";
+import FeatureLeftRightSection from '@/components/marketing/features/daily-challenge/feature-left-right/features-section'
+import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/hero/daily-challenge-hero'
+import FeatureRoadmapThreeGridBlock from '@/components/marketing/features/roadmap/roadmap-three-grid'
+import StatsReportSection from '@/components/marketing/features/statistics/stats-report-section'
+import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block'
+import MarketingContentGrid from '@/components/marketing/global/blocks/content-grid'
+import FAQsBlock from '@/components/marketing/global/blocks/faqs'
+import ComparisonBlock from '@/components/marketing/homepage/comparison/comparison-block'
+import { WebPageJsonLd } from '@/types/Seo'
+import { getBaseUrl } from '@/utils'
+import { QUESTIONS_COUNT } from '@/utils/constants/misc'
+import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo'
+import { MobileIcon } from '@radix-ui/react-icons'
 
 const faqs = [
   {
-    question: "How will TechBlitz help me learn JavaScript?",
+    question: 'How will TechBlitz help me learn JavaScript?',
     answer:
-      "Our challenges have been crafted to mimic real-world problems, that aim to guide you from a beginner JavaScript developer to a pro.",
+      'Our challenges have been crafted to mimic real-world problems, that aim to guide you from a beginner JavaScript developer to a pro.',
   },
   {
-    question: "How many JavaScript questions are there for me to complete?",
+    question: 'How many JavaScript questions are there for me to complete?',
     answer: `We currently have ${QUESTIONS_COUNT}+ JavaScript challenges for you to complete. One for each level of JavaScript mastery.`,
   },
   {
-    question: "What is TechBlitz?",
+    question: 'What is TechBlitz?',
     answer:
-      "TechBlitz is a coding challenge platform that helps you learn JavaScript.",
+      'TechBlitz is a coding challenge platform that helps you learn JavaScript.',
   },
   {
-    question: "How does TechBlitz work?",
+    question: 'How does TechBlitz work?',
     answer:
-      "TechBlitz works by providing you with a wide range of real-world JavaScript challenges.",
+      'TechBlitz works by providing you with a wide range of real-world JavaScript challenges.',
   },
   {
-    question: "What makes TechBlitz different?",
+    question: 'What makes TechBlitz different?',
     answer:
-      "Our core values are in providing you a personalized experience. We ensure you learn essential coding skills faster than ever with your own AI-assistant, personalized challenges & roadmaps, stats tracking, and more!",
+      'Our core values are in providing you a personalized experience. We ensure you learn essential coding skills faster than ever with your own AI-assistant, personalized challenges & roadmaps, stats tracking, and more!',
   },
   {
-    question: "How do I get started?",
+    question: 'How do I get started?',
     answer:
-      "You can get started by signing up for a free account and starting to answer challenges.",
+      'You can get started by signing up for a free account and starting to answer challenges.',
   },
   {
-    question: "Do you offer student discount?",
-    answer: "Yes! We are currently offering 50% off for students.",
+    question: 'Do you offer student discount?',
+    answer: 'Yes! We are currently offering 50% off for students.',
   },
-];
+]
 
 const items = [
   {
@@ -70,9 +70,9 @@ const items = [
         </g>
       </svg>
     ),
-    title: "Bite-sized Learning",
+    title: 'Bite-sized Learning',
     description:
-      "Master complex JavaScript concepts in just 15 minutes a day with our expertly crafted micro-challenges. Perfect for busy developers.",
+      'Master complex JavaScript concepts in just 15 minutes a day with our expertly crafted micro-challenges. Perfect for busy developers.',
   },
   {
     icon: (
@@ -88,9 +88,9 @@ const items = [
         />
       </svg>
     ),
-    title: "Daily JavaScript Challenges",
+    title: 'Daily JavaScript Challenges',
     description:
-      "Daily coding challenges to improve your JavaScript skills. Learn to code for free, with our short-form, interactive coding challenges from a range of topics including JavaScript, React, Node.js, web development, and more.",
+      'Daily coding challenges to improve your JavaScript skills. Learn to code for free, with our short-form, interactive coding challenges from a range of topics including JavaScript, React, Node.js, web development, and more.',
   },
   {
     icon: (
@@ -106,9 +106,9 @@ const items = [
         />
       </svg>
     ),
-    title: "Vibrant JavaScript Community",
+    title: 'Vibrant JavaScript Community',
     description:
-      "Connect with a community of passionate JavaScript developers worldwide. Share solutions, discuss approaches, and accelerate your learning through peer collaboration.",
+      'Connect with a community of passionate JavaScript developers worldwide. Share solutions, discuss approaches, and accelerate your learning through peer collaboration.',
   },
   {
     icon: (
@@ -124,9 +124,9 @@ const items = [
         />
       </svg>
     ),
-    title: "Instant Feedback",
+    title: 'Instant Feedback',
     description:
-      "Get real-time feedback on your JavaScript solutions. Learn from mistakes and improve faster.",
+      'Get real-time feedback on your JavaScript solutions. Learn from mistakes and improve faster.',
   },
   {
     icon: (
@@ -149,71 +149,71 @@ const items = [
         </g>
       </svg>
     ),
-    title: "Advanced Analytics",
+    title: 'Advanced Analytics',
     description:
-      "Visualize your JavaScript coding journey with detailed performance metrics. Track your progress across topics, algorithms, and problem-solving patterns.",
+      'Visualize your JavaScript coding journey with detailed performance metrics. Track your progress across topics, algorithms, and problem-solving patterns.',
   },
   {
     icon: <MobileIcon className="size-6" />,
-    title: "Seamless Mobile Learning",
+    title: 'Seamless Mobile Learning',
     description:
-      "Learn JavaScript on your phone. Practice during commutes or breaks with our optimized mobile interface - never miss a day of learning.",
+      'Learn JavaScript on your phone. Practice during commutes or breaks with our optimized mobile interface - never miss a day of learning.',
   },
-];
+]
 
 // metadata
 export async function generateMetadata() {
   return createMetadata({
-    title: "Learn JavaScript | TechBlitz",
+    title: 'Learn JavaScript | TechBlitz',
     description:
-      "TechBlitz transforms your coding journey into a personalized, engaging, and effective experience. Ensuring you learn essential coding skills faster than ever.",
+      'TechBlitz transforms your coding journey into a personalized, engaging, and effective experience. Ensuring you learn essential coding skills faster than ever.',
     image: {
-      text: "Learn JavaScript | TechBlitz",
-      bgColor: "#000",
-      textColor: "#fff",
+      text: 'Learn JavaScript | TechBlitz',
+      bgColor: '#000',
+      textColor: '#fff',
     },
-    canonicalUrl: "/learn-javascript",
-  });
+    canonicalUrl: '/learn-javascript',
+  })
 }
 
 export default function LearnJavascriptPage() {
   const jsonLd: WebPageJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
     url: getBaseUrl(),
-    headline: "Learn JavaScript | TechBlitz",
+    headline: 'Learn JavaScript | TechBlitz',
     description:
-      "TechBlitz transforms your coding journey into a personalized, engaging, and effective experience. Ensuring you learn essential coding skills faster than ever.",
+      'TechBlitz transforms your coding journey into a personalized, engaging, and effective experience. Ensuring you learn essential coding skills faster than ever.',
     image:
-      "https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531",
+      'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
     breadcrumb: WebPageJsonLdBreadcrumb,
     author: {
-      "@type": "Organization",
-      name: "TechBlitz",
+      '@type': 'Organization',
+      name: 'TechBlitz',
       url: getBaseUrl(),
     },
     dateModified: new Date().toISOString(),
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": getBaseUrl(),
+      '@type': 'WebPage',
+      '@id': getBaseUrl(),
     },
     keywords:
-      "learn to code, learn to code for free, learn javascript, coding challenges, daily coding challenges, web development, tech skills assessment, learn to code on phone",
+      'learn to code, learn to code for free, learn javascript, coding challenges, daily coding challenges, web development, tech skills assessment, learn to code on phone',
     publisher: {
-      "@type": "Organization",
-      name: "TechBlitz",
+      '@type': 'Organization',
+      name: 'TechBlitz',
       logo: {
-        "@type": "ImageObject",
-        url: "https://techblitz.dev/favicon.ico",
+        '@type': 'ImageObject',
+        url: 'https://techblitz.dev/favicon.ico',
       },
     },
     potentialAction: {
-      "@type": "SearchAction",
+      '@type': 'SearchAction',
       target: `${getBaseUrl()}/search?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
+      'query-input': 'required name=search_term_string',
     },
-  };
+  }
   return (
     <>
       <script
@@ -262,5 +262,5 @@ export default function LearnJavascriptPage() {
         />
       </div>
     </>
-  );
+  )
 }

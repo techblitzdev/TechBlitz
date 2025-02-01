@@ -1,18 +1,18 @@
-import type { Question, QuestionWithoutAnswers } from "@/types/Questions";
-import { capitalise, getQuestionDifficultyColor } from "@/utils";
-import TagDisplay from "@/components/app/questions/tag-display";
-import Link from "next/link";
-import Chip from "@/components/ui/chip";
-import { ArrowRight, Bookmark, Circle } from "lucide-react";
-import { CheckCircle } from "lucide-react";
+import type { Question, QuestionWithoutAnswers } from '@/types/Questions'
+import { capitalise, getQuestionDifficultyColor } from '@/utils'
+import TagDisplay from '@/components/app/questions/tag-display'
+import Link from 'next/link'
+import Chip from '@/components/ui/chip'
+import { ArrowRight, Bookmark, Circle } from 'lucide-react'
+import { CheckCircle } from 'lucide-react'
 import {
   TooltipProvider,
   TooltipTrigger,
   TooltipContent,
   Tooltip,
-} from "@/components/ui/tooltip";
-import type { UserRecord } from "@/types/User";
-import { cn } from "@/lib/utils";
+} from '@/components/ui/tooltip'
+import type { UserRecord } from '@/types/User'
+import { cn } from '@/lib/utils'
 
 export function QuestionCardSkeleton() {
   return (
@@ -43,47 +43,47 @@ export function QuestionCardSkeleton() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default function QuestionCard(opts: {
-  questionData: Question | QuestionWithoutAnswers;
-  showSubmissions?: boolean;
-  numberOfTags?: number;
-  showcaseTag?: string;
-  identifier: "slug" | "uid";
-  customQuestion?: boolean;
-  user: UserRecord | null;
-  recommendedQuestion?: boolean;
-  type?: "study-path" | "standard-question";
-  studyPathSlug?: string;
+  questionData: Question | QuestionWithoutAnswers
+  showSubmissions?: boolean
+  numberOfTags?: number
+  showcaseTag?: string
+  identifier: 'slug' | 'uid'
+  customQuestion?: boolean
+  user: UserRecord | null
+  recommendedQuestion?: boolean
+  type?: 'study-path' | 'standard-question'
+  studyPathSlug?: string
 }) {
   const {
     questionData,
     numberOfTags = 3,
     showcaseTag,
-    identifier = "slug",
+    identifier = 'slug',
     customQuestion = false,
     user,
     recommendedQuestion = false,
-    type = "standard-question",
+    type = 'standard-question',
     studyPathSlug,
-  } = opts;
+  } = opts
 
   // if identifier is uid, this is a custom question
   let href =
-    identifier === "uid"
+    identifier === 'uid'
       ? `/question/custom/${questionData[identifier]}`
-      : `/question/${questionData[identifier]}`;
+      : `/question/${questionData[identifier]}`
 
-  const title = questionData?.title || questionData?.question;
+  const title = questionData?.title || questionData?.question
 
   const userCanAccess =
-    user?.userLevel === "PREMIUM" || !questionData?.isPremiumQuestion;
+    user?.userLevel === 'PREMIUM' || !questionData?.isPremiumQuestion
 
   // if type is study-path, add query param to href
-  if (type === "study-path") {
-    href += `?type=study-path&study-path=${studyPathSlug}`;
+  if (type === 'study-path') {
+    href += `?type=study-path&study-path=${studyPathSlug}`
   }
 
   return (
@@ -91,8 +91,8 @@ export default function QuestionCard(opts: {
       href={href}
       key={questionData.uid}
       className={cn(
-        "flex flex-col gap-y-5 items-start bg-[#090909] border border-black-50 hover:border-black-100 duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-[[data-pending]]:animate-pulse",
-        recommendedQuestion && "border-accent",
+        'flex flex-col gap-y-5 items-start bg-[#090909] border border-black-50 hover:border-black-100 duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-[[data-pending]]:animate-pulse',
+        recommendedQuestion && 'border-accent',
       )}
     >
       <div className="flex flex-col gap-y-4 md:gap-y-5 w-full">
@@ -152,8 +152,8 @@ export default function QuestionCard(opts: {
                       <Bookmark
                         className={`size-5 ${
                           questionData?.bookmarks.length > 0
-                            ? "text-yellow-500 fill-yellow-500"
-                            : "text-white"
+                            ? 'text-yellow-500 fill-yellow-500'
+                            : 'text-white'
                         } transition-colors duration-200`}
                       />
                     </TooltipTrigger>
@@ -211,5 +211,5 @@ export default function QuestionCard(opts: {
         </div>
       )}
     </Link>
-  );
+  )
 }

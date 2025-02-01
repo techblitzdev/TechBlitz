@@ -1,75 +1,75 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Ellipsis, Smile } from "lucide-react";
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Ellipsis, Smile } from 'lucide-react'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
-import { capitalise } from "@/utils";
+} from '@/components/ui/popover'
+import { cn } from '@/lib/utils'
+import { capitalise } from '@/utils'
 
-type cardStyle = "comment" | "issue" | "pr";
+type cardStyle = 'comment' | 'issue' | 'pr'
 
 export default function OpenSourceCard(opts: {
-  cardStyle?: cardStyle;
-  content?: string;
-  contributorName?: string;
-  actionType?: string;
+  cardStyle?: cardStyle
+  content?: string
+  contributorName?: string
+  actionType?: string
 }) {
-  const { cardStyle = "comment", content, actionType, contributorName } = opts;
+  const { cardStyle = 'comment', content, actionType, contributorName } = opts
 
-  const emojis = ["👍", "👎", "😄", "🎉", "😕", "❤️", "🚀", "👀"];
+  const emojis = ['👍', '👎', '😄', '🎉', '😕', '❤️', '🚀', '👀']
 
   // determine the colours of the card based on the card style
   const cardColors = {
     comment: {
-      headerBg: "bg-[#131D2E]",
-      headerColor: "#131D2E",
-      border: "border-[#1F4272]",
-      borderColor: "#1F4272",
+      headerBg: 'bg-[#131D2E]',
+      headerColor: '#131D2E',
+      border: 'border-[#1F4272]',
+      borderColor: '#1F4272',
     },
     issue: {
-      headerBg: "bg-[#2D1111]",
-      headerColor: "#2D1111",
-      border: "border-[#4E1C1C]",
-      borderColor: "#4E1C1C",
+      headerBg: 'bg-[#2D1111]',
+      headerColor: '#2D1111',
+      border: 'border-[#4E1C1C]',
+      borderColor: '#4E1C1C',
     },
     pr: {
-      headerBg: "bg-[#151B23]",
-      headerColor: "#151B23",
+      headerBg: 'bg-[#151B23]',
+      headerColor: '#151B23',
 
-      border: "border-[#3C444D]",
-      borderColor: "#3C444D",
+      border: 'border-[#3C444D]',
+      borderColor: '#3C444D',
     },
-  };
+  }
 
   return (
     <Card
-      className={cn("border rounded-md relative", cardColors[cardStyle].border)}
+      className={cn('border rounded-md relative', cardColors[cardStyle].border)}
     >
       <CardHeader
         className={cn(
-          "space-y-0 flex flex-row w-full justify-between items-center text-white text-sm px-4 py-3 border-b gh-card-arrow rounded-t-md",
+          'space-y-0 flex flex-row w-full justify-between items-center text-white text-sm px-4 py-3 border-b gh-card-arrow rounded-t-md',
           cardColors[cardStyle].headerBg,
           cardColors[cardStyle].border,
         )}
         style={
           {
-            "--arrow-color": cardColors[cardStyle].headerColor,
-            "--arrow-border-color": cardColors[cardStyle].borderColor,
+            '--arrow-color': cardColors[cardStyle].headerColor,
+            '--arrow-border-color': cardColors[cardStyle].borderColor,
           } as React.CSSProperties
         }
       >
         <div className="flex flex-row items-center gap-x-2">
           <span className="font-semibold">
-            {contributorName || "techblitz"}
+            {contributorName || 'techblitz'}
           </span>
           <span className="text-gray-400">commented 11 hours ago</span>
         </div>
         <div className="flex items-center gap-x-2">
           <p
             className={cn(
-              "text-xs text-[#9198a1] border rounded-full py-px px-1.5 font-semibold",
+              'text-xs text-[#9198a1] border rounded-full py-px px-1.5 font-semibold',
               cardColors[cardStyle].border,
             )}
           >
@@ -107,5 +107,5 @@ export default function OpenSourceCard(opts: {
         </Popover>
       </CardContent>
     </Card>
-  );
+  )
 }

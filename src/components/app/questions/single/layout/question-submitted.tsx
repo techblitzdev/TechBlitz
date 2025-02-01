@@ -1,31 +1,31 @@
-"use client";
+'use client'
 
-import { useQuestionSingle } from "@/components/app/questions/single/layout/question-single-context";
-import CodeDisplay from "./code-snippet";
-import { Button } from "@/components/ui/button";
+import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context'
+import CodeDisplay from './code-snippet'
+import { Button } from '@/components/ui/button'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { use, useTransition } from "react";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { ArrowRight, CheckCircle, LinkIcon, XCircle } from "lucide-react";
-import { motion } from "framer-motion";
+} from '@/components/ui/select'
+import { use, useTransition } from 'react'
+import Link from 'next/link'
+import { cn } from '@/lib/utils'
+import { ArrowRight, CheckCircle, LinkIcon, XCircle } from 'lucide-react'
+import { motion } from 'framer-motion'
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { toast } from "sonner";
-import { formatSeconds } from "@/utils/time";
-import { AnswerDifficulty } from "@prisma/client";
-import { updateAnswerDifficulty } from "@/actions/answers/answer";
-import LoadingSpinner from "@/components/ui/loading";
+} from '@/components/ui/tooltip'
+import { TooltipProvider } from '@/components/ui/tooltip'
+import { toast } from 'sonner'
+import { formatSeconds } from '@/utils/time'
+import { AnswerDifficulty } from '@prisma/client'
+import { updateAnswerDifficulty } from '@/actions/answers/answer'
+import LoadingSpinner from '@/components/ui/loading'
 
 export default function QuestionSubmitted() {
   const {
@@ -37,28 +37,28 @@ export default function QuestionSubmitted() {
     generateAiAnswerHelp,
     user,
     tokensUsed,
-  } = useQuestionSingle();
+  } = useQuestionSingle()
 
-  const [isPending, setTransition] = useTransition();
+  const [isPending, setTransition] = useTransition()
 
   // resolve the related q's here - only if they are not null
-  const relatedQuestionData = relatedQuestions ? use(relatedQuestions) : [];
+  const relatedQuestionData = relatedQuestions ? use(relatedQuestions) : []
 
   const copyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    toast.success("Question link copied to clipboard!");
-  };
+    navigator.clipboard.writeText(window.location.href)
+    toast.success('Question link copied to clipboard!')
+  }
 
   const handleDifficultySelect = async (value: string) => {
     await updateAnswerDifficulty(
-      userAnswer?.uid || "",
+      userAnswer?.uid || '',
       value.toUpperCase() as AnswerDifficulty,
       false,
-    );
+    )
     toast.success(
-      "Question difficulty updated, we will now serve more personalized questions to you.",
-    );
-  };
+      'Question difficulty updated, we will now serve more personalized questions to you.',
+    )
+  }
 
   return (
     <motion.div
@@ -75,12 +75,12 @@ export default function QuestionSubmitted() {
       >
         <div className="flex w-full justify-between items-center gap-5">
           <h1 className="text-4xl font-bold">
-            {correctAnswer === "correct" ? (
+            {correctAnswer === 'correct' ? (
               <div className="flex items-center gap-x-2">
                 <CheckCircle className="size-7 text-green-500" />
                 You answered correctly!
               </div>
-            ) : correctAnswer === "incorrect" ? (
+            ) : correctAnswer === 'incorrect' ? (
               <div className="flex items-center gap-x-2">
                 <XCircle className="size-7 text-red-500" />
                 That was incorrect, try again!
@@ -129,13 +129,13 @@ export default function QuestionSubmitted() {
             /<pre><code/.test(
               question?.answers.find(
                 (answer) => answer.uid === userAnswer?.userAnswerUid,
-              )?.answer || "",
+              )?.answer || '',
             ) ? (
               <CodeDisplay
                 content={
                   question?.answers.find(
                     (answer) => answer.uid === userAnswer?.userAnswerUid,
-                  )?.answer || ""
+                  )?.answer || ''
                 }
               />
             ) : (
@@ -146,7 +146,7 @@ export default function QuestionSubmitted() {
                     __html:
                       question?.answers.find(
                         (answer) => answer.uid === userAnswer?.userAnswerUid,
-                      )?.answer || "",
+                      )?.answer || '',
                   }}
                 />
               </div>
@@ -154,14 +154,14 @@ export default function QuestionSubmitted() {
           </div>
 
           {/** if the user answered correctly, show the correct answer */}
-          {correctAnswer === "incorrect" && (
+          {correctAnswer === 'incorrect' && (
             <div className="flex flex-col gap-y-2">
               <h2 className="text-lg font-bold">Correct Answer</h2>
               <CodeDisplay
                 content={
                   question?.answers.find(
                     (answer) => answer.uid === question.correctAnswer,
-                  )?.answer || ""
+                  )?.answer || ''
                 }
               />
             </div>
@@ -177,17 +177,17 @@ export default function QuestionSubmitted() {
             explanation.
           </p>
           <p className="text-sm text-white">
-            You have {user?.userLevel === "PREMIUM" ? "unlimited" : tokensUsed}{" "}
+            You have {user?.userLevel === 'PREMIUM' ? 'unlimited' : tokensUsed}{' '}
             tokens remaining <br />
-            {user?.userLevel === "FREE" && (
+            {user?.userLevel === 'FREE' && (
               <span className="text-xs text-gray-400">
-                (Free users get 20 tokens,{" "}
+                (Free users get 20 tokens,{' '}
                 <Link
                   href="https://dub.sh/upgrade-techblitz"
                   className="text-accent underline"
                 >
                   upgrade to Premium
-                </Link>{" "}
+                </Link>{' '}
                 to get unlimited tokens!)
               </span>
             )}
@@ -196,25 +196,25 @@ export default function QuestionSubmitted() {
             variant="secondary"
             onClick={() => {
               setTransition(() => {
-                generateAiAnswerHelp();
-              });
+                generateAiAnswerHelp()
+              })
             }}
             disabled={isPending}
             className="hidden lg:flex"
             wrapperClassName="w-fit"
           >
-            {isPending ? "Generating..." : "Explain Answer"}
+            {isPending ? 'Generating...' : 'Explain Answer'}
           </Button>
           <Button
             variant="secondary"
             onClick={() => {
               setTransition(() => {
-                generateAiAnswerHelp(true);
-              });
+                generateAiAnswerHelp(true)
+              })
             }}
             className="flex lg:hidden"
           >
-            {isPending ? "Generating..." : "Explain Answer"}
+            {isPending ? 'Generating...' : 'Explain Answer'}
           </Button>
         </div>
 
@@ -261,11 +261,11 @@ export default function QuestionSubmitted() {
           <div className="flex flex-col gap-y-2">
             <h2 className="text-xl font-bold">Related Questions</h2>
             <p className="text-sm text-gray-400">
-              {correctAnswer === "correct" && relatedQuestionData.length > 0
-                ? "Here are some questions that are similar to this one."
+              {correctAnswer === 'correct' && relatedQuestionData.length > 0
+                ? 'Here are some questions that are similar to this one.'
                 : relatedQuestionData.length === 0
-                  ? "No related questions found."
-                  : "Here are some questions that will help you understand this concept better."}
+                  ? 'No related questions found.'
+                  : 'Here are some questions that will help you understand this concept better.'}
             </p>
           </div>
           {relatedQuestionData.length > 0 && (
@@ -280,7 +280,7 @@ export default function QuestionSubmitted() {
                   key={question.slug}
                   href={`/question/${question.slug}`}
                   className={cn(
-                    "px-4 py-3 w-full flex justify-between items-center group bg-black-75 transition-colors",
+                    'px-4 py-3 w-full flex justify-between items-center group bg-black-75 transition-colors',
                   )}
                 >
                   <p className="text-sm text-white">{question.question}</p>
@@ -292,5 +292,5 @@ export default function QuestionSubmitted() {
         </div>
       </motion.div>
     </motion.div>
-  );
+  )
 }

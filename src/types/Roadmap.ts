@@ -1,138 +1,138 @@
-import { AnswerDifficulty, UserBookmarks } from "@prisma/client";
-import { BaseRecord } from "./BaseRecord";
-import { QuestionDifficulty } from "./Questions";
-import { User } from "./User";
+import { AnswerDifficulty, UserBookmarks } from '@prisma/client'
+import { BaseRecord } from './BaseRecord'
+import { QuestionDifficulty } from './Questions'
+import { User } from './User'
 
-type RoadmapStatus = "ACTIVE" | "COMPLETED" | "ARCHIVED" | "CREATING";
+type RoadmapStatus = 'ACTIVE' | 'COMPLETED' | 'ARCHIVED' | 'CREATING'
 
 // Main roadmap associated with a user
 export interface UserRoadmaps extends BaseRecord {
   // Connects to the user
-  userUid: string;
+  userUid: string
   // Related questions specific to this roadmap
-  questions: RoadmapUserQuestions[];
+  questions: RoadmapUserQuestions[]
   // Status of the roadmap (active, completed, archived, creating)
-  status: RoadmapStatus;
+  status: RoadmapStatus
   // User answers to default questions
-  DefaultRoadmapQuestionsUsersAnswers?: DefaultRoadmapQuestionsUsersAnswers[];
+  DefaultRoadmapQuestionsUsersAnswers?: DefaultRoadmapQuestionsUsersAnswers[]
   // Index of the user's current question
-  currentQuestionIndex: number;
+  currentQuestionIndex: number
   // Indicates if the roadmap has been generated
-  hasGeneratedRoadmap: boolean;
+  hasGeneratedRoadmap: boolean
   // the roadmap title
-  title: string | null;
+  title: string | null
   // the roadmap description
-  description: string | null;
+  description: string | null
 }
 
 export type UserRoadmapsWithAnswers = Omit<
   UserRoadmaps,
-  "DefaultRoadmapQuestionsUsersAnswers"
+  'DefaultRoadmapQuestionsUsersAnswers'
 > &
-  RoadmapUserQuestionsAnswers;
+  RoadmapUserQuestionsAnswers
 
 // Individual questions in a user's roadmap
 export interface RoadmapUserQuestions extends BaseRecord {
   // Question text
-  question: string;
+  question: string
   // Optional code snippet for the question
-  codeSnippet: string | null;
+  codeSnippet: string | null
   // Optional hint to help the user
-  hint: string | null;
+  hint: string | null
   // Enum for question difficulty
-  difficulty: QuestionDifficulty;
+  difficulty: QuestionDifficulty
   // Track completion status for this question
-  completed: boolean;
+  completed: boolean
   // Timestamp for when the question was completed
-  completedAt: Date | null;
+  completedAt: Date | null
   // Connect to the associated roadmap
-  roadmapUid: string;
+  roadmapUid: string
   // Relation to the UserRoadmaps type
   // Connects to the correct answer
-  correctAnswerUid: string;
+  correctAnswerUid: string
   // Array of possible answers
-  answers: RoadmapUserQuestionsUserAnswers[];
+  answers: RoadmapUserQuestionsUserAnswers[]
   // User-specific answers
-  userAnswers?: RoadmapUserQuestionsUserAnswers[];
+  userAnswers?: RoadmapUserQuestionsUserAnswers[]
   // Order of the question in the roadmap
-  order: number;
+  order: number
   // Indicates if the user answered the question correctly
-  userCorrect: boolean;
+  userCorrect: boolean
 
   // the bookmark
-  bookmarks?: UserBookmarks[];
+  bookmarks?: UserBookmarks[]
 }
 
 // Possible answers for roadmap questions
 export interface RoadmapUserQuestionsAnswers extends BaseRecord {
   // Connects to the associated roadmap question
-  questionUid: string;
+  questionUid: string
   // Indicates whether this is the correct answer
-  correct: boolean;
+  correct: boolean
   // Answer text
-  answer: string;
+  answer: string
   // Connects to the user who answered the question
-  answerUid: string;
+  answerUid: string
 }
 
 // User-provided answers to roadmap questions
 interface RoadmapUserQuestionsUserAnswers extends BaseRecord {
   // Connects to the associated roadmap question
-  questionUid: string;
+  questionUid: string
   // Relation to the RoadmapUserQuestions type
-  question: RoadmapUserQuestions;
+  question: RoadmapUserQuestions
   // Indicates whether the user's answer was correct
-  correct: boolean;
+  correct: boolean
   // User-provided answer text
-  answer: string;
+  answer: string
   // the difficulty of the answer
-  difficulty: AnswerDifficulty;
+  difficulty: AnswerDifficulty
 }
 
 // Default questions used to generate user roadmaps
 export interface DefaultRoadmapQuestions extends BaseRecord {
   // Default question text
-  question: string;
+  question: string
   // Optional code snippet for the default question
-  codeSnippet: string | null;
+  codeSnippet: string | null
   // Optional hint for the question
-  hint: string | null;
+  hint: string | null
   // Enum for question difficulty
-  difficulty: QuestionDifficulty;
+  difficulty: QuestionDifficulty
   // Submitted answers
-  answers: DefaultRoadmapQuestionsAnswers[];
+  answers: DefaultRoadmapQuestionsAnswers[]
   // Connects to the correct answer
-  correctAnswer: string;
+  correctAnswer: string
   // Order of the question in the default roadmap
-  order: number;
+  order: number
   // AI-generated title for the question
-  aiTitle: string | null;
+  aiTitle: string | null
 }
 
 // User answers to the default roadmap questions
 interface DefaultRoadmapQuestionsAnswers extends BaseRecord {
   // Connects to the associated default question
-  questionUid: string;
+  questionUid: string
   // User-provided answer text
-  answer: string;
+  answer: string
 }
 
 // User-specific answers to default roadmap questions
 interface DefaultRoadmapQuestionsUsersAnswers extends BaseRecord {
   // Connects to the associated default question
-  questionUid: string;
+  questionUid: string
   // Relation to the DefaultRoadmapQuestions type
-  question: DefaultRoadmapQuestions;
+  question: DefaultRoadmapQuestions
   // Connects to the user who answered the question
-  userUid: string;
+  userUid: string
   // Relation to the Users type
-  user: User;
+  user: User
   // Indicates whether the user's answer was correct
-  correct: boolean;
+  correct: boolean
   // User-provided answer text
-  answer: string;
+  answer: string
   // Connects to the associated roadmap
-  roadmapUid: string;
+  roadmapUid: string
   // Relation to the UserRoadmaps type
-  roadmap: UserRoadmaps;
+  roadmap: UserRoadmaps
 }

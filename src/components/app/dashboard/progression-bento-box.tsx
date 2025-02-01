@@ -1,72 +1,72 @@
-import { ArrowRight, Lock } from "lucide-react";
-import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
-import { Separator } from "@/components/ui/separator";
-import { Grid } from "@/components/ui/grid";
-import { useUserServer } from "@/hooks/use-user-server";
+import { ArrowRight, Lock } from 'lucide-react'
+import { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards'
+import { Separator } from '@/components/ui/separator'
+import { Grid } from '@/components/ui/grid'
+import { useUserServer } from '@/hooks/use-user-server'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
-import Chip from "@/components/ui/chip";
-import Link from "next/link";
+} from '@/components/ui/tooltip'
+import Chip from '@/components/ui/chip'
+import Link from 'next/link'
 
 const items: {
-  name: string;
-  title: string;
+  name: string
+  title: string
 }[] = [
   {
-    name: "ES6+",
-    title: "Modern ES6+ Features",
+    name: 'ES6+',
+    title: 'Modern ES6+ Features',
   },
   {
-    name: "DOM",
-    title: "Advanced DOM Manipulation",
+    name: 'DOM',
+    title: 'Advanced DOM Manipulation',
   },
   {
-    name: "Patterns",
-    title: "Design Patterns",
+    name: 'Patterns',
+    title: 'Design Patterns',
   },
   {
-    name: "Performance",
-    title: "Performance Optimization",
+    name: 'Performance',
+    title: 'Performance Optimization',
   },
   {
-    name: "State",
-    title: "State Management",
+    name: 'State',
+    title: 'State Management',
   },
   {
-    name: "Testing",
-    title: "Testing & Debugging",
+    name: 'Testing',
+    title: 'Testing & Debugging',
   },
   {
-    name: "APIs",
-    title: "Web APIs & Integration",
+    name: 'APIs',
+    title: 'Web APIs & Integration',
   },
   {
-    name: "Security",
-    title: "Security Best Practices",
+    name: 'Security',
+    title: 'Security Best Practices',
   },
   {
-    name: "Functional",
-    title: "Functional Programming",
+    name: 'Functional',
+    title: 'Functional Programming',
   },
   {
-    name: "DSA",
-    title: "Data Structures & Algorithms",
+    name: 'DSA',
+    title: 'Data Structures & Algorithms',
   },
-];
+]
 
 export default async function ProgressBentoBox() {
-  const user = await useUserServer();
+  const user = await useUserServer()
 
   return (
     <Link
-      href={`${user?.userLevel === "FREE" ? "https://dub.sh/upgrade-techblitz" : "/roadmaps"}`}
+      href={`${user?.userLevel === 'FREE' ? 'https://dub.sh/upgrade-techblitz' : '/roadmaps'}`}
       className="h-full flex flex-col p-4 relative group overflow-hidden"
     >
-      {user?.userLevel !== "FREE" && user?.userLevel !== "STANDARD" && (
+      {user?.userLevel !== 'FREE' && user?.userLevel !== 'STANDARD' && (
         <div className="absolute z-30">
           <Chip
             textColor="text-black"
@@ -76,7 +76,7 @@ export default async function ProgressBentoBox() {
           />
         </div>
       )}
-      {user?.userLevel === "FREE" && (
+      {user?.userLevel === 'FREE' && (
         <div className="absolute z-10">
           <Chip
             textColor="text-black"
@@ -99,15 +99,15 @@ export default async function ProgressBentoBox() {
             as a developer.
           </p>
         </div>
-        {user?.userLevel !== "FREE" && user?.userLevel !== "STANDARD" && (
+        {user?.userLevel !== 'FREE' && user?.userLevel !== 'STANDARD' && (
           <div className="items-center justify-center whitespace-nowrap rounded-md text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-accent text-white shadow-sm hover:bg-accent/90 h-9 px-4 py-2 inline-flex font-ubuntu font-medium">
-            View yours now{" "}
+            View yours now{' '}
             <ArrowRight className="size-3 ml-1 group-hover:ml-2 duration-300" />
           </div>
         )}
       </div>
-      {user?.userLevel === "FREE" ||
-        (user?.userLevel === "STANDARD" && (
+      {user?.userLevel === 'FREE' ||
+        (user?.userLevel === 'STANDARD' && (
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger className="absolute">
@@ -122,5 +122,5 @@ export default async function ProgressBentoBox() {
           </TooltipProvider>
         ))}
     </Link>
-  );
+  )
 }

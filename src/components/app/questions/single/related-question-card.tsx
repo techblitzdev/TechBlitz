@@ -1,21 +1,21 @@
-import { ArrowRight, ShieldQuestionIcon } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
-import { getRelatedQuestions } from "@/utils/data/questions/get-related";
-import { cn } from "@/lib/utils";
-import { Tags } from "@/types/Tags";
-import Link from "next/link";
+import { ArrowRight, ShieldQuestionIcon } from 'lucide-react'
+import { Separator } from '@/components/ui/separator'
+import { getRelatedQuestions } from '@/utils/data/questions/get-related'
+import { cn } from '@/lib/utils'
+import { Tags } from '@/types/Tags'
+import Link from 'next/link'
 
 const RelatedQuestionsList = async ({
   slug,
   tags,
 }: {
-  slug: string;
-  tags: Tags[];
+  slug: string
+  tags: Tags[]
 }) => {
   const relatedQuestions = await getRelatedQuestions({
     questionSlug: slug,
     tags: tags || [],
-  });
+  })
 
   return (
     <div className="divide-y-[1px] divide-black-50">
@@ -25,10 +25,10 @@ const RelatedQuestionsList = async ({
             key={question.uid}
             href={`/question/${question.slug}`}
             className={cn(
-              "px-4 py-3 w-full flex justify-between items-center group hover:bg-black-75 transition-colors",
+              'px-4 py-3 w-full flex justify-between items-center group hover:bg-black-75 transition-colors',
               index % 2 === 0
-                ? "bg-black hover:bg-black-75"
-                : "bg-black-75 hover:bg-black-100",
+                ? 'bg-black hover:bg-black-75'
+                : 'bg-black-75 hover:bg-black-100',
             )}
           >
             <p className="text-sm text-white">{question.question}</p>
@@ -39,15 +39,15 @@ const RelatedQuestionsList = async ({
         <div className="p-4 text-sm">No related questions found</div>
       )}
     </div>
-  );
-};
+  )
+}
 
 export default function RelatedQuestions({
   slug,
   tags,
 }: {
-  slug: string;
-  tags: Tags[];
+  slug: string
+  tags: Tags[]
 }) {
   return (
     <>
@@ -59,5 +59,5 @@ export default function RelatedQuestions({
 
       <RelatedQuestionsList slug={slug} tags={tags} />
     </>
-  );
+  )
 }

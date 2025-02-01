@@ -1,6 +1,6 @@
-"use client";
+'use client'
 
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from '@/components/ui/skeleton'
 
 export default function RoadmapsCardSkeleton() {
   return (
@@ -22,5 +22,5 @@ export default function RoadmapsCardSkeleton() {
         <Skeleton className="h-2 w-full rounded-full" />
       </div>
     </div>
-  );
+  )
 }

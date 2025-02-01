@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 
 export default function SignupForm() {
   return (
@@ -14,5 +14,5 @@ export default function SignupForm() {
         </Button>
       </div>
     </div>
-  );
+  )
 }

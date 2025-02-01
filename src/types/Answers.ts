@@ -1,7 +1,7 @@
-import { BaseRecord } from "./BaseRecord";
-import { UserWithOutAnswers } from "./User";
+import { BaseRecord } from './BaseRecord'
+import { UserWithOutAnswers } from './User'
 
-type AnswerDifficulty = "EASY" | "MEDIUM" | "HARD";
+type AnswerDifficulty = 'EASY' | 'MEDIUM' | 'HARD'
 
 /**
  * The Answer type is the shape of the data when a user
@@ -9,23 +9,23 @@ type AnswerDifficulty = "EASY" | "MEDIUM" | "HARD";
  */
 export interface Answer extends BaseRecord {
   /** The id of the user that has answers the question */
-  userUid: string;
+  userUid: string
   /** The uid of the question this answer is for */
-  questionUid: string;
+  questionUid: string
   /** The uid of the questionAnswer (the answer the user selected) */
   // optional due to code editor answers
-  userAnswerUid: string | null;
+  userAnswerUid: string | null
   /** If the question was correct or incorrect */
-  correctAnswer: boolean;
+  correctAnswer: boolean
   /** The date when the user answered this question */
-  questionDate: string;
+  questionDate: string
   /** How long it took the user to answer this question */
-  timeTaken: number | null;
+  timeTaken: number | null
 
   /** The difficulty the user found this question */
-  difficulty: AnswerDifficulty;
+  difficulty: AnswerDifficulty
 }
 
 export interface AnswerWithUser extends Answer {
-  user: UserWithOutAnswers;
+  user: UserWithOutAnswers
 }

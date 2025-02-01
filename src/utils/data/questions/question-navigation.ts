@@ -1,8 +1,8 @@
-import { getUser } from "@/actions/user/authed/get-user";
-import { prisma } from "@/lib/prisma";
+import { getUser } from '@/actions/user/authed/get-user'
+import { prisma } from '@/lib/prisma'
 
 export const getNextAndPreviousQuestion = async (uid: string) => {
-  const user = await getUser();
+  const user = await getUser()
 
   // Get the current question with next/prev questions
   const currentQuestion = await prisma.questions.findUnique({
@@ -12,9 +12,9 @@ export const getNextAndPreviousQuestion = async (uid: string) => {
       nextQuestionSlug: true,
       previousQuestionSlug: true,
     },
-  });
+  })
 
-  if (!currentQuestion) return null;
+  if (!currentQuestion) return null
 
   // If next/prev questions are stored, fetch them
   if (
@@ -32,46 +32,46 @@ export const getNextAndPreviousQuestion = async (uid: string) => {
             where: { slug: currentQuestion.previousQuestionSlug },
           })
         : null,
-    ]);
+    ])
 
     // If one exists but not the other, get a random question for the missing one
     if (nextQuestion && !previousQuestion) {
       const randomPrevious = await prisma.questions.findFirst({
         where: {
           uid: { not: uid },
-          isPremiumQuestion: user?.userLevel === "FREE" ? false : true,
-          customQuestion: user?.userLevel === "FREE" ? false : true,
+          isPremiumQuestion: user?.userLevel === 'FREE' ? false : true,
+          customQuestion: user?.userLevel === 'FREE' ? false : true,
         },
-        orderBy: { createdAt: "desc" },
-      });
+        orderBy: { createdAt: 'desc' },
+      })
 
       return {
         nextQuestion: nextQuestion.slug,
         previousQuestion: randomPrevious?.slug,
-      };
+      }
     }
 
     if (!nextQuestion && previousQuestion) {
       const randomNext = await prisma.questions.findFirst({
         where: {
           uid: { not: uid },
-          isPremiumQuestion: user?.userLevel === "FREE" ? false : true,
-          customQuestion: user?.userLevel === "FREE" ? false : true,
+          isPremiumQuestion: user?.userLevel === 'FREE' ? false : true,
+          customQuestion: user?.userLevel === 'FREE' ? false : true,
         },
-        orderBy: { createdAt: "desc" },
-      });
+        orderBy: { createdAt: 'desc' },
+      })
 
       return {
         nextQuestion: randomNext?.slug,
         previousQuestion: previousQuestion.slug,
-      };
+      }
     }
 
     if (nextQuestion && previousQuestion) {
       return {
         nextQuestion: nextQuestion.slug,
         previousQuestion: previousQuestion.slug,
-      };
+      }
     }
   }
 
@@ -82,11 +82,11 @@ export const getNextAndPreviousQuestion = async (uid: string) => {
         createdAt: {
           gt: currentQuestion.createdAt,
         },
-        isPremiumQuestion: user?.userLevel === "FREE" ? false : true,
-        customQuestion: user?.userLevel === "FREE" ? false : true,
+        isPremiumQuestion: user?.userLevel === 'FREE' ? false : true,
+        customQuestion: user?.userLevel === 'FREE' ? false : true,
       },
       orderBy: {
-        createdAt: "asc",
+        createdAt: 'asc',
       },
     }),
     prisma.questions.findFirst({
@@ -94,14 +94,14 @@ export const getNextAndPreviousQuestion = async (uid: string) => {
         createdAt: {
           lt: currentQuestion.createdAt,
         },
-        isPremiumQuestion: user?.userLevel === "FREE" ? false : true,
-        customQuestion: user?.userLevel === "FREE" ? false : true,
+        isPremiumQuestion: user?.userLevel === 'FREE' ? false : true,
+        customQuestion: user?.userLevel === 'FREE' ? false : true,
       },
       orderBy: {
-        createdAt: "desc",
+        createdAt: 'desc',
       },
     }),
-  ]);
+  ])
 
   // If no next/prev found, get random questions
   const randomQuestion =
@@ -114,16 +114,16 @@ export const getNextAndPreviousQuestion = async (uid: string) => {
               },
             },
             orderBy: {
-              createdAt: "desc",
+              createdAt: 'desc',
             },
             take: 2,
           })
           // take two for previous and next
           .then((questions) => questions.slice(0, 2))
-      : null;
+      : null
 
   return {
     nextQuestion: nextQuestion?.slug || randomQuestion?.[1]?.slug,
     previousQuestion: previousQuestion?.slug || randomQuestion?.[0]?.slug,
-  };
-};
+  }
+}

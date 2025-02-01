@@ -1,10 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from '@/lib/prisma'
 
 export const getMostQuestionsAnswered = async (
   take: number = 30,
   page: number = 1,
 ) => {
-  const skip = (page - 1) * take;
+  const skip = (page - 1) * take
 
   const [users, totalCount] = await Promise.all([
     prisma.users.findMany({
@@ -12,7 +12,7 @@ export const getMostQuestionsAnswered = async (
       skip,
       orderBy: {
         answers: {
-          _count: "desc", // Order by the count of related answers in descending order
+          _count: 'desc', // Order by the count of related answers in descending order
         },
       },
       // ensure we only get users who have answered at least one question
@@ -43,10 +43,10 @@ export const getMostQuestionsAnswered = async (
         showTimeTaken: true,
       },
     }),
-  ]);
+  ])
 
   return {
     users,
     totalCount,
-  };
-};
+  }
+}

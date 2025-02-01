@@ -1,18 +1,18 @@
-"use client";
+'use client'
 
-import { motion } from "framer-motion";
-import { CheckIcon } from "@radix-ui/react-icons";
-import { Skeleton } from "@/components/ui/skeleton";
+import { motion } from 'framer-motion'
+import { CheckIcon } from '@radix-ui/react-icons'
+import { Skeleton } from '@/components/ui/skeleton'
 
 interface Feature {
-  name: string;
+  name: string
 }
 
 interface AnimatedPricingFeaturesProps {
-  features: Feature[];
-  productId: string;
-  loading?: boolean;
-  isFree?: boolean;
+  features: Feature[]
+  productId: string
+  loading?: boolean
+  isFree?: boolean
 }
 
 export default function AnimatedPricingFeatures({
@@ -36,7 +36,7 @@ export default function AnimatedPricingFeatures({
           </div>
         ))}
       </div>
-    );
+    )
   }
 
   return (
@@ -75,5 +75,5 @@ export default function AnimatedPricingFeatures({
         </motion.div>
       ))}
     </motion.div>
-  );
+  )
 }

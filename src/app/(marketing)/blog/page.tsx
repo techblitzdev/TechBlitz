@@ -1,27 +1,27 @@
-import { cn } from "@/lib/utils";
-import { getBlogPosts } from "@/lib/blog";
+import { cn } from '@/lib/utils'
+import { getBlogPosts } from '@/lib/blog'
 
-import GridPattern from "@/components/ui/grid-pattern";
-import { Button } from "@/components/ui/button";
-import BlogCard from "@/components/marketing/resources/blog/blog-card";
-import { createMetadata } from "@/utils/seo";
+import GridPattern from '@/components/ui/grid-pattern'
+import { Button } from '@/components/ui/button'
+import BlogCard from '@/components/marketing/resources/blog/blog-card'
+import { createMetadata } from '@/utils/seo'
 
 export async function generateMetadata() {
   return createMetadata({
-    title: "Blog | TechBlitz",
+    title: 'Blog | TechBlitz',
     description:
-      "Stay up to date with the latest news and insights from TechBlitz. Gather insights on how to level up your skills, beyond our coding challenges.",
+      'Stay up to date with the latest news and insights from TechBlitz. Gather insights on how to level up your skills, beyond our coding challenges.',
     image: {
-      text: "Blog | TechBlitz",
-      bgColor: "#000",
-      textColor: "#fff",
+      text: 'Blog | TechBlitz',
+      bgColor: '#000',
+      textColor: '#fff',
     },
-    canonicalUrl: "/blog",
-  });
+    canonicalUrl: '/blog',
+  })
 }
 
 export default async function BlogPage() {
-  const posts = await getBlogPosts();
+  const posts = await getBlogPosts()
 
   return (
     <div className="container">
@@ -43,9 +43,9 @@ export default async function BlogPage() {
             height={50}
             x={-1}
             y={-1}
-            strokeDasharray={"4 2"}
+            strokeDasharray={'4 2'}
             className={cn(
-              "absolute inset-0 pt-44 [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]",
+              'absolute inset-0 pt-44 [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]',
             )}
           />
         </div>
@@ -55,7 +55,7 @@ export default async function BlogPage() {
           {posts.length === 0 && (
             <div className="col-span-full flex flex-col gap-y-4 items-center">
               <p className="text-center">
-                It look's like there are no blog posts posted at the moment.{" "}
+                It look's like there are no blog posts posted at the moment.{' '}
                 <br /> Why not try out today's challenge instead?
               </p>
               <div className="flex flex-wrap items-center gap-4">
@@ -73,5 +73,5 @@ export default async function BlogPage() {
         </div>
       </section>
     </div>
-  );
+  )
 }

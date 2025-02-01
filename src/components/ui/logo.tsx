@@ -92,5 +92,5 @@ export default function Logo() {
         </clipPath>
       </defs>
     </svg>
-  );
+  )
 }

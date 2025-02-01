@@ -1,21 +1,21 @@
-import React from "react";
+import React from 'react'
 
 type iconProps = {
-  fill?: string;
-  secondaryfill?: string;
-  strokewidth?: number;
-  width?: string;
-  height?: string;
-  title?: string;
-};
+  fill?: string
+  secondaryfill?: string
+  strokewidth?: number
+  width?: string
+  height?: string
+  title?: string
+}
 
 export default function StatsIcon(props: iconProps) {
-  const fill = props.fill || "currentColor";
-  const secondaryfill = props.secondaryfill || fill;
-  const strokewidth = props.strokewidth || 1;
-  const width = props.width || "1em";
-  const height = props.height || "1em";
-  const title = props.title || "b chart 3";
+  const fill = props.fill || 'currentColor'
+  const secondaryfill = props.secondaryfill || fill
+  const strokewidth = props.strokewidth || 1
+  const width = props.width || '1em'
+  const height = props.height || '1em'
+  const title = props.title || 'b chart 3'
 
   return (
     <svg
@@ -72,5 +72,5 @@ export default function StatsIcon(props: iconProps) {
         />
       </g>
     </svg>
-  );
+  )
 }

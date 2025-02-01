@@ -1,9 +1,9 @@
-"use server";
-import React from "react";
-import { prisma } from "@/lib/prisma";
-import { resend } from "@/lib/resend";
-import WaitlistAnnouncementEmail from "@/components/templates/announcement";
-import { renderAsync } from "@react-email/components";
+'use server'
+import React from 'react'
+import { prisma } from '@/lib/prisma'
+import { resend } from '@/lib/resend'
+import WaitlistAnnouncementEmail from '@/components/templates/announcement'
+import { renderAsync } from '@react-email/components'
 
 export const sendLiveEmail = async () => {
   // get all of the waitlist user emails
@@ -11,7 +11,7 @@ export const sendLiveEmail = async () => {
     select: {
       email: true,
     },
-  });
+  })
 
   // loop through each user and send them an email
   for (const user of waitlistUsers) {
@@ -19,14 +19,14 @@ export const sendLiveEmail = async () => {
       React.createElement(WaitlistAnnouncementEmail, {
         email: user.email,
       }),
-    );
+    )
 
     // send the user the email
     await resend.emails.send({
-      from: "team@techblitz.dev",
+      from: 'team@techblitz.dev',
       to: user.email,
-      subject: "TechBlitz is live!",
+      subject: 'TechBlitz is live!',
       html,
-    });
+    })
   }
-};
+}

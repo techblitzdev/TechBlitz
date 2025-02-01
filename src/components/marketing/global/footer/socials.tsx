@@ -1,5 +1,5 @@
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import Link from "next/link";
+import { GitHubLogoIcon } from '@radix-ui/react-icons'
+import Link from 'next/link'
 
 export default function SocialLinks() {
   return (
@@ -54,5 +54,5 @@ export default function SocialLinks() {
         </Link>
       </div>
     </div>
-  );
+  )
 }

@@ -1,26 +1,26 @@
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation'
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import QuestionSuggestedCard from "@/components/app/questions/suggested-questions-table";
-import { Badge } from "@/components/ui/badge";
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import QuestionSuggestedCard from '@/components/app/questions/suggested-questions-table'
+import { Badge } from '@/components/ui/badge'
 
-import { capitalise } from "@/utils";
-import { StatisticsReport } from "@prisma/client";
-import { Question } from "@/types/Questions";
-import { useUserServer } from "@/hooks/use-user-server";
+import { capitalise } from '@/utils'
+import { StatisticsReport } from '@prisma/client'
+import { Question } from '@/types/Questions'
+import { useUserServer } from '@/hooks/use-user-server'
 
 export default async function StatisticsReportTabs(opts: {
-  report: StatisticsReport & { questions: Question[] };
+  report: StatisticsReport & { questions: Question[] }
 }) {
-  const { report } = opts;
+  const { report } = opts
 
-  const user = await useUserServer();
+  const user = await useUserServer()
 
   if (!user) {
-    return redirect("/login");
+    return redirect('/login')
   }
 
   return (
@@ -107,7 +107,7 @@ export default async function StatisticsReportTabs(opts: {
                 {(() => {
                   // test if the report is json
                   if (
-                    typeof report.htmlReport === "object" &&
+                    typeof report.htmlReport === 'object' &&
                     report.htmlReport !== null
                   ) {
                     return (
@@ -116,10 +116,10 @@ export default async function StatisticsReportTabs(opts: {
                           __html: report.htmlReport,
                         }}
                       />
-                    );
+                    )
                   }
 
-                  const reportData = JSON?.parse(report?.htmlReport || "{}");
+                  const reportData = JSON?.parse(report?.htmlReport || '{}')
                   return (
                     <>
                       <div className="mb-6">
@@ -192,7 +192,7 @@ export default async function StatisticsReportTabs(opts: {
                         </ul>
                       </div>
                     </>
-                  );
+                  )
                 })()}
               </div>
             </ScrollArea>
@@ -229,5 +229,5 @@ export default async function StatisticsReportTabs(opts: {
         </Card>
       </TabsContent>
     </Tabs>
-  );
+  )
 }

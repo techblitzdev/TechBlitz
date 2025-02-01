@@ -1,6 +1,6 @@
-"use client";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+'use client'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 export default function AdminQuestionPicker() {
   return (
@@ -14,5 +14,5 @@ export default function AdminQuestionPicker() {
         <ChevronRight className="size-4" />
       </Button>
     </div>
-  );
+  )
 }

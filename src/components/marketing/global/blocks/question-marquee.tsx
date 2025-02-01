@@ -1,75 +1,75 @@
-import { cn } from "@/lib/utils";
-import Marquee from "@/components/ui/marquee";
-import Link from "next/link";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { ArrowRight } from "lucide-react";
-import { capitalise, getQuestionDifficultyColor } from "@/utils";
-import Chip from "@/components/ui/chip";
-import { Button } from "@/components/ui/button";
+import { cn } from '@/lib/utils'
+import Marquee from '@/components/ui/marquee'
+import Link from 'next/link'
+import { Card, CardContent, CardFooter } from '@/components/ui/card'
+import { ArrowRight } from 'lucide-react'
+import { capitalise, getQuestionDifficultyColor } from '@/utils'
+import Chip from '@/components/ui/chip'
+import { Button } from '@/components/ui/button'
 
 const questions = [
   {
-    uid: "1",
-    question: "How to use map, reduce, and filter in JavaScript?",
-    slug: "javascript-array-map-reduce-filter-output",
-    difficulty: "BEGINNER",
+    uid: '1',
+    question: 'How to use map, reduce, and filter in JavaScript?',
+    slug: 'javascript-array-map-reduce-filter-output',
+    difficulty: 'BEGINNER',
   },
   {
-    uid: "2",
-    question: "How to handle state mutation in React?",
-    slug: "react-state-mutation-issue-and-solution",
-    difficulty: "EASY",
+    uid: '2',
+    question: 'How to handle state mutation in React?',
+    slug: 'react-state-mutation-issue-and-solution',
+    difficulty: 'EASY',
   },
   {
-    uid: "3",
-    question: "How to use dynamic import in JavaScript?",
-    slug: "dynamic-import-module-javascript-async",
-    difficulty: "EASY",
+    uid: '3',
+    question: 'How to use dynamic import in JavaScript?',
+    slug: 'dynamic-import-module-javascript-async',
+    difficulty: 'EASY',
   },
   {
-    uid: "4",
+    uid: '4',
     question:
-      "How to implement a collaborative editor with WebSocket in React?",
-    slug: "react-collaborative-editor-websocket-hook-implementation",
-    difficulty: "HARD",
+      'How to implement a collaborative editor with WebSocket in React?',
+    slug: 'react-collaborative-editor-websocket-hook-implementation',
+    difficulty: 'HARD',
   },
   {
-    uid: "5",
-    question: "How to handle errors in Promise.all?",
-    slug: "promise-all-error-handling-results",
-    difficulty: "MEDIUM",
+    uid: '5',
+    question: 'How to handle errors in Promise.all?',
+    slug: 'promise-all-error-handling-results',
+    difficulty: 'MEDIUM',
   },
   {
-    uid: "6",
-    question: "How to transform an array with filter, map, and reduce",
-    slug: "array-transformation-filter-map-reduce-result",
-    difficulty: "MEDIUM",
+    uid: '6',
+    question: 'How to transform an array with filter, map, and reduce',
+    slug: 'array-transformation-filter-map-reduce-result',
+    difficulty: 'MEDIUM',
   },
-];
+]
 
-const firstRow = questions.slice(0, questions.length / 2);
-const secondRow = questions.slice(questions.length / 2);
+const firstRow = questions.slice(0, questions.length / 2)
+const secondRow = questions.slice(questions.length / 2)
 
 export const QuestionCard = ({
   question,
   slug,
   difficulty,
 }: {
-  question: string;
-  slug: string;
-  difficulty: string;
+  question: string
+  slug: string
+  difficulty: string
 }) => {
-  const difficultyColor = getQuestionDifficultyColor(difficulty);
+  const difficultyColor = getQuestionDifficultyColor(difficulty)
 
   return (
     <Card
       className={cn(
-        "w-full max-w-xs cursor-pointer overflow-hidden transition-all duration-300 ease-in-out",
-        "border border-black-50",
+        'w-full max-w-xs cursor-pointer overflow-hidden transition-all duration-300 ease-in-out',
+        'border border-black-50',
       )}
       style={{
         background:
-          "radial-gradient(128% 107% at 50% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)",
+          'radial-gradient(128% 107% at 50% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
     >
       <CardContent className="p-6 flex flex-col gap-y-2">
@@ -89,8 +89,8 @@ export const QuestionCard = ({
         <Link
           href={`/question/${slug}`}
           className={cn(
-            "flex items-center text-sm font-medium text-white",
-            "hover:text-accent-foreground transition-colors duration-200",
+            'flex items-center text-sm font-medium text-white',
+            'hover:text-accent-foreground transition-colors duration-200',
           )}
         >
           Learn now!
@@ -98,17 +98,17 @@ export const QuestionCard = ({
         </Link>
       </CardFooter>
     </Card>
-  );
-};
+  )
+}
 
 export default function QuestionMarquee({
   header,
   subheader,
   cta,
 }: {
-  header: string;
-  subheader: string;
-  cta?: boolean;
+  header: string
+  subheader: string
+  cta?: boolean
 }) {
   return (
     <section className="relative flex h-auto w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background pt-12 pb-12 md:pt-12 md:pb-36">
@@ -147,5 +147,5 @@ export default function QuestionMarquee({
         <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#000000] dark:from-gray-900"></div>
       </div>
     </section>
-  );
+  )
 }

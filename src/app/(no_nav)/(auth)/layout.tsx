@@ -1,11 +1,11 @@
-import Logo from "@/components/ui/logo";
-import StarsBackground from "@/components/ui/stars-background";
-import Link from "next/link";
+import Logo from '@/components/ui/logo'
+import StarsBackground from '@/components/ui/stars-background'
+import Link from 'next/link'
 
 export default function AuthLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <div className="relative container">
@@ -17,5 +17,5 @@ export default function AuthLayout({
         {children}
       </div>
     </div>
-  );
+  )
 }

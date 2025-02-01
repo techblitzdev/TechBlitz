@@ -1,15 +1,15 @@
 export interface MarketingContentGridProps {
-  title: string;
-  description: string | React.ReactNode;
-  icon: React.ReactNode;
+  title: string
+  description: string | React.ReactNode
+  icon: React.ReactNode
 }
 
 type MarketingContentGridComponentProps = {
-  title: string;
-  subheading?: string;
-  items: MarketingContentGridProps[];
-  center?: boolean;
-};
+  title: string
+  subheading?: string
+  items: MarketingContentGridProps[]
+  center?: boolean
+}
 
 /**
  * A 3 x 2 grid to display features & selling points of
@@ -36,7 +36,7 @@ export default function MarketingContentGrid({
           <div
             key={index}
             className={`flex flex-col gap-3 lg:p-6 shadow-md rounded-lg hover:shadow-lg transition-shadow duration-300 ${
-              center ? "items-center" : ""
+              center ? 'items-center' : ''
             }`}
           >
             <div className="flex items-center gap-2">
@@ -51,5 +51,5 @@ export default function MarketingContentGrid({
         ))}
       </div>
     </section>
-  );
+  )
 }

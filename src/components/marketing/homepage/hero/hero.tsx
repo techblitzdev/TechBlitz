@@ -1,7 +1,7 @@
-import SignupForm from "@/components/marketing/global/waitlist-form";
-import Link from "next/link";
-import AnimatedSpan from "@/components/ui/animated-span";
-import { ArrowRight } from "lucide-react";
+import SignupForm from '@/components/marketing/global/waitlist-form'
+import Link from 'next/link'
+import AnimatedSpan from '@/components/ui/animated-span'
+import { ArrowRight } from 'lucide-react'
 
 export default function HomepageHero() {
   const animatedSpanContent = (
@@ -10,7 +10,7 @@ export default function HomepageHero() {
       <span className="block md:hidden">New code editor!</span>
       <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-all duration-300" />
     </div>
-  );
+  )
 
   return (
     <section
@@ -33,5 +33,5 @@ export default function HomepageHero() {
         </div>
       </div>
     </section>
-  );
+  )
 }

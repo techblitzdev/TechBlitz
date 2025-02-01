@@ -1,13 +1,13 @@
-"use client";
+'use client'
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState } from 'react'
 import {
   TrendingUp,
   TrendingDown,
   BarChartIcon,
   LineChartIcon,
   Circle,
-} from "lucide-react";
+} from 'lucide-react'
 import {
   CartesianGrid,
   Bar,
@@ -16,8 +16,8 @@ import {
   LineChart,
   XAxis,
   YAxis,
-} from "recharts";
-import NumberFlow from "@number-flow/react";
+} from 'recharts'
+import NumberFlow from '@number-flow/react'
 
 import {
   Card,
@@ -25,35 +25,35 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart";
+} from '@/components/ui/chart'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { cn } from "@/lib/utils";
+} from '@/components/ui/select'
+import { cn } from '@/lib/utils'
 
 const chartConfig = {
   questions: {
-    label: "Questions",
-    color: "hsl(var(--chart-1))",
+    label: 'Questions',
+    color: 'hsl(var(--chart-1))',
   },
-} satisfies ChartConfig;
+} satisfies ChartConfig
 
 export interface StatsChartData {
   [key: string]: {
-    totalQuestions: number;
-    tagCounts: Record<string, number>;
-    tags: string[];
-  };
+    totalQuestions: number
+    tagCounts: Record<string, number>
+    tags: string[]
+  }
 }
 
 export default function QuestionChart({
@@ -61,80 +61,80 @@ export default function QuestionChart({
   step,
   backgroundColor,
 }: {
-  questionData: StatsChartData;
-  step: "day" | "week" | "month";
-  backgroundColor?: string;
+  questionData: StatsChartData
+  step: 'day' | 'week' | 'month'
+  backgroundColor?: string
 }) {
-  const [chartType, setChartType] = useState<"bar" | "line">("bar");
+  const [chartType, setChartType] = useState<'bar' | 'line'>('bar')
 
   const chartData = useMemo(() => {
-    const entries = Object.entries(questionData);
+    const entries = Object.entries(questionData)
 
     // Sort entries by date - latest first
     entries.sort((a, b) => {
-      const [dateA] = a;
-      const [dateB] = b;
-      return new Date(dateB).getTime() - new Date(dateA).getTime();
-    });
+      const [dateA] = a
+      const [dateB] = b
+      return new Date(dateB).getTime() - new Date(dateA).getTime()
+    })
 
     // Directly use the keys as they should now be pre-formatted
     return entries.map(([date, data]) => ({
-      date: date.split(",")[0],
+      date: date.split(',')[0],
       questions: data.totalQuestions,
-    }));
-  }, [questionData]);
+    }))
+  }, [questionData])
 
   // order the chart data by the date. Ensuring that the oldest date is first
   const orderedChartData = chartData.sort((a, b) => {
-    return new Date(a.date).getTime() - new Date(b.date).getTime();
-  });
+    return new Date(a.date).getTime() - new Date(b.date).getTime()
+  })
 
   const trend = useMemo(() => {
     // if there is less than 2 periods, return 0
     if (orderedChartData.length < 2) {
-      return { percentage: 0, isNeutral: true };
+      return { percentage: 0, isNeutral: true }
     }
 
     // get the first and last period of the chart data
-    const firstPeriod = chartData[0];
-    const lastPeriod = chartData[chartData.length - 1];
+    const firstPeriod = chartData[0]
+    const lastPeriod = chartData[chartData.length - 1]
 
     // Handle case where first period has 0 questions
     if (firstPeriod.questions === 0) {
       if (lastPeriod.questions === 0) {
-        return { percentage: 0, isNeutral: true };
+        return { percentage: 0, isNeutral: true }
       }
       // If starting from 0, treat treat as 0 * lastPeriod.questions increase
       return {
         percentage: 100 * lastPeriod.questions,
         isNeutral: false,
         isUp: true,
-      };
+      }
     }
 
     // calculate the percentage change between the first and last period
     const percentageChange =
       ((lastPeriod.questions - firstPeriod.questions) / firstPeriod.questions) *
-      100;
+      100
 
     return {
       percentage: Math.abs(percentageChange).toFixed(2),
       isNeutral: percentageChange === 0,
       isUp: percentageChange > 0,
-    };
-  }, [chartData]);
+    }
+  }, [chartData])
 
   const maxQuestions = useMemo(() => {
-    return Math.max(...chartData.map((data) => data.questions));
-  }, [chartData]);
+    return Math.max(...chartData.map((data) => data.questions))
+  }, [chartData])
 
   const yAxisDomain = useMemo(() => {
-    const maxY = Math.ceil(maxQuestions * 1.1);
-    return [0, maxY];
-  }, [maxQuestions]);
+    const maxY = Math.ceil(maxQuestions * 1.1)
+    return [0, maxY]
+  }, [maxQuestions])
 
   const renderChart = () => {
-    const ChartComponent = chartType === "bar" ? BarChart : LineChart;
+    const ChartComponent = chartType === 'bar' ? BarChart : LineChart
 
     return (
       <ChartComponent
@@ -153,18 +153,18 @@ export default function QuestionChart({
           tickLine={false}
           axisLine={false}
           tickMargin={8}
-          tickFormatter={(value) => value.split(",")[0]}
+          tickFormatter={(value) => value.split(',')[0]}
         />
         <YAxis
           tickLine={false}
           axisLine={false}
           tickFormatter={(value) => `${value}`}
           width={30}
-          tick={{ fill: "hsl(var(--muted-foreground))" }}
+          tick={{ fill: 'hsl(var(--muted-foreground))' }}
           domain={yAxisDomain}
         />
         <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-        {chartType === "bar" ? (
+        {chartType === 'bar' ? (
           <Bar
             dataKey="questions"
             fill="hsl(var(--accent))"
@@ -178,7 +178,7 @@ export default function QuestionChart({
             stroke="hsl(var(--accent))"
             strokeWidth={2}
             dot={{
-              fill: "hsl(var(--accent))",
+              fill: 'hsl(var(--accent))',
             }}
             activeDot={{
               r: 6,
@@ -186,13 +186,13 @@ export default function QuestionChart({
           />
         )}
       </ChartComponent>
-    );
-  };
+    )
+  }
 
   return (
     <Card
       className={cn(
-        "border-black-50 max-h-[28rem]",
+        'border-black-50 max-h-[28rem]',
         backgroundColor && backgroundColor,
       )}
     >
@@ -214,7 +214,7 @@ export default function QuestionChart({
             </div>
             <Select
               value={chartType}
-              onValueChange={(value: "bar" | "line") => setChartType(value)}
+              onValueChange={(value: 'bar' | 'line') => setChartType(value)}
             >
               <SelectTrigger className="border border-black-50 md:w-[180px] text-white bg-primary">
                 <SelectValue placeholder="Select chart type" />
@@ -253,13 +253,13 @@ export default function QuestionChart({
           config={chartConfig}
           className="max-h-80"
           style={{
-            aspectRatio: "16 / 9",
-            width: "100%",
+            aspectRatio: '16 / 9',
+            width: '100%',
           }}
         >
           {renderChart()}
         </ChartContainer>
       </CardContent>
     </Card>
-  );
+  )
 }

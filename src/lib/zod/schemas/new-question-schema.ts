@@ -1,69 +1,69 @@
-import { z } from "zod";
+import { z } from 'zod'
 
 // Define the schema for the question form
 export const newQuestionSchema = z
   .object({
     title: z.string().optional(),
     description: z.string().optional(),
-    question: z.string().min(1, "Question is required"),
+    question: z.string().min(1, 'Question is required'),
     questionDate: z.string().optional(), // Make questionDate optional initially
     answers: z
       .array(
         z.object({
-          text: z.string().min(1, "Answer is required"),
+          text: z.string().min(1, 'Answer is required'),
           isCodeSnippet: z.boolean().default(false),
           answerFullSnippet: z.string().optional(),
         }),
       )
-      .nonempty("At least one answer is required"),
+      .nonempty('At least one answer is required'),
     correctAnswer: z.number().or(z.null()), // the index of the QuestionAnswer that is the correct answer
     codeSnippet: z.string().optional(),
     hint: z.string().optional(),
     dailyQuestion: z.boolean().default(false),
-    tags: z.string().nonempty("At least one tag is required"),
+    tags: z.string().nonempty('At least one tag is required'),
     isRoadmapQuestion: z.boolean().default(false),
     aiTitle: z.string().optional(),
     // either easy, medium, or hard
-    difficulty: z.enum(["BEGINNER", "EASY", "MEDIUM", "HARD"], {
-      required_error: "Difficulty is required",
-      invalid_type_error: "Difficulty must be one of: easy, medium, or hard",
+    difficulty: z.enum(['BEGINNER', 'EASY', 'MEDIUM', 'HARD'], {
+      required_error: 'Difficulty is required',
+      invalid_type_error: 'Difficulty must be one of: easy, medium, or hard',
     }),
     questionResources: z
       .array(
         z.object({
-          title: z.string().min(1, "Title is required"),
-          url: z.string().min(1, "URL is required"),
+          title: z.string().min(1, 'Title is required'),
+          url: z.string().min(1, 'URL is required'),
         }),
       )
       .optional(),
   })
   .refine((data) => !data.dailyQuestion || data.questionDate, {
-    message: "Date is required when Daily Question is enabled",
-    path: ["questionDate"], // Error will be associated with questionDate
-  });
+    message: 'Date is required when Daily Question is enabled',
+    path: ['questionDate'], // Error will be associated with questionDate
+  })
 
 export const newCodingChallengeQuestionSchema = z.object({
-  question: z.string().min(1, "Question is required"),
+  question: z.string().min(1, 'Question is required'),
   title: z.string().optional(),
   description: z.string().optional(),
-  testCases: z.string().min(1, "Test Cases are required"),
-  codeSnippet: z.string().min(1, "Code Snippet is required"),
+  testCases: z.string().min(1, 'Test Cases are required'),
+  codeSnippet: z.string().min(1, 'Code Snippet is required'),
   hint: z.string().optional(),
   dailyQuestion: z.boolean().default(false),
   questionDate: z.string().optional(),
-  tags: z.string().nonempty("At least one tag is required"),
+  tags: z.string().nonempty('At least one tag is required'),
   aiTitle: z.string().optional(),
   // either easy, medium, or hard
-  difficulty: z.enum(["BEGINNER", "EASY", "MEDIUM", "HARD"], {
-    required_error: "Difficulty is required",
-    invalid_type_error: "Difficulty must be one of: easy, medium, or hard",
+  difficulty: z.enum(['BEGINNER', 'EASY', 'MEDIUM', 'HARD'], {
+    required_error: 'Difficulty is required',
+    invalid_type_error: 'Difficulty must be one of: easy, medium, or hard',
   }),
   questionResources: z
     .array(
       z.object({
-        title: z.string().min(1, "Title is required"),
-        url: z.string().min(1, "URL is required"),
+        title: z.string().min(1, 'Title is required'),
+        url: z.string().min(1, 'URL is required'),
       }),
     )
     .optional(),
-});
+})

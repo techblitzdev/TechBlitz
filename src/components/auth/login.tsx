@@ -1,96 +1,96 @@
-"use client";
-import { useRef, useEffect, useCallback, useState } from "react";
+'use client'
+import { useRef, useEffect, useCallback, useState } from 'react'
 // components
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form";
-import { InputWithLabel } from "@/components/ui/input-label";
-import { toast } from "sonner";
-import { DiscordLogoIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
-import { EyeIcon, EyeOffIcon } from "lucide-react";
+} from '@/components/ui/form'
+import { InputWithLabel } from '@/components/ui/input-label'
+import { toast } from 'sonner'
+import { DiscordLogoIcon, GitHubLogoIcon } from '@radix-ui/react-icons'
+import { EyeIcon, EyeOffIcon } from 'lucide-react'
 
 // zod
-import { loginSchema } from "@/lib/zod/schemas/login";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { loginSchema } from '@/lib/zod/schemas/login'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 // actions
-import { oauth } from "@/actions/user/account/oauth";
-import { login } from "@/actions/user/account/login";
+import { oauth } from '@/actions/user/account/oauth'
+import { login } from '@/actions/user/account/login'
 
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import OrSeparator from "@/components/auth/or-separator";
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import OrSeparator from '@/components/auth/or-separator'
 
-type SchemaProps = z.infer<typeof loginSchema>;
+type SchemaProps = z.infer<typeof loginSchema>
 
 export default function LoginForm(opts: {
-  redirectUrl: string;
-  onboarding: string;
+  redirectUrl: string
+  onboarding: string
 }) {
-  const { redirectUrl, onboarding } = opts;
+  const { redirectUrl, onboarding } = opts
 
-  const router = useRouter();
-  const isPending = useRef(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter()
+  const isPending = useRef(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   useEffect(() => {
     if (onboarding) {
-      localStorage.setItem("onboarding", "true");
+      localStorage.setItem('onboarding', 'true')
     }
-  }, [onboarding]);
+  }, [onboarding])
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
-  });
+  })
 
   const handleLogin = useCallback(
     async (values: SchemaProps) => {
-      isPending.current = true;
-      const { email, password } = values;
+      isPending.current = true
+      const { email, password } = values
       try {
         const user = await login({
           email,
           password,
-        });
+        })
 
         if (user) {
-          toast.success("Logged in successfully");
+          toast.success('Logged in successfully')
 
           // Preload the dashboard page to improve perceived performance
-          router.prefetch("/dashboard");
+          router.prefetch('/dashboard')
 
           // check if we have the 'onboarding' key in local storage
           // if we do, redirect to the onboarding page
-          if (localStorage.getItem("onboarding")) {
-            router.push("/onboarding");
-            return;
+          if (localStorage.getItem('onboarding')) {
+            router.push('/onboarding')
+            return
           }
 
           if (redirectUrl) {
-            router.push(redirectUrl);
+            router.push(redirectUrl)
           } else {
-            router.push("/dashboard");
+            router.push('/dashboard')
           }
         }
       } catch (error) {
-        console.error(error);
-        toast.error("An error has occurred, please try again.");
+        console.error(error)
+        toast.error('An error has occurred, please try again.')
       } finally {
-        isPending.current = false;
+        isPending.current = false
       }
     },
     [redirectUrl, router],
-  );
+  )
 
   return (
     <Form {...form}>
@@ -126,7 +126,7 @@ export default function LoginForm(opts: {
               <div className="col-span-12 relative">
                 <InputWithLabel
                   label="Password"
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   {...field}
                   autoComplete="current-password"
                   inputClassName="gap-x-0"
@@ -163,12 +163,12 @@ export default function LoginForm(opts: {
             className="w-full"
             variant="secondary"
           >
-            {isPending.current ? "Loading..." : "Login"}
+            {isPending.current ? 'Loading...' : 'Login'}
           </Button>
         </FormItem>
 
         <span className="col-span-full text-sm text-gray-300 hover:text-white duration-300">
-          Don't have an account?{" "}
+          Don't have an account?{' '}
           <Link href="/signup" prefetch className="underline">
             Sign up
           </Link>
@@ -178,8 +178,8 @@ export default function LoginForm(opts: {
       <div className="flex gap-1 items-center justify-center">
         <form
           onSubmit={async (event) => {
-            event.preventDefault();
-            await oauth("github", Boolean(onboarding));
+            event.preventDefault()
+            await oauth('github', Boolean(onboarding))
           }}
         >
           <Button type="submit" variant="ghost" padding="md">
@@ -188,8 +188,8 @@ export default function LoginForm(opts: {
         </form>
         <form
           onSubmit={async (event) => {
-            event.preventDefault();
-            await oauth("discord", Boolean(onboarding));
+            event.preventDefault()
+            await oauth('discord', Boolean(onboarding))
           }}
         >
           <Button type="submit" variant="ghost" padding="md">
@@ -198,5 +198,5 @@ export default function LoginForm(opts: {
         </form>
       </div>
     </Form>
-  );
+  )
 }

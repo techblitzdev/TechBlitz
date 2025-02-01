@@ -1,4 +1,4 @@
-import { Question } from "@/types/Questions";
+import { Question } from '@/types/Questions'
 
 /**
  * Method to add order to response questions.
@@ -11,11 +11,11 @@ export const addOrderToResponseQuestions = (
   questions: Question[],
   existingQuestionsCount: number = 0,
 ): Question[] => {
-  console.log("starting order from:", existingQuestionsCount);
+  console.log('starting order from:', existingQuestionsCount)
 
   return questions.map((question, index) => ({
     ...question,
     // Start ordering from after the last existing question
     order: existingQuestionsCount + index + 1,
-  }));
-};
+  }))
+}

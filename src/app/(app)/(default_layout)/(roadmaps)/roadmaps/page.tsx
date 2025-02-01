@@ -1,8 +1,8 @@
-import { redirect } from "next/navigation";
-import dynamic from "next/dynamic";
+import { redirect } from 'next/navigation'
+import dynamic from 'next/dynamic'
 
 const RoadmapsCard = dynamic(
-  () => import("@/components/app/roadmaps/[uid]/roadmaps-card"),
+  () => import('@/components/app/roadmaps/[uid]/roadmaps-card'),
   {
     ssr: false,
     loading: () => (
@@ -13,48 +13,48 @@ const RoadmapsCard = dynamic(
       </>
     ),
   },
-);
+)
 
-import RoadmapOnboarding from "@/components/app/roadmaps/empty/onboarding";
-import Hero from "@/components/shared/hero";
+import RoadmapOnboarding from '@/components/app/roadmaps/empty/onboarding'
+import Hero from '@/components/shared/hero'
 
 const CreateRoadmapButton = dynamic(
-  () => import("@/components/app/roadmaps/create-roadmap-button"),
+  () => import('@/components/app/roadmaps/create-roadmap-button'),
   {
     ssr: false,
   },
-);
+)
 
-import { fetchUserRoadmaps } from "@/utils/data/roadmap/fetch-user-roadmaps";
-import { useUserServer } from "@/hooks/use-user-server";
-import RoadmapsCardSkeleton from "@/components/app/roadmaps/[uid]/roadmaps-card-loading";
-import UpgradeLayout from "@/components/app/shared/upgrade-layout";
-import FeedbackButton from "@/components/app/shared/feedback/feedback-button";
-import RoadmapIcon from "@/components/ui/icons/roadmap";
+import { fetchUserRoadmaps } from '@/utils/data/roadmap/fetch-user-roadmaps'
+import { useUserServer } from '@/hooks/use-user-server'
+import RoadmapsCardSkeleton from '@/components/app/roadmaps/[uid]/roadmaps-card-loading'
+import UpgradeLayout from '@/components/app/shared/upgrade-layout'
+import FeedbackButton from '@/components/app/shared/feedback/feedback-button'
+import RoadmapIcon from '@/components/ui/icons/roadmap'
 
 export default async function RoadmapPage() {
   // middleware should catch this, but just in case
-  const user = await useUserServer();
-  if (!user) return redirect("/login");
-  if (user.userLevel === "FREE") {
+  const user = await useUserServer()
+  if (!user) return redirect('/login')
+  if (user.userLevel === 'FREE') {
     return (
       <UpgradeLayout
         title="Personalized Coding Roadmaps"
         description="In order to create personalized coding roadmaps, you need to upgrade to Premium."
       />
-    );
+    )
   }
   // fetch the user's roadmaps
-  const userRoadmaps = await fetchUserRoadmaps(user.uid);
+  const userRoadmaps = await fetchUserRoadmaps(user.uid)
 
   // if we do not have any roadmaps, we render the 'onboarding'
   // component to guide the user on how to create their first roadmap
   if (!userRoadmaps.length) {
-    return <RoadmapOnboarding />;
+    return <RoadmapOnboarding />
   }
 
   // order the roadmaps by the createdAt date
-  userRoadmaps.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  userRoadmaps.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
 
   return (
     <>
@@ -89,5 +89,5 @@ export default async function RoadmapPage() {
         </aside>
       </div>
     </>
-  );
+  )
 }

@@ -1,12 +1,12 @@
-import React from "react";
-import { Timeline } from "@/components/ui/timelime";
-import Link from "next/link";
+import React from 'react'
+import { Timeline } from '@/components/ui/timelime'
+import Link from 'next/link'
 
 export default function ChangelogTimeline() {
   const data = [
     {
       title:
-        "Question answer redesign, quick question access, upgraded filters & more  ",
+        'Question answer redesign, quick question access, upgraded filters & more  ',
       content: (
         <div>
           <div className="grid grid-cols-2 gap-4">
@@ -67,9 +67,9 @@ export default function ChangelogTimeline() {
             <p>
               <Link href="/signup" className="text-accent">
                 Try out the new features
-              </Link>{" "}
+              </Link>{' '}
               and let us know what you think! If you have any feedback, please
-              let us know at{" "}
+              let us know at{' '}
               <Link href="mailto:team@techblitz.dev" className="text-accent">
                 team@techblitz.dev
               </Link>
@@ -82,7 +82,7 @@ export default function ChangelogTimeline() {
       ),
     },
     {
-      title: "Code editor questions - complete by code",
+      title: 'Code editor questions - complete by code',
       content: (
         <div>
           <div className="grid grid-cols-2 gap-4">
@@ -118,13 +118,13 @@ export default function ChangelogTimeline() {
               className="text-accent"
             >
               Try it out now!
-            </Link>{" "}
+            </Link>{' '}
           </p>
         </div>
       ),
     },
     {
-      title: "Daily Challenge reminders added",
+      title: 'Daily Challenge reminders added',
       content: (
         <div>
           <div className="grid grid-cols-2 gap-4">
@@ -149,7 +149,7 @@ export default function ChangelogTimeline() {
       ),
     },
     {
-      title: "Leaderboard Redesign",
+      title: 'Leaderboard Redesign',
       content: (
         <div>
           <div className="grid grid-cols-2 gap-4">
@@ -168,7 +168,7 @@ export default function ChangelogTimeline() {
             We have revamped our existing leaderboard to make it more engaging
             and interactive. Now you can see your progress in real-time and
             compete with your friends. <br />
-            View the leaderboard{" "}
+            View the leaderboard{' '}
             <Link href="/leaderboard" className="text-accent">
               here
             </Link>
@@ -176,10 +176,10 @@ export default function ChangelogTimeline() {
         </div>
       ),
     },
-  ];
+  ]
   return (
     <div className="w-full">
       <Timeline data={data} />
     </div>
-  );
+  )
 }

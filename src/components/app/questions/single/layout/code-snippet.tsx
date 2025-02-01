@@ -1,48 +1,48 @@
-"use client";
-import React from "react";
-import { Highlight, themes } from "prism-react-renderer";
-import { UserRecord } from "@/types/User";
+'use client'
+import React from 'react'
+import { Highlight, themes } from 'prism-react-renderer'
+import { UserRecord } from '@/types/User'
 
 interface CodeDisplayProps {
-  content: string;
-  language?: string;
-  backgroundColor?: string;
-  hideIndex?: boolean;
-  user?: UserRecord | null;
+  content: string
+  language?: string
+  backgroundColor?: string
+  hideIndex?: boolean
+  user?: UserRecord | null
 }
 
 interface HighlightProps {
-  className: string;
-  style: React.CSSProperties;
-  tokens: Token[][];
-  getLineProps: (input: { line: Token[] }) => React.HTMLProps<HTMLDivElement>;
-  getTokenProps: (input: { token: Token }) => React.HTMLProps<HTMLSpanElement>;
+  className: string
+  style: React.CSSProperties
+  tokens: Token[][]
+  getLineProps: (input: { line: Token[] }) => React.HTMLProps<HTMLDivElement>
+  getTokenProps: (input: { token: Token }) => React.HTMLProps<HTMLSpanElement>
 }
 
 interface Token {
-  types: string[];
-  content: string;
-  empty?: boolean;
+  types: string[]
+  content: string
+  empty?: boolean
 }
 
 export default function CodeDisplay({
   content,
   language,
-  backgroundColor = "#111111",
+  backgroundColor = '#111111',
   hideIndex = false,
   user,
 }: CodeDisplayProps) {
   // Clean the content by removing pre and code tags
   const cleanContent = content
-    ?.replace(/<pre><code[^>]*>/g, "")
-    ?.replace(/<\/code><\/pre>/g, "")
-    ?.replace(/=&gt;/g, "=>")
-    ?.replace(/&lt;/g, "<")
-    ?.replace(/&gt;/g, ">")
-    ?.trim();
+    ?.replace(/<pre><code[^>]*>/g, '')
+    ?.replace(/<\/code><\/pre>/g, '')
+    ?.replace(/=&gt;/g, '=>')
+    ?.replace(/&lt;/g, '<')
+    ?.replace(/&gt;/g, '>')
+    ?.trim()
 
   if (!cleanContent) {
-    return null;
+    return null
   }
 
   return (
@@ -51,7 +51,7 @@ export default function CodeDisplay({
         themes[user?.codeEditorTheme as keyof typeof themes] || themes.vsDark
       }
       code={cleanContent}
-      language={language || "javascript"}
+      language={language || 'javascript'}
     >
       {({ style, tokens, getLineProps, getTokenProps }: HighlightProps) => (
         <pre
@@ -79,5 +79,5 @@ export default function CodeDisplay({
         </pre>
       )}
     </Highlight>
-  );
+  )
 }

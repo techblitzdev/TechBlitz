@@ -42,5 +42,5 @@ export default function HomeIcon() {
         ></line>
       </g>
     </svg>
-  );
+  )
 }

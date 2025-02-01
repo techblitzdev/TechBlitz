@@ -1,14 +1,14 @@
-"use client";
+'use client'
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
 export function AnimatedBreak() {
-  const [animate, setAnimate] = useState(false);
+  const [animate, setAnimate] = useState(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => setAnimate(true), 500);
-    return () => clearTimeout(timer);
-  }, []);
+    const timer = setTimeout(() => setAnimate(true), 500)
+    return () => clearTimeout(timer)
+  }, [])
 
   return (
     <span className="inline-block relative px-1">
@@ -17,8 +17,8 @@ export function AnimatedBreak() {
         <span
           className={`inline-block transition-all duration-500 !leading-[1.1] text-gradient from-white to-white/75 ${
             animate
-              ? "opacity-100 -translate-x-0.5 -translate-y-0.5 rotate-12"
-              : "opacity-0"
+              ? 'opacity-100 -translate-x-0.5 -translate-y-0.5 rotate-12'
+              : 'opacity-0'
           }`}
         >
           br
@@ -26,13 +26,13 @@ export function AnimatedBreak() {
         <span
           className={`inline-block transition-all duration-500 !leading-[1.1] text-gradient from-white to-white/75 ${
             animate
-              ? "opacity-100 translate-x-0.5 translate-y-0.5 -rotate-12"
-              : "opacity-0"
+              ? 'opacity-100 translate-x-0.5 translate-y-0.5 -rotate-12'
+              : 'opacity-0'
           }`}
         >
           eak
         </span>
       </span>
     </span>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod'
 
 // Updated schema to properly handle optional fields
 export const userDetailsSchema = z
@@ -14,12 +14,12 @@ export const userDetailsSchema = z
   })
   .transform((data) => {
     // Remove null values from the payload
-    const cleanedData: Partial<typeof data> = {};
+    const cleanedData: Partial<typeof data> = {}
     for (const [key, value] of Object.entries(data)) {
       if (value !== null) {
         // @ts-expect-error
-        cleanedData[key] = value;
+        cleanedData[key] = value
       }
     }
-    return cleanedData;
-  });
+    return cleanedData
+  })

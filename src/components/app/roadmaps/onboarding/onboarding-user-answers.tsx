@@ -1,11 +1,11 @@
-import { Check, X } from "lucide-react";
+import { Check, X } from 'lucide-react'
 
 interface Answer {
-  questionUid: string;
+  questionUid: string
   question: {
-    order: number;
-  };
-  correct: boolean;
+    order: number
+  }
+  correct: boolean
 }
 
 export default function UserAnswers({ answers }: { answers: Answer[] }) {
@@ -44,5 +44,5 @@ export default function UserAnswers({ answers }: { answers: Answer[] }) {
         ))}
       </ul>
     </div>
-  );
+  )
 }

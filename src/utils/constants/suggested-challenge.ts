@@ -10,7 +10,7 @@ export const SUGGESTED_CHALLENGE_EMAIL_SUBJECT = (userDisplayName: string) => [
   `Hi ${userDisplayName}, challenge yourself and grow today!`,
   `Howdy ${userDisplayName}, here's your daily dose of coding!`,
   `What's up ${userDisplayName}? Ready for your next coding challenge?`,
-];
+]
 
 /**
  * An array of different strings that we can use for the suggested challenge email description
@@ -26,4 +26,4 @@ export const SUGGESTED_CHALLENGE_EMAIL_DESCRIPTION = (
   `Keep your coding momentum going! Your next challenge is waiting for your unique solution.`,
   `Transform your coffee break into a learning opportunity with today's brain-teasing challenge.`,
   `Join the community of developers pushing their limits today. Your next challenge awaits!`,
-];
+]

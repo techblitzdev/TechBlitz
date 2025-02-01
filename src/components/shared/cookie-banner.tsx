@@ -1,53 +1,53 @@
-"use client";
-import { useEffect, useState } from "react";
-import { usePostHog } from "posthog-js/react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "../ui/button";
+'use client'
+import { useEffect, useState } from 'react'
+import { usePostHog } from 'posthog-js/react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Button } from '../ui/button'
 
 export function cookieConsentGiven() {
-  if (!localStorage.getItem("cookie_consent")) {
-    return "undecided";
+  if (!localStorage.getItem('cookie_consent')) {
+    return 'undecided'
   }
-  return localStorage.getItem("cookie_consent");
+  return localStorage.getItem('cookie_consent')
 }
 
 export default function Banner() {
-  const [consentGiven, setConsentGiven] = useState("");
-  const posthog = usePostHog();
+  const [consentGiven, setConsentGiven] = useState('')
+  const posthog = usePostHog()
 
   useEffect(() => {
-    const consent = cookieConsentGiven();
+    const consent = cookieConsentGiven()
     if (consent) {
-      setConsentGiven(consent);
+      setConsentGiven(consent)
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
-    if (consentGiven !== "") {
+    if (consentGiven !== '') {
       posthog.set_config({
-        persistence: consentGiven === "yes" ? "localStorage+cookie" : "memory",
-      });
+        persistence: consentGiven === 'yes' ? 'localStorage+cookie' : 'memory',
+      })
     }
-  }, [consentGiven]);
+  }, [consentGiven])
 
   const handleAcceptCookies = () => {
-    localStorage.setItem("cookie_consent", "yes");
-    setConsentGiven("yes");
-  };
+    localStorage.setItem('cookie_consent', 'yes')
+    setConsentGiven('yes')
+  }
 
   const handleDeclineCookies = () => {
-    localStorage.setItem("cookie_consent", "no");
-    setConsentGiven("no");
-  };
+    localStorage.setItem('cookie_consent', 'no')
+    setConsentGiven('no')
+  }
 
   return (
     <AnimatePresence>
-      {consentGiven === "undecided" && (
+      {consentGiven === 'undecided' && (
         <motion.div
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
           className="fixed bottom-4 left-4 p-4 text-white bg-black-100 border border-black-50 shadow-lg z-50 rounded-lg"
         >
           <div className="flex flex-col items-start gap-4 mx-auto">
@@ -75,5 +75,5 @@ export default function Banner() {
         </motion.div>
       )}
     </AnimatePresence>
-  );
+  )
 }

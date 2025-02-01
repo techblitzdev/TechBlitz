@@ -1,27 +1,27 @@
-import { Question } from "@/types/Questions";
-import { getFastestTimes } from "@/utils/data/leaderboard/get-fastest";
-import FastestTimes from "./fastest-times";
-import { Separator } from "@/components/ui/separator";
-import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, FlameIcon, Trophy } from "lucide-react";
-import Link from "next/link";
-import { getLongestStreaks } from "@/utils/data/leaderboard/get-longest-streaks";
-import { getUserDisplayName } from "@/utils/user";
-import { Grid } from "@/components/ui/grid";
+import { Question } from '@/types/Questions'
+import { getFastestTimes } from '@/utils/data/leaderboard/get-fastest'
+import FastestTimes from './fastest-times'
+import { Separator } from '@/components/ui/separator'
+import { Card, CardContent } from '@/components/ui/card'
+import { ArrowRight, FlameIcon, Trophy } from 'lucide-react'
+import Link from 'next/link'
+import { getLongestStreaks } from '@/utils/data/leaderboard/get-longest-streaks'
+import { getUserDisplayName } from '@/utils/user'
+import { Grid } from '@/components/ui/grid'
 
 export default async function TodaysLeaderboardBentoBox(opts: {
-  todaysQuestion: Question | null;
+  todaysQuestion: Question | null
 }) {
-  const { todaysQuestion } = opts;
+  const { todaysQuestion } = opts
 
   // run this in parallel as they do not depend on each other
   const [{ fastestTimes }, longestStreaks] = await Promise.all([
     getFastestTimes({
       numberOfResults: 10,
-      questionUid: todaysQuestion?.uid || "",
+      questionUid: todaysQuestion?.uid || '',
     }),
     getLongestStreaks(),
-  ]);
+  ])
 
   return (
     <div className="overflow-hidden flex flex-col h-full justify-between group">
@@ -62,11 +62,11 @@ export default async function TodaysLeaderboardBentoBox(opts: {
               <li
                 key={i}
                 className={`grid grid-cols-12 text-sm px-2 py-2.5 font-satoshi ${
-                  i % 2 === 0 ? "bg-black" : "bg-black-75"
+                  i % 2 === 0 ? 'bg-black' : 'bg-black-75'
                 }`}
               >
                 <span className="flex w-full justify-between items-center col-span-2">
-                  {streak.streak}{" "}
+                  {streak.streak}{' '}
                   <FlameIcon className="fill-red-500 text-orange-500 mr-2" />
                 </span>
                 <p className="text-sm col-span-8">
@@ -85,5 +85,5 @@ export default async function TodaysLeaderboardBentoBox(opts: {
         </div>
       </div>
     </div>
-  );
+  )
 }

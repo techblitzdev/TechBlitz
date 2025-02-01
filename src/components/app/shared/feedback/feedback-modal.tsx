@@ -1,38 +1,38 @@
-"use client";
+'use client'
 
-import { useState, useTransition } from "react";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { motion, AnimatePresence } from "framer-motion";
-import type React from "react";
-import { sendFeedback } from "@/actions/misc/send-feedback";
+import { useState, useTransition } from 'react'
+import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
+import { motion, AnimatePresence } from 'framer-motion'
+import type React from 'react'
+import { sendFeedback } from '@/actions/misc/send-feedback'
 
 interface FeedbackModalProps {
-  title?: string;
-  description?: string;
-  reference?: string;
-  children?: React.ReactNode;
+  title?: string
+  description?: string
+  reference?: string
+  children?: React.ReactNode
 }
 
 export function FeedbackModal({
-  title = "Send feedback",
-  description = "We value your feedback. Please let us know how we can improve our questions/product to better suit your needs.",
+  title = 'Send feedback',
+  description = 'We value your feedback. Please let us know how we can improve our questions/product to better suit your needs.',
   reference,
   children,
 }: FeedbackModalProps) {
-  const [feedback, setFeedback] = useState("");
-  const [isPending, startTransition] = useTransition();
-  const [isSent, setIsSent] = useState(false);
+  const [feedback, setFeedback] = useState('')
+  const [isPending, startTransition] = useTransition()
+  const [isSent, setIsSent] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     startTransition(async () => {
-      await sendFeedback(feedback);
-      setFeedback("");
-      setIsSent(true);
-      setTimeout(() => setIsSent(false), 2000);
-    });
-  };
+      await sendFeedback(feedback)
+      setFeedback('')
+      setIsSent(true)
+      setTimeout(() => setIsSent(false), 2000)
+    })
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -55,7 +55,7 @@ export function FeedbackModal({
         <Button
           type="button"
           variant="destructive"
-          onClick={() => setFeedback("")}
+          onClick={() => setFeedback('')}
           disabled={isPending}
         >
           Cancel
@@ -64,7 +64,7 @@ export function FeedbackModal({
           <Button
             type="submit"
             variant="secondary"
-            disabled={isPending || feedback.trim() === ""}
+            disabled={isPending || feedback.trim() === ''}
           >
             <AnimatePresence mode="wait">
               {isPending ? (
@@ -74,19 +74,19 @@ export function FeedbackModal({
                   transition={{
                     duration: 1,
                     repeat: Number.POSITIVE_INFINITY,
-                    ease: "linear",
+                    ease: 'linear',
                   }}
                   className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
                 />
               ) : (
                 <motion.span
-                  key={isSent ? "sent" : "submit"}
+                  key={isSent ? 'sent' : 'submit'}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.2 }}
                 >
-                  {isSent ? "Sent!" : "Submit"}
+                  {isSent ? 'Sent!' : 'Submit'}
                 </motion.span>
               )}
             </AnimatePresence>
@@ -94,5 +94,5 @@ export function FeedbackModal({
         </AnimatePresence>
       </div>
     </form>
-  );
+  )
 }

@@ -1,12 +1,12 @@
-import { Check, User } from "lucide-react";
+import { Check, User } from 'lucide-react'
 
 export default function QuestionStatsTab(opts: {
   totalSubmissions?: {
-    totalSubmissions: number;
-    percentageCorrect: number;
-  };
+    totalSubmissions: number
+    percentageCorrect: number
+  }
 }) {
-  const { totalSubmissions } = opts;
+  const { totalSubmissions } = opts
 
   return (
     <div className="flex flex-col gap-y-4">
@@ -34,5 +34,5 @@ export default function QuestionStatsTab(opts: {
         </div>
       </div>
     </div>
-  );
+  )
 }

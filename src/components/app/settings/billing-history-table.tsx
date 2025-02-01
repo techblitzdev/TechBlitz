@@ -1,5 +1,5 @@
-import Stripe from "stripe";
-import { format } from "date-fns";
+import Stripe from 'stripe'
+import { format } from 'date-fns'
 
 import {
   Table,
@@ -8,12 +8,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table'
 
 export default function BillingHistoryTable({
   invoices,
 }: {
-  invoices: Stripe.Invoice[];
+  invoices: Stripe.Invoice[]
 }) {
   // Convert the invoices into something we can iterate over
   const invoiceData = invoices.map((invoice) => {
@@ -22,8 +22,8 @@ export default function BillingHistoryTable({
       date: new Date(invoice.created * 1000),
       amount: invoice.total / 100, // Convert cents to dollars
       status: invoice.status,
-    };
-  });
+    }
+  })
 
   return (
     <Table>
@@ -37,12 +37,12 @@ export default function BillingHistoryTable({
       <TableBody>
         {invoiceData.map((invoice) => (
           <TableRow key={invoice.id}>
-            <TableCell>{format(invoice.date, "MMM d, yyyy")}</TableCell>
+            <TableCell>{format(invoice.date, 'MMM d, yyyy')}</TableCell>
             <TableCell>£{invoice.amount.toFixed(2)}</TableCell>
             <TableCell className="capitalize">{invoice.status}</TableCell>
           </TableRow>
         ))}
       </TableBody>
     </Table>
-  );
+  )
 }

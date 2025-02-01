@@ -1,12 +1,12 @@
-import { getUserDailyStats } from "@/utils/data/user/authed/get-daily-streak";
-import { Suspense, SVGProps } from "react";
-import LoadingSpinner from "./loading";
+import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak'
+import { Suspense, SVGProps } from 'react'
+import LoadingSpinner from './loading'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "./tooltip";
+} from './tooltip'
 
 export function SolarFlameBoldDuotone(props: SVGProps<SVGSVGElement>) {
   return (
@@ -26,11 +26,11 @@ export function SolarFlameBoldDuotone(props: SVGProps<SVGSVGElement>) {
         d="M7.733 17.5c0 .93.36 1.905.767 2.69c.202.39-.103.852-.482.77c.482.54 3.658.957 7.108.803c-.289-.069-.432-.453-.224-.751c.88-1.265 1.898-3.196 1.898-5.012c0-1.95-1.644-4.253-2.928-5.674c-.293-.324-.805-.11-.821.328c-.053 1.45-.282 3.388-1.268 4.908a.412.412 0 0 1-.677.036c-.308-.39-.616-.871-.924-1.251c-.166-.205-.466-.208-.657-.027c-.747.707-1.792 1.809-1.792 3.18"
       ></path>
     </svg>
-  );
+  )
 }
 
 async function CurrentStreakData() {
-  const userStreak = await getUserDailyStats();
+  const userStreak = await getUserDailyStats()
 
   return (
     <div className="flex items-center gap-x-1">
@@ -38,7 +38,7 @@ async function CurrentStreakData() {
         {userStreak?.streakData?.currentstreakCount ?? 0}
       </p>
     </div>
-  );
+  )
 }
 
 export default async function CurrentStreak() {
@@ -58,5 +58,5 @@ export default async function CurrentStreak() {
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
-  );
+  )
 }

@@ -1,42 +1,42 @@
-import Chip from "@/components/ui/chip";
-import DashboardQuestionCard from "./dashboard-question-card";
-import { ArrowRight } from "lucide-react";
+import Chip from '@/components/ui/chip'
+import DashboardQuestionCard from './dashboard-question-card'
+import { ArrowRight } from 'lucide-react'
 
 const questions = [
   {
-    label: "spread-operator",
-    name: "What does the spread operator do?",
+    label: 'spread-operator',
+    name: 'What does the spread operator do?',
     correct: false,
   },
   {
-    label: "equality-operators",
+    label: 'equality-operators',
     name: "What's the difference between '==' and '==='?",
     correct: true,
   },
   {
-    label: "code-analysis",
-    name: "What will be the outcome of the following JavaScript snippet?",
+    label: 'code-analysis',
+    name: 'What will be the outcome of the following JavaScript snippet?',
     correct: false,
   },
   {
-    label: "data-structures",
-    name: "What are the differences objects and arrays?",
+    label: 'data-structures',
+    name: 'What are the differences objects and arrays?',
     correct: true,
   },
   {
-    label: "array-methods",
-    name: "What is the difference between .map and .forEach?",
+    label: 'array-methods',
+    name: 'What is the difference between .map and .forEach?',
     correct: false,
   },
   {
-    label: "component-lifecycle",
-    name: "Explain component lifecycle",
+    label: 'component-lifecycle',
+    name: 'Explain component lifecycle',
     correct: true,
   },
-];
+]
 
 // Triple the questions to ensure smooth infinite scroll
-const allQuestions = [...questions, ...questions, ...questions];
+const allQuestions = [...questions, ...questions, ...questions]
 
 export default function AllQuestionsDashboardBentoBox() {
   return (
@@ -61,7 +61,7 @@ export default function AllQuestionsDashboardBentoBox() {
         <div
           className="animate-scroll hover:pause-animation relative z-0"
           style={
-            { "--question-count": questions.length } as React.CSSProperties
+            { '--question-count': questions.length } as React.CSSProperties
           }
         >
           {allQuestions.map((question, index) => (
@@ -76,5 +76,5 @@ export default function AllQuestionsDashboardBentoBox() {
         <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[#000] to-transparent z-10" />
       </div>
     </section>
-  );
+  )
 }

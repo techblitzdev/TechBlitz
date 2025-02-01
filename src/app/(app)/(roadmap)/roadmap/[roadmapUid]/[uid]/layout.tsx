@@ -1,32 +1,32 @@
-import { redirect } from "next/navigation";
-import { Suspense } from "react";
+import { redirect } from 'next/navigation'
+import { Suspense } from 'react'
 
 // actions
-import { fetchRoadmapQuestion } from "@/utils/data/roadmap/questions/fetch-roadmap-question";
-import { fetchNextPrevRoadmapQuestion } from "@/utils/data/roadmap/questions/fetchNextPrevRoadmapQuestion";
+import { fetchRoadmapQuestion } from '@/utils/data/roadmap/questions/fetch-roadmap-question'
+import { fetchNextPrevRoadmapQuestion } from '@/utils/data/roadmap/questions/fetchNextPrevRoadmapQuestion'
 
 // components
-import { Separator } from "@/components/ui/separator";
-import SidebarLayoutTrigger from "@/components/app/navigation/sidebar-layout-trigger";
-import CurrentStreak from "@/components/ui/current-streak";
-import FeedbackButton from "@/components/app/shared/feedback/feedback-button";
-import RoadmapQuestionActionButtons from "@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-action-buttons";
-import { RoadmapQuestionContextProvider } from "@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-context";
-import { RoadmapQuestionNavigation } from "@/components/app/navigation/question-navigation";
+import { Separator } from '@/components/ui/separator'
+import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger'
+import CurrentStreak from '@/components/ui/current-streak'
+import FeedbackButton from '@/components/app/shared/feedback/feedback-button'
+import RoadmapQuestionActionButtons from '@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-action-buttons'
+import { RoadmapQuestionContextProvider } from '@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-context'
+import { RoadmapQuestionNavigation } from '@/components/app/navigation/question-navigation'
 
 // hooks
-import { useUserServer } from "@/hooks/use-user-server";
-import { RoadmapUserQuestions } from "@/types/Roadmap";
-import { UserRecord } from "@/types/User";
+import { useUserServer } from '@/hooks/use-user-server'
+import { RoadmapUserQuestions } from '@/types/Roadmap'
+import { UserRecord } from '@/types/User'
 
 export default async function RoadmapQuestionLayout({
   children,
   params,
 }: Readonly<{
-  children: React.ReactNode;
-  params: { roadmapUid: string; uid: string };
+  children: React.ReactNode
+  params: { roadmapUid: string; uid: string }
 }>) {
-  const { roadmapUid, uid } = params;
+  const { roadmapUid, uid } = params
 
   const [user, question, { nextQuestion, prevQuestion, roadmap }] =
     (await Promise.all([
@@ -37,21 +37,21 @@ export default async function RoadmapQuestionLayout({
       UserRecord,
       RoadmapUserQuestions,
       {
-        nextQuestion: RoadmapUserQuestions | null | undefined;
-        prevQuestion: RoadmapUserQuestions | null | undefined;
+        nextQuestion: RoadmapUserQuestions | null | undefined
+        prevQuestion: RoadmapUserQuestions | null | undefined
         roadmap: {
-          title: string;
-          uid: string;
-        };
+          title: string
+          uid: string
+        }
       },
-    ];
+    ]
 
-  if (!user || user.userLevel === "FREE") {
-    redirect("/dashboard");
+  if (!user || user.userLevel === 'FREE') {
+    redirect('/dashboard')
   }
 
   if (!question) {
-    redirect(`/roadmap/${roadmapUid}`);
+    redirect(`/roadmap/${roadmapUid}`)
   }
 
   return (
@@ -71,8 +71,8 @@ export default async function RoadmapQuestionLayout({
                 nextRoadmapQuestion={nextQuestion}
                 prevRoadmapQuestion={prevQuestion}
                 roadmap={{
-                  title: roadmap?.title || "",
-                  uid: roadmap?.uid || "",
+                  title: roadmap?.title || '',
+                  uid: roadmap?.uid || '',
                 }}
               />
             </Suspense>
@@ -89,5 +89,5 @@ export default async function RoadmapQuestionLayout({
       <Separator className="bg-black-50" />
       {children}
     </RoadmapQuestionContextProvider>
-  );
+  )
 }

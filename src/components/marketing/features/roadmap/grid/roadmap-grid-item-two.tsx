@@ -1,4 +1,4 @@
-import RoadmapFeatureBox from "@/components/marketing/homepage/features/roadmap-feature-box";
+import RoadmapFeatureBox from '@/components/marketing/homepage/features/roadmap-feature-box'
 
 export default function RoadmapGridItemTwo() {
   return (
@@ -8,7 +8,7 @@ export default function RoadmapGridItemTwo() {
         className="block md:hidden left-1/2 top-0 !w-full center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2"
         style={{
           background:
-            "linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)",
+            'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)',
         }}
       ></div>
       {/** top content */}
@@ -27,5 +27,5 @@ export default function RoadmapGridItemTwo() {
         <div className="z-10 absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
       </div>
     </div>
-  );
+  )
 }

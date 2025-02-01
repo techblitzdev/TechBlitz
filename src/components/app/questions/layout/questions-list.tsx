@@ -1,13 +1,13 @@
-import QuestionCard from "@/components/app/questions/layout/question-card";
+import QuestionCard from '@/components/app/questions/layout/question-card'
 
-import { listQuestions } from "@/utils/data/questions/list";
+import { listQuestions } from '@/utils/data/questions/list'
 
-import { Button } from "@/components/ui/button";
-import { useUserServer } from "@/hooks/use-user-server";
-import { QuestionFilters } from "@/types/Filters";
-import ClearFilters from "./clear-filters";
-import { getSuggestions } from "@/utils/data/questions/get-suggestions";
-import GlobalPagination from "../../shared/pagination";
+import { Button } from '@/components/ui/button'
+import { useUserServer } from '@/hooks/use-user-server'
+import { QuestionFilters } from '@/types/Filters'
+import ClearFilters from './clear-filters'
+import { getSuggestions } from '@/utils/data/questions/get-suggestions'
+import GlobalPagination from '../../shared/pagination'
 
 export default async function QuestionsList({
   currentPage,
@@ -18,18 +18,18 @@ export default async function QuestionsList({
   paginationUrl,
   postsPerPage = 15,
 }: {
-  currentPage: number;
-  filters: QuestionFilters;
-  customQuestions: boolean;
-  previousQuestions?: boolean;
-  showSubmissions?: boolean;
-  paginationUrl: string;
-  postsPerPage?: number;
+  currentPage: number
+  filters: QuestionFilters
+  customQuestions: boolean
+  previousQuestions?: boolean
+  showSubmissions?: boolean
+  paginationUrl: string
+  postsPerPage?: number
 }) {
-  const user = await useUserServer();
+  const user = await useUserServer()
 
   // if we are on custom questions and the user is not a premium user, show a message
-  if (customQuestions && user && user.userLevel === "FREE") {
+  if (customQuestions && user && user.userLevel === 'FREE') {
     return (
       <div className="flex flex-col gap-y-4 items-center justify-center mt-4">
         <p className="text-lg font-medium text-gray-400">
@@ -42,20 +42,20 @@ export default async function QuestionsList({
           </Button>
         </div>
       </div>
-    );
+    )
   }
 
-  const recommendedQuestion = await getSuggestions({ limit: 10 });
+  const recommendedQuestion = await getSuggestions({ limit: 10 })
 
   // do the fetch after we know the user can access this
   const data = await listQuestions({
     page: currentPage,
     pageSize: postsPerPage,
-    userUid: user?.uid || "",
+    userUid: user?.uid || '',
     filters,
     customQuestions,
     previousQuestions,
-  });
+  })
 
   if (!data.questions || data.questions.length === 0) {
     return (
@@ -65,7 +65,7 @@ export default async function QuestionsList({
         </p>
         <ClearFilters />
       </div>
-    );
+    )
   }
 
   // if we are showing just recommended questions, just show the recommended questions
@@ -77,14 +77,14 @@ export default async function QuestionsList({
             key={q.uid}
             questionData={q}
             showSubmissions={showSubmissions}
-            identifier={customQuestions ? "uid" : "slug"}
+            identifier={customQuestions ? 'uid' : 'slug'}
             customQuestion={customQuestions}
             user={user}
             recommendedQuestion={true}
           />
         ))}
       </>
-    );
+    )
   }
 
   return (
@@ -94,7 +94,7 @@ export default async function QuestionsList({
           key={q.uid}
           questionData={q}
           showSubmissions={showSubmissions}
-          identifier={customQuestions ? "uid" : "slug"}
+          identifier={customQuestions ? 'uid' : 'slug'}
           customQuestion={customQuestions}
           user={user}
           recommendedQuestion={
@@ -114,5 +114,5 @@ export default async function QuestionsList({
         </div>
       )}
     </>
-  );
+  )
 }

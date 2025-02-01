@@ -1,9 +1,9 @@
-"use client";
+'use client'
 
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from '@/components/ui/skeleton'
 
-import Link from "next/link";
-import { MoreHorizontal } from "lucide-react";
+import Link from 'next/link'
+import { MoreHorizontal } from 'lucide-react'
 
 export default function StatsReportCardSkeleton() {
   return (
@@ -30,5 +30,5 @@ export default function StatsReportCardSkeleton() {
         </div>
       </div>
     </Link>
-  );
+  )
 }

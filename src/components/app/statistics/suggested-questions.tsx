@@ -1,4 +1,4 @@
-import QuestionSuggestedCard from "@/components/app/questions/suggested-questions-table";
+import QuestionSuggestedCard from '@/components/app/questions/suggested-questions-table'
 
 export default function SuggestedQuestions() {
   return (
@@ -12,5 +12,5 @@ export default function SuggestedQuestions() {
       </div>
       <QuestionSuggestedCard border={false} />
     </section>
-  );
+  )
 }

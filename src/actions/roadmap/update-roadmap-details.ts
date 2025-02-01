@@ -1,18 +1,18 @@
-"use server";
-import { prisma } from "@/lib/prisma";
-import { revalidateTag } from "next/cache";
-import { getUser } from "@/actions/user/authed/get-user";
+'use server'
+import { prisma } from '@/lib/prisma'
+import { revalidateTag } from 'next/cache'
+import { getUser } from '@/actions/user/authed/get-user'
 
 export const updateRoadmapDetails = async (
   roadmapUid: string,
   data: {
-    title: string;
-    description: string;
+    title: string
+    description: string
   },
 ) => {
-  const user = await getUser();
+  const user = await getUser()
   if (!user) {
-    throw new Error("User not found");
+    throw new Error('User not found')
   }
 
   const roadmap = await prisma.userRoadmaps.update({
@@ -23,9 +23,9 @@ export const updateRoadmapDetails = async (
       },
     },
     data,
-  });
+  })
 
-  revalidateTag("roadmap-data");
+  revalidateTag('roadmap-data')
 
-  return roadmap;
-};
+  return roadmap
+}

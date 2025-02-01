@@ -1,9 +1,9 @@
-"use client";
+'use client'
 
-import React, { useState, useEffect } from "react";
-import { TrendingUp, TrendingDown } from "lucide-react";
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
-import NumberFlow from "@number-flow/react";
+import React, { useState, useEffect } from 'react'
+import { TrendingUp, TrendingDown } from 'lucide-react'
+import { CartesianGrid, Line, LineChart, XAxis } from 'recharts'
+import NumberFlow from '@number-flow/react'
 
 import {
   Card,
@@ -12,80 +12,80 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart";
+} from '@/components/ui/chart'
 
 const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+]
 
 const generateRandomData = () => {
   return months.map((month) => ({
     month,
     questions: Math.floor(Math.random() * 50) + 25,
-  }));
-};
+  }))
+}
 
 const chartConfig = {
   questions: {
-    label: "Questions",
-    color: "hsl(var(--chart-1))",
+    label: 'Questions',
+    color: 'hsl(var(--chart-1))',
   },
-} satisfies ChartConfig;
+} satisfies ChartConfig
 
 interface ProgressChartProps {
-  hideHeader?: boolean;
-  isStatic?: boolean;
+  hideHeader?: boolean
+  isStatic?: boolean
 }
 
 export default function ProgressChart({
   hideHeader = false,
   isStatic = false,
 }: ProgressChartProps) {
-  const [chartData, setChartData] = useState(generateRandomData());
-  const [trend, setTrend] = useState({ percentage: 0, isUp: true });
+  const [chartData, setChartData] = useState(generateRandomData())
+  const [trend, setTrend] = useState({ percentage: 0, isUp: true })
 
   useEffect(() => {
-    if (isStatic) return;
+    if (isStatic) return
 
     const interval = setInterval(() => {
-      const newData = generateRandomData();
-      setChartData(newData);
+      const newData = generateRandomData()
+      setChartData(newData)
 
       // Calculate trend
-      const oldTotal = chartData.reduce((sum, item) => sum + item.questions, 0);
-      const newTotal = newData.reduce((sum, item) => sum + item.questions, 0);
-      const trendPercentage = ((newTotal - oldTotal) / oldTotal) * 100;
+      const oldTotal = chartData.reduce((sum, item) => sum + item.questions, 0)
+      const newTotal = newData.reduce((sum, item) => sum + item.questions, 0)
+      const trendPercentage = ((newTotal - oldTotal) / oldTotal) * 100
       setTrend({
         percentage: Number(Math.abs(trendPercentage).toFixed(1)),
         isUp: trendPercentage >= 0,
-      });
-    }, 5000);
+      })
+    }, 5000)
 
-    return () => clearInterval(interval);
-  }, [chartData, isStatic]);
+    return () => clearInterval(interval)
+  }, [chartData, isStatic])
 
   return (
     <Card
       style={{
         background:
-          "radial-gradient(128% 107% at 100% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)",
+          'radial-gradient(128% 107% at 100% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
       className="border-black-50"
     >
@@ -138,7 +138,7 @@ export default function ProgressChart({
               stroke="hsl(var(--accent))"
               strokeWidth={2}
               dot={{
-                fill: "hsl(var(--accent))",
+                fill: 'hsl(var(--accent))',
               }}
               activeDot={{
                 r: 6,
@@ -149,7 +149,7 @@ export default function ProgressChart({
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none text-white">
-          {trend.isUp ? "Trending up" : "Trending down"} by {trend.percentage}%
+          {trend.isUp ? 'Trending up' : 'Trending down'} by {trend.percentage}%
           this period
           {trend.isUp ? (
             <TrendingUp className="h-4 w-4 text-green-500" />
@@ -162,5 +162,5 @@ export default function ProgressChart({
         </div>
       </CardFooter>
     </Card>
-  );
+  )
 }

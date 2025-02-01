@@ -1,15 +1,15 @@
-"use client";
+'use client'
 
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-} from "@/components/ui/card";
-import { useOnboardingContext } from "./onboarding-context";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+} from '@/components/ui/card'
+import { useOnboardingContext } from './onboarding-context'
+import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -19,16 +19,15 @@ const containerVariants = {
       staggerChildren: 0.1,
     },
   },
-};
+}
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
-};
+}
 
 export default function OnboardingStepThree() {
-  const { onboardingQuestions, handleGetDailyQuestion } =
-    useOnboardingContext();
+  const { onboardingQuestions, handleGetDailyQuestion } = useOnboardingContext()
 
   return (
     <>
@@ -95,5 +94,5 @@ export default function OnboardingStepThree() {
         </motion.div>
       </CardContent>
     </>
-  );
+  )
 }

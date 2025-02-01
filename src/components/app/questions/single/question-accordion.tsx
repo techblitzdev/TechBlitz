@@ -3,34 +3,34 @@ import {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "@/components/ui/accordion";
-import { ArrowRight, Lightbulb } from "lucide-react";
-import { useQuestionSingle } from "./layout/question-single-context";
+} from '@/components/ui/accordion'
+import { ArrowRight, Lightbulb } from 'lucide-react'
+import { useQuestionSingle } from './layout/question-single-context'
 
 // markdown to render the hint
-import Markdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import Link from "next/link";
-import { use } from "react";
-import { ListBulletIcon } from "@radix-ui/react-icons";
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import Link from 'next/link'
+import { use } from 'react'
+import { ListBulletIcon } from '@radix-ui/react-icons'
 
 export default function QuestionAccordion(opts: {
-  hint: string;
-  showHint: boolean;
-  showRelatedQuestions: boolean;
+  hint: string
+  showHint: boolean
+  showRelatedQuestions: boolean
 }) {
-  const { relatedQuestions } = useQuestionSingle();
+  const { relatedQuestions } = useQuestionSingle()
 
-  const { hint, showHint, showRelatedQuestions = true } = opts;
-  if (!hint) return null;
+  const { hint, showHint, showRelatedQuestions = true } = opts
+  if (!hint) return null
 
-  const relatedQuestionsData = relatedQuestions ? use(relatedQuestions) : null;
+  const relatedQuestionsData = relatedQuestions ? use(relatedQuestions) : null
 
   return (
     <Accordion
       type="single"
       collapsible
-      value={showHint ? "hint" : undefined}
+      value={showHint ? 'hint' : undefined}
       className="divide-y divide-black-50"
     >
       <AccordionItem
@@ -52,14 +52,14 @@ export default function QuestionAccordion(opts: {
                   <ul className="list-disc px-4 flex flex-col gap-3">
                     {children}
                   </ul>
-                );
+                )
               },
               ol: ({ children }) => {
                 return (
                   <ol className="list-decimal px-4 flex flex-col gap-3">
                     {children}
                   </ol>
-                );
+                )
               },
             }}
           >
@@ -100,5 +100,5 @@ export default function QuestionAccordion(opts: {
         </AccordionItem>
       )}
     </Accordion>
-  );
+  )
 }

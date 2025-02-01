@@ -1,27 +1,27 @@
-"use client";
+'use client'
 
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import CodeDisplay from "./code-snippet";
-import { useQuestionSingle } from "./question-single-context";
-import { capitalize } from "lodash";
+import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import CodeDisplay from './code-snippet'
+import { useQuestionSingle } from './question-single-context'
+import { capitalize } from 'lodash'
 
 export default function CodeDisplayWrapper() {
   const { prefilledCodeSnippet, user, question, answerHelp } =
-    useQuestionSingle();
+    useQuestionSingle()
 
   const [codeSnippet, setCodeSnippet] = useState<string | null>(
     question?.codeSnippet,
-  );
+  )
 
   // update the prefilled code snippet to the answer
   useEffect(() => {
     if (prefilledCodeSnippet) {
-      setCodeSnippet(prefilledCodeSnippet);
+      setCodeSnippet(prefilledCodeSnippet)
     } else {
-      setCodeSnippet(question?.codeSnippet);
+      setCodeSnippet(question?.codeSnippet)
     }
-  }, [prefilledCodeSnippet, question?.codeSnippet]);
+  }, [prefilledCodeSnippet, question?.codeSnippet])
 
   // if the user has asked for assistance for the answer, show them plain text
   if (answerHelp) {
@@ -32,14 +32,14 @@ export default function CodeDisplayWrapper() {
           {Object.entries(answerHelp).map(([key, value], index) => (
             <div key={index}>
               <h3 className="text-md font-bold underline">
-                {capitalize(key.replace(/-/g, " "))}
+                {capitalize(key.replace(/-/g, ' '))}
               </h3>
-              <p className="text-gray-200">{value.replace(/```/g, "")}</p>
+              <p className="text-gray-200">{value.replace(/```/g, '')}</p>
             </div>
           ))}
         </div>
       </AnimatePresence>
-    );
+    )
   }
 
   return (
@@ -63,5 +63,5 @@ export default function CodeDisplayWrapper() {
         )}
       </AnimatePresence>
     </div>
-  );
+  )
 }

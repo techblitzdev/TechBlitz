@@ -1,49 +1,49 @@
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation'
 //dynamic imports
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic'
 
 const RoadmapQuestionCard = dynamic(
-  () => import("@/components/app/roadmaps/questions/question-card"),
+  () => import('@/components/app/roadmaps/questions/question-card'),
   {
     ssr: false,
   },
-);
+)
 
 // actions
-import { fetchRoadmapQuestion } from "@/utils/data/roadmap/questions/fetch-roadmap-question";
+import { fetchRoadmapQuestion } from '@/utils/data/roadmap/questions/fetch-roadmap-question'
 
 // components
-import { Separator } from "@/components/ui/separator";
-import ExpandedCodeModal from "@/components/app/questions/single/layout/expanded-code-modal";
+import { Separator } from '@/components/ui/separator'
+import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal'
 
-import { useUserServer } from "@/hooks/use-user-server";
+import { useUserServer } from '@/hooks/use-user-server'
 // types
-import { RoadmapUserQuestions } from "@/types/Roadmap";
-import { UserRecord } from "@/types/User";
-import ResizableLayout from "@/components/ui/resizable-layout";
-import AiQuestionHelp from "@/components/app/questions/single/layout/ai-question-help";
-import ChangeCodeTheme from "@/components/app/questions/single/layout/change-code-theme";
+import { RoadmapUserQuestions } from '@/types/Roadmap'
+import { UserRecord } from '@/types/User'
+import ResizableLayout from '@/components/ui/resizable-layout'
+import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help'
+import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme'
 
-import QuestionCodeDisplayWrapper from "@/components/app/roadmaps/questions/[uid]/layout/question-code-display-wrapper";
+import QuestionCodeDisplayWrapper from '@/components/app/roadmaps/questions/[uid]/layout/question-code-display-wrapper'
 
 export default async function RoadmapQuestionPage({
   params,
 }: Readonly<{ params: { roadmapUid: string; uid: string } }>) {
-  const { roadmapUid, uid } = params;
+  const { roadmapUid, uid } = params
 
   // run user and get question in parallel as they do not depend on each other
   const [user, question] = (await Promise.all([
     useUserServer(),
     fetchRoadmapQuestion(uid),
-  ])) as unknown as [UserRecord, RoadmapUserQuestions];
+  ])) as unknown as [UserRecord, RoadmapUserQuestions]
 
   // free users do not have access to the roadmap (we also check if the user owns the roadmap in the fetchRoadmapQuestion action)
-  if (!user || user.userLevel === "FREE") {
-    return redirect("/dashboard");
+  if (!user || user.userLevel === 'FREE') {
+    return redirect('/dashboard')
   }
 
   if (!question) {
-    return redirect(`/roadmap/${roadmapUid}?error_question_not_found`);
+    return redirect(`/roadmap/${roadmapUid}?error_question_not_found`)
   }
 
   const leftContent = (
@@ -54,7 +54,7 @@ export default async function RoadmapQuestionPage({
         roadmapUid={roadmapUid}
       />
     </div>
-  );
+  )
 
   const rightContent = (
     <div className="hidden lg:flex flex-col gap-4 p-3 lg:pl-1.5 h-full">
@@ -80,7 +80,7 @@ export default async function RoadmapQuestionPage({
         <QuestionCodeDisplayWrapper />
       </div>
     </div>
-  );
+  )
 
   return (
     <ResizableLayout
@@ -88,5 +88,5 @@ export default async function RoadmapQuestionPage({
       rightContent={rightContent}
       initialLeftWidth={50}
     />
-  );
+  )
 }

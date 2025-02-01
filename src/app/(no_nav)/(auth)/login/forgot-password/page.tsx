@@ -1,64 +1,64 @@
-"use client";
-import { Button } from "@/components/ui/button";
+'use client'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form";
-import OrSeparator from "@/components/auth/or-separator";
+} from '@/components/ui/form'
+import OrSeparator from '@/components/auth/or-separator'
 
-import { toast } from "sonner";
-import { InputWithLabel } from "@/components/ui/input-label";
-import { Loader2 } from "lucide-react";
+import { toast } from 'sonner'
+import { InputWithLabel } from '@/components/ui/input-label'
+import { Loader2 } from 'lucide-react'
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { resetPassword } from "@/actions/user/account/reset-password";
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+import { resetPassword } from '@/actions/user/account/reset-password'
 
-import Link from "next/link";
-import { useState } from "react";
+import Link from 'next/link'
+import { useState } from 'react'
 
 const forgotPasswordSchema = z.object({
   email: z.string().email(),
-});
+})
 
-type SchemaProps = z.infer<typeof forgotPasswordSchema>;
+type SchemaProps = z.infer<typeof forgotPasswordSchema>
 
 export default function ForgotPasswordPage() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
-      email: "",
+      email: '',
     },
-  });
+  })
 
   const handlePasswordReset = async (values: SchemaProps) => {
-    const { email } = values;
-    setIsLoading(true);
+    const { email } = values
+    setIsLoading(true)
     try {
       await resetPassword({
         email,
-      });
-      form.reset();
+      })
+      form.reset()
     } catch (error) {
-      console.error(error);
+      console.error(error)
     } finally {
-      setIsLoading(false);
-      toast.success("Password reset email sent");
+      setIsLoading(false)
+      toast.success('Password reset email sent')
     }
-  };
+  }
 
   return (
     <div
       className="p-8 rounded-xl space-y-4 text-center border border-black-50"
       style={{
         background:
-          "radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)",
+          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
     >
       <h1 className="font-bold text-3xl mb-2 font-onest">
@@ -105,7 +105,7 @@ export default function ForgotPasswordPage() {
                   Sending reset email...
                 </>
               ) : (
-                "Send reset email"
+                'Send reset email'
               )}
             </Button>
           </FormItem>
@@ -118,5 +118,5 @@ export default function ForgotPasswordPage() {
         </form>
       </Form>
     </div>
-  );
+  )
 }

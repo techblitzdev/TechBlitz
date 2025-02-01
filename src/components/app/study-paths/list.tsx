@@ -1,23 +1,23 @@
-import QuestionCard from "@/components/app/questions/layout/question-card";
-import { useUserServer } from "@/hooks/use-user-server";
+import QuestionCard from '@/components/app/questions/layout/question-card'
+import { useUserServer } from '@/hooks/use-user-server'
 
-import { Question } from "@/types/Questions";
-import type { StudyPath } from "@/utils/constants/study-paths";
-import { Suspense } from "react";
+import { Question } from '@/types/Questions'
+import type { StudyPath } from '@/utils/constants/study-paths'
+import { Suspense } from 'react'
 
 export default async function StudyPathsList(opts: {
-  questions: Promise<Question[]>;
-  studyPath: StudyPath;
+  questions: Promise<Question[]>
+  studyPath: StudyPath
 }) {
-  const { questions, studyPath } = opts;
+  const { questions, studyPath } = opts
 
-  const user = await useUserServer();
-  const studyPathQuestions = await questions;
+  const user = await useUserServer()
+  const studyPathQuestions = await questions
 
   // Sort questions to match study path order
   const sortedQuestions = studyPath.questionSlugs
     .map((slug) => studyPathQuestions.find((q) => q.slug === slug))
-    .filter((q): q is Question => q !== undefined);
+    .filter((q): q is Question => q !== undefined)
 
   return (
     <div className="space-y-6">
@@ -38,5 +38,5 @@ export default async function StudyPathsList(opts: {
         ))}
       </Suspense>
     </div>
-  );
+  )
 }

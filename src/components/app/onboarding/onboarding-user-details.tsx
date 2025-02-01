@@ -1,18 +1,18 @@
-"use client";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CardContent, CardDescription, CardHeader } from "@/components/ui/card";
-import { InputWithLabel } from "@/components/ui/input-label";
+'use client'
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { CardContent, CardDescription, CardHeader } from '@/components/ui/card'
+import { InputWithLabel } from '@/components/ui/input-label'
 import {
   Tooltip,
   TooltipProvider,
   TooltipTrigger,
   TooltipContent,
-} from "@/components/ui/tooltip";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/tooltip'
+import { Switch } from '@/components/ui/switch'
+import { Label } from '@/components/ui/label'
 import {
   Form,
   FormField,
@@ -20,78 +20,78 @@ import {
   FormControl,
   FormMessage,
   FormLabel,
-} from "@/components/ui/form";
-import { useOnboardingContext } from "./onboarding-context";
-import { onboardingStepOneSchema } from "@/lib/zod/schemas/onboarding/step-one";
-import type { UpdatableUserFields } from "@/types/User";
+} from '@/components/ui/form'
+import { useOnboardingContext } from './onboarding-context'
+import { onboardingStepOneSchema } from '@/lib/zod/schemas/onboarding/step-one'
+import type { UpdatableUserFields } from '@/types/User'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { toast } from "sonner";
-import { checkUsername } from "@/actions/user/authed/check-username";
-import { Input } from "@/components/ui/input";
-import { QuestionMarkIcon } from "@radix-ui/react-icons";
+} from '@/components/ui/select'
+import { toast } from 'sonner'
+import { checkUsername } from '@/actions/user/authed/check-username'
+import { Input } from '@/components/ui/input'
+import { QuestionMarkIcon } from '@radix-ui/react-icons'
 
 const whereDidYouHearAboutTechBlitz = [
-  "Reddit",
-  "Google",
-  "Twitter",
-  "LinkedIn",
-  "Daily.dev",
-  "Github",
-  "Friend",
-  "Other",
-];
+  'Reddit',
+  'Google',
+  'Twitter',
+  'LinkedIn',
+  'Daily.dev',
+  'Github',
+  'Friend',
+  'Other',
+]
 
 export default function OnboardingStepOne() {
   const { user, setUser, itemVariants, setCanContinue, serverUser } =
-    useOnboardingContext();
-  const [username, setUsername] = useState(user.username || "");
-  const [isUsernameValid, setIsUsernameValid] = useState(true);
+    useOnboardingContext()
+  const [username, setUsername] = useState(user.username || '')
+  const [isUsernameValid, setIsUsernameValid] = useState(true)
 
   const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(
     null,
-  );
+  )
 
   const form = useForm<UpdatableUserFields>({
     resolver: zodResolver(onboardingStepOneSchema),
     defaultValues: {
-      userProfilePicture: user.userProfilePicture || "",
-      username: user.username || "",
+      userProfilePicture: user.userProfilePicture || '',
+      username: user.username || '',
       showTimeTaken: user.showTimeTaken || false,
       sendPushNotifications: user.sendPushNotifications || false,
-      experienceLevel: user.experienceLevel || "BEGINNER",
-      howDidYouHearAboutTechBlitz: user.howDidYouHearAboutTechBlitz || "",
+      experienceLevel: user.experienceLevel || 'BEGINNER',
+      howDidYouHearAboutTechBlitz: user.howDidYouHearAboutTechBlitz || '',
     },
-  });
+  })
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newUsername = e.target.value;
-    setUsername(newUsername);
-    form.setValue("username", newUsername);
+    const newUsername = e.target.value
+    setUsername(newUsername)
+    form.setValue('username', newUsername)
 
     if (debounceTimeout) {
-      clearTimeout(debounceTimeout);
+      clearTimeout(debounceTimeout)
     }
 
     const timeout = setTimeout(async () => {
-      const isUnique = await checkUsername(newUsername);
-      setIsUsernameValid(Boolean(isUnique));
+      const isUnique = await checkUsername(newUsername)
+      setIsUsernameValid(Boolean(isUnique))
 
       if (isUnique) {
-        toast.success("Username is available");
+        toast.success('Username is available')
       } else {
-        toast.error("Username is already taken. Please choose another one.");
+        toast.error('Username is already taken. Please choose another one.')
       }
-      setCanContinue(Boolean(isUnique));
-    }, 1000);
+      setCanContinue(Boolean(isUnique))
+    }, 1000)
 
-    setDebounceTimeout(timeout);
-  };
+    setDebounceTimeout(timeout)
+  }
 
   useEffect(() => {
     const subscription = form.watch((value) => {
@@ -104,48 +104,48 @@ export default function OnboardingStepOne() {
           stripeEmails: value.stripeEmails?.filter(
             (email): email is string => email !== undefined,
           ),
-        };
-        return sanitizedValue;
-      });
-    });
-    return () => subscription.unsubscribe();
-  }, [form, setUser]);
+        }
+        return sanitizedValue
+      })
+    })
+    return () => subscription.unsubscribe()
+  }, [form, setUser])
 
   const onSubmitProfilePicture = async (data: any) => {
-    if (!serverUser?.uid || !data.target.files[0]) return;
+    if (!serverUser?.uid || !data.target.files[0]) return
 
-    const file = data.target.files[0];
-    const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+    const file = data.target.files[0]
+    const maxSize = 2 * 1024 * 1024 // 2MB in bytes
 
     if (file.size > maxSize) {
-      toast.error("File size must be less than 2MB");
-      return;
+      toast.error('File size must be less than 2MB')
+      return
     }
 
-    const formData = new FormData();
-    formData.append("files", file);
-    formData.append("userId", serverUser.uid);
-    formData.append("route", "user-profile-pictures");
+    const formData = new FormData()
+    formData.append('files', file)
+    formData.append('userId', serverUser.uid)
+    formData.append('route', 'user-profile-pictures')
 
     try {
-      const res = await fetch("/api/upload", {
-        method: "POST",
+      const res = await fetch('/api/upload', {
+        method: 'POST',
         body: formData,
-      });
-      const { logoUrl } = await res.json();
+      })
+      const { logoUrl } = await res.json()
 
       if (logoUrl) {
-        form.setValue("userProfilePicture", logoUrl);
+        form.setValue('userProfilePicture', logoUrl)
         setUser((prev) => ({
           ...prev,
           userProfilePicture: logoUrl,
-        }));
+        }))
       }
     } catch (e) {
-      console.error(e);
-      toast.error("Failed to upload profile picture");
+      console.error(e)
+      toast.error('Failed to upload profile picture')
     }
-  };
+  }
 
   return (
     <>
@@ -166,11 +166,11 @@ export default function OnboardingStepOne() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit((data) => {
-              console.log("Form submitted with data:", data);
+              console.log('Form submitted with data:', data)
               setUser((prev) => ({
                 ...prev,
                 ...data,
-              }));
+              }))
             })}
             className="space-y-5"
           >
@@ -212,7 +212,7 @@ export default function OnboardingStepOne() {
                           id="logo-file-upload"
                           type="file"
                           onChange={(e) => {
-                            onSubmitProfilePicture(e);
+                            onSubmitProfilePicture(e)
                           }}
                           className="hidden"
                           accept="image/*"
@@ -247,7 +247,7 @@ export default function OnboardingStepOne() {
                         {...field}
                         value={username}
                         onChange={handleUsernameChange}
-                        className={`input ${!isUsernameValid && "border-red-500"}`}
+                        className={`input ${!isUsernameValid && 'border-red-500'}`}
                       />
                     </FormControl>
                     <FormMessage className="mt-0.5 text-start">
@@ -282,14 +282,11 @@ export default function OnboardingStepOne() {
                             <Switch
                               checked={field.value}
                               onCheckedChange={(checked) => {
-                                field.onChange(checked);
+                                field.onChange(checked)
                                 setUser((prev) => {
-                                  console.log(
-                                    "showTimeTaken changed:",
-                                    checked,
-                                  );
-                                  return { ...prev, [field.name]: checked };
-                                });
+                                  console.log('showTimeTaken changed:', checked)
+                                  return { ...prev, [field.name]: checked }
+                                })
                               }}
                               className="bg-black-50"
                             />
@@ -326,15 +323,15 @@ export default function OnboardingStepOne() {
                           value={field.value}
                           onValueChange={(
                             value:
-                              | "BEGINNER"
-                              | "INTERMEDIATE"
-                              | "ADVANCED"
-                              | "MASTER",
+                              | 'BEGINNER'
+                              | 'INTERMEDIATE'
+                              | 'ADVANCED'
+                              | 'MASTER',
                           ) => {
-                            field.onChange(value);
+                            field.onChange(value)
                             setUser((prev) => {
-                              return { ...prev, [field.name]: value };
-                            });
+                              return { ...prev, [field.name]: value }
+                            })
                           }}
                         >
                           <SelectTrigger className="w-40 border border-black-50">
@@ -414,14 +411,14 @@ export default function OnboardingStepOne() {
                             <Switch
                               checked={field.value}
                               onCheckedChange={(checked) => {
-                                field.onChange(checked);
+                                field.onChange(checked)
                                 setUser((prev) => {
                                   console.log(
-                                    "sendPushNotifications changed:",
+                                    'sendPushNotifications changed:',
                                     checked,
-                                  );
-                                  return { ...prev, [field.name]: checked };
-                                });
+                                  )
+                                  return { ...prev, [field.name]: checked }
+                                })
                               }}
                               className="bg-black-50"
                             />
@@ -459,20 +456,20 @@ export default function OnboardingStepOne() {
                     <FormLabel>How did you hear about TechBlitz?</FormLabel>
                     <FormControl>
                       <Select
-                        value={field.value ?? ""}
+                        value={field.value ?? ''}
                         onValueChange={(value) => {
-                          field.onChange(value);
+                          field.onChange(value)
                           setUser((prev) => {
                             console.log(
-                              "howDidYouHearAboutTechBlitz changed:",
+                              'howDidYouHearAboutTechBlitz changed:',
                               value,
-                            );
-                            return { ...prev, [field.name]: value };
-                          });
+                            )
+                            return { ...prev, [field.name]: value }
+                          })
                         }}
                       >
                         <SelectTrigger className="w-full border border-black-50">
-                          {field.value ? field.value : "Select an option"}
+                          {field.value ? field.value : 'Select an option'}
                         </SelectTrigger>
                         <SelectContent>
                           {whereDidYouHearAboutTechBlitz.map((option) => (
@@ -495,5 +492,5 @@ export default function OnboardingStepOne() {
         </Form>
       </CardContent>
     </>
-  );
+  )
 }

@@ -1,33 +1,33 @@
-import { DatePicker } from "@mantine/dates";
-import QuestionSuggestedCard from "@/components/app/questions/suggested-questions-table";
+import { DatePicker } from '@mantine/dates'
+import QuestionSuggestedCard from '@/components/app/questions/suggested-questions-table'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
+} from '@/components/ui/tooltip'
+import { QuestionMarkCircledIcon } from '@radix-ui/react-icons'
 
-import { getUserDailyStats } from "@/utils/data/user/authed/get-daily-streak";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak'
+import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
 import CurrentStreak, {
   SolarFlameBoldDuotone,
-} from "@/components/ui/current-streak";
-import { useUserServer } from "@/hooks/use-user-server";
+} from '@/components/ui/current-streak'
+import { useUserServer } from '@/hooks/use-user-server'
 
 export default async function QuestionPageSidebar() {
-  const user = await useUserServer();
+  const user = await useUserServer()
 
   // get the user streak and suggestion in one go
-  const userStreak = await getUserDailyStats();
+  const userStreak = await getUserDailyStats()
 
   // get the streak start date and streak end date
-  const startDate = userStreak?.streakData?.streakStart as Date;
-  const endDate = userStreak?.streakData?.streakEnd as Date;
+  const startDate = userStreak?.streakData?.streakStart as Date
+  const endDate = userStreak?.streakData?.streakEnd as Date
 
   // create an array of dates between the start and end date
-  const dateArray: [Date, Date] = [startDate, endDate];
+  const dateArray: [Date, Date] = [startDate, endDate]
 
   return (
     <aside className="w-full xl:w-1/4">
@@ -64,7 +64,7 @@ export default async function QuestionPageSidebar() {
                       </TooltipTrigger>
                       <TooltipContent>
                         <p>
-                          Your longest streak was{" "}
+                          Your longest streak was{' '}
                           {userStreak?.streakData?.longestStreak} days.
                         </p>
                       </TooltipContent>
@@ -129,5 +129,5 @@ export default async function QuestionPageSidebar() {
         </div>
       </div>
     </aside>
-  );
+  )
 }

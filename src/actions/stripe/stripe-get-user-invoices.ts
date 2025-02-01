@@ -1,6 +1,6 @@
-"use server";
-import { stripe } from "@/lib/stripe";
-import { prisma } from "@/lib/prisma";
+'use server'
+import { stripe } from '@/lib/stripe'
+import { prisma } from '@/lib/prisma'
 
 export const getUserInvoices = async (userUid: string) => {
   // get the user's subscripton object
@@ -8,21 +8,21 @@ export const getUserInvoices = async (userUid: string) => {
     where: {
       userUid,
     },
-  });
+  })
 
   if (!subscription) {
-    return [];
+    return []
   }
 
-  const stripeCustomerId = subscription.stripeCustomerId;
+  const stripeCustomerId = subscription.stripeCustomerId
   if (!stripeCustomerId) {
-    return [];
+    return []
   }
 
   const invoices = await stripe.invoices.list({
     customer: stripeCustomerId,
     limit: 10,
-  });
+  })
 
-  return invoices.data;
-};
+  return invoices.data
+}

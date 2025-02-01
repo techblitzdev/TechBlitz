@@ -1,11 +1,13 @@
-import dynamic from "next/dynamic";
-import { Suspense } from "react";
-import LeftRightBlock from "@/components/marketing/global/blocks/left-right-block";
+import dynamic from 'next/dynamic'
+import { Suspense } from 'react'
+import LeftRightBlock from '@/components/marketing/global/blocks/left-right-block'
 
 const CodeSnippet = dynamic(
-  () => import("@/components/marketing/global/code-snippet"),
-  { ssr: false },
-);
+  () => import('@/components/marketing/global/code-snippet'),
+  {
+    ssr: false,
+  },
+)
 
 const codeSnippet1 = `// JavaScript Daily Challenge: Build a Smart Cache
 // Difficulty: Intermediate 🌟
@@ -46,7 +48,7 @@ class SmartCache {
 }
 
 // Example usage: 
-const cache = new SmartCache({ maxAge: 300, maxSize: 100 });`;
+const cache = new SmartCache({ maxAge: 300, maxSize: 100 });`
 
 export default function FeatureLeftRightSectionOne() {
   return (
@@ -89,5 +91,5 @@ export default function FeatureLeftRightSectionOne() {
         </div>
       }
     />
-  );
+  )
 }

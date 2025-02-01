@@ -1,28 +1,28 @@
-import Link from "next/link";
+import Link from 'next/link'
 
-import { Button } from "@/components/ui/button";
-import GithubLogo from "@/components/ui/icons/github";
-import { UserIcon } from "lucide-react";
-import NumberFlow from "@number-flow/react";
+import { Button } from '@/components/ui/button'
+import GithubLogo from '@/components/ui/icons/github'
+import { UserIcon } from 'lucide-react'
+import NumberFlow from '@number-flow/react'
 
-import { Question } from "@/types/Questions";
-import { cn } from "@/lib/utils";
+import { Question } from '@/types/Questions'
+import { cn } from '@/lib/utils'
 
 export default function SocialProof({
   userCount,
   githubStars,
   dailyQuestion,
-  padding = "py-16 md:py-24 md:pt-40",
+  padding = 'py-16 md:py-24 md:pt-40',
   showDescription = true,
 }: {
-  userCount: number;
-  githubStars: number;
-  dailyQuestion: Question | null;
-  padding?: string;
-  showDescription?: boolean;
+  userCount: number
+  githubStars: number
+  dailyQuestion: Question | null
+  padding?: string
+  showDescription?: boolean
 }) {
   return (
-    <section className={cn("relative", padding)}>
+    <section className={cn('relative', padding)}>
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center gap-2">
           <div className="flex flex-col items-center text-center max-w-3xl">
@@ -79,5 +79,5 @@ export default function SocialProof({
         </div>
       </div>
     </section>
-  );
+  )
 }

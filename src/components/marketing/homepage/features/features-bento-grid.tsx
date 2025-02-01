@@ -1,25 +1,25 @@
-import { Button } from "@/components/ui/button";
-import { Grid } from "@/components/ui/grid";
-import { cn } from "@/lib/utils";
-import { ChevronRight } from "lucide-react";
-import Link from "next/link";
+import { Button } from '@/components/ui/button'
+import { Grid } from '@/components/ui/grid'
+import { cn } from '@/lib/utils'
+import { ChevronRight } from 'lucide-react'
+import Link from 'next/link'
 
-import dynamic from "next/dynamic";
-import AnimatedSpan from "@/components/ui/animated-span";
-import { QUESTIONS_COUNT } from "@/utils/constants/misc";
+import dynamic from 'next/dynamic'
+import AnimatedSpan from '@/components/ui/animated-span'
+import { QUESTIONS_COUNT } from '@/utils/constants/misc'
 
-import DailyQuestionBox from "./daily-question-box";
-const LeaderboardBentoBox = dynamic(() => import("./leaderboard-bento-box"), {
+import DailyQuestionBox from './daily-question-box'
+const LeaderboardBentoBox = dynamic(() => import('./leaderboard-bento-box'), {
   ssr: false,
-});
-const RoadmapFeatureBox = dynamic(() => import("./roadmap-feature-box"), {
+})
+const RoadmapFeatureBox = dynamic(() => import('./roadmap-feature-box'), {
   ssr: false,
-});
-const ProgressionBentoBox = dynamic(() => import("./progression-box"), {
+})
+const ProgressionBentoBox = dynamic(() => import('./progression-box'), {
   ssr: false,
-});
+})
 
-const cardClasses = "border border-black-50 p-6 rounded-lg";
+const cardClasses = 'border border-black-50 p-6 rounded-lg'
 
 export default async function FeaturesBentoGrid() {
   return (
@@ -41,7 +41,7 @@ export default async function FeaturesBentoGrid() {
           <Link
             href="/features/roadmap"
             className={cn(
-              "h-80 col-span-full lg:col-span-2 relative overflow-hidden group flex flex-col sm:flex-row gap-5",
+              'h-80 col-span-full lg:col-span-2 relative overflow-hidden group flex flex-col sm:flex-row gap-5',
               cardClasses,
             )}
             prefetch
@@ -61,7 +61,7 @@ export default async function FeaturesBentoGrid() {
                   variant="default"
                   className="flex md:hidden z-10 relative mt-2"
                 >
-                  Learn more{" "}
+                  Learn more{' '}
                   <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
                 </Button>
               </div>
@@ -69,7 +69,7 @@ export default async function FeaturesBentoGrid() {
                 variant="default"
                 className="z-10 relative gap-x-2 items-center w-fit font-onest hidden md:flex"
               >
-                Learn more{" "}
+                Learn more{' '}
                 <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
               </Button>
             </div>
@@ -79,7 +79,7 @@ export default async function FeaturesBentoGrid() {
           <Link
             href="/features/statistics"
             className={cn(
-              "h-[390px] lg:h-80 flex flex-col justify-between group overflow-hidden",
+              'h-[390px] lg:h-80 flex flex-col justify-between group overflow-hidden',
               cardClasses,
             )}
             aria-label="Navigate to Statistics"
@@ -101,9 +101,9 @@ export default async function FeaturesBentoGrid() {
             </div>
           </Link>
           <Link
-            href={"/features/leaderboard"}
+            href={'/features/leaderboard'}
             className={cn(
-              "relative overflow-hidden group flex flex-col",
+              'relative overflow-hidden group flex flex-col',
               cardClasses,
             )}
             aria-label="Navigate to Leaderboard"
@@ -122,7 +122,7 @@ export default async function FeaturesBentoGrid() {
           <Link
             href="/features/daily-coding-challenges"
             className={cn(
-              "col-span-full lg:col-span-2 group overflow-hidden",
+              'col-span-full lg:col-span-2 group overflow-hidden',
               cardClasses,
             )}
             prefetch
@@ -139,7 +139,7 @@ export default async function FeaturesBentoGrid() {
                 </p>
               </div>
               <Button variant="default" className="font-onest">
-                Learn more{" "}
+                Learn more{' '}
                 <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
               </Button>
             </div>
@@ -150,5 +150,5 @@ export default async function FeaturesBentoGrid() {
         </div>
       </div>
     </section>
-  );
+  )
 }

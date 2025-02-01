@@ -14,5 +14,5 @@ export default function GithubLogo({ ...props }) {
         fillRule="evenodd"
       ></path>
     </svg>
-  );
+  )
 }

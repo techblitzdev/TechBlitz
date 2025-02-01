@@ -1,14 +1,14 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Plan } from "@/utils/constants/pricing";
-import { cn } from "@/lib/utils";
-import NumberFlow from "@number-flow/react";
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
+import { Plan } from '@/utils/constants/pricing'
+import { cn } from '@/lib/utils'
+import NumberFlow from '@number-flow/react'
 
 interface CompactPricingCardProps {
-  product: Plan;
-  onSelect: (plan: Plan) => void;
-  isSelected: boolean;
+  product: Plan
+  onSelect: (plan: Plan) => void
+  isSelected: boolean
 }
 
 export default function CompactPricingCard({
@@ -16,20 +16,20 @@ export default function CompactPricingCard({
   onSelect,
   isSelected,
 }: CompactPricingCardProps) {
-  if (!product) return null;
+  if (!product) return null
 
-  const isFree = !product.price;
+  const isFree = !product.price
 
   return (
     <Card
       style={{
         background:
-          "radial-gradient(128% 107% at 0% 0%, #212121 0%, rgb(0,0,0) 77.61%)",
+          'radial-gradient(128% 107% at 0% 0%, #212121 0%, rgb(0,0,0) 77.61%)',
       }}
       className={cn(
-        "flex-1 group-hover:scale-[1.03] duration-300 bg-black-75 flex flex-col justify-between h-full border-black-50",
-        product.mostPopular && "border-accent",
-        isSelected && "ring-2 ring-accent",
+        'flex-1 group-hover:scale-[1.03] duration-300 bg-black-75 flex flex-col justify-between h-full border-black-50',
+        product.mostPopular && 'border-accent',
+        isSelected && 'ring-2 ring-accent',
       )}
     >
       <CardHeader className="pb-2">
@@ -64,12 +64,12 @@ export default function CompactPricingCard({
       <CardContent className="text-start py-2 flex flex-col gap-y-2 justify-between h-full text-white">
         <Button
           fullWidth
-          variant={isSelected ? "accent" : "secondary"}
+          variant={isSelected ? 'accent' : 'secondary'}
           onClick={() => onSelect(product)}
         >
-          {isSelected ? "Selected" : isFree ? "Choose Free" : "Select"}
+          {isSelected ? 'Selected' : isFree ? 'Choose Free' : 'Select'}
         </Button>
       </CardContent>
     </Card>
-  );
+  )
 }

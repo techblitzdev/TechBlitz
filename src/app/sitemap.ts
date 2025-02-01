@@ -1,25 +1,25 @@
-import type { MetadataRoute } from "next";
+import type { MetadataRoute } from 'next'
 //import { getBlogPosts } from '@/lib/blog';
-import { listQuestions } from "@/utils/data/questions/list";
-import { getAllStudyPaths } from "@/utils/data/study-paths/get";
+import { listQuestions } from '@/utils/data/questions/list'
+import { getAllStudyPaths } from '@/utils/data/study-paths/get'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://techblitz.dev";
+  const baseUrl = 'https://techblitz.dev'
 
   // Fetch all blog posts and questions
   const [questions, studyPaths] = await Promise.all([
     listQuestions({
       page: 1,
       pageSize: 1000,
-      userUid: "",
+      userUid: '',
     }),
     getAllStudyPaths(),
-  ]);
+  ])
 
   const studyPathSlugs = studyPaths.map((studyPath) => ({
     url: `${baseUrl}/study-paths/${studyPath.slug}`,
     lastModified: new Date(studyPath.createdAt),
-  }));
+  }))
 
   // for some reason, the blog posts are not being when invoking
   // the getBlogPosts function, but only from here.
@@ -33,26 +33,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   //}))
 
   const blogPostSlugs = [
-    "how-to-become-a-software-engineer-2025",
-    "how-to-use-filter-in-javascript",
-    "how-to-use-map-in-javascript",
-    "how-to-use-reduce-in-javascript",
-    "how-to-use-sort-in-javascript",
-    "how-to-use-some-in-javascript",
-    "introducing-techblitz",
-    "what-are-callback-functions",
-    "250-users-on-techblitz",
-  ];
+    'how-to-become-a-software-engineer-2025',
+    'how-to-use-filter-in-javascript',
+    'how-to-use-map-in-javascript',
+    'how-to-use-reduce-in-javascript',
+    'how-to-use-sort-in-javascript',
+    'how-to-use-some-in-javascript',
+    'introducing-techblitz',
+    'what-are-callback-functions',
+    '250-users-on-techblitz',
+  ]
 
   const blogPosts = blogPostSlugs.map((slug) => ({
     url: `${baseUrl}/blog/${slug}`,
     lastModified: new Date(),
-  }));
+  }))
 
   const questionsPosts = questions.questions.map((question) => ({
     url: `${baseUrl}/question/${question.slug}`,
     lastModified: new Date(question.createdAt),
-  }));
+  }))
 
   // Static routes
   const routes = [
@@ -74,7 +74,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/features/leaderboard`,
-      lastModified: "2025-01-18",
+      lastModified: '2025-01-18',
     },
     {
       url: `${baseUrl}/blog`,
@@ -165,8 +165,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/coding-challenges`,
       lastModified: new Date(),
     },
-  ];
+  ]
 
   // Combine static routes with dynamic blog posts
-  return [...routes, ...blogPosts, ...questionsPosts, ...studyPathSlugs];
+  return [...routes, ...blogPosts, ...questionsPosts, ...studyPathSlugs]
 }

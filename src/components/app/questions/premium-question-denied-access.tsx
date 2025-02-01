@@ -1,7 +1,7 @@
-"use client";
+'use client'
 
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { motion } from 'framer-motion'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardHeader,
@@ -9,12 +9,12 @@ import {
   CardDescription,
   CardContent,
   CardFooter,
-} from "@/components/ui/card";
-import { Sparkles, X } from "lucide-react";
-import { useRouter } from "next/navigation";
+} from '@/components/ui/card'
+import { Sparkles, X } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 export default function PremiumQuestionDeniedAccess() {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <motion.div
@@ -27,7 +27,7 @@ export default function PremiumQuestionDeniedAccess() {
         initial={{ scale: 0.9, y: 20 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 20 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       >
         <Card className="w-full max-w-md border border-black-50 text-white relative">
           {/** x button to go back */}
@@ -85,7 +85,7 @@ export default function PremiumQuestionDeniedAccess() {
                 size="lg"
                 className="w-full sm:w-auto"
                 onClick={() =>
-                  window.open("https://dub.sh/upgrade-techblitz", "_blank")
+                  window.open('https://dub.sh/upgrade-techblitz', '_blank')
                 }
               >
                 Upgrade to Premium
@@ -95,5 +95,5 @@ export default function PremiumQuestionDeniedAccess() {
         </Card>
       </motion.div>
     </motion.div>
-  );
+  )
 }

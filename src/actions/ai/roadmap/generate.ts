@@ -1,44 +1,44 @@
-"use server";
-import { prisma } from "@/lib/prisma";
-import { generateDataForAi } from "./get-question-data-for-gen";
-import { addUidsToResponse } from "./utils/add-uids-to-response";
-import { addOrderToResponseQuestions } from "./utils/add-order-to-response-questions";
-import { fetchRoadmapQuestions } from "@/utils/data/roadmap/questions/fetch-roadmap-questions";
-import { generateRoadmapResponse } from "./utils/generate-roadmap";
-import { revalidateTag } from "next/cache";
-import { QuestionDifficulty } from "@/types/Questions";
-import { getUser } from "@/actions/user/authed/get-user";
+'use server'
+import { prisma } from '@/lib/prisma'
+import { generateDataForAi } from './get-question-data-for-gen'
+import { addUidsToResponse } from './utils/add-uids-to-response'
+import { addOrderToResponseQuestions } from './utils/add-order-to-response-questions'
+import { fetchRoadmapQuestions } from '@/utils/data/roadmap/questions/fetch-roadmap-questions'
+import { generateRoadmapResponse } from './utils/generate-roadmap'
+import { revalidateTag } from 'next/cache'
+import { QuestionDifficulty } from '@/types/Questions'
+import { getUser } from '@/actions/user/authed/get-user'
 
 interface RoadmapQuestion {
-  uid: string;
-  roadmapUid: string;
-  question: string;
-  correctAnswerUid: string;
-  codeSnippet: string;
-  hint: string;
-  completed: boolean;
-  order: number;
-  difficulty: QuestionDifficulty;
+  uid: string
+  roadmapUid: string
+  question: string
+  correctAnswerUid: string
+  codeSnippet: string
+  hint: string
+  completed: boolean
+  order: number
+  difficulty: QuestionDifficulty
   RoadmapUserQuestionsAnswers: {
     create: {
-      answer: string;
-      correct: boolean;
-      uid: string;
-    }[];
-  };
+      answer: string
+      correct: boolean
+      uid: string
+    }[]
+  }
 }
 
 export const roadmapGenerate = async (opts: {
-  roadmapUid: string;
-  generateMore?: boolean;
+  roadmapUid: string
+  generateMore?: boolean
 }) => {
-  const { roadmapUid } = opts;
-  opts.generateMore = opts.generateMore ?? false;
+  const { roadmapUid } = opts
+  opts.generateMore = opts.generateMore ?? false
 
   // get the user
-  const user = await getUser();
-  if (!user || user?.userLevel === "FREE") {
-    throw new Error("User not found");
+  const user = await getUser()
+  if (!user || user?.userLevel === 'FREE') {
+    throw new Error('User not found')
   }
 
   // Retrieve and format the necessary data for AI
@@ -46,41 +46,41 @@ export const roadmapGenerate = async (opts: {
     roadmapUid,
     userUid: user?.uid,
     generateMore: opts.generateMore,
-  });
+  })
 
-  let existingQuestions = [];
-  if (formattedData === "generated" || formattedData === "invalid") {
+  let existingQuestions = []
+  if (formattedData === 'generated' || formattedData === 'invalid') {
     existingQuestions = await fetchRoadmapQuestions({
       roadmapUid,
       userUid: user?.uid,
-    });
+    })
 
     if (existingQuestions.length === 0) {
-      throw new Error("No questions found for the roadmap");
+      throw new Error('No questions found for the roadmap')
     }
 
-    return existingQuestions;
+    return existingQuestions
   }
 
   // Request AI-generated questions
-  const response = await generateRoadmapResponse({ formattedData, user });
+  const response = await generateRoadmapResponse({ formattedData, user })
   if (!response) {
-    throw new Error("AI response is missing content");
+    throw new Error('AI response is missing content')
   }
 
   const existingCount = await prisma.roadmapUserQuestions.count({
     where: { roadmapUid },
-  });
+  })
 
   // Parse and process the AI response
-  const formattedResponse = JSON.parse(response);
-  const questions = addUidsToResponse(formattedResponse.questionData);
+  const formattedResponse = JSON.parse(response)
+  const questions = addUidsToResponse(formattedResponse.questionData)
 
   // add a order value to each question
   const questionsWithOrder = addOrderToResponseQuestions(
     questions,
     existingCount || 0,
-  );
+  )
 
   const roadmapQuestionsData: RoadmapQuestion[] = questionsWithOrder.map(
     (question: any) => ({
@@ -92,7 +92,7 @@ export const roadmapGenerate = async (opts: {
       hint: question.hint,
       completed: false,
       order: question.order,
-      difficulty: question.difficulty.toUpperCase() || "EASY",
+      difficulty: question.difficulty.toUpperCase() || 'EASY',
       RoadmapUserQuestionsAnswers: {
         create: question.answers.map((answer: any) => ({
           answer: answer.answer,
@@ -101,7 +101,7 @@ export const roadmapGenerate = async (opts: {
         })),
       },
     }),
-  );
+  )
 
   await prisma.$transaction([
     prisma.roadmapUserQuestions.createMany({
@@ -129,14 +129,14 @@ export const roadmapGenerate = async (opts: {
         hasGeneratedRoadmap: true,
         title: formattedResponse.title,
         description: formattedResponse.description,
-        status: "ACTIVE",
+        status: 'ACTIVE',
       },
     }),
-  ]);
+  ])
 
-  revalidateTag("roadmap-data");
+  revalidateTag('roadmap-data')
 
-  console.log("Generated roadmap:", roadmapUid);
+  console.log('Generated roadmap:', roadmapUid)
 
-  return "generated";
-};
+  return 'generated'
+}

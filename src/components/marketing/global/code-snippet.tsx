@@ -1,17 +1,17 @@
-"use client";
+'use client'
 
-import { FileIcon, CopyIcon, CheckIcon } from "lucide-react";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
-import { codeToHtml } from "shiki";
-import { motion, AnimatePresence } from "framer-motion";
+import { FileIcon, CopyIcon, CheckIcon } from 'lucide-react'
+import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
+import { codeToHtml } from 'shiki'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface CodeSnippetProps {
-  code: string;
-  language: string;
-  filename: string;
-  lightTheme: string;
-  darkTheme: string;
+  code: string
+  language: string
+  filename: string
+  lightTheme: string
+  darkTheme: string
 }
 
 export default function CodeSnippet({
@@ -21,32 +21,32 @@ export default function CodeSnippet({
   lightTheme,
   darkTheme,
 }: CodeSnippetProps) {
-  const { theme, systemTheme } = useTheme();
-  const [highlightedCode, setHighlightedCode] = useState("");
-  const [isCopied, setIsCopied] = useState(false);
+  const { theme, systemTheme } = useTheme()
+  const [highlightedCode, setHighlightedCode] = useState('')
+  const [isCopied, setIsCopied] = useState(false)
 
   useEffect(() => {
-    const currentTheme = theme === "system" ? systemTheme : theme;
-    const selectedTheme = currentTheme === "dark" ? darkTheme : lightTheme;
+    const currentTheme = theme === 'system' ? systemTheme : theme
+    const selectedTheme = currentTheme === 'dark' ? darkTheme : lightTheme
 
     async function highlightCode() {
       const highlighted = await codeToHtml(code, {
         lang: language,
         theme: selectedTheme,
-      });
-      setHighlightedCode(highlighted);
+      })
+      setHighlightedCode(highlighted)
     }
 
-    highlightCode();
-  }, [theme, systemTheme, code, language, lightTheme, darkTheme]);
+    highlightCode()
+  }, [theme, systemTheme, code, language, lightTheme, darkTheme])
 
   const handleCopy = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
+    e.preventDefault()
     navigator.clipboard.writeText(code).then(() => {
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
-    });
-  };
+      setIsCopied(true)
+      setTimeout(() => setIsCopied(false), 2000)
+    })
+  }
 
   const renderCode = (code: string, highlighted: string) => {
     if (highlighted) {
@@ -55,15 +55,15 @@ export default function CodeSnippet({
           className="max-h-96 overflow-auto  bg-[#000] font-inter text-[10px] sm:text-xs [&>pre]:h-full [&>pre]:!bg-transparent [&>pre]:p-4 [&_code]:break-all"
           dangerouslySetInnerHTML={{ __html: highlighted }}
         />
-      );
+      )
     } else {
       return (
         <pre className="h-full overflow-auto break-all p-4 font-inter text-xs  bg-[#000]">
           {code}
         </pre>
-      );
+      )
     }
-  };
+  }
 
   return (
     <div className="mx-auto w-full max-w-3xl">
@@ -73,7 +73,7 @@ export default function CodeSnippet({
             className="flex items-center p-3 text-sm text-foreground justify-between"
             style={{
               background:
-                "radial-gradient(128% 107% at 50% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)",
+                'radial-gradient(128% 107% at 50% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
             }}
           >
             <div className="flex items-center">
@@ -116,5 +116,5 @@ export default function CodeSnippet({
         </div>
       </div>
     </div>
-  );
+  )
 }

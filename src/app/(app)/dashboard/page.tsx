@@ -1,23 +1,23 @@
-import { Suspense } from "react";
-import dynamic from "next/dynamic";
+import { Suspense } from 'react'
+import dynamic from 'next/dynamic'
 
-import { Separator } from "@/components/ui/separator";
-import ClientPage from "./page.client";
-import LoadingSpinner from "@/components/ui/loading";
-import DashboardBentoGrid from "@/components/app/dashboard/dashboard-bento-grid";
-import DashboardHeader from "@/components/app/dashboard/dashboard-header";
-import { useUserServer } from "@/hooks/use-user-server";
-import { ArrowRight } from "lucide-react";
+import { Separator } from '@/components/ui/separator'
+import ClientPage from './page.client'
+import LoadingSpinner from '@/components/ui/loading'
+import DashboardBentoGrid from '@/components/app/dashboard/dashboard-bento-grid'
+import DashboardHeader from '@/components/app/dashboard/dashboard-header'
+import { useUserServer } from '@/hooks/use-user-server'
+import { ArrowRight } from 'lucide-react'
 
 const ContinueJourney = dynamic(
-  () => import("@/components/app/dashboard/continue-journey-card"),
+  () => import('@/components/app/dashboard/continue-journey-card'),
   {
     loading: () => (
       <div
         className="mt-2 group flex flex-col md:flex-row justify-between h-full overflow-hidden rounded-xl border border-black-50 p-4 transition-all "
         style={{
           background:
-            "radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)",
+            'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
         }}
       >
         <div className="space-y-2">
@@ -35,14 +35,14 @@ const ContinueJourney = dynamic(
       </div>
     ),
   },
-);
+)
 
 interface DashboardProps {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
 export default async function Dashboard({ searchParams }: DashboardProps) {
-  const user = useUserServer();
+  const user = useUserServer()
 
   return (
     <ClientPage searchParams={searchParams} userPromise={user}>
@@ -66,5 +66,5 @@ export default async function Dashboard({ searchParams }: DashboardProps) {
         </div>
       </div>
     </ClientPage>
-  );
+  )
 }

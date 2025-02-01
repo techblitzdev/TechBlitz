@@ -9,7 +9,7 @@ export type RequireAtLeastOne<T> = {
     // Pick<T, ...> creates a type with those remaining properties
     // Partial<...> makes all those properties optional
     // Example: if K is 'name', this makes all other properties optional
-    Partial<Pick<T, Exclude<keyof T, K>>>;
+    Partial<Pick<T, Exclude<keyof T, K>>>
   // [keyof T] at the end creates a union of all these combinations
   // This transforms the mapped type into a union type where at least one property must be present
-}[keyof T];
+}[keyof T]

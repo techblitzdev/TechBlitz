@@ -1,14 +1,14 @@
-"use client";
+'use client'
 
-import { Facebook, Linkedin, Twitter } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Facebook, Linkedin, Twitter } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 export default function ShareThisPost({
   title,
   slug,
 }: {
-  title: string;
-  slug: string;
+  title: string
+  slug: string
 }) {
   return (
     <div className="mt-10">
@@ -19,11 +19,9 @@ export default function ShareThisPost({
             window.open(
               `https://twitter.com/intent/tweet?text=${encodeURIComponent(
                 title,
-              )}&url=${encodeURIComponent(
-                `https://techblitz.dev/blog/${slug}`,
-              )}`,
-              "_blank",
-            );
+              )}&url=${encodeURIComponent(`https://techblitz.dev/blog/${slug}`)}`,
+              '_blank',
+            )
           }}
           variant="default"
           className="flex items-center gap-x-2"
@@ -37,8 +35,8 @@ export default function ShareThisPost({
               `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
                 `https://techblitz.dev/blog/${slug}`,
               )}`,
-              "_blank",
-            );
+              '_blank',
+            )
           }}
           variant="default"
           className="flex items-center gap-x-2"
@@ -52,8 +50,8 @@ export default function ShareThisPost({
               `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
                 `https://techblitz.dev/blog/${slug}`,
               )}`,
-              "_blank",
-            );
+              '_blank',
+            )
           }}
           variant="default"
           className="flex items-center gap-x-2"
@@ -63,5 +61,5 @@ export default function ShareThisPost({
         </Button>
       </div>
     </div>
-  );
+  )
 }

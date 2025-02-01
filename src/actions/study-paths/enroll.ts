@@ -1,6 +1,6 @@
-"use server";
-import { prisma } from "@/lib/prisma";
-import { getUser } from "../user/authed/get-user";
+'use server'
+import { prisma } from '@/lib/prisma'
+import { getUser } from '../user/authed/get-user'
 
 /**
  * Action to enroll a user in a study path
@@ -9,11 +9,11 @@ import { getUser } from "../user/authed/get-user";
  */
 export const enrollInStudyPath = async (studyPathUid: string) => {
   // get the user
-  const user = await getUser();
+  const user = await getUser()
 
   // if no user, they cannot enroll in a study path
   if (!user) {
-    throw new Error("User not found");
+    throw new Error('User not found')
   }
 
   // check if the user is already enrolled in the study path
@@ -22,11 +22,11 @@ export const enrollInStudyPath = async (studyPathUid: string) => {
       userUid: user.uid,
       studyPathUid: studyPathUid,
     },
-  });
+  })
 
   // if the user is already enrolled, return an error
   if (existingEnrollment) {
-    throw new Error("User already enrolled in study path");
+    throw new Error('User already enrolled in study path')
   }
 
   // check how many of the questions in the study path have been completed
@@ -35,7 +35,7 @@ export const enrollInStudyPath = async (studyPathUid: string) => {
     where: {
       uid: studyPathUid,
     },
-  });
+  })
 
   // from this, we need to get a % of the questions that have been completed
   // from outside the study path
@@ -48,13 +48,13 @@ export const enrollInStudyPath = async (studyPathUid: string) => {
       },
       userUid: user.uid,
     },
-  });
+  })
 
   // get the percentage of questions that have been completed
   const percentageCompleted =
     (completedQuestions.length /
       (studyPathQuestions?.questionSlugs?.length ?? 0)) *
-    100;
+    100
 
   // create the enrollment
   const enrollment = await prisma.userStudyPath.create({
@@ -63,8 +63,8 @@ export const enrollInStudyPath = async (studyPathUid: string) => {
       studyPathUid: studyPathUid,
       progress: percentageCompleted,
     },
-  });
+  })
 
   // return the enrollment
-  return enrollment;
-};
+  return enrollment
+}

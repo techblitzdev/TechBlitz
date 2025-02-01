@@ -1,27 +1,27 @@
-import QuestionsList from "@/components/app/questions/layout/questions-list";
-import QuestionPageSidebar from "@/components/app/questions/layout/question-page-sidebar";
+import QuestionsList from '@/components/app/questions/layout/questions-list'
+import QuestionPageSidebar from '@/components/app/questions/layout/question-page-sidebar'
 
 // Components
-import Hero from "@/components/shared/hero";
+import Hero from '@/components/shared/hero'
 
 // Hooks
-import { useUserServer } from "@/hooks/use-user-server";
+import { useUserServer } from '@/hooks/use-user-server'
 
 // Utils
-import { parseSearchParams, validateSearchParams } from "@/utils/search-params";
-import { redirect } from "next/navigation";
+import { parseSearchParams, validateSearchParams } from '@/utils/search-params'
+import { redirect } from 'next/navigation'
 
 export default async function CustomQuestionsPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: { [key: string]: string | string[] | undefined }
 }) {
   // we need an authed user to view this page
-  const user = await useUserServer();
-  if (!user) redirect("/login");
+  const user = await useUserServer()
+  if (!user) redirect('/login')
 
-  const filters = parseSearchParams(searchParams);
-  if (!validateSearchParams(filters)) return null;
+  const filters = parseSearchParams(searchParams)
+  if (!validateSearchParams(filters)) return null
 
   return (
     <>
@@ -44,5 +44,5 @@ export default async function CustomQuestionsPage({
         </div>
       </div>
     </>
-  );
+  )
 }

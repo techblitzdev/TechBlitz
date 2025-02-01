@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 
 export default function DailyChallengeCTA() {
   return (
@@ -9,5 +9,5 @@ export default function DailyChallengeCTA() {
     >
       Explore study paths
     </Button>
-  );
+  )
 }

@@ -1,50 +1,50 @@
-import FeatureLeftRightSection from "@/components/marketing/features/daily-challenge/feature-left-right/features-section";
-import FeatureDailyChallengeHero from "@/components/marketing/features/daily-challenge/hero/daily-challenge-hero";
-import FeatureRoadmapThreeGridBlock from "@/components/marketing/features/roadmap/roadmap-three-grid";
-import StatsReportSection from "@/components/marketing/features/statistics/stats-report-section";
-import CallToActionBlock from "@/components/marketing/global/blocks/call-to-action-block";
-import MarketingContentGrid from "@/components/marketing/global/blocks/content-grid";
-import FAQsBlock from "@/components/marketing/global/blocks/faqs";
-import { WebPageJsonLd } from "@/types/Seo";
-import { getBaseUrl } from "@/utils";
-import { createMetadata } from "@/utils/seo";
-import { MobileIcon } from "@radix-ui/react-icons";
-import Link from "next/link";
+import FeatureLeftRightSection from '@/components/marketing/features/daily-challenge/feature-left-right/features-section'
+import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/hero/daily-challenge-hero'
+import FeatureRoadmapThreeGridBlock from '@/components/marketing/features/roadmap/roadmap-three-grid'
+import StatsReportSection from '@/components/marketing/features/statistics/stats-report-section'
+import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block'
+import MarketingContentGrid from '@/components/marketing/global/blocks/content-grid'
+import FAQsBlock from '@/components/marketing/global/blocks/faqs'
+import { WebPageJsonLd } from '@/types/Seo'
+import { getBaseUrl } from '@/utils'
+import { createMetadata } from '@/utils/seo'
+import { MobileIcon } from '@radix-ui/react-icons'
+import Link from 'next/link'
 
 const faqs = [
   {
-    question: "What are coding challenges?",
+    question: 'What are coding challenges?',
     answer:
-      "Coding challenges are exercises designed to help you practice and improve your coding skills. TechBlitz offers a wide range of challenges tailored to your skill level, from beginner to advanced.",
+      'Coding challenges are exercises designed to help you practice and improve your coding skills. TechBlitz offers a wide range of challenges tailored to your skill level, from beginner to advanced.',
   },
   {
-    question: "Are these coding challenges suitable for beginners?",
+    question: 'Are these coding challenges suitable for beginners?',
     answer:
-      "Yes, TechBlitz provides coding challenges that start with foundational concepts and gradually increase in complexity, making them perfect for beginners.",
+      'Yes, TechBlitz provides coding challenges that start with foundational concepts and gradually increase in complexity, making them perfect for beginners.',
   },
   {
-    question: "How do I start with coding challenges?",
+    question: 'How do I start with coding challenges?',
     answer: (
       <>
-        Getting started is easy! Simply{" "}
+        Getting started is easy! Simply{' '}
         <Link href="/signup" className="text-accent underline">
           sign up for a free account
-        </Link>{" "}
+        </Link>{' '}
         and begin solving challenges tailored to your skill level.
       </>
     ),
   },
   {
-    question: "What programming languages are supported?",
+    question: 'What programming languages are supported?',
     answer:
-      "TechBlitz primarily focuses on JavaScript and web development. We are continuously working to add more languages to our platform.",
+      'TechBlitz primarily focuses on JavaScript and web development. We are continuously working to add more languages to our platform.',
   },
   {
-    question: "Can I track my progress with these challenges?",
+    question: 'Can I track my progress with these challenges?',
     answer:
-      "Yes, TechBlitz provides detailed analytics and progress reports to help you track your performance and identify areas for improvement.",
+      'Yes, TechBlitz provides detailed analytics and progress reports to help you track your performance and identify areas for improvement.',
   },
-];
+]
 
 const items = [
   {
@@ -68,9 +68,9 @@ const items = [
         </g>
       </svg>
     ),
-    title: "Personalized Coding Challenges",
+    title: 'Personalized Coding Challenges',
     description:
-      "Master coding with challenges tailored to your skill level. Whether you’re on your phone, tablet, or computer, our platform ensures you learn at your own pace.",
+      'Master coding with challenges tailored to your skill level. Whether you’re on your phone, tablet, or computer, our platform ensures you learn at your own pace.',
   },
   {
     icon: (
@@ -86,9 +86,9 @@ const items = [
         />
       </svg>
     ),
-    title: "Daily Coding Challenges",
+    title: 'Daily Coding Challenges',
     description:
-      "Sharpen your skills with daily coding challenges designed for all levels. From JavaScript fundamentals to advanced web development, our bite-sized exercises make learning fun and effective.",
+      'Sharpen your skills with daily coding challenges designed for all levels. From JavaScript fundamentals to advanced web development, our bite-sized exercises make learning fun and effective.',
   },
   {
     icon: (
@@ -104,9 +104,9 @@ const items = [
         />
       </svg>
     ),
-    title: "Engage with a Global Community",
+    title: 'Engage with a Global Community',
     description:
-      "Join a thriving community of JavaScript developers. Share solutions, exchange ideas, and grow together with peers from around the world.",
+      'Join a thriving community of JavaScript developers. Share solutions, exchange ideas, and grow together with peers from around the world.',
   },
   {
     icon: (
@@ -122,9 +122,9 @@ const items = [
         />
       </svg>
     ),
-    title: "Instant Feedback & Solutions",
+    title: 'Instant Feedback & Solutions',
     description:
-      "Get real-time feedback on your code. Learn from detailed explanations and improve your JavaScript skills faster with actionable insights.",
+      'Get real-time feedback on your code. Learn from detailed explanations and improve your JavaScript skills faster with actionable insights.',
   },
   {
     icon: (
@@ -147,88 +147,88 @@ const items = [
         </g>
       </svg>
     ),
-    title: "Track Your Progress",
+    title: 'Track Your Progress',
     description:
-      "Visualize your coding journey with advanced analytics. Monitor your performance, identify strengths, and target areas for improvement with detailed progress reports.",
+      'Visualize your coding journey with advanced analytics. Monitor your performance, identify strengths, and target areas for improvement with detailed progress reports.',
   },
   {
     icon: <MobileIcon className="size-6" />,
-    title: "Learn Anywhere, Anytime",
+    title: 'Learn Anywhere, Anytime',
     description:
-      "Practice coding on the go with our mobile-friendly platform. Perfect for busy schedules, our challenges are optimized for seamless learning on any device.",
+      'Practice coding on the go with our mobile-friendly platform. Perfect for busy schedules, our challenges are optimized for seamless learning on any device.',
   },
-];
+]
 
 // Metadata
 export async function generateMetadata() {
   return createMetadata({
-    title: "Coding Challenges | Learn JavaScript & Web Development | TechBlitz",
+    title: 'Coding Challenges | Learn JavaScript & Web Development | TechBlitz',
     description:
-      "TechBlitz offers a wide range of coding challenges for beginners and professionals. Master JavaScript, web development, and programming with real-world exercises designed to enhance your coding skills.",
+      'TechBlitz offers a wide range of coding challenges for beginners and professionals. Master JavaScript, web development, and programming with real-world exercises designed to enhance your coding skills.',
     image: {
-      text: "Coding Challenges | TechBlitz",
-      bgColor: "#000",
-      textColor: "#fff",
+      text: 'Coding Challenges | TechBlitz',
+      bgColor: '#000',
+      textColor: '#fff',
     },
-    canonicalUrl: "/coding-challenges",
+    canonicalUrl: '/coding-challenges',
     keywords: [
-      "coding challenges, coding challenges for beginners, JavaScript coding challenges, web development challenges, interactive coding challenges, learn programming, coding for developers",
+      'coding challenges, coding challenges for beginners, JavaScript coding challenges, web development challenges, interactive coding challenges, learn programming, coding for developers',
     ],
-  });
+  })
 }
 
 export default function CodingChallengesPage() {
   const jsonLd: WebPageJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
     url: getBaseUrl(),
-    headline: "Coding Challenges | TechBlitz",
+    headline: 'Coding Challenges | TechBlitz',
     description:
-      "TechBlitz offers a wide range of coding challenges for beginners and professionals. Master JavaScript, web development, and programming with real-world exercises designed to enhance your coding skills.",
+      'TechBlitz offers a wide range of coding challenges for beginners and professionals. Master JavaScript, web development, and programming with real-world exercises designed to enhance your coding skills.',
     image:
-      "https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531",
+      'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
     breadcrumb: {
-      "@type": "BreadcrumbList",
+      '@type': 'BreadcrumbList',
       itemListElement: [
         {
-          "@type": "ListItem",
+          '@type': 'ListItem',
           position: 1,
-          name: "Home",
+          name: 'Home',
           item: getBaseUrl(),
         },
         {
-          "@type": "ListItem",
+          '@type': 'ListItem',
           position: 2,
-          name: "Coding Challenges",
+          name: 'Coding Challenges',
           item: `${getBaseUrl()}/coding-challenges`,
         },
       ],
     },
     author: {
-      "@type": "Organization",
-      name: "TechBlitz",
+      '@type': 'Organization',
+      name: 'TechBlitz',
       url: getBaseUrl(),
     },
     dateModified: new Date().toISOString(),
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": getBaseUrl(),
+      '@type': 'WebPage',
+      '@id': getBaseUrl(),
     },
     publisher: {
-      "@type": "Organization",
-      name: "TechBlitz",
+      '@type': 'Organization',
+      name: 'TechBlitz',
       logo: {
-        "@type": "ImageObject",
-        url: "https://techblitz.dev/favicon.ico",
+        '@type': 'ImageObject',
+        url: 'https://techblitz.dev/favicon.ico',
       },
     },
     potentialAction: {
-      "@type": "SearchAction",
+      '@type': 'SearchAction',
       target: `${getBaseUrl()}/search?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
+      'query-input': 'required name=search_term_string',
     },
-  };
+  }
 
   return (
     <>
@@ -274,5 +274,5 @@ export default function CodingChallengesPage() {
         />
       </div>
     </>
-  );
+  )
 }

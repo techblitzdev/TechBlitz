@@ -1,22 +1,22 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-import { TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BookIcon, BookOpen, FileIcon, FileText } from "lucide-react";
-import QuestionHintTrigger from "@/components/app/questions/question-hint-trigger";
-import BookmarkQuestion from "@/components/app/questions/single/bookmark";
-import Chip from "@/components/ui/chip";
-import { getQuestionDifficultyColor, capitalise } from "@/utils";
-import { useRoadmapQuestion } from "./roadmap-question-context";
-import RoadmapAnswerQuestionForm from "@/components/app/roadmaps/questions/roadmap-answer-form";
-import QuestionResourceTab from "@/components/app/questions/resources/question-resource-tab";
+import { TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { BookIcon, BookOpen, FileIcon, FileText } from 'lucide-react'
+import QuestionHintTrigger from '@/components/app/questions/question-hint-trigger'
+import BookmarkQuestion from '@/components/app/questions/single/bookmark'
+import Chip from '@/components/ui/chip'
+import { getQuestionDifficultyColor, capitalise } from '@/utils'
+import { useRoadmapQuestion } from './roadmap-question-context'
+import RoadmapAnswerQuestionForm from '@/components/app/roadmaps/questions/roadmap-answer-form'
+import QuestionResourceTab from '@/components/app/questions/resources/question-resource-tab'
 
 export default function RoadmapQuestionTabs() {
   const { roadmapQuestion, roadmapUid, user, showHint, setShowHint } =
-    useRoadmapQuestion();
+    useRoadmapQuestion()
 
   const [activeTab, setActiveTab] = useState<
-    "description" | "resources" | "stats"
-  >("description");
+    'description' | 'resources' | 'stats'
+  >('description')
 
   const renderAnswerForm = () => (
     <RoadmapAnswerQuestionForm
@@ -24,18 +24,18 @@ export default function RoadmapQuestionTabs() {
       userData={user}
       roadmapUid={roadmapUid}
     />
-  );
+  )
 
   return (
     <>
       <TabsList className="p-4 grid lg:hidden h-auto w-full place-items-center grid-cols-3 gap-5 text-white rounded-lg bg-transparent">
         <TabsTrigger
           value="description"
-          onClick={() => setActiveTab("description")}
+          onClick={() => setActiveTab('description')}
           className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline border-0 w-fit px-0"
         >
           <div className="mr-2 hidden md:block">
-            {activeTab === "description" ? (
+            {activeTab === 'description' ? (
               <FileText className="size-4" />
             ) : (
               <FileIcon className="size-4" />
@@ -45,11 +45,11 @@ export default function RoadmapQuestionTabs() {
         </TabsTrigger>
         <TabsTrigger
           value="resources"
-          onClick={() => setActiveTab("resources")}
+          onClick={() => setActiveTab('resources')}
           className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline border-0 w-fit px-0"
         >
           <div className="mr-2 hidden md:block">
-            {activeTab === "resources" ? (
+            {activeTab === 'resources' ? (
               <BookOpen className="size-4" />
             ) : (
               <BookIcon className="size-4" />
@@ -103,5 +103,5 @@ export default function RoadmapQuestionTabs() {
         />
       </TabsContent>
     </>
-  );
+  )
 }

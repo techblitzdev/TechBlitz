@@ -1,11 +1,11 @@
-"use server";
-import { stripe } from "@/lib/stripe";
+'use server'
+import { stripe } from '@/lib/stripe'
 
 export const upgradeUserSubscription = async (opts: {
-  currentSubscriptionId: string;
-  newPriceId: string;
+  currentSubscriptionId: string
+  newPriceId: string
 }) => {
-  const { currentSubscriptionId, newPriceId } = opts;
+  const { currentSubscriptionId, newPriceId } = opts
 
   await stripe.subscriptions.update(currentSubscriptionId, {
     items: [
@@ -17,5 +17,5 @@ export const upgradeUserSubscription = async (opts: {
         price: newPriceId,
       },
     ],
-  });
-};
+  })
+}

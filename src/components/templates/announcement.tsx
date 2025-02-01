@@ -8,11 +8,11 @@ import {
   Preview,
   Section,
   Text,
-} from "@react-email/components";
-import * as React from "react";
+} from '@react-email/components'
+import * as React from 'react'
 
 interface WaitlistAnnouncementEmailProps {
-  email: string;
+  email: string
 }
 
 const WaitlistAnnouncementEmail = ({
@@ -124,111 +124,111 @@ const WaitlistAnnouncementEmail = ({
         </Container>
       </Body>
     </Html>
-  );
-};
+  )
+}
 
-export default WaitlistAnnouncementEmail;
+export default WaitlistAnnouncementEmail
 
 const main = {
-  backgroundColor: "#000000",
-  color: "#FFFFFF",
+  backgroundColor: '#000000',
+  color: '#FFFFFF',
   fontFamily: "'Onest', Verdana, sans-serif",
-};
+}
 
 const container = {
-  margin: "0 auto",
-  padding: "40px 20px 48px",
-  width: "100%",
-  maxWidth: "600px",
-  textAlign: "center" as const,
-};
+  margin: '0 auto',
+  padding: '40px 20px 48px',
+  width: '100%',
+  maxWidth: '600px',
+  textAlign: 'center' as const,
+}
 
 const logoContainer = {
-  marginTop: "32px",
-  marginBottom: "32px",
-};
+  marginTop: '32px',
+  marginBottom: '32px',
+}
 
 const logo = {
-  margin: "0 auto",
-};
+  margin: '0 auto',
+}
 
 const h1 = {
-  color: "#FFFFFF",
-  fontSize: "32px",
-  fontWeight: "700",
-  lineHeight: "40px",
-  margin: "0 0 20px",
-  textAlign: "center" as const,
-};
+  color: '#FFFFFF',
+  fontSize: '32px',
+  fontWeight: '700',
+  lineHeight: '40px',
+  margin: '0 0 20px',
+  textAlign: 'center' as const,
+}
 
 const text = {
-  color: "#FFFFFF",
-  fontSize: "16px",
-  lineHeight: "24px",
-  textAlign: "center" as const,
-  margin: "0 0 20px",
-};
+  color: '#FFFFFF',
+  fontSize: '16px',
+  lineHeight: '24px',
+  textAlign: 'center' as const,
+  margin: '0 0 20px',
+}
 
 const couponContainer = {
-  margin: "32px 0",
-  padding: "16px",
-  border: "2px dashed #5A5FCD",
-  borderRadius: "8px",
-};
+  margin: '32px 0',
+  padding: '16px',
+  border: '2px dashed #5A5FCD',
+  borderRadius: '8px',
+}
 
 const couponCode = {
-  color: "#5A5FCD",
-  fontSize: "24px",
-  fontWeight: "700",
-  margin: "0 0 8px",
-};
+  color: '#5A5FCD',
+  fontSize: '24px',
+  fontWeight: '700',
+  margin: '0 0 8px',
+}
 
 const couponText = {
-  color: "#FFFFFF",
-  fontSize: "14px",
-  margin: "0",
-};
+  color: '#FFFFFF',
+  fontSize: '14px',
+  margin: '0',
+}
 
 const buttonContainer = {
-  margin: "32px 0",
-};
+  margin: '32px 0',
+}
 
 const button = {
-  backgroundColor: "#5A5FCD",
-  borderRadius: "6px",
-  color: "#FFFFFF",
-  fontSize: "16px",
-  fontWeight: "600",
-  textDecoration: "none",
-  textAlign: "center" as const,
-  padding: "12px 32px",
-};
+  backgroundColor: '#5A5FCD',
+  borderRadius: '6px',
+  color: '#FFFFFF',
+  fontSize: '16px',
+  fontWeight: '600',
+  textDecoration: 'none',
+  textAlign: 'center' as const,
+  padding: '12px 32px',
+}
 
 const listContainer = {
-  margin: "0 0 32px",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  gap: "24px",
-};
+  margin: '0 0 32px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '24px',
+}
 
 const listItem = {
-  color: "#FFFFFF",
-  fontSize: "16px",
-  lineHeight: "24px",
-  display: "inline-flex",
-  alignItems: "center",
-  marginBottom: "8px",
-};
+  color: '#FFFFFF',
+  fontSize: '16px',
+  lineHeight: '24px',
+  display: 'inline-flex',
+  alignItems: 'center',
+  marginBottom: '8px',
+}
 
 const footer = {
-  marginTop: "32px",
-  textAlign: "center" as const,
-};
+  marginTop: '32px',
+  textAlign: 'center' as const,
+}
 
 const footerText = {
-  color: "#CCCCCC",
-  fontSize: "12px",
-  lineHeight: "16px",
-  margin: "4px 0",
-};
+  color: '#CCCCCC',
+  fontSize: '12px',
+  lineHeight: '16px',
+  margin: '4px 0',
+}

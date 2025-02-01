@@ -1,12 +1,12 @@
-"use client";
-import { motion, AnimatePresence, useInView } from "framer-motion";
-import { useRef } from "react";
+'use client'
+import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { useRef } from 'react'
 
 export default function HomepageLargeText() {
   const text =
-    "Boost your coding skills with free, beginner-friendly coding challenges that fit into your busy schedule.";
+    'Boost your coding skills with free, beginner-friendly coding challenges that fit into your busy schedule.'
   // Split the text into an array of words
-  const words = text.split(" ");
+  const words = text.split(' ')
 
   return (
     <section className="pt-32 pb-24 lg:pb-36">
@@ -18,12 +18,12 @@ export default function HomepageLargeText() {
         </AnimatePresence>
       </h2>
     </section>
-  );
+  )
 }
 
 function Word({ word, index }: { word: string; index: number }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true })
 
   return (
     <motion.span
@@ -32,7 +32,7 @@ function Word({ word, index }: { word: string; index: number }) {
       animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{
-        type: "spring",
+        type: 'spring',
         stiffness: 100,
         damping: 15,
         delay: index * 0.2,
@@ -41,5 +41,5 @@ function Word({ word, index }: { word: string; index: number }) {
     >
       {word}
     </motion.span>
-  );
+  )
 }

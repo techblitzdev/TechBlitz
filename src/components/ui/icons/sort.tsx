@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+import { SVGProps } from 'react'
 
 export default function SortIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -18,5 +18,5 @@ export default function SortIcon(props: SVGProps<SVGSVGElement>) {
         d="M4 6h16m-10 6h10m-4 6h4"
       ></path>
     </svg>
-  );
+  )
 }

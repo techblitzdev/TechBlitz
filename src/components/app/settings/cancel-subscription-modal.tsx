@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import {
   Dialog,
   DialogContent,
@@ -6,15 +6,15 @@ import {
   DialogDescription,
   DialogTrigger,
   DialogFooter,
-} from "@/components/ui/dialog";
-import CancelSubscriptionButton from "./cancel-subscription-button";
-import { UserWithOutAnswers } from "@/types/User";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/dialog'
+import CancelSubscriptionButton from './cancel-subscription-button'
+import { UserWithOutAnswers } from '@/types/User'
+import { Button } from '@/components/ui/button'
 
 export default function CancelSubscriptionModal(opts: {
-  user: UserWithOutAnswers;
+  user: UserWithOutAnswers
 }) {
-  const { user } = opts;
+  const { user } = opts
 
   return (
     <Dialog>
@@ -40,5 +40,5 @@ export default function CancelSubscriptionModal(opts: {
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

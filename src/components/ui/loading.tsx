@@ -47,5 +47,5 @@ export default function LoadingSpinner() {
         </path>
       </g>
     </svg>
-  );
+  )
 }

@@ -3,13 +3,13 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
-import type { Answer } from "@/types/Answers";
-import { XIcon } from "lucide-react";
-import { CheckIcon } from "lucide-react";
+} from '@/components/ui/tooltip'
+import type { Answer } from '@/types/Answers'
+import { XIcon } from 'lucide-react'
+import { CheckIcon } from 'lucide-react'
 
 export default function HasAnswered(opts: { userAnswered: Answer | null }) {
-  const { userAnswered } = opts;
+  const { userAnswered } = opts
 
   return (
     <p>
@@ -25,7 +25,7 @@ export default function HasAnswered(opts: { userAnswered: Answer | null }) {
               </TooltipTrigger>
               <TooltipContent>
                 <p>
-                  You answered this question correctly on the{" "}
+                  You answered this question correctly on the{' '}
                   {userAnswered.createdAt.toLocaleDateString()}
                 </p>
               </TooltipContent>
@@ -42,7 +42,7 @@ export default function HasAnswered(opts: { userAnswered: Answer | null }) {
               </TooltipTrigger>
               <TooltipContent>
                 <p>
-                  You have attempted this question, but it was incorrect on{" "}
+                  You have attempted this question, but it was incorrect on{' '}
                   {userAnswered.createdAt.toLocaleDateString()}
                 </p>
               </TooltipContent>
@@ -50,8 +50,8 @@ export default function HasAnswered(opts: { userAnswered: Answer | null }) {
           </TooltipProvider>
         )
       ) : (
-        ""
+        ''
       )}
     </p>
-  );
+  )
 }

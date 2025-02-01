@@ -1,20 +1,20 @@
-import { getSuggestions } from "@/utils/data/questions/get-suggestions";
-import Link from "next/link";
-import { ArrowRight, CheckCircle, BookOpen } from "lucide-react";
-import { getUserStudyPaths } from "@/utils/data/study-paths/get";
-import { Progress } from "@/components/ui/progress";
+import { getSuggestions } from '@/utils/data/questions/get-suggestions'
+import Link from 'next/link'
+import { ArrowRight, CheckCircle, BookOpen } from 'lucide-react'
+import { getUserStudyPaths } from '@/utils/data/study-paths/get'
+import { Progress } from '@/components/ui/progress'
 
 export default async function ContinueJourneyCard() {
   const suggestions = await getSuggestions({
     limit: 1,
-  });
+  })
 
-  const studyPaths = await getUserStudyPaths();
+  const studyPaths = await getUserStudyPaths()
 
-  const suggestion = suggestions?.[0];
+  const suggestion = suggestions?.[0]
 
   // no need to render anything if there is no suggestion
-  if (!suggestion) return null;
+  if (!suggestion) return null
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
@@ -23,7 +23,7 @@ export default async function ContinueJourneyCard() {
         className="group flex flex-col justify-between h-full overflow-hidden p-4 transition-all rounded-xl border border-black-50"
         style={{
           background:
-            "radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)",
+            'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
         }}
       >
         <div className="flex flex-col justify-between size-full gap-y-2">
@@ -47,11 +47,11 @@ export default async function ContinueJourneyCard() {
         href={
           studyPaths?.[0]
             ? `/study-paths/${studyPaths[0].studyPath.slug}`
-            : "/study-paths"
+            : '/study-paths'
         }
         style={{
           background:
-            "radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)",
+            'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
         }}
         className="group flex flex-col justify-between h-full overflow-hidden p-4 transition-all rounded-xl border border-black-50"
       >
@@ -59,7 +59,7 @@ export default async function ContinueJourneyCard() {
           {studyPaths?.[0] ? (
             <>
               <p className="text-sm font-medium text-gray-400 group-hover:text-white duration-300 font-onest">
-                Continue your study path:{" "}
+                Continue your study path:{' '}
                 <span className="text-white font-semibold">
                   {studyPaths[0].studyPath.title}
                 </span>
@@ -102,5 +102,5 @@ export default async function ContinueJourneyCard() {
         </div>
       </Link>
     </div>
-  );
+  )
 }

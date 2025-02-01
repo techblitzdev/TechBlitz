@@ -1,4 +1,4 @@
-import { CopyIcon } from "lucide-react";
+import { CopyIcon } from 'lucide-react'
 
 export default function CopyCode() {
   return (
@@ -8,5 +8,5 @@ export default function CopyCode() {
     >
       <CopyIcon size={16} className="text-white" />
     </div>
-  );
+  )
 }

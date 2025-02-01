@@ -1,46 +1,46 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form";
-import { InputWithLabel } from "@/components/ui/input-label";
-import { toast } from "sonner";
-import type { z } from "zod";
-import { signupSchema } from "@/lib/zod/schemas/signup";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { signUp } from "@/actions/user/account/signup";
-import { useRouter, useSearchParams } from "next/navigation";
-import GithubLogo from "../ui/icons/github";
-import { DiscordLogoIcon } from "@radix-ui/react-icons";
-import OrSeparator from "./or-separator";
-import { oauth } from "@/actions/user/account/oauth";
+} from '@/components/ui/form'
+import { InputWithLabel } from '@/components/ui/input-label'
+import { toast } from 'sonner'
+import type { z } from 'zod'
+import { signupSchema } from '@/lib/zod/schemas/signup'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
+import { signUp } from '@/actions/user/account/signup'
+import { useRouter, useSearchParams } from 'next/navigation'
+import GithubLogo from '../ui/icons/github'
+import { DiscordLogoIcon } from '@radix-ui/react-icons'
+import OrSeparator from './or-separator'
+import { oauth } from '@/actions/user/account/oauth'
 
-type SchemaProps = z.infer<typeof signupSchema>;
+type SchemaProps = z.infer<typeof signupSchema>
 
 export default function SignupForm(opts: { prefilledEmail?: string }) {
-  const { prefilledEmail } = opts;
-  const [showEmailForm, setShowEmailForm] = useState(false);
+  const { prefilledEmail } = opts
+  const [showEmailForm, setShowEmailForm] = useState(false)
 
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const ref = searchParams.get("ref");
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const ref = searchParams.get('ref')
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
-      email: prefilledEmail || "",
-      password: "",
+      email: prefilledEmail || '',
+      password: '',
       referralCode: ref || undefined,
     },
-  });
+  })
 
   const { mutateAsync: handleSignUp, isPending } = useMutation({
     mutationFn: async (values: SchemaProps) => {
@@ -48,23 +48,23 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
         values.email,
         values.password,
         ref || undefined,
-      );
+      )
       if (result.error) {
-        throw new Error(result.error);
+        throw new Error(result.error)
       }
-      return result;
+      return result
     },
     onSuccess: () => {
       toast.success(
-        "Signup successful! Please check your email to verify your account.",
-      );
-      localStorage.setItem("onboarding", "true");
-      router.push("/verify-email");
+        'Signup successful! Please check your email to verify your account.',
+      )
+      localStorage.setItem('onboarding', 'true')
+      router.push('/verify-email')
     },
     onError: (error: Error) => {
-      toast.error(error.message);
+      toast.error(error.message)
     },
-  });
+  })
 
   return (
     <div className="w-full mx-auto mt-8 space-y-6">
@@ -109,8 +109,8 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
           </form> */}
           <form
             onSubmit={async (event) => {
-              event.preventDefault();
-              await oauth("github", true);
+              event.preventDefault()
+              await oauth('github', true)
             }}
           >
             <Button
@@ -124,8 +124,8 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
           </form>
           <form
             onSubmit={async (event) => {
-              event.preventDefault();
-              await oauth("discord", true);
+              event.preventDefault()
+              await oauth('discord', true)
             }}
           >
             <Button
@@ -186,7 +186,7 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
               className="w-full"
               variant="secondary"
             >
-              {isPending ? "Loading..." : "Sign Up"}
+              {isPending ? 'Loading...' : 'Sign Up'}
             </Button>
           </form>
         </Form>
@@ -199,8 +199,8 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
         className="w-full"
         variant="default"
       >
-        {showEmailForm ? "Continue with GitHub/Discord" : "Continue with Email"}
+        {showEmailForm ? 'Continue with GitHub/Discord' : 'Continue with Email'}
       </Button>
     </div>
-  );
+  )
 }

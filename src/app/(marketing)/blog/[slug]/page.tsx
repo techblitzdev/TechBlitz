@@ -1,42 +1,42 @@
-import { notFound } from "next/navigation";
-import { Metadata } from "next";
-import Link from "next/link";
+import { notFound } from 'next/navigation'
+import { Metadata } from 'next'
+import Link from 'next/link'
 
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft } from 'lucide-react'
 
-import { getBlogPost, getBlogPosts } from "@/lib/blog";
-import { createMetadata } from "@/utils/seo";
-import { Button } from "@/components/ui/button";
+import { getBlogPost, getBlogPosts } from '@/lib/blog'
+import { createMetadata } from '@/utils/seo'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { QUESTIONS_COUNT } from "@/utils/constants/misc";
-import BlogCard from "@/components/marketing/resources/blog/blog-card";
-import CallToActionBlock from "@/components/marketing/global/blocks/call-to-action-block";
-import ShareThisPost from "@/components/mdx/share-this-post";
-import TableOfContents from "@/components/mdx/mdx-table-of-contents";
+} from '@/components/ui/card'
+import { QUESTIONS_COUNT } from '@/utils/constants/misc'
+import BlogCard from '@/components/marketing/resources/blog/blog-card'
+import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block'
+import ShareThisPost from '@/components/mdx/share-this-post'
+import TableOfContents from '@/components/mdx/mdx-table-of-contents'
 
 interface BlogPostParams {
   params: {
-    slug: string;
-  };
+    slug: string
+  }
 }
 
 interface BlogFrontmatter {
-  title: string;
-  description: string;
-  date: string;
-  author: string;
-  readingTime: number;
-  authorImage: string;
+  title: string
+  description: string
+  date: string
+  author: string
+  readingTime: number
+  authorImage: string
   headings: {
-    title: string;
-    level: number;
-  }[];
+    title: string
+    level: number
+  }[]
 }
 
 // generate metadata for the blog post
@@ -44,43 +44,43 @@ export async function generateMetadata({
   params,
 }: BlogPostParams): Promise<Metadata> {
   try {
-    const { frontmatter } = await getBlogPost(params.slug);
-    const typedFrontmatter = frontmatter as unknown as BlogFrontmatter;
+    const { frontmatter } = await getBlogPost(params.slug)
+    const typedFrontmatter = frontmatter as unknown as BlogFrontmatter
 
     // generate the metadata for the blog post
     return createMetadata({
       title: `${typedFrontmatter.title} | TechBlitz Blog`,
       description: typedFrontmatter.description,
-      keywords: ["blog", "article", typedFrontmatter.title.toLowerCase()],
+      keywords: ['blog', 'article', typedFrontmatter.title.toLowerCase()],
       image: {
         text: typedFrontmatter.title,
-        bgColor: "#000",
-        textColor: "#fff",
+        bgColor: '#000',
+        textColor: '#fff',
       },
       canonicalUrl: `/blog/${params.slug}`,
-    });
+    })
   } catch {
     return {
-      title: "Blog Post Not Found",
-    };
+      title: 'Blog Post Not Found',
+    }
   }
 }
 
 // generate static params for all blog posts
 export async function generateStaticParams() {
-  const posts = await getBlogPosts();
+  const posts = await getBlogPosts()
   return posts.map((post) => ({
     slug: post.slug,
-  }));
+  }))
 }
 
 export default async function BlogPost({ params }: BlogPostParams) {
   try {
-    const { content, frontmatter } = await getBlogPost(params.slug);
+    const { content, frontmatter } = await getBlogPost(params.slug)
     // get three most recent blog posts
-    const posts = await (await getBlogPosts()).slice(0, 3);
+    const posts = await (await getBlogPosts()).slice(0, 3)
     // typeFrontmatter is the metadata for this blog post
-    const typedFrontmatter = frontmatter as unknown as BlogFrontmatter;
+    const typedFrontmatter = frontmatter as unknown as BlogFrontmatter
 
     return (
       <div className="container flex flex-col md:flex-row gap-10 max-w-7xl mx-auto pt-32 pb-20">
@@ -102,10 +102,10 @@ export default async function BlogPost({ params }: BlogPostParams) {
             </h6>
             <div className="flex items-center gap-x-4 text-gray-400 text-sm">
               <time dateTime={typedFrontmatter.date}>
-                {new Date(typedFrontmatter.date).toLocaleDateString("en-US", {
-                  month: "long",
-                  day: "numeric",
-                  year: "numeric",
+                {new Date(typedFrontmatter.date).toLocaleDateString('en-US', {
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric',
                 })}
               </time>
               <span>•</span>
@@ -135,8 +135,8 @@ export default async function BlogPost({ params }: BlogPostParams) {
                 title="Learn to code, faster"
                 description="Join developers who are accelerating their careers with TechBlitz"
                 leftCta={{
-                  title: "Begin Your Journey",
-                  href: "/signup",
+                  title: 'Begin Your Journey',
+                  href: '/signup',
                 }}
               />
             </div>
@@ -186,8 +186,8 @@ export default async function BlogPost({ params }: BlogPostParams) {
           </div>
         </aside>
       </div>
-    );
+    )
   } catch (error) {
-    notFound();
+    notFound()
   }
 }

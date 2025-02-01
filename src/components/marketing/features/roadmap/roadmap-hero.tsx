@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { ArrowDown, ChevronRight } from "lucide-react";
-import GridPattern from "@/components/ui/grid-pattern";
-import { cn } from "@/lib/utils";
+import { Button } from '@/components/ui/button'
+import { ArrowDown, ChevronRight } from 'lucide-react'
+import GridPattern from '@/components/ui/grid-pattern'
+import { cn } from '@/lib/utils'
 
 export default function FeatureRoadmapHeroBlock() {
   return (
@@ -36,12 +36,12 @@ export default function FeatureRoadmapHeroBlock() {
         height={50}
         x={-1}
         y={-1}
-        strokeDasharray={"4 2"}
+        strokeDasharray={'4 2'}
         className={cn(
-          "absolute inset-0 pt-44 [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]",
+          'absolute inset-0 pt-44 [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]',
         )}
       />
       <div className="z-10 absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
     </section>
-  );
+  )
 }

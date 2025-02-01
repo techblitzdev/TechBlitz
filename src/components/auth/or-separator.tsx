@@ -1,4 +1,4 @@
-import { Separator } from "@/components/ui/separator";
+import { Separator } from '@/components/ui/separator'
 
 export default function OrSeparator() {
   return (
@@ -8,5 +8,5 @@ export default function OrSeparator() {
         OR
       </span>
     </div>
-  );
+  )
 }

@@ -1,14 +1,14 @@
-"use client";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { useMutation } from "@tanstack/react-query";
-import { useUser } from "@/hooks/use-user";
-import { updateUserAuth } from "@/actions/user/authed/update-user-auth";
-import { updateUserSchema } from "@/lib/zod/schemas/update-user";
+'use client'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+import { useMutation } from '@tanstack/react-query'
+import { useUser } from '@/hooks/use-user'
+import { updateUserAuth } from '@/actions/user/authed/update-user-auth'
+import { updateUserSchema } from '@/lib/zod/schemas/update-user'
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -16,49 +16,49 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form";
-import { toast } from "sonner";
-import LoadingSpinner from "@/components/ui/loading";
-import DeleteAccountModal from "@/components/app/settings/delete-account-modal";
-import { Separator } from "@/components/ui/separator";
-import { InputWithLabel } from "@/components/ui/input-label";
+} from '@/components/ui/form'
+import { toast } from 'sonner'
+import LoadingSpinner from '@/components/ui/loading'
+import DeleteAccountModal from '@/components/app/settings/delete-account-modal'
+import { Separator } from '@/components/ui/separator'
+import { InputWithLabel } from '@/components/ui/input-label'
 
-type SchemaProps = z.infer<typeof updateUserSchema>;
+type SchemaProps = z.infer<typeof updateUserSchema>
 
 export default function SettingsProfilePage() {
-  const { user, isLoading } = useUser();
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const { user, isLoading } = useUser()
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
   const { mutateAsync: server_updateUserAuth, isPending } = useMutation({
     mutationFn: (values: SchemaProps) => updateUserAuth(values),
     onSuccess: () => {
       toast.success(
-        "Account updated successfully, please check your email for further instructions.",
-      );
+        'Account updated successfully, please check your email for further instructions.',
+      )
     },
     onError: (error) => {
-      toast.error(`Failed to update user auth: ${error}`);
+      toast.error(`Failed to update user auth: ${error}`)
     },
-  });
+  })
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(updateUserSchema),
     defaultValues: {
-      email: user?.email || "",
-      password: "",
+      email: user?.email || '',
+      password: '',
     },
-  });
+  })
 
   const onSubmit = async (values: SchemaProps) => {
     try {
-      await server_updateUserAuth(values);
+      await server_updateUserAuth(values)
     } catch (error) {
-      console.error("Failed to update user auth:", error);
+      console.error('Failed to update user auth:', error)
     }
-  };
+  }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   return (
@@ -83,9 +83,9 @@ export default function SettingsProfilePage() {
                     label="Email Address"
                     type="email"
                     autoComplete="email"
-                    placeholder={user?.email || "Email Address"}
+                    placeholder={user?.email || 'Email Address'}
                     {...field}
-                    value={field.value || ""}
+                    value={field.value || ''}
                   />
                 </FormControl>
                 <FormMessage />
@@ -104,7 +104,7 @@ export default function SettingsProfilePage() {
                     autoComplete="password"
                     placeholder="********"
                     {...field}
-                    value={field.value || ""}
+                    value={field.value || ''}
                   />
                 </FormControl>
                 <FormDescription>
@@ -116,7 +116,7 @@ export default function SettingsProfilePage() {
           />
           <div className="flex flex-wrap gap-4">
             <Button type="submit">
-              {isPending ? <LoadingSpinner /> : "Save changes"}
+              {isPending ? <LoadingSpinner /> : 'Save changes'}
             </Button>
             <Button
               variant="destructive"
@@ -133,5 +133,5 @@ export default function SettingsProfilePage() {
         </form>
       </Form>
     </div>
-  );
+  )
 }

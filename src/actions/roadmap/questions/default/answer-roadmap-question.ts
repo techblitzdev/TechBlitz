@@ -1,18 +1,18 @@
-"use server";
-import { getUser } from "@/actions/user/authed/get-user";
-import { prisma } from "@/lib/prisma";
+'use server'
+import { getUser } from '@/actions/user/authed/get-user'
+import { prisma } from '@/lib/prisma'
 
 export const answerDefaultRoadmapQuestion = async (opts: {
-  questionUid: string;
-  answerUid: string;
-  roadmapUid: string;
-  currentQuestionIndex: number;
+  questionUid: string
+  answerUid: string
+  roadmapUid: string
+  currentQuestionIndex: number
 }) => {
-  const { questionUid, answerUid, roadmapUid, currentQuestionIndex } = opts;
+  const { questionUid, answerUid, roadmapUid, currentQuestionIndex } = opts
 
-  const user = await getUser();
+  const user = await getUser()
   if (!user) {
-    throw new Error("User not found");
+    throw new Error('User not found')
   }
 
   const question = await prisma.defaultRoadmapQuestions.findUnique({
@@ -20,13 +20,13 @@ export const answerDefaultRoadmapQuestion = async (opts: {
     include: {
       answers: true,
     },
-  });
+  })
 
   if (!question) {
-    throw new Error("Question not found");
+    throw new Error('Question not found')
   }
 
-  const correctAnswer = question.correctAnswer === answerUid;
+  const correctAnswer = question.correctAnswer === answerUid
 
   const { userAnswer, totalQuestions } = await prisma.$transaction(
     async (prisma) => {
@@ -37,9 +37,9 @@ export const answerDefaultRoadmapQuestion = async (opts: {
             questionUid,
             roadmapUid,
           },
-        });
+        })
 
-      let userAnswer;
+      let userAnswer
 
       if (existingAnswer) {
         // If the answer already exists, update it instead of creating a new one
@@ -49,7 +49,7 @@ export const answerDefaultRoadmapQuestion = async (opts: {
             answer: answerUid,
             correct: correctAnswer,
           },
-        });
+        })
       } else {
         // Create a new answer record
         userAnswer = await prisma.defaultRoadmapQuestionsUsersAnswers.create({
@@ -59,11 +59,11 @@ export const answerDefaultRoadmapQuestion = async (opts: {
             roadmapUid: roadmapUid,
             answer: answerUid,
           },
-        });
+        })
       }
 
       // If this is the last question, mark the roadmap as completed
-      const totalQuestions = await prisma.defaultRoadmapQuestions.count();
+      const totalQuestions = await prisma.defaultRoadmapQuestions.count()
 
       // Update the user's roadmap progress
       await prisma.userRoadmaps.update({
@@ -81,19 +81,19 @@ export const answerDefaultRoadmapQuestion = async (opts: {
               : currentQuestionIndex + 1,
           // If this is the last question, mark the roadmap as completed
           status:
-            currentQuestionIndex === totalQuestions ? "ACTIVE" : "CREATING",
+            currentQuestionIndex === totalQuestions ? 'ACTIVE' : 'CREATING',
         },
-      });
+      })
 
-      return { userAnswer, totalQuestions };
+      return { userAnswer, totalQuestions }
     },
-  );
+  )
 
-  const isLastQuestion = currentQuestionIndex === totalQuestions;
+  const isLastQuestion = currentQuestionIndex === totalQuestions
 
   // Find the answer text from the question's answers
   const answerText =
-    question.answers.find((a) => a.uid === answerUid)?.answer || "";
+    question.answers.find((a) => a.uid === answerUid)?.answer || ''
 
   return {
     correctAnswer,
@@ -105,5 +105,5 @@ export const answerDefaultRoadmapQuestion = async (opts: {
     isLastQuestion,
     userAnswerContent: answerText,
     nextQuestion: currentQuestionIndex + 1,
-  };
-};
+  }
+}

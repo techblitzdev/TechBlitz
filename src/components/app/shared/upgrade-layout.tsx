@@ -1,4 +1,4 @@
-import { CheckCircle } from "lucide-react";
+import { CheckCircle } from 'lucide-react'
 import {
   Card,
   CardContent,
@@ -6,12 +6,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 
 export default function UpgradeLayout(opts: {
-  title: string;
-  description: string;
+  title: string
+  description: string
 }) {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
@@ -83,5 +83,5 @@ export default function UpgradeLayout(opts: {
         </Card>
       </div>
     </div>
-  );
+  )
 }

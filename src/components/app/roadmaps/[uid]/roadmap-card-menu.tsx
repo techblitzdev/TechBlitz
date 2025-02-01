@@ -1,30 +1,30 @@
-"use client";
+'use client'
 
-import { deleteRoadmap } from "@/actions/roadmap/delete-roadmap";
-import { Button } from "@/components/ui/button";
+import { deleteRoadmap } from '@/actions/roadmap/delete-roadmap'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { MoreHorizontal, Trash2 } from "lucide-react";
+} from '@/components/ui/dropdown-menu'
+import { MoreHorizontal, Trash2 } from 'lucide-react'
 
 export default function RoadmapCardMenu(opts: {
-  roadmapUid: string;
-  onDeleteStart: () => void;
-  onDeleteEnd: () => void;
+  roadmapUid: string
+  onDeleteStart: () => void
+  onDeleteEnd: () => void
 }) {
-  const { roadmapUid, onDeleteStart, onDeleteEnd } = opts;
+  const { roadmapUid, onDeleteStart, onDeleteEnd } = opts
 
   const userDeleteRoadmap = async () => {
-    onDeleteStart();
+    onDeleteStart()
     try {
-      await deleteRoadmap(roadmapUid);
+      await deleteRoadmap(roadmapUid)
     } finally {
-      onDeleteEnd();
+      onDeleteEnd()
     }
-  };
+  }
 
   return (
     <DropdownMenu>
@@ -53,5 +53,5 @@ export default function RoadmapCardMenu(opts: {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  )
 }

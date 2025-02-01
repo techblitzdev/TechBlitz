@@ -1,12 +1,12 @@
-import { InterFont, SatoshiFont, UbuntuFont } from "../styles/fonts/font";
-import "../globals.css";
-import { ReactQueryClientProvider } from "@/components/shared/react-query-client-provider";
-import { Toaster } from "@/components/ui/sonner";
+import { InterFont, SatoshiFont, UbuntuFont } from '../styles/fonts/font'
+import '../globals.css'
+import { ReactQueryClientProvider } from '@/components/shared/react-query-client-provider'
+import { Toaster } from '@/components/ui/sonner'
 
 export default function Layout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <ReactQueryClientProvider>
@@ -21,5 +21,5 @@ export default function Layout({
         </body>
       </html>
     </ReactQueryClientProvider>
-  );
+  )
 }

@@ -1,37 +1,37 @@
-import Chip from "@/components/ui/chip";
-import { Button } from "@/components/ui/button";
-import TagDisplay from "@/components/app/questions/tag-display";
-import NoDailyQuestion from "@/components/shared/no-daily-question";
-import { ArrowUpRight } from "lucide-react";
+import Chip from '@/components/ui/chip'
+import { Button } from '@/components/ui/button'
+import TagDisplay from '@/components/app/questions/tag-display'
+import NoDailyQuestion from '@/components/shared/no-daily-question'
+import { ArrowUpRight } from 'lucide-react'
 
-import { getQuestionDifficultyColor, capitalise } from "@/utils";
-import { getTodaysQuestion } from "@/utils/data/questions/get-today";
-import Link from "next/link";
-import { DatePicker } from "@mantine/dates";
-import { getUserDailyStats } from "@/utils/data/user/authed/get-daily-streak";
+import { getQuestionDifficultyColor, capitalise } from '@/utils'
+import { getTodaysQuestion } from '@/utils/data/questions/get-today'
+import Link from 'next/link'
+import { DatePicker } from '@mantine/dates'
+import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak'
 
 export default async function TodaysQuestionBentoBox() {
   // get the user streak and suggestion in one go
   const [userStreak, todaysQuestion] = await Promise.all([
     getUserDailyStats(),
     getTodaysQuestion(),
-  ]);
+  ])
 
   // get the streak start date and streak end date
-  const startDate = userStreak?.streakData?.streakStart as Date;
-  const endDate = userStreak?.streakData?.streakEnd as Date;
+  const startDate = userStreak?.streakData?.streakStart as Date
+  const endDate = userStreak?.streakData?.streakEnd as Date
 
   // create an array of dates between the start and end date
-  const dateArray: [Date, Date] = [startDate, endDate];
+  const dateArray: [Date, Date] = [startDate, endDate]
 
   if (!todaysQuestion)
     return (
       <div className="p-4">
         <NoDailyQuestion variant="accent" />
       </div>
-    );
+    )
 
-  const tags = todaysQuestion?.tags || [];
+  const tags = todaysQuestion?.tags || []
 
   return (
     <Link
@@ -81,5 +81,5 @@ export default async function TodaysQuestionBentoBox() {
         </div>
       </>
     </Link>
-  );
+  )
 }

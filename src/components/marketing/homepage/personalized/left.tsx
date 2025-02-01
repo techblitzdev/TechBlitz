@@ -1,11 +1,11 @@
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic'
 
-import { Button } from "@/components/ui/button";
-import { ChevronRight } from "lucide-react";
-import { Suspense } from "react";
-const StaticAIQuestionHelp = dynamic(() => import("./ai-help-demo"), {
+import { Button } from '@/components/ui/button'
+import { ChevronRight } from 'lucide-react'
+import { Suspense } from 'react'
+const StaticAIQuestionHelp = dynamic(() => import('./ai-help-demo'), {
   ssr: false,
-});
+})
 
 export default function PersonalizedLeft() {
   return (
@@ -39,7 +39,7 @@ export default function PersonalizedLeft() {
         className="rotate-180 hidden lg:block absolute right-0 top-0 h-full w-px pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 10%, rgba(143, 143, 143, 0.67) 100%)",
+            'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 10%, rgba(143, 143, 143, 0.67) 100%)',
         }}
       ></div>
       <div
@@ -47,9 +47,9 @@ export default function PersonalizedLeft() {
         className="block lg:hidden absolute left-1/2 bottom-0 w-full h-px max-w-full -translate-x-1/2"
         style={{
           background:
-            "linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)",
+            'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)',
         }}
       ></div>
     </div>
-  );
+  )
 }

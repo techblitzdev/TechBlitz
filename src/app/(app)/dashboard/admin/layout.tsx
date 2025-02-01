@@ -1,10 +1,10 @@
-"use client";
-import { Separator } from "@/components/ui/separator";
+'use client'
+import { Separator } from '@/components/ui/separator'
 
 export default function AdminLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <div className="flex flex-col gap-y-4">
@@ -18,5 +18,5 @@ export default function AdminLayout({
         {children}
       </>
     </div>
-  );
+  )
 }

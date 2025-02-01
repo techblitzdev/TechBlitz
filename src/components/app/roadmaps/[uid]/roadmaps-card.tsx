@@ -1,64 +1,64 @@
-"use client";
+'use client'
 
-import { UserRoadmaps } from "@prisma/client";
-import Link from "next/link";
-import Chip from "@/components/ui/chip";
-import { capitalise, shortenText } from "@/utils";
-import RoadmapCardMenu from "@/components/app/roadmaps/[uid]/roadmap-card-menu";
-import { useState, useRef, useEffect } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
-import { RoadmapUserQuestions } from "@prisma/client";
-import { Progress } from "@/components/ui/progress";
+import { UserRoadmaps } from '@prisma/client'
+import Link from 'next/link'
+import Chip from '@/components/ui/chip'
+import { capitalise, shortenText } from '@/utils'
+import RoadmapCardMenu from '@/components/app/roadmaps/[uid]/roadmap-card-menu'
+import { useState, useRef, useEffect } from 'react'
+import { Skeleton } from '@/components/ui/skeleton'
+import { RoadmapUserQuestions } from '@prisma/client'
+import { Progress } from '@/components/ui/progress'
 
 // Define the extended type that includes the questions
 type RoadmapWithQuestions = UserRoadmaps & {
-  questions: RoadmapUserQuestions[];
-};
+  questions: RoadmapUserQuestions[]
+}
 
 export default function RoadmapsCard(opts: { roadmap: RoadmapWithQuestions }) {
-  const { roadmap: initialRoadmap } = opts;
+  const { roadmap: initialRoadmap } = opts
 
-  const [isLoading, setIsLoading] = useState(false);
-  const roadmapRef = useRef(initialRoadmap);
+  const [isLoading, setIsLoading] = useState(false)
+  const roadmapRef = useRef(initialRoadmap)
 
   useEffect(() => {
     if (!isLoading) {
-      roadmapRef.current = initialRoadmap;
+      roadmapRef.current = initialRoadmap
     }
-  }, [initialRoadmap, isLoading]);
+  }, [initialRoadmap, isLoading])
 
   const handleDeleteStart = () => {
-    setIsLoading(true);
-  };
+    setIsLoading(true)
+  }
 
   const handleDeleteEnd = () => {
-    setIsLoading(false);
-  };
+    setIsLoading(false)
+  }
 
   const href =
-    roadmapRef.current.status === "ACTIVE" ||
-    roadmapRef.current.status === "COMPLETED"
+    roadmapRef.current.status === 'ACTIVE' ||
+    roadmapRef.current.status === 'COMPLETED'
       ? `/roadmap/${roadmapRef.current.uid}`
-      : `/roadmap/${roadmapRef.current.uid}/onboarding/${roadmapRef.current.currentQuestionIndex}`;
+      : `/roadmap/${roadmapRef.current.uid}/onboarding/${roadmapRef.current.currentQuestionIndex}`
 
   const correctCount = roadmapRef.current.questions.filter(
     (f) => f.userCorrect,
-  ).length;
+  ).length
   const correctPercentage = Math.round(
     (correctCount / roadmapRef.current.questions.length) * 100,
-  );
+  )
 
   // determine the roadmap title and description via the status
   // if the roadmap is 'creating' then we output 'Creation in progress'
   const roadmapTitle =
-    roadmapRef.current.status === "CREATING"
-      ? "Creation in progress"
-      : roadmapRef.current.title || "Untitled Roadmap";
+    roadmapRef.current.status === 'CREATING'
+      ? 'Creation in progress'
+      : roadmapRef.current.title || 'Untitled Roadmap'
 
   const roadmapDescription =
-    roadmapRef.current.status === "CREATING"
-      ? "You are in the process of creating your roadmap. Resume it now!"
-      : roadmapRef.current.description || "No description";
+    roadmapRef.current.status === 'CREATING'
+      ? 'You are in the process of creating your roadmap. Resume it now!'
+      : roadmapRef.current.description || 'No description'
 
   return (
     <Link
@@ -102,8 +102,8 @@ export default function RoadmapsCard(opts: { roadmap: RoadmapWithQuestions }) {
             <Chip
               text={
                 roadmapRef.current.questions.length.toString() +
-                " " +
-                "Questions"
+                ' ' +
+                'Questions'
               }
               color="bg-white"
               textColor="text-black"
@@ -122,7 +122,7 @@ export default function RoadmapsCard(opts: { roadmap: RoadmapWithQuestions }) {
         )}
       </div>
       {/** roadmap progress */}
-      {roadmapRef.current.status === "ACTIVE" && (
+      {roadmapRef.current.status === 'ACTIVE' && (
         <div className="space-y-2 w-full">
           <p className="text-xs font-ubuntu">
             Roadmap progress: {correctPercentage}%
@@ -131,5 +131,5 @@ export default function RoadmapsCard(opts: { roadmap: RoadmapWithQuestions }) {
         </div>
       )}
     </Link>
-  );
+  )
 }

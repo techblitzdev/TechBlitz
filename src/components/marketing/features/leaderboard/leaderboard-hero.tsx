@@ -1,9 +1,9 @@
-import { ChevronRight } from "lucide-react";
+import { ChevronRight } from 'lucide-react'
 
-import { Button } from "@/components/ui/button";
-import { GridPattern } from "@/components/ui/grid";
+import { Button } from '@/components/ui/button'
+import { GridPattern } from '@/components/ui/grid'
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils'
 
 export default function LeaderboardHero() {
   return (
@@ -33,12 +33,12 @@ export default function LeaderboardHero() {
         height={50}
         x={-1}
         y={-1}
-        strokeDasharray={"4 2"}
+        strokeDasharray={'4 2'}
         className={cn(
-          "absolute inset-0 pt-44 [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]",
+          'absolute inset-0 pt-44 [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]',
         )}
       />
       <div className="z-10 absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
     </section>
-  );
+  )
 }

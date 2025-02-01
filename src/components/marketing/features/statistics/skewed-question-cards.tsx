@@ -1,31 +1,31 @@
-import Chip from "@/components/ui/chip";
-import { QuestionDifficulty } from "@/types/Questions";
-import { getQuestionDifficultyColor } from "@/utils";
-import { capitalise } from "@/utils";
+import Chip from '@/components/ui/chip'
+import { QuestionDifficulty } from '@/types/Questions'
+import { getQuestionDifficultyColor } from '@/utils'
+import { capitalise } from '@/utils'
 
 interface QuestionCard {
-  id: number;
-  question: string;
-  difficulty: QuestionDifficulty;
+  id: number
+  question: string
+  difficulty: QuestionDifficulty
 }
 
 const questions: QuestionCard[] = [
   {
     id: 1,
-    question: "What is the difference between Array.reduce() and Array.map()?",
-    difficulty: "MEDIUM",
+    question: 'What is the difference between Array.reduce() and Array.map()?',
+    difficulty: 'MEDIUM',
   },
   {
     id: 2,
-    question: "Explain the concept of dynamic programming.",
-    difficulty: "HARD",
+    question: 'Explain the concept of dynamic programming.',
+    difficulty: 'HARD',
   },
   {
     id: 3,
-    question: "What does Object.freeze() do?",
-    difficulty: "EASY",
+    question: 'What does Object.freeze() do?',
+    difficulty: 'EASY',
   },
-];
+]
 
 export default function SkewedQuestionCards() {
   return (
@@ -37,7 +37,7 @@ export default function SkewedQuestionCards() {
           style={{
             transform: `translateX(${index * -20}px) translateY(${index * -20}px) rotateX(10deg) rotateY(-20deg) skewY(4deg)`,
             zIndex: questions.length - index,
-            backdropFilter: "blur(5px)",
+            backdropFilter: 'blur(5px)',
           }}
         >
           <h3 className="text-xl font-semibold mb-3">{card.question}</h3>
@@ -58,5 +58,5 @@ export default function SkewedQuestionCards() {
         </div>
       ))}
     </div>
-  );
+  )
 }

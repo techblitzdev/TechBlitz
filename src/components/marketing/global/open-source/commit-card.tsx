@@ -1,18 +1,18 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Check, GitCommitHorizontal, X } from "lucide-react";
-import { useMemo } from "react";
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Badge } from '@/components/ui/badge'
+import { Check, GitCommitHorizontal, X } from 'lucide-react'
+import { useMemo } from 'react'
 
 export default function CommitCard(opts: {
-  commitMessage: string;
-  buildSuccess?: boolean;
+  commitMessage: string
+  buildSuccess?: boolean
 }) {
-  const { commitMessage, buildSuccess } = opts;
+  const { commitMessage, buildSuccess } = opts
 
   // generate a random commit hash
   const commitHash = useMemo(() => {
-    return Math.random().toString(36).substring(2, 8);
-  }, []);
+    return Math.random().toString(36).substring(2, 8)
+  }, [])
 
   return (
     <div className="relative left-px -my-6 flex justify-between">
@@ -57,5 +57,5 @@ export default function CommitCard(opts: {
         </div>
       </div>
     </div>
-  );
+  )
 }

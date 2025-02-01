@@ -1,25 +1,25 @@
-"use client";
+'use client'
 
-import Chip from "@/components/ui/chip";
-import { RoadmapUserQuestions } from "@/types/Roadmap";
-import { capitalise, getQuestionDifficultyColor } from "@/utils";
-import { cn } from "@/lib/utils";
-import { Check, X } from "lucide-react";
-import Link from "next/link";
-import RoadmapQuestionCardMenu from "./question-card-menu";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
+import Chip from '@/components/ui/chip'
+import { RoadmapUserQuestions } from '@/types/Roadmap'
+import { capitalise, getQuestionDifficultyColor } from '@/utils'
+import { cn } from '@/lib/utils'
+import { Check, X } from 'lucide-react'
+import Link from 'next/link'
+import RoadmapQuestionCardMenu from './question-card-menu'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useRef, useEffect } from 'react'
+import { Skeleton } from '@/components/ui/skeleton'
 
 export default function RoadmapQuestionCard(opts: {
-  question: Partial<RoadmapUserQuestions>;
-  roadmapUid: string;
-  index: number;
-  totalQuestions: number;
-  nextQuestionCorrect?: boolean;
-  nextQuestionAnswered?: boolean;
-  prevQuestionCorrect?: boolean;
-  prevQuestionAnswered?: boolean;
+  question: Partial<RoadmapUserQuestions>
+  roadmapUid: string
+  index: number
+  totalQuestions: number
+  nextQuestionCorrect?: boolean
+  nextQuestionAnswered?: boolean
+  prevQuestionCorrect?: boolean
+  prevQuestionAnswered?: boolean
 }) {
   const {
     question: initialQuestion,
@@ -28,75 +28,75 @@ export default function RoadmapQuestionCard(opts: {
     totalQuestions,
     prevQuestionCorrect,
     prevQuestionAnswered,
-  } = opts;
+  } = opts
 
-  const [isLoading, setIsLoading] = useState(false);
-  const questionRef = useRef(initialQuestion);
+  const [isLoading, setIsLoading] = useState(false)
+  const questionRef = useRef(initialQuestion)
 
   useEffect(() => {
     if (!isLoading) {
-      questionRef.current = initialQuestion;
+      questionRef.current = initialQuestion
     }
-  }, [initialQuestion, isLoading]);
+  }, [initialQuestion, isLoading])
 
-  if (!questionRef.current || !questionRef.current.uid) return null;
+  if (!questionRef.current || !questionRef.current.uid) return null
 
   const handleRegenerateStart = () => {
-    setIsLoading(true);
-  };
+    setIsLoading(true)
+  }
 
   const handleRegenerateEnd = () => {
-    setIsLoading(false);
-  };
+    setIsLoading(false)
+  }
 
   return (
     <div className="relative flex gap-7">
       <div
         className={cn(
-          "relative flex-col items-center w-0.5 hidden md:flex",
-          index === totalQuestions - 1 && "pb-6",
+          'relative flex-col items-center w-0.5 hidden md:flex',
+          index === totalQuestions - 1 && 'pb-6',
         )}
       >
         {/* Top line */}
         <div
           className={cn(
-            "bg-black-50 w-0.5 relative h-1/2",
-            index === 0 && "opacity-0", // First question has no top line
+            'bg-black-50 w-0.5 relative h-1/2',
+            index === 0 && 'opacity-0', // First question has no top line
             questionRef.current?.completed &&
               questionRef.current?.userCorrect &&
-              "bg-green-500",
+              'bg-green-500',
             questionRef.current?.completed &&
               !questionRef.current?.userCorrect &&
-              "bg-destructive",
-            prevQuestionAnswered && !prevQuestionCorrect && "bg-destructive",
-            prevQuestionCorrect && "bg-green-500",
+              'bg-destructive',
+            prevQuestionAnswered && !prevQuestionCorrect && 'bg-destructive',
+            prevQuestionCorrect && 'bg-green-500',
           )}
         />
 
         {/* Dot */}
         <div
           className={cn(
-            "size-3 rounded-full bg-black-50", // Default dot
+            'size-3 rounded-full bg-black-50', // Default dot
             questionRef.current?.completed &&
               questionRef.current?.userCorrect &&
-              "bg-green-500",
+              'bg-green-500',
             questionRef.current?.completed &&
               !questionRef.current?.userCorrect &&
-              "bg-destructive",
+              'bg-destructive',
           )}
         />
 
         {/* Bottom line */}
         <div
           className={cn(
-            "bg-black-50 w-0.5 relative h-1/2",
-            index === totalQuestions - 1 && "opacity-0", // Last question has no bottom line
+            'bg-black-50 w-0.5 relative h-1/2',
+            index === totalQuestions - 1 && 'opacity-0', // Last question has no bottom line
             questionRef.current?.completed &&
               questionRef.current?.userCorrect &&
-              "bg-green-500",
+              'bg-green-500',
             questionRef.current?.completed &&
               !questionRef.current?.userCorrect &&
-              "bg-destructive",
+              'bg-destructive',
           )}
         />
       </div>
@@ -108,7 +108,7 @@ export default function RoadmapQuestionCard(opts: {
         <div className="flex w-full justify-between gap-3">
           <AnimatePresence mode="wait">
             <motion.h6
-              key={isLoading ? "loading" : "content"}
+              key={isLoading ? 'loading' : 'content'}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -132,7 +132,7 @@ export default function RoadmapQuestionCard(opts: {
 
         <AnimatePresence mode="wait">
           <motion.div
-            key={isLoading ? "loading" : "content"}
+            key={isLoading ? 'loading' : 'content'}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -192,5 +192,5 @@ export default function RoadmapQuestionCard(opts: {
         </AnimatePresence>
       </Link>
     </div>
-  );
+  )
 }

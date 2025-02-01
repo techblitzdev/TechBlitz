@@ -1,17 +1,17 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { useQuestionSingle } from "@/components/app/questions/single/layout/question-single-context";
-import ResultCard from "./result-card";
+import { AnimatePresence, motion } from 'framer-motion'
+import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context'
+import ResultCard from './result-card'
 
 interface ResultProps {
-  passed: boolean;
+  passed: boolean
   // any as these can be anything (duh)
-  input: any[];
-  expected: any;
-  received: any;
+  input: any[]
+  expected: any
+  received: any
 }
 
 export default function TestCaseDisplay() {
-  const { result } = useQuestionSingle();
+  const { result } = useQuestionSingle()
 
   return (
     <AnimatePresence>
@@ -55,5 +55,5 @@ export default function TestCaseDisplay() {
         )}
       </div>
     </AnimatePresence>
-  );
+  )
 }

@@ -1,8 +1,8 @@
-import { getUserReports } from "@/utils/data/statistics/reports/get-reports";
-import StatsReportCard from "./stats-report-card";
+import { getUserReports } from '@/utils/data/statistics/reports/get-reports'
+import StatsReportCard from './stats-report-card'
 
 export default async function StatsReportCardsWrapper() {
-  const reports = await getUserReports();
+  const reports = await getUserReports()
 
   return (
     <>
@@ -14,5 +14,5 @@ export default async function StatsReportCardsWrapper() {
         <p className="text-lg text-muted-foreground">No reports found.</p>
       )}
     </>
-  );
+  )
 }

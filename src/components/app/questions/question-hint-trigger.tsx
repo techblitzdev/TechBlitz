@@ -1,19 +1,19 @@
-import { Button } from "@/components/ui/button";
-import { TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
-import { Tooltip } from "@/components/ui/tooltip";
-import { TooltipTrigger } from "@/components/ui/tooltip";
-import { Lightbulb } from "lucide-react";
+import { Button } from '@/components/ui/button'
+import { TooltipContent, TooltipProvider } from '@/components/ui/tooltip'
+import { Tooltip } from '@/components/ui/tooltip'
+import { TooltipTrigger } from '@/components/ui/tooltip'
+import { Lightbulb } from 'lucide-react'
 
 export default function QuestionHintTrigger({
   showHint,
   setShowHint,
 }: {
-  showHint: boolean;
-  setShowHint: (showHint: boolean) => void;
+  showHint: boolean
+  setShowHint: (showHint: boolean) => void
 }) {
   const toggleHint = () => {
-    setShowHint(!showHint);
-  };
+    setShowHint(!showHint)
+  }
 
   return (
     <TooltipProvider>
@@ -33,5 +33,5 @@ export default function QuestionHintTrigger({
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
-  );
+  )
 }

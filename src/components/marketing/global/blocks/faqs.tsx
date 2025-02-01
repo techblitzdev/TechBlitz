@@ -3,28 +3,28 @@ import {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "@/components/ui/accordion";
-import AnimatedSpan from "@/components/ui/animated-span";
+} from '@/components/ui/accordion'
+import AnimatedSpan from '@/components/ui/animated-span'
 
 interface FAQ {
-  question: string;
-  answer: string | React.ReactNode;
+  question: string
+  answer: string | React.ReactNode
 }
 
 export default function FAQsBlock(opts: {
-  faqs: FAQ[];
-  title?: string;
-  description?: string;
-  showSpan?: boolean;
+  faqs: FAQ[]
+  title?: string
+  description?: string
+  showSpan?: boolean
 }) {
-  const { faqs, title, description, showSpan = true } = opts;
+  const { faqs, title, description, showSpan = true } = opts
 
   return (
     <section className="pb-32 flex flex-col items-center gap-10">
       <div className="text-center flex flex-col gap-y-2 items-center">
         {showSpan && <AnimatedSpan content="Frequently asked questions" />}
         <h1 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
-          {title || "Frequently asked questions"}
+          {title || 'Frequently asked questions'}
         </h1>
         {description && <p className="text-sm text-gray-400">{description}</p>}
       </div>
@@ -43,7 +43,7 @@ export default function FAQsBlock(opts: {
               {faq.question}
             </AccordionTrigger>
             <AccordionContent className="pb-4">
-              {typeof faq.answer === "string" ? (
+              {typeof faq.answer === 'string' ? (
                 <div dangerouslySetInnerHTML={{ __html: faq.answer }} />
               ) : (
                 <div>{faq.answer}</div>
@@ -53,5 +53,5 @@ export default function FAQsBlock(opts: {
         ))}
       </Accordion>
     </section>
-  );
+  )
 }

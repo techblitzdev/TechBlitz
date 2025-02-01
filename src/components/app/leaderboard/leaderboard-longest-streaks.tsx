@@ -1,9 +1,9 @@
-import { getUserDisplayName } from "@/utils/user";
-import Card from "@/components/shared/Card";
-import { FlameIcon } from "lucide-react";
-import { getLongestStreaks } from "@/utils/data/leaderboard/get-longest-streaks";
-import { shortenText } from "@/utils";
-import ProfilePicture from "@/components/ui/profile-picture";
+import { getUserDisplayName } from '@/utils/user'
+import Card from '@/components/shared/Card'
+import { FlameIcon } from 'lucide-react'
+import { getLongestStreaks } from '@/utils/data/leaderboard/get-longest-streaks'
+import { shortenText } from '@/utils'
+import ProfilePicture from '@/components/ui/profile-picture'
 
 const header = () => {
   return (
@@ -13,15 +13,15 @@ const header = () => {
         <h3 className="text-lg">Longest streaks</h3>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default async function LeaderboardLongestStreaks(opts: {
-  userUid?: string;
+  userUid?: string
 }) {
-  const { userUid } = opts;
+  const { userUid } = opts
 
-  const longestStreaks = await getLongestStreaks();
+  const longestStreaks = await getLongestStreaks()
 
   return (
     <Card header={header()}>
@@ -37,7 +37,7 @@ export default async function LeaderboardLongestStreaks(opts: {
           <div
             key={streak.user.uid}
             className={`flex items-center justify-between px-4 py-3 ${
-              i % 2 === 0 ? "bg-black" : "bg-[#000]"
+              i % 2 === 0 ? 'bg-black' : 'bg-[#000]'
             }`}
           >
             {/* Position */}
@@ -57,12 +57,12 @@ export default async function LeaderboardLongestStreaks(opts: {
 
             {/* Streak */}
             <span className="justify-end flex-1 flex items-end gap-1">
-              {streak.streak}{" "}
+              {streak.streak}{' '}
               <FlameIcon className="fill-red-500 text-orange-500" />
             </span>
           </div>
         ))}
       </div>
     </Card>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import RoadmapOnboardingModal from "./onboarding-modal";
+import { Button } from '@/components/ui/button'
+import RoadmapOnboardingModal from './onboarding-modal'
 
 // this serves as a 'fallback' component if the modal for whatever
 // reason does not render
@@ -20,5 +20,5 @@ export default function RoadmapOnboarding() {
       </div>
       <RoadmapOnboardingModal />
     </>
-  );
+  )
 }

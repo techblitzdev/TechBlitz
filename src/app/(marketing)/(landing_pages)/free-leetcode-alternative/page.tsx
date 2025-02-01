@@ -1,217 +1,217 @@
-import FeatureLeftRightSection from "@/components/marketing/features/daily-challenge/feature-left-right/features-section";
-import FAQsBlock from "@/components/marketing/global/blocks/faqs";
-import FeatureDailyChallengeHero from "@/components/marketing/features/daily-challenge/hero/daily-challenge-hero";
-import FeatureRoadmapThreeGridBlock from "@/components/marketing/features/roadmap/roadmap-three-grid";
-import CallToActionBlock from "@/components/marketing/global/blocks/call-to-action-block";
-import { WebPageJsonLd } from "@/types/Seo";
-import { getBaseUrl } from "@/utils";
-import { createMetadata, WebPageJsonLdBreadcrumb } from "@/utils/seo";
-import Link from "next/link";
-import { QUESTIONS_COUNT } from "@/utils/constants/misc";
+import FeatureLeftRightSection from '@/components/marketing/features/daily-challenge/feature-left-right/features-section'
+import FAQsBlock from '@/components/marketing/global/blocks/faqs'
+import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/hero/daily-challenge-hero'
+import FeatureRoadmapThreeGridBlock from '@/components/marketing/features/roadmap/roadmap-three-grid'
+import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block'
+import { WebPageJsonLd } from '@/types/Seo'
+import { getBaseUrl } from '@/utils'
+import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo'
+import Link from 'next/link'
+import { QUESTIONS_COUNT } from '@/utils/constants/misc'
 import ComparisonTable, {
   Feature,
-} from "@/components/marketing/global/blocks/comparison-table";
-import Testimonials from "@/components/marketing/global/blocks/testimonials";
-import { Button } from "@/components/ui/button";
+} from '@/components/marketing/global/blocks/comparison-table'
+import Testimonials from '@/components/marketing/global/blocks/testimonials'
+import { Button } from '@/components/ui/button'
 
 const features: Feature[] = [
   {
-    name: "Free Daily Coding Challenges",
+    name: 'Free Daily Coding Challenges',
     yourCompany: { value: true },
     otherCompany: { value: true },
   },
   {
-    name: "Question library",
+    name: 'Question library',
     yourCompany: { value: true },
     otherCompany: { value: true },
   },
   {
-    name: "AI-assistant",
+    name: 'AI-assistant',
     yourCompany: { value: true },
     otherCompany: { value: false },
   },
   {
-    name: "Personalized Roadmaps",
+    name: 'Personalized Roadmaps',
     yourCompany: { value: true },
     otherCompany: { value: false },
   },
   {
-    name: "Leaderboards",
+    name: 'Leaderboards',
     yourCompany: { value: true },
     otherCompany: { value: true },
   },
   {
-    name: "Statistics",
+    name: 'Statistics',
     yourCompany: { value: true },
     otherCompany: { value: true },
   },
   {
-    name: "Personalized Coding Reports",
+    name: 'Personalized Coding Reports',
     yourCompany: { value: true },
     otherCompany: { value: false },
   },
   {
-    name: "Customized Coding Challenges",
+    name: 'Customized Coding Challenges',
     yourCompany: { value: true },
     otherCompany: { value: false },
   },
   {
-    name: "Open Source",
+    name: 'Open Source',
     yourCompany: { value: true },
     otherCompany: { value: false },
   },
   {
-    name: "Pro Pricing",
+    name: 'Pro Pricing',
     yourCompany: {
-      value: "$4.99/mo",
-      tooltip: "We offer a 50% discount for students.",
+      value: '$4.99/mo',
+      tooltip: 'We offer a 50% discount for students.',
     },
-    otherCompany: { value: "$35/mo" },
+    otherCompany: { value: '$35/mo' },
   },
   {
-    name: "Lifetime Access",
+    name: 'Lifetime Access',
     yourCompany: { value: true },
     otherCompany: { value: false },
   },
   {
-    name: "Individual Student Discount",
+    name: 'Individual Student Discount',
     yourCompany: {
       value: true,
-      tooltip: "We offer a 50% discount for students.",
+      tooltip: 'We offer a 50% discount for students.',
     },
     otherCompany: { value: false },
   },
   {
-    name: "Community",
+    name: 'Community',
     yourCompany: { value: true },
     otherCompany: { value: true },
   },
   {
-    name: "Personal Profile",
-    yourCompany: { value: false, tooltip: "Coming Soon!" },
+    name: 'Personal Profile',
+    yourCompany: { value: false, tooltip: 'Coming Soon!' },
     otherCompany: { value: true },
   },
   {
-    name: "Multi-language support",
+    name: 'Multi-language support',
     yourCompany: {
       value: false,
       tooltip:
-        "We currently support JavaScript, and frameworks like React, and Vue. We are working on adding more languages and frameworks to the platform.",
+        'We currently support JavaScript, and frameworks like React, and Vue. We are working on adding more languages and frameworks to the platform.',
     },
     otherCompany: { value: true },
   },
-];
+]
 
 export async function generateMetadata() {
   return createMetadata({
-    title: "Free LeetCode Alternative | TechBlitz",
+    title: 'Free LeetCode Alternative | TechBlitz',
     description:
-      "Discover the best free LeetCode alternative with TechBlitz. Engage in daily coding challenges and master new skills in just 5 minutes a day.",
+      'Discover the best free LeetCode alternative with TechBlitz. Engage in daily coding challenges and master new skills in just 5 minutes a day.',
     image: {
-      text: "Free LeetCode Alternative | TechBlitz",
-      bgColor: "#000",
-      textColor: "#fff",
+      text: 'Free LeetCode Alternative | TechBlitz',
+      bgColor: '#000',
+      textColor: '#fff',
     },
     keywords: [
-      "free leetcode alternative",
-      "coding challenges",
-      "daily coding challenges",
-      "learn to code",
-      "coding practice",
-      "techblitz",
-      "programming",
-      "developer skills",
+      'free leetcode alternative',
+      'coding challenges',
+      'daily coding challenges',
+      'learn to code',
+      'coding practice',
+      'techblitz',
+      'programming',
+      'developer skills',
     ],
-    canonicalUrl: "/free-leetcode-alternative",
-  });
+    canonicalUrl: '/free-leetcode-alternative',
+  })
 }
 
 export default function Page() {
   const jsonLd: WebPageJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
     url: getBaseUrl(),
-    headline: "The Best Free LeetCode Alternative | TechBlitz",
+    headline: 'The Best Free LeetCode Alternative | TechBlitz',
     description:
-      "TechBlitz transforms your coding journey into a personalized, engaging, and effective experience. Ensuring you learn essential coding skills faster than ever.",
+      'TechBlitz transforms your coding journey into a personalized, engaging, and effective experience. Ensuring you learn essential coding skills faster than ever.',
     image:
-      "https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531",
+      'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
     breadcrumb: WebPageJsonLdBreadcrumb,
     author: {
-      "@type": "Organization",
-      name: "TechBlitz",
+      '@type': 'Organization',
+      name: 'TechBlitz',
       url: getBaseUrl(),
     },
     dateModified: new Date().toISOString(),
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": getBaseUrl(),
+      '@type': 'WebPage',
+      '@id': getBaseUrl(),
     },
     keywords:
-      "learn to code, learn to code for free, learn javascript, coding challenges, daily coding challenges, web development, tech skills assessment, learn to code on phone",
+      'learn to code, learn to code for free, learn javascript, coding challenges, daily coding challenges, web development, tech skills assessment, learn to code on phone',
     publisher: {
-      "@type": "Organization",
-      name: "TechBlitz",
+      '@type': 'Organization',
+      name: 'TechBlitz',
       logo: {
-        "@type": "ImageObject",
-        url: "https://techblitz.dev/favicon.ico",
+        '@type': 'ImageObject',
+        url: 'https://techblitz.dev/favicon.ico',
       },
     },
     potentialAction: {
-      "@type": "SearchAction",
+      '@type': 'SearchAction',
       target: `${getBaseUrl()}/search?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
+      'query-input': 'required name=search_term_string',
     },
-  };
+  }
 
   const faqs = [
     {
-      question: "What is TechBlitz?",
-      answer: "TechBlitz is a platform that helps you learn to code.",
+      question: 'What is TechBlitz?',
+      answer: 'TechBlitz is a platform that helps you learn to code.',
     },
     {
-      question: "What are daily coding challenges on TechBlitz?",
+      question: 'What are daily coding challenges on TechBlitz?',
       answer:
-        "Daily coding challenges on TechBlitz are designed to help you learn to code. They are designed to be challenging, and to help you learn essential coding skills faster than ever.",
+        'Daily coding challenges on TechBlitz are designed to help you learn to code. They are designed to be challenging, and to help you learn essential coding skills faster than ever.',
     },
     {
-      question: "Do I need to pay to use the daily challenge?",
+      question: 'Do I need to pay to use the daily challenge?',
       answer: (
         <>
-          No, the daily challenge is free to use for everyone. You can{" "}
+          No, the daily challenge is free to use for everyone. You can{' '}
           <Link href="/signup" className="text-accent">
             sign up
-          </Link>{" "}
+          </Link>{' '}
           for free and start solving challenges today.
         </>
       ),
     },
     {
-      question: "How can I track my progress?",
+      question: 'How can I track my progress?',
       answer:
-        "You can track your progress by looking at the leaderboard, or checking out your statistics page.",
+        'You can track your progress by looking at the leaderboard, or checking out your statistics page.',
     },
     {
-      question: "What are roadmaps on TechBlitz?",
+      question: 'What are roadmaps on TechBlitz?',
       answer:
-        "Roadmaps are personalized learning paths that are created based on your current coding skills. We analyze your current skills set, and are able to create a roadmap that is tailored to you. Meaning every user will be getting a unique experience with TechBlitz.",
+        'Roadmaps are personalized learning paths that are created based on your current coding skills. We analyze your current skills set, and are able to create a roadmap that is tailored to you. Meaning every user will be getting a unique experience with TechBlitz.',
     },
     {
-      question: "What are leaderboards on TechBlitz?",
+      question: 'What are leaderboards on TechBlitz?',
       answer:
-        "Leaderboards are a way to see how you stack up against other users on TechBlitz. You can see your rank, and how you compare to other users. This is an opt-in feature, and you can choose to hide your rank from the public if you wish.",
+        'Leaderboards are a way to see how you stack up against other users on TechBlitz. You can see your rank, and how you compare to other users. This is an opt-in feature, and you can choose to hide your rank from the public if you wish.',
     },
     {
-      question: "What makes TechBlitz better than other coding platforms?",
+      question: 'What makes TechBlitz better than other coding platforms?',
       answer:
-        "TechBlitz is the best free LeetCode alternative due to it being personalized, engaging, and effective with real-world coding challenges. We ensure you learn essential coding skills faster than ever, and that you are able to track your progress and see how you compare to other users. We are also open source, and you can see the code for the platform on our GitHub page.",
+        'TechBlitz is the best free LeetCode alternative due to it being personalized, engaging, and effective with real-world coding challenges. We ensure you learn essential coding skills faster than ever, and that you are able to track your progress and see how you compare to other users. We are also open source, and you can see the code for the platform on our GitHub page.',
     },
     {
-      question: "How many coding challenges are there on TechBlitz?",
+      question: 'How many coding challenges are there on TechBlitz?',
       answer: `There are over ${QUESTIONS_COUNT}+ coding challenges on TechBlitz. We are constantly adding new challenges, and we are working on adding more real-world coding challenges to the platform.`,
     },
-  ];
+  ]
 
   return (
     <>
@@ -264,5 +264,5 @@ export default function Page() {
         />
       </div>
     </>
-  );
+  )
 }

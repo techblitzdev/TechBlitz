@@ -1,5 +1,5 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from '@/lib/prisma'
 
 export const defaultRoadmapQuestionCount = async () => {
-  return await prisma.defaultRoadmapQuestions.count();
-};
+  return await prisma.defaultRoadmapQuestions.count()
+}

@@ -1,11 +1,11 @@
-import { PodiumItem } from "@/components/app/leaderboard/leaderboard-hero";
-import { Button } from "@/components/ui/button";
-import { UserRecord } from "@/types/User";
-import { getMostQuestionsAnswered } from "@/utils/data/leaderboard/get-most-questions-answered";
+import { PodiumItem } from '@/components/app/leaderboard/leaderboard-hero'
+import { Button } from '@/components/ui/button'
+import { UserRecord } from '@/types/User'
+import { getMostQuestionsAnswered } from '@/utils/data/leaderboard/get-most-questions-answered'
 
 export default async function LeaderboardPodiumShowcase() {
-  const topThreeUsers = await getMostQuestionsAnswered(3);
-  const podiumOrder = [1, 0, 2];
+  const topThreeUsers = await getMostQuestionsAnswered(3)
+  const podiumOrder = [1, 0, 2]
 
   return (
     <section className="w-full py-8 md:mb-28 flex flex-col lg:flex-row gap-10 lg:gap-20 justify-between items-center">
@@ -23,9 +23,9 @@ export default async function LeaderboardPodiumShowcase() {
       </div>
       <div className="flex justify-center items-end perspective-1000 relative">
         {podiumOrder.map((index: number) => {
-          const user = topThreeUsers.users[index];
-          if (!user) return null;
-          const position = index + 1;
+          const user = topThreeUsers.users[index]
+          if (!user) return null
+          const position = index + 1
           return (
             <PodiumItem
               key={user.uid}
@@ -34,9 +34,9 @@ export default async function LeaderboardPodiumShowcase() {
               }
               position={position}
             />
-          );
+          )
         })}
       </div>
     </section>
-  );
+  )
 }

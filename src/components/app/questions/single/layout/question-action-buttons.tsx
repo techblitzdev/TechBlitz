@@ -1,7 +1,7 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { useQuestionSingle } from "@/components/app/questions/single/layout/question-single-context";
-import { RefreshCcwIcon } from "lucide-react";
+'use client'
+import { Button } from '@/components/ui/button'
+import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context'
+import { RefreshCcwIcon } from 'lucide-react'
 
 export default function QuestionActionButtons() {
   const {
@@ -12,7 +12,7 @@ export default function QuestionActionButtons() {
     user,
     question,
     code,
-  } = useQuestionSingle();
+  } = useQuestionSingle()
 
   return (
     <div className="flex gap-x-1 md:gap-x-3 items-center">
@@ -41,5 +41,5 @@ export default function QuestionActionButtons() {
         </Button>
       )}
     </div>
-  );
+  )
 }

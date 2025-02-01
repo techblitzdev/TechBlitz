@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react'
 
 export default function AnimatedSpan(opts: { content: string | ReactNode }) {
-  const { content } = opts;
+  const { content } = opts
 
   return (
     <div className="group w-fit relative inline-flex overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
@@ -10,5 +10,5 @@ export default function AnimatedSpan(opts: { content: string | ReactNode }) {
         {content}
       </span>
     </div>
-  );
+  )
 }

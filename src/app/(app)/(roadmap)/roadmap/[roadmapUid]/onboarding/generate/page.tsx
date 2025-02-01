@@ -1,38 +1,38 @@
-import { fetchDefaultUserAnswers } from "@/utils/data/roadmap/questions/default/fetch-default-user-answers";
-import { Suspense } from "react";
-import LoadingSpinner from "@/components/ui/loading";
-import RoadmapGenerateButton from "@/components/app/roadmaps/onboarding/onboarding-generate";
-import UserAnswers from "@/components/app/roadmaps/onboarding/onboarding-user-answers";
-import RoadmapStatus from "@/components/app/roadmaps/onboarding/onboarding-roadmap-status";
+import { fetchDefaultUserAnswers } from '@/utils/data/roadmap/questions/default/fetch-default-user-answers'
+import { Suspense } from 'react'
+import LoadingSpinner from '@/components/ui/loading'
+import RoadmapGenerateButton from '@/components/app/roadmaps/onboarding/onboarding-generate'
+import UserAnswers from '@/components/app/roadmaps/onboarding/onboarding-user-answers'
+import RoadmapStatus from '@/components/app/roadmaps/onboarding/onboarding-roadmap-status'
 
 async function RoadmapGenerateWrapper({ roadmapUid }: { roadmapUid: string }) {
   try {
-    const { roadmapGenerate } = await import("@/actions/ai/roadmap/generate");
-    const generate = await roadmapGenerate({ roadmapUid });
+    const { roadmapGenerate } = await import('@/actions/ai/roadmap/generate')
+    const generate = await roadmapGenerate({ roadmapUid })
     return (
       <RoadmapGenerateButton
         roadmapUid={roadmapUid}
-        generate={generate.length ? "generated" : ""}
+        generate={generate.length ? 'generated' : ''}
       />
-    );
+    )
   } catch (error) {
-    console.error("Error in roadmap generation:", error);
-    return null;
+    console.error('Error in roadmap generation:', error)
+    return null
   }
 }
 
 export default async function RoadmapGeneratingPage({
   params,
 }: {
-  params: { roadmapUid: string };
+  params: { roadmapUid: string }
 }) {
-  const { roadmapUid } = params;
+  const { roadmapUid } = params
 
   try {
-    const userAnswers = await fetchDefaultUserAnswers({ roadmapUid });
+    const userAnswers = await fetchDefaultUserAnswers({ roadmapUid })
 
     // Sort answers by question order
-    userAnswers.sort((a, b) => a.question.order - b.question.order);
+    userAnswers.sort((a, b) => a.question.order - b.question.order)
 
     return (
       <main className="min-h-screen flex items-center justify-center p-4">
@@ -56,9 +56,9 @@ export default async function RoadmapGeneratingPage({
           </div>
         </div>
       </main>
-    );
+    )
   } catch (error) {
-    console.error("Error generating roadmap:", error);
+    console.error('Error generating roadmap:', error)
     return (
       <main className="min-h-screen flex items-center justify-center p-4">
         <div className="text-center">
@@ -71,6 +71,6 @@ export default async function RoadmapGeneratingPage({
           </p>
         </div>
       </main>
-    );
+    )
   }
 }

@@ -157,6 +157,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/how-to-learn-javascript`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/daily-coding-challenges`,
+      lastModified: new Date(),
+    },
   ];
 
   // Combine static routes with dynamic blog posts

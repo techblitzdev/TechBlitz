@@ -28,10 +28,8 @@ import type { SidebarItemType } from '@/types/Sidebar';
 
 import { useEffect, useMemo } from 'react';
 import { UserRecord } from '@/types/User';
-import { Question } from '@/types/Questions';
+import { Question, QuestionWithTags } from '@/types/Questions';
 import { Profile } from '@/types/Profile';
-import { TooltipContent, Tooltip, TooltipTrigger } from '@/components/ui/tooltip';
-import { TooltipProvider } from '@/components/ui/tooltip';
 import HomeIcon from '@/components/ui/icons/home';
 import ChallengeIcon from '@/components/ui/icons/challenge';
 import RoadmapIcon from '@/components/ui/icons/roadmap';
@@ -50,13 +48,15 @@ const roadmapIcon = () => <RoadmapIcon fill="white" strokewidth={2} secondaryfil
 
 const challengeIcon = () => <ChallengeIcon fill="white" strokewidth={2} secondaryfill="white" />;
 
-export function AppSidebar(opts: {
+interface AppSidebarProps {
   user: UserRecord | null;
   profile: Profile | null;
   todaysQuestion: Question | null;
   hasAnsweredDailyQuestion: boolean;
-}) {
-  const { user, todaysQuestion, hasAnsweredDailyQuestion, profile } = opts;
+  suggestion: QuestionWithTags | null;
+}
+
+export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSidebarProps) {
   const pathname = usePathname();
 
   const { state, setOpenMobile } = useSidebar();
@@ -121,24 +121,8 @@ export function AppSidebar(opts: {
           url: '/study-paths',
         },
         {
-          title: 'Daily Question',
-          url: `/question/${todaysQuestion?.slug}`,
-          badge: (
-            <>
-              {!hasAnsweredDailyQuestion && (
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <div className="size-2 rounded-full bg-red-500" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Answer today's question!</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              )}
-            </>
-          ),
+          title: 'Your Next Question',
+          url: `/question/${suggestion?.slug}`,
         },
       ],
     },

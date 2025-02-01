@@ -3,7 +3,7 @@ import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import TagDisplay from '@/components/app/questions/tag-display';
 import Link from 'next/link';
 import Chip from '@/components/ui/chip';
-import { ArrowRight, Bookmark, Circle } from 'lucide-react';
+import { Bookmark, Circle } from 'lucide-react';
 import { CheckCircle } from 'lucide-react';
 import { TooltipProvider, TooltipTrigger, TooltipContent, Tooltip } from '@/components/ui/tooltip';
 import type { UserRecord } from '@/types/User';
@@ -194,10 +194,6 @@ export default function QuestionCard(opts: {
               </div>
             </div>
           )}
-          <p className="flex items-center gap-x-2 text-sm text-gray-300">
-            Answer now
-            <ArrowRight className="size-4" />
-          </p>
         </div>
       )}
     </Link>

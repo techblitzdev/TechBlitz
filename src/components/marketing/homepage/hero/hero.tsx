@@ -1,8 +1,8 @@
-import SignupForm from '@/components/marketing/global/waitlist-form';
 import Link from 'next/link';
 import AnimatedSpan from '@/components/ui/animated-span';
 import { ArrowRight } from 'lucide-react';
 import HeroText from './text-rotate';
+import { Button } from '@/components/ui/button';
 
 export default function HomepageHero() {
   const animatedSpanContent = (
@@ -32,8 +32,15 @@ export default function HomepageHero() {
           Replace boring coding exercises with industry-standard coding
           challenges. <br /> Your dream career in tech is just a click away.
         </p>
-        <div className="mt-3">
-          <SignupForm />
+        <div className="mt-3 flex items-center justify-center gap-4">
+          <Button
+            variant="accent"
+            size="lg"
+            href="/signup"
+            className="flex-1 px-5"
+          >
+            Start for free <ArrowRight size={16} />
+          </Button>
         </div>
       </div>
     </section>

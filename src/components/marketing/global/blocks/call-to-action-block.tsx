@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/ui/grid';
 import { ChevronRight } from 'lucide-react';
-import SignupForm from '@/components/marketing/global/waitlist-form';
 
 export default function CallToActionBlock(opts: {
   title: string;
@@ -58,7 +57,14 @@ export default function CallToActionBlock(opts: {
             )}
           </>
         ) : (
-          <SignupForm />
+          <Button
+            variant="accent"
+            size="lg"
+            href="/signup"
+            className="flex-1 px-5"
+          >
+            Start for free
+          </Button>
         )}
       </div>
       <Grid size={30} position="bottom-right" />

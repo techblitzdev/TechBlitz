@@ -1,38 +1,34 @@
-import Link from 'next/link'
-import dynamic from 'next/dynamic'
-import { X } from 'lucide-react'
-import { cookies } from 'next/headers'
-import { revalidatePath } from 'next/cache'
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import { X } from 'lucide-react';
+import { cookies } from 'next/headers';
+import { revalidatePath } from 'next/cache';
 
-const StarsBackground = dynamic(
-  () => import('@/components/ui/stars-background'),
-  {
-    ssr: false,
-  },
-)
+const StarsBackground = dynamic(() => import('@/components/ui/stars-background'), {
+  ssr: false,
+});
 
-import Logo from '@/components/ui/logo'
-import { PricingCard } from '@/components/shared/payment/payment-card'
-import { useUserServer } from '@/hooks/use-user-server'
-import { getPlans } from '@/utils/constants/pricing'
-import FrequencyToggle from '@/components/shared/payment/frequency-toggle'
+import Logo from '@/components/ui/logo';
+import { PricingCard } from '@/components/shared/payment/payment-card';
+import { useUserServer } from '@/hooks/use-user-server';
+import { getPlans } from '@/utils/constants/pricing';
+import FrequencyToggle from '@/components/shared/payment/frequency-toggle';
 
 async function updateFrequency(frequency: 'month' | 'year') {
-  'use server'
-  const cookieStore = cookies()
-  cookieStore.set('billing_frequency', frequency)
-  revalidatePath('/upgrade')
+  'use server';
+  const cookieStore = cookies();
+  cookieStore.set('billing_frequency', frequency);
+  revalidatePath('/upgrade');
 }
 
 export default async function UpgradePage() {
-  const user = await useUserServer()
-  const cookieStore = cookies()
-  const billingPeriod =
-    (cookieStore.get('billing_frequency')?.value as 'month' | 'year') || 'year'
+  const user = await useUserServer();
+  const cookieStore = cookies();
+  const billingPeriod = (cookieStore.get('billing_frequency')?.value as 'month' | 'year') || 'year';
 
   const products = getPlans(user, true, billingPeriod).filter(
-    (product) => product && product.id !== 'free',
-  )
+    (product) => product && product.id !== 'free'
+  );
 
   return (
     <div className="relative">
@@ -63,13 +59,10 @@ export default async function UpgradePage() {
 
         <div className="flex flex-col w-full mt-6">
           <p className="text-center max-w-xl self-center">
-            Upgrade your account to unlock premium features, gain access to
-            exclusive content, and be the first to experience new updates.
+            Upgrade your account to unlock premium features, gain access to exclusive content, and
+            be the first to experience new updates.
           </p>
-          <FrequencyToggle
-            initialFrequency={billingPeriod}
-            onFrequencyChange={updateFrequency}
-          />
+          <FrequencyToggle initialFrequency={billingPeriod} onFrequencyChange={updateFrequency} />
           <div className="flex flex-col lg:flex-row gap-10 justify-center mt-8 md:mt-16 px-2 md:px-10">
             {products.map(
               (product) =>
@@ -81,11 +74,11 @@ export default async function UpgradePage() {
                     isLoading={false}
                     billingPeriod={billingPeriod}
                   />
-                ),
+                )
             )}
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

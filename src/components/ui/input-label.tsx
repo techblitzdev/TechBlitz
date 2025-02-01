@@ -1,41 +1,36 @@
-import React from 'react'
-import { Input } from './input'
-import { cn } from '@/lib/utils'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
+import React from 'react';
+import { Input } from './input';
+import { cn } from '@/lib/utils';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 // react hook form
-import { Path } from 'react-hook-form'
-import { Checkbox } from './checkbox'
+import { Path } from 'react-hook-form';
+import { Checkbox } from './checkbox';
 
 interface IFormProps {
-  [key: string]: string
+  [key: string]: string;
 }
 
 interface InputWithLabelProps {
-  type: string
-  name: string
-  value?: string | string[]
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
-  placeholder?: string
-  className?: string
-  wrapperclassname?: string
-  icon?: React.ReactNode
-  disabled?: boolean
-  autoComplete?: string
+  type: string;
+  name: string;
+  value?: string | string[];
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  className?: string;
+  wrapperclassname?: string;
+  icon?: React.ReactNode;
+  disabled?: boolean;
+  autoComplete?: string;
   question?: {
-    text: string
-    icon: React.ReactNode
-  }
+    text: string;
+    icon: React.ReactNode;
+  };
 
   // react hook form props
-  label?: Path<IFormProps>
-  checkbox?: Path<IFormProps>
-  inputClassName?: Path<IFormProps>
+  label?: Path<IFormProps>;
+  checkbox?: Path<IFormProps>;
+  inputClassName?: Path<IFormProps>;
 }
 
 const InputWithLabel = React.forwardRef<HTMLInputElement, InputWithLabelProps>(
@@ -78,10 +73,10 @@ const InputWithLabel = React.forwardRef<HTMLInputElement, InputWithLabelProps>(
           />
         </div>
       </div>
-    )
-  },
-)
+    );
+  }
+);
 
-InputWithLabel.displayName = 'InputWithLabel'
+InputWithLabel.displayName = 'InputWithLabel';
 
-export { InputWithLabel }
+export { InputWithLabel };

@@ -1,28 +1,26 @@
-'use client'
+'use client';
 
-import type { UserRecord } from '@/types/User'
-import type { RoadmapUserQuestions } from '@/types/Roadmap'
-import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help'
-import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme'
-import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal'
-import { BookIcon, BookOpen, FileIcon, FileText } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import QuestionTabs, {
-  type TabConfig,
-} from '@/components/app/shared/question-tabs'
-import { useRoadmapQuestion } from './[uid]/layout/roadmap-question-context'
-import QuestionAccordion from '@/components/app/questions/single/question-accordion'
-import QuestionResult from '../../shared/answer-submitted'
-import QuestionCodeDisplay from '../../shared/question-code-display'
-import RoadmapQuestionTabs from './[uid]/layout/roadmap-question-tabs'
-import QuestionResourceTab from '../../questions/resources/question-resource-tab'
+import type { UserRecord } from '@/types/User';
+import type { RoadmapUserQuestions } from '@/types/Roadmap';
+import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help';
+import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
+import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal';
+import { BookIcon, BookOpen, FileIcon, FileText } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import QuestionTabs, { type TabConfig } from '@/components/app/shared/question-tabs';
+import { useRoadmapQuestion } from './[uid]/layout/roadmap-question-context';
+import QuestionAccordion from '@/components/app/questions/single/question-accordion';
+import QuestionResult from '../../shared/answer-submitted';
+import QuestionCodeDisplay from '../../shared/question-code-display';
+import RoadmapQuestionTabs from './[uid]/layout/roadmap-question-tabs';
+import QuestionResourceTab from '../../questions/resources/question-resource-tab';
 
 export default function RoadmapQuestionCard(opts: {
-  user: UserRecord
-  question: RoadmapUserQuestions
-  roadmapUid: string
+  user: UserRecord;
+  question: RoadmapUserQuestions;
+  roadmapUid: string;
 }) {
-  const { user, question, roadmapUid } = opts
+  const { user, question, roadmapUid } = opts;
 
   const {
     currentLayout,
@@ -33,32 +31,22 @@ export default function RoadmapQuestionCard(opts: {
     showHint,
     answerHelp,
     generateAiAnswerHelp,
-  } = useRoadmapQuestion()
+  } = useRoadmapQuestion();
 
   const toggleLayout = () => {
-    setCurrentLayout(
-      currentLayout === 'questions' ? 'codeSnippet' : 'questions',
-    )
-  }
+    setCurrentLayout(currentLayout === 'questions' ? 'codeSnippet' : 'questions');
+  };
 
   const switcherText = () => {
-    return currentLayout === 'questions'
-      ? '(Tap to view code snippet)'
-      : '(Tap to view question)'
-  }
+    return currentLayout === 'questions' ? '(Tap to view code snippet)' : '(Tap to view question)';
+  };
 
   const getDescriptionContent = () => {
     if (currentLayout === 'questions') {
-      return <RoadmapQuestionTabs />
+      return <RoadmapQuestionTabs />;
     }
     if (currentLayout === 'codeSnippet') {
-      return (
-        <QuestionCodeDisplay
-          question={question}
-          user={user}
-          answerHelp={answerHelp}
-        />
-      )
+      return <QuestionCodeDisplay question={question} user={user} answerHelp={answerHelp} />;
     }
     if (currentLayout === 'answer') {
       return (
@@ -66,20 +54,16 @@ export default function RoadmapQuestionCard(opts: {
           correctAnswer={correctAnswer}
           userAnswer={userAnswer}
           question={question}
-          nextQuestionHref={
-            nextQuestion
-              ? `/roadmap/${roadmapUid}/${nextQuestion.uid}`
-              : undefined
-          }
+          nextQuestionHref={nextQuestion ? `/roadmap/${roadmapUid}/${nextQuestion.uid}` : undefined}
           isCodeEditorQuestion={false}
           isRoadmapQuestion={true}
           roadmapUid={roadmapUid}
           generateAiAnswerHelp={generateAiAnswerHelp}
         />
-      )
+      );
     }
-    return null
-  }
+    return null;
+  };
 
   const tabs: TabConfig[] = [
     {
@@ -99,22 +83,17 @@ export default function RoadmapQuestionCard(opts: {
           <h3 className="font-inter font-light text-lg md:text-2xl">
             A list of helpful resources to help you answer this question.
           </h3>
-          <QuestionResourceTab
-            resources={[]}
-            reference={question.uid || undefined}
-          />
+          <QuestionResourceTab resources={[]} reference={question.uid || undefined} />
         </div>
       ),
     },
-  ]
+  ];
 
   const headerContent = (
     <div className="flex lg:hidden text-sm w-full items-center justify-end bg-black-25 gap-x-3">
       <AiQuestionHelp question={question} user={user} questionType="roadmap" />
       <ChangeCodeTheme user={user} />
-      {question.codeSnippet && (
-        <ExpandedCodeModal code={question.codeSnippet} />
-      )}
+      {question.codeSnippet && <ExpandedCodeModal code={question.codeSnippet} />}
       <Button
         variant="ghost"
         className="text-xs block lg:hidden"
@@ -124,15 +103,11 @@ export default function RoadmapQuestionCard(opts: {
         {switcherText()}
       </Button>
     </div>
-  )
+  );
 
   const footerContent = question.hint && (
-    <QuestionAccordion
-      hint={question.hint}
-      showHint={showHint}
-      showRelatedQuestions={false}
-    />
-  )
+    <QuestionAccordion hint={question.hint} showHint={showHint} showRelatedQuestions={false} />
+  );
 
   return (
     <QuestionTabs
@@ -141,5 +116,5 @@ export default function RoadmapQuestionCard(opts: {
       headerContent={headerContent}
       footerContent={footerContent}
     />
-  )
+  );
 }

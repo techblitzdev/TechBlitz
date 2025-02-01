@@ -1,7 +1,7 @@
-import RoadmapQuestionCard from '@/components/app/roadmaps/questions/[uid]/question-card'
-import AnimatedSpan from '@/components/ui/animated-span'
+import RoadmapQuestionCard from '@/components/app/roadmaps/questions/[uid]/question-card';
+import AnimatedSpan from '@/components/ui/animated-span';
 
-import { RoadmapUserQuestions } from '@/types/Roadmap'
+import { RoadmapUserQuestions } from '@/types/Roadmap';
 
 const dummyQuestions: Partial<RoadmapUserQuestions>[] = [
   {
@@ -39,11 +39,11 @@ const dummyQuestions: Partial<RoadmapUserQuestions>[] = [
     completed: true,
     userCorrect: true,
   },
-]
+];
 
-const dummyRoadmapUid = 'roadmap-12345'
+const dummyRoadmapUid = 'roadmap-12345';
 
-const dummyTotalQuestions = dummyQuestions.length
+const dummyTotalQuestions = dummyQuestions.length;
 
 export default function FeatureRoadmapCustomizationBlock() {
   return (
@@ -57,10 +57,9 @@ export default function FeatureRoadmapCustomizationBlock() {
           Your personalized coding roadmap.
         </h2>
         <p className="text-gray-400 max-w-3xl">
-          Start your journey to learn to code with our AI-powered learning
-          paths. Whether you're a beginner or advancing your skills, we'll
-          create a personalized programming roadmap to guide your tech skills
-          progression.
+          Start your journey to learn to code with our AI-powered learning paths. Whether you're a
+          beginner or advancing your skills, we'll create a personalized programming roadmap to
+          guide your tech skills progression.
         </p>
       </div>
       <div className="col-span-full md:col-span-7 max-h-[26rem] relative -right-4">
@@ -71,17 +70,13 @@ export default function FeatureRoadmapCustomizationBlock() {
             roadmapUid={dummyRoadmapUid}
             index={index}
             totalQuestions={dummyTotalQuestions}
-            prevQuestionCorrect={
-              index > 0 ? dummyQuestions[index - 1]?.userCorrect : undefined
-            }
-            prevQuestionAnswered={
-              index > 0 ? dummyQuestions[index - 1]?.completed : undefined
-            }
+            prevQuestionCorrect={index > 0 ? dummyQuestions[index - 1]?.userCorrect : undefined}
+            prevQuestionAnswered={index > 0 ? dummyQuestions[index - 1]?.completed : undefined}
           />
         ))}
       </div>
       <div className="z-10 absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
       <div className="z-10 absolute inset-y-0 right-0 h-full w-44 bg-gradient-to-l from-[#000] to-transparent pointer-events-none"></div>
     </section>
-  )
+  );
 }

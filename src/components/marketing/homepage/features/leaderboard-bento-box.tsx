@@ -1,19 +1,19 @@
-'use client'
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { shuffle } from 'lodash'
-import { ChevronUp, ChevronDown, ChevronRight, Minus } from 'lucide-react'
+'use client';
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { shuffle } from 'lodash';
+import { ChevronUp, ChevronDown, ChevronRight, Minus } from 'lucide-react';
 
 interface LeaderboardItem {
-  id: number
-  name: string
+  id: number;
+  name: string;
 }
 
 const spring = {
   type: 'spring',
   damping: 20,
   stiffness: 300,
-}
+};
 
 export default function LeaderboardBentoBox() {
   const initialLeaderboard: LeaderboardItem[] = [
@@ -22,34 +22,32 @@ export default function LeaderboardBentoBox() {
     { id: 3, name: 'User three' },
     { id: 4, name: `you` },
     { id: 5, name: 'User four' },
-  ]
+  ];
 
-  const [leaderboard, setLeaderboard] = useState(initialLeaderboard)
+  const [leaderboard, setLeaderboard] = useState(initialLeaderboard);
   const [trend, setTrend] = useState<{
-    [key: number]: 'up' | 'down' | 'neutral'
-  }>({})
+    [key: number]: 'up' | 'down' | 'neutral';
+  }>({});
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      const newLeaderboard = shuffle(leaderboard)
+      const newLeaderboard = shuffle(leaderboard);
 
       // Calculate trends
-      const newTrend: { [key: number]: 'up' | 'down' | 'neutral' } = {}
+      const newTrend: { [key: number]: 'up' | 'down' | 'neutral' } = {};
       newLeaderboard.forEach((item, index) => {
-        const oldIndex = leaderboard.findIndex(
-          (oldItem) => oldItem.id === item.id,
-        )
-        if (oldIndex < index) newTrend[item.id] = 'down'
-        else if (oldIndex > index) newTrend[item.id] = 'up'
-        else newTrend[item.id] = 'neutral'
-      })
+        const oldIndex = leaderboard.findIndex((oldItem) => oldItem.id === item.id);
+        if (oldIndex < index) newTrend[item.id] = 'down';
+        else if (oldIndex > index) newTrend[item.id] = 'up';
+        else newTrend[item.id] = 'neutral';
+      });
 
-      setTrend(newTrend)
-      setLeaderboard(newLeaderboard)
-    }, 3000)
+      setTrend(newTrend);
+      setLeaderboard(newLeaderboard);
+    }, 3000);
 
-    return () => clearTimeout(timer)
-  }, [leaderboard])
+    return () => clearTimeout(timer);
+  }, [leaderboard]);
 
   return (
     <div
@@ -71,18 +69,10 @@ export default function LeaderboardBentoBox() {
               {item.name}
             </p>
             <div className="flex items-center space-x-1">
-              {trend[item.id] === 'up' && (
-                <ChevronUp className="w-4 h-4 text-green-500" />
-              )}
-              {trend[item.id] === 'down' && (
-                <ChevronDown className="w-4 h-4 text-red-500" />
-              )}
-              {trend[item.id] === 'neutral' && (
-                <Minus className="w-4 h-4 text-gray-400" />
-              )}
-              <span className="text-gray-400 text-sm font-bold font-onest">
-                {index + 1}
-              </span>
+              {trend[item.id] === 'up' && <ChevronUp className="w-4 h-4 text-green-500" />}
+              {trend[item.id] === 'down' && <ChevronDown className="w-4 h-4 text-red-500" />}
+              {trend[item.id] === 'neutral' && <Minus className="w-4 h-4 text-gray-400" />}
+              <span className="text-gray-400 text-sm font-bold font-onest">{index + 1}</span>
             </div>
           </motion.li>
         ))}
@@ -92,5 +82,5 @@ export default function LeaderboardBentoBox() {
         </li>
       </ul>
     </div>
-  )
+  );
 }

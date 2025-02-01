@@ -1,9 +1,9 @@
-import { getUserDisplayName } from '@/utils/user'
-import Card from '@/components/shared/Card'
-import { FlameIcon } from 'lucide-react'
-import { getLongestStreaks } from '@/utils/data/leaderboard/get-longest-streaks'
-import { shortenText } from '@/utils'
-import ProfilePicture from '@/components/ui/profile-picture'
+import { getUserDisplayName } from '@/utils/user';
+import Card from '@/components/shared/Card';
+import { FlameIcon } from 'lucide-react';
+import { getLongestStreaks } from '@/utils/data/leaderboard/get-longest-streaks';
+import { shortenText } from '@/utils';
+import ProfilePicture from '@/components/ui/profile-picture';
 
 const header = () => {
   return (
@@ -13,15 +13,13 @@ const header = () => {
         <h3 className="text-lg">Longest streaks</h3>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default async function LeaderboardLongestStreaks(opts: {
-  userUid?: string
-}) {
-  const { userUid } = opts
+export default async function LeaderboardLongestStreaks(opts: { userUid?: string }) {
+  const { userUid } = opts;
 
-  const longestStreaks = await getLongestStreaks()
+  const longestStreaks = await getLongestStreaks();
 
   return (
     <Card header={header()}>
@@ -45,24 +43,18 @@ export default async function LeaderboardLongestStreaks(opts: {
 
             {/* User */}
             <div className="flex-1 flex items-center gap-4">
-              <ProfilePicture
-                src={streak.user.userProfilePicture}
-                alt={streak.user.username}
-              />
+              <ProfilePicture src={streak.user.userProfilePicture} alt={streak.user.username} />
               <span>{shortenText(getUserDisplayName(streak.user), 15)}</span>
-              {userUid === streak.user.uid && (
-                <span className="text-xs text-gray-500">(You)</span>
-              )}
+              {userUid === streak.user.uid && <span className="text-xs text-gray-500">(You)</span>}
             </div>
 
             {/* Streak */}
             <span className="justify-end flex-1 flex items-end gap-1">
-              {streak.streak}{' '}
-              <FlameIcon className="fill-red-500 text-orange-500" />
+              {streak.streak} <FlameIcon className="fill-red-500 text-orange-500" />
             </span>
           </div>
         ))}
       </div>
     </Card>
-  )
+  );
 }

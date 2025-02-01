@@ -1,12 +1,12 @@
-import Link from 'next/link'
+import Link from 'next/link';
 
-import { Button } from '@/components/ui/button'
-import GithubLogo from '@/components/ui/icons/github'
-import { UserIcon } from 'lucide-react'
-import NumberFlow from '@number-flow/react'
+import { Button } from '@/components/ui/button';
+import GithubLogo from '@/components/ui/icons/github';
+import { UserIcon } from 'lucide-react';
+import NumberFlow from '@number-flow/react';
 
-import { Question } from '@/types/Questions'
-import { cn } from '@/lib/utils'
+import { Question } from '@/types/Questions';
+import { cn } from '@/lib/utils';
 
 export default function SocialProof({
   userCount,
@@ -15,11 +15,11 @@ export default function SocialProof({
   padding = 'py-16 md:py-24 md:pt-40',
   showDescription = true,
 }: {
-  userCount: number
-  githubStars: number
-  dailyQuestion: Question | null
-  padding?: string
-  showDescription?: boolean
+  userCount: number;
+  githubStars: number;
+  dailyQuestion: Question | null;
+  padding?: string;
+  showDescription?: boolean;
 }) {
   return (
     <section className={cn('relative', padding)}>
@@ -49,9 +49,8 @@ export default function SocialProof({
             </div>
             {showDescription && (
               <p className="text-gray-400 mb-8">
-                Join a thriving community of developers who are revolutionizing
-                their coding skills and fast-tracking their careers with our
-                cutting-edge platform.
+                Join a thriving community of developers who are revolutionizing their coding skills
+                and fast-tracking their careers with our cutting-edge platform.
               </p>
             )}
           </div>
@@ -79,5 +78,5 @@ export default function SocialProof({
         </div>
       </div>
     </section>
-  )
+  );
 }

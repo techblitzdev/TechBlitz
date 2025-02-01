@@ -1,27 +1,23 @@
-'use client'
+'use client';
 
-import { addDays, format } from 'date-fns'
-import { Calendar as CalendarIcon } from 'lucide-react'
+import { addDays, format } from 'date-fns';
+import { Calendar as CalendarIcon } from 'lucide-react';
 
-import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
-import { Calendar } from '@/components/ui/calendar'
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-} from './dropdown-menu'
+} from '@/components/ui/select';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent } from './dropdown-menu';
 
 interface DatePickerProps {
-  date: Date | undefined
-  setDate: (date: Date | undefined) => void // Accept undefined here
+  date: Date | undefined;
+  setDate: (date: Date | undefined) => void; // Accept undefined here
 }
 
 export function DatePicker({ date, setDate }: DatePickerProps) {
@@ -32,7 +28,7 @@ export function DatePicker({ date, setDate }: DatePickerProps) {
           variant="default"
           className={cn(
             'w-full justify-start text-left font-normal',
-            !date && 'text-muted-foreground',
+            !date && 'text-muted-foreground'
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
@@ -42,11 +38,7 @@ export function DatePicker({ date, setDate }: DatePickerProps) {
       <DropdownMenuContent className="w-auto p-0">
         <Calendar mode="single" selected={date} onSelect={setDate} />
         <div className="p-3 border-t border-border">
-          <Select
-            onValueChange={(value) =>
-              setDate(addDays(new Date(), parseInt(value)))
-            }
-          >
+          <Select onValueChange={(value) => setDate(addDays(new Date(), parseInt(value)))}>
             <SelectTrigger>
               <SelectValue placeholder="Select" />
             </SelectTrigger>
@@ -60,5 +52,5 @@ export function DatePicker({ date, setDate }: DatePickerProps) {
         </div>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

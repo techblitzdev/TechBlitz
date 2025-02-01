@@ -1,33 +1,26 @@
-import { DatePicker } from '@mantine/dates'
-import QuestionSuggestedCard from '@/components/app/questions/suggested-questions-table'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
-import { QuestionMarkCircledIcon } from '@radix-ui/react-icons'
+import { DatePicker } from '@mantine/dates';
+import QuestionSuggestedCard from '@/components/app/questions/suggested-questions-table';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 
-import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak'
-import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
-import CurrentStreak, {
-  SolarFlameBoldDuotone,
-} from '@/components/ui/current-streak'
-import { useUserServer } from '@/hooks/use-user-server'
+import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import CurrentStreak, { SolarFlameBoldDuotone } from '@/components/ui/current-streak';
+import { useUserServer } from '@/hooks/use-user-server';
 
 export default async function QuestionPageSidebar() {
-  const user = await useUserServer()
+  const user = await useUserServer();
 
   // get the user streak and suggestion in one go
-  const userStreak = await getUserDailyStats()
+  const userStreak = await getUserDailyStats();
 
   // get the streak start date and streak end date
-  const startDate = userStreak?.streakData?.streakStart as Date
-  const endDate = userStreak?.streakData?.streakEnd as Date
+  const startDate = userStreak?.streakData?.streakStart as Date;
+  const endDate = userStreak?.streakData?.streakEnd as Date;
 
   // create an array of dates between the start and end date
-  const dateArray: [Date, Date] = [startDate, endDate]
+  const dateArray: [Date, Date] = [startDate, endDate];
 
   return (
     <aside className="w-full xl:w-1/4">
@@ -51,9 +44,7 @@ export default async function QuestionPageSidebar() {
                     <Tooltip delayDuration={100}>
                       <TooltipTrigger>
                         <div className="flex flex-col gap-y-2 items-center">
-                          <p className="text-sm text-gray-400">
-                            Longest streak
-                          </p>
+                          <p className="text-sm text-gray-400">Longest streak</p>
                           <div className="flex items-center gap-x-1">
                             <p className="font-onest font-bold">
                               {userStreak?.streakData?.longestStreak}
@@ -63,10 +54,7 @@ export default async function QuestionPageSidebar() {
                         </div>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>
-                          Your longest streak was{' '}
-                          {userStreak?.streakData?.longestStreak} days.
-                        </p>
+                        <p>Your longest streak was {userStreak?.streakData?.longestStreak} days.</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -88,10 +76,7 @@ export default async function QuestionPageSidebar() {
                   className="z-0 text-white bg-black-100 border border-black-50 p-2 rounded-md hover:cursor-default opacity-50"
                   color="white"
                   type="range"
-                  value={[
-                    new Date(),
-                    new Date(new Date().setDate(new Date().getDate() + 1)),
-                  ]}
+                  value={[new Date(), new Date(new Date().setDate(new Date().getDate() + 1))]}
                   c="gray"
                   inputMode="none"
                 />
@@ -108,8 +93,8 @@ export default async function QuestionPageSidebar() {
                   <QuestionMarkCircledIcon className="size-3.5 mt-1 text-gray-300" />
                   <TooltipContent>
                     <p>
-                      These question have been suggested based on areas where
-                      some users have struggled in the past.
+                      These question have been suggested based on areas where some users have
+                      struggled in the past.
                     </p>
                   </TooltipContent>
                 </TooltipTrigger>
@@ -129,5 +114,5 @@ export default async function QuestionPageSidebar() {
         </div>
       </div>
     </aside>
-  )
+  );
 }

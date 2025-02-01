@@ -1,63 +1,63 @@
-import { StudyPathGoal, UserStudyPath } from '@prisma/client'
-import { BaseRecord } from './BaseRecord'
-import { Question } from './Questions'
-import { RequireAtLeastOne } from './Utils'
+import { StudyPathGoal, UserStudyPath } from '@prisma/client';
+import { BaseRecord } from './BaseRecord';
+import { Question } from './Questions';
+import { RequireAtLeastOne } from './Utils';
 
-export type UserLevel = 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE' | 'PREMIUM'
+export type UserLevel = 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE' | 'PREMIUM';
 
 /**
  * Represents a user in the system.
  */
 export interface User extends BaseRecord {
-  email: string
-  username: string | null
-  firstName: string | null
-  lastName: string | null
-  userProfilePicture?: string | null
+  email: string;
+  username: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  userProfilePicture?: string | null;
 
-  lastLogin: Date | null
+  lastLogin: Date | null;
 
-  userLevel: UserLevel
-  answers: string[]
+  userLevel: UserLevel;
+  answers: string[];
 
-  correctDailyStreak: number | null
-  totalDailyStreak: number | null
+  correctDailyStreak: number | null;
+  totalDailyStreak: number | null;
 
   /** a toggle the user can turn on to indicate how long it took them to answer a question */
-  showTimeTaken?: boolean
-  sendPushNotifications?: boolean
+  showTimeTaken?: boolean;
+  sendPushNotifications?: boolean;
 
   /** the user's code editor theme */
-  codeEditorTheme?: string | null
+  codeEditorTheme?: string | null;
 
   /** the number of ai question help tokens the user has */
-  aiQuestionHelpTokens?: number
+  aiQuestionHelpTokens?: number;
 
   /** a flag to indicate if the user has a custom username */
-  isCustomUsername?: boolean
+  isCustomUsername?: boolean;
 
-  experienceLevel?: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' | 'MASTER'
+  experienceLevel?: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' | 'MASTER';
 
   // optional stripe emails for paid users
-  stripeEmails?: string[]
+  stripeEmails?: string[];
 
   // where the user found out about techblitz
-  howDidYouHearAboutTechBlitz?: string | null
+  howDidYouHearAboutTechBlitz?: string | null;
 
   // the user's referral code
-  referralCode?: string | null
+  referralCode?: string | null;
 
   // user entered text that will be used to assist in ai generation
-  aboutMeAiHelp?: string | null
+  aboutMeAiHelp?: string | null;
 
   // the user's bookmarked questions (an array of question ids)
-  bookmarkedQuestions?: Question[]
+  bookmarkedQuestions?: Question[];
 
   // the study paths the user has enrolled in
-  studyPathEnrollments?: UserStudyPath[] | null
+  studyPathEnrollments?: UserStudyPath[] | null;
 
   // the study path goals the user has set for themselves
-  studyPathGoals?: StudyPathGoal[] | null
+  studyPathGoals?: StudyPathGoal[] | null;
 }
 
 export type UserRecord = Pick<
@@ -86,14 +86,14 @@ export type UserRecord = Pick<
   | 'aboutMeAiHelp'
   | 'studyPathEnrollments'
   | 'studyPathGoals'
->
+>;
 
 // First, create a type that excludes 'uid' from the partial requirement
-export type UpdatableUserFields = Omit<UserRecord, 'uid'>
+export type UpdatableUserFields = Omit<UserRecord, 'uid'>;
 
 // Then create the type for updates that requires uid and at least one other field
 export type UserUpdatePayload = {
-  uid: UserRecord['uid']
-} & RequireAtLeastOne<UpdatableUserFields>
+  uid: UserRecord['uid'];
+} & RequireAtLeastOne<UpdatableUserFields>;
 
-export type UserWithOutAnswers = Pick<User, Exclude<keyof User, 'answers'>>
+export type UserWithOutAnswers = Pick<User, Exclude<keyof User, 'answers'>>;

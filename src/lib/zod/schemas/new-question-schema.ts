@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 // Define the schema for the question form
 export const newQuestionSchema = z
@@ -13,7 +13,7 @@ export const newQuestionSchema = z
           text: z.string().min(1, 'Answer is required'),
           isCodeSnippet: z.boolean().default(false),
           answerFullSnippet: z.string().optional(),
-        }),
+        })
       )
       .nonempty('At least one answer is required'),
     correctAnswer: z.number().or(z.null()), // the index of the QuestionAnswer that is the correct answer
@@ -33,14 +33,14 @@ export const newQuestionSchema = z
         z.object({
           title: z.string().min(1, 'Title is required'),
           url: z.string().min(1, 'URL is required'),
-        }),
+        })
       )
       .optional(),
   })
   .refine((data) => !data.dailyQuestion || data.questionDate, {
     message: 'Date is required when Daily Question is enabled',
     path: ['questionDate'], // Error will be associated with questionDate
-  })
+  });
 
 export const newCodingChallengeQuestionSchema = z.object({
   question: z.string().min(1, 'Question is required'),
@@ -63,7 +63,7 @@ export const newCodingChallengeQuestionSchema = z.object({
       z.object({
         title: z.string().min(1, 'Title is required'),
         url: z.string().min(1, 'URL is required'),
-      }),
+      })
     )
     .optional(),
-})
+});

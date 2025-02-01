@@ -7,18 +7,15 @@ import {
   Preview,
   Section,
   Text,
-} from 'npm:@react-email/components'
-import * as React from 'npm:react'
+} from 'npm:@react-email/components';
+import * as React from 'npm:react';
 
 interface ResetPasswordEmailProps {
-  username: string
-  resetLink: string
+  username: string;
+  resetLink: string;
 }
 
-export const ResetPasswordEmail = ({
-  username,
-  resetLink,
-}: ResetPasswordEmailProps) => {
+export const ResetPasswordEmail = ({ username, resetLink }: ResetPasswordEmailProps) => {
   return (
     <Html>
       <Head />
@@ -58,9 +55,8 @@ export const ResetPasswordEmail = ({
           <Text style={h1}>Reset Your Password</Text>
           <Text style={text}>Hello {username},</Text>
           <Text style={text}>
-            We received a request to reset your password for your TechBlitz
-            account. If you didn't make this request, you can safely ignore this
-            email.
+            We received a request to reset your password for your TechBlitz account. If you didn't
+            make this request, you can safely ignore this email.
           </Text>
           <Section style={buttonContainer}>
             <Link href={resetLink} target="_blank" style={button}>
@@ -68,18 +64,16 @@ export const ResetPasswordEmail = ({
             </Link>
           </Section>
           <Text style={text}>
-            This password reset link will expire in 1 hour. If you need to
-            request a new password reset, please visit our website.
+            This password reset link will expire in 1 hour. If you need to request a new password
+            reset, please visit our website.
           </Text>
           <Text style={text}>
-            If you're having trouble clicking the button, copy and paste the URL
-            below into your web browser:
+            If you're having trouble clicking the button, copy and paste the URL below into your web
+            browser:
           </Text>
           <Text style={text}>{resetLink}</Text>
           <Section style={footer}>
-            <Text style={footerText}>
-              © 2024 TechBlitz. All rights reserved.
-            </Text>
+            <Text style={footerText}>© 2024 TechBlitz. All rights reserved.</Text>
             <Text style={footerText}>
               If you have any questions, please contact our support team at{' '}
               <Link href="mailto:team@techblitz.dev" style={footerLink}>
@@ -90,35 +84,35 @@ export const ResetPasswordEmail = ({
         </Container>
       </Body>
     </Html>
-  )
-}
+  );
+};
 
 ResetPasswordEmail.PreviewProps = {
   username: 'John Doe',
   resetLink: 'https://techblitz.com/reset-password?token=123456',
-} as ResetPasswordEmailProps
+} as ResetPasswordEmailProps;
 
-const accent = '#5b61d6'
+const accent = '#5b61d6';
 
 const main = {
   backgroundColor: '#000000',
   color: '#FFFFFF',
   fontFamily: "'Onest', Verdana, sans-serif",
-}
+};
 
 const container = {
   margin: '0 auto',
   padding: '20px 0 48px',
   textAlign: 'center' as const,
-}
+};
 
 const logoContainer = {
   marginTop: '32px',
-}
+};
 
 const logo = {
   margin: '0 auto',
-}
+};
 
 const h1 = {
   color: '#FFFFFF',
@@ -127,7 +121,7 @@ const h1 = {
   lineHeight: '24px',
   margin: '40px 0',
   textAlign: 'center' as const,
-}
+};
 
 const text = {
   color: '#FFFFFF',
@@ -135,12 +129,12 @@ const text = {
   lineHeight: '24px',
   textAlign: 'center' as const,
   fontFamily: "'Onest', Verdana, sans-serif",
-}
+};
 
 const buttonContainer = {
   textAlign: 'center' as const,
   margin: '32px 0',
-}
+};
 
 const button = {
   backgroundColor: accent,
@@ -152,25 +146,25 @@ const button = {
   textAlign: 'center' as const,
   padding: '10px 28px',
   fontFamily: "'Onest', Verdana, sans-serif",
-}
+};
 
 const footer = {
   marginTop: '32px',
   textAlign: 'center' as const,
-}
+};
 
 const footerText = {
   color: '#CCCCCC',
   fontSize: '12px',
   lineHeight: '16px',
   fontFamily: "'Onest', Verdana, sans-serif",
-}
+};
 
 const footerLink = {
   color: '#CCCCCC',
   fontSize: '12px',
   lineHeight: '16px',
   textDecoration: 'underline',
-}
+};
 
-export default ResetPasswordEmail
+export default ResetPasswordEmail;

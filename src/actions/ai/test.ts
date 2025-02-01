@@ -1,5 +1,5 @@
-'use server'
-import { openai } from '@/lib/open-ai'
+'use server';
+import { openai } from '@/lib/open-ai';
 
 export const test = async () => {
   const completion = await openai.chat.completions.create({
@@ -11,8 +11,8 @@ export const test = async () => {
         content: 'Write a haiku about recursion in programming.',
       },
     ],
-  })
+  });
 
-  console.log(completion.choices[0].message)
-  return completion.choices[0].message
-}
+  console.log(completion.choices[0].message);
+  return completion.choices[0].message;
+};

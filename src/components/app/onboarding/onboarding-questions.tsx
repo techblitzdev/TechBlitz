@@ -1,15 +1,10 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-} from '@/components/ui/card'
-import { useOnboardingContext } from './onboarding-context'
-import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { motion } from 'framer-motion';
+import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
+import { useOnboardingContext } from './onboarding-context';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -19,15 +14,15 @@ const containerVariants = {
       staggerChildren: 0.1,
     },
   },
-}
+};
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
-}
+};
 
 export default function OnboardingStepThree() {
-  const { onboardingQuestions, handleGetDailyQuestion } = useOnboardingContext()
+  const { onboardingQuestions, handleGetDailyQuestion } = useOnboardingContext();
 
   return (
     <>
@@ -71,19 +66,14 @@ export default function OnboardingStepThree() {
         >
           {onboardingQuestions.map((question) => (
             <motion.div key={question.slug} variants={itemVariants}>
-              <Link
-                href={`/question/${question.slug}`}
-                className="block h-full group"
-              >
+              <Link href={`/question/${question.slug}`} className="block h-full group">
                 <Card className="h-full  transition-colors duration-300 border border-black-50 hover:border-accent">
                   <CardContent className="p-4 flex flex-col justify-between h-full">
                     <h3 className="text-lg font-semibold text-gray-200 mb-2 line-clamp-2">
                       {question.question}
                     </h3>
                     <div className="flex items-center justify-between mt-4">
-                      <span className="text-sm text-gray-400">
-                        View question
-                      </span>
+                      <span className="text-sm text-gray-400">View question</span>
                       <ArrowRight className="w-4 h-4 text-gray-400 group-hover:translate-x-1 transition-all duration-300" />
                     </div>
                   </CardContent>
@@ -94,5 +84,5 @@ export default function OnboardingStepThree() {
         </motion.div>
       </CardContent>
     </>
-  )
+  );
 }

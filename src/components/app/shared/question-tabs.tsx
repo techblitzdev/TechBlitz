@@ -1,22 +1,22 @@
-'use client'
+'use client';
 
-import { useState, type ReactNode } from 'react'
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Separator } from '@/components/ui/separator'
+import { useState, type ReactNode } from 'react';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Separator } from '@/components/ui/separator';
 
 export interface TabConfig {
-  value: string
-  label: string
-  icon: ReactNode
-  activeIcon: ReactNode
-  content: ReactNode
+  value: string;
+  label: string;
+  icon: ReactNode;
+  activeIcon: ReactNode;
+  content: ReactNode;
 }
 
 interface ReusableTabsProps {
-  tabs: TabConfig[]
-  defaultTab?: string
-  headerContent?: ReactNode
-  footerContent?: ReactNode
+  tabs: TabConfig[];
+  defaultTab?: string;
+  headerContent?: ReactNode;
+  footerContent?: ReactNode;
 }
 
 export default function QuestionTabs({
@@ -25,9 +25,7 @@ export default function QuestionTabs({
   headerContent,
   footerContent,
 }: ReusableTabsProps) {
-  const [activeTab, setActiveTab] = useState<string>(
-    defaultTab || tabs[0].value,
-  )
+  const [activeTab, setActiveTab] = useState<string>(defaultTab || tabs[0].value);
 
   return (
     <Tabs
@@ -44,9 +42,7 @@ export default function QuestionTabs({
                 onClick={() => setActiveTab(tab.value)}
                 className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline border-0 w-fit px-0"
               >
-                <div className="mr-2">
-                  {activeTab === tab.value ? tab.activeIcon : tab.icon}
-                </div>
+                <div className="mr-2">{activeTab === tab.value ? tab.activeIcon : tab.icon}</div>
                 {tab.label}
               </TabsTrigger>
             ))}
@@ -65,5 +61,5 @@ export default function QuestionTabs({
         </>
       )}
     </Tabs>
-  )
+  );
 }

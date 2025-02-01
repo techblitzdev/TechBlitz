@@ -1,7 +1,7 @@
-'use server'
-import { prisma } from '@/lib/prisma'
-import { createClient as createServerClient } from '@/utils/supabase/server'
-import { revalidateTag } from 'next/cache'
+'use server';
+import { prisma } from '@/lib/prisma';
+import { createClient as createServerClient } from '@/utils/supabase/server';
+import { revalidateTag } from 'next/cache';
 
 /**
  * Logs the user into the application
@@ -11,19 +11,19 @@ import { revalidateTag } from 'next/cache'
  * @returns
  */
 export const login = async (opts: { email: string; password: string }) => {
-  const { email, password } = opts
-  const supabase = await createServerClient()
+  const { email, password } = opts;
+  const supabase = await createServerClient();
 
-  if (!supabase) throw new Error('No supabase client found')
+  if (!supabase) throw new Error('No supabase client found');
 
-  if (!email || !password) throw new Error('Email and password are required')
+  if (!email || !password) throw new Error('Email and password are required');
 
   const { data: user, error } = await supabase.auth.signInWithPassword({
     email,
     password,
-  })
+  });
 
-  if (error) throw new Error(error.message)
+  if (error) throw new Error(error.message);
 
   try {
     // get the user from the db
@@ -31,7 +31,7 @@ export const login = async (opts: { email: string; password: string }) => {
       where: {
         uid: user.user.id,
       },
-    })
+    });
 
     // if the user is not found, add them to the db
     if (!dbUser) {
@@ -40,10 +40,10 @@ export const login = async (opts: { email: string; password: string }) => {
         where: {
           email: user.user.email,
         },
-      })
+      });
 
       if (existingUserWithEmail) {
-        return
+        return;
       }
 
       await prisma.users.create({
@@ -55,7 +55,7 @@ export const login = async (opts: { email: string; password: string }) => {
           lastLogin: new Date(),
           userLevel: 'FREE',
         },
-      })
+      });
     } else {
       // update the 'lastLoggedIn' field in the db
       await prisma.users.update({
@@ -65,16 +65,16 @@ export const login = async (opts: { email: string; password: string }) => {
         data: {
           lastLogin: new Date(),
         },
-      })
+      });
     }
 
-    revalidateTag('user-details')
+    revalidateTag('user-details');
 
-    return user.user
+    return user.user;
   } catch (error) {
-    console.error('Database error:', error)
+    console.error('Database error:', error);
     return {
       error,
-    }
+    };
   }
-}
+};

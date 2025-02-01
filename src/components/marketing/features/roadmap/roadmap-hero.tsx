@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button'
-import { ArrowDown, ChevronRight } from 'lucide-react'
-import GridPattern from '@/components/ui/grid-pattern'
-import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button';
+import { ArrowDown, ChevronRight } from 'lucide-react';
+import GridPattern from '@/components/ui/grid-pattern';
+import { cn } from '@/lib/utils';
 
 export default function FeatureRoadmapHeroBlock() {
   return (
@@ -13,9 +13,8 @@ export default function FeatureRoadmapHeroBlock() {
           Personalized <br /> coding roadmaps.
         </h1>
         <p className="text-gray-400 max-w-xl text-center text-sm md:text-base font-onest">
-          Unlock your potential as a software engineer with personalized
-          learning paths. Giving you a personalized coding experience for you
-          based on your current skills
+          Unlock your potential as a software engineer with personalized learning paths. Giving you
+          a personalized coding experience for you based on your current skills
         </p>
         <div className="mt-2 flex gap-4">
           <Button
@@ -38,10 +37,10 @@ export default function FeatureRoadmapHeroBlock() {
         y={-1}
         strokeDasharray={'4 2'}
         className={cn(
-          'absolute inset-0 pt-44 [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]',
+          'absolute inset-0 pt-44 [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]'
         )}
       />
       <div className="z-10 absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
     </section>
-  )
+  );
 }

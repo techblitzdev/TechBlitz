@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { SidebarTrigger, useSidebar } from '@/components/ui/sidebar'
-import { cn } from '@/lib/utils'
+import { SidebarTrigger, useSidebar } from '@/components/ui/sidebar';
+import { cn } from '@/lib/utils';
 
 /**
  * This component is used to trigger the sidebar layout.
@@ -9,15 +9,15 @@ import { cn } from '@/lib/utils'
  * On mobile devices, the trigger is always shown regardless of sidebar state.
  */
 export default function SidebarLayoutTrigger() {
-  const { state } = useSidebar()
+  const { state } = useSidebar();
 
   return (
     <SidebarTrigger
       className={cn(
         'h-7',
         // Only hide on desktop when expanded
-        state === 'expanded' ? 'lg:hidden' : 'flex mr-3',
+        state === 'expanded' ? 'lg:hidden' : 'flex mr-3'
       )}
     />
-  )
+  );
 }

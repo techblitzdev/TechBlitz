@@ -1,20 +1,20 @@
-import Link from 'next/link'
-import { AnchorHTMLAttributes } from 'react'
+import Link from 'next/link';
+import { AnchorHTMLAttributes } from 'react';
 
 interface MdxLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
-  href: string
+  href: string;
 }
 
 export default function MdxLink({ href, children, ...props }: MdxLinkProps) {
-  const isInternalLink = href && href.startsWith('/')
-  const isAnchorLink = href && href.startsWith('#')
+  const isInternalLink = href && href.startsWith('/');
+  const isAnchorLink = href && href.startsWith('#');
 
   if (isInternalLink) {
     return (
       <Link href={href} className="text-accent hover:underline" {...props}>
         {children}
       </Link>
-    )
+    );
   }
 
   if (isAnchorLink) {
@@ -22,7 +22,7 @@ export default function MdxLink({ href, children, ...props }: MdxLinkProps) {
       <a href={href} className="text-accent hover:underline" {...props}>
         {children}
       </a>
-    )
+    );
   }
 
   return (
@@ -35,5 +35,5 @@ export default function MdxLink({ href, children, ...props }: MdxLinkProps) {
     >
       {children}
     </a>
-  )
+  );
 }

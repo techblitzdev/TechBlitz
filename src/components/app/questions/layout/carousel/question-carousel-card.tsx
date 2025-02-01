@@ -1,48 +1,37 @@
-'use client'
+'use client';
 
-import { useMemo } from 'react'
-import Link from 'next/link'
-import { QuestionWithTags } from '@/types/Questions'
-import Chip from '@/components/ui/chip'
-import { capitalise, getQuestionDifficultyColor } from '@/utils'
-import { CheckCircle, ChevronRight, Circle } from 'lucide-react'
-import { Answer } from '@/types/Answers'
-import {
-  TooltipProvider,
-  TooltipTrigger,
-  TooltipContent,
-  Tooltip,
-} from '@/components/ui/tooltip'
-import { UserRecord } from '@/types/User'
+import { useMemo } from 'react';
+import Link from 'next/link';
+import { QuestionWithTags } from '@/types/Questions';
+import Chip from '@/components/ui/chip';
+import { capitalise, getQuestionDifficultyColor } from '@/utils';
+import { CheckCircle, ChevronRight, Circle } from 'lucide-react';
+import { Answer } from '@/types/Answers';
+import { TooltipProvider, TooltipTrigger, TooltipContent, Tooltip } from '@/components/ui/tooltip';
+import { UserRecord } from '@/types/User';
 
 interface QuestionCarouselCardProps {
-  questionData: QuestionWithTags & { userAnswers: Answer[] }
-  user: UserRecord | null
+  questionData: QuestionWithTags & { userAnswers: Answer[] };
+  user: UserRecord | null;
 }
 
-export default function QuestionCarouselCard({
-  questionData,
-  user,
-}: QuestionCarouselCardProps) {
+export default function QuestionCarouselCard({ questionData, user }: QuestionCarouselCardProps) {
   const answerStatus = useMemo(() => {
     if (questionData.userAnswers && questionData.userAnswers.length > 0) {
-      return questionData.userAnswers[0].correctAnswer ? 'correct' : 'incorrect'
+      return questionData.userAnswers[0].correctAnswer ? 'correct' : 'incorrect';
     }
-    return 'not-answered'
-  }, [questionData.userAnswers])
+    return 'not-answered';
+  }, [questionData.userAnswers]);
 
   const difficultyColor = useMemo(
     () => getQuestionDifficultyColor(questionData.difficulty),
-    [questionData.difficulty],
-  )
+    [questionData.difficulty]
+  );
 
-  const title = questionData?.title || questionData?.question
+  const title = questionData?.title || questionData?.question;
 
   return (
-    <Link
-      href={`/question/${questionData.slug}`}
-      className="h-full bg-black-75 group w-full"
-    >
+    <Link href={`/question/${questionData.slug}`} className="h-full bg-black-75 group w-full">
       <div className="flex flex-col justify-between space-y-5 items-start border border-black-50 hover:border-accent duration-300 p-6 rounded-lg group w-full h-full relative overflow-hidden">
         <h3 className="text-wrap text-start line-clamp-2">{title}</h3>
         <div className="flex items-center gap-x-2">
@@ -76,28 +65,27 @@ export default function QuestionCarouselCard({
             textColor={difficultyColor.text}
             border={difficultyColor.border}
           />
-          {questionData.isPremiumQuestion &&
-            (user?.userLevel === 'FREE' || !user) && (
-              <TooltipProvider>
-                <Tooltip delayDuration={0}>
-                  <TooltipTrigger>
-                    <div className="h-fit order-first md:order-last">
-                      <Chip
-                        text="Premium"
-                        color="bg-gradient-to-r from-yellow-400 to-yellow-600"
-                        textColor="text-black"
-                        border="border-yellow-500"
-                      />
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Upgrade to Premium to access this question</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            )}
+          {questionData.isPremiumQuestion && (user?.userLevel === 'FREE' || !user) && (
+            <TooltipProvider>
+              <Tooltip delayDuration={0}>
+                <TooltipTrigger>
+                  <div className="h-fit order-first md:order-last">
+                    <Chip
+                      text="Premium"
+                      color="bg-gradient-to-r from-yellow-400 to-yellow-600"
+                      textColor="text-black"
+                      border="border-yellow-500"
+                    />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Upgrade to Premium to access this question</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
         </div>
       </div>
     </Link>
-  )
+  );
 }

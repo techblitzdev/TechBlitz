@@ -1,28 +1,28 @@
-'use client'
-import { Button } from '@/components/ui/button'
-import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { toast } from 'sonner'
-import { InputWithLabel } from '@/components/ui/input-label'
-import { useRouter } from 'next/navigation'
-import { useState, useEffect } from 'react'
-import LoadingSpinner from '@/components/ui/loading'
-import { createClient } from '@/utils/supabase/client'
+'use client';
+import { Button } from '@/components/ui/button';
+import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { toast } from 'sonner';
+import { InputWithLabel } from '@/components/ui/input-label';
+import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import LoadingSpinner from '@/components/ui/loading';
+import { createClient } from '@/utils/supabase/client';
 
 const passwordSchema = z.object({
   password: z.string().min(8),
   confirmPassword: z.string(),
-})
+});
 
-type SchemaProps = z.infer<typeof passwordSchema>
+type SchemaProps = z.infer<typeof passwordSchema>;
 
 export default function UpdatePasswordPage() {
-  const router = useRouter()
-  const [isLoading, setIsLoading] = useState(false)
-  const [isValidToken, setIsValidToken] = useState(false)
-  const supabase = createClient()
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isValidToken, setIsValidToken] = useState(false);
+  const supabase = createClient();
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(passwordSchema),
@@ -30,72 +30,72 @@ export default function UpdatePasswordPage() {
       password: '',
       confirmPassword: '',
     },
-  })
+  });
 
   useEffect(() => {
     const validateToken = async () => {
       // Parse hash parameters
       const hashParams = new URLSearchParams(
-        window.location.hash.substring(1), // Remove the # character
-      )
+        window.location.hash.substring(1) // Remove the # character
+      );
 
-      const access_token = hashParams.get('access_token')
-      const refresh_token = hashParams.get('refresh_token')
+      const access_token = hashParams.get('access_token');
+      const refresh_token = hashParams.get('refresh_token');
 
       if (!access_token || !refresh_token) {
-        toast.error('Invalid reset link')
-        return
+        toast.error('Invalid reset link');
+        return;
       }
 
       try {
         const { error } = await supabase.auth.setSession({
           access_token,
           refresh_token,
-        })
+        });
 
-        if (error) throw error
-        setIsValidToken(true)
+        if (error) throw error;
+        setIsValidToken(true);
       } catch (error) {
-        console.error('Session error:', error)
-        toast.error('Invalid or expired reset link')
-        router.push('/login')
+        console.error('Session error:', error);
+        toast.error('Invalid or expired reset link');
+        router.push('/login');
       }
-    }
+    };
 
-    validateToken()
-  }, [router])
+    validateToken();
+  }, [router]);
 
   const handlePasswordReset = async (values: SchemaProps) => {
-    const { password, confirmPassword } = values
+    const { password, confirmPassword } = values;
     if (password !== confirmPassword) {
       form.setError('confirmPassword', {
         message: 'Passwords do not match',
-      })
-      return
+      });
+      return;
     }
 
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       const { error } = await supabase.auth.updateUser({
         password: password,
-      })
+      });
 
-      if (error) throw error
+      if (error) throw error;
 
-      toast.success('Password updated successfully')
-      form.reset()
-      router.push('/login')
+      toast.success('Password updated successfully');
+      form.reset();
+      router.push('/login');
     } catch (error) {
-      console.error('Update error:', error)
+      console.error('Update error:', error);
       if (error instanceof Error) {
-        toast.error(error.message)
+        toast.error(error.message);
       } else {
-        toast.error('Failed to update password')
+        toast.error('Failed to update password');
       }
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   if (!isValidToken) {
     return (
@@ -103,15 +103,14 @@ export default function UpdatePasswordPage() {
         <LoadingSpinner />
         <p>Validating reset link...</p>
       </div>
-    )
+    );
   }
 
   return (
     <div
       className="p-8 rounded-xl space-y-4 text-center border border-black-50"
       style={{
-        background:
-          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
+        background: 'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
     >
       <h1 className="font-bold text-3xl mb-2">Update your password</h1>
@@ -119,10 +118,7 @@ export default function UpdatePasswordPage() {
         Enter your new password below.
       </p>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(handlePasswordReset)}
-          className="space-y-4"
-        >
+        <form onSubmit={form.handleSubmit(handlePasswordReset)} className="space-y-4">
           <FormItem>
             <FormField
               name="password"
@@ -158,12 +154,7 @@ export default function UpdatePasswordPage() {
             )}
           />
 
-          <Button
-            type="submit"
-            className="w-full"
-            variant="secondary"
-            disabled={isLoading}
-          >
+          <Button type="submit" className="w-full" variant="secondary" disabled={isLoading}>
             {isLoading ? (
               <>
                 <LoadingSpinner />
@@ -176,5 +167,5 @@ export default function UpdatePasswordPage() {
         </form>
       </Form>
     </div>
-  )
+  );
 }

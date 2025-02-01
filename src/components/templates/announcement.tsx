@@ -8,16 +8,14 @@ import {
   Preview,
   Section,
   Text,
-} from '@react-email/components'
-import * as React from 'react'
+} from '@react-email/components';
+import * as React from 'react';
 
 interface WaitlistAnnouncementEmailProps {
-  email: string
+  email: string;
 }
 
-const WaitlistAnnouncementEmail = ({
-  email,
-}: WaitlistAnnouncementEmailProps) => {
+const WaitlistAnnouncementEmail = ({ email }: WaitlistAnnouncementEmailProps) => {
   return (
     <Html>
       <Head />
@@ -49,35 +47,28 @@ const WaitlistAnnouncementEmail = ({
           </Section>
           <Heading style={h1}>We're Live! 🚀</Heading>
           <Text style={text}>
-            Hey {email}, the wait is over! TechBlitz is now officially live and
-            ready for you to explore.
+            Hey {email}, the wait is over! TechBlitz is now officially live and ready for you to
+            explore.
           </Text>
           <Text style={text}>
-            As a thank you for being one of our early supporters, we're giving
-            you an exclusive 50% discount on our lifetime premium access.
+            As a thank you for being one of our early supporters, we're giving you an exclusive 50%
+            discount on our lifetime premium access.
           </Text>
           <Section style={couponContainer}>
             <Text style={couponCode}>LIFETIME50</Text>
             <Text style={couponText}>50% off lifetime premium access</Text>
           </Section>
           <Section style={buttonContainer}>
-            <Link
-              href={`https://techblitz.dev/signup?email=${email}`}
-              style={button}
-            >
+            <Link href={`https://techblitz.dev/signup?email=${email}`} style={button}>
               Sign Up Now!
             </Link>
           </Section>
           <Text style={text}>
-            We're proud to announce that TechBlitz is open source! Check out our
-            GitHub repository to see how we built it, contribute, or just star
-            the project.
+            We're proud to announce that TechBlitz is open source! Check out our GitHub repository
+            to see how we built it, contribute, or just star the project.
           </Text>
           <Section style={buttonContainer}>
-            <Link
-              href="https://github.com/techblitzdev/TechBlitz/"
-              style={button}
-            >
+            <Link href="https://github.com/techblitzdev/TechBlitz/" style={button}>
               Star us on GitHub!
             </Link>
           </Section>
@@ -99,12 +90,7 @@ const WaitlistAnnouncementEmail = ({
               </svg>
             </Link>
             <Link href="https://git.new/techblitz" style={listItem}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path
                   fill="currentColor"
                   d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"
@@ -113,27 +99,25 @@ const WaitlistAnnouncementEmail = ({
             </Link>
           </Section>
           <Text style={text}>
-            If you have any questions or need help getting started, just reply
-            to this email. We're here to help!
+            If you have any questions or need help getting started, just reply to this email. We're
+            here to help!
           </Text>
           <Section style={footer}>
-            <Text style={footerText}>
-              © 2025 TechBlitz. All rights reserved.
-            </Text>
+            <Text style={footerText}>© 2025 TechBlitz. All rights reserved.</Text>
           </Section>
         </Container>
       </Body>
     </Html>
-  )
-}
+  );
+};
 
-export default WaitlistAnnouncementEmail
+export default WaitlistAnnouncementEmail;
 
 const main = {
   backgroundColor: '#000000',
   color: '#FFFFFF',
   fontFamily: "'Onest', Verdana, sans-serif",
-}
+};
 
 const container = {
   margin: '0 auto',
@@ -141,16 +125,16 @@ const container = {
   width: '100%',
   maxWidth: '600px',
   textAlign: 'center' as const,
-}
+};
 
 const logoContainer = {
   marginTop: '32px',
   marginBottom: '32px',
-}
+};
 
 const logo = {
   margin: '0 auto',
-}
+};
 
 const h1 = {
   color: '#FFFFFF',
@@ -159,7 +143,7 @@ const h1 = {
   lineHeight: '40px',
   margin: '0 0 20px',
   textAlign: 'center' as const,
-}
+};
 
 const text = {
   color: '#FFFFFF',
@@ -167,31 +151,31 @@ const text = {
   lineHeight: '24px',
   textAlign: 'center' as const,
   margin: '0 0 20px',
-}
+};
 
 const couponContainer = {
   margin: '32px 0',
   padding: '16px',
   border: '2px dashed #5A5FCD',
   borderRadius: '8px',
-}
+};
 
 const couponCode = {
   color: '#5A5FCD',
   fontSize: '24px',
   fontWeight: '700',
   margin: '0 0 8px',
-}
+};
 
 const couponText = {
   color: '#FFFFFF',
   fontSize: '14px',
   margin: '0',
-}
+};
 
 const buttonContainer = {
   margin: '32px 0',
-}
+};
 
 const button = {
   backgroundColor: '#5A5FCD',
@@ -202,7 +186,7 @@ const button = {
   textDecoration: 'none',
   textAlign: 'center' as const,
   padding: '12px 32px',
-}
+};
 
 const listContainer = {
   margin: '0 0 32px',
@@ -210,7 +194,7 @@ const listContainer = {
   justifyContent: 'center',
   alignItems: 'center',
   gap: '24px',
-}
+};
 
 const listItem = {
   color: '#FFFFFF',
@@ -219,16 +203,16 @@ const listItem = {
   display: 'inline-flex',
   alignItems: 'center',
   marginBottom: '8px',
-}
+};
 
 const footer = {
   marginTop: '32px',
   textAlign: 'center' as const,
-}
+};
 
 const footerText = {
   color: '#CCCCCC',
   fontSize: '12px',
   lineHeight: '16px',
   margin: '4px 0',
-}
+};

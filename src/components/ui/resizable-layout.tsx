@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import React, { useState, useCallback, useRef, useEffect } from 'react'
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 
 interface ResizableLayoutProps {
-  leftContent: React.ReactNode
-  rightContent: React.ReactNode
-  initialLeftWidth?: number
+  leftContent: React.ReactNode;
+  rightContent: React.ReactNode;
+  initialLeftWidth?: number;
 }
 
 const ResizableLayout: React.FC<ResizableLayoutProps> = ({
@@ -13,40 +13,39 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
   rightContent,
   initialLeftWidth = 50,
 }) => {
-  const [leftWidth, setLeftWidth] = useState(initialLeftWidth)
+  const [leftWidth, setLeftWidth] = useState(initialLeftWidth);
 
-  const containerRef = useRef<HTMLDivElement>(null)
-  const resizerRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null);
+  const resizerRef = useRef<HTMLDivElement>(null);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    e.preventDefault()
-    document.addEventListener('mousemove', handleMouseMove)
-    document.addEventListener('mouseup', handleMouseUp)
-  }, [])
+    e.preventDefault();
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  }, []);
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (containerRef.current) {
-      const containerRect = containerRef.current.getBoundingClientRect()
-      const newLeftWidth =
-        ((e.clientX - containerRect.left) / containerRect.width) * 100
-      const clampedWidth = Math.min(Math.max(newLeftWidth, 30), 70)
-      setLeftWidth(clampedWidth)
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const newLeftWidth = ((e.clientX - containerRect.left) / containerRect.width) * 100;
+      const clampedWidth = Math.min(Math.max(newLeftWidth, 30), 70);
+      setLeftWidth(clampedWidth);
     }
-  }, [])
+  }, []);
 
   const handleMouseUp = useCallback(() => {
-    document.removeEventListener('mousemove', handleMouseMove)
-    document.removeEventListener('mouseup', handleMouseUp)
-  }, [handleMouseMove])
+    document.removeEventListener('mousemove', handleMouseMove);
+    document.removeEventListener('mouseup', handleMouseUp);
+  }, [handleMouseMove]);
 
   useEffect(() => {
-    const resizer = resizerRef.current
-    resizer?.addEventListener('mousedown', handleMouseDown as any)
+    const resizer = resizerRef.current;
+    resizer?.addEventListener('mousedown', handleMouseDown as any);
 
     return () => {
-      resizer?.removeEventListener('mousedown', handleMouseDown as any)
-    }
-  }, [handleMouseDown])
+      resizer?.removeEventListener('mousedown', handleMouseDown as any);
+    };
+  }, [handleMouseDown]);
 
   return (
     <div
@@ -91,7 +90,7 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
         {rightContent}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ResizableLayout
+export default ResizableLayout;

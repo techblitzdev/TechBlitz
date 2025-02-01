@@ -1,7 +1,7 @@
-import { prisma } from '@/lib/prisma'
+import { prisma } from '@/lib/prisma';
 
 export const fetchDefaultUserAnswers = async (opts: { roadmapUid: string }) => {
-  const { roadmapUid } = opts
+  const { roadmapUid } = opts;
 
   const answers = await prisma.defaultRoadmapQuestionsUsersAnswers.findMany({
     where: {
@@ -10,7 +10,7 @@ export const fetchDefaultUserAnswers = async (opts: { roadmapUid: string }) => {
     include: {
       question: true,
     },
-  })
+  });
 
-  return answers
-}
+  return answers;
+};

@@ -1,110 +1,110 @@
 export type QuizJsonLd = {
-  '@context': 'https://schema.org'
-  '@type': 'Quiz'
-  name: string
-  description: string
-  url: string
-  educationLevel: string
-  educationalUse: string
-  learningResourceType: string[]
+  '@context': 'https://schema.org';
+  '@type': 'Quiz';
+  name: string;
+  description: string;
+  url: string;
+  educationLevel: string;
+  educationalUse: string;
+  learningResourceType: string[];
   creator: {
-    '@type': 'Organization'
-    name: 'TechBlitz'
-    url: string
-  }
-  assesses: string[]
-  dateCreated: string
-  dateModified: string
+    '@type': 'Organization';
+    name: 'TechBlitz';
+    url: string;
+  };
+  assesses: string[];
+  dateCreated: string;
+  dateModified: string;
 
   // can either be when the question was created, or when it went 'live'
   // as a daily question
-  datePublished: string
+  datePublished: string;
 
   // the headline of the question
-  headline: string
+  headline: string;
 
-  interactivityType: 'mixed' | 'active' | 'expositive'
+  interactivityType: 'mixed' | 'active' | 'expositive';
 
-  isAccessibleForFree: boolean
+  isAccessibleForFree: boolean;
 
-  isFamilyFriendly: boolean
+  isFamilyFriendly: boolean;
 
-  teaches: string
+  teaches: string;
 
   potentialAction?: {
-    '@type': 'SearchAction'
-    target: string
-    'query-input': string
-  }
-}
+    '@type': 'SearchAction';
+    target: string;
+    'query-input': string;
+  };
+};
 
 export type WebPageJsonLd = {
-  '@context': 'https://schema.org'
-  '@type': 'WebPage'
+  '@context': 'https://schema.org';
+  '@type': 'WebPage';
   // The URL of the webpage
-  url: string
+  url: string;
   // The headline or title of the webpage
-  headline: string
+  headline: string;
   // A brief description of the webpage
-  description: string
+  description: string;
   // The URL of the image representing the webpage
-  image: string
+  image: string;
   author?: {
-    '@type': 'Person' | 'Organization'
+    '@type': 'Person' | 'Organization';
     // Name of the author or organization
-    name: string
+    name: string;
     // URL of the author's profile or organization
-    url?: string
-  }
+    url?: string;
+  };
   publisher?: {
-    '@type': 'Organization'
+    '@type': 'Organization';
     // Name of the publisher
-    name: string
+    name: string;
     logo?: {
-      '@type': 'ImageObject'
+      '@type': 'ImageObject';
       // URL of the publisher's logo
-      url: string
-    }
-  }
+      url: string;
+    };
+  };
   // ISO 8601 date format: e.g., "2023-01-01T12:00:00Z"
-  datePublished?: string
+  datePublished?: string;
   // ISO 8601 date format
-  dateModified?: string
+  dateModified?: string;
   mainEntityOfPage?: {
-    '@type': 'WebPage'
+    '@type': 'WebPage';
     // Canonical URL of the main entity of the page
-    '@id': string
-  }
+    '@id': string;
+  };
   // Comma-separated list of keywords
-  keywords?: string
+  keywords?: string;
   breadcrumb?: {
-    '@type': 'BreadcrumbList'
+    '@type': 'BreadcrumbList';
     itemListElement: {
-      '@type': 'ListItem'
+      '@type': 'ListItem';
       // Position of the breadcrumb in the list
-      position: number
+      position: number;
       // Name of the breadcrumb item
-      name: string
+      name: string;
       // URL of the breadcrumb item
-      item: string
-    }[]
-  }
+      item: string;
+    }[];
+  };
   potentialAction?: {
-    '@type': 'SearchAction'
-    target: string
-    'query-input': string
-  }
-}
+    '@type': 'SearchAction';
+    target: string;
+    'query-input': string;
+  };
+};
 
 export type FaqJsonLd = {
-  '@context': 'https://schema.org'
-  '@type': 'FAQPage'
+  '@context': 'https://schema.org';
+  '@type': 'FAQPage';
   mainEntity: {
-    '@type': 'Question'
-    name: string
+    '@type': 'Question';
+    name: string;
     acceptedAnswer: {
-      '@type': 'Answer'
-      text: string
-    }
-  }[]
-}
+      '@type': 'Answer';
+      text: string;
+    };
+  }[];
+};

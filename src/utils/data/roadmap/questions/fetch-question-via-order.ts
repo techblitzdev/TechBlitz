@@ -1,12 +1,9 @@
-import { prisma } from '@/lib/prisma'
+import { prisma } from '@/lib/prisma';
 
-export const fetchRoadmapQuestionViaOrder = async (opts: {
-  order: number
-  roadmapUid: string
-}) => {
-  const { order, roadmapUid } = opts
+export const fetchRoadmapQuestionViaOrder = async (opts: { order: number; roadmapUid: string }) => {
+  const { order, roadmapUid } = opts;
 
-  const number = parseInt(order.toString())
+  const number = parseInt(order.toString());
 
   return await prisma.roadmapUserQuestions.findFirst({
     where: {
@@ -18,5 +15,5 @@ export const fetchRoadmapQuestionViaOrder = async (opts: {
     include: {
       answers: true,
     },
-  })
-}
+  });
+};

@@ -1,15 +1,10 @@
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
-import type { Answer } from '@/types/Answers'
-import { XIcon } from 'lucide-react'
-import { CheckIcon } from 'lucide-react'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import type { Answer } from '@/types/Answers';
+import { XIcon } from 'lucide-react';
+import { CheckIcon } from 'lucide-react';
 
 export default function HasAnswered(opts: { userAnswered: Answer | null }) {
-  const { userAnswered } = opts
+  const { userAnswered } = opts;
 
   return (
     <p>
@@ -53,5 +48,5 @@ export default function HasAnswered(opts: { userAnswered: Answer | null }) {
         ''
       )}
     </p>
-  )
+  );
 }

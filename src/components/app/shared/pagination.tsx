@@ -1,60 +1,42 @@
-'use client'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
-import Link from 'next/link'
-import { cn } from '@/lib/utils'
-import { useRouter, useSearchParams } from 'next/navigation'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '../../ui/select'
+'use client';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select';
 
 export default function GlobalPagination(opts: {
-  currentPage: number
-  totalPages: number
-  href: string
-  paramName: string
-  postsPerPage: number
-  margin?: string
+  currentPage: number;
+  totalPages: number;
+  href: string;
+  paramName: string;
+  postsPerPage: number;
+  margin?: string;
 }) {
-  const {
-    currentPage,
-    totalPages,
-    href,
-    paramName,
-    margin = 'mt-5',
-    postsPerPage,
-  } = opts
-  const searchParams = useSearchParams()
-  const router = useRouter()
+  const { currentPage, totalPages, href, paramName, margin = 'mt-5', postsPerPage } = opts;
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   // Helper function to construct the query string with the page and existing filters
   const getPaginationLink = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString())
-    params.set(paramName, page.toString())
-    return `${href}?${params.toString()}`
-  }
+    const params = new URLSearchParams(searchParams.toString());
+    params.set(paramName, page.toString());
+    return `${href}?${params.toString()}`;
+  };
 
   const updateQueryParam = (param: string, value: string) => {
-    const params = new URLSearchParams(searchParams.toString())
-    params.set(param, value)
-    router.push(`${href}?${params.toString()}`)
-  }
+    const params = new URLSearchParams(searchParams.toString());
+    params.set(param, value);
+    router.push(`${href}?${params.toString()}`);
+  };
 
   return (
     <div
-      className={cn(
-        'flex flex-col sm:flex-row items-center gap-4 w-full',
-        margin ? margin : '',
-      )}
+      className={cn('flex flex-col sm:flex-row items-center gap-4 w-full', margin ? margin : '')}
     >
       {/** per page dropdown */}
       <div className="w-full sm:w-auto">
-        <Select
-          onValueChange={(value) => updateQueryParam('postsPerPage', value)}
-        >
+        <Select onValueChange={(value) => updateQueryParam('postsPerPage', value)}>
           <SelectTrigger className="h-8 border border-black-50 rounded-md">
             <SelectValue placeholder={`${postsPerPage} per page`} />
           </SelectTrigger>
@@ -72,7 +54,7 @@ export default function GlobalPagination(opts: {
           href={currentPage > 1 ? getPaginationLink(currentPage - 1) : '#'}
           className={cn(
             'bg-black-75 border border-black-50 rounded-md size-8 flex items-center justify-center text-sm',
-            `${currentPage === 1 ? 'pointer-events-none opacity-50' : ''}`,
+            `${currentPage === 1 ? 'pointer-events-none opacity-50' : ''}`
           )}
         >
           <ArrowLeft className="size-5" />
@@ -85,7 +67,7 @@ export default function GlobalPagination(opts: {
             href={getPaginationLink(i + 1)}
             className={cn(
               'bg-black-75 border border-black-50 hover:bg-black-50 duration-300 rounded-md size-8 flex items-center justify-center p-1 text-sm',
-              `${currentPage === i + 1 ? 'pointer-events-none border-accent' : ''}`,
+              `${currentPage === i + 1 ? 'pointer-events-none border-accent' : ''}`
             )}
           >
             {i + 1}
@@ -104,7 +86,7 @@ export default function GlobalPagination(opts: {
             href={getPaginationLink(totalPages)}
             className={cn(
               'bg-black-75 border border-black-50 hover:bg-black-50 duration-300 rounded-md size-8 flex items-center justify-center p-1 text-sm',
-              `${currentPage === totalPages ? 'pointer-events-none opacity-50' : ''}`,
+              `${currentPage === totalPages ? 'pointer-events-none opacity-50' : ''}`
             )}
           >
             {totalPages}
@@ -112,17 +94,15 @@ export default function GlobalPagination(opts: {
         )}
 
         <Link
-          href={
-            currentPage < totalPages ? getPaginationLink(currentPage + 1) : '#'
-          }
+          href={currentPage < totalPages ? getPaginationLink(currentPage + 1) : '#'}
           className={cn(
             'bg-black-75 border border-black-50 hover:bg-black-50 duration-300 rounded-md size-8 flex justify-center items-center',
-            `${currentPage === totalPages ? 'pointer-events-none opacity-50' : ''}`,
+            `${currentPage === totalPages ? 'pointer-events-none opacity-50' : ''}`
           )}
         >
           <ArrowRight className="size-5" />
         </Link>
       </div>
     </div>
-  )
+  );
 }

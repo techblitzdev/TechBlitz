@@ -1,4 +1,4 @@
-import { Metadata } from 'next'
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Blog | techblitz',
@@ -16,12 +16,8 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-}
+};
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex flex-col h-full justify-center items-center">
-      {children}
-    </div>
-  )
+  return <div className="flex flex-col h-full justify-center items-center">{children}</div>;
 }

@@ -1,8 +1,8 @@
-'use server'
-import { createClient as createServerClient } from '@/utils/supabase/server'
-import { prisma } from '@/lib/prisma'
-import { UserRecord } from '@/types/User'
-import { revalidateTag } from 'next/cache'
+'use server';
+import { createClient as createServerClient } from '@/utils/supabase/server';
+import { prisma } from '@/lib/prisma';
+import { UserRecord } from '@/types/User';
+import { revalidateTag } from 'next/cache';
 
 /**
  * Get the user from the server - used in api routes, server componets & server actions
@@ -10,14 +10,12 @@ import { revalidateTag } from 'next/cache'
  * @returns User | null
  */
 export const getUserFromSession = async () => {
-  const supabase = await createServerClient()
-  return await supabase?.auth?.getUser()
-}
+  const supabase = await createServerClient();
+  return await supabase?.auth?.getUser();
+};
 
-export const getUserFromDb = async (
-  userUid: string,
-): Promise<UserRecord | null> => {
-  if (!userUid) return null
+export const getUserFromDb = async (userUid: string): Promise<UserRecord | null> => {
+  if (!userUid) return null;
   const user = await prisma.users.findUnique({
     where: {
       uid: userUid,
@@ -29,17 +27,17 @@ export const getUserFromDb = async (
         },
       },
     },
-  })
+  });
 
-  revalidateTag('user-details')
+  revalidateTag('user-details');
 
-  if (!user) return null
+  if (!user) return null;
 
   return {
     ...user,
     codeEditorTheme: user.codeEditorTheme || undefined,
-  }
-}
+  };
+};
 
 /**
  * Method to get the user from the session, then return
@@ -52,7 +50,7 @@ export const getUserFromDb = async (
  * @returns UserRecord | null
  */
 export const getUser = async (userUid?: string) => {
-  const { data } = await getUserFromSession()
-  if (!data?.user?.id) return null
-  return await getUserFromDb(userUid || data.user.id)
-}
+  const { data } = await getUserFromSession();
+  if (!data?.user?.id) return null;
+  return await getUserFromDb(userUid || data.user.id);
+};

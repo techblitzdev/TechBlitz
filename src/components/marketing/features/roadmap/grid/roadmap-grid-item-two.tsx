@@ -1,4 +1,4 @@
-import RoadmapFeatureBox from '@/components/marketing/homepage/features/roadmap-feature-box'
+import RoadmapFeatureBox from '@/components/marketing/homepage/features/roadmap-feature-box';
 
 export default function RoadmapGridItemTwo() {
   return (
@@ -13,12 +13,10 @@ export default function RoadmapGridItemTwo() {
       ></div>
       {/** top content */}
       <div className="flex flex-col gap-2.5">
-        <h3 className="text-3xl text-gradient from-white to-white/75">
-          Generate your roadmap
-        </h3>
+        <h3 className="text-3xl text-gradient from-white to-white/75">Generate your roadmap</h3>
         <p className="text-gray-400">
-          After assessing your skills, we create a personalized learning path
-          with short-form challenges and interactive coding tasks.
+          After assessing your skills, we create a personalized learning path with short-form
+          challenges and interactive coding tasks.
         </p>
       </div>
       {/** bottom img */}
@@ -27,5 +25,5 @@ export default function RoadmapGridItemTwo() {
         <div className="z-10 absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
       </div>
     </div>
-  )
+  );
 }

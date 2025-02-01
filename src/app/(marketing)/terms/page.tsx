@@ -1,16 +1,16 @@
-import React from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { Separator } from '@/components/ui/separator'
-import Link from 'next/link'
-import { createMetadata } from '@/utils/seo'
+import React from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Separator } from '@/components/ui/separator';
+import Link from 'next/link';
+import { createMetadata } from '@/utils/seo';
 
 export async function generateMetadata() {
   return createMetadata({
     title: 'Terms of Service | TechBlitz',
     description: 'Terms of Service for TechBlitz',
     canonicalUrl: '/terms',
-  })
+  });
 }
 
 export default function TermsOfService() {
@@ -26,28 +26,23 @@ export default function TermsOfService() {
           <ScrollArea className="h-[600px] pr-4 text-white bg-[#000]">
             <section className="space-y-6">
               <div>
-                <h2 className="text-xl font-semibold mb-4">
-                  1. Acceptance of Terms
-                </h2>
+                <h2 className="text-xl font-semibold mb-4">1. Acceptance of Terms</h2>
                 <p className="text-muted-foreground">
-                  By accessing and using our service, you accept and agree to be
-                  bound by the terms and provisions of this agreement. Our
-                  service is provided under the Apache License, Version 2.0.
+                  By accessing and using our service, you accept and agree to be bound by the terms
+                  and provisions of this agreement. Our service is provided under the Apache
+                  License, Version 2.0.
                 </p>
               </div>
 
               <Separator className="border border-black-50" />
 
               <div>
-                <h2 className="text-xl font-semibold mb-4">
-                  2. Apache-2.0 License
-                </h2>
+                <h2 className="text-xl font-semibold mb-4">2. Apache-2.0 License</h2>
 
                 <div className="text-muted-foreground space-y-4">
                   <p>
-                    Our software is licensed under the Apache License, Version
-                    2.0 (the "License"). You may obtain a copy of the License
-                    at:
+                    Our software is licensed under the Apache License, Version 2.0 (the "License").
+                    You may obtain a copy of the License at:
                   </p>
                   <Link
                     href="http://www.apache.org/licenses/LICENSE-2.0"
@@ -57,13 +52,9 @@ export default function TermsOfService() {
                   </Link>
                   <p>Key terms of the Apache-2.0 License include:</p>
                   <ul className="list-disc pl-6 space-y-2">
-                    <li>
-                      Right to use, reproduce, and distribute the software
-                    </li>
+                    <li>Right to use, reproduce, and distribute the software</li>
                     <li>Ability to modify and create derivative works</li>
-                    <li>
-                      Requirement to preserve copyright and license notices
-                    </li>
+                    <li>Requirement to preserve copyright and license notices</li>
                     <li>No warranty or liability for the software</li>
                   </ul>
                 </div>
@@ -72,53 +63,37 @@ export default function TermsOfService() {
               <Separator className="border border-black-50" />
 
               <div>
-                <h2 className="text-xl font-semibold mb-4">
-                  3. User Rights and Responsibilities
-                </h2>
+                <h2 className="text-xl font-semibold mb-4">3. User Rights and Responsibilities</h2>
 
                 <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
                   <li>Users must comply with the Apache-2.0 License terms</li>
-                  <li>
-                    Users may use, modify, and distribute the software under the
-                    License
-                  </li>
-                  <li>
-                    Attribution and original copyright notices must be
-                    maintained
-                  </li>
-                  <li>
-                    Users are responsible for compliance with the License terms
-                  </li>
+                  <li>Users may use, modify, and distribute the software under the License</li>
+                  <li>Attribution and original copyright notices must be maintained</li>
+                  <li>Users are responsible for compliance with the License terms</li>
                 </ul>
               </div>
 
               <Separator className="border border-black-50" />
 
               <div>
-                <h2 className="text-xl font-semibold mb-4">
-                  4. Intellectual Property
-                </h2>
+                <h2 className="text-xl font-semibold mb-4">4. Intellectual Property</h2>
 
                 <p className="text-muted-foreground">
-                  Our software's source code and related materials are made
-                  available under the Apache-2.0 License. This ensures
-                  transparency, collaboration, and the right to use and modify
-                  the software.
+                  Our software's source code and related materials are made available under the
+                  Apache-2.0 License. This ensures transparency, collaboration, and the right to use
+                  and modify the software.
                 </p>
               </div>
 
               <Separator className="border border-black-50" />
 
               <div>
-                <h2 className="text-xl font-semibold mb-4">
-                  5. Limitation of Liability
-                </h2>
+                <h2 className="text-xl font-semibold mb-4">5. Limitation of Liability</h2>
 
                 <p className="text-muted-foreground">
-                  As specified in the Apache-2.0 License, the software is
-                  provided "AS IS", WITHOUT WARRANTIES OR CONDITIONS OF ANY
-                  KIND. We are not liable for any damages or claims arising from
-                  the use of the software.
+                  As specified in the Apache-2.0 License, the software is provided "AS IS", WITHOUT
+                  WARRANTIES OR CONDITIONS OF ANY KIND. We are not liable for any damages or claims
+                  arising from the use of the software.
                 </p>
               </div>
 
@@ -127,10 +102,9 @@ export default function TermsOfService() {
               <div>
                 <h2 className="text-xl font-semibold mb-4">6. Contributions</h2>
                 <p className="text-muted-foreground">
-                  Contributions to our project are welcome and will be subject
-                  to the terms of the Apache-2.0 License. By submitting a
-                  contribution, you agree to license your work under the same
-                  terms.
+                  Contributions to our project are welcome and will be subject to the terms of the
+                  Apache-2.0 License. By submitting a contribution, you agree to license your work
+                  under the same terms.
                 </p>
               </div>
 
@@ -139,9 +113,8 @@ export default function TermsOfService() {
               <div>
                 <h2 className="text-xl font-semibold mb-4">7. Governing Law</h2>
                 <p className="text-muted-foreground">
-                  These terms and the Apache-2.0 License shall be governed by
-                  and construed in accordance with the laws applicable to
-                  open-source software licensing.
+                  These terms and the Apache-2.0 License shall be governed by and construed in
+                  accordance with the laws applicable to open-source software licensing.
                 </p>
               </div>
             </section>
@@ -149,5 +122,5 @@ export default function TermsOfService() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

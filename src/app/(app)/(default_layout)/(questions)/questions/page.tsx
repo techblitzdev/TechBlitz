@@ -1,50 +1,47 @@
-import { Suspense } from 'react'
-import dynamic from 'next/dynamic'
+import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
 
-import Hero from '@/components/shared/hero'
-import { Button } from '@/components/ui/button'
+import Hero from '@/components/shared/hero';
+import { Button } from '@/components/ui/button';
 
-import { validateSearchParams, parseSearchParams } from '@/utils/search-params'
-import { getTags } from '@/utils/data/questions/tags/get-tags'
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo'
+import { validateSearchParams, parseSearchParams } from '@/utils/search-params';
+import { getTags } from '@/utils/data/questions/tags/get-tags';
+import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
 
 const Filter = dynamic(() => import('@/components/app/filters/filter'), {
   ssr: false,
   loading: () => <FilterLoading />,
-})
+});
 
 const FilterChips = dynamic(() => import('@/components/app/filters/chips'), {
   ssr: false,
   loading: () => <div className="h-8"></div>,
-})
-const QuestionsList = dynamic(
-  () => import('@/components/app/questions/layout/questions-list'),
-  {
-    loading: () => (
-      <div className="flex flex-col gap-6">
-        {Array.from({ length: 9 }).map((_, index) => (
-          <QuestionCardSkeleton key={index} />
-        ))}
-      </div>
-    ),
-  },
-)
+});
+const QuestionsList = dynamic(() => import('@/components/app/questions/layout/questions-list'), {
+  loading: () => (
+    <div className="flex flex-col gap-6">
+      {Array.from({ length: 9 }).map((_, index) => (
+        <QuestionCardSkeleton key={index} />
+      ))}
+    </div>
+  ),
+});
 const QuestionPageSidebar = dynamic(
   () => import('@/components/app/questions/layout/question-page-sidebar'),
   {
     loading: () => <QuestionPageSidebarLoading />,
-  },
-)
+  }
+);
 
-import FilterLoading from '@/components/app/filters/filters-loading'
-import QuestionPageSidebarLoading from '@/components/app/questions/layout/question-page-sidebar-loading'
-import { QuestionCardSkeleton } from '@/components/app/questions/layout/question-card'
-import ContinueJourney from '@/components/app/navigation/continue-journey-button'
-import { ArrowRightIcon } from 'lucide-react'
-import { WebPageJsonLd } from '@/types/Seo'
-import { getBaseUrl } from '@/utils'
+import FilterLoading from '@/components/app/filters/filters-loading';
+import QuestionPageSidebarLoading from '@/components/app/questions/layout/question-page-sidebar-loading';
+import { QuestionCardSkeleton } from '@/components/app/questions/layout/question-card';
+import ContinueJourney from '@/components/app/navigation/continue-journey-button';
+import { ArrowRightIcon } from 'lucide-react';
+import { WebPageJsonLd } from '@/types/Seo';
+import { getBaseUrl } from '@/utils';
 
-export const revalidate = 600
+export const revalidate = 600;
 
 export async function generateMetadata() {
   return createMetadata({
@@ -57,14 +54,14 @@ export async function generateMetadata() {
       textColor: '#fff',
     },
     canonicalUrl: '/questions',
-  })
+  });
 }
 
 const heroDescription = (
   <div className="flex flex-col gap-y-4 z-20 relative font-inter max-w-3xl">
     <p className="text-sm md:text-base text-gray-400">
-      Explore all the questions we have to offer. Filter by tags, question type,
-      difficulty, and more.
+      Explore all the questions we have to offer. Filter by tags, question type, difficulty, and
+      more.
     </p>
     <p className="text-gray-400">Need a more guided set of questions?</p>
     <div className="flex flex-col md:flex-row gap-2 md:items-center">
@@ -79,19 +76,16 @@ const heroDescription = (
           </Button>
         }
       >
-        <ContinueJourney
-          text="Your next recommended question"
-          variant="default"
-        />
+        <ContinueJourney text="Your next recommended question" variant="default" />
       </Suspense>
     </div>
   </div>
-)
+);
 
 export default async function QuestionsDashboard({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
   // create json ld
   const jsonLd: WebPageJsonLd = {
@@ -125,12 +119,12 @@ export default async function QuestionsDashboard({
         url: 'https://techblitz.dev/favicon.ico',
       },
     },
-  }
+  };
 
-  const tagsPromise = getTags()
+  const tagsPromise = getTags();
 
-  const filters = parseSearchParams(searchParams)
-  if (!validateSearchParams(filters)) return null
+  const filters = parseSearchParams(searchParams);
+  if (!validateSearchParams(filters)) return null;
 
   return (
     <>
@@ -160,5 +154,5 @@ export default async function QuestionsDashboard({
         </div>
       </div>
     </>
-  )
+  );
 }

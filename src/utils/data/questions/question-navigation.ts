@@ -1,8 +1,8 @@
-import { getUser } from '@/actions/user/authed/get-user'
-import { prisma } from '@/lib/prisma'
+import { getUser } from '@/actions/user/authed/get-user';
+import { prisma } from '@/lib/prisma';
 
 export const getNextAndPreviousQuestion = async (uid: string) => {
-  const user = await getUser()
+  const user = await getUser();
 
   // Get the current question with next/prev questions
   const currentQuestion = await prisma.questions.findUnique({
@@ -12,15 +12,12 @@ export const getNextAndPreviousQuestion = async (uid: string) => {
       nextQuestionSlug: true,
       previousQuestionSlug: true,
     },
-  })
+  });
 
-  if (!currentQuestion) return null
+  if (!currentQuestion) return null;
 
   // If next/prev questions are stored, fetch them
-  if (
-    currentQuestion.nextQuestionSlug ||
-    currentQuestion.previousQuestionSlug
-  ) {
+  if (currentQuestion.nextQuestionSlug || currentQuestion.previousQuestionSlug) {
     const [nextQuestion, previousQuestion] = await Promise.all([
       currentQuestion.nextQuestionSlug
         ? prisma.questions.findUnique({
@@ -32,7 +29,7 @@ export const getNextAndPreviousQuestion = async (uid: string) => {
             where: { slug: currentQuestion.previousQuestionSlug },
           })
         : null,
-    ])
+    ]);
 
     // If one exists but not the other, get a random question for the missing one
     if (nextQuestion && !previousQuestion) {
@@ -43,12 +40,12 @@ export const getNextAndPreviousQuestion = async (uid: string) => {
           customQuestion: user?.userLevel === 'FREE' ? false : true,
         },
         orderBy: { createdAt: 'desc' },
-      })
+      });
 
       return {
         nextQuestion: nextQuestion.slug,
         previousQuestion: randomPrevious?.slug,
-      }
+      };
     }
 
     if (!nextQuestion && previousQuestion) {
@@ -59,19 +56,19 @@ export const getNextAndPreviousQuestion = async (uid: string) => {
           customQuestion: user?.userLevel === 'FREE' ? false : true,
         },
         orderBy: { createdAt: 'desc' },
-      })
+      });
 
       return {
         nextQuestion: randomNext?.slug,
         previousQuestion: previousQuestion.slug,
-      }
+      };
     }
 
     if (nextQuestion && previousQuestion) {
       return {
         nextQuestion: nextQuestion.slug,
         previousQuestion: previousQuestion.slug,
-      }
+      };
     }
   }
 
@@ -101,7 +98,7 @@ export const getNextAndPreviousQuestion = async (uid: string) => {
         createdAt: 'desc',
       },
     }),
-  ])
+  ]);
 
   // If no next/prev found, get random questions
   const randomQuestion =
@@ -120,10 +117,10 @@ export const getNextAndPreviousQuestion = async (uid: string) => {
           })
           // take two for previous and next
           .then((questions) => questions.slice(0, 2))
-      : null
+      : null;
 
   return {
     nextQuestion: nextQuestion?.slug || randomQuestion?.[1]?.slug,
     previousQuestion: previousQuestion?.slug || randomQuestion?.[0]?.slug,
-  }
-}
+  };
+};

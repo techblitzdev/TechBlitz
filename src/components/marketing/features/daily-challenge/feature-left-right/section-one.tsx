@@ -1,18 +1,18 @@
-import LeftRightBlock from '@/components/marketing/global/blocks/left-right-block'
-import { Button } from '@/components/ui/button'
-import { DatePicker } from '@mantine/dates'
+import LeftRightBlock from '@/components/marketing/global/blocks/left-right-block';
+import { Button } from '@/components/ui/button';
+import { DatePicker } from '@mantine/dates';
 
 export default function FeatureLeftRightSectionOne(opts: {
-  leftHeader?: string
-  leftSubheader?: string
-  learnMoreLink?: boolean
+  leftHeader?: string;
+  leftSubheader?: string;
+  learnMoreLink?: boolean;
 }) {
-  const { leftHeader, leftSubheader, learnMoreLink } = opts
+  const { leftHeader, leftSubheader, learnMoreLink } = opts;
 
-  const today = new Date()
-  const nextWeek = new Date(today)
-  nextWeek.setDate(today.getDate() + 7)
-  const dateRange: [Date | null, Date | null] = [today, nextWeek]
+  const today = new Date();
+  const nextWeek = new Date(today);
+  nextWeek.setDate(today.getDate() + 7);
+  const dateRange: [Date | null, Date | null] = [today, nextWeek];
 
   return (
     <LeftRightBlock
@@ -27,10 +27,7 @@ export default function FeatureLeftRightSectionOne(opts: {
               : "TechBlitz empowers your growth with intuitive progress tracking. See how far you've come with streak counts that celebrate your dedication and keep you motivated. Stay on track, achieve consistency, and make self-improvement a daily habit."}
           </p>
           {learnMoreLink && (
-            <Button
-              variant="secondary"
-              href={'/features/daily-coding-challenges'}
-            >
+            <Button variant="secondary" href={'/features/daily-coding-challenges'}>
               Learn more
             </Button>
           )}
@@ -61,5 +58,5 @@ export default function FeatureLeftRightSectionOne(opts: {
         </div>
       }
     />
-  )
+  );
 }

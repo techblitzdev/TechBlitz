@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export const updateUserSchema = z
   .object({
@@ -8,10 +8,10 @@ export const updateUserSchema = z
   .refine(
     (data) => {
       // If email is entered, at least one of email or password must be present
-      return data.email || data.password
+      return data.email || data.password;
     },
     {
       message: 'Either email or password must be provided',
       path: ['email'], // This marks the error on the email field
-    },
-  )
+    }
+  );

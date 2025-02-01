@@ -1,6 +1,6 @@
-import Chip from '@/components/ui/chip'
-import DashboardQuestionCard from './dashboard-question-card'
-import { ArrowRight } from 'lucide-react'
+import Chip from '@/components/ui/chip';
+import DashboardQuestionCard from './dashboard-question-card';
+import { ArrowRight } from 'lucide-react';
 
 const questions = [
   {
@@ -33,21 +33,16 @@ const questions = [
     name: 'Explain component lifecycle',
     correct: true,
   },
-]
+];
 
 // Triple the questions to ensure smooth infinite scroll
-const allQuestions = [...questions, ...questions, ...questions]
+const allQuestions = [...questions, ...questions, ...questions];
 
 export default function AllQuestionsDashboardBentoBox() {
   return (
     <section className="flex flex-col gap-y-5 group p-4 relative overflow-hidden h-[350px] lg:h-fit">
       <div className="space-y-3 z-10 relative">
-        <Chip
-          color="bg-white"
-          text="Questions"
-          textColor="text-black"
-          border="border-black-50"
-        />
+        <Chip color="bg-white" text="Questions" textColor="text-black" border="border-black-50" />
         <h6 className="text-lg lg:text-xl flex items-center">
           View all Questions
           <ArrowRight className="size-4 inline-block ml-1 group-hover:ml-2 duration-300" />
@@ -60,15 +55,10 @@ export default function AllQuestionsDashboardBentoBox() {
         {/* Scrolling content */}
         <div
           className="animate-scroll hover:pause-animation relative z-0"
-          style={
-            { '--question-count': questions.length } as React.CSSProperties
-          }
+          style={{ '--question-count': questions.length } as React.CSSProperties}
         >
           {allQuestions.map((question, index) => (
-            <DashboardQuestionCard
-              key={`${question.label}-${index}`}
-              question={question}
-            />
+            <DashboardQuestionCard key={`${question.label}-${index}`} question={question} />
           ))}
         </div>
 
@@ -76,5 +66,5 @@ export default function AllQuestionsDashboardBentoBox() {
         <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[#000] to-transparent z-10" />
       </div>
     </section>
-  )
+  );
 }

@@ -1,11 +1,11 @@
-'use client'
-import React from 'react'
+'use client';
+import React from 'react';
 
 // tip tap
-import { useEditor, EditorContent } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
-import { common, createLowlight } from 'lowlight'
+import { useEditor, EditorContent } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import { common, createLowlight } from 'lowlight';
 
 // components
 import {
@@ -14,49 +14,49 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { Form, FormControl, FormField } from '@/components/ui/form'
-import { InputWithLabel } from '@/components/ui/input-label'
-import { DatePicker } from '@/components/ui/date-picker'
-import { toast } from 'sonner'
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormField } from '@/components/ui/form';
+import { InputWithLabel } from '@/components/ui/input-label';
+import { DatePicker } from '@/components/ui/date-picker';
+import { toast } from 'sonner';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Separator } from '@/components/ui/separator'
-import { Switch } from '@/components/ui/switch'
-import { Label } from '@/components/ui/label'
-const lowlight = createLowlight(common)
-import { TrashIcon } from 'lucide-react'
+} from '@/components/ui/select';
+import { Separator } from '@/components/ui/separator';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+const lowlight = createLowlight(common);
+import { TrashIcon } from 'lucide-react';
 
 // react hook form
-import { useForm, useFieldArray } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { newQuestionSchema } from '@/lib/zod/schemas/new-question-schema'
-import { z } from 'zod'
-import { formatISO } from 'date-fns'
+import { useForm, useFieldArray } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { newQuestionSchema } from '@/lib/zod/schemas/new-question-schema';
+import { z } from 'zod';
+import { formatISO } from 'date-fns';
 
 // react query
-import { useMutation } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query';
 
 // actions
-import { addQuestion } from '@/actions/questions/add'
+import { addQuestion } from '@/actions/questions/add';
 
 // constants
-import { LANGUAGE_OPTIONS } from '@/utils/constants/language-options'
-import { QuestionDifficulty } from '@/types/Questions'
+import { LANGUAGE_OPTIONS } from '@/utils/constants/language-options';
+import { QuestionDifficulty } from '@/types/Questions';
 
-type SchemaProps = z.infer<typeof newQuestionSchema>
+type SchemaProps = z.infer<typeof newQuestionSchema>;
 
 const MenuBar = ({ editor }: { editor: any }) => {
-  const [currentLanguage, setCurrentLanguage] = React.useState('javascript')
+  const [currentLanguage, setCurrentLanguage] = React.useState('javascript');
 
   if (!editor) {
-    return null
+    return null;
   }
 
   return (
@@ -84,7 +84,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         variant="default"
         size="sm"
         onClick={() => {
-          editor.chain().focus().toggleCodeBlock().run()
+          editor.chain().focus().toggleCodeBlock().run();
         }}
         className={editor.isActive('codeBlock') ? 'bg-black-50' : ''}
       >
@@ -94,8 +94,8 @@ const MenuBar = ({ editor }: { editor: any }) => {
         <Select
           value={currentLanguage}
           onValueChange={(value) => {
-            setCurrentLanguage(value)
-            editor.chain().focus().setCodeBlock({ language: value }).run()
+            setCurrentLanguage(value);
+            editor.chain().focus().setCodeBlock({ language: value }).run();
           }}
         >
           <SelectTrigger className="w-[180px]">
@@ -111,15 +111,15 @@ const MenuBar = ({ editor }: { editor: any }) => {
         </Select>
       )}
     </div>
-  )
-}
+  );
+};
 
 const AnswerEditor = ({
   value,
   onChange,
 }: {
-  value: string
-  onChange: (value: string) => void
+  value: string;
+  onChange: (value: string) => void;
 }) => {
   const editor = useEditor({
     extensions: [
@@ -131,22 +131,19 @@ const AnswerEditor = ({
     ],
     content: value || '',
     onUpdate: ({ editor }) => {
-      const html = editor.getHTML()
-      onChange(html) // Update the form value with the editor's content
+      const html = editor.getHTML();
+      onChange(html); // Update the form value with the editor's content
     },
-  })
+  });
 
   return (
     <div className="border border-black-50 rounded-md">
       {/* Menu Bar */}
       <MenuBar editor={editor} />
-      <EditorContent
-        editor={editor}
-        className="prose prose-invert max-w-none p-4"
-      />
+      <EditorContent editor={editor} className="prose prose-invert max-w-none p-4" />
     </div>
-  )
-}
+  );
+};
 
 export default function NewQuestionModal({ ...props }) {
   const editor = useEditor({
@@ -159,10 +156,10 @@ export default function NewQuestionModal({ ...props }) {
     ],
     content: '',
     onUpdate: ({ editor }) => {
-      const html = editor.getHTML()
-      form.setValue('codeSnippet', html)
+      const html = editor.getHTML();
+      form.setValue('codeSnippet', html);
     },
-  })
+  });
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(newQuestionSchema),
@@ -192,12 +189,12 @@ export default function NewQuestionModal({ ...props }) {
         },
       ],
     },
-  })
+  });
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: 'answers',
-  })
+  });
 
   const {
     fields: resourceFields,
@@ -206,17 +203,14 @@ export default function NewQuestionModal({ ...props }) {
   } = useFieldArray({
     control: form.control,
     name: 'questionResources',
-  })
+  });
 
-  const toggleCorrectAnswer = (index: number) =>
-    form.setValue('correctAnswer', index)
+  const toggleCorrectAnswer = (index: number) => form.setValue('correctAnswer', index);
 
   const { mutateAsync: server_addQuestion, isPending } = useMutation({
     mutationFn: (values: SchemaProps) => {
-      const { answers, ...rest } = values
-      const answerFullSnippets = answers.map(
-        (answer) => answer.answerFullSnippet,
-      )
+      const { answers, ...rest } = values;
+      const answerFullSnippets = answers.map((answer) => answer.answerFullSnippet);
 
       return addQuestion({
         ...rest,
@@ -230,24 +224,22 @@ export default function NewQuestionModal({ ...props }) {
         tags: rest.tags ? rest.tags.split(',').map((tag) => tag.trim()) : [],
         aiTitle: rest.aiTitle || undefined,
         difficulty: rest.difficulty as QuestionDifficulty,
-      })
+      });
     },
     onSuccess: () => {
-      toast.success('Question added successfully')
-      form.reset()
-      form.setValue('tags', '')
-      editor?.commands.setContent('')
+      toast.success('Question added successfully');
+      form.reset();
+      form.setValue('tags', '');
+      editor?.commands.setContent('');
     },
     onError: () => {
-      toast.error('Failed to add question')
+      toast.error('Failed to add question');
     },
-  })
+  });
 
-  const showAiTitleField =
-    form.watch('isRoadmapQuestion') && !form.watch('dailyQuestion')
+  const showAiTitleField = form.watch('isRoadmapQuestion') && !form.watch('dailyQuestion');
 
-  const handleNewQuestion = async (values: SchemaProps) =>
-    await server_addQuestion(values)
+  const handleNewQuestion = async (values: SchemaProps) => await server_addQuestion(values);
 
   return (
     <Dialog>
@@ -319,10 +311,7 @@ export default function NewQuestionModal({ ...props }) {
                   name="difficulty"
                   render={({ field }) => (
                     <FormControl>
-                      <Select
-                        value={field.value}
-                        onValueChange={field.onChange}
-                      >
+                      <Select value={field.value} onValueChange={field.onChange}>
                         <SelectTrigger className="w-40">
                           <SelectValue placeholder="Select difficulty" />
                         </SelectTrigger>
@@ -346,10 +335,7 @@ export default function NewQuestionModal({ ...props }) {
                         <DatePicker
                           date={field.value ? new Date(field.value) : undefined}
                           setDate={(date) =>
-                            form.setValue(
-                              'questionDate',
-                              date ? formatISO(date) : '',
-                            )
+                            form.setValue('questionDate', date ? formatISO(date) : '')
                           }
                         />
                       </FormControl>
@@ -420,9 +406,7 @@ export default function NewQuestionModal({ ...props }) {
                           checked={field.value || false}
                           onCheckedChange={field.onChange}
                         />
-                        <Label htmlFor="isRoadmapQuestion">
-                          Roadmap Question?
-                        </Label>
+                        <Label htmlFor="isRoadmapQuestion">Roadmap Question?</Label>
                       </div>
                     </FormControl>
                   )}
@@ -452,26 +436,18 @@ export default function NewQuestionModal({ ...props }) {
 
               {/* Dynamic Answer Fields with TipTap Editor */}
               {fields.map((item, index) => (
-                <div
-                  key={item.id}
-                  className="flex flex-col md:flex-row md:items-center gap-4"
-                >
+                <div key={item.id} className="flex flex-col md:flex-row md:items-center gap-4">
                   <div className="flex-1">
                     <AnswerEditor
                       value={item.text} // Set initial value
-                      onChange={(value) =>
-                        form.setValue(`answers.${index}.text`, value)
-                      } // Update the form field
+                      onChange={(value) => form.setValue(`answers.${index}.text`, value)} // Update the form field
                     />
                   </div>
                   <div className="flex-1">
                     <AnswerEditor
                       value={item.text} // Set initial value
                       onChange={(value) =>
-                        form.setValue(
-                          `answers.${index}.answerFullSnippet`,
-                          value,
-                        )
+                        form.setValue(`answers.${index}.answerFullSnippet`, value)
                       } // Update the form field
                     />
                   </div>
@@ -481,16 +457,11 @@ export default function NewQuestionModal({ ...props }) {
                       onClick={() => toggleCorrectAnswer(index)}
                       className="btn"
                     >
-                      {index === form.watch('correctAnswer') &&
-                      form.watch('correctAnswer') !== null
+                      {index === form.watch('correctAnswer') && form.watch('correctAnswer') !== null
                         ? '✅'
                         : 'Mark as correct'}
                     </Button>
-                    <Button
-                      type="button"
-                      onClick={() => remove(index)}
-                      className="btn"
-                    >
+                    <Button type="button" onClick={() => remove(index)} className="btn">
                       <TrashIcon className="w-4 h-4 text-destructive" />
                     </Button>
                   </div>
@@ -574,11 +545,7 @@ export default function NewQuestionModal({ ...props }) {
                   >
                     Add Resource
                   </Button>
-                  <Button
-                    type="button"
-                    onClick={() => removeResource(index)}
-                    className="btn"
-                  >
+                  <Button type="button" onClick={() => removeResource(index)} className="btn">
                     <TrashIcon className="size-4 text-destructive" />
                   </Button>
                 </div>
@@ -593,5 +560,5 @@ export default function NewQuestionModal({ ...props }) {
         </DialogHeader>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

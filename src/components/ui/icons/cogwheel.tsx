@@ -1,29 +1,24 @@
-import React from 'react'
+import React from 'react';
 
 type iconProps = {
-  fill?: string
-  secondaryfill?: string
-  strokewidth?: number
-  width?: string
-  height?: string
-  title?: string
-}
+  fill?: string;
+  secondaryfill?: string;
+  strokewidth?: number;
+  width?: string;
+  height?: string;
+  title?: string;
+};
 
 function Cogwheel(props: iconProps) {
-  const fill = props.fill || 'currentColor'
-  const secondaryfill = props.secondaryfill || fill
-  const strokewidth = props.strokewidth || 1
-  const width = props.width || '1em'
-  const height = props.height || '1em'
-  const title = props.title || 'cogwheel'
+  const fill = props.fill || 'currentColor';
+  const secondaryfill = props.secondaryfill || fill;
+  const strokewidth = props.strokewidth || 1;
+  const width = props.width || '1em';
+  const height = props.height || '1em';
+  const title = props.title || 'cogwheel';
 
   return (
-    <svg
-      height={height}
-      width={width}
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg height={height} width={width} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <title>{title}</title>
       <g fill={fill} strokeLinecap="butt" strokeLinejoin="miter">
         <circle
@@ -46,7 +41,7 @@ function Cogwheel(props: iconProps) {
         />
       </g>
     </svg>
-  )
+  );
 }
 
-export default Cogwheel
+export default Cogwheel;

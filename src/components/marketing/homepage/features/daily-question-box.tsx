@@ -1,4 +1,4 @@
-import CodeSnippet from '@/components/marketing/global/code-snippet'
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 
 const codeSnippet1 = `// how to fetch data from an API
 export const fetchData = async () => {
@@ -19,7 +19,7 @@ export const fetchData = async () => {
 };
 
 fetchData();
-`
+`;
 
 const codeSnippet2 = `// how to use javascript array methods
 const users = [
@@ -44,7 +44,7 @@ const averageAge = users.reduce((sum, user) => sum + user.age, 0) / users.length
 console.log(filteredUsers); // Output: [{ id: 1, name: 'Alice', active: true, age: 28 }, { id: 2, name: 'Bob', active: false, age: 30 }, { id: 5, name: 'Eve', active: false, age: 35 }]
 console.log(activeUserNames); // Output: ['Alice', 'Charlie', 'David']
 console.log(averageAge); // Output: 28
-`
+`;
 
 export default function DailyQuestionBox() {
   return (
@@ -92,5 +92,5 @@ export default function DailyQuestionBox() {
         />
       </div>
     </div>
-  )
+  );
 }

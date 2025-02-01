@@ -1,40 +1,38 @@
-'use client'
+'use client';
 
 import {
   DropdownMenu,
   DropdownMenuItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Button } from '@/components/ui/button'
-import { EllipsisVertical, FileText } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { generateStatisticsReport } from '@/actions/ai/reports/generate-report'
-import { UserWithOutAnswers } from '@/types/User'
-import { useRouter } from 'next/navigation'
-import { toast } from 'sonner'
-import { useTransition } from 'react'
+} from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
+import { EllipsisVertical, FileText } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { generateStatisticsReport } from '@/actions/ai/reports/generate-report';
+import { UserWithOutAnswers } from '@/types/User';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { useTransition } from 'react';
 
-export default function StatisticsOverviewMenu(opts: {
-  user: UserWithOutAnswers
-}) {
-  const { user } = opts
-  const router = useRouter()
+export default function StatisticsOverviewMenu(opts: { user: UserWithOutAnswers }) {
+  const { user } = opts;
+  const router = useRouter();
 
-  const [isPending, startTransition] = useTransition()
+  const [isPending, startTransition] = useTransition();
 
   const handleGenerateReport = async () => {
     try {
       startTransition(async () => {
-        const report = await generateStatisticsReport()
-        console.log('report', report)
+        const report = await generateStatisticsReport();
+        console.log('report', report);
         // Use router.push instead of redirect for client-side navigation
-        router.push(`/statistics/reports/${report.uid}`)
-      })
+        router.push(`/statistics/reports/${report.uid}`);
+      });
     } catch (error) {
-      toast.error('Failed to generate report')
+      toast.error('Failed to generate report');
     }
-  }
+  };
 
   return (
     <DropdownMenu>
@@ -48,10 +46,7 @@ export default function StatisticsOverviewMenu(opts: {
         className="bg-black border border-black-50 text-white hover:text-white"
       >
         <DropdownMenuItem
-          className={cn(
-            user?.userLevel === 'PREMIUM' &&
-              'opacity-50 hover:cursor-not-allowed',
-          )}
+          className={cn(user?.userLevel === 'PREMIUM' && 'opacity-50 hover:cursor-not-allowed')}
         >
           <button
             onClick={handleGenerateReport}
@@ -63,5 +58,5 @@ export default function StatisticsOverviewMenu(opts: {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

@@ -1,46 +1,45 @@
-'use client'
+'use client';
 
-import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Button } from '@/components/ui/button'
-import { Textarea } from '@/components/ui/textarea'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { StarsIcon } from 'lucide-react'
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { StarsIcon } from 'lucide-react';
 
 export default function AnimatedAIQuestionHelpCard() {
-  const [showAIHelp, setShowAIHelp] = useState(false)
-  const [typedPlaceholder, setTypedPlaceholder] = useState('')
+  const [showAIHelp, setShowAIHelp] = useState(false);
+  const [typedPlaceholder, setTypedPlaceholder] = useState('');
 
-  const placeholder = 'How do I use Array.Reduce in JavaScript?'
+  const placeholder = 'How do I use Array.Reduce in JavaScript?';
 
   useEffect(() => {
-    let currentIndex = 0
-    const typingSpeed = 50
+    let currentIndex = 0;
+    const typingSpeed = 50;
 
     const typeWriter = () => {
       if (currentIndex < placeholder.length) {
-        setTypedPlaceholder(placeholder.substring(0, currentIndex + 1))
-        currentIndex++
-        setTimeout(typeWriter, typingSpeed)
+        setTypedPlaceholder(placeholder.substring(0, currentIndex + 1));
+        currentIndex++;
+        setTimeout(typeWriter, typingSpeed);
       }
-    }
+    };
 
-    typeWriter()
+    typeWriter();
 
     const interval = setInterval(() => {
-      typeWriter()
-      currentIndex = 0
-    }, 6000)
+      typeWriter();
+      currentIndex = 0;
+    }, 6000);
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <Card
       className="w-full max-w-md h-full overflow-hidden text-white border border-black-50 relative"
       style={{
-        background:
-          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
+        background: 'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
     >
       <CardHeader>
@@ -66,14 +65,12 @@ export default function AnimatedAIQuestionHelpCard() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
               >
-                In JavaScript, you can use the `Array.reduce` method to reduce
-                an array to a single value. This method takes a callback
-                function as an argument and returns a single value. The callback
-                function takes four arguments: the accumulator, the current
-                value, the current index, and the array itself. The accumulator
-                is the value that is returned from the previous callback
-                function. The current value is the current element in the array.
-                The current index is the index of the current element in the
+                In JavaScript, you can use the `Array.reduce` method to reduce an array to a single
+                value. This method takes a callback function as an argument and returns a single
+                value. The callback function takes four arguments: the accumulator, the current
+                value, the current index, and the array itself. The accumulator is the value that is
+                returned from the previous callback function. The current value is the current
+                element in the array. The current index is the index of the current element in the
                 array. The array is the array itself.
               </motion.div>
             </motion.div>
@@ -92,11 +89,7 @@ export default function AnimatedAIQuestionHelpCard() {
                 className="mb-4 text-white border border-black-50"
                 rows={5}
               />
-              <Button
-                onClick={() => setShowAIHelp(true)}
-                variant="secondary"
-                className="w-full"
-              >
+              <Button onClick={() => setShowAIHelp(true)} variant="secondary" className="w-full">
                 Request AI Assistance
               </Button>
             </motion.div>
@@ -104,5 +97,5 @@ export default function AnimatedAIQuestionHelpCard() {
         </AnimatePresence>
       </CardContent>
     </Card>
-  )
+  );
 }

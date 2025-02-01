@@ -1,18 +1,18 @@
-'use client'
+'use client';
 
-import { useState, useRef, useEffect } from 'react'
-import Image, { StaticImageData } from 'next/image'
-import { Play } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { useState, useRef, useEffect } from 'react';
+import Image, { StaticImageData } from 'next/image';
+import { Play } from 'lucide-react';
+import { motion } from 'framer-motion';
 
-import { FC } from 'react'
-import { cn } from '@/lib/utils'
+import { FC } from 'react';
+import { cn } from '@/lib/utils';
 
 interface HomepageHeroImagesProps {
-  imageSrc: StaticImageData
-  videoSrc: string
-  videoPoster: string
-  fadeDirection?: 'top' | 'bottom'
+  imageSrc: StaticImageData;
+  videoSrc: string;
+  videoPoster: string;
+  fadeDirection?: 'top' | 'bottom';
 }
 
 const HomepageHeroImages: FC<HomepageHeroImagesProps> = ({
@@ -21,37 +21,37 @@ const HomepageHeroImages: FC<HomepageHeroImagesProps> = ({
   videoPoster,
   fadeDirection = 'bottom',
 }) => {
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false)
-  const iframeRef = useRef<HTMLIFrameElement>(null)
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const handlePlayClick = () => {
-    setIsVideoPlaying(true)
-  }
+    setIsVideoPlaying(true);
+  };
 
   const handleVideoEnd = () => {
-    setIsVideoPlaying(false)
+    setIsVideoPlaying(false);
     if (iframeRef.current) {
-      iframeRef.current.src = 'about:blank'
+      iframeRef.current.src = 'about:blank';
     }
-  }
+  };
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       if (event.data === 'video-end') {
-        handleVideoEnd()
+        handleVideoEnd();
       }
-    }
+    };
 
-    window.addEventListener('message', handleMessage)
+    window.addEventListener('message', handleMessage);
 
     if (isVideoPlaying && iframeRef.current) {
-      iframeRef.current.src = `${videoSrc}?poster=${encodeURIComponent(videoPoster)}&autoplay=true`
+      iframeRef.current.src = `${videoSrc}?poster=${encodeURIComponent(videoPoster)}&autoplay=true`;
     }
 
     return () => {
-      window.removeEventListener('message', handleMessage)
-    }
-  }, [isVideoPlaying, videoSrc, videoPoster])
+      window.removeEventListener('message', handleMessage);
+    };
+  }, [isVideoPlaying, videoSrc, videoPoster]);
 
   return (
     <div className="relative h-full overflow-hidden rounded-lg shadow-2xl px-0 md:px-20">
@@ -110,14 +110,12 @@ const HomepageHeroImages: FC<HomepageHeroImagesProps> = ({
         <div
           className={cn(
             'absolute inset-x-0  h-20 md:h-40 lg:h-80  from-[#000] to-transparent pointer-events-none z-30',
-            fadeDirection === 'top'
-              ? 'top-0 bg-gradient-to-b'
-              : 'bottom-0 bg-gradient-to-t',
+            fadeDirection === 'top' ? 'top-0 bg-gradient-to-b' : 'bottom-0 bg-gradient-to-t'
           )}
         />
       )}
     </div>
-  )
-}
+  );
+};
 
-export default HomepageHeroImages
+export default HomepageHeroImages;

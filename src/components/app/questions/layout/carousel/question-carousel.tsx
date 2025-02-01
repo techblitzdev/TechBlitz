@@ -1,24 +1,24 @@
-'use client'
+'use client';
 
-import { ReactNode } from 'react'
+import { ReactNode } from 'react';
 import {
   Carousel,
   CarouselContent,
   CarouselNext,
   CarouselPrevious,
-} from '@/components/ui/carousel'
-import { QuestionDifficulty } from '@/types/Questions'
-import { Button } from '@/components/ui/button'
-import { ChevronRight } from 'lucide-react'
+} from '@/components/ui/carousel';
+import { QuestionDifficulty } from '@/types/Questions';
+import { Button } from '@/components/ui/button';
+import { ChevronRight } from 'lucide-react';
 
 interface QuestionCarouselProps {
-  heading: string | React.ReactNode
-  description: string | React.ReactNode
-  image: string
-  tag: string | string[]
-  difficulty?: QuestionDifficulty
-  children: ReactNode
-  studyPath?: string
+  heading: string | React.ReactNode;
+  description: string | React.ReactNode;
+  image: string;
+  tag: string | string[];
+  difficulty?: QuestionDifficulty;
+  children: ReactNode;
+  studyPath?: string;
 }
 
 export default function QuestionCarousel({
@@ -28,7 +28,7 @@ export default function QuestionCarousel({
   children,
   studyPath,
 }: QuestionCarouselProps) {
-  console.log(image)
+  console.log(image);
 
   return (
     <Carousel
@@ -80,5 +80,5 @@ export default function QuestionCarousel({
         </div>
       </div>
     </Carousel>
-  )
+  );
 }

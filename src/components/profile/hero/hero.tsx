@@ -1,14 +1,14 @@
-import { UserRecord } from '@/types/User'
-import { Camera } from 'lucide-react'
-import { getUserDisplayName } from '@/utils/user'
-import ProfileImage from './profile-image'
-import ProfilePicture from '@/components/ui/profile-picture'
+import { UserRecord } from '@/types/User';
+import { Camera } from 'lucide-react';
+import { getUserDisplayName } from '@/utils/user';
+import ProfileImage from './profile-image';
+import ProfilePicture from '@/components/ui/profile-picture';
 
 export default async function ProfileHero(opts: {
-  userProfileData: UserRecord
-  user: UserRecord | null
+  userProfileData: UserRecord;
+  user: UserRecord | null;
 }) {
-  const { userProfileData, user } = opts
+  const { userProfileData, user } = opts;
 
   return (
     <section className="relative h-64 w-full bg-black-100 border-b border-black-50">
@@ -32,5 +32,5 @@ export default async function ProfileHero(opts: {
         </div>
       </div>
     </section>
-  )
+  );
 }

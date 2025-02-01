@@ -1,17 +1,17 @@
-'use client'
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { CardContent, CardFooter } from '@/components/ui/card'
-import { Skeleton } from '@/components/ui/skeleton'
-import { Progress } from '@/components/ui/progress'
-import { Check } from 'lucide-react'
-import { cn } from '@/lib/utils'
+'use client';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { CardContent, CardFooter } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Progress } from '@/components/ui/progress';
+import { Check } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const skeletonVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -20 },
-}
+};
 
 const checkVariants = {
   hidden: { scale: 0, opacity: 0 },
@@ -21,33 +21,29 @@ const checkVariants = {
     transition: { type: 'spring', stiffness: 300, damping: 20 },
   },
   exit: { scale: 0, opacity: 0 },
-}
+};
 
-export default function RoadmapFeatureBoxAnimation({
-  absolute,
-}: {
-  absolute: boolean
-}) {
-  const [progress, setProgress] = useState(0)
-  const [isComplete, setIsComplete] = useState(false)
+export default function RoadmapFeatureBoxAnimation({ absolute }: { absolute: boolean }) {
+  const [progress, setProgress] = useState(0);
+  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
     const fillInterval = setInterval(() => {
       setProgress((prevProgress) => {
         if (prevProgress >= 100) {
-          setIsComplete(true)
+          setIsComplete(true);
           setTimeout(() => {
-            setProgress(0)
-            setIsComplete(false)
-          }, 3000) // Reset after 3 seconds
-          return 100
+            setProgress(0);
+            setIsComplete(false);
+          }, 3000); // Reset after 3 seconds
+          return 100;
         }
-        return prevProgress + 100 / 70 // Increase by 1/70th every 100ms to fill in 7 seconds
-      })
-    }, 100)
+        return prevProgress + 100 / 70; // Increase by 1/70th every 100ms to fill in 7 seconds
+      });
+    }, 100);
 
-    return () => clearInterval(fillInterval)
-  }, [])
+    return () => clearInterval(fillInterval);
+  }, []);
 
   return (
     <>
@@ -78,13 +74,13 @@ export default function RoadmapFeatureBoxAnimation({
                 <Skeleton
                   className={cn(
                     'h-7 bg-black-50 hidden md:block',
-                    !absolute ? 'w-[250px]' : 'w-[400px]',
+                    !absolute ? 'w-[250px]' : 'w-[400px]'
                   )}
                 />
                 <Skeleton
                   className={cn(
                     'h-4 md:h-7 w-full bg-black-50 md:block',
-                    !absolute ? 'w-[180px]' : 'sm:w-[260px]',
+                    !absolute ? 'w-[180px]' : 'sm:w-[260px]'
                   )}
                 />
               </motion.div>
@@ -116,5 +112,5 @@ export default function RoadmapFeatureBoxAnimation({
         />
       </CardFooter>
     </>
-  )
+  );
 }

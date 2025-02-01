@@ -1,21 +1,11 @@
-import React from 'react'
-import {
-  Html,
-  Head,
-  Body,
-  Container,
-  Section,
-  Text,
-  Link,
-  Hr,
-  Img,
-} from '@react-email/components'
+import React from 'react';
+import { Html, Head, Body, Container, Section, Text, Link, Hr, Img } from '@react-email/components';
 
 interface EmailTemplateProps {
-  title: string
-  description: string
-  tags: string[]
-  link: string
+  title: string;
+  description: string;
+  tags: string[];
+  link: string;
 }
 
 export const SuggestedChallengeEmailTemplate: React.FC<EmailTemplateProps> = ({
@@ -43,16 +33,11 @@ export const SuggestedChallengeEmailTemplate: React.FC<EmailTemplateProps> = ({
             </Link>
             <Hr style={styles.hr} />
             <Text style={styles.description}>{description}</Text>
-            <Text style={styles.tagLabel}>
-              Your suggested challenge involves:
-            </Text>
+            <Text style={styles.tagLabel}>Your suggested challenge involves:</Text>
             {tags?.length > 0 && (
               <Section style={styles.tagContainer}>
                 {tags?.map((tag, index) => (
-                  <Text
-                    key={index}
-                    style={{ ...styles.tag, margin: '4px 4px' }}
-                  >
+                  <Text key={index} style={{ ...styles.tag, margin: '4px 4px' }}>
                     {tag}
                   </Text>
                 ))}
@@ -63,9 +48,7 @@ export const SuggestedChallengeEmailTemplate: React.FC<EmailTemplateProps> = ({
               Stay consistent, keep coding, and watch your skills grow!
             </Text>
             <Section style={styles.footer}>
-              <Text style={styles.footerText}>
-                © 2025 TechBlitz. All rights reserved.
-              </Text>
+              <Text style={styles.footerText}>© 2025 TechBlitz. All rights reserved.</Text>
               <Text style={styles.footerText}>
                 Want to stop receiving these emails?{' '}
                 <Link
@@ -80,19 +63,18 @@ export const SuggestedChallengeEmailTemplate: React.FC<EmailTemplateProps> = ({
         </Container>
       </Body>
     </Html>
-  )
-}
+  );
+};
 
 // default content
 // @ts-ignore
 SuggestedChallengeEmailTemplate.PreviewProps = {
   title: 'Your daily challenge is ready!',
-  description:
-    "Sharpen your coding skills with today's exciting challenge. Are you up for it?",
+  description: "Sharpen your coding skills with today's exciting challenge. Are you up for it?",
   tags: ['JavaScript', 'Algorithms', 'Problem Solving', 'React'],
   link: 'https://example.com/daily-challenge',
   difficulty: 'Medium',
-} as EmailTemplateProps
+} as EmailTemplateProps;
 
 const styles = {
   body: {
@@ -202,6 +184,6 @@ const styles = {
     color: '#888888',
     textAlign: 'center' as const,
   },
-}
+};
 
-export default SuggestedChallengeEmailTemplate
+export default SuggestedChallengeEmailTemplate;

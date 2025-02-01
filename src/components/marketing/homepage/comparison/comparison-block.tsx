@@ -1,10 +1,7 @@
-import CodeComparison from './code-comparison'
+import CodeComparison from './code-comparison';
 
-export default async function ComparisonBlock(opts: {
-  header?: string
-  subheader?: string
-}) {
-  const { header, subheader } = opts
+export default async function ComparisonBlock(opts: { header?: string; subheader?: string }) {
+  const { header, subheader } = opts;
 
   return (
     <section className="pt-10 lg:pt-6 pb-20 md:pb-28 flex flex-col gap-y-7 relative items-center w-full">
@@ -36,5 +33,5 @@ export default async function ComparisonBlock(opts: {
         <CodeComparison />
       </div>
     </section>
-  )
+  );
 }

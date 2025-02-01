@@ -8,16 +8,14 @@ import {
   Preview,
   Section,
   Text,
-} from '@react-email/components'
-import * as React from 'react'
+} from '@react-email/components';
+import * as React from 'react';
 
 interface WaitlistConfirmationEmailProps {
-  email: string
+  email: string;
 }
 
-const WaitlistConfirmationEmail = ({
-  email,
-}: WaitlistConfirmationEmailProps) => {
+const WaitlistConfirmationEmail = ({ email }: WaitlistConfirmationEmailProps) => {
   return (
     <Html>
       <Head />
@@ -56,13 +54,12 @@ const WaitlistConfirmationEmail = ({
           </Section>
           <Heading style={h1}>You're on the waitlist!</Heading>
           <Text style={text}>
-            Hey {email}, thanks for joining the TechBlitz waitlist! We're
-            thrilled to have you on board.
+            Hey {email}, thanks for joining the TechBlitz waitlist! We're thrilled to have you on
+            board.
           </Text>
           <Text style={text}>
-            We'll notify you as soon as we're ready to welcome you to TechBlitz.
-            In the meantime, you can share TechBlitz with your friends, and
-            follow our progress!
+            We'll notify you as soon as we're ready to welcome you to TechBlitz. In the meantime,
+            you can share TechBlitz with your friends, and follow our progress!
           </Text>
           <Section style={listContainer}>
             <Link href="https://x.com/techblitz_dev" style={listItem}>
@@ -82,12 +79,7 @@ const WaitlistConfirmationEmail = ({
               </svg>
             </Link>
             <Link href="https://git.new/techblitz" style={listItem}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path
                   fill="currentColor"
                   d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"
@@ -96,27 +88,24 @@ const WaitlistConfirmationEmail = ({
             </Link>
           </Section>
           <Text style={text}>
-            If you have any questions, feel free to reply to this email. We're
-            here to help!
+            If you have any questions, feel free to reply to this email. We're here to help!
           </Text>
           <Section style={footer}>
-            <Text style={footerText}>
-              © 2025 TechBlitz. All rights reserved.
-            </Text>
+            <Text style={footerText}>© 2025 TechBlitz. All rights reserved.</Text>
           </Section>
         </Container>
       </Body>
     </Html>
-  )
-}
+  );
+};
 
-export default WaitlistConfirmationEmail
+export default WaitlistConfirmationEmail;
 
 const main = {
   backgroundColor: '#000000',
   color: '#FFFFFF',
   fontFamily: "'Onest', Verdana, sans-serif",
-}
+};
 
 const container = {
   margin: '0 auto',
@@ -124,16 +113,16 @@ const container = {
   width: '100%',
   maxWidth: '600px',
   textAlign: 'center' as const,
-}
+};
 
 const logoContainer = {
   marginTop: '32px',
   marginBottom: '32px',
-}
+};
 
 const logo = {
   margin: '0 auto',
-}
+};
 
 const h1 = {
   color: '#FFFFFF',
@@ -142,7 +131,7 @@ const h1 = {
   lineHeight: '40px',
   margin: '0 0 20px',
   textAlign: 'center' as const,
-}
+};
 
 const text = {
   color: '#FFFFFF',
@@ -150,7 +139,7 @@ const text = {
   lineHeight: '24px',
   textAlign: 'center' as const,
   margin: '0 0 20px',
-}
+};
 
 const listContainer = {
   margin: '0 0 32px',
@@ -158,7 +147,7 @@ const listContainer = {
   justifyContent: 'center',
   alignItems: 'center',
   gap: '24px', // Increased gap for better spacing
-}
+};
 
 const listItem = {
   color: '#FFFFFF',
@@ -167,16 +156,16 @@ const listItem = {
   display: 'inline-flex', // Align icons and links
   alignItems: 'center', // Ensure vertical alignment
   marginBottom: '8px',
-}
+};
 
 const footer = {
   marginTop: '32px',
   textAlign: 'center' as const,
-}
+};
 
 const footerText = {
   color: '#CCCCCC',
   fontSize: '12px',
   lineHeight: '16px',
   margin: '4px 0',
-}
+};

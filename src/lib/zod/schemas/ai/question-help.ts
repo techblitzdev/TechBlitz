@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 export const questionHelpSchema = z.object({
   'step-1': z.string(),
@@ -6,4 +6,4 @@ export const questionHelpSchema = z.object({
   'step-3': z.string(),
   'step-4': z.string(),
   'step-5': z.string(),
-})
+});

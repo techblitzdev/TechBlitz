@@ -1,12 +1,12 @@
-import SignupForm from '@/components/auth/signup'
-import { createMetadata } from '@/utils/seo'
-import { RoadmapUserQuestions } from '@/types/Roadmap'
-import RoadmapQuestionCard from '@/components/app/roadmaps/questions/[uid]/question-card'
-import SocialProof from '@/components/marketing/global/social-proof'
-import { fetchGithubStars } from '@/utils/data/misc/get-github-stars'
-import { getUserCount } from '@/utils/data/user/get-user-count'
-import { Suspense } from 'react'
-import Link from 'next/link'
+import SignupForm from '@/components/auth/signup';
+import { createMetadata } from '@/utils/seo';
+import { RoadmapUserQuestions } from '@/types/Roadmap';
+import RoadmapQuestionCard from '@/components/app/roadmaps/questions/[uid]/question-card';
+import SocialProof from '@/components/marketing/global/social-proof';
+import { fetchGithubStars } from '@/utils/data/misc/get-github-stars';
+import { getUserCount } from '@/utils/data/user/get-user-count';
+import { Suspense } from 'react';
+import Link from 'next/link';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -18,14 +18,13 @@ export async function generateMetadata() {
       textColor: '#fff',
     },
     canonicalUrl: '/signup',
-  })
+  });
 }
 
 const dummyQuestions: Partial<RoadmapUserQuestions>[] = [
   {
     uid: 'question-1',
-    question:
-      'How can you use Array.filter() to filter out all the even numbers from an array?',
+    question: 'How can you use Array.filter() to filter out all the even numbers from an array?',
     difficulty: 'EASY',
     completed: true,
     userCorrect: true,
@@ -44,17 +43,17 @@ const dummyQuestions: Partial<RoadmapUserQuestions>[] = [
     completed: true,
     userCorrect: true,
   },
-]
+];
 
-const dummyRoadmapUid = 'roadmap-12345'
+const dummyRoadmapUid = 'roadmap-12345';
 
-const dummyTotalQuestions = dummyQuestions.length
+const dummyTotalQuestions = dummyQuestions.length;
 
 export default async function SignupPage() {
   const [githubStars, userCount] = await Promise.all([
     fetchGithubStars(),
     getUserCount().then((count) => Math.round(count / 10) * 10),
-  ])
+  ]);
 
   return (
     <div className="flex gap-10 min-h-screen items-center overflow-hidden">
@@ -65,9 +64,7 @@ export default async function SignupPage() {
             <h1 className="!text-start font-bold font-onest text-xl lg:text-3xl mb-2">
               Create your TechBlitz account
             </h1>
-            <p className="text-sm text-gray-400">
-              Start your journey to becoming a tech expert.
-            </p>
+            <p className="text-sm text-gray-400">Start your journey to becoming a tech expert.</p>
           </div>
           <Suspense>
             <SignupForm prefilledEmail="" />
@@ -98,12 +95,8 @@ export default async function SignupPage() {
               roadmapUid={dummyRoadmapUid}
               index={index}
               totalQuestions={dummyTotalQuestions}
-              prevQuestionCorrect={
-                index > 0 ? dummyQuestions[index - 1]?.userCorrect : undefined
-              }
-              prevQuestionAnswered={
-                index > 0 ? dummyQuestions[index - 1]?.completed : undefined
-              }
+              prevQuestionCorrect={index > 0 ? dummyQuestions[index - 1]?.userCorrect : undefined}
+              prevQuestionAnswered={index > 0 ? dummyQuestions[index - 1]?.completed : undefined}
             />
           ))}
           <div className="z-10 absolute inset-x-0 -left-8 bottom-0 h-36 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
@@ -111,5 +104,5 @@ export default async function SignupPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

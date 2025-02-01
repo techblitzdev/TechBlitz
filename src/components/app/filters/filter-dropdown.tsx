@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,61 +11,60 @@ import {
   DropdownMenuSub,
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
-} from '@/components/ui/dropdown-menu'
-import MaterialSymbolsFilterListRounded from '@/components/ui/icons/filter'
+} from '@/components/ui/dropdown-menu';
+import MaterialSymbolsFilterListRounded from '@/components/ui/icons/filter';
 
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useTransition } from 'react'
-import { capitalise } from '@/utils'
-import { Check } from 'lucide-react'
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useTransition } from 'react';
+import { capitalise } from '@/utils';
+import { Check } from 'lucide-react';
 
-type QuestionDifficulty = 'BEGINNER' | 'EASY' | 'MEDIUM' | 'HARD'
+type QuestionDifficulty = 'BEGINNER' | 'EASY' | 'MEDIUM' | 'HARD';
 
 interface DifficultyConfig {
-  color: string
-  label: string
+  color: string;
+  label: string;
 }
 
-const DIFFICULTY_MAP: Record<QuestionDifficulty | 'DEFAULT', DifficultyConfig> =
-  {
-    BEGINNER: {
-      color: '#2563eb33',
-      label: 'Beginner',
-    },
-    EASY: {
-      color: '#10B981',
-      label: 'Easy',
-    },
-    MEDIUM: {
-      color: '#F59E0B',
-      label: 'Medium',
-    },
-    HARD: {
-      color: '#EF4444',
-      label: 'Hard',
-    },
-    DEFAULT: {
-      color: 'white',
-      label: 'All',
-    },
-  }
+const DIFFICULTY_MAP: Record<QuestionDifficulty | 'DEFAULT', DifficultyConfig> = {
+  BEGINNER: {
+    color: '#2563eb33',
+    label: 'Beginner',
+  },
+  EASY: {
+    color: '#10B981',
+    label: 'Easy',
+  },
+  MEDIUM: {
+    color: '#F59E0B',
+    label: 'Medium',
+  },
+  HARD: {
+    color: '#EF4444',
+    label: 'Hard',
+  },
+  DEFAULT: {
+    color: 'white',
+    label: 'All',
+  },
+};
 
 export default function FilterDropdown() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const [isPending, startTransition] = useTransition()
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
 
-  const [showDifficulty, setShowDifficulty] = useState(false)
-  const [showQuestionType, setShowQuestionType] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
+  const [showDifficulty, setShowDifficulty] = useState(false);
+  const [showQuestionType, setShowQuestionType] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const answeredFilter = searchParams.get('answered')
-  const difficultyFilter = searchParams.get('difficulty')
-  const questionTypeFilter = searchParams.get('questionType')
+  const answeredFilter = searchParams.get('answered');
+  const difficultyFilter = searchParams.get('difficulty');
+  const questionTypeFilter = searchParams.get('questionType');
 
   const updateQueryParams = (key: string, value: string | null) => {
-    const params = new URLSearchParams(searchParams.toString())
-    params.set('page', '1')
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('page', '1');
 
     if (
       value === null ||
@@ -73,43 +72,35 @@ export default function FilterDropdown() {
       (key === 'difficulty' && value === difficultyFilter) ||
       (key === 'questionType' && value === questionTypeFilter)
     ) {
-      params.delete(key)
+      params.delete(key);
     } else {
-      params.set(key, value)
+      params.set(key, value);
     }
 
     startTransition(() => {
-      router.push(`?${params.toString()}`)
-    })
-  }
+      router.push(`?${params.toString()}`);
+    });
+  };
 
   const clearAllFilters = () => {
     startTransition(() => {
-      router.push('?page=1')
-    })
-  }
+      router.push('?page=1');
+    });
+  };
 
   // get the total number of active filters
-  const activeFilters = [
-    difficultyFilter,
-    answeredFilter,
-    questionTypeFilter,
-  ].filter((filter) => filter !== null).length
+  const activeFilters = [difficultyFilter, answeredFilter, questionTypeFilter].filter(
+    (filter) => filter !== null
+  ).length;
 
   const getCurrentDifficulty = (): QuestionDifficulty | 'DEFAULT' => {
-    return (
-      (searchParams.get('difficulty')?.toUpperCase() as QuestionDifficulty) ||
-      'DEFAULT'
-    )
-  }
+    return (searchParams.get('difficulty')?.toUpperCase() as QuestionDifficulty) || 'DEFAULT';
+  };
 
-  const currentDifficulty = getCurrentDifficulty()
+  const currentDifficulty = getCurrentDifficulty();
 
   return (
-    <div
-      className="flex items-center space-x-2"
-      data-pending={isPending ? '' : undefined}
-    >
+    <div className="flex items-center space-x-2" data-pending={isPending ? '' : undefined}>
       <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
         <DropdownMenuTrigger asChild>
           <Button
@@ -132,10 +123,7 @@ export default function FilterDropdown() {
           className="!p-0 w-40 bg-black border border-black-50 text-white text-sm"
         >
           <DropdownMenuGroup className="p-1">
-            <DropdownMenuSub
-              open={showDifficulty}
-              onOpenChange={setShowDifficulty}
-            >
+            <DropdownMenuSub open={showDifficulty} onOpenChange={setShowDifficulty}>
               <DropdownMenuSubTrigger className="py-2 flex items-center justify-between hover:!text-white hover:cursor-pointer">
                 Difficulty
               </DropdownMenuSubTrigger>
@@ -150,43 +138,30 @@ export default function FilterDropdown() {
                       >
                         <button
                           onClick={() =>
-                            startTransition(() =>
-                              updateQueryParams('difficulty', key),
-                            )
+                            startTransition(() => updateQueryParams('difficulty', key))
                           }
                           className="h-full w-full text-left flex items-center gap-x-2"
                         >
-                          <div
-                            className="size-2 rounded-full"
-                            style={{ backgroundColor: color }}
-                          />
+                          <div className="size-2 rounded-full" style={{ backgroundColor: color }} />
                           <div className="flex items-center w-full justify-between">
                             {label}
-                            {currentDifficulty === key && (
-                              <Check className="size-3 text-white" />
-                            )}
+                            {currentDifficulty === key && <Check className="size-3 text-white" />}
                           </div>
                         </button>
                       </DropdownMenuItem>
-                    ),
+                    )
                 )}
               </DropdownMenuSubContent>
             </DropdownMenuSub>
             <DropdownMenuItem
               onClick={() =>
-                updateQueryParams(
-                  'answered',
-                  answeredFilter === 'true' ? null : 'true',
-                )
+                updateQueryParams('answered', answeredFilter === 'true' ? null : 'true')
               }
               className="py-2 flex items-center hover:!text-white hover:cursor-pointer"
             >
               Answered
             </DropdownMenuItem>
-            <DropdownMenuSub
-              open={showQuestionType}
-              onOpenChange={setShowQuestionType}
-            >
+            <DropdownMenuSub open={showQuestionType} onOpenChange={setShowQuestionType}>
               <DropdownMenuSubTrigger className="py-2 flex items-center justify-between hover:!text-white hover:cursor-pointer">
                 Question Type
               </DropdownMenuSubTrigger>
@@ -226,17 +201,12 @@ export default function FilterDropdown() {
               activeFilters > 0 ? 'max-h-14 p-2 pt-0' : 'max-h-0'
             }`}
           >
-            <Button
-              variant="destructive"
-              size="sm"
-              onClick={clearAllFilters}
-              className="w-full"
-            >
+            <Button variant="destructive" size="sm" onClick={clearAllFilters} className="w-full">
               Clear Filters
             </Button>
           </div>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  )
+  );
 }

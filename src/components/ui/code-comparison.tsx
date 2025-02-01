@@ -1,15 +1,15 @@
-import { FileIcon } from 'lucide-react'
-import { codeToHtml } from 'shiki'
+import { FileIcon } from 'lucide-react';
+import { codeToHtml } from 'shiki';
 
-import CopyCode from './copy-code'
+import CopyCode from './copy-code';
 
 interface CodeComparisonProps {
-  beforeCode: string
-  afterCode: string
-  language: string
-  filename: string
-  lightTheme: string
-  darkTheme: string
+  beforeCode: string;
+  afterCode: string;
+  language: string;
+  filename: string;
+  lightTheme: string;
+  darkTheme: string;
 }
 
 export default async function CodeComparison({
@@ -28,7 +28,7 @@ export default async function CodeComparison({
       lang: language,
       theme: darkTheme,
     }),
-  ])
+  ]);
 
   const renderCode = (code: string, highlighted: string) => {
     return (
@@ -36,8 +36,8 @@ export default async function CodeComparison({
         className="max-h-64 md:max-h-96 md:h-full max-w-[31rem] overflow-hidden bg-background font-inter text-[10px] sm:text-xs [&>pre]:h-full [&>pre]:!bg-transparent [&>pre]:p-4 [&_code]:break-all"
         dangerouslySetInnerHTML={{ __html: highlighted }}
       />
-    )
-  }
+    );
+  };
 
   return (
     <div className="mx-auto w-full max-w-5xl">
@@ -79,5 +79,5 @@ export default async function CodeComparison({
         </div>
       </div>
     </div>
-  )
+  );
 }

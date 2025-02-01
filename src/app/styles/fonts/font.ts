@@ -1,5 +1,5 @@
-import { Inter, Ubuntu, Onest } from 'next/font/google'
-import localFont from 'next/font/local'
+import { Inter, Ubuntu, Onest } from 'next/font/google';
+import localFont from 'next/font/local';
 
 export const InterFont = Inter({
   subsets: ['latin'],
@@ -7,14 +7,14 @@ export const InterFont = Inter({
   variable: '--font-inter',
   style: 'normal',
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-})
+});
 
 export const SatoshiFont = localFont({
   src: './satoshi/Satoshi-Variable.ttf',
   variable: '--font-satoshi',
   style: 'normal',
   weight: '100 200 300 400 500 600 700 800 900',
-})
+});
 
 export const UbuntuFont = Ubuntu({
   subsets: ['latin'],
@@ -22,7 +22,7 @@ export const UbuntuFont = Ubuntu({
   variable: '--font-ubuntu',
   style: 'normal',
   weight: ['300', '400', '500', '700'],
-})
+});
 
 export const OnestFont = Onest({
   subsets: ['latin'],
@@ -30,4 +30,4 @@ export const OnestFont = Onest({
   variable: '--font-onest',
   style: 'normal',
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-})
+});

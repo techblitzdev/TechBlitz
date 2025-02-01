@@ -1,7 +1,7 @@
-import { defaultRoadmapQuestionCount } from '@/utils/data/roadmap/questions/default/fetch-roadmap-questions'
+import { defaultRoadmapQuestionCount } from '@/utils/data/roadmap/questions/default/fetch-roadmap-questions';
 
 export default async function OnboardingProgressBar({ currentStep = 0 }) {
-  const defaultQuestions = await defaultRoadmapQuestionCount()
+  const defaultQuestions = await defaultRoadmapQuestionCount();
 
   return (
     <div className="flex items-center w-3/5 relative">
@@ -33,5 +33,5 @@ export default async function OnboardingProgressBar({ currentStep = 0 }) {
         ))}
       </div>
     </div>
-  )
+  );
 }

@@ -1,17 +1,17 @@
-'use server'
-import { openai } from '@/lib/open-ai'
-import { zodResponseFormat } from 'openai/helpers/zod'
-import { aiQuestionSchema } from '@/lib/zod/schemas/ai/response'
-import type { ReturnType } from '@/actions/ai/roadmap/get-question-data-for-gen'
-import { getPrompt } from '@/actions/ai/utils/get-prompt'
-import Anthropic from '@anthropic-ai/sdk'
-import { UserRecord } from '@/types/User'
+'use server';
+import { openai } from '@/lib/open-ai';
+import { zodResponseFormat } from 'openai/helpers/zod';
+import { aiQuestionSchema } from '@/lib/zod/schemas/ai/response';
+import type { ReturnType } from '@/actions/ai/roadmap/get-question-data-for-gen';
+import { getPrompt } from '@/actions/ai/utils/get-prompt';
+import Anthropic from '@anthropic-ai/sdk';
+import { UserRecord } from '@/types/User';
 
 export const generateRoadmapResponse = async (opts: {
-  formattedData: ReturnType[]
-  user: UserRecord
+  formattedData: ReturnType[];
+  user: UserRecord;
 }) => {
-  const { formattedData, user } = opts
+  const { formattedData, user } = opts;
 
   const prompts = await getPrompt({
     name: [
@@ -22,16 +22,16 @@ export const generateRoadmapResponse = async (opts: {
       'claude-ai-first-pass',
       'roadmap-chat-gpt-formatter',
     ],
-  })
+  });
 
   if (!prompts) {
-    throw new Error('Prompt not found')
+    throw new Error('Prompt not found');
   }
 
   // use claude 3.5 sonnet to generate the questions and answers (they are soooo much better than gpt-4o-mini)
-  const apiKey = process.env.NEXT_PRIVATE_CLAUDE_API_KEY
+  const apiKey = process.env.NEXT_PRIVATE_CLAUDE_API_KEY;
 
-  const anthropic = new Anthropic({ apiKey })
+  const anthropic = new Anthropic({ apiKey });
 
   const firstPassClaude = await anthropic.messages.create({
     model: 'claude-3-5-sonnet-latest',
@@ -67,9 +67,9 @@ export const generateRoadmapResponse = async (opts: {
       },
     ],
     system: prompts['roadmap-generate-pass-one-topics'].content,
-  })
+  });
 
-  console.log('First pass claude:', firstPassClaude.content)
+  console.log('First pass claude:', firstPassClaude.content);
 
   // we then use gpt-4o-mini to ensure that the claude response is in the format
   // that we need it in
@@ -91,13 +91,13 @@ export const generateRoadmapResponse = async (opts: {
     ],
     response_format: zodResponseFormat(aiQuestionSchema, 'event'),
     temperature: 0.7,
-  })
+  });
 
   if (!chatgptFirstPass.choices[0]?.message?.content) {
-    throw new Error('AI response is missing content')
+    throw new Error('AI response is missing content');
   }
 
-  console.log('First pass:', chatgptFirstPass.choices[0].message.content)
+  console.log('First pass:', chatgptFirstPass.choices[0].message.content);
 
-  return chatgptFirstPass.choices[0].message.content
-}
+  return chatgptFirstPass.choices[0].message.content;
+};

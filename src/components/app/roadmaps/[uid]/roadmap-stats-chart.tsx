@@ -1,15 +1,15 @@
-'use client'
+'use client';
 
-import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from 'recharts'
+import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from 'recharts';
 
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from '@/components/ui/chart'
-import { UserRoadmapsWithAnswers } from '@/types/Roadmap'
+} from '@/components/ui/chart';
+import { UserRoadmapsWithAnswers } from '@/types/Roadmap';
 
 const chartConfig = {
   desktop: {
@@ -20,23 +20,21 @@ const chartConfig = {
     label: 'Mobile',
     color: 'hsl(var(--chart-2))',
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export default function Component(opts: { roadmap: UserRoadmapsWithAnswers }) {
-  const { roadmap } = opts
+  const { roadmap } = opts;
 
-  const correctCount = roadmap.questions.filter((f) => f.userCorrect).length
-  const incorrectCount = roadmap.questions.filter((f) => !f.userCorrect).length
-  const correctPercentage = Math.round(
-    (correctCount / roadmap.questions.length) * 100,
-  )
+  const correctCount = roadmap.questions.filter((f) => f.userCorrect).length;
+  const incorrectCount = roadmap.questions.filter((f) => !f.userCorrect).length;
+  const correctPercentage = Math.round((correctCount / roadmap.questions.length) * 100);
 
   const chartData = [
     {
       correct: correctCount,
       incorrect: incorrectCount,
     },
-  ]
+  ];
 
   return (
     <Card className="flex flex-col border border-black-50 bg-black-75">
@@ -44,16 +42,8 @@ export default function Component(opts: { roadmap: UserRoadmapsWithAnswers }) {
         Roadmap Stats
       </CardHeader>
       <CardContent className="flex flex-1 items-center pb-0 px-3 max-h-[150px] pt-16">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto aspect-square w-full max-w-[250px]"
-        >
-          <RadialBarChart
-            data={chartData}
-            endAngle={180}
-            innerRadius={80}
-            outerRadius={130}
-          >
+        <ChartContainer config={chartConfig} className="mx-auto aspect-square w-full max-w-[250px]">
+          <RadialBarChart data={chartData} endAngle={180} innerRadius={80} outerRadius={130}>
             <ChartTooltip
               cursor={false}
               labelClassName="fill-white"
@@ -72,15 +62,11 @@ export default function Component(opts: { roadmap: UserRoadmapsWithAnswers }) {
                         >
                           {correctPercentage}%
                         </tspan>
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 4}
-                          className="fill-white"
-                        >
+                        <tspan x={viewBox.cx} y={(viewBox.cy || 0) + 4} className="fill-white">
                           Correct
                         </tspan>
                       </text>
-                    )
+                    );
                   }
                 }}
               />
@@ -104,10 +90,9 @@ export default function Component(opts: { roadmap: UserRoadmapsWithAnswers }) {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="text-xs flex text-center items-center gap-2 font-medium leading-none text-white">
-          You have answered {correctCount} out of {roadmap.questions.length}{' '}
-          questions correctly
+          You have answered {correctCount} out of {roadmap.questions.length} questions correctly
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }

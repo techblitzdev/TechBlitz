@@ -1,6 +1,6 @@
-import { getUser } from '@/actions/user/authed/get-user'
-import { prisma } from '@/lib/prisma'
-import { QuestionDifficulty, QuestionType } from '@/types/Questions'
+import { getUser } from '@/actions/user/authed/get-user';
+import { prisma } from '@/lib/prisma';
+import { QuestionDifficulty, QuestionType } from '@/types/Questions';
 
 /**
  * Method for getting questions by difficulty or tag.
@@ -14,10 +14,10 @@ export const getQuestionsByTag = async (
   tag?: string | string[],
   difficulty?: QuestionDifficulty | undefined,
   take?: number,
-  questionType?: QuestionType,
+  questionType?: QuestionType
 ) => {
-  const user = await getUser()
-  const includeUserAnswers = user ? true : false
+  const user = await getUser();
+  const includeUserAnswers = user ? true : false;
 
   // Get questions filtered by difficulty and/or tags
   const questions = await prisma.questions.findMany({
@@ -52,7 +52,7 @@ export const getQuestionsByTag = async (
         : undefined,
     },
     take: take ?? 10,
-  })
+  });
 
   // If no tag provided, return questions grouped under a null tag
   if (!tag || (Array.isArray(tag) && tag.length === 0)) {
@@ -67,7 +67,7 @@ export const getQuestionsByTag = async (
           },
         })),
       },
-    ]
+    ];
   }
 
   // Otherwise structure response by tags
@@ -102,7 +102,7 @@ export const getQuestionsByTag = async (
         },
       },
     },
-  })
+  });
 
-  return tags
-}
+  return tags;
+};

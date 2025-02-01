@@ -1,8 +1,8 @@
-import Image from 'next/image'
-import JakeMackieTestimonial from '@/public/images/testimonials/jake-mackie-techblitz-testimonial.jpeg'
+import Image from 'next/image';
+import JakeMackieTestimonial from '@/public/images/testimonials/jake-mackie-techblitz-testimonial.jpeg';
 
-import Link from 'next/link'
-import GithubLogo from '@/components/ui/icons/github'
+import Link from 'next/link';
+import GithubLogo from '@/components/ui/icons/github';
 
 const testimonials = [
   {
@@ -18,18 +18,13 @@ const testimonials = [
   {
     name: 'britishpowerlifter',
     title: 'Software Developer',
-    shortQuote:
-      'I use TechBlitz and recommend it to anyone who wants to learn to code!',
-    longQuote:
-      'I use TechBlitz and recommend it to anyone who wants to learn to code!',
+    shortQuote: 'I use TechBlitz and recommend it to anyone who wants to learn to code!',
+    longQuote: 'I use TechBlitz and recommend it to anyone who wants to learn to code!',
     image: '',
   },
-]
+];
 
-export default function Testimonials(opts: {
-  header?: string
-  subheader?: string
-}) {
+export default function Testimonials(opts: { header?: string; subheader?: string }) {
   return (
     <section id="testimonials" className="pb-16 pt-10 relative group">
       <div
@@ -46,8 +41,7 @@ export default function Testimonials(opts: {
             {opts.header || 'Loved by developers just like you'}
           </h2>
           <p className="text-gray-400 text-sm text-center lg:text-left">
-            Discover how TechBlitz has empowered developers to level up their
-            coding skills.
+            Discover how TechBlitz has empowered developers to level up their coding skills.
           </p>
         </div>
         <div className="flex flex-col lg:flex-row gap-10 lg:w-2/3">
@@ -73,12 +67,8 @@ export default function Testimonials(opts: {
                   </div>
                 )}
                 <div className="ml-1">
-                  <p className="font-semibold text-white font-onest">
-                    {testimonial.name}
-                  </p>
-                  <p className="text-gray-400 text-sm font-onest">
-                    {testimonial.title}
-                  </p>
+                  <p className="font-semibold text-white font-onest">{testimonial.name}</p>
+                  <p className="text-gray-400 text-sm font-onest">{testimonial.title}</p>
                 </div>
               </div>
               <p className="text-white font-onest text-base lg:text-lg text-center lg:text-left">
@@ -101,5 +91,5 @@ export default function Testimonials(opts: {
         </div>
       </div>
     </section>
-  )
+  );
 }

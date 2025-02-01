@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma'
+import { prisma } from '@/lib/prisma';
 
 /**
  * Get the correct answer for a given question
@@ -6,11 +6,8 @@ import { prisma } from '@/lib/prisma'
  * @param opts
  * @returns
  */
-export const getAnswer = async (opts: {
-  questionUid: string
-  userUid: string
-}) => {
-  const { questionUid } = opts
+export const getAnswer = async (opts: { questionUid: string; userUid: string }) => {
+  const { questionUid } = opts;
 
   try {
     // find the answer to the question
@@ -18,9 +15,9 @@ export const getAnswer = async (opts: {
       where: {
         questionUid,
       },
-    })
+    });
   } catch (error) {
-    console.error(error)
-    throw new Error('Error getting user answer')
+    console.error(error);
+    throw new Error('Error getting user answer');
   }
-}
+};

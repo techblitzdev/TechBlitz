@@ -1,18 +1,13 @@
-'use client'
-import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { CardContent, CardDescription, CardHeader } from '@/components/ui/card'
-import { InputWithLabel } from '@/components/ui/input-label'
-import {
-  Tooltip,
-  TooltipProvider,
-  TooltipTrigger,
-  TooltipContent,
-} from '@/components/ui/tooltip'
-import { Switch } from '@/components/ui/switch'
-import { Label } from '@/components/ui/label'
+'use client';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CardContent, CardDescription, CardHeader } from '@/components/ui/card';
+import { InputWithLabel } from '@/components/ui/input-label';
+import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 import {
   Form,
   FormField,
@@ -20,21 +15,21 @@ import {
   FormControl,
   FormMessage,
   FormLabel,
-} from '@/components/ui/form'
-import { useOnboardingContext } from './onboarding-context'
-import { onboardingStepOneSchema } from '@/lib/zod/schemas/onboarding/step-one'
-import type { UpdatableUserFields } from '@/types/User'
+} from '@/components/ui/form';
+import { useOnboardingContext } from './onboarding-context';
+import { onboardingStepOneSchema } from '@/lib/zod/schemas/onboarding/step-one';
+import type { UpdatableUserFields } from '@/types/User';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { toast } from 'sonner'
-import { checkUsername } from '@/actions/user/authed/check-username'
-import { Input } from '@/components/ui/input'
-import { QuestionMarkIcon } from '@radix-ui/react-icons'
+} from '@/components/ui/select';
+import { toast } from 'sonner';
+import { checkUsername } from '@/actions/user/authed/check-username';
+import { Input } from '@/components/ui/input';
+import { QuestionMarkIcon } from '@radix-ui/react-icons';
 
 const whereDidYouHearAboutTechBlitz = [
   'Reddit',
@@ -45,17 +40,14 @@ const whereDidYouHearAboutTechBlitz = [
   'Github',
   'Friend',
   'Other',
-]
+];
 
 export default function OnboardingStepOne() {
-  const { user, setUser, itemVariants, setCanContinue, serverUser } =
-    useOnboardingContext()
-  const [username, setUsername] = useState(user.username || '')
-  const [isUsernameValid, setIsUsernameValid] = useState(true)
+  const { user, setUser, itemVariants, setCanContinue, serverUser } = useOnboardingContext();
+  const [username, setUsername] = useState(user.username || '');
+  const [isUsernameValid, setIsUsernameValid] = useState(true);
 
-  const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(
-    null,
-  )
+  const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(null);
 
   const form = useForm<UpdatableUserFields>({
     resolver: zodResolver(onboardingStepOneSchema),
@@ -67,31 +59,31 @@ export default function OnboardingStepOne() {
       experienceLevel: user.experienceLevel || 'BEGINNER',
       howDidYouHearAboutTechBlitz: user.howDidYouHearAboutTechBlitz || '',
     },
-  })
+  });
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newUsername = e.target.value
-    setUsername(newUsername)
-    form.setValue('username', newUsername)
+    const newUsername = e.target.value;
+    setUsername(newUsername);
+    form.setValue('username', newUsername);
 
     if (debounceTimeout) {
-      clearTimeout(debounceTimeout)
+      clearTimeout(debounceTimeout);
     }
 
     const timeout = setTimeout(async () => {
-      const isUnique = await checkUsername(newUsername)
-      setIsUsernameValid(Boolean(isUnique))
+      const isUnique = await checkUsername(newUsername);
+      setIsUsernameValid(Boolean(isUnique));
 
       if (isUnique) {
-        toast.success('Username is available')
+        toast.success('Username is available');
       } else {
-        toast.error('Username is already taken. Please choose another one.')
+        toast.error('Username is already taken. Please choose another one.');
       }
-      setCanContinue(Boolean(isUnique))
-    }, 1000)
+      setCanContinue(Boolean(isUnique));
+    }, 1000);
 
-    setDebounceTimeout(timeout)
-  }
+    setDebounceTimeout(timeout);
+  };
 
   useEffect(() => {
     const subscription = form.watch((value) => {
@@ -101,51 +93,49 @@ export default function OnboardingStepOne() {
         // Filter out any undefined values from arrays to ensure type safety
         const sanitizedValue = {
           ...value,
-          stripeEmails: value.stripeEmails?.filter(
-            (email): email is string => email !== undefined,
-          ),
-        }
-        return sanitizedValue
-      })
-    })
-    return () => subscription.unsubscribe()
-  }, [form, setUser])
+          stripeEmails: value.stripeEmails?.filter((email): email is string => email !== undefined),
+        };
+        return sanitizedValue;
+      });
+    });
+    return () => subscription.unsubscribe();
+  }, [form, setUser]);
 
   const onSubmitProfilePicture = async (data: any) => {
-    if (!serverUser?.uid || !data.target.files[0]) return
+    if (!serverUser?.uid || !data.target.files[0]) return;
 
-    const file = data.target.files[0]
-    const maxSize = 2 * 1024 * 1024 // 2MB in bytes
+    const file = data.target.files[0];
+    const maxSize = 2 * 1024 * 1024; // 2MB in bytes
 
     if (file.size > maxSize) {
-      toast.error('File size must be less than 2MB')
-      return
+      toast.error('File size must be less than 2MB');
+      return;
     }
 
-    const formData = new FormData()
-    formData.append('files', file)
-    formData.append('userId', serverUser.uid)
-    formData.append('route', 'user-profile-pictures')
+    const formData = new FormData();
+    formData.append('files', file);
+    formData.append('userId', serverUser.uid);
+    formData.append('route', 'user-profile-pictures');
 
     try {
       const res = await fetch('/api/upload', {
         method: 'POST',
         body: formData,
-      })
-      const { logoUrl } = await res.json()
+      });
+      const { logoUrl } = await res.json();
 
       if (logoUrl) {
-        form.setValue('userProfilePicture', logoUrl)
+        form.setValue('userProfilePicture', logoUrl);
         setUser((prev) => ({
           ...prev,
           userProfilePicture: logoUrl,
-        }))
+        }));
       }
     } catch (e) {
-      console.error(e)
-      toast.error('Failed to upload profile picture')
+      console.error(e);
+      toast.error('Failed to upload profile picture');
     }
-  }
+  };
 
   return (
     <>
@@ -166,11 +156,11 @@ export default function OnboardingStepOne() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit((data) => {
-              console.log('Form submitted with data:', data)
+              console.log('Form submitted with data:', data);
               setUser((prev) => ({
                 ...prev,
                 ...data,
-              }))
+              }));
             })}
             className="space-y-5"
           >
@@ -212,7 +202,7 @@ export default function OnboardingStepOne() {
                           id="logo-file-upload"
                           type="file"
                           onChange={(e) => {
-                            onSubmitProfilePicture(e)
+                            onSubmitProfilePicture(e);
                           }}
                           className="hidden"
                           accept="image/*"
@@ -257,11 +247,7 @@ export default function OnboardingStepOne() {
                 )}
               />
             </motion.div>
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={itemVariants}
-            >
+            <motion.div initial="hidden" animate="visible" variants={itemVariants}>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -271,10 +257,7 @@ export default function OnboardingStepOne() {
                       render={({ field }) => (
                         <FormItem className="flex flex-row items-center justify-between">
                           <div className="space-y-0.5">
-                            <Label
-                              htmlFor="showTimeTaken"
-                              className="text-white"
-                            >
+                            <Label htmlFor="showTimeTaken" className="text-white">
                               Appear on leaderboards
                             </Label>
                           </div>
@@ -282,11 +265,11 @@ export default function OnboardingStepOne() {
                             <Switch
                               checked={field.value}
                               onCheckedChange={(checked) => {
-                                field.onChange(checked)
+                                field.onChange(checked);
                                 setUser((prev) => {
-                                  console.log('showTimeTaken changed:', checked)
-                                  return { ...prev, [field.name]: checked }
-                                })
+                                  console.log('showTimeTaken changed:', checked);
+                                  return { ...prev, [field.name]: checked };
+                                });
                               }}
                               className="bg-black-50"
                             />
@@ -304,11 +287,7 @@ export default function OnboardingStepOne() {
                 </Tooltip>
               </TooltipProvider>
             </motion.div>
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={itemVariants}
-            >
+            <motion.div initial="hidden" animate="visible" variants={itemVariants}>
               <FormField
                 control={form.control}
                 name="experienceLevel"
@@ -322,16 +301,12 @@ export default function OnboardingStepOne() {
                         <Select
                           value={field.value}
                           onValueChange={(
-                            value:
-                              | 'BEGINNER'
-                              | 'INTERMEDIATE'
-                              | 'ADVANCED'
-                              | 'MASTER',
+                            value: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' | 'MASTER'
                           ) => {
-                            field.onChange(value)
+                            field.onChange(value);
                             setUser((prev) => {
-                              return { ...prev, [field.name]: value }
-                            })
+                              return { ...prev, [field.name]: value };
+                            });
                           }}
                         >
                           <SelectTrigger className="w-40 border border-black-50">
@@ -341,28 +316,16 @@ export default function OnboardingStepOne() {
                             />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem
-                              className="hover:text-white"
-                              value="BEGINNER"
-                            >
+                            <SelectItem className="hover:text-white" value="BEGINNER">
                               Beginner
                             </SelectItem>
-                            <SelectItem
-                              className="hover:text-white"
-                              value="INTERMEDIATE"
-                            >
+                            <SelectItem className="hover:text-white" value="INTERMEDIATE">
                               Intermediate
                             </SelectItem>
-                            <SelectItem
-                              className="hover:text-white"
-                              value="ADVANCED"
-                            >
+                            <SelectItem className="hover:text-white" value="ADVANCED">
                               Advanced
                             </SelectItem>
-                            <SelectItem
-                              className="hover:text-white"
-                              value="MASTER"
-                            >
+                            <SelectItem className="hover:text-white" value="MASTER">
                               Master
                             </SelectItem>
                           </SelectContent>
@@ -373,11 +336,7 @@ export default function OnboardingStepOne() {
                 )}
               />
             </motion.div>
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={itemVariants}
-            >
+            <motion.div initial="hidden" animate="visible" variants={itemVariants}>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -387,10 +346,7 @@ export default function OnboardingStepOne() {
                       render={({ field }) => (
                         <FormItem className="flex flex-row items-center justify-between">
                           <div className="flex items-center gap-2">
-                            <Label
-                              htmlFor="sendPushNotifications"
-                              className="text-white"
-                            >
+                            <Label htmlFor="sendPushNotifications" className="text-white">
                               Send personalized challenge reminders
                             </Label>
                             <TooltipProvider>
@@ -400,8 +356,7 @@ export default function OnboardingStepOne() {
                                 </TooltipTrigger>
                                 <TooltipContent>
                                   <p>
-                                    We'll send you a personalized challenge
-                                    reminder every week day.
+                                    We'll send you a personalized challenge reminder every week day.
                                   </p>
                                 </TooltipContent>
                               </Tooltip>
@@ -411,33 +366,24 @@ export default function OnboardingStepOne() {
                             <Switch
                               checked={field.value}
                               onCheckedChange={(checked) => {
-                                field.onChange(checked)
+                                field.onChange(checked);
                                 setUser((prev) => {
-                                  console.log(
-                                    'sendPushNotifications changed:',
-                                    checked,
-                                  )
-                                  return { ...prev, [field.name]: checked }
-                                })
+                                  console.log('sendPushNotifications changed:', checked);
+                                  return { ...prev, [field.name]: checked };
+                                });
                               }}
                               className="bg-black-50"
                             />
                           </FormControl>
                           <FormMessage className="mt-0.5 text-start">
-                            {
-                              form.formState?.errors?.sendPushNotifications
-                                ?.message
-                            }
+                            {form.formState?.errors?.sendPushNotifications?.message}
                           </FormMessage>
                         </FormItem>
                       )}
                     />
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>
-                      Receive promotional emails on offers, new features and
-                      more
-                    </p>
+                    <p>Receive promotional emails on offers, new features and more</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
@@ -458,14 +404,11 @@ export default function OnboardingStepOne() {
                       <Select
                         value={field.value ?? ''}
                         onValueChange={(value) => {
-                          field.onChange(value)
+                          field.onChange(value);
                           setUser((prev) => {
-                            console.log(
-                              'howDidYouHearAboutTechBlitz changed:',
-                              value,
-                            )
-                            return { ...prev, [field.name]: value }
-                          })
+                            console.log('howDidYouHearAboutTechBlitz changed:', value);
+                            return { ...prev, [field.name]: value };
+                          });
                         }}
                       >
                         <SelectTrigger className="w-full border border-black-50">
@@ -492,5 +435,5 @@ export default function OnboardingStepOne() {
         </Form>
       </CardContent>
     </>
-  )
+  );
 }

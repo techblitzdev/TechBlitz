@@ -1,44 +1,41 @@
-'use client'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { ArrowRight } from 'lucide-react'
+'use client';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { ArrowRight } from 'lucide-react';
 
-import { Form, FormControl, FormField, FormMessage } from '@/components/ui/form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
+import { Form, FormControl, FormField, FormMessage } from '@/components/ui/form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
 
 const Schema = z.object({
   email: z.string().email(),
-})
+});
 
-type SchemaProps = z.infer<typeof Schema>
+type SchemaProps = z.infer<typeof Schema>;
 
 export default function HomepageHeroEmailSignup() {
-  const router = useRouter()
+  const router = useRouter();
   const form = useForm<SchemaProps>({
     resolver: zodResolver(Schema),
     defaultValues: {
       email: '',
     },
-  })
+  });
 
   // validate the email input
   const handleEmailSignup = () => {
     if (form.getValues().email === '') {
-      return
+      return;
     }
 
-    router.push(`/signup?email=${form.getValues().email}&ref=homepage-hero`)
-  }
+    router.push(`/signup?email=${form.getValues().email}&ref=homepage-hero`);
+  };
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(handleEmailSignup)}
-        className="flex flex-col gap-y-3"
-      >
+      <form onSubmit={form.handleSubmit(handleEmailSignup)} className="flex flex-col gap-y-3">
         <div className="flex flex-col md:flex-row gap-3 md:items-end mt-3 w-full">
           <FormField
             control={form.control}
@@ -46,9 +43,7 @@ export default function HomepageHeroEmailSignup() {
             render={({ field }) => (
               <FormControl>
                 <div className="space-y-1">
-                  <FormMessage>
-                    {form.formState?.errors?.email?.message}
-                  </FormMessage>
+                  <FormMessage>{form.formState?.errors?.email?.message}</FormMessage>
                   <Input
                     className="
 										bg-transparent p-2 placeholder:text-white/50 autofill:!bg-transparent border border-black-50
@@ -76,5 +71,5 @@ export default function HomepageHeroEmailSignup() {
         <p className="text-gray-400 text-xs pl-0.5">No credit card required.</p>
       </form>
     </Form>
-  )
+  );
 }

@@ -1,19 +1,19 @@
-import QuestionsList from '@/components/app/questions/layout/questions-list'
+import QuestionsList from '@/components/app/questions/layout/questions-list';
 
-import QuestionPageSidebar from '@/components/app/questions/layout/question-page-sidebar'
+import QuestionPageSidebar from '@/components/app/questions/layout/question-page-sidebar';
 
-import Hero from '@/components/shared/hero'
+import Hero from '@/components/shared/hero';
 
-import { validateSearchParams } from '@/utils/search-params'
-import { parseSearchParams } from '@/utils/search-params'
-import { getTags } from '@/utils/data/questions/tags/get-tags'
-import { createMetadata } from '@/utils/seo'
-import { Button } from '@/components/ui/button'
-import FilterChips from '@/components/app/filters/chips'
-import Filter from '@/components/app/filters/filter'
+import { validateSearchParams } from '@/utils/search-params';
+import { parseSearchParams } from '@/utils/search-params';
+import { getTags } from '@/utils/data/questions/tags/get-tags';
+import { createMetadata } from '@/utils/seo';
+import { Button } from '@/components/ui/button';
+import FilterChips from '@/components/app/filters/chips';
+import Filter from '@/components/app/filters/filter';
 
 // revalidate every 10 minutes
-export const revalidate = 600
+export const revalidate = 600;
 
 export async function generateMetadata() {
   return createMetadata({
@@ -25,7 +25,7 @@ export async function generateMetadata() {
       textColor: '#fff',
     },
     canonicalUrl: '/questions/previous',
-  })
+  });
 }
 
 const heroDescription = (
@@ -40,17 +40,17 @@ const heroDescription = (
       </Button>
     </div>
   </div>
-)
+);
 
 export default async function PreviousQuestionsPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const tagPromise = getTags()
+  const tagPromise = getTags();
 
-  const filters = parseSearchParams(searchParams)
-  if (!validateSearchParams(filters)) return null
+  const filters = parseSearchParams(searchParams);
+  if (!validateSearchParams(filters)) return null;
 
   return (
     <>
@@ -74,5 +74,5 @@ export default async function PreviousQuestionsPage({
         </div>
       </div>
     </>
-  )
+  );
 }

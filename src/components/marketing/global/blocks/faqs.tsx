@@ -3,21 +3,21 @@ import {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from '@/components/ui/accordion'
-import AnimatedSpan from '@/components/ui/animated-span'
+} from '@/components/ui/accordion';
+import AnimatedSpan from '@/components/ui/animated-span';
 
 interface FAQ {
-  question: string
-  answer: string | React.ReactNode
+  question: string;
+  answer: string | React.ReactNode;
 }
 
 export default function FAQsBlock(opts: {
-  faqs: FAQ[]
-  title?: string
-  description?: string
-  showSpan?: boolean
+  faqs: FAQ[];
+  title?: string;
+  description?: string;
+  showSpan?: boolean;
 }) {
-  const { faqs, title, description, showSpan = true } = opts
+  const { faqs, title, description, showSpan = true } = opts;
 
   return (
     <section className="pb-32 flex flex-col items-center gap-10">
@@ -28,20 +28,10 @@ export default function FAQsBlock(opts: {
         </h1>
         {description && <p className="text-sm text-gray-400">{description}</p>}
       </div>
-      <Accordion
-        type="single"
-        collapsible
-        className="text-start max-w-3xl w-[85%] lg:w-full"
-      >
+      <Accordion type="single" collapsible className="text-start max-w-3xl w-[85%] lg:w-full">
         {faqs.map((faq, index) => (
-          <AccordionItem
-            key={index}
-            value={faq.question}
-            className="border-b border-black-50"
-          >
-            <AccordionTrigger className="text-xl duration-300">
-              {faq.question}
-            </AccordionTrigger>
+          <AccordionItem key={index} value={faq.question} className="border-b border-black-50">
+            <AccordionTrigger className="text-xl duration-300">{faq.question}</AccordionTrigger>
             <AccordionContent className="pb-4">
               {typeof faq.answer === 'string' ? (
                 <div dangerouslySetInnerHTML={{ __html: faq.answer }} />
@@ -53,5 +43,5 @@ export default function FAQsBlock(opts: {
         ))}
       </Accordion>
     </section>
-  )
+  );
 }

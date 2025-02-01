@@ -7,15 +7,15 @@ import {
   Link,
   Preview,
   Text,
-} from 'npm:@react-email/components'
-import * as React from 'npm:react@18.3.1'
+} from 'npm:@react-email/components';
+import * as React from 'npm:react@18.3.1';
 
 interface MagicLinkEmailProps {
-  supabase_url: string
-  email_action_type: string
-  redirect_to: string
-  token_hash: string
-  token: string
+  supabase_url: string;
+  email_action_type: string;
+  redirect_to: string;
+  token_hash: string;
+  token: string;
 }
 
 export const MagicLinkEmail = ({
@@ -69,19 +69,19 @@ export const MagicLinkEmail = ({
       </Container>
     </Body>
   </Html>
-)
+);
 
-export default MagicLinkEmail
+export default MagicLinkEmail;
 
 const main = {
   backgroundColor: '#ffffff',
-}
+};
 
 const container = {
   paddingLeft: '12px',
   paddingRight: '12px',
   margin: '0 auto',
-}
+};
 
 const h1 = {
   color: '#333',
@@ -91,7 +91,7 @@ const h1 = {
   fontWeight: 'bold',
   margin: '40px 0',
   padding: '0',
-}
+};
 
 const link = {
   color: '#2754C5',
@@ -99,7 +99,7 @@ const link = {
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   fontSize: '14px',
   textDecoration: 'underline',
-}
+};
 
 const text = {
   color: '#333',
@@ -107,7 +107,7 @@ const text = {
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   fontSize: '14px',
   margin: '24px 0',
-}
+};
 
 const footer = {
   color: '#898989',
@@ -117,7 +117,7 @@ const footer = {
   lineHeight: '22px',
   marginTop: '12px',
   marginBottom: '24px',
-}
+};
 
 const code = {
   display: 'inline-block',
@@ -127,4 +127,4 @@ const code = {
   borderRadius: '5px',
   border: '1px solid #eee',
   color: '#333',
-}
+};

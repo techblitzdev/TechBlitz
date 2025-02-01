@@ -1,39 +1,35 @@
-'use client'
+'use client';
 
-import { deleteRoadmap } from '@/actions/roadmap/delete-roadmap'
-import { Button } from '@/components/ui/button'
+import { deleteRoadmap } from '@/actions/roadmap/delete-roadmap';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { MoreHorizontal, Trash2 } from 'lucide-react'
+} from '@/components/ui/dropdown-menu';
+import { MoreHorizontal, Trash2 } from 'lucide-react';
 
 export default function RoadmapCardMenu(opts: {
-  roadmapUid: string
-  onDeleteStart: () => void
-  onDeleteEnd: () => void
+  roadmapUid: string;
+  onDeleteStart: () => void;
+  onDeleteEnd: () => void;
 }) {
-  const { roadmapUid, onDeleteStart, onDeleteEnd } = opts
+  const { roadmapUid, onDeleteStart, onDeleteEnd } = opts;
 
   const userDeleteRoadmap = async () => {
-    onDeleteStart()
+    onDeleteStart();
     try {
-      await deleteRoadmap(roadmapUid)
+      await deleteRoadmap(roadmapUid);
     } finally {
-      onDeleteEnd()
+      onDeleteEnd();
     }
-  }
+  };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          padding="none"
-          className="hover:bg-black-50 h-fit p-0.5"
-        >
+        <Button variant="ghost" padding="none" className="hover:bg-black-50 h-fit p-0.5">
           <MoreHorizontal className="size-4 text-white" />
         </Button>
       </DropdownMenuTrigger>
@@ -43,15 +39,12 @@ export default function RoadmapCardMenu(opts: {
         className="bg-black-75 border border-black-50 text-white hover:text-white"
       >
         <DropdownMenuItem>
-          <button
-            onClick={userDeleteRoadmap}
-            className="flex items-center gap-2"
-          >
+          <button onClick={userDeleteRoadmap} className="flex items-center gap-2">
             <Trash2 className="size-4 text-destructive" />
             Delete
           </button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

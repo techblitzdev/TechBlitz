@@ -1,8 +1,8 @@
-'use server'
-import { prisma } from '@/lib/prisma'
+'use server';
+import { prisma } from '@/lib/prisma';
 
 export const getTotalSubmissions = async (opts: { questionSlug: string }) => {
-  const { questionSlug } = opts
+  const { questionSlug } = opts;
 
   // get the total submissions for the question
   const totalSubmissions = await prisma.demoAnswers.count({
@@ -11,9 +11,9 @@ export const getTotalSubmissions = async (opts: { questionSlug: string }) => {
         slug: questionSlug,
       },
     },
-  })
+  });
 
   return {
     totalSubmissions,
-  }
-}
+  };
+};

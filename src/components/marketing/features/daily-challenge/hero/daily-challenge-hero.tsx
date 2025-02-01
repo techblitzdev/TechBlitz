@@ -1,15 +1,15 @@
-import AnimatedSpan from '@/components/ui/animated-span'
-import { Button } from '@/components/ui/button'
-import GridPattern from '@/components/ui/grid-pattern'
-import { cn } from '@/lib/utils'
-import DailyChallengeCTA from './daily-challenge-cta'
+import AnimatedSpan from '@/components/ui/animated-span';
+import { Button } from '@/components/ui/button';
+import GridPattern from '@/components/ui/grid-pattern';
+import { cn } from '@/lib/utils';
+import DailyChallengeCTA from './daily-challenge-cta';
 
 export default function FeatureDailyChallengeHero(opts: {
-  header?: string
-  subheader?: string
-  animatedSpan?: string
+  header?: string;
+  subheader?: string;
+  animatedSpan?: string;
 }) {
-  const { header, subheader, animatedSpan } = opts
+  const { header, subheader, animatedSpan } = opts;
 
   return (
     <section className="relative flex gap-10 text-white overflow-hidden justify-center">
@@ -45,10 +45,10 @@ export default function FeatureDailyChallengeHero(opts: {
         y={-1}
         strokeDasharray={'4 2'}
         className={cn(
-          'absolute inset-0 pt-44 [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]',
+          'absolute inset-0 pt-44 [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]'
         )}
       />
       <div className="z-10 absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
     </section>
-  )
+  );
 }

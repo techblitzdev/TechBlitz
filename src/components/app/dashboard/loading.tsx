@@ -1,13 +1,12 @@
-'use client'
+'use client';
 
-import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid'
-import { Skeleton } from '@/components/ui/skeleton'
+import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function DashboardBentoGridLoading() {
   const loadingItems = [
     {
-      className:
-        'h-full text-white justify-center min-h-[450px] col-span-2 lg:col-span-1',
+      className: 'h-full text-white justify-center min-h-[450px] col-span-2 lg:col-span-1',
       height: 'h-[100px] lg:h-full',
     },
     {
@@ -19,11 +18,10 @@ export default function DashboardBentoGridLoading() {
       height: 'h-[250px] lg:h-full',
     },
     {
-      className:
-        'h-full text-white justify-center min-h-[18rem] col-span-2 lg:col-span-1',
+      className: 'h-full text-white justify-center min-h-[18rem] col-span-2 lg:col-span-1',
       height: 'h-[100px] lg:h-full',
     },
-  ]
+  ];
 
   return (
     <BentoGrid className="grid-rows-[auto_auto_auto] md:grid-rows-[repeat(2,minmax(0,1fr))] h-full w-full">
@@ -43,10 +41,7 @@ export default function DashboardBentoGridLoading() {
                   {i === 2 && (
                     <div className="grid grid-cols-3 gap-4 mt-4">
                       {[...Array(3)].map((_, index) => (
-                        <Skeleton
-                          key={index}
-                          className="w-full h-24 bg-muted/10"
-                        />
+                        <Skeleton key={index} className="w-full h-24 bg-muted/10" />
                       ))}
                     </div>
                   )}
@@ -62,5 +57,5 @@ export default function DashboardBentoGridLoading() {
         />
       ))}
     </BentoGrid>
-  )
+  );
 }

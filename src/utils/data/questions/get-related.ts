@@ -1,7 +1,7 @@
-import { Tags } from '@/types/Tags'
-import { prisma } from '@/lib/prisma'
-import { getUser } from '@/actions/user/authed/get-user'
-import { QuestionDifficulty } from '@prisma/client'
+import { Tags } from '@/types/Tags';
+import { prisma } from '@/lib/prisma';
+import { getUser } from '@/actions/user/authed/get-user';
+import { QuestionDifficulty } from '@prisma/client';
 
 /**
  * Method to get questions that are related to the current question
@@ -12,12 +12,12 @@ import { QuestionDifficulty } from '@prisma/client'
  * to the current question.
  */
 export const getRelatedQuestions = async (opts: {
-  questionSlug: string
-  tags: Tags[]
-  limit?: number
+  questionSlug: string;
+  tags: Tags[];
+  limit?: number;
 }) => {
-  const { questionSlug, tags, limit = 3 } = opts
-  if (!questionSlug) return []
+  const { questionSlug, tags, limit = 3 } = opts;
+  if (!questionSlug) return [];
 
   const questions = await prisma.questions.findMany({
     where: {
@@ -38,11 +38,11 @@ export const getRelatedQuestions = async (opts: {
       },
     },
     take: limit,
-  })
+  });
 
   // if we cannot find any related questions, return random questions relating to the users difficulty level
   if (questions.length !== 0) {
-    return questions
+    return questions;
   }
 
   // create a difficult map for the user
@@ -51,9 +51,9 @@ export const getRelatedQuestions = async (opts: {
     INTERMEDIATE: 'EASY',
     ADVANCED: 'MEDIUM',
     MASTER: 'HARD',
-  }
+  };
 
-  const user = await getUser()
+  const user = await getUser();
   return await prisma.questions.findMany({
     where: {
       difficulty: difficultyMap[
@@ -71,5 +71,5 @@ export const getRelatedQuestions = async (opts: {
     orderBy: {
       createdAt: 'desc',
     },
-  })
-}
+  });
+};

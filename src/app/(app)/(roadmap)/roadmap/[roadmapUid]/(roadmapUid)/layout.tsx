@@ -1,21 +1,18 @@
-import RoadmapDropdown from '@/components/app/roadmaps/[uid]/dropdown'
-import { Separator } from '@/components/ui/separator'
-import { useUserServer } from '@/hooks/use-user-server'
-import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger'
-import { fetchRoadmap } from '@/utils/data/roadmap/fetch-single-roadmap'
-import { UserRoadmaps } from '@/types/Roadmap'
+import RoadmapDropdown from '@/components/app/roadmaps/[uid]/dropdown';
+import { Separator } from '@/components/ui/separator';
+import { useUserServer } from '@/hooks/use-user-server';
+import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
+import { fetchRoadmap } from '@/utils/data/roadmap/fetch-single-roadmap';
+import { UserRoadmaps } from '@/types/Roadmap';
 
 export default async function RoadmapOverviewPage({
   children,
   params,
 }: Readonly<{ children: React.ReactNode; params: { roadmapUid: string } }>) {
-  const { roadmapUid } = params
+  const { roadmapUid } = params;
 
-  const [user, roadmap] = await Promise.all([
-    useUserServer(),
-    fetchRoadmap({ roadmapUid }),
-  ])
-  if (!user) return
+  const [user, roadmap] = await Promise.all([useUserServer(), fetchRoadmap({ roadmapUid })]);
+  if (!user) return;
 
   return (
     <div className="text-white flex flex-col gap-y-2 relative h-full">
@@ -31,5 +28,5 @@ export default async function RoadmapOverviewPage({
       <Separator className="bg-black-50" />
       <div className="container">{children}</div>
     </div>
-  )
+  );
 }

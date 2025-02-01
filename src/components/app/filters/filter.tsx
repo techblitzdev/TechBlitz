@@ -1,18 +1,18 @@
-import FilterTagsCarousel from '@/components/app/filters/tags-carousel'
-import FilterSearchTag from '@/components/app/filters/search/tag-search'
-import { Tag } from '@prisma/client'
-import { FilterContextProvider } from './filter-context'
-import { use } from 'react'
-import FilterDropdown from './filter-dropdown'
-import SortDropdown from './sort/sort-dropdown'
+import FilterTagsCarousel from '@/components/app/filters/tags-carousel';
+import FilterSearchTag from '@/components/app/filters/search/tag-search';
+import { Tag } from '@prisma/client';
+import { FilterContextProvider } from './filter-context';
+import { use } from 'react';
+import FilterDropdown from './filter-dropdown';
+import SortDropdown from './sort/sort-dropdown';
 
 interface FilterProps {
-  tagsPromise: Promise<Tag[]>
-  showSort?: boolean
+  tagsPromise: Promise<Tag[]>;
+  showSort?: boolean;
 }
 
 export default function Filter({ tagsPromise, showSort = true }: FilterProps) {
-  const tags = use(tagsPromise)
+  const tags = use(tagsPromise);
 
   return (
     <FilterContextProvider tags={tags}>
@@ -27,5 +27,5 @@ export default function Filter({ tagsPromise, showSort = true }: FilterProps) {
         <FilterTagsCarousel />
       </div>
     </FilterContextProvider>
-  )
+  );
 }

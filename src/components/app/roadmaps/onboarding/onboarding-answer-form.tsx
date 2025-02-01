@@ -1,27 +1,27 @@
-'use client'
+'use client';
 
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import type { z } from 'zod'
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import type { z } from 'zod';
 
-import { Form, FormControl, FormField } from '@/components/ui/form'
-import LoadingSpinner from '@/components/ui/loading'
-import { cn } from '@/lib/utils'
-import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema'
-import AnswerSubmittedForm from '../answer-submitted-form'
-import { useRoadmapOnboardingContext } from './roadmap-onboarding-context'
-import AnswerOption from './onboarding-answer-option'
+import { Form, FormControl, FormField } from '@/components/ui/form';
+import LoadingSpinner from '@/components/ui/loading';
+import { cn } from '@/lib/utils';
+import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
+import AnswerSubmittedForm from '../answer-submitted-form';
+import { useRoadmapOnboardingContext } from './roadmap-onboarding-context';
+import AnswerOption from './onboarding-answer-option';
 
-type SchemaProps = z.infer<typeof answerQuestionSchema>
+type SchemaProps = z.infer<typeof answerQuestionSchema>;
 
 export default function OnboardingRoadmapAnswerQuestionForm() {
   const { question, roadmapUid, loading, newUserData, nextQuestionIndex } =
-    useRoadmapOnboardingContext()
+    useRoadmapOnboardingContext();
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(answerQuestionSchema),
     defaultValues: { answer: '' },
-  })
+  });
 
   if (newUserData && !loading) {
     return (
@@ -31,7 +31,7 @@ export default function OnboardingRoadmapAnswerQuestionForm() {
         nextQuestionIndex={nextQuestionIndex}
         roadmapUid={roadmapUid}
       />
-    )
+    );
   }
 
   return (
@@ -46,14 +46,12 @@ export default function OnboardingRoadmapAnswerQuestionForm() {
           </div>
         )}
 
-        <p className="text-sm text-gray-400 font-light font-onest mt-3">
-          Choose an option below
-        </p>
+        <p className="text-sm text-gray-400 font-light font-onest mt-3">Choose an option below</p>
 
         <div
           className={cn(
             'grid grid-cols-12 gap-4 pt-2',
-            loading ? 'opacity-10 pointer-events-none' : '',
+            loading ? 'opacity-10 pointer-events-none' : ''
           )}
         >
           {question?.answers?.map((answer) => (
@@ -71,5 +69,5 @@ export default function OnboardingRoadmapAnswerQuestionForm() {
         </div>
       </form>
     </Form>
-  )
+  );
 }

@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
-import React, { useState, useEffect } from 'react'
-import { TrendingUp, TrendingDown } from 'lucide-react'
-import { CartesianGrid, Line, LineChart, XAxis } from 'recharts'
-import NumberFlow from '@number-flow/react'
+import React, { useState, useEffect } from 'react';
+import { TrendingUp, TrendingDown } from 'lucide-react';
+import { CartesianGrid, Line, LineChart, XAxis } from 'recharts';
+import NumberFlow from '@number-flow/react';
 
 import {
   Card,
@@ -12,13 +12,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from '@/components/ui/card';
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from '@/components/ui/chart'
+} from '@/components/ui/chart';
 
 const months = [
   'January',
@@ -33,53 +33,53 @@ const months = [
   'October',
   'November',
   'December',
-]
+];
 
 const generateRandomData = () => {
   return months.map((month) => ({
     month,
     questions: Math.floor(Math.random() * 50) + 25,
-  }))
-}
+  }));
+};
 
 const chartConfig = {
   questions: {
     label: 'Questions',
     color: 'hsl(var(--chart-1))',
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 interface ProgressChartProps {
-  hideHeader?: boolean
-  isStatic?: boolean
+  hideHeader?: boolean;
+  isStatic?: boolean;
 }
 
 export default function ProgressChart({
   hideHeader = false,
   isStatic = false,
 }: ProgressChartProps) {
-  const [chartData, setChartData] = useState(generateRandomData())
-  const [trend, setTrend] = useState({ percentage: 0, isUp: true })
+  const [chartData, setChartData] = useState(generateRandomData());
+  const [trend, setTrend] = useState({ percentage: 0, isUp: true });
 
   useEffect(() => {
-    if (isStatic) return
+    if (isStatic) return;
 
     const interval = setInterval(() => {
-      const newData = generateRandomData()
-      setChartData(newData)
+      const newData = generateRandomData();
+      setChartData(newData);
 
       // Calculate trend
-      const oldTotal = chartData.reduce((sum, item) => sum + item.questions, 0)
-      const newTotal = newData.reduce((sum, item) => sum + item.questions, 0)
-      const trendPercentage = ((newTotal - oldTotal) / oldTotal) * 100
+      const oldTotal = chartData.reduce((sum, item) => sum + item.questions, 0);
+      const newTotal = newData.reduce((sum, item) => sum + item.questions, 0);
+      const trendPercentage = ((newTotal - oldTotal) / oldTotal) * 100;
       setTrend({
         percentage: Number(Math.abs(trendPercentage).toFixed(1)),
         isUp: trendPercentage >= 0,
-      })
-    }, 5000)
+      });
+    }, 5000);
 
-    return () => clearInterval(interval)
-  }, [chartData, isStatic])
+    return () => clearInterval(interval);
+  }, [chartData, isStatic]);
 
   return (
     <Card
@@ -127,10 +127,7 @@ export default function ProgressChart({
               tickFormatter={(value: string) => value.slice(0, 3)}
             />
             {!isStatic && (
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent hideLabel />}
-              />
+              <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
             )}
             <Line
               dataKey="questions"
@@ -149,8 +146,7 @@ export default function ProgressChart({
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none text-white">
-          {trend.isUp ? 'Trending up' : 'Trending down'} by {trend.percentage}%
-          this period
+          {trend.isUp ? 'Trending up' : 'Trending down'} by {trend.percentage}% this period
           {trend.isUp ? (
             <TrendingUp className="h-4 w-4 text-green-500" />
           ) : (
@@ -162,5 +158,5 @@ export default function ProgressChart({
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }

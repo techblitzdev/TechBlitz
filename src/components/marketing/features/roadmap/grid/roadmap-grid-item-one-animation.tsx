@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Check, X } from 'lucide-react'
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Check, X } from 'lucide-react';
 
 const sampleAnswers = [
   { id: 1, text: 'What is a closure?', correct: true },
@@ -22,34 +22,31 @@ const sampleAnswers = [
     text: 'What is the difference between null and undefined?',
     correct: true,
   },
-]
+];
 
 export default function RoadmapGridItemOneAnimation() {
-  const [currentAnswers, setCurrentAnswers] = useState(
-    sampleAnswers.slice(0, 3),
-  )
-  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [currentAnswers, setCurrentAnswers] = useState(sampleAnswers.slice(0, 3));
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIsTransitioning(true)
+      setIsTransitioning(true);
       setTimeout(() => {
         setCurrentAnswers((prev) => {
           const nextIndex =
-            (sampleAnswers.findIndex((a) => a.id === prev[0].id) + 1) %
-            sampleAnswers.length
+            (sampleAnswers.findIndex((a) => a.id === prev[0].id) + 1) % sampleAnswers.length;
           return [
             sampleAnswers[nextIndex],
             sampleAnswers[(nextIndex + 1) % sampleAnswers.length],
             sampleAnswers[(nextIndex + 2) % sampleAnswers.length],
-          ]
-        })
-        setIsTransitioning(false)
-      }, 500) // Wait for exit animations to complete
-    }, 3000) // Change answers every 3 seconds
+          ];
+        });
+        setIsTransitioning(false);
+      }, 500); // Wait for exit animations to complete
+    }, 3000); // Change answers every 3 seconds
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <AnimatePresence mode="wait">
@@ -75,13 +72,11 @@ export default function RoadmapGridItemOneAnimation() {
               ) : (
                 <X className="size-4 text-red-400" />
               )}
-              <p className="text-white text-sm sm:text-base font-onest">
-                {answer.text}
-              </p>
+              <p className="text-white text-sm sm:text-base font-onest">{answer.text}</p>
             </motion.div>
           ))}
         </motion.div>
       )}
     </AnimatePresence>
-  )
+  );
 }

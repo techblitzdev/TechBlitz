@@ -1,17 +1,17 @@
-import { AnimatePresence, motion } from 'framer-motion'
-import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context'
-import ResultCard from './result-card'
+import { AnimatePresence, motion } from 'framer-motion';
+import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
+import ResultCard from './result-card';
 
 interface ResultProps {
-  passed: boolean
+  passed: boolean;
   // any as these can be anything (duh)
-  input: any[]
-  expected: any
-  received: any
+  input: any[];
+  expected: any;
+  received: any;
 }
 
 export default function TestCaseDisplay() {
-  const { result } = useQuestionSingle()
+  const { result } = useQuestionSingle();
 
   return (
     <AnimatePresence>
@@ -20,13 +20,9 @@ export default function TestCaseDisplay() {
           <div className="space-y-6">
             <div className="flex items-center gap-3 py-2">
               {result.passed ? (
-                <span className="text-xl font-semibold text-green-500 font-onest">
-                  Accepted
-                </span>
+                <span className="text-xl font-semibold text-green-500 font-onest">Accepted</span>
               ) : (
-                <span className="text-xl font-semibold text-red-500 font-onest">
-                  Rejected
-                </span>
+                <span className="text-xl font-semibold text-red-500 font-onest">Rejected</span>
               )}
             </div>
 
@@ -55,5 +51,5 @@ export default function TestCaseDisplay() {
         )}
       </div>
     </AnimatePresence>
-  )
+  );
 }

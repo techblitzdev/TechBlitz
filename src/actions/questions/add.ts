@@ -1,34 +1,34 @@
-'use server'
-import { QuestionDifficulty } from '@/types/Questions'
-import { prisma } from '@/lib/prisma'
-import uniqid from 'uniqid'
-import { addSlugToQuestion } from '@/scripts/add-slug-to-question'
-import { QuestionAnswerType } from '@/types/QuestionAnswers'
+'use server';
+import { QuestionDifficulty } from '@/types/Questions';
+import { prisma } from '@/lib/prisma';
+import uniqid from 'uniqid';
+import { addSlugToQuestion } from '@/scripts/add-slug-to-question';
+import { QuestionAnswerType } from '@/types/QuestionAnswers';
 
 export const addQuestion = async (opts: {
-  title?: string
-  description?: string
-  question: string
+  title?: string;
+  description?: string;
+  question: string;
   answers: {
-    text: string
-    isCodeSnippet: boolean
-    answerFullSnippet?: string | null
-    answerType?: QuestionAnswerType | null
-  }[]
-  questionDate?: string
-  correctAnswer: number
-  codeSnippet?: string
-  hint?: string
-  dailyQuestion?: boolean
-  tags: string[]
-  isRoadmapQuestion?: boolean
-  order?: number
-  difficulty: QuestionDifficulty
-  aiTitle?: string
+    text: string;
+    isCodeSnippet: boolean;
+    answerFullSnippet?: string | null;
+    answerType?: QuestionAnswerType | null;
+  }[];
+  questionDate?: string;
+  correctAnswer: number;
+  codeSnippet?: string;
+  hint?: string;
+  dailyQuestion?: boolean;
+  tags: string[];
+  isRoadmapQuestion?: boolean;
+  order?: number;
+  difficulty: QuestionDifficulty;
+  aiTitle?: string;
   questionResources?: {
-    title: string
-    url: string
-  }[]
+    title: string;
+    url: string;
+  }[];
 }) => {
   const {
     title,
@@ -46,33 +46,29 @@ export const addQuestion = async (opts: {
     aiTitle,
     difficulty,
     questionResources,
-  } = opts
+  } = opts;
 
-  console.log('hit')
+  console.log('hit');
 
   if (!question || !answers.length) {
-    console.error(
-      'Please provide a question, at least one answer, and a question date',
-    )
-    return 'Please provide a question, at least one answer, and a question date'
+    console.error('Please provide a question, at least one answer, and a question date');
+    return 'Please provide a question, at least one answer, and a question date';
   }
 
   const answerRecords = answers.map((answer) => ({
     uid: uniqid(),
     answer: answer.text,
     answerFullSnippet: answer.answerFullSnippet || null,
-    answerType: answer.isCodeSnippet
-      ? 'PREFILL'
-      : ('STANDARD' as QuestionAnswerType),
-  }))
+    answerType: answer.isCodeSnippet ? 'PREFILL' : ('STANDARD' as QuestionAnswerType),
+  }));
 
   if (correctAnswer < 0 || correctAnswer >= answers.length) {
-    console.error('Invalid correctAnswer index')
-    return 'Invalid correctAnswer index'
+    console.error('Invalid correctAnswer index');
+    return 'Invalid correctAnswer index';
   }
 
-  const correctAnswerUid = answerRecords[correctAnswer].uid
-  const questionUid = uniqid()
+  const correctAnswerUid = answerRecords[correctAnswer].uid;
+  const questionUid = uniqid();
 
   try {
     if (!isRoadmapQuestion) {
@@ -85,9 +81,7 @@ export const addQuestion = async (opts: {
           question,
           title: title || null,
           description: description || null,
-          questionDate: questionDate
-            ? new Date(questionDate).toISOString().split('T')[0]
-            : '',
+          questionDate: questionDate ? new Date(questionDate).toISOString().split('T')[0] : '',
           createdAt: new Date(),
           updatedAt: new Date(),
           answers: {
@@ -134,7 +128,7 @@ export const addQuestion = async (opts: {
             })),
           },
         },
-      })
+      });
     } else {
       await prisma.defaultRoadmapQuestions.create({
         data: {
@@ -155,38 +149,38 @@ export const addQuestion = async (opts: {
           aiTitle: aiTitle || null,
           difficulty,
         },
-      })
+      });
     }
 
     // re run addSlugToQuestion to generate the slug
-    await addSlugToQuestion()
+    await addSlugToQuestion();
 
-    return 'ok'
+    return 'ok';
   } catch (error) {
-    console.error('Failed to add new question:', error)
-    return error instanceof Error ? error.message : 'Failed to add new question'
+    console.error('Failed to add new question:', error);
+    return error instanceof Error ? error.message : 'Failed to add new question';
   }
-}
+};
 
 export const addCodingChallengeQuestion = async (opts: {
-  question: string
-  title: string
-  description: string
+  question: string;
+  title: string;
+  description: string;
   testCases: {
-    expected: any
-    input: any
-  }[]
-  codeSnippet: string
-  hint: string
-  dailyQuestion: boolean
-  questionDate: string | undefined
-  tags: string[]
-  aiTitle: string | undefined
-  difficulty: QuestionDifficulty | undefined
+    expected: any;
+    input: any;
+  }[];
+  codeSnippet: string;
+  hint: string;
+  dailyQuestion: boolean;
+  questionDate: string | undefined;
+  tags: string[];
+  aiTitle: string | undefined;
+  difficulty: QuestionDifficulty | undefined;
   questionResources: {
-    title: string
-    url: string
-  }[]
+    title: string;
+    url: string;
+  }[];
 }) => {
   const {
     question,
@@ -200,9 +194,9 @@ export const addCodingChallengeQuestion = async (opts: {
     tags,
     difficulty,
     questionResources,
-  } = opts
+  } = opts;
 
-  const questionUid = uniqid()
+  const questionUid = uniqid();
 
   try {
     await prisma.questions.create({
@@ -211,9 +205,7 @@ export const addCodingChallengeQuestion = async (opts: {
         question,
         title: title || null,
         description: description || null,
-        questionDate: questionDate
-          ? new Date(questionDate).toISOString().split('T')[0]
-          : '',
+        questionDate: questionDate ? new Date(questionDate).toISOString().split('T')[0] : '',
         correctAnswer: '-',
         codeSnippet: codeSnippet || null,
         hint: hint || null,
@@ -254,11 +246,9 @@ export const addCodingChallengeQuestion = async (opts: {
             }
           : undefined,
       },
-    })
+    });
   } catch (error) {
-    console.error('Failed to add new coding challenge question:', error)
-    return error instanceof Error
-      ? error.message
-      : 'Failed to add new coding challenge question'
+    console.error('Failed to add new coding challenge question:', error);
+    return error instanceof Error ? error.message : 'Failed to add new coding challenge question';
   }
-}
+};

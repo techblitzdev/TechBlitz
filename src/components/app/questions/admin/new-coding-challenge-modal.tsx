@@ -1,11 +1,11 @@
-'use client'
-import React from 'react'
+'use client';
+import React from 'react';
 
 // tip tap
-import { useEditor, EditorContent } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
-import { common, createLowlight } from 'lowlight'
+import { useEditor, EditorContent } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import { common, createLowlight } from 'lowlight';
 
 // components
 import {
@@ -14,50 +14,50 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { Form, FormControl, FormField } from '@/components/ui/form'
-import { InputWithLabel } from '@/components/ui/input-label'
-import { DatePicker } from '@/components/ui/date-picker'
-import { toast } from 'sonner'
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormField } from '@/components/ui/form';
+import { InputWithLabel } from '@/components/ui/input-label';
+import { DatePicker } from '@/components/ui/date-picker';
+import { toast } from 'sonner';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Separator } from '@/components/ui/separator'
-import { Switch } from '@/components/ui/switch'
-import { Label } from '@/components/ui/label'
-const lowlight = createLowlight(common)
-import { TrashIcon } from 'lucide-react'
+} from '@/components/ui/select';
+import { Separator } from '@/components/ui/separator';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+const lowlight = createLowlight(common);
+import { TrashIcon } from 'lucide-react';
 
 // react hook form
-import { useForm, useFieldArray } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { newCodingChallengeQuestionSchema } from '@/lib/zod/schemas/new-question-schema'
-import { z } from 'zod'
-import { formatISO } from 'date-fns'
+import { useForm, useFieldArray } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { newCodingChallengeQuestionSchema } from '@/lib/zod/schemas/new-question-schema';
+import { z } from 'zod';
+import { formatISO } from 'date-fns';
 
 // react query
-import { useMutation } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query';
 
 // actions
-import { addCodingChallengeQuestion } from '@/actions/questions/add'
+import { addCodingChallengeQuestion } from '@/actions/questions/add';
 
 // constants
-import { LANGUAGE_OPTIONS } from '@/utils/constants/language-options'
-import { QuestionDifficulty } from '@/types/Questions'
-import { Textarea } from '@/components/ui/textarea'
+import { LANGUAGE_OPTIONS } from '@/utils/constants/language-options';
+import { QuestionDifficulty } from '@/types/Questions';
+import { Textarea } from '@/components/ui/textarea';
 
-type SchemaProps = z.infer<typeof newCodingChallengeQuestionSchema>
+type SchemaProps = z.infer<typeof newCodingChallengeQuestionSchema>;
 
 const MenuBar = ({ editor }: { editor: any }) => {
-  const [currentLanguage, setCurrentLanguage] = React.useState('javascript')
+  const [currentLanguage, setCurrentLanguage] = React.useState('javascript');
 
   if (!editor) {
-    return null
+    return null;
   }
 
   return (
@@ -85,7 +85,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         variant="default"
         size="sm"
         onClick={() => {
-          editor.chain().focus().toggleCodeBlock().run()
+          editor.chain().focus().toggleCodeBlock().run();
         }}
         className={editor.isActive('codeBlock') ? 'bg-black-50' : ''}
       >
@@ -95,8 +95,8 @@ const MenuBar = ({ editor }: { editor: any }) => {
         <Select
           value={currentLanguage}
           onValueChange={(value) => {
-            setCurrentLanguage(value)
-            editor.chain().focus().setCodeBlock({ language: value }).run()
+            setCurrentLanguage(value);
+            editor.chain().focus().setCodeBlock({ language: value }).run();
           }}
         >
           <SelectTrigger className="w-[180px]">
@@ -112,8 +112,8 @@ const MenuBar = ({ editor }: { editor: any }) => {
         </Select>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default function NewCodingChallengeQuestionModal({ ...props }) {
   const editor = useEditor({
@@ -126,10 +126,10 @@ export default function NewCodingChallengeQuestionModal({ ...props }) {
     ],
     content: '',
     onUpdate: ({ editor }) => {
-      const html = editor.getHTML()
-      form.setValue('codeSnippet', html)
+      const html = editor.getHTML();
+      form.setValue('codeSnippet', html);
     },
-  })
+  });
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(newCodingChallengeQuestionSchema),
@@ -150,7 +150,7 @@ export default function NewCodingChallengeQuestionModal({ ...props }) {
         },
       ],
     },
-  })
+  });
 
   const {
     fields: resourceFields,
@@ -159,7 +159,7 @@ export default function NewCodingChallengeQuestionModal({ ...props }) {
   } = useFieldArray({
     control: form.control,
     name: 'questionResources',
-  })
+  });
 
   const { mutateAsync: server_addQuestion, isPending } = useMutation({
     mutationFn: (values: SchemaProps) => {
@@ -170,7 +170,7 @@ export default function NewCodingChallengeQuestionModal({ ...props }) {
         questionDate = undefined,
         questionResources = [],
         ...rest
-      } = values
+      } = values;
 
       return addCodingChallengeQuestion({
         ...rest,
@@ -187,21 +187,20 @@ export default function NewCodingChallengeQuestionModal({ ...props }) {
         codeSnippet: rest.codeSnippet,
         dailyQuestion: rest.dailyQuestion || false,
         question: rest.question,
-      })
+      });
     },
     onSuccess: () => {
-      toast.success('Question added successfully')
-      form.reset()
-      form.setValue('tags', '')
-      editor?.commands.setContent('')
+      toast.success('Question added successfully');
+      form.reset();
+      form.setValue('tags', '');
+      editor?.commands.setContent('');
     },
     onError: () => {
-      toast.error('Failed to add question')
+      toast.error('Failed to add question');
     },
-  })
+  });
 
-  const handleNewQuestion = async (values: SchemaProps) =>
-    await server_addQuestion(values)
+  const handleNewQuestion = async (values: SchemaProps) => await server_addQuestion(values);
 
   return (
     <Dialog>
@@ -273,10 +272,7 @@ export default function NewCodingChallengeQuestionModal({ ...props }) {
                   name="difficulty"
                   render={({ field }) => (
                     <FormControl>
-                      <Select
-                        value={field.value}
-                        onValueChange={field.onChange}
-                      >
+                      <Select value={field.value} onValueChange={field.onChange}>
                         <SelectTrigger className="w-40">
                           <SelectValue placeholder="Select difficulty" />
                         </SelectTrigger>
@@ -300,10 +296,7 @@ export default function NewCodingChallengeQuestionModal({ ...props }) {
                         <DatePicker
                           date={field.value ? new Date(field.value) : undefined}
                           setDate={(date) =>
-                            form.setValue(
-                              'questionDate',
-                              date ? formatISO(date) : '',
-                            )
+                            form.setValue('questionDate', date ? formatISO(date) : '')
                           }
                         />
                       </FormControl>
@@ -442,11 +435,7 @@ export default function NewCodingChallengeQuestionModal({ ...props }) {
                   >
                     Add Resource
                   </Button>
-                  <Button
-                    type="button"
-                    onClick={() => removeResource(index)}
-                    className="btn"
-                  >
+                  <Button type="button" onClick={() => removeResource(index)} className="btn">
                     <TrashIcon className="size-4 text-destructive" />
                   </Button>
                 </div>
@@ -460,5 +449,5 @@ export default function NewCodingChallengeQuestionModal({ ...props }) {
         </DialogHeader>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

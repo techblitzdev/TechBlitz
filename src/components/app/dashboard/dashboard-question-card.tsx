@@ -1,18 +1,16 @@
-import { Check } from 'lucide-react'
-import { X } from 'lucide-react'
+import { Check } from 'lucide-react';
+import { X } from 'lucide-react';
 
 type DashboardQuestionCardProps = {
   question: {
-    name: string
-    correct: boolean
-    label: string
-  }
-}
+    name: string;
+    correct: boolean;
+    label: string;
+  };
+};
 
-export default function DashboardQuestionCard(
-  opts: DashboardQuestionCardProps,
-) {
-  const { name, correct } = opts.question
+export default function DashboardQuestionCard(opts: DashboardQuestionCardProps) {
+  const { name, correct } = opts.question;
 
   return (
     <div className="bg-black-100 border border-black-50 rounded-md p-4 mb-4">
@@ -27,5 +25,5 @@ export default function DashboardQuestionCard(
         <span className={`text-sm font-ubuntu`}>{name}</span>
       </div>
     </div>
-  )
+  );
 }

@@ -1,28 +1,28 @@
-'use client'
-import React from 'react'
-import { Highlight, themes } from 'prism-react-renderer'
-import { UserRecord } from '@/types/User'
+'use client';
+import React from 'react';
+import { Highlight, themes } from 'prism-react-renderer';
+import { UserRecord } from '@/types/User';
 
 interface CodeDisplayProps {
-  content: string
-  language?: string
-  backgroundColor?: string
-  hideIndex?: boolean
-  user?: UserRecord | null
+  content: string;
+  language?: string;
+  backgroundColor?: string;
+  hideIndex?: boolean;
+  user?: UserRecord | null;
 }
 
 interface HighlightProps {
-  className: string
-  style: React.CSSProperties
-  tokens: Token[][]
-  getLineProps: (input: { line: Token[] }) => React.HTMLProps<HTMLDivElement>
-  getTokenProps: (input: { token: Token }) => React.HTMLProps<HTMLSpanElement>
+  className: string;
+  style: React.CSSProperties;
+  tokens: Token[][];
+  getLineProps: (input: { line: Token[] }) => React.HTMLProps<HTMLDivElement>;
+  getTokenProps: (input: { token: Token }) => React.HTMLProps<HTMLSpanElement>;
 }
 
 interface Token {
-  types: string[]
-  content: string
-  empty?: boolean
+  types: string[];
+  content: string;
+  empty?: boolean;
 }
 
 export default function CodeDisplay({
@@ -39,17 +39,15 @@ export default function CodeDisplay({
     ?.replace(/=&gt;/g, '=>')
     ?.replace(/&lt;/g, '<')
     ?.replace(/&gt;/g, '>')
-    ?.trim()
+    ?.trim();
 
   if (!cleanContent) {
-    return null
+    return null;
   }
 
   return (
     <Highlight
-      theme={
-        themes[user?.codeEditorTheme as keyof typeof themes] || themes.vsDark
-      }
+      theme={themes[user?.codeEditorTheme as keyof typeof themes] || themes.vsDark}
       code={cleanContent}
       language={language || 'javascript'}
     >
@@ -59,11 +57,7 @@ export default function CodeDisplay({
           style={{ ...style, background: backgroundColor }}
         >
           {tokens.map((line, lineIndex) => (
-            <div
-              key={lineIndex}
-              {...getLineProps({ line })}
-              className="table-row"
-            >
+            <div key={lineIndex} {...getLineProps({ line })} className="table-row">
               {!hideIndex && (
                 <span className="table-cell text-gray-500 pr-4 select-none text-right text-sm">
                   {lineIndex + 1}
@@ -79,5 +73,5 @@ export default function CodeDisplay({
         </pre>
       )}
     </Highlight>
-  )
+  );
 }

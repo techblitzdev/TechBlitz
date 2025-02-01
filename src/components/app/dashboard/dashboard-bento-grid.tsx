@@ -1,9 +1,9 @@
-import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid'
+import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid';
 
-import AllQuestionsDashboardBentoBox from '@/components/app/dashboard/all-questions-bento-box'
-import TodaysQuestionBentoBox from '@/components/app/dashboard/todays-question-bento-box'
-import ProgressBentoBox from '@/components/app/dashboard/progression-bento-box'
-import StreakBentoBox from '@/components/app/dashboard/streak-bento-box'
+import AllQuestionsDashboardBentoBox from '@/components/app/dashboard/all-questions-bento-box';
+import TodaysQuestionBentoBox from '@/components/app/dashboard/todays-question-bento-box';
+import ProgressBentoBox from '@/components/app/dashboard/progression-bento-box';
+import StreakBentoBox from '@/components/app/dashboard/streak-bento-box';
 
 export default async function DashboardBentoGrid() {
   const items = [
@@ -33,12 +33,12 @@ export default async function DashboardBentoGrid() {
       padded: false,
       gradientBg: true,
     },
-  ]
+  ];
 
   // remove any hrefs that are null
   items.forEach((item) => {
-    if (!item.href || item.href === null) delete item.href
-  })
+    if (!item.href || item.href === null) delete item.href;
+  });
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -55,5 +55,5 @@ export default async function DashboardBentoGrid() {
         ))}
       </BentoGrid>
     </div>
-  )
+  );
 }

@@ -1,17 +1,17 @@
-'use client'
+'use client';
 
-import { useState, useTransition } from 'react'
-import { Button } from '@/components/ui/button'
-import { Textarea } from '@/components/ui/textarea'
-import { motion, AnimatePresence } from 'framer-motion'
-import type React from 'react'
-import { sendFeedback } from '@/actions/misc/send-feedback'
+import { useState, useTransition } from 'react';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { motion, AnimatePresence } from 'framer-motion';
+import type React from 'react';
+import { sendFeedback } from '@/actions/misc/send-feedback';
 
 interface FeedbackModalProps {
-  title?: string
-  description?: string
-  reference?: string
-  children?: React.ReactNode
+  title?: string;
+  description?: string;
+  reference?: string;
+  children?: React.ReactNode;
 }
 
 export function FeedbackModal({
@@ -20,19 +20,19 @@ export function FeedbackModal({
   reference,
   children,
 }: FeedbackModalProps) {
-  const [feedback, setFeedback] = useState('')
-  const [isPending, startTransition] = useTransition()
-  const [isSent, setIsSent] = useState(false)
+  const [feedback, setFeedback] = useState('');
+  const [isPending, startTransition] = useTransition();
+  const [isSent, setIsSent] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     startTransition(async () => {
-      await sendFeedback(feedback)
-      setFeedback('')
-      setIsSent(true)
-      setTimeout(() => setIsSent(false), 2000)
-    })
-  }
+      await sendFeedback(feedback);
+      setFeedback('');
+      setIsSent(true);
+      setTimeout(() => setIsSent(false), 2000);
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -61,11 +61,7 @@ export function FeedbackModal({
           Cancel
         </Button>
         <AnimatePresence mode="wait">
-          <Button
-            type="submit"
-            variant="secondary"
-            disabled={isPending || feedback.trim() === ''}
-          >
+          <Button type="submit" variant="secondary" disabled={isPending || feedback.trim() === ''}>
             <AnimatePresence mode="wait">
               {isPending ? (
                 <motion.div
@@ -94,5 +90,5 @@ export function FeedbackModal({
         </AnimatePresence>
       </div>
     </form>
-  )
+  );
 }

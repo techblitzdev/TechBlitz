@@ -1,22 +1,17 @@
-'use client'
+'use client';
 
-import { useEffect } from 'react'
-import { Badge } from '@/components/ui/badge'
-import { Progress } from '@/components/ui/progress'
-import {
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardFooter,
-} from '@/components/ui/card'
-import { motion } from 'framer-motion'
-import { capitalise } from '@/utils'
-import { useOnboardingContext } from './onboarding-context'
+import { useEffect } from 'react';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { CardContent, CardDescription, CardHeader, CardFooter } from '@/components/ui/card';
+import { motion } from 'framer-motion';
+import { capitalise } from '@/utils';
+import { useOnboardingContext } from './onboarding-context';
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
-}
+};
 
 const tagCategories = [
   {
@@ -48,37 +43,25 @@ const tagCategories = [
   },
   {
     name: 'React',
-    tags: [
-      'React',
-      'react-hooks',
-      'useCallback',
-      'useEffect',
-      'useMemo',
-      'useState',
-    ],
+    tags: ['React', 'react-hooks', 'useCallback', 'useEffect', 'useMemo', 'useState'],
   },
-]
+];
 
 export default function OnboardingStepTwo() {
-  const { selectedTags, setSelectedTags, user, handleGetDailyQuestion } =
-    useOnboardingContext()
+  const { selectedTags, setSelectedTags, user, handleGetDailyQuestion } = useOnboardingContext();
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) =>
-      prev.includes(tag)
-        ? prev.filter((t) => t !== tag)
-        : prev.length < 5
-          ? [...prev, tag]
-          : prev,
-    )
-  }
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : prev.length < 5 ? [...prev, tag] : prev
+    );
+  };
 
   useEffect(() => {
     // set the selected in the context
-    setSelectedTags(selectedTags)
-  }, [selectedTags])
+    setSelectedTags(selectedTags);
+  }, [selectedTags]);
 
-  const progress = (selectedTags.length / 5) * 100
+  const progress = (selectedTags.length / 5) * 100;
 
   return (
     <>
@@ -122,9 +105,7 @@ export default function OnboardingStepTwo() {
         >
           {tagCategories.map((category) => (
             <div key={category.name} className="space-y-2">
-              <h2 className="text-lg font-semibold text-gray-200">
-                {category.name}
-              </h2>
+              <h2 className="text-lg font-semibold text-gray-200">{category.name}</h2>
               <div className="flex flex-wrap gap-2">
                 {category.tags.map((tag) => (
                   <Badge
@@ -151,5 +132,5 @@ export default function OnboardingStepTwo() {
         </div>
       </CardFooter>
     </>
-  )
+  );
 }

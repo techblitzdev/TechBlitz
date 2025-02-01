@@ -1,13 +1,7 @@
-import type {
-  Question,
-  QuestionWithoutAnswers,
-  QuestionWithTags,
-} from '@/types/Questions'
+import type { Question, QuestionWithoutAnswers, QuestionWithTags } from '@/types/Questions';
 
-export const getTagsFromQuestion = (
-  questions: Question | QuestionWithoutAnswers[],
-) => {
-  if (!questions) return []
+export const getTagsFromQuestion = (questions: Question | QuestionWithoutAnswers[]) => {
+  if (!questions) return [];
 
   const processQuestion = (question: Question | QuestionWithoutAnswers) => ({
     ...question,
@@ -19,18 +13,16 @@ export const getTagsFromQuestion = (
         name: tag?.tag?.name,
       },
     })),
-  })
+  });
 
   // Check if `questions` is an array or a single object
-  return Array.isArray(questions)
-    ? questions.map(processQuestion)
-    : processQuestion(questions)
-}
+  return Array.isArray(questions) ? questions.map(processQuestion) : processQuestion(questions);
+};
 
 export const extractTagIds = (questions: QuestionWithTags[]) => {
   const tagIds = questions.flatMap((question) =>
-    question.tags.map((tagRelation) => tagRelation.tag.uid),
-  )
+    question.tags.map((tagRelation) => tagRelation.tag.uid)
+  );
 
-  return tagIds
-}
+  return tagIds;
+};

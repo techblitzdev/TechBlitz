@@ -1,10 +1,10 @@
-import { Button } from '@/components/ui/button'
-import { useUserServer } from '@/hooks/use-user-server'
-import { Code, FileQuestion, Flame } from 'lucide-react'
-import ProfilePicture from '@/components/ui/profile-picture'
+import { Button } from '@/components/ui/button';
+import { useUserServer } from '@/hooks/use-user-server';
+import { Code, FileQuestion, Flame } from 'lucide-react';
+import ProfilePicture from '@/components/ui/profile-picture';
 
 export default async function LeaderboardFeaturesRight() {
-  const user = await useUserServer()
+  const user = await useUserServer();
 
   const badges = [
     {
@@ -22,7 +22,7 @@ export default async function LeaderboardFeaturesRight() {
       icon: <Code className="size-6 text-green-400" />,
       description: 'Contributed to TechBlitz',
     },
-  ]
+  ];
 
   return (
     <div className="col-span-full md:col-span-6 pb-0 md:py-12 pt-4 p-0 md:p-12 flex flex-col gap-10">
@@ -49,12 +49,8 @@ export default async function LeaderboardFeaturesRight() {
               }}
             >
               <div className="p-2">{badge.icon}</div>
-              <p className="text-sm font-medium text-center font-onest">
-                {badge.name}
-              </p>
-              <p className="text-xs text-gray-400 text-center font-onest">
-                {badge.description}
-              </p>
+              <p className="text-sm font-medium text-center font-onest">{badge.name}</p>
+              <p className="text-xs text-gray-400 text-center font-onest">{badge.description}</p>
             </div>
           ))}
         </div>
@@ -65,13 +61,12 @@ export default async function LeaderboardFeaturesRight() {
           Earn rewards for your progress
         </h3>
         <p className="text-gray-400 font-onest">
-          Level up your skills, earn badges, and compete with friends on the
-          leaderboard.
+          Level up your skills, earn badges, and compete with friends on the leaderboard.
         </p>
         <Button href="#" variant="secondary" disabled>
           Coming soon!
         </Button>
       </div>
     </div>
-  )
+  );
 }

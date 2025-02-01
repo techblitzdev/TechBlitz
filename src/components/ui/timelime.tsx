@@ -1,43 +1,37 @@
-'use client'
-import { useScroll, useTransform, motion } from 'framer-motion'
-import React, { useEffect, useRef, useState } from 'react'
+'use client';
+import { useScroll, useTransform, motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface TimelineEntry {
-  title: string
-  content: React.ReactNode
+  title: string;
+  content: React.ReactNode;
 }
 
 export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
-  const ref = useRef<HTMLDivElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [height, setHeight] = useState(0)
+  const ref = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState(0);
 
   useEffect(() => {
     if (ref.current) {
-      const rect = ref.current.getBoundingClientRect()
-      setHeight(rect.height)
+      const rect = ref.current.getBoundingClientRect();
+      setHeight(rect.height);
     }
-  }, [ref])
+  }, [ref]);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start 10%', 'end 50%'],
-  })
+  });
 
-  const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height])
-  const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1])
+  const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
+  const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
   return (
     <div className="w-full font-sans md:px-10" ref={containerRef}>
-      <div
-        ref={ref}
-        className="relative max-w-7xl mx-auto pb-60 overflow-hidden"
-      >
+      <div ref={ref} className="relative max-w-7xl mx-auto pb-60 overflow-hidden">
         {data.map((item, index) => (
-          <div
-            key={index}
-            className="flex justify-start pt-10 md:pt-40 md:gap-10"
-          >
+          <div key={index} className="flex justify-start pt-10 md:pt-40 md:gap-10">
             <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
               <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-white/50 flex items-center justify-center">
                 <div className="h-4 w-4 rounded-full bg-white border border-white/50 p-2" />
@@ -71,5 +65,5 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

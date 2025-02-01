@@ -1,12 +1,12 @@
-'use client'
+'use client';
 
-import React from 'react'
-import { Editor } from '@monaco-editor/react'
-import LoadingSpinner from '@/components/ui/loading'
-import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context'
-import TestCaseDisplay from './test-case-display'
-import { capitalize } from 'lodash'
-import { AnimatePresence } from 'framer-motion'
+import React from 'react';
+import { Editor } from '@monaco-editor/react';
+import LoadingSpinner from '@/components/ui/loading';
+import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
+import TestCaseDisplay from './test-case-display';
+import { capitalize } from 'lodash';
+import { AnimatePresence } from 'framer-motion';
 
 export default function CodeEditor(opts: { defaultCode: string }) {
   //  const monaco = useMonaco();
@@ -21,8 +21,8 @@ export default function CodeEditor(opts: { defaultCode: string }) {
   //  },
   //});
 
-  const { defaultCode } = opts
-  const { setCode, currentLayout, answerHelp } = useQuestionSingle()
+  const { defaultCode } = opts;
+  const { setCode, currentLayout, answerHelp } = useQuestionSingle();
 
   if (answerHelp) {
     return (
@@ -31,15 +31,13 @@ export default function CodeEditor(opts: { defaultCode: string }) {
           <h2 className="text-lg font-bold">Answer Help</h2>
           {Object.entries(answerHelp).map(([key, value], index) => (
             <div key={index}>
-              <h3 className="text-md font-bold underline">
-                {capitalize(key.replace(/-/g, ' '))}
-              </h3>
+              <h3 className="text-md font-bold underline">{capitalize(key.replace(/-/g, ' '))}</h3>
               <p className="text-gray-200">{value.replace(/```/g, '')}</p>
             </div>
           ))}
         </div>
       </AnimatePresence>
-    )
+    );
   }
 
   if (currentLayout === 'answer') {
@@ -47,7 +45,7 @@ export default function CodeEditor(opts: { defaultCode: string }) {
       <div className="w-full relative">
         <TestCaseDisplay />
       </div>
-    )
+    );
   }
 
   return (
@@ -76,5 +74,5 @@ export default function CodeEditor(opts: { defaultCode: string }) {
         loading={<LoadingSpinner />}
       />
     </div>
-  )
+  );
 }

@@ -1,8 +1,8 @@
-import { CheckCircle } from 'lucide-react'
-import RoadmapIcon from '@/components/ui/icons/roadmap'
+import { CheckCircle } from 'lucide-react';
+import RoadmapIcon from '@/components/ui/icons/roadmap';
 
 interface RoadmapStatusProps {
-  isGenerated: boolean
+  isGenerated: boolean;
 }
 
 export default function RoadmapStatus({ isGenerated }: RoadmapStatusProps) {
@@ -22,5 +22,5 @@ export default function RoadmapStatus({ isGenerated }: RoadmapStatusProps) {
           : 'This process may take a few minutes. Please hold tight while we prepare your personalized learning journey.'}
       </p>
     </div>
-  )
+  );
 }

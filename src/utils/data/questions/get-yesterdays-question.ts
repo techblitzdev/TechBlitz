@@ -1,14 +1,14 @@
-import { Question } from '@/types/Questions'
-import { prisma } from '@/lib/prisma'
-import { getTagsFromQuestion } from './tags/get-tags-from-question'
+import { Question } from '@/types/Questions';
+import { prisma } from '@/lib/prisma';
+import { getTagsFromQuestion } from './tags/get-tags-from-question';
 
 export const getYesterdaysQuestion = async (): Promise<Question | null> => {
   try {
     // Get yesterday's date at midnight UTC
-    const yesterday = new Date()
-    yesterday.setDate(yesterday.getDate() - 1)
-    yesterday.setHours(0, 0, 0, 0)
-    const yesterdayISOString = yesterday.toISOString().split('T')[0]
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    yesterday.setHours(0, 0, 0, 0);
+    const yesterdayISOString = yesterday.toISOString().split('T')[0];
 
     // Find a question where `questionDate` is yesterday
     const res = await prisma.questions.findFirst({
@@ -23,19 +23,19 @@ export const getYesterdaysQuestion = async (): Promise<Question | null> => {
           },
         },
       },
-    })
+    });
 
     if (!res) {
-      console.error('No question found for yesterday')
-      return null
+      console.error('No question found for yesterday');
+      return null;
     }
 
     // Get the tags from the question
-    const question = getTagsFromQuestion(res) as unknown as Question
+    const question = getTagsFromQuestion(res) as unknown as Question;
 
-    return question
+    return question;
   } catch (error) {
-    console.error("Failed to get yesterday's question:", error)
-    return null
+    console.error("Failed to get yesterday's question:", error);
+    return null;
   }
-}
+};

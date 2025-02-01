@@ -1,16 +1,13 @@
-'use client'
+'use client';
 
-import { Skeleton } from '@/components/ui/skeleton'
+import { Skeleton } from '@/components/ui/skeleton';
 
-import Link from 'next/link'
-import { MoreHorizontal } from 'lucide-react'
+import Link from 'next/link';
+import { MoreHorizontal } from 'lucide-react';
 
 export default function StatsReportCardSkeleton() {
   return (
-    <Link
-      href="#"
-      className="w-full h-auto transition-all duration-200 pointer-events-none"
-    >
+    <Link href="#" className="w-full h-auto transition-all duration-200 pointer-events-none">
       <div className="space-y-4 border border-black-50 p-5 rounded-lg relative overflow-hidden">
         {/* Header */}
         <div className="flex w-full justify-between items-center">
@@ -30,5 +27,5 @@ export default function StatsReportCardSkeleton() {
         </div>
       </div>
     </Link>
-  )
+  );
 }

@@ -1,24 +1,19 @@
-import dynamic from 'next/dynamic'
-import { Suspense } from 'react'
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 
-const RoadmapGridItemOneAnimation = dynamic(
-  () => import('./roadmap-grid-item-one-animation'),
-  {
-    ssr: false,
-  },
-)
+const RoadmapGridItemOneAnimation = dynamic(() => import('./roadmap-grid-item-one-animation'), {
+  ssr: false,
+});
 
 export default function RoadmapGridItemOne() {
   return (
     <div className="relative col-span-full md:col-span-6 pb-0 md:pb-12 pt-4 p-0 md:p-12 flex flex-col gap-10">
       <div className="flex flex-col gap-2.5">
-        <h3 className="text-3xl text-gradient from-white to-white/75">
-          Analyze your skills
-        </h3>
+        <h3 className="text-3xl text-gradient from-white to-white/75">Analyze your skills</h3>
         <p className="text-gray-400">
-          First, we need to understand how much you already know. We start by
-          getting you to answer a few coding questions to gauge your current
-          skill level. This enables us to create the perfect coding roadmap.
+          First, we need to understand how much you already know. We start by getting you to answer
+          a few coding questions to gauge your current skill level. This enables us to create the
+          perfect coding roadmap.
         </p>
       </div>
       <div className="relative overflow-hidden h-full">
@@ -33,11 +28,7 @@ export default function RoadmapGridItemOne() {
             Your answers
           </p>
           <div className="space-y-3">
-            <Suspense
-              fallback={
-                <div className="min-h-[88px] w-full animate-pulse"></div>
-              }
-            >
+            <Suspense fallback={<div className="min-h-[88px] w-full animate-pulse"></div>}>
               <RoadmapGridItemOneAnimation />
             </Suspense>
           </div>
@@ -54,5 +45,5 @@ export default function RoadmapGridItemOne() {
         }}
       ></div>
     </div>
-  )
+  );
 }

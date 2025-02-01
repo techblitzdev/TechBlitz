@@ -1,32 +1,28 @@
-'use client'
+'use client';
 
-import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context'
-import { Button } from '@/components/ui/button'
+import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
+import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { use, useTransition } from 'react'
-import Link from 'next/link'
-import { cn } from '@/lib/utils'
-import { ArrowRight, CheckCircle, LinkIcon, XCircle } from 'lucide-react'
-import { motion } from 'framer-motion'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
-import { TooltipProvider } from '@/components/ui/tooltip'
-import { toast } from 'sonner'
-import { formatSeconds } from '@/utils/time'
-import { AnswerDifficulty } from '@prisma/client'
-import { updateAnswerDifficultyByQuestionUid } from '@/actions/answers/answer'
-import LoadingSpinner from '@/components/ui/loading'
-import FlagIcon from '@/components/ui/icons/flag'
-import FeedbackButton from '@/components/app/shared/feedback/feedback-button'
+} from '@/components/ui/select';
+import { use, useTransition } from 'react';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
+import { ArrowRight, CheckCircle, LinkIcon, XCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { toast } from 'sonner';
+import { formatSeconds } from '@/utils/time';
+import { AnswerDifficulty } from '@prisma/client';
+import { updateAnswerDifficultyByQuestionUid } from '@/actions/answers/answer';
+import LoadingSpinner from '@/components/ui/loading';
+import FlagIcon from '@/components/ui/icons/flag';
+import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
 
 export default function CodeEditorQuestionSubmitted() {
   const {
@@ -39,27 +35,27 @@ export default function CodeEditorQuestionSubmitted() {
     tokensUsed,
     question,
     nextQuestion,
-  } = useQuestionSingle()
+  } = useQuestionSingle();
 
-  const [isPending, setTransition] = useTransition()
+  const [isPending, setTransition] = useTransition();
 
   // resolve the related q's here - only if they are not null
-  const relatedQuestionData = relatedQuestions ? use(relatedQuestions) : []
+  const relatedQuestionData = relatedQuestions ? use(relatedQuestions) : [];
 
   const copyLink = () => {
-    navigator.clipboard.writeText(window.location.href)
-    toast.success('Question link copied to clipboard!')
-  }
+    navigator.clipboard.writeText(window.location.href);
+    toast.success('Question link copied to clipboard!');
+  };
 
   const handleDifficultySelect = async (value: string) => {
     await updateAnswerDifficultyByQuestionUid(
       question?.uid || '',
-      value.toUpperCase() as AnswerDifficulty,
-    )
+      value.toUpperCase() as AnswerDifficulty
+    );
     toast.success(
-      'Question difficulty updated, we will now serve more personalized questions to you.',
-    )
-  }
+      'Question difficulty updated, we will now serve more personalized questions to you.'
+    );
+  };
 
   return (
     <motion.div
@@ -117,9 +113,7 @@ export default function CodeEditorQuestionSubmitted() {
         </div>
         <div className="flex flex-col gap-y-2">
           {result?.passed && (
-            <p className="text-sm text-gray-400">
-              in {formatSeconds(totalSeconds || 0)} seconds
-            </p>
+            <p className="text-sm text-gray-400">in {formatSeconds(totalSeconds || 0)} seconds</p>
           )}
         </div>
       </motion.div>
@@ -128,14 +122,9 @@ export default function CodeEditorQuestionSubmitted() {
         <div className="flex flex-col gap-y-2">
           <h2 className="text-xl font-bold">Next Question</h2>
           <p className="text-sm text-gray-400">
-            Want to continue the flow? Click the button below to go to the next
-            question.
+            Want to continue the flow? Click the button below to go to the next question.
           </p>
-          <Button
-            variant="secondary"
-            href={`/question/${nextQuestion}`}
-            className="w-fit"
-          >
+          <Button variant="secondary" href={`/question/${nextQuestion}`} className="w-fit">
             Next Question
           </Button>
         </div>
@@ -150,19 +139,15 @@ export default function CodeEditorQuestionSubmitted() {
           {/** ai explain answer (on button click) */}
           <h2 className="text-xl font-bold">Explain this answer</h2>
           <p className="text-sm text-gray-400">
-            Don't understand this answer? Click the button below to get an
-            explanation.
+            Don't understand this answer? Click the button below to get an explanation.
           </p>
           <p className="text-sm text-white">
-            You have {user?.userLevel === 'PREMIUM' ? 'unlimited' : tokensUsed}{' '}
-            tokens remaining <br />
+            You have {user?.userLevel === 'PREMIUM' ? 'unlimited' : tokensUsed} tokens remaining{' '}
+            <br />
             {user?.userLevel === 'FREE' && (
               <span className="text-xs text-gray-400">
                 (Free users get 20 tokens,{' '}
-                <Link
-                  href="https://dub.sh/upgrade-techblitz"
-                  className="text-accent underline"
-                >
+                <Link href="https://dub.sh/upgrade-techblitz" className="text-accent underline">
                   upgrade to Premium
                 </Link>{' '}
                 to get unlimited tokens!)
@@ -173,8 +158,8 @@ export default function CodeEditorQuestionSubmitted() {
             variant="default"
             onClick={() => {
               setTransition(() => {
-                generateAiAnswerHelp()
-              })
+                generateAiAnswerHelp();
+              });
             }}
             disabled={isPending}
             className="hidden lg:flex"
@@ -186,8 +171,8 @@ export default function CodeEditorQuestionSubmitted() {
             variant="secondary"
             onClick={() => {
               setTransition(() => {
-                generateAiAnswerHelp(true)
-              })
+                generateAiAnswerHelp(true);
+              });
             }}
             className="flex lg:hidden"
           >
@@ -197,12 +182,10 @@ export default function CodeEditorQuestionSubmitted() {
 
         {/** how difficult was this question? */}
         <div className="flex flex-col gap-y-2 mt-3">
-          <h2 className="text-xl font-bold">
-            How difficult was this question?
-          </h2>
+          <h2 className="text-xl font-bold">How difficult was this question?</h2>
           <p className="text-sm text-gray-400">
-            Rate this question based on how difficult it was to solve. This will
-            help us improve the personalization of questions served to you.
+            Rate this question based on how difficult it was to solve. This will help us improve the
+            personalization of questions served to you.
           </p>
           <div className="flex flex-col gap-y-2">
             <Select onValueChange={handleDifficultySelect}>
@@ -241,7 +224,7 @@ export default function CodeEditorQuestionSubmitted() {
                   key={question.slug}
                   href={`/question/${question.slug}`}
                   className={cn(
-                    'px-4 py-3 w-full flex justify-between items-center group bg-black-75 transition-colors',
+                    'px-4 py-3 w-full flex justify-between items-center group bg-black-75 transition-colors'
                   )}
                 >
                   <p className="text-sm text-white">{question.question}</p>
@@ -253,5 +236,5 @@ export default function CodeEditorQuestionSubmitted() {
         </div>
       </motion.div>
     </motion.div>
-  )
+  );
 }

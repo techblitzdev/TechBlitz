@@ -1,15 +1,15 @@
-import { User } from 'lucide-react'
-import { Suspense } from 'react'
-import LoadingSpinner from './loading'
-import { cn } from '@/lib/utils'
-import Image from 'next/image'
+import { User } from 'lucide-react';
+import { Suspense } from 'react';
+import LoadingSpinner from './loading';
+import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 export default function ProfilePicture(opts: {
-  src?: string | null
-  alt: string | null
-  className?: string
+  src?: string | null;
+  alt: string | null;
+  className?: string;
 }) {
-  const { src, alt, className } = opts
+  const { src, alt, className } = opts;
 
   // if no src, return a placeholder
   if (!src) {
@@ -17,12 +17,12 @@ export default function ProfilePicture(opts: {
       <div
         className={cn(
           'rounded-full size-6 flex items-center justify-center bg-black-50',
-          className,
+          className
         )}
       >
         <User className="size-4" />
       </div>
-    )
+    );
   }
 
   return (
@@ -35,5 +35,5 @@ export default function ProfilePicture(opts: {
         height={24}
       />
     </Suspense>
-  )
+  );
 }

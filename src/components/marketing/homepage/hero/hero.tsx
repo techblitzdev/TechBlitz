@@ -1,7 +1,7 @@
-import SignupForm from '@/components/marketing/global/waitlist-form'
-import Link from 'next/link'
-import AnimatedSpan from '@/components/ui/animated-span'
-import { ArrowRight } from 'lucide-react'
+import SignupForm from '@/components/marketing/global/waitlist-form';
+import Link from 'next/link';
+import AnimatedSpan from '@/components/ui/animated-span';
+import { ArrowRight } from 'lucide-react';
 
 export default function HomepageHero() {
   const animatedSpanContent = (
@@ -10,7 +10,7 @@ export default function HomepageHero() {
       <span className="block md:hidden">New code editor!</span>
       <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-all duration-300" />
     </div>
-  )
+  );
 
   return (
     <section
@@ -25,13 +25,13 @@ export default function HomepageHero() {
           Learning to code <br /> made easy
         </h1>
         <p className="font-onest max-w-4xl text-gray-400 text-lg">
-          Replace boring coding exercises with industry-standard coding
-          challenges. <br /> Your dream career in tech is just a click away.
+          Replace boring coding exercises with industry-standard coding challenges. <br /> Your
+          dream career in tech is just a click away.
         </p>
         <div className="mt-3">
           <SignupForm />
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -8,24 +8,23 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
-import { Button } from '@/components/ui/button'
-import { QuestionResources } from '@prisma/client'
-import Link from 'next/link'
+} from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
+import { QuestionResources } from '@prisma/client';
+import Link from 'next/link';
 
 export default function QuestionResourceTab(opts: {
-  resources: QuestionResources[] | undefined
-  reference?: string
+  resources: QuestionResources[] | undefined;
+  reference?: string;
 }) {
-  const { resources, reference } = opts
+  const { resources, reference } = opts;
 
   if (!resources || resources.length === 0) {
     return (
       <div className="flex flex-col gap-y-2 mt-2">
         <p className="text-sm text-gray-400">
-          It looks like there are no resources for this question. If you have a
-          resource that you think would be helpful for this question, please let
-          us know!
+          It looks like there are no resources for this question. If you have a resource that you
+          think would be helpful for this question, please let us know!
         </p>
         <AlertDialog>
           <AlertDialogTrigger asChild>
@@ -35,21 +34,18 @@ export default function QuestionResourceTab(opts: {
             <AlertDialogHeader>
               <AlertDialogTitle>Suggest a resource</AlertDialogTitle>
               <AlertDialogDescription className="flex flex-col gap-y-2">
-                If you have a resource that you think would be helpful for this
-                question, please let us know!
+                If you have a resource that you think would be helpful for this question, please let
+                us know!
                 <br />
                 {reference && (
                   <span>
-                    Please use the reference:{' '}
-                    <span className="font-bold">{reference}</span>
+                    Please use the reference: <span className="font-bold">{reference}</span>
                   </span>
                 )}
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel className="bg-white text-black">
-                Cancel
-              </AlertDialogCancel>
+              <AlertDialogCancel className="bg-white text-black">Cancel</AlertDialogCancel>
               <AlertDialogAction>
                 <Link href="mailto:team@techblitz.dev">Send resource</Link>
               </AlertDialogAction>
@@ -57,7 +53,7 @@ export default function QuestionResourceTab(opts: {
           </AlertDialogContent>
         </AlertDialog>
       </div>
-    )
+    );
   }
 
   return (
@@ -83,5 +79,5 @@ export default function QuestionResourceTab(opts: {
         <Button variant="secondary">Suggest a resource</Button>
       </div>
     </div>
-  )
+  );
 }

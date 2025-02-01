@@ -1,17 +1,17 @@
-'use client'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Crown } from 'lucide-react'
-import AnimatedSpan from '@/components/ui/animated-span'
-import ProfilePicture from '@/components/ui/profile-picture'
-import { UserRecord } from '@/types/User'
-import { getUserDisplayName } from '@/utils/user'
+'use client';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Crown } from 'lucide-react';
+import AnimatedSpan from '@/components/ui/animated-span';
+import ProfilePicture from '@/components/ui/profile-picture';
+import { UserRecord } from '@/types/User';
+import { getUserDisplayName } from '@/utils/user';
 
 export default function LeaderboardHero({
   topThreeUsers,
 }: {
-  topThreeUsers: (UserRecord & { _count: { answers: number } })[]
+  topThreeUsers: (UserRecord & { _count: { answers: number } })[];
 }) {
-  const podiumOrder = [1, 0, 2] // 2nd, 1st, 3rd
+  const podiumOrder = [1, 0, 2]; // 2nd, 1st, 3rd
 
   return (
     <section className="w-full py-8 md:pb-28 flex flex-col gap-y-4 justify-between items-center">
@@ -20,8 +20,7 @@ export default function LeaderboardHero({
           Leaderboard
         </h1>
         <p className="text-sm text-gray-400 relative z-10 text-center">
-          See how you stack up against the rest of the community and become the
-          best!
+          See how you stack up against the rest of the community and become the best!
         </p>
         <div className="hidden md:flex">
           <AnimatedSpan content="Top Users" />
@@ -30,23 +29,23 @@ export default function LeaderboardHero({
       <div className="hidden md:flex justify-center items-end perspective-1000 relative">
         <AnimatePresence>
           {podiumOrder.map((index) => {
-            const user = topThreeUsers[index]
-            if (!user) return null
-            const position = index + 1
-            return <PodiumItem key={user.uid} user={user} position={position} />
+            const user = topThreeUsers[index];
+            if (!user) return null;
+            const position = index + 1;
+            return <PodiumItem key={user.uid} user={user} position={position} />;
           })}
         </AnimatePresence>
       </div>
     </section>
-  )
+  );
 }
 
 export function PodiumItem({
   user,
   position,
 }: {
-  user: UserRecord & { _count: { answers: number } }
-  position: number
+  user: UserRecord & { _count: { answers: number } };
+  position: number;
 }) {
   return (
     <motion.div
@@ -76,15 +75,15 @@ export function PodiumItem({
         <PodiumBase position={position} />
       </div>
     </motion.div>
-  )
+  );
 }
 
 export function UserInfo({
   user,
   position,
 }: {
-  user: UserRecord & { _count: { answers: number } }
-  position: number
+  user: UserRecord & { _count: { answers: number } };
+  position: number;
 }) {
   return (
     <motion.div
@@ -116,7 +115,7 @@ export function UserInfo({
       <UserName user={user} position={position} />
       <UserAnswerCount count={user._count.answers} position={position} />
     </motion.div>
-  )
+  );
 }
 
 export function CrownIcon() {
@@ -134,17 +133,11 @@ export function CrownIcon() {
     >
       <Crown className="size-4 text-yellow-500 fill-yellow-400" />
     </motion.div>
-  )
+  );
 }
 
-function UserBadge({
-  userLevel,
-  position,
-}: {
-  userLevel: string
-  position: number
-}) {
-  if (userLevel !== 'PREMIUM' && userLevel !== 'ADMIN') return null
+function UserBadge({ userLevel, position }: { userLevel: string; position: number }) {
+  if (userLevel !== 'PREMIUM' && userLevel !== 'ADMIN') return null;
 
   return (
     <motion.div
@@ -153,11 +146,9 @@ function UserBadge({
       transition={{ delay: position * 0.2 + 0.3 }}
       className="relative -top-3 w-fit bg-accent text-xs flex items-center justify-center px-2 py-0.5 rounded-full"
     >
-      <span className="text-[10px]">
-        {userLevel === 'PREMIUM' ? 'PRO' : 'ADMIN'}
-      </span>
+      <span className="text-[10px]">{userLevel === 'PREMIUM' ? 'PRO' : 'ADMIN'}</span>
     </motion.div>
-  )
+  );
 }
 
 function UserName({ user, position }: { user: UserRecord; position: number }) {
@@ -170,16 +161,10 @@ function UserName({ user, position }: { user: UserRecord; position: number }) {
     >
       {getUserDisplayName(user)}
     </motion.span>
-  )
+  );
 }
 
-function UserAnswerCount({
-  count,
-  position,
-}: {
-  count: number
-  position: number
-}) {
+function UserAnswerCount({ count, position }: { count: number; position: number }) {
   return (
     <motion.span
       initial={{ y: 5, opacity: 0 }}
@@ -189,7 +174,7 @@ function UserAnswerCount({
     >
       {count} answers
     </motion.span>
-  )
+  );
 }
 
 function PodiumBase({ position }: { position: number }) {
@@ -224,5 +209,5 @@ function PodiumBase({ position }: { position: number }) {
         <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#000] to-transparent rotate-180 -top-px"></div>
       </div>
     </>
-  )
+  );
 }

@@ -1,8 +1,8 @@
-import { LanguageDropdown } from '@/types/LanguageDropdown'
-import JavascriptSvg from '@/public/language-imgs/javascript.svg'
-import TypescriptSvg from '@/public/language-imgs/typescript.svg'
-import PythonSvg from '@/public/language-imgs/python.svg'
-import GolangSvg from '@/public/language-imgs/golang.svg'
+import { LanguageDropdown } from '@/types/LanguageDropdown';
+import JavascriptSvg from '@/public/language-imgs/javascript.svg';
+import TypescriptSvg from '@/public/language-imgs/typescript.svg';
+import PythonSvg from '@/public/language-imgs/python.svg';
+import GolangSvg from '@/public/language-imgs/golang.svg';
 
 export const LANGUAGE_OPTIONS: LanguageDropdown[] = [
   {
@@ -37,4 +37,4 @@ export const LANGUAGE_OPTIONS: LanguageDropdown[] = [
     },
     svg: GolangSvg,
   },
-]
+];

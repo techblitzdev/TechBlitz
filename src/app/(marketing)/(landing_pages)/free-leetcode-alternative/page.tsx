@@ -1,18 +1,16 @@
-import FeatureLeftRightSection from '@/components/marketing/features/daily-challenge/feature-left-right/features-section'
-import FAQsBlock from '@/components/marketing/global/blocks/faqs'
-import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/hero/daily-challenge-hero'
-import FeatureRoadmapThreeGridBlock from '@/components/marketing/features/roadmap/roadmap-three-grid'
-import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block'
-import { WebPageJsonLd } from '@/types/Seo'
-import { getBaseUrl } from '@/utils'
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo'
-import Link from 'next/link'
-import { QUESTIONS_COUNT } from '@/utils/constants/misc'
-import ComparisonTable, {
-  Feature,
-} from '@/components/marketing/global/blocks/comparison-table'
-import Testimonials from '@/components/marketing/global/blocks/testimonials'
-import { Button } from '@/components/ui/button'
+import FeatureLeftRightSection from '@/components/marketing/features/daily-challenge/feature-left-right/features-section';
+import FAQsBlock from '@/components/marketing/global/blocks/faqs';
+import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/hero/daily-challenge-hero';
+import FeatureRoadmapThreeGridBlock from '@/components/marketing/features/roadmap/roadmap-three-grid';
+import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
+import { WebPageJsonLd } from '@/types/Seo';
+import { getBaseUrl } from '@/utils';
+import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import Link from 'next/link';
+import { QUESTIONS_COUNT } from '@/utils/constants/misc';
+import ComparisonTable, { Feature } from '@/components/marketing/global/blocks/comparison-table';
+import Testimonials from '@/components/marketing/global/blocks/testimonials';
+import { Button } from '@/components/ui/button';
 
 const features: Feature[] = [
   {
@@ -100,7 +98,7 @@ const features: Feature[] = [
     },
     otherCompany: { value: true },
   },
-]
+];
 
 export async function generateMetadata() {
   return createMetadata({
@@ -123,7 +121,7 @@ export async function generateMetadata() {
       'developer skills',
     ],
     canonicalUrl: '/free-leetcode-alternative',
-  })
+  });
 }
 
 export default function Page() {
@@ -163,7 +161,7 @@ export default function Page() {
       target: `${getBaseUrl()}/search?q={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
-  }
+  };
 
   const faqs = [
     {
@@ -211,7 +209,7 @@ export default function Page() {
       question: 'How many coding challenges are there on TechBlitz?',
       answer: `There are over ${QUESTIONS_COUNT}+ coding challenges on TechBlitz. We are constantly adding new challenges, and we are working on adding more real-world coding challenges to the platform.`,
     },
-  ]
+  ];
 
   return (
     <>
@@ -237,9 +235,8 @@ export default function Page() {
               Product Comparison
             </h1>
             <p className="text-center text-lg max-w-xl mx-auto">
-              TechBlitz is the best free LeetCode alternative. A more
-              personalized and engaging experience with real-world coding
-              challenges.
+              TechBlitz is the best free LeetCode alternative. A more personalized and engaging
+              experience with real-world coding challenges.
             </p>
             <Button href="/signup" variant="accent">
               Start for free
@@ -264,5 +261,5 @@ export default function Page() {
         />
       </div>
     </>
-  )
+  );
 }

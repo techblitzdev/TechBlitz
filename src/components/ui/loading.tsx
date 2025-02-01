@@ -1,11 +1,6 @@
 export default function LoadingSpinner() {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
       <g
         fill="none"
         stroke="currentColor"
@@ -13,11 +8,7 @@ export default function LoadingSpinner() {
         strokeLinejoin="round"
         strokeWidth="2"
       >
-        <path
-          strokeDasharray="16"
-          strokeDashoffset="16"
-          d="M12 3c4.97 0 9 4.03 9 9"
-        >
+        <path strokeDasharray="16" strokeDashoffset="16" d="M12 3c4.97 0 9 4.03 9 9">
           <animate
             fill="freeze"
             attributeName="stroke-dashoffset"
@@ -47,5 +38,5 @@ export default function LoadingSpinner() {
         </path>
       </g>
     </svg>
-  )
+  );
 }

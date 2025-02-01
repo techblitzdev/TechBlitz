@@ -1,23 +1,19 @@
-import { getQuestion } from '@/utils/data/questions/get'
-import { Separator } from '@/components/ui/separator'
-import NoDailyQuestion from '@/components/shared/no-daily-question'
-import CodeDisplay from '@/components/app/questions/single/layout/code-snippet'
-import { useUserServer } from '@/hooks/use-user-server'
-import QuestionCard from '@/components/app/questions/single/layout/question-card'
-import { getRandomQuestion } from '@/utils/data/questions/get-random'
-import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal'
-import ResizableLayout from '@/components/ui/resizable-layout'
-import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help'
-import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme'
+import { getQuestion } from '@/utils/data/questions/get';
+import { Separator } from '@/components/ui/separator';
+import NoDailyQuestion from '@/components/shared/no-daily-question';
+import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
+import { useUserServer } from '@/hooks/use-user-server';
+import QuestionCard from '@/components/app/questions/single/layout/question-card';
+import { getRandomQuestion } from '@/utils/data/questions/get-random';
+import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal';
+import ResizableLayout from '@/components/ui/resizable-layout';
+import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help';
+import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
 
-export default async function TodaysQuestionPage({
-  params,
-}: {
-  params: { uid: string }
-}) {
-  const { uid } = params
+export default async function TodaysQuestionPage({ params }: { params: { uid: string } }) {
+  const { uid } = params;
 
-  const user = await useUserServer()
+  const user = await useUserServer();
 
   const [question, nextQuestion] = await Promise.all([
     getQuestion('uid', uid),
@@ -25,10 +21,10 @@ export default async function TodaysQuestionPage({
       identifier: 'uid',
       currentQuestionSlug: uid,
     }),
-  ])
+  ]);
 
   if (!question) {
-    return <NoDailyQuestion textAlign="center" />
+    return <NoDailyQuestion textAlign="center" />;
   }
 
   const leftContent = (
@@ -40,7 +36,7 @@ export default async function TodaysQuestionPage({
         identifier="uid"
       />
     </div>
-  )
+  );
 
   const rightContent = (
     <div className="hidden lg:flex flex-col gap-4 p-3 lg:p-6 lg:pl-3 h-full">
@@ -50,35 +46,21 @@ export default async function TodaysQuestionPage({
       >
         <div className="p-4 text-sm flex w-full items-center justify-end bg-black-25 gap-x-3">
           {/** explain question ai button */}
-          <AiQuestionHelp
-            question={question}
-            user={user}
-            questionType="regular"
-          />
+          <AiQuestionHelp question={question} user={user} questionType="regular" />
           {/** code theme selector */}
           <ChangeCodeTheme user={user} />
           {/** code snippet */}
-          {question.codeSnippet && (
-            <ExpandedCodeModal code={question.codeSnippet} />
-          )}
+          {question.codeSnippet && <ExpandedCodeModal code={question.codeSnippet} />}
         </div>
         <Separator className="bg-black-50" />
         {question?.codeSnippet && (
-          <CodeDisplay
-            content={question.codeSnippet}
-            backgroundColor="#111111"
-            user={user}
-          />
+          <CodeDisplay content={question.codeSnippet} backgroundColor="#111111" user={user} />
         )}
       </div>
     </div>
-  )
+  );
 
   return (
-    <ResizableLayout
-      leftContent={leftContent}
-      rightContent={rightContent}
-      initialLeftWidth={50}
-    />
-  )
+    <ResizableLayout leftContent={leftContent} rightContent={rightContent} initialLeftWidth={50} />
+  );
 }

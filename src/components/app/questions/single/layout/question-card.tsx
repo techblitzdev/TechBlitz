@@ -1,61 +1,52 @@
-'use client'
+'use client';
 
-import { use, useRef, useState } from 'react'
+import { use, useRef, useState } from 'react';
 
 // components
-import { Separator } from '@/components/ui/separator'
-import QuestionCardFooter from '@/components/app/questions/single/layout/question-card-footer'
-import Stopwatch from '@/components/app/questions/single/stopwatch'
-import QuestionAccordion from '@/components/app/questions/single/question-accordion'
-import QuestionTabs from '@/components/app/questions/resources/question-tabs'
-import AnswerQuestionForm from '@/components/app/questions/single/answer-question-form'
-import {
-  BarChart,
-  BookIcon,
-  BookOpen,
-  FileIcon,
-  FileText,
-  PieChart,
-} from 'lucide-react'
+import { Separator } from '@/components/ui/separator';
+import QuestionCardFooter from '@/components/app/questions/single/layout/question-card-footer';
+import Stopwatch from '@/components/app/questions/single/stopwatch';
+import QuestionAccordion from '@/components/app/questions/single/question-accordion';
+import QuestionTabs from '@/components/app/questions/resources/question-tabs';
+import AnswerQuestionForm from '@/components/app/questions/single/answer-question-form';
+import { BarChart, BookIcon, BookOpen, FileIcon, FileText, PieChart } from 'lucide-react';
 
 // types
-import type { UserRecord } from '@/types/User'
-import type { Question } from '@/types/Questions'
+import type { UserRecord } from '@/types/User';
+import type { Question } from '@/types/Questions';
 
-import { useQuestionSingle } from './question-single-context'
-import { Button } from '@/components/ui/button'
-import CodeDisplay from './code-snippet'
-import ExpandedCodeModal from './expanded-code-modal'
-import ChangeCodeTheme from './change-code-theme'
-import AiQuestionHelp from './ai-question-help'
-import NoDailyQuestion from '@/components/shared/no-daily-question'
-import QuestionSubmitted from './question-submitted'
-import { capitalize } from 'lodash'
-import { AnimatePresence } from 'framer-motion'
-import CodeEditorQuestionSubmitted from '@/components/app/questions/code-editor/answer-submitted'
-import CodeEditor from '@/components/app/questions/code-editor/editor'
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { useQuestionSingle } from './question-single-context';
+import { Button } from '@/components/ui/button';
+import CodeDisplay from './code-snippet';
+import ExpandedCodeModal from './expanded-code-modal';
+import ChangeCodeTheme from './change-code-theme';
+import AiQuestionHelp from './ai-question-help';
+import NoDailyQuestion from '@/components/shared/no-daily-question';
+import QuestionSubmitted from './question-submitted';
+import { capitalize } from 'lodash';
+import { AnimatePresence } from 'framer-motion';
+import CodeEditorQuestionSubmitted from '@/components/app/questions/code-editor/answer-submitted';
+import CodeEditor from '@/components/app/questions/code-editor/editor';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export default function QuestionCard(opts: {
   // optional as this is not required to render the card
-  user: UserRecord | null
-  questionPromise: Promise<Question | null>
+  user: UserRecord | null;
+  questionPromise: Promise<Question | null>;
   totalSubmissions?: {
-    totalSubmissions: number
-    percentageCorrect: number
-  }
-  nextQuestion?: string
-  isRoadmapQuestion?: boolean
-  index?: number
-  identifier: 'slug' | 'uid'
+    totalSubmissions: number;
+    percentageCorrect: number;
+  };
+  nextQuestion?: string;
+  isRoadmapQuestion?: boolean;
+  index?: number;
+  identifier: 'slug' | 'uid';
 }) {
-  const { user, questionPromise, totalSubmissions } = opts
+  const { user, questionPromise, totalSubmissions } = opts;
 
-  const [activeTab, setActiveTab] = useState<
-    'description' | 'resources' | 'stats'
-  >('description')
+  const [activeTab, setActiveTab] = useState<'description' | 'resources' | 'stats'>('description');
 
-  const question = use(questionPromise)
+  const question = use(questionPromise);
 
   const {
     totalSeconds,
@@ -64,38 +55,32 @@ export default function QuestionCard(opts: {
     prefilledCodeSnippet,
     answerHelp,
     showHint,
-  } = useQuestionSingle()
+  } = useQuestionSingle();
 
   const answerFormRef = useRef<{
-    submitForm: () => void
-    resetForm: () => void
-  }>(null)
+    submitForm: () => void;
+    resetForm: () => void;
+  }>(null);
 
   if (!question) {
-    return <NoDailyQuestion textAlign="center" />
+    return <NoDailyQuestion textAlign="center" />;
   }
 
-  const renderAnswerForm = () => <AnswerQuestionForm time={totalSeconds} />
+  const renderAnswerForm = () => <AnswerQuestionForm time={totalSeconds} />;
 
   // toggle layout only between questions and codeSnippet
   // the answer is after the user has submitted their answer
   const toggleLayout = () => {
     // determine what type
-    setCurrentLayout(
-      currentLayout === 'questions' ? 'codeSnippet' : 'questions',
-    )
-  }
+    setCurrentLayout(currentLayout === 'questions' ? 'codeSnippet' : 'questions');
+  };
 
   const switcherText = () => {
     if (question.questionType === 'CODING_CHALLENGE') {
-      return currentLayout === 'questions'
-        ? '(Tap to view editor)'
-        : '(Tap to view question)'
+      return currentLayout === 'questions' ? '(Tap to view editor)' : '(Tap to view question)';
     }
-    return currentLayout === 'questions'
-      ? '(Tap to view code snippet)'
-      : '(Tap to view question)'
-  }
+    return currentLayout === 'questions' ? '(Tap to view code snippet)' : '(Tap to view question)';
+  };
 
   return (
     <Tabs
@@ -149,23 +134,15 @@ export default function QuestionCard(opts: {
             </TabsTrigger>
           </TabsList>
           <div className="min-w-fit">
-            {user && user?.showTimeTaken && (
-              <Stopwatch totalSeconds={totalSeconds} />
-            )}
+            {user && user?.showTimeTaken && <Stopwatch totalSeconds={totalSeconds} />}
           </div>
           <div className="flex lg:hidden text-sm w-full items-center justify-end bg-black-25 gap-x-3">
             {/** explain question ai button */}
-            <AiQuestionHelp
-              question={question}
-              user={user}
-              questionType="regular"
-            />
+            <AiQuestionHelp question={question} user={user} questionType="regular" />
             {/** code theme selector */}
             <ChangeCodeTheme user={user} />
             {/** code snippet */}
-            {question.codeSnippet && (
-              <ExpandedCodeModal code={question.codeSnippet} />
-            )}
+            {question.codeSnippet && <ExpandedCodeModal code={question.codeSnippet} />}
           </div>
         </div>
         <div className="flex flex-wrap gap-2 justify-between items-center">
@@ -188,22 +165,15 @@ export default function QuestionCard(opts: {
             totalSubmissions={totalSubmissions}
           />
         )}
-        {currentLayout === 'codeSnippet' &&
-          question.codeSnippet &&
-          !answerHelp && (
-            <>
-              {question.questionType === 'CODING_CHALLENGE' ? (
-                <CodeEditor
-                  defaultCode={prefilledCodeSnippet || question.codeSnippet}
-                />
-              ) : (
-                <CodeDisplay
-                  content={prefilledCodeSnippet || question.codeSnippet}
-                  user={user}
-                />
-              )}
-            </>
-          )}
+        {currentLayout === 'codeSnippet' && question.codeSnippet && !answerHelp && (
+          <>
+            {question.questionType === 'CODING_CHALLENGE' ? (
+              <CodeEditor defaultCode={prefilledCodeSnippet || question.codeSnippet} />
+            ) : (
+              <CodeDisplay content={prefilledCodeSnippet || question.codeSnippet} user={user} />
+            )}
+          </>
+        )}
         {answerHelp && currentLayout === 'codeSnippet' && (
           <AnimatePresence mode="wait">
             <div className="flex flex-col gap-y-4 p-4">
@@ -232,11 +202,7 @@ export default function QuestionCard(opts: {
       <Separator className="bg-black-50" />
       <div className="w-full space-y-4 bg-black">
         {question.hint && (
-          <QuestionAccordion
-            hint={question.hint}
-            showHint={showHint}
-            showRelatedQuestions={true}
-          />
+          <QuestionAccordion hint={question.hint} showHint={showHint} showRelatedQuestions={true} />
         )}
       </div>
       <Separator className="bg-black-50" />
@@ -247,5 +213,5 @@ export default function QuestionCard(opts: {
         redirectUrl={`/question/${question.slug}`}
       />
     </Tabs>
-  )
+  );
 }

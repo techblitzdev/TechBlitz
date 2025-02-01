@@ -1,18 +1,13 @@
-import type { Question, QuestionWithoutAnswers } from '@/types/Questions'
-import { capitalise, getQuestionDifficultyColor } from '@/utils'
-import TagDisplay from '@/components/app/questions/tag-display'
-import Link from 'next/link'
-import Chip from '@/components/ui/chip'
-import { ArrowRight, Bookmark, Circle } from 'lucide-react'
-import { CheckCircle } from 'lucide-react'
-import {
-  TooltipProvider,
-  TooltipTrigger,
-  TooltipContent,
-  Tooltip,
-} from '@/components/ui/tooltip'
-import type { UserRecord } from '@/types/User'
-import { cn } from '@/lib/utils'
+import type { Question, QuestionWithoutAnswers } from '@/types/Questions';
+import { capitalise, getQuestionDifficultyColor } from '@/utils';
+import TagDisplay from '@/components/app/questions/tag-display';
+import Link from 'next/link';
+import Chip from '@/components/ui/chip';
+import { ArrowRight, Bookmark, Circle } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
+import { TooltipProvider, TooltipTrigger, TooltipContent, Tooltip } from '@/components/ui/tooltip';
+import type { UserRecord } from '@/types/User';
+import { cn } from '@/lib/utils';
 
 export function QuestionCardSkeleton() {
   return (
@@ -43,20 +38,20 @@ export function QuestionCardSkeleton() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default function QuestionCard(opts: {
-  questionData: Question | QuestionWithoutAnswers
-  showSubmissions?: boolean
-  numberOfTags?: number
-  showcaseTag?: string
-  identifier: 'slug' | 'uid'
-  customQuestion?: boolean
-  user: UserRecord | null
-  recommendedQuestion?: boolean
-  type?: 'study-path' | 'standard-question'
-  studyPathSlug?: string
+  questionData: Question | QuestionWithoutAnswers;
+  showSubmissions?: boolean;
+  numberOfTags?: number;
+  showcaseTag?: string;
+  identifier: 'slug' | 'uid';
+  customQuestion?: boolean;
+  user: UserRecord | null;
+  recommendedQuestion?: boolean;
+  type?: 'study-path' | 'standard-question';
+  studyPathSlug?: string;
 }) {
   const {
     questionData,
@@ -68,22 +63,21 @@ export default function QuestionCard(opts: {
     recommendedQuestion = false,
     type = 'standard-question',
     studyPathSlug,
-  } = opts
+  } = opts;
 
   // if identifier is uid, this is a custom question
   let href =
     identifier === 'uid'
       ? `/question/custom/${questionData[identifier]}`
-      : `/question/${questionData[identifier]}`
+      : `/question/${questionData[identifier]}`;
 
-  const title = questionData?.title || questionData?.question
+  const title = questionData?.title || questionData?.question;
 
-  const userCanAccess =
-    user?.userLevel === 'PREMIUM' || !questionData?.isPremiumQuestion
+  const userCanAccess = user?.userLevel === 'PREMIUM' || !questionData?.isPremiumQuestion;
 
   // if type is study-path, add query param to href
   if (type === 'study-path') {
-    href += `?type=study-path&study-path=${studyPathSlug}`
+    href += `?type=study-path&study-path=${studyPathSlug}`;
   }
 
   return (
@@ -92,7 +86,7 @@ export default function QuestionCard(opts: {
       key={questionData.uid}
       className={cn(
         'flex flex-col gap-y-5 items-start bg-[#090909] border border-black-50 hover:border-black-100 duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-[[data-pending]]:animate-pulse',
-        recommendedQuestion && 'border-accent',
+        recommendedQuestion && 'border-accent'
       )}
     >
       <div className="flex flex-col gap-y-4 md:gap-y-5 w-full">
@@ -117,12 +111,8 @@ export default function QuestionCard(opts: {
                 <Chip
                   text={capitalise(questionData.difficulty)}
                   color={getQuestionDifficultyColor(questionData.difficulty).bg}
-                  textColor={
-                    getQuestionDifficultyColor(questionData.difficulty).text
-                  }
-                  border={
-                    getQuestionDifficultyColor(questionData.difficulty).border
-                  }
+                  textColor={getQuestionDifficultyColor(questionData.difficulty).text}
+                  border={getQuestionDifficultyColor(questionData.difficulty).border}
                 />
               </div>
             ) : (
@@ -178,8 +168,8 @@ export default function QuestionCard(opts: {
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>
-                    Based on your previous answers and current skill level, we
-                    recommend this question to advance your skills
+                    Based on your previous answers and current skill level, we recommend this
+                    question to advance your skills
                   </p>
                 </TooltipContent>
               </Tooltip>
@@ -211,5 +201,5 @@ export default function QuestionCard(opts: {
         </div>
       )}
     </Link>
-  )
+  );
 }

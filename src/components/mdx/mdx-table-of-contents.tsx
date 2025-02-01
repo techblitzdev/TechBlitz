@@ -1,30 +1,30 @@
-'use client'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { ChevronRight } from 'lucide-react'
+'use client';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 
 interface Heading {
-  title: string
-  level: number
+  title: string;
+  level: number;
 }
 
 interface TableOfContentsProps {
-  headings: Heading[]
+  headings: Heading[];
 }
 
 export default function TableOfContents({ headings }: TableOfContentsProps) {
-  const [activeId, setActiveId] = useState('')
+  const [activeId, setActiveId] = useState('');
 
   useEffect(() => {
     const handleHashChange = () => {
-      setActiveId(window.location.hash.slice(1))
-    }
+      setActiveId(window.location.hash.slice(1));
+    };
 
-    handleHashChange() // Set initial state
-    window.addEventListener('hashchange', handleHashChange)
-    return () => window.removeEventListener('hashchange', handleHashChange)
-  }, [])
+    handleHashChange(); // Set initial state
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   return (
     <Card className="border border-black-50 bg-black-75 text-white shadow-lg">
@@ -34,7 +34,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
       <CardContent className="pt-4">
         <nav className="space-y-1">
           {headings.map((heading, index) => {
-            const id = heading.title.toLowerCase().replace(/\s+/g, '-')
+            const id = heading.title.toLowerCase().replace(/\s+/g, '-');
             return (
               <Link
                 key={index}
@@ -51,10 +51,10 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
                   <ChevronRight size={14} className="text-gray-500" />
                 </div>
               </Link>
-            )
+            );
           })}
         </nav>
       </CardContent>
     </Card>
-  )
+  );
 }

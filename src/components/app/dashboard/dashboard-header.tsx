@@ -1,17 +1,14 @@
-import dynamic from 'next/dynamic'
-import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger'
-import LoadingSpinner from '@/components/ui/loading'
+import dynamic from 'next/dynamic';
+import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
+import LoadingSpinner from '@/components/ui/loading';
 
 const CurrentStreak = dynamic(() => import('@/components/ui/current-streak'), {
   loading: () => <LoadingSpinner />,
-})
+});
 
-const Feedback = dynamic(
-  () => import('@/components/app/shared/feedback/feedback-button'),
-  {
-    loading: () => <LoadingSpinner />,
-  },
-)
+const Feedback = dynamic(() => import('@/components/app/shared/feedback/feedback-button'), {
+  loading: () => <LoadingSpinner />,
+});
 
 export default function DashboardHeader() {
   return (
@@ -24,5 +21,5 @@ export default function DashboardHeader() {
         <Feedback />
       </div>
     </div>
-  )
+  );
 }

@@ -1,37 +1,37 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
-import { createOrFetchUserRoadmap } from '@/actions/roadmap/create-or-fetch-user-roadmap'
-import { Loader2 } from 'lucide-react'
-import { toast } from 'sonner'
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { createOrFetchUserRoadmap } from '@/actions/roadmap/create-or-fetch-user-roadmap';
+import { Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function CreateRoadmapButton() {
-  const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const handleCreateRoadmap = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
-      const roadmap = await createOrFetchUserRoadmap()
+      const roadmap = await createOrFetchUserRoadmap();
 
       if ('code' in roadmap && roadmap.code === 'MAX_ROADMAPS_REACHED') {
         if ('error' in roadmap) {
-          toast.error(roadmap.error)
+          toast.error(roadmap.error);
         }
-        setIsLoading(false)
-        return
+        setIsLoading(false);
+        return;
       }
       // Navigate programmatically instead of using redirect
       if ('uid' in roadmap) {
-        router.push(`/roadmap/${roadmap.uid}/onboarding/1`)
+        router.push(`/roadmap/${roadmap.uid}/onboarding/1`);
       }
     } catch (error) {
-      console.error('Failed to create roadmap:', error)
-      setIsLoading(false)
+      console.error('Failed to create roadmap:', error);
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <Button onClick={handleCreateRoadmap} disabled={isLoading} variant="accent">
@@ -44,5 +44,5 @@ export default function CreateRoadmapButton() {
         'Create new roadmap'
       )}
     </Button>
-  )
+  );
 }

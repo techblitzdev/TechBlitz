@@ -1,24 +1,21 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface FrequencyTabsProps {
-  initialFrequency: 'month' | 'year'
-  onFrequencyChange: (frequency: 'month' | 'year') => void
+  initialFrequency: 'month' | 'year';
+  onFrequencyChange: (frequency: 'month' | 'year') => void;
 }
 
-export default function FrequencyTabs({
-  initialFrequency,
-  onFrequencyChange,
-}: FrequencyTabsProps) {
-  const [frequency, setFrequency] = useState<'month' | 'year'>(initialFrequency)
+export default function FrequencyTabs({ initialFrequency, onFrequencyChange }: FrequencyTabsProps) {
+  const [frequency, setFrequency] = useState<'month' | 'year'>(initialFrequency);
 
   const handleFrequencyChange = (newFrequency: 'month' | 'year') => {
-    setFrequency(newFrequency)
-    onFrequencyChange(newFrequency)
-  }
+    setFrequency(newFrequency);
+    onFrequencyChange(newFrequency);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center space-y-2 mt-8">
@@ -27,10 +24,7 @@ export default function FrequencyTabs({
           variant={frequency === 'month' ? 'secondary' : 'ghost'}
           size="sm"
           onClick={() => handleFrequencyChange('month')}
-          className={cn(
-            frequency === 'month' ? 'text-black' : 'text-white',
-            'relative',
-          )}
+          className={cn(frequency === 'month' ? 'text-black' : 'text-white', 'relative')}
         >
           Monthly
         </Button>
@@ -44,5 +38,5 @@ export default function FrequencyTabs({
         </Button>
       </div>
     </div>
-  )
+  );
 }

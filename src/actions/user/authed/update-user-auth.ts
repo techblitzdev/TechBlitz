@@ -1,30 +1,27 @@
-'use server'
-import { createClient as createServerClient } from '@/utils/supabase/server'
-import type { UserAttributes } from '@supabase/supabase-js'
-import { prisma } from '@/lib/prisma'
+'use server';
+import { createClient as createServerClient } from '@/utils/supabase/server';
+import type { UserAttributes } from '@supabase/supabase-js';
+import { prisma } from '@/lib/prisma';
 
-export const updateUserAuth = async (opts: {
-  email?: string
-  password?: string
-}) => {
-  const { email, password } = opts
+export const updateUserAuth = async (opts: { email?: string; password?: string }) => {
+  const { email, password } = opts;
 
-  const supabase = await createServerClient()
+  const supabase = await createServerClient();
 
-  const updates: UserAttributes = {}
+  const updates: UserAttributes = {};
   // construct the object to pass to updateUser
-  if (email) updates.email = email
-  if (password) updates.password = password
+  if (email) updates.email = email;
+  if (password) updates.password = password;
 
   const { data, error } = await supabase.auth.updateUser(updates, {
     emailRedirectTo: `${process.env.NEXT_PUBLIC_UPDATE_USER_REDIRECT_URL}?email=${email}`,
-  })
+  });
 
   if (error) {
-    throw error
+    throw error;
   }
 
-  const userUid = data?.user?.id
+  const userUid = data?.user?.id;
 
   // if the email has been updated, we need to update the email in the db
   if (email) {
@@ -35,8 +32,8 @@ export const updateUserAuth = async (opts: {
       data: {
         email,
       },
-    })
+    });
   }
 
-  return data
-}
+  return data;
+};

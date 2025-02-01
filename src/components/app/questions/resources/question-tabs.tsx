@@ -1,30 +1,30 @@
-'use client'
+'use client';
 
-import { ReactNode, use, useState } from 'react'
-import { TabsContent, TabsTrigger, TabsList } from '@/components/ui/tabs'
-import { Question } from '@/types/Questions'
-import QuestionResourceTab from '@/components/app/questions/resources/question-resource-tab'
-import QuestionStatsTab from './question-stats-tab'
-import CodingChallengeDescription from '@/components/app/questions/code-editor/description-tab'
-import HasAnswered from '@/components/app/questions/single/has-answered'
-import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context'
-import BookmarkQuestion from '@/components/app/questions/single/bookmark'
-import { capitalise } from '@/utils'
-import Chip from '@/components/ui/chip'
-import { getQuestionDifficultyColor } from '@/utils'
-import { BarChart, BookIcon, PieChart } from 'lucide-react'
-import { BookOpen } from 'lucide-react'
-import { FileIcon, FileText } from 'lucide-react'
-import QuestionHintTrigger from '@/components/app/questions/question-hint-trigger'
-import ShareQuestion from '../../shared/share-question'
+import { ReactNode, use, useState } from 'react';
+import { TabsContent, TabsTrigger, TabsList } from '@/components/ui/tabs';
+import { Question } from '@/types/Questions';
+import QuestionResourceTab from '@/components/app/questions/resources/question-resource-tab';
+import QuestionStatsTab from './question-stats-tab';
+import CodingChallengeDescription from '@/components/app/questions/code-editor/description-tab';
+import HasAnswered from '@/components/app/questions/single/has-answered';
+import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
+import BookmarkQuestion from '@/components/app/questions/single/bookmark';
+import { capitalise } from '@/utils';
+import Chip from '@/components/ui/chip';
+import { getQuestionDifficultyColor } from '@/utils';
+import { BarChart, BookIcon, PieChart } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
+import { FileIcon, FileText } from 'lucide-react';
+import QuestionHintTrigger from '@/components/app/questions/question-hint-trigger';
+import ShareQuestion from '../../shared/share-question';
 
 interface QuestionTabsProps {
-  question: Question
-  renderAnswerForm: () => ReactNode
+  question: Question;
+  renderAnswerForm: () => ReactNode;
   totalSubmissions?: {
-    totalSubmissions: number
-    percentageCorrect: number
-  }
+    totalSubmissions: number;
+    percentageCorrect: number;
+  };
 }
 
 export default function QuestionTabs({
@@ -32,13 +32,11 @@ export default function QuestionTabs({
   renderAnswerForm,
   totalSubmissions,
 }: QuestionTabsProps) {
-  const { userAnswered, showHint, setShowHint } = useQuestionSingle()
+  const { userAnswered, showHint, setShowHint } = useQuestionSingle();
 
-  const [activeTab, setActiveTab] = useState<
-    'description' | 'resources' | 'stats'
-  >('description')
+  const [activeTab, setActiveTab] = useState<'description' | 'resources' | 'stats'>('description');
 
-  const hasUserAnswered = use(userAnswered || false)
+  const hasUserAnswered = use(userAnswered || false);
 
   return (
     <>
@@ -96,34 +94,23 @@ export default function QuestionTabs({
                 <Chip
                   color={getQuestionDifficultyColor(question.difficulty).bg}
                   text={capitalise(question.difficulty)}
-                  textColor={
-                    getQuestionDifficultyColor(question.difficulty).text
-                  }
-                  border={
-                    getQuestionDifficultyColor(question.difficulty).border
-                  }
+                  textColor={getQuestionDifficultyColor(question.difficulty).text}
+                  border={getQuestionDifficultyColor(question.difficulty).border}
                 />
                 <HasAnswered userAnswered={hasUserAnswered} />
               </div>
               <div className="flex items-center">
-                <QuestionHintTrigger
-                  showHint={showHint}
-                  setShowHint={setShowHint}
-                />
+                <QuestionHintTrigger showHint={showHint} setShowHint={setShowHint} />
                 <ShareQuestion />
                 <BookmarkQuestion question={question} />
               </div>
             </div>
             {question?.title && (
               <div className="flex w-full gap-10 justify-between">
-                <h3 className="font-onest font-light text-lg md:text-2xl">
-                  {question.title}
-                </h3>
+                <h3 className="font-onest font-light text-lg md:text-2xl">{question.title}</h3>
               </div>
             )}
-            <p className="text-sm text-gray-400 font-light font-onest mt-3">
-              {question.question}
-            </p>
+            <p className="text-sm text-gray-400 font-light font-onest mt-3">{question.question}</p>
             {renderAnswerForm()}
           </div>
         )}
@@ -141,5 +128,5 @@ export default function QuestionTabs({
         <QuestionStatsTab totalSubmissions={totalSubmissions} />
       </TabsContent>
     </>
-  )
+  );
 }

@@ -1,21 +1,21 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
-import { Card, CardFooter } from '@/components/ui/card'
-import OnboardingUserDetails from './onboarding-user-details'
-import OnboardingTags from './onboarding-tags'
-import OnboardingQuestions from './onboarding-questions'
-import { Button } from '@/components/ui/button'
-import LoadingSpinner from '@/components/ui/loading'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Card, CardFooter } from '@/components/ui/card';
+import OnboardingUserDetails from './onboarding-user-details';
+import OnboardingTags from './onboarding-tags';
+import OnboardingQuestions from './onboarding-questions';
+import { Button } from '@/components/ui/button';
+import LoadingSpinner from '@/components/ui/loading';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-import { useOnboardingContext } from './onboarding-context'
-import { updateUser } from '@/actions/user/authed/update-user'
-import { cn } from '@/lib/utils'
-import OnboardingPricing from './onboarding-pricing'
-import OnboardingShare from './onboarding-share'
+import { useOnboardingContext } from './onboarding-context';
+import { updateUser } from '@/actions/user/authed/update-user';
+import { cn } from '@/lib/utils';
+import OnboardingPricing from './onboarding-pricing';
+import OnboardingShare from './onboarding-share';
 
 const containerVariants = {
   hidden: { opacity: 0, scale: 0.95 },
@@ -28,11 +28,11 @@ const containerVariants = {
       staggerChildren: 0.1,
     },
   },
-}
+};
 
 export default function OnboardingForm() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const {
     user,
     currentStep,
@@ -40,85 +40,74 @@ export default function OnboardingForm() {
     handleGetOnboardingQuestions,
     itemVariants,
     canContinue,
-  } = useOnboardingContext()
-  const [isLoading, setIsLoading] = useState(false)
+  } = useOnboardingContext();
+  const [isLoading, setIsLoading] = useState(false);
 
   // skip goes to the next step
   const handleSkip = () => {
     if (currentStep === 'stepOne') {
-      setCurrentStep('stepTwo')
+      setCurrentStep('stepTwo');
     } else if (currentStep === 'stepTwo') {
-      setCurrentStep('stepThree')
+      setCurrentStep('stepThree');
     } else if (currentStep === 'stepThree') {
-      setCurrentStep('stepFour')
+      setCurrentStep('stepFour');
     } else if (currentStep === 'stepFour') {
-      localStorage.removeItem('onboarding')
-      router.push('/dashboard?onboarding=true')
+      localStorage.removeItem('onboarding');
+      router.push('/dashboard?onboarding=true');
     }
-  }
+  };
 
   const handleContinue = async () => {
-    if (!user) return
+    if (!user) return;
 
-    if (!canContinue) return
+    if (!canContinue) return;
 
-    setIsLoading(true)
+    setIsLoading(true);
 
-    await updateUser({ userDetails: user })
+    await updateUser({ userDetails: user });
     if (currentStep === 'stepOne') {
-      setCurrentStep('stepTwo')
-      setIsLoading(false)
+      setCurrentStep('stepTwo');
+      setIsLoading(false);
     } else if (currentStep === 'stepTwo') {
-      setCurrentStep('stepThree')
-      setIsLoading(false)
+      setCurrentStep('stepThree');
+      setIsLoading(false);
     } else if (currentStep === 'stepThree') {
-      setCurrentStep('stepFour')
-      setIsLoading(false)
+      setCurrentStep('stepFour');
+      setIsLoading(false);
     } else if (currentStep === 'stepFour') {
-      await handleGetOnboardingQuestions()
-      setCurrentStep('stepFive')
-      setIsLoading(false)
+      await handleGetOnboardingQuestions();
+      setCurrentStep('stepFive');
+      setIsLoading(false);
     } else if (currentStep === 'stepFive') {
-      localStorage.removeItem('onboarding')
-      router.push('/dashboard?onboarding=true')
+      localStorage.removeItem('onboarding');
+      router.push('/dashboard?onboarding=true');
     }
-  }
+  };
 
   const handleBack = () => {
     if (currentStep === 'stepTwo') {
-      setCurrentStep('stepOne')
+      setCurrentStep('stepOne');
     } else if (currentStep === 'stepThree') {
-      setCurrentStep('stepTwo')
+      setCurrentStep('stepTwo');
     }
-  }
+  };
 
   const showSkipButton = () => {
-    const refInUrl = searchParams.get('ref') !== null
-    const isStepOne = currentStep === 'stepOne'
-    const hasUsername = (user?.username?.length ?? 0) > 0
+    const refInUrl = searchParams.get('ref') !== null;
+    const isStepOne = currentStep === 'stepOne';
+    const hasUsername = (user?.username?.length ?? 0) > 0;
 
-    return (
-      refInUrl ||
-      (!isStepOne && hasUsername) ||
-      (isStepOne && refInUrl && hasUsername)
-    )
-  }
+    return refInUrl || (!isStepOne && hasUsername) || (isStepOne && refInUrl && hasUsername);
+  };
 
   return (
     <div className="container min-h-screen flex items-center justify-center p-4">
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-      >
+      <motion.div initial="hidden" animate="visible" variants={containerVariants}>
         <Card
           className={cn(
             'rounded-lg shadow-xl overflow-hidden min-w-72 sm:min-w-96 lg:min-w-[30rem] relative',
-            (currentStep === 'stepTwo' || currentStep === 'stepThree') &&
-              'lg:min-w-[50rem]',
-            currentStep === 'stepTwo'
-              ? 'border-none'
-              : 'border border-black-50',
+            (currentStep === 'stepTwo' || currentStep === 'stepThree') && 'lg:min-w-[50rem]',
+            currentStep === 'stepTwo' ? 'border-none' : 'border border-black-50'
           )}
           style={{
             background:
@@ -136,7 +125,7 @@ export default function OnboardingForm() {
             <CardFooter
               className={cn(
                 'flex flex-wrap items-center gap-3 lg:justify-between',
-                currentStep === 'stepOne' && 'lg:justify-end',
+                currentStep === 'stepOne' && 'lg:justify-end'
               )}
             >
               <AnimatePresence>
@@ -168,20 +157,13 @@ export default function OnboardingForm() {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
                     >
-                      <Button
-                        type="button"
-                        variant="default"
-                        onClick={handleSkip}
-                      >
+                      <Button type="button" variant="default" onClick={handleSkip}>
                         Skip
                       </Button>
                     </motion.div>
                   )}
                 </AnimatePresence>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Button
                     type="button"
                     variant="accent"
@@ -189,8 +171,7 @@ export default function OnboardingForm() {
                     onClick={() => handleContinue()}
                     disabled={
                       isLoading ||
-                      (currentStep === 'stepOne' &&
-                        (user?.username?.length ?? 0) < 2) ||
+                      (currentStep === 'stepOne' && (user?.username?.length ?? 0) < 2) ||
                       !canContinue
                     }
                   >
@@ -198,9 +179,7 @@ export default function OnboardingForm() {
                       <LoadingSpinner />
                     ) : (
                       <>
-                        {currentStep === 'stepFive'
-                          ? 'Go to dashboard'
-                          : 'Continue'}
+                        {currentStep === 'stepFive' ? 'Go to dashboard' : 'Continue'}
                         <ArrowRight className="ml-2 size-4" />
                       </>
                     )}
@@ -212,5 +191,5 @@ export default function OnboardingForm() {
         </Card>
       </motion.div>
     </div>
-  )
+  );
 }

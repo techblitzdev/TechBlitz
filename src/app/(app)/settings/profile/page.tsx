@@ -1,54 +1,39 @@
-'use client'
-import { useEffect } from 'react'
+'use client';
+import { useEffect } from 'react';
 
-import {
-  Tooltip,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
-import { Button } from '@/components/ui/button'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '@/components/ui/form'
-import { InputWithLabel } from '@/components/ui/input-label'
-import { Switch } from '@/components/ui/switch'
-import { Label } from '@/components/ui/label'
-import LoadingSpinner from '@/components/ui/loading'
-import LogoutButton from '@/components/auth/logout'
-import { Separator } from '@/components/ui/separator'
-import { toast } from 'sonner'
-import {
-  Select,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-} from '@/components/ui/select'
-import CodeEditorPreview from '@/components/app/settings/code-preview'
+import { Tooltip, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { InputWithLabel } from '@/components/ui/input-label';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import LoadingSpinner from '@/components/ui/loading';
+import LogoutButton from '@/components/auth/logout';
+import { Separator } from '@/components/ui/separator';
+import { toast } from 'sonner';
+import { Select, SelectTrigger, SelectContent, SelectItem } from '@/components/ui/select';
+import CodeEditorPreview from '@/components/app/settings/code-preview';
 
-import { useForm } from 'react-hook-form'
-import * as z from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useUser } from '@/hooks/use-user'
-import { updateUser } from '@/actions/user/authed/update-user'
+import { useUser } from '@/hooks/use-user';
+import { updateUser } from '@/actions/user/authed/update-user';
 
-import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { UserUpdatePayload } from '@/types/User'
-import { themes } from 'prism-react-renderer'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
+import { UserUpdatePayload } from '@/types/User';
+import { themes } from 'prism-react-renderer';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
-type SchemaProps = z.input<typeof userDetailsSchema>
+type SchemaProps = z.input<typeof userDetailsSchema>;
 
 export default function SettingsProfilePage() {
-  const queryClient = useQueryClient()
-  const { user, isLoading } = useUser()
+  const queryClient = useQueryClient();
+  const { user, isLoading } = useUser();
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(userDetailsSchema),
@@ -62,7 +47,7 @@ export default function SettingsProfilePage() {
       userProfilePicture: user?.userProfilePicture || '',
       aboutMeAiHelp: user?.aboutMeAiHelp || '',
     },
-  })
+  });
 
   useEffect(() => {
     if (!isLoading && user) {
@@ -75,100 +60,95 @@ export default function SettingsProfilePage() {
         codeEditorTheme: user.codeEditorTheme || 'vs-dark',
         userProfilePicture: user.userProfilePicture || '',
         aboutMeAiHelp: user.aboutMeAiHelp || '',
-      })
+      });
     }
-  }, [user, isLoading, form])
+  }, [user, isLoading, form]);
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (values: SchemaProps) => {
       const changedValues = Object.entries(values).reduce(
         (acc, [key, value]) => {
           if (value !== user?.[key as keyof typeof user]) {
-            acc[key] = value
+            acc[key] = value;
           }
-          return acc
+          return acc;
         },
-        {} as Record<string, any>,
-      )
+        {} as Record<string, any>
+      );
 
       const updatedVals: Partial<UserUpdatePayload> = {
         ...changedValues,
         uid: user?.uid || '',
-      }
+      };
 
-      const updatedUser = await updateUser({ userDetails: updatedVals })
-      return updatedUser
+      const updatedUser = await updateUser({ userDetails: updatedVals });
+      return updatedUser;
     },
     onMutate: async (newUserData) => {
-      await queryClient.cancelQueries({ queryKey: ['user-details'] })
-      const previousUser = queryClient.getQueryData(['user-details'])
+      await queryClient.cancelQueries({ queryKey: ['user-details'] });
+      const previousUser = queryClient.getQueryData(['user-details']);
       queryClient.setQueryData(['user-details'], (old: any) => ({
         ...old,
         ...newUserData,
-      }))
-      return { previousUser }
+      }));
+      return { previousUser };
     },
     onError: (err, _, context) => {
-      queryClient.setQueryData(['user-details'], context?.previousUser)
-      toast.error('An error occurred while updating your profile')
-      console.error(err)
+      queryClient.setQueryData(['user-details'], context?.previousUser);
+      toast.error('An error occurred while updating your profile');
+      console.error(err);
     },
     onSuccess: () => {
-      toast.success('Profile updated successfully')
+      toast.success('Profile updated successfully');
     },
-  })
+  });
 
   const onSubmitProfilePicture = async (data: any) => {
-    if (!user?.uid || !data.target.files[0]) return
+    if (!user?.uid || !data.target.files[0]) return;
 
-    const file = data.target.files[0]
-    const maxSize = 2 * 1024 * 1024 // 2MB in bytes
+    const file = data.target.files[0];
+    const maxSize = 2 * 1024 * 1024; // 2MB in bytes
 
     if (file.size > maxSize) {
-      toast.error('File size must be less than 2MB')
-      return
+      toast.error('File size must be less than 2MB');
+      return;
     }
 
-    const formData = new FormData()
-    formData.append('files', file)
-    formData.append('userId', user?.uid)
-    formData.append('route', 'user-profile-pictures')
+    const formData = new FormData();
+    formData.append('files', file);
+    formData.append('userId', user?.uid);
+    formData.append('route', 'user-profile-pictures');
 
     try {
       const res = await fetch('/api/upload', {
         method: 'POST',
         body: formData,
-      })
-      const { logoUrl } = await res.json()
+      });
+      const { logoUrl } = await res.json();
 
       if (logoUrl) {
-        form.setValue('userProfilePicture', logoUrl)
-        mutate({ ...form.getValues(), userProfilePicture: logoUrl })
+        form.setValue('userProfilePicture', logoUrl);
+        mutate({ ...form.getValues(), userProfilePicture: logoUrl });
       }
     } catch (e) {
-      console.error(e)
-      toast.error('Failed to upload profile picture')
+      console.error(e);
+      toast.error('Failed to upload profile picture');
     }
-  }
+  };
 
   const onSubmit = (values: SchemaProps) => {
-    mutate(values)
-  }
+    mutate(values);
+  };
 
   return (
     <div className="flex flex-col">
       <div className="space-y-1 p-8">
         <h1 className="text-3xl">Profile Settings</h1>
-        <p className="text-base">
-          Update your profile details and preferences.
-        </p>
+        <p className="text-base">Update your profile details and preferences.</p>
       </div>
       <Separator className="w-full bg-black-50" />
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full space-y-6 p-8"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6 p-8">
           {/** profile picture */}
           <FormField
             control={form.control}
@@ -178,11 +158,7 @@ export default function SettingsProfilePage() {
                 <div className="flex flex-col md:flex-row md:items-center gap-4">
                   <div className="relative size-16 md:size-24 rounded-full overflow-hidden border-2 border-black-50">
                     {field.value ? (
-                      <img
-                        src={field.value}
-                        alt="Profile"
-                        className="h-full w-full object-cover"
-                      />
+                      <img src={field.value} alt="Profile" className="h-full w-full object-cover" />
                     ) : (
                       <div className="h-full w-full bg-black flex items-center justify-center">
                         <span className="text-gray-400">No image</span>
@@ -190,10 +166,7 @@ export default function SettingsProfilePage() {
                     )}
                   </div>
                   <div className="flex flex-col gap-2">
-                    <Label
-                      htmlFor="logo-file-upload"
-                      className="text-base font-medium"
-                    >
+                    <Label htmlFor="logo-file-upload" className="text-base font-medium">
                       Profile Picture
                     </Label>
                     <div className="flex gap-2">
@@ -207,7 +180,7 @@ export default function SettingsProfilePage() {
                         id="logo-file-upload"
                         type="file"
                         onChange={(e) => {
-                          onSubmitProfilePicture(e)
+                          onSubmitProfilePicture(e);
                         }}
                         className="hidden"
                         accept="image/*"
@@ -300,7 +273,7 @@ export default function SettingsProfilePage() {
                             id="showTimeTaken"
                             checked={field.value}
                             onCheckedChange={(checked) => {
-                              field.onChange(checked)
+                              field.onChange(checked);
                             }}
                             className="bg-black-50"
                           />
@@ -332,14 +305,11 @@ export default function SettingsProfilePage() {
                             id="sendPushNotifications"
                             checked={!!field.value}
                             onCheckedChange={(checked) => {
-                              field.onChange(checked)
+                              field.onChange(checked);
                             }}
                             className="bg-black-50"
                           />
-                          <Label
-                            htmlFor="sendPushNotifications"
-                            className="text-base"
-                          >
+                          <Label htmlFor="sendPushNotifications" className="text-base">
                             Send daily reminders
                           </Label>
                         </div>
@@ -364,9 +334,9 @@ export default function SettingsProfilePage() {
                       Personalize your AI
                     </Label>
                     <p className="text-sm text-muted-foreground mb-2">
-                      Provide a short description of yourself to help our AI
-                      understand you better. This can include topics that
-                      interest you, or code weaknesses you want to improve on.
+                      Provide a short description of yourself to help our AI understand you better.
+                      This can include topics that interest you, or code weaknesses you want to
+                      improve on.
                     </p>
                     <Textarea
                       id="aboutMeAiHelp"
@@ -403,14 +373,9 @@ export default function SettingsProfilePage() {
               <FormItem>
                 <FormControl>
                   <div className="space-y-4">
-                    <Select
-                      value={field.value || 'vs-dark'}
-                      onValueChange={field.onChange}
-                    >
+                    <Select value={field.value || 'vs-dark'} onValueChange={field.onChange}>
                       <SelectTrigger className="border border-black-50 w-full md:w-[250px]">
-                        {field.value ||
-                          user?.codeEditorTheme ||
-                          'Select a code editor theme'}
+                        {field.value || user?.codeEditorTheme || 'Select a code editor theme'}
                       </SelectTrigger>
                       <SelectContent>
                         {Object.entries(themes).map(([key]) => (
@@ -420,9 +385,7 @@ export default function SettingsProfilePage() {
                         ))}
                       </SelectContent>
                     </Select>
-                    <CodeEditorPreview
-                      theme={(field.value as keyof typeof themes) || 'vs-dark'}
-                    />
+                    <CodeEditorPreview theme={(field.value as keyof typeof themes) || 'vs-dark'} />
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -431,12 +394,7 @@ export default function SettingsProfilePage() {
           />
 
           <div className="flex flex-wrap gap-4">
-            <Button
-              type="submit"
-              variant="secondary"
-              disabled={isPending}
-              className="text-base"
-            >
+            <Button type="submit" variant="secondary" disabled={isPending} className="text-base">
               {isPending ? <LoadingSpinner /> : 'Save changes'}
             </Button>
             <LogoutButton variant="destructive" />
@@ -444,5 +402,5 @@ export default function SettingsProfilePage() {
         </form>
       </Form>
     </div>
-  )
+  );
 }

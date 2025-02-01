@@ -1,52 +1,46 @@
-'use client'
+'use client';
 
-import { forwardRef, useEffect } from 'react'
+import { forwardRef, useEffect } from 'react';
 
 // components
-import { Form, FormControl, FormField } from '@/components/ui/form'
-import LoadingSpinner from '@/components/ui/loading'
-import { cn } from '@/lib/utils'
-import { Label } from '@/components/ui/label'
-import CodeDisplay from '@/components/app/questions/single/layout/code-snippet'
-import { useQuestionSingle } from './layout/question-single-context'
+import { Form, FormControl, FormField } from '@/components/ui/form';
+import LoadingSpinner from '@/components/ui/loading';
+import { cn } from '@/lib/utils';
+import { Label } from '@/components/ui/label';
+import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
+import { useQuestionSingle } from './layout/question-single-context';
 
 // zod
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema'
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
 
-export type SchemaProps = z.infer<typeof answerQuestionSchema>
+export type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
-  time: number
-}
+  time: number;
+};
 
 const AnswerQuestionForm = forwardRef(function AnswerQuestionForm({
   time,
 }: AnswerQuestionFormProps) {
-  const {
-    question,
-    isSubmitting,
-    userAnswer,
-    selectedAnswer,
-    setTimeTaken,
-    setSelectedAnswer,
-  } = useQuestionSingle()
+  const { question, isSubmitting, userAnswer, selectedAnswer, setTimeTaken, setSelectedAnswer } =
+    useQuestionSingle();
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(answerQuestionSchema),
     defaultValues: {
       answer: '',
     },
-  })
+  });
 
   // reset the selected answer when the userAnswer changes
   useEffect(() => {
     if (userAnswer) {
-      form.reset()
-      setSelectedAnswer('')
+      form.reset();
+      setSelectedAnswer('');
     }
-  }, [userAnswer, setSelectedAnswer, form])
+  }, [userAnswer, setSelectedAnswer, form]);
 
   return (
     <Form {...form}>
@@ -59,9 +53,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm({
             </div>
           </div>
         )}
-        <p className="text-sm text-gray-400 font-light font-onest mt-3">
-          Choose an option below
-        </p>
+        <p className="text-sm text-gray-400 font-light font-onest mt-3">Choose an option below</p>
         <div className="grid grid-cols-12 gap-4 pt-2">
           {question?.answers?.map((answer) => (
             <div key={answer.uid} className="col-span-full">
@@ -77,12 +69,12 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm({
                         selectedAnswer === answer.uid
                           ? 'bg-black-25'
                           : 'bg-black hover:border-accent',
-                        isSubmitting ? 'opacity-50 cursor-not-allowed' : '',
+                        isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
                       )}
                       onClick={() => {
-                        !isSubmitting && field.onChange(answer.uid)
-                        setSelectedAnswer(answer.uid)
-                        setTimeTaken(time)
+                        !isSubmitting && field.onChange(answer.uid);
+                        setSelectedAnswer(answer.uid);
+                        setTimeTaken(time);
                       }}
                     >
                       <input
@@ -93,7 +85,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm({
                         value={answer.uid}
                         checked={field.value === answer.uid}
                         onChange={() => {
-                          setSelectedAnswer(answer.uid)
+                          setSelectedAnswer(answer.uid);
                         }}
                         disabled={isSubmitting}
                       />
@@ -120,7 +112,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm({
         </div>
       </form>
     </Form>
-  )
-})
+  );
+});
 
-export default AnswerQuestionForm
+export default AnswerQuestionForm;

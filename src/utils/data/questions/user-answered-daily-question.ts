@@ -1,11 +1,8 @@
-import { prisma } from '@/lib/prisma'
-import { revalidateTag } from 'next/cache'
+import { prisma } from '@/lib/prisma';
+import { revalidateTag } from 'next/cache';
 
-export const userAnsweredDailyQuestion = async (opts: {
-  questionUid: string
-  userUid: string
-}) => {
-  const { questionUid, userUid } = opts
+export const userAnsweredDailyQuestion = async (opts: { questionUid: string; userUid: string }) => {
+  const { questionUid, userUid } = opts;
 
   const userAnswer = await prisma.answers.findFirst({
     where: {
@@ -14,9 +11,9 @@ export const userAnsweredDailyQuestion = async (opts: {
         questionUid,
       },
     },
-  })
+  });
 
-  revalidateTag(`user-has-answered-daily-question-${questionUid}`)
+  revalidateTag(`user-has-answered-daily-question-${questionUid}`);
 
-  return !!userAnswer
-}
+  return !!userAnswer;
+};

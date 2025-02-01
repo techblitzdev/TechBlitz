@@ -1,4 +1,4 @@
-import { Skeleton } from '@/components/ui/skeleton'
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function FilterLoading() {
   return (
@@ -24,13 +24,10 @@ export default function FilterLoading() {
       <div className="w-full">
         <div className="flex gap-2 overflow-hidden">
           {Array.from({ length: 12 }).map((_, index) => (
-            <Skeleton
-              key={index}
-              className="h-8 w-[80px] flex-shrink-0 bg-black-50"
-            />
+            <Skeleton key={index} className="h-8 w-[80px] flex-shrink-0 bg-black-50" />
           ))}
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,64 +1,51 @@
-'use client'
+'use client';
 
-import { useEffect, useState } from 'react'
-import { generateQuestionHelp } from '@/actions/ai/questions/question-help'
-import { Button } from '@/components/ui/button'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
-import { Textarea } from '@/components/ui/textarea'
-import { Question } from '@/types/Questions'
-import { StarsIcon } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipProvider,
-  TooltipContent,
-} from '@/components/ui/tooltip'
-import Link from 'next/link'
-import { UserRecord } from '@/types/User'
-import { capitalize } from 'lodash'
-import { RoadmapUserQuestions } from '@/types/Roadmap'
-import { DefaultRoadmapQuestions } from '@prisma/client'
+import { useEffect, useState } from 'react';
+import { generateQuestionHelp } from '@/actions/ai/questions/question-help';
+import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Textarea } from '@/components/ui/textarea';
+import { Question } from '@/types/Questions';
+import { StarsIcon } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Tooltip, TooltipTrigger, TooltipProvider, TooltipContent } from '@/components/ui/tooltip';
+import Link from 'next/link';
+import { UserRecord } from '@/types/User';
+import { capitalize } from 'lodash';
+import { RoadmapUserQuestions } from '@/types/Roadmap';
+import { DefaultRoadmapQuestions } from '@prisma/client';
 
 export default function AiQuestionHelp(opts: {
-  question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions
-  user: UserRecord | null
-  questionType: 'roadmap' | 'regular' | 'onboarding'
+  question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions;
+  user: UserRecord | null;
+  questionType: 'roadmap' | 'regular' | 'onboarding';
 }) {
-  const { question, user, questionType } = opts
-  const [aiHelp, setAiHelp] = useState<string | null>(null)
-  const [tokensUsed, setTokensUsed] = useState(0)
-  const [isLoading, setIsLoading] = useState(false)
+  const { question, user, questionType } = opts;
+  const [aiHelp, setAiHelp] = useState<string | null>(null);
+  const [tokensUsed, setTokensUsed] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setTokensUsed(user?.aiQuestionHelpTokens || 0)
-  }, [user])
+    setTokensUsed(user?.aiQuestionHelpTokens || 0);
+  }, [user]);
 
   const handleSubmit = async (formData: FormData) => {
-    setIsLoading(true)
-    const userContent = formData.get('userContent') as string
-    const questionHelp = await generateQuestionHelp(
-      question.uid,
-      userContent,
-      questionType,
-    )
+    setIsLoading(true);
+    const userContent = formData.get('userContent') as string;
+    const questionHelp = await generateQuestionHelp(question.uid, userContent, questionType);
 
     if (questionHelp) {
-      setAiHelp(questionHelp.content)
-      setTokensUsed(questionHelp.tokens)
+      setAiHelp(questionHelp.content);
+      setTokensUsed(questionHelp.tokens);
     }
-    setIsLoading(false)
-  }
+    setIsLoading(false);
+  };
 
   // TODO: TEMP FIX
   const loginHref =
     questionType === 'roadmap'
       ? `/login?redirectUrl=dashboard`
-      : `/login?redirectUrl=question/${(question as Question).slug}`
+      : `/login?redirectUrl=question/${(question as Question).slug}`;
 
   return (
     <Popover>
@@ -104,14 +91,8 @@ export default function AiQuestionHelp(opts: {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
               >
-                <p className="text-sm text-white">
-                  Tokens remaining: {tokensUsed}
-                </p>
-                <Button
-                  onClick={() => setAiHelp(null)}
-                  variant="default"
-                  className="mt-2"
-                >
+                <p className="text-sm text-white">Tokens remaining: {tokensUsed}</p>
+                <Button onClick={() => setAiHelp(null)} variant="default" className="mt-2">
                   Ask Another Question
                 </Button>
               </motion.div>
@@ -122,9 +103,9 @@ export default function AiQuestionHelp(opts: {
               action={handleSubmit}
               className="flex flex-col gap-y-2"
               onSubmit={(e) => {
-                e.preventDefault()
-                const formData = new FormData(e.currentTarget)
-                handleSubmit(formData)
+                e.preventDefault();
+                const formData = new FormData(e.currentTarget);
+                handleSubmit(formData);
               }}
               initial={{ opacity: 0, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
@@ -135,9 +116,8 @@ export default function AiQuestionHelp(opts: {
                 Need assistance with this question? Let AI help you!
               </h5>
               <p className="text-sm text-white">
-                You have{' '}
-                {user?.userLevel === 'PREMIUM' ? 'unlimited' : tokensUsed}{' '}
-                tokens remaining <br />
+                You have {user?.userLevel === 'PREMIUM' ? 'unlimited' : tokensUsed} tokens remaining{' '}
+                <br />
                 {user?.userLevel === 'FREE' && (
                   <span className="text-xs text-gray-400">
                     (Free users get 20 tokens,{' '}
@@ -157,16 +137,11 @@ export default function AiQuestionHelp(opts: {
                 <TooltipProvider>
                   <Tooltip
                     disableHoverableContent={Boolean(
-                      user.aiQuestionHelpTokens &&
-                        user.aiQuestionHelpTokens > 0,
+                      user.aiQuestionHelpTokens && user.aiQuestionHelpTokens > 0
                     )}
                   >
                     <TooltipTrigger asChild>
-                      <Button
-                        type="submit"
-                        variant="secondary"
-                        disabled={isLoading}
-                      >
+                      <Button type="submit" variant="secondary" disabled={isLoading}>
                         {isLoading ? 'Generating...' : 'Request AI Assistance'}
                       </Button>
                     </TooltipTrigger>
@@ -176,12 +151,7 @@ export default function AiQuestionHelp(opts: {
                   </Tooltip>
                 </TooltipProvider>
               ) : (
-                <Button
-                  variant="secondary"
-                  disabled
-                  className="w-full"
-                  href={loginHref}
-                >
+                <Button variant="secondary" disabled className="w-full" href={loginHref}>
                   Login to request AI assistance
                 </Button>
               )}
@@ -190,5 +160,5 @@ export default function AiQuestionHelp(opts: {
         </AnimatePresence>
       </PopoverContent>
     </Popover>
-  )
+  );
 }

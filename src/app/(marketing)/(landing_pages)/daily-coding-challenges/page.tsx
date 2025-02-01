@@ -1,16 +1,16 @@
-import FeatureLeftRightSection from '@/components/marketing/features/daily-challenge/feature-left-right/features-section'
-import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/hero/daily-challenge-hero'
-import FeatureRoadmapThreeGridBlock from '@/components/marketing/features/roadmap/roadmap-three-grid'
-import StatsReportSection from '@/components/marketing/features/statistics/stats-report-section'
-import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block'
-import MarketingContentGrid from '@/components/marketing/global/blocks/content-grid'
-import FAQsBlock from '@/components/marketing/global/blocks/faqs'
-import { WebPageJsonLd } from '@/types/Seo'
-import { getBaseUrl } from '@/utils'
-import { QUESTIONS_COUNT } from '@/utils/constants/misc'
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo'
-import { MobileIcon } from '@radix-ui/react-icons'
-import Link from 'next/link'
+import FeatureLeftRightSection from '@/components/marketing/features/daily-challenge/feature-left-right/features-section';
+import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/hero/daily-challenge-hero';
+import FeatureRoadmapThreeGridBlock from '@/components/marketing/features/roadmap/roadmap-three-grid';
+import StatsReportSection from '@/components/marketing/features/statistics/stats-report-section';
+import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
+import MarketingContentGrid from '@/components/marketing/global/blocks/content-grid';
+import FAQsBlock from '@/components/marketing/global/blocks/faqs';
+import { WebPageJsonLd } from '@/types/Seo';
+import { getBaseUrl } from '@/utils';
+import { QUESTIONS_COUNT } from '@/utils/constants/misc';
+import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { MobileIcon } from '@radix-ui/react-icons';
+import Link from 'next/link';
 
 const faqs = [
   {
@@ -26,13 +26,12 @@ const faqs = [
     question: 'What is TechBlitz, and how does it work?',
     answer: (
       <>
-        TechBlitz is a cutting-edge coding challenge platform that helps you
-        learn programming through interactive, real-world exercises.{' '}
+        TechBlitz is a cutting-edge coding challenge platform that helps you learn programming
+        through interactive, real-world exercises.{' '}
         <Link href="/signup" className="text-accent underline">
           Sign up for a free account
         </Link>
-        , choose your skill level, and start solving challenges tailored to your
-        needs.
+        , choose your skill level, and start solving challenges tailored to your needs.
       </>
     ),
   },
@@ -78,17 +77,12 @@ const faqs = [
     answer:
       'TechBlitz provides detailed analytics and progress reports, allowing you to track your performance, identify weak areas, and celebrate milestones as you advance in your coding journey.',
   },
-]
+];
 
 const items = [
   {
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
         <g
           fill="none"
           stroke="currentColor"
@@ -108,12 +102,7 @@ const items = [
   },
   {
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
         <path
           fill="currentColor"
           d="M12 .807L23.835 8.5L22 9.693V16h-2v-5.007l-1 .65V17.5c0 1.47-1.014 2.615-2.253 3.339c-1.265.737-2.945 1.16-4.747 1.16s-3.483-.423-4.747-1.16C6.013 20.115 5 18.969 5 17.499v-5.856L.165 8.5zM7 12.943V17.5c0 .463.33 1.067 1.261 1.61c.908.53 2.227.89 3.739.89s2.831-.36 3.739-.89c.932-.543 1.26-1.147 1.26-1.61v-4.557l-5 3.25zM20.165 8.5L12 3.193L3.835 8.5L12 13.807z"
@@ -126,12 +115,7 @@ const items = [
   },
   {
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 12 12"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 12 12">
         <path
           fill="currentColor"
           d="M5 2.5a1.5 1.5 0 1 1-3 0a1.5 1.5 0 0 1 3 0M6 7a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M3.55 5H2a1 1 0 0 0-1 1v.207c0 .596.343 1.086.797 1.407c.272.193.597.336.952.42c.269-.488.736-.85 1.292-.981A2.49 2.49 0 0 1 3.55 5m4.41 2.053a2 2 0 0 1 1.291.98c.355-.083.68-.226.952-.419c.454-.32.797-.811.797-1.407V6a1 1 0 0 0-1-1H8.45a2.51 2.51 0 0 1-.49 2.053M4.5 8a1 1 0 0 0-1 1v.167c0 .587.357 1.058.808 1.358C4.763 10.83 5.363 11 6 11s1.237-.171 1.692-.475c.45-.3.808-.771.808-1.358V9a1 1 0 0 0-1-1zM9 4a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3"
@@ -144,12 +128,7 @@ const items = [
   },
   {
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
         <path
           fill="currentColor"
           d="M12 15q.425 0 .713-.288T13 14t-.288-.712T12 13t-.712.288T11 14t.288.713T12 15m-1-4h2V5h-2zM2 22V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18H6zm3.15-6H20V4H4v13.125zM4 16V4z"
@@ -162,12 +141,7 @@ const items = [
   },
   {
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
         <g
           fill="none"
           stroke="currentColor"
@@ -191,12 +165,11 @@ const items = [
     description:
       'Practice coding on the go with our mobile-friendly platform. Perfect for busy schedules, our challenges are optimized for seamless learning on any device.',
   },
-]
+];
 
 export async function generateMetadata() {
   return createMetadata({
-    title:
-      'Daily Coding Challenges | Learn JavaScript & Web Development | TechBlitz',
+    title: 'Daily Coding Challenges | Learn JavaScript & Web Development | TechBlitz',
     description:
       'Master coding with TechBlitz’s daily coding challenges. Learn JavaScript, web development, and programming through real-world challenges tailored to your skill level. Start your coding journey today!',
     image: {
@@ -208,7 +181,7 @@ export async function generateMetadata() {
     keywords: [
       'daily coding challenges, learn to code, JavaScript challenges, web development, coding roadmaps, real-world coding challenges, learn programming, coding for beginners, coding practice',
     ],
-  })
+  });
 }
 
 export default function DailyCodingChallengesPage() {
@@ -248,7 +221,7 @@ export default function DailyCodingChallengesPage() {
       target: `${getBaseUrl()}/search?q={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
-  }
+  };
   return (
     <>
       <script
@@ -280,10 +253,7 @@ export default function DailyCodingChallengesPage() {
           learnMoreLink={true}
         />
 
-        <MarketingContentGrid
-          title="Everything you need to learn to code"
-          items={items}
-        />
+        <MarketingContentGrid title="Everything you need to learn to code" items={items} />
 
         <FAQsBlock faqs={faqs} />
 
@@ -293,5 +263,5 @@ export default function DailyCodingChallengesPage() {
         />
       </div>
     </>
-  )
+  );
 }

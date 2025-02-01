@@ -1,9 +1,9 @@
-'use server'
-import { openai } from '@/lib/open-ai'
-import { zodResponseFormat } from 'openai/helpers/zod'
-import { getPrompt } from '@/actions/ai/utils/get-prompt'
-import { aiQuestionSchema } from '@/lib/zod/schemas/ai/response'
-import { UserRecord } from '@/types/User'
+'use server';
+import { openai } from '@/lib/open-ai';
+import { zodResponseFormat } from 'openai/helpers/zod';
+import { getPrompt } from '@/actions/ai/utils/get-prompt';
+import { aiQuestionSchema } from '@/lib/zod/schemas/ai/response';
+import { UserRecord } from '@/types/User';
 
 /**
  * Generate custom questions for a user based on their incorrect tags
@@ -12,18 +12,18 @@ import { UserRecord } from '@/types/User'
  * @returns
  */
 export const generateStatisticsCustomQuestions = async (opts: {
-  incorrectTags: { tagName: string; count: number }[]
-  user: UserRecord
+  incorrectTags: { tagName: string; count: number }[];
+  user: UserRecord;
 }) => {
   // the tags that we will pass to the prompt
-  const { incorrectTags, user } = opts
+  const { incorrectTags, user } = opts;
 
   const prompts = await getPrompt({
     name: ['statistics-generate-report'],
-  })
+  });
 
   if (!prompts) {
-    throw new Error('Prompt not found')
+    throw new Error('Prompt not found');
   }
 
   // generate the response that will create questions for the user
@@ -51,7 +51,7 @@ export const generateStatisticsCustomQuestions = async (opts: {
     ],
     response_format: zodResponseFormat(aiQuestionSchema, 'event'),
     temperature: 0.7,
-  })
+  });
 
-  return firstPass.choices[0].message.content
-}
+  return firstPass.choices[0].message.content;
+};

@@ -1,28 +1,28 @@
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import { useOnboardingContext } from './onboarding-context'
-import { CardContent, CardHeader } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Copy } from 'lucide-react'
-import { toast } from 'sonner'
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { useOnboardingContext } from './onboarding-context';
+import { CardContent, CardHeader } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Copy } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function OnboardingShare() {
-  const { serverUser, itemVariants } = useOnboardingContext()
-  const [isCopied, setIsCopied] = useState(false)
+  const { serverUser, itemVariants } = useOnboardingContext();
+  const [isCopied, setIsCopied] = useState(false);
 
-  const shareUrl = `https://techblitz.dev/signup?ref=${serverUser?.uid}`
+  const shareUrl = `https://techblitz.dev/signup?ref=${serverUser?.uid}`;
 
   const handleShare = async () => {
     try {
-      await navigator.clipboard.writeText(shareUrl)
-      toast.success('Link copied to clipboard!')
-      setIsCopied(true)
-      setTimeout(() => setIsCopied(false), 3000) // Reset after 3 seconds
+      await navigator.clipboard.writeText(shareUrl);
+      toast.success('Link copied to clipboard!');
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 3000); // Reset after 3 seconds
     } catch (error) {
-      console.error('Error copying link:', error)
-      toast.error('Failed to copy link. Please try again.')
+      console.error('Error copying link:', error);
+      toast.error('Failed to copy link. Please try again.');
     }
-  }
+  };
 
   return (
     <>
@@ -33,12 +33,9 @@ export default function OnboardingShare() {
         >
           TechBlitz is more fun with friends!
         </motion.h1>
-        <motion.p
-          className="text-gray-400 max-w-xl text-center"
-          variants={itemVariants}
-        >
-          TechBlitz thrives on community. Share TechBlitz with your friends, and
-          receive 10% off a premium plan!
+        <motion.p className="text-gray-400 max-w-xl text-center" variants={itemVariants}>
+          TechBlitz thrives on community. Share TechBlitz with your friends, and receive 10% off a
+          premium plan!
         </motion.p>
       </CardHeader>
       <CardContent>
@@ -55,5 +52,5 @@ export default function OnboardingShare() {
         </div>
       </CardContent>
     </>
-  )
+  );
 }

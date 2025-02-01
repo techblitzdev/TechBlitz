@@ -1,5 +1,5 @@
-'use client'
-import { Skeleton } from '@/components/ui/skeleton'
+'use client';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function QuestionCardLoading() {
   return (
@@ -19,5 +19,5 @@ export default function QuestionCardLoading() {
         <Skeleton className="h-6 w-24" />
       </div>
     </div>
-  )
+  );
 }

@@ -1,44 +1,44 @@
-'use client'
-import { useEffect, useState } from 'react'
-import { usePostHog } from 'posthog-js/react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Button } from '../ui/button'
+'use client';
+import { useEffect, useState } from 'react';
+import { usePostHog } from 'posthog-js/react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Button } from '../ui/button';
 
 export function cookieConsentGiven() {
   if (!localStorage.getItem('cookie_consent')) {
-    return 'undecided'
+    return 'undecided';
   }
-  return localStorage.getItem('cookie_consent')
+  return localStorage.getItem('cookie_consent');
 }
 
 export default function Banner() {
-  const [consentGiven, setConsentGiven] = useState('')
-  const posthog = usePostHog()
+  const [consentGiven, setConsentGiven] = useState('');
+  const posthog = usePostHog();
 
   useEffect(() => {
-    const consent = cookieConsentGiven()
+    const consent = cookieConsentGiven();
     if (consent) {
-      setConsentGiven(consent)
+      setConsentGiven(consent);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (consentGiven !== '') {
       posthog.set_config({
         persistence: consentGiven === 'yes' ? 'localStorage+cookie' : 'memory',
-      })
+      });
     }
-  }, [consentGiven])
+  }, [consentGiven]);
 
   const handleAcceptCookies = () => {
-    localStorage.setItem('cookie_consent', 'yes')
-    setConsentGiven('yes')
-  }
+    localStorage.setItem('cookie_consent', 'yes');
+    setConsentGiven('yes');
+  };
 
   const handleDeclineCookies = () => {
-    localStorage.setItem('cookie_consent', 'no')
-    setConsentGiven('no')
-  }
+    localStorage.setItem('cookie_consent', 'no');
+    setConsentGiven('no');
+  };
 
   return (
     <AnimatePresence>
@@ -56,18 +56,10 @@ export default function Banner() {
               or opt our of cookies.
             </p>
             <div className="flex gap-3 shrink-0">
-              <Button
-                type="button"
-                onClick={handleDeclineCookies}
-                variant="destructive"
-              >
+              <Button type="button" onClick={handleDeclineCookies} variant="destructive">
                 Decline
               </Button>
-              <Button
-                variant="secondary"
-                type="button"
-                onClick={handleAcceptCookies}
-              >
+              <Button variant="secondary" type="button" onClick={handleAcceptCookies}>
                 Accept cookies
               </Button>
             </div>
@@ -75,5 +67,5 @@ export default function Banner() {
         </motion.div>
       )}
     </AnimatePresence>
-  )
+  );
 }

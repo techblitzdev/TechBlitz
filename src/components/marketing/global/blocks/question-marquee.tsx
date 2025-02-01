@@ -1,11 +1,11 @@
-import { cn } from '@/lib/utils'
-import Marquee from '@/components/ui/marquee'
-import Link from 'next/link'
-import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import { ArrowRight } from 'lucide-react'
-import { capitalise, getQuestionDifficultyColor } from '@/utils'
-import Chip from '@/components/ui/chip'
-import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils';
+import Marquee from '@/components/ui/marquee';
+import Link from 'next/link';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { ArrowRight } from 'lucide-react';
+import { capitalise, getQuestionDifficultyColor } from '@/utils';
+import Chip from '@/components/ui/chip';
+import { Button } from '@/components/ui/button';
 
 const questions = [
   {
@@ -28,8 +28,7 @@ const questions = [
   },
   {
     uid: '4',
-    question:
-      'How to implement a collaborative editor with WebSocket in React?',
+    question: 'How to implement a collaborative editor with WebSocket in React?',
     slug: 'react-collaborative-editor-websocket-hook-implementation',
     difficulty: 'HARD',
   },
@@ -45,31 +44,30 @@ const questions = [
     slug: 'array-transformation-filter-map-reduce-result',
     difficulty: 'MEDIUM',
   },
-]
+];
 
-const firstRow = questions.slice(0, questions.length / 2)
-const secondRow = questions.slice(questions.length / 2)
+const firstRow = questions.slice(0, questions.length / 2);
+const secondRow = questions.slice(questions.length / 2);
 
 export const QuestionCard = ({
   question,
   slug,
   difficulty,
 }: {
-  question: string
-  slug: string
-  difficulty: string
+  question: string;
+  slug: string;
+  difficulty: string;
 }) => {
-  const difficultyColor = getQuestionDifficultyColor(difficulty)
+  const difficultyColor = getQuestionDifficultyColor(difficulty);
 
   return (
     <Card
       className={cn(
         'w-full max-w-xs cursor-pointer overflow-hidden transition-all duration-300 ease-in-out',
-        'border border-black-50',
+        'border border-black-50'
       )}
       style={{
-        background:
-          'radial-gradient(128% 107% at 50% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
+        background: 'radial-gradient(128% 107% at 50% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
     >
       <CardContent className="p-6 flex flex-col gap-y-2">
@@ -81,16 +79,14 @@ export const QuestionCard = ({
             border={difficultyColor.border}
           />
         </div>
-        <h3 className="font-semibold mb-2 text-white line-clamp-2">
-          {question}
-        </h3>
+        <h3 className="font-semibold mb-2 text-white line-clamp-2">{question}</h3>
       </CardContent>
       <CardFooter>
         <Link
           href={`/question/${slug}`}
           className={cn(
             'flex items-center text-sm font-medium text-white',
-            'hover:text-accent-foreground transition-colors duration-200',
+            'hover:text-accent-foreground transition-colors duration-200'
           )}
         >
           Learn now!
@@ -98,26 +94,24 @@ export const QuestionCard = ({
         </Link>
       </CardFooter>
     </Card>
-  )
-}
+  );
+};
 
 export default function QuestionMarquee({
   header,
   subheader,
   cta,
 }: {
-  header: string
-  subheader: string
-  cta?: boolean
+  header: string;
+  subheader: string;
+  cta?: boolean;
 }) {
   return (
     <section className="relative flex h-auto w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background pt-12 pb-12 md:pt-12 md:pb-36">
       <h2 className="text-3xl md:text-5xl font-bold text-center mb-2 text-gradient from-white/55 to-white py-1 max-w-5xl">
         {header}
       </h2>
-      <p className="text-center mb-4 text-gradient from-white/55 to-white">
-        {subheader}
-      </p>
+      <p className="text-center mb-4 text-gradient from-white/55 to-white">{subheader}</p>
       {cta && (
         <Button variant="secondary" className="mb-8" href="/signup">
           Sign up for free!
@@ -132,11 +126,7 @@ export default function QuestionMarquee({
             </div>
           ))}
         </Marquee>
-        <Marquee
-          reverse
-          pauseOnHover
-          className="[--duration:20s] hidden md:flex"
-        >
+        <Marquee reverse pauseOnHover className="[--duration:20s] hidden md:flex">
           {secondRow.map((question) => (
             <div key={question.uid} className="mx-4">
               <QuestionCard {...question} />
@@ -147,5 +137,5 @@ export default function QuestionMarquee({
         <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#000000] dark:from-gray-900"></div>
       </div>
     </section>
-  )
+  );
 }

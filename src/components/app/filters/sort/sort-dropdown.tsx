@@ -1,37 +1,37 @@
-'use client'
+'use client';
 
-import { useTransition } from 'react'
-import { useSearchParams, useRouter } from 'next/navigation'
+import { useTransition } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 // components
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import SortIcon from '@/components/ui/icons/sort'
-import { Check } from 'lucide-react'
+} from '@/components/ui/dropdown-menu';
+import SortIcon from '@/components/ui/icons/sort';
+import { Check } from 'lucide-react';
 
 export default function SortDropdown() {
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const [isPending, startTransition] = useTransition()
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
-  const sortBy = searchParams.get('sortBy') as string
+  const sortBy = searchParams.get('sortBy') as string;
 
   // Helper to update query params
   const updateQueryParams = (key: string, value: string | null) => {
-    const params = new URLSearchParams(searchParams.toString())
+    const params = new URLSearchParams(searchParams.toString());
     if (value) {
-      params.set(key, value)
+      params.set(key, value);
     } else {
-      params.delete(key)
+      params.delete(key);
     }
-    router.push(`?${params.toString()}`)
-  }
+    router.push(`?${params.toString()}`);
+  };
 
   return (
     <div data-pending={isPending ? '' : undefined}>
@@ -44,9 +44,7 @@ export default function SortDropdown() {
             className="flex items-center justify-center gap-x-1 text-sm group"
           >
             {sortBy && (
-              <span className="text-[10px] bg-white text-black px-2 rounded-full mr-1">
-                1
-              </span>
+              <span className="text-[10px] bg-white text-black px-2 rounded-full mr-1">1</span>
             )}
             Sort
             <SortIcon className="size-5" />
@@ -59,25 +57,17 @@ export default function SortDropdown() {
           <DropdownMenuGroup className="p-1">
             <DropdownMenuItem
               className="flex items-center justify-between hover:cursor-pointer py-2"
-              onClick={() =>
-                startTransition(() => updateQueryParams('sortBy', 'date'))
-              }
+              onClick={() => startTransition(() => updateQueryParams('sortBy', 'date'))}
             >
               <span className="text-white">Date</span>
               {sortBy === 'date' && <Check className="size-4 text-white" />}
             </DropdownMenuItem>
             <DropdownMenuItem
               className="flex items-center justify-between hover:cursor-pointer py-2"
-              onClick={() =>
-                startTransition(() =>
-                  updateQueryParams('sortBy', 'submissions'),
-                )
-              }
+              onClick={() => startTransition(() => updateQueryParams('sortBy', 'submissions'))}
             >
               <span className="text-white">Submissions</span>
-              {sortBy === 'submissions' && (
-                <Check className="size-4 text-white" />
-              )}
+              {sortBy === 'submissions' && <Check className="size-4 text-white" />}
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <div
@@ -97,5 +87,5 @@ export default function SortDropdown() {
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  )
+  );
 }

@@ -1,21 +1,21 @@
-import { generateStatisticsReport } from '@/actions/ai/reports/generate-report'
-import { getUserReports } from '@/utils/data/statistics/reports/get-reports'
-import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
-import { useUserServer } from '@/hooks/use-user-server'
-import { cn } from '@/lib/utils'
-import { ArrowRight, ChevronRight } from 'lucide-react'
-import Link from 'next/link'
-import { StatisticsReport as StatisticsReportType } from '@prisma/client'
+import { generateStatisticsReport } from '@/actions/ai/reports/generate-report';
+import { getUserReports } from '@/utils/data/statistics/reports/get-reports';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { useUserServer } from '@/hooks/use-user-server';
+import { cn } from '@/lib/utils';
+import { ArrowRight, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+import { StatisticsReport as StatisticsReportType } from '@prisma/client';
 
 export default async function StatisticsReport() {
-  const user = await useUserServer()
+  const user = await useUserServer();
 
-  let reports: StatisticsReportType[] = []
+  let reports: StatisticsReportType[] = [];
 
   // get all reports
   if (user?.userLevel !== 'FREE') {
-    reports = await getUserReports()
+    reports = await getUserReports();
   }
 
   return (
@@ -49,9 +49,7 @@ export default async function StatisticsReport() {
               key={report.uid}
               className={cn(
                 'p-3 truncate w-full flex justify-between items-center group',
-                index % 2 === 0
-                  ? 'bg-[#000] hover:bg-black-100'
-                  : 'bg-black hover:bg-black-75',
+                index % 2 === 0 ? 'bg-[#000] hover:bg-black-100' : 'bg-black hover:bg-black-75'
               )}
               href={`/statistics/reports/${report.uid}`}
             >
@@ -88,5 +86,5 @@ export default async function StatisticsReport() {
         </form>
       )}
     </section>
-  )
+  );
 }

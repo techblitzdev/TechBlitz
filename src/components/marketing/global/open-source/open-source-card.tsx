@@ -1,24 +1,20 @@
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { Ellipsis, Smile } from 'lucide-react'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
-import { cn } from '@/lib/utils'
-import { capitalise } from '@/utils'
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Ellipsis, Smile } from 'lucide-react';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { cn } from '@/lib/utils';
+import { capitalise } from '@/utils';
 
-type cardStyle = 'comment' | 'issue' | 'pr'
+type cardStyle = 'comment' | 'issue' | 'pr';
 
 export default function OpenSourceCard(opts: {
-  cardStyle?: cardStyle
-  content?: string
-  contributorName?: string
-  actionType?: string
+  cardStyle?: cardStyle;
+  content?: string;
+  contributorName?: string;
+  actionType?: string;
 }) {
-  const { cardStyle = 'comment', content, actionType, contributorName } = opts
+  const { cardStyle = 'comment', content, actionType, contributorName } = opts;
 
-  const emojis = ['👍', '👎', '😄', '🎉', '😕', '❤️', '🚀', '👀']
+  const emojis = ['👍', '👎', '😄', '🎉', '😕', '❤️', '🚀', '👀'];
 
   // determine the colours of the card based on the card style
   const cardColors = {
@@ -41,17 +37,15 @@ export default function OpenSourceCard(opts: {
       border: 'border-[#3C444D]',
       borderColor: '#3C444D',
     },
-  }
+  };
 
   return (
-    <Card
-      className={cn('border rounded-md relative', cardColors[cardStyle].border)}
-    >
+    <Card className={cn('border rounded-md relative', cardColors[cardStyle].border)}>
       <CardHeader
         className={cn(
           'space-y-0 flex flex-row w-full justify-between items-center text-white text-sm px-4 py-3 border-b gh-card-arrow rounded-t-md',
           cardColors[cardStyle].headerBg,
-          cardColors[cardStyle].border,
+          cardColors[cardStyle].border
         )}
         style={
           {
@@ -61,16 +55,14 @@ export default function OpenSourceCard(opts: {
         }
       >
         <div className="flex flex-row items-center gap-x-2">
-          <span className="font-semibold">
-            {contributorName || 'techblitz'}
-          </span>
+          <span className="font-semibold">{contributorName || 'techblitz'}</span>
           <span className="text-gray-400">commented 11 hours ago</span>
         </div>
         <div className="flex items-center gap-x-2">
           <p
             className={cn(
               'text-xs text-[#9198a1] border rounded-full py-px px-1.5 font-semibold',
-              cardColors[cardStyle].border,
+              cardColors[cardStyle].border
             )}
           >
             {actionType && capitalise(actionType)}
@@ -95,10 +87,7 @@ export default function OpenSourceCard(opts: {
           >
             <div className="flex items-center gap-x-1 justify-between">
               {emojis.map((emoji) => (
-                <button
-                  key={emoji}
-                  className="hover:bg-black-50 py-1 px-1.5 rounded"
-                >
+                <button key={emoji} className="hover:bg-black-50 py-1 px-1.5 rounded">
                   {emoji}
                 </button>
               ))}
@@ -107,5 +96,5 @@ export default function OpenSourceCard(opts: {
         </Popover>
       </CardContent>
     </Card>
-  )
+  );
 }

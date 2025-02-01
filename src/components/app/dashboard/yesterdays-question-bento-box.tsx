@@ -1,26 +1,24 @@
-import { Question } from '@/types/Questions'
-import Chip from '@/components/ui/chip'
-import { capitalise } from '@/utils'
-import { ArrowDownLeft } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { getQuestionDifficultyColor } from '@/utils'
-import { Grid } from '@/components/ui/grid'
-import TagDisplay from '@/components/app/questions/tag-display'
-import NoDailyQuestion from '@/components/shared/no-daily-question'
+import { Question } from '@/types/Questions';
+import Chip from '@/components/ui/chip';
+import { capitalise } from '@/utils';
+import { ArrowDownLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { getQuestionDifficultyColor } from '@/utils';
+import { Grid } from '@/components/ui/grid';
+import TagDisplay from '@/components/app/questions/tag-display';
+import NoDailyQuestion from '@/components/shared/no-daily-question';
 
-export default function YesterdaysQuestionBentoBox(opts: {
-  question: Question | null
-}) {
-  const { question } = opts
+export default function YesterdaysQuestionBentoBox(opts: { question: Question | null }) {
+  const { question } = opts;
 
   if (!question)
     return (
       <div className="p-4">
         <NoDailyQuestion variant="accent" />
       </div>
-    )
+    );
 
-  const tags = question?.tags || []
+  const tags = question?.tags || [];
 
   return (
     <section className="flex flex-col justify-between h-full group relative overflow-hidden p-4">
@@ -30,9 +28,7 @@ export default function YesterdaysQuestionBentoBox(opts: {
         </Button>
         <div className="space-y-1 text-end">
           <h6 className="text-xl">Yesterday's Question </h6>
-          <p className="text-xs font-satoshi">
-            Missed yesterday’s question? Answer now!
-          </p>
+          <p className="text-xs font-satoshi">Missed yesterday’s question? Answer now!</p>
         </div>
         {/* <ArrowRight className="size-4 ml-1 group-hover:ml-2 duration-300" /> */}
       </div>
@@ -55,5 +51,5 @@ export default function YesterdaysQuestionBentoBox(opts: {
       </div>
       <Grid size={20} position="bottom-right" />
     </section>
-  )
+  );
 }

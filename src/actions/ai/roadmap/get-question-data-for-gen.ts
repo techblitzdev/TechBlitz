@@ -1,25 +1,25 @@
-'use server'
-import { QuestionDifficulty } from '@/types/Questions'
-import { prisma } from '@/lib/prisma'
+'use server';
+import { QuestionDifficulty } from '@/types/Questions';
+import { prisma } from '@/lib/prisma';
 
 export interface ReturnType {
-  question: string
-  correctAnswer: boolean
-  difficulty: QuestionDifficulty
+  question: string;
+  correctAnswer: boolean;
+  difficulty: QuestionDifficulty;
 }
 
 export const generateDataForAi = async (opts: {
-  roadmapUid: string
-  userUid: string
-  generateMore?: boolean
+  roadmapUid: string;
+  userUid: string;
+  generateMore?: boolean;
 }): Promise<ReturnType[] | 'generated' | 'invalid'> => {
-  const { roadmapUid, userUid, generateMore } = opts
+  const { roadmapUid, userUid, generateMore } = opts;
 
   // If generating more questions, get existing questions to inform AI
   if (generateMore) {
     const existingQuestions = await prisma.roadmapUserQuestions.findMany({
       where: { roadmapUid },
-    })
+    });
 
     // Format existing questions for AI context
     return existingQuestions.map((question) => ({
@@ -27,7 +27,7 @@ export const generateDataForAi = async (opts: {
       correctAnswer: question.userCorrect ?? false,
       difficulty: question.difficulty,
       previousQuestion: true, // Flag to indicate this is an existing question
-    }))
+    }));
   }
 
   // check if the user roadmap is complete already
@@ -41,7 +41,7 @@ export const generateDataForAi = async (opts: {
         },
       },
     },
-  })
+  });
 
   // if it is complete, the data we give back will be the questions the
   // user has already answered
@@ -50,15 +50,15 @@ export const generateDataForAi = async (opts: {
       where: {
         roadmapUid,
       },
-    })
+    });
 
     const userAnswers = questions.map((question) => ({
       question: question.question,
       correctAnswer: question.userCorrect,
       difficulty: question.difficulty,
-    }))
+    }));
 
-    return userAnswers
+    return userAnswers;
   }
 
   // get the roadmap and check if the roadmap has already been generated
@@ -71,27 +71,26 @@ export const generateDataForAi = async (opts: {
         userUid,
       },
     },
-  })
+  });
 
   if (roadmap?.hasGeneratedRoadmap) {
-    return 'generated'
+    return 'generated';
   }
 
   // we need to get all of the answers that the user has answered
   // for this roadmap
-  const roadmapDefaultAnswers =
-    await prisma.defaultRoadmapQuestionsUsersAnswers.findMany({
-      where: {
-        roadmapUid,
-      },
-    })
+  const roadmapDefaultAnswers = await prisma.defaultRoadmapQuestionsUsersAnswers.findMany({
+    where: {
+      roadmapUid,
+    },
+  });
 
   if (roadmapDefaultAnswers.length === 0) {
-    return 'invalid'
+    return 'invalid';
   }
 
   // start an array to store the questions that we will be asking
-  const userAnswers = []
+  const userAnswers = [];
 
   // now go and get the questions the user answered
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -100,7 +99,7 @@ export const generateDataForAi = async (opts: {
       where: {
         uid: answer.questionUid,
       },
-    })
+    });
 
     // push the question along with the user's answer
     if (question) {
@@ -108,9 +107,9 @@ export const generateDataForAi = async (opts: {
         question: question.aiTitle || '',
         correctAnswer: answer.correct,
         difficulty: question.difficulty,
-      })
+      });
     }
   }
 
-  return userAnswers
-}
+  return userAnswers;
+};

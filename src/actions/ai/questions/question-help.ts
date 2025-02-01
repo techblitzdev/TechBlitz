@@ -1,15 +1,12 @@
-'use server'
-import { openai } from '@/lib/open-ai'
-import { prisma } from '@/lib/prisma'
-import { getPrompt } from '../utils/get-prompt'
-import { getUser } from '@/actions/user/authed/get-user'
-import { questionHelpSchema } from '@/lib/zod/schemas/ai/question-help'
-import { zodResponseFormat } from 'openai/helpers/zod.mjs'
-import type { Question } from '@/types/Questions'
-import type {
-  DefaultRoadmapQuestions,
-  RoadmapUserQuestions,
-} from '@/types/Roadmap'
+'use server';
+import { openai } from '@/lib/open-ai';
+import { prisma } from '@/lib/prisma';
+import { getPrompt } from '../utils/get-prompt';
+import { getUser } from '@/actions/user/authed/get-user';
+import { questionHelpSchema } from '@/lib/zod/schemas/ai/question-help';
+import { zodResponseFormat } from 'openai/helpers/zod.mjs';
+import type { Question } from '@/types/Questions';
+import type { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
 
 /**
  * Method to generate question help for both regular and roadmap questions.
@@ -22,30 +19,22 @@ import type {
 export const generateQuestionHelp = async (
   questionUid: string,
   userContent?: string,
-  questionType: 'roadmap' | 'regular' | 'onboarding' = 'regular',
+  questionType: 'roadmap' | 'regular' | 'onboarding' = 'regular'
 ) => {
   // get the current user requesting help
-  const user = await getUser()
+  const user = await getUser();
 
   if (!user) {
-    return false
+    return false;
   }
 
   // For regular questions, check if the user has enough tokens
-  if (
-    questionType === 'regular' &&
-    user.aiQuestionHelpTokens &&
-    user.aiQuestionHelpTokens <= 0
-  ) {
-    return false
+  if (questionType === 'regular' && user.aiQuestionHelpTokens && user.aiQuestionHelpTokens <= 0) {
+    return false;
   }
 
   // Initialize question variable
-  let question:
-    | Question
-    | RoadmapUserQuestions
-    | DefaultRoadmapQuestions
-    | null = null
+  let question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions | null = null;
 
   // Get the appropriate question based on type
   if (questionType === 'roadmap') {
@@ -62,7 +51,7 @@ export const generateQuestionHelp = async (
       include: {
         answers: true,
       },
-    })) as RoadmapUserQuestions | null
+    })) as RoadmapUserQuestions | null;
   } else if (questionType === 'regular') {
     // Get the regular question
     question = await prisma.questions.findUnique({
@@ -72,7 +61,7 @@ export const generateQuestionHelp = async (
       include: {
         answers: true,
       },
-    })
+    });
   } else if (questionType === 'onboarding') {
     // Get the onboarding question
     question = await prisma.defaultRoadmapQuestions.findUnique({
@@ -82,18 +71,18 @@ export const generateQuestionHelp = async (
       include: {
         answers: true,
       },
-    })
+    });
   }
 
   // if no question, return error
   if (!question) {
-    return false
+    return false;
   }
 
   // get the prompt
   const prompts = await getPrompt({
     name: ['ai-question-generation-help'],
-  })
+  });
 
   // generate the question help
   const questionHelp = await openai.chat.completions.create({
@@ -127,35 +116,31 @@ export const generateQuestionHelp = async (
       },
     ],
     response_format: zodResponseFormat(questionHelpSchema, 'event'),
-  })
+  });
 
   if (!questionHelp.choices[0]?.message?.content) {
-    throw new Error('AI response is missing content')
+    throw new Error('AI response is missing content');
   }
 
-  const formattedData = JSON.parse(questionHelp.choices[0].message.content)
+  const formattedData = JSON.parse(questionHelp.choices[0].message.content);
 
   // Handle token management based on question type and user level
-  if (
-    questionType === 'regular' &&
-    user.userLevel !== 'PREMIUM' &&
-    user.userLevel !== 'ADMIN'
-  ) {
+  if (questionType === 'regular' && user.userLevel !== 'PREMIUM' && user.userLevel !== 'ADMIN') {
     // Deduct tokens for regular questions from non-premium users
     const updatedUser = await prisma.users.update({
       where: { uid: user.uid },
       data: { aiQuestionHelpTokens: { decrement: 1 } },
-    })
+    });
 
     return {
       content: formattedData,
       tokens: updatedUser.aiQuestionHelpTokens,
-    }
+    };
   }
 
   // For roadmap questions or premium users, return infinite tokens
   return {
     content: formattedData,
     tokens: Number.POSITIVE_INFINITY,
-  }
-}
+  };
+};

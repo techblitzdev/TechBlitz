@@ -33,5 +33,5 @@ export default function LogoSmall() {
         transform="translate(189,132)"
       />
     </svg>
-  )
+  );
 }

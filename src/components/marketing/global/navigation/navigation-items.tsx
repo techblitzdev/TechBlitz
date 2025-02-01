@@ -1,8 +1,8 @@
-'use client'
-import * as React from 'react'
-import Link from 'next/link'
+'use client';
+import * as React from 'react';
+import Link from 'next/link';
 
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -11,7 +11,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu'
+} from '@/components/ui/navigation-menu';
 
 const components: { title: string; href: string; description: string }[] = [
   // {
@@ -23,8 +23,7 @@ const components: { title: string; href: string; description: string }[] = [
   {
     title: 'Blog',
     href: '/blog',
-    description:
-      'Read our latest blog posts for more insights on how to level up your skills.',
+    description: 'Read our latest blog posts for more insights on how to level up your skills.',
   },
   {
     title: 'Changelog',
@@ -46,7 +45,7 @@ const components: { title: string; href: string; description: string }[] = [
     href: '/faqs',
     description: 'Got a question? We have an answer.',
   },
-]
+];
 
 const features = [
   {
@@ -73,19 +72,14 @@ const features = [
     description: 'See how you stack up against the rest of the community.',
     ariaLabel: 'Navigate to Leaderboard',
   },
-]
+];
 
 export function NavigationMenuItems() {
   return (
-    <NavigationMenu
-      className="py-2 px-4 hidden md:block"
-      aria-label="Main navigation"
-    >
+    <NavigationMenu className="py-2 px-4 hidden md:block" aria-label="Main navigation">
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger aria-label="Features menu">
-            Features
-          </NavigationMenuTrigger>
+          <NavigationMenuTrigger aria-label="Features menu">Features</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
               {features.map((feature) => (
@@ -102,9 +96,7 @@ export function NavigationMenuItems() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger aria-label="Resources menu">
-            Resources
-          </NavigationMenuTrigger>
+          <NavigationMenuTrigger aria-label="Resources menu">Resources</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {components.map((component) => (
@@ -121,9 +113,7 @@ export function NavigationMenuItems() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger aria-label="Learn menu">
-            Learn
-          </NavigationMenuTrigger>
+          <NavigationMenuTrigger aria-label="Learn menu">Learn</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
               <ListItem href="/questions?tag=javascript" title="JavaScript">
@@ -153,30 +143,29 @@ export function NavigationMenuItems() {
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
-  )
+  );
 }
 
-const ListItem = React.forwardRef<
-  React.ElementRef<'a'>,
-  React.ComponentPropsWithoutRef<'a'>
->(({ className, title, children, ...props }, ref) => {
-  return (
-    <li>
-      <Link
-        href={props.href || '/'}
-        ref={ref}
-        className={cn(
-          'group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-white hover:!text-white !font-onest',
-          className,
-        )}
-        {...props}
-      >
-        <div className="text-sm font-medium leading-none">{title}</div>
-        <p className="line-clamp-2 text-xs leading-snug text-muted-foreground group-hover:text-white">
-          {children}
-        </p>
-      </Link>
-    </li>
-  )
-})
-ListItem.displayName = 'ListItem'
+const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWithoutRef<'a'>>(
+  ({ className, title, children, ...props }, ref) => {
+    return (
+      <li>
+        <Link
+          href={props.href || '/'}
+          ref={ref}
+          className={cn(
+            'group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-white hover:!text-white !font-onest',
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-xs leading-snug text-muted-foreground group-hover:text-white">
+            {children}
+          </p>
+        </Link>
+      </li>
+    );
+  }
+);
+ListItem.displayName = 'ListItem';

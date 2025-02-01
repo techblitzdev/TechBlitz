@@ -1,27 +1,27 @@
-'use client'
+'use client';
 
-import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Editor } from '@monaco-editor/react'
-import { capitalize } from 'lodash'
-import type { z } from 'zod'
-import type { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help'
-import type { Question } from '@/types/Questions'
-import type { RoadmapUserQuestions } from '@/types/Roadmap'
-import type { UserRecord } from '@/types/User'
-import CodeDisplay from '@/components/app/questions/single/layout/code-snippet'
-import LoadingSpinner from '@/components/ui/loading'
-import { DefaultRoadmapQuestions } from '@prisma/client'
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Editor } from '@monaco-editor/react';
+import { capitalize } from 'lodash';
+import type { z } from 'zod';
+import type { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
+import type { Question } from '@/types/Questions';
+import type { RoadmapUserQuestions } from '@/types/Roadmap';
+import type { UserRecord } from '@/types/User';
+import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
+import LoadingSpinner from '@/components/ui/loading';
+import { DefaultRoadmapQuestions } from '@prisma/client';
 
 type QuestionCodeDisplayProps = {
-  user: UserRecord | null
-  answerHelp?: z.infer<typeof answerHelpSchema> | null
-  question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions
-  prefilledCodeSnippet?: string | null
-  isEditable?: boolean
-  onCodeChange?: (code: string) => void
-  currentLayout?: 'question' | 'answer'
-}
+  user: UserRecord | null;
+  answerHelp?: z.infer<typeof answerHelpSchema> | null;
+  question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions;
+  prefilledCodeSnippet?: string | null;
+  isEditable?: boolean;
+  onCodeChange?: (code: string) => void;
+  currentLayout?: 'question' | 'answer';
+};
 
 export default function QuestionCodeDisplay({
   user,
@@ -33,24 +33,24 @@ export default function QuestionCodeDisplay({
   currentLayout = 'question',
 }: QuestionCodeDisplayProps) {
   const [codeSnippet, setCodeSnippet] = useState<string | null>(
-    prefilledCodeSnippet || question?.codeSnippet || '',
-  )
+    prefilledCodeSnippet || question?.codeSnippet || ''
+  );
 
   useEffect(() => {
     if (prefilledCodeSnippet) {
-      setCodeSnippet(prefilledCodeSnippet)
+      setCodeSnippet(prefilledCodeSnippet);
     } else {
-      setCodeSnippet(question?.codeSnippet || '')
+      setCodeSnippet(question?.codeSnippet || '');
     }
-  }, [prefilledCodeSnippet, question?.codeSnippet])
+  }, [prefilledCodeSnippet, question?.codeSnippet]);
 
   const handleCodeChange = (value: string | undefined) => {
-    const newCode = value || ''
-    setCodeSnippet(newCode)
+    const newCode = value || '';
+    setCodeSnippet(newCode);
     if (onCodeChange) {
-      onCodeChange(newCode)
+      onCodeChange(newCode);
     }
-  }
+  };
 
   if (answerHelp) {
     return (
@@ -65,15 +65,13 @@ export default function QuestionCodeDisplay({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
             >
-              <h3 className="text-md font-bold underline">
-                {capitalize(key.replace(/-/g, ' '))}
-              </h3>
+              <h3 className="text-md font-bold underline">{capitalize(key.replace(/-/g, ' '))}</h3>
               <p className="text-gray-200">{value.replace(/```/g, '')}</p>
             </motion.div>
           ))}
         </div>
       </AnimatePresence>
-    )
+    );
   }
 
   if (currentLayout === 'answer') {
@@ -82,7 +80,7 @@ export default function QuestionCodeDisplay({
         {/* You can add your TestCaseDisplay component here if needed */}
         <p>Test Case Display Placeholder</p>
       </div>
-    )
+    );
   }
 
   return (
@@ -119,15 +117,11 @@ export default function QuestionCodeDisplay({
                 loading={<LoadingSpinner />}
               />
             ) : (
-              <CodeDisplay
-                content={codeSnippet}
-                user={user}
-                backgroundColor="#111111"
-              />
+              <CodeDisplay content={codeSnippet} user={user} backgroundColor="#111111" />
             )}
           </motion.div>
         )}
       </AnimatePresence>
     </div>
-  )
+  );
 }

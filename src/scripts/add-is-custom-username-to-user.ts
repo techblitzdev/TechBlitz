@@ -1,5 +1,5 @@
-'use server'
-import { prisma } from '@/lib/prisma'
+'use server';
+import { prisma } from '@/lib/prisma';
 
 /**
  * A migration script to add the isCustomUsername flag to users
@@ -13,5 +13,5 @@ export const addIsCustomUsernameToUser = async () => {
       },
     },
     data: { isCustomUsername: true },
-  })
-}
+  });
+};

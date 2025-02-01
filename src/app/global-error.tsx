@@ -1,10 +1,10 @@
-'use client'
+'use client';
 
-import Error from 'next/error'
-import NextError from 'next/error'
+import Error from 'next/error';
+import NextError from 'next/error';
 
 export default function GlobalError({ error }: { error: Error }) {
-  console.error(error)
+  console.error(error);
 
   return (
     <html>
@@ -12,5 +12,5 @@ export default function GlobalError({ error }: { error: Error }) {
         <NextError statusCode={0} />
       </body>
     </html>
-  )
+  );
 }

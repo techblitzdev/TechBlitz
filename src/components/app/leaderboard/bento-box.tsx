@@ -1,18 +1,16 @@
-import { Question } from '@/types/Questions'
-import { getFastestTimes } from '@/utils/data/leaderboard/get-fastest'
-import FastestTimes from './fastest-times'
-import { Separator } from '@/components/ui/separator'
-import { Card, CardContent } from '@/components/ui/card'
-import { ArrowRight, FlameIcon, Trophy } from 'lucide-react'
-import Link from 'next/link'
-import { getLongestStreaks } from '@/utils/data/leaderboard/get-longest-streaks'
-import { getUserDisplayName } from '@/utils/user'
-import { Grid } from '@/components/ui/grid'
+import { Question } from '@/types/Questions';
+import { getFastestTimes } from '@/utils/data/leaderboard/get-fastest';
+import FastestTimes from './fastest-times';
+import { Separator } from '@/components/ui/separator';
+import { Card, CardContent } from '@/components/ui/card';
+import { ArrowRight, FlameIcon, Trophy } from 'lucide-react';
+import Link from 'next/link';
+import { getLongestStreaks } from '@/utils/data/leaderboard/get-longest-streaks';
+import { getUserDisplayName } from '@/utils/user';
+import { Grid } from '@/components/ui/grid';
 
-export default async function TodaysLeaderboardBentoBox(opts: {
-  todaysQuestion: Question | null
-}) {
-  const { todaysQuestion } = opts
+export default async function TodaysLeaderboardBentoBox(opts: { todaysQuestion: Question | null }) {
+  const { todaysQuestion } = opts;
 
   // run this in parallel as they do not depend on each other
   const [{ fastestTimes }, longestStreaks] = await Promise.all([
@@ -21,7 +19,7 @@ export default async function TodaysLeaderboardBentoBox(opts: {
       questionUid: todaysQuestion?.uid || '',
     }),
     getLongestStreaks(),
-  ])
+  ]);
 
   return (
     <div className="overflow-hidden flex flex-col h-full justify-between group">
@@ -66,12 +64,9 @@ export default async function TodaysLeaderboardBentoBox(opts: {
                 }`}
               >
                 <span className="flex w-full justify-between items-center col-span-2">
-                  {streak.streak}{' '}
-                  <FlameIcon className="fill-red-500 text-orange-500 mr-2" />
+                  {streak.streak} <FlameIcon className="fill-red-500 text-orange-500 mr-2" />
                 </span>
-                <p className="text-sm col-span-8">
-                  {getUserDisplayName(streak.user)}
-                </p>
+                <p className="text-sm col-span-8">{getUserDisplayName(streak.user)}</p>
               </li>
             ))}
           </ol>
@@ -85,5 +80,5 @@ export default async function TodaysLeaderboardBentoBox(opts: {
         </div>
       </div>
     </div>
-  )
+  );
 }

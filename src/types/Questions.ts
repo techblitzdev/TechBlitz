@@ -1,82 +1,78 @@
-import {
-  QuestionResources,
-  StatisticsReport,
-  UserBookmarks,
-} from '@prisma/client'
-import { QuestionAnswer } from './QuestionAnswers'
-import { Tags } from './Tags'
-import { Answer } from './Answers'
+import { QuestionResources, StatisticsReport, UserBookmarks } from '@prisma/client';
+import { QuestionAnswer } from './QuestionAnswers';
+import { Tags } from './Tags';
+import { Answer } from './Answers';
 
-export type QuestionDifficulty = 'BEGINNER' | 'EASY' | 'MEDIUM' | 'HARD'
+export type QuestionDifficulty = 'BEGINNER' | 'EASY' | 'MEDIUM' | 'HARD';
 
-export type QuestionType = 'MULTIPLE_CHOICE' | 'CODING_CHALLENGE'
+export type QuestionType = 'MULTIPLE_CHOICE' | 'CODING_CHALLENGE';
 
 /**
  * This type represents the shape of the data of a question.
  */
 export type Question = {
-  title: string | null
-  description: string | null
-  answers: QuestionAnswer[]
-  uid: string
-  question: string
-  createdAt: Date
-  updatedAt: Date
-  questionDate: string | null
-  answerResource: string | null
-  correctAnswer: string | null
+  title: string | null;
+  description: string | null;
+  answers: QuestionAnswer[];
+  uid: string;
+  question: string;
+  createdAt: Date;
+  updatedAt: Date;
+  questionDate: string | null;
+  answerResource: string | null;
+  correctAnswer: string | null;
 
-  codeSnippet: string | null
+  codeSnippet: string | null;
 
-  hint: string | null
+  hint: string | null;
 
-  dailyQuestion: boolean
+  dailyQuestion: boolean;
 
-  customQuestion: boolean
+  customQuestion: boolean;
 
-  tags?: Tags[]
+  tags?: Tags[];
 
-  difficulty: QuestionDifficulty
+  difficulty: QuestionDifficulty;
 
-  linkedReports?: StatisticsReport[]
+  linkedReports?: StatisticsReport[];
 
-  QuestionResources?: QuestionResources[]
+  QuestionResources?: QuestionResources[];
 
-  slug: string | null
+  slug: string | null;
 
-  slugGenerated: boolean
+  slugGenerated: boolean;
 
-  questionType: QuestionType
+  questionType: QuestionType;
 
-  nextQuestionSlug: string | null
+  nextQuestionSlug: string | null;
 
-  previousQuestionSlug: string | null
+  previousQuestionSlug: string | null;
 
   // i am so sorry typescript lords (Json from prisma isn't nice to work with)
-  testCases: any
+  testCases: any;
 
-  functionName: string | null
+  functionName: string | null;
 
   // i am so sorry typescript lords
-  expectedParams: any
+  expectedParams: any;
 
-  bookmarks?: UserBookmarks[]
+  bookmarks?: UserBookmarks[];
 
-  isPremiumQuestion: boolean
+  isPremiumQuestion: boolean;
 
-  userAnswers?: Answer[]
-}
+  userAnswers?: Answer[];
+};
 
 export type QuestionWithoutAnswers = Omit<
   Question,
   'answers' | 'testCases' | 'functionName' | 'expectedParams'
->
+>;
 
 export type QuestionWithTags = QuestionWithoutAnswers & {
   tags: Array<{
     tag: {
-      uid: string
-      name: string
-    }
-  }>
-}
+      uid: string;
+      name: string;
+    };
+  }>;
+};

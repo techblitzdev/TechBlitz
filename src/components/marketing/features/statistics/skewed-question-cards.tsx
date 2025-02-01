@@ -1,12 +1,12 @@
-import Chip from '@/components/ui/chip'
-import { QuestionDifficulty } from '@/types/Questions'
-import { getQuestionDifficultyColor } from '@/utils'
-import { capitalise } from '@/utils'
+import Chip from '@/components/ui/chip';
+import { QuestionDifficulty } from '@/types/Questions';
+import { getQuestionDifficultyColor } from '@/utils';
+import { capitalise } from '@/utils';
 
 interface QuestionCard {
-  id: number
-  question: string
-  difficulty: QuestionDifficulty
+  id: number;
+  question: string;
+  difficulty: QuestionDifficulty;
 }
 
 const questions: QuestionCard[] = [
@@ -25,7 +25,7 @@ const questions: QuestionCard[] = [
     question: 'What does Object.freeze() do?',
     difficulty: 'EASY',
   },
-]
+];
 
 export default function SkewedQuestionCards() {
   return (
@@ -58,5 +58,5 @@ export default function SkewedQuestionCards() {
         </div>
       ))}
     </div>
-  )
+  );
 }

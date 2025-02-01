@@ -1,12 +1,11 @@
-import React from 'react'
-import { Timeline } from '@/components/ui/timelime'
-import Link from 'next/link'
+import React from 'react';
+import { Timeline } from '@/components/ui/timelime';
+import Link from 'next/link';
 
 export default function ChangelogTimeline() {
   const data = [
     {
-      title:
-        'Question answer redesign, quick question access, upgraded filters & more  ',
+      title: 'Question answer redesign, quick question access, upgraded filters & more  ',
       content: (
         <div>
           <div className="grid grid-cols-2 gap-4">
@@ -34,42 +33,37 @@ export default function ChangelogTimeline() {
           <br />
           <div className="text-white font-normal mt-12">
             <p>
-              It's been a busy few days for us. We have redesigned the question
-              single page - allowing you to easily view if you have answered a
-              question in the past and making answering questions a much more
-              enjoyable experience.
+              It's been a busy few days for us. We have redesigned the question single page -
+              allowing you to easily view if you have answered a question in the past and making
+              answering questions a much more enjoyable experience.
             </p>
             <br />
             <p>
-              We heard your feedback and added a quick question access button to
-              your dashboard. Allowing you to access your next question in
-              instantly.
+              We heard your feedback and added a quick question access button to your dashboard.
+              Allowing you to access your next question in instantly.
             </p>
             <br />
             <p>
-              We also decided to redesign our filters to make it easier to find
-              the questions you want. Going from multiple dropdowns to a single
-              dropdown with a search bar.
+              We also decided to redesign our filters to make it easier to find the questions you
+              want. Going from multiple dropdowns to a single dropdown with a search bar.
             </p>
             <br />
             <p>
-              Like a particular question? We have added a bookmark button to
-              your question page. Allowing you to bookmark any question you want
-              to come back to later - easily access it from the filters.
+              Like a particular question? We have added a bookmark button to your question page.
+              Allowing you to bookmark any question you want to come back to later - easily access
+              it from the filters.
             </p>
             <br />
             <p>
-              Finally, as TechBlitz is growing, we have added pagination to the
-              leaderboard page. Allowing you to view your position in the
-              leaderboard, no matter what place you are!
+              Finally, as TechBlitz is growing, we have added pagination to the leaderboard page.
+              Allowing you to view your position in the leaderboard, no matter what place you are!
             </p>
             <br />
             <p>
               <Link href="/signup" className="text-accent">
                 Try out the new features
               </Link>{' '}
-              and let us know what you think! If you have any feedback, please
-              let us know at{' '}
+              and let us know what you think! If you have any feedback, please let us know at{' '}
               <Link href="mailto:team@techblitz.dev" className="text-accent">
                 team@techblitz.dev
               </Link>
@@ -108,15 +102,11 @@ export default function ChangelogTimeline() {
             />
           </div>
           <p className="text-white font-normal mt-8">
-            Multiple choice questions can be difficult for some people to fully
-            grasp concepts and understand the material. We have added
-            complete-by-code questions to our platform. You can now write code
-            to solve the problem directly in the browser. Receive helpful hints.
+            Multiple choice questions can be difficult for some people to fully grasp concepts and
+            understand the material. We have added complete-by-code questions to our platform. You
+            can now write code to solve the problem directly in the browser. Receive helpful hints.
             ai-assistance & more.{` `}
-            <Link
-              href="/question/sum-all-numbers-in-array"
-              className="text-accent"
-            >
+            <Link href="/question/sum-all-numbers-in-array" className="text-accent">
               Try it out now!
             </Link>{' '}
           </p>
@@ -140,10 +130,9 @@ export default function ChangelogTimeline() {
             />
           </div>
           <p className="text-white font-normal mt-8">
-            Want to stay on top of your daily challenges? We have added daily
-            challenge reminders to our platform. You can opt-in to receive a
-            notification every day to complete your daily challenge. Opt-in via
-            your settings page
+            Want to stay on top of your daily challenges? We have added daily challenge reminders to
+            our platform. You can opt-in to receive a notification every day to complete your daily
+            challenge. Opt-in via your settings page
           </p>
         </div>
       ),
@@ -165,9 +154,8 @@ export default function ChangelogTimeline() {
             />
           </div>
           <p className="text-white font-normal mt-8">
-            We have revamped our existing leaderboard to make it more engaging
-            and interactive. Now you can see your progress in real-time and
-            compete with your friends. <br />
+            We have revamped our existing leaderboard to make it more engaging and interactive. Now
+            you can see your progress in real-time and compete with your friends. <br />
             View the leaderboard{' '}
             <Link href="/leaderboard" className="text-accent">
               here
@@ -176,10 +164,10 @@ export default function ChangelogTimeline() {
         </div>
       ),
     },
-  ]
+  ];
   return (
     <div className="w-full">
       <Timeline data={data} />
     </div>
-  )
+  );
 }

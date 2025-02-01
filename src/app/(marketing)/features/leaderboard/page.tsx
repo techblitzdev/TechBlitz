@@ -1,24 +1,18 @@
-import { WebPageJsonLd } from '@/types/Seo'
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo'
-import { getBaseUrl } from '@/utils'
-import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block'
-import LeaderboardHero from '@/components/marketing/features/leaderboard/leaderboard-hero'
-import FAQsBlock from '@/components/marketing/global/blocks/faqs'
+import { WebPageJsonLd } from '@/types/Seo';
+import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { getBaseUrl } from '@/utils';
+import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
+import LeaderboardHero from '@/components/marketing/features/leaderboard/leaderboard-hero';
+import FAQsBlock from '@/components/marketing/global/blocks/faqs';
 import MarketingContentGrid, {
   MarketingContentGridProps,
-} from '@/components/marketing/global/blocks/content-grid'
-import {
-  BarChart,
-  Code,
-  MessageSquareCode,
-  Paintbrush,
-  Sun,
-} from 'lucide-react'
-import { MobileIcon } from '@radix-ui/react-icons'
-import Testimonials from '@/components/marketing/global/blocks/testimonials'
-import LeaderboardPodiumShowcase from '@/components/marketing/features/leaderboard/leaderboard-podium-showcase'
-import LeaderboardFeatures from '@/components/marketing/features/leaderboard/leaderboard-features'
-import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee'
+} from '@/components/marketing/global/blocks/content-grid';
+import { BarChart, Code, MessageSquareCode, Paintbrush, Sun } from 'lucide-react';
+import { MobileIcon } from '@radix-ui/react-icons';
+import Testimonials from '@/components/marketing/global/blocks/testimonials';
+import LeaderboardPodiumShowcase from '@/components/marketing/features/leaderboard/leaderboard-podium-showcase';
+import LeaderboardFeatures from '@/components/marketing/features/leaderboard/leaderboard-features';
+import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
 
 // metadata
 export async function generateMetadata() {
@@ -42,7 +36,7 @@ export async function generateMetadata() {
       textColor: '#fff',
     },
     canonicalUrl: '/features/leaderboard',
-  })
+  });
 }
 
 const faqs = [
@@ -81,15 +75,10 @@ const faqs = [
     answer: (
       <>
         Yes, TechBlitz is completely open source! Explore our source code on{' '}
-        <a
-          href="https://git.new/blitz"
-          target="_blank"
-          className="!text-accent underline"
-        >
+        <a href="https://git.new/blitz" target="_blank" className="!text-accent underline">
           GitHub
         </a>{' '}
-        and join the growing community of developers contributing to our
-        platform.
+        and join the growing community of developers contributing to our platform.
       </>
     ),
   },
@@ -105,7 +94,7 @@ const faqs = [
       </>
     ),
   },
-]
+];
 
 const featureShowcaseItems: MarketingContentGridProps[] = [
   {
@@ -125,9 +114,8 @@ const featureShowcaseItems: MarketingContentGridProps[] = [
     title: 'Personalized Learning Experience',
     description: (
       <>
-        Create custom learning paths tailored to your goals. Whether you're a
-        complete beginner or advancing your skills, find the perfect route for
-        your journey. Learn more{' '}
+        Create custom learning paths tailored to your goals. Whether you're a complete beginner or
+        advancing your skills, find the perfect route for your journey. Learn more{' '}
         <a href="/features/roadmap" className="!text-accent underline">
           here
         </a>
@@ -140,8 +128,8 @@ const featureShowcaseItems: MarketingContentGridProps[] = [
     title: 'AI-Powered Assistance',
     description: (
       <>
-        Get instant help with our AI tutor. Receive personalized questions, and
-        guidance to accelerate your programming journey.
+        Get instant help with our AI tutor. Receive personalized questions, and guidance to
+        accelerate your programming journey.
       </>
     ),
   },
@@ -150,8 +138,8 @@ const featureShowcaseItems: MarketingContentGridProps[] = [
     title: 'Track Your Progress',
     description: (
       <>
-        Keep track of your coding progress with our coding analytics. See your
-        progression, create custom coding challenges, and more. Learn more{' '}
+        Keep track of your coding progress with our coding analytics. See your progression, create
+        custom coding challenges, and more. Learn more{' '}
         <a href="/features/statistics" className="!text-accent underline">
           here
         </a>
@@ -164,20 +152,16 @@ const featureShowcaseItems: MarketingContentGridProps[] = [
     title: 'Daily Coding Challenges',
     description: (
       <>
-        Bite-sized coding challenges to keep you engaged and learning. Perfect
-        for busy developers who want to stay sharp and improve their skills. You
-        can learn more{' '}
-        <a
-          href="/features/daily-coding-challenges"
-          className="!text-accent underline"
-        >
+        Bite-sized coding challenges to keep you engaged and learning. Perfect for busy developers
+        who want to stay sharp and improve their skills. You can learn more{' '}
+        <a href="/features/daily-coding-challenges" className="!text-accent underline">
           here
         </a>
         .
       </>
     ),
   },
-]
+];
 
 export default function LeaderboardPage() {
   const jsonLd: WebPageJsonLd = {
@@ -211,7 +195,7 @@ export default function LeaderboardPage() {
         url: 'https://techblitz.dev/favicon.ico',
       },
     },
-  }
+  };
   return (
     <>
       <script
@@ -247,5 +231,5 @@ export default function LeaderboardPage() {
         />
       </div>
     </>
-  )
+  );
 }

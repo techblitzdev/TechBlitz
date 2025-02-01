@@ -1,41 +1,34 @@
-'use client'
-import { useState } from 'react'
-import { EllipsisVertical } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
-import { EditRoadmapModal } from './edit-roadmap-modal'
-import { updateRoadmapDetails } from '@/actions/roadmap/update-roadmap-details'
-import { deleteRoadmap } from '@/actions/roadmap/delete-roadmap'
-import { useRouter } from 'next/navigation'
-import { UserRoadmaps } from '@/types/Roadmap'
+'use client';
+import { useState } from 'react';
+import { EllipsisVertical } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { EditRoadmapModal } from './edit-roadmap-modal';
+import { updateRoadmapDetails } from '@/actions/roadmap/update-roadmap-details';
+import { deleteRoadmap } from '@/actions/roadmap/delete-roadmap';
+import { useRouter } from 'next/navigation';
+import { UserRoadmaps } from '@/types/Roadmap';
 
 export default function RoadmapDropdown(opts: { roadmap: UserRoadmaps }) {
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-  const router = useRouter()
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const router = useRouter();
 
   const handleEditRoadmap = () => {
-    setIsEditModalOpen(true)
-  }
+    setIsEditModalOpen(true);
+  };
 
-  const handleSaveRoadmap = async (data: {
-    title: string
-    description: string
-  }) => {
+  const handleSaveRoadmap = async (data: { title: string; description: string }) => {
     await updateRoadmapDetails(opts.roadmap.uid, {
       title: data.title,
       description: data.description,
-    })
-  }
+    });
+  };
 
   const handleRoadmapDelete = async () => {
-    await deleteRoadmap(opts.roadmap.uid)
+    await deleteRoadmap(opts.roadmap.uid);
     // redirect to the roadmaps page
-    router.push('/roadmaps')
-  }
+    router.push('/roadmaps');
+  };
 
   return (
     <>
@@ -74,11 +67,11 @@ export default function RoadmapDropdown(opts: { roadmap: UserRoadmaps }) {
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
         onSave={(data) => {
-          handleSaveRoadmap(data)
-          setIsEditModalOpen(false)
+          handleSaveRoadmap(data);
+          setIsEditModalOpen(false);
         }}
         roadmap={opts.roadmap}
       />
     </>
-  )
+  );
 }

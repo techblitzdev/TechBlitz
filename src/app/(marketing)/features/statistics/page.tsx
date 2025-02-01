@@ -1,12 +1,12 @@
-import StatsHero from '@/components/marketing/features/statistics/stats-hero'
-import StatsReportSection from '@/components/marketing/features/statistics/stats-report-section'
-import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block'
-import MarketingContentGrid from '@/components/marketing/global/blocks/content-grid'
-import { MobileIcon } from '@radix-ui/react-icons'
-import { BarChart, Code, FileBadge2, LaptopIcon } from 'lucide-react'
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo'
-import { WebPageJsonLd } from '@/types/Seo'
-import { getBaseUrl } from '@/utils'
+import StatsHero from '@/components/marketing/features/statistics/stats-hero';
+import StatsReportSection from '@/components/marketing/features/statistics/stats-report-section';
+import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
+import MarketingContentGrid from '@/components/marketing/global/blocks/content-grid';
+import { MobileIcon } from '@radix-ui/react-icons';
+import { BarChart, Code, FileBadge2, LaptopIcon } from 'lucide-react';
+import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { WebPageJsonLd } from '@/types/Seo';
+import { getBaseUrl } from '@/utils';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -28,7 +28,7 @@ export async function generateMetadata() {
       textColor: '#fff',
     },
     canonicalUrl: '/features/statistics',
-  })
+  });
 }
 
 const featureShowcaseItems = [
@@ -43,18 +43,8 @@ const featureShowcaseItems = [
     description:
       'Get deep insights into your coding performance with comprehensive analytics across different programming concepts and challenges.',
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 14 14"
-      >
-        <g
-          fill="none"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 14 14">
+        <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="7" cy="7" r="6.5" />
           <path d="M7 .5V7l4.6 4.6" />
         </g>
@@ -85,7 +75,7 @@ const featureShowcaseItems = [
       'Monitor your progress through coding challenges with a comprehensive dashboard that tracks your solutions and learning patterns.',
     icon: <MobileIcon />,
   },
-]
+];
 
 export default function StatisticsPage() {
   const jsonLd: WebPageJsonLd = {
@@ -117,7 +107,7 @@ export default function StatisticsPage() {
         url: 'https://techblitz.dev/favicon.ico',
       },
     },
-  }
+  };
 
   return (
     <>
@@ -141,5 +131,5 @@ export default function StatisticsPage() {
         />
       </div>
     </>
-  )
+  );
 }

@@ -1,30 +1,27 @@
-'use server'
+'use server';
 // lib
-import { openai } from '@/lib/open-ai'
-import { prisma } from '@/lib/prisma'
-import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help'
+import { openai } from '@/lib/open-ai';
+import { prisma } from '@/lib/prisma';
+import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
 
 // helpers
-import { getPrompt } from '../utils/get-prompt'
-import { getUser } from '@/actions/user/authed/get-user'
-import { zodResponseFormat } from 'openai/helpers/zod.mjs'
+import { getPrompt } from '../utils/get-prompt';
+import { getUser } from '@/actions/user/authed/get-user';
+import { zodResponseFormat } from 'openai/helpers/zod.mjs';
 
 // types
-import type { UserRecord } from '@/types/User'
-import type {
-  DefaultRoadmapQuestions,
-  RoadmapUserQuestions,
-} from '@/types/Roadmap'
-import type { Question } from '@/types/Questions'
+import type { UserRecord } from '@/types/User';
+import type { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
+import type { Question } from '@/types/Questions';
 
 const answerHelp = async (
   userCorrect: boolean,
   user: UserRecord,
-  question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions,
+  question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions
 ) => {
   const answerHelpPrompt = await getPrompt({
     name: 'question-answer-help',
-  })
+  });
 
   const answerHelp = await openai.chat.completions.create({
     model: 'gpt-4o-mini-2024-07-18',
@@ -59,14 +56,14 @@ const answerHelp = async (
       },
     ],
     response_format: zodResponseFormat(answerHelpSchema, 'event'),
-  })
+  });
 
   if (!answerHelp.choices[0]?.message?.content) {
-    throw new Error('AI response is missing content')
+    throw new Error('AI response is missing content');
   }
 
-  return JSON.parse(answerHelp.choices[0].message.content)
-}
+  return JSON.parse(answerHelp.choices[0].message.content);
+};
 
 /**
  * Method to generate answer help for both regular and roadmap questions.
@@ -80,34 +77,26 @@ const answerHelp = async (
 export const generateAnswerHelp = async (
   questionUid: string,
   userCorrect: boolean,
-  questionType: 'regular' | 'roadmap' | 'onboarding',
+  questionType: 'regular' | 'roadmap' | 'onboarding'
 ) => {
-  const user = await getUser()
+  const user = await getUser();
 
   if (!user) {
     return {
       content: null,
       tokensUsed: 0,
-    }
+    };
   }
 
   // For regular questions, check if the user has enough tokens
-  if (
-    questionType === 'regular' &&
-    user.aiQuestionHelpTokens &&
-    user.aiQuestionHelpTokens <= 0
-  ) {
+  if (questionType === 'regular' && user.aiQuestionHelpTokens && user.aiQuestionHelpTokens <= 0) {
     return {
       content: null,
       tokensUsed: 0,
-    }
+    };
   }
 
-  let question:
-    | Question
-    | RoadmapUserQuestions
-    | DefaultRoadmapQuestions
-    | null = null
+  let question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions | null = null;
 
   if (questionType === 'roadmap') {
     // Get the roadmap question
@@ -123,7 +112,7 @@ export const generateAnswerHelp = async (
       include: {
         answers: true,
       },
-    })) as RoadmapUserQuestions | null
+    })) as RoadmapUserQuestions | null;
   } else if (questionType === 'regular') {
     // Get the regular question
     question = await prisma.questions.findUnique({
@@ -131,7 +120,7 @@ export const generateAnswerHelp = async (
       include: {
         answers: true,
       },
-    })
+    });
   } else if (questionType === 'onboarding') {
     // Get the onboarding question
     question = await prisma.defaultRoadmapQuestions.findUnique({
@@ -139,40 +128,36 @@ export const generateAnswerHelp = async (
       include: {
         answers: true,
       },
-    })
+    });
   }
 
   if (!question) {
-    console.error('Question not found')
+    console.error('Question not found');
     return {
       content: null,
       tokensUsed: 0,
-    }
+    };
   }
 
   // Generate the answer help
-  const formattedData = await answerHelp(userCorrect, user, question)
+  const formattedData = await answerHelp(userCorrect, user, question);
 
   // Handle token decrement for regular questions
-  if (
-    questionType === 'regular' &&
-    user.userLevel !== 'PREMIUM' &&
-    user.userLevel !== 'ADMIN'
-  ) {
+  if (questionType === 'regular' && user.userLevel !== 'PREMIUM' && user.userLevel !== 'ADMIN') {
     const updatedUser = await prisma.users.update({
       where: { uid: user.uid },
       data: { aiQuestionHelpTokens: { decrement: 1 } },
-    })
+    });
 
     return {
       content: formattedData,
       tokensUsed: updatedUser.aiQuestionHelpTokens,
-    }
+    };
   }
 
   // For roadmap questions or premium users, return infinite tokens
   return {
     content: formattedData,
     tokensUsed: Number.POSITIVE_INFINITY,
-  }
-}
+  };
+};

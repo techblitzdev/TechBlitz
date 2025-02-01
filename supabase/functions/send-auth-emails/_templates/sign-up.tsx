@@ -8,19 +8,16 @@ import {
   Preview,
   Section,
   Text,
-} from 'npm:@react-email/components'
-import * as React from 'npm:react'
-import { GitHubLogoIcon, TwitterLogoIcon } from 'npm:@radix-ui/react-icons'
+} from 'npm:@react-email/components';
+import * as React from 'npm:react';
+import { GitHubLogoIcon, TwitterLogoIcon } from 'npm:@radix-ui/react-icons';
 
 interface TechBlitzSignUpEmailProps {
-  username: string
-  confirmationLink: string
+  username: string;
+  confirmationLink: string;
 }
 
-export const TechBlitzSignUpEmail = ({
-  username,
-  confirmationLink,
-}: TechBlitzSignUpEmailProps) => {
+export const TechBlitzSignUpEmail = ({ username, confirmationLink }: TechBlitzSignUpEmailProps) => {
   return (
     <Html>
       <Head />
@@ -59,8 +56,8 @@ export const TechBlitzSignUpEmail = ({
           </Section>
           <Heading style={h1}>Welcome to TechBlitz!</Heading>
           <Text style={text}>
-            We're so glad to have you on board, and ready to help you in your
-            software journey! To get started, please confirm your email address.
+            We're so glad to have you on board, and ready to help you in your software journey! To
+            get started, please confirm your email address.
           </Text>
           <Section style={buttonContainer}>
             <Link href={confirmationLink} target="_blank" style={button}>
@@ -68,15 +65,10 @@ export const TechBlitzSignUpEmail = ({
             </Link>
           </Section>
           <Text style={text}>
-            If you didn't create an account with TechBlitz, you can safely
-            ignore this email.
+            If you didn't create an account with TechBlitz, you can safely ignore this email.
           </Text>
           <Section style={socialButtonsContainer}>
-            <Link
-              href="https://x.com/techblitz_dev"
-              target="_blank"
-              style={socialButton}
-            >
+            <Link href="https://x.com/techblitz_dev" target="_blank" style={socialButton}>
               <TwitterLogoIcon />
             </Link>
             <Link
@@ -88,36 +80,34 @@ export const TechBlitzSignUpEmail = ({
             </Link>
           </Section>
           <Section style={footer}>
-            <Text style={footerText}>
-              © 2024 TechBlitz. All rights reserved.
-            </Text>
+            <Text style={footerText}>© 2024 TechBlitz. All rights reserved.</Text>
           </Section>
         </Container>
       </Body>
     </Html>
-  )
-}
+  );
+};
 
 TechBlitzSignUpEmail.PreviewProps = {
   username: 'Alice',
   confirmationLink: 'https://techblitz.com/confirm?token=123456',
-} as TechBlitzSignUpEmailProps
+} as TechBlitzSignUpEmailProps;
 
-export default TechBlitzSignUpEmail
+export default TechBlitzSignUpEmail;
 
-const accent = '#5b61d6'
+const accent = '#5b61d6';
 
 const main = {
   backgroundColor: '#000000',
   color: '#FFFFFF',
   fontFamily: "'Onest', Verdana, sans-serif",
-}
+};
 
 const container = {
   margin: '0 auto',
   padding: '20px 0 48px',
   textAlign: 'center' as const,
-}
+};
 
 const h1 = {
   color: '#FFFFFF',
@@ -126,7 +116,7 @@ const h1 = {
   lineHeight: '24px',
   margin: '40px 0',
   textAlign: 'center' as const,
-}
+};
 
 const text = {
   color: '#FFFFFF',
@@ -134,12 +124,12 @@ const text = {
   lineHeight: '24px',
   textAlign: 'center' as const,
   fontFamily: "'Onest', Verdana, sans-serif",
-}
+};
 
 const buttonContainer = {
   textAlign: 'center' as const,
   margin: '32px 0',
-}
+};
 
 const button = {
   backgroundColor: accent,
@@ -151,7 +141,7 @@ const button = {
   textAlign: 'center' as const,
   padding: '10px 28px',
   fontFamily: "'Onest', Verdana, sans-serif",
-}
+};
 
 const socialButtonsContainer = {
   display: 'flex',
@@ -159,7 +149,7 @@ const socialButtonsContainer = {
   alignItems: 'center',
   gap: '16px',
   margin: '32px 0',
-}
+};
 
 const socialButton = {
   backgroundColor: '',
@@ -171,24 +161,24 @@ const socialButton = {
   textAlign: 'center' as const,
   padding: '8px 16px',
   fontFamily: "'Onest', Verdana, sans-serif",
-}
+};
 
 const footer = {
   marginTop: '32px',
   textAlign: 'center' as const,
-}
+};
 
 const footerText = {
   color: '#CCCCCC',
   fontSize: '12px',
   lineHeight: '16px',
   fontFamily: "'Onest', Verdana, sans-serif",
-}
+};
 
 const logoContainer = {
   marginTop: '32px',
-}
+};
 
 const logo = {
   margin: '0 auto',
-}
+};

@@ -1,14 +1,11 @@
-import { Button } from '@/components/ui/button'
-import { getTodaysQuestion } from '@/utils/data/questions/get-today'
-import Link from 'next/link'
-import { useUserServer } from '@/hooks/use-user-server'
-import ErrorPageCountUp from '@/components/shared/404'
+import { Button } from '@/components/ui/button';
+import { getTodaysQuestion } from '@/utils/data/questions/get-today';
+import Link from 'next/link';
+import { useUserServer } from '@/hooks/use-user-server';
+import ErrorPageCountUp from '@/components/shared/404';
 
 export default async function NotFound() {
-  const [user, todaysQuestion] = await Promise.all([
-    useUserServer(),
-    getTodaysQuestion(),
-  ])
+  const [user, todaysQuestion] = await Promise.all([useUserServer(), getTodaysQuestion()]);
 
   return (
     <div className="w-full flex items-center justify-center min-h-screen relative">
@@ -16,8 +13,7 @@ export default async function NotFound() {
         <ErrorPageCountUp />
         <div className="flex flex-col max-w-96 items-center">
           <p className="text-sm w-[90%] font-onest">
-            Sorry, it look&apos;s like the page you have requested could not be
-            found.
+            Sorry, it look&apos;s like the page you have requested could not be found.
           </p>
           <div className="mt-4 flex flex-col md:flex-row gap-4 self-center justify-center w-[75%] md:w-auto">
             {user ? (
@@ -37,15 +33,12 @@ export default async function NotFound() {
                 Login
               </Link>
             )}
-            <Button
-              variant="default"
-              href={`/question/${todaysQuestion?.slug}`}
-            >
+            <Button variant="default" href={`/question/${todaysQuestion?.slug}`}>
               Go to daily question
             </Button>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

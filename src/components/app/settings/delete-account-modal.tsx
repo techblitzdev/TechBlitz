@@ -1,25 +1,22 @@
-'use client'
+'use client';
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { useMutation } from '@tanstack/react-query'
-import { useUser } from '@/hooks/use-user'
-import { deleteUser } from '@/actions/user/account/delete-user'
-import { useRouter } from 'next/navigation'
-import { toast } from 'sonner'
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { useMutation } from '@tanstack/react-query';
+import { useUser } from '@/hooks/use-user';
+import { deleteUser } from '@/actions/user/account/delete-user';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
-export default function DeleteAccountModal(opts: {
-  isOpen: boolean
-  onClose: () => void
-}) {
-  const { isOpen, onClose } = opts
-  const { user } = useUser()
-  const router = useRouter()
+export default function DeleteAccountModal(opts: { isOpen: boolean; onClose: () => void }) {
+  const { isOpen, onClose } = opts;
+  const { user } = useUser();
+  const router = useRouter();
 
   const { mutateAsync: server_deleteUser, isPending } = useMutation({
     mutationKey: ['delete-user'],
@@ -29,12 +26,12 @@ export default function DeleteAccountModal(opts: {
       }),
     onSuccess: () => {
       // redirect the user to the signup page
-      toast.success('Account deleted successfully')
-      router.push('/signup')
+      toast.success('Account deleted successfully');
+      router.push('/signup');
     },
-  })
+  });
 
-  const handleDelete = async () => await server_deleteUser()
+  const handleDelete = async () => await server_deleteUser();
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -44,10 +41,7 @@ export default function DeleteAccountModal(opts: {
           This action is irreversible and will delete all your data.
         </DialogDescription>
         <DialogFooter>
-          <Button
-            variant="destructive"
-            onClick={async () => await handleDelete()}
-          >
+          <Button variant="destructive" onClick={async () => await handleDelete()}>
             {isPending ? 'Deleting...' : 'Delete Account'}
           </Button>
           <Button variant="secondary" onClick={onClose}>
@@ -56,5 +50,5 @@ export default function DeleteAccountModal(opts: {
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

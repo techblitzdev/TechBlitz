@@ -1,26 +1,26 @@
-import { prisma } from '@/lib/prisma'
-import { unstable_cache as NextCache } from 'next/cache'
+import { prisma } from '@/lib/prisma';
+import { unstable_cache as NextCache } from 'next/cache';
 
 type StreakWithUser = {
-  userUid: string
-  streak: number
-  rank: number
+  userUid: string;
+  streak: number;
+  rank: number;
   user: {
-    uid: string
-    email: string
-    username: string | null
-    firstName: string | null
-    lastName: string | null
-    userLevel: 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE' | 'PREMIUM'
-    totalDailyStreak: number | null
-    correctDailyStreak: number | null
-    userProfilePicture: string | null
-    showTimeTaken: boolean
-    createdAt: Date
-    updatedAt: Date
-    lastLogin: Date | null
-  }
-}
+    uid: string;
+    email: string;
+    username: string | null;
+    firstName: string | null;
+    lastName: string | null;
+    userLevel: 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE' | 'PREMIUM';
+    totalDailyStreak: number | null;
+    correctDailyStreak: number | null;
+    userProfilePicture: string | null;
+    showTimeTaken: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+    lastLogin: Date | null;
+  };
+};
 
 export const getLongestStreaks = NextCache(
   async () => {
@@ -63,12 +63,12 @@ export const getLongestStreaks = NextCache(
           'showTimeTaken', "showTimeTaken"
         ) as user
       FROM RankedStreaks
-    `
+    `;
 
-    return result
+    return result;
   },
   ['longest-streaks-with-users'],
   {
     revalidate: 60, // Cache for 1 minute
-  },
-)
+  }
+);

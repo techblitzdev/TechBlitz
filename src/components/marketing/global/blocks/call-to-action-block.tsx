@@ -1,21 +1,21 @@
-import { Button } from '@/components/ui/button'
-import { Grid } from '@/components/ui/grid'
-import { ChevronRight } from 'lucide-react'
-import SignupForm from '@/components/marketing/global/waitlist-form'
+import { Button } from '@/components/ui/button';
+import { Grid } from '@/components/ui/grid';
+import { ChevronRight } from 'lucide-react';
+import SignupForm from '@/components/marketing/global/waitlist-form';
 
 export default function CallToActionBlock(opts: {
-  title: string
-  description?: string
+  title: string;
+  description?: string;
   leftCta?: {
-    title: string
-    href: string
-  }
+    title: string;
+    href: string;
+  };
   rightCta?: {
-    title: string
-    href: string
-  }
+    title: string;
+    href: string;
+  };
 }) {
-  const { title, description, leftCta, rightCta } = opts
+  const { title, description, leftCta, rightCta } = opts;
 
   return (
     <section className="pt-10 pb-20 px-2 lg:px-0 space-y-7 text-center relative">
@@ -64,5 +64,5 @@ export default function CallToActionBlock(opts: {
       <Grid size={30} position="bottom-right" />
       <div className="absolute inset-x-0 w-full bottom-0 h-20 bg-gradient-to-t from-[#000000] to-transparent pointer-events-none"></div>
     </section>
-  )
+  );
 }

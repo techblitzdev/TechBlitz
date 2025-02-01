@@ -1,15 +1,15 @@
-import { Button } from '@/components/ui/button'
-import { ChevronRight, FileQuestion } from 'lucide-react'
-import { Suspense } from 'react'
-import LeaderboardMostAnsweredTable from '@/components/app/leaderboard/leaderboard-most-answered-table'
-import { getMostQuestionsAnswered } from '@/utils/data/leaderboard/get-most-questions-answered'
-import { useUserServer } from '@/hooks/use-user-server'
-import { UserRecord } from '@/types/User'
-import { Table, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Button } from '@/components/ui/button';
+import { ChevronRight, FileQuestion } from 'lucide-react';
+import { Suspense } from 'react';
+import LeaderboardMostAnsweredTable from '@/components/app/leaderboard/leaderboard-most-answered-table';
+import { getMostQuestionsAnswered } from '@/utils/data/leaderboard/get-most-questions-answered';
+import { useUserServer } from '@/hooks/use-user-server';
+import { UserRecord } from '@/types/User';
+import { Table, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 export default async function LeaderboardFeaturesLeft() {
-  const topUsersByQuestionCount = await getMostQuestionsAnswered(5)
-  const userPromise = useUserServer()
+  const topUsersByQuestionCount = await getMostQuestionsAnswered(5);
+  const userPromise = useUserServer();
 
   return (
     <div className="col-span-full md:col-span-6 pb-12 pt-4 p-0 md:p-12 flex flex-col gap-10 relative">
@@ -21,9 +21,7 @@ export default async function LeaderboardFeaturesLeft() {
                 <TableHead className="!border-t-0 w-12 md:w-[100px] text-white bg-transparent">
                   Rank
                 </TableHead>
-                <TableHead className="!border-t-0 text-white bg-transparent">
-                  User
-                </TableHead>
+                <TableHead className="!border-t-0 text-white bg-transparent">User</TableHead>
                 <TableHead className="!border-t-0 flex justify-center items-center xs:justify-end gap-2 md:text-right text-white bg-transparent">
                   <span className="hidden sm:block">Questions Solved</span>
                   <span className="block sm:hidden">
@@ -35,7 +33,7 @@ export default async function LeaderboardFeaturesLeft() {
             <LeaderboardMostAnsweredTable
               topUsersByQuestionCount={
                 topUsersByQuestionCount.users as unknown as (UserRecord & {
-                  _count: { answers: number }
+                  _count: { answers: number };
                 })[]
               }
               userPromise={userPromise}
@@ -45,18 +43,12 @@ export default async function LeaderboardFeaturesLeft() {
         <div className="z-10 absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
       </div>
       <div className="flex flex-col gap-2.5">
-        <h3 className="text-3xl text-gradient from-white to-white/75">
-          Battle with your friends
-        </h3>
+        <h3 className="text-3xl text-gradient from-white to-white/75">Battle with your friends</h3>
         <p className="text-gray-400 font-onest">
-          Challenge your friends and see who is the best. You can even create
-          your own challenges and see who is the best.
+          Challenge your friends and see who is the best. You can even create your own challenges
+          and see who is the best.
         </p>
-        <Button
-          variant="secondary"
-          href="/questions"
-          className="w-fit flex items-center gap-1"
-        >
+        <Button variant="secondary" href="/questions" className="w-fit flex items-center gap-1">
           Try it out
           <ChevronRight className="size-3 ml-1" />
         </Button>
@@ -78,5 +70,5 @@ export default async function LeaderboardFeaturesLeft() {
         }}
       ></div>
     </div>
-  )
+  );
 }

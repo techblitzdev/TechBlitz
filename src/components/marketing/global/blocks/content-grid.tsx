@@ -1,15 +1,15 @@
 export interface MarketingContentGridProps {
-  title: string
-  description: string | React.ReactNode
-  icon: React.ReactNode
+  title: string;
+  description: string | React.ReactNode;
+  icon: React.ReactNode;
 }
 
 type MarketingContentGridComponentProps = {
-  title: string
-  subheading?: string
-  items: MarketingContentGridProps[]
-  center?: boolean
-}
+  title: string;
+  subheading?: string;
+  items: MarketingContentGridProps[];
+  center?: boolean;
+};
 
 /**
  * A 3 x 2 grid to display features & selling points of
@@ -44,12 +44,10 @@ export default function MarketingContentGrid({
               <h3 className="text-lg font-semibold">{item?.title}</h3>
             </div>
 
-            <p className="text-sm text-gray-400 font-onest">
-              {item?.description}
-            </p>
+            <p className="text-sm text-gray-400 font-onest">{item?.description}</p>
           </div>
         ))}
       </div>
     </section>
-  )
+  );
 }

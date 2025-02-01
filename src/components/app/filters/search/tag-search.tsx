@@ -1,14 +1,14 @@
-'use client'
+'use client';
 
-import { Input } from '@/components/ui/input'
-import { useFilterContext } from '../filter-context'
-import { useTransition } from 'react'
-import LoadingSpinner from '@/components/ui/loading'
+import { Input } from '@/components/ui/input';
+import { useFilterContext } from '../filter-context';
+import { useTransition } from 'react';
+import LoadingSpinner from '@/components/ui/loading';
 
 export default function FilterSearchTag() {
-  const { searchQuery, setSearchQuery } = useFilterContext()
+  const { searchQuery, setSearchQuery } = useFilterContext();
 
-  const [isPending, startTransition] = useTransition()
+  const [isPending, startTransition] = useTransition();
 
   return (
     <div className="relative">
@@ -40,5 +40,5 @@ export default function FilterSearchTag() {
         </svg>
       )}
     </div>
-  )
+  );
 }

@@ -7,18 +7,15 @@ import {
   Preview,
   Section,
   Text,
-} from 'npm:@react-email/components'
-import * as React from 'npm:react'
+} from 'npm:@react-email/components';
+import * as React from 'npm:react';
 
 interface EmailUpdateProps {
-  username: string
-  redirect_to: string
+  username: string;
+  redirect_to: string;
 }
 
-export const EmailChangeEmail = ({
-  username,
-  redirect_to,
-}: EmailUpdateProps) => {
+export const EmailChangeEmail = ({ username, redirect_to }: EmailUpdateProps) => {
   return (
     <Html>
       <Head />
@@ -28,9 +25,9 @@ export const EmailChangeEmail = ({
           <Text style={h1}>Email Address Updated</Text>
           <Text style={text}>Hello {username},</Text>
           <Text style={text}>
-            You have requested to update your email address, please click the
-            button below to confirm the change. If you did not make this
-            request, please contact our support team immediately.
+            You have requested to update your email address, please click the button below to
+            confirm the change. If you did not make this request, please contact our support team
+            immediately.
           </Text>
 
           <Section style={buttonContainer}>
@@ -40,9 +37,7 @@ export const EmailChangeEmail = ({
           </Section>
 
           <Section style={footer}>
-            <Text style={footerText}>
-              © 2025 TechBlitz. All rights reserved.
-            </Text>
+            <Text style={footerText}>© 2025 TechBlitz. All rights reserved.</Text>
             <Text style={footerText}>
               If you have any questions, please contact our support team at{' '}
               <Link href={`mailto:team@techblitz.dev`} style={footerLink}>
@@ -54,27 +49,27 @@ export const EmailChangeEmail = ({
         </Container>
       </Body>
     </Html>
-  )
-}
+  );
+};
 
 EmailChangeEmail.PreviewProps = {
   username: 'John Doe',
   newEmail: 'john.doe@example.com',
   supportEmail: 'team@techblitz.com',
   redirect_to: 'https://techblitz.dev/api/user/update',
-} as EmailUpdateProps
+} as EmailUpdateProps;
 
 const main = {
   backgroundColor: '#000000',
   color: '#FFFFFF',
   fontFamily: "'Onest', Verdana, sans-serif",
-}
+};
 
 const container = {
   margin: '0 auto',
   padding: '20px 0 48px',
   textAlign: 'center' as const,
-}
+};
 
 const h1 = {
   color: '#FFFFFF',
@@ -83,7 +78,7 @@ const h1 = {
   lineHeight: '24px',
   margin: '40px 0',
   textAlign: 'center' as const,
-}
+};
 
 const text = {
   color: '#FFFFFF',
@@ -91,33 +86,33 @@ const text = {
   lineHeight: '24px',
   textAlign: 'center' as const,
   fontFamily: "'Onest', Verdana, sans-serif",
-}
+};
 
 const footer = {
   marginTop: '32px',
   textAlign: 'center' as const,
-}
+};
 
 const footerText = {
   color: '#CCCCCC',
   fontSize: '12px',
   lineHeight: '16px',
   fontFamily: "'Onest', Verdana, sans-serif",
-}
+};
 
 const footerLink = {
   color: '#CCCCCC',
   fontSize: '12px',
   lineHeight: '16px',
   textDecoration: 'underline',
-}
+};
 
 const buttonContainer = {
   textAlign: 'center' as const,
   margin: '32px 0',
-}
+};
 
-const accent = '#5b61d6'
+const accent = '#5b61d6';
 
 const button = {
   backgroundColor: accent,
@@ -129,4 +124,4 @@ const button = {
   textAlign: 'center' as const,
   padding: '10px 28px',
   fontFamily: "'Onest', Verdana, sans-serif",
-}
+};

@@ -1,24 +1,24 @@
-'use server'
-import { getUser } from '@/actions/user/authed/get-user'
-import { getTagsReport } from '@/actions/ai/reports/utils/get-tags-report'
-import { generateStatisticsCustomQuestions } from '@/actions/ai/reports/utils/generate-custom-questions'
-import { prisma } from '@/lib/prisma'
-import { nanoid } from 'nanoid'
-import { generateReportHtml } from '@/actions/ai/reports/utils/generate-report-html'
-import { revalidateTag } from 'next/cache'
-import { getTotalTimeTaken } from '@/utils/data/statistics/get-stats-chart-data'
+'use server';
+import { getUser } from '@/actions/user/authed/get-user';
+import { getTagsReport } from '@/actions/ai/reports/utils/get-tags-report';
+import { generateStatisticsCustomQuestions } from '@/actions/ai/reports/utils/generate-custom-questions';
+import { prisma } from '@/lib/prisma';
+import { nanoid } from 'nanoid';
+import { generateReportHtml } from '@/actions/ai/reports/utils/generate-report-html';
+import { revalidateTag } from 'next/cache';
+import { getTotalTimeTaken } from '@/utils/data/statistics/get-stats-chart-data';
 
 type QuestionData = {
-  questions: string
+  questions: string;
   answers: Array<{
-    answer: string
-    correct: boolean
-  }>
-  codeSnippet?: string
-  hint?: string
-  difficulty: string
-  tags: string[]
-}
+    answer: string;
+    correct: boolean;
+  }>;
+  codeSnippet?: string;
+  hint?: string;
+  difficulty: string;
+  tags: string[];
+};
 
 /**
  * Analyzes a user's question responses and generates a statistics report with custom questions.
@@ -26,15 +26,15 @@ type QuestionData = {
  */
 export const generateStatisticsReport = async () => {
   // Validate user and permissions on the server to prevent cheating
-  const user = await getUser()
-  if (!user) throw new Error('User not found')
+  const user = await getUser();
+  if (!user) throw new Error('User not found');
 
   if (!['PREMIUM', 'ADMIN'].includes(user.userLevel)) {
-    throw new Error('Premium access required')
+    throw new Error('Premium access required');
   }
 
   // Get user performance data
-  const { correctTags, incorrectTags } = await getTagsReport({ user })
+  const { correctTags, incorrectTags } = await getTagsReport({ user });
 
   // the report html and question generations do not rely on each other
   // so we can run them in parallel
@@ -48,25 +48,23 @@ export const generateStatisticsReport = async () => {
       incorrectTags,
       user,
     }),
-  ])
+  ]);
 
   if (!customQuestionsResponse) {
-    throw new Error('Failed to generate custom questions')
+    throw new Error('Failed to generate custom questions');
   }
 
   // Process questions data
-  const { questionData } = JSON.parse(customQuestionsResponse)
+  const { questionData } = JSON.parse(customQuestionsResponse);
   const questions = questionData.map((question: QuestionData) => {
     const answers = question.answers.map((answer) => ({
       ...answer,
       uid: nanoid(),
-    }))
+    }));
 
-    const correctAnswer = answers.find((answer) => answer.correct)
+    const correctAnswer = answers.find((answer) => answer.correct);
     if (!correctAnswer) {
-      throw new Error(
-        `Missing correct answer for question: ${question.questions}`,
-      )
+      throw new Error(`Missing correct answer for question: ${question.questions}`);
     }
 
     return {
@@ -86,11 +84,11 @@ export const generateStatisticsReport = async () => {
           isCodeSnippet: false,
         })),
       },
-    }
-  })
+    };
+  });
 
   // get the total time taken
-  const totalTimeTaken = await getTotalTimeTaken(user.uid)
+  const totalTimeTaken = await getTotalTimeTaken(user.uid);
 
   // Create report and questions in transaction
   return await prisma.$transaction(async (prisma) => {
@@ -102,7 +100,7 @@ export const generateStatisticsReport = async () => {
         htmlReport: reportHtmlResponse,
         totalTimeTaken: totalTimeTaken || 0,
       },
-    })
+    });
 
     // TODO: Fix the any type
     await Promise.all(
@@ -114,12 +112,12 @@ export const generateStatisticsReport = async () => {
               connect: { uid: report.uid },
             },
           },
-        }),
-      ),
-    )
+        })
+      )
+    );
 
-    revalidateTag('reports')
+    revalidateTag('reports');
 
-    return report
-  })
-}
+    return report;
+  });
+};

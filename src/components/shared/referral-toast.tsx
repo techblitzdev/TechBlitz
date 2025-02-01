@@ -1,43 +1,43 @@
-'use client'
+'use client';
 
-import { useEffect, useState } from 'react'
-import { useLocalStorage } from '@/hooks/use-local-storage'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { X } from 'lucide-react'
-import { motion } from 'framer-motion'
-import { sendInvite } from '@/actions/misc/send-invite'
+import { useEffect, useState } from 'react';
+import { useLocalStorage } from '@/hooks/use-local-storage';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { X } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { sendInvite } from '@/actions/misc/send-invite';
 
 export default function ReferralToast() {
   const { value: hasBeenShown, setValue: setHasBeenShown } = useLocalStorage({
     key: 'referral-toast-shown',
     defaultValue: false,
-  })
+  });
 
-  const [email, setEmail] = useState('')
-  const [isVisible, setIsVisible] = useState(false)
+  const [email, setEmail] = useState('');
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     if (!hasBeenShown) {
-      setIsVisible(true)
+      setIsVisible(true);
     }
-  }, [hasBeenShown])
+  }, [hasBeenShown]);
 
   if (hasBeenShown || !isVisible) {
-    return null
+    return null;
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    await sendInvite(email)
-    setHasBeenShown(true)
-    setIsVisible(false)
-  }
+    e.preventDefault();
+    await sendInvite(email);
+    setHasBeenShown(true);
+    setIsVisible(false);
+  };
 
   const handleClose = () => {
-    setHasBeenShown(true)
-    setIsVisible(false)
-  }
+    setHasBeenShown(true);
+    setIsVisible(false);
+  };
 
   return (
     <motion.div
@@ -77,5 +77,5 @@ export default function ReferralToast() {
         </form>
       </div>
     </motion.div>
-  )
+  );
 }

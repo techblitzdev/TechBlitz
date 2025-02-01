@@ -1,11 +1,11 @@
-import { Button } from '@/components/ui/button'
-import { ArrowRight } from 'lucide-react'
-import GithubLogo from '@/components/ui/icons/github'
-import { useUserServer } from '@/hooks/use-user-server'
+import { Button } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
+import GithubLogo from '@/components/ui/icons/github';
+import { useUserServer } from '@/hooks/use-user-server';
 
 export default async function NavigationButtons() {
-  const user = await useUserServer()
-  const isLoggedIn = Boolean(user?.email)
+  const user = await useUserServer();
+  const isLoggedIn = Boolean(user?.email);
 
   if (isLoggedIn) {
     return (
@@ -18,7 +18,7 @@ export default async function NavigationButtons() {
           Dashboard
         </a>
       </div>
-    )
+    );
   }
 
   return (
@@ -36,11 +36,11 @@ export default async function NavigationButtons() {
         <ArrowRight className="ml-2 size-4" />
       </Button>
     </div>
-  )
+  );
 }
 
 export function GithubStars(opts: { hideText?: boolean }) {
-  const { hideText = false } = opts
+  const { hideText = false } = opts;
 
   return (
     <Button
@@ -53,10 +53,8 @@ export function GithubStars(opts: { hideText?: boolean }) {
         <div className="size-4">
           <GithubLogo />
         </div>
-        {!hideText && (
-          <span className="font-medium hidden xl:block">Star us</span>
-        )}
+        {!hideText && <span className="font-medium hidden xl:block">Star us</span>}
       </div>
     </Button>
-  )
+  );
 }

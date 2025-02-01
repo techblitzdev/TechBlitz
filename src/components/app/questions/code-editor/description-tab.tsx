@@ -1,26 +1,24 @@
-import { Question } from '@/types/Questions'
-import { Highlight, themes } from 'prism-react-renderer'
+import { Question } from '@/types/Questions';
+import { Highlight, themes } from 'prism-react-renderer';
 
 // markdown to render the question description
-import Markdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context'
-import { use } from 'react'
-import HasAnswered from '@/components/app/questions/single/has-answered'
-import BookmarkQuestion from '@/components/app/questions/single/bookmark'
-import ShareQuestion from '@/components/app/shared/share-question'
-import Chip from '@/components/ui/chip'
-import { capitalise, getQuestionDifficultyColor } from '@/utils'
-import QuestionHintTrigger from '@/components/app/questions/question-hint-trigger'
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
+import { use } from 'react';
+import HasAnswered from '@/components/app/questions/single/has-answered';
+import BookmarkQuestion from '@/components/app/questions/single/bookmark';
+import ShareQuestion from '@/components/app/shared/share-question';
+import Chip from '@/components/ui/chip';
+import { capitalise, getQuestionDifficultyColor } from '@/utils';
+import QuestionHintTrigger from '@/components/app/questions/question-hint-trigger';
 
-export default function CodingChallengeDescription(opts: {
-  question: Question
-}) {
-  const { question } = opts
+export default function CodingChallengeDescription(opts: { question: Question }) {
+  const { question } = opts;
 
-  const { userAnswered, showHint, setShowHint } = useQuestionSingle()
+  const { userAnswered, showHint, setShowHint } = useQuestionSingle();
 
-  const hasUserAnswered = use(userAnswered)
+  const hasUserAnswered = use(userAnswered);
 
   return (
     <div className="p-4 pt-0 flex flex-col gap-6">
@@ -36,19 +34,14 @@ export default function CodingChallengeDescription(opts: {
             <HasAnswered userAnswered={hasUserAnswered} />
           </div>
           <div className="flex items-center">
-            <QuestionHintTrigger
-              showHint={showHint}
-              setShowHint={setShowHint}
-            />
+            <QuestionHintTrigger showHint={showHint} setShowHint={setShowHint} />
             <ShareQuestion />
             <BookmarkQuestion question={question} />
           </div>
         </div>
         {question?.title && (
           <div className="flex w-full gap-10 justify-between">
-            <h3 className="font-onest font-light text-lg md:text-2xl">
-              {question.title}
-            </h3>
+            <h3 className="font-onest font-light text-lg md:text-2xl">{question.title}</h3>
           </div>
         )}
       </div>
@@ -62,18 +55,10 @@ export default function CodingChallengeDescription(opts: {
               return (
                 <Highlight
                   theme={themes.vsDark}
-                  code={
-                    typeof props.children === 'string' ? props.children : ''
-                  }
+                  code={typeof props.children === 'string' ? props.children : ''}
                   language="javascript"
                 >
-                  {({
-                    className,
-                    style,
-                    tokens,
-                    getLineProps,
-                    getTokenProps,
-                  }) => (
+                  {({ className, style, tokens, getLineProps, getTokenProps }) => (
                     <pre
                       className={className}
                       style={{
@@ -86,56 +71,41 @@ export default function CodingChallengeDescription(opts: {
                       {tokens.map((line, i) => (
                         <div key={i} {...getLineProps({ line, key: i })}>
                           {line.map((token, key) => (
-                            <span
-                              key={key}
-                              {...getTokenProps({ token, key })}
-                            />
+                            <span key={key} {...getTokenProps({ token, key })} />
                           ))}
                         </div>
                       ))}
                     </pre>
                   )}
                 </Highlight>
-              )
+              );
             },
             ul: ({ children }) => {
-              return (
-                <ul className="list-disc px-4 flex flex-col gap-3">
-                  {children}
-                </ul>
-              )
+              return <ul className="list-disc px-4 flex flex-col gap-3">{children}</ul>;
             },
             ol: ({ children }) => {
-              return (
-                <ol className="list-decimal px-4 flex flex-col gap-3">
-                  {children}
-                </ol>
-              )
+              return <ol className="list-decimal px-4 flex flex-col gap-3">{children}</ol>;
             },
             h1: ({ children }) => {
-              return (
-                <h1 className="text-2xl font-bold underline">{children}</h1>
-              )
+              return <h1 className="text-2xl font-bold underline">{children}</h1>;
             },
             h2: ({ children }) => {
-              return <h2 className="text-xl font-bold underline">{children}</h2>
+              return <h2 className="text-xl font-bold underline">{children}</h2>;
             },
             h3: ({ children }) => {
-              return <h3 className="text-lg font-bold underline">{children}</h3>
+              return <h3 className="text-lg font-bold underline">{children}</h3>;
             },
             h4: ({ children }) => {
-              return (
-                <h4 className="text-base font-bold underline">{children}</h4>
-              )
+              return <h4 className="text-base font-bold underline">{children}</h4>;
             },
             h5: ({ children }) => {
-              return <h5 className="text-sm font-bold underline">{children}</h5>
+              return <h5 className="text-sm font-bold underline">{children}</h5>;
             },
             h6: ({ children }) => {
-              return <h6 className="text-xs font-bold underline">{children}</h6>
+              return <h6 className="text-xs font-bold underline">{children}</h6>;
             },
             hr: () => {
-              return <hr className="border-b border-black-50 my-4" />
+              return <hr className="border-b border-black-50 my-4" />;
             },
           }}
         >
@@ -143,5 +113,5 @@ export default function CodingChallengeDescription(opts: {
         </Markdown>
       </div>
     </div>
-  )
+  );
 }

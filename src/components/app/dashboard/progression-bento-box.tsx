@@ -1,20 +1,15 @@
-import { ArrowRight, Lock } from 'lucide-react'
-import { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards'
-import { Separator } from '@/components/ui/separator'
-import { Grid } from '@/components/ui/grid'
-import { useUserServer } from '@/hooks/use-user-server'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
-import Chip from '@/components/ui/chip'
-import Link from 'next/link'
+import { ArrowRight, Lock } from 'lucide-react';
+import { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards';
+import { Separator } from '@/components/ui/separator';
+import { Grid } from '@/components/ui/grid';
+import { useUserServer } from '@/hooks/use-user-server';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import Chip from '@/components/ui/chip';
+import Link from 'next/link';
 
 const items: {
-  name: string
-  title: string
+  name: string;
+  title: string;
 }[] = [
   {
     name: 'ES6+',
@@ -56,10 +51,10 @@ const items: {
     name: 'DSA',
     title: 'Data Structures & Algorithms',
   },
-]
+];
 
 export default async function ProgressBentoBox() {
-  const user = await useUserServer()
+  const user = await useUserServer();
 
   return (
     <Link
@@ -95,14 +90,12 @@ export default async function ProgressBentoBox() {
         <div className="space-y-1">
           <h6 className="text-xl">Progression</h6>
           <p className="hidden md:block font-satoshi text-sm">
-            Your very own, personalised progression framework to help you grow
-            as a developer.
+            Your very own, personalised progression framework to help you grow as a developer.
           </p>
         </div>
         {user?.userLevel !== 'FREE' && user?.userLevel !== 'STANDARD' && (
           <div className="items-center justify-center whitespace-nowrap rounded-md text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-accent text-white shadow-sm hover:bg-accent/90 h-9 px-4 py-2 inline-flex font-ubuntu font-medium">
-            View yours now{' '}
-            <ArrowRight className="size-3 ml-1 group-hover:ml-2 duration-300" />
+            View yours now <ArrowRight className="size-3 ml-1 group-hover:ml-2 duration-300" />
           </div>
         )}
       </div>
@@ -122,5 +115,5 @@ export default async function ProgressBentoBox() {
           </TooltipProvider>
         ))}
     </Link>
-  )
+  );
 }

@@ -1,9 +1,9 @@
-import { ChevronRight } from 'lucide-react'
+import { ChevronRight } from 'lucide-react';
 
-import { Button } from '@/components/ui/button'
-import { GridPattern } from '@/components/ui/grid'
+import { Button } from '@/components/ui/button';
+import { GridPattern } from '@/components/ui/grid';
 
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils';
 
 export default function LeaderboardHero() {
   return (
@@ -15,8 +15,8 @@ export default function LeaderboardHero() {
           Coding leaderboards.
         </h1>
         <p className="text-gray-400 max-w-xl text-center text-sm md:text-base font-onest">
-          Enhance your coding journey with our engaging leaderboard. Compete
-          with developers worldwide and track your progress in real-time!
+          Enhance your coding journey with our engaging leaderboard. Compete with developers
+          worldwide and track your progress in real-time!
         </p>
         <div className="mt-2 flex gap-4">
           <Button
@@ -35,10 +35,10 @@ export default function LeaderboardHero() {
         y={-1}
         strokeDasharray={'4 2'}
         className={cn(
-          'absolute inset-0 pt-44 [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]',
+          'absolute inset-0 pt-44 [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]'
         )}
       />
       <div className="z-10 absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
     </section>
-  )
+  );
 }

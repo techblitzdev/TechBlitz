@@ -1,4 +1,4 @@
-import CodeComparison from '@/components/ui/code-comparison'
+import CodeComparison from '@/components/ui/code-comparison';
 
 // Example before/after code for the comparison component
 const beforeCode = `// this is a challenge to learn JavaScript
@@ -18,7 +18,7 @@ function reverseString(str) {
 
 console.log(mysteryFunction([1, 2, 3]));
 console.log(reverseString('TechBlitz'));
-`
+`;
 
 const afterCode = `// this is a challenge to learn JavaScript,
 // perfect for beginners
@@ -37,7 +37,7 @@ export const fetchLatestData = async () => {
 }
 
 fetchLatestData();
-`
+`;
 
 export default function CodeComparisonDemo() {
   return (
@@ -52,5 +52,5 @@ export default function CodeComparisonDemo() {
       />
       <div className="absolute inset-x-0 bottom-0 h-20 md:h-40 lg:h-80 bg-gradient-to-t from-[#000] to-transparent pointer-events-none z-30"></div>
     </div>
-  )
+  );
 }

@@ -1,12 +1,12 @@
-import { Metadata } from 'next'
-import { getBaseUrl } from '@/utils'
-import { Question } from '@/types/Questions'
-import { WebPageJsonLd } from '@/types/Seo'
+import { Metadata } from 'next';
+import { getBaseUrl } from '@/utils';
+import { Question } from '@/types/Questions';
+import { WebPageJsonLd } from '@/types/Seo';
 
 interface OgImageProps {
-  text: string
-  bgColor?: string
-  textColor?: string
+  text: string;
+  bgColor?: string;
+  textColor?: string;
 }
 
 export const createMetadata = ({
@@ -16,11 +16,11 @@ export const createMetadata = ({
   keywords,
   canonicalUrl,
 }: {
-  title: string
-  description: string
-  image?: OgImageProps | string
-  keywords?: string[]
-  canonicalUrl?: string
+  title: string;
+  description: string;
+  image?: OgImageProps | string;
+  keywords?: string[];
+  canonicalUrl?: string;
 }): Metadata => {
   const defaultKeywords = [
     'roadmaps',
@@ -34,12 +34,10 @@ export const createMetadata = ({
     'learn to code',
     'coding course',
     'coding bootcamp',
-  ]
+  ];
 
   // Ensure canonical URL is always the full URL of the current page
-  const fullCanonicalUrl = canonicalUrl
-    ? `${getBaseUrl()}${canonicalUrl}`
-    : getBaseUrl()
+  const fullCanonicalUrl = canonicalUrl ? `${getBaseUrl()}${canonicalUrl}` : getBaseUrl();
 
   // If image is a string, use it directly as the OG image URL
   if (typeof image === 'string') {
@@ -81,13 +79,13 @@ export const createMetadata = ({
         index: true,
         follow: true,
       },
-    }
+    };
   }
 
   // Handle OgImageProps case
-  const bgColor = image?.bgColor || '#f0f0f0'
-  const textColor = image?.textColor || '#000000'
-  const ogImageUrl = `${getBaseUrl()}/api/og?text=${encodeURIComponent(image?.text || title)}&bgColor=${encodeURIComponent(bgColor)}&textColor=${encodeURIComponent(textColor)}`
+  const bgColor = image?.bgColor || '#f0f0f0';
+  const textColor = image?.textColor || '#000000';
+  const ogImageUrl = `${getBaseUrl()}/api/og?text=${encodeURIComponent(image?.text || title)}&bgColor=${encodeURIComponent(bgColor)}&textColor=${encodeURIComponent(textColor)}`;
 
   return {
     title,
@@ -127,21 +125,21 @@ export const createMetadata = ({
       index: true,
       follow: true,
     },
-  }
-}
+  };
+};
 
 export const getQuestionEducationLevel = (question: Question['difficulty']) => {
   switch (question) {
     case 'BEGINNER':
-      return 'beginner'
+      return 'beginner';
     case 'EASY':
-      return 'beginner'
+      return 'beginner';
     case 'MEDIUM':
-      return 'intermediate'
+      return 'intermediate';
     case 'HARD':
-      return 'advanced'
+      return 'advanced';
   }
-}
+};
 
 export const WebPageJsonLdBreadcrumb: WebPageJsonLd['breadcrumb'] = {
   '@type': 'BreadcrumbList',
@@ -207,4 +205,4 @@ export const WebPageJsonLdBreadcrumb: WebPageJsonLd['breadcrumb'] = {
       item: getBaseUrl() + '/faqs',
     },
   ],
-}
+};

@@ -1,30 +1,26 @@
 // Components
-import CurrentStreak from '@/components/ui/current-streak'
-import { Separator } from '@/components/ui/separator'
-import FeedbackButton from '@/components/app/shared/feedback/feedback-button'
-import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger'
-import { createMetadata } from '@/utils/seo'
-import { capitalise } from '@/utils'
+import CurrentStreak from '@/components/ui/current-streak';
+import { Separator } from '@/components/ui/separator';
+import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
+import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
+import { createMetadata } from '@/utils/seo';
+import { capitalise } from '@/utils';
 
 // Actions
-import { getQuestion } from '@/utils/data/questions/get'
-import { QuestionSingleContextProvider } from '@/components/app/questions/single/layout/question-single-context'
-import { getUser } from '@/actions/user/authed/get-user'
-import { redirect } from 'next/navigation'
-import QuestionActionButtons from '@/components/app/questions/single/layout/question-action-buttons'
-import { getUserAnswer } from '@/utils/data/answers/get-user-answer'
-import QuestionNavigation from '@/components/app/navigation/question-navigation'
-import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation'
-import RandomQuestion from '@/components/shared/random-question'
+import { getQuestion } from '@/utils/data/questions/get';
+import { QuestionSingleContextProvider } from '@/components/app/questions/single/layout/question-single-context';
+import { getUser } from '@/actions/user/authed/get-user';
+import { redirect } from 'next/navigation';
+import QuestionActionButtons from '@/components/app/questions/single/layout/question-action-buttons';
+import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
+import QuestionNavigation from '@/components/app/navigation/question-navigation';
+import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation';
+import RandomQuestion from '@/components/shared/random-question';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { uid: string }
-}) {
-  const question = await getQuestion('uid', params.uid)
+export async function generateMetadata({ params }: { params: { uid: string } }) {
+  const question = await getQuestion('uid', params.uid);
   // get the title via slug and removing the - from the slug
-  const title = question?.slug?.replace(/-/g, ' ') || 'Coding Question'
+  const title = question?.slug?.replace(/-/g, ' ') || 'Coding Question';
 
   return createMetadata({
     title: `${capitalise(title)} | TechBlitz`,
@@ -35,24 +31,24 @@ export async function generateMetadata({
       textColor: '#ffffff',
     },
     canonicalUrl: `/question/custom/${params.uid}`,
-  })
+  });
 }
 
 export default async function QuestionUidLayout({
   children,
   params,
 }: Readonly<{ children: React.ReactNode; params: { uid: string } }>) {
-  const { uid } = params
+  const { uid } = params;
 
-  const question = await getQuestion('uid', uid)
+  const question = await getQuestion('uid', uid);
   if (!question) {
-    return redirect('/questions/custom')
+    return redirect('/questions/custom');
   }
-  const user = await getUser()
+  const user = await getUser();
 
-  const userAnswered = getUserAnswer({ questionUid: question.uid })
+  const userAnswered = getUserAnswer({ questionUid: question.uid });
 
-  const nextAndPreviousQuestion = getNextAndPreviousQuestion(uid)
+  const nextAndPreviousQuestion = getNextAndPreviousQuestion(uid);
 
   return (
     <>
@@ -86,5 +82,5 @@ export default async function QuestionUidLayout({
         {children}
       </QuestionSingleContextProvider>
     </>
-  )
+  );
 }

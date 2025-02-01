@@ -1,11 +1,6 @@
 export default function HomeIcon() {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      height="24"
-      width="24"
-      viewBox="0 0 24 24"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24">
       <title>home</title>
       <g
         strokeLinejoin="miter"
@@ -42,5 +37,5 @@ export default function HomeIcon() {
         ></line>
       </g>
     </svg>
-  )
+  );
 }

@@ -1,8 +1,8 @@
-import Logo from '@/components/ui/logo'
-import StarsBackground from '@/components/ui/stars-background'
-import { Card } from '@/components/ui/card'
-import { Skeleton } from '@/components/ui/skeleton'
-import Link from 'next/link'
+import Logo from '@/components/ui/logo';
+import StarsBackground from '@/components/ui/stars-background';
+import { Card } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
+import Link from 'next/link';
 
 export default function OnboardingLoading() {
   return (
@@ -16,8 +16,7 @@ export default function OnboardingLoading() {
           <Card
             className="border border-black-50 rounded-lg shadow-xl overflow-hidden min-w-72 sm:min-w-96 lg:min-w-[30rem] relative"
             style={{
-              background:
-                'radial-gradient(128% 107% at 0% 0%, #212121 0%, rgb(0,0,0) 77.61%)',
+              background: 'radial-gradient(128% 107% at 0% 0%, #212121 0%, rgb(0,0,0) 77.61%)',
             }}
           >
             <div className="p-6 space-y-4">
@@ -33,5 +32,5 @@ export default function OnboardingLoading() {
         </div>
       </div>
     </div>
-  )
+  );
 }

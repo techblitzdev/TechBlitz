@@ -1,56 +1,45 @@
-import { fetchRoadmap } from '@/utils/data/roadmap/fetch-single-roadmap'
-import GenerateMoreQuestionsButton from '@/components/app/roadmaps/[uid]/generate-more-questions'
-import RoadmapQuestionCard from '@/components/app/roadmaps/questions/[uid]/question-card'
-import RoadmapStats from '@/components/app/roadmaps/[uid]/roadmap-stats'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
-import { useUserServer } from '@/hooks/use-user-server'
-import { redirect } from 'next/navigation'
-import Chip from '@/components/ui/chip'
-import { capitalise } from '@/utils'
-import Hero from '@/components/shared/hero'
-import { RoadmapUserQuestions } from '@prisma/client'
+import { fetchRoadmap } from '@/utils/data/roadmap/fetch-single-roadmap';
+import GenerateMoreQuestionsButton from '@/components/app/roadmaps/[uid]/generate-more-questions';
+import RoadmapQuestionCard from '@/components/app/roadmaps/questions/[uid]/question-card';
+import RoadmapStats from '@/components/app/roadmaps/[uid]/roadmap-stats';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { useUserServer } from '@/hooks/use-user-server';
+import { redirect } from 'next/navigation';
+import Chip from '@/components/ui/chip';
+import { capitalise } from '@/utils';
+import Hero from '@/components/shared/hero';
+import { RoadmapUserQuestions } from '@prisma/client';
 
-export default async function RoadmapSinglePage({
-  params,
-}: {
-  params: { roadmapUid: string }
-}) {
-  const { roadmapUid } = params
+export default async function RoadmapSinglePage({ params }: { params: { roadmapUid: string } }) {
+  const { roadmapUid } = params;
 
   // better safe than sorry!
-  const user = await useUserServer()
+  const user = await useUserServer();
   if (!user) {
-    return redirect(`/login?redirect=/roadmaps`)
+    return redirect(`/login?redirect=/roadmaps`);
   }
 
   // go get the roadmap
-  const roadmap = await fetchRoadmap({ roadmapUid })
+  const roadmap = await fetchRoadmap({ roadmapUid });
 
   // put the user back to the roadmap page if the roadmap is not found
   // do not redirect to the login page as the user is already logged in
   if (!roadmap) {
-    redirect(`/roadmaps?error=roadmap_not_found`)
+    redirect(`/roadmaps?error=roadmap_not_found`);
   }
 
   // order the questions via the order
-  roadmap.questions.sort((a, b) => a.order - b.order)
+  roadmap.questions.sort((a, b) => a.order - b.order);
 
   // determine the roadmap title and description via the status
   // if the roadmap is 'creating' then we output 'Creation in progress'
   const roadmapTitle =
-    roadmap.status === 'CREATING'
-      ? 'Creation in progress'
-      : roadmap.title || 'Untitled Roadmap'
+    roadmap.status === 'CREATING' ? 'Creation in progress' : roadmap.title || 'Untitled Roadmap';
 
   const roadmapDescription =
     roadmap.status === 'CREATING'
       ? 'We are creating your roadmap, this may take a few minutes'
-      : roadmap.description || 'No description'
+      : roadmap.description || 'No description';
 
   return (
     <>
@@ -108,10 +97,7 @@ export default async function RoadmapSinglePage({
                   <GenerateMoreQuestionsButton roadmap={roadmap} />
                 </TooltipTrigger>
                 <TooltipContent align="center">
-                  <p>
-                    You can only generate more questions once you have completed
-                    the roadmap
-                  </p>
+                  <p>You can only generate more questions once you have completed the roadmap</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -119,5 +105,5 @@ export default async function RoadmapSinglePage({
         </aside>
       </div>
     </>
-  )
+  );
 }

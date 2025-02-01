@@ -1,10 +1,10 @@
-import { UserRecord } from '@/types/User'
-import { QUESTIONS_COUNT } from './misc'
+import { UserRecord } from '@/types/User';
+import { QUESTIONS_COUNT } from './misc';
 
 export const getPlans = (
   user: Partial<UserRecord> | null,
   hideFree: boolean = false,
-  billingPeriod: 'month' | 'year' = 'month',
+  billingPeriod: 'month' | 'year' = 'month'
 ) => {
   const plans = [
     !hideFree && {
@@ -61,11 +61,8 @@ export const getPlans = (
       currencySymbol: '$',
       frequency: billingPeriod,
       frequencyText:
-        billingPeriod === 'month'
-          ? 'per month, billed monthly'
-          : 'per month, billed yearly',
-      shortText:
-        'Perfect for those looking for a more personalized coding experience.',
+        billingPeriod === 'month' ? 'per month, billed monthly' : 'per month, billed yearly',
+      shortText: 'Perfect for those looking for a more personalized coding experience.',
       features: [
         { name: 'Access to premium questions' },
         {
@@ -110,8 +107,7 @@ export const getPlans = (
       currencySymbol: '$',
       frequency: 'once',
       frequencyText: 'pay once, yours forever',
-      shortText:
-        'Perfect for those wanting to master coding concepts for life.',
+      shortText: 'Perfect for those wanting to master coding concepts for life.',
       features: [
         { name: 'Access to premium questions' },
         {
@@ -148,9 +144,9 @@ export const getPlans = (
       },
       mostPopular: true,
     },
-  ]
+  ];
 
-  return plans
-}
+  return plans;
+};
 
-export type Plan = ReturnType<typeof getPlans>[number]
+export type Plan = ReturnType<typeof getPlans>[number];

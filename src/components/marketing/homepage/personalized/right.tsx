@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
-import { ArrowRight, ChevronRight } from 'lucide-react'
-import Link from 'next/link'
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { ArrowRight, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 
 export default function PersonalizedRight() {
   const questions = [
@@ -22,8 +22,7 @@ export default function PersonalizedRight() {
     },
     {
       uid: '4',
-      question:
-        'How to implement a collaborative editor with WebSocket in React?',
+      question: 'How to implement a collaborative editor with WebSocket in React?',
       slug: 'react-collaborative-editor-websocket-hook-implementation',
     },
     {
@@ -31,7 +30,7 @@ export default function PersonalizedRight() {
       question: 'How to handle errors in Promise.all?',
       slug: 'promise-all-error-handling-results',
     },
-  ]
+  ];
 
   return (
     <div className="col-span-full md:col-span-6 pb-0 md:py-12 pt-4 p-0 md:p-12 flex flex-col gap-10">
@@ -45,7 +44,7 @@ export default function PersonalizedRight() {
         </div>
         <div
           className={cn(
-            'flex flex-col overflow-hidden divide-y-[1px] divide-black-50 border border-black-50 rounded-md',
+            'flex flex-col overflow-hidden divide-y-[1px] divide-black-50 border border-black-50 rounded-md'
           )}
         >
           {questions?.map((question, index) => (
@@ -53,16 +52,12 @@ export default function PersonalizedRight() {
               key={question.uid}
               className={cn(
                 'p-3 truncate w-full flex gap-3 justify-between items-center group',
-                index % 2 === 0
-                  ? 'bg-[#000] hover:bg-black-100'
-                  : 'bg-black hover:bg-black-75',
+                index % 2 === 0 ? 'bg-[#000] hover:bg-black-100' : 'bg-black hover:bg-black-75'
               )}
               href={`/question/${question.slug}`}
               target="_blank"
             >
-              <p className="text-sm font-satoshi line-clamp-1">
-                {question.question}
-              </p>
+              <p className="text-sm font-satoshi line-clamp-1">{question.question}</p>
               <ArrowRight className="size-3 mr-1 group-hover:mr-0 duration-300 flex-shrink-0" />
             </Link>
           ))}
@@ -74,9 +69,8 @@ export default function PersonalizedRight() {
           Coding reports just for you
         </h3>
         <p className="text-gray-400 font-onest">
-          Customized coding reports generated from your current TechBlitz
-          journey. Reports are the ultimate way to improve your coding skills
-          faster.
+          Customized coding reports generated from your current TechBlitz journey. Reports are the
+          ultimate way to improve your coding skills faster.
         </p>
         <Button
           variant="secondary"
@@ -88,5 +82,5 @@ export default function PersonalizedRight() {
         </Button>
       </div>
     </div>
-  )
+  );
 }

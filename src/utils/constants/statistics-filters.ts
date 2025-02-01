@@ -1,13 +1,13 @@
-import { StatsSteps, StepRange } from '@/types/Stats'
+import { StatsSteps, StepRange } from '@/types/Stats';
 
-export const STEPS = ['7d', '30d', '90d'] as const
+export const STEPS = ['7d', '30d', '90d'] as const;
 
 export const STATISTICS: Record<
   StatsSteps,
   {
-    label: string
-    value: StatsSteps
-    step: StepRange
+    label: string;
+    value: StatsSteps;
+    step: StepRange;
   }
 > = {
   '7d': {
@@ -25,4 +25,4 @@ export const STATISTICS: Record<
     value: '90d',
     step: 'week',
   },
-}
+};

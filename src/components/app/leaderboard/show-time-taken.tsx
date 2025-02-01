@@ -1,34 +1,32 @@
-'use client'
+'use client';
 
-import { Switch } from '@/components/ui/switch'
-import { Label } from '@/components/ui/label'
-import { updateUser } from '@/actions/user/authed/update-user'
-import { use, useState } from 'react'
-import { toast } from 'sonner'
-import { UserRecord } from '@/types/User'
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { updateUser } from '@/actions/user/authed/update-user';
+import { use, useState } from 'react';
+import { toast } from 'sonner';
+import { UserRecord } from '@/types/User';
 
-export default function ShowTimeTakenToggle(opts: {
-  userPromise: Promise<UserRecord | null>
-}) {
-  const { userPromise } = opts
+export default function ShowTimeTakenToggle(opts: { userPromise: Promise<UserRecord | null> }) {
+  const { userPromise } = opts;
 
-  const user = use(userPromise)
+  const user = use(userPromise);
 
-  const [checked, setChecked] = useState(user?.showTimeTaken ?? true)
+  const [checked, setChecked] = useState(user?.showTimeTaken ?? true);
 
   const handleSubmit = async (formData: FormData) => {
-    const showTimeTaken = formData.get('showTimeTaken') === 'on'
+    const showTimeTaken = formData.get('showTimeTaken') === 'on';
     try {
       await updateUser({
         userDetails: {
           showTimeTaken,
         },
-      })
-      toast.success('User updated')
+      });
+      toast.success('User updated');
     } catch (error) {
-      toast.error('Failed to update user')
+      toast.error('Failed to update user');
     }
-  }
+  };
 
   return (
     <form
@@ -39,11 +37,11 @@ export default function ShowTimeTakenToggle(opts: {
         id="showTimeTaken"
         checked={checked}
         onCheckedChange={(value) => {
-          setChecked(value)
+          setChecked(value);
           // Submit the form when switch changes
-          const formData = new FormData()
-          formData.set('showTimeTaken', value ? 'on' : 'off')
-          handleSubmit(formData)
+          const formData = new FormData();
+          formData.set('showTimeTaken', value ? 'on' : 'off');
+          handleSubmit(formData);
         }}
         className="bg-black-50"
         disabled={!user}
@@ -52,5 +50,5 @@ export default function ShowTimeTakenToggle(opts: {
         {checked ? 'Hide' : 'Show'} on leaderboard?
       </Label>
     </form>
-  )
+  );
 }

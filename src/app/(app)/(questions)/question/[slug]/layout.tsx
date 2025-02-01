@@ -1,45 +1,36 @@
-import { Suspense, lazy } from 'react'
-import { createMetadata, getQuestionEducationLevel } from '@/utils/seo'
-import { capitalise, getBaseUrl } from '@/utils'
-import { Separator } from '@/components/ui/separator'
-import { QuestionSingleContextProvider } from '@/components/app/questions/single/layout/question-single-context'
-import { redirect } from 'next/navigation'
+import { Suspense, lazy } from 'react';
+import { createMetadata, getQuestionEducationLevel } from '@/utils/seo';
+import { capitalise, getBaseUrl } from '@/utils';
+import { Separator } from '@/components/ui/separator';
+import { QuestionSingleContextProvider } from '@/components/app/questions/single/layout/question-single-context';
+import { redirect } from 'next/navigation';
 
 // Actions
-import { getQuestion } from '@/utils/data/questions/get'
-import { getUser } from '@/actions/user/authed/get-user'
-import { getRelatedQuestions } from '@/utils/data/questions/get-related'
-import { getUserAnswer } from '@/utils/data/answers/get-user-answer'
-import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation'
-import { QuizJsonLd } from '@/types/Seo'
+import { getQuestion } from '@/utils/data/questions/get';
+import { getUser } from '@/actions/user/authed/get-user';
+import { getRelatedQuestions } from '@/utils/data/questions/get-related';
+import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
+import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation';
+import { QuizJsonLd } from '@/types/Seo';
 
 // Components
-const CurrentStreak = lazy(() => import('@/components/ui/current-streak'))
-const FeedbackButton = lazy(
-  () => import('@/components/app/shared/feedback/feedback-button'),
-)
+const CurrentStreak = lazy(() => import('@/components/ui/current-streak'));
+const FeedbackButton = lazy(() => import('@/components/app/shared/feedback/feedback-button'));
 const SidebarLayoutTrigger = lazy(
-  () => import('@/components/app/navigation/sidebar-layout-trigger'),
-)
-const RandomQuestion = lazy(() => import('@/components/shared/random-question'))
+  () => import('@/components/app/navigation/sidebar-layout-trigger')
+);
+const RandomQuestion = lazy(() => import('@/components/shared/random-question'));
 const QuestionActionButtons = lazy(
-  () =>
-    import('@/components/app/questions/single/layout/question-action-buttons'),
-)
-const QuestionNavigation = lazy(
-  () => import('@/components/app/navigation/question-navigation'),
-)
+  () => import('@/components/app/questions/single/layout/question-action-buttons')
+);
+const QuestionNavigation = lazy(() => import('@/components/app/navigation/question-navigation'));
 const PremiumQuestionDeniedAccess = lazy(
-  () => import('@/components/app/questions/premium-question-denied-access'),
-)
+  () => import('@/components/app/questions/premium-question-denied-access')
+);
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string }
-}) {
-  const question = await getQuestion('slug', params.slug)
-  const title = question?.slug?.replace(/-/g, ' ') || 'Coding Question'
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const question = await getQuestion('slug', params.slug);
+  const title = question?.slug?.replace(/-/g, ' ') || 'Coding Question';
 
   return createMetadata({
     title: `${capitalise(title)} | TechBlitz`,
@@ -50,22 +41,19 @@ export async function generateMetadata({
       textColor: '#ffffff',
     },
     canonicalUrl: `/question/${params.slug}`,
-  })
+  });
 }
 
 export default async function QuestionUidLayout({
   children,
   params,
 }: Readonly<{ children: React.ReactNode; params: { slug: string } }>) {
-  const { slug } = params
+  const { slug } = params;
 
-  const [user, question] = await Promise.all([
-    getUser(),
-    getQuestion('slug', slug),
-  ])
+  const [user, question] = await Promise.all([getUser(), getQuestion('slug', slug)]);
 
   if (!question || !question.slug || !question.tags) {
-    return redirect('/questions')
+    return redirect('/questions');
   }
 
   // create json ld
@@ -82,8 +70,7 @@ export default async function QuestionUidLayout({
     assesses: ['coding'],
     dateCreated: question?.createdAt.toISOString() || '',
     dateModified: question?.updatedAt.toISOString() || '',
-    datePublished:
-      question?.questionDate || question?.createdAt.toISOString() || '',
+    datePublished: question?.questionDate || question?.createdAt.toISOString() || '',
     headline: question?.question || '',
     interactivityType: 'mixed',
     isAccessibleForFree: true,
@@ -94,20 +81,20 @@ export default async function QuestionUidLayout({
       target: `${getBaseUrl()}/search?q={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
-  }
+  };
 
-  const nextAndPreviousQuestion = getNextAndPreviousQuestion(question.uid)
+  const nextAndPreviousQuestion = getNextAndPreviousQuestion(question.uid);
 
   const relatedQuestions = getRelatedQuestions({
     questionSlug: question.slug,
     tags: question.tags,
     limit: 3,
-  })
+  });
 
-  const userAnswered = getUserAnswer({ questionUid: question.uid })
+  const userAnswered = getUserAnswer({ questionUid: question.uid });
 
   if (question.isPremiumQuestion && (!user || user.userLevel === 'FREE')) {
-    return <PremiumQuestionDeniedAccess />
+    return <PremiumQuestionDeniedAccess />;
   }
 
   return (
@@ -159,5 +146,5 @@ export default async function QuestionUidLayout({
         {children}
       </QuestionSingleContextProvider>
     </>
-  )
+  );
 }

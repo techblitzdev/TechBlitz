@@ -1,11 +1,10 @@
-'use client'
-import { Button } from '@/components/ui/button'
-import { RefreshCcwIcon } from 'lucide-react'
-import { useRoadmapQuestion } from './roadmap-question-context'
+'use client';
+import { Button } from '@/components/ui/button';
+import { RefreshCcwIcon } from 'lucide-react';
+import { useRoadmapQuestion } from './roadmap-question-context';
 
 export default function RoadmapQuestionActionButtons() {
-  const { handleAnswerRoadmapQuestion, resetQuestionState } =
-    useRoadmapQuestion()
+  const { handleAnswerRoadmapQuestion, resetQuestionState } = useRoadmapQuestion();
 
   return (
     <div className="flex gap-x-1 md:gap-x-3 items-center">
@@ -21,5 +20,5 @@ export default function RoadmapQuestionActionButtons() {
         </Button>
       </form>
     </div>
-  )
+  );
 }

@@ -1,6 +1,6 @@
-import AnimatedSpan from '@/components/ui/animated-span'
-import LeaderboardFeaturesLeft from './leaderboard-features-left'
-import LeaderboardFeaturesRight from './leaderboard-features-right'
+import AnimatedSpan from '@/components/ui/animated-span';
+import LeaderboardFeaturesLeft from './leaderboard-features-left';
+import LeaderboardFeaturesRight from './leaderboard-features-right';
 
 export default function LeaderboardFeatures() {
   return (
@@ -11,9 +11,8 @@ export default function LeaderboardFeatures() {
           Learning to code does not have to be boring.
         </h1>
         <p className="text-gray-400">
-          Leaderboards give you a sense of progress and help you stay motivated
-          when learning to code. Be part of the community and see how you stack
-          up against your peers.
+          Leaderboards give you a sense of progress and help you stay motivated when learning to
+          code. Be part of the community and see how you stack up against your peers.
         </p>
       </div>
       <div className="grid grid-cols-3 lg:grid-cols-12 gap-10 self-center relative">
@@ -29,5 +28,5 @@ export default function LeaderboardFeatures() {
         <LeaderboardFeaturesRight />
       </div>
     </section>
-  )
+  );
 }

@@ -1,6 +1,6 @@
-import { Expand } from 'lucide-react'
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
-import QuestionDisplay from '@/components/app/questions/single/layout/code-snippet'
+import { Expand } from 'lucide-react';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import QuestionDisplay from '@/components/app/questions/single/layout/code-snippet';
 
 export default function ExpandedCodeModal({ code }: { code: string }) {
   return (
@@ -12,5 +12,5 @@ export default function ExpandedCodeModal({ code }: { code: string }) {
         <QuestionDisplay content={code} language="" />
       </DialogContent>
     </Dialog>
-  )
+  );
 }

@@ -1,27 +1,27 @@
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import {
   SidebarFooter,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar'
-import { Button } from '@/components/ui/button'
-import { ChevronsUpDown } from 'lucide-react'
+} from '@/components/ui/sidebar';
+import { Button } from '@/components/ui/button';
+import { ChevronsUpDown } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import LogoutButton from '@/components/auth/logout'
-import ProfilePicture from '@/components/ui/profile-picture'
+} from '@/components/ui/dropdown-menu';
+import LogoutButton from '@/components/auth/logout';
+import ProfilePicture from '@/components/ui/profile-picture';
 
-import { UserRecord } from '@/types/User'
-import { getUserDisplayName } from '@/utils/user'
-import { Profile } from '@/types/Profile'
-import { capitalise } from '@/utils'
+import { UserRecord } from '@/types/User';
+import { getUserDisplayName } from '@/utils/user';
+import { Profile } from '@/types/Profile';
+import { capitalise } from '@/utils';
 
 /**
 /**
@@ -31,19 +31,17 @@ import { capitalise } from '@/utils'
  * @returns The sidebar footer component
  */
 export default function SidebarFooterComponent(opts: {
-  user: UserRecord | null
-  profile: Profile | null
+  user: UserRecord | null;
+  profile: Profile | null;
 }) {
-  const { user } = opts
+  const { user } = opts;
 
   // get the current route so we can add the redirectUrl to the login button
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   // profile link determined on env (dev or prod)
   const profileLink =
-    process.env.NEXT_PUBLIC_ENV === 'production'
-      ? '/settings/profile'
-      : `/${user?.username}`
+    process.env.NEXT_PUBLIC_ENV === 'production' ? '/settings/profile' : `/${user?.username}`;
 
   return (
     <SidebarFooter className="bg-[#000000]">
@@ -59,8 +57,8 @@ export default function SidebarFooterComponent(opts: {
           >
             <p className="font-onest">Unlock Your Full Potential</p>
             <p className="text-xs font-light font-onest">
-              Get AI-powered study paths, premium challenges, and learn 3x
-              faster with personalized guidance!
+              Get AI-powered study paths, premium challenges, and learn 3x faster with personalized
+              guidance!
             </p>
             <Button
               variant="accent"
@@ -96,10 +94,7 @@ export default function SidebarFooterComponent(opts: {
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton
-                  variant="default"
-                  className="text-white h-fit"
-                >
+                <SidebarMenuButton variant="default" className="text-white h-fit">
                   <ProfilePicture
                     src={user?.userProfilePicture}
                     alt="Profile Picture"
@@ -110,19 +105,14 @@ export default function SidebarFooterComponent(opts: {
                     <span className="text-white font-medium text-lg line-clamp-1">
                       {user && getUserDisplayName(user)}
                     </span>
-                    <span className="text-xs text-white">
-                      {capitalise(user.userLevel)}
-                    </span>
+                    <span className="text-xs text-white">{capitalise(user.userLevel)}</span>
                   </div>
                   <ChevronsUpDown className="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56 bg-[#000] !text-white border-black-50">
                 <DropdownMenuItem>
-                  <Link
-                    href="https://dub.sh/upgrade-techblitz"
-                    className="w-full"
-                  >
+                  <Link href="https://dub.sh/upgrade-techblitz" className="w-full">
                     Upgrade
                   </Link>
                 </DropdownMenuItem>
@@ -149,5 +139,5 @@ export default function SidebarFooterComponent(opts: {
         )}
       </SidebarMenu>
     </SidebarFooter>
-  )
+  );
 }

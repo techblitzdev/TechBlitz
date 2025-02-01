@@ -37,9 +37,13 @@ export default function HomepageHero() {
             variant="accent"
             size="lg"
             href="/signup"
-            className="flex-1 px-5"
+            className="flex-1 px-5 flex items-center group"
           >
-            Start for free <ArrowRight size={16} />
+            Start for free
+            <ArrowRight
+              size={16}
+              className="ml-1 size-4 group-hover:translate-x-1 transition-all duration-300"
+            />
           </Button>
         </div>
       </div>

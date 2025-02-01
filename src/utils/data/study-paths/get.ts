@@ -40,6 +40,23 @@ export const getUserStudyPaths = async () => {
   });
 };
 
+export const getDashboardStudyPath = async () => {
+  const user = await getUser();
+  return await prisma.userStudyPath.findFirst({
+    where: {
+      userUid: user?.uid,
+      AND: {
+        progress: {
+          lte: 100,
+        },
+      },
+    },
+    include: {
+      studyPath: true,
+    },
+  });
+};
+
 /**
  * Check if a user is enrolled in a study path
  * @param studyPathUid - The uid of the study path

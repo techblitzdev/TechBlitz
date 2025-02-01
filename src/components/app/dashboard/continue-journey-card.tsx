@@ -1,7 +1,7 @@
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle, BookOpen } from 'lucide-react';
-import { getUserStudyPaths } from '@/utils/data/study-paths/get';
+import { getDashboardStudyPath } from '@/utils/data/study-paths/get';
 import { Progress } from '@/components/ui/progress';
 
 export default async function ContinueJourneyCard() {
@@ -9,7 +9,7 @@ export default async function ContinueJourneyCard() {
     limit: 1,
   });
 
-  const studyPaths = await getUserStudyPaths();
+  const studyPaths = await getDashboardStudyPath();
 
   const suggestion = suggestions?.[0];
 
@@ -38,7 +38,7 @@ export default async function ContinueJourneyCard() {
         </div>
       </Link>
       <Link
-        href={studyPaths?.[0] ? `/study-paths/${studyPaths[0].studyPath.slug}` : '/study-paths'}
+        href={studyPaths ? `/study-paths/${studyPaths.studyPath.slug}` : '/study-paths'}
         style={{
           background:
             'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
@@ -46,27 +46,27 @@ export default async function ContinueJourneyCard() {
         className="group flex flex-col justify-between h-full overflow-hidden p-4 transition-all rounded-xl border border-black-50"
       >
         <div className="flex flex-col justify-between size-full gap-y-2">
-          {studyPaths?.[0] ? (
+          {studyPaths ? (
             <>
               <p className="text-sm font-medium text-gray-400 group-hover:text-white duration-300 font-onest">
                 Continue your study path:{' '}
-                <span className="text-white font-semibold">{studyPaths[0].studyPath.title}</span>
+                <span className="text-white font-semibold">{studyPaths.studyPath.title}</span>
               </p>
               <div className="flex w-full items-center gap-x-2 justify-between">
                 <div className="flex flex-col gap-y-2 w-full">
                   <div className="text-sm text-gray-400 font-onest">
-                    {Math.round(studyPaths[0].progress) === 100 ? (
+                    {Math.round(studyPaths.progress) === 100 ? (
                       <div className="flex items-center gap-x-2">
                         <CheckCircle className="size-4 text-green-500" />
                         <p className="text-sm text-gray-400 font-onest">completed</p>
                       </div>
                     ) : (
-                      `${Math.round(studyPaths[0].progress)}% completed`
+                      `${Math.round(studyPaths.progress)}% completed`
                     )}
                   </div>
                   <Progress
                     className="border border-black-50 bg-black-50"
-                    value={studyPaths[0].progress}
+                    value={studyPaths.progress}
                   />
                 </div>
               </div>

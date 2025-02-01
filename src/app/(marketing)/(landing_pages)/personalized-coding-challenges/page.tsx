@@ -14,13 +14,14 @@ import Link from 'next/link';
 
 const faqs = [
   {
-    question: 'Are the coding challenges on TechBlitz really free?',
+    question: 'What are personalized coding challenges?',
     answer:
-      'Yes, all coding challenges on TechBlitz are completely free. We believe in making coding education accessible to everyone, regardless of their financial situation.',
+      "Personalized coding challenges are created by you, the user. You can also regenerate the challenge if you don't like it.",
   },
   {
-    question: 'How many free coding challenges are available on TechBlitz?',
-    answer: `With over ${QUESTIONS_COUNT}+ free coding challenges, TechBlitz covers a wide range of topics, including JavaScript, web development, algorithms, and more. Each challenge is designed to enhance your problem-solving skills.`,
+    question:
+      'How many personalized coding challenges are available on TechBlitz?',
+    answer: `As many as you want! That's the beauty of personalized coding challenges.`,
   },
   {
     question: 'What is TechBlitz, and how does it work?',

@@ -6,7 +6,6 @@ import CallToActionBlock from '@/components/marketing/global/blocks/call-to-acti
 import MarketingContentGrid from '@/components/marketing/global/blocks/content-grid';
 import FAQsBlock from '@/components/marketing/global/blocks/faqs';
 import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
-import ComparisonBlock from '@/components/marketing/homepage/comparison/comparison-block';
 import { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
 import { QUESTIONS_COUNT } from '@/utils/constants/misc';
@@ -252,43 +251,43 @@ export default function HowToLearnToCodePage() {
       />
       <div className="container">
         <FeatureDailyChallengeHero
-          header="How to learn to code?"
-          subheader="Learning to code is easy (and free) with TechBlitz. We provide you with a wide range of real-world coding challenges to help you learn to code."
-          animatedSpan="The easiest way to learn to code"
+          header="How to Learn to Code: The Ultimate Guide"
+          subheader="Discover the easiest way to learn to code with TechBlitz. Our platform offers real-world coding challenges, personalized learning paths, and expert support to help you master programming."
+          animatedSpan="Start your coding journey today"
         />
 
         <FeatureLeftRightSection
-          leftHeader="Daily suggested coding challenges"
-          leftSubheader="Learn to code with a personalized coding challenge sent to your inbox every weekday. Your coding challenges also work on any device - meaning you can learn JavaScript on your phone, tablet, or computer."
+          leftHeader="Daily Coding Challenges for All Levels"
+          leftSubheader="Learn to code with daily challenges tailored to your skill level. Whether you're a beginner or an advanced developer, our platform helps you improve your JavaScript and web development skills."
           learnMoreLink={true}
         />
 
         <FeatureRoadmapThreeGridBlock
-          title="A personalized approach to learning to code"
-          description="TechBlitz provides roadmaps tailored to your skill level. We analyze your current skills set, and are able to serve you the best questions for you to learn to code."
+          title="Personalized Roadmaps to Master Coding"
+          description="TechBlitz provides customized roadmaps based on your current skill level. We analyze your strengths and weaknesses to deliver the best coding challenges for your growth."
         />
 
         <StatsReportSection
-          header="Track your coding knowledge"
-          subheader="Get actionable insights with personalized performance analytics. Track your coding journey, identify areas for improvement, and celebrate your achievements with comprehensive progress reports."
+          header="Track Your Coding Progress"
+          subheader="Get actionable insights with personalized performance analytics. Monitor your progress, identify areas for improvement, and celebrate your achievements as you learn to code."
           learnMoreLink={true}
         />
 
         <QuestionMarquee
-          header="The best selection of coding challenges for you"
-          subheader="TechBlitz provides questions tailored to your skill level. We analyze your current skills set, and are able to serve you the best questions for you to learn to code."
+          header="The Best Coding Challenges for Your Skill Level"
+          subheader="TechBlitz offers a wide range of coding challenges tailored to your needs. From JavaScript basics to advanced algorithms, we help you learn to code effectively."
         />
 
         <MarketingContentGrid
-          title="Everything you need to learn to code"
+          title="Everything You Need to Learn to Code"
           items={items}
         />
 
         <FAQsBlock faqs={faqs} />
 
         <CallToActionBlock
-          title="Learning to code made simple"
-          description="TechBlitz is the number one place to learn to code. Supplying you with a wide range of real-world coding challenges."
+          title="Start Learning to Code Today"
+          description="Join TechBlitz and unlock your potential with real-world coding challenges, personalized learning paths, and a supportive community."
         />
       </div>
     </>

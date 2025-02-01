@@ -1,14 +1,14 @@
-import AnimatedPricingFeatures from '@/components/shared/payment/animated-pricing-features';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
+import AnimatedPricingFeatures from "@/components/shared/payment/animated-pricing-features";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 // constants
-import { Plan } from '@/utils/constants/pricing';
+import { Plan } from "@/utils/constants/pricing";
 
 // utils
-import { cn } from '@/lib/utils';
-import NumberFlow from '@number-flow/react';
+import { cn } from "@/lib/utils";
+import NumberFlow from "@number-flow/react";
 
 export default function PricingCard(opts: {
   product: Plan;
@@ -26,11 +26,11 @@ export default function PricingCard(opts: {
     <Card
       style={{
         background:
-          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
+          "radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)",
       }}
       className={cn(
-        'flex-1 col-span-2 lg:col-span-1 group-hover:scale-[1.03] duration-300 pb-3 bg-black-75 flex flex-col justify-between h-full gap-y-4 border-black-50',
-        product.mostPopular && 'border-accent'
+        "flex-1 col-span-2 lg:col-span-1 group-hover:scale-[1.03] duration-300 pb-3 bg-black-75 flex flex-col justify-between h-full gap-y-4 border-black-50",
+        product.mostPopular && "border-accent",
       )}
     >
       <CardHeader className="pb-0">
@@ -77,15 +77,15 @@ export default function PricingCard(opts: {
           variant="secondary"
           href={
             showSignup
-              ? '/signup'
+              ? "/signup"
               : paymentTrigger
                 ? product.paymentLink?.production
                 : isFree
-                  ? '/signup'
-                  : '/upgrade'
+                  ? "/signup"
+                  : "/upgrade"
           }
         >
-          {isFree ? 'Start for free' : 'Get Premium'}
+          {isFree ? "Start for free" : "Get Premium"}
         </Button>
       </CardContent>
     </Card>

@@ -1,7 +1,7 @@
-import { BaseRecord } from './BaseRecord';
-import { UserWithOutAnswers } from './User';
+import { BaseRecord } from "./BaseRecord";
+import { UserWithOutAnswers } from "./User";
 
-type AnswerDifficulty = 'EASY' | 'MEDIUM' | 'HARD';
+type AnswerDifficulty = "EASY" | "MEDIUM" | "HARD";
 
 /**
  * The Answer type is the shape of the data when a user

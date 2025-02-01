@@ -1,5 +1,5 @@
-import { capitalise } from '@/utils';
-import { prisma } from '@/lib/prisma';
+import { capitalise } from "@/utils";
+import { prisma } from "@/lib/prisma";
 
 export const getTags = async () => {
   const tags = await prisma.tag.findMany();
@@ -12,7 +12,7 @@ export const getTags = async () => {
   const uniqueTags = sortedTags.filter(
     (tag, index, self) =>
       index ===
-      self.findIndex((t) => capitalise(t.name) === capitalise(tag.name))
+      self.findIndex((t) => capitalise(t.name) === capitalise(tag.name)),
   );
 
   // clear out any empty tags

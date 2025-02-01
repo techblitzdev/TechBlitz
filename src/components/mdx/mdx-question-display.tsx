@@ -1,5 +1,5 @@
-import { getQuestionsByTag } from '@/utils/data/questions/get-questions-by-tag';
-import QuestionCard from '../app/questions/layout/question-card';
+import { getQuestionsByTag } from "@/utils/data/questions/get-questions-by-tag";
+import QuestionCard from "../app/questions/layout/question-card";
 
 export default async function MdxQuestionDisplay(opts: {
   tag: string;
@@ -10,7 +10,7 @@ export default async function MdxQuestionDisplay(opts: {
   const question = await getQuestionsByTag(tag, undefined, take);
 
   const questions = question.flatMap((q) =>
-    q.questions.map((question) => question.question)
+    q.questions.map((question) => question.question),
   );
 
   return (

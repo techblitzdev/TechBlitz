@@ -1,19 +1,19 @@
-import { fetchRoadmap } from '@/utils/data/roadmap/fetch-single-roadmap';
-import GenerateMoreQuestionsButton from '@/components/app/roadmaps/[uid]/generate-more-questions';
-import RoadmapQuestionCard from '@/components/app/roadmaps/questions/[uid]/question-card';
-import RoadmapStats from '@/components/app/roadmaps/[uid]/roadmap-stats';
+import { fetchRoadmap } from "@/utils/data/roadmap/fetch-single-roadmap";
+import GenerateMoreQuestionsButton from "@/components/app/roadmaps/[uid]/generate-more-questions";
+import RoadmapQuestionCard from "@/components/app/roadmaps/questions/[uid]/question-card";
+import RoadmapStats from "@/components/app/roadmaps/[uid]/roadmap-stats";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { useUserServer } from '@/hooks/use-user-server';
-import { redirect } from 'next/navigation';
-import Chip from '@/components/ui/chip';
-import { capitalise } from '@/utils';
-import Hero from '@/components/shared/hero';
-import { RoadmapUserQuestions } from '@prisma/client';
+} from "@/components/ui/tooltip";
+import { useUserServer } from "@/hooks/use-user-server";
+import { redirect } from "next/navigation";
+import Chip from "@/components/ui/chip";
+import { capitalise } from "@/utils";
+import Hero from "@/components/shared/hero";
+import { RoadmapUserQuestions } from "@prisma/client";
 
 export default async function RoadmapSinglePage({
   params,
@@ -43,14 +43,14 @@ export default async function RoadmapSinglePage({
   // determine the roadmap title and description via the status
   // if the roadmap is 'creating' then we output 'Creation in progress'
   const roadmapTitle =
-    roadmap.status === 'CREATING'
-      ? 'Creation in progress'
-      : roadmap.title || 'Untitled Roadmap';
+    roadmap.status === "CREATING"
+      ? "Creation in progress"
+      : roadmap.title || "Untitled Roadmap";
 
   const roadmapDescription =
-    roadmap.status === 'CREATING'
-      ? 'We are creating your roadmap, this may take a few minutes'
-      : roadmap.description || 'No description';
+    roadmap.status === "CREATING"
+      ? "We are creating your roadmap, this may take a few minutes"
+      : roadmap.description || "No description";
 
   return (
     <>
@@ -67,7 +67,7 @@ export default async function RoadmapSinglePage({
               )}
             </div>
             <Chip
-              text={roadmap?.questions.length.toString() + ' ' + 'Questions'}
+              text={roadmap?.questions.length.toString() + " " + "Questions"}
               color="bg-white"
               textColor="text-black"
               border="border-black-50"
@@ -100,7 +100,7 @@ export default async function RoadmapSinglePage({
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger
-                  disabled={roadmap?.status === 'COMPLETED'}
+                  disabled={roadmap?.status === "COMPLETED"}
                   asChild
                   className="w-fit"
                 >

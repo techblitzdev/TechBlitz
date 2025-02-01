@@ -1,12 +1,12 @@
-import { generateStatisticsReport } from '@/actions/ai/reports/generate-report';
-import { getUserReports } from '@/utils/data/statistics/reports/get-reports';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { useUserServer } from '@/hooks/use-user-server';
-import { cn } from '@/lib/utils';
-import { ArrowRight, ChevronRight } from 'lucide-react';
-import Link from 'next/link';
-import { StatisticsReport as StatisticsReportType } from '@prisma/client';
+import { generateStatisticsReport } from "@/actions/ai/reports/generate-report";
+import { getUserReports } from "@/utils/data/statistics/reports/get-reports";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { useUserServer } from "@/hooks/use-user-server";
+import { cn } from "@/lib/utils";
+import { ArrowRight, ChevronRight } from "lucide-react";
+import Link from "next/link";
+import { StatisticsReport as StatisticsReportType } from "@prisma/client";
 
 export default async function StatisticsReport() {
   const user = await useUserServer();
@@ -14,7 +14,7 @@ export default async function StatisticsReport() {
   let reports: StatisticsReportType[] = [];
 
   // get all reports
-  if (user?.userLevel !== 'FREE') {
+  if (user?.userLevel !== "FREE") {
     reports = await getUserReports();
   }
 
@@ -31,7 +31,7 @@ export default async function StatisticsReport() {
             variant="secondary"
             className="flex items-center gap-x-2 text-sm"
             href="/statistics/reports"
-            disabled={reports.length === 0 || user?.userLevel === 'FREE'}
+            disabled={reports.length === 0 || user?.userLevel === "FREE"}
           >
             Reports overview
             <ChevronRight className="size-4" />
@@ -48,10 +48,10 @@ export default async function StatisticsReport() {
             <Link
               key={report.uid}
               className={cn(
-                'p-3 truncate w-full flex justify-between items-center group',
+                "p-3 truncate w-full flex justify-between items-center group",
                 index % 2 === 0
-                  ? 'bg-[#000] hover:bg-black-100'
-                  : 'bg-black hover:bg-black-75'
+                  ? "bg-[#000] hover:bg-black-100"
+                  : "bg-black hover:bg-black-75",
               )}
               href={`/statistics/reports/${report.uid}`}
             >
@@ -62,7 +62,7 @@ export default async function StatisticsReport() {
             </Link>
           ))}
       </div>
-      {user?.userLevel === 'FREE' && (
+      {user?.userLevel === "FREE" && (
         <div className="px-3 py-4 h-full flex flex-col gap-y-2 items-center justify-center">
           <p className="text-sm text-gray-400">
             You need to be a premium user to generate a report.
@@ -77,7 +77,7 @@ export default async function StatisticsReport() {
           </Button>
         </div>
       )}
-      {reports.length === 0 && user?.userLevel !== 'FREE' && (
+      {reports.length === 0 && user?.userLevel !== "FREE" && (
         <form
           className="px-3 py-4 h-full flex items-center justify-center"
           action={generateStatisticsReport}

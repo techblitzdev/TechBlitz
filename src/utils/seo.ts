@@ -1,7 +1,7 @@
-import { Metadata } from 'next';
-import { getBaseUrl } from '@/utils';
-import { Question } from '@/types/Questions';
-import { WebPageJsonLd } from '@/types/Seo';
+import { Metadata } from "next";
+import { getBaseUrl } from "@/utils";
+import { Question } from "@/types/Questions";
+import { WebPageJsonLd } from "@/types/Seo";
 
 interface OgImageProps {
   text: string;
@@ -23,17 +23,17 @@ export const createMetadata = ({
   canonicalUrl?: string;
 }): Metadata => {
   const defaultKeywords = [
-    'roadmaps',
-    'techblitz',
-    'ai',
-    'coding',
-    'programming',
-    'software engineering',
-    'developer',
-    'javascript',
-    'learn to code',
-    'coding course',
-    'coding bootcamp',
+    "roadmaps",
+    "techblitz",
+    "ai",
+    "coding",
+    "programming",
+    "software engineering",
+    "developer",
+    "javascript",
+    "learn to code",
+    "coding course",
+    "coding bootcamp",
   ];
 
   // Ensure canonical URL is always the full URL of the current page
@@ -42,7 +42,7 @@ export const createMetadata = ({
     : getBaseUrl();
 
   // If image is a string, use it directly as the OG image URL
-  if (typeof image === 'string') {
+  if (typeof image === "string") {
     return {
       title,
       description,
@@ -50,7 +50,7 @@ export const createMetadata = ({
       openGraph: {
         title,
         description,
-        type: 'website',
+        type: "website",
         url: fullCanonicalUrl,
         images: [
           {
@@ -62,7 +62,7 @@ export const createMetadata = ({
         ],
       },
       twitter: {
-        card: 'summary_large_image',
+        card: "summary_large_image",
         title,
         description,
         images: [
@@ -85,8 +85,8 @@ export const createMetadata = ({
   }
 
   // Handle OgImageProps case
-  const bgColor = image?.bgColor || '#f0f0f0';
-  const textColor = image?.textColor || '#000000';
+  const bgColor = image?.bgColor || "#f0f0f0";
+  const textColor = image?.textColor || "#000000";
   const ogImageUrl = `${getBaseUrl()}/api/og?text=${encodeURIComponent(image?.text || title)}&bgColor=${encodeURIComponent(bgColor)}&textColor=${encodeURIComponent(textColor)}`;
 
   return {
@@ -96,7 +96,7 @@ export const createMetadata = ({
     openGraph: {
       title,
       description,
-      type: 'website',
+      type: "website",
       url: fullCanonicalUrl,
       images: [
         {
@@ -108,7 +108,7 @@ export const createMetadata = ({
       ],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title,
       description,
       images: [
@@ -130,81 +130,81 @@ export const createMetadata = ({
   };
 };
 
-export const getQuestionEducationLevel = (question: Question['difficulty']) => {
+export const getQuestionEducationLevel = (question: Question["difficulty"]) => {
   switch (question) {
-    case 'BEGINNER':
-      return 'beginner';
-    case 'EASY':
-      return 'beginner';
-    case 'MEDIUM':
-      return 'intermediate';
-    case 'HARD':
-      return 'advanced';
+    case "BEGINNER":
+      return "beginner";
+    case "EASY":
+      return "beginner";
+    case "MEDIUM":
+      return "intermediate";
+    case "HARD":
+      return "advanced";
   }
 };
 
-export const WebPageJsonLdBreadcrumb: WebPageJsonLd['breadcrumb'] = {
-  '@type': 'BreadcrumbList',
+export const WebPageJsonLdBreadcrumb: WebPageJsonLd["breadcrumb"] = {
+  "@type": "BreadcrumbList",
   itemListElement: [
     {
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: 1,
-      name: 'Home',
+      name: "Home",
       item: getBaseUrl(),
     },
     // Dashboard Questions
     {
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: 2,
-      name: 'Questions',
-      item: getBaseUrl() + '/questions',
+      name: "Questions",
+      item: getBaseUrl() + "/questions",
     },
     {
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: 3,
-      name: 'Study Paths',
-      item: getBaseUrl() + '/study-paths',
+      name: "Study Paths",
+      item: getBaseUrl() + "/study-paths",
     },
     // Missing position 4 (Added)
     {
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: 4,
-      name: 'Roadmap',
-      item: getBaseUrl() + '/features/roadmap',
+      name: "Roadmap",
+      item: getBaseUrl() + "/features/roadmap",
     },
     // Features
     {
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: 5,
-      name: 'Daily Coding Challenges',
-      item: getBaseUrl() + '/features/daily-coding-challenges',
+      name: "Daily Coding Challenges",
+      item: getBaseUrl() + "/features/daily-coding-challenges",
     },
     {
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: 6,
-      name: 'Statistics',
-      item: getBaseUrl() + '/features/statistics',
+      name: "Statistics",
+      item: getBaseUrl() + "/features/statistics",
     },
     // Blog
     {
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: 7,
-      name: 'Blog',
-      item: getBaseUrl() + '/blog',
+      name: "Blog",
+      item: getBaseUrl() + "/blog",
     },
     // Pricing
     {
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: 8,
-      name: 'Pricing',
-      item: getBaseUrl() + '/pricing',
+      name: "Pricing",
+      item: getBaseUrl() + "/pricing",
     },
     // FAQs
     {
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: 9,
-      name: 'FAQs',
-      item: getBaseUrl() + '/faqs',
+      name: "FAQs",
+      item: getBaseUrl() + "/faqs",
     },
   ],
 };

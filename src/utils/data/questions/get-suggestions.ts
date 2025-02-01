@@ -1,8 +1,8 @@
-import { prisma } from '@/lib/prisma';
-import { extractTagIds } from './tags/get-tags-from-question';
-import type { QuestionDifficulty, QuestionWithTags } from '@/types/Questions';
-import { getUser, getUserFromDb } from '../../../actions/user/authed/get-user';
-import { cache } from 'react';
+import { prisma } from "@/lib/prisma";
+import { extractTagIds } from "./tags/get-tags-from-question";
+import type { QuestionDifficulty, QuestionWithTags } from "@/types/Questions";
+import { getUser, getUserFromDb } from "../../../actions/user/authed/get-user";
+import { cache } from "react";
 
 type SuggestionsOptions = {
   limit?: number;
@@ -17,10 +17,10 @@ export const getSuggestions = cache(
 
     // create a difficult map for the user
     const difficultyMap = {
-      BEGINNER: 'BEGINNER',
-      INTERMEDIATE: 'EASY',
-      ADVANCED: 'MEDIUM',
-      MASTER: 'HARD',
+      BEGINNER: "BEGINNER",
+      INTERMEDIATE: "EASY",
+      ADVANCED: "MEDIUM",
+      MASTER: "HARD",
     };
 
     // Get user's answer history with questions and tags
@@ -38,13 +38,13 @@ export const getSuggestions = cache(
         },
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: "desc",
       },
     });
 
     // Get all answered question IDs
     const answeredQuestionIds = userAnswers.map(
-      (answer) => answer.question.uid
+      (answer) => answer.question.uid,
     );
 
     // Try to get questions matching user's experience level and incorrect answers
@@ -60,7 +60,7 @@ export const getSuggestions = cache(
           }
           return acc;
         },
-        []
+        [],
       );
 
       // Extract tag IDs from questions
@@ -70,7 +70,7 @@ export const getSuggestions = cache(
       suggestions = await prisma.questions.findMany({
         where: {
           difficulty: difficultyMap[
-            user?.experienceLevel || 'BEGINNER'
+            user?.experienceLevel || "BEGINNER"
           ] as QuestionDifficulty,
           AND: [
             {
@@ -104,7 +104,7 @@ export const getSuggestions = cache(
           },
         },
         orderBy: {
-          createdAt: 'desc',
+          createdAt: "desc",
         },
         take: limit,
       });
@@ -115,7 +115,7 @@ export const getSuggestions = cache(
       suggestions = await prisma.questions.findMany({
         where: {
           difficulty: difficultyMap[
-            user?.experienceLevel || 'BEGINNER'
+            user?.experienceLevel || "BEGINNER"
           ] as QuestionDifficulty,
           customQuestion: false,
           NOT: {
@@ -132,7 +132,7 @@ export const getSuggestions = cache(
           },
         },
         orderBy: {
-          createdAt: 'desc',
+          createdAt: "desc",
         },
         take: limit,
       });
@@ -157,7 +157,7 @@ export const getSuggestions = cache(
           },
         },
         orderBy: {
-          createdAt: 'desc',
+          createdAt: "desc",
         },
         take: limit,
       });
@@ -177,12 +177,12 @@ export const getSuggestions = cache(
           },
         },
         orderBy: {
-          createdAt: 'desc',
+          createdAt: "desc",
         },
         take: limit,
       });
     }
 
     return suggestions;
-  }
+  },
 );

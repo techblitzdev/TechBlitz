@@ -1,12 +1,12 @@
-'use server';
-import { getUser } from '@/actions/user/authed/get-user';
-import { getTagsReport } from '@/actions/ai/reports/utils/get-tags-report';
-import { generateStatisticsCustomQuestions } from '@/actions/ai/reports/utils/generate-custom-questions';
-import { prisma } from '@/lib/prisma';
-import { nanoid } from 'nanoid';
-import { generateReportHtml } from '@/actions/ai/reports/utils/generate-report-html';
-import { revalidateTag } from 'next/cache';
-import { getTotalTimeTaken } from '@/utils/data/statistics/get-stats-chart-data';
+"use server";
+import { getUser } from "@/actions/user/authed/get-user";
+import { getTagsReport } from "@/actions/ai/reports/utils/get-tags-report";
+import { generateStatisticsCustomQuestions } from "@/actions/ai/reports/utils/generate-custom-questions";
+import { prisma } from "@/lib/prisma";
+import { nanoid } from "nanoid";
+import { generateReportHtml } from "@/actions/ai/reports/utils/generate-report-html";
+import { revalidateTag } from "next/cache";
+import { getTotalTimeTaken } from "@/utils/data/statistics/get-stats-chart-data";
 
 type QuestionData = {
   questions: string;
@@ -27,10 +27,10 @@ type QuestionData = {
 export const generateStatisticsReport = async () => {
   // Validate user and permissions on the server to prevent cheating
   const user = await getUser();
-  if (!user) throw new Error('User not found');
+  if (!user) throw new Error("User not found");
 
-  if (!['PREMIUM', 'ADMIN'].includes(user.userLevel)) {
-    throw new Error('Premium access required');
+  if (!["PREMIUM", "ADMIN"].includes(user.userLevel)) {
+    throw new Error("Premium access required");
   }
 
   // Get user performance data
@@ -51,7 +51,7 @@ export const generateStatisticsReport = async () => {
   ]);
 
   if (!customQuestionsResponse) {
-    throw new Error('Failed to generate custom questions');
+    throw new Error("Failed to generate custom questions");
   }
 
   // Process questions data
@@ -65,7 +65,7 @@ export const generateStatisticsReport = async () => {
     const correctAnswer = answers.find((answer) => answer.correct);
     if (!correctAnswer) {
       throw new Error(
-        `Missing correct answer for question: ${question.questions}`
+        `Missing correct answer for question: ${question.questions}`,
       );
     }
 
@@ -78,7 +78,7 @@ export const generateStatisticsReport = async () => {
       hint: question.hint || null,
       difficulty: question.difficulty.toUpperCase(),
       tags: question.tags,
-      questionDate: '',
+      questionDate: "",
       answers: {
         create: answers.map(({ uid, answer }) => ({
           uid,
@@ -114,11 +114,11 @@ export const generateStatisticsReport = async () => {
               connect: { uid: report.uid },
             },
           },
-        })
-      )
+        }),
+      ),
     );
 
-    revalidateTag('reports');
+    revalidateTag("reports");
 
     return report;
   });

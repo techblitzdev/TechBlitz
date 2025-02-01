@@ -1,11 +1,11 @@
-import { createServerClient, type CookieOptions } from '@supabase/ssr';
-import { NextResponse, type NextRequest } from 'next/server';
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { NextResponse, type NextRequest } from "next/server";
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({
     request: {
-      headers: request.headers
-    }
+      headers: request.headers,
+    },
   });
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -13,7 +13,7 @@ export async function updateSession(request: NextRequest) {
 
   // we need the env variables to be set
   if (!supabaseUrl || !supabaseKey)
-    throw new Error('Missing env variables for Supabase');
+    throw new Error("Missing env variables for Supabase");
 
   // this is used in this file to access the user
   const supabase = createServerClient(supabaseUrl, supabaseKey, {
@@ -25,43 +25,43 @@ export async function updateSession(request: NextRequest) {
         request.cookies.set({
           name,
           value,
-          ...options
+          ...options,
         });
         response = NextResponse.next({
           request: {
-            headers: request.headers
-          }
+            headers: request.headers,
+          },
         });
         response.cookies.set({
           name,
           value,
-          ...options
+          ...options,
         });
       },
       remove(name: string, options: CookieOptions) {
         request.cookies.set({
           name,
-          value: '',
-          ...options
+          value: "",
+          ...options,
         });
         response = NextResponse.next({
           request: {
-            headers: request.headers
-          }
+            headers: request.headers,
+          },
         });
         response.cookies.set({
           name,
-          value: '',
-          ...options
+          value: "",
+          ...options,
         });
-      }
-    }
+      },
+    },
   });
 
   const { data: user } = await supabase.auth?.getUser();
 
   return {
     response,
-    user
+    user,
   };
 }

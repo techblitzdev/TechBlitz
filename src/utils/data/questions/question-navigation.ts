@@ -1,5 +1,5 @@
-import { getUser } from '@/actions/user/authed/get-user';
-import { prisma } from '@/lib/prisma';
+import { getUser } from "@/actions/user/authed/get-user";
+import { prisma } from "@/lib/prisma";
 
 export const getNextAndPreviousQuestion = async (uid: string) => {
   const user = await getUser();
@@ -39,10 +39,10 @@ export const getNextAndPreviousQuestion = async (uid: string) => {
       const randomPrevious = await prisma.questions.findFirst({
         where: {
           uid: { not: uid },
-          isPremiumQuestion: user?.userLevel === 'FREE' ? false : true,
-          customQuestion: user?.userLevel === 'FREE' ? false : true,
+          isPremiumQuestion: user?.userLevel === "FREE" ? false : true,
+          customQuestion: user?.userLevel === "FREE" ? false : true,
         },
-        orderBy: { createdAt: 'desc' },
+        orderBy: { createdAt: "desc" },
       });
 
       return {
@@ -55,10 +55,10 @@ export const getNextAndPreviousQuestion = async (uid: string) => {
       const randomNext = await prisma.questions.findFirst({
         where: {
           uid: { not: uid },
-          isPremiumQuestion: user?.userLevel === 'FREE' ? false : true,
-          customQuestion: user?.userLevel === 'FREE' ? false : true,
+          isPremiumQuestion: user?.userLevel === "FREE" ? false : true,
+          customQuestion: user?.userLevel === "FREE" ? false : true,
         },
-        orderBy: { createdAt: 'desc' },
+        orderBy: { createdAt: "desc" },
       });
 
       return {
@@ -82,11 +82,11 @@ export const getNextAndPreviousQuestion = async (uid: string) => {
         createdAt: {
           gt: currentQuestion.createdAt,
         },
-        isPremiumQuestion: user?.userLevel === 'FREE' ? false : true,
-        customQuestion: user?.userLevel === 'FREE' ? false : true,
+        isPremiumQuestion: user?.userLevel === "FREE" ? false : true,
+        customQuestion: user?.userLevel === "FREE" ? false : true,
       },
       orderBy: {
-        createdAt: 'asc',
+        createdAt: "asc",
       },
     }),
     prisma.questions.findFirst({
@@ -94,11 +94,11 @@ export const getNextAndPreviousQuestion = async (uid: string) => {
         createdAt: {
           lt: currentQuestion.createdAt,
         },
-        isPremiumQuestion: user?.userLevel === 'FREE' ? false : true,
-        customQuestion: user?.userLevel === 'FREE' ? false : true,
+        isPremiumQuestion: user?.userLevel === "FREE" ? false : true,
+        customQuestion: user?.userLevel === "FREE" ? false : true,
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: "desc",
       },
     }),
   ]);
@@ -114,7 +114,7 @@ export const getNextAndPreviousQuestion = async (uid: string) => {
               },
             },
             orderBy: {
-              createdAt: 'desc',
+              createdAt: "desc",
             },
             take: 2,
           })

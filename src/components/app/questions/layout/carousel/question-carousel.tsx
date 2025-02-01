@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 import {
   Carousel,
   CarouselContent,
   CarouselNext,
   CarouselPrevious,
-} from '@/components/ui/carousel';
-import { QuestionDifficulty } from '@/types/Questions';
-import { Button } from '@/components/ui/button';
-import { ChevronRight } from 'lucide-react';
+} from "@/components/ui/carousel";
+import { QuestionDifficulty } from "@/types/Questions";
+import { Button } from "@/components/ui/button";
+import { ChevronRight } from "lucide-react";
 
 interface QuestionCarouselProps {
   heading: string | React.ReactNode;
@@ -35,7 +35,7 @@ export default function QuestionCarousel({
       opts={{
         loop: false,
         dragFree: true,
-        align: 'start',
+        align: "start",
       }}
       className="w-full"
     >

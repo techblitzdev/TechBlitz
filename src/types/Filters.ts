@@ -1,4 +1,4 @@
-import type { QuestionDifficulty } from './Questions';
+import type { QuestionDifficulty } from "./Questions";
 
 export interface QuestionFilters {
   tags?: string[];
@@ -7,7 +7,7 @@ export interface QuestionFilters {
   ascending?: boolean;
   page?: number;
   questionType?: string;
-  sortBy?: 'date' | 'submissions';
+  sortBy?: "date" | "submissions";
   postsPerPage?: number;
   bookmarked?: boolean;
   isPremiumQuestion?: boolean;

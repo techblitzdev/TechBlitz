@@ -1,7 +1,7 @@
-'use server';
-import { createClient } from '@/utils/supabase/server';
-import { prisma } from '@/lib/prisma';
-import type { UserLevel } from '@/types/User';
+"use server";
+import { createClient } from "@/utils/supabase/server";
+import { prisma } from "@/lib/prisma";
+import type { UserLevel } from "@/types/User";
 
 export const userAuth = async (userRole: UserLevel | UserLevel[]) => {
   const supabase = await createClient();
@@ -24,7 +24,7 @@ export const userAuth = async (userRole: UserLevel | UserLevel[]) => {
   }
 
   // check if the user's role matches the required role
-  if (typeof userRole === 'string' && dbUser.userLevel !== userRole) {
+  if (typeof userRole === "string" && dbUser.userLevel !== userRole) {
     return false;
   }
 

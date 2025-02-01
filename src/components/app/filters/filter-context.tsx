@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { Tag } from '@prisma/client';
+import { Tag } from "@prisma/client";
 /**
  * Context to share the state of the searchQuery
  */
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react";
 
 type FilterContextType = {
   searchQuery: string;
@@ -21,7 +21,7 @@ export const FilterContextProvider = ({
   children: React.ReactNode;
   tags: Tag[];
 }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <FilterContext.Provider value={{ searchQuery, setSearchQuery, tags }}>
@@ -34,7 +34,7 @@ export const useFilterContext = () => {
   const context = useContext(FilterContext);
   if (!context) {
     throw new Error(
-      'useFilterContext must be used within a FilterContextProvider'
+      "useFilterContext must be used within a FilterContextProvider",
     );
   }
   return context;

@@ -1,8 +1,8 @@
-import { Button } from '@/components/ui/button';
-import { TooltipContent, TooltipProvider } from '@/components/ui/tooltip';
-import { Tooltip } from '@/components/ui/tooltip';
-import { TooltipTrigger } from '@/components/ui/tooltip';
-import { Lightbulb } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
+import { Tooltip } from "@/components/ui/tooltip";
+import { TooltipTrigger } from "@/components/ui/tooltip";
+import { Lightbulb } from "lucide-react";
 
 export default function QuestionHintTrigger({
   showHint,

@@ -1,6 +1,6 @@
-'use server';
-import { prisma } from '@/lib/prisma';
-import { getUser } from './get-user';
+"use server";
+import { prisma } from "@/lib/prisma";
+import { getUser } from "./get-user";
 
 export async function checkUsername(username: string): Promise<boolean> {
   // get the current user

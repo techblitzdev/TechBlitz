@@ -1,6 +1,6 @@
-'use server';
-import { getUser } from '@/actions/user/authed/get-user';
-import { prisma } from '@/lib/prisma';
+"use server";
+import { getUser } from "@/actions/user/authed/get-user";
+import { prisma } from "@/lib/prisma";
 
 export const answerDefaultRoadmapQuestion = async (opts: {
   questionUid: string;
@@ -12,7 +12,7 @@ export const answerDefaultRoadmapQuestion = async (opts: {
 
   const user = await getUser();
   if (!user) {
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 
   const question = await prisma.defaultRoadmapQuestions.findUnique({
@@ -23,7 +23,7 @@ export const answerDefaultRoadmapQuestion = async (opts: {
   });
 
   if (!question) {
-    throw new Error('Question not found');
+    throw new Error("Question not found");
   }
 
   const correctAnswer = question.correctAnswer === answerUid;
@@ -81,19 +81,19 @@ export const answerDefaultRoadmapQuestion = async (opts: {
               : currentQuestionIndex + 1,
           // If this is the last question, mark the roadmap as completed
           status:
-            currentQuestionIndex === totalQuestions ? 'ACTIVE' : 'CREATING',
+            currentQuestionIndex === totalQuestions ? "ACTIVE" : "CREATING",
         },
       });
 
       return { userAnswer, totalQuestions };
-    }
+    },
   );
 
   const isLastQuestion = currentQuestionIndex === totalQuestions;
 
   // Find the answer text from the question's answers
   const answerText =
-    question.answers.find((a) => a.uid === answerUid)?.answer || '';
+    question.answers.find((a) => a.uid === answerUid)?.answer || "";
 
   return {
     correctAnswer,

@@ -1,4 +1,4 @@
-import CodeSnippet from '@/components/marketing/global/code-snippet';
+import CodeSnippet from "@/components/marketing/global/code-snippet";
 
 const codeSnippet1 = `// how to fetch data from an API
 export const fetchData = async () => {

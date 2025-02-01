@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { Facebook, Linkedin, Twitter } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Facebook, Linkedin, Twitter } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function ShareThisPost({
   title,
@@ -18,11 +18,11 @@ export default function ShareThisPost({
           onClick={() => {
             window.open(
               `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                title
+                title,
               )}&url=${encodeURIComponent(
-                `https://techblitz.dev/blog/${slug}`
+                `https://techblitz.dev/blog/${slug}`,
               )}`,
-              '_blank'
+              "_blank",
             );
           }}
           variant="default"
@@ -35,9 +35,9 @@ export default function ShareThisPost({
           onClick={() => {
             window.open(
               `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-                `https://techblitz.dev/blog/${slug}`
+                `https://techblitz.dev/blog/${slug}`,
               )}`,
-              '_blank'
+              "_blank",
             );
           }}
           variant="default"
@@ -50,9 +50,9 @@ export default function ShareThisPost({
           onClick={() => {
             window.open(
               `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                `https://techblitz.dev/blog/${slug}`
+                `https://techblitz.dev/blog/${slug}`,
               )}`,
-              '_blank'
+              "_blank",
             );
           }}
           variant="default"

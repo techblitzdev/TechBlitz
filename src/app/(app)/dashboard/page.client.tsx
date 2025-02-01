@@ -1,5 +1,5 @@
-'use client';
-import { use, useEffect, useState } from 'react';
+"use client";
+import { use, useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -7,13 +7,13 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { UserRecord } from '@/types/User';
-import { useRouter } from 'next/navigation';
-import ReferralToast from '@/components/shared/referral-toast';
-import { getUserDisplayName } from '@/utils/user';
-import { CheckIcon } from 'lucide-react';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { UserRecord } from "@/types/User";
+import { useRouter } from "next/navigation";
+import ReferralToast from "@/components/shared/referral-toast";
+import { getUserDisplayName } from "@/utils/user";
+import { CheckIcon } from "lucide-react";
 
 export default function ClientPage({
   children,
@@ -30,7 +30,7 @@ export default function ClientPage({
 
   // if we do not have a user, or the username is not set, we need to redirect to onboarding
   if (!user || !user.username) {
-    router.push('/onboarding');
+    router.push("/onboarding");
   }
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,19 +38,19 @@ export default function ClientPage({
 
   // Handle purchase success modal
   useEffect(() => {
-    if (searchParams.purchase === 'success') {
+    if (searchParams.purchase === "success") {
       setIsModalOpen(true);
     }
   }, [searchParams]);
 
   // First effect to check onboarding status
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === "undefined") return;
 
-    const onboardingRequired = localStorage.getItem('onboarding');
-    console.log('Onboarding status:', onboardingRequired);
+    const onboardingRequired = localStorage.getItem("onboarding");
+    console.log("Onboarding status:", onboardingRequired);
 
-    if (onboardingRequired === 'true') {
+    if (onboardingRequired === "true") {
       setShouldRedirect(true);
     }
   }, []);
@@ -58,7 +58,7 @@ export default function ClientPage({
   // Second effect to handle the actual redirect
   useEffect(() => {
     if (shouldRedirect) {
-      window.location.href = '/onboarding';
+      window.location.href = "/onboarding";
     }
   }, [shouldRedirect]);
 
@@ -122,12 +122,12 @@ export default function ClientPage({
           <DialogFooter className="flex w-full justify-end space-x-3 mt-6">
             <Button
               variant="default"
-              onClick={() => router.push('/dashboard')}
+              onClick={() => router.push("/dashboard")}
               className="hover:bg-gray-700 transition-colors"
             >
               Go to dashboard
             </Button>
-            <Button variant="accent" onClick={() => router.push('/roadmaps')}>
+            <Button variant="accent" onClick={() => router.push("/roadmaps")}>
               Explore roadmaps
             </Button>
           </DialogFooter>

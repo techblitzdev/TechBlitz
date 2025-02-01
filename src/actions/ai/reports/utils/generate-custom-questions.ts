@@ -1,9 +1,9 @@
-'use server';
-import { openai } from '@/lib/open-ai';
-import { zodResponseFormat } from 'openai/helpers/zod';
-import { getPrompt } from '@/actions/ai/utils/get-prompt';
-import { aiQuestionSchema } from '@/lib/zod/schemas/ai/response';
-import { UserRecord } from '@/types/User';
+"use server";
+import { openai } from "@/lib/open-ai";
+import { zodResponseFormat } from "openai/helpers/zod";
+import { getPrompt } from "@/actions/ai/utils/get-prompt";
+import { aiQuestionSchema } from "@/lib/zod/schemas/ai/response";
+import { UserRecord } from "@/types/User";
 
 /**
  * Generate custom questions for a user based on their incorrect tags
@@ -19,37 +19,37 @@ export const generateStatisticsCustomQuestions = async (opts: {
   const { incorrectTags, user } = opts;
 
   const prompts = await getPrompt({
-    name: ['statistics-generate-report'],
+    name: ["statistics-generate-report"],
   });
 
   if (!prompts) {
-    throw new Error('Prompt not found');
+    throw new Error("Prompt not found");
   }
 
   // generate the response that will create questions for the user
   // these questions are not accessible by other users (yet 😏)
   const firstPass = await openai.chat.completions.create({
-    model: 'gpt-4o-mini-2024-07-18',
+    model: "gpt-4o-mini-2024-07-18",
     messages: [
       {
-        role: 'system',
-        content: prompts['statistics-generate-report'].content,
+        role: "system",
+        content: prompts["statistics-generate-report"].content,
       },
       {
-        role: 'system',
+        role: "system",
         content:
-          'The user has provided the following information about themselves, tailor your answer to this information:',
+          "The user has provided the following information about themselves, tailor your answer to this information:",
       },
       {
-        role: 'user',
-        content: user?.aboutMeAiHelp || '',
+        role: "user",
+        content: user?.aboutMeAiHelp || "",
       },
       {
-        role: 'user',
+        role: "user",
         content: JSON.stringify(incorrectTags),
       },
     ],
-    response_format: zodResponseFormat(aiQuestionSchema, 'event'),
+    response_format: zodResponseFormat(aiQuestionSchema, "event"),
     temperature: 0.7,
   });
 

@@ -1,6 +1,6 @@
-'use server';
-import { stripe } from '@/lib/stripe';
-import { prisma } from '@/lib/prisma';
+"use server";
+import { stripe } from "@/lib/stripe";
+import { prisma } from "@/lib/prisma";
 
 export const getUserInvoices = async (userUid: string) => {
   // get the user's subscripton object

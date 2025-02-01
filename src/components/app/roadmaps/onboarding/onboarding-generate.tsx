@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 
 export default async function RoadmapGenerateButton({
   roadmapUid,
@@ -7,7 +7,7 @@ export default async function RoadmapGenerateButton({
   roadmapUid: string;
   generate: string;
 }) {
-  if (generate.length || generate === 'generated') {
+  if (generate.length || generate === "generated") {
     return (
       <Button href={`/roadmap/${roadmapUid}`} variant="accent" fullWidth>
         Go to Roadmap

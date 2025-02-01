@@ -1,8 +1,8 @@
-import { UserRecord } from '@/types/User';
-import { Camera } from 'lucide-react';
-import { getUserDisplayName } from '@/utils/user';
-import ProfileImage from './profile-image';
-import ProfilePicture from '@/components/ui/profile-picture';
+import { UserRecord } from "@/types/User";
+import { Camera } from "lucide-react";
+import { getUserDisplayName } from "@/utils/user";
+import ProfileImage from "./profile-image";
+import ProfilePicture from "@/components/ui/profile-picture";
 
 export default async function ProfileHero(opts: {
   userProfileData: UserRecord;
@@ -20,7 +20,7 @@ export default async function ProfileHero(opts: {
           <ProfileImage user={userProfileData} />
         ) : (
           <ProfilePicture
-            src={userProfileData?.userProfilePicture ?? ''}
+            src={userProfileData?.userProfilePicture ?? ""}
             alt={`${getUserDisplayName(userProfileData)}'s profile photo`}
             className="relative size-48 rounded-full border-4 border-black-50"
           />

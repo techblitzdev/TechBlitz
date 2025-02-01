@@ -1,11 +1,11 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 
 // tip tap
-import { useEditor, EditorContent } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
-import { common, createLowlight } from 'lowlight';
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
+import { common, createLowlight } from "lowlight";
 
 // components
 import {
@@ -14,46 +14,46 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField } from '@/components/ui/form';
-import { InputWithLabel } from '@/components/ui/input-label';
-import { DatePicker } from '@/components/ui/date-picker';
-import { toast } from 'sonner';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField } from "@/components/ui/form";
+import { InputWithLabel } from "@/components/ui/input-label";
+import { DatePicker } from "@/components/ui/date-picker";
+import { toast } from "sonner";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Separator } from '@/components/ui/separator';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
+} from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 const lowlight = createLowlight(common);
-import { TrashIcon } from 'lucide-react';
+import { TrashIcon } from "lucide-react";
 
 // react hook form
-import { useForm, useFieldArray } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { newQuestionSchema } from '@/lib/zod/schemas/new-question-schema';
-import { z } from 'zod';
-import { formatISO } from 'date-fns';
+import { useForm, useFieldArray } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { newQuestionSchema } from "@/lib/zod/schemas/new-question-schema";
+import { z } from "zod";
+import { formatISO } from "date-fns";
 
 // react query
-import { useMutation } from '@tanstack/react-query';
+import { useMutation } from "@tanstack/react-query";
 
 // actions
-import { addQuestion } from '@/actions/questions/add';
+import { addQuestion } from "@/actions/questions/add";
 
 // constants
-import { LANGUAGE_OPTIONS } from '@/utils/constants/language-options';
-import { QuestionDifficulty } from '@/types/Questions';
+import { LANGUAGE_OPTIONS } from "@/utils/constants/language-options";
+import { QuestionDifficulty } from "@/types/Questions";
 
 type SchemaProps = z.infer<typeof newQuestionSchema>;
 
 const MenuBar = ({ editor }: { editor: any }) => {
-  const [currentLanguage, setCurrentLanguage] = React.useState('javascript');
+  const [currentLanguage, setCurrentLanguage] = React.useState("javascript");
 
   if (!editor) {
     return null;
@@ -66,7 +66,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         size="sm"
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={!editor.can().chain().focus().toggleBold().run()}
-        className={editor.isActive('bold') ? 'bg-black-50' : ''}
+        className={editor.isActive("bold") ? "bg-black-50" : ""}
       >
         bold
       </Button>
@@ -75,7 +75,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         size="sm"
         onClick={() => editor.chain().focus().toggleItalic().run()}
         disabled={!editor.can().chain().focus().toggleItalic().run()}
-        className={editor.isActive('italic') ? 'bg-black-50' : ''}
+        className={editor.isActive("italic") ? "bg-black-50" : ""}
       >
         italic
       </Button>
@@ -86,11 +86,11 @@ const MenuBar = ({ editor }: { editor: any }) => {
         onClick={() => {
           editor.chain().focus().toggleCodeBlock().run();
         }}
-        className={editor.isActive('codeBlock') ? 'bg-black-50' : ''}
+        className={editor.isActive("codeBlock") ? "bg-black-50" : ""}
       >
         Code block
       </Button>
-      {editor.isActive('codeBlock') && (
+      {editor.isActive("codeBlock") && (
         <Select
           value={currentLanguage}
           onValueChange={(value) => {
@@ -126,10 +126,10 @@ const AnswerEditor = ({
       StarterKit,
       CodeBlockLowlight.configure({
         lowlight,
-        defaultLanguage: 'javascript',
+        defaultLanguage: "javascript",
       }),
     ],
-    content: value || '',
+    content: value || "",
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
       onChange(html); // Update the form value with the editor's content
@@ -154,41 +154,41 @@ export default function NewQuestionModal({ ...props }) {
       StarterKit,
       CodeBlockLowlight.configure({
         lowlight,
-        defaultLanguage: 'javascript',
+        defaultLanguage: "javascript",
       }),
     ],
-    content: '',
+    content: "",
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
-      form.setValue('codeSnippet', html);
+      form.setValue("codeSnippet", html);
     },
   });
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(newQuestionSchema),
     defaultValues: {
-      title: '',
-      description: '',
-      question: '',
-      questionDate: '',
+      title: "",
+      description: "",
+      question: "",
+      questionDate: "",
       answers: [
-        { text: '', isCodeSnippet: false, answerFullSnippet: '' },
-        { text: '', isCodeSnippet: false, answerFullSnippet: '' },
-        { text: '', isCodeSnippet: false, answerFullSnippet: '' },
-        { text: '', isCodeSnippet: false, answerFullSnippet: '' },
+        { text: "", isCodeSnippet: false, answerFullSnippet: "" },
+        { text: "", isCodeSnippet: false, answerFullSnippet: "" },
+        { text: "", isCodeSnippet: false, answerFullSnippet: "" },
+        { text: "", isCodeSnippet: false, answerFullSnippet: "" },
       ],
       correctAnswer: null,
-      codeSnippet: '',
-      hint: '',
+      codeSnippet: "",
+      hint: "",
       dailyQuestion: false,
-      tags: '',
+      tags: "",
       isRoadmapQuestion: false,
       aiTitle: undefined,
-      difficulty: 'EASY',
+      difficulty: "EASY",
       questionResources: [
         {
-          title: '',
-          url: '',
+          title: "",
+          url: "",
         },
       ],
     },
@@ -196,7 +196,7 @@ export default function NewQuestionModal({ ...props }) {
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
-    name: 'answers',
+    name: "answers",
   });
 
   const {
@@ -205,17 +205,17 @@ export default function NewQuestionModal({ ...props }) {
     remove: removeResource,
   } = useFieldArray({
     control: form.control,
-    name: 'questionResources',
+    name: "questionResources",
   });
 
   const toggleCorrectAnswer = (index: number) =>
-    form.setValue('correctAnswer', index);
+    form.setValue("correctAnswer", index);
 
   const { mutateAsync: server_addQuestion, isPending } = useMutation({
     mutationFn: (values: SchemaProps) => {
       const { answers, ...rest } = values;
       const answerFullSnippets = answers.map(
-        (answer) => answer.answerFullSnippet
+        (answer) => answer.answerFullSnippet,
       );
 
       return addQuestion({
@@ -224,27 +224,27 @@ export default function NewQuestionModal({ ...props }) {
           text: answer.text,
           isCodeSnippet: answer.isCodeSnippet,
           answerFullSnippet: answer.answerFullSnippet,
-          answerType: answerFullSnippets.length > 0 ? 'PREFILL' : 'STANDARD',
+          answerType: answerFullSnippets.length > 0 ? "PREFILL" : "STANDARD",
         })),
         correctAnswer: Number(rest.correctAnswer),
-        tags: rest.tags ? rest.tags.split(',').map((tag) => tag.trim()) : [],
+        tags: rest.tags ? rest.tags.split(",").map((tag) => tag.trim()) : [],
         aiTitle: rest.aiTitle || undefined,
         difficulty: rest.difficulty as QuestionDifficulty,
       });
     },
     onSuccess: () => {
-      toast.success('Question added successfully');
+      toast.success("Question added successfully");
       form.reset();
-      form.setValue('tags', '');
-      editor?.commands.setContent('');
+      form.setValue("tags", "");
+      editor?.commands.setContent("");
     },
     onError: () => {
-      toast.error('Failed to add question');
+      toast.error("Failed to add question");
     },
   });
 
   const showAiTitleField =
-    form.watch('isRoadmapQuestion') && !form.watch('dailyQuestion');
+    form.watch("isRoadmapQuestion") && !form.watch("dailyQuestion");
 
   const handleNewQuestion = async (values: SchemaProps) =>
     await server_addQuestion(values);
@@ -337,7 +337,7 @@ export default function NewQuestionModal({ ...props }) {
                   )}
                 />
                 {/* Question Date */}
-                {form.watch('dailyQuestion') && (
+                {form.watch("dailyQuestion") && (
                   <FormField
                     control={form.control}
                     name="questionDate"
@@ -347,8 +347,8 @@ export default function NewQuestionModal({ ...props }) {
                           date={field.value ? new Date(field.value) : undefined}
                           setDate={(date) =>
                             form.setValue(
-                              'questionDate',
-                              date ? formatISO(date) : ''
+                              "questionDate",
+                              date ? formatISO(date) : "",
                             )
                           }
                         />
@@ -470,7 +470,7 @@ export default function NewQuestionModal({ ...props }) {
                       onChange={(value) =>
                         form.setValue(
                           `answers.${index}.answerFullSnippet`,
-                          value
+                          value,
                         )
                       } // Update the form field
                     />
@@ -481,10 +481,10 @@ export default function NewQuestionModal({ ...props }) {
                       onClick={() => toggleCorrectAnswer(index)}
                       className="btn"
                     >
-                      {index === form.watch('correctAnswer') &&
-                      form.watch('correctAnswer') !== null
-                        ? '✅'
-                        : 'Mark as correct'}
+                      {index === form.watch("correctAnswer") &&
+                      form.watch("correctAnswer") !== null
+                        ? "✅"
+                        : "Mark as correct"}
                     </Button>
                     <Button
                       type="button"
@@ -502,9 +502,9 @@ export default function NewQuestionModal({ ...props }) {
                 className="w-fit"
                 onClick={() =>
                   append({
-                    text: '',
+                    text: "",
                     isCodeSnippet: false,
-                    answerFullSnippet: '',
+                    answerFullSnippet: "",
                   })
                 }
               >
@@ -561,7 +561,7 @@ export default function NewQuestionModal({ ...props }) {
                           label="Resource Link"
                           type="text"
                           wrapperclassname="lg:w-72"
-                          value={value?.toString() ?? ''}
+                          value={value?.toString() ?? ""}
                           {...fieldProps}
                         />
                       </FormControl>
@@ -569,7 +569,7 @@ export default function NewQuestionModal({ ...props }) {
                   />
                   <Button
                     type="button"
-                    onClick={() => appendResource({ title: '', url: '' })}
+                    onClick={() => appendResource({ title: "", url: "" })}
                     className="btn"
                   >
                     Add Resource
@@ -586,7 +586,7 @@ export default function NewQuestionModal({ ...props }) {
 
               {/* Submit Button */}
               <Button type="submit" variant="secondary" disabled={isPending}>
-                {isPending ? 'Adding...' : 'Add Question'}
+                {isPending ? "Adding..." : "Add Question"}
               </Button>
             </form>
           </Form>

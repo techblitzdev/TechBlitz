@@ -1,6 +1,6 @@
-import { getUser } from '@/actions/user/authed/get-user';
-import { prisma } from '@/lib/prisma';
-import { unstable_cache as NextCache } from 'next/cache';
+import { getUser } from "@/actions/user/authed/get-user";
+import { prisma } from "@/lib/prisma";
+import { unstable_cache as NextCache } from "next/cache";
 
 export const getUserAnswerRank = NextCache(
   async (opts: { questionUid: string }) => {
@@ -21,7 +21,7 @@ export const getUserAnswerRank = NextCache(
   `;
 
     return result.length > 0 ? result[0].rank : null;
-  }
+  },
 );
 
 /**

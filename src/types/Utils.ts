@@ -2,8 +2,7 @@
 export type RequireAtLeastOne<T> = {
   // [K in keyof T] creates a mapped type, iterating over each property K in type T
   // The -? removes optional modifiers (making properties required by default)
-  [K in keyof T]-?: // Example: if K is 'name', this makes { name: string } required // Required<...> makes that property required // Pick<T, K> selects just the current property K from T // Part 1: Required<Pick<T, K>> // For each property K, we create a type that:
-  Required<Pick<T, K>> &
+  [K in keyof T]-?: Required<Pick<T, K>> & // Example: if K is 'name', this makes { name: string } required // Required<...> makes that property required // Pick<T, K> selects just the current property K from T // Part 1: Required<Pick<T, K>> // For each property K, we create a type that:
     // & performs an intersection with...
     // Part 2: Partial<Pick<T, Exclude<keyof T, K>>>
     // Exclude<keyof T, K> takes all properties of T EXCEPT the current one K

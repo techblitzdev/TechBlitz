@@ -1,12 +1,12 @@
-import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak';
-import { Suspense, SVGProps } from 'react';
-import LoadingSpinner from './loading';
+import { getUserDailyStats } from "@/utils/data/user/authed/get-daily-streak";
+import { Suspense, SVGProps } from "react";
+import LoadingSpinner from "./loading";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from './tooltip';
+} from "./tooltip";
 
 export function SolarFlameBoldDuotone(props: SVGProps<SVGSVGElement>) {
   return (

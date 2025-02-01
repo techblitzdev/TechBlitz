@@ -1,17 +1,17 @@
-import LoginForm from '@/components/auth/login';
+import LoginForm from "@/components/auth/login";
 
-import { createMetadata } from '@/utils/seo';
+import { createMetadata } from "@/utils/seo";
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Login | TechBlitz',
-    description: 'Login to your account to continue.',
+    title: "Login | TechBlitz",
+    description: "Login to your account to continue.",
     image: {
-      text: 'Login | TechBlitz',
-      bgColor: '#000',
-      textColor: '#fff',
+      text: "Login | TechBlitz",
+      bgColor: "#000",
+      textColor: "#fff",
     },
-    canonicalUrl: '/login',
+    canonicalUrl: "/login",
   });
 }
 
@@ -27,7 +27,7 @@ export default function LoginPage({
       className="border border-black-50 p-8 rounded-xl space-y-4 text-center"
       style={{
         background:
-          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
+          "radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)",
       }}
     >
       <h1 className="font-bold text-3xl mb-2">Welcome back!</h1>

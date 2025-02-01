@@ -1,12 +1,12 @@
-import { Question } from '@/types/Questions';
-import Chip from '@/components/ui/chip';
-import { capitalise } from '@/utils';
-import { ArrowDownLeft } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { getQuestionDifficultyColor } from '@/utils';
-import { Grid } from '@/components/ui/grid';
-import TagDisplay from '@/components/app/questions/tag-display';
-import NoDailyQuestion from '@/components/shared/no-daily-question';
+import { Question } from "@/types/Questions";
+import Chip from "@/components/ui/chip";
+import { capitalise } from "@/utils";
+import { ArrowDownLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { getQuestionDifficultyColor } from "@/utils";
+import { Grid } from "@/components/ui/grid";
+import TagDisplay from "@/components/app/questions/tag-display";
+import NoDailyQuestion from "@/components/shared/no-daily-question";
 
 export default function YesterdaysQuestionBentoBox(opts: {
   question: Question | null;

@@ -1,11 +1,11 @@
-'use server';
-import { Answer } from '@/types/Answers';
-import { UserRecord } from '@/types/User';
-import { prisma } from '@/lib/prisma';
-import { revalidateTag } from 'next/cache';
-import { AnswerDifficulty } from '@prisma/client';
-import { uniqueId } from 'lodash';
-import { getUser } from '../user/authed/get-user';
+"use server";
+import { Answer } from "@/types/Answers";
+import { UserRecord } from "@/types/User";
+import { prisma } from "@/lib/prisma";
+import { revalidateTag } from "next/cache";
+import { AnswerDifficulty } from "@prisma/client";
+import { uniqueId } from "lodash";
+import { getUser } from "../user/authed/get-user";
 
 // Types
 interface AnswerQuestionInput {
@@ -50,7 +50,7 @@ const findQuestion = async (questionUid: string) => {
   });
 
   if (!question) {
-    throw new Error('Question not found');
+    throw new Error("Question not found");
   }
 
   return question;
@@ -64,7 +64,7 @@ const findQuestion = async (questionUid: string) => {
  * @returns
  */
 const findExistingAnswer = async (userUid: string, questionUid: string) => {
-  console.log('hit findExistingAnswer');
+  console.log("hit findExistingAnswer");
   return prisma.answers.findFirst({
     where: {
       user: { is: { uid: userUid } },
@@ -76,7 +76,7 @@ const findExistingAnswer = async (userUid: string, questionUid: string) => {
 const updateStreakDates = async (
   tx: any,
   userUid: string,
-  currentStreak: any
+  currentStreak: any,
 ) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -85,7 +85,7 @@ const updateStreakDates = async (
   lastUpdate.setHours(0, 0, 0, 0);
 
   const daysDifference = Math.floor(
-    (today.getTime() - lastUpdate.getTime()) / (24 * 60 * 60 * 1000)
+    (today.getTime() - lastUpdate.getTime()) / (24 * 60 * 60 * 1000),
   );
 
   // Check if user has answered any question today
@@ -148,7 +148,7 @@ const handleStreakUpdates = async (
     userUid,
   }: {
     userUid: string;
-  }
+  },
 ) => {
   // Remove dailyQuestion check to handle streaks for all questions
   const userStreak = await findOrCreateUserStreak(userUid);
@@ -173,7 +173,7 @@ const updateOrCreateAnswer = async (
     answerUid?: string;
     correctAnswer: boolean;
     timeTaken?: number;
-  }
+  },
 ) => {
   if (existingAnswer) {
     // Update if the new answer is correct and the previous one was incorrect, or if the time is better
@@ -221,7 +221,7 @@ export async function answerQuestion({
   const questionType = question.questionType;
 
   let correctAnswer = false;
-  if (questionType === 'CODING_CHALLENGE') {
+  if (questionType === "CODING_CHALLENGE") {
     correctAnswer = allPassed || false;
   } else {
     correctAnswer = question.correctAnswer === answerUid;
@@ -287,7 +287,7 @@ export async function answerQuestion({
 export async function updateAnswerDifficulty(
   answerUid: string,
   difficulty: AnswerDifficulty,
-  isRoadmapQuestion: boolean
+  isRoadmapQuestion: boolean,
 ) {
   if (isRoadmapQuestion) {
     await prisma.roadmapUserQuestionsUserAnswers.update({
@@ -310,12 +310,12 @@ export async function updateAnswerDifficulty(
  */
 export async function updateAnswerDifficultyByQuestionUid(
   questionUid: string,
-  difficulty: AnswerDifficulty
+  difficulty: AnswerDifficulty,
 ) {
   const user = await getUser();
 
   if (!user) {
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 
   await prisma.answers.updateMany({
@@ -342,7 +342,7 @@ const updateStudyPathProgress = async ({
   });
 
   if (!studyPath) {
-    throw new Error('Study path not found');
+    throw new Error("Study path not found");
   }
 
   const completedQuestions = await prisma.answers.findMany({

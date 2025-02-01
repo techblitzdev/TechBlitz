@@ -1,6 +1,6 @@
-'use server';
-import { prisma } from '@/lib/prisma';
-import { UserRecord } from '@/types/User';
+"use server";
+import { prisma } from "@/lib/prisma";
+import { UserRecord } from "@/types/User";
 
 /**
  * Gathers the tag data for the user stats report
@@ -63,14 +63,14 @@ export const getTagsReport = async (opts: {
     ([tagName, count]) => ({
       tagName,
       count,
-    })
+    }),
   );
 
   const incorrectTagsArray = Object.entries(incorrectTagCounts).map(
     ([tagName, count]) => ({
       tagName,
       count,
-    })
+    }),
   );
 
   return {

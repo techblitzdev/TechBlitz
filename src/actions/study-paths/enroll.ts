@@ -1,6 +1,6 @@
-'use server';
-import { prisma } from '@/lib/prisma';
-import { getUser } from '../user/authed/get-user';
+"use server";
+import { prisma } from "@/lib/prisma";
+import { getUser } from "../user/authed/get-user";
 
 /**
  * Action to enroll a user in a study path
@@ -13,7 +13,7 @@ export const enrollInStudyPath = async (studyPathUid: string) => {
 
   // if no user, they cannot enroll in a study path
   if (!user) {
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 
   // check if the user is already enrolled in the study path
@@ -26,7 +26,7 @@ export const enrollInStudyPath = async (studyPathUid: string) => {
 
   // if the user is already enrolled, return an error
   if (existingEnrollment) {
-    throw new Error('User already enrolled in study path');
+    throw new Error("User already enrolled in study path");
   }
 
   // check how many of the questions in the study path have been completed

@@ -1,5 +1,5 @@
-import { Skeleton } from '@/components/ui/skeleton';
-import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
+import { Skeleton } from "@/components/ui/skeleton";
+import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 
 export default function QuestionPageSidebarLoading() {
   return (

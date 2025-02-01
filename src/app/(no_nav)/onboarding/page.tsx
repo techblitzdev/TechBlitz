@@ -1,14 +1,14 @@
-import Logo from '@/components/ui/logo';
-import StarsBackground from '@/components/ui/stars-background';
+import Logo from "@/components/ui/logo";
+import StarsBackground from "@/components/ui/stars-background";
 
-import Link from 'next/link';
-import { UserOnboardingContextProvider } from '@/components/app/onboarding/onboarding-context';
-import OnboardingForm from '@/components/app/onboarding/onboarding-form';
-import { getTodaysQuestion } from '@/utils/data/questions/get-today';
-import { useUserServer } from '@/hooks/use-user-server';
+import Link from "next/link";
+import { UserOnboardingContextProvider } from "@/components/app/onboarding/onboarding-context";
+import OnboardingForm from "@/components/app/onboarding/onboarding-form";
+import { getTodaysQuestion } from "@/utils/data/questions/get-today";
+import { useUserServer } from "@/hooks/use-user-server";
 
 export const metadata = {
-  title: 'Onboarding | TechBlitz',
+  title: "Onboarding | TechBlitz",
 };
 
 export default async function OnboardingPage() {

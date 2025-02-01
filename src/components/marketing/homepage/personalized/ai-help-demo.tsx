@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { StarsIcon } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { StarsIcon } from "lucide-react";
 
 export default function AnimatedAIQuestionHelpCard() {
   const [showAIHelp, setShowAIHelp] = useState(false);
-  const [typedPlaceholder, setTypedPlaceholder] = useState('');
+  const [typedPlaceholder, setTypedPlaceholder] = useState("");
 
-  const placeholder = 'How do I use Array.Reduce in JavaScript?';
+  const placeholder = "How do I use Array.Reduce in JavaScript?";
 
   useEffect(() => {
     let currentIndex = 0;
@@ -40,7 +40,7 @@ export default function AnimatedAIQuestionHelpCard() {
       className="w-full max-w-md h-full overflow-hidden text-white border border-black-50 relative"
       style={{
         background:
-          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
+          "radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)",
       }}
     >
       <CardHeader>

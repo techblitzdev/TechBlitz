@@ -1,39 +1,39 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useMemo, Suspense } from 'react';
-import QuestionChart from '@/components/app/statistics/total-question-chart';
-import SkewedQuestionCards from './skewed-question-cards';
+import { useState, useEffect, useMemo, Suspense } from "react";
+import QuestionChart from "@/components/app/statistics/total-question-chart";
+import SkewedQuestionCards from "./skewed-question-cards";
 import {
   capitalise,
   generateFakeData,
   getQuestionDifficultyColor,
-} from '@/utils';
-import { Badge } from '@/components/ui/badge';
-import { motion, AnimatePresence } from 'framer-motion';
-import Chip from '@/components/ui/chip';
-import { Button } from '@/components/ui/button';
+} from "@/utils";
+import { Badge } from "@/components/ui/badge";
+import { motion, AnimatePresence } from "framer-motion";
+import Chip from "@/components/ui/chip";
+import { Button } from "@/components/ui/button";
 
 const tags = [
   {
     id: 1,
-    name: 'Array methods',
-    title: 'Array methods',
-    questionContent: 'What is the main advantage of using the reduce method?',
-    difficulty: 'EASY',
+    name: "Array methods",
+    title: "Array methods",
+    questionContent: "What is the main advantage of using the reduce method?",
+    difficulty: "EASY",
   },
   {
     id: 2,
-    name: 'React hooks',
-    title: 'React hooks',
-    questionContent: 'What are the disadvantages of using the useEffect hook?',
-    difficulty: 'HARD',
+    name: "React hooks",
+    title: "React hooks",
+    questionContent: "What are the disadvantages of using the useEffect hook?",
+    difficulty: "HARD",
   },
   {
     id: 3,
-    name: 'Async',
-    title: 'Async',
-    questionContent: 'What will the following asynchronous code return?',
-    difficulty: 'MEDIUM',
+    name: "Async",
+    title: "Async",
+    questionContent: "What will the following asynchronous code return?",
+    difficulty: "MEDIUM",
   },
 ];
 
@@ -103,10 +103,10 @@ export default function StatsReportSection(opts: {
         <p className="text-gray-400 max-w-5xl text-sm sm:text-base md:text-lg">
           {subheader
             ? subheader
-            : 'Get actionable insights with personalized performance analytics. Track your coding journey, identify areas for improvement, and celebrate your achievements with comprehensive progress reports.'}
+            : "Get actionable insights with personalized performance analytics. Track your coding journey, identify areas for improvement, and celebrate your achievements with comprehensive progress reports."}
         </p>
         {learnMoreLink && (
-          <Button variant="secondary" href={'/features/statistics'}>
+          <Button variant="secondary" href={"/features/statistics"}>
             Learn more
           </Button>
         )}
@@ -154,7 +154,7 @@ export default function StatsReportSection(opts: {
                       <Badge
                         variant="secondary"
                         className={`bg-red-500/20 text-red-300 border border-red-500/30 hover:bg-red-500/30 transition-colors w-fit cursor-pointer ${
-                          activeTag === tag.id ? 'ring-2 ring-red-500' : ''
+                          activeTag === tag.id ? "ring-2 ring-red-500" : ""
                         }`}
                         onClick={() => setActiveTag(tag.id)}
                       >

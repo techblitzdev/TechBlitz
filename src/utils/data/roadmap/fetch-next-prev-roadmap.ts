@@ -1,4 +1,4 @@
-import { fetchUserRoadmaps } from './fetch-user-roadmaps';
+import { fetchUserRoadmaps } from "./fetch-user-roadmaps";
 
 export const fetchNextPrevRoadmap = async (opts: {
   roadmapUid: string;
@@ -9,7 +9,7 @@ export const fetchNextPrevRoadmap = async (opts: {
   const userRoadmaps = await fetchUserRoadmaps(userUid);
 
   const roadmapIndex = userRoadmaps.findIndex(
-    (roadmap) => roadmap.uid === roadmapUid
+    (roadmap) => roadmap.uid === roadmapUid,
   );
 
   if (roadmapIndex === -1) {

@@ -1,20 +1,20 @@
-import { SuggestedChallengeEmailTemplate } from '@/components/templates/daily-challenge';
-import { prisma } from '@/lib/prisma';
-import { resend } from '@/lib/resend';
-import { QuestionWithTags } from '@/types/Questions';
-import { UserRecord } from '@/types/User';
+import { SuggestedChallengeEmailTemplate } from "@/components/templates/daily-challenge";
+import { prisma } from "@/lib/prisma";
+import { resend } from "@/lib/resend";
+import { QuestionWithTags } from "@/types/Questions";
+import { UserRecord } from "@/types/User";
 import {
   SUGGESTED_CHALLENGE_EMAIL_DESCRIPTION,
   SUGGESTED_CHALLENGE_EMAIL_SUBJECT,
-} from '@/utils/constants/suggested-challenge';
-import { getSuggestions } from '@/utils/data/questions/get-suggestions';
-import { getTodaysQuestion } from '@/utils/data/questions/get-today';
-import { getUserDisplayName } from '@/utils/user';
-import { renderAsync } from '@react-email/components';
-import { type NextRequest, NextResponse } from 'next/server';
-import React from 'react';
+} from "@/utils/constants/suggested-challenge";
+import { getSuggestions } from "@/utils/data/questions/get-suggestions";
+import { getTodaysQuestion } from "@/utils/data/questions/get-today";
+import { getUserDisplayName } from "@/utils/user";
+import { renderAsync } from "@react-email/components";
+import { type NextRequest, NextResponse } from "next/server";
+import React from "react";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 const getRandomElement = (arr: string[]) =>
   arr[Math.floor(Math.random() * arr.length)];
@@ -30,10 +30,10 @@ async function getChallenge(userUid: string) {
 async function sendEmail(user: UserRecord, challenge: QuestionWithTags) {
   const displayName = getUserDisplayName(user);
   const subject = getRandomElement(
-    SUGGESTED_CHALLENGE_EMAIL_SUBJECT(displayName)
+    SUGGESTED_CHALLENGE_EMAIL_SUBJECT(displayName),
   );
   const description = getRandomElement(
-    SUGGESTED_CHALLENGE_EMAIL_DESCRIPTION(displayName)
+    SUGGESTED_CHALLENGE_EMAIL_DESCRIPTION(displayName),
   );
 
   // very minor chance the question will not have a slug, so we use the uid as a fallback
@@ -49,27 +49,27 @@ async function sendEmail(user: UserRecord, challenge: QuestionWithTags) {
         challenge.tags?.map((tag: { tag: { name: string } }) => tag.tag.name) ||
         [],
       link,
-    })
+    }),
   );
 
   await resend.emails.send({
-    from: 'TechBlitz <team@techblitz.dev>',
+    from: "TechBlitz <team@techblitz.dev>",
     to: user.email,
     subject,
     html,
-    replyTo: 'team@techblitz.dev',
+    replyTo: "team@techblitz.dev",
   });
 }
 
 export async function GET(request: NextRequest) {
-  const authHeader = request.headers.get('authorization');
+  const authHeader = request.headers.get("authorization");
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    return new Response('Unauthorized', {
+    return new Response("Unauthorized", {
       status: 401,
     });
   }
 
-  console.log('Sending daily challenge email');
+  console.log("Sending daily challenge email");
 
   try {
     const users = await prisma.users.findMany({
@@ -79,7 +79,7 @@ export async function GET(request: NextRequest) {
     });
 
     if (!users.length) {
-      return NextResponse.json({ message: 'No users found' }, { status: 404 });
+      return NextResponse.json({ message: "No users found" }, { status: 404 });
     }
 
     const results = await Promise.allSettled(
@@ -100,13 +100,13 @@ export async function GET(request: NextRequest) {
         } catch (error) {
           console.error(`Failed to process user ${user.email}:`, error);
         }
-      })
+      }),
     );
 
     const successfulEmails = results
       .filter(
         (result): result is PromiseFulfilledResult<string> =>
-          result.status === 'fulfilled' && !!result.value
+          result.status === "fulfilled" && !!result.value,
       )
       .map((result) => result.value);
 
@@ -115,13 +115,13 @@ export async function GET(request: NextRequest) {
         message: `Emails sent successfully to ${successfulEmails.length} users`,
         successfulEmails,
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
-    console.error('Failed to send daily challenge emails:', error);
+    console.error("Failed to send daily challenge emails:", error);
     return NextResponse.json(
-      { message: 'Internal server error' },
-      { status: 500 }
+      { message: "Internal server error" },
+      { status: 500 },
     );
   }
 }

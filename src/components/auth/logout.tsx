@@ -1,25 +1,25 @@
-'use client';
-import { logout } from '@/actions/user/account/logout';
-import { usePathname, useRouter } from 'next/navigation';
+"use client";
+import { logout } from "@/actions/user/account/logout";
+import { usePathname, useRouter } from "next/navigation";
 
 // components
-import { ExitIcon } from '@radix-ui/react-icons';
-import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
+import { ExitIcon } from "@radix-ui/react-icons";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export default function LogoutButton(otps: {
   variant?:
-    | 'default'
-    | 'destructive'
-    | 'outline'
-    | 'secondary'
-    | 'ghost'
-    | 'link'
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | "link"
     | null
     | undefined;
-  padding?: 'sm' | 'lg' | 'md' | 'xl' | 'none' | null | undefined;
+  padding?: "sm" | "lg" | "md" | "xl" | "none" | null | undefined;
 }) {
-  const { variant = 'default', padding = 'md' } = otps;
+  const { variant = "default", padding = "md" } = otps;
 
   const router = useRouter();
   const pathname = usePathname();
@@ -29,9 +29,9 @@ export default function LogoutButton(otps: {
       await logout();
       router.push(`/login?redirectUrl=${pathname}`);
     } catch (err) {
-      toast.error('Failed to logout');
+      toast.error("Failed to logout");
     }
-    toast.success('You have been logged out');
+    toast.success("You have been logged out");
   };
 
   return (

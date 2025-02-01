@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { Stripe } from 'stripe';
-import { motion } from 'framer-motion';
-import { ReloadIcon } from '@radix-ui/react-icons';
-import { Separator } from '@/components/ui/separator';
-import { Button } from '@/components/ui/button';
-import AnimatedPricingFeatures from './animated-pricing-features';
-import NumberFlow from '@number-flow/react';
+import { Stripe } from "stripe";
+import { motion } from "framer-motion";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import AnimatedPricingFeatures from "./animated-pricing-features";
+import NumberFlow from "@number-flow/react";
 
 // type imports
-import type { UserRecord } from '@/types/User';
-import { Plan } from '@/utils/constants/pricing';
-import { cn } from '@/lib/utils';
+import type { UserRecord } from "@/types/User";
+import { Plan } from "@/utils/constants/pricing";
+import { cn } from "@/lib/utils";
 
 export function PricingCard(opts: {
   user: UserRecord | null;
@@ -25,12 +25,12 @@ export function PricingCard(opts: {
 
   // get the payment link depending on if this is local env or production
   const paymentLink = !product.price
-    ? '/sign-up'
-    : process.env.NODE_ENV === 'development'
-      ? typeof product.cta === 'object' && typeof product.cta.href === 'object'
+    ? "/sign-up"
+    : process.env.NODE_ENV === "development"
+      ? typeof product.cta === "object" && typeof product.cta.href === "object"
         ? product.cta.href.local
         : product.cta.href
-      : typeof product.cta.href === 'object'
+      : typeof product.cta.href === "object"
         ? product.cta.href.production
         : product.cta.href;
 
@@ -45,7 +45,7 @@ export function PricingCard(opts: {
       whileHover={{ scale: 1.02 }}
       style={{
         background:
-          'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
+          "radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)",
       }}
     >
       <div className="flex flex-col justify-between h-full gap-y-4">
@@ -96,13 +96,13 @@ export function PricingCard(opts: {
           {/** payment trigger */}
           <Button
             href={
-              typeof paymentLink === 'string'
+              typeof paymentLink === "string"
                 ? paymentLink
                 : paymentLink.production
             }
             className={cn(
-              'w-full text-lg font-semibold py-6',
-              product.disabled && 'opacity-50 cursor-not-allowed'
+              "w-full text-lg font-semibold py-6",
+              product.disabled && "opacity-50 cursor-not-allowed",
             )}
             variant="secondary"
           >
@@ -110,7 +110,7 @@ export function PricingCard(opts: {
               <ReloadIcon className="size-5 animate-spin" />
             ) : (
               <div className="font-satoshi">
-                {!product.price ? 'Sign up' : product.cta.text}
+                {!product.price ? "Sign up" : product.cta.text}
               </div>
             )}
           </Button>

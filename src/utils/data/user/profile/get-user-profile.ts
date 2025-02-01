@@ -1,5 +1,5 @@
-import { getUser } from '@/actions/user/authed/get-user';
-import { prisma } from '@/lib/prisma';
+import { getUser } from "@/actions/user/authed/get-user";
+import { prisma } from "@/lib/prisma";
 
 export const getOrCreateUserProfile = async () => {
   const user = await getUser();
@@ -26,7 +26,7 @@ export const getOrCreateUserProfile = async () => {
     }
 
     // if the user exists in our database, but does not have a profile, create one
-    console.log('creating profile');
+    console.log("creating profile");
     const newProfile = await prisma.profile.create({
       data: {
         userUid: user.uid,
@@ -40,7 +40,7 @@ export const getOrCreateUserProfile = async () => {
   } catch (error: any) {
     // If we get a unique constraint error, it means the profile was created
     // in a race condition between our check and create. Try to fetch it again.
-    if (error.code === 'P2002' && error.meta?.target?.includes('userUid')) {
+    if (error.code === "P2002" && error.meta?.target?.includes("userUid")) {
       const existingProfile = await prisma.profile.findUnique({
         where: {
           userUid: user.uid,

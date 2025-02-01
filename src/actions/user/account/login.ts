@@ -1,7 +1,7 @@
-'use server';
-import { prisma } from '@/lib/prisma';
-import { createClient as createServerClient } from '@/utils/supabase/server';
-import { revalidateTag } from 'next/cache';
+"use server";
+import { prisma } from "@/lib/prisma";
+import { createClient as createServerClient } from "@/utils/supabase/server";
+import { revalidateTag } from "next/cache";
 
 /**
  * Logs the user into the application
@@ -14,9 +14,9 @@ export const login = async (opts: { email: string; password: string }) => {
   const { email, password } = opts;
   const supabase = await createServerClient();
 
-  if (!supabase) throw new Error('No supabase client found');
+  if (!supabase) throw new Error("No supabase client found");
 
-  if (!email || !password) throw new Error('Email and password are required');
+  if (!email || !password) throw new Error("Email and password are required");
 
   const { data: user, error } = await supabase.auth.signInWithPassword({
     email,
@@ -53,7 +53,7 @@ export const login = async (opts: { email: string; password: string }) => {
           createdAt: new Date(),
           updatedAt: new Date(),
           lastLogin: new Date(),
-          userLevel: 'FREE',
+          userLevel: "FREE",
         },
       });
     } else {
@@ -68,11 +68,11 @@ export const login = async (opts: { email: string; password: string }) => {
       });
     }
 
-    revalidateTag('user-details');
+    revalidateTag("user-details");
 
     return user.user;
   } catch (error) {
-    console.error('Database error:', error);
+    console.error("Database error:", error);
     return {
       error,
     };

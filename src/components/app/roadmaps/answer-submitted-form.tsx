@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { CheckCircle2Icon, XCircleIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import LoadingSpinner from '@/components/ui/loading';
+import { CheckCircle2Icon, XCircleIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import LoadingSpinner from "@/components/ui/loading";
 
 export default function AnswerSubmittedForm(opts: {
   newUserData: {
@@ -64,7 +64,7 @@ export default function AnswerSubmittedForm(opts: {
             onClick={() => handleNextQuestion()}
             type="button"
           >
-            {redirecting ? <LoadingSpinner /> : 'Next Question'}
+            {redirecting ? <LoadingSpinner /> : "Next Question"}
           </Button>
         </div>
       </div>

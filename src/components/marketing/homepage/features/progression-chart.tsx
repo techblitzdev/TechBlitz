@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { TrendingUp, TrendingDown } from 'lucide-react';
-import { CartesianGrid, Line, LineChart, XAxis } from 'recharts';
-import NumberFlow from '@number-flow/react';
+import React, { useState, useEffect } from "react";
+import { TrendingUp, TrendingDown } from "lucide-react";
+import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
+import NumberFlow from "@number-flow/react";
 
 import {
   Card,
@@ -12,27 +12,27 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from '@/components/ui/chart';
+} from "@/components/ui/chart";
 
 const months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
 const generateRandomData = () => {
@@ -44,8 +44,8 @@ const generateRandomData = () => {
 
 const chartConfig = {
   questions: {
-    label: 'Questions',
-    color: 'hsl(var(--chart-1))',
+    label: "Questions",
+    color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig;
 
@@ -85,7 +85,7 @@ export default function ProgressChart({
     <Card
       style={{
         background:
-          'radial-gradient(128% 107% at 100% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
+          "radial-gradient(128% 107% at 100% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)",
       }}
       className="border-black-50"
     >
@@ -138,7 +138,7 @@ export default function ProgressChart({
               stroke="hsl(var(--accent))"
               strokeWidth={2}
               dot={{
-                fill: 'hsl(var(--accent))',
+                fill: "hsl(var(--accent))",
               }}
               activeDot={{
                 r: 6,
@@ -149,7 +149,7 @@ export default function ProgressChart({
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none text-white">
-          {trend.isUp ? 'Trending up' : 'Trending down'} by {trend.percentage}%
+          {trend.isUp ? "Trending up" : "Trending down"} by {trend.percentage}%
           this period
           {trend.isUp ? (
             <TrendingUp className="h-4 w-4 text-green-500" />

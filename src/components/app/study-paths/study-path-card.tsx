@@ -1,11 +1,11 @@
-import type { StudyPath } from '@prisma/client';
-import { CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { Button } from '@/components/ui/button';
-import { CheckCircle } from 'lucide-react';
-import { useUserServer } from '@/hooks/use-user-server';
-import Link from 'next/link';
-import { cn } from '@/lib/utils';
+import type { StudyPath } from "@prisma/client";
+import { CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { Button } from "@/components/ui/button";
+import { CheckCircle } from "lucide-react";
+import { useUserServer } from "@/hooks/use-user-server";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
   const user = await useUserServer();
@@ -14,12 +14,12 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
     <Link
       href={`/study-paths/${studyPath.slug}`}
       className={cn(
-        'rounded-lg h-fit w-full overflow-hidden transition-all duration-300 hover:border-black border border-black-50 group',
+        "rounded-lg h-fit w-full overflow-hidden transition-all duration-300 hover:border-black border border-black-50 group",
         user?.studyPathEnrollments?.find(
-          (e) => e.studyPathUid === studyPath.uid
+          (e) => e.studyPathUid === studyPath.uid,
         )
-          ? ''
-          : 'border-black-50'
+          ? ""
+          : "border-black-50",
       )}
     >
       <CardHeader className="relative p-0">
@@ -36,8 +36,8 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
             {/** if 100% then show 100% else show the progress */}
             {Math.round(
               user?.studyPathEnrollments?.find(
-                (e) => e.studyPathUid === studyPath.uid
-              )?.progress ?? 0
+                (e) => e.studyPathUid === studyPath.uid,
+              )?.progress ?? 0,
             ) === 100 ? (
               <div className="flex items-center gap-x-2">
                 <CheckCircle className="size-4 text-green-500" />
@@ -46,8 +46,8 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
             ) : (
               `${Math.round(
                 user?.studyPathEnrollments?.find(
-                  (e) => e.studyPathUid === studyPath.uid
-                )?.progress ?? 0
+                  (e) => e.studyPathUid === studyPath.uid,
+                )?.progress ?? 0,
               )}% completed`
             )}
           </div>
@@ -55,7 +55,7 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
             className="border border-black-50 bg-black-50 relative z-10"
             value={
               user?.studyPathEnrollments?.find(
-                (e) => e.studyPathUid === studyPath.uid
+                (e) => e.studyPathUid === studyPath.uid,
               )?.progress ?? 0
             }
           />
@@ -66,8 +66,8 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
               className="size-[200px] opacity-10 group-hover:opacity-100 transition-all duration-300"
               dangerouslySetInnerHTML={{
                 __html: studyPath.icon.replace(
-                  '<svg',
-                  '<svg width="200" height="200"'
+                  "<svg",
+                  '<svg width="200" height="200"',
                 ),
               }}
             />
@@ -79,17 +79,17 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
           className="w-full"
           variant={
             user?.studyPathEnrollments?.find(
-              (e) => e.studyPathUid === studyPath.uid
+              (e) => e.studyPathUid === studyPath.uid,
             )
-              ? 'default'
-              : 'secondary'
+              ? "default"
+              : "secondary"
           }
         >
           {user?.studyPathEnrollments?.find(
-            (e) => e.studyPathUid === studyPath.uid
+            (e) => e.studyPathUid === studyPath.uid,
           )
-            ? 'In progress'
-            : 'Start learning'}
+            ? "In progress"
+            : "Start learning"}
         </Button>
       </CardFooter>
     </Link>

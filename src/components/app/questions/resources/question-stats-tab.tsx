@@ -1,4 +1,4 @@
-import { Check, User } from 'lucide-react';
+import { Check, User } from "lucide-react";
 
 export default function QuestionStatsTab(opts: {
   totalSubmissions?: {

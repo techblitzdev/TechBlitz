@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import { generateAnswerHelp } from '@/actions/ai/questions/answer-help';
-import { answerRoadmapQuestion } from '@/actions/roadmap/questions/answer-roadmap-question';
-import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
-import { RoadmapUserQuestions } from '@/types/Roadmap';
-import { UserRecord } from '@/types/User';
+import { generateAnswerHelp } from "@/actions/ai/questions/answer-help";
+import { answerRoadmapQuestion } from "@/actions/roadmap/questions/answer-roadmap-question";
+import { answerHelpSchema } from "@/lib/zod/schemas/ai/answer-help";
+import { RoadmapUserQuestions } from "@/types/Roadmap";
+import { UserRecord } from "@/types/User";
 import {
   RoadmapUserQuestionsAnswers,
   RoadmapUserQuestionsUserAnswers,
-} from '@prisma/client';
-import { createContext, useState, useContext } from 'react';
-import { toast } from 'sonner';
-import { z } from 'zod';
+} from "@prisma/client";
+import { createContext, useState, useContext } from "react";
+import { toast } from "sonner";
+import { z } from "zod";
 
-type Layout = 'questions' | 'codeSnippet' | 'answer';
-type AnswerStatus = 'correct' | 'incorrect' | 'init';
+type Layout = "questions" | "codeSnippet" | "answer";
+type AnswerStatus = "correct" | "incorrect" | "init";
 
 interface RoadmapQuestionContextType {
   roadmapQuestion: RoadmapUserQuestions;
@@ -23,17 +23,17 @@ interface RoadmapQuestionContextType {
   currentLayout: Layout;
   setCurrentLayout: (layout: Layout) => void;
   handleAnswerRoadmapQuestion: (
-    e: React.FormEvent<HTMLFormElement>
+    e: React.FormEvent<HTMLFormElement>,
   ) => Promise<void>;
   selectedAnswer: string | null;
   setSelectedAnswer: (answer: string | null) => void;
-  newUserData: Omit<RoadmapUserQuestionsAnswers, 'answers'> | null;
+  newUserData: Omit<RoadmapUserQuestionsAnswers, "answers"> | null;
   setNewUserData: (
-    userData: Omit<RoadmapUserQuestionsAnswers, 'answers'> | null
+    userData: Omit<RoadmapUserQuestionsAnswers, "answers"> | null,
   ) => void;
-  nextQuestion: Omit<RoadmapUserQuestions, 'answers'> | null;
+  nextQuestion: Omit<RoadmapUserQuestions, "answers"> | null;
   setNextQuestion: (
-    question: Omit<RoadmapUserQuestions, 'answers'> | null
+    question: Omit<RoadmapUserQuestions, "answers"> | null,
   ) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
@@ -54,14 +54,14 @@ interface RoadmapQuestionContextType {
 }
 
 const RoadmapQuestionContext = createContext<RoadmapQuestionContextType>(
-  {} as RoadmapQuestionContextType
+  {} as RoadmapQuestionContextType,
 );
 
 export const useRoadmapQuestion = () => {
   const context = useContext(RoadmapQuestionContext);
   if (!context) {
     throw new Error(
-      'useRoadmapQuestion must be used within a RoadmapQuestionContextProvider'
+      "useRoadmapQuestion must be used within a RoadmapQuestionContextProvider",
     );
   }
   return context;
@@ -81,17 +81,17 @@ export const RoadmapQuestionContextProvider = ({
   user,
 }: ProviderProps) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [currentLayout, setCurrentLayout] = useState<Layout>('questions');
+  const [currentLayout, setCurrentLayout] = useState<Layout>("questions");
   const [loading, setLoading] = useState(false);
   const [newUserData, setNewUserData] = useState<Omit<
     RoadmapUserQuestionsAnswers,
-    'answers'
+    "answers"
   > | null>(null);
   const [nextQuestion, setNextQuestion] = useState<Omit<
     RoadmapUserQuestions,
-    'answers'
+    "answers"
   > | null>();
-  const [correctAnswer, setCorrectAnswer] = useState<AnswerStatus>('init');
+  const [correctAnswer, setCorrectAnswer] = useState<AnswerStatus>("init");
   const [userAnswer, setUserAnswer] =
     useState<RoadmapUserQuestionsUserAnswers | null>(null);
 
@@ -111,7 +111,7 @@ export const RoadmapQuestionContextProvider = ({
     // if the user has asked for assistance for the answer, set the current layout to 'codeSnippet'
     // this is so mobile view switches to the code snippet view
     if (setCodeSnippetLayout) {
-      setCurrentLayout('codeSnippet');
+      setCurrentLayout("codeSnippet");
     }
 
     // we don't need to check if the user has enough tokens because the user is on a roadmap
@@ -119,13 +119,13 @@ export const RoadmapQuestionContextProvider = ({
     const { content } = await generateAnswerHelp(
       roadmapQuestion.uid,
       userAnswer?.correct || false,
-      'roadmap'
+      "roadmap",
     );
 
-    console.log('content', content);
+    console.log("content", content);
 
     if (!content) {
-      toast.error('Error generating answer help');
+      toast.error("Error generating answer help");
       return;
     }
 
@@ -134,17 +134,17 @@ export const RoadmapQuestionContextProvider = ({
   };
 
   const handleAnswerRoadmapQuestion = async (
-    e: React.FormEvent<HTMLFormElement>
+    e: React.FormEvent<HTMLFormElement>,
   ) => {
     e.preventDefault();
 
     if (!user) {
-      console.error('User is not logged in');
+      console.error("User is not logged in");
       return;
     }
 
     if (!selectedAnswer) {
-      toast.error('Please select an answer');
+      toast.error("Please select an answer");
       return;
     }
 
@@ -152,11 +152,11 @@ export const RoadmapQuestionContextProvider = ({
 
     try {
       const selectedAnswerText = roadmapQuestion.answers.find(
-        (a) => a.uid === selectedAnswer
+        (a) => a.uid === selectedAnswer,
       )?.answer;
 
       if (!selectedAnswerText) {
-        throw new Error('Selected answer not found');
+        throw new Error("Selected answer not found");
       }
 
       const { userAnswer, nextQuestion } = await answerRoadmapQuestion({
@@ -171,11 +171,11 @@ export const RoadmapQuestionContextProvider = ({
       setUserAnswer(userAnswer);
       setNewUserData(userAnswer);
       setNextQuestion(nextQuestion);
-      setCorrectAnswer(userAnswer?.correct ? 'correct' : 'incorrect');
-      setCurrentLayout('answer');
+      setCorrectAnswer(userAnswer?.correct ? "correct" : "incorrect");
+      setCurrentLayout("answer");
     } catch (error) {
-      console.error('Error submitting answer:', error);
-      toast.error('Error submitting answer');
+      console.error("Error submitting answer:", error);
+      toast.error("Error submitting answer");
     } finally {
       setLoading(false);
     }
@@ -183,10 +183,10 @@ export const RoadmapQuestionContextProvider = ({
 
   const resetQuestionState = () => {
     setSelectedAnswer(null);
-    setCurrentLayout('questions');
+    setCurrentLayout("questions");
     setNewUserData(null);
     setNextQuestion(null);
-    setCorrectAnswer('init');
+    setCorrectAnswer("init");
     setUserAnswer(null);
     setAnswerHelp(null);
   };

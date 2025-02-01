@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
 import {
   DropdownMenu,
   DropdownMenuItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
-import { EllipsisVertical, FileText } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { generateStatisticsReport } from '@/actions/ai/reports/generate-report';
-import { UserWithOutAnswers } from '@/types/User';
-import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
-import { useTransition } from 'react';
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { EllipsisVertical, FileText } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { generateStatisticsReport } from "@/actions/ai/reports/generate-report";
+import { UserWithOutAnswers } from "@/types/User";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { useTransition } from "react";
 
 export default function StatisticsOverviewMenu(opts: {
   user: UserWithOutAnswers;
@@ -27,12 +27,12 @@ export default function StatisticsOverviewMenu(opts: {
     try {
       startTransition(async () => {
         const report = await generateStatisticsReport();
-        console.log('report', report);
+        console.log("report", report);
         // Use router.push instead of redirect for client-side navigation
         router.push(`/statistics/reports/${report.uid}`);
       });
     } catch (error) {
-      toast.error('Failed to generate report');
+      toast.error("Failed to generate report");
     }
   };
 
@@ -49,8 +49,8 @@ export default function StatisticsOverviewMenu(opts: {
       >
         <DropdownMenuItem
           className={cn(
-            user?.userLevel === 'PREMIUM' &&
-              'opacity-50 hover:cursor-not-allowed'
+            user?.userLevel === "PREMIUM" &&
+              "opacity-50 hover:cursor-not-allowed",
           )}
         >
           <button
@@ -58,7 +58,7 @@ export default function StatisticsOverviewMenu(opts: {
             className="hover:cursor-pointer flex items-center gap-x-2"
           >
             <FileText className="size-3.5" />
-            {isPending ? 'Generating...' : 'Generate Report'}
+            {isPending ? "Generating..." : "Generate Report"}
           </button>
         </DropdownMenuItem>
       </DropdownMenuContent>

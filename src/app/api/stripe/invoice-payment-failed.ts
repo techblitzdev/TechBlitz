@@ -1,7 +1,7 @@
-import Stripe from 'stripe';
-import { prisma } from '@/lib/prisma';
-import { resend } from '@/lib/resend';
-import { stripe } from '@/lib/stripe';
+import Stripe from "stripe";
+import { prisma } from "@/lib/prisma";
+import { resend } from "@/lib/resend";
+import { stripe } from "@/lib/stripe";
 
 /**
  * Method is ran on the following events:
@@ -14,10 +14,10 @@ export const invoicePaymentFailed = async (event: Stripe.Event) => {
   const customer = await stripe.customers.retrieve(invoice.customer as string);
   const userEmail = (customer as Stripe.Customer).email;
 
-  console.log('userEmail', userEmail);
+  console.log("userEmail", userEmail);
 
   if (!userEmail) {
-    console.log('No user email found');
+    console.log("No user email found");
     return;
   }
 
@@ -30,7 +30,7 @@ export const invoicePaymentFailed = async (event: Stripe.Event) => {
 
   // we need the user in order to update their details
   if (!user) {
-    console.log('No user found');
+    console.log("No user found");
     return;
   }
 
@@ -42,7 +42,7 @@ export const invoicePaymentFailed = async (event: Stripe.Event) => {
       uid: userUid,
     },
     data: {
-      userLevel: 'FREE',
+      userLevel: "FREE",
     },
   });
 
@@ -58,16 +58,16 @@ export const invoicePaymentFailed = async (event: Stripe.Event) => {
       stripeCustomerId: null,
       stripeSubscriptionItemId: null,
       endDate: new Date(),
-      productId: '',
+      productId: "",
     },
   });
 
   // send an email to the user to let them know their payment has failed
   await resend.emails.send({
     to: userEmail,
-    subject: 'Payment Failed',
-    text: 'Your payment has failed. Please update your payment information.',
-    from: 'team@techblitz.dev',
+    subject: "Payment Failed",
+    text: "Your payment has failed. Please update your payment information.",
+    from: "team@techblitz.dev",
   });
 
   return true;

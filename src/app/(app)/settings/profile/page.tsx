@@ -1,48 +1,48 @@
-'use client';
-import { useEffect } from 'react';
+"use client";
+import { useEffect } from "react";
 
 import {
   Tooltip,
   TooltipProvider,
-  TooltipTrigger
-} from '@/components/ui/tooltip';
-import { Button } from '@/components/ui/button';
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormMessage
-} from '@/components/ui/form';
-import { InputWithLabel } from '@/components/ui/input-label';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
-import LoadingSpinner from '@/components/ui/loading';
-import LogoutButton from '@/components/auth/logout';
-import { Separator } from '@/components/ui/separator';
-import { toast } from 'sonner';
+  FormMessage,
+} from "@/components/ui/form";
+import { InputWithLabel } from "@/components/ui/input-label";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import LoadingSpinner from "@/components/ui/loading";
+import LogoutButton from "@/components/auth/logout";
+import { Separator } from "@/components/ui/separator";
+import { toast } from "sonner";
 import {
   Select,
   SelectTrigger,
   SelectContent,
-  SelectItem
-} from '@/components/ui/select';
-import CodeEditorPreview from '@/components/app/settings/code-preview';
+  SelectItem,
+} from "@/components/ui/select";
+import CodeEditorPreview from "@/components/app/settings/code-preview";
 
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useUser } from '@/hooks/use-user';
-import { updateUser } from '@/actions/user/authed/update-user';
+import { useUser } from "@/hooks/use-user";
+import { updateUser } from "@/actions/user/authed/update-user";
 
-import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { userDetailsSchema } from "@/lib/zod/schemas/user-details-schema";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { UserUpdatePayload } from '@/types/User';
-import { themes } from 'prism-react-renderer';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import { UserUpdatePayload } from "@/types/User";
+import { themes } from "prism-react-renderer";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 type SchemaProps = z.input<typeof userDetailsSchema>;
 
@@ -53,28 +53,28 @@ export default function SettingsProfilePage() {
   const form = useForm<SchemaProps>({
     resolver: zodResolver(userDetailsSchema),
     defaultValues: {
-      username: user?.username || '',
-      firstName: user?.firstName || '',
-      lastName: user?.lastName || '',
+      username: user?.username || "",
+      firstName: user?.firstName || "",
+      lastName: user?.lastName || "",
       showTimeTaken: user?.showTimeTaken || false,
       sendPushNotifications: user?.sendPushNotifications || false,
-      codeEditorTheme: user?.codeEditorTheme || 'vs-dark',
-      userProfilePicture: user?.userProfilePicture || '',
-      aboutMeAiHelp: user?.aboutMeAiHelp || ''
-    }
+      codeEditorTheme: user?.codeEditorTheme || "vs-dark",
+      userProfilePicture: user?.userProfilePicture || "",
+      aboutMeAiHelp: user?.aboutMeAiHelp || "",
+    },
   });
 
   useEffect(() => {
     if (!isLoading && user) {
       form.reset({
-        username: user.username || '',
-        firstName: user.firstName || '',
-        lastName: user.lastName || '',
+        username: user.username || "",
+        firstName: user.firstName || "",
+        lastName: user.lastName || "",
         showTimeTaken: user.showTimeTaken,
         sendPushNotifications: user.sendPushNotifications,
-        codeEditorTheme: user.codeEditorTheme || 'vs-dark',
-        userProfilePicture: user.userProfilePicture || '',
-        aboutMeAiHelp: user.aboutMeAiHelp || ''
+        codeEditorTheme: user.codeEditorTheme || "vs-dark",
+        userProfilePicture: user.userProfilePicture || "",
+        aboutMeAiHelp: user.aboutMeAiHelp || "",
       });
     }
   }, [user, isLoading, form]);
@@ -88,34 +88,34 @@ export default function SettingsProfilePage() {
           }
           return acc;
         },
-        {} as Record<string, any>
+        {} as Record<string, any>,
       );
 
       const updatedVals: Partial<UserUpdatePayload> = {
         ...changedValues,
-        uid: user?.uid || ''
+        uid: user?.uid || "",
       };
 
       const updatedUser = await updateUser({ userDetails: updatedVals });
       return updatedUser;
     },
     onMutate: async (newUserData) => {
-      await queryClient.cancelQueries({ queryKey: ['user-details'] });
-      const previousUser = queryClient.getQueryData(['user-details']);
-      queryClient.setQueryData(['user-details'], (old: any) => ({
+      await queryClient.cancelQueries({ queryKey: ["user-details"] });
+      const previousUser = queryClient.getQueryData(["user-details"]);
+      queryClient.setQueryData(["user-details"], (old: any) => ({
         ...old,
-        ...newUserData
+        ...newUserData,
       }));
       return { previousUser };
     },
     onError: (err, _, context) => {
-      queryClient.setQueryData(['user-details'], context?.previousUser);
-      toast.error('An error occurred while updating your profile');
+      queryClient.setQueryData(["user-details"], context?.previousUser);
+      toast.error("An error occurred while updating your profile");
       console.error(err);
     },
     onSuccess: () => {
-      toast.success('Profile updated successfully');
-    }
+      toast.success("Profile updated successfully");
+    },
   });
 
   const onSubmitProfilePicture = async (data: any) => {
@@ -125,29 +125,29 @@ export default function SettingsProfilePage() {
     const maxSize = 2 * 1024 * 1024; // 2MB in bytes
 
     if (file.size > maxSize) {
-      toast.error('File size must be less than 2MB');
+      toast.error("File size must be less than 2MB");
       return;
     }
 
     const formData = new FormData();
-    formData.append('files', file);
-    formData.append('userId', user?.uid);
-    formData.append('route', 'user-profile-pictures');
+    formData.append("files", file);
+    formData.append("userId", user?.uid);
+    formData.append("route", "user-profile-pictures");
 
     try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
       });
       const { logoUrl } = await res.json();
 
       if (logoUrl) {
-        form.setValue('userProfilePicture', logoUrl);
+        form.setValue("userProfilePicture", logoUrl);
         mutate({ ...form.getValues(), userProfilePicture: logoUrl });
       }
     } catch (e) {
       console.error(e);
-      toast.error('Failed to upload profile picture');
+      toast.error("Failed to upload profile picture");
     }
   };
 
@@ -233,9 +233,9 @@ export default function SettingsProfilePage() {
                     label="Username"
                     type="text"
                     autoComplete="username"
-                    placeholder={user?.username || 'Username'}
+                    placeholder={user?.username || "Username"}
                     {...field}
-                    value={field.value || ''}
+                    value={field.value || ""}
                   />
                 </FormControl>
                 <FormMessage />
@@ -254,9 +254,9 @@ export default function SettingsProfilePage() {
                     label="First name"
                     type="text"
                     autoComplete="given-name"
-                    placeholder={user?.firstName || 'First name'}
+                    placeholder={user?.firstName || "First name"}
                     {...field}
-                    value={field.value || ''}
+                    value={field.value || ""}
                   />
                 </FormControl>
                 <FormMessage />
@@ -275,9 +275,9 @@ export default function SettingsProfilePage() {
                     label="Last name"
                     type="text"
                     autoComplete="family-name"
-                    placeholder={user?.lastName || 'Last name'}
+                    placeholder={user?.lastName || "Last name"}
                     {...field}
-                    value={field.value || ''}
+                    value={field.value || ""}
                   />
                 </FormControl>
                 <FormMessage />
@@ -304,10 +304,7 @@ export default function SettingsProfilePage() {
                             }}
                             className="bg-black-50"
                           />
-                          <Label
-                            htmlFor="showTimeTaken"
-                            className="text-base"
-                          >
+                          <Label htmlFor="showTimeTaken" className="text-base">
                             Show on leaderboard
                           </Label>
                         </div>
@@ -363,10 +360,7 @@ export default function SettingsProfilePage() {
               <FormItem>
                 <FormControl>
                   <>
-                    <Label
-                      htmlFor="aboutMeAiHelp"
-                      className="text-base"
-                    >
+                    <Label htmlFor="aboutMeAiHelp" className="text-base">
                       Personalize your AI
                     </Label>
                     <p className="text-sm text-muted-foreground mb-2">
@@ -379,11 +373,11 @@ export default function SettingsProfilePage() {
                       placeholder="Enter a short description to help us make TechBlitz a more personalized experience for you."
                       className="resize-none"
                       {...field}
-                      value={field.value || ''}
-                      disabled={user?.userLevel === 'FREE'}
+                      value={field.value || ""}
+                      disabled={user?.userLevel === "FREE"}
                       rows={4}
                     />
-                    {user?.userLevel === 'FREE' && (
+                    {user?.userLevel === "FREE" && (
                       <div className="mt-2 text-sm text-red-500">
                         Upgrade to a premium account to enhance your AI.
                         <a
@@ -410,27 +404,24 @@ export default function SettingsProfilePage() {
                 <FormControl>
                   <div className="space-y-4">
                     <Select
-                      value={field.value || 'vs-dark'}
+                      value={field.value || "vs-dark"}
                       onValueChange={field.onChange}
                     >
                       <SelectTrigger className="border border-black-50 w-full md:w-[250px]">
                         {field.value ||
                           user?.codeEditorTheme ||
-                          'Select a code editor theme'}
+                          "Select a code editor theme"}
                       </SelectTrigger>
                       <SelectContent>
                         {Object.entries(themes).map(([key]) => (
-                          <SelectItem
-                            key={key}
-                            value={key}
-                          >
+                          <SelectItem key={key} value={key}>
                             {key}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                     <CodeEditorPreview
-                      theme={(field.value as keyof typeof themes) || 'vs-dark'}
+                      theme={(field.value as keyof typeof themes) || "vs-dark"}
                     />
                   </div>
                 </FormControl>
@@ -446,7 +437,7 @@ export default function SettingsProfilePage() {
               disabled={isPending}
               className="text-base"
             >
-              {isPending ? <LoadingSpinner /> : 'Save changes'}
+              {isPending ? <LoadingSpinner /> : "Save changes"}
             </Button>
             <LogoutButton variant="destructive" />
           </div>

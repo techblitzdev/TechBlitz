@@ -1,9 +1,9 @@
-import { ArrowRight, ShieldQuestionIcon } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
-import { getRelatedQuestions } from '@/utils/data/questions/get-related';
-import { cn } from '@/lib/utils';
-import { Tags } from '@/types/Tags';
-import Link from 'next/link';
+import { ArrowRight, ShieldQuestionIcon } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { getRelatedQuestions } from "@/utils/data/questions/get-related";
+import { cn } from "@/lib/utils";
+import { Tags } from "@/types/Tags";
+import Link from "next/link";
 
 const RelatedQuestionsList = async ({
   slug,
@@ -25,10 +25,10 @@ const RelatedQuestionsList = async ({
             key={question.uid}
             href={`/question/${question.slug}`}
             className={cn(
-              'px-4 py-3 w-full flex justify-between items-center group hover:bg-black-75 transition-colors',
+              "px-4 py-3 w-full flex justify-between items-center group hover:bg-black-75 transition-colors",
               index % 2 === 0
-                ? 'bg-black hover:bg-black-75'
-                : 'bg-black-75 hover:bg-black-100'
+                ? "bg-black hover:bg-black-75"
+                : "bg-black-75 hover:bg-black-100",
             )}
           >
             <p className="text-sm text-white">{question.question}</p>

@@ -1,7 +1,7 @@
-import { PodiumItem } from '@/components/app/leaderboard/leaderboard-hero';
-import { Button } from '@/components/ui/button';
-import { UserRecord } from '@/types/User';
-import { getMostQuestionsAnswered } from '@/utils/data/leaderboard/get-most-questions-answered';
+import { PodiumItem } from "@/components/app/leaderboard/leaderboard-hero";
+import { Button } from "@/components/ui/button";
+import { UserRecord } from "@/types/User";
+import { getMostQuestionsAnswered } from "@/utils/data/leaderboard/get-most-questions-answered";
 
 export default async function LeaderboardPodiumShowcase() {
   const topThreeUsers = await getMostQuestionsAnswered(3);

@@ -1,37 +1,37 @@
-import Link from 'next/link';
-import dynamic from 'next/dynamic';
-import { X } from 'lucide-react';
-import { cookies } from 'next/headers';
-import { revalidatePath } from 'next/cache';
+import Link from "next/link";
+import dynamic from "next/dynamic";
+import { X } from "lucide-react";
+import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
 
 const StarsBackground = dynamic(
-  () => import('@/components/ui/stars-background'),
+  () => import("@/components/ui/stars-background"),
   {
     ssr: false,
-  }
+  },
 );
 
-import Logo from '@/components/ui/logo';
-import { PricingCard } from '@/components/shared/payment/payment-card';
-import { useUserServer } from '@/hooks/use-user-server';
-import { getPlans } from '@/utils/constants/pricing';
-import FrequencyToggle from '@/components/shared/payment/frequency-toggle';
+import Logo from "@/components/ui/logo";
+import { PricingCard } from "@/components/shared/payment/payment-card";
+import { useUserServer } from "@/hooks/use-user-server";
+import { getPlans } from "@/utils/constants/pricing";
+import FrequencyToggle from "@/components/shared/payment/frequency-toggle";
 
-async function updateFrequency(frequency: 'month' | 'year') {
-  'use server';
+async function updateFrequency(frequency: "month" | "year") {
+  "use server";
   const cookieStore = cookies();
-  cookieStore.set('billing_frequency', frequency);
-  revalidatePath('/upgrade');
+  cookieStore.set("billing_frequency", frequency);
+  revalidatePath("/upgrade");
 }
 
 export default async function UpgradePage() {
   const user = await useUserServer();
   const cookieStore = cookies();
   const billingPeriod =
-    (cookieStore.get('billing_frequency')?.value as 'month' | 'year') || 'year';
+    (cookieStore.get("billing_frequency")?.value as "month" | "year") || "year";
 
   const products = getPlans(user, true, billingPeriod).filter(
-    (product) => product && product.id !== 'free'
+    (product) => product && product.id !== "free",
   );
 
   return (
@@ -54,9 +54,9 @@ export default async function UpgradePage() {
 
       <div className="w-full flex flex-col pt-32 md:py-16 container z-50 relative items-center justify-center text-center">
         <h1 className="text-gradient from-white to-white/75 text-3xl lg:text-5xl !font-onest tracking-tight py-1">
-          Simple and{' '}
+          Simple and{" "}
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/55">
-            affordable{' '}
+            affordable{" "}
           </span>
           <br /> pricing plans
         </h1>
@@ -81,7 +81,7 @@ export default async function UpgradePage() {
                     isLoading={false}
                     billingPeriod={billingPeriod}
                   />
-                )
+                ),
             )}
           </div>
         </div>

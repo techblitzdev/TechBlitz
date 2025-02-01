@@ -1,4 +1,4 @@
-export type QuestionAnswerType = 'PREFILL' | 'STANDARD';
+export type QuestionAnswerType = "PREFILL" | "STANDARD";
 
 /**
  * This type represents the shape of the data of a

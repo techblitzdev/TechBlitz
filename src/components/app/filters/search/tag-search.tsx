@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Input } from '@/components/ui/input';
-import { useFilterContext } from '../filter-context';
-import { useTransition } from 'react';
-import LoadingSpinner from '@/components/ui/loading';
+import { Input } from "@/components/ui/input";
+import { useFilterContext } from "../filter-context";
+import { useTransition } from "react";
+import LoadingSpinner from "@/components/ui/loading";
 
 export default function FilterSearchTag() {
   const { searchQuery, setSearchQuery } = useFilterContext();

@@ -1,47 +1,47 @@
-import StatsHero from '@/components/marketing/features/statistics/stats-hero';
-import StatsReportSection from '@/components/marketing/features/statistics/stats-report-section';
-import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
-import MarketingContentGrid from '@/components/marketing/global/blocks/content-grid';
-import { MobileIcon } from '@radix-ui/react-icons';
-import { BarChart, Code, FileBadge2, LaptopIcon } from 'lucide-react';
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
-import { WebPageJsonLd } from '@/types/Seo';
-import { getBaseUrl } from '@/utils';
+import StatsHero from "@/components/marketing/features/statistics/stats-hero";
+import StatsReportSection from "@/components/marketing/features/statistics/stats-report-section";
+import CallToActionBlock from "@/components/marketing/global/blocks/call-to-action-block";
+import MarketingContentGrid from "@/components/marketing/global/blocks/content-grid";
+import { MobileIcon } from "@radix-ui/react-icons";
+import { BarChart, Code, FileBadge2, LaptopIcon } from "lucide-react";
+import { createMetadata, WebPageJsonLdBreadcrumb } from "@/utils/seo";
+import { WebPageJsonLd } from "@/types/Seo";
+import { getBaseUrl } from "@/utils";
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Track your coding journey | TechBlitz',
-    description: 'Track your coding journey with our statistics dashboard.',
+    title: "Track your coding journey | TechBlitz",
+    description: "Track your coding journey with our statistics dashboard.",
     keywords: [
-      'track coding progress',
-      'coding statistics',
-      'developer analytics',
-      'coding performance insights',
-      'improve coding skills',
-      'coding improvement tools',
-      'coding mastery',
-      'coding challenges dashboard',
+      "track coding progress",
+      "coding statistics",
+      "developer analytics",
+      "coding performance insights",
+      "improve coding skills",
+      "coding improvement tools",
+      "coding mastery",
+      "coding challenges dashboard",
     ],
     image: {
-      text: 'Track your coding journey | TechBlitz',
-      bgColor: '#000',
-      textColor: '#fff',
+      text: "Track your coding journey | TechBlitz",
+      bgColor: "#000",
+      textColor: "#fff",
     },
-    canonicalUrl: '/features/statistics',
+    canonicalUrl: "/features/statistics",
   });
 }
 
 const featureShowcaseItems = [
   {
-    title: 'Track Your Coding Progress',
+    title: "Track Your Coding Progress",
     description:
-      'Monitor your daily coding activity with detailed statistics and progress tracking to build consistent learning habits.',
+      "Monitor your daily coding activity with detailed statistics and progress tracking to build consistent learning habits.",
     icon: <Code />,
   },
   {
-    title: 'Developer Analytics Dashboard',
+    title: "Developer Analytics Dashboard",
     description:
-      'Get deep insights into your coding performance with comprehensive analytics across different programming concepts and challenges.',
+      "Get deep insights into your coding performance with comprehensive analytics across different programming concepts and challenges.",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -62,59 +62,59 @@ const featureShowcaseItems = [
     ),
   },
   {
-    title: 'Measure Coding Mastery',
+    title: "Measure Coding Mastery",
     description:
-      'Track your journey to coding mastery with detailed performance metrics and achievement milestones that showcase your growing expertise.',
+      "Track your journey to coding mastery with detailed performance metrics and achievement milestones that showcase your growing expertise.",
     icon: <FileBadge2 />,
   },
   {
-    title: 'Performance Insights',
+    title: "Performance Insights",
     description:
-      'Leverage powerful analytics tools to identify your strengths and areas for improvement, helping you become a better developer.',
+      "Leverage powerful analytics tools to identify your strengths and areas for improvement, helping you become a better developer.",
     icon: <LaptopIcon />,
   },
   {
-    title: 'Coding Improvement Tools',
+    title: "Coding Improvement Tools",
     description:
-      'Access a suite of statistical tools and visualizations designed to help you track and improve your coding skills over time.',
+      "Access a suite of statistical tools and visualizations designed to help you track and improve your coding skills over time.",
     icon: <BarChart />,
   },
   {
-    title: 'Challenge Dashboard',
+    title: "Challenge Dashboard",
     description:
-      'Monitor your progress through coding challenges with a comprehensive dashboard that tracks your solutions and learning patterns.',
+      "Monitor your progress through coding challenges with a comprehensive dashboard that tracks your solutions and learning patterns.",
     icon: <MobileIcon />,
   },
 ];
 
 export default function StatisticsPage() {
   const jsonLd: WebPageJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
+    "@context": "https://schema.org",
+    "@type": "WebPage",
     url: getBaseUrl(),
-    headline: 'Track your coding journey | TechBlitz',
-    description: 'Track your coding journey with our statistics dashboard.',
-    image: 'https://techblitz.dev/favicon.ico',
+    headline: "Track your coding journey | TechBlitz",
+    description: "Track your coding journey with our statistics dashboard.",
+    image: "https://techblitz.dev/favicon.ico",
     breadcrumb: WebPageJsonLdBreadcrumb,
     author: {
-      '@type': 'Organization',
-      name: 'TechBlitz',
+      "@type": "Organization",
+      name: "TechBlitz",
       url: getBaseUrl(),
     },
     dateModified: new Date().toISOString(),
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': getBaseUrl(),
+      "@type": "WebPage",
+      "@id": getBaseUrl(),
     },
     keywords:
-      'track coding progress, coding statistics, developer analytics, coding performance insights, improve coding skills, coding improvement tools, coding mastery, coding challenges dashboard',
+      "track coding progress, coding statistics, developer analytics, coding performance insights, improve coding skills, coding improvement tools, coding mastery, coding challenges dashboard",
     publisher: {
-      '@type': 'Organization',
-      name: 'TechBlitz',
+      "@type": "Organization",
+      name: "TechBlitz",
       logo: {
-        '@type': 'ImageObject',
-        url: 'https://techblitz.dev/favicon.ico',
+        "@type": "ImageObject",
+        url: "https://techblitz.dev/favicon.ico",
       },
     },
   };
@@ -135,8 +135,8 @@ export default function StatisticsPage() {
         <CallToActionBlock
           title="Improve coding skills effortlessly."
           leftCta={{
-            title: 'Get Started',
-            href: '/signup',
+            title: "Get Started",
+            href: "/signup",
           }}
         />
       </div>

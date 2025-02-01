@@ -1,5 +1,5 @@
-import { prisma } from '@/lib/prisma';
-import { unstable_cache as NextCache } from 'next/cache';
+import { prisma } from "@/lib/prisma";
+import { unstable_cache as NextCache } from "next/cache";
 
 type StreakWithUser = {
   userUid: string;
@@ -11,7 +11,7 @@ type StreakWithUser = {
     username: string | null;
     firstName: string | null;
     lastName: string | null;
-    userLevel: 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE' | 'PREMIUM';
+    userLevel: "STANDARD" | "ADMIN" | "TRIAL" | "FREE" | "PREMIUM";
     totalDailyStreak: number | null;
     correctDailyStreak: number | null;
     userProfilePicture: string | null;
@@ -67,8 +67,8 @@ export const getLongestStreaks = NextCache(
 
     return result;
   },
-  ['longest-streaks-with-users'],
+  ["longest-streaks-with-users"],
   {
     revalidate: 60, // Cache for 1 minute
-  }
+  },
 );

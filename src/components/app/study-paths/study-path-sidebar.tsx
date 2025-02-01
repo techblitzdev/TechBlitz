@@ -1,8 +1,8 @@
-import type { StudyPath } from '@/utils/constants/study-paths';
-import { Button } from '@/components/ui/button';
-import { BookOpen, Target } from 'lucide-react';
-import { useUserServer } from '@/hooks/use-user-server';
-import UpgradeCard from '../shared/upgrade-card';
+import type { StudyPath } from "@/utils/constants/study-paths";
+import { Button } from "@/components/ui/button";
+import { BookOpen, Target } from "lucide-react";
+import { useUserServer } from "@/hooks/use-user-server";
+import UpgradeCard from "../shared/upgrade-card";
 
 export default async function StudyPathSidebar({
   studyPath,
@@ -24,7 +24,7 @@ export default async function StudyPathSidebar({
           </p>
         </div>
 
-        {user?.userLevel === 'FREE' && (
+        {user?.userLevel === "FREE" && (
           <UpgradeCard
             title="Looking for a personalized study plan?"
             description="Unlock your full potential with a personalized study plan tailored just for you. Get focused learning paths, progress tracking, and expert guidance to learn 3x faster."

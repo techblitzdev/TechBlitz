@@ -1,6 +1,6 @@
-'use client';
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
+"use client";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 import {
   Home,
@@ -10,8 +10,8 @@ import {
   CreditCard,
   HelpCircle,
   ChevronDown,
-} from 'lucide-react';
-import { ListBulletIcon } from '@radix-ui/react-icons';
+} from "lucide-react";
+import { ListBulletIcon } from "@radix-ui/react-icons";
 import {
   Sidebar,
   SidebarContent,
@@ -25,34 +25,34 @@ import {
   SidebarRail,
   SidebarTrigger,
   useSidebar,
-} from '@/components/ui/sidebar';
+} from "@/components/ui/sidebar";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/collapsible';
-import AppSidebarSubMenuItem from '@/components/app/navigation/sidebar-submenu-item';
-import SidebarFooterComponent from '@/components/app/navigation/sidebar-footer';
-import Logo from '@/components/ui/logo';
-import LogoSmall from '@/components/ui/LogoSmall';
+} from "@/components/ui/collapsible";
+import AppSidebarSubMenuItem from "@/components/app/navigation/sidebar-submenu-item";
+import SidebarFooterComponent from "@/components/app/navigation/sidebar-footer";
+import Logo from "@/components/ui/logo";
+import LogoSmall from "@/components/ui/LogoSmall";
 
-import type { SidebarItemType } from '@/types/Sidebar';
+import type { SidebarItemType } from "@/types/Sidebar";
 
-import { useEffect, useMemo } from 'react';
-import { UserRecord } from '@/types/User';
-import { Question } from '@/types/Questions';
-import { Profile } from '@/types/Profile';
+import { useEffect, useMemo } from "react";
+import { UserRecord } from "@/types/User";
+import { Question } from "@/types/Questions";
+import { Profile } from "@/types/Profile";
 import {
   TooltipContent,
   Tooltip,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { TooltipProvider } from '@/components/ui/tooltip';
-import HomeIcon from '@/components/ui/icons/home';
-import ChallengeIcon from '@/components/ui/icons/challenge';
-import RoadmapIcon from '@/components/ui/icons/roadmap';
-import StatsIcon from '@/components/ui/icons/stats';
-import Award from '@/components/ui/icons/award';
+} from "@/components/ui/tooltip";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import HomeIcon from "@/components/ui/icons/home";
+import ChallengeIcon from "@/components/ui/icons/challenge";
+import RoadmapIcon from "@/components/ui/icons/roadmap";
+import StatsIcon from "@/components/ui/icons/stats";
+import Award from "@/components/ui/icons/award";
 
 const LeaderboardIcon = () => (
   <svg
@@ -99,59 +99,59 @@ export function AppSidebar(opts: {
 
   const nonAuthedUserItems: SidebarItemType[] = [
     {
-      title: 'Questions',
-      url: '/questions',
+      title: "Questions",
+      url: "/questions",
       icon: ListBulletIcon,
-      tooltip: 'Questions',
+      tooltip: "Questions",
       subItems: [
         {
-          title: 'All',
-          url: '/questions',
+          title: "All",
+          url: "/questions",
         },
         {
-          title: 'Daily Question',
+          title: "Daily Question",
           url: `/question/${todaysQuestion?.slug}`,
         },
         {
-          title: 'Study Paths',
-          url: '/study-paths',
+          title: "Study Paths",
+          url: "/study-paths",
         },
       ],
     },
     {
-      title: 'Leaderboard',
-      url: '/leaderboard',
+      title: "Leaderboard",
+      url: "/leaderboard",
       icon: LeaderboardIcon,
-      tooltip: 'Leaderboard',
+      tooltip: "Leaderboard",
     },
   ];
 
   const standardItems: SidebarItemType[] = [
     {
-      groupLabel: 'Menu',
+      groupLabel: "Menu",
     },
     {
-      title: 'Dashboard',
-      url: '/dashboard',
+      title: "Dashboard",
+      url: "/dashboard",
       icon: HomeIcon,
-      tooltip: 'Dashboard',
+      tooltip: "Dashboard",
     },
     {
-      title: 'Questions',
-      url: '/questions',
+      title: "Questions",
+      url: "/questions",
       icon: challengeIcon,
-      tooltip: 'Questions',
+      tooltip: "Questions",
       subItems: [
         {
-          title: 'All',
-          url: '/questions',
+          title: "All",
+          url: "/questions",
         },
         {
-          title: 'Study Paths',
-          url: '/study-paths',
+          title: "Study Paths",
+          url: "/study-paths",
         },
         {
-          title: 'Daily Question',
+          title: "Daily Question",
           url: `/question/${todaysQuestion?.slug}`,
           badge: (
             <>
@@ -173,73 +173,73 @@ export function AppSidebar(opts: {
       ],
     },
     {
-      title: 'Roadmaps',
-      tooltip: 'Roadmaps',
-      url: '/roadmaps',
+      title: "Roadmaps",
+      tooltip: "Roadmaps",
+      url: "/roadmaps",
       icon: roadmapIcon,
     },
     {
-      title: 'Stats',
-      url: '/statistics',
+      title: "Stats",
+      url: "/statistics",
       icon: statsIcon,
-      tooltip: 'Statistics',
+      tooltip: "Statistics",
       subItems: [
         {
-          title: 'Overview',
-          url: '/statistics',
+          title: "Overview",
+          url: "/statistics",
         },
         {
-          title: 'Reports',
-          tooltip: 'Reports',
-          url: '/statistics/reports',
+          title: "Reports",
+          tooltip: "Reports",
+          url: "/statistics/reports",
         },
       ],
     },
     {
-      title: 'Leaderboard',
-      url: '/leaderboard',
+      title: "Leaderboard",
+      url: "/leaderboard",
       icon: Award,
-      tooltip: 'Leaderboard',
+      tooltip: "Leaderboard",
     },
     {
-      groupLabel: 'Support',
+      groupLabel: "Support",
     },
     {
-      title: 'Help',
-      url: 'mailto:team@techblitz.dev',
+      title: "Help",
+      url: "mailto:team@techblitz.dev",
       icon: HelpCircle,
-      tooltip: 'Help',
+      tooltip: "Help",
     },
     {
-      title: 'Settings',
-      url: '/settings/profile',
+      title: "Settings",
+      url: "/settings/profile",
       icon: Settings,
-      tooltip: 'Settings',
+      tooltip: "Settings",
     },
   ];
 
   const settingsItems: SidebarItemType[] = [
     {
-      title: 'Home',
-      url: '/dashboard',
+      title: "Home",
+      url: "/dashboard",
       icon: Home,
     },
     {
-      groupLabel: 'Settings',
+      groupLabel: "Settings",
     },
     {
-      title: 'Profile',
-      url: '/settings/profile',
+      title: "Profile",
+      url: "/settings/profile",
       icon: User,
     },
     {
-      title: 'Account',
-      url: '/settings/account',
+      title: "Account",
+      url: "/settings/account",
       icon: Settings,
     },
     {
-      title: 'Billing',
-      url: '/settings/billing',
+      title: "Billing",
+      url: "/settings/billing",
       icon: CreditCard,
     },
   ];
@@ -248,17 +248,17 @@ export function AppSidebar(opts: {
   const items = useMemo(() => {
     if (!user) return nonAuthedUserItems;
 
-    let menuItems = pathname.startsWith('/settings')
+    let menuItems = pathname.startsWith("/settings")
       ? settingsItems
       : standardItems;
 
     // Add admin item only once for admin users
-    if (user.userLevel === 'ADMIN') {
+    if (user.userLevel === "ADMIN") {
       menuItems = [
         ...menuItems,
         {
-          title: 'Admin',
-          url: '/dashboard/admin',
+          title: "Admin",
+          url: "/dashboard/admin",
           icon: LockIcon,
         },
       ];
@@ -268,7 +268,7 @@ export function AppSidebar(opts: {
   }, [user, pathname]);
 
   const renderSidebarItem = (item: SidebarItemType) => {
-    if ('groupLabel' in item) {
+    if ("groupLabel" in item) {
       return (
         <SidebarGroup key={item.groupLabel} className="mt-2">
           <SidebarGroupLabel className="px-0 py-0 h-fit text-sm font-inter">
@@ -284,7 +284,7 @@ export function AppSidebar(opts: {
           <Collapsible defaultOpen className="group/collapsible">
             <CollapsibleTrigger asChild>
               <SidebarMenuButton asChild tooltip={item.tooltip}>
-                {state === 'collapsed' ? (
+                {state === "collapsed" ? (
                   <Link href={item.url} className="flex items-center w-full">
                     {item.icon && <item.icon />}
                     <span className="text-sm font-inter group-data-[collapsible=icon]:hidden">
@@ -340,8 +340,8 @@ export function AppSidebar(opts: {
                   prefetch
                   className={`flex items-center font-inter font-medium text-sm py-2 ${
                     pathname === item.url
-                      ? 'bg-black-25 text-white border border-black-50'
-                      : ''
+                      ? "bg-black-25 text-white border border-black-50"
+                      : ""
                   }`}
                 >
                   {item.icon && <item.icon />}

@@ -1,38 +1,38 @@
-import { Suspense, lazy } from 'react';
-import { createMetadata, getQuestionEducationLevel } from '@/utils/seo';
-import { capitalise, getBaseUrl } from '@/utils';
-import { Separator } from '@/components/ui/separator';
-import { QuestionSingleContextProvider } from '@/components/app/questions/single/layout/question-single-context';
-import { redirect } from 'next/navigation';
+import { Suspense, lazy } from "react";
+import { createMetadata, getQuestionEducationLevel } from "@/utils/seo";
+import { capitalise, getBaseUrl } from "@/utils";
+import { Separator } from "@/components/ui/separator";
+import { QuestionSingleContextProvider } from "@/components/app/questions/single/layout/question-single-context";
+import { redirect } from "next/navigation";
 
 // Actions
-import { getQuestion } from '@/utils/data/questions/get';
-import { getUser } from '@/actions/user/authed/get-user';
-import { getRelatedQuestions } from '@/utils/data/questions/get-related';
-import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
-import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation';
-import { QuizJsonLd } from '@/types/Seo';
+import { getQuestion } from "@/utils/data/questions/get";
+import { getUser } from "@/actions/user/authed/get-user";
+import { getRelatedQuestions } from "@/utils/data/questions/get-related";
+import { getUserAnswer } from "@/utils/data/answers/get-user-answer";
+import { getNextAndPreviousQuestion } from "@/utils/data/questions/question-navigation";
+import { QuizJsonLd } from "@/types/Seo";
 
 // Components
-const CurrentStreak = lazy(() => import('@/components/ui/current-streak'));
+const CurrentStreak = lazy(() => import("@/components/ui/current-streak"));
 const FeedbackButton = lazy(
-  () => import('@/components/app/shared/feedback/feedback-button')
+  () => import("@/components/app/shared/feedback/feedback-button"),
 );
 const SidebarLayoutTrigger = lazy(
-  () => import('@/components/app/navigation/sidebar-layout-trigger')
+  () => import("@/components/app/navigation/sidebar-layout-trigger"),
 );
 const RandomQuestion = lazy(
-  () => import('@/components/shared/random-question')
+  () => import("@/components/shared/random-question"),
 );
 const QuestionActionButtons = lazy(
   () =>
-    import('@/components/app/questions/single/layout/question-action-buttons')
+    import("@/components/app/questions/single/layout/question-action-buttons"),
 );
 const QuestionNavigation = lazy(
-  () => import('@/components/app/navigation/question-navigation')
+  () => import("@/components/app/navigation/question-navigation"),
 );
 const PremiumQuestionDeniedAccess = lazy(
-  () => import('@/components/app/questions/premium-question-denied-access')
+  () => import("@/components/app/questions/premium-question-denied-access"),
 );
 
 export async function generateMetadata({
@@ -40,16 +40,16 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }) {
-  const question = await getQuestion('slug', params.slug);
-  const title = question?.slug?.replace(/-/g, ' ') || 'Coding Question';
+  const question = await getQuestion("slug", params.slug);
+  const title = question?.slug?.replace(/-/g, " ") || "Coding Question";
 
   return createMetadata({
     title: `${capitalise(title)} | TechBlitz`,
-    description: 'Boost your coding skills for free with TechBlitz',
+    description: "Boost your coding skills for free with TechBlitz",
     image: {
       text: `${title} | TechBlitz`,
-      bgColor: '#000000',
-      textColor: '#ffffff',
+      bgColor: "#000000",
+      textColor: "#ffffff",
     },
     canonicalUrl: `/question/${params.slug}`,
   });
@@ -63,38 +63,38 @@ export default async function QuestionUidLayout({
 
   const [user, question] = await Promise.all([
     getUser(),
-    getQuestion('slug', slug),
+    getQuestion("slug", slug),
   ]);
 
   if (!question || !question.slug || !question.tags) {
-    return redirect('/questions');
+    return redirect("/questions");
   }
 
   // create json ld
   const jsonLd: QuizJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Quiz',
-    name: capitalise(question?.slug?.replace(/-/g, ' ') || ''),
-    description: question?.question || '',
+    "@context": "https://schema.org",
+    "@type": "Quiz",
+    name: capitalise(question?.slug?.replace(/-/g, " ") || ""),
+    description: question?.question || "",
     url: `${getBaseUrl()}/question/${slug}`,
-    educationLevel: getQuestionEducationLevel(question?.difficulty || 'EASY'),
-    educationalUse: 'practice',
-    learningResourceType: ['quiz', 'learning activity'],
-    creator: { '@type': 'Organization', name: 'TechBlitz', url: getBaseUrl() },
-    assesses: ['coding'],
-    dateCreated: question?.createdAt.toISOString() || '',
-    dateModified: question?.updatedAt.toISOString() || '',
+    educationLevel: getQuestionEducationLevel(question?.difficulty || "EASY"),
+    educationalUse: "practice",
+    learningResourceType: ["quiz", "learning activity"],
+    creator: { "@type": "Organization", name: "TechBlitz", url: getBaseUrl() },
+    assesses: ["coding"],
+    dateCreated: question?.createdAt.toISOString() || "",
+    dateModified: question?.updatedAt.toISOString() || "",
     datePublished:
-      question?.questionDate || question?.createdAt.toISOString() || '',
-    headline: question?.question || '',
-    interactivityType: 'mixed',
+      question?.questionDate || question?.createdAt.toISOString() || "",
+    headline: question?.question || "",
+    interactivityType: "mixed",
     isAccessibleForFree: true,
     isFamilyFriendly: true,
-    teaches: 'coding',
+    teaches: "coding",
     potentialAction: {
-      '@type': 'SearchAction',
+      "@type": "SearchAction",
       target: `${getBaseUrl()}/search?q={search_term_string}`,
-      'query-input': 'required name=search_term_string',
+      "query-input": "required name=search_term_string",
     },
   };
 
@@ -108,7 +108,7 @@ export default async function QuestionUidLayout({
 
   const userAnswered = getUserAnswer({ questionUid: question.uid });
 
-  if (question.isPremiumQuestion && (!user || user.userLevel === 'FREE')) {
+  if (question.isPremiumQuestion && (!user || user.userLevel === "FREE")) {
     return <PremiumQuestionDeniedAccess />;
   }
 

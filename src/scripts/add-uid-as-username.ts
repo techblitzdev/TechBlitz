@@ -1,5 +1,5 @@
-'use server';
-import { prisma } from '@/lib/prisma';
+"use server";
+import { prisma } from "@/lib/prisma";
 
 export const addUidAsUsername = async () => {
   const users = await prisma.users.findMany({

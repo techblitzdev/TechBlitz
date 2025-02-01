@@ -1,9 +1,9 @@
-import { PricingCard } from '@/components/shared/payment/payment-card';
-import Logo from '@/components/ui/logo';
-import { getPlans } from '@/utils/constants/pricing';
-import { X } from 'lucide-react';
+import { PricingCard } from "@/components/shared/payment/payment-card";
+import Logo from "@/components/ui/logo";
+import { getPlans } from "@/utils/constants/pricing";
+import { X } from "lucide-react";
 
-import Link from 'next/link';
+import Link from "next/link";
 
 export default async function Loading() {
   const products = getPlans(null);
@@ -26,9 +26,9 @@ export default async function Loading() {
 
       <div className="w-full lg:h-svh flex flex-col pt-32 md:py-8 container z-50 relative items-center justify-center text-center">
         <h1 className="text-gradient from-white to-white/75 text-3xl lg:text-5xl !font-onest tracking-tight py-1">
-          Simple and{' '}
+          Simple and{" "}
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/55">
-            affordable{' '}
+            affordable{" "}
           </span>
           <br /> pricing plans
         </h1>
@@ -49,7 +49,7 @@ export default async function Loading() {
                     isLoading={false}
                     billingPeriod="month"
                   />
-                )
+                ),
             )}
           </div>
         </div>

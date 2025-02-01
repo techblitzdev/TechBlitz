@@ -1,24 +1,24 @@
-'use client';
+"use client";
 
-import { UserRecord } from '@/types/User';
-import { createContext, useState, useContext } from 'react';
-import { answerDefaultRoadmapQuestion } from '@/actions/roadmap/questions/default/answer-roadmap-question';
+import { UserRecord } from "@/types/User";
+import { createContext, useState, useContext } from "react";
+import { answerDefaultRoadmapQuestion } from "@/actions/roadmap/questions/default/answer-roadmap-question";
 import {
   DefaultRoadmapQuestions,
   DefaultRoadmapQuestionsAnswers,
-} from '@prisma/client';
-import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
-import { z } from 'zod';
-import { useRouter } from 'next/navigation';
-import { generateAnswerHelp } from '@/actions/ai/questions/answer-help';
-import { toast } from 'sonner';
+} from "@prisma/client";
+import { answerHelpSchema } from "@/lib/zod/schemas/ai/answer-help";
+import { z } from "zod";
+import { useRouter } from "next/navigation";
+import { generateAnswerHelp } from "@/actions/ai/questions/answer-help";
+import { toast } from "sonner";
 
 export const OnboardingContext = createContext<OnboardingContextType>(
-  {} as OnboardingContextType
+  {} as OnboardingContextType,
 );
 
-type Layout = 'questions' | 'codeSnippet' | 'answer';
-export type AnswerStatus = 'correct' | 'incorrect' | 'init';
+type Layout = "questions" | "codeSnippet" | "answer";
+export type AnswerStatus = "correct" | "incorrect" | "init";
 
 interface OnboardingContextType {
   question: DefaultRoadmapQuestions & {
@@ -78,7 +78,7 @@ export const useRoadmapOnboardingContext = () => {
   const context = useContext(OnboardingContext);
   if (!context) {
     throw new Error(
-      'useOnboardingContext must be used within a OnboardingContextProvider'
+      "useOnboardingContext must be used within a OnboardingContextProvider",
     );
   }
   return context;
@@ -118,13 +118,13 @@ export const RoadmapOnboardingContextProvider = ({
 
   // keeping track of the next question index
   const [nextQuestionIndex, setNextQuestionIndex] = useState<number | null>(
-    null
+    null,
   );
 
   const [isLastQuestion, setIsLastQuestion] = useState(false);
 
   // setting the current layout through the onboarding question
-  const [currentLayout, setCurrentLayout] = useState<Layout>('questions');
+  const [currentLayout, setCurrentLayout] = useState<Layout>("questions");
 
   // generating answer help for the onboarding question
   const [answerHelp, setAnswerHelp] = useState<z.infer<
@@ -132,10 +132,10 @@ export const RoadmapOnboardingContextProvider = ({
   > | null>(null);
 
   // the correct answer to the onboarding question
-  const [correctAnswer, setCorrectAnswer] = useState<AnswerStatus>('init');
+  const [correctAnswer, setCorrectAnswer] = useState<AnswerStatus>("init");
 
   // Check if we should redirect - only if not on correct question and not showing answer
-  if (isCorrectQuestion !== true && currentLayout !== 'answer') {
+  if (isCorrectQuestion !== true && currentLayout !== "answer") {
     router.push(`/roadmap/${roadmapUid}/onboarding/${isCorrectQuestion}`);
   }
 
@@ -149,21 +149,21 @@ export const RoadmapOnboardingContextProvider = ({
     // if the user has asked for assistance for the answer, set the current layout to 'codeSnippet'
     // this is so mobile view switches to the code snippet view
     if (setCodeSnippetLayout) {
-      setCurrentLayout('codeSnippet');
+      setCurrentLayout("codeSnippet");
     }
 
     // we don't need to check if the user has enough tokens because the user is on a roadmap
     // and they have unlimited tokens
     const { content } = await generateAnswerHelp(
       question.uid,
-      correctAnswer === 'correct',
-      'onboarding'
+      correctAnswer === "correct",
+      "onboarding",
     );
 
-    console.log('content', content);
+    console.log("content", content);
 
     if (!content) {
-      toast.error('Error generating answer help');
+      toast.error("Error generating answer help");
       return;
     }
 
@@ -172,7 +172,7 @@ export const RoadmapOnboardingContextProvider = ({
   };
 
   const answerRoadmapOnboardingQuestion = async () => {
-    if (!user || user.userLevel === 'FREE') {
+    if (!user || user.userLevel === "FREE") {
       return;
     }
 
@@ -198,7 +198,7 @@ export const RoadmapOnboardingContextProvider = ({
       } = await answerDefaultRoadmapQuestion(opts);
 
       // set the correct answer
-      setCorrectAnswer(correctAnswer ? 'correct' : 'incorrect');
+      setCorrectAnswer(correctAnswer ? "correct" : "incorrect");
 
       setUserAnswer(userAnswerContent);
 
@@ -206,19 +206,19 @@ export const RoadmapOnboardingContextProvider = ({
       setNextQuestionIndex(currentQuestionIndex + 1);
 
       // change the layout to the next question
-      setCurrentLayout('answer');
+      setCurrentLayout("answer");
     } catch (error) {
-      console.error('Error answering roadmap onboarding question', error);
+      console.error("Error answering roadmap onboarding question", error);
     }
   };
 
   // reset the question state
   const resetQuestionState = () => {
     // put the layout back to the question
-    setCorrectAnswer('init');
+    setCorrectAnswer("init");
     setUserAnswer(null);
     setNewUserData(null);
-    setCurrentLayout('questions');
+    setCurrentLayout("questions");
     setAnswerHelp(null);
     setNextQuestionIndex(null);
   };

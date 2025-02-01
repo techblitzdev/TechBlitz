@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { deleteRoadmap } from '@/actions/roadmap/delete-roadmap';
-import { Button } from '@/components/ui/button';
+import { deleteRoadmap } from "@/actions/roadmap/delete-roadmap";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
-import { MoreHorizontal, Trash2 } from 'lucide-react';
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { MoreHorizontal, Trash2 } from "lucide-react";
 
 export default function RoadmapCardMenu(opts: {
   roadmapUid: string;

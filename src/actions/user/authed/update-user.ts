@@ -1,19 +1,19 @@
-'use server';
+"use server";
 
-import { prisma } from '@/lib/prisma';
-import { revalidateTag } from 'next/cache';
-import { getUser } from './get-user';
-import { UserRecord } from '@/types/User';
+import { prisma } from "@/lib/prisma";
+import { revalidateTag } from "next/cache";
+import { getUser } from "./get-user";
+import { UserRecord } from "@/types/User";
 
 export const updateUser = async (opts: {
   userDetails: Partial<UserRecord>;
 }) => {
-  console.log('updateUser', opts);
+  console.log("updateUser", opts);
 
   const { userDetails } = opts;
 
   if (!userDetails) {
-    throw new Error('User data is required');
+    throw new Error("User data is required");
   }
 
   // Get the user details from the session
@@ -21,7 +21,7 @@ export const updateUser = async (opts: {
 
   // Ensure we have a valid user ID
   if (!user?.uid) {
-    throw new Error('No user found in session');
+    throw new Error("No user found in session");
   }
 
   // Clean up the userDetails to remove any undefined or null values
@@ -31,8 +31,8 @@ export const updateUser = async (opts: {
       ([_, v]) =>
         v !== undefined &&
         v !== null &&
-        !['studyPathEnrollments', 'studyPathGoals'].includes(_)
-    )
+        !["studyPathEnrollments", "studyPathGoals"].includes(_),
+    ),
   );
 
   // Ensure codeEditorTheme is included if provided
@@ -78,7 +78,7 @@ export const updateUser = async (opts: {
   });
 
   // Revalidate the user details cache
-  revalidateTag('user-details');
+  revalidateTag("user-details");
 
   return updatedUser;
 };

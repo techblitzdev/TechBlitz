@@ -1,16 +1,16 @@
-import { Metadata } from 'next';
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Blog | techblitz',
+  title: "Blog | techblitz",
   description:
-    'Stay up to date with the latest news and insights from TechBlitz. Gather insights on how to level up your skills, beyond our coding challenges.',
+    "Stay up to date with the latest news and insights from TechBlitz. Gather insights on how to level up your skills, beyond our coding challenges.",
   keywords: [
-    'coding blog',
-    'software engineering',
-    'programming tutorials',
-    'tech insights',
-    'coding tips',
-    'developer blog',
+    "coding blog",
+    "software engineering",
+    "programming tutorials",
+    "tech insights",
+    "coding tips",
+    "developer blog",
   ],
   robots: {
     index: true,

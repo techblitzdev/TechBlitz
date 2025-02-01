@@ -1,5 +1,5 @@
-'use client';
-import { Skeleton } from '@/components/ui/skeleton';
+"use client";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function QuestionCardLoading() {
   return (

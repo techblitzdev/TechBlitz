@@ -1,27 +1,27 @@
-'use client';
+"use client";
 
-import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid';
-import { Skeleton } from '@/components/ui/skeleton';
+import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function DashboardBentoGridLoading() {
   const loadingItems = [
     {
       className:
-        'h-full text-white justify-center min-h-[450px] col-span-2 lg:col-span-1',
-      height: 'h-[100px] lg:h-full',
+        "h-full text-white justify-center min-h-[450px] col-span-2 lg:col-span-1",
+      height: "h-[100px] lg:h-full",
     },
     {
-      className: 'col-span-2 text-white min-h-[450px]',
-      height: 'h-[100px] lg:h-full',
+      className: "col-span-2 text-white min-h-[450px]",
+      height: "h-[100px] lg:h-full",
     },
     {
-      className: 'col-span-2 text-white min-h-[25rem]',
-      height: 'h-[250px] lg:h-full',
+      className: "col-span-2 text-white min-h-[25rem]",
+      height: "h-[250px] lg:h-full",
     },
     {
       className:
-        'h-full text-white justify-center min-h-[18rem] col-span-2 lg:col-span-1',
-      height: 'h-[100px] lg:h-full',
+        "h-full text-white justify-center min-h-[18rem] col-span-2 lg:col-span-1",
+      height: "h-[100px] lg:h-full",
     },
   ];
 

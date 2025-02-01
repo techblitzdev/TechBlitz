@@ -1,5 +1,5 @@
-'use server';
-import { stripe } from '@/lib/stripe';
+"use server";
+import { stripe } from "@/lib/stripe";
 
 export const upgradeUserSubscription = async (opts: {
   currentSubscriptionId: string;

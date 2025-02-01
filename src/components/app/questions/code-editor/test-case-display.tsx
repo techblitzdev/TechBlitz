@@ -1,6 +1,6 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
-import ResultCard from './result-card';
+import { AnimatePresence, motion } from "framer-motion";
+import { useQuestionSingle } from "@/components/app/questions/single/layout/question-single-context";
+import ResultCard from "./result-card";
 
 interface ResultProps {
   passed: boolean;

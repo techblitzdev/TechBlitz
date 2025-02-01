@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useState, useTransition } from 'react';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { motion, AnimatePresence } from 'framer-motion';
-import type React from 'react';
-import { sendFeedback } from '@/actions/misc/send-feedback';
+import { useState, useTransition } from "react";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { motion, AnimatePresence } from "framer-motion";
+import type React from "react";
+import { sendFeedback } from "@/actions/misc/send-feedback";
 
 interface FeedbackModalProps {
   title?: string;
@@ -15,12 +15,12 @@ interface FeedbackModalProps {
 }
 
 export function FeedbackModal({
-  title = 'Send feedback',
-  description = 'We value your feedback. Please let us know how we can improve our questions/product to better suit your needs.',
+  title = "Send feedback",
+  description = "We value your feedback. Please let us know how we can improve our questions/product to better suit your needs.",
   reference,
   children,
 }: FeedbackModalProps) {
-  const [feedback, setFeedback] = useState('');
+  const [feedback, setFeedback] = useState("");
   const [isPending, startTransition] = useTransition();
   const [isSent, setIsSent] = useState(false);
 
@@ -28,7 +28,7 @@ export function FeedbackModal({
     e.preventDefault();
     startTransition(async () => {
       await sendFeedback(feedback);
-      setFeedback('');
+      setFeedback("");
       setIsSent(true);
       setTimeout(() => setIsSent(false), 2000);
     });
@@ -55,7 +55,7 @@ export function FeedbackModal({
         <Button
           type="button"
           variant="destructive"
-          onClick={() => setFeedback('')}
+          onClick={() => setFeedback("")}
           disabled={isPending}
         >
           Cancel
@@ -64,7 +64,7 @@ export function FeedbackModal({
           <Button
             type="submit"
             variant="secondary"
-            disabled={isPending || feedback.trim() === ''}
+            disabled={isPending || feedback.trim() === ""}
           >
             <AnimatePresence mode="wait">
               {isPending ? (
@@ -74,19 +74,19 @@ export function FeedbackModal({
                   transition={{
                     duration: 1,
                     repeat: Number.POSITIVE_INFINITY,
-                    ease: 'linear',
+                    ease: "linear",
                   }}
                   className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
                 />
               ) : (
                 <motion.span
-                  key={isSent ? 'sent' : 'submit'}
+                  key={isSent ? "sent" : "submit"}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.2 }}
                 >
-                  {isSent ? 'Sent!' : 'Submit'}
+                  {isSent ? "Sent!" : "Submit"}
                 </motion.span>
               )}
             </AnimatePresence>

@@ -1,42 +1,42 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-import { updateSession } from '@/utils/supabase/middleware';
-import { getBaseUrl } from './utils';
-import { User } from './types/User';
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { updateSession } from "@/utils/supabase/middleware";
+import { getBaseUrl } from "./utils";
+import { User } from "./types/User";
 
 // Define the route groups and their auth requirements
 const routeConfig = {
   // Marketing site routes (no auth required)
   marketing: {
-    patterns: ['/', '/about', '/pricing', '/contact'],
+    patterns: ["/", "/about", "/pricing", "/contact"],
     requiresAuth: false,
   },
   // Auth-related routes (no auth required)
   auth: {
     patterns: [
-      '/login',
-      '/signup',
-      '/forgot-password',
-      '/update-password',
-      '/verify-email',
+      "/login",
+      "/signup",
+      "/forgot-password",
+      "/update-password",
+      "/verify-email",
     ],
     requiresAuth: false,
   },
   // Dashboard routes (auth required)
   dashboard: {
     patterns: [
-      '/dashboard',
-      '/statistics',
-      '/settings',
-      '/statistics/reports',
-      '/questions/custom',
-      '/roadmaps',
+      "/dashboard",
+      "/statistics",
+      "/settings",
+      "/statistics/reports",
+      "/questions/custom",
+      "/roadmaps",
     ],
     requiresAuth: true,
   },
   // Admin routes (auth + admin role required)
   admin: {
-    patterns: ['/dashboard/admin'],
+    patterns: ["/dashboard/admin"],
     requiresAuth: true,
     requiresAdmin: true,
   },
@@ -53,24 +53,24 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    "/((?!api|_next/static|_next/image|favicon.ico).*)",
   ],
 };
 
 export async function middleware(req: NextRequest) {
   const url = req.nextUrl;
   const pathname = url.pathname;
-  const referer = req.headers.get('referer');
+  const referer = req.headers.get("referer");
 
   // Helper function to check if path matches any pattern
   const getRouteGroup = (path: string) => {
     for (const [group, config] of Object.entries(routeConfig)) {
       if (
         config.patterns.some((pattern) => {
-          if (pattern.endsWith('/*')) {
+          if (pattern.endsWith("/*")) {
             // For wildcard patterns, check if the path starts with the pattern prefix
             const prefix = pattern.slice(0, -2);
-            return path === prefix || path.startsWith(prefix + '/');
+            return path === prefix || path.startsWith(prefix + "/");
           }
           // For exact patterns, check for exact match
           return path === pattern;
@@ -83,12 +83,12 @@ export async function middleware(req: NextRequest) {
   };
 
   // Handle legacy redirect
-  if (pathname === '/sign-up') {
-    return NextResponse.redirect(new URL('/signup', req.url));
+  if (pathname === "/sign-up") {
+    return NextResponse.redirect(new URL("/signup", req.url));
   }
 
-  if (pathname === '/homepage' || pathname === '/home') {
-    return NextResponse.rewrite(new URL('/', req.url));
+  if (pathname === "/homepage" || pathname === "/home") {
+    return NextResponse.rewrite(new URL("/", req.url));
   }
 
   // Get route group for current path
@@ -107,25 +107,25 @@ export async function middleware(req: NextRequest) {
   if (route.config.requiresAuth && !isAuthenticated) {
     // Redirect to login if auth is required but user isn't authenticated
     return NextResponse.redirect(
-      new URL(`/login?redirectUrl=${encodeURIComponent(pathname)}`, req.url)
+      new URL(`/login?redirectUrl=${encodeURIComponent(pathname)}`, req.url),
     );
   }
 
   // Special handling for admin routes
-  if (route.group === 'admin' && isAuthenticated) {
+  if (route.group === "admin" && isAuthenticated) {
     const response = await fetch(`${getBaseUrl()}/api/user/${user?.user?.id}`, {
-      method: 'GET',
+      method: "GET",
     });
     const userData: User = await response.json();
 
-    if (userData.userLevel !== 'ADMIN') {
-      return NextResponse.redirect(new URL('/dashboard', req.url));
+    if (userData.userLevel !== "ADMIN") {
+      return NextResponse.redirect(new URL("/dashboard", req.url));
     }
   }
 
   // Only redirect to dashboard if user directly accesses root URL without referer
-  if (pathname === '/' && isAuthenticated && !referer) {
-    return NextResponse.redirect(new URL('/dashboard', req.url));
+  if (pathname === "/" && isAuthenticated && !referer) {
+    return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
   return NextResponse.next();

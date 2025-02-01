@@ -1,4 +1,4 @@
-import { Check, X } from 'lucide-react';
+import { Check, X } from "lucide-react";
 
 interface Answer {
   questionUid: string;

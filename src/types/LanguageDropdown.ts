@@ -1,4 +1,4 @@
-type Languages = 'javascript' | 'typescript' | 'python' | 'go';
+type Languages = "javascript" | "typescript" | "python" | "go";
 
 type LanguageConfig = {
   label: string;

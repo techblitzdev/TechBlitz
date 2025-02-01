@@ -1,15 +1,15 @@
-import type { MDXComponents } from 'mdx/types';
-import MdxLink from '@/components/mdx/mdx-link';
-import MdxHeading from '@/components/mdx/mdx-heading';
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
-import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
-import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
-import MdxList from './components/mdx/mdx-list';
-import { Button } from './components/ui/button';
+import type { MDXComponents } from "mdx/types";
+import MdxLink from "@/components/mdx/mdx-link";
+import MdxHeading from "@/components/mdx/mdx-heading";
+import CodeSnippet from "@/components/app/questions/single/layout/code-snippet";
+import CallToActionBlock from "@/components/marketing/global/blocks/call-to-action-block";
+import MdxQuestionDisplay from "@/components/mdx/mdx-question-display";
+import MdxList from "./components/mdx/mdx-list";
+import { Button } from "./components/ui/button";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    a: (props) => <MdxLink {...props} href={props.href || ''} />,
+    a: (props) => <MdxLink {...props} href={props.href || ""} />,
     ul: (props) => <MdxList {...props}>{props.children}</MdxList>,
     ol: (props) => (
       <MdxList {...props} ordered>

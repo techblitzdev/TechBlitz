@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-} from '@/components/ui/card';
-import { useOnboardingContext } from './onboarding-context';
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+} from "@/components/ui/card";
+import { useOnboardingContext } from "./onboarding-context";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0 },

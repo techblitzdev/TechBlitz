@@ -1,8 +1,8 @@
-import { prisma } from '@/lib/prisma';
-import { revalidateTag } from 'next/cache';
+import { prisma } from "@/lib/prisma";
+import { revalidateTag } from "next/cache";
 
 export const fetchUserRoadmaps = async (userUid: string) => {
-  revalidateTag('roadmaps');
+  revalidateTag("roadmaps");
 
   return await prisma.userRoadmaps.findMany({
     where: {
@@ -16,7 +16,7 @@ export const fetchUserRoadmaps = async (userUid: string) => {
       },
     },
     orderBy: {
-      createdAt: 'desc',
+      createdAt: "desc",
     },
   });
 };

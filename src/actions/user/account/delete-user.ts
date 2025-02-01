@@ -1,11 +1,11 @@
-'use server';
-import { createClient as createServerClient } from '@/utils/supabase/server';
-import { prisma } from '@/lib/prisma';
+"use server";
+import { createClient as createServerClient } from "@/utils/supabase/server";
+import { prisma } from "@/lib/prisma";
 
 export const deleteUser = async (opts: { userUid: string }) => {
   const { userUid } = opts;
   if (!userUid) {
-    throw new Error('User UID is required');
+    throw new Error("User UID is required");
   }
   const supabase = await createServerClient();
 

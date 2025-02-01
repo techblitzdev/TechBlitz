@@ -1,14 +1,14 @@
-import { prisma } from '@/lib/prisma';
+import { prisma } from "@/lib/prisma";
 import type {
   Question,
   QuestionDifficulty,
   QuestionWithoutAnswers,
-} from '@/types/Questions';
-import { getTagsFromQuestion } from './tags/get-tags-from-question';
-import { QuestionFilters } from '@/types/Filters';
-import { getUser } from '@/actions/user/authed/get-user';
-import { Answer } from '@/types/Answers';
-import { cache } from 'react';
+} from "@/types/Questions";
+import { getTagsFromQuestion } from "./tags/get-tags-from-question";
+import { QuestionFilters } from "@/types/Filters";
+import { getUser } from "@/actions/user/authed/get-user";
+import { Answer } from "@/types/Answers";
+import { cache } from "react";
 
 type ListQuestionsReturnType = {
   questions:
@@ -34,7 +34,7 @@ type GetQuestionsOpts = {
 };
 
 export const listQuestions = async (
-  opts: GetQuestionsOpts
+  opts: GetQuestionsOpts,
 ): Promise<ListQuestionsReturnType> => {
   const {
     page = 1,
@@ -48,7 +48,7 @@ export const listQuestions = async (
   const user = await getUser();
 
   if (customQuestions && !user) {
-    throw new Error('Unauthorized access to custom questions');
+    throw new Error("Unauthorized access to custom questions");
   }
 
   // if we have an authenticated user, we include the userAnswers in the query
@@ -165,14 +165,14 @@ export const listQuestions = async (
       skip,
       take: pageSize,
       orderBy: [
-        filters?.sortBy === 'date'
+        filters?.sortBy === "date"
           ? {
-              questionDate: filters?.ascending ? 'asc' : 'desc',
+              questionDate: filters?.ascending ? "asc" : "desc",
             }
-          : filters?.sortBy === 'submissions'
+          : filters?.sortBy === "submissions"
             ? {
                 userAnswers: {
-                  _count: 'desc',
+                  _count: "desc",
                 },
               }
             : {},
@@ -214,7 +214,7 @@ export const listQuestions = async (
         return question.linkedReports.length > 0;
       }) as unknown as Question[] & {
         userAnswers: Answer[] | null;
-      }
+      },
     );
 
     // Get total count with same security constraints

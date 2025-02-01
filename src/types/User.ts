@@ -1,9 +1,9 @@
-import { StudyPathGoal, UserStudyPath } from '@prisma/client';
-import { BaseRecord } from './BaseRecord';
-import { Question } from './Questions';
-import { RequireAtLeastOne } from './Utils';
+import { StudyPathGoal, UserStudyPath } from "@prisma/client";
+import { BaseRecord } from "./BaseRecord";
+import { Question } from "./Questions";
+import { RequireAtLeastOne } from "./Utils";
 
-export type UserLevel = 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE' | 'PREMIUM';
+export type UserLevel = "STANDARD" | "ADMIN" | "TRIAL" | "FREE" | "PREMIUM";
 
 /**
  * Represents a user in the system.
@@ -36,7 +36,7 @@ export interface User extends BaseRecord {
   /** a flag to indicate if the user has a custom username */
   isCustomUsername?: boolean;
 
-  experienceLevel?: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' | 'MASTER';
+  experienceLevel?: "BEGINNER" | "INTERMEDIATE" | "ADVANCED" | "MASTER";
 
   // optional stripe emails for paid users
   stripeEmails?: string[];
@@ -62,38 +62,38 @@ export interface User extends BaseRecord {
 
 export type UserRecord = Pick<
   User,
-  | 'uid'
-  | 'email'
-  | 'username'
-  | 'firstName'
-  | 'lastName'
-  | 'userProfilePicture'
-  | 'createdAt'
-  | 'updatedAt'
-  | 'lastLogin'
-  | 'userLevel'
-  | 'correctDailyStreak'
-  | 'totalDailyStreak'
-  | 'showTimeTaken'
-  | 'sendPushNotifications'
-  | 'codeEditorTheme'
-  | 'aiQuestionHelpTokens'
-  | 'isCustomUsername'
-  | 'experienceLevel'
-  | 'stripeEmails'
-  | 'howDidYouHearAboutTechBlitz'
-  | 'referralCode'
-  | 'aboutMeAiHelp'
-  | 'studyPathEnrollments'
-  | 'studyPathGoals'
+  | "uid"
+  | "email"
+  | "username"
+  | "firstName"
+  | "lastName"
+  | "userProfilePicture"
+  | "createdAt"
+  | "updatedAt"
+  | "lastLogin"
+  | "userLevel"
+  | "correctDailyStreak"
+  | "totalDailyStreak"
+  | "showTimeTaken"
+  | "sendPushNotifications"
+  | "codeEditorTheme"
+  | "aiQuestionHelpTokens"
+  | "isCustomUsername"
+  | "experienceLevel"
+  | "stripeEmails"
+  | "howDidYouHearAboutTechBlitz"
+  | "referralCode"
+  | "aboutMeAiHelp"
+  | "studyPathEnrollments"
+  | "studyPathGoals"
 >;
 
 // First, create a type that excludes 'uid' from the partial requirement
-export type UpdatableUserFields = Omit<UserRecord, 'uid'>;
+export type UpdatableUserFields = Omit<UserRecord, "uid">;
 
 // Then create the type for updates that requires uid and at least one other field
 export type UserUpdatePayload = {
-  uid: UserRecord['uid'];
+  uid: UserRecord["uid"];
 } & RequireAtLeastOne<UpdatableUserFields>;
 
-export type UserWithOutAnswers = Pick<User, Exclude<keyof User, 'answers'>>;
+export type UserWithOutAnswers = Pick<User, Exclude<keyof User, "answers">>;

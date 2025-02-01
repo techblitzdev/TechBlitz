@@ -1,11 +1,11 @@
-import { CardContent, CardHeader } from '@/components/ui/card';
-import { motion } from 'framer-motion';
+import { CardContent, CardHeader } from "@/components/ui/card";
+import { motion } from "framer-motion";
 
-import PricingCard from '@/components/marketing/pricing/pricing-card';
-import { getPlans } from '@/utils/constants/pricing';
-import { useOnboardingContext } from './onboarding-context';
-import FrequencyTabs from '@/components/shared/payment/frequency-toggle';
-import { useState } from 'react';
+import PricingCard from "@/components/marketing/pricing/pricing-card";
+import { getPlans } from "@/utils/constants/pricing";
+import { useOnboardingContext } from "./onboarding-context";
+import FrequencyTabs from "@/components/shared/payment/frequency-toggle";
+import { useState } from "react";
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -15,7 +15,7 @@ const itemVariants = {
 export default function OnboardingPricing() {
   const { user } = useOnboardingContext();
 
-  const [billingPeriod, setBillingPeriod] = useState<'month' | 'year'>('year');
+  const [billingPeriod, setBillingPeriod] = useState<"month" | "year">("year");
 
   const products = getPlans(user, true, billingPeriod);
 
@@ -55,7 +55,7 @@ export default function OnboardingPricing() {
                     paymentTrigger={true}
                   />
                 </div>
-              )
+              ),
           )}
         </div>
       </CardContent>

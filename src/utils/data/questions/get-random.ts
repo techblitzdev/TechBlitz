@@ -1,6 +1,6 @@
-import { prisma } from '@/lib/prisma';
-import { getUser } from '@/actions/user/authed/get-user';
-import { Prisma } from '@prisma/client';
+import { prisma } from "@/lib/prisma";
+import { getUser } from "@/actions/user/authed/get-user";
+import { Prisma } from "@prisma/client";
 
 /**
  * Retrieve a random question
@@ -9,7 +9,7 @@ import { Prisma } from '@prisma/client';
  * @returns The slug of the next question
  */
 export const getRandomQuestion = async (opts: {
-  identifier: 'slug' | 'uid';
+  identifier: "slug" | "uid";
   currentQuestionSlug: string;
 }) => {
   const { identifier, currentQuestionSlug } = opts;
@@ -35,7 +35,7 @@ export const getRandomQuestion = async (opts: {
           AND q."customQuestion" = false
         ORDER BY RANDOM()
         LIMIT 1
-      `
+      `,
     );
 
     // extract first result if exists
@@ -50,7 +50,7 @@ export const getRandomQuestion = async (opts: {
           AND q."customQuestion" = false
         ORDER BY RANDOM()
         LIMIT 1
-      `
+      `,
     );
 
     // extract first result if exists

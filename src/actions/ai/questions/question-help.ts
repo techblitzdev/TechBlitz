@@ -1,15 +1,15 @@
-'use server';
-import { openai } from '@/lib/open-ai';
-import { prisma } from '@/lib/prisma';
-import { getPrompt } from '../utils/get-prompt';
-import { getUser } from '@/actions/user/authed/get-user';
-import { questionHelpSchema } from '@/lib/zod/schemas/ai/question-help';
-import { zodResponseFormat } from 'openai/helpers/zod.mjs';
-import type { Question } from '@/types/Questions';
+"use server";
+import { openai } from "@/lib/open-ai";
+import { prisma } from "@/lib/prisma";
+import { getPrompt } from "../utils/get-prompt";
+import { getUser } from "@/actions/user/authed/get-user";
+import { questionHelpSchema } from "@/lib/zod/schemas/ai/question-help";
+import { zodResponseFormat } from "openai/helpers/zod.mjs";
+import type { Question } from "@/types/Questions";
 import type {
   DefaultRoadmapQuestions,
   RoadmapUserQuestions,
-} from '@/types/Roadmap';
+} from "@/types/Roadmap";
 
 /**
  * Method to generate question help for both regular and roadmap questions.
@@ -22,7 +22,7 @@ import type {
 export const generateQuestionHelp = async (
   questionUid: string,
   userContent?: string,
-  questionType: 'roadmap' | 'regular' | 'onboarding' = 'regular'
+  questionType: "roadmap" | "regular" | "onboarding" = "regular",
 ) => {
   // get the current user requesting help
   const user = await getUser();
@@ -33,7 +33,7 @@ export const generateQuestionHelp = async (
 
   // For regular questions, check if the user has enough tokens
   if (
-    questionType === 'regular' &&
+    questionType === "regular" &&
     user.aiQuestionHelpTokens &&
     user.aiQuestionHelpTokens <= 0
   ) {
@@ -48,7 +48,7 @@ export const generateQuestionHelp = async (
     | null = null;
 
   // Get the appropriate question based on type
-  if (questionType === 'roadmap') {
+  if (questionType === "roadmap") {
     // Get the roadmap question
     question = (await prisma.roadmapUserQuestions.findUnique({
       where: {
@@ -63,7 +63,7 @@ export const generateQuestionHelp = async (
         answers: true,
       },
     })) as RoadmapUserQuestions | null;
-  } else if (questionType === 'regular') {
+  } else if (questionType === "regular") {
     // Get the regular question
     question = await prisma.questions.findUnique({
       where: {
@@ -73,7 +73,7 @@ export const generateQuestionHelp = async (
         answers: true,
       },
     });
-  } else if (questionType === 'onboarding') {
+  } else if (questionType === "onboarding") {
     // Get the onboarding question
     question = await prisma.defaultRoadmapQuestions.findUnique({
       where: {
@@ -92,54 +92,54 @@ export const generateQuestionHelp = async (
 
   // get the prompt
   const prompts = await getPrompt({
-    name: ['ai-question-generation-help'],
+    name: ["ai-question-generation-help"],
   });
 
   // generate the question help
   const questionHelp = await openai.chat.completions.create({
-    model: 'gpt-4o-mini-2024-07-18',
+    model: "gpt-4o-mini-2024-07-18",
     temperature: 0.3,
     messages: [
       {
-        role: 'system',
-        content: prompts['ai-question-generation-help'].content,
+        role: "system",
+        content: prompts["ai-question-generation-help"].content,
       },
       {
-        role: 'user',
+        role: "user",
         content: question.question,
       },
       {
-        role: 'system',
-        content: 'This is the reason as to why the user is asking for help: ',
+        role: "system",
+        content: "This is the reason as to why the user is asking for help: ",
       },
       {
-        role: 'system',
+        role: "system",
         content:
-          'The user has provided the following information about themselves, tailor your answer to this information:',
+          "The user has provided the following information about themselves, tailor your answer to this information:",
       },
       {
-        role: 'user',
-        content: user?.aboutMeAiHelp || '',
+        role: "user",
+        content: user?.aboutMeAiHelp || "",
       },
       {
-        role: 'user',
-        content: userContent || '',
+        role: "user",
+        content: userContent || "",
       },
     ],
-    response_format: zodResponseFormat(questionHelpSchema, 'event'),
+    response_format: zodResponseFormat(questionHelpSchema, "event"),
   });
 
   if (!questionHelp.choices[0]?.message?.content) {
-    throw new Error('AI response is missing content');
+    throw new Error("AI response is missing content");
   }
 
   const formattedData = JSON.parse(questionHelp.choices[0].message.content);
 
   // Handle token management based on question type and user level
   if (
-    questionType === 'regular' &&
-    user.userLevel !== 'PREMIUM' &&
-    user.userLevel !== 'ADMIN'
+    questionType === "regular" &&
+    user.userLevel !== "PREMIUM" &&
+    user.userLevel !== "ADMIN"
   ) {
     // Deduct tokens for regular questions from non-premium users
     const updatedUser = await prisma.users.update({

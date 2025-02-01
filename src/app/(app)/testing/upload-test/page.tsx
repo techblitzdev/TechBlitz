@@ -1,6 +1,6 @@
-'use client';
-import { Input } from '@/components/ui/input';
-import { useUser } from '@/hooks/use-user';
+"use client";
+import { Input } from "@/components/ui/input";
+import { useUser } from "@/hooks/use-user";
 
 export default function UploadTestPage() {
   const { user } = useUser();
@@ -8,13 +8,13 @@ export default function UploadTestPage() {
   const onSubmit = async (data: any) => {
     if (!user?.uid) return;
     const formData = new FormData();
-    formData.append('files', data.target.files[0]);
-    formData.append('userId', user?.uid);
-    formData.append('route', 'user-profile-pictures');
+    formData.append("files", data.target.files[0]);
+    formData.append("userId", user?.uid);
+    formData.append("route", "user-profile-pictures");
 
     try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
+      const res = await fetch("/api/upload", {
+        method: "POST",
         body: formData,
       });
       const { logoUrl } = await res.json();

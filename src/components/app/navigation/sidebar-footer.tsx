@@ -1,27 +1,27 @@
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import {
   SidebarFooter,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar';
-import { Button } from '@/components/ui/button';
-import { ChevronsUpDown } from 'lucide-react';
+} from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
+import { ChevronsUpDown } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import LogoutButton from '@/components/auth/logout';
-import ProfilePicture from '@/components/ui/profile-picture';
+} from "@/components/ui/dropdown-menu";
+import LogoutButton from "@/components/auth/logout";
+import ProfilePicture from "@/components/ui/profile-picture";
 
-import { UserRecord } from '@/types/User';
-import { getUserDisplayName } from '@/utils/user';
-import { Profile } from '@/types/Profile';
-import { capitalise } from '@/utils';
+import { UserRecord } from "@/types/User";
+import { getUserDisplayName } from "@/utils/user";
+import { Profile } from "@/types/Profile";
+import { capitalise } from "@/utils";
 
 /**
 /**
@@ -41,20 +41,20 @@ export default function SidebarFooterComponent(opts: {
 
   // profile link determined on env (dev or prod)
   const profileLink =
-    process.env.NEXT_PUBLIC_ENV === 'production'
-      ? '/settings/profile'
+    process.env.NEXT_PUBLIC_ENV === "production"
+      ? "/settings/profile"
       : `/${user?.username}`;
 
   return (
     <SidebarFooter className="bg-[#000000]">
       <SidebarMenu>
         {/** if sidebar is collapsed, hide the upgrade button */}
-        {user?.userLevel === 'FREE' && (
+        {user?.userLevel === "FREE" && (
           <SidebarMenuItem
             className="font-semibold font-inter text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-50 p-4 group-data-[collapsible=icon]:hidden"
             style={{
               background:
-                'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
+                "radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)",
             }}
           >
             <p className="font-onest">Unlock Your Full Potential</p>

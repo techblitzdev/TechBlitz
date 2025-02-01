@@ -1,9 +1,9 @@
-'use server';
-import { QuestionDifficulty } from '@/types/Questions';
-import { prisma } from '@/lib/prisma';
-import uniqid from 'uniqid';
-import { addSlugToQuestion } from '@/scripts/add-slug-to-question';
-import { QuestionAnswerType } from '@/types/QuestionAnswers';
+"use server";
+import { QuestionDifficulty } from "@/types/Questions";
+import { prisma } from "@/lib/prisma";
+import uniqid from "uniqid";
+import { addSlugToQuestion } from "@/scripts/add-slug-to-question";
+import { QuestionAnswerType } from "@/types/QuestionAnswers";
 
 export const addQuestion = async (opts: {
   title?: string;
@@ -48,13 +48,13 @@ export const addQuestion = async (opts: {
     questionResources,
   } = opts;
 
-  console.log('hit');
+  console.log("hit");
 
   if (!question || !answers.length) {
     console.error(
-      'Please provide a question, at least one answer, and a question date'
+      "Please provide a question, at least one answer, and a question date",
     );
-    return 'Please provide a question, at least one answer, and a question date';
+    return "Please provide a question, at least one answer, and a question date";
   }
 
   const answerRecords = answers.map((answer) => ({
@@ -62,13 +62,13 @@ export const addQuestion = async (opts: {
     answer: answer.text,
     answerFullSnippet: answer.answerFullSnippet || null,
     answerType: answer.isCodeSnippet
-      ? 'PREFILL'
-      : ('STANDARD' as QuestionAnswerType),
+      ? "PREFILL"
+      : ("STANDARD" as QuestionAnswerType),
   }));
 
   if (correctAnswer < 0 || correctAnswer >= answers.length) {
-    console.error('Invalid correctAnswer index');
-    return 'Invalid correctAnswer index';
+    console.error("Invalid correctAnswer index");
+    return "Invalid correctAnswer index";
   }
 
   const correctAnswerUid = answerRecords[correctAnswer].uid;
@@ -86,8 +86,8 @@ export const addQuestion = async (opts: {
           title: title || null,
           description: description || null,
           questionDate: questionDate
-            ? new Date(questionDate).toISOString().split('T')[0]
-            : '',
+            ? new Date(questionDate).toISOString().split("T")[0]
+            : "",
           createdAt: new Date(),
           updatedAt: new Date(),
           answers: {
@@ -161,12 +161,12 @@ export const addQuestion = async (opts: {
     // re run addSlugToQuestion to generate the slug
     await addSlugToQuestion();
 
-    return 'ok';
+    return "ok";
   } catch (error) {
-    console.error('Failed to add new question:', error);
+    console.error("Failed to add new question:", error);
     return error instanceof Error
       ? error.message
-      : 'Failed to add new question';
+      : "Failed to add new question";
   }
 };
 
@@ -214,14 +214,14 @@ export const addCodingChallengeQuestion = async (opts: {
         title: title || null,
         description: description || null,
         questionDate: questionDate
-          ? new Date(questionDate).toISOString().split('T')[0]
-          : '',
-        correctAnswer: '-',
+          ? new Date(questionDate).toISOString().split("T")[0]
+          : "",
+        correctAnswer: "-",
         codeSnippet: codeSnippet || null,
         hint: hint || null,
         dailyQuestion: dailyQuestion || false,
         difficulty,
-        questionType: 'CODING_CHALLENGE',
+        questionType: "CODING_CHALLENGE",
         tags: {
           connectOrCreate: tags.map((tag) => ({
             where: {
@@ -258,9 +258,9 @@ export const addCodingChallengeQuestion = async (opts: {
       },
     });
   } catch (error) {
-    console.error('Failed to add new coding challenge question:', error);
+    console.error("Failed to add new coding challenge question:", error);
     return error instanceof Error
       ? error.message
-      : 'Failed to add new coding challenge question';
+      : "Failed to add new coding challenge question";
   }
 };

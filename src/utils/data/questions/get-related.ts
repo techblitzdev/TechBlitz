@@ -1,7 +1,7 @@
-import { Tags } from '@/types/Tags';
-import { prisma } from '@/lib/prisma';
-import { getUser } from '@/actions/user/authed/get-user';
-import { QuestionDifficulty } from '@prisma/client';
+import { Tags } from "@/types/Tags";
+import { prisma } from "@/lib/prisma";
+import { getUser } from "@/actions/user/authed/get-user";
+import { QuestionDifficulty } from "@prisma/client";
 
 /**
  * Method to get questions that are related to the current question
@@ -47,10 +47,10 @@ export const getRelatedQuestions = async (opts: {
 
   // create a difficult map for the user
   const difficultyMap = {
-    BEGINNER: 'BEGINNER',
-    INTERMEDIATE: 'EASY',
-    ADVANCED: 'MEDIUM',
-    MASTER: 'HARD',
+    BEGINNER: "BEGINNER",
+    INTERMEDIATE: "EASY",
+    ADVANCED: "MEDIUM",
+    MASTER: "HARD",
   };
 
   const user = await getUser();
@@ -69,7 +69,7 @@ export const getRelatedQuestions = async (opts: {
     },
     take: limit,
     orderBy: {
-      createdAt: 'desc',
+      createdAt: "desc",
     },
   });
 };

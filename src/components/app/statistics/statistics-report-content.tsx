@@ -1,5 +1,5 @@
-import { redirect } from 'next/navigation';
-import { format } from 'date-fns';
+import { redirect } from "next/navigation";
+import { format } from "date-fns";
 
 import {
   Card,
@@ -7,16 +7,16 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import StatisticsReportTabs from '@/components/app/statistics/statistics-report-tabs';
+} from "@/components/ui/card";
+import StatisticsReportTabs from "@/components/app/statistics/statistics-report-tabs";
 
-import { getUserDisplayName } from '@/utils/user';
-import { StatisticsReport } from '@prisma/client';
+import { getUserDisplayName } from "@/utils/user";
+import { StatisticsReport } from "@prisma/client";
 
-import { Question } from '@/types/Questions';
-import StatsReportCardMenu from './stats-report-card-menu';
-import { formatSeconds } from '@/utils/time';
-import { useUserServer } from '@/hooks/use-user-server';
+import { Question } from "@/types/Questions";
+import StatsReportCardMenu from "./stats-report-card-menu";
+import { formatSeconds } from "@/utils/time";
+import { useUserServer } from "@/hooks/use-user-server";
 
 export default async function StatisticsReportContent({
   report,
@@ -26,7 +26,7 @@ export default async function StatisticsReportContent({
   const user = await useUserServer();
 
   if (!report) {
-    return redirect('/login');
+    return redirect("/login");
   }
 
   // Calculate stats
@@ -34,7 +34,7 @@ export default async function StatisticsReportContent({
   const correctAnswers = report.correctTags.length;
   const incorrectAnswers = report.incorrectTags.length;
   const correctPercentage = Math.round(
-    (correctAnswers / (correctAnswers + incorrectAnswers)) * 100
+    (correctAnswers / (correctAnswers + incorrectAnswers)) * 100,
   );
 
   return (
@@ -55,8 +55,8 @@ export default async function StatisticsReportContent({
         <CardHeader>
           <CardTitle className="text-white">Report Summary</CardTitle>
           <CardDescription className="text-gray-400">
-            Created on {format(report.createdAt, 'MMMM d, yyyy')} at{' '}
-            {format(report.createdAt, 'h:mm a')} for{' '}
+            Created on {format(report.createdAt, "MMMM d, yyyy")} at{" "}
+            {format(report.createdAt, "h:mm a")} for{" "}
             {user && getUserDisplayName(user)}
           </CardDescription>
         </CardHeader>

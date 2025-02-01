@@ -1,16 +1,16 @@
-'use server';
+"use server";
 
-import { prisma } from '@/lib/prisma';
-import { getUser } from '../user/authed/get-user';
+import { prisma } from "@/lib/prisma";
+import { getUser } from "../user/authed/get-user";
 
 export const bookmarkQuestion = async (
   questionUid: string,
-  isRoadmap = false
+  isRoadmap = false,
 ) => {
   const user = await getUser();
 
   if (!user) {
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 
   // if isRoadmap is true, we are fetching a roadmap question and not a standard
@@ -33,7 +33,7 @@ export const bookmarkQuestion = async (
   }
 
   if (!question) {
-    throw new Error('Question not found');
+    throw new Error("Question not found");
   }
 
   const existingBookmark = await prisma.userBookmarks.findFirst({
@@ -48,7 +48,7 @@ export const bookmarkQuestion = async (
     await prisma.userBookmarks.delete({
       where: { uid: existingBookmark.uid },
     });
-    return { action: 'unbookmarked' };
+    return { action: "unbookmarked" };
   } else {
     // If the bookmark doesn't exist, create it
     await prisma.userBookmarks.create({
@@ -59,6 +59,6 @@ export const bookmarkQuestion = async (
           : { questionId: questionUid }),
       },
     });
-    return { action: 'bookmarked' };
+    return { action: "bookmarked" };
   }
 };

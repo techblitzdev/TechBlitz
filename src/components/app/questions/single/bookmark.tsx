@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition } from "react";
 
-import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 import {
   TooltipContent,
   TooltipTrigger,
   Tooltip,
   TooltipProvider,
-} from '@/components/ui/tooltip';
-import { Bookmark } from 'lucide-react';
+} from "@/components/ui/tooltip";
+import { Bookmark } from "lucide-react";
 
-import { bookmarkQuestion } from '@/actions/questions/bookmark';
-import type { Question } from '@/types/Questions';
-import { RoadmapUserQuestions } from '@/types/Roadmap';
+import { bookmarkQuestion } from "@/actions/questions/bookmark";
+import type { Question } from "@/types/Questions";
+import { RoadmapUserQuestions } from "@/types/Roadmap";
 
 export default function BookmarkQuestion({
   question,
@@ -24,7 +24,7 @@ export default function BookmarkQuestion({
   isRoadmap?: boolean;
 }) {
   const [isBookmarked, setIsBookmarked] = useState(
-    question.bookmarks && question.bookmarks.length > 0
+    question.bookmarks && question.bookmarks.length > 0,
   );
   const [isPending, startTransition] = useTransition();
 
@@ -34,7 +34,7 @@ export default function BookmarkQuestion({
         await bookmarkQuestion(question.uid, isRoadmap);
         setIsBookmarked((prev) => !prev);
       } catch (error) {
-        toast.error('Failed to bookmark question. Please try again.');
+        toast.error("Failed to bookmark question. Please try again.");
       }
     });
   };
@@ -53,13 +53,13 @@ export default function BookmarkQuestion({
           >
             <Bookmark
               className={`size-5 ${
-                isBookmarked ? 'text-yellow-500 fill-yellow-500' : 'text-white'
+                isBookmarked ? "text-yellow-500 fill-yellow-500" : "text-white"
               } transition-colors duration-200`}
             />
           </Button>
         </TooltipTrigger>
         <TooltipContent>
-          <p>{isBookmarked ? 'Remove bookmark' : 'Bookmark this question'} </p>
+          <p>{isBookmarked ? "Remove bookmark" : "Bookmark this question"} </p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

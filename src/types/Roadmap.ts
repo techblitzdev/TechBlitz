@@ -1,9 +1,9 @@
-import { AnswerDifficulty, UserBookmarks } from '@prisma/client';
-import { BaseRecord } from './BaseRecord';
-import { QuestionDifficulty } from './Questions';
-import { User } from './User';
+import { AnswerDifficulty, UserBookmarks } from "@prisma/client";
+import { BaseRecord } from "./BaseRecord";
+import { QuestionDifficulty } from "./Questions";
+import { User } from "./User";
 
-type RoadmapStatus = 'ACTIVE' | 'COMPLETED' | 'ARCHIVED' | 'CREATING';
+type RoadmapStatus = "ACTIVE" | "COMPLETED" | "ARCHIVED" | "CREATING";
 
 // Main roadmap associated with a user
 export interface UserRoadmaps extends BaseRecord {
@@ -27,7 +27,7 @@ export interface UserRoadmaps extends BaseRecord {
 
 export type UserRoadmapsWithAnswers = Omit<
   UserRoadmaps,
-  'DefaultRoadmapQuestionsUsersAnswers'
+  "DefaultRoadmapQuestionsUsersAnswers"
 > &
   RoadmapUserQuestionsAnswers;
 

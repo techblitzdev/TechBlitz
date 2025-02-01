@@ -1,21 +1,21 @@
-import React from 'react';
-import { Webhook } from 'https://esm.sh/standardwebhooks@1.0.0';
-import { Resend } from 'resend';
-import { renderAsync } from '@react-email/components';
-import { MagicLinkEmail } from './_templates/magic-link.tsx';
-import { TechBlitzSignUpEmail } from './_templates/sign-up.tsx';
-import { ResetPasswordEmail } from './_templates/reset-password.tsx';
-import { EmailChangeEmail } from './_templates/email-change.tsx';
-const resend = new Resend(Deno.env.get('RESEND_API_KEY') as string);
-const hookSecret = Deno.env.get('SEND_EMAIL_HOOK_SECRET') as string;
-const supabaseUrl = Deno.env.get('NEXT_PUBLIC_SUPABASE_URL') as string;
+import React from "react";
+import { Webhook } from "https://esm.sh/standardwebhooks@1.0.0";
+import { Resend } from "resend";
+import { renderAsync } from "@react-email/components";
+import { MagicLinkEmail } from "./_templates/magic-link.tsx";
+import { TechBlitzSignUpEmail } from "./_templates/sign-up.tsx";
+import { ResetPasswordEmail } from "./_templates/reset-password.tsx";
+import { EmailChangeEmail } from "./_templates/email-change.tsx";
+const resend = new Resend(Deno.env.get("RESEND_API_KEY") as string);
+const hookSecret = Deno.env.get("SEND_EMAIL_HOOK_SECRET") as string;
+const supabaseUrl = Deno.env.get("NEXT_PUBLIC_SUPABASE_URL") as string;
 const updateUserRedirectUrl = Deno.env.get(
-  'UPDATE_USER_REDIRECT_URL'
+  "UPDATE_USER_REDIRECT_URL",
 ) as string;
 
 Deno.serve(async (req: Request): Promise<Response> => {
-  if (req.method !== 'POST') {
-    return new Response('not allowed', { status: 400 });
+  if (req.method !== "POST") {
+    return new Response("not allowed", { status: 400 });
   }
 
   const payload = await req.text();
@@ -47,52 +47,52 @@ Deno.serve(async (req: Request): Promise<Response> => {
     // init for the email template & subject
     let html: string;
     let subject: string;
-    let from: string = 'TechBlitz <team@techblitz.dev>';
+    let from: string = "TechBlitz <team@techblitz.dev>";
 
-    if (email_action_type === 'signup') {
+    if (email_action_type === "signup") {
       const redirect_to_url = `${redirect_to}/login?onboarding=true`;
-      from = 'TechBlitz <team@techblitz.dev>';
+      from = "TechBlitz <team@techblitz.dev>";
       html = await renderAsync(
         React.createElement(TechBlitzSignUpEmail, {
-          username: user['user_metadata'].lang,
+          username: user["user_metadata"].lang,
           confirmationLink: `${supabaseUrl}/auth/v1/verify?token=${token_hash}&type=signup&redirect_to=${redirect_to_url}`,
-        })
+        }),
       );
-      subject = 'Welcome to TechBlitz!';
-    } else if (email_action_type == 'login') {
+      subject = "Welcome to TechBlitz!";
+    } else if (email_action_type == "login") {
       html = await renderAsync(
         React.createElement(MagicLinkEmail, {
-          supabase_url: Deno.env.get('NEXT_PUBLIC_SUPABASE_URL') ?? '',
+          supabase_url: Deno.env.get("NEXT_PUBLIC_SUPABASE_URL") ?? "",
           token,
           token_hash,
           redirect_to,
           email_action_type,
-        })
+        }),
       );
-      subject = 'Sign in to TechBlitz';
+      subject = "Sign in to TechBlitz";
     }
     // for sending pass word reset emails
-    else if (email_action_type === 'recovery') {
+    else if (email_action_type === "recovery") {
       // redirect the user to the update password page
       const redirect_to_url = `${redirect_to}/update-password`;
-      from = 'TechBlitz <team@techblitz.dev>';
+      from = "TechBlitz <team@techblitz.dev>";
       // go grab the react email template
       html = await renderAsync(
         React.createElement(ResetPasswordEmail, {
-          username: user['user_metadata'].username,
+          username: user["user_metadata"].username,
           resetLink: `${supabaseUrl}/auth/v1/verify?token=${token_hash}&type=recovery&redirect_to=${redirect_to_url}&code=${token}`,
-        })
+        }),
       );
-      subject = 'Reset your password';
-    } else if (email_action_type === 'email_change') {
+      subject = "Reset your password";
+    } else if (email_action_type === "email_change") {
       const redirect_to_url = `${redirect_to}/dashboard`;
       html = await renderAsync(
         React.createElement(EmailChangeEmail, {
-          username: user['user_metadata'].username,
+          username: user["user_metadata"].username,
           redirect_to: `${supabaseUrl}/auth/v1/verify?token=${token_hash}&type=email_change&redirect_to=${redirect_to_url}`,
-        })
+        }),
       );
-      subject = 'Email Address Updated';
+      subject = "Email Address Updated";
     } else {
       return new Response(`email action type not found: ${email_action_type}`, {
         status: 400,
@@ -116,18 +116,18 @@ Deno.serve(async (req: Request): Promise<Response> => {
           http_code: (error as { code?: number })?.code ?? 500,
           message:
             (error as { message?: string })?.message ??
-            'An unknown error occurred',
+            "An unknown error occurred",
         },
       }),
       {
         status: 401,
-        headers: { 'Content-Type': 'application/json' },
-      }
+        headers: { "Content-Type": "application/json" },
+      },
     );
   }
 
   const responseHeaders = new Headers();
-  responseHeaders.set('Content-Type', 'application/json');
+  responseHeaders.set("Content-Type", "application/json");
   return new Response(JSON.stringify({}), {
     status: 200,
     headers: responseHeaders,

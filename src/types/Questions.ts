@@ -2,14 +2,14 @@ import {
   QuestionResources,
   StatisticsReport,
   UserBookmarks,
-} from '@prisma/client';
-import { QuestionAnswer } from './QuestionAnswers';
-import { Tags } from './Tags';
-import { Answer } from './Answers';
+} from "@prisma/client";
+import { QuestionAnswer } from "./QuestionAnswers";
+import { Tags } from "./Tags";
+import { Answer } from "./Answers";
 
-export type QuestionDifficulty = 'BEGINNER' | 'EASY' | 'MEDIUM' | 'HARD';
+export type QuestionDifficulty = "BEGINNER" | "EASY" | "MEDIUM" | "HARD";
 
-export type QuestionType = 'MULTIPLE_CHOICE' | 'CODING_CHALLENGE';
+export type QuestionType = "MULTIPLE_CHOICE" | "CODING_CHALLENGE";
 
 /**
  * This type represents the shape of the data of a question.
@@ -69,7 +69,7 @@ export type Question = {
 
 export type QuestionWithoutAnswers = Omit<
   Question,
-  'answers' | 'testCases' | 'functionName' | 'expectedParams'
+  "answers" | "testCases" | "functionName" | "expectedParams"
 >;
 
 export type QuestionWithTags = QuestionWithoutAnswers & {

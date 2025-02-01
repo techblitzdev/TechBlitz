@@ -1,18 +1,18 @@
-import { useId } from 'react';
+import { useId } from "react";
 
 export const Grid = ({
   pattern,
   size,
-  position = 'top-left',
+  position = "top-left",
 }: {
   pattern?: number[][];
   size?: number;
   position?:
-    | 'top-left'
-    | 'top-right'
-    | 'bottom-left'
-    | 'bottom-right'
-    | 'cover';
+    | "top-left"
+    | "top-right"
+    | "bottom-left"
+    | "bottom-right"
+    | "cover";
 }) => {
   const p = pattern ?? [
     [Math.floor(Math.random() * 4) + 7, Math.floor(Math.random() * 6) + 1],
@@ -24,11 +24,11 @@ export const Grid = ({
 
   // Define gradient and position styles based on the `position` prop
   const positionClasses = {
-    'top-left': 'left-0 top-0',
-    'top-right': 'right-0 top-0 transform scale-x-[-1]',
-    'bottom-left': 'left-0 bottom-0 transform scale-y-[-1]',
-    'bottom-right': 'right-0 bottom-0 transform scale-x-[-1] scale-y-[-1]',
-    cover: 'scale-150 top-0',
+    "top-left": "left-0 top-0",
+    "top-right": "right-0 top-0 transform scale-x-[-1]",
+    "bottom-left": "left-0 bottom-0 transform scale-y-[-1]",
+    "bottom-right": "right-0 bottom-0 transform scale-x-[-1] scale-y-[-1]",
+    cover: "scale-150 top-0",
   };
 
   return (

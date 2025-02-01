@@ -1,6 +1,6 @@
-'use server';
-import type { PromptName } from '@/utils/constants/prompts';
-import { prisma } from '@/lib/prisma';
+"use server";
+import type { PromptName } from "@/utils/constants/prompts";
+import { prisma } from "@/lib/prisma";
 
 export const getPrompt = async (opts: { name: PromptName | PromptName[] }) => {
   const { name } = opts;
@@ -17,12 +17,12 @@ export const getPrompt = async (opts: { name: PromptName | PromptName[] }) => {
     return prompts.reduce(
       (
         acc: { [key: string]: { content: string } },
-        prompt: { name: string; prompt: string }
+        prompt: { name: string; prompt: string },
       ) => {
         acc[prompt.name] = { content: prompt.prompt };
         return acc;
       },
-      {}
+      {},
     );
   }
 

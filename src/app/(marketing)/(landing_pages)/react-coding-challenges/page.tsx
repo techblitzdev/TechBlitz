@@ -1,68 +1,68 @@
-import { WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { WebPageJsonLdBreadcrumb } from "@/utils/seo";
 
-import { getBaseUrl } from '@/utils';
-import { WebPageJsonLd } from '@/types/Seo';
-import FAQsBlock from '@/components/marketing/global/blocks/faqs';
-import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
-import Link from 'next/dist/client/link';
-import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/hero/daily-challenge-hero';
-import FeatureRoadmapThreeGridBlock from '@/components/marketing/features/roadmap/roadmap-three-grid';
-import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
-import Testimonials from '@/components/marketing/global/blocks/testimonials';
-import FeatureLeftRightSectionOne from '@/components/marketing/features/daily-challenge/feature-left-right/section-one';
-import MarketingContentGrid from '@/components/marketing/global/blocks/content-grid';
+import { getBaseUrl } from "@/utils";
+import { WebPageJsonLd } from "@/types/Seo";
+import FAQsBlock from "@/components/marketing/global/blocks/faqs";
+import CallToActionBlock from "@/components/marketing/global/blocks/call-to-action-block";
+import Link from "next/dist/client/link";
+import FeatureDailyChallengeHero from "@/components/marketing/features/daily-challenge/hero/daily-challenge-hero";
+import FeatureRoadmapThreeGridBlock from "@/components/marketing/features/roadmap/roadmap-three-grid";
+import QuestionMarquee from "@/components/marketing/global/blocks/question-marquee";
+import Testimonials from "@/components/marketing/global/blocks/testimonials";
+import FeatureLeftRightSectionOne from "@/components/marketing/features/daily-challenge/feature-left-right/section-one";
+import MarketingContentGrid from "@/components/marketing/global/blocks/content-grid";
 
 const faqs = [
   {
-    question: 'How will TechBlitz help me learn React?',
+    question: "How will TechBlitz help me learn React?",
     answer:
-      'Our challenges have been crafted to mimic real-world problems, that aim to guide you from a beginner React developer to a pro.',
+      "Our challenges have been crafted to mimic real-world problems, that aim to guide you from a beginner React developer to a pro.",
   },
   {
-    question: 'What sort of React challenges are there?',
+    question: "What sort of React challenges are there?",
     answer:
-      'We currently have a wide range of React challenges for you to complete. From beginner to advanced, including React Hooks, React context, React Router, and more. We are constantly adding new challenges to help you learn React.',
+      "We currently have a wide range of React challenges for you to complete. From beginner to advanced, including React Hooks, React context, React Router, and more. We are constantly adding new challenges to help you learn React.",
   },
   {
-    question: 'How will TechBlitz help me learn React?',
+    question: "How will TechBlitz help me learn React?",
     answer:
-      'Our challenges have been crafted to mimic real-world problems, that aim to guide you from a beginner React developer to a pro. We offer personalized challenges and roadmaps, in depth performance analytics, and more!',
+      "Our challenges have been crafted to mimic real-world problems, that aim to guide you from a beginner React developer to a pro. We offer personalized challenges and roadmaps, in depth performance analytics, and more!",
   },
   {
-    question: 'What else can I do on TechBlitz?',
+    question: "What else can I do on TechBlitz?",
     answer:
-      'TechBlitz is the best platform for you to learn web development. We offer a wide range of challenges, roadmaps, and more to help you learn JavaScript, React, Node, and more.',
+      "TechBlitz is the best platform for you to learn web development. We offer a wide range of challenges, roadmaps, and more to help you learn JavaScript, React, Node, and more.",
   },
   {
-    question: 'What is TechBlitz?',
+    question: "What is TechBlitz?",
     answer:
-      'TechBlitz is a coding challenge platform that helps you learn React.',
+      "TechBlitz is a coding challenge platform that helps you learn React.",
   },
   {
-    question: 'How does TechBlitz work?',
+    question: "How does TechBlitz work?",
     answer:
-      'TechBlitz works by providing you with a wide range of real-world React challenges with a focus on real-world problems.',
+      "TechBlitz works by providing you with a wide range of real-world React challenges with a focus on real-world problems.",
   },
   {
-    question: 'What makes TechBlitz different?',
+    question: "What makes TechBlitz different?",
     answer:
-      'Our core values are in providing you a personalized experience. We ensure you learn essential coding skills faster than ever with your own AI-assistant, personalized challenges & roadmaps, stats tracking, and more!',
+      "Our core values are in providing you a personalized experience. We ensure you learn essential coding skills faster than ever with your own AI-assistant, personalized challenges & roadmaps, stats tracking, and more!",
   },
   {
-    question: 'How do I get started?',
+    question: "How do I get started?",
     answer: (
       <>
-        You can get started by{' '}
+        You can get started by{" "}
         <Link href="/signup" className="text-accent underline">
           signing up for a free account
-        </Link>{' '}
+        </Link>{" "}
         and starting to answer challenges.
       </>
     ),
   },
   {
-    question: 'Do you offer student discount?',
-    answer: 'Yes! We are currently offering 50% off for students.',
+    question: "Do you offer student discount?",
+    answer: "Yes! We are currently offering 50% off for students.",
   },
 ];
 
@@ -88,9 +88,9 @@ const items = [
         </g>
       </svg>
     ),
-    title: 'React Progress Tracking',
+    title: "React Progress Tracking",
     description:
-      'Monitor your React learning journey with detailed analytics. Track your progress across components, hooks, state management, and other crucial React concepts.',
+      "Monitor your React learning journey with detailed analytics. Track your progress across components, hooks, state management, and other crucial React concepts.",
   },
   {
     icon: (
@@ -113,9 +113,9 @@ const items = [
         </g>
       </svg>
     ),
-    title: 'Progressive Learning',
+    title: "Progressive Learning",
     description:
-      'Master React one concept at a time with our structured learning path. From React fundamentals to advanced patterns like hooks, context, and state management.',
+      "Master React one concept at a time with our structured learning path. From React fundamentals to advanced patterns like hooks, context, and state management.",
   },
   {
     icon: (
@@ -131,48 +131,48 @@ const items = [
         />
       </svg>
     ),
-    title: 'Active Community',
+    title: "Active Community",
     description:
-      'Join thousands of React developers solving daily challenges. Share solutions, discuss best practices, and learn from peers tackling the same React coding challenges.',
+      "Join thousands of React developers solving daily challenges. Share solutions, discuss best practices, and learn from peers tackling the same React coding challenges.",
   },
 ];
 
 export default function ReactCodingChallengesPage() {
   const jsonLd: WebPageJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
+    "@context": "https://schema.org",
+    "@type": "WebPage",
     url: getBaseUrl(),
-    headline: 'React Coding Challenges | TechBlitz',
+    headline: "React Coding Challenges | TechBlitz",
     description:
-      'TechBlitz provides a wide range of React coding challenges to help you improve your skills and learn new concepts.',
+      "TechBlitz provides a wide range of React coding challenges to help you improve your skills and learn new concepts.",
     image:
-      'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
+      "https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531",
     breadcrumb: WebPageJsonLdBreadcrumb,
     author: {
-      '@type': 'Organization',
-      name: 'TechBlitz',
+      "@type": "Organization",
+      name: "TechBlitz",
       url: getBaseUrl(),
     },
     dateModified: new Date().toISOString(),
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': getBaseUrl(),
+      "@type": "WebPage",
+      "@id": getBaseUrl(),
     },
     keywords:
-      'learn to code, learn to code for free, learn react, react coding challenges, react coding challenges, web development, tech skills assessment, learn to code on phone',
+      "learn to code, learn to code for free, learn react, react coding challenges, react coding challenges, web development, tech skills assessment, learn to code on phone",
     publisher: {
-      '@type': 'Organization',
-      name: 'TechBlitz',
+      "@type": "Organization",
+      name: "TechBlitz",
       logo: {
-        '@type': 'ImageObject',
-        url: 'https://techblitz.dev/favicon.ico',
+        "@type": "ImageObject",
+        url: "https://techblitz.dev/favicon.ico",
       },
     },
     potentialAction: {
-      '@type': 'SearchAction',
+      "@type": "SearchAction",
       target: `${getBaseUrl()}/search?q={search_term_string}`,
-      'query-input': 'required name=search_term_string',
+      "query-input": "required name=search_term_string",
     },
   };
 

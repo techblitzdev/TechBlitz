@@ -1,11 +1,11 @@
-import { Button } from '@/components/ui/button';
-import { ChevronRight, FileQuestion } from 'lucide-react';
-import { Suspense } from 'react';
-import LeaderboardMostAnsweredTable from '@/components/app/leaderboard/leaderboard-most-answered-table';
-import { getMostQuestionsAnswered } from '@/utils/data/leaderboard/get-most-questions-answered';
-import { useUserServer } from '@/hooks/use-user-server';
-import { UserRecord } from '@/types/User';
-import { Table, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Button } from "@/components/ui/button";
+import { ChevronRight, FileQuestion } from "lucide-react";
+import { Suspense } from "react";
+import LeaderboardMostAnsweredTable from "@/components/app/leaderboard/leaderboard-most-answered-table";
+import { getMostQuestionsAnswered } from "@/utils/data/leaderboard/get-most-questions-answered";
+import { useUserServer } from "@/hooks/use-user-server";
+import { UserRecord } from "@/types/User";
+import { Table, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 export default async function LeaderboardFeaturesLeft() {
   const topUsersByQuestionCount = await getMostQuestionsAnswered(5);
@@ -66,7 +66,7 @@ export default async function LeaderboardFeaturesLeft() {
         className="rotate-180 hidden lg:block absolute right-0 top-0 h-full w-px pointer-events-none"
         style={{
           background:
-            'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 10%, rgba(143, 143, 143, 0.67) 100%)',
+            "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 10%, rgba(143, 143, 143, 0.67) 100%)",
         }}
       ></div>
       <div
@@ -74,7 +74,7 @@ export default async function LeaderboardFeaturesLeft() {
         className="block lg:hidden absolute left-1/2 bottom-0 w-full h-px max-w-full -translate-x-1/2"
         style={{
           background:
-            'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)',
+            "linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)",
         }}
       ></div>
     </div>

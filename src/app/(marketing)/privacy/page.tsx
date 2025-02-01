@@ -1,20 +1,20 @@
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Separator } from '@/components/ui/separator';
-import Link from 'next/link';
-import { createMetadata } from '@/utils/seo';
+import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
+import { createMetadata } from "@/utils/seo";
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Privacy Policy | TechBlitz',
-    description: 'Privacy Policy for TechBlitz',
+    title: "Privacy Policy | TechBlitz",
+    description: "Privacy Policy for TechBlitz",
     image: {
-      text: 'Privacy Policy | TechBlitz',
-      bgColor: '#000',
-      textColor: '#fff',
+      text: "Privacy Policy | TechBlitz",
+      bgColor: "#000",
+      textColor: "#fff",
     },
-    canonicalUrl: '/privacy',
+    canonicalUrl: "/privacy",
   });
 }
 
@@ -108,14 +108,14 @@ export default function PrivacyPolicyPage() {
                 </h2>
                 <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
                   <li>
-                    <span className="font-semibold">Service Provision:</span>{' '}
+                    <span className="font-semibold">Service Provision:</span>{" "}
                     Processing subscriptions, providing access to our platform,
                     and managing your account
                   </li>
                   <li>
                     <span className="font-semibold">
                       Analytics and Improvement:
-                    </span>{' '}
+                    </span>{" "}
                     Using Posthog to analyze usage patterns and improve our
                     services
                   </li>
@@ -124,7 +124,7 @@ export default function PrivacyPolicyPage() {
                     against unauthorized access and ensuring platform security
                   </li>
                   <li>
-                    <span className="font-semibold">Communication:</span>{' '}
+                    <span className="font-semibold">Communication:</span>{" "}
                     Sending important updates about our services and responding
                     to your requests
                   </li>
@@ -215,7 +215,7 @@ export default function PrivacyPolicyPage() {
                 <h2 className="text-xl font-semibold mb-4">Contact Us</h2>
                 <p className="text-muted-foreground">
                   For questions about this Privacy Policy or to exercise your
-                  rights, contact us at{' '}
+                  rights, contact us at{" "}
                   <Link
                     href="mailto:team@techblitz.dev"
                     className="text-blue-400 hover:text-blue-300"

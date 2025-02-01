@@ -1,6 +1,6 @@
-import React from 'react';
-import Image from 'next/image';
-import { Check, X, Info } from 'lucide-react';
+import React from "react";
+import Image from "next/image";
+import { Check, X, Info } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -8,13 +8,13 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from "@/components/ui/table";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from "@/components/ui/tooltip";
 
 export interface FeatureValue {
   value: boolean | string | number;
@@ -54,7 +54,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({
               <div className="flex items-center justify-center space-x-2">
                 {yourCompanyLogo && (
                   <Image
-                    src={yourCompanyLogo || '/placeholder.svg'}
+                    src={yourCompanyLogo || "/placeholder.svg"}
                     alt={yourCompanyName}
                     width={24}
                     height={24}
@@ -68,7 +68,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({
               <div className="flex items-center justify-center space-x-2">
                 {otherCompanyLogo && (
                   <Image
-                    src={otherCompanyLogo || '/placeholder.svg'}
+                    src={otherCompanyLogo || "/placeholder.svg"}
                     alt={otherCompanyName}
                     width={24}
                     height={24}
@@ -84,7 +84,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({
           {features.map((feature, index) => (
             <TableRow
               key={index}
-              className={index % 2 === 0 ? 'bg-[#000000]' : 'bg-black'}
+              className={index % 2 === 0 ? "bg-[#000000]" : "bg-black"}
             >
               <TableCell className="font-medium p-2 text-lg font-onest">
                 {feature.name}
@@ -107,7 +107,7 @@ const renderFeatureValue = (featureValue: FeatureValue) => {
   const { value, tooltip } = featureValue;
   const content = (
     <>
-      {typeof value === 'boolean' ? (
+      {typeof value === "boolean" ? (
         value ? (
           <Check className="inline-block w-6 h-6 text-green-500" />
         ) : (

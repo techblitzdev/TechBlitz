@@ -1,10 +1,10 @@
-import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
-import LeftRightBlock from '@/components/marketing/global/blocks/left-right-block';
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+import LeftRightBlock from "@/components/marketing/global/blocks/left-right-block";
 
 const CodeSnippet = dynamic(
-  () => import('@/components/marketing/global/code-snippet'),
-  { ssr: false }
+  () => import("@/components/marketing/global/code-snippet"),
+  { ssr: false },
 );
 
 const codeSnippet1 = `// JavaScript Daily Challenge: Build a Smart Cache

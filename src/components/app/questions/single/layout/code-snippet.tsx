@@ -1,7 +1,7 @@
-'use client';
-import React from 'react';
-import { Highlight, themes } from 'prism-react-renderer';
-import { UserRecord } from '@/types/User';
+"use client";
+import React from "react";
+import { Highlight, themes } from "prism-react-renderer";
+import { UserRecord } from "@/types/User";
 
 interface CodeDisplayProps {
   content: string;
@@ -28,17 +28,17 @@ interface Token {
 export default function CodeDisplay({
   content,
   language,
-  backgroundColor = '#111111',
+  backgroundColor = "#111111",
   hideIndex = false,
   user,
 }: CodeDisplayProps) {
   // Clean the content by removing pre and code tags
   const cleanContent = content
-    ?.replace(/<pre><code[^>]*>/g, '')
-    ?.replace(/<\/code><\/pre>/g, '')
-    ?.replace(/=&gt;/g, '=>')
-    ?.replace(/&lt;/g, '<')
-    ?.replace(/&gt;/g, '>')
+    ?.replace(/<pre><code[^>]*>/g, "")
+    ?.replace(/<\/code><\/pre>/g, "")
+    ?.replace(/=&gt;/g, "=>")
+    ?.replace(/&lt;/g, "<")
+    ?.replace(/&gt;/g, ">")
     ?.trim();
 
   if (!cleanContent) {
@@ -51,7 +51,7 @@ export default function CodeDisplay({
         themes[user?.codeEditorTheme as keyof typeof themes] || themes.vsDark
       }
       code={cleanContent}
-      language={language || 'javascript'}
+      language={language || "javascript"}
     >
       {({ style, tokens, getLineProps, getTokenProps }: HighlightProps) => (
         <pre

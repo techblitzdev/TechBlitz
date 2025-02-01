@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { CheckIcon } from '@radix-ui/react-icons';
-import { Skeleton } from '@/components/ui/skeleton';
+import { motion } from "framer-motion";
+import { CheckIcon } from "@radix-ui/react-icons";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Feature {
   name: string;

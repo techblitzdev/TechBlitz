@@ -1,6 +1,6 @@
 export type QuizJsonLd = {
-  '@context': 'https://schema.org';
-  '@type': 'Quiz';
+  "@context": "https://schema.org";
+  "@type": "Quiz";
   name: string;
   description: string;
   url: string;
@@ -8,8 +8,8 @@ export type QuizJsonLd = {
   educationalUse: string;
   learningResourceType: string[];
   creator: {
-    '@type': 'Organization';
-    name: 'TechBlitz';
+    "@type": "Organization";
+    name: "TechBlitz";
     url: string;
   };
   assesses: string[];
@@ -23,7 +23,7 @@ export type QuizJsonLd = {
   // the headline of the question
   headline: string;
 
-  interactivityType: 'mixed' | 'active' | 'expositive';
+  interactivityType: "mixed" | "active" | "expositive";
 
   isAccessibleForFree: boolean;
 
@@ -32,15 +32,15 @@ export type QuizJsonLd = {
   teaches: string;
 
   potentialAction?: {
-    '@type': 'SearchAction';
+    "@type": "SearchAction";
     target: string;
-    'query-input': string;
+    "query-input": string;
   };
 };
 
 export type WebPageJsonLd = {
-  '@context': 'https://schema.org';
-  '@type': 'WebPage';
+  "@context": "https://schema.org";
+  "@type": "WebPage";
   // The URL of the webpage
   url: string;
   // The headline or title of the webpage
@@ -50,18 +50,18 @@ export type WebPageJsonLd = {
   // The URL of the image representing the webpage
   image: string;
   author?: {
-    '@type': 'Person' | 'Organization';
+    "@type": "Person" | "Organization";
     // Name of the author or organization
     name: string;
     // URL of the author's profile or organization
     url?: string;
   };
   publisher?: {
-    '@type': 'Organization';
+    "@type": "Organization";
     // Name of the publisher
     name: string;
     logo?: {
-      '@type': 'ImageObject';
+      "@type": "ImageObject";
       // URL of the publisher's logo
       url: string;
     };
@@ -71,16 +71,16 @@ export type WebPageJsonLd = {
   // ISO 8601 date format
   dateModified?: string;
   mainEntityOfPage?: {
-    '@type': 'WebPage';
+    "@type": "WebPage";
     // Canonical URL of the main entity of the page
-    '@id': string;
+    "@id": string;
   };
   // Comma-separated list of keywords
   keywords?: string;
   breadcrumb?: {
-    '@type': 'BreadcrumbList';
+    "@type": "BreadcrumbList";
     itemListElement: {
-      '@type': 'ListItem';
+      "@type": "ListItem";
       // Position of the breadcrumb in the list
       position: number;
       // Name of the breadcrumb item
@@ -90,20 +90,20 @@ export type WebPageJsonLd = {
     }[];
   };
   potentialAction?: {
-    '@type': 'SearchAction';
+    "@type": "SearchAction";
     target: string;
-    'query-input': string;
+    "query-input": string;
   };
 };
 
 export type FaqJsonLd = {
-  '@context': 'https://schema.org';
-  '@type': 'FAQPage';
+  "@context": "https://schema.org";
+  "@type": "FAQPage";
   mainEntity: {
-    '@type': 'Question';
+    "@type": "Question";
     name: string;
     acceptedAnswer: {
-      '@type': 'Answer';
+      "@type": "Answer";
       text: string;
     };
   }[];

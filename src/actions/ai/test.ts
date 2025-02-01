@@ -1,14 +1,14 @@
-'use server';
-import { openai } from '@/lib/open-ai';
+"use server";
+import { openai } from "@/lib/open-ai";
 
 export const test = async () => {
   const completion = await openai.chat.completions.create({
-    model: 'gpt-4o-mini-2024-07-18',
+    model: "gpt-4o-mini-2024-07-18",
     messages: [
-      { role: 'system', content: 'You are a helpful assistant.' },
+      { role: "system", content: "You are a helpful assistant." },
       {
-        role: 'user',
-        content: 'Write a haiku about recursion in programming.',
+        role: "user",
+        content: "Write a haiku about recursion in programming.",
       },
     ],
   });

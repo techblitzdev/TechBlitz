@@ -1,4 +1,4 @@
-import { nanoid } from 'nanoid';
+import { nanoid } from "nanoid";
 
 /**
  * Adds unique uids to questions and answers in the response.
@@ -9,7 +9,7 @@ import { nanoid } from 'nanoid';
  */
 export const addUidsToResponse = (response: any) => {
   if (!Array.isArray(response)) {
-    throw new Error('Input must be an array of questions.');
+    throw new Error("Input must be an array of questions.");
   }
 
   return response.map((question) => {
@@ -25,7 +25,7 @@ export const addUidsToResponse = (response: any) => {
     const correctAnswer = answers.find((answer: any) => answer.correct);
     if (!correctAnswer) {
       throw new Error(
-        `No correct answer found for question: ${question.questions}`
+        `No correct answer found for question: ${question.questions}`,
       );
     }
 

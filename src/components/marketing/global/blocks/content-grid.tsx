@@ -36,7 +36,7 @@ export default function MarketingContentGrid({
           <div
             key={index}
             className={`flex flex-col gap-3 lg:p-6 shadow-md rounded-lg hover:shadow-lg transition-shadow duration-300 ${
-              center ? 'items-center' : ''
+              center ? "items-center" : ""
             }`}
           >
             <div className="flex items-center gap-2">

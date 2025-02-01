@@ -1,15 +1,15 @@
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Separator } from '@/components/ui/separator';
-import Link from 'next/link';
-import { createMetadata } from '@/utils/seo';
+import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
+import { createMetadata } from "@/utils/seo";
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Terms of Service | TechBlitz',
-    description: 'Terms of Service for TechBlitz',
-    canonicalUrl: '/terms',
+    title: "Terms of Service | TechBlitz",
+    description: "Terms of Service for TechBlitz",
+    canonicalUrl: "/terms",
   });
 }
 

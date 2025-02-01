@@ -1,5 +1,5 @@
-import { getUser } from '@/actions/user/authed/get-user';
-import { prisma } from '@/lib/prisma';
+import { getUser } from "@/actions/user/authed/get-user";
+import { prisma } from "@/lib/prisma";
 
 type GetQuestionsOpts = { questionSlugs: string[] };
 

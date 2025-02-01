@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import { forwardRef, useEffect } from 'react';
+import { forwardRef, useEffect } from "react";
 
 // components
-import { Form, FormControl, FormField } from '@/components/ui/form';
-import LoadingSpinner from '@/components/ui/loading';
-import { cn } from '@/lib/utils';
-import { Label } from '@/components/ui/label';
-import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
-import { useQuestionSingle } from './layout/question-single-context';
+import { Form, FormControl, FormField } from "@/components/ui/form";
+import LoadingSpinner from "@/components/ui/loading";
+import { cn } from "@/lib/utils";
+import { Label } from "@/components/ui/label";
+import CodeDisplay from "@/components/app/questions/single/layout/code-snippet";
+import { useQuestionSingle } from "./layout/question-single-context";
 
 // zod
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { answerQuestionSchema } from "@/lib/zod/schemas/answer-question-schema";
 
 export type SchemaProps = z.infer<typeof answerQuestionSchema>;
 type AnswerQuestionFormProps = {
@@ -36,7 +36,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm({
   const form = useForm<SchemaProps>({
     resolver: zodResolver(answerQuestionSchema),
     defaultValues: {
-      answer: '',
+      answer: "",
     },
   });
 
@@ -44,7 +44,7 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm({
   useEffect(() => {
     if (userAnswer) {
       form.reset();
-      setSelectedAnswer('');
+      setSelectedAnswer("");
     }
   }, [userAnswer, setSelectedAnswer, form]);
 
@@ -73,11 +73,11 @@ const AnswerQuestionForm = forwardRef(function AnswerQuestionForm({
                     <Label
                       htmlFor={answer.uid}
                       className={cn(
-                        'px-2 lg:px-4 lg:py-2 rounded-lg min-h-16 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
+                        "px-2 lg:px-4 lg:py-2 rounded-lg min-h-16 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50",
                         selectedAnswer === answer.uid
-                          ? 'bg-black-25'
-                          : 'bg-black hover:border-accent',
-                        isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                          ? "bg-black-25"
+                          : "bg-black hover:border-accent",
+                        isSubmitting ? "opacity-50 cursor-not-allowed" : "",
                       )}
                       onClick={() => {
                         !isSubmitting && field.onChange(answer.uid);

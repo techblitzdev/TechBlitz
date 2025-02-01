@@ -1,16 +1,16 @@
-import Link from 'next/link';
+import Link from "next/link";
 
-import { timeAgo } from '@/utils/time';
-import { StatsReport } from '@/types/Stats';
+import { timeAgo } from "@/utils/time";
+import { StatsReport } from "@/types/Stats";
 
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
-import StatsReportCardMenu from '@/components/app/statistics/stats-report-card-menu';
+} from "@/components/ui/tooltip";
+import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
+import StatsReportCardMenu from "@/components/app/statistics/stats-report-card-menu";
 
 export default async function StatsReportCard({
   report,

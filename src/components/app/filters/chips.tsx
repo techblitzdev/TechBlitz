@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useSearchParams, useRouter } from 'next/navigation';
-import { X } from 'lucide-react';
-import { capitalise } from '@/utils';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { useTransition } from 'react';
+import { useSearchParams, useRouter } from "next/navigation";
+import { X } from "lucide-react";
+import { capitalise } from "@/utils";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { useTransition } from "react";
 
 export default function FilterChips() {
   const searchParams = useSearchParams();
@@ -16,24 +16,24 @@ export default function FilterChips() {
   // Convert search params to an object
   const paramsObj = Object.fromEntries(
     Array.from(searchParams.entries()).filter(
-      ([key]: [string, string]) => key !== 'page'
-    )
+      ([key]: [string, string]) => key !== "page",
+    ),
   );
 
   const removeFilter = (key: string, value?: string) => {
     const params = new URLSearchParams(searchParams.toString());
 
-    if (key === 'tags' && value) {
+    if (key === "tags" && value) {
       // Handle array-based 'tags' parameter
       const updatedTags =
         params
-          .get('tags')
-          ?.split(',')
+          .get("tags")
+          ?.split(",")
           .filter((tag) => tag !== value) || [];
       if (updatedTags.length > 0) {
-        params.set('tags', updatedTags.join(','));
+        params.set("tags", updatedTags.join(","));
       } else {
-        params.delete('tags');
+        params.delete("tags");
       }
     } else {
       // Remove other single-value parameters
@@ -44,7 +44,7 @@ export default function FilterChips() {
   };
 
   const clearAllFilters = () => {
-    router.push('?');
+    router.push("?");
   };
 
   if (Object.keys(paramsObj).length === 0) return null;
@@ -52,15 +52,15 @@ export default function FilterChips() {
   const getChipText = (key: string, value: string) => {
     const textMap: Record<string, string | ((val: string) => string)> = {
       tags: (tag) => capitalise(tag),
-      answered: (val) => (val === 'true' ? 'Answered' : 'Unanswered'),
-      bookmarked: () => 'Bookmarked',
-      isPremiumQuestion: () => 'Premium',
-      recommended: () => 'Recommended',
-      default: (val) => capitalise(val).replace('_', ' '),
+      answered: (val) => (val === "true" ? "Answered" : "Unanswered"),
+      bookmarked: () => "Bookmarked",
+      isPremiumQuestion: () => "Premium",
+      recommended: () => "Recommended",
+      default: (val) => capitalise(val).replace("_", " "),
     };
 
     const textGenerator = textMap[key] || textMap.default;
-    return typeof textGenerator === 'function'
+    return typeof textGenerator === "function"
       ? textGenerator(value)
       : textGenerator;
   };
@@ -84,19 +84,19 @@ export default function FilterChips() {
 
   return (
     <div
-      data-pending={isPending ? '' : undefined}
+      data-pending={isPending ? "" : undefined}
       className="space-y-2 flex flex-wrap justify-between"
     >
       <div
         className={cn(
-          'flex gap-2 flex-wrap duration-300',
-          Object.keys(paramsObj).length === 0 ? 'h-0' : ''
+          "flex gap-2 flex-wrap duration-300",
+          Object.keys(paramsObj).length === 0 ? "h-0" : "",
         )}
       >
         {Object.entries(paramsObj).map(([key, value]) => {
-          if (key === 'page') return null;
-          if (key === 'tags') {
-            return value.split(',').map((tag) => renderChip(key, value, tag));
+          if (key === "page") return null;
+          if (key === "tags") {
+            return value.split(",").map((tag) => renderChip(key, value, tag));
           }
           return renderChip(key, value);
         })}

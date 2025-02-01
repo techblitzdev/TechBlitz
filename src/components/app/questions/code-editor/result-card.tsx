@@ -1,6 +1,6 @@
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight } from "lucide-react";
 
 interface ResultProps {
   result: {
@@ -24,8 +24,8 @@ export default function ResultCard({ result, index }: ResultProps) {
           border-l-4 transition-all duration-200 bg-black border-black-50 rounded-l-none overflow-hidden
           ${
             isPassed
-              ? 'border-l-green-500 hover:border-l-green-600'
-              : 'border-l-red-500 hover:border-l-red-600'
+              ? "border-l-green-500 hover:border-l-green-600"
+              : "border-l-red-500 hover:border-l-red-600"
           }
         `}
       >
@@ -34,7 +34,7 @@ export default function ResultCard({ result, index }: ResultProps) {
             <div className="flex items-center">
               <ChevronRight
                 className={`h-4 w-4 mr-2 transition-transform group-hover:translate-x-1
-                  ${isPassed ? 'text-green-600' : 'text-red-600'}`}
+                  ${isPassed ? "text-green-600" : "text-red-600"}`}
               />
               <span className={`font-medium text-white`}>
                 Test Case {index + 1}

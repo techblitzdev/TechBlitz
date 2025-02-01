@@ -1,5 +1,5 @@
-'use server';
-import { prisma } from '@/lib/prisma';
+"use server";
+import { prisma } from "@/lib/prisma";
 
 export const getTotalSubmissions = async (opts: { questionSlug: string }) => {
   const { questionSlug } = opts;

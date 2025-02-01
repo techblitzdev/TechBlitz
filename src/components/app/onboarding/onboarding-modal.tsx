@@ -5,10 +5,10 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Star } from 'lucide-react';
-import { useEffect, useState } from 'react';
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Star } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function OnboardingModal(opts: {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -17,7 +17,7 @@ export default function OnboardingModal(opts: {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    if (opts.searchParams.onboarding === 'true') {
+    if (opts.searchParams.onboarding === "true") {
       setIsModalOpen(true);
     }
   }, [opts.searchParams.onboarding]);

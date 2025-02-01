@@ -1,7 +1,7 @@
-import { Tags } from '@/types/Tags';
-import { Separator } from '@/components/ui/separator';
-import TagDisplay from '@/components/app/questions/tag-display';
-import { UserRecord } from '@/types/User';
+import { Tags } from "@/types/Tags";
+import { Separator } from "@/components/ui/separator";
+import TagDisplay from "@/components/app/questions/tag-display";
+import { UserRecord } from "@/types/User";
 
 export default function QuestionCardFooter(opts: {
   questionTags?: Tags[];

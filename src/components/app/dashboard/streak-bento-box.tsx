@@ -1,11 +1,11 @@
-import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
 
 const ProgressChart = dynamic(
-  () => import('@/components/marketing/homepage/features/progression-chart'),
+  () => import("@/components/marketing/homepage/features/progression-chart"),
   {
     ssr: false,
-  }
+  },
 );
 
 export default function StreakBentoBox() {

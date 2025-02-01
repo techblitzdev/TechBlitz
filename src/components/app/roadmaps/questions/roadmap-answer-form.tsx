@@ -1,17 +1,17 @@
-'use client';
-import { forwardRef } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
-import { UserRecord } from '@/types/User';
-import { RoadmapUserQuestions } from '@/types/Roadmap';
-import { Form, FormControl, FormField } from '@/components/ui/form';
-import { Label } from '@/components/ui/label';
-import LoadingSpinner from '@/components/ui/loading';
-import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
-import { useRoadmapQuestion } from './[uid]/layout/roadmap-question-context';
-import { cn } from '@/lib/utils';
+"use client";
+import { forwardRef } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { answerQuestionSchema } from "@/lib/zod/schemas/answer-question-schema";
+import { UserRecord } from "@/types/User";
+import { RoadmapUserQuestions } from "@/types/Roadmap";
+import { Form, FormControl, FormField } from "@/components/ui/form";
+import { Label } from "@/components/ui/label";
+import LoadingSpinner from "@/components/ui/loading";
+import CodeDisplay from "@/components/app/questions/single/layout/code-snippet";
+import { useRoadmapQuestion } from "./[uid]/layout/roadmap-question-context";
+import { cn } from "@/lib/utils";
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;
 
@@ -30,7 +30,7 @@ const RoadmapAnswerQuestionForm = forwardRef<
   const form = useForm<SchemaProps>({
     resolver: zodResolver(answerQuestionSchema),
     defaultValues: {
-      answer: '',
+      answer: "",
     },
   });
 
@@ -60,10 +60,10 @@ const RoadmapAnswerQuestionForm = forwardRef<
                     <Label
                       htmlFor={answer.uid}
                       className={cn(
-                        'px-2 lg:px-4 lg:py-2 rounded-lg min-h-16 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50',
+                        "px-2 lg:px-4 lg:py-2 rounded-lg min-h-16 w-full h-full flex items-center gap-x-2 cursor-pointer transition-colors border border-black-50",
                         selectedAnswer === answer.uid
-                          ? 'bg-black-25'
-                          : 'bg-black hover:border-accent'
+                          ? "bg-black-25"
+                          : "bg-black hover:border-accent",
                       )}
                       onClick={() => {
                         setSelectedAnswer(answer.uid);

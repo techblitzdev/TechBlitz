@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export const useLocalStorage = <T>(opts: {
   key: string;
@@ -17,7 +17,7 @@ export const useLocalStorage = <T>(opts: {
   const getStoredValue = (): T => {
     try {
       // Handle SSR case
-      if (typeof window === 'undefined') {
+      if (typeof window === "undefined") {
         return defaultValue;
       }
 
@@ -40,7 +40,7 @@ export const useLocalStorage = <T>(opts: {
 
       setStoredValue(valueToStore);
 
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         window.localStorage.setItem(key, serialize(valueToStore));
       }
     } catch (error) {
@@ -51,7 +51,7 @@ export const useLocalStorage = <T>(opts: {
   // Remove item from localStorage
   const remove = () => {
     try {
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         window.localStorage.removeItem(key);
       }
       setStoredValue(defaultValue);

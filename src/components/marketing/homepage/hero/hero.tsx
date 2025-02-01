@@ -1,7 +1,7 @@
-import SignupForm from '@/components/marketing/global/waitlist-form';
-import Link from 'next/link';
-import AnimatedSpan from '@/components/ui/animated-span';
-import { ArrowRight } from 'lucide-react';
+import SignupForm from "@/components/marketing/global/waitlist-form";
+import Link from "next/link";
+import AnimatedSpan from "@/components/ui/animated-span";
+import { ArrowRight } from "lucide-react";
 
 export default function HomepageHero() {
   const animatedSpanContent = (

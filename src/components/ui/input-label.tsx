@@ -1,16 +1,16 @@
-import React from 'react';
-import { Input } from './input';
-import { cn } from '@/lib/utils';
+import React from "react";
+import { Input } from "./input";
+import { cn } from "@/lib/utils";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from "@/components/ui/tooltip";
 
 // react hook form
-import { Path } from 'react-hook-form';
-import { Checkbox } from './checkbox';
+import { Path } from "react-hook-form";
+import { Checkbox } from "./checkbox";
 
 interface IFormProps {
   [key: string]: string;
@@ -65,7 +65,7 @@ const InputWithLabel = React.forwardRef<HTMLInputElement, InputWithLabelProps>(
             </TooltipProvider>
           )}
         </div>
-        <div className={cn('flex items-center gap-x-2', inputClassName)}>
+        <div className={cn("flex items-center gap-x-2", inputClassName)}>
           {props.checkbox && <Checkbox></Checkbox>}
           <Input
             ref={ref}
@@ -79,9 +79,9 @@ const InputWithLabel = React.forwardRef<HTMLInputElement, InputWithLabelProps>(
         </div>
       </div>
     );
-  }
+  },
 );
 
-InputWithLabel.displayName = 'InputWithLabel';
+InputWithLabel.displayName = "InputWithLabel";
 
 export { InputWithLabel };

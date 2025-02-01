@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const reportHtmlSchema = z.object({
   briefSummary: z.string(),

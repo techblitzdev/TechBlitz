@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { cn } from '@/lib/utils';
-import Link from 'next/link';
+import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export const BentoGrid = ({
   className,
@@ -13,8 +13,8 @@ export const BentoGrid = ({
   return (
     <div
       className={cn(
-        'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6',
-        className
+        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6",
+        className,
       )}
     >
       {children}
@@ -67,10 +67,10 @@ export const BentoGridItem = ({
   };
 
   const baseClasses = cn(
-    'rounded-xl group/bento overflow-hidden hover:shadow-xl transition duration-200 shadow-input border border-black-50 justify-between flex flex-col',
-    header || title || description || icon ? 'space-y-3 md:space-y-4' : '',
+    "rounded-xl group/bento overflow-hidden hover:shadow-xl transition duration-200 shadow-input border border-black-50 justify-between flex flex-col",
+    header || title || description || icon ? "space-y-3 md:space-y-4" : "",
     className,
-    padded ? 'p-3 md:p-4' : ''
+    padded ? "p-3 md:p-4" : "",
   );
 
   return href ? (
@@ -84,7 +84,7 @@ export const BentoGridItem = ({
         gradientBg
           ? {
               background:
-                'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
+                "radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)",
             }
           : undefined
       }

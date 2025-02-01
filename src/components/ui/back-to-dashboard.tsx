@@ -1,18 +1,18 @@
-import { useUserServer } from '@/hooks/use-user-server';
-import { ChevronLeft, ArrowLeft } from 'lucide-react';
-import { Button } from './button';
+import { useUserServer } from "@/hooks/use-user-server";
+import { ChevronLeft, ArrowLeft } from "lucide-react";
+import { Button } from "./button";
 import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
   TooltipProvider,
-} from './tooltip';
+} from "./tooltip";
 
 export default async function BackToDashboard(opts: {
   href?: string;
   backTo?: string;
 }) {
-  const { href = '/dashboard', backTo = 'Dashboard' } = opts;
+  const { href = "/dashboard", backTo = "Dashboard" } = opts;
 
   const user = await useUserServer();
   if (!user) {

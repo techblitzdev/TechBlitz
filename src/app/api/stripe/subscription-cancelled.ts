@@ -1,23 +1,23 @@
-import { stripe } from '@/lib/stripe';
-import { prisma } from '@/lib/prisma';
-import Stripe from 'stripe';
+import { stripe } from "@/lib/stripe";
+import { prisma } from "@/lib/prisma";
+import Stripe from "stripe";
 
 // we know we are in the correct event type as we call it from /stripe/route.ts
 export async function cancelSubscription(event: Stripe.Event) {
   const session = event.data.object as Stripe.Checkout.Session;
 
   try {
-    console.log('Subscription deleted');
+    console.log("Subscription deleted");
     // set the user's subscription to inactive
     // and set their userLevel to FREE
 
     // get the user via their email address
     const customer = await stripe.customers.retrieve(
-      session.customer as string
+      session.customer as string,
     );
     const userEmail = (customer as Stripe.Customer).email;
     if (!userEmail) {
-      console.log('No user email found');
+      console.log("No user email found");
       return;
     }
 
@@ -29,7 +29,7 @@ export async function cancelSubscription(event: Stripe.Event) {
     });
 
     if (!user) {
-      console.log('No user found');
+      console.log("No user found");
       return;
     }
 
@@ -44,8 +44,8 @@ export async function cancelSubscription(event: Stripe.Event) {
     });
 
     if (!subscriptionCanceled) {
-      console.log('Subscription not found');
-      return new Response('Subscription not found', { status: 404 });
+      console.log("Subscription not found");
+      return new Response("Subscription not found", { status: 404 });
     }
 
     await prisma.$transaction([
@@ -55,7 +55,7 @@ export async function cancelSubscription(event: Stripe.Event) {
           uid: subscriptionCanceled.user.uid,
         },
         data: {
-          userLevel: 'FREE',
+          userLevel: "FREE",
         },
       }),
       // set the subscription to inactive
@@ -70,15 +70,15 @@ export async function cancelSubscription(event: Stripe.Event) {
           stripeCustomerId: null,
           stripeSubscriptionItemId: null,
           endDate: new Date(),
-          productId: '',
+          productId: "",
         },
       }),
     ]);
   } catch (err) {
-    console.log('Error constructing event', err);
-    return new Response('Webhook Error', { status: 400 });
+    console.log("Error constructing event", err);
+    return new Response("Webhook Error", { status: 400 });
   }
 
-  console.log('Subscription canceled');
+  console.log("Subscription canceled");
   return true;
 }

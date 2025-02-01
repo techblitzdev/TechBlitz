@@ -1,8 +1,8 @@
-'use client';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { ChevronRight } from 'lucide-react';
+"use client";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 
 interface Heading {
   title: string;
@@ -14,7 +14,7 @@ interface TableOfContentsProps {
 }
 
 export default function TableOfContents({ headings }: TableOfContentsProps) {
-  const [activeId, setActiveId] = useState('');
+  const [activeId, setActiveId] = useState("");
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -22,8 +22,8 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
     };
 
     handleHashChange(); // Set initial state
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
   return (
@@ -34,7 +34,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
       <CardContent className="pt-4">
         <nav className="space-y-1">
           {headings.map((heading, index) => {
-            const id = heading.title.toLowerCase().replace(/\s+/g, '-');
+            const id = heading.title.toLowerCase().replace(/\s+/g, "-");
             return (
               <Link
                 key={index}
@@ -42,8 +42,8 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
                 onClick={() => setActiveId(id)}
                 className={`
                   block py-1 pl-1 rounded-md transition-colors duration-200
-                  ${heading.level === 2 ? 'font-medium' : 'text-sm text-gray-400 pl-3'}
-                  ${activeId === id ? 'bg-black-50 text-white' : 'hover:bg-black-50 hover:text-white'}
+                  ${heading.level === 2 ? "font-medium" : "text-sm text-gray-400 pl-3"}
+                  ${activeId === id ? "bg-black-50 text-white" : "hover:bg-black-50 hover:text-white"}
                 `}
               >
                 <div className="flex items-center justify-between gap-2">

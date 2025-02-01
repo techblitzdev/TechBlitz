@@ -1,24 +1,24 @@
-'use client';
+"use client";
 
-import { createContext, useState, useContext, useEffect } from 'react';
-import { useStopwatch } from 'react-timer-hook';
-import { toast } from 'sonner';
-import { answerQuestion } from '@/actions/answers/answer';
-import { Question, QuestionWithoutAnswers } from '@/types/Questions';
-import { UserRecord } from '@/types/User';
-import { Answer } from '@/types/Answers';
-import { generateAnswerHelp } from '@/actions/ai/questions/answer-help';
-import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
-import { z } from 'zod';
-import { useSearchParams } from 'next/navigation';
-import { executeQuestionCode } from '@/actions/questions/execute';
+import { createContext, useState, useContext, useEffect } from "react";
+import { useStopwatch } from "react-timer-hook";
+import { toast } from "sonner";
+import { answerQuestion } from "@/actions/answers/answer";
+import { Question, QuestionWithoutAnswers } from "@/types/Questions";
+import { UserRecord } from "@/types/User";
+import { Answer } from "@/types/Answers";
+import { generateAnswerHelp } from "@/actions/ai/questions/answer-help";
+import { answerHelpSchema } from "@/lib/zod/schemas/ai/answer-help";
+import { z } from "zod";
+import { useSearchParams } from "next/navigation";
+import { executeQuestionCode } from "@/actions/questions/execute";
 
 // Define the context type for the question single page
 type QuestionSingleContextType = {
   question: Question;
   user: UserRecord | null;
   isSubmitting: boolean;
-  correctAnswer: 'init' | 'incorrect' | 'correct';
+  correctAnswer: "init" | "incorrect" | "correct";
   userAnswer: Answer | null;
   newUserData: UserRecord | null;
   selectedAnswer: string;
@@ -30,8 +30,8 @@ type QuestionSingleContextType = {
   pause: () => void;
   reset: () => void;
   totalSeconds: number;
-  currentLayout: 'questions' | 'codeSnippet' | 'answer';
-  setCurrentLayout: (layout: 'questions' | 'codeSnippet' | 'answer') => void;
+  currentLayout: "questions" | "codeSnippet" | "answer";
+  setCurrentLayout: (layout: "questions" | "codeSnippet" | "answer") => void;
   customQuestion: boolean;
   setCustomQuestion: (customQuestion: boolean) => void;
   prefilledCodeSnippet: string | null;
@@ -66,7 +66,7 @@ type QuestionSingleContextType = {
 
 // Create the context
 export const QuestionSingleContext = createContext<QuestionSingleContextType>(
-  {} as QuestionSingleContextType
+  {} as QuestionSingleContextType,
 );
 
 // Custom hook to use the context
@@ -74,7 +74,7 @@ export const useQuestionSingle = () => {
   const context = useContext(QuestionSingleContext);
   if (!context) {
     throw new Error(
-      'useQuestionSingle must be used within a QuestionSingleContextProvider'
+      "useQuestionSingle must be used within a QuestionSingleContextProvider",
     );
   }
   return context;
@@ -96,16 +96,16 @@ export const QuestionSingleContextProvider = ({
 }) => {
   // Get study path slug from URL search params
   const searchParams = useSearchParams();
-  const studyPathSlug = searchParams?.get('study-path');
+  const studyPathSlug = searchParams?.get("study-path");
 
   // STATE VARIABLES
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState<
-    'init' | 'incorrect' | 'correct'
-  >('init');
+    "init" | "incorrect" | "correct"
+  >("init");
   const [userAnswer, setUserAnswer] = useState<Answer | null>(null);
   const [newUserData, setNewUserData] = useState<UserRecord | null>(null);
-  const [selectedAnswer, setSelectedAnswer] = useState<string>('');
+  const [selectedAnswer, setSelectedAnswer] = useState<string>("");
   const [timeTaken, setTimeTaken] = useState<number>(0);
   const [customQuestion, setCustomQuestion] = useState(false);
   const [prefilledCodeSnippet, setPrefilledCodeSnippet] = useState<
@@ -115,12 +115,12 @@ export const QuestionSingleContextProvider = ({
     typeof answerHelpSchema
   > | null>(null);
   const [tokensUsed, setTokensUsed] = useState<number>(
-    user?.userLevel === 'PREMIUM' ? Infinity : user?.aiQuestionHelpTokens || 0
+    user?.userLevel === "PREMIUM" ? Infinity : user?.aiQuestionHelpTokens || 0,
   );
   const [currentLayout, setCurrentLayout] = useState<
-    'questions' | 'codeSnippet' | 'answer'
-  >('questions');
-  const [code, setCode] = useState('');
+    "questions" | "codeSnippet" | "answer"
+  >("questions");
+  const [code, setCode] = useState("");
   const [result, setResult] = useState<{
     passed: boolean;
     details?: Array<{
@@ -133,7 +133,7 @@ export const QuestionSingleContextProvider = ({
   } | null>(null);
   const [showHint, setShowHint] = useState(false);
   const [nextQuestion, setNextQuestion] = useState<string | null | undefined>(
-    null
+    null,
   );
   const [previousQuestion, setPreviousQuestion] = useState<
     string | null | undefined
@@ -146,7 +146,7 @@ export const QuestionSingleContextProvider = ({
     // Set prefilled code snippet based on the selected answer
     if (selectedAnswer && !prefilledCodeSnippet) {
       const answer = question.answers.find(
-        (answer) => answer.uid === selectedAnswer
+        (answer) => answer.uid === selectedAnswer,
       )?.answerFullSnippet;
       setPrefilledCodeSnippet(answer || question.codeSnippet);
     }
@@ -157,12 +157,12 @@ export const QuestionSingleContextProvider = ({
   const submitQuestionAnswer = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!user) {
-      console.error('User is not logged in');
+      console.error("User is not logged in");
       return;
     }
 
     if (!selectedAnswer) {
-      toast.error('Please select an answer');
+      toast.error("Please select an answer");
       return;
     }
 
@@ -184,15 +184,15 @@ export const QuestionSingleContextProvider = ({
         userData: newUserData,
       } = await answerQuestion(opts);
 
-      setCorrectAnswer(isCorrect ? 'correct' : 'incorrect');
+      setCorrectAnswer(isCorrect ? "correct" : "incorrect");
       setUserAnswer(submittedAnswer);
       setNewUserData(newUserData);
 
       // Switch to the answer layout after submission
-      setCurrentLayout('answer');
+      setCurrentLayout("answer");
     } catch (error) {
-      console.error('Error submitting answer:', error);
-      toast.error('Error submitting answer');
+      console.error("Error submitting answer:", error);
+      toast.error("Error submitting answer");
     } finally {
       setIsSubmitting(false);
     }
@@ -203,10 +203,10 @@ export const QuestionSingleContextProvider = ({
     e.preventDefault();
 
     const challenge =
-      question.questionType === 'CODING_CHALLENGE' ? question : null;
+      question.questionType === "CODING_CHALLENGE" ? question : null;
 
     if (!challenge) {
-      toast.error('No challenge found');
+      toast.error("No challenge found");
       return;
     }
 
@@ -214,7 +214,7 @@ export const QuestionSingleContextProvider = ({
       // Execute the user's code with test cases
       const results = await executeQuestionCode({
         code,
-        language: 'javascript',
+        language: "javascript",
         testCases: challenge.testCases,
       });
 
@@ -224,55 +224,55 @@ export const QuestionSingleContextProvider = ({
       await answerQuestion({
         questionUid: question.uid,
         answerUid: null,
-        userUid: user?.uid || '',
+        userUid: user?.uid || "",
         timeTaken: totalSeconds,
         allPassed,
         studyPathSlug: studyPathSlug || undefined,
       });
 
-      setCorrectAnswer(allPassed ? 'correct' : 'incorrect');
+      setCorrectAnswer(allPassed ? "correct" : "incorrect");
     } catch (error: any) {
       setResult({
         passed: false,
         error: error.message,
       });
-      setCorrectAnswer('incorrect');
+      setCorrectAnswer("incorrect");
     }
   };
 
   // Submit the answer based on the question type
   const submitAnswer = async (e: React.FormEvent<HTMLFormElement>) => {
     if (!user) {
-      toast.error('User is not logged in');
+      toast.error("User is not logged in");
       return;
     }
     pause(); // Pause the timer
 
     // Use the appropriate method based on the question type
-    if (question.questionType === 'CODING_CHALLENGE') {
+    if (question.questionType === "CODING_CHALLENGE") {
       await validateCode(e);
     } else {
       await submitQuestionAnswer(e);
     }
 
-    setCurrentLayout('answer'); // Switch to the answer layout
+    setCurrentLayout("answer"); // Switch to the answer layout
   };
 
   // Generate AI-based answer help
   const generateAiAnswerHelp = async (setCodeSnippetLayout?: boolean) => {
     if (setCodeSnippetLayout) {
-      setCurrentLayout('codeSnippet');
+      setCurrentLayout("codeSnippet");
     }
     const { content, tokensUsed } = await generateAnswerHelp(
       question.uid,
-      question.questionType === 'CODING_CHALLENGE'
+      question.questionType === "CODING_CHALLENGE"
         ? result?.passed || false
-        : correctAnswer === 'correct',
-      'regular'
+        : correctAnswer === "correct",
+      "regular",
     );
 
     if (!content) {
-      toast.error('Error generating answer help');
+      toast.error("Error generating answer help");
       return;
     }
 
@@ -283,16 +283,16 @@ export const QuestionSingleContextProvider = ({
   // Reset the question state
   const resetQuestionState = () => {
     reset();
-    setCorrectAnswer('init');
+    setCorrectAnswer("init");
     setUserAnswer(null);
     setNewUserData(null);
     setIsSubmitting(false);
-    setSelectedAnswer('');
+    setSelectedAnswer("");
     setTimeTaken(0);
     setPrefilledCodeSnippet(null);
-    setCurrentLayout('questions');
+    setCurrentLayout("questions");
     setAnswerHelp(null);
-    setCode(question.codeSnippet || '');
+    setCode(question.codeSnippet || "");
     setResult(null);
   };
 

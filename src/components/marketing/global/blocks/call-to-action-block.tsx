@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button';
-import { Grid } from '@/components/ui/grid';
-import { ChevronRight } from 'lucide-react';
-import SignupForm from '@/components/marketing/global/waitlist-form';
+import { Button } from "@/components/ui/button";
+import { Grid } from "@/components/ui/grid";
+import { ChevronRight } from "lucide-react";
+import SignupForm from "@/components/marketing/global/waitlist-form";
 
 export default function CallToActionBlock(opts: {
   title: string;
@@ -24,7 +24,7 @@ export default function CallToActionBlock(opts: {
         className="left-1/2 top-0 w-72 md:w-[600px] center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2"
         style={{
           background:
-            'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)',
+            "linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)",
         }}
       ></div>
       <div className="space-y-2 z-50 relative max-w-xl place-self-center">
@@ -35,24 +35,24 @@ export default function CallToActionBlock(opts: {
       </div>
 
       <div className="z-50 relative flex flex-col sm:flex-row gap-4 items-center justify-center">
-        {process.env.NEXT_PUBLIC_ENV === 'development' ? (
+        {process.env.NEXT_PUBLIC_ENV === "development" ? (
           <>
             <Button
               variant="accent"
               size="lg"
               className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
-              href={leftCta?.href || '/signup'}
+              href={leftCta?.href || "/signup"}
             >
-              <span>{leftCta?.title || 'Get Started'}</span>
+              <span>{leftCta?.title || "Get Started"}</span>
             </Button>
             {rightCta && (
               <Button
                 variant="secondary"
                 size="lg"
                 className="font-onest group"
-                href={rightCta?.href || '/features'}
+                href={rightCta?.href || "/features"}
               >
-                <span>{rightCta?.title || 'Learn More'}</span>
+                <span>{rightCta?.title || "Learn More"}</span>
                 <ChevronRight size={16} />
               </Button>
             )}

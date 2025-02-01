@@ -1,6 +1,6 @@
-'use server';
+"use server";
 
-import { prisma } from '@/lib/prisma';
+import { prisma } from "@/lib/prisma";
 /**
  * Method to get questions after the user has selected their tags
  * in the onboarding process
@@ -26,7 +26,7 @@ export async function getOnboardingQuestions(tags: string[]) {
     },
     take: 6,
     orderBy: {
-      createdAt: 'desc',
+      createdAt: "desc",
     },
   });
 

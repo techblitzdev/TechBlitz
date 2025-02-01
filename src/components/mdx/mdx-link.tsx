@@ -1,13 +1,13 @@
-import Link from 'next/link';
-import { AnchorHTMLAttributes } from 'react';
+import Link from "next/link";
+import { AnchorHTMLAttributes } from "react";
 
 interface MdxLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
 }
 
 export default function MdxLink({ href, children, ...props }: MdxLinkProps) {
-  const isInternalLink = href && href.startsWith('/');
-  const isAnchorLink = href && href.startsWith('#');
+  const isInternalLink = href && href.startsWith("/");
+  const isAnchorLink = href && href.startsWith("#");
 
   if (isInternalLink) {
     return (

@@ -1,5 +1,5 @@
-'use server';
-import { supabase } from '@/lib/supabase';
+"use server";
+import { supabase } from "@/lib/supabase";
 
 export const resetPassword = async (opts: { email: string }) => {
   const { email } = opts;

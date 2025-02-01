@@ -1,8 +1,8 @@
-import { getPlans } from '@/utils/constants/pricing';
-import PricingCard from './pricing-card';
+import { getPlans } from "@/utils/constants/pricing";
+import PricingCard from "./pricing-card";
 
 export default function PricingCardBlock(opts: {
-  frequency: 'month' | 'year';
+  frequency: "month" | "year";
 }) {
   // grab the stripe products
   const products = getPlans(null, false, opts.frequency);
@@ -13,7 +13,7 @@ export default function PricingCardBlock(opts: {
         (product) =>
           product && (
             <PricingCard key={product.id} product={product} showSignup={true} />
-          )
+          ),
       )}
     </section>
   );

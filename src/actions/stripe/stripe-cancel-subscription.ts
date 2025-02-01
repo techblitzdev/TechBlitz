@@ -1,6 +1,6 @@
-'use server';
-import { prisma } from '@/lib/prisma';
-import { stripe } from '@/lib/stripe';
+"use server";
+import { prisma } from "@/lib/prisma";
+import { stripe } from "@/lib/stripe";
 
 /**
  * Cancels a user's subscription at the end of the billing period
@@ -18,12 +18,12 @@ export const cancelSubscription = async (opts: { userUid: string }) => {
   });
 
   if (!userSubscription) {
-    throw new Error('User does not have an active subscription');
+    throw new Error("User does not have an active subscription");
   }
 
   const { stripeSubscriptionId } = userSubscription;
   if (!stripeSubscriptionId) {
-    throw new Error('User does not have an active subscription');
+    throw new Error("User does not have an active subscription");
   }
 
   // cancel the subscription

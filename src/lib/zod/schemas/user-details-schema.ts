@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 // Updated schema to properly handle optional fields
 export const userDetailsSchema = z

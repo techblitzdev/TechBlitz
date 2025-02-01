@@ -1,5 +1,5 @@
-import Stripe from 'stripe';
-import { format } from 'date-fns';
+import Stripe from "stripe";
+import { format } from "date-fns";
 
 import {
   Table,
@@ -8,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from "@/components/ui/table";
 
 export default function BillingHistoryTable({
   invoices,
@@ -37,7 +37,7 @@ export default function BillingHistoryTable({
       <TableBody>
         {invoiceData.map((invoice) => (
           <TableRow key={invoice.id}>
-            <TableCell>{format(invoice.date, 'MMM d, yyyy')}</TableCell>
+            <TableCell>{format(invoice.date, "MMM d, yyyy")}</TableCell>
             <TableCell>£{invoice.amount.toFixed(2)}</TableCell>
             <TableCell className="capitalize">{invoice.status}</TableCell>
           </TableRow>

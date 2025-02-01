@@ -1,7 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
-import { createClient } from '@/utils/supabase/client';
-import type { UserRecord } from '@/types/User';
-import { getUserFromDb } from '@/actions/user/authed/get-user';
+import { useQuery } from "@tanstack/react-query";
+import { createClient } from "@/utils/supabase/client";
+import type { UserRecord } from "@/types/User";
+import { getUserFromDb } from "@/actions/user/authed/get-user";
 
 export const useUser = () => {
   const supabase = createClient();
@@ -10,7 +10,7 @@ export const useUser = () => {
     UserRecord | null,
     Error
   >({
-    queryKey: ['user-details'],
+    queryKey: ["user-details"],
     queryFn: async () => {
       try {
         const { data: authData, error: authError } =
@@ -21,7 +21,7 @@ export const useUser = () => {
 
         const userData = await getUserFromDb(authData.user.id);
         if (!userData) {
-          console.error('No user data found');
+          console.error("No user data found");
           return null;
         }
 

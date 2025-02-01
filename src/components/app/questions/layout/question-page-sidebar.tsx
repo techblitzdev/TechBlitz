@@ -1,20 +1,20 @@
-import { DatePicker } from '@mantine/dates';
-import QuestionSuggestedCard from '@/components/app/questions/suggested-questions-table';
+import { DatePicker } from "@mantine/dates";
+import QuestionSuggestedCard from "@/components/app/questions/suggested-questions-table";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
+} from "@/components/ui/tooltip";
+import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 
-import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
+import { getUserDailyStats } from "@/utils/data/user/authed/get-daily-streak";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import CurrentStreak, {
   SolarFlameBoldDuotone,
-} from '@/components/ui/current-streak';
-import { useUserServer } from '@/hooks/use-user-server';
+} from "@/components/ui/current-streak";
+import { useUserServer } from "@/hooks/use-user-server";
 
 export default async function QuestionPageSidebar() {
   const user = await useUserServer();
@@ -64,7 +64,7 @@ export default async function QuestionPageSidebar() {
                       </TooltipTrigger>
                       <TooltipContent>
                         <p>
-                          Your longest streak was{' '}
+                          Your longest streak was{" "}
                           {userStreak?.streakData?.longestStreak} days.
                         </p>
                       </TooltipContent>

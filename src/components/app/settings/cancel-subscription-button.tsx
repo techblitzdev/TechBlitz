@@ -1,10 +1,10 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import { cancelSubscription } from '@/actions/stripe/stripe-cancel-subscription';
-import { useState, useTransition } from 'react';
-import type { UserWithOutAnswers } from '@/types/User';
-import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
+"use client";
+import { Button } from "@/components/ui/button";
+import { cancelSubscription } from "@/actions/stripe/stripe-cancel-subscription";
+import { useState, useTransition } from "react";
+import type { UserWithOutAnswers } from "@/types/User";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function CancelSubscriptionButton(opts: {
   user: UserWithOutAnswers;
@@ -21,19 +21,19 @@ export default function CancelSubscriptionButton(opts: {
     startTransition(async () => {
       try {
         await cancelSubscription({ userUid });
-        toast.success('Subscription cancelled successfully');
+        toast.success("Subscription cancelled successfully");
         // Redirect to the dashboard
-        router.push('/dashboard?r=subscription-cancelled');
+        router.push("/dashboard?r=subscription-cancelled");
       } catch (error) {
-        console.error('Failed to cancel subscription:', error);
-        setError('Failed to cancel subscription. Please try again.');
+        console.error("Failed to cancel subscription:", error);
+        setError("Failed to cancel subscription. Please try again.");
       }
     });
   };
 
   return (
     <div>
-      {userLevel !== 'FREE' && (
+      {userLevel !== "FREE" && (
         <form action={handleCancelSubscription}>
           <Button
             type="submit"
@@ -41,7 +41,7 @@ export default function CancelSubscriptionButton(opts: {
             className="mt-4"
             disabled={isPending}
           >
-            {isPending ? 'Cancelling...' : 'Cancel subscription'}
+            {isPending ? "Cancelling..." : "Cancel subscription"}
           </Button>
         </form>
       )}

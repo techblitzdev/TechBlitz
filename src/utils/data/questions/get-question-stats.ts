@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma';
+import { prisma } from "@/lib/prisma";
 
 /**
  * Method to get the stats for a question.
@@ -12,10 +12,10 @@ import { prisma } from '@/lib/prisma';
  * @returns
  */
 export const getQuestionStats = async (
-  identifier: 'slug' | 'uid',
-  value: string
+  identifier: "slug" | "uid",
+  value: string,
 ) => {
-  const whereClause = identifier === 'slug' ? { slug: value } : { uid: value };
+  const whereClause = identifier === "slug" ? { slug: value } : { uid: value };
 
   const totalSubmissions = await prisma.answers.count({
     where: {
@@ -31,7 +31,7 @@ export const getQuestionStats = async (
   });
 
   const percentageCorrect = Math.round(
-    (totalCorrectSubmissions / totalSubmissions) * 100 || 0
+    (totalCorrectSubmissions / totalSubmissions) * 100 || 0,
   );
 
   return {

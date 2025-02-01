@@ -1,6 +1,6 @@
-import { AnswerWithUser } from '@/types/Answers';
-import { prisma } from '@/lib/prisma';
-import { AnswerDifficulty } from '@prisma/client';
+import { AnswerWithUser } from "@/types/Answers";
+import { prisma } from "@/lib/prisma";
+import { AnswerDifficulty } from "@prisma/client";
 
 type GetFastestTimesReturnType = {
   fastestTimes: AnswerWithUser[];
@@ -36,7 +36,7 @@ export const getFastestTimes = async (opts: {
     take: pageSize, // Correctly set the limit
     skip, // Correctly set the offset
     orderBy: {
-      timeTaken: 'asc',
+      timeTaken: "asc",
     },
     include: {
       user: true,

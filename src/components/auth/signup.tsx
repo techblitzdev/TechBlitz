@@ -1,27 +1,27 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '@/components/ui/form';
-import { InputWithLabel } from '@/components/ui/input-label';
-import { toast } from 'sonner';
-import type { z } from 'zod';
-import { signupSchema } from '@/lib/zod/schemas/signup';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
-import { signUp } from '@/actions/user/account/signup';
-import { useRouter, useSearchParams } from 'next/navigation';
-import GithubLogo from '../ui/icons/github';
-import { DiscordLogoIcon } from '@radix-ui/react-icons';
-import OrSeparator from './or-separator';
-import { oauth } from '@/actions/user/account/oauth';
+} from "@/components/ui/form";
+import { InputWithLabel } from "@/components/ui/input-label";
+import { toast } from "sonner";
+import type { z } from "zod";
+import { signupSchema } from "@/lib/zod/schemas/signup";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { signUp } from "@/actions/user/account/signup";
+import { useRouter, useSearchParams } from "next/navigation";
+import GithubLogo from "../ui/icons/github";
+import { DiscordLogoIcon } from "@radix-ui/react-icons";
+import OrSeparator from "./or-separator";
+import { oauth } from "@/actions/user/account/oauth";
 
 type SchemaProps = z.infer<typeof signupSchema>;
 
@@ -31,13 +31,13 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
 
   const router = useRouter();
   const searchParams = useSearchParams();
-  const ref = searchParams.get('ref');
+  const ref = searchParams.get("ref");
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
-      email: prefilledEmail || '',
-      password: '',
+      email: prefilledEmail || "",
+      password: "",
       referralCode: ref || undefined,
     },
   });
@@ -47,7 +47,7 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
       const result = await signUp(
         values.email,
         values.password,
-        ref || undefined
+        ref || undefined,
       );
       if (result.error) {
         throw new Error(result.error);
@@ -56,10 +56,10 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
     },
     onSuccess: () => {
       toast.success(
-        'Signup successful! Please check your email to verify your account.'
+        "Signup successful! Please check your email to verify your account.",
       );
-      localStorage.setItem('onboarding', 'true');
-      router.push('/verify-email');
+      localStorage.setItem("onboarding", "true");
+      router.push("/verify-email");
     },
     onError: (error: Error) => {
       toast.error(error.message);
@@ -110,7 +110,7 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
           <form
             onSubmit={async (event) => {
               event.preventDefault();
-              await oauth('github', true);
+              await oauth("github", true);
             }}
           >
             <Button
@@ -125,7 +125,7 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
           <form
             onSubmit={async (event) => {
               event.preventDefault();
-              await oauth('discord', true);
+              await oauth("discord", true);
             }}
           >
             <Button
@@ -186,7 +186,7 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
               className="w-full"
               variant="secondary"
             >
-              {isPending ? 'Loading...' : 'Sign Up'}
+              {isPending ? "Loading..." : "Sign Up"}
             </Button>
           </form>
         </Form>
@@ -199,7 +199,7 @@ export default function SignupForm(opts: { prefilledEmail?: string }) {
         className="w-full"
         variant="default"
       >
-        {showEmailForm ? 'Continue with GitHub/Discord' : 'Continue with Email'}
+        {showEmailForm ? "Continue with GitHub/Discord" : "Continue with Email"}
       </Button>
     </div>
   );

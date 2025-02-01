@@ -1,47 +1,47 @@
-import RoadmapQuestionCard from '@/components/app/roadmaps/questions/[uid]/question-card';
-import AnimatedSpan from '@/components/ui/animated-span';
+import RoadmapQuestionCard from "@/components/app/roadmaps/questions/[uid]/question-card";
+import AnimatedSpan from "@/components/ui/animated-span";
 
-import { RoadmapUserQuestions } from '@/types/Roadmap';
+import { RoadmapUserQuestions } from "@/types/Roadmap";
 
 const dummyQuestions: Partial<RoadmapUserQuestions>[] = [
   {
-    uid: 'question-1',
-    question: 'What is the time complexity of binary search?',
-    difficulty: 'EASY',
+    uid: "question-1",
+    question: "What is the time complexity of binary search?",
+    difficulty: "EASY",
     completed: true,
     userCorrect: true,
   },
   {
-    uid: 'question-2',
-    question: 'Explain the difference between REST and GraphQL.',
-    difficulty: 'MEDIUM',
+    uid: "question-2",
+    question: "Explain the difference between REST and GraphQL.",
+    difficulty: "MEDIUM",
     completed: true,
     userCorrect: false,
   },
   {
-    uid: 'question-3',
-    question: 'How do you handle state management in React?',
-    difficulty: 'EASY',
+    uid: "question-3",
+    question: "How do you handle state management in React?",
+    difficulty: "EASY",
     completed: true,
     userCorrect: true,
   },
   {
-    uid: 'question-4',
-    question: 'Describe the concept of closures in JavaScript.',
-    difficulty: 'MEDIUM',
+    uid: "question-4",
+    question: "Describe the concept of closures in JavaScript.",
+    difficulty: "MEDIUM",
     completed: true,
     userCorrect: false,
   },
   {
-    uid: 'question-5',
-    question: 'What are the key features of TypeScript?',
-    difficulty: 'EASY',
+    uid: "question-5",
+    question: "What are the key features of TypeScript?",
+    difficulty: "EASY",
     completed: true,
     userCorrect: true,
   },
 ];
 
-const dummyRoadmapUid = 'roadmap-12345';
+const dummyRoadmapUid = "roadmap-12345";
 
 const dummyTotalQuestions = dummyQuestions.length;
 

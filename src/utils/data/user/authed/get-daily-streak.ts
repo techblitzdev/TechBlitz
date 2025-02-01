@@ -1,8 +1,8 @@
-'use server';
+"use server";
 
-import { getUser } from '@/actions/user/authed/get-user';
-import { prisma } from '@/lib/prisma';
-import { revalidateTag } from 'next/cache';
+import { getUser } from "@/actions/user/authed/get-user";
+import { prisma } from "@/lib/prisma";
+import { revalidateTag } from "next/cache";
 
 export const getUserDailyStats = async () => {
   const user = await getUser();

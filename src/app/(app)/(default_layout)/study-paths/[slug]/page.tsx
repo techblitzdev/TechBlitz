@@ -1,8 +1,8 @@
-import { redirect } from 'next/navigation';
-import dynamic from 'next/dynamic';
+import { redirect } from "next/navigation";
+import dynamic from "next/dynamic";
 
 const StudyPathsList = dynamic(
-  () => import('@/components/app/study-paths/list'),
+  () => import("@/components/app/study-paths/list"),
   {
     loading: () => (
       <div className="flex flex-col gap-6">
@@ -11,35 +11,35 @@ const StudyPathsList = dynamic(
         ))}
       </div>
     ),
-  }
+  },
 );
-import StudyPathSidebar from '@/components/app/study-paths/study-path-sidebar';
-import Hero from '@/components/shared/hero';
-import { Button } from '@/components/ui/button';
-import { ArrowRightIcon, ChevronLeft, Sparkles } from 'lucide-react';
+import StudyPathSidebar from "@/components/app/study-paths/study-path-sidebar";
+import Hero from "@/components/shared/hero";
+import { Button } from "@/components/ui/button";
+import { ArrowRightIcon, ChevronLeft, Sparkles } from "lucide-react";
 
-import { getQuestions } from '@/actions/questions/admin/list';
-import { enrollInStudyPath } from '@/actions/study-paths/enroll';
-import { useUserServer } from '@/hooks/use-user-server';
+import { getQuestions } from "@/actions/questions/admin/list";
+import { enrollInStudyPath } from "@/actions/study-paths/enroll";
+import { useUserServer } from "@/hooks/use-user-server";
 
-import { capitalise, getBaseUrl } from '@/utils';
+import { capitalise, getBaseUrl } from "@/utils";
 import {
   getStudyPath,
   isUserEnrolledInStudyPath,
-} from '@/utils/data/study-paths/get';
-import { createMetadata } from '@/utils/seo';
+} from "@/utils/data/study-paths/get";
+import { createMetadata } from "@/utils/seo";
 
-import { QuizJsonLd } from '@/types/Seo';
-import type { StudyPath } from '@prisma/client';
+import { QuizJsonLd } from "@/types/Seo";
+import type { StudyPath } from "@prisma/client";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { Progress } from '@/components/ui/progress';
-import ShareQuestion from '@/components/app/shared/share-question';
-import { QuestionCardSkeleton } from '@/components/app/questions/layout/question-card';
+} from "@/components/ui/tooltip";
+import { Progress } from "@/components/ui/progress";
+import ShareQuestion from "@/components/app/shared/share-question";
+import { QuestionCardSkeleton } from "@/components/app/questions/layout/question-card";
 
 export async function generateMetadata({
   params,
@@ -50,8 +50,8 @@ export async function generateMetadata({
 
   if (!studyPath) {
     return createMetadata({
-      title: 'Study path not found | TechBlitz',
-      description: 'Study path not found',
+      title: "Study path not found | TechBlitz",
+      description: "Study path not found",
     });
   }
 
@@ -59,18 +59,18 @@ export async function generateMetadata({
     title: `${studyPath?.title} | TechBlitz`,
     description: studyPath?.description,
     keywords: [
-      'javascript coding questions',
-      'react coding questions',
-      'web development coding questions',
-      'coding challenges',
-      'coding tutorials',
-      'coding practice',
-      'coding practice questions',
+      "javascript coding questions",
+      "react coding questions",
+      "web development coding questions",
+      "coding challenges",
+      "coding tutorials",
+      "coding practice",
+      "coding practice questions",
     ],
     image: {
       text: `${studyPath?.title} | TechBlitz`,
-      bgColor: '#000',
-      textColor: '#fff',
+      bgColor: "#000",
+      textColor: "#fff",
     },
     canonicalUrl: `/study-paths/${params.slug}`,
   });
@@ -86,20 +86,20 @@ async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
   // the button will be disabled if the user is a free user and has reached the maximum number of study paths
   // the button will be disabled if the user is already enrolled in the study path
   const isDisabled =
-    user?.userLevel === 'FREE' &&
+    user?.userLevel === "FREE" &&
     (user?.studyPathEnrollments?.length ?? 0) === 0;
 
   return (
     <div className="flex flex-col gap-y-4 z-30 relative ">
       <form
         action={async () => {
-          'use server';
+          "use server";
           if (!isEnrolled) {
             await enrollInStudyPath(studyPath.uid);
           }
           // redirect to the first question in the study path
           redirect(
-            `/question/${studyPath.questionSlugs[0]}?type=study-path&study-path=${studyPath.slug}`
+            `/question/${studyPath.questionSlugs[0]}?type=study-path&study-path=${studyPath.slug}`,
           );
         }}
       >
@@ -109,7 +109,7 @@ async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
           className="flex items-center gap-x-2"
           disabled={isDisabled}
         >
-          {isEnrolled ? 'Continue learning' : 'Enroll now'}
+          {isEnrolled ? "Continue learning" : "Enroll now"}
           <ArrowRightIcon className="w-4 h-4" />
         </Button>
       </form>
@@ -168,29 +168,29 @@ export default async function StudyPathPage({
 
   // create json ld
   const jsonLd: QuizJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Quiz',
+    "@context": "https://schema.org",
+    "@type": "Quiz",
     // replace the - with a space and
-    name: capitalise(params.slug?.replace(/-/g, ' ') || ''),
-    description: studyPath?.description || '',
+    name: capitalise(params.slug?.replace(/-/g, " ") || ""),
+    description: studyPath?.description || "",
     url: `${getBaseUrl()}/study-paths/${params.slug}`,
-    educationalUse: 'practice',
-    learningResourceType: ['quiz', 'learning activity'],
+    educationalUse: "practice",
+    learningResourceType: ["quiz", "learning activity"],
     creator: {
-      '@type': 'Organization',
-      name: 'TechBlitz',
+      "@type": "Organization",
+      name: "TechBlitz",
       url: getBaseUrl(),
     },
-    assesses: ['coding'],
-    educationLevel: studyPath?.educationLevel || 'beginner',
+    assesses: ["coding"],
+    educationLevel: studyPath?.educationLevel || "beginner",
     dateCreated: new Date().toISOString(),
     dateModified: new Date().toISOString(),
     datePublished: new Date().toISOString(),
-    headline: studyPath?.title || '',
-    interactivityType: 'mixed',
+    headline: studyPath?.title || "",
+    interactivityType: "mixed",
     isAccessibleForFree: true,
     isFamilyFriendly: true,
-    teaches: 'coding',
+    teaches: "coding",
   };
 
   // TODO: BETTER DISPLAY ERRORS
@@ -221,14 +221,14 @@ export default async function StudyPathPage({
           <div className="w-full lg:w-[65%] space-y-6">
             {/** only show if user is enrolled */}
             {user?.studyPathEnrollments?.find(
-              (e) => e.studyPathUid === studyPath.uid
+              (e) => e.studyPathUid === studyPath.uid,
             ) && (
               <div className="flex flex-col gap-y-2 w-full">
                 <p className="text-sm text-gray-400 font-onest">
                   {Math.round(
                     user?.studyPathEnrollments?.find(
-                      (e) => e.studyPathUid === studyPath.uid
-                    )?.progress ?? 0
+                      (e) => e.studyPathUid === studyPath.uid,
+                    )?.progress ?? 0,
                   )}
                   % completed
                 </p>
@@ -236,7 +236,7 @@ export default async function StudyPathPage({
                   className="border border-black-50 bg-black-50"
                   value={
                     user?.studyPathEnrollments?.find(
-                      (e) => e.studyPathUid === studyPath.uid
+                      (e) => e.studyPathUid === studyPath.uid,
                     )?.progress ?? 0
                   }
                 />

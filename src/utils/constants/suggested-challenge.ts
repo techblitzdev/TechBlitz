@@ -16,7 +16,7 @@ export const SUGGESTED_CHALLENGE_EMAIL_SUBJECT = (userDisplayName: string) => [
  * An array of different strings that we can use for the suggested challenge email description
  */
 export const SUGGESTED_CHALLENGE_EMAIL_DESCRIPTION = (
-  userDisplayName: string
+  userDisplayName: string,
 ) => [
   `Your next challenge is hand-picked to help you grow as a developer. Ready to showcase your skills, ${userDisplayName}?`,
   `${userDisplayName}, Level up your coding prowess with your next exciting challenge. The perfect way to keep your skills sharp!`,

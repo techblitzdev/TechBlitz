@@ -1,25 +1,25 @@
-import '../globals.css';
-import { Toaster } from '@/components/ui/sonner';
-import { SidebarProvider } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/app/navigation/sidebar';
-import { CSPostHogProvider } from '../providers';
-import SidebarLayout from './providers';
+import "../globals.css";
+import { Toaster } from "@/components/ui/sonner";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app/navigation/sidebar";
+import { CSPostHogProvider } from "../providers";
+import SidebarLayout from "./providers";
 
-import { MantineProvider } from '@mantine/core';
-import '@mantine/core/styles.css';
-import '@mantine/dates/styles.css';
+import { MantineProvider } from "@mantine/core";
+import "@mantine/core/styles.css";
+import "@mantine/dates/styles.css";
 
-import NextTopLoader from 'nextjs-toploader';
-import { createMetadata } from '@/utils/seo';
-import { useUserServer } from '@/hooks/use-user-server';
-import { getTodaysQuestion } from '@/utils/data/questions/get-today';
-import { userAnsweredDailyQuestion } from '@/utils/data/questions/user-answered-daily-question';
-import { getOrCreateUserProfile } from '@/utils/data/user/profile/get-user-profile';
+import NextTopLoader from "nextjs-toploader";
+import { createMetadata } from "@/utils/seo";
+import { useUserServer } from "@/hooks/use-user-server";
+import { getTodaysQuestion } from "@/utils/data/questions/get-today";
+import { userAnsweredDailyQuestion } from "@/utils/data/questions/user-answered-daily-question";
+import { getOrCreateUserProfile } from "@/utils/data/user/profile/get-user-profile";
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'techblitz',
-    description: 'Improve your code knowledge, one day at a time.',
+    title: "techblitz",
+    description: "Improve your code knowledge, one day at a time.",
   });
 }
 
@@ -35,8 +35,8 @@ export default async function RootLayout({
   ]);
 
   const hasAnsweredDailyQuestion = await userAnsweredDailyQuestion({
-    questionUid: todaysQuestion?.uid || '',
-    userUid: user?.uid || '',
+    questionUid: todaysQuestion?.uid || "",
+    userUid: user?.uid || "",
   });
 
   return (

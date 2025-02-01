@@ -1,5 +1,5 @@
-import { AnswerWithUser } from '@/types/Answers';
-import DashboardLeaderboardUserCard from './user-card';
+import { AnswerWithUser } from "@/types/Answers";
+import DashboardLeaderboardUserCard from "./user-card";
 
 export default async function FastestTimes(opts: {
   fastestTimes: AnswerWithUser[];
@@ -8,7 +8,7 @@ export default async function FastestTimes(opts: {
 
   // Sort by time taken
   const orderedTimes = fastestTimes.sort(
-    (a, b) => (a?.timeTaken ?? Infinity) - (b?.timeTaken ?? Infinity)
+    (a, b) => (a?.timeTaken ?? Infinity) - (b?.timeTaken ?? Infinity),
   );
 
   if (orderedTimes.length === 0) return null;

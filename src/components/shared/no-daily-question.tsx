@@ -1,23 +1,23 @@
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export default function NoDailyQuestion(opts: {
-  variant?: 'default' | 'secondary' | 'accent';
-  textSize?: 'sm' | 'base' | 'lg';
-  textAlign?: 'center' | 'left' | 'right';
+  variant?: "default" | "secondary" | "accent";
+  textSize?: "sm" | "base" | "lg";
+  textAlign?: "center" | "left" | "right";
 }) {
   const {
-    variant = 'secondary',
-    textSize = 'base',
-    textAlign = 'start',
+    variant = "secondary",
+    textSize = "base",
+    textAlign = "start",
   } = opts;
 
   return (
     <>
       <div
         className={cn(
-          'font-satoshi w-full flex flex-col gap-y-1 justify-center h-full',
-          `text-${textAlign}`
+          "font-satoshi w-full flex flex-col gap-y-1 justify-center h-full",
+          `text-${textAlign}`,
         )}
       >
         <>

@@ -1,5 +1,5 @@
-import { cn } from '@/lib/utils';
-import { Grid } from '@/components/ui/grid';
+import { cn } from "@/lib/utils";
+import { Grid } from "@/components/ui/grid";
 
 export default function Hero(opts: {
   heading: string | React.ReactNode;
@@ -14,19 +14,19 @@ export default function Hero(opts: {
     <section className="w-full pt-14 pb-8 group relative">
       <div
         className={cn(
-          'flex flex-col gap-y-3 z-10',
-          container ? 'md:container' : ''
+          "flex flex-col gap-y-3 z-10",
+          container ? "md:container" : "",
         )}
       >
         {chip}
-        {typeof heading === 'string' ? (
+        {typeof heading === "string" ? (
           <h1 className="relative z-20 text-3xl md:text-5xl text-wrap text-start font-inter max-w-2xl text-gradient from-white to-white/55 py-1">
             {heading}
           </h1>
         ) : (
           heading
         )}
-        {typeof subheading === 'string' ? (
+        {typeof subheading === "string" ? (
           <h6 className="text-sm md:text-base text-gray-400 font-inter max-w-xl z-50">
             {subheading}
           </h6>

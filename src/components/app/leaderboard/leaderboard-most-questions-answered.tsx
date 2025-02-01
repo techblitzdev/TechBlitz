@@ -1,18 +1,18 @@
-import { FileQuestion, Trophy } from 'lucide-react';
-import { getMostQuestionsAnswered } from '@/utils/data/leaderboard/get-most-questions-answered';
+import { FileQuestion, Trophy } from "lucide-react";
+import { getMostQuestionsAnswered } from "@/utils/data/leaderboard/get-most-questions-answered";
 
-import { Table, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Table, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
   CardContent,
-} from '@/components/ui/card';
-import ShowTimeTakenToggle from './show-time-taken';
-import { useUserServer } from '@/hooks/use-user-server';
-import LeaderboardMostAnsweredTable from './leaderboard-most-answered-table';
-import { UserRecord } from '@/types/User';
+} from "@/components/ui/card";
+import ShowTimeTakenToggle from "./show-time-taken";
+import { useUserServer } from "@/hooks/use-user-server";
+import LeaderboardMostAnsweredTable from "./leaderboard-most-answered-table";
+import { UserRecord } from "@/types/User";
 
 export default async function LeaderboardMostQuestionsAnswered({
   page,
@@ -25,7 +25,7 @@ export default async function LeaderboardMostQuestionsAnswered({
 
   const { users: topUsersByQuestionCount } = await getMostQuestionsAnswered(
     postsPerPage,
-    page
+    page,
   );
 
   return (

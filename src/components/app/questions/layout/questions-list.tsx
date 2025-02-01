@@ -1,13 +1,13 @@
-import QuestionCard from '@/components/app/questions/layout/question-card';
+import QuestionCard from "@/components/app/questions/layout/question-card";
 
-import { listQuestions } from '@/utils/data/questions/list';
+import { listQuestions } from "@/utils/data/questions/list";
 
-import { Button } from '@/components/ui/button';
-import { useUserServer } from '@/hooks/use-user-server';
-import { QuestionFilters } from '@/types/Filters';
-import ClearFilters from './clear-filters';
-import { getSuggestions } from '@/utils/data/questions/get-suggestions';
-import GlobalPagination from '../../shared/pagination';
+import { Button } from "@/components/ui/button";
+import { useUserServer } from "@/hooks/use-user-server";
+import { QuestionFilters } from "@/types/Filters";
+import ClearFilters from "./clear-filters";
+import { getSuggestions } from "@/utils/data/questions/get-suggestions";
+import GlobalPagination from "../../shared/pagination";
 
 export default async function QuestionsList({
   currentPage,
@@ -29,7 +29,7 @@ export default async function QuestionsList({
   const user = await useUserServer();
 
   // if we are on custom questions and the user is not a premium user, show a message
-  if (customQuestions && user && user.userLevel === 'FREE') {
+  if (customQuestions && user && user.userLevel === "FREE") {
     return (
       <div className="flex flex-col gap-y-4 items-center justify-center mt-4">
         <p className="text-lg font-medium text-gray-400">
@@ -51,7 +51,7 @@ export default async function QuestionsList({
   const data = await listQuestions({
     page: currentPage,
     pageSize: postsPerPage,
-    userUid: user?.uid || '',
+    userUid: user?.uid || "",
     filters,
     customQuestions,
     previousQuestions,
@@ -77,7 +77,7 @@ export default async function QuestionsList({
             key={q.uid}
             questionData={q}
             showSubmissions={showSubmissions}
-            identifier={customQuestions ? 'uid' : 'slug'}
+            identifier={customQuestions ? "uid" : "slug"}
             customQuestion={customQuestions}
             user={user}
             recommendedQuestion={true}
@@ -94,7 +94,7 @@ export default async function QuestionsList({
           key={q.uid}
           questionData={q}
           showSubmissions={showSubmissions}
-          identifier={customQuestions ? 'uid' : 'slug'}
+          identifier={customQuestions ? "uid" : "slug"}
           customQuestion={customQuestions}
           user={user}
           recommendedQuestion={

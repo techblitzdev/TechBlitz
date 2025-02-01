@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma';
+import { prisma } from "@/lib/prisma";
 
 /**
  * Get the correct answer for a given question
@@ -21,6 +21,6 @@ export const getAnswer = async (opts: {
     });
   } catch (error) {
     console.error(error);
-    throw new Error('Error getting user answer');
+    throw new Error("Error getting user answer");
   }
 };

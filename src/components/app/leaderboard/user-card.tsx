@@ -1,8 +1,8 @@
-import { getUserFromSession } from '@/actions/user/authed/get-user';
-import { AnswerWithUser } from '@/types/Answers';
-import { shortenText } from '@/utils';
-import { formatSeconds } from '@/utils/time';
-import { getUserDisplayName } from '@/utils/user';
+import { getUserFromSession } from "@/actions/user/authed/get-user";
+import { AnswerWithUser } from "@/types/Answers";
+import { shortenText } from "@/utils";
+import { formatSeconds } from "@/utils/time";
+import { getUserDisplayName } from "@/utils/user";
 
 export default async function DashboardLearderboardUserCard(opts: {
   entry: AnswerWithUser;
@@ -19,7 +19,7 @@ export default async function DashboardLearderboardUserCard(opts: {
     <div
       key={entry.user.uid}
       className={`py-2 px-4 flex items-center justify-between border-b border-black-50 ${
-        index % 2 === 0 ? 'bg-black' : 'bg-black-75'
+        index % 2 === 0 ? "bg-black" : "bg-black-75"
       }`}
     >
       <div className="flex items-center gap-x-4">

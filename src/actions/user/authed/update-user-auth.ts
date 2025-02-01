@@ -1,7 +1,7 @@
-'use server';
-import { createClient as createServerClient } from '@/utils/supabase/server';
-import type { UserAttributes } from '@supabase/supabase-js';
-import { prisma } from '@/lib/prisma';
+"use server";
+import { createClient as createServerClient } from "@/utils/supabase/server";
+import type { UserAttributes } from "@supabase/supabase-js";
+import { prisma } from "@/lib/prisma";
 
 export const updateUserAuth = async (opts: {
   email?: string;

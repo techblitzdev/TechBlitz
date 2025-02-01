@@ -1,8 +1,8 @@
-import { User } from 'lucide-react';
-import { Suspense } from 'react';
-import LoadingSpinner from './loading';
-import { cn } from '@/lib/utils';
-import Image from 'next/image';
+import { User } from "lucide-react";
+import { Suspense } from "react";
+import LoadingSpinner from "./loading";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export default function ProfilePicture(opts: {
   src?: string | null;
@@ -16,8 +16,8 @@ export default function ProfilePicture(opts: {
     return (
       <div
         className={cn(
-          'rounded-full size-6 flex items-center justify-center bg-black-50',
-          className
+          "rounded-full size-6 flex items-center justify-center bg-black-50",
+          className,
         )}
       >
         <User className="size-4" />
@@ -29,8 +29,8 @@ export default function ProfilePicture(opts: {
     <Suspense fallback={<LoadingSpinner />}>
       <Image
         src={src}
-        className={cn('rounded-full size-6', className)}
-        alt={alt || 'User Profile Picture'}
+        className={cn("rounded-full size-6", className)}
+        alt={alt || "User Profile Picture"}
         width={24}
         height={24}
       />

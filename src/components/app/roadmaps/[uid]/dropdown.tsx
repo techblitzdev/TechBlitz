@@ -1,17 +1,17 @@
-'use client';
-import { useState } from 'react';
-import { EllipsisVertical } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+"use client";
+import { useState } from "react";
+import { EllipsisVertical } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover';
-import { EditRoadmapModal } from './edit-roadmap-modal';
-import { updateRoadmapDetails } from '@/actions/roadmap/update-roadmap-details';
-import { deleteRoadmap } from '@/actions/roadmap/delete-roadmap';
-import { useRouter } from 'next/navigation';
-import { UserRoadmaps } from '@/types/Roadmap';
+} from "@/components/ui/popover";
+import { EditRoadmapModal } from "./edit-roadmap-modal";
+import { updateRoadmapDetails } from "@/actions/roadmap/update-roadmap-details";
+import { deleteRoadmap } from "@/actions/roadmap/delete-roadmap";
+import { useRouter } from "next/navigation";
+import { UserRoadmaps } from "@/types/Roadmap";
 
 export default function RoadmapDropdown(opts: { roadmap: UserRoadmaps }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -34,7 +34,7 @@ export default function RoadmapDropdown(opts: { roadmap: UserRoadmaps }) {
   const handleRoadmapDelete = async () => {
     await deleteRoadmap(opts.roadmap.uid);
     // redirect to the roadmaps page
-    router.push('/roadmaps');
+    router.push("/roadmaps");
   };
 
   return (

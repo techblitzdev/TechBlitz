@@ -1,11 +1,11 @@
-import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
 
 const RoadmapGridItemOneAnimation = dynamic(
-  () => import('./roadmap-grid-item-one-animation'),
+  () => import("./roadmap-grid-item-one-animation"),
   {
     ssr: false,
-  }
+  },
 );
 
 export default function RoadmapGridItemOne() {
@@ -26,7 +26,7 @@ export default function RoadmapGridItemOne() {
           className="border border-black-50 rounded-lg h-full p-6"
           style={{
             background:
-              'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
+              "radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)",
           }}
         >
           <p className="font-onest text-base sm:text-xl md:text-2xl font-semibold leading-none tracking-tight text-white mb-4">
@@ -50,7 +50,7 @@ export default function RoadmapGridItemOne() {
         className="hidden md:block absolute right-0 top-0 h-[calc(100%-1px)] w-px pointer-events-none "
         style={{
           background:
-            'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 10%, rgba(143, 143, 143, 0.67) 100%)',
+            "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 10%, rgba(143, 143, 143, 0.67) 100%)",
         }}
       ></div>
     </div>

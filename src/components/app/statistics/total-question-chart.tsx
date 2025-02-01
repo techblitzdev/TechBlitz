@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState } from "react";
 import {
   TrendingUp,
   TrendingDown,
   BarChartIcon,
   LineChartIcon,
   Circle,
-} from 'lucide-react';
+} from "lucide-react";
 import {
   CartesianGrid,
   Bar,
@@ -16,8 +16,8 @@ import {
   LineChart,
   XAxis,
   YAxis,
-} from 'recharts';
-import NumberFlow from '@number-flow/react';
+} from "recharts";
+import NumberFlow from "@number-flow/react";
 
 import {
   Card,
@@ -25,26 +25,26 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from '@/components/ui/chart';
+} from "@/components/ui/chart";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 const chartConfig = {
   questions: {
-    label: 'Questions',
-    color: 'hsl(var(--chart-1))',
+    label: "Questions",
+    color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig;
 
@@ -62,10 +62,10 @@ export default function QuestionChart({
   backgroundColor,
 }: {
   questionData: StatsChartData;
-  step: 'day' | 'week' | 'month';
+  step: "day" | "week" | "month";
   backgroundColor?: string;
 }) {
-  const [chartType, setChartType] = useState<'bar' | 'line'>('bar');
+  const [chartType, setChartType] = useState<"bar" | "line">("bar");
 
   const chartData = useMemo(() => {
     const entries = Object.entries(questionData);
@@ -79,7 +79,7 @@ export default function QuestionChart({
 
     // Directly use the keys as they should now be pre-formatted
     return entries.map(([date, data]) => ({
-      date: date.split(',')[0],
+      date: date.split(",")[0],
       questions: data.totalQuestions,
     }));
   }, [questionData]);
@@ -134,7 +134,7 @@ export default function QuestionChart({
   }, [maxQuestions]);
 
   const renderChart = () => {
-    const ChartComponent = chartType === 'bar' ? BarChart : LineChart;
+    const ChartComponent = chartType === "bar" ? BarChart : LineChart;
 
     return (
       <ChartComponent
@@ -153,18 +153,18 @@ export default function QuestionChart({
           tickLine={false}
           axisLine={false}
           tickMargin={8}
-          tickFormatter={(value) => value.split(',')[0]}
+          tickFormatter={(value) => value.split(",")[0]}
         />
         <YAxis
           tickLine={false}
           axisLine={false}
           tickFormatter={(value) => `${value}`}
           width={30}
-          tick={{ fill: 'hsl(var(--muted-foreground))' }}
+          tick={{ fill: "hsl(var(--muted-foreground))" }}
           domain={yAxisDomain}
         />
         <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-        {chartType === 'bar' ? (
+        {chartType === "bar" ? (
           <Bar
             dataKey="questions"
             fill="hsl(var(--accent))"
@@ -178,7 +178,7 @@ export default function QuestionChart({
             stroke="hsl(var(--accent))"
             strokeWidth={2}
             dot={{
-              fill: 'hsl(var(--accent))',
+              fill: "hsl(var(--accent))",
             }}
             activeDot={{
               r: 6,
@@ -192,8 +192,8 @@ export default function QuestionChart({
   return (
     <Card
       className={cn(
-        'border-black-50 max-h-[28rem]',
-        backgroundColor && backgroundColor
+        "border-black-50 max-h-[28rem]",
+        backgroundColor && backgroundColor,
       )}
     >
       <CardHeader>
@@ -214,7 +214,7 @@ export default function QuestionChart({
             </div>
             <Select
               value={chartType}
-              onValueChange={(value: 'bar' | 'line') => setChartType(value)}
+              onValueChange={(value: "bar" | "line") => setChartType(value)}
             >
               <SelectTrigger className="border border-black-50 md:w-[180px] text-white bg-primary">
                 <SelectValue placeholder="Select chart type" />
@@ -253,8 +253,8 @@ export default function QuestionChart({
           config={chartConfig}
           className="max-h-80"
           style={{
-            aspectRatio: '16 / 9',
-            width: '100%',
+            aspectRatio: "16 / 9",
+            width: "100%",
           }}
         >
           {renderChart()}

@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import CountUp from 'react-countup';
+import CountUp from "react-countup";
 
 export default function ErrorPageCountUp() {
   return (

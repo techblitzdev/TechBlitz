@@ -1,5 +1,5 @@
-import FeatureLeftRightSectionOne from './section-one';
-import FeatureLeftRightSectionThree from './section-three';
+import FeatureLeftRightSectionOne from "./section-one";
+import FeatureLeftRightSectionThree from "./section-three";
 
 export default function FeatureLeftRightSection(opts: {
   leftHeader?: string;

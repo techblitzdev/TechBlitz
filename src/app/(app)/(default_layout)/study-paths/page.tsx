@@ -1,38 +1,38 @@
-import { Suspense } from 'react';
+import { Suspense } from "react";
 
-import Hero from '@/components/shared/hero';
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
-import { Button } from '@/components/ui/button';
-import { useUserServer } from '@/hooks/use-user-server';
-import ContinueJourney from '@/components/app/navigation/continue-journey-button';
-import { ArrowRightIcon, Mail } from 'lucide-react';
-import { getAllStudyPaths } from '@/utils/data/study-paths/get';
-import { StudyPathCard } from '@/components/app/study-paths/study-path-card';
-import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
-import UpgradeCard from '@/components/app/shared/upgrade-card';
-import { WebPageJsonLd } from '@/types/Seo';
-import { getBaseUrl } from '@/utils';
+import Hero from "@/components/shared/hero";
+import { createMetadata, WebPageJsonLdBreadcrumb } from "@/utils/seo";
+import { Button } from "@/components/ui/button";
+import { useUserServer } from "@/hooks/use-user-server";
+import ContinueJourney from "@/components/app/navigation/continue-journey-button";
+import { ArrowRightIcon, Mail } from "lucide-react";
+import { getAllStudyPaths } from "@/utils/data/study-paths/get";
+import { StudyPathCard } from "@/components/app/study-paths/study-path-card";
+import FeedbackButton from "@/components/app/shared/feedback/feedback-button";
+import UpgradeCard from "@/components/app/shared/upgrade-card";
+import { WebPageJsonLd } from "@/types/Seo";
+import { getBaseUrl } from "@/utils";
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Study paths | TechBlitz',
+    title: "Study paths | TechBlitz",
     description:
-      'A collection of coding questions, ranging from Javascript, React, Node, Web Development. Aimed to enhance your coding skills in each domain.',
+      "A collection of coding questions, ranging from Javascript, React, Node, Web Development. Aimed to enhance your coding skills in each domain.",
     keywords: [
-      'javascript coding questions',
-      'react coding questions',
-      'web development coding questions',
-      'coding challenges',
-      'coding tutorials',
-      'coding practice',
-      'coding practice questions',
+      "javascript coding questions",
+      "react coding questions",
+      "web development coding questions",
+      "coding challenges",
+      "coding tutorials",
+      "coding practice",
+      "coding practice questions",
     ],
     image: {
-      text: 'Study paths | TechBlitz',
-      bgColor: '#000',
-      textColor: '#fff',
+      text: "Study paths | TechBlitz",
+      bgColor: "#000",
+      textColor: "#fff",
     },
-    canonicalUrl: '/study-paths',
+    canonicalUrl: "/study-paths",
   });
 }
 
@@ -69,34 +69,34 @@ const heroDescription = (
 export default async function ExploreQuestionsPage() {
   // create json ld
   const jsonLd: WebPageJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
+    "@context": "https://schema.org",
+    "@type": "WebPage",
     url: `${getBaseUrl()}/study-paths`,
-    headline: 'Study paths | TechBlitz',
+    headline: "Study paths | TechBlitz",
     description:
-      'Curated lists of coding questions, ranging from Javascript, React, Node, Web Development. Perfect for your daily coding practice.',
+      "Curated lists of coding questions, ranging from Javascript, React, Node, Web Development. Perfect for your daily coding practice.",
     image:
-      'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/Screenshot%202025-01-11%20at%2002.24.28.png',
+      "https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/Screenshot%202025-01-11%20at%2002.24.28.png",
     breadcrumb: WebPageJsonLdBreadcrumb,
     author: {
-      '@type': 'Organization',
-      name: 'TechBlitz',
+      "@type": "Organization",
+      name: "TechBlitz",
       url: getBaseUrl(),
     },
     dateModified: new Date().toISOString(),
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': getBaseUrl(),
+      "@type": "WebPage",
+      "@id": getBaseUrl(),
     },
     keywords:
-      'learn to code for free, beginner-friendly coding lessons, interactive coding challenges, daily programming practice, personalized coding roadmap, improve coding skills, best platform to learn coding, AI-assisted coding, learn javascript',
+      "learn to code for free, beginner-friendly coding lessons, interactive coding challenges, daily programming practice, personalized coding roadmap, improve coding skills, best platform to learn coding, AI-assisted coding, learn javascript",
     publisher: {
-      '@type': 'Organization',
-      name: 'TechBlitz',
+      "@type": "Organization",
+      name: "TechBlitz",
       logo: {
-        '@type': 'ImageObject',
-        url: 'https://techblitz.dev/favicon.ico',
+        "@type": "ImageObject",
+        url: "https://techblitz.dev/favicon.ico",
       },
     },
   };
@@ -109,14 +109,14 @@ export default async function ExploreQuestionsPage() {
   const studyPathsByCategory: Record<string, typeof studyPaths> =
     studyPaths.reduce(
       (acc, studyPath) => {
-        const category = studyPath.category || 'Uncategorized';
+        const category = studyPath.category || "Uncategorized";
         if (!acc[category]) {
           acc[category] = [];
         }
         acc[category].push(studyPath);
         return acc;
       },
-      {} as Record<string, typeof studyPaths>
+      {} as Record<string, typeof studyPaths>,
     );
 
   return (
@@ -145,7 +145,7 @@ export default async function ExploreQuestionsPage() {
             ))}
           </div>
           <aside className="w-full lg:w-[30%] flex flex-col gap-5 order-first lg:order-last">
-            {user?.userLevel === 'FREE' && (
+            {user?.userLevel === "FREE" && (
               <UpgradeCard
                 title="Looking for a more personalized experience?"
                 description="Unlock your full potential with a personalized study plan tailored just for you. Get focused learning paths, progress tracking, and expert guidance to learn 3x faster."

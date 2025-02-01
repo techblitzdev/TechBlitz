@@ -1,7 +1,7 @@
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
-import { Check, GitCommitHorizontal, X } from 'lucide-react';
-import { useMemo } from 'react';
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Check, GitCommitHorizontal, X } from "lucide-react";
+import { useMemo } from "react";
 
 export default function CommitCard(opts: {
   commitMessage: string;

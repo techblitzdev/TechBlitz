@@ -1,29 +1,29 @@
-'use client';
+"use client";
 
-import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from 'recharts';
+import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
 
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-} from '@/components/ui/card';
+} from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from '@/components/ui/chart';
-import { UserRoadmapsWithAnswers } from '@/types/Roadmap';
+} from "@/components/ui/chart";
+import { UserRoadmapsWithAnswers } from "@/types/Roadmap";
 
 const chartConfig = {
   desktop: {
-    label: 'Desktop',
-    color: 'hsl(var(--chart-1))',
+    label: "Desktop",
+    color: "hsl(var(--chart-1))",
   },
   mobile: {
-    label: 'Mobile',
-    color: 'hsl(var(--chart-2))',
+    label: "Mobile",
+    color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig;
 
@@ -33,7 +33,7 @@ export default function Component(opts: { roadmap: UserRoadmapsWithAnswers }) {
   const correctCount = roadmap.questions.filter((f) => f.userCorrect).length;
   const incorrectCount = roadmap.questions.filter((f) => !f.userCorrect).length;
   const correctPercentage = Math.round(
-    (correctCount / roadmap.questions.length) * 100
+    (correctCount / roadmap.questions.length) * 100,
   );
 
   const chartData = [
@@ -67,7 +67,7 @@ export default function Component(opts: { roadmap: UserRoadmapsWithAnswers }) {
             <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
               <Label
                 content={({ viewBox }) => {
-                  if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
+                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
                     return (
                       <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle">
                         <tspan
@@ -109,7 +109,7 @@ export default function Component(opts: { roadmap: UserRoadmapsWithAnswers }) {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="text-xs flex text-center items-center gap-2 font-medium leading-none text-white">
-          You have answered {correctCount} out of {roadmap.questions.length}{' '}
+          You have answered {correctCount} out of {roadmap.questions.length}{" "}
           questions correctly
         </div>
       </CardFooter>

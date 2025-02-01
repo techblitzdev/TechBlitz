@@ -1,10 +1,10 @@
-'use client';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Crown } from 'lucide-react';
-import AnimatedSpan from '@/components/ui/animated-span';
-import ProfilePicture from '@/components/ui/profile-picture';
-import { UserRecord } from '@/types/User';
-import { getUserDisplayName } from '@/utils/user';
+"use client";
+import { motion, AnimatePresence } from "framer-motion";
+import { Crown } from "lucide-react";
+import AnimatedSpan from "@/components/ui/animated-span";
+import ProfilePicture from "@/components/ui/profile-picture";
+import { UserRecord } from "@/types/User";
+import { getUserDisplayName } from "@/utils/user";
 
 export default function LeaderboardHero({
   topThreeUsers,
@@ -58,20 +58,20 @@ export function PodiumItem({
       transition={{
         duration: 0.5,
         delay: position * 0.3,
-        type: 'spring',
+        type: "spring",
         stiffness: 100,
       }}
       className={`flex flex-col items-center ${
-        position === 1 ? 'order-2' : position === 2 ? 'order-1' : 'order-3'
+        position === 1 ? "order-2" : position === 2 ? "order-1" : "order-3"
       }`}
     >
       <div
         className={`relative ${
           position === 1
-            ? 'size-28 md:size-64'
+            ? "size-28 md:size-64"
             : position === 2
-              ? 'size-24 md:h-48 md:w-64'
-              : 'size-24 md:h-40 md:w-64'
+              ? "size-24 md:h-48 md:w-64"
+              : "size-24 md:h-40 md:w-64"
         }`}
       >
         <UserInfo user={user} position={position} />
@@ -91,14 +91,14 @@ export function UserInfo({
   return (
     <motion.div
       className={`flex flex-col items-center mb-2 md:mb-4 z-20 relative ${
-        position === 3 ? '-top-4' : ''
+        position === 3 ? "-top-4" : ""
       }`}
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{
         duration: 0.4,
         delay: position * 0.2,
-        type: 'spring',
+        type: "spring",
         bounce: 0.2,
       }}
     >
@@ -129,7 +129,7 @@ export function CrownIcon() {
       animate={{ y: 0, opacity: 1 }}
       transition={{
         delay: 0.8,
-        type: 'spring',
+        type: "spring",
         stiffness: 200,
         damping: 15,
       }}
@@ -146,7 +146,7 @@ function UserBadge({
   userLevel: string;
   position: number;
 }) {
-  if (userLevel !== 'PREMIUM' && userLevel !== 'ADMIN') return null;
+  if (userLevel !== "PREMIUM" && userLevel !== "ADMIN") return null;
 
   return (
     <motion.div
@@ -156,7 +156,7 @@ function UserBadge({
       className="relative -top-3 w-fit bg-accent text-xs flex items-center justify-center px-2 py-0.5 rounded-full"
     >
       <span className="text-[10px]">
-        {userLevel === 'PREMIUM' ? 'PRO' : 'ADMIN'}
+        {userLevel === "PREMIUM" ? "PRO" : "ADMIN"}
       </span>
     </motion.div>
   );
@@ -199,7 +199,7 @@ function PodiumBase({ position }: { position: number }) {
     <>
       <div
         className={`absolute inset-0 transform-3d rotate-x-55 rotate-y-45 ${
-          position === 1 ? 'bg-[#383737]' : 'bg-black-100'
+          position === 1 ? "bg-[#383737]" : "bg-black-100"
         }`}
         style={{
           transform: `rotateX(81deg)`,
@@ -207,7 +207,7 @@ function PodiumBase({ position }: { position: number }) {
       >
         <div
           className={`absolute left-0 right-0 bottom-0 h-full origin-bottom rotate-x-90 ${
-            position === 1 ? 'bg-black-50' : 'bg-black-200'
+            position === 1 ? "bg-black-50" : "bg-black-200"
           }`}
         >
           <div
@@ -218,7 +218,7 @@ function PodiumBase({ position }: { position: number }) {
           >
             <span className="text-2xl md:text-5xl font-bold text-gradient from-white to-white/55 font-onest">
               {position}
-              {position === 1 ? 'st' : position === 2 ? 'nd' : 'rd'}
+              {position === 1 ? "st" : position === 2 ? "nd" : "rd"}
             </span>
           </div>
           <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#000] to-transparent rotate-180 -top-px"></div>

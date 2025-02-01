@@ -1,7 +1,7 @@
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
 const StatsReportCardsWrapper = dynamic(
-  () => import('@/components/app/statistics/stats-report-cards-wrapper'),
+  () => import("@/components/app/statistics/stats-report-cards-wrapper"),
   {
     ssr: false,
     loading: () => (
@@ -11,20 +11,20 @@ const StatsReportCardsWrapper = dynamic(
         ))}
       </>
     ),
-  }
+  },
 );
 
-import Hero from '@/components/shared/hero';
-import StatsReportCardSkeleton from '@/components/app/statistics/stats-report-card-loading';
-import GenerateReportButton from '@/components/app/statistics/generate-report-button';
-import UpgradeLayout from '@/components/app/shared/upgrade-layout';
-import { useUserServer } from '@/hooks/use-user-server';
-import { redirect } from 'next/navigation';
+import Hero from "@/components/shared/hero";
+import StatsReportCardSkeleton from "@/components/app/statistics/stats-report-card-loading";
+import GenerateReportButton from "@/components/app/statistics/generate-report-button";
+import UpgradeLayout from "@/components/app/shared/upgrade-layout";
+import { useUserServer } from "@/hooks/use-user-server";
+import { redirect } from "next/navigation";
 
 export default async function StatisticsReportsPage() {
   const user = await useUserServer();
-  if (!user) return redirect('/login');
-  if (user.userLevel === 'FREE') {
+  if (!user) return redirect("/login");
+  if (user.userLevel === "FREE") {
     return (
       <UpgradeLayout
         title="Reports"

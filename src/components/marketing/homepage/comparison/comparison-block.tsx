@@ -1,4 +1,4 @@
-import CodeComparison from './code-comparison';
+import CodeComparison from "./code-comparison";
 
 export default async function ComparisonBlock(opts: {
   header?: string;
@@ -21,7 +21,7 @@ export default async function ComparisonBlock(opts: {
         <p className="text-gray-400 max-w-4xl text-sm md:text-base">
           {subheader
             ? subheader
-            : 'Everyone learns differently. TechBlitz is designed to cater to your weaknesses, ensuring you get the most out of your coding journey.'}
+            : "Everyone learns differently. TechBlitz is designed to cater to your weaknesses, ensuring you get the most out of your coding journey."}
         </p>
       </div>
       <div className=" w-full flex justify-center relative">
@@ -30,7 +30,7 @@ export default async function ComparisonBlock(opts: {
           className="left-1/2 top-0 w-72 md:w-[600px] center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2"
           style={{
             background:
-              'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)',
+              "linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)",
           }}
         ></div>
         <CodeComparison />

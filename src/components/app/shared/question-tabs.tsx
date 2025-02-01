@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState, type ReactNode } from 'react';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Separator } from '@/components/ui/separator';
+import { useState, type ReactNode } from "react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Separator } from "@/components/ui/separator";
 
 export interface TabConfig {
   value: string;
@@ -26,7 +26,7 @@ export default function QuestionTabs({
   footerContent,
 }: ReusableTabsProps) {
   const [activeTab, setActiveTab] = useState<string>(
-    defaultTab || tabs[0].value
+    defaultTab || tabs[0].value,
   );
 
   return (

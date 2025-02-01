@@ -1,5 +1,5 @@
-'use server';
-import { createClient } from '@/utils/supabase/server';
+"use server";
+import { createClient } from "@/utils/supabase/server";
 
 /**
  * Method to log the user out of their account
@@ -11,5 +11,5 @@ export const logout = async () => {
   if (error) {
     throw new Error(error.message);
   }
-  return 'ok';
+  return "ok";
 };

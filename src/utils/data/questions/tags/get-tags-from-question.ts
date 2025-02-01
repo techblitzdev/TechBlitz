@@ -2,10 +2,10 @@ import type {
   Question,
   QuestionWithoutAnswers,
   QuestionWithTags,
-} from '@/types/Questions';
+} from "@/types/Questions";
 
 export const getTagsFromQuestion = (
-  questions: Question | QuestionWithoutAnswers[]
+  questions: Question | QuestionWithoutAnswers[],
 ) => {
   if (!questions) return [];
 
@@ -29,7 +29,7 @@ export const getTagsFromQuestion = (
 
 export const extractTagIds = (questions: QuestionWithTags[]) => {
   const tagIds = questions.flatMap((question) =>
-    question.tags.map((tagRelation) => tagRelation.tag.uid)
+    question.tags.map((tagRelation) => tagRelation.tag.uid),
   );
 
   return tagIds;

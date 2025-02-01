@@ -1,56 +1,56 @@
-import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
-import FAQsBlock from '@/components/marketing/global/blocks/faqs';
-import Link from 'next/link';
-import { createMetadata } from '@/utils/seo';
-import { FaqJsonLd } from '@/types/Seo';
+import CallToActionBlock from "@/components/marketing/global/blocks/call-to-action-block";
+import FAQsBlock from "@/components/marketing/global/blocks/faqs";
+import Link from "next/link";
+import { createMetadata } from "@/utils/seo";
+import { FaqJsonLd } from "@/types/Seo";
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Frequently Asked Questions | TechBlitz',
-    description: 'Got a question? We have an answer.',
+    title: "Frequently Asked Questions | TechBlitz",
+    description: "Got a question? We have an answer.",
     image: {
-      text: 'Frequently Asked Questions | TechBlitz',
-      bgColor: '#000',
-      textColor: '#fff',
+      text: "Frequently Asked Questions | TechBlitz",
+      bgColor: "#000",
+      textColor: "#fff",
     },
-    canonicalUrl: '/faqs',
+    canonicalUrl: "/faqs",
   });
 }
 
 const commonFaqs = [
   {
-    question: 'What is techblitz?',
+    question: "What is techblitz?",
     answer:
-      'TechBlitz is an online platform that helps developers of all abilities to learn and grow. We offer a range of tools and resources to help you become a better developer, including questions, roadmaps, tutorials, and more.',
+      "TechBlitz is an online platform that helps developers of all abilities to learn and grow. We offer a range of tools and resources to help you become a better developer, including questions, roadmaps, tutorials, and more.",
     jsonLdText:
-      'TechBlitz is an online platform that helps developers of all abilities to learn and grow. We offer a range of tools and resources to help you become a better developer, including questions, roadmaps, tutorials, and more.',
+      "TechBlitz is an online platform that helps developers of all abilities to learn and grow. We offer a range of tools and resources to help you become a better developer, including questions, roadmaps, tutorials, and more.",
   },
   {
-    question: 'Is techblitz open source?',
+    question: "Is techblitz open source?",
     answer: (
       <>
-        Yes! TechBlitz is open source. You can find our source{' '}
+        Yes! TechBlitz is open source. You can find our source{" "}
         <a href="https://git.new/blitz" target="_blank" className="text-accent">
           here
         </a>
         .
       </>
     ),
-    jsonLdText: 'Yes! TechBlitz is open source. You can find our source here.',
+    jsonLdText: "Yes! TechBlitz is open source. You can find our source here.",
   },
   {
-    question: 'Is techblitz free to use?',
+    question: "Is techblitz free to use?",
     answer:
-      'Yes, TechBlitz will be free to use. You will be able to sign up for a free account and start using our software right away.',
+      "Yes, TechBlitz will be free to use. You will be able to sign up for a free account and start using our software right away.",
     jsonLdText:
-      'Yes, TechBlitz will be free to use. You will be able to sign up for a free account and start using our software right away.',
+      "Yes, TechBlitz will be free to use. You will be able to sign up for a free account and start using our software right away.",
   },
   {
-    question: 'What will you be adding to techblitz in the future?',
+    question: "What will you be adding to techblitz in the future?",
     answer: (
       <>
         We are always working on new features and improvements to TechBlitz. You
-        can find our roadmap{' '}
+        can find our roadmap{" "}
         <a href="/roadmap" className="text-accent">
           here
         </a>
@@ -59,21 +59,21 @@ const commonFaqs = [
       </>
     ),
     jsonLdText:
-      'We are always working on new features and improvements to TechBlitz. You can find our roadmap here.',
+      "We are always working on new features and improvements to TechBlitz. You can find our roadmap here.",
   },
   {
-    question: 'What are the benefits of using techblitz?',
+    question: "What are the benefits of using techblitz?",
     answer:
-      'We offer short-form questions on various topics to help you learn and grow.',
+      "We offer short-form questions on various topics to help you learn and grow.",
     jsonLdText:
-      'We offer short-form questions on various topics to help you learn and grow.',
+      "We offer short-form questions on various topics to help you learn and grow.",
   },
   {
-    question: 'How do I get started with techblitz?',
+    question: "How do I get started with techblitz?",
     answer: (
       <>
         To get started with TechBlitz, simply sign up for a free account. You
-        can sign up{' '}
+        can sign up{" "}
         <Link href="/signup" className="text-accent">
           here
         </Link>
@@ -81,13 +81,13 @@ const commonFaqs = [
       </>
     ),
     jsonLdText:
-      'To get started with TechBlitz, simply sign up for a free account. You can sign up here.',
+      "To get started with TechBlitz, simply sign up for a free account. You can sign up here.",
   },
   {
-    question: 'Can I contribute to techblitz?',
+    question: "Can I contribute to techblitz?",
     answer: (
       <>
-        Yes! You can contribute to TechBlitz by submitting a pull request on our{' '}
+        Yes! You can contribute to TechBlitz by submitting a pull request on our{" "}
         <a href="https://git.new/blitz" target="_blank" className="text-accent">
           GitHub repository
         </a>
@@ -95,19 +95,19 @@ const commonFaqs = [
       </>
     ),
     jsonLdText:
-      'Yes! You can contribute to TechBlitz by submitting a pull request on our GitHub repository.',
+      "Yes! You can contribute to TechBlitz by submitting a pull request on our GitHub repository.",
   },
   {
-    question: 'Can I get a refund?',
-    answer: 'Yes, you can get a refund within 14 days of your purchase. ',
-    jsonLdText: 'Yes, you can get a refund within 14 days of your purchase. ',
+    question: "Can I get a refund?",
+    answer: "Yes, you can get a refund within 14 days of your purchase. ",
+    jsonLdText: "Yes, you can get a refund within 14 days of your purchase. ",
   },
   {
     question:
-      'My question is not listed here. How can I get in touch with you?',
+      "My question is not listed here. How can I get in touch with you?",
     answer: (
       <>
-        If you have any other questions, feel free to reach out to us at{' '}
+        If you have any other questions, feel free to reach out to us at{" "}
         <a href="mailto:team@techblitz.dev" className="text-accent">
           team@techblitz.dev
         </a>
@@ -115,64 +115,64 @@ const commonFaqs = [
       </>
     ),
     jsonLdText:
-      'If you have any other questions, feel free to reach out to us at team@techblitz.dev.',
+      "If you have any other questions, feel free to reach out to us at team@techblitz.dev.",
   },
   {
-    question: 'Do you offer a student discount?',
+    question: "Do you offer a student discount?",
     answer: (
       <>
         Yes! We believe that TechBlitz should be available to all students. To
-        claim your discount, please email us at{' '}
+        claim your discount, please email us at{" "}
         <a href="mailto:team@techblitz.dev" className="text-accent">
           team@techblitz.dev
-        </a>{' '}
+        </a>{" "}
         using your student email address. We are currently running a limited
         time 50% discount for students. This will be available until the end of
         February 2025, after which the discount will be 30%.
       </>
     ),
     jsonLdText:
-      'Yes! We believe that TechBlitz should be available to all students. To claim your discount, please email us at team@techblitz.dev using your student email address.',
+      "Yes! We believe that TechBlitz should be available to all students. To claim your discount, please email us at team@techblitz.dev using your student email address.",
   },
 ];
 
 const planFaqs = [
   {
-    question: 'What is the difference between the free and paid plans?',
+    question: "What is the difference between the free and paid plans?",
     answer: (
       <>
         Our premium plans offer additional features and benefits, such as
         <a href="/features/roadmaps" className="text-accent">
           ai-powered roadmaps
-        </a>{' '}
+        </a>{" "}
         , more in-depth analytics, priority support and early access to new
         features.'
       </>
     ),
   },
   {
-    question: 'How do I upgrade my plan?',
+    question: "How do I upgrade my plan?",
     answer:
-      'You can upgrade your plan at any time by visiting your account settings.',
+      "You can upgrade your plan at any time by visiting your account settings.",
   },
   {
-    question: 'Can I cancel my plan at any time?',
+    question: "Can I cancel my plan at any time?",
     answer:
-      'Yes, you can cancel your plan at any time. Your plan will remain active until the end of your billing cycle.',
+      "Yes, you can cancel your plan at any time. Your plan will remain active until the end of your billing cycle.",
   },
   {
-    question: 'What payment methods do you accept?',
-    answer: 'We accept all major credit and debit cards, as well as PayPal.',
+    question: "What payment methods do you accept?",
+    answer: "We accept all major credit and debit cards, as well as PayPal.",
   },
   {
-    question: 'Do you offer a discount for students plans?',
+    question: "Do you offer a discount for students plans?",
     answer: (
       <>
         Yes, we offer a 50% discount for students. To claim your discount,
-        please email us at{' '}
+        please email us at{" "}
         <a href="mailto:team@techblitz.dev" className="text-accent">
           team@techblitz.dev
-        </a>{' '}
+        </a>{" "}
         using your student email address.
       </>
     ),
@@ -181,22 +181,22 @@ const planFaqs = [
 
 const userRoadmapsFaqs = [
   {
-    question: 'What are user roadmaps?',
+    question: "What are user roadmaps?",
     answer:
-      'User roadmaps are personalized learning paths that help you build upon your existing skills and knowledge in coding.',
+      "User roadmaps are personalized learning paths that help you build upon your existing skills and knowledge in coding.",
   },
   {
-    question: 'How do I create a user roadmap?',
+    question: "How do I create a user roadmap?",
     answer:
-      'You can create a user roadmap by heading over to the roadmap page in your dashboard.',
+      "You can create a user roadmap by heading over to the roadmap page in your dashboard.",
   },
   {
-    question: 'Can I share my user roadmap with others?',
+    question: "Can I share my user roadmap with others?",
     answer: (
       <>
         No, currently you cannot share your roadmap with other users. However,
         we are working on adding this feature in the future. You can find our
-        roadmap{' '}
+        roadmap{" "}
         <a
           href="https://github.com/users/Logannford/projects/5?pane=issue&itemId=91140395"
           className="text-accent"
@@ -209,26 +209,26 @@ const userRoadmapsFaqs = [
     ),
   },
   {
-    question: 'Can I create multiple user roadmaps?',
+    question: "Can I create multiple user roadmaps?",
     answer:
-      'Yes, you can create multiple user roadmaps to track different learning goals.',
+      "Yes, you can create multiple user roadmaps to track different learning goals.",
   },
   {
-    question: 'Can I delete a user roadmap?',
+    question: "Can I delete a user roadmap?",
     answer:
-      'Yes, you can delete a user roadmap at any time by visiting your account settings.',
+      "Yes, you can delete a user roadmap at any time by visiting your account settings.",
   },
 ];
 
 export default function FAQsPage() {
   const faqJsonLd: FaqJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
     mainEntity: commonFaqs.map((faq) => ({
-      '@type': 'Question',
+      "@type": "Question",
       name: faq.question,
       acceptedAnswer: {
-        '@type': 'Answer',
+        "@type": "Answer",
         text: faq.jsonLdText,
       },
     })),

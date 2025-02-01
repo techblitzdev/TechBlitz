@@ -1,4 +1,4 @@
-import { BaseRecord } from './BaseRecord';
+import { BaseRecord } from "./BaseRecord";
 
 // Types for subscription-related data
 export interface Subscription extends BaseRecord {
@@ -18,20 +18,20 @@ export interface Subscription extends BaseRecord {
 // Type for creating a new subscription
 export type CreateSubscriptionInput = Omit<
   Subscription,
-  'uid' | 'createdAt' | 'updatedAt' | 'userUid'
+  "uid" | "createdAt" | "updatedAt" | "userUid"
 >;
 
 // Type for updating a subscription
 export type UpdateSubscriptionInput = Partial<
-  Omit<Subscription, 'uid' | 'createdAt' | 'updatedAt' | 'userUid'>
+  Omit<Subscription, "uid" | "createdAt" | "updatedAt" | "userUid">
 >;
 
 // Type for subscription status
 export enum SubscriptionStatus {
-  ACTIVE = 'ACTIVE',
-  EXPIRED = 'EXPIRED',
-  CANCELLED = 'CANCELLED',
-  TRIAL = 'TRIAL',
+  ACTIVE = "ACTIVE",
+  EXPIRED = "EXPIRED",
+  CANCELLED = "CANCELLED",
+  TRIAL = "TRIAL",
 }
 
 // Type for subscription plan details
@@ -41,6 +41,6 @@ export type SubscriptionPlan = {
   description: string;
   price: number;
   currency: string;
-  interval: 'month' | 'year';
+  interval: "month" | "year";
   trialDays?: number;
 };

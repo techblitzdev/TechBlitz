@@ -1,23 +1,23 @@
-import { redirect } from 'next/navigation';
-import { Suspense } from 'react';
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 // actions
-import { fetchRoadmapQuestion } from '@/utils/data/roadmap/questions/fetch-roadmap-question';
-import { fetchNextPrevRoadmapQuestion } from '@/utils/data/roadmap/questions/fetchNextPrevRoadmapQuestion';
+import { fetchRoadmapQuestion } from "@/utils/data/roadmap/questions/fetch-roadmap-question";
+import { fetchNextPrevRoadmapQuestion } from "@/utils/data/roadmap/questions/fetchNextPrevRoadmapQuestion";
 
 // components
-import { Separator } from '@/components/ui/separator';
-import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
-import CurrentStreak from '@/components/ui/current-streak';
-import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
-import RoadmapQuestionActionButtons from '@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-action-buttons';
-import { RoadmapQuestionContextProvider } from '@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-context';
-import { RoadmapQuestionNavigation } from '@/components/app/navigation/question-navigation';
+import { Separator } from "@/components/ui/separator";
+import SidebarLayoutTrigger from "@/components/app/navigation/sidebar-layout-trigger";
+import CurrentStreak from "@/components/ui/current-streak";
+import FeedbackButton from "@/components/app/shared/feedback/feedback-button";
+import RoadmapQuestionActionButtons from "@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-action-buttons";
+import { RoadmapQuestionContextProvider } from "@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-context";
+import { RoadmapQuestionNavigation } from "@/components/app/navigation/question-navigation";
 
 // hooks
-import { useUserServer } from '@/hooks/use-user-server';
-import { RoadmapUserQuestions } from '@/types/Roadmap';
-import { UserRecord } from '@/types/User';
+import { useUserServer } from "@/hooks/use-user-server";
+import { RoadmapUserQuestions } from "@/types/Roadmap";
+import { UserRecord } from "@/types/User";
 
 export default async function RoadmapQuestionLayout({
   children,
@@ -46,8 +46,8 @@ export default async function RoadmapQuestionLayout({
       },
     ];
 
-  if (!user || user.userLevel === 'FREE') {
-    redirect('/dashboard');
+  if (!user || user.userLevel === "FREE") {
+    redirect("/dashboard");
   }
 
   if (!question) {
@@ -71,8 +71,8 @@ export default async function RoadmapQuestionLayout({
                 nextRoadmapQuestion={nextQuestion}
                 prevRoadmapQuestion={prevQuestion}
                 roadmap={{
-                  title: roadmap?.title || '',
-                  uid: roadmap?.uid || '',
+                  title: roadmap?.title || "",
+                  uid: roadmap?.uid || "",
                 }}
               />
             </Suspense>

@@ -1,8 +1,8 @@
-import { ArrowRight } from 'lucide-react';
-import Link from 'next/link';
-import { getSuggestions } from '@/utils/data/questions/get-suggestions';
-import { cn } from '@/lib/utils';
-import { Question } from '@/types/Questions';
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { getSuggestions } from "@/utils/data/questions/get-suggestions";
+import { cn } from "@/lib/utils";
+import { Question } from "@/types/Questions";
 
 export default async function QuestionSuggestedCard(opts: {
   border?: boolean;
@@ -28,18 +28,18 @@ export default async function QuestionSuggestedCard(opts: {
   return (
     <div
       className={cn(
-        'flex flex-col overflow-hidden divide-y-[1px] divide-black-50',
-        border ? 'border border-black-50 rounded-md' : ''
+        "flex flex-col overflow-hidden divide-y-[1px] divide-black-50",
+        border ? "border border-black-50 rounded-md" : "",
       )}
     >
       {questions?.map((question, index) => (
         <Link
           key={question.uid}
           className={cn(
-            'p-3 truncate w-full flex justify-between items-center group gap-5',
+            "p-3 truncate w-full flex justify-between items-center group gap-5",
             index % 2 === 0
-              ? 'bg-[#000] hover:bg-black-100'
-              : 'bg-black hover:bg-black-75'
+              ? "bg-[#000] hover:bg-black-100"
+              : "bg-black hover:bg-black-75",
           )}
           href={
             isCustomQuestion

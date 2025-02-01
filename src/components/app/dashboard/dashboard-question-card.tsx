@@ -1,5 +1,5 @@
-import { Check } from 'lucide-react';
-import { X } from 'lucide-react';
+import { Check } from "lucide-react";
+import { X } from "lucide-react";
 
 type DashboardQuestionCardProps = {
   question: {
@@ -10,7 +10,7 @@ type DashboardQuestionCardProps = {
 };
 
 export default function DashboardQuestionCard(
-  opts: DashboardQuestionCardProps
+  opts: DashboardQuestionCardProps,
 ) {
   const { name, correct } = opts.question;
 

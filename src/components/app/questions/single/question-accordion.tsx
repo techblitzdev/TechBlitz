@@ -3,16 +3,16 @@ import {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from '@/components/ui/accordion';
-import { ArrowRight, Lightbulb } from 'lucide-react';
-import { useQuestionSingle } from './layout/question-single-context';
+} from "@/components/ui/accordion";
+import { ArrowRight, Lightbulb } from "lucide-react";
+import { useQuestionSingle } from "./layout/question-single-context";
 
 // markdown to render the hint
-import Markdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import Link from 'next/link';
-import { use } from 'react';
-import { ListBulletIcon } from '@radix-ui/react-icons';
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import Link from "next/link";
+import { use } from "react";
+import { ListBulletIcon } from "@radix-ui/react-icons";
 
 export default function QuestionAccordion(opts: {
   hint: string;
@@ -30,7 +30,7 @@ export default function QuestionAccordion(opts: {
     <Accordion
       type="single"
       collapsible
-      value={showHint ? 'hint' : undefined}
+      value={showHint ? "hint" : undefined}
       className="divide-y divide-black-50"
     >
       <AccordionItem

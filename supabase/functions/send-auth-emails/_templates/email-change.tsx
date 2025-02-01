@@ -7,8 +7,8 @@ import {
   Preview,
   Section,
   Text,
-} from 'npm:@react-email/components';
-import * as React from 'npm:react';
+} from "npm:@react-email/components";
+import * as React from "npm:react";
 
 interface EmailUpdateProps {
   username: string;
@@ -44,7 +44,7 @@ export const EmailChangeEmail = ({
               © 2025 TechBlitz. All rights reserved.
             </Text>
             <Text style={footerText}>
-              If you have any questions, please contact our support team at{' '}
+              If you have any questions, please contact our support team at{" "}
               <Link href={`mailto:team@techblitz.dev`} style={footerLink}>
                 team@techblitz.dev
               </Link>
@@ -58,75 +58,75 @@ export const EmailChangeEmail = ({
 };
 
 EmailChangeEmail.PreviewProps = {
-  username: 'John Doe',
-  newEmail: 'john.doe@example.com',
-  supportEmail: 'team@techblitz.com',
-  redirect_to: 'https://techblitz.dev/api/user/update',
+  username: "John Doe",
+  newEmail: "john.doe@example.com",
+  supportEmail: "team@techblitz.com",
+  redirect_to: "https://techblitz.dev/api/user/update",
 } as EmailUpdateProps;
 
 const main = {
-  backgroundColor: '#000000',
-  color: '#FFFFFF',
+  backgroundColor: "#000000",
+  color: "#FFFFFF",
   fontFamily: "'Onest', Verdana, sans-serif",
 };
 
 const container = {
-  margin: '0 auto',
-  padding: '20px 0 48px',
-  textAlign: 'center' as const,
+  margin: "0 auto",
+  padding: "20px 0 48px",
+  textAlign: "center" as const,
 };
 
 const h1 = {
-  color: '#FFFFFF',
-  fontSize: '32px',
-  fontWeight: '500',
-  lineHeight: '24px',
-  margin: '40px 0',
-  textAlign: 'center' as const,
+  color: "#FFFFFF",
+  fontSize: "32px",
+  fontWeight: "500",
+  lineHeight: "24px",
+  margin: "40px 0",
+  textAlign: "center" as const,
 };
 
 const text = {
-  color: '#FFFFFF',
-  fontSize: '14px',
-  lineHeight: '24px',
-  textAlign: 'center' as const,
+  color: "#FFFFFF",
+  fontSize: "14px",
+  lineHeight: "24px",
+  textAlign: "center" as const,
   fontFamily: "'Onest', Verdana, sans-serif",
 };
 
 const footer = {
-  marginTop: '32px',
-  textAlign: 'center' as const,
+  marginTop: "32px",
+  textAlign: "center" as const,
 };
 
 const footerText = {
-  color: '#CCCCCC',
-  fontSize: '12px',
-  lineHeight: '16px',
+  color: "#CCCCCC",
+  fontSize: "12px",
+  lineHeight: "16px",
   fontFamily: "'Onest', Verdana, sans-serif",
 };
 
 const footerLink = {
-  color: '#CCCCCC',
-  fontSize: '12px',
-  lineHeight: '16px',
-  textDecoration: 'underline',
+  color: "#CCCCCC",
+  fontSize: "12px",
+  lineHeight: "16px",
+  textDecoration: "underline",
 };
 
 const buttonContainer = {
-  textAlign: 'center' as const,
-  margin: '32px 0',
+  textAlign: "center" as const,
+  margin: "32px 0",
 };
 
-const accent = '#5b61d6';
+const accent = "#5b61d6";
 
 const button = {
   backgroundColor: accent,
-  borderRadius: '4px',
-  color: '#ffffff',
-  fontSize: '14px',
-  fontWeight: '500',
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  padding: '10px 28px',
+  borderRadius: "4px",
+  color: "#ffffff",
+  fontSize: "14px",
+  fontWeight: "500",
+  textDecoration: "none",
+  textAlign: "center" as const,
+  padding: "10px 28px",
   fontFamily: "'Onest', Verdana, sans-serif",
 };

@@ -1,36 +1,36 @@
-'use client';
+"use client";
 
 /**
  * wrapper to provide a context for the onboarding flow
  * this context will be used to store all user onboarding data
  * throughout the different steps of the onboarding flow
  */
-import { createContext, useContext, useState } from 'react';
-import type { UpdatableUserFields, UserRecord } from '@/types/User';
-import { Question, QuestionWithTags } from '@/types/Questions';
-import { getOnboardingQuestions } from '@/utils/data/questions/get-onboarding';
-import { useRouter } from 'next/navigation';
+import { createContext, useContext, useState } from "react";
+import type { UpdatableUserFields, UserRecord } from "@/types/User";
+import { Question, QuestionWithTags } from "@/types/Questions";
+import { getOnboardingQuestions } from "@/utils/data/questions/get-onboarding";
+import { useRouter } from "next/navigation";
 // context type
 type OnboardingContextType = {
   user: Omit<
     UpdatableUserFields,
-    'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'
+    "email" | "userLevel" | "lastLogin" | "createdAt" | "updatedAt"
   >;
   setUser: React.Dispatch<
     React.SetStateAction<
       Omit<
         UpdatableUserFields,
-        'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'
+        "email" | "userLevel" | "lastLogin" | "createdAt" | "updatedAt"
       >
     >
   >;
   serverUser: UserRecord | null;
   selectedTags: string[];
   setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
-  currentStep: 'stepOne' | 'stepTwo' | 'stepThree' | 'stepFour' | 'stepFive';
+  currentStep: "stepOne" | "stepTwo" | "stepThree" | "stepFour" | "stepFive";
   setCurrentStep: React.Dispatch<
     React.SetStateAction<
-      'stepOne' | 'stepTwo' | 'stepThree' | 'stepFour' | 'stepFive'
+      "stepOne" | "stepTwo" | "stepThree" | "stepFour" | "stepFive"
     >
   >;
   onboardingQuestions: QuestionWithTags[];
@@ -65,21 +65,21 @@ export const UserOnboardingContextProvider = ({
   const [user, setUser] = useState<
     Omit<
       UpdatableUserFields,
-      'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'
+      "email" | "userLevel" | "lastLogin" | "createdAt" | "updatedAt"
     >
   >(
     serverUser as Omit<
       UpdatableUserFields,
-      'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'
-    >
+      "email" | "userLevel" | "lastLogin" | "createdAt" | "updatedAt"
+    >,
   );
 
   const [canContinue, setCanContinue] = useState(true);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const [currentStep, setCurrentStep] = useState<
-    'stepOne' | 'stepTwo' | 'stepThree' | 'stepFour' | 'stepFive'
-  >('stepOne');
+    "stepOne" | "stepTwo" | "stepThree" | "stepFour" | "stepFive"
+  >("stepOne");
 
   const [onboardingQuestions, setOnboardingQuestions] = useState<any[]>([]);
 
@@ -123,7 +123,7 @@ export const useOnboardingContext = () => {
   const context = useContext(OnboardingContext);
   if (!context) {
     throw new Error(
-      'useOnboardingContext must be used within a UserContextProvider'
+      "useOnboardingContext must be used within a UserContextProvider",
     );
   }
   return context;

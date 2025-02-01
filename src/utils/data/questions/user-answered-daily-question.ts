@@ -1,5 +1,5 @@
-import { prisma } from '@/lib/prisma';
-import { revalidateTag } from 'next/cache';
+import { prisma } from "@/lib/prisma";
+import { revalidateTag } from "next/cache";
 
 export const userAnsweredDailyQuestion = async (opts: {
   questionUid: string;

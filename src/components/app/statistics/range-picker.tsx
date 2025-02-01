@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   DropdownMenu,
@@ -6,11 +6,11 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
-import { Calendar, ChevronDown } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { STATISTICS } from '@/utils/constants/statistics-filters';
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { Calendar, ChevronDown } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { STATISTICS } from "@/utils/constants/statistics-filters";
 
 export default function StatsRangePicker(opts: { selectedRange: string }) {
   const { selectedRange } = opts;
@@ -20,7 +20,7 @@ export default function StatsRangePicker(opts: { selectedRange: string }) {
 
   const updateDateRange = (range: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    params.set('range', range);
+    params.set("range", range);
     router.push(`?${params.toString()}`);
   };
 
@@ -35,7 +35,7 @@ export default function StatsRangePicker(opts: { selectedRange: string }) {
         >
           <div className="flex gap-x-2 items-center">
             <Calendar className="size-4" />
-            {selectedRange ? selectedRange : 'Date Range'}
+            {selectedRange ? selectedRange : "Date Range"}
           </div>
           <ChevronDown className="size-3 duration-200 group-data-[state=open]:-rotate-180" />
         </Button>

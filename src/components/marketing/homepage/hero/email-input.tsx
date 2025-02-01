@@ -1,18 +1,18 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ArrowRight } from 'lucide-react';
+"use client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ArrowRight } from "lucide-react";
 
 import {
   Form,
   FormControl,
   FormField,
   FormMessage,
-} from '@/components/ui/form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
+} from "@/components/ui/form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 
 const Schema = z.object({
   email: z.string().email(),
@@ -25,13 +25,13 @@ export default function HomepageHeroEmailSignup() {
   const form = useForm<SchemaProps>({
     resolver: zodResolver(Schema),
     defaultValues: {
-      email: '',
+      email: "",
     },
   });
 
   // validate the email input
   const handleEmailSignup = () => {
-    if (form.getValues().email === '') {
+    if (form.getValues().email === "") {
       return;
     }
 

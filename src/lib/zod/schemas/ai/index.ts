@@ -1,6 +1,6 @@
-import { z } from 'zod';
+import { z } from "zod";
 
-const difficulty = z.enum(['easy', 'medium', 'hard']);
+const difficulty = z.enum(["easy", "medium", "hard"]);
 
 // create a schema for the answer for the question schema
 const answerSchema = z.object({

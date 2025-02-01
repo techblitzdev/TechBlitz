@@ -1,39 +1,39 @@
-import { LanguageDropdown } from '@/types/LanguageDropdown';
-import JavascriptSvg from '@/public/language-imgs/javascript.svg';
-import TypescriptSvg from '@/public/language-imgs/typescript.svg';
-import PythonSvg from '@/public/language-imgs/python.svg';
-import GolangSvg from '@/public/language-imgs/golang.svg';
+import { LanguageDropdown } from "@/types/LanguageDropdown";
+import JavascriptSvg from "@/public/language-imgs/javascript.svg";
+import TypescriptSvg from "@/public/language-imgs/typescript.svg";
+import PythonSvg from "@/public/language-imgs/python.svg";
+import GolangSvg from "@/public/language-imgs/golang.svg";
 
 export const LANGUAGE_OPTIONS: LanguageDropdown[] = [
   {
-    language: 'javascript',
+    language: "javascript",
     config: {
       isActive: true,
-      label: 'JavaScript',
+      label: "JavaScript",
     },
     svg: JavascriptSvg,
   },
   {
-    language: 'typescript',
+    language: "typescript",
     config: {
       isActive: false,
-      label: 'TypeScript',
+      label: "TypeScript",
     },
     svg: TypescriptSvg,
   },
   {
-    language: 'python',
+    language: "python",
     config: {
       isActive: false,
-      label: 'Python',
+      label: "Python",
     },
     svg: PythonSvg,
   },
   {
-    language: 'go',
+    language: "go",
     config: {
       isActive: false,
-      label: 'Go',
+      label: "Go",
     },
     svg: GolangSvg,
   },

@@ -1,30 +1,30 @@
-import QuestionsList from '@/components/app/questions/layout/questions-list';
+import QuestionsList from "@/components/app/questions/layout/questions-list";
 
-import QuestionPageSidebar from '@/components/app/questions/layout/question-page-sidebar';
+import QuestionPageSidebar from "@/components/app/questions/layout/question-page-sidebar";
 
-import Hero from '@/components/shared/hero';
+import Hero from "@/components/shared/hero";
 
-import { validateSearchParams } from '@/utils/search-params';
-import { parseSearchParams } from '@/utils/search-params';
-import { getTags } from '@/utils/data/questions/tags/get-tags';
-import { createMetadata } from '@/utils/seo';
-import { Button } from '@/components/ui/button';
-import FilterChips from '@/components/app/filters/chips';
-import Filter from '@/components/app/filters/filter';
+import { validateSearchParams } from "@/utils/search-params";
+import { parseSearchParams } from "@/utils/search-params";
+import { getTags } from "@/utils/data/questions/tags/get-tags";
+import { createMetadata } from "@/utils/seo";
+import { Button } from "@/components/ui/button";
+import FilterChips from "@/components/app/filters/chips";
+import Filter from "@/components/app/filters/filter";
 
 // revalidate every 10 minutes
 export const revalidate = 600;
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Previous Daily Questions | TechBlitz',
-    description: 'All daily questions that have been asked in the past.',
+    title: "Previous Daily Questions | TechBlitz",
+    description: "All daily questions that have been asked in the past.",
     image: {
-      text: 'Previous Daily Questions | TechBlitz',
-      bgColor: '#000',
-      textColor: '#fff',
+      text: "Previous Daily Questions | TechBlitz",
+      bgColor: "#000",
+      textColor: "#fff",
     },
-    canonicalUrl: '/questions/previous',
+    canonicalUrl: "/questions/previous",
   });
 }
 

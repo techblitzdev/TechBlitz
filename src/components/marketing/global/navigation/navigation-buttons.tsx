@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
-import GithubLogo from '@/components/ui/icons/github';
-import { useUserServer } from '@/hooks/use-user-server';
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import GithubLogo from "@/components/ui/icons/github";
+import { useUserServer } from "@/hooks/use-user-server";
 
 export default async function NavigationButtons() {
   const user = await useUserServer();
@@ -28,7 +28,7 @@ export default async function NavigationButtons() {
         Login
       </Button>
       <Button
-        href={'/signup'}
+        href={"/signup"}
         variant="accent"
         className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
       >

@@ -1,11 +1,11 @@
-'use client';
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { CardContent, CardFooter } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Progress } from '@/components/ui/progress';
-import { Check } from 'lucide-react';
-import { cn } from '@/lib/utils';
+"use client";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { CardContent, CardFooter } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Progress } from "@/components/ui/progress";
+import { Check } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const skeletonVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -18,7 +18,7 @@ const checkVariants = {
   visible: {
     scale: 1,
     opacity: 1,
-    transition: { type: 'spring', stiffness: 300, damping: 20 },
+    transition: { type: "spring", stiffness: 300, damping: 20 },
   },
   exit: { scale: 0, opacity: 0 },
 };
@@ -77,14 +77,14 @@ export default function RoadmapFeatureBoxAnimation({
               >
                 <Skeleton
                   className={cn(
-                    'h-7 bg-black-50 hidden md:block',
-                    !absolute ? 'w-[250px]' : 'w-[400px]'
+                    "h-7 bg-black-50 hidden md:block",
+                    !absolute ? "w-[250px]" : "w-[400px]",
                   )}
                 />
                 <Skeleton
                   className={cn(
-                    'h-4 md:h-7 w-full bg-black-50 md:block',
-                    !absolute ? 'w-[180px]' : 'sm:w-[260px]'
+                    "h-4 md:h-7 w-full bg-black-50 md:block",
+                    !absolute ? "w-[180px]" : "sm:w-[260px]",
                   )}
                 />
               </motion.div>
@@ -98,7 +98,7 @@ export default function RoadmapFeatureBoxAnimation({
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
         >
-          {isComplete ? 'Roadmap generated!' : 'Generating your roadmap...'}
+          {isComplete ? "Roadmap generated!" : "Generating your roadmap..."}
         </motion.h3>
         <motion.p
           className="text-xs md:text-base text-muted-foreground"

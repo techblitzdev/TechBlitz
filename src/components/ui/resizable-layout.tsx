@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from "react";
 
 interface ResizableLayoutProps {
   leftContent: React.ReactNode;
@@ -20,8 +20,8 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
   }, []);
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
@@ -35,16 +35,16 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
   }, []);
 
   const handleMouseUp = useCallback(() => {
-    document.removeEventListener('mousemove', handleMouseMove);
-    document.removeEventListener('mouseup', handleMouseUp);
+    document.removeEventListener("mousemove", handleMouseMove);
+    document.removeEventListener("mouseup", handleMouseUp);
   }, [handleMouseMove]);
 
   useEffect(() => {
     const resizer = resizerRef.current;
-    resizer?.addEventListener('mousedown', handleMouseDown as any);
+    resizer?.addEventListener("mousedown", handleMouseDown as any);
 
     return () => {
-      resizer?.removeEventListener('mousedown', handleMouseDown as any);
+      resizer?.removeEventListener("mousedown", handleMouseDown as any);
     };
   }, [handleMouseDown]);
 
@@ -57,8 +57,8 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
         className="w-full lg:w-[var(--left-width)] overflow-y-auto"
         style={
           {
-            '--left-width': `${leftWidth}%`,
-            '--left-height': '100%',
+            "--left-width": `${leftWidth}%`,
+            "--left-height": "100%",
           } as React.CSSProperties
         }
       >
@@ -83,8 +83,8 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
         className="w-full lg:w-[var(--right-width)] overflow-y-auto"
         style={
           {
-            '--right-width': `${100 - leftWidth}%`,
-            '--right-height': '100%',
+            "--right-width": `${100 - leftWidth}%`,
+            "--right-height": "100%",
           } as React.CSSProperties
         }
       >

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 export default function AnimatedSpan(opts: { content: string | ReactNode }) {
   const { content } = opts;

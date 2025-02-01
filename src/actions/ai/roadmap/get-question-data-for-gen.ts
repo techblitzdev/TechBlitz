@@ -1,6 +1,6 @@
-'use server';
-import { QuestionDifficulty } from '@/types/Questions';
-import { prisma } from '@/lib/prisma';
+"use server";
+import { QuestionDifficulty } from "@/types/Questions";
+import { prisma } from "@/lib/prisma";
 
 export interface ReturnType {
   question: string;
@@ -12,7 +12,7 @@ export const generateDataForAi = async (opts: {
   roadmapUid: string;
   userUid: string;
   generateMore?: boolean;
-}): Promise<ReturnType[] | 'generated' | 'invalid'> => {
+}): Promise<ReturnType[] | "generated" | "invalid"> => {
   const { roadmapUid, userUid, generateMore } = opts;
 
   // If generating more questions, get existing questions to inform AI
@@ -37,7 +37,7 @@ export const generateDataForAi = async (opts: {
       AND: {
         userUid,
         AND: {
-          status: 'COMPLETED',
+          status: "COMPLETED",
         },
       },
     },
@@ -74,7 +74,7 @@ export const generateDataForAi = async (opts: {
   });
 
   if (roadmap?.hasGeneratedRoadmap) {
-    return 'generated';
+    return "generated";
   }
 
   // we need to get all of the answers that the user has answered
@@ -87,7 +87,7 @@ export const generateDataForAi = async (opts: {
     });
 
   if (roadmapDefaultAnswers.length === 0) {
-    return 'invalid';
+    return "invalid";
   }
 
   // start an array to store the questions that we will be asking
@@ -105,7 +105,7 @@ export const generateDataForAi = async (opts: {
     // push the question along with the user's answer
     if (question) {
       userAnswers.push({
-        question: question.aiTitle || '',
+        question: question.aiTitle || "",
         correctAnswer: answer.correct,
         difficulty: question.difficulty,
       });

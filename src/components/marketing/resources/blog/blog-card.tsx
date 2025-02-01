@@ -1,5 +1,5 @@
-import { shortenText } from '@/utils';
-import Link from 'next/link';
+import { shortenText } from "@/utils";
+import Link from "next/link";
 
 export default function BlogCard(opts: { post: any }) {
   const { post } = opts;
@@ -38,10 +38,10 @@ export default function BlogCard(opts: { post: any }) {
         </div>
         <span>•</span>
         <time dateTime={post.date}>
-          {new Date(post.date).toLocaleDateString('en-US', {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric',
+          {new Date(post.date).toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
           })}
         </time>
         <span>•</span>

@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import { useMemo } from 'react';
-import Link from 'next/link';
-import { QuestionWithTags } from '@/types/Questions';
-import Chip from '@/components/ui/chip';
-import { capitalise, getQuestionDifficultyColor } from '@/utils';
-import { CheckCircle, ChevronRight, Circle } from 'lucide-react';
-import { Answer } from '@/types/Answers';
+import { useMemo } from "react";
+import Link from "next/link";
+import { QuestionWithTags } from "@/types/Questions";
+import Chip from "@/components/ui/chip";
+import { capitalise, getQuestionDifficultyColor } from "@/utils";
+import { CheckCircle, ChevronRight, Circle } from "lucide-react";
+import { Answer } from "@/types/Answers";
 import {
   TooltipProvider,
   TooltipTrigger,
   TooltipContent,
   Tooltip,
-} from '@/components/ui/tooltip';
-import { UserRecord } from '@/types/User';
+} from "@/components/ui/tooltip";
+import { UserRecord } from "@/types/User";
 
 interface QuestionCarouselCardProps {
   questionData: QuestionWithTags & { userAnswers: Answer[] };
@@ -27,15 +27,15 @@ export default function QuestionCarouselCard({
   const answerStatus = useMemo(() => {
     if (questionData.userAnswers && questionData.userAnswers.length > 0) {
       return questionData.userAnswers[0].correctAnswer
-        ? 'correct'
-        : 'incorrect';
+        ? "correct"
+        : "incorrect";
     }
-    return 'not-answered';
+    return "not-answered";
   }, [questionData.userAnswers]);
 
   const difficultyColor = useMemo(
     () => getQuestionDifficultyColor(questionData.difficulty),
-    [questionData.difficulty]
+    [questionData.difficulty],
   );
 
   const title = questionData?.title || questionData?.question;
@@ -48,15 +48,15 @@ export default function QuestionCarouselCard({
       <div className="flex flex-col justify-between space-y-5 items-start border border-black-50 hover:border-accent duration-300 p-6 rounded-lg group w-full h-full relative overflow-hidden">
         <h3 className="text-wrap text-start line-clamp-2">{title}</h3>
         <div className="flex items-center gap-x-2">
-          {answerStatus === 'correct' ? (
+          {answerStatus === "correct" ? (
             <CheckCircle className="flex-shrink-0 size-5 text-green-500" />
           ) : (
             <Circle className="flex-shrink-0 size-5 text-black-50" />
           )}
           <div className="text-sm font-medium">
-            {answerStatus === 'correct' ? (
+            {answerStatus === "correct" ? (
               <p>Correct</p>
-            ) : answerStatus === 'incorrect' ? (
+            ) : answerStatus === "incorrect" ? (
               <p>Incorrect</p>
             ) : (
               <div className="relative">
@@ -79,7 +79,7 @@ export default function QuestionCarouselCard({
             border={difficultyColor.border}
           />
           {questionData.isPremiumQuestion &&
-            (user?.userLevel === 'FREE' || !user) && (
+            (user?.userLevel === "FREE" || !user) && (
               <TooltipProvider>
                 <Tooltip delayDuration={0}>
                   <TooltipTrigger>

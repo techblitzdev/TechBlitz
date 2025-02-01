@@ -1,4 +1,4 @@
-import CodeComparison from '@/components/ui/code-comparison';
+import CodeComparison from "@/components/ui/code-comparison";
 
 // Example before/after code for the comparison component
 const beforeCode = `// this is a challenge to learn JavaScript

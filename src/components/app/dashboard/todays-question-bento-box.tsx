@@ -1,14 +1,14 @@
-import Chip from '@/components/ui/chip';
-import { Button } from '@/components/ui/button';
-import TagDisplay from '@/components/app/questions/tag-display';
-import NoDailyQuestion from '@/components/shared/no-daily-question';
-import { ArrowUpRight } from 'lucide-react';
+import Chip from "@/components/ui/chip";
+import { Button } from "@/components/ui/button";
+import TagDisplay from "@/components/app/questions/tag-display";
+import NoDailyQuestion from "@/components/shared/no-daily-question";
+import { ArrowUpRight } from "lucide-react";
 
-import { getQuestionDifficultyColor, capitalise } from '@/utils';
-import { getTodaysQuestion } from '@/utils/data/questions/get-today';
-import Link from 'next/link';
-import { DatePicker } from '@mantine/dates';
-import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak';
+import { getQuestionDifficultyColor, capitalise } from "@/utils";
+import { getTodaysQuestion } from "@/utils/data/questions/get-today";
+import Link from "next/link";
+import { DatePicker } from "@mantine/dates";
+import { getUserDailyStats } from "@/utils/data/user/authed/get-daily-streak";
 
 export default async function TodaysQuestionBentoBox() {
   // get the user streak and suggestion in one go

@@ -1,33 +1,33 @@
-import Link from 'next/link';
-import Logo from '@/components/ui/logo';
-import SocialLinks from './socials';
-import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
+import Link from "next/link";
+import Logo from "@/components/ui/logo";
+import SocialLinks from "./socials";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 const footerItems = [
   {
-    title: 'Features',
+    title: "Features",
     links: [
       {
-        title: 'Roadmaps',
-        href: '/features/roadmap',
-        ariaLabel: 'Roadmaps',
+        title: "Roadmaps",
+        href: "/features/roadmap",
+        ariaLabel: "Roadmaps",
       },
       {
-        title: 'Daily Challenges',
-        href: '/features/daily-coding-challenges',
-        ariaLabel: 'Daily Challenges',
+        title: "Daily Challenges",
+        href: "/features/daily-coding-challenges",
+        ariaLabel: "Daily Challenges",
       },
       {
-        title: 'Statistics',
-        href: '/features/statistics',
-        ariaLabel: 'Statistics',
+        title: "Statistics",
+        href: "/features/statistics",
+        ariaLabel: "Statistics",
       },
       {
-        title: 'Leaderboard',
-        href: '/features/leaderboard',
-        ariaLabel: 'Leaderboard',
+        title: "Leaderboard",
+        href: "/features/leaderboard",
+        ariaLabel: "Leaderboard",
       },
       // {
       //   title: '',
@@ -40,57 +40,57 @@ const footerItems = [
     ],
   },
   {
-    title: 'Resources',
+    title: "Resources",
     links: [
       {
-        title: 'Blog',
-        href: '/blog',
-        ariaLabel: 'Blog',
+        title: "Blog",
+        href: "/blog",
+        ariaLabel: "Blog",
       },
       {
-        title: 'Changelog',
-        href: '/changelog',
-        ariaLabel: 'Changelog',
+        title: "Changelog",
+        href: "/changelog",
+        ariaLabel: "Changelog",
       },
       {
-        title: 'Open Source',
-        href: '/open-source',
-        ariaLabel: 'Open Source',
+        title: "Open Source",
+        href: "/open-source",
+        ariaLabel: "Open Source",
       },
       {
-        title: 'FAQs',
-        href: '/faqs',
-        ariaLabel: 'FAQs',
+        title: "FAQs",
+        href: "/faqs",
+        ariaLabel: "FAQs",
       },
     ],
   },
   {
-    title: 'Pricing',
+    title: "Pricing",
     links: [
       {
-        title: 'Plans',
-        href: '/pricing',
-        ariaLabel: 'Plans',
+        title: "Plans",
+        href: "/pricing",
+        ariaLabel: "Plans",
       },
     ],
   },
   {
-    title: 'Study Paths',
+    title: "Study Paths",
     links: [
       {
-        title: 'study Paths',
-        href: '/study-paths',
-        ariaLabel: 'Study Paths',
+        title: "study Paths",
+        href: "/study-paths",
+        ariaLabel: "Study Paths",
       },
     ],
   },
   {
-    title: 'Contact',
+    title: "Contact",
     links: [
       {
-        title: 'Contact Us',
-        href: 'mailto:team@techblitz.dev',
-        ariaLabel: 'Contact Us',
+        title: "Contact Us",
+        href: "mailto:team@techblitz.dev",
+        ariaLabel: "Contact Us",
       },
     ],
   },

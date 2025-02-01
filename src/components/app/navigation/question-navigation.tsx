@@ -1,20 +1,20 @@
-'use client';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { StudyPath, studyPaths } from '@/utils/constants/study-paths';
-import { Button } from '@/components/ui/button';
-import { RoadmapUserQuestions } from '@prisma/client';
-import { useQuestionSingle } from '../questions/single/layout/question-single-context';
+} from "@/components/ui/tooltip";
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { StudyPath, studyPaths } from "@/utils/constants/study-paths";
+import { Button } from "@/components/ui/button";
+import { RoadmapUserQuestions } from "@prisma/client";
+import { useQuestionSingle } from "../questions/single/layout/question-single-context";
 
 /**
  * Component for navigation between different questions from within the
@@ -25,14 +25,14 @@ export default function QuestionNavigation(opts: {
     nextQuestion: string | null | undefined;
     previousQuestion: string | null | undefined;
   } | null>;
-  navigationType: 'question' | 'roadmap';
+  navigationType: "question" | "roadmap";
   slug: string;
 }) {
-  const { nextPrevPromise, navigationType = 'question', slug } = opts;
+  const { nextPrevPromise, navigationType = "question", slug } = opts;
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const type = searchParams?.get('type');
-  const studyPathSlug = searchParams?.get('study-path');
+  const type = searchParams?.get("type");
+  const studyPathSlug = searchParams?.get("study-path");
 
   const {
     previousQuestion,
@@ -46,7 +46,7 @@ export default function QuestionNavigation(opts: {
   useEffect(() => {
     // if this is a study-path, get the next/prev questions from the study-path object
     const studyPath =
-      type === 'study-path' && studyPathSlug
+      type === "study-path" && studyPathSlug
         ? studyPaths.find((path) => path.slug === studyPathSlug)
         : null;
 
@@ -65,10 +65,14 @@ export default function QuestionNavigation(opts: {
 
       // Set the full URLs in context
       setPreviousQuestion(
-        prevSlug ? `${prevSlug}?type=${type}&study-path=${studyPathSlug}` : null
+        prevSlug
+          ? `${prevSlug}?type=${type}&study-path=${studyPathSlug}`
+          : null,
       );
       setNextQuestion(
-        nextSlug ? `${nextSlug}?type=${type}&study-path=${studyPathSlug}` : null
+        nextSlug
+          ? `${nextSlug}?type=${type}&study-path=${studyPathSlug}`
+          : null,
       );
     } else {
       // Use the provided promise for non-study-path questions
@@ -81,7 +85,7 @@ export default function QuestionNavigation(opts: {
 
   return (
     <div className="flex items-center">
-      {type === 'study-path' && (
+      {type === "study-path" && (
         <div className="flex items-center gap-x-2">
           <TooltipProvider delayDuration={0} skipDelayDuration={100}>
             <Tooltip>
@@ -108,9 +112,9 @@ export default function QuestionNavigation(opts: {
           <Tooltip>
             <TooltipTrigger>
               <Link
-                href={previousQuestion || '#'}
+                href={previousQuestion || "#"}
                 className={`bg-primary border border-black-50 p-2 rounded-l-md relative group duration-200 size-9 flex items-center justify-center border-r-0 ${
-                  !previousQuestion ? 'opacity-50 pointer-events-none' : ''
+                  !previousQuestion ? "opacity-50 pointer-events-none" : ""
                 }`}
               >
                 <ChevronLeft className="size-4 opacity-100 group-hover:opacity-0 absolute duration-100" />
@@ -130,9 +134,9 @@ export default function QuestionNavigation(opts: {
           <Tooltip>
             <TooltipTrigger>
               <Link
-                href={nextQuestion || '#'}
+                href={nextQuestion || "#"}
                 className={`bg-primary border border-black-50 p-2 rounded-r-md relative group duration-200 size-9 flex items-center justify-center ${
-                  !nextQuestion ? 'opacity-50 pointer-events-none' : ''
+                  !nextQuestion ? "opacity-50 pointer-events-none" : ""
                 }`}
               >
                 <ChevronRight className="size-4 opacity-100 group-hover:opacity-0 absolute duration-100" />
@@ -190,7 +194,7 @@ export function RoadmapQuestionNavigation(opts: {
               <Link
                 href={`/roadmap/${prevRoadmapQuestion?.roadmapUid}/${prevRoadmapQuestion?.uid}`}
                 className={`bg-primary border border-black-50 p-2 rounded-l-md relative group duration-200 size-9 flex items-center justify-center border-r-0 ${
-                  !prevRoadmapQuestion ? 'opacity-50 pointer-events-none' : ''
+                  !prevRoadmapQuestion ? "opacity-50 pointer-events-none" : ""
                 }`}
               >
                 <ChevronLeft className="size-4 opacity-100 group-hover:opacity-0 absolute duration-100" />
@@ -212,7 +216,7 @@ export function RoadmapQuestionNavigation(opts: {
               <Link
                 href={`/roadmap/${nextRoadmapQuestion?.roadmapUid}/${nextRoadmapQuestion?.uid}`}
                 className={`bg-primary border border-black-50 p-2 rounded-r-md relative group duration-200 size-9 flex items-center justify-center ${
-                  !nextRoadmapQuestion ? 'opacity-50 pointer-events-none' : ''
+                  !nextRoadmapQuestion ? "opacity-50 pointer-events-none" : ""
                 }`}
               >
                 <ChevronRight className="size-4 opacity-100 group-hover:opacity-0 absolute duration-100" />

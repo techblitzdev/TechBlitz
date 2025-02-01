@@ -8,10 +8,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
-import { QuestionResources } from '@prisma/client';
-import Link from 'next/link';
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { QuestionResources } from "@prisma/client";
+import Link from "next/link";
 
 export default function QuestionResourceTab(opts: {
   resources: QuestionResources[] | undefined;
@@ -40,7 +40,7 @@ export default function QuestionResourceTab(opts: {
                 <br />
                 {reference && (
                   <span>
-                    Please use the reference:{' '}
+                    Please use the reference:{" "}
                     <span className="font-bold">{reference}</span>
                   </span>
                 )}

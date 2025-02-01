@@ -1,7 +1,7 @@
-import { AppSidebar } from '@/components/app/navigation/sidebar';
-import { SidebarProvider } from '@/components/ui/sidebar';
-import { useUserServer } from '@/hooks/use-user-server';
-import { getOrCreateUserProfile } from '@/utils/data/user/profile/get-user-profile';
+import { AppSidebar } from "@/components/app/navigation/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { useUserServer } from "@/hooks/use-user-server";
+import { getOrCreateUserProfile } from "@/utils/data/user/profile/get-user-profile";
 
 export default async function ProfileLayout({
   children,

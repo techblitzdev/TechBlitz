@@ -1,32 +1,32 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Check, X } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Check, X } from "lucide-react";
 
 const sampleAnswers = [
-  { id: 1, text: 'What is a closure?', correct: true },
-  { id: 2, text: 'Explain the event loop', correct: true },
+  { id: 1, text: "What is a closure?", correct: true },
+  { id: 2, text: "Explain the event loop", correct: true },
   {
     id: 3,
-    text: 'What is the difference between let and var?',
+    text: "What is the difference between let and var?",
     correct: false,
   },
-  { id: 4, text: 'How does prototypal inheritance work?', correct: true },
+  { id: 4, text: "How does prototypal inheritance work?", correct: true },
   { id: 5, text: "What is the purpose of the 'this' keyword?", correct: false },
-  { id: 6, text: 'Explain async/await', correct: true },
-  { id: 7, text: 'What are Higher Order Components?', correct: false },
-  { id: 8, text: 'Describe the Virtual DOM', correct: true },
+  { id: 6, text: "Explain async/await", correct: true },
+  { id: 7, text: "What are Higher Order Components?", correct: false },
+  { id: 8, text: "Describe the Virtual DOM", correct: true },
   {
     id: 9,
-    text: 'What is the difference between null and undefined?',
+    text: "What is the difference between null and undefined?",
     correct: true,
   },
 ];
 
 export default function RoadmapGridItemOneAnimation() {
   const [currentAnswers, setCurrentAnswers] = useState(
-    sampleAnswers.slice(0, 3)
+    sampleAnswers.slice(0, 3),
   );
   const [isTransitioning, setIsTransitioning] = useState(false);
 

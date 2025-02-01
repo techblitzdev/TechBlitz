@@ -1,9 +1,9 @@
-import RoadmapGridItemOne from '@/components/marketing/features/roadmap/grid/roadmap-grid-item-one';
-import RoadmapGridItemTwo from '@/components/marketing/features/roadmap/grid/roadmap-grid-item-two';
+import RoadmapGridItemOne from "@/components/marketing/features/roadmap/grid/roadmap-grid-item-one";
+import RoadmapGridItemTwo from "@/components/marketing/features/roadmap/grid/roadmap-grid-item-two";
 
-import FeaturesContentHeader from '@/components/marketing/features/global/content-header';
-import HomepageHeroImages from '@/components/marketing/homepage/hero/hero-images';
-import RoadmapImg from '../../../../public/images/roadmap.png';
+import FeaturesContentHeader from "@/components/marketing/features/global/content-header";
+import HomepageHeroImages from "@/components/marketing/homepage/hero/hero-images";
+import RoadmapImg from "../../../../public/images/roadmap.png";
 
 const defaultDescription = () => {
   return (
@@ -23,12 +23,12 @@ export default function FeatureRoadmapThreeGridBlock(opts: {
 }) {
   const { title, description, cta } = opts;
   const roadmapIframe =
-    'https://customer-8s5ov2shcw99ezk2.cloudflarestream.com/ff823c820a5dc793c091f43ebae09d63/iframe?muted=true&poster=https%3A%2F%2Fcustomer-8s5ov2shcw99ezk2.cloudflarestream.com%2Fff823c820a5dc793c091f43ebae09d63%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600';
+    "https://customer-8s5ov2shcw99ezk2.cloudflarestream.com/ff823c820a5dc793c091f43ebae09d63/iframe?muted=true&poster=https%3A%2F%2Fcustomer-8s5ov2shcw99ezk2.cloudflarestream.com%2Fff823c820a5dc793c091f43ebae09d63%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600";
 
   return (
     <section className="py-16 px-4 md:pt-24 md:pb-32 flex flex-col gap-y-16">
       <FeaturesContentHeader
-        title={title || 'Coding roadmaps for everyone'}
+        title={title || "Coding roadmaps for everyone"}
         description={description || defaultDescription()}
         cta={cta}
       />
@@ -38,7 +38,7 @@ export default function FeatureRoadmapThreeGridBlock(opts: {
           className="left-1/2 bottom-0 w-full center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2"
           style={{
             background:
-              'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)',
+              "linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)",
           }}
         ></div>
         <RoadmapGridItemOne />

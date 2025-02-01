@@ -1,5 +1,5 @@
-'use client';
-import { Separator } from '@/components/ui/separator';
+"use client";
+import { Separator } from "@/components/ui/separator";
 
 export default function AdminLayout({
   children,

@@ -10,7 +10,7 @@ export default function Chip(opts: {
   const {
     text,
     color,
-    textColor = 'white',
+    textColor = "white",
     small = false,
     ghost = false,
     bold = true,
@@ -18,15 +18,15 @@ export default function Chip(opts: {
   } = opts;
 
   const baseClasses = small
-    ? 'text-[10px] px-1.5 py-0.5 font-onest'
-    : 'text-xs px-2 py-1 h-fit';
+    ? "text-[10px] px-1.5 py-0.5 font-onest"
+    : "text-xs px-2 py-1 h-fit";
 
   // Build classes based on ghost prop
   const colorClasses = ghost
     ? `${color} ${textColor} bg-transparent`
     : `${color} ${textColor}`;
 
-  const boldClasses = bold ? 'font-medium' : '';
+  const boldClasses = bold ? "font-medium" : "";
 
   const borderClasses = border || color;
 

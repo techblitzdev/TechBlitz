@@ -1,22 +1,22 @@
-import { getUserFromDb } from '@/actions/user/authed/get-user';
-import { NextRequest, NextResponse } from 'next/server';
+import { getUserFromDb } from "@/actions/user/authed/get-user";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
   {
-    params
+    params,
   }: {
     params: {
       uid: string;
     };
-  }
+  },
 ) {
   // get the userId from the params
   const userId = params.uid;
 
   if (!userId) {
     return NextResponse.json({
-      error: 'No user id provided'
+      error: "No user id provided",
     });
   }
 
@@ -25,7 +25,7 @@ export async function GET(
 
   if (!user || !user.uid) {
     return NextResponse.json({
-      error: 'No user found'
+      error: "No user found",
     });
   }
   return NextResponse.json(user);

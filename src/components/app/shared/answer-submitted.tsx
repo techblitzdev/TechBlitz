@@ -1,33 +1,33 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { CheckCircle, XCircle, ArrowRight, LinkIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { motion } from "framer-motion";
+import { CheckCircle, XCircle, ArrowRight, LinkIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { toast } from 'sonner';
-import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
-import LoadingSpinner from '@/components/ui/loading';
-import Link from 'next/link';
+} from "@/components/ui/select";
+import { toast } from "sonner";
+import CodeDisplay from "@/components/app/questions/single/layout/code-snippet";
+import LoadingSpinner from "@/components/ui/loading";
+import Link from "next/link";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { cn } from '@/lib/utils';
-import { formatSeconds } from '@/utils/time';
-import { useTransition } from 'react';
-import { updateAnswerDifficulty } from '@/actions/answers/answer';
-import { AnswerDifficulty } from '@prisma/client';
+} from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
+import { formatSeconds } from "@/utils/time";
+import { useTransition } from "react";
+import { updateAnswerDifficulty } from "@/actions/answers/answer";
+import { AnswerDifficulty } from "@prisma/client";
 
 interface QuestionResultProps {
-  correctAnswer: 'correct' | 'incorrect' | 'init';
+  correctAnswer: "correct" | "incorrect" | "init";
   userAnswer?: any;
   result?: any;
   question: any;
@@ -83,37 +83,37 @@ export default function QuestionResult({
 
   const copyLink = () => {
     navigator.clipboard.writeText(window.location.href);
-    toast.success('Question link copied to clipboard!');
+    toast.success("Question link copied to clipboard!");
   };
 
   const getResultMessage = () => {
     if (isCodeEditorQuestion) {
-      return correctAnswer === 'correct'
-        ? 'All test cases passed.'
+      return correctAnswer === "correct"
+        ? "All test cases passed."
         : "Some test cases failed, let's review:";
     }
-    return correctAnswer === 'correct'
-      ? 'You answered correctly!'
-      : 'That was incorrect, try again!';
+    return correctAnswer === "correct"
+      ? "You answered correctly!"
+      : "That was incorrect, try again!";
   };
 
   const handleDifficultySelect = async (value: AnswerDifficulty) => {
     try {
       if (!userAnswer?.uid) {
-        toast.error('No answer found to update difficulty');
+        toast.error("No answer found to update difficulty");
         return;
       }
 
       await updateAnswerDifficulty(
         userAnswer.uid,
         value.toUpperCase() as AnswerDifficulty,
-        isRoadmapQuestion
+        isRoadmapQuestion,
       );
 
-      toast.success('Question difficulty updated successfully');
+      toast.success("Question difficulty updated successfully");
     } catch (error) {
-      console.error('Error updating difficulty:', error);
-      toast.error('Failed to update question difficulty');
+      console.error("Error updating difficulty:", error);
+      toast.error("Failed to update question difficulty");
     }
   };
 
@@ -134,12 +134,12 @@ export default function QuestionResult({
       >
         <div className="flex w-full justify-between items-center">
           <h1 className="text-3xl font-bold">
-            {correctAnswer === 'correct' ? (
+            {correctAnswer === "correct" ? (
               <div className="flex items-center gap-x-2">
                 <CheckCircle className="size-7 text-green-500" />
                 {getResultMessage()}
               </div>
-            ) : correctAnswer === 'incorrect' ? (
+            ) : correctAnswer === "incorrect" ? (
               <div className="flex items-center gap-x-2">
                 <XCircle className="size-7 text-red-500" />
                 {getResultMessage()}
@@ -194,18 +194,18 @@ export default function QuestionResult({
                       : isRoadmapQuestion
                         ? question?.answers.find(
                             (answer: any) =>
-                              answer.uid === userAnswer?.answerUid
-                          )?.answer || ''
+                              answer.uid === userAnswer?.answerUid,
+                          )?.answer || ""
                         : question?.answers.find(
                             (answer: any) =>
-                              answer.uid === userAnswer?.userAnswerUid
-                          )?.answer || ''
+                              answer.uid === userAnswer?.userAnswerUid,
+                          )?.answer || ""
                   }
                   hideIndex={isRoadmapQuestion}
                 />
               )}
             </div>
-            {correctAnswer === 'incorrect' && showCorrectAnswer && (
+            {correctAnswer === "incorrect" && showCorrectAnswer && (
               <div className="flex flex-col gap-y-2">
                 <h2 className="text-lg font-bold">Correct Answer</h2>
                 <CodeDisplay
@@ -213,11 +213,12 @@ export default function QuestionResult({
                     isRoadmapQuestion
                       ? question?.answers.find(
                           (answer: any) =>
-                            answer.uid === question.correctAnswerUid
-                        )?.answer || ''
+                            answer.uid === question.correctAnswerUid,
+                        )?.answer || ""
                       : question?.answers.find(
-                          (answer: any) => answer.uid === question.correctAnswer
-                        )?.answer || ''
+                          (answer: any) =>
+                            answer.uid === question.correctAnswer,
+                        )?.answer || ""
                   }
                   hideIndex={isRoadmapQuestion}
                 />
@@ -234,18 +235,18 @@ export default function QuestionResult({
           {/** roadmap users get unlimited tokens - no need to show token count */}
           {!isRoadmapQuestion && (
             <p className="text-sm text-white">
-              You have{' '}
-              {user?.userLevel === 'PREMIUM' ? 'unlimited' : tokensUsed} tokens
+              You have{" "}
+              {user?.userLevel === "PREMIUM" ? "unlimited" : tokensUsed} tokens
               remaining <br />
-              {user?.userLevel === 'FREE' && (
+              {user?.userLevel === "FREE" && (
                 <span className="text-xs text-gray-400">
-                  (Free users get 20 tokens,{' '}
+                  (Free users get 20 tokens,{" "}
                   <Link
                     href="https://dub.sh/upgrade-techblitz"
                     className="text-accent underline"
                   >
                     upgrade to Premium
-                  </Link>{' '}
+                  </Link>{" "}
                   to get unlimited tokens!)
                 </span>
               )}
@@ -262,7 +263,7 @@ export default function QuestionResult({
             className="hidden lg:flex"
             wrapperClassName="w-fit"
           >
-            {isPending ? 'Generating...' : 'Explain Answer'}
+            {isPending ? "Generating..." : "Explain Answer"}
           </Button>
           <Button
             variant="secondary"
@@ -273,7 +274,7 @@ export default function QuestionResult({
             }}
             className="flex lg:hidden"
           >
-            {isPending ? 'Generating...' : 'Explain Answer'}
+            {isPending ? "Generating..." : "Explain Answer"}
           </Button>
         </div>
         {showQuestionDifficulty && (
@@ -307,8 +308,8 @@ export default function QuestionResult({
             </h2>
             <p className="text-sm text-gray-400">
               {isRoadmapQuestion
-                ? 'Your next roadmap question is:'
-                : 'Want to continue the flow? Click the button below to go to the next question.'}
+                ? "Your next roadmap question is:"
+                : "Want to continue the flow? Click the button below to go to the next question."}
             </p>
             <Button
               variant="secondary"
@@ -339,9 +340,9 @@ export default function QuestionResult({
               <div className="flex flex-col gap-y-2">
                 <h2 className="text-xl font-bold">Related Questions</h2>
                 <p className="text-sm text-gray-400">
-                  {correctAnswer === 'correct'
-                    ? 'Here are some questions that are similar to this one.'
-                    : 'Here are some questions that will help you understand this concept better.'}
+                  {correctAnswer === "correct"
+                    ? "Here are some questions that are similar to this one."
+                    : "Here are some questions that will help you understand this concept better."}
                 </p>
               </div>
               <motion.div
@@ -355,7 +356,7 @@ export default function QuestionResult({
                     key={question.slug}
                     href={`/question/${question.slug}`}
                     className={cn(
-                      'px-4 py-3 w-full flex justify-between items-center group bg-black-75 transition-colors'
+                      "px-4 py-3 w-full flex justify-between items-center group bg-black-75 transition-colors",
                     )}
                   >
                     <p className="text-sm text-white">{question.question}</p>

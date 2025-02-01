@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useLocalStorage } from '@/hooks/use-local-storage';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { X } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { sendInvite } from '@/actions/misc/send-invite';
+import { useEffect, useState } from "react";
+import { useLocalStorage } from "@/hooks/use-local-storage";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { X } from "lucide-react";
+import { motion } from "framer-motion";
+import { sendInvite } from "@/actions/misc/send-invite";
 
 export default function ReferralToast() {
   const { value: hasBeenShown, setValue: setHasBeenShown } = useLocalStorage({
-    key: 'referral-toast-shown',
+    key: "referral-toast-shown",
     defaultValue: false,
   });
 
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {

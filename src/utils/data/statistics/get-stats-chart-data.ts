@@ -1,7 +1,7 @@
-import { StatsChartData, StatsSteps } from '@/types/Stats';
-import { prisma } from '@/lib/prisma';
-import { getRange } from '@/utils/stats/get-range';
-import { revalidateTag } from 'next/cache';
+import { StatsChartData, StatsSteps } from "@/types/Stats";
+import { prisma } from "@/lib/prisma";
+import { getRange } from "@/utils/stats/get-range";
+import { revalidateTag } from "next/cache";
 
 /**
  * Method to get all the question data for the user and return it
@@ -14,7 +14,7 @@ const getStatsChartData = async (opts: {
   userUid: string;
   to: string;
   from: StatsSteps;
-  step: 'month' | 'week' | 'day';
+  step: "month" | "week" | "day";
 }) => {
   const { userUid, to, from, step } = opts;
 
@@ -58,15 +58,15 @@ const getStatsChartData = async (opts: {
     const year = currentDate.getFullYear();
 
     switch (step) {
-      case 'month':
+      case "month":
         key = `${currentDate.toISOString().slice(0, 7)},${year}`;
         break;
-      case 'week':
+      case "week":
         const weekStart = new Date(currentDate);
         weekStart.setDate(currentDate.getDate() - currentDate.getDay());
         key = `${weekStart.toISOString().slice(0, 10)},${year}`;
         break;
-      case 'day':
+      case "day":
         key = `${currentDate.toISOString().slice(0, 10)},${year}`;
         break;
     }
@@ -79,13 +79,13 @@ const getStatsChartData = async (opts: {
 
     // Increment date based on step
     switch (step) {
-      case 'month':
+      case "month":
         currentDate.setMonth(currentDate.getMonth() + 1);
         break;
-      case 'week':
+      case "week":
         currentDate.setDate(currentDate.getDate() + 8);
         break;
-      case 'day':
+      case "day":
         currentDate.setDate(currentDate.getDate() + 1);
         break;
     }
@@ -97,17 +97,17 @@ const getStatsChartData = async (opts: {
     const year = answer.createdAt.getFullYear();
 
     switch (step) {
-      case 'month':
+      case "month":
         key = `${answer.createdAt.toISOString().slice(0, 7)},${year}`;
         break;
-      case 'week':
+      case "week":
         const weekStart = new Date(answer.createdAt);
         weekStart.setDate(
-          answer.createdAt.getDate() - answer.createdAt.getDay()
+          answer.createdAt.getDate() - answer.createdAt.getDay(),
         );
         key = `${weekStart.toISOString().slice(0, 10)},${year}`;
         break;
-      case 'day':
+      case "day":
         key = `${answer.createdAt.toISOString().slice(0, 10)},${year}`;
         break;
     }
@@ -124,7 +124,7 @@ const getStatsChartData = async (opts: {
     }
   });
 
-  revalidateTag('statistics');
+  revalidateTag("statistics");
 
   return data;
 };
@@ -135,7 +135,7 @@ const getStatsChartData = async (opts: {
 const getTotalQuestionCount = async (
   userUid: string,
   to: string,
-  from: StatsSteps
+  from: StatsSteps,
 ) => {
   if (!userUid) {
     return null;
@@ -154,7 +154,7 @@ const getTotalQuestionCount = async (
     },
   });
 
-  revalidateTag('statistics');
+  revalidateTag("statistics");
 
   return questions;
 };
@@ -165,7 +165,7 @@ const getTotalQuestionCount = async (
 export const getTotalTimeTaken = async (
   userUid: string,
   to?: string,
-  from?: StatsSteps
+  from?: StatsSteps,
 ) => {
   if (!userUid) {
     return null;
@@ -181,7 +181,7 @@ export const getTotalTimeTaken = async (
   }
 
   const toDate = new Date(to || new Date().toISOString());
-  const fromDate = getRange(from || '7d');
+  const fromDate = getRange(from || "7d");
 
   const answers = await prisma.answers.findMany({
     where: {
@@ -198,10 +198,10 @@ export const getTotalTimeTaken = async (
 
   const totalTime = answers.reduce(
     (acc, answer) => acc + (answer.timeTaken || 0),
-    0
+    0,
   );
 
-  revalidateTag('statistics');
+  revalidateTag("statistics");
 
   return totalTime;
 };
@@ -212,7 +212,7 @@ export const getTotalTimeTaken = async (
 const getHighestScoringTag = async (
   userUid: string,
   to: string,
-  from: StatsSteps
+  from: StatsSteps,
 ) => {
   if (!userUid) {
     return null;
@@ -253,10 +253,10 @@ const getHighestScoringTag = async (
 
   const highestScoringTag = Object.keys(tagCounts).reduce(
     (a, b) => (tagCounts[a] > tagCounts[b] ? a : b),
-    ''
+    "",
   );
 
-  revalidateTag('statistics');
+  revalidateTag("statistics");
 
   return {
     tag: highestScoringTag,
@@ -268,7 +268,7 @@ export const getData = async (opts: {
   userUid: string;
   to: string;
   from: StatsSteps;
-  step: 'month' | 'week' | 'day';
+  step: "month" | "week" | "day";
 }) => {
   const { userUid, to, from } = opts;
 

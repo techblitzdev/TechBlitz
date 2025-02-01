@@ -8,8 +8,8 @@ import {
   Preview,
   Section,
   Text,
-} from '@react-email/components';
-import * as React from 'react';
+} from "@react-email/components";
+import * as React from "react";
 
 interface WaitlistConfirmationEmailProps {
   email: string;
@@ -113,70 +113,70 @@ const WaitlistConfirmationEmail = ({
 export default WaitlistConfirmationEmail;
 
 const main = {
-  backgroundColor: '#000000',
-  color: '#FFFFFF',
+  backgroundColor: "#000000",
+  color: "#FFFFFF",
   fontFamily: "'Onest', Verdana, sans-serif",
 };
 
 const container = {
-  margin: '0 auto',
-  padding: '40px 20px 48px',
-  width: '100%',
-  maxWidth: '600px',
-  textAlign: 'center' as const,
+  margin: "0 auto",
+  padding: "40px 20px 48px",
+  width: "100%",
+  maxWidth: "600px",
+  textAlign: "center" as const,
 };
 
 const logoContainer = {
-  marginTop: '32px',
-  marginBottom: '32px',
+  marginTop: "32px",
+  marginBottom: "32px",
 };
 
 const logo = {
-  margin: '0 auto',
+  margin: "0 auto",
 };
 
 const h1 = {
-  color: '#FFFFFF',
-  fontSize: '32px',
-  fontWeight: '700',
-  lineHeight: '40px',
-  margin: '0 0 20px',
-  textAlign: 'center' as const,
+  color: "#FFFFFF",
+  fontSize: "32px",
+  fontWeight: "700",
+  lineHeight: "40px",
+  margin: "0 0 20px",
+  textAlign: "center" as const,
 };
 
 const text = {
-  color: '#FFFFFF',
-  fontSize: '16px',
-  lineHeight: '24px',
-  textAlign: 'center' as const,
-  margin: '0 0 20px',
+  color: "#FFFFFF",
+  fontSize: "16px",
+  lineHeight: "24px",
+  textAlign: "center" as const,
+  margin: "0 0 20px",
 };
 
 const listContainer = {
-  margin: '0 0 32px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  gap: '24px', // Increased gap for better spacing
+  margin: "0 0 32px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "24px", // Increased gap for better spacing
 };
 
 const listItem = {
-  color: '#FFFFFF',
-  fontSize: '16px',
-  lineHeight: '24px',
-  display: 'inline-flex', // Align icons and links
-  alignItems: 'center', // Ensure vertical alignment
-  marginBottom: '8px',
+  color: "#FFFFFF",
+  fontSize: "16px",
+  lineHeight: "24px",
+  display: "inline-flex", // Align icons and links
+  alignItems: "center", // Ensure vertical alignment
+  marginBottom: "8px",
 };
 
 const footer = {
-  marginTop: '32px',
-  textAlign: 'center' as const,
+  marginTop: "32px",
+  textAlign: "center" as const,
 };
 
 const footerText = {
-  color: '#CCCCCC',
-  fontSize: '12px',
-  lineHeight: '16px',
-  margin: '4px 0',
+  color: "#CCCCCC",
+  fontSize: "12px",
+  lineHeight: "16px",
+  margin: "4px 0",
 };

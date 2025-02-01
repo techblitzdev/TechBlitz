@@ -1,17 +1,17 @@
-import { Question } from '@/types/Questions';
-import { Highlight, themes } from 'prism-react-renderer';
+import { Question } from "@/types/Questions";
+import { Highlight, themes } from "prism-react-renderer";
 
 // markdown to render the question description
-import Markdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
-import { use } from 'react';
-import HasAnswered from '@/components/app/questions/single/has-answered';
-import BookmarkQuestion from '@/components/app/questions/single/bookmark';
-import ShareQuestion from '@/components/app/shared/share-question';
-import Chip from '@/components/ui/chip';
-import { capitalise, getQuestionDifficultyColor } from '@/utils';
-import QuestionHintTrigger from '@/components/app/questions/question-hint-trigger';
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { useQuestionSingle } from "@/components/app/questions/single/layout/question-single-context";
+import { use } from "react";
+import HasAnswered from "@/components/app/questions/single/has-answered";
+import BookmarkQuestion from "@/components/app/questions/single/bookmark";
+import ShareQuestion from "@/components/app/shared/share-question";
+import Chip from "@/components/ui/chip";
+import { capitalise, getQuestionDifficultyColor } from "@/utils";
+import QuestionHintTrigger from "@/components/app/questions/question-hint-trigger";
 
 export default function CodingChallengeDescription(opts: {
   question: Question;
@@ -63,7 +63,7 @@ export default function CodingChallengeDescription(opts: {
                 <Highlight
                   theme={themes.vsDark}
                   code={
-                    typeof props.children === 'string' ? props.children : ''
+                    typeof props.children === "string" ? props.children : ""
                   }
                   language="javascript"
                 >
@@ -78,9 +78,9 @@ export default function CodingChallengeDescription(opts: {
                       className={className}
                       style={{
                         ...style,
-                        padding: '1rem',
-                        fontSize: '0.875rem',
-                        overflow: 'auto',
+                        padding: "1rem",
+                        fontSize: "0.875rem",
+                        overflow: "auto",
                       }}
                     >
                       {tokens.map((line, i) => (

@@ -1,6 +1,6 @@
-import AnimatedSpan from '@/components/ui/animated-span';
-import PersonalizedLeft from './left';
-import PersonalizedRight from './right';
+import AnimatedSpan from "@/components/ui/animated-span";
+import PersonalizedLeft from "./left";
+import PersonalizedRight from "./right";
 
 export default function Personalized() {
   return (
@@ -22,7 +22,7 @@ export default function Personalized() {
           className="hidden lg:block left-1/2 top-0 w-full center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2"
           style={{
             background:
-              'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)',
+              "linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)",
           }}
         ></div>
         <PersonalizedLeft />

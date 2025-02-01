@@ -1,33 +1,33 @@
-import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
+import CallToActionBlock from "@/components/marketing/global/blocks/call-to-action-block";
 import MarketingContentGrid, {
   type MarketingContentGridProps,
-} from '@/components/marketing/global/blocks/content-grid';
-import OpenSourceBlock from '@/components/marketing/global/open-source/open-source-block';
-import ResourceOpenSourceHeroBlock from '@/components/marketing/resources/open-source/open-source-hero';
-import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
-import { Building2Icon } from 'lucide-react';
-import { createMetadata } from '@/utils/seo';
+} from "@/components/marketing/global/blocks/content-grid";
+import OpenSourceBlock from "@/components/marketing/global/open-source/open-source-block";
+import ResourceOpenSourceHeroBlock from "@/components/marketing/resources/open-source/open-source-hero";
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import { Building2Icon } from "lucide-react";
+import { createMetadata } from "@/utils/seo";
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Open Source | TechBlitz',
+    title: "Open Source | TechBlitz",
     description:
-      'TechBlitz is open-source and community-driven. Learn more about our mission and how you can contribute to our platform.',
+      "TechBlitz is open-source and community-driven. Learn more about our mission and how you can contribute to our platform.",
     image: {
-      text: 'Open Source | TechBlitz',
-      bgColor: '#000',
-      textColor: '#fff',
+      text: "Open Source | TechBlitz",
+      bgColor: "#000",
+      textColor: "#fff",
     },
-    canonicalUrl: '/open-source',
+    canonicalUrl: "/open-source",
   });
 }
 
 const items: MarketingContentGridProps[] = [
   {
     icon: <MagnifyingGlassIcon width={24} height={24} />,
-    title: 'Transparency',
+    title: "Transparency",
     description:
-      'At TechBlitz, transparency is key. We openly share our source code to foster trust and collaboration with the developer community.',
+      "At TechBlitz, transparency is key. We openly share our source code to foster trust and collaboration with the developer community.",
   },
   {
     icon: (
@@ -43,15 +43,15 @@ const items: MarketingContentGridProps[] = [
         />
       </svg>
     ),
-    title: 'Community-driven',
+    title: "Community-driven",
     description:
-      'Our thriving community shapes TechBlitz’s direction. Share your ideas and help us create tools and features that meet your needs.',
+      "Our thriving community shapes TechBlitz’s direction. Share your ideas and help us create tools and features that meet your needs.",
   },
   {
     icon: <Building2Icon size={24} />,
-    title: 'Cutting-edge Education',
+    title: "Cutting-edge Education",
     description:
-      'Stay ahead in tech with TechBlitz. Our innovative platform delivers targeted, AI-powered learning tools to enhance your skills effectively.',
+      "Stay ahead in tech with TechBlitz. Our innovative platform delivers targeted, AI-powered learning tools to enhance your skills effectively.",
   },
 ];
 

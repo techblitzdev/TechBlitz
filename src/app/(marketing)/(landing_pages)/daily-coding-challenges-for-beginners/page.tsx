@@ -1,57 +1,57 @@
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { createMetadata, WebPageJsonLdBreadcrumb } from "@/utils/seo";
 
-import { WebPageJsonLd } from '@/types/Seo';
-import { getBaseUrl } from '@/utils';
-import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
-import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
-import FAQsBlock from '@/components/marketing/global/blocks/faqs';
-import Link from 'next/link';
-import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/hero/daily-challenge-hero';
-import ComparisonBlock from '@/components/marketing/homepage/comparison/comparison-block';
-import FeatureLeftRightSection from '@/components/marketing/features/daily-challenge/feature-left-right/features-section';
-import MarketingContentGrid from '@/components/marketing/global/blocks/content-grid';
-import { MobileIcon } from '@radix-ui/react-icons';
+import { WebPageJsonLd } from "@/types/Seo";
+import { getBaseUrl } from "@/utils";
+import CallToActionBlock from "@/components/marketing/global/blocks/call-to-action-block";
+import QuestionMarquee from "@/components/marketing/global/blocks/question-marquee";
+import FAQsBlock from "@/components/marketing/global/blocks/faqs";
+import Link from "next/link";
+import FeatureDailyChallengeHero from "@/components/marketing/features/daily-challenge/hero/daily-challenge-hero";
+import ComparisonBlock from "@/components/marketing/homepage/comparison/comparison-block";
+import FeatureLeftRightSection from "@/components/marketing/features/daily-challenge/feature-left-right/features-section";
+import MarketingContentGrid from "@/components/marketing/global/blocks/content-grid";
+import { MobileIcon } from "@radix-ui/react-icons";
 
 const faqs = [
   {
-    question: 'What are daily coding challenges?',
+    question: "What are daily coding challenges?",
     answer:
-      'Daily coding challenges are short, real-world problems that you can solve in 5 minutes or less.',
+      "Daily coding challenges are short, real-world problems that you can solve in 5 minutes or less.",
   },
   {
-    question: 'How do daily coding challenges help beginners?',
+    question: "How do daily coding challenges help beginners?",
     answer:
-      'Daily coding challenges are designed to help beginners learn essential coding skills faster than ever. They are designed to be challenging, but not too difficult, so that you can learn essential coding skills faster than ever.',
+      "Daily coding challenges are designed to help beginners learn essential coding skills faster than ever. They are designed to be challenging, but not too difficult, so that you can learn essential coding skills faster than ever.",
   },
   {
-    question: 'How do I get started?',
+    question: "How do I get started?",
     answer: (
       <>
         <Link href="/signup" className="text-accent">
           Sign up here
-        </Link>{' '}
+        </Link>{" "}
         to access a world of free daily coding challenges. TechBlitz is your
         gateway to mastering coding skills with ease and efficiency.
       </>
     ),
   },
   {
-    question: 'What makes TechBlitz different?',
+    question: "What makes TechBlitz different?",
     answer:
-      'We ensure all challenges mimic real-world problems. Ensuring you can learn essential coding skills faster than ever. From JavaScript, Node.js, React, and more, we have you covered.',
+      "We ensure all challenges mimic real-world problems. Ensuring you can learn essential coding skills faster than ever. From JavaScript, Node.js, React, and more, we have you covered.",
   },
   {
-    question: 'What if I get stuck?',
+    question: "What if I get stuck?",
     answer:
-      'If you need help, it is only a click away. With our AI assistant, you can get help with your coding challenges in seconds. Ensuring you get the help you need to solve your coding challenges.',
+      "If you need help, it is only a click away. With our AI assistant, you can get help with your coding challenges in seconds. Ensuring you get the help you need to solve your coding challenges.",
   },
   {
-    question: 'How do I track my progress?',
+    question: "How do I track my progress?",
     answer: (
       <>
         With our progress tracker, you can track your progress on your coding
         challenges. Ensuring you can see your progress and celebrate your
-        achievements. Find out more{' '}
+        achievements. Find out more{" "}
         <Link href="/features/statistics" className="text-accent">
           here
         </Link>
@@ -60,12 +60,12 @@ const faqs = [
     ),
   },
   {
-    question: 'What if I want to learn more?',
+    question: "What if I want to learn more?",
     answer: (
       <>
         We update our coding question suite with new challenges every day.
         Ensuring you can learn essential coding skills faster than ever. You can
-        view the question suite{' '}
+        view the question suite{" "}
         <Link href="/questions" className="text-accent">
           here
         </Link>
@@ -90,9 +90,9 @@ const items = [
         />
       </svg>
     ),
-    title: 'Vibrant JavaScript Community',
+    title: "Vibrant JavaScript Community",
     description:
-      'Help shape the future of TechBlitz. Share your ideas, feedback, and suggestions to improve our platform. Perfect for those engaging in daily coding challenges for beginners.',
+      "Help shape the future of TechBlitz. Share your ideas, feedback, and suggestions to improve our platform. Perfect for those engaging in daily coding challenges for beginners.",
   },
   {
     icon: (
@@ -115,9 +115,9 @@ const items = [
         </g>
       </svg>
     ),
-    title: 'Bite-sized Learning',
+    title: "Bite-sized Learning",
     description:
-      'Master complex JavaScript concepts in just 15 minutes a day with our expertly crafted micro-challenges. Perfect for busy developers looking for daily coding challenges.',
+      "Master complex JavaScript concepts in just 15 minutes a day with our expertly crafted micro-challenges. Perfect for busy developers looking for daily coding challenges.",
   },
   {
     icon: (
@@ -133,15 +133,15 @@ const items = [
         />
       </svg>
     ),
-    title: 'Daily JavaScript Challenges',
+    title: "Daily JavaScript Challenges",
     description:
-      'Daily coding challenges for beginners to improve your JavaScript skills. Learn to code for free, with our short-form, interactive coding challenges from a range of topics including JavaScript, React, Node.js, web development, and more.',
+      "Daily coding challenges for beginners to improve your JavaScript skills. Learn to code for free, with our short-form, interactive coding challenges from a range of topics including JavaScript, React, Node.js, web development, and more.",
   },
   {
     icon: <MobileIcon className="size-6" />,
-    title: 'Seamless Mobile Learning',
+    title: "Seamless Mobile Learning",
     description:
-      'Learn JavaScript on your phone. Practice during commutes or breaks with our optimized mobile interface - never miss a day of learning.',
+      "Learn JavaScript on your phone. Practice during commutes or breaks with our optimized mobile interface - never miss a day of learning.",
   },
   {
     icon: (
@@ -157,9 +157,9 @@ const items = [
         />
       </svg>
     ),
-    title: 'Instant Feedback',
+    title: "Instant Feedback",
     description:
-      'Get real-time feedback on your coding challenges. Learn from mistakes and improve faster.',
+      "Get real-time feedback on your coding challenges. Learn from mistakes and improve faster.",
   },
   {
     icon: (
@@ -182,63 +182,63 @@ const items = [
         </g>
       </svg>
     ),
-    title: 'Advanced Analytics',
+    title: "Advanced Analytics",
     description:
-      'Visualize your JavaScript coding journey with detailed performance metrics. Track your progress across topics, algorithms, and problem-solving patterns.',
+      "Visualize your JavaScript coding journey with detailed performance metrics. Track your progress across topics, algorithms, and problem-solving patterns.",
   },
 ];
 
 // metadata
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Daily Coding Challenges for Beginners | TechBlitz',
+    title: "Daily Coding Challenges for Beginners | TechBlitz",
     description:
-      'TechBlitz transforms your coding journey into a personalized, engaging, and effective experience. Ensuring you learn essential coding skills faster than ever.',
+      "TechBlitz transforms your coding journey into a personalized, engaging, and effective experience. Ensuring you learn essential coding skills faster than ever.",
     image: {
-      text: 'Daily Coding Challenges for Beginners | TechBlitz',
-      bgColor: '#000',
-      textColor: '#fff',
+      text: "Daily Coding Challenges for Beginners | TechBlitz",
+      bgColor: "#000",
+      textColor: "#fff",
     },
-    canonicalUrl: '/daily-coding-challenges-for-beginners',
+    canonicalUrl: "/daily-coding-challenges-for-beginners",
   });
 }
 
 export default function DailyCodingChallengesForBeginnersPage() {
   const jsonLd: WebPageJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
+    "@context": "https://schema.org",
+    "@type": "WebPage",
     url: getBaseUrl(),
-    headline: 'Daily Coding Challenges for Beginners | TechBlitz',
+    headline: "Daily Coding Challenges for Beginners | TechBlitz",
     description:
-      'Embark on a transformative coding journey with TechBlitz. Our platform offers personalized, engaging challenges that accelerate your learning of essential coding skills.',
+      "Embark on a transformative coding journey with TechBlitz. Our platform offers personalized, engaging challenges that accelerate your learning of essential coding skills.",
     image:
-      'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
+      "https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531",
     breadcrumb: WebPageJsonLdBreadcrumb,
     author: {
-      '@type': 'Organization',
-      name: 'TechBlitz',
+      "@type": "Organization",
+      name: "TechBlitz",
       url: getBaseUrl(),
     },
     dateModified: new Date().toISOString(),
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': getBaseUrl(),
+      "@type": "WebPage",
+      "@id": getBaseUrl(),
     },
     keywords:
-      'Daily coding challenges for beginners, coding challenges for beginners, daily coding challenges, coding challenges, beginner coding challenges, coding challenges for beginners, daily coding challenges for beginners, coding challenges for beginners, beginner coding challenges for beginners',
+      "Daily coding challenges for beginners, coding challenges for beginners, daily coding challenges, coding challenges, beginner coding challenges, coding challenges for beginners, daily coding challenges for beginners, coding challenges for beginners, beginner coding challenges for beginners",
     publisher: {
-      '@type': 'Organization',
-      name: 'TechBlitz',
+      "@type": "Organization",
+      name: "TechBlitz",
       logo: {
-        '@type': 'ImageObject',
-        url: 'https://techblitz.dev/favicon.ico',
+        "@type": "ImageObject",
+        url: "https://techblitz.dev/favicon.ico",
       },
     },
     potentialAction: {
-      '@type': 'SearchAction',
+      "@type": "SearchAction",
       target: `${getBaseUrl()}/search?q={search_term_string}`,
-      'query-input': 'required name=search_term_string',
+      "query-input": "required name=search_term_string",
     },
   };
 

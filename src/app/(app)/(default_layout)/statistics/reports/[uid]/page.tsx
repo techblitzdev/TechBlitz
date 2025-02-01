@@ -1,7 +1,7 @@
-import { getReport } from '@/utils/data/statistics/reports/get-report';
-import StatisticsReportContent from '@/components/app/statistics/statistics-report-content';
-import { useUserServer } from '@/hooks/use-user-server';
-import UpgradeLayout from '@/components/app/shared/upgrade-layout';
+import { getReport } from "@/utils/data/statistics/reports/get-report";
+import StatisticsReportContent from "@/components/app/statistics/statistics-report-content";
+import { useUserServer } from "@/hooks/use-user-server";
+import UpgradeLayout from "@/components/app/shared/upgrade-layout";
 
 export default async function StatisticsReportPage({
   params,
@@ -12,7 +12,7 @@ export default async function StatisticsReportPage({
   const report = await getReport(uid);
 
   const user = await useUserServer();
-  if (!user || user.userLevel === 'FREE') {
+  if (!user || user.userLevel === "FREE") {
     return (
       <UpgradeLayout
         title="Reports"

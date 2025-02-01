@@ -7,29 +7,29 @@
  */
 export const formatSeconds = (seconds: number, shortForm?: boolean) => {
   if (seconds < 0) {
-    return 'Invalid input';
+    return "Invalid input";
   }
 
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
 
-  let result = '';
+  let result = "";
 
   if (minutes > 0) {
     result += `${minutes}${
-      shortForm ? 'm' : ` minute${minutes !== 1 ? 's' : ''}`
+      shortForm ? "m" : ` minute${minutes !== 1 ? "s" : ""}`
     }`;
   }
 
   if (remainingSeconds > 0) {
     if (result) {
-      result += ' ';
+      result += " ";
     }
     result += `${remainingSeconds}s`;
   }
 
   if (!result) {
-    result = '0s';
+    result = "0s";
   }
 
   return result;
@@ -42,8 +42,8 @@ export const timeAgo = (createdAt: Date) => {
   const diff = now.getTime() - created.getTime();
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-  if (days === 0) return 'Today';
-  if (days === 1) return 'Yesterday';
+  if (days === 0) return "Today";
+  if (days === 1) return "Yesterday";
   if (days < 7) return `${days} days ago`;
   return created.toLocaleDateString();
 };

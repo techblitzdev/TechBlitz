@@ -1,20 +1,20 @@
-import StatsRangePicker from '@/components/app/statistics/range-picker';
-import QuestionChart from '@/components/app/statistics/total-question-chart';
+import StatsRangePicker from "@/components/app/statistics/range-picker";
+import QuestionChart from "@/components/app/statistics/total-question-chart";
 
-import { useUserServer } from '@/hooks/use-user-server';
-import { StatsSteps } from '@/types/Stats';
+import { useUserServer } from "@/hooks/use-user-server";
+import { StatsSteps } from "@/types/Stats";
 
-import { STATISTICS } from '@/utils/constants/statistics-filters';
+import { STATISTICS } from "@/utils/constants/statistics-filters";
 
-import { getData } from '@/utils/data/statistics/get-stats-chart-data';
-import Hero from '@/components/shared/hero';
-import SuggestedQuestions from '@/components/app/statistics/suggested-questions';
-import StatisticsReport from '@/components/app/statistics/statistics-report';
-import StatisticsOverviewMenu from '@/components/app/statistics/statistics-overview-menu';
+import { getData } from "@/utils/data/statistics/get-stats-chart-data";
+import Hero from "@/components/shared/hero";
+import SuggestedQuestions from "@/components/app/statistics/suggested-questions";
+import StatisticsReport from "@/components/app/statistics/statistics-report";
+import StatisticsOverviewMenu from "@/components/app/statistics/statistics-overview-menu";
 
 export const metadata = {
-  title: 'Statistics | techblitz',
-  description: 'View your coding statistics and progress',
+  title: "Statistics | techblitz",
+  description: "View your coding statistics and progress",
 };
 
 export default async function StatisticsPage({
@@ -29,7 +29,7 @@ export default async function StatisticsPage({
   }
 
   // Get and validate range param
-  const range = (searchParams.range as StatsSteps) || '7d';
+  const range = (searchParams.range as StatsSteps) || "7d";
   const { step } = STATISTICS[range];
 
   // Prefetch data

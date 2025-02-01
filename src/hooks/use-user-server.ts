@@ -1,8 +1,8 @@
 import {
   getUserFromDb,
   getUserFromSession,
-} from '@/actions/user/authed/get-user';
-import { cache } from 'react';
+} from "@/actions/user/authed/get-user";
+import { cache } from "react";
 
 export const useUserServer = cache(async () => {
   const userSession = await getUserFromSession();
@@ -10,7 +10,7 @@ export const useUserServer = cache(async () => {
 
   const userData = await getUserFromDb(userSession?.data?.user?.id);
   if (!userData) {
-    console.error('No user data found');
+    console.error("No user data found");
     return null;
   }
 

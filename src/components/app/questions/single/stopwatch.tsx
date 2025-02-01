@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { formatSeconds } from '@/utils/time';
-import { Clock } from 'lucide-react';
+import { formatSeconds } from "@/utils/time";
+import { Clock } from "lucide-react";
 
 export default function Stopwatch(otps: { totalSeconds: number }) {
   const { totalSeconds } = otps;

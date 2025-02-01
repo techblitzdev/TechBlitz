@@ -1,8 +1,8 @@
-'use server';
-import { prisma } from '@/lib/prisma';
-import { fetchRoadmapQuestion } from '@/utils/data/roadmap/questions/fetch-roadmap-question';
-import { redirect } from 'next/navigation';
-import { revalidateTag } from 'next/cache';
+"use server";
+import { prisma } from "@/lib/prisma";
+import { fetchRoadmapQuestion } from "@/utils/data/roadmap/questions/fetch-roadmap-question";
+import { redirect } from "next/navigation";
+import { revalidateTag } from "next/cache";
 
 export const answerRoadmapQuestion = async (opts: {
   questionUid: string;
@@ -17,7 +17,7 @@ export const answerRoadmapQuestion = async (opts: {
 
   // Get and validate question
   const question = await fetchRoadmapQuestion(questionUid);
-  if (!question) throw new Error('Question not found');
+  if (!question) throw new Error("Question not found");
 
   const correctAnswer = question.correctAnswerUid === answerUid;
 
@@ -25,7 +25,7 @@ export const answerRoadmapQuestion = async (opts: {
   const existingAnswer = await prisma.roadmapUserQuestionsUserAnswers.findFirst(
     {
       where: { questionUid },
-    }
+    },
   );
 
   const answerData = {
@@ -69,7 +69,7 @@ export const answerRoadmapQuestion = async (opts: {
   if (unansweredQuestions.length === 0) {
     await prisma.userRoadmaps.update({
       where: { uid: roadmapUid },
-      data: { status: 'COMPLETED' },
+      data: { status: "COMPLETED" },
     });
   } else {
     nextQuestion = await prisma.roadmapUserQuestions.findFirst({
@@ -84,7 +84,7 @@ export const answerRoadmapQuestion = async (opts: {
     }
   }
 
-  revalidateTag('roadmap-list');
+  revalidateTag("roadmap-list");
 
   return { userAnswer, nextQuestion };
 };

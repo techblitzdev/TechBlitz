@@ -7,11 +7,11 @@ import ChangeCodeTheme from '@/components/app/questions/single/layout/change-cod
 import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal';
 import { BookIcon, BookOpen, FileIcon, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import QuestionTabs, { type TabConfig } from '@/components/app/shared/question-tabs';
+import QuestionTabs, { type TabConfig } from '@/components/app/shared/question/question-tabs';
 import { useRoadmapQuestion } from './[uid]/layout/roadmap-question-context';
 import QuestionAccordion from '@/components/app/questions/single/question-accordion';
 import QuestionResult from '../../shared/answer-submitted';
-import QuestionCodeDisplay from '../../shared/question-code-display';
+import QuestionCodeDisplay from '../../shared/question/question-code-display';
 import RoadmapQuestionTabs from './[uid]/layout/roadmap-question-tabs';
 import QuestionResourceTab from '../../questions/resources/question-resource-tab';
 

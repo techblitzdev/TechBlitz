@@ -16,7 +16,7 @@ import { BarChart, BookIcon, PieChart } from 'lucide-react';
 import { BookOpen } from 'lucide-react';
 import { FileIcon, FileText } from 'lucide-react';
 import QuestionHintTrigger from '@/components/app/questions/question-hint-trigger';
-import ShareQuestion from '../../shared/share-question';
+import ShareQuestion from '@/components/app/shared/question/share-question';
 
 interface QuestionTabsProps {
   question: Question;
@@ -89,7 +89,7 @@ export default function QuestionTabs({
           <CodingChallengeDescription question={question} />
         ) : (
           <div className="flex flex-col gap-4 p-4 pt-0">
-            <div className="flex w-full justify-between gap-5 mb-5">
+            <div className="flex flex-wrap md:flex-nowrap w-full justify-between gap-5 mb-5">
               <div className="flex w-full gap-2 items-center">
                 <Chip
                   color={getQuestionDifficultyColor(question.difficulty).bg}

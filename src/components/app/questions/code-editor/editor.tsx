@@ -1,28 +1,53 @@
 'use client';
 
-import React from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Editor } from '@monaco-editor/react';
 import LoadingSpinner from '@/components/ui/loading';
 import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
 import TestCaseDisplay from './test-case-display';
 import { capitalize } from 'lodash';
 import { AnimatePresence } from 'framer-motion';
+import { useMonaco } from '@monaco-editor/react';
+import { CODING_FACTS } from '@/utils/constants/coding-facts';
+
+// memo the LoadingState component to prevent re-renders
+const LoadingState = memo(function LoadingState() {
+  // Use useState instead of useMemo to persist the random fact between re-renders
+  const [randomFact] = useState(
+    () => CODING_FACTS[Math.floor(Math.random() * CODING_FACTS.length)]
+  );
+
+  return (
+    <div className="w-full relative flex flex-col items-center justify-center max-w-xl px-10">
+      <LoadingSpinner />
+      {/** a random coding fact */}
+      <p className="text-gray-200">{randomFact}</p>
+    </div>
+  );
+});
 
 export default function CodeEditor(opts: { defaultCode: string }) {
-  //  const monaco = useMonaco();
-  //
-  //monaco?.editor.defineTheme('vs-dark', {
-  //  base: 'vs-dark',
-  //  inherit: true,
-  //  rules: [],
-  //  encodedTokensColors: [],
-  //  colors: {
-  //    'editor.background': '#0e0e0e',
-  //  },
-  //});
+  const monaco = useMonaco();
+
+  monaco?.editor.defineTheme('vs-dark', {
+    base: 'vs-dark',
+    inherit: true,
+    rules: [],
+    encodedTokensColors: [],
+    colors: {
+      'editor.background': '#0e0e0e',
+    },
+  });
 
   const { defaultCode } = opts;
-  const { setCode, currentLayout, answerHelp } = useQuestionSingle();
+  const { setCode, currentLayout, answerHelp, code } = useQuestionSingle();
+
+  // when the code changes (from a reset) we need to update the code in the editor
+  useEffect(() => {
+    if (code !== defaultCode) {
+      setCode(code);
+    }
+  }, [code]);
 
   if (answerHelp) {
     return (
@@ -51,9 +76,9 @@ export default function CodeEditor(opts: { defaultCode: string }) {
   return (
     <div className="w-full relative">
       <Editor
-        height="83vh"
+        height="90vh"
         defaultLanguage="javascript"
-        defaultValue={defaultCode}
+        defaultValue={code || defaultCode}
         onChange={(value) => setCode(value || '')}
         theme="vs-dark"
         language="javascript"
@@ -71,7 +96,7 @@ export default function CodeEditor(opts: { defaultCode: string }) {
           },
         }}
         className="bg-black-50 !overflow-y-auto !scrollable-element"
-        loading={<LoadingSpinner />}
+        loading={<LoadingState />}
       />
     </div>
   );

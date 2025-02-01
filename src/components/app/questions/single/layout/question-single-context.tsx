@@ -127,7 +127,12 @@ export const QuestionSingleContextProvider = ({
   const [nextQuestion, setNextQuestion] = useState<string | null | undefined>(null);
   const [previousQuestion, setPreviousQuestion] = useState<string | null | undefined>(null);
   // Stopwatch for tracking time
-  const { pause, reset, totalSeconds } = useStopwatch({ autoStart: true });
+  const { pause, reset, totalSeconds } = {
+    pause: () => {},
+    reset: () => {},
+    totalSeconds: 0,
+  };
+  // useStopwatch({ autoStart: true });
 
   // EFFECTS
   useEffect(() => {
@@ -269,7 +274,9 @@ export const QuestionSingleContextProvider = ({
 
   // Reset the question state
   const resetQuestionState = () => {
+    // reset the stopwatch
     reset();
+    // reset the question state
     setCorrectAnswer('init');
     setUserAnswer(null);
     setNewUserData(null);
@@ -281,6 +288,9 @@ export const QuestionSingleContextProvider = ({
     setAnswerHelp(null);
     setCode(question.codeSnippet || '');
     setResult(null);
+
+    // reset the code editor
+    setCode(question.codeSnippet || '');
   };
 
   return (

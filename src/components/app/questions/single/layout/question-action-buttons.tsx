@@ -1,18 +1,38 @@
 'use client';
+
 import { Button } from '@/components/ui/button';
 import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
-import { RefreshCcwIcon } from 'lucide-react';
+import { CheckIcon, RefreshCcwIcon } from 'lucide-react';
+import { AnimatedStopwatchButton } from '@/components/app/shared/question/question-timer';
+import { useState, useEffect } from 'react';
 
 export default function QuestionActionButtons() {
   const { resetQuestionState, submitAnswer, isSubmitting, selectedAnswer, user, question, code } =
     useQuestionSingle();
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+  const [stopwatchOffset, setStopwatchOffset] = useState(new Date());
+
+  useEffect(() => {
+    // Reset the stopwatch offset when the component mounts
+    setStopwatchOffset(new Date());
+  }, []);
+
+  const handleTimerToggle = () => {
+    setIsTimerRunning((prev) => !prev);
+  };
+
+  const handleReset = () => {
+    resetQuestionState();
+    setStopwatchOffset(new Date());
+    setIsTimerRunning(false);
+  };
 
   return (
-    <div className="flex gap-x-1 md:gap-x-3 items-center">
-      <Button variant="destructive" onClick={resetQuestionState}>
+    <div className="flex gap-x-1 md:gap-x-2 items-center">
+      <Button variant="destructive" onClick={handleReset}>
         <span className="hidden md:block">Reset</span>
         <span className="block md:hidden">
-          <RefreshCcwIcon className="w-4 h-4" />
+          <RefreshCcwIcon className="size-4" />
         </span>
       </Button>
       {user ? (
@@ -22,7 +42,10 @@ export default function QuestionActionButtons() {
             disabled={isSubmitting || (!selectedAnswer && !code)}
             className="text-green-500"
           >
-            Submit
+            <span className="hidden md:block">Submit</span>
+            <span className="block md:hidden">
+              <CheckIcon className="size-4" />
+            </span>
           </Button>
         </form>
       ) : (
@@ -30,6 +53,7 @@ export default function QuestionActionButtons() {
           Login to Submit
         </Button>
       )}
+      <AnimatedStopwatchButton onToggle={handleTimerToggle} stopwatchOffset={stopwatchOffset} />
     </div>
   );
 }

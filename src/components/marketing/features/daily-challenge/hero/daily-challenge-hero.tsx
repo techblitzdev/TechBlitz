@@ -2,14 +2,20 @@ import AnimatedSpan from '@/components/ui/animated-span';
 import { Button } from '@/components/ui/button';
 import GridPattern from '@/components/ui/grid-pattern';
 import { cn } from '@/lib/utils';
-import DailyChallengeCTA from './daily-challenge-cta';
-
 export default function FeatureDailyChallengeHero(opts: {
   header?: string;
   subheader?: string;
   animatedSpan?: string;
+  leftCta?: {
+    title: string;
+    href: string;
+  } | null;
+  rightCta?: {
+    title: string;
+    href: string;
+  } | null;
 }) {
-  const { header, subheader, animatedSpan } = opts;
+  const { header, subheader, animatedSpan, leftCta, rightCta } = opts;
 
   return (
     <section className="relative flex gap-10 text-white overflow-hidden justify-center">
@@ -31,10 +37,39 @@ export default function FeatureDailyChallengeHero(opts: {
         </p>
 
         <div className="flex flex-col items-center md:flex-row gap-4">
-          <Button variant="accent" className="flex items-center gap-2">
-            Sign up
-          </Button>
-          <DailyChallengeCTA />
+          {/** if we pass in leftCta, we render it, otherwise, we fallback to the default */}
+          {leftCta ? (
+            <Button
+              variant="accent"
+              className="flex items-center gap-2"
+              href={leftCta.href}
+            >
+              {leftCta.title}
+            </Button>
+          ) : (
+            <Button variant="accent" className="flex items-center gap-2">
+              Sign up
+            </Button>
+          )}
+
+          {/** if we pass in rightCta, we render it, otherwise, we fallback to the default */}
+          {rightCta ? (
+            <Button
+              variant="default"
+              className="flex items-center gap-2"
+              href={rightCta.href}
+            >
+              {rightCta.title}
+            </Button>
+          ) : (
+            <Button
+              variant="default"
+              className="flex items-center gap-2"
+              href={`/study-paths`}
+            >
+              Explore study paths
+            </Button>
+          )}
         </div>
       </div>
 

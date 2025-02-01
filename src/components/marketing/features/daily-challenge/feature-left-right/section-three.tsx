@@ -47,7 +47,12 @@ class SmartCache {
 // Example usage: 
 const cache = new SmartCache({ maxAge: 300, maxSize: 100 });`;
 
-export default function FeatureLeftRightSectionOne() {
+export default function FeatureLeftRightSectionThree(opts: {
+  rightHeader?: string;
+  rightSubheader?: string;
+}) {
+  const { rightHeader, rightSubheader } = opts;
+
   return (
     <LeftRightBlock
       left={
@@ -67,12 +72,12 @@ export default function FeatureLeftRightSectionOne() {
       right={
         <div className="flex flex-col gap-y-6">
           <h2 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
-            Learn to Code for Free with Daily JavaScript Challenges
+            {rightHeader ? rightHeader : 'Learn to Code for Free with Daily JavaScript Challenges'}
           </h2>
           <p className="text-white/70 max-w-xl text-base font-onest">
-            Master web development through hands-on practice with our free daily coding challenges.
-            Perfect for learning JavaScript and essential tech skills, our platform works seamlessly
-            on both desktop and phone – making it easy to learn to code anywhere, anytime.
+            {rightSubheader
+              ? rightSubheader
+              : 'Master web development through hands-on practice with our free daily coding challenges. Perfect for learning JavaScript and essential tech skills, our platform works seamlessly on both desktop and phone – making it easy to learn to code anywhere, anytime.'}
           </p>
           <p className="text-white/70 max-w-xl text-base font-onest">
             Each challenge includes a built-in tech skills assessment to track your progress as you

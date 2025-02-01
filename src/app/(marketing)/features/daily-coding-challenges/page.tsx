@@ -204,7 +204,7 @@ export default function FeatureDailyQuestionPage() {
         <FeatureLeftRightSection />
 
         <QuestionMarquee
-          header="100's of coding challenges"
+          header="300+ of coding challenges"
           subheader="From your first challenge to your first job. TechBlitz assists you every step of the way."
           cta={true}
         />

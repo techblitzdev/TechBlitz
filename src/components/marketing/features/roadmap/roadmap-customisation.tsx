@@ -1,12 +1,13 @@
 import RoadmapQuestionCard from '@/components/app/roadmaps/questions/[uid]/question-card';
 import AnimatedSpan from '@/components/ui/animated-span';
+import { cn } from '@/lib/utils';
 
 import { RoadmapUserQuestions } from '@/types/Roadmap';
 
 const dummyQuestions: Partial<RoadmapUserQuestions>[] = [
   {
-    uid: 'question-1',
-    question: 'What is the time complexity of binary search?',
+    uid: 'find-largest-number',
+    question: 'Find the Largest Number in an Array',
     difficulty: 'EASY',
     completed: true,
     userCorrect: true,
@@ -32,24 +33,26 @@ const dummyQuestions: Partial<RoadmapUserQuestions>[] = [
     completed: true,
     userCorrect: false,
   },
-  {
-    uid: 'question-5',
-    question: 'What are the key features of TypeScript?',
-    difficulty: 'EASY',
-    completed: true,
-    userCorrect: true,
-  },
 ];
 
 const dummyRoadmapUid = 'roadmap-12345';
 
 const dummyTotalQuestions = dummyQuestions.length;
 
-export default function FeatureRoadmapCustomizationBlock() {
+interface FeatureRoadmapCustomizationBlockProps {
+  className?: string;
+}
+
+export default function FeatureRoadmapCustomizationBlock({
+  className,
+}: FeatureRoadmapCustomizationBlockProps) {
   return (
     <section
       id="roadmap-customization"
-      className="pt-24 pb-32 grid grid-cols-12 gap-8 items-center overflow-hidden relative"
+      className={cn(
+        'pt-24 pb-32 grid grid-cols-12 gap-12 items-center overflow-hidden relative',
+        className
+      )}
     >
       <div className="flex flex-col gap-y-4 col-span-full md:col-span-5">
         <AnimatedSpan content="Personalized" />

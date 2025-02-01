@@ -1,2 +1,9 @@
+.expo
+.next
+node_modules
+package-lock.json
+apps/**/out
+
 # Ignore all files in the src/components/mdx directory
 *.mdx
+

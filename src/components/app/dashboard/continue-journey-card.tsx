@@ -66,18 +66,18 @@ export default async function ContinueJourneyCard() {
               </p>
               <div className="flex w-full items-center gap-x-2 justify-between">
                 <div className="flex flex-col gap-y-2 w-full">
-                  <p className="text-sm text-gray-400 font-onest">
+                  <div className="text-sm text-gray-400 font-onest">
                     {Math.round(studyPaths[0].progress) === 100 ? (
                       <div className="flex items-center gap-x-2">
                         <CheckCircle className="size-4 text-green-500" />
-                        <span className="text-sm text-gray-400 font-onest">
+                        <p className="text-sm text-gray-400 font-onest">
                           completed
-                        </span>
+                        </p>
                       </div>
                     ) : (
                       `${Math.round(studyPaths[0].progress)}% completed`
                     )}
-                  </p>
+                  </div>
                   <Progress
                     className="border border-black-50 bg-black-50"
                     value={studyPaths[0].progress}

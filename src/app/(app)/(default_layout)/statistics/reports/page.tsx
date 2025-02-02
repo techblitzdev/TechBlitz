@@ -20,17 +20,25 @@ import GenerateReportButton from '@/components/app/statistics/generate-report-bu
 import UpgradeLayout from '@/components/app/shared/upgrade-layout';
 import { useUserServer } from '@/hooks/use-user-server';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
+
+const upgradeDescription = (
+  <div className="flex flex-col gap-y-2">
+    <p className="text-gray-400">
+      Looking for an in-depth analysis of your coding skills? Upgrade to Premium to generate
+      detailed reports.{' '}
+      <Link href="https://dub.sh/upgrade-techblitz" className="text-accent underline">
+        Learn more
+      </Link>
+    </p>
+  </div>
+);
 
 export default async function StatisticsReportsPage() {
   const user = await useUserServer();
   if (!user) return redirect('/login');
   if (user.userLevel === 'FREE') {
-    return (
-      <UpgradeLayout
-        title="Reports"
-        description="In order to generate reports, you need to upgrade to Premium."
-      />
-    );
+    return <UpgradeLayout title="Reports" description={upgradeDescription} />;
   }
 
   return (

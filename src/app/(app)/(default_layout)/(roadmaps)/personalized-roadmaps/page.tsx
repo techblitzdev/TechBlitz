@@ -66,7 +66,7 @@ const upgradeDescription = (
     <p className="text-gray-400">
       Looking for a more personalized experience? Upgrade to a premium account to unlock
       personalized roadmaps.{' '}
-      <Link href="/pricing" className="text-accent underline">
+      <Link href="https://dub.sh/upgrade-techblitz" className="text-accent underline">
         Learn more
       </Link>
     </p>

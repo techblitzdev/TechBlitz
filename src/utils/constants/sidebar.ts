@@ -10,8 +10,7 @@ export const SIDEBAR_FOOTER_TITLE = {
 };
 
 export const SIDEBAR_FOOTER_DESCRIPTION = {
-  '/dashboard':
-    'Unlock AI-powered study paths, premium challenges, and learn 3x faster with personalized guidance!',
+  '/dashboard': 'Learn 3x faster with personalized roadmaps!',
   '/questions': 'Learn 3x faster with personalized questions!',
   '/roadmaps': 'Create personalized roadmaps to accelerate your progress!',
 };

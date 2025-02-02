@@ -30,7 +30,7 @@ import { useEffect, useMemo } from 'react';
 import { UserRecord } from '@/types/User';
 import { Question, QuestionWithTags } from '@/types/Questions';
 import { Profile } from '@/types/Profile';
-import HomeIcon from '@/components/ui/icons/home';
+import HomeIcon from '@/components/ui/icons/house-2';
 import ChallengeIcon from '@/components/ui/icons/challenge';
 import RoadmapIcon from '@/components/ui/icons/roadmap';
 import StatsIcon from '@/components/ui/icons/stats';

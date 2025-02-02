@@ -5,7 +5,7 @@ import Link from 'next/link';
 export default function ChangelogTimeline() {
   const data = [
     {
-      title: 'Study Paths, test cases, personalized challenges emails & more',
+      title: 'Free roadmaps, test cases, personalized challenges emails & more',
       content: (
         <div>
           <div className="grid grid-cols-2 gap-4">
@@ -22,14 +22,14 @@ export default function ChangelogTimeline() {
           </div>
           <div className="text-white font-normal mt-12">
             <p>
-              We listened to feedback, and added study paths available to all users. Study paths
-              give you a structured way to learn and improve your skills, ranging from fundamentals
-              to more advanced topics.
+              We listened to feedback, and added roadmaps, free to all users. Roadmaps give you a
+              structured way to learn and improve your skills, ranging from fundamentals to more
+              advanced topics.
             </p>
             <br />
             <p>
-              We are adding new study paths regularly, and are always looking for feedback to
-              improve them. So if you have any suggestions, please let us know at{' '}
+              We are adding new roadmaps regularly, and are always looking for feedback to improve
+              them. So if you have any suggestions, please let us know at{' '}
               <Link href="mailto:team@techblitz.dev" className="text-accent">
                 team@techblitz.dev
               </Link>

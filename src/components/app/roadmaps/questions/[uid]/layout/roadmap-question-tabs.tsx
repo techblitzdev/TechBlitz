@@ -53,7 +53,7 @@ export default function RoadmapQuestionTabs() {
       </TabsList>
       <TabsContent value="description" className="pt-2 lg:pt-4">
         <div className="flex flex-col gap-4 p-4 pt-0">
-          <div className="flex w-full justify-between gap-5 mb-5">
+          <div className="flex flex-wrap md:flex-nowrap w-full justify-between gap-5 mb-5">
             <div className="flex w-full gap-2 items-center">
               <Chip
                 color={getQuestionDifficultyColor(roadmapQuestion.difficulty).bg}

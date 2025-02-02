@@ -340,6 +340,26 @@ const updateStudyPathProgress = async ({
     throw new Error('Study path not found');
   }
 
+  // Check if user is enrolled in study path, if not enroll them
+  const userStudyPath = await prisma.userStudyPath.findUnique({
+    where: {
+      userUid_studyPathUid: {
+        userUid,
+        studyPathUid: studyPath.uid,
+      },
+    },
+  });
+
+  if (!userStudyPath) {
+    await prisma.userStudyPath.create({
+      data: {
+        userUid,
+        studyPathUid: studyPath.uid,
+        progress: 0,
+      },
+    });
+  }
+
   const completedQuestions = await prisma.answers.findMany({
     where: {
       question: {

@@ -8,10 +8,10 @@ import { useQuestionSingle } from '@/components/app/questions/single/layout/ques
 import { use } from 'react';
 import HasAnswered from '@/components/app/questions/single/has-answered';
 import BookmarkQuestion from '@/components/app/questions/single/bookmark';
-import ShareQuestion from '@/components/app/shared/share-question';
 import Chip from '@/components/ui/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import QuestionHintTrigger from '@/components/app/questions/question-hint-trigger';
+import ShareQuestion from '../../shared/question/share-question';
 
 export default function CodingChallengeDescription(opts: { question: Question }) {
   const { question } = opts;
@@ -23,7 +23,7 @@ export default function CodingChallengeDescription(opts: { question: Question })
   return (
     <div className="p-4 pt-0 flex flex-col gap-6">
       <div className="flex flex-col gap-4">
-        <div className="flex w-full justify-between gap-5 mb-5">
+        <div className="flex flex-wrap md:flex-nowrap w-full justify-between gap-5 mb-5">
           <div className="flex w-full gap-2 items-center">
             <Chip
               color={getQuestionDifficultyColor(question.difficulty).bg}

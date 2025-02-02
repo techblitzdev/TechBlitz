@@ -15,7 +15,7 @@ export default function TestCaseDisplay() {
 
   return (
     <AnimatePresence>
-      <div className="space-y-6 p-6 overflow-y-auto">
+      <div className="space-y-6 p-4 overflow-y-auto">
         {result && (
           <div className="space-y-6">
             <div className="flex items-center gap-3 py-2">
@@ -43,7 +43,7 @@ export default function TestCaseDisplay() {
             ) : (
               result.error && (
                 <div className="space-y-4">
-                  <span className="text-red-700">Error: {result.error}</span>
+                  <span className="text-red-700">Error: An error occurred.</span>
                 </div>
               )
             )}

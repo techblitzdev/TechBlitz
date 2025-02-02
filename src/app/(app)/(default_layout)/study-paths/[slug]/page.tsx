@@ -27,7 +27,7 @@ import { QuizJsonLd } from '@/types/Seo';
 import type { StudyPath } from '@prisma/client';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Progress } from '@/components/ui/progress';
-import ShareQuestion from '@/components/app/shared/share-question';
+import ShareQuestion from '@/components/app/shared/question/share-question';
 import { QuestionCardSkeleton } from '@/components/app/questions/layout/question-card';
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {

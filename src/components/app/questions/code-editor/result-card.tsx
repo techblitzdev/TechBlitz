@@ -43,7 +43,7 @@ export default function ResultCard({ result, index }: ResultProps) {
               <div className="ml-6 space-y-2 text-sm">
                 <div className="flex flex-col space-y-1">
                   <span className="font-medium text-white">Error:</span>
-                  <code className="px-2 py-1 bg-black-25 rounded">{result.error}</code>
+                  <pre className="px-2 py-1 bg-black-25 rounded">{result.error}</pre>
                 </div>
               </div>
             )}
@@ -51,24 +51,22 @@ export default function ResultCard({ result, index }: ResultProps) {
             <div className="ml-6 space-y-2 text-sm">
               <div className="flex flex-col space-y-1">
                 <span className="font-medium text-white">Input:</span>
-                <code className="px-2 py-1 bg-black-25 rounded">
-                  {JSON.stringify(result.input)}
-                </code>
+                <pre className="px-2 py-1 bg-black-25 rounded">{JSON.stringify(result.input)}</pre>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col space-y-1">
                   <span className="font-medium text-white">Expected:</span>
-                  <code className="px-2 py-1 bg-black-25 rounded whitespace-pre-wrap">
+                  <pre className="px-2 py-1 bg-black-25 rounded whitespace-pre-wrap">
                     {JSON.stringify(result.expected)}
-                  </code>
+                  </pre>
                 </div>
 
                 <div className="flex flex-col space-y-1">
                   <span className="font-medium text-white">Received:</span>
-                  <code className={`px-2 py-1 rounded bg-black-25 h-full whitespace-pre-wrap`}>
+                  <pre className={`px-2 py-1 rounded bg-black-25 h-full whitespace-pre-wrap`}>
                     {JSON.stringify(result.received)}
-                  </code>
+                  </pre>
                 </div>
               </div>
             </div>

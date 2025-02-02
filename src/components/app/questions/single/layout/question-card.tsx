@@ -157,7 +157,7 @@ export default function QuestionCard(opts: {
         </div>
       </div>
       <Separator className="bg-black-50" />
-      <div className="flex-1 bg-black overflow-y-auto scrollable-element">
+      <div className="flex-1 bg-black overflow-y-auto scrollable-element relative">
         {currentLayout === 'questions' && (
           <QuestionTabs
             question={question}
@@ -168,7 +168,7 @@ export default function QuestionCard(opts: {
         {currentLayout === 'codeSnippet' && question.codeSnippet && !answerHelp && (
           <>
             {question.questionType === 'CODING_CHALLENGE' ? (
-              <CodeEditor defaultCode={prefilledCodeSnippet || question.codeSnippet} />
+              <CodeEditor />
             ) : (
               <CodeDisplay content={prefilledCodeSnippet || question.codeSnippet} user={user} />
             )}

@@ -1,5 +1,5 @@
 'use client';
-import QuestionTabs from '@/components/app/shared/question-tabs';
+import QuestionTabs from '@/components/app/shared/question/question-tabs';
 import { DefaultRoadmapQuestions } from '@prisma/client';
 import { FileText } from 'lucide-react';
 import QuestionAccordion from '../../questions/single/question-accordion';
@@ -16,7 +16,7 @@ import QuestionResult from '../../shared/answer-submitted';
 import AiQuestionHelp from '../../questions/single/layout/ai-question-help';
 import ChangeCodeTheme from '../../questions/single/layout/change-code-theme';
 import ExpandedCodeModal from '../../questions/single/layout/expanded-code-modal';
-import QuestionCodeDisplay from '../../shared/question-code-display';
+import QuestionCodeDisplay from '../../shared/question/question-code-display';
 
 export default function OnboardingQuestionCard({
   question,
@@ -57,7 +57,7 @@ export default function OnboardingQuestionCard({
       <TabsContent value="description" className="flex flex-col gap-4">
         {currentLayout === 'questions' && (
           <div className="flex flex-col gap-4 p-4 pt-0">
-            <div className="flex w-full justify-between gap-5 mb-5 pt-4">
+            <div className="flex flex-wrap md:flex-nowrap w-full justify-between gap-5 mb-5 pt-4">
               <div className="flex w-full gap-2 items-center">
                 <Chip
                   color={getQuestionDifficultyColor(question.difficulty).bg}

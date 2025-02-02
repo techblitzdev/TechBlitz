@@ -37,7 +37,7 @@ export default async function RoadmapQuestionPage({
     </div>
   );
 
-  const rightContent = (
+  const rightTopContent = (
     <div className="hidden lg:flex flex-col gap-4 p-3 lg:pl-1.5 h-full">
       <div
         id="code-snippet"
@@ -58,6 +58,11 @@ export default async function RoadmapQuestionPage({
   );
 
   return (
-    <ResizableLayout leftContent={leftContent} rightContent={rightContent} initialLeftWidth={50} />
+    <ResizableLayout
+      leftContent={leftContent}
+      rightTopContent={rightTopContent}
+      initialLeftWidth={50}
+      rightBottomContent={null}
+    />
   );
 }

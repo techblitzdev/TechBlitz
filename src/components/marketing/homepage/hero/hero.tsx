@@ -7,8 +7,8 @@ import { Button } from '@/components/ui/button';
 export default function HomepageHero() {
   const animatedSpanContent = (
     <div className="flex items-center group">
-      <span className="hidden md:block">New code editor out now!</span>
-      <span className="block md:hidden">New code editor!</span>
+      <span className="hidden md:block">Free study paths now available!</span>
+      <span className="block md:hidden">Free study paths now available!</span>
       <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-all duration-300" />
     </div>
   );

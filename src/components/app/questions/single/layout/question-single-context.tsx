@@ -286,14 +286,9 @@ export const QuestionSingleContextProvider = ({
     setCurrentLayout('questions');
     setAnswerHelp(null);
     setTotalSeconds(0);
-    setCode(question.codeSnippet || '');
+    setCode(originalCode);
     setResult(null);
     setShowHint(false);
-
-    console.log({
-      code,
-      originalCode,
-    });
   };
 
   return (

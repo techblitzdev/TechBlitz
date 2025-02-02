@@ -28,7 +28,9 @@ function LoadingState() {
   );
 }
 
-export default function CodeEditor(opts: { defaultCode: string }) {
+export default function CodeEditor() {
+  const { code, setCode, answerHelp } = useQuestionSingle();
+
   const monaco = useMonaco();
 
   monaco?.editor.defineTheme('vs-dark', {
@@ -40,9 +42,6 @@ export default function CodeEditor(opts: { defaultCode: string }) {
       'editor.background': '#0e0e0e',
     },
   });
-
-  const { defaultCode } = opts;
-  const { setCode, answerHelp } = useQuestionSingle();
 
   if (answerHelp) {
     return (
@@ -65,14 +64,11 @@ export default function CodeEditor(opts: { defaultCode: string }) {
       <Editor
         height="90vh"
         defaultLanguage="javascript"
-        defaultValue={defaultCode}
+        value={code}
         onChange={(value) => setCode(value || '')}
         theme="vs-dark"
-        language="javascript"
         options={{
-          minimap: {
-            enabled: false,
-          },
+          minimap: { enabled: false },
           fontSize: 16,
           guides: {
             indentation: true,
@@ -82,7 +78,6 @@ export default function CodeEditor(opts: { defaultCode: string }) {
             highlightActiveIndentation: true,
           },
         }}
-        className="bg-black-50 !overflow-y-auto !scrollable-element"
         loading={<LoadingState />}
       />
     </div>

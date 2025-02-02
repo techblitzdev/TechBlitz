@@ -61,11 +61,7 @@ export default async function TodaysQuestionPage({ params }: { params: { slug: s
           {question.codeSnippet && <ExpandedCodeModal code={question.codeSnippet} />}
         </div>
         <Separator className="bg-black-50" />
-        {question?.questionType === 'CODING_CHALLENGE' ? (
-          <>{question.codeSnippet && <CodeEditor defaultCode={question.codeSnippet} />}</>
-        ) : (
-          <CodeDisplayWrapper />
-        )}
+        {question?.questionType === 'CODING_CHALLENGE' ? <CodeEditor /> : <CodeDisplayWrapper />}
       </div>
     </div>
   );

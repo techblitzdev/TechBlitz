@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 
 export default function ChangelogPage() {
   return (
-    <div className="">
+    <div>
       <section className="relative flex gap-10 text-white overflow-hidden justify-center">
         <div className="flex flex-col gap-y-6 w-full xl:w-2/5 pt-32 lg:pt-52 pb-8 z-10 items-center">
           <h1

@@ -5,6 +5,72 @@ import Link from 'next/link';
 export default function ChangelogTimeline() {
   const data = [
     {
+      title: 'Study Paths, test cases, personalized challenges emails & more',
+      content: (
+        <div>
+          <div className="grid grid-cols-2 gap-4">
+            <img
+              src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//study-path-overview.png"
+              alt="Study paths redesign"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+            />
+            <img
+              src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/test-case-showcase.png"
+              alt="Test case showcase"
+              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
+            />
+          </div>
+          <div className="text-white font-normal mt-12">
+            <p>
+              We listened to feedback, and added study paths available to all users. Study paths
+              give you a structured way to learn and improve your skills, ranging from fundamentals
+              to more advanced topics.
+            </p>
+            <br />
+            <p>
+              We are adding new study paths regularly, and are always looking for feedback to
+              improve them. So if you have any suggestions, please let us know at{' '}
+              <Link href="mailto:team@techblitz.dev" className="text-accent">
+                team@techblitz.dev
+              </Link>
+              .
+            </p>
+            <br />
+            <p>
+              We also added test cases to our code editor questions. This gives you an easy way to
+              view what the expected output is, and compare it to your output.
+            </p>
+            <br />
+            <p>
+              We also made the decision to remove the daily challenge being sent out to users who
+              opted in to receive them. (You can opt in to receive them again in your settings,{' '}
+              <Link href="/settings/profile" className="text-accent">
+                here
+              </Link>
+              ) . From now on, all users will receive a suggested question in their inbox every
+              weekday. This allows for a more personalized experience, and allows you to choose when
+              you want to complete your daily challenge.
+            </p>
+            <br />
+            <p>
+              These new features are only a few of the many we have added. We are constantly working
+              to improve the platform and make learning more enjoyable for you!
+            </p>
+            <br />
+            <p>
+              If you have any feedback, or any suggestions for new features, please let us know at{' '}
+              <Link href="mailto:team@techblitz.dev" className="text-accent">
+                team@techblitz.dev
+              </Link>
+              .
+            </p>
+            <br />
+            <p>Happy coding! 🚀</p>
+          </div>
+        </div>
+      ),
+    },
+    {
       title: 'Question answer redesign, quick question access, upgraded filters & more  ',
       content: (
         <div>

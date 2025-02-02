@@ -183,32 +183,13 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
       <div className="flex flex-col gap-y-12">
         <Hero
           heading={<HeroHeading studyPath={studyPath} />}
-          container={true}
+          container={false}
           chip={<HeroChip studyPath={studyPath} />}
         >
           <GetStartedCta studyPath={studyPath} />
         </Hero>
-        <div className="lg:container flex flex-col lg:flex-row gap-12">
+        <div className="flex flex-col lg:flex-row gap-24">
           <div className="w-full lg:w-[65%] space-y-6">
-            {/** only show if user is enrolled */}
-            {user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid) && (
-              <div className="flex flex-col gap-y-2 w-full">
-                <p className="text-sm text-gray-400 font-onest">
-                  {Math.round(
-                    user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
-                      ?.progress ?? 0
-                  )}
-                  % completed
-                </p>
-                <Progress
-                  className="border border-black-50 bg-black-50"
-                  value={
-                    user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
-                      ?.progress ?? 0
-                  }
-                />
-              </div>
-            )}
             <StudyPathsList questions={questions} studyPath={studyPath} />
           </div>
           <StudyPathSidebar studyPath={studyPath} />

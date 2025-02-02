@@ -52,6 +52,7 @@ export default function QuestionCard(opts: {
   recommendedQuestion?: boolean;
   type?: 'study-path' | 'standard-question';
   studyPathSlug?: string;
+  className?: string;
 }) {
   const {
     questionData,
@@ -63,6 +64,7 @@ export default function QuestionCard(opts: {
     recommendedQuestion = false,
     type = 'standard-question',
     studyPathSlug,
+    className,
   } = opts;
 
   // if identifier is uid, this is a custom question
@@ -86,7 +88,8 @@ export default function QuestionCard(opts: {
       key={questionData.uid}
       className={cn(
         'flex flex-col gap-y-5 items-start bg-[#090909] border border-black-50 hover:border-black-100 duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-[[data-pending]]:animate-pulse',
-        recommendedQuestion && 'border-accent'
+        recommendedQuestion && 'border-accent',
+        className
       )}
     >
       <div className="flex flex-col gap-y-4 md:gap-y-5 w-full">
@@ -156,8 +159,8 @@ export default function QuestionCard(opts: {
             )}
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
-          {recommendedQuestion && (
+        {recommendedQuestion && (
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
             <TooltipProvider>
               <Tooltip delayDuration={0}>
                 <TooltipTrigger>
@@ -174,26 +177,22 @@ export default function QuestionCard(opts: {
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
-      {((!customQuestion && (questionData?.tags?.length ?? 0) > 0) ||
-        (questionData?.bookmarks && questionData?.bookmarks.length > 0) ||
-        (questionData?.questionDate && questionData?.dailyQuestion)) && (
+      {numberOfTags > 0 && !customQuestion && (questionData?.tags?.length ?? 0) > 0 && (
         <div className="w-full flex justify-between items-end z-10 relative">
-          {!customQuestion && (questionData?.tags?.length ?? 0) > 0 && (
-            <div className="flex gap-4 items-end ">
-              <div className="flex items-center gap-1 space-y-0.5 text-start">
-                <TagDisplay
-                  tags={questionData?.tags || []}
-                  numberOfTags={numberOfTags}
-                  showcaseTag={showcaseTag}
-                  variant="default"
-                />
-              </div>
+          <div className="flex gap-4 items-end ">
+            <div className="flex items-center gap-1 space-y-0.5 text-start">
+              <TagDisplay
+                tags={questionData?.tags || []}
+                numberOfTags={numberOfTags}
+                showcaseTag={showcaseTag}
+                variant="default"
+              />
             </div>
-          )}
+          </div>
         </div>
       )}
     </Link>

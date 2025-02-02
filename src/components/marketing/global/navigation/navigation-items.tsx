@@ -122,8 +122,8 @@ export function NavigationMenuItems() {
               <ListItem href="/questions?tag=react" title="React">
                 Learn the most popular frontend library.
               </ListItem>
-              <ListItem href="/study-paths" title="Study Paths">
-                Not sure where to start? Explore our study paths.
+              <ListItem href="/roadmaps" title="Roadmaps">
+                Not sure where to start? Explore our list of coding roadmaps.
               </ListItem>
             </ul>
           </NavigationMenuContent>

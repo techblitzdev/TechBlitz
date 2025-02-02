@@ -35,8 +35,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
   if (!studyPath) {
     return createMetadata({
-      title: 'Study path not found | TechBlitz',
-      description: 'Study path not found',
+      title: 'Roadmap not found | TechBlitz',
+      description: 'Roadmap not found',
     });
   }
 
@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       bgColor: '#000',
       textColor: '#fff',
     },
-    canonicalUrl: `/study-paths/${params.slug}`,
+    canonicalUrl: `/roadmaps/${params.slug}`,
   });
 }
 
@@ -106,12 +106,12 @@ function HeroChip({ studyPath }: { studyPath: StudyPath }) {
       <TooltipProvider>
         <Tooltip delayDuration={0}>
           <TooltipTrigger asChild>
-            <Button href="/study-paths" variant="default" size="sm" className="p-1 h-fit">
+            <Button href="/roadmaps" variant="default" size="sm" className="p-1 h-fit">
               <ChevronLeft className="size-4 text-white" />
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Back to study paths</p>
+            <p>Back to roadmaps</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
@@ -128,12 +128,12 @@ function HeroHeading({ studyPath }: { studyPath: StudyPath }) {
         {studyPath?.title}
       </h1>
       {/** share button */}
-      <ShareQuestion content="Share this study path" variant="default" />
+      <ShareQuestion content="Share this study path" variant="ghost" />
     </div>
   );
 }
 
-export default async function StudyPathPage({ params }: { params: { slug: string } }) {
+export default async function RoadmapPage({ params }: { params: { slug: string } }) {
   // run in parallel
   const [studyPath, user] = await Promise.all([getStudyPath(params.slug), useUserServer()]);
 
@@ -144,7 +144,7 @@ export default async function StudyPathPage({ params }: { params: { slug: string
     // replace the - with a space and
     name: capitalise(params.slug?.replace(/-/g, ' ') || ''),
     description: studyPath?.description || '',
-    url: `${getBaseUrl()}/study-paths/${params.slug}`,
+    url: `${getBaseUrl()}/roadmaps/${params.slug}`,
     educationalUse: 'practice',
     learningResourceType: ['quiz', 'learning activity'],
     creator: {

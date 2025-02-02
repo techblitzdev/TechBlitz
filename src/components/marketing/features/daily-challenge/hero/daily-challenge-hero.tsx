@@ -39,11 +39,7 @@ export default function FeatureDailyChallengeHero(opts: {
         <div className="flex flex-col items-center md:flex-row gap-4">
           {/** if we pass in leftCta, we render it, otherwise, we fallback to the default */}
           {leftCta ? (
-            <Button
-              variant="accent"
-              className="flex items-center gap-2"
-              href={leftCta.href}
-            >
+            <Button variant="accent" className="flex items-center gap-2" href={leftCta.href}>
               {leftCta.title}
             </Button>
           ) : (
@@ -54,20 +50,12 @@ export default function FeatureDailyChallengeHero(opts: {
 
           {/** if we pass in rightCta, we render it, otherwise, we fallback to the default */}
           {rightCta ? (
-            <Button
-              variant="default"
-              className="flex items-center gap-2"
-              href={rightCta.href}
-            >
+            <Button variant="default" className="flex items-center gap-2" href={rightCta.href}>
               {rightCta.title}
             </Button>
           ) : (
-            <Button
-              variant="default"
-              className="flex items-center gap-2"
-              href={`/study-paths`}
-            >
-              Explore study paths
+            <Button variant="default" className="flex items-center gap-2" href={`/roadmaps`}>
+              Explore roadmaps
             </Button>
           )}
         </div>

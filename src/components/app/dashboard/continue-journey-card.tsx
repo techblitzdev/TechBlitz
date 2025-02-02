@@ -38,7 +38,7 @@ export default async function ContinueJourneyCard() {
         </div>
       </Link>
       <Link
-        href={studyPaths ? `/study-paths/${studyPaths.studyPath.slug}` : '/study-paths'}
+        href={studyPaths ? `/roadmaps/${studyPaths.studyPath.slug}` : '/roadmaps'}
         style={{
           background:
             'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
@@ -49,7 +49,7 @@ export default async function ContinueJourneyCard() {
           {studyPaths ? (
             <>
               <p className="text-sm font-medium text-gray-400 group-hover:text-white duration-300 font-onest">
-                Continue your study path:{' '}
+                Continue your journey:{' '}
                 <span className="text-white font-semibold">{studyPaths.studyPath.title}</span>
               </p>
               <div className="flex w-full items-center gap-x-2 justify-between">

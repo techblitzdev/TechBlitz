@@ -75,16 +75,6 @@ const footerItems = [
     ],
   },
   {
-    title: 'Study Paths',
-    links: [
-      {
-        title: 'study Paths',
-        href: '/study-paths',
-        ariaLabel: 'Study Paths',
-      },
-    ],
-  },
-  {
     title: 'Contact',
     links: [
       {

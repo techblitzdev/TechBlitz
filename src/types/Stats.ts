@@ -1,4 +1,4 @@
-import { STEPS } from '@/utils/constants/statistics-filters';
+import { STEPS } from '@/utils/constants';
 import { StatisticsReport } from '@prisma/client';
 import { Question } from '@/types/Questions';
 

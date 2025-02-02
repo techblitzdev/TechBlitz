@@ -7,7 +7,7 @@ import { useQuestionSingle } from '@/components/app/questions/single/layout/ques
 import { capitalize } from 'lodash';
 import { AnimatePresence } from 'framer-motion';
 import { useMonaco } from '@monaco-editor/react';
-import { CODING_FACTS } from '@/utils/constants/coding-facts';
+import { CODING_FACTS } from '@/utils/constants';
 
 // memo the LoadingState component to prevent re-renders
 function LoadingState() {

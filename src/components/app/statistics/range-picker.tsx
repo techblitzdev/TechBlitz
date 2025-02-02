@@ -10,7 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Calendar, ChevronDown } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { STATISTICS } from '@/utils/constants/statistics-filters';
+import { STATISTICS } from '@/utils/constants';
 
 export default function StatsRangePicker(opts: { selectedRange: string }) {
   const { selectedRange } = opts;

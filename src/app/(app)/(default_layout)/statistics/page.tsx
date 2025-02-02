@@ -4,7 +4,7 @@ import QuestionChart from '@/components/app/statistics/total-question-chart';
 import { useUserServer } from '@/hooks/use-user-server';
 import { StatsSteps } from '@/types/Stats';
 
-import { STATISTICS } from '@/utils/constants/statistics-filters';
+import { STATISTICS } from '@/utils/constants';
 
 import { getData } from '@/utils/data/statistics/get-stats-chart-data';
 import Hero from '@/components/shared/hero';

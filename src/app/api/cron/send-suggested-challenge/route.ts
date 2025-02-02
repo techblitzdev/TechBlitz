@@ -6,7 +6,7 @@ import { UserRecord } from '@/types/User';
 import {
   SUGGESTED_CHALLENGE_EMAIL_DESCRIPTION,
   SUGGESTED_CHALLENGE_EMAIL_SUBJECT,
-} from '@/utils/constants/suggested-challenge';
+} from '@/utils/constants';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 import { getUserDisplayName } from '@/utils/user';

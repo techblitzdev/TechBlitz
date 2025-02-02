@@ -188,7 +188,7 @@ export default function DailyCodingChallengesPage() {
   const jsonLd: WebPageJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    url: getBaseUrl(),
+    url: `${getBaseUrl()}/daily-coding-challenges`,
     headline: 'Daily Coding Challenges | TechBlitz',
     description:
       'TechBlitz transforms your coding journey into a personalized, engaging, and effective experience. Ensuring you learn essential coding skills faster than ever.',
@@ -204,7 +204,7 @@ export default function DailyCodingChallengesPage() {
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': getBaseUrl(),
+      '@id': `${getBaseUrl()}/daily-coding-challenges`,
     },
     keywords:
       'daily coding challenge, daily javascript challenge, how to learn javascript, how to learn to code, how to learn programming, how to learn coding, how to learn javascript, how to learn to code, how to learn programming, how to learn coding',

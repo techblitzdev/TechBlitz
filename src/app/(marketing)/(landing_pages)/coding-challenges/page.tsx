@@ -156,7 +156,7 @@ export default function CodingChallengesPage() {
   const jsonLd: WebPageJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    url: getBaseUrl(),
+    url: `${getBaseUrl()}/coding-challenges`,
     headline: 'Coding Challenges | TechBlitz',
     description:
       'TechBlitz offers a wide range of coding challenges for beginners and professionals. Master JavaScript, web development, and programming with real-world exercises designed to enhance your coding skills.',

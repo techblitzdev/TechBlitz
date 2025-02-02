@@ -128,7 +128,7 @@ export default function Page() {
   const jsonLd: WebPageJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    url: getBaseUrl(),
+    url: `${getBaseUrl()}/free-leetcode-alternative`,
     headline: 'The Best Free LeetCode Alternative | TechBlitz',
     description:
       'TechBlitz transforms your coding journey into a personalized, engaging, and effective experience. Ensuring you learn essential coding skills faster than ever.',
@@ -138,13 +138,13 @@ export default function Page() {
     author: {
       '@type': 'Organization',
       name: 'TechBlitz',
-      url: getBaseUrl(),
+      url: `${getBaseUrl()}/free-leetcode-alternative`,
     },
     dateModified: new Date().toISOString(),
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': getBaseUrl(),
+      '@id': `${getBaseUrl()}/free-leetcode-alternative`,
     },
     keywords:
       'learn to code, learn to code for free, learn javascript, coding challenges, daily coding challenges, web development, tech skills assessment, learn to code on phone',

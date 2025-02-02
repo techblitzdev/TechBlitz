@@ -187,7 +187,7 @@ export default function HowToLearnToCodePage() {
   const jsonLd: WebPageJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    url: getBaseUrl(),
+    url: `${getBaseUrl()}/how-to-learn-to-code`,
     headline: 'How to learn to code | TechBlitz',
     description:
       'TechBlitz transforms your coding journey into a personalized, engaging, and effective experience. Ensuring you learn essential coding skills faster than ever.',
@@ -197,13 +197,13 @@ export default function HowToLearnToCodePage() {
     author: {
       '@type': 'Organization',
       name: 'TechBlitz',
-      url: getBaseUrl(),
+      url: `${getBaseUrl()}/how-to-learn-to-code`,
     },
     dateModified: new Date().toISOString(),
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': getBaseUrl(),
+      '@id': `${getBaseUrl()}/how-to-learn-to-code`,
     },
     keywords:
       'how to learn to code, learn to code for free, learn to code, coding challenges, daily coding challenges, web development, tech skills assessment, learn to code on phone',

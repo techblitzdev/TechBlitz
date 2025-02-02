@@ -14,30 +14,30 @@ import Link from 'next/link';
 
 const faqs = [
   {
-    question: 'What are coding roadmaps?',
+    question: 'What is a JavaScript roadmap?',
     answer:
-      'Coding roadmaps are personalized learning paths designed to help you grow as a developer. They are created by you, and tailored to your skill level.',
+      'A JavaScript roadmap is a structured learning path designed to help you master JavaScript, from the basics to advanced concepts. It’s tailored to your skill level and goals.',
   },
   {
-    question: 'How do I create a coding roadmap?',
+    question: 'How do I create a JavaScript roadmap?',
     answer:
-      'Creating a coding roadmap is easy. We start by assessing your current skill level and then create a roadmap that is tailored to your needs.',
+      'Creating a JavaScript roadmap is simple. Start by assessing your current skill level, and our platform will generate a personalized roadmap to guide you through learning JavaScript effectively.',
   },
   {
-    question: 'Are the coding challenges on TechBlitz really free?',
+    question: 'Are the JavaScript challenges on TechBlitz free?',
     answer:
-      'Yes, all coding challenges on TechBlitz are completely free. We believe in making coding education accessible to everyone, regardless of their financial situation.',
+      'Yes, all JavaScript challenges on TechBlitz are completely free. We aim to make JavaScript learning accessible to everyone.',
   },
   {
-    question: 'How many free coding challenges are available on TechBlitz?',
-    answer: `With over ${QUESTIONS_COUNT}+ free coding challenges, TechBlitz covers a wide range of topics, including JavaScript, web development, algorithms, and more. Each challenge is designed to enhance your problem-solving skills.`,
+    question: 'How many JavaScript challenges are available on TechBlitz?',
+    answer: `With over ${QUESTIONS_COUNT}+ free JavaScript challenges, TechBlitz covers a wide range of topics, from basic syntax to advanced frameworks. Each challenge is designed to enhance your JavaScript skills.`,
   },
   {
-    question: 'What is TechBlitz, and how does it work?',
+    question: 'What is TechBlitz, and how does it help with JavaScript?',
     answer: (
       <>
-        TechBlitz is a cutting-edge platform offering free coding challenges to help you learn
-        programming through interactive, real-world exercises.{' '}
+        TechBlitz is a platform offering free JavaScript challenges to help you learn programming
+        through interactive, real-world exercises.{' '}
         <Link href="/signup" className="text-accent underline">
           Sign up for a free account
         </Link>
@@ -46,41 +46,41 @@ const faqs = [
     ),
   },
   {
-    question: 'What makes TechBlitz stand out from other free coding platforms?',
+    question: 'What makes TechBlitz stand out for learning JavaScript?',
     answer:
-      'TechBlitz stands out with its personalized learning experience, AI-powered feedback, and a vibrant community. Our platform ensures you learn essential coding skills faster with tailored challenges, progress tracking, and expert support—all for free.',
+      'TechBlitz offers a personalized learning experience, AI-powered feedback, and a vibrant community. Our platform ensures you learn JavaScript faster with tailored challenges, progress tracking, and expert support—all for free.',
   },
   {
-    question: 'How do I get started with free coding challenges on TechBlitz?',
+    question: 'How do I get started with JavaScript challenges on TechBlitz?',
     answer: (
       <>
         Getting started is easy! Simply{' '}
         <Link href="/signup" className="text-accent underline">
           sign up for a free account
         </Link>{' '}
-        and begin solving coding challenges tailored to your skill level.
+        and begin solving JavaScript challenges tailored to your skill level.
       </>
     ),
   },
   {
-    question: 'Does TechBlitz offer free coding challenges for beginners?',
+    question: 'Does TechBlitz offer JavaScript challenges for beginners?',
     answer:
-      'Yes, TechBlitz is perfect for beginners. Our free coding challenges start with foundational concepts and gradually increase in complexity, ensuring a smooth learning curve for all skill levels.',
+      'Yes, TechBlitz is perfect for beginners. Our JavaScript challenges start with foundational concepts and gradually increase in complexity, ensuring a smooth learning curve.',
   },
   {
-    question: 'Can I use TechBlitz on my mobile device?',
+    question: 'Can I use TechBlitz to learn JavaScript on my mobile device?',
     answer:
-      'Absolutely! TechBlitz is fully optimized for mobile devices, allowing you to practice coding on your phone or tablet anytime, anywhere.',
+      'Absolutely! TechBlitz is fully optimized for mobile devices, allowing you to practice JavaScript on your phone or tablet anytime, anywhere.',
   },
   {
-    question: 'What programming languages are supported in the free challenges?',
+    question: 'What JavaScript topics are covered in the challenges?',
     answer:
-      'TechBlitz primarily focuses on JavaScript and web development in its free coding challenges. We are working on adding more languages in the future.',
+      'TechBlitz covers a wide range of JavaScript topics, including ES6+, DOM manipulation, asynchronous programming, and popular frameworks like React and Node.js.',
   },
   {
-    question: 'How does TechBlitz ensure my progress is tracked effectively?',
+    question: 'How does TechBlitz track my JavaScript learning progress?',
     answer:
-      'TechBlitz provides detailed analytics and progress reports, allowing you to track your performance, identify weak areas, and celebrate milestones as you advance in your coding journey—all for free.',
+      'TechBlitz provides detailed analytics and progress reports, allowing you to track your performance, identify weak areas, and celebrate milestones as you advance in your JavaScript journey—all for free.',
   },
 ];
 
@@ -101,9 +101,9 @@ const items = [
         </g>
       </svg>
     ),
-    title: 'Personalized Learning Paths',
+    title: 'Personalized JavaScript Learning Paths',
     description:
-      'Master coding with tailored challenges delivered daily. Whether you’re on your phone, tablet, or computer, our adaptive platform ensures you learn JavaScript at your own pace.',
+      'Master JavaScript with tailored challenges delivered daily. Our adaptive platform ensures you learn at your own pace, whether you’re a beginner or an advanced developer.',
   },
   {
     icon: (
@@ -114,9 +114,9 @@ const items = [
         />
       </svg>
     ),
-    title: 'Easy progression',
+    title: 'Structured Progression',
     description:
-      'Create your own progression path with our personalized roadmaps, designed to help you grow as a developer.',
+      'Follow a clear and structured path to master JavaScript, from basic syntax to advanced frameworks like React and Node.js.',
   },
   {
     icon: (
@@ -127,9 +127,9 @@ const items = [
         />
       </svg>
     ),
-    title: 'Engage with a Global Community',
+    title: 'Join the Community',
     description:
-      'Join a thriving community of developers. Share solutions, exchange ideas, and grow together with peers from around the world—all for free.',
+      'Connect with a global community of JavaScript developers. Share solutions, exchange ideas, and grow together with peers from around the world.',
   },
   {
     icon: (
@@ -140,9 +140,9 @@ const items = [
         />
       </svg>
     ),
-    title: 'Instant Feedback & Solutions',
+    title: 'Instant JavaScript Feedback',
     description:
-      'Get real-time feedback on your code. Receive detailed explanations and improve your JavaScript skills faster with actionable insights—all for free.',
+      'Get real-time feedback on your JavaScript code. Receive detailed explanations and improve your skills faster with actionable insights—all for free.',
   },
   {
     icon: (
@@ -160,43 +160,43 @@ const items = [
         </g>
       </svg>
     ),
-    title: 'Track Your Progress',
+    title: 'Track Your JavaScript Progress',
     description:
-      'Visualize your coding journey with advanced analytics. Monitor your performance, identify strengths, and target areas for improvement with detailed progress reports—all for free.',
+      'Visualize your JavaScript learning journey with advanced analytics. Monitor your performance, identify strengths, and target areas for improvement with detailed progress reports.',
   },
   {
     icon: <MobileIcon className="size-6" />,
-    title: 'Learn Anywhere, Anytime',
+    title: 'Learn JavaScript Anywhere',
     description:
-      'Practice coding on the go with our mobile-friendly platform. Perfect for busy schedules, our free challenges are optimized for seamless learning on any device.',
+      'Practice JavaScript on the go with our mobile-friendly platform. Perfect for busy schedules, our challenges are optimized for seamless learning on any device.',
   },
 ];
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Free Coding Challenges | TechBlitz',
+    title: 'JavaScript Roadmap | TechBlitz',
     description:
-      'Master coding with TechBlitz’s free coding challenges. Learn JavaScript, web development, and programming through real-world challenges tailored to your skill level. Start your coding journey today!',
+      'Master JavaScript with TechBlitz’s free coding challenges. Learn JavaScript from basics to advanced concepts through real-world challenges tailored to your skill level. Start your JavaScript journey today!',
     image: {
-      text: 'Free Coding Challenges | TechBlitz',
+      text: 'JavaScript Roadmap | TechBlitz',
       bgColor: '#000',
       textColor: '#fff',
     },
-    canonicalUrl: '/coding-roadmap',
+    canonicalUrl: '/javascript-roadmap',
     keywords: [
-      'free coding challenges, free JavaScript challenges, learn to code for free, free web development challenges, free coding practice, free programming challenges, free coding for beginners',
+      'JavaScript roadmap, free JavaScript challenges, learn JavaScript for free, JavaScript learning path, JavaScript for beginners, advanced JavaScript, JavaScript frameworks',
     ],
   });
 }
 
-export default function CodingRoadmapPage() {
+export default function JavascriptRoadmapPage() {
   const jsonLd: WebPageJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    url: `${getBaseUrl()}/coding-roadmap`,
-    headline: 'Coding Roadmap | TechBlitz',
+    url: `${getBaseUrl()}/javascript-roadmap`,
+    headline: 'JavaScript Roadmap | TechBlitz',
     description:
-      'TechBlitz is the ultimate platform for free coding challenges. Whether you’re a beginner or a professional, our real-world exercises help you master JavaScript, web development, and more—all for free.',
+      'TechBlitz is the ultimate platform for mastering JavaScript. Whether you’re a beginner or a professional, our real-world exercises help you learn JavaScript from basics to advanced concepts—all for free.',
     image:
       'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
     breadcrumb: WebPageJsonLdBreadcrumb,
@@ -209,10 +209,10 @@ export default function CodingRoadmapPage() {
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${getBaseUrl()}/coding-roadmap`,
+      '@id': `${getBaseUrl()}/javascript-roadmap`,
     },
     keywords:
-      'coding roadmap, free coding challenges, free JavaScript challenges, learn to code for free, free web development challenges, free coding practice, free programming challenges, free coding for beginners',
+      'JavaScript roadmap, free JavaScript challenges, learn JavaScript for free, JavaScript learning path, JavaScript for beginners, advanced JavaScript, JavaScript frameworks',
     publisher: {
       '@type': 'Organization',
       name: 'TechBlitz',
@@ -236,35 +236,35 @@ export default function CodingRoadmapPage() {
       />
       <div className="container">
         <FeatureDailyChallengeHero
-          header="Coding Roadmap"
-          subheader="TechBlitz is the ultimate platform for free coding challenges. Whether you're a beginner or a professional, our real-world exercises help you master JavaScript, web development, and more—all for free."
-          animatedSpan="Coding Roadmap"
+          header="JavaScript Roadmap"
+          subheader="TechBlitz is the ultimate platform for mastering JavaScript. Whether you’re a beginner or a professional, our real-world exercises help you learn JavaScript from basics to advanced concepts—all for free."
+          animatedSpan="JavaScript Roadmap"
         />
 
         <FeatureRoadmapCustomizationBlock />
 
         <QuestionMarquee
-          header="Hundreds of free coding challenges"
-          subheader="From your first challenge to your first job. TechBlitz assists you every step of the way."
+          header="Hundreds of free JavaScript challenges"
+          subheader="From your first JavaScript challenge to mastering advanced frameworks. TechBlitz assists you every step of the way."
           cta={true}
           className="md:pt-32"
         />
 
         <StatsReportSection
-          header="Track Your Coding Progress for Free"
-          subheader="Identify your strengths and weaknesses with our detailed analytics. Monitor your performance, identify areas for improvement, and celebrate milestones as you advance in your coding journey—all for free."
+          header="Track Your JavaScript Learning Progress"
+          subheader="Identify your strengths and weaknesses with our detailed analytics. Monitor your performance, identify areas for improvement, and celebrate milestones as you advance in your JavaScript journey—all for free."
           learnMoreLink={true}
         />
 
-        <MarketingContentGrid title="Coding roadmaps created just for you." items={items} />
+        <MarketingContentGrid title="JavaScript roadmaps created just for you." items={items} />
 
         <FAQsBlock faqs={faqs} />
 
         <CallToActionBlock
-          title="A personalized approach to learning to code."
-          description="Create your own progression path with our personalized roadmaps, designed to help you grow as a developer."
+          title="A personalized approach to learning JavaScript."
+          description="Create your own progression path with our personalized roadmaps, designed to help you grow as a JavaScript developer."
           leftCta={{
-            title: 'Create Your Roadmap',
+            title: 'Create Your JavaScript Roadmap',
             href: '/signup',
           }}
         />

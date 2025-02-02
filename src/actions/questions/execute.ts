@@ -10,10 +10,6 @@ export const executeQuestionCode = async ({
   testCases: { input: any[]; expected: any }[];
 }) => {
   try {
-    if (code.includes('eval')) {
-      throw new Error('Invalid code: Dangerous patterns detected');
-    }
-
     // Helper functions for string comparison
     const helperFunctions = `
       function deepEqual(a, b) {

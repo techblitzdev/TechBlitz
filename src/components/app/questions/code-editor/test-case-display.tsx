@@ -43,7 +43,10 @@ export default function TestCaseDisplay() {
             ) : (
               result.error && (
                 <div className="space-y-4">
-                  <span className="text-red-700">Error: An error occurred.</span>
+                  <span className="text-red-700">
+                    Error:{' '}
+                    {process.env.NODE_ENV === 'development' ? result.error : 'An error occurred.'}
+                  </span>
                 </div>
               )
             )}

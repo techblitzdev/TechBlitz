@@ -12,6 +12,7 @@ import type { UserRecord } from '@/types/User';
 import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
 import LoadingSpinner from '@/components/ui/loading';
 import { DefaultRoadmapQuestions } from '@prisma/client';
+import TestCaseSection from '../../questions/code-editor/test-case-section';
 
 type QuestionCodeDisplayProps = {
   user: UserRecord | null;
@@ -77,8 +78,7 @@ export default function QuestionCodeDisplay({
   if (currentLayout === 'answer') {
     return (
       <div className="w-full relative">
-        {/* You can add your TestCaseDisplay component here if needed */}
-        <p>Test Case Display Placeholder</p>
+        <TestCaseSection />
       </div>
     );
   }

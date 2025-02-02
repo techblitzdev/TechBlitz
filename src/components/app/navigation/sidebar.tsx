@@ -125,6 +125,7 @@ export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSid
       tooltip: 'Roadmaps',
       url: '/roadmaps',
       icon: roadmapIcon,
+      defaultOpen: true,
       subItems: [
         {
           title: 'Coding Roadmaps',
@@ -141,6 +142,7 @@ export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSid
       url: '/statistics',
       icon: statsIcon,
       tooltip: 'Statistics',
+      defaultOpen: false,
       subItems: [
         {
           title: 'Overview',
@@ -228,7 +230,7 @@ export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSid
     return (
       <SidebarMenuItem key={item.url}>
         {item.subItems ? (
-          <Collapsible defaultOpen className="group/collapsible">
+          <Collapsible defaultOpen={item.defaultOpen} className="group/collapsible">
             <CollapsibleTrigger asChild>
               <SidebarMenuButton asChild tooltip={item.tooltip}>
                 {state === 'collapsed' ? (

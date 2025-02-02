@@ -9,6 +9,7 @@ export interface SidebarItem {
   badge?: string | React.ReactNode;
   dropdownMenu?: React.ReactNode;
   tooltip?: string;
+  defaultOpen?: boolean;
 }
 
 interface SidebarGroupItem {

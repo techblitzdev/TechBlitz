@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
 import { RefreshCcwIcon } from 'lucide-react';
 import { AnimatedStopwatchButton } from '@/components/app/shared/question/question-timer';
-import { useState, useEffect, useTransition } from 'react';
+import { useState, useEffect } from 'react';
 import { useStopwatch } from 'react-timer-hook';
 import LoadingSpinner from '@/components/ui/loading';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -18,10 +18,10 @@ export default function QuestionActionButtons() {
     user,
     question,
     code,
+    currentLayout,
     setTotalSeconds,
   } = useQuestionSingle();
 
-  const [isPending, startTransition] = useTransition();
   const [stopwatchOffset, setStopwatchOffset] = useState<Date>(new Date());
 
   const { seconds, minutes, isRunning, start, pause, totalSeconds, reset } = useStopwatch({
@@ -46,46 +46,48 @@ export default function QuestionActionButtons() {
       pause();
     }
 
-    startTransition(() => {
-      setTotalSeconds(totalSeconds);
-      submitAnswer(e, totalSeconds);
-    });
+    setTotalSeconds(totalSeconds);
+    submitAnswer(e, totalSeconds);
   };
 
   return (
     <div className="flex gap-x-1 md:gap-x-3 items-center">
       <Button variant="destructive" onClick={handleReset}>
-        <AnimatePresence mode="wait">
-          <motion.span
-            key="reset-text"
-            className="hidden md:block"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            Reset
-          </motion.span>
-          <motion.span
-            key="reset-icon"
-            className="block md:hidden"
-            initial={{ opacity: 0, rotate: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, rotate: 360 }}
-            transition={{ duration: 0.3 }}
-          >
-            <RefreshCcwIcon className="w-4 h-4" />
-          </motion.span>
-        </AnimatePresence>
+        <div className="relative">
+          <AnimatePresence>
+            <motion.span
+              key="reset-text"
+              className="hidden md:block"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              Reset
+            </motion.span>
+          </AnimatePresence>
+          <AnimatePresence>
+            <motion.span
+              key="reset-icon"
+              className="block md:hidden"
+              initial={{ opacity: 0, rotate: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, rotate: 360 }}
+              transition={{ duration: 0.3 }}
+            >
+              <RefreshCcwIcon className="w-4 h-4" />
+            </motion.span>
+          </AnimatePresence>
+        </div>
       </Button>
       {user ? (
         <form onSubmit={handleSubmit}>
           <Button
             type="submit"
-            disabled={isSubmitting || (!selectedAnswer && !code) || isPending}
+            disabled={isSubmitting || (!selectedAnswer && !code) || currentLayout === 'answer'}
             className="text-green-500"
           >
-            <AnimatePresence mode="wait">
-              {isPending ? (
+            <AnimatePresence>
+              {isSubmitting ? (
                 <motion.div
                   key="loading"
                   className="flex items-center gap-x-2"

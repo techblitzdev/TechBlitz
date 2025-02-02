@@ -43,7 +43,7 @@ export default function TestCaseDisplay() {
             ) : (
               result.error && (
                 <div className="space-y-4">
-                  <span className="text-red-700">Error: {result.error}</span>
+                  <span className="text-red-700">Error: An error occurred.</span>
                 </div>
               )
             )}

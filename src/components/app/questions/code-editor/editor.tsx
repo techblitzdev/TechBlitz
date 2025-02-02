@@ -1,6 +1,6 @@
 'use client';
 
-import React, { memo, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Editor } from '@monaco-editor/react';
 import LoadingSpinner from '@/components/ui/loading';
 import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
@@ -10,7 +10,7 @@ import { useMonaco } from '@monaco-editor/react';
 import { CODING_FACTS } from '@/utils/constants/coding-facts';
 
 // memo the LoadingState component to prevent re-renders
-const LoadingState = memo(function LoadingState() {
+function LoadingState() {
   // Use useState instead of useMemo to persist the random fact between re-renders
   const [randomFact] = useState(
     () => CODING_FACTS[Math.floor(Math.random() * CODING_FACTS.length)]
@@ -26,7 +26,7 @@ const LoadingState = memo(function LoadingState() {
       </div>
     </div>
   );
-});
+}
 
 export default function CodeEditor(opts: { defaultCode: string }) {
   const monaco = useMonaco();
@@ -42,14 +42,7 @@ export default function CodeEditor(opts: { defaultCode: string }) {
   });
 
   const { defaultCode } = opts;
-  const { setCode, answerHelp, code } = useQuestionSingle();
-
-  // when the code changes (from a reset) we need to update the code in the editor
-  useEffect(() => {
-    if (code !== defaultCode) {
-      setCode(code);
-    }
-  }, [code]);
+  const { setCode, answerHelp } = useQuestionSingle();
 
   if (answerHelp) {
     return (
@@ -72,7 +65,7 @@ export default function CodeEditor(opts: { defaultCode: string }) {
       <Editor
         height="90vh"
         defaultLanguage="javascript"
-        defaultValue={code || defaultCode}
+        defaultValue={defaultCode}
         onChange={(value) => setCode(value || '')}
         theme="vs-dark"
         language="javascript"

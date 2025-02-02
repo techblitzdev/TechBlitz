@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useState, useContext, useEffect } from 'react';
+import { createContext, useState, useContext, useEffect, useMemo } from 'react';
 import { toast } from 'sonner';
 import { answerQuestion } from '@/actions/answers/answer';
 import { Question, QuestionWithoutAnswers } from '@/types/Questions';
@@ -43,6 +43,7 @@ type QuestionSingleContextType = {
   validateCode: (e: React.FormEvent<HTMLFormElement>, totalSeconds: number) => Promise<void>;
   code: string;
   setCode: (code: string) => void;
+  originalCode: string;
   result: {
     passed: boolean;
     details?: Array<{
@@ -113,7 +114,8 @@ export const QuestionSingleContextProvider = ({
   const [currentLayout, setCurrentLayout] = useState<'questions' | 'codeSnippet' | 'answer'>(
     'questions'
   );
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState(question.codeSnippet || '');
+  const originalCode = useMemo(() => question.codeSnippet || '', [question.codeSnippet]);
   const [result, setResult] = useState<{
     passed: boolean;
     details?: Array<{
@@ -273,7 +275,7 @@ export const QuestionSingleContextProvider = ({
 
   // Reset the question state
   const resetQuestionState = () => {
-    // reset the question state
+    console.log('resetting question state');
     setCorrectAnswer('init');
     setUserAnswer(null);
     setNewUserData(null);
@@ -283,12 +285,15 @@ export const QuestionSingleContextProvider = ({
     setPrefilledCodeSnippet(null);
     setCurrentLayout('questions');
     setAnswerHelp(null);
+    setTotalSeconds(0);
     setCode(question.codeSnippet || '');
     setResult(null);
+    setShowHint(false);
 
-    // reset the code editor
-    setCode(question.codeSnippet || '');
-    setTotalSeconds(0);
+    console.log({
+      code,
+      originalCode,
+    });
   };
 
   return (
@@ -320,6 +325,7 @@ export const QuestionSingleContextProvider = ({
         validateCode,
         code,
         setCode,
+        originalCode,
         result,
         submitAnswer,
         userAnswered,

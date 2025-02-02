@@ -55,6 +55,7 @@ export default function QuestionCard(opts: {
     prefilledCodeSnippet,
     answerHelp,
     showHint,
+    code,
   } = useQuestionSingle();
 
   const answerFormRef = useRef<{
@@ -168,7 +169,7 @@ export default function QuestionCard(opts: {
         {currentLayout === 'codeSnippet' && question.codeSnippet && !answerHelp && (
           <>
             {question.questionType === 'CODING_CHALLENGE' ? (
-              <CodeEditor defaultCode={prefilledCodeSnippet || question.codeSnippet} />
+              <CodeEditor defaultCode={code || question.codeSnippet} />
             ) : (
               <CodeDisplay content={prefilledCodeSnippet || question.codeSnippet} user={user} />
             )}

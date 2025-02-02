@@ -65,18 +65,18 @@ const heroDescription = (
     </p>
     <p className="text-gray-400">Need a more guided set of questions?</p>
     <div className="flex flex-col md:flex-row gap-2 md:items-center">
-      <Button href="/study-paths" variant="secondary">
-        Explore study paths
+      <Button href="/roadmaps" variant="secondary">
+        Explore roadmaps
       </Button>
       <Suspense
         fallback={
           <Button variant="default" className="w-full">
-            Your next recommended question
+            Your next question
             <ArrowRightIcon className="w-4 h-4" />
           </Button>
         }
       >
-        <ContinueJourney text="Your next recommended question" variant="default" />
+        <ContinueJourney text="Your next question" variant="default" />
       </Suspense>
     </div>
   </div>

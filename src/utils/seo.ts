@@ -160,8 +160,8 @@ export const WebPageJsonLdBreadcrumb: WebPageJsonLd['breadcrumb'] = {
     {
       '@type': 'ListItem',
       position: 3,
-      name: 'Study Paths',
-      item: getBaseUrl() + '/study-paths',
+      name: 'Roadmaps',
+      item: getBaseUrl() + '/roadmaps',
     },
     // Missing position 4 (Added)
     {

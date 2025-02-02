@@ -2,7 +2,7 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
-import { Home, Settings, LockIcon, User, CreditCard, HelpCircle, ChevronDown } from 'lucide-react';
+import { Home, Settings, LockIcon, User, CreditCard, ChevronDown } from 'lucide-react';
 import { ListBulletIcon } from '@radix-ui/react-icons';
 import {
   Sidebar,
@@ -30,7 +30,7 @@ import { useEffect, useMemo } from 'react';
 import { UserRecord } from '@/types/User';
 import { Question, QuestionWithTags } from '@/types/Questions';
 import { Profile } from '@/types/Profile';
-import HomeIcon from '@/components/ui/icons/home';
+import HomeIcon from '@/components/ui/icons/house-2';
 import ChallengeIcon from '@/components/ui/icons/challenge';
 import RoadmapIcon from '@/components/ui/icons/roadmap';
 import StatsIcon from '@/components/ui/icons/stats';
@@ -57,6 +57,7 @@ interface AppSidebarProps {
 }
 
 export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSidebarProps) {
+  console.log('suggestion', suggestion);
   const pathname = usePathname();
 
   const { state, setOpenMobile } = useSidebar();
@@ -82,9 +83,16 @@ export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSid
           title: 'Daily Question',
           url: `/question/${todaysQuestion?.slug}`,
         },
+      ],
+    },
+    {
+      title: 'Roadmaps',
+      url: '/roadmaps',
+      icon: roadmapIcon,
+      subItems: [
         {
-          title: 'Study Paths',
-          url: '/study-paths',
+          title: 'Personalized',
+          url: '/personalized-roadmaps',
         },
       ],
     },
@@ -111,26 +119,22 @@ export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSid
       url: '/questions',
       icon: challengeIcon,
       tooltip: 'Questions',
-      subItems: [
-        {
-          title: 'All',
-          url: '/questions',
-        },
-        {
-          title: 'Study Paths',
-          url: '/study-paths',
-        },
-        {
-          title: 'Your Next Question',
-          url: `/question/${suggestion?.slug}`,
-        },
-      ],
     },
     {
       title: 'Roadmaps',
       tooltip: 'Roadmaps',
       url: '/roadmaps',
       icon: roadmapIcon,
+      subItems: [
+        {
+          title: 'Coding Roadmaps',
+          url: '/roadmaps',
+        },
+        {
+          title: 'Personalized Roadmaps',
+          url: '/personalized-roadmaps',
+        },
+      ],
     },
     {
       title: 'Stats',
@@ -154,15 +158,6 @@ export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSid
       url: '/leaderboard',
       icon: Award,
       tooltip: 'Leaderboard',
-    },
-    {
-      groupLabel: 'Support',
-    },
-    {
-      title: 'Help',
-      url: 'mailto:team@techblitz.dev',
-      icon: HelpCircle,
-      tooltip: 'Help',
     },
     {
       title: 'Settings',

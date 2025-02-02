@@ -17,7 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]);
 
   const studyPathSlugs = studyPaths.map((studyPath) => ({
-    url: `${baseUrl}/study-paths/${studyPath.slug}`,
+    url: `${baseUrl}/roadmaps/${studyPath.slug}`,
     lastModified: new Date(studyPath.createdAt),
   }));
 
@@ -56,6 +56,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Static routes
   const routes = [
+    // MARKETING PAGES
     {
       url: baseUrl,
       lastModified: new Date(),
@@ -104,7 +105,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/changelog`,
       lastModified: new Date(),
     },
-    // access routes
+
+    // APP ROUTES ACCESSIBLE TO ALL USERS
+
     {
       url: `${baseUrl}/signup`,
       lastModified: new Date(),
@@ -122,13 +125,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
     },
     {
-      url: `${baseUrl}/study-paths`,
+      url: `${baseUrl}/roadmaps`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/personalized-roadmaps`,
       lastModified: new Date(),
     },
     {
       url: `${baseUrl}/questions/previous`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/statistics/reports`,
+      lastModified: new Date(),
+    },
+
+    // BLOGS / LANDING PAGES
+
     {
       url: `${baseUrl}/free-leetcode-alternative`,
       lastModified: new Date(),

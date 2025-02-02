@@ -1,3 +1,5 @@
+import { cn } from '@/lib/utils';
+
 export default function Chip(opts: {
   text: string;
   color: string;
@@ -6,6 +8,7 @@ export default function Chip(opts: {
   ghost?: boolean;
   bold?: boolean;
   border?: string;
+  className?: string;
 }) {
   const {
     text,
@@ -15,6 +18,7 @@ export default function Chip(opts: {
     ghost = false,
     bold = true,
     border,
+    className,
   } = opts;
 
   const baseClasses = small ? 'text-[10px] px-1.5 py-0.5 font-onest' : 'text-xs px-2 py-1 h-fit';
@@ -28,7 +32,10 @@ export default function Chip(opts: {
 
   return (
     <span
-      className={`${baseClasses} ${colorClasses} ${boldClasses} border ${borderClasses} rounded-md`}
+      className={cn(
+        `${baseClasses} ${colorClasses} ${boldClasses} border ${borderClasses} rounded-md`,
+        className
+      )}
     >
       {text}
     </span>

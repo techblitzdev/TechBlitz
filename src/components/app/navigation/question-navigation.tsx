@@ -75,7 +75,7 @@ export default function QuestionNavigation(opts: {
                 <Button
                   variant="default"
                   className="z-30 flex items-center gap-x-2 mr-2"
-                  href={`/study-paths/${studyPath?.slug}`}
+                  href={`/roadmaps/${studyPath?.slug}`}
                 >
                   <ArrowLeft className="size-4" />
                   <span className="text-sm hidden sm:block">Back</span>

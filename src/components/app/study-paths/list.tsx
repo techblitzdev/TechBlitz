@@ -5,6 +5,7 @@ import type { Question } from '@/types/Questions';
 import type { StudyPath } from '@/utils/constants/study-paths';
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
+import StudyPathQuestionCard from './study-path-question-card';
 
 const QuestionCardClient = dynamic(() => import('../questions/layout/question-card-client'), {
   ssr: false,
@@ -58,14 +59,9 @@ export default async function StudyPathsList(opts: {
                         </div>
                       </div>
                     )}
-                    <QuestionCard
+                    <StudyPathQuestionCard
+                      href={`/questions/${question.slug}`}
                       questionData={question}
-                      identifier="slug"
-                      user={user || null}
-                      numberOfTags={0}
-                      type="study-path"
-                      showSubmissions={false}
-                      studyPathSlug={studyPath.slug}
                       className="w-full hover:border-accent group-hover:scale-[0.99] active:scale-[0.98] transition-transform duration-200"
                     />
                   </div>

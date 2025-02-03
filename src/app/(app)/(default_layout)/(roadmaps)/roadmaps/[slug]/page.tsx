@@ -192,7 +192,7 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
           <GetStartedCta studyPath={studyPath} />
         </Hero>
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
-          <div className="w-full lg:w-[65%] space-y-6 pb-12">
+          <div className="w-full lg:w-[55%] space-y-6 pb-12">
             <StudyPathsList questions={questions} studyPath={studyPath} />
           </div>
           <StudyPathSidebar studyPath={studyPath} />

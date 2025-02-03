@@ -1,15 +1,16 @@
 import { Button } from '@/components/ui/button';
-import { BookOpen, Target } from 'lucide-react';
+import Target from '@/components/ui/icons/target';
 import { useUserServer } from '@/hooks/use-user-server';
 import UpgradeCard from '../shared/upgrade-card';
 import { Progress } from '@/components/ui/progress';
 import { StudyPath } from '@prisma/client';
+import DailyChallengesCard from '../shared/question/daily-goals-card';
 
 export default async function StudyPathSidebar({ studyPath }: { studyPath: StudyPath }) {
   const user = await useUserServer();
 
   return (
-    <aside className="w-full lg:w-1/4 space-y-6 order-first lg:order-last">
+    <aside className="w-full lg:w-1/3 space-y-6 order-first lg:order-last">
       <div className="sticky top-20 space-y-6">
         {/** only show if user is enrolled */}
         {user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid) && (
@@ -40,6 +41,7 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
           <p className="text-sm text-muted-foreground">{studyPath.description}</p>
         </div>
             */}
+        <DailyChallengesCard />
 
         {user?.userLevel === 'FREE' && (
           <UpgradeCard
@@ -50,7 +52,7 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
 
         <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg">
           <div className="flex items-center space-x-2 text-white">
-            <Target className="size-5" />
+            <Target fill="#0DFF0D" height="36" width="36" />
             <span>Set a Goal</span>
           </div>
           <p className="text-sm text-muted-foreground">

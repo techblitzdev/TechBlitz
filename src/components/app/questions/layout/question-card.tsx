@@ -3,7 +3,7 @@ import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import TagDisplay from '@/components/app/questions/tag-display';
 import Link from 'next/link';
 import Chip from '@/components/ui/chip';
-import { Bookmark, Circle } from 'lucide-react';
+import { Bookmark, Circle, XCircle } from 'lucide-react';
 import { CheckCircle } from 'lucide-react';
 import { TooltipProvider, TooltipTrigger, TooltipContent, Tooltip } from '@/components/ui/tooltip';
 import type { UserRecord } from '@/types/User';
@@ -99,7 +99,7 @@ export default function QuestionCard(opts: {
               questionData.userAnswers[0].correctAnswer ? (
                 <CheckCircle className="flex-shrink-0 size-5 text-green-500" />
               ) : (
-                <Circle className="flex-shrink-0 size-5 text-black-50" />
+                <XCircle className="flex-shrink-0 size-5 text-red-500" />
               )
             ) : (
               <Circle className="flex-shrink-0 size-5 text-black-50" />

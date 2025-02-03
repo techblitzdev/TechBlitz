@@ -86,15 +86,20 @@ async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
           );
         }}
       >
-        <Button
-          type="submit"
-          variant="secondary"
-          className="flex items-center gap-x-2"
-          disabled={isDisabled}
-        >
-          {isEnrolled ? 'Continue learning' : 'Enroll now'}
-          <ArrowRightIcon className="w-4 h-4" />
-        </Button>
+        <div className="flex items-center gap-4 flex-wrap">
+          <Button
+            type="submit"
+            variant="secondary"
+            className="flex items-center gap-x-2"
+            disabled={isDisabled}
+          >
+            {isEnrolled ? 'Continue learning' : 'Enroll now'}
+            <ArrowRightIcon className="w-4 h-4" />
+          </Button>
+          <Button variant="default" type="button">
+            Reset progress
+          </Button>
+        </div>
       </form>
     </div>
   );
@@ -188,8 +193,8 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
         >
           <GetStartedCta studyPath={studyPath} />
         </Hero>
-        <div className="flex flex-col lg:flex-row gap-24">
-          <div className="w-full lg:w-[65%] space-y-6">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
+          <div className="w-full lg:w-[65%] space-y-6 pb-12">
             <StudyPathsList questions={questions} studyPath={studyPath} />
           </div>
           <StudyPathSidebar studyPath={studyPath} />

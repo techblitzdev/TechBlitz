@@ -80,4 +80,12 @@ export const studyPaths: StudyPath[] = [
     questionSlugs: [],
     educationLevel: 'intermediate',
   },
+  {
+    title: 'React Hooks',
+    slug: 'react-hooks-fundamentals',
+    description: 'Learn the basics of React Hooks',
+    heroChip: 'Learn how to use React Hooks through interactive coding challenges',
+    questionSlugs: [],
+    educationLevel: 'intermediate',
+  },
 ];

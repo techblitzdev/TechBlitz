@@ -65,6 +65,8 @@ export default function QuestionNavigation(opts: {
     }
   }, [pathname, searchParams, slug, type, nextPrevPromise, studyPathSlug]);
 
+  console.log(studyPath);
+
   return (
     <div className="flex items-center">
       {type === 'study-path' && (

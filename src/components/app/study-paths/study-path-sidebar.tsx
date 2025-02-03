@@ -10,7 +10,7 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
 
   return (
     <aside className="w-full lg:w-1/4 space-y-6 order-first lg:order-last">
-      <div className="sticky top-10 space-y-6">
+      <div className="sticky top-20 space-y-6">
         {/** only show if user is enrolled */}
         {user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid) && (
           <div className="flex flex-col gap-y-2 w-full">

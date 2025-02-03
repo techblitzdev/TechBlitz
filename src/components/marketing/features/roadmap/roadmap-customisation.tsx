@@ -46,11 +46,15 @@ interface FeatureRoadmapCustomizationBlockProps {
     title: string;
     href: string;
   };
+  header?: string;
+  subheader?: string;
 }
 
 export default function FeatureRoadmapCustomizationBlock({
   className,
   cta,
+  header,
+  subheader,
 }: FeatureRoadmapCustomizationBlockProps) {
   return (
     <section
@@ -63,12 +67,11 @@ export default function FeatureRoadmapCustomizationBlock({
       <div className="flex flex-col gap-y-4 col-span-full md:col-span-5">
         <AnimatedSpan content="Personalized" />
         <h2 className="text-2xl lg:text-5xl !font-sans !leading-[normal] text-gradient from-white to-white/55">
-          Your personalized coding roadmap.
+          {header || 'Your personalized coding roadmap.'}
         </h2>
         <p className="text-gray-400 max-w-3xl">
-          Start your journey to learn to code with our AI-powered learning paths. Whether you're a
-          beginner or advancing your skills, we'll create a personalized programming roadmap to
-          guide your tech skills progression.
+          {subheader ||
+            "Start your journey to learn to code with our AI-powered learning paths. Whether you're a beginner or advancing your skills, we'll create a personalized programming roadmap to guide your tech skills progression."}
         </p>
         {cta && (
           <Button variant="secondary" href={cta.href} className="w-fit">

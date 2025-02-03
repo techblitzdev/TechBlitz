@@ -42,6 +42,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'introducing-techblitz',
     'what-are-callback-functions',
     '250-users-on-techblitz',
+    'what-is-triple-equals-in-javascript',
   ];
 
   const blogPosts = blogPostSlugs.map((slug) => ({
@@ -201,6 +202,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/javascript-for-beginners`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/react-roadmap`,
       lastModified: new Date(),
     },
   ];

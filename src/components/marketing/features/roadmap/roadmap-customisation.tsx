@@ -1,5 +1,6 @@
 import RoadmapQuestionCard from '@/components/app/roadmaps/questions/[uid]/question-card';
 import AnimatedSpan from '@/components/ui/animated-span';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 import { RoadmapUserQuestions } from '@/types/Roadmap';
@@ -41,10 +42,15 @@ const dummyTotalQuestions = dummyQuestions.length;
 
 interface FeatureRoadmapCustomizationBlockProps {
   className?: string;
+  cta?: {
+    title: string;
+    href: string;
+  };
 }
 
 export default function FeatureRoadmapCustomizationBlock({
   className,
+  cta,
 }: FeatureRoadmapCustomizationBlockProps) {
   return (
     <section
@@ -64,6 +70,11 @@ export default function FeatureRoadmapCustomizationBlock({
           beginner or advancing your skills, we'll create a personalized programming roadmap to
           guide your tech skills progression.
         </p>
+        {cta && (
+          <Button variant="secondary" href={cta.href} className="w-fit">
+            {cta.title}
+          </Button>
+        )}
       </div>
       <div className="col-span-full md:col-span-7 max-h-[26rem] relative -right-4">
         {dummyQuestions.map((question, index) => (

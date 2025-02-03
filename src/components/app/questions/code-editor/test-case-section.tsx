@@ -35,7 +35,7 @@ export default function TestCaseSection() {
             )}
           </h2>
         </div>
-        <Tabs defaultValue="test-1">
+        <Tabs defaultValue="test-0">
           <TabsList className="text-white rounded-lg bg-transparent flex gap-3 flex-wrap w-full justify-start px-4 py-2">
             {question.testCases.map((_: any, index: number) => (
               <TabsTrigger

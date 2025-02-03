@@ -52,9 +52,9 @@ export default async function StudyPathsList(opts: {
                   <div className="relative w-[80%] group">
                     {firstUnansweredQuestion === question.slug && (
                       <div className="absolute top-1 left-1/2 transform -translate-x-1/2 -translate-y-full z-20">
-                        <div className="relative bg-black border border-black-50 text-green-500 px-4 py-2 rounded-lg font-bold shadow-lg flex items-center group-hover:scale-[0.99] transition-transform duration-200 text-lg">
-                          Start
-                          <div className="absolute w-3 h-3 bg-black border-r border-b border-black-50 transform rotate-45 left-1/2 -bottom-1.5 -translate-x-1/2"></div>
+                        <div className="relative bg-black border-2 border-black-50 text-green-500 px-4 py-2 rounded-lg font-semibold shadow-lg flex items-center group-hover:scale-[0.99] transition-transform duration-200 text-lg">
+                          <span className="font-onest">Start</span>
+                          <div className="absolute w-3 h-3 bg-black border-r-2 border-b-2 border-black-50 transform rotate-45 left-1/2 -bottom-1.5 -translate-x-1/2"></div>
                         </div>
                       </div>
                     )}

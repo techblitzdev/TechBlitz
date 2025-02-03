@@ -30,6 +30,8 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
             />
           </div>
         )}
+        {/**
+         * 
         <div className="flex flex-col bg-[#090909] gap-y-2 border border-black-50 p-4 rounded-lg">
           <div className="flex items-center space-x-2 text-white">
             <BookOpen className="size-5" />
@@ -37,6 +39,7 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
           </div>
           <p className="text-sm text-muted-foreground">{studyPath.description}</p>
         </div>
+            */}
 
         {user?.userLevel === 'FREE' && (
           <UpgradeCard

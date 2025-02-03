@@ -1,6 +1,5 @@
 import QuestionCard from '@/components/app/questions/layout/question-card';
 import { useUserServer } from '@/hooks/use-user-server';
-import Dots from './dots';
 
 import type { Question } from '@/types/Questions';
 import type { StudyPath } from '@/utils/constants/study-paths';
@@ -48,7 +47,7 @@ export default async function StudyPathsList(opts: {
                   index={index}
                   offset={offset}
                 >
-                  <div className="relative w-[70%] group">
+                  <div className="relative group w-full">
                     {firstUnansweredQuestion === question.slug && (
                       <div className="absolute top-1 left-1/2 transform -translate-x-1/2 -translate-y-full z-20">
                         <div className="animate-start-bounce">

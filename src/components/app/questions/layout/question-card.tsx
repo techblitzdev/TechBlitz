@@ -93,7 +93,7 @@ export default function QuestionCard(opts: {
       )}
     >
       <div className="flex flex-col gap-y-4 md:gap-y-5 w-full">
-        <div className="flex flex-col md:flex-row w-full justify-between gap-2 md:gap-5">
+        <div className="flex flex-col md:flex-row w-full justify-between gap-4 md:gap-5">
           <div className="flex items-center gap-x-2">
             {questionData.userAnswers && questionData.userAnswers.length > 0 ? (
               questionData.userAnswers[0].correctAnswer ? (
@@ -108,7 +108,7 @@ export default function QuestionCard(opts: {
               {title}
             </h6>
           </div>
-          <div className="flex items-center gap-x-2">
+          <div className="flex items-center gap-x-2 order-first lg:order-last">
             {questionData?.difficulty && userCanAccess ? (
               <div className="h-fit">
                 <Chip

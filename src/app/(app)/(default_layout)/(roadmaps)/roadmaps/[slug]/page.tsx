@@ -26,7 +26,6 @@ import { createMetadata } from '@/utils/seo';
 import { QuizJsonLd } from '@/types/Seo';
 import type { StudyPath } from '@prisma/client';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Progress } from '@/components/ui/progress';
 import ShareQuestion from '@/components/app/shared/question/share-question';
 import { QuestionCardSkeleton } from '@/components/app/questions/layout/question-card';
 
@@ -89,15 +88,12 @@ async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
         <div className="flex items-center gap-4 flex-wrap">
           <Button
             type="submit"
-            variant="secondary"
+            variant="default"
             className="flex items-center gap-x-2"
             disabled={isDisabled}
           >
             {isEnrolled ? 'Continue learning' : 'Enroll now'}
             <ArrowRightIcon className="w-4 h-4" />
-          </Button>
-          <Button variant="default" type="button">
-            Reset progress
           </Button>
         </div>
       </form>
@@ -107,7 +103,7 @@ async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
 
 function HeroChip({ studyPath }: { studyPath: StudyPath }) {
   return (
-    <div className="text-xs text-white px-2 py-1 rounded-full w-fit flex items-center gap-x-2 z-20">
+    <div className="text-xs text-white py-1 rounded-full w-fit flex items-center gap-x-3 z-20">
       <TooltipProvider>
         <Tooltip delayDuration={0}>
           <TooltipTrigger asChild>
@@ -120,8 +116,10 @@ function HeroChip({ studyPath }: { studyPath: StudyPath }) {
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <Sparkles className="size-3 text-yellow-400 fill-yellow-500" />
-      {studyPath?.heroChip}
+      <div className="flex items-center gap-x-1">
+        <Sparkles className="size-3 text-yellow-400 fill-yellow-500" />
+        {studyPath?.heroChip}
+      </div>
     </div>
   );
 }
@@ -185,7 +183,7 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="flex flex-col gap-y-12">
+      <div className="flex flex-col gap-y-12 lg:px-28">
         <Hero
           heading={<HeroHeading studyPath={studyPath} />}
           container={false}

@@ -203,6 +203,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/javascript-for-beginners`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/react-roadmap`,
+      lastModified: new Date(),
+    },
   ];
 
   // Combine static routes with dynamic blog posts

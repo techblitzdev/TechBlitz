@@ -215,11 +215,11 @@ export default async function PricingPage() {
           </div>
         </div>
 
-        <FAQsBlock faqs={faqs} />
-
         <div className="mt-10 mb-28">
           <Testimonials header="Loved by developers just like you" />
         </div>
+
+        <FAQsBlock faqs={faqs} />
 
         <CallToActionBlock title="Master Coding in Weeks, Not Years" />
       </div>

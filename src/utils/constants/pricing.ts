@@ -50,14 +50,14 @@ export const getPlans = (
       paymentLink: {
         local:
           billingPeriod === 'month'
-            ? `https://buy.stripe.com/eVabKc0oc0aI23e28e?client_reference_id=${user?.uid}`
-            : `https://buy.stripe.com/3cs4hKgna7DagY814d?client_reference_id=${user?.uid}`,
+            ? `https://buy.stripe.com/14k15yef2bTqcHS4gr?client_reference_id=${user?.uid}`
+            : `https://buy.stripe.com/28o8y0gna9LigY828k?client_reference_id=${user?.uid}`,
         production:
           billingPeriod === 'month'
-            ? `https://buy.stripe.com/eVabKc0oc0aI23e28e?client_reference_id=${user?.uid}`
-            : `https://buy.stripe.com/3cs4hKgna7DagY814d?client_reference_id=${user?.uid}`,
+            ? `https://buy.stripe.com/14k15yef2bTqcHS4gr?client_reference_id=${user?.uid}`
+            : `https://buy.stripe.com/28o8y0gna9LigY828k?client_reference_id=${user?.uid}`,
       },
-      price: billingPeriod === 'month' ? 3.99 : 3.33,
+      price: billingPeriod === 'month' ? 5.99 : 4.99,
       currencySymbol: '$',
       frequency: billingPeriod,
       frequencyText:
@@ -89,12 +89,12 @@ export const getPlans = (
         href: {
           local:
             billingPeriod === 'month'
-              ? `https://buy.stripe.com/eVabKc0oc0aI23e28e?client_reference_id=${user?.uid}`
-              : `https://buy.stripe.com/3cs4hKgna7DagY814d?client_reference_id=${user?.uid}`,
+              ? `https://buy.stripe.com/14k15yef2bTqcHS4gr?client_reference_id=${user?.uid}`
+              : `https://buy.stripe.com/28o8y0gna9LigY828k?client_reference_id=${user?.uid}`,
           production:
             billingPeriod === 'month'
-              ? `https://buy.stripe.com/eVabKc0oc0aI23e28e?client_reference_id=${user?.uid}`
-              : `https://buy.stripe.com/3cs4hKgna7DagY814d?client_reference_id=${user?.uid}`,
+              ? `https://buy.stripe.com/14k15yef2bTqcHS4gr?client_reference_id=${user?.uid}`
+              : `https://buy.stripe.com/28o8y0gna9LigY828k?client_reference_id=${user?.uid}`,
         },
       },
       mostPopular: false,
@@ -103,7 +103,7 @@ export const getPlans = (
     {
       id: 'lifetime',
       name: 'Lifetime',
-      price: 59.99,
+      price: 89.99,
       currencySymbol: '$',
       frequency: 'once',
       frequencyText: 'pay once, yours forever',
@@ -132,14 +132,14 @@ export const getPlans = (
         { name: 'Lifetime access to all features and future updates!' },
       ],
       paymentLink: {
-        local: `https://buy.stripe.com/00g29C1sg3mU37i9AI?client_reference_id=${user?.uid}`,
-        production: `https://buy.stripe.com/00g29C1sg3mU37i9AI?client_reference_id=${user?.uid}`,
+        local: `https://buy.stripe.com/7sI29Cef21eMazKaER?client_reference_id=${user?.uid}`,
+        production: `https://buy.stripe.com/7sI29Cef21eMazKaER?client_reference_id=${user?.uid}`,
       },
       cta: {
         text: user?.userLevel === 'PREMIUM' ? 'Current plan' : 'Get started',
         href: {
-          local: `https://buy.stripe.com/00g29C1sg3mU37i9AI?client_reference_id=${user?.uid}`,
-          production: `https://buy.stripe.com/00g29C1sg3mU37i9AI?client_reference_id=${user?.uid}`,
+          local: `https://buy.stripe.com/7sI29Cef21eMazKaER?client_reference_id=${user?.uid}`,
+          production: `https://buy.stripe.com/7sI29Cef21eMazKaER?client_reference_id=${user?.uid}`,
         },
       },
       mostPopular: true,

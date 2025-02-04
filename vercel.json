@@ -7,6 +7,10 @@
     {
       "path": "/api/cron/sync-user-streak",
       "schedule": "0 1 * * *"
+    },
+    {
+      "path": "/api/cron/set-daily-missions",
+      "schedule": "0 0 * * *"
     }
   ]
 }

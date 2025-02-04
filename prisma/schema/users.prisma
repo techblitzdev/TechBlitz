@@ -21,6 +21,8 @@ model Users {
   howDidYouHearAboutTechBlitz String?
   referralCode                String?
   aboutMeAiHelp               String?
+
+  // relations
   achievements                Achievement[]
   answers                     Answers[]
   Profile                     Profile?
@@ -31,6 +33,7 @@ model Users {
   bookmarks                   UserBookmarks[]
   roadmaps                    UserRoadmaps[]
   studyPathEnrollments        UserStudyPath[]
+  userMissions                UserMission[]
 }
 
 model Streaks {

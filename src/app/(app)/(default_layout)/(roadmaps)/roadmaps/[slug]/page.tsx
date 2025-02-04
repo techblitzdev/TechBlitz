@@ -1,4 +1,3 @@
-import { redirect } from 'next/navigation';
 import dynamic from 'next/dynamic';
 
 const StudyPathsList = dynamic(() => import('@/components/app/study-paths/list'), {
@@ -13,14 +12,14 @@ const StudyPathsList = dynamic(() => import('@/components/app/study-paths/list')
 import StudyPathSidebar from '@/components/app/study-paths/study-path-sidebar';
 import Hero from '@/components/shared/hero';
 import { Button } from '@/components/ui/button';
-import { ArrowRightIcon, ChevronLeft, Sparkles } from 'lucide-react';
+import { ChevronLeft, Sparkles } from 'lucide-react';
 
 import { getQuestions } from '@/actions/questions/admin/list';
-import { enrollInStudyPath } from '@/actions/study-paths/enroll';
-import { useUserServer } from '@/hooks/use-user-server';
+//import { enrollInStudyPath } from '@/actions/study-paths/enroll';
+//import { useUserServer } from '@/hooks/use-user-server';
 
 import { capitalise, getBaseUrl } from '@/utils';
-import { getStudyPath, isUserEnrolledInStudyPath } from '@/utils/data/study-paths/get';
+import { getStudyPath /** isUserEnrolledInStudyPath */ } from '@/utils/data/study-paths/get';
 import { createMetadata } from '@/utils/seo';
 
 import { QuizJsonLd } from '@/types/Seo';

@@ -2,7 +2,6 @@
 import type React from 'react';
 import { motion } from 'framer-motion';
 import { Progress } from '@/components/ui/progress';
-import Spaceship2 from '@/components/ui/icons/spaceship';
 import TreasureChest from '@/components/ui/icons/treasure-chest';
 import ChallengeFlag from '@/components/ui/icons/challenge-flag';
 import XpStar from '@/components/ui/icons/xp-star';

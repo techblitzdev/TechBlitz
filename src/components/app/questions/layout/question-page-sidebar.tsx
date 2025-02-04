@@ -1,7 +1,5 @@
 import { DatePicker } from '@mantine/dates';
-import QuestionSuggestedCard from '@/components/app/questions/suggested-questions-table';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 
 import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak';
 import { Button } from '@/components/ui/button';

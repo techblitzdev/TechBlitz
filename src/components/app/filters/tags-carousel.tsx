@@ -105,7 +105,7 @@ export default function FilterTagsCarousel() {
                   }}
                   variant="outline"
                   className={cn(
-                    'text-white hover:text-white border border-black-50',
+                    'text-white hover:text-white bg-primary border border-black-50',
                     selectedTags.includes(tag.name) && 'bg-accent'
                   )}
                 >

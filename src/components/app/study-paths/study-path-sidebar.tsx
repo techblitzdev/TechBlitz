@@ -5,6 +5,51 @@ import UpgradeCard from '../shared/upgrade-card';
 import { Progress } from '@/components/ui/progress';
 import { StudyPath } from '@prisma/client';
 import DailyChallengesCard from '../shared/question/daily-goals-card';
+import { ArrowRightIcon } from 'lucide-react';
+import { isUserEnrolledInStudyPath } from '@/utils/data/study-paths/get';
+import { enrollInStudyPath } from '@/actions/study-paths/enroll';
+import { redirect } from 'next/navigation';
+
+async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
+  // run in parallel
+  const [user, isEnrolled] = await Promise.all([
+    useUserServer(),
+    isUserEnrolledInStudyPath(studyPath.uid),
+  ]);
+
+  // the button will be disabled if the user is a free user and has reached the maximum number of study paths
+  // the button will be disabled if the user is already enrolled in the study path
+  const isDisabled = user?.userLevel === 'FREE' && (user?.studyPathEnrollments?.length ?? 0) === 0;
+
+  return (
+    <div className="flex flex-col gap-y-4 z-30 relative ">
+      <form
+        action={async () => {
+          'use server';
+          if (!isEnrolled) {
+            await enrollInStudyPath(studyPath.uid);
+          }
+          // redirect to the first question in the study path
+          redirect(
+            `/question/${studyPath.questionSlugs[0]}?type=study-path&study-path=${studyPath.slug}`
+          );
+        }}
+      >
+        <div className="flex items-center gap-4 flex-wrap">
+          <Button
+            type="submit"
+            variant="default"
+            className="flex items-center gap-x-2"
+            disabled={isDisabled}
+          >
+            {isEnrolled ? 'Continue learning' : 'Enroll now'}
+            <ArrowRightIcon className="w-4 h-4" />
+          </Button>
+        </div>
+      </form>
+    </div>
+  );
+}
 
 export default async function StudyPathSidebar({ studyPath }: { studyPath: StudyPath }) {
   const user = await useUserServer();
@@ -12,8 +57,11 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
   return (
     <aside className="w-full lg:w-1/3 space-y-6 order-first lg:order-last">
       <div className="sticky top-20 space-y-6">
-        {/** only show if user is enrolled */}
-        {user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid) && (
+        {/** show if not enrolled */}
+        {!user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid) ? (
+          <GetStartedCta studyPath={studyPath} />
+        ) : (
+          /** only show if user is enrolled */
           <div className="flex flex-col gap-y-2 w-full">
             <p className="text-sm text-gray-400 font-onest">
               {Math.round(

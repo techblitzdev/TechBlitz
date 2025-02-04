@@ -1,49 +1,18 @@
 'use client';
-import Spaceship2 from '@/components/ui/icons/spaceship';
-import { Progress } from '@/components/ui/progress';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { QuestionDifficulty } from '@/types/Questions';
-import { UserRecord } from '@/types/User';
-import { capitalise } from '@/utils';
-import { UserExperienceLevel } from '@prisma/client';
+import type React from 'react';
 import { motion } from 'framer-motion';
-import { Circle, Info } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
+import Spaceship2 from '@/components/ui/icons/spaceship';
+import TreasureChest from '@/components/ui/icons/treasure-chest';
+import ChallengeFlag from '@/components/ui/icons/challenge-flag';
+import XpStar from '@/components/ui/icons/xp-star';
 
-// map difficulty to user experience level + 1
-const difficultyToExperienceLevel: Record<UserExperienceLevel, QuestionDifficulty> = {
-  BEGINNER: 'EASY',
-  INTERMEDIATE: 'MEDIUM',
-  ADVANCED: 'HARD',
-  MASTER: 'HARD',
-};
+import type { UserRecord } from '@/types/User';
+import type { Mission } from '@/types/Mission';
 
-type Mission = {
-  id: number;
-  task: string;
-  completed: number;
-  total: number;
-  icon: JSX.Element;
-};
+import { capitalise } from '@/utils';
+import { difficultyToExperienceLevel } from '@/utils';
 
-const dummyMissions = (user: UserRecord | null): Mission[] => [
-  {
-    id: 1,
-    task: 'Answer 3 questions',
-    completed: 2,
-    total: 3,
-    icon: <Circle />,
-  },
-  {
-    id: 2,
-    task: `Complete 1 ${capitalise(user?.experienceLevel ? difficultyToExperienceLevel[user.experienceLevel] : 'EASY')} challenge`,
-    completed: 0,
-    total: 1,
-    icon: <Circle />,
-  },
-  { id: 3, task: 'Earn 50 XP', completed: 30, total: 50, icon: <Circle /> },
-];
-
-// framer motion container
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -59,7 +28,13 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
-export default function DailyGoalsCard({ user }: { user: UserRecord | null }) {
+interface DailyGoalsCardProps {
+  user: UserRecord | null;
+}
+
+const DailyGoalsCard: React.FC<DailyGoalsCardProps> = ({ user }) => {
+  const missions = dummyMissions(user);
+
   return (
     <motion.div
       initial={{ height: 'auto' }}
@@ -67,24 +42,26 @@ export default function DailyGoalsCard({ user }: { user: UserRecord | null }) {
       className="bg-[#090909] border border-black-50 rounded-lg p-4 overflow-hidden"
     >
       <div className="flex items-center gap-x-2">
+        {/*
         <Spaceship2 height="36" width="36" />
+        */}
         <h3 className="text-lg font-semibold">Daily Missions</h3>
       </div>
 
       <motion.div variants={container} initial="hidden" animate="show" className="mt-4 space-y-4">
-        {dummyMissions(user).map((mission) => (
+        {missions.map((mission) => (
           <MissionItem key={mission.id} mission={mission} />
         ))}
       </motion.div>
     </motion.div>
   );
-}
+};
 
 function MissionItem({ mission }: { mission: Mission }) {
   const progress = (mission.completed / mission.total) * 100;
 
   return (
-    <motion.div variants={item} className="flex items-center gap-5">
+    <motion.div variants={item} className="flex items-center gap-3">
       <div className="flex-shrink-0 size-10 rounded-full flex items-center justify-center">
         {mission.icon}
       </div>
@@ -95,3 +72,23 @@ function MissionItem({ mission }: { mission: Mission }) {
     </motion.div>
   );
 }
+
+const dummyMissions = (user: UserRecord | null): Mission[] => [
+  {
+    id: 1,
+    task: 'Answer 3 questions',
+    completed: 2,
+    total: 3,
+    icon: <TreasureChest width={28} height={28} />,
+  },
+  {
+    id: 2,
+    task: `Complete 1 ${capitalise(user?.experienceLevel ? difficultyToExperienceLevel[user.experienceLevel] : 'EASY')} challenge`,
+    completed: 0,
+    total: 1,
+    icon: <ChallengeFlag width={28} height={28} />,
+  },
+  { id: 3, task: 'Earn 50 XP', completed: 30, total: 50, icon: <XpStar width={28} height={28} /> },
+];
+
+export default DailyGoalsCard;

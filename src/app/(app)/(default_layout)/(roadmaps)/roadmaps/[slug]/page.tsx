@@ -60,54 +60,13 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   });
 }
 
-async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
-  // run in parallel
-  const [user, isEnrolled] = await Promise.all([
-    useUserServer(),
-    isUserEnrolledInStudyPath(studyPath.uid),
-  ]);
-
-  // the button will be disabled if the user is a free user and has reached the maximum number of study paths
-  // the button will be disabled if the user is already enrolled in the study path
-  const isDisabled = user?.userLevel === 'FREE' && (user?.studyPathEnrollments?.length ?? 0) === 0;
-
-  return (
-    <div className="flex flex-col gap-y-4 z-30 relative ">
-      <form
-        action={async () => {
-          'use server';
-          if (!isEnrolled) {
-            await enrollInStudyPath(studyPath.uid);
-          }
-          // redirect to the first question in the study path
-          redirect(
-            `/question/${studyPath.questionSlugs[0]}?type=study-path&study-path=${studyPath.slug}`
-          );
-        }}
-      >
-        <div className="flex items-center gap-4 flex-wrap">
-          <Button
-            type="submit"
-            variant="default"
-            className="flex items-center gap-x-2"
-            disabled={isDisabled}
-          >
-            {isEnrolled ? 'Continue learning' : 'Enroll now'}
-            <ArrowRightIcon className="w-4 h-4" />
-          </Button>
-        </div>
-      </form>
-    </div>
-  );
-}
-
 function HeroChip({ studyPath }: { studyPath: StudyPath }) {
   return (
     <div className="text-xs text-white py-1 rounded-full w-fit flex items-center gap-x-3 z-20">
       <TooltipProvider>
         <Tooltip delayDuration={0}>
           <TooltipTrigger asChild>
-            <Button href="/roadmaps" variant="default" size="sm" className="p-1 h-fit">
+            <Button href="/roadmaps" variant="ghost" size="sm" className="p-1 h-fit">
               <ChevronLeft className="size-4 text-white" />
             </Button>
           </TooltipTrigger>
@@ -188,9 +147,7 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
           heading={<HeroHeading studyPath={studyPath} />}
           container={false}
           chip={<HeroChip studyPath={studyPath} />}
-        >
-          <GetStartedCta studyPath={studyPath} />
-        </Hero>
+        />
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
           <div className="w-full lg:w-[55%] space-y-6 pb-12">
             <StudyPathsList questions={questions} studyPath={studyPath} />

@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import CurrentStreak, { SolarFlameBoldDuotone } from '@/components/ui/current-streak';
 import { useUserServer } from '@/hooks/use-user-server';
+import DailyGoalsCard from '../../shared/question/daily-goals-card';
 
 export default async function QuestionPageSidebar() {
   const user = await useUserServer();
@@ -84,34 +85,7 @@ export default async function QuestionPageSidebar() {
             )}
           </div>
         </div>
-        <div className="space-y-4 w-full">
-          <div className="flex items-center gap-x-2">
-            <h6 className="text-xl">Suggested questions</h6>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <QuestionMarkCircledIcon className="size-3.5 mt-1 text-gray-300" />
-                  <TooltipContent>
-                    <p>
-                      These question have been suggested based on areas where some users have
-                      struggled in the past.
-                    </p>
-                  </TooltipContent>
-                </TooltipTrigger>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
-          <div className="relative">
-            <QuestionSuggestedCard />
-            {!user && (
-              <div className="absolute inset-0 backdrop-blur-[2px] z-10 flex items-center justify-center rounded-md">
-                <Button variant="default" href="/login">
-                  Log in to see suggestions
-                </Button>
-              </div>
-            )}
-          </div>
-        </div>
+        <DailyGoalsCard user={user} />
       </div>
     </aside>
   );

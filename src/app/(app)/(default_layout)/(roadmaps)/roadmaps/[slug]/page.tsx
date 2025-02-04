@@ -138,7 +138,7 @@ function HeroHeading({ studyPath }: { studyPath: StudyPath }) {
 
 export default async function RoadmapPage({ params }: { params: { slug: string } }) {
   // run in parallel
-  const [studyPath, user] = await Promise.all([getStudyPath(params.slug), useUserServer()]);
+  const [studyPath] = await Promise.all([getStudyPath(params.slug)]);
 
   // create json ld
   const jsonLd: QuizJsonLd = {

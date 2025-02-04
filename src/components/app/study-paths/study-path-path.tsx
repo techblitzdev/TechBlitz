@@ -1,7 +1,6 @@
 'use client';
 
 import type React from 'react';
-import { motion } from 'framer-motion';
 import type { Questions } from '@prisma/client';
 import type { StudyPath } from '@prisma/client';
 import QuestionCard from '@/components/app/questions/layout/question-card';
@@ -28,7 +27,7 @@ const RoadmapPath: React.FC<RoadmapPathProps> = ({ questions, studyPath }) => {
           <stop offset="100%" stopColor="#9333EA" />
         </linearGradient>
       </svg>
-      {questions.map((question, index) => (
+      {questions.map((question) => (
         <QuestionCard
           key={question.slug}
           questionData={question}

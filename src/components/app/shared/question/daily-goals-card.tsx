@@ -1,7 +1,8 @@
 'use client';
-import TreasureChest from '@/components/ui/icons/treasure-chest';
 import { Progress } from '@/components/ui/progress';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { motion } from 'framer-motion';
+import { Info } from 'lucide-react';
 
 const dummyMissions = [
   { id: 1, task: 'Answer 3 questions', completed: 2, total: 3 },
@@ -32,8 +33,17 @@ export default function EnhancedDailyGoalsCard() {
       className="bg-[#090909] border border-black-50 rounded-lg p-4 overflow-hidden"
     >
       <div className="flex items-center gap-x-2">
-        <TreasureChest className="text-[#fadb2c]" height="36" width="36" />
         <h3 className="text-lg font-semibold">Daily Missions</h3>
+        <TooltipProvider>
+          <Tooltip delayDuration={0}>
+            <TooltipTrigger>
+              <Info className="size-3" />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Complete these missions to earn rewards.</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
 
       <motion.div variants={container} initial="hidden" animate="show" className="mt-4 space-y-4">

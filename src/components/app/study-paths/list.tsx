@@ -1,6 +1,3 @@
-import QuestionCard from '@/components/app/questions/layout/question-card';
-import { useUserServer } from '@/hooks/use-user-server';
-
 import type { Question } from '@/types/Questions';
 import type { StudyPath } from '@/utils/constants/study-paths';
 import { Suspense } from 'react';
@@ -17,7 +14,6 @@ export default async function StudyPathsList(opts: {
 }) {
   const { questions, studyPath } = opts;
 
-  const user = await useUserServer();
   const studyPathQuestions = await questions;
 
   // Sort questions to match study path order
@@ -60,7 +56,7 @@ export default async function StudyPathsList(opts: {
                       </div>
                     )}
                     <StudyPathQuestionCard
-                      href={`/questions/${question.slug}`}
+                      href={`/question/${question.slug}`}
                       questionData={question}
                       className="w-full hover:border-accent group-hover:scale-[0.99] active:scale-[0.98] transition-transform duration-200"
                     />

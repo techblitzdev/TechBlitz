@@ -206,7 +206,7 @@ const config: Config = {
         shimmer: 'shimmer 2s linear infinite',
         marquee: 'marquee var(--duration) infinite linear',
         'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
-        'start-bounce': 'start-bounce 1s ease-in-out infinite',
+        'start-bounce': 'start-bounce 2s ease-in-out infinite',
       },
     },
   },

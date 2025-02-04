@@ -2,11 +2,7 @@ import { Question } from '@/types/Questions';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { CheckCircle, Circle, XCircle } from 'lucide-react';
-import { TooltipContent } from '@/components/ui/tooltip';
-import { TooltipTrigger } from '@/components/ui/tooltip';
-import { Tooltip } from '@/components/ui/tooltip';
 import { useUserServer } from '@/hooks/use-user-server';
-import { TooltipProvider } from '@/components/ui/tooltip';
 import Lock from '@/components/ui/icons/lock';
 
 export default async function StudyPathQuestionCard({
@@ -32,7 +28,7 @@ export default async function StudyPathQuestionCard({
         className
       )}
     >
-      <div className="flex flex-col md:flex-row w-full items-center justify-between gap-4 md:gap-5">
+      <div className="flex flex-col md:flex-row w-full items-center justify- gap-4 md:gap-5">
         <div className="flex items-center gap-x-2">
           {questionData.userAnswers && questionData.userAnswers.length > 0 ? (
             questionData.userAnswers[0].correctAnswer ? (

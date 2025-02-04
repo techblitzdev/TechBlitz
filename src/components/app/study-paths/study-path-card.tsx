@@ -14,10 +14,7 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
     <Link
       href={`/roadmaps/${studyPath.slug}`}
       className={cn(
-        'rounded-lg h-fit w-full overflow-hidden transition-all duration-300 hover:border-black border border-black-50 group',
-        user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
-          ? ''
-          : 'border-black-50'
+        'rounded-lg h-fit w-full overflow-hidden transition-all duration-300 hover:border-black border border-black-50 group'
       )}
     >
       <CardHeader className="relative p-0">
@@ -50,6 +47,12 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
             value={
               user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)?.progress ??
               0
+            }
+            indicatorColor={
+              user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
+                ?.progress === 100
+                ? 'bg-green-500'
+                : 'bg-accent'
             }
           />
         </div>

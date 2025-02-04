@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import Target from '@/components/ui/icons/target';
+import ArcheryTarget from '@/components/ui/icons/target';
 import { useUserServer } from '@/hooks/use-user-server';
 import UpgradeCard from '../shared/upgrade-card';
 import { Progress } from '@/components/ui/progress';
@@ -41,7 +41,7 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
           <p className="text-sm text-muted-foreground">{studyPath.description}</p>
         </div>
             */}
-        <DailyChallengesCard />
+        <DailyChallengesCard user={user} />
 
         {user?.userLevel === 'FREE' && (
           <UpgradeCard
@@ -52,8 +52,8 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
 
         <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg">
           <div className="flex items-center space-x-2 text-white">
-            <Target fill="#0DFF0D" height="36" width="36" />
-            <span>Set a Goal</span>
+            <ArcheryTarget height="36" width="36" />
+            <h3 className="text-lg font-semibold">Set a Goal</h3>
           </div>
           <p className="text-sm text-muted-foreground">
             Set a goal date to complete this study path. Receive a daily reminder to complete the

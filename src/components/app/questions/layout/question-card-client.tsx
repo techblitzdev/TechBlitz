@@ -33,7 +33,7 @@ export default function QuestionCardClient({
       key={questionData.slug}
       className={cn('absolute w-full flex justify-center transition-all duration-300')}
       style={{
-        top: `${index * (isMobile ? 180 : 130)}px`,
+        top: `${index * (isMobile ? 130 : 130)}px`,
         transform: `translateX(${offset}%)`,
       }}
     >

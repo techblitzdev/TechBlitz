@@ -28,7 +28,7 @@ export default async function StudyPathQuestionCard({
         className
       )}
     >
-      <div className="flex flex-col md:flex-row w-full items-center justify- gap-4 md:gap-5">
+      <div className="flex w-full items-center justify-between gap-4 md:gap-5">
         <div className="flex items-center gap-x-2">
           {questionData.userAnswers && questionData.userAnswers.length > 0 ? (
             questionData.userAnswers[0].correctAnswer ? (
@@ -39,13 +39,9 @@ export default async function StudyPathQuestionCard({
           ) : (
             <Circle className="flex-shrink-0 size-5 text-black-50" />
           )}
-          <h6 className="text-lg text-wrap text-start line-clamp-2 lg:line-clamp-1 flex-grow">
-            {title}
-          </h6>
+          <h6 className="text-lg text-wrap text-start line-clamp-1 flex-grow">{title}</h6>
         </div>
-        {questionData?.difficulty && userCanAccess ? (
-          <div className="h-fit"></div>
-        ) : (
+        {!userCanAccess && (
           <div className="h-fit">
             <Lock fill="yellow" height="20" width="20" />
           </div>

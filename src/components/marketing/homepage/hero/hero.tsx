@@ -43,7 +43,7 @@ export default async function HomepageHero() {
             href="/signup"
             className="flex-1 px-5 flex items-center group"
           >
-            Sign up with email
+            {user?.userLevel === 'ADMIN' ? 'Sign up with email' : 'Sign up for free'}
             <ArrowRight
               size={16}
               className="ml-1 size-4 group-hover:translate-x-1 transition-all duration-300"

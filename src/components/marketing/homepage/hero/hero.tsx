@@ -4,9 +4,8 @@ import { ArrowRight } from 'lucide-react';
 import HeroText from './text-rotate';
 import { Button } from '@/components/ui/button';
 import GoogleSignUp from './google-sign-up';
-import { useUserServer } from '@/hooks/use-user-server';
 
-export default async function HomepageHero() {
+export default function HomepageHero() {
   const animatedSpanContent = (
     <div className="flex items-center group">
       <span className="hidden md:block">Free study paths now available!</span>
@@ -14,10 +13,6 @@ export default async function HomepageHero() {
       <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-all duration-300" />
     </div>
   );
-
-  // i need to test this on prod. - i think it's working but i'm not sure
-  // TODO: remove this once i've tested it on prod
-  const user = await useUserServer();
 
   return (
     <section className="pb-16 pt-28 md:pb-20 md:pt-32 xl:pb-40 xl:pt-56 grid grid-cols-12 gap-4 lg:gap-16 items-center">
@@ -36,14 +31,14 @@ export default async function HomepageHero() {
           dream career in tech is just a click away.
         </p>
         <div className="mt-3 flex flex-wrap items-center justify-center gap-4">
-          {user?.userLevel === 'ADMIN' && <GoogleSignUp />}
+          <GoogleSignUp />
           <Button
-            variant={user?.userLevel === 'ADMIN' ? 'default' : 'accent'}
+            variant="default"
             size="lg"
             href="/signup"
             className="flex-1 px-5 flex items-center group"
           >
-            {user?.userLevel === 'ADMIN' ? 'Sign up with email' : 'Sign up for free'}
+            Sign up with email
             <ArrowRight
               size={16}
               className="ml-1 size-4 group-hover:translate-x-1 transition-all duration-300"

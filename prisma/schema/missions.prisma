@@ -42,7 +42,7 @@ model UserMission {
     updatedAt DateTime @updatedAt
 
     // The user who is assigned this mission
-    userUid String  
+    userUid String @unique
     // Reference to the mission
     missionUid String  
 

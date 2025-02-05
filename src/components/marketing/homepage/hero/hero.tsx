@@ -4,8 +4,9 @@ import { ArrowRight } from 'lucide-react';
 import HeroText from './text-rotate';
 import { Button } from '@/components/ui/button';
 import GoogleSignUp from './google-sign-up';
+import { useUserServer } from '@/hooks/use-user-server';
 
-export default function HomepageHero() {
+export default async function HomepageHero() {
   const animatedSpanContent = (
     <div className="flex items-center group">
       <span className="hidden md:block">Free study paths now available!</span>
@@ -14,11 +15,12 @@ export default function HomepageHero() {
     </div>
   );
 
+  // i need to test this on prod. - i think it's working but i'm not sure
+  // TODO: remove this once i've tested it on prod
+  const user = await useUserServer();
+
   return (
-    <section
-      id="#waitlist-form"
-      className="pb-16 pt-28 md:pb-20 md:pt-32 xl:pb-40 xl:pt-56 grid grid-cols-12 gap-4 lg:gap-16 items-center"
-    >
+    <section className="pb-16 pt-28 md:pb-20 md:pt-32 xl:pb-40 xl:pt-56 grid grid-cols-12 gap-4 lg:gap-16 items-center">
       <div className="flex flex-col gap-y-2 col-span-full items-center text-center">
         <Link href="/changelog">
           <AnimatedSpan content={animatedSpanContent} />
@@ -34,9 +36,9 @@ export default function HomepageHero() {
           dream career in tech is just a click away.
         </p>
         <div className="mt-3 flex flex-wrap items-center justify-center gap-4">
-          <GoogleSignUp />
+          {user?.userLevel === 'ADMIN' && <GoogleSignUp />}
           <Button
-            variant="default"
+            variant={user?.userLevel === 'ADMIN' ? 'default' : 'accent'}
             size="lg"
             href="/signup"
             className="flex-1 px-5 flex items-center group"

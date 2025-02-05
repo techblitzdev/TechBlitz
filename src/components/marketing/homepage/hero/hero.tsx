@@ -3,6 +3,8 @@ import AnimatedSpan from '@/components/ui/animated-span';
 import { ArrowRight } from 'lucide-react';
 import HeroText from './text-rotate';
 import { Button } from '@/components/ui/button';
+import { oauth } from '@/actions/user/account/oauth';
+import GoogleSignUp from './google-sign-up';
 
 export default function HomepageHero() {
   const animatedSpanContent = (
@@ -32,14 +34,15 @@ export default function HomepageHero() {
           Replace boring coding exercises with industry-standard coding challenges. <br /> Your
           dream career in tech is just a click away.
         </p>
-        <div className="mt-3 flex items-center justify-center gap-4">
+        <div className="mt-3 flex flex-wrap items-center justify-center gap-4">
+          <GoogleSignUp />
           <Button
-            variant="accent"
+            variant="default"
             size="lg"
             href="/signup"
             className="flex-1 px-5 flex items-center group"
           >
-            Start for free
+            Sign up with email
             <ArrowRight
               size={16}
               className="ml-1 size-4 group-hover:translate-x-1 transition-all duration-300"

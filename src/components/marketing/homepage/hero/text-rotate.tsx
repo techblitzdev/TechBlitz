@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useMemo,
-  useState,
-} from 'react';
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useState } from 'react';
 import {
   AnimatePresence,
   AnimatePresenceProps,
@@ -107,8 +100,7 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
       (index: number, totalChars: number) => {
         const total = totalChars;
         if (staggerFrom === 'first') return index * staggerDuration;
-        if (staggerFrom === 'last')
-          return (total - 1 - index) * staggerDuration;
+        if (staggerFrom === 'last') return (total - 1 - index) * staggerDuration;
         if (staggerFrom === 'center') {
           const center = Math.floor(total / 2);
           return Math.abs(center - index) * staggerDuration;
@@ -200,16 +192,10 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
       >
         <span className="sr-only">{texts[currentTextIndex]}</span>
 
-        <AnimatePresence
-          mode={animatePresenceMode}
-          initial={animatePresenceInitial}
-        >
+        <AnimatePresence mode={animatePresenceMode} initial={animatePresenceInitial}>
           <motion.div
             key={currentTextIndex}
-            className={cn(
-              'flex flex-wrap',
-              splitBy === 'lines' && 'flex-col w-full'
-            )}
+            className={cn('flex flex-wrap', splitBy === 'lines' && 'flex-col w-full')}
             layout
             aria-hidden="true"
           >
@@ -225,10 +211,7 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
                 .reduce((sum, word) => sum + word.characters.length, 0);
 
               return (
-                <span
-                  key={wordIndex}
-                  className={cn('inline-flex', splitLevelClassName)}
-                >
+                <span key={wordIndex} className={cn('inline-flex', splitLevelClassName)}>
                   {wordObj.characters.map((char, charIndex) => (
                     <motion.span
                       initial={initial}
@@ -239,10 +222,7 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
                         ...transition,
                         delay: getStaggerDelay(
                           previousCharsCount + charIndex,
-                          array.reduce(
-                            (sum, word) => sum + word.characters.length,
-                            0
-                          )
+                          array.reduce((sum, word) => sum + word.characters.length, 0)
                         ),
                       }}
                       className={cn('inline-block', elementLevelClassName)}
@@ -250,9 +230,7 @@ const TextRotate = forwardRef<TextRotateRef, TextRotateProps>(
                       {char}
                     </motion.span>
                   ))}
-                  {wordObj.needsSpace && (
-                    <span className="whitespace-pre"> </span>
-                  )}
+                  {wordObj.needsSpace && <span className="whitespace-pre"> </span>}
                 </span>
               );
             })}
@@ -270,7 +248,7 @@ export default function HeroText() {
     <LayoutGroup>
       <motion.span
         layout
-        className="flex whitespace-pre text-white/75 justify-center"
+        className="flex flex-col md:flex-row items-center md:items-start whitespace-pre text-white/75 justify-center"
       >
         <motion.span
           layout

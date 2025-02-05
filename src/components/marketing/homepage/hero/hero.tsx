@@ -3,7 +3,6 @@ import AnimatedSpan from '@/components/ui/animated-span';
 import { ArrowRight } from 'lucide-react';
 import HeroText from './text-rotate';
 import { Button } from '@/components/ui/button';
-import { oauth } from '@/actions/user/account/oauth';
 import GoogleSignUp from './google-sign-up';
 
 export default function HomepageHero() {

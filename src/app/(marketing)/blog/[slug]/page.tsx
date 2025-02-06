@@ -13,6 +13,7 @@ import BlogCard from '@/components/marketing/resources/blog/blog-card';
 import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
 import ShareThisPost from '@/components/mdx/share-this-post';
 import TableOfContents from '@/components/mdx/mdx-table-of-contents';
+import { getUserCount } from '@/utils/data/user/get-user-count';
 
 interface BlogPostParams {
   params: {
@@ -74,6 +75,8 @@ export default async function BlogPost({ params }: BlogPostParams) {
     // typeFrontmatter is the metadata for this blog post
     const typedFrontmatter = frontmatter as unknown as BlogFrontmatter;
 
+    const userCount = await getUserCount().then((count) => Math.round(count / 10) * 10);
+
     return (
       <div className="container flex flex-col md:flex-row gap-10 max-w-7xl mx-auto pt-32 pb-20">
         <article className="w-full md:w-3/5">
@@ -117,11 +120,10 @@ export default async function BlogPost({ params }: BlogPostParams) {
           {/** output the mdx content below the hero */}
           <div className="prose prose-invert prose-pre:bg-black-75 prose-pre:border prose-pre:border-black-50 max-w-none mt-10">
             {content}
-
             <div className="mt-10">
               <CallToActionBlock
                 title="Learn to code, faster"
-                description="Join developers who are accelerating their careers with TechBlitz"
+                description={`Join ${userCount}+ developers who are accelerating their coding skills with TechBlitz.`}
                 leftCta={{
                   title: 'Begin Your Journey',
                   href: '/signup',
@@ -165,7 +167,7 @@ export default async function BlogPost({ params }: BlogPostParams) {
                 </p>
               </CardContent>
               <CardFooter>
-                <Button variant="secondary" fullWidth href="/signup">
+                <Button variant="accent" fullWidth href="/signup">
                   Get Started Now
                 </Button>
               </CardFooter>

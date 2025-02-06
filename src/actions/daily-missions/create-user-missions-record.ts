@@ -18,7 +18,7 @@ export const createUserMissionRecord = async ({ uid }: { uid?: string }) => {
 
   // if no record exists, create one
   if (!userMissionRecord) {
-    const missionUid = uniqueId();
+    const missionUid = uniqueId('user-mission-');
 
     return await prisma.userMission.create({
       data: {

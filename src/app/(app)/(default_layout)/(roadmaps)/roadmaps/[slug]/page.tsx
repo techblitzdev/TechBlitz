@@ -81,9 +81,7 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
               <StudyPathsList questions={questions} studyPath={studyPath} />
             </Suspense>
           </div>
-          <Suspense fallback={<div>Loading sidebar...</div>}>
-            <StudyPathSidebar studyPath={studyPath} />
-          </Suspense>
+          <StudyPathSidebar studyPath={studyPath} />
         </div>
       </div>
     </>

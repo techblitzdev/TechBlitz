@@ -73,10 +73,16 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
                   <p className="text-sm font-onest">Complete</p>
                    */}
                 </div>
-                <Button variant="secondary" className="w-full flex items-center gap-x-2">
-                  Continue your learning journey
-                  <ArrowRightIcon className="size-4" />
-                </Button>
+                {studyPath.nextStudyPathSlug && (
+                  <Button
+                    variant="secondary"
+                    className="w-full flex items-center gap-x-2"
+                    href={`/roadmaps/${studyPath.nextStudyPathSlug}`}
+                  >
+                    Continue your learning journey
+                    <ArrowRightIcon className="size-4" />
+                  </Button>
+                )}
               </div>
             ) : (
               <>

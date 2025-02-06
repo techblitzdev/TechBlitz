@@ -34,9 +34,9 @@ export default function QuestionCardClient({
   return (
     <div
       key={key}
-      className={cn('absolute w-full flex justify-center transition-all duration-300')}
+      className={cn('relative w-full flex justify-center transition-all duration-300')}
       style={{
-        top: `${index * (isMobile ? 130 : 130)}px`,
+        top: `${index * (isMobile ? 60 : 60)}px`,
         transform: `translateX(${offset}%)`,
       }}
     >

@@ -27,23 +27,21 @@ export default async function StudyPathsList({
   )?.slug;
 
   return (
-    <div className="relative">
+    <div className="relative w-full z-10">
       <Suspense fallback={<StudyPathQuestionCardSkeleton />}>
-        <div className="relative w-full z-10">
-          {sortedQuestions.map((question, index) => (
-            <QuestionCardClient
-              key={question.slug}
-              questionData={question}
-              index={index}
-              offset={Math.sin(index * 0.9) * 4}
-            >
-              <QuestionCardWrapper
-                question={question}
-                isFirstUnanswered={firstUnansweredQuestion === question.slug}
-              />
-            </QuestionCardClient>
-          ))}
-        </div>
+        {sortedQuestions.map((question, index) => (
+          <QuestionCardClient
+            key={question.slug}
+            questionData={question}
+            index={index}
+            offset={Math.sin(index * 0.9) * 4}
+          >
+            <QuestionCardWrapper
+              question={question}
+              isFirstUnanswered={firstUnansweredQuestion === question.slug}
+            />
+          </QuestionCardClient>
+        ))}
       </Suspense>
     </div>
   );

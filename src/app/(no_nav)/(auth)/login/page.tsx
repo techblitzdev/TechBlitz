@@ -1,6 +1,7 @@
 import LoginForm from '@/components/auth/login';
 import { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
+import Link from 'next/link';
 
 import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
 
@@ -64,18 +65,24 @@ export default function LoginPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div
-        className="border border-black-50 p-8 rounded-xl space-y-4 text-center"
-        style={{
-          background:
-            'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
-        }}
-      >
-        <h1 className="font-bold text-3xl mb-2">Welcome back!</h1>
-        <p className="text-gray-300 mb-8 text-sm font-satoshi text-wrap">
-          Sign in to your account to continue.
-        </p>
-        <LoginForm redirectUrl={redirectUrl} onboarding={onboarding} />
+      <div className="w-full xl:w-1/2 flex flex-col gap-5 items-center justify-center lg:p-8">
+        <div className="w-full space-y-6 max-w-md">
+          <div className="flex flex-col gap-y-1">
+            <h1 className="font-bold text-xl lg:text-3xl mb-2 font-onest text-gradient from-white/75 to-white">
+              Welcome back!
+            </h1>
+            <p className="text-gray-300 mb-4 text-sm font-onest text-wrap">
+              Sign in to your account to continue.
+            </p>
+          </div>
+          <LoginForm redirectUrl={redirectUrl} onboarding={onboarding} />
+        </div>
+        <span className="block text-sm text-gray-400 hover:text-white duration-300 text-center mt-4">
+          Don't have an account?{' '}
+          <Link href="/signup" className="underline">
+            Sign up
+          </Link>
+        </span>
       </div>
     </>
   );

@@ -1,40 +1,34 @@
 'use client';
-import { useRef, useEffect, useCallback, useState } from 'react';
-// components
+
+import { useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { InputWithLabel } from '@/components/ui/input-label';
-import { toast } from 'sonner';
-import { DiscordLogoIcon, GitHubLogoIcon } from '@radix-ui/react-icons';
-import { EyeIcon, EyeOffIcon } from 'lucide-react';
+import GoogleLogo from '@/components/ui/icons/google';
+import OrSeparator from '@/components/auth/or-separator';
+import GithubLogo from '@/components/ui/icons/github';
+import { DiscordLogoIcon } from '@radix-ui/react-icons';
 
-// zod
+import { toast } from 'sonner';
+import type { z } from 'zod';
 import { loginSchema } from '@/lib/zod/schemas/login';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-// actions
-import { oauth } from '@/actions/user/account/oauth';
-import { login } from '@/actions/user/account/login';
 
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import OrSeparator from '@/components/auth/or-separator';
+import { login } from '@/actions/user/account/login';
+import { oauth } from '@/actions/user/account/oauth';
 
 type SchemaProps = z.infer<typeof loginSchema>;
 
 export default function LoginForm(opts: { redirectUrl: string; onboarding: string }) {
   const { redirectUrl, onboarding } = opts;
+  const [showEmailForm, setShowEmailForm] = useState(false);
+  const [isPending, setIsPending] = useState(false);
 
   const router = useRouter();
-  const isPending = useRef(false);
-  const [showPassword, setShowPassword] = useState(false);
-
-  useEffect(() => {
-    if (onboarding) {
-      localStorage.setItem('onboarding', 'true');
-    }
-  }, [onboarding]);
 
   const form = useForm<SchemaProps>({
     resolver: zodResolver(loginSchema),
@@ -46,28 +40,26 @@ export default function LoginForm(opts: { redirectUrl: string; onboarding: strin
 
   const handleLogin = useCallback(
     async (values: SchemaProps) => {
-      isPending.current = true;
-      const { email, password } = values;
+      setIsPending(true);
       try {
         const user = await login({
-          email,
-          password,
+          email: values.email,
+          password: values.password,
         });
 
         if (user) {
           toast.success('Logged in successfully');
 
+          if (onboarding) {
+            localStorage.setItem('onboarding', 'true');
+          }
+
           // Preload the dashboard page to improve perceived performance
           router.prefetch('/dashboard');
 
-          // check if we have the 'onboarding' key in local storage
-          // if we do, redirect to the onboarding page
           if (localStorage.getItem('onboarding')) {
             router.push('/onboarding');
-            return;
-          }
-
-          if (redirectUrl) {
+          } else if (redirectUrl) {
             router.push(redirectUrl);
           } else {
             router.push('/dashboard');
@@ -77,112 +69,123 @@ export default function LoginForm(opts: { redirectUrl: string; onboarding: strin
         console.error(error);
         toast.error('An error has occurred, please try again.');
       } finally {
-        isPending.current = false;
+        setIsPending(false);
       }
     },
-    [redirectUrl, router]
+    [redirectUrl, router, onboarding]
   );
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(handleLogin)}
-        className="grid grid-cols-12 gap-4 w-full lg:w-96 mt-8"
-      >
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormControl>
-              <div className="col-span-12">
-                <InputWithLabel
-                  label="Email"
-                  type="email"
-                  {...field}
-                  autoComplete="email"
-                  inputClassName="gap-x-0"
-                />
-                <FormMessage className="mt-0.5 text-start">
-                  {form.formState?.errors?.email?.message}
-                </FormMessage>
-              </div>
-            </FormControl>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormControl>
-              <div className="col-span-12 relative">
-                <InputWithLabel
-                  label="Password"
-                  type={showPassword ? 'text' : 'password'}
-                  {...field}
-                  autoComplete="current-password"
-                  inputClassName="gap-x-0"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-[34px] text-gray-400 hover:text-white transition-colors"
-                >
-                  {showPassword ? (
-                    <EyeOffIcon className="size-5" />
-                  ) : (
-                    <EyeIcon className="size-5" />
-                  )}
-                </button>
-                <FormMessage className="mt-0.5 text-start">
-                  {form.formState?.errors?.password?.message}
-                </FormMessage>
-                <Link
-                  href="/login/forgot-password"
-                  prefetch
-                  className="absolute top-0 text-xs text-gray-300 hover:text-white duration-300 text-start mt-1 right-0"
-                >
-                  Forgot password?
-                </Link>
-              </div>
-            </FormControl>
-          )}
-        />
-        <FormItem className="col-span-full">
-          <Button type="submit" disabled={isPending.current} className="w-full" variant="secondary">
-            {isPending.current ? 'Loading...' : 'Login'}
-          </Button>
-        </FormItem>
+    <div className="w-full mx-auto mt-8 space-y-6">
+      {!showEmailForm ? (
+        <div className="space-y-4">
+          <form
+            onSubmit={async (event) => {
+              event.preventDefault();
+              await oauth('google', true);
+            }}
+          >
+            <Button
+              type="submit"
+              variant="outline"
+              className="w-full bg-white text-black hover:bg-gray-100 hover:text-black"
+            >
+              <GoogleLogo />
+              Sign in with Google
+            </Button>
+          </form>
+          <form
+            onSubmit={async (event) => {
+              event.preventDefault();
+              await oauth('github', true);
+            }}
+          >
+            <Button
+              type="submit"
+              variant="outline"
+              className="w-full bg-[#24292e] text-white hover:bg-[#2f363d] border-none hover:text-white"
+            >
+              <GithubLogo className="w-5 h-5 mr-2" />
+              Sign in with GitHub
+            </Button>
+          </form>
+          <form
+            onSubmit={async (event) => {
+              event.preventDefault();
+              await oauth('discord', true);
+            }}
+          >
+            <Button
+              type="submit"
+              variant="outline"
+              className="w-full bg-[#5865F2] text-white hover:bg-[#4752C4] border-none hover:text-white"
+            >
+              <DiscordLogoIcon className="w-5 h-5 mr-2" />
+              Sign in with Discord
+            </Button>
+          </form>
+        </div>
+      ) : (
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <InputWithLabel
+                      label="Email"
+                      type="email"
+                      placeholder="team@techblitz.dev"
+                      {...field}
+                      autoComplete="email"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <>
+                      <InputWithLabel
+                        label="Password"
+                        type="password"
+                        placeholder="********"
+                        {...field}
+                        autoComplete="current-password"
+                      />
+                      <div className="text-end">
+                        <Link
+                          href="/login/forgot-password"
+                          className="text-xs text-gray-300 hover:text-white duration-300"
+                        >
+                          Forgot password?
+                        </Link>
+                      </div>
+                    </>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" disabled={isPending} className="w-full" variant="secondary">
+              {isPending ? 'Loading...' : 'Log In'}
+            </Button>
+          </form>
+        </Form>
+      )}
 
-        <span className="col-span-full text-sm text-gray-300 hover:text-white duration-300">
-          Don't have an account?{' '}
-          <Link href="/signup" prefetch className="underline">
-            Sign up
-          </Link>
-        </span>
-      </form>
       <OrSeparator />
-      <div className="flex gap-1 items-center justify-center">
-        <form
-          onSubmit={async (event) => {
-            event.preventDefault();
-            await oauth('github', Boolean(onboarding));
-          }}
-        >
-          <Button type="submit" variant="ghost" padding="md">
-            <GitHubLogoIcon className="size-4" />
-          </Button>
-        </form>
-        <form
-          onSubmit={async (event) => {
-            event.preventDefault();
-            await oauth('discord', Boolean(onboarding));
-          }}
-        >
-          <Button type="submit" variant="ghost" padding="md">
-            <DiscordLogoIcon className="size-4" />
-          </Button>
-        </form>
-      </div>
-    </Form>
+
+      <Button onClick={() => setShowEmailForm(!showEmailForm)} className="w-full" variant="default">
+        {showEmailForm ? 'Sign in with Google/GitHub/Discord' : 'Sign in with Email'}
+      </Button>
+    </div>
   );
 }

@@ -29,12 +29,48 @@ export async function GET(request: NextRequest) {
           backgroundColor: bgColor,
           fontSize: 32,
           fontWeight: 600,
+          position: 'relative',
         }}
       >
-        <div style={{ marginTop: 40, color: textColor }}>{text}</div>
-        <p style={{ color: textColor, fontSize: '14px', fontWeight: '400' }}>
+        <h1
+          style={{
+            marginTop: 40,
+            color: textColor,
+            fontSize: '4.5rem',
+            fontWeight: 500,
+            fontFamily: 'Onest',
+          }}
+        >
+          {text}
+        </h1>
+        <p
+          style={{
+            color: textColor,
+            fontSize: '14px',
+            fontWeight: '400',
+          }}
+        >
           The open-source, mobile-friendly software education platform
         </p>
+        <svg
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            height: '100%',
+            width: '100%',
+            fill: 'rgba(156, 163, 175, 0.3)',
+            stroke: 'rgba(156, 163, 175, 0.3)',
+            pointerEvents: 'none',
+          }}
+        >
+          <defs>
+            <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse" x="-1" y="-1">
+              <path d="M.5 50V.5H50" fill="none" strokeDasharray="4 2" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" strokeWidth={0} fill="url(#grid)" />
+        </svg>
       </div>
     ),
     {

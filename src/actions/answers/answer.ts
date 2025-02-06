@@ -467,7 +467,7 @@ const updateUserDailyMissions = async ({ userAnswer }: any) => {
     if (
       userMissionRecord.progress &&
       mission.requirements &&
-      userMissionRecord.progress >= mission.requirements
+      userMissionRecord.progress === mission.requirements
     ) {
       await prisma.userMission.update({
         where: { uid: userMissionRecord.uid },

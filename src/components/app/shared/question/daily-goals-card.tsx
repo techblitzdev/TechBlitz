@@ -66,10 +66,10 @@ function MissionItem({
 }) {
   const userMissionRecord = userMissionRecords.find((record) => record.missionUid === mission.uid);
 
-  const requirements = mission.requirements as { count?: number };
+  const requirements = mission.requirements;
   // turn into a percentage
   const progress = Number(
-    (Number(userMissionRecord?.progress ?? 0) / Number(requirements?.count ?? 1)) * 100
+    (Number(userMissionRecord?.progress ?? 0) / Number(requirements ?? 1)) * 100
   );
 
   return (

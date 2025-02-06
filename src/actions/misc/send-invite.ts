@@ -37,7 +37,7 @@ export const sendInvite = async (email: string) => {
 
   await prisma.userMission.update({
     where: { uid: userMissionRecord?.uid },
-    data: { status: 'COMPLETED' },
+    data: { status: 'COMPLETED', progress: Number(userMissionRecord?.progress) + 1 || 1 },
   });
 
   await resend.emails.send({

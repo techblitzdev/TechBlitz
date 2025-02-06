@@ -27,14 +27,14 @@ export default async function StudyPathsList({
   )?.slug;
 
   return (
-    <div className="relative w-full z-10">
+    <div className="relative w-[90%] z-10">
       <Suspense fallback={<StudyPathQuestionCardSkeleton />}>
         {sortedQuestions.map((question, index) => (
           <QuestionCardClient
             key={question.slug}
             questionData={question}
             index={index}
-            offset={Math.sin(index * 0.9) * 4}
+            offset={Math.sin(index * 0.9) * 10}
           >
             <QuestionCardWrapper
               question={question}

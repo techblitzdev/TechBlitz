@@ -27,10 +27,10 @@ import LogoSmall from '@/components/ui/LogoSmall';
 import type { SidebarItemType } from '@/types/Sidebar';
 
 import { useEffect, useMemo } from 'react';
-import { UserRecord } from '@/types/User';
-import { Question, QuestionWithTags } from '@/types/Questions';
-import { Profile } from '@/types/Profile';
-import HomeIcon from '@/components/ui/icons/house-2';
+import type { UserRecord } from '@/types/User';
+import type { Question, QuestionWithTags } from '@/types/Questions';
+import type { Profile } from '@/types/Profile';
+import HomeIcon from '@/components/ui/icons/home-2';
 import ChallengeIcon from '@/components/ui/icons/challenge';
 import RoadmapIcon from '@/components/ui/icons/roadmap';
 import StatsIcon from '@/components/ui/icons/stats';
@@ -43,10 +43,9 @@ const LeaderboardIcon = () => (
 );
 
 const statsIcon = () => <StatsIcon fill="white" strokewidth={2} secondaryfill="white" />;
-
 const roadmapIcon = () => <RoadmapIcon fill="white" strokewidth={2} secondaryfill="white" />;
-
 const challengeIcon = () => <ChallengeIcon fill="white" strokewidth={2} secondaryfill="white" />;
+const houseIcon = () => <HomeIcon fill="white" strokewidth={2} secondaryfill="white" />;
 
 interface AppSidebarProps {
   user: UserRecord | null;
@@ -111,7 +110,7 @@ export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSid
     {
       title: 'Dashboard',
       url: '/dashboard',
-      icon: HomeIcon,
+      icon: houseIcon,
       tooltip: 'Dashboard',
     },
     {
@@ -216,6 +215,32 @@ export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSid
     return menuItems;
   }, [user, pathname]);
 
+  const isActive = (url: string) => {
+    console.log('url', url);
+    if (url === '/dashboard') {
+      return pathname === url;
+    }
+    if (url.startsWith('/question')) {
+      return pathname.startsWith('/question');
+    }
+    if (url.startsWith('/roadmaps')) {
+      return pathname.startsWith('/roadmaps');
+    }
+    if (url.startsWith('/leaderboard')) {
+      return pathname.startsWith('/leaderboard');
+    }
+    if (url.startsWith('/statistics')) {
+      return pathname.startsWith('/statistics');
+    }
+    if (url.startsWith('/statistics/reports')) {
+      return pathname.startsWith('/statistics/reports');
+    }
+    if (url.startsWith('/settings')) {
+      return pathname.startsWith('/settings');
+    }
+    return pathname.startsWith(url);
+  };
+
   const renderSidebarItem = (item: SidebarItemType) => {
     if ('groupLabel' in item) {
       return (
@@ -268,7 +293,12 @@ export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSid
           </Collapsible>
         ) : (
           <div className="flex items-center w-full">
-            <SidebarMenuButton asChild className="flex-grow" tooltip={item.tooltip}>
+            <SidebarMenuButton
+              asChild
+              className="flex-grow"
+              tooltip={item.tooltip}
+              isActive={isActive(item.url)}
+            >
               {item.disabled ? (
                 <div className="flex items-center font-inter font-medium text-sm p-2 gap-x-2 opacity-50 hover:cursor-not-allowed h-8">
                   {item.icon && <item.icon />}
@@ -284,7 +314,7 @@ export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSid
                   href={item.url}
                   prefetch
                   className={`flex items-center font-inter font-medium text-sm py-2 ${
-                    pathname === item.url ? 'bg-black-25 text-white border border-black-50' : ''
+                    isActive(item.url) ? 'bg-black-25 text-white border border-black-50' : ''
                   }`}
                 >
                   {item.icon && <item.icon />}

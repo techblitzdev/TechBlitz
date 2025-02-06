@@ -5,7 +5,7 @@ import UpgradeCard from '../shared/upgrade-card';
 import { Progress } from '@/components/ui/progress';
 import { StudyPath } from '@prisma/client';
 import DailyChallengesCard from '../shared/question/daily-goals-card';
-import { ArrowRightIcon, Check } from 'lucide-react';
+import { ArrowRightIcon } from 'lucide-react';
 import { isUserEnrolledInStudyPath } from '@/utils/data/study-paths/get';
 import { enrollInStudyPath } from '@/actions/study-paths/enroll';
 import { redirect } from 'next/navigation';

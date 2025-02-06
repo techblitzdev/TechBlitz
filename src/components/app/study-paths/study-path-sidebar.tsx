@@ -9,6 +9,7 @@ import { ArrowRightIcon } from 'lucide-react';
 import { isUserEnrolledInStudyPath } from '@/utils/data/study-paths/get';
 import { enrollInStudyPath } from '@/actions/study-paths/enroll';
 import { redirect } from 'next/navigation';
+import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
 
 async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
   // run in parallel
@@ -53,6 +54,8 @@ async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
 
 export default async function StudyPathSidebar({ studyPath }: { studyPath: StudyPath }) {
   const user = await useUserServer();
+  // get the active missions for the day
+  const activeMissions = await getDailyMissions();
 
   return (
     <aside className="w-full lg:w-1/3 space-y-6 order-first lg:order-last">
@@ -114,7 +117,7 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
           <p className="text-sm text-muted-foreground">{studyPath.description}</p>
         </div>
             */}
-        <DailyChallengesCard user={user} />
+        <DailyChallengesCard user={user} missions={activeMissions} />
 
         {user?.userLevel === 'FREE' && (
           <UpgradeCard

@@ -34,6 +34,8 @@ model Mission {
     isActive Boolean @default(false)
 
     UserMission UserMission[]
+
+    icon String?
 }
 
 model UserMission {

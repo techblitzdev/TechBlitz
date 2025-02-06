@@ -5,5 +5,8 @@ export const getDailyMissions = async () => {
     where: {
       isActive: true,
     },
+    orderBy: {
+      createdAt: 'asc',
+    },
   });
 };

@@ -6,6 +6,9 @@ import { revalidateTag } from 'next/cache';
 import { AnswerDifficulty } from '@prisma/client';
 import { uniqueId } from 'lodash';
 import { getUser } from '../user/authed/get-user';
+import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
+import { getUserMissionRecords } from '@/utils/data/missions/get-user-mission-record';
+import { createUserMissionRecords } from '../daily-missions/create-user-missions-record';
 
 // Types
 interface AnswerQuestionInput {
@@ -255,6 +258,9 @@ export async function answerQuestion({
       });
     }
 
+    // handle the updating of daily missions on the user
+    await updateUserDailyMissions({ userAnswer });
+
     return { userData, userAnswer };
   });
 
@@ -402,4 +408,41 @@ const updateStudyPathProgress = async ({
   }
 
   revalidateTag(`study-path-${studyPathSlug}`);
+};
+
+const updateUserDailyMissions = async ({ userAnswer }: any) => {
+  const user = await getUser();
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  const activeMissions = await getDailyMissions();
+  if (!activeMissions) {
+    throw new Error('No missions found');
+  }
+
+  // get the user mission doc
+  const userMissionRecords = await getUserMissionRecords();
+  if (!userMissionRecords) {
+    await createUserMissionRecords({ uid: user.uid });
+  }
+
+  // get the mission(s) that required either answering a question, continuing a streak
+  // or answering correctly
+  const missions = activeMissions.filter((mission) => {
+    return (
+      mission.type === 'QUESTION_ANSWERED' ||
+      mission.type === 'STREAK_MAINTAINED' ||
+      mission.type === 'QUESTION_CORRECT'
+    );
+  });
+
+  // silent fail if no mission is found (may not be any missions for the day)
+  if (!missions) {
+    return;
+  }
+
+  console.log('mission', missions);
+
+  // update the mission record
 };

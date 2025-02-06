@@ -4,7 +4,7 @@ import { type AuthResponse } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
 import { prisma } from '@/lib/prisma';
 import { resend } from '@/lib/resend';
-import { createUserMissionRecord } from '@/actions/daily-missions/create-user-missions-record';
+import { createUserMissionRecords } from '@/actions/daily-missions/create-user-missions-record';
 
 const cookiesStore = cookies();
 
@@ -62,7 +62,7 @@ export const signUp = async (
       });
 
       // create a user mission record on sign up
-      await createUserMissionRecord({ uid: user.id });
+      await createUserMissionRecords({ uid: user.id });
     } catch (dbError: any) {
       return {
         user: null,

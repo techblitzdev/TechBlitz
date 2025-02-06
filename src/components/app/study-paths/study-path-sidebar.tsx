@@ -10,6 +10,7 @@ import { isUserEnrolledInStudyPath } from '@/utils/data/study-paths/get';
 import { enrollInStudyPath } from '@/actions/study-paths/enroll';
 import { redirect } from 'next/navigation';
 import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
+import { getUserMissionRecords } from '@/utils/data/missions/get-user-mission-record';
 
 async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
   // run in parallel
@@ -56,6 +57,7 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
   const user = await useUserServer();
   // get the active missions for the day
   const activeMissions = await getDailyMissions();
+  const userMissionRecords = await getUserMissionRecords();
 
   return (
     <aside className="w-full lg:w-1/3 space-y-6 order-first lg:order-last">
@@ -117,7 +119,7 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
           <p className="text-sm text-muted-foreground">{studyPath.description}</p>
         </div>
             */}
-        <DailyChallengesCard user={user} missions={activeMissions} />
+        <DailyChallengesCard missions={activeMissions} userMissionRecords={userMissionRecords} />
 
         {user?.userLevel === 'FREE' && (
           <UpgradeCard

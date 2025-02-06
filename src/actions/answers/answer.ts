@@ -417,18 +417,18 @@ const updateUserDailyMissions = async ({ userAnswer }: any) => {
   }
 
   const activeMissions = await getDailyMissions();
-  if (!activeMissions) {
-    throw new Error('No missions found');
+  if (!activeMissions?.length) {
+    return;
   }
 
-  // get the user mission doc
-  const userMissionRecords = await getUserMissionRecords();
-  if (!userMissionRecords) {
-    await createUserMissionRecords({ uid: user.uid });
+  // Ensure user has mission records
+  const userMissionRecords = await createUserMissionRecords({ uid: user.uid });
+  if (!userMissionRecords?.length) {
+    console.error('Failed to create/get user mission records');
+    return;
   }
 
-  // get the mission(s) that required either answering a question, continuing a streak
-  // or answering correctly
+  // Rest of the mission update logic...
   const missions = activeMissions.filter((mission) => {
     return (
       mission.type === 'QUESTION_ANSWERED' ||
@@ -442,7 +442,37 @@ const updateUserDailyMissions = async ({ userAnswer }: any) => {
     return;
   }
 
-  console.log('mission', missions);
+  // loop through all missions, and update the mission record
+  for (const mission of missions) {
+    // find the mission record
+    const userMissionRecord = userMissionRecords.find(
+      (record) => record.missionUid === mission.uid
+    );
+    // silent fail if the mission record is not found
+    if (!userMissionRecord) {
+      continue;
+    }
 
-  // update the mission record
+    // check if the mission is completed
+    if (userMissionRecord.status === 'COMPLETED') {
+      continue;
+    }
+
+    // update the mission record
+    await prisma.userMission.update({
+      where: { uid: userMissionRecord.uid },
+      data: { progress: Number(userMissionRecord.progress) + 1 || 1 },
+    });
+    // if the mission is completed, update the status
+    if (
+      userMissionRecord.progress &&
+      mission.requirements &&
+      userMissionRecord.progress >= mission.requirements
+    ) {
+      await prisma.userMission.update({
+        where: { uid: userMissionRecord.uid },
+        data: { status: 'COMPLETED' },
+      });
+    }
+  }
 };

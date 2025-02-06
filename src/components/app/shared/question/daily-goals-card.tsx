@@ -7,7 +7,8 @@ import type { UserRecord } from '@/types/User';
 
 //import { capitalise } from '@/utils';
 //import { difficultyToExperienceLevel } from '@/utils';
-import { Mission } from '@prisma/client';
+import { Mission, UserMission } from '@prisma/client';
+import { Check, CheckCircle2 } from 'lucide-react';
 
 const container = {
   hidden: { opacity: 0 },
@@ -25,11 +26,11 @@ const item = {
 };
 
 interface DailyGoalsCardProps {
-  user: UserRecord | null;
   missions: Mission[];
+  userMissionRecords: UserMission[];
 }
 
-const DailyGoalsCard: React.FC<DailyGoalsCardProps> = ({ user, missions }) => {
+const DailyGoalsCard: React.FC<DailyGoalsCardProps> = ({ missions, userMissionRecords }) => {
   return (
     <motion.div
       initial={{ height: 'auto' }}
@@ -45,15 +46,31 @@ const DailyGoalsCard: React.FC<DailyGoalsCardProps> = ({ user, missions }) => {
 
       <motion.div variants={container} initial="hidden" animate="show" className="mt-4 space-y-4">
         {missions.map((mission) => (
-          <MissionItem key={mission.uid} mission={mission} />
+          <MissionItem
+            key={mission.uid}
+            mission={mission}
+            userMissionRecords={userMissionRecords}
+          />
         ))}
       </motion.div>
     </motion.div>
   );
 };
 
-function MissionItem({ mission }: { mission: Mission }) {
-  const progress = 0 * 100;
+function MissionItem({
+  mission,
+  userMissionRecords,
+}: {
+  mission: Mission;
+  userMissionRecords: UserMission[];
+}) {
+  const userMissionRecord = userMissionRecords.find((record) => record.missionUid === mission.uid);
+
+  const requirements = mission.requirements as { count?: number };
+  // turn into a percentage
+  const progress = Number(
+    (Number(userMissionRecord?.progress ?? 0) / Number(requirements?.count ?? 1)) * 100
+  );
 
   return (
     <motion.div variants={item} className="flex items-center gap-3">
@@ -61,7 +78,12 @@ function MissionItem({ mission }: { mission: Mission }) {
         <div dangerouslySetInnerHTML={{ __html: mission.icon ?? '' }} className="size-full" />
       </div>
       <div className="flex flex-col gap-y-1 w-full">
-        <p className="text-sm text-muted-foreground font-onest">{mission.title}</p>
+        <div className="flex items-center gap-x-2">
+          <p className="text-sm text-muted-foreground font-onest">{mission.title}</p>
+          {userMissionRecord?.status === 'COMPLETED' && (
+            <Check height="16" width="16" className="text-green-500" />
+          )}
+        </div>
         <Progress value={progress} className="h-2" indicatorColor="bg-green-500" />
       </div>
     </motion.div>

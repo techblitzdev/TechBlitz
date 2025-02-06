@@ -1,7 +1,6 @@
 'use client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 
 interface Heading {
@@ -17,14 +16,48 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState('');
 
   useEffect(() => {
-    const handleHashChange = () => {
-      setActiveId(window.location.hash.slice(1));
-    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: '-100px 0px -66%',
+        threshold: 1.0,
+      }
+    );
 
-    handleHashChange(); // Set initial state
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
+    // Observe all section headings
+    headings.forEach((heading) => {
+      const id = heading.title.toLowerCase().replace(/\s+/g, '-');
+      const element = document.getElementById(id);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => {
+      headings.forEach((heading) => {
+        const id = heading.title.toLowerCase().replace(/\s+/g, '-');
+        const element = document.getElementById(id);
+        if (element) {
+          observer.unobserve(element);
+        }
+      });
+    };
+  }, [headings]);
+
+  const handleClick = (id: string) => {
+    setActiveId(id);
+    // Smooth scroll to the heading
+    document.getElementById(id)?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  };
 
   return (
     <Card className="border border-black-50 bg-black-75 text-white shadow-lg">
@@ -36,12 +69,11 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
           {headings.map((heading, index) => {
             const id = heading.title.toLowerCase().replace(/\s+/g, '-');
             return (
-              <Link
+              <button
                 key={index}
-                href={`#${id}`}
-                onClick={() => setActiveId(id)}
+                onClick={() => handleClick(id)}
                 className={`
-                  block py-1 pl-1 rounded-md transition-colors duration-200
+                  w-full text-left py-1 pl-1 rounded-md transition-colors duration-200
                   ${heading.level === 2 ? 'font-medium' : 'text-sm text-gray-400 pl-3'}
                   ${activeId === id ? 'bg-black-50 text-white' : 'hover:bg-black-50 hover:text-white'}
                 `}
@@ -50,7 +82,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
                   <span>{heading.title}</span>
                   <ChevronRight size={14} className="text-gray-500" />
                 </div>
-              </Link>
+              </button>
             );
           })}
         </nav>

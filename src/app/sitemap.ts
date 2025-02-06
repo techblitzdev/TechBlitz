@@ -43,6 +43,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'what-are-callback-functions',
     '250-users-on-techblitz',
     'what-is-triple-equals-in-javascript',
+    'how-to-use-split-in-javascript',
+    'what-is-array-at-in-javascript',
+    'what-is-length-in-javascript',
   ];
 
   const blogPosts = blogPostSlugs.map((slug) => ({

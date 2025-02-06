@@ -16,6 +16,7 @@ model StudyPath {
   enrollments           UserStudyPath[]
   icon                  String?
   isPublished           Boolean         @default(false)
+  nextStudyPathSlug     String?
 }
 
 model UserStudyPath {

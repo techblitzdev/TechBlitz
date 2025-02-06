@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import type { Question } from '@/types/Questions';
 import type { StudyPath } from '@/utils/constants/study-paths';
 import StudyPathQuestionCard from './study-path-question-card';
+import StudyPathQuestionCardSkeleton from './study-path-question-card-skeleton';
 
 const QuestionCardClient = dynamic(() => import('../questions/layout/question-card-client'), {
   ssr: false,
@@ -26,8 +27,8 @@ export default async function StudyPathsList({
   )?.slug;
 
   return (
-    <div className="relative min-h-[800px]">
-      <Suspense fallback={<div>Loading questions...</div>}>
+    <div className="relative">
+      <Suspense fallback={<StudyPathQuestionCardSkeleton />}>
         <div className="relative w-full z-10">
           {sortedQuestions.map((question, index) => (
             <QuestionCardClient

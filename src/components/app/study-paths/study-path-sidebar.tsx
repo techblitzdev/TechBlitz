@@ -5,7 +5,7 @@ import UpgradeCard from '../shared/upgrade-card';
 import { Progress } from '@/components/ui/progress';
 import { StudyPath } from '@prisma/client';
 import DailyChallengesCard from '../shared/question/daily-goals-card';
-import { ArrowRightIcon } from 'lucide-react';
+import { ArrowRightIcon, Check } from 'lucide-react';
 import { isUserEnrolledInStudyPath } from '@/utils/data/study-paths/get';
 import { enrollInStudyPath } from '@/actions/study-paths/enroll';
 import { redirect } from 'next/navigation';
@@ -63,20 +63,39 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
         ) : (
           /** only show if user is enrolled */
           <div className="flex flex-col gap-y-2 w-full">
-            <p className="text-sm text-gray-400 font-onest">
-              {Math.round(
-                user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
-                  ?.progress ?? 0
-              )}
-              % completed
-            </p>
-            <Progress
-              className="border border-black-50 bg-black-50"
-              value={
-                user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
-                  ?.progress ?? 0
-              }
-            />
+            {user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)?.progress ===
+            100 ? (
+              <div className="flex flex-col gap-y-2">
+                <div className="flex items-center gap-x-2">
+                  {/**
+                   * TODO: revisit the design of the complete button
+                  <Check className="size-4" />
+                  <p className="text-sm font-onest">Complete</p>
+                   */}
+                </div>
+                <Button variant="secondary" className="w-full flex items-center gap-x-2">
+                  Continue your learning journey
+                  <ArrowRightIcon className="size-4" />
+                </Button>
+              </div>
+            ) : (
+              <>
+                <p className="text-sm text-gray-400 font-onest">
+                  {Math.round(
+                    user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
+                      ?.progress ?? 0
+                  )}
+                  % completed
+                </p>
+                <Progress
+                  className="border border-black-50 bg-black-50"
+                  value={
+                    user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
+                      ?.progress ?? 0
+                  }
+                />
+              </>
+            )}
           </div>
         )}
         {/**

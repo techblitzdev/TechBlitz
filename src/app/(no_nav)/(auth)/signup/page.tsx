@@ -100,11 +100,13 @@ export default async function SignupPage() {
         {/* left side - Sign up form */}
         <div className="w-full xl:w-1/2 flex flex-col gap-5 items-center justify-center lg:p-8">
           <div className="w-full space-y-6 max-w-md">
-            <div className="flex flex-col gap-y-2">
-              <h1 className="!text-start font-bold font-onest text-xl lg:text-3xl mb-2">
+            <div className="flex flex-col gap-y-1">
+              <h1 className="!text-start font-bold font-onest text-xl lg:text-3xl mb-2 text-gradient from-white/75 to-white">
                 Create your TechBlitz account
               </h1>
-              <p className="text-sm text-gray-400">Start your journey to becoming a tech expert.</p>
+              <p className="text-sm text-gray-400 mb-4">
+                Start your journey to becoming a tech expert.
+              </p>
             </div>
             <Suspense>
               <SignupForm prefilledEmail="" />

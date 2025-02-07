@@ -32,7 +32,6 @@ export default function QuestionSubmitted() {
     totalSeconds,
     generateAiAnswerHelp,
     user,
-    tokensUsed,
   } = useQuestionSingle();
 
   const [isPending, setTransition] = useTransition();

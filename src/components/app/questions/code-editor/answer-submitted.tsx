@@ -32,7 +32,6 @@ export default function CodeEditorQuestionSubmitted() {
     totalSeconds,
     generateAiAnswerHelp,
     user,
-    tokensUsed,
     question,
     nextQuestion,
   } = useQuestionSingle();

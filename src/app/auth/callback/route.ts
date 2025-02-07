@@ -17,6 +17,19 @@ export async function GET(request: Request) {
       // Get profile picture from user metadata
       const profilePicture =
         data.user?.user_metadata?.picture || data.user?.user_metadata?.avatar_url;
+      let displayName = data.user?.user_metadata?.full_name;
+
+      // check if this name is already taken
+      const existingDisplayName = await prisma.users.findFirst({
+        where: {
+          username: displayName,
+        },
+      });
+
+      // set to empty - the user will need to change it
+      if (existingDisplayName) {
+        displayName = '';
+      }
 
       // First try to find user by uid
       let existingUser = await prisma.users.findUnique({
@@ -56,6 +69,7 @@ export async function GET(request: Request) {
             // only add the profile picture on first login
             userProfilePicture: profilePicture || '',
             userLevel: 'FREE',
+            username: displayName,
             createdAt: new Date(),
             updatedAt: new Date(),
           },

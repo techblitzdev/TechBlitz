@@ -9,7 +9,7 @@ import { useSearchParams } from 'next/navigation';
 import { StudyPath, studyPaths } from '@/utils/constants/study-paths';
 import { Button } from '@/components/ui/button';
 import { RoadmapUserQuestions } from '@prisma/client';
-import { useQuestionSingle } from '../questions/single/layout/question-single-context';
+import { useQuestionSingle } from '../../../contexts/question-single-context';
 
 /**
  * Component for navigation between different questions from within the

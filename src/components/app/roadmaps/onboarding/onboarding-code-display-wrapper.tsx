@@ -1,7 +1,7 @@
 'use client';
 
 import QuestionCodeDisplay from '@/components/app/shared/question/question-code-display';
-import { useRoadmapOnboardingContext } from './roadmap-onboarding-context';
+import { useRoadmapOnboardingContext } from '../../../../contexts/roadmap-onboarding-context';
 
 export default function OnboardingCodeDisplayWrapper() {
   const { question, user, answerHelp } = useRoadmapOnboardingContext();

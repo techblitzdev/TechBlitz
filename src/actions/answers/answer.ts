@@ -7,7 +7,6 @@ import { AnswerDifficulty } from '@prisma/client';
 import { uniqueId } from 'lodash';
 import { getUser } from '../user/authed/get-user';
 import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
-import { getUserMissionRecords } from '@/utils/data/missions/get-user-mission-record';
 import { createUserMissionRecords } from '../daily-missions/create-user-missions-record';
 
 // Types
@@ -410,7 +409,7 @@ const updateStudyPathProgress = async ({
   revalidateTag(`study-path-${studyPathSlug}`);
 };
 
-const updateUserDailyMissions = async ({ userAnswer }: any) => {
+const updateUserDailyMissions = async ({ userAnswer }: { userAnswer: Answer }) => {
   const user = await getUser();
   if (!user) {
     throw new Error('User not found');
@@ -444,6 +443,11 @@ const updateUserDailyMissions = async ({ userAnswer }: any) => {
 
   // loop through all missions, and update the mission record
   for (const mission of missions) {
+    if (mission.type === 'QUESTION_CORRECT' && userAnswer.correctAnswer === false) {
+      console.log('question correct but answer is incorrect');
+      continue;
+    }
+
     // find the mission record
     const userMissionRecord = userMissionRecords.find(
       (record) => record.missionUid === mission.uid

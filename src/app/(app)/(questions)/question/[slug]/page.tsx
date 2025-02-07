@@ -34,8 +34,6 @@ export default async function TodaysQuestionPage({ params }: { params: { slug: s
 
   const questionPromise = getQuestion('slug', slug);
 
-  const userCanAccess = question.isPremiumQuestion ? user?.userLevel !== 'FREE' : true;
-
   const leftContent = (
     <div className="flex flex-col gap-y-4 p-3 lg:pr-1.5 h-full">
       <QuestionCard

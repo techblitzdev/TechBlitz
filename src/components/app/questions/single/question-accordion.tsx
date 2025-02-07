@@ -5,7 +5,7 @@ import {
   AccordionContent,
 } from '@/components/ui/accordion';
 import { ArrowRight, Lightbulb } from 'lucide-react';
-import { useQuestionSingle } from './layout/question-single-context';
+import { useQuestionSingle } from '../../../../contexts/question-single-context';
 
 // markdown to render the hint
 import Markdown from 'react-markdown';

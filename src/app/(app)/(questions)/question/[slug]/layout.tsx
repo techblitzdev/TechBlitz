@@ -2,7 +2,7 @@ import { Suspense, lazy } from 'react';
 import { createMetadata, getQuestionEducationLevel } from '@/utils/seo';
 import { capitalise, getBaseUrl } from '@/utils';
 import { Separator } from '@/components/ui/separator';
-import { QuestionSingleContextProvider } from '@/components/app/questions/single/layout/question-single-context';
+import { QuestionSingleContextProvider } from '@/contexts/question-single-context';
 import { redirect } from 'next/navigation';
 
 // Actions

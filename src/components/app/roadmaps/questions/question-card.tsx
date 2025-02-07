@@ -8,7 +8,7 @@ import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded
 import { BookIcon, BookOpen, FileIcon, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import QuestionTabs, { type TabConfig } from '@/components/app/shared/question/question-tabs';
-import { useRoadmapQuestion } from './[uid]/layout/roadmap-question-context';
+import { useRoadmapQuestion } from '../../../../contexts/roadmap-question-context';
 import QuestionAccordion from '@/components/app/questions/single/question-accordion';
 import QuestionResult from '../../shared/answer-submitted';
 import QuestionCodeDisplay from '../../shared/question/question-code-display';

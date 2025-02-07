@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CodeDisplay from './code-snippet';
-import { useQuestionSingle } from './question-single-context';
+import { useQuestionSingle } from '../../../../../contexts/question-single-context';
 import { capitalize } from 'lodash';
 
 export default function CodeDisplayWrapper() {

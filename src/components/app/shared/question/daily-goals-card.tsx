@@ -3,12 +3,8 @@ import type React from 'react';
 import { motion } from 'framer-motion';
 import { Progress } from '@/components/ui/progress';
 
-import type { UserRecord } from '@/types/User';
-
-//import { capitalise } from '@/utils';
-//import { difficultyToExperienceLevel } from '@/utils';
 import { Mission, UserMission } from '@prisma/client';
-import { Check, CheckCircle2 } from 'lucide-react';
+import { Check } from 'lucide-react';
 
 const container = {
   hidden: { opacity: 0 },

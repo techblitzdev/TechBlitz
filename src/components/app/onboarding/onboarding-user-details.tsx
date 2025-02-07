@@ -16,7 +16,7 @@ import {
   FormMessage,
   FormLabel,
 } from '@/components/ui/form';
-import { useOnboardingContext } from './onboarding-context';
+import { useOnboardingContext } from '../../../contexts/onboarding-context';
 import { onboardingStepOneSchema } from '@/lib/zod/schemas/onboarding/step-one';
 import type { UpdatableUserFields } from '@/types/User';
 import {

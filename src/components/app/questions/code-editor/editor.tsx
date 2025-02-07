@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Editor } from '@monaco-editor/react';
 import LoadingSpinner from '@/components/ui/loading';
-import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
+import { useQuestionSingle } from '@/contexts/question-single-context';
 import { capitalize } from 'lodash';
 import { AnimatePresence } from 'framer-motion';
 import { useMonaco } from '@monaco-editor/react';

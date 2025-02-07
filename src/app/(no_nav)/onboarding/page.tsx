@@ -2,7 +2,7 @@ import Logo from '@/components/ui/logo';
 import StarsBackground from '@/components/ui/stars-background';
 
 import Link from 'next/link';
-import { UserOnboardingContextProvider } from '@/components/app/onboarding/onboarding-context';
+import { UserOnboardingContextProvider } from '@/contexts/onboarding-context';
 import OnboardingForm from '@/components/app/onboarding/onboarding-form';
 import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 import { useUserServer } from '@/hooks/use-user-server';

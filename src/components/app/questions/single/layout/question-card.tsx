@@ -15,7 +15,7 @@ import { BarChart, BookIcon, BookOpen, FileIcon, FileText, PieChart } from 'luci
 import type { UserRecord } from '@/types/User';
 import type { Question } from '@/types/Questions';
 
-import { useQuestionSingle } from './question-single-context';
+import { useQuestionSingle } from '../../../../../contexts/question-single-context';
 import { Button } from '@/components/ui/button';
 import CodeDisplay from './code-snippet';
 import ExpandedCodeModal from './expanded-code-modal';

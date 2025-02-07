@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
 import { useEffect, useOptimistic, useState, useTransition } from 'react';
-import { useFilterContext } from './filter-context';
+import { useFilterContext } from '../../../contexts/filter-context';
 
 interface Tag {
   uid: string;

@@ -2,7 +2,7 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import WindowCode2 from '@/components/ui/icons/window-code';
-import { useQuestionSingle } from '../single/layout/question-single-context';
+import { useQuestionSingle } from '../../../../contexts/question-single-context';
 import ResultCard from './result-card';
 
 interface ResultProps {

@@ -9,7 +9,7 @@ import LoadingSpinner from '@/components/ui/loading';
 import { cn } from '@/lib/utils';
 import { answerQuestionSchema } from '@/lib/zod/schemas/answer-question-schema';
 import AnswerSubmittedForm from '../answer-submitted-form';
-import { useRoadmapOnboardingContext } from './roadmap-onboarding-context';
+import { useRoadmapOnboardingContext } from '../../../../contexts/roadmap-onboarding-context';
 import AnswerOption from './onboarding-answer-option';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;

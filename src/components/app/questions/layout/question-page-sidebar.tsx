@@ -8,9 +8,13 @@ import CurrentStreak, { SolarFlameBoldDuotone } from '@/components/ui/current-st
 import { useUserServer } from '@/hooks/use-user-server';
 import DailyGoalsCard from '../../shared/question/daily-goals-card';
 import UpgradeCard from '../../shared/upgrade-card';
+import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
+import { getUserMissionRecords } from '@/utils/data/missions/get-user-mission-record';
 
 export default async function QuestionPageSidebar() {
   const user = await useUserServer();
+  const missions = await getDailyMissions();
+  const userMissionRecords = await getUserMissionRecords();
 
   // get the user streak and suggestion in one go
   const userStreak = await getUserDailyStats();
@@ -90,7 +94,7 @@ export default async function QuestionPageSidebar() {
             )}
           </div>
         </div>
-        <DailyGoalsCard user={user} />
+        <DailyGoalsCard missions={missions} userMissionRecords={userMissionRecords} />
       </div>
     </aside>
   );

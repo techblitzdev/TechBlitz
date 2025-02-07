@@ -7,7 +7,7 @@ import QuestionResourceTab from '@/components/app/questions/resources/question-r
 import QuestionStatsTab from './question-stats-tab';
 import CodingChallengeDescription from '@/components/app/questions/code-editor/description-tab';
 import HasAnswered from '@/components/app/questions/single/has-answered';
-import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
+import { useQuestionSingle } from '@/contexts/question-single-context';
 import BookmarkQuestion from '@/components/app/questions/single/bookmark';
 import { capitalise } from '@/utils';
 import Chip from '@/components/ui/chip';

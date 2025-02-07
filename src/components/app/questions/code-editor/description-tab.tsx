@@ -4,7 +4,7 @@ import { Highlight, themes } from 'prism-react-renderer';
 // markdown to render the question description
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
+import { useQuestionSingle } from '@/contexts/question-single-context';
 import { use } from 'react';
 import HasAnswered from '@/components/app/questions/single/has-answered';
 import BookmarkQuestion from '@/components/app/questions/single/bookmark';

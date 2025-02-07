@@ -1,7 +1,6 @@
 'use server';
 import { prisma } from '@/lib/prisma';
 import { getUser } from '../user/authed/get-user';
-import { getUserMissionRecords } from '@/utils/data/missions/get-user-mission-record';
 import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
 
 /**

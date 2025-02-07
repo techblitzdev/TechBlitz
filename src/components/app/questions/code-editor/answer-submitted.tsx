@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
+import { useQuestionSingle } from '@/contexts/question-single-context';
 import { Button } from '@/components/ui/button';
 import {
   Select,

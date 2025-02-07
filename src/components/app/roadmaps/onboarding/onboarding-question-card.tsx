@@ -11,7 +11,7 @@ import QuestionHintTrigger from '../../questions/question-hint-trigger';
 import { TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { useRoadmapOnboardingContext } from './roadmap-onboarding-context';
+import { useRoadmapOnboardingContext } from '../../../../contexts/roadmap-onboarding-context';
 import QuestionResult from '../../shared/answer-submitted';
 import AiQuestionHelp from '../../questions/single/layout/ai-question-help';
 import ChangeCodeTheme from '../../questions/single/layout/change-code-theme';

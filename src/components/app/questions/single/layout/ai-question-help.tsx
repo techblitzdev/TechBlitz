@@ -116,19 +116,14 @@ export default function AiQuestionHelp(opts: {
                 Need assistance with this question? Let AI help you!
               </h5>
               <p className="text-sm text-white">
-                You have {user?.userLevel === 'PREMIUM' ? 'unlimited' : tokensUsed} tokens remaining{' '}
-                <br />
-                {user?.userLevel === 'FREE' && (
+                {user?.userLevel === 'PREMIUM' ? (
+                  <>You have unlimited tokens remaining</>
+                ) : (
                   <span className="text-xs text-gray-400">
-                    (You need to{' '}
-                    <Link
-                      href="https://dub.sh/upgrade-techblitz"
-                      target="_blank"
-                      className="text-accent underline"
-                    >
-                      upgrade to Premium
+                    <Link href="https://dub.sh/upgrade-techblitz" className="text-accent underline">
+                      Upgrade to Premium
                     </Link>{' '}
-                    to use AI assistance.)
+                    to access AI-powered explanations!
                   </span>
                 )}
               </p>
@@ -145,7 +140,11 @@ export default function AiQuestionHelp(opts: {
                     )}
                   >
                     <TooltipTrigger asChild>
-                      <Button type="submit" variant="secondary" disabled={isLoading}>
+                      <Button
+                        type="submit"
+                        variant="secondary"
+                        disabled={isLoading || user?.userLevel === 'FREE'}
+                      >
                         {isLoading ? 'Generating...' : 'Request AI Assistance'}
                       </Button>
                     </TooltipTrigger>

@@ -461,18 +461,11 @@ const updateUserDailyMissions = async ({ userAnswer }: any) => {
     // update the mission record
     await prisma.userMission.update({
       where: { uid: userMissionRecord.uid },
-      data: { progress: Number(userMissionRecord.progress) + 1 || 1 },
+      data: {
+        progress: Number(userMissionRecord.progress) + 1 || 1,
+        status:
+          Number(userMissionRecord.progress) + 1 === mission.requirements ? 'COMPLETED' : 'PENDING',
+      },
     });
-    // if the mission is completed, update the status
-    if (
-      userMissionRecord.progress &&
-      mission.requirements &&
-      userMissionRecord.progress === mission.requirements
-    ) {
-      await prisma.userMission.update({
-        where: { uid: userMissionRecord.uid },
-        data: { status: 'COMPLETED' },
-      });
-    }
   }
 };

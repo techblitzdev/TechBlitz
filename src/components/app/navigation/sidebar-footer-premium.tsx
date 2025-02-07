@@ -30,7 +30,7 @@ export default function SidebarFooterPremium() {
          */}
         Lifetime access deal ends 14th February.
       </p>
-      <Button variant="accent" fullWidth className="mt-4" href="https://dub.sh/upgrade-techblitz">
+      <Button variant="premium" fullWidth className="mt-4" href="https://dub.sh/upgrade-techblitz">
         Upgrade to Premium
       </Button>
     </SidebarMenuItem>

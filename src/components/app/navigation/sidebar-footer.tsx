@@ -25,7 +25,6 @@ import { Profile } from '@/types/Profile';
 import { capitalise } from '@/utils';
 import SidebarFooterPremium from './sidebar-footer-premium';
 import ReferralModal from '@/components/shared/referral-modal';
-import { useState } from 'react';
 
 /**
 /**
@@ -42,8 +41,6 @@ export default function SidebarFooterComponent(opts: {
 
   // get the current route so we can add the redirectUrl to the login button
   const pathname = usePathname();
-
-  const [isOpen, setIsOpen] = useState(false);
 
   // profile link determined on env (dev or prod)
   //const profileLink =
@@ -101,15 +98,15 @@ export default function SidebarFooterComponent(opts: {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Button
-                    variant="ghost"
-                    padding="none"
-                    onClick={() => setIsOpen(true)}
-                    className="flex items-center gap-x-2 h-auto !bg-transparent"
-                  >
-                    Invite a friend
-                  </Button>
-                  <ReferralModal isOpen={isOpen} setIsOpen={setIsOpen} />
+                  <ReferralModal>
+                    <Button
+                      variant="ghost"
+                      padding="none"
+                      className="flex items-center gap-x-2 h-auto !bg-transparent"
+                    >
+                      Invite a friend
+                    </Button>
+                  </ReferralModal>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href="/homepage">Homepage</Link>

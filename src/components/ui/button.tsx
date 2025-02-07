@@ -33,6 +33,9 @@ const buttonVariants = cva(
         ghost: 'hover:text-gray-400 duration-300',
         link: 'text-primary underline-offset-4 hover:underline',
         accent: 'bg-accent text-white shadow-sm hover:bg-accent/90 font-onest',
+        // premium is accent but with a shimmering effect
+        premium:
+          'font-onest !bg-gradient-to-r !from-accent !via-accent/70 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors',
       },
       size: {
         default: 'h-9 px-4 py-2',

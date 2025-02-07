@@ -29,19 +29,20 @@ export default async function StudyPathsList({
   return (
     <div className="relative w-[90%] z-10">
       <Suspense fallback={<StudyPathQuestionCardSkeleton />}>
-        {sortedQuestions.map((question, index) => (
-          <QuestionCardClient
-            key={question.slug}
-            questionData={question}
-            index={index}
-            offset={Math.sin(index * 0.9) * 10}
-          >
-            <QuestionCardWrapper
-              question={question}
-              isFirstUnanswered={firstUnansweredQuestion === question.slug}
-            />
-          </QuestionCardClient>
-        ))}
+        {sortedQuestions.map((question, index) => {
+          const offset = Math.sin(index * 0.9) * 10;
+          return (
+            <div key={question.slug} className="mb-4">
+              <QuestionCardClient questionData={question} index={index} offset={offset}>
+                <QuestionCardWrapper
+                  question={question}
+                  studyPath={studyPath}
+                  isFirstUnanswered={firstUnansweredQuestion === question.slug}
+                />
+              </QuestionCardClient>
+            </div>
+          );
+        })}
       </Suspense>
     </div>
   );
@@ -49,16 +50,18 @@ export default async function StudyPathsList({
 
 function QuestionCardWrapper({
   question,
+  studyPath,
   isFirstUnanswered,
 }: {
   question: Question;
+  studyPath: StudyPath;
   isFirstUnanswered: boolean;
 }) {
   return (
     <div className="relative group w-full">
       {isFirstUnanswered && <StartBounce />}
       <StudyPathQuestionCard
-        href={`/question/${question.slug}`}
+        href={`/question/${question.slug}?type=study-path&study-path=${studyPath.slug}`}
         questionData={question}
         className="w-full hover:border-accent group-hover:scale-[0.99] active:scale-[0.98] transition-transform duration-200"
       />
@@ -68,7 +71,10 @@ function QuestionCardWrapper({
 
 function StartBounce() {
   return (
-    <div className="absolute top-1 left-1/2 transform -translate-x-1/2 -translate-y-full z-20">
+    <div
+      id="roadmap-start"
+      className="absolute top-1 left-1/2 transform -translate-x-1/2 -translate-y-full z-20"
+    >
       <div className="animate-start-bounce">
         <div className="relative bg-black border-2 border-black-50 text-green-500 px-4 py-2 rounded-lg font-semibold shadow-lg flex items-center group-hover:scale-[0.99] transition-transform duration-200 text-lg">
           <span className="font-onest">Start</span>

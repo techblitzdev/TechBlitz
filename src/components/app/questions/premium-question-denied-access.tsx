@@ -80,7 +80,7 @@ export default function PremiumQuestionDeniedAccess() {
               whileTap={{ scale: 0.95 }}
             >
               <Button
-                variant="accent"
+                variant="premium"
                 size="lg"
                 className="w-full sm:w-auto"
                 onClick={() => window.open('https://dub.sh/upgrade-techblitz', '_blank')}

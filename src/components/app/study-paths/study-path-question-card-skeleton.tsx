@@ -14,7 +14,6 @@ export default function StudyPathQuestionCardSkeleton({ className }: { className
           <Circle className="flex-shrink-0 size-5 text-black-50" />
           <div className="h-6 bg-black-50 rounded w-3/4"></div>
         </div>
-        <div className="h-5 w-5 bg-black-50 rounded"></div>
       </div>
     </div>
   );

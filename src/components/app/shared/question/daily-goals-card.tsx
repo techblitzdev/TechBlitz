@@ -5,6 +5,7 @@ import { Progress } from '@/components/ui/progress';
 
 import { Mission, UserMission } from '@prisma/client';
 import { Check } from 'lucide-react';
+import ReferralModal from '@/components/shared/referral-modal';
 
 const container = {
   hidden: { opacity: 0 },
@@ -40,7 +41,7 @@ const DailyGoalsCard: React.FC<DailyGoalsCardProps> = ({ missions, userMissionRe
         <h3 className="text-lg font-semibold">Daily Missions</h3>
       </div>
 
-      <motion.div variants={container} initial="hidden" animate="show" className="mt-4 space-y-4">
+      <motion.div variants={container} initial="hidden" animate="show" className="mt-4 space-y-6">
         {missions.map((mission) => (
           <MissionItem
             key={mission.uid}
@@ -68,9 +69,9 @@ function MissionItem({
     (Number(userMissionRecord?.progress ?? 0) / Number(requirements ?? 1)) * 100
   );
 
-  return (
-    <motion.div variants={item} className="flex items-center gap-3">
-      <div className="flex-shrink-0 size-10 rounded-full flex items-center justify-center">
+  const MissionContent = () => (
+    <>
+      <div className="flex-shrink-0 size-8 rounded-full flex items-center justify-center">
         <div dangerouslySetInnerHTML={{ __html: mission.icon ?? '' }} className="size-full" />
       </div>
       <div className="flex flex-col gap-y-1 w-full">
@@ -82,6 +83,25 @@ function MissionItem({
         </div>
         <Progress value={progress} className="h-2" indicatorColor="bg-green-500" />
       </div>
+    </>
+  );
+
+  if (mission.type === 'FRIEND_INVITED') {
+    return (
+      <ReferralModal>
+        <motion.button
+          variants={item}
+          className="flex items-center gap-3 w-full underline underline-offset-2 decoration-muted-foreground/50 hover:decoration-muted-foreground"
+        >
+          <MissionContent />
+        </motion.button>
+      </ReferralModal>
+    );
+  }
+
+  return (
+    <motion.div variants={item} className="flex items-center gap-3">
+      <MissionContent />
     </motion.div>
   );
 }

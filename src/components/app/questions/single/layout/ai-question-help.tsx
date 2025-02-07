@@ -36,7 +36,7 @@ export default function AiQuestionHelp(opts: {
 
     if (questionHelp) {
       setAiHelp(questionHelp.content);
-      setTokensUsed(questionHelp.tokens);
+      setTokensUsed(questionHelp.tokens || 0);
     }
     setIsLoading(false);
   };
@@ -120,11 +120,15 @@ export default function AiQuestionHelp(opts: {
                 <br />
                 {user?.userLevel === 'FREE' && (
                   <span className="text-xs text-gray-400">
-                    (Free users get 20 tokens,{' '}
-                    <Link href="/pricing" className="text-accent underline">
+                    (You need to{' '}
+                    <Link
+                      href="https://dub.sh/upgrade-techblitz"
+                      target="_blank"
+                      className="text-accent underline"
+                    >
                       upgrade to Premium
                     </Link>{' '}
-                    to get unlimited tokens!)
+                    to use AI assistance.)
                   </span>
                 )}
               </p>

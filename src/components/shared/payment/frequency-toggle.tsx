@@ -1,42 +1,32 @@
 'use client';
 
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 
-interface FrequencyTabsProps {
+interface FrequencySwitcherProps {
   initialFrequency: 'month' | 'year';
   onFrequencyChange: (frequency: 'month' | 'year') => void;
 }
 
-export default function FrequencyTabs({ initialFrequency, onFrequencyChange }: FrequencyTabsProps) {
-  const [frequency, setFrequency] = useState<'month' | 'year'>(initialFrequency);
+export default function FrequencySwitcher({
+  initialFrequency,
+  onFrequencyChange,
+}: FrequencySwitcherProps) {
+  const [isYearly, setIsYearly] = useState(initialFrequency === 'year');
 
-  const handleFrequencyChange = (newFrequency: 'month' | 'year') => {
-    setFrequency(newFrequency);
+  const handleFrequencyChange = (checked: boolean) => {
+    const newFrequency = checked ? 'year' : 'month';
+    setIsYearly(checked);
     onFrequencyChange(newFrequency);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-2 mt-8">
-      <div className="inline-flex gap-3 items-center rounded-md bg-primary p-1 text-muted-foreground border border-black-50">
-        <Button
-          variant={frequency === 'month' ? 'secondary' : 'ghost'}
-          size="sm"
-          onClick={() => handleFrequencyChange('month')}
-          className={cn(frequency === 'month' ? 'text-black' : 'text-white', 'relative')}
-        >
-          Monthly
-        </Button>
-        <Button
-          variant={frequency === 'year' ? 'secondary' : 'ghost'}
-          size="sm"
-          onClick={() => handleFrequencyChange('year')}
-          className={cn(frequency === 'year' ? 'text-black' : 'text-white')}
-        >
-          Yearly (Save 20%)
-        </Button>
-      </div>
+    <div className="flex items-center justify-center space-x-4 mt-8">
+      <Switch id="frequency-switch" checked={isYearly} onCheckedChange={handleFrequencyChange} />
+      <Label htmlFor="frequency-switch" className="text-sm font-medium text-white">
+        Annual discount <span className="text-accent">(20% discount)</span>
+      </Label>
     </div>
   );
 }

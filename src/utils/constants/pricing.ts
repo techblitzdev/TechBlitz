@@ -1,6 +1,189 @@
 import { UserRecord } from '@/types/User';
 import { QUESTIONS_COUNT } from './misc';
 
+export type FeatureSection = {
+  name: string;
+  description: string;
+  free: boolean;
+  premium: boolean;
+  lifetime: boolean;
+};
+
+export type FeatureList = {
+  [key: string]: {
+    title: string;
+    features: FeatureSection[];
+  };
+};
+
+export const entireFeatureList: FeatureList = {
+  questions: {
+    title: 'Questions & Challenges',
+    features: [
+      {
+        name: `${QUESTIONS_COUNT}+ free questions`,
+        description: 'Get a new challenge every day',
+        free: true,
+        premium: true,
+        lifetime: true,
+      },
+      {
+        name: 'Multiple choice questions',
+        description: 'Multiple choice questions',
+        free: true,
+        premium: true,
+        lifetime: true,
+      },
+      {
+        name: 'Code editor questions',
+        description: 'Code editor questions',
+        free: true,
+        premium: true,
+        lifetime: true,
+      },
+      {
+        name: 'Suggested question emails',
+        description: 'Get a new challenge every day',
+        free: true,
+        premium: true,
+        lifetime: true,
+      },
+      {
+        name: 'Complete daily missions',
+        description: 'Complete daily missions',
+        free: true,
+        premium: true,
+        lifetime: true,
+      },
+      {
+        name: 'Access to premium questions',
+        description: 'Access to advanced and specialized questions',
+        free: false,
+        premium: true,
+        lifetime: true,
+      },
+      {
+        name: 'Generate custom coding challenges',
+        description: 'Generate custom coding challenges',
+        free: false,
+        premium: true,
+        lifetime: true,
+      },
+    ],
+  },
+  studyPlans: {
+    title: 'Roadmaps & Progress',
+    features: [
+      {
+        name: 'Basic roadmaps',
+        description: 'Access to standard roadmaps',
+        free: true,
+        premium: true,
+        lifetime: true,
+      },
+      {
+        name: 'Roadmap progress tracking',
+        description: 'Track your roadmap progress',
+        free: true,
+        premium: true,
+        lifetime: true,
+      },
+      {
+        name: 'Roadmap goals',
+        description: 'Set and track your roadmap goals (coming soon)',
+        free: true,
+        premium: true,
+        lifetime: true,
+      },
+      {
+        name: 'Bespoke roadmaps',
+        description: 'Personalized roadmaps tailored to your goals',
+        free: false,
+        premium: true,
+        lifetime: true,
+      },
+      {
+        name: 'Access to premium roadmaps (coming soon)',
+        description: 'Access to premium roadmaps',
+        free: false,
+        premium: true,
+        lifetime: true,
+      },
+    ],
+  },
+  stats: {
+    title: 'Statistics and reports',
+    features: [
+      {
+        name: 'Basic progress tracking',
+        description: 'Track your daily progress',
+        free: true,
+        premium: true,
+        lifetime: true,
+      },
+      {
+        name: 'Generate coding reports',
+        description: 'Generate coding reports',
+        free: false,
+        premium: true,
+        lifetime: true,
+      },
+    ],
+  },
+  aiAssistant: {
+    title: 'AI Assistant',
+    features: [
+      {
+        name: 'AI tokens',
+        description: 'Credits for AI-powered assistance',
+        free: false,
+        premium: true,
+        lifetime: true,
+      },
+      {
+        name: 'AI-powered question support',
+        description: 'AI-powered question support',
+        free: false,
+        premium: true,
+        lifetime: true,
+      },
+      {
+        name: 'AI-powered answer support',
+        description: 'AI-powered answer support',
+        free: false,
+        premium: true,
+        lifetime: true,
+      },
+    ],
+  },
+  support: {
+    title: 'Support & Updates',
+    features: [
+      {
+        name: 'Basic support',
+        description: 'Email support for basic issues',
+        free: true,
+        premium: true,
+        lifetime: true,
+      },
+      {
+        name: 'Priority support',
+        description: 'Fast-track support with priority response',
+        free: false,
+        premium: true,
+        lifetime: true,
+      },
+      {
+        name: 'Beta features access',
+        description: 'Early access to upcoming features',
+        free: false,
+        premium: true,
+        lifetime: true,
+      },
+    ],
+  },
+};
+
 export const getPlans = (
   user: Partial<UserRecord> | null,
   hideFree: boolean = false,
@@ -19,24 +202,20 @@ export const getPlans = (
         {
           name: 'A coding challenge picked just for you sent straight to your inbox',
         },
-        { name: 'Compete with other users everyday' },
+        { name: 'Access to study plans and progression frameworks' },
         {
           name: `Access to ${QUESTIONS_COUNT}+ Javascript, React, Node and Web Development multiple choice and code editor challenges (more added daily!)`,
         },
-        {
-          name: 'Access to pre-built study plans and progression frameworks',
-        },
         { name: 'View leaderboards and compete with other users' },
         { name: 'Basic stats and progress tracking' },
-        { name: '10 AI question help tokens' },
         { name: 'Basic support' },
       ],
       compactFeatures: [
         { name: 'Compete with other users everyday' },
         { name: 'Basic stats and progress tracking' },
-        { name: '10 AI question help tokens' },
         { name: 'Basic support' },
       ],
+      entireFeatureList,
       cta: {
         text: user?.userLevel === 'FREE' ? 'Current plan' : 'Get started',
         href: '/signup',
@@ -74,7 +253,6 @@ export const getPlans = (
         { name: 'Unlimited AI assistant tokens' },
         { name: 'Access to upcoming beta features' },
         { name: 'Priority support' },
-        { name: '50% student discount available' },
       ],
       compactFeatures: [
         { name: 'Access to premium questions' },
@@ -82,8 +260,8 @@ export const getPlans = (
         { name: 'In depth stat analysis and progress tracking' },
         { name: 'Personalized coding challenges' },
         { name: 'Unlimited AI assistant tokens' },
-        { name: '50% student discount available' },
       ],
+      entireFeatureList,
       cta: {
         text: user?.userLevel === 'PREMIUM' ? 'Current plan' : 'Get started',
         href: {
@@ -101,13 +279,14 @@ export const getPlans = (
       disabled: user?.userLevel === 'PREMIUM',
     },
     {
-      id: 'lifetime',
+      id: 'price_1QoOikCX23ptLp4LTks1YO7V',
       name: 'Lifetime',
       price: 89.99,
       currencySymbol: '$',
       frequency: 'once',
+      chip: 'Ends 14th February',
       frequencyText: 'pay once, yours forever',
-      shortText: 'Perfect for those wanting to master coding concepts for life.',
+      shortText: 'Access to all features and future updates!',
       features: [
         { name: 'Access to premium questions' },
         {
@@ -116,10 +295,9 @@ export const getPlans = (
         { name: 'In depth stat analysis and progress tracking' },
         { name: '10 Bespoke learning plans tailored to your goals' },
         { name: 'Personalized coding challenges' },
-        { name: 'Unlimited AI assistant tokens' },
+        { name: '500 AI assistant tokens' },
         { name: 'Access to upcoming beta features' },
         { name: 'Priority support' },
-        { name: '50% student discount available' },
         { name: 'Lifetime access to all features' },
       ],
       compactFeatures: [
@@ -127,10 +305,10 @@ export const getPlans = (
         { name: '10 Bespoke learning plans tailored to your goals' },
         { name: 'In depth stat analysis and progress tracking' },
         { name: 'Personalized coding challenges' },
-        { name: 'Unlimited AI assistant tokens' },
-        { name: '50% student discount available' },
+        { name: '500 AI assistant tokens' },
         { name: 'Lifetime access to all features and future updates!' },
       ],
+      entireFeatureList,
       paymentLink: {
         local: `https://buy.stripe.com/7sI29Cef21eMazKaER?client_reference_id=${user?.uid}`,
         production: `https://buy.stripe.com/7sI29Cef21eMazKaER?client_reference_id=${user?.uid}`,
@@ -142,7 +320,7 @@ export const getPlans = (
           production: `https://buy.stripe.com/7sI29Cef21eMazKaER?client_reference_id=${user?.uid}`,
         },
       },
-      mostPopular: true,
+      mostPopular: false,
     },
   ];
 

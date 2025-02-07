@@ -92,10 +92,7 @@ export default async function QuestionUidLayout({
   });
 
   const userAnswered = getUserAnswer({ questionUid: question.uid });
-
-  if (question.isPremiumQuestion && (!user || user.userLevel === 'FREE')) {
-    return <PremiumQuestionDeniedAccess />;
-  }
+  const isPremiumUser = user && user.userLevel !== 'FREE';
 
   return (
     <>
@@ -143,7 +140,10 @@ export default async function QuestionUidLayout({
           </div>
         </div>
         <Separator className="bg-black-50" />
-        {children}
+        <div style={{ opacity: 'var(--content-opacity)' }}>
+          {children}
+          {question.isPremiumQuestion && !isPremiumUser && <PremiumQuestionDeniedAccess />}
+        </div>
       </QuestionSingleContextProvider>
     </>
   );

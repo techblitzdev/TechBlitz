@@ -81,6 +81,8 @@ export default function QuestionCard(opts: {
     }
     return currentLayout === 'questions' ? '(Tap to view code snippet)' : '(Tap to view question)';
   };
+  // check if the question is premium
+  const userCanAccess = question.isPremiumQuestion ? user?.userLevel !== 'FREE' : true;
 
   return (
     <Tabs
@@ -158,23 +160,26 @@ export default function QuestionCard(opts: {
       </div>
       <Separator className="bg-black-50" />
       <div className="flex-1 bg-black overflow-y-auto scrollable-element relative">
-        {currentLayout === 'questions' && (
+        {currentLayout === 'questions' && userCanAccess && (
           <QuestionTabs
             question={question}
             renderAnswerForm={renderAnswerForm}
             totalSubmissions={totalSubmissions}
           />
         )}
-        {currentLayout === 'codeSnippet' && question.codeSnippet && !answerHelp && (
-          <>
-            {question.questionType === 'CODING_CHALLENGE' ? (
-              <CodeEditor />
-            ) : (
-              <CodeDisplay content={prefilledCodeSnippet || question.codeSnippet} user={user} />
-            )}
-          </>
-        )}
-        {answerHelp && currentLayout === 'codeSnippet' && (
+        {currentLayout === 'codeSnippet' &&
+          question.codeSnippet &&
+          !answerHelp &&
+          userCanAccess && (
+            <>
+              {question.questionType === 'CODING_CHALLENGE' ? (
+                <CodeEditor />
+              ) : (
+                <CodeDisplay content={prefilledCodeSnippet || question.codeSnippet} user={user} />
+              )}
+            </>
+          )}
+        {answerHelp && currentLayout === 'codeSnippet' && userCanAccess && (
           <AnimatePresence mode="wait">
             <div className="flex flex-col gap-y-4 p-4">
               <h2 className="text-lg font-bold">Answer Help</h2>
@@ -189,19 +194,19 @@ export default function QuestionCard(opts: {
             </div>
           </AnimatePresence>
         )}
-        {currentLayout === 'answer' && (
+        {currentLayout === 'answer' && userCanAccess && (
           <>
             {question.questionType === 'CODING_CHALLENGE' ? (
               <CodeEditorQuestionSubmitted />
             ) : (
-              <QuestionSubmitted />
+              userCanAccess && <QuestionSubmitted />
             )}
           </>
         )}
       </div>
       <Separator className="bg-black-50" />
       <div className="w-full space-y-4 bg-black">
-        {question.hint && (
+        {question.hint && userCanAccess && (
           <QuestionAccordion hint={question.hint} showHint={showHint} showRelatedQuestions={true} />
         )}
       </div>

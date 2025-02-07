@@ -119,14 +119,14 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
           <p className="text-sm text-muted-foreground">{studyPath.description}</p>
         </div>
             */}
-        <DailyChallengesCard missions={activeMissions} userMissionRecords={userMissionRecords} />
-
         {user?.userLevel === 'FREE' && (
           <UpgradeCard
             title="Looking for a personalized study plan?"
             description="Unlock your full potential with a personalized study plan tailored just for you. Get focused learning paths, progress tracking, and expert guidance to learn 3x faster."
           />
         )}
+
+        <DailyChallengesCard missions={activeMissions} userMissionRecords={userMissionRecords} />
 
         <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg">
           <div className="flex items-center space-x-2 text-white">

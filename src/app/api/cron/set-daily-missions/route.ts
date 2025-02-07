@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { resend } from '@/lib/resend';
 import { isAuthorized } from '@/utils/cron';
+import { Mission } from '@prisma/client';
 
 export const dynamic = 'force-dynamic';
 
@@ -19,7 +20,11 @@ export async function GET(request: NextRequest) {
   }
 
   try {
+    // set the daily missions
     const newActiveMissions = await updateDailyMissions();
+    // reset the user missions
+    await resetUserMissions({ dailyMissions: newActiveMissions });
+    // send the email to the teamJ
     await sendDailyMissionsEmail(newActiveMissions);
 
     return NextResponse.json({ message: 'Daily missions set successfully' }, { status: 200 });
@@ -62,6 +67,23 @@ async function updateDailyMissions() {
   ]);
 
   return newActiveMissions;
+}
+
+async function resetUserMissions({ dailyMissions }: { dailyMissions: Mission[] }) {
+  const users = await prisma.users.findMany();
+  // Delete all existing user missions for these mission UIDs
+  await prisma.userMission.deleteMany();
+
+  // Create new user missions for these mission UIDs
+  await prisma.userMission.createMany({
+    data: users.flatMap((user) =>
+      dailyMissions.map((mission) => ({
+        missionUid: mission.uid,
+        progress: 0,
+        userUid: user.uid,
+      }))
+    ),
+  });
 }
 
 async function sendDailyMissionsEmail(activeMissions: any[]) {

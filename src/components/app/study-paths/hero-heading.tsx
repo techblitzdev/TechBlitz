@@ -1,4 +1,3 @@
-import ShareQuestion from '@/components/app/shared/question/share-question';
 import type { StudyPath } from '@prisma/client';
 
 export default function HeroHeading({ studyPath }: { studyPath: StudyPath }) {
@@ -7,7 +6,6 @@ export default function HeroHeading({ studyPath }: { studyPath: StudyPath }) {
       <h1 className="relative z-20 text-3xl md:text-5xl text-wrap text-start font-inter max-w-2xl text-gradient from-white to-white/55 py-1">
         {studyPath?.title}
       </h1>
-      <ShareQuestion content="Share this study path" variant="ghost" />
     </div>
   );
 }

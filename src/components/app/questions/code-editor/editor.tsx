@@ -29,7 +29,9 @@ function LoadingState() {
 }
 
 export default function CodeEditor() {
-  const { code, setCode, answerHelp } = useQuestionSingle();
+  const { code, setCode, answerHelp, user, question } = useQuestionSingle();
+
+  const userCanAccess = question.isPremiumQuestion ? user?.userLevel !== 'FREE' : true;
 
   const monaco = useMonaco();
 
@@ -64,7 +66,7 @@ export default function CodeEditor() {
       <Editor
         height="90vh"
         defaultLanguage="javascript"
-        value={code}
+        value={userCanAccess ? code : ''}
         onChange={(value) => setCode(value || '')}
         theme="vs-dark"
         options={{

@@ -29,7 +29,7 @@ export default function PremiumQuestionDeniedAccess() {
         exit={{ scale: 0.9, y: 20 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       >
-        <Card className="w-full max-w-md border border-black-50 text-white relative">
+        <Card className="w-full max-w-md border border-black-50 text-white relative bg-black-75">
           {/** x button to go back */}
           <Button
             variant="ghost"

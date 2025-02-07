@@ -32,7 +32,6 @@ export default function QuestionSubmitted() {
     totalSeconds,
     generateAiAnswerHelp,
     user,
-    tokensUsed,
   } = useQuestionSingle();
 
   const [isPending, setTransition] = useTransition();
@@ -166,15 +165,14 @@ export default function QuestionSubmitted() {
             Don't understand this answer? Click the button below to get an explanation.
           </p>
           <p className="text-sm text-white">
-            You have {user?.userLevel === 'PREMIUM' ? 'unlimited' : tokensUsed} tokens remaining{' '}
-            <br />
-            {user?.userLevel === 'FREE' && (
+            {user?.userLevel === 'PREMIUM' ? (
+              <>You have unlimited tokens remaining</>
+            ) : (
               <span className="text-xs text-gray-400">
-                (Free users get 20 tokens,{' '}
                 <Link href="https://dub.sh/upgrade-techblitz" className="text-accent underline">
-                  upgrade to Premium
+                  Upgrade to Premium
                 </Link>{' '}
-                to get unlimited tokens!)
+                to access AI-powered explanations!
               </span>
             )}
           </p>
@@ -185,7 +183,7 @@ export default function QuestionSubmitted() {
                 generateAiAnswerHelp();
               });
             }}
-            disabled={isPending}
+            disabled={isPending || user?.userLevel === 'FREE'}
             className="hidden lg:flex"
             wrapperClassName="w-fit"
           >

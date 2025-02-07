@@ -56,6 +56,11 @@ export function PricingCard(opts: {
                 Most popular
               </div>
             )}
+            {product.chip && (
+              <div className="bg-accent rounded-lg text-white text-xs px-2 py-1 font-semibold">
+                {product.chip}
+              </div>
+            )}
           </div>
           <div className="flex flex-col gap-y-1 mb-2">
             <div className="flex gap-x-1 items-center mt-2">

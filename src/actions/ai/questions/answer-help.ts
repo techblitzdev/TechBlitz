@@ -19,6 +19,13 @@ const answerHelp = async (
   user: UserRecord,
   question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions
 ) => {
+  if (user.userLevel === 'FREE') {
+    return {
+      content: null,
+      tokensUsed: 0,
+    };
+  }
+
   const answerHelpPrompt = await getPrompt({
     name: 'question-answer-help',
   });

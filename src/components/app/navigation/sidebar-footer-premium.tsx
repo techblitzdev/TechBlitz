@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { SidebarMenuItem } from '@/components/ui/sidebar';
-import { SIDEBAR_FOOTER_DESCRIPTION, SIDEBAR_FOOTER_TITLE } from '@/utils/constants/sidebar';
-import { usePathname } from 'next/navigation';
+//import { SIDEBAR_FOOTER_DESCRIPTION, SIDEBAR_FOOTER_TITLE } from '@/utils/constants/sidebar';
+//import { usePathname } from 'next/navigation';
 
 export default function SidebarFooterPremium() {
-  const pathname = usePathname();
+  //const pathname = usePathname();
 
   return (
     <SidebarMenuItem
@@ -14,12 +14,21 @@ export default function SidebarFooterPremium() {
       }}
     >
       <p className="font-onest">
+        {/**
+         * 
         {SIDEBAR_FOOTER_TITLE[pathname as keyof typeof SIDEBAR_FOOTER_TITLE] ||
           'Unlock Your Full Potential'}
+         */}
+        Don't miss out!
       </p>
       <p className="text-xs font-light font-onest">
-        {SIDEBAR_FOOTER_DESCRIPTION[pathname as keyof typeof SIDEBAR_FOOTER_DESCRIPTION] ||
-          'Get AI-powered study paths, premium challenges, and learn 3x faster with personalized guidance!'}
+        {/**
+         *
+         * {SIDEBAR_FOOTER_DESCRIPTION[pathname as keyof typeof SIDEBAR_FOOTER_DESCRIPTION] ||
+         *   'Get AI-powered study paths, premium challenges, and learn 3x faster with personalized guidance!'
+         * }
+         */}
+        Lifetime access deal ends 14th February.
       </p>
       <Button variant="accent" fullWidth className="mt-4" href="https://dub.sh/upgrade-techblitz">
         Upgrade to Premium

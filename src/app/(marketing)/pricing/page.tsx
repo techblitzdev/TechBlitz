@@ -8,6 +8,7 @@ import FrequencyToggle from '@/components/shared/payment/frequency-toggle';
 import { cookies } from 'next/headers';
 import { revalidatePath } from 'next/cache';
 import Testimonials from '@/components/marketing/global/blocks/testimonials';
+import PricingTable from '@/components/marketing/pricing/pricing-table';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -195,7 +196,7 @@ export default async function PricingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="text-center min-h-screen container flex flex-col">
-        <div className="flex flex-col gap-y-2 items-center pb-16 pt-28 md:pb-20 md:pt-32 xl:pt-40 xl:pb-32">
+        <div className="flex flex-col gap-y-2 items-center pb-16 pt-28 md:pb-20 md:pt-32 xl:pt-40 xl:pb-32 max-w-7xl mx-auto">
           <div className="group w-fit relative inline-flex overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
             <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
             <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
@@ -210,8 +211,12 @@ export default async function PricingPage() {
             unlock premium features with our affordable plans.
           </p>
           <FrequencyToggle initialFrequency={billingPeriod} onFrequencyChange={updateFrequency} />
-          <div className="mt-10">
+          <div className="my-10">
             <PricingCardBlock frequency={billingPeriod} />
+          </div>
+
+          <div className="mt-28 mb-14 w-full">
+            <PricingTable />
           </div>
         </div>
 
@@ -221,7 +226,7 @@ export default async function PricingPage() {
 
         <FAQsBlock faqs={faqs} />
 
-        <CallToActionBlock title="Master Coding in Weeks, Not Years" />
+        <CallToActionBlock title="Your dream career in tech is a click away" />
       </div>
     </>
   );

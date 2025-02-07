@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-// The client you created from the Server-Side Auth instructions
 import { createClient } from '@/utils/supabase/server';
 import { prisma } from '@/lib/prisma';
 
@@ -13,6 +12,12 @@ export async function GET(request: Request) {
     const supabase = await createClient();
     const { data, error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error && data.user) {
+      // get the users authentication record
+
+      // Get profile picture from user metadata
+      const profilePicture =
+        data.user?.user_metadata?.picture || data.user?.user_metadata?.avatar_url;
+
       // First try to find user by uid
       let existingUser = await prisma.users.findUnique({
         where: {
@@ -48,6 +53,8 @@ export async function GET(request: Request) {
           data: {
             uid: data.user.id,
             email: data.user.email || '',
+            // only add the profile picture on first login
+            userProfilePicture: profilePicture || '',
             userLevel: 'FREE',
             createdAt: new Date(),
             updatedAt: new Date(),

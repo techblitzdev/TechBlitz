@@ -23,9 +23,15 @@ export const generateQuestionHelp = async (
 ) => {
   // get the current user requesting help
   const user = await getUser();
-
   if (!user) {
     return false;
+  }
+
+  if (user.userLevel === 'FREE') {
+    return {
+      content: null,
+      tokensUsed: 0,
+    };
   }
 
   // For regular questions, check if the user has enough tokens

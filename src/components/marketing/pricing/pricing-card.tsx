@@ -28,8 +28,7 @@ export default function PricingCard(opts: {
         background: 'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}
       className={cn(
-        'flex-1 col-span-2 lg:col-span-1 group-hover:scale-[1.03] duration-300 pb-3 bg-black-75 flex flex-col justify-between h-full gap-y-4 border-black-50',
-        product.mostPopular && 'border-accent'
+        'flex-1 col-span-2 lg:col-span-1 group-hover:scale-[1.03] duration-300 pb-3 bg-black-75 flex flex-col justify-between h-full gap-y-4 border-black-50'
       )}
     >
       <CardHeader className="pb-0">
@@ -39,6 +38,11 @@ export default function PricingCard(opts: {
             {product.mostPopular && (
               <div className="bg-accent rounded-lg text-white text-xs px-2 py-1 font-semibold">
                 Most popular
+              </div>
+            )}
+            {product.chip && (
+              <div className="bg-accent rounded-lg text-white text-xs px-2 py-1 font-semibold">
+                {product.chip}
               </div>
             )}
           </div>

@@ -5,6 +5,7 @@ import { cookies } from 'next/headers';
 import { prisma } from '@/lib/prisma';
 import { resend } from '@/lib/resend';
 import { createUserMissionRecords } from '@/actions/daily-missions/create-user-missions-record';
+import { sendWelcomeEmail } from '@/actions/misc/send-welcome-email';
 
 const cookiesStore = cookies();
 
@@ -63,6 +64,11 @@ export const signUp = async (
 
       // create a user mission record on sign up
       await createUserMissionRecords({ uid: user.id });
+
+      // send the welcome email to the user
+      await sendWelcomeEmail({
+        email: user.email,
+      });
     } catch (dbError: any) {
       return {
         user: null,

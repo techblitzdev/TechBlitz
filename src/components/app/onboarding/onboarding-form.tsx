@@ -11,7 +11,7 @@ import LoadingSpinner from '@/components/ui/loading';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import { useOnboardingContext } from '../../../contexts/onboarding-context';
+import { useOnboardingContext } from '@/contexts/onboarding-context';
 import { updateUser } from '@/actions/user/authed/update-user';
 import { cn } from '@/lib/utils';
 import OnboardingPricing from './onboarding-pricing';
@@ -42,9 +42,10 @@ export default function OnboardingForm() {
     canContinue,
   } = useOnboardingContext();
   const [isLoading, setIsLoading] = useState(false);
+  const refInUrl = searchParams.get('ref') !== null;
 
   // skip goes to the next step
-  const handleSkip = () => {
+  const handleSkip = async () => {
     if (currentStep === 'stepOne') {
       setCurrentStep('stepTwo');
     } else if (currentStep === 'stepTwo') {
@@ -93,7 +94,6 @@ export default function OnboardingForm() {
   };
 
   const showSkipButton = () => {
-    const refInUrl = searchParams.get('ref') !== null;
     const isStepOne = currentStep === 'stepOne';
     const hasUsername = (user?.username?.length ?? 0) > 0;
 

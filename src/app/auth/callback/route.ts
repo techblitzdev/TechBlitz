@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/utils/supabase/server';
 import { prisma } from '@/lib/prisma';
+import { sendWelcomeEmail } from '@/actions/misc/send-welcome-email';
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
@@ -76,6 +77,11 @@ export async function GET(request: Request) {
           },
         });
       }
+
+      // send the welcome email to the user
+      await sendWelcomeEmail({
+        email: data.user.email || '',
+      });
 
       const forwardedHost = request.headers.get('x-forwarded-host'); // original origin before load balancer
       const isLocalEnv = process.env.NODE_ENV === 'development';

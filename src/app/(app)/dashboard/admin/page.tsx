@@ -6,6 +6,7 @@ import { addUidAsUsername } from '@/scripts/add-uid-as-username';
 import { addIsCustomUsernameToUser } from '@/scripts/add-is-custom-username-to-user';
 import NewCodingChallengeQuestionModal from '@/components/app/questions/admin/new-coding-challenge-modal';
 import { addTitleToQuestion } from '@/scripts/add-title-to-question';
+import { sendWelcomeEmail } from '@/actions/misc/send-welcome-email';
 
 export default function AdminPage() {
   return (
@@ -28,6 +29,16 @@ export default function AdminPage() {
       </form>
       <form action={addTitleToQuestion}>
         <Button type="submit">Add Title to Questions</Button>
+      </form>
+      <form
+        action={async () => {
+          await sendWelcomeEmail({
+            email: 'logan@hiyield.co.uk',
+            username: 'Logan',
+          });
+        }}
+      >
+        <Button type="submit">Send Welcome Email</Button>
       </form>
     </div>
   );

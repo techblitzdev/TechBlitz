@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation';
 import ReferralToast from '@/components/shared/referral-toast';
 import { getUserDisplayName } from '@/utils/user';
 import { CheckIcon } from 'lucide-react';
+import TestimonialModal from '@/components/shared/testimonial-modal';
 
 export default function ClientPage({
   children,
@@ -132,6 +133,7 @@ export default function ClientPage({
       <div className="h-full">
         {children}
         <ReferralToast />
+        <TestimonialModal />
       </div>
     </>
   );

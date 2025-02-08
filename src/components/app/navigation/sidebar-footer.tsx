@@ -79,7 +79,7 @@ export default function SidebarFooterComponent(opts: {
                   <ProfilePicture
                     src={user?.userProfilePicture}
                     alt="Profile Picture"
-                    className="size-9"
+                    className="group-data-[collapsible=icon]:size-[18px] size-9 "
                   />
 
                   <div className="flex flex-col">

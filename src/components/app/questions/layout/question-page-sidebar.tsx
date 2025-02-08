@@ -35,11 +35,12 @@ export default async function QuestionPageSidebar() {
             description="Premium questions, personalized roadmaps, and unlimited AI credits!"
           />
         )}
+        <DailyGoalsCard missions={missions} userMissionRecords={userMissionRecords} />
         <div className="w-fit h-fit flex flex-col gap-y-2.5">
-          <h6 className="text-xl">Your current streak</h6>
           <div className="relative">
             {user ? (
               <div className="flex flex-col gap-y-4 text-white bg-black-75 border border-black-50 p-4 rounded-lg hover:cursor-default">
+                <h6>Streak Stats</h6>
                 <DatePicker
                   className="z-30"
                   color="white"
@@ -94,7 +95,6 @@ export default async function QuestionPageSidebar() {
             )}
           </div>
         </div>
-        <DailyGoalsCard missions={missions} userMissionRecords={userMissionRecords} />
       </div>
     </aside>
   );

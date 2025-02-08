@@ -6,7 +6,8 @@ import { getUser } from '@/actions/user/authed/get-user';
  */
 export const getUserMissionRecords = async () => {
   const user = await getUser();
-  if (!user) throw new Error('User not found');
+  // silently fail if the user is not found (this page is publicly accessible)
+  if (!user) return [];
 
   // there will be three records for each day (one for each mission)
   return await prisma.userMission.findMany({

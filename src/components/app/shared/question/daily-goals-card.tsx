@@ -38,10 +38,10 @@ const DailyGoalsCard: React.FC<DailyGoalsCardProps> = ({ missions, userMissionRe
         {/*
         <Spaceship2 height="36" width="36" />
         */}
-        <h3 className="text-lg font-semibold">Daily Missions</h3>
+        <h3 className="font-semibold">Daily Missions</h3>
       </div>
 
-      <motion.div variants={container} initial="hidden" animate="show" className="mt-4 space-y-6">
+      <motion.div variants={container} initial="hidden" animate="show" className="mt-6 space-y-6">
         {missions.map((mission) => (
           <MissionItem
             key={mission.uid}
@@ -76,7 +76,7 @@ function MissionItem({
       </div>
       <div className="flex flex-col gap-y-1 w-full">
         <div className="flex items-center gap-x-2">
-          <p className="text-sm text-muted-foreground font-onest">{mission.title}</p>
+          <p className="text-sm text-white font-onest">{mission.title}</p>
           {userMissionRecord?.status === 'COMPLETED' && (
             <Check height="16" width="16" className="text-green-500" />
           )}

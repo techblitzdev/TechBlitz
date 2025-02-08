@@ -15,14 +15,14 @@ export default function Hero(opts: {
       <div className={cn('flex flex-col gap-y-3 z-10', container ? 'md:container' : '')}>
         {chip}
         {typeof heading === 'string' ? (
-          <h1 className="relative z-20 text-3xl md:text-5xl text-wrap text-start font-inter max-w-2xl text-gradient from-white to-white/55 py-1">
+          <h1 className="relative z-20 text-3xl md:text-5xl text-wrap text-start font-onest max-w-2xl text-gradient from-white to-white/55 py-1">
             {heading}
           </h1>
         ) : (
           heading
         )}
         {typeof subheading === 'string' ? (
-          <h6 className="text-sm md:text-base text-gray-400 font-inter max-w-xl z-50">
+          <h6 className="text-sm md:text-base text-gray-400 font-onest max-w-xl z-50">
             {subheading}
           </h6>
         ) : (

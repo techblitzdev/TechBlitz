@@ -82,7 +82,7 @@ export default function LoginForm(opts: { redirectUrl: string; onboarding: strin
           <form
             onSubmit={async (event) => {
               event.preventDefault();
-              await oauth('google', true);
+              await oauth('google', false);
             }}
           >
             <Button
@@ -97,7 +97,7 @@ export default function LoginForm(opts: { redirectUrl: string; onboarding: strin
           <form
             onSubmit={async (event) => {
               event.preventDefault();
-              await oauth('github', true);
+              await oauth('github', false);
             }}
           >
             <Button
@@ -112,7 +112,7 @@ export default function LoginForm(opts: { redirectUrl: string; onboarding: strin
           <form
             onSubmit={async (event) => {
               event.preventDefault();
-              await oauth('discord', true);
+              await oauth('discord', false);
             }}
           >
             <Button

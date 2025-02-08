@@ -8,8 +8,8 @@ import GoogleSignUp from './google-sign-up';
 export default function HomepageHero() {
   const animatedSpanContent = (
     <div className="flex items-center group">
-      <span className="hidden md:block">Free study paths now available!</span>
-      <span className="block md:hidden">Free study paths now available!</span>
+      <span className="hidden md:block">Daily missions now available!</span>
+      <span className="block md:hidden">Daily missions now available!</span>
       <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-all duration-300" />
     </div>
   );

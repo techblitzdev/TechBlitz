@@ -1,14 +1,17 @@
 import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid';
 
 import AllQuestionsDashboardBentoBox from '@/components/app/dashboard/all-questions-bento-box';
-import TodaysQuestionBentoBox from '@/components/app/dashboard/todays-question-bento-box';
+import NextQuestionBentoBox from '@/components/app/dashboard/next-question-bento-box';
 import ProgressBentoBox from '@/components/app/dashboard/progression-bento-box';
-import StreakBentoBox from '@/components/app/dashboard/streak-bento-box';
+import NextRoadmapBentoBox from '@/components/app/dashboard/next-roadmap-bento-box';
+import { getDashboardStudyPath } from '@/utils/data/study-paths/get';
 
 export default async function DashboardBentoGrid() {
+  const studyPath = await getDashboardStudyPath();
+
   const items = [
     {
-      header: <TodaysQuestionBentoBox />,
+      header: <NextQuestionBentoBox />,
       className:
         'h-full text-white justify-center lg:min-h-auto lg:h-[370px] col-span-2 lg:col-span-1',
       padded: false,
@@ -26,10 +29,10 @@ export default async function DashboardBentoGrid() {
       padded: false,
     },
     {
-      header: <StreakBentoBox />,
+      header: <NextRoadmapBentoBox />,
       className:
         'h-full text-white justify-center min-h-[18rem] lg:h-[370px] col-span-2 lg:col-span-1',
-      href: '/statistics',
+      href: studyPath ? `/roadmaps/${studyPath.studyPath.slug}` : '/roadmaps',
       padded: false,
       gradientBg: true,
     },
@@ -41,7 +44,7 @@ export default async function DashboardBentoGrid() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl m-auto">
       <BentoGrid className="grid-rows-[auto_auto] md:grid-rows-[repeat(2,minmax(0,1fr))] h-full">
         {items.map((item, i) => (
           <BentoGridItem

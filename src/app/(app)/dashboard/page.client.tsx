@@ -129,7 +129,7 @@ export default function ClientPage({
           </DialogFooter>
         </DialogContent>
       </Dialog>
-      <div>
+      <div className="h-full">
         {children}
         <ReferralToast />
       </div>

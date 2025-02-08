@@ -49,6 +49,7 @@ export const getDashboardStudyPath = async () => {
         progress: {
           lte: 100,
         },
+        completedAt: null,
       },
     },
     include: {

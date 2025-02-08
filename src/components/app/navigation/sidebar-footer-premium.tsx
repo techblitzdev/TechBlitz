@@ -9,6 +9,9 @@ import { Stars } from 'lucide-react';
 export default function SidebarFooterPremium() {
   //const pathname = usePathname();
 
+  const premiumUrl =
+    process.env.NODE_ENV === 'production' ? 'https://dub.sh/upgrade-techblitz' : '/upgrade';
+
   return (
     <>
       {/* Show when sidebar is expanded */}
@@ -36,12 +39,7 @@ export default function SidebarFooterPremium() {
            */}
           Lifetime access deal ends 14th February.
         </p>
-        <Button
-          variant="premium"
-          fullWidth
-          className="mt-4"
-          href="https://dub.sh/upgrade-techblitz"
-        >
+        <Button variant="premium" fullWidth className="mt-4" href={premiumUrl}>
           Upgrade to Premium
         </Button>
       </SidebarMenuItem>
@@ -52,10 +50,10 @@ export default function SidebarFooterPremium() {
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
-                variant="premium"
+                variant="ghost"
                 size="icon"
                 className="size-5"
-                href="https://dub.sh/upgrade-techblitz"
+                href={premiumUrl}
                 title="Upgrade to Premium"
               >
                 <Stars className="size-4 text-yellow-400 fill-yellow-500" />

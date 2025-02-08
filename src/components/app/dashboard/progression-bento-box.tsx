@@ -61,34 +61,22 @@ export default async function ProgressBentoBox() {
       href={`${user?.userLevel === 'FREE' ? 'https://dub.sh/upgrade-techblitz' : '/roadmaps'}`}
       className="h-full flex flex-col p-4 relative group overflow-hidden"
     >
-      {user?.userLevel !== 'FREE' && user?.userLevel !== 'STANDARD' && (
-        <div className="absolute z-30">
-          <Chip
-            textColor="text-black"
-            color="bg-secondary"
-            text="Roadmap"
-            border="border-secondary"
-          />
-        </div>
-      )}
-      {user?.userLevel === 'FREE' && (
-        <div className="absolute z-10">
-          <Chip
-            textColor="text-black"
-            color="bg-secondary"
-            text="Upgrade to access Roadmaps"
-            border="border-secondary"
-          />
-        </div>
-      )}
+      <div className="absolute z-10">
+        <Chip
+          textColor="text-white"
+          color="bg-primary"
+          text={user?.userLevel === 'FREE' ? 'Upgrade to access Roadmaps' : 'Roadmaps'}
+          border="border-black-50"
+        />
+      </div>
       <Grid size={20} position="top-right" />
       <div className="h-full flex items-center justify-center relative">
         <InfiniteMovingCards items={items} speed="slow" />
         <Separator className="absolute top-1/2 -translate-y-1/2 z-50 bg-black-50" />
       </div>
-      <div className="flex flex-col md:flex-row gap-y-2 w-full justify-between">
+      <div className="flex flex-col md:flex-row gap-y-2 w-full justify-between items-end">
         <div className="space-y-1">
-          <h6 className="text-xl">Progression</h6>
+          <h6 className="text-xl">Personalised Progression</h6>
           <p className="hidden md:block font-satoshi text-sm">
             Your very own, personalised progression framework to help you grow as a developer.
           </p>

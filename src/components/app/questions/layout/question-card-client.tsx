@@ -10,11 +10,13 @@ export default function QuestionCardClient({
   questionData,
   index,
   offset,
+  top,
 }: {
   children: ReactNode;
   questionData: Question | null;
   index: number;
   offset: number;
+  top?: number;
 }) {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -31,12 +33,14 @@ export default function QuestionCardClient({
 
   const key = questionData?.slug || uniqueId('study-path-question-card-skeleton-');
 
+  const topValue = top ? top : index * (isMobile ? 60 : 40);
+
   return (
     <div
       key={key}
       className={cn('relative w-full flex justify-center transition-all duration-300')}
       style={{
-        top: `${index * (isMobile ? 60 : 60)}px`,
+        top: `${topValue}px`,
         transform: `translateX(${offset}%)`,
       }}
     >

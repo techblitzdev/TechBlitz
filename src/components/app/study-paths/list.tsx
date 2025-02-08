@@ -12,9 +12,13 @@ const QuestionCardClient = dynamic(() => import('../questions/layout/question-ca
 export default async function StudyPathsList({
   questions,
   studyPath,
+  top,
+  calculateOffset,
 }: {
   questions: Promise<Question[]>;
   studyPath: StudyPath;
+  top?: number;
+  calculateOffset?: (index: number) => number;
 }) {
   const studyPathQuestions = await questions;
 
@@ -30,10 +34,15 @@ export default async function StudyPathsList({
     <div className="relative w-[90%] z-10">
       <Suspense fallback={<StudyPathQuestionCardSkeleton />}>
         {sortedQuestions.map((question, index) => {
-          const offset = Math.sin(index * 0.9) * 10;
+          const offsetValue = calculateOffset ? calculateOffset(index) : Math.sin(index * 0.9) * 10;
           return (
             <div key={question.slug} className="mb-4">
-              <QuestionCardClient questionData={question} index={index} offset={offset}>
+              <QuestionCardClient
+                questionData={question}
+                index={index}
+                offset={offsetValue}
+                top={top}
+              >
                 <QuestionCardWrapper
                   question={question}
                   studyPath={studyPath}

@@ -6,7 +6,7 @@ import { Progress } from '@/components/ui/progress';
 import { CardContent, CardDescription, CardHeader, CardFooter } from '@/components/ui/card';
 import { motion } from 'framer-motion';
 import { capitalise } from '@/utils';
-import { useOnboardingContext } from '../../../contexts/onboarding-context';
+import { useOnboardingContext } from '@/contexts/onboarding-context';
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -48,7 +48,7 @@ const tagCategories = [
 ];
 
 export default function OnboardingStepTwo() {
-  const { selectedTags, setSelectedTags, user, handleGetDailyQuestion } = useOnboardingContext();
+  const { selectedTags, setSelectedTags, user } = useOnboardingContext();
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) =>
@@ -75,15 +75,6 @@ export default function OnboardingStepTwo() {
           >
             Hey {user?.username || 'there'}! What would you like to learn?
           </motion.h1>
-          <motion.button
-            variants={itemVariants}
-            initial="hidden"
-            animate="visible"
-            className="bg-secondary px-4 py-2 rounded-lg text-sm font-medium font-onest order-first lg:order-last"
-            onClick={handleGetDailyQuestion}
-          >
-            Or answer the daily question!
-          </motion.button>
         </div>
         <CardDescription>
           <motion.span

@@ -1,8 +1,12 @@
 'use client';
 import { useEffect, useState } from 'react';
+
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { onboardingStepOneSchema } from '@/lib/zod/schemas/onboarding/step-one';
+import type { UpdatableUserFields } from '@/types/User';
+
 import { CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import { InputWithLabel } from '@/components/ui/input-label';
 import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
@@ -16,9 +20,8 @@ import {
   FormMessage,
   FormLabel,
 } from '@/components/ui/form';
-import { useOnboardingContext } from '../../../contexts/onboarding-context';
-import { onboardingStepOneSchema } from '@/lib/zod/schemas/onboarding/step-one';
-import type { UpdatableUserFields } from '@/types/User';
+import { useOnboardingContext } from '@/contexts/onboarding-context';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -27,8 +30,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { toast } from 'sonner';
+
 import { checkUsername } from '@/actions/user/authed/check-username';
-import { Input } from '@/components/ui/input';
 import { QuestionMarkIcon } from '@radix-ui/react-icons';
 
 const whereDidYouHearAboutTechBlitz = [
@@ -399,7 +402,9 @@ export default function OnboardingStepOne() {
                 name="howDidYouHearAboutTechBlitz"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>How did you hear about TechBlitz?</FormLabel>
+                    <FormLabel>
+                      How did you hear about TechBlitz? <span className="text-red-500">*</span>
+                    </FormLabel>
                     <FormControl>
                       <Select
                         value={field.value ?? ''}
@@ -409,6 +414,7 @@ export default function OnboardingStepOne() {
                             console.log('howDidYouHearAboutTechBlitz changed:', value);
                             return { ...prev, [field.name]: value };
                           });
+                          setCanContinue(Boolean(value));
                         }}
                       >
                         <SelectTrigger className="w-full border border-black-50">

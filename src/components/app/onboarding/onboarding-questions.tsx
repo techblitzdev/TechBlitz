@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card';
-import { useOnboardingContext } from '../../../contexts/onboarding-context';
+import { useOnboardingContext } from '@/contexts/onboarding-context';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
@@ -22,7 +22,7 @@ const itemVariants = {
 };
 
 export default function OnboardingStepThree() {
-  const { onboardingQuestions, handleGetDailyQuestion } = useOnboardingContext();
+  const { onboardingQuestions } = useOnboardingContext();
 
   return (
     <>
@@ -36,15 +36,6 @@ export default function OnboardingStepThree() {
           >
             Here's some questions to get you started
           </motion.h1>
-          <motion.button
-            variants={itemVariants}
-            initial="hidden"
-            animate="visible"
-            className="bg-secondary px-4 py-2 rounded-lg text-sm font-medium font-onest order-first lg:order-last"
-            onClick={handleGetDailyQuestion}
-          >
-            Or answer the daily question!
-          </motion.button>
         </div>
         <CardDescription>
           <motion.span

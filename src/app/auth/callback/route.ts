@@ -70,6 +70,7 @@ export async function GET(request: Request) {
             userProfilePicture: profilePicture || '',
             userLevel: 'FREE',
             username: displayName,
+            isCustomUsername: displayName ? true : false,
             createdAt: new Date(),
             updatedAt: new Date(),
           },

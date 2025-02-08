@@ -35,14 +35,20 @@ const ReferralEmail = ({ referrerUid, referrerEmail }: ReferralEmailProps) => {
           </Section>
           <Heading style={h1}>Welcome to TechBlitz!</Heading>
           <Text style={text}>
-            You've been invited to join TechBlitz by <strong>{referrerEmail}</strong>.
+            {referrerEmail ? (
+              <>
+                You've been invited to join TechBlitz by <strong>{referrerEmail}</strong>.
+              </>
+            ) : (
+              <>You've been invited to join TechBlitz!</>
+            )}
           </Text>
           <Text style={text}>
             Get ready to supercharge your development workflow and collaborate with amazing
             developers!
           </Text>
           <Section style={buttonContainer}>
-            <Link href={`https://techblitz.dev/signup?ref=${referrerUid}`} style={button}>
+            <Link href={`https://techblitz.dev/signup?ref=${referrerUid || ''}`} style={button}>
               Accept Invitation
             </Link>
           </Section>
@@ -85,7 +91,7 @@ const ReferralEmail = ({ referrerUid, referrerEmail }: ReferralEmailProps) => {
             here to help!
           </Text>
           <Section style={footer}>
-            <Text style={footerText}>© 2025 TechBlitz. All rights reserved.</Text>
+            <Text style={footerText}>© 2025 Dev TechBlitz. All rights reserved.</Text>
           </Section>
         </Container>
       </Body>

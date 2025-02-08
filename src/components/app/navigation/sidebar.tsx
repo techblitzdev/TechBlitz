@@ -3,7 +3,6 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
 import { Home, Settings, LockIcon, User, CreditCard, ChevronDown } from 'lucide-react';
-import { ListBulletIcon } from '@radix-ui/react-icons';
 import {
   Sidebar,
   SidebarContent,
@@ -15,14 +14,11 @@ import {
   SidebarMenuItem,
   SidebarMenuBadge,
   SidebarRail,
-  SidebarTrigger,
   useSidebar,
 } from '@/components/ui/sidebar';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import AppSidebarSubMenuItem from '@/components/app/navigation/sidebar-submenu-item';
-import SidebarFooterComponent from '@/components/app/navigation/sidebar-footer';
-import Logo from '@/components/ui/logo';
-import LogoSmall from '@/components/ui/LogoSmall';
+import SidebarDropdown from '@/components/app/navigation/sidebar-dropdown';
 
 import type { SidebarItemType } from '@/types/Sidebar';
 
@@ -30,11 +26,14 @@ import { useEffect, useMemo } from 'react';
 import type { UserRecord } from '@/types/User';
 import type { Question, QuestionWithTags } from '@/types/Questions';
 import type { Profile } from '@/types/Profile';
-import HomeIcon from '@/components/ui/icons/home-2';
-import ChallengeIcon from '@/components/ui/icons/challenge';
+import HomeIcon from '@/components/ui/icons/home';
+
 import RoadmapIcon from '@/components/ui/icons/roadmap';
-import StatsIcon from '@/components/ui/icons/stats';
+
 import Award from '@/components/ui/icons/award';
+import SidebarFooter from './sidebar-footer';
+import Document from '@/components/ui/icons/document';
+import Chart from '@/components/ui/icons/b-chart';
 
 const LeaderboardIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
@@ -42,9 +41,7 @@ const LeaderboardIcon = () => (
   </svg>
 );
 
-const statsIcon = () => <StatsIcon fill="white" strokewidth={2} secondaryfill="white" />;
 const roadmapIcon = () => <RoadmapIcon fill="white" strokewidth={2} secondaryfill="white" />;
-const challengeIcon = () => <ChallengeIcon fill="white" strokewidth={2} secondaryfill="white" />;
 const houseIcon = () => <HomeIcon fill="white" strokewidth={2} secondaryfill="white" />;
 
 interface AppSidebarProps {
@@ -55,7 +52,7 @@ interface AppSidebarProps {
   suggestion: QuestionWithTags | null;
 }
 
-export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSidebarProps) {
+export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
   console.log('suggestion', suggestion);
   const pathname = usePathname();
 
@@ -69,29 +66,54 @@ export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSid
 
   const nonAuthedUserItems: SidebarItemType[] = [
     {
+      title: 'Dashboard',
+      url: '/dashboard',
+      icon: houseIcon,
+      tooltip: 'Dashboard',
+      disabled: true,
+    },
+    {
       title: 'Questions',
       url: '/questions',
-      icon: ListBulletIcon,
+      icon: Document,
       tooltip: 'Questions',
-      subItems: [
-        {
-          title: 'All',
-          url: '/questions',
-        },
-        {
-          title: 'Daily Question',
-          url: `/question/${todaysQuestion?.slug}`,
-        },
-      ],
     },
     {
       title: 'Roadmaps',
       url: '/roadmaps',
       icon: roadmapIcon,
+      defaultOpen: true,
       subItems: [
         {
-          title: 'Personalized',
+          title: 'Coding Roadmaps',
+          url: '/roadmaps',
+          disabled: true,
+        },
+        {
+          title: 'Personalized Roadmaps',
           url: '/personalized-roadmaps',
+          disabled: true,
+        },
+      ],
+    },
+    {
+      title: 'Stats',
+      url: '/statistics',
+      icon: Chart,
+      tooltip: 'Statistics',
+      defaultOpen: false,
+      disabled: true,
+      subItems: [
+        {
+          title: 'Overview',
+          url: '/statistics',
+          disabled: true,
+        },
+        {
+          title: 'Reports',
+          tooltip: 'Reports',
+          url: '/statistics/reports',
+          disabled: true,
         },
       ],
     },
@@ -105,9 +127,6 @@ export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSid
 
   const standardItems: SidebarItemType[] = [
     {
-      groupLabel: 'Menu',
-    },
-    {
       title: 'Dashboard',
       url: '/dashboard',
       icon: houseIcon,
@@ -116,7 +135,7 @@ export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSid
     {
       title: 'Questions',
       url: '/questions',
-      icon: challengeIcon,
+      icon: Document,
       tooltip: 'Questions',
     },
     {
@@ -129,28 +148,32 @@ export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSid
         {
           title: 'Coding Roadmaps',
           url: '/roadmaps',
+          disabled: false,
         },
         {
           title: 'Personalized Roadmaps',
           url: '/personalized-roadmaps',
+          disabled: false,
         },
       ],
     },
     {
       title: 'Stats',
       url: '/statistics',
-      icon: statsIcon,
+      icon: Chart,
       tooltip: 'Statistics',
       defaultOpen: false,
       subItems: [
         {
           title: 'Overview',
           url: '/statistics',
+          disabled: false,
         },
         {
           title: 'Reports',
           tooltip: 'Reports',
           url: '/statistics/reports',
+          disabled: false,
         },
       ],
     },
@@ -259,7 +282,7 @@ export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSid
             <CollapsibleTrigger asChild>
               <SidebarMenuButton asChild tooltip={item.tooltip}>
                 {state === 'collapsed' ? (
-                  <Link href={item.url} className="flex items-center w-full">
+                  <Link href={item.url} className="flex items-center w-full" prefetch>
                     {item.icon && <item.icon />}
                     <span className="text-sm font-inter group-data-[collapsible=icon]:hidden">
                       {item.title}
@@ -345,22 +368,8 @@ export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSid
     <Sidebar collapsible="icon" className="z-50 group">
       <SidebarContent className="py-6 bg-[#000000]">
         <SidebarGroup>
-          <SidebarGroupLabel className="w-full flex items-center justify-between">
-            {user ? (
-              <Link
-                href="/dashboard"
-                className="text-sm xl:text-2xl font-inter hover:text-white duration-300"
-                prefetch
-                aria-label="Go back to dashboard"
-              >
-                <Logo />
-              </Link>
-            ) : (
-              <div className="text-sm xl:text-2xl font-inter hover:text-white duration-300">
-                <Logo />
-              </div>
-            )}
-            <SidebarTrigger className="size-5 h-7 opacity-0 group-hover:opacity-100 duration-300 -right-1 group-hover:right-0 transition-all" />
+          <SidebarGroupLabel className="w-full flex items-center px-0">
+            <SidebarDropdown user={user} profile={profile} />
           </SidebarGroupLabel>
           {/* This div will show when the sidebar is collapsed */}
           <div className="hidden group-data-[collapsible=icon]:flex items-center justify-center h-8 mb-5">
@@ -370,15 +379,15 @@ export function AppSidebar({ user, profile, todaysQuestion, suggestion }: AppSid
               prefetch
               aria-label="Go back to dashboard"
             >
-              <LogoSmall />
+              <SidebarDropdown user={user} profile={profile} />
             </Link>
           </div>
-          <SidebarGroupContent className="mt-5 bg-[#000000]">
+          <SidebarGroupContent className="mt-10 bg-[#000000]">
             <SidebarMenu>{items.map((item) => renderSidebarItem(item))}</SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooterComponent user={user} profile={profile} />
+      <SidebarFooter user={user} />
       <SidebarRail />
     </Sidebar>
   );

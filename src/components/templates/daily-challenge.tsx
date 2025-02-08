@@ -48,7 +48,7 @@ export const SuggestedChallengeEmailTemplate: React.FC<EmailTemplateProps> = ({
               Stay consistent, keep coding, and watch your skills grow!
             </Text>
             <Section style={styles.footer}>
-              <Text style={styles.footerText}>© 2025 TechBlitz. All rights reserved.</Text>
+              <Text style={styles.footerText}>© 2025 Dev TechBlitz. All rights reserved.</Text>
               <Text style={styles.footerText}>
                 Want to stop receiving these emails?{' '}
                 <Link

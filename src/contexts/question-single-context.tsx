@@ -11,7 +11,6 @@ import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
 import { z } from 'zod';
 import { useSearchParams } from 'next/navigation';
 import { executeQuestionCode } from '@/actions/questions/execute';
-import { useSidebar } from '@/components/ui/sidebar';
 
 // Define the context type for the question single page
 type QuestionSingleContextType = {
@@ -95,12 +94,6 @@ export const QuestionSingleContextProvider = ({
   relatedQuestions: Promise<QuestionWithoutAnswers[]> | null;
   userAnswered: Promise<Answer | null>;
 }) => {
-  // close the sidebar automatically when on this page
-  const { setOpen } = useSidebar();
-  useEffect(() => {
-    setOpen(false);
-  }, []);
-
   // Get study path slug from URL search params
   const searchParams = useSearchParams();
   const studyPathSlug = searchParams?.get('study-path');

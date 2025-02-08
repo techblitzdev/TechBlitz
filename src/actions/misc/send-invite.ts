@@ -12,14 +12,10 @@ import { prisma } from '@/lib/prisma';
 export const sendInvite = async (email: string) => {
   const user = await getUser();
 
-  if (!user) {
-    throw new Error('User not found');
-  }
-
   const html = await renderAsync(
     React.createElement(ReferralEmail, {
-      referrerUid: user.uid,
-      referrerEmail: user.email,
+      referrerUid: user?.uid || '',
+      referrerEmail: user?.email || '',
     })
   );
 
@@ -31,19 +27,21 @@ export const sendInvite = async (email: string) => {
     (record) => record.missionUid === referralMission?.uid
   );
 
-  if (userMissionRecord?.status === 'COMPLETED') {
-    return;
+  if (userMissionRecord?.status !== 'COMPLETED' && userMissionRecord) {
+    await prisma.userMission.update({
+      where: { uid: userMissionRecord?.uid },
+      data: { status: 'COMPLETED', progress: Number(userMissionRecord?.progress) + 1 || 1 },
+    });
   }
 
-  await prisma.userMission.update({
-    where: { uid: userMissionRecord?.uid },
-    data: { status: 'COMPLETED', progress: Number(userMissionRecord?.progress) + 1 || 1 },
-  });
+  const subject = user
+    ? 'Invite to TechBlitz from ' + user.email
+    : "You've been invited to TechBlitz!";
 
   await resend.emails.send({
     from: 'TechBlitz <team@techblitz.dev>',
     to: email,
-    subject: 'Invite to TechBlitz from ' + user.email,
+    subject,
     html,
   });
 };

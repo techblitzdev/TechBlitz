@@ -11,15 +11,15 @@ export const createOrFetchUserRoadmap = async () => {
   }
 
   try {
-    // check if the user has more than 10 roadmaps
+    // check if the user has more than 15 roadmaps
     const userRoadmapsCount = await prisma.userRoadmaps.count({
       where: { userUid },
     });
 
-    if (userRoadmapsCount >= 10) {
+    if (userRoadmapsCount >= 15) {
       return {
         code: 'MAX_ROADMAPS_REACHED',
-        error: 'Maximum number of roadmaps (10) reached',
+        error: 'Maximum number of roadmaps (15) reached',
       };
     }
 

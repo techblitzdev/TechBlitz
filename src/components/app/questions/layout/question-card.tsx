@@ -3,7 +3,7 @@ import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import TagDisplay from '@/components/app/questions/tag-display';
 import Link from 'next/link';
 import Chip from '@/components/ui/chip';
-import { Bookmark, Circle } from 'lucide-react';
+import { Bookmark, Circle, XCircle } from 'lucide-react';
 import { CheckCircle } from 'lucide-react';
 import { TooltipProvider, TooltipTrigger, TooltipContent, Tooltip } from '@/components/ui/tooltip';
 import type { UserRecord } from '@/types/User';
@@ -52,6 +52,7 @@ export default function QuestionCard(opts: {
   recommendedQuestion?: boolean;
   type?: 'study-path' | 'standard-question';
   studyPathSlug?: string;
+  className?: string;
 }) {
   const {
     questionData,
@@ -63,6 +64,7 @@ export default function QuestionCard(opts: {
     recommendedQuestion = false,
     type = 'standard-question',
     studyPathSlug,
+    className,
   } = opts;
 
   // if identifier is uid, this is a custom question
@@ -86,17 +88,18 @@ export default function QuestionCard(opts: {
       key={questionData.uid}
       className={cn(
         'flex flex-col gap-y-5 items-start bg-[#090909] border border-black-50 hover:border-black-100 duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-[[data-pending]]:animate-pulse',
-        recommendedQuestion && 'border-accent'
+        recommendedQuestion && 'border-accent',
+        className
       )}
     >
       <div className="flex flex-col gap-y-4 md:gap-y-5 w-full">
-        <div className="flex flex-col md:flex-row w-full justify-between gap-2 md:gap-5">
+        <div className="flex flex-col md:flex-row w-full justify-between gap-4 md:gap-5">
           <div className="flex items-center gap-x-2">
             {questionData.userAnswers && questionData.userAnswers.length > 0 ? (
               questionData.userAnswers[0].correctAnswer ? (
                 <CheckCircle className="flex-shrink-0 size-5 text-green-500" />
               ) : (
-                <Circle className="flex-shrink-0 size-5 text-black-50" />
+                <XCircle className="flex-shrink-0 size-5 text-red-500" />
               )
             ) : (
               <Circle className="flex-shrink-0 size-5 text-black-50" />
@@ -105,7 +108,7 @@ export default function QuestionCard(opts: {
               {title}
             </h6>
           </div>
-          <div className="flex items-center gap-x-2">
+          <div className="flex items-center gap-x-2 order-first lg:order-last">
             {questionData?.difficulty && userCanAccess ? (
               <div className="h-fit">
                 <Chip
@@ -156,8 +159,8 @@ export default function QuestionCard(opts: {
             )}
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
-          {recommendedQuestion && (
+        {recommendedQuestion && (
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
             <TooltipProvider>
               <Tooltip delayDuration={0}>
                 <TooltipTrigger>
@@ -174,26 +177,22 @@ export default function QuestionCard(opts: {
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
-      {((!customQuestion && (questionData?.tags?.length ?? 0) > 0) ||
-        (questionData?.bookmarks && questionData?.bookmarks.length > 0) ||
-        (questionData?.questionDate && questionData?.dailyQuestion)) && (
+      {numberOfTags > 0 && !customQuestion && (questionData?.tags?.length ?? 0) > 0 && (
         <div className="w-full flex justify-between items-end z-10 relative">
-          {!customQuestion && (questionData?.tags?.length ?? 0) > 0 && (
-            <div className="flex gap-4 items-end ">
-              <div className="flex items-center gap-1 space-y-0.5 text-start">
-                <TagDisplay
-                  tags={questionData?.tags || []}
-                  numberOfTags={numberOfTags}
-                  showcaseTag={showcaseTag}
-                  variant="default"
-                />
-              </div>
+          <div className="flex gap-4 items-end ">
+            <div className="flex items-center gap-1 space-y-0.5 text-start">
+              <TagDisplay
+                tags={questionData?.tags || []}
+                numberOfTags={numberOfTags}
+                showcaseTag={showcaseTag}
+                variant="default"
+              />
             </div>
-          )}
+          </div>
         </div>
       )}
     </Link>

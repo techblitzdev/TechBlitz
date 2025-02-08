@@ -8,7 +8,7 @@ import { capitalise } from '@/utils';
 
 // Actions
 import { getQuestion } from '@/utils/data/questions/get';
-import { QuestionSingleContextProvider } from '@/components/app/questions/single/layout/question-single-context';
+import { QuestionSingleContextProvider } from '@/contexts/question-single-context';
 import { getUser } from '@/actions/user/authed/get-user';
 import { redirect } from 'next/navigation';
 import QuestionActionButtons from '@/components/app/questions/single/layout/question-action-buttons';

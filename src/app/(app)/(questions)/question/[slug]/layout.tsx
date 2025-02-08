@@ -2,7 +2,7 @@ import { Suspense, lazy } from 'react';
 import { createMetadata, getQuestionEducationLevel } from '@/utils/seo';
 import { capitalise, getBaseUrl } from '@/utils';
 import { Separator } from '@/components/ui/separator';
-import { QuestionSingleContextProvider } from '@/components/app/questions/single/layout/question-single-context';
+import { QuestionSingleContextProvider } from '@/contexts/question-single-context';
 import { redirect } from 'next/navigation';
 
 // Actions
@@ -92,10 +92,7 @@ export default async function QuestionUidLayout({
   });
 
   const userAnswered = getUserAnswer({ questionUid: question.uid });
-
-  if (question.isPremiumQuestion && (!user || user.userLevel === 'FREE')) {
-    return <PremiumQuestionDeniedAccess />;
-  }
+  const isPremiumUser = user && user.userLevel !== 'FREE';
 
   return (
     <>
@@ -143,7 +140,10 @@ export default async function QuestionUidLayout({
           </div>
         </div>
         <Separator className="bg-black-50" />
-        {children}
+        <div style={{ opacity: 'var(--content-opacity)' }}>
+          {children}
+          {question.isPremiumQuestion && !isPremiumUser && <PremiumQuestionDeniedAccess />}
+        </div>
       </QuestionSingleContextProvider>
     </>
   );

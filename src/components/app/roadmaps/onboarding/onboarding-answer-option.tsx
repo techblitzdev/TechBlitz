@@ -1,7 +1,7 @@
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import CodeDisplay from '../../questions/single/layout/code-snippet';
-import { useRoadmapOnboardingContext } from './roadmap-onboarding-context';
+import { useRoadmapOnboardingContext } from '../../../../contexts/roadmap-onboarding-context';
 
 interface AnswerOptionProps {
   answer: {

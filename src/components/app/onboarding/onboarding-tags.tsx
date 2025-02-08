@@ -6,7 +6,7 @@ import { Progress } from '@/components/ui/progress';
 import { CardContent, CardDescription, CardHeader, CardFooter } from '@/components/ui/card';
 import { motion } from 'framer-motion';
 import { capitalise } from '@/utils';
-import { useOnboardingContext } from './onboarding-context';
+import { useOnboardingContext } from '../../../contexts/onboarding-context';
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },

@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
 import { useEffect, useOptimistic, useState, useTransition } from 'react';
-import { useFilterContext } from './filter-context';
+import { useFilterContext } from '../../../contexts/filter-context';
 
 interface Tag {
   uid: string;
@@ -105,7 +105,7 @@ export default function FilterTagsCarousel() {
                   }}
                   variant="outline"
                   className={cn(
-                    'text-white hover:text-white border border-black-50',
+                    'text-white hover:text-white bg-primary border border-black-50',
                     selectedTags.includes(tag.name) && 'bg-accent'
                   )}
                 >

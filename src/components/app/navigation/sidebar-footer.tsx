@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -23,6 +24,7 @@ import { getUserDisplayName } from '@/utils/user';
 import { Profile } from '@/types/Profile';
 import { capitalise } from '@/utils';
 import SidebarFooterPremium from './sidebar-footer-premium';
+import ReferralModal from '@/components/shared/referral-modal';
 
 /**
 /**
@@ -41,8 +43,8 @@ export default function SidebarFooterComponent(opts: {
   const pathname = usePathname();
 
   // profile link determined on env (dev or prod)
-  const profileLink =
-    process.env.NEXT_PUBLIC_ENV === 'production' ? '/settings/profile' : `/${user?.username}`;
+  //const profileLink =
+  //process.env.NEXT_PUBLIC_ENV === 'production' ? '/settings/profile' : `/${user?.username}`;
 
   return (
     <SidebarFooter className="bg-[#000000]">
@@ -96,15 +98,18 @@ export default function SidebarFooterComponent(opts: {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href={profileLink} className="w-full">
-                    Profile
-                  </Link>
+                  <ReferralModal>
+                    <Button
+                      variant="ghost"
+                      padding="none"
+                      className="flex items-center gap-x-2 h-auto !bg-transparent"
+                    >
+                      Invite a friend
+                    </Button>
+                  </ReferralModal>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href="/homepage">Homepage</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link href="/onboarding?ref=dashboard">Onboarding</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href="https://git.new/blitz">GitHub</Link>

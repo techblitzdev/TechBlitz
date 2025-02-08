@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
+import { useQuestionSingle } from '@/contexts/question-single-context';
 import { RefreshCcwIcon } from 'lucide-react';
 import { AnimatedStopwatchButton } from '@/components/app/shared/question/question-timer';
 import { useState, useEffect } from 'react';

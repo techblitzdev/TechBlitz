@@ -1,0 +1,72 @@
+/**
+ * Missions are a way to reward users for completing certain actions.
+ * They will be changed every day in the daily cron job.
+*/
+
+// enum to ensure that two of the missions are not the same
+enum MissionType {
+    // maintaining a streak
+    STREAK_MAINTAINED
+    // answering a question
+    QUESTION_ANSWERED
+    // earning XP (not implemented yet)
+    XP_EARNED
+    // answering a question correctly
+    QUESTION_CORRECT
+    // inviting a friend
+    FRIEND_INVITED
+    // answering a question correctly and fast
+    QUESTION_ANSWERED_FAST
+}
+
+// model for all the missions that are available
+model Mission {
+    uid String @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    title String
+    description String?
+    type MissionType
+    requirements Json
+
+    // if the mission is active for that day
+    isActive Boolean @default(false)
+
+    UserMission UserMission[]
+
+    icon String?
+}
+
+model UserMission {
+    uid String @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // The user who is assigned this mission
+    userUid String
+    // Reference to the mission
+    missionUid String  
+
+    // Store mission-specific progress (e.g., XP earned, questions answered)
+    progress Json @default("{}")  
+    // Track if the mission is pending, completed, or failed
+    status MissionStatus @default(PENDING)  
+
+    // Timestamp when the mission was completed
+    completedAt DateTime?  
+    // Optional field if missions can expire or be failed
+    failedAt DateTime?  
+
+    // Relations
+    user Users @relation(fields: [userUid], references: [uid], onDelete: Cascade)
+    mission Mission @relation(fields: [missionUid], references: [uid], onDelete: Cascade)
+}
+
+// Track mission completion status
+enum MissionStatus {
+    PENDING   // The mission is assigned but not yet completed
+    COMPLETED // The mission is completed successfully
+    FAILED    // The mission was not completed in time or was unsuccessful
+}
+

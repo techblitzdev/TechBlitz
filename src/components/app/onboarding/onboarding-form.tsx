@@ -11,7 +11,7 @@ import LoadingSpinner from '@/components/ui/loading';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import { useOnboardingContext } from './onboarding-context';
+import { useOnboardingContext } from '../../../contexts/onboarding-context';
 import { updateUser } from '@/actions/user/authed/update-user';
 import { cn } from '@/lib/utils';
 import OnboardingPricing from './onboarding-pricing';

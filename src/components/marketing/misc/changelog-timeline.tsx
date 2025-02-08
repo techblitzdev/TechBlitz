@@ -5,6 +5,66 @@ import Link from 'next/link';
 export default function ChangelogTimeline() {
   const data = [
     {
+      title: 'Roadmaps redesigned, daily missions & more',
+      content: (
+        <div>
+          <div className="grid grid-cols-2 gap-4">
+            <img
+              src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//08-02-25-roadmap-redesign.png"
+              alt="Study paths redesign"
+            />
+            <img
+              src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//08-02-25-referral.png"
+              alt="Referral program"
+            />
+          </div>
+          <div className="text-white font-normal mt-12">
+            <p>
+              We were getting a lot of feedback that our roadmaps we quite... boring. So we have
+              redesigned them to be more engaging and easier to use.
+            </p>
+            <br />
+            <p>
+              You can now easily see your next question in your study path, your progress and easily
+              enroll in a new study path.
+            </p>
+            <br />
+            <p>
+              This is just the first step of many to come. We are constantly looking for feedback
+              and will be adding more features and improvements to the platform.
+            </p>
+            <br />
+            <p>
+              We also decided as a part of this update to add daily missions. These are a set of
+              daily challenges that you can complete to earn rewards and improve your skills.
+            </p>
+            <br />
+            <p>We will be adding more missions over time, so stay tuned!</p>
+            <br />
+            <p>
+              You can also now sign up and sign in with Google. This is a much faster and easier way
+              to sign up for TechBlitz.
+            </p>
+            <br />
+            <p>
+              We also added a new referral program. When you refer a friend to TechBlitz, you will
+              earn 10% off all paid plans once they sign up!
+            </p>
+            <br />
+            <p>
+              If you have any feedback, or any suggestions for new features, please let us know at{' '}
+              <Link href="mailto:team@techblitz.dev" className="text-accent">
+                team@techblitz.dev
+              </Link>
+              .
+            </p>
+            <br />
+            <p>Happy coding! 🚀</p>
+          </div>
+        </div>
+      ),
+    },
+    {
       title: 'Free roadmaps, test cases, personalized challenges emails & more',
       content: (
         <div>

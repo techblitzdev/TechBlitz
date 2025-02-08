@@ -67,7 +67,7 @@ export default async function StatisticsReport() {
           </p>
           <Button
             href="https://dub.sh/upgrade-techblitz"
-            variant="secondary"
+            variant="premium"
             className="flex items-center gap-x-2"
           >
             Upgrade to Premium

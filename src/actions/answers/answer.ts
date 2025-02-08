@@ -6,6 +6,8 @@ import { revalidateTag } from 'next/cache';
 import { AnswerDifficulty } from '@prisma/client';
 import { uniqueId } from 'lodash';
 import { getUser } from '../user/authed/get-user';
+import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
+import { createUserMissionRecords } from '../daily-missions/create-user-missions-record';
 
 // Types
 interface AnswerQuestionInput {
@@ -255,6 +257,9 @@ export async function answerQuestion({
       });
     }
 
+    // handle the updating of daily missions on the user
+    await updateUserDailyMissions({ userAnswer });
+
     return { userData, userAnswer };
   });
 
@@ -402,4 +407,69 @@ const updateStudyPathProgress = async ({
   }
 
   revalidateTag(`study-path-${studyPathSlug}`);
+};
+
+const updateUserDailyMissions = async ({ userAnswer }: { userAnswer: Answer }) => {
+  const user = await getUser();
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  const activeMissions = await getDailyMissions();
+  if (!activeMissions?.length) {
+    return;
+  }
+
+  // Ensure user has mission records
+  const userMissionRecords = await createUserMissionRecords({ uid: user.uid });
+  if (!userMissionRecords?.length) {
+    console.error('Failed to create/get user mission records');
+    return;
+  }
+
+  // Rest of the mission update logic...
+  const missions = activeMissions.filter((mission) => {
+    return (
+      mission.type === 'QUESTION_ANSWERED' ||
+      mission.type === 'STREAK_MAINTAINED' ||
+      mission.type === 'QUESTION_CORRECT'
+    );
+  });
+
+  // silent fail if no mission is found (may not be any missions for the day)
+  if (!missions) {
+    return;
+  }
+
+  // loop through all missions, and update the mission record
+  for (const mission of missions) {
+    if (mission.type === 'QUESTION_CORRECT' && userAnswer.correctAnswer === false) {
+      console.log('question correct but answer is incorrect');
+      continue;
+    }
+
+    // find the mission record
+    const userMissionRecord = userMissionRecords.find(
+      (record) => record.missionUid === mission.uid
+    );
+    // silent fail if the mission record is not found
+    if (!userMissionRecord) {
+      continue;
+    }
+
+    // check if the mission is completed
+    if (userMissionRecord.status === 'COMPLETED') {
+      continue;
+    }
+
+    // update the mission record
+    await prisma.userMission.update({
+      where: { uid: userMissionRecord.uid },
+      data: {
+        progress: Number(userMissionRecord.progress) + 1 || 1,
+        status:
+          Number(userMissionRecord.progress) + 1 === mission.requirements ? 'COMPLETED' : 'PENDING',
+      },
+    });
+  }
 };

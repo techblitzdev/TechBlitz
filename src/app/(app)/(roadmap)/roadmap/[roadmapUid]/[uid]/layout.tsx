@@ -11,7 +11,7 @@ import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-tri
 import CurrentStreak from '@/components/ui/current-streak';
 import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
 import RoadmapQuestionActionButtons from '@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-action-buttons';
-import { RoadmapQuestionContextProvider } from '@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-context';
+import { RoadmapQuestionContextProvider } from '@/contexts/roadmap-question-context';
 import { RoadmapQuestionNavigation } from '@/components/app/navigation/question-navigation';
 
 // hooks

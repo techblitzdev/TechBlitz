@@ -1,34 +1,23 @@
-import { redirect } from 'next/navigation';
 import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
+import { getQuestions } from '@/actions/questions/admin/list';
+import { getStudyPath } from '@/utils/data/study-paths/get';
+import { createMetadata } from '@/utils/seo';
+import { capitalise, getBaseUrl } from '@/utils';
+import type { QuizJsonLd } from '@/types/Seo';
+import type { StudyPath } from '@prisma/client';
+import StudyPathQuestionCardSkeleton from '@/components/app/study-paths/study-path-question-card-skeleton';
+import QuestionCardClient from '@/components/app/questions/layout/question-card-client';
 
 const StudyPathsList = dynamic(() => import('@/components/app/study-paths/list'), {
-  loading: () => (
-    <div className="flex flex-col gap-6">
-      {Array.from({ length: 9 }).map((_, index) => (
-        <QuestionCardSkeleton key={index} />
-      ))}
-    </div>
-  ),
+  loading: () => <StudyPathsListSkeleton />,
 });
-import StudyPathSidebar from '@/components/app/study-paths/study-path-sidebar';
-import Hero from '@/components/shared/hero';
-import { Button } from '@/components/ui/button';
-import { ArrowRightIcon, ChevronLeft, Sparkles } from 'lucide-react';
 
-import { getQuestions } from '@/actions/questions/admin/list';
-import { enrollInStudyPath } from '@/actions/study-paths/enroll';
-import { useUserServer } from '@/hooks/use-user-server';
+const StudyPathSidebar = dynamic(() => import('@/components/app/study-paths/study-path-sidebar'));
+const Hero = dynamic(() => import('@/components/shared/hero'));
 
-import { capitalise, getBaseUrl } from '@/utils';
-import { getStudyPath, isUserEnrolledInStudyPath } from '@/utils/data/study-paths/get';
-import { createMetadata } from '@/utils/seo';
-
-import { QuizJsonLd } from '@/types/Seo';
-import type { StudyPath } from '@prisma/client';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Progress } from '@/components/ui/progress';
-import ShareQuestion from '@/components/app/shared/question/share-question';
-import { QuestionCardSkeleton } from '@/components/app/questions/layout/question-card';
+const HeroChip = dynamic(() => import('@/components/app/study-paths/hero-chip'));
+const HeroHeading = dynamic(() => import('@/components/app/study-paths/hero-heading'));
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const studyPath = await getStudyPath(params.slug);
@@ -61,90 +50,68 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   });
 }
 
-async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
-  // run in parallel
-  const [user, isEnrolled] = await Promise.all([
-    useUserServer(),
-    isUserEnrolledInStudyPath(studyPath.uid),
-  ]);
-
-  // the button will be disabled if the user is a free user and has reached the maximum number of study paths
-  // the button will be disabled if the user is already enrolled in the study path
-  const isDisabled = user?.userLevel === 'FREE' && (user?.studyPathEnrollments?.length ?? 0) === 0;
-
-  return (
-    <div className="flex flex-col gap-y-4 z-30 relative ">
-      <form
-        action={async () => {
-          'use server';
-          if (!isEnrolled) {
-            await enrollInStudyPath(studyPath.uid);
-          }
-          // redirect to the first question in the study path
-          redirect(
-            `/question/${studyPath.questionSlugs[0]}?type=study-path&study-path=${studyPath.slug}`
-          );
-        }}
-      >
-        <Button
-          type="submit"
-          variant="secondary"
-          className="flex items-center gap-x-2"
-          disabled={isDisabled}
-        >
-          {isEnrolled ? 'Continue learning' : 'Enroll now'}
-          <ArrowRightIcon className="w-4 h-4" />
-        </Button>
-      </form>
-    </div>
-  );
-}
-
-function HeroChip({ studyPath }: { studyPath: StudyPath }) {
-  return (
-    <div className="text-xs text-white px-2 py-1 rounded-full w-fit flex items-center gap-x-2 z-20">
-      <TooltipProvider>
-        <Tooltip delayDuration={0}>
-          <TooltipTrigger asChild>
-            <Button href="/roadmaps" variant="default" size="sm" className="p-1 h-fit">
-              <ChevronLeft className="size-4 text-white" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Back to roadmaps</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      <Sparkles className="size-3 text-yellow-400 fill-yellow-500" />
-      {studyPath?.heroChip}
-    </div>
-  );
-}
-
-function HeroHeading({ studyPath }: { studyPath: StudyPath }) {
-  return (
-    <div className="flex w-full justify-between item-center">
-      <h1 className="relative z-20 text-3xl md:text-5xl text-wrap text-start font-inter max-w-2xl text-gradient from-white to-white/55 py-1">
-        {studyPath?.title}
-      </h1>
-      {/** share button */}
-      <ShareQuestion content="Share this study path" variant="ghost" />
-    </div>
-  );
-}
-
 export default async function RoadmapPage({ params }: { params: { slug: string } }) {
-  // run in parallel
-  const [studyPath, user] = await Promise.all([getStudyPath(params.slug), useUserServer()]);
+  const studyPath = await getStudyPath(params.slug);
 
-  // create json ld
-  const jsonLd: QuizJsonLd = {
+  if (!studyPath) {
+    return <div>Study path not found</div>;
+  }
+
+  const questions = getQuestions({
+    questionSlugs: studyPath?.questionSlugs ?? [],
+  });
+
+  const jsonLd: QuizJsonLd = createJsonLd(studyPath, params.slug);
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div className="flex flex-col gap-y-12 lg:px-28">
+        <Hero
+          heading={<HeroHeading studyPath={studyPath} />}
+          container={false}
+          chip={<HeroChip studyPath={studyPath} />}
+        />
+        <div className="flex flex-col lg:flex-row gap-12 xl:gap-24">
+          <div className="w-full lg:w-[55%] space-y-6 pb-12">
+            <Suspense fallback={<StudyPathsListSkeleton />}>
+              <StudyPathsList questions={questions} studyPath={studyPath} />
+            </Suspense>
+          </div>
+          <StudyPathSidebar studyPath={studyPath} />
+        </div>
+      </div>
+    </>
+  );
+}
+
+function StudyPathsListSkeleton() {
+  return (
+    <div className="flex flex-col gap-6 relative z-10 w-[90%]">
+      {Array.from({ length: 9 }).map((_, index) => (
+        <QuestionCardClient
+          key={index}
+          questionData={null}
+          index={index}
+          offset={Math.sin(index * 0.9) * 4}
+        >
+          <StudyPathQuestionCardSkeleton />
+        </QuestionCardClient>
+      ))}
+    </div>
+  );
+}
+
+function createJsonLd(studyPath: StudyPath, slug: string): QuizJsonLd {
+  return {
     '@context': 'https://schema.org',
     '@type': 'Quiz',
-    // replace the - with a space and
-    name: capitalise(params.slug?.replace(/-/g, ' ') || ''),
+    name: capitalise(slug?.replace(/-/g, ' ') || ''),
     description: studyPath?.description || '',
-    url: `${getBaseUrl()}/roadmaps/${params.slug}`,
+    url: `${getBaseUrl()}/roadmaps/${slug}`,
     educationalUse: 'practice',
     learningResourceType: ['quiz', 'learning activity'],
     creator: {
@@ -163,57 +130,4 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
     isFamilyFriendly: true,
     teaches: 'coding',
   };
-
-  // TODO: BETTER DISPLAY ERRORS
-  if (!studyPath) {
-    return <div>Study path not found</div>;
-  }
-
-  // get all of the question data for the questions in the study path
-  const questions = getQuestions({
-    questionSlugs: studyPath?.questionSlugs ?? [],
-  });
-
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <div className="flex flex-col gap-y-12">
-        <Hero
-          heading={<HeroHeading studyPath={studyPath} />}
-          container={true}
-          chip={<HeroChip studyPath={studyPath} />}
-        >
-          <GetStartedCta studyPath={studyPath} />
-        </Hero>
-        <div className="lg:container flex flex-col lg:flex-row gap-12">
-          <div className="w-full lg:w-[65%] space-y-6">
-            {/** only show if user is enrolled */}
-            {user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid) && (
-              <div className="flex flex-col gap-y-2 w-full">
-                <p className="text-sm text-gray-400 font-onest">
-                  {Math.round(
-                    user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
-                      ?.progress ?? 0
-                  )}
-                  % completed
-                </p>
-                <Progress
-                  className="border border-black-50 bg-black-50"
-                  value={
-                    user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
-                      ?.progress ?? 0
-                  }
-                />
-              </div>
-            )}
-            <StudyPathsList questions={questions} studyPath={studyPath} />
-          </div>
-          <StudyPathSidebar studyPath={studyPath} />
-        </div>
-      </div>
-    </>
-  );
 }

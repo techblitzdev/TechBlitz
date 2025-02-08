@@ -12,6 +12,7 @@ import ChangeCodeTheme from '@/components/app/questions/single/layout/change-cod
 import CodeDisplayWrapper from '@/components/app/questions/single/layout/code-display-wrapper';
 import CodeEditor from '@/components/app/questions/code-editor/editor';
 import TestCaseSection from '@/components/app/questions/code-editor/test-case-section';
+import PremiumContentWrapper from '@/components/app/shared/question/premium-content-wrapper';
 
 export default async function TodaysQuestionPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
@@ -69,12 +70,14 @@ export default async function TodaysQuestionPage({ params }: { params: { slug: s
   const rightBottomContent = question?.testCases?.length ? <TestCaseSection /> : null;
 
   return (
-    <ResizableLayout
-      leftContent={leftContent}
-      rightTopContent={rightContent}
-      rightBottomContent={rightBottomContent}
-      initialLeftWidth={50}
-      initialRightTopHeight={question?.testCases?.length ? 70 : 100}
-    />
+    <PremiumContentWrapper>
+      <ResizableLayout
+        leftContent={leftContent}
+        rightTopContent={rightContent}
+        rightBottomContent={rightBottomContent}
+        initialLeftWidth={50}
+        initialRightTopHeight={question?.testCases?.length ? 70 : 100}
+      />
+    </PremiumContentWrapper>
   );
 }

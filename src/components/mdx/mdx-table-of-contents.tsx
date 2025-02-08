@@ -55,7 +55,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
     // Smooth scroll to the heading
     document.getElementById(id)?.scrollIntoView({
       behavior: 'smooth',
-      block: 'start',
+      block: 'center',
     });
   };
 

@@ -1,6 +1,8 @@
 import { Filter } from 'bad-words';
 
 import type { StatsChartData } from '@/components/app/statistics/total-question-chart';
+import { UserExperienceLevel } from '@prisma/client';
+import { QuestionDifficulty } from '@/types/Questions';
 
 /**
  * Method to get the current environment
@@ -80,7 +82,7 @@ function randomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export function generateFakeData(days: number): StatsChartData {
+export const generateFakeData = (days: number): StatsChartData => {
   const data: StatsChartData = {};
   const tags = ['Arrays', 'Strings', 'Dynamic Programming', 'Trees', 'Graphs'];
   const startDate = new Date();
@@ -105,4 +107,11 @@ export function generateFakeData(days: number): StatsChartData {
   }
 
   return data;
-}
+};
+
+export const difficultyToExperienceLevel: Record<UserExperienceLevel, QuestionDifficulty> = {
+  BEGINNER: 'EASY',
+  INTERMEDIATE: 'MEDIUM',
+  ADVANCED: 'HARD',
+  MASTER: 'HARD',
+};

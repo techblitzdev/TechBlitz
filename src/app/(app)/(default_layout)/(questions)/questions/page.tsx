@@ -58,21 +58,20 @@ export async function generateMetadata() {
 }
 
 const heroDescription = (
-  <div className="flex flex-col gap-y-4 z-20 relative font-inter max-w-3xl">
+  <div className="flex flex-col gap-y-4 z-20 relative font-onest max-w-3xl">
     <p className="text-sm md:text-base text-gray-400">
-      Explore all the questions we have to offer. Filter by tags, question type, difficulty, and
-      more.
+      Explore our collection of coding challenges and practice questions. Filter by topic,
+      difficulty, and more to find the perfect questions for your learning journey.
     </p>
-    <p className="text-gray-400">Need a more guided set of questions?</p>
-    <div className="flex flex-col md:flex-row gap-2 md:items-center">
+    <div className="flex flex-col md:flex-row gap-4 md:items-center">
       <Button href="/roadmaps" variant="secondary">
-        Explore roadmaps
+        View Learning Paths
       </Button>
       <Suspense
         fallback={
           <Button variant="default" className="w-full">
             Your next question
-            <ArrowRightIcon className="w-4 h-4" />
+            <ArrowRightIcon className="w-4 h-4 ml-2" />
           </Button>
         }
       >

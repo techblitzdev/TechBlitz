@@ -187,6 +187,14 @@ const config: Config = {
             transform: 'translateY(calc(-100% - var(--gap)))',
           },
         },
+        'start-bounce': {
+          '0%, 100%': {
+            transform: 'translateY(-10%)',
+          },
+          '50%': {
+            transform: 'translateY(0)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -198,6 +206,7 @@ const config: Config = {
         shimmer: 'shimmer 2s linear infinite',
         marquee: 'marquee var(--duration) infinite linear',
         'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
+        'start-bounce': 'start-bounce 2s ease-in-out infinite',
       },
     },
   },

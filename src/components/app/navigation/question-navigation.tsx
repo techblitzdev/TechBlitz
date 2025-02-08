@@ -9,7 +9,7 @@ import { useSearchParams } from 'next/navigation';
 import { StudyPath, studyPaths } from '@/utils/constants/study-paths';
 import { Button } from '@/components/ui/button';
 import { RoadmapUserQuestions } from '@prisma/client';
-import { useQuestionSingle } from '../questions/single/layout/question-single-context';
+import { useQuestionSingle } from '../../../contexts/question-single-context';
 
 /**
  * Component for navigation between different questions from within the
@@ -64,6 +64,8 @@ export default function QuestionNavigation(opts: {
       });
     }
   }, [pathname, searchParams, slug, type, nextPrevPromise, studyPathSlug]);
+
+  console.log(studyPath);
 
   return (
     <div className="flex items-center">

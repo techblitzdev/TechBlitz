@@ -8,7 +8,7 @@ import LoadingSpinner from '@/components/ui/loading';
 import { cn } from '@/lib/utils';
 import { Label } from '@/components/ui/label';
 import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
-import { useQuestionSingle } from './layout/question-single-context';
+import { useQuestionSingle } from '../../../../contexts/question-single-context';
 
 // zod
 import { useForm } from 'react-hook-form';

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Editor } from '@monaco-editor/react';
 import LoadingSpinner from '@/components/ui/loading';
-import { useQuestionSingle } from '@/components/app/questions/single/layout/question-single-context';
+import { useQuestionSingle } from '@/contexts/question-single-context';
 import { capitalize } from 'lodash';
 import { AnimatePresence } from 'framer-motion';
 import { useMonaco } from '@monaco-editor/react';
@@ -29,7 +29,9 @@ function LoadingState() {
 }
 
 export default function CodeEditor() {
-  const { code, setCode, answerHelp } = useQuestionSingle();
+  const { code, setCode, answerHelp, user, question } = useQuestionSingle();
+
+  const userCanAccess = question.isPremiumQuestion ? user?.userLevel !== 'FREE' : true;
 
   const monaco = useMonaco();
 
@@ -64,7 +66,7 @@ export default function CodeEditor() {
       <Editor
         height="90vh"
         defaultLanguage="javascript"
-        value={code}
+        value={userCanAccess ? code : ''}
         onChange={(value) => setCode(value || '')}
         theme="vs-dark"
         options={{

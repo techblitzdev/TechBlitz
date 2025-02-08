@@ -10,7 +10,7 @@ import { Form, FormControl, FormField } from '@/components/ui/form';
 import { Label } from '@/components/ui/label';
 import LoadingSpinner from '@/components/ui/loading';
 import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
-import { useRoadmapQuestion } from './[uid]/layout/roadmap-question-context';
+import { useRoadmapQuestion } from '../../../../contexts/roadmap-question-context';
 import { cn } from '@/lib/utils';
 
 type SchemaProps = z.infer<typeof answerQuestionSchema>;

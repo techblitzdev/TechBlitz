@@ -1,22 +1,41 @@
 export default function LoadingSpinner() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-      <g>
-        <circle cx="12" cy="2.5" r="1.5" fill="currentColor" opacity=".14" />
-        <circle cx="16.75" cy="3.77" r="1.5" fill="currentColor" opacity=".29" />
-        <circle cx="20.23" cy="7.25" r="1.5" fill="currentColor" opacity=".43" />
-        <circle cx="21.5" cy="12" r="1.5" fill="currentColor" opacity=".57" />
-        <circle cx="20.23" cy="16.75" r="1.5" fill="currentColor" opacity=".71" />
-        <circle cx="16.75" cy="20.23" r="1.5" fill="currentColor" opacity=".86" />
-        <circle cx="12" cy="21.5" r="1.5" fill="currentColor" />
-        <animateTransform
-          attributeName="transform"
-          calcMode="discrete"
-          dur="0.75s"
-          repeatCount="indefinite"
-          type="rotate"
-          values="0 12 12;30 12 12;60 12 12;90 12 12;120 12 12;150 12 12;180 12 12;210 12 12;240 12 12;270 12 12;300 12 12;330 12 12;360 12 12"
-        />
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+      <g
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      >
+        <path strokeDasharray="16" strokeDashoffset="16" d="M12 3c4.97 0 9 4.03 9 9">
+          <animate
+            fill="freeze"
+            attributeName="stroke-dashoffset"
+            dur="0.3s"
+            values="16;0"
+          ></animate>
+          <animateTransform
+            attributeName="transform"
+            dur="1.5s"
+            repeatCount="indefinite"
+            type="rotate"
+            values="0 12 12;360 12 12"
+          ></animateTransform>
+        </path>
+        <path
+          strokeDasharray="64"
+          strokeDashoffset="64"
+          strokeOpacity=".3"
+          d="M12 3c4.97 0 9 4.03 9 9c0 4.97 -4.03 9 -9 9c-4.97 0 -9 -4.03 -9 -9c0 -4.97 4.03 -9 9 -9Z"
+        >
+          <animate
+            fill="freeze"
+            attributeName="stroke-dashoffset"
+            dur="1.2s"
+            values="64;0"
+          ></animate>
+        </path>
       </g>
     </svg>
   );

@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { resend } from '@/lib/resend';
 import { isAuthorized } from '@/utils/cron';
 import { Mission } from '@prisma/client';
+import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,7 +22,10 @@ export async function GET(request: NextRequest) {
 
   try {
     // set the daily missions
-    const newActiveMissions = await updateDailyMissions();
+    //const newActiveMissions = await updateDailyMissions();
+
+    const newActiveMissions = await getDailyMissions();
+
     // reset the user missions
     await resetUserMissions({ dailyMissions: newActiveMissions });
     // send the email to the teamJ
@@ -34,7 +38,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-async function updateDailyMissions() {
+export async function updateDailyMissions() {
   const allMissions = await prisma.mission.findMany();
   if (!allMissions) {
     await resend.emails.send({

@@ -14,19 +14,23 @@ import { useRouter } from 'next/navigation';
 import ReferralToast from '@/components/shared/referral-toast';
 import { getUserDisplayName } from '@/utils/user';
 import { CheckIcon } from 'lucide-react';
+import TestimonialModal from '@/components/shared/testimonial-modal';
 
 export default function ClientPage({
   children,
   searchParams,
   userPromise,
+  hasAnsweredAnyQuestionPromise,
 }: {
   children: React.ReactNode;
   searchParams: { [key: string]: string | string[] | undefined };
   userPromise: Promise<UserRecord | null>;
+  hasAnsweredAnyQuestionPromise: Promise<boolean>;
 }) {
   const router = useRouter();
 
   const user = use(userPromise);
+  const hasAnsweredAnyQuestion = use(hasAnsweredAnyQuestionPromise);
 
   // if we do not have a user, or the username is not set, we need to redirect to onboarding
   if (!user || !user.username) {
@@ -132,6 +136,7 @@ export default function ClientPage({
       <div className="h-full">
         {children}
         <ReferralToast />
+        <TestimonialModal userHasAnsweredAnyQuestion={hasAnsweredAnyQuestion} />
       </div>
     </>
   );

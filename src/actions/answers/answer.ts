@@ -100,13 +100,15 @@ const updateStreakDates = async (userUid: string, currentStreak: any) => {
   const newStreakEnd = new Date();
   let newCurrentStreak = currentStreak.currentstreakCount;
   let newLongestStreak = currentStreak.longestStreak;
+  let streakContinued = false;
 
   // If this is the first answer of the day
   if (!answeredToday) {
     if (daysDifference === 1) {
-      // Continue streak
+      // Continue streak regardless of answer correctness
       newCurrentStreak += 1;
       newLongestStreak = Math.max(newCurrentStreak, newLongestStreak);
+      streakContinued = true;
     } else if (daysDifference > 1) {
       // Break streak - more than one day gap
       newCurrentStreak = 1;
@@ -137,14 +139,16 @@ const updateStreakDates = async (userUid: string, currentStreak: any) => {
       totalDailyStreak: currentStreak.totalDailyStreak + (daysDifference === 1 ? 1 : 0),
     },
   });
+
+  return streakContinued;
 };
 
 const handleStreakUpdates = async ({ userUid }: { userUid: string }) => {
   // Remove dailyQuestion check to handle streaks for all questions
   const userStreak = await findOrCreateUserStreak(userUid);
-  if (!userStreak) return;
+  if (!userStreak) return false;
 
-  await updateStreakDates(userUid, userStreak);
+  return await updateStreakDates(userUid, userStreak);
 };
 
 const updateOrCreateAnswer = async ({
@@ -216,9 +220,10 @@ export async function answerQuestion({
 
   const existingAnswer = await findExistingAnswer(userUid, questionUid);
 
+  let streakContinued = false;
   // Only update streaks if this is a new answer
   if (!existingAnswer) {
-    await handleStreakUpdates({
+    streakContinued = await handleStreakUpdates({
       userUid,
     });
   }
@@ -247,7 +252,7 @@ export async function answerQuestion({
   }
 
   // handle the updating of daily missions on the user
-  await updateUserDailyMissions({ userAnswer });
+  await updateUserDailyMissions({ userAnswer, streakContinued });
 
   // revalidate leaderboard
   revalidateTag(`leaderboard-${questionUid}`);
@@ -395,7 +400,13 @@ const updateStudyPathProgress = async ({
   revalidateTag(`study-path-${studyPathSlug}`);
 };
 
-const updateUserDailyMissions = async ({ userAnswer }: { userAnswer: Answer }) => {
+const updateUserDailyMissions = async ({
+  userAnswer,
+  streakContinued,
+}: {
+  userAnswer: Answer;
+  streakContinued: boolean;
+}) => {
   const user = await getUser();
   if (!user) {
     throw new Error('User not found');
@@ -431,6 +442,11 @@ const updateUserDailyMissions = async ({ userAnswer }: { userAnswer: Answer }) =
   for (const mission of missions) {
     if (mission.type === 'QUESTION_CORRECT' && userAnswer.correctAnswer === false) {
       console.log('question correct but answer is incorrect');
+      continue;
+    }
+
+    if (mission.type === 'STREAK_MAINTAINED' && !streakContinued) {
+      console.log('streak maintained but streak not continued');
       continue;
     }
 

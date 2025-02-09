@@ -27,7 +27,7 @@ export function FeedbackModal({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     startTransition(async () => {
-      await sendFeedback(feedback);
+      await sendFeedback({ feedback });
       setFeedback('');
       setIsSent(true);
       setTimeout(() => setIsSent(false), 2000);

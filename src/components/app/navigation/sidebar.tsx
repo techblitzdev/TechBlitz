@@ -24,7 +24,7 @@ import type { SidebarItemType } from '@/types/Sidebar';
 
 import { useEffect, useMemo } from 'react';
 import type { UserRecord } from '@/types/User';
-import type { Question, QuestionWithTags } from '@/types/Questions';
+import type { QuestionWithTags } from '@/types/Questions';
 import type { Profile } from '@/types/Profile';
 import HomeIcon from '@/components/ui/icons/home';
 
@@ -47,8 +47,6 @@ const houseIcon = () => <HomeIcon fill="white" strokewidth={2} secondaryfill="wh
 interface AppSidebarProps {
   user: UserRecord | null;
   profile: Profile | null;
-  todaysQuestion: Question | null;
-  hasAnsweredDailyQuestion: boolean;
   suggestion: QuestionWithTags | null;
 }
 

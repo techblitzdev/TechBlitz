@@ -14,15 +14,7 @@ export default async function ProfileLayout({ children }: { children: React.Reac
 
   return (
     <SidebarProvider>
-      {user && (
-        <AppSidebar
-          user={user}
-          profile={profile}
-          todaysQuestion={null}
-          hasAnsweredDailyQuestion={false}
-          suggestion={suggestion?.[0]}
-        />
-      )}
+      {user && <AppSidebar user={user} profile={profile} suggestion={suggestion?.[0]} />}
       {children}
     </SidebarProvider>
   );

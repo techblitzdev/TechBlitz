@@ -172,6 +172,7 @@ export default function OnboardingForm() {
                     disabled={
                       isLoading ||
                       (currentStep === 'stepOne' && (user?.username?.length ?? 0) < 2) ||
+                      !user.howDidYouHearAboutTechBlitz ||
                       !canContinue
                     }
                   >

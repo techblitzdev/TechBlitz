@@ -76,12 +76,12 @@ export async function GET(request: Request) {
             updatedAt: new Date(),
           },
         });
-      }
 
-      // send the welcome email to the user
-      await sendWelcomeEmail({
-        email: data.user.email || '',
-      });
+        // send the welcome email to the user (they are new)
+        await sendWelcomeEmail({
+          email: data.user.email || '',
+        });
+      }
 
       const forwardedHost = request.headers.get('x-forwarded-host'); // original origin before load balancer
       const isLocalEnv = process.env.NODE_ENV === 'development';

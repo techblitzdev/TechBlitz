@@ -13,6 +13,14 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 
+const EMOJI_RATINGS = [
+  { emoji: '😢', label: 'Disappointed' },
+  { emoji: '😕', label: 'Not great' },
+  { emoji: '😐', label: 'Neutral' },
+  { emoji: '😊', label: 'Like it' },
+  { emoji: '😍', label: 'Love it' },
+];
+
 /**
  * Modal where the open state will be controlled by local storage
  * Asks users for a testimonial
@@ -20,6 +28,7 @@ import { Label } from '@/components/ui/label';
 export default function TestimonialModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [testimonial, setTestimonial] = useState('');
+  const [selectedEmoji, setSelectedEmoji] = useState<string | null>(null);
 
   const { setValue: setHasBeenShown, value: hasBeenShown } = useLocalStorage({
     key: 'testimonial-modal-shown',
@@ -40,7 +49,7 @@ export default function TestimonialModal() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Here you would typically send the testimonial to your backend
-    console.log('Testimonial submitted:', testimonial);
+    console.log('Testimonial submitted:', { testimonial, emoji: selectedEmoji });
     handleClose();
   };
 
@@ -48,7 +57,7 @@ export default function TestimonialModal() {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className="bg-black-75 text-white border border-black-50 max-w-2xl">
         <DialogHeader>
-          <DialogTitle className="text-2xl">Sorry to bother you...</DialogTitle>
+          <DialogTitle className="text-3xl">Sorry to bother you...</DialogTitle>
           <DialogDescription>
             But we'd love to hear about your experience with our TechBlitz. Your feedback helps us
             improve and inspires others. As a thank you, you will receive 10% off of our premium
@@ -56,6 +65,24 @@ export default function TestimonialModal() {
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label>How would you rate your experience?</Label>
+            <div className="flex gap-4">
+              {EMOJI_RATINGS.map(({ emoji, label }) => (
+                <button
+                  key={emoji}
+                  type="button"
+                  onClick={() => setSelectedEmoji(emoji)}
+                  className={`flex flex-col items-center p-2 rounded-lg transition-all ${
+                    selectedEmoji === emoji ? 'bg-black-50' : 'hover:bg-black-50'
+                  }`}
+                >
+                  <span className="text-2xl">{emoji}</span>
+                  <span className="text-xs mt-1 text-gray-400">{label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
           <div>
             <Label htmlFor="testimonial">Your Feedback</Label>
             <Textarea
@@ -69,10 +96,14 @@ export default function TestimonialModal() {
           </div>
           <div className="flex justify-end space-x-2">
             <p className="text-sm text-gray-500">
-              By pressing submit, you give us permission to use your testimonial on our website and
-              social media.
+              By pressing submit, you give TechBlitz permission to use your testimonial, profile
+              picture, and name on our website and social media.
             </p>
-            <Button variant="premium" type="submit" disabled={!testimonial.trim()}>
+            <Button
+              variant="premium"
+              type="submit"
+              disabled={!testimonial.trim() || !selectedEmoji}
+            >
               Submit
             </Button>
           </div>

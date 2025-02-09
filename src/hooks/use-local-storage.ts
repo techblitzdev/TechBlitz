@@ -1,67 +1,60 @@
 import { useEffect, useState } from 'react';
 
-export const useLocalStorage = <T>(opts: {
+interface UseLocalStorageProps<T> {
   key: string;
   defaultValue: T;
-  serialize?: (value: T) => string;
-  deserialize?: (value: string) => T;
-}) => {
-  const { key, defaultValue, serialize = JSON.stringify, deserialize = JSON.parse } = opts;
+}
 
-  // Function to safely get the value from localStorage
-  const getStoredValue = (): T => {
+export function useLocalStorage<T>({ key, defaultValue }: UseLocalStorageProps<T>) {
+  // Initialize with a function to avoid reading localStorage during SSR
+  const [value, setValue] = useState<T>(() => {
+    if (typeof window === 'undefined') return defaultValue;
+
     try {
-      // Handle SSR case
-      if (typeof window === 'undefined') {
-        return defaultValue;
-      }
-
       const item = window.localStorage.getItem(key);
-      return item ? deserialize(item) : defaultValue;
+      return item ? JSON.parse(item) : defaultValue;
     } catch (error) {
-      console.warn(`Error reading localStorage key "${key}":`, error);
+      console.error('Error reading from localStorage:', error);
       return defaultValue;
     }
-  };
+  });
 
-  const [storedValue, setStoredValue] = useState<T>(getStoredValue);
-
-  // Function to safely update localStorage and state
-  const setValue = (value: T | ((prevValue: T) => T)) => {
-    try {
-      // Handle function updates
-      const valueToStore = value instanceof Function ? value(storedValue) : value;
-
-      setStoredValue(valueToStore);
-
-      if (typeof window !== 'undefined') {
-        window.localStorage.setItem(key, serialize(valueToStore));
-      }
-    } catch (error) {
-      console.warn(`Error setting localStorage key "${key}":`, error);
-    }
-  };
-
-  // Remove item from localStorage
-  const remove = () => {
-    try {
-      if (typeof window !== 'undefined') {
-        window.localStorage.removeItem(key);
-      }
-      setStoredValue(defaultValue);
-    } catch (error) {
-      console.warn(`Error removing localStorage key "${key}":`, error);
-    }
-  };
-
-  // Sync state with localStorage when key changes
   useEffect(() => {
-    setStoredValue(getStoredValue());
-  }, [key]);
+    try {
+      window.localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.error('Error writing to localStorage:', error);
+    }
+  }, [key, value]);
+
+  // Add helper functions for array operations
+  const addToArray = (newItem: string) => {
+    if (Array.isArray(value)) {
+      setValue([...value, newItem] as T);
+    }
+  };
+
+  const removeFromArray = (itemToRemove: string): void => {
+    if (Array.isArray(value)) {
+      setValue(value.filter((item) => item !== itemToRemove) as T);
+    }
+  };
+
+  const toggleInArray = (item: string) => {
+    if (Array.isArray(value)) {
+      if (value.includes(item)) {
+        removeFromArray(item);
+      } else {
+        addToArray(item);
+      }
+    }
+  };
 
   return {
-    value: storedValue,
+    value,
     setValue,
-    remove,
-  } as const;
-};
+    addToArray,
+    removeFromArray,
+    toggleInArray,
+  };
+}

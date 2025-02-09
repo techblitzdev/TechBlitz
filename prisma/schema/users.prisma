@@ -1,3 +1,26 @@
+enum userLevel {
+  STANDARD
+  ADMIN
+  TRIAL
+  FREE
+  PREMIUM
+}
+
+enum UserExperienceLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  MASTER
+}
+
+enum UserTimeSpendingPerDay {
+  LESS_THAN_5_MINUTES
+  BETWEEN_5_AND_15_MINUTES
+  BETWEEN_15_AND_30_MINUTES
+  BETWEEN_30_AND_60_MINUTES
+  MORE_THAN_60_MINUTES
+}
+
 model Users {
   uid                         String              @id
   email                       String              @unique
@@ -21,6 +44,10 @@ model Users {
   howDidYouHearAboutTechBlitz String?
   referralCode                String?
   aboutMeAiHelp               String?
+  // this prevents us sending it every day after the first time
+  hasSent7DayNoChallengeEmail Boolean             @default(false)
+  timeSpendingPerDay          UserTimeSpendingPerDay? @default(LESS_THAN_5_MINUTES)
+
 
   // relations
   achievements                Achievement[]
@@ -101,17 +128,3 @@ model Profile {
   user                 Users     @relation(fields: [userUid], references: [uid], onDelete: Cascade)
 }
 
-enum userLevel {
-  STANDARD
-  ADMIN
-  TRIAL
-  FREE
-  PREMIUM
-}
-
-enum UserExperienceLevel {
-  BEGINNER
-  INTERMEDIATE
-  ADVANCED
-  MASTER
-}

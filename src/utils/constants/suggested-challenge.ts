@@ -50,4 +50,8 @@ export const SUGGESTED_CHALLENGE_EMAIL_7_DAYS = (userDisplayName: string) => [
     subject: `${userDisplayName}! Your next coding victory awaits! 🌟`,
     description: `The best developers know that consistency is key - and we've saved an exciting challenge just for you! Take 3 minutes to flex those coding muscles and keep your skills sharp. Ready to crush it?`,
   },
+  {
+    subject: `Was it something I said, ${userDisplayName}?`,
+    description: `It's been 7 days since you last completed a challenge. Take just 3 minutes to get back in the groove and keep building your skills!`,
+  },
 ];

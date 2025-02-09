@@ -45,19 +45,13 @@ async function updateDailyMissions() {
     });
   }
 
-  const currentActiveMissions = await prisma.mission.findMany({ where: { isActive: true } });
-
-  const newMissions = allMissions.filter(
-    (mission) => !currentActiveMissions.some((activeMission) => activeMission.uid === mission.uid)
-  );
-
-  const newActiveMissions = newMissions
+  const newActiveMissions = allMissions
     .sort(() => Math.random() - 0.5)
     .slice(0, NUMBER_OF_DAILY_MISSIONS);
 
   await prisma.$transaction([
     prisma.mission.updateMany({
-      where: { uid: { in: currentActiveMissions.map((mission) => mission.uid) } },
+      where: { uid: { in: allMissions.map((mission) => mission.uid) } },
       data: { isActive: false },
     }),
     prisma.mission.updateMany({

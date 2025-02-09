@@ -20,14 +20,17 @@ export default function ClientPage({
   children,
   searchParams,
   userPromise,
+  hasAnsweredAnyQuestionPromise,
 }: {
   children: React.ReactNode;
   searchParams: { [key: string]: string | string[] | undefined };
   userPromise: Promise<UserRecord | null>;
+  hasAnsweredAnyQuestionPromise: Promise<boolean>;
 }) {
   const router = useRouter();
 
   const user = use(userPromise);
+  const hasAnsweredAnyQuestion = use(hasAnsweredAnyQuestionPromise);
 
   // if we do not have a user, or the username is not set, we need to redirect to onboarding
   if (!user || !user.username) {
@@ -133,7 +136,7 @@ export default function ClientPage({
       <div className="h-full">
         {children}
         <ReferralToast />
-        <TestimonialModal />
+        <TestimonialModal userHasAnsweredAnyQuestion={hasAnsweredAnyQuestion} />
       </div>
     </>
   );

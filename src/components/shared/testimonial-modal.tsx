@@ -8,10 +8,11 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { useLocalStorage } from '@/hooks/use-local-storage';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useTransition } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { sendFeedback } from '@/actions/misc/send-feedback';
 
 const EMOJI_RATINGS = [
   { emoji: '😢', label: 'Disappointed' },
@@ -25,10 +26,15 @@ const EMOJI_RATINGS = [
  * Modal where the open state will be controlled by local storage
  * Asks users for a testimonial
  */
-export default function TestimonialModal() {
+export default function TestimonialModal({
+  userHasAnsweredAnyQuestion,
+}: {
+  userHasAnsweredAnyQuestion: boolean;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [testimonial, setTestimonial] = useState('');
   const [selectedEmoji, setSelectedEmoji] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   const { setValue: setHasBeenShown, value: hasBeenShown } = useLocalStorage({
     key: 'testimonial-modal-shown',
@@ -36,20 +42,20 @@ export default function TestimonialModal() {
   });
 
   useEffect(() => {
-    if (!hasBeenShown) {
+    if (!hasBeenShown && userHasAnsweredAnyQuestion) {
       setIsOpen(true);
     }
-  }, [hasBeenShown]);
+  }, [hasBeenShown, userHasAnsweredAnyQuestion]);
 
   const handleClose = () => {
     setIsOpen(false);
     setHasBeenShown(true);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Here you would typically send the testimonial to your backend
-    console.log('Testimonial submitted:', { testimonial, emoji: selectedEmoji });
+    await sendFeedback({ feedback: testimonial, emoji: selectedEmoji || undefined });
     handleClose();
   };
 
@@ -64,7 +70,7 @@ export default function TestimonialModal() {
             plans.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={(e) => startTransition(() => handleSubmit(e))} className="space-y-4">
           <div className="space-y-2">
             <Label>How would you rate your experience?</Label>
             <div className="flex gap-4">
@@ -102,9 +108,9 @@ export default function TestimonialModal() {
             <Button
               variant="premium"
               type="submit"
-              disabled={!testimonial.trim() || !selectedEmoji}
+              disabled={!testimonial.trim() || !selectedEmoji || isPending}
             >
-              Submit
+              {isPending ? 'Submitting...' : 'Submit'}
             </Button>
           </div>
         </form>

@@ -60,7 +60,7 @@ export const updateUser = async (opts: { userDetails: Partial<UserRecord> }) => 
     };
   }
 
-  // if the user is updated their username, set the isCustomUsername flag to true
+  // if the user has updated their username, set the isCustomUsername flag to true
   if (userDetails.username !== undefined) {
     updateData.isCustomUsername = true;
   }

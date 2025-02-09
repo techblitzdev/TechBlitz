@@ -4,7 +4,6 @@ import StarsBackground from '@/components/ui/stars-background';
 import Link from 'next/link';
 import { UserOnboardingContextProvider } from '@/contexts/onboarding-context';
 import OnboardingForm from '@/components/app/onboarding/onboarding-form';
-import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 import { useUserServer } from '@/hooks/use-user-server';
 
 export const metadata = {
@@ -12,7 +11,7 @@ export const metadata = {
 };
 
 export default async function OnboardingPage() {
-  const [user, dailyQuestion] = await Promise.all([useUserServer(), getTodaysQuestion()]);
+  const [user] = await Promise.all([useUserServer()]);
 
   return (
     <div className="relative container">
@@ -21,7 +20,7 @@ export default async function OnboardingPage() {
         <Link href="/" className="pl-0 md:pl-8 p-8 pb-0 flex justify-center">
           <Logo />
         </Link>
-        <UserOnboardingContextProvider dailyQuestion={dailyQuestion} serverUser={user}>
+        <UserOnboardingContextProvider serverUser={user}>
           <div className="flex-1 flex items-center justify-center">
             <OnboardingForm />
           </div>

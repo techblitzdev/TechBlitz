@@ -8,7 +8,6 @@ import {
   SUGGESTED_CHALLENGE_EMAIL_SUBJECT,
 } from '@/utils/constants';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
-import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 import { getUserDisplayName } from '@/utils/user';
 import { renderAsync } from '@react-email/components';
 import { type NextRequest, NextResponse } from 'next/server';
@@ -21,7 +20,7 @@ const getRandomElement = (arr: string[]) => arr[Math.floor(Math.random() * arr.l
 async function getChallenge(userUid: string) {
   const suggestions = await getSuggestions({ limit: 1, userUid });
   if (!suggestions || suggestions.length === 0) {
-    return getTodaysQuestion();
+    return null;
   }
   return suggestions[0];
 }

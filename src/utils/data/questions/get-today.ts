@@ -23,7 +23,7 @@ export const getTodaysQuestion = async (): Promise<Question | null> => {
   });
 
   if (!res) {
-    console.error('Question not found');
+    //console.error('Question not found');
     return null;
   }
 

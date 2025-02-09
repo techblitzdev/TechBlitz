@@ -12,8 +12,6 @@ import '@mantine/dates/styles.css';
 import NextTopLoader from 'nextjs-toploader';
 import { createMetadata } from '@/utils/seo';
 import { useUserServer } from '@/hooks/use-user-server';
-import { getTodaysQuestion } from '@/utils/data/questions/get-today';
-import { userAnsweredDailyQuestion } from '@/utils/data/questions/user-answered-daily-question';
 import { getOrCreateUserProfile } from '@/utils/data/user/profile/get-user-profile';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 
@@ -25,29 +23,17 @@ export async function generateMetadata() {
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [user, todaysQuestion, profile, suggestion] = await Promise.all([
+  const [user, profile, suggestion] = await Promise.all([
     useUserServer(),
-    getTodaysQuestion(),
     getOrCreateUserProfile(),
     getSuggestions({ limit: 1 }),
   ]);
-
-  const hasAnsweredDailyQuestion = await userAnsweredDailyQuestion({
-    questionUid: todaysQuestion?.uid || '',
-    userUid: user?.uid || '',
-  });
 
   return (
     <html lang="en">
       <body>
         <SidebarProvider>
-          <AppSidebar
-            user={user}
-            profile={profile}
-            todaysQuestion={todaysQuestion}
-            hasAnsweredDailyQuestion={hasAnsweredDailyQuestion}
-            suggestion={suggestion?.[0]}
-          />
+          <AppSidebar user={user} profile={profile} suggestion={suggestion?.[0]} />
           <NextTopLoader color="#5b61d6" showSpinner={false} />
           <SidebarLayout>
             <CSPostHogProvider>

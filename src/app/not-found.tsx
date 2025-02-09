@@ -1,11 +1,9 @@
-import { Button } from '@/components/ui/button';
-import { getTodaysQuestion } from '@/utils/data/questions/get-today';
 import Link from 'next/link';
 import { useUserServer } from '@/hooks/use-user-server';
 import ErrorPageCountUp from '@/components/shared/404';
 
 export default async function NotFound() {
-  const [user, todaysQuestion] = await Promise.all([useUserServer(), getTodaysQuestion()]);
+  const [user] = await Promise.all([useUserServer()]);
 
   return (
     <div className="w-full flex items-center justify-center min-h-screen relative">
@@ -33,9 +31,6 @@ export default async function NotFound() {
                 Login
               </Link>
             )}
-            <Button variant="default" href={`/question/${todaysQuestion?.slug}`}>
-              Go to daily question
-            </Button>
           </div>
         </div>
       </div>

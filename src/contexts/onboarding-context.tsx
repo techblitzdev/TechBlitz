@@ -7,9 +7,8 @@
  */
 import { createContext, useContext, useState } from 'react';
 import type { UpdatableUserFields, UserRecord } from '@/types/User';
-import { Question, QuestionWithTags } from '@/types/Questions';
+import { QuestionWithTags } from '@/types/Questions';
 import { getOnboardingQuestions } from '@/utils/data/questions/get-onboarding';
-import { useRouter } from 'next/navigation';
 // context type
 type OnboardingContextType = {
   user: Omit<UpdatableUserFields, 'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'>;
@@ -27,7 +26,6 @@ type OnboardingContextType = {
   >;
   onboardingQuestions: QuestionWithTags[];
   handleGetOnboardingQuestions: () => Promise<void>;
-  handleGetDailyQuestion: () => Promise<void>;
   itemVariants: any;
   canContinue: boolean;
   setCanContinue: React.Dispatch<React.SetStateAction<boolean>>;
@@ -39,15 +37,11 @@ const OnboardingContext = createContext<OnboardingContextType | null>(null);
 // provide the context to all the children components
 export const UserOnboardingContextProvider = ({
   children,
-  dailyQuestion,
   serverUser,
 }: {
   children: React.ReactNode;
-  dailyQuestion: Question | null;
   serverUser: UserRecord | null;
 }) => {
-  const router = useRouter();
-
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
@@ -79,11 +73,6 @@ export const UserOnboardingContextProvider = ({
     console.log(questions);
   };
 
-  const handleGetDailyQuestion = async () => {
-    // redirect to the question page
-    router.push(`/question/${dailyQuestion?.slug}`);
-  };
-
   return (
     <OnboardingContext.Provider
       value={{
@@ -96,7 +85,6 @@ export const UserOnboardingContextProvider = ({
         setCurrentStep,
         onboardingQuestions,
         handleGetOnboardingQuestions,
-        handleGetDailyQuestion,
         itemVariants,
         setCanContinue,
         canContinue,

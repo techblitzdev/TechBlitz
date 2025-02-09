@@ -31,7 +31,11 @@ export const getBlogPosts = async () => {
 
         return {
           slug: filename.replace('.mdx', ''),
-          date: frontmatter.date,
+          date: frontmatter.date as string,
+          featured: frontmatter.featured as boolean,
+          image: frontmatter.image as string,
+          description: frontmatter.description as string,
+          title: frontmatter.title as string,
           ...frontmatter,
         };
       })
@@ -59,3 +63,16 @@ export const getBlogPost = async (slug: string) => {
   const content = fs.readFileSync(filePath, 'utf8');
   return processMDX(content);
 };
+
+export function getAllUniqueTags(posts: any[]): string[] {
+  const tags = new Set<string>();
+  posts.forEach((post) => {
+    post.tags?.forEach((tag: string) => tags.add(tag));
+  });
+  return Array.from(tags).sort();
+}
+
+export function filterPostsByTags(posts: any[], tags: string[]): any[] {
+  if (!tags.length) return posts;
+  return posts.filter((post) => tags.every((tag) => post.tags?.includes(tag)));
+}

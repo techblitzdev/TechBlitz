@@ -46,6 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'how-to-use-split-in-javascript',
     'what-is-array-at-in-javascript',
     'what-is-length-in-javascript',
+    'what-is-git-branch',
   ];
 
   const blogPosts = blogPostSlugs.map((slug) => ({

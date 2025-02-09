@@ -7,6 +7,7 @@ import { addIsCustomUsernameToUser } from '@/scripts/add-is-custom-username-to-u
 import NewCodingChallengeQuestionModal from '@/components/app/questions/admin/new-coding-challenge-modal';
 import { addTitleToQuestion } from '@/scripts/add-title-to-question';
 import { sendWelcomeEmail } from '@/actions/misc/send-welcome-email';
+import { addUserMissions } from '@/scripts/add-user-missions';
 
 export default function AdminPage() {
   return (
@@ -39,6 +40,9 @@ export default function AdminPage() {
         }}
       >
         <Button type="submit">Send Welcome Email</Button>
+      </form>
+      <form action={addUserMissions}>
+        <Button type="submit">Add User Missions</Button>
       </form>
     </div>
   );

@@ -7,7 +7,7 @@ import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
 
 export const dynamic = 'force-dynamic';
 
-const NUMBER_OF_DAILY_MISSIONS = 3;
+//const NUMBER_OF_DAILY_MISSIONS = 3;
 
 /**
  * This cron job sets the daily missions for the users
@@ -21,14 +21,11 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // set the daily missions
-    //const newActiveMissions = await updateDailyMissions();
-
     const newActiveMissions = await getDailyMissions();
 
     // reset the user missions
     await resetUserMissions({ dailyMissions: newActiveMissions });
-    // send the email to the teamJ
+    // send the email to the team
     await sendDailyMissionsEmail(newActiveMissions);
 
     return NextResponse.json({ message: 'Daily missions set successfully' }, { status: 200 });
@@ -38,35 +35,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-export async function updateDailyMissions() {
-  const allMissions = await prisma.mission.findMany();
-  if (!allMissions) {
-    await resend.emails.send({
-      from: 'team@techblitz.dev',
-      to: 'team@techblitz.dev',
-      subject: 'No missions found',
-      html: `<p>No missions found</p>`,
-    });
-  }
-
-  const newActiveMissions = allMissions
-    .sort(() => Math.random() - 0.5)
-    .slice(0, NUMBER_OF_DAILY_MISSIONS);
-
-  await prisma.$transaction([
-    prisma.mission.updateMany({
-      where: { uid: { in: allMissions.map((mission) => mission.uid) } },
-      data: { isActive: false },
-    }),
-    prisma.mission.updateMany({
-      where: { uid: { in: newActiveMissions.map((mission) => mission.uid) } },
-      data: { isActive: true },
-    }),
-  ]);
-
-  return newActiveMissions;
-}
-
+// Helper functions moved outside of exports
 async function resetUserMissions({ dailyMissions }: { dailyMissions: Mission[] }) {
   const users = await prisma.users.findMany();
   // Delete all existing user missions for these mission UIDs

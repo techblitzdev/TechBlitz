@@ -16,30 +16,11 @@ const itemVariants = {
 const tagCategories = [
   {
     name: 'JavaScript',
-    tags: [
-      'javascript',
-      'arrays',
-      'objects',
-      'JSON',
-      'generators',
-      'higher-order-functions',
-      'async',
-      'event-handling',
-      'promises',
-    ],
+    tags: ['javascript', 'arrays', 'objects', 'async', 'event-handling', 'promises'],
   },
   {
     name: 'General Web Development',
-    tags: [
-      'rate-limiting',
-      'caching',
-      'garbage-collection',
-      'DOM',
-      'regex',
-      'animation',
-      'websockets',
-      'security',
-    ],
+    tags: ['rate-limiting', 'caching', 'DOM', 'regex'],
   },
   {
     name: 'React',
@@ -73,7 +54,7 @@ export default function OnboardingStepTwo() {
             animate="visible"
             className="text-xl lg:text-3xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent"
           >
-            Hey {user?.username || 'there'}! What would you like to learn?
+            Nice to meet you {user?.username || 'there'}! What topics spark your interest?
           </motion.h1>
         </div>
         <CardDescription>

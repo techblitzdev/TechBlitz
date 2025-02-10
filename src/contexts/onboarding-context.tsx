@@ -9,6 +9,7 @@ import { createContext, useContext, useState } from 'react';
 import type { UpdatableUserFields, UserRecord } from '@/types/User';
 import { QuestionWithTags } from '@/types/Questions';
 import { getOnboardingQuestions } from '@/utils/data/questions/get-onboarding';
+import { UserTimeSpendingPerDay } from '@prisma/client';
 // context type
 type OnboardingContextType = {
   user: Omit<UpdatableUserFields, 'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'>;
@@ -29,6 +30,7 @@ type OnboardingContextType = {
   itemVariants: any;
   canContinue: boolean;
   setCanContinue: React.Dispatch<React.SetStateAction<boolean>>;
+  handleSetUserTimeSpendingPerDay: (timeSpendingPerDay: UserTimeSpendingPerDay) => void;
 };
 
 // create the context
@@ -66,6 +68,10 @@ export const UserOnboardingContextProvider = ({
 
   const [onboardingQuestions, setOnboardingQuestions] = useState<any[]>([]);
 
+  const handleSetUserTimeSpendingPerDay = (timeSpendingPerDay: UserTimeSpendingPerDay) => {
+    setUser({ ...user, timeSpendingPerDay });
+  };
+
   const handleGetOnboardingQuestions = async () => {
     const questions = await getOnboardingQuestions(selectedTags);
     setOnboardingQuestions(questions);
@@ -88,6 +94,7 @@ export const UserOnboardingContextProvider = ({
         itemVariants,
         setCanContinue,
         canContinue,
+        handleSetUserTimeSpendingPerDay,
       }}
     >
       {children}

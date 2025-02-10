@@ -33,6 +33,8 @@ export default function OnboardingFooter({
       <AnimatePresence>
         {(currentStep === STEPS.PRICING ||
           currentStep === STEPS.SHARE ||
+          currentStep === STEPS.QUESTIONS ||
+          currentStep === STEPS.TIME_COMMITMENT ||
           currentStep === STEPS.TAGS) && (
           <motion.div
             initial={{ opacity: 0, x: -20 }}

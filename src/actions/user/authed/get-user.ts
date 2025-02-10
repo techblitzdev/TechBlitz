@@ -36,6 +36,8 @@ export const getUserFromDb = async (userUid: string): Promise<UserRecord | null>
   return {
     ...user,
     codeEditorTheme: user.codeEditorTheme || undefined,
+    timeSpendingPerDay: user.timeSpendingPerDay || 'LESS_THAN_5_MINUTES',
+    hasSent7DayNoChallengeEmail: user.hasSent7DayNoChallengeEmail || false,
   };
 };
 

@@ -1,27 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useTransition } from 'react';
 import { motion } from 'framer-motion';
 import { useOnboardingContext } from '../../../contexts/onboarding-context';
 import { CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Copy } from 'lucide-react';
+import { sendInvite } from '@/actions/misc/send-invite';
+import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 
 export default function OnboardingShare() {
-  const { serverUser, itemVariants } = useOnboardingContext();
-  const [isCopied, setIsCopied] = useState(false);
+  const { itemVariants } = useOnboardingContext();
+  const [email, setEmail] = useState('');
+  const [pending, startTransition] = useTransition();
 
-  const shareUrl = `https://techblitz.dev/signup?ref=${serverUser?.uid}`;
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    startTransition(async () => {
+      await sendInvite(email);
 
-  const handleShare = async () => {
-    try {
-      await navigator.clipboard.writeText(shareUrl);
-      toast.success('Link copied to clipboard!');
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 3000); // Reset after 3 seconds
-    } catch (error) {
-      console.error('Error copying link:', error);
-      toast.error('Failed to copy link. Please try again.');
-    }
+      toast.success('Invitation sent successfully!');
+    });
   };
 
   return (
@@ -39,17 +36,19 @@ export default function OnboardingShare() {
         </motion.p>
       </CardHeader>
       <CardContent>
-        <div className="flex flex-col items-center justify-center space-y-4">
-          <Button
-            onClick={handleShare}
-            className={`flex items-center space-x-2 transition-colors duration-300 ${
-              isCopied ? 'bg-green-500' : 'bg-blue-500'
-            }`}
-          >
-            <Copy className="w-4 h-4" />
-            <span>{isCopied ? 'Link Copied!' : 'Copy Invite Link'}</span>
+        <form onSubmit={handleSubmit} className="space-y-2 w-1/2 justify-self-center">
+          <Input
+            type="email"
+            placeholder="Friend's email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="border border-black-50 text-white"
+          />
+          <Button type="submit" className="w-full" variant="default" disabled={pending}>
+            {pending ? 'Sending...' : 'Send Invite'}
           </Button>
-        </div>
+        </form>
       </CardContent>
     </>
   );

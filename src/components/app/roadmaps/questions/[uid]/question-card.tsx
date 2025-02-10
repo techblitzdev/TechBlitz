@@ -20,6 +20,7 @@ export default function RoadmapQuestionCard(opts: {
   nextQuestionAnswered?: boolean;
   prevQuestionCorrect?: boolean;
   prevQuestionAnswered?: boolean;
+  isFakeCard?: boolean;
 }) {
   const {
     question: initialQuestion,
@@ -28,6 +29,7 @@ export default function RoadmapQuestionCard(opts: {
     totalQuestions,
     prevQuestionCorrect,
     prevQuestionAnswered,
+    isFakeCard,
   } = opts;
 
   const [isLoading, setIsLoading] = useState(false);
@@ -88,85 +90,167 @@ export default function RoadmapQuestionCard(opts: {
           )}
         />
       </div>
-      <Link
-        href={`/roadmap/${roadmapUid}/${questionRef.current.uid}`}
-        key={questionRef.current.uid}
-        className="py-6 mb-6 space-y-5 items-start bg-[#090909] border border-black-50 hover:border-accent duration-300 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
-      >
-        <div className="flex w-full justify-between gap-3">
+      {isFakeCard ? (
+        <div className="py-6 mb-6 space-y-5 items-start bg-[#090909] border border-black-50 hover:border-accent duration-300 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden">
+          <div className="flex w-full justify-between gap-3">
+            <AnimatePresence mode="wait">
+              <motion.h6
+                key={isLoading ? 'loading' : 'content'}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="text-base text-wrap text-start w-full max-w-[90%]"
+              >
+                {isLoading ? (
+                  <Skeleton className="bg-black-50 h-6 w-full" />
+                ) : (
+                  questionRef.current.question
+                )}
+              </motion.h6>
+            </AnimatePresence>
+            <RoadmapQuestionCardMenu
+              questionAnswered={questionRef.current.completed || false}
+              questionUid={questionRef.current.uid}
+              onRegenerateStart={handleRegenerateStart}
+              onRegenerateEnd={handleRegenerateEnd}
+            />
+          </div>
+
           <AnimatePresence mode="wait">
-            <motion.h6
+            <motion.div
               key={isLoading ? 'loading' : 'content'}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="text-base text-wrap text-start w-full max-w-[90%]"
+              className="w-full"
             >
               {isLoading ? (
-                <Skeleton className="bg-black-50 h-6 w-full" />
+                <div className="space-y-5">
+                  <div className="mt-5 w-full flex justify-between items-end">
+                    <Skeleton className="h-6 w-20" />
+                  </div>
+                </div>
               ) : (
-                questionRef.current.question
+                <>
+                  <div className="mt-5 w-full flex justify-between items-end">
+                    <div className="flex items-center gap-x-3">
+                      {questionRef.current?.difficulty && (
+                        <Chip
+                          text={capitalise(questionRef.current.difficulty)}
+                          color={getQuestionDifficultyColor(questionRef.current.difficulty).bg}
+                          textColor={
+                            getQuestionDifficultyColor(questionRef.current.difficulty).text
+                          }
+                          border={getQuestionDifficultyColor(questionRef.current.difficulty).border}
+                          small
+                        />
+                      )}
+                    </div>
+                    <div className="flex items-center gap-x-1 font-ubuntu">
+                      {questionRef.current?.completed && (
+                        <>
+                          {questionRef.current?.userCorrect ? (
+                            <Check className="size-4 text-green-500" />
+                          ) : (
+                            <X className="size-4 text-destructive" />
+                          )}
+                          <div className="flex items-center gap-2">
+                            <p className="text-sm">Answered</p>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </>
               )}
-            </motion.h6>
+            </motion.div>
           </AnimatePresence>
-          <RoadmapQuestionCardMenu
-            questionAnswered={questionRef.current.completed || false}
-            questionUid={questionRef.current.uid}
-            onRegenerateStart={handleRegenerateStart}
-            onRegenerateEnd={handleRegenerateEnd}
-          />
         </div>
+      ) : (
+        <Link
+          href={`/roadmap/${roadmapUid}/${questionRef.current.uid}`}
+          key={questionRef.current.uid}
+          className="py-6 mb-6 space-y-5 items-start bg-[#090909] border border-black-50 hover:border-accent duration-300 p-5 rounded-lg group w-full h-auto flex flex-col relative overflow-hidden"
+        >
+          <div className="flex w-full justify-between gap-3">
+            <AnimatePresence mode="wait">
+              <motion.h6
+                key={isLoading ? 'loading' : 'content'}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="text-base text-wrap text-start w-full max-w-[90%]"
+              >
+                {isLoading ? (
+                  <Skeleton className="bg-black-50 h-6 w-full" />
+                ) : (
+                  questionRef.current.question
+                )}
+              </motion.h6>
+            </AnimatePresence>
+            <RoadmapQuestionCardMenu
+              questionAnswered={questionRef.current.completed || false}
+              questionUid={questionRef.current.uid}
+              onRegenerateStart={handleRegenerateStart}
+              onRegenerateEnd={handleRegenerateEnd}
+            />
+          </div>
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={isLoading ? 'loading' : 'content'}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="w-full"
-          >
-            {isLoading ? (
-              <div className="space-y-5">
-                <div className="mt-5 w-full flex justify-between items-end">
-                  <Skeleton className="h-6 w-20" />
-                </div>
-              </div>
-            ) : (
-              <>
-                <div className="mt-5 w-full flex justify-between items-end">
-                  <div className="flex items-center gap-x-3">
-                    {questionRef.current?.difficulty && (
-                      <Chip
-                        text={capitalise(questionRef.current.difficulty)}
-                        color={getQuestionDifficultyColor(questionRef.current.difficulty).bg}
-                        textColor={getQuestionDifficultyColor(questionRef.current.difficulty).text}
-                        border={getQuestionDifficultyColor(questionRef.current.difficulty).border}
-                        small
-                      />
-                    )}
-                  </div>
-                  <div className="flex items-center gap-x-1 font-ubuntu">
-                    {questionRef.current?.completed && (
-                      <>
-                        {questionRef.current?.userCorrect ? (
-                          <Check className="size-4 text-green-500" />
-                        ) : (
-                          <X className="size-4 text-destructive" />
-                        )}
-                        <div className="flex items-center gap-2">
-                          <p className="text-sm">Answered</p>
-                        </div>
-                      </>
-                    )}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={isLoading ? 'loading' : 'content'}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="w-full"
+            >
+              {isLoading ? (
+                <div className="space-y-5">
+                  <div className="mt-5 w-full flex justify-between items-end">
+                    <Skeleton className="h-6 w-20" />
                   </div>
                 </div>
-              </>
-            )}
-          </motion.div>
-        </AnimatePresence>
-      </Link>
+              ) : (
+                <>
+                  <div className="mt-5 w-full flex justify-between items-end">
+                    <div className="flex items-center gap-x-3">
+                      {questionRef.current?.difficulty && (
+                        <Chip
+                          text={capitalise(questionRef.current.difficulty)}
+                          color={getQuestionDifficultyColor(questionRef.current.difficulty).bg}
+                          textColor={
+                            getQuestionDifficultyColor(questionRef.current.difficulty).text
+                          }
+                          border={getQuestionDifficultyColor(questionRef.current.difficulty).border}
+                          small
+                        />
+                      )}
+                    </div>
+                    <div className="flex items-center gap-x-1 font-ubuntu">
+                      {questionRef.current?.completed && (
+                        <>
+                          {questionRef.current?.userCorrect ? (
+                            <Check className="size-4 text-green-500" />
+                          ) : (
+                            <X className="size-4 text-destructive" />
+                          )}
+                          <div className="flex items-center gap-2">
+                            <p className="text-sm">Answered</p>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </Link>
+      )}
     </div>
   );
 }

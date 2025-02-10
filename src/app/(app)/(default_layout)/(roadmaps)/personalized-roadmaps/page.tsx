@@ -1,4 +1,3 @@
-import { redirect } from 'next/navigation';
 import dynamic from 'next/dynamic';
 
 const RoadmapsCard = dynamic(() => import('@/components/app/roadmaps/[uid]/roadmaps-card'), {
@@ -76,8 +75,7 @@ const upgradeDescription = (
 export default async function RoadmapPage() {
   // middleware should catch this, but just in case
   const user = await useUserServer();
-  if (!user) return redirect('/login');
-  if (user.userLevel === 'FREE') {
+  if (user?.userLevel === 'FREE' || !user) {
     return <UpgradeLayout title="Personalized Coding Roadmaps" description={upgradeDescription} />;
   }
   // fetch the user's roadmaps

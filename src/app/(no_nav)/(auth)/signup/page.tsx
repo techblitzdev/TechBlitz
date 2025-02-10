@@ -105,7 +105,8 @@ export default async function SignupPage() {
                 Create your TechBlitz account
               </h1>
               <p className="text-sm text-gray-400 mb-4">
-                Start your journey to becoming a tech expert.
+                Start your journey to becoming a tech expert for free. Upgrade for a more
+                personalized experience.
               </p>
             </div>
             <Suspense>
@@ -139,6 +140,7 @@ export default async function SignupPage() {
                 totalQuestions={dummyTotalQuestions}
                 prevQuestionCorrect={index > 0 ? dummyQuestions[index - 1]?.userCorrect : undefined}
                 prevQuestionAnswered={index > 0 ? dummyQuestions[index - 1]?.completed : undefined}
+                isFakeCard={true}
               />
             ))}
             <div className="z-10 absolute inset-x-0 -left-8 bottom-0 h-36 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>

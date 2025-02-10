@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
   return createMetadata({
     title: `${capitalise(title)} | TechBlitz`,
-    description: 'Boost your coding skills for free with TechBlitz',
+    description: `Practice ${capitalise(title)} and improve your coding skills with interactive challenges on TechBlitz`,
     image: {
       text: `${title} | TechBlitz`,
       bgColor: '#000000',

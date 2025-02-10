@@ -119,7 +119,7 @@ export default function QuestionTabs({
             </div>
             {question?.title && (
               <div className="flex w-full gap-10 justify-between">
-                <h3 className="font-onest font-light text-lg md:text-2xl">{question.title}</h3>
+                <h1 className="font-onest font-light text-lg md:text-2xl">{question.title}</h1>
               </div>
             )}
             <p className="text-sm text-gray-400 font-light font-onest mt-3">{question.question}</p>

@@ -1,4 +1,3 @@
-import { redirect } from 'next/navigation';
 import dynamic from 'next/dynamic';
 
 const RoadmapsCard = dynamic(() => import('@/components/app/roadmaps/[uid]/roadmaps-card'), {

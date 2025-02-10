@@ -73,7 +73,7 @@ export default function PersonalizedRight() {
           ultimate way to improve your coding skills faster.
         </p>
         <Button
-          variant="secondary"
+          variant="default"
           href="/features/statistics"
           className="w-fit flex items-center gap-1"
         >

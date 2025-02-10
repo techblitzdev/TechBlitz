@@ -33,10 +33,6 @@ export default function OnboardingPricing() {
             Upgrade to a paid plan to unlock premium features, gain access to exclusive content, and
             be the first to experience new updates.
           </motion.p>
-          <motion.p className="text-center max-w-2xl text-white" variants={itemVariants}>
-            Lifetime access available for a limited time - ends{' '}
-            <span className="font-bold">14th February!</span>
-          </motion.p>
         </div>
         <FrequencyTabs initialFrequency={billingPeriod} onFrequencyChange={setBillingPeriod} />
       </CardHeader>

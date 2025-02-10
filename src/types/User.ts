@@ -1,4 +1,4 @@
-import { StudyPathGoal, UserStudyPath } from '@prisma/client';
+import { StudyPathGoal, UserStudyPath, UserTimeSpendingPerDay } from '@prisma/client';
 import { BaseRecord } from './BaseRecord';
 import { Question } from './Questions';
 import { RequireAtLeastOne } from './Utils';
@@ -58,6 +58,12 @@ export interface User extends BaseRecord {
 
   // the study path goals the user has set for themselves
   studyPathGoals?: StudyPathGoal[] | null;
+
+  // the user's time spending per day
+  timeSpendingPerDay?: UserTimeSpendingPerDay | null;
+
+  // a flag to indicate if the user has sent the 7 day no challenge email
+  hasSent7DayNoChallengeEmail?: boolean | null;
 }
 
 export type UserRecord = Pick<
@@ -86,6 +92,8 @@ export type UserRecord = Pick<
   | 'aboutMeAiHelp'
   | 'studyPathEnrollments'
   | 'studyPathGoals'
+  | 'timeSpendingPerDay'
+  | 'hasSent7DayNoChallengeEmail'
 >;
 
 // First, create a type that excludes 'uid' from the partial requirement

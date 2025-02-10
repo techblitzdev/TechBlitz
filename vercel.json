@@ -1,8 +1,8 @@
 {
   "crons": [
     {
-      "path": "/api/cron/send-suggested-challenge",
-      "schedule": "0 8 * * 1-5"
+      "path": "/api/cron/challenges/send-suggested-challenge",
+      "schedule": "30 11 * * 1-5"
     },
     {
       "path": "/api/cron/sync-user-streak",

@@ -36,17 +36,21 @@ export const getBlogPosts = async () => {
           image: frontmatter.image as string,
           description: frontmatter.description as string,
           title: frontmatter.title as string,
+          subpage: frontmatter.subpage as boolean,
           ...frontmatter,
         };
       })
   );
 
-  // remove any posts that status is 'unpublished' if we are on the production environment
-  if (process.env.NODE_ENV === 'production') {
-    return posts.filter((post: any) => post.status !== 'unpublished');
-  }
+  // Filter out subpages and unpublished posts in production
+  const filteredPosts = posts.filter((post: any) => {
+    if (process.env.NODE_ENV === 'production') {
+      return post.status !== 'unpublished' && !post.subpage;
+    }
+    return !post.subpage; // Always filter out subpages, even in development
+  });
 
-  return posts.sort((a: any, b: any) => {
+  return filteredPosts.sort((a: any, b: any) => {
     if (a.date < b.date) return 1;
     if (a.date > b.date) return -1;
     return 0;

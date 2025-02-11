@@ -6,12 +6,12 @@ import OnboardingUserDetails from './onboarding-user-details';
 import OnboardingTags from './onboarding-tags';
 import OnboardingQuestions from './onboarding-questions';
 import OnboardingPricing from './onboarding-pricing';
-import OnboardingShare from './onboarding-share';
 import { useOnboardingContext } from '@/contexts/onboarding-context';
 import { cn } from '@/lib/utils';
 import { useOnboardingSteps, STEPS } from '@/hooks/use-onboarding-steps';
 import OnboardingFooter from './onboarding-footer';
 import OnboardingTimeCommitment from './onboarding-time-commitment';
+import OnboardingNotifications from './onboarding-notifications';
 
 const containerVariants = {
   hidden: { opacity: 0, scale: 0.95 },
@@ -29,7 +29,7 @@ const containerVariants = {
 const stepComponents = {
   [STEPS.USER_DETAILS]: OnboardingUserDetails,
   [STEPS.TIME_COMMITMENT]: OnboardingTimeCommitment,
-  [STEPS.SHARE]: OnboardingShare,
+  [STEPS.NOTIFICATIONS]: OnboardingNotifications,
   [STEPS.TAGS]: OnboardingTags,
   [STEPS.QUESTIONS]: OnboardingQuestions,
   [STEPS.PRICING]: OnboardingPricing,
@@ -48,7 +48,7 @@ export default function OnboardingForm() {
         <Card
           className={cn(
             'rounded-lg shadow-xl overflow-hidden min-w-fit relative',
-            (currentStep === STEPS.PRICING || currentStep === STEPS.SHARE) && 'lg:min-w-[50rem]',
+            currentStep === STEPS.PRICING && 'lg:min-w-[50rem]',
             currentStep === STEPS.PRICING ? 'border-none' : 'border border-black-50'
           )}
           style={{

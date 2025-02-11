@@ -30,6 +30,8 @@ type OnboardingContextType = {
   itemVariants: any;
   canContinue: boolean;
   setCanContinue: React.Dispatch<React.SetStateAction<boolean>>;
+  timeSpendingPerDay: UserTimeSpendingPerDay;
+  setTimeSpendingPerDay: React.Dispatch<React.SetStateAction<UserTimeSpendingPerDay>>;
   handleSetUserTimeSpendingPerDay: (timeSpendingPerDay: UserTimeSpendingPerDay) => void;
 };
 
@@ -68,15 +70,18 @@ export const UserOnboardingContextProvider = ({
 
   const [onboardingQuestions, setOnboardingQuestions] = useState<any[]>([]);
 
+  const [timeSpendingPerDay, setTimeSpendingPerDay] = useState<UserTimeSpendingPerDay>(
+    UserTimeSpendingPerDay.LESS_THAN_5_MINUTES
+  );
+
   const handleSetUserTimeSpendingPerDay = (timeSpendingPerDay: UserTimeSpendingPerDay) => {
+    setTimeSpendingPerDay(timeSpendingPerDay);
     setUser({ ...user, timeSpendingPerDay });
   };
 
   const handleGetOnboardingQuestions = async () => {
     const questions = await getOnboardingQuestions(selectedTags);
     setOnboardingQuestions(questions);
-
-    console.log(questions);
   };
 
   return (
@@ -94,6 +99,8 @@ export const UserOnboardingContextProvider = ({
         itemVariants,
         setCanContinue,
         canContinue,
+        timeSpendingPerDay,
+        setTimeSpendingPerDay,
         handleSetUserTimeSpendingPerDay,
       }}
     >

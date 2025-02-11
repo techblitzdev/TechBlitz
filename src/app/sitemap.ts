@@ -212,6 +212,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/react-roadmap`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/javascript-cheat-sheet`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-cheat-sheet/javascript-array-cheat-sheet`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-cheat-sheet/regular-expression-cheat-sheet`,
+      lastModified: new Date(),
+    },
   ];
 
   // Combine static routes with dynamic blog posts

@@ -6,6 +6,7 @@ export default function FeatureDailyChallengeHero(opts: {
   header?: string;
   subheader?: string;
   animatedSpan?: string;
+  className?: string;
   leftCta?: {
     title: string;
     href: string;
@@ -15,11 +16,16 @@ export default function FeatureDailyChallengeHero(opts: {
     href: string;
   } | null;
 }) {
-  const { header, subheader, animatedSpan, leftCta, rightCta } = opts;
+  const { header, subheader, animatedSpan, leftCta, rightCta, className } = opts;
 
   return (
     <section className="relative flex gap-10 text-white overflow-hidden justify-center">
-      <div className="flex flex-col gap-y-6 w-full xl:w-2/5 pt-32 lg:pt-52 pb-8 lg:pb-36 z-10 items-center">
+      <div
+        className={cn(
+          'flex flex-col gap-y-6 w-full xl:w-2/5 pt-32 lg:pt-52 pb-8 lg:pb-36 z-10 items-center',
+          className
+        )}
+      >
         <AnimatedSpan content={animatedSpan || 'Daily Coding Challenges'} />
         <h1
           className="

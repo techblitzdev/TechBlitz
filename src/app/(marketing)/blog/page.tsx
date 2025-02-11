@@ -33,7 +33,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
   // do not include featured post in filtered posts
   const filteredPosts = filterPostsByTags(
-    posts.filter((post) => !post.featured),
+    posts.filter((post) => !post.featured && !post.subpage),
     selectedTags
   );
 

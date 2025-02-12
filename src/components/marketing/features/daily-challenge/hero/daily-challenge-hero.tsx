@@ -7,6 +7,7 @@ export default function FeatureDailyChallengeHero(opts: {
   subheader?: string;
   animatedSpan?: string;
   className?: string;
+  ctaWrapperClassName?: string;
   leftCta?: {
     title: string;
     href: string;
@@ -16,7 +17,8 @@ export default function FeatureDailyChallengeHero(opts: {
     href: string;
   } | null;
 }) {
-  const { header, subheader, animatedSpan, leftCta, rightCta, className } = opts;
+  const { header, subheader, animatedSpan, leftCta, rightCta, className, ctaWrapperClassName } =
+    opts;
 
   return (
     <section className="relative flex gap-10 text-white overflow-hidden justify-center">
@@ -42,7 +44,7 @@ export default function FeatureDailyChallengeHero(opts: {
             : 'TechBlitz transforms learning to code into bite-sized, engaging daily coding challenges. Master new skills in just 5 minutes a day—anytime, anywhere, on any device. Even learn to code on your phone!'}
         </p>
 
-        <div className="flex flex-col items-center md:flex-row gap-4">
+        <div className={cn('flex flex-col items-center md:flex-row gap-4', ctaWrapperClassName)}>
           {/** if we pass in leftCta, we render it, otherwise, we fallback to the default */}
           {leftCta ? (
             <Button variant="accent" className="flex items-center gap-2" href={leftCta.href}>

@@ -12,6 +12,7 @@ export default function GoogleSignUp() {
       }}
     >
       <Button
+        size="lg"
         type="submit"
         variant="outline"
         className="w-full bg-white text-black hover:bg-gray-100 hover:text-black"

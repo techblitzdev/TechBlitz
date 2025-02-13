@@ -224,6 +224,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/javascript-cheat-sheet/regular-expression-cheat-sheet`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/javascript-coding-interview-questions-and-answers`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-coding-interview-questions-and-answers/javascript-coding-test`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-coding-interview-questions-and-answers/javascript-interview-questions-for-senior-developers`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-projects-for-beginners`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-projects-for-beginners/programming-challenges-for-beginners`,
+      lastModified: new Date(),
+    },
   ];
 
   // Combine static routes with dynamic blog posts

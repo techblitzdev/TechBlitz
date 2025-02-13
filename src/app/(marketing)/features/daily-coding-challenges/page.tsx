@@ -14,21 +14,11 @@ import QuestionMarquee from '@/components/marketing/global/blocks/question-marqu
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Daily Coding Challenges | TechBlitz',
+    title: 'Free JavaScript Course & Daily Coding Challenges | TechBlitz',
     description:
-      'Daily coding challenges to improve your coding skills. Learn to code for free, with our short-form, interactive coding challenges.',
-    keywords: [
-      'learn to coding',
-      'learn to code for free',
-      'learn javascript',
-      'coding challenges',
-      'daily coding challenges',
-      'web development',
-      'tech skills assessment',
-      'learn to code on phone',
-    ],
+      'Learn JavaScript online for free with our comprehensive JavaScript course and daily coding challenges. Perfect for web developers looking to master JavaScript programming, HTML, CSS and modern JavaScript frameworks through hands-on practice.',
     image: {
-      text: `Daily Coding Challenges | TechBlitz`,
+      text: `Free JavaScript Course & Daily Coding Challenges | TechBlitz`,
       bgColor: '#000',
       textColor: '#fff',
     },
@@ -53,9 +43,9 @@ const items = [
         </g>
       </svg>
     ),
-    title: 'Bite-sized Learning',
+    title: 'Step-by-Step JavaScript Training',
     description:
-      'Master complex programming concepts in just 15 minutes a day with our expertly crafted micro-challenges. Perfect for busy developers.',
+      'Master JavaScript programming through our structured online course. Learn the basics to advanced concepts with bite-sized lessons perfect for busy web developers.',
   },
   {
     icon: (
@@ -66,9 +56,9 @@ const items = [
         />
       </svg>
     ),
-    title: 'Daily Coding Challenges',
+    title: 'Free JavaScript Course',
     description:
-      'Daily coding challenges to improve your coding skills. Learn to code for free, with our short-form, interactive coding challenges from a range of topics including JavaScript, React, Node.js, web development, and more.',
+      'Access our comprehensive JavaScript online course for free. Learn JavaScript programming from basics to building real-time web applications and server-side development.',
   },
   {
     icon: (
@@ -79,9 +69,9 @@ const items = [
         />
       </svg>
     ),
-    title: 'Vibrant Developer Community',
+    title: 'JavaScript Developer Community',
     description:
-      'Connect with a community of passionate developers worldwide. Share solutions, discuss approaches, and accelerate your learning through peer collaboration.',
+      'Join our thriving community of web developers learning JavaScript. Get support for HTML, CSS, and JavaScript frameworks while building web applications.',
   },
   {
     icon: (
@@ -92,9 +82,9 @@ const items = [
         />
       </svg>
     ),
-    title: 'Instant Feedback',
+    title: 'Real-Time JavaScript Training',
     description:
-      'Get real-time feedback on your solutions. Learn from mistakes and improve faster.',
+      'Get instant feedback on your JavaScript code as you learn. Our online learning platform provides real-time guidance for faster skill development.',
   },
   {
     icon: (
@@ -112,49 +102,53 @@ const items = [
         </g>
       </svg>
     ),
-    title: 'Advanced Analytics Dashboard',
+    title: 'Track Your JavaScript Journey',
     description:
-      'Visualize your coding journey with detailed performance metrics. Track your progress across topics, algorithms, and problem-solving patterns.',
+      'Monitor your progress in software development with our advanced analytics. Track your growth from JavaScript basics to creating complex web applications.',
   },
   {
     icon: <MobileIcon className="size-6" />,
-    title: 'Seamless Mobile Experience',
+    title: 'Learn JavaScript Anywhere',
     description:
-      'Learn to code on your phone. Practice during commutes or breaks with our optimized mobile interface - never miss a day of learning.',
+      'Access our JavaScript online course on any device. Our online learning platform lets you practice JavaScript programming anytime, anywhere.',
   },
 ];
 
 const faqs = [
   {
-    question: 'What is the daily challenge?',
-    answer: 'The daily challenge is a coding challenge that is available every day.',
-  },
-  {
-    question: 'Can I skip a day?',
-    answer: 'Yes, you can skip a day. But you will lose your streak.',
-  },
-  {
-    question: "What if I don't have time to complete the challenge?",
-    answer: 'No problem! You can always come back tomorrow.',
-  },
-  {
-    question: 'How many times can I answer the daily challenge?',
-    answer: 'You can answer the daily challenge as many times as you want.',
-  },
-  {
-    question: 'Can I track my progress?',
+    question: 'Where can I learn JavaScript for free?',
     answer:
-      'Yes, you can track your progress by looking at the leaderboard, or checking our your statistics with out statistics page.',
+      'TechBlitz offers a comprehensive free JavaScript course with daily coding challenges, perfect for beginners and experienced developers alike.',
   },
   {
-    question: 'Do I need to pay to use the daily challenge?',
+    question: 'What makes this the best place to learn JavaScript?',
+    answer:
+      'Our JavaScript training combines structured learning with hands-on practice through daily challenges, real-time feedback, and a supportive developer community.',
+  },
+  {
+    question: 'How long does the JavaScript course take?',
+    answer:
+      'Our course is self-paced and modular. You can learn the basics in a few weeks or dive deep into advanced JavaScript programming at your own pace.',
+  },
+  {
+    question: 'What JavaScript resources are included?',
+    answer:
+      'You get access to comprehensive JavaScript tutorials, coding challenges, web development projects, and modern JavaScript frameworks training.',
+  },
+  {
+    question: 'Can I track my JavaScript learning progress?',
+    answer:
+      'Yes, our platform provides detailed analytics to track your progress from JavaScript basics through advanced concepts and web application development.',
+  },
+  {
+    question: 'Is this JavaScript course really free?',
     answer: (
       <>
-        No, the daily challenge is free to use for everyone. You can{' '}
+        Yes, our JavaScript programming course is completely free. You can{' '}
         <Link href="/signup" className="text-accent">
           sign up
         </Link>{' '}
-        for free and start solving challenges today
+        and start learning JavaScript online today with no cost
       </>
     ),
   },
@@ -165,8 +159,9 @@ export default function FeatureDailyQuestionPage() {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     url: getBaseUrl(),
-    headline: 'Daily Coding Challenges | TechBlitz',
-    description: 'Daily coding challenges to improve your coding skills.',
+    headline: 'Free JavaScript Course & Daily Coding Challenges | TechBlitz',
+    description:
+      'Learn JavaScript programming with our free online course and daily coding challenges. Master web development with hands-on practice.',
     image:
       'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
     breadcrumb: WebPageJsonLdBreadcrumb,
@@ -182,7 +177,7 @@ export default function FeatureDailyQuestionPage() {
       '@id': getBaseUrl(),
     },
     keywords:
-      'learn to code, learn to code for free, learn javascript, coding challenges, daily coding challenges, web development, tech skills assessment, learn to code on phone',
+      'javascript course, free javascript course, javascript online course, learn javascript online, javascript training, web development, javascript programming, html css and javascript, javascript frameworks, software development',
     publisher: {
       '@type': 'Organization',
       name: 'TechBlitz',
@@ -204,16 +199,16 @@ export default function FeatureDailyQuestionPage() {
         <FeatureLeftRightSection />
 
         <QuestionMarquee
-          header="300+ of coding challenges"
-          subheader="From your first challenge to your first job. TechBlitz assists you every step of the way."
+          header="Complete JavaScript Training Resource"
+          subheader="From JavaScript basics to advanced web development. Learn step-by-step with our comprehensive course and daily challenges."
           cta={true}
         />
 
-        <MarketingContentGrid title="Learn to code, faster." items={items} />
+        <MarketingContentGrid title="Best Free JavaScript Course Online" items={items} />
         <FAQsBlock faqs={faqs} />
         <CallToActionBlock
-          title="Learning to code made simple."
-          description="Daily coding challenges designed to make you a better developer, faster."
+          title="Start Your JavaScript Journey Today"
+          description="Access our free JavaScript course and daily coding challenges. Perfect for aspiring web developers and software engineers."
         />
       </div>
     </>

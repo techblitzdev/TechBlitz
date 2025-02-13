@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/ui/grid';
 import { ChevronRight } from 'lucide-react';
+import GoogleSignUp from '../../homepage/hero/google-sign-up';
 
 export default function CallToActionBlock(opts: {
   title: string;
@@ -57,14 +58,12 @@ export default function CallToActionBlock(opts: {
             )}
           </>
         ) : (
-          <Button
-            variant="accent"
-            size="lg"
-            href="/signup"
-            className="flex-1 px-5"
-          >
-            Start for free
-          </Button>
+          <>
+            <GoogleSignUp />
+            <Button variant="accent" size="lg" href="/signup" className="flex-1 px-5">
+              Start for free
+            </Button>
+          </>
         )}
       </div>
       <Grid size={30} position="bottom-right" />

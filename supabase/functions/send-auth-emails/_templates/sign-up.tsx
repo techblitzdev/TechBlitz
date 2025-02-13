@@ -80,7 +80,7 @@ export const TechBlitzSignUpEmail = ({ username, confirmationLink }: TechBlitzSi
             </Link>
           </Section>
           <Section style={footer}>
-            <Text style={footerText}>© 2024 TechBlitz. All rights reserved.</Text>
+            <Text style={footerText}>© 2025 DEV TECHBLITZ Ltd. All rights reserved.</Text>
           </Section>
         </Container>
       </Body>

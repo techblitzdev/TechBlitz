@@ -6,8 +6,12 @@ export default function FeatureLeftRightSectionOne(opts: {
   leftHeader?: string;
   leftSubheader?: string;
   learnMoreLink?: boolean;
+  leftCta?: {
+    title: string;
+    href: string;
+  } | null;
 }) {
-  const { leftHeader, leftSubheader, learnMoreLink } = opts;
+  const { leftHeader, leftSubheader, learnMoreLink, leftCta } = opts;
 
   const today = new Date();
   const nextWeek = new Date(today);
@@ -26,10 +30,16 @@ export default function FeatureLeftRightSectionOne(opts: {
               ? leftSubheader
               : "TechBlitz empowers your growth with intuitive progress tracking. See how far you've come with streak counts that celebrate your dedication and keep you motivated. Stay on track, achieve consistency, and make self-improvement a daily habit."}
           </p>
-          {learnMoreLink && (
-            <Button variant="secondary" href={'/features/daily-coding-challenges'}>
-              Learn more
+          {leftCta && leftCta.href ? (
+            <Button variant="secondary" href={leftCta.href}>
+              {leftCta.title}
             </Button>
+          ) : (
+            learnMoreLink && (
+              <Button variant="secondary" href={'/features/daily-coding-challenges'}>
+                Learn more
+              </Button>
+            )
           )}
         </div>
       }

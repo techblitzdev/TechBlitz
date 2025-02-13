@@ -18,7 +18,7 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
   {
-    label: 'Features',
+    label: 'Product',
     children: [
       { label: 'Roadmaps', href: '/features/roadmaps' },
       { label: 'Daily Challenges', href: '/features/daily-coding-challenges' },

@@ -9,6 +9,7 @@ import { cookies } from 'next/headers';
 import { revalidatePath } from 'next/cache';
 import Testimonials from '@/components/marketing/global/blocks/testimonials';
 import PricingTable from '@/components/marketing/pricing/pricing-table';
+import StudentDiscountBlock from '@/components/marketing/pricing/student-discount';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -59,7 +60,7 @@ const jsonLd = {
     {
       '@type': 'Offer',
       name: 'Pro Plan',
-      price: '3.99',
+      price: '5.99',
       priceCurrency: 'USD',
       description: 'Unlock all questions, daily challenges, and personalized AI roadmaps.',
       url: 'https://techblitz.dev/pricing',
@@ -68,7 +69,7 @@ const jsonLd = {
     {
       '@type': 'Offer',
       name: 'Lifetime Access',
-      price: '39.99',
+      price: '89.99',
       priceCurrency: 'USD',
       description:
         'Unlock all questions, daily challenges, and personalized AI roadmaps. Lifetime access.',
@@ -213,6 +214,10 @@ export default async function PricingPage() {
           <FrequencyToggle initialFrequency={billingPeriod} onFrequencyChange={updateFrequency} />
           <div className="my-10">
             <PricingCardBlock frequency={billingPeriod} />
+          </div>
+
+          <div className="mt-28 mb-14 w-full">
+            <StudentDiscountBlock />
           </div>
 
           <div className="mt-28 mb-14 w-full">

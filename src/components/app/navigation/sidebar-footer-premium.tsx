@@ -3,11 +3,11 @@ import { SidebarMenuItem } from '@/components/ui/sidebar';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { Stars } from 'lucide-react';
-//import { SIDEBAR_FOOTER_DESCRIPTION, SIDEBAR_FOOTER_TITLE } from '@/utils/constants/sidebar';
-//import { usePathname } from 'next/navigation';
+import { SIDEBAR_FOOTER_DESCRIPTION, SIDEBAR_FOOTER_TITLE } from '@/utils/constants/sidebar';
+import { usePathname } from 'next/navigation';
 
 export default function SidebarFooterPremium() {
-  //const pathname = usePathname();
+  const pathname = usePathname();
 
   const premiumUrl =
     process.env.NODE_ENV === 'production' ? 'https://dub.sh/upgrade-techblitz' : '/upgrade';
@@ -23,21 +23,12 @@ export default function SidebarFooterPremium() {
         }}
       >
         <p className="font-onest">
-          {/**
-         * 
-         {SIDEBAR_FOOTER_TITLE[pathname as keyof typeof SIDEBAR_FOOTER_TITLE] ||
-         'Unlock Your Full Potential'}
-         */}
-          Don't miss out!
+          {SIDEBAR_FOOTER_TITLE[pathname as keyof typeof SIDEBAR_FOOTER_TITLE] ||
+            'Unlock Your Full Potential'}
         </p>
         <p className="text-xs font-light font-onest">
-          {/**
-           *
-           * {SIDEBAR_FOOTER_DESCRIPTION[pathname as keyof typeof SIDEBAR_FOOTER_DESCRIPTION] ||
-           *   'Get AI-powered study paths, premium challenges, and learn 3x faster with personalized guidance!'
-           * }
-           */}
-          Lifetime access deal ends 14th February.
+          {SIDEBAR_FOOTER_DESCRIPTION[pathname as keyof typeof SIDEBAR_FOOTER_DESCRIPTION] ||
+            'Get AI-powered study paths, premium challenges, and learn 3x faster with personalized guidance!'}
         </p>
         <Button variant="premium" fullWidth className="mt-4" href={premiumUrl}>
           Upgrade to Premium

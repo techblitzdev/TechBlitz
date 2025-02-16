@@ -18,7 +18,7 @@ export default function SocialLinks() {
       </div>
       <div className="size-8 flex items-center justify-center bg-black-75 border border-black-50 rounded-lg">
         <Link
-          href="https://git.new/techblitz"
+          href="https://git.new/blitz"
           target="_blank"
           className="size-4 fill-white hover:fill-accent duration-300"
           aria-label="Go to techblitz on GitHub"

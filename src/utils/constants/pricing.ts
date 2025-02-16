@@ -278,6 +278,12 @@ export const getPlans = (
       mostPopular: false,
       disabled: user?.userLevel === 'PREMIUM',
     },
+    /**
+     * Lifetime plan
+     * 
+     * 
+     * 
+     
     {
       id: 'price_1QoOikCX23ptLp4LTks1YO7V',
       name: 'Lifetime',
@@ -322,6 +328,7 @@ export const getPlans = (
       },
       mostPopular: false,
     },
+    **/
   ];
 
   return plans;

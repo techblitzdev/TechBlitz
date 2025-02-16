@@ -10,7 +10,7 @@ export const SIDEBAR_FOOTER_TITLE = {
 };
 
 export const SIDEBAR_FOOTER_DESCRIPTION = {
-  '/dashboard': 'Lifetime access deal ends 14th February.',
+  '/dashboard': 'Upgrade to accelerate your learning!',
   '/questions': 'Learn 3x faster with personalized questions!',
   '/roadmaps': 'Create personalized roadmaps to accelerate your progress!',
 };

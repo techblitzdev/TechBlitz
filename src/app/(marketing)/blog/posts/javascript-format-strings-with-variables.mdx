@@ -1,0 +1,255 @@
+---
+title: 'JavaScript Format Strings with Variables'
+description: "Learn how to format strings with variables in JavaScript using template literals and string interpolation. Master string concatenation, template strings, and dynamic text creation with practical examples."
+image: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images/javascript-format-strings-with-variables.png'
+date: '2025-02-16'
+author: 'Logan Ford'
+authorImage: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/user-profile-pictures/3a57d7e8-8b80-483b-93d0-70fe1f06b0c0/logo.png?u=1l5im5h5n6e5'
+readingTime: 4
+status: published
+headings:
+    - title: 'Introduction to String Formatting in JavaScript'
+      level: 1
+    - title: 'Template Literals (Template Strings)'
+      level: 2
+    - title: 'String Concatenation Methods'
+      level: 2
+    - title: 'Advanced String Formatting'
+      level: 2
+    - title: 'Common Use Cases'
+      level: 2
+    - title: 'Best Practices'
+      level: 2
+    - title: 'Practice Examples'
+      level: 2
+tags: ['JavaScript', 'String Formatting', 'Template Literals', 'Web Development', 'Beginner']
+subpage: true
+---
+
+import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
+
+# Introduction to String Formatting in JavaScript
+
+String formatting with variables is a crucial skill in JavaScript programming. Whether you're creating dynamic messages, building templates, or working with user data, knowing how to combine strings with variables efficiently will make your code cleaner and more maintainable.
+
+## Template Literals (Template Strings)
+
+Template literals, introduced in ES6, are the modern way to format strings with variables in JavaScript. They use backticks (`) and ${} for variable interpolation.
+
+### Basic Syntax and Usage
+
+<br />
+
+<CodeSnippet language="javascript" content={`// Basic template literal
+const name = 'John';
+const greeting = \`Hello, \${name}!\`;
+console.log(greeting); // Output: Hello, John!
+
+// Multiple variables
+const item = 'coffee';
+const price = 4.99;
+const message = \`Your \${item} costs $\${price}\`;
+console.log(message); // Output: Your coffee costs $4.99
+
+// Expressions inside template literals
+const quantity = 3;
+const total = \`Total: $\${quantity * price}\`;
+console.log(total); // Output: Total: $14.97`} />
+
+<br />
+
+### Multiline Strings
+
+Template literals make it easy to create multiline strings:
+
+<br />
+<CodeSnippet language="javascript" content={`const email = \`
+Dear \${name},
+
+Thank you for your order of \${quantity} \${item}(s).
+Your total is $\${quantity * price}.
+
+Best regards,
+The Store Team
+\`;
+
+console.log(email);`} />
+
+<br />
+
+## String Concatenation Methods
+
+While template literals are preferred, it's important to know other string formatting methods:
+
+<CodeSnippet language="javascript" content={`// Using the + operator
+const name = 'Jane';
+const age = 25;
+const message1 = 'My name is ' + name + ' and I am ' + age + ' years old.';
+
+// Using concat()
+const message2 = ''.concat('My name is ', name, ' and I am ', age, ' years old.');
+
+// Using join()
+const message3 = ['My name is', name, 'and I am', age, 'years old'].join(' ');
+
+// Modern approach with template literals
+const message4 = \`My name is \${name} and I am \${age} years old.\`;`} />
+
+## Advanced String Formatting
+
+### Number Formatting
+
+JavaScript provides several powerful methods for formatting numbers, especially when working with currency values. Let's explore the key approaches:
+
+<CodeSnippet language="javascript" content={`const price = 1234.5678;
+
+// Basic decimal formatting with toFixed()
+// toFixed() rounds to specified decimal places
+const formattedPrice = \`$\${price.toFixed(2)}\`; // $1234.57
+const roundedPrice = \`$\${price.toFixed(0)}\`; // $1235
+
+// Using Intl.NumberFormat for locale-aware formatting
+// This is the recommended way to format currency
+const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+});
+const currencyString = formatter.format(price); // $1,234.57
+
+// Other number formatting options
+const percentFormatter = new Intl.NumberFormat('en-US', {
+    style: 'percent',
+    minimumFractionDigits: 1
+});
+const percentage = percentFormatter.format(0.3467); // 34.7%
+
+// Formatting large numbers
+const bigNumber = 1234567.89;
+const numberFormatter = new Intl.NumberFormat('en-US');
+const formattedBigNumber = numberFormatter.format(bigNumber); // 1,234,567.89`} />
+
+### Date Formatting
+
+JavaScript's Date object combined with template literals offers flexible date formatting options. Here's a comprehensive look:
+
+<CodeSnippet language="javascript" content={`const date = new Date();
+
+// Basic date formatting methods
+const simpleDate = \`Date: \${date.toLocaleDateString()}\`; // e.g., "3/14/2024"
+const simpleTime = \`Time: \${date.toLocaleTimeString()}\`; // e.g., "2:30:45 PM"
+const fullDateTime = \`DateTime: \${date.toLocaleString()}\`; // e.g., "3/14/2024, 2:30:45 PM"
+
+// Advanced formatting with options
+const options = { 
+    weekday: 'long',     // full weekday name
+    year: 'numeric',     // 4-digit year
+    month: 'long',       // full month name
+    day: 'numeric',      // day of the month
+    hour: '2-digit',     // 2-digit hours
+    minute: '2-digit',   // 2-digit minutes
+    timeZoneName: 'short' // time zone abbreviation
+};
+const fullDate = \`Today is \${date.toLocaleDateString('en-US', options)}\`;
+// e.g., "Today is Thursday, March 14, 2024, 02:30 PM EST"
+
+// Formatting specific date components
+const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                   'July', 'August', 'September', 'October', 'November', 'December'];
+const customDate = \`\${monthNames[date.getMonth()]} \${date.getDate()}, \${date.getFullYear()}\`;
+// e.g., "March 14, 2024"`} />
+
+## Common Use Cases
+
+### 1. Dynamic HTML Templates
+
+<CodeSnippet language="javascript" content={`const user = {
+    name: 'Alice',
+    avatar: 'avatar.jpg',
+    role: 'Admin'
+};
+
+const userCard = \`
+    <div class="user-card">
+        <img src="\${user.avatar}" alt="\${user.name}'s avatar">
+        <h2>\${user.name}</h2>
+        <span class="role">\${user.role}</span>
+    </div>
+\`;`} />
+
+### 2. URL Construction
+
+URL construction is a common use case for template literals, especially when building API endpoints or navigation links. Template literals make it easy to combine multiple URL components in a clean and readable way.
+
+<CodeSnippet language="javascript" content={`const baseUrl = 'https://api.example.com';
+const endpoint = 'users';
+const id = 123;
+const query = 'status=active';
+
+// Template literals allow us to cleanly combine URL parts
+const url = \`\${baseUrl}/\${endpoint}/\${id}?\${query}\`;
+// https://api.example.com/users/123?status=active
+
+// This is much cleaner than concatenation:
+// const url = baseUrl + '/' + endpoint + '/' + id + '?' + query;
+
+// You can also handle multiple query parameters:
+const queryParams = {
+  status: 'active',
+  role: 'admin',
+  limit: 10
+};
+const queryString = Object.entries(queryParams)
+  .map(([key, value]) => \`\${key}=\${value}\`)
+  .join('&');
+  
+const urlWithMultipleParams = \`\${baseUrl}/\${endpoint}?\${queryString}\`;
+// https://api.example.com/users?status=active&role=admin&limit=10`} />
+
+Template literals are particularly useful for URL construction because they:
+- Eliminate the need for messy string concatenation
+- Make the URL structure visually clear
+- Allow easy insertion of variables and parameters
+- Support multi-line formatting for complex URLs
+
+## Best Practices
+
+1. **Use Template Literals by Default**
+   - More readable and maintainable
+   - Better handling of multiline strings
+   - Cleaner syntax for variable interpolation
+
+2. **Format Numbers and Dates Appropriately**
+   - Use toFixed() for decimal precision
+   - Utilize Intl.NumberFormat for localized numbers
+   - Apply toLocaleDateString() for dates
+
+3. **Handle Edge Cases**
+   - Check for null or undefined values
+   - Provide default values when needed
+   - Sanitize user input
+
+4. **Keep it Clean**
+   - Break long strings into smaller parts
+   - Use meaningful variable names
+   - Comment complex string formatting logic
+
+## Practice Examples
+
+Try these exercises to improve your string formatting skills:
+
+1. Create a template for an email notification system
+2. Build a dynamic URL builder with multiple parameters
+3. Format a complex data object into a readable string
+
+Test your knowledge with these practice questions:
+
+<br />
+
+<MdxQuestionDisplay tag="literals" difficulty="BEGINNER" take={3} />
+
+<br />
+
+Ready to master JavaScript string formatting? Join TechBlitz for daily coding challenges, personalized learning paths, and a supportive community of developers. Start your journey today at <a href="https://techblitz.dev/signup" rel="noopener noreferrer" className="text-accent">TechBlitz</a>.

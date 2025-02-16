@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import HeroText from './text-rotate';
 import { Button } from '@/components/ui/button';
 import GoogleSignUp from './google-sign-up';
+import { useUserServer } from '@/hooks/use-user-server';
 
 export default function HomepageHero() {
   const animatedSpanContent = (
@@ -13,6 +14,8 @@ export default function HomepageHero() {
       <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-all duration-300" />
     </div>
   );
+
+  const user = useUserServer();
 
   return (
     <section className="pb-16 pt-28 md:pb-20 md:pt-32 xl:pb-40 xl:pt-56 grid grid-cols-12 gap-4 lg:gap-16 items-center">
@@ -27,11 +30,11 @@ export default function HomepageHero() {
           <HeroText />
         </h1>
         <p className="font-onest max-w-4xl text-gray-400 text-lg">
-          Learn to code faster with industry-standard coding challenges. <br /> Your dream career in
-          tech is just a click away.
+          Unlock your potential with hands-on, industry-standard coding challenges. <br /> Take the
+          first step today and transform your passion into a thriving tech career.
         </p>
         <div className="mt-3 flex flex-wrap items-center justify-center gap-4">
-          <GoogleSignUp />
+          <GoogleSignUp userPromise={user} />
           <Button
             variant="default"
             size="lg"

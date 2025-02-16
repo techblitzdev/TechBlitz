@@ -34,20 +34,6 @@ const description = 'Learning to code made simple';
 export const metadata: Metadata = {
   title,
   description,
-  keywords: [
-    'learn to code for free',
-    'beginner-friendly coding challenges',
-    'interactive coding challenges',
-    'daily programming practice',
-    'personalized coding roadmap',
-    'improve coding skills',
-    'best platform to learn coding',
-    'AI-assisted coding',
-    'learn javascript',
-    'free leetcode alternative',
-    'mobile-friendly coding platform',
-    'coding challenges for beginners',
-  ],
   openGraph: {
     title,
     description,
@@ -152,7 +138,7 @@ export default async function Page() {
         <PersonalizedBlock />
         <QuestionMarquee
           header="The best beginner-friendly coding platform"
-          subheader="From your first challenge to your first job. TechBlitz assists you every step of the way."
+          subheader="From navigating your very first challenge to landing your initial job in the tech industry, TechBlitz is here to support you at every stage of your journey, ensuring you have the guidance you need to succeed."
         />
         <ComparisonBlock />
         <MarketingContentGrid
@@ -163,7 +149,7 @@ export default async function Page() {
         <OpenSourceBlock />
         <CallToActionBlock
           title="Your dream career in tech is just a click away"
-          description="Personalized coding challenges, because everyone learns differently."
+          description="Discover why TechBlitz is the best place to learn programming for free."
         />
       </div>
     </>

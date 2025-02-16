@@ -2,7 +2,7 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
-import { Home, Settings, LockIcon, User, CreditCard, ChevronDown } from 'lucide-react';
+import { Home, Settings, LockIcon, User, CreditCard, ChevronDown, ChevronLeft } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -191,9 +191,9 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
 
   const settingsItems: SidebarItemType[] = [
     {
-      title: 'Home',
+      title: 'Back',
       url: '/dashboard',
-      icon: Home,
+      icon: ChevronLeft,
     },
     {
       groupLabel: 'Settings',
@@ -257,7 +257,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       return pathname.startsWith('/statistics/reports');
     }
     if (url.startsWith('/settings')) {
-      return pathname.startsWith('/settings');
+      return pathname === url;
     }
     return pathname.startsWith(url);
   };

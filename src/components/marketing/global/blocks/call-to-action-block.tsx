@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/ui/grid';
 import { ChevronRight } from 'lucide-react';
 import GoogleSignUp from '../../homepage/hero/google-sign-up';
+import { useUserServer } from '@/hooks/use-user-server';
 
 export default function CallToActionBlock(opts: {
   title: string;
@@ -16,6 +17,8 @@ export default function CallToActionBlock(opts: {
   };
 }) {
   const { title, description, leftCta, rightCta } = opts;
+
+  const user = useUserServer();
 
   return (
     <section className="pt-10 pb-20 px-2 lg:px-0 space-y-7 text-center relative">
@@ -59,8 +62,8 @@ export default function CallToActionBlock(opts: {
           </>
         ) : (
           <>
-            <GoogleSignUp />
-            <Button variant="accent" size="lg" href="/signup" className="flex-1 px-5">
+            <GoogleSignUp userPromise={user} />
+            <Button variant="default" size="lg" href="/signup" className="flex-1 px-5">
               Start for free
             </Button>
           </>

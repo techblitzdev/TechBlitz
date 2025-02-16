@@ -2,7 +2,7 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
-import { Home, Settings, LockIcon, User, CreditCard, ChevronDown, ChevronLeft } from 'lucide-react';
+import { Settings, LockIcon, User, CreditCard, ChevronDown, ChevronLeft } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,

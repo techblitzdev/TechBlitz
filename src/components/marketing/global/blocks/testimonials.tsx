@@ -22,6 +22,17 @@ const testimonials = [
     longQuote: 'I use TechBlitz and recommend it to anyone who wants to learn to code!',
     image: '',
   },
+  /**
+  {
+    {
+      image: 'https://avatars.githubusercontent.com/u/40324275?v=4',
+      name: '',
+      title: 'Software Developer',
+      shortQuote: 'The UI is beautiful.',
+      longQuote: 'The UI is beautiful.',
+    },
+  },
+  */
 ];
 
 export default function Testimonials(opts: { header?: string; subheader?: string }) {

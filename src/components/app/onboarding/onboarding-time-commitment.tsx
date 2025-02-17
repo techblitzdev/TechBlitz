@@ -1,4 +1,4 @@
-import { CardHeader, CardContent, CardTitle } from '@/components/ui/card';
+import { CardHeader } from '@/components/ui/card';
 import { useOnboardingContext } from '@/contexts/onboarding-context';
 import { motion } from 'framer-motion';
 import { UserTimeSpendingPerDay } from '@prisma/client';

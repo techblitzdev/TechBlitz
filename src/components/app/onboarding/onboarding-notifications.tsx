@@ -1,4 +1,4 @@
-import { useState, useTransition, useEffect } from 'react';
+import { useState, useTransition } from 'react';
 import { motion } from 'framer-motion';
 import { updateUser } from '@/actions/user/authed/update-user';
 import { CardHeader } from '@/components/ui/card';

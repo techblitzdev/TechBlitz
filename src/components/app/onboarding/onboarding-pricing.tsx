@@ -35,7 +35,7 @@ export default function OnboardingPricing() {
         </div>
         <FrequencyTabs initialFrequency={billingPeriod} onFrequencyChange={setBillingPeriod} />
       </CardHeader>
-      <CardContent className="w-full lg:w-2/3 mx-auto flex flex-col lg:flex-row gap-10 justify-center mt-4 mb-5 px-2 md:px-10">
+      <CardContent className="w-full lg:w-3/4 mx-auto flex flex-col lg:flex-row gap-10 justify-center mt-4 mb-5 px-2 md:px-10">
         <div className="flex flex-col lg:flex-row gap-10 justify-center items-stretch w-full">
           {products.map(
             (product) =>

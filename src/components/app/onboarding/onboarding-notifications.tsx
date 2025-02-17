@@ -44,13 +44,11 @@ export default function OnboardingNotifications() {
       <div className="flex flex-col gap-y-2 mb-3">
         <div className="flex items-center justify-between">
           <motion.h1
-            className="text-2xl flex flex-col font-medium bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent"
+            className="text-2xl flex items-center gap-x-2 font-medium text-gradient from-white/55 to-white"
             variants={itemVariants}
           >
             Receive daily reminders
-            {isPending && (
-              <LoadingSpinner className="absolute -right-6 top-1/2 -translate-y-1/2 size-4" />
-            )}
+            {isPending && <LoadingSpinner className="size-4" />}
           </motion.h1>
           <Switch checked={user.sendPushNotifications} onCheckedChange={handleUpdateUser} />
         </div>
@@ -58,6 +56,12 @@ export default function OnboardingNotifications() {
           Learning to code is hard, but we're here to help. We'll send you a push notification every
           day to keep you motivated.
         </motion.p>
+        {!user.sendPushNotifications && (
+          <motion.p className="text-sm text-red-500" variants={itemVariants}>
+            We recommend you enable push notifications to get the most out of your learning. You can
+            always change this in your settings later.
+          </motion.p>
+        )}
       </div>
     </CardHeader>
   );

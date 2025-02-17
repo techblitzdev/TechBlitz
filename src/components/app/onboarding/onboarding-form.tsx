@@ -39,10 +39,10 @@ const stepComponents = {
   [STEPS.USER_DETAILS]: OnboardingUserDetails,
   [STEPS.TIME_COMMITMENT]: OnboardingTimeCommitment,
   [STEPS.NOTIFICATIONS]: OnboardingNotifications,
+  [STEPS.FIRST_QUESTION_SELECTION]: OnboardingFirstQuestionSelection,
   [STEPS.TAGS]: OnboardingTags,
   [STEPS.QUESTIONS]: OnboardingQuestions,
   [STEPS.PRICING]: OnboardingPricing,
-  [STEPS.FIRST_QUESTION_SELECTION]: OnboardingFirstQuestionSelection,
 };
 
 export default function OnboardingForm() {

@@ -33,6 +33,11 @@ type OnboardingContextType = {
   timeSpendingPerDay: UserTimeSpendingPerDay;
   setTimeSpendingPerDay: React.Dispatch<React.SetStateAction<UserTimeSpendingPerDay>>;
   handleSetUserTimeSpendingPerDay: (timeSpendingPerDay: UserTimeSpendingPerDay) => void;
+  firstQuestionSelection: 'startFromScratch' | 'personalizeLearning';
+  setFirstQuestionSelection: React.Dispatch<
+    React.SetStateAction<'startFromScratch' | 'personalizeLearning'>
+  >;
+  FIRST_QUESTION_TUTORIAL_SLUG: string;
 };
 
 // create the context
@@ -74,6 +79,12 @@ export const UserOnboardingContextProvider = ({
     user.timeSpendingPerDay || UserTimeSpendingPerDay.LESS_THAN_5_MINUTES
   );
 
+  const [firstQuestionSelection, setFirstQuestionSelection] = useState<
+    'startFromScratch' | 'personalizeLearning'
+  >('startFromScratch');
+
+  const FIRST_QUESTION_TUTORIAL_SLUG = 'writing-your-first-function';
+
   const handleSetUserTimeSpendingPerDay = (timeSpendingPerDay: UserTimeSpendingPerDay) => {
     setTimeSpendingPerDay(timeSpendingPerDay);
     setUser({ ...user, timeSpendingPerDay });
@@ -102,6 +113,9 @@ export const UserOnboardingContextProvider = ({
         timeSpendingPerDay,
         setTimeSpendingPerDay,
         handleSetUserTimeSpendingPerDay,
+        firstQuestionSelection,
+        setFirstQuestionSelection,
+        FIRST_QUESTION_TUTORIAL_SLUG,
       }}
     >
       {children}

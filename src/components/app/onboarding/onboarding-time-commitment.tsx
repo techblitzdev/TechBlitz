@@ -57,7 +57,7 @@ export default function OnboardingTimeCommitment() {
             {user.username}, what's your daily coding goal?
           </motion.h1>
           <motion.p className="text-sm text-gray-500" variants={itemVariants}>
-            This will help us tailor the content to your needs: {user.timeSpendingPerDay}
+            This will help us tailor the content to your needs
           </motion.p>
         </div>
         <div className="flex flex-col gap-y-4">

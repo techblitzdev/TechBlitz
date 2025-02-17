@@ -35,7 +35,8 @@ export default function OnboardingFooter({
           currentStep === STEPS.QUESTIONS ||
           currentStep === STEPS.TIME_COMMITMENT ||
           currentStep === STEPS.TAGS ||
-          currentStep === STEPS.NOTIFICATIONS) && (
+          currentStep === STEPS.NOTIFICATIONS ||
+          currentStep === STEPS.FIRST_QUESTION_SELECTION) && (
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}

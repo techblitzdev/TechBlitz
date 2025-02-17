@@ -21,8 +21,14 @@ type StepValue = (typeof STEPS)[StepKey];
 export function useOnboardingSteps() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { user, handleGetOnboardingQuestions, canContinue, timeSpendingPerDay } =
-    useOnboardingContext();
+  const {
+    user,
+    handleGetOnboardingQuestions,
+    canContinue,
+    timeSpendingPerDay,
+    firstQuestionSelection,
+    FIRST_QUESTION_TUTORIAL_SLUG,
+  } = useOnboardingContext();
   const [isLoading, setIsLoading] = useState(false);
   const [currentStep, setCurrentStepState] = useState<StepKey>(() => {
     // Initialize from URL hash if available, otherwise default to USER_DETAILS
@@ -50,7 +56,7 @@ export function useOnboardingSteps() {
       component: 'OnboardingTimeCommitment',
     },
     [STEPS.NOTIFICATIONS]: {
-      next: STEPS.TAGS,
+      next: STEPS.FIRST_QUESTION_SELECTION,
       component: 'OnboardingNotifications',
     },
     [STEPS.FIRST_QUESTION_SELECTION]: {
@@ -92,6 +98,29 @@ export function useOnboardingSteps() {
 
     setIsLoading(true);
     try {
+      // if the user wants to start from scratch, the next page needs to be the pricing page, not the tags page
+      if (
+        currentStep === STEPS.FIRST_QUESTION_SELECTION &&
+        firstQuestionSelection === 'startFromScratch'
+      ) {
+        setCurrentStepState(STEPS.PRICING);
+        return;
+      }
+
+      // if we are on the last step and the user chose to start from scratch,
+      // redirect them to the first question
+      if (currentStep === STEPS.PRICING && firstQuestionSelection === 'startFromScratch') {
+        router.push(`/question/${FIRST_QUESTION_TUTORIAL_SLUG}?tutorial=true`);
+        return;
+      } else if (
+        currentStep === STEPS.PRICING &&
+        firstQuestionSelection === 'personalizeLearning'
+      ) {
+        await handleGetOnboardingQuestions();
+        setCurrentStepState(STEPS.QUESTIONS);
+        return;
+      }
+
       if (currentStep === STEPS.TIME_COMMITMENT) {
         await updateUser({ userDetails: { ...user, timeSpendingPerDay } });
         setCurrentStepState(stepConfig[STEPS.TIME_COMMITMENT].next as StepKey);
@@ -103,10 +132,7 @@ export function useOnboardingSteps() {
           localStorage.removeItem('onboarding');
           router.push('/dashboard?onboarding=true');
         } else if (nextStep === STEPS.PRICING) {
-          setCurrentStepState(nextStep as StepKey);
-        } else if (nextStep === STEPS.TAGS) {
-          await handleGetOnboardingQuestions();
-          setCurrentStepState(nextStep as StepKey);
+          setCurrentStepState(STEPS.PRICING);
         } else {
           setCurrentStepState(nextStep as StepKey);
         }
@@ -119,6 +145,13 @@ export function useOnboardingSteps() {
   };
 
   const handleBack = () => {
+    // if the user is on the pricing page, they need to go back to the tags page only if they did not
+    // start from scratch
+    if (currentStep === STEPS.PRICING && firstQuestionSelection !== 'startFromScratch') {
+      setCurrentStepState(STEPS.TAGS);
+      return;
+    }
+
     const previousStep = Object.entries(stepConfig).find(
       ([, config]) => config.next === currentStep
     )?.[0];

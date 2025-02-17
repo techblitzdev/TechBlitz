@@ -111,12 +111,16 @@ export function useOnboardingSteps() {
       // redirect them to the first question
       if (currentStep === STEPS.PRICING && firstQuestionSelection === 'startFromScratch') {
         router.push(`/question/${FIRST_QUESTION_TUTORIAL_SLUG}?tutorial=true`);
+        // remove the onboarding data from local storage
+        localStorage.removeItem('onboarding');
         return;
       } else if (
         currentStep === STEPS.PRICING &&
         firstQuestionSelection === 'personalizeLearning'
       ) {
         await handleGetOnboardingQuestions();
+        // remove the onboarding data from local storage
+        localStorage.removeItem('onboarding');
         setCurrentStepState(STEPS.QUESTIONS);
         return;
       }

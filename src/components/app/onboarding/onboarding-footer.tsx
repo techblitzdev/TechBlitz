@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import LoadingSpinner from '@/components/ui/loading';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { CardFooter } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { STEPS } from '@/hooks/use-onboarding-steps';

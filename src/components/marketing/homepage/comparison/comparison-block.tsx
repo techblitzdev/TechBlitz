@@ -11,7 +11,7 @@ export default async function ComparisonBlock(opts: { header?: string; subheader
             header
           ) : (
             <>
-              Learn with interactive <br /> coding challenges
+              Learn to code with <br /> interactive coding challenges
             </>
           )}
         </h1>

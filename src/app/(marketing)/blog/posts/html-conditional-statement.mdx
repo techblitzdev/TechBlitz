@@ -1,0 +1,376 @@
+---
+title: 'HTML Conditional Statements: A Complete Guide'
+description: "Learn how to add conditional statements to HTML using data attributes, JavaScript, and modern web techniques. Perfect for creating dynamic, interactive web pages."
+image: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images/html-conditional-statement.png'
+date: '2025-02-16'
+author: 'Logan Ford'
+authorImage: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/user-profile-pictures/3a57d7e8-8b80-483b-93d0-70fe1f06b0c0/logo.png?u=1l5im5h5n6e5'
+readingTime: 8
+status: published
+headings:
+    - title: 'Introduction'
+      level: 1
+    - title: 'Understanding HTML Conditional Statements'
+      level: 2
+    - title: 'Using Data Attributes'
+      level: 2
+    - title: 'CSS Integration'
+      level: 2
+    - title: 'Implementation Best Practices'
+      level: 2
+    - title: 'JavaScript Integration'
+      level: 2
+    - title: 'Common Use Cases'
+      level: 2
+    - title: 'Best Practices'
+      level: 2
+    - title: 'Dynamic Templates'
+      level: 2
+    - title: 'Practice Examples'
+      level: 2
+tags: ['HTML', 'Web Development', 'JavaScript', 'Conditional Logic', 'Frontend']
+subpage: true
+---
+
+import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
+
+# Introduction
+
+HTML conditional statements allow you to create dynamic, interactive web pages that respond to user actions and different conditions. While HTML itself doesn't have built-in conditional logic, we can implement it through various techniques. This guide will show you how to add conditional statements to your HTML effectively.
+
+## Understanding HTML Conditional Statements
+
+Conditional statements in HTML are implemented through a combination of:
+- HTML data attributes
+- JavaScript integration
+- CSS classes and selectors
+- Modern web APIs
+
+Let's explore each approach and when to use them.
+
+## Using Data Attributes
+
+Data attributes provide a powerful way to add conditional logic directly in HTML elements. Let's explore how they work and their various use cases in detail.
+
+### Basic Data Attributes
+
+Data attributes allow you to store custom data directly in HTML elements. They always start with `data-` followed by your custom name:
+
+<br />
+
+<CodeSnippet language="html" content={`<!-- Basic visibility control -->
+<div data-visible="true">
+  This content is visible
+</div>
+
+<!-- Role-based content display -->
+<div data-role="admin">
+  Admin-only content
+</div>
+
+<!-- State management for UI elements -->
+<button data-state="loading">
+  Processing...
+</button>
+
+<!-- Multiple conditions on a single element -->
+<div data-visible="true" data-feature="premium" data-theme="dark">
+  Premium dark theme content
+</div>`} />
+
+<br />
+
+### JavaScript Control
+
+Here's how to manipulate elements based on their data attributes using JavaScript:
+
+<CodeSnippet language="javascript" content={`// Basic visibility toggle
+// This code finds an element with data-visible="true" and shows/hides it based on login status
+const element = document.querySelector('[data-visible="true"]');
+if (userIsLoggedIn) {
+    element.style.display = 'block';  // Show the element
+} else {
+    element.style.display = 'none';   // Hide the element
+}
+
+// Role-based access control
+// This code manages multiple admin elements based on user permissions
+const adminElements = document.querySelectorAll('[data-role="admin"]');
+adminElements.forEach(element => {
+    if (userHasAdminRole) {
+        element.classList.remove('hidden');  // Show admin content
+    } else {
+        element.classList.add('hidden');     // Hide admin content
+    }
+});
+
+// State management for UI elements
+// This demonstrates how to handle different states of a button
+const button = document.querySelector('button[data-state]');
+function updateButtonState(state) {
+    button.dataset.state = state;  // Update the data-state attribute
+    
+    // Handle different states with appropriate UI changes
+    switch(state) {
+        case 'loading':
+            button.textContent = 'Processing...';
+            button.disabled = true;
+            break;
+        case 'error':
+            button.textContent = 'Try Again';
+            button.disabled = false;
+            break;
+        case 'success':
+            button.textContent = 'Completed!';
+            button.disabled = true;
+            break;
+        default:
+            button.textContent = 'Submit';
+            button.disabled = false;
+    }
+}`} />
+
+<br />
+
+## CSS Integration
+
+Data attributes can be targeted directly in CSS for conditional styling:
+
+<CodeSnippet language="css" content={`/* Hide elements marked as not visible */
+[data-visible="false"] {
+    display: none;
+}
+
+/* Style elements based on their state */
+[data-state="loading"] {
+    opacity: 0.7;          /* Dim the element */
+    cursor: wait;          /* Show loading cursor */
+}
+
+[data-state="error"] {
+    border-color: red;     /* Red border for error state */
+    color: red;            /* Red text for error state */
+}
+
+/* Apply theme-based styling */
+[data-theme="dark"] {
+    background-color: #333;
+    color: white;
+}
+
+/* Complex selectors combining multiple conditions */
+[data-visible="true"][data-feature="premium"] {
+    border: 2px solid gold;    /* Special border for premium content */
+}`} />
+
+## Implementation Best Practices
+
+When using data attributes for conditional logic, follow these guidelines:
+
+1. **Naming Conventions**
+   - Use clear, descriptive names (e.g., `data-state` instead of `data-s`)
+   - Use kebab-case for multi-word attributes (e.g., `data-user-role`)
+   - Keep names consistent across your application
+
+2. **Value Formats**
+   - Use boolean strings when possible (`"true"/"false"`)
+   - Keep values simple and lowercase
+   - Use consistent value formats across similar attributes
+
+3. **Performance Considerations**
+   - Cache DOM selections for frequently accessed elements
+   - Use event delegation for dynamic elements
+   - Minimize DOM updates when changing states
+
+4. **Maintainability**
+   - Document your data attributes in your project's documentation
+   - Create a central registry of data attributes used in your application
+   - Consider using TypeScript for better type checking of data attributes
+
+5. **Security**
+   - Never store sensitive data in data attributes
+   - Validate data attribute values before using them
+   - Sanitize any user-provided values
+
+Remember that data attributes are always stored as strings in the DOM. When comparing values in JavaScript, you'll need to handle type conversion appropriately:
+
+<CodeSnippet language="javascript" content={`const element = document.querySelector('[data-count="5"]');
+const count = element.dataset.count;  // Returns "5" as a string
+
+// Correct way to compare numbers
+if (parseInt(count) === 5) {
+    console.log('Count is 5');
+}
+
+// Correct way to compare booleans
+const isVisible = element.dataset.visible === 'true';  // Converts to boolean`} />
+
+## JavaScript Integration
+
+JavaScript provides powerful ways to implement conditional logic:
+
+<CodeSnippet language="html" content={`<div id="userContent">
+    <!-- Content will be conditionally rendered here -->
+</div>
+
+<script>
+    const userContent = document.getElementById('userContent');
+    
+    if (userIsAuthenticated) {
+        userContent.innerHTML = \`
+            <h2>Welcome back, \${username}!</h2>
+            <button onclick="logout()">Logout</button>
+        \`;
+    } else {
+        userContent.innerHTML = \`
+            <h2>Please log in</h2>
+            <button onclick="login()">Login</button>
+        \`;
+    }
+</script>`} />
+
+## Common Use Cases
+
+Here are practical examples of HTML conditional statements:
+
+### 1. Toggle Navigation Menu
+
+<CodeSnippet language="html" content={`<nav data-expanded="false">
+    <button onclick="toggleMenu()">Menu</button>
+    <ul class="menu-items">
+        <li>Home</li>
+        <li>About</li>
+        <li>Contact</li>
+    </ul>
+</nav>
+
+<script>
+    function toggleMenu() {
+        const nav = document.querySelector('nav');
+        const isExpanded = nav.dataset.expanded === 'true';
+        nav.dataset.expanded = !isExpanded;
+    }
+</script>`} />
+
+### 2. Form Validation
+
+<CodeSnippet language="html" content={`<form id="signupForm">
+    <input 
+        type="email" 
+        data-valid="false"
+        onchange="validateEmail(this)"
+    >
+    <span data-error="email" hidden>
+        Please enter a valid email
+    </span>
+</form>
+
+<script>
+    function validateEmail(input) {
+        const isValid = input.value.includes('@');
+        input.dataset.valid = isValid;
+        const error = document.querySelector('[data-error="email"]');
+        error.hidden = isValid;
+    }
+</script>`} />
+
+## Best Practices
+
+Follow these guidelines for clean, maintainable code:
+
+1. **Use Semantic Data Attributes**
+
+<CodeSnippet language="html" content={`<!-- Good -->
+<div data-theme="dark">
+<!-- Avoid -->
+<div data-x="1">`} />
+
+2. **Keep Logic Separate**
+
+<CodeSnippet language="html" content={`<!-- HTML -->
+<button data-action="save">Save</button>
+
+<!-- JavaScript -->
+<script>
+    document.querySelector('[data-action="save"]')
+        .addEventListener('click', handleSave);
+</script>`} />
+
+3. **Progressive Enhancement**
+
+<CodeSnippet language="html" content={`<div class="card">
+    <h2>Content</h2>
+    <noscript>
+        JavaScript is required for full functionality
+    </noscript>
+</div>`} />
+
+## Dynamic Templates
+
+The following example demonstrates how to create dynamic HTML templates with conditional rendering:
+<br />
+<CodeSnippet language="html" content={`<template id="userTemplate">
+    <div class="user-card">
+        <img src="{{avatar}}" alt="{{name}}">
+        <h3>{{name}}</h3>
+        {{#if isAdmin}}
+            <span class="badge">Admin</span>
+        {{/if}}
+    </div>
+</template>
+
+<script>
+    // Get reference to the template element
+    const template = document.getElementById('userTemplate');
+    
+    // Sample user data object with properties that will be inserted
+    const user = {
+        name: 'John Doe',        // Will replace {{name}}
+        avatar: '/avatar.jpg',   // Will replace {{avatar}}
+        isAdmin: true           // Controls if admin badge shows
+    };
+    
+    // The renderTemplate function would:
+    // 1. Take the template HTML and user data
+    // 2. Replace {{variables}} with actual values
+    // 3. Process {{#if}} conditions based on data
+    // 4. Return the final HTML with real values
+    renderTemplate(template, user);
+</script>`} />
+
+<br />
+
+Let's break down what's happening:
+
+1. The `<template>` tag holds our HTML structure with placeholders like `{{name}}` and conditional blocks using `{{#if}}` syntax
+
+2. Inside the template:
+   - `{{name}}` and `{{avatar}}` are placeholders that will be replaced with real data
+   - The `{{#if isAdmin}}` block only renders when user.isAdmin is true
+   
+3. The JavaScript:
+   - Stores the template reference and user data
+   - The renderTemplate function (not shown) would process the template string
+   - Replaces variables and evaluates conditions based on the user object
+   - Outputs final HTML with all placeholders replaced
+
+This pattern allows you to maintain reusable HTML templates that can render differently based on data conditions.
+
+## Practice Examples
+
+Try these exercises to improve your skills:
+
+1. Create a theme switcher using data attributes
+2. Build a conditional navigation menu
+3. Implement form validation with visual feedback
+
+Here are some practice questions to test your understanding:
+
+<br />
+
+<MdxQuestionDisplay tag="html" difficulty="BEGINNER" take={3} />
+
+<br />
+
+Ready to master HTML and web development? Join TechBlitz for daily coding challenges, personalized learning paths, and a supportive community of developers. Start your journey today at <a href="https://techblitz.dev/signup" rel="noopener noreferrer" className="text-accent">TechBlitz</a>.

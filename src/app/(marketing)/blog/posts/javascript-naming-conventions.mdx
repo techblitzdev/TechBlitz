@@ -1,0 +1,202 @@
+---
+title: 'JavaScript Naming Conventions'
+description: "Naming variables, functions, classes, and constants in JavaScript can be a bit tricky. In this guide, we'll explore the best practices for naming variables, functions, classes, and constants in JavaScript."
+image: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images/javascript-naming-conventions.png'
+date: '2025-02-16'
+author: 'Logan Ford'
+authorImage: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/user-profile-pictures/3a57d7e8-8b80-483b-93d0-70fe1f06b0c0/logo.png?u=1l5im5h5n6e5'
+readingTime: 5
+status: published
+headings:
+    - title: 'Introduction to JavaScript Naming Conventions'
+      level: 1
+    - title: 'Why Naming Conventions Matter'
+      level: 2
+    - title: 'Variable Naming Best Practices'
+      level: 2
+    - title: 'Function Naming Conventions'
+      level: 2
+    - title: 'Class and Constructor Naming'
+      level: 2
+    - title: 'Common Naming Patterns'
+      level: 2
+    - title: 'Practice Examples'
+      level: 2
+tags: ['JavaScript', 'Clean Code', 'Best Practices', 'Web Development', 'Beginner']
+subpage: true
+---
+
+import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
+
+# Introduction to JavaScript Naming Conventions
+
+Have you ever looked at someone else's code and felt completely lost? Or maybe you've returned to your own code after a few months and struggled to understand what's going on? The culprit might be poor naming conventions. In this guide, we'll explore how to write clearer, more maintainable JavaScript code through proper naming practices.
+
+## Why Naming Conventions Matter
+
+Naming conventions are like the grammar rules of programming. They help us:
+- Make code more readable and self-documenting
+- Reduce cognitive load when reading code
+- Maintain consistency across projects
+- Collaborate more effectively with other developers
+
+## Variable Naming Best Practices
+
+### 1. Use Descriptive Names
+
+<CodeSnippet language="javascript" content={`// Bad examples
+const x = 'John Smith';
+const arr = ['apple', 'banana', 'orange'];
+const flag = true;
+
+// Good examples
+const fullName = 'John Smith';
+const fruits = ['apple', 'banana', 'orange'];
+const isActive = true;`} />
+
+### 2. Follow camelCase Convention
+
+In JavaScript, we typically use camelCase for variables and functions:
+
+<CodeSnippet language="javascript" content={`// Correct camelCase usage
+const firstName = 'John';
+const userAge = 25;
+const calculateTotalPrice = () => {
+  // function body
+};
+
+// Avoid these patterns
+const first_name = 'John';    // snake_case
+const FirstName = 'John';     // PascalCase (reserved for classes)
+const firstname = 'John';     // lowercase`} />
+
+### 3. Boolean Variables
+
+Boolean variables should ask a question:
+
+<CodeSnippet language="javascript" content={`// Good boolean names
+const isLoggedIn = true;
+const hasPermission = false;
+const canEdit = true;
+
+// Poor boolean names
+const login = true;
+const status = false;
+const edit = true;`} />
+
+## Function Naming Conventions
+
+Functions should be named using verbs that describe their action:
+
+<CodeSnippet language="javascript" content={`// Good function names
+function getUserData() { }
+function validateEmail() { }
+function calculateTotal() { }
+
+// Poor function names
+function data() { }
+function email() { }
+function total() { }`} />
+
+### Event Handler Naming
+
+For event handlers, use the prefix 'handle' or 'on':
+
+<CodeSnippet language="javascript" content={`// React/Event handler naming
+const handleSubmit = (event) => {
+  // handle form submission
+};
+
+const onUserClick = () => {
+  // handle user click
+};`} />
+
+## Class and Constructor Naming
+
+Classes use PascalCase and should be nouns:
+
+<CodeSnippet language="javascript" content={`// Good class names
+class UserProfile {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+}
+
+class ShoppingCart {
+  constructor() {
+    this.items = [];
+  }
+}
+
+// Poor class names
+class processData {  // should be ProcessData
+  // ...
+}
+
+class shopping_cart {  // should be ShoppingCart
+  // ...
+}`} />
+
+## Common Naming Patterns
+
+### 1. Constants
+
+Use UPPERCASE with underscores for constants:
+
+<CodeSnippet language="javascript" content={`const MAX_ITEMS = 100;
+const API_BASE_URL = 'https://api.example.com';
+const DEFAULT_THEME = 'light';`} />
+
+### 2. Private Variables
+
+Use an underscore prefix for private variables:
+
+<CodeSnippet language="javascript" content={`class User {
+  constructor() {
+    this._privateData = 'sensitive';
+    this.publicData = 'visible';
+  }
+}`} />
+
+### 3. Array Names
+
+Use plural nouns for arrays:
+
+<CodeSnippet language="javascript" content={`// Good array names
+const colors = ['red', 'blue', 'green'];
+const userNames = ['John', 'Jane', 'Bob'];
+const activeUsers = users.filter(user => user.isActive);
+
+// Poor array names
+const color = ['red', 'blue', 'green'];
+const userName = ['John', 'Jane', 'Bob'];`} />
+
+## Practice Examples
+
+Let's test your understanding with some practical examples:
+
+<CodeSnippet language="javascript" content={`// Refactor these names to follow conventions
+const n = 'John Smith';
+const a = 25;
+const p = true;
+function calc(x, y) {
+  return x + y;
+}
+
+// Solution
+const fullName = 'John Smith';
+const age = 25;
+const isActive = true;
+function calculateSum(firstNumber, secondNumber) {
+  return firstNumber + secondNumber;
+}`} />
+
+<br />
+
+Remember, good naming conventions are a skill that develops with practice. They might seem tedious at first, but they'll save you and your team countless hours of confusion and debugging in the long run.
+
+<br />
+
+Ready to master JavaScript and write cleaner, more professional code? Join TechBlitz for daily coding challenges, personalized learning paths, and a supportive community of developers. Start your journey today at <a href="https://techblitz.dev/signup" rel="noopener noreferrer" className="text-accent">TechBlitz</a>.

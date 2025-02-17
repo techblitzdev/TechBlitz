@@ -1,0 +1,339 @@
+---
+title: 'How To Write JavaScript'
+description: "A beginner-friendly guide to writing your first JavaScript code. Learn JavaScript syntax, best practices, and write your first program step by step."
+image: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images/how-to-write-javascript.png'
+date: '2025-02-16'
+author: 'Logan Ford'
+authorImage: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/user-profile-pictures/3a57d7e8-8b80-483b-93d0-70fe1f06b0c0/logo.png?u=1l5im5h5n6e5'
+readingTime: 8
+status: published
+headings:
+    - title: 'Introduction'
+      level: 1
+    - title: 'Setting Up Your Development Environment'
+      level: 2
+    - title: 'JavaScript Fundamentals'
+      level: 2
+    - title: 'Variables and Data Types'
+      level: 2
+    - title: 'Functions and Control Flow'
+      level: 2
+    - title: 'Arrays and Objects'
+      level: 2
+    - title: 'DOM Manipulation'
+      level: 2
+    - title: 'JavaScript Best Practices'
+      level: 2
+    - title: 'Common Mistakes to Avoid'
+      level: 2
+    - title: 'Practice and Next Steps'
+      level: 2
+tags: ['JavaScript', 'Web Development', 'Programming', 'Beginners']
+subpage: true
+---
+
+import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
+
+# Introduction
+
+JavaScript is one of the most popular programming languages in the world, powering millions of websites and applications. This guide will teach you how to write JavaScript code from scratch, even if you've never programmed before.
+
+## Setting Up Your Development Environment
+
+To start writing JavaScript, you'll need a few tools set up:
+
+### 1. Text Editor
+The most important tool is a good text editor. We recommend Visual Studio Code (VS Code) because it's:
+- Free and open source
+- Has excellent JavaScript support
+- Includes helpful features like syntax highlighting and code completion
+- Works on Windows, Mac, and Linux
+
+To set up VS Code:
+1. Download it from [code.visualstudio.com](https://code.visualstudio.com)
+2. Install these helpful extensions:
+   - JavaScript (ES6) code snippets
+   - ESLint for code quality
+   - Prettier for code formatting
+
+Other good options include:
+- Sublime Text: Fast and lightweight
+- Atom: Highly customizable
+- WebStorm: Full featured IDE (now free!)
+
+### 2. Web Browser
+You'll need a modern web browser to run your JavaScript code. We recommend:
+- Chrome: Great developer tools
+- Firefox: Excellent debugging features
+- Edge: Good performance on Windows
+
+### 3. Basic HTML Knowledge (Recommended)
+While not strictly required, understanding HTML basics will help as JavaScript often interacts with HTML elements. Here are the key HTML concepts you should know:
+
+- HTML elements and tags
+- The basic structure of an HTML document
+- Common elements like `<div>`, `<p>`, `<button>`
+- How to add IDs and classes to elements
+- How to link JavaScript files using `<script>` tags
+
+Here's a simple HTML page with JavaScript:
+
+<br />
+
+<CodeSnippet language="html" content={`<!DOCTYPE html>
+<html>
+<head>
+    <title>My First JavaScript</title>
+</head>
+<body>
+    <h1 id="greeting">Welcome!</h1>
+    <button onclick="sayHello()">Click me</button>
+
+    <script>
+        // This is your first JavaScript program
+        function sayHello() {
+            document.getElementById('greeting').textContent = 'Hello, World!';
+            alert('Welcome to JavaScript!');
+        }
+    </script>
+</body>
+</html>`} />
+
+<br />
+
+This example shows how JavaScript can:
+- Respond to user actions (button clicks)
+- Modify HTML elements
+- Create interactive experiences
+
+You can also put your JavaScript in a separate file and link it:
+
+<CodeSnippet language="html" content={`<script src="script.js"></script>`} />
+
+## JavaScript Fundamentals
+
+Before diving into complex concepts, let's understand the basic building blocks of JavaScript programming. These fundamentals will form the foundation of your JavaScript knowledge.
+
+## Variables and Data Types
+
+Variables are fundamental building blocks in JavaScript that let you store and manage data in your programs. Understanding variables and data types is crucial for writing effective JavaScript code.
+
+### Variable Declaration
+
+JavaScript provides three ways to declare variables:
+
+<CodeSnippet language="javascript" content={`// 1. let - for variables that can change (recommended)
+let score = 75;
+score = 80; // Can be reassigned
+
+// 2. const - for values that shouldn't change (use whenever possible)
+const PI = 3.14159;
+// PI = 3.14; // Error! Can't reassign const
+
+// 3. var - older way (avoid using)
+var count = 1; // Not recommended in modern JavaScript`} />
+
+### Data Types
+
+JavaScript has several core data types that you'll use frequently:
+
+1. **Primitive Types**
+
+<CodeSnippet language="javascript" content={`// String - for text
+let name = "Sarah";
+let message = 'Hello!';
+let template = \`User: \${name}\`; // Template literals
+
+// Number - for both integers and decimals
+let age = 25;
+let price = 99.99;
+let negative = -42;
+
+// Boolean - true or false
+let isLoggedIn = true;
+let hasPermission = false;
+
+// Undefined - variable declared but no value assigned
+let userEmail;
+console.log(userEmail); // undefined
+
+// Null - intentionally empty value
+let userProfile = null;`} />
+
+2. **Complex Types**
+
+<CodeSnippet language="javascript" content={`// Arrays - ordered lists of items
+let colors = ['red', 'blue', 'green'];
+colors.push('yellow');         // Add to end
+colors.pop();                  // Remove from end
+console.log(colors[0]);       // Access first item
+
+// Objects - collections of key-value pairs
+let user = {
+    name: 'John Doe',
+    age: 30,
+    isAdmin: false,
+    preferences: {
+        theme: 'dark',
+        notifications: true
+    }
+};
+
+// Accessing object properties
+console.log(user.name);        // Dot notation
+console.log(user['age']);      // Bracket notation`} />
+
+### Type Checking and Conversion
+
+<CodeSnippet language="javascript" content={`// Check type with typeof
+console.log(typeof "Hello");    // "string"
+console.log(typeof 42);         // "number"
+console.log(typeof true);       // "boolean"
+console.log(typeof {});         // "object"
+console.log(typeof []);         // "object" (arrays are objects)
+
+// Type conversion
+let numString = "42";
+let num = Number(numString);    // String to number
+let str = String(num);          // Number to string
+let bool = Boolean(1);          // Convert to boolean`} />
+
+## Functions and Control Flow
+
+Functions are blocks of code that perform specific tasks. Here's how to write them:
+
+<CodeSnippet language="javascript" content={`// Basic function
+function greetUser(name) {
+    return 'Hello, ' + name + '!';
+}
+
+// Using the function
+console.log(greetUser('Alice')); // Outputs: Hello, Alice!
+
+// If statements for decision making
+let temperature = 25;
+
+if (temperature > 30) {
+    console.log('It\'s hot!');
+} else if (temperature > 20) {
+    console.log('It\'s warm.');
+} else {
+    console.log('It\'s cool.');
+}`} />
+
+## Arrays and Objects
+
+Arrays and objects help you organize data:
+
+<CodeSnippet language="javascript" content={`// Working with arrays
+let fruits = ['apple', 'banana', 'orange'];
+
+// Adding to an array
+fruits.push('grape');
+
+// Looping through an array
+fruits.forEach(fruit => {
+    console.log('I like ' + fruit);
+});
+
+// Working with objects
+let student = {
+    name: 'Tom',
+    age: 20,
+    grades: [85, 90, 92]
+};
+
+// Accessing object properties
+console.log(student.name);     // Tom
+console.log(student['age']);   // 20`} />
+
+## DOM Manipulation
+
+JavaScript can modify web pages dynamically:
+
+<CodeSnippet language="javascript" content={`// Changing HTML content
+document.getElementById('myElement').innerHTML = 'New text';
+
+// Changing styles
+document.querySelector('.myClass').style.color = 'blue';
+
+// Adding event listeners
+document.getElementById('myButton').addEventListener('click', function() {
+    alert('Button clicked!');
+});`} />
+
+## JavaScript Best Practices
+
+Follow these tips for better JavaScript code:
+
+1. **Use Clear Names**
+
+<CodeSnippet language="javascript" content={`// Bad
+let x = 5;
+
+// Good
+let userAge = 5;`} />
+
+2. **Comment Your Code**
+
+<CodeSnippet language="javascript" content={`// Calculate total price including tax
+function calculateTotal(price, taxRate) {
+    return price + (price * taxRate);
+}`} />
+
+3. **Use Modern JavaScript Features**
+
+<CodeSnippet language="javascript" content={`// Template literals
+let name = 'John';
+console.log(\`Hello, \${name}!\`);
+
+// Arrow functions
+const add = (a, b) => a + b;`} />
+
+## Common Mistakes to Avoid
+
+Avoid these common pitfalls:
+
+1. **Forgetting to Declare Variables**
+
+<CodeSnippet language="javascript" content={`// Wrong
+x = 5;
+
+// Correct
+let x = 5;`} />
+
+2. **Confusion with = and ==**
+
+<CodeSnippet language="javascript" content={`// = is for assignment
+let x = 5;
+
+// == or === is for comparison
+if (x === 5) {
+    console.log('x equals 5');
+}`} />
+
+3. **Not Understanding Scope**
+
+<CodeSnippet language="javascript" content={`function example() {
+    let local = 'I only exist inside the function';
+}
+// console.log(local); // This would cause an error`} />
+
+## Practice and Next Steps
+
+Try these exercises to improve your skills:
+
+1. Create a function that calculates the average of an array of numbers
+2. Build a simple todo list that adds and removes items
+3. Create a counter that increases and decreases when buttons are clicked
+
+Here are some practice questions to test your understanding:
+
+<br />
+
+<MdxQuestionDisplay tag="javascript" difficulty="BEGINNER" take={3} />
+
+<br />
+
+Ready to take your JavaScript skills to the next level? Join TechBlitz for daily coding challenges, personalized learning paths, and a supportive community of developers. Start your coding journey today at <a href="https://techblitz.dev/signup" rel="noopener noreferrer" className="text-accent">TechBlitz</a>.

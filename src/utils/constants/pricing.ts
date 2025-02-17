@@ -291,7 +291,7 @@ export const getPlans = (
       price: 89.99,
       currencySymbol: '$',
       frequency: 'once',
-      chip: 'Ends 14th February',
+      chip: 'Limited time offer!',
       frequencyText: 'pay once, yours forever',
       shortText: 'Access to all features and future updates!',
       features: [

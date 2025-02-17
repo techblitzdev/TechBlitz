@@ -30,8 +30,8 @@ type OnboardingContextType = {
   itemVariants: any;
   canContinue: boolean;
   setCanContinue: React.Dispatch<React.SetStateAction<boolean>>;
-  timeSpendingPerDay: UserTimeSpendingPerDay;
-  setTimeSpendingPerDay: React.Dispatch<React.SetStateAction<UserTimeSpendingPerDay>>;
+  timeSpendingPerDay: UserTimeSpendingPerDay | null;
+  setTimeSpendingPerDay: React.Dispatch<React.SetStateAction<UserTimeSpendingPerDay | null>>;
   handleSetUserTimeSpendingPerDay: (timeSpendingPerDay: UserTimeSpendingPerDay) => void;
   firstQuestionSelection: 'startFromScratch' | 'personalizeLearning';
   setFirstQuestionSelection: React.Dispatch<
@@ -75,8 +75,8 @@ export const UserOnboardingContextProvider = ({
 
   const [onboardingQuestions, setOnboardingQuestions] = useState<any[]>([]);
 
-  const [timeSpendingPerDay, setTimeSpendingPerDay] = useState<UserTimeSpendingPerDay>(
-    user.timeSpendingPerDay || UserTimeSpendingPerDay.LESS_THAN_5_MINUTES
+  const [timeSpendingPerDay, setTimeSpendingPerDay] = useState<UserTimeSpendingPerDay | null>(
+    user?.timeSpendingPerDay || null
   );
 
   const [firstQuestionSelection, setFirstQuestionSelection] = useState<

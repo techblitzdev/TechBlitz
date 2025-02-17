@@ -47,7 +47,7 @@ const whereDidYouHearAboutTechBlitz = [
 
 export default function OnboardingStepOne() {
   const { user, setUser, itemVariants, setCanContinue, serverUser } = useOnboardingContext();
-  const [username, setUsername] = useState(user.username || '');
+  const [username, setUsername] = useState(user?.username || '');
   const [isUsernameValid, setIsUsernameValid] = useState(true);
 
   const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(null);
@@ -55,12 +55,12 @@ export default function OnboardingStepOne() {
   const form = useForm<UpdatableUserFields>({
     resolver: zodResolver(onboardingStepOneSchema),
     defaultValues: {
-      userProfilePicture: user.userProfilePicture || '',
-      username: user.username || '',
-      showTimeTaken: user.showTimeTaken || false,
-      sendPushNotifications: user.sendPushNotifications || false,
-      experienceLevel: user.experienceLevel || 'BEGINNER',
-      howDidYouHearAboutTechBlitz: user.howDidYouHearAboutTechBlitz || '',
+      userProfilePicture: user?.userProfilePicture || '',
+      username: user?.username || '',
+      showTimeTaken: user?.showTimeTaken || false,
+      sendPushNotifications: user?.sendPushNotifications || false,
+      experienceLevel: user?.experienceLevel || 'BEGINNER',
+      howDidYouHearAboutTechBlitz: user?.howDidYouHearAboutTechBlitz || '',
     },
   });
 

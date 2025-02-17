@@ -1,17 +1,25 @@
 'use client';
 
 import { motion } from 'framer-motion';
+
+// components
 import { Card } from '@/components/ui/card';
 import OnboardingUserDetails from './onboarding-user-details';
+import OnboardingTimeCommitment from './onboarding-time-commitment';
 import OnboardingTags from './onboarding-tags';
 import OnboardingQuestions from './onboarding-questions';
 import OnboardingPricing from './onboarding-pricing';
-import { useOnboardingContext } from '@/contexts/onboarding-context';
-import { cn } from '@/lib/utils';
-import { useOnboardingSteps, STEPS } from '@/hooks/use-onboarding-steps';
 import OnboardingFooter from './onboarding-footer';
-import OnboardingTimeCommitment from './onboarding-time-commitment';
 import OnboardingNotifications from './onboarding-notifications';
+
+// contexts
+import { useOnboardingContext } from '@/contexts/onboarding-context';
+
+// utils
+import { cn } from '@/lib/utils';
+
+// hooks
+import { useOnboardingSteps, STEPS } from '@/hooks/use-onboarding-steps';
 
 const containerVariants = {
   hidden: { opacity: 0, scale: 0.95 },

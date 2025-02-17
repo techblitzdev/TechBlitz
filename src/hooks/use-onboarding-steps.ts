@@ -89,7 +89,7 @@ export function useOnboardingSteps() {
     try {
       if (currentStep === STEPS.TIME_COMMITMENT) {
         await updateUser({ userDetails: { ...user, timeSpendingPerDay } });
-        setCurrentStepState(STEPS.TAGS);
+        setCurrentStepState(stepConfig[STEPS.TIME_COMMITMENT].next as StepKey);
       } else {
         await updateUser({ userDetails: user });
         const nextStep = stepConfig[currentStep].next;

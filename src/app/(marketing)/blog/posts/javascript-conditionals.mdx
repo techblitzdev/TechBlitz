@@ -1,0 +1,329 @@
+---
+title: 'What are JavaScript Conditionals?'
+description: "Learn how to use if, else, switch statements and more with practical examples. JavaScript conditionals are the building blocks of decision-making in programming."
+image: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images/javascript-conditionals.png'
+date: '2025-02-16'
+author: 'Logan Ford'
+authorImage: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/user-profile-pictures/3a57d7e8-8b80-483b-93d0-70fe1f06b0c0/logo.png?u=1l5im5h5n6e5'
+readingTime: 4
+status: published
+headings:
+    - title: 'Introduction to JavaScript Conditionals'
+      level: 1
+    - title: 'The if Statement'
+      level: 2
+    - title: 'Using else and else if'
+      level: 2
+    - title: 'Switch Statements'
+      level: 2
+    - title: 'Comparison Operators'
+      level: 2
+    - title: 'Logical Operators'
+      level: 2
+    - title: 'Common Use Cases'
+      level: 2
+    - title: 'Best Practices'
+      level: 2
+    - title: 'Practice Examples'
+      level: 2
+tags: ['JavaScript', 'Programming Basics', 'Conditional Logic', 'Web Development', 'Beginner']
+subpage: true
+---
+
+import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
+
+# Introduction to JavaScript Conditionals
+
+Conditional statements are the building blocks of decision-making in programming. They allow your code to make choices and execute different actions based on different conditions. Think of them as the "if-then" logic you use in everyday life: "If it's raining, then I'll take an umbrella."
+
+## The if Statement
+
+The `if` statement is the fundamental building block of conditional logic in JavaScript. It allows your code to make decisions by executing code blocks only when certain conditions are met. Understanding `if` statements is crucial for writing dynamic and responsive code.
+
+### Basic Syntax and Usage
+
+The basic syntax follows this pattern:
+
+<br />
+
+<CodeSnippet language="javascript" content={`if (condition) {
+    // code to execute if condition is true
+}`} />
+
+<br />
+
+Let's break down a practical example:
+
+<br />
+<CodeSnippet language="javascript" content={`// Example 1: Basic if statement
+const temperature = 25;
+
+if (temperature > 30) {
+    console.log("It's a hot day!");
+}
+
+// Example 2: Using multiple conditions
+const isWeekend = true;
+const isRaining = false;
+
+if (isWeekend && !isRaining) {
+    console.log("Perfect day for outdoor activities!");
+}
+
+// Example 3: Checking string values
+const userRole = "admin";
+
+if (userRole === "admin") {
+    console.log("Welcome to the admin panel");
+}`} />
+
+<br />
+
+### Common Gotchas and Best Practices
+
+1. **Truthy vs Falsy Values:**
+
+<br />
+<CodeSnippet language="javascript" content={`// Be careful with truthy/falsy values
+if (0) {
+    console.log("This won't run"); // 0 is falsy
+}
+
+if ("") {
+    console.log("This won't run"); // empty string is falsy
+}
+
+if ([]) {
+    console.log("This will run!"); // empty array is truthy
+}
+
+// Better to be explicit
+if (array.length > 0) {
+    console.log("Array has items");
+}`} />
+
+<br />
+
+2. **Single Line if Statements:**
+
+<CodeSnippet language="javascript" content={`// While this works:
+if (temperature > 30) console.log("Hot!");
+
+// This is better for readability:
+if (temperature > 30) {
+    console.log("Hot!");
+}`} />
+
+<br />
+
+## Using else and else if
+
+The `else` and `else if` statements extend the power of conditionals by allowing you to handle multiple scenarios. They create a decision tree where only one branch will execute.
+
+### Basic Structure
+
+<CodeSnippet language="javascript" content={`// Complex decision tree example
+const score = 85;
+const isPremiumUser = true;
+
+if (score >= 90) {
+    console.log("A Grade");
+} else if (score >= 80) {
+    console.log("B Grade");
+    
+    // Nested if statements for more complex logic
+    if (isPremiumUser) {
+        console.log("Eligible for advanced courses");
+    }
+} else if (score >= 70) {
+    console.log("C Grade");
+} else {
+    console.log("Need improvement");
+    console.log("Contact a tutor for help");
+}
+
+// Real-world example: User authentication
+const user = {
+    isLoggedIn: true,
+    role: "editor",
+    subscription: "pro"
+};
+
+if (!user.isLoggedIn) {
+    console.log("Please log in to continue");
+} else if (user.role === "admin") {
+    console.log("Welcome to the admin dashboard");
+} else if (user.role === "editor" && user.subscription === "pro") {
+    console.log("Welcome to the pro editor dashboard");
+} else {
+    console.log("Welcome to the basic dashboard");
+}`} />
+
+### Performance Tips
+
+1. Arrange your conditions from most specific to least specific
+2. Use early returns for better performance
+3. Consider using switch statements for many conditions
+4. Avoid deeply nested if/else statements (consider early returns or switch statements instead)
+
+<br />
+
+## Switch Statements
+
+When you have multiple conditions to check against a single value, the `switch` statement can be cleaner than multiple `if/else` statements:
+
+<CodeSnippet language="javascript" content={`const dayOfWeek = "Monday";
+
+switch (dayOfWeek) {
+    case "Monday":
+        console.log("Start of the work week!");
+        break;
+    case "Friday":
+        console.log("Weekend is coming!");
+        break;
+    case "Saturday":
+    case "Sunday":
+        console.log("It's the weekend!");
+        break;
+    default:
+        console.log("It's a regular day.");
+}
+
+// Output: "Start of the work week!"
+// The switch statement checks the value of dayOfWeek against each case`} />
+
+<br />
+
+## Comparison Operators
+
+JavaScript provides several operators to compare values:
+
+<CodeSnippet language="javascript" content={`// Equal to (==) - compares values
+console.log(5 == "5");    // true (converts types)
+
+// Strictly equal to (===) - compares values and types
+console.log(5 === "5");   // false (different types)
+
+// Greater than (>)
+console.log(10 > 5);      // true
+
+// Less than (<)
+console.log(5 < 10);      // true
+
+// Greater than or equal to (>=)
+console.log(5 >= 5);      // true
+
+// Less than or equal to (<=)
+console.log(4 <= 5);      // true
+
+// Not equal to (!=)
+console.log(5 != "6");    // true`} />
+
+<br />
+
+## Logical Operators
+
+Combine multiple conditions using logical operators:
+
+<CodeSnippet language="javascript" content={`// AND operator (&&) - both conditions must be true
+const age = 25;
+const hasLicense = true;
+
+if (age >= 18 && hasLicense) {
+    console.log("You can drive!"); // This will run
+}
+
+// OR operator (||) - at least one condition must be true
+const isWeekend = false;
+const isHoliday = true;
+
+if (isWeekend || isHoliday) {
+    console.log("No work today!"); // This will run
+}
+
+// NOT operator (!) - reverses a boolean value
+const isLoggedIn = false;
+
+if (!isLoggedIn) {
+    console.log("Please log in"); // This will run
+}`} />
+
+<br />
+
+## Common Use Cases
+
+Here are some practical examples of using conditionals in real applications:
+
+### 1. Form Validation
+
+<CodeSnippet language="javascript" content={`function validateEmail(email) {
+    if (email.includes('@') && email.includes('.')) {
+        console.log('Email format is valid');
+        return true;
+    } else {
+        console.log('Please enter a valid email');
+        return false;
+    }
+}
+
+// Example usage
+validateEmail('user@example.com');  // Valid
+validateEmail('invalid-email');     // Invalid`} />
+
+### 2. User Authentication
+
+<CodeSnippet language="javascript" content={`const user = {
+    isLoggedIn: true,
+    role: 'admin',
+    subscription: 'premium'
+};
+
+// Check user access level
+if (!user.isLoggedIn) {
+    console.log('Please log in to continue');
+} else if (user.role === 'admin') {
+    console.log('Welcome, admin!');
+} else if (user.subscription === 'premium') {
+    console.log('Welcome, premium user!');
+} else {
+    console.log('Welcome, basic user!');
+}`} />
+
+## Best Practices
+
+1. **Use Clear Conditions**
+   - Write conditions that are easy to understand
+   - Break complex conditions into smaller parts
+   - Use meaningful variable names
+
+2. **Default Cases**
+   - Always include else or default cases
+   - Handle unexpected scenarios
+
+3. **Use Strict Equality**
+   - Prefer === over == to avoid type coercion
+   - Be explicit about your comparisons
+
+4. **Keep it Simple**
+   - Avoid deeply nested conditions
+   - Consider using early returns
+   - Break complex logic into functions
+
+## Practice Examples
+
+Try these exercises to improve your understanding:
+
+1. Write a function that determines if a number is positive, negative, or zero
+2. Create a simple grade calculator (A, B, C, D, F)
+3. Build a basic calculator with different operations
+
+Here are some practice questions to test your knowledge:
+
+<br />
+
+<MdxQuestionDisplay tag="conditionals" difficulty="BEGINNER" take={3} />
+
+<br />
+
+Ready to master JavaScript? Join TechBlitz for daily coding challenges, personalized learning paths, and a supportive community of developers. Start your journey today at <a href="https://techblitz.dev/signup" rel="noopener noreferrer" className="text-accent">TechBlitz</a>.

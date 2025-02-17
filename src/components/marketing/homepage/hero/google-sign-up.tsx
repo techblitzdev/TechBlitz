@@ -2,8 +2,20 @@
 
 import { oauth } from '@/actions/user/account/oauth';
 import { Button } from '@/components/ui/button';
+import { UserRecord } from '@/types/User';
+import { use } from 'react';
 
-export default function GoogleSignUp() {
+export default function GoogleSignUp({ userPromise }: { userPromise: Promise<UserRecord | null> }) {
+  const user = use(userPromise);
+
+  if (user) {
+    return (
+      <Button variant="accent" size="lg" href="/dashboard">
+        Go to dashboard
+      </Button>
+    );
+  }
+
   return (
     <form
       onSubmit={async (event) => {
@@ -12,6 +24,7 @@ export default function GoogleSignUp() {
       }}
     >
       <Button
+        size="lg"
         type="submit"
         variant="outline"
         className="w-full bg-white text-black hover:bg-gray-100 hover:text-black"

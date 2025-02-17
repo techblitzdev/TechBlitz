@@ -212,6 +212,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/react-roadmap`,
       lastModified: new Date(),
     },
+
+    /** PILLAR & SUBPAGES PAGES FOR THE MARKETING SITE */
+
+    // JAVASCRIPT CHEAT SHEET
     {
       url: `${baseUrl}/javascript-cheat-sheet`,
       lastModified: new Date(),
@@ -222,6 +226,56 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/javascript-cheat-sheet/regular-expression-cheat-sheet`,
+      lastModified: new Date(),
+    },
+    // JAVASCRIPT CODING INTERVIEW QUESTIONS AND ANSWERS
+    {
+      url: `${baseUrl}/javascript-coding-interview-questions-and-answers`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-coding-interview-questions-and-answers/javascript-coding-test`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-coding-interview-questions-and-answers/javascript-interview-questions-for-senior-developers`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-projects-for-beginners`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-projects-for-beginners/programming-challenges-for-beginners`,
+      lastModified: new Date(),
+    },
+    // JAVASCRIPT FUNDAMENTALS
+    {
+      url: `${baseUrl}/javascript-fundamentals`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-fundamentals/how-does-javascript-work`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-fundamentals/html-conditional-statement`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-fundamentals/javascript-conditionals`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-fundamentals/javascript-format-strings-with-variables`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-fundamentals/javascript-naming-conventions`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-fundamentals/javascript-nested-conditionals`,
       lastModified: new Date(),
     },
   ];

@@ -5,6 +5,10 @@ export default function FeatureLeftRightSection(opts: {
   leftHeader?: string;
   leftSubheader?: string;
   learnMoreLink?: boolean;
+  leftCta?: {
+    title: string;
+    href: string;
+  } | null;
   rightHeader?: string;
   rightSubheader?: string;
 }) {
@@ -14,6 +18,7 @@ export default function FeatureLeftRightSection(opts: {
     learnMoreLink = false,
     rightHeader,
     rightSubheader,
+    leftCta,
   } = opts;
 
   return (
@@ -22,11 +27,12 @@ export default function FeatureLeftRightSection(opts: {
         leftHeader={leftHeader}
         leftSubheader={leftSubheader}
         learnMoreLink={learnMoreLink}
+        leftCta={{
+          title: leftCta?.title ?? '',
+          href: leftCta?.href ?? '',
+        }}
       />
-      <FeatureLeftRightSectionThree
-        rightHeader={rightHeader}
-        rightSubheader={rightSubheader}
-      />
+      <FeatureLeftRightSectionThree rightHeader={rightHeader} rightSubheader={rightSubheader} />
     </div>
   );
 }

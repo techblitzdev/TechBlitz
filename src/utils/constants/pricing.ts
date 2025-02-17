@@ -278,13 +278,20 @@ export const getPlans = (
       mostPopular: false,
       disabled: user?.userLevel === 'PREMIUM',
     },
+    /**
+     * Lifetime plan
+     *
+     *
+     *
+     */
+
     {
       id: 'price_1QoOikCX23ptLp4LTks1YO7V',
       name: 'Lifetime',
       price: 89.99,
       currencySymbol: '$',
       frequency: 'once',
-      chip: 'Ends 14th February',
+      chip: 'Limited time offer!',
       frequencyText: 'pay once, yours forever',
       shortText: 'Access to all features and future updates!',
       features: [

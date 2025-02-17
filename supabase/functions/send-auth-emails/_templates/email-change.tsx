@@ -37,7 +37,7 @@ export const EmailChangeEmail = ({ username, redirect_to }: EmailUpdateProps) =>
           </Section>
 
           <Section style={footer}>
-            <Text style={footerText}>© 2025 TechBlitz. All rights reserved.</Text>
+            <Text style={footerText}>© 2025 DEV TECHBLITZ Ltd. All rights reserved.</Text>
             <Text style={footerText}>
               If you have any questions, please contact our support team at{' '}
               <Link href={`mailto:team@techblitz.dev`} style={footerLink}>

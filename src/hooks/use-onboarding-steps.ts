@@ -12,6 +12,7 @@ export const STEPS = {
   TAGS: 'TAGS', // get the users interests
   PRICING: 'PRICING', // get the users pricing plan
   QUESTIONS: 'QUESTIONS', // get the users questions
+  FIRST_QUESTION_SELECTION: 'FIRST_QUESTION_SELECTION', // get the users first question (either send them to the first question or the tag selection)
 } as const;
 
 type StepKey = keyof typeof STEPS;
@@ -51,6 +52,10 @@ export function useOnboardingSteps() {
     [STEPS.NOTIFICATIONS]: {
       next: STEPS.TAGS,
       component: 'OnboardingNotifications',
+    },
+    [STEPS.FIRST_QUESTION_SELECTION]: {
+      next: STEPS.TAGS,
+      component: 'OnboardingFirstQuestionSelection',
     },
     [STEPS.TAGS]: {
       next: STEPS.PRICING,

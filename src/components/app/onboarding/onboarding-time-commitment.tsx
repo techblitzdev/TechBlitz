@@ -9,6 +9,7 @@ interface TimeCommitmentOption {
   value: UserTimeSpendingPerDay;
   description: string;
   labelDescription: string;
+  databaseValue: UserTimeSpendingPerDay;
 }
 
 const timeCommitmentOptions: TimeCommitmentOption[] = [
@@ -17,29 +18,33 @@ const timeCommitmentOptions: TimeCommitmentOption[] = [
     value: UserTimeSpendingPerDay.LESS_THAN_5_MINUTES,
     labelDescription: 'Laid back',
     description: 'I just want to dip my toes in',
+    databaseValue: 'LESS_THAN_5_MINUTES',
   },
   {
     label: '10 minutes per day',
     value: UserTimeSpendingPerDay.BETWEEN_5_AND_15_MINUTES,
     labelDescription: 'Steady',
     description: 'I want to learn something new',
+    databaseValue: 'BETWEEN_5_AND_15_MINUTES',
   },
   {
     label: '20 minutes per day',
     value: UserTimeSpendingPerDay.BETWEEN_15_AND_30_MINUTES,
     labelDescription: 'Consistent',
     description: 'I want to make steady progress',
+    databaseValue: 'BETWEEN_15_AND_30_MINUTES',
   },
   {
     label: '30 minutes per day',
     value: UserTimeSpendingPerDay.BETWEEN_30_AND_60_MINUTES,
     labelDescription: 'Focused',
     description: 'I want to build projects and land my first tech job',
+    databaseValue: 'BETWEEN_30_AND_60_MINUTES',
   },
 ];
 
 export default function OnboardingTimeCommitment() {
-  const { itemVariants, setTimeSpendingPerDay, timeSpendingPerDay } = useOnboardingContext();
+  const { itemVariants, setTimeSpendingPerDay, timeSpendingPerDay, user } = useOnboardingContext();
 
   return (
     <>
@@ -49,10 +54,10 @@ export default function OnboardingTimeCommitment() {
             className="text-2xl flex flex-col font-medium bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent"
             variants={itemVariants}
           >
-            What's your daily coding goal?
+            {user.username}, what's your daily coding goal?
           </motion.h1>
           <motion.p className="text-sm text-gray-500" variants={itemVariants}>
-            This will help us tailor the content to your needs
+            This will help us tailor the content to your needs: {user.timeSpendingPerDay}
           </motion.p>
         </div>
         <div className="flex flex-col gap-y-4">
@@ -70,7 +75,7 @@ export default function OnboardingTimeCommitment() {
                   <p
                     className={`text-sm ${
                       timeSpendingPerDay === option.value ? 'text-white' : 'text-gray-400'
-                    } group-hovåer:text-white`}
+                    } group-hover:text-white`}
                   >
                     {option.labelDescription}
                   </p>

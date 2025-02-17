@@ -20,6 +20,7 @@ import { cn } from '@/lib/utils';
 
 // hooks
 import { useOnboardingSteps, STEPS } from '@/hooks/use-onboarding-steps';
+import OnboardingFirstQuestionSelection from './onboarding-first-question-selection';
 
 const containerVariants = {
   hidden: { opacity: 0, scale: 0.95 },
@@ -41,6 +42,7 @@ const stepComponents = {
   [STEPS.TAGS]: OnboardingTags,
   [STEPS.QUESTIONS]: OnboardingQuestions,
   [STEPS.PRICING]: OnboardingPricing,
+  [STEPS.FIRST_QUESTION_SELECTION]: OnboardingFirstQuestionSelection,
 };
 
 export default function OnboardingForm() {

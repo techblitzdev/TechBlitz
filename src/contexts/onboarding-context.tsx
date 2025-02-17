@@ -71,7 +71,7 @@ export const UserOnboardingContextProvider = ({
   const [onboardingQuestions, setOnboardingQuestions] = useState<any[]>([]);
 
   const [timeSpendingPerDay, setTimeSpendingPerDay] = useState<UserTimeSpendingPerDay>(
-    UserTimeSpendingPerDay.LESS_THAN_5_MINUTES
+    user.timeSpendingPerDay || UserTimeSpendingPerDay.LESS_THAN_5_MINUTES
   );
 
   const handleSetUserTimeSpendingPerDay = (timeSpendingPerDay: UserTimeSpendingPerDay) => {

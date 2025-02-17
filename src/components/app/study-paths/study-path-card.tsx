@@ -12,9 +12,10 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
 
   return (
     <Link
-      href={`/roadmaps/${studyPath.slug}`}
+      href={studyPath.isPublished ? `/roadmaps/${studyPath.slug}` : ''}
       className={cn(
-        'rounded-lg h-fit w-full overflow-hidden transition-all duration-300 bg-[#090909] hover:border-black border border-black-50 group'
+        'rounded-lg h-fit w-full overflow-hidden transition-all duration-300 bg-[#090909] hover:border-black border border-black-50 group',
+        !studyPath.isPublished && 'cursor-not-allowed'
       )}
     >
       <CardHeader className="relative p-0">
@@ -62,18 +63,24 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
         </div>
       </CardContent>
       <CardFooter className="p-4 pt-0">
-        <Button
-          className="w-full"
-          variant={
-            user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
-              ? 'default'
-              : 'secondary'
-          }
-        >
-          {user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
-            ? 'In progress'
-            : 'Start learning'}
-        </Button>
+        {studyPath.isPublished ? (
+          <Button
+            className="w-full"
+            variant={
+              user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
+                ? 'default'
+                : 'secondary'
+            }
+          >
+            {user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
+              ? 'In progress'
+              : 'Start learning'}
+          </Button>
+        ) : (
+          <Button className="w-full" variant="secondary" disabled>
+            Coming soon
+          </Button>
+        )}
       </CardFooter>
     </Link>
   );

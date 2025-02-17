@@ -16,12 +16,7 @@ export const getStudyPath = async (slug: string) => {
 };
 
 export const getAllStudyPaths = async () => {
-  // if we are on production, only return published study paths
-  // otherwise, return all study paths
-  const isProduction = process.env.NODE_ENV === 'production';
-
   return await prisma.studyPath.findMany({
-    where: isProduction ? { isPublished: true } : {},
     orderBy: {
       createdAt: 'asc',
     },

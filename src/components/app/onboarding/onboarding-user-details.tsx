@@ -32,7 +32,7 @@ import {
 import { toast } from 'sonner';
 
 import { checkUsername } from '@/actions/user/authed/check-username';
-import { QuestionMarkIcon } from '@radix-ui/react-icons';
+import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 
 const whereDidYouHearAboutTechBlitz = [
   'Reddit',
@@ -47,7 +47,7 @@ const whereDidYouHearAboutTechBlitz = [
 
 export default function OnboardingStepOne() {
   const { user, setUser, itemVariants, setCanContinue, serverUser } = useOnboardingContext();
-  const [username, setUsername] = useState(user.username || '');
+  const [username, setUsername] = useState(user?.username || '');
   const [isUsernameValid, setIsUsernameValid] = useState(true);
 
   const [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(null);
@@ -55,12 +55,12 @@ export default function OnboardingStepOne() {
   const form = useForm<UpdatableUserFields>({
     resolver: zodResolver(onboardingStepOneSchema),
     defaultValues: {
-      userProfilePicture: user.userProfilePicture || '',
-      username: user.username || '',
-      showTimeTaken: user.showTimeTaken || false,
-      sendPushNotifications: user.sendPushNotifications || false,
-      experienceLevel: user.experienceLevel || 'BEGINNER',
-      howDidYouHearAboutTechBlitz: user.howDidYouHearAboutTechBlitz || '',
+      userProfilePicture: user?.userProfilePicture || '',
+      username: user?.username || '',
+      showTimeTaken: user?.showTimeTaken || false,
+      sendPushNotifications: user?.sendPushNotifications || false,
+      experienceLevel: user?.experienceLevel || 'BEGINNER',
+      howDidYouHearAboutTechBlitz: user?.howDidYouHearAboutTechBlitz || '',
     },
   });
 
@@ -291,6 +291,57 @@ export default function OnboardingStepOne() {
               </TooltipProvider>
             </motion.div>
             <motion.div initial="hidden" animate="visible" variants={itemVariants}>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <FormField
+                      control={form.control}
+                      name="sendPushNotifications"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <Label htmlFor="sendPushNotifications" className="text-white">
+                              Send personalized challenge reminders
+                            </Label>
+                            <TooltipProvider>
+                              <Tooltip delayDuration={0}>
+                                <TooltipTrigger>
+                                  <QuestionMarkCircledIcon className="size-3 text-white" />
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p>
+                                    We'll send you a personalized challenge reminder every week day.
+                                  </p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          </div>
+                          <FormControl>
+                            <Switch
+                              checked={field.value}
+                              onCheckedChange={(checked) => {
+                                field.onChange(checked);
+                                setUser((prev) => {
+                                  return { ...prev, [field.name]: checked };
+                                });
+                              }}
+                              className="bg-black-50"
+                            />
+                          </FormControl>
+                          <FormMessage className="mt-0.5 text-start">
+                            {form.formState?.errors?.sendPushNotifications?.message}
+                          </FormMessage>
+                        </FormItem>
+                      )}
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Receive promotional emails on offers, new features and more</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </motion.div>
+            <motion.div initial="hidden" animate="visible" variants={itemVariants}>
               <FormField
                 control={form.control}
                 name="experienceLevel"
@@ -338,58 +389,6 @@ export default function OnboardingStepOne() {
                   </FormItem>
                 )}
               />
-            </motion.div>
-            <motion.div initial="hidden" animate="visible" variants={itemVariants}>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <FormField
-                      control={form.control}
-                      name="sendPushNotifications"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <Label htmlFor="sendPushNotifications" className="text-white">
-                              Send personalized challenge reminders
-                            </Label>
-                            <TooltipProvider>
-                              <Tooltip delayDuration={0}>
-                                <TooltipTrigger>
-                                  <QuestionMarkIcon className="size-3 text-white" />
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                  <p>
-                                    We'll send you a personalized challenge reminder every week day.
-                                  </p>
-                                </TooltipContent>
-                              </Tooltip>
-                            </TooltipProvider>
-                          </div>
-                          <FormControl>
-                            <Switch
-                              checked={field.value}
-                              onCheckedChange={(checked) => {
-                                field.onChange(checked);
-                                setUser((prev) => {
-                                  console.log('sendPushNotifications changed:', checked);
-                                  return { ...prev, [field.name]: checked };
-                                });
-                              }}
-                              className="bg-black-50"
-                            />
-                          </FormControl>
-                          <FormMessage className="mt-0.5 text-start">
-                            {form.formState?.errors?.sendPushNotifications?.message}
-                          </FormMessage>
-                        </FormItem>
-                      )}
-                    />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Receive promotional emails on offers, new features and more</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
             </motion.div>
             <motion.div
               initial="hidden"

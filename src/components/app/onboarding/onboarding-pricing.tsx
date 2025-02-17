@@ -24,23 +24,18 @@ export default function OnboardingPricing() {
       <CardHeader>
         <div className="flex flex-col items-center gap-y-2 mb-3">
           <motion.h1
-            className="text-4xl flex flex-col items-center font-medium bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent text-center"
+            className="text-3xl flex flex-col items-center font-medium bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent text-center"
             variants={itemVariants}
           >
-            Looking for a more personalized experience?
+            Choose a plan that's right for you
           </motion.h1>
           <motion.p className="text-center text-gray-400 max-w-2xl text-sm" variants={itemVariants}>
-            Upgrade to a paid plan to unlock premium features, gain access to exclusive content, and
-            be the first to experience new updates.
-          </motion.p>
-          <motion.p className="text-center max-w-2xl text-white" variants={itemVariants}>
-            Lifetime access available for a limited time - ends{' '}
-            <span className="font-bold">14th February!</span>
+            Personalized learning just for you.
           </motion.p>
         </div>
         <FrequencyTabs initialFrequency={billingPeriod} onFrequencyChange={setBillingPeriod} />
       </CardHeader>
-      <CardContent className="w-full lg:w-2/3 mx-auto flex flex-col lg:flex-row gap-10 justify-center mt-4 mb-5 px-2 md:px-10">
+      <CardContent className="w-full lg:w-3/4 mx-auto flex flex-col lg:flex-row gap-10 justify-center mt-4 mb-5 px-2 md:px-10">
         <div className="flex flex-col lg:flex-row gap-10 justify-center items-stretch w-full">
           {products.map(
             (product) =>

@@ -9,6 +9,7 @@ import { createContext, useContext, useState } from 'react';
 import type { UpdatableUserFields, UserRecord } from '@/types/User';
 import { QuestionWithTags } from '@/types/Questions';
 import { getOnboardingQuestions } from '@/utils/data/questions/get-onboarding';
+import { UserTimeSpendingPerDay } from '@prisma/client';
 // context type
 type OnboardingContextType = {
   user: Omit<UpdatableUserFields, 'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'>;
@@ -29,6 +30,14 @@ type OnboardingContextType = {
   itemVariants: any;
   canContinue: boolean;
   setCanContinue: React.Dispatch<React.SetStateAction<boolean>>;
+  timeSpendingPerDay: UserTimeSpendingPerDay | null;
+  setTimeSpendingPerDay: React.Dispatch<React.SetStateAction<UserTimeSpendingPerDay | null>>;
+  handleSetUserTimeSpendingPerDay: (timeSpendingPerDay: UserTimeSpendingPerDay) => void;
+  firstQuestionSelection: 'startFromScratch' | 'personalizeLearning';
+  setFirstQuestionSelection: React.Dispatch<
+    React.SetStateAction<'startFromScratch' | 'personalizeLearning'>
+  >;
+  FIRST_QUESTION_TUTORIAL_SLUG: string;
 };
 
 // create the context
@@ -66,11 +75,24 @@ export const UserOnboardingContextProvider = ({
 
   const [onboardingQuestions, setOnboardingQuestions] = useState<any[]>([]);
 
+  const [timeSpendingPerDay, setTimeSpendingPerDay] = useState<UserTimeSpendingPerDay | null>(
+    user?.timeSpendingPerDay || null
+  );
+
+  const [firstQuestionSelection, setFirstQuestionSelection] = useState<
+    'startFromScratch' | 'personalizeLearning'
+  >('startFromScratch');
+
+  const FIRST_QUESTION_TUTORIAL_SLUG = 'writing-your-first-function';
+
+  const handleSetUserTimeSpendingPerDay = (timeSpendingPerDay: UserTimeSpendingPerDay) => {
+    setTimeSpendingPerDay(timeSpendingPerDay);
+    setUser({ ...user, timeSpendingPerDay });
+  };
+
   const handleGetOnboardingQuestions = async () => {
     const questions = await getOnboardingQuestions(selectedTags);
     setOnboardingQuestions(questions);
-
-    console.log(questions);
   };
 
   return (
@@ -88,6 +110,12 @@ export const UserOnboardingContextProvider = ({
         itemVariants,
         setCanContinue,
         canContinue,
+        timeSpendingPerDay,
+        setTimeSpendingPerDay,
+        handleSetUserTimeSpendingPerDay,
+        firstQuestionSelection,
+        setFirstQuestionSelection,
+        FIRST_QUESTION_TUTORIAL_SLUG,
       }}
     >
       {children}

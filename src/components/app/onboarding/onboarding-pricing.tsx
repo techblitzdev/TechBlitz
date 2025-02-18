@@ -27,15 +27,16 @@ export default function OnboardingPricing() {
             className="text-3xl flex flex-col items-center font-medium bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent text-center"
             variants={itemVariants}
           >
-            Choose a plan that's right for you
+            The most personalized platform <br /> to learn to code
           </motion.h1>
           <motion.p className="text-center text-gray-400 max-w-2xl text-sm" variants={itemVariants}>
-            Personalized learning just for you.
+            Join developers worldwide learning to code through TechBlitz's personalized coding
+            platform.
           </motion.p>
         </div>
         <FrequencyTabs initialFrequency={billingPeriod} onFrequencyChange={setBillingPeriod} />
       </CardHeader>
-      <CardContent className="w-full lg:w-3/4 mx-auto flex flex-col lg:flex-row gap-10 justify-center mt-4 mb-5 px-2 md:px-10">
+      <CardContent className="w-full lg:w-1/2 mx-auto flex flex-col lg:flex-row gap-10 justify-center mt-4 mb-5 px-2 md:px-10">
         <div className="flex flex-col lg:flex-row gap-10 justify-center items-stretch w-full">
           {products.map(
             (product) =>

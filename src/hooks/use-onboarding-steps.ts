@@ -110,9 +110,10 @@ export function useOnboardingSteps() {
       // if we are on the last step and the user chose to start from scratch,
       // redirect them to the first question
       if (currentStep === STEPS.PRICING && firstQuestionSelection === 'startFromScratch') {
-        router.push(`/question/${FIRST_QUESTION_TUTORIAL_SLUG}?tutorial=true`);
-        // remove the onboarding data from local storage
+        // remove onboarding data
         localStorage.removeItem('onboarding');
+        // then redirect
+        router.push(`/question/${FIRST_QUESTION_TUTORIAL_SLUG}?tutorial=true`);
         return;
       } else if (
         currentStep === STEPS.PRICING &&

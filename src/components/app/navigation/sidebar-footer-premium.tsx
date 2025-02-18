@@ -5,12 +5,20 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { Stars } from 'lucide-react';
 import { SIDEBAR_FOOTER_DESCRIPTION, SIDEBAR_FOOTER_TITLE } from '@/utils/constants/sidebar';
 import { usePathname } from 'next/navigation';
+import { UserRecord } from '@/types/User';
+import { getUserDisplayName } from '@/utils/user';
 
-export default function SidebarFooterPremium() {
+interface SidebarFooterPremiumProps {
+  user: UserRecord | null;
+}
+
+export default function SidebarFooterPremium({ user }: SidebarFooterPremiumProps) {
   const pathname = usePathname();
 
   const premiumUrl =
     process.env.NODE_ENV === 'production' ? 'https://dub.sh/upgrade-techblitz' : '/upgrade';
+
+  const overrideDynamicTitleAndDescription = true;
 
   return (
     <>
@@ -23,12 +31,19 @@ export default function SidebarFooterPremium() {
         }}
       >
         <p className="font-onest">
-          {SIDEBAR_FOOTER_TITLE[pathname as keyof typeof SIDEBAR_FOOTER_TITLE] ||
-            'Unlock Your Full Potential'}
+          {overrideDynamicTitleAndDescription
+            ? `${getUserDisplayName(user)}, looking to accelerate your learning?`
+            : SIDEBAR_FOOTER_TITLE[pathname as keyof typeof SIDEBAR_FOOTER_TITLE]}
         </p>
         <p className="text-xs font-light font-onest">
-          {SIDEBAR_FOOTER_DESCRIPTION[pathname as keyof typeof SIDEBAR_FOOTER_DESCRIPTION] ||
-            'Get AI-powered study paths, premium challenges, and learn 3x faster with personalized guidance!'}
+          {overrideDynamicTitleAndDescription ? (
+            <>
+              Receive 30% off your first three months with code{' '}
+              <span className="font-bold">FEBRUARY30</span>. Offer ends 28th February 2025.
+            </>
+          ) : (
+            SIDEBAR_FOOTER_DESCRIPTION[pathname as keyof typeof SIDEBAR_FOOTER_DESCRIPTION]
+          )}
         </p>
         <Button variant="premium" fullWidth className="mt-4" href={premiumUrl}>
           Upgrade to Premium

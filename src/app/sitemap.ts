@@ -287,10 +287,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/javascript-fundamentals/how-to-write-a-function-in-javascript`,
       lastModified: new Date(),
     },
-    //{
-    //  url: `${baseUrl}/javascript-fundamentals/loose-vs-strict-equality-in-javascript`,
-    //  lastModified: new Date(),
-    //},
+    {
+      url: `${baseUrl}/javascript-fundamentals/loose-vs-strict-equality-in-javascript`,
+      lastModified: new Date(),
+    },
   ];
 
   // Combine static routes with dynamic blog posts

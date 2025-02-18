@@ -89,6 +89,21 @@ const faqs = [
     ),
   },
   {
+    question: 'How can I write a function in JavaScript?',
+    answer: (
+      <>
+        There are a few different ways to write a function in JavaScript. You can learn more about
+        them by reading our blog post{' '}
+        <Link
+          href="/javascript-fundamentals/how-to-write-a-function-in-javascript"
+          className="text-accent underline"
+        >
+          How to write a function in JavaScript
+        </Link>
+      </>
+    ),
+  },
+  {
     question: 'Is JavaScript programming language?',
     answer: (
       <>
@@ -103,6 +118,21 @@ const faqs = [
       <>
         TechBlitz is the #1 platform for learning to code JavaScript for free. We offer a wide range
         of coding challenges for beginners and professionals.
+      </>
+    ),
+  },
+  {
+    question: 'What is the difference between double equals and triple equals in JavaScript?',
+    answer: (
+      <>
+        Double equals (`==`) is used for loose equality comparison, while triple equals (`===`) is
+        used for strict equality comparison.{' '}
+        <Link
+          href="/javascript-fundamentals/loose-vs-strict-equality-in-javascript"
+          className="text-accent underline"
+        >
+          Learn more about the difference between double equals and triple equals in JavaScript
+        </Link>
       </>
     ),
   },

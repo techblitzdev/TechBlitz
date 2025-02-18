@@ -291,6 +291,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/javascript-fundamentals/loose-vs-strict-equality-in-javascript`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/javascript-fundamentals/primitive-types-in-javascript`,
+      lastModified: new Date(),
+    },
   ];
 
   // Combine static routes with dynamic blog posts

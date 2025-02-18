@@ -1,0 +1,210 @@
+---
+title: 'Primitive Types in JavaScript'
+description: "A comprehensive guide to understanding JavaScript's primitive data types - the fundamental building blocks of the language."
+image: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images/how-to-write-javascript.png'
+date: '2025-02-18'
+author: 'Logan Ford'
+authorImage: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/user-profile-pictures/3a57d7e8-8b80-483b-93d0-70fe1f06b0c0/logo.png?u=1l5im5h5n6e5'
+readingTime: 5
+status: published
+headings:
+  - title: "Introduction to Primitive Types"
+    level: 1
+  - title: "Number"
+    level: 2
+  - title: "String"
+    level: 2
+  - title: "Boolean"
+    level: 2
+  - title: "Null and Undefined"
+    level: 2
+  - title: "Symbol"
+    level: 2
+  - title: "BigInt"
+    level: 2
+  - title: "Type Checking and Coercion"
+    level: 2
+  - title: "Common Pitfalls and Best Practices"
+    level: 2
+tags: ['JavaScript', 'Web Development', 'Programming', 'Beginners']
+subpage: true
+---
+
+import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
+
+# Introduction to Primitive Types
+
+In JavaScript, primitive types are the foundational building blocks that store simple data values. Unlike objects, primitives are immutable - meaning their values cannot be modified after creation. When you assign a primitive value to a variable, you're working directly with that value rather than a reference.
+
+There are seven primitive types in JavaScript:
+
+1. `Number` - For both integers and floating-point numbers
+2. `String` - For text and character sequences
+3. `Boolean` - For true/false values
+4. `Null` - For intentionally empty or non-existent values
+5. `Undefined` - For uninitialized variables
+6. `Symbol` - For unique identifiers
+7. `BigInt` - For numbers larger than ±(2^53 - 1)
+
+<br />
+
+Let's explore each type in detail to understand their characteristics and use cases.
+
+## Number
+
+The `Number` type in JavaScript represents both integers and floating-point numbers using a 64-bit format (IEEE 754). This means it can precisely represent integers up to ±(2^53 - 1).
+
+<CodeSnippet language="javascript" content={`// Integer numbers
+let age = 25;
+let temperature = -10;
+
+// Floating-point numbers
+let pi = 3.14159;
+let price = 99.99;
+
+// Special number values
+let infinity = Infinity;
+let negativeInfinity = -Infinity;
+let notANumber = NaN;`} />
+
+<br />
+
+## String
+
+Strings are sequences of characters used to represent text. They can be created using single quotes, double quotes, or backticks (template literals, learn more about [template literals in JavaScript](/javascript-fundamentals/javascript-format-strings-with-variables)).
+
+<CodeSnippet language="javascript" content={`// Different ways to create strings
+let singleQuotes = 'Hello world';
+let doubleQuotes = "JavaScript is awesome";
+let templateLiteral = \`The sum is \${2 + 2}\`;
+
+// String methods
+let text = "Hello";
+console.log(text.length);        // 5
+console.log(text.toUpperCase()); // "HELLO"
+console.log(text[0]);           // "H"`} />
+
+<br />
+
+## Boolean
+
+Booleans represent logical values: `true` or `false`. They're essential for conditional statements and logical operations.
+
+<CodeSnippet language="javascript" content={`// Boolean values
+let isActive = true;
+let isLoggedIn = false;
+
+// Boolean operations
+let hasPermission = true;
+let isAdmin = false;
+console.log(hasPermission && isAdmin); // false
+console.log(hasPermission || isAdmin); // true
+console.log(!isAdmin);                 // true`} />
+
+<br />
+
+## Null and Undefined
+
+While both represent "empty" values, they serve different purposes:
+
+<CodeSnippet language="javascript" content={`// Undefined - variable declared but not assigned
+let userName;
+console.log(userName);        // undefined
+
+// Null - intentionally empty value
+let userProfile = null;      // explicitly set to null
+let settings = {
+  theme: null,              // indicates no theme is set
+  notifications: undefined  // indicates setting hasn't been initialized
+};
+
+// Type checking
+console.log(typeof null);      // "object" (a known JavaScript quirk)
+console.log(typeof undefined); // "undefined"`} />
+
+<br />
+
+## Symbol
+
+Symbols are unique and immutable primitive values that can be used as keys for object properties. They're often used to add unique property keys to objects that won't collide with other keys.
+
+<CodeSnippet language="javascript" content={`// Creating symbols
+const id = Symbol('id');
+const key = Symbol.for('key');
+
+// Using symbols as object keys
+const user = {
+  [id]: 123,
+  name: 'John'
+};
+
+// Symbols are always unique
+console.log(Symbol('id') === Symbol('id')); // false
+console.log(Symbol.for('key') === Symbol.for('key')); // true`} />
+
+<br />
+
+## BigInt
+
+BigInt allows you to work with numbers larger than 2^53 - 1. They're created by appending 'n' to an integer or using the BigInt() constructor.
+
+<CodeSnippet language="javascript" content={`// Creating BigInts
+const bigNumber = 9007199254740991n;
+const anotherBigNumber = BigInt("9007199254740991");
+
+// Operations with BigInts
+console.log(bigNumber + 1n);  // 9007199254740992n
+console.log(bigNumber * 2n);  // 18014398509481982n
+
+// Note: Can't mix BigInt with regular numbers
+// console.log(bigNumber + 1);  // TypeError`} />
+
+<br />
+
+## Type Checking and Coercion
+
+Understanding type checking and coercion is crucial when working with primitives:
+
+<CodeSnippet language="javascript" content={`// Type checking
+console.log(typeof "hello");     // "string"
+console.log(typeof 42);          // "number"
+console.log(typeof true);        // "boolean"
+console.log(typeof Symbol());    // "symbol"
+console.log(typeof 42n);         // "bigint"
+
+// Type coercion
+console.log("42" + 1);           // "421" (string concatenation)
+console.log("42" - 1);           // 41 (numeric operation)
+console.log(Boolean(""));        // false
+console.log(Boolean("hello"));   // true`} />
+
+<br />
+
+## Common Pitfalls and Best Practices
+
+When working with primitive types, keep these best practices in mind:
+
+- Use strict equality (`===`) instead of loose equality (`==`) to avoid unexpected type coercion (learn more about [loose vs strict equality in JavaScript](/javascript-fundamentals/loose-vs-strict-equality-in-javascript))
+- Be explicit about type conversions using functions like `String()`, `Number()`, or `Boolean()`
+- Handle potential `null` or `undefined` values with optional chaining (`?.`) and nullish coalescing (`??`)
+- Use `Number.isInteger()` and `Number.isFinite()` for reliable number checking
+
+<CodeSnippet language="javascript" content={`// Best practices examples
+// Type conversion
+const userInput = "42";
+const number = Number(userInput);    // explicit conversion
+
+// Null checking
+const user = null;
+const userName = user?.name ?? "Anonymous";
+
+// Number validation
+console.log(Number.isInteger(42.0));  // true
+console.log(Number.isInteger(42.5));  // false`} />
+
+<br />
+
+### Accelerate Your JavaScript Journey
+
+Ready to master JavaScript primitives and beyond? TechBlitz offers comprehensive JavaScript training with hands-on exercises, real-world projects, and expert guidance. Whether you're starting out or looking to deepen your understanding, our platform provides the resources you need to succeed. Join our community of developers and take your programming skills to the next level!

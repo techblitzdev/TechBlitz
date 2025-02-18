@@ -3,6 +3,11 @@
 import type React from 'react';
 import { useState, useCallback, useRef, useEffect } from 'react';
 
+// onboarding
+import { Onborda, OnbordaProvider, useOnborda } from 'onborda';
+import { TourCard } from '../app/shared/question/tour-card';
+import { steps } from '@/lib/onborda';
+
 interface ResizableLayoutProps {
   leftContent: React.ReactNode;
   rightTopContent: React.ReactNode;
@@ -81,23 +86,32 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
   }, [handleHorizontalMouseDown, handleVerticalMouseDown]);
 
   return (
-    <div
-      ref={containerRef}
-      className="flex flex-col lg:flex-row w-full overflow-hidden lg:h-[calc(100vh-4rem)]"
-    >
-      <div
-        className="w-full lg:w-[var(--left-width)] overflow-y-auto"
-        style={
-          {
-            '--left-width': `${leftWidth}%`,
-          } as React.CSSProperties
-        }
+    <OnbordaProvider>
+      <Onborda
+        steps={steps}
+        showOnborda={true}
+        shadowRgb="55,48,163"
+        shadowOpacity="0.8"
+        cardComponent={TourCard}
+        cardTransition={{ duration: 2, type: 'tween' }}
       >
-        {leftContent}
-      </div>
-      <div
-        ref={horizontalResizerRef}
-        className={`
+        <div
+          ref={containerRef}
+          className="flex flex-col lg:flex-row w-full overflow-hidden lg:h-[calc(100vh-4rem)]"
+        >
+          <div
+            className="w-full lg:w-[var(--left-width)] overflow-y-auto"
+            style={
+              {
+                '--left-width': `${leftWidth}%`,
+              } as React.CSSProperties
+            }
+          >
+            {leftContent}
+          </div>
+          <div
+            ref={horizontalResizerRef}
+            className={`
           group relative w-full h-1 lg:h-auto lg:w-1 cursor-row-resize lg:cursor-col-resize 
           transition-all duration-150 hidden lg:block
           before:absolute before:inset-x-0 lg:before:inset-y-0 before:h-3 lg:before:h-auto 
@@ -108,31 +122,31 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
           after:rounded-full after:bg-black-50 after:transition-all
           hover:after:bg-black-25 hover:after:w-32 lg:hover:after:w-[3px] 
           hover:after:h-[3px] lg:hover:after:h-32
-        `}
-      />
-      <div
-        className="w-full lg:w-[var(--right-width)] overflow-hidden flex flex-col"
-        style={
-          {
-            '--right-width': `${100 - leftWidth}%`,
-          } as React.CSSProperties
-        }
-      >
-        <div
-          className="h-[var(--right-top-height)] overflow-y-auto"
-          style={
-            {
-              '--right-top-height': `${rightTopHeight}%`,
-            } as React.CSSProperties
-          }
-        >
-          {rightTopContent}
-        </div>
-        {rightBottomContent && (
-          <>
+          `}
+          />
+          <div
+            className="w-full lg:w-[var(--right-width)] overflow-hidden flex flex-col"
+            style={
+              {
+                '--right-width': `${100 - leftWidth}%`,
+              } as React.CSSProperties
+            }
+          >
             <div
-              ref={verticalResizerRef}
-              className={`
+              className="h-[var(--right-top-height)] overflow-y-auto"
+              style={
+                {
+                  '--right-top-height': `${rightTopHeight}%`,
+                } as React.CSSProperties
+              }
+            >
+              {rightTopContent}
+            </div>
+            {rightBottomContent && (
+              <>
+                <div
+                  ref={verticalResizerRef}
+                  className={`
                 group relative w-full h-1 cursor-row-resize
                 transition-all duration-150
                 before:absolute before:inset-x-0 before:h-3
@@ -144,21 +158,23 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
                 hover:after:bg-black-25 hover:after:w-32
                 hover:after:h-[3px] hidden lg:block
                 `}
-            />
-            <div
-              className="h-[var(--right-bottom-height)] overflow-y-auto"
-              style={
-                {
-                  '--right-bottom-height': `${100 - rightTopHeight}%`,
-                } as React.CSSProperties
-              }
-            >
-              {rightBottomContent}
-            </div>
-          </>
-        )}
-      </div>
-    </div>
+                />
+                <div
+                  className="h-[var(--right-bottom-height)] overflow-y-auto"
+                  style={
+                    {
+                      '--right-bottom-height': `${100 - rightTopHeight}%`,
+                    } as React.CSSProperties
+                  }
+                >
+                  {rightBottomContent}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      </Onborda>
+    </OnbordaProvider>
   );
 };
 

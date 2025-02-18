@@ -1,3 +1,4 @@
+import type React from 'react';
 import { Suspense, lazy } from 'react';
 import { createMetadata, getQuestionEducationLevel } from '@/utils/seo';
 import { capitalise, getBaseUrl } from '@/utils';
@@ -11,7 +12,7 @@ import { getUser } from '@/actions/user/authed/get-user';
 import { getRelatedQuestions } from '@/utils/data/questions/get-related';
 import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
 import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation';
-import { QuizJsonLd } from '@/types/Seo';
+import type { QuizJsonLd } from '@/types/Seo';
 
 // Components
 const CurrentStreak = lazy(() => import('@/components/ui/current-streak'));

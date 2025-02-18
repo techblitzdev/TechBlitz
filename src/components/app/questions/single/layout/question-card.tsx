@@ -28,6 +28,7 @@ import { AnimatePresence } from 'framer-motion';
 import CodeEditorQuestionSubmitted from '@/components/app/questions/code-editor/answer-submitted';
 import CodeEditor from '@/components/app/questions/code-editor/editor';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useOnborda } from 'onborda';
 
 export default function QuestionCard(opts: {
   // optional as this is not required to render the card
@@ -43,6 +44,11 @@ export default function QuestionCard(opts: {
   identifier: 'slug' | 'uid';
 }) {
   const { user, questionPromise, totalSubmissions } = opts;
+
+  const { startOnborda } = useOnborda();
+  const handleStartOnborda = () => {
+    startOnborda('question-tour');
+  };
 
   const [activeTab, setActiveTab] = useState<'description' | 'resources' | 'stats'>('description');
 
@@ -134,6 +140,7 @@ export default function QuestionCard(opts: {
               </div>
               Stats
             </TabsTrigger>
+            <Button onClick={handleStartOnborda}>Start Tour</Button>
           </TabsList>
           <div className="min-w-fit">
             {user && user?.showTimeTaken && <Stopwatch totalSeconds={totalSeconds} />}

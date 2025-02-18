@@ -9,7 +9,7 @@ import { useUserServer } from '@/hooks/use-user-server';
 export default function HomepageHero() {
   const animatedSpanContent = (
     <div className="flex items-center group">
-      <span className="hidden md:block">Limited time lifetime offer!</span>
+      <span className="hidden md:block">Limited time offer: 30% off for 3 months</span>
       <span className="block md:hidden">Limited time offer!</span>
       <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-all duration-300" />
     </div>

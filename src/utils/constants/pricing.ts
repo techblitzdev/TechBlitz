@@ -248,7 +248,7 @@ export const getPlans = (
           name: 'Enhanced question suggestions',
         },
         { name: 'In depth stat analysis and progress tracking' },
-        { name: '15 personalized roadmaps tailored to your goals' },
+        { name: '15 personalized roadmaps tailored to your goals every month' },
         { name: 'Personalized coding challenges' },
         { name: 'Unlimited AI assistant tokens' },
         { name: 'Access to upcoming beta features' },
@@ -256,7 +256,7 @@ export const getPlans = (
       ],
       compactFeatures: [
         { name: 'Access to premium questions' },
-        { name: '15 personalized roadmaps tailored to your goals' },
+        { name: '15 personalized roadmaps tailored to your goals every month' },
         { name: 'In depth stat analysis and progress tracking' },
         { name: 'Personalized coding challenges' },
         { name: 'Unlimited AI assistant tokens' },
@@ -277,14 +277,10 @@ export const getPlans = (
       },
       mostPopular: false,
       disabled: user?.userLevel === 'PREMIUM',
+      chip: '30% off for 3 months, code FEBRUARY30',
     },
     /**
      * Lifetime plan
-     *
-     *
-     *
-     */
-
     {
       id: 'price_1QoOikCX23ptLp4LTks1YO7V',
       name: 'Lifetime',
@@ -329,6 +325,7 @@ export const getPlans = (
       },
       mostPopular: false,
     },
+     */
   ];
 
   return plans;

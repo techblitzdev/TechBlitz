@@ -149,7 +149,7 @@ export default async function Page() {
         <OpenSourceBlock />
         <CallToActionBlock
           title="Your dream career in tech is just a click away"
-          description="Discover why TechBlitz is the best place to learn programming for free."
+          description="Ready to unlock your full potential? Try TechBlitz for free, no credit card required."
         />
       </div>
     </>

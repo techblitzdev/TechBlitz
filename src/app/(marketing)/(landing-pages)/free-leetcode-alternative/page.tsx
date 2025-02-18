@@ -62,7 +62,7 @@ const features: Feature[] = [
     name: 'Pro Pricing',
     yourCompany: {
       value: '$4.99/mo',
-      tooltip: 'We offer a 50% discount for students.',
+      tooltip: 'We offer a 30% discount for students.',
     },
     otherCompany: { value: '$35/mo' },
   },
@@ -75,7 +75,7 @@ const features: Feature[] = [
     name: 'Individual Student Discount',
     yourCompany: {
       value: true,
-      tooltip: 'We offer a 50% discount for students.',
+      tooltip: 'We offer a 30% discount for students.',
     },
     otherCompany: { value: false },
   },

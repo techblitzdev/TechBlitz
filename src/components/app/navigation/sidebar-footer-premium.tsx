@@ -5,30 +5,45 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { Stars } from 'lucide-react';
 import { SIDEBAR_FOOTER_DESCRIPTION, SIDEBAR_FOOTER_TITLE } from '@/utils/constants/sidebar';
 import { usePathname } from 'next/navigation';
+import { UserRecord } from '@/types/User';
+import { getUserDisplayName } from '@/utils/user';
 
-export default function SidebarFooterPremium() {
+interface SidebarFooterPremiumProps {
+  user: UserRecord | null;
+}
+
+export default function SidebarFooterPremium({ user }: SidebarFooterPremiumProps) {
   const pathname = usePathname();
 
   const premiumUrl =
     process.env.NODE_ENV === 'production' ? 'https://dub.sh/upgrade-techblitz' : '/upgrade';
 
+  const overrideDynamicTitleAndDescription = true;
+
   return (
     <>
       {/* Show when sidebar is expanded */}
       <SidebarMenuItem
-        className="p-4 font-semibold font-inter text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-50 group-data-[collapsible=icon]:hidden"
+        className="p-2 pt-4 font-semibold font-inter text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-50 group-data-[collapsible=icon]:hidden"
         style={{
           background:
             'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
         }}
       >
         <p className="font-onest">
-          {SIDEBAR_FOOTER_TITLE[pathname as keyof typeof SIDEBAR_FOOTER_TITLE] ||
-            'Unlock Your Full Potential'}
+          {overrideDynamicTitleAndDescription
+            ? `${getUserDisplayName(user)}, don't miss out!`
+            : SIDEBAR_FOOTER_TITLE[pathname as keyof typeof SIDEBAR_FOOTER_TITLE]}
         </p>
         <p className="text-xs font-light font-onest">
-          {SIDEBAR_FOOTER_DESCRIPTION[pathname as keyof typeof SIDEBAR_FOOTER_DESCRIPTION] ||
-            'Get AI-powered study paths, premium challenges, and learn 3x faster with personalized guidance!'}
+          {overrideDynamicTitleAndDescription ? (
+            <>
+              Receive 30% off your first three months with code{' '}
+              <span className="font-bold">FEBRUARY30</span>. Offer ends 28th February 2025.
+            </>
+          ) : (
+            SIDEBAR_FOOTER_DESCRIPTION[pathname as keyof typeof SIDEBAR_FOOTER_DESCRIPTION]
+          )}
         </p>
         <Button variant="premium" fullWidth className="mt-4" href={premiumUrl}>
           Upgrade to Premium

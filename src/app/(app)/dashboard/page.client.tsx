@@ -51,8 +51,14 @@ export default function ClientPage({
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
+    // if the user has not answered a question, redirect them back to onboarding#first-question-selection
+    // we want the user to answer a question before explore their dashboard.
+    // this will also give the user a 'tour' of how questions work. (TODO: add a tour of the question)
+    if (!hasAnsweredAnyQuestion) {
+      router.push('/onboarding#first-question-selection');
+    }
+
     const onboardingRequired = localStorage.getItem('onboarding');
-    console.log('Onboarding status:', onboardingRequired);
 
     if (onboardingRequired === 'true') {
       setShouldRedirect(true);

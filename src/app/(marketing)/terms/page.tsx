@@ -63,14 +63,57 @@ export default function TermsOfService() {
               <Separator className="border border-black-50" />
 
               <div>
-                <h2 className="text-xl font-semibold mb-4">3. User Rights and Responsibilities</h2>
-
-                <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-                  <li>Users must comply with the Apache-2.0 License terms</li>
-                  <li>Users may use, modify, and distribute the software under the License</li>
-                  <li>Attribution and original copyright notices must be maintained</li>
-                  <li>Users are responsible for compliance with the License terms</li>
-                </ul>
+                <h2 className="text-xl font-semibold mb-4">3. Lifetime Deal Programme Scope</h2>
+                <div className="text-muted-foreground space-y-4">
+                  <p>The Lifetime Deal Programme is subject to the following scope:</p>
+                  <ul className="list-disc pl-6 space-y-2">
+                    <li>
+                      The Promotional Period may end at any time subject to TechBlitz's sole
+                      discretion.
+                    </li>
+                    <li>
+                      The Lifetime Deal Programme shall be made to the holder of the TechBlitz
+                      Account for the duration of that user's lifetime. Such right shall immediately
+                      terminate upon the user being declared deceased. Such right shall not be
+                      transferable.
+                    </li>
+                    <li>
+                      The Lifetime Deal Programme shall be made available so long as the TechBlitz
+                      Service is made available.
+                    </li>
+                    <li>The TechBlitz Service and its features may change at any time.</li>
+                    <li>
+                      The Lifetime Deal shall not continue where technological changes make the
+                      Products of DEV TechBlitz Ltd obsolete.
+                    </li>
+                    <li>
+                      The Lifetime Deal shall not continue where DEV TechBlitz Ltd ceases to
+                      operate, suspends the TechBlitz Service, is declared bankrupt, or otherwise
+                      ceases to operate.
+                    </li>
+                    <li>
+                      In the event that the platform undergoes changes, you will have access to the
+                      latest features and support to help you transition to self-hosting if needed.
+                      Users who have purchased the lifetime deal prior to 18th February 2025 may be
+                      eligible for a 50% refund.
+                    </li>
+                    <li>
+                      The products and features made available through the Lifetime Deal Programme
+                      can be found at our{' '}
+                      <Link href="/pricing" className="text-accent">
+                        pricing page
+                      </Link>
+                      .
+                    </li>
+                    <li>
+                      If you have any questions, please contact us at{' '}
+                      <Link href="mailto:team@techblitz.dev" className="text-accent">
+                        team@techblitz.dev
+                      </Link>
+                      .
+                    </li>
+                  </ul>
+                </div>
               </div>
 
               <Separator className="border border-black-50" />

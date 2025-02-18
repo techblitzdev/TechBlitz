@@ -61,7 +61,7 @@ const faqs = [
   },
   {
     question: 'Do you offer student discount?',
-    answer: 'Yes! We are currently offering 50% off for students.',
+    answer: 'Yes! We are currently offering 30% off for students.',
   },
 ];
 

@@ -1,7 +1,10 @@
 'use client';
 
+import type React from 'react';
+
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -10,9 +13,9 @@ import {
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { useState, useEffect, useTransition } from 'react';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
 import { sendFeedback } from '@/actions/misc/send-feedback';
+import { Label } from '../ui/label';
+import { Textarea } from '../ui/textarea';
 
 const EMOJI_RATINGS = [
   { emoji: '😢', label: 'Disappointed' },
@@ -22,10 +25,6 @@ const EMOJI_RATINGS = [
   { emoji: '😍', label: 'Love it' },
 ];
 
-/**
- * Modal where the open state will be controlled by local storage
- * Asks users for a testimonial
- */
 export default function TestimonialModal({
   userHasAnsweredAnyQuestion,
 }: {
@@ -54,13 +53,17 @@ export default function TestimonialModal({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the testimonial to your backend
     await sendFeedback({ feedback: testimonial, emoji: selectedEmoji || undefined });
     handleClose();
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) handleClose();
+      }}
+    >
       <DialogContent className="bg-black-75 text-white border border-black-50 max-w-2xl">
         <DialogHeader>
           <DialogTitle className="text-3xl">Sorry to bother you...</DialogTitle>
@@ -69,6 +72,11 @@ export default function TestimonialModal({
             improve and inspires others. As a thank you, you will receive 10% off of our premium
             plans.
           </DialogDescription>
+          <DialogClose asChild>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+          </DialogClose>
         </DialogHeader>
         <form onSubmit={(e) => startTransition(() => handleSubmit(e))} className="space-y-4">
           <div className="space-y-2">

@@ -51,6 +51,10 @@ export default function ClientPage({
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
+    console.log({
+      hasAnsweredAnyQuestion,
+    });
+
     const onboardingRequired = localStorage.getItem('onboarding');
     console.log('Onboarding status:', onboardingRequired);
 

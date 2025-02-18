@@ -24,7 +24,7 @@ export default function SidebarFooterPremium({ user }: SidebarFooterPremiumProps
     <>
       {/* Show when sidebar is expanded */}
       <SidebarMenuItem
-        className="p-4 font-semibold font-inter text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-50 group-data-[collapsible=icon]:hidden"
+        className="p-2 pt-4 font-semibold font-inter text-center flex flex-col gap-y-1 items-center justify-center rounded-lg border border-black-50 group-data-[collapsible=icon]:hidden"
         style={{
           background:
             'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
@@ -32,7 +32,7 @@ export default function SidebarFooterPremium({ user }: SidebarFooterPremiumProps
       >
         <p className="font-onest">
           {overrideDynamicTitleAndDescription
-            ? `${getUserDisplayName(user)}, looking to accelerate your learning?`
+            ? `${getUserDisplayName(user)}, don't miss out!`
             : SIDEBAR_FOOTER_TITLE[pathname as keyof typeof SIDEBAR_FOOTER_TITLE]}
         </p>
         <p className="text-xs font-light font-onest">

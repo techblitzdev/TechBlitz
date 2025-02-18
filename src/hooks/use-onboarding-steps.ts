@@ -31,9 +31,8 @@ export function useOnboardingSteps() {
   } = useOnboardingContext();
   const [isLoading, setIsLoading] = useState(false);
   const [currentStep, setCurrentStepState] = useState<StepKey>(() => {
-    // Initialize from URL hash if available, otherwise default to USER_DETAILS
     if (typeof window !== 'undefined') {
-      const hash = window.location.hash.slice(1).toUpperCase();
+      const hash = window.location.hash.slice(1).replace(/-/g, '_').toUpperCase();
       return Object.values(STEPS).includes(hash as StepValue) ? (hash as StepKey) : 'USER_DETAILS';
     }
     return 'USER_DETAILS';
@@ -41,7 +40,8 @@ export function useOnboardingSteps() {
 
   // Update URL hash when step changes
   useEffect(() => {
-    window.location.hash = currentStep.toLowerCase();
+    const hashValue = currentStep.toLowerCase().replace(/_/g, '-');
+    window.location.hash = hashValue;
   }, [currentStep]);
 
   const stepConfig = {

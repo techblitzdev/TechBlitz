@@ -216,6 +216,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     /** PILLAR & SUBPAGES PAGES FOR THE MARKETING SITE */
 
     // JAVASCRIPT CHEAT SHEET
+
     {
       url: `${baseUrl}/javascript-cheat-sheet`,
       lastModified: new Date(),
@@ -228,7 +229,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/javascript-cheat-sheet/regular-expression-cheat-sheet`,
       lastModified: new Date(),
     },
+
     // JAVASCRIPT CODING INTERVIEW QUESTIONS AND ANSWERS
+
     {
       url: `${baseUrl}/javascript-coding-interview-questions-and-answers`,
       lastModified: new Date(),
@@ -249,7 +252,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/javascript-projects-for-beginners/programming-challenges-for-beginners`,
       lastModified: new Date(),
     },
-    // JAVASCRIPT FUNDAMENTALS
+
+    /** JAVASCRIPT FUNDAMENTALS */
+
     {
       url: `${baseUrl}/javascript-fundamentals`,
       lastModified: new Date(),
@@ -276,6 +281,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/javascript-fundamentals/javascript-nested-conditionals`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-fundamentals/how-to-write-a-function-in-javascript`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-fundamentals/loose-vs-strict-equality-in-javascript`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-fundamentals/primitive-types-in-javascript`,
       lastModified: new Date(),
     },
   ];

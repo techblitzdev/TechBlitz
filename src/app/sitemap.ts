@@ -229,6 +229,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/javascript-cheat-sheet/regular-expression-cheat-sheet`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/javascript-cheat-sheet/javascript-string-cheat-sheet`,
+      lastModified: new Date(),
+    },
 
     // JAVASCRIPT CODING INTERVIEW QUESTIONS AND ANSWERS
 

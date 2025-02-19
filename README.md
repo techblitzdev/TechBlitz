@@ -59,12 +59,12 @@ We love to be transparent with our users, so below are the next features we have
 
    ```bash
    cd techblitz
-   npm install
+   pnpm install
    ```
 
 3. Run the development server
    ```bash
-   npm run dev
+   pnpm run dev
    ```
 
 ## Contributing

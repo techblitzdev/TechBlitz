@@ -1,0 +1,153 @@
+---
+title: 'What is the difference between const, var, and let in JavaScript?'
+description: "There are three ways to declare variables in JavaScript: const, var, and let. But what is the difference between them?"
+image: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images/difference-between-const-var-and-let.png'
+date: '2025-02-19'
+author: 'Logan Ford'
+authorImage: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/user-profile-pictures/3a57d7e8-8b80-483b-93d0-70fe1f06b0c0/logo.png?u=1l5im5h5n6e5'
+readingTime: 6
+status: published
+headings:
+   - title: 'What is the difference between const var and let in JavaScript'
+     level: 1
+   - title: 'What is const in JavaScript'
+     level: 2   
+   - title: 'What is var in JavaScript'
+     level: 2
+   - title: 'What is let in JavaScript'
+     level: 2
+   - title: 'When should you use const var or let'
+     level: 2
+   - title: 'Summary'
+     level: 2
+   - title: 'Looking for more'
+     level: 2
+tags: ['JavaScript', 'Variables', 'Fundamentals']
+subpage: true
+---
+import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
+
+<img className='max-h-80 object-cover w-full' src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//const-let-var-javascript.jpg" alt="Difference between const, var and let in JavaScript" />
+
+# What is the difference between const var and let in JavaScript?
+
+Understanding variable declarations is crucial in JavaScript. Let's explore the three ways to declare variables: `const`, `var`, and `let`, and understand their key differences and use cases.
+
+<br />
+
+### What is const in JavaScript?
+
+`const` is used to declare constants - variables whose values cannot be reassigned after initialization. This makes your code more predictable and helps prevent accidental changes.
+
+<br />
+
+<CodeSnippet language="js" content={`
+const name = "John";
+name = "Jane"; // TypeError: Assignment to constant variable
+
+// However, for objects and arrays:
+const user = { name: "John" };
+user.name = "Jane"; // This works - only reassignment is prevented
+`} />
+
+<br />
+
+`const` variables are block-scoped, meaning they are only accessible within the block they are declared in (like within if statements or loops).
+
+<br />
+
+### What is var in JavaScript?
+
+`var` is the original way to declare variables in JavaScript. It has some unique behaviors that can sometimes lead to unexpected results.
+
+<br />
+
+<CodeSnippet language="js" content={`
+var name = "John";
+name = "Jane"; // This works fine
+
+// Function scope example
+function example() {
+    var x = 1;
+    if(true) {
+        var x = 2; // Same variable!
+        console.log(x); // 2
+    }
+    console.log(x); // 2
+}
+
+// Hoisting example
+console.log(hoisted); // undefined
+var hoisted = "I am hoisted";
+`} />
+
+<br />
+
+`var` is function-scoped rather than block-scoped, and it gets hoisted to the top of its scope. These behaviors can make code harder to understand and maintain, which is why modern JavaScript tends to avoid `var`.
+
+<br />
+
+### What is let in JavaScript?
+
+`let` provides a more predictable way to declare variables that need to be reassigned. It combines the flexibility of `var` with better scoping rules.
+
+<br />
+
+<CodeSnippet language="js" content={`
+let count = 1;
+count = 2; // This works fine
+
+// Block scope example
+function example() {
+    let x = 1;
+    if(true) {
+        let x = 2; // Different variable
+        console.log(x); // 2
+    }
+    console.log(x); // 1
+}
+
+// No hoisting behavior
+console.log(notHoisted); // ReferenceError
+let notHoisted = "I am not hoisted";
+`} />
+
+<br />
+
+### When should you use const var or let?
+
+Here are some guidelines for choosing between these declarations:
+
+1. Use `const` by default
+   - For values that won't be reassigned
+   - For object and array references
+   - Makes code intentions clearer
+
+2. Use `let` when you need to reassign
+   - For counters in loops
+   - For values that change over time
+   - When working with mutable state
+
+3. Avoid `var` in modern code
+   - Legacy code still uses it
+   - Can lead to scope confusion
+   - Lacks block scoping benefits
+
+<br />
+
+## Summary
+
+- `const`: For values that won't be reassigned, block-scoped
+- `var`: Legacy declaration, function-scoped, hoisted
+- `let`: For reassignable values, block-scoped, no hoisting
+
+<br />
+
+### Looking for more?
+
+Ready to test your understanding of variable declarations in JavaScript? Try our practice challenges below!
+
+<br />
+
+<MdxQuestionDisplay tag="variables" take={5} difficulty="BEGINNER" />

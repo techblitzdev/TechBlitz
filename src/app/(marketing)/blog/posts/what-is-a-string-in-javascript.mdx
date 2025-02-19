@@ -1,0 +1,207 @@
+---
+title: 'Using Strings in JS - What are they?'
+description: "A string is a sequence of characters that represents text. They are immutable, which means they cannot be changed after they are created. Let's dive into what strings are and how to use them."
+image: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images//array-at-in-javascript.png'
+date: '2025-02-19'
+author: 'Logan Ford'
+authorImage: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/user-profile-pictures/3a57d7e8-8b80-483b-93d0-70fe1f06b0c0/logo.png?u=1l5im5h5n6e5'
+readingTime: 6
+status: published
+headings:
+    - title: 'What is a String in JS?'
+      level: 1
+    - title: 'How to create a string'
+      level: 2
+    - title: 'String Concatenation in JavaScript'
+      level: 2
+    - title: 'String manipulation in JavaScript'
+      level: 2
+    - title: 'Adding Apostrophes in Strings'
+      level: 2
+    - title: 'Using JavaScript to Turn Strings to Uppercase and Lowercase'
+      level: 2
+    - title: 'Test if a string contains a substring'
+      level: 2
+    - title: 'Want to learn with real examples?'
+      level: 2
+    - title: 'Accelerate Your JavaScript Journey'
+      level: 2
+tags: ['JavaScript', 'Learn', 'Arrays', 'Array Methods']
+subpage: true
+---
+
+import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
+
+<img src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/what-are-strings-in-js.jpg" alt="What are strings in JS?" />
+
+# What is a String in JS?
+
+A string represents a sequence of characters (letters, numbers, symbols, etc.). They are immutable, which means they cannot be changed after they are created. 
+Strings are incredibly useful for storing and manipulating text data in an application.
+
+## How to create a string
+
+Creating a string in JS is very straightforward. You simply declare a variable (either `const`, `let`, or `var`, learn more about the difference [here](/javascript-fundamentals/difference-between-const-var-and-let)), give the string a name, and then assign the string to the variable.
+
+In this tutorial, we will use `const` to declare the variable.
+
+<br />
+
+<CodeSnippet language="js" content={`
+const method1 = 'Hello, world!';
+const method2 = "Hello, world!";
+const method3 = \`Hello, world!\`;
+`} />
+
+<br />
+So, what's the difference between the three methods?
+Well, the first two methods are essentially the same. They both create a string using the same syntax. The only difference is that the first method uses single quotes and the second method uses double quotes.
+
+<br />
+The third method is a bit different. It uses backticks (\`\`) to create a string. Backticks allow you to embed variables directly within the string using template literals. For example:
+
+<br />
+
+<CodeSnippet language="js" content={`
+const name = "John";
+const greeting = \`Hello, \${name}!\`; // "Hello, John!"
+`} />
+
+<br />
+
+This is called string interpolation, learn more about it [here](/javascript-fundamentals/javascript-format-strings-with-variables).
+
+## String Concatenation in JavaScript
+
+String concatenation is the process of combining two or more strings into a single string. In JavaScript, you can use the `+` operator to concatenate strings.
+
+<br />
+
+<CodeSnippet language="js" content={`
+const firstName = "John";
+const lastName = "Doe";
+const fullName = firstName + " " + lastName; // "John Doe"
+
+// output: "John Doe"
+`} />
+
+<br />
+
+You can also use the `concat` method to concatenate strings, this method is more readable and flexible than the `+` operator.
+
+<br />
+
+<CodeSnippet language="js" content={`
+const firstName = "John";
+const lastName = "Doe";
+const fullName = firstName.concat(" ", lastName); // "John Doe"
+
+// output: "John Doe"
+`} />
+
+<br />
+
+## String manipulation in JavaScript
+
+String manipulation is the process of changing the content of a string. In JavaScript, you can use various methods to manipulate strings.
+
+<br />
+
+### Get the length of a string
+
+To get the length of a string, you can use the `length` property. This will return how many characters are present in a given string.
+
+<br />
+
+<CodeSnippet language="js" content={`
+const message = "Hello, world!";
+const length = message.length; // 13
+
+// output: 13
+`} />
+
+<br />
+
+## Adding Apostrophes in Strings
+
+Apostrophes can cause issues when writing strings in JS. 
+For example, if you want to write 'I don't know' in a string, you can't use an apostrophe in the string because it will be interpreted as the end of the string.
+
+<br />
+
+<CodeSnippet language="js" content={`
+    const message = 'I don't know'; // This will throw an error
+`} />
+
+<br />
+
+There are a few ways to solve this problem. Let's look at the most common ones.
+
+### Use double quotes
+
+<br />
+
+<CodeSnippet language="js" content={`   
+const message = "I don't know"; // This will work
+`} />
+
+<br />
+
+In the example above, we used double quotes to create the string. This way, we can use an apostrophe in the string without it being interpreted as the end of the string. 
+
+### Use backticks
+
+We can also use backticks to create the string. This way, we can use an apostrophe in the string without it being interpreted as the end of the string. 
+
+<br />
+
+<CodeSnippet language="js" content={`
+const message = \`I don't know\`; // This will work
+`} />
+
+<br />
+
+In the example above, we used backticks to create the string. This way, we can use an apostrophe in the string without it being interpreted as the end of the string. 
+
+### Using JavaScript to Turn Strings to Uppercase and Lowercase
+
+If you need to transform a string to uppercase/lowercase not using css, you can use the `toUpperCase` and `toLowerCase` methods to turn strings to uppercase and lowercase respectively.
+
+<br />
+
+<CodeSnippet language="js" content={`
+const message = "Hello, world!";
+const uppercaseMessage = message.toUpperCase();
+const lowercaseMessage = message.toLowerCase();
+
+// output: "HELLO, WORLD!"
+// output: "hello, world!"
+`} />
+
+<br />
+
+## Test if a string contains a substring
+
+You can use the `includes` method to test if a string contains a substring. This method will return `true` if the substring is present in the string and `false` otherwise.
+
+<br />
+
+<CodeSnippet language="js" content={`
+const message = "Hello, world!";
+const containsHello = message.includes("Hello");
+
+// output: true
+`} />
+
+## Want to learn with real examples?
+
+Looking to master strings in JS? Try these coding challenges to reinforce your knowledge!
+
+<div className="mt-10">
+<MdxQuestionDisplay tag="strings" take={5} difficulty="BEGINNER" />
+</div>
+
+## Accelerate Your JavaScript Journey
+
+Ready to master JavaScript strings and beyond? TechBlitz offers comprehensive JavaScript training with hands-on exercises, real-world projects, and expert guidance. Whether you're just starting out or looking to deepen your understanding of JavaScript concepts, our platform provides the resources you need to succeed. Join our community of developers and take your programming skills to the next level!

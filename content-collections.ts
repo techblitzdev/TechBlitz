@@ -1,4 +1,5 @@
 import { defineCollection, defineConfig } from '@content-collections/core';
+import { compileMDX } from '@content-collections/mdx';
 
 const posts = defineCollection({
   name: 'posts',
@@ -6,8 +7,15 @@ const posts = defineCollection({
   include: '**/*.mdx',
   schema: (z) => ({
     title: z.string(),
-    summary: z.string(),
   }),
+  parser: 'frontmatter',
+  transform: async (document, context) => {
+    const mdx = await compileMDX(context, document);
+    return {
+      ...document,
+      mdx,
+    };
+  },
 });
 
 export default defineConfig({

@@ -3,7 +3,6 @@ const createMDX = require('@next/mdx');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@techblitz/ui'],
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   images: {
     remotePatterns: [

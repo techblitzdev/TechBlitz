@@ -80,7 +80,7 @@ export default function BlogPostLayout({
           {content}
           <div className="mt-10">
             <CallToActionBlock
-              title="Learn to code, faster"
+              title="Land your dream tech job faster"
               description={`Join ${userCount}+ developers who are accelerating their coding skills with TechBlitz.`}
               leftCta={{
                 title: 'Begin Your Journey',

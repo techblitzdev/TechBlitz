@@ -1,5 +1,5 @@
-import { withContentCollections } from '@content-collections/next';
-import createMDX from '@next/mdx';
+const { withContentCollections } = require('@content-collections/next');
+const createMDX = require('@next/mdx');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -96,4 +96,4 @@ const nextConfig = {
 };
 
 // Merge MDX config with Next.js config
-export default withContentCollections(createMDX()(nextConfig));
+module.exports = withContentCollections(createMDX()(nextConfig));

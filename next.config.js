@@ -1,7 +1,9 @@
-const createMDX = require('@next/mdx')();
+import { withContentCollections } from '@content-collections/next';
+import createMDX from '@next/mdx';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: ['@techblitz/ui'],
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   images: {
     remotePatterns: [
@@ -94,4 +96,4 @@ const nextConfig = {
 };
 
 // Merge MDX config with Next.js config
-module.exports = createMDX(nextConfig);
+export default withContentCollections(createMDX()(nextConfig));

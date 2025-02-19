@@ -10,24 +10,29 @@ import QuestionAccordion from '@/components/app/questions/single/question-accord
 import QuestionTabs from '@/components/app/questions/resources/question-tabs';
 import AnswerQuestionForm from '@/components/app/questions/single/answer-question-form';
 import { BarChart, BookIcon, BookOpen, FileIcon, FileText, PieChart } from 'lucide-react';
-
-// types
-import type { UserRecord } from '@/types/User';
-import type { Question } from '@/types/Questions';
-
-import { useQuestionSingle } from '../../../../../contexts/question-single-context';
 import { Button } from '@/components/ui/button';
 import CodeDisplay from './code-snippet';
+import { AnimatePresence } from 'framer-motion';
+import CodeEditorQuestionSubmitted from '@/components/app/questions/code-editor/answer-submitted';
+import CodeEditor from '@/components/app/questions/code-editor/editor';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ExpandedCodeModal from './expanded-code-modal';
 import ChangeCodeTheme from './change-code-theme';
 import AiQuestionHelp from './ai-question-help';
 import NoDailyQuestion from '@/components/shared/no-daily-question';
 import QuestionSubmitted from './question-submitted';
+
+// types
+import type { UserRecord } from '@/types/User';
+import type { Question } from '@/types/Questions';
+
+// context
+import { useQuestionSingle } from '@/contexts/question-single-context';
+
+// utils
 import { capitalize } from 'lodash';
-import { AnimatePresence } from 'framer-motion';
-import CodeEditorQuestionSubmitted from '@/components/app/questions/code-editor/answer-submitted';
-import CodeEditor from '@/components/app/questions/code-editor/editor';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+// onboarding
 import { useOnborda } from 'onborda';
 
 export default function QuestionCard(opts: {
@@ -92,6 +97,7 @@ export default function QuestionCard(opts: {
 
   return (
     <Tabs
+      id="question-card-tabs"
       defaultValue="description"
       className="h-full bg-black-75 border border-black-50 rounded-lg flex flex-col overflow-hidden"
     >

@@ -39,7 +39,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <OnbordaProvider>
           <Onborda
-            steps={steps}
+            steps={steps({ user })}
             showOnborda={true}
             shadowRgb="0,0,0"
             shadowOpacity="0.8"

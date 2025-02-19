@@ -2,6 +2,7 @@
   "name": "techblitz",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@9.14.2",
   "scripts": {
     "dev": "npx prisma generate && next dev && email dev",
     "build": "prisma generate && next build",

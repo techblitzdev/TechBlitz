@@ -11,7 +11,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     listQuestions({
       page: 1,
       pageSize: 1000,
-      userUid: '',
     }),
     getAllStudyPaths(),
   ]);

@@ -1,7 +1,7 @@
 'use client';
 
 import { Input } from '@/components/ui/input';
-import { useFilterContext } from '../../../../contexts/filter-context';
+import { useFilterContext } from '@/contexts/filter-context';
 import { useTransition } from 'react';
 import LoadingSpinner from '@/components/ui/loading';
 

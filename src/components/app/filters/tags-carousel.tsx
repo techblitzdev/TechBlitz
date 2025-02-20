@@ -12,7 +12,9 @@ import {
 } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
 import { useEffect, useOptimistic, useState, useTransition } from 'react';
-import { useFilterContext } from '../../../contexts/filter-context';
+import { useFilterContext } from '@/contexts/filter-context';
+
+const TAGS_PER_WINDOW = 15;
 
 interface Tag {
   uid: string;
@@ -24,16 +26,15 @@ export default function FilterTagsCarousel() {
   const searchParams = useSearchParams();
   const { searchQuery, tags } = useFilterContext();
   const [filteredTags, setFilteredTags] = useState<Tag[]>([]);
+  const [visibleTags, setVisibleTags] = useState<Tag[]>([]);
+  const [currentWindow, setCurrentWindow] = useState(0);
 
   const [isPending, startTransition] = useTransition();
-
-  // keep track of the tags that are currently selected in the query
-  // this is used to highlight the tags that are currently selected
   const [selectedTags, setSelectedTags] = useOptimistic<string[]>(
     searchParams.get('tags')?.split(',') || []
   );
 
-  // Watch for changes in search params and update selected tags accordingly
+  // Watch for changes in search params
   useEffect(() => {
     const currentTags = searchParams.get('tags')?.split(',') || [];
     setSelectedTags(currentTags);
@@ -45,14 +46,27 @@ export default function FilterTagsCarousel() {
       tag.name.toLowerCase().includes(searchQuery?.toLowerCase() || '')
     );
     setFilteredTags(filtered);
+    // Reset window when filter changes
+    setCurrentWindow(0);
+    setVisibleTags(filtered.slice(0, TAGS_PER_WINDOW));
   }, [searchQuery, tags]);
+
+  const loadMoreTags = (): void => {
+    const nextWindow = currentWindow + 1;
+    const start = nextWindow * TAGS_PER_WINDOW;
+    const newTags = filteredTags.slice(start, start + TAGS_PER_WINDOW);
+
+    if (newTags.length > 0) {
+      setVisibleTags((prev) => [...prev, ...newTags]);
+      setCurrentWindow(nextWindow);
+    }
+  };
 
   const updateTagsInQuery = (tag: string) => {
     const params = new URLSearchParams(searchParams.toString());
     const currentTags = params.get('tags')?.split(',') || [];
 
     if (currentTags.includes(tag)) {
-      // Remove tag if it already exists
       const updatedTags = currentTags.filter((t) => t !== tag);
       if (updatedTags.length > 0) {
         params.set('tags', updatedTags.join(','));
@@ -60,12 +74,10 @@ export default function FilterTagsCarousel() {
         params.delete('tags');
       }
     } else {
-      // Add tag if it doesn't exist
       currentTags.push(tag);
       params.set('tags', currentTags.join(','));
     }
 
-    // Reset the page to 1 whenever tags are updated
     params.set('page', '1');
     router.push(`?${params.toString()}`);
   };
@@ -97,7 +109,7 @@ export default function FilterTagsCarousel() {
           className="w-full"
         >
           <CarouselContent className="-ml-2">
-            {filteredTags.map((tag) => (
+            {visibleTags.map((tag) => (
               <CarouselItem key={tag.uid} className="pl-2 basis-auto">
                 <Button
                   onClick={() => {
@@ -115,7 +127,15 @@ export default function FilterTagsCarousel() {
             ))}
           </CarouselContent>
           <CarouselPrevious className="border-none text-white z-30 -left-8" variant="ghost" />
-          <CarouselNext className="border-none text-white z-10 -right-8" variant="ghost" />
+          <CarouselNext
+            className="border-none text-white z-10 -right-8"
+            variant="ghost"
+            onClick={() => {
+              if (visibleTags.length < filteredTags.length) {
+                loadMoreTags();
+              }
+            }}
+          />
         </Carousel>
       )}
     </div>

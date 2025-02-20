@@ -24,7 +24,6 @@ type GetQuestionsOpts = {
   page?: number;
   pageSize?: number;
   filters?: QuestionFilters;
-  userUid: string;
   customQuestions?: boolean;
   previousQuestions?: boolean;
 };
@@ -34,7 +33,6 @@ export const listQuestions = async (opts: GetQuestionsOpts): Promise<ListQuestio
     page = 1,
     pageSize = 10,
     filters,
-    userUid,
     customQuestions = false,
     previousQuestions = false,
   } = opts;
@@ -44,6 +42,8 @@ export const listQuestions = async (opts: GetQuestionsOpts): Promise<ListQuestio
   if (customQuestions && !user) {
     throw new Error('Unauthorized access to custom questions');
   }
+
+  const userUid = user?.uid || '';
 
   // if we have an authenticated user, we include the userAnswers in the query
   const includeUserAnswers = Boolean(user);

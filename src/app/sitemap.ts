@@ -306,6 +306,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/javascript-fundamentals/difference-between-const-var-and-let`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/javascript-fundamentals/how-to-write-comments-in-javascript`,
+      lastModified: new Date(),
+    },
   ];
 
   // Combine static routes with dynamic blog posts

@@ -26,7 +26,7 @@ export default function AdminPage() {
         <Button type="submit">Add UID as Username</Button>
       </form>
       <form
-        action={async (formData) => {
+        action={async () => {
           await addIsCustomUsernameToUser();
         }}
       >

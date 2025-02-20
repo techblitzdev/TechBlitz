@@ -49,7 +49,7 @@ export default async function TodaysLeaderboardPage({
   const topThreeUsers = topThreeUsersData.users;
 
   // users logged in must answer more than three questions to view the leaderboard
-  if (hasAnsweredMoreThan3Questions && user) {
+  if (!hasAnsweredMoreThan3Questions && user) {
     // get the user a recommended question
     const recommendedQuestion = await getSuggestions({
       userUid: user.uid,

@@ -7,10 +7,6 @@ const FeaturesBentoGrid = dynamic(
   { ssr: false }
 );
 
-const HomepageLargeText = dynamic(() => import('@/components/marketing/global/blocks/large-text'), {
-  ssr: false,
-});
-
 import PersonalizedBlock from '@/components/marketing/homepage/personalized/block';
 import ComparisonBlock from '@/components/marketing/homepage/comparison/comparison-block';
 import OpenSourceBlock from '@/components/marketing/global/open-source/open-source-block';
@@ -26,6 +22,9 @@ import MarketingContentGrid, {
 import { MobileIcon } from '@radix-ui/react-icons';
 import { CodeIcon, Users2 } from 'lucide-react';
 import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
+import HomepageUserStats from '@/components/marketing/global/blocks/homepage-user-stats';
+import { QUESTIONS_COUNT } from '@/utils/constants';
+import { getUserCount } from '@/utils/data/user/get-user-count';
 
 const title = 'Learn to Code for Free - TechBlitz';
 const description =
@@ -130,9 +129,9 @@ export default async function Page() {
 
   const contentGridItems: MarketingContentGridProps[] = [
     {
-      title: 'Interactive Coding Challenges',
+      title: 'In browser code editor',
       description:
-        'Master programming concepts through simple, interactive coding challenges. With your AI assistant providing instant feedback and step-by-step guidance.',
+        'Practice coding in your browser with our in-browser coded editor. No need to install anything to learn to code!',
       icon: <CodeIcon className="size-6" />,
     },
     {
@@ -149,6 +148,9 @@ export default async function Page() {
     },
   ];
 
+  // not awaiting as we are passing it the component that needs it to prevent render blocking
+  const userCount = getUserCount();
+
   //const homepageHeroIframe =
   //  'https://customer-8s5ov2shcw99ezk2.cloudflarestream.com/e49b63ed5ee42085d838a50928855776/iframe?poster=https%3A%2F%2Fcustomer-8s5ov2shcw99ezk2.cloudflarestream.com%2Fe49b63ed5ee42085d838a50928855776%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600';
 
@@ -162,11 +164,11 @@ export default async function Page() {
         <HomepageHero />
         <Testimonials />
         <FeaturesBentoGrid />
-        <HomepageLargeText />
+        <HomepageUserStats userCountPromise={userCount} />
         <PersonalizedBlock />
         <QuestionMarquee
-          header="The best beginner-friendly coding platform"
-          subheader="From navigating your very first challenge to landing your initial job in the tech industry, TechBlitz is here to support you at every stage of your journey, ensuring you have the guidance you need to succeed."
+          header={`${QUESTIONS_COUNT}+ coding challenges`}
+          subheader="Learn to code by doing. Improve your coding skills in as little as 3 minutes per day."
         />
         <ComparisonBlock />
         <MarketingContentGrid
@@ -176,7 +178,7 @@ export default async function Page() {
         />
         <OpenSourceBlock />
         <CallToActionBlock
-          title="Your dream career in tech is just a click away"
+          title="Land the job you've always dreamed of"
           description="Ready to unlock your full potential? Try TechBlitz for free, no credit card required."
         />
       </div>

@@ -73,7 +73,7 @@ export default function OpenSourceBlock(opts: { linkToInternalPage?: boolean }) 
               Learn More
             </Button>
           )}
-          <Link href="https://github.com/techblitzdev/TechBlitz" target="_blank" className="w-fit">
+          <Link href="https://git.new/blitz" target="_blank" className="w-fit">
             <Button variant="secondary" className="w-fit flex gap-x-1">
               <Star className="size-5 text-yellow-400 fill-yellow-300" />
               on GitHub!

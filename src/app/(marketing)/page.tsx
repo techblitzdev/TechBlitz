@@ -19,7 +19,6 @@ import CallToActionBlock from '@/components/marketing/global/blocks/call-to-acti
 import { Metadata } from 'next';
 import { getBaseUrl } from '@/utils';
 import { WebPageJsonLd } from '@/types/Seo';
-import { WebPageJsonLdBreadcrumb } from '@/utils/seo';
 import Testimonials from '@/components/marketing/global/blocks/testimonials';
 import MarketingContentGrid, {
   MarketingContentGridProps,
@@ -28,8 +27,9 @@ import { MobileIcon } from '@radix-ui/react-icons';
 import { CodeIcon, Users2 } from 'lucide-react';
 import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
 
-const title = 'Learn to code for free | TechBlitz';
-const description = 'Learning to code made simple';
+const title = 'Learn to Code for Free - TechBlitz';
+const description =
+  "Master programming with TechBlitz's free interactive coding challenges. Get personalized practice, instant AI feedback, and step-by-step guidance. Perfect for beginners!";
 
 export const metadata: Metadata = {
   title,
@@ -72,11 +72,10 @@ export default async function Page() {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     url: getBaseUrl(),
-    headline: 'Learn to code for free | TechBlitz',
-    description: "The world's best free platform to learn to code.",
+    headline: title,
+    description,
     image:
       'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/Screenshot%202025-01-11%20at%2002.24.28.png',
-    breadcrumb: WebPageJsonLdBreadcrumb,
     author: {
       '@type': 'Organization',
       name: 'TechBlitz',
@@ -97,6 +96,35 @@ export default async function Page() {
         '@type': 'ImageObject',
         url: 'https://techblitz.dev/favicon.ico',
       },
+    },
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: getBaseUrl(),
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Challenges',
+          item: `${getBaseUrl()}/questions/all`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: 'Roadmaps',
+          item: `${getBaseUrl()}/roadmaps`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 4,
+          name: 'Pricing',
+          item: `${getBaseUrl()}/pricing`,
+        },
+      ],
     },
   };
 

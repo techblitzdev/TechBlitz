@@ -247,12 +247,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/javascript-coding-interview-questions-and-answers/javascript-interview-questions-for-senior-developers`,
       lastModified: new Date(),
     },
+
+    // JAVASCRIPT PROJECTS FOR BEGINNERS
+
     {
       url: `${baseUrl}/javascript-projects-for-beginners`,
       lastModified: new Date(),
     },
     {
       url: `${baseUrl}/javascript-projects-for-beginners/programming-challenges-for-beginners`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-projects-for-beginners/how-to-create-a-weather-app-in-javascript`,
       lastModified: new Date(),
     },
 

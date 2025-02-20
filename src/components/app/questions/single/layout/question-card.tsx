@@ -32,9 +32,6 @@ import { useQuestionSingle } from '@/contexts/question-single-context';
 // utils
 import { capitalize } from 'lodash';
 
-// onboarding
-import { useOnborda } from 'onborda';
-
 export default function QuestionCard(opts: {
   // optional as this is not required to render the card
   user: UserRecord | null;
@@ -49,11 +46,6 @@ export default function QuestionCard(opts: {
   identifier: 'slug' | 'uid';
 }) {
   const { user, questionPromise, totalSubmissions } = opts;
-
-  const { startOnborda } = useOnborda();
-  const handleStartOnborda = () => {
-    startOnborda('question-tour');
-  };
 
   const [activeTab, setActiveTab] = useState<'description' | 'resources' | 'stats'>('description');
 
@@ -105,6 +97,7 @@ export default function QuestionCard(opts: {
         <div className="flex items-center gap-2 justify-between w-full">
           <TabsList className="hidden lg:grid h-auto w-fit grid-cols-3 gap-5 text-white rounded-lg bg-transparent p-1">
             <TabsTrigger
+              id="question-card-tabs-description"
               value="description"
               onClick={() => setActiveTab('description')}
               className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline border-0 w-fit px-0"
@@ -119,6 +112,7 @@ export default function QuestionCard(opts: {
               Description
             </TabsTrigger>
             <TabsTrigger
+              id="question-card-tabs-resources"
               value="resources"
               onClick={() => setActiveTab('resources')}
               className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline w-fit border-0 px-0"
@@ -133,6 +127,7 @@ export default function QuestionCard(opts: {
               Resources
             </TabsTrigger>
             <TabsTrigger
+              id="question-card-tabs-stats"
               value="stats"
               onClick={() => setActiveTab('stats')}
               className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline w-fit border-0 px-0"
@@ -146,7 +141,6 @@ export default function QuestionCard(opts: {
               </div>
               Stats
             </TabsTrigger>
-            <Button onClick={handleStartOnborda}>Start Tour</Button>
           </TabsList>
           <div className="min-w-fit">
             {user && user?.showTimeTaken && <Stopwatch totalSeconds={totalSeconds} />}

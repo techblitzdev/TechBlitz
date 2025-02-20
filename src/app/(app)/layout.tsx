@@ -39,12 +39,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <OnbordaProvider>
           <Onborda
-            steps={steps({ user })}
+            steps={steps()}
             showOnborda={true}
             shadowRgb="0,0,0"
             shadowOpacity="0.8"
             cardComponent={TourCard}
-            cardTransition={{ duration: 2, type: 'tween' }}
+            cardTransition={{ duration: 0.3, type: 'tween' }}
           >
             <SidebarProvider>
               <AppSidebar user={user} profile={profile} suggestion={suggestion?.[0]} />

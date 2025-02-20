@@ -17,9 +17,6 @@ import {
 // Icons
 import { X } from 'lucide-react';
 
-// Confetti
-import confetti from 'canvas-confetti';
-
 export const TourCard: React.FC<CardComponentProps> = ({
   step,
   currentStep,
@@ -33,15 +30,10 @@ export const TourCard: React.FC<CardComponentProps> = ({
 
   function handleConfetti() {
     closeOnborda();
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 },
-    });
   }
 
   return (
-    <Card className="relative min-w-[300px] w-max max-w-full z-[999] bg-black border border-black-50">
+    <Card className="relative min-w-[300px] w-max max-w-full z-[999] bg-black border-none">
       <Button
         variant="ghost"
         className="text-white absolute top-2 right-2 hover:text-white/50"
@@ -75,23 +67,17 @@ export const TourCard: React.FC<CardComponentProps> = ({
           </Button>
           <div className="flex gap-4 ml-auto">
             {currentStep !== 0 && (
-              <Button
-                onClick={() => prevStep()}
-                className="bg-black-75 hover:bg-black-50 text-white hover:text-white"
-              >
+              <Button onClick={() => prevStep()} variant="default">
                 Previous
               </Button>
             )}
             {currentStep + 1 !== totalSteps && (
-              <Button
-                onClick={() => nextStep()}
-                className="bg-black-75 hover:bg-black-50 text-white hover:text-white"
-              >
+              <Button onClick={() => nextStep()} variant="secondary">
                 Next
               </Button>
             )}
             {currentStep + 1 === totalSteps && (
-              <Button variant="default" onClick={handleConfetti}>
+              <Button variant="premium" onClick={handleConfetti}>
                 Dive in!
               </Button>
             )}

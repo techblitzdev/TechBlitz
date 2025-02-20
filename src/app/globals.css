@@ -125,6 +125,11 @@ html {
     clip-path: polygon(100% 0, 0 50%, 100% 100%);
     background: var(--arrow-color);
   }
+
+  /** data-name="onborda-pointer" */
+  [data-name='onborda-pointer'] {
+    @apply !rounded-md !p-1;
+  }
 }
 
 /* Basic editor styles */

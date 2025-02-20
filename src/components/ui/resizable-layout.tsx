@@ -108,7 +108,7 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
           after:rounded-full after:bg-black-50 after:transition-all
           hover:after:bg-black-25 hover:after:w-32 lg:hover:after:w-[3px] 
           hover:after:h-[3px] lg:hover:after:h-32
-        `}
+          `}
       />
       <div
         className="w-full lg:w-[var(--right-width)] overflow-hidden flex flex-col"

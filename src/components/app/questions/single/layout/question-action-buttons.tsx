@@ -51,7 +51,7 @@ export default function QuestionActionButtons() {
   };
 
   return (
-    <div className="flex gap-x-1 md:gap-x-3 items-center">
+    <div id="question-action-buttons" className="flex gap-x-1 md:gap-x-3 items-center">
       <Button variant="destructive" onClick={handleReset}>
         <div className="relative">
           <AnimatePresence>

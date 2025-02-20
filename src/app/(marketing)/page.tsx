@@ -151,9 +151,6 @@ export default async function Page() {
   // not awaiting as we are passing it the component that needs it to prevent render blocking
   const userCount = getUserCount();
 
-  //const homepageHeroIframe =
-  //  'https://customer-8s5ov2shcw99ezk2.cloudflarestream.com/e49b63ed5ee42085d838a50928855776/iframe?poster=https%3A%2F%2Fcustomer-8s5ov2shcw99ezk2.cloudflarestream.com%2Fe49b63ed5ee42085d838a50928855776%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600';
-
   return (
     <>
       <script

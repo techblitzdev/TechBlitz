@@ -62,7 +62,14 @@ const FloatingChips = () => {
         mouseX={mouseX}
         mouseY={mouseY}
       />
-      <FloatingChip Icon={GitIcon} top="20%" right="15%" mouseX={mouseX} mouseY={mouseY} />
+      <FloatingChip
+        href="/roadmaps"
+        Icon={GitIcon}
+        top="20%"
+        right="15%"
+        mouseX={mouseX}
+        mouseY={mouseY}
+      />
       <FloatingChip
         href="/roadmaps/react-hooks-fundamentals"
         Icon={ReactIcon}
@@ -71,7 +78,14 @@ const FloatingChips = () => {
         mouseX={mouseX}
         mouseY={mouseY}
       />
-      <FloatingChip Icon={GlobeIcon} bottom="25%" right="10%" mouseX={mouseX} mouseY={mouseY} />
+      <FloatingChip
+        href="/roadmaps"
+        Icon={GlobeIcon}
+        bottom="25%"
+        right="10%"
+        mouseX={mouseX}
+        mouseY={mouseY}
+      />
       <FloatingChip
         href="/roadmaps/arrays"
         Icon={ArrayIcon}

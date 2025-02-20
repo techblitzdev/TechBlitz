@@ -5,6 +5,7 @@ import { ArrowLeft } from 'lucide-react';
 import { CardFooter } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { STEPS } from '@/hooks/use-onboarding-steps';
+import { useOnboardingContext } from '@/contexts/onboarding-context';
 
 interface OnboardingFooterProps {
   currentStep: keyof typeof STEPS;
@@ -23,6 +24,8 @@ export default function OnboardingFooter({
   onContinue,
   onBack,
 }: OnboardingFooterProps) {
+  const { user } = useOnboardingContext();
+
   return (
     <CardFooter
       className={cn(
@@ -55,9 +58,15 @@ export default function OnboardingFooter({
             Skip
           </Button>
         )}
-        <Button variant="accent" type="button" onClick={onContinue} disabled={isLoading}>
-          {isLoading && <LoadingSpinner className="mr-2 size-4" />}
+        {/** disable if no username or how did you hear about us */}
+        <Button
+          variant="accent"
+          type="button"
+          onClick={onContinue}
+          disabled={isLoading || !user?.username || !user?.howDidYouHearAboutTechBlitz}
+        >
           Continue
+          {isLoading && <LoadingSpinner className="mr-2 size-4" />}
         </Button>
       </div>
     </CardFooter>

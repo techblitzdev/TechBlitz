@@ -209,8 +209,7 @@ export default async function PricingPage() {
             The most personalized platform to learn to code
           </h1>
           <p className="text-gray-400 max-w-xl">
-            Experience the power of TechBlitz for free, no credit card required. Upgrade to a paid
-            plan to learn faster with a personalized learning experience.
+            A personalized platform to learn to code for less than $0.17 per day.
           </p>
           <FrequencyToggle initialFrequency={billingPeriod} onFrequencyChange={updateFrequency} />
           <div className="my-10">

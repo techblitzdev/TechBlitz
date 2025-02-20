@@ -6,7 +6,6 @@ import Link from 'next/link';
 
 import dynamic from 'next/dynamic';
 import AnimatedSpan from '@/components/ui/animated-span';
-import { QUESTIONS_COUNT } from '@/utils/constants/misc';
 
 import DailyQuestionBox from './daily-question-box';
 const LeaderboardBentoBox = dynamic(() => import('./leaderboard-bento-box'), {
@@ -25,14 +24,13 @@ export default async function FeaturesBentoGrid() {
   return (
     <section className="pt-10 lg:pt-28 pb-10 md:pb-20 flex flex-col gap-y-7 relative">
       <div className="flex flex-col gap-y-1 items-center text-center">
-        <AnimatedSpan content="Features" />
+        <AnimatedSpan content="Learning to code made personal" />
         <h1 className="text-2xl lg:text-5xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
-          A personalized approach to learning <br /> to code
+          Master Programming with Personalized <br /> Learning Tools
         </h1>
         <span className="text-sm md:text-base text-gray-400 max-w-4xl">
-          Experience a tailored coding journey that adapts to your skill level and goals. With{' '}
-          {QUESTIONS_COUNT}+ coding challenges, detailed progress tracking, and customized learning
-          paths. We ensure you improve day by day.
+          Discover our comprehensive suite of coding education features designed to accelerate your
+          programming journey
         </span>
       </div>
       <div className="min-h-[1450px] md:min-h-[1000px] lg:min-h-[700px] rounded-lg">
@@ -44,24 +42,26 @@ export default async function FeaturesBentoGrid() {
               cardClasses
             )}
             prefetch
-            aria-label="Navigate to Roadmaps"
+            aria-label="Navigate to Personalized Programming Roadmaps"
           >
             <div className="flex flex-col justify-between">
               <div className="flex flex-col gap-y-1 relative max-w-md">
-                <h5 className="text-2xl text-gradient from-white to-white/55">Coding Roadmaps</h5>
+                <h5 className="text-2xl text-gradient from-white to-white/55">
+                  Interactive Programming Roadmaps
+                </h5>
                 <p className="text-xs text-gray-400 font-onest">
-                  Created a personalized coding roadmap that adapt to your coding skills and craft
-                  you a learning path to ensure you become a better developer.
+                  Follow a customized learning path tailored to your skill level. Our AI-powered
+                  roadmaps adapt to your progress and provide
                 </p>
                 <Button variant="default" className="flex md:hidden z-10 relative mt-2">
-                  Learn more <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
+                  Explore roadmaps <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
                 </Button>
               </div>
               <Button
                 variant="default"
                 className="z-10 relative gap-x-2 items-center w-fit font-onest hidden md:flex"
               >
-                Learn more <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
+                Explore roadmaps <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
               </Button>
             </div>
             <RoadmapFeatureBox />
@@ -73,14 +73,16 @@ export default async function FeaturesBentoGrid() {
               'h-[390px] lg:h-80 flex flex-col justify-between group overflow-hidden',
               cardClasses
             )}
-            aria-label="Navigate to Statistics"
+            aria-label="Navigate to Coding Progress Analytics"
           >
             <div className="flex flex-col gap-y-4 relative">
               <div className="flex flex-col gap-y-1">
-                <h5 className="text-2xl text-gradient from-white to-white/55">Progress tracking</h5>
+                <h5 className="text-2xl text-gradient from-white to-white/55">
+                  Comprehensive Progress Analytics
+                </h5>
                 <p className="text-xs text-gray-400 font-onest">
-                  Know exactly where you are in your learning journey. Get insights on your coding
-                  habits and how to improve your coding skills.
+                  Track your programming journey with detailed analytics. Monitor your coding
+                  practice, identify learning patterns, and receive data-driven recommendations.
                 </p>
               </div>
               <div className="w-full h-fit flex items-center justify-center">
@@ -91,13 +93,16 @@ export default async function FeaturesBentoGrid() {
           <Link
             href={'/features/leaderboard'}
             className={cn('relative overflow-hidden group flex flex-col', cardClasses)}
-            aria-label="Navigate to Leaderboard"
+            aria-label="Navigate to Developer Community Leaderboard"
           >
             <LeaderboardBentoBox />
             <div className="flex flex-col gap-y-1 mt-auto">
-              <h5 className="text-2xl text-gradient from-white to-white/55">Leaderboard</h5>
+              <h5 className="text-2xl text-gradient from-white to-white/55">
+                Community Leaderboard
+              </h5>
               <p className="text-xs text-gray-400 font-onest">
-                Opt-in to see how you stack up against other developers, no pressure.
+                Join our global developer community and benchmark your progress. Compare your coding
+                achievements with peers worldwide in a supportive, growth-focused environment.
               </p>
             </div>
           </Link>
@@ -105,20 +110,21 @@ export default async function FeaturesBentoGrid() {
             href="/features/daily-coding-challenges"
             className={cn('col-span-full lg:col-span-2 group overflow-hidden', cardClasses)}
             prefetch
-            aria-label="Navigate to Daily Challenges"
+            aria-label="Navigate to Daily Programming Challenges"
           >
             <div className="flex justify-between">
               <div className="flex flex-col gap-y-1 h-fit">
                 <h5 className="text-2xl text-gradient from-white to-white/55">
-                  Daily coding challenges
+                  Daily Programming Challenges
                 </h5>
                 <p className="text-xs text-gray-400 font-onest">
-                  Beginner-friendly coding challenges delivered straight to your inbox. Improving
-                  your coding skills in just 5 minutes a day.
+                  Enhance your coding skills with our curated daily challenges. Perfect for all
+                  skill levels, from beginners to advanced developers. Receive structured
+                  programming exercises directly in your inbox.
                 </p>
               </div>
               <Button variant="default" className="font-onest">
-                Learn more <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
+                Start practicing <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
               </Button>
             </div>
             <div className="relative">

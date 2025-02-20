@@ -1,9 +1,14 @@
+'use client';
+
 import Link from 'next/link';
 import Logo from '@/components/ui/logo';
 import SocialLinks from './socials';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import { useInView } from 'framer-motion';
+import { useRef } from 'react';
+import { cn } from '@/lib/utils';
 
 const footerItems = [
   {
@@ -87,8 +92,11 @@ const footerItems = [
 ];
 
 export default function MarketingFooter() {
+  const ref = useRef(null);
+  const isInView = useInView(ref);
+
   return (
-    <footer className="py-8 container">
+    <footer className={cn('py-8 container', isInView ? '' : '')} ref={ref}>
       <div className="flex flex-col lg:flex-row justify-between text-white">
         <div className="flex flex-col gap-y-12 w-full">
           <div className="flex flex-col lg:flex-row w-full justify-between">

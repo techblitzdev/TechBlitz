@@ -63,7 +63,6 @@ export default async function PreviousQuestionsPage({
               currentPage={filters.page || 1}
               filters={filters}
               customQuestions={false}
-              previousQuestions
               paginationUrl="/questions"
             />
           </div>

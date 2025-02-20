@@ -43,7 +43,7 @@ export default async function StudyPathQuestionCard({
         </div>
         {!userCanAccess && (
           <div className="h-fit">
-            <Lock fill="yellow" height="20" width="20" />
+            <Lock height="20" width="20" />
           </div>
         )}
       </div>

@@ -38,8 +38,16 @@ export default function PersonalizedRight() {
         <div className="flex flex-col gap-y-2 items-center justify-center">
           <h2 className="text-lg font-semibold">Custom Questions</h2>
           <p className="text-sm text-gray-400 text-center">
-            These coding questions have been generated based on your report for{' '}
-            {new Date().toLocaleDateString()}.
+            These coding questions have been generated based on your report for
+            <br />{' '}
+            <span className="font-bold">
+              {new Date().toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+              })}
+            </span>
+            .
           </p>
         </div>
         <div
@@ -65,12 +73,10 @@ export default function PersonalizedRight() {
         <div className="z-10 absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
       </div>
       <div className="flex flex-col gap-2.5">
-        <h3 className="text-3xl text-gradient from-white to-white/75">
-          Coding reports just for you
-        </h3>
+        <h3 className="text-3xl text-gradient from-white to-white/75">Custom Code Challenges</h3>
         <p className="text-gray-400 font-onest">
-          Customized coding reports generated from your current TechBlitz journey. Reports are the
-          ultimate way to improve your coding skills faster.
+          Personalized coding challenges generated from your current TechBlitz journey. You'll never
+          run out of things to code.
         </p>
         <Button
           variant="default"

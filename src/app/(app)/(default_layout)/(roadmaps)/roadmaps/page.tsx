@@ -144,24 +144,26 @@ export default async function ExploreQuestionsPage() {
               </div>
             ))}
           </div>
-          <aside className="w-full lg:w-[30%] flex flex-col gap-5 order-first lg:order-last">
-            {user?.userLevel === 'FREE' && (
-              <UpgradeCard
-                title="Looking for a more personalized experience?"
-                description="Unlock your full potential with a personalized study plan tailored just for you. Get focused learning paths, progress tracking, and expert guidance to learn 3x faster."
-              />
-            )}
-            <DailyGoalsCard missions={missions} userMissionRecords={userMissionRecords} />
-            <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit">
-              <div className="flex items-center space-x-2 text-white">
-                <Mail className="size-5 text-white" />
-                <span>Suggest a roadmap</span>
+          <aside className="w-full lg:w-[30%] order-first lg:order-last">
+            <div className="flex flex-col gap-5 sticky top-20">
+              {user?.userLevel === 'FREE' && (
+                <UpgradeCard
+                  title="Looking for a more personalized experience?"
+                  description="Unlock your full potential with a personalized study plan tailored just for you. Get focused learning paths, progress tracking, and expert guidance to learn 3x faster."
+                />
+              )}
+              <DailyGoalsCard missions={missions} userMissionRecords={userMissionRecords} />
+              <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit">
+                <div className="flex items-center space-x-2 text-white">
+                  <Mail className="size-5 text-white" />
+                  <span>Suggest a roadmap</span>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  We are adding new roadmaps every week. If you have a roadmap in mind, please let
+                  us know and we will get back to you as soon as possible.
+                </p>
+                <FeedbackButton title="Suggest a roadmap" />
               </div>
-              <p className="text-sm text-muted-foreground">
-                We are adding new roadmaps every week. If you have a roadmap in mind, please let us
-                know and we will get back to you as soon as possible.
-              </p>
-              <FeedbackButton title="Suggest a roadmap" />
             </div>
           </aside>
         </div>

@@ -49,7 +49,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {props.children}
       </MdxHeading>
     ),
-    CodeSnippet,
+    CodeSnippet: (props: any) => (
+      <div className="mt-3">
+        <CodeSnippet {...props} />
+      </div>
+    ),
     CallToActionBlock,
     MdxQuestionDisplay,
     ...components,

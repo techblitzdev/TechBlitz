@@ -19,7 +19,7 @@ export default function TestCaseSection() {
   const userCanAccess = question.isPremiumQuestion ? user?.userLevel !== 'FREE' : true;
 
   return (
-    <div className="h-full p-3 lg:pl-1.5 lg:pt-1.5 lg:pb-3 lg:pr-3">
+    <div id="test-cases" className="h-full p-3 lg:pl-1.5 lg:pt-1.5 lg:pb-3 lg:pr-3">
       <div className="bg-black-75 border border-black-50 rounded-xl h-full overflow-scroll">
         <div className="bg-black-25 px-4 py-2 border-b border-black-50 flex items-center justify-between">
           <h2 className="font-semibold flex items-center gap-x-1">

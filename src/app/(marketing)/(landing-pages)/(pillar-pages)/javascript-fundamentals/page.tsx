@@ -11,6 +11,7 @@ import { createMetadata } from '@/utils/seo';
 import { MobileIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 import { getUserCount } from '@/utils/data/user/get-user-count';
+import HomepageUserStats from '@/components/marketing/global/blocks/homepage-user-stats';
 
 const faqs = [
   {
@@ -89,6 +90,21 @@ const faqs = [
     ),
   },
   {
+    question: 'How can I write a function in JavaScript?',
+    answer: (
+      <>
+        There are a few different ways to write a function in JavaScript. You can learn more about
+        them by reading our blog post{' '}
+        <Link
+          href="/javascript-fundamentals/how-to-write-a-function-in-javascript"
+          className="text-accent underline"
+        >
+          How to write a function in JavaScript
+        </Link>
+      </>
+    ),
+  },
+  {
     question: 'Is JavaScript programming language?',
     answer: (
       <>
@@ -103,6 +119,68 @@ const faqs = [
       <>
         TechBlitz is the #1 platform for learning to code JavaScript for free. We offer a wide range
         of coding challenges for beginners and professionals.
+      </>
+    ),
+  },
+  {
+    question: 'What is the difference between double equals and triple equals in JavaScript?',
+    answer: (
+      <>
+        Double equals (`==`) is used for loose equality comparison, while triple equals (`===`) is
+        used for strict equality comparison.{' '}
+        <Link
+          href="/javascript-fundamentals/loose-vs-strict-equality-in-javascript"
+          className="text-accent underline"
+        >
+          Learn more about the difference between double equals and triple equals in JavaScript
+        </Link>
+      </>
+    ),
+  },
+  {
+    question: 'How can I write comments in JavaScript?',
+    answer: (
+      <>
+        You can write comments in JavaScript using the `//` syntax for single-line comments, and the
+        `/* */` syntax for multi-line comments.
+        <br />
+        <br />
+        You can learn more about how to write comments in JavaScript by reading our blog post{' '}
+        <Link
+          href="/javascript-fundamentals/how-to-write-comments-in-javascript"
+          className="text-accent underline"
+        >
+          how to write comments in JavaScript
+        </Link>
+        .
+      </>
+    ),
+  },
+  {
+    question: 'How can I learn JavaScript operators?',
+    answer: (
+      <>
+        You can learn JavaScript operators by reading our blog post{' '}
+        <Link
+          href="/javascript-fundamentals/how-to-use-operators-in-javascript"
+          className="text-accent underline"
+        >
+          A Guide to Using Operators in JavaScript
+        </Link>
+      </>
+    ),
+  },
+  {
+    question: 'How can I connect HTML to JavaScript?',
+    answer: (
+      <>
+        You can connect HTML to JavaScript by using the `script` tag.
+        <Link
+          href="/javascript-fundamentals/how-to-connect-html-to-javascript"
+          className="text-accent underline"
+        >
+          Learn more about connecting HTML to JavaScript
+        </Link>
       </>
     ),
   },
@@ -125,9 +203,9 @@ const items = [
         </g>
       </svg>
     ),
-    title: 'Personalized Coding Challenges',
+    title: 'Personalized JavaScript Coding Challenges',
     description:
-      "Master coding with challenges tailored to your skill level. Whether you're on your phone, tablet, or computer, our platform ensures you learn at your own pace.",
+      "Master the basics of JavaScript with challenges tailored to your skill level. Whether you're on your phone, tablet, or computer, our platform ensures you learn at your own pace.",
   },
   {
     icon: (
@@ -138,9 +216,9 @@ const items = [
         />
       </svg>
     ),
-    title: 'Daily Coding Challenges',
+    title: 'Daily JavaScript Coding Challenges',
     description:
-      'Sharpen your skills with daily coding challenges designed for all levels. From JavaScript fundamentals to advanced web development, our bite-sized exercises make learning fun and effective.',
+      'Sharpen your skills with daily JavaScript coding challenges designed for all levels. From JavaScript fundamentals to advanced web development, our bite-sized exercises make learning fun and effective.',
   },
   {
     icon: (
@@ -267,8 +345,7 @@ export default async function JavaScriptFundamentalsPage() {
     },
   };
 
-  // round the user count to the nearest 1000
-  const userCount = await getUserCount().then((count) => Math.round(count / 10) * 10);
+  const userCountPromise = getUserCount();
 
   return (
     <>
@@ -293,7 +370,7 @@ export default async function JavaScriptFundamentalsPage() {
 
         <FeatureLeftRightSection
           leftHeader="The Best Free JavaScript Course Online"
-          leftSubheader="Master JavaScript with our comprehensive free course. Perfect for beginners and experienced developers alike, our interactive lessons and exercises make learning JavaScript easy and engaging."
+          leftSubheader="Master the basics of JavaScript with our comprehensive free course. Perfect for beginners and experienced developers alike, our interactive lessons and exercises make learning JavaScript easy and engaging."
           learnMoreLink={true}
           leftCta={{
             href: '/javascript-fundamentals/how-does-javascript-work',
@@ -302,24 +379,26 @@ export default async function JavaScriptFundamentalsPage() {
         />
 
         <FeatureRoadmapThreeGridBlock
-          title="Complete JavaScript Training & Resources"
+          title="Complete JavaScript Roadmaps & Coding Challenges"
           description="Access a full JavaScript programming course with structured learning paths, hands-on tutorials, and real-world projects. Whether you're a complete beginner or looking to level up your skills, our JavaScript training has everything you need."
           cta={true}
         />
 
         <StatsReportSection
-          header="The Best Place to Learn JavaScript"
-          subheader="Join millions of developers learning JavaScript on TechBlitz. Our free JavaScript tutorials and online classes provide the perfect environment to master JavaScript programming at your own pace."
+          header="The Best Site to Learn JavaScript"
+          subheader="Learn the fundamentals of JavaScript with TechBlitz. Our free JavaScript tutorials and online classes provide the perfect environment to master JavaScript programming at your own pace."
           learnMoreLink={true}
         />
 
-        <MarketingContentGrid title="Everything You Need to Learn to Code" items={items} />
+        <MarketingContentGrid title="Everything You Need to Learn JavaScript" items={items} />
+
+        <HomepageUserStats userCountPromise={userCountPromise} />
 
         <FAQsBlock faqs={faqs} />
 
         <CallToActionBlock
-          title="Start Solving Coding Challenges Today"
-          description={`Join over ${userCount} users learning to code on TechBlitz. Our free JavaScript tutorials and online classes provide the perfect environment to master JavaScript programming at your own pace.`}
+          title="Learn the fundamentals of JavaScript today"
+          description={`Join over ${await userCountPromise.then((count) => Math.round(count / 10) * 10)}+ users learning to code on TechBlitz. Our free JavaScript tutorials and online classes provide the perfect environment to master JavaScript programming at your own pace.`}
         />
       </div>
     </>

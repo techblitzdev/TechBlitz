@@ -1,15 +1,28 @@
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import AnimatedSpan from '@/components/ui/animated-span';
 import { ArrowRight } from 'lucide-react';
-import HeroText from './text-rotate';
 import { Button } from '@/components/ui/button';
-import GoogleSignUp from './google-sign-up';
 import { useUserServer } from '@/hooks/use-user-server';
+import LoadingSpinner from '@/components/ui/loading';
+
+const HeroText = dynamic(() => import('./text-rotate'), {
+  ssr: false,
+});
+
+const GoogleSignUp = dynamic(() => import('./google-sign-up'), {
+  ssr: false,
+  loading: () => (
+    <Button variant="accent" size="lg" href="/dashboard">
+      <LoadingSpinner />
+    </Button>
+  ),
+});
 
 export default function HomepageHero() {
   const animatedSpanContent = (
     <div className="flex items-center group">
-      <span className="hidden md:block">Limited time lifetime offer!</span>
+      <span className="hidden md:block">Limited time offer: 30% off for 3 months</span>
       <span className="block md:hidden">Limited time offer!</span>
       <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-all duration-300" />
     </div>
@@ -27,7 +40,9 @@ export default function HomepageHero() {
           <span className=" text-gradient from-white to-white/75">
             Learning to code <br />
           </span>
-          <HeroText />
+          <div className="h-28 lg:h-16">
+            <HeroText />
+          </div>
         </h1>
         <p className="font-onest max-w-4xl text-gray-400 text-lg">
           Unlock your potential with hands-on, industry-standard coding challenges. <br /> Take the

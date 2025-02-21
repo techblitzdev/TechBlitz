@@ -1,0 +1,162 @@
+---
+title: 'How to write loops in JavaScript'
+description: "Learn how to use the different types of loops in JavaScript to repeat code and make your programs more efficient."
+image: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images/html-conditional-statement.png'
+date: '2025-02-21'
+author: 'Logan Ford'
+authorImage: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/user-profile-pictures/3a57d7e8-8b80-483b-93d0-70fe1f06b0c0/logo.png?u=1l5im5h5n6e5'
+readingTime: 5
+status: published
+headings:
+    - title: 'How to write loops in JavaScript'
+      level: 1
+    - title: 'For Loops'
+      level: 1
+    - title: 'While Loops'
+      level: 1
+    - title: 'Do...While Loops'
+      level: 1
+tags: ['HTML', 'Web Development', 'JavaScript', 'APIs', 'Frontend']
+subpage: true
+---
+
+import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
+
+<img className='max-h-80 object-cover w-full' src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//roonz-nl-2xEQDxB0ss4-unsplash%20(1).jpg" alt="How to create a weather app in JavaScript" />
+
+# How to write loops in JavaScript
+
+In programming, loops are used to repeat a block of code. They are a fundamental concept in JavaScript and many other programming languages to make your programs more efficient.
+
+There are three types of loops in JavaScript:
+
+- `for` loops
+- `while` loops
+- `do...while` loops
+
+Let's take a look at each type of loop, how to use them and when to use them.
+
+## For Loops
+
+For loops are the most basic type of loop in JavaScript. They are used to repeat a block of code a specific number of times.
+
+<br />
+
+The syntax for a for loops is as follows:
+
+<CodeSnippet language="javascript" content={`for (let i = 0; i < 10; i++) {
+    console.log(i);
+
+        // This will be console logged 10 times
+}`} />
+
+<br />
+
+Let's break down the syntax:
+
+- `let i = 0`: This is the initialization of the loop. It sets the variable `i` to 0. This is the starting point of the loop.
+- `i < 10`: This is the condition that the loop will continue to run as long as it is true.
+- `i++`: This is the increment statement. It increments the variable `i` by 1 each time the loop runs. If we didn't have this, the loop would run forever.
+
+<br />
+
+## While Loops
+
+While loops are used to repeat a block of code while a condition is true.
+
+They differ from for loops in that they don't require an initialization statement, and will continue to run as long as the condition is true.
+
+<br />
+
+The syntax for a while loop is as follows:
+
+<CodeSnippet language="javascript" content={`let i = 0;
+while (i < 10) {
+    console.log(i);
+    i++;
+}`} />
+
+<br />
+
+Let's break down the syntax:
+
+- `let i = 0;`: This is the initialization of the loop. It sets the variable `i` to 0. This is the starting point of the loop.
+- `while (i < 10) {`: This is the condition that the loop will continue to run as long as it is true.
+- `i++;`: This is the increment statement. It increments the variable `i` by 1 each time the loop runs.
+
+<br />
+
+## Do...While Loops
+
+Do...while loops are similar to while loops, but they will always run at least once. This is because the condition is checked after the loop has run.   
+
+<br />
+
+The syntax for a do...while loop is as follows:
+
+<CodeSnippet language="javascript" content={`let i = 0;
+do {
+    console.log(i);
+    i++;
+} while (i < 10);`} />
+
+<br />
+
+Let's break down the syntax:
+
+- `do {`: This is the starting point of the loop.
+- `console.log(i);`: This is the code that will be executed each time the loop runs.
+- `i++;`: This is the increment statement. It increments the variable `i` by 1 each time the loop runs.
+- `} while (i < 10);`: This is the condition that the loop will continue to run as long as it is true.
+
+<br />
+
+## Nested Loops
+
+Nested loops are loops that contain another loop. This allows you to repeat a block of code multiple times.
+
+<br />
+
+The syntax for a nested loop is as follows:
+
+<CodeSnippet language="javascript" content={`for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 10; j++) {
+        console.log(i, j);
+    }
+}`} />
+
+<br />
+
+When writing nested loops, it is important to use different variables for the loops. If we used the same variable, the inner loop would overwrite the outer loop's variable.
+
+<br />
+
+Nested loops can also become quite complex, so you must ensure that the loops are written correctly.
+
+<br />
+
+## When to use each type of loop
+
+- Use a `for` loop when you know exactly how many times you want to repeat the code.
+- Use a `while` loop when you don't know how many times you want to repeat the code, but you know the condition.
+- Use a `do...while` loop when you want to repeat the code at least once, but you don't know how many times you want to repeat the code.
+
+## The most common type of loop
+
+The most common type of loop is the `for` loop. It is used when you know exactly how many times you want to repeat the code.
+
+<br />
+
+## Useful resources
+
+- [MDN Web Docs - Loops and iteration](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration)
+- [W3Schools - JavaScript Loops](https://www.w3schools.com/js/js_loop_for.asp)
+
+## Looking to learn more about loops in JavaScript?
+
+You’ve learned the basics of for, while, and do...while loops—now it’s time to put your skills to the test!
+
+<br />
+
+<MdxQuestionDisplay tag="loops" take={5} difficulty="EASY" />

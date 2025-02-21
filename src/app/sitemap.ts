@@ -11,7 +11,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     listQuestions({
       page: 1,
       pageSize: 1000,
-      userUid: '',
     }),
     getAllStudyPaths(),
   ]);
@@ -216,6 +215,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     /** PILLAR & SUBPAGES PAGES FOR THE MARKETING SITE */
 
     // JAVASCRIPT CHEAT SHEET
+
     {
       url: `${baseUrl}/javascript-cheat-sheet`,
       lastModified: new Date(),
@@ -228,7 +228,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/javascript-cheat-sheet/regular-expression-cheat-sheet`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/javascript-cheat-sheet/javascript-string-cheat-sheet`,
+      lastModified: new Date(),
+    },
+
     // JAVASCRIPT CODING INTERVIEW QUESTIONS AND ANSWERS
+
     {
       url: `${baseUrl}/javascript-coding-interview-questions-and-answers`,
       lastModified: new Date(),
@@ -241,6 +247,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/javascript-coding-interview-questions-and-answers/javascript-interview-questions-for-senior-developers`,
       lastModified: new Date(),
     },
+
+    // JAVASCRIPT PROJECTS FOR BEGINNERS
+
     {
       url: `${baseUrl}/javascript-projects-for-beginners`,
       lastModified: new Date(),
@@ -249,7 +258,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/javascript-projects-for-beginners/programming-challenges-for-beginners`,
       lastModified: new Date(),
     },
-    // JAVASCRIPT FUNDAMENTALS
+    {
+      url: `${baseUrl}/javascript-projects-for-beginners/how-to-create-a-weather-app-in-javascript`,
+      lastModified: new Date(),
+    },
+
+    /** JAVASCRIPT FUNDAMENTALS */
+
     {
       url: `${baseUrl}/javascript-fundamentals`,
       lastModified: new Date(),
@@ -276,6 +291,38 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/javascript-fundamentals/javascript-nested-conditionals`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-fundamentals/how-to-write-a-function-in-javascript`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-fundamentals/loose-vs-strict-equality-in-javascript`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-fundamentals/primitive-types-in-javascript`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-fundamentals/what-is-a-string-in-javascript`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-fundamentals/difference-between-const-var-and-let`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-fundamentals/how-to-write-comments-in-javascript`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-fundamentals/how-to-write-loops-in-javascript`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/javascript-fundamentals/how-to-convert-a-number-to-string-in-javascript`,
       lastModified: new Date(),
     },
   ];

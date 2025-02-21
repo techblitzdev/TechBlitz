@@ -1,18 +1,15 @@
 import FilterTagsCarousel from '@/components/app/filters/tags-carousel';
 import FilterSearchTag from '@/components/app/filters/search/tag-search';
-import { Tag } from '@prisma/client';
-import { FilterContextProvider } from '../../../contexts/filter-context';
-import { use } from 'react';
+import { FilterContextProvider } from '@/contexts/filter-context';
 import FilterDropdown from './filter-dropdown';
 import SortDropdown from './sort/sort-dropdown';
-
+import { getTags } from '@/utils/data/questions/tags/get-tags';
 interface FilterProps {
-  tagsPromise: Promise<Tag[]>;
   showSort?: boolean;
 }
 
-export default function Filter({ tagsPromise, showSort = true }: FilterProps) {
-  const tags = use(tagsPromise);
+export default async function Filter({ showSort = true }: FilterProps) {
+  const tags = await getTags();
 
   return (
     <FilterContextProvider tags={tags}>

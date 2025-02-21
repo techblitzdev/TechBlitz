@@ -12,12 +12,13 @@ import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
 import { getUserMissionRecords } from '@/utils/data/missions/get-user-mission-record';
 
 export default async function QuestionPageSidebar() {
-  const user = await useUserServer();
-  const missions = await getDailyMissions();
-  const userMissionRecords = await getUserMissionRecords();
-
-  // get the user streak and suggestion in one go
-  const userStreak = await getUserDailyStats();
+  // run in parallel
+  const [user, missions, userMissionRecords, userStreak] = await Promise.all([
+    useUserServer(),
+    getDailyMissions(),
+    getUserMissionRecords(),
+    getUserDailyStats(),
+  ]);
 
   // get the streak start date and streak end date
   const startDate = userStreak?.streakData?.streakStart as Date;

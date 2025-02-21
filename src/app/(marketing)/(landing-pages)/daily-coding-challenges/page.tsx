@@ -55,7 +55,7 @@ const faqs = [
   {
     question: 'Does TechBlitz offer discounts for students?',
     answer:
-      'Yes, we offer a 50% discount for students. Contact our support team with your student email to redeem this offer.',
+      'Yes, we offer a 30% discount for students. Contact our support team with your student email to redeem this offer.',
   },
   {
     question: 'Can I use TechBlitz on my mobile device?',

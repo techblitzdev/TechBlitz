@@ -13,6 +13,7 @@ import CodeDisplayWrapper from '@/components/app/questions/single/layout/code-di
 import CodeEditor from '@/components/app/questions/code-editor/editor';
 import TestCaseSection from '@/components/app/questions/code-editor/test-case-section';
 import PremiumContentWrapper from '@/components/app/shared/question/premium-content-wrapper';
+import TourStartModal from '@/components/app/shared/question/tour-start-modal';
 
 export default async function TodaysQuestionPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
@@ -71,6 +72,7 @@ export default async function TodaysQuestionPage({ params }: { params: { slug: s
 
   return (
     <PremiumContentWrapper>
+      <TourStartModal user={user} />
       <ResizableLayout
         leftContent={leftContent}
         rightTopContent={rightContent}

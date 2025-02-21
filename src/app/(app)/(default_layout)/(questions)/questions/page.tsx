@@ -5,7 +5,6 @@ import Hero from '@/components/shared/hero';
 import { Button } from '@/components/ui/button';
 
 import { validateSearchParams, parseSearchParams } from '@/utils/search-params';
-import { getTags } from '@/utils/data/questions/tags/get-tags';
 import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
 
 const Filter = dynamic(() => import('@/components/app/filters/filter'), {
@@ -15,7 +14,7 @@ const Filter = dynamic(() => import('@/components/app/filters/filter'), {
 
 const FilterChips = dynamic(() => import('@/components/app/filters/chips'), {
   ssr: false,
-  loading: () => <div className="h-8"></div>,
+  loading: () => null,
 });
 const QuestionsList = dynamic(() => import('@/components/app/questions/layout/questions-list'), {
   loading: () => (
@@ -120,8 +119,6 @@ export default async function QuestionsDashboard({
     },
   };
 
-  const tagsPromise = getTags();
-
   const filters = parseSearchParams(searchParams);
   if (!validateSearchParams(filters)) return null;
 
@@ -137,7 +134,7 @@ export default async function QuestionsDashboard({
           <div className="w-full lg:min-w-[75%] space-y-6">
             <div className="min-h-[84px] flex flex-col gap-y-2">
               <Suspense fallback={<FilterLoading />}>
-                <Filter tagsPromise={tagsPromise} />
+                <Filter />
                 <FilterChips />
               </Suspense>
             </div>

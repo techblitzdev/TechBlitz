@@ -10,24 +10,27 @@ import QuestionAccordion from '@/components/app/questions/single/question-accord
 import QuestionTabs from '@/components/app/questions/resources/question-tabs';
 import AnswerQuestionForm from '@/components/app/questions/single/answer-question-form';
 import { BarChart, BookIcon, BookOpen, FileIcon, FileText, PieChart } from 'lucide-react';
-
-// types
-import type { UserRecord } from '@/types/User';
-import type { Question } from '@/types/Questions';
-
-import { useQuestionSingle } from '../../../../../contexts/question-single-context';
 import { Button } from '@/components/ui/button';
 import CodeDisplay from './code-snippet';
+import { AnimatePresence } from 'framer-motion';
+import CodeEditorQuestionSubmitted from '@/components/app/questions/code-editor/answer-submitted';
+import CodeEditor from '@/components/app/questions/code-editor/editor';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import ExpandedCodeModal from './expanded-code-modal';
 import ChangeCodeTheme from './change-code-theme';
 import AiQuestionHelp from './ai-question-help';
 import NoDailyQuestion from '@/components/shared/no-daily-question';
 import QuestionSubmitted from './question-submitted';
+
+// types
+import type { UserRecord } from '@/types/User';
+import type { Question } from '@/types/Questions';
+
+// context
+import { useQuestionSingle } from '@/contexts/question-single-context';
+
+// utils
 import { capitalize } from 'lodash';
-import { AnimatePresence } from 'framer-motion';
-import CodeEditorQuestionSubmitted from '@/components/app/questions/code-editor/answer-submitted';
-import CodeEditor from '@/components/app/questions/code-editor/editor';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export default function QuestionCard(opts: {
   // optional as this is not required to render the card
@@ -86,6 +89,7 @@ export default function QuestionCard(opts: {
 
   return (
     <Tabs
+      id="question-card-tabs"
       defaultValue="description"
       className="h-full bg-black-75 border border-black-50 rounded-lg flex flex-col overflow-hidden"
     >
@@ -93,6 +97,7 @@ export default function QuestionCard(opts: {
         <div className="flex items-center gap-2 justify-between w-full">
           <TabsList className="hidden lg:grid h-auto w-fit grid-cols-3 gap-5 text-white rounded-lg bg-transparent p-1">
             <TabsTrigger
+              id="question-card-tabs-description"
               value="description"
               onClick={() => setActiveTab('description')}
               className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline border-0 w-fit px-0"
@@ -107,6 +112,7 @@ export default function QuestionCard(opts: {
               Description
             </TabsTrigger>
             <TabsTrigger
+              id="question-card-tabs-resources"
               value="resources"
               onClick={() => setActiveTab('resources')}
               className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline w-fit border-0 px-0"
@@ -121,6 +127,7 @@ export default function QuestionCard(opts: {
               Resources
             </TabsTrigger>
             <TabsTrigger
+              id="question-card-tabs-stats"
               value="stats"
               onClick={() => setActiveTab('stats')}
               className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline w-fit border-0 px-0"

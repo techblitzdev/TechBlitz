@@ -56,7 +56,7 @@ const faqs = [
   {
     question: 'Does TechBlitz offer discounts for students?',
     answer:
-      'Yes, we offer a 50% discount for students. Contact our support team with your student email to redeem this offer.',
+      'Yes, we offer a 30% discount for students. Contact our support team with your student email to redeem this offer.',
   },
   {
     question: 'Can I use TechBlitz on my mobile device?',
@@ -77,6 +77,21 @@ const faqs = [
     question: 'How does TechBlitz ensure my progress is tracked effectively?',
     answer:
       'TechBlitz provides detailed analytics and progress reports, allowing you to track your performance, identify weak areas, and celebrate milestones as you advance in your JavaScript journey.',
+  },
+  {
+    question: 'How can I master string methods in JavaScript?',
+    answer: (
+      <>
+        To master string methods in JavaScript, you can try our{' '}
+        <Link
+          href="/javascript-cheat-sheet/javascript-string-cheat-sheet"
+          className="text-accent underline"
+        >
+          string cheat sheet
+        </Link>
+        .
+      </>
+    ),
   },
 ];
 

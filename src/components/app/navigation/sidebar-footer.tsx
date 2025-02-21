@@ -25,7 +25,7 @@ export default function SidebarFooter({ user }: SidebarFooterProps) {
           </Button>
         </SidebarMenuItem>
       )}
-      {user?.userLevel === 'FREE' && <SidebarFooterPremium />}
+      {user?.userLevel === 'FREE' && <SidebarFooterPremium user={user} />}
       <SidebarMenuItem className="group-data-[collapsible=icon]:hidden list-none">
         <ReferralModal>
           <Button variant="default" fullWidth className="">

@@ -1,0 +1,307 @@
+---
+title: 'Build a Weather App with JavaScript & APIs (Step-by-Step Guide)'
+description: "Do you want to learn how to fetch real-time weather data and display it in a web app? In this beginner-friendly tutorial, we’ll walk through building a simple weather app using JavaScript, HTML, CSS, and the OpenWeatherMap API."
+image: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images/html-conditional-statement.png'
+date: '2025-02-20'
+author: 'Logan Ford'
+authorImage: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/user-profile-pictures/3a57d7e8-8b80-483b-93d0-70fe1f06b0c0/logo.png?u=1l5im5h5n6e5'
+readingTime: 20
+status: published
+headings:
+    - title: 'Creating a Weather App in JavaScript'
+      level: 1
+    - title: 'Prerequisites'
+      level: 2  
+    - title: 'Project Setup'
+      level: 2
+    - title: 'Getting an API Key'
+      level: 2
+    - title: 'Building the App'
+      level: 2
+    - title: 'Testing the App'
+      level: 2
+    - title: 'Common issues'
+      level: 2
+    - title: 'Your next steps'
+      level: 2
+    - title: 'Looking for more JavaScript Coding Challenges?'
+      level: 2
+tags: ['HTML', 'Web Development', 'JavaScript', 'APIs', 'Frontend']
+subpage: true
+---
+
+import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
+
+<img className='max-h-80 object-cover w-full' src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/how-to-create-a-weather-app-in-javascript.jpg" alt="How to create a weather app in JavaScript" />
+
+# Creating a Weather App in JavaScript
+
+In this tutorial, we're going to build your first JavaScript API project. We're going to build a simple weather app using JavaScript and the OpenWeatherMap API. 
+We'll be using HTML, CSS, and JavaScript to create a weather app that allows users to search for a city and see its current weather conditions.
+
+## Prerequisites
+
+Before starting, make sure you have:
+- A text editor (like Visual Studio Code - download it [here](https://code.visualstudio.com/))
+- A modern web browser (like Chrome, Firefox, or Edge)
+- Basic knowledge of HTML, CSS, and JavaScript (or you can follow along with the code snippets)
+- The Live Server extension for VS Code (install it from the Extensions tab)
+
+## Project Setup
+
+1. Create a new folder called `weather-app` on your computer
+2. Inside that folder, create three files:
+   - `index.html`
+   - `style.css`
+   - `script.js`
+
+## Getting an API Key
+
+An API (Application Programming Interface) is a set of rules and protocols that allows different software components to communicate with each other. In our case, the OpenWeatherMap API will provide us with weather data for any city we want to search for.
+
+To interact with the API, we'll need an API key. Services use a key to identify who is making requests and to track usage, it also allows them to limit the number of requests we can make and prevent spammers.
+
+1. Go to [OpenWeatherMap](https://openweathermap.org/api)
+2. Click "Sign Up" and create a free account
+3. Once logged in, go to "API Keys" tab
+4. Copy your API key - you'll need it later
+
+## Building the App
+
+Now the fun part, building our weather app! Let's break down building the app into three main parts: HTML structure, CSS styling, and JavaScript functionality.
+
+### HTML Structure
+
+HTML (HyperText Markup Language) is the standard markup language used to create web pages. 
+Think of HTML as the skeleton of a website. It provides the basic structure and content of a webpage using various elements like headings, paragraphs, inputs, and buttons. 
+Each HTML element is defined by tags that tell the browser how to display the content.
+
+For our weather app, we'll create a simple HTML structure that includes:
+- A title for our app
+- An input field where users can type a city name 
+- A search button to trigger the weather lookup
+- A container to display the weather information
+- A loading indicator to show while fetching data
+
+Let's create our HTML structure which will serve as the user interface. Open `index.html` and add this code:
+
+<CodeSnippet language='html' content={`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Weather App</h1>
+        <!-- Search section for city input -->
+        <div class="search-box">
+            <input type="text" id="city" placeholder="Enter city name">
+            <button id="search">Search</button>
+        </div>
+        <!-- Container for weather information -->
+        <div id="weather-info">
+            <!-- Weather data will be dynamically inserted here -->
+        </div>
+        <!-- Loading indicator -->
+        <div id="loading" style="display: none;">Loading...</div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>`} />
+
+### CSS Styling
+
+CSS (Cascading Style Sheets) is a styling language that controls how HTML elements look and are presented on a webpage. 
+It lets you customize everything from colors and fonts to layout and animations. 
+Think of HTML as the skeleton of a website, and CSS as the skin that makes it look nice.
+
+Let's style our app to make it look professional and user-friendly using CSS. Add this CSS code to your `style.css` file:
+
+<CodeSnippet language='css' content={`.container {
+    max-width: 400px;
+    margin: 50px auto;  /* Centers the container */
+    padding: 20px;
+    text-align: center;
+    background: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);  /* Adds subtle shadow */
+}
+
+/* Search box styling */
+.search-box {
+    margin: 20px 0;
+}
+
+/* Input field styling */
+input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+/* Button styling */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background: #4CAF50;  /* Green background */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Button hover effect */
+button:hover {
+    background: #45a049;  /* Darker green on hover */
+}
+
+/* Weather information container */
+#weather-info {
+    margin-top: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 4px;
+}
+
+/* Error message styling */
+.error {
+    color: red;
+    margin-top: 10px;
+}`} />
+
+### JavaScript Functionality
+
+Now let's dive into the JavaScript code that powers our app. 
+JavaScript is a programming language that makes web pages interactive - it handles user actions like button clicks, fetches data from servers, and updates what users see on the page in real-time.
+JavaScript is like the brain of a website, it controls the behavior and logic of the page.
+
+In our weather app, JavaScript will:
+- Listen for when users click the search button
+- Get the city name they typed
+- Make a request to the OpenWeatherMap API
+- Process the weather data that comes back
+- Update the page to show the weather information
+
+The code below goes in `script.js` and contains all the logic to make these features work:
+
+<CodeSnippet language='javascript' content={`// Your API key from OpenWeatherMap will go here
+const API_KEY = 'YOUR_API_KEY_HERE';
+
+// Get references to DOM elements we'll need to manipulate
+const searchButton = document.getElementById('search');
+const cityInput = document.getElementById('city');
+const weatherInfo = document.getElementById('weather-info');
+const loadingDiv = document.getElementById('loading');
+
+// Add event listener for the search button
+searchButton.addEventListener('click', getWeather);
+
+// Main function to fetch weather data
+async function getWeather() {
+    // Get and clean the city input
+    const city = cityInput.value.trim();
+    
+    // Validate input
+    if (!city) {
+        showError('Please enter a city name');
+        return;
+    }
+
+    // Show loading indicator
+    loadingDiv.style.display = 'block';
+    weatherInfo.innerHTML = '';
+
+    try {
+        // Make API request to OpenWeatherMap
+        const response = await fetch(
+            \`https://api.openweathermap.org/data/2.5/weather?q=\${city}&appid=\${API_KEY}&units=metric\`
+        );
+
+        // Check if the city was found
+        if (!response.ok) {
+            throw new Error('City not found');
+        }
+
+        // Parse and display the weather data
+        const data = await response.json();
+        displayWeather(data);
+    } catch (error) {
+        showError(error.message);
+    } finally {
+        // Hide loading indicator
+        loadingDiv.style.display = 'none';
+    }
+}
+
+// Function to display weather information
+function displayWeather(data) {
+    weatherInfo.innerHTML = \`
+        <h2>Weather in \${data.name}</h2>
+        <p>Temperature: \${Math.round(data.main.temp)}°C</p>
+        <p>Weather: \${data.weather[0].main}</p>
+        <p>Description: \${data.weather[0].description}</p>
+        <p>Humidity: \${data.main.humidity}%</p>
+    \`;
+}
+
+// Function to display error messages
+function showError(message) {
+    weatherInfo.innerHTML = \`<p class="error">\${message}</p>\`;
+}`} />
+
+<br />
+
+The main function is `getWeather()`. This function is called when the user clicks the search button. It gets the city name from the input field, validates the input, and then makes a request to the OpenWeatherMap API.
+
+To make the API request, we use the `fetch()` function. This function takes a URL and returns a promise that resolves to the response. A promise is an object that represents the eventual completion (or failure) of an asynchronous operation and its resulting value.
+Asynchronous operations are those that take some time to complete, such as fetching data from a server and will be completed at some point in the future.
+
+## Testing the App
+
+1. Replace `YOUR_API_KEY_HERE` in `script.js` with your actual OpenWeatherMap API key
+2. Open VS Code and right-click on `index.html`
+3. Select "Open with Live Server"
+4. Enter a city name and click "Search"
+
+You should now see the current weather conditions for the city you entered! Try searching for different cities to see how it works.
+
+<br />
+
+<img className='max-h-80 object-cover w-full' src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//Screenshot%202025-02-20%20at%2023.35.32.png" alt="Weather App Screenshot" />
+
+<br />
+
+## Common issues
+
+- If you see "City not found", double-check your spelling
+- If nothing happens, make sure you replaced the API key correctly
+- If you get an error, wait a few minutes - new API keys take some time to activate
+- CORS errors are common when working with API's. Make sure you're using the correct API key and that you're using the correct API endpoint**.**
+
+Congratulations! You've built a working weather app using JavaScript and an API. It was a great way to practice working with API's, dealing with user input, and updating the DOM (Document Object Model or the structure of the HTML).
+
+<br />
+
+## Your next steps
+
+Now that you've built a basic weather app, you can:
+- Add more features like a 5-day forecast or temperature conversion
+- Use this app as a starting point for more complex projects
+- Share your app with friends and family
+- Host your app on a free platform like GitHub or Netlify
+- Enhance the styling and make it look more professional
+- Add weather icons to make the app more informative
+
+## Looking for more JavaScript Coding Challenges?
+
+If you're looking for more JavaScript coding challenges, check TechBlitz's free JavaScript fundamentals roadmap. It's a great way to improve your skills and get ready for more advanced topics.
+
+<br />
+
+You can sign up for a free account and access the roadmap [here](https://techblitz.dev/signup).

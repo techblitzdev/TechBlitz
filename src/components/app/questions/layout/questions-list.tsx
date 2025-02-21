@@ -13,7 +13,6 @@ export default async function QuestionsList({
   currentPage,
   filters,
   customQuestions = false,
-  previousQuestions = false,
   showSubmissions = true,
   paginationUrl,
   postsPerPage = 15,
@@ -21,7 +20,6 @@ export default async function QuestionsList({
   currentPage: number;
   filters: QuestionFilters;
   customQuestions: boolean;
-  previousQuestions?: boolean;
   showSubmissions?: boolean;
   paginationUrl: string;
   postsPerPage?: number;
@@ -45,17 +43,16 @@ export default async function QuestionsList({
     );
   }
 
-  const recommendedQuestion = await getSuggestions({ limit: 10 });
-
-  // do the fetch after we know the user can access this
-  const data = await listQuestions({
-    page: currentPage,
-    pageSize: postsPerPage,
-    userUid: user?.uid || '',
-    filters,
-    customQuestions,
-    previousQuestions,
-  });
+  // run in parallel
+  const [recommendedQuestion, data] = await Promise.all([
+    getSuggestions({ limit: 10 }),
+    listQuestions({
+      page: currentPage,
+      pageSize: postsPerPage,
+      filters,
+      customQuestions,
+    }),
+  ]);
 
   if (!data.questions || data.questions.length === 0) {
     return (

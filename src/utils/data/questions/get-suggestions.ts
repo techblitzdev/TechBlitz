@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import { extractTagIds } from './tags/get-tags-from-question';
 import type { QuestionDifficulty, QuestionWithTags } from '@/types/Questions';
-import { getUser, getUserFromDb } from '../../../actions/user/authed/get-user';
+import { getUser, getUserFromDb } from '@/actions/user/authed/get-user';
 import { cache } from 'react';
 
 type SuggestionsOptions = {

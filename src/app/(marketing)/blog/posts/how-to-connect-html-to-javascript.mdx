@@ -1,0 +1,104 @@
+---
+title: 'How to Connect HTML to JavaScript'
+description: "Learn how to connect HTML and JavaScript to create interactive web pages. This guide will show you how to use JavaScript to manipulate HTML elements and create dynamic content."
+image: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images/html-conditional-statement.png'
+date: '2025-02-21'
+author: 'Logan Ford'
+authorImage: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/user-profile-pictures/3a57d7e8-8b80-483b-93d0-70fe1f06b0c0/logo.png?u=1l5im5h5n6e5'
+readingTime: 3
+status: published
+headings:
+    - title: 'Connecting HTML to JavaScript'
+      level: 1
+    - title: 'Creating the HTML File'
+      level: 2
+    - title: 'Creating the JavaScript File'
+      level: 2
+    - title: 'Connecting the Files'
+      level: 2
+    - title: 'Best Practices'
+      level: 2
+    - title: 'Want to put your new skills to the test?'
+      level: 2
+    - title: 'Conclusion'
+      level: 1
+tags: ['HTML', 'Web Development', 'JavaScript', 'APIs', 'Frontend']
+subpage: true
+---
+
+import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
+
+<img className='max-h-80 object-cover w-full' src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//marc-mueller-Lg8xTZjs6Lg-unsplash.jpg" alt="How to create a weather app in JavaScript" />
+
+# Connecting HTML to JavaScript
+
+JavaScript powers interactivity on 98.8% of all websites (as of 2024). 
+If you're learning web development, one of the first skills you'll need is connecting HTML to JavaScript. 
+This guide will walk you through the process step-by-step, from linking files to manipulating DOM elements and adding event listeners. 
+By the end, you'll know how to create dynamic, interactive web pages with ease.
+
+## Creating the HTML File
+
+To connect HTML to JavaScript, you first need to create the HTML file.
+
+<CodeSnippet content={`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect HTML to JavaScript</title>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+    <!-- Button with an ID for JavaScript to target -->
+    <button id="myButton">Click me</button>
+
+    <!-- Link to external JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>`} />
+
+## Creating the JavaScript File
+
+Next, you need to create the JavaScript file.
+
+<CodeSnippet content={`
+// script.js
+// Add an event listener to the button
+document.getElementById('myButton').addEventListener('click', function() {
+    alert('Button clicked!');
+});
+`} />
+
+## Connecting the Files
+
+In order for the JavaScript file to work, you need to include it in the HTML file via a script tag.
+
+<CodeSnippet content={`<html>
+    <body>
+        <h1>Hello, World!</h1>
+        <button id="myButton">Click me</button>
+    </body>
+</html>`} />
+
+## Best Practices
+
+When including JavaScript in your HTML file, it's important to follow some best practices.
+
+- Use External JavaScript Files: Improves readability and maintainability.
+- Place Script Tags at the End: Ensures the HTML loads before the script runs.
+- Use defer or async Attributes: Optimizes script loading for better performance.
+
+## Want to put your new skills to the test?
+
+Check out our [weather app](/javascript-fundamentals/how-to-create-a-weather-app-in-javascript) tutorial to see how to connect HTML to JavaScript in a real-world application.
+
+## Conclusion
+
+Connecting HTML to JavaScript is a fundamental skill for any web developer. 
+By following this guide, you should now have a solid understanding of how to connect HTML to JavaScript and create interactive web pages.
+
+<br />
+
+Happy coding! 🚀

@@ -268,8 +268,8 @@ export default function JavascriptProjectsForBeginners() {
             href: '/javascript-projects-for-beginners/programming-challenges-for-beginners',
           }}
           rightCta={{
-            title: 'Explore our JavaScript Roadmap',
-            href: '/roadmaps/javascript-fundamentals',
+            title: 'Learn how to build a weather app',
+            href: '/javascript-projects-for-beginners/how-to-create-a-weather-app-with-javascript',
           }}
         />
 

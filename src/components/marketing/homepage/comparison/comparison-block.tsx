@@ -11,14 +11,16 @@ export default async function ComparisonBlock(opts: { header?: string; subheader
             header
           ) : (
             <>
-              Learn to code with <br /> interactive coding challenges
+              Strengthen your coding skills for
+              <br />
+              for free
             </>
           )}
         </h1>
         <p className="text-gray-400 max-w-4xl text-sm md:text-base">
           {subheader
             ? subheader
-            : 'Everyone learns differently. TechBlitz is designed to cater to your weaknesses, ensuring you get the most out of your coding journey.'}
+            : 'TechBlitz provides you structured coding challenges that are tailored to your weaknesses, ensuring you get the most out of your coding journey.'}
         </p>
       </div>
       <div className=" w-full flex justify-center relative">

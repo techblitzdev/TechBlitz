@@ -6,7 +6,6 @@ import Hero from '@/components/shared/hero';
 
 import { validateSearchParams } from '@/utils/search-params';
 import { parseSearchParams } from '@/utils/search-params';
-import { getTags } from '@/utils/data/questions/tags/get-tags';
 import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
 import FilterChips from '@/components/app/filters/chips';
@@ -47,8 +46,6 @@ export default async function PreviousQuestionsPage({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const tagPromise = getTags();
-
   const filters = parseSearchParams(searchParams);
   if (!validateSearchParams(filters)) return null;
 
@@ -59,14 +56,13 @@ export default async function PreviousQuestionsPage({
         <div className="flex flex-col lg:flex-row w-full gap-16">
           <div className="w-full lg:min-w-[65%] space-y-6">
             <div className="min-h-[84px] flex flex-col gap-y-2">
-              <Filter tagsPromise={tagPromise} />
+              <Filter />
               <FilterChips />
             </div>
             <QuestionsList
               currentPage={filters.page || 1}
               filters={filters}
               customQuestions={false}
-              previousQuestions
               paginationUrl="/questions"
             />
           </div>

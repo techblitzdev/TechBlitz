@@ -1,0 +1,206 @@
+---
+title: 'How To Write A Function In JavaScript'
+description: "Functions are a fundamental concept in JavaScript. They allow you to organize your code and reuse it. In this guide, we'll learn how to write functions in JavaScript."
+image: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images/how-to-write-javascript.png'
+date: '2025-02-18'
+author: 'Logan Ford'
+authorImage: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/user-profile-pictures/3a57d7e8-8b80-483b-93d0-70fe1f06b0c0/logo.png?u=1l5im5h5n6e5'
+readingTime: 4
+status: published
+headings:
+    - title: 'What are functions in JavaScript?'
+      level: 1
+    - title: 'How do you write a function in JavaScript?'
+      level: 1
+    - title: 'Function Declaration'
+      level: 2
+    - title: 'Function Expression'
+      level: 2
+    - title: 'Arrow Function'
+      level: 2
+    - title: 'Calling a function'
+      level: 2
+    - title: 'Making a function more reusable - working with parameters'
+      level: 2
+    - title: 'Returning a value from a function'
+      level: 2
+    - title: 'How can I use functions in my code?'
+      level: 2
+    - title: 'Practice Exercises'
+      level: 2
+tags: ['JavaScript', 'Web Development', 'Programming', 'Beginners']
+subpage: true
+---
+
+import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
+
+# What are functions in JavaScript?
+
+Functions are not just a concept in JavaScript, they are a fundamental concept in programming. 
+
+<br />
+
+Think of functions as a set of instructions that you can reuse over and over again. 
+They allow you to organize your code in a way that is easy to understand and easy to maintain. Not only that, but if you ever need to make a change to the code, you only have to make the change in one place.
+As well as being a way to reuse code, as writing the same code over and over again is not only a waste of time, but it is also a waste of space.
+
+<br />
+
+A function declaration consists of the `function` keyword, the name of the function, and a function body (the code that will run when the function is called).
+
+<br />
+
+### Example function declaration
+
+<CodeSnippet language="javascript" content={`function makePizza() {
+    console.log('Make the dough');
+    console.log('Add sauce');
+    console.log('Add cheese');
+    console.log('Bake');
+}`} />
+
+# How do you write a function in JavaScript?
+
+In JavaScript, there are a few different ways to write a function. They all solve the same problem, but they are used in different situations.
+
+1. Function Declaration
+2. Function Expression
+3. Arrow Function
+
+## Function Declaration
+
+Function declarations are the most common way to write functions in JavaScript. They are declared using the `function` keyword, the name of the function, and a function body (the code that will run when the function is called).
+
+<br />
+
+<CodeSnippet language="javascript" content={`function myFunction() {
+    console.log('Hello, world!');
+}
+
+// Calling the function
+myFunction();
+
+// Output: Hello, world!
+`} />
+
+<br />
+
+In the example above, we have a function declaration called `myFunction`. It is a function that will log "Hello, world!" to the console when called.
+
+## Function Expression
+
+Function expressions are a way to create a function and assign it to a variable.
+
+<br />
+
+<CodeSnippet language="javascript" content={`const myFunction = function() {
+    console.log('Hello, world!');
+}
+
+// Calling the function
+myFunction();
+
+// Output: Hello, world!
+`} />
+
+<br />
+
+In the example above, we have a function expression called `myFunction`. It is a function that will log "Hello, world!" to the console when called.
+The main difference between a function declaration and a function expression is that a function expression is assigned to a variable, this allows us to use the function as a value which is incredibly useful when we want to pass a function as an argument to another function.
+
+## Arrow Function
+
+Arrow functions are a newer way to write functions (introduced in ES6) in JavaScript. They are declared using the `=>` arrow syntax.
+
+<br />
+
+<CodeSnippet language="javascript" content={`const myFunction = () => {
+    console.log('Hello, world!');
+}
+
+// Calling the function
+myFunction();
+
+// Output: Hello, world!
+`} />
+
+<br />
+
+In the example above, we have an arrow function called `myFunction`. It is a function that will log "Hello, world!" to the console when called.
+This will act in the same way as the function expression example above, the only difference is the syntax. So it's up to you (or your team) to decide which one to use.
+
+## Calling a function
+
+To call a function, you simply need to use the function name followed by parentheses.
+
+<br />
+
+<CodeSnippet language="javascript" content={`myFunction();`} />
+
+<br />
+
+## Making a function more reusable - working with parameters
+
+Parameters are a crucial concept when learning to code, they allow us to pass different data to a function to not make the function too rigid. 
+They are declared inside the parentheses of the function declaration and make a function more reusable. 
+
+<br />
+
+<CodeSnippet language="javascript" content={`function myFunction(parameter) {
+    console.log(parameter);
+}
+
+// Calling the function
+myFunction('Hello, world!');
+
+// Output: Hello, world!
+`} />
+
+<br />
+
+In the example above, we have a function called `myFunction` that takes a parameter called `parameter`.
+When we call the function, we pass the string `'Hello, world!'` to the function. When we then log the parameter to the console, we see the string `'Hello, world!'` logged to the console.
+
+## Returning a value from a function
+
+In some cases, a function will need to manipulate some data and return a new value as a result.
+
+<br />
+
+<CodeSnippet language="javascript" content={`function add(a, b) {
+    return a + b;
+}
+
+// Calling the function
+const result = add(5, 10);
+
+// Output: 15
+`} />
+
+<br />
+
+When we return a value from a function, we can set the result of the function to a variable. In the example above, we set the result of the `add` function to the variable `result`.
+Which means that we can then use the `result` variable to store the result of the function.
+
+<br />
+
+## How can I use functions in my code?
+
+Knowing when to turn a block of code into a function is a crucial skill to obtain in your coding journey. 
+However, the general rule of thumb is that if you find yourself repeating the same code over and over again, then it's a good idea to turn that code into a function to 
+prevent repetition and make your code more efficient.
+
+<br />
+
+### Practice Exercises
+
+Looking to solidify your understanding of functions? Try out some of these exercises!
+
+<div className="mt-10">
+<MdxQuestionDisplay tag="functions" take={5} difficulty="BEGINNER" />
+</div>
+
+### Looking to get your tech career on track?
+
+TechBlitz stands out as the best website to learn JavaScript online for free. Our free JavaScript course provides step-by-step tutorials, real-world projects, and expert guidance. Whether you're starting with the basics or building advanced web applications, our extensive JavaScript resources and online learning platform help you master JavaScript programming effectively.

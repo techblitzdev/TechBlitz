@@ -74,26 +74,41 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ message: 'No users found' }, { status: 404 });
     }
 
-    const results = await Promise.allSettled(
-      users.map(async (user) => {
-        try {
-          const challenge = await getChallenge(user.uid);
-          if (!challenge) {
-            console.log(`No challenge found for user ${user.email}`);
-            return;
-          }
-          const challengeWithTags = {
-            ...challenge,
-            tags: challenge.tags || [],
-          } as QuestionWithTags;
+    // Process users in batches of 5 to avoid connection pool exhaustion
+    const batchSize = 5;
+    const results = [];
 
-          await sendEmail(user, challengeWithTags);
-          return user.email;
-        } catch (error) {
-          console.error(`Failed to process user ${user.email}:`, error);
-        }
-      })
-    );
+    for (let i = 0; i < users.length; i += batchSize) {
+      const batch = users.slice(i, i + batchSize);
+
+      const batchResults = await Promise.allSettled(
+        batch.map(async (user) => {
+          try {
+            const challenge = await getChallenge(user.uid);
+            if (!challenge) {
+              console.log(`No challenge found for user ${user.email}`);
+              return;
+            }
+            const challengeWithTags = {
+              ...challenge,
+              tags: challenge.tags || [],
+            } as QuestionWithTags;
+
+            await sendEmail(user, challengeWithTags);
+            return user.email;
+          } catch (error) {
+            console.error(`Failed to process user ${user.email}:`, error);
+          }
+        })
+      );
+
+      results.push(...batchResults);
+
+      // Add a small delay between batches to allow connections to be released
+      if (i + batchSize < users.length) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
+    }
 
     const successfulEmails = results
       .filter(

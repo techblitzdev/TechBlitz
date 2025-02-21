@@ -156,6 +156,34 @@ const faqs = [
       </>
     ),
   },
+  {
+    question: 'How can I learn JavaScript operators?',
+    answer: (
+      <>
+        You can learn JavaScript operators by reading our blog post{' '}
+        <Link
+          href="/javascript-fundamentals/how-to-use-operators-in-javascript"
+          className="text-accent underline"
+        >
+          A Guide to Using Operators in JavaScript
+        </Link>
+      </>
+    ),
+  },
+  {
+    question: 'How can I connect HTML to JavaScript?',
+    answer: (
+      <>
+        You can connect HTML to JavaScript by using the `script` tag.
+        <Link
+          href="/javascript-fundamentals/how-to-connect-html-to-javascript"
+          className="text-accent underline"
+        >
+          Learn more about connecting HTML to JavaScript
+        </Link>
+      </>
+    ),
+  },
 ];
 
 const items = [

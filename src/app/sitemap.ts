@@ -321,6 +321,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/javascript-fundamentals/how-to-write-loops-in-javascript`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/javascript-fundamentals/how-to-convert-a-number-to-string-in-javascript`,
+      lastModified: new Date(),
+    },
   ];
 
   // Combine static routes with dynamic blog posts

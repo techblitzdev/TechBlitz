@@ -29,6 +29,11 @@ export const TourCard: React.FC<CardComponentProps> = ({
   const { closeOnborda } = useOnborda();
 
   function handleConfetti() {
+    // remove the 'tutorial' query param
+    const url = new URL(window.location.href);
+    url.searchParams.delete('tutorial');
+    window.history.replaceState({}, '', url.toString());
+
     closeOnborda();
   }
 

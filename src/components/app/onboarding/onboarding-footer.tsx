@@ -66,7 +66,7 @@ export default function OnboardingFooter({
           disabled={isLoading || !user?.username || !user?.howDidYouHearAboutTechBlitz}
         >
           Continue
-          {isLoading && <LoadingSpinner className="mr-2 size-4" />}
+          {isLoading && <LoadingSpinner className="ml-2 size-4" />}
         </Button>
       </div>
     </CardFooter>

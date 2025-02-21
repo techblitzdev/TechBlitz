@@ -4,10 +4,9 @@ import { prisma } from '@/lib/prisma';
 import { revalidateTag } from 'next/cache';
 import { getUser } from './get-user';
 import { UserRecord } from '@/types/User';
+import { handleAddAndRemoveFromPromotionalEmailsList } from './handle-promotional-emails-subscription';
 
 export const updateUser = async (opts: { userDetails: Partial<UserRecord> }) => {
-  console.log('updateUser', opts);
-
   const { userDetails } = opts;
 
   if (!userDetails) {
@@ -72,6 +71,17 @@ export const updateUser = async (opts: { userDetails: Partial<UserRecord> }) => 
     },
     data: updateData,
   });
+
+  // check if the user has updated their promotional emails preference
+  // if they did, add them / remove to the promotional emails list
+  if (updatedUser.sendPromotionalEmails !== user.sendPromotionalEmails) {
+    await handleAddAndRemoveFromPromotionalEmailsList({
+      email: user.email,
+      firstName: user.firstName || user.username || '',
+      lastName: user.lastName || '',
+      status: updatedUser.sendPromotionalEmails ? 'add' : 'remove',
+    });
+  }
 
   // Revalidate the user details cache
   revalidateTag('user-details');

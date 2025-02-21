@@ -46,6 +46,7 @@ export default function SettingsProfilePage() {
       codeEditorTheme: user?.codeEditorTheme || 'vs-dark',
       userProfilePicture: user?.userProfilePicture || '',
       aboutMeAiHelp: user?.aboutMeAiHelp || '',
+      sendPromotionalEmails: user?.sendPromotionalEmails || false,
     },
   });
 
@@ -60,6 +61,7 @@ export default function SettingsProfilePage() {
         codeEditorTheme: user.codeEditorTheme || 'vs-dark',
         userProfilePicture: user.userProfilePicture || '',
         aboutMeAiHelp: user.aboutMeAiHelp || '',
+        sendPromotionalEmails: user.sendPromotionalEmails,
       });
     }
   }, [user, isLoading, form]);
@@ -311,6 +313,38 @@ export default function SettingsProfilePage() {
                           />
                           <Label htmlFor="sendPushNotifications" className="text-base">
                             Send daily reminders
+                          </Label>
+                        </div>
+                      </TooltipTrigger>
+                    </Tooltip>
+                  </TooltipProvider>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/** Send promotional emails */}
+          <FormField
+            control={form.control}
+            name="sendPromotionalEmails"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="flex items-center gap-x-2">
+                          <Switch
+                            id="sendPromotionalEmails"
+                            checked={!!field.value}
+                            onCheckedChange={(checked) => {
+                              field.onChange(checked);
+                            }}
+                            className="bg-black-50"
+                          />
+                          <Label htmlFor="sendPromotionalEmails" className="text-base">
+                            Send promotional emails
                           </Label>
                         </div>
                       </TooltipTrigger>

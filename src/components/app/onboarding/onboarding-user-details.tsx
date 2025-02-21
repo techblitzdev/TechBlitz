@@ -61,6 +61,7 @@ export default function OnboardingStepOne() {
       sendPushNotifications: user?.sendPushNotifications || false,
       experienceLevel: user?.experienceLevel || 'BEGINNER',
       howDidYouHearAboutTechBlitz: user?.howDidYouHearAboutTechBlitz || '',
+      sendPromotionalEmails: user?.sendPromotionalEmails || false,
     },
   });
 
@@ -336,6 +337,59 @@ export default function OnboardingStepOne() {
                     />
                   </TooltipTrigger>
                   <TooltipContent>
+                    <p>We'll send you a personalized challenge reminder every week day.</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </motion.div>
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={itemVariants}
+              className="space-y-2 text-white"
+            >
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <FormField
+                      control={form.control}
+                      name="sendPromotionalEmails"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl className="flex flex-row items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <div className="flex items-center gap-2">
+                                <Label htmlFor="sendPromotionalEmails" className="text-white">
+                                  Receive promotional emails
+                                </Label>
+                                <TooltipProvider>
+                                  <Tooltip delayDuration={0}>
+                                    <TooltipTrigger>
+                                      <QuestionMarkCircledIcon className="size-3 text-white" />
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                      <p>
+                                        We'll send you the occasional promotional email with
+                                        exclusive offers, new features and more!
+                                      </p>
+                                    </TooltipContent>
+                                  </Tooltip>
+                                </TooltipProvider>
+                              </div>
+                              <Switch
+                                checked={field.value}
+                                onCheckedChange={(checked) => {
+                                  field.onChange(checked);
+                                  setUser((prev) => ({ ...prev, [field.name]: checked }));
+                                }}
+                              />
+                            </div>
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent>
                     <p>Receive promotional emails on offers, new features and more</p>
                   </TooltipContent>
                 </Tooltip>
@@ -410,7 +464,6 @@ export default function OnboardingStepOne() {
                         onValueChange={(value) => {
                           field.onChange(value);
                           setUser((prev) => {
-                            console.log('howDidYouHearAboutTechBlitz changed:', value);
                             return { ...prev, [field.name]: value };
                           });
                           setCanContinue(Boolean(value));

@@ -64,6 +64,9 @@ export interface User extends BaseRecord {
 
   // a flag to indicate if the user has sent the 7 day no challenge email
   hasSent7DayNoChallengeEmail?: boolean | null;
+
+  // a flag to indicate if the user wants to receive promotional emails
+  sendPromotionalEmails?: boolean;
 }
 
 export type UserRecord = Pick<
@@ -94,6 +97,7 @@ export type UserRecord = Pick<
   | 'studyPathGoals'
   | 'timeSpendingPerDay'
   | 'hasSent7DayNoChallengeEmail'
+  | 'sendPromotionalEmails'
 >;
 
 // First, create a type that excludes 'uid' from the partial requirement

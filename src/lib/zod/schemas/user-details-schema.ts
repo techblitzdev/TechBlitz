@@ -11,6 +11,7 @@ export const userDetailsSchema = z
     codeEditorTheme: z.string().optional(),
     userProfilePicture: z.string().optional(),
     aboutMeAiHelp: z.string().optional(),
+    sendPromotionalEmails: z.boolean().optional(),
   })
   .transform((data) => {
     // Remove null values from the payload

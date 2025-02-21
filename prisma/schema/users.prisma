@@ -47,6 +47,7 @@ model Users {
   // this prevents us sending it every day after the first time
   hasSent7DayNoChallengeEmail Boolean             @default(false)
   timeSpendingPerDay          UserTimeSpendingPerDay? @default(LESS_THAN_5_MINUTES)
+  sendPromotionalEmails       Boolean             @default(false)
 
 
   // relations

@@ -57,8 +57,8 @@ async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
 export default async function StudyPathSidebar({ studyPath }: { studyPath: StudyPath }) {
   const user = await useUserServer();
   // get the active missions for the day
-  const activeMissions = await getDailyMissions();
-  const userMissionRecords = await getUserMissionRecords();
+  const missionsPromise = getDailyMissions();
+  const userMissionRecordsPromise = getUserMissionRecords();
 
   return (
     <aside className="w-full lg:w-2/5 xl:w-1/3 space-y-6 order-first lg:order-last">
@@ -135,8 +135,8 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
             <div className="flex flex-col md:flex-row lg:flex-col gap-4">
               <div className="w-full md:w-1/2 lg:w-full">
                 <DailyChallengesCard
-                  missions={activeMissions}
-                  userMissionRecords={userMissionRecords}
+                  missionsPromise={missionsPromise}
+                  userMissionRecordsPromise={userMissionRecordsPromise}
                 />
               </div>
 

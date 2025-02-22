@@ -63,7 +63,11 @@ export default function OnboardingFooter({
           variant="accent"
           type="button"
           onClick={onContinue}
-          disabled={isLoading || !user?.username || !user?.howDidYouHearAboutTechBlitz}
+          disabled={
+            isLoading ||
+            (!user?.username && currentStep === STEPS.USER_DETAILS) ||
+            (!user?.howDidYouHearAboutTechBlitz && currentStep === STEPS.USER_DETAILS)
+          }
         >
           Continue
           {isLoading && <LoadingSpinner className="ml-2 size-4" />}

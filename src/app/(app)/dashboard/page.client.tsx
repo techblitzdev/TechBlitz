@@ -51,6 +51,11 @@ export default function ClientPage({
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
+    // if the user has no username or who not specified where they heard about techblitz, redirect them to onboarding
+    if (!user?.username || !user?.howDidYouHearAboutTechBlitz) {
+      router.push('/onboarding');
+    }
+
     // if the user has not answered a question, redirect them back to onboarding#first-question-selection
     // we want the user to answer a question before explore their dashboard.
     // this will also give the user a 'tour' of how questions work. (TODO: add a tour of the question)

@@ -252,14 +252,14 @@ export default function HeroText() {
       >
         <motion.span
           layout
-          className="flex whitespace-pre"
+          className="flex whitespace-pre tracking-tighter"
           transition={{ type: 'spring', damping: 30, stiffness: 400 }}
         >
           made{' '}
         </motion.span>
         <TextRotate
           texts={['easy', 'personalized', 'enjoyable', 'exciting', 'rewarding']}
-          mainClassName="overflow-hidden pr-3 py-0 pb-2 md:pb-4 rounded-xl"
+          mainClassName="overflow-hidden pr-3 py-0 pb-2 md:pb-4 rounded-xl tracking-tighter"
           staggerDuration={0.03}
           staggerFrom="last"
           rotationInterval={5000}

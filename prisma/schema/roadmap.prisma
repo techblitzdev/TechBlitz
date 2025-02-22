@@ -55,6 +55,7 @@ model RoadmapUserQuestionsUserAnswers {
   question    RoadmapUserQuestions @relation(fields: [questionUid], references: [uid], onDelete: Cascade)
 }
 
+// LEGACY MODEL
 model DefaultRoadmapQuestions {
   uid                                 String                                @id @default(cuid())
   createdAt                           DateTime                              @default(now())
@@ -70,6 +71,7 @@ model DefaultRoadmapQuestions {
   DefaultRoadmapQuestionsUsersAnswers DefaultRoadmapQuestionsUsersAnswers[]
 }
 
+// LEGACY MODEL
 model DefaultRoadmapQuestionsAnswers {
   uid         String                  @id @default(cuid())
   createdAt   DateTime                @default(now())
@@ -79,6 +81,7 @@ model DefaultRoadmapQuestionsAnswers {
   question    DefaultRoadmapQuestions @relation(fields: [questionUid], references: [uid], onDelete: Cascade)
 }
 
+// LEGACY MODEL
 model DefaultRoadmapQuestionsUsersAnswers {
   uid         String                  @id @default(cuid())
   createdAt   DateTime                @default(now())
@@ -96,4 +99,21 @@ enum RoadmapStatus {
   COMPLETED
   ARCHIVED
   CREATING
+}
+
+enum RoadmapGenerationStatus {
+  FETCHING_DATA
+  FIRST_PASS
+  SECOND_PASS
+  GENERATING_QUESTIONS
+  GENERATED
+  ERROR
+  INVALID
+}
+
+model RoadmapGenerationProgress {
+  uid String @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  status RoadmapGenerationStatus @default(FETCHING_DATA)
 }

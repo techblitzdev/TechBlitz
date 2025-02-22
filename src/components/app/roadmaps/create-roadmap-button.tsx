@@ -1,16 +1,15 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { createOrFetchUserRoadmap } from '@/actions/roadmap/create-or-fetch-user-roadmap';
 import { Loader2 } from 'lucide-react';
-import { toast } from 'sonner';
 import CreatingRoadmapModal from './creating-roadmap-modal';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Progress } from '@/components/ui/progress';
 import { ROADMAP_QUESTION_COUNT } from '@/utils/constants/roadmap';
+import { simulateRoadmapGeneration } from '@/actions/ai/roadmap/generate';
+import { supabase } from '@/lib/supabase';
+import type { RoadmapGenerationProgress } from '@prisma/client'; // either: 'FETCHING_DATA', 'FIRST_PASS', 'SECOND_PASS', 'GENERATING_QUESTIONS', 'GENERATED'
 
 export default function CreateRoadmapButton({
   hasAnsweredEnoughQuestions,
@@ -20,33 +19,64 @@ export default function CreateRoadmapButton({
   answeredQuestionsCount: number;
 }) {
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
-
-  const handleCreateRoadmap = async () => {
-    setIsLoading(true);
-    try {
-      const roadmap = await createOrFetchUserRoadmap();
-
-      if ('code' in roadmap && roadmap.code === 'MAX_ROADMAPS_REACHED') {
-        if ('error' in roadmap) {
-          toast.error(roadmap.error);
-        }
-        setIsLoading(false);
-        return;
-      }
-
-      if ('uid' in roadmap) {
-        router.push(`/roadmap/${roadmap.uid}/onboarding/1`);
-      }
-    } catch (error) {
-      console.error('Failed to create roadmap:', error);
-      toast.error('Failed to create roadmap. Please try again.');
-      setIsLoading(false);
-    }
-  };
+  const [generationProgress, setGenerationProgress] = useState<RoadmapGenerationProgress | null>(
+    null
+  );
+  const [generationRecordUid, setGenerationRecordUid] = useState<string | null>(null);
 
   const remainingQuestions = Math.max(ROADMAP_QUESTION_COUNT - answeredQuestionsCount, 0);
   const progress = Math.min((answeredQuestionsCount / ROADMAP_QUESTION_COUNT) * 100, 100);
+
+  useEffect(() => {
+    let channel: any;
+
+    if (generationRecordUid) {
+      console.log('generationRecordUid', generationRecordUid);
+      channel = supabase
+        .channel('roadmap-generation-progress')
+        .on(
+          'postgres_changes',
+          {
+            event: 'UPDATE',
+            schema: 'public',
+            table: 'RoadmapGenerationProgress',
+            filter: `uid=eq.${generationRecordUid}`,
+          },
+          (payload) => {
+            console.log('Received payload:', payload);
+            if (payload.new) {
+              setGenerationProgress(payload.new as RoadmapGenerationProgress);
+            }
+          }
+        )
+        .subscribe();
+    }
+
+    return () => {
+      if (channel) {
+        console.log('Removing channel');
+        supabase.removeChannel(channel);
+      }
+    };
+  }, [generationRecordUid]);
+
+  const handleGenerateRoadmap = async () => {
+    setIsLoading(true);
+    try {
+      const newGenerationRecordUid =
+        Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
+      setGenerationRecordUid(newGenerationRecordUid);
+
+      await simulateRoadmapGeneration({
+        generationRecordUid: newGenerationRecordUid,
+      });
+    } catch (error) {
+      console.error('Failed to generate roadmap:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="space-y-4">
@@ -54,7 +84,12 @@ export default function CreateRoadmapButton({
         <div className="flex items-center space-x-2">
           <Dialog>
             <DialogTrigger asChild>
-              <Button disabled={isLoading} variant="accent" className="w-full">
+              <Button
+                onClick={handleGenerateRoadmap}
+                disabled={isLoading}
+                variant="accent"
+                className="w-full"
+              >
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -65,7 +100,7 @@ export default function CreateRoadmapButton({
                 )}
               </Button>
             </DialogTrigger>
-            <CreatingRoadmapModal />
+            <CreatingRoadmapModal generationProgress={generationProgress} />
           </Dialog>
         </div>
       ) : (
@@ -75,7 +110,7 @@ export default function CreateRoadmapButton({
           </Button>
           <div className="flex flex-col gap-y-2">
             <Progress value={progress} className="h-2 mb-2" />
-            <p className="flex flex-col gap-y-2">
+            <div className="flex flex-col gap-y-2">
               Answer {remainingQuestions} more question{remainingQuestions !== 1 ? 's' : ''} to
               unlock roadmap creation.{' '}
               <span className="text-xs text-muted-foreground">
@@ -83,7 +118,7 @@ export default function CreateRoadmapButton({
                 skill level. In order to do this, we need you to answer at least{' '}
                 {ROADMAP_QUESTION_COUNT} questions.
               </span>
-            </p>
+            </div>
           </div>
         </div>
       )}

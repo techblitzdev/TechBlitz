@@ -8,6 +8,7 @@ import { generateRoadmapResponse } from './utils/generate-roadmap';
 import { revalidateTag } from 'next/cache';
 import { QuestionDifficulty } from '@/types/Questions';
 import { getUser } from '@/actions/user/authed/get-user';
+import { uniqueId } from 'lodash';
 
 interface RoadmapQuestion {
   uid: string;
@@ -28,9 +29,23 @@ interface RoadmapQuestion {
   };
 }
 
-export const roadmapGenerate = async (opts: { roadmapUid: string; generateMore?: boolean }) => {
-  const { roadmapUid } = opts;
-  opts.generateMore = opts.generateMore ?? false;
+interface RoadmapGenerateOpts {
+  generateMore?: boolean;
+  generationRecordUid: string;
+}
+
+export const roadmapGenerate = async (opts: RoadmapGenerateOpts) => {
+  const { generationRecordUid, generateMore = false } = opts;
+
+  const roadmapUid = uniqueId();
+
+  // create a new RoadmapGenerationProgress record
+  const generationProgressRecord = await prisma.roadmapGenerationProgress.create({
+    data: {
+      uid: generationRecordUid,
+      status: 'FETCHING_DATA', // init status
+    },
+  });
 
   // get the user
   const user = await getUser();
@@ -42,7 +57,7 @@ export const roadmapGenerate = async (opts: { roadmapUid: string; generateMore?:
   const formattedData = await generateDataForAi({
     roadmapUid,
     userUid: user?.uid,
-    generateMore: opts.generateMore,
+    generateMore,
   });
 
   let existingQuestions = [];
@@ -60,7 +75,11 @@ export const roadmapGenerate = async (opts: { roadmapUid: string; generateMore?:
   }
 
   // Request AI-generated questions
-  const response = await generateRoadmapResponse({ formattedData, user });
+  const response = await generateRoadmapResponse({
+    formattedData,
+    user,
+    generationProgressRecord,
+  });
   if (!response) {
     throw new Error('AI response is missing content');
   }
@@ -126,9 +145,91 @@ export const roadmapGenerate = async (opts: { roadmapUid: string; generateMore?:
     }),
   ]);
 
+  // the generation is complete
+  await prisma.roadmapGenerationProgress.update({
+    where: {
+      uid: generationProgressRecord.uid,
+    },
+    data: {
+      status: 'GENERATED',
+    },
+  });
+
+  // delete the generation progress record
+  await prisma.roadmapGenerationProgress.delete({
+    where: {
+      uid: generationProgressRecord.uid,
+    },
+  });
+
   revalidateTag('roadmap-data');
 
-  console.log('Generated roadmap:', roadmapUid);
-
   return 'generated';
+};
+
+export const simulateRoadmapGeneration = async ({
+  generationRecordUid,
+}: {
+  generationRecordUid: string;
+}) => {
+  // create a new RoadmapGenerationProgress record
+  const generationProgressRecord = await prisma.roadmapGenerationProgress.create({
+    data: {
+      uid: generationRecordUid,
+      status: 'FETCHING_DATA', // init status
+    },
+  });
+
+  // wait for 5 seconds
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+
+  // update the status to GENERATED
+  await prisma.roadmapGenerationProgress.update({
+    where: { uid: generationProgressRecord.uid },
+    data: {
+      status: 'FIRST_PASS',
+    },
+  });
+
+  // wait for 5 seconds
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+
+  // update the status to GENERATED
+  await prisma.roadmapGenerationProgress.update({
+    where: { uid: generationProgressRecord.uid },
+    data: {
+      status: 'SECOND_PASS',
+    },
+  });
+
+  // wait for 5 seconds
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+
+  // update the status to GENERATED
+  await prisma.roadmapGenerationProgress.update({
+    where: { uid: generationProgressRecord.uid },
+    data: {
+      status: 'GENERATING_QUESTIONS',
+    },
+  });
+
+  // wait for 5 seconds
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+
+  // update the status to GENERATED
+  await prisma.roadmapGenerationProgress.update({
+    where: { uid: generationProgressRecord.uid },
+    data: {
+      status: 'GENERATED',
+    },
+  });
+
+  // delete the generation progress record
+  await prisma.roadmapGenerationProgress.delete({
+    where: {
+      uid: generationProgressRecord.uid,
+    },
+  });
+
+  return 'ok';
 };

@@ -242,7 +242,7 @@ export default function QuestionResult({
                 generateAiAnswerHelp();
               });
             }}
-            disabled={isPending}
+            disabled={isPending || user?.userLevel === 'FREE'}
             className="hidden lg:flex"
             wrapperClassName="w-fit"
           >
@@ -255,6 +255,7 @@ export default function QuestionResult({
                 generateAiAnswerHelp(true);
               });
             }}
+            disabled={isPending || user?.userLevel === 'FREE'}
             className="flex lg:hidden"
           >
             {isPending ? 'Generating...' : 'Explain Answer'}

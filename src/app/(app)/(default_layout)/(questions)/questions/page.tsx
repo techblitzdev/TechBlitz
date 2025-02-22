@@ -1,54 +1,33 @@
-import { Suspense } from 'react';
-import dynamic from 'next/dynamic';
+import { Suspense, lazy } from 'react';
 
 import Hero from '@/components/shared/hero';
 import { Button } from '@/components/ui/button';
-
 import { validateSearchParams, parseSearchParams } from '@/utils/search-params';
 import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
-
-const Filter = dynamic(() => import('@/components/app/filters/filter'), {
-  ssr: false,
-  loading: () => <FilterLoading />,
-});
-
-const FilterChips = dynamic(() => import('@/components/app/filters/chips'), {
-  ssr: false,
-  loading: () => null,
-});
-const QuestionsList = dynamic(() => import('@/components/app/questions/layout/questions-list'), {
-  loading: () => (
-    <div className="flex flex-col gap-6">
-      {Array.from({ length: 9 }).map((_, index) => (
-        <QuestionCardSkeleton key={index} />
-      ))}
-    </div>
-  ),
-});
-const QuestionPageSidebar = dynamic(
-  () => import('@/components/app/questions/layout/question-page-sidebar'),
-  {
-    loading: () => <QuestionPageSidebarLoading />,
-  }
-);
-
 import FilterLoading from '@/components/app/filters/filters-loading';
 import QuestionPageSidebarLoading from '@/components/app/questions/layout/question-page-sidebar-loading';
 import { QuestionCardSkeleton } from '@/components/app/questions/layout/question-card';
-import ContinueJourney from '@/components/app/navigation/continue-journey-button';
 import { ArrowRightIcon } from 'lucide-react';
-import { WebPageJsonLd } from '@/types/Seo';
+import type { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
+
+const Filter = lazy(() => import('@/components/app/filters/filter'));
+const FilterChips = lazy(() => import('@/components/app/filters/chips'));
+const QuestionsList = lazy(() => import('@/components/app/questions/layout/questions-list'));
+const QuestionPageSidebar = lazy(
+  () => import('@/components/app/questions/layout/question-page-sidebar')
+);
+const ContinueJourney = lazy(() => import('@/components/app/navigation/continue-journey-button'));
 
 export const revalidate = 600;
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Coding Questions | TechBlitz',
+    title: 'Coding Challenges | TechBlitz',
     description:
-      'Explore a diverse set of coding questions across multiple topics to enhance your knowledge.',
+      'Explore a diverse set of coding challenges across various topics to enhance your knowledge.',
     image: {
-      text: 'Coding Questions | TechBlitz',
+      text: 'Coding Challenges | TechBlitz',
       bgColor: '#000',
       textColor: '#fff',
     },
@@ -60,7 +39,7 @@ const heroDescription = (
   <div className="flex flex-col gap-y-4 z-20 relative font-onest max-w-3xl">
     <p className="text-sm md:text-base text-gray-400">
       Explore our collection of coding challenges and practice questions. Filter by topic,
-      difficulty, and more to find the perfect questions for your learning journey.
+      difficulty, and more to find the perfect challenges for your learning journey.
     </p>
     <div className="flex flex-col md:flex-row gap-4 md:items-center">
       <Button href="/roadmaps" variant="secondary">
@@ -69,12 +48,12 @@ const heroDescription = (
       <Suspense
         fallback={
           <Button variant="default" className="w-full">
-            Your next question
+            Your next challenge
             <ArrowRightIcon className="w-4 h-4 ml-2" />
           </Button>
         }
       >
-        <ContinueJourney text="Your next question" variant="default" />
+        <ContinueJourney text="Your next challenge" variant="default" />
       </Suspense>
     </div>
   </div>
@@ -85,14 +64,13 @@ export default async function QuestionsDashboard({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  // create json ld
   const jsonLd: WebPageJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     url: `${getBaseUrl()}/questions`,
     headline: 'Coding Challenges | TechBlitz',
     description:
-      'Explore a diverse set of coding questions across multiple topics to enhance your knowledge.',
+      'Explore a diverse set of coding challenges across various topics to enhance your knowledge.',
     image:
       'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/Screenshot%202025-01-11%20at%2002.24.28.png',
     breadcrumb: WebPageJsonLdBreadcrumb,
@@ -129,15 +107,23 @@ export default async function QuestionsDashboard({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Hero heading="Coding Challenges" subheading={heroDescription} />
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 py-12 group">
-        <div className="flex flex-col xl:flex-row gap-12">
-          <div className="w-full lg:min-w-[75%] space-y-6">
-            <div className="min-h-[84px] flex flex-col gap-y-2">
-              <Suspense fallback={<FilterLoading />}>
-                <Filter />
-                <FilterChips />
-              </Suspense>
-            </div>
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 py-12 group flex flex-col xl:flex-row gap-12">
+        <div className="w-full lg:min-w-[75%] space-y-6">
+          <div className="min-h-[84px] flex flex-col gap-y-2">
+            <Suspense fallback={<FilterLoading />}>
+              <Filter />
+              <FilterChips />
+            </Suspense>
+          </div>
+          <Suspense
+            fallback={
+              <div className="flex flex-col gap-6">
+                {Array.from({ length: 9 }).map((_, index) => (
+                  <QuestionCardSkeleton key={index} />
+                ))}
+              </div>
+            }
+          >
             <QuestionsList
               currentPage={filters.page || 1}
               filters={filters}
@@ -145,9 +131,11 @@ export default async function QuestionsDashboard({
               paginationUrl="/questions"
               postsPerPage={filters.postsPerPage || 15}
             />
-          </div>
-          <QuestionPageSidebar />
+          </Suspense>
         </div>
+        <Suspense fallback={<QuestionPageSidebarLoading />}>
+          <QuestionPageSidebar />
+        </Suspense>
       </div>
     </>
   );

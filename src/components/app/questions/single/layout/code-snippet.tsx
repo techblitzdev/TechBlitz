@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { memo } from 'react';
 import { Highlight, themes } from 'prism-react-renderer';
 import { UserRecord } from '@/types/User';
 
@@ -25,7 +25,7 @@ interface Token {
   empty?: boolean;
 }
 
-export default function CodeDisplay({
+const CodeDisplay = memo(function CodeDisplay({
   content,
   language,
   backgroundColor = '#111111',
@@ -74,4 +74,6 @@ export default function CodeDisplay({
       )}
     </Highlight>
   );
-}
+});
+
+export default CodeDisplay;

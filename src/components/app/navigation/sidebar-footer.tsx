@@ -27,11 +27,13 @@ export default function SidebarFooter({ user }: SidebarFooterProps) {
       )}
       {user?.userLevel === 'FREE' && <SidebarFooterPremium user={user} />}
       <SidebarMenuItem className="group-data-[collapsible=icon]:hidden list-none">
-        <ReferralModal>
-          <Button variant="default" fullWidth className="">
-            Invite a friend
-          </Button>
-        </ReferralModal>
+        <ul>
+          <ReferralModal>
+            <Button variant="default" fullWidth aria-label="Invite a friend">
+              Invite a friend
+            </Button>
+          </ReferralModal>
+        </ul>
       </SidebarMenuItem>
       <SidebarMenuItem className="hidden group-data-[collapsible=icon]:block">
         <ReferralModal>

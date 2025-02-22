@@ -71,10 +71,10 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       disabled: true,
     },
     {
-      title: 'Questions',
+      title: 'Challenges',
       url: '/questions',
       icon: Document,
-      tooltip: 'Questions',
+      tooltip: 'Challenges',
     },
     {
       title: 'Roadmaps',
@@ -83,7 +83,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       defaultOpen: true,
       subItems: [
         {
-          title: 'Coding Roadmaps',
+          title: 'Official Roadmaps',
           url: '/roadmaps',
           disabled: true,
         },
@@ -131,10 +131,10 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       tooltip: 'Dashboard',
     },
     {
-      title: 'Questions',
+      title: 'Challenges',
       url: '/questions',
       icon: Document,
-      tooltip: 'Questions',
+      tooltip: 'Challenges',
     },
     {
       title: 'Roadmaps',
@@ -144,7 +144,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       defaultOpen: true,
       subItems: [
         {
-          title: 'Coding Roadmaps',
+          title: 'Official Roadmaps',
           url: '/roadmaps',
           disabled: false,
         },

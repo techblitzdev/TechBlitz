@@ -6,6 +6,7 @@ import { prisma } from '@/lib/prisma';
 import { resend } from '@/lib/resend';
 import { createUserMissionRecords } from '@/actions/daily-missions/create-user-missions-record';
 import { sendWelcomeEmail } from '@/actions/misc/send-welcome-email';
+import { createCouponOnSignup } from './create-coupon';
 
 const cookiesStore = cookies();
 

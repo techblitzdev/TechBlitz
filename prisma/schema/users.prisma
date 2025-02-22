@@ -48,6 +48,8 @@ model Users {
   hasSent7DayNoChallengeEmail Boolean             @default(false)
   timeSpendingPerDay          UserTimeSpendingPerDay? @default(LESS_THAN_5_MINUTES)
   sendPromotionalEmails       Boolean             @default(false)
+  userCustomCoupon            String?
+  hasCreatedCustomSignupCoupon Boolean             @default(false)
 
 
   // relations

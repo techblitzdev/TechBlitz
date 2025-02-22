@@ -13,12 +13,10 @@ import { getUserMissionRecords } from '@/utils/data/missions/get-user-mission-re
 
 export default async function QuestionPageSidebar() {
   // run in parallel
-  const [user, missions, userMissionRecords, userStreak] = await Promise.all([
-    useUserServer(),
-    getDailyMissions(),
-    getUserMissionRecords(),
-    getUserDailyStats(),
-  ]);
+  const [user, userStreak] = await Promise.all([useUserServer(), getUserDailyStats()]);
+
+  const missionsPromise = getDailyMissions();
+  const userMissionRecordsPromise = getUserMissionRecords();
 
   // get the streak start date and streak end date
   const startDate = userStreak?.streakData?.streakStart as Date;
@@ -36,7 +34,10 @@ export default async function QuestionPageSidebar() {
             description="Premium questions, personalized roadmaps, and unlimited AI credits!"
           />
         )}
-        <DailyGoalsCard missions={missions} userMissionRecords={userMissionRecords} />
+        <DailyGoalsCard
+          missionsPromise={missionsPromise}
+          userMissionRecordsPromise={userMissionRecordsPromise}
+        />
         <div className="w-fit h-fit flex flex-col gap-y-2.5">
           <div className="relative">
             {user ? (

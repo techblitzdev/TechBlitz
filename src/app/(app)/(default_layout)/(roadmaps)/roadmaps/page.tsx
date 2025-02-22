@@ -104,11 +104,10 @@ export default async function ExploreQuestionsPage() {
   const user = await useUserServer();
 
   // run in parallel
-  const [studyPaths, missions, userMissionRecords] = await Promise.all([
-    getAllStudyPaths(),
-    getDailyMissions(),
-    getUserMissionRecords(),
-  ]);
+  const [studyPaths] = await Promise.all([getAllStudyPaths()]);
+
+  const missionsPromise = getDailyMissions();
+  const userMissionRecordsPromise = getUserMissionRecords();
 
   // group study paths by category
   const studyPathsByCategory: Record<string, typeof studyPaths> = studyPaths.reduce(
@@ -152,7 +151,10 @@ export default async function ExploreQuestionsPage() {
                   description="Unlock your full potential with a personalized study plan tailored just for you. Get focused learning paths, progress tracking, and expert guidance to learn 3x faster."
                 />
               )}
-              <DailyGoalsCard missions={missions} userMissionRecords={userMissionRecords} />
+              <DailyGoalsCard
+                missionsPromise={missionsPromise}
+                userMissionRecordsPromise={userMissionRecordsPromise}
+              />
               <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit">
                 <div className="flex items-center space-x-2 text-white">
                   <Mail className="size-5 text-white" />

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { Editor } from '@monaco-editor/react';
 import LoadingSpinner from '@/components/ui/loading';
 import { useQuestionSingle } from '@/contexts/question-single-context';
@@ -10,7 +10,7 @@ import { useMonaco } from '@monaco-editor/react';
 import { CODING_FACTS } from '@/utils/constants';
 
 // memo the LoadingState component to prevent re-renders
-function LoadingState() {
+const LoadingState = memo(function LoadingState() {
   // Use useState instead of useMemo to persist the random fact between re-renders
   const [randomFact] = useState(
     () => CODING_FACTS[Math.floor(Math.random() * CODING_FACTS.length)]
@@ -26,7 +26,7 @@ function LoadingState() {
       </div>
     </div>
   );
-}
+});
 
 export default function CodeEditor() {
   const { code, setCode, answerHelp, user, question } = useQuestionSingle();

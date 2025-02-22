@@ -6,6 +6,7 @@ import { Progress } from '@/components/ui/progress';
 import { Mission, UserMission } from '@prisma/client';
 import { Check } from 'lucide-react';
 import ReferralModal from '@/components/shared/referral-modal';
+import { use } from 'react';
 
 const container = {
   hidden: { opacity: 0 },
@@ -23,11 +24,17 @@ const item = {
 };
 
 interface DailyGoalsCardProps {
-  missions: Mission[];
-  userMissionRecords: UserMission[];
+  missionsPromise: Promise<Mission[]>;
+  userMissionRecordsPromise: Promise<UserMission[]>;
 }
 
-const DailyGoalsCard: React.FC<DailyGoalsCardProps> = ({ missions, userMissionRecords }) => {
+const DailyGoalsCard: React.FC<DailyGoalsCardProps> = ({
+  missionsPromise,
+  userMissionRecordsPromise,
+}) => {
+  const missions = use(missionsPromise);
+  const userMissionRecords = use(userMissionRecordsPromise);
+
   return (
     <motion.div
       initial={{ height: 'auto' }}
@@ -81,7 +88,14 @@ function MissionItem({
             <Check height="16" width="16" className="text-green-500" />
           )}
         </div>
-        <Progress value={progress} className="h-2" indicatorColor="bg-green-500" />
+        <Progress
+          value={progress}
+          className="h-2"
+          indicatorColor="bg-green-500"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-label={mission.title + ' progress'}
+        />
       </div>
     </>
   );

@@ -2,6 +2,7 @@ import AnimatedSpan from '@/components/ui/animated-span';
 import { Button } from '@/components/ui/button';
 import GridPattern from '@/components/ui/grid-pattern';
 import { cn } from '@/lib/utils';
+
 export default function FeatureDailyChallengeHero(opts: {
   header?: string;
   subheader?: string;

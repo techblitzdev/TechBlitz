@@ -47,3 +47,6 @@ pnpm-lock.yaml
 
 # turbo
 .turbo
+
+# Million Lint
+.million

@@ -148,6 +148,7 @@ export default function QuestionCard(opts: {
                             ? 'text-yellow-500 fill-yellow-500'
                             : 'text-white'
                         } transition-colors duration-200`}
+                        aria-label="Bookmark"
                       />
                     </TooltipTrigger>
                     <TooltipContent>
@@ -165,7 +166,6 @@ export default function QuestionCard(opts: {
               <Tooltip delayDuration={0}>
                 <TooltipTrigger>
                   <div className="flex items-center gap-x-2">
-                    <span className="hidden sm:block text-gray-300">•</span>
                     <p className="text-sm text-gray-300">Recommended for you</p>
                   </div>
                 </TooltipTrigger>

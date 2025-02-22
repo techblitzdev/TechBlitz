@@ -37,14 +37,14 @@ export default function HomepageHero() {
           <AnimatedSpan content={animatedSpanContent} />
         </Link>
         <h1 className="mt-3 text-5xl lg:text-[68px] !font-onest !font-medium tracking-tight max-w-5xl py-1.5 items-center">
-          <span className=" text-gradient from-white to-white/75">
+          <span className="tracking-tighter text-gradient from-white to-white/75">
             Learning to code <br />
           </span>
           <div className="h-28 lg:h-16">
             <HeroText />
           </div>
         </h1>
-        <p className="font-onest max-w-4xl text-gray-400 text-lg">
+        <p className="font-onest max-w-4xl text-gray-400 text-lg tracking-tight">
           Unlock your potential with hands-on, industry-standard coding challenges. <br /> Take the
           first step today and transform your passion into a thriving tech career.
         </p>

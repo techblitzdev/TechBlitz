@@ -32,6 +32,7 @@ import { Button } from '@/components/ui/button';
 import { Suspense } from 'react';
 import { ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
+import { getUpgradeUrl } from '@/utils';
 
 const roadmapHeroDescription = (
   <div className="flex flex-col gap-y-4 z-20 relative font-inter max-w-3xl">
@@ -65,7 +66,7 @@ const upgradeDescription = (
     <p className="text-gray-400">
       Looking for a more personalized experience? Upgrade to a premium account to unlock
       personalized roadmaps.{' '}
-      <Link href="https://dub.sh/upgrade-techblitz" className="text-accent underline">
+      <Link href={getUpgradeUrl()} className="text-accent underline">
         Learn more
       </Link>
     </p>

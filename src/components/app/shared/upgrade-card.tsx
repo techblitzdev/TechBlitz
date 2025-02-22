@@ -1,6 +1,7 @@
 import { Sparkles } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { getUpgradeUrl } from '@/utils';
 
 export default function UpgradeCard({
   title,
@@ -19,7 +20,7 @@ export default function UpgradeCard({
         {description ||
           'Unlock your full potential with a personalized study plan tailored just for you. Get focused learning paths, progress tracking, and expert guidance to learn 3x faster.'}
       </p>
-      <Button href="https://dub.sh/upgrade-techblitz" className="mt-2 w-full" variant="premium">
+      <Button href={getUpgradeUrl()} className="mt-2 w-full" variant="premium">
         Upgrade to Premium
       </Button>
     </div>

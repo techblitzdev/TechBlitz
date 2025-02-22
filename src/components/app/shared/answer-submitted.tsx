@@ -20,6 +20,7 @@ import { formatSeconds } from '@/utils/time';
 import { useTransition } from 'react';
 import { updateAnswerDifficulty } from '@/actions/answers/answer';
 import { AnswerDifficulty } from '@prisma/client';
+import { getUpgradeUrl } from '@/utils';
 
 interface QuestionResultProps {
   correctAnswer: 'correct' | 'incorrect' | 'init';
@@ -227,7 +228,7 @@ export default function QuestionResult({
               {user?.userLevel === 'FREE' && (
                 <span className="text-xs text-gray-400">
                   (Free users get 20 tokens,{' '}
-                  <Link href="https://dub.sh/upgrade-techblitz" className="text-accent underline">
+                  <Link href={getUpgradeUrl()} className="text-accent underline">
                     upgrade to Premium
                   </Link>{' '}
                   to get unlimited tokens!)

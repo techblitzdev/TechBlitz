@@ -7,6 +7,7 @@ import { SIDEBAR_FOOTER_DESCRIPTION } from '@/utils/constants/sidebar';
 import { usePathname } from 'next/navigation';
 import { UserRecord } from '@/types/User';
 import { getUserDisplayName } from '@/utils/user';
+import { getUpgradeUrl } from '@/utils';
 
 interface SidebarFooterPremiumProps {
   user: UserRecord | null;
@@ -14,9 +15,6 @@ interface SidebarFooterPremiumProps {
 
 export default function SidebarFooterPremium({ user }: SidebarFooterPremiumProps) {
   const pathname = usePathname();
-
-  const premiumUrl =
-    process.env.NODE_ENV === 'production' ? 'https://dub.sh/upgrade-techblitz' : '/upgrade';
 
   const overrideDynamicTitleAndDescription = true;
 
@@ -59,7 +57,7 @@ export default function SidebarFooterPremium({ user }: SidebarFooterPremiumProps
             </>
           )}
         </p>
-        <Button variant="premium" fullWidth className="mt-4" href={premiumUrl}>
+        <Button variant="premium" fullWidth className="mt-4" href={getUpgradeUrl()}>
           Upgrade to Premium
         </Button>
       </SidebarMenuItem>
@@ -73,7 +71,7 @@ export default function SidebarFooterPremium({ user }: SidebarFooterPremiumProps
                 variant="ghost"
                 size="icon"
                 className="size-5"
-                href={premiumUrl}
+                href={getUpgradeUrl()}
                 title="Upgrade to Premium"
               >
                 <Stars className="size-4 text-yellow-400 fill-yellow-500" />

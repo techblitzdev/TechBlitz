@@ -1,5 +1,6 @@
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { getUpgradeUrl } from '@/utils';
 
 export default function UpgradeLayout(opts: {
   title: string | React.ReactNode;
@@ -22,12 +23,7 @@ export default function UpgradeLayout(opts: {
             )}
           </CardHeader>
           <CardFooter className="mt-3 flex flex-col items-center gap-10 md:flex-row md:justify-center">
-            <Button
-              href="https://dub.sh/upgrade-techblitz"
-              variant="accent"
-              size="lg"
-              target="_blank"
-            >
+            <Button href={getUpgradeUrl()} variant="accent" size="lg" target="_blank">
               Find out more
             </Button>
           </CardFooter>

@@ -8,6 +8,7 @@ import { QuestionFilters } from '@/types/Filters';
 import ClearFilters from './clear-filters';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 import GlobalPagination from '../../shared/pagination';
+import { getUpgradeUrl } from '@/utils';
 
 export default async function QuestionsList({
   currentPage,
@@ -35,7 +36,7 @@ export default async function QuestionsList({
         </p>
         <div className="flex gap-x-2">
           <Button href="/questions">Back to all questions</Button>
-          <Button href="https://dub.sh/upgrade-techblitz" variant="secondary">
+          <Button href={getUpgradeUrl()} variant="secondary">
             Upgrade
           </Button>
         </div>

@@ -23,6 +23,7 @@ import { updateAnswerDifficultyByQuestionUid } from '@/actions/answers/answer';
 import LoadingSpinner from '@/components/ui/loading';
 import FlagIcon from '@/components/ui/icons/flag';
 import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
+import { getUpgradeUrl } from '@/utils';
 
 export default function CodeEditorQuestionSubmitted() {
   const {
@@ -146,7 +147,7 @@ export default function CodeEditorQuestionSubmitted() {
             ) : (
               <p className="text-sm text-white">
                 <span className="text-xs text-gray-400">
-                  <Link href="https://dub.sh/upgrade-techblitz" className="text-accent underline">
+                  <Link href={getUpgradeUrl()} className="text-accent underline">
                     Upgrade to Premium
                   </Link>{' '}
                   to access AI-powered explanations!

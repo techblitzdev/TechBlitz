@@ -6,6 +6,7 @@ import { useUserServer } from '@/hooks/use-user-server';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Chip from '@/components/ui/chip';
 import Link from 'next/link';
+import { getUpgradeUrl } from '@/utils';
 
 const items: {
   name: string;
@@ -58,7 +59,7 @@ export default async function ProgressBentoBox() {
 
   return (
     <Link
-      href={`${user?.userLevel === 'FREE' ? 'https://dub.sh/upgrade-techblitz' : '/roadmaps'}`}
+      href={`${user?.userLevel === 'FREE' ? getUpgradeUrl() : '/roadmaps'}`}
       className="h-full flex flex-col p-4 relative group overflow-hidden"
     >
       <div className="absolute z-10">

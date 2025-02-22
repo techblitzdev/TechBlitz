@@ -14,6 +14,7 @@ import { UserRecord } from '@/types/User';
 import { capitalize } from 'lodash';
 import { RoadmapUserQuestions } from '@/types/Roadmap';
 import { DefaultRoadmapQuestions } from '@prisma/client';
+import { getUpgradeUrl } from '@/utils';
 
 export default function AiQuestionHelp(opts: {
   question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions;
@@ -120,7 +121,7 @@ export default function AiQuestionHelp(opts: {
                   <>You have unlimited tokens remaining</>
                 ) : (
                   <span className="text-xs text-gray-400">
-                    <Link href="https://dub.sh/upgrade-techblitz" className="text-accent underline">
+                    <Link href={getUpgradeUrl()} className="text-accent underline">
                       Upgrade to Premium
                     </Link>{' '}
                     to access AI-powered explanations!

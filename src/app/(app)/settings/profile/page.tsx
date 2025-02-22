@@ -28,6 +28,7 @@ import { UserUpdatePayload } from '@/types/User';
 import { themes } from 'prism-react-renderer';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { getUpgradeUrl } from '@/utils';
 
 type SchemaProps = z.input<typeof userDetailsSchema>;
 
@@ -384,10 +385,7 @@ export default function SettingsProfilePage() {
                     {user?.userLevel === 'FREE' && (
                       <div className="mt-2 text-sm text-red-500">
                         Upgrade to a premium account to enhance your AI.
-                        <a
-                          href="https://dub.sh/upgrade-techblitz"
-                          className="text-accent underline ml-1"
-                        >
+                        <a href={getUpgradeUrl()} className="text-accent underline ml-1">
                           Upgrade now
                         </a>
                       </div>

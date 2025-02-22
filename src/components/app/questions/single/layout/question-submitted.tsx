@@ -22,6 +22,7 @@ import { formatSeconds } from '@/utils/time';
 import { AnswerDifficulty } from '@prisma/client';
 import { updateAnswerDifficulty } from '@/actions/answers/answer';
 import LoadingSpinner from '@/components/ui/loading';
+import { getUpgradeUrl } from '@/utils';
 
 export default function QuestionSubmitted() {
   const {
@@ -169,7 +170,7 @@ export default function QuestionSubmitted() {
               <>You have unlimited tokens remaining</>
             ) : (
               <span className="text-xs text-gray-400">
-                <Link href="https://dub.sh/upgrade-techblitz" className="text-accent underline">
+                <Link href={getUpgradeUrl()} className="text-accent underline">
                   Upgrade to Premium
                 </Link>{' '}
                 to access AI-powered explanations!

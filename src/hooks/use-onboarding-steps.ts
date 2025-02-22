@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useOnboardingContext } from '@/contexts/onboarding-context';
 import { updateUser } from '@/actions/user/authed/update-user';
 import { createCouponOnSignup } from '@/actions/user/account/create-coupon';
+import { sendWelcomeEmail } from '@/actions/misc/send-welcome-email';
 
 export const STEPS = {
   USER_DETAILS: 'USER_DETAILS', // get the users info
@@ -132,7 +133,12 @@ export function useOnboardingSteps() {
         setCurrentStepState(stepConfig[STEPS.TIME_COMMITMENT].next as StepKey);
       } else if (currentStep === STEPS.USER_DETAILS) {
         await updateUser({ userDetails: user });
-        await createCouponOnSignup(user);
+        console.log('creating coupon on signup');
+        const coupon = await createCouponOnSignup(user);
+
+        // send the welcome email
+        await sendWelcomeEmail(user, coupon?.name ?? '');
+        setCurrentStepState(stepConfig[STEPS.USER_DETAILS].next as StepKey);
       } else {
         await updateUser({ userDetails: user });
         const nextStep = stepConfig[currentStep].next;

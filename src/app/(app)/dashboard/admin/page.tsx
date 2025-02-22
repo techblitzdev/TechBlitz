@@ -37,10 +37,13 @@ export default function AdminPage() {
       </form>
       <form
         action={async () => {
-          await sendWelcomeEmail({
-            email: 'logan@hiyield.co.uk',
-            username: 'Logan',
-          });
+          await sendWelcomeEmail(
+            {
+              email: 'logan@hiyield.co.uk',
+              username: 'Logan',
+            },
+            'test-coupon'
+          );
         }}
       >
         <Button type="submit">Send Welcome Email</Button>

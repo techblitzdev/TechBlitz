@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/utils/supabase/server';
 import { prisma } from '@/lib/prisma';
-import { sendWelcomeEmail } from '@/actions/misc/send-welcome-email';
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
@@ -75,11 +74,6 @@ export async function GET(request: Request) {
             createdAt: new Date(),
             updatedAt: new Date(),
           },
-        });
-
-        // send the welcome email to the user (they are new)
-        await sendWelcomeEmail({
-          email: data.user.email || '',
         });
       }
 

@@ -8,6 +8,8 @@ import { generateRoadmapResponse } from './utils/generate-roadmap';
 import { revalidateTag } from 'next/cache';
 import { QuestionDifficulty } from '@/types/Questions';
 import { getUser } from '@/actions/user/authed/get-user';
+import { uniqueId } from 'lodash';
+import { createOrFetchUserRoadmap } from '@/actions/roadmap/create-or-fetch-user-roadmap';
 
 interface RoadmapQuestion {
   uid: string;
@@ -28,107 +30,232 @@ interface RoadmapQuestion {
   };
 }
 
-export const roadmapGenerate = async (opts: { roadmapUid: string; generateMore?: boolean }) => {
-  const { roadmapUid } = opts;
-  opts.generateMore = opts.generateMore ?? false;
+interface RoadmapGenerateOpts {
+  roadmapUid?: string;
+  generateMore?: boolean;
+  generationRecordUid?: string;
+}
 
-  // get the user
-  const user = await getUser();
-  if (!user || user?.userLevel === 'FREE') {
-    throw new Error('User not found');
+export const roadmapGenerate = async (opts: RoadmapGenerateOpts) => {
+  const { generationRecordUid, generateMore = false } = opts;
+
+  // First create the progress record
+  let generationProgressRecord;
+  if (generationRecordUid) {
+    generationProgressRecord = await prisma.roadmapGenerationProgress.create({
+      data: {
+        uid: generationRecordUid,
+        status: 'FETCHING_DATA',
+      },
+    });
   }
 
-  // Retrieve and format the necessary data for AI
-  const formattedData = await generateDataForAi({
-    roadmapUid,
-    userUid: user?.uid,
-    generateMore: opts.generateMore,
-  });
+  const updateGenerationProgress = async (status: 'FETCHING_DATA' | 'GENERATED' | 'ERROR') => {
+    if (generationRecordUid) {
+      await prisma.roadmapGenerationProgress.update({
+        where: { uid: generationRecordUid },
+        data: { status },
+      });
+    }
+  };
 
-  let existingQuestions = [];
-  if (formattedData === 'generated' || formattedData === 'invalid') {
-    existingQuestions = await fetchRoadmapQuestions({
-      roadmapUid,
-      userUid: user?.uid,
-    });
-
-    if (existingQuestions.length === 0) {
-      throw new Error('No questions found for the roadmap');
+  try {
+    // create a new roadmap
+    const roadmap = await (opts.roadmapUid
+      ? prisma.userRoadmaps.findUnique({
+          where: { uid: opts.roadmapUid },
+        })
+      : createOrFetchUserRoadmap());
+    if (!roadmap) {
+      await updateGenerationProgress('ERROR');
+      throw new Error('Roadmap not found');
     }
 
-    return existingQuestions;
-  }
+    // handle errors
+    if ('code' in roadmap) {
+      await updateGenerationProgress('ERROR');
+      throw new Error(roadmap.error);
+    }
+    const roadmapUid = roadmap.uid;
 
-  // Request AI-generated questions
-  const response = await generateRoadmapResponse({ formattedData, user });
-  if (!response) {
-    throw new Error('AI response is missing content');
-  }
+    // get the user
+    const user = await getUser();
+    if (!user || user?.userLevel === 'FREE') {
+      throw new Error('User not found');
+    }
 
-  const existingCount = await prisma.roadmapUserQuestions.count({
-    where: { roadmapUid },
+    // Retrieve and format the necessary data for AI
+    const formattedData = await generateDataForAi({
+      roadmapUid,
+      userUid: user?.uid,
+      generateMore,
+    });
+
+    let existingQuestions = [];
+    if (formattedData === 'generated' || formattedData === 'invalid') {
+      existingQuestions = await fetchRoadmapQuestions({
+        roadmapUid,
+        userUid: user?.uid,
+      });
+
+      if (existingQuestions.length === 0) {
+        throw new Error('No questions found for the roadmap');
+      }
+
+      // update the status to GENERATED
+      await updateGenerationProgress('GENERATED');
+
+      return {
+        roadmapUid,
+        generationProgressRecord,
+      };
+    }
+
+    // Request AI-generated questions
+    const response = await generateRoadmapResponse({
+      formattedData,
+      user,
+      generationProgressRecord,
+    });
+    if (!response) {
+      throw new Error('AI response is missing content');
+    }
+
+    const existingCount = await prisma.roadmapUserQuestions.count({
+      where: { roadmapUid },
+    });
+
+    // Parse and process the AI response
+    const formattedResponse = JSON.parse(response);
+    const questions = addUidsToResponse(formattedResponse.questionData);
+
+    // add a order value to each question
+    const questionsWithOrder = addOrderToResponseQuestions(questions, existingCount || 0);
+
+    const roadmapQuestionsData: RoadmapQuestion[] = questionsWithOrder.map((question: any) => ({
+      uid: question.uid,
+      roadmapUid,
+      question: question.questions,
+      correctAnswerUid: question.correctAnswerUid,
+      codeSnippet: question.codeSnippet,
+      hint: question.hint,
+      completed: false,
+      order: question.order,
+      difficulty: question.difficulty.toUpperCase() || 'EASY',
+      RoadmapUserQuestionsAnswers: {
+        create: question.answers.map((answer: any) => ({
+          answer: answer.answer,
+          correct: answer.correct,
+          uid: answer.uid,
+        })),
+      },
+    }));
+
+    await prisma.$transaction([
+      prisma.roadmapUserQuestions.createMany({
+        data: roadmapQuestionsData.map(
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          ({ RoadmapUserQuestionsAnswers: _, ...rest }) => rest
+        ),
+      }),
+      ...roadmapQuestionsData.flatMap((question) =>
+        question.RoadmapUserQuestionsAnswers.create.map((answer) =>
+          prisma.roadmapUserQuestionsAnswers.create({
+            data: {
+              ...answer,
+              questionUid: question.uid,
+              uid: answer.uid,
+            },
+          })
+        )
+      ),
+      prisma.userRoadmaps.update({
+        where: {
+          uid: roadmapUid,
+        },
+        data: {
+          hasGeneratedRoadmap: true,
+          title: formattedResponse.title,
+          description: formattedResponse.description,
+          status: 'ACTIVE',
+        },
+      }),
+    ]);
+
+    // Update final status before returning
+    await updateGenerationProgress('GENERATED');
+
+    revalidateTag('roadmap-data');
+
+    return {
+      roadmapUid,
+      generationProgressRecord,
+    };
+  } catch (error) {
+    await updateGenerationProgress('ERROR');
+    throw error;
+  }
+};
+
+export const simulateRoadmapGeneration = async ({
+  generationRecordUid,
+}: {
+  generationRecordUid: string;
+}) => {
+  // create a new RoadmapGenerationProgress record
+  const generationProgressRecord = await prisma.roadmapGenerationProgress.create({
+    data: {
+      uid: generationRecordUid,
+      status: 'FETCHING_DATA', // init status
+    },
   });
 
-  // Parse and process the AI response
-  const formattedResponse = JSON.parse(response);
-  const questions = addUidsToResponse(formattedResponse.questionData);
+  // wait for 5 seconds
+  await new Promise((resolve) => setTimeout(resolve, 5000));
 
-  // add a order value to each question
-  const questionsWithOrder = addOrderToResponseQuestions(questions, existingCount || 0);
-
-  const roadmapQuestionsData: RoadmapQuestion[] = questionsWithOrder.map((question: any) => ({
-    uid: question.uid,
-    roadmapUid,
-    question: question.questions,
-    correctAnswerUid: question.correctAnswerUid,
-    codeSnippet: question.codeSnippet,
-    hint: question.hint,
-    completed: false,
-    order: question.order,
-    difficulty: question.difficulty.toUpperCase() || 'EASY',
-    RoadmapUserQuestionsAnswers: {
-      create: question.answers.map((answer: any) => ({
-        answer: answer.answer,
-        correct: answer.correct,
-        uid: answer.uid,
-      })),
+  // update the status to GENERATED
+  await prisma.roadmapGenerationProgress.update({
+    where: { uid: generationProgressRecord.uid },
+    data: {
+      status: 'FIRST_PASS',
     },
-  }));
+  });
 
-  await prisma.$transaction([
-    prisma.roadmapUserQuestions.createMany({
-      data: roadmapQuestionsData.map(
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        ({ RoadmapUserQuestionsAnswers: _, ...rest }) => rest
-      ),
-    }),
-    ...roadmapQuestionsData.flatMap((question) =>
-      question.RoadmapUserQuestionsAnswers.create.map((answer) =>
-        prisma.roadmapUserQuestionsAnswers.create({
-          data: {
-            ...answer,
-            questionUid: question.uid,
-            uid: answer.uid,
-          },
-        })
-      )
-    ),
-    prisma.userRoadmaps.update({
-      where: {
-        uid: roadmapUid,
-      },
-      data: {
-        hasGeneratedRoadmap: true,
-        title: formattedResponse.title,
-        description: formattedResponse.description,
-        status: 'ACTIVE',
-      },
-    }),
-  ]);
+  // wait for 5 seconds
+  await new Promise((resolve) => setTimeout(resolve, 5000));
 
-  revalidateTag('roadmap-data');
+  // update the status to GENERATED
+  await prisma.roadmapGenerationProgress.update({
+    where: { uid: generationProgressRecord.uid },
+    data: {
+      status: 'SECOND_PASS',
+    },
+  });
 
-  console.log('Generated roadmap:', roadmapUid);
+  // wait for 5 seconds
+  await new Promise((resolve) => setTimeout(resolve, 5000));
 
-  return 'generated';
+  // update the status to GENERATED
+  await prisma.roadmapGenerationProgress.update({
+    where: { uid: generationProgressRecord.uid },
+    data: {
+      status: 'GENERATING_QUESTIONS',
+    },
+  });
+
+  // wait for 5 seconds
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+
+  // update the status to GENERATED
+  await prisma.roadmapGenerationProgress.update({
+    where: { uid: generationProgressRecord.uid },
+    data: {
+      status: 'GENERATED',
+    },
+  });
+
+  return {
+    roadmapUid: uniqueId(),
+    generationProgressRecord,
+  };
 };

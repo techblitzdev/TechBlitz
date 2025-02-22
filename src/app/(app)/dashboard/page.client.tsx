@@ -25,12 +25,15 @@ export default function ClientPage({
   children: React.ReactNode;
   searchParams: { [key: string]: string | string[] | undefined };
   userPromise: Promise<UserRecord | null>;
-  hasAnsweredAnyQuestionPromise: Promise<boolean>;
+  hasAnsweredAnyQuestionPromise: Promise<{
+    hasAnsweredEnoughQuestions: boolean;
+    answeredQuestionsCount: number;
+  }>;
 }) {
   const router = useRouter();
 
   const user = use(userPromise);
-  const hasAnsweredAnyQuestion = use(hasAnsweredAnyQuestionPromise);
+  const { hasAnsweredEnoughQuestions } = use(hasAnsweredAnyQuestionPromise);
 
   // if we do not have a user, or the username is not set, or it's not a custom username, we need to redirect to onboarding
   if (!user || !user.username || !user.isCustomUsername) {
@@ -59,7 +62,7 @@ export default function ClientPage({
     // if the user has not answered a question, redirect them back to onboarding#first-question-selection
     // we want the user to answer a question before explore their dashboard.
     // this will also give the user a 'tour' of how questions work. (TODO: add a tour of the question)
-    if (!hasAnsweredAnyQuestion) {
+    if (!hasAnsweredEnoughQuestions) {
       router.push('/onboarding#first-question-selection');
     }
 
@@ -147,7 +150,7 @@ export default function ClientPage({
       <div className="h-full">
         {children}
         <ReferralToast />
-        <TestimonialModal userHasAnsweredAnyQuestion={hasAnsweredAnyQuestion} />
+        <TestimonialModal userHasAnsweredAnyQuestion={hasAnsweredEnoughQuestions} />
       </div>
     </>
   );

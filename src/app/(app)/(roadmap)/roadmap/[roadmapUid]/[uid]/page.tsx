@@ -78,6 +78,7 @@ export default async function RoadmapQuestionPage({
       rightTopContent={rightTopContent}
       initialLeftWidth={50}
       rightBottomContent={null}
+      initialRightTopHeight={100}
     />
   );
 }

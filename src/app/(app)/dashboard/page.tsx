@@ -12,7 +12,9 @@ interface DashboardProps {
 export default async function Dashboard({ searchParams }: DashboardProps) {
   const user = useUserServer();
 
-  const hasAnsweredAnyQuestion = userHasAnsweredAnyQuestion();
+  const hasAnsweredAnyQuestion = userHasAnsweredAnyQuestion({
+    numberOfQuestions: 1,
+  });
 
   return (
     <ClientPage

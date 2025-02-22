@@ -22,7 +22,8 @@ export const createCouponOnSignup = async (dbUser: Partial<UserRecord>) => {
   }
 
   // construct a custom coupon name using the users username
-  const couponName = `${dbUser.username}60`;
+  // convert blank spaces to underscores
+  const couponName = `${dbUser.username?.replace(/\s+/g, '_') || ''}60`;
   const expiresAt = Math.floor(Date.now() / 1000 + 72 * 60 * 60);
 
   // otherwise, begin the creation process

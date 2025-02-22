@@ -25,6 +25,7 @@ export function useOnboardingSteps() {
   const searchParams = useSearchParams();
   const {
     user,
+    serverUser,
     handleGetOnboardingQuestions,
     canContinue,
     timeSpendingPerDay,
@@ -136,7 +137,7 @@ export function useOnboardingSteps() {
 
         // if this is false, we need to create a coupon and send the welcome email
         if (!user.hasCreatedCustomSignupCoupon) {
-          const coupon = await createCouponOnSignup(user);
+          const coupon = await createCouponOnSignup(serverUser);
           // send the welcome email
           await sendWelcomeEmail(user, coupon?.name ?? '');
         }

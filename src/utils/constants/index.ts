@@ -9,3 +9,4 @@ export * from './sidebar';
 export * from './statistics-filters';
 export * from './study-paths';
 export * from './suggested-challenge';
+export * from './roadmap';

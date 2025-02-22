@@ -8,6 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { cn } from '@/lib/utils';
 import type { RoadmapGenerationProgress } from '@prisma/client';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -54,14 +55,16 @@ export default function CreatingRoadmapModal({
       <DialogDescription>
         <div className="flex flex-col gap-y-4">
           <AnimatedStatusText status={generationProgress?.status ?? null} />
-          status: {generationProgress?.status}
         </div>
       </DialogDescription>
       <DialogFooter className="flex justify-end">
         <Button
-          disabled={!roadmapUid || generationProgress?.status !== 'GENERATED'}
+          disabled={generationProgress?.status !== 'GENERATED'}
           variant="accent"
           href={`/roadmap/${roadmapUid}`}
+          className={cn(
+            generationProgress?.status !== 'GENERATED' && 'opacity-50 cursor-not-allowed'
+          )}
         >
           {generationProgress?.status === 'GENERATED' ? 'View Roadmap' : 'Generating...'}
         </Button>

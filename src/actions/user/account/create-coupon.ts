@@ -1,7 +1,7 @@
 'use server';
 import { prisma } from '@/lib/prisma';
-import { UserRecord } from '@/types/User';
 import { stripe } from '@/lib/stripe';
+import { getUser } from '../authed/get-user';
 
 /**
  * Upon user signup, we create a 60% off their first 3 three
@@ -11,9 +11,10 @@ import { stripe } from '@/lib/stripe';
  * We are only hitting this action from within other actions,
  * so we can pass the userUid as a parameter.
  */
-export const createCouponOnSignup = async (dbUser: Partial<UserRecord>) => {
-  if (dbUser.hasCreatedCustomSignupCoupon) {
-    return;
+export const createCouponOnSignup = async () => {
+  const user = await getUser();
+  if (!user) {
+    throw new Error('User not found');
   }
 
   const productId = process.env.STRIPE_PREMIUM_PRODUCT_ID;
@@ -23,7 +24,7 @@ export const createCouponOnSignup = async (dbUser: Partial<UserRecord>) => {
 
   // construct a custom coupon name using the users username
   // convert blank spaces to underscores
-  const couponName = `${dbUser.username?.replace(/\s+/g, '_') || ''}60`;
+  const couponName = `${user.username?.replace(/\s+/g, '_') || ''}60`;
   const expiresAt = Math.floor(Date.now() / 1000 + 72 * 60 * 60);
 
   // otherwise, begin the creation process
@@ -45,7 +46,7 @@ export const createCouponOnSignup = async (dbUser: Partial<UserRecord>) => {
   // update the user record to reflect the new coupon
   await prisma.users.update({
     where: {
-      uid: dbUser.uid,
+      uid: user.uid,
     },
     data: {
       userCustomCoupon: coupon.name,

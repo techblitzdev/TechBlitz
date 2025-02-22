@@ -39,25 +39,29 @@ function AnimatedStatusText({ status }: { status: RoadmapGenerationProgress['sta
 
 export default function CreatingRoadmapModal({
   generationProgress,
+  roadmapUid,
 }: {
   generationProgress: RoadmapGenerationProgress | null;
+  roadmapUid: string;
 }) {
   return (
-    <DialogContent className="bg-black-75 md:max-w-3xl max-h-[1000px] overflow-y-scroll">
+    <DialogContent className="bg-black-75 md:max-w-xl max-h-[1000px] overflow-y-scroll">
       <DialogHeader>
         <DialogTitle className="text-2xl">Creating your roadmap...</DialogTitle>
       </DialogHeader>
       <DialogDescription>
         <div className="flex flex-col gap-y-4">
-          <p>We are currently creating your roadmap. This may take a few minutes.</p>
-          <div className="flex flex-col gap-y-2">
-            <p>Status:</p>
-            <AnimatedStatusText status={generationProgress?.status ?? null} />
-          </div>
+          <AnimatedStatusText status={generationProgress?.status ?? null} />
         </div>
       </DialogDescription>
-      <DialogFooter>
-        <Button>Cancel</Button>
+      <DialogFooter className="flex justify-end">
+        <Button
+          disabled={!roadmapUid || generationProgress?.status !== 'GENERATED'}
+          variant="accent"
+          href={`/roadmap/${roadmapUid}`}
+        >
+          View Roadmap
+        </Button>
       </DialogFooter>
     </DialogContent>
   );

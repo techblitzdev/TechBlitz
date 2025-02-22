@@ -23,6 +23,7 @@ export default function CreateRoadmapButton({
     null
   );
   const [generationRecordUid, setGenerationRecordUid] = useState<string | null>(null);
+  const [roadmapUid, setRoadmapUid] = useState<string>('');
 
   const remainingQuestions = Math.max(ROADMAP_QUESTION_COUNT - answeredQuestionsCount, 0);
   const progress = Math.min((answeredQuestionsCount / ROADMAP_QUESTION_COUNT) * 100, 100);
@@ -31,7 +32,6 @@ export default function CreateRoadmapButton({
     let channel: any;
 
     if (generationRecordUid) {
-      console.log('generationRecordUid', generationRecordUid);
       channel = supabase
         .channel('roadmap-generation-progress')
         .on(
@@ -43,7 +43,6 @@ export default function CreateRoadmapButton({
             filter: `uid=eq.${generationRecordUid}`,
           },
           (payload) => {
-            console.log('Received payload:', payload);
             if (payload.new) {
               setGenerationProgress(payload.new as RoadmapGenerationProgress);
             }
@@ -62,15 +61,22 @@ export default function CreateRoadmapButton({
 
   const handleGenerateRoadmap = async () => {
     setIsLoading(true);
+    setGenerationRecordUid(null);
+    setRoadmapUid('');
+    setGenerationProgress(null);
+
     try {
       const newGenerationRecordUid =
         Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
       setGenerationRecordUid(newGenerationRecordUid);
 
-      await simulateRoadmapGeneration({
+      const { roadmapUid, generationProgressRecord } = await simulateRoadmapGeneration({
         generationRecordUid: newGenerationRecordUid,
       });
+
+      setRoadmapUid(roadmapUid);
+      setGenerationProgress(generationProgressRecord);
     } catch (error) {
       console.error('Failed to generate roadmap:', error);
     } finally {
@@ -100,7 +106,7 @@ export default function CreateRoadmapButton({
                 )}
               </Button>
             </DialogTrigger>
-            <CreatingRoadmapModal generationProgress={generationProgress} />
+            <CreatingRoadmapModal generationProgress={generationProgress} roadmapUid={roadmapUid} />
           </Dialog>
         </div>
       ) : (

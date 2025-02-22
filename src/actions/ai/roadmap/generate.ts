@@ -224,12 +224,8 @@ export const simulateRoadmapGeneration = async ({
     },
   });
 
-  // delete the generation progress record
-  await prisma.roadmapGenerationProgress.delete({
-    where: {
-      uid: generationProgressRecord.uid,
-    },
-  });
-
-  return 'ok';
+  return {
+    roadmapUid: uniqueId(),
+    generationProgressRecord,
+  };
 };

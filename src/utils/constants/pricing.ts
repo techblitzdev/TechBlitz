@@ -277,7 +277,6 @@ export const getPlans = (
       },
       mostPopular: false,
       disabled: user?.userLevel === 'PREMIUM',
-      chip: '30% off for 3 months, code FEBRUARY30',
     },
     /**
      * Lifetime plan

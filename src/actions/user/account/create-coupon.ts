@@ -23,6 +23,7 @@ export const createCouponOnSignup = async (dbUser: Partial<UserRecord>) => {
 
   // construct a custom coupon name using the users username
   const couponName = `${dbUser.username}60`;
+  const expiresAt = Math.floor(Date.now() / 1000 + 72 * 60 * 60);
 
   // otherwise, begin the creation process
   const coupon = await stripe.coupons.create({
@@ -35,7 +36,7 @@ export const createCouponOnSignup = async (dbUser: Partial<UserRecord>) => {
     },
     name: couponName,
     // must be redeemed within 72 hours
-    redeem_by: Math.floor(Date.now() / 1000) + 72 * 60 * 60,
+    redeem_by: expiresAt,
     // can only be redeemed once
     max_redemptions: 1,
   });
@@ -48,6 +49,7 @@ export const createCouponOnSignup = async (dbUser: Partial<UserRecord>) => {
     data: {
       userCustomCoupon: coupon.name,
       hasCreatedCustomSignupCoupon: true,
+      userCustomCouponExpiresAt: new Date(expiresAt * 1000),
     },
   });
 

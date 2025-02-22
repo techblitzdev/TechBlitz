@@ -133,11 +133,14 @@ export function useOnboardingSteps() {
         setCurrentStepState(stepConfig[STEPS.TIME_COMMITMENT].next as StepKey);
       } else if (currentStep === STEPS.USER_DETAILS) {
         await updateUser({ userDetails: user });
-        console.log('creating coupon on signup');
-        const coupon = await createCouponOnSignup(user);
 
-        // send the welcome email
-        await sendWelcomeEmail(user, coupon?.name ?? '');
+        // if this is false, we need to create a coupon and send the welcome email
+        if (!user.hasCreatedCustomSignupCoupon) {
+          const coupon = await createCouponOnSignup(user);
+          // send the welcome email
+          await sendWelcomeEmail(user, coupon?.name ?? '');
+        }
+
         setCurrentStepState(stepConfig[STEPS.USER_DETAILS].next as StepKey);
       } else {
         await updateUser({ userDetails: user });

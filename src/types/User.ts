@@ -73,6 +73,9 @@ export interface User extends BaseRecord {
 
   // a flag to indicate if the user has created a custom signup coupon
   hasCreatedCustomSignupCoupon?: boolean | null;
+
+  // the date the user's custom coupon expires
+  userCustomCouponExpiresAt?: Date | null;
 }
 
 export type UserRecord = Pick<
@@ -106,6 +109,7 @@ export type UserRecord = Pick<
   | 'sendPromotionalEmails'
   | 'userCustomCoupon'
   | 'hasCreatedCustomSignupCoupon'
+  | 'userCustomCouponExpiresAt'
 >;
 
 // First, create a type that excludes 'uid' from the partial requirement

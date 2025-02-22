@@ -22,16 +22,28 @@ export default function OnboardingPricing() {
   return (
     <>
       <CardHeader>
-        <div className="flex flex-col items-center gap-y-2 mb-3">
+        <div className="flex flex-col items-center gap-y-4 mb-3">
           <motion.h1
-            className="text-3xl flex flex-col items-center font-medium bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent text-center"
+            className="text-4xl flex flex-col items-center font-medium bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent text-center"
             variants={itemVariants}
           >
-            The most personalized platform <br /> to learn to code
+            Supercharge your coding journey
           </motion.h1>
-          <motion.p className="text-center text-gray-400 max-w-2xl text-sm" variants={itemVariants}>
-            Join developers worldwide learning to code through TechBlitz's personalized coding
-            platform.
+          <motion.p
+            className="text-center text-gray-400 max-w-2xl text-sm font-onest"
+            variants={itemVariants}
+          >
+            {user?.userCustomCoupon &&
+            user?.userCustomCouponExpiresAt &&
+            user?.userCustomCouponExpiresAt > new Date() ? (
+              <>
+                Receive <span className="font-bold">60% off</span> your first three months with code{' '}
+                <span className="font-bold">{user?.userCustomCoupon}</span>. <br />
+                Offer ends {user?.userCustomCouponExpiresAt?.toLocaleDateString()}.
+              </>
+            ) : (
+              "Join developers worldwide learning to code through TechBlitz's personalized coding platform."
+            )}
           </motion.p>
         </div>
         <FrequencyTabs initialFrequency={billingPeriod} onFrequencyChange={setBillingPeriod} />

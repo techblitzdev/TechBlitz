@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import type { RoadmapGenerationProgress } from '@prisma/client';
 
 const statusMessages = {
+  ERROR: 'An error occurred, please try again.',
   FETCHING_DATA: 'Fetching data...',
   FIRST_PASS: 'Generating initial roadmap...',
   SECOND_PASS: 'Refining roadmap...',

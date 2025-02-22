@@ -7,7 +7,7 @@ import CreatingRoadmapModal from './creating-roadmap-modal';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Progress } from '@/components/ui/progress';
 import { ROADMAP_QUESTION_COUNT } from '@/utils/constants/roadmap';
-import { simulateRoadmapGeneration } from '@/actions/ai/roadmap/generate';
+import { roadmapGenerate } from '@/actions/ai/roadmap/generate';
 import { supabase } from '@/lib/supabase';
 import type { RoadmapGenerationProgress } from '@prisma/client'; // either: 'FETCHING_DATA', 'FIRST_PASS', 'SECOND_PASS', 'GENERATING_QUESTIONS', 'GENERATED'
 
@@ -71,12 +71,11 @@ export default function CreateRoadmapButton({
 
       setGenerationRecordUid(newGenerationRecordUid);
 
-      const { roadmapUid, generationProgressRecord } = await simulateRoadmapGeneration({
+      const generationResult = await roadmapGenerate({
         generationRecordUid: newGenerationRecordUid,
       });
 
-      setRoadmapUid(roadmapUid);
-      setGenerationProgress(generationProgressRecord);
+      setRoadmapUid(generationResult.roadmapUid);
     } catch (error) {
       console.error('Failed to generate roadmap:', error);
     } finally {

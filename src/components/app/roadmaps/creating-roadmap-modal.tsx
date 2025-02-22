@@ -47,11 +47,14 @@ export default function CreatingRoadmapModal({
   return (
     <DialogContent className="bg-black-75 md:max-w-xl max-h-[1000px] overflow-y-scroll">
       <DialogHeader>
-        <DialogTitle className="text-2xl">Creating your roadmap...</DialogTitle>
+        <DialogTitle className="text-2xl">
+          {generationProgress?.status === 'GENERATED' ? 'Roadmap created!' : 'Creating roadmap...'}
+        </DialogTitle>
       </DialogHeader>
       <DialogDescription>
         <div className="flex flex-col gap-y-4">
           <AnimatedStatusText status={generationProgress?.status ?? null} />
+          status: {generationProgress?.status}
         </div>
       </DialogDescription>
       <DialogFooter className="flex justify-end">
@@ -60,7 +63,7 @@ export default function CreatingRoadmapModal({
           variant="accent"
           href={`/roadmap/${roadmapUid}`}
         >
-          View Roadmap
+          {generationProgress?.status === 'GENERATED' ? 'View Roadmap' : 'Generating...'}
         </Button>
       </DialogFooter>
     </DialogContent>

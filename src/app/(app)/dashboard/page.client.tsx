@@ -33,7 +33,7 @@ export default function ClientPage({
   const router = useRouter();
 
   const user = use(userPromise);
-  const { hasAnsweredEnoughQuestions, answeredQuestionsCount } = use(hasAnsweredAnyQuestionPromise);
+  const { hasAnsweredEnoughQuestions } = use(hasAnsweredAnyQuestionPromise);
 
   // if we do not have a user, or the username is not set, or it's not a custom username, we need to redirect to onboarding
   if (!user || !user.username || !user.isCustomUsername) {

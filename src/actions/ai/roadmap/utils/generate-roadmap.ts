@@ -8,21 +8,24 @@ import Anthropic from '@anthropic-ai/sdk';
 import { UserRecord } from '@/types/User';
 import { prisma } from '@/lib/prisma';
 import { RoadmapGenerationProgress } from '@prisma/client';
+
 export const generateRoadmapResponse = async (opts: {
   formattedData: ReturnType[];
   user: UserRecord;
-  generationProgressRecord: RoadmapGenerationProgress;
+  generationProgressRecord?: RoadmapGenerationProgress;
 }) => {
   const { formattedData, user, generationProgressRecord } = opts;
 
-  await prisma.roadmapGenerationProgress.update({
-    where: {
-      uid: generationProgressRecord.uid,
-    },
-    data: {
-      status: 'FIRST_PASS',
-    },
-  });
+  if (generationProgressRecord) {
+    await prisma.roadmapGenerationProgress.update({
+      where: {
+        uid: generationProgressRecord.uid,
+      },
+      data: {
+        status: 'FIRST_PASS',
+      },
+    });
+  }
 
   const prompts = await getPrompt({
     name: [
@@ -82,14 +85,16 @@ export const generateRoadmapResponse = async (opts: {
 
   console.log('First pass claude:', firstPassClaude.content);
 
-  await prisma.roadmapGenerationProgress.update({
-    where: {
-      uid: generationProgressRecord.uid,
-    },
-    data: {
-      status: 'SECOND_PASS',
-    },
-  });
+  if (generationProgressRecord) {
+    await prisma.roadmapGenerationProgress.update({
+      where: {
+        uid: generationProgressRecord.uid,
+      },
+      data: {
+        status: 'SECOND_PASS',
+      },
+    });
+  }
 
   // we then use gpt-4o-mini to ensure that the claude response is in the format
   // that we need it in

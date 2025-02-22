@@ -31,31 +31,41 @@ interface RoadmapQuestion {
 }
 
 interface RoadmapGenerateOpts {
+  roadmapUid?: string;
   generateMore?: boolean;
-  generationRecordUid: string;
+  generationRecordUid?: string;
 }
 
 export const roadmapGenerate = async (opts: RoadmapGenerateOpts) => {
-  const { generationRecordUid, generateMore = false } = opts;
+  const { generationRecordUid, generateMore = false, roadmapUid } = opts;
 
   // First create the progress record
-  const generationProgressRecord = await prisma.roadmapGenerationProgress.create({
-    data: {
-      uid: generationRecordUid,
-      status: 'FETCHING_DATA', // init status
-    },
-  });
+  let generationProgressRecord;
+  if (generationRecordUid) {
+    generationProgressRecord = await prisma.roadmapGenerationProgress.create({
+      data: {
+        uid: generationRecordUid,
+        status: 'FETCHING_DATA',
+      },
+    });
+  }
 
   const updateGenerationProgress = async (status: 'FETCHING_DATA' | 'GENERATED' | 'ERROR') => {
-    await prisma.roadmapGenerationProgress.update({
-      where: { uid: generationRecordUid },
-      data: { status },
-    });
+    if (generationRecordUid) {
+      await prisma.roadmapGenerationProgress.update({
+        where: { uid: generationRecordUid },
+        data: { status },
+      });
+    }
   };
 
   try {
     // create a new roadmap
-    const roadmap = await createOrFetchUserRoadmap();
+    const roadmap = await (opts.roadmapUid
+      ? prisma.userRoadmaps.findUnique({
+          where: { uid: opts.roadmapUid },
+        })
+      : createOrFetchUserRoadmap());
     if (!roadmap) {
       await updateGenerationProgress('ERROR');
       throw new Error('Roadmap not found');

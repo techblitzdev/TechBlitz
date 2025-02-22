@@ -37,7 +37,7 @@ interface RoadmapGenerateOpts {
 }
 
 export const roadmapGenerate = async (opts: RoadmapGenerateOpts) => {
-  const { generationRecordUid, generateMore = false, roadmapUid } = opts;
+  const { generationRecordUid, generateMore = false } = opts;
 
   // First create the progress record
   let generationProgressRecord;

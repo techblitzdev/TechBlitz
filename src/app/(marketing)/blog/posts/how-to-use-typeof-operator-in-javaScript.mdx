@@ -1,0 +1,223 @@
+---
+title: 'How to use typeof operator in JavaScript - Complete Guide with Examples'
+description: "Learn how to use the typeof operator in JavaScript with practical examples. Understand how to check variable types, validate function parameters, and handle API responses using typeof."
+image: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images/difference-between-const-var-and-let.png'
+date: '2025-02-23'
+author: 'Logan Ford'
+authorImage: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/user-profile-pictures/3a57d7e8-8b80-483b-93d0-70fe1f06b0c0/logo.png?u=1l5im5h5n6e5'
+readingTime: 5
+status: published
+headings:
+   - title: 'What is the typeof operator in JavaScript and how does it work'
+     level: 1
+   - title: 'How to use the typeof operator in JavaScript with examples'
+     level: 1
+   - title: 'When and why should you use typeof in JavaScript'
+     level: 1
+   - title: 'Common typeof operator use cases and best practices'
+     level: 1
+   - title: 'Troubleshooting typeof operator issues in JavaScript'
+     level: 1
+tags: ['JavaScript', 'Variables', 'Fundamentals', 'typeof', 'JavaScript Operators', 'Type Checking']
+subpage: true
+---
+import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
+
+<img className='max-h-80 object-cover w-full' src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//const-let-var-javascript.jpg" alt="How to use typeof operator in JavaScript - Complete Guide" />
+
+# What is the typeof operator in JavaScript and how does it work?
+
+The `typeof` operator in JavaScript is a built-in operator that helps you determine the data type of any variable, value, or expression. It returns a string indicating the type of the unevaluated operand. Understanding typeof is crucial for writing robust JavaScript code and handling different data types effectively.
+
+<br />
+
+Here are all the possible return values from the typeof operator in JavaScript:
+
+- `"number"` - for numbers and NaN
+- `"string"` - for text and characters
+- `"boolean"` - for true/false values
+- `"undefined"` - for undefined values
+- `"object"` - for objects, arrays, and null
+- `"function"` - for functions
+- `"symbol"` - for unique identifiers
+- `"bigint"` - for large integers
+
+You can learn more about JavaScript data types and their behaviors [here](/javascript-fundamentals/primitive-types-in-javascript)**.**
+
+## How to use the typeof operator in JavaScript with examples
+
+The typeof operator can be used in two different syntaxes. Let's explore both with practical examples:
+
+<CodeSnippet language="javascript" content={`// Method 1: Using typeof as an operator
+typeof "Hello World"    // Returns "string"
+typeof 42              // Returns "number"
+
+// Method 2: Using typeof as a function
+typeof("Hello World")   // Returns "string"
+typeof(42)             // Returns "number"`} />
+
+<br />
+
+Here's a comprehensive guide showing typeof with every common data type in JavaScript:
+
+<CodeSnippet language="javascript" content={`// Checking number types
+typeof 37              // Returns "number"
+typeof 3.14            // Returns "number"
+typeof NaN             // Returns "number"
+typeof Infinity        // Returns "number"
+
+// Checking string types
+typeof ""              // Returns "string"
+typeof "hello"         // Returns "string"
+typeof \`template\`      // Returns "string"
+
+// Checking boolean types
+typeof true            // Returns "boolean"
+typeof false           // Returns "boolean"
+typeof (1 > 2)        // Returns "boolean"
+
+// Checking undefined
+typeof undefined       // Returns "undefined"
+typeof undeclaredVar  // Returns "undefined"
+
+// Checking objects and arrays
+typeof {}              // Returns "object"
+typeof []              // Returns "object"
+typeof null            // Returns "object"
+typeof new Date()      // Returns "object"
+
+// Checking functions
+typeof function(){}    // Returns "function"
+typeof console.log     // Returns "function"
+
+// Checking symbols and BigInt
+typeof Symbol()        // Returns "symbol"
+typeof BigInt(123)     // Returns "bigint"`} />
+
+<br />
+
+Important note: A common gotcha is that `typeof null` returns "object". This is a known historical quirk in JavaScript that has been preserved for backward compatibility.
+
+## When and why should you use typeof in JavaScript?
+
+The typeof operator is essential in many JavaScript programming scenarios. Here are practical examples of when and how to use it:
+
+<CodeSnippet language="javascript" content={`// 1. Validating function parameters
+function calculateDiscount(price, percentage) {
+    if (typeof price !== "number" || typeof percentage !== "number") {
+        throw new Error("Both price and percentage must be numbers");
+    }
+    return price * (percentage / 100);
+}
+
+// 2. Safe API response handling
+function processAPIResponse(response) {
+    if (typeof response === "string") {
+        // Handle string response
+        return JSON.parse(response);
+    }
+    
+    if (typeof response === "object" && response !== null) {
+        // Handle object response
+        return response;
+    }
+    
+    throw new Error("Invalid API response format");
+}
+
+// 3. Type-specific data formatting
+function formatUserInput(value) {
+    switch (typeof value) {
+        case "number":
+            return value.toLocaleString();
+        case "string":
+            return value.trim();
+        case "boolean":
+            return value ? "Enabled" : "Disabled";
+        default:
+            return "Invalid input type";
+    }
+}`} />
+
+<br />
+
+## Common typeof operator use cases and best practices
+
+Let's look at some simple examples of when you might want to use typeof in your code:
+
+1. Checking if a value is a number before doing math
+2. Making sure text input is actually text
+3. Checking if something exists before using it
+
+Here are some beginner-friendly examples:
+
+<CodeSnippet language="javascript" content={`// Making sure a value is a number
+function addNumbers(num1, num2) {
+    if (typeof num1 !== "number" || typeof num2 !== "number") {
+        return "Please provide numbers only";
+    }
+    return num1 + num2;
+}
+
+// Checking if input is text
+function greetUser(name) {
+    if (typeof name !== "string") {
+        return "Please provide a name as text";
+    }
+    return "Hello, " + name;
+}
+
+// Making sure something exists
+function isFeatureAvailable(feature) {
+    if (typeof feature === "undefined") {
+        return "This feature is not available";
+    }
+    return "Feature is ready to use";
+}`} />
+
+<br />
+
+## Troubleshooting typeof operator issues in JavaScript
+
+Common issues and their solutions when working with typeof:
+
+1. Array detection: Use `Array.isArray()` instead of typeof
+2. Null checking: Remember typeof null returns "object"
+3. undefined vs "undefined": Use strict comparison
+4. Function detection in older browsers
+
+<CodeSnippet language="javascript" content={`// Proper array checking
+const arr = [1, 2, 3];
+typeof arr === "object";     // true, but not specific enough
+Array.isArray(arr);         // true, this is better
+
+// Proper null checking
+const value = null;
+typeof value === "object";  // true
+value === null;            // true, more specific
+
+// Undefined checking
+let undeclared;
+typeof undeclared === "undefined";  // true
+undeclared === undefined;           // true, but can throw error if not declared`} />
+
+<br />
+
+## Summary
+
+The typeof operator is a fundamental tool in JavaScript for type checking and validation. Understanding how to use it properly can help you write more robust and error-free code. Remember to consider its quirks (like null returning "object") and use it alongside other type-checking methods when needed.
+
+<br />
+
+## Looking for more JavaScript guides?
+
+Check out these related articles to deepen your JavaScript knowledge:
+
+- [How to connect HTML to JavaScript](/javascript-fundamentals/how-to-connect-html-to-javascript)
+- [Understanding Loose vs Strict Equality in JavaScript](/javascript-fundamentals/loose-vs-strict-equality-in-javascript)
+- [Complete Guide to Writing Functions in JavaScript](/javascript-fundamentals/how-to-write-a-function-in-javascript)
+
+<br />
+
+For hands-on practice and structured learning, explore our comprehensive [JavaScript Fundamentals](/roadmaps/javascript-fundamentals) roadmap with interactive examples and exercises.

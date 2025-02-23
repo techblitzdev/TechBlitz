@@ -325,6 +325,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/javascript-fundamentals/how-to-convert-a-number-to-string-in-javascript`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/javascript-fundamentals/how-to-use-typeof-operator-in-javaScript`,
+      lastModified: '2025-02-23',
+    },
   ];
 
   // Combine static routes with dynamic blog posts

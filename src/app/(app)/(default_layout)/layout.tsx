@@ -11,12 +11,10 @@ export default function StatisticsLayout({ children }: Readonly<{ children: Reac
         <div className="flex-1">
           <SidebarLayoutTrigger />
         </div>
-        <div className="flex items-center gap-x-4">
+        <div className="flex items-center gap-x-5">
           <CurrentStreak />
-          <div className="flex items-center gap-x-2">
-            <Feedback />
-            <UpgradeModal />
-          </div>
+          <Feedback icon={true} />
+          <UpgradeModal />
         </div>
       </div>
       <Separator className="bg-black-50" />

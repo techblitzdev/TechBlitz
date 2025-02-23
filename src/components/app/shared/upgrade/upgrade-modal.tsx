@@ -14,7 +14,9 @@ export default async function UpgradeModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="premium">Get Pro</Button>
+        <Button variant="premium" size="sm">
+          Get Pro
+        </Button>
       </DialogTrigger>
       <DialogContent className="bg-black-75 max-w-3xl">
         <UpgradePage gradientBackground={false} />

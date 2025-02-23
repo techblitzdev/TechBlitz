@@ -17,9 +17,9 @@ export default function DashboardHeader() {
       <div className="flex items-center">
         <SidebarLayoutTrigger />
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-5">
         <CurrentStreak />
-        <Feedback />
+        <Feedback icon={true} />
         <UpgradeModal />
       </div>
     </div>

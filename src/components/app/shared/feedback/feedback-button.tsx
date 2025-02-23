@@ -1,10 +1,10 @@
 'use client';
 
-import { ChatBubbleIcon } from '@radix-ui/react-icons';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { FeedbackModal } from '@/components/app/shared/feedback/feedback-modal';
 import type React from 'react';
+import MsgWriting from '@/components/ui/icons/msg-writing';
 
 interface FeedbackButtonProps {
   showText?: boolean;
@@ -16,7 +16,6 @@ interface FeedbackButtonProps {
 }
 
 export default function FeedbackButton({
-  showText = true,
   reference,
   title,
   description,
@@ -27,12 +26,12 @@ export default function FeedbackButton({
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          variant={showText ? 'default' : 'ghost'}
+          variant={title ? 'default' : 'ghost'}
+          padding={title ? 'md' : 'none'}
           className="items-center gap-2 p-2"
-          wrapperClassName="hidden sm:flex"
         >
-          {icon || <ChatBubbleIcon className="size-4 block md:hidden" />}
-          {showText && <p className="text-sm hidden md:block">{title || 'Feedback'}</p>}
+          {title && <p className="text-sm hidden md:block">{title}</p>}
+          {icon && <MsgWriting height="1.25rem" width="1.25rem" />}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80 bg-black-75 text-white border border-black-50" align="end">

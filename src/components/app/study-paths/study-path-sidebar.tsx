@@ -128,7 +128,7 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
             {user?.userLevel === 'FREE' && (
               <UpgradeCard
                 title="Looking for a personalized study plan?"
-                description="Unlock your full potential with a personalized study plan tailored just for you. Get focused learning paths, progress tracking, and expert guidance to learn 3x faster."
+                description="Unlock your full potential with a personalized study plan tailored just for you."
               />
             )}
 

@@ -64,6 +64,11 @@ type QuestionSingleContextType = {
   setPreviousQuestion: (previousQuestion: string | null | undefined) => void;
   totalSeconds: number;
   setTotalSeconds: (totalSeconds: number) => void;
+
+  // Test run code
+  runningCode: boolean;
+  setRunningCode: (runningCode: boolean) => void;
+  testRunCode: () => Promise<void>;
 };
 
 // Create the context
@@ -130,6 +135,7 @@ export const QuestionSingleContextProvider = ({
   const [nextQuestion, setNextQuestion] = useState<string | null | undefined>(null);
   const [previousQuestion, setPreviousQuestion] = useState<string | null | undefined>(null);
   const [totalSeconds, setTotalSeconds] = useState<number>(0);
+  const [runningCode, setRunningCode] = useState(false);
 
   // EFFECTS
   useEffect(() => {
@@ -273,6 +279,22 @@ export const QuestionSingleContextProvider = ({
     setAnswerHelp(content);
   };
 
+  // Test run the code
+  const testRunCode = async () => {
+    // user must be logged in
+    if (!user) {
+      toast.error('User is not logged in');
+      return;
+    }
+
+    setRunningCode(true);
+
+    // simulate a 5 second delay
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+
+    setRunningCode(false);
+  };
+
   // Reset the question state
   const resetQuestionState = () => {
     console.log('resetting question state');
@@ -332,6 +354,9 @@ export const QuestionSingleContextProvider = ({
         setPreviousQuestion,
         totalSeconds,
         setTotalSeconds,
+        runningCode,
+        setRunningCode,
+        testRunCode,
       }}
     >
       {children}

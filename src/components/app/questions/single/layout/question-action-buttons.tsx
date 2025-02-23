@@ -22,6 +22,8 @@ export default function QuestionActionButtons() {
     code,
     currentLayout,
     setTotalSeconds,
+    runningCode,
+    testRunCode,
   } = useQuestionSingle();
 
   const [stopwatchOffset, setStopwatchOffset] = useState<Date>(new Date());
@@ -62,25 +64,26 @@ export default function QuestionActionButtons() {
           size="sm"
         >
           <div className="relative">
-            <AnimatePresence>
+            <AnimatePresence mode="wait">
               <motion.span
                 key="reset-text"
                 className="hidden md:block"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
               >
                 Reset
               </motion.span>
             </AnimatePresence>
-            <AnimatePresence>
+            <AnimatePresence mode="wait">
               <motion.span
                 key="reset-icon"
                 className="block md:hidden"
                 initial={{ opacity: 0, rotate: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0, rotate: 360 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
               >
                 <RefreshCcwIcon className="w-4 h-4" />
               </motion.span>
@@ -90,21 +93,39 @@ export default function QuestionActionButtons() {
         <TooltipProvider>
           <Tooltip delayDuration={0}>
             <TooltipTrigger asChild>
-              <Button variant="default" className="rounded-none" size="sm">
-                <AnimatePresence>
-                  <motion.span
-                    key="run-text"
-                    className="hidden md:block"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  >
-                    <Play className="w-4 h-4 fill-gray-400 text-gray-400" />
-                  </motion.span>
+              <Button
+                variant="default"
+                className="rounded-none"
+                size="sm"
+                onClick={testRunCode}
+                disabled={runningCode}
+              >
+                <AnimatePresence mode="wait">
+                  {!runningCode ? (
+                    <motion.span
+                      key="run-icon"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.2, ease: 'easeOut' }}
+                    >
+                      <Play className="w-4 h-4 fill-gray-400 text-gray-400" />
+                    </motion.span>
+                  ) : (
+                    <motion.span
+                      key="loading-icon"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.2, ease: 'easeOut' }}
+                    >
+                      <LoadingSpinner className="w-4 h-4 fill-gray-400 text-gray-400" />
+                    </motion.span>
+                  )}
                 </AnimatePresence>
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Run Code</TooltipContent>
+            <TooltipContent>{runningCode ? 'Running code...' : 'Run Code'}</TooltipContent>
           </Tooltip>
         </TooltipProvider>
         {user ? (
@@ -115,15 +136,15 @@ export default function QuestionActionButtons() {
               className="text-green-500 rounded-l-none"
               size="sm"
             >
-              <AnimatePresence>
+              <AnimatePresence mode="wait">
                 {isSubmitting ? (
                   <motion.div
                     key="loading"
                     className="flex items-center gap-x-2"
-                    initial={{ opacity: 0, y: 5 }}
+                    initial={{ opacity: 0, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -5 }}
-                    transition={{ duration: 0.2 }}
+                    exit={{ opacity: 0, y: 0 }}
+                    transition={{ duration: 0.2, ease: 'easeInOut' }}
                   >
                     <LoadingSpinner />
                     <span>Submitting...</span>
@@ -131,10 +152,10 @@ export default function QuestionActionButtons() {
                 ) : (
                   <motion.span
                     key="submit"
-                    initial={{ opacity: 0, y: 5 }}
+                    initial={{ opacity: 0, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -5 }}
-                    transition={{ duration: 0.2 }}
+                    exit={{ opacity: 0, y: 0 }}
+                    transition={{ duration: 0.2, ease: 'easeInOut' }}
                   >
                     Submit
                   </motion.span>
@@ -152,7 +173,7 @@ export default function QuestionActionButtons() {
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
               Login to Submit
             </motion.span>

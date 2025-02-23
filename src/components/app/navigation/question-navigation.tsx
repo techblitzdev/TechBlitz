@@ -9,7 +9,7 @@ import { useSearchParams } from 'next/navigation';
 import { StudyPath, studyPaths } from '@/utils/constants/study-paths';
 import { Button } from '@/components/ui/button';
 import { RoadmapUserQuestions } from '@prisma/client';
-import { useQuestionSingle } from '../../../contexts/question-single-context';
+import { useQuestionSingle } from '@/contexts/question-single-context';
 
 /**
  * Component for navigation between different questions from within the
@@ -65,8 +65,6 @@ export default function QuestionNavigation(opts: {
     }
   }, [pathname, searchParams, slug, type, nextPrevPromise, studyPathSlug]);
 
-  console.log(studyPath);
-
   return (
     <div className="flex items-center">
       {type === 'study-path' && (
@@ -78,9 +76,10 @@ export default function QuestionNavigation(opts: {
                   variant="default"
                   className="z-30 flex items-center gap-x-2 mr-2"
                   href={`/roadmaps/${studyPath?.slug}`}
+                  size="sm"
+                  padding="sm"
                 >
                   <ArrowLeft className="size-4" />
-                  <span className="text-sm hidden sm:block">Back</span>
                 </Button>
               </TooltipTrigger>
               <TooltipContent side="bottom">Back to {studyPath?.title}</TooltipContent>
@@ -95,7 +94,7 @@ export default function QuestionNavigation(opts: {
             <TooltipTrigger>
               <Link
                 href={previousQuestion || '#'}
-                className={`bg-primary border border-black-50 p-2 rounded-l-md relative group duration-200 size-9 flex items-center justify-center border-r-0 ${
+                className={`bg-primary border border-black-50 p-2 rounded-l-md relative group duration-200 size-8 flex items-center justify-center border-r-0 ${
                   !previousQuestion ? 'opacity-50 pointer-events-none' : ''
                 }`}
               >
@@ -115,7 +114,7 @@ export default function QuestionNavigation(opts: {
             <TooltipTrigger>
               <Link
                 href={nextQuestion || '#'}
-                className={`bg-primary border border-black-50 p-2 rounded-r-md relative group duration-200 size-9 flex items-center justify-center ${
+                className={`bg-primary border border-black-50 p-2 rounded-r-md relative group duration-200 size-8 flex items-center justify-center ${
                   !nextQuestion ? 'opacity-50 pointer-events-none' : ''
                 }`}
               >

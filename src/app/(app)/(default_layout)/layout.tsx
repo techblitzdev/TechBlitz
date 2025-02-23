@@ -2,6 +2,7 @@ import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-tri
 import CurrentStreak from '@/components/ui/current-streak';
 import Feedback from '@/components/app/shared/feedback/feedback-button';
 import { Separator } from '@/components/ui/separator';
+import UpgradeModal from '@/components/app/shared/upgrade/upgrade-modal';
 
 export default function StatisticsLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
@@ -12,7 +13,10 @@ export default function StatisticsLayout({ children }: Readonly<{ children: Reac
         </div>
         <div className="flex items-center gap-x-4">
           <CurrentStreak />
-          <Feedback />
+          <div className="flex items-center gap-x-2">
+            <Feedback />
+            <UpgradeModal />
+          </div>
         </div>
       </div>
       <Separator className="bg-black-50" />

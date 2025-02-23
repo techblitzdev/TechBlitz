@@ -13,7 +13,11 @@ async function updateFrequency(frequency: 'month' | 'year') {
   revalidatePath('/upgrade');
 }
 
-export default async function UpgradePage() {
+export default async function UpgradePage({
+  gradientBackground = true,
+}: {
+  gradientBackground?: boolean;
+}) {
   const user = await useUserServer();
   const cookieStore = cookies();
   const billingPeriod = (cookieStore.get('billing_frequency')?.value as 'month' | 'year') || 'year';
@@ -47,6 +51,7 @@ export default async function UpgradePage() {
                     product={product}
                     compact={true}
                     paymentTrigger={true}
+                    gradientBackground={gradientBackground}
                   />
                 )
             )}

@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import ArcheryTarget from '@/components/ui/icons/target';
 import { useUserServer } from '@/hooks/use-user-server';
-import UpgradeCard from '../shared/upgrade-card';
+import UpgradeCard from '../shared/upgrade/upgrade-card';
 import { Progress } from '@/components/ui/progress';
 import { StudyPath } from '@prisma/client';
 import DailyChallengesCard from '../shared/question/daily-goals-card';

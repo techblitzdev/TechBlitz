@@ -24,7 +24,7 @@ const CreateRoadmapButton = dynamic(
 import { fetchUserRoadmaps } from '@/utils/data/roadmap/fetch-user-roadmaps';
 import { useUserServer } from '@/hooks/use-user-server';
 import RoadmapsCardSkeleton from '@/components/app/roadmaps/[uid]/roadmaps-card-loading';
-import UpgradeLayout from '@/components/app/shared/upgrade-layout';
+import UpgradeLayout from '@/components/app/shared/upgrade/upgrade-layout';
 import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
 import RoadmapIcon from '@/components/ui/icons/roadmap';
 import ContinueJourney from '@/components/app/navigation/continue-journey-button';

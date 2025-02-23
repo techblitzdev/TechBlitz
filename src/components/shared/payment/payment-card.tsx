@@ -18,8 +18,9 @@ export function PricingCard(opts: {
   product: Plan;
   isLoading: boolean;
   billingPeriod: Stripe.PriceListParams.Recurring.Interval;
+  className?: string;
 }) {
-  const { product, isLoading } = opts;
+  const { product, isLoading, className } = opts;
 
   if (!product) return null;
 
@@ -37,11 +38,10 @@ export function PricingCard(opts: {
   return (
     <motion.div
       key={product.id}
-      className="
-        flex flex-col p-3 pt-5 md:p-8 border border-black-50
-        w-full lg:w-1/3 justify-between relative rounded-xl md:min-h-full h-full
-        transition-all duration-300 ease-in-out
-      "
+      className={cn(
+        'flex flex-col p-3 pt-5 md:p-8 border border-black-50 w-full lg:w-1/3 justify-between relative rounded-xl md:min-h-full h-full transition-all duration-300 ease-in-out',
+        className
+      )}
       whileHover={{ scale: 1.02 }}
       style={{
         background: 'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',

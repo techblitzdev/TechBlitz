@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
 import LoadingSpinner from '@/components/ui/loading';
+import UpgradeModal from '../shared/upgrade/upgrade-modal';
 
 const CurrentStreak = dynamic(() => import('@/components/ui/current-streak'), {
   loading: () => <LoadingSpinner />,
@@ -19,6 +20,7 @@ export default function DashboardHeader() {
       <div className="flex items-center gap-3">
         <CurrentStreak />
         <Feedback />
+        <UpgradeModal />
       </div>
     </div>
   );

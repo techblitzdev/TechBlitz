@@ -13,6 +13,8 @@ import { getRelatedQuestions } from '@/utils/data/questions/get-related';
 import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
 import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation';
 import type { QuizJsonLd } from '@/types/Seo';
+import { userHasAnsweredAnyQuestion } from '@/utils/data/questions/user-has-answered-any-question';
+import UpgradeModal from '@/components/app/questions/single/layout/upgrade-modal';
 
 // Components
 const CurrentStreak = lazy(() => import('@/components/ui/current-streak'));
@@ -92,6 +94,11 @@ export default async function QuestionUidLayout({
     limit: 3,
   });
 
+  // get the total number of questions the user has answered
+  const { answeredQuestionsCount } = await userHasAnsweredAnyQuestion({
+    numberOfQuestions: 3,
+  });
+
   const userAnswered = getUserAnswer({ questionUid: question.uid });
   const isPremiumUser = user && user.userLevel !== 'FREE';
 
@@ -145,6 +152,8 @@ export default async function QuestionUidLayout({
           {children}
           {question.isPremiumQuestion && !isPremiumUser && <PremiumQuestionDeniedAccess />}
         </div>
+        {/** shown every 3 questions */}
+        {user?.userLevel === 'ADMIN' && answeredQuestionsCount > 0 && <UpgradeModal />}
       </QuestionSingleContextProvider>
     </>
   );

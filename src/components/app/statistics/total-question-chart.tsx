@@ -109,8 +109,12 @@ export default function QuestionChart({
 
   const yAxisDomain = useMemo(() => {
     const maxY = Math.ceil(maxQuestions * 1.1);
-    return [0, maxY];
-  }, [maxQuestions]);
+    const minY = Math.max(
+      0,
+      Math.floor(Math.min(...chartData.map((data) => data.questions)) * 0.9)
+    );
+    return [minY, maxY];
+  }, [maxQuestions, chartData]);
 
   const renderChart = () => {
     const ChartComponent = chartType === 'bar' ? BarChart : LineChart;

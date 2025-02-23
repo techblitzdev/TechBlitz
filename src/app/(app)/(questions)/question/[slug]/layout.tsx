@@ -153,7 +153,7 @@ export default async function QuestionUidLayout({
           {question.isPremiumQuestion && !isPremiumUser && <PremiumQuestionDeniedAccess />}
         </div>
         {/** shown every 3 questions */}
-        {user?.userLevel === 'ADMIN' && answeredQuestionsCount > 0 && <UpgradeModal />}
+        {user?.userLevel === 'FREE' && answeredQuestionsCount % 3 === 0 && <UpgradeModal />}
       </QuestionSingleContextProvider>
     </>
   );

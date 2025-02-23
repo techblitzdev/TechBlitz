@@ -157,15 +157,11 @@ export default function QuestionChart({
         ) : (
           <Line
             dataKey="questions"
-            type="natural"
+            type="linear"
             stroke="hsl(var(--accent))"
             strokeWidth={2}
-            dot={{
-              fill: 'hsl(var(--accent))',
-            }}
-            activeDot={{
-              r: 6,
-            }}
+            dot={false}
+            activeDot={false}
           />
         )}
       </ChartComponent>
@@ -176,7 +172,7 @@ export default function QuestionChart({
     <Card className={cn('border-black-50 max-h-[28rem]', backgroundColor && backgroundColor)}>
       <CardHeader>
         <div className="flex justify-between items-center">
-          <CardTitle className="text-white">Questions Answered</CardTitle>
+          <CardTitle className="text-white text-lg font-medium">Questions Answered</CardTitle>
           <div className="flex items-center gap-4">
             <div className="flex gap-1 items-center text-sm font-medium leading-none text-white">
               <span className="flex items-center">

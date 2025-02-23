@@ -45,9 +45,9 @@ export default async function StatisticsPage({
     <div>
       <div className="flex flex-col gap-3 md:flex-row w-full justify-between md:items-center">
         <Hero
-          heading="Statistics"
+          heading="Coding Journey"
           container={false}
-          subheading="An overview of your coding journey on techblitz."
+          subheading="An overview of your coding journey on TechBlitz."
         />
         <div className="flex gap-3">
           <StatsRangePicker selectedRange={STATISTICS[range].label} />
@@ -59,8 +59,8 @@ export default async function StatisticsPage({
         <div className="max-h-[28rem] col-span-12 mb-4">
           {stats && <QuestionChart questionData={stats} step={step} />}
         </div>
-        <QuestionTracker />
-        {/** suggested q's and analysis blocks */}
+        {stats && <QuestionTracker stats={stats} step={step} range={range} />}
+        {/** suggested q's and analysis blocks TODO: CHANGE SUGGESTED QUESTIONS TO STREAK DATA (I THINK) */}
         <SuggestedQuestions />
         <StatisticsReport />
       </div>

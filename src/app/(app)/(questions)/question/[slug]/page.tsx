@@ -45,10 +45,13 @@ const ExpandedCodeModal = dynamic(
     loading: () => <Expand className="size-4 text-gray-500" />,
   }
 );
+const ResizableLayout = dynamic(() => import('@/components/ui/resizable-layout'), {
+  ssr: false,
+  loading: () => <LoadingSpinner />,
+});
 
 import { Separator } from '@/components/ui/separator';
 import NoDailyQuestion from '@/components/shared/no-daily-question';
-import ResizableLayout from '@/components/ui/resizable-layout';
 
 import { getQuestion } from '@/utils/data/questions/get';
 import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
@@ -102,10 +105,13 @@ export default async function TodaysQuestionPage({ params }: { params: { slug: s
         id="code-snippet"
         className="bg-black-75 border border-black-50 rounded-xl relative h-full overflow-y-auto scrollable-element"
       >
-        <div className="px-4 py-[18px] text-sm flex w-full items-center justify-end bg-black-25 gap-x-3">
-          <AiQuestionHelp question={question} user={user} questionType="regular" />
-          <ChangeCodeTheme user={user} />
-          {question.codeSnippet && <ExpandedCodeModal code={question.codeSnippet} />}
+        <div className="px-4 py-2.5 text-sm flex w-full justify-between items-center bg-black-25">
+          <span className="text-xs font-medium">Code</span>
+          <div className="flex items-center gap-x-3">
+            <AiQuestionHelp question={question} user={user} questionType="regular" />
+            <ChangeCodeTheme user={user} />
+            {question.codeSnippet && <ExpandedCodeModal code={question.codeSnippet} />}
+          </div>
         </div>
         <Separator className="bg-black-50" />
         {question?.questionType === 'CODING_CHALLENGE' ? <CodeEditor /> : <CodeDisplayWrapper />}

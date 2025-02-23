@@ -144,9 +144,13 @@ export default async function QuestionUidLayout({
           </div>
           <div className="col-span-3 lg:col-span-4 flex items-center gap-x-1 md:gap-x-3 justify-end">
             <Suspense fallback={<div>Loading...</div>}>
-              <CurrentStreak />
+              <div className="hidden lg:block">
+                <CurrentStreak />
+              </div>
               <FeedbackButton reference={question?.slug || undefined} icon={true} />
-              <UpgradeModalButton />
+              <div className="hidden lg:block">
+                <UpgradeModalButton />
+              </div>
             </Suspense>
           </div>
         </div>

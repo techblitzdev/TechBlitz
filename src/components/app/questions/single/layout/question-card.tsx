@@ -93,7 +93,7 @@ export default function QuestionCard(opts: {
       defaultValue="description"
       className="h-full bg-black-75 border border-black-50 rounded-lg flex flex-col overflow-hidden"
     >
-      <div className="p-4 lg:px-3 lg:py-2 w-full flex flex-col gap-3 md:flex-row justify-between bg-black-25 md:items-center">
+      <div className="p-4 lg:px-3 lg:py-0 w-full flex flex-col gap-3 md:flex-row justify-between bg-black-25 md:items-center">
         <div className="flex items-center gap-2 justify-between w-full">
           <TabsList className="hidden lg:grid h-auto w-fit grid-cols-3 gap-5 text-white rounded-lg bg-transparent p-1">
             <TabsTrigger

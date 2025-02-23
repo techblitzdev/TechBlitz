@@ -2,12 +2,14 @@
 
 import { Button } from '@/components/ui/button';
 import { useQuestionSingle } from '@/contexts/question-single-context';
-import { RefreshCcwIcon } from 'lucide-react';
+import { Play, RefreshCcwIcon } from 'lucide-react';
 import { AnimatedStopwatchButton } from '@/components/app/shared/question/question-timer';
 import { useState, useEffect } from 'react';
 import { useStopwatch } from 'react-timer-hook';
 import LoadingSpinner from '@/components/ui/loading';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 export default function QuestionActionButtons() {
   const {
@@ -51,12 +53,13 @@ export default function QuestionActionButtons() {
   };
 
   return (
-    <div id="question-action-buttons" className="flex gap-x-1 md:gap-x-3 items-center">
+    <div id="question-action-buttons" className="flex gap-x-1 md:gap-x-2 items-center">
       <div className="flex rounded-md overflow-hidden">
         <Button
           variant="destructive"
           onClick={handleReset}
           className="rounded-r-none border-r border-black-50"
+          size="sm"
         >
           <div className="relative">
             <AnimatePresence>
@@ -84,12 +87,33 @@ export default function QuestionActionButtons() {
             </AnimatePresence>
           </div>
         </Button>
+        <TooltipProvider>
+          <Tooltip delayDuration={0}>
+            <TooltipTrigger asChild>
+              <Button variant="default" className="rounded-none" size="sm">
+                <AnimatePresence>
+                  <motion.span
+                    key="run-text"
+                    className="hidden md:block"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <Play className="w-4 h-4 fill-gray-400 text-gray-400" />
+                  </motion.span>
+                </AnimatePresence>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Run Code</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
         {user ? (
           <form onSubmit={handleSubmit}>
             <Button
               type="submit"
               disabled={isSubmitting || (!selectedAnswer && !code) || currentLayout === 'answer'}
               className="text-green-500 rounded-l-none"
+              size="sm"
             >
               <AnimatePresence>
                 {isSubmitting ? (
@@ -123,6 +147,7 @@ export default function QuestionActionButtons() {
             variant="accent"
             href={`/login?redirectUrl=question/${question.uid}`}
             className="rounded-l-none"
+            size="sm"
           >
             <motion.span
               initial={{ opacity: 0 }}

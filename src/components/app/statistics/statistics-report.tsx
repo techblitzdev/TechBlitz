@@ -27,9 +27,9 @@ export default async function StatisticsReport() {
     >
       <div className="flex flex-col gap-2.5 px-3 py-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-onest">Statistics Review</h2>
+          <h2 className="text-2xl font-onest">Coding Reports</h2>
           <Button
-            variant="secondary"
+            variant={user?.userLevel === 'FREE' ? 'premium' : 'default'}
             className="flex items-center gap-x-2 text-sm"
             href="/statistics/reports"
             disabled={reports.length === 0 || user?.userLevel === 'FREE'}

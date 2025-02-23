@@ -1,26 +1,46 @@
-import { getQuestion } from '@/utils/data/questions/get';
+import { lazy, Suspense } from 'react';
+import dynamic from 'next/dynamic';
+
+const QuestionCard = dynamic(
+  () => import('@/components/app/questions/single/layout/question-card'),
+  {
+    ssr: false,
+  }
+);
+
+const CodeDisplayWrapper = dynamic(
+  () => import('@/components/app/questions/single/layout/code-display-wrapper'),
+  {
+    ssr: false,
+  }
+);
+
+const TourStartModal = lazy(() => import('@/components/app/shared/question/tour-start-modal'));
+const PremiumContentWrapper = lazy(
+  () => import('@/components/app/shared/question/premium-content-wrapper')
+);
+
 import { Separator } from '@/components/ui/separator';
 import NoDailyQuestion from '@/components/shared/no-daily-question';
-import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
-import { useUserServer } from '@/hooks/use-user-server';
-import QuestionCard from '@/components/app/questions/single/layout/question-card';
-import { getRandomQuestion } from '@/utils/data/questions/get-random';
 import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal';
 import ResizableLayout from '@/components/ui/resizable-layout';
 import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help';
 import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
-import CodeDisplayWrapper from '@/components/app/questions/single/layout/code-display-wrapper';
 import CodeEditor from '@/components/app/questions/code-editor/editor';
 import TestCaseSection from '@/components/app/questions/code-editor/test-case-section';
-import PremiumContentWrapper from '@/components/app/shared/question/premium-content-wrapper';
-import TourStartModal from '@/components/app/shared/question/tour-start-modal';
+
+import { getQuestion } from '@/utils/data/questions/get';
+import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
+import { getRandomQuestion } from '@/utils/data/questions/get-random';
+
+import { useUserServer } from '@/hooks/use-user-server';
+import LoadingSpinner from '@/components/ui/loading';
 
 export default async function TodaysQuestionPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
 
-  const user = await useUserServer();
-
-  const [question, totalSubmissions, nextQuestion] = await Promise.all([
+  const [user, question, totalSubmissions, nextQuestion] = await Promise.all([
+    useUserServer(),
     getQuestion('slug', slug),
     getQuestionStats('slug', slug),
     getRandomQuestion({
@@ -37,13 +57,15 @@ export default async function TodaysQuestionPage({ params }: { params: { slug: s
 
   const leftContent = (
     <div className="flex flex-col gap-y-4 p-3 lg:pr-1.5 h-full">
-      <QuestionCard
-        questionPromise={questionPromise}
-        totalSubmissions={totalSubmissions}
-        user={user}
-        nextQuestion={nextQuestion}
-        identifier="slug"
-      />
+      <Suspense fallback={<LoadingSpinner />}>
+        <QuestionCard
+          questionPromise={questionPromise}
+          totalSubmissions={totalSubmissions}
+          user={user}
+          nextQuestion={nextQuestion}
+          identifier="slug"
+        />
+      </Suspense>
     </div>
   );
 

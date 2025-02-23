@@ -30,6 +30,7 @@ const QuestionNavigation = lazy(() => import('@/components/app/navigation/questi
 const PremiumQuestionDeniedAccess = lazy(
   () => import('@/components/app/questions/premium-question-denied-access')
 );
+const UpgradeModalButton = lazy(() => import('@/components/app/shared/upgrade/upgrade-modal'));
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const question = await getQuestion('slug', params.slug);
@@ -53,7 +54,13 @@ export default async function QuestionUidLayout({
 }: Readonly<{ children: React.ReactNode; params: { slug: string } }>) {
   const { slug } = params;
 
-  const [user, question] = await Promise.all([getUser(), getQuestion('slug', slug)]);
+  const [user, question, { answeredQuestionsCount }] = await Promise.all([
+    getUser(),
+    getQuestion('slug', slug),
+    userHasAnsweredAnyQuestion({
+      numberOfQuestions: 3,
+    }),
+  ]);
 
   if (!question || !question.slug || !question.tags) {
     return redirect('/questions');
@@ -94,11 +101,6 @@ export default async function QuestionUidLayout({
     limit: 3,
   });
 
-  // get the total number of questions the user has answered
-  const { answeredQuestionsCount } = await userHasAnsweredAnyQuestion({
-    numberOfQuestions: 3,
-  });
-
   const userAnswered = getUserAnswer({ questionUid: question.uid });
   const isPremiumUser = user && user.userLevel !== 'FREE';
 
@@ -115,7 +117,7 @@ export default async function QuestionUidLayout({
         userAnswered={userAnswered}
       >
         <div className="grid grid-cols-12 items-center justify-between pb-2 px-3 relative">
-          <div className="col-span-2 lg:col-span-4 flex items-center py-2 justify-start">
+          <div className="col-span-2 lg:col-span-4 flex items-center justify-start">
             <Suspense fallback={<div>Loading...</div>}>
               <SidebarLayoutTrigger />
             </Suspense>
@@ -143,7 +145,8 @@ export default async function QuestionUidLayout({
           <div className="col-span-3 lg:col-span-4 flex items-center gap-x-1 md:gap-x-3 justify-end">
             <Suspense fallback={<div>Loading...</div>}>
               <CurrentStreak />
-              <FeedbackButton reference={question?.slug || undefined} />
+              <FeedbackButton reference={question?.slug || undefined} icon={true} />
+              <UpgradeModalButton />
             </Suspense>
           </div>
         </div>

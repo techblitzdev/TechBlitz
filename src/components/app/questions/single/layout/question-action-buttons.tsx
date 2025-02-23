@@ -52,78 +52,88 @@ export default function QuestionActionButtons() {
 
   return (
     <div id="question-action-buttons" className="flex gap-x-1 md:gap-x-3 items-center">
-      <Button variant="destructive" onClick={handleReset}>
-        <div className="relative">
-          <AnimatePresence>
+      <div className="flex rounded-md overflow-hidden">
+        <Button
+          variant="destructive"
+          onClick={handleReset}
+          className="rounded-r-none border-r border-black-50"
+        >
+          <div className="relative">
+            <AnimatePresence>
+              <motion.span
+                key="reset-text"
+                className="hidden md:block"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                Reset
+              </motion.span>
+            </AnimatePresence>
+            <AnimatePresence>
+              <motion.span
+                key="reset-icon"
+                className="block md:hidden"
+                initial={{ opacity: 0, rotate: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, rotate: 360 }}
+                transition={{ duration: 0.3 }}
+              >
+                <RefreshCcwIcon className="w-4 h-4" />
+              </motion.span>
+            </AnimatePresence>
+          </div>
+        </Button>
+        {user ? (
+          <form onSubmit={handleSubmit}>
+            <Button
+              type="submit"
+              disabled={isSubmitting || (!selectedAnswer && !code) || currentLayout === 'answer'}
+              className="text-green-500 rounded-l-none"
+            >
+              <AnimatePresence>
+                {isSubmitting ? (
+                  <motion.div
+                    key="loading"
+                    className="flex items-center gap-x-2"
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <LoadingSpinner />
+                    <span>Submitting...</span>
+                  </motion.div>
+                ) : (
+                  <motion.span
+                    key="submit"
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    Submit
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </Button>
+          </form>
+        ) : (
+          <Button
+            variant="accent"
+            href={`/login?redirectUrl=question/${question.uid}`}
+            className="rounded-l-none"
+          >
             <motion.span
-              key="reset-text"
-              className="hidden md:block"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              Reset
-            </motion.span>
-          </AnimatePresence>
-          <AnimatePresence>
-            <motion.span
-              key="reset-icon"
-              className="block md:hidden"
-              initial={{ opacity: 0, rotate: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0, rotate: 360 }}
               transition={{ duration: 0.3 }}
             >
-              <RefreshCcwIcon className="w-4 h-4" />
+              Login to Submit
             </motion.span>
-          </AnimatePresence>
-        </div>
-      </Button>
-      {user ? (
-        <form onSubmit={handleSubmit}>
-          <Button
-            type="submit"
-            disabled={isSubmitting || (!selectedAnswer && !code) || currentLayout === 'answer'}
-            className="text-green-500"
-          >
-            <AnimatePresence>
-              {isSubmitting ? (
-                <motion.div
-                  key="loading"
-                  className="flex items-center gap-x-2"
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -5 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <LoadingSpinner />
-                  <span>Submitting...</span>
-                </motion.div>
-              ) : (
-                <motion.span
-                  key="submit"
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -5 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  Submit
-                </motion.span>
-              )}
-            </AnimatePresence>
           </Button>
-        </form>
-      ) : (
-        <Button variant="accent" href={`/login?redirectUrl=question/${question.uid}`}>
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          >
-            Login to Submit
-          </motion.span>
-        </Button>
-      )}
+        )}
+      </div>
       <AnimatedStopwatchButton
         isRunning={isRunning}
         start={start}

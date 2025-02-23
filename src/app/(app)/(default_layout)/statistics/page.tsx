@@ -59,7 +59,7 @@ export default async function StatisticsPage({
         <div className="max-h-[28rem] col-span-12 mb-4">
           {stats && <QuestionChart questionData={stats} step={step} />}
         </div>
-        {stats && <QuestionTracker stats={stats} step={step} range={range} />}
+        {stats && <QuestionTracker className="mb-4" stats={stats} step={step} range={range} />}
         {/** suggested q's and analysis blocks TODO: CHANGE SUGGESTED QUESTIONS TO STREAK DATA (I THINK) */}
         <SuggestedQuestions />
         <StatisticsReport />

@@ -1,12 +1,8 @@
 'use client';
 
 import { Tracker } from '@/components/ui/tremor/tracker';
+import { cn } from '@/lib/utils';
 import { StatsSteps } from '@/types/Stats';
-
-interface QuestionTrackerData {
-  color: string;
-  tooltip: string;
-}
 
 interface QuestionTrackerProps {
   stats: {
@@ -18,9 +14,10 @@ interface QuestionTrackerProps {
   };
   step: 'month' | 'week' | 'day';
   range: StatsSteps;
+  className?: string;
 }
 
-export default function QuestionTracker({ stats, step, range }: QuestionTrackerProps) {
+export default function QuestionTracker({ stats, step, range, className }: QuestionTrackerProps) {
   // Transform stats data into tracker format
   const data = Object.entries(stats).map(([date, dayStats]) => {
     const { totalQuestions } = dayStats;
@@ -80,7 +77,7 @@ export default function QuestionTracker({ stats, step, range }: QuestionTrackerP
   const rangeLabel = range === '7d' ? '7 days' : range === '30d' ? '30 days' : '3 months';
 
   return (
-    <div className="col-span-12 border border-black-50 rounded-lg p-6">
+    <div className={cn('col-span-12 border border-black-50 rounded-lg p-6', className)}>
       <div className="flex flex-col gap-y-4">
         <h3 className="text-lg font-medium">Last {rangeLabel} activity</h3>
         <div>

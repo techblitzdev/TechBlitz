@@ -1,0 +1,197 @@
+---
+title: 'How to add or remove CSS classes with JavaScript'
+description: "Learn how to dynamically manipulate CSS classes using JavaScript's classList methods. Master adding, removing, and toggling classes with practical examples and best practices."
+image: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images/how-to-add-or-remove-css-classes-with-javascript.png'
+date: '2025-02-23'
+author: 'Logan Ford'
+authorImage: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/user-profile-pictures/3a57d7e8-8b80-483b-93d0-70fe1f06b0c0/logo.png?u=1l5im5h5n6e5'
+readingTime: 5
+status: published
+headings:
+    - title: 'Getting Started with JavaScript Class Manipulation'
+      level: 1
+    - title: 'The classList API Explained'
+      level: 2
+    - title: 'Adding CSS Classes'
+      level: 2
+    - title: 'Removing CSS Classes'
+      level: 2
+    - title: 'Smart Class Toggling'
+      level: 2
+    - title: 'Complex Class Manipulation Patterns'
+      level: 2
+    - title: 'Common Mistakes When Manipulating Classes'
+      level: 2
+tags: ['JavaScript', 'DOM', 'CSS', 'Web Development', 'Frontend']
+subpage: true
+---
+
+import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
+
+<img className='max-h-80 object-cover w-full' src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//pankaj-patel-_SgRNwAVNKw-unsplash.jpg" alt="How to add or remove CSS classes with JavaScript" />
+
+# Getting Started with JavaScript Class Manipulation
+
+Dynamic class manipulation is a fundamental skill for modern web development. By adding, removing, or toggling CSS classes with JavaScript, you can create interactive and responsive user interfaces. This guide will show you how to master class manipulation using the powerful `classList` API.
+
+<br />
+
+## The classList API Explained
+
+The `classList` property provides a powerful interface for manipulating CSS classes on HTML elements. It offers several methods:
+
+- `add()`: Adds one or more classes
+- `remove()`: Removes one or more classes
+- `toggle()`: Adds a class if it's absent, removes it if present
+- `contains()`: Checks if an element has a specific class
+- `replace()`: Replaces an existing class with a new one
+
+<br />
+
+### Adding CSS Classes
+
+Here's how to add a class when a button is clicked:
+
+<CodeSnippet language="javascript" content={`const button = document.querySelector('.action-button');
+const container = document.querySelector('.container');
+
+button.addEventListener('click', () => {
+    // Add multiple classes at once
+    container.classList.add('active', 'highlight');
+    
+    // Check if class was added successfully
+    if (container.classList.contains('active')) {
+        console.log('Container is now active!');
+    }
+});`} />
+
+<br />
+
+### Removing CSS Classes
+
+Here's a more advanced example of removing classes with error handling:
+
+<CodeSnippet language="javascript" content={`const modal = document.querySelector('.modal');
+const closeButton = document.querySelector('.close-button');
+
+closeButton.addEventListener('click', () => {
+    try {
+        modal.classList.remove('visible', 'animate');
+        
+        // Add a callback after animation ends
+        modal.addEventListener('transitionend', () => {
+            modal.classList.remove('modal-open');
+        }, { once: true });
+    } catch (error) {
+        console.error('Error removing classes:', error);
+    }
+});`} />
+
+<br />
+
+### Smart Class Toggling
+
+Here's an enhanced example of class toggling with conditional logic:
+
+<CodeSnippet language="javascript" content={`const menuButton = document.querySelector('.menu-toggle');
+const navigation = document.querySelector('.nav-menu');
+
+menuButton.addEventListener('click', () => {
+    // Toggle multiple classes with a single call
+    navigation.classList.toggle('visible');
+    navigation.classList.toggle('expanded');
+    
+    // Update button accessibility
+    const isExpanded = navigation.classList.contains('expanded');
+    menuButton.setAttribute('aria-expanded', isExpanded);
+    menuButton.textContent = isExpanded ? 'Close Menu' : 'Open Menu';
+});`} />
+
+<br />
+
+The `classList.toggle()` method is particularly useful for interactive elements like menus, accordions, and modals. It automatically handles the state management for you, making your code more concise and maintainable.
+
+<br />
+
+## Complex Class Manipulation Patterns
+
+Here's an example combining multiple classList methods for complex interactions:
+
+<CodeSnippet language="javascript" content={`const themeToggle = document.querySelector('.theme-toggle');
+const body = document.body;
+
+themeToggle.addEventListener('click', () => {
+    // Check current theme
+    const isDarkMode = body.classList.contains('dark-theme');
+    
+    // Replace theme classes
+    if (isDarkMode) {
+        body.classList.replace('dark-theme', 'light-theme');
+        localStorage.setItem('theme', 'light');
+    } else {
+        body.classList.replace('light-theme', 'dark-theme');
+        localStorage.setItem('theme', 'dark');
+    }
+    
+    // Update UI elements
+    document.querySelectorAll('.theme-dependent')
+        .forEach(element => {
+            element.classList.toggle('dark-mode');
+        });
+});`} />
+
+<br />
+
+Best Practices for Using classList in JavaScript
+While the classList API is powerful, it's important to follow best practices to keep your code clean and maintainable. Here are some tips:
+
+1. Avoid Repetitive DOM Queries.
+Instead of repeatedly querying the DOM for the same element, store the reference in a variable. This improves performance by reducing unnecessary DOM access.
+
+<CodeSnippet language="javascript" content={`const button = document.querySelector('.action-button'); // Reusable reference`} />
+
+2. Limit the Number of Class Changes.
+Changing classes too frequently (especially in animations) can impact performance. If possible, batch your class changes into a single classList.add() or classList.remove() call.
+
+<CodeSnippet language="javascript" content={`// Bad practice
+element.className = 'new-class'; // This will overwrite all existing classes
+
+// Good practice
+element.classList.add('new-class');
+element.classList.remove('old-class');`} />
+
+<br />
+
+### Common Mistakes When Manipulating Classes
+
+1. Overusing className Instead of classList.
+Avoid manipulating classes directly with className if you're working with multiple classes. The classList API offers more flexibility and doesn’t overwrite existing classes.
+
+<CodeSnippet language="javascript" content={`// Bad practice
+element.className = 'new-class'; // This will overwrite all existing classes
+
+// Good practice
+element.classList.add('new-class');
+element.classList.remove('old-class');`} />
+
+2. Misusing toggle() Without Condition.
+The toggle() method is great, but without proper logic, it can lead to unexpected behavior. Always check the current state before toggling if you need specific control over the classes.
+
+<CodeSnippet language="javascript" content={`// Bad practice
+element.classList.toggle('active'); // This will toggle the class without checking the current state
+
+// Good practice
+if (element.classList.contains('active')) {
+    element.classList.remove('active');
+} else {
+    element.classList.add('active');
+}`} />
+
+## Looking for more?
+
+If you're looking for more examples and best practices, check out the [classList documentation](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList).
+
+Or, why not check out our [JavaScript fundamentals roadmap](/roadmaps/javascript-fundamentals)?
+
+<br />

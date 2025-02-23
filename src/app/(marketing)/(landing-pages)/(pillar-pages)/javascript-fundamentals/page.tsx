@@ -199,6 +199,20 @@ const faqs = [
       </>
     ),
   },
+  {
+    question: 'How can I add or remove CSS classes with JavaScript?',
+    answer: (
+      <>
+        You can add or remove CSS classes with JavaScript by using the `classList` property.
+        <Link
+          href="/javascript-fundamentals/how-to-add-or-remove-css-classes-with-javascript"
+          className="text-accent underline"
+        >
+          Learn more about adding or removing CSS classes with JavaScript
+        </Link>
+      </>
+    ),
+  },
 ];
 
 const items = [

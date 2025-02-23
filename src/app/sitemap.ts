@@ -329,6 +329,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/javascript-fundamentals/how-to-use-typeof-operator-in-javaScript`,
       lastModified: '2025-02-23',
     },
+    {
+      url: `${baseUrl}/javascript-fundamentals/how-to-add-or-remove-css-classes-with-javascript`,
+      lastModified: '2025-02-23',
+    },
   ];
 
   // Combine static routes with dynamic blog posts

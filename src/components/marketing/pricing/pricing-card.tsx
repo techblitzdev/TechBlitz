@@ -15,8 +15,9 @@ export default function PricingCard(opts: {
   compact?: boolean;
   paymentTrigger?: boolean;
   showSignup?: boolean;
+  gradientBackground?: boolean;
 }) {
-  const { product, compact, paymentTrigger, showSignup } = opts;
+  const { product, compact, paymentTrigger, showSignup, gradientBackground } = opts;
 
   if (!product) return null;
 
@@ -25,7 +26,9 @@ export default function PricingCard(opts: {
   return (
     <Card
       style={{
-        background: 'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
+        background: gradientBackground
+          ? 'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)'
+          : 'transparent',
       }}
       className={cn(
         'flex-1 col-span-2 lg:col-span-1 group-hover:scale-[1.03] duration-300 pb-3 bg-black-75 flex flex-col justify-between h-full gap-y-4 border-black-50'

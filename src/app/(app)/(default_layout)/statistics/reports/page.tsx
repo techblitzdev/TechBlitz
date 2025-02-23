@@ -17,7 +17,7 @@ const StatsReportCardsWrapper = dynamic(
 import Hero from '@/components/shared/hero';
 import StatsReportCardSkeleton from '@/components/app/statistics/stats-report-card-loading';
 import GenerateReportButton from '@/components/app/statistics/generate-report-button';
-import UpgradeLayout from '@/components/app/shared/upgrade-layout';
+import UpgradeLayout from '@/components/app/shared/upgrade/upgrade-layout';
 import { useUserServer } from '@/hooks/use-user-server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';

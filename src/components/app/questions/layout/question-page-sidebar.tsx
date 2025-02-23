@@ -1,6 +1,6 @@
 import { useUserServer } from '@/hooks/use-user-server';
 import DailyGoalsCard from '@/components/app/shared/question/daily-goals-card';
-import UpgradeCard from '@/components/app/shared/upgrade-card';
+import UpgradeCard from '@/components/app/shared/upgrade/upgrade-card';
 import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
 import { getUserMissionRecords } from '@/utils/data/missions/get-user-mission-record';
 import StreakCalendar from '@/components/app/streaks/streak-calendar';

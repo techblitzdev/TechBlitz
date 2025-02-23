@@ -9,7 +9,7 @@ import { ArrowRightIcon, Mail } from 'lucide-react';
 import { getAllStudyPaths } from '@/utils/data/study-paths/get';
 import { StudyPathCard } from '@/components/app/study-paths/study-path-card';
 import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
-import UpgradeCard from '@/components/app/shared/upgrade-card';
+import UpgradeCard from '@/components/app/shared/upgrade/upgrade-card';
 import { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
 import DailyGoalsCard from '@/components/app/shared/question/daily-goals-card';
@@ -164,7 +164,7 @@ export default async function ExploreQuestionsPage() {
                   We are adding new roadmaps every week. If you have a roadmap in mind, please let
                   us know and we will get back to you as soon as possible.
                 </p>
-                <FeedbackButton title="Suggest a roadmap" />
+                <FeedbackButton title="Suggest a roadmap" icon={false} />
               </div>
             </div>
           </aside>

@@ -1,7 +1,7 @@
 import { getReport } from '@/utils/data/statistics/reports/get-report';
 import StatisticsReportContent from '@/components/app/statistics/statistics-report-content';
 import { useUserServer } from '@/hooks/use-user-server';
-import UpgradeLayout from '@/components/app/shared/upgrade-layout';
+import UpgradeLayout from '@/components/app/shared/upgrade/upgrade-layout';
 
 export default async function StatisticsReportPage({ params }: { params: { uid: string } }) {
   const { uid } = params;

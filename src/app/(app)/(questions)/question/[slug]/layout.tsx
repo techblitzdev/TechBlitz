@@ -14,9 +14,8 @@ import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
 import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation';
 import type { QuizJsonLd } from '@/types/Seo';
 import { userHasAnsweredAnyQuestion } from '@/utils/data/questions/user-has-answered-any-question';
-import UpgradeModal from '@/components/app/questions/single/layout/upgrade-modal';
 
-// Components
+// Lazy Components
 const CurrentStreak = lazy(() => import('@/components/ui/current-streak'));
 const FeedbackButton = lazy(() => import('@/components/app/shared/feedback/feedback-button'));
 const SidebarLayoutTrigger = lazy(
@@ -30,6 +29,7 @@ const QuestionNavigation = lazy(() => import('@/components/app/navigation/questi
 const PremiumQuestionDeniedAccess = lazy(
   () => import('@/components/app/questions/premium-question-denied-access')
 );
+const UpgradeModal = lazy(() => import('@/components/app/questions/single/layout/upgrade-modal'));
 const UpgradeModalButton = lazy(() => import('@/components/app/shared/upgrade/upgrade-modal'));
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {

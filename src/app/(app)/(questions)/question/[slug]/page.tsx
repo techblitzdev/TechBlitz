@@ -14,20 +14,41 @@ const CodeDisplayWrapper = dynamic(
     ssr: false,
   }
 );
+const CodeEditor = lazy(() => import('@/components/app/questions/code-editor/editor'));
+const TestCaseSection = lazy(
+  () => import('@/components/app/questions/code-editor/test-case-section')
+);
 
 const TourStartModal = lazy(() => import('@/components/app/shared/question/tour-start-modal'));
 const PremiumContentWrapper = lazy(
   () => import('@/components/app/shared/question/premium-content-wrapper')
 );
 
+const AiQuestionHelp = dynamic(
+  () => import('@/components/app/questions/single/layout/ai-question-help'),
+  {
+    ssr: false,
+    loading: () => <StarsIcon className="size-4 text-yellow-400 fill-yellow-500" />,
+  }
+);
+const ChangeCodeTheme = dynamic(
+  () => import('@/components/app/questions/single/layout/change-code-theme'),
+  {
+    ssr: false,
+    loading: () => <EditorIcon />,
+  }
+);
+const ExpandedCodeModal = dynamic(
+  () => import('@/components/app/questions/single/layout/expanded-code-modal'),
+  {
+    ssr: false,
+    loading: () => <Expand className="size-4 text-gray-500" />,
+  }
+);
+
 import { Separator } from '@/components/ui/separator';
 import NoDailyQuestion from '@/components/shared/no-daily-question';
-import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal';
 import ResizableLayout from '@/components/ui/resizable-layout';
-import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help';
-import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
-import CodeEditor from '@/components/app/questions/code-editor/editor';
-import TestCaseSection from '@/components/app/questions/code-editor/test-case-section';
 
 import { getQuestion } from '@/utils/data/questions/get';
 import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
@@ -35,6 +56,8 @@ import { getRandomQuestion } from '@/utils/data/questions/get-random';
 
 import { useUserServer } from '@/hooks/use-user-server';
 import LoadingSpinner from '@/components/ui/loading';
+import { Expand, StarsIcon } from 'lucide-react';
+import EditorIcon from '@/components/ui/icons/editor';
 
 export default async function TodaysQuestionPage({ params }: { params: { slug: string } }) {
   const { slug } = params;

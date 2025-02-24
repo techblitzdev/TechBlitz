@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { useQuestionSingle } from '@/contexts/question-single-context';
-import { Play, RefreshCcwIcon } from 'lucide-react';
+import { CheckCircleIcon, Play, XCircleIcon, RefreshCcwIcon } from 'lucide-react';
 import { AnimatedStopwatchButton } from '@/components/app/shared/question/question-timer';
 import { useState, useEffect } from 'react';
 import { useStopwatch } from 'react-timer-hook';
@@ -24,6 +24,7 @@ export default function QuestionActionButtons() {
     setTotalSeconds,
     runningCode,
     testRunCode,
+    testRunResult,
   } = useQuestionSingle();
 
   const [stopwatchOffset, setStopwatchOffset] = useState<Date>(new Date());
@@ -109,7 +110,43 @@ export default function QuestionActionButtons() {
                       exit={{ opacity: 0, scale: 0.8 }}
                       transition={{ duration: 0.2, ease: 'easeOut' }}
                     >
-                      <Play className="w-4 h-4 fill-gray-400 text-gray-400" />
+                      {testRunResult ? (
+                        <AnimatePresence mode="wait">
+                          {testRunResult?.passed ? (
+                            <motion.div
+                              key="success"
+                              initial={{ scale: 0.5, opacity: 0 }}
+                              animate={{ scale: 1, opacity: 1 }}
+                              exit={{ scale: 0.5, opacity: 0 }}
+                              transition={{ type: 'spring', stiffness: 200, damping: 10 }}
+                            >
+                              <CheckCircleIcon className="w-4 h-4 text-green-500" />
+                            </motion.div>
+                          ) : (
+                            <motion.div
+                              key="error"
+                              initial={{ scale: 0.5, opacity: 0 }}
+                              animate={{ scale: 1, opacity: 1 }}
+                              exit={{ scale: 0.5, opacity: 0 }}
+                              transition={{ type: 'spring', stiffness: 200, damping: 10 }}
+                            >
+                              <XCircleIcon className="w-4 h-4 text-red-500" />
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      ) : (
+                        <AnimatePresence mode="wait">
+                          <motion.span
+                            key="run-icon"
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            transition={{ duration: 0.2, ease: 'easeOut' }}
+                          >
+                            <Play className="w-4 h-4 fill-gray-400 text-gray-400" />
+                          </motion.span>
+                        </AnimatePresence>
+                      )}
                     </motion.span>
                   ) : (
                     <motion.span

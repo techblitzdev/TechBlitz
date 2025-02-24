@@ -12,6 +12,17 @@ import { z } from 'zod';
 import { useSearchParams } from 'next/navigation';
 import { executeQuestionCode } from '@/actions/questions/execute';
 
+interface TestRunResult {
+  passed: boolean;
+  details?: Array<{
+    passed: boolean;
+    input: number[];
+    expected: number;
+    received: number;
+  }>;
+  error?: string;
+}
+
 // Define the context type for the question single page
 type QuestionSingleContextType = {
   question: Question;
@@ -44,16 +55,7 @@ type QuestionSingleContextType = {
   code: string;
   setCode: (code: string) => void;
   originalCode: string;
-  result: {
-    passed: boolean;
-    details?: Array<{
-      passed: boolean;
-      input: number[];
-      expected: number;
-      received: number;
-    }>;
-    error?: string;
-  } | null;
+  result: TestRunResult | null;
   submitAnswer: (e: React.FormEvent<HTMLFormElement>, totalSeconds: number) => Promise<void>;
   userAnswered: Promise<Answer | null>;
   showHint: boolean;
@@ -69,6 +71,7 @@ type QuestionSingleContextType = {
   runningCode: boolean;
   setRunningCode: (runningCode: boolean) => void;
   testRunCode: () => Promise<void>;
+  testRunResult: TestRunResult | null;
 };
 
 // Create the context
@@ -136,6 +139,16 @@ export const QuestionSingleContextProvider = ({
   const [previousQuestion, setPreviousQuestion] = useState<string | null | undefined>(null);
   const [totalSeconds, setTotalSeconds] = useState<number>(0);
   const [runningCode, setRunningCode] = useState(false);
+  const [testRunResult, setTestRunResult] = useState<{
+    passed: boolean;
+    details?: Array<{
+      passed: boolean;
+      input: number[];
+      expected: number;
+      received: number;
+    }>;
+    error?: string;
+  } | null>(null);
 
   // EFFECTS
   useEffect(() => {
@@ -292,12 +305,19 @@ export const QuestionSingleContextProvider = ({
     // simulate a 5 second delay
     await new Promise((resolve) => setTimeout(resolve, 5000));
 
+    // simulate a random result
+    const passed = Math.random() < 0.5;
+    setTestRunResult({ passed });
+    // after 5 seconds, set the result to null
+    setTimeout(() => {
+      setTestRunResult(null);
+    }, 5000);
+
     setRunningCode(false);
   };
 
   // Reset the question state
   const resetQuestionState = () => {
-    console.log('resetting question state');
     setCorrectAnswer('init');
     setUserAnswer(null);
     setNewUserData(null);
@@ -357,6 +377,7 @@ export const QuestionSingleContextProvider = ({
         runningCode,
         setRunningCode,
         testRunCode,
+        testRunResult,
       }}
     >
       {children}

@@ -40,7 +40,7 @@ export default function ChallengeList({ className }: { className?: string }) {
                   questionData={question}
                   identifier="slug"
                   user={user}
-                  className="border-none p-0"
+                  className="border-none p-0 py-1"
                   numberOfTags={0}
                   titleClassName="text-base"
                 />

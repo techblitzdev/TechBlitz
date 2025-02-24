@@ -8,7 +8,7 @@ import { UserRecord } from '@/types/User';
  * @param user
  * @returns
  */
-export const sendWelcomeEmail = async (user: UserRecord | null, coupon: string) => {
+export const sendWelcomeEmail = async (user: Partial<UserRecord> | null, coupon: string) => {
   if (!user) {
     console.error('User is null');
     return;

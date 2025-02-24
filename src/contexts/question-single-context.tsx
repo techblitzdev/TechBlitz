@@ -72,6 +72,9 @@ type QuestionSingleContextType = {
   setRunningCode: (runningCode: boolean) => void;
   testRunCode: () => Promise<void>;
   testRunResult: TestRunResult | null;
+
+  // Suggested questions
+  suggestedQuestions: Promise<QuestionWithoutAnswers[]> | null;
 };
 
 // Create the context
@@ -95,12 +98,14 @@ export const QuestionSingleContextProvider = ({
   user,
   relatedQuestions,
   userAnswered,
+  suggestedQuestions,
 }: {
   children: React.ReactNode;
   question: Question;
   user: UserRecord | null;
   relatedQuestions: Promise<QuestionWithoutAnswers[]> | null;
   userAnswered: Promise<Answer | null>;
+  suggestedQuestions: Promise<QuestionWithoutAnswers[]> | null;
 }) => {
   // Get study path slug from URL search params
   const searchParams = useSearchParams();
@@ -390,6 +395,7 @@ export const QuestionSingleContextProvider = ({
         setRunningCode,
         testRunCode,
         testRunResult,
+        suggestedQuestions,
       }}
     >
       {children}

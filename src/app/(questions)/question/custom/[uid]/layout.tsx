@@ -2,7 +2,6 @@
 import CurrentStreak from '@/components/ui/current-streak';
 import { Separator } from '@/components/ui/separator';
 import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
-import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
 import { createMetadata } from '@/utils/seo';
 import { capitalise } from '@/utils';
 
@@ -16,6 +15,7 @@ import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
 import QuestionNavigation from '@/components/app/navigation/question-navigation';
 import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation';
 import RandomQuestion from '@/components/shared/random-question';
+import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 
 export async function generateMetadata({ params }: { params: { uid: string } }) {
   const question = await getQuestion('uid', params.uid);
@@ -47,7 +47,7 @@ export default async function QuestionUidLayout({
   const user = await getUser();
 
   const userAnswered = getUserAnswer({ questionUid: question.uid });
-
+  const suggestedQuestions = getSuggestions({ limit: 2 });
   const nextAndPreviousQuestion = getNextAndPreviousQuestion(uid);
 
   return (
@@ -57,6 +57,7 @@ export default async function QuestionUidLayout({
         user={user}
         relatedQuestions={null}
         userAnswered={userAnswered}
+        suggestedQuestions={suggestedQuestions}
       >
         <div className="grid grid-cols-12 items-center justify-between pb-2 px-3 lg:px-6 relative">
           <div className="col-span-2 lg:col-span-4 flex items-center py-2 justify-start">

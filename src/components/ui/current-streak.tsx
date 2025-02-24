@@ -1,5 +1,5 @@
 import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak';
-import { Suspense, SVGProps } from 'react';
+import { Suspense } from 'react';
 import LoadingSpinner from './loading';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
 import { cn } from '@/lib/utils';

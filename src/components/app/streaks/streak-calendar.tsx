@@ -42,7 +42,12 @@ export default async function StreakCalendar() {
                       <p className="font-onest font-bold">
                         {userStreak?.streakData?.longestStreak}
                       </p>
-                      <SolarFlameBoldDuotone className="size-6" />
+                      <SolarFlameBoldDuotone
+                        className="size-6"
+                        hasActiveStreak={Boolean(
+                          userStreak?.streakData?.currentstreakCount ?? 0 > 0
+                        )}
+                      />
                     </div>
                   </div>
                 </TooltipTrigger>

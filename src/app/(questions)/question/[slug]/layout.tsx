@@ -21,6 +21,8 @@ import { userHasAnsweredAnyQuestion } from '@/utils/data/questions/user-has-answ
 import { Onborda, OnbordaProvider } from 'onborda';
 import { steps } from '@/lib/onborda';
 import { TourCard } from '@/components/app/shared/question/tour-card';
+import { getSuggestions } from '@/utils/data/questions/get-suggestions';
+import LoadingSpinner from '@/components/ui/loading';
 
 // Lazy Components
 const CurrentStreak = dynamic(() => import('@/components/ui/current-streak'), { ssr: false });
@@ -106,8 +108,10 @@ export default async function QuestionUidLayout({
   const relatedQuestions = getRelatedQuestions({
     questionSlug: question.slug,
     tags: question.tags,
-    limit: 3,
+    limit: 10,
   });
+
+  const suggestedQuestions = getSuggestions({ limit: 2 });
 
   const userAnswered = getUserAnswer({ questionUid: question.uid });
   const isPremiumUser = user && user.userLevel !== 'FREE';
@@ -132,11 +136,12 @@ export default async function QuestionUidLayout({
             user={user}
             relatedQuestions={relatedQuestions}
             userAnswered={userAnswered}
+            suggestedQuestions={suggestedQuestions}
           >
             <div className="grid grid-cols-12 items-center justify-between pt-2 px-3 relative">
               <div className="col-span-2 lg:col-span-4 flex items-center justify-start">
                 <div className="items-center hidden md:flex">
-                  <Suspense fallback={<div>Loading...</div>}>
+                  <Suspense fallback={<LoadingSpinner />}>
                     <QuestionNavigation
                       navigationType="question"
                       slug={slug}

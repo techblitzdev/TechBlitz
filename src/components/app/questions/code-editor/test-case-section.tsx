@@ -1,8 +1,7 @@
 'use client';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import WindowCode2 from '@/components/ui/icons/window-code';
-import { useQuestionSingle } from '../../../../contexts/question-single-context';
+import { useQuestionSingle } from '@/contexts/question-single-context';
 import ResultCard from './result-card';
 import ICheck2 from '@/components/ui/icons/i-check-2';
 

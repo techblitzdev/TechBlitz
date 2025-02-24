@@ -70,33 +70,31 @@ export default function QuestionNavigation(opts: {
 
   return (
     <div className="flex items-center">
-      {type !== 'study-path' && (
-        <div className="flex items-center">
+      <div className="flex items-center">
+        <TooltipProvider delayDuration={0} skipDelayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <RouterBack href="/questions" className="px-0">
+                <LogoSmall size={32} />
+              </RouterBack>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">Back to Questions</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        <div className="hidden md:block">
+          {/** challenge list - provides quick access to the challenge list */}
           <TooltipProvider delayDuration={0} skipDelayDuration={100}>
             <Tooltip>
               <TooltipTrigger asChild>
-                <RouterBack href="/questions" className="px-0">
-                  <LogoSmall size={32} />
-                </RouterBack>
+                <Button variant="ghost" size="sm" padding="sm">
+                  <ChallengeList />
+                </Button>
               </TooltipTrigger>
-              <TooltipContent side="bottom">Back to Questions</TooltipContent>
+              <TooltipContent side="bottom">Challenge List</TooltipContent>
             </Tooltip>
           </TooltipProvider>
-          <div className="hidden md:block">
-            {/** challenge list - provides quick access to the challenge list */}
-            <TooltipProvider delayDuration={0} skipDelayDuration={100}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant="ghost" size="sm" padding="sm">
-                    <ChallengeList />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent side="bottom">Challenge List</TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
         </div>
-      )}
+      </div>
       {type === 'study-path' && (
         <div className="flex items-center gap-x-2">
           <TooltipProvider delayDuration={0} skipDelayDuration={100}>

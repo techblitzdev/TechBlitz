@@ -1,7 +1,7 @@
 import { Skeleton } from '@/components/ui/skeleton';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { BarChart, BookIcon, BookOpen, FileText, PieChart } from 'lucide-react';
+import { BookIcon, FileText, PieChart } from 'lucide-react';
 
 export default function QuestionCardLoading() {
   return (

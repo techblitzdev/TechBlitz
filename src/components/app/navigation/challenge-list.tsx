@@ -1,8 +1,9 @@
+import { use } from 'react';
+
 import { cn } from '@/lib/utils';
 import { ChevronRight, List } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useQuestionSingle } from '@/contexts/question-single-context';
-import { use } from 'react';
 import QuestionCard from '../questions/layout/question-card';
 import Link from 'next/link';
 import ChallengeListClient from './challenge-list-client';
@@ -33,7 +34,7 @@ export default function ChallengeList({ className }: { className?: string }) {
             <ChevronRight className="size-5 group-hover:translate-x-1 transition-transform duration-300" />
           </Link>
           <div className="flex-1">
-            <ChallengeListClient>
+            <x>
               {relatedQuestionsData?.map((question) => (
                 <QuestionCard
                   key={question.uid}

@@ -106,6 +106,8 @@ export default async function QuestionUidLayout({
     },
   };
 
+  // not resolving the promises here - passing the promises and
+  // using 'use' to resolve them in their own components
   const nextAndPreviousQuestion = getNextAndPreviousQuestion(question.uid); // cached
 
   const relatedQuestions = getRelatedQuestions({
@@ -113,7 +115,6 @@ export default async function QuestionUidLayout({
     tags: question.tags,
     limit: 10,
   });
-
   const suggestedQuestions = getSuggestions({ limit: 2 });
 
   const userAnswered = getUserAnswer({ questionUid: question.uid });

@@ -5,6 +5,7 @@ const QuestionCard = dynamic(
   () => import('@/components/app/questions/single/layout/question-card'),
   {
     ssr: false,
+    loading: () => <QuestionCardLoading />,
   }
 );
 
@@ -62,6 +63,7 @@ import LoadingSpinner from '@/components/ui/loading';
 import { Expand, StarsIcon } from 'lucide-react';
 import EditorIcon from '@/components/ui/icons/editor';
 import WindowCode2 from '@/components/ui/icons/window-code';
+import QuestionCardLoading from '@/components/app/questions/single/layout/question-card-loading';
 
 export default async function TodaysQuestionPage({ params }: { params: { slug: string } }) {
   const { slug } = params;

@@ -1,7 +1,8 @@
 import { getUser } from '@/actions/user/authed/get-user';
 import { prisma } from '@/lib/prisma';
+import { cache } from 'react';
 
-export const getNextAndPreviousQuestion = async (uid: string) => {
+export const getNextAndPreviousQuestion = cache(async (uid: string) => {
   const user = await getUser();
 
   // Get the current question with next/prev questions
@@ -123,4 +124,4 @@ export const getNextAndPreviousQuestion = async (uid: string) => {
     nextQuestion: nextQuestion?.slug || randomQuestion?.[1]?.slug,
     previousQuestion: previousQuestion?.slug || randomQuestion?.[0]?.slug,
   };
-};
+});

@@ -10,6 +10,9 @@ import { StudyPath, studyPaths } from '@/utils/constants/study-paths';
 import { Button } from '@/components/ui/button';
 import { RoadmapUserQuestions } from '@prisma/client';
 import { useQuestionSingle } from '@/contexts/question-single-context';
+import RouterBack from '../shared/router-back';
+import LogoSmall from '@/components/ui/LogoSmall';
+import ChallengeList from './challenge-list';
 
 /**
  * Component for navigation between different questions from within the
@@ -67,13 +70,40 @@ export default function QuestionNavigation(opts: {
 
   return (
     <div className="flex items-center">
+      {type !== 'study-path' && (
+        <div className="flex items-center">
+          <TooltipProvider delayDuration={0} skipDelayDuration={100}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <RouterBack href="/questions" className="px-0">
+                  <LogoSmall size={32} />
+                </RouterBack>
+              </TooltipTrigger>
+              <TooltipContent side="bottom">Back to Questions</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          <div className="hidden md:block">
+            {/** challenge list - provides quick access to the challenge list */}
+            <TooltipProvider delayDuration={0} skipDelayDuration={100}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="sm" padding="sm">
+                    <ChallengeList />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent side="bottom">Challenge List</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
+        </div>
+      )}
       {type === 'study-path' && (
         <div className="flex items-center gap-x-2">
           <TooltipProvider delayDuration={0} skipDelayDuration={100}>
             <Tooltip>
               <TooltipTrigger>
                 <Button
-                  variant="default"
+                  variant="ghost"
                   className="z-30 flex items-center gap-x-2 mr-2"
                   href={`/roadmaps/${studyPath?.slug}`}
                   size="sm"
@@ -92,15 +122,16 @@ export default function QuestionNavigation(opts: {
         <TooltipProvider delayDuration={0} skipDelayDuration={100}>
           <Tooltip>
             <TooltipTrigger>
-              <Link
+              <Button
                 href={previousQuestion || '#'}
-                className={`bg-primary border border-black-50 p-2 rounded-l-md relative group duration-200 size-8 flex items-center justify-center border-r-0 ${
+                className={`p-2 rounded-l-md relative group duration-200 size-8 flex items-center justify-center border-r-0 ${
                   !previousQuestion ? 'opacity-50 pointer-events-none' : ''
                 }`}
+                variant="ghost"
               >
                 <ChevronLeft className="size-4 opacity-100 group-hover:opacity-0 absolute duration-100" />
                 <ArrowLeft className="size-4 opacity-0 group-hover:opacity-100 absolute duration-100" />
-              </Link>
+              </Button>
             </TooltipTrigger>
             <TooltipContent side="bottom" className="text-white font-inter">
               {previousQuestion ? `Previous ${navigationType}` : `No previous ${navigationType}`}
@@ -112,15 +143,16 @@ export default function QuestionNavigation(opts: {
         <TooltipProvider delayDuration={0} skipDelayDuration={100}>
           <Tooltip>
             <TooltipTrigger>
-              <Link
+              <Button
                 href={nextQuestion || '#'}
-                className={`bg-primary border border-black-50 p-2 rounded-r-md relative group duration-200 size-8 flex items-center justify-center ${
+                className={`p-2 rounded-r-md relative group duration-200 size-8 flex items-center justify-center ${
                   !nextQuestion ? 'opacity-50 pointer-events-none' : ''
                 }`}
+                variant="ghost"
               >
                 <ChevronRight className="size-4 opacity-100 group-hover:opacity-0 absolute duration-100" />
                 <ArrowRight className="size-4 opacity-0 group-hover:opacity-100 absolute duration-100" />
-              </Link>
+              </Button>
             </TooltipTrigger>
             <TooltipContent side="bottom">
               {nextQuestion ? `Next ${navigationType}` : `No next ${navigationType}`}

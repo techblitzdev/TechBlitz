@@ -107,6 +107,16 @@ export default function QuestionTabs({
           <CodingChallengeDescription question={question} />
         ) : (
           <div className="flex flex-col gap-4 p-4 pt-0">
+            {question?.title && (
+              <div className="flex w-full gap-10 justify-between">
+                <h1 className="font-onest font-light text-lg md:text-3xl">{question.title}</h1>
+                <div className="flex items-center gap-2">
+                  <QuestionHintTrigger showHint={showHint} setShowHint={setShowHint} />
+                  <ShareQuestion />
+                  <BookmarkQuestion question={question} />
+                </div>
+              </div>
+            )}
             <div className="flex flex-wrap md:flex-nowrap w-full justify-between gap-5">
               <div className="flex w-full gap-2 items-center">
                 <Chip
@@ -117,17 +127,7 @@ export default function QuestionTabs({
                 />
                 <HasAnswered userAnswered={hasUserAnswered} />
               </div>
-              <div className="flex items-center">
-                <QuestionHintTrigger showHint={showHint} setShowHint={setShowHint} />
-                <ShareQuestion />
-                <BookmarkQuestion question={question} />
-              </div>
             </div>
-            {question?.title && (
-              <div className="flex w-full gap-10 justify-between">
-                <h1 className="font-onest font-light text-lg md:text-2xl">{question.title}</h1>
-              </div>
-            )}
             <p className="text-sm text-gray-400 font-light font-onest mt-3">{question.question}</p>
             {renderAnswerForm()}
           </div>

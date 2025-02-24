@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import { getTagsFromQuestion } from './tags/get-tags-from-question';
 import { Question } from '@/types/Questions';
+import { cache } from 'react';
 
 /**
  * Retrieve a question via its uid
@@ -8,7 +9,7 @@ import { Question } from '@/types/Questions';
  * @param uid - The uid of the question to retrieve
  * @returns The question object
  */
-export const getQuestion = async (identifier: 'slug' | 'uid' = 'slug', value: string) => {
+export const getQuestion = cache(async (identifier: 'slug' | 'uid' = 'slug', value: string) => {
   if (!value) {
     console.error('Please provide a uid');
     return null;
@@ -59,4 +60,4 @@ export const getQuestion = async (identifier: 'slug' | 'uid' = 'slug', value: st
     console.error('Error getting question', e);
     return null;
   }
-};
+});

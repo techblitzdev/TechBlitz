@@ -21,13 +21,13 @@ import { userHasAnsweredAnyQuestion } from '@/utils/data/questions/user-has-answ
 import { Onborda, OnbordaProvider } from 'onborda';
 import { steps } from '@/lib/onborda';
 import { TourCard } from '@/components/app/shared/question/tour-card';
-import LogoSmall from '@/components/ui/LogoSmall';
-import RouterBack from '@/components/app/shared/router-back';
 
 // Lazy Components
-const CurrentStreak = lazy(() => import('@/components/ui/current-streak'));
-const FeedbackButton = lazy(() => import('@/components/app/shared/feedback/feedback-button'));
-const RandomQuestion = lazy(() => import('@/components/shared/random-question'));
+const CurrentStreak = dynamic(() => import('@/components/ui/current-streak'), { ssr: false });
+const FeedbackButton = dynamic(() => import('@/components/app/shared/feedback/feedback-button'), {
+  ssr: false,
+});
+const RandomQuestion = dynamic(() => import('@/components/shared/random-question'), { ssr: false });
 const QuestionActionButtons = lazy(
   () => import('@/components/app/questions/single/layout/question-action-buttons')
 );
@@ -64,7 +64,7 @@ export default async function QuestionUidLayout({
 
   const [user, question, { answeredQuestionsCount }] = await Promise.all([
     getUser(),
-    getQuestion('slug', slug),
+    getQuestion('slug', slug), // cached
     userHasAnsweredAnyQuestion({
       numberOfQuestions: 3,
     }),
@@ -101,7 +101,7 @@ export default async function QuestionUidLayout({
     },
   };
 
-  const nextAndPreviousQuestion = getNextAndPreviousQuestion(question.uid);
+  const nextAndPreviousQuestion = getNextAndPreviousQuestion(question.uid); // cached
 
   const relatedQuestions = getRelatedQuestions({
     questionSlug: question.slug,
@@ -135,11 +135,8 @@ export default async function QuestionUidLayout({
           >
             <div className="grid grid-cols-12 items-center justify-between pt-2 px-3 relative">
               <div className="col-span-2 lg:col-span-4 flex items-center justify-start">
-                <div className="items-center gap-x-2 hidden md:flex">
+                <div className="items-center hidden md:flex">
                   <Suspense fallback={<div>Loading...</div>}>
-                    <RouterBack>
-                      <LogoSmall />
-                    </RouterBack>
                     <QuestionNavigation
                       navigationType="question"
                       slug={slug}

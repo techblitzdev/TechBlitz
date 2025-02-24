@@ -30,7 +30,7 @@ export default async function RandomQuestion(opts: {
               redirect(`/question/${randomQuestion}`);
             }}
           >
-            <Button variant="default" size="icon" className="size-8">
+            <Button variant="ghost" size="icon" className="size-8" padding="none">
               <ShuffleIcon size={16} />
             </Button>
           </form>

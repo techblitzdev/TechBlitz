@@ -11,7 +11,7 @@ import BookmarkQuestion from '@/components/app/questions/single/bookmark';
 import Chip from '@/components/ui/chip';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import QuestionHintTrigger from '@/components/app/questions/question-hint-trigger';
-import ShareQuestion from '../../shared/question/share-question';
+import ShareQuestion from '@/components/app/shared/question/share-question';
 
 export default function CodingChallengeDescription(opts: { question: Question }) {
   const { question } = opts;
@@ -24,9 +24,9 @@ export default function CodingChallengeDescription(opts: { question: Question })
     <div className="p-4 pt-0 flex flex-col gap-6">
       <div className="flex flex-col gap-6">
         {question?.title && (
-          <div className="flex w-full gap-10 justify-between">
+          <div className="flex flex-col md:flex-row w-full gap-5 md:gap-10 justify-between">
             <h1 className="font-onest font-light text-lg md:text-3xl">{question.title}</h1>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 order-first md:order-last">
               <QuestionHintTrigger showHint={showHint} setShowHint={setShowHint} />
               <ShareQuestion />
               <BookmarkQuestion question={question} />

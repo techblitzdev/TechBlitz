@@ -1,12 +1,14 @@
 import type React from 'react';
 import { Suspense, lazy } from 'react';
-import { createMetadata, getQuestionEducationLevel } from '@/utils/seo';
-import { capitalise, getBaseUrl } from '@/utils';
-import { Separator } from '@/components/ui/separator';
-import { QuestionSingleContextProvider } from '@/contexts/question-single-context';
+import dynamic from 'next/dynamic';
 import { redirect } from 'next/navigation';
 
-// Actions
+// Contexts
+import { QuestionSingleContextProvider } from '@/contexts/question-single-context';
+
+// Actions & Utils
+import { createMetadata, getQuestionEducationLevel } from '@/utils/seo';
+import { capitalise, getBaseUrl } from '@/utils';
 import { getQuestion } from '@/utils/data/questions/get';
 import { getUser } from '@/actions/user/authed/get-user';
 import { getRelatedQuestions } from '@/utils/data/questions/get-related';
@@ -15,12 +17,16 @@ import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navi
 import type { QuizJsonLd } from '@/types/Seo';
 import { userHasAnsweredAnyQuestion } from '@/utils/data/questions/user-has-answered-any-question';
 
+// Components
+import { Onborda, OnbordaProvider } from 'onborda';
+import { steps } from '@/lib/onborda';
+import { TourCard } from '@/components/app/shared/question/tour-card';
+import LogoSmall from '@/components/ui/LogoSmall';
+import RouterBack from '@/components/app/shared/router-back';
+
 // Lazy Components
 const CurrentStreak = lazy(() => import('@/components/ui/current-streak'));
 const FeedbackButton = lazy(() => import('@/components/app/shared/feedback/feedback-button'));
-const SidebarLayoutTrigger = lazy(
-  () => import('@/components/app/navigation/sidebar-layout-trigger')
-);
 const RandomQuestion = lazy(() => import('@/components/shared/random-question'));
 const QuestionActionButtons = lazy(
   () => import('@/components/app/questions/single/layout/question-action-buttons')
@@ -29,7 +35,9 @@ const QuestionNavigation = lazy(() => import('@/components/app/navigation/questi
 const PremiumQuestionDeniedAccess = lazy(
   () => import('@/components/app/questions/premium-question-denied-access')
 );
-const UpgradeModal = lazy(() => import('@/components/app/questions/single/layout/upgrade-modal'));
+const UpgradeModal = dynamic(
+  () => import('@/components/app/questions/single/layout/upgrade-modal')
+);
 const UpgradeModalButton = lazy(() => import('@/components/app/shared/upgrade/upgrade-modal'));
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
@@ -110,58 +118,68 @@ export default async function QuestionUidLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <QuestionSingleContextProvider
-        question={question}
-        user={user}
-        relatedQuestions={relatedQuestions}
-        userAnswered={userAnswered}
-      >
-        <div className="grid grid-cols-12 items-center justify-between pb-2 px-3 relative">
-          <div className="col-span-2 lg:col-span-4 flex items-center justify-start">
-            <Suspense fallback={<div>Loading...</div>}>
-              <SidebarLayoutTrigger />
-            </Suspense>
-            <div className="items-center gap-x-2 hidden md:flex">
-              <Suspense fallback={<div>Loading...</div>}>
-                <QuestionNavigation
-                  navigationType="question"
-                  slug={slug}
-                  nextPrevPromise={nextAndPreviousQuestion}
-                />
-                <RandomQuestion identifier="slug" currentQuestionSlug={slug} />
-              </Suspense>
+      <OnbordaProvider>
+        <Onborda
+          steps={steps()}
+          showOnborda={true}
+          shadowRgb="0,0,0"
+          shadowOpacity="0.8"
+          cardComponent={TourCard}
+          cardTransition={{ duration: 0.3, type: 'tween' }}
+        >
+          <QuestionSingleContextProvider
+            question={question}
+            user={user}
+            relatedQuestions={relatedQuestions}
+            userAnswered={userAnswered}
+          >
+            <div className="grid grid-cols-12 items-center justify-between pt-2 px-3 relative">
+              <div className="col-span-2 lg:col-span-4 flex items-center justify-start">
+                <div className="items-center gap-x-2 hidden md:flex">
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <RouterBack>
+                      <LogoSmall />
+                    </RouterBack>
+                    <QuestionNavigation
+                      navigationType="question"
+                      slug={slug}
+                      nextPrevPromise={nextAndPreviousQuestion}
+                    />
+                    <RandomQuestion identifier="slug" currentQuestionSlug={slug} />
+                  </Suspense>
+                </div>
+                {question?.dailyQuestion && question?.questionDate && (
+                  <div className="font-ubuntu gap-x-5 items-center hidden md:flex pl-4">
+                    <p>Daily question</p>
+                  </div>
+                )}
+              </div>
+              <div className="col-span-7 lg:col-span-4 flex items-center justify-center">
+                <Suspense fallback={<div>Loading...</div>}>
+                  <QuestionActionButtons />
+                </Suspense>
+              </div>
+              <div className="col-span-3 lg:col-span-4 flex items-center gap-x-1 md:gap-x-3 justify-end">
+                <Suspense fallback={<div>Loading...</div>}>
+                  <div className="hidden lg:block">
+                    <CurrentStreak />
+                  </div>
+                  <FeedbackButton reference={question?.slug || undefined} icon={true} />
+                  <div className="hidden lg:block">
+                    <UpgradeModalButton />
+                  </div>
+                </Suspense>
+              </div>
             </div>
-            {question?.dailyQuestion && question?.questionDate && (
-              <div className="font-ubuntu gap-x-5 items-center hidden md:flex pl-4">
-                <p>Daily question</p>
-              </div>
-            )}
-          </div>
-          <div className="col-span-7 lg:col-span-4 flex items-center justify-center">
-            <Suspense fallback={<div>Loading...</div>}>
-              <QuestionActionButtons />
-            </Suspense>
-          </div>
-          <div className="col-span-3 lg:col-span-4 flex items-center gap-x-1 md:gap-x-3 justify-end">
-            <Suspense fallback={<div>Loading...</div>}>
-              <div className="hidden lg:block">
-                <CurrentStreak />
-              </div>
-              <FeedbackButton reference={question?.slug || undefined} icon={true} />
-              <div className="hidden lg:block">
-                <UpgradeModalButton />
-              </div>
-            </Suspense>
-          </div>
-        </div>
-        <Separator className="bg-black-50" />
-        <div style={{ opacity: 'var(--content-opacity)' }}>
-          {children}
-          {question.isPremiumQuestion && !isPremiumUser && <PremiumQuestionDeniedAccess />}
-        </div>
-        {/** shown every 3 questions */}
-        {user?.userLevel === 'FREE' && answeredQuestionsCount % 3 === 0 && <UpgradeModal />}
-      </QuestionSingleContextProvider>
+            <div style={{ opacity: 'var(--content-opacity)' }}>
+              {children}
+              {question.isPremiumQuestion && !isPremiumUser && <PremiumQuestionDeniedAccess />}
+            </div>
+            {/** shown every 3 questions */}
+            {user?.userLevel === 'FREE' && answeredQuestionsCount % 3 === 0 && <UpgradeModal />}
+          </QuestionSingleContextProvider>
+        </Onborda>
+      </OnbordaProvider>
     </>
   );
 }

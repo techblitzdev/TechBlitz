@@ -71,7 +71,7 @@ export default function CodeEditor() {
         theme="vs-dark"
         options={{
           minimap: { enabled: false },
-          fontSize: 16,
+          fontSize: 14,
           guides: {
             indentation: true,
             bracketPairs: true,

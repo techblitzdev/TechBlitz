@@ -151,6 +151,10 @@ html {
     outline: 2px solid var(--purple);
     outline-offset: 0.5rem;
   }
+
+  .monaco-editor .line-numbers {
+    @apply !w-6;
+  }
 }
 
 @layer base {

@@ -1,12 +1,20 @@
 'use client';
+import { lazy } from 'react';
 
 import { ReactNode, use, useState } from 'react';
-import { TabsContent, TabsTrigger, TabsList } from '@/components/ui/tabs';
 import { Question } from '@/types/Questions';
+
+import { TabsContent, TabsTrigger, TabsList } from '@/components/ui/tabs';
+
 import QuestionResourceTab from '@/components/app/questions/resources/question-resource-tab';
 import QuestionStatsTab from './question-stats-tab';
-import CodingChallengeDescription from '@/components/app/questions/code-editor/description-tab';
-import HasAnswered from '@/components/app/questions/single/has-answered';
+
+const CodingChallengeDescription = lazy(
+  () => import('@/components/app/questions/code-editor/description-tab')
+);
+const QuestionHintTrigger = lazy(() => import('@/components/app/questions/question-hint-trigger'));
+const ShareQuestion = lazy(() => import('@/components/app/shared/question/share-question'));
+const HasAnswered = lazy(() => import('@/components/app/questions/single/has-answered'));
 import { useQuestionSingle } from '@/contexts/question-single-context';
 import BookmarkQuestion from '@/components/app/questions/single/bookmark';
 import { capitalise } from '@/utils';
@@ -15,8 +23,6 @@ import { getQuestionDifficultyColor } from '@/utils';
 import { BarChart, BookIcon, PieChart } from 'lucide-react';
 import { BookOpen } from 'lucide-react';
 import { FileIcon, FileText } from 'lucide-react';
-import QuestionHintTrigger from '@/components/app/questions/question-hint-trigger';
-import ShareQuestion from '@/components/app/shared/question/share-question';
 import LoadingSpinner from '@/components/ui/loading';
 
 interface QuestionTabsProps {

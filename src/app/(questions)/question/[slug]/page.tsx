@@ -61,6 +61,7 @@ import { useUserServer } from '@/hooks/use-user-server';
 import LoadingSpinner from '@/components/ui/loading';
 import { Expand, StarsIcon } from 'lucide-react';
 import EditorIcon from '@/components/ui/icons/editor';
+import WindowCode2 from '@/components/ui/icons/window-code';
 
 export default async function TodaysQuestionPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
@@ -106,7 +107,10 @@ export default async function TodaysQuestionPage({ params }: { params: { slug: s
         className="bg-black-75 border border-black-50 rounded-xl relative h-full overflow-y-auto scrollable-element"
       >
         <div className="px-4 py-2.5 text-sm flex w-full justify-between items-center bg-black-25">
-          <span className="text-xs font-medium">Code</span>
+          <span className="text-xs font-medium flex items-center gap-x-2">
+            <WindowCode2 width="1.25em" height="1.25em" />
+            Code
+          </span>
           <div className="flex items-center gap-x-3">
             <AiQuestionHelp question={question} user={user} questionType="regular" />
             <ChangeCodeTheme user={user} />

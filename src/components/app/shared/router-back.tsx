@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
-export default function RouterBack() {
+export default function RouterBack({ children }: { children?: React.ReactNode }) {
   const router = useRouter();
 
   return (
@@ -13,8 +13,12 @@ export default function RouterBack() {
       className="text-white flex items-center gap-x-2"
       onClick={() => router.back()}
     >
-      <ArrowLeft className="size-4" />
-      Back
+      {children || (
+        <>
+          <ArrowLeft className="size-4" />
+          Back
+        </>
+      )}
     </Button>
   );
 }

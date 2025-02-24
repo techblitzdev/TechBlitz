@@ -310,7 +310,13 @@ export const QuestionSingleContextProvider = ({
       testCases: question.testCases,
     });
 
-    const allPassed = results.every((r: any) => r.passed);
+    if (!results) {
+      toast.error('Error running code');
+      setRunningCode(false);
+      return;
+    }
+
+    const allPassed = results?.every((r: any) => r.passed);
 
     // simulate a random result
     setTestRunResult({ passed: allPassed, details: results });

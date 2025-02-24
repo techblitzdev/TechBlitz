@@ -303,11 +303,17 @@ export const QuestionSingleContextProvider = ({
     setRunningCode(true);
 
     // simulate a 5 second delay
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    // Execute the user's code with test cases
+    const results = await executeQuestionCode({
+      code,
+      language: 'javascript',
+      testCases: question.testCases,
+    });
+
+    const allPassed = results.every((r: any) => r.passed);
 
     // simulate a random result
-    const passed = Math.random() < 0.5;
-    setTestRunResult({ passed });
+    setTestRunResult({ passed: allPassed, details: results });
     // after 5 seconds, set the result to null
     setTimeout(() => {
       setTestRunResult(null);

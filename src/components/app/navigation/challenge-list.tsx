@@ -26,7 +26,7 @@ export default function ChallengeList({ className }: { className?: string }) {
           <p className="text-sm font-medium">Challenge List</p>
         </div>
       </SheetTrigger>
-      <SheetContent side="left" className="bg-black-75">
+      <SheetContent side="left" className="bg-black-75 sm:max-w-xl">
         <div className="flex flex-col h-full gap-10">
           <Link href="/questions" className="flex items-center gap-x-2 group">
             <h6 className="text-xl font-bold">Challenge List</h6>

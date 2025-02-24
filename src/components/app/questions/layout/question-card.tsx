@@ -53,6 +53,7 @@ export default function QuestionCard(opts: {
   type?: 'study-path' | 'standard-question';
   studyPathSlug?: string;
   className?: string;
+  titleClassName?: string;
 }) {
   const {
     questionData,
@@ -65,6 +66,7 @@ export default function QuestionCard(opts: {
     type = 'standard-question',
     studyPathSlug,
     className,
+    titleClassName,
   } = opts;
 
   // if identifier is uid, this is a custom question
@@ -104,7 +106,12 @@ export default function QuestionCard(opts: {
             ) : (
               <Circle className="flex-shrink-0 size-5 text-black-50" />
             )}
-            <h6 className="text-lg text-wrap text-start line-clamp-2 lg:line-clamp-1 flex-grow">
+            <h6
+              className={cn(
+                'text-lg text-wrap text-start line-clamp-2 lg:line-clamp-1 flex-grow',
+                titleClassName
+              )}
+            >
               {title}
             </h6>
           </div>

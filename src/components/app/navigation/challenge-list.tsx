@@ -42,6 +42,7 @@ export default function ChallengeList({ className }: { className?: string }) {
                   user={user}
                   className="border-none p-0"
                   numberOfTags={0}
+                  titleClassName="text-base"
                 />
               ))}
             </ChallengeListClient>
@@ -67,7 +68,7 @@ export default function ChallengeList({ className }: { className?: string }) {
                 questionData={suggestedQuestionsData[0]}
                 identifier="slug"
                 user={user}
-                className="border-none p-0"
+                className="bg-black"
                 numberOfTags={0}
               />
             </ChallengeListClient>

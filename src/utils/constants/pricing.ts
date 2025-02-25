@@ -312,14 +312,14 @@ export const getPlans = (
       ],
       entireFeatureList,
       paymentLink: {
-        local: `https://buy.stripe.com/7sI29Cef21eMazKaER?client_reference_id=${user?.uid}`,
-        production: `https://buy.stripe.com/7sI29Cef21eMazKaER?client_reference_id=${user?.uid}`,
+        local: `https://buy.stripe.com/14k3dG0ocbTq4bm3cq?client_reference_id=${user?.uid}`,
+        production: `https://buy.stripe.com/14k3dG0ocbTq4bm3cq?client_reference_id=${user?.uid}`,
       },
       cta: {
         text: user?.userLevel === 'PREMIUM' ? 'Current plan' : 'Get started',
         href: {
-          local: `https://buy.stripe.com/7sI29Cef21eMazKaER?client_reference_id=${user?.uid}`,
-          production: `https://buy.stripe.com/7sI29Cef21eMazKaER?client_reference_id=${user?.uid}`,
+          local: `https://buy.stripe.com/14k3dG0ocbTq4bm3cq?client_reference_id=${user?.uid}`,
+          production: `https://buy.stripe.com/14k3dG0ocbTq4bm3cq?client_reference_id=${user?.uid}`,
         },
       },
       mostPopular: false,

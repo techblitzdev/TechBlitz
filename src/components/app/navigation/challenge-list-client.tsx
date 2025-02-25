@@ -20,9 +20,11 @@ const itemVariants = {
 
 export default function ChallengeListClient({ children }: { children: React.ReactNode }) {
   return (
-    <motion.div variants={containerVariants} initial="hidden" animate="show" className="space-y-6">
+    <motion.div variants={containerVariants} initial="hidden" animate="show">
       {React.Children.map(children, (child) => (
-        <motion.div variants={itemVariants}>{child}</motion.div>
+        <motion.div variants={itemVariants} className="space-y-6">
+          {child}
+        </motion.div>
       ))}
     </motion.div>
   );

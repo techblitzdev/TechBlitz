@@ -15,12 +15,13 @@ export default async function StudyPathsList({
   top,
   calculateOffset,
 }: {
-  questions: Promise<Question[]>;
+  questions: Promise<Question[]> | Question[];
   studyPath: StudyPath;
   top?: number;
   calculateOffset?: (index: number) => number;
 }) {
-  const studyPathQuestions = await questions;
+  // either a promise or already resolved
+  const studyPathQuestions = Array.isArray(questions) ? questions : await questions;
 
   const sortedQuestions = studyPath.questionSlugs
     .map((slug) => studyPathQuestions.find((q) => q.slug === slug))

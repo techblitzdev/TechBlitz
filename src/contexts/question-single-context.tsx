@@ -11,6 +11,8 @@ import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
 import { z } from 'zod';
 import { useSearchParams } from 'next/navigation';
 import { executeQuestionCode } from '@/actions/questions/execute';
+import { useStudyPath, useStudyPathQuestions } from '@/hooks/use-study-path';
+import { StudyPath } from '@prisma/client';
 
 interface TestRunResult {
   passed: boolean;
@@ -75,6 +77,9 @@ type QuestionSingleContextType = {
 
   // Suggested questions
   suggestedQuestions: Promise<QuestionWithoutAnswers[]> | null;
+
+  // Study path
+  studyPath: StudyPath | null;
 };
 
 // Create the context
@@ -110,6 +115,10 @@ export const QuestionSingleContextProvider = ({
   // Get study path slug from URL search params
   const searchParams = useSearchParams();
   const studyPathSlug = searchParams?.get('study-path');
+
+  const { studyPath } = useStudyPath(studyPathSlug || '') as {
+    studyPath: StudyPath | null;
+  };
 
   // STATE VARIABLES
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -396,6 +405,7 @@ export const QuestionSingleContextProvider = ({
         testRunCode,
         testRunResult,
         suggestedQuestions,
+        studyPath,
       }}
     >
       {children}

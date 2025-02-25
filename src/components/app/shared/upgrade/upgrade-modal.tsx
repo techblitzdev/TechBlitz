@@ -1,3 +1,4 @@
+import StudentDiscountBlock from '@/components/marketing/pricing/student-discount';
 import UpgradePage from '@/components/shared/payment/upgrade-page';
 import { Button } from '@/components/ui/button';
 import { DialogContent, DialogTrigger } from '@/components/ui/dialog';
@@ -18,8 +19,9 @@ export default async function UpgradeModal() {
           Get Pro
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-black-75 max-w-3xl border-none">
+      <DialogContent className="bg-black-75 max-w-6xl max-h-[80vh] border-none overflow-scroll">
         <UpgradePage gradientBackground={false} />
+        <StudentDiscountBlock />
       </DialogContent>
     </Dialog>
   );

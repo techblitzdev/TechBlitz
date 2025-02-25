@@ -38,11 +38,11 @@ export default async function UpgradePage({
         </h1>
 
         <div className="flex flex-col items-center w-full mt-2">
-          <p className="text-sm text-center max-w-xl self-center">
+          <p className="text-sm text-center max-w-3xl self-center">
             Upgrade your account from just $0.17 a day - Cancel anytime.
           </p>
           <FrequencyToggle initialFrequency={billingPeriod} onFrequencyChange={updateFrequency} />
-          <div className="w-full lg:w-3/4 flex flex-col lg:flex-row gap-10 justify-center mt-8 px-2 md:px-10">
+          <div className="w-full lg:w-4/5 flex flex-col lg:flex-row gap-10 justify-center mt-8 px-2 md:px-10">
             {products.map(
               (product) =>
                 product && (

@@ -1,18 +1,22 @@
 'use client';
+import { useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { StudyPath, studyPaths } from '@/utils/constants/study-paths';
 import { Button } from '@/components/ui/button';
-import { RoadmapUserQuestions } from '@prisma/client';
-import { useQuestionSingle } from '@/contexts/question-single-context';
 import RouterBack from '../shared/router-back';
 import LogoSmall from '@/components/ui/LogoSmall';
 import ChallengeList from './challenge-list';
+
+import { RoadmapUserQuestions } from '@prisma/client';
+
+import { studyPaths } from '@/utils/constants/study-paths';
+
+import { useQuestionSingle } from '@/contexts/question-single-context';
+
+import { useStudyPathQuestions } from '@/hooks/use-study-path';
 
 /**
  * Component for navigation between different questions from within the
@@ -32,10 +36,10 @@ export default function QuestionNavigation(opts: {
   const type = searchParams?.get('type');
   const studyPathSlug = searchParams?.get('study-path');
 
-  const { previousQuestion, setPreviousQuestion, nextQuestion, setNextQuestion } =
+  const { previousQuestion, setPreviousQuestion, nextQuestion, setNextQuestion, studyPath } =
     useQuestionSingle();
 
-  const [studyPath, setStudyPath] = useState<StudyPath | null>(null);
+  const { questions } = useStudyPathQuestions(studyPathSlug || '');
 
   useEffect(() => {
     // if this is a study-path, get the next/prev questions from the study-path object
@@ -45,7 +49,6 @@ export default function QuestionNavigation(opts: {
         : null;
 
     if (studyPath) {
-      setStudyPath(studyPath);
       // Find the current question's index in the study path
       const currentIndex = studyPath.questionSlugs.indexOf(slug);
 
@@ -87,7 +90,7 @@ export default function QuestionNavigation(opts: {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button variant="ghost" size="sm" padding="sm">
-                  <ChallengeList />
+                  <ChallengeList type={type} studyPath={studyPath} questions={questions} />
                 </Button>
               </TooltipTrigger>
               <TooltipContent side="bottom">Challenge List</TooltipContent>
@@ -95,26 +98,6 @@ export default function QuestionNavigation(opts: {
           </TooltipProvider>
         </div>
       </div>
-      {type === 'study-path' && (
-        <div className="flex items-center gap-x-2">
-          <TooltipProvider delayDuration={0} skipDelayDuration={100}>
-            <Tooltip>
-              <TooltipTrigger>
-                <Button
-                  variant="ghost"
-                  className="z-30 flex items-center gap-x-2 mr-2"
-                  href={`/roadmaps/${studyPath?.slug}`}
-                  size="sm"
-                  padding="sm"
-                >
-                  <ArrowLeft className="size-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent side="bottom">Back to {studyPath?.title}</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
-      )}
       <div className="flex items-center">
         {/* Previous Question */}
         <TooltipProvider delayDuration={0} skipDelayDuration={100}>

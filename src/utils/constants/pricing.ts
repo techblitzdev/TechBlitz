@@ -280,13 +280,13 @@ export const getPlans = (
     },
     /**
      * Lifetime plan
+     */
     {
       id: 'price_1QoOikCX23ptLp4LTks1YO7V',
       name: 'Lifetime',
-      price: 89.99,
+      price: 149.99,
       currencySymbol: '$',
       frequency: 'once',
-      chip: 'Limited time offer!',
       frequencyText: 'pay once, yours forever',
       shortText: 'Access to all features and future updates!',
       features: [
@@ -295,7 +295,7 @@ export const getPlans = (
           name: 'Enhanced question suggestions',
         },
         { name: 'In depth stat analysis and progress tracking' },
-        { name: '15 personalized roadmaps tailored to your goals' },
+        { name: '25 personalized roadmaps tailored to your goals' },
         { name: 'Personalized coding challenges' },
         { name: '500 AI assistant tokens' },
         { name: 'Access to upcoming beta features' },
@@ -304,7 +304,7 @@ export const getPlans = (
       ],
       compactFeatures: [
         { name: 'Access to premium questions' },
-        { name: '15 personalized roadmaps tailored to your goals' },
+        { name: '25 personalized roadmaps tailored to your goals' },
         { name: 'In depth stat analysis and progress tracking' },
         { name: 'Personalized coding challenges' },
         { name: '500 AI assistant tokens' },
@@ -324,7 +324,6 @@ export const getPlans = (
       },
       mostPopular: false,
     },
-     */
   ];
 
   return plans;

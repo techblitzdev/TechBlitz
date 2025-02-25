@@ -11,7 +11,7 @@ import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
 import { z } from 'zod';
 import { useSearchParams } from 'next/navigation';
 import { executeQuestionCode } from '@/actions/questions/execute';
-import { useStudyPath, useStudyPathQuestions } from '@/hooks/use-study-path';
+import { useStudyPath } from '@/hooks/use-study-path';
 import { StudyPath } from '@prisma/client';
 
 interface TestRunResult {

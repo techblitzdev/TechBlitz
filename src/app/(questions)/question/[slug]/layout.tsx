@@ -23,7 +23,6 @@ import { steps } from '@/lib/onborda';
 import { TourCard } from '@/components/app/shared/question/tour-card';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 import LoadingSpinner from '@/components/ui/loading';
-import LogoSmall from '@/components/ui/LogoSmall';
 import RouterBack from '@/components/app/shared/router-back';
 import HomeIcon from '@/components/ui/icons/home';
 

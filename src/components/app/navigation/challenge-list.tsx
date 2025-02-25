@@ -10,7 +10,7 @@ import ChallengeListClient from './challenge-list-client';
 import { TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import { Tooltip } from '@/components/ui/tooltip';
-import { Questions, StudyPath } from '@prisma/client';
+import { StudyPath } from '@prisma/client';
 import StudyPathsList from '../study-paths/list';
 import StudyPathQuestionCardSkeleton from '@/components/app/study-paths/study-path-question-card-skeleton';
 import QuestionCardClient from '../questions/layout/question-card-client';
@@ -48,8 +48,8 @@ export default function ChallengeList({
 }: ChallengeListProps) {
   const { relatedQuestions, user, suggestedQuestions } = useQuestionSingle();
 
-  let questionsToShow = relatedQuestions;
-  let suggestedQuestionsToShow = suggestedQuestions;
+  const questionsToShow = relatedQuestions;
+  const suggestedQuestionsToShow = suggestedQuestions;
 
   if (!questionsToShow) return null;
   if (!suggestedQuestionsToShow) return null;

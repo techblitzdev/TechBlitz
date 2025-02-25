@@ -1,4 +1,3 @@
-import { getQuestions } from '@/actions/questions/admin/list';
 import { getStudyPathPost, getStudyPathQuestions } from '@/actions/study-paths/get';
 import { useQuery } from '@tanstack/react-query';
 

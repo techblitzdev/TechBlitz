@@ -22,9 +22,9 @@ import { Onborda, OnbordaProvider } from 'onborda';
 import { steps } from '@/lib/onborda';
 import { TourCard } from '@/components/app/shared/question/tour-card';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
-import LoadingSpinner from '@/components/ui/loading';
 import RouterBack from '@/components/app/shared/router-back';
 import HomeIcon from '@/components/ui/icons/home';
+import QuestionNavigationLoading from '@/components/app/navigation/question-navigation-loading';
 
 // Lazy Components
 const CurrentStreak = dynamic(() => import('@/components/ui/current-streak'), { ssr: false });
@@ -147,7 +147,7 @@ export default async function QuestionUidLayout({
                   <HomeIcon width="16" height="16" />
                 </RouterBack>
                 <div className="items-center hidden md:flex">
-                  <Suspense fallback={<LoadingSpinner />}>
+                  <Suspense fallback={<QuestionNavigationLoading />}>
                     <QuestionNavigation
                       navigationType="question"
                       slug={slug}

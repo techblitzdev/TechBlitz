@@ -24,6 +24,7 @@ export function useOnboardingSteps() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const {
+    serverUser,
     user,
     handleGetOnboardingQuestions,
     canContinue,
@@ -138,7 +139,7 @@ export function useOnboardingSteps() {
         if (!user.hasCreatedCustomSignupCoupon) {
           const coupon = await createCouponOnSignup();
           // send the welcome email
-          await sendWelcomeEmail(user, coupon?.name ?? '');
+          await sendWelcomeEmail(serverUser, coupon?.name ?? '');
         }
 
         setCurrentStepState(stepConfig[STEPS.USER_DETAILS].next as StepKey);

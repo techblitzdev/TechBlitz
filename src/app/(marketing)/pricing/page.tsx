@@ -206,10 +206,15 @@ export default async function PricingPage() {
           </div>
           <h1 className="text-3xl lg:text-5xl !font-onest !font-medium !leading-[1.1] text-gradient from-white to-white/75">
             {/** Plans that don't <AnimatedBreak /> the bank */}
-            The most personalized platform to learn to code
+            Learning to code has <br />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/55">
+              never{' '}
+            </span>{' '}
+            been easier
           </h1>
           <p className="text-gray-400 max-w-xl">
-            A personalized platform to learn to code for less than $0.17 per day.
+            Make learning to code a breeze with our affordable pricing plans. Start for free and
+            upgrade to unlock a world of personalization.
           </p>
           <FrequencyToggle initialFrequency={billingPeriod} onFrequencyChange={updateFrequency} />
           <div className="my-10">

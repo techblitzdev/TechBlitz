@@ -4,6 +4,7 @@ enum userLevel {
   TRIAL
   FREE
   PREMIUM
+  LIFETIME // different to premium as they have limited ai credit & roadmap generation
 }
 
 enum UserExperienceLevel {

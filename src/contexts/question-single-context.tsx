@@ -11,6 +11,19 @@ import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
 import { z } from 'zod';
 import { useSearchParams } from 'next/navigation';
 import { executeQuestionCode } from '@/actions/questions/execute';
+import { useStudyPath } from '@/hooks/use-study-path';
+import { StudyPath } from '@prisma/client';
+
+interface TestRunResult {
+  passed: boolean;
+  details?: Array<{
+    passed: boolean;
+    input: number[];
+    expected: number;
+    received: number;
+  }>;
+  error?: string;
+}
 
 // Define the context type for the question single page
 type QuestionSingleContextType = {
@@ -44,16 +57,7 @@ type QuestionSingleContextType = {
   code: string;
   setCode: (code: string) => void;
   originalCode: string;
-  result: {
-    passed: boolean;
-    details?: Array<{
-      passed: boolean;
-      input: number[];
-      expected: number;
-      received: number;
-    }>;
-    error?: string;
-  } | null;
+  result: TestRunResult | null;
   submitAnswer: (e: React.FormEvent<HTMLFormElement>, totalSeconds: number) => Promise<void>;
   userAnswered: Promise<Answer | null>;
   showHint: boolean;
@@ -64,6 +68,18 @@ type QuestionSingleContextType = {
   setPreviousQuestion: (previousQuestion: string | null | undefined) => void;
   totalSeconds: number;
   setTotalSeconds: (totalSeconds: number) => void;
+
+  // Test run code
+  runningCode: boolean;
+  setRunningCode: (runningCode: boolean) => void;
+  testRunCode: () => Promise<void>;
+  testRunResult: TestRunResult | null;
+
+  // Suggested questions
+  suggestedQuestions: Promise<QuestionWithoutAnswers[]> | null;
+
+  // Study path
+  studyPath: StudyPath | null;
 };
 
 // Create the context
@@ -87,16 +103,22 @@ export const QuestionSingleContextProvider = ({
   user,
   relatedQuestions,
   userAnswered,
+  suggestedQuestions,
 }: {
   children: React.ReactNode;
   question: Question;
   user: UserRecord | null;
   relatedQuestions: Promise<QuestionWithoutAnswers[]> | null;
   userAnswered: Promise<Answer | null>;
+  suggestedQuestions: Promise<QuestionWithoutAnswers[]> | null;
 }) => {
   // Get study path slug from URL search params
   const searchParams = useSearchParams();
   const studyPathSlug = searchParams?.get('study-path');
+
+  const { studyPath } = useStudyPath(studyPathSlug || '') as {
+    studyPath: StudyPath | null;
+  };
 
   // STATE VARIABLES
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -130,6 +152,17 @@ export const QuestionSingleContextProvider = ({
   const [nextQuestion, setNextQuestion] = useState<string | null | undefined>(null);
   const [previousQuestion, setPreviousQuestion] = useState<string | null | undefined>(null);
   const [totalSeconds, setTotalSeconds] = useState<number>(0);
+  const [runningCode, setRunningCode] = useState(false);
+  const [testRunResult, setTestRunResult] = useState<{
+    passed: boolean;
+    details?: Array<{
+      passed: boolean;
+      input: number[];
+      expected: number;
+      received: number;
+    }>;
+    error?: string;
+  } | null>(null);
 
   // EFFECTS
   useEffect(() => {
@@ -273,9 +306,44 @@ export const QuestionSingleContextProvider = ({
     setAnswerHelp(content);
   };
 
+  // Test run the code
+  const testRunCode = async () => {
+    // user must be logged in
+    if (!user) {
+      toast.error('User is not logged in');
+      return;
+    }
+
+    setRunningCode(true);
+
+    // simulate a 5 second delay
+    // Execute the user's code with test cases
+    const results = await executeQuestionCode({
+      code,
+      language: 'javascript',
+      testCases: question.testCases,
+    });
+
+    if (!results) {
+      toast.error('Error running code');
+      setRunningCode(false);
+      return;
+    }
+
+    const allPassed = results?.every((r: any) => r.passed);
+
+    // simulate a random result
+    setTestRunResult({ passed: allPassed, details: results });
+    // after 5 seconds, set the result to null
+    setTimeout(() => {
+      setTestRunResult(null);
+    }, 5000);
+
+    setRunningCode(false);
+  };
+
   // Reset the question state
   const resetQuestionState = () => {
-    console.log('resetting question state');
     setCorrectAnswer('init');
     setUserAnswer(null);
     setNewUserData(null);
@@ -332,6 +400,12 @@ export const QuestionSingleContextProvider = ({
         setPreviousQuestion,
         totalSeconds,
         setTotalSeconds,
+        runningCode,
+        setRunningCode,
+        testRunCode,
+        testRunResult,
+        suggestedQuestions,
+        studyPath,
       }}
     >
       {children}

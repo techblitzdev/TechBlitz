@@ -4,6 +4,7 @@ import type { Question } from '@/types/Questions';
 import type { StudyPath } from '@/utils/constants/study-paths';
 import StudyPathQuestionCard from './study-path-question-card';
 import StudyPathQuestionCardSkeleton from './study-path-question-card-skeleton';
+import { cn } from '@/lib/utils';
 
 const QuestionCardClient = dynamic(() => import('../questions/layout/question-card-client'), {
   ssr: false,
@@ -14,13 +15,16 @@ export default async function StudyPathsList({
   studyPath,
   top,
   calculateOffset,
+  className,
 }: {
-  questions: Promise<Question[]>;
+  questions: Promise<Question[]> | Question[];
   studyPath: StudyPath;
   top?: number;
   calculateOffset?: (index: number) => number;
+  className?: string;
 }) {
-  const studyPathQuestions = await questions;
+  // either a promise or already resolved
+  const studyPathQuestions = Array.isArray(questions) ? questions : await questions;
 
   const sortedQuestions = studyPath.questionSlugs
     .map((slug) => studyPathQuestions.find((q) => q.slug === slug))
@@ -31,7 +35,7 @@ export default async function StudyPathsList({
   )?.slug;
 
   return (
-    <div className="relative w-[90%] z-10">
+    <div className={cn('relative w-[90%] z-10', className)}>
       <Suspense fallback={<StudyPathQuestionCardSkeleton />}>
         {sortedQuestions.map((question, index) => {
           const offsetValue = calculateOffset ? calculateOffset(index) : Math.sin(index * 0.9) * 10;

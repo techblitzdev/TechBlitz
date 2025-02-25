@@ -3,7 +3,17 @@ import { BaseRecord } from './BaseRecord';
 import { Question } from './Questions';
 import { RequireAtLeastOne } from './Utils';
 
-export type UserLevel = 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE' | 'PREMIUM';
+/**
+ * The level of the user.
+ *
+ * - STANDARD: the user is a standard user (DEPRECATED)
+ * - ADMIN: the user is an admin - has access to all features
+ * - TRIAL: the user is on a trial - Limited access - not currently implemented
+ * - FREE: the user is on the free plan - A standard user of TechBlitz
+ * - PREMIUM: the user is on the premium plan - This user is subscribed to the premium plan (unlimited features)
+ * - LIFETIME: the user is on the lifetime plan - This user has lifetime access to all features (limited ai credits & roadmap generation) (no subscription required)
+ */
+export type UserLevel = 'STANDARD' | 'ADMIN' | 'TRIAL' | 'FREE' | 'PREMIUM' | 'LIFETIME';
 
 /**
  * Represents a user in the system.

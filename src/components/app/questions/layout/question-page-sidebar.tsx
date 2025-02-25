@@ -14,7 +14,7 @@ export default async function QuestionPageSidebar() {
 
   return (
     <aside className="w-full xl:w-1/4">
-      <div className="sticky top-10 space-y-10 w-full">
+      <div className="sticky top-10 space-y-5 w-full">
         {user?.userLevel === 'FREE' && (
           <UpgradeCard
             title="Try TechBlitz premium"

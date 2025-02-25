@@ -1,9 +1,9 @@
 'use client';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import WindowCode2 from '@/components/ui/icons/window-code';
-import { useQuestionSingle } from '../../../../contexts/question-single-context';
+import { useQuestionSingle } from '@/contexts/question-single-context';
 import ResultCard from './result-card';
+import ICheck2 from '@/components/ui/icons/i-check-2';
 
 interface ResultProps {
   passed: boolean;
@@ -22,8 +22,8 @@ export default function TestCaseSection() {
     <div id="test-cases" className="h-full p-3 lg:pl-1.5 lg:pt-1.5 lg:pb-3 lg:pr-3">
       <div className="bg-black-75 border border-black-50 rounded-xl h-full overflow-scroll">
         <div className="bg-black-25 px-4 py-2 border-b border-black-50 flex items-center justify-between">
-          <h2 className="font-semibold flex items-center gap-x-1">
-            <WindowCode2 width="1em" height="1em" />
+          <h2 className="font-semibold flex items-center gap-x-2">
+            <ICheck2 width="1em" height="1em" fill="#00ff00" />
             {result ? (
               <div className="flex items-center gap-3 pl-1">
                 {result.passed ? (

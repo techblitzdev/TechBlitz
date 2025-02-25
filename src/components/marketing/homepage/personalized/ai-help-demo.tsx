@@ -60,18 +60,43 @@ export default function AnimatedAIQuestionHelpCard() {
               className="flex flex-col gap-y-2"
             >
               <motion.div
-                className="bg-black-100 border border-black-50 p-3 rounded-md text-sm"
+                className="bg-black-100 border border-black-50 p-3 rounded-md text-sm space-y-3"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
               >
-                In JavaScript, you can use the `Array.reduce` method to reduce an array to a single
-                value. This method takes a callback function as an argument and returns a single
-                value. The callback function takes four arguments: the accumulator, the current
-                value, the current index, and the array itself. The accumulator is the value that is
-                returned from the previous callback function. The current value is the current
-                element in the array. The current index is the index of the current element in the
-                array. The array is the array itself.
+                <div>
+                  <h4 className="font-semibold mb-1 underline">What is Array.reduce?</h4>
+                  <p>
+                    The Array.reduce method is used to reduce an array to a single value by
+                    executing a provided function for each element.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold mb-1 underline">Syntax</h4>
+                  <code className="block bg-black-200 p-2 rounded">
+                    array.reduce(callback(accumulator, currentValue, index, array), initialValue)
+                  </code>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold mb-1">Parameters</h4>
+                  <ul className="list-disc pl-4">
+                    <li>
+                      <strong>accumulator:</strong> The value returned from previous iterations
+                    </li>
+                    <li>
+                      <strong>currentValue:</strong> The current element being processed
+                    </li>
+                    <li>
+                      <strong>index:</strong> The index of the current element
+                    </li>
+                    <li>
+                      <strong>array:</strong> The array reduce was called upon
+                    </li>
+                  </ul>
+                </div>
               </motion.div>
             </motion.div>
           ) : (

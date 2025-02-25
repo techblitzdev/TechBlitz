@@ -1,15 +1,22 @@
 'use client';
+import { useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { StudyPath, studyPaths } from '@/utils/constants/study-paths';
 import { Button } from '@/components/ui/button';
+import RouterBack from '../shared/router-back';
+import LogoSmall from '@/components/ui/LogoSmall';
+import ChallengeList from './challenge-list';
+
 import { RoadmapUserQuestions } from '@prisma/client';
-import { useQuestionSingle } from '../../../contexts/question-single-context';
+
+import { studyPaths } from '@/utils/constants/study-paths';
+
+import { useQuestionSingle } from '@/contexts/question-single-context';
+
+import { useStudyPathQuestions } from '@/hooks/use-study-path';
 
 /**
  * Component for navigation between different questions from within the
@@ -29,10 +36,10 @@ export default function QuestionNavigation(opts: {
   const type = searchParams?.get('type');
   const studyPathSlug = searchParams?.get('study-path');
 
-  const { previousQuestion, setPreviousQuestion, nextQuestion, setNextQuestion } =
+  const { previousQuestion, setPreviousQuestion, nextQuestion, setNextQuestion, studyPath } =
     useQuestionSingle();
 
-  const [studyPath, setStudyPath] = useState<StudyPath | null>(null);
+  const { questions } = useStudyPathQuestions(studyPathSlug || '');
 
   useEffect(() => {
     // if this is a study-path, get the next/prev questions from the study-path object
@@ -42,7 +49,6 @@ export default function QuestionNavigation(opts: {
         : null;
 
     if (studyPath) {
-      setStudyPath(studyPath);
       // Find the current question's index in the study path
       const currentIndex = studyPath.questionSlugs.indexOf(slug);
 
@@ -65,43 +71,48 @@ export default function QuestionNavigation(opts: {
     }
   }, [pathname, searchParams, slug, type, nextPrevPromise, studyPathSlug]);
 
-  console.log(studyPath);
-
   return (
     <div className="flex items-center">
-      {type === 'study-path' && (
-        <div className="flex items-center gap-x-2">
+      <div className="flex items-center">
+        <TooltipProvider delayDuration={0} skipDelayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <RouterBack href="/questions" className="px-0">
+                <LogoSmall size={32} />
+              </RouterBack>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">Back to Questions</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        <div className="hidden md:block">
+          {/** challenge list - provides quick access to the challenge list */}
           <TooltipProvider delayDuration={0} skipDelayDuration={100}>
             <Tooltip>
-              <TooltipTrigger>
-                <Button
-                  variant="default"
-                  className="z-30 flex items-center gap-x-2 mr-2"
-                  href={`/roadmaps/${studyPath?.slug}`}
-                >
-                  <ArrowLeft className="size-4" />
-                  <span className="text-sm hidden sm:block">Back</span>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="sm" padding="sm">
+                  <ChallengeList type={type} studyPath={studyPath} questions={questions} />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent side="bottom">Back to {studyPath?.title}</TooltipContent>
+              <TooltipContent side="bottom">Challenge List</TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </div>
-      )}
+      </div>
       <div className="flex items-center">
         {/* Previous Question */}
         <TooltipProvider delayDuration={0} skipDelayDuration={100}>
           <Tooltip>
             <TooltipTrigger>
-              <Link
+              <Button
                 href={previousQuestion || '#'}
-                className={`bg-primary border border-black-50 p-2 rounded-l-md relative group duration-200 size-9 flex items-center justify-center border-r-0 ${
+                className={`p-2 rounded-l-md relative group duration-200 size-8 flex items-center justify-center border-r-0 ${
                   !previousQuestion ? 'opacity-50 pointer-events-none' : ''
                 }`}
+                variant="ghost"
               >
                 <ChevronLeft className="size-4 opacity-100 group-hover:opacity-0 absolute duration-100" />
                 <ArrowLeft className="size-4 opacity-0 group-hover:opacity-100 absolute duration-100" />
-              </Link>
+              </Button>
             </TooltipTrigger>
             <TooltipContent side="bottom" className="text-white font-inter">
               {previousQuestion ? `Previous ${navigationType}` : `No previous ${navigationType}`}
@@ -113,15 +124,16 @@ export default function QuestionNavigation(opts: {
         <TooltipProvider delayDuration={0} skipDelayDuration={100}>
           <Tooltip>
             <TooltipTrigger>
-              <Link
+              <Button
                 href={nextQuestion || '#'}
-                className={`bg-primary border border-black-50 p-2 rounded-r-md relative group duration-200 size-9 flex items-center justify-center ${
+                className={`p-2 rounded-r-md relative group duration-200 size-8 flex items-center justify-center ${
                   !nextQuestion ? 'opacity-50 pointer-events-none' : ''
                 }`}
+                variant="ghost"
               >
                 <ChevronRight className="size-4 opacity-100 group-hover:opacity-0 absolute duration-100" />
                 <ArrowRight className="size-4 opacity-0 group-hover:opacity-100 absolute duration-100" />
-              </Link>
+              </Button>
             </TooltipTrigger>
             <TooltipContent side="bottom">
               {nextQuestion ? `Next ${navigationType}` : `No next ${navigationType}`}

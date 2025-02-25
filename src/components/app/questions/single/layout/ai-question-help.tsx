@@ -15,6 +15,7 @@ import { capitalize } from 'lodash';
 import { RoadmapUserQuestions } from '@/types/Roadmap';
 import { DefaultRoadmapQuestions } from '@prisma/client';
 import { getUpgradeUrl } from '@/utils';
+import { userIsPremium } from '@/utils/user';
 
 export default function AiQuestionHelp(opts: {
   question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions;
@@ -37,7 +38,7 @@ export default function AiQuestionHelp(opts: {
 
     if (questionHelp) {
       setAiHelp(questionHelp.content);
-      setTokensUsed(questionHelp.tokens || 0);
+      setTokensUsed(questionHelp.tokensUsed);
     }
     setIsLoading(false);
   };
@@ -117,8 +118,12 @@ export default function AiQuestionHelp(opts: {
                 Need assistance with this question? Let AI help you!
               </h5>
               <p className="text-sm text-white">
-                {user?.userLevel === 'PREMIUM' ? (
-                  <>You have unlimited tokens remaining</>
+                {userIsPremium(user) ? (
+                  <>
+                    You have{' '}
+                    {user?.userLevel === 'LIFETIME' ? user?.aiQuestionHelpTokens : 'unlimited'}
+                    tokens remaining
+                  </>
                 ) : (
                   <span className="text-xs text-gray-400">
                     <Link href={getUpgradeUrl()} className="text-accent underline">

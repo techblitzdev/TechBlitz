@@ -23,6 +23,7 @@ import { AnswerDifficulty } from '@prisma/client';
 import { updateAnswerDifficulty } from '@/actions/answers/answer';
 import LoadingSpinner from '@/components/ui/loading';
 import { getUpgradeUrl } from '@/utils';
+import { userIsPremium } from '@/utils/user';
 
 export default function QuestionSubmitted() {
   const {
@@ -166,8 +167,11 @@ export default function QuestionSubmitted() {
             Don't understand this answer? Click the button below to get an explanation.
           </p>
           <p className="text-sm text-white">
-            {user?.userLevel === 'PREMIUM' ? (
-              <>You have unlimited tokens remaining</>
+            {userIsPremium(user) ? (
+              <>
+                You have {user?.userLevel === 'LIFETIME' ? user?.aiQuestionHelpTokens : 'unlimited'}{' '}
+                tokens remaining
+              </>
             ) : (
               <span className="text-xs text-gray-400">
                 <Link href={getUpgradeUrl()} className="text-accent underline">

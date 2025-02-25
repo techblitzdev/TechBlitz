@@ -7,7 +7,7 @@ import { useUserServer } from '@/hooks/use-user-server';
 import { QuestionFilters } from '@/types/Filters';
 import ClearFilters from './clear-filters';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
-import GlobalPagination from '../../shared/pagination';
+import GlobalPagination from '@/components/app/shared/pagination';
 import { getUpgradeUrl } from '@/utils';
 
 export default async function QuestionsList({

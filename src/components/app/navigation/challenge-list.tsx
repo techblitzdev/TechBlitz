@@ -83,7 +83,11 @@ export default function ChallengeList({
               {type === 'study-path' && studyPath ? (
                 <>
                   <Suspense fallback={<StudyPathsListSkeleton />}>
-                    <StudyPathsList questions={questions || []} studyPath={studyPath} />
+                    <StudyPathsList
+                      className="w-[80%] justify-self-center"
+                      questions={questions || []}
+                      studyPath={studyPath}
+                    />
                   </Suspense>
                 </>
               ) : (

@@ -5,6 +5,7 @@ import { getPrompt } from '../utils/get-prompt';
 import { getUser } from '@/actions/user/authed/get-user';
 import { questionHelpSchema } from '@/lib/zod/schemas/ai/question-help';
 import { zodResponseFormat } from 'openai/helpers/zod.mjs';
+import { checkUserTokens, deductUserTokens } from '../utils/user-tokens';
 import type { Question } from '@/types/Questions';
 import type { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
 
@@ -24,10 +25,6 @@ export const generateQuestionHelp = async (
   // get the current user requesting help
   const user = await getUser();
   if (!user) {
-    return false;
-  }
-
-  if (user.userLevel === 'FREE') {
     return {
       content: null,
       tokensUsed: 0,
@@ -35,8 +32,14 @@ export const generateQuestionHelp = async (
   }
 
   // For regular questions, check if the user has enough tokens
-  if (questionType === 'regular' && user.aiQuestionHelpTokens && user.aiQuestionHelpTokens <= 0) {
-    return false;
+  if (questionType === 'regular') {
+    const hasTokens = await checkUserTokens(user);
+    if (!hasTokens) {
+      return {
+        content: null,
+        tokensUsed: 0,
+      };
+    }
   }
 
   // Initialize question variable
@@ -82,7 +85,10 @@ export const generateQuestionHelp = async (
 
   // if no question, return error
   if (!question) {
-    return false;
+    return {
+      content: null,
+      tokensUsed: 0,
+    };
   }
 
   // get the prompt
@@ -130,23 +136,25 @@ export const generateQuestionHelp = async (
 
   const formattedData = JSON.parse(questionHelp.choices[0].message.content);
 
-  // Handle token management based on question type and user level
-  if (questionType === 'regular' && user.userLevel !== 'PREMIUM' && user.userLevel !== 'ADMIN') {
-    // Deduct tokens for regular questions from non-premium users
-    const updatedUser = await prisma.users.update({
-      where: { uid: user.uid },
-      data: { aiQuestionHelpTokens: { decrement: 1 } },
-    });
+  // Handle token decrement for regular questions
+  if (questionType === 'regular') {
+    const deducted = await deductUserTokens(user);
+    if (!deducted) {
+      return {
+        content: null,
+        tokensUsed: 0,
+      };
+    }
 
     return {
       content: formattedData,
-      tokens: updatedUser.aiQuestionHelpTokens,
+      tokensUsed: user.aiQuestionHelpTokens ? user.aiQuestionHelpTokens - 1 : 0,
     };
   }
 
   // For roadmap questions or premium users, return infinite tokens
   return {
     content: formattedData,
-    tokens: Number.POSITIVE_INFINITY,
+    tokensUsed: Number.POSITIVE_INFINITY,
   };
 };

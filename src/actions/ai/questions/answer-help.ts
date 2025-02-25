@@ -8,6 +8,7 @@ import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
 import { getPrompt } from '../utils/get-prompt';
 import { getUser } from '@/actions/user/authed/get-user';
 import { zodResponseFormat } from 'openai/helpers/zod.mjs';
+import { checkUserTokens, deductUserTokens } from '../utils/user-tokens';
 
 // types
 import type { UserRecord } from '@/types/User';
@@ -19,7 +20,8 @@ const answerHelp = async (
   user: UserRecord,
   question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions
 ) => {
-  if (user.userLevel === 'FREE') {
+  const hasTokens = await checkUserTokens(user);
+  if (!hasTokens) {
     return {
       content: null,
       tokensUsed: 0,
@@ -96,11 +98,14 @@ export const generateAnswerHelp = async (
   }
 
   // For regular questions, check if the user has enough tokens
-  if (questionType === 'regular' && user.aiQuestionHelpTokens && user.aiQuestionHelpTokens <= 0) {
-    return {
-      content: null,
-      tokensUsed: 0,
-    };
+  if (questionType === 'regular') {
+    const hasTokens = await checkUserTokens(user);
+    if (!hasTokens) {
+      return {
+        content: null,
+        tokensUsed: 0,
+      };
+    }
   }
 
   let question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions | null = null;
@@ -150,15 +155,18 @@ export const generateAnswerHelp = async (
   const formattedData = await answerHelp(userCorrect, user, question);
 
   // Handle token decrement for regular questions
-  if (questionType === 'regular' && user.userLevel !== 'PREMIUM' && user.userLevel !== 'ADMIN') {
-    const updatedUser = await prisma.users.update({
-      where: { uid: user.uid },
-      data: { aiQuestionHelpTokens: { decrement: 1 } },
-    });
+  if (questionType === 'regular') {
+    const deducted = await deductUserTokens(user);
+    if (!deducted) {
+      return {
+        content: null,
+        tokensUsed: 0,
+      };
+    }
 
     return {
       content: formattedData,
-      tokensUsed: updatedUser.aiQuestionHelpTokens,
+      tokensUsed: user.aiQuestionHelpTokens ? user.aiQuestionHelpTokens - 1 : 0,
     };
   }
 

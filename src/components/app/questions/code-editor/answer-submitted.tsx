@@ -24,6 +24,7 @@ import LoadingSpinner from '@/components/ui/loading';
 import FlagIcon from '@/components/ui/icons/flag';
 import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
 import { getUpgradeUrl } from '@/utils';
+import { userIsPremium } from '@/utils/user';
 
 export default function CodeEditorQuestionSubmitted() {
   const {
@@ -142,7 +143,7 @@ export default function CodeEditorQuestionSubmitted() {
             Don't understand this answer? Click the button below to get an explanation.
           </p>
           <p className="text-sm text-white">
-            {user?.userLevel === 'PREMIUM' ? (
+            {userIsPremium(user) ? (
               <>You have unlimited tokens remaining</>
             ) : (
               <p className="text-sm text-white">

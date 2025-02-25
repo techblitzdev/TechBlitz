@@ -8,6 +8,7 @@ import { CheckCircle } from 'lucide-react';
 import { TooltipProvider, TooltipTrigger, TooltipContent, Tooltip } from '@/components/ui/tooltip';
 import type { UserRecord } from '@/types/User';
 import { cn } from '@/lib/utils';
+import { userIsPremium } from '@/utils/user';
 
 export function QuestionCardSkeleton() {
   return (
@@ -77,7 +78,7 @@ export default function QuestionCard(opts: {
 
   const title = questionData?.title || questionData?.question;
 
-  const userCanAccess = user?.userLevel === 'PREMIUM' || !questionData?.isPremiumQuestion;
+  const userCanAccess = userIsPremium(user) || !questionData?.isPremiumQuestion;
 
   // if type is study-path, add query param to href
   if (type === 'study-path') {

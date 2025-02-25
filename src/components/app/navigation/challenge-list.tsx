@@ -74,7 +74,7 @@ export default function ChallengeList({
             className="flex items-center gap-x-2 group"
           >
             <h6 className="text-xl font-bold">
-              {type === 'study-path' ? 'Roadmap List' : 'Challenge List'}
+              {type === 'study-path' ? studyPath?.title : 'Challenge List'}
             </h6>
             <ChevronRight className="size-5 group-hover:translate-x-1 transition-transform duration-300" />
           </Link>

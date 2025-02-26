@@ -29,7 +29,7 @@ export const generateStatisticsReport = async () => {
   const user = await getUser();
   if (!user) throw new Error('User not found');
 
-  if (!['PREMIUM', 'ADMIN'].includes(user.userLevel)) {
+  if (!['PREMIUM', 'ADMIN', 'LIFETIME'].includes(user.userLevel)) {
     throw new Error('Premium access required');
   }
 

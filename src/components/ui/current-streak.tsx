@@ -1,8 +1,10 @@
 import { getUserDailyStats } from '@/utils/data/user/authed/get-daily-streak';
 import { Suspense } from 'react';
 import LoadingSpinner from './loading';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
 import { cn } from '@/lib/utils';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from './hover-card';
+import { Button } from './button';
+import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 
 export function SolarFlameBoldDuotone({
   className,
@@ -43,25 +45,48 @@ async function CurrentStreakData() {
 
 export default async function CurrentStreak() {
   const userStreak = await getUserDailyStats();
+  const nextRecommendedQuestion = await getSuggestions({
+    limit: 1,
+  });
 
   return (
-    <TooltipProvider>
-      <Tooltip delayDuration={0}>
-        <TooltipTrigger>
-          <div className="flex items-center gap-x-1">
-            <Suspense fallback={<LoadingSpinner />}>
-              <CurrentStreakData />
-            </Suspense>
-            <SolarFlameBoldDuotone
-              className="size-6"
-              hasActiveStreak={Boolean(userStreak?.streakData?.currentstreakCount)}
-            />
+    <HoverCard>
+      <HoverCardTrigger>
+        <div className="flex items-center gap-x-1">
+          <Suspense fallback={<LoadingSpinner />}>
+            <CurrentStreakData />
+          </Suspense>
+          <SolarFlameBoldDuotone
+            className="size-6"
+            hasActiveStreak={Boolean(userStreak?.streakData?.currentstreakCount)}
+          />
+        </div>
+      </HoverCardTrigger>
+      <HoverCardContent className="bg-black border border-black-50 text-white" align="end">
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-y-1">
+            <p className="text-xl text-gray-400 font-medium font-onest">
+              {userStreak?.streakData?.currentstreakCount} day streak
+            </p>
+            {userStreak?.streakData?.currentstreakCount === 0 ? (
+              <p className="text-xs text-gray-400 font-medium font-onest">
+                Start your streak today by{' '}
+                <a
+                  href={`/question/${nextRecommendedQuestion?.[0]?.slug}`}
+                  className="underline text-accent"
+                >
+                  completing your next question!
+                </a>
+              </p>
+            ) : (
+              <p className="text-xs text-gray-400 font-medium font-onest">Keep it up!</p>
+            )}
           </div>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>Your current streak</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+          <Button href="/statistics" variant="default" fullWidth>
+            View full stats
+          </Button>
+        </div>
+      </HoverCardContent>
+    </HoverCard>
   );
 }

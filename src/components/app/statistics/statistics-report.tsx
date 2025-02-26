@@ -75,7 +75,7 @@ export default async function StatisticsReport() {
       {reports.length === 0 && user?.userLevel !== 'FREE' && (
         <form
           className="px-3 py-4 h-full flex items-center justify-center"
-          action={async (formData) => {
+          action={async () => {
             'use server';
             await generateStatisticsReport();
           }}

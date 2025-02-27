@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
 import { DayPicker } from 'react-day-picker';
+import { enUS } from 'date-fns/locale';
 
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
@@ -12,8 +13,11 @@ type CalendarProps = React.ComponentProps<typeof DayPicker>;
 function Calendar({ className, classNames, showOutsideDays = true, ...props }: CalendarProps) {
   return (
     <DayPicker
+      defaultMonth={new Date()}
       showOutsideDays={showOutsideDays}
       className={cn('p-3', className)}
+      locale={enUS}
+      disabled={{ before: new Date() }}
       classNames={{
         months: 'flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0',
         month: 'space-y-4',

@@ -43,7 +43,9 @@ function Component() {
         role="region"
         aria-live="polite"
       >
-        <Button variant="destructive">Clear</Button>
+        <Button variant="destructive" onClick={() => setDate(undefined)}>
+          Clear
+        </Button>
 
         <div className="flex items-center gap-2">
           <Button>Cancel</Button>

@@ -17,15 +17,15 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
       classNames={{
         months: 'flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0',
         month: 'space-y-4',
-        caption: 'flex justify-center pt-1 relative items-center',
+        caption: 'flex justify-center pt-1 pb-2 relative items-center',
         caption_label: 'text-sm font-medium',
         nav: 'space-x-1 flex items-center',
         nav_button: cn(
           buttonVariants({ variant: 'outline' }),
           'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100'
         ),
-        nav_button_previous: 'absolute left-1',
-        nav_button_next: 'absolute right-1',
+        nav_button_previous: 'absolute left-1 border-none',
+        nav_button_next: 'absolute right-1 border-none',
         table: 'w-full border-collapse space-y-1',
         head_row: 'flex',
         head_cell: 'text-muted-foreground rounded-md w-8 font-normal text-[0.8rem]',

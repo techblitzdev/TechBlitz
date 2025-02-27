@@ -1,17 +1,23 @@
+import { redirect } from 'next/navigation';
+
+// components
 import { Button } from '@/components/ui/button';
 import ArcheryTarget from '@/components/ui/icons/target';
-import { useUserServer } from '@/hooks/use-user-server';
+import StudyPathGoalModal from './study-path-goal-modal';
 import UpgradeCard from '../shared/upgrade/upgrade-card';
-import { Progress } from '@/components/ui/progress';
-import { StudyPath } from '@prisma/client';
 import DailyChallengesCard from '../shared/question/daily-goals-card';
+import { Progress } from '@/components/ui/progress';
 import { ArrowRightIcon } from 'lucide-react';
+import ScrollToStartButton from './scroll-to-start-button';
+
+// utils, actions, hooks
+import { useUserServer } from '@/hooks/use-user-server';
 import { isUserEnrolledInStudyPath } from '@/utils/data/study-paths/get';
 import { enrollInStudyPath } from '@/actions/study-paths/enroll';
-import { redirect } from 'next/navigation';
 import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
 import { getUserMissionRecords } from '@/utils/data/missions/get-user-mission-record';
-import ScrollToStartButton from './scroll-to-start-button';
+
+import { StudyPath } from '@prisma/client';
 
 async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
   // run in parallel
@@ -149,9 +155,7 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
                   Set a goal date to complete this study path. Receive a daily reminder to complete
                   the next question.
                 </p>
-                <Button className="w-full mt-2" disabled>
-                  Coming soon
-                </Button>
+                <StudyPathGoalModal />
               </div>
             </div>
           </div>

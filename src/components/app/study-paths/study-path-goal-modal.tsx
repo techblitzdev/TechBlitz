@@ -39,19 +39,15 @@ function Component() {
         }}
       />
       <p
-        className="mt-4 text-center text-xs text-muted-foreground"
+        className="mt-4 text-center text-xs text-muted-foreground min-h-4"
         role="region"
         aria-live="polite"
       >
-        Two months calendar -{' '}
-        <a
-          className="underline hover:text-foreground"
-          href="https://daypicker.dev/"
-          target="_blank"
-          rel="noopener nofollow"
-        >
-          React DayPicker
-        </a>
+        {date?.from && date?.to && (
+          <>
+            {format(date.from, 'MMM d')} - {format(date.to, 'MMM d')}
+          </>
+        )}
       </p>
     </div>
   );
@@ -70,13 +66,15 @@ export default function StudyPathGoalModal() {
         <Button fullWidth>Set a Goal</Button>
       </DialogTrigger>
       <DialogContent className="bg-black max-w-2xl">
-        <DialogHeader className="flex flex-col gap-2">
-          <ArcheryTarget height="36" width="36" />
-          <DialogTitle>Set a Goal</DialogTitle>
-          <DialogDescription>
-            Set a goal date to complete this study path. Receive a daily reminder to complete the
-            next question.
-          </DialogDescription>
+        <DialogHeader className="flex flex-col">
+          <ArcheryTarget height="48" width="48" />
+          <div className="flex flex-col gap-1">
+            <DialogTitle className="text-xl">Set a Goal</DialogTitle>
+            <DialogDescription>
+              Set a goal date to complete this study path. Receive a daily reminder to complete the
+              next question.
+            </DialogDescription>
+          </div>
         </DialogHeader>
         <Component />
       </DialogContent>

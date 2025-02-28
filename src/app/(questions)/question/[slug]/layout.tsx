@@ -141,7 +141,7 @@ export default async function QuestionUidLayout({
             userAnswered={userAnswered}
             suggestedQuestions={suggestedQuestions}
           >
-            <div className="grid grid-cols-12 items-center justify-between pt-2 px-3 relative">
+            <div className="grid grid-cols-12 items-center justify-between pt-2 px-3 relative bg-[#000000]">
               <div className="col-span-2 lg:col-span-4 flex items-center justify-start">
                 <RouterBack href="/questions" className="px-0 block md:hidden">
                   <HomeIcon width="16" height="16" />

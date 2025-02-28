@@ -11,7 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <ReactQueryClientProvider>
       <html lang="en" className="dark">
         <body
-          className={`${InterFont.variable} ${SatoshiFont.variable} ${UbuntuFont.variable} ${OnestFont.variable} antialiased bg-[#000000]`}
+          className={`${InterFont.variable} ${SatoshiFont.variable} ${UbuntuFont.variable} ${OnestFont.variable} antialiased bg-[#000000] text-foreground`}
           suppressHydrationWarning
         >
           <ThemeProvider>{children}</ThemeProvider>

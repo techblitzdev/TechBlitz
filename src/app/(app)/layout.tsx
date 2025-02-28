@@ -51,7 +51,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <NextTopLoader color="#5b61d6" showSpinner={false} />
               <SidebarLayout>
                 <CSPostHogProvider>
-                  <MantineProvider>{children}</MantineProvider>
+                  <MantineProvider>
+                    <div className="bg-[#000000] h-full">{children}</div>
+                  </MantineProvider>
                 </CSPostHogProvider>
               </SidebarLayout>
               <Toaster className="bg-black" />

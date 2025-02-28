@@ -69,7 +69,7 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
     <aside className="w-full lg:w-2/5 xl:w-1/3 space-y-6 order-first lg:order-last">
       <div className="sticky top-20 space-y-6">
         <div className="flex gap-4">
-          <div>
+          <div className="hidden md:block">
             <ScrollToStartButton />
           </div>
           <div className="flex-1 space-y-6">

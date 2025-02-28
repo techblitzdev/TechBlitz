@@ -1,17 +1,21 @@
 import type { Config } from 'tailwindcss';
+import fluid, { extract, screens, fontSize } from 'fluid-tailwind';
+
 const svgToDataUri = require('mini-svg-data-uri');
 
-const colors = require('tailwindcss/colors');
 const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenColorPalette');
 
 const config: Config = {
   darkMode: ['class'],
-  content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-    './node_modules/onborda/dist/**/*.{js,ts,jsx,tsx}',
-  ],
+  content: {
+    files: [
+      './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+      './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+      './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+      './node_modules/onborda/dist/**/*.{js,ts,jsx,tsx}',
+    ],
+    extract,
+  },
   safelist: [
     {
       pattern: /bg-yellow/,
@@ -39,6 +43,8 @@ const config: Config = {
     },
   ],
   theme: {
+    screens, // tailwind's default screens, in `rem`
+    fontSize, // tailwind's default font sizes, in `rem` (including line heights)
     extend: {
       fontFamily: {
         inter: ['var(--font-inter)'],
@@ -113,9 +119,6 @@ const config: Config = {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
         },
-      },
-      screens: {
-        xs: '380px',
       },
       container: {
         center: true,
@@ -216,6 +219,7 @@ const config: Config = {
     addVariablesForColors,
     addMatchUtils,
     require('tailwind-container-break-out'),
+    fluid,
   ],
 };
 

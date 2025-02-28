@@ -5,7 +5,7 @@ const svgToDataUri = require('mini-svg-data-uri');
 
 const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenColorPalette');
 
-const config: Config = {
+const config = {
   darkMode: ['class'],
   content: {
     files: [
@@ -17,34 +17,22 @@ const config: Config = {
     extract,
   },
   safelist: [
-    {
-      pattern: /bg-yellow/,
-      variants: ['hover'],
-    },
-    {
-      pattern: /text-yellow/,
-      variants: ['hover'],
-    },
-    {
-      pattern: /border-yellow/,
-      variants: ['hover'],
-    },
-    {
-      pattern: /bg-blue/,
-      variants: ['hover'],
-    },
-    {
-      pattern: /text-blue/,
-      variants: ['hover'],
-    },
-    {
-      pattern: /border-blue/,
-      variants: ['hover'],
-    },
+    'bg-yellow',
+    'hover:bg-yellow',
+    'text-yellow',
+    'hover:text-yellow',
+    'border-yellow',
+    'hover:border-yellow',
+    'bg-blue',
+    'hover:bg-blue',
+    'text-blue',
+    'hover:text-blue',
+    'border-blue',
+    'hover:border-blue',
   ],
   theme: {
-    screens, // tailwind's default screens, in `rem`
-    fontSize, // tailwind's default font sizes, in `rem` (including line heights)
+    screens,
+    fontSize,
     extend: {
       fontFamily: {
         inter: ['var(--font-inter)'],
@@ -221,7 +209,7 @@ const config: Config = {
     require('tailwind-container-break-out'),
     fluid,
   ],
-};
+} satisfies Config;
 
 function addMatchUtils({ matchUtilities, theme }: any) {
   matchUtilities(

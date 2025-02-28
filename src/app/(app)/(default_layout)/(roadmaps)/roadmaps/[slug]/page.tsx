@@ -1,21 +1,26 @@
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
+
+// actions
 import { getQuestions } from '@/actions/questions/admin/list';
-import { getStudyPath } from '@/utils/data/study-paths/get';
+
+// utils
 import { createMetadata } from '@/utils/seo';
+import { getStudyPath } from '@/utils/data/study-paths/get';
 import { capitalise, getBaseUrl } from '@/utils';
+
+// types
 import type { QuizJsonLd } from '@/types/Seo';
 import type { StudyPath } from '@prisma/client';
+
+// components
 import StudyPathQuestionCardSkeleton from '@/components/app/study-paths/study-path-question-card-skeleton';
 import QuestionCardClient from '@/components/app/questions/layout/question-card-client';
-
 const StudyPathsList = dynamic(() => import('@/components/app/study-paths/list'), {
   loading: () => <StudyPathsListSkeleton />,
 });
-
 const StudyPathSidebar = dynamic(() => import('@/components/app/study-paths/study-path-sidebar'));
 const Hero = dynamic(() => import('@/components/shared/hero'));
-
 const HeroChip = dynamic(() => import('@/components/app/study-paths/hero-chip'));
 const HeroHeading = dynamic(() => import('@/components/app/study-paths/hero-heading'));
 
@@ -48,6 +53,62 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     },
     canonicalUrl: `/roadmaps/${params.slug}`,
   });
+}
+
+/**
+ * A skeleton for the study paths list.
+ *
+ * @returns A list of question cards.
+ */
+function StudyPathsListSkeleton() {
+  return (
+    <div className="flex flex-col gap-6 relative z-10 w-[90%]">
+      {Array.from({ length: 9 }).map((_, index) => (
+        <QuestionCardClient
+          key={index}
+          questionData={null}
+          index={index}
+          offset={Math.sin(index * 0.9) * 4}
+        >
+          <StudyPathQuestionCardSkeleton />
+        </QuestionCardClient>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * Creates a JSON-LD object for a study path.
+ *
+ * @param studyPath - The study path object.
+ * @param slug - The slug of the study path.
+ * @returns The JSON-LD object.
+ */
+function createJsonLd(studyPath: StudyPath, slug: string): QuizJsonLd {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Quiz',
+    name: capitalise(slug?.replace(/-/g, ' ') || ''),
+    description: studyPath?.description || '',
+    url: `${getBaseUrl()}/roadmaps/${slug}`,
+    educationalUse: 'practice',
+    learningResourceType: ['quiz', 'learning activity'],
+    creator: {
+      '@type': 'Organization',
+      name: 'TechBlitz',
+      url: getBaseUrl(),
+    },
+    assesses: ['coding'],
+    educationLevel: studyPath?.educationLevel || 'beginner',
+    dateCreated: new Date().toISOString(),
+    dateModified: new Date().toISOString(),
+    datePublished: new Date().toISOString(),
+    headline: studyPath?.title || '',
+    interactivityType: 'mixed',
+    isAccessibleForFree: true,
+    isFamilyFriendly: true,
+    teaches: 'coding',
+  };
 }
 
 export default async function RoadmapPage({ params }: { params: { slug: string } }) {
@@ -86,48 +147,4 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
       </div>
     </>
   );
-}
-
-function StudyPathsListSkeleton() {
-  return (
-    <div className="flex flex-col gap-6 relative z-10 w-[90%]">
-      {Array.from({ length: 9 }).map((_, index) => (
-        <QuestionCardClient
-          key={index}
-          questionData={null}
-          index={index}
-          offset={Math.sin(index * 0.9) * 4}
-        >
-          <StudyPathQuestionCardSkeleton />
-        </QuestionCardClient>
-      ))}
-    </div>
-  );
-}
-
-function createJsonLd(studyPath: StudyPath, slug: string): QuizJsonLd {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Quiz',
-    name: capitalise(slug?.replace(/-/g, ' ') || ''),
-    description: studyPath?.description || '',
-    url: `${getBaseUrl()}/roadmaps/${slug}`,
-    educationalUse: 'practice',
-    learningResourceType: ['quiz', 'learning activity'],
-    creator: {
-      '@type': 'Organization',
-      name: 'TechBlitz',
-      url: getBaseUrl(),
-    },
-    assesses: ['coding'],
-    educationLevel: studyPath?.educationLevel || 'beginner',
-    dateCreated: new Date().toISOString(),
-    dateModified: new Date().toISOString(),
-    datePublished: new Date().toISOString(),
-    headline: studyPath?.title || '',
-    interactivityType: 'mixed',
-    isAccessibleForFree: true,
-    isFamilyFriendly: true,
-    teaches: 'coding',
-  };
 }

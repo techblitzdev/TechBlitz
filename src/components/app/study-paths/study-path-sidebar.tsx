@@ -17,14 +17,13 @@ import { enrollInStudyPath } from '@/actions/study-paths/enroll';
 import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
 import { getUserMissionRecords } from '@/utils/data/missions/get-user-mission-record';
 
-import { StudyPath } from '@prisma/client';
+// types
+import type { StudyPath } from '@prisma/client';
+import { UserRecord } from '@/types/User';
 
-async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
+async function GetStartedCta({ studyPath, user }: { studyPath: StudyPath; user: UserRecord }) {
   // run in parallel
-  const [user, isEnrolled] = await Promise.all([
-    useUserServer(),
-    isUserEnrolledInStudyPath(studyPath.uid),
-  ]);
+  const isEnrolled = await isUserEnrolledInStudyPath(studyPath.uid);
 
   // the button will be disabled if the user is a free user and has reached the maximum number of study paths
   // the button will be disabled if the user is already enrolled in the study path
@@ -75,8 +74,8 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
           </div>
           <div className="flex-1 space-y-6">
             {/** show if not enrolled */}
-            {!user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid) ? (
-              <GetStartedCta studyPath={studyPath} />
+            {user && !user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid) ? (
+              <GetStartedCta studyPath={studyPath} user={user} />
             ) : (
               /** only show if user is enrolled */
               <div className="flex flex-col gap-y-2 w-full">
@@ -121,16 +120,6 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
                 )}
               </div>
             )}
-            {/**
-         * 
-         <div className="flex flex-col bg-[#090909] gap-y-2 border border-black-50 p-4 rounded-lg">
-         <div className="flex items-center space-x-2 text-white">
-         <BookOpen className="size-5" />
-         <span>Summary</span>
-         </div>
-         <p className="text-sm text-muted-foreground">{studyPath.description}</p>
-        </div>
-        */}
             {user?.userLevel === 'FREE' && (
               <UpgradeCard
                 title="Looking for a personalized study plan?"
@@ -155,7 +144,7 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
                   Set a goal date to complete this study path. Receive a daily reminder to complete
                   the next question.
                 </p>
-                <StudyPathGoalModal />
+                <StudyPathGoalModal user={user} studyPath={studyPath} />
               </div>
             </div>
           </div>

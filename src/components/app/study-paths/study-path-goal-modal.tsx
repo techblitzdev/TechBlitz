@@ -18,6 +18,14 @@ import { InfoCircledIcon } from '@radix-ui/react-icons';
 import { TooltipContent } from '@/components/ui/tooltip';
 import { Tooltip, TooltipTrigger } from '@/components/ui/tooltip';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { UserRecord } from '@/types/User';
+import { getRecommendedCompletionDate } from '@/utils/roadmap';
+import { StudyPath } from '@prisma/client';
+
+interface StudyPathGoalModalProps {
+  user: UserRecord | null;
+  studyPath: StudyPath;
+}
 
 function CalendarComponent({ onClose }: { onClose: () => void }) {
   const today = new Date();
@@ -94,14 +102,22 @@ function CalendarComponent({ onClose }: { onClose: () => void }) {
   );
 }
 
-export default function StudyPathGoalModal() {
+export default function StudyPathGoalModal({ user, studyPath }: StudyPathGoalModalProps) {
   const [open, setOpen] = useState(false);
+
+  // Get the recommended completion date for the study path.
+  const recommendedCompletionDate = getRecommendedCompletionDate({
+    user,
+    studyPath,
+  });
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-          <Button fullWidth>Set a Goal</Button>
+          <Button fullWidth disabled={!user}>
+            Set a Goal
+          </Button>
         </motion.div>
       </DialogTrigger>
 
@@ -121,7 +137,14 @@ export default function StudyPathGoalModal() {
                 the next question.
               </p>
               <div className="flex items-center gap-x-2">
-                <p>Your recommended completion date is [...]</p>
+                <p>
+                  Your recommended completion date is{' '}
+                  {recommendedCompletionDate?.toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric',
+                  })}
+                </p>
                 <TooltipProvider>
                   <Tooltip delayDuration={0}>
                     <TooltipTrigger asChild>

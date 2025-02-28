@@ -69,7 +69,7 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="flex flex-col gap-y-12 lg:px-28">
+      <div className="flex flex-col gap-y-12 ~px-0/40">
         <Hero
           heading={<HeroHeading studyPath={studyPath} />}
           container={false}

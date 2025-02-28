@@ -7,14 +7,16 @@ import UpgradeModal from '@/components/app/shared/upgrade/upgrade-modal';
 export default function StatisticsLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <div className="text-white flex flex-col gap-y-2 relative h-full">
-      <div className="flex w-full items-center px-6 xl:container">
-        <div className="flex-1">
-          <SidebarLayoutTrigger />
-        </div>
-        <div className="flex items-center gap-x-3">
-          <CurrentStreak />
-          <Feedback icon={true} />
-          <UpgradeModal />
+      <div className="~px-0/40">
+        <div className="flex w-full items-center container">
+          <div className="flex-1">
+            <SidebarLayoutTrigger />
+          </div>
+          <div className="flex items-center gap-x-3">
+            <CurrentStreak />
+            <Feedback icon={true} />
+            <UpgradeModal />
+          </div>
         </div>
       </div>
       <Separator className="bg-black-50" />

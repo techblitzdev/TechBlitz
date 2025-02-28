@@ -66,12 +66,12 @@ export default function FeatureLeftRightSectionThree(opts: {
               darkTheme="one-dark-pro"
             />
           </Suspense>
-          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none z-30"></div>
+          <div className="absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-[#000] to-transparent pointer-events-none z-30"></div>
         </div>
       }
       right={
         <div className="flex flex-col gap-y-6">
-          <h2 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
+          <h2 className="text-2xl lg:text-4xl font-onest! leading-[normal]! text-gradient from-white to-white/55">
             {rightHeader ? rightHeader : 'Learn to Code for Free with Daily JavaScript Challenges'}
           </h2>
           <p className="text-white/70 max-w-xl text-base font-onest">

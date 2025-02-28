@@ -66,7 +66,7 @@ export default function FeatureRoadmapCustomizationBlock({
     >
       <div className="flex flex-col gap-y-4 col-span-full md:col-span-5">
         <AnimatedSpan content="Personalized" />
-        <h2 className="text-2xl lg:text-5xl !font-sans !leading-[normal] text-gradient from-white to-white/55">
+        <h2 className="text-2xl lg:text-5xl font-sans! leading-[normal]! text-gradient from-white to-white/55">
           {header || 'Your personalized coding roadmap.'}
         </h2>
         <p className="text-gray-400 max-w-3xl">
@@ -92,8 +92,8 @@ export default function FeatureRoadmapCustomizationBlock({
           />
         ))}
       </div>
-      <div className="z-10 absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
-      <div className="z-10 absolute inset-y-0 right-0 h-full w-44 bg-gradient-to-l from-[#000] to-transparent pointer-events-none"></div>
+      <div className="z-10 absolute inset-x-0 bottom-0 h-36 bg-linear-to-t from-[#000] to-transparent pointer-events-none"></div>
+      <div className="z-10 absolute inset-y-0 right-0 h-full w-44 bg-linear-to-l from-[#000] to-transparent pointer-events-none"></div>
     </section>
   );
 }

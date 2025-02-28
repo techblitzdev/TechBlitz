@@ -30,7 +30,7 @@ export default async function ContinueJourneyCard() {
           <p className="text-sm font-medium text-gray-400 font-onest">Your next question:</p>
           <div className="flex w-full items-center gap-x-2 justify-between">
             {suggestion && <h2 className="text-xl text-white line-clamp-1">{suggestion.title}</h2>}
-            <div className="flex items-center gap-x-2 flex-shrink-0">
+            <div className="flex items-center gap-x-2 shrink-0">
               <span className="text-sm text-gray-400">Answer now</span>
               <ArrowRight className="size-4 text-gray-300 transition-transform group-hover:translate-x-1" />
             </div>

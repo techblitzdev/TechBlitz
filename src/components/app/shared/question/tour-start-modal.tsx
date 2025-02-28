@@ -45,7 +45,7 @@ export default function TourStartModal({ user }: TourStartModalProps) {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-      <DialogContent className="sm:max-w-3xl bg-gradient-to-b shadow-xl bg-black">
+      <DialogContent className="sm:max-w-3xl bg-linear-to-b shadow-xl bg-black">
         <DialogHeader className="space-y-2">
           <DialogTitle className="text-2xl font-bold text-gradient from-white/55 to-white">
             {getUserDisplayName(user)}, welcome to TechBlitz!

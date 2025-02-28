@@ -43,7 +43,7 @@ export default async function QuestionSuggestedCard(opts: {
           }
         >
           <p className="text-sm font-satoshi line-clamp-1">{question.question}</p>
-          <ArrowRight className="size-3 mr-1 group-hover:mr-0 duration-300 flex-shrink-0" />
+          <ArrowRight className="size-3 mr-1 group-hover:mr-0 duration-300 shrink-0" />
         </Link>
       ))}
     </div>

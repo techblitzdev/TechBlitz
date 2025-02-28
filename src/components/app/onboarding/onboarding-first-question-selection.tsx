@@ -13,7 +13,7 @@ export default function OnboardingFirstQuestionSelection() {
     <CardHeader className="flex flex-col gap-y-4 max-w-xl relative">
       <div className="flex flex-col gap-y-5 mb-3">
         <motion.h1
-          className="text-2xl flex flex-col font-medium bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent"
+          className="text-2xl flex flex-col font-medium bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent"
           variants={itemVariants}
         >
           Where would you like to begin?

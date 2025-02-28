@@ -25,7 +25,7 @@ export default async function FeaturesBentoGrid() {
     <section className="pt-10 lg:pt-28 pb-10 md:pb-20 flex flex-col gap-y-7 relative">
       <div className="flex flex-col gap-y-1 items-center text-center">
         <AnimatedSpan content="Land your dream tech job" />
-        <h1 className="text-2xl lg:text-5xl !font-onest !leading-[normal] tracking-tight text-gradient from-white to-white/55">
+        <h1 className="text-2xl lg:text-5xl font-onest! leading-[normal]! tracking-tight text-gradient from-white to-white/55">
           Build your future in tech with <br /> personalized tools
         </h1>
         <span className="text-sm md:text-base text-gray-400 max-w-4xl">

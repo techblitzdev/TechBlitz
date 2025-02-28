@@ -23,7 +23,7 @@ interface DatePickerProps {
 export function DatePicker({ date, setDate }: DatePickerProps) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild className="!w-full">
+      <DropdownMenuTrigger asChild className="w-full!">
         <Button
           variant="default"
           className={cn(

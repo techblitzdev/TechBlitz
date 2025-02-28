@@ -31,7 +31,7 @@ export default function CallToActionBlock(opts: {
         }}
       ></div>
       <div className="space-y-2 z-50 relative max-w-xl place-self-center">
-        <h1 className="text-3xl lg:text-5xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
+        <h1 className="text-3xl lg:text-5xl font-onest! leading-[normal]! text-gradient from-white to-white/55">
           {title}
         </h1>
         <p className="text-gray-400 text-sm">{description}</p>
@@ -43,7 +43,7 @@ export default function CallToActionBlock(opts: {
             <Button
               variant="accent"
               size="lg"
-              className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+              className="font-onest bg-linear-to-r! from-accent! via-white/20! to-accent! animate-shimmer bg-[length:200%_100%] transition-colors"
               href={leftCta?.href || '/signup'}
             >
               <span>{leftCta?.title || 'Get Started'}</span>
@@ -70,7 +70,7 @@ export default function CallToActionBlock(opts: {
         )}
       </div>
       <Grid size={30} position="bottom-right" />
-      <div className="absolute inset-x-0 w-full bottom-0 h-20 bg-gradient-to-t from-[#000000] to-transparent pointer-events-none"></div>
+      <div className="absolute inset-x-0 w-full bottom-0 h-20 bg-linear-to-t from-[#000000] to-transparent pointer-events-none"></div>
     </section>
   );
 }

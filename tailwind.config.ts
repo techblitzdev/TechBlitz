@@ -202,13 +202,7 @@ const config = {
       },
     },
   },
-  plugins: [
-    require('tailwindcss-animate'),
-    addVariablesForColors,
-    addMatchUtils,
-    require('tailwind-container-break-out'),
-    fluid,
-  ],
+  plugins: [],
 } satisfies Config;
 
 function addMatchUtils({ matchUtilities, theme }: any) {

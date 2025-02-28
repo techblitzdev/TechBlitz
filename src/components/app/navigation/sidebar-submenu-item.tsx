@@ -30,7 +30,7 @@ export default function AppSidebarSubMenuItem(opts: { item: SidebarItem }) {
               {subItem.title}
 
               {subItem.badge && (
-                <SidebarMenuBadge className="bg-accent !text-[10px] text-white">
+                <SidebarMenuBadge className="bg-accent text-[10px]! text-white">
                   {subItem.badge}
                 </SidebarMenuBadge>
               )}

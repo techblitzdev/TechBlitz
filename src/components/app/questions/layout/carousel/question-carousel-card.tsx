@@ -36,9 +36,9 @@ export default function QuestionCarouselCard({ questionData, user }: QuestionCar
         <h3 className="text-wrap text-start line-clamp-2">{title}</h3>
         <div className="flex items-center gap-x-2">
           {answerStatus === 'correct' ? (
-            <CheckCircle className="flex-shrink-0 size-5 text-green-500" />
+            <CheckCircle className="shrink-0 size-5 text-green-500" />
           ) : (
-            <Circle className="flex-shrink-0 size-5 text-black-50" />
+            <Circle className="shrink-0 size-5 text-black-50" />
           )}
           <div className="text-sm font-medium">
             {answerStatus === 'correct' ? (
@@ -52,7 +52,7 @@ export default function QuestionCarouselCard({ questionData, user }: QuestionCar
                 </p>
                 <div className="absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap flex items-center gap-x-1">
                   <p>Learn Now</p>
-                  <ChevronRight className="flex-shrink-0 size-4 text-white group-hover:translate-x-2 transition-transform duration-300" />
+                  <ChevronRight className="shrink-0 size-4 text-white group-hover:translate-x-2 transition-transform duration-300" />
                 </div>
               </div>
             )}
@@ -72,7 +72,7 @@ export default function QuestionCarouselCard({ questionData, user }: QuestionCar
                   <div className="h-fit order-first md:order-last">
                     <Chip
                       text="Premium"
-                      color="bg-gradient-to-r from-yellow-400 to-yellow-600"
+                      color="bg-linear-to-r from-yellow-400 to-yellow-600"
                       textColor="text-black"
                       border="border-yellow-500"
                     />

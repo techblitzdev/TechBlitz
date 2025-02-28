@@ -33,7 +33,7 @@ export default async function CodeComparison({
   const renderCode = (code: string, highlighted: string) => {
     return (
       <div
-        className="max-h-64 md:max-h-96 md:h-full max-w-[31rem] overflow-hidden bg-background font-inter text-[10px] sm:text-xs [&>pre]:h-full [&>pre]:!bg-transparent [&>pre]:p-4 [&_code]:break-all"
+        className="max-h-64 md:max-h-96 md:h-full max-w-[31rem] overflow-hidden bg-background font-inter text-[10px] sm:text-xs [&>pre]:h-full [&>pre]:bg-transparent! [&>pre]:p-4 [&_code]:break-all"
         dangerouslySetInnerHTML={{ __html: highlighted }}
       />
     );
@@ -42,7 +42,7 @@ export default async function CodeComparison({
   return (
     <div className="mx-auto w-full max-w-5xl">
       <div className="relative w-full overflow-hidden rounded-xl border border-black-50">
-        <div className="relative grid md:grid-cols-2 md:divide-x md:divide-border !divide-black-50">
+        <div className="relative grid md:grid-cols-2 md:divide-x md:divide-border divide-black-50!">
           <div>
             <div
               className="flex items-center p-3 text-sm text-foreground"

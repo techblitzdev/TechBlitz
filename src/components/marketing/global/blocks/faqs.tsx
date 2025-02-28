@@ -23,7 +23,7 @@ export default function FAQsBlock(opts: {
     <section className="pb-32 flex flex-col items-center gap-10">
       <div className="text-center flex flex-col gap-y-2 items-center">
         {showSpan && <AnimatedSpan content="Frequently asked questions" />}
-        <h1 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
+        <h1 className="text-2xl lg:text-4xl font-onest! leading-[normal]! text-gradient from-white to-white/55">
           {title || 'Frequently asked questions'}
         </h1>
         {description && <p className="text-sm text-gray-400">{description}</p>}

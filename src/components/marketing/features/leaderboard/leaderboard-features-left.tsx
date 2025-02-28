@@ -18,11 +18,11 @@ export default async function LeaderboardFeaturesLeft() {
           <Table>
             <TableHeader className="bg-transparent">
               <TableRow className="bg-transparent">
-                <TableHead className="!border-t-0 w-12 md:w-[100px] text-white bg-transparent">
+                <TableHead className="border-t-0! w-12 md:w-[100px] text-white bg-transparent">
                   Rank
                 </TableHead>
-                <TableHead className="!border-t-0 text-white bg-transparent">User</TableHead>
-                <TableHead className="!border-t-0 flex justify-center items-center xs:justify-end gap-2 md:text-right text-white bg-transparent">
+                <TableHead className="border-t-0! text-white bg-transparent">User</TableHead>
+                <TableHead className="border-t-0! flex justify-center items-center xs:justify-end gap-2 md:text-right text-white bg-transparent">
                   <span className="hidden sm:block">Questions Solved</span>
                   <span className="block sm:hidden">
                     <FileQuestion className="size-4 text-white" />
@@ -40,7 +40,7 @@ export default async function LeaderboardFeaturesLeft() {
             />
           </Table>
         </Suspense>
-        <div className="z-10 absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
+        <div className="z-10 absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-[#000] to-transparent pointer-events-none"></div>
       </div>
       <div className="flex flex-col gap-2.5">
         <h3 className="text-3xl text-gradient from-white to-white/75">Battle with your friends</h3>

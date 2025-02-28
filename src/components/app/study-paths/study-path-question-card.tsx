@@ -24,7 +24,7 @@ export default async function StudyPathQuestionCard({
       href={href}
       key={questionData.uid}
       className={cn(
-        'flex flex-col gap-y-5 items-start bg-[#090909] border border-black-50 hover:border-black-100 duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-[[data-pending]]:animate-pulse',
+        'flex flex-col gap-y-5 items-start bg-[#090909] border border-black-50 hover:border-black-100 duration-300 p-5 rounded-lg group w-full relative overflow-hidden group-has-data-pending:animate-pulse',
         className
       )}
     >
@@ -32,14 +32,14 @@ export default async function StudyPathQuestionCard({
         <div className="flex items-center gap-x-2">
           {questionData.userAnswers && questionData.userAnswers.length > 0 ? (
             questionData.userAnswers[0].correctAnswer ? (
-              <CheckCircle className="flex-shrink-0 size-5 text-green-500" />
+              <CheckCircle className="shrink-0 size-5 text-green-500" />
             ) : (
-              <XCircle className="flex-shrink-0 size-5 text-red-500" />
+              <XCircle className="shrink-0 size-5 text-red-500" />
             )
           ) : (
-            <Circle className="flex-shrink-0 size-5 text-black-50" />
+            <Circle className="shrink-0 size-5 text-black-50" />
           )}
-          <h6 className="text-lg text-wrap text-start line-clamp-1 flex-grow">{title}</h6>
+          <h6 className="text-lg text-wrap text-start line-clamp-1 grow">{title}</h6>
         </div>
         {!userCanAccess && (
           <div className="h-fit">

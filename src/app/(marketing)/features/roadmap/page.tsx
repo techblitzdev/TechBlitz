@@ -46,7 +46,7 @@ const faqs = [
       <>
         To access the roadmaps on techblitz, you need to have a premium account. You can sign up for
         a premium account{' '}
-        <a href="/pricing" className="!text-accent underline">
+        <a href="/pricing" className="text-accent! underline">
           here
         </a>
         .
@@ -66,7 +66,7 @@ const faqs = [
         <a
           href="https://github.com/techblitzdev/TechBlitz"
           target="_blank"
-          className="!text-accent underline"
+          className="text-accent! underline"
         >
           GitHub
         </a>{' '}

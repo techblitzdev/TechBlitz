@@ -14,7 +14,7 @@ export default function PersonalizedLeft() {
         <Suspense fallback={<div className="h-72 w-full bg-gray-200" />}>
           <StaticAIQuestionHelp />
         </Suspense>
-        <div className="z-10 absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
+        <div className="z-10 absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-[#000] to-transparent pointer-events-none"></div>
       </div>
       <div className="flex flex-col gap-2.5">
         <h3 className="text-3xl text-gradient from-white to-white/75">

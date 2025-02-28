@@ -39,7 +39,7 @@ export default function UploadTestPage() {
         onChange={() => {
           onSubmit(event);
         }}
-        className="!hidden"
+        className="hidden!"
       />
     </div>
   );

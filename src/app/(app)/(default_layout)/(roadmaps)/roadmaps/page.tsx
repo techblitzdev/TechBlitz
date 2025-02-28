@@ -155,7 +155,7 @@ export default async function ExploreQuestionsPage() {
                 missionsPromise={missionsPromise}
                 userMissionRecordsPromise={userMissionRecordsPromise}
               />
-              <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit">
+              <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-xs border border-black-50 p-4 rounded-lg h-fit">
                 <div className="flex items-center space-x-2 text-white">
                   <Mail className="size-5 text-white" />
                   <span>Suggest a roadmap</span>

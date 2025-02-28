@@ -101,7 +101,7 @@ export default async function SignupPage() {
         <div className="w-full xl:w-1/2 flex flex-col gap-5 items-center justify-center lg:p-8">
           <div className="w-full space-y-6 max-w-md">
             <div className="flex flex-col gap-y-1">
-              <h1 className="!text-start font-bold font-onest text-xl lg:text-3xl mb-2 text-gradient from-white/75 to-white">
+              <h1 className="text-start! font-bold font-onest text-xl lg:text-3xl mb-2 text-gradient from-white/75 to-white">
                 Create your TechBlitz account
               </h1>
               <p className="text-sm text-gray-400 mb-4">
@@ -143,8 +143,8 @@ export default async function SignupPage() {
                 isFakeCard={true}
               />
             ))}
-            <div className="z-10 absolute inset-x-0 -left-8 bottom-0 h-36 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
-            <div className="z-10 absolute inset-y-0 right-0 h-full w-44 bg-gradient-to-l from-[#000] to-transparent pointer-events-none"></div>
+            <div className="z-10 absolute inset-x-0 -left-8 bottom-0 h-36 bg-linear-to-t from-[#000] to-transparent pointer-events-none"></div>
+            <div className="z-10 absolute inset-y-0 right-0 h-full w-44 bg-linear-to-l from-[#000] to-transparent pointer-events-none"></div>
           </div>
         </div>
       </div>

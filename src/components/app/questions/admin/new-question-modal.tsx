@@ -255,7 +255,7 @@ export default function NewQuestionModal({ ...props }) {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(handleNewQuestion)}
-              className="flex flex-col gap-y-4 !mt-6"
+              className="flex flex-col gap-y-4 mt-6!"
             >
               <div className="flex gap-4 items-end">
                 <div className="flex flex-col gap-2">

@@ -11,7 +11,7 @@ export default function FeaturesContentHeader(opts: {
 
   return (
     <div id={id} className={cn('container mx-auto flex flex-col gap-y-3 items-center')}>
-      <h2 className="text-3xl lg:text-5xl text-center text-gradient from-white to-white/75 !font-onest !font-medium tracking-tight py-1">
+      <h2 className="text-3xl lg:text-5xl text-center text-gradient from-white to-white/75 font-onest! font-medium! tracking-tight py-1">
         {title}
       </h2>
       {description && (

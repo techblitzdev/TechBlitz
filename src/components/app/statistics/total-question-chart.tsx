@@ -152,7 +152,7 @@ export default function QuestionChart({
             dataKey="questions"
             fill="hsl(var(--accent))"
             radius={[4, 4, 0, 0]}
-            className="hover:!bg-transparent"
+            className="hover:bg-transparent!"
           />
         ) : (
           <Line

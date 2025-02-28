@@ -110,7 +110,7 @@ const HomepageHeroImages: FC<HomepageHeroImagesProps> = ({
         <div
           className={cn(
             'absolute inset-x-0  h-20 md:h-40 lg:h-80  from-[#000] to-transparent pointer-events-none z-30',
-            fadeDirection === 'top' ? 'top-0 bg-gradient-to-b' : 'bottom-0 bg-gradient-to-t'
+            fadeDirection === 'top' ? 'top-0 bg-linear-to-b' : 'bottom-0 bg-linear-to-t'
           )}
         />
       )}

@@ -85,7 +85,7 @@ export default function StatsReportSection(opts: {
       className="py-8 sm:py-12 md:py-28 px-4 flex flex-col gap-y-8 sm:gap-y-12 md:gap-y-16 relative"
     >
       <div className="flex flex-col gap-y-4">
-        <h2 className="text-2xl sm:text-3xl lg:text-5xl text-gradient from-white to-white/75 !font-onest !font-medium tracking-tight py-1.5">
+        <h2 className="text-2xl sm:text-3xl lg:text-5xl text-gradient from-white to-white/75 font-onest! font-medium! tracking-tight py-1.5">
           {header ? (
             header
           ) : (
@@ -110,7 +110,7 @@ export default function StatsReportSection(opts: {
           <div className="flex flex-col gap-y-6">
             <div className="flex flex-col gap-y-4">
               <div className="flex flex-col">
-                <h6 className="text-xl sm:text-2xl lg:text-4xl text-gradient from-white to-white/75 !font-onest !font-medium tracking-tight py-1.5">
+                <h6 className="text-xl sm:text-2xl lg:text-4xl text-gradient from-white to-white/75 font-onest! font-medium! tracking-tight py-1.5">
                   Customised Questions
                 </h6>
                 <p className="text-gray-400 w-full sm:w-3/4">
@@ -125,7 +125,7 @@ export default function StatsReportSection(opts: {
                 className="left-1/2 top-0 w-full center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2 bg-black-50"
               ></div>
               <div className="flex flex-col">
-                <h6 className="text-xl sm:text-2xl lg:text-4xl text-gradient from-white to-white/75 !font-onest !font-medium tracking-tight py-1.5">
+                <h6 className="text-xl sm:text-2xl lg:text-4xl text-gradient from-white to-white/75 font-onest! font-medium! tracking-tight py-1.5">
                   Tag overview
                 </h6>
                 <p className="text-gray-400">
@@ -175,7 +175,7 @@ export default function StatsReportSection(opts: {
 
         <div className="lg:col-span-7 flex flex-col gap-y-6 sm:gap-y-8">
           <div className="flex flex-col">
-            <h6 className="text-xl sm:text-2xl lg:text-4xl text-gradient from-white to-white/75 !font-onest !font-medium tracking-tight py-1.5">
+            <h6 className="text-xl sm:text-2xl lg:text-4xl text-gradient from-white to-white/75 font-onest! font-medium! tracking-tight py-1.5">
               Progress report
             </h6>
             <p className="text-gray-400 w-full sm:w-3/4">
@@ -188,8 +188,8 @@ export default function StatsReportSection(opts: {
               <Suspense>
                 <QuestionChart questionData={fakeStatsData} step="day" backgroundColor="bg-black" />
               </Suspense>
-              <div className="z-10 absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
-              <div className="z-10 absolute inset-y-0 -right-4 md:right-0 w-20 bg-gradient-to-l from-[#000] to-transparent pointer-events-none"></div>
+              <div className="z-10 absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-[#000] to-transparent pointer-events-none"></div>
+              <div className="z-10 absolute inset-y-0 -right-4 md:right-0 w-20 bg-linear-to-l from-[#000] to-transparent pointer-events-none"></div>
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@ export default async function HomepageUserStats({ userCountPromise }: HomepageUs
     <section className="pt-40 pb-24 lg:pb-52 relative overflow-hidden">
       <div className="flex flex-col gap-y-4 justify-center items-center relative z-10">
         <h6 className="text-lg text-gradient from-white to-white/55">A growing community with</h6>
-        <div className="flex flex-col items-center justify-center [&>*]:text-5xl [&>*]:py-1 [&>*]:text-gradient [&>*]:from-white [&>*]:to-white/55">
+        <div className="flex flex-col items-center justify-center *:text-5xl *:py-1 *:text-gradient *:from-white *:to-white/55">
           <h6 className="text-center">{QUESTIONS_COUNT}+ challenges</h6>
           <h6 className="text-center">{userCount}+ users</h6>
           <h6 className="text-center">Unlimited practice</h6>

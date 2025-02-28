@@ -59,9 +59,9 @@ export default async function NextQuestionBentoBox() {
           </div>
         </div>
 
-        <div className="w-fit flex self-center relative -bottom-8 sm:-bottom-20 md:-bottom-8 lg:-bottom-20 group-hover:lg:-bottom-14 duration-300">
+        <div className="w-fit flex self-center relative -bottom-8 sm:-bottom-20 md:-bottom-8 lg:-bottom-20 lg:group-hover:-bottom-14 duration-300">
           <DatePicker
-            className="z-30 text-white bg-black-100 border border-black-50 p-2 rounded-md hover:cursor-default xs:scale-100 sm:scale-125 md:scale-105 xl:scale-[1.2] group-hover:lg:scale-[1.07] group-hover:xl:scale-[1.22] duration-300"
+            className="z-30 text-white bg-black-100 border border-black-50 p-2 rounded-md hover:cursor-default xs:scale-100 sm:scale-125 md:scale-105 xl:scale-[1.2] lg:group-hover:scale-[1.07] xl:group-hover:scale-[1.22] duration-300"
             color="white"
             type="range"
             value={dateArray}

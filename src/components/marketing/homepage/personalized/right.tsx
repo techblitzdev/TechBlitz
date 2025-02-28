@@ -66,11 +66,11 @@ export default function PersonalizedRight() {
               target="_blank"
             >
               <p className="text-sm font-satoshi line-clamp-1">{question.question}</p>
-              <ArrowRight className="size-3 mr-1 group-hover:mr-0 duration-300 flex-shrink-0" />
+              <ArrowRight className="size-3 mr-1 group-hover:mr-0 duration-300 shrink-0" />
             </Link>
           ))}
         </div>
-        <div className="z-10 absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
+        <div className="z-10 absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-[#000] to-transparent pointer-events-none"></div>
       </div>
       <div className="flex flex-col gap-2.5">
         <h3 className="text-3xl text-gradient from-white to-white/75">Custom Code Challenges</h3>

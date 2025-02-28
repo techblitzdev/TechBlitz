@@ -65,7 +65,7 @@ export default function QuestionCarousel({
           </div>
         </div>
         <div className="relative w-full">
-          <div className="hidden md:block absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-[#000000] to-transparent z-10" />
+          <div className="hidden md:block absolute right-0 top-0 h-full w-12 bg-linear-to-l from-[#000000] to-transparent z-10" />
           <CarouselContent className="grid grid-flow-col auto-cols-[calc(100%-8px)] md:auto-cols-[calc(50%-8px)] lg:auto-cols-[calc(33.33%-8px)] gap-4">
             {children}
           </CarouselContent>

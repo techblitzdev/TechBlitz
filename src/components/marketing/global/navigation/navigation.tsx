@@ -7,7 +7,7 @@ import { GithubStars } from '@/components/marketing/global/navigation/navigation
 
 export default function MarketingNavigation() {
   return (
-    <div className="fixed w-full py-5 z-[1000] bg-gradient-to-b from-[#000000] via-black/80 to-transparent backdrop-blur-sm">
+    <div className="fixed w-full py-5 z-1000 bg-linear-to-b from-[#000000] via-black/80 to-transparent backdrop-blur-xs">
       <div className="container flex items-center justify-between w-full">
         <Link href="/" aria-label="Go back to dashboard">
           <Logo />

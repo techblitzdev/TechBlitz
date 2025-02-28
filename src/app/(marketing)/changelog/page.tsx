@@ -10,7 +10,7 @@ export default function ChangelogPage() {
           <h1
             className="
             text-5xl lg:text-7xl !font-onest font-bold tracking-tight py-1.5 text-center
-            text-transparent bg-clip-text bg-gradient-to-r from-white to-white/75 leading-tight
+            text-transparent bg-clip-text bg-linear-to-r from-white to-white/75 leading-tight
           "
           >
             Changelog
@@ -32,7 +32,7 @@ export default function ChangelogPage() {
             'absolute inset-0 pt-44 [mask-image:radial-gradient(400px_circle_at_center,white,transparent)]'
           )}
         />
-        <div className="z-10 absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
+        <div className="z-10 absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-[#000] to-transparent pointer-events-none"></div>
       </section>
       <ChangelogTimeline />
     </div>

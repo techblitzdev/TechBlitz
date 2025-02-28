@@ -1,91 +1,83 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-:root {
-  --background: #000000;
-  --foreground: #ededed;
+@config '../../tailwind.config.ts';
 
-  --color-secondary: #ffffff;
-  --color-accent: #5b61d6;
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
 }
 
-body {
-  color: var(--foreground) !important;
-  background: var(--background) !important;
-  font-family: Arial, Helvetica, sans-serif;
-  /** smooth scrolling on id click */
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-@layer utilities {
-  .scrollable-element::-webkit-scrollbar {
+@utility scrollable-element {
+  &::-webkit-scrollbar {
     width: 12px;
   }
 
-  .scrollable-element::-webkit-scrollbar-track {
+  &::-webkit-scrollbar-track {
     @apply bg-black;
   }
 
-  .scrollable-element::-webkit-scrollbar-thumb {
+  &::-webkit-scrollbar-thumb {
     @apply bg-black;
     border-radius: 10px;
   }
 
-  .scrollable-element::-webkit-scrollbar-thumb:hover {
+  &::-webkit-scrollbar-thumb:hover {
     @apply bg-black;
   }
+  scrollbar-width: thin;
+  scrollbar-color: #000000 #0e0e0e;
+}
 
-  .scrollable-element {
-    scrollbar-width: thin;
-    scrollbar-color: #000000 #0e0e0e;
-  }
+@utility perspective-1000 {
+  perspective: 1000px;
+}
 
-  .perspective-1000 {
-    perspective: 1000px;
-  }
+@utility transform-3d {
+  transform-style: preserve-3d;
+}
 
-  .transform-3d {
-    transform-style: preserve-3d;
-  }
+@utility rotate-x-55 {
+  transform: rotateX(55deg);
+}
 
-  .rotate-x-55 {
-    transform: rotateX(55deg);
-  }
+@utility rotate-y-45 {
+  transform: rotateY(45deg);
+}
 
-  .rotate-y-45 {
-    transform: rotateY(45deg);
-  }
+@utility rotate-x-90 {
+  transform: rotateX(90deg);
+}
 
-  .rotate-x-90 {
-    transform: rotateX(90deg);
-  }
+@utility rotate-y-90 {
+  transform: rotateY(90deg);
+}
 
-  .rotate-y-90 {
-    transform: rotateY(90deg);
-  }
+@utility text-balance {
+  text-wrap: balance;
+}
 
-  ::selection {
-    @apply bg-accent text-white;
-  }
+@utility pause-animation {
+  animation-play-state: paused;
+}
 
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  .pause-animation {
-    animation-play-state: paused;
-  }
-
-  .card-wrapper {
-    @apply relative overflow-hidden;
-  }
+@utility card-wrapper {
+  @apply relative overflow-hidden;
 
   /* Gradient */
-  .card-wrapper::before {
+  &::before {
     background: conic-gradient(
       rgba(91, 97, 214, 1) 0deg,
       rgba(91, 97, 214, 0.5) 90deg,
@@ -100,18 +92,20 @@ html {
 
     @apply animate-border-spin;
   }
+}
 
+@utility card-content {
   /* Body */
-  .card-content {
-    @apply absolute left-[1px] top-[1px] h-[calc(100%-2px)] w-[calc(100%-2px)];
-  }
+  @apply absolute left-[1px] top-[1px] h-[calc(100%-2px)] w-[calc(100%-2px)];
+}
 
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-b;
-  }
+@utility text-gradient {
+  @apply bg-clip-text text-transparent bg-linear-to-b;
+}
 
+@utility gh-card-arrow {
   /** This is acting like the 'border' of the arrow */
-  .gh-card-arrow::before {
+  &::before {
     @apply -left-2 top-2.5 h-4 w-2 absolute;
     content: '';
     clip-path: polygon(100% 0, 0 50%, 100% 100%);
@@ -119,56 +113,85 @@ html {
   }
 
   /** This is acting like the 'background' of the arrow */
-  .gh-card-arrow::after {
+  &::after {
     @apply -left-1.5 top-2.5 h-4 w-2 absolute;
     content: '';
     clip-path: polygon(100% 0, 0 50%, 100% 100%);
     background: var(--arrow-color);
   }
+}
 
-  /** data-name="onborda-pointer" */
-  [data-name='onborda-pointer'] {
-    @apply !rounded-md !p-1;
+@layer utilities {
+  :root {
+    --background: #000000;
+    --foreground: #ededed;
+
+    --color-secondary: #ffffff;
+    --color-accent: #5b61d6;
+  }
+
+  body {
+    color: var(--foreground) !important;
+    background: var(--background) !important;
+    font-family: Arial, Helvetica, sans-serif;
+    /** smooth scrolling on id click */
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 }
 
-/* Basic editor styles */
-.tiptap {
-  :first-child {
-    margin-top: 0;
+@layer utilities {
+  ::selection {
+    @apply bg-accent text-white;
   }
 
-  /* Code and preformatted text styles */
-  code {
-    background-color: var(--purple-light);
-    border-radius: 0.4rem;
-    color: var(--white);
-    font-size: 0.85rem;
-    padding: 0.25em 0.3em;
+  /** data-name="onborda-pointer" */
+  [data-name='onborda-pointer'] {
+    @apply rounded-md! p-1!;
   }
+}
 
-  pre:focus-visible {
-    outline: 2px solid var(--purple);
-    outline-offset: 0.5rem;
-  }
+@layer utilities {
+  /* Basic editor styles */
+  .tiptap {
+    :first-child {
+      margin-top: 0;
+    }
 
-  .monaco-editor .line-numbers {
-    @apply !w-6;
+    /* Code and preformatted text styles */
+    code {
+      background-color: var(--purple-light);
+      border-radius: 0.4rem;
+      color: var(--white);
+      font-size: 0.85rem;
+      padding: 0.25em 0.3em;
+    }
+
+    pre:focus-visible {
+      outline: 2px solid var(--purple);
+      outline-offset: 0.5rem;
+    }
+
+    .monaco-editor .line-numbers {
+      @apply w-6!;
+    }
   }
 }
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 5% 1;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --background: hsl(0 0% 100%);
+    --foreground: hsl(240 10% 3.9%);
+    --card: hsl(0 0% 5% 1);
+    --card-foreground: hsl(240 10% 3.9%);
+    --popover: hsl(0 0% 100%);
+    --popover-foreground: hsl(240 10% 3.9%);
+    --primary: hsl(240 5.9% 10%);
+    --primary-foreground: hsl(0 0% 98%);
+    --secondary: hsl(240 4.8% 95.9%);
+    --secondary-foreground: hsl(240 5.9% 10%);
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
     --accent: 237 59.3% 60%;
@@ -216,22 +239,24 @@ html {
   h4,
   h5,
   h6 {
-    @apply font-onest !font-medium;
+    @apply font-onest font-medium!;
   }
 }
 
-@keyframes accordion-down {
-  from {
-    height: 0;
-    opacity: 0;
+@layer utilities {
+  @keyframes accordion-down {
+    from {
+      height: 0;
+      opacity: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+      opacity: 1;
+    }
   }
-  to {
-    height: var(--radix-accordion-content-height);
-    opacity: 1;
-  }
-}
 
-/*---break--- */
+  /*---break--- */
+}
 
 @layer base {
   * {

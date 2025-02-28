@@ -52,7 +52,7 @@ export default function CodeSnippet({
     if (highlighted) {
       return (
         <div
-          className="max-h-96 overflow-auto  bg-[#000] font-inter text-[10px] sm:text-xs [&>pre]:h-full [&>pre]:!bg-transparent [&>pre]:p-4 [&_code]:break-all"
+          className="max-h-96 overflow-auto  bg-[#000] font-inter text-[10px] sm:text-xs [&>pre]:h-full [&>pre]:bg-transparent! [&>pre]:p-4 [&_code]:break-all"
           dangerouslySetInnerHTML={{ __html: highlighted }}
         />
       );

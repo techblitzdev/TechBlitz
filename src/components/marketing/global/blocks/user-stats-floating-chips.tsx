@@ -109,7 +109,7 @@ const FloatingChip: React.FC<FloatingChipProps> = ({ Icon, href, mouseX, mouseY,
   return (
     <motion.a
       href={href}
-      className="absolute bg-black border border-black-50 backdrop-blur-sm rounded p-4 flex items-center gap-2 text-sm text-white"
+      className="absolute bg-black border border-black-50 backdrop-blur-xs rounded p-4 flex items-center gap-2 text-sm text-white"
       style={{
         ...position,
         x,

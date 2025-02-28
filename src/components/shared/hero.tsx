@@ -33,7 +33,7 @@ export default function Hero(opts: {
       <Grid size={25} position="bottom-left" />
 
       {/* Fade-out gradient overlay */}
-      <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-[#000000] to-transparent pointer-events-none"></div>
+      <div className="absolute inset-x-0 bottom-0 h-10 bg-linear-to-t from-[#000000] to-transparent pointer-events-none"></div>
     </section>
   );
 }

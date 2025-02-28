@@ -140,7 +140,7 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
                 />
               </div>
 
-              <div className="w-full md:w-1/2 lg:w-full bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg">
+              <div className="w-full md:w-1/2 lg:w-full bg-[#090909] flex flex-col gap-y-2 backdrop-blur-xs border border-black-50 p-4 rounded-lg">
                 <div className="flex items-center space-x-2 text-white">
                   <ArcheryTarget height="36" width="36" />
                   <h3 className="text-lg font-semibold">Set a Goal</h3>

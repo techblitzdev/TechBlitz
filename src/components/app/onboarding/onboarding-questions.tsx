@@ -32,7 +32,7 @@ export default function OnboardingStepThree() {
             variants={itemVariants}
             initial="hidden"
             animate="visible"
-            className="text-xl lg:text-3xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent"
+            className="text-xl lg:text-3xl font-bold bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent"
           >
             Here's some questions to get you started
           </motion.h1>

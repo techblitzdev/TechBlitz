@@ -315,7 +315,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
           <div className="flex items-center w-full">
             <SidebarMenuButton
               asChild
-              className="flex-grow"
+              className="grow"
               tooltip={item.tooltip}
               isActive={isActive(item.url)}
             >
@@ -345,7 +345,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
                     </div>
                   )}
                   {item.badge && (
-                    <SidebarMenuBadge className="!bg-transparent group-data-[collapsible=icon]:hidden">
+                    <SidebarMenuBadge className="bg-transparent! group-data-[collapsible=icon]:hidden">
                       {item.badge}
                     </SidebarMenuBadge>
                   )}

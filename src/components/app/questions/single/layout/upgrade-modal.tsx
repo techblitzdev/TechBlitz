@@ -43,7 +43,7 @@ export default function UpgradeModal() {
         <div className="grid md:grid-cols-2 gap-4 mb-6">
           {features.map((feature, index) => (
             <div key={index} className="flex items-center p-2 rounded-lg">
-              <CheckCircle className="size-5 text-green-400 mr-3 flex-shrink-0" />
+              <CheckCircle className="size-5 text-green-400 mr-3 shrink-0" />
               <span>{feature}</span>
             </div>
           ))}

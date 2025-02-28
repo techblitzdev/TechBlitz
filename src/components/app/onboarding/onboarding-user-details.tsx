@@ -145,7 +145,7 @@ export default function OnboardingStepOne() {
     <>
       <CardHeader className="space-y-1">
         <motion.h1
-          className="text-3xl font-medium bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent"
+          className="text-3xl font-medium bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent"
           variants={itemVariants}
         >
           Welcome!
@@ -419,7 +419,7 @@ export default function OnboardingStepOne() {
                         >
                           <SelectTrigger className="w-40 border border-black-50">
                             <SelectValue
-                              className="text-white placeholder:text-white [&:not(:placeholder-shown)]:text-white"
+                              className="text-white placeholder:text-white not-placeholder-shown:text-white"
                               placeholder="Select experience level"
                             />
                           </SelectTrigger>

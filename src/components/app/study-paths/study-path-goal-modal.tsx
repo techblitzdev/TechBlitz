@@ -27,11 +27,17 @@ interface StudyPathGoalModalProps {
   studyPath: StudyPath;
 }
 
-function CalendarComponent({ onClose }: { onClose: () => void }) {
+function CalendarComponent({
+  onClose,
+  recommendedCompletionDate,
+}: {
+  onClose: () => void;
+  recommendedCompletionDate: Date;
+}) {
   const today = new Date();
   const [date, setDate] = useState<DateRange | undefined>({
     from: today,
-    to: addDays(today, 7),
+    to: recommendedCompletionDate || addDays(today, 7),
   });
 
   return (
@@ -163,7 +169,10 @@ export default function StudyPathGoalModal({ user, studyPath }: StudyPathGoalMod
             </DialogDescription>
           </motion.div>
         </DialogHeader>
-        <CalendarComponent onClose={() => setOpen(false)} />
+        <CalendarComponent
+          onClose={() => setOpen(false)}
+          recommendedCompletionDate={recommendedCompletionDate}
+        />
       </DialogContent>
     </Dialog>
   );

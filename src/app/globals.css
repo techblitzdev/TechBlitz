@@ -132,6 +132,15 @@ html {
   }
 }
 
+/** calendar css */
+.rdp-nav_button_next {
+  @apply !left-[90%] relative [&>svg]:!w-3 [&>svg]:!h-3;
+}
+
+.rdp-nav_button_previous {
+  @apply left-[4%] relative [&>svg]:!w-3 [&>svg]:!h-3;
+}
+
 /* Basic editor styles */
 .tiptap {
   :first-child {

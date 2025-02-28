@@ -35,7 +35,7 @@ export default function Layout({
         <body
           className={`${InterFont.variable} ${SatoshiFont.variable} ${UbuntuFont.variable} ${OnestFont.variable} overflow-x-hidden antialiased`}
         >
-          <main>
+          <main className="bg-[#000000]">
             <StarsBackground className="-z-10" />
             <CSPostHogProvider>
               <MantineProvider>

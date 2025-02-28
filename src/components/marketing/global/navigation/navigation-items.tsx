@@ -57,12 +57,6 @@ const components: { title: string; href: string; description: string; icon?: Rea
   },
 ];
 
-const LeaderboardIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-    <path fill="currentColor" d="M2 21V9h5.5v12zm7.25 0V3h5.5v18zm7.25 0V11H22v10z" />
-  </svg>
-);
-
 const features = [
   {
     title: 'Roadmaps',

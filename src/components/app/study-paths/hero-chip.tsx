@@ -5,7 +5,7 @@ import type { StudyPath } from '@prisma/client';
 
 export default function HeroChip({ studyPath }: { studyPath: StudyPath }) {
   return (
-    <div className="text-xs text-white py-1 rounded-full w-fit flex items-center gap-x-3 z-20">
+    <div className="text-xs text-white py-1 rounded-full w-fit flex items-center gap-1 lg:gap-x-3 z-20">
       <TooltipProvider>
         <Tooltip delayDuration={0}>
           <TooltipTrigger asChild>
@@ -19,7 +19,7 @@ export default function HeroChip({ studyPath }: { studyPath: StudyPath }) {
         </Tooltip>
       </TooltipProvider>
       <div className="flex items-center gap-x-1">
-        <Sparkles className="size-3 text-yellow-400 fill-yellow-500" />
+        <Sparkles className="hidden md:block flex-shrink-0 size-3 text-yellow-400 fill-yellow-500" />
         {studyPath?.heroChip}
       </div>
     </div>

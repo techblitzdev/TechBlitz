@@ -61,6 +61,7 @@
     "@types/canvas-confetti": "^1.9.0",
     "@types/mdx": "^2.0.13",
     "@vercel/analytics": "^1.4.1",
+    "ai": "4.1.47",
     "bad-words": "^4.0.0",
     "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.0",

@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Textarea } from '@/components/ui/textarea';
 import { Question } from '@/types/Questions';
-import { StarsIcon, Send, Infinity } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Send, Infinity } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { Tooltip, TooltipTrigger, TooltipProvider, TooltipContent } from '@/components/ui/tooltip';
 import Link from 'next/link';
 import { UserRecord } from '@/types/User';
@@ -216,7 +216,10 @@ export default function AiQuestionHelp(opts: {
                   {user?.userLevel === 'LIFETIME' ? (
                     `${tokensUsed} tokens remaining`
                   ) : (
-                    <Infinity className="size-4" />
+                    <div className="flex items-center gap-x-1">
+                      <Infinity className="size-4" />
+                      <span className="text-xs text-gray-400">tokens remaining</span>
+                    </div>
                   )}
                 </>
               ) : (
@@ -240,7 +243,7 @@ export default function AiQuestionHelp(opts: {
 
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center flex-grow gap-4 mb-4">
-            <p className="text-center text-sm text-gray-400">
+            <p className="text-center text-sm text-gray-400 font-onest">
               Ask me anything about this question!
             </p>
             {!userIsPremium(user) && (

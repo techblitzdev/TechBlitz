@@ -13,6 +13,7 @@ import { useSearchParams } from 'next/navigation';
 import { executeQuestionCode } from '@/actions/questions/execute';
 import { useStudyPath } from '@/hooks/use-study-path';
 import { StudyPath } from '@prisma/client';
+import { readStreamableValue } from 'ai/rsc';
 
 interface TestRunResult {
   passed: boolean;
@@ -289,6 +290,7 @@ export const QuestionSingleContextProvider = ({
     if (setCodeSnippetLayout) {
       setCurrentLayout('codeSnippet');
     }
+
     const { content, tokensUsed } = await generateAnswerHelp(
       question.uid,
       question.questionType === 'CODING_CHALLENGE'
@@ -303,7 +305,13 @@ export const QuestionSingleContextProvider = ({
     }
 
     setTokensUsed(tokensUsed);
-    setAnswerHelp(content);
+
+    // @ts-ignore
+    for await (const partialObject of readStreamableValue(content)) {
+      if (partialObject) {
+        setAnswerHelp(partialObject);
+      }
+    }
   };
 
   // Test run the code

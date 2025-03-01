@@ -7,7 +7,7 @@ import { checkUserTokens, deductUserTokens } from '../utils/user-tokens';
 import type { Question } from '@/types/Questions';
 import type { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
 
-//
+// ai
 import { streamObject } from 'ai';
 import { openai } from '@ai-sdk/openai';
 import { createStreamableValue } from 'ai/rsc';

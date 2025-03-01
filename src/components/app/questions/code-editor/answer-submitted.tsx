@@ -41,7 +41,7 @@ export default function CodeEditorQuestionSubmitted() {
   const [isPending, setTransition] = useTransition();
 
   // resolve the related q's here - only if they are not null
-  const relatedQuestionData = relatedQuestions ? use(relatedQuestions) : [];
+  const relatedQuestionData = relatedQuestions ? use(relatedQuestions).slice(0, 3) : [];
 
   const copyLink = () => {
     navigator.clipboard.writeText(window.location.href);

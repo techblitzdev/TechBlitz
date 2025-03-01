@@ -1,6 +1,5 @@
 'use server';
 // lib
-import { openai } from '@/lib/open-ai';
 import { prisma } from '@/lib/prisma';
 import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
 
@@ -15,6 +14,21 @@ import type { UserRecord } from '@/types/User';
 import type { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
 import type { Question } from '@/types/Questions';
 
+// ai
+import { streamObject } from 'ai';
+import { openai } from '@ai-sdk/openai';
+import { createStreamableValue } from 'ai/rsc';
+import { streamResponse } from '../reports/utils/stream-response';
+
+/**
+ * Method to generate answer help for both regular and roadmap questions.
+ * It will return the code snippet, but fully explained with comments and explanations.
+ *
+ * @param userCorrect - Whether the user answered correctly - helps us to generate a better explanation
+ * @param user - The user to generate help for
+ * @param question - The question to generate help for
+ * @returns
+ */
 const answerHelp = async (
   userCorrect: boolean,
   user: UserRecord,
@@ -32,10 +46,9 @@ const answerHelp = async (
     name: 'question-answer-help',
   });
 
-  const answerHelp = await openai.chat.completions.create({
-    model: 'gpt-4o-mini-2024-07-18',
-    temperature: 0,
-    messages: [
+  const stream = await streamResponse(
+    openai('gpt-4o-mini-2024-07-18'),
+    [
       {
         role: 'system',
         content: answerHelpPrompt['question-answer-help'].content,
@@ -64,14 +77,10 @@ const answerHelp = async (
         content: question.codeSnippet || '',
       },
     ],
-    response_format: zodResponseFormat(answerHelpSchema, 'event'),
-  });
+    answerHelpSchema
+  );
 
-  if (!answerHelp.choices[0]?.message?.content) {
-    throw new Error('AI response is missing content');
-  }
-
-  return JSON.parse(answerHelp.choices[0].message.content);
+  return stream.object;
 };
 
 /**

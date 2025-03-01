@@ -19,6 +19,7 @@ import { getUpgradeUrl } from '@/utils';
 import { readStreamableValue } from 'ai/rsc';
 
 import { userIsPremium } from '@/utils/user';
+import ChatBot from '@/components/ui/icons/chat-bot';
 
 // the maximum amount of time we allow the AI to generate a response
 export const maxDuration = 30;
@@ -56,6 +57,13 @@ export default function AiQuestionHelp(opts: {
     questionType === 'roadmap'
       ? `/login?redirectUrl=dashboard`
       : `/login?redirectUrl=question/${(question as Question).slug}`;
+
+  const textAreaPlaceholder =
+    user?.userLevel === 'FREE'
+      ? 'Upgrade to premium to use AI assistance'
+      : messages.length === 0
+        ? 'Ask for help with this question...'
+        : 'Ask a follow up question...';
 
   // prepare message context for AI
   const getMessageContext = (): string => {
@@ -169,11 +177,18 @@ export default function AiQuestionHelp(opts: {
     setMessages([]);
   };
 
+  const handleQuickPrompt = (prompt: string) => {
+    setCurrentMessage(prompt);
+    if (userIsPremium(user)) {
+      setTimeout(() => handleSendMessage(), 100);
+    }
+  };
+
   return (
     <Popover onOpenChange={(open) => open && setIsExpanded(true)}>
       <PopoverTrigger>
         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-          <StarsIcon className="size-4 text-yellow-400 fill-yellow-500" />
+          <ChatBot className="size-4" />
         </motion.div>
       </PopoverTrigger>
       <PopoverContent
@@ -181,7 +196,10 @@ export default function AiQuestionHelp(opts: {
         align="end"
       >
         <div className="flex items-center justify-between border-b border-black-50 pb-2 mb-2">
-          <h5 className="text-lg font-semibold">AI Assistant</h5>
+          <div className="flex items-center gap-2">
+            <ChatBot className="size-6" />
+            <h5 className="text-lg font-semibold">AI Assistant</h5>
+          </div>
           <div className="flex items-center space-x-2">
             <p className="text-xs text-gray-400">
               {userIsPremium(user) ? (
@@ -318,6 +336,38 @@ export default function AiQuestionHelp(opts: {
                   </Tooltip>
                 </TooltipProvider>
               </div>
+
+              {/* Quick prompts */}
+              <div className="flex flex-wrap gap-2 mt-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-xs py-1 px-2 h-auto bg-black hover:bg-black-50"
+                  onClick={() => handleQuickPrompt("I don't understand this question")}
+                  disabled={isPending || !userIsPremium(user)}
+                >
+                  I don't understand this question
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-xs py-1 px-2 h-auto bg-black hover:bg-black-50"
+                  onClick={() => handleQuickPrompt('Can you explain this in simpler terms?')}
+                  disabled={isPending || !userIsPremium(user)}
+                >
+                  Explain in simpler terms
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-xs py-1 px-2 h-auto bg-black hover:bg-black-50"
+                  onClick={() => handleQuickPrompt('What approach should I take?')}
+                  disabled={isPending || !userIsPremium(user)}
+                >
+                  What approach should I take?
+                </Button>
+              </div>
+
               {isPending && (
                 <p className="text-xs text-gray-400 mt-1">Processing your request...</p>
               )}

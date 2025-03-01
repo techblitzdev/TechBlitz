@@ -6,11 +6,9 @@ import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
 // helpers
 import { getPrompt } from '../utils/get-prompt';
 import { getUser } from '@/actions/user/authed/get-user';
-import { zodResponseFormat } from 'openai/helpers/zod.mjs';
 import { checkUserTokens, deductUserTokens } from '../utils/user-tokens';
 
 // types
-import type { UserRecord } from '@/types/User';
 import type { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
 import type { Question } from '@/types/Questions';
 

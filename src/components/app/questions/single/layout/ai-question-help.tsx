@@ -44,7 +44,6 @@ export default function AiQuestionHelp(opts: {
   const [messages, setMessages] = useState<Message[]>([]);
   const [currentMessage, setCurrentMessage] = useState<string>('');
   const [tokensUsed, setTokensUsed] = useState(0);
-  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     if (user?.aiQuestionHelpTokens !== undefined) {
@@ -194,7 +193,7 @@ export default function AiQuestionHelp(opts: {
   };
 
   return (
-    <Popover onOpenChange={(open) => open && setIsExpanded(true)}>
+    <Popover>
       <PopoverTrigger>
         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
           <ChatBot className="size-4" />

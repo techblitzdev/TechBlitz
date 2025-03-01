@@ -110,7 +110,7 @@ export const RoadmapQuestionContextProvider = ({
 
       // we don't need to check if the user has enough tokens because the user is on a roadmap
       // and they have unlimited tokens
-      const { tokensUsed: newTokensUsed, object } = await generateAnswerHelp(
+      const { object } = await generateAnswerHelp(
         roadmapQuestion.uid,
         userAnswer?.correct || false,
         'roadmap'

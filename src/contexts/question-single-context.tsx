@@ -7,8 +7,6 @@ import { Question, QuestionWithoutAnswers } from '@/types/Questions';
 import { UserRecord } from '@/types/User';
 import { Answer } from '@/types/Answers';
 import { generateAnswerHelp } from '@/actions/ai/questions/answer-help';
-import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
-import { z } from 'zod';
 import { useSearchParams } from 'next/navigation';
 import { executeQuestionCode } from '@/actions/questions/execute';
 import { useStudyPath } from '@/hooks/use-study-path';

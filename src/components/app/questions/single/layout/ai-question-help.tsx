@@ -314,7 +314,7 @@ export default function AiQuestionHelp(opts: {
             <>
               <div className="flex items-end gap-2">
                 <Textarea
-                  placeholder="Ask for help with this question..."
+                  placeholder={textAreaPlaceholder}
                   className="min-h-10 h-10 text-white border border-black-50 resize-none"
                   value={currentMessage}
                   onChange={(e) => setCurrentMessage(e.target.value)}

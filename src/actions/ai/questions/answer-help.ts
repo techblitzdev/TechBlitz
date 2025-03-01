@@ -18,70 +18,6 @@ import type { Question } from '@/types/Questions';
 import { streamObject } from 'ai';
 import { openai } from '@ai-sdk/openai';
 import { createStreamableValue } from 'ai/rsc';
-import { streamResponse } from '../reports/utils/stream-response';
-
-/**
- * Method to generate answer help for both regular and roadmap questions.
- * It will return the code snippet, but fully explained with comments and explanations.
- *
- * @param userCorrect - Whether the user answered correctly - helps us to generate a better explanation
- * @param user - The user to generate help for
- * @param question - The question to generate help for
- * @returns
- */
-const answerHelp = async (
-  userCorrect: boolean,
-  user: UserRecord,
-  question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions
-) => {
-  const hasTokens = await checkUserTokens(user);
-  if (!hasTokens) {
-    return {
-      content: null,
-      tokensUsed: 0,
-    };
-  }
-
-  const answerHelpPrompt = await getPrompt({
-    name: 'question-answer-help',
-  });
-
-  const stream = await streamResponse(
-    openai('gpt-4o-mini-2024-07-18'),
-    [
-      {
-        role: 'system',
-        content: answerHelpPrompt['question-answer-help'].content,
-      },
-      {
-        role: 'system',
-        content:
-          'The user answered correctly: ' +
-          (userCorrect ? 'true' : 'false') +
-          '. This is the reason as to why the user is asking for help: ' +
-          (userCorrect
-            ? 'The user answered correctly'
-            : 'The user answered incorrectly, provide a more detailed explanation'),
-      },
-      {
-        role: 'system',
-        content:
-          'The user has provided the following information about themselves, tailor your answer to this information:',
-      },
-      {
-        role: 'user',
-        content: user?.aboutMeAiHelp || '',
-      },
-      {
-        role: 'user',
-        content: question.codeSnippet || '',
-      },
-    ],
-    answerHelpSchema
-  );
-
-  return stream.object;
-};
 
 /**
  * Method to generate answer help for both regular and roadmap questions.
@@ -157,11 +93,67 @@ export const generateAnswerHelp = async (
     return {
       content: null,
       tokensUsed: 0,
+      object: null,
     };
   }
 
   // Generate the answer help
-  const formattedData = await answerHelp(userCorrect, user, question);
+  const answerHelpPrompt = await getPrompt({
+    name: 'question-answer-help',
+  });
+
+  const stream = createStreamableValue();
+
+  (async () => {
+    // generate the answer help
+    const { partialObjectStream } = streamObject({
+      model: openai('gpt-4o-mini-2024-07-18'),
+      temperature: 0.2,
+      messages: [
+        {
+          role: 'system',
+          content: answerHelpPrompt['question-answer-help'].content,
+        },
+        {
+          role: 'system',
+          content:
+            'The user answered correctly: ' +
+            (userCorrect ? 'true' : 'false') +
+            '. This is the reason as to why the user is asking for help: ' +
+            (userCorrect
+              ? 'The user answered correctly'
+              : 'The user answered incorrectly, provide a more detailed explanation'),
+        },
+        {
+          role: 'system',
+          content:
+            'The user has provided the following information about themselves, tailor your answer to this information:',
+        },
+        {
+          role: 'user',
+          content: user?.aboutMeAiHelp || '',
+        },
+        {
+          role: 'user',
+          content: question.codeSnippet || '',
+        },
+      ],
+      schema: answerHelpSchema,
+    });
+
+    try {
+      // loop through the streamed response and set the state
+      for await (const partialObject of partialObjectStream) {
+        stream.update(partialObject);
+      }
+
+      stream.done();
+    } catch (error) {
+      console.error('Error generating AI response:', error);
+      stream.update({ error: 'Failed to generate response. Please try again.' });
+      stream.done();
+    }
+  })();
 
   // Handle token decrement for regular questions
   if (questionType === 'regular') {
@@ -170,18 +162,21 @@ export const generateAnswerHelp = async (
       return {
         content: null,
         tokensUsed: 0,
+        object: null,
       };
     }
 
     return {
-      content: formattedData,
+      content: null,
       tokensUsed: user.aiQuestionHelpTokens ? user.aiQuestionHelpTokens - 1 : 0,
+      object: stream.value,
     };
   }
 
   // For roadmap questions or premium users, return infinite tokens
   return {
-    content: formattedData,
+    content: null,
     tokensUsed: Number.POSITIVE_INFINITY,
+    object: stream.value,
   };
 };

@@ -12,7 +12,11 @@ export default function Hero(opts: {
 
   return (
     <section className="w-full pt-14 pb-8 group relative">
-      <div className={cn('flex flex-col gap-y-3 z-10', container ? 'md:container' : '')}>
+      <div
+        className={cn('flex flex-col gap-y-3 z-10', {
+          'md:container': container,
+        })}
+      >
         {chip}
         {typeof heading === 'string' ? (
           <h1 className="relative z-20 text-3xl md:text-5xl text-wrap text-start font-onest max-w-2xl text-gradient from-white to-white/55 py-1">

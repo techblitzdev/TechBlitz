@@ -7,7 +7,7 @@ export default function RootProvider({ children }: { children: React.ReactNode }
 
   return (
     <main
-      className={cn('w-full transition-[width] duration-200 ease-in-out', 'py-2 lg:pb-3', {
+      className={cn('w-full transition-[width] duration-200 ease-in-out', {
         'lg:w-[calc(100%-15rem)]': state === 'expanded',
         'lg:w-[calc(100%-3rem)]': state === 'collapsed',
       })}

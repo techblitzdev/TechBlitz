@@ -129,8 +129,8 @@ export default async function ExploreQuestionsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="flex flex-col gap-y-12 max-w-7xl mx-auto">
-        <Hero heading="Coding Roadmaps" subheading={heroDescription} container={true} />
-        <div className="lg:container flex flex-col lg:flex-row mt-5 gap-16">
+        <Hero heading="Coding Roadmaps" subheading={heroDescription} container={false} />
+        <div className="flex flex-col lg:flex-row mt-5 gap-16">
           <div className="w-full lg:w-[70%] flex flex-col gap-12">
             {Object.entries(studyPathsByCategory).map(([category, paths]) => (
               <div key={category} className="space-y-6">

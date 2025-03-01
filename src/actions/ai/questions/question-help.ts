@@ -14,12 +14,18 @@ import { openai } from '@ai-sdk/openai';
 import { stderr } from 'node:process';
 import { createStreamableValue } from 'ai/rsc';
 
+// Define the message interface
+interface ChatMessage {
+  role: 'user' | 'system' | 'assistant';
+  content: string;
+}
+
 /**
  * Method to generate question help for both regular and roadmap questions.
  *
  * @param questionUid - The uid of the question to generate help for.
  * @param userContent - The user's content to generate help for.
- * @param isRoadmapQuestion - Whether this is a roadmap question or not
+ * @param questionType - Whether this is a roadmap question or not
  * @returns
  */
 export const generateQuestionHelp = async (
@@ -32,7 +38,9 @@ export const generateQuestionHelp = async (
   // get the current user requesting help
   const user = await getUser();
   if (!user) {
+    console.error('User not found');
     return {
+      object: 'User not found',
       content: null,
       tokensUsed: 0,
     };
@@ -42,7 +50,9 @@ export const generateQuestionHelp = async (
   if (questionType === 'regular') {
     const hasTokens = await checkUserTokens(user);
     if (!hasTokens) {
+      console.error('User does not have enough tokens');
       return {
+        object: 'User does not have enough tokens',
         content: null,
         tokensUsed: 0,
       };
@@ -82,7 +92,9 @@ export const generateQuestionHelp = async (
 
   // if no question, return error
   if (!question) {
+    console.error('No question found');
     return {
+      object: 'No question found',
       content: null,
       tokensUsed: 0,
     };
@@ -100,6 +112,7 @@ export const generateQuestionHelp = async (
     const deducted = await deductUserTokens(user);
     if (!deducted) {
       return {
+        object: 'Cannot deduct tokens',
         content: null,
         tokensUsed: 0,
       };
@@ -109,47 +122,81 @@ export const generateQuestionHelp = async (
   // create a streamable value
   const stream = createStreamableValue();
 
-  (async () => {
-    // generate the question help
-    const { partialObjectStream } = streamObject({
-      model: openai('gpt-4o-mini-2024-07-18'),
-      temperature: 0.3,
-      messages: [
-        {
-          role: 'system',
-          content: prompts['ai-question-generation-help'].content,
-        },
-        {
-          role: 'user',
-          content: question.question,
-        },
-        {
-          role: 'system',
-          content: 'This is the reason as to why the user is asking for help: ',
-        },
-        {
-          role: 'system',
-          content:
-            'The user has provided the following information about themselves, tailor your answer to this information:',
-        },
-        {
-          role: 'user',
-          content: user?.aboutMeAiHelp || '',
-        },
-        {
-          role: 'user',
-          content: userContent || '',
-        },
-      ],
-      schema: questionHelpSchema,
-    });
+  // Check if userContent contains conversation history
+  const hasConversationHistory = userContent?.includes('Previous conversation:');
 
-    for await (const partialObject of partialObjectStream) {
-      stream.update(partialObject);
+  // Extract current question if conversation history is present
+  let currentQuestion = userContent;
+  if (hasConversationHistory && userContent) {
+    const parts = userContent.split('Current question:');
+    if (parts.length > 1) {
+      currentQuestion = parts[1].trim();
+    }
+  }
+
+  (async () => {
+    // Build messages array for OpenAI
+    const messages: ChatMessage[] = [
+      {
+        role: 'system',
+        content:
+          prompts['ai-question-generation-help'].content +
+          '\nThis is a chat interface, so maintain a conversational tone. ' +
+          'Focus on being helpful, direct, and concise.',
+      },
+    ];
+
+    // Add question context if this appears to be the first message
+    if (!hasConversationHistory) {
+      messages.push(
+        {
+          role: 'system',
+          content: 'A user has asked for help with the following question:',
+        },
+        {
+          role: 'system',
+          content: question.codeSnippet || '',
+        }
+      );
     }
 
-    stream.done();
+    // Add the user's message
+    if (hasConversationHistory && userContent) {
+      // For subsequent messages, the client is sending conversation history + new question
+      messages.push({
+        role: 'user',
+        content: currentQuestion,
+      });
+    } else {
+      // First message - just add the user content directly
+      messages.push({
+        role: 'user',
+        content: userContent || '',
+      });
+    }
+
+    try {
+      // generate the question help
+      const { partialObjectStream } = streamObject({
+        model: openai('gpt-4o-mini-2024-07-18'),
+        temperature: 0.2,
+        messages,
+        schema: questionHelpSchema,
+      });
+
+      // loop through the streamed response and set the state
+      for await (const partialObject of partialObjectStream) {
+        stream.update(partialObject);
+      }
+
+      // the stream has been completed
+      stream.done();
+    } catch (error) {
+      console.error('Error generating AI response:', error);
+      stream.update({ error: 'Failed to generate response. Please try again.' });
+      stream.done();
+    }
   })();
 
-  return { object: stream.value };
+  return { object: stream };
 };

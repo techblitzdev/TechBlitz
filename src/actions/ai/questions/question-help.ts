@@ -165,7 +165,7 @@ export const generateQuestionHelp = async (
       // For subsequent messages, the client is sending conversation history + new question
       messages.push({
         role: 'user',
-        content: currentQuestion,
+        content: currentQuestion || '',
       });
     } else {
       // First message - just add the user content directly

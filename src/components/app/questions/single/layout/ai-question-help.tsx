@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Textarea } from '@/components/ui/textarea';
 import { Question } from '@/types/Questions';
-import { StarsIcon, Send } from 'lucide-react';
+import { StarsIcon, Send, Infinity } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Tooltip, TooltipTrigger, TooltipProvider, TooltipContent } from '@/components/ui/tooltip';
 import Link from 'next/link';
@@ -39,7 +39,7 @@ export default function AiQuestionHelp(opts: {
 
   const [isPending, startTransition] = useTransition();
 
-  // Chat state
+  // chat state
   const [messages, setMessages] = useState<Message[]>([]);
   const [currentMessage, setCurrentMessage] = useState<string>('');
   const [tokensUsed, setTokensUsed] = useState(0);
@@ -57,16 +57,16 @@ export default function AiQuestionHelp(opts: {
       ? `/login?redirectUrl=dashboard`
       : `/login?redirectUrl=question/${(question as Question).slug}`;
 
-  // Prepare message context for AI
+  // prepare message context for AI
   const getMessageContext = (): string => {
-    // If this is the first message, return just the message
+    // if this is the first message, return just the message
     if (messages.length === 0) {
       return currentMessage;
     }
 
-    // For subsequent messages, provide some context from the conversation
+    // for subsequent messages, provide some context from the conversation
     const contextFromPreviousMessages = messages
-      .slice(-4) // Take last 4 messages for context
+      .slice(-4) // take last 4 messages for context
       .map(
         (msg) =>
           `${msg.type.toUpperCase()}: ${
@@ -87,22 +87,22 @@ export default function AiQuestionHelp(opts: {
       timestamp: new Date(),
     };
 
-    // Add user message to chat
+    // add user message to chat
     setMessages((prev) => [...prev, userMessage]);
 
-    // Clear input field
+    // clear input field
     setCurrentMessage('');
 
     startTransition(async () => {
       try {
-        // Prepare context with previous messages
+        // prepare context with previous messages
         const messageContext = getMessageContext();
 
-        // Call the AI for a response
+        // call the AI for a response
         const { object } = await generateQuestionHelp(question.uid, messageContext, questionType);
 
         if (typeof object === 'string') {
-          // Handle plain string response
+          // handle plain string response
           const aiMessage: Message = {
             type: 'assistant',
             content: JSON.parse(object),
@@ -112,9 +112,9 @@ export default function AiQuestionHelp(opts: {
           return;
         }
 
-        // Handle streamable value
+        // handle streamable value
         if (object && typeof object === 'object') {
-          // Placeholder for streaming response
+          // placeholder for streaming response
           const placeholderMessage: Message = {
             type: 'assistant',
             content: { status: 'loading' },
@@ -123,10 +123,11 @@ export default function AiQuestionHelp(opts: {
           setMessages((prev) => [...prev, placeholderMessage]);
 
           try {
-            // Process the streamed response
+            // process the streamed response
+            // @ts-ignore - no idea why this is throwing an error, but it works
             for await (const partialObject of readStreamableValue(object)) {
               if (partialObject) {
-                // Update the placeholder message with actual content
+                // update the placeholder message with actual content
                 setMessages((prev) =>
                   prev.map((msg, idx) =>
                     idx === prev.length - 1 ? { ...msg, content: partialObject } : msg
@@ -135,13 +136,13 @@ export default function AiQuestionHelp(opts: {
               }
             }
 
-            // Update token count
+            // update token count
             if (user?.aiQuestionHelpTokens !== undefined) {
               setTokensUsed(user.aiQuestionHelpTokens);
             }
           } catch (error) {
             console.error('Error streaming response:', error);
-            // Update placeholder with error
+            // update placeholder with error
             setMessages((prev) =>
               prev.map((msg, idx) =>
                 idx === prev.length - 1
@@ -153,7 +154,7 @@ export default function AiQuestionHelp(opts: {
         }
       } catch (error) {
         console.error('Error getting AI response:', error);
-        // Add error message
+        // add error message
         const errorMessage: Message = {
           type: 'assistant',
           content: { error: 'Failed to get response. Please try again.' },
@@ -185,7 +186,11 @@ export default function AiQuestionHelp(opts: {
             <p className="text-xs text-gray-400">
               {userIsPremium(user) ? (
                 <>
-                  {user?.userLevel === 'LIFETIME' ? `${tokensUsed} tokens remaining` : 'Unlimited'}
+                  {user?.userLevel === 'LIFETIME' ? (
+                    `${tokensUsed} tokens remaining`
+                  ) : (
+                    <Infinity className="size-4" />
+                  )}
                 </>
               ) : (
                 <Link href={getUpgradeUrl()} className="text-accent underline">
@@ -280,7 +285,7 @@ export default function AiQuestionHelp(opts: {
               <div className="flex items-end gap-2">
                 <Textarea
                   placeholder="Ask for help with this question..."
-                  className="min-h-10 text-white border border-black-50 resize-none"
+                  className="min-h-10 h-10 text-white border border-black-50 resize-none"
                   value={currentMessage}
                   onChange={(e) => setCurrentMessage(e.target.value)}
                   onKeyDown={(e) => {

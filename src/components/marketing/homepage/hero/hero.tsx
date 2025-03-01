@@ -36,7 +36,7 @@ export default function HomepageHero() {
         <Link href="/pricing">
           <AnimatedSpan content={animatedSpanContent} />
         </Link>
-        <h1 className="mt-3 text-5xl lg:text-[68px] font-onest! font-medium! tracking-tight max-w-5xl py-1.5 items-center">
+        <h1 className="mt-3 text-5xl lg:text-[68px] font-onest! font-medium! tracking-tight leading-[64px] max-w-5xl py-1.5 items-center">
           <span className="tracking-tighter text-gradient from-white to-white/75">
             Learning to code <br />
           </span>

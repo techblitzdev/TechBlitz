@@ -4,16 +4,16 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { forwardRef } from 'react';
 
-export default function RouterBack({
-  children,
-  href,
-  className,
-}: {
-  children?: React.ReactNode;
-  href?: string;
-  className?: string;
-}) {
+const RouterBack = forwardRef<
+  HTMLButtonElement,
+  {
+    children?: React.ReactNode;
+    href?: string;
+    className?: string;
+  }
+>(({ children, href, className }) => {
   const router = useRouter();
 
   return (
@@ -30,4 +30,8 @@ export default function RouterBack({
       )}
     </Button>
   );
-}
+});
+
+RouterBack.displayName = 'RouterBack';
+
+export default RouterBack;

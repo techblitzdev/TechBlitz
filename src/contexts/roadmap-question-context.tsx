@@ -9,6 +9,7 @@ import { RoadmapUserQuestionsAnswers, RoadmapUserQuestionsUserAnswers } from '@p
 import { createContext, useState, useContext } from 'react';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import { readStreamableValue } from 'ai/rsc';
 
 type Layout = 'questions' | 'codeSnippet' | 'answer';
 type AnswerStatus = 'correct' | 'incorrect' | 'init';
@@ -97,23 +98,66 @@ export const RoadmapQuestionContextProvider = ({
       setCurrentLayout('codeSnippet');
     }
 
-    // we don't need to check if the user has enough tokens because the user is on a roadmap
-    // and they have unlimited tokens
-    const { content } = await generateAnswerHelp(
-      roadmapQuestion.uid,
-      userAnswer?.correct || false,
-      'roadmap'
-    );
+    try {
+      // Set a loading placeholder that matches the schema
+      setAnswerHelp({
+        'step-1': 'Loading...',
+        'step-2': 'Please wait while we generate your answer help.',
+        'step-3': 'This may take a few seconds.',
+        'step-4': "We're analyzing the question and preparing a helpful response.",
+        'step-5': 'Almost there...',
+      });
 
-    console.log('content', content);
+      // we don't need to check if the user has enough tokens because the user is on a roadmap
+      // and they have unlimited tokens
+      const { object } = await generateAnswerHelp(
+        roadmapQuestion.uid,
+        userAnswer?.correct || false,
+        'roadmap'
+      );
 
-    if (!content) {
+      if (!object) {
+        setAnswerHelp({
+          'step-1': 'Error generating answer help.',
+          'step-2': 'Failed to generate a response. Please try again.',
+          'step-3': '',
+          'step-4': '',
+          'step-5': '',
+        });
+        toast.error('Error generating answer help');
+        return;
+      }
+
+      try {
+        // Process the streamed response
+        // @ts-ignore - This is needed because the StreamableValue types don't match perfectly
+        for await (const partialObject of readStreamableValue(object)) {
+          if (partialObject) {
+            setAnswerHelp(partialObject);
+          }
+        }
+      } catch (error) {
+        console.error('Error streaming response:', error);
+        setAnswerHelp({
+          'step-1': 'Error processing the response.',
+          'step-2': 'There was an issue with the streaming response. Please try again.',
+          'step-3': '',
+          'step-4': '',
+          'step-5': '',
+        });
+        toast.error('Error processing the response');
+      }
+    } catch (error) {
+      console.error('Error generating answer help:', error);
+      setAnswerHelp({
+        'step-1': 'Error generating answer help.',
+        'step-2': 'There was a problem with your request. Please try again.',
+        'step-3': '',
+        'step-4': '',
+        'step-5': '',
+      });
       toast.error('Error generating answer help');
-      return;
     }
-
-    // set the answer help
-    setAnswerHelp(content);
   };
 
   const handleAnswerRoadmapQuestion = async (e: React.FormEvent<HTMLFormElement>) => {

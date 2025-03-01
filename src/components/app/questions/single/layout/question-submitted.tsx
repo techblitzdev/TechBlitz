@@ -158,8 +158,6 @@ export default function QuestionSubmitted() {
             </div>
           )}
         </div>
-        {/** you answered faster than 90% of users */}
-
         <div className="flex flex-col gap-y-2">
           {/** ai explain answer (on button click) */}
           <h2 className="text-xl font-bold">Explain this answer</h2>

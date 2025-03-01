@@ -55,19 +55,25 @@ export default function QuestionCodeDisplay({
 
   if (answerHelp) {
     return (
-      <AnimatePresence mode="wait" key={JSON.stringify(answerHelp)}>
+      <AnimatePresence mode="wait">
         <div className="flex flex-col gap-y-4 p-4">
           <h2 className="text-lg font-bold">Answer Help</h2>
-          {Object.entries(answerHelp).map(([key, value], index) => (
+          {Object.entries(answerHelp).map(([key, value], idx) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
+              key={idx}
+              className="mb-1"
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
+              transition={{ duration: 0.3 }}
             >
-              <h3 className="text-md font-bold underline">{capitalize(key.replace(/-/g, ' '))}</h3>
-              <p className="text-gray-200">{value.replace(/```/g, '')}</p>
+              {Object.keys(answerHelp).length > 1 && (
+                <h3 className="text-xs font-bold">{capitalize(key.replace(/-/g, ' '))}</h3>
+              )}
+              {typeof value === 'string' ? (
+                <p>{value.replace(/```/g, '')}</p>
+              ) : (
+                <pre className="text-xs overflow-x-auto">{JSON.stringify(value, null, 2)}</pre>
+              )}
             </motion.div>
           ))}
         </div>

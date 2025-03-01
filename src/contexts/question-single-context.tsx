@@ -7,12 +7,11 @@ import { Question, QuestionWithoutAnswers } from '@/types/Questions';
 import { UserRecord } from '@/types/User';
 import { Answer } from '@/types/Answers';
 import { generateAnswerHelp } from '@/actions/ai/questions/answer-help';
-import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
-import { z } from 'zod';
 import { useSearchParams } from 'next/navigation';
 import { executeQuestionCode } from '@/actions/questions/execute';
 import { useStudyPath } from '@/hooks/use-study-path';
 import { StudyPath } from '@prisma/client';
+import { readStreamableValue } from 'ai/rsc';
 
 interface TestRunResult {
   passed: boolean;
@@ -49,8 +48,8 @@ type QuestionSingleContextType = {
   prefilledCodeSnippet: string | null;
   relatedQuestions: Promise<QuestionWithoutAnswers[]> | null;
   generateAiAnswerHelp: (setCodeSnippetLayout?: boolean) => Promise<void>;
-  answerHelp: z.infer<typeof answerHelpSchema> | null;
-  setAnswerHelp: (answerHelp: z.infer<typeof answerHelpSchema> | null) => void;
+  answerHelp: string;
+  setAnswerHelp: (answerHelp: string) => void;
   tokensUsed: number;
   setTokensUsed: (tokensUsed: number) => void;
   validateCode: (e: React.FormEvent<HTMLFormElement>, totalSeconds: number) => Promise<void>;
@@ -129,7 +128,7 @@ export const QuestionSingleContextProvider = ({
   const [timeTaken, setTimeTaken] = useState<number>(0);
   const [customQuestion, setCustomQuestion] = useState(false);
   const [prefilledCodeSnippet, setPrefilledCodeSnippet] = useState<string | null>(null);
-  const [answerHelp, setAnswerHelp] = useState<z.infer<typeof answerHelpSchema> | null>(null);
+  const [answerHelp, setAnswerHelp] = useState<string>('');
   const [tokensUsed, setTokensUsed] = useState<number>(
     user?.userLevel === 'PREMIUM' ? Infinity : user?.aiQuestionHelpTokens || 0
   );
@@ -281,7 +280,7 @@ export const QuestionSingleContextProvider = ({
     }
 
     setIsSubmitting(false);
-    setCurrentLayout('answer'); // Switch to the answer layout
+    setCurrentLayout('answer'); // switch to the answer layout
   };
 
   // Generate AI-based answer help
@@ -289,21 +288,50 @@ export const QuestionSingleContextProvider = ({
     if (setCodeSnippetLayout) {
       setCurrentLayout('codeSnippet');
     }
-    const { content, tokensUsed } = await generateAnswerHelp(
-      question.uid,
-      question.questionType === 'CODING_CHALLENGE'
-        ? result?.passed || false
-        : correctAnswer === 'correct',
-      'regular'
-    );
 
-    if (!content) {
+    try {
+      // Set a loading placeholder
+      setAnswerHelp(JSON.stringify({ status: 'loading', message: 'Generating answer help...' }));
+
+      const { tokensUsed: newTokensUsed, object } = await generateAnswerHelp(
+        question.uid,
+        question.questionType === 'CODING_CHALLENGE'
+          ? result?.passed || false
+          : correctAnswer === 'correct',
+        'regular'
+      );
+
+      if (!object) {
+        setAnswerHelp(
+          JSON.stringify({ error: 'Failed to generate answer help. Please try again.' })
+        );
+        toast.error('Error generating answer help');
+        return;
+      }
+
+      // Update token count
+      setTokensUsed(newTokensUsed);
+
+      try {
+        // Process the streamed response
+        // @ts-ignore - This is needed because the StreamableValue types don't match perfectly
+        for await (const partialObject of readStreamableValue(object)) {
+          if (partialObject) {
+            setAnswerHelp(JSON.stringify(partialObject, null, 2));
+          }
+        }
+      } catch (error) {
+        console.error('Error streaming response:', error);
+        setAnswerHelp(
+          JSON.stringify({ error: 'Error processing the response. Please try again.' })
+        );
+        toast.error('Error processing the response');
+      }
+    } catch (error) {
+      console.error('Error generating answer help:', error);
+      setAnswerHelp(JSON.stringify({ error: 'Failed to generate answer help. Please try again.' }));
       toast.error('Error generating answer help');
-      return;
     }
-
-    setTokensUsed(tokensUsed);
-    setAnswerHelp(content);
   };
 
   // Test run the code
@@ -352,7 +380,7 @@ export const QuestionSingleContextProvider = ({
     setTimeTaken(0);
     setPrefilledCodeSnippet(null);
     setCurrentLayout('questions');
-    setAnswerHelp(null);
+    setAnswerHelp('');
     setTotalSeconds(0);
     setCode(originalCode);
     setResult(null);

@@ -38,8 +38,8 @@ export const deductUserTokens = async (user: UserRecord) => {
   }
 
   // admins do not get tokens deducted
-  if (user.userLevel === 'ADMIN') {
-    return;
+  if (user.userLevel === 'ADMIN' || user.userLevel === 'PREMIUM') {
+    return true;
   }
 
   // if lifetime, deduct the tokens used

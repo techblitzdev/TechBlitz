@@ -15,33 +15,32 @@ import { capitalize } from 'lodash';
 import { RoadmapUserQuestions } from '@/types/Roadmap';
 import { DefaultRoadmapQuestions } from '@prisma/client';
 import { getUpgradeUrl } from '@/utils';
+
+import { readStreamableValue } from 'ai/rsc';
+
 import { userIsPremium } from '@/utils/user';
+
+// the maximum amount of time we allow the AI to generate a response
+export const maxDuration = 30;
 
 export default function AiQuestionHelp(opts: {
   question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions;
   user: UserRecord | null;
-  questionType: 'roadmap' | 'regular' | 'onboarding';
+  questionType: 'roadmap' | 'regular';
 }) {
   const { question, user, questionType } = opts;
-  const [aiHelp, setAiHelp] = useState<string | null>(null);
+  // the user's content
+  const [userContent, setUserContent] = useState<string>('');
+  // this is the response from the ai
+  const [generation, setGeneration] = useState<string>('');
+  // this is the number of tokens used
   const [tokensUsed, setTokensUsed] = useState(0);
+  // this is the loading state
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setTokensUsed(user?.aiQuestionHelpTokens || 0);
   }, [user]);
-
-  const handleSubmit = async (formData: FormData) => {
-    setIsLoading(true);
-    const userContent = formData.get('userContent') as string;
-    const questionHelp = await generateQuestionHelp(question.uid, userContent, questionType);
-
-    if (questionHelp) {
-      setAiHelp(questionHelp.content);
-      setTokensUsed(questionHelp.tokensUsed);
-    }
-    setIsLoading(false);
-  };
 
   // TODO: TEMP FIX
   const loginHref =
@@ -58,12 +57,12 @@ export default function AiQuestionHelp(opts: {
       </PopoverTrigger>
       <PopoverContent
         className={`${
-          aiHelp ? 'w-72 lg:w-[500px]' : 'w-80'
+          generation ? 'w-72 lg:w-[500px]' : 'w-80'
         } bg-black-100 text-white border border-black-50`}
         align="end"
       >
         <AnimatePresence mode="wait">
-          {aiHelp ? (
+          {generation ? (
             <motion.div
               key="ai-help"
               initial={{ opacity: 0, y: 20 }}
@@ -79,7 +78,7 @@ export default function AiQuestionHelp(opts: {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
               >
-                {Object.entries(aiHelp).map(([key, value], index) => (
+                {Object.entries(generation).map(([key, value], index) => (
                   <div key={index}>
                     <h3 className="text-md font-bold underline">
                       {capitalize(key.replace(/-/g, ' '))}
@@ -94,21 +93,15 @@ export default function AiQuestionHelp(opts: {
                 transition={{ delay: 0.5 }}
               >
                 <p className="text-sm text-white">Tokens remaining: {tokensUsed}</p>
-                <Button onClick={() => setAiHelp(null)} variant="default" className="mt-2">
+                <Button onClick={() => setGeneration('')} variant="default" className="mt-2">
                   Ask Another Question
                 </Button>
               </motion.div>
             </motion.div>
           ) : (
-            <motion.form
+            <motion.div
               key="question-form"
-              action={handleSubmit}
               className="flex flex-col gap-y-2"
-              onSubmit={(e) => {
-                e.preventDefault();
-                const formData = new FormData(e.currentTarget);
-                handleSubmit(formData);
-              }}
               initial={{ opacity: 0, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 0 }}
@@ -121,7 +114,7 @@ export default function AiQuestionHelp(opts: {
                 {userIsPremium(user) ? (
                   <>
                     You have{' '}
-                    {user?.userLevel === 'LIFETIME' ? user?.aiQuestionHelpTokens : 'unlimited'}
+                    {user?.userLevel === 'LIFETIME' ? user?.aiQuestionHelpTokens : 'unlimited'}{' '}
                     tokens remaining
                   </>
                 ) : (
@@ -137,6 +130,7 @@ export default function AiQuestionHelp(opts: {
                 name="userContent"
                 placeholder="What specific part of this question would you like help with?"
                 className="mb-4 text-white border border-black-50"
+                onChange={(e) => setUserContent(e.target.value)}
               />
               {user ? (
                 <TooltipProvider>
@@ -147,9 +141,23 @@ export default function AiQuestionHelp(opts: {
                   >
                     <TooltipTrigger asChild>
                       <Button
-                        type="submit"
                         variant="secondary"
                         disabled={isLoading || user?.userLevel === 'FREE'}
+                        onClick={async () => {
+                          const { object } = await generateQuestionHelp(
+                            question.uid,
+                            userContent,
+                            questionType
+                          );
+
+                          for await (const partialObject of readStreamableValue(object)) {
+                            if (partialObject) {
+                              setGeneration(JSON.stringify(partialObject, null, 2));
+                            }
+                          }
+
+                          setTokensUsed(tokensUsed);
+                        }}
                       >
                         {isLoading ? 'Generating...' : 'Request AI Assistance'}
                       </Button>
@@ -164,7 +172,7 @@ export default function AiQuestionHelp(opts: {
                   Login to request AI assistance
                 </Button>
               )}
-            </motion.form>
+            </motion.div>
           )}
         </AnimatePresence>
       </PopoverContent>

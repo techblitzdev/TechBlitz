@@ -223,7 +223,7 @@ export default function QuestionResult({
           {/** roadmap users get unlimited tokens - no need to show token count */}
           {!isRoadmapQuestion && (
             <p className="text-sm text-white">
-              You have {user?.userLevel === 'PREMIUM' ? 'unlimited' : tokensUsed} tokens remaining{' '}
+              You have {user?.userLevel === 'PREMIUM' ? 'unlimited ' : tokensUsed} tokens remaining{' '}
               <br />
               {user?.userLevel === 'FREE' && (
                 <span className="text-xs text-gray-400">

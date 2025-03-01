@@ -1,5 +1,4 @@
 'use server';
-import { openai } from '@/lib/open-ai';
 import { prisma } from '@/lib/prisma';
 import { getPrompt } from '../utils/get-prompt';
 import { getUser } from '@/actions/user/authed/get-user';
@@ -8,6 +7,12 @@ import { zodResponseFormat } from 'openai/helpers/zod.mjs';
 import { checkUserTokens, deductUserTokens } from '../utils/user-tokens';
 import type { Question } from '@/types/Questions';
 import type { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
+
+//
+import { streamObject, streamText } from 'ai';
+import { openai } from '@ai-sdk/openai';
+import { stderr } from 'node:process';
+import { createStreamableValue } from 'ai/rsc';
 
 /**
  * Method to generate question help for both regular and roadmap questions.
@@ -20,8 +25,10 @@ import type { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Road
 export const generateQuestionHelp = async (
   questionUid: string,
   userContent?: string,
-  questionType: 'roadmap' | 'regular' | 'onboarding' = 'regular'
+  questionType: 'roadmap' | 'regular' = 'regular'
 ) => {
+  'use server';
+
   // get the current user requesting help
   const user = await getUser();
   if (!user) {
@@ -71,16 +78,6 @@ export const generateQuestionHelp = async (
         answers: true,
       },
     });
-  } else if (questionType === 'onboarding') {
-    // Get the onboarding question
-    question = await prisma.defaultRoadmapQuestions.findUnique({
-      where: {
-        uid: questionUid,
-      },
-      include: {
-        answers: true,
-      },
-    });
   }
 
   // if no question, return error
@@ -96,46 +93,8 @@ export const generateQuestionHelp = async (
     name: ['ai-question-generation-help'],
   });
 
-  // generate the question help
-  const questionHelp = await openai.chat.completions.create({
-    model: 'gpt-4o-mini-2024-07-18',
-    temperature: 0.3,
-    messages: [
-      {
-        role: 'system',
-        content: prompts['ai-question-generation-help'].content,
-      },
-      {
-        role: 'user',
-        content: question.question,
-      },
-      {
-        role: 'system',
-        content: 'This is the reason as to why the user is asking for help: ',
-      },
-      {
-        role: 'system',
-        content:
-          'The user has provided the following information about themselves, tailor your answer to this information:',
-      },
-      {
-        role: 'user',
-        content: user?.aboutMeAiHelp || '',
-      },
-      {
-        role: 'user',
-        content: userContent || '',
-      },
-    ],
-    response_format: zodResponseFormat(questionHelpSchema, 'event'),
-  });
-
-  if (!questionHelp.choices[0]?.message?.content) {
-    throw new Error('AI response is missing content');
-  }
-
-  const formattedData = JSON.parse(questionHelp.choices[0].message.content);
-
+  // Start the stream generation in the background
+  // This is important - we need to return the stream before it completes
   // Handle token decrement for regular questions
   if (questionType === 'regular') {
     const deducted = await deductUserTokens(user);
@@ -145,16 +104,52 @@ export const generateQuestionHelp = async (
         tokensUsed: 0,
       };
     }
-
-    return {
-      content: formattedData,
-      tokensUsed: user.aiQuestionHelpTokens ? user.aiQuestionHelpTokens - 1 : 0,
-    };
   }
 
-  // For roadmap questions or premium users, return infinite tokens
-  return {
-    content: formattedData,
-    tokensUsed: Number.POSITIVE_INFINITY,
-  };
+  // create a streamable value
+  const stream = createStreamableValue();
+
+  (async () => {
+    // generate the question help
+    const { partialObjectStream } = streamObject({
+      model: openai('gpt-4o-mini-2024-07-18'),
+      temperature: 0.3,
+      messages: [
+        {
+          role: 'system',
+          content: prompts['ai-question-generation-help'].content,
+        },
+        {
+          role: 'user',
+          content: question.question,
+        },
+        {
+          role: 'system',
+          content: 'This is the reason as to why the user is asking for help: ',
+        },
+        {
+          role: 'system',
+          content:
+            'The user has provided the following information about themselves, tailor your answer to this information:',
+        },
+        {
+          role: 'user',
+          content: user?.aboutMeAiHelp || '',
+        },
+        {
+          role: 'user',
+          content: userContent || '',
+        },
+      ],
+      schema: questionHelpSchema,
+    });
+
+    for await (const partialObject of partialObjectStream) {
+      stream.update(partialObject);
+    }
+
+    stream.done();
+  })();
+
+  return { object: stream.value };
 };

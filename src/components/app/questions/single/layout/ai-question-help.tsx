@@ -132,7 +132,8 @@ export default function AiQuestionHelp(opts: {
 
           try {
             // process the streamed response
-            // @ts-ignore - no idea why this is throwing an error, but it works
+            // Make sure we're working with a properly created StreamableValue object
+            // @ts-ignore - This is needed because the StreamableValue types don't match perfectly
             for await (const partialObject of readStreamableValue(object)) {
               if (partialObject) {
                 // update the placeholder message with actual content
@@ -154,7 +155,13 @@ export default function AiQuestionHelp(opts: {
             setMessages((prev) =>
               prev.map((msg, idx) =>
                 idx === prev.length - 1
-                  ? { ...msg, content: { error: 'Failed to get response' } }
+                  ? {
+                      ...msg,
+                      content: {
+                        error:
+                          'Sorry, I encountered an issue while processing your request. Please try again.',
+                      },
+                    }
                   : msg
               )
             );
@@ -165,7 +172,9 @@ export default function AiQuestionHelp(opts: {
         // add error message
         const errorMessage: Message = {
           type: 'assistant',
-          content: { error: 'Failed to get response. Please try again.' },
+          content: {
+            error: 'Sorry, I encountered an issue while processing your request. Please try again.',
+          },
           timestamp: new Date(),
         };
         setMessages((prev) => [...prev, errorMessage]);
@@ -192,7 +201,7 @@ export default function AiQuestionHelp(opts: {
         </motion.div>
       </PopoverTrigger>
       <PopoverContent
-        className={`w-80 lg:w-[450px] h-[500px] flex flex-col bg-black-100 text-white border border-black-50`}
+        className={`w-80 lg:w-[550px] h-[500px] flex flex-col bg-black-100 text-white border border-black-50`}
         align="end"
       >
         <div className="flex items-center justify-between border-b border-black-50 pb-2 mb-2">
@@ -256,7 +265,7 @@ export default function AiQuestionHelp(opts: {
                 className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[80%] rounded-lg p-2 ${
+                  className={`max-w-[80%] font-onest rounded-lg p-2 ${
                     message.type === 'user' ? 'bg-accent text-white' : 'bg-black-75 text-white'
                   }`}
                 >
@@ -297,7 +306,7 @@ export default function AiQuestionHelp(opts: {
         )}
 
         {/* Input area */}
-        <div className="mt-auto border-t border-black-50 pt-2">
+        <div className="mt-auto pt-2">
           {user ? (
             <>
               <div className="flex items-end gap-2">
@@ -340,29 +349,32 @@ export default function AiQuestionHelp(opts: {
               {/* Quick prompts */}
               <div className="flex flex-wrap gap-2 mt-2">
                 <Button
-                  variant="ghost"
+                  variant="default"
                   size="sm"
-                  className="text-xs py-1 px-2 h-auto bg-black hover:bg-black-50"
                   onClick={() => handleQuickPrompt("I don't understand this question")}
                   disabled={isPending || !userIsPremium(user)}
+                  rounded="lg"
+                  fontSize="xs"
                 >
                   I don't understand this question
                 </Button>
                 <Button
-                  variant="ghost"
+                  variant="default"
                   size="sm"
-                  className="text-xs py-1 px-2 h-auto bg-black hover:bg-black-50"
                   onClick={() => handleQuickPrompt('Can you explain this in simpler terms?')}
                   disabled={isPending || !userIsPremium(user)}
+                  rounded="lg"
+                  fontSize="xs"
                 >
                   Explain in simpler terms
                 </Button>
                 <Button
-                  variant="ghost"
+                  variant="default"
                   size="sm"
-                  className="text-xs py-1 px-2 h-auto bg-black hover:bg-black-50"
                   onClick={() => handleQuickPrompt('What approach should I take?')}
                   disabled={isPending || !userIsPremium(user)}
+                  rounded="lg"
+                  fontSize="xs"
                 >
                   What approach should I take?
                 </Button>

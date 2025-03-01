@@ -3,15 +3,13 @@ import { prisma } from '@/lib/prisma';
 import { getPrompt } from '../utils/get-prompt';
 import { getUser } from '@/actions/user/authed/get-user';
 import { questionHelpSchema } from '@/lib/zod/schemas/ai/question-help';
-import { zodResponseFormat } from 'openai/helpers/zod.mjs';
 import { checkUserTokens, deductUserTokens } from '../utils/user-tokens';
 import type { Question } from '@/types/Questions';
 import type { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
 
 //
-import { streamObject, streamText } from 'ai';
+import { streamObject } from 'ai';
 import { openai } from '@ai-sdk/openai';
-import { stderr } from 'node:process';
 import { createStreamableValue } from 'ai/rsc';
 
 // Define the message interface
@@ -26,12 +24,14 @@ interface ChatMessage {
  * @param questionUid - The uid of the question to generate help for.
  * @param userContent - The user's content to generate help for.
  * @param questionType - Whether this is a roadmap question or not
+ * @param previousMessages - Previous chat messages for context (optional)
  * @returns
  */
 export const generateQuestionHelp = async (
   questionUid: string,
   userContent?: string,
-  questionType: 'roadmap' | 'regular' = 'regular'
+  questionType: 'roadmap' | 'regular' = 'regular',
+  previousMessages: ChatMessage[] = []
 ) => {
   'use server';
 
@@ -122,68 +122,49 @@ export const generateQuestionHelp = async (
   // create a streamable value
   const stream = createStreamableValue();
 
-  // Check if userContent contains conversation history
-  const hasConversationHistory = userContent?.includes('Previous conversation:');
+  // Build the conversation history
+  const messages: ChatMessage[] = [
+    {
+      role: 'system',
+      content: prompts['ai-question-generation-help'].content,
+    },
+  ];
 
-  // Extract current question if conversation history is present
-  let currentQuestion = userContent;
-  if (hasConversationHistory && userContent) {
-    const parts = userContent.split('Current question:');
-    if (parts.length > 1) {
-      currentQuestion = parts[1].trim();
-    }
-  }
-
-  (async () => {
-    // Build messages array for OpenAI
-    const messages: ChatMessage[] = [
+  // If this is the first message, add the question context
+  if (previousMessages.length === 0) {
+    messages.push(
       {
         role: 'system',
-        content:
-          prompts['ai-question-generation-help'].content +
-          '\nThis is a chat interface, so maintain a conversational tone. ' +
-          'Focus on being helpful, direct, and concise.',
+        content: 'A user has asked for help with the following question:',
       },
-    ];
+      {
+        role: 'system',
+        content: question.codeSnippet || '',
+      }
+    );
+  }
 
-    // Add question context if this appears to be the first message
-    if (!hasConversationHistory) {
-      messages.push(
-        {
-          role: 'system',
-          content: 'A user has asked for help with the following question:',
-        },
-        {
-          role: 'system',
-          content: question.codeSnippet || '',
-        }
-      );
-    }
+  // Add previous conversation context if available
+  if (previousMessages.length > 0) {
+    messages.push(...previousMessages);
+  }
 
-    // Add the user's message
-    if (hasConversationHistory && userContent) {
-      // For subsequent messages, the client is sending conversation history + new question
-      messages.push({
-        role: 'user',
-        content: currentQuestion || '',
-      });
-    } else {
-      // First message - just add the user content directly
-      messages.push({
-        role: 'user',
-        content: userContent || '',
-      });
-    }
+  // Add the current user message
+  messages.push({
+    role: 'user',
+    content: userContent || '',
+  });
+
+  (async () => {
+    // generate the question help
+    const { partialObjectStream } = streamObject({
+      model: openai('gpt-4o-mini-2024-07-18'),
+      temperature: 0.2,
+      messages: messages,
+      schema: questionHelpSchema,
+    });
 
     try {
-      // generate the question help
-      const { partialObjectStream } = streamObject({
-        model: openai('gpt-4o-mini-2024-07-18'),
-        temperature: 0.2,
-        messages,
-        schema: questionHelpSchema,
-      });
-
       // loop through the streamed response and set the state
       for await (const partialObject of partialObjectStream) {
         stream.update(partialObject);
@@ -198,5 +179,5 @@ export const generateQuestionHelp = async (
     }
   })();
 
-  return { object: stream };
+  return { object: stream.value };
 };

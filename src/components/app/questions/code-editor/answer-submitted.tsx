@@ -41,7 +41,7 @@ export default function CodeEditorQuestionSubmitted() {
   const [isPending, setTransition] = useTransition();
 
   // resolve the related q's here - only if they are not null
-  const relatedQuestionData = relatedQuestions ? use(relatedQuestions) : [];
+  const relatedQuestionData = relatedQuestions ? use(relatedQuestions).slice(0, 3) : [];
 
   const copyLink = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -120,7 +120,7 @@ export default function CodeEditorQuestionSubmitted() {
       </motion.div>
       {/** if the next question slug is not null, show a button to go to the next question */}
       {nextQuestion && (
-        <div className="flex flex-col gap-y-2">
+        <div className="flex flex-col gap-y-2 bg-[#111111] border border-black-50 p-4 rounded-lg">
           <h2 className="text-xl font-bold">Next Question</h2>
           <p className="text-sm text-gray-400">
             Want to continue the flow? Click the button below to go to the next question.
@@ -136,7 +136,7 @@ export default function CodeEditorQuestionSubmitted() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.5 }}
       >
-        <div className="flex flex-col gap-y-2">
+        <div className="flex flex-col gap-y-2 bg-[#111111] border border-black-50 p-4 rounded-lg">
           {/** ai explain answer (on button click) */}
           <h2 className="text-xl font-bold">Explain this answer</h2>
           <p className="text-sm text-gray-400">
@@ -183,7 +183,7 @@ export default function CodeEditorQuestionSubmitted() {
         </div>
 
         {/** how difficult was this question? */}
-        <div className="flex flex-col gap-y-2 mt-3">
+        <div className="flex flex-col gap-y-2 bg-[#111111] border border-black-50 p-4 rounded-lg">
           <h2 className="text-xl font-bold">How difficult was this question?</h2>
           <p className="text-sm text-gray-400">
             Rate this question based on how difficult it was to solve. This will help us improve the

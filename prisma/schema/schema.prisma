@@ -34,3 +34,68 @@ model AIPrompts {
   prompt    String
   name      String
 }
+
+model PseoPages {
+  uid       String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // the slug that will be used to access the page
+  slug      String   @unique
+
+  /** METADATA */
+  // the title of the page
+  metaTitle     String 
+  // the description of the page
+  metaDescription String
+  // the keywords of the page
+  metaKeywords   String[]
+  
+  /** SEO */
+  canonicalUrl   String?
+  ogImage        String?
+  
+  /** PAGE CONTENT */
+  // primary keywords being targeted
+  targetingKeywords String[]
+  // the title of the page
+  title            String
+  // hero section
+  heroHeader       String
+  heroSubheader    String
+  // feature sections
+  leftHeader       String
+  leftSubheader    String
+  learnMoreLink    Boolean @default(false)
+  leftCta          Json?
+  // roadmap section
+  roadmapTitle     String
+  roadmapDescription String
+  // question section
+  questionHeader   String
+  questionSubheader String
+  // content grid
+  contentGridTitle String
+  contentGridItems Json[]
+  // call to action
+  ctaTitle         String
+  ctaDescription   String
+  // main content sections
+  contentSections  Json[]
+  // FAQ section for the page
+  faqs             Json[]
+  // related topics/pages
+  marketingItems   Json[]
+  
+  // template configuration
+  templateId       String
+  templateConfig   Json?
+    
+  // author information
+  authorId         String?
+  authorName       String?
+  
+  // JSON-LD data
+  jsonLdTitle      String?
+  jsonLdDescription String?
+}

@@ -4,7 +4,7 @@ export interface MarketingContentGridProps {
   icon: React.ReactNode;
 }
 
-type MarketingContentGridComponentProps = {
+export type MarketingContentGridComponentProps = {
   title: string;
   subheading?: string;
   items: MarketingContentGridProps[];

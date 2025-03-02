@@ -31,7 +31,7 @@ export const Grid = ({
       className={`pointer-events-none absolute ${positionClasses[position]} 
       w-full h-full -mt-2 [mask-image:linear-gradient(white,transparent)]`}
     >
-      <div className="absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] from-zinc-900/30 to-zinc-900/30 opacity-100">
+      <div className="absolute inset-0 bg-linear-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] from-zinc-900/30 to-zinc-900/30 opacity-100">
         <GridPattern
           width={size ?? 20}
           height={size ?? 20}

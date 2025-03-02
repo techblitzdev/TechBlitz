@@ -29,9 +29,9 @@ export default async function UpgradePage({
   return (
     <div className="relative pt-5">
       <div className="w-full flex flex-col container z-50 relative items-center justify-center text-center">
-        <h1 className="text-gradient from-white to-white/75 text-3xl !font-onest tracking-tight py-1">
+        <h1 className="text-gradient from-white to-white/75 text-3xl font-onest! tracking-tight py-1">
           Unlock a{' '}
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/55">
+          <span className="bg-clip-text text-transparent bg-linear-to-r from-accent to-accent/55">
             personalized{' '}
           </span>{' '}
           learning experience

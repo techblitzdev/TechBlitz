@@ -5,7 +5,7 @@ export default function RoadmapGridItemTwo() {
     <div className="col-span-full md:col-span-6 pt-4 p-0 md:p-12 flex flex-col gap-10 relative">
       <div
         aria-hidden="true"
-        className="block md:hidden left-1/2 top-0 !w-full center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2"
+        className="block md:hidden left-1/2 top-0 w-full! center pointer-events-none absolute h-px max-w-full -translate-x-1/2 -translate-y-1/2"
         style={{
           background:
             'linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.0) 0%, rgba(143, 143, 143, 0.67) 50%, rgba(0, 0, 0, 0) 100%)',
@@ -22,7 +22,7 @@ export default function RoadmapGridItemTwo() {
       {/** bottom img */}
       <div className="relative">
         <RoadmapFeatureBox absolute={false} />
-        <div className="z-10 absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
+        <div className="z-10 absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-[#000] to-transparent pointer-events-none"></div>
       </div>
     </div>
   );

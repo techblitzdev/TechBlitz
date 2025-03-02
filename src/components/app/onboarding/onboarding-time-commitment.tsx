@@ -51,7 +51,7 @@ export default function OnboardingTimeCommitment() {
       <CardHeader>
         <div className="flex flex-col gap-y-2 mb-3">
           <motion.h1
-            className="text-2xl flex flex-col font-medium bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent"
+            className="text-2xl flex flex-col font-medium bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent"
             variants={itemVariants}
           >
             {user.username}, what's your daily coding goal?

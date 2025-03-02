@@ -83,7 +83,7 @@ export default async function ProgressBentoBox() {
           </p>
         </div>
         {user?.userLevel !== 'FREE' && user?.userLevel !== 'STANDARD' && (
-          <div className="items-center justify-center whitespace-nowrap rounded-md text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-accent text-white shadow-sm hover:bg-accent/90 h-9 px-4 py-2 inline-flex font-ubuntu font-medium">
+          <div className="items-center justify-center whitespace-nowrap rounded-md text-sm transition-colors focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-accent text-white shadow-xs hover:bg-accent/90 h-9 px-4 py-2 inline-flex font-ubuntu font-medium">
             View yours now <ArrowRight className="size-3 ml-1 group-hover:ml-2 duration-300" />
           </div>
         )}

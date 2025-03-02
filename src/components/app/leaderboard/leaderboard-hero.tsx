@@ -204,9 +204,9 @@ function PodiumBase({ position }: { position: number }) {
               {position === 1 ? 'st' : position === 2 ? 'nd' : 'rd'}
             </span>
           </div>
-          <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#000] to-transparent rotate-180 -top-px"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-linear-to-t from-[#000] to-transparent rotate-180 -top-px"></div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#000] to-transparent rotate-180 -top-px"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-linear-to-t from-[#000] to-transparent rotate-180 -top-px"></div>
       </div>
     </>
   );

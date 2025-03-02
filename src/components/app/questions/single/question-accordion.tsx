@@ -75,7 +75,7 @@ export default function QuestionAccordion(opts: {
                     className="w-full flex items-center justify-between duration-300 hover:underline gap-3"
                   >
                     <p className="line-clamp-1">{question.title || question.question}</p>
-                    <ArrowRight className="size-4 flex-shrink-0" />
+                    <ArrowRight className="size-4 shrink-0" />
                   </Link>
                 ))
               ) : (

@@ -15,7 +15,7 @@ export default function Card({
         {header}
       </div>
       <Separator className="bg-black-50" />
-      <div className="flex-grow overflow-auto">{children}</div>
+      <div className="grow overflow-auto">{children}</div>
       {footer && (
         <>
           <Separator className="bg-black-50" />

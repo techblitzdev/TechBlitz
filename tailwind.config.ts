@@ -1,56 +1,38 @@
 import type { Config } from 'tailwindcss';
-import fluid, { extract, screens, fontSize } from 'fluid-tailwind';
+import svgToDataUri from 'mini-svg-data-uri';
 
-const svgToDataUri = require('mini-svg-data-uri');
-
-const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenColorPalette');
-
-const config: Config = {
-  darkMode: ['class'],
-  content: {
-    files: [
-      './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-      './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-      './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-      './node_modules/onborda/dist/**/*.{js,ts,jsx,tsx}',
-    ],
-    extract,
-  },
-  safelist: [
-    {
-      pattern: /bg-yellow/,
-      variants: ['hover'],
-    },
-    {
-      pattern: /text-yellow/,
-      variants: ['hover'],
-    },
-    {
-      pattern: /border-yellow/,
-      variants: ['hover'],
-    },
-    {
-      pattern: /bg-blue/,
-      variants: ['hover'],
-    },
-    {
-      pattern: /text-blue/,
-      variants: ['hover'],
-    },
-    {
-      pattern: /border-blue/,
-      variants: ['hover'],
-    },
+const config = {
+  darkMode: 'class',
+  content: [
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './node_modules/onborda/dist/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    screens, // tailwind's default screens, in `rem`
-    fontSize, // tailwind's default font sizes, in `rem` (including line heights)
     extend: {
       fontFamily: {
         inter: ['var(--font-inter)'],
         satoshi: ['var(--font-satoshi)'],
         ubuntu: ['var(--font-ubuntu)'],
         onest: ['var(--font-onest)'],
+      },
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: '1rem',
+          sm: '2rem',
+          lg: '4rem',
+          xl: '5rem',
+          '2xl': '6rem',
+        },
+        screens: {
+          sm: '640px',
+          md: '768px',
+          lg: '1024px',
+          xl: '1280px',
+          '2xl': '1400px',
+        },
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -118,13 +100,6 @@ const config: Config = {
           'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
-        },
-      },
-      container: {
-        center: true,
-        padding: '2rem',
-        screens: {
-          '2xl': '1400px',
         },
       },
       borderRadius: {
@@ -214,51 +189,52 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    require('tailwindcss-animate'),
-    addVariablesForColors,
-    addMatchUtils,
-    require('tailwind-container-break-out'),
-    fluid,
-  ],
-};
+  plugins: [require('tailwindcss-animate'), addRootVariables, addBackgroundUtilities],
+} satisfies Config;
 
-function addMatchUtils({ matchUtilities, theme }: any) {
+// Updated utility functions for Tailwind v4
+function addBackgroundUtilities({ matchUtilities, theme }: { matchUtilities: any; theme: any }) {
   matchUtilities(
     {
-      'bg-grid': (value: any) => ({
+      'bg-grid': (value: string) => ({
         backgroundImage: `url("${svgToDataUri(
           `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`
         )}")`,
       }),
-      'bg-grid-small': (value: any) => ({
+      'bg-grid-small': (value: string) => ({
         backgroundImage: `url("${svgToDataUri(
           `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="8" height="8" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`
         )}")`,
       }),
-      'bg-dot': (value: any) => ({
+      'bg-dot': (value: string) => ({
         backgroundImage: `url("${svgToDataUri(
           `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" fill="none"><circle fill="${value}" id="pattern-circle" cx="10" cy="10" r="1.6257413380501518"></circle></svg>`
         )}")`,
       }),
-      'bg-dot-thick': (value: any) => ({
+      'bg-dot-thick': (value: string) => ({
         backgroundImage: `url("${svgToDataUri(
           `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" fill="none"><circle fill="${value}" id="pattern-circle" cx="10" cy="10" r="2.5"></circle></svg>`
         )}")`,
       }),
     },
-    { values: flattenColorPalette(theme('backgroundColor')), type: 'color' }
+    { values: theme('backgroundColor') }
   );
 }
 
-function addVariablesForColors({ addBase, theme }: any) {
-  let allColors = flattenColorPalette(theme('colors'));
-  let newVars = Object.fromEntries(
-    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
-  );
+// Create CSS variables from theme colors
+function addRootVariables({ addBase, theme }: { addBase: any; theme: any }) {
+  const colors = theme('colors') || {};
+  const colorEntries = Object.entries(colors).flatMap(([key, value]) => {
+    if (typeof value === 'object' && value !== null) {
+      return Object.entries(value).map(([shade, color]) => {
+        return [`--${key}${shade === 'DEFAULT' ? '' : `-${shade}`}`, color];
+      });
+    }
+    return [[`--${key}`, value]];
+  });
 
   addBase({
-    ':root': newVars,
+    ':root': Object.fromEntries(colorEntries),
   });
 }
 

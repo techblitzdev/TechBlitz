@@ -23,7 +23,7 @@ export default function MarketingContentGrid({
 }: MarketingContentGridComponentProps) {
   return (
     <section className="lg:max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 py-16 pb-24 lg:pb-36">
-      <h6 className="lg:px-6 text-3xl md:text-5xl !font-onest !font-medium tracking-tight text-gradient from-white to-white/75 py-1">
+      <h6 className="lg:px-6 text-3xl md:text-5xl font-onest! font-medium! tracking-tight text-gradient from-white to-white/75 py-1">
         {title}
       </h6>
       {subheading && (

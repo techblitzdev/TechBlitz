@@ -24,7 +24,7 @@ const RelatedQuestionsList = async ({ slug, tags }: { slug: string; tags: Tags[]
             )}
           >
             <p className="text-sm text-white">{question.question}</p>
-            <ArrowRight className="size-4 mr-1 group-hover:mr-0 duration-300 flex-shrink-0" />
+            <ArrowRight className="size-4 mr-1 group-hover:mr-0 duration-300 shrink-0" />
           </Link>
         ))
       ) : (

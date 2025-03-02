@@ -24,7 +24,7 @@ export default function OnboardingPricing() {
       <CardHeader>
         <div className="flex flex-col items-center gap-y-4 mb-3">
           <motion.h1
-            className="text-4xl flex flex-col items-center font-medium bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent text-center"
+            className="text-4xl flex flex-col items-center font-medium bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent text-center"
             variants={itemVariants}
           >
             Supercharge your coding journey

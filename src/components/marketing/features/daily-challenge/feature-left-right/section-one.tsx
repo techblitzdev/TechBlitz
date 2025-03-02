@@ -22,7 +22,7 @@ export default function FeatureLeftRightSectionOne(opts: {
     <LeftRightBlock
       left={
         <div className="flex flex-col gap-y-6">
-          <h2 className="text-2xl lg:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
+          <h2 className="text-2xl lg:text-4xl font-onest! leading-[normal]! text-gradient from-white to-white/55">
             {leftHeader ? leftHeader : 'Achieve Your Goals Effortlessly'}
           </h2>
           <p className="text-white/70 max-w-xl text-base font-onest">
@@ -46,7 +46,7 @@ export default function FeatureLeftRightSectionOne(opts: {
       right={
         <div className="relative flex items-center justify-center w-full h-full overflow-hidden">
           <div
-            className="w-full max-w-fit p-4 backdrop-blur-sm rounded-xl border border-black-50 shadow-2xl relative top-12"
+            className="w-full max-w-fit p-4 backdrop-blur-xs rounded-xl border border-black-50 shadow-2xl relative top-12"
             style={{
               background:
                 'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
@@ -64,7 +64,7 @@ export default function FeatureLeftRightSectionOne(opts: {
               }}
             />
           </div>
-          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#000] to-transparent pointer-events-none z-30"></div>
+          <div className="absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-[#000] to-transparent pointer-events-none z-30"></div>
         </div>
       }
     />

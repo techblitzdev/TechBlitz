@@ -198,16 +198,16 @@ export default async function PricingPage() {
       />
       <div className="text-center min-h-screen container flex flex-col">
         <div className="flex flex-col gap-y-2 items-center pb-16 pt-28 md:pb-20 md:pt-32 xl:pt-40 xl:pb-32 max-w-7xl mx-auto">
-          <div className="group w-fit relative inline-flex overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+          <div className="group w-fit relative inline-flex overflow-hidden rounded-full p-[1px] focus:outline-hidden focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
             <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
             <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
               Pricing
             </span>
           </div>
-          <h1 className="text-3xl lg:text-5xl !font-onest !font-medium !leading-[1.1] text-gradient from-white to-white/75">
+          <h1 className="text-3xl lg:text-5xl font-onest! font-medium! leading-[1.1]! text-gradient from-white to-white/75">
             {/** Plans that don't <AnimatedBreak /> the bank */}
             Learning to code has <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/55">
+            <span className="bg-clip-text text-transparent bg-linear-to-r from-accent to-accent/55">
               never{' '}
             </span>{' '}
             been easier

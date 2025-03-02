@@ -119,7 +119,7 @@ export default function QuestionCodeDisplay({
                     highlightActiveIndentation: true,
                   },
                 }}
-                className="bg-black-50 !overflow-y-auto !scrollable-element"
+                className="bg-black-50 overflow-y-auto! !scrollable-element"
                 loading={<LoadingSpinner />}
               />
             ) : (

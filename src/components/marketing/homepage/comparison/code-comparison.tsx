@@ -50,7 +50,7 @@ export default function CodeComparisonDemo() {
         lightTheme="one-dark-pro"
         darkTheme="one-dark-pro"
       />
-      <div className="absolute inset-x-0 bottom-0 h-20 md:h-40 lg:h-80 bg-gradient-to-t from-[#000] to-transparent pointer-events-none z-30"></div>
+      <div className="absolute inset-x-0 bottom-0 h-20 md:h-40 lg:h-80 bg-linear-to-t from-[#000] to-transparent pointer-events-none z-30"></div>
     </div>
   );
 }

@@ -40,7 +40,7 @@ export const generateQuestionHelp = async (
   if (!user) {
     console.error('User not found');
     return {
-      object: null,
+      object: 'User not found',
       content: null,
       tokensUsed: 0,
     };
@@ -52,7 +52,7 @@ export const generateQuestionHelp = async (
     if (!hasTokens) {
       console.error('User does not have enough tokens');
       return {
-        object: null,
+        object: 'User does not have enough tokens',
         content: null,
         tokensUsed: 0,
       };
@@ -94,7 +94,7 @@ export const generateQuestionHelp = async (
   if (!question) {
     console.error('No question found');
     return {
-      object: null,
+      object: 'No question found',
       content: null,
       tokensUsed: 0,
     };
@@ -112,7 +112,7 @@ export const generateQuestionHelp = async (
     const deducted = await deductUserTokens(user);
     if (!deducted) {
       return {
-        object: null,
+        object: 'Cannot deduct tokens',
         content: null,
         tokensUsed: 0,
       };
@@ -179,17 +179,5 @@ export const generateQuestionHelp = async (
     }
   })();
 
-  // Determine token count for the response
-  const tokensUsed =
-    questionType === 'regular'
-      ? user.aiQuestionHelpTokens
-        ? user.aiQuestionHelpTokens - 1
-        : 0
-      : Number.POSITIVE_INFINITY;
-
-  return {
-    object: stream.value,
-    content: null,
-    tokensUsed: tokensUsed,
-  };
+  return { object: stream.value };
 };

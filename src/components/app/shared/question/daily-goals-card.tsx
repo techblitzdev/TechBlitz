@@ -78,7 +78,7 @@ function MissionItem({
 
   const MissionContent = () => (
     <>
-      <div className="flex-shrink-0 size-8 rounded-full flex items-center justify-center">
+      <div className="shrink-0 size-8 rounded-full flex items-center justify-center">
         <div dangerouslySetInnerHTML={{ __html: mission.icon ?? '' }} className="size-full" />
       </div>
       <div className="flex flex-col gap-y-1 w-full">

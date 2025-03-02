@@ -42,13 +42,13 @@ export default function StatsRangePicker(opts: { selectedRange: string }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="center"
-        className="!p-0 w-44 bg-black border border-black-50 text-white text-sm"
+        className="p-0! w-44 bg-black border border-black-50 text-white text-sm"
       >
         <DropdownMenuGroup className="p-1">
           {Object.values(STATISTICS).map((step) => (
             <DropdownMenuItem
               key={step.value}
-              className="hover:!text-white hover:cursor-pointer"
+              className="hover:text-white! hover:cursor-pointer"
               onClick={() => updateDateRange(step.value)}
             >
               {step.label}

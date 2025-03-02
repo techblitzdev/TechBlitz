@@ -54,10 +54,10 @@ export default async function LeaderboardFeaturesRight() {
             </div>
           ))}
         </div>
-        <div className="z-10 absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#000000] to-transparent pointer-events-none"></div>
+        <div className="z-10 absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-[#000000] to-transparent pointer-events-none"></div>
       </div>
       <div className="flex flex-col gap-2.5">
-        <h3 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+        <h3 className="text-3xl font-bold bg-clip-text text-transparent bg-linear-to-r from-white to-gray-400">
           Earn rewards for your progress
         </h3>
         <p className="text-gray-400 font-onest">

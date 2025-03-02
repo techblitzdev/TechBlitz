@@ -111,7 +111,7 @@ export default function QuestionMarquee({
   return (
     <section
       className={cn(
-        'relative flex h-auto w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background pt-12 pb-12 md:pt-12 md:pb-36',
+        'relative flex h-auto w-full flex-col items-center justify-center overflow-hidden rounded-lg pt-12 pb-12 md:pt-12 md:pb-36',
         className
       )}
     >
@@ -140,8 +140,8 @@ export default function QuestionMarquee({
             </div>
           ))}
         </Marquee>
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-[#000000] dark:from-gray-900"></div>
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#000000] dark:from-gray-900"></div>
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-linear-to-r from-[#000000] "></div>
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-linear-to-l from-[#000000] "></div>
       </div>
     </section>
   );

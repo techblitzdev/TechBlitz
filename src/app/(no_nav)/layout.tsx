@@ -16,7 +16,7 @@ export default function Layout({
           suppressHydrationWarning
         >
           {/* Scrollable content */}
-          <main>{children}</main>
+          <main className="bg-[#000000]">{children}</main>
           <Toaster className="bg-black" />
         </body>
       </html>

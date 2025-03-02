@@ -30,7 +30,7 @@ export default async function NavigationButtons() {
       <Button
         href={'/signup'}
         variant="accent"
-        className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+        className="font-onest bg-linear-to-r! from-accent! via-white/20! to-accent! animate-shimmer bg-[length:200%_100%] transition-colors"
       >
         Get started
         <ArrowRight className="ml-2 size-4" />

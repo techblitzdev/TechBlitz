@@ -36,7 +36,7 @@ export function AnimatedStopwatchButton({
         <TooltipTrigger asChild>
           <motion.button
             onClick={handleClick}
-            className="relative overflow-hidden bg-primary text-primary-foreground shadow hover:bg-primary/90 border border-black-50 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 font-onest"
+            className="relative overflow-hidden bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 border border-black-50 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 font-onest"
             animate={{
               width: isRunning ? 80 : 40,
             }}

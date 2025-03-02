@@ -61,7 +61,7 @@ export default function SidebarAreaComponent(opts: {
                 <ChevronsUpDown className="ml-auto" />
               </SidebarMenuButton>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-[#000] !text-white border-black-50">
+            <DropdownMenuContent className="w-56 bg-[#000] text-white! border-black-50">
               <DropdownMenuItem>
                 <Link href={getUpgradeUrl()} className="w-full">
                   Upgrade
@@ -72,7 +72,7 @@ export default function SidebarAreaComponent(opts: {
                   <Button
                     variant="ghost"
                     padding="none"
-                    className="flex items-center gap-x-2 h-auto !bg-transparent"
+                    className="flex items-center gap-x-2 h-auto bg-transparent!"
                   >
                     Invite a friend
                   </Button>

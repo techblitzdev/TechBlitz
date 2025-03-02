@@ -120,11 +120,11 @@ export default function FilterDropdown() {
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="start"
-          className="!p-0 w-40 bg-black border border-black-50 text-white text-sm"
+          className="p-0! w-40 bg-black border border-black-50 text-white text-sm"
         >
           <DropdownMenuGroup className="p-1">
             <DropdownMenuSub open={showDifficulty} onOpenChange={setShowDifficulty}>
-              <DropdownMenuSubTrigger className="py-2 flex items-center justify-between hover:!text-white hover:cursor-pointer">
+              <DropdownMenuSubTrigger className="py-2 flex items-center justify-between hover:text-white! hover:cursor-pointer">
                 Difficulty
               </DropdownMenuSubTrigger>
               <DropdownMenuSubContent className="bg-black border border-black-50 text-white">
@@ -134,7 +134,7 @@ export default function FilterDropdown() {
                       <DropdownMenuItem
                         key={key}
                         asChild
-                        className="hover:!text-white hover:cursor-pointer"
+                        className="hover:text-white! hover:cursor-pointer"
                       >
                         <button
                           onClick={() =>
@@ -157,12 +157,12 @@ export default function FilterDropdown() {
               onClick={() =>
                 updateQueryParams('answered', answeredFilter === 'true' ? null : 'true')
               }
-              className="py-2 flex items-center hover:!text-white hover:cursor-pointer"
+              className="py-2 flex items-center hover:text-white! hover:cursor-pointer"
             >
               Answered
             </DropdownMenuItem>
             <DropdownMenuSub open={showQuestionType} onOpenChange={setShowQuestionType}>
-              <DropdownMenuSubTrigger className="py-2 flex items-center justify-between hover:!text-white hover:cursor-pointer">
+              <DropdownMenuSubTrigger className="py-2 flex items-center justify-between hover:text-white! hover:cursor-pointer">
                 Question Type
               </DropdownMenuSubTrigger>
               <DropdownMenuSubContent className="bg-black border border-black-50 text-white">
@@ -170,7 +170,7 @@ export default function FilterDropdown() {
                   <DropdownMenuItem
                     key={type}
                     onClick={() => updateQueryParams('questionType', type)}
-                    className="py-2 hover:!text-white hover:cursor-pointer"
+                    className="py-2 hover:text-white! hover:cursor-pointer"
                   >
                     {capitalise(type).replace('_', ' ')}
                   </DropdownMenuItem>
@@ -179,19 +179,19 @@ export default function FilterDropdown() {
             </DropdownMenuSub>
             <DropdownMenuItem
               onClick={() => updateQueryParams('bookmarked', 'true')}
-              className="py-2 hover:!text-white hover:cursor-pointer"
+              className="py-2 hover:text-white! hover:cursor-pointer"
             >
               Bookmarked
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => updateQueryParams('isPremiumQuestion', 'true')}
-              className="py-2 hover:!text-white hover:cursor-pointer"
+              className="py-2 hover:text-white! hover:cursor-pointer"
             >
               Premium
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => updateQueryParams('recommended', 'true')}
-              className="py-2 hover:!text-white hover:cursor-pointer"
+              className="py-2 hover:text-white! hover:cursor-pointer"
             >
               Recommended
             </DropdownMenuItem>

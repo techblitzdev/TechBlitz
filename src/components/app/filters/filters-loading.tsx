@@ -21,7 +21,7 @@ export default function FilterLoading() {
       <div className="w-full">
         <div className="flex gap-2 overflow-hidden">
           {Array.from({ length: 12 }).map((_, index) => (
-            <Skeleton key={index} className="h-9 w-[80px] flex-shrink-0 bg-black-50" />
+            <Skeleton key={index} className="h-9 w-[80px] shrink-0 bg-black-50" />
           ))}
         </div>
       </div>

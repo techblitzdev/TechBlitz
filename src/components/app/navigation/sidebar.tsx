@@ -43,6 +43,7 @@ const LeaderboardIcon = () => (
 
 const roadmapIcon = () => <RoadmapIcon fill="white" strokewidth={2} secondaryfill="white" />;
 const houseIcon = () => <HomeIcon fill="white" strokewidth={2} secondaryfill="white" />;
+const documentIcon = () => <Document fill="white" />;
 
 interface AppSidebarProps {
   user: UserRecord | null;
@@ -73,7 +74,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
     {
       title: 'Challenges',
       url: '/questions',
-      icon: Document,
+      icon: documentIcon,
       tooltip: 'Challenges',
     },
     {
@@ -133,7 +134,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
     {
       title: 'Challenges',
       url: '/questions',
-      icon: Document,
+      icon: documentIcon,
       tooltip: 'Challenges',
     },
     {
@@ -265,7 +266,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
     if ('groupLabel' in item) {
       return (
         <SidebarGroup key={item.groupLabel} className="mt-2">
-          <SidebarGroupLabel className="px-0 py-0 h-fit text-sm font-inter">
+          <SidebarGroupLabel className="px-0 py-0 h-fit text-sm font-inter text-white">
             {item.groupLabel}
           </SidebarGroupLabel>
         </SidebarGroup>
@@ -279,7 +280,11 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
             <CollapsibleTrigger asChild>
               <SidebarMenuButton asChild tooltip={item.tooltip}>
                 {state === 'collapsed' ? (
-                  <Link href={item.url} className="flex items-center w-full" prefetch>
+                  <Link
+                    href={item.url}
+                    className="flex items-center w-full text-white hover:text-white hover:bg-black-75"
+                    prefetch
+                  >
                     {item.icon && <item.icon />}
                     <span className="text-sm font-inter group-data-[collapsible=icon]:hidden">
                       {item.title}
@@ -292,7 +297,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
                     </div>
                   </Link>
                 ) : (
-                  <div className="flex items-center w-full">
+                  <div className="flex items-center w-full text-white hover:text-white hover:bg-black-75">
                     {item.icon && <item.icon />}
                     <span className="text-sm font-inter group-data-[collapsible=icon]:hidden">
                       {item.title}
@@ -315,12 +320,12 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
           <div className="flex items-center w-full">
             <SidebarMenuButton
               asChild
-              className="flex-grow"
+              className="grow"
               tooltip={item.tooltip}
               isActive={isActive(item.url)}
             >
               {item.disabled ? (
-                <div className="flex items-center font-inter font-medium text-sm p-2 gap-x-2 opacity-50 hover:cursor-not-allowed h-8">
+                <div className="flex items-center font-inter font-medium text-sm p-2 gap-x-2 opacity-50 hover:cursor-not-allowed h-8 text-white">
                   {item.icon && <item.icon />}
                   <span className="text-sm font-inter group-data-[collapsible=icon]:hidden">
                     {item.title}
@@ -333,8 +338,10 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
                 <Link
                   href={item.url}
                   prefetch
-                  className={`flex items-center font-inter font-medium text-sm py-2 ${
-                    isActive(item.url) ? 'bg-black-25 text-white border border-black-50' : ''
+                  className={`flex items-center font-inter font-medium text-sm py-2 text-white hover:text-white ${
+                    isActive(item.url)
+                      ? 'bg-black-25 border border-black-50 hover:bg-black-50'
+                      : 'hover:bg-black-75'
                   }`}
                 >
                   {item.icon && <item.icon />}
@@ -345,7 +352,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
                     </div>
                   )}
                   {item.badge && (
-                    <SidebarMenuBadge className="!bg-transparent group-data-[collapsible=icon]:hidden">
+                    <SidebarMenuBadge className="bg-transparent! group-data-[collapsible=icon]:hidden">
                       {item.badge}
                     </SidebarMenuBadge>
                   )}

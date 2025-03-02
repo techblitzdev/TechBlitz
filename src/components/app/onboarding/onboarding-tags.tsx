@@ -52,7 +52,7 @@ export default function OnboardingStepTwo() {
             variants={itemVariants}
             initial="hidden"
             animate="visible"
-            className="text-xl lg:text-3xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent"
+            className="text-xl lg:text-3xl font-bold bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent"
           >
             {user?.username}, what topics spark your interest?
           </motion.h1>

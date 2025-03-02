@@ -75,7 +75,7 @@ const faqs = [
     answer: (
       <>
         Yes, TechBlitz is completely open source! Explore our source code on{' '}
-        <a href="https://git.new/blitz" target="_blank" className="!text-accent underline">
+        <a href="https://git.new/blitz" target="_blank" className="text-accent! underline">
           GitHub
         </a>{' '}
         and join the growing community of developers contributing to our platform.
@@ -87,7 +87,7 @@ const faqs = [
     answer: (
       <>
         You can sign up for a free account{' '}
-        <a href="/signup" className="!text-accent underline">
+        <a href="/signup" className="text-accent! underline">
           here
         </a>
         ! We're excited to see you on the leaderboard!
@@ -116,7 +116,7 @@ const featureShowcaseItems: MarketingContentGridProps[] = [
       <>
         Create custom learning paths tailored to your goals. Whether you're a complete beginner or
         advancing your skills, find the perfect route for your journey. Learn more{' '}
-        <a href="/features/roadmap" className="!text-accent underline">
+        <a href="/features/roadmap" className="text-accent! underline">
           here
         </a>
         .
@@ -140,7 +140,7 @@ const featureShowcaseItems: MarketingContentGridProps[] = [
       <>
         Keep track of your coding progress with our coding analytics. See your progression, create
         custom coding challenges, and more. Learn more{' '}
-        <a href="/features/statistics" className="!text-accent underline">
+        <a href="/features/statistics" className="text-accent! underline">
           here
         </a>
         .
@@ -154,7 +154,7 @@ const featureShowcaseItems: MarketingContentGridProps[] = [
       <>
         Bite-sized coding challenges to keep you engaged and learning. Perfect for busy developers
         who want to stay sharp and improve their skills. You can learn more{' '}
-        <a href="/features/daily-coding-challenges" className="!text-accent underline">
+        <a href="/features/daily-coding-challenges" className="text-accent! underline">
           here
         </a>
         .

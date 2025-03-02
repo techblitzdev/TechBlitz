@@ -38,7 +38,7 @@ export const TourCard: React.FC<CardComponentProps> = ({
   }
 
   return (
-    <Card className="relative min-w-[300px] w-max max-w-full z-[999] bg-black border-none">
+    <Card className="relative min-w-[300px] w-max max-w-full z-999 bg-black border-none">
       <Button
         variant="ghost"
         className="text-white absolute top-2 right-2 hover:text-white/50"

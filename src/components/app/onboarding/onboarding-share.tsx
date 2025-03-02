@@ -25,7 +25,7 @@ export default function OnboardingShare() {
     <>
       <CardHeader className="space-y-2 flex flex-col items-center justify-center">
         <motion.h1
-          className="text-3xl font-medium bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent"
+          className="text-3xl font-medium bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent"
           variants={itemVariants}
         >
           TechBlitz is more fun with friends!

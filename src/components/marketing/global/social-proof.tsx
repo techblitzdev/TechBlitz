@@ -26,7 +26,7 @@ export default function SocialProof({
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center gap-2">
           <div className="flex flex-col items-center text-center max-w-3xl">
-            <h2 className="text-3xl md:text-4xl !font-onest !leading-[normal] text-gradient from-white to-white/55 mb-3">
+            <h2 className="text-3xl md:text-4xl font-onest! leading-[normal]! text-gradient from-white to-white/55 mb-3">
               Empowering Developers Worldwide
             </h2>
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-4">

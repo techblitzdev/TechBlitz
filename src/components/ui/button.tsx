@@ -20,21 +20,21 @@ export interface ButtonProps extends VariantProps<typeof buttonVariants> {
 }
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 font-onest',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-colors focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 font-onest',
   {
     variants: {
       variant: {
         default:
-          'bg-primary text-primary-foreground shadow hover:bg-primary/90 border border-black-50',
-        destructive: 'bg-red-600 text-destructive-foreground shadow-sm hover:bg-destructive/90',
-        outline: 'border border-input bg-background shadow-sm hover:bg-accent hover:text-white',
-        secondary: 'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
+          'bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 border border-black-50',
+        destructive: 'bg-red-600 text-destructive-foreground shadow-xs hover:bg-destructive/90',
+        outline: 'border border-input bg-background shadow-xs hover:bg-accent hover:text-white',
+        secondary: 'bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80',
         ghost: 'hover:text-gray-400 duration-300',
         link: 'text-primary underline-offset-4 hover:underline',
-        accent: 'bg-accent text-white shadow-sm hover:bg-accent/90 font-onest',
+        accent: 'bg-accent text-white shadow-xs hover:bg-accent/90 font-onest',
         // premium is accent but with a shimmering effect
         premium:
-          'font-onest !bg-gradient-to-r !from-accent !via-accent/80 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors',
+          'font-onest bg-linear-to-r! from-accent! via-accent/80! to-accent! animate-shimmer bg-[length:200%_100%] transition-colors',
       },
       size: {
         default: 'h-9 px-4 py-2',
@@ -55,7 +55,7 @@ const buttonVariants = cva(
         lg: 'rounded-2xl hover:rounded-xl',
       },
       padding: {
-        none: '!p-0',
+        none: 'p-0!',
         sm: 'px-2 py-1',
         md: 'px-4 py-2',
         lg: 'px-8 py-4',

@@ -33,7 +33,7 @@ export const InfiniteMovingCards = ({
           return (
             <div
               className={cn(
-                'bg-[#000] w-[150px] relative rounded-2xl border flex-shrink-0 border-black-50 p-4 md:w-[200px] transition-all',
+                'bg-[#000] w-[150px] relative rounded-2xl border shrink-0 border-black-50 p-4 md:w-[200px] transition-all',
                 idx % 2 === 0 ? '-translate-y-16' : 'translate-y-16'
               )}
               key={`${item.name}-${idx}`}

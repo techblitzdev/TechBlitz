@@ -163,7 +163,7 @@ export function MobileMenu() {
             {isLoggedIn ? (
               <Button
                 href="/dashboard"
-                className="w-full font-onest !bg-gradient-to-r !from-accent !via-accent/70 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+                className="w-full font-onest bg-linear-to-r! from-accent! via-accent/70! to-accent! animate-shimmer bg-[length:200%_100%] transition-colors"
                 onClick={() => setIsOpen(false)}
                 aria-label="Dashboard link"
               >
@@ -183,7 +183,7 @@ export function MobileMenu() {
                 <Button
                   href="/signup"
                   variant="accent"
-                  className="w-full font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
+                  className="w-full font-onest bg-linear-to-r! from-accent! via-white/20! to-accent! animate-shimmer bg-[length:200%_100%] transition-colors"
                   onClick={() => setIsOpen(false)}
                   aria-label="Get started link"
                 >

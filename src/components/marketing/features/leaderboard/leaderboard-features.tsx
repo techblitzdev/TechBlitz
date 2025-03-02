@@ -7,7 +7,7 @@ export default function LeaderboardFeatures() {
     <section className="pt-44 md:pt-10 pb-28 md:container flex flex-col gap-10">
       <div className="flex flex-col gap-2.5 md:px-12">
         <AnimatedSpan content="Leaderboard Features" />
-        <h1 className="text-3xl lg:text-5xl font-onest !font-medium tracking-tight text-gradient from-white to-white/55 py-1">
+        <h1 className="text-3xl lg:text-5xl font-onest font-medium! tracking-tight text-gradient from-white to-white/55 py-1">
           Learning to code does not have to be boring.
         </h1>
         <p className="text-gray-400">

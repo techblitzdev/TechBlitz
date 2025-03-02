@@ -58,7 +58,7 @@ export default function RoadmapFeatureBoxAnimation({ absolute }: { absolute: boo
                 animate="visible"
                 exit="exit"
               >
-                <div className="inline-flex size-5 sm:size-10 md:size-16 animate-shimmer items-center justify-center rounded-full bg-gradient-to-r from-green-400 via-green-600 to-green-400 bg-[length:200%_100%] font-medium transition-colors">
+                <div className="inline-flex size-5 sm:size-10 md:size-16 animate-shimmer items-center justify-center rounded-full bg-linear-to-r from-green-400 via-green-600 to-green-400 bg-[length:200%_100%] font-medium transition-colors">
                   <Check className="size-4 md:size-8 text-white" />
                 </div>
               </motion.div>

@@ -60,7 +60,7 @@ export const BentoGridItem = ({
   };
 
   const baseClasses = cn(
-    'rounded-xl group/bento overflow-hidden hover:shadow-xl transition duration-200 shadow-input border border-black-50 justify-between flex flex-col',
+    'rounded-xl group/bento overflow-hidden hover:shadow-xl transition duration-200 shadow-black border border-black-50 justify-between flex flex-col',
     header || title || description || icon ? 'space-y-3 md:space-y-4' : '',
     className,
     padded ? 'p-3 md:p-4' : ''

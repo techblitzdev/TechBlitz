@@ -19,7 +19,7 @@ export default function UserAnswers({ answers }: { answers: Answer[] }) {
             className="flex items-center gap-4 px-2 py-1 transition-all duration-300"
           >
             <span className="text-lg font-medium">{answer.question.order}.</span>
-            <span className="text-sm font-semibold flex-grow">
+            <span className="text-sm font-semibold grow">
               {answer.correct ? (
                 <div className="flex items-center">
                   <span className="text-lg">Correct</span>

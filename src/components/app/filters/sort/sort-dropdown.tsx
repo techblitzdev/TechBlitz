@@ -52,7 +52,7 @@ export default function SortDropdown() {
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="end"
-          className="!p-0 w-40 bg-black border border-black-50 text-white text-sm"
+          className="p-0! w-40 bg-black border border-black-50 text-white text-sm"
         >
           <DropdownMenuGroup className="p-1">
             <DropdownMenuItem

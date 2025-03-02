@@ -19,7 +19,7 @@ export default function HeroChip({ studyPath }: { studyPath: StudyPath }) {
         </Tooltip>
       </TooltipProvider>
       <div className="flex items-center gap-x-1">
-        <Sparkles className="hidden md:block flex-shrink-0 size-3 text-yellow-400 fill-yellow-500" />
+        <Sparkles className="hidden md:block shrink-0 size-3 text-yellow-400 fill-yellow-500" />
         {studyPath?.heroChip}
       </div>
     </div>

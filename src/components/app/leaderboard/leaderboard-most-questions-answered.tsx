@@ -39,11 +39,11 @@ export default async function LeaderboardMostQuestionsAnswered({
         <Table>
           <TableHeader className="bg-transparent">
             <TableRow className="bg-transparent">
-              <TableHead className="!border-t-0 w-12 md:w-[100px] text-white bg-transparent">
+              <TableHead className="border-t-0! w-12 md:w-[100px] text-white bg-transparent">
                 Rank
               </TableHead>
-              <TableHead className="!border-t-0 text-white bg-transparent">User</TableHead>
-              <TableHead className="!border-t-0 flex justify-center items-center xs:justify-end gap-2 md:text-right text-white bg-transparent">
+              <TableHead className="border-t-0! text-white bg-transparent">User</TableHead>
+              <TableHead className="border-t-0! flex justify-center items-center xs:justify-end gap-2 md:text-right text-white bg-transparent">
                 <span className="hidden sm:block">Questions Solved</span>
                 <span className="block sm:hidden">
                   <FileQuestion className="size-4 text-white" />

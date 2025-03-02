@@ -50,7 +50,7 @@ export default function AllQuestionsDashboardBentoBox() {
       </div>
 
       <div className="relative overflow-hidden mt-3 md:h-64 xl:h-[20rem]">
-        <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-[#000] to-transparent z-10" />
+        <div className="absolute top-0 left-0 right-0 h-12 bg-linear-to-b from-[#000] to-transparent z-10" />
 
         {/* Scrolling content */}
         <div
@@ -63,7 +63,7 @@ export default function AllQuestionsDashboardBentoBox() {
         </div>
 
         {/* Bottom fade effect */}
-        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[#000] to-transparent z-10" />
+        <div className="absolute bottom-0 left-0 right-0 h-12 bg-linear-to-t from-[#000] to-transparent z-10" />
       </div>
     </section>
   );

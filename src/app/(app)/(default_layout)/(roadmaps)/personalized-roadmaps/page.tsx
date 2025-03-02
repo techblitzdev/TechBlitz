@@ -118,7 +118,7 @@ export default async function RoadmapPage() {
               hasAnsweredEnoughQuestions={hasAnsweredEnoughQuestions}
               answeredQuestionsCount={answeredQuestionsCount}
             />
-            <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit">
+            <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-xs border border-black-50 p-4 rounded-lg h-fit">
               <div className="flex items-center space-x-2 text-white">
                 <RoadmapIcon height="24" width="24" />
                 <span>Enjoying Roadmaps?</span>

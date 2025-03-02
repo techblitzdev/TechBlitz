@@ -6,7 +6,7 @@ export default async function ComparisonBlock(opts: { header?: string; subheader
   return (
     <section className="pt-10 lg:pt-6 pb-20 md:pb-28 flex flex-col gap-y-7 relative items-center w-full">
       <div className="flex flex-col gap-y-3 items-center text-center">
-        <h1 className="text-4xl lg:text-6xl font-onest !font-medium tracking-tight text-gradient from-white to-white/55 py-1">
+        <h1 className="text-4xl lg:text-6xl font-onest font-medium! tracking-tight text-gradient from-white to-white/55 py-1">
           {header ? (
             header
           ) : (

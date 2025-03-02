@@ -36,7 +36,7 @@ export default function LogoutButton(otps: {
 
   return (
     <Button
-      className="flex items-center gap-x-2 h-auto !bg-transparent"
+      className="flex items-center gap-x-2 h-auto bg-transparent!"
       variant={variant}
       onClick={handleLogout}
       padding={padding}

@@ -155,6 +155,19 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
     try {
       // Choose the appropriate server action based on whether we're editing or creating
       if (isEditing) {
+        // Ensure we have the page UID for editing
+        if (!initialData?.uid) {
+          setFormStatus({
+            success: false,
+            message: 'Page UID is required for editing',
+          });
+          setIsSubmitting(false);
+          return;
+        }
+
+        // Add the UID to the form data
+        formData.set('uid', initialData.uid);
+
         const result = await editPseoPage(formData);
 
         if (result.success) {
@@ -321,6 +334,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
                 id="targetingKeywords"
                 name="targetingKeywords"
                 placeholder="web development roadmap, learn web dev"
+                defaultValue={initialData?.targetingKeywords?.join(', ') || ''}
                 required
                 className="bg-black-100 border-black-50 text-white"
               />
@@ -340,6 +354,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
                 id="canonicalUrl"
                 name="canonicalUrl"
                 placeholder="https://techblitz.dev/web-development-roadmap"
+                defaultValue={initialData?.canonicalUrl || ''}
                 className="bg-black-100 border-black-50 text-white"
               />
               <p className="text-xs text-gray-400">
@@ -355,6 +370,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
                 id="ogImage"
                 name="ogImage"
                 placeholder="https://techblitz.dev/images/web-dev-og.jpg"
+                defaultValue={initialData?.ogImage || ''}
                 className="bg-black-100 border-black-50 text-white"
               />
               <p className="text-xs text-gray-400">Optional: image URL for social sharing</p>
@@ -368,6 +384,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
                 id="jsonLdTitle"
                 name="jsonLdTitle"
                 placeholder="Web Development Roadmap"
+                defaultValue={initialData?.jsonLdTitle || ''}
                 className="bg-black-100 border-black-50 text-white"
               />
               <p className="text-xs text-gray-400">Optional: title for structured data</p>
@@ -381,6 +398,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
                 id="jsonLdDescription"
                 name="jsonLdDescription"
                 placeholder="A comprehensive guide to learning web development..."
+                defaultValue={initialData?.jsonLdDescription || ''}
                 className="bg-black-100 border-black-50 text-white"
               />
               <p className="text-xs text-gray-400">Optional: description for structured data</p>
@@ -399,6 +417,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
                 id="heroHeader"
                 name="heroHeader"
                 placeholder="Web Development Roadmap"
+                defaultValue={initialData?.heroHeader || ''}
                 required
                 className="bg-black-100 border-black-50 text-white"
               />
@@ -412,6 +431,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
                 id="heroSubheader"
                 name="heroSubheader"
                 placeholder="Learn to code with our step-by-step guide to becoming a web developer"
+                defaultValue={initialData?.heroSubheader || ''}
                 required
                 className="bg-black-100 border-black-50 text-white"
               />
@@ -430,6 +450,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
                 id="leftHeader"
                 name="leftHeader"
                 placeholder="Why Learn Web Development?"
+                defaultValue={initialData?.leftHeader || ''}
                 required
                 className="bg-black-100 border-black-50 text-white"
               />
@@ -443,6 +464,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
                 id="leftSubheader"
                 name="leftSubheader"
                 placeholder="Web development is one of the most in-demand skills in the tech industry"
+                defaultValue={initialData?.leftSubheader || ''}
                 required
                 className="bg-black-100 border-black-50 text-white"
               />
@@ -468,6 +490,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
                 id="roadmapTitle"
                 name="roadmapTitle"
                 placeholder="Your Web Development Learning Path"
+                defaultValue={initialData?.roadmapTitle || ''}
                 required
                 className="bg-black-100 border-black-50 text-white"
               />
@@ -479,6 +502,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
                 id="roadmapDescription"
                 name="roadmapDescription"
                 placeholder="Follow this roadmap to learn web development from beginner to advanced"
+                defaultValue={initialData?.roadmapDescription || ''}
                 required
                 className="bg-black-100 border-black-50 text-white"
               />
@@ -495,6 +519,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
                 id="questionHeader"
                 name="questionHeader"
                 placeholder="Practice with Real Interview Questions"
+                defaultValue={initialData?.questionHeader || ''}
                 required
                 className="bg-black-100 border-black-50 text-white"
               />
@@ -506,6 +531,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
                 id="questionSubheader"
                 name="questionSubheader"
                 placeholder="Test your skills with questions from top tech companies"
+                defaultValue={initialData?.questionSubheader || ''}
                 required
                 className="bg-black-100 border-black-50 text-white"
               />
@@ -522,6 +548,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
                 id="contentGridTitle"
                 name="contentGridTitle"
                 placeholder="Key Topics to Master"
+                defaultValue={initialData?.contentGridTitle || ''}
                 required
                 className="bg-black-100 border-black-50 text-white"
               />
@@ -550,6 +577,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
                 id="ctaTitle"
                 name="ctaTitle"
                 placeholder="Start Your Web Development Journey Today"
+                defaultValue={initialData?.ctaTitle || ''}
                 required
                 className="bg-black-100 border-black-50 text-white"
               />
@@ -561,6 +589,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
                 id="ctaDescription"
                 name="ctaDescription"
                 placeholder="Sign up for free and get access to our comprehensive curriculum"
+                defaultValue={initialData?.ctaDescription || ''}
                 required
                 className="bg-black-100 border-black-50 text-white"
               />
@@ -618,6 +647,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
                 id="templateId"
                 name="templateId"
                 placeholder="standard"
+                defaultValue={initialData?.templateId || ''}
                 required
                 className="bg-black-100 border-black-50 text-white"
               />
@@ -649,6 +679,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
                 id="authorId"
                 name="authorId"
                 placeholder="author-123"
+                defaultValue={initialData?.authorId || ''}
                 className="bg-black-100 border-black-50 text-white"
               />
               <p className="text-xs text-gray-500">Optional: unique identifier for the author</p>
@@ -660,6 +691,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
                 id="authorName"
                 name="authorName"
                 placeholder="John Doe"
+                defaultValue={initialData?.authorName || ''}
                 className="bg-black-100 border-black-50 text-white"
               />
               <p className="text-xs text-gray-500">Optional: name of the author</p>

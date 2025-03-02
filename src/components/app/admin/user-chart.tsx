@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 
 // Define chart types
@@ -15,9 +15,9 @@ interface UserChartProps {
 }
 
 // Create a loading placeholder component
-const ChartPlaceholder = ({ title = 'User Chart' }: { title?: string }) => (
+const ChartPlaceholder = () => (
   <div className="h-64 flex items-center justify-center bg-black-75 rounded">
-    <p className="text-gray-400">Loading {title}...</p>
+    <p className="text-gray-400">Loading chart...</p>
   </div>
 );
 
@@ -27,11 +27,24 @@ const ChartComponent = dynamic(
   {
     ssr: false,
     loading: () => <ChartPlaceholder />,
+    // Add a 100ms delay to ensure hydration is complete
+    suspense: true,
   }
 );
 
 export default function UserChart({ data, title }: UserChartProps) {
   const [chartType, setChartType] = useState<ChartType>('line');
+  const [mounted, setMounted] = useState(false);
+
+  // Use useEffect to handle client-side mounting
+  useEffect(() => {
+    setMounted(true);
+
+    // Small timeout to ensure full hydration before chart load attempt
+    return () => {
+      // Cleanup if needed
+    };
+  }, []);
 
   return (
     <div className="bg-[#000000] border border-black-50 rounded-lg p-6">
@@ -64,7 +77,11 @@ export default function UserChart({ data, title }: UserChartProps) {
       </div>
 
       <div className="h-64">
-        <ChartComponent data={data} chartType={chartType} title={title} />
+        {mounted ? (
+          <ChartComponent data={data} chartType={chartType} title={title} />
+        ) : (
+          <ChartPlaceholder />
+        )}
       </div>
     </div>
   );

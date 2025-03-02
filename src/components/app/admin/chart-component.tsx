@@ -66,7 +66,7 @@ export function initializeChartJS() {
   }
 }
 
-export function ChartComponent({ data, chartType, title }: ChartComponentProps) {
+export default function ChartComponent({ data, chartType, title }: ChartComponentProps) {
   const [initialized, setInitialized] = useState(false);
 
   // Initialize Chart.js when component mounts

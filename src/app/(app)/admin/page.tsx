@@ -21,7 +21,7 @@ export default function AdminDashboardPage() {
             <h2 className="text-xl font-semibold mb-2 text-white">PSEO Pages</h2>
             <p className="text-gray-400 mb-4">Create and manage PSEO pages for SEO optimization.</p>
           </div>
-          <div className="bg-black-50 px-6 py-3 flex justify-between">
+          <div className="bg-secondary px-6 py-3 flex justify-between">
             <Link
               href="/admin/pseo"
               className="text-primary hover:text-primary/90 transition-colors"
@@ -42,7 +42,7 @@ export default function AdminDashboardPage() {
             <h2 className="text-xl font-semibold mb-2 text-white">Users</h2>
             <p className="text-gray-400 mb-4">Manage user accounts and view analytics.</p>
           </div>
-          <div className="bg-black-50 px-6 py-3 flex justify-between">
+          <div className="bg-secondary px-6 py-3 flex justify-between">
             <Link
               href="/admin/users"
               className="text-primary hover:text-primary/90 transition-colors"

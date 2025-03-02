@@ -10,7 +10,7 @@ type iconProps = {
 };
 
 function Document(props: iconProps) {
-  const fill = props.fill || 'currentColor';
+  const fill = props.fill || 'white';
   const width = props.width || '1em';
   const height = props.height || '1em';
   const title = props.title || 'document';

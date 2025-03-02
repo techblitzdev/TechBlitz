@@ -27,7 +27,7 @@ export default function ChangeCodeTheme({ user }: { user: UserRecord | null }) {
 
   return (
     <Popover>
-      <PopoverTrigger>
+      <PopoverTrigger className="text-gray-400">
         <EditorIcon />
       </PopoverTrigger>
       <PopoverContent

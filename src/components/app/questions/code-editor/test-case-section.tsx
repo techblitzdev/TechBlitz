@@ -90,13 +90,13 @@ export default function TestCaseSection() {
                     <div className="p-4">
                       <div className="mb-4">
                         <h3 className="text-sm font-medium mb-2">Input:</h3>
-                        <pre className="bg-[#1e1e1e] p-3 rounded overflow-x-auto">
+                        <pre className="bg-[#1e1e1e] p-3 rounded overflow-x-auto text-white">
                           {JSON.stringify(testCase.input[0], null, 2)}
                         </pre>
                       </div>
                       <div>
                         <h3 className="text-sm font-medium mb-2">Expected Output:</h3>
-                        <pre className="bg-[#1e1e1e] p-3 rounded overflow-x-auto">
+                        <pre className="bg-[#1e1e1e] p-3 rounded overflow-x-auto text-white">
                           {JSON.stringify(testCase.expected, null, 2)}
                         </pre>
                       </div>

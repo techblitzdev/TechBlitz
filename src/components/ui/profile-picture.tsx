@@ -20,7 +20,7 @@ export default function ProfilePicture(opts: {
           className
         )}
       >
-        <User className="size-4" />
+        <User className="size-4 text-white" />
       </div>
     );
   }

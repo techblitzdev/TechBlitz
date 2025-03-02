@@ -278,6 +278,10 @@
     @apply text-white;
   }
 
+  span {
+    @apply text-white;
+  }
+
   .text-gradient {
     @apply bg-clip-text text-transparent bg-linear-to-b;
   }

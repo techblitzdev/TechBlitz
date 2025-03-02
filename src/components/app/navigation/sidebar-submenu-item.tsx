@@ -23,8 +23,10 @@ export default function AppSidebarSubMenuItem(opts: { item: SidebarItem }) {
             <Link
               href={subItem.url}
               prefetch
-              className={`flex items-center justify-between font-inter text-sm py-2 ${
-                pathname === subItem.url ? 'bg-black-25 text-white border border-black-50' : ''
+              className={`flex items-center justify-between font-inter text-sm py-2 text-white hover:text-white ${
+                pathname === subItem.url
+                  ? 'bg-black-25 text-white border border-black-50 hover:bg-black-50'
+                  : 'text-gray-200 hover:bg-black-75'
               }`}
             >
               {subItem.title}

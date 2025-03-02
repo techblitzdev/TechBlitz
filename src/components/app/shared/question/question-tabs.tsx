@@ -40,7 +40,7 @@ export default function QuestionTabs({
                 key={tab.value}
                 value={tab.value}
                 onClick={() => setActiveTab(tab.value)}
-                className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline border-0 w-fit px-0"
+                className="flex items-center justify-center text-xs font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-transparent data-[state=active]:underline border-0 w-fit px-0"
               >
                 <div className="mr-2">{activeTab === tab.value ? tab.activeIcon : tab.icon}</div>
                 {tab.label}

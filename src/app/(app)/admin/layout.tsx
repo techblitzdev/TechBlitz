@@ -22,13 +22,13 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <div className="flex flex-col min-h-screen bg-[#000000]">
-      <header className="bg-black-75 border-b border-black-50 py-4">
+      <header className="border-b border-black-50 py-4">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <Link
             href="/admin"
-            className="text-xl font-bold text-white hover:text-gray-200 transition-colors"
+            className="text-xl font-bold text-white hover:text-gray-200 transition-colors font-onest"
           >
-            TechBlitz Admin
+            Hello, {user.username}
           </Link>
           <nav>
             <ul className="flex space-x-6">

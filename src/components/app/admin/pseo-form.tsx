@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { createPseoPage } from '@/actions/misc/create-pseo-page';
 import { editPseoPage } from '@/actions/misc/edit-pseo-page';
@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import PseoAiGenerator from './pseo-ai-generator';
 
 // JSON editor helper component
 function JsonEditor({
@@ -58,6 +59,26 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
     message?: string;
   }>({});
 
+  // Form element refs for updating with AI-generated content
+  const formRef = useRef<HTMLFormElement>(null);
+  const slugRef = useRef<HTMLInputElement>(null);
+  const titleRef = useRef<HTMLInputElement>(null);
+  const metaTitleRef = useRef<HTMLInputElement>(null);
+  const metaDescriptionRef = useRef<HTMLTextAreaElement>(null);
+  const metaKeywordsRef = useRef<HTMLInputElement>(null);
+  const targetingKeywordsRef = useRef<HTMLInputElement>(null);
+  const heroHeaderRef = useRef<HTMLInputElement>(null);
+  const heroSubheaderRef = useRef<HTMLTextAreaElement>(null);
+  const leftHeaderRef = useRef<HTMLInputElement>(null);
+  const leftSubheaderRef = useRef<HTMLTextAreaElement>(null);
+  const roadmapTitleRef = useRef<HTMLInputElement>(null);
+  const roadmapDescriptionRef = useRef<HTMLTextAreaElement>(null);
+  const questionHeaderRef = useRef<HTMLInputElement>(null);
+  const questionSubheaderRef = useRef<HTMLTextAreaElement>(null);
+  const contentGridTitleRef = useRef<HTMLInputElement>(null);
+  const ctaTitleRef = useRef<HTMLInputElement>(null);
+  const ctaDescriptionRef = useRef<HTMLTextAreaElement>(null);
+
   // Form state for JSON fields - initialize with values from initialData if available
   const [contentGridItems, setContentGridItems] = useState(
     initialData?.contentGridItems ? JSON.stringify(initialData.contentGridItems, null, 2) : '[]'
@@ -72,7 +93,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
     initialData?.marketingItems ? JSON.stringify(initialData.marketingItems, null, 2) : '[]'
   );
   const [templateConfig, setTemplateConfig] = useState(
-    initialData?.templateConfig ? JSON.stringify(initialData.templateConfig, null, 2) : ''
+    initialData?.templateConfig ? JSON.stringify(initialData.templateConfig, null, 2) : '{}'
   );
 
   // Form state for boolean switches
@@ -80,6 +101,51 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
 
   // JSON validation state
   const [jsonErrors, setJsonErrors] = useState<Record<string, string>>({});
+
+  // Helper function to handle generated content
+  const handleGeneratedContent = (content: any) => {
+    // Set simple text fields using refs
+    if (slugRef.current) slugRef.current.value = content.slug || initialData?.slug || '';
+    if (titleRef.current) titleRef.current.value = content.title || '';
+    if (metaTitleRef.current) metaTitleRef.current.value = content.metaTitle || '';
+    if (metaDescriptionRef.current)
+      metaDescriptionRef.current.value = content.metaDescription || '';
+    if (metaKeywordsRef.current) metaKeywordsRef.current.value = content.metaKeywords || '';
+    if (targetingKeywordsRef.current)
+      targetingKeywordsRef.current.value = content.targetingKeywords || '';
+    if (heroHeaderRef.current) heroHeaderRef.current.value = content.heroHeader || '';
+    if (heroSubheaderRef.current) heroSubheaderRef.current.value = content.heroSubheader || '';
+    if (leftHeaderRef.current) leftHeaderRef.current.value = content.leftHeader || '';
+    if (leftSubheaderRef.current) leftSubheaderRef.current.value = content.leftSubheader || '';
+    if (roadmapTitleRef.current) roadmapTitleRef.current.value = content.roadmapTitle || '';
+    if (roadmapDescriptionRef.current)
+      roadmapDescriptionRef.current.value = content.roadmapDescription || '';
+    if (questionHeaderRef.current) questionHeaderRef.current.value = content.questionHeader || '';
+    if (questionSubheaderRef.current)
+      questionSubheaderRef.current.value = content.questionSubheader || '';
+    if (contentGridTitleRef.current)
+      contentGridTitleRef.current.value = content.contentGridTitle || '';
+    if (ctaTitleRef.current) ctaTitleRef.current.value = content.ctaTitle || '';
+    if (ctaDescriptionRef.current) ctaDescriptionRef.current.value = content.ctaDescription || '';
+
+    // Set JSON fields
+    if (content.contentGridItems) setContentGridItems(content.contentGridItems);
+    if (content.contentSections) setContentSections(content.contentSections);
+    if (content.faqs) setFaqs(content.faqs);
+    if (content.marketingItems) setMarketingItems(content.marketingItems);
+    if (content.templateConfig) setTemplateConfig(content.templateConfig);
+
+    // Show success message
+    setFormStatus({
+      success: true,
+      message: 'Content generated successfully! Review and save to publish.',
+    });
+
+    // Scroll to form
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
 
   // Helper function to validate JSON
   const validateJson = (json: string, field: string): boolean => {
@@ -224,6 +290,9 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
 
   return (
     <div className="bg-black-75 rounded-lg p-6">
+      {/* Add AI Generator to the top of the form */}
+      <PseoAiGenerator onGeneratedContent={handleGeneratedContent} />
+
       {formStatus.message && (
         <div
           className={`p-4 mb-6 rounded-lg ${
@@ -236,7 +305,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
         </div>
       )}
 
-      <form action={handleSubmit} className="space-y-8">
+      <form ref={formRef} action={handleSubmit} className="space-y-8">
         <div className="border-b border-black-50 pb-4 mb-6">
           <h2 className="text-xl font-semibold text-white">
             {isEditing ? 'Edit PSEO Page' : 'Create New PSEO Page'}
@@ -258,6 +327,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
               <Input
                 id="slug"
                 name="slug"
+                ref={slugRef}
                 placeholder="e.g., learn/javascript-tutorial"
                 defaultValue={initialData?.slug || ''}
                 className="bg-black-100 border-black-50 text-white"
@@ -273,6 +343,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
               <Input
                 id="title"
                 name="title"
+                ref={titleRef}
                 placeholder="e.g., Learn JavaScript: Complete Tutorial"
                 defaultValue={initialData?.title || ''}
                 className="bg-black-100 border-black-50 text-white"
@@ -287,6 +358,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
               <Input
                 id="metaTitle"
                 name="metaTitle"
+                ref={metaTitleRef}
                 placeholder="e.g., Learn JavaScript - Complete Tutorial | TechBlitz"
                 defaultValue={initialData?.metaTitle || ''}
                 className="bg-black-100 border-black-50 text-white"
@@ -304,6 +376,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
               <Textarea
                 id="metaDescription"
                 name="metaDescription"
+                ref={metaDescriptionRef}
                 placeholder="A comprehensive description of the page content..."
                 defaultValue={initialData?.metaDescription || ''}
                 className="bg-black-100 border-black-50 text-white"
@@ -319,6 +392,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
               <Input
                 id="metaKeywords"
                 name="metaKeywords"
+                ref={metaKeywordsRef}
                 placeholder="e.g., javascript, tutorial, web development"
                 defaultValue={initialData?.metaKeywords?.join(', ') || ''}
                 className="bg-black-100 border-black-50 text-white"
@@ -333,6 +407,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
               <Input
                 id="targetingKeywords"
                 name="targetingKeywords"
+                ref={targetingKeywordsRef}
                 placeholder="web development roadmap, learn web dev"
                 defaultValue={initialData?.targetingKeywords?.join(', ') || ''}
                 required
@@ -416,6 +491,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
               <Input
                 id="heroHeader"
                 name="heroHeader"
+                ref={heroHeaderRef}
                 placeholder="Web Development Roadmap"
                 defaultValue={initialData?.heroHeader || ''}
                 required
@@ -430,6 +506,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
               <Textarea
                 id="heroSubheader"
                 name="heroSubheader"
+                ref={heroSubheaderRef}
                 placeholder="Learn to code with our step-by-step guide to becoming a web developer"
                 defaultValue={initialData?.heroSubheader || ''}
                 required
@@ -449,6 +526,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
               <Input
                 id="leftHeader"
                 name="leftHeader"
+                ref={leftHeaderRef}
                 placeholder="Why Learn Web Development?"
                 defaultValue={initialData?.leftHeader || ''}
                 required
@@ -463,6 +541,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
               <Textarea
                 id="leftSubheader"
                 name="leftSubheader"
+                ref={leftSubheaderRef}
                 placeholder="Web development is one of the most in-demand skills in the tech industry"
                 defaultValue={initialData?.leftSubheader || ''}
                 required
@@ -489,6 +568,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
               <Input
                 id="roadmapTitle"
                 name="roadmapTitle"
+                ref={roadmapTitleRef}
                 placeholder="Your Web Development Learning Path"
                 defaultValue={initialData?.roadmapTitle || ''}
                 required
@@ -501,6 +581,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
               <Textarea
                 id="roadmapDescription"
                 name="roadmapDescription"
+                ref={roadmapDescriptionRef}
                 placeholder="Follow this roadmap to learn web development from beginner to advanced"
                 defaultValue={initialData?.roadmapDescription || ''}
                 required
@@ -518,6 +599,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
               <Input
                 id="questionHeader"
                 name="questionHeader"
+                ref={questionHeaderRef}
                 placeholder="Practice with Real Interview Questions"
                 defaultValue={initialData?.questionHeader || ''}
                 required
@@ -530,6 +612,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
               <Textarea
                 id="questionSubheader"
                 name="questionSubheader"
+                ref={questionSubheaderRef}
                 placeholder="Test your skills with questions from top tech companies"
                 defaultValue={initialData?.questionSubheader || ''}
                 required
@@ -547,6 +630,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
               <Input
                 id="contentGridTitle"
                 name="contentGridTitle"
+                ref={contentGridTitleRef}
                 placeholder="Key Topics to Master"
                 defaultValue={initialData?.contentGridTitle || ''}
                 required
@@ -576,6 +660,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
               <Input
                 id="ctaTitle"
                 name="ctaTitle"
+                ref={ctaTitleRef}
                 placeholder="Start Your Web Development Journey Today"
                 defaultValue={initialData?.ctaTitle || ''}
                 required
@@ -588,6 +673,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
               <Textarea
                 id="ctaDescription"
                 name="ctaDescription"
+                ref={ctaDescriptionRef}
                 placeholder="Sign up for free and get access to our comprehensive curriculum"
                 defaultValue={initialData?.ctaDescription || ''}
                 required

@@ -15,6 +15,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "1.1.13",
     "@ai-sdk/openai": "1.1.15",
     "@ai-sdk/react": "1.1.19",
     "@anthropic-ai/sdk": "^0.33.1",

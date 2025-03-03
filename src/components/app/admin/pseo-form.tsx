@@ -262,16 +262,6 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
             success: true,
             message: result.message || 'Page created successfully!',
           });
-
-          // Delay redirect to show success message
-          setTimeout(() => {
-            // For new pages, redirect either to the edit page or back to the list
-            if ('pageId' in result && result.pageId) {
-              router.push(`/admin/pseo/edit/${result.pageId}`);
-            } else {
-              router.push('/admin/pseo/list');
-            }
-          }, 1500);
         } else {
           setFormStatus({
             success: false,

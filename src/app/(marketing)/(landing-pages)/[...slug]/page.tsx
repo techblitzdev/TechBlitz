@@ -15,7 +15,9 @@ import { MobileIcon } from '@radix-ui/react-icons';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata({ params }: { params: { slug: string[] } }) {
-  const data = await getPseoData(params.slug.join('/'));
+  const slugPath = params.slug ? `/${params.slug.join('/')}` : '';
+
+  const data = await getPseoData(slugPath);
   const canonicalUrl = `/${params.slug.join('/')}`;
 
   return createMetadata({

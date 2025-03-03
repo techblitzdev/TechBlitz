@@ -129,7 +129,7 @@ export default async function PseoListPage() {
                           <>
                             <span className="text-gray-500">|</span>
                             <Link
-                              href={`${getBaseUrl()}${page.slug}`}
+                              href={`${getBaseUrl()}/${page.slug}`}
                               target="_blank"
                               className="text-accent hover:underline"
                             >

@@ -98,4 +98,7 @@ model PseoPages {
   // JSON-LD data
   jsonLdTitle      String?
   jsonLdDescription String?
+
+  // is the page published? - so we can test a page locally before going live
+  isPublished      Boolean @default(false)
 }

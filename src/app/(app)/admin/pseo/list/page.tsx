@@ -3,6 +3,7 @@ import Link from 'next/link';
 import AdminContainer from '@/components/app/admin/admin-container';
 import { prisma } from '@/lib/prisma';
 import { getBaseUrl } from '@/utils';
+import PseoPublishToggle from '@/components/app/admin/pseo-publish-toggle';
 
 export const metadata: Metadata = {
   title: 'TechBlitz | PSEO Pages List',
@@ -15,6 +16,7 @@ interface PseoPageListItem {
   title: string;
   metaTitle: string;
   updatedAt: Date;
+  isPublished: boolean;
 }
 
 export default async function PseoListPage() {
@@ -29,6 +31,7 @@ export default async function PseoListPage() {
       title: true,
       metaTitle: true,
       updatedAt: true,
+      isPublished: true,
     },
   });
 
@@ -79,6 +82,9 @@ export default async function PseoListPage() {
                       Slug
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                      Status
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
                       Last Updated
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
@@ -95,6 +101,20 @@ export default async function PseoListPage() {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                         {page.slug}
                       </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm">
+                        <div className="flex items-center space-x-2">
+                          <span
+                            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                              page.isPublished
+                                ? 'bg-green-100 text-green-800'
+                                : 'bg-yellow-100 text-yellow-800'
+                            }`}
+                          >
+                            {page.isPublished ? 'Published' : 'Draft'}
+                          </span>
+                          <PseoPublishToggle uid={page.uid} isPublished={page.isPublished} />
+                        </div>
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                         {new Date(page.updatedAt).toLocaleDateString()}
                       </td>
@@ -105,14 +125,18 @@ export default async function PseoListPage() {
                         >
                           Edit
                         </Link>
-                        <span className="text-gray-500">|</span>
-                        <Link
-                          href={`${getBaseUrl()}${page.slug}`}
-                          target="_blank"
-                          className="text-accent hover:underline"
-                        >
-                          View
-                        </Link>
+                        {page.isPublished && (
+                          <>
+                            <span className="text-gray-500">|</span>
+                            <Link
+                              href={`${getBaseUrl()}${page.slug}`}
+                              target="_blank"
+                              className="text-accent hover:underline"
+                            >
+                              View
+                            </Link>
+                          </>
+                        )}
                       </td>
                     </tr>
                   ))}

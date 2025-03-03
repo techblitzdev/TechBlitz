@@ -80,7 +80,7 @@ export async function generatePseoContent(input: GeneratePseoInput) {
     // Create system prompt for AI
     const systemPrompt = `You are an expert in SEO and content creation. Your task is to generate content for a PSEO (Programmatic SEO) page based on the provided targeting keywords and slug.  
     The content should be optimized for search engines and provide value to readers. Do not use placeholder text. Generate engaging, informative content that accurately targets the keywords.
-    The marketingItems must be six items.
+    The marketingItems must be six items. Ensure all content generated is SEO friendly, readable, engaging and targets the keywords.
     `;
 
     // Create user prompt

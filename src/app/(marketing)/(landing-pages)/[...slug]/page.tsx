@@ -193,6 +193,10 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
 
   const pseoData = await getPseoData(slugPath);
 
+  if (pseoData?.isPublished === false) {
+    notFound();
+  }
+
   if (!pseoData) {
     notFound();
   }

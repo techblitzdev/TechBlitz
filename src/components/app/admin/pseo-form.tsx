@@ -98,6 +98,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
 
   // Form state for boolean switches
   const [learnMoreLink, setLearnMoreLink] = useState(initialData?.learnMoreLink ?? false);
+  const [isPublished, setIsPublished] = useState(initialData?.isPublished ?? false);
 
   // JSON validation state
   const [jsonErrors, setJsonErrors] = useState<Record<string, string>>({});
@@ -217,6 +218,7 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
     formData.set('marketingItems', marketingItems);
     formData.set('templateConfig', templateConfig);
     formData.set('learnMoreLink', learnMoreLink.toString());
+    formData.set('isPublished', isPublished.toString());
 
     try {
       // Choose the appropriate server action based on whether we're editing or creating
@@ -316,6 +318,25 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
               : 'Fill out the form below to create a new PSEO page'}
           </p>
         </div>
+
+        <fieldset className="border border-black-50 rounded-md p-4">
+          <legend className="px-2 text-lg font-medium">Page Status</legend>
+          <div className="grid grid-cols-1 gap-6">
+            <div className="flex items-center space-x-2">
+              <Switch id="isPublished" checked={isPublished} onCheckedChange={setIsPublished} />
+              <div>
+                <Label htmlFor="isPublished" className="text-white">
+                  Published
+                </Label>
+                <p className="text-xs text-gray-400">
+                  {isPublished
+                    ? 'This page is publicly accessible'
+                    : 'This page is in draft mode and not publicly accessible'}
+                </p>
+              </div>
+            </div>
+          </div>
+        </fieldset>
 
         <fieldset className="border border-black-50 rounded-md p-4">
           <legend className="px-2 text-lg font-medium">Basic Information</legend>

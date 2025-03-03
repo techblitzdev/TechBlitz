@@ -92,7 +92,7 @@ export async function generatePseoContent(input: GeneratePseoInput) {
 
     // Select the appropriate AI model based on user input
     const aiModel =
-      model === 'claude' ? anthropic('claude-3-sonnet-20240229') : openai('gpt-4-turbo-preview');
+      model === 'claude' ? anthropic('claude-3-5-sonnet-latest') : openai('gpt-4-turbo');
 
     // Add retry logic with exponential backoff
     const maxRetries = 3;
@@ -100,10 +100,6 @@ export async function generatePseoContent(input: GeneratePseoInput) {
 
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
-        console.log(
-          `Attempting to generate content with ${model} (attempt ${attempt}/${maxRetries})...`
-        );
-
         // Generate structured content using the AI SDK
         const { object } = await generateObject({
           model: aiModel,
@@ -112,16 +108,10 @@ export async function generatePseoContent(input: GeneratePseoInput) {
           prompt: userPrompt,
           temperature: 0.7,
           maxTokens: 4000,
-          topP: 0.9,
-          frequencyPenalty: 0.5,
-          presencePenalty: 0.5,
         });
 
-        console.log('Content generated successfully!');
         return { success: true, content: object };
       } catch (error) {
-        console.error(`Attempt ${attempt} failed:`, error);
-
         // If this is the last attempt, throw the error
         if (attempt === maxRetries) {
           throw error;
@@ -145,12 +135,6 @@ export async function generatePseoContent(input: GeneratePseoInput) {
 
     // Provide more specific error messages
     if (error instanceof Error) {
-      console.error('Error details:', {
-        name: error.name,
-        message: error.message,
-        stack: error.stack,
-      });
-
       if (error.message.includes('rate limit')) {
         return { error: 'The AI service is currently busy. Please try again in a few minutes.' };
       }
@@ -161,12 +145,6 @@ export async function generatePseoContent(input: GeneratePseoInput) {
       }
       if (error.message.includes('timeout')) {
         return { error: 'The request timed out. Please try again.' };
-      }
-      if (error.message.includes('authentication')) {
-        return { error: 'Authentication failed. Please check your API credentials.' };
-      }
-      if (error.message.includes('quota')) {
-        return { error: 'API quota exceeded. Please try again later.' };
       }
     }
 

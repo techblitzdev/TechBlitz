@@ -15,7 +15,9 @@ export default function PseoPublishToggle({ uid, isPublished }: PseoPublishToggl
   const handleToggle = async () => {
     setIsLoading(true);
     try {
-      const result = await togglePseoPublish(uid);
+      const result = await togglePseoPublish({
+        uid,
+      });
       if (!result.success) {
         console.error('Failed to toggle publish status:', result.message);
       }

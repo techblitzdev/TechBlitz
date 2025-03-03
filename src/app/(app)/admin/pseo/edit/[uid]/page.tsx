@@ -4,6 +4,7 @@ import Link from 'next/link';
 import AdminContainer from '@/components/app/admin/admin-container';
 import PseoForm from '@/components/app/admin/pseo-form';
 import { prisma } from '@/lib/prisma';
+import { getBaseUrl } from '@/utils';
 
 export const metadata: Metadata = {
   title: 'TechBlitz | Edit PSEO Page',
@@ -36,7 +37,7 @@ export default async function EditPseoPage({ params }: { params: { uid: string }
               Back to List
             </Link>
             <Link
-              href={`/${pseoPage.slug}`}
+              href={`${getBaseUrl()}${pseoPage.slug}`}
               target="_blank"
               className="text-sm px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
             >

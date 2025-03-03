@@ -5,17 +5,6 @@ import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { PseoFormValues } from './create-pseo-page';
 
-// Define a schema specifically for editing PSEO pages (requires UID)
-const editPseoFormSchema = z.object({
-  uid: z.string().min(1, 'UID is required for editing'),
-  // Include other fields from the create schema as needed
-  slug: z.string().min(1, 'Slug is required'),
-  title: z.string().min(1, 'Title is required'),
-  metaTitle: z.string().min(1, 'Meta title is required'),
-  metaDescription: z.string().min(1, 'Meta description is required'),
-  // Other fields...
-});
-
 // Define a type with index signature for the form data
 interface PageDataWithIndex extends Partial<PseoFormValues> {
   [key: string]: any;

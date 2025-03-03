@@ -1,9 +1,9 @@
 import { prisma } from '@/lib/prisma';
 
 export const getPseoData = async (slug: string) => {
-  const pseoData = await prisma.pseoPages.findFirst({
+  const pseoData = await prisma.pseoPages.findUnique({
     where: {
-      AND: [{ slug }, { isPublished: true }],
+      slug,
     },
   });
 

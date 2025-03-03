@@ -84,10 +84,6 @@ export default async function UserDashboardPage() {
   const adminUsers = allUsers.filter((user) => user.userLevel === 'ADMIN').length;
   const inactiveUsers = totalUsers - activeUsers;
 
-  // Get recent signups (30 days)
-  const last30Days = getPastDate(30);
-  const recentSignups = allUsers.filter((user) => new Date(user.createdAt) >= last30Days);
-
   // Get last 7 days signups for percentage calculation
   const last7Days = getPastDate(7);
   const prev7Days = getPastDate(14);

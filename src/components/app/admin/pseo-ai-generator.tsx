@@ -1,16 +1,38 @@
 'use client';
 
 import { useState } from 'react';
-import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Loader2, Sparkles } from 'lucide-react';
-import { generatePseoContent } from '@/actions/ai/generate-pseo-content';
 
 interface PseoAiGeneratorProps {
-  onGeneratedContent: (content: any) => void;
+  onGeneratedContent: (content: GeneratedContent) => void;
+}
+
+interface GeneratedContent {
+  title: string;
+  metaTitle: string;
+  metaDescription: string;
+  metaKeywords: string;
+  heroHeader: string;
+  heroSubheader: string;
+  leftHeader: string;
+  leftSubheader: string;
+  roadmapTitle: string;
+  roadmapDescription: string;
+  questionHeader: string;
+  questionSubheader: string;
+  contentGridTitle: string;
+  contentGridItems: string;
+  ctaTitle: string;
+  ctaDescription: string;
+  contentSections: string;
+  faqs: string;
+  marketingItems: string;
+  templateConfig: string;
 }
 
 export default function PseoAiGenerator({ onGeneratedContent }: PseoAiGeneratorProps) {
@@ -35,17 +57,25 @@ export default function PseoAiGenerator({ onGeneratedContent }: PseoAiGeneratorP
     setError(null);
 
     try {
-      const result = await generatePseoContent({
-        targetingKeywords,
-        slug,
-        model,
+      const response = await fetch('/api/admin/generate-pseo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          targetingKeywords,
+          slug,
+          model,
+        }),
       });
 
-      if ('error' in result) {
-        throw new Error(result.error);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to generate content');
       }
 
-      onGeneratedContent(result.content);
+      const generatedContent = await response.json();
+      onGeneratedContent(generatedContent);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
     } finally {

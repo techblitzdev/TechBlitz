@@ -15,17 +15,24 @@ import { MobileIcon } from '@radix-ui/react-icons';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata({ params }: { params: { slug: string[] } }) {
+  const data = await getPseoData(params.slug.join('/'));
+  const canonicalUrl = `/${params.slug.join('/')}`;
+
   return createMetadata({
-    title: `Learn how to use ${params.slug.join('/')} in JavaScript`,
+    title: `${data?.heroHeader} | TechBlitz`,
     description: `Discover the ultimate JavaScript cheat sheet with TechBlitz. Learn JavaScript syntax, best practices, and tips to become a pro developer. Perfect for beginners and advanced coders alike.`,
+    canonicalUrl,
   });
 }
 
 const createJsonLd = (title: string, description: string, slug: string) => {
+  const baseUrl = getBaseUrl();
+  const fullUrl = `${baseUrl}/${slug}`;
+
   return {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    url: `${getBaseUrl()}/${slug}`,
+    url: fullUrl,
     headline: title,
     description: description,
     image:
@@ -34,25 +41,25 @@ const createJsonLd = (title: string, description: string, slug: string) => {
     author: {
       '@type': 'Organization',
       name: 'TechBlitz',
-      url: `${getBaseUrl()}/${slug}`,
+      url: fullUrl,
     },
     dateModified: new Date().toISOString(),
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${getBaseUrl()}/${slug}`,
+      '@id': fullUrl,
     },
     publisher: {
       '@type': 'Organization',
       name: 'TechBlitz',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://techblitz.dev/favicon.ico',
+        url: `${baseUrl}/favicon.ico`,
       },
     },
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${getBaseUrl()}/search?q={search_term_string}`,
+      target: `${baseUrl}/search?q={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
   };
@@ -207,11 +214,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
-            createJsonLd(
-              'Learn how to use Arrays in JavaScript',
-              'Discover the ultimate JavaScript cheat sheet with TechBlitz. Learn JavaScript syntax, best practices, and tips to become a pro developer. Perfect for beginners and advanced coders alike.',
-              slugPath
-            )
+            createJsonLd(pseoData.heroHeader, pseoData.heroSubheader, slugPath)
           ),
         }}
       />
@@ -245,9 +248,9 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
         )}
 
         {pseoData.faqs ? (
-          <FAQsBlock faqs={pseoData.faqs as unknown as FAQ[]} />
+          <FAQsBlock showSpan={false} faqs={pseoData.faqs as unknown as FAQ[]} />
         ) : (
-          <FAQsBlock faqs={defaultFAQs} />
+          <FAQsBlock showSpan={false} faqs={defaultFAQs} />
         )}
 
         <CallToActionBlock title={pseoData.ctaTitle} description={pseoData.ctaDescription} />

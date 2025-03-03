@@ -7,79 +7,44 @@ import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Loader2, Sparkles } from 'lucide-react';
+import { toast } from 'sonner';
+import { generatePseoContent, GeneratedContent } from '@/actions/ai/generate-pseo-content';
 
 interface PseoAiGeneratorProps {
   onGeneratedContent: (content: GeneratedContent) => void;
 }
 
-interface GeneratedContent {
-  title: string;
-  metaTitle: string;
-  metaDescription: string;
-  metaKeywords: string;
-  heroHeader: string;
-  heroSubheader: string;
-  leftHeader: string;
-  leftSubheader: string;
-  roadmapTitle: string;
-  roadmapDescription: string;
-  questionHeader: string;
-  questionSubheader: string;
-  contentGridTitle: string;
-  contentGridItems: string;
-  ctaTitle: string;
-  ctaDescription: string;
-  contentSections: string;
-  faqs: string;
-  marketingItems: string;
-  templateConfig: string;
-}
-
 export default function PseoAiGenerator({ onGeneratedContent }: PseoAiGeneratorProps) {
   const [targetingKeywords, setTargetingKeywords] = useState('');
   const [slug, setSlug] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [model, setModel] = useState<'claude' | 'openai'>('claude');
 
-  const generateContent = async () => {
-    if (!targetingKeywords.trim()) {
-      setError('Please enter targeting keywords');
-      return;
-    }
-
-    if (!slug.trim()) {
-      setError('Please enter a slug');
-      return;
-    }
-
-    setIsLoading(true);
+  const handleGenerate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsGenerating(true);
     setError(null);
 
     try {
-      const response = await fetch('/api/admin/generate-pseo', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          targetingKeywords,
-          slug,
-          model,
-        }),
+      const result = await generatePseoContent({
+        slug,
+        targetingKeywords,
+        model,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to generate content');
+      if (result.success && result.content) {
+        toast.success('Content generated successfully!');
+        onGeneratedContent(result.content);
+      } else {
+        setError(result.error || 'Failed to generate content');
+        toast.error(result.error || 'Failed to generate content');
       }
-
-      const generatedContent = await response.json();
-      onGeneratedContent(generatedContent);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      setError('An unexpected error occurred');
+      toast.error('An unexpected error occurred');
     } finally {
-      setIsLoading(false);
+      setIsGenerating(false);
     }
   };
 
@@ -146,11 +111,11 @@ export default function PseoAiGenerator({ onGeneratedContent }: PseoAiGeneratorP
 
       <Button
         type="button"
-        onClick={generateContent}
-        disabled={isLoading}
+        onClick={handleGenerate}
+        disabled={isGenerating}
         className="bg-primary hover:bg-primary/90 text-white"
       >
-        {isLoading ? (
+        {isGenerating ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             Generating...

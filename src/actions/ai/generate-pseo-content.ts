@@ -42,14 +42,26 @@ const GeneratedContentSchema = z.object({
   metaDescription: z.string(),
   metaKeywords: z.string(),
   targetingKeywords: z.string(),
-  heroHeader: z.string(),
-  heroSubheader: z.string(),
+  heroHeader: z
+    .string()
+    .describe(
+      'The main heading of the page. Must be engaging and entice the user to want to sign up for a service.'
+    ),
+  heroSubheader: z
+    .string()
+    .describe(
+      'The subheading of the page. Must be engaging and entice the user to want to sign up for a service.'
+    ),
   leftHeader: z.string(),
   leftSubheader: z.string(),
-  roadmapTitle: z.string(),
+  roadmapTitle: z
+    .string()
+    .describe(
+      'The title of our personalized roadmap section. Must be engaging and entice the user to want to upgrade to a paid plan.'
+    ),
   roadmapDescription: z.string(),
   questionHeader: z.string(),
-  questionSubheader: z.string(),
+  questionSubheader: z.string().describe('Show cases a marquee of questions on TechBlitz.'),
   contentGridTitle: z.string(),
   contentGridItems: z.array(ContentGridItemSchema),
   ctaTitle: z.string(),

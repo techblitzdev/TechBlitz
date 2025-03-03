@@ -22,67 +22,90 @@ const pseoFormSchema = z.object({
   // Content
   targetingKeywords: z.string().transform((val) => val.split(',').map((k) => k.trim())),
   title: z.string().min(1, 'Page title is required'),
-  subtitle: z.string().optional(),
-  heroImage: z.string().optional(),
-  heroImageAlt: z.string().optional(),
 
-  // Features
-  featureTitle: z.string().optional(),
-  featureDescription: z.string().optional(),
-  marketingItems: z.string().transform((val) => {
-    try {
-      return JSON.parse(val);
-    } catch {
-      return [];
-    }
-  }),
+  // Hero section
+  heroHeader: z.string().min(1, 'Hero header is required'),
+  heroSubheader: z.string().min(1, 'Hero subheader is required'),
 
-  // Roadmap
-  roadmapTitle: z.string().optional(),
-  roadmapDescription: z.string().optional(),
+  // Feature sections
+  leftHeader: z.string().min(1, 'Left header is required'),
+  leftSubheader: z.string().min(1, 'Left subheader is required'),
   learnMoreLink: z.enum(['true', 'false']).transform((val) => val === 'true'),
-  learnMoreText: z.string().optional(),
-  learnMoreUrl: z.string().optional(),
 
-  // Questions
-  questionTitle: z.string().optional(),
-  questionDescription: z.string().optional(),
-  faqs: z.string().transform((val) => {
-    try {
-      return JSON.parse(val);
-    } catch {
-      return [];
-    }
-  }),
+  // Roadmap section
+  roadmapTitle: z.string().min(1, 'Roadmap title is required'),
+  roadmapDescription: z.string().min(1, 'Roadmap description is required'),
 
-  // Content Grid
-  contentGridTitle: z.string().optional(),
-  contentGridDescription: z.string().optional(),
+  // Question section
+  questionHeader: z
+    .string()
+    .min(1, 'Question header is required')
+    .describe('A section that includes a marquee of example questions.'),
+  questionSubheader: z
+    .string()
+    .min(1, 'Question subheader is required')
+    .describe(
+      'A section that includes a marquee of example questions. This field will support the heading'
+    ),
+
+  // Content grid
+  contentGridTitle: z.string().min(1, 'Content grid title is required'),
   contentGridItems: z.string().transform((val) => {
     try {
-      return JSON.parse(val);
+      const parsed = JSON.parse(val);
+      return Array.isArray(parsed)
+        ? parsed.map((item: any) => ({
+            title: item.title || '',
+            description: item.description || '',
+            icon: item.icon || null,
+          }))
+        : [];
     } catch {
       return [];
     }
   }),
 
   // CTA
-  ctaTitle: z.string().optional(),
-  ctaDescription: z.string().optional(),
-  ctaButtonText: z.string().optional(),
-  ctaButtonUrl: z.string().optional(),
+  ctaTitle: z.string().min(1, 'CTA title is required'),
+  ctaDescription: z.string().min(1, 'CTA description is required'),
 
   // Additional Content
   contentSections: z.string().transform((val) => {
     try {
-      return JSON.parse(val);
+      const parsed = JSON.parse(val);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  }),
+
+  // FAQ section
+  faqs: z.string().transform((val) => {
+    try {
+      const parsed = JSON.parse(val);
+      return Array.isArray(parsed)
+        ? parsed.map((faq: any) => ({
+            question: faq.question || '',
+            answer: faq.answer || '',
+          }))
+        : [];
+    } catch {
+      return [];
+    }
+  }),
+
+  // Marketing items
+  marketingItems: z.string().transform((val) => {
+    try {
+      const parsed = JSON.parse(val);
+      return Array.isArray(parsed) ? parsed : [];
     } catch {
       return [];
     }
   }),
 
   // Template
-  templateType: z.string().optional(),
+  templateId: z.string().min(1, 'Template ID is required'),
   templateConfig: z.string().transform((val) => {
     if (!val) return null;
     try {
@@ -94,14 +117,13 @@ const pseoFormSchema = z.object({
 
   // Author
   authorName: z.string().optional(),
-  authorTitle: z.string().optional(),
-  authorAvatar: z.string().optional(),
-  authorDescription: z.string().optional(),
 
   // JSON-LD
-  jsonLdType: z.string().optional(),
-  jsonLdName: z.string().optional(),
+  jsonLdTitle: z.string().optional(),
   jsonLdDescription: z.string().optional(),
+
+  // Publish status
+  isPublished: z.enum(['true', 'false']).transform((val) => val === 'true'),
 });
 
 export type PseoFormValues = z.infer<typeof pseoFormSchema>;
@@ -113,6 +135,16 @@ export async function createPseoPage(formData: FormData) {
 
     // Extract the uid if it exists (for editing)
     const { uid, ...pageData } = validatedData;
+
+    // Ensure JSON fields are arrays
+    pageData.contentGridItems = Array.isArray(pageData.contentGridItems)
+      ? pageData.contentGridItems
+      : [];
+    pageData.contentSections = Array.isArray(pageData.contentSections)
+      ? pageData.contentSections
+      : [];
+    pageData.faqs = Array.isArray(pageData.faqs) ? pageData.faqs : [];
+    pageData.marketingItems = Array.isArray(pageData.marketingItems) ? pageData.marketingItems : [];
 
     // Check if we're updating an existing page or creating a new one
     if (uid) {

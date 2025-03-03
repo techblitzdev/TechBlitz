@@ -79,8 +79,9 @@ export async function generatePseoContent(input: GeneratePseoInput) {
 
     // Create system prompt for AI
     const systemPrompt = `You are an expert in SEO and content creation. Your task is to generate content for a PSEO (Programmatic SEO) page based on the provided targeting keywords and slug.  
-    The content should be optimized for search engines and provide value to readers. Do not use placeholder text. Generate engaging, informative content that accurately targets the keywords.
-    The marketingItems must be six items. Ensure all content generated is SEO friendly, readable, engaging and targets the keywords.
+    You are trying to entice the user to want to sign up for a service, optimize for the keywords and provide value to the user. Ensure you are solving a problem that the user is trying to solve.
+    You must invoke an emotion in the user, make them feel something and show how TechBlitz solves their problem. These pages are landing pages, not blog posts.
+    The content should be optimized for search engines and provide value to readers. Do not use placeholder text. Generate engaging, informative content that accurately targets the keywords. The marketingItems must be six items. 
     `;
 
     // Create user prompt
@@ -91,22 +92,84 @@ export async function generatePseoContent(input: GeneratePseoInput) {
 
     // Select the appropriate AI model based on user input
     const aiModel =
-      model === 'claude' ? anthropic('claude-3-5-sonnet-latest') : openai('gpt-4-turbo');
+      model === 'claude' ? anthropic('claude-3-sonnet-20240229') : openai('gpt-4-turbo-preview');
 
-    // Generate structured content using the AI SDK
-    const { object } = await generateObject({
-      model: aiModel,
-      schema: GeneratedContentSchema,
-      system: systemPrompt,
-      prompt: userPrompt,
-      temperature: 0.7,
-      maxTokens: 4000,
-    });
+    // Add retry logic with exponential backoff
+    const maxRetries = 3;
+    const baseDelay = 1000; // 1 second
 
-    return { success: true, content: object };
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        console.log(
+          `Attempting to generate content with ${model} (attempt ${attempt}/${maxRetries})...`
+        );
+
+        // Generate structured content using the AI SDK
+        const { object } = await generateObject({
+          model: aiModel,
+          schema: GeneratedContentSchema,
+          system: systemPrompt,
+          prompt: userPrompt,
+          temperature: 0.7,
+          maxTokens: 4000,
+          topP: 0.9,
+          frequencyPenalty: 0.5,
+          presencePenalty: 0.5,
+        });
+
+        console.log('Content generated successfully!');
+        return { success: true, content: object };
+      } catch (error) {
+        console.error(`Attempt ${attempt} failed:`, error);
+
+        // If this is the last attempt, throw the error
+        if (attempt === maxRetries) {
+          throw error;
+        }
+
+        // Calculate delay with exponential backoff
+        const delay = baseDelay * Math.pow(2, attempt - 1);
+
+        // Wait before retrying
+        await new Promise((resolve) => setTimeout(resolve, delay));
+
+        // Log retry attempt
+        console.log(`Attempt ${attempt} failed, retrying in ${delay}ms...`);
+      }
+    }
+
+    // This should never be reached due to the throw in the last attempt
+    throw new Error('Failed to generate content after all retries');
   } catch (error) {
     console.error('Error generating PSEO content:', error);
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-    return { error: `Failed to generate content: ${errorMessage}` };
+
+    // Provide more specific error messages
+    if (error instanceof Error) {
+      console.error('Error details:', {
+        name: error.name,
+        message: error.message,
+        stack: error.stack,
+      });
+
+      if (error.message.includes('rate limit')) {
+        return { error: 'The AI service is currently busy. Please try again in a few minutes.' };
+      }
+      if (error.message.includes('overloaded')) {
+        return {
+          error: 'The AI service is temporarily overloaded. Please try again in a few minutes.',
+        };
+      }
+      if (error.message.includes('timeout')) {
+        return { error: 'The request timed out. Please try again.' };
+      }
+      if (error.message.includes('authentication')) {
+        return { error: 'Authentication failed. Please check your API credentials.' };
+      }
+      if (error.message.includes('quota')) {
+        return { error: 'API quota exceeded. Please try again later.' };
+      }
+    }
+
+    return { error: 'Failed to generate content. Please try again in a few minutes.' };
   }
 }

@@ -4,7 +4,7 @@ export interface MarketingContentGridProps {
   icon: React.ReactNode;
 }
 
-type MarketingContentGridComponentProps = {
+export type MarketingContentGridComponentProps = {
   title: string;
   subheading?: string;
   items: MarketingContentGridProps[];
@@ -40,7 +40,7 @@ export default function MarketingContentGrid({
             }`}
           >
             <div className="flex items-center gap-2">
-              <div className="text-accent">{item.icon}</div>
+              {item.icon && <div className="text-accent">{item.icon}</div>}
               <h3 className="text-lg font-semibold">{item?.title}</h3>
             </div>
 

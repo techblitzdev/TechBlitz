@@ -8,6 +8,7 @@ import React from 'react';
 import { UserRecord } from '@/types/User';
 import { StudyPath, StudyPathGoal, UserStudyPath } from '@prisma/client';
 import { getUserDisplayName } from '@/utils/user';
+import { STUDY_REMINDER_EMAIL_SUBJECT } from '@/utils/constants/study-reminder';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -31,12 +32,15 @@ async function SendEmail(goal: GoalWithRelations) {
 
   const html = await renderAsync(
     React.createElement(StudyReminderEmail, {
-      userName: displayName,
       studyPathTitle: goal.studyPath.title,
       goalDate: goal.targetDate.toLocaleDateString(),
       progressPercentage: goal.userStudyPath.progress.toFixed(2),
       daysRemaining,
       link,
+      headingText:
+        STUDY_REMINDER_EMAIL_SUBJECT(displayName)[
+          Math.floor(Math.random() * STUDY_REMINDER_EMAIL_SUBJECT(displayName).length)
+        ],
     })
   );
 
@@ -73,7 +77,8 @@ export async function GET(request: NextRequest) {
 
   // loop through all users and send a reminder email
   for (const goal of goals) {
-    await SendEmail(goal);
+    if (!goal || !goal.userStudyPath) continue;
+    await SendEmail(goal as GoalWithRelations);
   }
 
   return NextResponse.json({ message: 'Reminders sent' }, { status: 200 });

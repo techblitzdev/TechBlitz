@@ -59,7 +59,7 @@ function CalendarComponent({
     }
 
     startTransition(async () => {
-      const { success, error } = await setUserStudyPathGoal(studyPathUid, date.to as Date);
+      const { success } = await setUserStudyPathGoal(studyPathUid, date.to as Date);
 
       if (success) {
         setGoalDate(date.to as Date);

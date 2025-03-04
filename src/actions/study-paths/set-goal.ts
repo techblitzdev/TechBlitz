@@ -1,9 +1,8 @@
 'use server';
 import { prisma } from '@/lib/prisma';
 import { getUser } from '../user/authed/get-user';
-import { getUserStudyPaths, isUserEnrolledInStudyPath } from '@/utils/data/study-paths/get';
+import { isUserEnrolledInStudyPath } from '@/utils/data/study-paths/get';
 import { enrollInStudyPath } from './enroll';
-import { UserStudyPath } from '@prisma/client';
 
 export const setUserStudyPathGoal = async (studyPathUid: string, goal: Date) => {
   const user = await getUser();

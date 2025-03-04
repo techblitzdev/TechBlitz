@@ -10,12 +10,11 @@ import {
   Preview,
   Section,
   Text,
-  Link,
 } from '@react-email/components';
 import * as React from 'react';
 
 interface StudyReminderEmailProps {
-  userName: string;
+  headingText: string;
   studyPathTitle: string;
   goalDate: string;
   progressPercentage: string;
@@ -24,7 +23,7 @@ interface StudyReminderEmailProps {
 }
 
 export default function StudyReminderEmail({
-  userName = 'Alex',
+  headingText = 'Keep the momentum going, Alex!',
   studyPathTitle = 'JavaScript Fundamentals',
   goalDate = 'June 15, 2025',
   progressPercentage = '42',
@@ -50,7 +49,7 @@ export default function StudyReminderEmail({
 
           {/* Hero section */}
           <Section style={heroSection}>
-            <Heading style={heading}>Keep the momentum going, {userName}!</Heading>
+            <Heading style={heading}>{headingText}</Heading>
             <Text style={subheading}>
               You're on track to master <strong>{studyPathTitle}</strong>
             </Text>
@@ -206,25 +205,6 @@ const highlight = {
   fontWeight: 'bold',
 };
 
-const quoteSection = {
-  padding: '10px 30px 20px',
-  textAlign: 'center' as const,
-};
-
-const quote = {
-  fontSize: '16px',
-  fontStyle: 'italic',
-  color: '#6b7280',
-  lineHeight: '24px',
-  margin: '0 0 8px',
-};
-
-const quoteAuthor = {
-  fontSize: '14px',
-  color: '#9ca3af',
-  margin: '0',
-};
-
 const ctaSection = {
   padding: '24px 0',
   textAlign: 'center' as const,
@@ -256,14 +236,4 @@ const footerText = {
   fontSize: '14px',
   color: '#9ca3af',
   margin: '0 0 8px',
-};
-
-const footerLinks = {
-  fontSize: '14px',
-  color: '#9ca3af',
-};
-
-const footerLink = {
-  color: '#6b7280',
-  textDecoration: 'underline',
 };

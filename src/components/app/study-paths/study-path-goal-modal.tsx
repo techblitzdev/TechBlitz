@@ -158,9 +158,9 @@ export default function StudyPathGoalModal({ user, studyPath }: StudyPathGoalMod
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>
-                        This recommended completion date is based on your current progress, the
-                        amount of time per day you want to spend and the average time it takes to
-                        complete a question.
+                        This recommended completion date is calculated based on your current
+                        progress, the amount of time per day you want to spend, and the average time
+                        it takes to complete a question.
                       </p>
                     </TooltipContent>
                   </Tooltip>

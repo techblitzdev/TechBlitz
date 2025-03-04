@@ -16,7 +16,7 @@ interface SidebarFooterPremiumProps {
 export default function SidebarFooterPremium({ user }: SidebarFooterPremiumProps) {
   const pathname = usePathname();
 
-  const overrideDynamicTitleAndDescription = true;
+  const overrideDynamicTitleAndDescription = false;
 
   // check if the user has a custom coupon and the expiring date is in the future
   const hasCustomCoupon =
@@ -40,7 +40,7 @@ export default function SidebarFooterPremium({ user }: SidebarFooterPremiumProps
             : SIDEBAR_FOOTER_TITLE[pathname as keyof typeof SIDEBAR_FOOTER_TITLE] */}
           {hasCustomCoupon
             ? `${getUserDisplayName(user)}, don't miss out!`
-            : `${getUserDisplayName(user)}, don't miss out!`}
+            : 'Accelerate your learning!'}
         </p>
         <p className="text-xs font-light font-onest">
           {hasCustomCoupon ? (
@@ -53,7 +53,9 @@ export default function SidebarFooterPremium({ user }: SidebarFooterPremiumProps
             <>
               {overrideDynamicTitleAndDescription
                 ? 'Receive 30% off your first three months with code FEBRUARY30. Offer ends 2/28/2025.'
-                : SIDEBAR_FOOTER_DESCRIPTION[pathname as keyof typeof SIDEBAR_FOOTER_DESCRIPTION]}
+                : SIDEBAR_FOOTER_DESCRIPTION[pathname as keyof typeof SIDEBAR_FOOTER_DESCRIPTION]
+                  ? SIDEBAR_FOOTER_DESCRIPTION[pathname as keyof typeof SIDEBAR_FOOTER_DESCRIPTION]
+                  : 'Personalized practice, premium questions and more'}
             </>
           )}
         </p>

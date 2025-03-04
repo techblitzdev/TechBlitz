@@ -20,6 +20,7 @@ import { getUserMissionRecords } from '@/utils/data/missions/get-user-mission-re
 // types
 import type { StudyPath } from '@prisma/client';
 import { UserRecord } from '@/types/User';
+import { getStudyPathGoal } from '@/utils/data/study-paths/get-goal';
 
 async function GetStartedCta({ studyPath, user }: { studyPath: StudyPath; user: UserRecord }) {
   // run in parallel
@@ -64,6 +65,7 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
   // get the active missions for the day
   const missionsPromise = getDailyMissions();
   const userMissionRecordsPromise = getUserMissionRecords();
+  const goal = await getStudyPathGoal(studyPath.uid);
 
   return (
     <aside className="w-full lg:w-2/5 xl:w-1/3 space-y-6 order-first lg:order-last">
@@ -144,7 +146,7 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
                   Set a goal date to complete this study path. Receive a daily reminder to complete
                   the next question.
                 </p>
-                <StudyPathGoalModal user={user} studyPath={studyPath} />
+                <StudyPathGoalModal user={user} studyPath={studyPath} goal={goal} />
               </div>
             </div>
           </div>

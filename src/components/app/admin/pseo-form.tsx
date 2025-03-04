@@ -129,12 +129,22 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
     if (ctaTitleRef.current) ctaTitleRef.current.value = content.ctaTitle || '';
     if (ctaDescriptionRef.current) ctaDescriptionRef.current.value = content.ctaDescription || '';
 
-    // Set JSON fields
-    if (content.contentGridItems) setContentGridItems(content.contentGridItems);
-    if (content.contentSections) setContentSections(content.contentSections);
-    if (content.faqs) setFaqs(content.faqs);
-    if (content.marketingItems) setMarketingItems(content.marketingItems);
-    if (content.templateConfig) setTemplateConfig(content.templateConfig);
+    // Set JSON fields with proper formatting
+    if (content.contentGridItems) {
+      setContentGridItems(JSON.stringify(content.contentGridItems, null, 2));
+    }
+    if (content.contentSections) {
+      setContentSections(JSON.stringify(content.contentSections, null, 2));
+    }
+    if (content.faqs) {
+      setFaqs(JSON.stringify(content.faqs, null, 2));
+    }
+    if (content.marketingItems) {
+      setMarketingItems(JSON.stringify(content.marketingItems, null, 2));
+    }
+    if (content.templateConfig) {
+      setTemplateConfig(JSON.stringify(content.templateConfig, null, 2));
+    }
 
     // Show success message
     setFormStatus({

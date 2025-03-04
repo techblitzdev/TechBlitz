@@ -82,5 +82,5 @@ export const isUserEnrolledInStudyPath = async (studyPathUid: string) => {
     },
   });
 
-  return !!enrollment;
+  return enrollment;
 };

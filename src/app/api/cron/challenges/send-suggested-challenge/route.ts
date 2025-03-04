@@ -1,4 +1,4 @@
-import { SuggestedChallengeEmailTemplate } from '@/components/templates/daily-challenge';
+import { SuggestedChallengeEmailTemplate } from '@/components/emails/daily-challenge';
 import { prisma } from '@/lib/prisma';
 import { resend } from '@/lib/resend';
 import { QuestionWithTags } from '@/types/Questions';
@@ -14,6 +14,8 @@ import { type NextRequest, NextResponse } from 'next/server';
 import React from 'react';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+export const maxDuration = 300; // 5 minutes
 
 const getRandomElement = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
 
@@ -53,7 +55,7 @@ async function sendEmail(user: UserRecord, challenge: QuestionWithTags) {
   });
 }
 
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
   const authHeader = request.headers.get('authorization');
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return new Response('Unauthorized', {
@@ -64,25 +66,26 @@ export async function GET(request: NextRequest) {
   console.log('Sending daily challenge email');
 
   try {
-    const users = await prisma.users.findMany({
-      where: {
-        sendPushNotifications: true,
-      },
-    });
-
-    if (!users.length) {
-      return NextResponse.json({ message: 'No users found' }, { status: 404 });
-    }
-
-    // Process users in batches of 5 to avoid connection pool exhaustion
-    const batchSize = 5;
+    // Process users in larger batches with pagination
+    const batchSize = 50; // Increased from 5 to 50
     const results = [];
+    let skip = 0;
 
-    for (let i = 0; i < users.length; i += batchSize) {
-      const batch = users.slice(i, i + batchSize);
+    while (true) {
+      const users = await prisma.users.findMany({
+        where: {
+          sendPushNotifications: true,
+        },
+        take: batchSize,
+        skip,
+      });
+
+      if (!users.length) {
+        break;
+      }
 
       const batchResults = await Promise.allSettled(
-        batch.map(async (user) => {
+        users.map(async (user) => {
           try {
             const challenge = await getChallenge(user.uid);
             if (!challenge) {
@@ -103,10 +106,11 @@ export async function GET(request: NextRequest) {
       );
 
       results.push(...batchResults);
+      skip += batchSize;
 
-      // Add a small delay between batches to allow connections to be released
-      if (i + batchSize < users.length) {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+      // Add a smaller delay between batches to prevent rate limiting
+      if (skip < (await prisma.users.count({ where: { sendPushNotifications: true } }))) {
+        await new Promise((resolve) => setTimeout(resolve, 100));
       }
     }
 

@@ -2,7 +2,7 @@
 
 import { resend } from '@/lib/resend';
 import { getUser } from '../user/authed/get-user';
-import ReferralEmail from '@/components/templates/referral';
+import ReferralEmail from '@/components/emails/referral';
 import { renderAsync } from '@react-email/components';
 import React from 'react';
 import { getUserMissionRecords } from '@/utils/data/missions/get-user-mission-record';

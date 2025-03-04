@@ -38,13 +38,25 @@ model StudyPathGoal {
   uid          String    @id @default(uuid())
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
+  // when the goal was set
   dateSet      DateTime
+  // is the goal active?
+  isActive     Boolean   @default(true)
+  // when the goal was set
   targetDate   DateTime
+  // is the goal completed?
   completed    Boolean   @default(false)
+  // when the goal was completed
   completedAt  DateTime?
+
+  // relations 
+
   userUid      String
   studyPathUid String
+
+  // the study path the goal is for
   studyPath    StudyPath @relation(fields: [studyPathUid], references: [uid], onDelete: Cascade)
+  // the user the goal is for
   user         Users     @relation(fields: [userUid], references: [uid], onDelete: Cascade)
 
   @@unique([userUid, studyPathUid])

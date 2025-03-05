@@ -18,36 +18,40 @@ export const setUserStudyPathGoal = async (studyPathUid: string, goal: Date) => 
   // check if the user has already set a goal for this study path
   const existingGoal = await prisma.studyPathGoal.findFirst({
     where: {
-      studyPathUid,
       userUid: user.uid,
+      studyPathUid: studyPathUid,
+      AND: {
+        completed: false,
+      },
     },
   });
 
   if (existingGoal) {
     return {
       success: false,
-      error: 'Goal already set',
+      error: 'You already have a goal set. Complete it before setting a new one.',
     };
   }
 
   // now check if the users is enrolled in the study path
-  const existingEnrollment = await isUserEnrolledInStudyPath(studyPathUid);
+  let existingEnrollment = await isUserEnrolledInStudyPath(studyPathUid);
 
   // if the user is not enrolled in the study path, enroll them
   if (!existingEnrollment) {
-    await enrollInStudyPath(studyPathUid);
+    existingEnrollment = await enrollInStudyPath(studyPathUid);
   }
 
   // now set the goal
   await prisma.studyPathGoal.create({
     data: {
-      studyPathUid,
-      userUid: user.uid,
       dateSet: new Date(),
       targetDate: goal,
       completed: false,
       completedAt: null,
       isActive: true,
+      userUid: user.uid,
+      studyPathUid: studyPathUid,
+      userStudyPathUid: existingEnrollment?.uid,
     },
   });
 

@@ -15,6 +15,14 @@ export const getStudyPath = async (slug: string) => {
   });
 };
 
+export const getStudyPathByUid = async (uid: string) => {
+  return await prisma.studyPath.findUnique({
+    where: {
+      uid,
+    },
+  });
+};
+
 export const getAllStudyPaths = async () => {
   return await prisma.studyPath.findMany({
     orderBy: {

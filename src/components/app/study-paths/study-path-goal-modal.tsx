@@ -1,7 +1,7 @@
 'use client';
 import { useState, useTransition } from 'react';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import type { DateRange } from 'react-day-picker';
 
 import { Button } from '@/components/ui/button';
@@ -64,25 +64,19 @@ function CalendarComponent({
       if (success) {
         setGoalDate(date.to as Date);
         setIsSuccess(true);
-
-        // Close the dialog after 3 seconds
-        setTimeout(() => {
-          // Reset the success state after closing
-          setTimeout(() => setIsSuccess(false), 500);
-        }, 3000);
       }
     });
   };
 
   return (
     <div className="flex flex-col gap-4 w-fit">
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" initial={false}>
         {!isSuccess ? (
           <motion.div
             key="calendar"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0 }}
             transition={{ duration: 0.3 }}
           >
             <Calendar
@@ -105,8 +99,8 @@ function CalendarComponent({
             key="success"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.4, type: 'spring' }}
+            exit={{ opacity: 0, scale: 0 }}
+            transition={{ duration: 0.4, type: 'spring', delay: 0.3 }}
             className="flex flex-col items-center justify-center py-12 px-8 text-center"
           >
             <CheckCircle className="w-16 h-16 text-green-500 mb-4" />

@@ -35,10 +35,10 @@ export default async function StudyPathsList({
   )?.slug;
 
   return (
-    <div className={cn('relative w-[90%] z-10', className)}>
+    <div className={cn('relative z-10 justify-self-center', className)}>
       <Suspense fallback={<StudyPathQuestionCardSkeleton />}>
         {sortedQuestions.map((question, index) => {
-          const offsetValue = calculateOffset ? calculateOffset(index) : Math.sin(index * 0.9) * 10;
+          const offsetValue = calculateOffset ? calculateOffset(index) : Math.sin(index * 2.5) * 25;
           return (
             <div key={question.slug} className="mb-4">
               <QuestionCardClient
@@ -76,7 +76,7 @@ function QuestionCardWrapper({
       <StudyPathQuestionCard
         href={`/question/${question.slug}?type=study-path&study-path=${studyPath.slug}`}
         questionData={question}
-        className="w-full hover:border-accent group-hover:scale-[0.99] active:scale-[0.98] transition-transform duration-200"
+        className="group-hover:scale-[0.99] active:scale-[0.98] transition-transform duration-200"
       />
     </div>
   );

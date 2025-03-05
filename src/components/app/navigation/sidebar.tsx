@@ -227,7 +227,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
         ...menuItems,
         {
           title: 'Admin',
-          url: '/dashboard/admin',
+          url: '/admin',
           icon: LockIcon,
         },
       ];

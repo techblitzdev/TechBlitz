@@ -5,6 +5,10 @@
       "schedule": "30 11 * * 1-5"
     },
     {
+      "path": "/api/cron/goals/send-daily-goal-reminder",
+      "schedule": "30 15 * * 1-5"
+    },
+    {
       "path": "/api/cron/sync-user-streak",
       "schedule": "0 1 * * *"
     },

@@ -67,7 +67,7 @@
     "ai": "4.1.47",
     "bad-words": "^4.0.0",
     "canvas-confetti": "^1.9.3",
-    "class-variance-authority": "^0.7.0",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cookie": "^0.7.0",
     "date-fns": "^3.6.0",

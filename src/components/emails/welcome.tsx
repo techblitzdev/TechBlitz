@@ -496,8 +496,3 @@ const footerFine = {
   lineHeight: '1.5',
   margin: '8px 0',
 };
-
-const unsubscribeLink = {
-  color: '#9ca3af',
-  textDecoration: 'underline',
-};

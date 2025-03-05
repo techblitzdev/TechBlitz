@@ -30,7 +30,6 @@ export const sendStudyPathCompleteEmail = async ({ studyPathUid }: { studyPathUi
     })
   );
 
-  // TODO: Add email sending logic here
   await resend.emails.send({
     from: 'TechBlitz <techblitz@techblitz.io>',
     to: user.email,

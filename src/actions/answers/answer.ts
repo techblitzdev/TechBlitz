@@ -8,6 +8,7 @@ import { uniqueId } from 'lodash';
 import { getUser } from '../user/authed/get-user';
 import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
 import { createUserMissionRecords } from '../daily-missions/create-user-missions-record';
+import { sendStudyPathCompleteEmail } from '../study-paths/send-path-complete-email';
 
 // Types
 interface AnswerQuestionInput {
@@ -394,6 +395,26 @@ const updateStudyPathProgress = async ({
       data: {
         completedAt: new Date(),
       },
+    });
+
+    // update the user's roadmap goal completion data
+    await prisma.studyPathGoal.update({
+      where: {
+        userUid_studyPathUid: {
+          userUid,
+          studyPathUid: studyPath.uid,
+        },
+      },
+      data: {
+        completed: true,
+        completedAt: new Date(),
+        isActive: false, // completed
+      },
+    });
+
+    // send the user an email
+    await sendStudyPathCompleteEmail({
+      studyPathUid: studyPath.uid,
     });
   }
 

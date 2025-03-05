@@ -14,22 +14,16 @@ import {
 
 interface StudyCompletionEmailProps {
   headingText: string;
-  userName: string;
+  username: string;
   studyPathTitle: string;
   completionDate: string;
-  certificateId: string;
-  nextPathSuggestions: string[];
-  link: string;
 }
 
 export default function RoadmapCompleteEmail({
   headingText = 'Congratulations on your achievement, Alex!',
-  userName = 'Alex',
+  username = 'Alex',
   studyPathTitle = 'JavaScript Fundamentals',
   completionDate = 'June 1, 2025',
-  certificateId = 'CERT-JS-123456',
-  nextPathSuggestions = ['Advanced JavaScript', 'React Fundamentals', 'Web Development Projects'],
-  link = 'https://example.com/view-certificate',
 }: StudyCompletionEmailProps) {
   return (
     <Html>
@@ -60,15 +54,8 @@ export default function RoadmapCompleteEmail({
 
           {/* Achievement section */}
           <Section style={achievementSection}>
-            <Img
-              src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/trophy.png"
-              width="80"
-              height="80"
-              alt="Trophy"
-              style={trophyIcon}
-            />
             <Text style={achievementText}>
-              <strong>Congratulations, {userName}!</strong> You've demonstrated dedication and
+              <strong>Congratulations, {username}!</strong> You've demonstrated dedication and
               perseverance in completing this learning path.
             </Text>
           </Section>
@@ -83,9 +70,6 @@ export default function RoadmapCompleteEmail({
               <Text style={certificateDetail}>
                 <span style={certificateLabel}>Completion Date:</span> {completionDate}
               </Text>
-              <Text style={certificateDetail}>
-                <span style={certificateLabel}>Certificate ID:</span> {certificateId}
-              </Text>
             </div>
           </Section>
 
@@ -93,23 +77,14 @@ export default function RoadmapCompleteEmail({
           <Section style={nextStepsSection}>
             <Text style={nextStepsTitle}>Continue Your Learning Journey</Text>
             <Text style={nextStepsText}>
-              Ready for your next challenge? Here are some recommended paths:
+              Don't stop here! Check out some of our other paths to keep learning and growing.
             </Text>
-            <ul style={suggestionsList}>
-              {nextPathSuggestions.map((suggestion, index) => (
-                <li key={index} style={suggestionItem}>
-                  {suggestion}
-                </li>
-              ))}
-            </ul>
-          </Section>
-
-          {/* CTA section */}
-          <Section style={ctaSection}>
-            <Button style={{ ...button, padding: '12px 20px' }} href={link}>
-              View Your Certificate
+            <Button
+              style={{ ...button, padding: '12px 20px' }}
+              href={`${process.env.NEXT_PUBLIC_URL}/roadmaps`}
+            >
+              Explore Other Paths
             </Button>
-            <Text style={ctaSubtext}>Share your achievement with your network</Text>
           </Section>
 
           <Hr style={divider} />
@@ -117,6 +92,9 @@ export default function RoadmapCompleteEmail({
           {/* Footer */}
           <Section style={footer}>
             <Text style={footerText}>© 2025 DEV TECHBLITZ LTD. All rights reserved.</Text>
+            <Text style={footerText}>
+              You are receiving this email as you completed a study path on TechBlitz.
+            </Text>
           </Section>
         </Container>
       </Body>
@@ -176,10 +154,6 @@ const achievementSection = {
   textAlign: 'center' as const,
 };
 
-const trophyIcon = {
-  margin: '0 auto 16px',
-};
-
 const achievementText = {
   fontSize: '16px',
   color: '#4b5563',
@@ -234,22 +208,6 @@ const nextStepsText = {
   margin: '0 0 16px',
 };
 
-const suggestionsList = {
-  margin: '0',
-  padding: '0 0 0 20px',
-};
-
-const suggestionItem = {
-  fontSize: '16px',
-  color: '#4b5563',
-  margin: '8px 0',
-};
-
-const ctaSection = {
-  padding: '24px 0',
-  textAlign: 'center' as const,
-};
-
 const button = {
   backgroundColor: '#5b61d6',
   borderRadius: '6px',
@@ -259,12 +217,6 @@ const button = {
   textDecoration: 'none',
   textAlign: 'center' as const,
   display: 'inline-block',
-};
-
-const ctaSubtext = {
-  fontSize: '14px',
-  color: '#6b7280',
-  margin: '12px 0 0',
 };
 
 const footer = {

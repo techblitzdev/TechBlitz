@@ -3,7 +3,7 @@ import { Answer } from '@/types/Answers';
 import { UserRecord } from '@/types/User';
 import { prisma } from '@/lib/prisma';
 import { revalidateTag } from 'next/cache';
-import { AnswerDifficulty, Prisma } from '@prisma/client';
+import { AnswerDifficulty } from '@prisma/client';
 import { uniqueId } from 'lodash';
 import { getUser } from '../user/authed/get-user';
 import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';

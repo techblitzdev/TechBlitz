@@ -90,7 +90,7 @@ function StartBounce() {
     >
       <div className="animate-start-bounce">
         <div className="relative bg-black border-2 border-black-50 text-green-500 px-4 py-2 rounded-lg font-semibold shadow-lg flex items-center group-hover:scale-[0.99] transition-transform duration-200 text-lg">
-          <span className="font-onest">Start</span>
+          <span className="font-onest text-lg">Start</span>
           <div className="absolute w-3 h-3 bg-black border-r-2 border-b-2 border-black-50 transform rotate-45 left-1/2 -bottom-1.5 -translate-x-1/2"></div>
         </div>
       </div>

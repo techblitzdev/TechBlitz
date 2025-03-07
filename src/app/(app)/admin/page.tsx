@@ -149,6 +149,11 @@ export default function AdminDashboardPage() {
                 Add User Missions
               </Button>
             </form>
+            <form>
+              <Button type="submit" variant="outline" className="w-full">
+                Add User XP
+              </Button>
+            </form>
           </div>
         </div>
       </div>

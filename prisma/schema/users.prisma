@@ -49,6 +49,7 @@ model Users {
   hasSent7DayNoChallengeEmail Boolean             @default(false)
   timeSpendingPerDay          UserTimeSpendingPerDay? @default(LESS_THAN_5_MINUTES)
   sendPromotionalEmails       Boolean             @default(false)
+  userXp                      Int                 @default(0)
 
   // this is the coupon code that we created for the user
   userCustomCoupon            String?

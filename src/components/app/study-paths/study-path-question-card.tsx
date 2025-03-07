@@ -116,7 +116,7 @@ export default async function StudyPathQuestionCard({
         <div
           key={questionData.uid}
           className={cn(
-            'w-24 h-[86px] justify-center items-center flex flex-col gap-y-5 duration-300 p-5 rounded-full group relative transition-all mb-2',
+            'w-24 h-[90px] justify-center items-center flex flex-col gap-y-5 duration-300 p-5 rounded-full group relative transition-all mb-2',
             buttonStyle.base,
             'transform-gpu',
             'before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-b before:from-black-100/30 before:to-transparent before:opacity-70',

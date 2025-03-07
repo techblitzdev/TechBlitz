@@ -14,13 +14,16 @@ export default function StudyPathQuestionCardPopover({
   return (
     <Popover>
       <PopoverTrigger>{children}</PopoverTrigger>
-      <PopoverContent className="bg-black-100 text-white border border-black-50">
+      <PopoverContent arrowPadding={10} className="bg-black-100 text-white border border-black-50">
+        {' '}
         <div className="flex flex-col gap-y-2">
           {/** question title */}
-          {questionData.title}
+          <p className="text-lg font-onest">{questionData.title}</p>
 
           {/** how much XP for this question */}
-          <Button variant="secondary">Answer now + 10XP</Button>
+          <Button variant="secondary" fullWidth className="font-onest font-normal">
+            Answer now +10XP
+          </Button>
         </div>
       </PopoverContent>
     </Popover>

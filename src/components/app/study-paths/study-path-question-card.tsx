@@ -110,7 +110,11 @@ export default async function StudyPathQuestionCard({
       />
 
       {/* The card itself */}
-      <StudyPathQuestionCardPopover questionData={questionData} studyPath={studyPath}>
+      <StudyPathQuestionCardPopover
+        questionData={questionData}
+        studyPath={studyPath}
+        isAnswered={isCorrect || false}
+      >
         <div
           key={questionData.uid}
           className={cn(

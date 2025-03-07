@@ -7,12 +7,14 @@ interface StudyPathQuestionCardPopoverProps {
   children: Readonly<React.ReactNode>;
   questionData: Question;
   studyPath: StudyPath;
+  isAnswered: boolean;
 }
 
 export default function StudyPathQuestionCardPopover({
   children,
   questionData,
   studyPath,
+  isAnswered,
 }: StudyPathQuestionCardPopoverProps) {
   return (
     <Popover>
@@ -30,7 +32,7 @@ export default function StudyPathQuestionCardPopover({
             className="font-onest font-normal"
             href={`/question/${questionData.slug}?type=study-path&study-path=${studyPath.slug}`}
           >
-            Answer now +10XP
+            {isAnswered ? 'Recap Question' : 'Answer now +10XP'}
           </Button>
         </div>
       </PopoverContent>

@@ -120,7 +120,7 @@ export default function LoginForm(opts: { redirectUrl: string; onboarding: strin
               variant="outline"
               className="w-full bg-[#5865F2] text-white hover:bg-[#4752C4] border-none hover:text-white"
             >
-              <DiscordLogoIcon className="w-5 h-5 mr-2" />
+              <DiscordLogoIcon className="size-5 mr-2" />
               Sign in with Discord
             </Button>
           </form>

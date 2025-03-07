@@ -1,6 +1,3 @@
-import { cn } from '@/lib/utils';
-import { Circle } from 'lucide-react';
-
 export default function StudyPathQuestionCardSkeleton() {
   return (
     <div className="relative group perspective-1000 flex items-center justify-center">

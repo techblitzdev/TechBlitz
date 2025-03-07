@@ -1,5 +1,4 @@
 import { Question } from '@/types/Questions';
-import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Circle } from 'lucide-react';
 import { useUserServer } from '@/hooks/use-user-server';
@@ -7,6 +6,7 @@ import Lock from '@/components/ui/icons/lock';
 import Check from '@/components/ui/icons/check';
 import ERemove from '@/components/ui/icons/e-remove';
 import StudyPathQuestionCardPopover from './study-path-card-popover';
+import { StudyPath } from '@prisma/client';
 
 const buttonColorMap = {
   correct: {
@@ -48,16 +48,14 @@ const buttonColorMap = {
 
 export default async function StudyPathQuestionCard({
   questionData,
-  href,
-  className,
   index,
   isNextQuestion,
+  studyPath,
 }: {
   questionData: Question;
-  href: string;
-  className?: string;
   index?: number;
   isNextQuestion?: boolean;
+  studyPath: StudyPath;
 }) {
   const iconSize = '32';
 
@@ -112,7 +110,7 @@ export default async function StudyPathQuestionCard({
       />
 
       {/* The card itself */}
-      <StudyPathQuestionCardPopover questionData={questionData}>
+      <StudyPathQuestionCardPopover questionData={questionData} studyPath={studyPath}>
         <div
           key={questionData.uid}
           className={cn(

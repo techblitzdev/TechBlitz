@@ -1,10 +1,12 @@
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
-import type { Question } from '@/types/Questions';
-import type { StudyPath } from '@/utils/constants/study-paths';
+
 import StudyPathQuestionCard from './study-path-question-card';
 import StudyPathQuestionCardSkeleton from './study-path-question-card-skeleton';
 import { cn } from '@/lib/utils';
+
+import type { Question } from '@/types/Questions';
+import { StudyPath } from '@prisma/client';
 
 const QuestionCardClient = dynamic(() => import('../questions/layout/question-card-client'), {
   ssr: false,
@@ -73,11 +75,7 @@ function QuestionCardWrapper({
   return (
     <div className="relative group w-full">
       {isFirstUnanswered && <StartBounce />}
-      <StudyPathQuestionCard
-        href={`/question/${question.slug}?type=study-path&study-path=${studyPath.slug}`}
-        questionData={question}
-        className="group-hover:scale-[0.99] active:scale-[0.98] transition-transform duration-200"
-      />
+      <StudyPathQuestionCard questionData={question} studyPath={studyPath} />
     </div>
   );
 }

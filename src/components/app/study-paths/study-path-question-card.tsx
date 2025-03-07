@@ -151,7 +151,7 @@ export default async function StudyPathQuestionCard({
                   </div>
                 ) : (
                   <div className="relative">
-                    <ERemove fill="red" strokewidth={2} height={iconSize} width={iconSize} />
+                    <ERemove fill="white" strokewidth={2} height={iconSize} width={iconSize} />
                     <div className="absolute inset-0 bg-red-500/20 blur-xl rounded-full opacity-0 group-hover:opacity-70 transition-opacity"></div>
                   </div>
                 )

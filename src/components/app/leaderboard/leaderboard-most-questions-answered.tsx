@@ -1,4 +1,4 @@
-import { FileQuestion, Trophy, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { getMostQuestionsAnswered } from '@/utils/data/leaderboard/get-most-questions-answered';
 import { Suspense } from 'react';
 import { Table, TableHeader, TableRow, TableHead } from '@/components/ui/table';
@@ -6,7 +6,6 @@ import { useUserServer } from '@/hooks/use-user-server';
 import LeaderboardMostAnsweredTable from './leaderboard-most-answered-table';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import ShowTimeTakenToggle from './show-time-taken';
-import { UserRecord } from '@/types/User';
 
 type LeaderboardUser = {
   uid: string;

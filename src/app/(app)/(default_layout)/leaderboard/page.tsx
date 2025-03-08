@@ -4,7 +4,6 @@ import { createMetadata } from '@/utils/seo';
 import { getMostQuestionsAnswered } from '@/utils/data/leaderboard/get-most-questions-answered';
 import GlobalPagination from '@/components/app/shared/pagination';
 import { useUserServer } from '@/hooks/use-user-server';
-import { getTotalUserAnswers } from '@/utils/data/leaderboard/get-total-user-answers';
 import LoadingSpinner from '@/components/ui/loading';
 import AnswerQuestionModal from '@/components/app/leaderboard/answer-question-modal';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';

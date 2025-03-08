@@ -31,11 +31,10 @@ export default async function LeaderboardFeaturesLeft() {
               </TableRow>
             </TableHeader>
             <LeaderboardMostAnsweredTable
-              topUsersByQuestionCount={
-                topUsersByQuestionCount.users as unknown as (UserRecord & {
-                  _count: { answers: number };
-                })[]
-              }
+              topUsersByQuestionCount={topUsersByQuestionCount.users.map((user) => ({
+                ...user,
+                userProfilePicture: user.userProfilePicture || null,
+              }))}
               userPromise={userPromise}
             />
           </Table>

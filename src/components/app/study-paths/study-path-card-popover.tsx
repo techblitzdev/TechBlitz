@@ -1,6 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Question } from '@/types/Questions';
+import { getUpgradeUrl } from '@/utils';
+import { QUESTION_XP } from '@/utils/constants/question-xp';
 import { StudyPath } from '@prisma/client';
 
 interface StudyPathQuestionCardPopoverProps {
@@ -8,6 +10,7 @@ interface StudyPathQuestionCardPopoverProps {
   questionData: Question;
   studyPath: StudyPath;
   isAnswered: boolean;
+  canAnswer: boolean;
 }
 
 export default function StudyPathQuestionCardPopover({
@@ -15,7 +18,10 @@ export default function StudyPathQuestionCardPopover({
   questionData,
   studyPath,
   isAnswered,
+  canAnswer,
 }: StudyPathQuestionCardPopoverProps) {
+  const xp = QUESTION_XP[questionData.difficulty] || 5;
+
   return (
     <Popover>
       <PopoverTrigger>{children}</PopoverTrigger>
@@ -29,9 +35,13 @@ export default function StudyPathQuestionCardPopover({
             variant="secondary"
             fullWidth
             className="font-onest font-normal"
-            href={`/question/${questionData.slug}?type=study-path&study-path=${studyPath.slug}`}
+            href={
+              canAnswer
+                ? `/question/${questionData.slug}?type=study-path&study-path=${studyPath.slug}`
+                : getUpgradeUrl()
+            }
           >
-            {isAnswered ? 'Question Recap' : 'Answer now +10XP'}
+            {isAnswered ? 'Question Recap' : canAnswer ? `Answer now +${xp}XP` : 'Unlock question'}
           </Button>
         </div>
       </PopoverContent>

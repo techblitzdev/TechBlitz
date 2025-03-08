@@ -1,5 +1,5 @@
 import SignupForm from '@/components/auth/signup';
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { createMetadata } from '@/utils/seo';
 import { RoadmapUserQuestions } from '@/types/Roadmap';
 import RoadmapQuestionCard from '@/components/app/roadmaps/questions/[uid]/question-card';
 import SocialProof from '@/components/marketing/global/social-proof';
@@ -57,11 +57,28 @@ export default async function SignupPage() {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     url: `${getBaseUrl()}/signup`,
-    headline: 'Sign Up | TechBlitz',
-    description: 'Sign up for TechBlitz to get started.',
+    headline: 'Sign Up for free | TechBlitz',
+    description:
+      'The best coding platform for beginners to learn to code for free. No credit card required.',
     image:
       'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/Screenshot%202025-01-11%20at%2002.24.28.png',
-    breadcrumb: WebPageJsonLdBreadcrumb,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: `${getBaseUrl()}`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Sign Up',
+          item: `${getBaseUrl()}/signup`,
+        },
+      ],
+    },
     author: {
       '@type': 'Organization',
       name: 'TechBlitz',

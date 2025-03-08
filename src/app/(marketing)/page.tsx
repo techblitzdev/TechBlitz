@@ -26,9 +26,9 @@ import HomepageUserStats from '@/components/marketing/global/blocks/homepage-use
 import { QUESTIONS_COUNT } from '@/utils/constants';
 import { getUserCount } from '@/utils/data/user/get-user-count';
 
-const title = 'Learn to Code for Free - TechBlitz';
+const title = 'Learn to Code for Free | TechBlitz';
 const description =
-  "Master programming with TechBlitz's free interactive coding challenges. Get personalized practice, instant AI feedback, and step-by-step guidance. Perfect for beginners!";
+  "Master programming with TechBlitz's free interactive coding challenges. Get personalized practice, instant AI feedback, and step-by-step guidance. Perfect for beginners.";
 
 export const metadata: Metadata = {
   title,
@@ -84,7 +84,7 @@ export default async function Page() {
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': getBaseUrl(),
+      '@id': `${getBaseUrl()}`,
     },
     keywords:
       'learn to code for free, beginner-friendly coding lessons, interactive coding challenges, daily programming practice, personalized coding roadmap, improve coding skills, best platform to learn coding, AI-assisted coding, learn javascript',
@@ -103,25 +103,7 @@ export default async function Page() {
           '@type': 'ListItem',
           position: 1,
           name: 'Home',
-          item: getBaseUrl(),
-        },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: 'Challenges',
-          item: `${getBaseUrl()}/questions/all`,
-        },
-        {
-          '@type': 'ListItem',
-          position: 3,
-          name: 'Roadmaps',
-          item: `${getBaseUrl()}/roadmaps`,
-        },
-        {
-          '@type': 'ListItem',
-          position: 4,
-          name: 'Pricing',
-          item: `${getBaseUrl()}/pricing`,
+          item: `${getBaseUrl()}`,
         },
       ],
     },

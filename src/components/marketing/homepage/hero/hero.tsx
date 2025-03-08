@@ -22,8 +22,8 @@ const GoogleSignUp = dynamic(() => import('./google-sign-up'), {
 export default function HomepageHero() {
   const animatedSpanContent = (
     <div className="flex items-center group">
-      <span className="hidden md:block">Limited time offer: Lifetime access!</span>
-      <span className="block md:hidden">Lifetime access!</span>
+      <span className="hidden md:block">Unlock lifetime access!</span>
+      <span className="block md:hidden">Unlock lifetime access!</span>
       <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-all duration-300" />
     </div>
   );

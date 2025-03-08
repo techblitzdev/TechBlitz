@@ -9,6 +9,7 @@ import { addIsCustomUsernameToUser } from '@/scripts/add-is-custom-username-to-u
 import { addTitleToQuestion } from '@/scripts/add-title-to-question';
 import { sendWelcomeEmail } from '@/actions/misc/send-welcome-email';
 import { addUserMissions } from '@/scripts/add-user-missions';
+import { addUserXp } from '@/scripts/add-user-xp';
 
 export const metadata: Metadata = {
   title: 'TechBlitz | Admin Dashboard',
@@ -149,7 +150,7 @@ export default function AdminDashboardPage() {
                 Add User Missions
               </Button>
             </form>
-            <form>
+            <form action={addUserXp}>
               <Button type="submit" variant="outline" className="w-full">
                 Add User XP
               </Button>

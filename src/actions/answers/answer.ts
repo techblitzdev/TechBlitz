@@ -9,6 +9,8 @@ import { getUser } from '../user/authed/get-user';
 import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
 import { createUserMissionRecords } from '../daily-missions/create-user-missions-record';
 import { sendStudyPathCompleteEmail } from '../study-paths/send-path-complete-email';
+import { QUESTION_XP } from '@/utils/constants/question-xp';
+import { Question } from '@/types/Questions';
 
 // Types
 interface AnswerQuestionInput {
@@ -50,6 +52,9 @@ const findOrCreateUserStreak = async (userUid: string) => {
 const findQuestion = async (questionUid: string) => {
   const question = await prisma.questions.findUnique({
     where: { uid: questionUid },
+    include: {
+      answers: true,
+    },
   });
 
   if (!question) {
@@ -195,6 +200,43 @@ const updateOrCreateAnswer = async ({
   });
 };
 
+/**
+ * Updates the user's XP based on question difficulty and correctness
+ *
+ * @param userUid - The user's UID
+ * @param question - The question object
+ * @param isNewCorrectAnswer - Whether this is a new correct answer
+ * @param isNewAnswer - Whether this is a new answer attempt
+ */
+const updateUserXp = async (
+  userUid: string,
+  question: Question,
+  isNewCorrectAnswer: boolean,
+  isNewAnswer: boolean
+) => {
+  // If it's not a new answer attempt, don't add XP
+  if (!isNewAnswer) return;
+
+  let xpToAdd = 0;
+
+  if (isNewCorrectAnswer) {
+    // Add full XP for correct answers
+    xpToAdd = QUESTION_XP[question.difficulty] || 5;
+  } else {
+    // Add 2XP for incorrect answers
+    xpToAdd = 2;
+  }
+
+  await prisma.users.update({
+    where: { uid: userUid },
+    data: {
+      userXp: {
+        increment: xpToAdd,
+      },
+    },
+  });
+};
+
 export async function answerQuestion({
   questionUid,
   answerUid,
@@ -209,7 +251,6 @@ export async function answerQuestion({
   }
 
   const question = await findQuestion(questionUid);
-
   const questionType = question.questionType;
 
   let correctAnswer = false;
@@ -220,6 +261,8 @@ export async function answerQuestion({
   }
 
   const existingAnswer = await findExistingAnswer(userUid, questionUid);
+  const isNewCorrectAnswer = correctAnswer && (!existingAnswer || !existingAnswer.correctAnswer);
+  const isNewAnswer = !existingAnswer;
 
   let streakContinued = false;
   // Only update streaks if this is a new answer
@@ -228,11 +271,6 @@ export async function answerQuestion({
       userUid,
     });
   }
-
-  // Get updated user data
-  const userData = await prisma.users.findUnique({
-    where: { uid: userUid },
-  });
 
   // Handle answer creation or update
   const userAnswer = await updateOrCreateAnswer({
@@ -244,6 +282,9 @@ export async function answerQuestion({
     timeTaken,
   });
 
+  // Update user XP based on answer correctness
+  await updateUserXp(userUid, question, isNewCorrectAnswer, isNewAnswer);
+
   // if this is a study path, update the study path progress
   if (studyPathSlug) {
     await updateStudyPathProgress({
@@ -254,6 +295,11 @@ export async function answerQuestion({
 
   // handle the updating of daily missions on the user
   await updateUserDailyMissions({ userAnswer, streakContinued });
+
+  // Get updated user data
+  const userData = await prisma.users.findUnique({
+    where: { uid: userUid },
+  });
 
   // revalidate leaderboard
   revalidateTag(`leaderboard-${questionUid}`);

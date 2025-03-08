@@ -9,7 +9,7 @@ import { getUserDisplayName } from '@/utils/user';
 export default function LeaderboardHero({
   topThreeUsers,
 }: {
-  topThreeUsers: (UserRecord & { _count: { answers: number } })[];
+  topThreeUsers: (UserRecord & { _count: { answers: number }; userXp: number })[];
 }) {
   const podiumOrder = [1, 0, 2]; // 2nd, 1st, 3rd
 
@@ -44,7 +44,7 @@ export function PodiumItem({
   user,
   position,
 }: {
-  user: UserRecord & { _count: { answers: number } };
+  user: UserRecord & { _count: { answers: number }; userXp: number };
   position: number;
 }) {
   return (
@@ -82,7 +82,7 @@ export function UserInfo({
   user,
   position,
 }: {
-  user: UserRecord & { _count: { answers: number } };
+  user: UserRecord & { _count: { answers: number }; userXp: number };
   position: number;
 }) {
   return (
@@ -113,7 +113,7 @@ export function UserInfo({
         <UserBadge userLevel={user.userLevel} position={position} />
       </motion.div>
       <UserName user={user} position={position} />
-      <UserAnswerCount count={user._count.answers} position={position} />
+      <UserXP xp={user.userXp} position={position} />
     </motion.div>
   );
 }
@@ -164,7 +164,7 @@ function UserName({ user, position }: { user: UserRecord; position: number }) {
   );
 }
 
-function UserAnswerCount({ count, position }: { count: number; position: number }) {
+function UserXP({ xp, position }: { xp: number; position: number }) {
   return (
     <motion.span
       initial={{ y: 5, opacity: 0 }}
@@ -172,7 +172,7 @@ function UserAnswerCount({ count, position }: { count: number; position: number 
       transition={{ delay: position * 0.2 + 0.3 }}
       className="text-sm text-white"
     >
-      {count} answers
+      {xp.toLocaleString()} XP
     </motion.span>
   );
 }

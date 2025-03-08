@@ -50,7 +50,7 @@ export default async function LeaderboardXPRankings({
             <TableRow className="border-white/10">
               <TableHead className="w-[100px] text-white">Rank</TableHead>
               <TableHead className="text-white">User</TableHead>
-              <TableHead className="text-right text-white">XP</TableHead>
+              <TableHead className="text-right text-white pr-4">XP</TableHead>
             </TableRow>
           </TableHeader>
           <Suspense fallback={<div>Loading...</div>}>

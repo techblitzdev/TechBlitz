@@ -38,10 +38,10 @@ export default function LeaderboardMostAnsweredTable(opts: {
               <Badge
                 variant={index === 0 ? 'default' : 'secondary'}
                 className={`
-                        ${index === 0 && 'bg-yellow-500/20 text-yellow-300 hover:bg-yellow-500/30'}
-                        ${index === 1 && 'bg-gray-400/20 text-gray-300 hover:bg-gray-400/30'}
-                        ${index === 2 && 'bg-amber-700/20 text-amber-500 hover:bg-amber-700/30'}
-                      `}
+                  ${index === 0 && 'bg-yellow-500/20 text-yellow-300 hover:bg-yellow-500/30'}
+                  ${index === 1 && 'bg-gray-400/20 text-gray-300 hover:bg-gray-400/30'}
+                  ${index === 2 && 'bg-amber-700/20 text-amber-500 hover:bg-amber-700/30'}
+                `}
               >
                 #{index + 1}
               </Badge>
@@ -73,11 +73,7 @@ export default function LeaderboardMostAnsweredTable(opts: {
             </div>
           </TableCell>
           <TableCell className="p-0">
-            <div className="flex h-full w-full p-4 justify-end">
-              <Badge variant="outline" className="border-white/10 text-white">
-                {userData.userXp}XP
-              </Badge>
-            </div>
+            <div className="flex h-full w-full p-4 justify-end text-white">{userData.userXp}XP</div>
           </TableCell>
         </TableRow>
       ))}

@@ -8,7 +8,7 @@ import FAQsBlock from '@/components/marketing/global/blocks/faqs';
 import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
 import { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { createMetadata } from '@/utils/seo';
 import { MobileIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 
@@ -222,7 +222,18 @@ export default function JavascriptProjectsForBeginners() {
       'Discover free JavaScript courses, tutorials, and practical projects for beginners. Learn web development through hands-on coding examples and top-rated learning platforms. Perfect for starting your programming journey.',
     image:
       'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
-    breadcrumb: WebPageJsonLdBreadcrumb,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${getBaseUrl()}` },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'JavaScript Projects & Free Learning Resources for Beginners',
+          item: `${getBaseUrl()}/javascript-projects-for-beginners`,
+        },
+      ],
+    },
     author: {
       '@type': 'Organization',
       name: 'TechBlitz',

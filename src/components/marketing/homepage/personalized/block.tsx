@@ -7,9 +7,9 @@ export default function Personalized() {
     <section className="pt-10 pb-28 md:container flex flex-col gap-10">
       <div className="flex flex-col gap-2.5 md:px-12">
         <AnimatedSpan content="Personalized Learning" />
-        <h1 className="text-3xl lg:text-5xl font-onest !font-medium tracking-tight text-gradient from-white to-white/55 py-1">
+        <h2 className="text-3xl lg:text-5xl font-onest !font-medium tracking-tight text-gradient from-white to-white/55 py-1">
           Learn to code faster with AI-powered feedback
-        </h1>
+        </h2>
         <p className="text-gray-400">
           Learn the basics of web development with immediate AI support, tailored practice
           challenges, and personalized coding roadmaps crafted for your success.

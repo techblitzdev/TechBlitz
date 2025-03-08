@@ -1,5 +1,5 @@
 import { WebPageJsonLd } from '@/types/Seo';
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { createMetadata } from '@/utils/seo';
 import { getBaseUrl } from '@/utils';
 import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
 import LeaderboardHero from '@/components/marketing/features/leaderboard/leaderboard-hero';
@@ -16,22 +16,32 @@ import QuestionMarquee from '@/components/marketing/global/blocks/question-marqu
 
 // metadata
 export async function generateMetadata() {
+  const title = 'Coding Leaderboard & Developer Rankings | TechBlitz';
+  const description =
+    "Compare your coding skills on TechBlitz's interactive leaderboard. Track progress, compete with developers worldwide, and improve your programming skills through daily challenges.";
+
   return createMetadata({
-    title: 'Leaderboard | TechBlitz',
-    description:
-      'Coding challenges leaderboard to see how you stack up against the rest of the community.',
+    title,
+    description,
     keywords: [
-      'coding challenges leaderboard',
+      // Primary keywords
+      'coding leaderboard',
+      'developer rankings',
+      'programming leaderboard',
+      'coding skills tracker',
+      // Secondary keywords
+      'competitive coding',
+      'developer competition',
       'coding challenges',
-      'leaderboard',
-      'tech skills assessment',
-      'learn to code on phone',
-      'web development',
-      'tech skills assessment',
-      'learn to code on phone',
+      'programming skills',
+      // Long-tail keywords
+      'compare coding skills online',
+      'track programming progress',
+      'daily coding challenges',
+      'interactive developer leaderboard',
     ],
     image: {
-      text: `Leaderboard | TechBlitz`,
+      text: title,
       bgColor: '#000',
       textColor: '#fff',
     },
@@ -167,13 +177,30 @@ export default function LeaderboardPage() {
   const jsonLd: WebPageJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    url: getBaseUrl(),
-    headline: 'Leaderboard | TechBlitz',
+    url: `${getBaseUrl()}/features/leaderboard`,
+    headline: 'Coding Leaderboard & Developer Rankings | TechBlitz',
     description:
-      'Coding challenges leaderboard to see how you stack up against the rest of the community.',
+      "Compare your coding skills on TechBlitz's interactive leaderboard. Track progress, compete with developers worldwide, and improve your programming skills through daily challenges.",
     image:
       'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
-    breadcrumb: WebPageJsonLdBreadcrumb,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${getBaseUrl()}` },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Features',
+          item: `${getBaseUrl()}/features`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: 'Coding Leaderboard',
+          item: `${getBaseUrl()}/features/leaderboard`,
+        },
+      ],
+    },
     author: {
       '@type': 'Organization',
       name: 'TechBlitz',
@@ -183,10 +210,10 @@ export default function LeaderboardPage() {
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': getBaseUrl(),
+      '@id': `${getBaseUrl()}/features/leaderboard`,
     },
     keywords:
-      'coding challenges leaderboard, coding challenges, leaderboard, tech skills assessment, learn to code on phone',
+      'coding leaderboard, developer rankings, programming leaderboard, coding skills tracker, competitive coding, developer competition, coding challenges, programming skills, compare coding skills online, track programming progress, daily coding challenges, interactive developer leaderboard',
     publisher: {
       '@type': 'Organization',
       name: 'TechBlitz',
@@ -203,6 +230,7 @@ export default function LeaderboardPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="container">
+        <h1 className="sr-only">Coding Leaderboard & Developer Rankings</h1>
         <LeaderboardHero />
         <LeaderboardPodiumShowcase />
         <LeaderboardFeatures />

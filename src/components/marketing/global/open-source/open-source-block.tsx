@@ -60,9 +60,9 @@ export default function OpenSourceBlock(opts: { linkToInternalPage?: boolean }) 
   return (
     <section className="pb-20 md:pb-52 grid grid-cols-12 gap-4 lg:gap-16 relative">
       <div className="flex flex-col gap-y-3 col-span-full lg:col-span-5 self-center">
-        <h1 className="text-2xl lg:text-5xl !font-sans !leading-[normal] text-gradient from-white to-white/55">
+        <h2 className="text-2xl lg:text-5xl !font-sans !leading-[normal] text-gradient from-white to-white/55">
           Secrets are for Magicians, Not Software
-        </h1>
+        </h2>
         <p className="text-gray-400">
           We believe in transparency and sharing knowledge. That’s why we are an open-source coding
           platform. Giving you insights into how we build our platform.

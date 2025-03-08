@@ -103,6 +103,19 @@ export default async function QuestionUidLayout({
       target: `${getBaseUrl()}/search?q={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${getBaseUrl()}` },
+        { '@type': 'ListItem', position: 2, name: 'Questions', item: `${getBaseUrl()}/questions` },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: question.slug,
+          item: `${getBaseUrl()}/question/${slug}`,
+        },
+      ],
+    },
   };
 
   // not resolving the promises here - passing the promises and

@@ -7,7 +7,7 @@ import FAQsBlock from '@/components/marketing/global/blocks/faqs';
 import { MobileIcon } from '@radix-ui/react-icons';
 import FeatureLeftRightSection from '@/components/marketing/features/daily-challenge/feature-left-right/features-section';
 
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { createMetadata } from '@/utils/seo';
 import { getBaseUrl } from '@/utils';
 import { WebPageJsonLd } from '@/types/Seo';
 import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
@@ -205,7 +205,23 @@ export default async function FeatureDailyQuestionPage() {
       'Learn JavaScript programming with our free online course and daily coding challenges. Master web development with hands-on practice.',
     image:
       'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
-    breadcrumb: WebPageJsonLdBreadcrumb,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: `${getBaseUrl()}`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Daily Coding Challenges',
+          item: `${getBaseUrl()}/features/daily-coding-challenges`,
+        },
+      ],
+    },
     author: {
       '@type': 'Organization',
       name: 'TechBlitz',
@@ -215,7 +231,7 @@ export default async function FeatureDailyQuestionPage() {
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': getBaseUrl(),
+      '@id': `${getBaseUrl()}/features/daily-coding-challenges`,
     },
     keywords:
       'javascript course, free javascript course, javascript online course, learn javascript online, javascript training, web development, javascript programming, html css and javascript, javascript frameworks, software development',

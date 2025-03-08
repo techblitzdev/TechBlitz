@@ -11,7 +11,7 @@ interface UserXpProps {
 async function UserXpData() {
   const { userXp } = await getUserXp();
 
-  return <p className="font-onest font-medium">{userXp}</p>;
+  return <p className="font-onest font-medium">{userXp} XP</p>;
 }
 
 export default async function UserXp({ className }: UserXpProps) {

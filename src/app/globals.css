@@ -13,7 +13,6 @@
 body {
   color: var(--foreground) !important;
   background: var(--background) !important;
-  font-family: Arial, Helvetica, sans-serif;
   /** smooth scrolling on id click */
 }
 

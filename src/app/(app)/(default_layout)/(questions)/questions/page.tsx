@@ -3,7 +3,7 @@ import { Suspense, lazy } from 'react';
 import Hero from '@/components/shared/hero';
 import { Button } from '@/components/ui/button';
 import { validateSearchParams, parseSearchParams } from '@/utils/search-params';
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { createMetadata } from '@/utils/seo';
 import FilterLoading from '@/components/app/filters/filters-loading';
 import QuestionPageSidebarLoading from '@/components/app/questions/layout/question-page-sidebar-loading';
 import { QuestionCardSkeleton } from '@/components/app/questions/layout/question-card';
@@ -73,7 +73,17 @@ export default async function QuestionsDashboard({
       'Explore a diverse set of coding challenges across various topics to enhance your knowledge.',
     image:
       'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/Screenshot%202025-01-11%20at%2002.24.28.png',
-    breadcrumb: WebPageJsonLdBreadcrumb,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Questions',
+          item: getBaseUrl() + '/questions',
+        },
+      ],
+    },
     author: {
       '@type': 'Organization',
       name: 'TechBlitz',
@@ -83,7 +93,7 @@ export default async function QuestionsDashboard({
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': getBaseUrl(),
+      '@id': `${getBaseUrl()}/questions`,
     },
     keywords:
       'learn to code for free, beginner-friendly coding lessons, interactive coding challenges, daily programming practice, personalized coding roadmap, improve coding skills, best platform to learn coding, AI-assisted coding, learn javascript',

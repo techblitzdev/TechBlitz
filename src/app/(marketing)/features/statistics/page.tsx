@@ -4,14 +4,15 @@ import CallToActionBlock from '@/components/marketing/global/blocks/call-to-acti
 import MarketingContentGrid from '@/components/marketing/global/blocks/content-grid';
 import { MobileIcon } from '@radix-ui/react-icons';
 import { BarChart, Code, FileBadge2, LaptopIcon } from 'lucide-react';
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { createMetadata } from '@/utils/seo';
 import { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Track your coding journey | TechBlitz',
-    description: 'Track your coding journey with our statistics dashboard.',
+    title: 'In-depth Coding Statistics | TechBlitz',
+    description:
+      'Understand your strengths and weaknesses with our in-depth coding statistics. Ensuring you are on the right track to become a better developer.',
     keywords: [
       'track coding progress',
       'coding statistics',
@@ -23,7 +24,7 @@ export async function generateMetadata() {
       'coding challenges dashboard',
     ],
     image: {
-      text: 'Track your coding journey | TechBlitz',
+      text: 'In-depth Coding Statistics | TechBlitz',
       bgColor: '#000',
       textColor: '#fff',
     },
@@ -85,7 +86,23 @@ export default function StatisticsPage() {
     headline: 'Track your coding journey | TechBlitz',
     description: 'Track your coding journey with our statistics dashboard.',
     image: 'https://techblitz.dev/favicon.ico',
-    breadcrumb: WebPageJsonLdBreadcrumb,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: `${getBaseUrl()}`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Statistics',
+          item: `${getBaseUrl()}/features/statistics`,
+        },
+      ],
+    },
     author: {
       '@type': 'Organization',
       name: 'TechBlitz',
@@ -95,7 +112,7 @@ export default function StatisticsPage() {
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': getBaseUrl(),
+      '@id': `${getBaseUrl()}/features/statistics`,
     },
     keywords:
       'track coding progress, coding statistics, developer analytics, coding performance insights, improve coding skills, coding improvement tools, coding mastery, coding challenges dashboard',

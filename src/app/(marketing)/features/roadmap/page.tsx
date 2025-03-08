@@ -11,26 +11,18 @@ import MarketingContentGrid, {
 } from '@/components/marketing/global/blocks/content-grid';
 
 import { MobileIcon } from '@radix-ui/react-icons';
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { createMetadata } from '@/utils/seo';
 import { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
+import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Roadmap | TechBlitz',
-    description: 'Create your own coding progression paths with our personalized roadmaps.',
-    keywords: [
-      'learn to code',
-      'personalized coding',
-      'coding roadmap',
-      'learn to code with ai',
-      'coding for beginners',
-      'programming learning path',
-      'developer career roadmap',
-      'tech skills progression',
-    ],
+    title: 'AI-Powered Coding Roadmaps | TechBlitz',
+    description:
+      'Create your own coding progression paths with our personalized roadmaps. Our AI-powered roadmap generator helps you stay on track and achieve your goals.',
     image: {
-      text: 'Roadmap | TechBlitz',
+      text: 'AI-Powered Coding Roadmaps | TechBlitz',
       bgColor: '#000',
       textColor: '#fff',
     },
@@ -41,62 +33,41 @@ export async function generateMetadata() {
 // faqs
 const faqs = [
   {
-    question: "How can I access the roadmaps on TechBlitz's platform?",
+    question: "How do TechBlitz's AI-powered roadmaps work?",
+    answer:
+      'Our AI-powered roadmaps analyze your current skills, learning goals, and preferred pace to create a personalized learning path. The system adapts as you progress, recommending resources and challenges that match your evolving skill level.',
+  },
+  {
+    question: "Can I customize my coding roadmap after it's generated?",
+    answer:
+      'Absolutely! You can modify your roadmap at any time. Add new skills you want to learn, adjust the difficulty level, or change your learning timeline to match your schedule and goals.',
+  },
+  {
+    question: 'How often are new technologies and learning paths added to TechBlitz?',
+    answer:
+      'We regularly update our platform with new technologies and learning paths. Our team monitors industry trends and adds relevant content monthly, ensuring you always have access to the most current and in-demand skills in the tech industry.',
+  },
+  {
+    question: 'How do roadmaps integrate with other TechBlitz features?',
+    answer:
+      "Your personalized roadmap seamlessly connects with our daily coding challenges, tutorials, and practice exercises. As you progress through your roadmap, you'll be recommended relevant learning materials that reinforce your current focus area.",
+  },
+  {
+    question: 'Are the roadmaps suitable for complete beginners?',
+    answer:
+      'Yes! Our roadmaps are designed for all skill levels. For beginners, we create paths that start with fundamentals and gradually introduce more complex concepts. The AI adapts to your pace, ensuring you build a solid foundation before moving to advanced topics.',
+  },
+  {
+    question: 'What makes TechBlitz roadmaps different from other learning paths?',
     answer: (
       <>
-        To access the roadmaps on techblitz, you need to have a premium account. You can sign up for
-        a premium account{' '}
+        Unlike static learning paths, our AI-powered roadmaps evolve with you. They identify
+        knowledge gaps, suggest targeted practice, and adjust based on your performance. Plus, you
+        can track your progress in real-time and celebrate milestones along the way. Check out our{' '}
         <a href="/pricing" className="!text-accent underline">
-          here
-        </a>
-        .
-      </>
-    ),
-  },
-  {
-    question: 'What is TechBlitz, and how can it help developers?',
-    answer:
-      'TechBlitz is an innovative online learning platform designed for developers of all skill levels. Our tools, including quizzes, coding roadmaps, and tutorials, help you sharpen your skills, boost productivity, and stay ahead in the tech industry.',
-  },
-  {
-    question: 'Is TechBlitz open source?',
-    answer: (
-      <>
-        Yes, TechBlitz is completely open source! Explore our source code on{' '}
-        <a
-          href="https://github.com/techblitzdev/TechBlitz"
-          target="_blank"
-          className="!text-accent underline"
-        >
-          GitHub
+          premium plans
         </a>{' '}
-        and join the growing community of developers contributing to our platform.
-      </>
-    ),
-  },
-  {
-    question: 'Is TechBlitz free to use?',
-    answer:
-      'Absolutely! TechBlitz offers a free plan to get you started right away. Create an account and dive into our rich library of developer resources today.',
-  },
-  {
-    question: 'What are the key benefits of using TechBlitz?',
-    answer:
-      'TechBlitz provides engaging, short-form coding questions and practical roadmaps to help developers enhance their skills and tackle real-world challenges. Learn faster, smarter, and with less overwhelm!',
-  },
-  {
-    question: 'What will you be adding to techblitz in the future?',
-    answer: (
-      <>
-        We're constantly improving TechBlitz with new features and updates. Check out our{' '}
-        <a
-          href="https://github.com/users/Logannford/projects/5"
-          target="_blank"
-          className="text-accent"
-        >
-          roadmap
-        </a>{' '}
-        to see what's next, and share your suggestions — we'd love to hear your ideas!
+        to access this feature.
       </>
     ),
   },
@@ -146,10 +117,27 @@ export default function FeatureDailyQuestionPage() {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     url: getBaseUrl(),
-    headline: 'Roadmap | TechBlitz',
-    description: 'Create your own coding progression paths with our personalized roadmaps.',
+    headline: 'AI-Powered Coding Roadmaps | TechBlitz',
+    description:
+      'Create your own coding progression paths with our personalized roadmaps. Our AI-powered roadmap generator helps you stay on track and achieve your goals.',
     image: 'https://techblitz.dev/favicon.ico',
-    breadcrumb: WebPageJsonLdBreadcrumb,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: `${getBaseUrl()}`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Roadmaps',
+          item: `${getBaseUrl()}/features/roadmap`,
+        },
+      ],
+    },
     author: {
       '@type': 'Organization',
       name: 'TechBlitz',
@@ -159,7 +147,7 @@ export default function FeatureDailyQuestionPage() {
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': getBaseUrl(),
+      '@id': `${getBaseUrl()}/features/roadmap`,
     },
     keywords:
       'learn to code, learn to code for free, learn javascript, coding challenges, daily coding challenges, web development, tech skills assessment, learn to code on phone',
@@ -184,6 +172,11 @@ export default function FeatureDailyQuestionPage() {
         <FeatureRoadmapCustomizationBlock />
         <FeatureRoadmapThreeGridBlock />
         <MarketingContentGrid title="All of this and more." items={featureShowcaseItems} />
+        <QuestionMarquee
+          header="Generate your own coding questions"
+          subheader="Generate your own coding questions with our AI-powered question generator. Perfect for your daily coding practice."
+          cta
+        />
         <FAQsBlock faqs={faqs} />
         <CallToActionBlock
           title="Learning to code made easy."

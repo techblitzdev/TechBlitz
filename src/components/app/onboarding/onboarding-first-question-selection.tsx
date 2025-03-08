@@ -20,7 +20,7 @@ export default function OnboardingFirstQuestionSelection() {
         </motion.h1>
         <motion.button
           className={cn(
-            'group border border-black-50 rounded-lg p-4 text-start hover:bg-accent transition-all duration-300',
+            'group border border-black-50 rounded-lg p-4 text-start hover:bg-accent transition-all duration-300 relative',
             firstQuestionSelection === 'startFromScratch' && 'bg-accent text-white'
           )}
           variants={itemVariants}
@@ -28,6 +28,11 @@ export default function OnboardingFirstQuestionSelection() {
             setFirstQuestionSelection('startFromScratch');
           }}
         >
+          <div className="absolute top-2 right-2">
+            <span className="bg-accent text-white text-xs px-2 py-1 rounded-md font-medium">
+              Recommended
+            </span>
+          </div>
           <div className="flex items-center gap-x-4">
             <BookBookmark fill="#4A90E2" secondaryfill="#F5A623" width="40" height="40" />
             <div className="flex flex-col gap-y-1">

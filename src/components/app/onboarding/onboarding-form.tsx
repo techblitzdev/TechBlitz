@@ -58,7 +58,8 @@ export default function OnboardingForm() {
         <Card
           className={cn(
             'rounded-lg shadow-xl overflow-hidden min-w-fit relative',
-            currentStep === STEPS.PRICING && 'lg:min-w-[50rem]',
+            currentStep === STEPS.PRICING ||
+              (currentStep === STEPS.TIME_COMMITMENT && 'lg:min-w-[58rem]'),
             currentStep === STEPS.PRICING ? 'border-none' : 'border border-black-50'
           )}
           style={{

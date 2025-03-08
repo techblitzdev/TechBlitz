@@ -17,10 +17,10 @@ async function UserXpData() {
 export default async function UserXp({ className }: UserXpProps) {
   return (
     <div className={cn('flex items-center gap-x-1', className)}>
+      <BoltLightning className="size-6" />
       <Suspense fallback={<LoadingSpinner />}>
         <UserXpData />
       </Suspense>
-      <BoltLightning className="size-6" />
     </div>
   );
 }

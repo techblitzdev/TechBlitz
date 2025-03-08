@@ -201,16 +201,31 @@ const updateOrCreateAnswer = async ({
 };
 
 /**
- * Updates the user's XP based on question difficulty
+ * Updates the user's XP based on question difficulty and correctness
  *
  * @param userUid - The user's UID
  * @param question - The question object
  * @param isNewCorrectAnswer - Whether this is a new correct answer
+ * @param isNewAnswer - Whether this is a new answer attempt
  */
-const updateUserXp = async (userUid: string, question: Question, isNewCorrectAnswer: boolean) => {
-  if (!isNewCorrectAnswer) return;
+const updateUserXp = async (
+  userUid: string,
+  question: Question,
+  isNewCorrectAnswer: boolean,
+  isNewAnswer: boolean
+) => {
+  // If it's not a new answer attempt, don't add XP
+  if (!isNewAnswer) return;
 
-  const xpToAdd = QUESTION_XP[question.difficulty] || 5; // efault to 5 if difficulty not found
+  let xpToAdd = 0;
+
+  if (isNewCorrectAnswer) {
+    // Add full XP for correct answers
+    xpToAdd = QUESTION_XP[question.difficulty] || 5;
+  } else {
+    // Add 2XP for incorrect answers
+    xpToAdd = 2;
+  }
 
   await prisma.users.update({
     where: { uid: userUid },
@@ -236,7 +251,6 @@ export async function answerQuestion({
   }
 
   const question = await findQuestion(questionUid);
-
   const questionType = question.questionType;
 
   let correctAnswer = false;
@@ -248,6 +262,7 @@ export async function answerQuestion({
 
   const existingAnswer = await findExistingAnswer(userUid, questionUid);
   const isNewCorrectAnswer = correctAnswer && (!existingAnswer || !existingAnswer.correctAnswer);
+  const isNewAnswer = !existingAnswer;
 
   let streakContinued = false;
   // Only update streaks if this is a new answer
@@ -267,10 +282,8 @@ export async function answerQuestion({
     timeTaken,
   });
 
-  // Update user XP if answer is correct
-  if (correctAnswer) {
-    await updateUserXp(userUid, question, isNewCorrectAnswer);
-  }
+  // Update user XP based on answer correctness
+  await updateUserXp(userUid, question, isNewCorrectAnswer, isNewAnswer);
 
   // if this is a study path, update the study path progress
   if (studyPathSlug) {

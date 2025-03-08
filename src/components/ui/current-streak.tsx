@@ -53,13 +53,13 @@ export default async function CurrentStreak() {
     <HoverCard>
       <HoverCardTrigger>
         <div className="flex items-center gap-x-1">
-          <Suspense fallback={<LoadingSpinner />}>
-            <CurrentStreakData />
-          </Suspense>
           <SolarFlameBoldDuotone
             className="size-6"
             hasActiveStreak={Boolean(userStreak?.streakData?.currentstreakCount)}
           />
+          <Suspense fallback={<LoadingSpinner />}>
+            <CurrentStreakData />
+          </Suspense>
         </div>
       </HoverCardTrigger>
       <HoverCardContent className="bg-black border border-black-50 text-white" align="end">

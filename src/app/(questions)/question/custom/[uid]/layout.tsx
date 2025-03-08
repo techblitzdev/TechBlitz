@@ -16,6 +16,7 @@ import QuestionNavigation from '@/components/app/navigation/question-navigation'
 import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation';
 import RandomQuestion from '@/components/shared/random-question';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
+import UserXp from '@/components/ui/user-xp';
 
 export async function generateMetadata({ params }: { params: { uid: string } }) {
   const question = await getQuestion('uid', params.uid);
@@ -75,7 +76,7 @@ export default async function QuestionUidLayout({
           </div>
           <div className="col-span-3 lg:col-span-4 flex items-center gap-x-1 md:gap-x-3 justify-end">
             <CurrentStreak />
-            <FeedbackButton reference={question?.slug || undefined} />
+            <UserXp />
           </div>
         </div>
         <Separator className="bg-black-50" />

@@ -3,6 +3,7 @@ import CurrentStreak from '@/components/ui/current-streak';
 import Feedback from '@/components/app/shared/feedback/feedback-button';
 import { Separator } from '@/components/ui/separator';
 import UpgradeModal from '@/components/app/shared/upgrade/upgrade-modal';
+import UserXp from '@/components/ui/user-xp';
 
 export default function StatisticsLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
@@ -14,7 +15,7 @@ export default function StatisticsLayout({ children }: Readonly<{ children: Reac
           </div>
           <div className="flex items-center gap-x-3">
             <CurrentStreak />
-            <Feedback icon={true} />
+            <UserXp />
             <UpgradeModal />
           </div>
         </div>

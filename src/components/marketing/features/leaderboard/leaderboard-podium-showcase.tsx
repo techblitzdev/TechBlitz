@@ -29,7 +29,7 @@ export default async function LeaderboardPodiumShowcase() {
           return (
             <PodiumItem
               key={user.uid}
-              user={user as unknown as UserRecord & { _count: { answers: number } }}
+              user={user as unknown as UserRecord & { _count: { answers: number }; userXp: number }}
               position={position}
             />
           );

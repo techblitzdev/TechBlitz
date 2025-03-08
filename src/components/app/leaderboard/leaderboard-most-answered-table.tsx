@@ -1,15 +1,26 @@
 import ProfilePicture from '@/components/ui/profile-picture';
-import { UserRecord } from '@/types/User';
 import { shortenText } from '@/utils';
-import { getUserDisplayName } from '@/utils/user';
 import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { use } from 'react';
+import { UserRecord } from '@/types/User';
+
+type LeaderboardUser = {
+  uid: string;
+  email: string;
+  userLevel: string;
+  userProfilePicture: string | null;
+  username: string | null;
+  userXp: number;
+  _count: { answers: number };
+};
+
+const getDisplayName = (user: LeaderboardUser) => {
+  return user.username || user.email.split('@')[0];
+};
 
 export default function LeaderboardMostAnsweredTable(opts: {
-  topUsersByQuestionCount: (UserRecord & {
-    _count: { answers: number };
-  })[];
+  topUsersByQuestionCount: LeaderboardUser[];
   userPromise: Promise<UserRecord | null>;
   page?: number;
   postsPerPage?: number;
@@ -27,10 +38,10 @@ export default function LeaderboardMostAnsweredTable(opts: {
               <Badge
                 variant={index === 0 ? 'default' : 'secondary'}
                 className={`
-                        ${index === 0 && 'bg-yellow-500/20 text-yellow-300 hover:bg-yellow-500/30'}
-                        ${index === 1 && 'bg-gray-400/20 text-gray-300 hover:bg-gray-400/30'}
-                        ${index === 2 && 'bg-amber-700/20 text-amber-500 hover:bg-amber-700/30'}
-                      `}
+                  ${index === 0 && 'bg-yellow-500/20 text-yellow-300 hover:bg-yellow-500/30'}
+                  ${index === 1 && 'bg-gray-400/20 text-gray-300 hover:bg-gray-400/30'}
+                  ${index === 2 && 'bg-amber-700/20 text-amber-500 hover:bg-amber-700/30'}
+                `}
               >
                 #{index + 1}
               </Badge>
@@ -47,10 +58,10 @@ export default function LeaderboardMostAnsweredTable(opts: {
               />
               <div className="flex gap-2 items-center">
                 <span className="text-white font-medium hidden md:block">
-                  {shortenText(getUserDisplayName(userData as any), 25)}
+                  {shortenText(getDisplayName(userData), 25)}
                 </span>
                 <span className="text-white font-medium block md:hidden">
-                  {shortenText(getUserDisplayName(userData as any), 10)}
+                  {shortenText(getDisplayName(userData), 10)}
                 </span>
                 {user?.uid === userData.uid && <span className="text-xs text-white">(You)</span>}
                 {userData?.userLevel === 'PREMIUM' && (
@@ -62,11 +73,7 @@ export default function LeaderboardMostAnsweredTable(opts: {
             </div>
           </TableCell>
           <TableCell className="p-0">
-            <div className="flex h-full w-full p-4 justify-end">
-              <Badge variant="outline" className="border-white/10 text-white">
-                {userData._count.answers}
-              </Badge>
-            </div>
+            <div className="flex h-full w-full p-4 justify-end text-white">{userData.userXp}XP</div>
           </TableCell>
         </TableRow>
       ))}

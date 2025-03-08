@@ -114,6 +114,7 @@ export default async function StudyPathQuestionCard({
         questionData={questionData}
         studyPath={studyPath}
         isAnswered={isCorrect || false}
+        canAnswer={userCanAccess}
       >
         <div
           key={questionData.uid}

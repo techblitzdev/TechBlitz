@@ -1,6 +1,5 @@
 import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
 import CurrentStreak from '@/components/ui/current-streak';
-import Feedback from '@/components/app/shared/feedback/feedback-button';
 import { Separator } from '@/components/ui/separator';
 import UpgradeModal from '@/components/app/shared/upgrade/upgrade-modal';
 import UserXp from '@/components/ui/user-xp';

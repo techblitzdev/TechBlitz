@@ -1,4 +1,4 @@
-import { WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { createMetadata } from '@/utils/seo';
 
 import { getBaseUrl } from '@/utils';
 import { WebPageJsonLd } from '@/types/Seo';
@@ -121,6 +121,14 @@ const items = [
   },
 ];
 
+export async function generateMetadata() {
+  return createMetadata({
+    title: 'React Coding Challenges | TechBlitz',
+    description:
+      'TechBlitz provides a wide range of React coding challenges to help you improve your skills and learn new concepts.',
+  });
+}
+
 export default function ReactCodingChallengesPage() {
   const jsonLd: WebPageJsonLd = {
     '@context': 'https://schema.org',
@@ -131,7 +139,18 @@ export default function ReactCodingChallengesPage() {
       'TechBlitz provides a wide range of React coding challenges to help you improve your skills and learn new concepts.',
     image:
       'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
-    breadcrumb: WebPageJsonLdBreadcrumb,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${getBaseUrl()}` },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'React Coding Challenges',
+          item: `${getBaseUrl()}/react-coding-challenges`,
+        },
+      ],
+    },
     author: {
       '@type': 'Organization',
       name: 'TechBlitz',

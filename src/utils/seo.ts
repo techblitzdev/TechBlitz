@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { getBaseUrl } from '@/utils';
 import { Question } from '@/types/Questions';
-import { WebPageJsonLd } from '@/types/Seo';
 
 interface OgImageProps {
   text: string;
@@ -139,70 +138,4 @@ export const getQuestionEducationLevel = (question: Question['difficulty']) => {
     case 'HARD':
       return 'advanced';
   }
-};
-
-export const WebPageJsonLdBreadcrumb: WebPageJsonLd['breadcrumb'] = {
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Home',
-      item: getBaseUrl(),
-    },
-    // Dashboard Questions
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Questions',
-      item: getBaseUrl() + '/questions',
-    },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: 'Roadmaps',
-      item: getBaseUrl() + '/roadmaps',
-    },
-    // Missing position 4 (Added)
-    {
-      '@type': 'ListItem',
-      position: 4,
-      name: 'Roadmap',
-      item: getBaseUrl() + '/features/roadmap',
-    },
-    // Features
-    {
-      '@type': 'ListItem',
-      position: 5,
-      name: 'Daily Coding Challenges',
-      item: getBaseUrl() + '/features/daily-coding-challenges',
-    },
-    {
-      '@type': 'ListItem',
-      position: 6,
-      name: 'Statistics',
-      item: getBaseUrl() + '/features/statistics',
-    },
-    // Blog
-    {
-      '@type': 'ListItem',
-      position: 7,
-      name: 'Blog',
-      item: getBaseUrl() + '/blog',
-    },
-    // Pricing
-    {
-      '@type': 'ListItem',
-      position: 8,
-      name: 'Pricing',
-      item: getBaseUrl() + '/pricing',
-    },
-    // FAQs
-    {
-      '@type': 'ListItem',
-      position: 9,
-      name: 'FAQs',
-      item: getBaseUrl() + '/faqs',
-    },
-  ],
 };

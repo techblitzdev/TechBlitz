@@ -3,7 +3,7 @@ import { Suspense, lazy } from 'react';
 import Hero from '@/components/shared/hero';
 import { Button } from '@/components/ui/button';
 import { validateSearchParams, parseSearchParams } from '@/utils/search-params';
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { createMetadata } from '@/utils/seo';
 import FilterLoading from '@/components/app/filters/filters-loading';
 import QuestionPageSidebarLoading from '@/components/app/questions/layout/question-page-sidebar-loading';
 import { QuestionCardSkeleton } from '@/components/app/questions/layout/question-card';

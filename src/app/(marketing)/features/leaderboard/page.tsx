@@ -1,5 +1,5 @@
 import { WebPageJsonLd } from '@/types/Seo';
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { createMetadata } from '@/utils/seo';
 import { getBaseUrl } from '@/utils';
 import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
 import LeaderboardHero from '@/components/marketing/features/leaderboard/leaderboard-hero';
@@ -173,7 +173,24 @@ export default function LeaderboardPage() {
       'Coding challenges leaderboard to see how you stack up against the rest of the community.',
     image:
       'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
-    breadcrumb: WebPageJsonLdBreadcrumb,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${getBaseUrl()}` },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Features',
+          item: `${getBaseUrl()}/features`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: 'Leaderboard',
+          item: `${getBaseUrl()}/features/leaderboard`,
+        },
+      ],
+    },
     author: {
       '@type': 'Organization',
       name: 'TechBlitz',

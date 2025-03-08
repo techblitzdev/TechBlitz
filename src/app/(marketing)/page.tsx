@@ -26,7 +26,7 @@ import HomepageUserStats from '@/components/marketing/global/blocks/homepage-use
 import { QUESTIONS_COUNT } from '@/utils/constants';
 import { getUserCount } from '@/utils/data/user/get-user-count';
 
-const title = 'Learn to Code for Free | TechBlitz';
+const title = 'Free Interactive Coding Platform for Beginners | TechBlitz';
 const description =
   "Master programming with TechBlitz's free interactive coding challenges. Get personalized practice, instant AI feedback, and step-by-step guidance. Perfect for beginners.";
 

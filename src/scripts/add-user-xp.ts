@@ -70,15 +70,15 @@ export const addUserXp = async () => {
   });
 
   // Update each user's XP in the database
-  const updatePromises = Object.entries(userXpMap).map(([userUid, xpData]) => {
-    return prisma.users.update({
-      where: { uid: userUid },
-      data: { userXp: xpData.totalXp },
-    });
-  });
+  //const updatePromises = Object.entries(userXpMap).map(([userUid, xpData]) => {
+  //  return prisma.users.update({
+  //    where: { uid: userUid },
+  //    data: { userXp: xpData.totalXp },
+  //  });
+  //});
 
   // Execute all updates
-  await Promise.all(updatePromises);
+  //await Promise.all(updatePromises);
 
   console.log({
     userXpMap,

@@ -8,6 +8,7 @@ import { getTotalUserAnswers } from '@/utils/data/leaderboard/get-total-user-ans
 import LoadingSpinner from '@/components/ui/loading';
 import AnswerQuestionModal from '@/components/app/leaderboard/answer-question-modal';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
+import { getUserXp } from '@/utils/data/user/authed/get-user-xp';
 
 const LeaderboardHero = dynamic(() => import('@/components/app/leaderboard/leaderboard-hero'), {
   loading: () => <div>Loading hero...</div>,
@@ -42,7 +43,7 @@ export default async function TodaysLeaderboardPage({
   // run in parallel
   const [topThreeUsersData, hasAnsweredMoreThan3Questions, user] = await Promise.all([
     getMostQuestionsAnswered(3, 1),
-    getTotalUserAnswers().then((count) => count > 3),
+    getUserXp().then(({ userXp }) => userXp > 0),
     useUserServer(),
   ]);
 

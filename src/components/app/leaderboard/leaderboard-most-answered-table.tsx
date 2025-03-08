@@ -1,15 +1,26 @@
 import ProfilePicture from '@/components/ui/profile-picture';
-import { UserRecord } from '@/types/User';
 import { shortenText } from '@/utils';
-import { getUserDisplayName } from '@/utils/user';
 import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { use } from 'react';
+import { UserRecord } from '@/types/User';
+
+type LeaderboardUser = {
+  uid: string;
+  email: string;
+  userLevel: string;
+  userProfilePicture: string | null;
+  username: string | null;
+  userXp: number;
+  _count: { answers: number };
+};
+
+const getDisplayName = (user: LeaderboardUser) => {
+  return user.username || user.email.split('@')[0];
+};
 
 export default function LeaderboardMostAnsweredTable(opts: {
-  topUsersByQuestionCount: (UserRecord & {
-    _count: { answers: number };
-  })[];
+  topUsersByQuestionCount: LeaderboardUser[];
   userPromise: Promise<UserRecord | null>;
   page?: number;
   postsPerPage?: number;
@@ -47,10 +58,10 @@ export default function LeaderboardMostAnsweredTable(opts: {
               />
               <div className="flex gap-2 items-center">
                 <span className="text-white font-medium hidden md:block">
-                  {shortenText(getUserDisplayName(userData as any), 25)}
+                  {shortenText(getDisplayName(userData), 25)}
                 </span>
                 <span className="text-white font-medium block md:hidden">
-                  {shortenText(getUserDisplayName(userData as any), 10)}
+                  {shortenText(getDisplayName(userData), 10)}
                 </span>
                 {user?.uid === userData.uid && <span className="text-xs text-white">(You)</span>}
                 {userData?.userLevel === 'PREMIUM' && (
@@ -64,7 +75,7 @@ export default function LeaderboardMostAnsweredTable(opts: {
           <TableCell className="p-0">
             <div className="flex h-full w-full p-4 justify-end">
               <Badge variant="outline" className="border-white/10 text-white">
-                {userData._count.answers}
+                {userData.userXp}XP
               </Badge>
             </div>
           </TableCell>

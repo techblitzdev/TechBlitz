@@ -26,36 +26,59 @@ import HomepageUserStats from '@/components/marketing/global/blocks/homepage-use
 import { QUESTIONS_COUNT } from '@/utils/constants';
 import { getUserCount } from '@/utils/data/user/get-user-count';
 
-const title = 'Free Interactive Coding Platform for Beginners | TechBlitz';
+const title = 'Learn to Code with Interactive Challenges | TechBlitz';
 const description =
-  "Master programming with TechBlitz's free interactive coding challenges. Get personalized practice, instant AI feedback, and step-by-step guidance. Perfect for beginners.";
+  'Master programming through interactive coding challenges, personalized practice, and instant AI feedback. Perfect for beginners learning JavaScript, web development, and more. Start coding for free.';
 
 export const metadata: Metadata = {
   title,
   description,
+  keywords: [
+    // Primary keywords
+    'learn to code',
+    'coding for beginners',
+    'interactive coding',
+    'programming practice',
+    // Secondary keywords
+    'javascript tutorials',
+    'web development',
+    'coding challenges',
+    'programming exercises',
+    // Long-tail keywords
+    'learn programming online free',
+    'interactive coding platform',
+    'beginner friendly coding',
+    'practice coding online',
+  ],
   openGraph: {
     title,
     description,
     type: 'website',
-    url: 'https://techblitz.dev',
-    images: {
-      url: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/Screenshot%202025-01-11%20at%2002.24.28.png',
-      width: 800,
-      height: 630,
-      alt: description,
-    },
+    url: getBaseUrl(),
+    siteName: 'TechBlitz',
+    images: [
+      {
+        url: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/Screenshot%202025-01-11%20at%2002.24.28.png',
+        width: 1200,
+        height: 630,
+        alt: 'TechBlitz - Interactive Coding Platform for Beginners',
+      },
+    ],
   },
   twitter: {
+    card: 'summary_large_image',
     title,
     description,
     images: [
       {
         url: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/Screenshot%202025-01-11%20at%2002.24.28.png',
-        width: 800,
+        width: 1200,
         height: 630,
-        alt: description,
+        alt: 'TechBlitz - Interactive Coding Platform for Beginners',
       },
     ],
+    creator: '@techblitz',
+    site: '@techblitz',
   },
   alternates: {
     canonical: getBaseUrl(),
@@ -63,6 +86,13 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -84,10 +114,10 @@ export default async function Page() {
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${getBaseUrl()}`,
+      '@id': getBaseUrl(),
     },
     keywords:
-      'learn to code for free, beginner-friendly coding lessons, interactive coding challenges, daily programming practice, personalized coding roadmap, improve coding skills, best platform to learn coding, AI-assisted coding, learn javascript',
+      'learn to code, coding for beginners, interactive coding, programming practice, javascript tutorials, web development, coding challenges, programming exercises, learn programming online free, interactive coding platform, beginner friendly coding, practice coding online',
     publisher: {
       '@type': 'Organization',
       name: 'TechBlitz',
@@ -103,7 +133,7 @@ export default async function Page() {
           '@type': 'ListItem',
           position: 1,
           name: 'Home',
-          item: `${getBaseUrl()}`,
+          item: getBaseUrl(),
         },
       ],
     },
@@ -111,26 +141,25 @@ export default async function Page() {
 
   const contentGridItems: MarketingContentGridProps[] = [
     {
-      title: 'In browser code editor',
+      title: 'Interactive Code Editor',
       description:
-        'Practice coding in your browser with our in-browser coded editor. No need to install anything to learn to code!',
+        'Practice coding directly in your browser with our interactive code editor. Start learning to code instantly - no installation required!',
       icon: <CodeIcon className="size-6" />,
     },
     {
-      title: 'Beginner-Friendly Platform',
+      title: 'Perfect for Beginners',
       description:
-        'Perfect for beginners - start with basic challenges and gradually advance your skills. Our step-by-step approach and clear explanations makes improving coding skills easy and enjoyable.',
+        'Start your coding journey with beginner-friendly challenges. Our step-by-step guidance and clear explanations make learning to code easy and enjoyable.',
       icon: <Users2 className="size-6" />,
     },
     {
-      title: 'Seamless mobile experience',
+      title: 'Code Anywhere',
       description:
-        'Practice on the go with our mobile-friendly coding platform. Access your dashboard from any device, anywhere.',
+        'Learn and practice coding on any device with our mobile-optimized platform. Perfect for learning on the go.',
       icon: <MobileIcon className="size-6" />,
     },
   ];
 
-  // not awaiting as we are passing it the component that needs it to prevent render blocking
   const userCount = getUserCount();
 
   return (

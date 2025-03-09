@@ -69,6 +69,11 @@ export function PricingCard(opts: {
             <div className="flex gap-x-1 items-center mt-2">
               <div className="flex gap-x-1 items-center font-onest text-gradient from-white to-white/75">
                 <span className="text-lg font-semibold">{product.currencySymbol}</span>
+                {product.originalPrice && (
+                  <span className="text-2xl line-through text-gray-500 mr-2">
+                    {product.originalPrice}
+                  </span>
+                )}
                 {isLoading ? (
                   <ReloadIcon className="size-5 animate-spin" />
                 ) : (

@@ -12,6 +12,26 @@ enum LeagueColor {
     FFD700
     E5E4E2
     b9f2ff
+    FF4D4D
+}
+
+enum LeagueAchievementType {
+    LEAGUE_WINNER
+    TOP_THREE
+    PROMOTION
+    PERFECT_WEEK
+    SURVIVAL
+    COMEBACK_KING
+    CONSISTENCY
+    SPEED_DEMON
+}
+
+enum LeaguePowerUp {
+    DOUBLE_XP
+    SHIELD
+    STREAK_SAVER
+    TIME_FREEZE
+    BONUS_POINTS
 }
 
 // schema for a league, no relation to a users as 
@@ -44,7 +64,26 @@ model IndividualLeagueData {
     // the league's icon
     icon String?
 
-    Leagues Leagues[]
+    // Minimum XP required to avoid relegation
+    minXpToAvoidRelegation Int @default(100)
+
+    // XP threshold for promotion
+    xpThresholdForPromotion Int?
+
+    // League rules
+    inactivityThresholdDays Int @default(7)
+    minWeeksBeforePromotion Int @default(1)
+
+    // Maximum number of power-ups allowed per week
+    maxPowerUpsPerWeek Int @default(3)
+
+    // Bonus XP multiplier for this league
+    xpMultiplier Float @default(1.0)
+
+    // Relations
+    leagues Leagues[]
+    achievements LeagueAchievement[]
+    history LeagueHistory[]
 }
 
 model Leagues {
@@ -56,4 +95,153 @@ model Leagues {
     // connect to the league data
     leagueData IndividualLeagueData @relation(fields: [leagueDataUid], references: [uid])
     leagueDataUid String
+
+    // Maximum number of users in a league group
+    maxUsers Int @default(50)
+
+    // Current number of users
+    currentUsers Int @default(0)
+
+    // Whether the league is accepting new users
+    isOpen Boolean @default(true)
+
+    // When this league group started
+    startDate DateTime @default(now())
+
+    // When this league group ends
+    endDate DateTime
+
+    // Top users who will be promoted
+    promotionCount Int @default(3)
+
+    // Bottom users who will be relegated
+    relegationCount Int @default(5)
+
+    // Weekly challenges for bonus XP
+    weeklyChallenge String?
+    weeklyChallengeXP Int?
+
+    // Relations
+    users UserLeague[]
+}
+
+model UserLeague {
+    uid String @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // The user in this league
+    user Users @relation(fields: [userUid], references: [uid])
+    userUid String
+
+    // The league instance they're in
+    league Leagues @relation(fields: [leagueUid], references: [uid])
+    leagueUid String
+
+    // Their position in the league
+    position Int?
+
+    // Their weekly XP in this league
+    weeklyXp Int @default(0)
+
+    // Whether they've been promoted/relegated
+    promoted Boolean @default(false)
+    relegated Boolean @default(false)
+
+    // When they joined this league
+    joinedAt DateTime @default(now())
+
+    // Gamification features
+    currentStreak Int @default(0)
+    bestPosition Int?
+    powerUpsRemaining Int @default(3)
+    activePowerUps LeaguePowerUp[]
+    powerUpExpiryTime DateTime?
+    
+    // Weekly challenge progress
+    challengeProgress Int @default(0)
+    challengeCompleted Boolean @default(false)
+
+    // Unique constraint
+    @@unique([userUid, leagueUid])
+}
+
+model LeagueAchievement {
+    uid String @id @default(uuid())
+    createdAt DateTime @default(now())
+
+    // The user who earned it
+    user Users @relation(fields: [userUid], references: [uid])
+    userUid String
+
+    // The league it was earned in
+    league IndividualLeagueData @relation(fields: [leagueDataUid], references: [uid])
+    leagueDataUid String
+
+    // Type of achievement
+    type LeagueAchievementType
+
+    // When it was earned
+    earnedAt DateTime @default(now())
+
+    // Additional data (e.g., position, score)
+    metadata Json?
+
+    // XP bonus awarded
+    xpBonus Int @default(0)
+}
+
+model LeagueHistory {
+    uid String @id @default(uuid())
+    createdAt DateTime @default(now())
+
+    // The user
+    user Users @relation(fields: [userUid], references: [uid])
+    userUid String
+
+    // The league
+    league IndividualLeagueData @relation(fields: [leagueDataUid], references: [uid])
+    leagueDataUid String
+
+    // Their final position
+    finalPosition Int
+
+    // Their final XP
+    finalXp Int
+
+    // Whether they were promoted/relegated
+    wasPromoted Boolean
+    wasRelegated Boolean
+
+    // The week this history is for
+    weekStartDate DateTime
+    weekEndDate DateTime
+
+    // Performance stats
+    averageXpPerDay Float?
+    powerUpsUsed Int @default(0)
+    challengesCompleted Int @default(0)
+}
+
+model Users {
+  // ... your existing fields ...
+
+  // Current league membership
+  currentLeague UserLeague?
+
+  // All league memberships
+  leagueMemberships UserLeague[]
+
+  // League achievements
+  leagueAchievements LeagueAchievement[]
+
+  // League history
+  leagueHistory LeagueHistory[]
+
+  // Last league activity
+  lastLeagueActivity DateTime?
+
+  // League related fields
+  totalLeagueWins Int @default(0)
+  highestLeagueReached LeagueName @default(BRONZE)
 }

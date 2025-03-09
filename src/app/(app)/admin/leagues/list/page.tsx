@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import AdminContainer from '@/components/app/admin/admin-container';
-import { ArrowLeft, Users, Trophy } from 'lucide-react';
+import { ArrowLeft, Users } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 
 export const metadata: Metadata = {

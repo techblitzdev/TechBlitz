@@ -44,7 +44,7 @@ export default function HomepageHero() {
             <HeroText />
           </div>
         </h1>
-        <p className="font-onest max-w-4xl text-gray-400 text-lg tracking-tight">
+        <p className="font-onest max-w-4xl text-gray-400 text-lg tracking-tight mt-4 md:mt-0">
           Unlock your potential with hands-on, industry-standard coding challenges. <br /> Take the
           first step today and transform your passion into a thriving tech career.
         </p>

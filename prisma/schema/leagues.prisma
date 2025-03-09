@@ -222,26 +222,3 @@ model LeagueHistory {
     powerUpsUsed Int @default(0)
     challengesCompleted Int @default(0)
 }
-
-model Users {
-  // ... your existing fields ...
-
-  // Current league membership
-  currentLeague UserLeague?
-
-  // All league memberships
-  leagueMemberships UserLeague[]
-
-  // League achievements
-  leagueAchievements LeagueAchievement[]
-
-  // League history
-  leagueHistory LeagueHistory[]
-
-  // Last league activity
-  lastLeagueActivity DateTime?
-
-  // League related fields
-  totalLeagueWins Int @default(0)
-  highestLeagueReached LeagueName @default(BRONZE)
-}

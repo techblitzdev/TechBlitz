@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import AdminContainer from '@/components/app/admin/admin-container';
 import { prisma } from '@/lib/prisma';

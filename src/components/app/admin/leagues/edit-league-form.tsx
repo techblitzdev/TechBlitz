@@ -44,7 +44,6 @@ type LeagueFormValues = z.infer<typeof leagueSchema>;
 export default function EditLeagueForm({ league }: { league: any }) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formStatus, setFormStatus] = useState({ message: '', success: true });
 
   const form = useForm<LeagueFormValues>({
     resolver: zodResolver(leagueSchema),
@@ -80,18 +79,6 @@ export default function EditLeagueForm({ league }: { league: any }) {
 
   return (
     <div className="bg-black-75 rounded-lg p-6">
-      {formStatus.message && (
-        <div
-          className={`p-4 mb-6 rounded-lg ${
-            formStatus.success
-              ? 'bg-green-900/20 text-green-700 dark:text-green-300'
-              : 'bg-red-900/20 text-red-700 dark:text-red-300'
-          }`}
-        >
-          {formStatus.message}
-        </div>
-      )}
-
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <div className="border-b border-black-50 pb-4 mb-6">
@@ -344,13 +331,6 @@ export default function EditLeagueForm({ league }: { league: any }) {
           </Tabs>
 
           <div className="pt-6 border-t border-black-50 flex justify-between items-center">
-            <div>
-              {formStatus.message && (
-                <p className={formStatus.success ? 'text-green-500' : 'text-red-500'}>
-                  {formStatus.message}
-                </p>
-              )}
-            </div>
             <div className="flex space-x-4">
               <Button
                 type="button"

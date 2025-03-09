@@ -16,22 +16,22 @@ enum LeagueColor {
 }
 
 enum LeagueAchievementType {
-    LEAGUE_WINNER
-    TOP_THREE
-    PROMOTION
-    PERFECT_WEEK
-    SURVIVAL
-    COMEBACK_KING
-    CONSISTENCY
-    SPEED_DEMON
+    LEAGUE_WINNER // did the user win their league last week
+    TOP_THREE // did the user finish in the top 3 of their league last week
+    PROMOTION // did the user get promoted last week
+    PERFECT_WEEK // did the user get 100% of the bonus xp last week
+    SURVIVAL // did the user avoid relegation last week
+    COMEBACK_KING // did the user come back from the bottom of the league last week
+    CONSISTENCY // did the user finish in the top 3 of their league for 3 weeks in a row
+    SPEED_DEMON // did the user get to the top of the league in the shortest time possible
 }
 
 enum LeaguePowerUp {
-    DOUBLE_XP
-    SHIELD
-    STREAK_SAVER
-    TIME_FREEZE
-    BONUS_POINTS
+    DOUBLE_XP // double the users xp for the week
+    SHIELD // prevent the user= from being relegated for the week
+    STREAK_SAVER // prevent the user from being relegated for the next 3 weeks
+    TIME_FREEZE // freeze the users league for the week
+    BONUS_POINTS // give the user bonus xp for the week
 }
 
 // schema for a league, no relation to a users as 
@@ -45,7 +45,7 @@ model IndividualLeagueData {
     // the name of the league
     name LeagueName
 
-    // the league's color
+    // the league's color (used for styling)
     color LeagueColor
 
     // a brief description of the league (may or may not be used)
@@ -54,7 +54,7 @@ model IndividualLeagueData {
     // the amount of xp required to be in the league
     xpRequirement Int
 
-    // when the league resets
+    // when the league resets (usually weekly)
     resetDate DateTime
 
     // leagues such as the bronze league cannot be relegated
@@ -64,28 +64,24 @@ model IndividualLeagueData {
     // the league's icon
     icon String?
 
-    // Minimum XP required to avoid relegation
-    minXpToAvoidRelegation Int @default(100)
-
-    // XP threshold for promotion
-    xpThresholdForPromotion Int?
-
-    // League rules
-    inactivityThresholdDays Int @default(7)
-    minWeeksBeforePromotion Int @default(1)
+    // league rules (may or may not be used)
+    inactivityThresholdDays Int? @default(7)
 
     // Maximum number of power-ups allowed per week
     maxPowerUpsPerWeek Int @default(3)
 
-    // Bonus XP multiplier for this league
+    // bonus XP multiplier for this league
     xpMultiplier Float @default(1.0)
 
-    // Relations
+    // relations
     leagues Leagues[]
     achievements LeagueAchievement[]
     history LeagueHistory[]
 }
 
+// we can have multiple instances of the same league
+// e.g. bronze league, silver league, gold league, etc.
+// this is so the same league can be used for different groups of users
 model Leagues {
     // standard prisma fields
     uid String @id @default(uuid())
@@ -96,35 +92,33 @@ model Leagues {
     leagueData IndividualLeagueData @relation(fields: [leagueDataUid], references: [uid])
     leagueDataUid String
 
-    // Maximum number of users in a league group
-    maxUsers Int @default(50)
+    // maximum number of users in the league
+    maxUsers Int @default(30)
 
-    // Current number of users
+    // current number of users in the league
     currentUsers Int @default(0)
 
-    // Whether the league is accepting new users
-    isOpen Boolean @default(true)
-
-    // When this league group started
+    // when this league group started
     startDate DateTime @default(now())
 
     // When this league group ends
     endDate DateTime
 
-    // Top users who will be promoted
+    // how many users will be promoted
     promotionCount Int @default(3)
 
-    // Bottom users who will be relegated
+    // how many users will be relegated
     relegationCount Int @default(5)
 
-    // Weekly challenges for bonus XP
+    // weekly challenges for bonus xp
     weeklyChallenge String?
     weeklyChallengeXP Int?
 
-    // Relations
+    // relations
     users UserLeague[]
 }
 
+// the data tied to the user in the league
 model UserLeague {
     uid String @id @default(uuid())
     createdAt DateTime @default(now())
@@ -138,10 +132,10 @@ model UserLeague {
     league Leagues @relation(fields: [leagueUid], references: [uid])
     leagueUid String
 
-    // Their position in the league
+    // users position in the league
     position Int?
 
-    // Their weekly XP in this league
+    // users weekly xp in this league
     weeklyXp Int @default(0)
 
     // Whether they've been promoted/relegated
@@ -151,10 +145,8 @@ model UserLeague {
     // When they joined this league
     joinedAt DateTime @default(now())
 
-    // Gamification features
     currentStreak Int @default(0)
     bestPosition Int?
-    powerUpsRemaining Int @default(3)
     activePowerUps LeaguePowerUp[]
     powerUpExpiryTime DateTime?
     
@@ -166,6 +158,7 @@ model UserLeague {
     @@unique([userUid, leagueUid])
 }
 
+// FUTURE PROOFING - may not be used initially
 model LeagueAchievement {
     uid String @id @default(uuid())
     createdAt DateTime @default(now())
@@ -191,6 +184,7 @@ model LeagueAchievement {
     xpBonus Int @default(0)
 }
 
+// FUTURE PROOFING - may not be used initially
 model LeagueHistory {
     uid String @id @default(uuid())
     createdAt DateTime @default(now())

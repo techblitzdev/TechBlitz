@@ -149,6 +149,25 @@ export default function EditLeagueForm({ league }: { league: any }) {
                       </FormItem>
                     )}
                   />
+                  <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-white">League Description *</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            {...field}
+                            className="w-full rounded-md border border-black-50 bg-black-100 px-3 py-2 text-white"
+                          />
+                        </FormControl>
+                        <FormDescription className="text-gray-400">
+                          Describe the league and its requirements
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </CardContent>
               </Card>
             </TabsContent>

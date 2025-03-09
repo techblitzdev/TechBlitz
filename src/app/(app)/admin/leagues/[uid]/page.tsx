@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import AdminContainer from '@/components/app/admin/admin-container';
-import { Card } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
 import EditLeagueForm from '@/components/app/admin/leagues/edit-league-form';
 
@@ -30,7 +29,7 @@ export default async function LeaguePage({ params }: { params: { uid: string } }
   return (
     <AdminContainer>
       <div className="mb-8 flex items-center justify-between">
-        <div className="flex items-center space-x-4">
+        <div className="flex flex-col items-start space-y-4">
           <Link
             href="/admin/leagues/list"
             className="flex items-center text-sm text-muted-foreground hover:text-primary"
@@ -43,9 +42,7 @@ export default async function LeaguePage({ params }: { params: { uid: string } }
       </div>
 
       <div className="grid gap-8">
-        <Card className="p-6">
-          <EditLeagueForm league={league} />
-        </Card>
+        <EditLeagueForm league={league} />
       </div>
     </AdminContainer>
   );

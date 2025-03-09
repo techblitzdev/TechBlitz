@@ -20,16 +20,16 @@ export default async function LeagueListPage() {
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold text-white">League List</h1>
           <div className="flex space-x-3">
-            <Link href="/admin/leagues/create">
-              <Button className="bg-accent hover:bg-accent/80 text-white">
-                <Plus className="h-4 w-4 mr-2" /> Create League
-              </Button>
-            </Link>
             <Link
               href="/admin/leagues"
               className="text-sm px-4 py-2 bg-black-75 hover:bg-black-50 text-white rounded-md transition-colors flex items-center gap-2"
             >
               <ArrowLeft className="h-4 w-4" /> Back to Dashboard
+            </Link>
+            <Link href="/admin/leagues/create">
+              <Button className="bg-accent hover:bg-accent/80 text-white">
+                <Plus className="h-4 w-4 mr-2" /> Create League
+              </Button>
             </Link>
           </div>
         </div>
@@ -64,7 +64,14 @@ export default async function LeagueListPage() {
                   </div>
                 </div>
               </div>
-              <div className="mt-6 flex justify-end">
+              <div className="mt-6 flex justify-between">
+                <span className="text-sm text-gray-400">
+                  {league.resetDate.toLocaleDateString()} (
+                  {Math.ceil(
+                    (league.resetDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
+                  )}{' '}
+                  days away)
+                </span>
                 <Link
                   href={`/admin/leagues/${league.uid}`}
                   className="text-sm text-accent hover:text-accent/80"

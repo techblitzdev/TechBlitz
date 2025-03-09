@@ -8,6 +8,7 @@ import LoadingSpinner from '@/components/ui/loading';
 import AnswerQuestionModal from '@/components/app/leaderboard/answer-question-modal';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 import { getUserXp } from '@/utils/data/user/authed/get-user-xp';
+import LeaguesShowcase from '@/components/app/leaderboard/leagues/leagues-showcase';
 
 const LeaderboardHero = dynamic(() => import('@/components/app/leaderboard/leaderboard-hero'), {
   loading: () => <div>Loading hero...</div>,
@@ -61,10 +62,14 @@ export default async function TodaysLeaderboardPage({
 
   return (
     <>
+      <LeaguesShowcase />
+      {/**
+       * 
       <Suspense fallback={<LoadingSpinner />}>
-        {/** @ts-ignore - this is the valid type */}
+        {/** @ts-ignore - this is the valid type 
         <LeaderboardHero topThreeUsers={topThreeUsers} />
       </Suspense>
+       */}
       <div className="lg:container flex flex-col gap-10 mt-10">
         <Suspense fallback={<div>Loading leaderboard...</div>}>
           <LeaderboardMostQuestionsAnswered page={currentPage} postsPerPage={postsPerPage} />

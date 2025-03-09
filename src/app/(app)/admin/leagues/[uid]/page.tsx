@@ -21,10 +21,6 @@ async function getLeague(uid: string) {
 export default async function LeaguePage({ params }: { params: { uid: string } }) {
   const league = await getLeague(params.uid);
 
-  console.log({
-    league,
-  });
-
   return (
     <AdminContainer>
       <div className="mb-8 flex items-center justify-between">

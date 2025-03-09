@@ -9,44 +9,65 @@ type iconProps = {
   title?: string;
 };
 
-function Home3(props: iconProps) {
+function BChart3(props: iconProps) {
   const fill = props.fill || 'currentColor';
   const secondaryfill = props.secondaryfill || fill;
-  const strokewidth = props.strokewidth || 1;
+  const strokewidth = props.strokewidth || 2;
   const width = props.width || '1em';
   const height = props.height || '1em';
-  const title = props.title || 'home 3';
+  const title = props.title || 'b chart 3';
 
   return (
     <svg height={height} width={width} viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
       <title>{title}</title>
       <g fill={fill} strokeLinecap="butt" strokeLinejoin="miter">
-        <polyline
+        <line
           fill="none"
-          points="2 13 16 2 30 13"
-          stroke={fill}
-          strokeLinecap="square"
-          strokeMiterlimit="10"
-          strokeWidth={strokewidth}
-        />
-        <polyline
-          fill="none"
-          points="13 29 13 20 19 20 19 29"
           stroke={secondaryfill}
+          strokeLinecap="square"
           strokeMiterlimit="10"
           strokeWidth={strokewidth}
+          x1="2"
+          x2="30"
+          y1="29"
+          y2="29"
         />
-        <path
-          d="m5,16v10c0,1.657,1.343,3,3,3h16c1.657,0,3-1.343,3-3v-10"
+        <rect
+          height="12"
+          width="6"
           fill="none"
           stroke={fill}
           strokeLinecap="square"
           strokeMiterlimit="10"
           strokeWidth={strokewidth}
+          x="3"
+          y="13"
+        />
+        <rect
+          height="22"
+          width="6"
+          fill="none"
+          stroke={fill}
+          strokeLinecap="square"
+          strokeMiterlimit="10"
+          strokeWidth={strokewidth}
+          x="13"
+          y="3"
+        />
+        <rect
+          height="7"
+          width="6"
+          fill="none"
+          stroke={fill}
+          strokeLinecap="square"
+          strokeMiterlimit="10"
+          strokeWidth={strokewidth}
+          x="23"
+          y="18"
         />
       </g>
     </svg>
   );
 }
 
-export default Home3;
+export default BChart3;

@@ -88,6 +88,26 @@ export default function AdminDashboardPage() {
             </Link>
           </div>
         </div>
+        <div className="bg-[#000000] rounded-lg shadow-sm border border-black-50 overflow-hidden">
+          <div className="p-6">
+            <h2 className="text-xl font-semibold mb-2 text-white">Leagues</h2>
+            <p className="text-gray-400 mb-4">Create and manage leagues.</p>
+          </div>
+          <div className="bg-secondary px-6 py-3 flex justify-between">
+            <Link
+              href="/admin/leagues"
+              className="text-primary hover:text-primary/90 transition-colors"
+            >
+              Create New
+            </Link>
+            <Link
+              href="/admin/leagues/list"
+              className="text-primary hover:text-primary/90 transition-colors"
+            >
+              View All
+            </Link>
+          </div>
+        </div>
       </div>
 
       {/* Tools Section */}

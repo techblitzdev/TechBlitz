@@ -1,0 +1,59 @@
+enum LeagueName {
+    BRONZE
+    SILVER
+    GOLD
+    PLATINUM
+    DIAMOND
+}
+
+enum LeagueColor {
+    CD7F32
+    C0C0C0
+    FFD700
+    E5E4E2
+    b9f2ff
+}
+
+// schema for a league, no relation to a users as 
+// we have multiple instances of the same league
+model IndividualLeagueData {
+    // standard prisma fields
+    uid String @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // the name of the league
+    name LeagueName
+
+    // the league's color
+    color LeagueColor
+
+    // a brief description of the league (may or may not be used)
+    description String?
+
+    // the amount of xp required to be in the league
+    xpRequirement Int
+
+    // when the league resets
+    resetDate DateTime
+
+    // leagues such as the bronze league cannot be relegated
+    // as it's the lowest league
+    canBeRelegated Boolean @default(false)
+
+    // the league's icon
+    icon String?
+
+    Leagues Leagues[]
+}
+
+model Leagues {
+    // standard prisma fields
+    uid String @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // connect to the league data
+    leagueData IndividualLeagueData @relation(fields: [leagueDataUid], references: [uid])
+    leagueDataUid String
+}

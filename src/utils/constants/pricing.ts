@@ -284,7 +284,9 @@ export const getPlans = (
     {
       id: 'price_1QoOikCX23ptLp4LTks1YO7V',
       name: 'Lifetime',
-      price: 149.99,
+      price: 109.99,
+      originalPrice: 149,
+      chip: 'Save $40!',
       currencySymbol: '$',
       frequency: 'once',
       frequencyText: 'pay once, yours forever',
@@ -312,14 +314,14 @@ export const getPlans = (
       ],
       entireFeatureList,
       paymentLink: {
-        local: `https://buy.stripe.com/14k3dG0ocbTq4bm3cq?client_reference_id=${user?.uid}`,
-        production: `https://buy.stripe.com/14k3dG0ocbTq4bm3cq?client_reference_id=${user?.uid}`,
+        local: `https://buy.stripe.com/14kcOg1sgcXudLW28n?client_reference_id=${user?.uid}`,
+        production: `https://buy.stripe.com/14kcOg1sgcXudLW28n?client_reference_id=${user?.uid}`,
       },
       cta: {
         text: user?.userLevel === 'PREMIUM' ? 'Current plan' : 'Get started',
         href: {
-          local: `https://buy.stripe.com/14k3dG0ocbTq4bm3cq?client_reference_id=${user?.uid}`,
-          production: `https://buy.stripe.com/14k3dG0ocbTq4bm3cq?client_reference_id=${user?.uid}`,
+          local: `https://buy.stripe.com/14kcOg1sgcXudLW28n?client_reference_id=${user?.uid}`,
+          production: `https://buy.stripe.com/14kcOg1sgcXudLW28n?client_reference_id=${user?.uid}`,
         },
       },
       mostPopular: false,

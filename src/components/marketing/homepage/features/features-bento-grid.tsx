@@ -38,7 +38,7 @@ export default async function FeaturesBentoGrid() {
           <Link
             href="/features/roadmap"
             className={cn(
-              'h-80 col-span-full lg:col-span-2 relative overflow-hidden group flex flex-col sm:flex-row gap-5',
+              'h-[22rem] md:h-80 col-span-full lg:col-span-2 relative overflow-hidden group flex flex-col sm:flex-row gap-5',
               cardClasses
             )}
             prefetch
@@ -70,7 +70,7 @@ export default async function FeaturesBentoGrid() {
           <Link
             href="/features/statistics"
             className={cn(
-              'h-[390px] lg:h-80 flex flex-col justify-between group overflow-hidden',
+              'h-[420px] lg:h-80 flex flex-col justify-between group overflow-hidden',
               cardClasses
             )}
             aria-label="Navigate to Coding Progress Analytics"

@@ -22,8 +22,8 @@ const GoogleSignUp = dynamic(() => import('./google-sign-up'), {
 export default function HomepageHero() {
   const animatedSpanContent = (
     <div className="flex items-center group">
-      <span className="hidden md:block">Unlock lifetime access!</span>
-      <span className="block md:hidden">Unlock lifetime access!</span>
+      <span className="hidden md:block">30% off lifetime access!</span>
+      <span className="block md:hidden">30% off lifetime access!</span>
       <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-all duration-300" />
     </div>
   );
@@ -44,7 +44,7 @@ export default function HomepageHero() {
             <HeroText />
           </div>
         </h1>
-        <p className="font-onest max-w-4xl text-gray-400 text-lg tracking-tight">
+        <p className="font-onest max-w-4xl text-gray-400 text-lg tracking-tight mt-4 md:mt-0">
           Unlock your potential with hands-on, industry-standard coding challenges. <br /> Take the
           first step today and transform your passion into a thriving tech career.
         </p>

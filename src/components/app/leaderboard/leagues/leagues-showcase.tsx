@@ -6,13 +6,22 @@ import { Card, CardContent } from '@/components/ui/card';
 import { useState } from 'react';
 import { capitalise } from '@/utils';
 
-function LeagueIcon({ league, isActive }: { league: IndividualLeagueData; isActive: boolean }) {
+function LeagueIcon({
+  league,
+  isActive,
+  onClick,
+}: {
+  league: IndividualLeagueData;
+  isActive: boolean;
+  onClick: () => void;
+}) {
   return (
     <CarouselItem className="basis-[20%] pl-0 overflow-visible">
       <Card
         className={`border-none p-3 transition-all duration-300 ${
           isActive ? 'scale-100 opacity-100' : 'scale-75 opacity-50'
         }`}
+        onClick={onClick}
       >
         <CardContent className="flex items-center justify-center p-6">
           {/** DUMMY ICON / SHIELD UNTIL I DESIGN ONE */}
@@ -25,6 +34,14 @@ function LeagueIcon({ league, isActive }: { league: IndividualLeagueData; isActi
 
 export default function LeaguesShowcase({ leagues }: { leagues: IndividualLeagueData[] }) {
   const [currentLeagueIndex, setCurrentLeagueIndex] = useState(0);
+  const [carouselApi, setCarouselApi] = useState<any>(null);
+
+  const handleLeagueClick = (index: number) => {
+    setCurrentLeagueIndex(index);
+    if (carouselApi) {
+      carouselApi.scrollTo(index);
+    }
+  };
 
   return (
     <section className="space-y-6">
@@ -38,6 +55,7 @@ export default function LeaguesShowcase({ leagues }: { leagues: IndividualLeague
         }}
         className="w-full px-4 md:px-12"
         setApi={(api) => {
+          setCarouselApi(api);
           api?.on('select', () => {
             setCurrentLeagueIndex(api.selectedScrollSnap());
           });
@@ -45,7 +63,12 @@ export default function LeaguesShowcase({ leagues }: { leagues: IndividualLeague
       >
         <CarouselContent className="cursor-pointer">
           {leagues.map((league, index) => (
-            <LeagueIcon key={league.uid} league={league} isActive={index === currentLeagueIndex} />
+            <LeagueIcon
+              key={league.uid}
+              league={league}
+              isActive={index === currentLeagueIndex}
+              onClick={() => handleLeagueClick(index)}
+            />
           ))}
         </CarouselContent>
       </Carousel>

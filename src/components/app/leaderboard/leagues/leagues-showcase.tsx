@@ -1,21 +1,19 @@
 'use client';
 
-import { getLeagues } from '@/utils/data/leagues/get';
 import { IndividualLeagueData } from '@prisma/client';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { capitalise } from '@/utils';
 
-function LeagueIcon({ league }: { league: IndividualLeagueData }) {
+function LeagueIcon({ league, isActive }: { league: IndividualLeagueData; isActive: boolean }) {
   return (
-    <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-      <Card className="border-none p-3">
+    <CarouselItem className="basis-[20%] pl-0 overflow-visible">
+      <Card
+        className={`border-none p-3 transition-all duration-300 ${
+          isActive ? 'scale-100 opacity-100' : 'scale-75 opacity-50'
+        }`}
+      >
         <CardContent className="flex items-center justify-center p-6">
           {/** DUMMY ICON / SHIELD UNTIL I DESIGN ONE */}
           <div style={{ backgroundColor: `#${league.color}` }} className="size-20 rounded-lg"></div>
@@ -30,22 +28,15 @@ export default function LeaguesShowcase({ leagues }: { leagues: IndividualLeague
 
   return (
     <section className="space-y-6">
-      {/* Detached text section */}
-      <div className="text-center mb-8 min-h-[80px] flex flex-col items-center justify-center">
-        <h3 className="text-2xl font-semibold text-gradient from-white/55 to-white uppercase transition-all duration-300">
-          {leagues[currentLeagueIndex]?.name
-            ? `${leagues[currentLeagueIndex].name} League`
-            : 'League'}
-        </h3>
-        <p className="text-gray-400 mt-2 transition-all duration-300">
-          {leagues[currentLeagueIndex]?.description || 'Compete with others in your league'}
-        </p>
-      </div>
-
       {/* Carousel section */}
       <Carousel
-        opts={{ loop: true }}
-        className="w-full"
+        opts={{
+          loop: true,
+          align: 'center',
+          containScroll: false,
+          dragFree: true,
+        }}
+        className="w-full px-4 md:px-12"
         setApi={(api) => {
           api?.on('select', () => {
             setCurrentLeagueIndex(api.selectedScrollSnap());
@@ -53,13 +44,19 @@ export default function LeaguesShowcase({ leagues }: { leagues: IndividualLeague
         }}
       >
         <CarouselContent className="cursor-pointer">
-          {leagues.map((league) => (
-            <LeagueIcon key={league.uid} league={league} />
+          {leagues.map((league, index) => (
+            <LeagueIcon key={league.uid} league={league} isActive={index === currentLeagueIndex} />
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-2" />
-        <CarouselNext className="right-2" />
       </Carousel>
+      {/* Detached text section */}
+      <div className="text-center mb-8 min-h-[50px] flex flex-col items-center justify-center">
+        <h3 className="text-3xl font-semibold text-gradient from-white/55 to-white transition-all duration-300">
+          {leagues[currentLeagueIndex]?.name
+            ? `${capitalise(leagues[currentLeagueIndex].name)} League`
+            : 'League'}
+        </h3>
+      </div>
     </section>
   );
 }

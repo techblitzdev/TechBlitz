@@ -1,6 +1,5 @@
 import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
 import CurrentStreak from '@/components/ui/current-streak';
-import { Separator } from '@/components/ui/separator';
 import UpgradeModal from '@/components/app/shared/upgrade/upgrade-modal';
 import UserXp from '@/components/ui/user-xp';
 
@@ -19,7 +18,6 @@ export default function StatisticsLayout({ children }: Readonly<{ children: Reac
           </div>
         </div>
       </div>
-      <Separator className="bg-black-50" />
       <div className="container">{children}</div>
     </div>
   );

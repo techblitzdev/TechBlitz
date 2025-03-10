@@ -10,6 +10,7 @@ import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 import { getUserXp } from '@/utils/data/user/authed/get-user-xp';
 import LeaguesShowcase from '@/components/app/leaderboard/leagues/leagues-showcase';
 import UpgradeCard from '@/components/app/shared/upgrade/upgrade-card';
+import { getLeagues } from '@/utils/data/leagues/get';
 
 const LeaderboardHero = dynamic(() => import('@/components/app/leaderboard/leaderboard-hero'), {
   loading: () => <div>Loading hero...</div>,
@@ -48,6 +49,8 @@ export default async function LeaderboardPage({
     useUserServer(),
   ]);
 
+  const leagues = await getLeagues();
+
   const topThreeUsers = topThreeUsersData.users;
 
   // users logged in must answer more than three questions to view the leaderboard
@@ -64,7 +67,7 @@ export default async function LeaderboardPage({
   return (
     <div className="mx-auto px-4 sm:px-6 lg:px-8 py-12 group flex flex-col xl:flex-row gap-12">
       <div className="w-full lg:min-w-[75%] space-y-6">
-        <LeaguesShowcase />
+        <LeaguesShowcase leagues={leagues} />
         {/**
        * 
        <Suspense fallback={<LoadingSpinner />}>
@@ -72,7 +75,7 @@ export default async function LeaderboardPage({
        <LeaderboardHero topThreeUsers={topThreeUsers} />
        </Suspense>
        */}
-        <div className="lg:container flex flex-col gap-10 mt-10">
+        <div className="flex flex-col gap-10 mt-24">
           <Suspense fallback={<div>Loading leaderboard...</div>}>
             <LeaderboardMostQuestionsAnswered page={currentPage} postsPerPage={postsPerPage} />
             <div className="w-full flex justify-center gap-x-2">

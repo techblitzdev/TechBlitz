@@ -28,7 +28,7 @@ export default async function LeaderboardXPRankings({
   const userPromise = useUserServer();
 
   return (
-    <Card className="border-none">
+    <Card className="border-none flex flex-col gap-6">
       <CardHeader className="p-0 w-full flex gap-2 justify-between">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="order-last md:order-first flex items-center gap-x-2">
@@ -43,7 +43,7 @@ export default async function LeaderboardXPRankings({
           <ShowTimeTakenToggle userPromise={userPromise} />
         </div>
       </CardHeader>
-      <CardContent className="p-0 pt-6 md:p-6 md:pt-0">
+      <CardContent className="p-0">
         <Table>
           <TableHeader>
             <TableRow className="border-white/10">

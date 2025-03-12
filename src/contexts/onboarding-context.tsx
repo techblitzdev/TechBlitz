@@ -56,6 +56,8 @@ export const UserOnboardingContextProvider = ({
     visible: { opacity: 1, y: 0 },
   };
 
+  // STATE
+
   // user state
   const [user, setUser] = useState<
     Omit<UpdatableUserFields, 'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'>
@@ -83,7 +85,11 @@ export const UserOnboardingContextProvider = ({
     'startFromScratch' | 'personalizeLearning'
   >('startFromScratch');
 
+  // CONSTANTS
+
   const FIRST_QUESTION_TUTORIAL_SLUG = 'writing-your-first-function';
+
+  // METHODS
 
   const handleSetUserTimeSpendingPerDay = (timeSpendingPerDay: UserTimeSpendingPerDay) => {
     setTimeSpendingPerDay(timeSpendingPerDay);

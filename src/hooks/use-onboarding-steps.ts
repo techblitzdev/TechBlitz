@@ -9,6 +9,7 @@ import { sendWelcomeEmail } from '@/actions/misc/send-welcome-email';
 
 export const STEPS = {
   USER_DETAILS: 'USER_DETAILS', // get the users info
+  INITIAL_QUESTIONS: 'INITIAL_QUESTIONS', // give the user 3 very simple multiple choice questions to gauge skill level and give them quick wins!
   TIME_COMMITMENT: 'TIME_COMMITMENT', // get the users daily coding goal
   NOTIFICATIONS: 'NOTIFICATIONS', // offer push notifications
   TAGS: 'TAGS', // get the users interests
@@ -50,8 +51,12 @@ export function useOnboardingSteps() {
   const stepConfig = {
     // gather user details
     [STEPS.USER_DETAILS]: {
-      next: STEPS.TIME_COMMITMENT,
+      next: STEPS.INITIAL_QUESTIONS,
       component: 'OnboardingUserDetails',
+    },
+    [STEPS.INITIAL_QUESTIONS]: {
+      next: STEPS.TIME_COMMITMENT,
+      component: 'OnboardingInitialQuestions',
     },
     // get the user to choose a daily amount of time to spend on coding
     [STEPS.TIME_COMMITMENT]: {

@@ -11,6 +11,7 @@ import OnboardingQuestions from './onboarding-questions';
 import OnboardingPricing from './onboarding-pricing';
 import OnboardingFooter from './onboarding-footer';
 import OnboardingNotifications from './onboarding-notifications';
+import OnboardingInitialQuestions from './onboarding-initial-questions';
 
 // contexts
 import { useOnboardingContext } from '@/contexts/onboarding-context';
@@ -37,6 +38,7 @@ const containerVariants = {
 
 const stepComponents = {
   [STEPS.USER_DETAILS]: OnboardingUserDetails,
+  [STEPS.INITIAL_QUESTIONS]: OnboardingInitialQuestions,
   [STEPS.TIME_COMMITMENT]: OnboardingTimeCommitment,
   [STEPS.NOTIFICATIONS]: OnboardingNotifications,
   [STEPS.FIRST_QUESTION_SELECTION]: OnboardingFirstQuestionSelection,

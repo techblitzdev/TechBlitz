@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useOnboardingContext } from '@/contexts/onboarding-context';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
@@ -197,18 +197,33 @@ export default function OnboardingInitialQuestions() {
       ) : (
         <motion.div variants={itemVariants} className="mb-6 p-20">
           <motion.div variants={itemVariants} className="flex justify-between">
-            {currentQuestion > 0 && !hasAnsweredAllQuestions && (
-              <Button
-                onClick={handlePrevious}
-                disabled={currentQuestion === 0}
-                className="text-white flex items-center gap-2 mb-3"
-                padding="none"
-                variant="ghost"
-              >
-                <ArrowLeft className="size-4" />
-                Previous
-              </Button>
-            )}
+            <AnimatePresence>
+              {currentQuestion > 0 && !hasAnsweredAllQuestions && (
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
+                  <Button
+                    onClick={handlePrevious}
+                    disabled={currentQuestion === 0}
+                    className="text-white flex items-center gap-2 mb-3"
+                    padding="none"
+                    variant="ghost"
+                  >
+                    <motion.div
+                      initial={{ x: 0 }}
+                      whileHover={{ x: -3 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <ArrowLeft className="size-4" />
+                    </motion.div>
+                    Previous
+                  </Button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-bold text-white">{questions[currentQuestion].question}</h2>

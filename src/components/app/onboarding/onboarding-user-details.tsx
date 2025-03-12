@@ -285,57 +285,6 @@ export default function OnboardingStepOne() {
                 </Tooltip>
               </TooltipProvider>
             </motion.div>
-            <motion.div initial="hidden" animate="visible" variants={itemVariants}>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <FormField
-                      control={form.control}
-                      name="sendPushNotifications"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <Label htmlFor="sendPushNotifications" className="text-white">
-                              Send personalized challenge reminders
-                            </Label>
-                            <TooltipProvider>
-                              <Tooltip delayDuration={0}>
-                                <TooltipTrigger>
-                                  <QuestionMarkCircledIcon className="size-3 text-white" />
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                  <p>
-                                    We'll send you a personalized challenge reminder every week day.
-                                  </p>
-                                </TooltipContent>
-                              </Tooltip>
-                            </TooltipProvider>
-                          </div>
-                          <FormControl>
-                            <Switch
-                              checked={field.value}
-                              onCheckedChange={(checked) => {
-                                field.onChange(checked);
-                                setUser((prev) => {
-                                  return { ...prev, [field.name]: checked };
-                                });
-                              }}
-                              className="bg-black-50"
-                            />
-                          </FormControl>
-                          <FormMessage className="mt-0.5 text-start">
-                            {form.formState?.errors?.sendPushNotifications?.message}
-                          </FormMessage>
-                        </FormItem>
-                      )}
-                    />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>We'll send you a personalized challenge reminder every week day.</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </motion.div>
             <motion.div
               initial="hidden"
               animate="visible"

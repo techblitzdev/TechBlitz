@@ -38,6 +38,8 @@ type OnboardingContextType = {
     React.SetStateAction<'startFromScratch' | 'personalizeLearning'>
   >;
   FIRST_QUESTION_TUTORIAL_SLUG: string;
+  totalXp: number;
+  setTotalXp: React.Dispatch<React.SetStateAction<number>>;
 };
 
 // create the context
@@ -89,6 +91,8 @@ export const UserOnboardingContextProvider = ({
 
   const FIRST_QUESTION_TUTORIAL_SLUG = 'writing-your-first-function';
 
+  const [totalXp, setTotalXp] = useState(0);
+
   // METHODS
 
   const handleSetUserTimeSpendingPerDay = (timeSpendingPerDay: UserTimeSpendingPerDay) => {
@@ -122,6 +126,8 @@ export const UserOnboardingContextProvider = ({
         firstQuestionSelection,
         setFirstQuestionSelection,
         FIRST_QUESTION_TUTORIAL_SLUG,
+        totalXp,
+        setTotalXp,
       }}
     >
       {children}

@@ -32,6 +32,7 @@ export function useOnboardingSteps() {
     timeSpendingPerDay,
     firstQuestionSelection,
     FIRST_QUESTION_TUTORIAL_SLUG,
+    totalXp,
   } = useOnboardingContext();
   const [isLoading, setIsLoading] = useState(false);
   const [currentStep, setCurrentStepState] = useState<StepKey>(() => {
@@ -148,6 +149,10 @@ export function useOnboardingSteps() {
         }
 
         setCurrentStepState(stepConfig[STEPS.USER_DETAILS].next as StepKey);
+      } else if (currentStep === STEPS.INITIAL_QUESTIONS) {
+        // @ts-ignore - this is added on a separate branch. https://github.com/techblitzdev/TechBlitz/pull/526/files
+        await updateUser({ userDetails: { ...user, userXp: totalXp } });
+        setCurrentStepState(stepConfig[STEPS.INITIAL_QUESTIONS].next as StepKey);
       } else {
         await updateUser({ userDetails: user });
         const nextStep = stepConfig[currentStep].next;

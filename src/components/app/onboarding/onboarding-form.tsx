@@ -62,11 +62,13 @@ export default function OnboardingForm() {
             'rounded-lg shadow-xl overflow-hidden min-w-fit relative',
             currentStep === STEPS.PRICING ||
               (currentStep === STEPS.TIME_COMMITMENT && 'lg:min-w-[58rem]'),
-            currentStep === STEPS.PRICING ? 'border-none' : 'border border-black-50'
+            currentStep === STEPS.PRICING || currentStep === STEPS.INITIAL_QUESTIONS
+              ? 'border-none'
+              : 'border border-black-50'
           )}
           style={{
             background:
-              currentStep === STEPS.PRICING
+              currentStep === STEPS.PRICING || currentStep === STEPS.INITIAL_QUESTIONS
                 ? 'none'
                 : 'radial-gradient(128% 107% at 0% 0%, #212121 0%, rgb(0,0,0) 77.61%)',
           }}

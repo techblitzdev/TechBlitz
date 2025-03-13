@@ -1,10 +1,16 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useOnboardingContext } from '@/contexts/onboarding-context';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+
+const COMPLETED_QUESTIONS_TO_TITLE = {
+  0: 'Great start.',
+  1: 'Good job!',
+  2: 'You know your stuff!',
+};
 
 /**
  * This component presents simple multiple choice questions to gauge user skill level
@@ -50,6 +56,24 @@ export default function OnboardingInitialQuestions() {
     setCanContinue(false);
   }, [setCanContinue]);
 
+  /**
+   * Calculate XP to award to the user based on their answers
+   * - Correct answers are worth 10 XP each
+   * - Incorrect answers are worth 2 XP each
+   *
+   * @returns {number} Total XP to award to the user
+   */
+  const calculateXpToAwardToUser = useCallback(() => {
+    const correctCount = correctAnswers.filter((isCorrect) => isCorrect === true).length;
+    const knowledgeQuestions = correctAnswers.filter(
+      (_, index) => questions[index].correctAnswerIndex !== null
+    ).length;
+    const incorrectCount = knowledgeQuestions - correctCount;
+    const opinionQuestions = questions.length - knowledgeQuestions;
+
+    return correctCount * 10 + incorrectCount * 2 + opinionQuestions * 5;
+  }, [correctAnswers, questions]);
+
   // Enable continue button when all questions are answered
   useEffect(() => {
     if (answers.length === questions.length) {
@@ -58,9 +82,9 @@ export default function OnboardingInitialQuestions() {
       // Calculate and set XP only once when all questions are answered
       const xpToAwardToUser = calculateXpToAwardToUser();
       // @ts-ignore - this is added on a separate branch. https://github.com/techblitzdev/TechBlitz/pull/526/files
-      setTotalXp((_) => user.userXp + xpToAwardToUser);
+      setTotalXp((prevXp) => prevXp + xpToAwardToUser);
     }
-  }, [answers, questions.length, setCanContinue, setTotalXp, user]);
+  }, [answers, questions.length, setCanContinue, setTotalXp, calculateXpToAwardToUser]);
 
   const handleSelectAnswer = (answer: string, optionIndex: number) => {
     const newAnswers = [...answers];
@@ -83,14 +107,21 @@ export default function OnboardingInitialQuestions() {
     }
   };
 
-  const getScoreSummary = () => {
+  const getScoreSummary = useCallback(() => {
     const answeredQuestions = correctAnswers.filter(
       (_, index) => questions[index].correctAnswerIndex !== null
     ).length;
     const correctCount = correctAnswers.filter((isCorrect) => isCorrect === true).length;
 
     return `You answered ${correctCount} out of ${answeredQuestions} knowledge questions correct. You've earned ${calculateXpToAwardToUser()} XP.`;
-  };
+  }, [correctAnswers, questions, calculateXpToAwardToUser]);
+
+  // Update final screen title when all questions are answered
+  useEffect(() => {
+    if (answers.length === questions.length) {
+      getScoreSummary();
+    }
+  }, [answers.length, questions.length, getScoreSummary]);
 
   const handlePrevious = () => {
     setCurrentQuestion(Math.max(0, currentQuestion - 1));
@@ -98,24 +129,6 @@ export default function OnboardingInitialQuestions() {
 
   const isLastQuestion = currentQuestion === questions.length - 1;
   const hasAnsweredAllQuestions = answers.length === questions.length;
-
-  /**
-   * Calculate XP to award to the user based on their answers
-   * - Correct answers are worth 10 XP each
-   * - Incorrect answers are worth 2 XP each
-   *
-   * @returns {number} Total XP to award to the user
-   */
-  const calculateXpToAwardToUser = () => {
-    const correctCount = correctAnswers.filter((isCorrect) => isCorrect === true).length;
-    const knowledgeQuestions = correctAnswers.filter(
-      (_, index) => questions[index].correctAnswerIndex !== null
-    ).length;
-    const incorrectCount = knowledgeQuestions - correctCount;
-    const opinionQuestions = questions.length - knowledgeQuestions;
-
-    return correctCount * 10 + incorrectCount * 2 + opinionQuestions * 5;
-  };
 
   // Handle keyboard number key presses
   useEffect(() => {
@@ -171,7 +184,14 @@ export default function OnboardingInitialQuestions() {
     <div className="p-6 w-[300px] sm:w-[400px] md:w-[550px] lg:w-[750px] mx-auto">
       {hasAnsweredAllQuestions && isLastQuestion ? (
         <motion.div variants={itemVariants} className="mb-6 rounded-lg">
-          <h2 className="text-2xl font-bold text-white mb-4">Nice work!</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">
+            {
+              COMPLETED_QUESTIONS_TO_TITLE[
+                correctAnswers.filter((isCorrect) => isCorrect === true)
+                  .length as keyof typeof COMPLETED_QUESTIONS_TO_TITLE
+              ]
+            }
+          </h2>
           <p className="text-gray-400 mb-2 text-sm">{getScoreSummary()}</p>
           <div className="mt-4 space-y-4">
             {questions.map((q, index) => (

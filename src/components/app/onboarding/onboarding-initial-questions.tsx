@@ -10,6 +10,7 @@ const COMPLETED_QUESTIONS_TO_TITLE = {
   0: 'Great start.',
   1: 'Good job!',
   2: 'You know your stuff!',
+  3: 'Excellent work!',
 };
 
 /**
@@ -187,8 +188,10 @@ export default function OnboardingInitialQuestions() {
           <h2 className="text-2xl font-bold text-white mb-4">
             {
               COMPLETED_QUESTIONS_TO_TITLE[
-                correctAnswers.filter((isCorrect) => isCorrect === true)
-                  .length as keyof typeof COMPLETED_QUESTIONS_TO_TITLE
+                Math.min(
+                  correctAnswers.filter((isCorrect) => isCorrect === true).length,
+                  Object.keys(COMPLETED_QUESTIONS_TO_TITLE).length - 1
+                ) as keyof typeof COMPLETED_QUESTIONS_TO_TITLE
               ]
             }
           </h2>

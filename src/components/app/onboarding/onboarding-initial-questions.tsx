@@ -168,7 +168,7 @@ export default function OnboardingInitialQuestions() {
   );
 
   return (
-    <div className="p-6 w-[250px] md:w-[550px] lg:w-[750px] mx-auto">
+    <div className="p-6 w-[300px] sm:w-[400px] md:w-[550px] lg:w-[750px] mx-auto">
       {hasAnsweredAllQuestions && isLastQuestion ? (
         <motion.div variants={itemVariants} className="mb-6 rounded-lg">
           <h2 className="text-2xl font-bold text-white mb-4">Nice work!</h2>
@@ -176,8 +176,8 @@ export default function OnboardingInitialQuestions() {
           <div className="mt-4 space-y-4">
             {questions.map((q, index) => (
               <div key={index} className="p-4 rounded-lg border border-black-50">
-                <p className="text-white font-medium mb-2">{q.question}</p>
-                <p className="text-gray-300">Your answer: {answers[index]}</p>
+                <p className="text-gray-400 font-medium mb-2 text-xs">{q.question}</p>
+                <p className="text-white">Your answer: {answers[index]}</p>
                 {q.correctAnswerIndex !== null && (
                   <p
                     className={`mt-2 ${correctAnswers[index] ? 'text-green-400' : 'text-red-400'}`}

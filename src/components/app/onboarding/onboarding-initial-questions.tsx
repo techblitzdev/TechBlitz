@@ -5,12 +5,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useOnboardingContext } from '@/contexts/onboarding-context';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import { UserExperienceLevel } from '@prisma/client';
 
 const COMPLETED_QUESTIONS_TO_TITLE = {
   0: 'Great start.',
   1: 'Good job!',
   2: 'You know your stuff!',
   3: 'Excellent work!',
+};
+
+const USER_LEVEL_TO_TITLE: Record<UserExperienceLevel, number> = {
+  BEGINNER: 1,
+  INTERMEDIATE: 2,
+  ADVANCED: 3,
+  MASTER: 4, // cannot be reached at this stage, no one is a master😉
 };
 
 /**
@@ -23,6 +31,7 @@ export default function OnboardingInitialQuestions() {
     setCanContinue,
     setTotalXp,
     user,
+    setUser,
     questions,
     answerUserOnboardingQuestions,
   } = useOnboardingContext();
@@ -71,6 +80,7 @@ export default function OnboardingInitialQuestions() {
       // Add a slight delay before showing results for a smoother transition
       setTimeout(() => {
         setShowResults(true);
+        determineUserExperienceLevel();
         answerUserOnboardingQuestions(
           questions.map((question) => question.uid),
           correctAnswers
@@ -116,7 +126,7 @@ export default function OnboardingInitialQuestions() {
     return `You answered ${correctCount} out of ${answeredQuestions} knowledge questions correct. You've earned ${calculateXpToAwardToUser()} XP.`;
   }, [correctAnswers, questions, calculateXpToAwardToUser]);
 
-  // Update final screen title when all questions are answered
+  // update final screen title when all questions are answered
   useEffect(() => {
     if (answers.length === questions.length) {
       getScoreSummary();
@@ -126,6 +136,25 @@ export default function OnboardingInitialQuestions() {
   const handlePrevious = () => {
     setCurrentQuestion(Math.max(0, currentQuestion - 1));
   };
+
+  const determineUserExperienceLevel = useCallback(() => {
+    const correctCount = correctAnswers.filter((isCorrect) => isCorrect === true).length;
+    const knowledgeQuestions = correctAnswers.filter(
+      (_, index) => questions[index].correctAnswerIndex !== null
+    ).length;
+
+    // Calculate the ratio and convert to a valid UserExperienceLevel
+    const ratio = correctCount / knowledgeQuestions;
+    const experienceLevel = Object.keys(USER_LEVEL_TO_TITLE).find(
+      (level) => USER_LEVEL_TO_TITLE[level as keyof typeof USER_LEVEL_TO_TITLE] === ratio
+    ) as UserExperienceLevel;
+
+    // Update the user with the correct property name that exists in the user object
+    setUser((prevUser) => ({
+      ...prevUser,
+      experienceLevel,
+    }));
+  }, [correctAnswers, questions, setUser, user]);
 
   const hasAnsweredAllQuestions = answers.length === questions.length;
 
@@ -232,13 +261,18 @@ export default function OnboardingInitialQuestions() {
         ) : (
           <motion.div
             key="questions"
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
             className="mb-6 p-20"
           >
-            <motion.div variants={itemVariants} className="flex justify-between">
+            <motion.div
+              variants={itemVariants}
+              initial="hidden"
+              animate="visible"
+              className="flex justify-between"
+            >
               <AnimatePresence>
                 {currentQuestion > 0 && !hasAnsweredAllQuestions && (
                   <motion.div
@@ -268,16 +302,23 @@ export default function OnboardingInitialQuestions() {
               </AnimatePresence>
             </motion.div>
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-bold text-white">
+              <motion.h2
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="text-2xl font-bold text-white"
+              >
                 {questions[currentQuestion].question}
-              </h2>
+              </motion.h2>
             </div>
 
             <div className="flex flex-col gap-4">
               {questions[currentQuestion].options.map((option, index) => (
                 <motion.div
                   key={index}
-                  variants={itemVariants}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 + 0.3 }}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -297,7 +338,13 @@ export default function OnboardingInitialQuestions() {
               ))}
             </div>
             {/* Question progress indicator */}
-            <PaginationDots />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
+              <PaginationDots />
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

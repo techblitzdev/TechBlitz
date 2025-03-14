@@ -195,6 +195,15 @@ export default async function Page() {
 
   const userCount = getUserCount();
 
+  // calculate 5 days from now
+  const date = new Date();
+  date.setDate(date.getDate() + 5);
+  const marketingContentGridSubHeading = date.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
+
   return (
     <>
       <script
@@ -215,7 +224,7 @@ export default async function Page() {
         {/** subheading="Join aspiring developers worldwide learning to code through TechBlitz's free, interactive programming challenges. Get personalized practice, instant feedback, and step-by-step guidance on your coding journey." */}
         <MarketingContentGrid
           title='"With TechBlitz, learning to code has never been easier"'
-          subheading="- You, 17/03/2025"
+          subheading={`- You, ${marketingContentGridSubHeading}`}
           items={contentGridItems}
         />
         <OpenSourceBlock />

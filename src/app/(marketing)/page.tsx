@@ -31,7 +31,7 @@ import MirrorTabletPhone3 from '@/components/ui/icons/mirror-tablet-phone-3';
 import CreditCardIcon from '@/components/ui/icons/credit-card';
 import GraduationCap from '@/components/ui/icons/graduation-cap';
 
-const title = 'Learn to Code with Interactive Challenges | TechBlitz';
+const title = 'Learn to Code made easy | TechBlitz';
 const description =
   'Master programming through interactive coding challenges, personalized practice, and instant AI feedback. Perfect for beginners learning JavaScript, web development, and more. Start coding for free.';
 

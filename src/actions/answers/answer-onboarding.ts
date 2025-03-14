@@ -1,6 +1,6 @@
 'use server';
 import { prisma } from '@/lib/prisma';
-import { getUser } from '../user/authed/get-user';
+import { getUser } from '@/actions/user/authed/get-user';
 
 /**
  * A method to add the questions the user answered on the onboarding flow
@@ -23,12 +23,11 @@ export const answerOnboardingQuestions = async (
   const answers = await prisma.answers.createMany({
     data: questionUids.map((questionUid, index) => ({
       questionUid,
-      answerUid: null,
+      userAnswerUid: null,
       userUid: user.uid,
       correctAnswer: correctAnswers[index],
       timeTaken: 0,
-      allPassed: false,
-      studyPathSlug: null,
+      difficulty: 'EASY',
     })),
   });
 

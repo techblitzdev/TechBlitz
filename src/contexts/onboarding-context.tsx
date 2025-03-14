@@ -47,6 +47,10 @@ type OnboardingContextType = {
     options: string[];
     correctAnswerIndex: number;
   }[];
+  answerUserOnboardingQuestions: (
+    questionUids: string[],
+    correctAnswers: boolean[]
+  ) => Promise<void>;
 };
 
 // create the context
@@ -148,7 +152,7 @@ export const UserOnboardingContextProvider = ({
     questionUids: string[],
     correctAnswers: boolean[]
   ) => {
-    const answers = await answerOnboardingQuestions(questionUids, correctAnswers);
+    await answerOnboardingQuestions(questionUids, correctAnswers);
   };
 
   return (
@@ -175,6 +179,7 @@ export const UserOnboardingContextProvider = ({
         totalXp,
         setTotalXp,
         questions,
+        answerUserOnboardingQuestions,
       }}
     >
       {children}

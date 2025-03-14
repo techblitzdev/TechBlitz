@@ -18,11 +18,19 @@ const COMPLETED_QUESTIONS_TO_TITLE = {
  * and provides immediate feedback on correctness.
  */
 export default function OnboardingInitialQuestions() {
-  const { itemVariants, setCanContinue, setTotalXp, user, questions } = useOnboardingContext();
+  const {
+    itemVariants,
+    setCanContinue,
+    setTotalXp,
+    user,
+    questions,
+    answerUserOnboardingQuestions,
+  } = useOnboardingContext();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<string[]>([]);
   const [correctAnswers, setCorrectAnswers] = useState<boolean[]>([]);
   const [showResults, setShowResults] = useState(false);
+  const [resultsProcessed, setResultsProcessed] = useState(false);
 
   // Disable continue button when component mounts
   useEffect(() => {
@@ -47,9 +55,9 @@ export default function OnboardingInitialQuestions() {
     return correctCount * 10 + incorrectCount * 2 + opinionQuestions * 5;
   }, [correctAnswers, questions]);
 
-  // Enable continue button when all questions are answered
+  // Process results only once when all questions are answered
   useEffect(() => {
-    if (answers.length === questions.length) {
+    if (answers.length === questions.length && !resultsProcessed) {
       setCanContinue(true);
 
       // Calculate and set XP only once when all questions are answered
@@ -57,12 +65,26 @@ export default function OnboardingInitialQuestions() {
       // @ts-ignore - this is added on a separate branch. https://github.com/techblitzdev/TechBlitz/pull/526/files
       setTotalXp((prevXp) => prevXp + xpToAwardToUser);
 
+      // Mark results as processed to prevent multiple executions
+      setResultsProcessed(true);
+
       // Add a slight delay before showing results for a smoother transition
       setTimeout(() => {
         setShowResults(true);
+        answerUserOnboardingQuestions(
+          questions.map((question) => question.uid),
+          correctAnswers
+        );
       }, 500);
     }
-  }, [answers, questions.length, setCanContinue, setTotalXp, calculateXpToAwardToUser]);
+  }, [
+    answers,
+    questions.length,
+    setCanContinue,
+    setTotalXp,
+    calculateXpToAwardToUser,
+    resultsProcessed,
+  ]);
 
   const handleSelectAnswer = (answer: string, optionIndex: number) => {
     const newAnswers = [...answers];

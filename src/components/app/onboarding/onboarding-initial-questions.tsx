@@ -72,7 +72,7 @@ export default function OnboardingInitialQuestions() {
       // Calculate and set XP only once when all questions are answered
       const xpToAwardToUser = calculateXpToAwardToUser();
       // @ts-ignore - this is added on a separate branch. https://github.com/techblitzdev/TechBlitz/pull/526/files
-      setTotalXp((prevXp) => prevXp + xpToAwardToUser);
+      setTotalXp(() => user.userXp + xpToAwardToUser);
 
       // Mark results as processed to prevent multiple executions
       setResultsProcessed(true);

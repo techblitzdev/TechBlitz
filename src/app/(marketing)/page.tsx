@@ -211,8 +211,7 @@ export default async function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="overflow-x-hidden container z-30">
-        <HomepageHero />
-        <Testimonials />
+        <HomepageHero userCountPromise={userCount} />
         <FeaturesBentoGrid />
         <HomepageUserStats userCountPromise={userCount} />
         <PersonalizedBlock />
@@ -222,6 +221,7 @@ export default async function Page() {
         />
         <ComparisonBlock />
         {/** subheading="Join aspiring developers worldwide learning to code through TechBlitz's free, interactive programming challenges. Get personalized practice, instant feedback, and step-by-step guidance on your coding journey." */}
+        <Testimonials />
         <MarketingContentGrid
           title='"With TechBlitz, learning to code has never been easier"'
           subheading={`- You, ${marketingContentGridSubHeading}`}

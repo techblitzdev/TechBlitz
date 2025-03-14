@@ -36,14 +36,14 @@ export default function OnboardingInitialQuestions() {
       correctAnswerIndex: 2,
     },
     {
-      question: 'What is a variable in programming?',
+      question: 'What is Git?',
       options: [
         'A programming language',
-        'A block of code designed to perform a particular task',
+        'A version control system',
         'A container for storing data',
         "I'm not sure",
       ],
-      correctAnswerIndex: 2,
+      correctAnswerIndex: 1,
     },
     {
       question: 'Which of these is a programming loop?',

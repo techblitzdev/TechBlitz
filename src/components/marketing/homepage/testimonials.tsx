@@ -45,6 +45,22 @@ const testimonials = [
     shortQuote: 'Nice work!',
     longQuote: 'Nice work!',
   },
+  {
+    image:
+      'https://lh3.googleusercontent.com/a/ACg8ocKtqMovHQLepQJpBb2Sm-mrY6H7NZhWu3QRLV19k1qNmJZnp7g=s96-c',
+    name: 'Sathvik Reddy',
+    title: 'Full Stack Developer',
+    shortQuote: 'It’s very incredible and innovative , hope you develop more projects like these !',
+    longQuote: 'It’s very incredible and innovative , hope you develop more projects like these !',
+  },
+  {
+    image:
+      'https://lh3.googleusercontent.com/a/ACg8ocKGKKN2Xe85gwEX2KkzY9YHVUegNucl4wA3XNTG9hZbCvLAEg=s96-c',
+    name: '8 -bit',
+    title: 'Software Developer',
+    shortQuote: 'Woah, fantastic project! It’s incredibly helpful.',
+    longQuote: 'Woah, fantastic project! It’s incredibly helpful.',
+  },
 ];
 
 export default function TestimonialsCarousel({

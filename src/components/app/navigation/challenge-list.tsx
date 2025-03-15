@@ -84,7 +84,7 @@ export default function ChallengeList({
                 <>
                   <Suspense fallback={<StudyPathsListSkeleton />}>
                     <StudyPathsList
-                      className="w-[80%] justify-self-center"
+                      className="w-[17%] justify-self-center pt-16"
                       questions={questions || []}
                       studyPath={studyPath}
                     />
@@ -107,7 +107,6 @@ export default function ChallengeList({
               )}
             </ChallengeListClient>
           </div>
-          {/* Place your bottom element here */}
           <div className="flex flex-col gap-y-3">
             <div className="flex items-center gap-x-2">
               <h6 className="font-medium text-xs">Recommended Challenge</h6>

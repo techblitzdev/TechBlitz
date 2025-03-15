@@ -28,12 +28,11 @@ import type { QuestionWithTags } from '@/types/Questions';
 import type { Profile } from '@/types/Profile';
 import HomeIcon from '@/components/ui/icons/home';
 
-import RoadmapIcon from '@/components/ui/icons/roadmap';
-
 import Award from '@/components/ui/icons/award';
 import SidebarFooter from './sidebar-footer';
-import Document from '@/components/ui/icons/document';
-import Chart from '@/components/ui/icons/b-chart';
+import Map from '@/components/ui/icons/map';
+import Blog3 from '@/components/ui/icons/blog-3';
+import BChart3 from '@/components/ui/icons/b-chart-3';
 
 const LeaderboardIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
@@ -41,8 +40,7 @@ const LeaderboardIcon = () => (
   </svg>
 );
 
-const roadmapIcon = () => <RoadmapIcon fill="white" strokewidth={2} secondaryfill="white" />;
-const houseIcon = () => <HomeIcon fill="white" strokewidth={2} secondaryfill="white" />;
+const houseIcon = () => <HomeIcon strokewidth={2} />;
 
 interface AppSidebarProps {
   user: UserRecord | null;
@@ -73,13 +71,13 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
     {
       title: 'Challenges',
       url: '/questions',
-      icon: Document,
+      icon: Blog3,
       tooltip: 'Challenges',
     },
     {
       title: 'Roadmaps',
       url: '/roadmaps',
-      icon: roadmapIcon,
+      icon: Map,
       defaultOpen: true,
       subItems: [
         {
@@ -97,7 +95,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
     {
       title: 'Stats',
       url: '/statistics',
-      icon: Chart,
+      icon: BChart3,
       tooltip: 'Statistics',
       defaultOpen: false,
       disabled: true,
@@ -133,14 +131,14 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
     {
       title: 'Challenges',
       url: '/questions',
-      icon: Document,
+      icon: Blog3,
       tooltip: 'Challenges',
     },
     {
       title: 'Roadmaps',
       tooltip: 'Roadmaps',
       url: '/roadmaps',
-      icon: roadmapIcon,
+      icon: Map,
       defaultOpen: true,
       subItems: [
         {
@@ -158,7 +156,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
     {
       title: 'Stats',
       url: '/statistics',
-      icon: Chart,
+      icon: BChart3,
       tooltip: 'Statistics',
       defaultOpen: false,
       subItems: [
@@ -243,8 +241,11 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
     if (url.startsWith('/question')) {
       return pathname.startsWith('/question');
     }
-    if (url.startsWith('/roadmaps')) {
-      return pathname.startsWith('/roadmaps');
+    if (url === '/roadmaps') {
+      return pathname.startsWith('/roadmaps') && !pathname.startsWith('/personalized-roadmaps');
+    }
+    if (url === '/personalized-roadmaps') {
+      return pathname.startsWith('/personalized-roadmaps');
     }
     if (url.startsWith('/leaderboard')) {
       return pathname.startsWith('/leaderboard');

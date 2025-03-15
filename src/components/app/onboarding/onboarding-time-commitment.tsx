@@ -3,7 +3,6 @@ import { useOnboardingContext } from '@/contexts/onboarding-context';
 import { motion } from 'framer-motion';
 import { UserTimeSpendingPerDay } from '@prisma/client';
 import { Button } from '@/components/ui/button';
-import { Trophy } from 'lucide-react';
 import BoltLightning from '@/components/ui/icons/bolt-lightning';
 
 interface TimeCommitmentOption {
@@ -67,11 +66,6 @@ const timeCommitmentOptions: TimeCommitmentOption[] = [
 export default function OnboardingTimeCommitment() {
   const { itemVariants, setTimeSpendingPerDay, timeSpendingPerDay, user } = useOnboardingContext();
 
-  // Find the selected option to get the roadmap timeframe
-  const selectedOption = timeCommitmentOptions.find(
-    (option) => option.value === timeSpendingPerDay
-  );
-
   return (
     <>
       <CardHeader className="flex">
@@ -123,32 +117,6 @@ export default function OnboardingTimeCommitment() {
               </motion.div>
             ))}
           </div>
-
-          {timeSpendingPerDay && (
-            <motion.div
-              className="mt-0 md:mt-0 p-4 rounded-lg border border-black-50 bg-black-100 md:w-64 flex-shrink-0 h-fit"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="flex items-center gap-x-2 mb-2">
-                <Trophy className="size-5 text-accent" />
-                <h3 className="text-lg font-semibold text-white">Your Roadmap Goals</h3>
-              </div>
-              <div className="text-sm text-gray-400">
-                <p>Based on your time commitment, you can expect to:</p>
-                <ul className="list-disc list-inside mt-2 space-y-1">
-                  <li>
-                    Complete a personalized roadmap in{' '}
-                    {selectedOption?.roadmapTimeframe || '4-6 weeks'}
-                  </li>
-                  <li>Earn badges and achievements</li>
-                  <li>Track your progress with daily XP goals</li>
-                  <li>Join the TechBlitz leaderboard</li>
-                </ul>
-              </div>
-            </motion.div>
-          )}
         </div>
       </CardHeader>
     </>

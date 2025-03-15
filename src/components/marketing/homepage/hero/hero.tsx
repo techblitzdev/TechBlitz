@@ -48,7 +48,7 @@ const Buttons = ({ user }: { user: Promise<UserRecord | null> }) => {
           variant="default"
           size="lg"
           href="/roadmaps"
-          className="flex-1 px-6 py-6 flex items-center group shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-r from-primary to-primary/90"
+          className="flex-1 flex items-center group shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-r from-primary to-primary/90"
         >
           View study paths
           <ArrowRight
@@ -107,7 +107,7 @@ export default function HomepageHero({ userCountPromise }: { userCountPromise: P
             {userImages.map((src, index) => (
               <div
                 key={index}
-                className="relative w-10 h-10 border-2 border-black rounded-full overflow-hidden ring-2 ring-primary/20"
+                className="relative size-10 border-2 border-black rounded-full overflow-hidden ring-2 ring-primary/20"
               >
                 <Image
                   src={src || '/placeholder.svg'}
@@ -139,6 +139,7 @@ export default function HomepageHero({ userCountPromise }: { userCountPromise: P
               height={400}
               className="rounded-lg transition-all duration-300 group-hover:blur-sm"
               priority
+              loading="eager"
             />
 
             <HeroImageFollow className="hidden md:block" />

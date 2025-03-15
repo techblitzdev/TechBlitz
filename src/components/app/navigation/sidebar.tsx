@@ -235,10 +235,6 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
   }, [user, pathname]);
 
   const isActive = (url: string) => {
-    console.log({
-      url,
-      pathname,
-    });
     if (url === '/dashboard') {
       return pathname === url;
     }

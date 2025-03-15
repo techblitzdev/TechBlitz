@@ -241,8 +241,11 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
     if (url.startsWith('/question')) {
       return pathname.startsWith('/question');
     }
-    if (url.startsWith('/roadmaps')) {
-      return pathname.startsWith('/roadmaps');
+    if (url === '/roadmaps') {
+      return pathname.startsWith('/roadmaps') && !pathname.startsWith('/personalized-roadmaps');
+    }
+    if (url === '/personalized-roadmaps') {
+      return pathname.startsWith('/personalized-roadmaps');
     }
     if (url.startsWith('/leaderboard')) {
       return pathname.startsWith('/leaderboard');

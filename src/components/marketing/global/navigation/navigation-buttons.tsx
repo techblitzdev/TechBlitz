@@ -2,6 +2,8 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import GithubLogo from '@/components/ui/icons/github';
 import { useUserServer } from '@/hooks/use-user-server';
+import GithubStarsButton from './github-stars';
+import { fetchGithubStars } from '@/utils/data/misc/get-github-stars';
 
 export default async function NavigationButtons() {
   const user = await useUserServer();
@@ -39,8 +41,10 @@ export default async function NavigationButtons() {
   );
 }
 
-export function GithubStars(opts: { hideText?: boolean }) {
+export async function GithubStars(opts: { hideText?: boolean }) {
   const { hideText = false } = opts;
+
+  const githubStarCount = await fetchGithubStars();
 
   return (
     <Button
@@ -53,7 +57,11 @@ export function GithubStars(opts: { hideText?: boolean }) {
         <div className="size-4">
           <GithubLogo />
         </div>
-        {!hideText && <span className="font-medium hidden xl:block">Star us</span>}
+        {!hideText && githubStarCount.stargazers_count && (
+          <span className="font-medium hidden xl:block">
+            <GithubStarsButton value={githubStarCount.stargazers_count as number} />
+          </span>
+        )}
       </div>
     </Button>
   );

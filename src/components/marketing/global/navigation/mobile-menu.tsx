@@ -9,6 +9,7 @@ import { HamburgerMenuIcon, Cross1Icon, ChevronDownIcon } from '@radix-ui/react-
 import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useUser } from '@/hooks/use-user';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 interface MenuItem {
   label: string;
@@ -160,6 +161,10 @@ export function MobileMenu() {
             </ul>
           </nav>
           <div className="mt-auto py-4">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-sm font-medium">Theme</span>
+              <ThemeToggle />
+            </div>
             {isLoggedIn ? (
               <Button
                 href="/dashboard"

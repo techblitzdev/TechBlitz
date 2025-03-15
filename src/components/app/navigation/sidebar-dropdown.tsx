@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import LogoutButton from '@/components/auth/logout';
 import ProfilePicture from '@/components/ui/profile-picture';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 import type { UserRecord } from '@/types/User';
 import { getUserDisplayName } from '@/utils/user';
@@ -83,6 +84,16 @@ export default function SidebarAreaComponent(opts: {
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Link href="https://git.new/blitz">GitHub</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Button
+                  variant="ghost"
+                  padding="none"
+                  className="flex items-center gap-x-2 h-auto !bg-transparent justify-between"
+                >
+                  <span>Theme</span>
+                  <ThemeToggle />
+                </Button>
               </DropdownMenuItem>
               {user && (
                 <DropdownMenuItem>

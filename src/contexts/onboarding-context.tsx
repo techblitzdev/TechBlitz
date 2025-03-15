@@ -10,6 +10,7 @@ import type { UpdatableUserFields, UserRecord } from '@/types/User';
 import { QuestionWithTags } from '@/types/Questions';
 import { getOnboardingQuestions } from '@/utils/data/questions/get-onboarding';
 import { UserTimeSpendingPerDay } from '@prisma/client';
+import { answerOnboardingQuestions } from '@/actions/answers/answer-onboarding';
 // context type
 type OnboardingContextType = {
   user: Omit<UpdatableUserFields, 'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'>;
@@ -38,6 +39,18 @@ type OnboardingContextType = {
     React.SetStateAction<'startFromScratch' | 'personalizeLearning'>
   >;
   FIRST_QUESTION_TUTORIAL_SLUG: string;
+  totalXp: number;
+  setTotalXp: React.Dispatch<React.SetStateAction<number>>;
+  questions: {
+    uid: string;
+    question: string;
+    options: string[];
+    correctAnswerIndex: number;
+  }[];
+  answerUserOnboardingQuestions: (
+    questionUids: string[],
+    correctAnswers: boolean[]
+  ) => Promise<void>;
 };
 
 // create the context
@@ -55,6 +68,8 @@ export const UserOnboardingContextProvider = ({
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
+
+  // STATE
 
   // user state
   const [user, setUser] = useState<
@@ -83,7 +98,45 @@ export const UserOnboardingContextProvider = ({
     'startFromScratch' | 'personalizeLearning'
   >('startFromScratch');
 
+  // CONSTANTS
+
   const FIRST_QUESTION_TUTORIAL_SLUG = 'writing-your-first-function';
+
+  const [totalXp, setTotalXp] = useState(0);
+
+  // Questions data with correct answers
+  const questions = [
+    {
+      uid: 'fj9348dhj2839h8d7wj9c0-dwn89nb2ubuc8w', // uid so we can save the user's answer to the db
+      question: 'What is a function in programming?',
+      options: [
+        'A type of variable',
+        'A programming language',
+        'A block of code designed to perform a particular task',
+        "I'm not sure",
+      ],
+      correctAnswerIndex: 2,
+    },
+    {
+      uid: 'dh3982dh893ucb98nc90-cnuw2-xchmovkd',
+      question: 'What is Git?',
+      options: [
+        'A programming language',
+        'A version control system',
+        'A container for storing data',
+        "I'm not sure",
+      ],
+      correctAnswerIndex: 1,
+    },
+    {
+      uid: 'dn3u29x98n23n9cm0c3-d32nuixwenciub',
+      question: 'Which of these is a programming loop?',
+      options: ['For loop', 'Around loop', 'Circle loop', "I'm not sure"],
+      correctAnswerIndex: 0,
+    },
+  ];
+
+  // METHODS
 
   const handleSetUserTimeSpendingPerDay = (timeSpendingPerDay: UserTimeSpendingPerDay) => {
     setTimeSpendingPerDay(timeSpendingPerDay);
@@ -93,6 +146,13 @@ export const UserOnboardingContextProvider = ({
   const handleGetOnboardingQuestions = async () => {
     const questions = await getOnboardingQuestions(selectedTags);
     setOnboardingQuestions(questions);
+  };
+
+  const answerUserOnboardingQuestions = async (
+    questionUids: string[],
+    correctAnswers: boolean[]
+  ) => {
+    await answerOnboardingQuestions(questionUids, correctAnswers);
   };
 
   return (
@@ -116,6 +176,10 @@ export const UserOnboardingContextProvider = ({
         firstQuestionSelection,
         setFirstQuestionSelection,
         FIRST_QUESTION_TUTORIAL_SLUG,
+        totalXp,
+        setTotalXp,
+        questions,
+        answerUserOnboardingQuestions,
       }}
     >
       {children}

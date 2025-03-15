@@ -161,7 +161,7 @@ export default function WelcomeEmail({
               <Text style={couponCode}>{couponCodeText}</Text>
               <Text style={couponText}>Use this code at checkout</Text>
             </Section>
-            <Button href="https://techblitz.dev/premium" style={button}>
+            <Button href="https://dub.sh/upgrade-techblitz" style={button}>
               Upgrade Now
             </Button>
           </Section>

@@ -336,7 +336,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
                   prefetch
                   className={`flex items-center font-inter font-medium text-sm py-2 ${
                     isActive(item.url)
-                      ? 'bg-black-25 dark:bg-white-25 text-white dark:text-black border border-black-50 dark:border-white-50'
+                      ? 'bg-black-25 dark:bg-white-25 text-white dark:text-black border border-secondary dark:border-black-50 dark:border-white-50'
                       : ''
                   }`}
                 >

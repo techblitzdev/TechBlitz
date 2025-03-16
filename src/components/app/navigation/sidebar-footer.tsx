@@ -14,7 +14,7 @@ export default function SidebarFooter({ user }: SidebarFooterProps) {
   const pathname = usePathname();
 
   return (
-    <div className="p-4 flex flex-col gap-4">
+    <div className="p-4 flex flex-col gap-4 bg-white dark:bg-[#000000]">
       {!user && (
         <SidebarMenuItem className="group-data-[collapsible=icon]:hidden flex flex-col gap-2">
           <Button variant="default" fullWidth className="" href={`/login?redirectUrl=${pathname}`}>

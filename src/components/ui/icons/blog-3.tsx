@@ -1,4 +1,5 @@
 import React from 'react';
+import { cn } from '@/lib/utils';
 
 type iconProps = {
   fill?: string;
@@ -7,32 +8,33 @@ type iconProps = {
   width?: string;
   height?: string;
   title?: string;
+  className?: string;
 };
 
 function Blog3(props: iconProps) {
-  const fill = props.fill || 'white';
   const strokewidth = props.strokewidth || 2;
   const width = props.width || '1em';
   const height = props.height || '1em';
   const title = props.title || 'blog 3';
+  const className = props.className || '';
 
   return (
     <svg
-      className="text-white"
+      className={cn('text-[#000000] dark:text-white', className)}
       height={height}
       width={width}
       viewBox="0 0 32 32"
       xmlns="http://www.w3.org/2000/svg"
     >
       <title>{title}</title>
-      <g fill={fill} strokeLinecap="butt" strokeLinejoin="miter">
+      <g strokeLinecap="butt" strokeLinejoin="miter">
         <rect
           height="28"
           width="24"
           fill="none"
           rx="3"
           ry="3"
-          stroke="white"
+          stroke="currentColor"
           strokeLinecap="square"
           strokeMiterlimit="10"
           strokeWidth={strokewidth}
@@ -43,7 +45,7 @@ function Blog3(props: iconProps) {
           height="8"
           width="14"
           fill="none"
-          stroke="white"
+          stroke="currentColor"
           strokeLinecap="square"
           strokeMiterlimit="10"
           strokeWidth={strokewidth}
@@ -52,7 +54,7 @@ function Blog3(props: iconProps) {
         />
         <line
           fill="none"
-          stroke="white"
+          stroke="currentColor"
           strokeLinecap="square"
           strokeMiterlimit="10"
           strokeWidth={strokewidth}
@@ -63,7 +65,7 @@ function Blog3(props: iconProps) {
         />
         <line
           fill="none"
-          stroke="white"
+          stroke="currentColor"
           strokeLinecap="square"
           strokeMiterlimit="10"
           strokeWidth={strokewidth}

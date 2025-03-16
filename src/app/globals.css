@@ -331,7 +331,7 @@ html {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-white dark:bg-background text-foreground;
   }
 
   h1,

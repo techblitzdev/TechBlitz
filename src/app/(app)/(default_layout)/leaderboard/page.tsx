@@ -4,14 +4,12 @@ import { createMetadata } from '@/utils/seo';
 import { getMostQuestionsAnswered } from '@/utils/data/leaderboard/get-most-questions-answered';
 import GlobalPagination from '@/components/app/shared/pagination';
 import { useUserServer } from '@/hooks/use-user-server';
-import LoadingSpinner from '@/components/ui/loading';
 import AnswerQuestionModal from '@/components/app/leaderboard/answer-question-modal';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 import { getUserXp } from '@/utils/data/user/authed/get-user-xp';
-
-const LeaderboardHero = dynamic(() => import('@/components/app/leaderboard/leaderboard-hero'), {
-  loading: () => <div>Loading hero...</div>,
-});
+import LeaguesShowcase from '@/components/app/leaderboard/leagues/leagues-showcase';
+import UpgradeCard from '@/components/app/shared/upgrade/upgrade-card';
+import { getLeagues } from '@/utils/data/leagues/get';
 
 const LeaderboardMostQuestionsAnswered = dynamic(
   () => import('@/components/app/leaderboard/leaderboard-most-questions-answered'),
@@ -31,7 +29,7 @@ export async function generateMetadata() {
   });
 }
 
-export default async function TodaysLeaderboardPage({
+export default async function LeaderboardPage({
   searchParams,
 }: {
   searchParams: { page: string; postsPerPage: string };
@@ -46,7 +44,7 @@ export default async function TodaysLeaderboardPage({
     useUserServer(),
   ]);
 
-  const topThreeUsers = topThreeUsersData.users;
+  const leagues = await getLeagues();
 
   // users logged in must answer more than three questions to view the leaderboard
   if (!hasAnsweredMoreThan3Questions && user) {
@@ -60,25 +58,39 @@ export default async function TodaysLeaderboardPage({
   }
 
   return (
-    <>
-      <Suspense fallback={<LoadingSpinner />}>
-        {/** @ts-ignore - this is the valid type */}
-        <LeaderboardHero topThreeUsers={topThreeUsers} />
-      </Suspense>
-      <div className="lg:container flex flex-col gap-10 mt-10">
-        <Suspense fallback={<div>Loading leaderboard...</div>}>
-          <LeaderboardMostQuestionsAnswered page={currentPage} postsPerPage={postsPerPage} />
-          <div className="w-full flex justify-center gap-x-2">
-            <GlobalPagination
-              currentPage={currentPage}
-              totalPages={Math.ceil(topThreeUsersData.totalCount / postsPerPage)}
-              href={'/leaderboard'}
-              paramName="page"
-              postsPerPage={postsPerPage}
-            />
-          </div>
-        </Suspense>
+    <div className="mx-auto px-4 sm:px-6 lg:px-8 py-12 group flex flex-col xl:flex-row gap-12">
+      <div className="w-full lg:min-w-[75%] space-y-6">
+        <LeaguesShowcase leagues={leagues} />
+        {/**
+       * 
+       <Suspense fallback={<LoadingSpinner />}>
+       {/** @ts-ignore - this is the valid type 
+       <LeaderboardHero topThreeUsers={topThreeUsers} />
+       </Suspense>
+       */}
+        <div className="flex flex-col gap-10 mt-24">
+          <Suspense fallback={<div>Loading leaderboard...</div>}>
+            <LeaderboardMostQuestionsAnswered page={currentPage} postsPerPage={postsPerPage} />
+            <div className="w-full flex justify-center gap-x-2">
+              <GlobalPagination
+                currentPage={currentPage}
+                totalPages={Math.ceil(topThreeUsersData.totalCount / postsPerPage)}
+                href={'/leaderboard'}
+                paramName="page"
+                postsPerPage={postsPerPage}
+              />
+            </div>
+          </Suspense>
+        </div>
       </div>
-    </>
+      <aside className="w-full xl:w-1/4">
+        <div className="sticky top-10 space-y-5 w-full">
+          <UpgradeCard
+            title="Try TechBlitz premium"
+            description="Premium questions, personalized roadmaps, and unlimited AI credits!"
+          />
+        </div>
+      </aside>
+    </div>
   );
 }

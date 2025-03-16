@@ -15,7 +15,7 @@ export default function Hero(opts: {
       <div className={cn('flex flex-col gap-y-3 z-10', container ? 'md:container' : '')}>
         {chip}
         {typeof heading === 'string' ? (
-          <h1 className="relative z-20 text-3xl md:text-5xl text-wrap text-start font-onest max-w-2xl text-gradient from-white to-white/55 py-1">
+          <h1 className="relative z-20 text-3xl md:text-5xl text-wrap text-start font-onest max-w-2xl text-gradient from-black to-black/55 dark:from-white dark:to-white/55 py-1">
             {heading}
           </h1>
         ) : (
@@ -33,7 +33,7 @@ export default function Hero(opts: {
       <Grid size={25} position="bottom-left" />
 
       {/* Fade-out gradient overlay */}
-      <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-[#000000] to-transparent pointer-events-none"></div>
+      <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-white dark:from-[#000000] to-transparent pointer-events-none"></div>
     </section>
   );
 }

@@ -4,17 +4,12 @@ import { createMetadata } from '@/utils/seo';
 import { getMostQuestionsAnswered } from '@/utils/data/leaderboard/get-most-questions-answered';
 import GlobalPagination from '@/components/app/shared/pagination';
 import { useUserServer } from '@/hooks/use-user-server';
-import LoadingSpinner from '@/components/ui/loading';
 import AnswerQuestionModal from '@/components/app/leaderboard/answer-question-modal';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 import { getUserXp } from '@/utils/data/user/authed/get-user-xp';
 import LeaguesShowcase from '@/components/app/leaderboard/leagues/leagues-showcase';
 import UpgradeCard from '@/components/app/shared/upgrade/upgrade-card';
 import { getLeagues } from '@/utils/data/leagues/get';
-
-const LeaderboardHero = dynamic(() => import('@/components/app/leaderboard/leaderboard-hero'), {
-  loading: () => <div>Loading hero...</div>,
-});
 
 const LeaderboardMostQuestionsAnswered = dynamic(
   () => import('@/components/app/leaderboard/leaderboard-most-questions-answered'),
@@ -50,8 +45,6 @@ export default async function LeaderboardPage({
   ]);
 
   const leagues = await getLeagues();
-
-  const topThreeUsers = topThreeUsersData.users;
 
   // users logged in must answer more than three questions to view the leaderboard
   if (!hasAnsweredMoreThan3Questions && user) {

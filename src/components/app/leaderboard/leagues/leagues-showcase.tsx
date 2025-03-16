@@ -1,10 +1,12 @@
 'use client';
 
-import { IndividualLeagueData } from '@prisma/client';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
 import { useState } from 'react';
 import { capitalise } from '@/utils';
+
+// types
+import type { IndividualLeagueData } from '@prisma/client';
 
 function LeagueIcon({
   league,
@@ -16,7 +18,7 @@ function LeagueIcon({
   onClick: () => void;
 }) {
   return (
-    <CarouselItem className="basis-[20%] pl-0 overflow-visible">
+    <CarouselItem className="basis-[15%] pl-0 overflow-visible">
       <Card
         className={`border-none p-3 transition-all duration-300 ${
           isActive ? 'scale-100 opacity-100' : 'scale-75 opacity-50'

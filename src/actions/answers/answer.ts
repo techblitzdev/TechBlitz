@@ -29,7 +29,7 @@ interface AnswerQuestionResponse {
   userData: UserRecord | null;
 }
 
-const findOrCreateUserStreak = async (userUid: string) => {
+export const findOrCreateUserStreak = async (userUid: string) => {
   const streak = await prisma.streaks.findUnique({
     where: { userUid },
   });

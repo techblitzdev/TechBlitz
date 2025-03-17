@@ -1,6 +1,7 @@
 'use server';
 import { prisma } from '@/lib/prisma';
 import { getUser } from '@/actions/user/authed/get-user';
+import { findOrCreateUserStreak } from './answer';
 
 /**
  * A method to add the questions the user answered on the onboarding flow
@@ -30,6 +31,25 @@ export const answerOnboardingQuestions = async (
       difficulty: 'EASY',
     })),
   });
+
+  // increment the users streak
+  const streak = await findOrCreateUserStreak(user.uid);
+
+  // check if the user has already answered today
+  const lastAnswer = await prisma.answers.findFirst({
+    where: {
+      userUid: user.uid,
+      createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) },
+    },
+  });
+
+  // if not, increment the streak
+  if (!lastAnswer) {
+    await prisma.streaks.update({
+      where: { uid: streak.uid },
+      data: { currentstreakCount: streak.currentstreakCount + 1 },
+    });
+  }
 
   return answers;
 };

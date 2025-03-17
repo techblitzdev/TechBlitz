@@ -66,10 +66,10 @@ const features = [
     icon: <RoadmapIcon />,
   },
   {
-    title: 'Daily Challenges',
-    href: '/features/daily-coding-challenges',
-    description: 'Tackle daily challenges to sharpen your developer skills.',
-    ariaLabel: 'Navigate to Daily Challenges',
+    title: 'Coding Challenges',
+    href: '/features/coding-challenges',
+    description: 'Tackle coding challenges to sharpen your developer skills.',
+    ariaLabel: 'Navigate to Coding Challenges',
     icon: <Document />,
   },
   {

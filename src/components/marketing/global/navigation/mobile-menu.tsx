@@ -24,6 +24,8 @@ const menuItems: MenuItem[] = [
       { label: 'Coding Challenges', href: '/features/coding-challenges' },
       { label: 'Statistics', href: '/features/statistics' },
       { label: 'Leaderboard', href: '/features/leaderboard' },
+      { label: 'AI Assistant', href: '/features/ai-assistant' },
+      { label: 'Coding Goals', href: '/features/coding-goals' },
     ],
   },
   {

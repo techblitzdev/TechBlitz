@@ -27,7 +27,6 @@ interface NoChallengesEmailProps {
 
 export default function NoChallengesEmail({
   userName = 'there',
-  userEmail = 'user@example.com',
   suggestedChallenge = {
     title: 'Writing Your First Function',
     difficulty: 'Beginner',
@@ -310,13 +309,6 @@ const hr = {
 const footer = {
   padding: '0 30px 40px',
   textAlign: 'center' as const,
-};
-
-const footerText = {
-  color: '#4b5563',
-  fontSize: '16px',
-  lineHeight: '1.5',
-  margin: '8px 0',
 };
 
 const socialLinks = {

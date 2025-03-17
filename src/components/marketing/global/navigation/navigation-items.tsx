@@ -94,13 +94,6 @@ const features = [
     ariaLabel: 'Navigate to AI Assistant',
     icon: <ChatBot fill="white" height="24" width="24" />,
   },
-  {
-    title: 'Coding Goals',
-    href: '/features/coding-goals',
-    description: 'Set and achieve your goals.',
-    ariaLabel: 'Navigate to Coding Goals',
-    icon: <Target height="24" width="24" />,
-  },
 ];
 
 export function NavigationMenuItems() {

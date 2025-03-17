@@ -4,6 +4,7 @@ enum userLevel {
   TRIAL
   FREE
   PREMIUM
+  LIFETIME // different to premium as they have limited ai credit & roadmap generation
 }
 
 enum UserExperienceLevel {
@@ -47,6 +48,17 @@ model Users {
   // this prevents us sending it every day after the first time
   hasSent7DayNoChallengeEmail Boolean             @default(false)
   timeSpendingPerDay          UserTimeSpendingPerDay? @default(LESS_THAN_5_MINUTES)
+  sendPromotionalEmails       Boolean             @default(false)
+  // total user xp
+  userXp                Int                 @default(0)
+  weeklyUserXp               Int                 @default(0)
+
+  // this is the coupon code that we created for the user
+  userCustomCoupon            String?
+  // this is to prevent us from creating the same coupon code for the same user
+  hasCreatedCustomSignupCoupon Boolean             @default(false)
+  // expires at
+  userCustomCouponExpiresAt   DateTime?
 
 
   // relations

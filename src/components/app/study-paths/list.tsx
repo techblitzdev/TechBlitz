@@ -1,9 +1,12 @@
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
-import type { Question } from '@/types/Questions';
-import type { StudyPath } from '@/utils/constants/study-paths';
+
 import StudyPathQuestionCard from './study-path-question-card';
 import StudyPathQuestionCardSkeleton from './study-path-question-card-skeleton';
+import { cn } from '@/lib/utils';
+
+import type { Question } from '@/types/Questions';
+import { StudyPath } from '@prisma/client';
 
 const QuestionCardClient = dynamic(() => import('../questions/layout/question-card-client'), {
   ssr: false,
@@ -14,13 +17,16 @@ export default async function StudyPathsList({
   studyPath,
   top,
   calculateOffset,
+  className,
 }: {
-  questions: Promise<Question[]>;
+  questions: Promise<Question[]> | Question[];
   studyPath: StudyPath;
   top?: number;
   calculateOffset?: (index: number) => number;
+  className?: string;
 }) {
-  const studyPathQuestions = await questions;
+  // either a promise or already resolved
+  const studyPathQuestions = Array.isArray(questions) ? questions : await questions;
 
   const sortedQuestions = studyPath.questionSlugs
     .map((slug) => studyPathQuestions.find((q) => q.slug === slug))
@@ -31,10 +37,10 @@ export default async function StudyPathsList({
   )?.slug;
 
   return (
-    <div className="relative w-[90%] z-10">
+    <div className={cn('relative z-10 justify-self-center', className)}>
       <Suspense fallback={<StudyPathQuestionCardSkeleton />}>
         {sortedQuestions.map((question, index) => {
-          const offsetValue = calculateOffset ? calculateOffset(index) : Math.sin(index * 0.9) * 10;
+          const offsetValue = calculateOffset ? calculateOffset(index) : Math.sin(index * 2.5) * 25;
           return (
             <div key={question.slug} className="mb-4">
               <QuestionCardClient
@@ -69,11 +75,7 @@ function QuestionCardWrapper({
   return (
     <div className="relative group w-full">
       {isFirstUnanswered && <StartBounce />}
-      <StudyPathQuestionCard
-        href={`/question/${question.slug}?type=study-path&study-path=${studyPath.slug}`}
-        questionData={question}
-        className="w-full hover:border-accent group-hover:scale-[0.99] active:scale-[0.98] transition-transform duration-200"
-      />
+      <StudyPathQuestionCard questionData={question} studyPath={studyPath} />
     </div>
   );
 }
@@ -86,7 +88,7 @@ function StartBounce() {
     >
       <div className="animate-start-bounce">
         <div className="relative bg-black border-2 border-black-50 text-green-500 px-4 py-2 rounded-lg font-semibold shadow-lg flex items-center group-hover:scale-[0.99] transition-transform duration-200 text-lg">
-          <span className="font-onest">Start</span>
+          <span className="font-onest text-lg">Start</span>
           <div className="absolute w-3 h-3 bg-black border-r-2 border-b-2 border-black-50 transform rotate-45 left-1/2 -bottom-1.5 -translate-x-1/2"></div>
         </div>
       </div>

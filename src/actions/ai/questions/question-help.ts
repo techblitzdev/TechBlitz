@@ -1,42 +1,62 @@
 'use server';
-import { openai } from '@/lib/open-ai';
 import { prisma } from '@/lib/prisma';
 import { getPrompt } from '../utils/get-prompt';
 import { getUser } from '@/actions/user/authed/get-user';
 import { questionHelpSchema } from '@/lib/zod/schemas/ai/question-help';
-import { zodResponseFormat } from 'openai/helpers/zod.mjs';
+import { checkUserTokens, deductUserTokens } from '../utils/user-tokens';
 import type { Question } from '@/types/Questions';
 import type { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
+
+// ai
+import { streamObject } from 'ai';
+import { openai } from '@ai-sdk/openai';
+import { createStreamableValue } from 'ai/rsc';
+
+// Define the message interface
+interface ChatMessage {
+  role: 'user' | 'system' | 'assistant';
+  content: string;
+}
 
 /**
  * Method to generate question help for both regular and roadmap questions.
  *
  * @param questionUid - The uid of the question to generate help for.
  * @param userContent - The user's content to generate help for.
- * @param isRoadmapQuestion - Whether this is a roadmap question or not
+ * @param questionType - Whether this is a roadmap question or not
+ * @param previousMessages - Previous chat messages for context (optional)
  * @returns
  */
 export const generateQuestionHelp = async (
   questionUid: string,
   userContent?: string,
-  questionType: 'roadmap' | 'regular' | 'onboarding' = 'regular'
+  questionType: 'roadmap' | 'regular' = 'regular',
+  previousMessages: ChatMessage[] = []
 ) => {
+  'use server';
+
   // get the current user requesting help
   const user = await getUser();
   if (!user) {
-    return false;
-  }
-
-  if (user.userLevel === 'FREE') {
+    console.error('User not found');
     return {
+      object: null,
       content: null,
       tokensUsed: 0,
     };
   }
 
   // For regular questions, check if the user has enough tokens
-  if (questionType === 'regular' && user.aiQuestionHelpTokens && user.aiQuestionHelpTokens <= 0) {
-    return false;
+  if (questionType === 'regular') {
+    const hasTokens = await checkUserTokens(user);
+    if (!hasTokens) {
+      console.error('User does not have enough tokens');
+      return {
+        object: null,
+        content: null,
+        tokensUsed: 0,
+      };
+    }
   }
 
   // Initialize question variable
@@ -68,21 +88,16 @@ export const generateQuestionHelp = async (
         answers: true,
       },
     });
-  } else if (questionType === 'onboarding') {
-    // Get the onboarding question
-    question = await prisma.defaultRoadmapQuestions.findUnique({
-      where: {
-        uid: questionUid,
-      },
-      include: {
-        answers: true,
-      },
-    });
   }
 
   // if no question, return error
   if (!question) {
-    return false;
+    console.error('No question found');
+    return {
+      object: null,
+      content: null,
+      tokensUsed: 0,
+    };
   }
 
   // get the prompt
@@ -90,63 +105,91 @@ export const generateQuestionHelp = async (
     name: ['ai-question-generation-help'],
   });
 
-  // generate the question help
-  const questionHelp = await openai.chat.completions.create({
-    model: 'gpt-4o-mini-2024-07-18',
-    temperature: 0.3,
-    messages: [
+  // Start the stream generation in the background
+  // This is important - we need to return the stream before it completes
+  // Handle token decrement for regular questions
+  if (questionType === 'regular') {
+    const deducted = await deductUserTokens(user);
+    if (!deducted) {
+      return {
+        object: null,
+        content: null,
+        tokensUsed: 0,
+      };
+    }
+  }
+
+  // create a streamable value
+  const stream = createStreamableValue();
+
+  // Build the conversation history
+  const messages: ChatMessage[] = [
+    {
+      role: 'system',
+      content: prompts['ai-question-generation-help'].content,
+    },
+  ];
+
+  // If this is the first message, add the question context
+  if (previousMessages.length === 0) {
+    messages.push(
       {
         role: 'system',
-        content: prompts['ai-question-generation-help'].content,
-      },
-      {
-        role: 'user',
-        content: question.question,
+        content: 'A user has asked for help with the following question:',
       },
       {
         role: 'system',
-        content: 'This is the reason as to why the user is asking for help: ',
-      },
-      {
-        role: 'system',
-        content:
-          'The user has provided the following information about themselves, tailor your answer to this information:',
-      },
-      {
-        role: 'user',
-        content: user?.aboutMeAiHelp || '',
-      },
-      {
-        role: 'user',
-        content: userContent || '',
-      },
-    ],
-    response_format: zodResponseFormat(questionHelpSchema, 'event'),
+        content: question.codeSnippet || '',
+      }
+    );
+  }
+
+  // Add previous conversation context if available
+  if (previousMessages.length > 0) {
+    messages.push(...previousMessages);
+  }
+
+  // Add the current user message
+  messages.push({
+    role: 'user',
+    content: userContent || '',
   });
 
-  if (!questionHelp.choices[0]?.message?.content) {
-    throw new Error('AI response is missing content');
-  }
-
-  const formattedData = JSON.parse(questionHelp.choices[0].message.content);
-
-  // Handle token management based on question type and user level
-  if (questionType === 'regular' && user.userLevel !== 'PREMIUM' && user.userLevel !== 'ADMIN') {
-    // Deduct tokens for regular questions from non-premium users
-    const updatedUser = await prisma.users.update({
-      where: { uid: user.uid },
-      data: { aiQuestionHelpTokens: { decrement: 1 } },
+  (async () => {
+    // generate the question help
+    const { partialObjectStream } = streamObject({
+      model: openai('gpt-4o-mini-2024-07-18'),
+      temperature: 0.2,
+      messages: messages,
+      schema: questionHelpSchema,
     });
 
-    return {
-      content: formattedData,
-      tokens: updatedUser.aiQuestionHelpTokens,
-    };
-  }
+    try {
+      // loop through the streamed response and set the state
+      for await (const partialObject of partialObjectStream) {
+        stream.update(partialObject);
+      }
 
-  // For roadmap questions or premium users, return infinite tokens
+      // the stream has been completed
+      stream.done();
+    } catch (error) {
+      console.error('Error generating AI response:', error);
+      stream.update({ error: 'Failed to generate response. Please try again.' });
+      stream.done();
+    }
+  })();
+
+  // Determine token count for the response
+  const tokensUsed =
+    questionType === 'regular'
+      ? user.aiQuestionHelpTokens
+        ? user.aiQuestionHelpTokens - 1
+        : 0
+      : Number.POSITIVE_INFINITY;
+
   return {
-    content: formattedData,
-    tokens: Number.POSITIVE_INFINITY,
+    object: stream.value,
+    content: null,
+    tokensUsed: tokensUsed,
   };
 };

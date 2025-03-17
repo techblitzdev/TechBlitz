@@ -24,17 +24,17 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          'bg-primary text-primary-foreground shadow hover:bg-primary/90 border border-black-50',
+        default: 'bg-primary text-primary-foreground shadow hover:bg-primary/90',
         destructive: 'bg-red-600 text-destructive-foreground shadow-sm hover:bg-destructive/90',
-        outline: 'border border-input bg-background shadow-sm hover:bg-accent hover:text-white',
+        outline:
+          'border border-input bg-background shadow-sm shadow-black/5 hover:bg-primary hover:text-accent-foreground',
         secondary: 'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
         ghost: 'hover:text-gray-400 duration-300',
         link: 'text-primary underline-offset-4 hover:underline',
         accent: 'bg-accent text-white shadow-sm hover:bg-accent/90 font-onest',
         // premium is accent but with a shimmering effect
         premium:
-          'font-onest !bg-gradient-to-r !from-accent !via-accent/70 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors',
+          'font-onest !bg-gradient-to-r !from-accent !via-accent/80 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors',
       },
       size: {
         default: 'h-9 px-4 py-2',

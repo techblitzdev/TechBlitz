@@ -4,9 +4,12 @@ import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useOnboardingContext } from '@/contexts/onboarding-context';
 import { updateUser } from '@/actions/user/authed/update-user';
+import { createCouponOnSignup } from '@/actions/user/account/create-coupon';
+import { sendWelcomeEmail } from '@/actions/misc/send-welcome-email';
 
 export const STEPS = {
   USER_DETAILS: 'USER_DETAILS', // get the users info
+  INITIAL_QUESTIONS: 'INITIAL_QUESTIONS', // give the user 3 very simple multiple choice questions to gauge skill level and give them quick wins!
   TIME_COMMITMENT: 'TIME_COMMITMENT', // get the users daily coding goal
   NOTIFICATIONS: 'NOTIFICATIONS', // offer push notifications
   TAGS: 'TAGS', // get the users interests
@@ -22,12 +25,14 @@ export function useOnboardingSteps() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const {
+    serverUser,
     user,
     handleGetOnboardingQuestions,
     canContinue,
     timeSpendingPerDay,
     firstQuestionSelection,
     FIRST_QUESTION_TUTORIAL_SLUG,
+    totalXp,
   } = useOnboardingContext();
   const [isLoading, setIsLoading] = useState(false);
   const [currentStep, setCurrentStepState] = useState<StepKey>(() => {
@@ -47,8 +52,12 @@ export function useOnboardingSteps() {
   const stepConfig = {
     // gather user details
     [STEPS.USER_DETAILS]: {
-      next: STEPS.TIME_COMMITMENT,
+      next: STEPS.INITIAL_QUESTIONS,
       component: 'OnboardingUserDetails',
+    },
+    [STEPS.INITIAL_QUESTIONS]: {
+      next: STEPS.TIME_COMMITMENT,
+      component: 'OnboardingInitialQuestions',
     },
     // get the user to choose a daily amount of time to spend on coding
     [STEPS.TIME_COMMITMENT]: {
@@ -129,6 +138,21 @@ export function useOnboardingSteps() {
       if (currentStep === STEPS.TIME_COMMITMENT) {
         await updateUser({ userDetails: { ...user, timeSpendingPerDay } });
         setCurrentStepState(stepConfig[STEPS.TIME_COMMITMENT].next as StepKey);
+      } else if (currentStep === STEPS.USER_DETAILS) {
+        await updateUser({ userDetails: user });
+
+        // if this is false, we need to create a coupon and send the welcome email
+        if (!user.hasCreatedCustomSignupCoupon) {
+          const coupon = await createCouponOnSignup();
+          // send the welcome email
+          await sendWelcomeEmail(serverUser, coupon?.name ?? '');
+        }
+
+        setCurrentStepState(stepConfig[STEPS.USER_DETAILS].next as StepKey);
+      } else if (currentStep === STEPS.INITIAL_QUESTIONS) {
+        // @ts-ignore - this is added on a separate branch. https://github.com/techblitzdev/TechBlitz/pull/526/files
+        await updateUser({ userDetails: { ...user, userXp: totalXp } });
+        setCurrentStepState(stepConfig[STEPS.INITIAL_QUESTIONS].next as StepKey);
       } else {
         await updateUser({ userDetails: user });
         const nextStep = stepConfig[currentStep].next;

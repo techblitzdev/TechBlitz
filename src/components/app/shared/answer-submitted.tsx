@@ -20,6 +20,7 @@ import { formatSeconds } from '@/utils/time';
 import { useTransition } from 'react';
 import { updateAnswerDifficulty } from '@/actions/answers/answer';
 import { AnswerDifficulty } from '@prisma/client';
+import { getUpgradeUrl } from '@/utils';
 
 interface QuestionResultProps {
   correctAnswer: 'correct' | 'incorrect' | 'init';
@@ -222,12 +223,12 @@ export default function QuestionResult({
           {/** roadmap users get unlimited tokens - no need to show token count */}
           {!isRoadmapQuestion && (
             <p className="text-sm text-white">
-              You have {user?.userLevel === 'PREMIUM' ? 'unlimited' : tokensUsed} tokens remaining{' '}
+              You have {user?.userLevel === 'PREMIUM' ? 'unlimited ' : tokensUsed} tokens remaining{' '}
               <br />
               {user?.userLevel === 'FREE' && (
                 <span className="text-xs text-gray-400">
                   (Free users get 20 tokens,{' '}
-                  <Link href="https://dub.sh/upgrade-techblitz" className="text-accent underline">
+                  <Link href={getUpgradeUrl()} className="text-accent underline">
                     upgrade to Premium
                   </Link>{' '}
                   to get unlimited tokens!)
@@ -242,7 +243,7 @@ export default function QuestionResult({
                 generateAiAnswerHelp();
               });
             }}
-            disabled={isPending}
+            disabled={isPending || user?.userLevel === 'FREE'}
             className="hidden lg:flex"
             wrapperClassName="w-fit"
           >
@@ -255,6 +256,7 @@ export default function QuestionResult({
                 generateAiAnswerHelp(true);
               });
             }}
+            disabled={isPending || user?.userLevel === 'FREE'}
             className="flex lg:hidden"
           >
             {isPending ? 'Generating...' : 'Explain Answer'}

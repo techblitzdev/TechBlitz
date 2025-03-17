@@ -7,10 +7,11 @@ import FAQsBlock from '@/components/marketing/global/blocks/faqs';
 import { MobileIcon } from '@radix-ui/react-icons';
 import FeatureLeftRightSection from '@/components/marketing/features/daily-challenge/feature-left-right/features-section';
 
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { createMetadata } from '@/utils/seo';
 import { getBaseUrl } from '@/utils';
 import { WebPageJsonLd } from '@/types/Seo';
 import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
+import { getUserCount } from '@/utils/data/user/get-user-count';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -152,9 +153,49 @@ const faqs = [
       </>
     ),
   },
+  {
+    question: 'What is the best site to learn JavaScript?',
+    answer:
+      'TechBlitz is the best site to learn JavaScript. We offer a comprehensive free JavaScript course with daily coding challenges, perfect for beginners and experienced developers alike.',
+  },
+  {
+    question: 'How can I receive recommendations straight to my inbox?',
+    answer:
+      'You can receive recommendations straight to your inbox by signing up for a free TechBlitz account, and opting into email notifications.',
+  },
+  {
+    question: 'How can I get instant feedback on my code?',
+    answer:
+      'You can get instant feedback on your code by signing up for a TechBlitz account and upgrading to a premium plan. If you are a student, you are eligible for a 30% discount on a TechBlitz premium plan.',
+  },
+  {
+    question: 'What coding topics can I learn on TechBlitz?',
+    answer:
+      'You can learn JavaScript, React, Git, and many other coding topics on TechBlitz. We are constantly adding new coding topics to our platform.',
+  },
+  {
+    question: 'How can I get free JavaScript coding challenges?',
+    answer:
+      'You can get free JavaScript coding challenges by signing up for a TechBlitz account and opting into email notifications.',
+  },
+  {
+    question: 'Do you offer project-based learning?',
+    answer: (
+      <>
+        Currently, we do not offer project-based learning (yet 😉). But we have some blog posts that
+        you can learn from. Check them out here
+        <Link
+          href="/javascript-projects-for-beginners/how-to-create-a-weather-app-in-javascript"
+          className="text-accent"
+        >
+          here
+        </Link>
+      </>
+    ),
+  },
 ];
 
-export default function FeatureDailyQuestionPage() {
+export default async function FeatureDailyQuestionPage() {
   const jsonLd: WebPageJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -164,7 +205,23 @@ export default function FeatureDailyQuestionPage() {
       'Learn JavaScript programming with our free online course and daily coding challenges. Master web development with hands-on practice.',
     image:
       'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
-    breadcrumb: WebPageJsonLdBreadcrumb,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: `${getBaseUrl()}`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Daily Coding Challenges',
+          item: `${getBaseUrl()}/features/daily-coding-challenges`,
+        },
+      ],
+    },
     author: {
       '@type': 'Organization',
       name: 'TechBlitz',
@@ -174,7 +231,7 @@ export default function FeatureDailyQuestionPage() {
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': getBaseUrl(),
+      '@id': `${getBaseUrl()}/features/daily-coding-challenges`,
     },
     keywords:
       'javascript course, free javascript course, javascript online course, learn javascript online, javascript training, web development, javascript programming, html css and javascript, javascript frameworks, software development',
@@ -188,6 +245,8 @@ export default function FeatureDailyQuestionPage() {
     },
   };
 
+  const userCount = await getUserCount();
+
   return (
     <>
       <script
@@ -195,20 +254,34 @@ export default function FeatureDailyQuestionPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="container">
-        <FeatureDailyChallengeHero />
-        <FeatureLeftRightSection />
+        <FeatureDailyChallengeHero
+          header="Learn to code with daily coding challenges"
+          subheader="TechBlitz transforms learning to code into bite-sized, engaging daily coding challenges. Master new skills in just 5 minutes a day—anytime, anywhere, on any device. Even learn to code on your phone!"
+          className="xl:w-1/2"
+        />
+        <FeatureLeftRightSection
+          leftHeader="Daily coding challenges for beginners"
+          leftSubheader="TechBlitz transforms learning to code into bite-sized, engaging daily coding challenges. Master new skills in just 5 minutes a day—anytime, anywhere, on any device. Even learn to code on your phone!"
+          rightHeader="Personalized daily coding challenges"
+          rightSubheader="TechBlitz adapts to your weaknesses. Receive recommendations straight to your inbox, and get instant feedback on your code. Improving your coding skills has never been easier."
+        />
 
         <QuestionMarquee
-          header="Complete JavaScript Training Resource"
-          subheader="From JavaScript basics to advanced web development. Learn step-by-step with our comprehensive course and daily challenges."
+          header="Hundreds of web development coding challenges"
+          subheader="Choose from hundreds of coding challenges to master your skills. From JavaScript to Git, we've got you covered."
           cta={true}
         />
 
-        <MarketingContentGrid title="Best Free JavaScript Course Online" items={items} />
+        <MarketingContentGrid
+          title="The best site to learn to code"
+          subheading={`Discover why ${userCount}+ users choose TechBlitz to learn to code`}
+          items={items}
+        />
+
         <FAQsBlock faqs={faqs} />
         <CallToActionBlock
-          title="Start Your JavaScript Journey Today"
-          description="Access our free JavaScript course and daily coding challenges. Perfect for aspiring web developers and software engineers."
+          title="Access free Daily Coding Challenges Today"
+          description="Access our free JavaScript roadmaps and daily coding challenges. Perfect for aspiring web developers and software engineers."
         />
       </div>
     </>

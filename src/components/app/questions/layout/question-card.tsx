@@ -8,6 +8,7 @@ import { CheckCircle } from 'lucide-react';
 import { TooltipProvider, TooltipTrigger, TooltipContent, Tooltip } from '@/components/ui/tooltip';
 import type { UserRecord } from '@/types/User';
 import { cn } from '@/lib/utils';
+import { userIsPremium } from '@/utils/user';
 
 export function QuestionCardSkeleton() {
   return (
@@ -53,6 +54,7 @@ export default function QuestionCard(opts: {
   type?: 'study-path' | 'standard-question';
   studyPathSlug?: string;
   className?: string;
+  titleClassName?: string;
 }) {
   const {
     questionData,
@@ -65,6 +67,7 @@ export default function QuestionCard(opts: {
     type = 'standard-question',
     studyPathSlug,
     className,
+    titleClassName,
   } = opts;
 
   // if identifier is uid, this is a custom question
@@ -75,7 +78,7 @@ export default function QuestionCard(opts: {
 
   const title = questionData?.title || questionData?.question;
 
-  const userCanAccess = user?.userLevel === 'PREMIUM' || !questionData?.isPremiumQuestion;
+  const userCanAccess = userIsPremium(user) || !questionData?.isPremiumQuestion;
 
   // if type is study-path, add query param to href
   if (type === 'study-path') {
@@ -104,7 +107,12 @@ export default function QuestionCard(opts: {
             ) : (
               <Circle className="flex-shrink-0 size-5 text-black-50" />
             )}
-            <h6 className="text-lg text-wrap text-start line-clamp-2 lg:line-clamp-1 flex-grow">
+            <h6
+              className={cn(
+                'text-lg text-wrap text-start line-clamp-2 lg:line-clamp-1 flex-grow',
+                titleClassName
+              )}
+            >
               {title}
             </h6>
           </div>
@@ -148,6 +156,7 @@ export default function QuestionCard(opts: {
                             ? 'text-yellow-500 fill-yellow-500'
                             : 'text-white'
                         } transition-colors duration-200`}
+                        aria-label="Bookmark"
                       />
                     </TooltipTrigger>
                     <TooltipContent>
@@ -165,7 +174,6 @@ export default function QuestionCard(opts: {
               <Tooltip delayDuration={0}>
                 <TooltipTrigger>
                   <div className="flex items-center gap-x-2">
-                    <span className="hidden sm:block text-gray-300">•</span>
                     <p className="text-sm text-gray-300">Recommended for you</p>
                   </div>
                 </TooltipTrigger>

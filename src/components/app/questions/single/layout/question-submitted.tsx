@@ -22,6 +22,8 @@ import { formatSeconds } from '@/utils/time';
 import { AnswerDifficulty } from '@prisma/client';
 import { updateAnswerDifficulty } from '@/actions/answers/answer';
 import LoadingSpinner from '@/components/ui/loading';
+import { getUpgradeUrl } from '@/utils';
+import { userIsPremium } from '@/utils/user';
 
 export default function QuestionSubmitted() {
   const {
@@ -156,8 +158,6 @@ export default function QuestionSubmitted() {
             </div>
           )}
         </div>
-        {/** you answered faster than 90% of users */}
-
         <div className="flex flex-col gap-y-2">
           {/** ai explain answer (on button click) */}
           <h2 className="text-xl font-bold">Explain this answer</h2>
@@ -165,11 +165,14 @@ export default function QuestionSubmitted() {
             Don't understand this answer? Click the button below to get an explanation.
           </p>
           <p className="text-sm text-white">
-            {user?.userLevel === 'PREMIUM' ? (
-              <>You have unlimited tokens remaining</>
+            {userIsPremium(user) ? (
+              <>
+                You have {user?.userLevel === 'LIFETIME' ? user?.aiQuestionHelpTokens : 'unlimited'}{' '}
+                tokens remaining
+              </>
             ) : (
               <span className="text-xs text-gray-400">
-                <Link href="https://dub.sh/upgrade-techblitz" className="text-accent underline">
+                <Link href={getUpgradeUrl()} className="text-accent underline">
                   Upgrade to Premium
                 </Link>{' '}
                 to access AI-powered explanations!

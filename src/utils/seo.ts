@@ -140,7 +140,6 @@ export const getQuestionEducationLevel = (question: Question['difficulty']) => {
       return 'advanced';
   }
 };
-
 export const WebPageJsonLdBreadcrumb: WebPageJsonLd['breadcrumb'] = {
   '@type': 'BreadcrumbList',
   itemListElement: [

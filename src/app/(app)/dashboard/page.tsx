@@ -12,7 +12,9 @@ interface DashboardProps {
 export default async function Dashboard({ searchParams }: DashboardProps) {
   const user = useUserServer();
 
-  const hasAnsweredAnyQuestion = userHasAnsweredAnyQuestion();
+  const hasAnsweredAnyQuestion = userHasAnsweredAnyQuestion({
+    numberOfQuestions: 1,
+  });
 
   return (
     <ClientPage
@@ -20,7 +22,7 @@ export default async function Dashboard({ searchParams }: DashboardProps) {
       userPromise={user}
       hasAnsweredAnyQuestionPromise={hasAnsweredAnyQuestion}
     >
-      <div className="text-white flex flex-col gap-y-2 h-full">
+      <div className="text-white flex flex-col gap-y-4 h-full">
         <DashboardHeader />
         <Separator className="bg-black-50" />
         <div className="h-full mt-1 max-w-7xl px-6 mx-auto flex flex-col gap-5">

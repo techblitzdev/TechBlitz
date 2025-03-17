@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { StatisticsReport as StatisticsReportType } from '@prisma/client';
+import { getUpgradeUrl } from '@/utils';
 
 export default async function StatisticsReport() {
   const user = await useUserServer();
@@ -26,9 +27,9 @@ export default async function StatisticsReport() {
     >
       <div className="flex flex-col gap-2.5 px-3 py-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-onest">Statistics Review</h2>
+          <h2 className="text-2xl font-onest">Coding Reports</h2>
           <Button
-            variant="secondary"
+            variant={user?.userLevel === 'FREE' ? 'premium' : 'default'}
             className="flex items-center gap-x-2 text-sm"
             href="/statistics/reports"
             disabled={reports.length === 0 || user?.userLevel === 'FREE'}
@@ -65,11 +66,7 @@ export default async function StatisticsReport() {
           <p className="text-sm text-gray-400">
             You need to be a premium user to generate a report.
           </p>
-          <Button
-            href="https://dub.sh/upgrade-techblitz"
-            variant="premium"
-            className="flex items-center gap-x-2"
-          >
+          <Button href={getUpgradeUrl()} variant="premium" className="flex items-center gap-x-2">
             Upgrade to Premium
             <ArrowRight className="size-4" />
           </Button>
@@ -79,6 +76,7 @@ export default async function StatisticsReport() {
         <form
           className="px-3 py-4 h-full flex items-center justify-center"
           action={async () => {
+            'use server';
             await generateStatisticsReport();
           }}
         >

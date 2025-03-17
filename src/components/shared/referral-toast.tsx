@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -8,7 +8,7 @@ import { X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { sendInvite } from '@/actions/misc/send-invite';
 
-export default function ReferralToast() {
+const ReferralToast = memo(function ReferralToast() {
   const { value: hasBeenShown, setValue: setHasBeenShown } = useLocalStorage({
     key: 'referral-toast-shown',
     defaultValue: false,
@@ -78,4 +78,6 @@ export default function ReferralToast() {
       </div>
     </motion.div>
   );
-}
+});
+
+export default ReferralToast;

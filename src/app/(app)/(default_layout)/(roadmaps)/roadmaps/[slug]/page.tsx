@@ -1,21 +1,26 @@
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
+
+// actions
 import { getQuestions } from '@/actions/questions/admin/list';
-import { getStudyPath } from '@/utils/data/study-paths/get';
+
+// utils
 import { createMetadata } from '@/utils/seo';
+import { getStudyPath } from '@/utils/data/study-paths/get';
 import { capitalise, getBaseUrl } from '@/utils';
+
+// types
 import type { QuizJsonLd } from '@/types/Seo';
 import type { StudyPath } from '@prisma/client';
+
+// components
 import StudyPathQuestionCardSkeleton from '@/components/app/study-paths/study-path-question-card-skeleton';
 import QuestionCardClient from '@/components/app/questions/layout/question-card-client';
-
 const StudyPathsList = dynamic(() => import('@/components/app/study-paths/list'), {
   loading: () => <StudyPathsListSkeleton />,
 });
-
 const StudyPathSidebar = dynamic(() => import('@/components/app/study-paths/study-path-sidebar'));
 const Hero = dynamic(() => import('@/components/shared/hero'));
-
 const HeroChip = dynamic(() => import('@/components/app/study-paths/hero-chip'));
 const HeroHeading = dynamic(() => import('@/components/app/study-paths/hero-heading'));
 
@@ -50,44 +55,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   });
 }
 
-export default async function RoadmapPage({ params }: { params: { slug: string } }) {
-  const studyPath = await getStudyPath(params.slug);
-
-  if (!studyPath) {
-    return <div>Study path not found</div>;
-  }
-
-  const questions = getQuestions({
-    questionSlugs: studyPath?.questionSlugs ?? [],
-  });
-
-  const jsonLd: QuizJsonLd = createJsonLd(studyPath, params.slug);
-
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <div className="flex flex-col gap-y-12 lg:px-28">
-        <Hero
-          heading={<HeroHeading studyPath={studyPath} />}
-          container={false}
-          chip={<HeroChip studyPath={studyPath} />}
-        />
-        <div className="flex flex-col lg:flex-row gap-12 xl:gap-24">
-          <div className="w-full lg:w-[55%] space-y-6 pb-12">
-            <Suspense fallback={<StudyPathsListSkeleton />}>
-              <StudyPathsList questions={questions} studyPath={studyPath} />
-            </Suspense>
-          </div>
-          <StudyPathSidebar studyPath={studyPath} />
-        </div>
-      </div>
-    </>
-  );
-}
-
+/**
+ * A skeleton for the study paths list.
+ *
+ * @returns A list of question cards.
+ */
 function StudyPathsListSkeleton() {
   return (
     <div className="flex flex-col gap-6 relative z-10 w-[90%]">
@@ -105,6 +77,13 @@ function StudyPathsListSkeleton() {
   );
 }
 
+/**
+ * Creates a JSON-LD object for a study path.
+ *
+ * @param studyPath - The study path object.
+ * @param slug - The slug of the study path.
+ * @returns The JSON-LD object.
+ */
 function createJsonLd(studyPath: StudyPath, slug: string): QuizJsonLd {
   return {
     '@context': 'https://schema.org',
@@ -130,4 +109,42 @@ function createJsonLd(studyPath: StudyPath, slug: string): QuizJsonLd {
     isFamilyFriendly: true,
     teaches: 'coding',
   };
+}
+
+export default async function RoadmapPage({ params }: { params: { slug: string } }) {
+  const studyPath = await getStudyPath(params.slug);
+
+  if (!studyPath) {
+    return <div>Study path not found</div>;
+  }
+
+  const questions = getQuestions({
+    questionSlugs: studyPath?.questionSlugs ?? [],
+  });
+
+  const jsonLd: QuizJsonLd = createJsonLd(studyPath, params.slug);
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div className="flex flex-col gap-y-12 xl:px-28">
+        <Hero
+          heading={<HeroHeading studyPath={studyPath} />}
+          container={false}
+          chip={<HeroChip studyPath={studyPath} />}
+        />
+        <div className="flex flex-col lg:flex-row gap-12 xl:gap-24">
+          <div className="w-full lg:w-[55%] space-y-6 pb-12">
+            <Suspense fallback={<StudyPathsListSkeleton />}>
+              <StudyPathsList questions={questions} studyPath={studyPath} />
+            </Suspense>
+          </div>
+          <StudyPathSidebar studyPath={studyPath} />
+        </div>
+      </div>
+    </>
+  );
 }

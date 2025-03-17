@@ -24,7 +24,7 @@ const CreateRoadmapButton = dynamic(
 import { fetchUserRoadmaps } from '@/utils/data/roadmap/fetch-user-roadmaps';
 import { useUserServer } from '@/hooks/use-user-server';
 import RoadmapsCardSkeleton from '@/components/app/roadmaps/[uid]/roadmaps-card-loading';
-import UpgradeLayout from '@/components/app/shared/upgrade-layout';
+import UpgradeLayout from '@/components/app/shared/upgrade/upgrade-layout';
 import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
 import RoadmapIcon from '@/components/ui/icons/roadmap';
 import ContinueJourney from '@/components/app/navigation/continue-journey-button';
@@ -32,6 +32,9 @@ import { Button } from '@/components/ui/button';
 import { Suspense } from 'react';
 import { ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
+import { getUpgradeUrl } from '@/utils';
+import { userHasAnsweredAnyQuestion } from '@/utils/data/questions/user-has-answered-any-question';
+import { ROADMAP_QUESTION_COUNT } from '@/utils/constants/roadmap';
 
 const roadmapHeroDescription = (
   <div className="flex flex-col gap-y-4 z-20 relative font-inter max-w-3xl">
@@ -65,7 +68,7 @@ const upgradeDescription = (
     <p className="text-gray-400">
       Looking for a more personalized experience? Upgrade to a premium account to unlock
       personalized roadmaps.{' '}
-      <Link href="https://dub.sh/upgrade-techblitz" className="text-accent underline">
+      <Link href={getUpgradeUrl()} className="text-accent underline">
         Learn more
       </Link>
     </p>
@@ -90,6 +93,14 @@ export default async function RoadmapPage() {
   // order the roadmaps by the createdAt date
   userRoadmaps.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 
+  // check if the user has answered enough 'non-roadmap' questions
+  // to create a roadmap.
+  // we need the user to answer at least 10 questions, so we can gauge their
+  // current skill level.
+  const { hasAnsweredEnoughQuestions, answeredQuestionsCount } = await userHasAnsweredAnyQuestion({
+    numberOfQuestions: ROADMAP_QUESTION_COUNT,
+  });
+
   return (
     <>
       <Hero heading="Personalized Roadmaps" subheading={roadmapHeroDescription} />
@@ -103,7 +114,10 @@ export default async function RoadmapPage() {
         {/** create new roadmap cta */}
         <aside className="order-first md:order-last w-full lg:w-[35%] relative">
           <div className="sticky top-10 space-y-10">
-            <CreateRoadmapButton />
+            <CreateRoadmapButton
+              hasAnsweredEnoughQuestions={hasAnsweredEnoughQuestions}
+              answeredQuestionsCount={answeredQuestionsCount}
+            />
             <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit">
               <div className="flex items-center space-x-2 text-white">
                 <RoadmapIcon height="24" width="24" />

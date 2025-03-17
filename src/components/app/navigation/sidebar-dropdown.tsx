@@ -22,7 +22,7 @@ import ProfilePicture from '@/components/ui/profile-picture';
 import type { UserRecord } from '@/types/User';
 import { getUserDisplayName } from '@/utils/user';
 import type { Profile } from '@/types/Profile';
-import { capitalise } from '@/utils';
+import { capitalise, getUpgradeUrl } from '@/utils';
 import ReferralModal from '@/components/shared/referral-modal';
 
 /**
@@ -36,9 +36,6 @@ export default function SidebarAreaComponent(opts: {
   profile: Profile | null;
 }) {
   const { user } = opts;
-
-  const upgradeUrl =
-    process.env.NODE_ENV === 'production' ? 'https://dub.sh/upgrade-techblitz' : '/upgrade';
 
   return (
     <SidebarContent className="bg-[#000000] w-full p-0">
@@ -66,7 +63,7 @@ export default function SidebarAreaComponent(opts: {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56 bg-[#000] !text-white border-black-50">
               <DropdownMenuItem>
-                <Link href={upgradeUrl} className="w-full">
+                <Link href={getUpgradeUrl()} className="w-full">
                   Upgrade
                 </Link>
               </DropdownMenuItem>

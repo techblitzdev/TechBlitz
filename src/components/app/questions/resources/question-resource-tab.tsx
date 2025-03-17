@@ -28,7 +28,7 @@ export default function QuestionResourceTab(opts: {
         </p>
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button>Suggest a resource</Button>
+            <Button href="mailto:team@techblitz.dev">Suggest a resource</Button>
           </AlertDialogTrigger>
           <AlertDialogContent className="bg-black-100 border border-black-50">
             <AlertDialogHeader>

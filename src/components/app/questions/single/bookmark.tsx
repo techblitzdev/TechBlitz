@@ -40,14 +40,14 @@ export default function BookmarkQuestion({
         <TooltipTrigger asChild>
           <Button
             variant="ghost"
-            size="icon"
+            size="sm"
             padding="none"
             className="px-0"
             onClick={handleBookmark}
             disabled={isPending}
           >
             <Bookmark
-              className={`size-5 ${
+              className={`size-4 ${
                 isBookmarked ? 'text-yellow-500 fill-yellow-500' : 'text-white'
               } transition-colors duration-200`}
             />

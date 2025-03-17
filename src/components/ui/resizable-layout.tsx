@@ -98,16 +98,16 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
       <div
         ref={horizontalResizerRef}
         className={`
-          group relative w-full h-1 lg:h-auto lg:w-1 cursor-row-resize lg:cursor-col-resize 
+          group relative w-full h-1 lg:h-auto lg:w-0 cursor-row-resize lg:cursor-col-resize 
           transition-all duration-150 hidden lg:block
           before:absolute before:inset-x-0 lg:before:inset-y-0 before:h-3 lg:before:h-auto 
-          before:-top-1 lg:before:top-0 lg:before:-left-1 before:w-full lg:before:w-3 
+          before:-top-1 lg:before:top-0 lg:before:-left-1 before:w-full lg:before:w-2
           before:cursor-row-resize lg:before:cursor-col-resize
           after:absolute after:left-1/2 after:top-1/2 after:-translate-x-1/2 after:-translate-y-1/2
-          after:w-24 lg:after:w-[3px] after:h-[3px] lg:after:h-24 
+          after:w-24 lg:after:w-[1px] after:h-[3px] lg:after:h-24 
           after:rounded-full after:bg-black-50 after:transition-all
-          hover:after:bg-black-25 hover:after:w-32 lg:hover:after:w-[3px] 
-          hover:after:h-[3px] lg:hover:after:h-32
+          hover:after:bg-accent hover:after:w-[90%] lg:hover:after:w-[3px] 
+          hover:after:h-[3px] lg:hover:after:h-[90%]
           `}
       />
       <div
@@ -133,17 +133,17 @@ const ResizableLayout: React.FC<ResizableLayoutProps> = ({
             <div
               ref={verticalResizerRef}
               className={`
-                group relative w-full h-1 cursor-row-resize
+                group relative w-full h-[2px] cursor-row-resize
                 transition-all duration-150
                 before:absolute before:inset-x-0 before:h-3
                 before:-top-1 before:w-full
                 before:cursor-row-resize
                 after:absolute after:left-1/2 after:top-1/2 after:-translate-x-1/2 after:-translate-y-1/2
-                after:w-24 after:h-[3px]
+                after:w-24 after:h-[1px]
                 after:rounded-full after:bg-black-50 after:transition-all
-                hover:after:bg-black-25 hover:after:w-32
+                hover:after:bg-accent hover:after:w-[90%]
                 hover:after:h-[3px] hidden lg:block
-                `}
+              `}
             />
             <div
               className="h-[var(--right-bottom-height)] overflow-y-auto"

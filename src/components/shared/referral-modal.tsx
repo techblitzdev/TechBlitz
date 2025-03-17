@@ -91,7 +91,7 @@ export default function ReferralModal({ children }: { children: React.ReactNode 
               <Button
                 onClick={handleSubmit}
                 className="w-full z-10"
-                variant="default"
+                variant="premium"
                 disabled={isLoading}
               >
                 {isLoading ? 'Sending...' : 'Send Invite'}

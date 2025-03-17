@@ -11,6 +11,7 @@ import OnboardingQuestions from './onboarding-questions';
 import OnboardingPricing from './onboarding-pricing';
 import OnboardingFooter from './onboarding-footer';
 import OnboardingNotifications from './onboarding-notifications';
+import OnboardingInitialQuestions from './onboarding-initial-questions';
 
 // contexts
 import { useOnboardingContext } from '@/contexts/onboarding-context';
@@ -37,6 +38,7 @@ const containerVariants = {
 
 const stepComponents = {
   [STEPS.USER_DETAILS]: OnboardingUserDetails,
+  [STEPS.INITIAL_QUESTIONS]: OnboardingInitialQuestions,
   [STEPS.TIME_COMMITMENT]: OnboardingTimeCommitment,
   [STEPS.NOTIFICATIONS]: OnboardingNotifications,
   [STEPS.FIRST_QUESTION_SELECTION]: OnboardingFirstQuestionSelection,
@@ -58,12 +60,15 @@ export default function OnboardingForm() {
         <Card
           className={cn(
             'rounded-lg shadow-xl overflow-hidden min-w-fit relative',
-            currentStep === STEPS.PRICING && 'lg:min-w-[50rem]',
-            currentStep === STEPS.PRICING ? 'border-none' : 'border border-black-50'
+            currentStep === STEPS.PRICING ||
+              (currentStep === STEPS.TIME_COMMITMENT && 'lg:min-w-[58rem]'),
+            currentStep === STEPS.PRICING || currentStep === STEPS.INITIAL_QUESTIONS
+              ? 'border-none'
+              : 'border border-black-50'
           )}
           style={{
             background:
-              currentStep === STEPS.PRICING
+              currentStep === STEPS.PRICING || currentStep === STEPS.INITIAL_QUESTIONS
                 ? 'none'
                 : 'radial-gradient(128% 107% at 0% 0%, #212121 0%, rgb(0,0,0) 77.61%)',
           }}

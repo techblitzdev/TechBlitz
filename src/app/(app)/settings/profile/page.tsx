@@ -28,6 +28,7 @@ import { UserUpdatePayload } from '@/types/User';
 import { themes } from 'prism-react-renderer';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { getUpgradeUrl } from '@/utils';
 
 type SchemaProps = z.input<typeof userDetailsSchema>;
 
@@ -46,6 +47,7 @@ export default function SettingsProfilePage() {
       codeEditorTheme: user?.codeEditorTheme || 'vs-dark',
       userProfilePicture: user?.userProfilePicture || '',
       aboutMeAiHelp: user?.aboutMeAiHelp || '',
+      sendPromotionalEmails: user?.sendPromotionalEmails || false,
     },
   });
 
@@ -60,6 +62,7 @@ export default function SettingsProfilePage() {
         codeEditorTheme: user.codeEditorTheme || 'vs-dark',
         userProfilePicture: user.userProfilePicture || '',
         aboutMeAiHelp: user.aboutMeAiHelp || '',
+        sendPromotionalEmails: user.sendPromotionalEmails,
       });
     }
   }, [user, isLoading, form]);
@@ -322,6 +325,38 @@ export default function SettingsProfilePage() {
             )}
           />
 
+          {/** Send promotional emails */}
+          <FormField
+            control={form.control}
+            name="sendPromotionalEmails"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="flex items-center gap-x-2">
+                          <Switch
+                            id="sendPromotionalEmails"
+                            checked={!!field.value}
+                            onCheckedChange={(checked) => {
+                              field.onChange(checked);
+                            }}
+                            className="bg-black-50"
+                          />
+                          <Label htmlFor="sendPromotionalEmails" className="text-base">
+                            Send promotional emails
+                          </Label>
+                        </div>
+                      </TooltipTrigger>
+                    </Tooltip>
+                  </TooltipProvider>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           {/** About me - only allow premium users to edit this */}
           <FormField
             control={form.control}
@@ -350,10 +385,7 @@ export default function SettingsProfilePage() {
                     {user?.userLevel === 'FREE' && (
                       <div className="mt-2 text-sm text-red-500">
                         Upgrade to a premium account to enhance your AI.
-                        <a
-                          href="https://dub.sh/upgrade-techblitz"
-                          className="text-accent underline ml-1"
-                        >
+                        <a href={getUpgradeUrl()} className="text-accent underline ml-1">
                           Upgrade now
                         </a>
                       </div>

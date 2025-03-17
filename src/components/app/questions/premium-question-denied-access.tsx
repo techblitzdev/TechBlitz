@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/card';
 import { Sparkles, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { getUpgradeUrl } from '@/utils';
 
 export default function PremiumQuestionDeniedAccess() {
   const router = useRouter();
@@ -83,7 +84,7 @@ export default function PremiumQuestionDeniedAccess() {
                 variant="premium"
                 size="lg"
                 className="w-full sm:w-auto"
-                onClick={() => window.open('https://dub.sh/upgrade-techblitz', '_blank')}
+                onClick={() => window.open(getUpgradeUrl(), '_blank')}
               >
                 Upgrade to Premium
               </Button>

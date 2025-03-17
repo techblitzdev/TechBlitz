@@ -115,3 +115,14 @@ export const difficultyToExperienceLevel: Record<UserExperienceLevel, QuestionDi
   ADVANCED: 'HARD',
   MASTER: 'HARD',
 };
+
+/**
+ * Get the upgrade url based on the environment
+ *
+ * Either:
+ * - https://dub.sh/upgrade-techblitz (prod - I don't want to trigger locally)
+ * - /upgrade
+ */
+export const getUpgradeUrl = () => {
+  return getEnv() === 'development' ? '/upgrade' : 'https://dub.sh/upgrade-techblitz';
+};

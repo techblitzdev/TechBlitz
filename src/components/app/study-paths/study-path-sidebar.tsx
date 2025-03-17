@@ -1,24 +1,30 @@
+import { redirect } from 'next/navigation';
+
+// components
 import { Button } from '@/components/ui/button';
 import ArcheryTarget from '@/components/ui/icons/target';
-import { useUserServer } from '@/hooks/use-user-server';
-import UpgradeCard from '../shared/upgrade-card';
-import { Progress } from '@/components/ui/progress';
-import { StudyPath } from '@prisma/client';
+import StudyPathGoalModal from './study-path-goal-modal';
+import UpgradeCard from '../shared/upgrade/upgrade-card';
 import DailyChallengesCard from '../shared/question/daily-goals-card';
+import { Progress } from '@/components/ui/progress';
 import { ArrowRightIcon } from 'lucide-react';
-import { isUserEnrolledInStudyPath } from '@/utils/data/study-paths/get';
-import { enrollInStudyPath } from '@/actions/study-paths/enroll';
-import { redirect } from 'next/navigation';
-import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
-import { getUserMissionRecords } from '@/utils/data/missions/get-user-mission-record';
 import ScrollToStartButton from './scroll-to-start-button';
 
-async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
+// utils, actions, hooks
+import { useUserServer } from '@/hooks/use-user-server';
+import { isUserEnrolledInStudyPath } from '@/utils/data/study-paths/get';
+import { enrollInStudyPath } from '@/actions/study-paths/enroll';
+import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
+import { getUserMissionRecords } from '@/utils/data/missions/get-user-mission-record';
+
+// types
+import type { StudyPath } from '@prisma/client';
+import { UserRecord } from '@/types/User';
+import { getStudyPathGoal } from '@/utils/data/study-paths/get-goal';
+
+async function GetStartedCta({ studyPath, user }: { studyPath: StudyPath; user: UserRecord }) {
   // run in parallel
-  const [user, isEnrolled] = await Promise.all([
-    useUserServer(),
-    isUserEnrolledInStudyPath(studyPath.uid),
-  ]);
+  const isEnrolled = await isUserEnrolledInStudyPath(studyPath.uid);
 
   // the button will be disabled if the user is a free user and has reached the maximum number of study paths
   // the button will be disabled if the user is already enrolled in the study path
@@ -57,20 +63,21 @@ async function GetStartedCta({ studyPath }: { studyPath: StudyPath }) {
 export default async function StudyPathSidebar({ studyPath }: { studyPath: StudyPath }) {
   const user = await useUserServer();
   // get the active missions for the day
-  const activeMissions = await getDailyMissions();
-  const userMissionRecords = await getUserMissionRecords();
+  const missionsPromise = getDailyMissions();
+  const userMissionRecordsPromise = getUserMissionRecords();
+  const goal = await getStudyPathGoal(studyPath.uid);
 
   return (
     <aside className="w-full lg:w-2/5 xl:w-1/3 space-y-6 order-first lg:order-last">
       <div className="sticky top-20 space-y-6">
         <div className="flex gap-4">
-          <div>
+          <div className="hidden md:block">
             <ScrollToStartButton />
           </div>
           <div className="flex-1 space-y-6">
             {/** show if not enrolled */}
-            {!user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid) ? (
-              <GetStartedCta studyPath={studyPath} />
+            {user && !user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid) ? (
+              <GetStartedCta studyPath={studyPath} user={user} />
             ) : (
               /** only show if user is enrolled */
               <div className="flex flex-col gap-y-2 w-full">
@@ -115,28 +122,18 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
                 )}
               </div>
             )}
-            {/**
-         * 
-         <div className="flex flex-col bg-[#090909] gap-y-2 border border-black-50 p-4 rounded-lg">
-         <div className="flex items-center space-x-2 text-white">
-         <BookOpen className="size-5" />
-         <span>Summary</span>
-         </div>
-         <p className="text-sm text-muted-foreground">{studyPath.description}</p>
-        </div>
-        */}
             {user?.userLevel === 'FREE' && (
               <UpgradeCard
                 title="Looking for a personalized study plan?"
-                description="Unlock your full potential with a personalized study plan tailored just for you. Get focused learning paths, progress tracking, and expert guidance to learn 3x faster."
+                description="Unlock your full potential with a personalized study plan tailored just for you."
               />
             )}
 
             <div className="flex flex-col md:flex-row lg:flex-col gap-4">
               <div className="w-full md:w-1/2 lg:w-full">
                 <DailyChallengesCard
-                  missions={activeMissions}
-                  userMissionRecords={userMissionRecords}
+                  missionsPromise={missionsPromise}
+                  userMissionRecordsPromise={userMissionRecordsPromise}
                 />
               </div>
 
@@ -149,9 +146,7 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
                   Set a goal date to complete this study path. Receive a daily reminder to complete
                   the next question.
                 </p>
-                <Button className="w-full mt-2" disabled>
-                  Coming soon
-                </Button>
+                <StudyPathGoalModal user={user} studyPath={studyPath} goal={goal} />
               </div>
             </div>
           </div>

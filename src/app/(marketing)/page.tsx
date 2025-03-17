@@ -15,47 +15,75 @@ import CallToActionBlock from '@/components/marketing/global/blocks/call-to-acti
 import { Metadata } from 'next';
 import { getBaseUrl } from '@/utils';
 import { WebPageJsonLd } from '@/types/Seo';
-import Testimonials from '@/components/marketing/global/blocks/testimonials';
+import Testimonials from '@/components/marketing/homepage/testimonials';
 import MarketingContentGrid, {
   MarketingContentGridProps,
 } from '@/components/marketing/global/blocks/content-grid';
-import { MobileIcon } from '@radix-ui/react-icons';
-import { CodeIcon, Users2 } from 'lucide-react';
+
 import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
 import HomepageUserStats from '@/components/marketing/global/blocks/homepage-user-stats';
 import { QUESTIONS_COUNT } from '@/utils/constants';
 import { getUserCount } from '@/utils/data/user/get-user-count';
+import ChatBot from '@/components/ui/icons/chat-bot';
+import ArcheryTarget from '@/components/ui/icons/target';
+import Calendar from '@/components/ui/icons/calendar';
+import MirrorTabletPhone3 from '@/components/ui/icons/mirror-tablet-phone-3';
+import CreditCardIcon from '@/components/ui/icons/credit-card';
+import GraduationCap from '@/components/ui/icons/graduation-cap';
 
-const title = 'Learn to Code for Free - TechBlitz';
+const title = 'Learn to Code made easy | TechBlitz';
 const description =
-  "Master programming with TechBlitz's free interactive coding challenges. Get personalized practice, instant AI feedback, and step-by-step guidance. Perfect for beginners!";
+  'Master programming through interactive coding challenges, personalized practice, and instant AI feedback. Perfect for beginners learning JavaScript, web development, and more. Start coding for free.';
 
 export const metadata: Metadata = {
   title,
   description,
+  keywords: [
+    // Primary keywords
+    'learn to code',
+    'coding for beginners',
+    'interactive coding',
+    'programming practice',
+    // Secondary keywords
+    'javascript tutorials',
+    'web development',
+    'coding challenges',
+    'programming exercises',
+    // Long-tail keywords
+    'learn programming online free',
+    'interactive coding platform',
+    'beginner friendly coding',
+    'practice coding online',
+  ],
   openGraph: {
     title,
     description,
     type: 'website',
-    url: 'https://techblitz.dev',
-    images: {
-      url: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/Screenshot%202025-01-11%20at%2002.24.28.png',
-      width: 800,
-      height: 630,
-      alt: description,
-    },
+    url: getBaseUrl(),
+    siteName: 'TechBlitz',
+    images: [
+      {
+        url: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/Screenshot%202025-01-11%20at%2002.24.28.png',
+        width: 1200,
+        height: 630,
+        alt: 'TechBlitz - Interactive Coding Platform for Beginners',
+      },
+    ],
   },
   twitter: {
+    card: 'summary_large_image',
     title,
     description,
     images: [
       {
         url: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/Screenshot%202025-01-11%20at%2002.24.28.png',
-        width: 800,
+        width: 1200,
         height: 630,
-        alt: description,
+        alt: 'TechBlitz - Interactive Coding Platform for Beginners',
       },
     ],
+    creator: '@techblitz',
+    site: '@techblitz',
   },
   alternates: {
     canonical: getBaseUrl(),
@@ -63,6 +91,13 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -87,7 +122,7 @@ export default async function Page() {
       '@id': getBaseUrl(),
     },
     keywords:
-      'learn to code for free, beginner-friendly coding lessons, interactive coding challenges, daily programming practice, personalized coding roadmap, improve coding skills, best platform to learn coding, AI-assisted coding, learn javascript',
+      'learn to code, coding for beginners, interactive coding, programming practice, javascript tutorials, web development, coding challenges, programming exercises, learn programming online free, interactive coding platform, beginner friendly coding, practice coding online',
     publisher: {
       '@type': 'Organization',
       name: 'TechBlitz',
@@ -105,51 +140,69 @@ export default async function Page() {
           name: 'Home',
           item: getBaseUrl(),
         },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: 'Challenges',
-          item: `${getBaseUrl()}/questions/all`,
-        },
-        {
-          '@type': 'ListItem',
-          position: 3,
-          name: 'Roadmaps',
-          item: `${getBaseUrl()}/roadmaps`,
-        },
-        {
-          '@type': 'ListItem',
-          position: 4,
-          name: 'Pricing',
-          item: `${getBaseUrl()}/pricing`,
-        },
       ],
     },
   };
 
   const contentGridItems: MarketingContentGridProps[] = [
     {
-      title: 'In browser code editor',
+      title: 'Never miss a day',
       description:
-        'Practice coding in your browser with our in-browser coded editor. No need to install anything to learn to code!',
-      icon: <CodeIcon className="size-6" />,
+        'We send you a personalized coding challenge every day to keep you on track. Getting your daily coding fix in as little as 3 minutes per day.',
+      icon: (
+        <Calendar
+          fill="#334155"
+          secondaryfill="#f1f5f9"
+          strokewidth={1}
+          width="1.5em"
+          height="1.5em"
+        />
+      ),
     },
     {
-      title: 'Beginner-Friendly Platform',
+      title: 'Perfect for Beginners',
       description:
-        'Perfect for beginners - start with basic challenges and gradually advance your skills. Our step-by-step approach and clear explanations makes improving coding skills easy and enjoyable.',
-      icon: <Users2 className="size-6" />,
+        'Start your coding journey with beginner-friendly challenges. Our step-by-step guidance and clear explanations make learning to code easy and enjoyable.',
+      icon: <GraduationCap width="1.5em" height="1.5em" />,
     },
     {
-      title: 'Seamless mobile experience',
+      title: 'Code Anywhere',
       description:
-        'Practice on the go with our mobile-friendly coding platform. Access your dashboard from any device, anywhere.',
-      icon: <MobileIcon className="size-6" />,
+        'Learn and practice coding on any device with our mobile-optimized platform. Perfect for learning on the go.',
+      icon: (
+        <MirrorTabletPhone3 width="1.5em" height="1.5em" fill="#3b82f6" secondaryfill="#ef4444" />
+      ),
+    },
+    {
+      title: 'Instant Feedback',
+      description:
+        'Get instant feedback on your code with our AI-powered coding assistant. Perfect for learning to code and improving your skills.',
+      icon: <ChatBot className="size-6" />,
+    },
+    {
+      title: 'Stay on Track',
+      description:
+        'Set yourself study goals and get notified when you need to code. Perfect for staying on track and improving your skills.',
+      icon: <ArcheryTarget width="1.5em" height="1.5em" />,
+    },
+    {
+      title: 'No Credit Card Required',
+      description:
+        'Try TechBlitz for free, no credit card required. Perfect for learning to code and improving your skills.',
+      icon: <CreditCardIcon className="size-6" />,
     },
   ];
 
-  // not awaiting as we are passing it the component that needs it to prevent render blocking
   const userCount = getUserCount();
+
+  // calculate 5 days from now
+  const date = new Date();
+  date.setDate(date.getDate() + 5);
+  const marketingContentGridSubHeading = date.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  });
 
   return (
     <>
@@ -158,8 +211,7 @@ export default async function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="overflow-x-hidden container z-30">
-        <HomepageHero />
-        <Testimonials />
+        <HomepageHero userCountPromise={userCount} />
         <FeaturesBentoGrid />
         <HomepageUserStats userCountPromise={userCount} />
         <PersonalizedBlock />
@@ -168,9 +220,11 @@ export default async function Page() {
           subheader="Learn to code by doing. Improve your coding skills in as little as 3 minutes per day."
         />
         <ComparisonBlock />
+        {/** subheading="Join aspiring developers worldwide learning to code through TechBlitz's free, interactive programming challenges. Get personalized practice, instant feedback, and step-by-step guidance on your coding journey." */}
+        <Testimonials />
         <MarketingContentGrid
-          title="Beginner-friendly coding challenges"
-          subheading="Join aspiring developers worldwide learning to code through TechBlitz's free, interactive programming challenges. Get personalized practice, instant feedback, and step-by-step guidance on your coding journey."
+          title='"With TechBlitz, learning to code has never been easier"'
+          subheading={`- You, ${marketingContentGridSubHeading}`}
           items={contentGridItems}
         />
         <OpenSourceBlock />

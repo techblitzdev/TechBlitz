@@ -16,3 +16,11 @@ export const getUserDisplayName = (user: UserRecord | null) => {
   // if this is a custom username, we return the username
   return filterBadWords(user?.username || 'Anonymous');
 };
+
+export const userIsPremium = (user: UserRecord | null) => {
+  if (!user) return false;
+
+  return (
+    user.userLevel === 'PREMIUM' || user.userLevel === 'ADMIN' || user.userLevel === 'LIFETIME'
+  );
+};

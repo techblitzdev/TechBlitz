@@ -10,9 +10,15 @@ import { cn } from '@/lib/utils';
 export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
   const user = await useUserServer();
 
+  const roadmapUrl = studyPath.isPublished
+    ? `/roadmaps/${studyPath.slug}`
+    : process.env.NODE_ENV === 'development'
+      ? `/roadmaps/${studyPath.slug}`
+      : '#';
+
   return (
     <Link
-      href={studyPath.isPublished ? `/roadmaps/${studyPath.slug}` : ''}
+      href={roadmapUrl}
       className={cn(
         'rounded-lg h-fit w-full overflow-hidden transition-all duration-300 bg-[#090909] hover:border-black border border-black-50 group',
         !studyPath.isPublished && 'cursor-not-allowed'

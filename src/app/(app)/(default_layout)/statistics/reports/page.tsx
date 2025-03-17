@@ -17,17 +17,18 @@ const StatsReportCardsWrapper = dynamic(
 import Hero from '@/components/shared/hero';
 import StatsReportCardSkeleton from '@/components/app/statistics/stats-report-card-loading';
 import GenerateReportButton from '@/components/app/statistics/generate-report-button';
-import UpgradeLayout from '@/components/app/shared/upgrade-layout';
+import UpgradeLayout from '@/components/app/shared/upgrade/upgrade-layout';
 import { useUserServer } from '@/hooks/use-user-server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import { getUpgradeUrl } from '@/utils';
 
 const upgradeDescription = (
   <div className="flex flex-col gap-y-2">
     <p className="text-gray-400">
       Looking for an in-depth analysis of your coding skills? Upgrade to Premium to generate
       detailed reports.{' '}
-      <Link href="https://dub.sh/upgrade-techblitz" className="text-accent underline">
+      <Link href={getUpgradeUrl()} className="text-accent underline">
         Learn more
       </Link>
     </p>

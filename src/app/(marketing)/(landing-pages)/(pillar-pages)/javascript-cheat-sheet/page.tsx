@@ -9,7 +9,7 @@ import QuestionMarquee from '@/components/marketing/global/blocks/question-marqu
 import { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
 import { QUESTIONS_COUNT } from '@/utils/constants/misc';
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { createMetadata } from '@/utils/seo';
 import { MobileIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 
@@ -208,7 +208,18 @@ export default function JavascriptCheatSheet() {
       'Master JavaScript with our comprehensive cheat sheet. Learn JavaScript syntax, tips, and best practices with TechBlitz. Perfect for beginners and advanced developers alike.',
     image:
       'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
-    breadcrumb: WebPageJsonLdBreadcrumb,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${getBaseUrl()}` },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'JavaScript Cheat Sheet',
+          item: `${getBaseUrl()}/javascript-cheat-sheet`,
+        },
+      ],
+    },
     author: {
       '@type': 'Organization',
       name: 'TechBlitz',

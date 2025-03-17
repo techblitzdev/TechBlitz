@@ -44,6 +44,11 @@ export default function CompactPricingCard({
           <div className="flex gap-x-1 items-center">
             <div className="flex gap-x-1 items-center font-onest text-gradient from-white to-white/75">
               <span className="text-base font-semibold">{product.currencySymbol}</span>
+              {product.originalPrice && (
+                <span className="text-lg line-through text-gray-500 mr-2">
+                  {product.originalPrice}
+                </span>
+              )}
               <NumberFlow value={product.price} className="text-3xl font-onest text-white" />
             </div>
             <span className="text-xs font-inter mb-0.5 text-gray-300">{product.frequencyText}</span>

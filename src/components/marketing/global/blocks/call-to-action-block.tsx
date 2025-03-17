@@ -31,9 +31,9 @@ export default function CallToActionBlock(opts: {
         }}
       ></div>
       <div className="space-y-2 z-50 relative max-w-xl place-self-center">
-        <h1 className="text-3xl lg:text-5xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
+        <h2 className="text-3xl lg:text-5xl !font-onest !leading-[normal] text-gradient from-white to-white/55">
           {title}
-        </h1>
+        </h2>
         <p className="text-gray-400 text-sm">{description}</p>
       </div>
 

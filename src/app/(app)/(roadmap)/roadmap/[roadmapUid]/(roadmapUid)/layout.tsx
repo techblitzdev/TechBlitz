@@ -15,7 +15,7 @@ export default async function RoadmapOverviewPage({
   if (!user) return;
 
   return (
-    <div className="text-white flex flex-col gap-y-2 relative h-full">
+    <div className="text-white flex flex-col gap-y-4 relative h-full">
       <div className="flex items-center justify-between gap-4 px-6">
         <div className="flex-1 relative h-7">
           <SidebarLayoutTrigger />

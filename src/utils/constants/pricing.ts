@@ -277,17 +277,18 @@ export const getPlans = (
       },
       mostPopular: false,
       disabled: user?.userLevel === 'PREMIUM',
-      chip: '30% off for 3 months, code FEBRUARY30',
     },
     /**
      * Lifetime plan
+     */
     {
       id: 'price_1QoOikCX23ptLp4LTks1YO7V',
       name: 'Lifetime',
-      price: 89.99,
+      price: 109.99,
+      originalPrice: 149,
+      chip: 'Save $40!',
       currencySymbol: '$',
       frequency: 'once',
-      chip: 'Limited time offer!',
       frequencyText: 'pay once, yours forever',
       shortText: 'Access to all features and future updates!',
       features: [
@@ -296,7 +297,7 @@ export const getPlans = (
           name: 'Enhanced question suggestions',
         },
         { name: 'In depth stat analysis and progress tracking' },
-        { name: '15 personalized roadmaps tailored to your goals' },
+        { name: '25 personalized roadmaps tailored to your goals' },
         { name: 'Personalized coding challenges' },
         { name: '500 AI assistant tokens' },
         { name: 'Access to upcoming beta features' },
@@ -305,7 +306,7 @@ export const getPlans = (
       ],
       compactFeatures: [
         { name: 'Access to premium questions' },
-        { name: '15 personalized roadmaps tailored to your goals' },
+        { name: '25 personalized roadmaps tailored to your goals' },
         { name: 'In depth stat analysis and progress tracking' },
         { name: 'Personalized coding challenges' },
         { name: '500 AI assistant tokens' },
@@ -313,19 +314,18 @@ export const getPlans = (
       ],
       entireFeatureList,
       paymentLink: {
-        local: `https://buy.stripe.com/7sI29Cef21eMazKaER?client_reference_id=${user?.uid}`,
-        production: `https://buy.stripe.com/7sI29Cef21eMazKaER?client_reference_id=${user?.uid}`,
+        local: `https://buy.stripe.com/14kcOg1sgcXudLW28n?client_reference_id=${user?.uid}`,
+        production: `https://buy.stripe.com/14kcOg1sgcXudLW28n?client_reference_id=${user?.uid}`,
       },
       cta: {
         text: user?.userLevel === 'PREMIUM' ? 'Current plan' : 'Get started',
         href: {
-          local: `https://buy.stripe.com/7sI29Cef21eMazKaER?client_reference_id=${user?.uid}`,
-          production: `https://buy.stripe.com/7sI29Cef21eMazKaER?client_reference_id=${user?.uid}`,
+          local: `https://buy.stripe.com/14kcOg1sgcXudLW28n?client_reference_id=${user?.uid}`,
+          production: `https://buy.stripe.com/14kcOg1sgcXudLW28n?client_reference_id=${user?.uid}`,
         },
       },
       mostPopular: false,
     },
-     */
   ];
 
   return plans;

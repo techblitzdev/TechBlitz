@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 
 import Hero from '@/components/shared/hero';
-import { createMetadata, WebPageJsonLdBreadcrumb } from '@/utils/seo';
+import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/use-user-server';
 import ContinueJourney from '@/components/app/navigation/continue-journey-button';
@@ -9,7 +9,7 @@ import { ArrowRightIcon, Mail } from 'lucide-react';
 import { getAllStudyPaths } from '@/utils/data/study-paths/get';
 import { StudyPathCard } from '@/components/app/study-paths/study-path-card';
 import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
-import UpgradeCard from '@/components/app/shared/upgrade-card';
+import UpgradeCard from '@/components/app/shared/upgrade/upgrade-card';
 import { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
 import DailyGoalsCard from '@/components/app/shared/question/daily-goals-card';
@@ -77,7 +77,13 @@ export default async function ExploreQuestionsPage() {
       'Curated lists of coding questions, ranging from Javascript, React, Node, Web Development. Perfect for your daily coding practice.',
     image:
       'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/Screenshot%202025-01-11%20at%2002.24.28.png',
-    breadcrumb: WebPageJsonLdBreadcrumb,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${getBaseUrl()}` },
+        { '@type': 'ListItem', position: 2, name: 'Roadmaps', item: `${getBaseUrl()}/roadmaps` },
+      ],
+    },
     author: {
       '@type': 'Organization',
       name: 'TechBlitz',
@@ -104,11 +110,10 @@ export default async function ExploreQuestionsPage() {
   const user = await useUserServer();
 
   // run in parallel
-  const [studyPaths, missions, userMissionRecords] = await Promise.all([
-    getAllStudyPaths(),
-    getDailyMissions(),
-    getUserMissionRecords(),
-  ]);
+  const [studyPaths] = await Promise.all([getAllStudyPaths()]);
+
+  const missionsPromise = getDailyMissions();
+  const userMissionRecordsPromise = getUserMissionRecords();
 
   // group study paths by category
   const studyPathsByCategory: Record<string, typeof studyPaths> = studyPaths.reduce(
@@ -152,7 +157,10 @@ export default async function ExploreQuestionsPage() {
                   description="Unlock your full potential with a personalized study plan tailored just for you. Get focused learning paths, progress tracking, and expert guidance to learn 3x faster."
                 />
               )}
-              <DailyGoalsCard missions={missions} userMissionRecords={userMissionRecords} />
+              <DailyGoalsCard
+                missionsPromise={missionsPromise}
+                userMissionRecordsPromise={userMissionRecordsPromise}
+              />
               <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit">
                 <div className="flex items-center space-x-2 text-white">
                   <Mail className="size-5 text-white" />
@@ -162,7 +170,7 @@ export default async function ExploreQuestionsPage() {
                   We are adding new roadmaps every week. If you have a roadmap in mind, please let
                   us know and we will get back to you as soon as possible.
                 </p>
-                <FeedbackButton title="Suggest a roadmap" />
+                <FeedbackButton title="Suggest a roadmap" icon={false} />
               </div>
             </div>
           </aside>

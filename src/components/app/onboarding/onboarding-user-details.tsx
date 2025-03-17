@@ -22,13 +22,7 @@ import {
 } from '@/components/ui/form';
 import { useOnboardingContext } from '@/contexts/onboarding-context';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select';
 import { toast } from 'sonner';
 
 import { checkUsername } from '@/actions/user/authed/check-username';
@@ -61,6 +55,7 @@ export default function OnboardingStepOne() {
       sendPushNotifications: user?.sendPushNotifications || false,
       experienceLevel: user?.experienceLevel || 'BEGINNER',
       howDidYouHearAboutTechBlitz: user?.howDidYouHearAboutTechBlitz || '',
+      sendPromotionalEmails: user?.sendPromotionalEmails || false,
     },
   });
 
@@ -290,47 +285,49 @@ export default function OnboardingStepOne() {
                 </Tooltip>
               </TooltipProvider>
             </motion.div>
-            <motion.div initial="hidden" animate="visible" variants={itemVariants}>
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={itemVariants}
+              className="space-y-2 text-white"
+            >
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <FormField
                       control={form.control}
-                      name="sendPushNotifications"
+                      name="sendPromotionalEmails"
                       render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <Label htmlFor="sendPushNotifications" className="text-white">
-                              Send personalized challenge reminders
-                            </Label>
-                            <TooltipProvider>
-                              <Tooltip delayDuration={0}>
-                                <TooltipTrigger>
-                                  <QuestionMarkCircledIcon className="size-3 text-white" />
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                  <p>
-                                    We'll send you a personalized challenge reminder every week day.
-                                  </p>
-                                </TooltipContent>
-                              </Tooltip>
-                            </TooltipProvider>
-                          </div>
-                          <FormControl>
-                            <Switch
-                              checked={field.value}
-                              onCheckedChange={(checked) => {
-                                field.onChange(checked);
-                                setUser((prev) => {
-                                  return { ...prev, [field.name]: checked };
-                                });
-                              }}
-                              className="bg-black-50"
-                            />
+                        <FormItem>
+                          <FormControl className="flex flex-row items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <div className="flex items-center gap-2">
+                                <Label htmlFor="sendPromotionalEmails" className="text-white">
+                                  Receive promotional emails
+                                </Label>
+                                <TooltipProvider>
+                                  <Tooltip delayDuration={0}>
+                                    <TooltipTrigger>
+                                      <QuestionMarkCircledIcon className="size-3 text-white" />
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                      <p>
+                                        We'll send you the occasional promotional email with
+                                        exclusive offers, new features and more!
+                                      </p>
+                                    </TooltipContent>
+                                  </Tooltip>
+                                </TooltipProvider>
+                              </div>
+                              <Switch
+                                checked={field.value}
+                                onCheckedChange={(checked) => {
+                                  field.onChange(checked);
+                                  setUser((prev) => ({ ...prev, [field.name]: checked }));
+                                }}
+                              />
+                            </div>
                           </FormControl>
-                          <FormMessage className="mt-0.5 text-start">
-                            {form.formState?.errors?.sendPushNotifications?.message}
-                          </FormMessage>
                         </FormItem>
                       )}
                     />
@@ -340,55 +337,6 @@ export default function OnboardingStepOne() {
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-            </motion.div>
-            <motion.div initial="hidden" animate="visible" variants={itemVariants}>
-              <FormField
-                control={form.control}
-                name="experienceLevel"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <div className="flex flex-row items-center justify-between">
-                        <div className="text-white placeholder:text-white text-sm">
-                          Experience Level
-                        </div>
-                        <Select
-                          value={field.value}
-                          onValueChange={(
-                            value: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED' | 'MASTER'
-                          ) => {
-                            field.onChange(value);
-                            setUser((prev) => {
-                              return { ...prev, [field.name]: value };
-                            });
-                          }}
-                        >
-                          <SelectTrigger className="w-40 border border-black-50">
-                            <SelectValue
-                              className="text-white placeholder:text-white [&:not(:placeholder-shown)]:text-white"
-                              placeholder="Select experience level"
-                            />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem className="hover:text-white" value="BEGINNER">
-                              Beginner
-                            </SelectItem>
-                            <SelectItem className="hover:text-white" value="INTERMEDIATE">
-                              Intermediate
-                            </SelectItem>
-                            <SelectItem className="hover:text-white" value="ADVANCED">
-                              Advanced
-                            </SelectItem>
-                            <SelectItem className="hover:text-white" value="MASTER">
-                              Master
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
             </motion.div>
             <motion.div
               initial="hidden"
@@ -410,7 +358,6 @@ export default function OnboardingStepOne() {
                         onValueChange={(value) => {
                           field.onChange(value);
                           setUser((prev) => {
-                            console.log('howDidYouHearAboutTechBlitz changed:', value);
                             return { ...prev, [field.name]: value };
                           });
                           setCanContinue(Boolean(value));

@@ -28,12 +28,6 @@ const routeConfig = {
     ],
     requiresAuth: true,
   },
-  // Admin routes (auth + admin role required)
-  admin: {
-    patterns: ['/dashboard/admin'],
-    requiresAuth: true,
-    requiresAdmin: true,
-  },
   // API routes to be protected (auth required)
   api_protected: {
     patterns: ['/api/upload', '/api/cron'],

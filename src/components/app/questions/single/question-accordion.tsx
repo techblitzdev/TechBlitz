@@ -24,7 +24,8 @@ export default function QuestionAccordion(opts: {
   const { hint, showHint, showRelatedQuestions = true } = opts;
   if (!hint) return null;
 
-  const relatedQuestionsData = relatedQuestions ? use(relatedQuestions) : null;
+  // get the first 3 related questions
+  const relatedQuestionsData = relatedQuestions ? use(relatedQuestions).slice(0, 3) : null;
 
   return (
     <Accordion

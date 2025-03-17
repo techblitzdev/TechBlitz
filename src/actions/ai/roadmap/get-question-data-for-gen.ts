@@ -26,7 +26,7 @@ export const generateDataForAi = async (opts: {
       question: question.question,
       correctAnswer: question.userCorrect ?? false,
       difficulty: question.difficulty,
-      previousQuestion: true, // Flag to indicate this is an existing question
+      previousQuestion: true, // flag to indicate this is an existing question
     }));
   }
 
@@ -77,39 +77,65 @@ export const generateDataForAi = async (opts: {
     return 'generated';
   }
 
-  // we need to get all of the answers that the user has answered
-  // for this roadmap
-  const roadmapDefaultAnswers = await prisma.defaultRoadmapQuestionsUsersAnswers.findMany({
+  // go and get all the questions the user has answered (max it out at 25)
+  const nonRoadmapQuestionsAnswered = await prisma.answers.findMany({
+    // get answers where the user uid matches
     where: {
-      roadmapUid,
+      userUid,
     },
+    // and get the question data
+    include: {
+      question: true,
+    },
+    // limit the number of questions to 25 (to prevent the AI from getting overwhelmed)
+    take: 25,
   });
 
-  if (roadmapDefaultAnswers.length === 0) {
+  // if the user has answered less than 5 questions, throw back an error - no point in generating a roadmap
+  if (nonRoadmapQuestionsAnswered.length < 5) {
     return 'invalid';
   }
 
+  // now convert the answers to the format that the AI needs
+  const userAnswers = nonRoadmapQuestionsAnswered.map((answer) => ({
+    question: answer.question.title || answer.question.question,
+    correctAnswer: answer.correctAnswer,
+    difficulty: answer.question.difficulty,
+  }));
+
+  // we need to get all of the answers that the user has answered
+  // for this roadmap
+  //const roadmapDefaultAnswers = await prisma.defaultRoadmapQuestionsUsersAnswers.findMany({
+  //  where: {
+  //    roadmapUid,
+  //  },
+  //});
+  //
+  //if (roadmapDefaultAnswers.length === 0) {
+  //  return 'invalid';
+  //}
+
   // start an array to store the questions that we will be asking
-  const userAnswers = [];
-
-  // now go and get the questions the user answered
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  for (const [_, answer] of roadmapDefaultAnswers.entries()) {
-    const question = await prisma.defaultRoadmapQuestions.findUnique({
-      where: {
-        uid: answer.questionUid,
-      },
-    });
-
-    // push the question along with the user's answer
-    if (question) {
-      userAnswers.push({
-        question: question.aiTitle || '',
-        correctAnswer: answer.correct,
-        difficulty: question.difficulty,
-      });
-    }
-  }
+  //const userAnswers = [];
+  //
+  //// now go and get the questions the user answered
+  //// eslint-disable-next-line @typescript-eslint/no-unused-vars
+  //for (const [_, answer] of roadmapDefaultAnswers.entries()) {
+  //  const question = await prisma.defaultRoadmapQuestions.findUnique({
+  //    where: {
+  //      uid: answer.questionUid,
+  //    },
+  //  });
+  //
+  //  // push the question along with the user's answer
+  //  if (question) {
+  //    userAnswers.push({
+  //      question: question.aiTitle || '',
+  //      correctAnswer: answer.correct,
+  //      difficulty: question.difficulty,
+  //    });
+  //  }
+  //}
 
   return userAnswers;
 };

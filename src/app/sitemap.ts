@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 //import { getBlogPosts } from '@/lib/blog';
 import { listQuestions } from '@/utils/data/questions/list';
 import { getAllStudyPaths } from '@/utils/data/study-paths/get';
+import { getAllPseoPages } from '@/utils/data/misc/get-all-pseo-pages';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://techblitz.dev';
@@ -18,6 +19,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const studyPathSlugs = studyPaths.map((studyPath) => ({
     url: `${baseUrl}/roadmaps/${studyPath.slug}`,
     lastModified: new Date(studyPath.createdAt),
+  }));
+
+  const pseoPages = await getAllPseoPages();
+
+  const pseoPageSlugs = pseoPages.map((pseoPage) => ({
+    url: `${baseUrl}/${pseoPage.slug}`,
+    lastModified: new Date(pseoPage.updatedAt),
   }));
 
   // for some reason, the blog posts are not being when invoking
@@ -325,8 +333,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/javascript-fundamentals/how-to-convert-a-number-to-string-in-javascript`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/javascript-fundamentals/how-to-use-typeof-operator-in-javaScript`,
+      lastModified: '2025-02-23',
+    },
+    {
+      url: `${baseUrl}/javascript-fundamentals/how-to-add-or-remove-css-classes-with-javascript`,
+      lastModified: '2025-02-23',
+    },
   ];
 
   // Combine static routes with dynamic blog posts
-  return [...routes, ...blogPosts, ...questionsPosts, ...studyPathSlugs];
+  return [...routes, ...blogPosts, ...questionsPosts, ...studyPathSlugs, ...pseoPageSlugs];
 }

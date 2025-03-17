@@ -7,4 +7,5 @@ export const onboardingStepOneSchema = z.object({
   showTimeTaken: z.boolean().default(false),
   sendPushNotifications: z.boolean().default(false),
   experienceLevel: z.enum(['beginner', 'intermediate', 'advanced', 'master']).default('beginner'),
+  sendPromotionalEmails: z.boolean().default(false),
 });

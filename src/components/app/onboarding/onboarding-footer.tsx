@@ -24,7 +24,7 @@ export default function OnboardingFooter({
   onContinue,
   onBack,
 }: OnboardingFooterProps) {
-  const { user } = useOnboardingContext();
+  const { user, canContinue } = useOnboardingContext();
 
   return (
     <CardFooter
@@ -35,6 +35,7 @@ export default function OnboardingFooter({
     >
       <AnimatePresence>
         {(currentStep === STEPS.PRICING ||
+          currentStep === STEPS.INITIAL_QUESTIONS ||
           currentStep === STEPS.QUESTIONS ||
           currentStep === STEPS.TIME_COMMITMENT ||
           currentStep === STEPS.TAGS ||
@@ -53,17 +54,25 @@ export default function OnboardingFooter({
         )}
       </AnimatePresence>
       <div className="flex items-center gap-x-3">
-        {showSkipButton && currentStep !== STEPS.FIRST_QUESTION_SELECTION && (
-          <Button type="button" variant="ghost" onClick={onSkip} disabled={isLoading}>
-            Skip
-          </Button>
-        )}
+        {showSkipButton &&
+          // need to answer these two
+          currentStep !== STEPS.FIRST_QUESTION_SELECTION &&
+          currentStep !== STEPS.INITIAL_QUESTIONS && (
+            <Button type="button" variant="ghost" onClick={onSkip} disabled={isLoading}>
+              Skip
+            </Button>
+          )}
         {/** disable if no username or how did you hear about us */}
         <Button
           variant="accent"
           type="button"
           onClick={onContinue}
-          disabled={isLoading || !user?.username || !user?.howDidYouHearAboutTechBlitz}
+          disabled={
+            isLoading ||
+            !canContinue ||
+            (!user?.username && currentStep === STEPS.USER_DETAILS) ||
+            (!user?.howDidYouHearAboutTechBlitz && currentStep === STEPS.USER_DETAILS)
+          }
         >
           Continue
           {isLoading && <LoadingSpinner className="ml-2 size-4" />}

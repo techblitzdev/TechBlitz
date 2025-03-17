@@ -36,6 +36,15 @@ export type QuizJsonLd = {
     target: string;
     'query-input': string;
   };
+  breadcrumb?: {
+    '@type': 'BreadcrumbList';
+    itemListElement: {
+      '@type': 'ListItem';
+      position: number;
+      name: string;
+      item: string;
+    }[];
+  };
 };
 
 export type WebPageJsonLd = {

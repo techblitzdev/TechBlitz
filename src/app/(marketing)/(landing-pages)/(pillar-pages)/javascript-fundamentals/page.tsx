@@ -174,12 +174,41 @@ const faqs = [
     question: 'How can I connect HTML to JavaScript?',
     answer: (
       <>
-        You can connect HTML to JavaScript by using the `script` tag.
+        You can connect HTML to JavaScript by using the `script` tag.{' '}
         <Link
           href="/javascript-fundamentals/how-to-connect-html-to-javascript"
           className="text-accent underline"
         >
           Learn more about connecting HTML to JavaScript
+        </Link>
+      </>
+    ),
+  },
+  {
+    question: 'How can I use typeof in JavaScript?',
+    answer: (
+      <>
+        You can use typeof in JavaScript by using the `typeof` operator.{' '}
+        <Link
+          href="/javascript-fundamentals/how-to-use-typeof-operator-in-javaScript"
+          className="text-accent underline"
+        >
+          Learn more about using typeof in JavaScript
+        </Link>
+        .
+      </>
+    ),
+  },
+  {
+    question: 'How can I add or remove CSS classes with JavaScript?',
+    answer: (
+      <>
+        You can add or remove CSS classes with JavaScript by using the `classList` property.
+        <Link
+          href="/javascript-fundamentals/how-to-add-or-remove-css-classes-with-javascript"
+          className="text-accent underline"
+        >
+          Learn more about adding or removing CSS classes with JavaScript
         </Link>
       </>
     ),

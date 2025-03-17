@@ -3,10 +3,11 @@ import { SidebarMenuItem } from '@/components/ui/sidebar';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { Stars } from 'lucide-react';
-import { SIDEBAR_FOOTER_DESCRIPTION, SIDEBAR_FOOTER_TITLE } from '@/utils/constants/sidebar';
+import { SIDEBAR_FOOTER_DESCRIPTION } from '@/utils/constants/sidebar';
 import { usePathname } from 'next/navigation';
 import { UserRecord } from '@/types/User';
 import { getUserDisplayName } from '@/utils/user';
+import { getUpgradeUrl } from '@/utils';
 
 interface SidebarFooterPremiumProps {
   user: UserRecord | null;
@@ -15,10 +16,13 @@ interface SidebarFooterPremiumProps {
 export default function SidebarFooterPremium({ user }: SidebarFooterPremiumProps) {
   const pathname = usePathname();
 
-  const premiumUrl =
-    process.env.NODE_ENV === 'production' ? 'https://dub.sh/upgrade-techblitz' : '/upgrade';
-
   const overrideDynamicTitleAndDescription = true;
+
+  // check if the user has a custom coupon and the expiring date is in the future
+  const hasCustomCoupon =
+    user?.userCustomCoupon &&
+    user?.userCustomCouponExpiresAt &&
+    user?.userCustomCouponExpiresAt > new Date();
 
   return (
     <>
@@ -31,21 +35,29 @@ export default function SidebarFooterPremium({ user }: SidebarFooterPremiumProps
         }}
       >
         <p className="font-onest">
-          {overrideDynamicTitleAndDescription
+          {/** overrideDynamicTitleAndDescription
             ? `${getUserDisplayName(user)}, don't miss out!`
-            : SIDEBAR_FOOTER_TITLE[pathname as keyof typeof SIDEBAR_FOOTER_TITLE]}
+            : SIDEBAR_FOOTER_TITLE[pathname as keyof typeof SIDEBAR_FOOTER_TITLE] */}
+          {hasCustomCoupon ? `${getUserDisplayName(user)}, don't miss out!` : 'Limited Time Offer!'}
         </p>
         <p className="text-xs font-light font-onest">
-          {overrideDynamicTitleAndDescription ? (
+          {hasCustomCoupon ? (
             <>
-              Receive 30% off your first three months with code{' '}
-              <span className="font-bold">FEBRUARY30</span>. Offer ends 28th February 2025.
+              Receive 60% off your first three months with code{' '}
+              <span className="font-bold">{user?.userCustomCoupon}</span>. Offer ends{' '}
+              {user?.userCustomCouponExpiresAt?.toLocaleDateString()}.
             </>
           ) : (
-            SIDEBAR_FOOTER_DESCRIPTION[pathname as keyof typeof SIDEBAR_FOOTER_DESCRIPTION]
+            <>
+              {overrideDynamicTitleAndDescription
+                ? '30% off our lifetime plan. One payment, yours forever!'
+                : SIDEBAR_FOOTER_DESCRIPTION[pathname as keyof typeof SIDEBAR_FOOTER_DESCRIPTION]
+                  ? SIDEBAR_FOOTER_DESCRIPTION[pathname as keyof typeof SIDEBAR_FOOTER_DESCRIPTION]
+                  : 'Personalized practice, premium questions and more'}
+            </>
           )}
         </p>
-        <Button variant="premium" fullWidth className="mt-4" href={premiumUrl}>
+        <Button variant="premium" fullWidth className="mt-4" href={getUpgradeUrl()}>
           Upgrade to Premium
         </Button>
       </SidebarMenuItem>
@@ -59,7 +71,7 @@ export default function SidebarFooterPremium({ user }: SidebarFooterPremiumProps
                 variant="ghost"
                 size="icon"
                 className="size-5"
-                href={premiumUrl}
+                href={getUpgradeUrl()}
                 title="Upgrade to Premium"
               >
                 <Stars className="size-4 text-yellow-400 fill-yellow-500" />

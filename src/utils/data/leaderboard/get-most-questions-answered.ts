@@ -8,9 +8,7 @@ export const getMostQuestionsAnswered = async (take: number = 30, page: number =
       take,
       skip,
       orderBy: {
-        answers: {
-          _count: 'desc', // Order by the count of related answers in descending order
-        },
+        userXp: 'desc', // Order by user XP in descending order
       },
       // ensure we only get users who have answered at least one question
       where: {
@@ -18,6 +16,9 @@ export const getMostQuestionsAnswered = async (take: number = 30, page: number =
           some: {},
         },
         showTimeTaken: true,
+        userXp: {
+          gt: 0, // Only include users with XP greater than 0
+        },
       },
       select: {
         uid: true,
@@ -25,6 +26,7 @@ export const getMostQuestionsAnswered = async (take: number = 30, page: number =
         email: true,
         answers: true,
         userProfilePicture: true,
+        userXp: true, // Include userXp in the selection
         _count: {
           select: { answers: true },
         },

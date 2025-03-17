@@ -4,7 +4,6 @@ import { Suspense } from 'react';
 import LeaderboardMostAnsweredTable from '@/components/app/leaderboard/leaderboard-most-answered-table';
 import { getMostQuestionsAnswered } from '@/utils/data/leaderboard/get-most-questions-answered';
 import { useUserServer } from '@/hooks/use-user-server';
-import { UserRecord } from '@/types/User';
 import { Table, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 export default async function LeaderboardFeaturesLeft() {
@@ -31,11 +30,10 @@ export default async function LeaderboardFeaturesLeft() {
               </TableRow>
             </TableHeader>
             <LeaderboardMostAnsweredTable
-              topUsersByQuestionCount={
-                topUsersByQuestionCount.users as unknown as (UserRecord & {
-                  _count: { answers: number };
-                })[]
-              }
+              topUsersByQuestionCount={topUsersByQuestionCount.users.map((user) => ({
+                ...user,
+                userProfilePicture: user.userProfilePicture || null,
+              }))}
               userPromise={userPromise}
             />
           </Table>

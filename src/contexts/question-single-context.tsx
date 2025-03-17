@@ -7,10 +7,22 @@ import { Question, QuestionWithoutAnswers } from '@/types/Questions';
 import { UserRecord } from '@/types/User';
 import { Answer } from '@/types/Answers';
 import { generateAnswerHelp } from '@/actions/ai/questions/answer-help';
-import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
-import { z } from 'zod';
 import { useSearchParams } from 'next/navigation';
 import { executeQuestionCode } from '@/actions/questions/execute';
+import { useStudyPath } from '@/hooks/use-study-path';
+import { StudyPath } from '@prisma/client';
+import { readStreamableValue } from 'ai/rsc';
+
+interface TestRunResult {
+  passed: boolean;
+  details?: Array<{
+    passed: boolean;
+    input: number[];
+    expected: number;
+    received: number;
+  }>;
+  error?: string;
+}
 
 // Define the context type for the question single page
 type QuestionSingleContextType = {
@@ -36,24 +48,15 @@ type QuestionSingleContextType = {
   prefilledCodeSnippet: string | null;
   relatedQuestions: Promise<QuestionWithoutAnswers[]> | null;
   generateAiAnswerHelp: (setCodeSnippetLayout?: boolean) => Promise<void>;
-  answerHelp: z.infer<typeof answerHelpSchema> | null;
-  setAnswerHelp: (answerHelp: z.infer<typeof answerHelpSchema> | null) => void;
+  answerHelp: string;
+  setAnswerHelp: (answerHelp: string) => void;
   tokensUsed: number;
   setTokensUsed: (tokensUsed: number) => void;
   validateCode: (e: React.FormEvent<HTMLFormElement>, totalSeconds: number) => Promise<void>;
   code: string;
   setCode: (code: string) => void;
   originalCode: string;
-  result: {
-    passed: boolean;
-    details?: Array<{
-      passed: boolean;
-      input: number[];
-      expected: number;
-      received: number;
-    }>;
-    error?: string;
-  } | null;
+  result: TestRunResult | null;
   submitAnswer: (e: React.FormEvent<HTMLFormElement>, totalSeconds: number) => Promise<void>;
   userAnswered: Promise<Answer | null>;
   showHint: boolean;
@@ -64,6 +67,18 @@ type QuestionSingleContextType = {
   setPreviousQuestion: (previousQuestion: string | null | undefined) => void;
   totalSeconds: number;
   setTotalSeconds: (totalSeconds: number) => void;
+
+  // Test run code
+  runningCode: boolean;
+  setRunningCode: (runningCode: boolean) => void;
+  testRunCode: () => Promise<void>;
+  testRunResult: TestRunResult | null;
+
+  // Suggested questions
+  suggestedQuestions: Promise<QuestionWithoutAnswers[]> | null;
+
+  // Study path
+  studyPath: StudyPath | null;
 };
 
 // Create the context
@@ -87,16 +102,22 @@ export const QuestionSingleContextProvider = ({
   user,
   relatedQuestions,
   userAnswered,
+  suggestedQuestions,
 }: {
   children: React.ReactNode;
   question: Question;
   user: UserRecord | null;
   relatedQuestions: Promise<QuestionWithoutAnswers[]> | null;
   userAnswered: Promise<Answer | null>;
+  suggestedQuestions: Promise<QuestionWithoutAnswers[]> | null;
 }) => {
   // Get study path slug from URL search params
   const searchParams = useSearchParams();
   const studyPathSlug = searchParams?.get('study-path');
+
+  const { studyPath } = useStudyPath(studyPathSlug || '') as {
+    studyPath: StudyPath | null;
+  };
 
   // STATE VARIABLES
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -107,7 +128,7 @@ export const QuestionSingleContextProvider = ({
   const [timeTaken, setTimeTaken] = useState<number>(0);
   const [customQuestion, setCustomQuestion] = useState(false);
   const [prefilledCodeSnippet, setPrefilledCodeSnippet] = useState<string | null>(null);
-  const [answerHelp, setAnswerHelp] = useState<z.infer<typeof answerHelpSchema> | null>(null);
+  const [answerHelp, setAnswerHelp] = useState<string>('');
   const [tokensUsed, setTokensUsed] = useState<number>(
     user?.userLevel === 'PREMIUM' ? Infinity : user?.aiQuestionHelpTokens || 0
   );
@@ -130,6 +151,17 @@ export const QuestionSingleContextProvider = ({
   const [nextQuestion, setNextQuestion] = useState<string | null | undefined>(null);
   const [previousQuestion, setPreviousQuestion] = useState<string | null | undefined>(null);
   const [totalSeconds, setTotalSeconds] = useState<number>(0);
+  const [runningCode, setRunningCode] = useState(false);
+  const [testRunResult, setTestRunResult] = useState<{
+    passed: boolean;
+    details?: Array<{
+      passed: boolean;
+      input: number[];
+      expected: number;
+      received: number;
+    }>;
+    error?: string;
+  } | null>(null);
 
   // EFFECTS
   useEffect(() => {
@@ -248,7 +280,7 @@ export const QuestionSingleContextProvider = ({
     }
 
     setIsSubmitting(false);
-    setCurrentLayout('answer'); // Switch to the answer layout
+    setCurrentLayout('answer'); // switch to the answer layout
   };
 
   // Generate AI-based answer help
@@ -256,26 +288,90 @@ export const QuestionSingleContextProvider = ({
     if (setCodeSnippetLayout) {
       setCurrentLayout('codeSnippet');
     }
-    const { content, tokensUsed } = await generateAnswerHelp(
-      question.uid,
-      question.questionType === 'CODING_CHALLENGE'
-        ? result?.passed || false
-        : correctAnswer === 'correct',
-      'regular'
-    );
 
-    if (!content) {
+    try {
+      // Set a loading placeholder
+      setAnswerHelp(JSON.stringify({ status: 'loading', message: 'Generating answer help...' }));
+
+      const { tokensUsed: newTokensUsed, object } = await generateAnswerHelp(
+        question.uid,
+        question.questionType === 'CODING_CHALLENGE'
+          ? result?.passed || false
+          : correctAnswer === 'correct',
+        'regular'
+      );
+
+      if (!object) {
+        setAnswerHelp(
+          JSON.stringify({ error: 'Failed to generate answer help. Please try again.' })
+        );
+        toast.error('Error generating answer help');
+        return;
+      }
+
+      // Update token count
+      setTokensUsed(newTokensUsed);
+
+      try {
+        // Process the streamed response
+        // @ts-ignore - This is needed because the StreamableValue types don't match perfectly
+        for await (const partialObject of readStreamableValue(object)) {
+          if (partialObject) {
+            setAnswerHelp(JSON.stringify(partialObject, null, 2));
+          }
+        }
+      } catch (error) {
+        console.error('Error streaming response:', error);
+        setAnswerHelp(
+          JSON.stringify({ error: 'Error processing the response. Please try again.' })
+        );
+        toast.error('Error processing the response');
+      }
+    } catch (error) {
+      console.error('Error generating answer help:', error);
+      setAnswerHelp(JSON.stringify({ error: 'Failed to generate answer help. Please try again.' }));
       toast.error('Error generating answer help');
+    }
+  };
+
+  // Test run the code
+  const testRunCode = async () => {
+    // user must be logged in
+    if (!user) {
+      toast.error('User is not logged in');
       return;
     }
 
-    setTokensUsed(tokensUsed);
-    setAnswerHelp(content);
+    setRunningCode(true);
+
+    // simulate a 5 second delay
+    // Execute the user's code with test cases
+    const results = await executeQuestionCode({
+      code,
+      language: 'javascript',
+      testCases: question.testCases,
+    });
+
+    if (!results) {
+      toast.error('Error running code');
+      setRunningCode(false);
+      return;
+    }
+
+    const allPassed = results?.every((r: any) => r.passed);
+
+    // simulate a random result
+    setTestRunResult({ passed: allPassed, details: results });
+    // after 5 seconds, set the result to null
+    setTimeout(() => {
+      setTestRunResult(null);
+    }, 5000);
+
+    setRunningCode(false);
   };
 
   // Reset the question state
   const resetQuestionState = () => {
-    console.log('resetting question state');
     setCorrectAnswer('init');
     setUserAnswer(null);
     setNewUserData(null);
@@ -284,7 +380,7 @@ export const QuestionSingleContextProvider = ({
     setTimeTaken(0);
     setPrefilledCodeSnippet(null);
     setCurrentLayout('questions');
-    setAnswerHelp(null);
+    setAnswerHelp('');
     setTotalSeconds(0);
     setCode(originalCode);
     setResult(null);
@@ -332,6 +428,12 @@ export const QuestionSingleContextProvider = ({
         setPreviousQuestion,
         totalSeconds,
         setTotalSeconds,
+        runningCode,
+        setRunningCode,
+        testRunCode,
+        testRunResult,
+        suggestedQuestions,
+        studyPath,
       }}
     >
       {children}

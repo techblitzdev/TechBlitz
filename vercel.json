@@ -15,6 +15,10 @@
     {
       "path": "/api/cron/set-daily-missions",
       "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/cron/challenges/7-day-no-challenge",
+      "schedule": "30 13 * * 1-5"
     }
   ]
 }

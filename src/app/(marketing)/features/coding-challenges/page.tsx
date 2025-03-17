@@ -15,15 +15,15 @@ import { getUserCount } from '@/utils/data/user/get-user-count';
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Free JavaScript Course & Daily Coding Challenges | TechBlitz',
+    title: 'Free Coding Challenges | TechBlitz',
     description:
-      'Learn JavaScript online for free with our comprehensive JavaScript course and daily coding challenges. Perfect for web developers looking to master JavaScript programming, HTML, CSS and modern JavaScript frameworks through hands-on practice.',
+      'Learn to code with our free coding challenges. Perfect for web developers looking to master JavaScript programming, HTML, CSS and modern JavaScript frameworks through hands-on practice.',
     image: {
-      text: `Free JavaScript Course & Daily Coding Challenges | TechBlitz`,
+      text: `Free Coding Challenges | TechBlitz`,
       bgColor: '#000',
       textColor: '#fff',
     },
-    canonicalUrl: '/features/daily-coding-challenges',
+    canonicalUrl: '/features/coding-challenges',
   });
 }
 
@@ -200,9 +200,9 @@ export default async function FeatureDailyQuestionPage() {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     url: getBaseUrl(),
-    headline: 'Free JavaScript Course & Daily Coding Challenges | TechBlitz',
+    headline: 'Free Coding Challenges | TechBlitz',
     description:
-      'Learn JavaScript programming with our free online course and daily coding challenges. Master web development with hands-on practice.',
+      'Learn to code with our free coding challenges. Perfect for web developers looking to master JavaScript programming, HTML, CSS and modern JavaScript frameworks through hands-on practice.',
     image:
       'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
     breadcrumb: {
@@ -217,8 +217,8 @@ export default async function FeatureDailyQuestionPage() {
         {
           '@type': 'ListItem',
           position: 2,
-          name: 'Daily Coding Challenges',
-          item: `${getBaseUrl()}/features/daily-coding-challenges`,
+          name: 'Coding Challenges',
+          item: `${getBaseUrl()}/features/coding-challenges`,
         },
       ],
     },
@@ -231,7 +231,7 @@ export default async function FeatureDailyQuestionPage() {
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${getBaseUrl()}/features/daily-coding-challenges`,
+      '@id': `${getBaseUrl()}/features/coding-challenges`,
     },
     keywords:
       'javascript course, free javascript course, javascript online course, learn javascript online, javascript training, web development, javascript programming, html css and javascript, javascript frameworks, software development',
@@ -255,14 +255,14 @@ export default async function FeatureDailyQuestionPage() {
       />
       <div className="container">
         <FeatureDailyChallengeHero
-          header="Learn to code with daily coding challenges"
-          subheader="TechBlitz transforms learning to code into bite-sized, engaging daily coding challenges. Master new skills in just 5 minutes a day—anytime, anywhere, on any device. Even learn to code on your phone!"
+          header="Learn to code with free coding challenges"
+          subheader="TechBlitz transforms learning to code into bite-sized, engaging coding challenges. Master new skills in just 5 minutes a day—anytime, anywhere, on any device. Even learn to code on your phone!"
           className="xl:w-1/2"
         />
         <FeatureLeftRightSection
-          leftHeader="Daily coding challenges for beginners"
-          leftSubheader="TechBlitz transforms learning to code into bite-sized, engaging daily coding challenges. Master new skills in just 5 minutes a day—anytime, anywhere, on any device. Even learn to code on your phone!"
-          rightHeader="Personalized daily coding challenges"
+          leftHeader="Free coding challenges for beginners"
+          leftSubheader="TechBlitz transforms learning to code into bite-sized, engaging coding challenges. Master new skills in just 5 minutes a day—anytime, anywhere, on any device. Even learn to code on your phone!"
+          rightHeader="Personalized coding challenges"
           rightSubheader="TechBlitz adapts to your weaknesses. Receive recommendations straight to your inbox, and get instant feedback on your code. Improving your coding skills has never been easier."
         />
 
@@ -280,8 +280,8 @@ export default async function FeatureDailyQuestionPage() {
 
         <FAQsBlock faqs={faqs} />
         <CallToActionBlock
-          title="Access free Daily Coding Challenges Today"
-          description="Access our free JavaScript roadmaps and daily coding challenges. Perfect for aspiring web developers and software engineers."
+          title="Access free Coding Challenges Today"
+          description="Access our free JavaScript coding challenges. Perfect for aspiring web developers and software engineers."
         />
       </div>
     </>

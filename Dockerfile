@@ -11,7 +11,7 @@ WORKDIR /app
 # Install pnpm
 RUN npm install -g pnpm
 
-# Install dependencies based on the preferred package manager
+# Install dependencies
 COPY package.json pnpm-lock.yaml ./
 # Use --no-frozen-lockfile to avoid issues with lockfile changes
 RUN pnpm install --no-frozen-lockfile
@@ -27,6 +27,9 @@ RUN npm install -g pnpm
 # copy the dependencies from the deps stage
 COPY --from=deps /app/node_modules ./node_modules
 
+# copy the prisma schema from the deps stage
+COPY --from=deps /app/prisma/schema/schema.prisma ./prisma/schema/schema.prisma
+
 # copy the rest of the application code
 COPY . .
 
@@ -34,15 +37,11 @@ COPY . .
 ENV PRISMA_SKIP_POSTINSTALL=1
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Generate Prisma client - make sure to use the correct schema path
-RUN if [ -f "prisma/schema/schema.prisma" ]; then \
-        # log the schema path
-        echo "Generating Prisma client for schema at prisma/schema/schema.prisma"; \
-        npx prisma generate --schema=prisma/schema/schema.prisma; \
-    elif [ -f "prisma/schema.prisma" ]; then \
-        echo "Generating Prisma client for schema at prisma/schema.prisma"; \
-        npx prisma generate --schema=prisma/schema.prisma; \
-    fi
+# Enables Hot Reloading Check https://github.com/vercel/next.js/issues/36774 for more information
+ENV CHOKIDAR_USEPOLLING=true
+ENV WATCHPACK_POLLING=true
+
+RUN pnpm exec prisma generate
 
 # Build the application
 RUN pnpm build

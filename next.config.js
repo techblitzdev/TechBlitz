@@ -4,7 +4,7 @@ const createMDX = require('@next/mdx');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // output: 'standalone' if the flag is set
-  output: 'standalone',
+  output: process.env.DOCKER ? 'standalone' : undefined,
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   images: {
     remotePatterns: [

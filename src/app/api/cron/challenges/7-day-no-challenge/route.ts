@@ -47,11 +47,6 @@ export async function GET(request: NextRequest) {
   if (user) {
     await sendNoChallengesEmail({
       user,
-      suggestedChallenge: {
-        title: 'Writing Your First Function',
-        difficulty: 'Beginner',
-        url: 'https://techblitz.dev/question/writing-your-first-function',
-      },
     });
   }
 

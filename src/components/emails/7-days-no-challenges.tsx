@@ -94,9 +94,6 @@ export default function NoChallengesEmail({
               <Heading as="h3" style={h3}>
                 {suggestedChallenge.title}
               </Heading>
-              <div style={difficultyBadge}>
-                <Text style={difficultyText}>{suggestedChallenge.difficulty}</Text>
-              </div>
               <Text style={challengeDescription}>
                 This challenge takes only 3-5 minutes to complete and will help you get back into
                 your coding routine.
@@ -108,17 +105,19 @@ export default function NoChallengesEmail({
           </Section>
 
           {/* CTA Section */}
-          <Section style={ctaSection}>
-            <Heading as="h2" style={h2}>
-              Ready to Jump Back In?
-            </Heading>
-            <Text style={text}>
-              Even just 5 minutes of coding practice each day can significantly improve your skills
-              over time. Let's rebuild that momentum together!
-            </Text>
-            <Button href="https://techblitz.dev/dashboard" style={buttonLarge}>
-              Resume Your Coding Journey
-            </Button>
+          <Section style={section}>
+            <div style={ctaSection}>
+              <Heading as="h2" style={h2}>
+                Ready to Jump Back In?
+              </Heading>
+              <Text style={text}>
+                Just 5 minutes of coding practice each day can significantly improve your skills
+                over time. Let's rebuild that momentum together!
+              </Text>
+              <Button href="https://techblitz.dev/dashboard" style={buttonLarge}>
+                Resume Your Coding Journey
+              </Button>
+            </div>
           </Section>
 
           <Hr style={hr} />
@@ -157,10 +156,7 @@ export default function NoChallengesEmail({
             <Text style={footerFine}>
               You're receiving this email because you agreed to receive daily reminders from
               TechBlitz. Want to stop receiving these emails? <br />
-              <Link
-                href={`https://techblitz.dev/settings/notifications?email=${userEmail}`}
-                style={footerLink}
-              >
+              <Link href={`https://techblitz.dev/settings/`} style={footerLink}>
                 Update your email preferences
               </Link>
             </Text>
@@ -241,21 +237,6 @@ const challengeCard = {
   border: '1px solid #e5e7eb',
 };
 
-const difficultyBadge = {
-  backgroundColor: '#ecfdf5',
-  borderRadius: '16px',
-  display: 'inline-block',
-  padding: '4px 12px',
-  margin: '0 0 16px',
-};
-
-const difficultyText = {
-  color: '#059669',
-  fontSize: '14px',
-  fontWeight: '600',
-  margin: '0',
-};
-
 const challengeDescription = {
   color: '#6b7280',
   fontSize: '16px',
@@ -263,41 +244,12 @@ const challengeDescription = {
   margin: '0 0 24px',
 };
 
-const benefitsSection = {
-  backgroundColor: '#ffffff',
-  padding: '40px 30px',
-};
-
-const benefitsTable = {
-  width: '100%',
-};
-
-const benefitColumn = {
-  padding: '16px',
-  verticalAlign: 'top',
-  width: '50%',
-};
-
-const benefitTitle = {
-  color: '#4f46e5',
-  fontSize: '18px',
-  fontWeight: '600',
-  margin: '0 0 12px',
-};
-
-const benefitText = {
-  color: '#6b7280',
-  fontSize: '14px',
-  lineHeight: '1.5',
-  margin: '0',
-};
-
 const ctaSection = {
   backgroundColor: '#eff6ff',
-  padding: '40px 30px',
+  padding: '30px',
   textAlign: 'center' as const,
   borderRadius: '8px',
-  margin: '20px 30px 40px',
+  width: '89%',
 };
 
 const h2 = {
@@ -365,20 +317,6 @@ const footerText = {
   fontSize: '16px',
   lineHeight: '1.5',
   margin: '8px 0',
-};
-
-const footerSignature = {
-  color: '#374151',
-  fontSize: '22px',
-  fontWeight: '600',
-  margin: '20px 0 5px',
-  fontFamily: 'cursive',
-};
-
-const footerFounder = {
-  color: '#6b7280',
-  fontSize: '14px',
-  margin: '0 0 25px',
 };
 
 const socialLinks = {

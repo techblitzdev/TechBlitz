@@ -9,15 +9,17 @@ import React from 'react';
 import { getUserDisplayName } from '@/utils/user';
 import { prisma } from '@/lib/prisma';
 import { QuestionDifficulty } from '@/types/Questions';
+import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 
 interface SendNoChallengesEmailProps {
   user: UserRecord;
-  suggestedChallenge?: {
-    title: string;
-    difficulty: string;
-    url: string;
-  };
   daysInactive?: number;
+}
+
+interface SuggestedChallenge {
+  title: string;
+  difficulty: QuestionDifficulty | string;
+  url: string;
 }
 
 /**
@@ -29,7 +31,6 @@ interface SendNoChallengesEmailProps {
  */
 export const sendNoChallengesEmail = async ({
   user,
-  suggestedChallenge,
   daysInactive = 7,
 }: SendNoChallengesEmailProps) => {
   if (!user || !user.email) {
@@ -49,67 +50,47 @@ export const sendNoChallengesEmail = async ({
     select: { longestStreak: true },
   });
 
-  // Get a suggested challenge if not provided
-  let challenge = suggestedChallenge;
-  if (!challenge) {
-    // Try to get a challenge based on user's difficulty level
-    try {
-      // Convert user level to question difficulty
-      const difficultyLevel: QuestionDifficulty =
-        user.userLevel === 'PREMIUM'
-          ? 'MEDIUM' // Using valid QuestionDifficulty values
-          : 'BEGINNER';
+  // Get a suggested challenge
+  let suggestedChallenge: SuggestedChallenge;
+  try {
+    // Use the getSuggestions function to get personalized challenge recommendations
+    const suggestions = await getSuggestions({ limit: 1, userUid: user.uid });
 
-      const recommendedChallenge = await prisma.questions.findFirst({
-        where: {
-          difficulty: difficultyLevel,
-          dailyQuestion: false, // Use fields that exist in the schema
-        },
-        select: {
-          uid: true,
-          title: true,
-          slug: true,
-          difficulty: true,
-        },
-        orderBy: {
-          // Get a random question
-          updatedAt: 'desc',
-        },
-        take: 1,
-      });
+    if (suggestions && suggestions.length > 0) {
+      const suggestedQuestion = suggestions[0];
+      // Make sure we have a slug, falling back to uid if needed
+      const questionSlug = suggestedQuestion.slug || suggestedQuestion.uid;
 
-      if (recommendedChallenge && recommendedChallenge.title) {
-        challenge = {
-          title: recommendedChallenge.title,
-          difficulty: (recommendedChallenge.difficulty as string) || 'BEGINNER',
-          url: `${process.env.NEXT_PUBLIC_URL}/question/${recommendedChallenge.slug}`,
-        };
-      } else {
-        // Fallback challenge
-        challenge = {
-          title: 'Writing Your First Function',
-          difficulty: 'BEGINNER',
-          url: `${process.env.NEXT_PUBLIC_URL}/question/writing-your-first-function`,
-        };
-      }
-    } catch (error) {
-      console.error('Error getting recommended challenge:', error);
-
-      // Fallback challenge
-      challenge = {
+      suggestedChallenge = {
+        title: suggestedQuestion.title || 'Daily Coding Challenge',
+        difficulty: suggestedQuestion.difficulty || 'BEGINNER',
+        url: `${process.env.NEXT_PUBLIC_URL}/question/${questionSlug}`,
+      };
+    } else {
+      // Fallback challenge if no suggestions found
+      suggestedChallenge = {
         title: 'Writing Your First Function',
         difficulty: 'BEGINNER',
         url: `${process.env.NEXT_PUBLIC_URL}/question/writing-your-first-function`,
       };
     }
+  } catch (error) {
+    console.error('Error getting suggested challenge:', error);
+
+    // Fallback challenge
+    suggestedChallenge = {
+      title: 'Writing Your First Function',
+      difficulty: 'BEGINNER',
+      url: `${process.env.NEXT_PUBLIC_URL}/question/writing-your-first-function`,
+    };
   }
 
   // Render the email template
-  const emailHtml = await renderAsync(
+  const html = await renderAsync(
     React.createElement(NoChallengesEmail, {
       userName: getUserDisplayName(user),
       userEmail: user.email,
-      suggestedChallenge: challenge,
+      suggestedChallenge,
       streakCount: streakInfo?.longestStreak || 0,
       daysInactive,
     })
@@ -120,7 +101,7 @@ export const sendNoChallengesEmail = async ({
     from: 'TechBlitz <team@techblitz.dev>',
     to: user.email,
     subject: emailTemplate.subject,
-    react: emailHtml,
+    html,
     // Schedule email to be sent in 10 minutes in production to allow for cancellation
     scheduledAt: process.env.NODE_ENV === 'production' ? 'in 10 minutes' : undefined,
   });
@@ -130,7 +111,7 @@ export const sendNoChallengesEmail = async ({
     where: { uid: user.uid },
     data: {
       updatedAt: new Date(),
-      hasSent7DayNoChallengeEmail: true,
+      hasSent7DayNoChallengeEmail: process.env.NODE_ENV === 'production' ? true : false,
     },
   });
 

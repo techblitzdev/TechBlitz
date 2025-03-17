@@ -12,6 +12,7 @@ import { getBaseUrl } from '@/utils';
 import { WebPageJsonLd } from '@/types/Seo';
 import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
 import { getUserCount } from '@/utils/data/user/get-user-count';
+import GoalsBlock from '@/components/marketing/global/blocks/goals';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -265,6 +266,8 @@ export default async function FeatureDailyQuestionPage() {
           rightHeader="Personalized coding challenges"
           rightSubheader="TechBlitz adapts to your weaknesses. Receive recommendations straight to your inbox, and get instant feedback on your code. Improving your coding skills has never been easier."
         />
+
+        <GoalsBlock />
 
         <QuestionMarquee
           header="Hundreds of web development coding challenges"

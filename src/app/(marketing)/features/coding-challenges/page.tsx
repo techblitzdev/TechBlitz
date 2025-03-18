@@ -12,7 +12,6 @@ import { getBaseUrl } from '@/utils';
 import { WebPageJsonLd } from '@/types/Seo';
 import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
 import { getUserCount } from '@/utils/data/user/get-user-count';
-import GoalsBlock from '@/components/marketing/global/blocks/goals';
 import ThreeBlockShowcase from '@/components/marketing/global/blocks/three-block-showcase';
 
 export async function generateMetadata() {
@@ -185,7 +184,7 @@ const faqs = [
     answer: (
       <>
         Currently, we do not offer project-based learning (yet 😉). But we have some blog posts that
-        you can learn from. Check them out here
+        you can learn from. Check them out
         <Link
           href="/javascript-projects-for-beginners/how-to-create-a-weather-app-in-javascript"
           className="text-accent"
@@ -257,10 +256,12 @@ export default async function FeatureDailyQuestionPage() {
       />
       <div className="container">
         <FeatureDailyChallengeHero
+          animatedSpan="Coding Challenges"
           header="Learn to code with free coding challenges"
           subheader="TechBlitz transforms learning to code into bite-sized, engaging coding challenges. Master new skills in just 5 minutes a day—anytime, anywhere, on any device. Even learn to code on your phone!"
           className="xl:w-1/2"
         />
+
         <FeatureLeftRightSection
           leftHeader="Free coding challenges for beginners"
           leftSubheader="TechBlitz transforms learning to code into bite-sized, engaging coding challenges. Master new skills in just 5 minutes a day—anytime, anywhere, on any device. Even learn to code on your phone!"
@@ -273,8 +274,6 @@ export default async function FeatureDailyQuestionPage() {
           subheader="Ensuring you get the most out of your coding journey. From beginner to advanced, we've got you covered."
           align="center"
         />
-
-        <GoalsBlock />
 
         <QuestionMarquee
           header="Hundreds of web development coding challenges"

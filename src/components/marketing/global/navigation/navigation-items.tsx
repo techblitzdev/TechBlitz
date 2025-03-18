@@ -87,13 +87,6 @@ const features = [
     ariaLabel: 'Navigate to Leaderboard',
     icon: <Award fill="white" height="24" width="24" />,
   },
-  {
-    title: 'AI Assistant',
-    href: '/features/ai-assistant',
-    description: 'Get instant help with your coding questions.',
-    ariaLabel: 'Navigate to AI Assistant',
-    icon: <ChatBot fill="white" height="24" width="24" />,
-  },
 ];
 
 export function NavigationMenuItems() {

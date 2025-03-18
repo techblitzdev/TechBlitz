@@ -90,10 +90,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: '2025-01-18',
     },
     {
-      url: `${baseUrl}/features/ai-assistant`,
-      lastModified: '2025-03-17',
-    },
-    {
       url: `${baseUrl}/blog`,
       lastModified: new Date(),
     },

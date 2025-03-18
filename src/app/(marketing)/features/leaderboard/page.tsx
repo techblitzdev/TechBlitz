@@ -135,11 +135,11 @@ const featureShowcaseItems: MarketingContentGridProps[] = [
   },
   {
     icon: <MessageSquareCode />,
-    title: 'AI-Powered Assistance',
+    title: 'Interactive Coding Help',
     description: (
       <>
-        Get instant help with our AI tutor. Receive personalized questions, and guidance to
-        accelerate your programming journey.
+        Get personalized guidance and assistance to help you solve problems efficiently and learn
+        faster.
       </>
     ),
   },

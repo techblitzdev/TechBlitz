@@ -76,7 +76,7 @@ export default async function ThreeBlockShowcase({
                 className="
                         w-full lg:w-full bg-[#090909] flex flex-col gap-y-2 
                         backdrop-blur-sm border border-black-50 p-3 md:p-4 rounded-lg duration-300
-                        absolute top-8 right-0 md:-right-16 scale-110 md:scale-125 group-hover:scale-[1.2] md:group-hover:scale-[1.3]
+                        absolute top-16 md:top-8 -right-32 md:-right-16 scale-150 md:scale-125 group-hover:scale-[1.2] md:group-hover:scale-[1.3]
                         group-hover:-right-[60px] md:group-hover:-right-[70px]
                     "
               >
@@ -133,21 +133,23 @@ export default async function ThreeBlockShowcase({
         >
           {right || (
             <>
-              <div className="flex-1">
+              <div className="overflow-hidden relative flex justify-center w-full max-h-60">
+                {' '}
                 {studyPath && (
                   <StudyPathsList
                     calculateOffset={(index) => Math.sin(index * 2) * 3}
                     top={50}
                     questions={questions}
                     studyPath={studyPath}
-                    className="h-full"
+                    className="flex flex-col gap-4"
                   />
                 )}
               </div>
-              <div className={cardTitleClasses}>
+              <div className="absolute bottom-8 lg:bottom-12 left-0 right-0 h-56 bg-gradient-to-t from-[#000] to-transparent z-10" />
+              <div className={cn(cardTitleClasses, 'z-20')}>
                 <h3 className="text-lg md:text-xl font-semibold text-white">Structured Learning</h3>
               </div>
-              <div className={cardDescriptionClasses}>
+              <div className={cn(cardDescriptionClasses, 'z-20')}>
                 Follow a structured learning path and become a better developer.
               </div>
             </>

@@ -35,8 +35,8 @@ export default async function ThreeBlockShowcase({
 }) {
   const alignMap = {
     left: 'text-left',
-    center: 'text-center',
-    right: 'text-right',
+    center: 'text-center mx-auto',
+    right: 'text-right ml-auto',
   };
 
   const baseCardClasses =
@@ -58,7 +58,7 @@ export default async function ThreeBlockShowcase({
         <h2 className="text-2xl sm:text-3xl md:text-5xl !font-onest !font-medium tracking-tight text-gradient from-white to-white/75 py-1">
           {title}
         </h2>
-        <p className="text-sm sm:text-base lg:text-lg text-gray-400 font-onest max-w-3xl mx-auto">
+        <p className="text-sm sm:text-base lg:text-lg text-gray-400 font-onest max-w-3xl">
           {subheader}
         </p>
       </div>

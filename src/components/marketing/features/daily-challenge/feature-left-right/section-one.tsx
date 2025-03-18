@@ -36,7 +36,7 @@ export default function FeatureLeftRightSectionOne(opts: {
             </Button>
           ) : (
             learnMoreLink && (
-              <Button variant="secondary" href={'/features/daily-coding-challenges'}>
+              <Button variant="secondary" href={'/features/coding-challenges'}>
                 Learn more
               </Button>
             )

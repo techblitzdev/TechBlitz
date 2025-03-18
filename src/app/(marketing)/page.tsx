@@ -30,6 +30,7 @@ import Calendar from '@/components/ui/icons/calendar';
 import MirrorTabletPhone3 from '@/components/ui/icons/mirror-tablet-phone-3';
 import CreditCardIcon from '@/components/ui/icons/credit-card';
 import GraduationCap from '@/components/ui/icons/graduation-cap';
+import ThreeBlockShowcase from '@/components/marketing/global/blocks/three-block-showcase';
 
 const title = 'Learn to Code made easy | TechBlitz';
 const description =
@@ -220,13 +221,17 @@ export default async function Page() {
           subheader="Learn to code by doing. Improve your coding skills in as little as 3 minutes per day."
         />
         <ComparisonBlock />
-        {/** subheading="Join aspiring developers worldwide learning to code through TechBlitz's free, interactive programming challenges. Get personalized practice, instant feedback, and step-by-step guidance on your coding journey." */}
-        <Testimonials />
+        <ThreeBlockShowcase
+          title="Built to build your coding skills"
+          subheader="Ensuring you get the most out of your coding journey. From beginner to advanced, we've got you covered."
+          align="left"
+        />
         <MarketingContentGrid
           title='"With TechBlitz, learning to code has never been easier"'
           subheading={`- You, ${marketingContentGridSubHeading}`}
           items={contentGridItems}
         />
+        <Testimonials />
         <OpenSourceBlock />
         <CallToActionBlock
           title="Land the job you've always dreamed of"

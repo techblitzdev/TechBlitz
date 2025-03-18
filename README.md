@@ -17,7 +17,7 @@ TechBlitz is designed to empower developers by providing a comprehensive platfor
 ## Features
 
 - **Adaptive Learning Paths**: [Personalized coding challenges generated through a series of onboarding questions to gauge your strengths and weaknesses.](https://techblitz.dev/features/roadmap)
-- **Daily questions**: [Repetition in the form of daily questions, and streaks to ensure you never miss a day!](https://www.techblitz.dev/features/daily-coding-challenges)
+- **Coding questions**: [Repetition in the form of daily questions, and streaks to ensure you never miss a day!](https://www.techblitz.dev/features/coding-challenges)
 - **Skill Tracking**: [Monitor your progress and identify areas for improvement](https://techblitz.dev/features/statistics)
 - **100's of questions**: A wide variety of short-form coding questions to test your knowledge (more being added everyday!)
 - **Leaderboard**: Battle with other users for a chance to win prizes at the end of each month!

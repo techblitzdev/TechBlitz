@@ -161,7 +161,7 @@ const featureShowcaseItems: MarketingContentGridProps[] = [
       <>
         Bite-sized coding challenges to keep you engaged and learning. Perfect for busy developers
         who want to stay sharp and improve their skills. You can learn more{' '}
-        <a href="/features/daily-coding-challenges" className="!text-accent underline">
+        <a href="/features/coding-challenges" className="!text-accent underline">
           here
         </a>
         .

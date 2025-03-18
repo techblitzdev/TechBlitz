@@ -68,7 +68,7 @@ export default function SocialProof({
               <Button
                 variant="default"
                 size="lg"
-                href="/features/daily-coding-challenges"
+                href="/features/coding-challenges"
                 aria-label="Navigate to Daily Challenges"
               >
                 Learn more

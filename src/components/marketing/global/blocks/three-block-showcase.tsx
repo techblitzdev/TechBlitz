@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import ArcheryTarget from '@/components/ui/icons/target';
 import { cn } from '@/lib/utils';
+import AnimatedAIQuestionHelpCard from '../../homepage/personalized/ai-help-demo';
 
 /**
  *
@@ -37,6 +38,10 @@ export default function ThreeBlockShowcase({
 
   const baseCardClasses =
     'border border-black-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 ease-in-out overflow-hidden backdrop-blur-sm flex flex-col justify-between';
+  const cardTitleClasses =
+    'mt-auto transition-transform duration-300 group-hover:translate-y-[-2.5rem]';
+  const cardDescriptionClasses =
+    'absolute bottom-0 left-6 translate-y-full transition-transform duration-300 group-hover:translate-y-[-1rem] text-sm text-gray-400';
 
   return (
     <section className="lg:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 pb-24 lg:pb-32 flex flex-col gap-8">
@@ -61,8 +66,8 @@ export default function ThreeBlockShowcase({
               <div
                 className="
                         w-full md:w-1/2 lg:w-full bg-[#090909] flex flex-col gap-y-2 
-                        backdrop-blur-sm border border-black-50 p-4 rounded-lg
-                        absolute top-8 -right-16 scale-125
+                        backdrop-blur-sm border border-black-50 p-4 rounded-lg duration-300
+                        absolute top-8 -right-16 scale-125 group-hover:scale-[1.3] group-hover:-right-[70px]
                     "
               >
                 <div className="flex items-center space-x-2 text-white">
@@ -74,10 +79,10 @@ export default function ThreeBlockShowcase({
                   the next question.
                 </p>
               </div>
-              <div className="mt-auto transition-transform duration-300 group-hover:translate-y-[-2.5rem]">
+              <div className={cardTitleClasses}>
                 <h3 className="text-xl font-semibold text-white">Goal Setting</h3>
               </div>
-              <div className="absolute bottom-0 left-6 translate-y-full transition-transform duration-300 group-hover:translate-y-[-1rem]">
+              <div className={cardDescriptionClasses}>
                 Stay on track with your goals and receive daily reminders encouraging your growth.
               </div>
             </>
@@ -92,9 +97,17 @@ export default function ThreeBlockShowcase({
         >
           {center || (
             <>
-              <div className="flex-1"></div>
-              <div className="mt-auto">
+              <div className="relative flex-1 scale-90">
+                <AnimatedAIQuestionHelpCard className="absolute" />
+                {/** bottom fade effect */}
+                <div className="z-10 absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#000] to-transparent pointer-events-none"></div>
+              </div>
+              <div className={cn(cardTitleClasses, 'z-20')}>
                 <h3 className="text-xl font-semibold text-white">Powerful AI Assistant</h3>
+              </div>
+              <div className={cn(cardDescriptionClasses, 'z-20')}>
+                Never feel confused with a coding problem again. Ask for help and receive instant
+                feedback.
               </div>
             </>
           )}
@@ -109,8 +122,11 @@ export default function ThreeBlockShowcase({
           {right || (
             <>
               <div className="flex-1"></div>
-              <div className="mt-auto">
+              <div className={cardTitleClasses}>
                 <h3 className="text-xl font-semibold text-white">Progress Tracking</h3>
+              </div>
+              <div className={cardDescriptionClasses}>
+                Monitor your coding progress and receive a detailed report of your skills.
               </div>
             </>
           )}

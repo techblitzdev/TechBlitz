@@ -6,8 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { StarsIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
-export default function AnimatedAIQuestionHelpCard() {
+export default function AnimatedAIQuestionHelpCard({ className }: { className?: string }) {
   const [showAIHelp, setShowAIHelp] = useState(false);
   const [typedPlaceholder, setTypedPlaceholder] = useState('');
 
@@ -37,7 +38,10 @@ export default function AnimatedAIQuestionHelpCard() {
 
   return (
     <Card
-      className="w-full max-w-md h-full overflow-hidden text-white border border-black-50 relative"
+      className={cn(
+        'w-full max-w-md h-full overflow-hidden text-white border border-black-50 relative',
+        className
+      )}
       style={{
         background: 'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
       }}

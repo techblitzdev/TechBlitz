@@ -75,7 +75,7 @@ const textItems = [
     text: 'Leaderboards',
     href: '/features/leaderboard',
   },
-  { text: 'Coding Challenges', href: '/features/daily-coding-challenges' },
+  { text: 'Coding Challenges', href: '/features/coding-challenges' },
 ];
 export default function HomepageHero({ userCountPromise }: { userCountPromise: Promise<number> }) {
   const user = useUserServer();

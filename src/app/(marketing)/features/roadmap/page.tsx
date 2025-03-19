@@ -15,14 +15,15 @@ import { createMetadata } from '@/utils/seo';
 import { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
 import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
+import RoadmapShowcaseBlock from '@/components/marketing/global/blocks/roadmap-showcase';
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'AI-Powered Coding Roadmaps | TechBlitz',
+    title: 'Personalized Coding Roadmaps | TechBlitz',
     description:
       'Create your own coding progression paths with our personalized roadmaps. Our AI-powered roadmap generator helps you stay on track and achieve your goals.',
     image: {
-      text: 'AI-Powered Coding Roadmaps | TechBlitz',
+      text: 'Personalized Coding Roadmaps | TechBlitz',
       bgColor: '#000',
       textColor: '#fff',
     },
@@ -117,7 +118,7 @@ export default function FeatureDailyQuestionPage() {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     url: getBaseUrl(),
-    headline: 'AI-Powered Coding Roadmaps | TechBlitz',
+    headline: 'Personalized Coding Roadmaps | TechBlitz',
     description:
       'Create your own coding progression paths with our personalized roadmaps. Our AI-powered roadmap generator helps you stay on track and achieve your goals.',
     image: 'https://techblitz.dev/favicon.ico',
@@ -170,8 +171,12 @@ export default function FeatureDailyQuestionPage() {
       <div className="container">
         <FeatureRoadmapHeroBlock />
         <FeatureRoadmapCustomizationBlock />
+        <RoadmapShowcaseBlock title="" subheader="" />
         <FeatureRoadmapThreeGridBlock />
-        <MarketingContentGrid title="All of this and more." items={featureShowcaseItems} />
+        <MarketingContentGrid
+          title="Personalized learning at your fingertips."
+          items={featureShowcaseItems}
+        />
         <QuestionMarquee
           header="Generate your own coding questions"
           subheader="Generate your own coding questions with our AI-powered question generator. Perfect for your daily coding practice."

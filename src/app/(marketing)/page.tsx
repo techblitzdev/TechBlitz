@@ -8,7 +8,6 @@ const FeaturesBentoGrid = dynamic(
 );
 
 import PersonalizedBlock from '@/components/marketing/homepage/personalized/block';
-import ComparisonBlock from '@/components/marketing/homepage/comparison/comparison-block';
 import OpenSourceBlock from '@/components/marketing/global/open-source/open-source-block';
 import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
 
@@ -220,7 +219,6 @@ export default async function Page() {
           header={`${QUESTIONS_COUNT}+ coding challenges`}
           subheader="Learn to code by doing. Improve your coding skills in as little as 3 minutes per day."
         />
-        <ComparisonBlock />
         <ThreeBlockShowcase
           title="Built to build your coding skills"
           subheader="Ensuring you get the most out of your coding journey. From beginner to advanced, we've got you covered."

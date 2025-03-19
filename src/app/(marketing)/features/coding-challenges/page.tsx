@@ -13,6 +13,7 @@ import { WebPageJsonLd } from '@/types/Seo';
 import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
 import { getUserCount } from '@/utils/data/user/get-user-count';
 import ThreeBlockShowcase from '@/components/marketing/global/blocks/three-block-showcase';
+import ComparisonBlock from '@/components/marketing/homepage/comparison/comparison-block';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -246,7 +247,7 @@ export default async function FeatureDailyQuestionPage() {
     },
   };
 
-  const userCount = await getUserCount();
+  const userCount = await getUserCount().then((res) => Math.round(res / 10) * 10);
 
   return (
     <>
@@ -257,9 +258,13 @@ export default async function FeatureDailyQuestionPage() {
       <div className="container">
         <FeatureDailyChallengeHero
           animatedSpan="Coding Challenges"
-          header="Learn to code with free coding challenges"
+          header="Engaging, short-form coding challenges"
           subheader="TechBlitz transforms learning to code into bite-sized, engaging coding challenges. Master new skills in just 5 minutes a day—anytime, anywhere, on any device. Even learn to code on your phone!"
           className="xl:w-1/2"
+          rightCta={{
+            href: '/challenges',
+            title: 'Explore Challenges',
+          }}
         />
 
         <FeatureLeftRightSection
@@ -268,6 +273,8 @@ export default async function FeatureDailyQuestionPage() {
           rightHeader="Personalized coding challenges"
           rightSubheader="TechBlitz adapts to your weaknesses. Receive recommendations straight to your inbox, and get instant feedback on your code. Improving your coding skills has never been easier."
         />
+
+        <ComparisonBlock />
 
         <ThreeBlockShowcase
           title="Built to build your coding skills"

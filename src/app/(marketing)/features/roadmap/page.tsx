@@ -113,6 +113,21 @@ const featureShowcaseItems: MarketingContentGridProps[] = [
   },
 ];
 
+const roadmapShowcaseSubHeader = () => (
+  <>
+    <p className="text-gray-400">
+      As if Duolingo and LeetCode had a baby - TechBlitz is the perfect place to learn to code for
+      people of all ages. Ensuring you receive a personalized learning experience tailored to your
+      needs.
+    </p>
+    <p className="text-gray-400">
+      We ensure our roadmaps are always up to date with the latest technologies and trends in the
+      industry. With the ability to generate your own roadmaps, you can focus on the topics that
+      matter most to you.
+    </p>
+  </>
+);
+
 export default function FeatureDailyQuestionPage() {
   const jsonLd: WebPageJsonLd = {
     '@context': 'https://schema.org',
@@ -171,7 +186,10 @@ export default function FeatureDailyQuestionPage() {
       <div className="container">
         <FeatureRoadmapHeroBlock />
         <FeatureRoadmapCustomizationBlock />
-        <RoadmapShowcaseBlock title="" subheader="" />
+        <RoadmapShowcaseBlock
+          title="Structured learning made fun"
+          subheader={roadmapShowcaseSubHeader()}
+        />
         <FeatureRoadmapThreeGridBlock />
         <MarketingContentGrid
           title="Personalized learning at your fingertips."

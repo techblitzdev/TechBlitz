@@ -19,11 +19,10 @@ import Document from '@/components/ui/icons/document';
 import Chart from '@/components/ui/icons/b-chart';
 import GithubLogo from '@/components/ui/icons/github';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
-import { Book, Target } from 'lucide-react';
+import { Book } from 'lucide-react';
 import JavascriptIcon from '@/components/ui/icons/javascript';
 import ReactIcon from '@/components/ui/icons/react';
 import Award from '@/components/ui/icons/award';
-import ChatBot from '@/components/ui/icons/chat-bot';
 
 const components: { title: string; href: string; description: string; icon?: React.ReactNode }[] = [
   // {

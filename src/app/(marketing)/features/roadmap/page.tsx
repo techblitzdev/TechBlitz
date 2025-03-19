@@ -189,6 +189,7 @@ export default function FeatureDailyQuestionPage() {
         <RoadmapShowcaseBlock
           title="Structured learning made fun"
           subheader={roadmapShowcaseSubHeader()}
+          studyPathFirst
         />
         <FeatureRoadmapThreeGridBlock />
         <MarketingContentGrid

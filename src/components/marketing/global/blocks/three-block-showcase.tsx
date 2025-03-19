@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import ArcheryTarget from '@/components/ui/icons/target';
 import { cn } from '@/lib/utils';
 import AnimatedAIQuestionHelpCard from '../../homepage/personalized/ai-help-demo';

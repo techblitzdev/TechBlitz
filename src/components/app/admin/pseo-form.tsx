@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { useRouter } from 'next/navigation';
 import { createPseoPage } from '@/actions/misc/create-pseo-page';
 import { editPseoPage } from '@/actions/misc/edit-pseo-page';
 import { Button } from '@/components/ui/button';

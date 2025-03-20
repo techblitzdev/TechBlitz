@@ -52,7 +52,6 @@ interface PseoFormProps {
 }
 
 export default function PseoForm({ initialData, isEditing = false }: PseoFormProps) {
-  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formStatus, setFormStatus] = useState<{
     success?: boolean;

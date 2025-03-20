@@ -174,7 +174,7 @@ export const WebPageJsonLdBreadcrumb: WebPageJsonLd['breadcrumb'] = {
       '@type': 'ListItem',
       position: 5,
       name: 'Daily Coding Challenges',
-      item: getBaseUrl() + '/features/daily-coding-challenges',
+      item: getBaseUrl() + '/features/coding-challenges',
     },
     {
       '@type': 'ListItem',

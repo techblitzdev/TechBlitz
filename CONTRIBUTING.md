@@ -22,14 +22,14 @@ This project and everyone participating in it is governed by our Code of Conduct
 2. Clone your fork: `git clone git@github.com/{username}/TechBlitz.git`
 3. Create your feature branch: `git checkout -b feature/your-feature-name`
 4. Make your changes
-5. Commit your changes: `git commit -m 'Add some feature'`
+5. Commit your changes: `git commit -m 'feat(more-info): Add some feature'`
 6. Push to the branch: `git push origin feature/your-feature-name`
 7. Submit a pull request
 
 ### Prerequisites
 
 - Node.js (version 18 or higher)
-- npm or yarn
+- npm or pnpm
 - Git
 
 ## How Can I Contribute?
@@ -86,16 +86,16 @@ There are many ways you can contribute to TechBlitz:
 
 ```bash
 # Install dependencies
-npm install
+pnpm install
 
 # Start development server
-npm run dev
+pnpm run dev
 
 # Check types
-npm run types
+pnpm run types
 
 # Run linter
-npm run lint
+pnpm run lint
 ```
 
 ### Branch Naming Convention
@@ -114,6 +114,7 @@ npm run lint
 - Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
 - Limit the first line to 72 characters
 - Reference issues and pull requests liberally after the first line
+- Conventional commits when able to do so, read [here](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ### JavaScript Styleguide
 

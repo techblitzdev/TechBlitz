@@ -1,0 +1,64 @@
+import { getQuestions } from '@/actions/questions/admin/list';
+import StudyPathsList from '@/components/app/study-paths/list';
+import { getStudyPath } from '@/utils/data/study-paths/get';
+
+export default async function RoadmapShowcaseBlock({
+  title,
+  subheader,
+  align = 'left',
+  studyPathFirst = false,
+}: {
+  title?: string;
+  subheader?: string | React.ReactNode;
+  align?: 'left' | 'right' | 'center';
+  studyPathFirst?: boolean;
+}) {
+  const alignMap = {
+    left: 'md:col-span-6',
+    right: 'md:col-span-6',
+    center: 'md:col-span-12',
+  };
+
+  const studyPath = await getStudyPath('javascript-fundamentals');
+  const questions = await getQuestions({
+    questionSlugs: studyPath?.questionSlugs.slice(0, 3) ?? [],
+  });
+
+  const TextContent = () => (
+    <div className={`col-span-full ${alignMap[align]} flex flex-col gap-3`}>
+      <h2 className="text-2xl lg:text-3xl font-bold">{title}</h2>
+      {typeof subheader === 'string' ? <p className="text-gray-400">{subheader}</p> : subheader}
+    </div>
+  );
+
+  const StudyPathContent = () => (
+    <div className="col-span-full md:col-span-6 relative overflow-hidden">
+      {studyPath && (
+        <StudyPathsList
+          calculateOffset={(index) => Math.sin(index * 2) * 3}
+          top={50}
+          questions={questions}
+          studyPath={studyPath}
+          className="flex flex-col gap-6"
+        />
+      )}
+      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#000] to-transparent z-10" />
+    </div>
+  );
+
+  return (
+    <section className="grid grid-cols-1 md:grid-cols-12 gap-8 py-16 md:pt-24 md:pb-32 items-center">
+      {studyPathFirst ? (
+        <>
+          <StudyPathContent />
+          <TextContent />
+        </>
+      ) : (
+        <>
+          <TextContent />
+          <StudyPathContent />
+        </>
+      )}
+    </section>
+  );
+}

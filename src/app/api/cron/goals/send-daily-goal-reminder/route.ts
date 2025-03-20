@@ -8,7 +8,7 @@ import React from 'react';
 import { UserRecord } from '@/types/User';
 import { StudyPath, StudyPathGoal, UserStudyPath } from '@prisma/client';
 import { getUserDisplayName } from '@/utils/user';
-import { STUDY_REMINDER_EMAIL_SUBJECT } from '@/utils/constants/study-reminder';
+import { STUDY_REMINDER_EMAIL_SUBJECT } from '@/utils/constants/emails';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';

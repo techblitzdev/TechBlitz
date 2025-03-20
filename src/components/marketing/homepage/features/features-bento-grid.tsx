@@ -107,7 +107,7 @@ export default async function FeaturesBentoGrid() {
             </div>
           </Link>
           <Link
-            href="/features/daily-coding-challenges"
+            href="/features/coding-challenges"
             className={cn('col-span-full lg:col-span-2 group overflow-hidden', cardClasses)}
             prefetch
             aria-label="Navigate to Daily Programming Challenges"

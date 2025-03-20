@@ -50,3 +50,5 @@ pnpm-lock.yaml
 
 # Million Lint
 .million
+
+*storybook.log

@@ -253,11 +253,6 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
             success: true,
             message: result.message || 'Page updated successfully!',
           });
-
-          // Delay redirect to show success message
-          setTimeout(() => {
-            router.push('/admin/pseo/list');
-          }, 1500);
         } else {
           setFormStatus({
             success: false,

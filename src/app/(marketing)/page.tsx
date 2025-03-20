@@ -31,7 +31,7 @@ import CreditCardIcon from '@/components/ui/icons/credit-card';
 import GraduationCap from '@/components/ui/icons/graduation-cap';
 import ThreeBlockShowcase from '@/components/marketing/global/blocks/three-block-showcase';
 import FeatureIconGrid from '@/components/marketing/global/blocks/feature-icon-grid';
-import { Code, BarChart3, LineChart, Users } from 'lucide-react';
+import { Code } from 'lucide-react';
 import RoadmapIcon from '@/components/ui/icons/roadmap';
 import MaterialSymbolsFilterListRounded from '@/components/ui/icons/filter';
 import Document from '@/components/ui/icons/document';

@@ -39,13 +39,13 @@ const DailyGoalsCard: React.FC<DailyGoalsCardProps> = ({
     <motion.div
       initial={{ height: 'auto' }}
       transition={{ duration: 0.3 }}
-      className="bg-[#090909] border border-black-50 rounded-lg p-4 overflow-hidden"
+      className="bg-secondary dark:bg-[#090909] border border-secondary dark:border-black-50 rounded-lg p-4 overflow-hidden"
     >
       <div className="flex items-center gap-x-2">
         {/*
         <Spaceship2 height="36" width="36" />
         */}
-        <h3 className="font-semibold">Daily Missions</h3>
+        <h3 className="font-semibold text-black dark:text-white">Daily Missions</h3>
       </div>
 
       <motion.div variants={container} initial="hidden" animate="show" className="mt-6 space-y-6">
@@ -83,7 +83,7 @@ function MissionItem({
       </div>
       <div className="flex flex-col gap-y-1 w-full">
         <div className="flex items-center gap-x-2">
-          <p className="text-sm text-white font-onest">{mission.title}</p>
+          <p className="text-sm text-black dark:text-white font-onest">{mission.title}</p>
           {userMissionRecord?.status === 'COMPLETED' && (
             <Check height="16" width="16" className="text-green-500" />
           )}

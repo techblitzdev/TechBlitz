@@ -41,8 +41,8 @@ export default async function NextQuestionBentoBox() {
       <>
         <div className="flex w-full justify-between mb-4 gap-4">
           <div className="space-y-1">
-            <h6 className="text-xl">Your Next Challenge Awaits</h6>
-            <p className="text-xs font-onest text-gray-400">
+            <h6 className="text-xl text-black dark:text-white">Your Next Challenge Awaits</h6>
+            <p className="text-xs font-onest text-gray-600 dark:text-gray-400">
               Take just 2 minutes to answer your next question and keep your streak alive!
             </p>
           </div>
@@ -52,7 +52,7 @@ export default async function NextQuestionBentoBox() {
         </div>
         <div className="flex flex-wrap space-y-2 w-full items-end justify-between">
           <div className="space-y-1">
-            <h6>Topics to Explore:</h6>
+            <h6 className="text-black dark:text-white">Topics to Explore:</h6>
             <div className="flex gap-x-2 mt-2">
               <TagDisplay tags={tags} numberOfTags={2} variant="default" />
             </div>
@@ -61,8 +61,11 @@ export default async function NextQuestionBentoBox() {
 
         <div className="w-fit flex self-center relative -bottom-8 sm:-bottom-20 md:-bottom-8 lg:-bottom-20 group-hover:lg:-bottom-14 duration-300">
           <DatePicker
-            className="z-30 text-white bg-black-100 border border-black-50 p-2 rounded-md hover:cursor-default xs:scale-100 sm:scale-125 md:scale-105 xl:scale-[1.2] group-hover:lg:scale-[1.07] group-hover:xl:scale-[1.22] duration-300"
-            color="white"
+            className="
+              z-30 text-black dark:text-white bg-secondary dark:bg-black-100 border border-white/80 dark:border-black-50 
+              dark:border-white-50 p-2 rounded-md hover:cursor-default xs:scale-100 sm:scale-125 md:scale-105 xl:scale-[1.2] 
+              group-hover:lg:scale-[1.07] group-hover:xl:scale-[1.22] duration-300
+            "
             type="range"
             value={dateArray}
             c="gray"

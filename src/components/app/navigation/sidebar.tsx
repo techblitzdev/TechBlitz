@@ -282,14 +282,14 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
                 {state === 'collapsed' ? (
                   <Link href={item.url} className="flex items-center w-full" prefetch>
                     {item.icon && <item.icon />}
-                    <span className="text-sm font-inter group-data-[collapsible=icon]:hidden">
+                    <span className="text-sm font-inter group-data-[collapsible=icon]:hidden text-black dark:text-white">
                       {item.title}
                     </span>
                     <div className="ms-auto group-data-[collapsible=icon]:hidden">
                       {item.chip && <item.chip />}
                     </div>
                     <div className="group-data-[collapsible=icon]:hidden">
-                      <ChevronDown className="h-4 w-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-180" />
+                      <ChevronDown className="size-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-180" />
                     </div>
                   </Link>
                 ) : (
@@ -335,11 +335,15 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
                   href={item.url}
                   prefetch
                   className={`flex items-center font-inter font-medium text-sm py-2 ${
-                    isActive(item.url) ? 'bg-black-25 text-white border border-black-50' : ''
+                    isActive(item.url)
+                      ? 'bg-black-25 dark:bg-white-25 text-white dark:text-black border border-secondary dark:border-black-50 dark:border-white-50'
+                      : ''
                   }`}
                 >
                   {item.icon && <item.icon />}
-                  <span className="text-sm group-data-[collapsible=icon]:hidden">{item.title}</span>
+                  <span className="text-sm group-data-[collapsible=icon]:hidden text-black dark:text-white">
+                    {item.title}
+                  </span>
                   {item.chip && (
                     <div className="ms-auto group-data-[collapsible=icon]:hidden">
                       {item.chip && <item.chip />}
@@ -364,7 +368,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
 
   return (
     <Sidebar collapsible="icon" className="z-50 group">
-      <SidebarContent className="py-6 bg-[#000000]">
+      <SidebarContent className="py-6 bg-white dark:bg-[#000000]">
         <SidebarGroup>
           <SidebarGroupLabel className="w-full flex items-center px-0">
             <SidebarDropdown user={user} profile={profile} />
@@ -373,14 +377,14 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
           <div className="hidden group-data-[collapsible=icon]:flex items-center justify-center h-8 mb-5">
             <Link
               href="/dashboard"
-              className="text-sm xl:text-2xl font-inter hover:text-white duration-300 size-10"
+              className="text-sm xl:text-2xl font-inter hover:text-white duration-300 size-10 text-black dark:text-white"
               prefetch
               aria-label="Go back to dashboard"
             >
               <SidebarDropdown user={user} profile={profile} />
             </Link>
           </div>
-          <SidebarGroupContent className="mt-10 bg-[#000000]">
+          <SidebarGroupContent className="mt-10 bg-white dark:bg-[#000000]">
             <SidebarMenu>{items.map((item) => renderSidebarItem(item))}</SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

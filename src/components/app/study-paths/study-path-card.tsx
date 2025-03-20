@@ -20,19 +20,21 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
     <Link
       href={roadmapUrl}
       className={cn(
-        'rounded-lg h-fit w-full overflow-hidden transition-all duration-300 bg-[#090909] hover:border-black border border-black-50 group',
+        'rounded-lg h-fit w-full overflow-hidden transition-all duration-300 bg-secondary dark:bg-[#090909] hover:border-black border border-secondary dark:border-black-50 group',
         !studyPath.isPublished && 'cursor-not-allowed'
       )}
     >
       <CardHeader className="relative p-0">
         <div className="relative p-4 text-primary-foreground group-hover:opacity-80 transition-all duration-300">
-          <h3 className="text-xl font-bold mb-2">{studyPath.title}</h3>
-          <p className="text-xs text-gray-400 line-clamp-2">{studyPath.description}</p>
+          <h3 className="text-xl font-bold mb-2 text-black dark:text-white">{studyPath.title}</h3>
+          <p className="text-xs text-gray-700 dark:text-gray-400 line-clamp-2">
+            {studyPath.description}
+          </p>
         </div>
       </CardHeader>
       <CardContent className="p-4 pt-3 relative">
         <div className="flex flex-col gap-y-2 w-full">
-          <div className="text-sm text-gray-400 font-onest">
+          <div className="text-sm text-gray-700 dark:text-gray-400 font-onest">
             {/** if 100% then show 100% else show the progress */}
             {Math.round(
               user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)?.progress ??
@@ -40,7 +42,7 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
             ) === 100 ? (
               <div className="flex items-center gap-x-2">
                 <CheckCircle className="size-4 text-green-500" />
-                <p className="text-sm text-gray-400 font-onest">completed</p>
+                <p className="text-sm text-gray-700 dark:text-gray-400 font-onest">completed</p>
               </div>
             ) : (
               `${Math.round(
@@ -50,7 +52,7 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
             )}
           </div>
           <Progress
-            className="border border-black-50 bg-black-50 relative z-10"
+            className="border border-secondary dark:border-black-50 bg-secondary dark:bg-black-50 relative z-10"
             value={
               user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)?.progress ??
               0

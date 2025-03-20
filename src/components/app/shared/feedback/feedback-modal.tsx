@@ -48,7 +48,7 @@ export function FeedbackModal({
         placeholder="Enter your feedback here..."
         value={feedback}
         onChange={(e) => setFeedback(e.target.value)}
-        className="mb-4 text-white border border-black-50"
+        className="mb-4 text-black dark:text-white border border-secondary dark:border-black-50"
         disabled={isPending}
       />
       <div className="flex justify-end gap-2">
@@ -72,7 +72,7 @@ export function FeedbackModal({
                     repeat: Number.POSITIVE_INFINITY,
                     ease: 'linear',
                   }}
-                  className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                  className="size-5 border-2 border-black dark:border-white border-t-transparent rounded-full"
                 />
               ) : (
                 <motion.span

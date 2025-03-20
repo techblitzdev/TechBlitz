@@ -60,7 +60,7 @@ export const BentoGridItem = ({
   };
 
   const baseClasses = cn(
-    'rounded-xl group/bento overflow-hidden hover:shadow-xl transition duration-200 shadow-input border border-black-50 justify-between flex flex-col',
+    'rounded-xl group/bento overflow-hidden hover:shadow-xl transition duration-200 shadow-input border border-secondary dark:border-black-50 justify-between flex flex-col',
     header || title || description || icon ? 'space-y-3 md:space-y-4' : '',
     className,
     padded ? 'p-3 md:p-4' : ''
@@ -71,18 +71,6 @@ export const BentoGridItem = ({
       {renderContent()}
     </Link>
   ) : (
-    <div
-      className={baseClasses}
-      style={
-        gradientBg
-          ? {
-              background:
-                'radial-gradient(128% 107% at 0% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
-            }
-          : undefined
-      }
-    >
-      {renderContent()}
-    </div>
+    <div className={cn(baseClasses, 'bg-white dark:bg-transparent')}>{renderContent()}</div>
   );
 };

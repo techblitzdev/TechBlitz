@@ -34,7 +34,10 @@ export default function FeedbackButton({
           {icon && <MsgWriting height="1.25rem" width="1.25rem" />}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80 bg-black-75 text-white border border-black-50" align="end">
+      <PopoverContent
+        className="w-80 bg-white dark:bg-black-75 text-black dark:text-white border border-secondary dark:border-black-50"
+        align="end"
+      >
         <FeedbackModal title={title} description={description} reference={reference}>
           {children}
         </FeedbackModal>

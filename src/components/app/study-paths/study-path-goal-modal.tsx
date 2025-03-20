@@ -221,7 +221,7 @@ export default function StudyPathGoalModal({ user, studyPath, goal }: StudyPathG
         </motion.div>
       </DialogTrigger>
 
-      <DialogContent className="bg-black max-w-[39.4rem]">
+      <DialogContent className="bg-secondary dark:bg-black max-w-[39.4rem]">
         <DialogHeader className="flex flex-col">
           <ArcheryTarget height="48" width="48" />
           <motion.div
@@ -230,14 +230,14 @@ export default function StudyPathGoalModal({ user, studyPath, goal }: StudyPathG
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.3 }}
           >
-            <DialogTitle className="text-2xl">Set a Goal</DialogTitle>
+            <DialogTitle className="text-2xl text-black dark:text-white">Set a Goal</DialogTitle>
             <DialogDescription className="flex flex-col gap-y-2">
-              <p>
+              <p className="text-black dark:text-white">
                 Set a goal date to complete this study path. Receive a daily reminder to complete
                 the next question.
               </p>
               <div className="flex items-center gap-x-2">
-                <p>
+                <p className="text-black dark:text-white">
                   Your recommended completion date is{' '}
                   {recommendedCompletionDate?.toLocaleDateString('en-US', {
                     month: 'long',

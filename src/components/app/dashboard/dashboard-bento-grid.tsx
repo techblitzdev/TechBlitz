@@ -19,19 +19,19 @@ export default async function DashboardBentoGrid() {
     },
     {
       header: <AllQuestionsDashboardBentoBox />,
-      className: 'col-span-2 text-white lg:min-h-auto lg:h-[370px]',
+      className: 'col-span-2 text-black dark:text-white lg:min-h-auto lg:h-[370px]',
       href: '/questions',
       padded: false,
     },
     {
       header: <ProgressBentoBox />,
-      className: 'col-span-2 text-white lg:h-[370px]',
+      className: 'col-span-2 text-black dark:text-white lg:h-[370px]',
       padded: false,
     },
     {
       header: <NextRoadmapBentoBox />,
       className:
-        'h-full text-white justify-center min-h-[18rem] lg:h-[370px] col-span-2 lg:col-span-1',
+        'h-full text-black dark:text-white justify-center min-h-[18rem] lg:h-[370px] col-span-2 lg:col-span-1',
       href: studyPath ? `/roadmaps/${studyPath.studyPath.slug}` : '/roadmaps',
       padded: false,
       gradientBg: true,

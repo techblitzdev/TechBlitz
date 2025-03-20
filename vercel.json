@@ -21,10 +21,5 @@
       "path": "/api/cron/challenges/7-day-no-challenge",
       "schedule": "30 13 * * 1-5"
     }
-  ],
-  "buildCommand": "npm run build-storybook",
-  "devCommand": "npm run storybook",
-  "installCommand": "npm install",
-  "framework": null,
-  "outputDirectory": "./storybook-static"
+  ]
 }

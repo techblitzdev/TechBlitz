@@ -68,9 +68,9 @@ We love to be transparent with our users, so below are the next features we have
    pnpm run dev
    ```
 
-### Prisma setup
+### Supabase Setup
 
-Docs coming soon.
+Documentation for Supabase coming soon 🚀
 
 ### Running StoryBook
 

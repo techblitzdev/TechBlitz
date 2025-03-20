@@ -30,8 +30,13 @@ import MirrorTabletPhone3 from '@/components/ui/icons/mirror-tablet-phone-3';
 import CreditCardIcon from '@/components/ui/icons/credit-card';
 import GraduationCap from '@/components/ui/icons/graduation-cap';
 import ThreeBlockShowcase from '@/components/marketing/global/blocks/three-block-showcase';
+import FeatureIconGrid from '@/components/marketing/global/blocks/feature-icon-grid';
+import { Code, BarChart3, LineChart, Users } from 'lucide-react';
+import RoadmapIcon from '@/components/ui/icons/roadmap';
+import MaterialSymbolsFilterListRounded from '@/components/ui/icons/filter';
+import Document from '@/components/ui/icons/document';
 
-const title = 'Learn to Code made easy | TechBlitz';
+const title = 'Learning to code made easy | TechBlitz';
 const description =
   'Master programming through interactive coding challenges, personalized practice, and instant AI feedback. Perfect for beginners learning JavaScript, web development, and more. Start coding for free.';
 
@@ -204,6 +209,33 @@ export default async function Page() {
     year: 'numeric',
   });
 
+  const featureIconGridItems = [
+    {
+      title: 'Interactive Challenges',
+      description:
+        'Practice with hands-on coding challenges that simulate real-world scenarios. Build skills while solving problems that matter.',
+      icon: <Code width="1.5em" height="1.5em" />,
+    },
+    {
+      title: 'Structured Learning Paths',
+      description:
+        'Follow a simple, structured learning path to boost your coding skills. Opt-in to receive daily reminders to complete it!',
+      icon: <RoadmapIcon height="1.5em" width="1.5em" />,
+    },
+    {
+      title: 'Generate Code Reports',
+      description:
+        "Don't just code blindly. Generate code reports to track your progress and understand your weaknesses.",
+      icon: <Document width="1.5em" height="1.5em" />,
+    },
+    {
+      title: 'Advanced Filtering',
+      description:
+        'Easily navigate through our vast library of coding challenges with our advanced filtering options.',
+      icon: <MaterialSymbolsFilterListRounded className="size-6" />,
+    },
+  ];
+
   return (
     <>
       <script
@@ -214,7 +246,16 @@ export default async function Page() {
         <HomepageHero userCountPromise={userCount} />
         <FeaturesBentoGrid />
         <HomepageUserStats userCountPromise={userCount} />
-        <PersonalizedBlock />
+
+        <PersonalizedBlock paddingBottom="pb-10" />
+
+        <FeatureIconGrid
+          borderTop
+          items={featureIconGridItems}
+          paddingTop="pt-12"
+          paddingBottom="pb-24"
+        />
+
         <QuestionMarquee
           header={`${QUESTIONS_COUNT}+ coding challenges`}
           subheader="Learn to code by doing. Improve your coding skills in as little as 3 minutes per day."

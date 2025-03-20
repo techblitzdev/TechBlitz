@@ -106,9 +106,9 @@ export default function HomepageHero({ userCountPromise }: { userCountPromise: P
         </h1>
 
         <p className="font-onest max-w-3xl text-gray-300 text-xl tracking-tight mt-6 md:mt-2 text-focus-in animate-fade-in-up [animation-delay:600ms] leading-relaxed">
-          Unlock your potential with hands-on, industry-standard coding challenges.
+          Learn to code with free, fun coding challenges and study paths.
           <br className="hidden md:block" />
-          Take the first step today and transform your passion into a thriving tech career.
+          Take the first step today and begin your journey to your dream career in tech.
         </p>
 
         <div className="animate-fade-in-up [animation-delay:900ms] w-full max-w-xl">

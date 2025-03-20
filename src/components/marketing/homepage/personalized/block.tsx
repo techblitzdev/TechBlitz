@@ -1,10 +1,19 @@
 import AnimatedSpan from '@/components/ui/animated-span';
+import { cn } from '@/lib/utils';
 import PersonalizedLeft from './left';
 import PersonalizedRight from './right';
 
-export default function Personalized() {
+interface PersonalizedBlockProps {
+  paddingTop?: `pt-${number}`;
+  paddingBottom?: `pb-${number}`;
+}
+
+export default function Personalized({
+  paddingTop = 'pt-10',
+  paddingBottom = 'pb-28',
+}: PersonalizedBlockProps) {
   return (
-    <section className="pt-10 pb-28 md:container flex flex-col gap-10">
+    <section className={cn(paddingTop, paddingBottom, 'md:container flex flex-col gap-10')}>
       <div className="flex flex-col gap-2.5 md:px-12">
         <AnimatedSpan content="Personalized Learning" />
         <h2 className="text-3xl lg:text-5xl font-onest !font-medium tracking-tight text-gradient from-white to-white/55 py-1">

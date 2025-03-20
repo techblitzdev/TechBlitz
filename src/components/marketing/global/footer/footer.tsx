@@ -20,9 +20,9 @@ const footerItems = [
         ariaLabel: 'Roadmaps',
       },
       {
-        title: 'Daily Challenges',
-        href: '/features/daily-coding-challenges',
-        ariaLabel: 'Daily Challenges',
+        title: 'Coding Challenges',
+        href: '/features/coding-challenges',
+        ariaLabel: 'Coding Challenges',
       },
       {
         title: 'Statistics',

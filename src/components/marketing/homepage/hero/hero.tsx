@@ -6,6 +6,7 @@ import type { UserRecord } from '@/types/User';
 import { Suspense, use } from 'react';
 import Image from 'next/image';
 import JakeMackieTestimonial from '@/public/images/testimonials/jake-mackie-techblitz-testimonial.jpeg';
+import Link from 'next/link';
 
 const HeroImageFollow = dynamic(() => import('./hero-image-follow'), {
   ssr: false,
@@ -61,6 +62,21 @@ const Buttons = ({ user }: { user: Promise<UserRecord | null> }) => {
   );
 };
 
+const textItems = [
+  {
+    text: 'Roadmaps',
+    href: '/features/roadmap',
+  },
+  {
+    text: 'Coding Stats',
+    href: '/features/statistics',
+  },
+  {
+    text: 'Leaderboards',
+    href: '/features/leaderboard',
+  },
+  { text: 'Coding Challenges', href: '/features/coding-challenges' },
+];
 export default function HomepageHero({ userCountPromise }: { userCountPromise: Promise<number> }) {
   const user = useUserServer();
   const userCount = Math.round(use(userCountPromise) / 10) * 10;
@@ -158,6 +174,24 @@ export default function HomepageHero({ userCountPromise }: { userCountPromise: P
                 Explore Now!
                 <ArrowRight className="ml-2 size-3" />
               </Button>
+            </div>
+          </div>
+          <div className="pt-5 flex flex-col text-sm gap-2 place-self-start items-start text-gray-400 animate-fade-in-up [animation-delay:1200ms]">
+            <h6 className="font-medium text-xs text-gray-400">
+              The all in one solution to learn how to code:
+            </h6>
+            <div className="flex flex-wrap gap-2">
+              {textItems.map((item, index) => (
+                <div
+                  key={index}
+                  className="text-gradient from-white to-white/75 text-focus-in font-onest"
+                >
+                  <Link href={item.href} className="hover:text-accent duration-300">
+                    {item.text}
+                  </Link>
+                  {index < textItems.length - 1 && <span className="text-gray-400 pl-2">•</span>}
+                </div>
+              ))}
             </div>
           </div>
         </div>

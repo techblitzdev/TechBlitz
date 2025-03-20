@@ -1,1 +1,0 @@
-export const ROADMAP_QUESTION_COUNT = 6;

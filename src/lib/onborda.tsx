@@ -35,7 +35,7 @@ export const steps = (): Tour[] => [
           </>
         ),
         selector: '#question-card-tabs-stats',
-        side: 'bottom',
+        side: 'bottom-left',
         showControls: true,
         pointerPadding: -1,
         pointerRadius: 24,

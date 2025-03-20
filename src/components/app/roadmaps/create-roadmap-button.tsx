@@ -6,7 +6,7 @@ import { Loader2 } from 'lucide-react';
 import CreatingRoadmapModal from './creating-roadmap-modal';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { Progress } from '@/components/ui/progress';
-import { ROADMAP_QUESTION_COUNT } from '@/utils/constants/roadmap';
+import { ROADMAP_QUESTION_COUNT } from '@/utils/constants/misc';
 import { roadmapGenerate } from '@/actions/ai/roadmap/generate';
 import { supabase } from '@/lib/supabase';
 import type { RoadmapGenerationProgress } from '@prisma/client'; // either: 'FETCHING_DATA', 'FIRST_PASS', 'SECOND_PASS', 'GENERATING_QUESTIONS', 'GENERATED'

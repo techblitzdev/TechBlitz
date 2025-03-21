@@ -26,7 +26,7 @@ export default async function FeaturesBentoGrid() {
       <div className="flex flex-col gap-y-1 items-center text-center">
         <AnimatedSpan content="Land your dream tech job" />
         <h2 className="text-2xl lg:text-5xl !font-onest !leading-[normal] tracking-tight text-gradient from-white to-white/55">
-          Build your future in tech with <br /> personalized tools
+          Build your tech career with <br /> personalized learning tools
         </h2>
         <span className="text-sm md:text-base text-gray-400 max-w-4xl">
           Learn to code with tools that adapt to your weaknesses. Get personalized practice, instant
@@ -47,11 +47,11 @@ export default async function FeaturesBentoGrid() {
             <div className="flex flex-col justify-between">
               <div className="flex flex-col gap-y-1 relative max-w-md">
                 <h5 className="text-2xl text-gradient from-white to-white/55">
-                  Interactive Programming Roadmaps
+                  Personalized Programming Roadmaps
                 </h5>
                 <p className="text-xs text-gray-400 font-onest">
                   Follow a customized learning path tailored to your skill level. Our AI-powered
-                  roadmaps adapt to your progress and provide
+                  roadmaps adapt to your progress and provide personalized recommendations.
                 </p>
                 <Button variant="default" className="flex md:hidden z-10 relative mt-2">
                   Explore roadmaps <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
@@ -78,7 +78,7 @@ export default async function FeaturesBentoGrid() {
             <div className="flex flex-col gap-y-4 relative">
               <div className="flex flex-col gap-y-1">
                 <h5 className="text-2xl text-gradient from-white to-white/55">
-                  Comprehensive Progress Analytics
+                  Comprehensive Coding Progress Analytics
                 </h5>
                 <p className="text-xs text-gray-400 font-onest">
                   Track your programming journey with detailed analytics. Monitor your coding
@@ -115,7 +115,7 @@ export default async function FeaturesBentoGrid() {
             <div className="flex justify-between">
               <div className="flex flex-col gap-y-1 h-fit">
                 <h5 className="text-2xl text-gradient from-white to-white/55">
-                  Daily Programming Challenges
+                  Daily Coding Challenges
                 </h5>
                 <p className="text-xs text-gray-400 font-onest">
                   Enhance your coding skills with our curated daily challenges. Perfect for all

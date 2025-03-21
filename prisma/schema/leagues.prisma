@@ -1,0 +1,218 @@
+enum LeagueName {
+    BRONZE
+    SILVER
+    GOLD
+    PLATINUM
+    DIAMOND
+}
+
+enum LeagueColor {
+    CD7F32
+    C0C0C0
+    FFD700
+    E5E4E2
+    b9f2ff
+    FF4D4D
+}
+
+enum LeagueAchievementType {
+    LEAGUE_WINNER // did the user win their league last week
+    TOP_THREE // did the user finish in the top 3 of their league last week
+    PROMOTION // did the user get promoted last week
+    PERFECT_WEEK // did the user get 100% of the bonus xp last week
+    SURVIVAL // did the user avoid relegation last week
+    COMEBACK_KING // did the user come back from the bottom of the league last week
+    CONSISTENCY // did the user finish in the top 3 of their league for 3 weeks in a row
+    SPEED_DEMON // did the user get to the top of the league in the shortest time possible
+}
+
+enum LeaguePowerUp {
+    DOUBLE_XP // double the users xp for the week
+    SHIELD // prevent the user= from being relegated for the week
+    STREAK_SAVER // prevent the user from being relegated for the next 3 weeks
+    TIME_FREEZE // freeze the users league for the week
+    BONUS_POINTS // give the user bonus xp for the week
+}
+
+// schema for a league, no relation to a users as 
+// we have multiple instances of the same league
+model IndividualLeagueData {
+    // standard prisma fields
+    uid String @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // the name of the league
+    name LeagueName
+
+    // the league's color (used for styling)
+    color LeagueColor
+
+    // a brief description of the league (may or may not be used)
+    description String?
+
+    // the amount of xp required to be in the league
+    xpRequirement Int
+
+    // when the league resets (usually weekly)
+    resetDate DateTime
+
+    // leagues such as the bronze league cannot be relegated
+    // as it's the lowest league
+    canBeRelegated Boolean @default(false)
+
+    // the league's icon
+    icon String?
+
+    // league rules (may or may not be used)
+    inactivityThresholdDays Int? @default(7)
+
+    // Maximum number of power-ups allowed per week
+    maxPowerUpsPerWeek Int @default(3)
+
+    // bonus XP multiplier for this league
+    xpMultiplier Float @default(1.0)
+
+    // relations
+    leagues Leagues[]
+    achievements LeagueAchievement[]
+    history LeagueHistory[]
+}
+
+// we can have multiple instances of the same league
+// e.g. bronze league, silver league, gold league, etc.
+// this is so the same league can be used for different groups of users
+model Leagues {
+    // standard prisma fields
+    uid String @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // connect to the league data
+    leagueData IndividualLeagueData @relation(fields: [leagueDataUid], references: [uid])
+    leagueDataUid String
+
+    // maximum number of users in the league
+    maxUsers Int @default(30)
+
+    // current number of users in the league
+    currentUsers Int @default(0)
+
+    // when this league group started
+    startDate DateTime @default(now())
+
+    // When this league group ends
+    endDate DateTime
+
+    // how many users will be promoted
+    promotionCount Int @default(3)
+
+    // how many users will be relegated
+    relegationCount Int @default(5)
+
+    // weekly challenges for bonus xp
+    weeklyChallenge String?
+    weeklyChallengeXP Int?
+
+    // relations
+    users UserLeague[]
+}
+
+// the data tied to the user in the league
+model UserLeague {
+    uid String @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // The user in this league
+    user Users @relation(fields: [userUid], references: [uid])
+    userUid String
+
+    // The league instance they're in
+    league Leagues @relation(fields: [leagueUid], references: [uid])
+    leagueUid String
+
+    // users position in the league
+    position Int?
+
+    // users weekly xp in this league
+    weeklyXp Int @default(0)
+
+    // Whether they've been promoted/relegated
+    promoted Boolean @default(false)
+    relegated Boolean @default(false)
+
+    // When they joined this league
+    joinedAt DateTime @default(now())
+
+    currentStreak Int @default(0)
+    bestPosition Int?
+    activePowerUps LeaguePowerUp[]
+    powerUpExpiryTime DateTime?
+    
+    // Weekly challenge progress
+    challengeProgress Int @default(0)
+    challengeCompleted Boolean @default(false)
+
+    // Unique constraint
+    @@unique([userUid, leagueUid])
+}
+
+// FUTURE PROOFING - may not be used initially
+model LeagueAchievement {
+    uid String @id @default(uuid())
+    createdAt DateTime @default(now())
+
+    // The user who earned it
+    user Users @relation(fields: [userUid], references: [uid])
+    userUid String
+
+    // The league it was earned in
+    league IndividualLeagueData @relation(fields: [leagueDataUid], references: [uid])
+    leagueDataUid String
+
+    // Type of achievement
+    type LeagueAchievementType
+
+    // When it was earned
+    earnedAt DateTime @default(now())
+
+    // Additional data (e.g., position, score)
+    metadata Json?
+
+    // XP bonus awarded
+    xpBonus Int @default(0)
+}
+
+// FUTURE PROOFING - may not be used initially
+model LeagueHistory {
+    uid String @id @default(uuid())
+    createdAt DateTime @default(now())
+
+    // The user
+    user Users @relation(fields: [userUid], references: [uid])
+    userUid String
+
+    // The league
+    league IndividualLeagueData @relation(fields: [leagueDataUid], references: [uid])
+    leagueDataUid String
+
+    // Their final position
+    finalPosition Int
+
+    // Their final XP
+    finalXp Int
+
+    // Whether they were promoted/relegated
+    wasPromoted Boolean
+    wasRelegated Boolean
+
+    // The week this history is for
+    weekStartDate DateTime
+    weekEndDate DateTime
+
+    // Performance stats
+    averageXpPerDay Float?
+    powerUpsUsed Int @default(0)
+    challengesCompleted Int @default(0)
+}

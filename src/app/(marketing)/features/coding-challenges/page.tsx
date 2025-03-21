@@ -14,6 +14,10 @@ import QuestionMarquee from '@/components/marketing/global/blocks/question-marqu
 import { getUserCount } from '@/utils/data/user/get-user-count';
 import ThreeBlockShowcase from '@/components/marketing/global/blocks/three-block-showcase';
 import ComparisonBlock from '@/components/marketing/homepage/comparison/comparison-block';
+import FeatureIconGrid from '@/components/marketing/global/blocks/feature-icon-grid';
+import ChatBot from '@/components/ui/icons/chat-bot';
+import RoadmapIcon from '@/components/ui/icons/roadmap';
+import { Code, UserRoundIcon } from 'lucide-react';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -249,6 +253,33 @@ export default async function FeatureDailyQuestionPage() {
 
   const userCount = await getUserCount().then((res) => Math.round(res / 10) * 10);
 
+  const featureIconGridItems = [
+    {
+      title: 'Instant AI Feedback',
+      description:
+        "Don't just code blindly. Generate code reports to track your progress and understand your weaknesses.",
+      icon: <ChatBot width="1.5em" height="1.5em" fill="#ffffff" secondaryfill="#ffffff" />,
+    },
+    {
+      title: 'Structured Learning Paths',
+      description:
+        'Follow a simple, structured learning path to boost your coding skills. Opt-in to receive daily reminders to complete it!',
+      icon: <RoadmapIcon height="1.5em" width="1.5em" />,
+    },
+    {
+      title: 'Interactive Challenges',
+      description:
+        'Practice with hands-on coding challenges that simulate real-world scenarios. Build skills while solving problems that matter.',
+      icon: <Code width="1.5em" height="1.5em" />,
+    },
+    {
+      title: 'Personalized Coding Challenges',
+      description:
+        'Receive recommendations straight to your inbox, and get instant feedback on your code. Improving your coding skills has never been easier.',
+      icon: <UserRoundIcon width="1.5em" height="1.5em" />,
+    },
+  ];
+
   return (
     <>
       <script
@@ -272,6 +303,14 @@ export default async function FeatureDailyQuestionPage() {
           leftSubheader="TechBlitz transforms learning to code into bite-sized, engaging coding challenges. Master new skills in just 5 minutes a day—anytime, anywhere, on any device. Even learn to code on your phone!"
           rightHeader="Personalized coding challenges"
           rightSubheader="TechBlitz adapts to your weaknesses. Receive recommendations straight to your inbox, and get instant feedback on your code. Improving your coding skills has never been easier."
+          paddingBottom="lg:pb-10"
+        />
+
+        <FeatureIconGrid
+          borderTop
+          items={featureIconGridItems}
+          paddingTop="pt-12"
+          paddingBottom="pb-24"
         />
 
         <ComparisonBlock />

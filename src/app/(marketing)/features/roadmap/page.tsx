@@ -16,6 +16,10 @@ import { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
 import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
 import RoadmapShowcaseBlock from '@/components/marketing/global/blocks/roadmap-showcase';
+import FeatureIconGrid from '@/components/marketing/global/blocks/feature-icon-grid';
+import RoadmapIcon from '@/components/ui/icons/roadmap';
+import MaterialSymbolsFilterListRounded from '@/components/ui/icons/filter';
+import Document from '@/components/ui/icons/document';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -177,6 +181,33 @@ export default function FeatureDailyQuestionPage() {
     },
   };
 
+  const featureIconGridItems = [
+    {
+      title: 'Interactive Challenges',
+      description:
+        'Practice with hands-on coding challenges that simulate real-world scenarios. Build skills while solving problems that matter.',
+      icon: <Code width="1.5em" height="1.5em" />,
+    },
+    {
+      title: 'Structured Learning Paths',
+      description:
+        'Follow a simple, structured learning path to boost your coding skills. Opt-in to receive daily reminders to complete it!',
+      icon: <RoadmapIcon height="1.5em" width="1.5em" />,
+    },
+    {
+      title: 'Generate Code Reports',
+      description:
+        "Don't just code blindly. Generate code reports to track your progress and understand your weaknesses.",
+      icon: <Document width="1.5em" height="1.5em" />,
+    },
+    {
+      title: 'Advanced Filtering',
+      description:
+        'Easily navigate through our vast library of coding challenges with our advanced filtering options.',
+      icon: <MaterialSymbolsFilterListRounded className="size-6" />,
+    },
+  ];
+
   return (
     <>
       <script
@@ -190,7 +221,17 @@ export default function FeatureDailyQuestionPage() {
           title="Structured learning made fun"
           subheader={roadmapShowcaseSubHeader()}
           studyPathFirst
+          paddingTop="md:pt-12"
+          paddingBottom="md:pb-10"
         />
+
+        <FeatureIconGrid
+          borderTop
+          items={featureIconGridItems}
+          paddingTop="pt-12"
+          paddingBottom="pb-24"
+        />
+
         <FeatureRoadmapThreeGridBlock />
         <MarketingContentGrid
           title="Personalized learning at your fingertips."

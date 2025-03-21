@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { useRouter } from 'next/navigation';
 import { createPseoPage } from '@/actions/misc/create-pseo-page';
 import { editPseoPage } from '@/actions/misc/edit-pseo-page';
 import { Button } from '@/components/ui/button';
@@ -52,7 +51,6 @@ interface PseoFormProps {
 }
 
 export default function PseoForm({ initialData, isEditing = false }: PseoFormProps) {
-  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formStatus, setFormStatus] = useState<{
     success?: boolean;
@@ -253,11 +251,6 @@ export default function PseoForm({ initialData, isEditing = false }: PseoFormPro
             success: true,
             message: result.message || 'Page updated successfully!',
           });
-
-          // Delay redirect to show success message
-          setTimeout(() => {
-            router.push('/admin/pseo/list');
-          }, 1500);
         } else {
           setFormStatus({
             success: false,

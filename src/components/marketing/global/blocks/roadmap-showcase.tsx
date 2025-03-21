@@ -2,16 +2,22 @@ import { getQuestions } from '@/actions/questions/admin/list';
 import StudyPathsList from '@/components/app/study-paths/list';
 import { getStudyPath } from '@/utils/data/study-paths/get';
 
+type screenSize = 'lg' | 'md' | 'sm';
+
 export default async function RoadmapShowcaseBlock({
   title,
   subheader,
   align = 'left',
   studyPathFirst = false,
+  paddingTop = 'lg:pt-12',
+  paddingBottom = 'lg:pb-24',
 }: {
   title?: string;
   subheader?: string | React.ReactNode;
   align?: 'left' | 'right' | 'center';
   studyPathFirst?: boolean;
+  paddingTop?: `${screenSize}:pt-${number}`;
+  paddingBottom?: `${screenSize}:pb-${number}`;
 }) {
   const alignMap = {
     left: 'md:col-span-6',
@@ -47,7 +53,9 @@ export default async function RoadmapShowcaseBlock({
   );
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-12 gap-8 py-16 md:pt-24 md:pb-32 items-center">
+    <section
+      className={`grid grid-cols-1 md:grid-cols-12 gap-8 py-16 md:pt-24 md:pb-32 items-center ${paddingTop} ${paddingBottom}`}
+    >
       {studyPathFirst ? (
         <>
           <StudyPathContent />

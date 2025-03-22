@@ -172,12 +172,18 @@ export default async function QuestionUidLayout({
                   </Suspense>
                 </div>
               </div>
-              <div className="col-span-7 lg:col-span-4 flex items-center justify-center">
-                <Suspense fallback={<div>Loading...</div>}>
-                  <QuestionActionButtons />
-                </Suspense>
-              </div>
-              <div className="col-span-3 lg:col-span-4 flex items-center gap-x-1 md:gap-x-3 justify-end">
+              {question.questionType !== 'SIMPLE_MULTIPLE_CHOICE' && (
+                <div className="col-span-7 lg:col-span-4 flex items-center justify-center">
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <QuestionActionButtons />
+                  </Suspense>
+                </div>
+              )}
+              <div
+                className={`col-span-3 lg:col-span-4 flex items-center gap-x-1 md:gap-x-3 justify-end ${
+                  question.questionType === 'SIMPLE_MULTIPLE_CHOICE' ? 'lg:col-start-10' : ''
+                }`}
+              >
                 <Suspense fallback={<div>Loading...</div>}>
                   <div className="hidden lg:block">
                     <CurrentStreak />

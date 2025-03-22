@@ -3,6 +3,7 @@
 import { Question } from '@/types/Questions';
 import MultipleChoiceCard from './card';
 import { useState } from 'react';
+import MultipleChoiceFooter from './footer';
 
 interface QuestionMock {
   uid: string;
@@ -39,7 +40,7 @@ export default function MultipleChoiceLayoutClient({
   return (
     <div className="container min-h-screen flex flex-col justify-center items-center max-w-xs md:max-w-xl lg:max-w-2xl">
       {children}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 pt-0 p-4 lg:pt-0 lg:p-20 mb-6">
         {question.answers &&
           Array.isArray(question.answers) &&
           question.answers.map((answer, index) => (
@@ -52,6 +53,7 @@ export default function MultipleChoiceLayoutClient({
             />
           ))}
       </div>
+      <MultipleChoiceFooter />
     </div>
   );
 }

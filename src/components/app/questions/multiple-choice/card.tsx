@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 
 interface MultipleChoiceCardProps {
@@ -8,6 +9,7 @@ interface MultipleChoiceCardProps {
   handleSelectAnswer: (option: string, index: number) => void;
   answer: string;
   selectedAnswer?: string;
+  className?: string;
 }
 
 export default function MultipleChoiceCard({
@@ -15,6 +17,7 @@ export default function MultipleChoiceCard({
   handleSelectAnswer,
   answer,
   selectedAnswer,
+  className,
 }: MultipleChoiceCardProps) {
   const isSelected = selectedAnswer === answer;
 
@@ -24,8 +27,8 @@ export default function MultipleChoiceCard({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.1 + 0.3 }}
-      whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
+      className={cn('w-full', className)}
     >
       <Button
         onClick={() => handleSelectAnswer(answer, index)}

@@ -50,7 +50,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
   return createMetadata({
     title: `${capitalise(title)} | TechBlitz`,
-    description: `Practice ${capitalise(title)} and improve your coding skills with interactive challenges on TechBlitz`,
+    description: `Practice ${capitalise(
+      title
+    )} and improve your coding skills with interactive challenges on TechBlitz`,
     image: {
       text: `${title} | TechBlitz`,
       bgColor: '#000000',
@@ -169,11 +171,6 @@ export default async function QuestionUidLayout({
                     <RandomQuestion identifier="slug" currentQuestionSlug={slug} />
                   </Suspense>
                 </div>
-                {question?.dailyQuestion && question?.questionDate && (
-                  <div className="font-ubuntu gap-x-5 items-center hidden md:flex pl-4">
-                    <p>Daily question</p>
-                  </div>
-                )}
               </div>
               <div className="col-span-7 lg:col-span-4 flex items-center justify-center">
                 <Suspense fallback={<div>Loading...</div>}>

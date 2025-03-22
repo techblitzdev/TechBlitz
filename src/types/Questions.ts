@@ -61,6 +61,8 @@ export type Question = {
   isPremiumQuestion: boolean;
 
   userAnswers?: Answer[];
+
+  afterQuestionInfo?: string | null;
 };
 
 export type QuestionWithoutAnswers = Omit<

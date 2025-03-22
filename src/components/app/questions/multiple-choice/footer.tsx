@@ -6,6 +6,8 @@ interface MultipleChoiceFooterProps {
   onClear: () => void;
   onSubmit: () => void;
   isSubmitting?: boolean;
+  hasSubmitted?: boolean;
+  onReset: () => void;
 }
 
 export default function MultipleChoiceFooter({
@@ -13,13 +15,23 @@ export default function MultipleChoiceFooter({
   onClear,
   onSubmit,
   isSubmitting = false,
+  hasSubmitted = false,
+  onReset,
 }: MultipleChoiceFooterProps) {
   const isClearDisabled = !selectedAnswer || isSubmitting;
 
+  const handleClear = () => {
+    if (hasSubmitted) {
+      onReset();
+    } else {
+      onClear();
+    }
+  };
+
   return (
-    <section className="flex items-center justify-between w-full">
-      <Button variant="destructive" onClick={onClear} disabled={isClearDisabled}>
-        Clear
+    <section className="flex items-center justify-between w-full pt-5">
+      <Button variant="destructive" onClick={handleClear} disabled={isClearDisabled}>
+        {hasSubmitted ? 'Try Again' : 'Clear'}
       </Button>
       <Button variant="accent" onClick={onSubmit} disabled={!selectedAnswer || isSubmitting}>
         {isSubmitting ? (

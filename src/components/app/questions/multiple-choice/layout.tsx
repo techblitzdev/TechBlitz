@@ -23,13 +23,10 @@ interface QuestionMock {
 }
 
 export default function MultipleChoiceLayout({ question }: { question: Question | QuestionMock }) {
-  console.log({
-    question: question.answers,
-  });
   return (
     <MultipleChoiceLayoutClient question={question}>
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-2xl font-bold text-white">{question.question}</h2>
+      <div className="flex items-center justify-between mb-4 self-start">
+        <h2 className="text-2xl font-bold text-white text-start">{question.question}</h2>
       </div>
     </MultipleChoiceLayoutClient>
   );

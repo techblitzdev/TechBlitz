@@ -7,6 +7,8 @@ import MultipleChoiceFooter from './footer';
 import { toast } from 'sonner';
 import { answerQuestion } from '@/actions/answers/answer';
 import { QuestionAnswer } from '@/types/QuestionAnswers';
+import { AnimatePresence, motion } from 'framer-motion';
+import { CheckCircle2, XCircle } from 'lucide-react';
 
 interface QuestionMock {
   uid: string;
@@ -76,6 +78,12 @@ export default function MultipleChoiceLayoutClient({
     return String(question.correctAnswer);
   };
 
+  const resetQuestion = () => {
+    setIsSubmitted(false);
+    setIsCorrect(null);
+    setSelectedAnswerData(null);
+  };
+
   // Handle submitting the answer
   const handleSubmit = async () => {
     if (!selectedAnswerData || isSubmitting) return;
@@ -85,13 +93,6 @@ export default function MultipleChoiceLayoutClient({
     try {
       // Calculate time taken in seconds
       const timeTaken = Math.floor((Date.now() - startTime) / 1000);
-
-      console.log('Submitting answer:', {
-        questionUid: question.uid,
-        answerUid: selectedAnswerData.uid,
-        timeTaken,
-      });
-
       // Submit the answer using the answerQuestion action
       const response = await answerQuestion({
         questionUid: question.uid,
@@ -101,17 +102,6 @@ export default function MultipleChoiceLayoutClient({
 
       setIsCorrect(response.correctAnswer);
       setIsSubmitted(true);
-
-      if (response.correctAnswer) {
-        toast.success('Correct answer!');
-      } else {
-        const correctAnswerText = getCorrectAnswerText();
-        toast.error(`Incorrect. The correct answer is: ${correctAnswerText}`);
-      }
-
-      console.log(
-        `Answer submitted: ${selectedAnswerData.text}, Correct: ${response.correctAnswer}`
-      );
     } catch (error) {
       console.error('Error submitting answer:', error);
       toast.error('Error submitting answer');
@@ -123,46 +113,113 @@ export default function MultipleChoiceLayoutClient({
   // Get the correct answer text for display when needed
   const correctAnswerText = getCorrectAnswerText();
 
+  // Find the correct answer UID for highlighting
+  const correctAnswerUid = question.correctAnswer;
+
+  // Get the feedback messages
+  const getFeedbackMessage = () => {
+    if (!isSubmitted) return null;
+
+    if (isCorrect) {
+      const messages = [
+        'Excellent!',
+        'Perfect!',
+        'Great job!',
+        'You got it!',
+        'Brilliant!',
+        'Nicely done!',
+      ];
+      return messages[Math.floor(Math.random() * messages.length)];
+    } else {
+      const messages = [
+        'Try again!',
+        'Almost there!',
+        "Let's learn from this",
+        'We all make mistakes',
+        'Practice makes perfect!',
+      ];
+      return messages[Math.floor(Math.random() * messages.length)];
+    }
+  };
+
+  const feedbackMessage = getFeedbackMessage();
+
   return (
     <div className="container min-h-screen flex flex-col justify-center items-center max-w-xs md:max-w-xl lg:max-w-2xl">
-      {children}
-      <div className="flex flex-col gap-4 pt-0 p-4 lg:pt-0 lg:p-20 mb-6">
-        {answers.map((answerObj, index) => {
-          const isCurrentAnswer = selectedAnswerData?.uid === answerObj.uid;
-
-          return (
-            <MultipleChoiceCard
-              key={answerObj.uid}
-              index={index}
-              answer={answerObj.answer}
-              handleSelectAnswer={handleSelectAnswer}
-              selectedAnswer={selectedAnswerData?.text}
-              isCorrect={isSubmitted && isCurrentAnswer ? isCorrect : undefined}
-              isSubmitted={isSubmitted}
-              correctAnswer={isSubmitted ? correctAnswerText : undefined}
-            />
-          );
-        })}
-      </div>
-
-      {isSubmitted && (
-        <div className="mb-4 px-4 py-2 rounded-md text-center w-full max-w-md">
-          {isCorrect ? (
-            <p className="text-green-400">Correct! 🎉</p>
-          ) : (
-            <p className="text-red-400">
-              Incorrect. The correct answer is:{' '}
-              <span className="font-bold">{correctAnswerText}</span>
-            </p>
+      <div className="flex flex-col gap-4 mb-6 relative w-full">
+        {/* Feedback banner that slides in from top when submitted */}
+        <AnimatePresence>
+          {isSubmitted && (
+            <motion.div
+              initial={{ y: -50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -50, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+              className={`w-full p-4 rounded-lg mb-4 flex items-center justify-between ${
+                isCorrect ? 'bg-green-500/20 text-green-500' : 'bg-red-500/20 text-red-500'
+              }`}
+            >
+              <div className="flex items-center">
+                {isCorrect ? (
+                  <CheckCircle2 className="mr-2" size={20} />
+                ) : (
+                  <XCircle className="mr-2" size={20} />
+                )}
+                <span className="font-medium font-onest">{feedbackMessage}</span>
+              </div>
+            </motion.div>
           )}
+        </AnimatePresence>
+
+        {children}
+
+        {/* Answer cards that stay visible and transform when submitted */}
+        <div className="flex flex-col gap-4 w-full">
+          {answers.map((answerObj, index) => {
+            const isCurrentAnswer = selectedAnswerData?.uid === answerObj.uid;
+            const isCorrectAnswer = answerObj.uid === correctAnswerUid;
+
+            return (
+              <MultipleChoiceCard
+                key={answerObj.uid}
+                index={index}
+                answer={answerObj.answer}
+                handleSelectAnswer={handleSelectAnswer}
+                selectedAnswer={selectedAnswerData?.text}
+                isCorrect={isSubmitted && isCurrentAnswer ? isCorrect : undefined}
+                isSubmitted={isSubmitted}
+                correctAnswer={isSubmitted && isCorrectAnswer ? answerObj.answer : undefined}
+              />
+            );
+          })}
         </div>
-      )}
+
+        {/* After question info that appears after submission */}
+        <AnimatePresence>
+          {isSubmitted && question.afterQuestionInfo && (
+            <motion.div
+              className="mt-4"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.5 }}
+            >
+              <h4 className="text-lg font-medium mb-2">Learn More</h4>
+              <div
+                className="text-muted-foreground text-sm"
+                dangerouslySetInnerHTML={{ __html: question.afterQuestionInfo }}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       <MultipleChoiceFooter
         selectedAnswer={selectedAnswerData?.text}
         onClear={handleClear}
         onSubmit={handleSubmit}
         isSubmitting={isSubmitting}
+        hasSubmitted={isSubmitted}
+        onReset={resetQuestion}
       />
     </div>
   );

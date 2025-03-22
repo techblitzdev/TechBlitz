@@ -13,8 +13,52 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     index: 1,
-    answer: 'What does JS stand for?',
+    answer: 'JavaScript',
+    handleSelectAnswer: () => {},
+    selectedAnswer: undefined,
+  },
+};
+
+export const Selected: Story = {
+  args: {
+    index: 1,
+    answer: 'JavaScript',
     handleSelectAnswer: () => {},
     selectedAnswer: 'JavaScript',
+  },
+};
+
+export const CorrectSelected: Story = {
+  args: {
+    index: 1,
+    answer: 'JavaScript',
+    handleSelectAnswer: () => {},
+    selectedAnswer: 'JavaScript',
+    isSubmitted: true,
+    isCorrect: true,
+  },
+};
+
+export const IncorrectSelected: Story = {
+  args: {
+    index: 1,
+    answer: 'JavaScript',
+    handleSelectAnswer: () => {},
+    selectedAnswer: 'JavaScript',
+    isSubmitted: true,
+    isCorrect: false,
+    correctAnswer: 'ECMAScript',
+  },
+};
+
+export const CorrectNotSelected: Story = {
+  args: {
+    index: 1,
+    answer: 'ECMAScript',
+    handleSelectAnswer: () => {},
+    selectedAnswer: 'JavaScript',
+    isSubmitted: true,
+    isCorrect: false,
+    correctAnswer: 'ECMAScript',
   },
 };

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { QuestionDifficulty, QuestionType } from '@prisma/client';
 import Layout from './layout';
 import { Question } from '@/types/Questions';
+import { QuestionAnswer } from '@/types/QuestionAnswers';
 
 const meta = {
   component: Layout,
@@ -11,8 +12,37 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-// Mock the answers as strings
-const mockAnswers = ['OK', 'Created', 'Bad Request', 'Not Found'];
+// Mock the answers as QuestionAnswer objects
+const mockAnswers: QuestionAnswer[] = [
+  {
+    uid: 'answer-1',
+    questionUid: '123',
+    answer: 'OK',
+    answerType: 'STANDARD',
+    isCodeSnippet: false,
+  },
+  {
+    uid: 'answer-2',
+    questionUid: '123',
+    answer: 'Created',
+    answerType: 'STANDARD',
+    isCodeSnippet: false,
+  },
+  {
+    uid: 'answer-3',
+    questionUid: '123',
+    answer: 'Bad Request',
+    answerType: 'STANDARD',
+    isCodeSnippet: false,
+  },
+  {
+    uid: 'answer-4',
+    questionUid: '123',
+    answer: 'Not Found',
+    answerType: 'STANDARD',
+    isCodeSnippet: false,
+  },
+];
 
 // Create a mock question
 const mockQuestion = {
@@ -22,7 +52,7 @@ const mockQuestion = {
   updatedAt: new Date(),
   questionDate: new Date().toISOString(),
   answerResource: null,
-  correctAnswer: 'OK',
+  correctAnswer: 'answer-1', // Now using the UID of the correct answer
   codeSnippet: null,
   hint: null,
   dailyQuestion: false,
@@ -50,7 +80,7 @@ interface QuestionMock {
   question: string;
   questionDate: string;
   correctAnswer: string;
-  answers: string[];
+  answers: QuestionAnswer[];
   [key: string]: any;
 }
 

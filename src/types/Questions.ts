@@ -5,7 +5,7 @@ import { Answer } from './Answers';
 
 export type QuestionDifficulty = 'BEGINNER' | 'EASY' | 'MEDIUM' | 'HARD';
 
-export type QuestionType = 'MULTIPLE_CHOICE' | 'CODING_CHALLENGE';
+export type QuestionType = 'MULTIPLE_CHOICE' | 'CODING_CHALLENGE' | 'SIMPLE_MULTIPLE_CHOICE';
 
 /**
  * This type represents the shape of the data of a question.

@@ -84,7 +84,7 @@ async function QuestionCarouselContent({
 }: {
   tag: string[];
   difficulty?: QuestionDifficulty;
-  type?: 'CODING_CHALLENGE' | 'MULTIPLE_CHOICE';
+  type?: QuestionType;
   user: UserRecord | null;
 }) {
   const questions = await getQuestionsByTag(tag, difficulty, 10, type);

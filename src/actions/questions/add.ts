@@ -29,6 +29,9 @@ export const addQuestion = async (opts: {
     title: string;
     url: string;
   }[];
+  afterQuestionInfo?: string;
+  questionType?: 'MULTIPLE_CHOICE' | 'CODING_CHALLENGE' | 'SIMPLE_MULTIPLE_CHOICE';
+  slug?: string;
 }) => {
   const {
     title,
@@ -46,6 +49,9 @@ export const addQuestion = async (opts: {
     aiTitle,
     difficulty,
     questionResources,
+    afterQuestionInfo,
+    questionType,
+    slug,
   } = opts;
 
   console.log('hit');
@@ -74,9 +80,9 @@ export const addQuestion = async (opts: {
     if (!isRoadmapQuestion) {
       await prisma.questions.create({
         data: {
-          // we do not generate the slug here
-          slugGenerated: false,
-          slug: null,
+          // Use provided slug or set to null for auto-generation
+          slugGenerated: !slug,
+          slug: slug || null,
           uid: questionUid,
           question,
           title: title || null,
@@ -95,6 +101,8 @@ export const addQuestion = async (opts: {
           hint: hint || null,
           dailyQuestion: dailyQuestion || false,
           difficulty,
+          questionType: questionType || 'MULTIPLE_CHOICE',
+          afterQuestionInfo: afterQuestionInfo || null,
           QuestionResources: questionResources
             ? {
                 createMany: {

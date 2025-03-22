@@ -32,6 +32,7 @@ interface FormData {
   isPremiumQuestion: boolean;
   hint: string | null;
   codeSnippet: string | null;
+  afterQuestionInfo: string | null;
 }
 
 export default function QuestionForm({ initialData, isEditing = false }: QuestionFormProps) {
@@ -47,6 +48,7 @@ export default function QuestionForm({ initialData, isEditing = false }: Questio
     isPremiumQuestion: initialData?.isPremiumQuestion || false,
     hint: initialData?.hint || null,
     codeSnippet: initialData?.codeSnippet || null,
+    afterQuestionInfo: initialData?.afterQuestionInfo || null,
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -127,19 +129,22 @@ export default function QuestionForm({ initialData, isEditing = false }: Questio
           </div>
 
           <div>
-            <Label htmlFor="questionType">Question Type *</Label>
+            <Label htmlFor="questionType">Question Type</Label>
             <Select
               value={formData.questionType}
               onValueChange={(value) =>
                 setFormData({ ...formData, questionType: value as QuestionType })
               }
             >
-              <SelectTrigger>
-                <SelectValue />
+              <SelectTrigger id="questionType">
+                <SelectValue placeholder="Select Question Type" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value={QuestionType.MULTIPLE_CHOICE}>Multiple Choice</SelectItem>
                 <SelectItem value={QuestionType.CODING_CHALLENGE}>Coding Challenge</SelectItem>
+                <SelectItem value={QuestionType.SIMPLE_MULTIPLE_CHOICE}>
+                  Simple Multiple Choice
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -171,6 +176,20 @@ export default function QuestionForm({ initialData, isEditing = false }: Questio
             onChange={(e) => setFormData({ ...formData, codeSnippet: e.target.value || null })}
           />
         </div>
+
+        {formData.questionType === QuestionType.SIMPLE_MULTIPLE_CHOICE && (
+          <div>
+            <Label htmlFor="afterQuestionInfo">Explanation (shown after answering)</Label>
+            <Textarea
+              id="afterQuestionInfo"
+              value={formData.afterQuestionInfo || ''}
+              onChange={(e) =>
+                setFormData({ ...formData, afterQuestionInfo: e.target.value || null })
+              }
+              rows={5}
+            />
+          </div>
+        )}
       </div>
 
       <div className="flex justify-end space-x-4">

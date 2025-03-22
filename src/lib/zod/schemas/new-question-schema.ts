@@ -36,6 +36,11 @@ export const newQuestionSchema = z
         })
       )
       .optional(),
+    afterQuestionInfo: z.string().optional(),
+    questionType: z
+      .enum(['MULTIPLE_CHOICE', 'CODING_CHALLENGE', 'SIMPLE_MULTIPLE_CHOICE'])
+      .optional(),
+    slug: z.string().optional(),
   })
   .refine((data) => !data.dailyQuestion || data.questionDate, {
     message: 'Date is required when Daily Question is enabled',

@@ -66,18 +66,6 @@ export default function MultipleChoiceLayoutClient({
     setIsCorrect(null);
   };
 
-  // Get the correct answer text for display
-  const getCorrectAnswerText = () => {
-    // If the correctAnswer is a UID, find the corresponding answer text
-    const correctAnswerObj = answers.find((a) => a.uid === question.correctAnswer);
-    if (correctAnswerObj) {
-      return correctAnswerObj.answer;
-    }
-
-    // Fallback: If correctAnswer isn't a UID or no match found, return the raw correctAnswer
-    return String(question.correctAnswer);
-  };
-
   const resetQuestion = () => {
     setIsSubmitted(false);
     setIsCorrect(null);
@@ -90,28 +78,30 @@ export default function MultipleChoiceLayoutClient({
 
     setIsSubmitting(true);
 
+    // provides instant feedback without waiting for the server to respond
+    if (question.correctAnswer === selectedAnswerData.uid) {
+      setIsCorrect(true);
+      setIsSubmitted(true);
+    } else {
+      setIsCorrect(false);
+      setIsSubmitted(true);
+    }
+
+    setIsSubmitting(false);
+
     try {
-      // Calculate time taken in seconds
       const timeTaken = Math.floor((Date.now() - startTime) / 1000);
-      // Submit the answer using the answerQuestion action
-      const response = await answerQuestion({
+
+      await answerQuestion({
         questionUid: question.uid,
         answerUid: selectedAnswerData.uid,
         timeTaken,
       });
-
-      setIsCorrect(response.correctAnswer);
-      setIsSubmitted(true);
     } catch (error) {
       console.error('Error submitting answer:', error);
       toast.error('Error submitting answer');
-    } finally {
-      setIsSubmitting(false);
     }
   };
-
-  // Get the correct answer text for display when needed
-  const correctAnswerText = getCorrectAnswerText();
 
   // Find the correct answer UID for highlighting
   const correctAnswerUid = question.correctAnswer;
@@ -134,7 +124,7 @@ export default function MultipleChoiceLayoutClient({
       const messages = [
         'Try again!',
         'Almost there!',
-        "Let's learn from this",
+        "You'll get it next time!",
         'We all make mistakes',
         'Practice makes perfect!',
       ];

@@ -28,6 +28,9 @@ export default function MultipleChoiceFooter({
     }
   };
 
+  // if submitted, the submit button will be 'next question'
+  const submitButtonText = hasSubmitted ? 'Next Question' : 'Submit';
+
   return (
     <section className="flex items-center justify-between w-full pt-5">
       <Button variant="destructive" onClick={handleClear} disabled={isClearDisabled}>
@@ -40,7 +43,7 @@ export default function MultipleChoiceFooter({
             Submitting...
           </>
         ) : (
-          'Submit'
+          submitButtonText
         )}
       </Button>
     </section>

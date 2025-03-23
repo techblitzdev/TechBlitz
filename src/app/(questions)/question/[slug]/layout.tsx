@@ -34,13 +34,20 @@ const UpgradeModal = dynamic(
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const question = await getQuestion('slug', params.slug);
-  const title = question?.slug?.replace(/-/g, ' ') || 'Coding Question';
+  const title = question?.title || question?.slug?.replace(/-/g, ' ') || 'Coding Question';
+
+  const defaultQuestionDescription = `Practice ${capitalise(
+    title
+  )} and improve your coding skills with interactive challenges on TechBlitz`;
+
+  const description =
+    question?.questionType === 'SIMPLE_MULTIPLE_CHOICE'
+      ? question?.afterQuestionInfo || defaultQuestionDescription
+      : defaultQuestionDescription;
 
   return createMetadata({
     title: `${capitalise(title)} | TechBlitz`,
-    description: `Practice ${capitalise(
-      title
-    )} and improve your coding skills with interactive challenges on TechBlitz`,
+    description,
     image: {
       text: `${title} | TechBlitz`,
       bgColor: '#000000',
@@ -68,12 +75,21 @@ export default async function QuestionUidLayout({
     return redirect('/questions');
   }
 
+  const defaultQuestionDescription = `Practice ${capitalise(
+    question?.title || question?.slug?.replace(/-/g, ' ') || 'Coding Question'
+  )} and improve your coding skills with interactive challenges on TechBlitz`;
+
+  const description =
+    question?.questionType === 'SIMPLE_MULTIPLE_CHOICE'
+      ? question?.afterQuestionInfo || defaultQuestionDescription
+      : defaultQuestionDescription;
+
   // create json ld
   const jsonLd: QuizJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Quiz',
     name: capitalise(question?.slug?.replace(/-/g, ' ') || ''),
-    description: question?.question || '',
+    description,
     url: `${getBaseUrl()}/question/${slug}`,
     educationLevel: getQuestionEducationLevel(question?.difficulty || 'EASY'),
     educationalUse: 'practice',

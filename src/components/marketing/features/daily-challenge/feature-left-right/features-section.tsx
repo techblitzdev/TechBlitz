@@ -4,7 +4,7 @@ import FeatureLeftRightSectionThree from './section-three';
 
 export default function FeatureLeftRightSection(opts: {
   leftHeader?: string;
-  leftSubheader?: string;
+  leftSubheader?: string | React.ReactNode;
   learnMoreLink?: boolean;
   leftCta?: {
     title: string;

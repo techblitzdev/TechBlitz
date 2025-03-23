@@ -86,6 +86,12 @@ export interface User extends BaseRecord {
 
   // the date the user's custom coupon expires
   userCustomCouponExpiresAt?: Date | null;
+
+  // total user experience points
+  userXp?: number;
+
+  // weekly user experience points
+  weeklyUserXp?: number;
 }
 
 export type UserRecord = Pick<
@@ -120,6 +126,8 @@ export type UserRecord = Pick<
   | 'userCustomCoupon'
   | 'hasCreatedCustomSignupCoupon'
   | 'userCustomCouponExpiresAt'
+  | 'userXp'
+  | 'weeklyUserXp'
 >;
 
 // First, create a type that excludes 'uid' from the partial requirement

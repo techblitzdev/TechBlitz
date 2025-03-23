@@ -91,80 +91,82 @@ export default function QuestionActionButtons() {
             </AnimatePresence>
           </div>
         </Button>
-        <TooltipProvider>
-          <Tooltip delayDuration={0}>
-            <TooltipTrigger asChild>
-              <Button
-                variant="default"
-                className="rounded-none"
-                size="sm"
-                onClick={testRunCode}
-                disabled={runningCode}
-              >
-                <AnimatePresence mode="wait">
-                  {!runningCode ? (
-                    <motion.span
-                      key="run-icon"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      transition={{ duration: 0.2, ease: 'easeOut' }}
-                    >
-                      {testRunResult ? (
-                        <AnimatePresence mode="wait">
-                          {testRunResult?.passed ? (
-                            <motion.div
-                              key="success"
-                              initial={{ scale: 0.5, opacity: 0 }}
-                              animate={{ scale: 1, opacity: 1 }}
-                              exit={{ scale: 0.5, opacity: 0 }}
-                              transition={{ type: 'spring', stiffness: 200, damping: 10 }}
+        {question.questionType !== 'SIMPLE_MULTIPLE_CHOICE' && (
+          <TooltipProvider>
+            <Tooltip delayDuration={0}>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="default"
+                  className="rounded-none"
+                  size="sm"
+                  onClick={testRunCode}
+                  disabled={runningCode}
+                >
+                  <AnimatePresence mode="wait">
+                    {!runningCode ? (
+                      <motion.span
+                        key="run-icon"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.2, ease: 'easeOut' }}
+                      >
+                        {testRunResult ? (
+                          <AnimatePresence mode="wait">
+                            {testRunResult?.passed ? (
+                              <motion.div
+                                key="success"
+                                initial={{ scale: 0.5, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                exit={{ scale: 0.5, opacity: 0 }}
+                                transition={{ type: 'spring', stiffness: 200, damping: 10 }}
+                              >
+                                <CheckCircleIcon className="w-4 h-4 text-green-500" />
+                              </motion.div>
+                            ) : (
+                              <motion.div
+                                key="error"
+                                initial={{ scale: 0.5, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                exit={{ scale: 0.5, opacity: 0 }}
+                                transition={{ type: 'spring', stiffness: 200, damping: 10 }}
+                              >
+                                <XCircleIcon className="w-4 h-4 text-red-500" />
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        ) : (
+                          <AnimatePresence mode="wait">
+                            <motion.span
+                              key="run-icon"
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              exit={{ opacity: 0, scale: 0.8 }}
+                              transition={{ duration: 0.2, ease: 'easeOut' }}
                             >
-                              <CheckCircleIcon className="w-4 h-4 text-green-500" />
-                            </motion.div>
-                          ) : (
-                            <motion.div
-                              key="error"
-                              initial={{ scale: 0.5, opacity: 0 }}
-                              animate={{ scale: 1, opacity: 1 }}
-                              exit={{ scale: 0.5, opacity: 0 }}
-                              transition={{ type: 'spring', stiffness: 200, damping: 10 }}
-                            >
-                              <XCircleIcon className="w-4 h-4 text-red-500" />
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      ) : (
-                        <AnimatePresence mode="wait">
-                          <motion.span
-                            key="run-icon"
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.8 }}
-                            transition={{ duration: 0.2, ease: 'easeOut' }}
-                          >
-                            <Play className="w-4 h-4 fill-gray-400 text-gray-400" />
-                          </motion.span>
-                        </AnimatePresence>
-                      )}
-                    </motion.span>
-                  ) : (
-                    <motion.span
-                      key="loading-icon"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      transition={{ duration: 0.2, ease: 'easeOut' }}
-                    >
-                      <LoadingSpinner className="w-4 h-4 fill-gray-400 text-gray-400" />
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>{runningCode ? 'Running code...' : 'Run Code'}</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+                              <Play className="w-4 h-4 fill-gray-400 text-gray-400" />
+                            </motion.span>
+                          </AnimatePresence>
+                        )}
+                      </motion.span>
+                    ) : (
+                      <motion.span
+                        key="loading-icon"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.2, ease: 'easeOut' }}
+                      >
+                        <LoadingSpinner className="w-4 h-4 fill-gray-400 text-gray-400" />
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{runningCode ? 'Running code...' : 'Run Code'}</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
         {user ? (
           <form onSubmit={handleSubmit}>
             <Button

@@ -1,6 +1,6 @@
 ---
 title: 'What is triple equals in JavaScript?'
-description: "In this article, we'll explore the triple equals operator (===) in JavaScript, its purpose, and how it compares to the double equals operator (==)."
+description: "In JavaScript, the triple equals operator (===) is a strict equality comparison operator that checks both value and type equality."
 image: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images//triple-equals-in-js.png'
 date: '2025-02-03'
 author: 'Logan Ford'
@@ -39,9 +39,16 @@ keywords: 'JavaScript triple equals, strict equality, double equals, type coerci
 import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
-# What is Triple Equals in JavaScript?
+## Definition
 
-The triple equals operator (===) in JavaScript is a strict equality comparison operator that checks both value and type equality. Unlike its more lenient cousin, the double equals operator (==), triple equals doesn't perform type coercion before making the comparison. This makes it more predictable and generally safer to use in your code.
+The triple equals (`===`) operator in JavaScript checks if two values are equal in both value and type, without converting types. It's stricter than double equals (`==`) which does convert types before comparing.
+
+<br />
+
+When using triple equals:
+- Both operands must be of the same type
+- Both operands must have the same value
+- No automatic type conversion occurs
 
 <br />
 

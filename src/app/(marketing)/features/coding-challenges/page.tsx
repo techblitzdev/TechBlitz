@@ -289,8 +289,8 @@ export default async function FeatureDailyQuestionPage() {
       <div className="container">
         <FeatureDailyChallengeHero
           animatedSpan="Coding Challenges"
-          header="Engaging, short-form coding challenges"
-          subheader="TechBlitz transforms learning to code into bite-sized, engaging coding challenges. Master new skills in just 5 minutes a day—anytime, anywhere, on any device. Even learn to code on your phone!"
+          header="Free JavaScript coding challenges"
+          subheader="TechBlitz provides free JavaScript coding challenges to help you master your skills. Learn new skills in just 5 minutes a day—anytime, anywhere, on any device. Even learn to code on your phone!"
           className="xl:w-1/2"
           rightCta={{
             href: '/challenges',
@@ -299,7 +299,7 @@ export default async function FeatureDailyQuestionPage() {
         />
 
         <FeatureLeftRightSection
-          leftHeader="Free coding challenges for beginners"
+          leftHeader="Free JavaScript coding challenges"
           leftSubheader="TechBlitz transforms learning to code into bite-sized, engaging coding challenges. Master new skills in just 5 minutes a day—anytime, anywhere, on any device. Even learn to code on your phone!"
           rightHeader="Personalized coding challenges"
           rightSubheader="TechBlitz adapts to your weaknesses. Receive recommendations straight to your inbox, and get instant feedback on your code. Improving your coding skills has never been easier."

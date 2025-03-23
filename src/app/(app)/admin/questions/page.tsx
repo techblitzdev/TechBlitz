@@ -3,6 +3,7 @@ import Link from 'next/link';
 import AdminContainer from '@/components/app/admin/admin-container';
 import NewQuestionModal from '@/components/app/questions/admin/new-question-modal';
 import NewCodingChallengeQuestionModal from '@/components/app/questions/admin/new-coding-challenge-modal';
+import NewSimpleMultipleChoiceModal from '@/components/app/questions/admin/new-simple-multiple-choice-modal';
 
 export const metadata: Metadata = {
   title: 'TechBlitz | Question Management',
@@ -35,9 +36,10 @@ export default function QuestionsAdminPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-black-75 border border-black-50 rounded-lg p-6">
             <h2 className="text-xl font-semibold mb-4 text-white">Create New Question</h2>
-            <div className="flex gap-4">
-              <NewQuestionModal className="w-fit" />
-              <NewCodingChallengeQuestionModal className="w-fit" />
+            <div className="flex flex-wrap gap-4">
+              <NewQuestionModal />
+              <NewCodingChallengeQuestionModal />
+              <NewSimpleMultipleChoiceModal />
             </div>
           </div>
 

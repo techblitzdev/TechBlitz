@@ -64,6 +64,8 @@ import { Expand, StarsIcon } from 'lucide-react';
 import EditorIcon from '@/components/ui/icons/editor';
 import WindowCode2 from '@/components/ui/icons/window-code';
 import QuestionCardLoading from '@/components/app/questions/single/layout/question-card-loading';
+import MultipleChoiceLayout from '@/components/app/questions/multiple-choice/layout';
+import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation';
 
 export default async function TodaysQuestionPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
@@ -83,6 +85,18 @@ export default async function TodaysQuestionPage({ params }: { params: { slug: s
   }
 
   const questionPromise = getQuestion('slug', slug);
+  const nextAndPreviousQuestion = await getNextAndPreviousQuestion(question.uid); // cached
+
+  if (question.questionType === 'SIMPLE_MULTIPLE_CHOICE') {
+    return (
+      <PremiumContentWrapper>
+        <MultipleChoiceLayout
+          question={question}
+          nextAndPreviousQuestion={nextAndPreviousQuestion}
+        />
+      </PremiumContentWrapper>
+    );
+  }
 
   const leftContent = (
     <div className="flex flex-col gap-y-4 p-3 lg:pr-1.5 h-full">

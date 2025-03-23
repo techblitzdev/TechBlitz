@@ -1,6 +1,6 @@
 ---
-title: 'JavaScript Format Strings with Variables'
-description: "Learn how to format strings with variables in JavaScript using template literals and string interpolation. Master string concatenation, template strings, and dynamic text creation with practical examples."
+title: 'How to format strings with variables in JavaScript'
+description: "To format a string with variables in JavaScript, you can use template literals, string concatenation, and other methods. Let's dive into the different ways to format strings with variables in JavaScript."
 image: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images/javascript-format-strings-with-variables.png'
 date: '2025-02-16'
 author: 'Logan Ford'
@@ -8,20 +8,20 @@ authorImage: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/
 readingTime: 4
 status: published
 headings:
-    - title: 'Introduction to String Formatting in JavaScript'
-      level: 1
-    - title: 'Template Literals (Template Strings)'
-      level: 2
-    - title: 'String Concatenation Methods'
-      level: 2
-    - title: 'Advanced String Formatting'
-      level: 2
-    - title: 'Common Use Cases'
-      level: 2
-    - title: 'Best Practices'
-      level: 2
-    - title: 'Practice Examples'
-      level: 2
+  - title: 'How to format strings with variables in JavaScript?'
+    level: 1
+  - title: 'Template Literals (Template Strings)'
+    level: 2
+  - title: 'String Concatenation Methods'
+    level: 2
+  - title: 'Advanced String Formatting'
+    level: 2
+  - title: 'Common Use Cases'
+    level: 2
+  - title: 'Best Practices'
+    level: 2
+  - title: 'Practice Examples'
+    level: 2
 tags: ['JavaScript', 'String Formatting', 'Template Literals', 'Web Development', 'Beginner']
 subpage: true
 ---
@@ -29,17 +29,18 @@ subpage: true
 import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
-# Introduction to String Formatting in JavaScript
+## How to format strings with variables in JavaScript?
 
 String formatting with variables is a crucial skill in JavaScript programming. Whether you're creating dynamic messages, building templates, or working with user data, knowing how to combine strings with variables efficiently will make your code cleaner and more maintainable.
 
 ## Template Literals (Template Strings)
 
 Template literals, introduced in ES6, are the modern way to format strings with variables in JavaScript. They use backticks (`) and ${} for variable interpolation.
+Backticks are different from single quotes and double quotes. They allow you to use variables and expressions inside the string without concatenation.
 
 ### Basic Syntax and Usage
 
-<br />
+Take the following example on how to create strings with variables in JavaScript:
 
 <CodeSnippet language="javascript" content={`// Basic template literal
 const name = 'John';
@@ -59,6 +60,9 @@ console.log(total); // Output: Total: $14.97`} />
 
 <br />
 
+As demonstrated in the example above, you can use backticks to create strings with variables in JavaScript.
+Also take note that you must use the dollar sign (\$) with curly braces (\{}) to interpolate the variables.
+
 ### Multiline Strings
 
 Template literals make it easy to create multiline strings:
@@ -74,7 +78,16 @@ Best regards,
 The Store Team
 \`;
 
-console.log(email);`} />
+console.log(email);
+
+// Output:
+// Dear John,
+// 
+// Thank you for your order of 3 coffee(s).
+// Your total is $14.97.
+// 
+// Best regards,
+// The Store Team`} />
 
 <br />
 
@@ -95,8 +108,6 @@ const message3 = ['My name is', name, 'and I am', age, 'years old'].join(' ');
 
 // Modern approach with template literals
 const message4 = \`My name is \${name} and I am \${age} years old.\`;`} />
-
-## Advanced String Formatting
 
 ### Number Formatting
 
@@ -248,7 +259,7 @@ Test your knowledge with these practice questions:
 
 <br />
 
-<MdxQuestionDisplay tag="literals" difficulty="BEGINNER" take={3} />
+<MdxQuestionDisplay tag="template-literals" take={3} />
 
 <br />
 

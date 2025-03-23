@@ -163,17 +163,17 @@ const items = [
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Free Coding Challenges | TechBlitz',
+    title: 'Personalized Coding Challenges | TechBlitz',
     description:
-      'Master coding with TechBlitz’s free coding challenges. Learn JavaScript, web development, and programming through real-world challenges tailored to your skill level. Start your coding journey today!',
+      'Master coding with TechBlitz’s personalized coding challenges. Learn JavaScript, web development, and programming through real-world challenges tailored to your skill level. Start your coding journey today!',
     image: {
-      text: 'Free Coding Challenges | TechBlitz',
+      text: 'Personalized Coding Challenges | TechBlitz',
       bgColor: '#000',
       textColor: '#fff',
     },
-    canonicalUrl: '/free-coding-challenges',
+    canonicalUrl: '/personalized-coding-challenges',
     keywords: [
-      'free coding challenges, free JavaScript challenges, learn to code for free, free web development challenges, free coding practice, free programming challenges, free coding for beginners',
+      'personalized coding challenges, personalized JavaScript challenges, personalized web development challenges, personalized programming challenges, personalized coding for beginners',
     ],
   });
 }

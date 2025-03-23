@@ -156,7 +156,7 @@ export default function MultipleChoiceLayoutClient({
   };
 
   return (
-    <div className="container min-h-screen flex flex-col justify-center items-center max-w-xs md:max-w-xl lg:max-w-2xl">
+    <div className="px-4 lg:px-0 lg:container min-h-screen flex flex-col justify-self-center justify-center items-center max-w-xs md:max-w-xl lg:max-w-2xl">
       <div className="flex flex-col gap-4 mb-6 relative w-full">
         {/* Feedback banner that slides in from top when submitted */}
         <AnimatePresence>

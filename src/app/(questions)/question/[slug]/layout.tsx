@@ -181,7 +181,7 @@ export default async function QuestionUidLayout({
               )}
               <div
                 className={`col-span-3 lg:col-span-4 flex items-center gap-x-1 md:gap-x-3 justify-end ${
-                  question.questionType === 'SIMPLE_MULTIPLE_CHOICE' ? 'lg:col-start-10' : ''
+                  question.questionType === 'SIMPLE_MULTIPLE_CHOICE' ? 'col-start-10' : ''
                 }`}
               >
                 <Suspense fallback={<div>Loading...</div>}>

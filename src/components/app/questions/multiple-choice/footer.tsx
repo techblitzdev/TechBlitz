@@ -74,7 +74,7 @@ export default function MultipleChoiceFooter({
   }
 
   return (
-    <section className="flex items-center justify-between w-full pt-5">
+    <section className="flex items-center justify-between w-full lg:pt-5">
       <Button variant="destructive" onClick={handleClear} disabled={isClearDisabled}>
         {hasSubmitted ? 'Try Again' : 'Clear'}
       </Button>

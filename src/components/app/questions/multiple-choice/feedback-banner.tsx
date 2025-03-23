@@ -1,6 +1,7 @@
 import { XCircle } from 'lucide-react';
 import { CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { SolarFlameBoldDuotone } from '@/components/ui/current-streak';
 
 interface FeedbackBannerProps {
   isCorrect: boolean;
@@ -19,7 +20,7 @@ export default function FeedbackBanner({
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: -50, opacity: 0 }}
       transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-      className={`w-full p-4 rounded-lg mb-4 flex items-center justify-between ${
+      className={`w-full px-4 py-2 lg:p-4 lg:py-4 rounded-lg mb-4 flex items-center justify-between ${
         isCorrect ? 'bg-green-500/20 text-green-500' : 'bg-red-500/20 text-red-500'
       }`}
     >
@@ -42,9 +43,10 @@ export default function FeedbackBanner({
           damping: 15,
           delay: 0.2,
         }}
-        className="flex items-center gap-1.5 text-white px-3 py-1.5 rounded-full font-medium shadow-sm"
+        className="flex items-center text-white px-3 py-1.5 rounded-full font-medium shadow-sm"
       >
-        <span>+{xpIncrease}xp</span>
+        <SolarFlameBoldDuotone className="size-6" hasActiveStreak={true} />
+        <span className="font-onest">+{xpIncrease}xp</span>
       </motion.div>
     </motion.div>
   );

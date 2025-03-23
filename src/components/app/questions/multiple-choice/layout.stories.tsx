@@ -86,5 +86,6 @@ interface QuestionMock {
 export const Default: Story = {
   args: {
     question: mockQuestion as QuestionMock,
+    nextAndPreviousQuestion: null,
   },
 };

@@ -21,9 +21,27 @@ export const updateUser = async (opts: { userDetails: Partial<UserRecord> }) => 
     throw new Error('No user found in session');
   }
 
+  // Fix special values that can cause Prisma validation errors
+  const sanitizedUserDetails = Object.fromEntries(
+    Object.entries(userDetails).map(([key, value]) => {
+      // Handle special string values that indicate undefined or NaN
+      if (value === '$undefined') return [key, undefined];
+      if (value === '$NaN') return [key, 0]; // Convert NaN to 0 for numeric fields
+
+      // Handle numeric fields like userXp to ensure they are numbers
+      if (key === 'userXp' || key === 'weeklyUserXp') {
+        // Convert to number or default to 0 if it's not a valid number
+        const numValue = typeof value === 'number' ? value : Number(value);
+        return [key, isNaN(numValue) ? 0 : numValue];
+      }
+
+      return [key, value];
+    })
+  );
+
   // Clean up the userDetails to remove any undefined or null values
   const cleanedUserDetails = Object.fromEntries(
-    Object.entries(userDetails).filter(
+    Object.entries(sanitizedUserDetails).filter(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       ([_, v]) =>
         v !== undefined && v !== null && !['studyPathEnrollments', 'studyPathGoals'].includes(_)
@@ -62,6 +80,11 @@ export const updateUser = async (opts: { userDetails: Partial<UserRecord> }) => 
   // if the user has updated their username, set the isCustomUsername flag to true
   if (userDetails.username !== undefined) {
     updateData.isCustomUsername = true;
+  }
+
+  // Ensure userXp is properly set
+  if (updateData.userXp === undefined) {
+    updateData.userXp = 0;
   }
 
   // Update the user in the database

@@ -150,9 +150,24 @@ export function useOnboardingSteps() {
 
         setCurrentStepState(stepConfig[STEPS.USER_DETAILS].next as StepKey);
       } else if (currentStep === STEPS.INITIAL_QUESTIONS) {
-        // @ts-ignore - this is added on a separate branch. https://github.com/techblitzdev/TechBlitz/pull/526/files
-        await updateUser({ userDetails: { ...user, userXp: totalXp } });
-        setCurrentStepState(stepConfig[STEPS.INITIAL_QUESTIONS].next as StepKey);
+        // Fix the userXp field by ensuring it's a numeric value
+        // Make sure to use the existing user object and only update the userXp field
+        const userXpValue = typeof totalXp === 'number' && !isNaN(totalXp) ? totalXp : 0;
+
+        try {
+          await updateUser({
+            userDetails: {
+              ...user,
+              userXp: userXpValue,
+            },
+          });
+          console.log(`Successfully updated user with XP: ${userXpValue}`);
+          setCurrentStepState(stepConfig[STEPS.INITIAL_QUESTIONS].next as StepKey);
+        } catch (error) {
+          console.error('Error updating user XP:', error);
+          // We'll still proceed to the next step even if the XP update fails
+          setCurrentStepState(stepConfig[STEPS.INITIAL_QUESTIONS].next as StepKey);
+        }
       } else {
         await updateUser({ userDetails: user });
         const nextStep = stepConfig[currentStep].next;

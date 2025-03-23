@@ -73,6 +73,12 @@ model Users {
   roadmaps                    UserRoadmaps[]
   studyPathEnrollments        UserStudyPath[]
   userMissions                UserMission[]
+
+  LeagueHistory LeagueHistory[]
+
+  LeagueAchievement LeagueAchievement[]
+
+  UserLeague UserLeague[]
 }
 
 model Streaks {

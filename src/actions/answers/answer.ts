@@ -16,7 +16,6 @@ import { Question } from '@/types/Questions';
 interface AnswerQuestionInput {
   questionUid: string;
   answerUid: string | null;
-  userUid: string;
   timeTaken?: number;
   allPassed?: boolean;
   // for handling study path progress
@@ -29,7 +28,7 @@ interface AnswerQuestionResponse {
   userData: UserRecord | null;
 }
 
-const findOrCreateUserStreak = async (userUid: string) => {
+export const findOrCreateUserStreak = async (userUid: string) => {
   const streak = await prisma.streaks.findUnique({
     where: { userUid },
   });
@@ -172,6 +171,21 @@ const updateOrCreateAnswer = async ({
   correctAnswer: boolean;
   timeTaken?: number;
 }) => {
+  // if we are on local, return a mock answer
+  if (process.env.NODE_ENV === 'development') {
+    return {
+      uid: 'mock-answer-uid',
+      text: 'Mock answer text',
+      correctAnswer: true,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      user: { connect: { uid: userUid } },
+      question: { connect: { uid: questionUid } },
+      userAnswerUid: answerUid,
+      timeTaken,
+    };
+  }
+
   if (existingAnswer) {
     // Update if the new answer is correct and the previous one was incorrect, or if the time is better
     if (
@@ -240,11 +254,17 @@ const updateUserXp = async (
 export async function answerQuestion({
   questionUid,
   answerUid,
-  userUid,
   timeTaken,
   allPassed,
   studyPathSlug,
 }: AnswerQuestionInput): Promise<AnswerQuestionResponse> {
+  const user = await getUser();
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  const userUid = user.uid;
+
   // if no answerUid, then we are submitting a coding challenge
   if (!answerUid) {
     answerUid = uniqueId();

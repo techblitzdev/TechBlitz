@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isAuthorized } from '@/utils/cron';
 import { prisma } from '@/lib/prisma';
+import { sendNoChallengesEmail } from '@/actions/misc/send-no-challenges-email';
 
 export async function GET(request: NextRequest) {
   if (!isAuthorized(request)) {
@@ -11,6 +12,9 @@ export async function GET(request: NextRequest) {
   const users = await prisma.users.findMany({
     where: {
       sendPushNotifications: true,
+      AND: {
+        hasSent7DayNoChallengeEmail: false, // meaning this is the first time they are receiving the email
+      },
     },
   });
 
@@ -23,6 +27,28 @@ export async function GET(request: NextRequest) {
       },
     },
   });
+
+  // loop through the users and send them the email
+  //for (const user of users) {
+  //  await send7DayNoChallengeEmail(user);
+  //
+  //  // update the user to set the hasSent7DayNoChallengeEmail to true
+  //  await prisma.users.update({
+  //    where: { uid: user.uid },
+  //    data: { hasSent7DayNoChallengeEmail: true },
+  //  });
+  //}
+
+  // TESTING SEND TO ME
+  const email = 'logan@hiyield.co.uk';
+  const user = await prisma.users.findUnique({
+    where: { email },
+  });
+  if (user) {
+    await sendNoChallengesEmail({
+      user,
+    });
+  }
 
   return NextResponse.json(
     {

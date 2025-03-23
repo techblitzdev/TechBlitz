@@ -4,7 +4,7 @@ import { DatePicker } from '@mantine/dates';
 
 export default function FeatureLeftRightSectionOne(opts: {
   leftHeader?: string;
-  leftSubheader?: string;
+  leftSubheader?: string | React.ReactNode;
   learnMoreLink?: boolean;
   leftCta?: {
     title: string;
@@ -27,7 +27,9 @@ export default function FeatureLeftRightSectionOne(opts: {
           </h2>
           <p className="text-white/70 max-w-xl text-base font-onest">
             {leftSubheader
-              ? leftSubheader
+              ? typeof leftSubheader === 'string'
+                ? leftSubheader
+                : leftSubheader
               : "TechBlitz empowers your growth with intuitive progress tracking. See how far you've come with streak counts that celebrate your dedication and keep you motivated. Stay on track, achieve consistency, and make self-improvement a daily habit."}
           </p>
           {leftCta && leftCta.href ? (
@@ -36,7 +38,7 @@ export default function FeatureLeftRightSectionOne(opts: {
             </Button>
           ) : (
             learnMoreLink && (
-              <Button variant="secondary" href={'/features/daily-coding-challenges'}>
+              <Button variant="secondary" href={'/features/coding-challenges'}>
                 Learn more
               </Button>
             )

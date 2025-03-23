@@ -35,25 +35,25 @@ const components: { title: string; href: string; description: string; icon?: Rea
     title: 'Blog',
     href: '/blog',
     description: 'Read our latest blog posts for more insights on how to level up your skills.',
-    icon: <Book size={16} />,
+    icon: <Book height="24" width="24" />,
   },
   {
     title: 'Changelog',
     href: '/changelog',
     description: 'Release notes for the latest updates.',
-    icon: <Document />,
+    icon: <Document fill="white" height="24" width="24" />,
   },
   {
     title: 'Open Source',
     href: '/open-source',
     description: 'No secrets here, see how we build our platform.',
-    icon: <GithubLogo />,
+    icon: <GithubLogo fill="white" height="24" width="24" />,
   },
   {
     title: 'FAQs',
     href: '/faqs',
     description: 'Got a question? We have an answer.',
-    icon: <QuestionMarkCircledIcon />,
+    icon: <QuestionMarkCircledIcon fill="white" height="24" width="24" />,
   },
 ];
 
@@ -63,28 +63,28 @@ const features = [
     href: '/features/roadmap',
     description: 'Personalized learning journeys',
     ariaLabel: 'Navigate to Roadmaps',
-    icon: <RoadmapIcon />,
+    icon: <RoadmapIcon fill="white" height="24" width="24" />,
   },
   {
-    title: 'Daily Challenges',
-    href: '/features/daily-coding-challenges',
-    description: 'Tackle daily challenges to sharpen your developer skills.',
-    ariaLabel: 'Navigate to Daily Challenges',
-    icon: <Document />,
+    title: 'Coding Challenges',
+    href: '/features/coding-challenges',
+    description: 'Tackle coding challenges to sharpen your developer skills.',
+    ariaLabel: 'Navigate to Coding Challenges',
+    icon: <Document fill="white" height="24" width="24" />,
   },
   {
     title: 'Statistics',
     href: '/features/statistics',
     description: 'Track your progress and see your growth over time.',
     ariaLabel: 'Navigate to Statistics',
-    icon: <Chart />,
+    icon: <Chart fill="white" height="24" width="24" />,
   },
   {
     title: 'Leaderboard',
     href: '/features/leaderboard',
     description: 'See how you stack up against the rest of the community.',
     ariaLabel: 'Navigate to Leaderboard',
-    icon: <Award />,
+    icon: <Award fill="white" height="24" width="24" />,
   },
 ];
 
@@ -93,9 +93,9 @@ export function NavigationMenuItems() {
     <NavigationMenu className="py-2 px-4 hidden md:block" aria-label="Main navigation">
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger aria-label="Features menu">Product</NavigationMenuTrigger>
+          <NavigationMenuTrigger aria-label="Features menu">Features</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+            <ul className="grid w-[300px] gap-3 p-4 md:w-[600px] md:grid-cols-2 lg:w-[800px]">
               {features.map((feature) => (
                 <ListItem
                   key={feature.title}
@@ -185,15 +185,17 @@ const ListItem = React.forwardRef<
         )}
         {...props}
       >
-        <div className="text-sm font-medium leading-none flex items-center gap-2">
-          <div className="bg-primary rounded-md p-1 border border-black-50 flex items-center justify-center size-6">
+        <div className="font-medium leading-none flex items-center gap-2">
+          <div className="bg-primary rounded-md p-1 border border-black-50 flex items-center justify-center size-10">
             {icon}
           </div>
-          {title}
+          <div className="flex flex-col gap-1">
+            <p className="text-sm font-medium">{title}</p>
+            <p className="text-xs leading-none text-muted-foreground group-hover:text-white">
+              {children}
+            </p>
+          </div>
         </div>
-        <p className="line-clamp-2 text-xs leading-snug text-muted-foreground group-hover:text-white">
-          {children}
-        </p>
       </Link>
     </li>
   );

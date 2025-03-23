@@ -4,9 +4,10 @@ import { Question } from '@/types/Questions';
 import { cache } from 'react';
 
 /**
- * Retrieve a question via its uid
+ * Retrieve a question via its uid or slug
  *
- * @param uid - The uid of the question to retrieve
+ * @param identifier - The identifier to use to retrieve the question (uid or slug)
+ * @param value - The value of the identifier
  * @returns The question object
  */
 export const getQuestion = cache(async (identifier: 'slug' | 'uid' = 'slug', value: string) => {

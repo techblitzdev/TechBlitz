@@ -17,15 +17,20 @@ interface MenuItem {
   children?: MenuItem[];
 }
 
+const featureLinks = [
+  { label: 'Roadmaps', href: '/features/roadmap' },
+  { label: 'Coding Challenges', href: '/features/coding-challenges' },
+  { label: 'Statistics', href: '/features/statistics' },
+  { label: 'Leaderboard', href: '/features/leaderboard' },
+];
+
 const menuItems: MenuItem[] = [
   {
-    label: 'Product',
-    children: [
-      { label: 'Roadmaps', href: '/features/roadmaps' },
-      { label: 'Daily Challenges', href: '/features/daily-coding-challenges' },
-      { label: 'Statistics', href: '/features/statistics' },
-      { label: 'Leaderboard', href: '/features/leaderboard' },
-    ],
+    label: 'Features',
+    children: featureLinks.map((link) => ({
+      label: link.label,
+      href: link.href,
+    })),
   },
   {
     label: 'Resources',

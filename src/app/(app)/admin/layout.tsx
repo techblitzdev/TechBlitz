@@ -85,6 +85,36 @@ export default async function AdminLayout({ children }: { children: React.ReactN
                   </div>
                 </div>
               </li>
+              <li className="relative group">
+                <Link
+                  href="/admin/leagues"
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Leagues
+                </Link>
+                <div className="absolute left-0 mt-2 w-48 bg-black-75 border border-black-50 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="py-1">
+                    <Link
+                      href="/admin/leagues"
+                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-black-50 hover:text-white"
+                    >
+                      Dashboard
+                    </Link>
+                    <Link
+                      href="/admin/leagues/list"
+                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-black-50 hover:text-white"
+                    >
+                      All Leagues
+                    </Link>
+                    <Link
+                      href="/admin/leagues/achievements"
+                      className="block px-4 py-2 text-sm text-gray-300 hover:bg-black-50 hover:text-white"
+                    >
+                      Achievements
+                    </Link>
+                  </div>
+                </div>
+              </li>
               <li>
                 <Link
                   href="/dashboard"

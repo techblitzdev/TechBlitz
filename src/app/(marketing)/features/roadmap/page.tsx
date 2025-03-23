@@ -15,14 +15,19 @@ import { createMetadata } from '@/utils/seo';
 import { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
 import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
+import RoadmapShowcaseBlock from '@/components/marketing/global/blocks/roadmap-showcase';
+import FeatureIconGrid from '@/components/marketing/global/blocks/feature-icon-grid';
+import RoadmapIcon from '@/components/ui/icons/roadmap';
+import MaterialSymbolsFilterListRounded from '@/components/ui/icons/filter';
+import Document from '@/components/ui/icons/document';
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'AI-Powered Coding Roadmaps | TechBlitz',
+    title: 'Personalized Coding Roadmaps | TechBlitz',
     description:
       'Create your own coding progression paths with our personalized roadmaps. Our AI-powered roadmap generator helps you stay on track and achieve your goals.',
     image: {
-      text: 'AI-Powered Coding Roadmaps | TechBlitz',
+      text: 'Personalized Coding Roadmaps | TechBlitz',
       bgColor: '#000',
       textColor: '#fff',
     },
@@ -112,12 +117,27 @@ const featureShowcaseItems: MarketingContentGridProps[] = [
   },
 ];
 
+const roadmapShowcaseSubHeader = () => (
+  <>
+    <p className="text-gray-400">
+      As if Duolingo and LeetCode had a baby - TechBlitz is the perfect place to learn to code for
+      people of all ages. Ensuring you receive a personalized learning experience tailored to your
+      needs.
+    </p>
+    <p className="text-gray-400">
+      We ensure our roadmaps are always up to date with the latest technologies and trends in the
+      industry. With the ability to generate your own roadmaps, you can focus on the topics that
+      matter most to you.
+    </p>
+  </>
+);
+
 export default function FeatureDailyQuestionPage() {
   const jsonLd: WebPageJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     url: getBaseUrl(),
-    headline: 'AI-Powered Coding Roadmaps | TechBlitz',
+    headline: 'Personalized Coding Roadmaps | TechBlitz',
     description:
       'Create your own coding progression paths with our personalized roadmaps. Our AI-powered roadmap generator helps you stay on track and achieve your goals.',
     image: 'https://techblitz.dev/favicon.ico',
@@ -161,6 +181,33 @@ export default function FeatureDailyQuestionPage() {
     },
   };
 
+  const featureIconGridItems = [
+    {
+      title: 'Interactive Challenges',
+      description:
+        'Practice with hands-on coding challenges that simulate real-world scenarios. Build skills while solving problems that matter.',
+      icon: <Code width="1.5em" height="1.5em" />,
+    },
+    {
+      title: 'Structured Learning Paths',
+      description:
+        'Follow a simple, structured learning path to boost your coding skills. Opt-in to receive daily reminders to complete it!',
+      icon: <RoadmapIcon height="1.5em" width="1.5em" />,
+    },
+    {
+      title: 'Generate Code Reports',
+      description:
+        "Don't just code blindly. Generate code reports to track your progress and understand your weaknesses.",
+      icon: <Document width="1.5em" height="1.5em" />,
+    },
+    {
+      title: 'Advanced Filtering',
+      description:
+        'Easily navigate through our vast library of coding challenges with our advanced filtering options.',
+      icon: <MaterialSymbolsFilterListRounded className="size-6" />,
+    },
+  ];
+
   return (
     <>
       <script
@@ -170,8 +217,26 @@ export default function FeatureDailyQuestionPage() {
       <div className="container">
         <FeatureRoadmapHeroBlock />
         <FeatureRoadmapCustomizationBlock />
+        <RoadmapShowcaseBlock
+          title="Structured learning made fun"
+          subheader={roadmapShowcaseSubHeader()}
+          studyPathFirst
+          paddingTop="md:pt-12"
+          paddingBottom="md:pb-10"
+        />
+
+        <FeatureIconGrid
+          borderTop
+          items={featureIconGridItems}
+          paddingTop="pt-12"
+          paddingBottom="pb-24"
+        />
+
         <FeatureRoadmapThreeGridBlock />
-        <MarketingContentGrid title="All of this and more." items={featureShowcaseItems} />
+        <MarketingContentGrid
+          title="Personalized learning at your fingertips."
+          items={featureShowcaseItems}
+        />
         <QuestionMarquee
           header="Generate your own coding questions"
           subheader="Generate your own coding questions with our AI-powered question generator. Perfect for your daily coding practice."

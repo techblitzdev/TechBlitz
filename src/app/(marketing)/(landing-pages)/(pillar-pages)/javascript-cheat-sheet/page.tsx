@@ -5,12 +5,17 @@ import StatsReportSection from '@/components/marketing/features/statistics/stats
 import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
 import MarketingContentGrid from '@/components/marketing/global/blocks/content-grid';
 import FAQsBlock from '@/components/marketing/global/blocks/faqs';
+import FeatureIconGrid from '@/components/marketing/global/blocks/feature-icon-grid';
 import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
+import Document from '@/components/ui/icons/document';
+import MaterialSymbolsFilterListRounded from '@/components/ui/icons/filter';
+import RoadmapIcon from '@/components/ui/icons/roadmap';
 import { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
 import { QUESTIONS_COUNT } from '@/utils/constants/misc';
 import { createMetadata } from '@/utils/seo';
 import { MobileIcon } from '@radix-ui/react-icons';
+import { Code } from 'lucide-react';
 import Link from 'next/link';
 
 const faqs = [
@@ -186,11 +191,11 @@ const items = [
 // metadata
 export async function generateMetadata() {
   return createMetadata({
-    title: 'JavaScript Cheat Sheet | Learn JavaScript Syntax & Tips | TechBlitz',
+    title: 'The Ultimate JavaScript Syntax Cheat Sheet | TechBlitz',
     description:
-      'Master JavaScript with our comprehensive cheat sheet. Learn JavaScript syntax, tips, and best practices with TechBlitz. Perfect for beginners and advanced developers alike.',
+      'Master JavaScript syntax with our comprehensive cheat sheet. Learn JavaScript syntax, tips, and best practices with TechBlitz. Perfect for beginners and advanced developers alike.',
     image: {
-      text: 'JavaScript Cheat Sheet | TechBlitz',
+      text: 'The Ultimate JavaScript Cheat Sheet | TechBlitz',
       bgColor: '#000',
       textColor: '#fff',
     },
@@ -198,14 +203,54 @@ export async function generateMetadata() {
   });
 }
 
+const FeatureLeftRightSectionSubheader = () => (
+  <div className="flex flex-col gap-4">
+    <span>
+      JavaScript is a fundamental programming language that powers the web. Nearly 99% of all
+      websites on the internet use JavaScript. It's a must-have skill for any web developer.
+    </span>
+    <span>
+      We provide a comprehensive javascript syntax cheat sheet to help you master JavaScript syntax,
+      tips, and best practices, guaranteed to help you become a better developer in no time.
+    </span>
+  </div>
+);
+
+const featureIconGridItems = [
+  {
+    title: 'Interactive Challenges',
+    description:
+      'Practice with hands-on coding challenges that simulate real-world scenarios. Build skills while solving problems that matter.',
+    icon: <Code width="1.5em" height="1.5em" />,
+  },
+  {
+    title: 'Structured Learning Paths',
+    description:
+      'Follow a simple, structured learning path to boost your coding skills. Opt-in to receive daily reminders to complete it!',
+    icon: <RoadmapIcon height="1.5em" width="1.5em" />,
+  },
+  {
+    title: 'Generate Code Reports',
+    description:
+      "Don't just code blindly. Generate code reports to track your progress and understand your weaknesses.",
+    icon: <Document width="1.5em" height="1.5em" />,
+  },
+  {
+    title: 'Advanced Filtering',
+    description:
+      'Easily navigate through our vast library of coding challenges with our advanced filtering options.',
+    icon: <MaterialSymbolsFilterListRounded className="size-6" />,
+  },
+];
+
 export default function JavascriptCheatSheet() {
   const jsonLd: WebPageJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     url: `${getBaseUrl()}/javascript-cheat-sheet`,
-    headline: 'JavaScript Cheat Sheet | Learn JavaScript Syntax & Tips | TechBlitz',
+    headline: 'The Ultimate JavaScript Cheat Sheet | TechBlitz',
     description:
-      'Master JavaScript with our comprehensive cheat sheet. Learn JavaScript syntax, tips, and best practices with TechBlitz. Perfect for beginners and advanced developers alike.',
+      'Master JavaScript with our comprehensive javascript cheat sheet. Learn JavaScript syntax, tips, and best practices with TechBlitz. Perfect for beginners and advanced developers alike.',
     image:
       'https://opengraph.b-cdn.net/production/images/cd5047e6-d495-4666-928e-37d9e52e1806.png?token=hJkK0Ghd13chZ2eBfAOxNQ8ejBMfE_oTwEuHkvxu9aQ&height=667&width=1200&expires=33269844531',
     breadcrumb: {
@@ -256,8 +301,8 @@ export default function JavascriptCheatSheet() {
       />
       <div className="container">
         <FeatureDailyChallengeHero
-          header="JavaScript Cheat Sheet: Master JavaScript Syntax & Tips"
-          subheader="Discover the ultimate JavaScript cheat sheet with TechBlitz. Learn JavaScript syntax, best practices, and tips to become a pro developer. Perfect for beginners and advanced coders alike."
+          header="JavaScript Syntax Cheat Sheet: Master JavaScript Syntax"
+          subheader="Discover the ultimate JavaScript cheat sheet with TechBlitz. Learn JavaScript syntax, best practices, and tips to become a pro developer. Perfect for beginners and advanced coders."
           animatedSpan="Start mastering JavaScript today"
           className="xl:w-2/3"
           leftCta={{
@@ -272,32 +317,38 @@ export default function JavascriptCheatSheet() {
 
         <FeatureLeftRightSection
           leftHeader="JavaScript Syntax Cheat Sheet"
-          leftSubheader="Learn JavaScript syntax with our comprehensive cheat sheet. From basic functions to advanced concepts, our platform helps you master JavaScript quickly and effectively."
+          leftSubheader={<FeatureLeftRightSectionSubheader />}
           learnMoreLink={true}
+          paddingBottom="lg:pb-10"
         />
 
+        <FeatureIconGrid items={featureIconGridItems} borderTop />
+
         <FeatureRoadmapThreeGridBlock
-          title="Personalized JavaScript Learning Roadmaps"
-          description="TechBlitz provides customized roadmaps based on your current skill level. We analyze your strengths and weaknesses to deliver the best JavaScript challenges for your growth."
+          title="Learn JavaScript Syntax with Personalized Learning"
+          description="Generate personalized learning paths based on your current skill level. We analyze your strengths and weaknesses to deliver the best JavaScript challenges for your growth."
         />
 
         <StatsReportSection
           header="Track Your JavaScript Progress"
-          subheader="Get actionable insights with personalized performance analytics. Monitor your progress, identify areas for improvement, and celebrate your achievements as you learn JavaScript."
+          subheader="Learning JavaScript syntax is a journey. With TechBlitz, you can easily generate code reports to track your progress and understand your weaknesses. Get actionable insights with personalized performance analytics. Monitor your progress, identify areas for improvement, and celebrate your achievements as you learn JavaScript syntax."
           learnMoreLink={true}
         />
 
         <QuestionMarquee
-          header="The Best JavaScript Challenges for Your Skill Level"
-          subheader="TechBlitz offers a wide range of JavaScript challenges tailored to your needs. From basic syntax to advanced algorithms, we help you learn JavaScript effectively."
+          header="Learn JavaScript Syntax with Free Challenges"
+          subheader="With TechBlitz, you can learn JavaScript syntax with free challenges. No need to sign up for a subscription. Just practice and improve your skills at your own pace.."
         />
 
-        <MarketingContentGrid title="Everything You Need to Master JavaScript" items={items} />
+        <MarketingContentGrid
+          title="Everything You Need to Master JavaScript Syntax"
+          items={items}
+        />
 
         <FAQsBlock faqs={faqs} />
 
         <CallToActionBlock
-          title="Start Learning JavaScript Today"
+          title="Master JavaScript Syntax Today"
           description="Join TechBlitz and unlock your potential with real-world JavaScript challenges, personalized learning paths, and a supportive community."
         />
       </div>

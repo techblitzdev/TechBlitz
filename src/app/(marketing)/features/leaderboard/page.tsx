@@ -135,11 +135,11 @@ const featureShowcaseItems: MarketingContentGridProps[] = [
   },
   {
     icon: <MessageSquareCode />,
-    title: 'AI-Powered Assistance',
+    title: 'Interactive Coding Help',
     description: (
       <>
-        Get instant help with our AI tutor. Receive personalized questions, and guidance to
-        accelerate your programming journey.
+        Get personalized guidance and assistance to help you solve problems efficiently and learn
+        faster.
       </>
     ),
   },
@@ -159,12 +159,12 @@ const featureShowcaseItems: MarketingContentGridProps[] = [
   },
   {
     icon: <Sun />,
-    title: 'Daily Coding Challenges',
+    title: 'Coding Challenges',
     description: (
       <>
         Bite-sized coding challenges to keep you engaged and learning. Perfect for busy developers
         who want to stay sharp and improve their skills. You can learn more{' '}
-        <a href="/features/daily-coding-challenges" className="!text-accent underline">
+        <a href="/features/coding-challenges" className="!text-accent underline">
           here
         </a>
         .

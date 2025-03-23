@@ -8,7 +8,6 @@ const FeaturesBentoGrid = dynamic(
 );
 
 import PersonalizedBlock from '@/components/marketing/homepage/personalized/block';
-import ComparisonBlock from '@/components/marketing/homepage/comparison/comparison-block';
 import OpenSourceBlock from '@/components/marketing/global/open-source/open-source-block';
 import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
 
@@ -30,8 +29,14 @@ import Calendar from '@/components/ui/icons/calendar';
 import MirrorTabletPhone3 from '@/components/ui/icons/mirror-tablet-phone-3';
 import CreditCardIcon from '@/components/ui/icons/credit-card';
 import GraduationCap from '@/components/ui/icons/graduation-cap';
+import ThreeBlockShowcase from '@/components/marketing/global/blocks/three-block-showcase';
+import FeatureIconGrid from '@/components/marketing/global/blocks/feature-icon-grid';
+import { Code } from 'lucide-react';
+import RoadmapIcon from '@/components/ui/icons/roadmap';
+import MaterialSymbolsFilterListRounded from '@/components/ui/icons/filter';
+import Document from '@/components/ui/icons/document';
 
-const title = 'Learn to Code made easy | TechBlitz';
+const title = 'Learning to code made easy | TechBlitz';
 const description =
   'Master programming through interactive coding challenges, personalized practice, and instant AI feedback. Perfect for beginners learning JavaScript, web development, and more. Start coding for free.';
 
@@ -204,6 +209,33 @@ export default async function Page() {
     year: 'numeric',
   });
 
+  const featureIconGridItems = [
+    {
+      title: 'Interactive Challenges',
+      description:
+        'Practice with hands-on coding challenges that simulate real-world scenarios. Build skills while solving problems that matter.',
+      icon: <Code width="1.5em" height="1.5em" />,
+    },
+    {
+      title: 'Structured Learning Paths',
+      description:
+        'Follow a simple, structured learning path to boost your coding skills. Opt-in to receive daily reminders to complete it!',
+      icon: <RoadmapIcon height="1.5em" width="1.5em" />,
+    },
+    {
+      title: 'Generate Code Reports',
+      description:
+        "Don't just code blindly. Generate code reports to track your progress and understand your weaknesses.",
+      icon: <Document width="1.5em" height="1.5em" />,
+    },
+    {
+      title: 'Advanced Filtering',
+      description:
+        'Easily navigate through our vast library of coding challenges with our advanced filtering options.',
+      icon: <MaterialSymbolsFilterListRounded className="size-6" />,
+    },
+  ];
+
   return (
     <>
       <script
@@ -214,19 +246,31 @@ export default async function Page() {
         <HomepageHero userCountPromise={userCount} />
         <FeaturesBentoGrid />
         <HomepageUserStats userCountPromise={userCount} />
-        <PersonalizedBlock />
+
+        <PersonalizedBlock paddingBottom="pb-10" />
+
+        <FeatureIconGrid
+          borderTop
+          items={featureIconGridItems}
+          paddingTop="pt-12"
+          paddingBottom="pb-24"
+        />
+
         <QuestionMarquee
           header={`${QUESTIONS_COUNT}+ coding challenges`}
           subheader="Learn to code by doing. Improve your coding skills in as little as 3 minutes per day."
         />
-        <ComparisonBlock />
-        {/** subheading="Join aspiring developers worldwide learning to code through TechBlitz's free, interactive programming challenges. Get personalized practice, instant feedback, and step-by-step guidance on your coding journey." */}
-        <Testimonials />
+        <ThreeBlockShowcase
+          title="Built to build your coding skills"
+          subheader="Ensuring you get the most out of your coding journey. From beginner to advanced, we've got you covered."
+          align="left"
+        />
         <MarketingContentGrid
           title='"With TechBlitz, learning to code has never been easier"'
           subheading={`- You, ${marketingContentGridSubHeading}`}
           items={contentGridItems}
         />
+        <Testimonials />
         <OpenSourceBlock />
         <CallToActionBlock
           title="Land the job you've always dreamed of"

@@ -67,12 +67,6 @@ import QuestionCardLoading from '@/components/app/questions/single/layout/questi
 import MultipleChoiceLayout from '@/components/app/questions/multiple-choice/layout';
 import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation';
 
-// Define navigation interface to match the data from getNextAndPreviousQuestion
-interface NavigationData {
-  nextQuestion: string | null | undefined;
-  previousQuestion: string | null | undefined;
-}
-
 export default async function TodaysQuestionPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
 

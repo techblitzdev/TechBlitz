@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button';
-import { Question } from '@/types/Questions';
 import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
 

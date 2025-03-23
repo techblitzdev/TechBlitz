@@ -26,7 +26,6 @@ import {
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { TrashIcon } from 'lucide-react';
 
 // react hook form
@@ -42,8 +41,6 @@ import { addQuestion } from '@/actions/questions/add';
 
 // constants
 import { LANGUAGE_OPTIONS } from '@/utils/constants/language-options';
-import { QuestionDifficulty } from '@/types/Questions';
-import { QuestionType } from '@prisma/client';
 
 const lowlight = createLowlight(common);
 

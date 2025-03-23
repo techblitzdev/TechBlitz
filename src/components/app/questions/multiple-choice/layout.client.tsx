@@ -10,7 +10,6 @@ import { toast } from 'sonner';
 import { answerQuestion } from '@/actions/answers/answer';
 import type { QuestionAnswer } from '@/types/QuestionAnswers';
 import { AnimatePresence, motion } from 'framer-motion';
-import { CheckCircle2, XCircle } from 'lucide-react';
 import { INCORRECT_ANSWER_XP, QUESTION_XP } from '@/utils/constants/question-xp';
 import FeedbackBanner from './feedback-banner';
 

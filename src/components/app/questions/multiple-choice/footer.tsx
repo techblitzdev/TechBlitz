@@ -1,5 +1,13 @@
 import { Button } from '@/components/ui/button';
+import { Question } from '@/types/Questions';
 import { Loader2 } from 'lucide-react';
+import Link from 'next/link';
+
+// Define navigation interface to match the data from getNextAndPreviousQuestion
+interface NavigationData {
+  previousQuestion: string | null | undefined;
+  nextQuestion: string | null | undefined;
+}
 
 interface MultipleChoiceFooterProps {
   selectedAnswer?: string;
@@ -8,6 +16,7 @@ interface MultipleChoiceFooterProps {
   isSubmitting?: boolean;
   hasSubmitted?: boolean;
   onReset: () => void;
+  nextAndPreviousQuestion: NavigationData;
 }
 
 export default function MultipleChoiceFooter({
@@ -17,6 +26,7 @@ export default function MultipleChoiceFooter({
   isSubmitting = false,
   hasSubmitted = false,
   onReset,
+  nextAndPreviousQuestion,
 }: MultipleChoiceFooterProps) {
   const isClearDisabled = !selectedAnswer || isSubmitting;
 
@@ -31,11 +41,25 @@ export default function MultipleChoiceFooter({
   // if submitted, the submit button will be 'next question'
   const submitButtonText = hasSubmitted ? 'Next Question' : 'Submit';
 
-  return (
-    <section className="flex items-center justify-between w-full pt-5">
-      <Button variant="destructive" onClick={handleClear} disabled={isClearDisabled}>
-        {hasSubmitted ? 'Try Again' : 'Clear'}
-      </Button>
+  // Determine the navigation href
+  const navigationHref = hasSubmitted
+    ? nextAndPreviousQuestion?.nextQuestion
+      ? `/question/${nextAndPreviousQuestion.nextQuestion}`
+      : '/questions'
+    : '';
+
+  // Render the submit/next button based on the submission state
+  let submitButton;
+
+  if (hasSubmitted) {
+    // Don't use asChild with conditional rendering in a Link
+    submitButton = (
+      <Link href={navigationHref}>
+        <Button variant="accent">{submitButtonText}</Button>
+      </Link>
+    );
+  } else {
+    submitButton = (
       <Button variant="accent" onClick={onSubmit} disabled={!selectedAnswer || isSubmitting}>
         {isSubmitting ? (
           <>
@@ -46,6 +70,15 @@ export default function MultipleChoiceFooter({
           submitButtonText
         )}
       </Button>
+    );
+  }
+
+  return (
+    <section className="flex items-center justify-between w-full pt-5">
+      <Button variant="destructive" onClick={handleClear} disabled={isClearDisabled}>
+        {hasSubmitted ? 'Try Again' : 'Clear'}
+      </Button>
+      {submitButton}
     </section>
   );
 }

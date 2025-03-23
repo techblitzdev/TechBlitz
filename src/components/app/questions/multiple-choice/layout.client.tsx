@@ -1,14 +1,17 @@
 'use client';
 
-import { Question } from '@/types/Questions';
+import type React from 'react';
+
+import type { Question } from '@/types/Questions';
 import MultipleChoiceCard from './card';
 import { useState } from 'react';
 import MultipleChoiceFooter from './footer';
 import { toast } from 'sonner';
 import { answerQuestion } from '@/actions/answers/answer';
-import { QuestionAnswer } from '@/types/QuestionAnswers';
+import type { QuestionAnswer } from '@/types/QuestionAnswers';
 import { AnimatePresence, motion } from 'framer-motion';
 import { CheckCircle2, XCircle } from 'lucide-react';
+import { INCORRECT_ANSWER_XP, QUESTION_XP } from '@/utils/constants/question-xp';
 
 interface QuestionMock {
   uid: string;
@@ -19,12 +22,20 @@ interface QuestionMock {
   [key: string]: any;
 }
 
+// Define navigation interface to match the data from getNextAndPreviousQuestion
+interface NavigationData {
+  previousQuestion: string | null | undefined;
+  nextQuestion: string | null | undefined;
+}
+
 export default function MultipleChoiceLayoutClient({
   children,
   question,
+  nextAndPreviousQuestion,
 }: {
   children: React.ReactNode;
   question: Question | QuestionMock;
+  nextAndPreviousQuestion: NavigationData | null;
 }) {
   // Track the selected answer UID and text
   const [selectedAnswerData, setSelectedAnswerData] = useState<{
@@ -34,6 +45,7 @@ export default function MultipleChoiceLayoutClient({
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [xpIncrease, setXpIncrease] = useState(0);
 
   // Track time spent
   const [startTime] = useState<number>(Date.now());
@@ -82,9 +94,11 @@ export default function MultipleChoiceLayoutClient({
     if (question.correctAnswer === selectedAnswerData.uid) {
       setIsCorrect(true);
       setIsSubmitted(true);
+      setXpIncrease(QUESTION_XP[question.difficulty] || 10);
     } else {
       setIsCorrect(false);
       setIsSubmitted(true);
+      setXpIncrease(INCORRECT_ANSWER_XP);
     }
 
     setIsSubmitting(false);
@@ -134,6 +148,12 @@ export default function MultipleChoiceLayoutClient({
 
   const feedbackMessage = getFeedbackMessage();
 
+  // Create a default object if nextAndPreviousQuestion is null
+  const navigationData = nextAndPreviousQuestion || {
+    previousQuestion: null,
+    nextQuestion: null,
+  };
+
   return (
     <div className="container min-h-screen flex flex-col justify-center items-center max-w-xs md:max-w-xl lg:max-w-2xl">
       <div className="flex flex-col gap-4 mb-6 relative w-full">
@@ -157,6 +177,21 @@ export default function MultipleChoiceLayoutClient({
                 )}
                 <span className="font-medium font-onest">{feedbackMessage}</span>
               </div>
+
+              {/* Show XP earned inside the feedback banner */}
+              <motion.div
+                initial={{ scale: 0, rotate: -10 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 400,
+                  damping: 15,
+                  delay: 0.2,
+                }}
+                className="flex items-center gap-1.5 text-white px-3 py-1.5 rounded-full font-medium shadow-sm"
+              >
+                <span>+{xpIncrease}xp</span>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -210,6 +245,7 @@ export default function MultipleChoiceLayoutClient({
         isSubmitting={isSubmitting}
         hasSubmitted={isSubmitted}
         onReset={resetQuestion}
+        nextAndPreviousQuestion={navigationData}
       />
     </div>
   );

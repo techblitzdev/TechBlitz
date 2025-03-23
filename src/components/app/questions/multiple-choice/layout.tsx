@@ -22,9 +22,24 @@ interface QuestionMock {
   [key: string]: any;
 }
 
-export default function MultipleChoiceLayout({ question }: { question: Question | QuestionMock }) {
+// Define navigation interface to match the data from getNextAndPreviousQuestion
+interface NavigationData {
+  previousQuestion: string | null | undefined;
+  nextQuestion: string | null | undefined;
+}
+
+export default function MultipleChoiceLayout({
+  question,
+  nextAndPreviousQuestion,
+}: {
+  question: Question | QuestionMock;
+  nextAndPreviousQuestion: NavigationData | null;
+}) {
   return (
-    <MultipleChoiceLayoutClient question={question}>
+    <MultipleChoiceLayoutClient
+      question={question}
+      nextAndPreviousQuestion={nextAndPreviousQuestion}
+    >
       <div className="flex items-center justify-between mb-4 self-start">
         <h2 className="text-2xl font-bold text-white text-start">{question.question}</h2>
       </div>

@@ -32,7 +32,7 @@ export default function FeatureDailyChallengeHero(opts: {
         <AnimatedSpan content={animatedSpan || 'Daily Coding Challenges'} />
         <h1
           className="
-            text-5xl lg:text-7xl !font-onest font-bold tracking-tight py-1.5 text-center
+            text-3xl lg:text-5xl !font-onest font-bold tracking-tight py-1.5 text-center
             text-transparent bg-clip-text bg-gradient-to-r from-white to-white/75 leading-tight
           "
         >

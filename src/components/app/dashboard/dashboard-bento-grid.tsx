@@ -15,7 +15,7 @@ export default async function DashboardBentoGrid() {
       className:
         'h-full text-white justify-center lg:min-h-auto lg:h-[370px] col-span-2 lg:col-span-1',
       padded: false,
-      gradientBg: true,
+      gradientBg: false,
     },
     {
       header: <AllQuestionsDashboardBentoBox />,

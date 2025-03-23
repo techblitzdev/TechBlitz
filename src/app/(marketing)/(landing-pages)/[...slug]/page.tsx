@@ -15,14 +15,14 @@ import { MobileIcon } from '@radix-ui/react-icons';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata({ params }: { params: { slug: string[] } }) {
-  const slugPath = params.slug ? `/${params.slug.join('/')}` : '';
+  const slugPath = params.slug ? `${params.slug.join('/')}` : '';
 
   const data = await getPseoData(slugPath);
   const canonicalUrl = `/${params.slug.join('/')}`;
 
   return createMetadata({
-    title: `${data?.heroHeader} | TechBlitz`,
-    description: `Discover the ultimate JavaScript cheat sheet with TechBlitz. Learn JavaScript syntax, best practices, and tips to become a pro developer. Perfect for beginners and advanced coders alike.`,
+    title: `${data?.metaTitle || data?.heroHeader} | TechBlitz`,
+    description: data?.metaDescription || data?.heroSubheader || '',
     canonicalUrl,
   });
 }
@@ -209,7 +209,7 @@ const defaultFAQs = [
  */
 export default async function Page({ params }: { params: { slug: string[] } }) {
   // Join the slug array to create the path
-  const slugPath = params.slug ? `/${params.slug.join('/')}` : '';
+  const slugPath = params.slug ? `${params.slug.join('/')}` : '';
 
   const pseoData = await getPseoData(slugPath);
 

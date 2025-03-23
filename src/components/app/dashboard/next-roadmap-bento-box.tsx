@@ -23,7 +23,7 @@ export default async function StreakBentoBox() {
       <div className="w-full h-fit flex items-center justify-center">
         <NextRoadmapGraphic
           studyPathSlug={studyPath?.studyPath.slug || 'javascript-fundamentals'}
-          studyPathClassName="flex flex-col gap-4"
+          studyPathClassName="flex flex-col gap-6"
         />
       </div>
     </div>

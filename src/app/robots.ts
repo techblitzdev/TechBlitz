@@ -15,6 +15,10 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: '*',
         disallow: '/?redirectUrl=*',
       },
+      {
+        userAgent: '*',
+        disallow: '/testing/*',
+      },
     ],
     sitemap: `https://${domain}/sitemap.xml`,
   };

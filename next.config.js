@@ -61,7 +61,7 @@ const nextConfig = {
       },
       {
         source: '/features/daily-challenges',
-        destination: '/features/daily-coding-challenges',
+        destination: '/features/coding-challenges',
         permanent: true,
       },
     ];

@@ -34,7 +34,7 @@ import { ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
 import { getUpgradeUrl } from '@/utils';
 import { userHasAnsweredAnyQuestion } from '@/utils/data/questions/user-has-answered-any-question';
-import { ROADMAP_QUESTION_COUNT } from '@/utils/constants/roadmap';
+import { ROADMAP_QUESTION_COUNT } from '@/utils/constants';
 
 const roadmapHeroDescription = (
   <div className="flex flex-col gap-y-4 z-20 relative font-inter max-w-3xl">

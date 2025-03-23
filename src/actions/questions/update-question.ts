@@ -13,6 +13,7 @@ interface UpdateQuestionData {
   isPremiumQuestion: boolean;
   hint: string | null;
   codeSnippet: string | null;
+  afterQuestionInfo: string | null;
 }
 
 export async function updateQuestion(uid: string, data: UpdateQuestionData) {
@@ -38,6 +39,7 @@ export async function updateQuestion(uid: string, data: UpdateQuestionData) {
         isPremiumQuestion: data.isPremiumQuestion,
         hint: data.hint,
         codeSnippet: data.codeSnippet,
+        afterQuestionInfo: data.afterQuestionInfo,
       },
     });
 

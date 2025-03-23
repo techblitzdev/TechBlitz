@@ -6,6 +6,7 @@ import { useOnboardingContext } from '@/contexts/onboarding-context';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { UserExperienceLevel } from '@prisma/client';
+import MultipleChoiceCard from '../questions/multiple-choice/card';
 
 const COMPLETED_QUESTIONS_TO_TITLE = {
   0: 'Great start.',
@@ -317,27 +318,13 @@ export default function OnboardingInitialQuestions() {
 
             <div className="flex flex-col gap-4">
               {questions[currentQuestion].options.map((option, index) => (
-                <motion.div
+                <MultipleChoiceCard
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 + 0.3 }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Button
-                    onClick={() => handleSelectAnswer(option, index)}
-                    className={`justify-start w-full py-6 px-3 rounded-lg text-left flex items-center bg-transparent border border-black-50 ${
-                      answers[currentQuestion] === option ? 'border border-accent' : ''
-                    }`}
-                    variant="default"
-                  >
-                    <span className="mr-2 text-sm opacity-70 border border-black-50 rounded-md px-2 py-1">
-                      {index + 1}
-                    </span>
-                    <span className="flex-1">{option}</span>
-                  </Button>
-                </motion.div>
+                  index={index}
+                  handleSelectAnswer={handleSelectAnswer}
+                  answer={option}
+                  selectedAnswer={answers[currentQuestion]}
+                />
               ))}
             </div>
             {/* Question progress indicator */}

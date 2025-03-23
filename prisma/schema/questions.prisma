@@ -23,6 +23,10 @@ model Questions {
   nextQuestionSlug     String?
   previousQuestionSlug String?
   isPremiumQuestion    Boolean             @default(false)
+  afterQuestionInfo    String?
+
+  // relations
+
   userAnswers          Answers[]
   DemoAnswers          DemoAnswers[]
   answers              QuestionAnswers[]
@@ -122,6 +126,7 @@ enum QuestionAnswerType {
 }
 
 enum QuestionType {
-  CODING_CHALLENGE
-  MULTIPLE_CHOICE
+  CODING_CHALLENGE // answer question with code
+  MULTIPLE_CHOICE // answer question with multiple choice
+  SIMPLE_MULTIPLE_CHOICE // answer question with multiple choice, with the simple layout.
 }

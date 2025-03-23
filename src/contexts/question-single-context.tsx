@@ -248,7 +248,6 @@ export const QuestionSingleContextProvider = ({
       await answerQuestion({
         questionUid: question.uid,
         answerUid: null,
-        userUid: user?.uid || '',
         timeTaken: totalSeconds,
         allPassed,
         studyPathSlug: studyPathSlug || undefined,

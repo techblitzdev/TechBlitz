@@ -71,8 +71,9 @@ export default function OnboardingInitialQuestions() {
 
       // Calculate and set XP only once when all questions are answered
       const xpToAwardToUser = calculateXpToAwardToUser();
-      // @ts-ignore - this is added on a separate branch. https://github.com/techblitzdev/TechBlitz/pull/526/files
-      setTotalXp(() => user.userXp + xpToAwardToUser);
+      // Don't rely on user.userXp which may be undefined
+      // Instead, just set the totalXp directly to the calculated value
+      setTotalXp(xpToAwardToUser);
 
       // Mark results as processed to prevent multiple executions
       setResultsProcessed(true);
@@ -194,8 +195,8 @@ export default function OnboardingInitialQuestions() {
             index === currentQuestion
               ? 'w-6 bg-accent'
               : index < answers.length
-                ? 'w-2 bg-gray-300'
-                : 'w-2 bg-gray-600'
+              ? 'w-2 bg-gray-300'
+              : 'w-2 bg-gray-600'
           }`}
           initial={{ opacity: 0.6 }}
           animate={{
@@ -244,7 +245,9 @@ export default function OnboardingInitialQuestions() {
                   <p className="text-white">Your answer: {answers[index]}</p>
                   {q.correctAnswerIndex !== null && (
                     <p
-                      className={`mt-2 ${correctAnswers[index] ? 'text-green-400' : 'text-red-400'}`}
+                      className={`mt-2 ${
+                        correctAnswers[index] ? 'text-green-400' : 'text-red-400'
+                      }`}
                     >
                       {correctAnswers[index]
                         ? '✓ Correct'

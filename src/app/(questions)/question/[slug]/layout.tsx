@@ -1,5 +1,5 @@
 import type React from 'react';
-import { Suspense, lazy } from 'react';
+import { lazy } from 'react';
 import dynamic from 'next/dynamic';
 import { redirect } from 'next/navigation';
 
@@ -22,27 +22,15 @@ import { Onborda, OnbordaProvider } from 'onborda';
 import { steps } from '@/lib/onborda';
 import { TourCard } from '@/components/app/shared/question/tour-card';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
-import RouterBack from '@/components/app/shared/router-back';
-import HomeIcon from '@/components/ui/icons/home';
-import QuestionNavigationLoading from '@/components/app/navigation/question-navigation-loading';
+import QuestionPageHeader from '@/components/app/questions/single/layout/page-header';
 
 // Lazy Components
-const CurrentStreak = dynamic(() => import('@/components/ui/current-streak'), { ssr: false });
-const FeedbackButton = dynamic(() => import('@/components/app/shared/feedback/feedback-button'), {
-  ssr: false,
-});
-const RandomQuestion = dynamic(() => import('@/components/shared/random-question'), { ssr: false });
-const QuestionActionButtons = lazy(
-  () => import('@/components/app/questions/single/layout/question-action-buttons')
-);
-const QuestionNavigation = lazy(() => import('@/components/app/navigation/question-navigation'));
 const PremiumQuestionDeniedAccess = lazy(
   () => import('@/components/app/questions/premium-question-denied-access')
 );
 const UpgradeModal = dynamic(
   () => import('@/components/app/questions/single/layout/upgrade-modal')
 );
-const UpgradeModalButton = lazy(() => import('@/components/app/shared/upgrade/upgrade-modal'));
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const question = await getQuestion('slug', params.slug);
@@ -156,45 +144,10 @@ export default async function QuestionUidLayout({
             userAnswered={userAnswered}
             suggestedQuestions={suggestedQuestions}
           >
-            <div className="grid grid-cols-12 items-center justify-between pt-2 px-3 relative">
-              <div className="col-span-2 lg:col-span-4 flex items-center justify-start">
-                <RouterBack href="/questions" className="px-0 block md:hidden">
-                  <HomeIcon width="16" height="16" />
-                </RouterBack>
-                <div className="items-center hidden md:flex">
-                  <Suspense fallback={<QuestionNavigationLoading />}>
-                    <QuestionNavigation
-                      navigationType="question"
-                      slug={slug}
-                      nextPrevPromise={nextAndPreviousQuestion}
-                    />
-                    <RandomQuestion identifier="slug" currentQuestionSlug={slug} />
-                  </Suspense>
-                </div>
-              </div>
-              {question.questionType !== 'SIMPLE_MULTIPLE_CHOICE' && (
-                <div className="col-span-7 lg:col-span-4 flex items-center justify-center">
-                  <Suspense fallback={<div>Loading...</div>}>
-                    <QuestionActionButtons />
-                  </Suspense>
-                </div>
-              )}
-              <div
-                className={`col-span-3 lg:col-span-4 flex items-center gap-x-1 md:gap-x-3 justify-end ${
-                  question.questionType === 'SIMPLE_MULTIPLE_CHOICE' ? 'col-start-10' : ''
-                }`}
-              >
-                <Suspense fallback={<div>Loading...</div>}>
-                  <div className="hidden lg:block">
-                    <CurrentStreak />
-                  </div>
-                  <FeedbackButton reference={question?.slug || undefined} icon={true} />
-                  <div className="hidden lg:block">
-                    <UpgradeModalButton />
-                  </div>
-                </Suspense>
-              </div>
-            </div>
+            <QuestionPageHeader
+              question={question}
+              nextAndPreviousQuestionPromise={nextAndPreviousQuestion}
+            />
             <div style={{ opacity: 'var(--content-opacity)' }}>
               {children}
               {question.isPremiumQuestion && !isPremiumUser && <PremiumQuestionDeniedAccess />}

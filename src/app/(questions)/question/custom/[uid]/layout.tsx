@@ -17,6 +17,12 @@ import RandomQuestion from '@/components/shared/random-question';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 import UserXp from '@/components/ui/user-xp';
 
+// Define navigation interface to match the data from getNextAndPreviousQuestion
+interface NavigationData {
+  nextQuestion: string | null | undefined;
+  previousQuestion: string | null | undefined;
+}
+
 export async function generateMetadata({ params }: { params: { uid: string } }) {
   const question = await getQuestion('uid', params.uid);
   // get the title via slug and removing the - from the slug

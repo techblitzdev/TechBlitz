@@ -105,7 +105,7 @@ export default function DifficultyRadialChart({ questionData }: { questionData: 
   return (
     <>
       {difficultyData.grandTotal > 0 ? (
-        <div className="w-full h-[350px]">
+        <div className="w-full h-[350px] relative">
           <ResponsiveContainer width="100%" height="100%">
             <RadialBarChart
               cx="50%"
@@ -114,6 +114,7 @@ export default function DifficultyRadialChart({ questionData }: { questionData: 
               outerRadius="80%"
               barSize={17}
               data={difficultyData.chartData}
+              height={350}
             >
               <RadialBar
                 background={{ fill: '#090909' }}

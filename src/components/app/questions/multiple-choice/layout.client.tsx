@@ -4,7 +4,7 @@ import type React from 'react';
 
 import type { Question } from '@/types/Questions';
 import MultipleChoiceCard from './card';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import MultipleChoiceFooter from './footer';
 import { toast } from 'sonner';
 import { answerQuestion } from '@/actions/answers/answer';
@@ -121,7 +121,7 @@ export default function MultipleChoiceLayoutClient({
   const correctAnswerUid = question.correctAnswer;
 
   // Get the feedback messages
-  const getFeedbackMessage = () => {
+  const getFeedbackMessage = useCallback(() => {
     if (!isSubmitted) return null;
 
     if (isCorrect) {
@@ -144,7 +144,7 @@ export default function MultipleChoiceLayoutClient({
       ];
       return messages[Math.floor(Math.random() * messages.length)];
     }
-  };
+  }, [isCorrect, isSubmitted]);
 
   const feedbackMessage = getFeedbackMessage();
 

@@ -1,6 +1,8 @@
 import { Button } from '@/components/ui/button';
+import { useQuestionSingle } from '@/contexts/question-single-context';
 import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 // Define navigation interface to match the data from getNextAndPreviousQuestion
 interface NavigationData {
@@ -27,6 +29,14 @@ export default function MultipleChoiceFooter({
   onReset,
   nextAndPreviousQuestion,
 }: MultipleChoiceFooterProps) {
+  const { user } = useQuestionSingle();
+  const searchParams = useSearchParams();
+
+  // Check if the question is part of a study path
+  const type = searchParams?.get('type');
+  const studyPathSlug = searchParams?.get('study-path');
+  const isStudyPath = type === 'study-path' && studyPathSlug;
+
   const isClearDisabled = !selectedAnswer || isSubmitting;
 
   const handleClear = () => {
@@ -40,17 +50,28 @@ export default function MultipleChoiceFooter({
   // if submitted, the submit button will be 'next question'
   const submitButtonText = hasSubmitted ? 'Next Question' : 'Submit';
 
-  // Determine the navigation href
+  // Determine the navigation href with study path params if necessary
   const navigationHref = hasSubmitted
     ? nextAndPreviousQuestion?.nextQuestion
-      ? `/question/${nextAndPreviousQuestion.nextQuestion}`
+      ? `/question/${nextAndPreviousQuestion.nextQuestion}${
+          isStudyPath ? `?type=${type}&study-path=${studyPathSlug}` : ''
+        }`
+      : isStudyPath
+      ? `/study-paths/${studyPathSlug}`
       : '/questions'
     : '';
 
   // Render the submit/next button based on the submission state
   let submitButton;
 
-  if (hasSubmitted) {
+  if (!user) {
+    // If no user, link to login page
+    submitButton = (
+      <Link href="/login">
+        <Button variant="accent">Sign in to submit</Button>
+      </Link>
+    );
+  } else if (hasSubmitted) {
     // Don't use asChild with conditional rendering in a Link
     submitButton = (
       <Link href={navigationHref}>

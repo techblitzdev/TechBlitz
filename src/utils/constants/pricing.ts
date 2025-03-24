@@ -284,7 +284,7 @@ export const getPlans = (
     {
       id: 'price_1QoOikCX23ptLp4LTks1YO7V',
       name: 'Lifetime',
-      price: 109.99,
+      price: 94.99,
       originalPrice: 149,
       chip: 'Save $40!',
       currencySymbol: '$',

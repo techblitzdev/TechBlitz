@@ -69,6 +69,7 @@ export default async function StatisticsPage({
           heading={`${getUserDisplayName(user)}'s Statistics`}
           container={false}
           subheading="Dive into your coding journey, track your progress, and gain insight on how to improve your skills."
+          gridPosition="top-right"
         />
         {overallStats.stats && <DifficultyRadialChart questionData={overallStats.stats} />}
       </div>

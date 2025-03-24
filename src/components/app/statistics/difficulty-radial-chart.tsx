@@ -112,7 +112,7 @@ export default function DifficultyRadialChart({ questionData }: { questionData: 
               cy="50%"
               innerRadius="10%"
               outerRadius="80%"
-              barSize={25}
+              barSize={17}
               data={difficultyData.chartData}
             >
               <RadialBar
@@ -124,6 +124,8 @@ export default function DifficultyRadialChart({ questionData }: { questionData: 
                   formatter: (value: number) => value,
                 }}
                 dataKey="value"
+                startAngle={45}
+                endAngle={450}
               />
               <Tooltip content={<CustomTooltip />} animationDuration={500} />
             </RadialBarChart>

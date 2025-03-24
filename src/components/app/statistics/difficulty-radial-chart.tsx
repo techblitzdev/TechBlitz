@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { RadialBarChart, RadialBar, Legend, ResponsiveContainer, Tooltip } from 'recharts';
 import { StatsChartData } from '@/types/Stats';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 
 // Define colors for each difficulty
 // Use the same difficulty colors as defined in the app's utility functions
@@ -83,6 +84,24 @@ export default function DifficultyRadialChart({ questionData }: { questionData: 
     );
   };
 
+  // Custom tooltip component
+  const CustomTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload;
+      return (
+        <div className="bg-[#090909] border border-black-50 rounded-md shadow-lg">
+          <p className="text-white px-3 py-2 font-onest text-sm font-medium">{data.name}</p>
+          <Separator className="bg-black-50" />
+          <div className="flex items-center gap-2 px-3 py-2">
+            <div className="size-2 rounded-[2px]" style={{ backgroundColor: data.fill }} />
+            <p className="text-gray-300 text-sm">Questions: {data.value}</p>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <>
       {difficultyData.grandTotal > 0 ? (
@@ -106,19 +125,7 @@ export default function DifficultyRadialChart({ questionData }: { questionData: 
                 }}
                 dataKey="value"
               />
-              <Tooltip
-                formatter={(value: number) => [
-                  `${value} (${((value / difficultyData.grandTotal) * 100).toFixed(1)}%)`,
-                  'Questions',
-                ]}
-                contentStyle={{
-                  backgroundColor: '#090909',
-                  borderColor: '#2d2d2d',
-                  borderRadius: '6px',
-                }}
-                itemStyle={{ color: '#fff' }}
-                labelStyle={{ color: '#fff' }}
-              />
+              <Tooltip content={<CustomTooltip />} animationDuration={500} />
             </RadialBarChart>
           </ResponsiveContainer>
         </div>

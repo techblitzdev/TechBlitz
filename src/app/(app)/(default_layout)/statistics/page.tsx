@@ -1,5 +1,6 @@
 import StatsRangePicker from '@/components/app/statistics/range-picker';
 import QuestionChart from '@/components/app/statistics/total-question-chart';
+import DifficultyRadialChart from '@/components/app/statistics/difficulty-radial-chart';
 
 import { useUserServer } from '@/hooks/use-user-server';
 import { StatsSteps } from '@/types/Stats';
@@ -12,11 +13,21 @@ import SuggestedQuestions from '@/components/app/statistics/suggested-questions'
 import StatisticsReport from '@/components/app/statistics/statistics-report';
 import StatisticsOverviewMenu from '@/components/app/statistics/statistics-overview-menu';
 import QuestionTracker from '@/components/app/statistics/question-tracker';
+import { createMetadata } from '@/utils/seo';
+import { getUserDisplayName } from '@/utils/user';
 
-export const metadata = {
-  title: 'Statistics | techblitz',
-  description: 'View your coding statistics and progress',
-};
+export async function generateMetadata() {
+  return createMetadata({
+    title: 'Statistics | techblitz',
+    description: 'View your coding statistics and progress',
+    image: {
+      text: 'Statistics | techblitz',
+      bgColor: '#000',
+      textColor: '#fff',
+    },
+    canonicalUrl: '/statistics',
+  });
+}
 
 export default async function StatisticsPage({
   searchParams,
@@ -33,36 +44,31 @@ export default async function StatisticsPage({
   const range = (searchParams.range as StatsSteps) || '7d';
   const { step } = STATISTICS[range];
 
-  // Prefetch data
+  // Prefetch data with includeDifficultyData flag
   const { stats } = await getData({
     userUid: user.uid,
     from: range,
     to: new Date().toISOString(),
     step,
+    includeDifficultyData: true, // Make sure to include difficulty data
   });
 
   return (
     <div>
       <div className="flex flex-col gap-3 md:flex-row w-full justify-between md:items-center">
         <Hero
-          heading="Coding Journey"
+          heading={`${getUserDisplayName(user)}'s Statistics`}
           container={false}
-          subheading="An overview of your coding journey on TechBlitz."
+          subheading="Dive into your current coding journey, track your progress, and gain insight on how to improve your skills."
         />
-        <div className="flex gap-3">
-          <StatsRangePicker selectedRange={STATISTICS[range].label} />
-          <StatisticsOverviewMenu user={user} />
-        </div>
+        {stats && (
+          <DifficultyRadialChart questionData={stats} step={step} backgroundColor="bg-card-dark" />
+        )}
       </div>
 
       <div className="grid grid-cols-12 gap-y-4 gap-x-8 mt-8 md:mt-0">
-        <div className="max-h-[28rem] col-span-12 mb-4">
-          {stats && <QuestionChart questionData={stats} step={step} />}
-        </div>
-        {stats && <QuestionTracker className="mb-4" stats={stats} step={step} range={range} />}
-        {/** suggested q's and analysis blocks TODO: CHANGE SUGGESTED QUESTIONS TO STREAK DATA (I THINK) */}
-        <SuggestedQuestions />
-        <StatisticsReport />
+        {/* Radial Difficulty Chart */}
+        <div className="col-span-12 lg:col-span-6 mb-4"></div>
       </div>
     </div>
   );

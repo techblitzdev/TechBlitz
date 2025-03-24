@@ -15,8 +15,10 @@ const getStatsChartData = async (opts: {
   to: string;
   from: StatsSteps;
   step: 'month' | 'week' | 'day';
+  separateByDifficulty?: boolean;
+  includeDifficultyData?: boolean;
 }) => {
-  const { userUid, to, from, step } = opts;
+  const { userUid, to, from, step, separateByDifficulty, includeDifficultyData } = opts;
 
   if (!userUid) {
     return null;
@@ -91,7 +93,7 @@ const getStatsChartData = async (opts: {
     }
   }
 
-  // Fill in actual data
+  // fill in actual data
   questions.forEach((answer) => {
     let key: string;
     const year = answer.createdAt.getFullYear();
@@ -121,6 +123,25 @@ const getStatsChartData = async (opts: {
       });
     }
   });
+
+  if (separateByDifficulty) {
+    // separate by difficulty
+    const difficultyData: StatsChartData = {};
+    Object.keys(data).forEach((key) => {
+      const tags = data[key].tags;
+      tags.forEach((tag) => {
+        if (!difficultyData[tag]) {
+          difficultyData[tag] = {
+            totalQuestions: 0,
+            tagCounts: {},
+            tags: [],
+          };
+        }
+        difficultyData[tag].totalQuestions += data[key].totalQuestions;
+      });
+    });
+    return difficultyData;
+  }
 
   revalidateTag('statistics');
 
@@ -252,12 +273,14 @@ export const getData = async (opts: {
   to: string;
   from: StatsSteps;
   step: 'month' | 'week' | 'day';
+  separateByDifficulty?: boolean;
+  includeDifficultyData?: boolean;
 }) => {
-  const { userUid, to, from } = opts;
+  const { userUid, to, from, separateByDifficulty, includeDifficultyData = false } = opts;
 
   // run all in parallel as they do not depend on each other
   const [stats, totalQuestions, totalTimeTaken, highestScoringTag] = await Promise.all([
-    getStatsChartData(opts),
+    getStatsChartData({ ...opts, includeDifficultyData }),
     getTotalQuestionCount(userUid, to, from),
     getTotalTimeTaken(userUid, to, from),
     getHighestScoringTag(userUid, to, from),

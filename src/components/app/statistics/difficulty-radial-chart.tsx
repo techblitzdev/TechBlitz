@@ -2,17 +2,16 @@
 
 import { useMemo } from 'react';
 import { RadialBarChart, RadialBar, Legend, ResponsiveContainer, Tooltip } from 'recharts';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import { StatsChartData, DifficultyRecord } from '@/types/Stats';
+import { StatsChartData } from '@/types/Stats';
 import { Button } from '@/components/ui/button';
 
 // Define colors for each difficulty
+// Use the same difficulty colors as defined in the app's utility functions
 const DIFFICULTY_COLORS = {
-  BEGINNER: 'hsl(var(--chart-1))', // blue
-  EASY: 'hsl(var(--chart-2))', // green
-  MEDIUM: 'hsl(var(--chart-3))', // yellow
-  HARD: 'hsl(var(--chart-4))', // red
+  BEGINNER: '#3b82f6', // blue-500
+  EASY: '#22c55e', // green-500
+  MEDIUM: '#eab308', // yellow-500
+  HARD: '#ef4444', // red-500
 };
 
 // Map difficulty to friendly names
@@ -23,15 +22,7 @@ const DIFFICULTY_LABELS = {
   HARD: 'Hard',
 };
 
-export default function DifficultyRadialChart({
-  questionData,
-  step,
-  backgroundColor,
-}: {
-  questionData: StatsChartData;
-  step: 'day' | 'week' | 'month';
-  backgroundColor?: string;
-}) {
+export default function DifficultyRadialChart({ questionData }: { questionData: StatsChartData }) {
   // Calculate total questions by difficulty
   const difficultyData = useMemo(() => {
     // Create object to store totals by difficulty
@@ -57,7 +48,7 @@ export default function DifficultyRadialChart({
       .filter(([_, count]) => count > 0) // Only include non-zero counts
       .sort((a, b) => b[1] - a[1]) // Sort by count (descending)
       .map(([difficulty, count], index) => {
-        // Higher index means smaller inner radius for the radial bar
+        // Calculate the angle for the radial chart
         return {
           name: DIFFICULTY_LABELS[difficulty as keyof typeof DIFFICULTY_LABELS] || difficulty,
           value: count,
@@ -70,54 +61,50 @@ export default function DifficultyRadialChart({
     return { chartData, grandTotal };
   }, [questionData]);
 
-  // Custom Legend that shows the count and percentage
-  const CustomizedLegend = ({ payload }: any) => {
-    if (!payload || payload.length === 0) return null;
-
+  // Generate a legend that shows both counts and percentages
+  const LegendContent = () => {
     return (
-      <ul className="flex flex-col gap-2 text-sm mt-4">
-        {payload.map((entry: any, index: number) => (
-          <li key={`item-${index}`} className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: entry.color }} />
-            <span className="text-foreground">{entry.value}</span>
-            <span className="text-muted-foreground">
-              {difficultyData.chartData.find((item) => item.name === entry.value)?.value || 0}{' '}
-              questions (
-              {difficultyData.chartData.find((item) => item.name === entry.value)?.percentage || 0}
-              %)
-            </span>
-          </li>
+      <div className="flex flex-wrap justify-center gap-4 mt-4">
+        {difficultyData.chartData.map((entry, index) => (
+          <div key={index} className="flex items-center">
+            <div
+              className="w-3 h-3 rounded-full mr-2"
+              style={{ backgroundColor: entry.fill }}
+            ></div>
+            <div className="flex flex-col">
+              <span className="text-sm font-medium">{entry.name}</span>
+              <span className="text-xs text-gray-400">
+                {entry.value} ({entry.percentage}%)
+              </span>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     );
   };
 
   return (
     <>
       {difficultyData.grandTotal > 0 ? (
-        <div className="h-[300px] w-full">
+        <div className="w-full h-[350px]">
           <ResponsiveContainer width="100%" height="100%">
             <RadialBarChart
               cx="50%"
               cy="50%"
-              innerRadius="20%"
+              innerRadius="10%"
               outerRadius="80%"
-              barSize={20}
+              barSize={25}
               data={difficultyData.chartData}
-              startAngle={180}
-              endAngle={0}
             >
               <RadialBar
-                background
-                label={{ fill: 'hsl(var(--foreground))', position: 'insideStart' }}
+                background={{ fill: '#090909' }}
+                label={{
+                  position: 'insideStart',
+                  fill: '#fff',
+                  fontSize: 12,
+                  formatter: (value: number) => value,
+                }}
                 dataKey="value"
-              />
-              <Legend
-                iconSize={10}
-                layout="vertical"
-                verticalAlign="middle"
-                align="right"
-                content={<CustomizedLegend />}
               />
               <Tooltip
                 formatter={(value: number) => [
@@ -125,17 +112,18 @@ export default function DifficultyRadialChart({
                   'Questions',
                 ]}
                 contentStyle={{
-                  backgroundColor: 'hsl(var(--background))',
-                  borderColor: 'hsl(var(--border))',
+                  backgroundColor: '#090909',
+                  borderColor: '#2d2d2d',
+                  borderRadius: '6px',
                 }}
-                itemStyle={{ color: 'hsl(var(--foreground))' }}
-                labelStyle={{ color: 'hsl(var(--foreground))' }}
+                itemStyle={{ color: '#fff' }}
+                labelStyle={{ color: '#fff' }}
               />
             </RadialBarChart>
           </ResponsiveContainer>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center gap-4">
+        <div className="flex flex-col items-center justify-center gap-4 h-[300px]">
           <p className="text-lg text-muted-foreground text-center">
             No difficulty data available due to lack of questions answered
           </p>

@@ -13,8 +13,8 @@ import { revalidateTag } from 'next/cache';
 const getStatsChartData = async (opts: {
   userUid: string;
   to: string;
-  from: StatsSteps;
-  step: 'month' | 'week' | 'day';
+  from: StatsSteps | 'all';
+  step?: 'month' | 'week' | 'day';
   separateByDifficulty?: boolean;
   includeDifficultyData?: boolean;
 }) => {
@@ -25,7 +25,8 @@ const getStatsChartData = async (opts: {
   }
 
   const toDate = new Date(to);
-  const fromDate = getRange(from);
+  // If 'all' is specified, use a very old date to get all data
+  const fromDate = from === 'all' ? new Date(0) : getRange(from);
 
   const questions = await prisma.answers.findMany({
     where: {
@@ -43,10 +44,59 @@ const getStatsChartData = async (opts: {
               tag: true,
             },
           },
+          difficulty: includeDifficultyData, // only include difficulty if requested
         },
       },
     },
   });
+
+  // If no step is provided, return ungrouped data
+  if (!step) {
+    // Create an overall stats object
+    const ungroupedData: StatsChartData = {
+      all: {
+        totalQuestions: 0,
+        tagCounts: {},
+        tags: [],
+        difficulties: includeDifficultyData
+          ? {
+              BEGINNER: 0,
+              EASY: 0,
+              MEDIUM: 0,
+              HARD: 0,
+            }
+          : undefined,
+      },
+    };
+
+    // Process all questions without time-based grouping
+    questions.forEach((answer) => {
+      const tags = answer.question.tags.map((tag) => tag.tag.name);
+      ungroupedData['all'].totalQuestions++;
+
+      // Track difficulty if needed
+      if (
+        includeDifficultyData &&
+        ungroupedData['all'].difficulties &&
+        answer.question.difficulty
+      ) {
+        const difficulty = answer.question.difficulty;
+        if (ungroupedData['all'].difficulties[difficulty] !== undefined) {
+          ungroupedData['all'].difficulties[difficulty]!++;
+        }
+      }
+
+      // Process tags
+      tags.forEach((tag) => {
+        ungroupedData['all'].tagCounts[tag] = (ungroupedData['all'].tagCounts[tag] || 0) + 1;
+        if (!ungroupedData['all'].tags.includes(tag)) {
+          ungroupedData['all'].tags.push(tag);
+        }
+      });
+    });
+
+    return ungroupedData;
+  }
 
   const data: StatsChartData = {};
 
@@ -77,6 +127,14 @@ const getStatsChartData = async (opts: {
       totalQuestions: 0,
       tagCounts: {},
       tags: [],
+      difficulties: includeDifficultyData
+        ? {
+            BEGINNER: 0,
+            EASY: 0,
+            MEDIUM: 0,
+            HARD: 0,
+          }
+        : undefined,
     };
 
     // Increment date based on step
@@ -115,6 +173,16 @@ const getStatsChartData = async (opts: {
     if (data[key]) {
       const tags = answer.question.tags.map((tag) => tag.tag.name);
       data[key].totalQuestions++;
+
+      // Track difficulty if needed
+      if (includeDifficultyData && data[key]?.difficulties && answer.question.difficulty) {
+        const difficulty = answer.question.difficulty;
+        const diffObj = data[key].difficulties;
+        if (diffObj && typeof diffObj === 'object' && difficulty in diffObj) {
+          diffObj[difficulty] = (diffObj[difficulty] || 0) + 1;
+        }
+      }
+
       tags.forEach((tag) => {
         data[key].tagCounts[tag] = (data[key].tagCounts[tag] || 0) + 1;
         if (!data[key].tags.includes(tag)) {
@@ -151,13 +219,13 @@ const getStatsChartData = async (opts: {
 /**
  * Gets the total number of questions the user has answered within a specific range.
  */
-const getTotalQuestionCount = async (userUid: string, to: string, from: StatsSteps) => {
+const getTotalQuestionCount = async (userUid: string, to: string, from: StatsSteps | 'all') => {
   if (!userUid) {
     return null;
   }
 
   const toDate = new Date(to);
-  const fromDate = getRange(from);
+  const fromDate = from === 'all' ? new Date(0) : getRange(from);
 
   const questions = await prisma.answers.count({
     where: {
@@ -177,7 +245,11 @@ const getTotalQuestionCount = async (userUid: string, to: string, from: StatsSte
 /**
  * Gets the total time taken for questions answered within a specific range.
  */
-export const getTotalTimeTaken = async (userUid: string, to?: string, from?: StatsSteps) => {
+export const getTotalTimeTaken = async (
+  userUid: string,
+  to?: string,
+  from?: StatsSteps | 'all'
+) => {
   if (!userUid) {
     return null;
   }
@@ -192,7 +264,7 @@ export const getTotalTimeTaken = async (userUid: string, to?: string, from?: Sta
   }
 
   const toDate = new Date(to || new Date().toISOString());
-  const fromDate = getRange(from || '7d');
+  const fromDate = from === 'all' ? new Date(0) : getRange(from || '7d');
 
   const answers = await prisma.answers.findMany({
     where: {
@@ -217,13 +289,13 @@ export const getTotalTimeTaken = async (userUid: string, to?: string, from?: Sta
 /**
  * Gets the highest scoring tag within a specific range.
  */
-const getHighestScoringTag = async (userUid: string, to: string, from: StatsSteps) => {
+const getHighestScoringTag = async (userUid: string, to: string, from: StatsSteps | 'all') => {
   if (!userUid) {
     return null;
   }
 
   const toDate = new Date(to);
-  const fromDate = getRange(from);
+  const fromDate = from === 'all' ? new Date(0) : getRange(from);
 
   const answers = await prisma.answers.findMany({
     where: {
@@ -271,19 +343,19 @@ const getHighestScoringTag = async (userUid: string, to: string, from: StatsStep
 export const getData = async (opts: {
   userUid: string;
   to: string;
-  from: StatsSteps;
-  step: 'month' | 'week' | 'day';
+  from: StatsSteps | 'all';
+  step?: 'month' | 'week' | 'day';
   separateByDifficulty?: boolean;
   includeDifficultyData?: boolean;
 }) => {
-  const { userUid, to, from, separateByDifficulty, includeDifficultyData = false } = opts;
+  const { userUid, to, from, step, separateByDifficulty, includeDifficultyData = false } = opts;
 
   // run all in parallel as they do not depend on each other
   const [stats, totalQuestions, totalTimeTaken, highestScoringTag] = await Promise.all([
     getStatsChartData({ ...opts, includeDifficultyData }),
-    getTotalQuestionCount(userUid, to, from),
-    getTotalTimeTaken(userUid, to, from),
-    getHighestScoringTag(userUid, to, from),
+    getTotalQuestionCount(userUid, to, from === 'all' ? '90d' : from), // Default to 90d for count if 'all' is used
+    getTotalTimeTaken(userUid, to, from === 'all' ? '90d' : from), // Default to 90d for time if 'all' is used
+    getHighestScoringTag(userUid, to, from === 'all' ? '90d' : from), // Default to 90d for tags if 'all' is used
   ]);
 
   return { stats, totalQuestions, totalTimeTaken, highestScoringTag };

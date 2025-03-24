@@ -18,10 +18,11 @@ import { getUserDisplayName } from '@/utils/user';
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Statistics | techblitz',
-    description: 'View your coding statistics and progress',
+    title: 'Statistics | TechBlitz',
+    description:
+      'Dive into your current coding journey, track your progress, and gain insight on how to improve your skills.',
     image: {
-      text: 'Statistics | techblitz',
+      text: 'Statistics | TechBlitz',
       bgColor: '#000',
       textColor: '#fff',
     },
@@ -44,31 +45,32 @@ export default async function StatisticsPage({
   const range = (searchParams.range as StatsSteps) || '7d';
   const { step } = STATISTICS[range];
 
-  // Prefetch data with includeDifficultyData flag
-  const { stats } = await getData({
-    userUid: user.uid,
-    from: range,
-    to: new Date().toISOString(),
-    step,
-    includeDifficultyData: true, // Make sure to include difficulty data
-  });
+  // Prefetch data - get both time-grouped and overall stats
+  const [timeGroupedStats, overallStats] = await Promise.all([
+    getData({
+      userUid: user.uid,
+      from: range,
+      to: new Date().toISOString(),
+      step,
+      includeDifficultyData: true,
+    }),
+    getData({
+      userUid: user.uid,
+      from: 'all',
+      to: new Date().toISOString(),
+      includeDifficultyData: true,
+    }),
+  ]);
 
   return (
-    <div>
-      <div className="flex flex-col gap-3 md:flex-row w-full justify-between md:items-center">
+    <div className="space-y-6">
+      <div className="flex flex-col gap-3 md:flex-row w-full justify-between">
         <Hero
           heading={`${getUserDisplayName(user)}'s Statistics`}
           container={false}
-          subheading="Dive into your current coding journey, track your progress, and gain insight on how to improve your skills."
+          subheading="Dive into your coding journey, track your progress, and gain insight on how to improve your skills."
         />
-        {stats && (
-          <DifficultyRadialChart questionData={stats} step={step} backgroundColor="bg-card-dark" />
-        )}
-      </div>
-
-      <div className="grid grid-cols-12 gap-y-4 gap-x-8 mt-8 md:mt-0">
-        {/* Radial Difficulty Chart */}
-        <div className="col-span-12 lg:col-span-6 mb-4"></div>
+        {overallStats.stats && <DifficultyRadialChart questionData={overallStats.stats} />}
       </div>
     </div>
   );

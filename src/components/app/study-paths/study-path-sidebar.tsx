@@ -104,7 +104,7 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
                   </div>
                 ) : (
                   <>
-                    <p className="text-sm text-gray-400 font-onest">
+                    <p className="text-sm text-gray-700 dark:text-gray-400 font-onest">
                       {Math.round(
                         user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
                           ?.progress ?? 0
@@ -112,7 +112,7 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
                       % completed
                     </p>
                     <Progress
-                      className="border border-black-50 bg-black-50"
+                      className="border border-secondary dark:border-black-50 bg-secondary dark:bg-black-50"
                       value={
                         user?.studyPathEnrollments?.find((e) => e.studyPathUid === studyPath.uid)
                           ?.progress ?? 0
@@ -137,8 +137,8 @@ export default async function StudyPathSidebar({ studyPath }: { studyPath: Study
                 />
               </div>
 
-              <div className="w-full md:w-1/2 lg:w-full bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg">
-                <div className="flex items-center space-x-2 text-white">
+              <div className="w-full md:w-1/2 lg:w-full bg-secondary dark:bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-secondary dark:border-black-50 p-4 rounded-lg">
+                <div className="flex items-center space-x-2 text-black dark:text-white">
                   <ArcheryTarget height="36" width="36" />
                   <h3 className="text-lg font-semibold">Set a Goal</h3>
                 </div>

@@ -38,7 +38,9 @@ async function CurrentStreakData() {
 
   return (
     <div className="flex items-center gap-x-1">
-      <p className="font-onest font-medium">{userStreak?.streakData?.currentstreakCount ?? 0}</p>
+      <p className="font-onest font-medium text-black dark:text-white">
+        {userStreak?.streakData?.currentstreakCount ?? 0}
+      </p>
     </div>
   );
 }

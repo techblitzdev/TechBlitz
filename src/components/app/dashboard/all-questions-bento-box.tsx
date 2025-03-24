@@ -42,15 +42,20 @@ export default function AllQuestionsDashboardBentoBox() {
   return (
     <section className="flex flex-col gap-y-5 group p-4 relative overflow-hidden h-[350px] lg:h-fit">
       <div className="space-y-3 z-10 relative">
-        <Chip color="bg-white" text="Questions" textColor="text-black" border="border-black-50" />
-        <h6 className="text-lg lg:text-xl flex items-center">
+        <Chip
+          color="bg-white"
+          text="Questions"
+          textColor="text-black"
+          border="border-secondary dark:border-black-50"
+        />
+        <h6 className="text-lg lg:text-xl flex items-center text-black dark:text-white">
           View all Questions
           <ArrowRight className="size-4 inline-block ml-1 group-hover:ml-2 duration-300" />
         </h6>
       </div>
 
       <div className="relative overflow-hidden mt-3 md:h-64 xl:h-[20rem]">
-        <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-[#000] to-transparent z-10" />
+        <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-white dark:from-[#000] to-transparent z-10" />
 
         {/* Scrolling content */}
         <div
@@ -63,7 +68,7 @@ export default function AllQuestionsDashboardBentoBox() {
         </div>
 
         {/* Bottom fade effect */}
-        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[#000] to-transparent z-10" />
+        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white dark:from-[#000] to-transparent z-10" />
       </div>
     </section>
   );

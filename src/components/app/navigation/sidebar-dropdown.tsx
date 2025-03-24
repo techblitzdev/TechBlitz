@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import LogoutButton from '@/components/auth/logout';
 import ProfilePicture from '@/components/ui/profile-picture';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 import type { UserRecord } from '@/types/User';
 import { getUserDisplayName } from '@/utils/user';
@@ -38,12 +39,12 @@ export default function SidebarAreaComponent(opts: {
   const { user } = opts;
 
   return (
-    <SidebarContent className="bg-[#000000] w-full p-0">
+    <SidebarContent className="bg-white dark:bg-[#000000] w-full p-0">
       <SidebarMenu>
         <SidebarMenuItem>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <SidebarMenuButton variant="default" className="text-white h-fit">
+              <SidebarMenuButton variant="default" className="text-black dark:text-white h-fit">
                 <ProfilePicture
                   src={user?.userProfilePicture}
                   alt="Profile Picture"
@@ -51,17 +52,17 @@ export default function SidebarAreaComponent(opts: {
                 />
 
                 <div className="flex flex-col">
-                  <span className="text-white font-medium text-lg line-clamp-1">
+                  <span className="text-black dark:text-white font-medium text-lg line-clamp-1">
                     {user && getUserDisplayName(user)}
                   </span>
-                  <span className="text-xs text-white">
+                  <span className="text-xs text-black dark:text-white">
                     {capitalise(user?.userLevel || 'Anonymous')}
                   </span>
                 </div>
                 <ChevronsUpDown className="ml-auto" />
               </SidebarMenuButton>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-[#000] !text-white border-black-50">
+            <DropdownMenuContent className="w-56 bg-white dark:bg-[#000000] !text-black dark:text-white border-black-50 dark:border-white-50">
               <DropdownMenuItem>
                 <Link href={getUpgradeUrl()} className="w-full">
                   Upgrade
@@ -83,6 +84,16 @@ export default function SidebarAreaComponent(opts: {
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Link href="https://git.new/blitz">GitHub</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Button
+                  variant="ghost"
+                  padding="none"
+                  className="flex items-center gap-x-2 h-auto !bg-transparent justify-between"
+                >
+                  <span>Theme</span>
+                  <ThemeToggle />
+                </Button>
               </DropdownMenuItem>
               {user && (
                 <DropdownMenuItem>

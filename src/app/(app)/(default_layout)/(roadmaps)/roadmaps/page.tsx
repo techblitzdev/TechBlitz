@@ -41,12 +41,12 @@ export async function generateMetadata() {
 
 const heroDescription = (
   <div className="flex flex-col gap-y-4 z-20 relative font-inter max-w-3xl">
-    <p className="text-sm md:text-base text-gray-400">
+    <p className="text-sm md:text-base text-gray-700 dark:text-gray-400">
       Explore our curated lists of coding questions, ranging from Javascript, React, Node, Web
       Development. Perfect for your daily coding practice.
     </p>
     <div className="flex flex-col gap-y-2">
-      <p className="text-gray-400">Can't find what you're looking for?</p>
+      <p className="text-gray-700 dark:text-gray-400">Can't find what you're looking for?</p>
       <div className="flex items-center gap-x-2">
         <Button href="/questions" variant="secondary">
           View all questions
@@ -161,9 +161,9 @@ export default async function ExploreQuestionsPage() {
                 missionsPromise={missionsPromise}
                 userMissionRecordsPromise={userMissionRecordsPromise}
               />
-              <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit">
-                <div className="flex items-center space-x-2 text-white">
-                  <Mail className="size-5 text-white" />
+              <div className="bg-secondary dark:bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-secondary dark:border-black-50 p-4 rounded-lg h-fit">
+                <div className="flex items-center space-x-2 text-black dark:text-white">
+                  <Mail className="size-5 text-black dark:text-white" />
                   <span>Suggest a roadmap</span>
                 </div>
                 <p className="text-sm text-muted-foreground">

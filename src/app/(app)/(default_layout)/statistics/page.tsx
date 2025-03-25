@@ -85,7 +85,6 @@ export default async function StatisticsPage({
         )}
       </div>
       <div className="grid grid-cols-12 gap-4">
-        {JSON.stringify(recentAnswers)}
         {/* Question History - Recent answers */}
         <div className="col-span-12 md:col-span-6 lg:col-span-4">
           <QuestionHistory recentAnswers={recentAnswers} />

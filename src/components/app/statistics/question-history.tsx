@@ -11,20 +11,6 @@ interface QuestionHistoryProps {
   className?: string;
 }
 
-// Format time taken in seconds to a readable format
-const formatTimeTaken = (seconds: number | null | undefined) => {
-  if (!seconds) return 'N/A';
-
-  if (seconds < 60) {
-    return `${seconds}s`;
-  }
-
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-
-  return `${minutes}m ${remainingSeconds}s`;
-};
-
 export default async function QuestionHistory({ className }: QuestionHistoryProps) {
   const user = await getUser();
 
@@ -81,21 +67,15 @@ export default async function QuestionHistory({ className }: QuestionHistoryProp
                     ) : (
                       <XCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
                     )}
-                    <div className="space-y-1">
+                    <div className="flex items-center justify-between w-full">
                       <h3 className="text-sm font-medium line-clamp-2 text-white">
                         {answer.question.title || answer.question.question.substring(0, 50)}
                       </h3>
-                      <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                        <Badge variant="outline" className="bg-black-50 text-[10px]">
-                          {answer.question.difficulty}
-                        </Badge>
-                        <span>
-                          {formatDistanceToNow(new Date(answer.createdAt), {
-                            addSuffix: true,
-                          })}
-                        </span>
-                        {answer.timeTaken && <span>• {formatTimeTaken(answer.timeTaken)}</span>}
-                      </div>
+                      <span className="text-gray-400">
+                        {formatDistanceToNow(new Date(answer.createdAt), {
+                          addSuffix: true,
+                        })}
+                      </span>
                     </div>
                   </div>
                 </Link>

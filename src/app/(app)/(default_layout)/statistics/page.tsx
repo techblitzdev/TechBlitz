@@ -87,11 +87,6 @@ export default async function StatisticsPage({
         <div className="col-span-12 md:col-span-6 lg:col-span-4">
           <QuestionHistory />
         </div>
-
-        {/* Other stats components */}
-        <div className="col-span-12 md:col-span-6 lg:col-span-8">
-          <StatisticsReport />
-        </div>
       </div>
     </div>
   );

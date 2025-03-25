@@ -19,13 +19,13 @@ export default async function QuestionHistory({ className, recentAnswers }: Ques
   return (
     <Card className={cn('border-black-50', className)}>
       <CardHeader className="pb-0 flex flex-row gap-2 items-center p-4">
-        <SPulse2 fill="white" height="44" width="44" />
+        <SPulse2 fill="white" height="48" width="48" />
         <CardTitle className="flex flex-col">
           <span className="text-xs text-gray-400">Last 10 questions</span>
           <h4 className="text-xl font-medium text-white">Question History</h4>
         </CardTitle>
       </CardHeader>
-      <CardDescription className="text-sm text-gray-400 px-4 pb-3">
+      <CardDescription className="text-xs text-gray-400 px-4 pb-3">
         In the last 7 days, you have answered [...] questions. Good job!
       </CardDescription>
       <CardContent className="p-0">
@@ -51,10 +51,10 @@ export default async function QuestionHistory({ className, recentAnswers }: Ques
                       <XCircle className="size-5 text-red-500 flex-shrink-0 mt-0.5" />
                     )}
                     <div className="flex items-center justify-between w-full">
-                      <h3 className="text-sm font-medium line-clamp-2 text-white">
+                      <h3 className="text-sm font-medium line-clamp-1 text-white">
                         {answer.question.title || answer?.question?.question?.substring(0, 50)}
                       </h3>
-                      <span className="text-gray-400 text-xs">
+                      <span className="text-gray-400 text-xs flex-shrink-0">
                         {formatDistanceToNow(new Date(answer.createdAt), {
                           addSuffix: true,
                         })}

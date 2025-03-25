@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 function QuestionHistoryStory({ recentAnswers }: { recentAnswers: any[] }) {
   return (
     <Suspense>
-      <QuestionHistory recentAnswers={recentAnswers} />
+      <QuestionHistory className="w-1/2" recentAnswers={recentAnswers} />
     </Suspense>
   );
 }

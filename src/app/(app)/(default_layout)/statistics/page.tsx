@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 
 import StatsRangePicker from '@/components/app/statistics/range-picker';
 import QuestionChart from '@/components/app/statistics/total-question-chart';
+import QuestionHistory from '@/components/app/statistics/question-history';
 
 const DifficultyRadialChart = dynamic(
   () => import('@/components/app/statistics/difficulty-radial-chart'),
@@ -21,7 +22,6 @@ import { STATISTICS } from '@/utils/constants';
 import { getData } from '@/utils/data/statistics/get-stats-chart-data';
 import { createMetadata } from '@/utils/seo';
 import { getUserDisplayName } from '@/utils/user';
-import QuestionHistory from '@/components/app/statistics/question-history';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -82,8 +82,16 @@ export default async function StatisticsPage({
           <DifficultyRadialChart questionData={overallStats.stats} legend={false} />
         )}
       </div>
-      <div className="grid grid-cols-12">
-        <QuestionHistory className="col-start-9 col-span-3" />
+      <div className="grid grid-cols-12 gap-4">
+        {/* Question History - Recent answers */}
+        <div className="col-span-12 md:col-span-6 lg:col-span-4">
+          <QuestionHistory />
+        </div>
+
+        {/* Other stats components */}
+        <div className="col-span-12 md:col-span-6 lg:col-span-8">
+          <StatisticsReport />
+        </div>
       </div>
     </div>
   );

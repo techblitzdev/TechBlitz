@@ -1,18 +1,24 @@
+import dynamic from 'next/dynamic';
+
 import StatsRangePicker from '@/components/app/statistics/range-picker';
 import QuestionChart from '@/components/app/statistics/total-question-chart';
-import DifficultyRadialChart from '@/components/app/statistics/difficulty-radial-chart';
+
+const DifficultyRadialChart = dynamic(
+  () => import('@/components/app/statistics/difficulty-radial-chart'),
+  { ssr: false }
+);
+
+import Hero from '@/components/shared/hero';
+import SuggestedQuestions from '@/components/app/statistics/suggested-questions';
+import StatisticsOverviewMenu from '@/components/app/statistics/statistics-overview-menu';
+import StatisticsReport from '@/components/app/statistics/statistics-report';
+import QuestionTracker from '@/components/app/statistics/question-tracker';
 
 import { useUserServer } from '@/hooks/use-user-server';
 import { StatsSteps } from '@/types/Stats';
 
 import { STATISTICS } from '@/utils/constants';
-
 import { getData } from '@/utils/data/statistics/get-stats-chart-data';
-import Hero from '@/components/shared/hero';
-import SuggestedQuestions from '@/components/app/statistics/suggested-questions';
-import StatisticsReport from '@/components/app/statistics/statistics-report';
-import StatisticsOverviewMenu from '@/components/app/statistics/statistics-overview-menu';
-import QuestionTracker from '@/components/app/statistics/question-tracker';
 import { createMetadata } from '@/utils/seo';
 import { getUserDisplayName } from '@/utils/user';
 

@@ -23,7 +23,15 @@ const DIFFICULTY_LABELS = {
   HARD: 'Hard',
 };
 
-export default function DifficultyRadialChart({ questionData }: { questionData: StatsChartData }) {
+interface DifficultyRadialChartProps {
+  questionData: StatsChartData;
+  legend?: boolean;
+}
+
+export default function DifficultyRadialChart({
+  questionData,
+  legend = true,
+}: DifficultyRadialChartProps) {
   // Calculate total questions by difficulty
   const difficultyData = useMemo(() => {
     // Create object to store totals by difficulty
@@ -103,34 +111,46 @@ export default function DifficultyRadialChart({ questionData }: { questionData: 
   };
 
   return (
-    <>
+    <div className="w-full">
       {difficultyData.grandTotal > 0 ? (
-        <div className="w-full h-[350px] relative">
-          <ResponsiveContainer width="100%" height="100%">
-            <RadialBarChart
-              cx="50%"
-              cy="50%"
-              innerRadius="10%"
-              outerRadius="80%"
-              barSize={17}
-              data={difficultyData.chartData}
-              height={350}
-            >
-              <RadialBar
-                background={{ fill: '#090909' }}
-                label={{
-                  position: 'insideStart',
-                  fill: '#fff',
-                  fontSize: 12,
-                  formatter: (value: number) => value,
-                }}
-                dataKey="value"
-                startAngle={45}
-                endAngle={450}
-              />
-              <Tooltip content={<CustomTooltip />} animationDuration={500} />
-            </RadialBarChart>
-          </ResponsiveContainer>
+        <div className="space-y-4">
+          <div className="w-full h-[400px] relative">
+            <ResponsiveContainer width="100%" height="100%">
+              <RadialBarChart
+                cx="50%"
+                cy="50%"
+                innerRadius="15%"
+                outerRadius="85%"
+                barSize={30}
+                data={difficultyData.chartData}
+                height={400}
+              >
+                <RadialBar
+                  background={{ fill: '#090909' }}
+                  label={{
+                    position: 'insideStart',
+                    fill: '#fff',
+                    fontSize: 14,
+                    formatter: (value: number) => value,
+                  }}
+                  dataKey="value"
+                  startAngle={45}
+                  endAngle={450}
+                />
+                <Tooltip content={<CustomTooltip />} animationDuration={500} />
+              </RadialBarChart>
+            </ResponsiveContainer>
+          </div>
+
+          {legend && (
+            <div className="px-4">
+              <LegendContent />
+
+              <div className="text-center text-sm text-gray-400 mt-4">
+                Total: {difficultyData.grandTotal} questions
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center gap-4 h-[300px]">
@@ -140,6 +160,6 @@ export default function DifficultyRadialChart({ questionData }: { questionData: 
           <Button href="/questions">Start answering now</Button>
         </div>
       )}
-    </>
+    </div>
   );
 }

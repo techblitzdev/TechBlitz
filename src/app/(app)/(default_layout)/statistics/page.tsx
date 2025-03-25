@@ -21,6 +21,7 @@ import { STATISTICS } from '@/utils/constants';
 import { getData } from '@/utils/data/statistics/get-stats-chart-data';
 import { createMetadata } from '@/utils/seo';
 import { getUserDisplayName } from '@/utils/user';
+import QuestionHistory from '@/components/app/statistics/question-history';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -77,7 +78,12 @@ export default async function StatisticsPage({
           subheading="Dive into your coding journey, track your progress, and gain insight on how to improve your skills."
           gridPosition="top-right"
         />
-        {overallStats.stats && <DifficultyRadialChart questionData={overallStats.stats} />}
+        {overallStats.stats && (
+          <DifficultyRadialChart questionData={overallStats.stats} legend={false} />
+        )}
+      </div>
+      <div className="grid grid-cols-12">
+        <QuestionHistory className="col-start-9 col-span-3" />
       </div>
     </div>
   );

@@ -22,6 +22,7 @@ import { STATISTICS } from '@/utils/constants';
 import { getData } from '@/utils/data/statistics/get-stats-chart-data';
 import { createMetadata } from '@/utils/seo';
 import { getUserDisplayName } from '@/utils/user';
+import { getRecentUserAnswers } from '@/utils/data/answers/get-user-answer';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -53,7 +54,7 @@ export default async function StatisticsPage({
   const { step } = STATISTICS[range];
 
   // Prefetch data - get both time-grouped and overall stats
-  const [timeGroupedStats, overallStats] = await Promise.all([
+  const [timeGroupedStats, overallStats, recentAnswers] = await Promise.all([
     getData({
       userUid: user.uid,
       from: range,
@@ -67,6 +68,7 @@ export default async function StatisticsPage({
       to: new Date().toISOString(),
       includeDifficultyData: true,
     }),
+    getRecentUserAnswers({ take: 10 }),
   ]);
 
   return (
@@ -83,9 +85,10 @@ export default async function StatisticsPage({
         )}
       </div>
       <div className="grid grid-cols-12 gap-4">
+        {JSON.stringify(recentAnswers)}
         {/* Question History - Recent answers */}
         <div className="col-span-12 md:col-span-6 lg:col-span-4">
-          <QuestionHistory />
+          <QuestionHistory recentAnswers={recentAnswers} />
         </div>
       </div>
     </div>

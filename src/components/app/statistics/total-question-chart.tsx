@@ -1,32 +1,12 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import { TrendingUp, TrendingDown, BarChartIcon, LineChartIcon, Circle } from 'lucide-react';
-import { CartesianGrid, Bar, BarChart, Line, LineChart, XAxis, YAxis } from 'recharts';
+import { TrendingUp, TrendingDown, Circle } from 'lucide-react';
 import NumberFlow from '@number-flow/react';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from '@/components/charts/chart';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { cn } from '@/lib/utils';
-
-const chartConfig = {
-  questions: {
-    label: 'Questions',
-    color: 'hsl(var(--chart-1))',
-  },
-} satisfies ChartConfig;
+import { AreaChart } from '@/components/charts/area-chart';
 
 export interface StatsChartData {
   [key: string]: {
@@ -65,9 +45,11 @@ export default function QuestionChart({
   }, [questionData]);
 
   // order the chart data by the date. Ensuring that the oldest date is first
-  const orderedChartData = chartData.sort((a, b) => {
-    return new Date(a.date).getTime() - new Date(b.date).getTime();
-  });
+  const orderedChartData = useMemo(() => {
+    return [...chartData].sort((a, b) => {
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+    });
+  }, [chartData]);
 
   const trend = useMemo(() => {
     // if there is less than 2 periods, return 0
@@ -76,15 +58,15 @@ export default function QuestionChart({
     }
 
     // get the first and last period of the chart data
-    const firstPeriod = chartData[0];
-    const lastPeriod = chartData[chartData.length - 1];
+    const firstPeriod = orderedChartData[0];
+    const lastPeriod = orderedChartData[orderedChartData.length - 1];
 
     // Handle case where first period has 0 questions
     if (firstPeriod.questions === 0) {
       if (lastPeriod.questions === 0) {
         return { percentage: 0, isNeutral: true };
       }
-      // If starting from 0, treat treat as 0 * lastPeriod.questions increase
+      // If starting from 0, treat as 0 * lastPeriod.questions increase
       return {
         percentage: 100 * lastPeriod.questions,
         isNeutral: false,
@@ -101,71 +83,11 @@ export default function QuestionChart({
       isNeutral: percentageChange === 0,
       isUp: percentageChange > 0,
     };
-  }, [chartData]);
+  }, [orderedChartData]);
 
-  const maxQuestions = useMemo(() => {
-    return Math.max(...chartData.map((data) => data.questions));
-  }, [chartData]);
-
-  const yAxisDomain = useMemo(() => {
-    const maxY = Math.ceil(maxQuestions * 1.1);
-    const minY = Math.max(
-      0,
-      Math.floor(Math.min(...chartData.map((data) => data.questions)) * 0.9)
-    );
-    return [minY, maxY];
-  }, [maxQuestions, chartData]);
-
-  const renderChart = () => {
-    const ChartComponent = chartType === 'bar' ? BarChart : LineChart;
-
-    return (
-      <ChartComponent
-        accessibilityLayer
-        data={chartData}
-        margin={{
-          left: 12,
-          right: 12,
-          top: 20,
-          bottom: 10,
-        }}
-      >
-        <CartesianGrid vertical={false} />
-        <XAxis
-          dataKey="date"
-          tickLine={false}
-          axisLine={false}
-          tickMargin={8}
-          tickFormatter={(value) => value.split(',')[0]}
-        />
-        <YAxis
-          tickLine={false}
-          axisLine={false}
-          tickFormatter={(value) => `${value}`}
-          width={30}
-          tick={{ fill: 'hsl(var(--muted-foreground))' }}
-          domain={yAxisDomain}
-        />
-        <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-        {chartType === 'bar' ? (
-          <Bar
-            dataKey="questions"
-            fill="hsl(var(--accent))"
-            radius={[4, 4, 0, 0]}
-            className="hover:!bg-transparent"
-          />
-        ) : (
-          <Line
-            dataKey="questions"
-            type="linear"
-            stroke="hsl(var(--accent))"
-            strokeWidth={2}
-            dot={false}
-            activeDot={false}
-          />
-        )}
-      </ChartComponent>
-    );
+  // Format value for the chart to show whole numbers
+  const valueFormatter = (value: number) => {
+    return value.toFixed(0);
   };
 
   return (
@@ -186,47 +108,34 @@ export default function QuestionChart({
                 <Circle className="size-2 fill-yellow-400 text-yellow-500" />
               )}
             </div>
-            <Select
-              value={chartType}
-              onValueChange={(value: 'bar' | 'line') => setChartType(value)}
-            >
-              <SelectTrigger className="border border-black-50 md:w-[180px] text-white bg-primary">
-                <SelectValue placeholder="Select chart type" />
-              </SelectTrigger>
-              <SelectContent className="bg-black">
-                <SelectItem value="bar" className="hover:cursor-pointer hover:text-white">
-                  <div className="flex items-center">
-                    <BarChartIcon className="mr-2 size-4" />
-                    <span className="hidden md:block">Bar Chart</span>
-                  </div>
-                </SelectItem>
-                <SelectItem value="line" className="hover:cursor-pointer hover:text-white">
-                  <div className="flex items-center">
-                    <LineChartIcon className="mr-2 size-4" />
-                    <span className="hidden md:block">Line Chart</span>
-                  </div>
-                </SelectItem>
-              </SelectContent>
-            </Select>
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <CardDescription>
-            Last {chartData.length} {step}s
+          <CardDescription className="text-gray-400">
+            Last {orderedChartData.length} {step}s
           </CardDescription>
         </div>
       </CardHeader>
-      <CardContent className="border-black-50 max-h-[28rem] p-2 md:p-6">
-        <ChartContainer
-          config={chartConfig}
+      <CardContent className="border-black-50 p-2 md:p-6">
+        <AreaChart
           className="max-h-80"
-          style={{
-            aspectRatio: '16 / 9',
-            width: '100%',
-          }}
-        >
-          {renderChart()}
-        </ChartContainer>
+          data={orderedChartData}
+          index="date"
+          categories={['questions']}
+          colors={['blue']}
+          valueFormatter={valueFormatter}
+          showXAxis={true}
+          showYAxis={true}
+          showGridLines={true}
+          yAxisWidth={40}
+          showLegend={false}
+          showTooltip={true}
+          fill={chartType === 'bar' ? 'solid' : 'gradient'}
+          type={chartType === 'bar' ? 'default' : 'default'}
+          tickGap={chartType === 'bar' ? 40 : 20}
+          connectNulls={true}
+          autoMinValue={chartType === 'bar' ? false : true}
+        />
       </CardContent>
     </Card>
   );

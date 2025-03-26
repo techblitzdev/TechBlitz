@@ -5,7 +5,6 @@ import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 import dynamic from 'next/dynamic';
-import AnimatedSpan from '@/components/ui/animated-span';
 
 import DailyQuestionBox from './daily-question-box';
 const LeaderboardBentoBox = dynamic(() => import('./leaderboard-bento-box'), {
@@ -24,9 +23,8 @@ export default async function FeaturesBentoGrid() {
   return (
     <section className="pt-10 lg:pt-28 pb-10 md:pb-20 flex flex-col gap-y-7 relative">
       <div className="flex flex-col gap-y-1 items-center text-center">
-        <AnimatedSpan content="Land your dream tech job" />
         <h2 className="text-2xl lg:text-5xl !font-onest !leading-[normal] tracking-tight text-gradient from-white to-white/55">
-          Build your tech career with <br /> personalized learning tools
+          Coding made easy with <br /> personalized practice
         </h2>
         <span className="text-sm md:text-base text-gray-400 max-w-4xl">
           Learn to code with tools that adapt to your weaknesses. Get personalized practice, instant

@@ -1,5 +1,3 @@
-'use client';
-
 import { formatDistanceToNow } from 'date-fns';
 import { CheckCircle, Ellipsis, XCircle, Clock, Calendar, BarChart3, Info } from 'lucide-react';
 import Link from 'next/link';
@@ -47,7 +45,6 @@ const formatTimeTaken = (seconds: number | null | undefined) => {
   return `${minutes}m ${remainingSeconds}s`;
 };
 
-// Client component for detail dropdown
 function QuestionDetailDropdown({
   answer,
   position,
@@ -109,7 +106,6 @@ function QuestionDetailDropdown({
   );
 }
 
-// Client component for the question item
 function QuestionItem({
   answer,
   dropdownPosition,

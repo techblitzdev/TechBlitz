@@ -266,8 +266,8 @@ export default async function Page() {
         <Testimonials />
         <OpenSourceBlock />
         <CallToActionBlock
-          title="Land the job you've always dreamed of"
-          description="Ready to unlock your full potential? Try TechBlitz for free, no credit card required."
+          title="Ready to unlock your full potential?"
+          description="Join developers taking their development journey seriously. Try TechBlitz for free, no credit card required."
         />
       </div>
     </>

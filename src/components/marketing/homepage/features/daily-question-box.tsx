@@ -1,96 +1,58 @@
-import CodeSnippet from '@/components/marketing/global/code-snippet';
+import MultipleChoiceCard from '@/components/app/questions/multiple-choice/card';
+import { QuestionAnswer } from '@/types/QuestionAnswers';
 
-const codeSnippet1 = `// how to fetch data from an API
-export const fetchData = async () => {
-  try {
-    const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }); 
-
-    const data = await response.json();
-    // how can we return the first 5 posts?
-    console.log(/* missing code here */);
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-};
-
-fetchData();
-`;
-
-const codeSnippet2 = `// how to use javascript array methods
-const users = [
-  { id: 1, name: 'Alice', active: true, age: 28 },
-  { id: 2, name: 'Bob', active: false, age: 30 },
-  { id: 3, name: 'Charlie', active: true, age: 25 },
-  { id: 4, name: 'David', active: true, age: 22 },
-  { id: 5, name: 'Eve', active: false, age: 35 },
+const mockAnswers: QuestionAnswer[] = [
+  {
+    uid: 'answer-1',
+    questionUid: '123',
+    answer: 'The Array.map() allows you to transform each element of the array.',
+    answerType: 'STANDARD',
+    isCodeSnippet: false,
+  },
+  {
+    uid: 'answer-2',
+    questionUid: '123',
+    answer: 'The Array.map() allows you to iterate over each element of the array.',
+    answerType: 'STANDARD',
+    isCodeSnippet: false,
+  },
+  {
+    uid: 'answer-3',
+    questionUid: '123',
+    answer: 'The Array.filter() allows you to filter elements of the array.',
+    answerType: 'STANDARD',
+    isCodeSnippet: false,
+  },
+  {
+    uid: 'answer-4',
+    questionUid: '123',
+    answer: 'The Array.reduce() allows you to reduce the array to a single value.',
+    answerType: 'STANDARD',
+    isCodeSnippet: false,
+  },
 ];
-
-// get the names of active users
-const activeUserNames = users
-  .filter(user => user.active)
-  .map(user => user.name);
-
-// remove users under the age of 27
-const filteredUsers = users.filter(user => user.age >= 27);
-
-// get the average age of users
-const averageAge = users.reduce((sum, user) => sum + user.age, 0) / users.length;
-
-console.log(filteredUsers); // Output: [{ id: 1, name: 'Alice', active: true, age: 28 }, { id: 2, name: 'Bob', active: false, age: 30 }, { id: 5, name: 'Eve', active: false, age: 35 }]
-console.log(activeUserNames); // Output: ['Alice', 'Charlie', 'David']
-console.log(averageAge); // Output: 28
-`;
 
 export default function DailyQuestionBox() {
   return (
-    <div className="gap-10">
-      <div
-        className="
-          relative top-8 overflow-hidden 
-          w-3/4 group-hover:top-12 duration-500 group-hover:scale-[1.03]
-        "
-      >
-        <CodeSnippet
-          code={codeSnippet1}
-          language="javascript"
-          filename="fetchData.js"
-          lightTheme="one-dark-pro"
-          darkTheme="one-dark-pro"
-        />
+    <div className="flex flex-col gap-y-2 relative">
+      <div className="flex flex-col gap-y-2">
+        <h3 className="text-xs text-gray-400">What is the definition of Array.map()?</h3>
       </div>
-      <div
-        className="
-          absolute top-24 left-24 md:left-72 
-          overflow-hidden w-4/5 md:w-3/5 group-hover:top-6 duration-500 group-hover:scale-[1.04]
-        "
-      >
-        <CodeSnippet
-          code={codeSnippet2}
-          language="javascript"
-          filename="users.js"
-          lightTheme="one-dark-pro"
-          darkTheme="one-dark-pro"
-        />
-      </div>
-      <div
-        className="
-          absolute top-24 left-24 md:left-72 
-          overflow-hidden w-4/5 md:w-3/5 group-hover:top-6 duration-500 group-hover:scale-[1.04]
-        "
-      >
-        <CodeSnippet
-          code={codeSnippet2}
-          language="javascript"
-          filename="users.js"
-          lightTheme="one-dark-pro"
-          darkTheme="one-dark-pro"
-        />
-      </div>
+      {mockAnswers.map((answerObj, index) => {
+        return (
+          <MultipleChoiceCard
+            key={answerObj.uid}
+            index={index}
+            answer={answerObj.answer}
+            handleSelectAnswer={undefined}
+            selectedAnswer={undefined}
+            isCorrect={undefined}
+            isSubmitted={false}
+            correctAnswer={undefined}
+          />
+        );
+      })}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#000000] bottom-0 pointer-events-none" />
     </div>
   );
 }

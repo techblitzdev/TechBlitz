@@ -19,9 +19,7 @@ import MarketingContentGrid, {
   MarketingContentGridProps,
 } from '@/components/marketing/global/blocks/content-grid';
 
-import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
 import HomepageUserStats from '@/components/marketing/global/blocks/homepage-user-stats';
-import { QUESTIONS_COUNT } from '@/utils/constants';
 import { getUserCount } from '@/utils/data/user/get-user-count';
 import ChatBot from '@/components/ui/icons/chat-bot';
 import ArcheryTarget from '@/components/ui/icons/target';
@@ -36,9 +34,9 @@ import RoadmapIcon from '@/components/ui/icons/roadmap';
 import MaterialSymbolsFilterListRounded from '@/components/ui/icons/filter';
 import Document from '@/components/ui/icons/document';
 
-const title = 'Learning to code made easy | TechBlitz';
+const title = 'The free, fun way to master coding | TechBlitz';
 const description =
-  'Master programming through interactive coding challenges, personalized practice, and instant AI feedback. Perfect for beginners learning JavaScript, web development, and more. Start coding for free.';
+  'TechBlitz helps you go from beginner to coding expert with hands-on challenges, personalized practice, and instant AI feedback.';
 
 export const metadata: Metadata = {
   title,
@@ -254,11 +252,6 @@ export default async function Page() {
           items={featureIconGridItems}
           paddingTop="pt-12"
           paddingBottom="pb-24"
-        />
-
-        <QuestionMarquee
-          header={`${QUESTIONS_COUNT}+ coding challenges`}
-          subheader="Learn to code by doing. Improve your coding skills in as little as 3 minutes per day."
         />
         <ThreeBlockShowcase
           title="Built to build your coding skills"

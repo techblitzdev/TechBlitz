@@ -121,11 +121,11 @@ export default async function FeaturesBentoGrid() {
                   inbox.
                 </p>
               </div>
-              <Button variant="default" className="font-onest">
+              <Button variant="default" className="font-onest hidden md:flex">
                 Start practicing <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
               </Button>
             </div>
-            <div className="relative">
+            <div className="relative top-8">
               <DailyQuestionBox />
             </div>
           </Link>

@@ -113,12 +113,12 @@ export default async function FeaturesBentoGrid() {
             <div className="flex justify-between">
               <div className="flex flex-col gap-y-1 h-fit">
                 <h5 className="text-2xl text-gradient from-white to-white/55">
-                  Daily Coding Challenges
+                  Engaging Coding Challenges
                 </h5>
                 <p className="text-xs text-gray-400 font-onest">
-                  Enhance your coding skills with our curated daily challenges. Perfect for all
-                  skill levels, from beginners to advanced developers. Receive structured
-                  programming exercises directly in your inbox.
+                  Coding challenges don't have to be boring. Our challenges are designed to keep you
+                  wanting to learn more. Receive structured programming exercises directly in your
+                  inbox.
                 </p>
               </div>
               <Button variant="default" className="font-onest">

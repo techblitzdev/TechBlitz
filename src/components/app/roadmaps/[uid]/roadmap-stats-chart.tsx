@@ -8,7 +8,7 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from '@/components/ui/chart';
+} from '@/components/charts/chart';
 import { UserRoadmapsWithAnswers } from '@/types/Roadmap';
 
 const chartConfig = {

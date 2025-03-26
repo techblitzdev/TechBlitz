@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { StatsChartData } from '@/components/charts/total-question-chart';
-import QuestionChart from '@/components/charts/total-question-chart';
+import { StatsChartData } from './total-question-chart';
+import QuestionChart from './total-question-chart';
 
 // Helper function to generate dates for the past n days/weeks/months
 const generateDates = (count: number, step: 'day' | 'week' | 'month'): string[] => {
@@ -136,7 +136,7 @@ function QuestionChartWrapper({
 }
 
 const meta = {
-  title: 'App/Statistics/QuestionChart',
+  title: 'Charts/QuestionChart',
   component: QuestionChartWrapper,
   parameters: {
     layout: 'centered',

@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 
 import StatsRangePicker from '@/components/app/statistics/range-picker';
-import QuestionChart from '@/components/app/statistics/total-question-chart';
+import QuestionChart from '@/components/charts/total-question-chart';
 import QuestionHistory from '@/components/app/statistics/question-history';
 
 const DifficultyRadialChart = dynamic(

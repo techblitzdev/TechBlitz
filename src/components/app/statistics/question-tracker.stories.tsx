@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import QuestionTracker from './question-tracker';
+import QuestionTracker from '@/components/app/statistics/question-tracker';
 
 const meta = {
   component: QuestionTracker,
@@ -14,6 +14,6 @@ export const Default: Story = {
   args: {
     stats: {},
     step: 'month',
-    range: {},
+    range: '7d',
   },
 };

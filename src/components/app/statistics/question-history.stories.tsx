@@ -6,7 +6,9 @@ import { Suspense } from 'react';
 function QuestionHistoryStory({ recentAnswers }: { recentAnswers: any[] }) {
   return (
     <Suspense>
-      <QuestionHistory className="w-1/2" recentAnswers={recentAnswers} />
+      <div className="grid grid-cols-12">
+        <QuestionHistory className="col-span-4" recentAnswers={recentAnswers} />
+      </div>
     </Suspense>
   );
 }

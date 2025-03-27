@@ -24,6 +24,20 @@ interface CustomTooltipProps {
   label?: string;
 }
 
+// Function to get correct color for tooltip
+const getTooltipColor = (entry: PayloadItem): string => {
+  // First check the specified color
+  const colorName = entry.color || '';
+
+  // If it's an accent color, use the CSS variable
+  if (colorName === 'accent') {
+    return '#5b61d6'; // Hardcoded accent color
+  }
+
+  // Otherwise use the provided color or fallbacks
+  return entry.color || entry.stroke || entry.fill || '#3b82f6';
+};
+
 export default function Tooltip({ active, payload, label }: CustomTooltipProps) {
   if (!active || !payload || payload.length === 0) {
     return null;
@@ -63,8 +77,8 @@ export default function Tooltip({ active, payload, label }: CustomTooltipProps) 
           }
         }
 
-        // Get color from available properties
-        const color = entry.color || entry.stroke || entry.fill || '#3b82f6';
+        // Get the appropriate color
+        const color = getTooltipColor(entry);
 
         return (
           <div

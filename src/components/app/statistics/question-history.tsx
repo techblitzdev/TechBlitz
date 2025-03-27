@@ -160,7 +160,7 @@ export default function QuestionHistory({
   const correctCount = recentAnswers.filter((answer) => answer.correctAnswer).length;
 
   return (
-    <Card className={cn('border-black-50 overflow-hidden bg-black-100', className)}>
+    <Card className={cn('border-black-50 overflow-hidden', className)}>
       <CardHeader className="flex flex-row items-start gap-3 p-5 pb-0">
         <div className="rounded-lg bg-black-50 p-2">
           <SPulse2 fill="white" height="32" width="32" />

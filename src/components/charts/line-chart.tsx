@@ -42,7 +42,7 @@ const getStrokeColor = (color: AvailableChartColorsKeys): string => {
     pink: '#ec4899',
     lime: '#84cc16',
     fuchsia: '#d946ef',
-    accent: '#0e76a8',
+    accent: '#5b61d6',
   };
 
   return colorMap[color] || '#3b82f6'; // Default to blue if color not found
@@ -393,18 +393,18 @@ const ChartTooltip = ({ active, payload, label, valueFormatter }: ChartTooltipPr
           // base
           'rounded-md border text-sm shadow-md',
           // border color
-          'border-gray-200 dark:border-gray-800',
+          'border-black-50',
           // background color
-          'bg-white dark:bg-gray-950'
+          'bg-black'
         )}
       >
-        <div className={cx('border-b border-inherit px-4 py-2')}>
+        <div className={cx('border-b border-black-50 px-4 py-2')}>
           <p
             className={cx(
               // base
               'font-medium',
               // text color
-              'text-gray-900 dark:text-gray-50'
+              'text-white'
             )}
           >
             {label}
@@ -418,7 +418,7 @@ const ChartTooltip = ({ active, payload, label, valueFormatter }: ChartTooltipPr
                   aria-hidden="true"
                   className={cx(
                     'h-[3px] w-3.5 shrink-0 rounded-full',
-                    getColorClassName(color, 'bg')
+                    color === 'accent' ? 'bg-accent' : getColorClassName(color, 'bg')
                   )}
                 />
                 <p
@@ -426,7 +426,7 @@ const ChartTooltip = ({ active, payload, label, valueFormatter }: ChartTooltipPr
                     // base
                     'whitespace-nowrap text-right',
                     // text color
-                    'text-gray-700 dark:text-gray-300'
+                    'text-gray-400'
                   )}
                 >
                   {category}
@@ -437,7 +437,7 @@ const ChartTooltip = ({ active, payload, label, valueFormatter }: ChartTooltipPr
                   // base
                   'whitespace-nowrap text-right font-medium tabular-nums',
                   // text color
-                  'text-gray-900 dark:text-gray-50'
+                  'text-white'
                 )}
               >
                 {valueFormatter(value)}
@@ -676,7 +676,11 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
             wrapperStyle={{ outline: 'none' }}
             isAnimationActive={true}
             animationDuration={100}
-            cursor={{ stroke: '#d1d5db', strokeWidth: 1, strokeDasharray: '5 5' }}
+            cursor={{
+              stroke: 'hsl(var(--accent))',
+              strokeWidth: 1,
+              strokeDasharray: '5 5',
+            }}
             offset={20}
             position={{ y: 0 }}
             content={({ active, payload, label }) => {

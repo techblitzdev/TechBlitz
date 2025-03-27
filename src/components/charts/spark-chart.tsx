@@ -26,6 +26,14 @@ import {
 } from '@/lib/chart-utils';
 import { cn as cx } from '@/lib/utils';
 
+// Helper function to get direct color value for SVG elements
+const getDirectColor = (color: AvailableChartColorsKeys): string => {
+  if (color === 'accent') {
+    return '#5b61d6'; // Match the accent color in globals.css
+  }
+  return ''; // Return empty string to use className-based coloring for other colors
+};
+
 //#region SparkAreaChart
 
 interface SparkAreaChartProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -136,7 +144,9 @@ const SparkAreaChart = React.forwardRef<HTMLDivElement, SparkAreaChartProps>(
                     name={category}
                     type="linear"
                     dataKey={category}
-                    stroke=""
+                    stroke={getDirectColor(
+                      categoryColors.get(category) as AvailableChartColorsKeys
+                    )}
                     strokeWidth={2}
                     strokeLinejoin="round"
                     strokeLinecap="round"
@@ -221,7 +231,7 @@ const SparkLineChart = React.forwardRef<HTMLDivElement, SparkLineChartProps>(
                 name={category}
                 type="linear"
                 dataKey={category}
-                stroke=""
+                stroke={getDirectColor(categoryColors.get(category) as AvailableChartColorsKeys)}
                 strokeWidth={2}
                 strokeLinejoin="round"
                 strokeLinecap="round"
@@ -305,7 +315,7 @@ const SparkBarChart = React.forwardRef<HTMLDivElement, BarChartProps>((props, fo
               dataKey={category}
               stackId={stacked ? 'stack' : undefined}
               isAnimationActive={false}
-              fill=""
+              fill={getDirectColor(categoryColors.get(category) as AvailableChartColorsKeys) || ''}
             />
           ))}
         </RechartsBarChart>

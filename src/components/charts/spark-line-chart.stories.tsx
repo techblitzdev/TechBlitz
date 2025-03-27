@@ -97,6 +97,13 @@ export const Default: SparkLineChartStory = {
   },
 };
 
+export const AccentColor: SparkLineChartStory = {
+  args: {
+    ...Default.args,
+    colors: ['accent'],
+  },
+};
+
 export const TrendingUp: SparkLineChartStory = {
   args: {
     ...Default.args,

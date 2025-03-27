@@ -120,8 +120,11 @@ export default function QuestionChart({
     };
   }, [orderedChartData]);
 
-  // Format value for the chart to show whole numbers
-  const valueFormatter = (value: number) => value.toFixed(0);
+  // Format value for the chart to show whole numbers with commas
+  const valueFormatter = (value: number) =>
+    new Intl.NumberFormat('en-US', {
+      maximumFractionDigits: 0,
+    }).format(value);
 
   // Get display text for selected period
   const getStepDisplayText = () => {
@@ -180,11 +183,11 @@ export default function QuestionChart({
             data={orderedChartData}
             index="date"
             categories={['questions']}
-            colors={['cyan']}
+            colors={['accent']}
             valueFormatter={valueFormatter}
             showXAxis={false}
             showYAxis={false}
-            showGridLines={true}
+            showGridLines={false}
             yAxisWidth={40}
             showLegend={false}
             showTooltip
@@ -198,7 +201,7 @@ export default function QuestionChart({
             <p className="text-gray-400">No data available</p>
           </div>
         )}
-        <div className="flex flex-col gap-2 py-6 px-6">
+        <div className="flex flex-col gap-2 pt-6 pb-0 px-6">
           <div className="flex items-center gap-1 justify-end">
             <div className="flex items-center gap-1">
               <div

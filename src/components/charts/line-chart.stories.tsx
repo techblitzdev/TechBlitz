@@ -129,3 +129,10 @@ export const CustomColors: Story = {
     colors: ['blue', 'pink', 'amber'],
   },
 };
+
+export const AccentColor: Story = {
+  args: {
+    ...Default.args,
+    colors: ['accent'],
+  },
+};

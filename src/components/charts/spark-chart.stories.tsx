@@ -101,6 +101,13 @@ export const Default: SparkAreaChartStory = {
   },
 };
 
+export const AccentColor: SparkAreaChartStory = {
+  args: {
+    ...Default.args,
+    colors: ['accent'],
+  },
+};
+
 export const TrendingUp: SparkAreaChartStory = {
   args: {
     ...Default.args,

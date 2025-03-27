@@ -42,9 +42,7 @@ export default function Tooltip({ active, payload, label }: CustomTooltipProps) 
 
   return (
     <div className="bg-black border border-black-50 rounded-md shadow-md">
-      <p className="text-sm text-white font-onest px-4 py-3">{formattedLabel}</p>
-
-      <Separator className="bg-black-50" />
+      <p className="text-sm text-white font-onest px-4 pt-3">{formattedLabel}</p>
 
       {payload.map((entry, index) => {
         // Get the display name (try different properties)

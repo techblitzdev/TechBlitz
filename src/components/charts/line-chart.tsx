@@ -609,6 +609,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               className={cx('stroke-black-50 stroke-1')}
               horizontal={true}
               vertical={false}
+              strokeDasharray="3 3"
             />
           ) : null}
           <XAxis

@@ -23,7 +23,7 @@ export default function QuestionChart({
   step: initialStep,
   backgroundColor,
 }: {
-  questionData: StatsChartData;
+  questionData: StatsChartData | null;
   step: 'day' | 'week' | 'month';
   backgroundColor?: string;
 }) {
@@ -46,6 +46,8 @@ export default function QuestionChart({
   };
 
   const chartData = useMemo(() => {
+    if (!questionData) return [];
+
     const entries = Object.entries(questionData);
 
     // Sort entries by date - latest first
@@ -137,10 +139,10 @@ export default function QuestionChart({
     }
   };
 
-  const textSize = 'text-xl font-medium leading-none';
+  const textSize = 'text-xl font-medium leading-none font-onest';
 
   return (
-    <Card className={cn('border-black-50 max-h-[30rem]', backgroundColor && backgroundColor)}>
+    <Card className={cn('border-black-50 max-h-[32rem]', backgroundColor && backgroundColor)}>
       <CardHeader className="pb-0 flex flex-row w-full justify-between items-center">
         <div className="flex flex-col gap-1">
           <div className="flex justify-between items-center">
@@ -182,7 +184,7 @@ export default function QuestionChart({
             valueFormatter={valueFormatter}
             showXAxis={false}
             showYAxis={false}
-            showGridLines={false}
+            showGridLines={true}
             yAxisWidth={40}
             showLegend={false}
             showTooltip
@@ -196,11 +198,8 @@ export default function QuestionChart({
             <p className="text-gray-400">No data available</p>
           </div>
         )}
-        <div className="flex flex-col gap-2 pb-6 px-6">
-          <div className="flex items-center gap-1 justify-between">
-            <p className={cn(textSize, 'text-white font-onest')}>
-              {orderedChartData[orderedChartData.length - 1]?.questions || 0} questions answered
-            </p>
+        <div className="flex flex-col gap-2 py-6 px-6">
+          <div className="flex items-center gap-1 justify-end">
             <div className="flex items-center gap-1">
               <div
                 className={cn(

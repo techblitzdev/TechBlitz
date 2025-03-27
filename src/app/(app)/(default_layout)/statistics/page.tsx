@@ -89,6 +89,9 @@ export default async function StatisticsPage({
         <div className="col-span-12 md:col-span-6 lg:col-span-4">
           <QuestionHistory recentAnswers={recentAnswers} />
         </div>
+        <div className="col-span-12 md:col-span-6 lg:col-span-8">
+          <QuestionChart questionData={timeGroupedStats.stats} step={step} />
+        </div>
       </div>
     </div>
   );

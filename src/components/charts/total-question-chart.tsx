@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { cn } from '@/lib/utils';
 import Tooltip from './tooltip';
 import { LineChart } from './line-chart';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 
 export interface StatsChartData {
   [key: string]: {
@@ -19,13 +20,31 @@ export interface StatsChartData {
 
 export default function QuestionChart({
   questionData,
-  step,
+  step: initialStep,
   backgroundColor,
 }: {
   questionData: StatsChartData;
   step: 'day' | 'week' | 'month';
   backgroundColor?: string;
 }) {
+  const [step, setStep] = useState<'day' | 'week' | 'month' | 'year'>(initialStep);
+
+  // Get the appropriate number of periods based on selected step
+  const getPeriodsToShow = () => {
+    switch (step) {
+      case 'day':
+        return 7;
+      case 'week':
+        return 30;
+      case 'month':
+        return 90;
+      case 'year':
+        return 365;
+      default:
+        return 7;
+    }
+  };
+
   const chartData = useMemo(() => {
     const entries = Object.entries(questionData);
 
@@ -45,10 +64,17 @@ export default function QuestionChart({
 
   // order the chart data by the date. Ensuring that the oldest date is first
   const orderedChartData = useMemo(() => {
-    return [...chartData].sort((a, b) => {
+    // First, sort all data by date (oldest first)
+    const allSortedData = [...chartData].sort((a, b) => {
       return new Date(a.date).getTime() - new Date(b.date).getTime();
     });
-  }, [chartData]);
+
+    // Get the number of periods we want to display based on the step
+    const periodsToShow = getPeriodsToShow();
+
+    // Return only the most recent periodsToShow items
+    return allSortedData.slice(-periodsToShow);
+  }, [chartData, step]);
 
   // Add debugging for chart data
   console.log('Chart data:', orderedChartData);
@@ -95,44 +121,54 @@ export default function QuestionChart({
   // Format value for the chart to show whole numbers
   const valueFormatter = (value: number) => value.toFixed(0);
 
+  // Get display text for selected period
+  const getStepDisplayText = () => {
+    switch (step) {
+      case 'day':
+        return 'Last 7 days';
+      case 'week':
+        return 'Last 30 days';
+      case 'month':
+        return 'Last 3 months';
+      case 'year':
+        return 'Last 12 months';
+      default:
+        return 'Last 7 days';
+    }
+  };
+
+  const textSize = 'text-xl font-medium leading-none';
+
   return (
     <Card className={cn('border-black-50 max-h-[30rem]', backgroundColor && backgroundColor)}>
-      <CardHeader className="pb-0">
-        <div className="flex justify-between items-center">
-          <CardDescription className="text-gray-400">
-            Last {orderedChartData.length} {step}s
-          </CardDescription>
-        </div>
+      <CardHeader className="pb-0 flex flex-row w-full justify-between items-center">
         <div className="flex flex-col gap-1">
-          <CardTitle className="text-white text-base lg:text-xl font-medium">
-            Questions Answered
-          </CardTitle>
-          <div className="flex items-center gap-1">
-            <p
-              className={cn(
-                'text-sm font-medium leading-none',
-                trend.isUp ? 'text-green-500' : 'text-red-500'
-              )}
-            >
-              {trend.isUp ? '+' : '-'} {orderedChartData[orderedChartData.length - 1].questions}{' '}
-              questions
-            </p>
-            <div
-              className={cn(
-                'flex gap-1 items-center text-sm font-medium leading-none',
-                trend.isUp ? 'text-green-500' : 'text-red-500'
-              )}
-            >
-              <span className="flex items-center">
-                (<NumberFlow value={Number(trend.percentage)} />
-                %)
-              </span>
-            </div>
-            <p className="text-gray-400 text-sm font-medium leading-none">vs last month</p>
+          <div className="flex justify-between items-center">
+            <CardDescription className="text-gray-400">{getStepDisplayText()}</CardDescription>
+          </div>
+          <div className="flex flex-col gap-1">
+            <CardTitle className="text-white text-base lg:text-xl font-medium">
+              Questions Answered
+            </CardTitle>
           </div>
         </div>
         {/** step changer */}
-        <div className="flex items-center gap-2"></div>
+        <div className="flex items-center gap-2">
+          <Select
+            value={step}
+            onValueChange={(value) => setStep(value as 'day' | 'week' | 'month' | 'year')}
+          >
+            <SelectTrigger className="border border-black-50 text-white flex items-center gap-2 group duration-200">
+              <SelectValue placeholder="Select a period" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="day">Last 7 days</SelectItem>
+              <SelectItem value="week">Last 30 days</SelectItem>
+              <SelectItem value="month">Last 3 months</SelectItem>
+              <SelectItem value="year">Last 12 months</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </CardHeader>
       <CardContent className="border-black-50 p-2 md:p-6 md:px-0">
         {/* Check if there's data to display */}
@@ -160,6 +196,30 @@ export default function QuestionChart({
             <p className="text-gray-400">No data available</p>
           </div>
         )}
+        <div className="flex flex-col gap-2 pb-6 px-6">
+          <p className="text-gray-400 text-xs font-medium leading-none font-onest">
+            Total questions ()
+          </p>
+          <div className="flex items-center gap-1">
+            <p className={cn(textSize, trend.isUp ? 'text-green-500' : 'text-red-500')}>
+              {trend.isUp ? '+' : '-'}
+              {orderedChartData[orderedChartData.length - 1]?.questions || 0} questions
+            </p>
+            <div
+              className={cn(
+                'flex gap-1 items-center',
+                trend.isUp ? 'text-green-500' : 'text-red-500',
+                textSize
+              )}
+            >
+              <span className="flex items-center font-onest">
+                (<NumberFlow value={Number(trend.percentage)} />
+                %)
+              </span>
+            </div>
+            <p className={cn(textSize, 'text-gray-400')}>vs first {step}</p>
+          </div>
+        </div>
       </CardContent>
     </Card>
   );

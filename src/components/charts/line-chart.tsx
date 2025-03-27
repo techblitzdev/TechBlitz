@@ -675,7 +675,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
             wrapperStyle={{ outline: 'none' }}
             isAnimationActive={true}
             animationDuration={100}
-            cursor={{ stroke: '#d1d5db', strokeWidth: 1 }}
+            cursor={{ stroke: '#d1d5db', strokeWidth: 1, strokeDasharray: '5 5' }}
             offset={20}
             position={{ y: 0 }}
             content={({ active, payload, label }) => {

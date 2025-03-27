@@ -197,27 +197,26 @@ export default function QuestionChart({
           </div>
         )}
         <div className="flex flex-col gap-2 pb-6 px-6">
-          <p className="text-gray-400 text-xs font-medium leading-none font-onest">
-            Total questions ()
-          </p>
-          <div className="flex items-center gap-1">
-            <p className={cn(textSize, trend.isUp ? 'text-green-500' : 'text-red-500')}>
-              {trend.isUp ? '+' : '-'}
-              {orderedChartData[orderedChartData.length - 1]?.questions || 0} questions
+          <div className="flex items-center gap-1 justify-between">
+            <p className={cn(textSize, 'text-white font-onest')}>
+              {orderedChartData[orderedChartData.length - 1]?.questions || 0} questions answered
             </p>
-            <div
-              className={cn(
-                'flex gap-1 items-center',
-                trend.isUp ? 'text-green-500' : 'text-red-500',
-                textSize
-              )}
-            >
-              <span className="flex items-center font-onest">
-                (<NumberFlow value={Number(trend.percentage)} />
-                %)
-              </span>
+            <div className="flex items-center gap-1">
+              <div
+                className={cn(
+                  'flex gap-1 items-center',
+                  trend.isUp ? 'text-green-500' : 'text-red-500',
+                  textSize
+                )}
+              >
+                {trend.isUp ? '+' : '-'}
+                <span className="flex items-center font-onest">
+                  (<NumberFlow value={Number(trend.percentage)} />
+                  %)
+                </span>
+              </div>
+              <p className={cn(textSize, 'text-gray-400')}>vs last month</p>
             </div>
-            <p className={cn(textSize, 'text-gray-400')}>vs first {step}</p>
           </div>
         </div>
       </CardContent>

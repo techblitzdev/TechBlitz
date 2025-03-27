@@ -1,4 +1,6 @@
 import { format } from 'date-fns';
+import { Separator } from '../ui/separator';
+import { capitalise } from '@/utils';
 
 // Define PayloadItem to cover various formats from different chart types
 interface PayloadItem {
@@ -39,8 +41,10 @@ export default function Tooltip({ active, payload, label }: CustomTooltipProps) 
   }
 
   return (
-    <div className="bg-black border border-black-50 p-3 rounded-md shadow-md">
-      <p className="text-sm mb-2 text-white font-onest">{formattedLabel}</p>
+    <div className="bg-black border border-black-50 rounded-md shadow-md">
+      <p className="text-sm text-white font-onest px-4 py-3">{formattedLabel}</p>
+
+      <Separator className="bg-black-50" />
 
       {payload.map((entry, index) => {
         // Get the display name (try different properties)
@@ -67,11 +71,11 @@ export default function Tooltip({ active, payload, label }: CustomTooltipProps) 
         return (
           <div
             key={`tooltip-item-${index}`}
-            className="flex items-center justify-between gap-3 mb-1"
+            className="flex items-center justify-between gap-2 px-4 py-3"
           >
             <div className="flex items-center gap-2">
               <div className="size-3 rounded-sm" style={{ backgroundColor: color }} />
-              <p className="text-sm text-gray-400">{name}</p>
+              <p className="text-sm text-gray-400">{capitalise(name)}:</p>
             </div>
             <p className="text-sm font-medium text-gray-400">{displayValue}</p>
           </div>

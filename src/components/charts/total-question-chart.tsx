@@ -187,7 +187,7 @@ export default function QuestionChart({
             valueFormatter={valueFormatter}
             showXAxis={false}
             showYAxis={false}
-            showGridLines={false}
+            showGridLines
             yAxisWidth={40}
             showLegend={false}
             showTooltip

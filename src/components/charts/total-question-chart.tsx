@@ -103,27 +103,38 @@ export default function QuestionChart({
             Last {orderedChartData.length} {step}s
           </CardDescription>
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col gap-1">
           <CardTitle className="text-white text-base lg:text-xl font-medium">
             Questions Answered
           </CardTitle>
-          <div className="flex items-center gap-4">
-            <div className="flex gap-1 items-center text-sm font-medium leading-none text-white">
-              <span className="flex items-center">
-                <NumberFlow value={Number(trend.percentage)} />%
-              </span>
-              {trend.isUp && !trend.isNeutral ? (
-                <TrendingUp className="size-4 text-green-500" />
-              ) : !trend.isNeutral ? (
-                <TrendingDown className="size-4 text-red-500" />
-              ) : (
-                <Circle className="size-2 fill-yellow-400 text-yellow-500" />
+          <div className="flex items-center gap-1">
+            <p
+              className={cn(
+                'text-sm font-medium leading-none',
+                trend.isUp ? 'text-green-500' : 'text-red-500'
               )}
+            >
+              {trend.isUp ? '+' : '-'} {orderedChartData[orderedChartData.length - 1].questions}{' '}
+              questions
+            </p>
+            <div
+              className={cn(
+                'flex gap-1 items-center text-sm font-medium leading-none',
+                trend.isUp ? 'text-green-500' : 'text-red-500'
+              )}
+            >
+              <span className="flex items-center">
+                (<NumberFlow value={Number(trend.percentage)} />
+                %)
+              </span>
             </div>
+            <p className="text-gray-400 text-sm font-medium leading-none">vs last month</p>
           </div>
         </div>
+        {/** step changer */}
+        <div className="flex items-center gap-2"></div>
       </CardHeader>
-      <CardContent className="border-black-50 p-2 md:p-6">
+      <CardContent className="border-black-50 p-2 md:p-6 md:px-0">
         {/* Check if there's data to display */}
         {orderedChartData.length > 0 ? (
           <LineChart
@@ -133,16 +144,16 @@ export default function QuestionChart({
             categories={['questions']}
             colors={['cyan']}
             valueFormatter={valueFormatter}
-            showXAxis={true}
-            showYAxis={true}
-            showGridLines={true}
+            showXAxis={false}
+            showYAxis={false}
+            showGridLines={false}
             yAxisWidth={40}
             showLegend={false}
-            showTooltip={true}
+            showTooltip
             customTooltip={(props) => <Tooltip {...props} />}
             tickGap={20}
-            connectNulls={true}
-            autoMinValue={true}
+            connectNulls
+            autoMinValue
           />
         ) : (
           <div className="h-80 flex items-center justify-center">

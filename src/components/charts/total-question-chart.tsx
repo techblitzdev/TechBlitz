@@ -131,18 +131,18 @@ export default function QuestionChart({
             data={orderedChartData}
             index="date"
             categories={['questions']}
-            colors={['blue']}
+            colors={['cyan']}
             valueFormatter={valueFormatter}
-            showXAxis
-            showYAxis
-            showGridLines
+            showXAxis={true}
+            showYAxis={true}
+            showGridLines={true}
             yAxisWidth={40}
-            showLegend
-            showTooltip
+            showLegend={false}
+            showTooltip={true}
             customTooltip={(props) => <Tooltip {...props} />}
             tickGap={20}
-            connectNulls
-            autoMinValue
+            connectNulls={true}
+            autoMinValue={true}
           />
         ) : (
           <div className="h-80 flex items-center justify-center">

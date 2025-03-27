@@ -2,38 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { LineChart } from './line-chart';
 import Tooltip from './tooltip';
 
-function LineChartStory({ data }: { data: any[] }) {
-  return (
-    <section className="w-[750px] h-[400px]">
-      <LineChart
-        data={data}
-        index="date"
-        categories={['questions']}
-        colors={['blue']}
-        valueFormatter={(value: number) => value.toString()}
-        showXAxis={true}
-        showYAxis={true}
-        showGridLines={true}
-        showLegend={false}
-        showTooltip={true}
-        customTooltip={(props) => <Tooltip {...props} />}
-      />
-    </section>
-  );
-}
-
-const meta: Meta<typeof LineChart> = {
-  title: 'Charts/LineChart',
-  component: LineChartStory,
-  parameters: {
-    layout: 'centered',
-  },
-  tags: ['autodocs'],
-};
-
-export default meta;
-type Story = StoryObj<typeof LineChart>;
-
 // Generate mock data for the past 7 days
 const generateMockData = () => {
   const today = new Date();
@@ -83,6 +51,25 @@ const mockFluctuatingData = [
 // Generate dynamic data for each story render
 const dynamicData = generateMockData();
 
+const meta: Meta<typeof LineChart> = {
+  title: 'Charts/LineChart',
+  component: LineChart,
+  parameters: {
+    layout: 'centered',
+  },
+  tags: ['autodocs'],
+  decorators: [
+    (Story) => (
+      <div className="bg-black border border-black-50 p-6 w-[750px] h-full">
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export default meta;
+type Story = StoryObj<typeof LineChart>;
+
 export const Default: Story = {
   args: {
     data: dynamicData,
@@ -124,7 +111,7 @@ export const MultipleSeries: Story = {
       completedQuestions: Math.floor(item.questions * 0.7),
     })),
     categories: ['questions', 'completedQuestions'],
-    colors: ['blue', 'emerald'],
+    colors: ['cyan', 'emerald'],
     showLegend: true,
   },
 };
@@ -139,6 +126,6 @@ export const NoGrid: Story = {
 export const CustomColors: Story = {
   args: {
     ...Default.args,
-    colors: ['cyan', 'pink', 'amber'],
+    colors: ['blue', 'pink', 'amber'],
   },
 };

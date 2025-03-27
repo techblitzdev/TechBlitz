@@ -70,7 +70,7 @@ export default function Tooltip({ active, payload, label }: CustomTooltipProps) 
             className="flex items-center justify-between gap-3 mb-1"
           >
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: color }} />
+              <div className="size-3 rounded-sm" style={{ backgroundColor: color }} />
               <p className="text-sm text-gray-400">{name}</p>
             </div>
             <p className="text-sm font-medium text-gray-400">{displayValue}</p>

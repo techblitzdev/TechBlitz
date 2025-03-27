@@ -30,6 +30,24 @@ import {
 import { useOnWindowResize } from '@/hooks/use-on-window-resize';
 import { cn as cx } from '@/lib/utils';
 
+// Helper function to get the actual color value
+const getStrokeColor = (color: AvailableChartColorsKeys): string => {
+  const colorMap: Record<AvailableChartColorsKeys, string> = {
+    blue: '#3b82f6',
+    emerald: '#10b981',
+    violet: '#8b5cf6',
+    amber: '#f59e0b',
+    gray: '#6b7280',
+    cyan: '#06b6d4',
+    pink: '#ec4899',
+    lime: '#84cc16',
+    fuchsia: '#d946ef',
+    accent: '#0e76a8',
+  };
+
+  return colorMap[color] || '#3b82f6'; // Default to blue if color not found
+};
+
 //#region Legend
 
 interface LegendItemProps {
@@ -588,7 +606,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
         >
           {showGridLines ? (
             <CartesianGrid
-              className={cx('stroke-gray-200 stroke-1 dark:stroke-gray-800')}
+              className={cx('stroke-black-50 stroke-1')}
               horizontal={true}
               vertical={false}
             />
@@ -748,8 +766,6 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                     cx={cxCoord}
                     cy={cyCoord}
                     r={5}
-                    fill=""
-                    stroke={stroke}
                     strokeLinecap={strokeLinecap}
                     strokeLinejoin={strokeLinejoin}
                     strokeWidth={strokeWidth}
@@ -780,8 +796,8 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
                       cx={cxCoord}
                       cy={cyCoord}
                       r={5}
-                      stroke={stroke}
-                      fill=""
+                      stroke={stroke || '#ffffff'}
+                      fill={getStrokeColor(categoryColors.get(dataKey) as AvailableChartColorsKeys)}
                       strokeLinecap={strokeLinecap}
                       strokeLinejoin={strokeLinejoin}
                       strokeWidth={strokeWidth}
@@ -802,7 +818,7 @@ const LineChart = React.forwardRef<HTMLDivElement, LineChartProps>((props, ref) 
               name={category}
               type="linear"
               dataKey={category}
-              stroke=""
+              stroke={getStrokeColor(categoryColors.get(category) as AvailableChartColorsKeys)}
               strokeWidth={2}
               strokeLinejoin="round"
               strokeLinecap="round"

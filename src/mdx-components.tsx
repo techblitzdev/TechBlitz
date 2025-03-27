@@ -1,11 +1,12 @@
 import type { MDXComponents } from 'mdx/types';
 import MdxLink from '@/components/mdx/mdx-link';
 import MdxHeading from '@/components/mdx/mdx-heading';
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 import MdxList from './components/mdx/mdx-list';
 import { Button } from './components/ui/button';
+import Callout from './components/mdx/callout';
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -49,11 +50,21 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {props.children}
       </MdxHeading>
     ),
-    CodeSnippet: (props: any) => (
-      <div className="mt-3">
-        <CodeSnippet {...props} />
-      </div>
-    ),
+    CodeSnippet: (props: any) => {
+      const withDefaults = {
+        lightTheme: props.lightTheme || 'github-dark',
+        darkTheme: props.darkTheme || 'github-dark',
+        code: props.children,
+        ...props,
+      };
+
+      return (
+        <div className="mt-3">
+          <CodeSnippet {...withDefaults} language="javascript" filename="example.js" />
+        </div>
+      );
+    },
+    Callout: (props: any) => <Callout {...props}>{props.children}</Callout>,
     CallToActionBlock,
     MdxQuestionDisplay,
     ...components,

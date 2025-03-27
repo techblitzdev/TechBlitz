@@ -3,6 +3,7 @@
 import React from 'react';
 
 import { cn as cx, focusRing } from '@/lib/utils';
+import { ChevronRight } from 'lucide-react';
 
 type Bar<T> = T & {
   key?: string;
@@ -102,19 +103,18 @@ function BarListInner<T>(
                     href={item.href}
                     className={cx(
                       // base
-                      'truncate whitespace-nowrap rounded text-sm font-onest',
+                      'group truncate whitespace-nowrap rounded text-sm font-onest flex items-center gap-2',
                       // text color
                       'text-gray-50',
                       // hover
-                      'hover:underline hover:underline-offset-2',
-                      // focus
-                      focusRing
+                      'hover:underline hover:underline-offset-2'
                     )}
                     target="_blank"
                     rel="noreferrer"
                     onClick={(event) => event.stopPropagation()}
                   >
                     {item.name}
+                    <ChevronRight className="size-4 group-hover:translate-x-1 transition-transform" />
                   </a>
                 ) : (
                   <p

@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import Tooltip from './tooltip';
 import { LineChart } from './line-chart';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { Separator } from '../ui/separator';
 
 export interface StatsChartData {
   [key: string]: {
@@ -175,6 +176,7 @@ export default function QuestionChart({
           </Select>
         </div>
       </CardHeader>
+      <Separator className="bg-black-50 mt-6" />
       <CardContent className="border-black-50 p-2 md:p-6 md:px-0">
         {/* Check if there's data to display */}
         {orderedChartData.length > 0 ? (

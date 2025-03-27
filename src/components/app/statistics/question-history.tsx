@@ -13,6 +13,7 @@ import {
 import SPulse2 from '@/components/ui/icons/s-pulse-2';
 import { cn } from '@/lib/utils';
 import type { RecentUserAnswer } from '@/utils/data/answers/get-user-answer';
+import { Separator } from '@/components/ui/separator';
 
 // Extend the RecentUserAnswer interface with additional properties we need
 interface ExtendedRecentUserAnswer extends RecentUserAnswer {
@@ -182,7 +183,9 @@ export default function QuestionHistory({
         {answeredCount > 0 ? ' Great work!' : ' Start answering to track your progress.'}
       </CardDescription>
 
-      <CardContent className="mt-5 p-0">
+      <Separator className="bg-black-50 mt-6" />
+
+      <CardContent className="p-0">
         {recentAnswers.length === 0 ? (
           <div className="flex flex-col items-center justify-center gap-3 p-8 text-center">
             <p className="text-sm text-gray-400">No recent questions found.</p>

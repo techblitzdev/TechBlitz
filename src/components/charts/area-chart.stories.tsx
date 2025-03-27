@@ -115,7 +115,7 @@ export const DailyUpwardTrend: Story = {
     data: dailyUpwardData,
     index: 'date',
     categories: ['value'],
-    colors: ['blue'],
+    colors: ['accent'],
     valueFormatter,
     showXAxis: true,
     showYAxis: true,

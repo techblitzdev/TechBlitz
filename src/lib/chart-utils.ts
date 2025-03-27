@@ -57,6 +57,12 @@ export const chartColors = {
     fill: 'fill-fuchsia-500',
     text: 'text-fuchsia-500',
   },
+  accent: {
+    bg: 'bg-accent',
+    stroke: 'stroke-accent',
+    fill: 'fill-accent',
+    text: 'text-accent',
+  },
 } as const satisfies {
   [color: string]: {
     [key in ColorUtility]: string;

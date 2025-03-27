@@ -6,7 +6,8 @@ import NumberFlow from '@number-flow/react';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { AreaChart } from '@/components/charts/area-chart';
+import Tooltip from './tooltip';
+import { LineChart } from './line-chart';
 
 export interface StatsChartData {
   [key: string]: {
@@ -25,8 +26,6 @@ export default function QuestionChart({
   step: 'day' | 'week' | 'month';
   backgroundColor?: string;
 }) {
-  const [chartType, setChartType] = useState<'bar' | 'line'>('bar');
-
   const chartData = useMemo(() => {
     const entries = Object.entries(questionData);
 
@@ -50,6 +49,14 @@ export default function QuestionChart({
       return new Date(a.date).getTime() - new Date(b.date).getTime();
     });
   }, [chartData]);
+
+  // Add debugging for chart data
+  console.log('Chart data:', orderedChartData);
+  console.log('Categories:', ['questions']);
+  console.log(
+    'Chart data keys:',
+    orderedChartData.length > 0 ? Object.keys(orderedChartData[0]) : []
+  );
 
   const trend = useMemo(() => {
     // if there is less than 2 periods, return 0
@@ -86,15 +93,20 @@ export default function QuestionChart({
   }, [orderedChartData]);
 
   // Format value for the chart to show whole numbers
-  const valueFormatter = (value: number) => {
-    return value.toFixed(0);
-  };
+  const valueFormatter = (value: number) => value.toFixed(0);
 
   return (
-    <Card className={cn('border-black-50 max-h-[28rem]', backgroundColor && backgroundColor)}>
-      <CardHeader>
+    <Card className={cn('border-black-50 max-h-[30rem]', backgroundColor && backgroundColor)}>
+      <CardHeader className="pb-0">
         <div className="flex justify-between items-center">
-          <CardTitle className="text-white text-lg font-medium">Questions Answered</CardTitle>
+          <CardDescription className="text-gray-400">
+            Last {orderedChartData.length} {step}s
+          </CardDescription>
+        </div>
+        <div className="flex justify-between items-center">
+          <CardTitle className="text-white text-base lg:text-xl font-medium">
+            Questions Answered
+          </CardTitle>
           <div className="flex items-center gap-4">
             <div className="flex gap-1 items-center text-sm font-medium leading-none text-white">
               <span className="flex items-center">
@@ -110,32 +122,33 @@ export default function QuestionChart({
             </div>
           </div>
         </div>
-        <div className="flex justify-between items-center">
-          <CardDescription className="text-gray-400">
-            Last {orderedChartData.length} {step}s
-          </CardDescription>
-        </div>
       </CardHeader>
       <CardContent className="border-black-50 p-2 md:p-6">
-        <AreaChart
-          className="max-h-80"
-          data={orderedChartData}
-          index="date"
-          categories={['questions']}
-          colors={['blue']}
-          valueFormatter={valueFormatter}
-          showXAxis={true}
-          showYAxis={true}
-          showGridLines={true}
-          yAxisWidth={40}
-          showLegend={false}
-          showTooltip={true}
-          fill={chartType === 'bar' ? 'solid' : 'gradient'}
-          type={chartType === 'bar' ? 'default' : 'default'}
-          tickGap={chartType === 'bar' ? 40 : 20}
-          connectNulls={true}
-          autoMinValue={chartType === 'bar' ? false : true}
-        />
+        {/* Check if there's data to display */}
+        {orderedChartData.length > 0 ? (
+          <LineChart
+            className="max-h-80"
+            data={orderedChartData}
+            index="date"
+            categories={['questions']}
+            colors={['blue']}
+            valueFormatter={valueFormatter}
+            showXAxis
+            showYAxis
+            showGridLines
+            yAxisWidth={40}
+            showLegend
+            showTooltip
+            customTooltip={(props) => <Tooltip {...props} />}
+            tickGap={20}
+            connectNulls
+            autoMinValue
+          />
+        ) : (
+          <div className="h-80 flex items-center justify-center">
+            <p className="text-gray-400">No data available</p>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

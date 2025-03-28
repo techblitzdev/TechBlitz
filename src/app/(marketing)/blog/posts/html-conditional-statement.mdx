@@ -32,7 +32,7 @@ tags: ['HTML', 'Web Development', 'JavaScript', 'Conditional Logic', 'Frontend']
 subpage: true
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 # Introduction
@@ -59,7 +59,7 @@ Data attributes allow you to store custom data directly in HTML elements. They a
 
 <br />
 
-<CodeSnippet language="html" content={`<!-- Basic visibility control -->
+<CodeSnippet code={`<!-- Basic visibility control -->
 <div data-visible="true">
   This content is visible
 </div>
@@ -77,7 +77,7 @@ Data attributes allow you to store custom data directly in HTML elements. They a
 <!-- Multiple conditions on a single element -->
 <div data-visible="true" data-feature="premium" data-theme="dark">
   Premium dark theme content
-</div>`} />
+</div>`} language="html" filename="html-1.html" />
 
 <br />
 
@@ -85,7 +85,7 @@ Data attributes allow you to store custom data directly in HTML elements. They a
 
 Here's how to manipulate elements based on their data attributes using JavaScript:
 
-<CodeSnippet language="javascript" content={`// Basic visibility toggle
+<CodeSnippet code={`// Basic visibility toggle
 // This code finds an element with data-visible="true" and shows/hides it based on login status
 const element = document.querySelector('[data-visible="true"]');
 if (userIsLoggedIn) {
@@ -129,7 +129,7 @@ function updateButtonState(state) {
             button.textContent = 'Submit';
             button.disabled = false;
     }
-}`} />
+}`} language="javascript" filename="javascript-1.js" />
 
 <br />
 
@@ -137,7 +137,7 @@ function updateButtonState(state) {
 
 Data attributes can be targeted directly in CSS for conditional styling:
 
-<CodeSnippet language="css" content={`/* Hide elements marked as not visible */
+<CodeSnippet code={`/* Hide elements marked as not visible */
 [data-visible="false"] {
     display: none;
 }
@@ -162,7 +162,7 @@ Data attributes can be targeted directly in CSS for conditional styling:
 /* Complex selectors combining multiple conditions */
 [data-visible="true"][data-feature="premium"] {
     border: 2px solid gold;    /* Special border for premium content */
-}`} />
+}`} language="css" filename="css-1.css" />
 
 ## Implementation Best Practices
 
@@ -195,7 +195,7 @@ When using data attributes for conditional logic, follow these guidelines:
 
 Remember that data attributes are always stored as strings in the DOM. When comparing values in JavaScript, you'll need to handle type conversion appropriately:
 
-<CodeSnippet language="javascript" content={`const element = document.querySelector('[data-count="5"]');
+<CodeSnippet code={`const element = document.querySelector('[data-count="5"]');
 const count = element.dataset.count;  // Returns "5" as a string
 
 // Correct way to compare numbers
@@ -204,13 +204,13 @@ if (parseInt(count) === 5) {
 }
 
 // Correct way to compare booleans
-const isVisible = element.dataset.visible === 'true';  // Converts to boolean`} />
+const isVisible = element.dataset.visible === 'true';  // Converts to boolean`} language="javascript" filename="javascript-2.js" />
 
 ## JavaScript Integration
 
 JavaScript provides powerful ways to implement conditional logic:
 
-<CodeSnippet language="html" content={`<div id="userContent">
+<CodeSnippet code={`<div id="userContent">
     <!-- Content will be conditionally rendered here -->
 </div>
 
@@ -228,7 +228,7 @@ JavaScript provides powerful ways to implement conditional logic:
             <button onclick="login()">Login</button>
         \`;
     }
-</script>`} />
+</script>`} language="html" filename="html-2.html" />
 
 ## Common Use Cases
 
@@ -236,7 +236,7 @@ Here are practical examples of HTML conditional statements:
 
 ### 1. Toggle Navigation Menu
 
-<CodeSnippet language="html" content={`<nav data-expanded="false">
+<CodeSnippet code={`<nav data-expanded="false">
     <button onclick="toggleMenu()">Menu</button>
     <ul class="menu-items">
         <li>Home</li>
@@ -251,11 +251,11 @@ Here are practical examples of HTML conditional statements:
         const isExpanded = nav.dataset.expanded === 'true';
         nav.dataset.expanded = !isExpanded;
     }
-</script>`} />
+</script>`} language="html" filename="html-3.html" />
 
 ### 2. Form Validation
 
-<CodeSnippet language="html" content={`<form id="signupForm">
+<CodeSnippet code={`<form id="signupForm">
     <input 
         type="email" 
         data-valid="false"
@@ -273,7 +273,7 @@ Here are practical examples of HTML conditional statements:
         const error = document.querySelector('[data-error="email"]');
         error.hidden = isValid;
     }
-</script>`} />
+</script>`} language="html" filename="html-4.html" />
 
 ## Best Practices
 
@@ -281,36 +281,36 @@ Follow these guidelines for clean, maintainable code:
 
 1. **Use Semantic Data Attributes**
 
-<CodeSnippet language="html" content={`<!-- Good -->
+<CodeSnippet code={`<!-- Good -->
 <div data-theme="dark">
 <!-- Avoid -->
-<div data-x="1">`} />
+<div data-x="1">`} language="html" filename="html-5.html" />
 
 2. **Keep Logic Separate**
 
-<CodeSnippet language="html" content={`<!-- HTML -->
+<CodeSnippet code={`<!-- HTML -->
 <button data-action="save">Save</button>
 
 <!-- JavaScript -->
 <script>
     document.querySelector('[data-action="save"]')
         .addEventListener('click', handleSave);
-</script>`} />
+</script>`} language="html" filename="html-6.html" />
 
 3. **Progressive Enhancement**
 
-<CodeSnippet language="html" content={`<div class="card">
+<CodeSnippet code={`<div class="card">
     <h2>Content</h2>
     <noscript>
         JavaScript is required for full functionality
     </noscript>
-</div>`} />
+</div>`} language="html" filename="html-7.html" />
 
 ## Dynamic Templates
 
 The following example demonstrates how to create dynamic HTML templates with conditional rendering:
 <br />
-<CodeSnippet language="html" content={`<template id="userTemplate">
+<CodeSnippet code={`<template id="userTemplate">
     <div class="user-card">
         <img src="{{avatar}}" alt="{{name}}">
         <h3>{{name}}</h3>
@@ -337,7 +337,7 @@ The following example demonstrates how to create dynamic HTML templates with con
     // 3. Process {{#if}} conditions based on data
     // 4. Return the final HTML with real values
     renderTemplate(template, user);
-</script>`} />
+</script>`} language="html" filename="html-8.html" />
 
 <br />
 

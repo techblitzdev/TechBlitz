@@ -26,7 +26,7 @@ tags: ['JavaScript', 'Control Flow', 'Best Practices', 'Web Development', 'Clean
 subpage: true
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 # Understanding Nested Conditionals in JavaScript
@@ -37,7 +37,7 @@ Have you ever found yourself writing if statements inside other if statements, c
 
 Nested conditionals occur when you place one conditional statement inside another. Think of them as decision trees, where each branch can lead to more specific decisions:
 
-<CodeSnippet language="javascript" content={`if (isLoggedIn) {
+<CodeSnippet code={`if (isLoggedIn) {
   if (hasAdminRights) {
     if (isSuperAdmin) {
       // Super admin specific code
@@ -49,7 +49,7 @@ Nested conditionals occur when you place one conditional statement inside anothe
   }
 } else {
   // Guest user specific code
-}`} />
+}`} language="javascript" filename="javascript-1.js" />
 
 ## When to Use Nested Conditionals
 
@@ -61,7 +61,7 @@ Nested conditionals are particularly useful when you need to:
 
 Here's a real-world example of validating a user's purchase:
 
-<CodeSnippet language="javascript" content={`function validatePurchase(user, item, cart) {
+<CodeSnippet code={`function validatePurchase(user, item, cart) {
   if (user.isAuthenticated) {
     if (user.hasPaymentMethod) {
       if (item.inStock) {
@@ -79,7 +79,7 @@ Here's a real-world example of validating a user's purchase:
   } else {
     return "Please log in to continue";
   }
-}`} />
+}`} language="javascript" filename="javascript-2.js" />
 
 ## Best Practices and Common Pitfalls
 
@@ -87,7 +87,7 @@ Here's a real-world example of validating a user's purchase:
 
 The "pyramid of doom" is a common anti-pattern. Try to limit nesting to 2-3 levels:
 
-<CodeSnippet language="javascript" content={`// Bad: Deep nesting
+<CodeSnippet code={`// Bad: Deep nesting
 if (condition1) {
   if (condition2) {
     if (condition3) {
@@ -104,13 +104,13 @@ if (!condition2) return;
 if (!condition3) return;
 if (condition4) {
   // Much cleaner!
-}`} />
+}`} language="javascript" filename="javascript-3.js" />
 
 ### 2. Use Guard Clauses
 
 Guard clauses can significantly improve code readability:
 
-<CodeSnippet language="javascript" content={`// Before
+<CodeSnippet code={`// Before
 function processUser(user) {
   if (user) {
     if (user.isActive) {
@@ -136,7 +136,7 @@ function processUser(user) {
   
   // Process user
   return "Success";
-}`} />
+}`} language="javascript" filename="javascript-4.js" />
 
 ## Refactoring Nested Conditionals
 
@@ -144,17 +144,17 @@ Let's look at some strategies to simplify nested conditionals:
 
 ### 1. Using Logical Operators
 
-<CodeSnippet language="javascript" content={`// Instead of nested ifs
+<CodeSnippet code={`// Instead of nested ifs
 const canAccess = isLoggedIn && hasPermission && isActive;
 
 // Use with nullish coalescing
-const userRole = user?.settings?.role ?? 'guest';`} />
+const userRole = user?.settings?.role ?? 'guest';`} language="javascript" filename="javascript-5.js" />
 
 ### 2. Switch Statements
 
 When dealing with multiple conditions for a single variable:
 
-<CodeSnippet language="javascript" content={`// Instead of nested ifs
+<CodeSnippet code={`// Instead of nested ifs
 switch (userType) {
   case 'admin':
     return handleAdmin();
@@ -164,13 +164,13 @@ switch (userType) {
     return handleUser();
   default:
     return handleGuest();
-}`} />
+}`} language="javascript" filename="javascript-6.js" />
 
 ## Real-World Examples
 
 Let's look at a practical example of form validation:
 
-<CodeSnippet language="javascript" content={`// Before refactoring
+<CodeSnippet code={`// Before refactoring
 function validateForm(form) {
   if (form.email) {
     if (form.email.includes('@')) {
@@ -205,7 +205,7 @@ function validateForm(form) {
     isValid: errors.length === 0,
     errors
   };
-}`} />
+}`} language="javascript" filename="javascript-7.js" />
 
 ## Alternative Approaches
 
@@ -213,7 +213,7 @@ Sometimes, the best solution is to avoid nested conditionals altogether. Conside
 
 ### 1. Object Literals
 
-<CodeSnippet language="javascript" content={`const userActions = {
+<CodeSnippet code={`const userActions = {
   admin: () => handleAdmin(),
   moderator: () => handleModerator(),
   user: () => handleUser(),
@@ -221,13 +221,13 @@ Sometimes, the best solution is to avoid nested conditionals altogether. Conside
 };
 
 // Instead of nested ifs
-const handleUser = (userType) => userActions[userType]?.() ?? handleGuest();`} />
+const handleUser = (userType) => userActions[userType]?.() ?? handleGuest();`} language="javascript" filename="javascript-8.js" />
 
 ### 2. State Machines
 
 For complex state management:
 
-<CodeSnippet language="javascript" content={`const orderStates = {
+<CodeSnippet code={`const orderStates = {
   pending: {
     canCancel: true,
     canShip: false,
@@ -243,7 +243,7 @@ For complex state management:
     canShip: false,
     next: 'delivered'
   }
-};`} />
+};`} language="javascript" filename="javascript-9.js" />
 
 <br />
 

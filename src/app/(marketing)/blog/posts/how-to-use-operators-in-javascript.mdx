@@ -38,7 +38,7 @@ tags: ['HTML', 'Web Development', 'JavaScript', 'APIs', 'Frontend']
 subpage: true
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 <img className='max-h-80 object-cover w-full' src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//marc-mueller-Lg8xTZjs6Lg-unsplash.jpg" alt="How to create a weather app in JavaScript" />
@@ -70,7 +70,7 @@ The most common arithmetic operators are:
 
 You can treat these operators like a calculator. For example, if you want to add 2 and 2 together, you can use the + operator like this:
 
-<CodeSnippet language="javascript" content={`2 + 2`
+<CodeSnippet code={`2 + 2`
 // This will return 4
 } />
 
@@ -112,7 +112,7 @@ If you want to add 2 to the variable `x`, you can use the += operator like this:
 
 <CodeSnippet language="javascript" content={`x += 2
 // This will add 2 to the value of x
-`} />
+`} language="javascript" filename="javascript-1.js" />
 
 <br />
 
@@ -143,7 +143,7 @@ Let's look at some examples to understand the difference between these operators
 
 <br />
 
-<CodeSnippet language="javascript" content={`// Equal (==) vs Strict Equal (===)
+<CodeSnippet code={`// Equal (==) vs Strict Equal (===)
 5 == "5"    // Returns true (values are equal after type coercion)
 5 === "5"   // Returns false (different types)
 
@@ -155,7 +155,7 @@ Let's look at some examples to understand the difference between these operators
 10 > 5      // Returns true
 10 < 5      // Returns false
 10 >= 10    // Returns true
-5 <= 3      // Returns false`} />
+5 <= 3      // Returns false`} language="javascript" filename="javascript-2.js" />
 
 <br />
 
@@ -165,7 +165,7 @@ A key concept to understand is type coercion. When using `==` or `!=`, JavaScrip
 
 Here's an example showing why strict equality is often preferred:
 
-<CodeSnippet language="javascript" content={`// Examples of type coercion with ==
+<CodeSnippet code={`// Examples of type coercion with ==
 0 == false      // Returns true
 "" == false     // Returns true
 null == undefined // Returns true
@@ -173,7 +173,7 @@ null == undefined // Returns true
 // Same comparisons with ===
 0 === false      // Returns false
 "" === false     // Returns false
-null === undefined // Returns false`} />
+null === undefined // Returns false`} language="javascript" filename="javascript-3.js" />
 
 <br />
 
@@ -193,7 +193,7 @@ The most common logical operators are:
 
 Let's look at some examples to understand how these operators work:
 
-<CodeSnippet language="javascript" content={`// Logical AND (&&)
+<CodeSnippet code={`// Logical AND (&&)
 let age = 20;
 let isAdmin = true;
 
@@ -213,7 +213,7 @@ let isAdmin = false;
 
 let result = !(isActive && isAdmin);
 console.log(result); // Returns true if either condition is false
-`} />
+`} language="javascript" filename="javascript-4.js" />
 
 <br />
 
@@ -232,7 +232,7 @@ The most common bitwise operators are:
 
 Let's look at some examples to understand how these operators work:
 
-<CodeSnippet language="javascript" content={`// Bitwise AND (&)
+<CodeSnippet code={`// Bitwise AND (&)
 let a = 5; // 0101 in binary
 let b = 3; // 0011 in binary
 
@@ -245,7 +245,7 @@ let b = 3; // 0011 in binary
 
 let result = a | b;
 console.log(result); // Returns 7 (0111 in binary)
-`} />
+`} language="javascript" filename="javascript-5.js" />
 
 <br />
 
@@ -257,18 +257,18 @@ The ternary operator is a concise way to write an if-else statement. It takes th
 
 The syntax is as follows:
 
-<CodeSnippet language="javascript" content={`condition ? trueExpression : falseExpression`} />
+<CodeSnippet code={`condition ? trueExpression : falseExpression`} language="javascript" filename="javascript-6.js" />
 
 <br />
 
 Here's an example to understand how this operator works:
 
-<CodeSnippet language="javascript" content={`let age = 20;
+<CodeSnippet code={`let age = 20;
 let isAdmin = true;
 
 let result = (age >= 18) ? "Adult" : "Minor";
 console.log(result); // Returns "Adult" if age is 18 or older, otherwise returns "Minor"
-`} />
+`} language="javascript" filename="javascript-7.js" />
 
 <br />
 
@@ -280,10 +280,10 @@ The spread operator is a concise way to expand or spread elements of an array or
 
 Here's an example to understand how this operator works:
 
-<CodeSnippet language="javascript" content={`let numbers = [1, 2, 3];
+<CodeSnippet code={`let numbers = [1, 2, 3];
 let newNumbers = [...numbers, 4, 5];
 console.log(newNumbers); // Returns [1, 2, 3, 4, 5]
-`} />
+`} language="javascript" filename="javascript-8.js" />
 
 <br />
 
@@ -295,10 +295,10 @@ Destructuring assignment is a concise way to extract values from arrays or objec
 
 Here's an example to understand how this operator works:
 
-<CodeSnippet language="javascript" content={`let numbers = [1, 2, 3];
+<CodeSnippet code={`let numbers = [1, 2, 3];
 let [first, second, third] = numbers;
 console.log(first, second, third); // Returns 1 2 3
-`} />
+`} language="javascript" filename="javascript-9.js" />
 
 <br />
 
@@ -310,10 +310,10 @@ The nullish coalescing operator is a concise way to handle undefined or null val
 
 Here's an example to understand how this operator works:
 
-<CodeSnippet language="javascript" content={`let value = null;
+<CodeSnippet code={`let value = null;
 let result = value ?? "Default Value";
 console.log(result); // Returns "Default Value" if value is null or undefined
-`} />
+`} language="javascript" filename="javascript-10.js" />
 
 <br />
 
@@ -325,7 +325,7 @@ The optional chaining operator is a concise way to handle undefined or null valu
 
 Here's an example to understand how this operator works:
 
-<CodeSnippet language="javascript" content={`let user = {
+<CodeSnippet code={`let user = {
     name: "John",
     address: {
         city: "New York"
@@ -334,7 +334,7 @@ Here's an example to understand how this operator works:
 
 let city = user?.address?.city ?? "Unknown";
 console.log(city); // Returns "New York" if user.address.city is defined, otherwise returns "Unknown"
-`} />
+`} language="javascript" filename="javascript-11.js" />
 
 <br />
 

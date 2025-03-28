@@ -41,7 +41,7 @@ keywords: 'JavaScript regular expressions, regex methods, regex syntax, JavaScri
 subpage: true
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
@@ -62,13 +62,13 @@ You can create regular expressions in two ways:
 1. Using a **regex literal** (enclosed in `/`).
 2. Using the **`RegExp` constructor**.
 
-<CodeSnippet language="js" content={`// Using regex literal
+<CodeSnippet code={`// Using regex literal
 
 const regexLiteral = /pattern/;
 
 // Using RegExp constructor
 
-const regexConstructor = new RegExp('pattern');`} />
+const regexConstructor = new RegExp('pattern');`} language="js" filename="js-1.js" />
 
 
 
@@ -90,13 +90,13 @@ JavaScript provides several methods for working with regular expressions. Master
 
 
 
-<CodeSnippet language="js" content={`const regex = /hello/;
+<CodeSnippet code={`const regex = /hello/;
 
 const str = 'hello world';
 
 console.log(regex.test(str)); // true
 
-console.log(regex.exec(str)); // ['hello', index: 0, input: 'hello world']`} />
+console.log(regex.exec(str)); // ['hello', index: 0, input: 'hello world']`} language="js" filename="js-2.js" />
 
 
 
@@ -108,11 +108,11 @@ console.log(regex.exec(str)); // ['hello', index: 0, input: 'hello world']`} />
 
 
 
-<CodeSnippet language="js" content={`const str = 'Hello, world!';
+<CodeSnippet code={`const str = 'Hello, world!';
 
 const newStr = str.replace(/world/, 'JavaScript');
 
-console.log(newStr); // 'Hello, JavaScript!'`} />
+console.log(newStr); // 'Hello, JavaScript!'`} language="js" filename="js-3.js" />
 
 
 
@@ -124,11 +124,11 @@ console.log(newStr); // 'Hello, JavaScript!'`} />
 
 
 
-<CodeSnippet language="js" content={`const str = 'apple,banana,grape';
+<CodeSnippet code={`const str = 'apple,banana,grape';
 
 const fruits = str.split(/,/);
 
-console.log(fruits); // ['apple', 'banana', 'grape']`} />
+console.log(fruits); // ['apple', 'banana', 'grape']`} language="js" filename="js-4.js" />
 
 
 
@@ -146,11 +146,11 @@ Flags modify how a regex pattern is interpreted. Common flags include:
 
 
 
-<CodeSnippet language="js" content={`const regex = /hello/gi;
+<CodeSnippet code={`const regex = /hello/gi;
 
 const str = 'Hello, hello, HELLO!';
 
-console.log(str.match(regex)); // ['Hello', 'hello', 'HELLO']`} />
+console.log(str.match(regex)); // ['Hello', 'hello', 'HELLO']`} language="js" filename="js-5.js" />
 
 
 
@@ -162,13 +162,13 @@ Regular expressions are commonly used for validating input, such as email addres
 
 
 
-<CodeSnippet language="js" content={`const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+<CodeSnippet code={`const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
 
 const email = 'test@example.com';
 
 
 
-console.log(emailRegex.test(email)); // true`} />
+console.log(emailRegex.test(email)); // true`} language="js" filename="js-6.js" />
 
 
 
@@ -180,11 +180,11 @@ Flags like `g` (global) and `i` (case-insensitive) make regex more powerful.
 
 
 
-<CodeSnippet language="js" content={`const regex = /hello/gi;
+<CodeSnippet code={`const regex = /hello/gi;
 
 const str = 'Hello, hello, HELLO!';
 
-console.log(str.match(regex)); // ['Hello', 'hello', 'HELLO']`} />
+console.log(str.match(regex)); // ['Hello', 'hello', 'HELLO']`} language="js" filename="js-7.js" />
 
 
 
@@ -196,13 +196,13 @@ Regular expressions can handle complex patterns, such as extracting data from st
 
 
 
-<CodeSnippet language="js" content={`const dateRegex = /(\\d{4})-(\\d{2})-(\\d{2})/;
+<CodeSnippet code={`const dateRegex = /(\\d{4})-(\\d{2})-(\\d{2})/;
 
 const date = '2024-02-06';
 
 const match = dateRegex.exec(date);
 
-console.log(match); // ['2024-02-06', '2024', '02', '06']`} />
+console.log(match); // ['2024-02-06', '2024', '02', '06']`} language="js" filename="js-8.js" />
 
 
 
@@ -214,7 +214,7 @@ When working with regex, it's important to handle edge cases and invalid pattern
 
 
 
-<CodeSnippet language="js" content={`const safeRegex = (pattern, str) => {
+<CodeSnippet code={`const safeRegex = (pattern, str) => {
   try {
 
     const regex = new RegExp(pattern);
@@ -229,7 +229,7 @@ When working with regex, it's important to handle edge cases and invalid pattern
   }
 };
 
-console.log(safeRegex('[a-z', 'test')); // Invalid regex pattern`} />
+console.log(safeRegex('[a-z', 'test')); // Invalid regex pattern`} language="js" filename="js-9.js" />
 
 
 ### Example 5 - Performance Considerations
@@ -240,7 +240,7 @@ Regular expressions can be computationally expensive. Optimize them for better p
 
 
 
-<CodeSnippet language="js" content={`// Avoid nested quantifiers
+<CodeSnippet code={`// Avoid nested quantifiers
 
 const slowRegex = /(a+)+/;
 
@@ -256,7 +256,7 @@ console.time('fastRegex');
 
 fastRegex.test('aaaaaaaaaaaaaaaaaaaa!');
 
-console.timeEnd('fastRegex'); // Faster`} />
+console.timeEnd('fastRegex'); // Faster`} language="js" filename="js-10.js" />
 
 
 

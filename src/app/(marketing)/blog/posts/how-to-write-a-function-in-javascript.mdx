@@ -32,7 +32,7 @@ tags: ['JavaScript', 'Web Development', 'Programming', 'Beginners']
 subpage: true
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 # What are functions in JavaScript?
@@ -53,12 +53,12 @@ A function declaration consists of the `function` keyword, the name of the funct
 
 ### Example function declaration
 
-<CodeSnippet language="javascript" content={`function makePizza() {
+<CodeSnippet code={`function makePizza() {
     console.log('Make the dough');
     console.log('Add sauce');
     console.log('Add cheese');
     console.log('Bake');
-}`} />
+}`} language="javascript" filename="javascript-1.js" />
 
 # How do you write a function in JavaScript?
 
@@ -74,7 +74,7 @@ Function declarations are the most common way to write functions in JavaScript. 
 
 <br />
 
-<CodeSnippet language="javascript" content={`function myFunction() {
+<CodeSnippet code={`function myFunction() {
     console.log('Hello, world!');
 }
 
@@ -82,7 +82,7 @@ Function declarations are the most common way to write functions in JavaScript. 
 myFunction();
 
 // Output: Hello, world!
-`} />
+`} language="javascript" filename="javascript-2.js" />
 
 <br />
 
@@ -94,7 +94,7 @@ Function expressions are a way to create a function and assign it to a variable.
 
 <br />
 
-<CodeSnippet language="javascript" content={`const myFunction = function() {
+<CodeSnippet code={`const myFunction = function() {
     console.log('Hello, world!');
 }
 
@@ -102,7 +102,7 @@ Function expressions are a way to create a function and assign it to a variable.
 myFunction();
 
 // Output: Hello, world!
-`} />
+`} language="javascript" filename="javascript-3.js" />
 
 <br />
 
@@ -115,7 +115,7 @@ Arrow functions are a newer way to write functions (introduced in ES6) in JavaSc
 
 <br />
 
-<CodeSnippet language="javascript" content={`const myFunction = () => {
+<CodeSnippet code={`const myFunction = () => {
     console.log('Hello, world!');
 }
 
@@ -123,7 +123,7 @@ Arrow functions are a newer way to write functions (introduced in ES6) in JavaSc
 myFunction();
 
 // Output: Hello, world!
-`} />
+`} language="javascript" filename="javascript-4.js" />
 
 <br />
 
@@ -136,7 +136,7 @@ To call a function, you simply need to use the function name followed by parenth
 
 <br />
 
-<CodeSnippet language="javascript" content={`myFunction();`} />
+<CodeSnippet code={`myFunction();`} language="javascript" filename="javascript-5.js" />
 
 <br />
 
@@ -147,7 +147,7 @@ They are declared inside the parentheses of the function declaration and make a 
 
 <br />
 
-<CodeSnippet language="javascript" content={`function myFunction(parameter) {
+<CodeSnippet code={`function myFunction(parameter) {
     console.log(parameter);
 }
 
@@ -155,7 +155,7 @@ They are declared inside the parentheses of the function declaration and make a 
 myFunction('Hello, world!');
 
 // Output: Hello, world!
-`} />
+`} language="javascript" filename="javascript-6.js" />
 
 <br />
 
@@ -168,7 +168,7 @@ In some cases, a function will need to manipulate some data and return a new val
 
 <br />
 
-<CodeSnippet language="javascript" content={`function add(a, b) {
+<CodeSnippet code={`function add(a, b) {
     return a + b;
 }
 
@@ -176,7 +176,7 @@ In some cases, a function will need to manipulate some data and return a new val
 const result = add(5, 10);
 
 // Output: 15
-`} />
+`} language="javascript" filename="javascript-7.js" />
 
 <br />
 

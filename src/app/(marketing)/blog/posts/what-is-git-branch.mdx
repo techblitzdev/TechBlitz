@@ -37,7 +37,7 @@ keywords: 'Git branch, Git commands, version control, branching strategy, Git wo
 featured: true
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 # What is a Git Branch?
@@ -50,7 +50,7 @@ A Git branch is a lightweight, movable pointer to a commit that allows you to de
 ### Understanding Git Branches:
 </div>
 
-<CodeSnippet language="bash" content={`# View all branches
+<CodeSnippet code={`# View all branches
 git branch
 
 # Create a new branch
@@ -60,7 +60,7 @@ git branch feature-login
 git checkout feature-login
 
 # Create and switch in one command
-git checkout -b feature-login`} />
+git checkout -b feature-login`} language="bash" filename="git-branches.sh" />
 
 <div className="my-4">
 Think of branches like parallel universes of your code. Each branch maintains its own version of the project, allowing you to:
@@ -76,7 +76,7 @@ Think of branches like parallel universes of your code. Each branch maintains it
 ### Basic Branch Commands:
 </div>
 
-<CodeSnippet language="bash" content={`# List all branches
+<CodeSnippet code={`# List all branches
 git branch
 
 # Create a new branch
@@ -89,7 +89,7 @@ git checkout <branch-name>
 git checkout -b <branch-name>
 
 # Delete a branch
-git branch -d <branch-name>`} />
+git branch -d <branch-name>`} language="bash" filename="branch-commands.sh" />
 
 <div className="my-4">
 ### Common Branching Strategies:
@@ -118,7 +118,7 @@ git branch -d <branch-name>`} />
 
 Let's look at a practical example:
 
-<CodeSnippet language="bash" content={`# Start a new feature
+<CodeSnippet code={`# Start a new feature
 git checkout -b feature/user-authentication main
 
 # Make some changes
@@ -126,7 +126,7 @@ git add .
 git commit -m "Add login form"
 
 # Push the new branch
-git push -u origin feature/user-authentication`} />
+git push -u origin feature/user-authentication`} language="bash" filename="create-feature-branch.sh" />
 
 <div className="my-4">
 1. The command creates a new branch from 'main'
@@ -142,7 +142,7 @@ git push -u origin feature/user-authentication`} />
 
 Here's how to merge your changes back to the main branch:
 
-<CodeSnippet language="bash" content={`# Switch to main branch
+<CodeSnippet code={`# Switch to main branch
 git checkout main
 
 # Update main branch
@@ -152,7 +152,7 @@ git pull origin main
 git merge feature/user-authentication
 
 # Push the changes
-git push origin main`} />
+git push origin main`} language="bash" filename="merge-branches.sh" />
 
 <div className="my-4">
 Best practices for merging:
@@ -170,7 +170,7 @@ Best practices for merging:
 
 When Git can't automatically merge changes:
 
-<CodeSnippet language="bash" content={`# During a merge conflict
+<CodeSnippet code={`# During a merge conflict
 git status  # See conflicted files
 git diff    # View the conflicts
 
@@ -179,7 +179,7 @@ git add <resolved-files>
 git commit -m "Resolve merge conflicts"
 
 # If you need to abort
-git merge --abort`} />
+git merge --abort`} language="bash" filename="merge-conflicts.sh" />
 
 <div className="my-4">
 Common causes of conflicts:
@@ -200,7 +200,7 @@ Resolution steps:
 
 Best practices for maintaining branches:
 
-<CodeSnippet language="bash" content={`# Clean up old branches
+<CodeSnippet code={`# Clean up old branches
 git branch -d feature/completed
 
 # Force delete unmerged branch
@@ -210,7 +210,7 @@ git branch -D feature/abandoned
 git branch --merged
 
 # List remote branches
-git branch -r`} />
+git branch -r`} language="bash" filename="branch-management.sh" />
 
 <div className="my-4">
 Regular maintenance tasks:

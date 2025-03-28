@@ -21,7 +21,7 @@ headings:
 tags: ['JavaScript', 'Variables', 'Fundamentals', 'typeof', 'JavaScript Operators', 'Type Checking']
 subpage: true
 ---
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 <img className='max-h-80 object-cover w-full' src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//const-let-var-javascript.jpg" alt="How to use typeof operator in JavaScript - Complete Guide" />
@@ -49,19 +49,19 @@ You can learn more about JavaScript data types and their behaviors [here](/javas
 
 The typeof operator can be used in two different syntaxes. Let's explore both with practical examples:
 
-<CodeSnippet language="javascript" content={`// Method 1: Using typeof as an operator
+<CodeSnippet code={`// Method 1: Using typeof as an operator
 typeof "Hello World"    // Returns "string"
 typeof 42              // Returns "number"
 
 // Method 2: Using typeof as a function
 typeof("Hello World")   // Returns "string"
-typeof(42)             // Returns "number"`} />
+typeof(42)             // Returns "number"`} language="javascript" filename="javascript-1.js" />
 
 <br />
 
 Here's a comprehensive guide showing typeof with every common data type in JavaScript:
 
-<CodeSnippet language="javascript" content={`// Checking number types
+<CodeSnippet code={`// Checking number types
 typeof 37              // Returns "number"
 typeof 3.14            // Returns "number"
 typeof NaN             // Returns "number"
@@ -93,7 +93,7 @@ typeof console.log     // Returns "function"
 
 // Checking symbols and BigInt
 typeof Symbol()        // Returns "symbol"
-typeof BigInt(123)     // Returns "bigint"`} />
+typeof BigInt(123)     // Returns "bigint"`} language="javascript" filename="javascript-2.js" />
 
 <br />
 
@@ -103,7 +103,7 @@ Important note: A common gotcha is that `typeof null` returns "object". This is 
 
 The typeof operator is essential in many JavaScript programming scenarios. Here are practical examples of when and how to use it:
 
-<CodeSnippet language="javascript" content={`// 1. Validating function parameters
+<CodeSnippet code={`// 1. Validating function parameters
 function calculateDiscount(price, percentage) {
     if (typeof price !== "number" || typeof percentage !== "number") {
         throw new Error("Both price and percentage must be numbers");
@@ -138,7 +138,7 @@ function formatUserInput(value) {
         default:
             return "Invalid input type";
     }
-}`} />
+}`} language="javascript" filename="javascript-3.js" />
 
 <br />
 
@@ -152,7 +152,7 @@ Let's look at some simple examples of when you might want to use typeof in your 
 
 Here are some beginner-friendly examples:
 
-<CodeSnippet language="javascript" content={`// Making sure a value is a number
+<CodeSnippet code={`// Making sure a value is a number
 function addNumbers(num1, num2) {
     if (typeof num1 !== "number" || typeof num2 !== "number") {
         return "Please provide numbers only";
@@ -174,7 +174,7 @@ function isFeatureAvailable(feature) {
         return "This feature is not available";
     }
     return "Feature is ready to use";
-}`} />
+}`} language="javascript" filename="javascript-4.js" />
 
 <br />
 
@@ -187,7 +187,7 @@ Common issues and their solutions when working with typeof:
 3. undefined vs "undefined": Use strict comparison
 4. Function detection in older browsers
 
-<CodeSnippet language="javascript" content={`// Proper array checking
+<CodeSnippet code={`// Proper array checking
 const arr = [1, 2, 3];
 typeof arr === "object";     // true, but not specific enough
 Array.isArray(arr);         // true, this is better
@@ -200,7 +200,7 @@ value === null;            // true, more specific
 // Undefined checking
 let undeclared;
 typeof undeclared === "undefined";  // true
-undeclared === undefined;           // true, but can throw error if not declared`} />
+undeclared === undefined;           // true, but can throw error if not declared`} language="javascript" filename="javascript-5.js" />
 
 <br />
 

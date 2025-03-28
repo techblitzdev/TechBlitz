@@ -36,7 +36,7 @@ tags: ['JavaScript', 'Arrays', 'Array Methods', 'Learn']
 keywords: 'JavaScript map, array methods, JavaScript array, map function, JavaScript tutorial, web development, array transformation, functional programming'
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 # What is Array map in JavaScript?
@@ -49,9 +49,9 @@ Array.map is a fundamental array method in JavaScript that creates a new array b
 ### Understanding map with a Basic Example:
 </div>
 
-<CodeSnippet language="javascript" content={`const numbers = [1, 2, 3, 4, 5];
+<CodeSnippet code={`const numbers = [1, 2, 3, 4, 5];
 const doubled = numbers.map(num => num * 2);
-console.log(doubled); // [2, 4, 6, 8, 10]`} />
+console.log(doubled); // [2, 4, 6, 8, 10]`} language="javascript" filename="basic-map.js" />
 
 <br />
 
@@ -71,9 +71,9 @@ The callback function receives the current element as its parameter and returns 
 ### The map Method Syntax:
 </div>
 
-<CodeSnippet language="javascript" content={`Array.map(function(currentValue, index, array) {
+<CodeSnippet code={`Array.map(function(currentValue, index, array) {
     // return transformed element
-}, thisArg)`} />
+}, thisArg)`} language="javascript" filename="map-syntax.js" />
 
 <div className="my-4">
 The map method accepts:
@@ -86,7 +86,7 @@ The map method accepts:
 For example:
 </div>
 
-<CodeSnippet language="javascript" content={`const numbers = [1, 2, 3];
+<CodeSnippet code={`const numbers = [1, 2, 3];
 
 // Basic transformation
 const doubled = numbers.map(x => x * 2);  // [2, 4, 6]
@@ -98,7 +98,7 @@ const withIndices = numbers.map((num, idx) => \`\${num}-\${idx}\`);  // ["1-0", 
 const contextual = numbers.map((num, idx, arr) => {
     const total = arr.length;
     return \`Item \${num} at position \${idx} of \${total}\`;
-});`} />
+});`} language="javascript" filename="map-parameters.js" />
 
 <div className="my-4">
 ### Common Use Cases:
@@ -122,7 +122,7 @@ Let's explore practical examples you'll encounter in real-world development.
 
 Let's break down what's happening in this example step by step:
 
-<CodeSnippet language="javascript" content={`// Our starting data - an array of user objects
+<CodeSnippet code={`// Our starting data - an array of user objects
 const users = [
   { id: 1, name: 'John Doe', email: 'john@example.com' },
   { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
@@ -134,7 +134,7 @@ const usernames = users.map(user => ({
   username: user.name.toLowerCase().replace(' ', '_')
 }));
 
-console.log(usernames);`} />
+console.log(usernames);`} language="javascript" filename="transform-data.js" />
 
 <div className="my-4">
 1. First, we have an array of user objects. Each object contains:
@@ -165,7 +165,7 @@ console.log(usernames);`} />
 
 Let's break down this product formatting example:
 
-<CodeSnippet language="javascript" content={`const products = [
+<CodeSnippet code={`const products = [
   { name: 'Laptop', price: 999.99 },
   { name: 'Smartphone', price: 699.99 },
   { name: 'Headphones', price: 199.99 }
@@ -177,7 +177,7 @@ const formattedProducts = products.map(product => ({
   priceCategory: product.price > 500 ? 'Premium' : 'Standard'
 }));
 
-console.log(formattedProducts);`} />
+console.log(formattedProducts);`} language="javascript" filename="format-products.js" />
 
 <div className="my-4">
 1. We start with an array of product objects. Each product has:
@@ -205,14 +205,14 @@ console.log(formattedProducts);`} />
 
 Let's break down this multi-step array processing:
 
-<CodeSnippet language="javascript" content={`const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+<CodeSnippet code={`const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const processedNumbers = numbers
   .filter(num => num % 2 === 0)    // Step 1
   .map(num => num * num)           // Step 2
   .filter(num => num > 20);        // Step 3
 
-console.log(processedNumbers); // [36, 64, 100]`} />
+console.log(processedNumbers); // [36, 64, 100]`} language="javascript" filename="method-chaining.js" />
 
 <div className="my-4">
 1. We start with an array of numbers from 1 to 10
@@ -242,14 +242,12 @@ console.log(processedNumbers); // [36, 64, 100]`} />
 
 Let's break down this temperature conversion example:
 
-<CodeSnippet language="javascript" content={`const temperatures = [0, 10, 20, 30, 40];
+<CodeSnippet code={`const temperatures = [0, 10, 20, 30, 40];
 
 const fahrenheit = temperatures.map(celsius => ({
   celsius,
   fahrenheit: (celsius * 9/5) + 32
-}));
-
-console.log(fahrenheit);`} />
+}));`} language="javascript" filename="temperature-conversion.js" />
 
 <div className="my-4">
     1. We start with an array of Celsius temperatures
@@ -278,7 +276,7 @@ console.log(fahrenheit);`} />
 
 Let's break down this title case conversion:
 
-<CodeSnippet language="javascript" content={`const sentences = [
+<CodeSnippet code={`const sentences = [
   'hello world',
   'javascript is awesome',
   'functional programming'
@@ -291,7 +289,7 @@ const titleCase = sentences.map(sentence =>
     .join(' ')
 );
 
-console.log(titleCase);`} />
+console.log(titleCase);`} language="javascript" filename="title-case.js" />
 
 <div className="my-4">
 1. We start with an array of lowercase sentences

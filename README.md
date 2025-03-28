@@ -5,7 +5,6 @@
 
 <div align="center">
    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/techblitzdev/techblitz">
-   <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/techblitzdev/techblitz">
    <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/techblitzdev/techblitz">
    <img alt="GitHub branch status" src="https://img.shields.io/github/checks-status/techblitzdev/techblitz/main">
 </div>

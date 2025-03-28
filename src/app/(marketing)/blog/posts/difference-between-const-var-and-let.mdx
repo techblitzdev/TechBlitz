@@ -25,7 +25,7 @@ headings:
 tags: ['JavaScript', 'Variables', 'Fundamentals']
 subpage: true
 ---
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 <img className='max-h-80 object-cover w-full' src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//const-let-var-javascript.jpg" alt="Difference between const, var and let in JavaScript" />
@@ -42,14 +42,14 @@ Understanding variable declarations is crucial in JavaScript. Let's explore the 
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const name = "John";
 name = "Jane"; // TypeError: Assignment to constant variable
 
 // However, for objects and arrays:
 const user = { name: "John" };
 user.name = "Jane"; // This works - only reassignment is prevented
-`} />
+`} language="js" filename="js-1.js" />
 
 <br />
 
@@ -63,7 +63,7 @@ user.name = "Jane"; // This works - only reassignment is prevented
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 var name = "John";
 name = "Jane"; // This works fine
 
@@ -80,7 +80,7 @@ function example() {
 // Hoisting example
 console.log(hoisted); // undefined
 var hoisted = "I am hoisted";
-`} />
+`} language="js" filename="js-2.js" />
 
 <br />
 
@@ -94,7 +94,7 @@ var hoisted = "I am hoisted";
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 let count = 1;
 count = 2; // This works fine
 
@@ -111,7 +111,7 @@ function example() {
 // No hoisting behavior
 console.log(notHoisted); // ReferenceError
 let notHoisted = "I am not hoisted";
-`} />
+`} language="js" filename="js-3.js" />
 
 <br />
 

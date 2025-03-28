@@ -30,7 +30,7 @@ tags: ['JavaScript', 'Learn', 'Arrays', 'Array Methods']
 subpage: true
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 <img src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images/what-are-strings-in-js.jpg" alt="What are strings in JS?" />
@@ -48,11 +48,11 @@ In this tutorial, we will use `const` to declare the variable.
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const method1 = 'Hello, world!';
 const method2 = "Hello, world!";
 const method3 = \`Hello, world!\`;
-`} />
+`} language="js" filename="js-1.js" />
 
 <br />
 So, what's the difference between the three methods?
@@ -63,10 +63,10 @@ The third method is a bit different. It uses backticks (\`\`) to create a string
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const name = "John";
 const greeting = \`Hello, \${name}!\`; // "Hello, John!"
-`} />
+`} language="js" filename="js-2.js" />
 
 <br />
 
@@ -78,13 +78,13 @@ String concatenation is the process of combining two or more strings into a sing
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const firstName = "John";
 const lastName = "Doe";
 const fullName = firstName + " " + lastName; // "John Doe"
 
 // output: "John Doe"
-`} />
+`} language="js" filename="js-3.js" />
 
 <br />
 
@@ -92,13 +92,13 @@ You can also use the `concat` method to concatenate strings, this method is more
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const firstName = "John";
 const lastName = "Doe";
 const fullName = firstName.concat(" ", lastName); // "John Doe"
 
 // output: "John Doe"
-`} />
+`} language="js" filename="js-4.js" />
 
 <br />
 
@@ -114,12 +114,12 @@ To get the length of a string, you can use the `length` property. This will retu
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const message = "Hello, world!";
 const length = message.length; // 13
 
 // output: 13
-`} />
+`} language="js" filename="js-5.js" />
 
 <br />
 
@@ -130,9 +130,9 @@ For example, if you want to write 'I don't know' in a string, you can't use an a
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
     const message = 'I don't know'; // This will throw an error
-`} />
+`} language="js" filename="js-6.js" />
 
 <br />
 
@@ -142,9 +142,9 @@ There are a few ways to solve this problem. Let's look at the most common ones.
 
 <br />
 
-<CodeSnippet language="js" content={`   
+<CodeSnippet code={`   
 const message = "I don't know"; // This will work
-`} />
+`} language="js" filename="js-7.js" />
 
 <br />
 
@@ -156,9 +156,9 @@ We can also use backticks to create the string. This way, we can use an apostrop
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const message = \`I don't know\`; // This will work
-`} />
+`} language="js" filename="js-8.js" />
 
 <br />
 
@@ -170,14 +170,14 @@ If you need to transform a string to uppercase/lowercase not using css, you can 
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const message = "Hello, world!";
 const uppercaseMessage = message.toUpperCase();
 const lowercaseMessage = message.toLowerCase();
 
 // output: "HELLO, WORLD!"
 // output: "hello, world!"
-`} />
+`} language="js" filename="js-9.js" />
 
 <br />
 
@@ -187,12 +187,12 @@ You can use the `includes` method to test if a string contains a substring. This
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const message = "Hello, world!";
 const containsHello = message.includes("Hello");
 
 // output: true
-`} />
+`} language="js" filename="js-10.js" />
 
 ## Want to learn with real examples?
 

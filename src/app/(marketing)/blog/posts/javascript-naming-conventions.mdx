@@ -26,7 +26,7 @@ tags: ['JavaScript', 'Clean Code', 'Best Practices', 'Web Development', 'Beginne
 subpage: true
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 # Introduction to JavaScript Naming Conventions
@@ -45,7 +45,7 @@ Naming conventions are like the grammar rules of programming. They help us:
 
 ### 1. Use Descriptive Names
 
-<CodeSnippet language="javascript" content={`// Bad examples
+<CodeSnippet code={`// Bad examples
 const x = 'John Smith';
 const arr = ['apple', 'banana', 'orange'];
 const flag = true;
@@ -53,13 +53,13 @@ const flag = true;
 // Good examples
 const fullName = 'John Smith';
 const fruits = ['apple', 'banana', 'orange'];
-const isActive = true;`} />
+const isActive = true;`} language="javascript" filename="javascript-1.js" />
 
 ### 2. Follow camelCase Convention
 
 In JavaScript, we typically use camelCase for variables and functions:
 
-<CodeSnippet language="javascript" content={`// Correct camelCase usage
+<CodeSnippet code={`// Correct camelCase usage
 const firstName = 'John';
 const userAge = 25;
 const calculateTotalPrice = () => {
@@ -69,13 +69,13 @@ const calculateTotalPrice = () => {
 // Avoid these patterns
 const first_name = 'John';    // snake_case
 const FirstName = 'John';     // PascalCase (reserved for classes)
-const firstname = 'John';     // lowercase`} />
+const firstname = 'John';     // lowercase`} language="javascript" filename="javascript-2.js" />
 
 ### 3. Boolean Variables
 
 Boolean variables should ask a question:
 
-<CodeSnippet language="javascript" content={`// Good boolean names
+<CodeSnippet code={`// Good boolean names
 const isLoggedIn = true;
 const hasPermission = false;
 const canEdit = true;
@@ -83,13 +83,13 @@ const canEdit = true;
 // Poor boolean names
 const login = true;
 const status = false;
-const edit = true;`} />
+const edit = true;`} language="javascript" filename="javascript-3.js" />
 
 ## Function Naming Conventions
 
 Functions should be named using verbs that describe their action:
 
-<CodeSnippet language="javascript" content={`// Good function names
+<CodeSnippet code={`// Good function names
 function getUserData() { }
 function validateEmail() { }
 function calculateTotal() { }
@@ -97,26 +97,26 @@ function calculateTotal() { }
 // Poor function names
 function data() { }
 function email() { }
-function total() { }`} />
+function total() { }`} language="javascript" filename="javascript-4.js" />
 
 ### Event Handler Naming
 
 For event handlers, use the prefix 'handle' or 'on':
 
-<CodeSnippet language="javascript" content={`// React/Event handler naming
+<CodeSnippet code={`// React/Event handler naming
 const handleSubmit = (event) => {
   // handle form submission
 };
 
 const onUserClick = () => {
   // handle user click
-};`} />
+};`} language="javascript" filename="javascript-5.js" />
 
 ## Class and Constructor Naming
 
 Classes use PascalCase and should be nouns:
 
-<CodeSnippet language="javascript" content={`// Good class names
+<CodeSnippet code={`// Good class names
 class UserProfile {
   constructor(name, age) {
     this.name = name;
@@ -137,7 +137,7 @@ class processData {  // should be ProcessData
 
 class shopping_cart {  // should be ShoppingCart
   // ...
-}`} />
+}`} language="javascript" filename="javascript-6.js" />
 
 ## Common Naming Patterns
 
@@ -145,39 +145,39 @@ class shopping_cart {  // should be ShoppingCart
 
 Use UPPERCASE with underscores for constants:
 
-<CodeSnippet language="javascript" content={`const MAX_ITEMS = 100;
+<CodeSnippet code={`const MAX_ITEMS = 100;
 const API_BASE_URL = 'https://api.example.com';
-const DEFAULT_THEME = 'light';`} />
+const DEFAULT_THEME = 'light';`} language="javascript" filename="javascript-7.js" />
 
 ### 2. Private Variables
 
 Use an underscore prefix for private variables:
 
-<CodeSnippet language="javascript" content={`class User {
+<CodeSnippet code={`class User {
   constructor() {
     this._privateData = 'sensitive';
     this.publicData = 'visible';
   }
-}`} />
+}`} language="javascript" filename="javascript-8.js" />
 
 ### 3. Array Names
 
 Use plural nouns for arrays:
 
-<CodeSnippet language="javascript" content={`// Good array names
+<CodeSnippet code={`// Good array names
 const colors = ['red', 'blue', 'green'];
 const userNames = ['John', 'Jane', 'Bob'];
 const activeUsers = users.filter(user => user.isActive);
 
 // Poor array names
 const color = ['red', 'blue', 'green'];
-const userName = ['John', 'Jane', 'Bob'];`} />
+const userName = ['John', 'Jane', 'Bob'];`} language="javascript" filename="javascript-9.js" />
 
 ## Practice Examples
 
 Let's test your understanding with some practical examples:
 
-<CodeSnippet language="javascript" content={`// Refactor these names to follow conventions
+<CodeSnippet code={`// Refactor these names to follow conventions
 const n = 'John Smith';
 const a = 25;
 const p = true;
@@ -191,7 +191,7 @@ const age = 25;
 const isActive = true;
 function calculateSum(firstNumber, secondNumber) {
   return firstNumber + secondNumber;
-}`} />
+}`} language="javascript" filename="javascript-10.js" />
 
 <br />
 

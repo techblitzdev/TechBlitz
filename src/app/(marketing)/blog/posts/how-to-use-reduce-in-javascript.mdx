@@ -36,7 +36,7 @@ tags: ['JavaScript', 'Arrays', 'Array Methods', 'Learn']
 keywords: 'JavaScript reduce, array methods, JavaScript array, reduce function, JavaScript tutorial, web development, coding tutorial, functional programming'
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 # What is Array reduce in JavaScript?
@@ -49,9 +49,9 @@ Array.reduce is a powerful array method in JavaScript that transforms an array i
 ### Let's take a look at a simple example:
 </div>
 
-<CodeSnippet language="javascript" content={`const numbers = [1, 2, 3, 4, 5];
+<CodeSnippet code={`const numbers = [1, 2, 3, 4, 5];
 const sum = numbers.reduce((acc, curr) => acc + curr, 0);
-console.log(sum); // 15`} />
+console.log(sum); // 15`} language="javascript" filename="javascript-1.js" />
 
 <br />
 
@@ -75,7 +75,7 @@ The initial value (0 in this case) is the starting value for the accumulator. Wh
 ### Syntax:
 </div>
 
-<CodeSnippet language="javascript" content={`Array.reduce(function(total, currentValue, currentIndex, arr), initialValue)`} />
+<CodeSnippet code={`Array.reduce(function(total, currentValue, currentIndex, arr), initialValue)`} language="javascript" filename="javascript-2.js" />
 
 <div className="my-4">
 ### Use Cases:
@@ -98,7 +98,7 @@ Let's explore some real-world examples that you'll likely encounter in your deve
 
 ### Example 1 - Calculate total cost of items in a shopping cart - using array reduce with an object
 
-<CodeSnippet language="javascript" content={`// Calculate total cost of items in a shopping cart
+<CodeSnippet code={`// Calculate total cost of items in a shopping cart
 const shoppingCart = [
   { item: 'Laptop', price: 999.99 },
   { item: 'Headphones', price: 99.99 },
@@ -107,7 +107,7 @@ const shoppingCart = [
 ];
 
 const totalCost = shoppingCart.reduce((total, item) => total + item.price, 0);
-console.log(\`Total cost: $\${totalCost.toFixed(2)}\`); // Total cost: $1189.96`} />
+console.log(\`Total cost: $\${totalCost.toFixed(2)}\`); // Total cost: $1189.96`} language="javascript" filename="javascript-3.js" />
 
 <br />
 
@@ -148,7 +148,7 @@ This is a common real-world example of using reduce to calculate a sum from an a
 
 ### Example 2 - Count the frequency of numbers in an array
 
-<CodeSnippet language="javascript" content={`// Count how many times each number appears
+<CodeSnippet code={`// Count how many times each number appears
 const numbers = [1, 2, 2, 3, 3, 3, 4, 4, 5];
 
 const frequency = numbers.reduce((count, num) => {
@@ -165,7 +165,7 @@ console.log(frequency);
   4: 2,  // number 4 appears twice
   5: 1   // number 5 appears once
 }
-*/`} />
+*/`} language="javascript" filename="javascript-4.js" />
 
 <br />
 
@@ -174,12 +174,12 @@ Let's break down this example step by step:
 <br />
 
 1. We start with an array of numbers that contains some duplicates:
-<CodeSnippet language="javascript" content={`const numbers = [1, 2, 2, 3, 3, 3, 4, 4, 5];`} />
+<CodeSnippet code={`const numbers = [1, 2, 2, 3, 3, 3, 4, 4, 5];`} language="javascript" filename="javascript-5.js" />
 
 <br />
 
 2. We initialize reduce with an empty object as our accumulator:
-<CodeSnippet language="javascript" content={`const frequency = numbers.reduce((count, num) => {}, {});`} />
+<CodeSnippet code={`const frequency = numbers.reduce((count, num) => {}, {});`} language="javascript" filename="javascript-6.js" />
 
 <br />
 
@@ -202,16 +202,16 @@ Let's break down this example step by step:
 <br />
 
 5. The magic happens in this line:
-<CodeSnippet language="javascript" content={`count[num] = (count[num] || 0) + 1;`} />
+<CodeSnippet code={`count[num] = (count[num] || 0) + 1;`} language="javascript" filename="javascript-7.js" />
 
 <br />
 
 Which is a shorter way of writing:
-<CodeSnippet language="javascript" content={`if (count[num] === undefined) {
+<CodeSnippet code={`if (count[num] === undefined) {
     count[num] = 1;
 } else {
     count[num] = count[num] + 1;
-}`} />
+}`} language="javascript" filename="javascript-8.js" />
 
 <br />
 
@@ -229,11 +229,11 @@ This technique is incredibly useful when you need to count occurrences in data. 
 <br />
 
 ### Example 3 - Flatten an array of arrays
-<CodeSnippet language="javascript" content={`// Flatten an array of arrays
+<CodeSnippet code={`// Flatten an array of arrays
 const arrays = [[1, 2], [3, 4], [5, 6]];
 
 const flattened = arrays.reduce((acc, curr) => acc.concat(curr), []);
-console.log(flattened); // [1, 2, 3, 4, 5, 6]`} />
+console.log(flattened); // [1, 2, 3, 4, 5, 6]`} language="javascript" filename="javascript-9.js" />
 
 <br />
 
@@ -242,12 +242,12 @@ Let's break down this example step by step:
 <br />
 
 1. We start with an array of arrays:
-<CodeSnippet language="javascript" content={`const arrays = [[1, 2], [3, 4], [5, 6]];`} />
+<CodeSnippet code={`const arrays = [[1, 2], [3, 4], [5, 6]];`} language="javascript" filename="javascript-10.js" />
 
 <br />
 
 2. We initialize reduce with an empty array as our accumulator:
-<CodeSnippet language="javascript" content={`const flattened = arrays.reduce((acc, curr) => acc.concat(curr), []);`} />
+<CodeSnippet code={`const flattened = arrays.reduce((acc, curr) => acc.concat(curr), []);`} language="javascript" filename="javascript-11.js" />
 
 <br />
 
@@ -275,7 +275,7 @@ This is a common real-world example of using reduce to flatten an array of array
 
 ### Example 4 - Grouping objects by a property
 
-<CodeSnippet language="javascript" content={`// Group objects by a property
+<CodeSnippet code={`// Group objects by a property
 const people = [
   { name: 'Alice', age: 25, city: 'New York' },
   { name: 'Bob', age: 30, city: 'Los Angeles' },
@@ -289,7 +289,7 @@ const grouped = people.reduce((acc, person) => {
   return acc;
 }, {});
 
-console.log(grouped);`} />
+console.log(grouped);`} language="javascript" filename="javascript-12.js" />
 
 <br />
 
@@ -307,7 +307,7 @@ Let's break down what's happening in this example step by step:
 <br />
 
 2. We initialize reduce with an empty object as our accumulator:
-<CodeSnippet language="javascript" content={`const grouped = people.reduce((acc, person) => {}, {});`} />
+<CodeSnippet code={`const grouped = people.reduce((acc, person) => {}, {});`} language="javascript" filename="javascript-13.js" />
 
 <br />
 
@@ -337,11 +337,11 @@ This is a common real-world example of using reduce to group objects by a proper
 
 ### Example 5 - Calculating the average of an array
 
-<CodeSnippet language="javascript" content={`// Calculate the average of an array
+<CodeSnippet code={`// Calculate the average of an array
 const numbers = [1, 2, 3, 4, 5];
 
 const average = numbers.reduce((sum, num) => sum + num, 0) / numbers.length;
-console.log(average); // 3`} />
+console.log(average); // 3`} language="javascript" filename="javascript-14.js" />
 
 <br />
 
@@ -350,12 +350,12 @@ Let's break down what's happening in this example step by step:
 <br />
 
 1. We start with an array of numbers:
-<CodeSnippet language="javascript" content={`const numbers = [1, 2, 3, 4, 5];`} />
+<CodeSnippet code={`const numbers = [1, 2, 3, 4, 5];`} language="javascript" filename="javascript-15.js" />
 
 <br />
 
 2. We initialize reduce with an initial value of 0 as our accumulator:
-<CodeSnippet language="javascript" content={`const average = numbers.reduce((sum, num) => sum + num, 0) / numbers.length;`} />
+<CodeSnippet code={`const average = numbers.reduce((sum, num) => sum + num, 0) / numbers.length;`} language="javascript" filename="javascript-16.js" />
 
 <br />
 

@@ -36,7 +36,7 @@ tags: ['JavaScript', 'Learn']
 keywords: 'JavaScript triple equals, strict equality, double equals, type coercion, JavaScript comparison, === vs ==, JavaScript operators, web development, coding tutorial'
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 ## Definition
@@ -56,13 +56,13 @@ When using triple equals:
 ### Understanding Double Equals vs Triple Equals:
 </div>
 
-<CodeSnippet language="javascript" content={`// Double equals (==) with type coercion
+<CodeSnippet code={`// Double equals (==) with type coercion
 console.log(5 == "5");    // true
 console.log(1 == true);   // true
 
 // Triple equals (===) without type coercion
 console.log(5 === "5");   // false
-console.log(1 === true);  // false`} />
+console.log(1 === true);  // false`} language="javascript" filename="javascript-1.js" />
 
 <br />
 
@@ -82,13 +82,13 @@ The callback function takes the current element as its parameter (num in this ca
 ### Type Coercion:
 </div>
 
-<CodeSnippet language="javascript" content={`// Examples of JavaScript type coercion
+<CodeSnippet code={`// Examples of JavaScript type coercion
 console.log(0 == false);      // true (coerced)
 console.log(0 === false);     // false (strict)
 console.log("" == false);     // true (coerced)
 console.log("" === false);    // false (strict)
 console.log([1,2] == "1,2");  // true (coerced)
-console.log([1,2] === "1,2"); // false (strict)`} />
+console.log([1,2] === "1,2"); // false (strict)`} language="javascript" filename="javascript-2.js" />
 
 <div className="my-4">
 Let's break down what happens during type coercion:
@@ -106,7 +106,7 @@ Let's break down what happens during type coercion:
 For example:
 </div>
 
-<CodeSnippet language="javascript" content={`// Type coercion examples
+<CodeSnippet code={`// Type coercion examples
 null == undefined   // true
 null === undefined  // false
 
@@ -114,7 +114,7 @@ null === undefined  // false
 1 === true         // false
 
 0 == ""            // true
-0 === ""           // false`} />
+0 === ""           // false`} language="javascript" filename="javascript-3.js" />
 
 <div className="my-4">
 ### When to Use Triple Equals:
@@ -140,7 +140,7 @@ Let's look at a real-world scenario where type comparison really matters. Imagin
 
 <br />
 
-<CodeSnippet language="javascript" content={`// Basic value comparisons
+<CodeSnippet code={`// Basic value comparisons
 const userAge = 25;
 const ageLimit = "25";
 
@@ -157,7 +157,7 @@ if (userAge === ageLimit) {
 // Best practice: Convert types explicitly if needed
 if (userAge === parseInt(ageLimit)) {
     console.log("Equal after conversion");  // This will execute
-}`} />
+}`} language="javascript" filename="javascript-4.js" />
 
 <br />
 
@@ -167,7 +167,7 @@ Here's where things get interesting! Let's explore how JavaScript handles compar
 
 <br />
 
-<CodeSnippet language="javascript" content={`// Comparing different data types
+<CodeSnippet code={`// Comparing different data types
 const value = 0;
 const falsy = false;
 const empty = "";
@@ -181,7 +181,7 @@ console.log(empty === falsy);  // false
 function checkValue(input) {
     // Better than input == false
     return input === false;
-}`} />
+}`} language="javascript" filename="javascript-5.js" />
 
 <br />
 
@@ -190,7 +190,7 @@ function checkValue(input) {
 Now, let's tackle some tricky situations that often trip up even experienced developers. We'll see how JavaScript handles comparisons between numbers, strings, arrays, and objects - and why using === can save you from some real head-scratchers!
 
 <br />
-<CodeSnippet language="javascript" content={`// Common comparison pitfalls
+<CodeSnippet code={`// Common comparison pitfalls
 const number = 0;
 const string = "0";
 const array = [0];
@@ -203,7 +203,7 @@ console.log(number == array);    // true
 console.log(number === array);   // false
 
 console.log(number == object);   // true
-console.log(number === object);  // false`} />
+console.log(number === object);  // false`} language="javascript" filename="javascript-6.js" />
 
 <br />
 
@@ -211,7 +211,7 @@ console.log(number === object);  // false`} />
 
 Here's a classic JavaScript puzzle: dealing with null and undefined. These two values can cause some serious bugs if you're not careful. Let's see how triple equals helps us handle them properly and write more reliable code.
 <br />
-<CodeSnippet language="javascript" content={`// Handling null and undefined
+<CodeSnippet code={`// Handling null and undefined
 let nullValue = null;
 let undefinedValue;
 
@@ -221,7 +221,7 @@ console.log(nullValue === undefined);  // false
 // Best practice for checking null/undefined
 function isNullOrUndefined(value) {
     return value === null || value === undefined;
-}`} />
+}`} language="javascript" filename="javascript-7.js" />
 
 <br />
 
@@ -230,7 +230,7 @@ function isNullOrUndefined(value) {
 Last but definitely not least, let's dive into comparing objects and arrays. This is where a lot of developers get caught off guard! You might think two objects with the same content are equal, but JavaScript has other ideas. Here's what you need to know:
 
 <br />
-<CodeSnippet language="javascript" content={`// Object and array comparisons
+<CodeSnippet code={`// Object and array comparisons
 const obj1 = { value: 1 };
 const obj2 = { value: 1 };
 const obj3 = obj1;
@@ -244,7 +244,7 @@ const arr2 = [1, 2, 3];
 console.log(arr1 === arr2);  // false (different references)
 
 // Comparing array contents
-console.log(JSON.stringify(arr1) === JSON.stringify(arr2));  // true`} />
+console.log(JSON.stringify(arr1) === JSON.stringify(arr2));  // true`} language="javascript" filename="javascript-8.js" />
 
 ## Practice Questions
 

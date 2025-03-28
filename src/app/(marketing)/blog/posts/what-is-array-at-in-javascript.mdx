@@ -36,7 +36,7 @@ tags: ['JavaScript', 'Learn', 'Arrays', 'Array Methods']
 keywords: 'JavaScript array.at, array methods, negative indexing, array access, JavaScript arrays, web development, coding tutorial'
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 # What is array.at() in JavaScript?
@@ -49,14 +49,14 @@ Say goodbye to clunky array access patterns! The array.at() method is an elegant
 ### Understanding array.at():
 </div>
 
-<CodeSnippet language="javascript" content={`// Traditional array indexing
+<CodeSnippet code={`// Traditional array indexing
 const numbers = [1, 2, 3, 4, 5];
 console.log(numbers[0]);     // 1
 console.log(numbers[4]);     // 5
 
 // Using array.at()
 console.log(numbers.at(0));  // 1
-console.log(numbers.at(4));  // 5`} />
+console.log(numbers.at(4));  // 5`} language="javascript" filename="javascript-1.js" />
 
 <br />
 
@@ -72,7 +72,7 @@ In this example, we can see that array.at() works similarly to traditional brack
 ### Negative Indexing:
 </div>
 
-<CodeSnippet language="javascript" content={`// Examples of negative indexing
+<CodeSnippet code={`// Examples of negative indexing
 const fruits = ['apple', 'banana', 'orange', 'mango'];
 
 // Traditional way to get last element
@@ -81,7 +81,7 @@ console.log(fruits[fruits.length - 1]);  // 'mango'
 // Using array.at()
 console.log(fruits.at(-1));  // 'mango'
 console.log(fruits.at(-2));  // 'orange'
-console.log(fruits.at(-3));  // 'banana'`} />
+console.log(fruits.at(-3));  // 'banana'`} language="javascript" filename="javascript-2.js" />
 
 <div className="my-4">
 Let's break down how negative indexing works:
@@ -99,7 +99,7 @@ Let's break down how negative indexing works:
 For example:
 </div>
 
-<CodeSnippet language="javascript" content={`// Comparing methods
+<CodeSnippet code={`// Comparing methods
 const arr = ['first', 'second', 'third', 'last'];
 
 // Traditional approach
@@ -108,7 +108,7 @@ const secondToLast = arr[arr.length - 2]; // 'third'
 
 // Using array.at()
 const lastItem2 = arr.at(-1);            // 'last'
-const secondToLast2 = arr.at(-2);        // 'third'`} />
+const secondToLast2 = arr.at(-2);        // 'third'`} language="javascript" filename="javascript-3.js" />
 
 <div className="my-4">
 ### When to Use array.at():
@@ -136,7 +136,7 @@ When working with arrays, we often need to access elements from different positi
 
 <br />
 
-<CodeSnippet language="javascript" content={`// Basic array.at() usage
+<CodeSnippet code={`// Basic array.at() usage
 const numbers = [10, 20, 30, 40, 50];
 
 // First element
@@ -146,7 +146,7 @@ console.log(numbers.at(0));   // 10
 console.log(numbers.at(-1));  // 50
 
 // Middle element
-console.log(numbers.at(Math.floor(numbers.length / 2)));  // 30`} />
+console.log(numbers.at(Math.floor(numbers.length / 2)));  // 30`} language="javascript" filename="javascript-4.js" />
 
 <br />
 
@@ -158,7 +158,7 @@ Negative indexing is where `array.at()` truly excels. Instead of performing comp
 
 <br />
 
-<CodeSnippet language="javascript" content={`// Working with negative indices
+<CodeSnippet code={`// Working with negative indices
 const recentPosts = ['Post 1', 'Post 2', 'Post 3', 'Post 4', 'Post 5'];
 
 // Get the three most recent posts
@@ -169,7 +169,7 @@ const thirdLatest = recentPosts.at(-3);     // 'Post 3'
 // Function to get N most recent posts
 function getRecentPosts(posts, n) {
     return Array.from({length: n}, (_, i) => posts.at(-1 - i));
-}`} />
+}`} language="javascript" filename="javascript-5.js" />
 
 <br />
 
@@ -180,7 +180,7 @@ This example demonstrates how negative indexing can be used to build powerful ut
 In real-world applications, we often need to work with queues, stacks, or circular data structures. The `array.at()` method provides elegant solutions for these common patterns.
 
 <br />
-<CodeSnippet language="javascript" content={`// Real-world examples
+<CodeSnippet code={`// Real-world examples
 const queue = ['Task 1', 'Task 2', 'Task 3'];
 
 // Get next task without removing it
@@ -193,7 +193,7 @@ const lastTask = queue.at(-1);
 function getItem(arr, index) {
     const normalizedIndex = index % arr.length;
     return arr.at(normalizedIndex);
-}`} />
+}`} language="javascript" filename="javascript-6.js" />
 
 <br />
 
@@ -204,7 +204,7 @@ The circular array access function is particularly useful for scenarios like car
 Robust error handling is crucial in production applications. The `array.at()` method provides predictable behavior when dealing with edge cases, making it easier to write reliable code.
 
 <br />
-<CodeSnippet language="javascript" content={`// Error handling with array.at()
+<CodeSnippet code={`// Error handling with array.at()
 const arr = [1, 2, 3];
 
 console.log(arr.at(10));   // undefined
@@ -214,7 +214,7 @@ console.log(arr.at(-10));  // undefined
 function safeArrayAccess(arr, index) {
     const value = arr.at(index);
     return value !== undefined ? value : 'Invalid index';
-}`} />
+}`} language="javascript" filename="javascript-7.js" />
 
 <br />
 
@@ -225,7 +225,7 @@ The `safeArrayAccess` function demonstrates how to build error-resistant array a
 While readability is important, understanding performance implications helps make informed decisions about when to use `array.at()`. Let's examine the performance characteristics through a practical example.
 
 <br />
-<CodeSnippet language="javascript" content={`// Performance comparisons
+<CodeSnippet code={`// Performance comparisons
 const largeArray = Array.from({length: 1000000}, (_, i) => i);
 
 // Traditional access - slightly faster
@@ -236,7 +236,7 @@ console.timeEnd('bracket');
 // array.at() - more readable
 console.time('at');
 const last2 = largeArray.at(-1);
-console.timeEnd('at');`} />
+console.timeEnd('at');`} language="javascript" filename="javascript-8.js" />
 
 <br />
 

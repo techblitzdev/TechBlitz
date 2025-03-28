@@ -26,7 +26,7 @@ tags: ['JavaScript', 'DOM', 'CSS', 'Web Development', 'Frontend']
 subpage: true
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 <img className='max-h-80 object-cover w-full' src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//pankaj-patel-_SgRNwAVNKw-unsplash.jpg" alt="How to add or remove CSS classes with JavaScript" />
@@ -53,7 +53,7 @@ The `classList` property provides a powerful interface for manipulating CSS clas
 
 Here's how to add a class when a button is clicked:
 
-<CodeSnippet language="javascript" content={`const button = document.querySelector('.action-button');
+<CodeSnippet code={`const button = document.querySelector('.action-button');
 const container = document.querySelector('.container');
 
 button.addEventListener('click', () => {
@@ -64,7 +64,7 @@ button.addEventListener('click', () => {
     if (container.classList.contains('active')) {
         console.log('Container is now active!');
     }
-});`} />
+});`} language="javascript" filename="javascript-1.js" />
 
 <br />
 
@@ -72,7 +72,7 @@ button.addEventListener('click', () => {
 
 Here's a more advanced example of removing classes with error handling:
 
-<CodeSnippet language="javascript" content={`const modal = document.querySelector('.modal');
+<CodeSnippet code={`const modal = document.querySelector('.modal');
 const closeButton = document.querySelector('.close-button');
 
 closeButton.addEventListener('click', () => {
@@ -86,7 +86,7 @@ closeButton.addEventListener('click', () => {
     } catch (error) {
         console.error('Error removing classes:', error);
     }
-});`} />
+});`} language="javascript" filename="javascript-2.js" />
 
 <br />
 
@@ -94,7 +94,7 @@ closeButton.addEventListener('click', () => {
 
 Here's an enhanced example of class toggling with conditional logic:
 
-<CodeSnippet language="javascript" content={`const menuButton = document.querySelector('.menu-toggle');
+<CodeSnippet code={`const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('.nav-menu');
 
 menuButton.addEventListener('click', () => {
@@ -106,7 +106,7 @@ menuButton.addEventListener('click', () => {
     const isExpanded = navigation.classList.contains('expanded');
     menuButton.setAttribute('aria-expanded', isExpanded);
     menuButton.textContent = isExpanded ? 'Close Menu' : 'Open Menu';
-});`} />
+});`} language="javascript" filename="javascript-3.js" />
 
 <br />
 
@@ -118,7 +118,7 @@ The `classList.toggle()` method is particularly useful for interactive elements 
 
 Here's an example combining multiple classList methods for complex interactions:
 
-<CodeSnippet language="javascript" content={`const themeToggle = document.querySelector('.theme-toggle');
+<CodeSnippet code={`const themeToggle = document.querySelector('.theme-toggle');
 const body = document.body;
 
 themeToggle.addEventListener('click', () => {
@@ -139,7 +139,7 @@ themeToggle.addEventListener('click', () => {
         .forEach(element => {
             element.classList.toggle('dark-mode');
         });
-});`} />
+});`} language="javascript" filename="javascript-4.js" />
 
 <br />
 
@@ -149,17 +149,17 @@ While the classList API is powerful, it's important to follow best practices to 
 1. Avoid Repetitive DOM Queries.
 Instead of repeatedly querying the DOM for the same element, store the reference in a variable. This improves performance by reducing unnecessary DOM access.
 
-<CodeSnippet language="javascript" content={`const button = document.querySelector('.action-button'); // Reusable reference`} />
+<CodeSnippet code={`const button = document.querySelector('.action-button'); // Reusable reference`} language="javascript" filename="javascript-5.js" />
 
 2. Limit the Number of Class Changes.
 Changing classes too frequently (especially in animations) can impact performance. If possible, batch your class changes into a single classList.add() or classList.remove() call.
 
-<CodeSnippet language="javascript" content={`// Bad practice
+<CodeSnippet code={`// Bad practice
 element.className = 'new-class'; // This will overwrite all existing classes
 
 // Good practice
 element.classList.add('new-class');
-element.classList.remove('old-class');`} />
+element.classList.remove('old-class');`} language="javascript" filename="javascript-6.js" />
 
 <br />
 
@@ -168,17 +168,17 @@ element.classList.remove('old-class');`} />
 1. Overusing className Instead of classList.
 Avoid manipulating classes directly with className if you're working with multiple classes. The classList API offers more flexibility and doesn’t overwrite existing classes.
 
-<CodeSnippet language="javascript" content={`// Bad practice
+<CodeSnippet code={`// Bad practice
 element.className = 'new-class'; // This will overwrite all existing classes
 
 // Good practice
 element.classList.add('new-class');
-element.classList.remove('old-class');`} />
+element.classList.remove('old-class');`} language="javascript" filename="javascript-7.js" />
 
 2. Misusing toggle() Without Condition.
 The toggle() method is great, but without proper logic, it can lead to unexpected behavior. Always check the current state before toggling if you need specific control over the classes.
 
-<CodeSnippet language="javascript" content={`// Bad practice
+<CodeSnippet code={`// Bad practice
 element.classList.toggle('active'); // This will toggle the class without checking the current state
 
 // Good practice
@@ -186,7 +186,7 @@ if (element.classList.contains('active')) {
     element.classList.remove('active');
 } else {
     element.classList.add('active');
-}`} />
+}`} language="javascript" filename="javascript-8.js" />
 
 ## Looking for more?
 

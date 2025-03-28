@@ -20,7 +20,7 @@ tags: ['HTML', 'Web Development', 'JavaScript', 'APIs', 'Frontend']
 subpage: true
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 <img className='max-h-80 object-cover w-full' src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//roonz-nl-2xEQDxB0ss4-unsplash%20(1).jpg" alt="How to create a weather app in JavaScript" />
@@ -45,11 +45,11 @@ For loops are the most basic type of loop in JavaScript. They are used to repeat
 
 The syntax for a for loops is as follows:
 
-<CodeSnippet language="javascript" content={`for (let i = 0; i < 10; i++) {
+<CodeSnippet code={`for (let i = 0; i < 10; i++) {
     console.log(i);
 
         // This will be console logged 10 times
-}`} />
+}`} language="javascript" filename="javascript-1.js" />
 
 <br />
 
@@ -71,11 +71,11 @@ They differ from for loops in that they don't require an initialization statemen
 
 The syntax for a while loop is as follows:
 
-<CodeSnippet language="javascript" content={`let i = 0;
+<CodeSnippet code={`let i = 0;
 while (i < 10) {
     console.log(i);
     i++;
-}`} />
+}`} language="javascript" filename="javascript-2.js" />
 
 <br />
 
@@ -95,11 +95,11 @@ Do...while loops are similar to while loops, but they will always run at least o
 
 The syntax for a do...while loop is as follows:
 
-<CodeSnippet language="javascript" content={`let i = 0;
+<CodeSnippet code={`let i = 0;
 do {
     console.log(i);
     i++;
-} while (i < 10);`} />
+} while (i < 10);`} language="javascript" filename="javascript-3.js" />
 
 <br />
 
@@ -120,11 +120,11 @@ Nested loops are loops that contain another loop. This allows you to repeat a bl
 
 The syntax for a nested loop is as follows:
 
-<CodeSnippet language="javascript" content={`for (let i = 0; i < 10; i++) {
+<CodeSnippet code={`for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
         console.log(i, j);
     }
-}`} />
+}`} language="javascript" filename="javascript-4.js" />
 
 <br />
 

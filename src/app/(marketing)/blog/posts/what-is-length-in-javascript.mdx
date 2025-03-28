@@ -36,7 +36,7 @@ tags: ['JavaScript', 'Learn', 'Arrays', 'Strings']
 keywords: 'JavaScript length, array length, string length, array size, JavaScript arrays, JavaScript strings, web development, coding tutorial'
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 # What is length in JavaScript?
@@ -49,13 +49,13 @@ The length property is a fundamental feature in JavaScript that helps you determ
 ### Understanding length:
 </div>
 
-<CodeSnippet language="javascript" content={`// Array length
+<CodeSnippet code={`// Array length
 const numbers = [1, 2, 3, 4, 5];
 console.log(numbers.length);     // 5
 
 // String length
 const text = "Hello World";
-console.log(text.length);        // 11`} />
+console.log(text.length);        // 11`} language="javascript" filename="javascript-1.js" />
 
 <br />
 
@@ -73,7 +73,7 @@ The length property works differently for arrays and strings:
 ### Array Length:
 </div>
 
-<CodeSnippet language="javascript" content={`// Working with array length
+<CodeSnippet code={`// Working with array length
 const fruits = ['apple', 'banana', 'orange', 'mango'];
 
 // Get array size
@@ -84,7 +84,7 @@ console.log(fruits[fruits.length - 1]);  // 'mango'
 
 // Modify array length
 fruits.length = 2;
-console.log(fruits);  // ['apple', 'banana']`} />
+console.log(fruits);  // ['apple', 'banana']`} language="javascript" filename="javascript-2.js" />
 
 <div className="my-4">
 Let's understand how array length works:
@@ -102,7 +102,7 @@ Let's understand how array length works:
 For example:
 </div>
 
-<CodeSnippet language="javascript" content={`// Array length behavior
+<CodeSnippet code={`// Array length behavior
 const arr = ['first', 'second', 'third'];
 
 // Adding elements
@@ -111,7 +111,7 @@ console.log(arr.length);    // 4
 
 // Creating sparse array
 arr[10] = 'last';
-console.log(arr.length);    // 11`} />
+console.log(arr.length);    // 11`} language="javascript" filename="javascript-3.js" />
 
 <div className="my-4">
 ### String Length:
@@ -137,7 +137,7 @@ Understanding how to use length effectively is crucial for many programming task
 
 <br />
 
-<CodeSnippet language="javascript" content={`// Basic length usage
+<CodeSnippet code={`// Basic length usage
 const numbers = [1, 2, 3, 4, 5];
 const message = "Hello World";
 
@@ -149,7 +149,7 @@ for(let i = 0; i < numbers.length; i++) {
 
 // String operations
 console.log(message.length);   // 11
-const isValidPassword = password => password.length >= 8;`} />
+const isValidPassword = password => password.length >= 8;`} language="javascript" filename="javascript-4.js" />
 
 <br />
 
@@ -161,7 +161,7 @@ Let's explore common patterns where length is particularly useful, especially wh
 
 <br />
 
-<CodeSnippet language="javascript" content={`// Common length patterns
+<CodeSnippet code={`// Common length patterns
 const data = [1, 2, 3, 4, 5];
 
 // Check if array is empty
@@ -173,7 +173,7 @@ const getLastElement = arr => arr[arr.length - 1];
 // Validate input length
 function validateInput(input, minLength, maxLength) {
     return input.length >= minLength && input.length <= maxLength;
-}`} />
+}`} language="javascript" filename="javascript-5.js" />
 
 <br />
 
@@ -184,7 +184,7 @@ These patterns show how length can be used to create utility functions for commo
 Real-world applications often require working with dynamic data structures where length plays a crucial role in managing and processing data.
 
 <br />
-<CodeSnippet language="javascript" content={`// Real-world examples
+<CodeSnippet code={`// Real-world examples
 const posts = ['Post 1', 'Post 2', 'Post 3'];
 
 // Pagination
@@ -204,7 +204,7 @@ function characterCounter(text, maxLength) {
         remaining: remaining,
         isValid: remaining >= 0
     };
-}`} />
+}`} language="javascript" filename="javascript-6.js" />
 
 <br />
 
@@ -215,7 +215,7 @@ These examples show how length is essential for implementing common features lik
 Proper error handling is crucial when working with length, especially when dealing with null or undefined values.
 
 <br />
-<CodeSnippet language="javascript" content={`// Safe length checking
+<CodeSnippet code={`// Safe length checking
 function safeLength(value) {
     if (value == null) return 0;
     if (Array.isArray(value)) return value.length;
@@ -229,7 +229,7 @@ function getElement(arr, index) {
         return undefined;
     }
     return arr[index];
-}`} />
+}`} language="javascript" filename="javascript-7.js" />
 
 <br />
 
@@ -240,7 +240,7 @@ These utility functions demonstrate how to safely work with length in different 
 Understanding performance implications when working with length can help optimize your code, especially when dealing with large datasets.
 
 <br />
-<CodeSnippet language="javascript" content={`// Performance tips
+<CodeSnippet code={`// Performance tips
 const largeArray = new Array(1000000);
 
 // Cache length in loops
@@ -257,7 +257,7 @@ function processChunks(arr, chunkSize) {
         chunks.push(arr.slice(i, i + chunkSize));
     }
     return chunks;
-}`} />
+}`} language="javascript" filename="javascript-8.js" />
 
 <br />
 

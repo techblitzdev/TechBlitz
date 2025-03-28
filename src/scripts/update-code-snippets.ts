@@ -11,9 +11,9 @@
  *    To new usage: <CodeSnippet code={`...`} language="javascript" filename="example.js" />
  */
 
-const fs = require('fs');
-const path = require('path');
-const { glob } = require('glob');
+import * as fs from 'fs';
+import * as path from 'path';
+import { glob } from 'glob';
 
 const BLOG_POSTS_DIR = path.join(__dirname, '../src/app/(marketing)/blog/posts');
 
@@ -41,14 +41,14 @@ const FILE_EXTENSIONS = {
 };
 
 // Get a suitable filename based on the language
-function getFilename(language, index) {
-  const ext = FILE_EXTENSIONS[language] || language || 'txt';
+function getFilename(language: string, index: number) {
+  const ext = FILE_EXTENSIONS[language as keyof typeof FILE_EXTENSIONS] || language || 'txt';
   const baseName = language || 'example';
   return index ? `${baseName}-${index}.${ext}` : `${baseName}.${ext}`;
 }
 
 // Process a single MDX file
-function processFile(filePath) {
+function processFile(filePath: string) {
   console.log(`Processing: ${filePath}`);
 
   // Read the file content
@@ -61,12 +61,12 @@ function processFile(filePath) {
   );
 
   // Track the number of replacements for each language to generate unique filenames
-  const languageCounts = {};
+  const languageCounts: Record<string, number> = {};
 
   // Update the CodeSnippet usage
   content = content.replace(
     /<CodeSnippet language="([^"]+)" content={\`([\s\S]*?)\`} \/>/g,
-    (match, language, codeContent) => {
+    (match: string, language: string, codeContent: string) => {
       // Track language to generate unique filenames
       languageCounts[language] = (languageCounts[language] || 0) + 1;
       const filename = getFilename(language, languageCounts[language]);

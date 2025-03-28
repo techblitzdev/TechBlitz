@@ -1,6 +1,6 @@
 import type React from 'react';
 import { cn } from '@/lib/utils';
-import { AlertCircle, CheckCircle, Info, XCircle, Zap } from 'lucide-react';
+import { AlertCircle, CheckCircle, Info, XCircle } from 'lucide-react';
 
 type CalloutProps = {
   children: React.ReactNode;

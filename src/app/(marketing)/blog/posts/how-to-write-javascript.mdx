@@ -32,7 +32,7 @@ tags: ['JavaScript', 'Web Development', 'Programming', 'Beginners']
 subpage: true
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 # Introduction
@@ -81,7 +81,7 @@ Here's a simple HTML page with JavaScript:
 
 <br />
 
-<CodeSnippet language="html" content={`<!DOCTYPE html>
+<CodeSnippet code={`<!DOCTYPE html>
 <html>
 <head>
     <title>My First JavaScript</title>
@@ -98,7 +98,7 @@ Here's a simple HTML page with JavaScript:
         }
     </script>
 </body>
-</html>`} />
+</html>`} language="html" filename="index.html" />
 
 <br />
 
@@ -109,7 +109,7 @@ This example shows how JavaScript can:
 
 You can also put your JavaScript in a separate file and link it:
 
-<CodeSnippet language="html" content={`<script src="script.js"></script>`} />
+<CodeSnippet code={`<script src="script.js"></script>`} language="html" filename="index.html" />
 
 ## JavaScript Fundamentals
 
@@ -123,7 +123,7 @@ Variables are fundamental building blocks in JavaScript that let you store and m
 
 JavaScript provides three ways to declare variables:
 
-<CodeSnippet language="javascript" content={`// 1. let - for variables that can change (recommended)
+<CodeSnippet code={`// 1. let - for variables that can change (recommended)
 let score = 75;
 score = 80; // Can be reassigned
 
@@ -132,7 +132,7 @@ const PI = 3.14159;
 // PI = 3.14; // Error! Can't reassign const
 
 // 3. var - older way (avoid using)
-var count = 1; // Not recommended in modern JavaScript`} />
+var count = 1; // Not recommended in modern JavaScript`} language="javascript" filename="variables.js" />
 
 ### Data Types
 
@@ -140,7 +140,7 @@ JavaScript has several core data types that you'll use frequently:
 
 1. **Primitive Types**
 
-<CodeSnippet language="javascript" content={`// String - for text
+<CodeSnippet code={`// String - for text
 let name = "Sarah";
 let message = 'Hello!';
 let template = \`User: \${name}\`; // Template literals
@@ -159,11 +159,11 @@ let userEmail;
 console.log(userEmail); // undefined
 
 // Null - intentionally empty value
-let userProfile = null;`} />
+let userProfile = null;`} language="javascript" filename="data-types.js" />
 
 2. **Complex Types**
 
-<CodeSnippet language="javascript" content={`// Arrays - ordered lists of items
+<CodeSnippet code={`// Arrays - ordered lists of items
 let colors = ['red', 'blue', 'green'];
 colors.push('yellow');         // Add to end
 colors.pop();                  // Remove from end
@@ -182,11 +182,11 @@ let user = {
 
 // Accessing object properties
 console.log(user.name);        // Dot notation
-console.log(user['age']);      // Bracket notation`} />
+console.log(user['age']);      // Bracket notation`} language="javascript" filename="complex-types.js" />
 
 ### Type Checking and Conversion
 
-<CodeSnippet language="javascript" content={`// Check type with typeof
+<CodeSnippet code={`// Check type with typeof
 console.log(typeof "Hello");    // "string"
 console.log(typeof 42);         // "number"
 console.log(typeof true);       // "boolean"
@@ -197,13 +197,13 @@ console.log(typeof []);         // "object" (arrays are objects)
 let numString = "42";
 let num = Number(numString);    // String to number
 let str = String(num);          // Number to string
-let bool = Boolean(1);          // Convert to boolean`} />
+let bool = Boolean(1);          // Convert to boolean`} language="javascript" filename="type-conversion.js" />
 
 ## Functions and Control Flow
 
 Functions are blocks of code that perform specific tasks. Here's how to write them:
 
-<CodeSnippet language="javascript" content={`// Basic function
+<CodeSnippet code={`// Basic function
 function greetUser(name) {
     return 'Hello, ' + name + '!';
 }
@@ -220,13 +220,13 @@ if (temperature > 30) {
     console.log('It\'s warm.');
 } else {
     console.log('It\'s cool.');
-}`} />
+}`} language="javascript" filename="functions.js" />
 
 ## Arrays and Objects
 
 Arrays and objects help you organize data:
 
-<CodeSnippet language="javascript" content={`// Working with arrays
+<CodeSnippet code={`// Working with arrays
 let fruits = ['apple', 'banana', 'orange'];
 
 // Adding to an array
@@ -246,13 +246,13 @@ let student = {
 
 // Accessing object properties
 console.log(student.name);     // Tom
-console.log(student['age']);   // 20`} />
+console.log(student['age']);   // 20`} language="javascript" filename="arrays-objects.js" />
 
 ## DOM Manipulation
 
 JavaScript can modify web pages dynamically:
 
-<CodeSnippet language="javascript" content={`// Changing HTML content
+<CodeSnippet code={`// Changing HTML content
 document.getElementById('myElement').innerHTML = 'New text';
 
 // Changing styles
@@ -261,7 +261,7 @@ document.querySelector('.myClass').style.color = 'blue';
 // Adding event listeners
 document.getElementById('myButton').addEventListener('click', function() {
     alert('Button clicked!');
-});`} />
+});`} language="javascript" filename="javascript-1.js" />
 
 ## JavaScript Best Practices
 
@@ -269,27 +269,27 @@ Follow these tips for better JavaScript code:
 
 1. **Use Clear Names**
 
-<CodeSnippet language="javascript" content={`// Bad
+<CodeSnippet code={`// Bad
 let x = 5;
 
 // Good
-let userAge = 5;`} />
+let userAge = 5;`} language="javascript" filename="javascript-2.js" />
 
 2. **Comment Your Code**
 
-<CodeSnippet language="javascript" content={`// Calculate total price including tax
+<CodeSnippet code={`// Calculate total price including tax
 function calculateTotal(price, taxRate) {
     return price + (price * taxRate);
-}`} />
+}`} language="javascript" filename="javascript-3.js" />
 
 3. **Use Modern JavaScript Features**
 
-<CodeSnippet language="javascript" content={`// Template literals
+<CodeSnippet code={`// Template literals
 let name = 'John';
 console.log(\`Hello, \${name}!\`);
 
 // Arrow functions
-const add = (a, b) => a + b;`} />
+const add = (a, b) => a + b;`} language="javascript" filename="javascript-4.js" />
 
 ## Common Mistakes to Avoid
 
@@ -297,28 +297,28 @@ Avoid these common pitfalls:
 
 1. **Forgetting to Declare Variables**
 
-<CodeSnippet language="javascript" content={`// Wrong
+<CodeSnippet code={`// Wrong
 x = 5;
 
 // Correct
-let x = 5;`} />
+let x = 5;`} language="javascript" filename="javascript-5.js" />
 
 2. **Confusion with = and ==**
 
-<CodeSnippet language="javascript" content={`// = is for assignment
+<CodeSnippet code={`// = is for assignment
 let x = 5;
 
 // == or === is for comparison
 if (x === 5) {
     console.log('x equals 5');
-}`} />
+}`} language="javascript" filename="javascript-6.js" />
 
 3. **Not Understanding Scope**
 
-<CodeSnippet language="javascript" content={`function example() {
+<CodeSnippet code={`function example() {
     let local = 'I only exist inside the function';
 }
-// console.log(local); // This would cause an error`} />
+// console.log(local); // This would cause an error`} language="javascript" filename="javascript-7.js" />
 
 ## Practice and Next Steps
 

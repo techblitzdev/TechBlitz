@@ -30,7 +30,7 @@ tags: ['JavaScript', 'Web Development', 'Programming', 'Computer Science']
 subpage: true
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 # Understanding JavaScript Execution
@@ -103,9 +103,9 @@ Modern engines use Just-In-Time (JIT) compilation to achieve near-native perform
 
 Let's take a deep dive into how V8 processes and executes JavaScript code. V8 is Google's open-source JavaScript engine that powers Chrome and Node.js. It's written in C++ and is designed to be fast and efficient.
 
-<CodeSnippet language="javascript" content={`// This simple code goes through several steps
+<CodeSnippet code={`// This simple code goes through several steps
 const greeting = 'Hello World';
-console.log(greeting);`} />
+console.log(greeting);`} language="javascript" filename="javascript-1.js" />
 
 When you run this code, V8 goes through several sophisticated steps:
 
@@ -143,7 +143,7 @@ This multi-step process allows V8 to execute JavaScript with near-native perform
 
 One of JavaScript's most distinctive features is its event-driven, non-blocking nature. The event loop is what makes this possible:
 
-<CodeSnippet language="javascript" content={`console.log('First');
+<CodeSnippet code={`console.log('First');
 
 setTimeout(() => {
   console.log('Second');
@@ -154,7 +154,7 @@ console.log('Third');
 // Output:
 // First
 // Third
-// Second`} />
+// Second`} language="javascript" filename="javascript-2.js" />
 
 The event loop constantly checks:
 1. Is the call stack empty?
@@ -181,7 +181,7 @@ JavaScript uses two main components for code execution:
 
 Let's look at how the call stack works with a simple example:
 
-<CodeSnippet language="javascript" content={`function multiply(a, b) {
+<CodeSnippet code={`function multiply(a, b) {
   return a * b;
 }
 
@@ -194,7 +194,7 @@ function printSquare(n) {
   console.log(result);
 }
 
-printSquare(5); // Call stack: printSquare -> square -> multiply`} />
+printSquare(5); // Call stack: printSquare -> square -> multiply`} language="javascript" filename="javascript-3.js" />
 
 When this code executes:
 1. `printSquare(5)` is pushed onto the stack
@@ -206,7 +206,7 @@ When this code executes:
 
 The Memory Heap stores more complex data:
 
-<CodeSnippet language="javascript" content={`// Stored in Memory Heap
+<CodeSnippet code={`// Stored in Memory Heap
 const person = {
   name: 'John',
   age: 30
@@ -216,7 +216,7 @@ const numbers = [1, 2, 3, 4, 5];
 
 // Variables referencing heap memory
 let obj1 = { a: 1 };
-let obj2 = obj1; // Both reference same object in heap`} />
+let obj2 = obj1; // Both reference same object in heap`} language="javascript" filename="javascript-4.js" />
 
 Understanding these components is crucial for:
 - Debugging stack traces
@@ -229,7 +229,7 @@ Understanding these components is crucial for:
 
 JavaScript handles memory management automatically through garbage collection, but understanding it helps write better code:
 
-<CodeSnippet language="javascript" content={`// Memory leak example
+<CodeSnippet code={`// Memory leak example
 let heavyObject = {
   data: new Array(10000)
 };
@@ -248,7 +248,7 @@ function processDataEfficient(data) {
   });
 }
 processDataEfficient(heavyObject.data);
-heavyObject = null; // Allow garbage collection`} />
+heavyObject = null; // Allow garbage collection`} language="javascript" filename="javascript-5.js" />
 
 ## JavaScript Runtime
 
@@ -269,7 +269,7 @@ JavaScript handles asynchronous operations through:
 - Async/Await
 - Callbacks
 
-<CodeSnippet language="javascript" content={`async function fetchUserData() {
+<CodeSnippet code={`async function fetchUserData() {
   try {
     const response = await fetch('https://api.example.com/user');
     const data = await response.json();
@@ -283,7 +283,7 @@ JavaScript handles asynchronous operations through:
 fetchUserData().then(data => {
   console.log(data);
 });
-console.log('This runs first!');`} />
+console.log('This runs first!');`} language="javascript" filename="javascript-6.js" />
 
 ## Common Questions
 
@@ -291,20 +291,20 @@ console.log('This runs first!');`} />
    Yes, but the browser provides APIs that run on different threads.
 2. **What happens when the call stack overflows?**
 
-<CodeSnippet language="javascript" content={`function recursive() {
+<CodeSnippet code={`function recursive() {
     recursive(); // Stack overflow!
 }
-recursive(); // Stack overflow!`} />
+recursive(); // Stack overflow!`} language="javascript" filename="javascript-7.js" />
 
 3. **How does hoisting work?**
 
-<CodeSnippet language="javascript" content={`console.log(x); // undefined
+<CodeSnippet code={`console.log(x); // undefined
 var x = 5;
 
 // is actually executed as:
 var x;
 console.log(x);
-x = 5;`} />
+x = 5;`} language="javascript" filename="javascript-8.js" />
 
 Understanding how JavaScript works helps you:
 - Write more efficient code

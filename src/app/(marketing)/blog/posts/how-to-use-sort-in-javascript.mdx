@@ -32,7 +32,7 @@ tags: ['JavaScript', 'Arrays', 'Array Methods', 'Learn']
 keywords: 'JavaScript sort, array methods, JavaScript array, sort function, JavaScript tutorial, web development, coding tutorial, sorting arrays'
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 # What is Array sort in JavaScript?
@@ -45,9 +45,9 @@ Array.sort is a powerful array method in JavaScript that allows you to sort the 
 ### Let's take a look at a simple example:
 </div>
 
-<CodeSnippet language="javascript" content={`const numbers = [5, 3, 8, 1, 2];
+<CodeSnippet code={`const numbers = [5, 3, 8, 1, 2];
 numbers.sort((a, b) => a - b);
-console.log(numbers); // [1, 2, 3, 5, 8]`} />
+console.log(numbers); // [1, 2, 3, 5, 8]`} language="javascript" filename="javascript-1.js" />
 
 <br />
 
@@ -59,7 +59,7 @@ In this example, we are sorting an array of numbers in ascending order. The sort
 ### Syntax:
 </div>
 
-<CodeSnippet language="javascript" content={`Array.sort([compareFunction])`} />
+<CodeSnippet code={`Array.sort([compareFunction])`} language="javascript" filename="javascript-2.js" />
 
 <div className="my-4">
 The syntax for the `sort` method is quite simple. Here's a breakdown:
@@ -76,7 +76,7 @@ The `compareFunction` takes two arguments, `a` and `b`, and returns:
 Here's the syntax again for reference:
 </div>
 
-<CodeSnippet language="javascript" content={`Array.sort([compareFunction])`} />
+<CodeSnippet code={`Array.sort([compareFunction])`} language="javascript" filename="javascript-3.js" />
 
 <div className="my-4">
 ### Use Cases:
@@ -98,10 +98,10 @@ Let's explore some real-world examples that you'll likely encounter in your deve
 
 ### Example 1 - Sorting numbers in ascending order
 
-<CodeSnippet language="javascript" content={`// Sorting numbers in ascending order
+<CodeSnippet code={`// Sorting numbers in ascending order
 const numbers = [5, 3, 8, 1, 2];
 numbers.sort((a, b) => a - b);
-console.log(numbers); // [1, 2, 3, 5, 8]`} />
+console.log(numbers); // [1, 2, 3, 5, 8]`} language="javascript" filename="javascript-4.js" />
 
 <br />
 
@@ -125,10 +125,10 @@ This is a common real-world example of using sort to arrange numbers in ascendin
 
 ### Example 2 - Sorting strings alphabetically
 
-<CodeSnippet language="javascript" content={`// Sorting strings alphabetically
+<CodeSnippet code={`// Sorting strings alphabetically
 const fruits = ['banana', 'apple', 'cherry', 'date'];
 fruits.sort();
-console.log(fruits); // ['apple', 'banana', 'cherry', 'date']`} />
+console.log(fruits); // ['apple', 'banana', 'cherry', 'date']`} language="javascript" filename="javascript-5.js" />
 
 <br />
 
@@ -148,7 +148,7 @@ This is a common real-world example of using sort to arrange strings alphabetica
 
 ### Example 3 - Sorting objects by a property
 
-<CodeSnippet language="javascript" content={`// Sorting objects by a property
+<CodeSnippet code={`// Sorting objects by a property
 const people = [
   { name: 'Alice', age: 25 },
   { name: 'Bob', age: 30 },
@@ -156,7 +156,7 @@ const people = [
 ];
 
 people.sort((a, b) => a.age - b.age);
-console.log(people);`} />
+console.log(people);`} language="javascript" filename="javascript-6.js" />
 
 <br />
 

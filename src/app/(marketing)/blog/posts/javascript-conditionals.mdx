@@ -30,7 +30,7 @@ tags: ['JavaScript', 'Programming Basics', 'Conditional Logic', 'Web Development
 subpage: true
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 # Introduction to JavaScript Conditionals
@@ -47,16 +47,16 @@ The basic syntax follows this pattern:
 
 <br />
 
-<CodeSnippet language="javascript" content={`if (condition) {
+<CodeSnippet code={`if (condition) {
     // code to execute if condition is true
-}`} />
+}`} language="javascript" filename="if-statement.js" />
 
 <br />
 
 Let's break down a practical example:
 
 <br />
-<CodeSnippet language="javascript" content={`// Example 1: Basic if statement
+<CodeSnippet code={`// Example 1: Basic if statement
 const temperature = 25;
 
 if (temperature > 30) {
@@ -76,7 +76,7 @@ const userRole = "admin";
 
 if (userRole === "admin") {
     console.log("Welcome to the admin panel");
-}`} />
+}`} language="javascript" filename="practical-examples.js" />
 
 <br />
 
@@ -85,7 +85,7 @@ if (userRole === "admin") {
 1. **Truthy vs Falsy Values:**
 
 <br />
-<CodeSnippet language="javascript" content={`// Be careful with truthy/falsy values
+<CodeSnippet code={`// Be careful with truthy/falsy values
 if (0) {
     console.log("This won't run"); // 0 is falsy
 }
@@ -101,19 +101,19 @@ if ([]) {
 // Better to be explicit
 if (array.length > 0) {
     console.log("Array has items");
-}`} />
+}`} language="javascript" filename="truthy-falsy.js" />
 
 <br />
 
 2. **Single Line if Statements:**
 
-<CodeSnippet language="javascript" content={`// While this works:
+<CodeSnippet code={`// While this works:
 if (temperature > 30) console.log("Hot!");
 
 // This is better for readability:
 if (temperature > 30) {
     console.log("Hot!");
-}`} />
+}`} language="javascript" filename="single-line.js" />
 
 <br />
 
@@ -123,7 +123,7 @@ The `else` and `else if` statements extend the power of conditionals by allowing
 
 ### Basic Structure
 
-<CodeSnippet language="javascript" content={`// Complex decision tree example
+<CodeSnippet code={`// Complex decision tree example
 const score = 85;
 const isPremiumUser = true;
 
@@ -158,7 +158,7 @@ if (!user.isLoggedIn) {
     console.log("Welcome to the pro editor dashboard");
 } else {
     console.log("Welcome to the basic dashboard");
-}`} />
+}`} language="javascript" filename="else-if.js" />
 
 ### Performance Tips
 
@@ -173,7 +173,7 @@ if (!user.isLoggedIn) {
 
 When you have multiple conditions to check against a single value, the `switch` statement can be cleaner than multiple `if/else` statements:
 
-<CodeSnippet language="javascript" content={`const dayOfWeek = "Monday";
+<CodeSnippet code={`const dayOfWeek = "Monday";
 
 switch (dayOfWeek) {
     case "Monday":
@@ -191,7 +191,7 @@ switch (dayOfWeek) {
 }
 
 // Output: "Start of the work week!"
-// The switch statement checks the value of dayOfWeek against each case`} />
+// The switch statement checks the value of dayOfWeek against each case`} language="javascript" filename="switch.js" />
 
 <br />
 
@@ -199,7 +199,7 @@ switch (dayOfWeek) {
 
 JavaScript provides several operators to compare values:
 
-<CodeSnippet language="javascript" content={`// Equal to (==) - compares values
+<CodeSnippet code={`// Equal to (==) - compares values
 console.log(5 == "5");    // true (converts types)
 
 // Strictly equal to (===) - compares values and types
@@ -218,7 +218,7 @@ console.log(5 >= 5);      // true
 console.log(4 <= 5);      // true
 
 // Not equal to (!=)
-console.log(5 != "6");    // true`} />
+console.log(5 != "6");    // true`} language="javascript" filename="comparison-operators.js" />
 
 <br />
 
@@ -226,7 +226,7 @@ console.log(5 != "6");    // true`} />
 
 Combine multiple conditions using logical operators:
 
-<CodeSnippet language="javascript" content={`// AND operator (&&) - both conditions must be true
+<CodeSnippet code={`// AND operator (&&) - both conditions must be true
 const age = 25;
 const hasLicense = true;
 
@@ -247,7 +247,7 @@ const isLoggedIn = false;
 
 if (!isLoggedIn) {
     console.log("Please log in"); // This will run
-}`} />
+}`} language="javascript" filename="logical-operators.js" />
 
 <br />
 
@@ -257,7 +257,7 @@ Here are some practical examples of using conditionals in real applications:
 
 ### 1. Form Validation
 
-<CodeSnippet language="javascript" content={`function validateEmail(email) {
+<CodeSnippet code={`function validateEmail(email) {
     if (email.includes('@') && email.includes('.')) {
         console.log('Email format is valid');
         return true;
@@ -269,11 +269,11 @@ Here are some practical examples of using conditionals in real applications:
 
 // Example usage
 validateEmail('user@example.com');  // Valid
-validateEmail('invalid-email');     // Invalid`} />
+validateEmail('invalid-email');     // Invalid`} language="javascript" filename="form-validation.js" />
 
 ### 2. User Authentication
 
-<CodeSnippet language="javascript" content={`const user = {
+<CodeSnippet code={`const user = {
     isLoggedIn: true,
     role: 'admin',
     subscription: 'premium'
@@ -288,7 +288,7 @@ if (!user.isLoggedIn) {
     console.log('Welcome, premium user!');
 } else {
     console.log('Welcome, basic user!');
-}`} />
+}`} language="javascript" filename="user-authentication.js" />
 
 ## Best Practices
 

@@ -37,7 +37,7 @@ keywords: 'JavaScript arrays, array methods, array manipulation, JavaScript arra
 subpage: true
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 ## The Most Comprehensive JavaScript Array Methods Cheat Sheet
@@ -52,9 +52,9 @@ In JavaScript, an array is a fundamental data structure used to store multiple v
 
 The most common way to declare an array in JavaScript is to use the `[]` syntax. 
 
-<CodeSnippet language="js" content={`const numbers = [1, 2, 3, 4, 5];
+<CodeSnippet code={`const numbers = [1, 2, 3, 4, 5];
 
-const fruits = ['apple', 'banana', 'cherry'];`} />
+const fruits = ['apple', 'banana', 'cherry'];`} language="js" filename="js-1.js" />
 
 ### Common JavaScript Array Methods
 
@@ -67,12 +67,12 @@ JavaScript provides various built-in methods for manipulating arrays. Mastering 
 - **unshift()** – Adds elements to the beginning.
 - **shift()** – Removes the first element.
 
-<CodeSnippet language="js" content={`const arr = [1, 2, 3];
+<CodeSnippet code={`const arr = [1, 2, 3];
 
 arr.push(4); // [1, 2, 3, 4]
 arr.pop(); // [1, 2, 3]
 arr.unshift(0); // [0, 1, 2, 3]
-arr.shift(); // [1, 2, 3]`} />
+arr.shift(); // [1, 2, 3]`} language="js" filename="js-2.js" />
 
 #### Iterating Over Arrays
 
@@ -81,7 +81,7 @@ arr.shift(); // [1, 2, 3]`} />
 - **filter()** – Returns a new array with elements that meet a condition. Read more about [filter](/blog/how-to-use-filter-in-javascript).
 - **reduce()** – Reduces an array to a single value. Read more about [reduce](/blog/how-to-use-reduce-in-javascript).
 
-<CodeSnippet language="js" content={`const numbers = [1, 2, 3, 4, 5];
+<CodeSnippet code={`const numbers = [1, 2, 3, 4, 5];
 
 numbers.forEach(num => console.log(num));
 
@@ -89,7 +89,7 @@ const doubled = numbers.map(num => num * 2);
 
 const evens = numbers.filter(num => num % 2 === 0);
 
-const sum = numbers.reduce((acc, num) => acc + num, 0);`} />
+const sum = numbers.reduce((acc, num) => acc + num, 0);`} language="js" filename="js-3.js" />
 
 #### Searching & Transforming
 
@@ -99,13 +99,13 @@ const sum = numbers.reduce((acc, num) => acc + num, 0);`} />
 - **indexOf()** – Finds the index of an element.
 - **includes()** – Checks if an element exists.
 
-<CodeSnippet language="js" content={`const nums = [10, 20, 30, 40];
+<CodeSnippet code={`const nums = [10, 20, 30, 40];
 
 console.log(nums.find(n => n > 25)); // 30
 
 console.log(nums.includes(20)); // true
 
-console.log(nums.indexOf(30)); // 2`} />
+console.log(nums.indexOf(30)); // 2`} language="js" filename="js-4.js" />
 
 #### Sorting & Reversing
 
@@ -113,13 +113,13 @@ console.log(nums.indexOf(30)); // 2`} />
 - **reverse()** – Reverses the array order.
 - **toSorted()** (ES2023) – Returns a sorted copy without modifying the original.
 
-<CodeSnippet language="js" content={`const scores = [40, 10, 100, 50];
+<CodeSnippet code={`const scores = [40, 10, 100, 50];
 
-scores.sort((a, b) => a - b); // [10, 40, 50, 100]`} />
+scores.sort((a, b) => a - b); // [10, 40, 50, 100]`} language="js" filename="js-5.js" />
 
 #### Removing Duplicates
 
-<CodeSnippet language="js" content={`const uniqueNumbers = [...new Set([1, 2, 2, 3, 4, 4, 5])]; // [1, 2, 3, 4, 5]`} />
+<CodeSnippet code={`const uniqueNumbers = [...new Set([1, 2, 2, 3, 4, 4, 5])]; // [1, 2, 3, 4, 5]`} language="js" filename="js-6.js" />
 
 ## JavaScript Performance Tips
 

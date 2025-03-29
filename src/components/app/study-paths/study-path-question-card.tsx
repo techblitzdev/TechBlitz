@@ -48,12 +48,10 @@ const buttonColorMap = {
 
 export default async function StudyPathQuestionCard({
   questionData,
-  index,
   isNextQuestion,
   studyPath,
 }: {
   questionData: Question;
-  index?: number;
   isNextQuestion?: boolean;
   studyPath: StudyPath;
 }) {
@@ -90,13 +88,6 @@ export default async function StudyPathQuestionCard({
 
   return (
     <div className="relative group perspective-1000 flex items-center justify-center">
-      {/* Level indicator (optional) */}
-      {index !== undefined && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20 bg-black text-xs font-bold px-2 py-0.5 rounded-full border border-black-100 text-white">
-          {index + 1}
-        </div>
-      )}
-
       {/* Wrapper element with colored border */}
       <div
         className={cn(

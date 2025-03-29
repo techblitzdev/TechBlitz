@@ -3,7 +3,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Question } from '@/types/Questions';
 import { getUpgradeUrl } from '@/utils';
 import { QUESTION_XP } from '@/utils/constants/question-xp';
-import { StudyPath } from '@/types/StudyPath';
+import { StudyPath } from '@prisma/client';
 
 interface StudyPathQuestionCardPopoverProps {
   children: Readonly<React.ReactNode>;

@@ -1,4 +1,4 @@
-import { StudyPath } from '@/types/StudyPath';
+import type { StudyPath } from '@prisma/client';
 
 export default function HeroHeading({ studyPath }: { studyPath: StudyPath }) {
   return (

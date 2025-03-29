@@ -1,4 +1,4 @@
-import { StudyPath } from '@/types/StudyPath';
+import type { StudyPath } from '@prisma/client';
 import { CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';

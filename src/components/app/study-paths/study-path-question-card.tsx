@@ -6,7 +6,7 @@ import Lock from '@/components/ui/icons/lock';
 import Check from '@/components/ui/icons/check';
 import ERemove from '@/components/ui/icons/e-remove';
 import StudyPathQuestionCardPopover from './study-path-card-popover';
-import { StudyPath } from '@/types/StudyPath';
+import { StudyPath } from '@prisma/client';
 
 const buttonColorMap = {
   correct: {

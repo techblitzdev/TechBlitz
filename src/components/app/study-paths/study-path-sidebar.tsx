@@ -18,7 +18,7 @@ import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
 import { getUserMissionRecords } from '@/utils/data/missions/get-user-mission-record';
 
 // types
-import { StudyPath } from '@/types/StudyPath';
+import type { StudyPath } from '@prisma/client';
 import { UserRecord } from '@/types/User';
 import { getStudyPathGoal } from '@/utils/data/study-paths/get-goal';
 

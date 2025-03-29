@@ -11,7 +11,7 @@ import { capitalise, getBaseUrl } from '@/utils';
 
 // types
 import type { QuizJsonLd } from '@/types/Seo';
-import type { StudyPath, StudyPathSection, StudyPathOverviewData } from '@/types/StudyPath';
+import type { StudyPath } from '@prisma/client';
 
 // components
 import StudyPathQuestionCardSkeleton from '@/components/app/study-paths/study-path-question-card-skeleton';
@@ -111,23 +111,6 @@ function createJsonLd(studyPath: StudyPath, slug: string): QuizJsonLd {
   };
 }
 
-/**
- * Get all question slugs from the study path, either from overviewData or questionSlugs
- *
- * @param studyPath - The study path
- * @returns Array of question slugs
- */
-function getAllQuestionSlugs(studyPath: StudyPath): string[] {
-  // Check if overviewData exists and parse it
-  if (studyPath.overviewData) {
-    // Collect all question slugs from all sections
-    return Object.values(studyPath.overviewData).flatMap((section) => section.questionSlugs);
-  }
-
-  // Fallback to legacy questionSlugs if overviewData doesn't exist
-  return studyPath.questionSlugs || [];
-}
-
 export default async function RoadmapPage({ params }: { params: { slug: string } }) {
   const studyPath = await getStudyPath(params.slug);
 
@@ -135,12 +118,8 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
     return <div>Study path not found</div>;
   }
 
-  // Get all question slugs (either from overviewData or legacy questionSlugs)
-  const allQuestionSlugs = getAllQuestionSlugs(studyPath);
-
-  // Fetch questions based on these slugs
   const questions = getQuestions({
-    questionSlugs: allQuestionSlugs,
+    questionSlugs: studyPath?.questionSlugs ?? [],
   });
 
   const jsonLd: QuizJsonLd = createJsonLd(studyPath, params.slug);

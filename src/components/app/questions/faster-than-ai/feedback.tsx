@@ -37,7 +37,7 @@ export default function FasterThanAIFeedback({
 
   const getMessage = () => {
     if (!wasCorrect) {
-      return 'Focus on getting it right next time!';
+      return 'So close! Keep practicing to get better!';
     }
     if (didBeatAI) {
       return `You answered ${timeDiff} seconds faster than AI!`;

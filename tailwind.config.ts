@@ -257,8 +257,25 @@ function addVariablesForColors({ addBase, theme }: any) {
     Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
   );
 
+  // Custom accent utilities
+  const customUtilities = {
+    '.stroke-accent': {
+      stroke: 'hsl(var(--accent))',
+    },
+    '.fill-accent': {
+      fill: 'hsl(var(--accent))',
+    },
+    '.bg-accent': {
+      backgroundColor: 'hsl(var(--accent))',
+    },
+    '.text-accent': {
+      color: 'hsl(var(--accent))',
+    },
+  };
+
   addBase({
     ':root': newVars,
+    ...customUtilities,
   });
 }
 

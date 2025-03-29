@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, Suspense } from 'react';
-import QuestionChart from '@/components/app/statistics/total-question-chart';
+import QuestionChart from '@/components/charts/total-question-chart';
 import SkewedQuestionCards from './skewed-question-cards';
 import { capitalise, generateFakeData, getQuestionDifficultyColor } from '@/utils';
 import { Badge } from '@/components/ui/badge';

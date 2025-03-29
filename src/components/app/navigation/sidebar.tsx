@@ -158,7 +158,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       url: '/statistics',
       icon: BChart3,
       tooltip: 'Statistics',
-      defaultOpen: false,
+      defaultOpen: true,
       subItems: [
         {
           title: 'Overview',

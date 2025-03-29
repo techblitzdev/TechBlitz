@@ -59,7 +59,7 @@ export default async function FeaturesBentoGrid() {
                 variant="default"
                 className="z-10 relative gap-x-2 items-center w-fit font-onest hidden md:flex"
               >
-                Explore roadmaps <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
+                Explore roadmaps
               </Button>
             </div>
             <RoadmapFeatureBox />

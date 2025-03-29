@@ -1,6 +1,6 @@
 'use client';
 
-import { Tracker } from '@/components/ui/tremor/tracker';
+import { Tracker } from '@/components/charts/tracker';
 import { cn } from '@/lib/utils';
 import { StatsSteps } from '@/types/Stats';
 
@@ -59,7 +59,9 @@ export default function QuestionTracker({ stats, step, range, className }: Quest
 
     return {
       color,
-      tooltip: `${formattedDate}: ${totalQuestions} ${totalQuestions === 1 ? 'question' : 'questions'}`,
+      tooltip: `${formattedDate}: ${totalQuestions} ${
+        totalQuestions === 1 ? 'question' : 'questions'
+      }`,
     };
   });
 

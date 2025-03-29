@@ -1,4 +1,4 @@
-import type { StudyPath } from '@prisma/client';
+import { StudyPath } from '@/types/StudyPath';
 import { CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
@@ -13,8 +13,8 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
   const roadmapUrl = studyPath.isPublished
     ? `/roadmaps/${studyPath.slug}`
     : process.env.NODE_ENV === 'development'
-      ? `/roadmaps/${studyPath.slug}`
-      : '#';
+    ? `/roadmaps/${studyPath.slug}`
+    : '#';
 
   return (
     <Link

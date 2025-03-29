@@ -1,18 +1,19 @@
 import { getUser } from '@/actions/user/authed/get-user';
 import { prisma } from '@/lib/prisma';
 import { revalidateTag } from 'next/cache';
+import { StudyPath } from '@/types/StudyPath';
 
 /**
  * Get a study path by its slug
  * @param slug - The slug of the study path
  * @returns The study path
  */
-export const getStudyPath = async (slug: string) => {
-  return await prisma.studyPath.findUnique({
+export const getStudyPath = async (slug: string): Promise<StudyPath | null> => {
+  return (await prisma.studyPath.findUnique({
     where: {
       slug,
     },
-  });
+  })) as StudyPath | null;
 };
 
 export const getStudyPathByUid = async (uid: string) => {
@@ -23,12 +24,16 @@ export const getStudyPathByUid = async (uid: string) => {
   });
 };
 
-export const getAllStudyPaths = async () => {
-  return await prisma.studyPath.findMany({
+/**
+ * Get all study paths
+ * @returns All study paths
+ */
+export const getAllStudyPaths = async (): Promise<StudyPath[]> => {
+  return (await prisma.studyPath.findMany({
     orderBy: {
       createdAt: 'asc',
     },
-  });
+  })) as StudyPath[];
 };
 
 export const getUserStudyPaths = async () => {

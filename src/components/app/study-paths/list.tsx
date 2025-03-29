@@ -6,7 +6,7 @@ import StudyPathQuestionCardSkeleton from './study-path-question-card-skeleton';
 import { cn } from '@/lib/utils';
 
 import type { Question } from '@/types/Questions';
-import { StudyPath } from '@prisma/client';
+import { StudyPath, StudyPathSection, StudyPathOverviewData } from '@/types/StudyPath';
 
 const QuestionCardClient = dynamic(() => import('../questions/layout/question-card-client'), {
   ssr: false,
@@ -28,9 +28,28 @@ export default async function StudyPathsList({
   // either a promise or already resolved
   const studyPathQuestions = Array.isArray(questions) ? questions : await questions;
 
-  const sortedQuestions = studyPath.questionSlugs
-    .map((slug) => studyPathQuestions.find((q) => q.slug === slug))
-    .filter((q): q is Question => q !== undefined);
+  // Check if we're using the new overviewData or legacy questionSlugs
+  const hasOverviewData = studyPath.overviewData && Object.keys(studyPath.overviewData).length > 0;
+
+  let sortedQuestions: Question[] = [];
+
+  if (hasOverviewData && studyPath.overviewData) {
+    // First, create an array of all question slugs in order to maintain the correct order
+    const orderedSlugs: string[] = [];
+    Object.values(studyPath.overviewData).forEach((section) => {
+      section.questionSlugs.forEach((slug) => orderedSlugs.push(slug));
+    });
+
+    // Then sort questions according to that order
+    sortedQuestions = orderedSlugs
+      .map((slug) => studyPathQuestions.find((q) => q.slug === slug))
+      .filter((q): q is Question => q !== undefined);
+  } else {
+    // Legacy behavior - use questionSlugs array
+    sortedQuestions = studyPath.questionSlugs
+      .map((slug) => studyPathQuestions.find((q) => q.slug === slug))
+      .filter((q): q is Question => q !== undefined);
+  }
 
   const firstUnansweredQuestion = sortedQuestions.find(
     (q) => !q.userAnswers?.length || q.userAnswers?.some((answer) => answer.correctAnswer === false)
@@ -38,27 +57,91 @@ export default async function StudyPathsList({
 
   return (
     <div className={cn('relative z-10 justify-self-center', className)}>
-      <Suspense fallback={<StudyPathQuestionCardSkeleton />}>
-        {sortedQuestions.map((question, index) => {
-          const offsetValue = calculateOffset ? calculateOffset(index) : Math.sin(index * 2.5) * 25;
-          return (
-            <div key={question.slug} className="mb-4">
-              <QuestionCardClient
-                questionData={question}
-                index={index}
-                offset={offsetValue}
-                top={top}
-              >
-                <QuestionCardWrapper
-                  question={question}
-                  studyPath={studyPath}
-                  isFirstUnanswered={firstUnansweredQuestion === question.slug}
-                />
-              </QuestionCardClient>
-            </div>
-          );
-        })}
-      </Suspense>
+      {hasOverviewData && studyPath.overviewData && (
+        <div className="mb-8">
+          {/* Render section headers if using overviewData */}
+          {Object.entries(studyPath.overviewData).map(([key, section]) => {
+            // Find questions for this section
+            const sectionQuestions = studyPathQuestions.filter((q) =>
+              section.questionSlugs.includes(q.slug || '')
+            );
+
+            if (sectionQuestions.length === 0) return null;
+
+            return (
+              <div key={key} className="mb-10">
+                <div
+                  className="mb-4 p-4 rounded-lg border border-black-50"
+                  style={{ borderLeftColor: section.color, borderLeftWidth: '4px' }}
+                >
+                  <h2 className="text-lg font-medium mb-1">{section.sectionName}</h2>
+                  {section.guidebookUrl && (
+                    <a
+                      href={section.guidebookUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-blue-400 hover:underline"
+                    >
+                      View guidebook
+                    </a>
+                  )}
+                </div>
+
+                <Suspense fallback={<StudyPathQuestionCardSkeleton />}>
+                  {sectionQuestions.map((question, index) => {
+                    const offsetValue = calculateOffset
+                      ? calculateOffset(index)
+                      : Math.sin(index * 2.5) * 25;
+                    return (
+                      <div key={question.slug} className="mb-4">
+                        <QuestionCardClient
+                          questionData={question}
+                          index={index}
+                          offset={offsetValue}
+                          top={top}
+                        >
+                          <QuestionCardWrapper
+                            question={question}
+                            studyPath={studyPath}
+                            isFirstUnanswered={firstUnansweredQuestion === question.slug}
+                          />
+                        </QuestionCardClient>
+                      </div>
+                    );
+                  })}
+                </Suspense>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* If no overviewData or no sections with questions, fall back to the legacy behavior */}
+      {!hasOverviewData && (
+        <Suspense fallback={<StudyPathQuestionCardSkeleton />}>
+          {sortedQuestions.map((question, index) => {
+            const offsetValue = calculateOffset
+              ? calculateOffset(index)
+              : Math.sin(index * 2.5) * 25;
+            return (
+              <div key={question.slug} className="mb-4">
+                <QuestionCardClient
+                  questionData={question}
+                  index={index}
+                  offset={offsetValue}
+                  top={top}
+                >
+                  <QuestionCardWrapper
+                    question={question}
+                    studyPath={studyPath}
+                    isFirstUnanswered={firstUnansweredQuestion === question.slug}
+                  />
+                </QuestionCardClient>
+              </div>
+            );
+          })}
+        </Suspense>
+      )}
     </div>
   );
 }

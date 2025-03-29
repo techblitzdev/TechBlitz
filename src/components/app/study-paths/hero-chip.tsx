@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { ChevronLeft, Sparkles } from 'lucide-react';
-import type { StudyPath } from '@prisma/client';
+import { StudyPath } from '@/types/StudyPath';
 
 export default function HeroChip({ studyPath }: { studyPath: StudyPath }) {
   return (

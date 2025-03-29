@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Timer, Cpu } from 'lucide-react';
+import ChatBot from '@/components/ui/icons/chat-bot';
 
 interface CountdownProps {
   aiTime: number;
@@ -57,10 +58,10 @@ export default function Countdown({ aiTime, isVisible, isSubmitted, wasCorrect }
   const getMessage = () => {
     if (isSubmitted) {
       if (beatAI) {
-        return `You beat ChatGPT by ${(aiTime - elapsedTime).toFixed(1)} seconds!`;
+        return `You beat AI by ${(aiTime - elapsedTime).toFixed(1)} seconds!`;
       }
       if (wasCorrect) {
-        return `ChatGPT was faster by ${(elapsedTime - aiTime).toFixed(1)} seconds`;
+        return `AI was faster by ${(elapsedTime - aiTime).toFixed(1)} seconds`;
       }
       return 'Incorrect answer';
     }
@@ -68,31 +69,30 @@ export default function Countdown({ aiTime, isVisible, isSubmitted, wasCorrect }
     // Not submitted yet
     const timeLeft = aiTime - elapsedTime;
     if (timeLeft > 0) {
-      return `${timeLeft.toFixed(1)} seconds to beat ChatGPT`;
+      return `${timeLeft.toFixed(1)} seconds to beat AI`;
     }
-    return 'ChatGPT would have finished!';
+    return 'Better luck next time!';
   };
 
   return (
     <motion.div
-      className="fixed top-4 right-4 bg-background border border-border rounded-md p-3 shadow-md z-30 w-64 transition-all duration-200"
-      initial={{ x: 100, opacity: 0 }}
+      className="absolute top-4 right-4 bg-background border border-black-50 rounded-md px-5 py-3 shadow-md z-30 transition-all duration-200"
+      initial={{ x: 0, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      exit={{ x: 100, opacity: 0 }}
+      exit={{ x: 0, opacity: 0 }}
     >
-      <div className="flex justify-between items-center mb-2">
-        <div className="flex items-center gap-2">
-          <Timer className="w-4 h-4 text-accent" />
-          <span className="font-medium">Faster Than ChatGPT</span>
+      <div className="flex justify-between items-center mb-2 gap-16">
+        <div className="flex items-center gap-1">
+          <ChatBot className="size-4" />
+          <span className="font-medium">Time to beat</span>
         </div>
         <div className="flex items-center gap-1 text-xs">
-          <Cpu className="w-3 h-3 text-accent" />
           <span>{aiTime.toFixed(1)}s</span>
         </div>
       </div>
 
       {/* Progress bar */}
-      <div className="w-full bg-muted rounded-full h-2.5 mb-2 overflow-hidden">
+      <div className="w-full bg-muted rounded-full h-2 mb-2 overflow-hidden">
         <motion.div
           className={`h-2.5 rounded-full ${getProgressColorClass()}`}
           initial={{ width: '0%' }}
@@ -101,9 +101,8 @@ export default function Countdown({ aiTime, isVisible, isSubmitted, wasCorrect }
         />
       </div>
 
-      <div className="flex justify-between items-center">
-        <span className="text-sm font-medium">{getMessage()}</span>
-        <span className="text-sm font-bold text-accent">{elapsedTime.toFixed(1)}s</span>
+      <div className="flex justify-between items-center gap-4">
+        <span className="text-sm font-medium font-onest">{getMessage()}</span>
       </div>
     </motion.div>
   );

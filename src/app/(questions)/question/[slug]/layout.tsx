@@ -164,7 +164,7 @@ export default async function QuestionUidLayout({
               question={question}
               nextAndPreviousQuestionPromise={nextAndPreviousQuestion}
             />
-            <div style={{ opacity: 'var(--content-opacity)' }}>
+            <div style={{ opacity: 'var(--content-opacity)' }} className="relative">
               {children}
               {question.isPremiumQuestion && !isPremiumUser && <PremiumQuestionDeniedAccess />}
             </div>

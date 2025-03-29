@@ -2,29 +2,37 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
-import { Zap, Timer, Cpu } from 'lucide-react';
+import { Zap } from 'lucide-react';
+import ChatBot from '@/components/ui/icons/chat-bot';
+import { Button } from '@/components/ui/button';
 
 interface FasterThanAIAnimationProps {
   aiTime?: number; // Time taken by AI (in seconds)
   onComplete: () => void;
+  autoDismiss?: boolean;
 }
 
-export default function FasterThanAIAnimation({ aiTime, onComplete }: FasterThanAIAnimationProps) {
+export default function FasterThanAIAnimation({
+  aiTime,
+  onComplete,
+  autoDismiss = true,
+}: FasterThanAIAnimationProps) {
   const [isVisible, setIsVisible] = useState(true);
 
-  // Auto-dismiss after 5 seconds or when user clicks "Start Challenge"
+  // auto-dismiss after 5 seconds or when user clicks "Start Challenge"
   useEffect(() => {
+    if (!autoDismiss) return;
     const timeout = setTimeout(() => {
       setIsVisible(false);
-      setTimeout(onComplete, 500); // Allow exit animation to complete
+      setTimeout(onComplete, 500);
     }, 5000);
 
     return () => clearTimeout(timeout);
-  }, [onComplete]);
+  }, [onComplete, autoDismiss]);
 
   const handleStartClick = () => {
     setIsVisible(false);
-    setTimeout(onComplete, 500); // Allow exit animation to complete
+    setTimeout(onComplete, 500);
   };
 
   // Animation variants
@@ -90,44 +98,38 @@ export default function FasterThanAIAnimation({ aiTime, onComplete }: FasterThan
           exit="exit"
         >
           <div className="max-w-[500px] w-full text-center flex flex-col items-center gap-6">
-            <motion.h1
-              className="text-4xl font-extrabold text-accent sm:text-5xl"
-              variants={itemVariants}
-            >
-              Faster Than ChatGPT
+            <motion.h1 className="text-4xl sm:text-5xl font-onest" variants={itemVariants}>
+              Are you faster than AI?
             </motion.h1>
 
             <motion.div
-              className="relative w-28 h-28 rounded-full bg-accent flex items-center justify-center shadow-lg"
+              className="relative size-28 rounded-full bg-accent flex items-center justify-center shadow-lg"
               variants={pulseVariants}
               animate="pulse"
             >
               <Zap size={60} className="text-white" />
             </motion.div>
 
-            <motion.p className="text-xl text-white md:text-2xl" variants={itemVariants}>
-              Race against the clock! Can you answer faster than ChatGPT?
+            <motion.p className="text-white font-onest" variants={itemVariants}>
+              Race against the clock! Can you answer faster than an AI can?
             </motion.p>
 
             {aiTime && (
               <motion.div variants={itemVariants}>
                 <div className="flex items-center justify-center gap-2 text-white">
-                  <Cpu size={20} />
-                  <span>ChatGPT solved this in:</span>
+                  <ChatBot className="size-5" />
+                  <span>AI solved this in:</span>
                 </div>
-                <div className="text-2xl font-semibold text-accent mt-1">
+                <div className="text-lg font-semibold mt-1">
                   <span>{aiTime} seconds</span>
                 </div>
               </motion.div>
             )}
 
             <motion.div variants={itemVariants}>
-              <button
-                className="px-8 py-3 bg-accent text-white font-semibold rounded-full hover:bg-accent/90 hover:-translate-y-0.5 active:translate-y-0.5 transition-all shadow-lg hover:shadow-xl mt-4"
-                onClick={handleStartClick}
-              >
+              <Button variant="accent" onClick={handleStartClick}>
                 Start Challenge
-              </button>
+              </Button>
             </motion.div>
           </div>
         </motion.div>

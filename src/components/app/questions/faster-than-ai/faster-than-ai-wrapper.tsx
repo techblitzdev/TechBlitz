@@ -45,7 +45,11 @@ export default function FasterThanAIWrapper({
   return (
     <>
       {showAnimation && aiTimeToComplete && (
-        <FasterThanAIAnimation aiTime={aiTimeToComplete} onComplete={handleAnimationComplete} />
+        <FasterThanAIAnimation
+          aiTime={aiTimeToComplete}
+          onComplete={handleAnimationComplete}
+          autoDismiss={false}
+        />
       )}
 
       <AnimatePresence>

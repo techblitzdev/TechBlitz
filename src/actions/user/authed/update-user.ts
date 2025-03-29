@@ -82,11 +82,6 @@ export const updateUser = async (opts: { userDetails: Partial<UserRecord> }) => 
     updateData.isCustomUsername = true;
   }
 
-  // Ensure userXp is properly set
-  if (updateData.userXp === undefined) {
-    updateData.userXp = 0;
-  }
-
   // Update the user in the database
   const updatedUser = await prisma.users.update({
     where: {

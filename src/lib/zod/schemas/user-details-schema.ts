@@ -12,6 +12,8 @@ export const userDetailsSchema = z
     userProfilePicture: z.string().optional(),
     aboutMeAiHelp: z.string().optional(),
     sendPromotionalEmails: z.boolean().optional(),
+    fasterThanAiGameMode: z.boolean().optional(),
+    userXp: z.number().optional(),
   })
   .transform((data) => {
     // Remove null values from the payload

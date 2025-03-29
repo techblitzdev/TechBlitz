@@ -21,6 +21,7 @@ export default function UserEditForm({ user }: UserEditFormProps) {
     userLevel: user.userLevel,
     experienceLevel: user.experienceLevel,
     timeSpendingPerDay: user.timeSpendingPerDay || 'LESS_THAN_5_MINUTES',
+    userXp: user.userXp || 0,
 
     // Profile info
     bio: user.Profile?.bio || '',
@@ -198,6 +199,21 @@ export default function UserEditForm({ user }: UserEditFormProps) {
                 </option>
               ))}
             </select>
+          </div>
+
+          <div>
+            <label htmlFor="userXp" className="block text-sm font-medium text-white mb-1">
+              User XP
+            </label>
+            <input
+              type="number"
+              id="userXp"
+              name="userXp"
+              value={formData.userXp}
+              onChange={handleChange}
+              className="w-full px-3 py-2 bg-black-100 border border-black-50 rounded-md text-white"
+              min="0"
+            />
           </div>
         </div>
       </div>

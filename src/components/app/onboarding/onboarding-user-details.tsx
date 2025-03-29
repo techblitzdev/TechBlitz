@@ -56,6 +56,8 @@ export default function OnboardingStepOne() {
       experienceLevel: user?.experienceLevel || 'BEGINNER',
       howDidYouHearAboutTechBlitz: user?.howDidYouHearAboutTechBlitz || '',
       sendPromotionalEmails: user?.sendPromotionalEmails || false,
+      fasterThanAiGameMode: user?.fasterThanAiGameMode || false,
+      userXp: user?.userXp || 0,
     },
   });
 
@@ -281,6 +283,49 @@ export default function OnboardingStepOne() {
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>Your progress will be visible to others</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </motion.div>
+            <motion.div initial="hidden" animate="visible" variants={itemVariants}>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <FormField
+                      control={form.control}
+                      name="fasterThanAiGameMode"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-center justify-between">
+                          <div className="space-y-0.5">
+                            <Label htmlFor="fasterThanAiGameMode" className="text-white">
+                              <span>Faster than AI game mode</span>
+                              <span className="ml-2 text-xs bg-green-500 text-white px-1.5 py-0.5 rounded-md font-onest">
+                                New!
+                              </span>
+                            </Label>
+                          </div>
+                          <FormControl>
+                            <Switch
+                              checked={field.value}
+                              onCheckedChange={(checked) => {
+                                field.onChange(checked);
+                                setUser((prev) => {
+                                  console.log('fasterThanAiGameMode changed:', checked);
+                                  return { ...prev, [field.name]: checked };
+                                });
+                              }}
+                              className="bg-black-50"
+                            />
+                          </FormControl>
+                          <FormMessage className="mt-0.5 text-start">
+                            {form.formState?.errors?.fasterThanAiGameMode?.message}
+                          </FormMessage>
+                        </FormItem>
+                      )}
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>You'll be able to see how much faster you are than AI in the questions.</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CheckCircle2, XCircle, Zap, Clock } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import ChatBot from '@/components/ui/icons/chat-bot';
 import { Separator } from '@/components/ui/separator';
 
@@ -21,13 +21,6 @@ export default function FasterThanAIFeedback({
 
   // Calculate time difference
   const timeDiff = Math.abs(aiTime - userTime).toFixed(1);
-
-  // Get appropriate styles and messages based on result
-  const getIcon = () => {
-    if (!wasCorrect) return <XCircle className="size-5 text-red-500" />;
-    if (didBeatAI) return <Zap className="size-5 text-green-500" />;
-    return <Clock className="size-5 text-yellow-500" />;
-  };
 
   const getTitle = () => {
     if (!wasCorrect) return 'Incorrect Answer';

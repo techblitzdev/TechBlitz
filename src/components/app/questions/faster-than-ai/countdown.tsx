@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Timer } from 'lucide-react';
 import ChatBot from '@/components/ui/icons/chat-bot';
 
 interface CountdownProps {

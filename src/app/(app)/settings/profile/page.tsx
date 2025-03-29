@@ -48,6 +48,8 @@ export default function SettingsProfilePage() {
       userProfilePicture: user?.userProfilePicture || '',
       aboutMeAiHelp: user?.aboutMeAiHelp || '',
       sendPromotionalEmails: user?.sendPromotionalEmails || false,
+      fasterThanAiGameMode: user?.fasterThanAiGameMode || false,
+      userXp: user?.userXp || 0,
     },
   });
 
@@ -63,21 +65,20 @@ export default function SettingsProfilePage() {
         userProfilePicture: user.userProfilePicture || '',
         aboutMeAiHelp: user.aboutMeAiHelp || '',
         sendPromotionalEmails: user.sendPromotionalEmails,
+        fasterThanAiGameMode: user.fasterThanAiGameMode,
+        userXp: user.userXp,
       });
     }
   }, [user, isLoading, form]);
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (values: SchemaProps) => {
-      const changedValues = Object.entries(values).reduce(
-        (acc, [key, value]) => {
-          if (value !== user?.[key as keyof typeof user]) {
-            acc[key] = value;
-          }
-          return acc;
-        },
-        {} as Record<string, any>
-      );
+      const changedValues = Object.entries(values).reduce((acc, [key, value]) => {
+        if (value !== user?.[key as keyof typeof user]) {
+          acc[key] = value;
+        }
+        return acc;
+      }, {} as Record<string, any>);
 
       const updatedVals: Partial<UserUpdatePayload> = {
         ...changedValues,
@@ -325,6 +326,37 @@ export default function SettingsProfilePage() {
             )}
           />
 
+          {/** Faster than AI game mode */}
+          <FormField
+            control={form.control}
+            name="fasterThanAiGameMode"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="flex items-center gap-x-2">
+                          <Switch
+                            id="fasterThanAiGameMode"
+                            checked={!!field.value}
+                            onCheckedChange={(checked) => {
+                              field.onChange(checked);
+                            }}
+                            className="bg-black-50"
+                          />
+                          <Label htmlFor="fasterThanAiGameMode" className="text-base">
+                            Faster than AI game mode
+                          </Label>
+                        </div>
+                      </TooltipTrigger>
+                    </Tooltip>
+                  </TooltipProvider>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           {/** Send promotional emails */}
           <FormField
             control={form.control}

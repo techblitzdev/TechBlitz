@@ -5,7 +5,66 @@ import Link from 'next/link';
 export default function ChangelogTimeline() {
   const data = [
     {
-      title: 'Roadmaps redesigned, daily missions & more',
+      title: '29/03/25',
+      content: (
+        <div>
+          <div className="grid grid-cols-2 gap-4">
+            <img
+              src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//Screenshot%202025-03-29%20at%2016.23.08.png"
+              alt="Faster than AI game mode"
+            />
+            <img
+              src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//Screenshot%202025-03-29%20at%2016.23.55.png"
+              alt="Faster than AI game mode completed question"
+            />
+          </div>
+          <h5 className="text-white font-normal mt-8 text-xl">Faster than AI game mode</h5>
+          <p className="text-gray-400 font-normal mt-4">
+            We've added our first game mode to TechBlitz. Faster than AI. This is a fun way to
+            challenge yourself and see how much faster you can solve a question than widely
+            available AI models.
+          </p>
+          <br />
+          <p className="text-gray-400">
+            To enable this game mode, simply go to your{' '}
+            <Link href="/settings/profile" className="text-accent">
+              settings page
+            </Link>{' '}
+            and toggle the Faster than AI game mode.
+          </p>
+          <br />
+          <p className="text-gray-400">
+            We'll be adding more game modes in the future, so stay tuned!
+          </p>
+        </div>
+      ),
+    },
+    {
+      title: '10/03/25',
+      content: (
+        <div>
+          <div className="grid grid-cols-2 gap-4">
+            <img
+              src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//Screenshot%202025-03-29%20at%2016.23.08.png"
+              alt="Faster than AI game mode"
+            />
+          </div>
+          <h5 className="text-white font-normal mt-8 text-xl">New question type</h5>
+          <p className="text-gray-400 font-normal mt-4">
+            Sometimes you don't have time to answer our longer-form questions. So we've added a new
+            question type that allows you to gain new coding knowledge in a fun and engaging way, in
+            a matter of minutes.
+          </p>
+          <br />
+          <p className="text-gray-400">
+            This is a great way to practice your skills under time pressure, and see how much faster
+            you can solve a question.
+          </p>
+        </div>
+      ),
+    },
+    {
+      title: '08/02/25',
       content: (
         <div>
           <div className="grid grid-cols-2 gap-4">
@@ -18,54 +77,55 @@ export default function ChangelogTimeline() {
               alt="Referral program"
             />
           </div>
-          <div className="text-white font-normal mt-12">
-            <p>
-              We were getting a lot of feedback that our roadmaps we quite... boring. So we have
-              redesigned them to be more engaging and easier to use.
-            </p>
-            <br />
-            <p>
-              You can now easily see your next question in your study path, your progress and easily
-              enroll in a new study path.
-            </p>
-            <br />
-            <p>
-              This is just the first step of many to come. We are constantly looking for feedback
-              and will be adding more features and improvements to the platform.
-            </p>
-            <br />
-            <p>
-              We also decided as a part of this update to add daily missions. These are a set of
-              daily challenges that you can complete to earn rewards and improve your skills.
-            </p>
-            <br />
-            <p>We will be adding more missions over time, so stay tuned!</p>
-            <br />
-            <p>
-              You can also now sign up and sign in with Google. This is a much faster and easier way
-              to sign up for TechBlitz.
-            </p>
-            <br />
-            <p>
-              We also added a new referral program. When you refer a friend to TechBlitz, you will
-              earn 10% off all paid plans once they sign up!
-            </p>
-            <br />
-            <p>
-              If you have any feedback, or any suggestions for new features, please let us know at{' '}
-              <Link href="mailto:team@techblitz.dev" className="text-accent">
-                team@techblitz.dev
-              </Link>
-              .
-            </p>
-            <br />
-            <p>Happy coding! 🚀</p>
-          </div>
+          <h5 className="text-white font-normal mt-8 text-xl">
+            Roadmaps redesigned, daily missions & more
+          </h5>
+          <p className="text-gray-400 font-normal mt-4">
+            We were getting a lot of feedback that our roadmaps we quite... boring. So we have
+            redesigned them to be more engaging and easier to use.
+          </p>
+          <br />
+          <p className="text-gray-400">
+            You can now easily see your next question in your study path, your progress and easily
+            enroll in a new study path.
+          </p>
+          <br />
+          <p className="text-gray-400">
+            This is just the first step of many to come. We are constantly looking for feedback and
+            will be adding more features and improvements to the platform.
+          </p>
+          <br />
+          <p className="text-gray-400">
+            We also decided as a part of this update to add daily missions. These are a set of daily
+            challenges that you can complete to earn rewards and improve your skills.
+          </p>
+          <br />
+          <p className="text-gray-400">We will be adding more missions over time, so stay tuned!</p>
+          <br />
+          <p className="text-gray-400">
+            You can also now sign up and sign in with Google. This is a much faster and easier way
+            to sign up for TechBlitz.
+          </p>
+          <br />
+          <p className="text-gray-400">
+            We also added a new referral program. When you refer a friend to TechBlitz, you will
+            earn 10% off all paid plans once they sign up!
+          </p>
+          <br />
+          <p className="text-gray-400">
+            If you have any feedback, or any suggestions for new features, please let us know at{' '}
+            <Link href="mailto:team@techblitz.dev" className="text-accent">
+              team@techblitz.dev
+            </Link>
+            .
+          </p>
+          <br />
+          <p className="text-gray-400">Happy coding! 🚀</p>
         </div>
       ),
     },
     {
-      title: 'Free roadmaps, test cases, personalized challenges emails & more',
+      title: '02/02/25',
       content: (
         <div>
           <div className="grid grid-cols-2 gap-4">
@@ -80,58 +140,59 @@ export default function ChangelogTimeline() {
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
           </div>
-          <div className="text-white font-normal mt-12">
-            <p>
-              We listened to feedback, and added roadmaps, free to all users. Roadmaps give you a
-              structured way to learn and improve your skills, ranging from fundamentals to more
-              advanced topics.
-            </p>
-            <br />
-            <p>
-              We are adding new roadmaps regularly, and are always looking for feedback to improve
-              them. So if you have any suggestions, please let us know at{' '}
-              <Link href="mailto:team@techblitz.dev" className="text-accent">
-                team@techblitz.dev
-              </Link>
-              .
-            </p>
-            <br />
-            <p>
-              We also added test cases to our code editor questions. This gives you an easy way to
-              view what the expected output is, and compare it to your output.
-            </p>
-            <br />
-            <p>
-              We also made the decision to remove the daily challenge being sent out to users who
-              opted in to receive them. (You can opt in to receive them again in your settings,{' '}
-              <Link href="/settings/profile" className="text-accent">
-                here
-              </Link>
-              ) . From now on, all users will receive a suggested question in their inbox every
-              weekday. This allows for a more personalized experience, and allows you to choose when
-              you want to complete your daily challenge.
-            </p>
-            <br />
-            <p>
-              These new features are only a few of the many we have added. We are constantly working
-              to improve the platform and make learning more enjoyable for you!
-            </p>
-            <br />
-            <p>
-              If you have any feedback, or any suggestions for new features, please let us know at{' '}
-              <Link href="mailto:team@techblitz.dev" className="text-accent">
-                team@techblitz.dev
-              </Link>
-              .
-            </p>
-            <br />
-            <p>Happy coding! 🚀</p>
-          </div>
+          <h5 className="text-white font-normal mt-8 text-xl">
+            Free roadmaps, test cases, personalized challenges emails & more
+          </h5>
+          <p className="text-gray-400 font-normal mt-4">
+            We listened to feedback, and added roadmaps, free to all users. Roadmaps give you a
+            structured way to learn and improve your skills, ranging from fundamentals to more
+            advanced topics.
+          </p>
+          <br />
+          <p className="text-gray-400">
+            We are adding new roadmaps regularly, and are always looking for feedback to improve
+            them. So if you have any suggestions, please let us know at{' '}
+            <Link href="mailto:team@techblitz.dev" className="text-accent">
+              team@techblitz.dev
+            </Link>
+            .
+          </p>
+          <br />
+          <p className="text-gray-400">
+            We also added test cases to our code editor questions. This gives you an easy way to
+            view what the expected output is, and compare it to your output.
+          </p>
+          <br />
+          <p className="text-gray-400">
+            We also made the decision to remove the daily challenge being sent out to users who
+            opted in to receive them. (You can opt in to receive them again in your settings,{' '}
+            <Link href="/settings/profile" className="text-accent">
+              here
+            </Link>
+            ) . From now on, all users will receive a suggested question in their inbox every
+            weekday. This allows for a more personalized experience, and allows you to choose when
+            you want to complete your daily challenge.
+          </p>
+          <br />
+          <p className="text-gray-400">
+            These new features are only a few of the many we have added. We are constantly working
+            to improve the platform and make learning more enjoyable for you!
+          </p>
+          <br />
+          <p className="text-gray-400">
+            If you have any feedback, or any suggestions for new features, please let us know at{' '}
+            <Link href="mailto:team@techblitz.dev" className="text-accent">
+              team@techblitz.dev
+            </Link>
+            .
+          </p>
+          <br />
+          <p className="text-gray-400">Happy coding! 🚀</p>
         </div>
       ),
     },
     {
-      title: 'Question answer redesign, quick question access, upgraded filters & more  ',
+      title: '23/01/25',
       content: (
         <div>
           <div className="grid grid-cols-2 gap-4">
@@ -157,35 +218,38 @@ export default function ChangelogTimeline() {
             />
           </div>
           <br />
-          <div className="text-white font-normal mt-12">
-            <p>
+          <div className="text-gray-400 font-normal mt-12">
+            <h5 className="text-white font-normal mt-8 text-xl">
+              Question answer redesign, quick question access, upgraded filters & more
+            </h5>
+            <p className="text-gray-400 font-normal mt-4">
               It's been a busy few days for us. We have redesigned the question single page -
               allowing you to easily view if you have answered a question in the past and making
               answering questions a much more enjoyable experience.
             </p>
             <br />
-            <p>
+            <p className="text-gray-400">
               We heard your feedback and added a quick question access button to your dashboard.
               Allowing you to access your next question in instantly.
             </p>
             <br />
-            <p>
+            <p className="text-gray-400">
               We also decided to redesign our filters to make it easier to find the questions you
               want. Going from multiple dropdowns to a single dropdown with a search bar.
             </p>
             <br />
-            <p>
+            <p className="text-gray-400">
               Like a particular question? We have added a bookmark button to your question page.
               Allowing you to bookmark any question you want to come back to later - easily access
               it from the filters.
             </p>
             <br />
-            <p>
+            <p className="text-gray-400">
               Finally, as TechBlitz is growing, we have added pagination to the leaderboard page.
               Allowing you to view your position in the leaderboard, no matter what place you are!
             </p>
             <br />
-            <p>
+            <p className="text-gray-400">
               <Link href="/signup" className="text-accent">
                 Try out the new features
               </Link>{' '}
@@ -196,13 +260,13 @@ export default function ChangelogTimeline() {
               .
             </p>
             <br />
-            <p>Happy coding! 🚀</p>
+            <p className="text-gray-400">Happy coding! 🚀</p>
           </div>
         </div>
       ),
     },
     {
-      title: 'Code editor questions - complete by code',
+      title: '19/01/25',
       content: (
         <div>
           <div className="grid grid-cols-2 gap-4">
@@ -227,7 +291,10 @@ export default function ChangelogTimeline() {
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
           </div>
-          <p className="text-white font-normal mt-8">
+          <h5 className="text-white font-normal mt-8 text-xl">
+            Code editor questions - complete by code
+          </h5>
+          <p className="text-gray-400 font-normal mt-4">
             Multiple choice questions can be difficult for some people to fully grasp concepts and
             understand the material. We have added complete-by-code questions to our platform. You
             can now write code to solve the problem directly in the browser. Receive helpful hints.
@@ -240,7 +307,7 @@ export default function ChangelogTimeline() {
       ),
     },
     {
-      title: 'Daily Challenge reminders added',
+      title: '16/01/25',
       content: (
         <div>
           <div className="grid grid-cols-2 gap-4">
@@ -255,7 +322,8 @@ export default function ChangelogTimeline() {
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
           </div>
-          <p className="text-white font-normal mt-8">
+          <h5 className="text-white font-normal mt-8 text-xl">Daily Challenge Reminders</h5>
+          <p className="text-gray-400 font-normal mt-4">
             Want to stay on top of your daily challenges? We have added daily challenge reminders to
             our platform. You can opt-in to receive a notification every day to complete your daily
             challenge. Opt-in via your settings page
@@ -264,7 +332,7 @@ export default function ChangelogTimeline() {
       ),
     },
     {
-      title: 'Leaderboard Redesign',
+      title: '11/01/25',
       content: (
         <div>
           <div className="grid grid-cols-2 gap-4">
@@ -279,7 +347,8 @@ export default function ChangelogTimeline() {
               className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]"
             />
           </div>
-          <p className="text-white font-normal mt-8">
+          <h5 className="text-white font-normal mt-8 text-xl">Leaderboard Redesign</h5>
+          <p className="text-gray-400 font-normal mt-4">
             We have revamped our existing leaderboard to make it more engaging and interactive. Now
             you can see your progress in real-time and compete with your friends. <br />
             View the leaderboard{' '}

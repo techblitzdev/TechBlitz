@@ -83,8 +83,8 @@ export default function HomepageHero({ userCountPromise }: { userCountPromise: P
     <section className="relative pb-16 pt-28 md:pb-20 md:pt-32 xl:pb-40 xl:pt-56 grid grid-cols-12 gap-4 lg:gap-16 items-center overflow-hidden">
       {/* Background elements */}
       <div className="flex flex-col gap-y-2 col-span-full items-center text-center relative z-10">
-        <Link href="/pricing">
-          <AnimatedSpan content="Limited: 40% off lifetime access" />
+        <Link href="/changelog">
+          <AnimatedSpan content="NEW: Faster than AI game mode!" />
         </Link>
         <h1 className="mt-3 text-5xl lg:text-[72px] !font-onest !font-medium tracking-tight leading-[1.1] max-w-5xl py-1.5 items-center">
           <span className="tracking-tighter text-gradient from-white to-white/75 text-focus-in animate-fade-in-up">

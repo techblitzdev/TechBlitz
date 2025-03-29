@@ -94,7 +94,7 @@ export default function FasterThanAIAnimation({ aiTime, onComplete }: FasterThan
               className="text-4xl font-extrabold text-accent sm:text-5xl"
               variants={itemVariants}
             >
-              Faster Than AI Mode
+              Faster Than ChatGPT
             </motion.h1>
 
             <motion.div
@@ -105,7 +105,7 @@ export default function FasterThanAIAnimation({ aiTime, onComplete }: FasterThan
               <Zap size={60} className="text-white" />
             </motion.div>
 
-            <motion.p className="text-xl text-white md:text-2xl font-onest" variants={itemVariants}>
+            <motion.p className="text-xl text-white md:text-2xl" variants={itemVariants}>
               Race against the clock! Can you answer faster than ChatGPT?
             </motion.p>
 
@@ -113,7 +113,7 @@ export default function FasterThanAIAnimation({ aiTime, onComplete }: FasterThan
               <motion.div variants={itemVariants}>
                 <div className="flex items-center justify-center gap-2 text-white">
                   <Cpu size={20} />
-                  <span>AI solved this in:</span>
+                  <span>ChatGPT solved this in:</span>
                 </div>
                 <div className="text-2xl font-semibold text-accent mt-1">
                   <span>{aiTime} seconds</span>

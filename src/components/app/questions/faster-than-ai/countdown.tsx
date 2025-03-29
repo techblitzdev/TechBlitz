@@ -57,10 +57,10 @@ export default function Countdown({ aiTime, isVisible, isSubmitted, wasCorrect }
   const getMessage = () => {
     if (isSubmitted) {
       if (beatAI) {
-        return `You beat AI by ${(aiTime - elapsedTime).toFixed(1)} seconds!`;
+        return `You beat ChatGPT by ${(aiTime - elapsedTime).toFixed(1)} seconds!`;
       }
       if (wasCorrect) {
-        return `AI was faster by ${(elapsedTime - aiTime).toFixed(1)} seconds`;
+        return `ChatGPT was faster by ${(elapsedTime - aiTime).toFixed(1)} seconds`;
       }
       return 'Incorrect answer';
     }
@@ -68,9 +68,9 @@ export default function Countdown({ aiTime, isVisible, isSubmitted, wasCorrect }
     // Not submitted yet
     const timeLeft = aiTime - elapsedTime;
     if (timeLeft > 0) {
-      return `${timeLeft.toFixed(1)} seconds to beat AI`;
+      return `${timeLeft.toFixed(1)} seconds to beat ChatGPT`;
     }
-    return 'AI would have finished!';
+    return 'ChatGPT would have finished!';
   };
 
   return (
@@ -83,7 +83,7 @@ export default function Countdown({ aiTime, isVisible, isSubmitted, wasCorrect }
       <div className="flex justify-between items-center mb-2">
         <div className="flex items-center gap-2">
           <Timer className="w-4 h-4 text-accent" />
-          <span className="font-medium">Faster Than AI</span>
+          <span className="font-medium">Faster Than ChatGPT</span>
         </div>
         <div className="flex items-center gap-1 text-xs">
           <Cpu className="w-3 h-3 text-accent" />

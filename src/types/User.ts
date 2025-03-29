@@ -92,6 +92,9 @@ export interface User extends BaseRecord {
 
   // weekly user experience points
   weeklyUserXp?: number;
+
+  // a flag to indicate if the user wants to opt into faster than an ai game mode
+  fasterThanAiGameMode?: boolean;
 }
 
 export type UserRecord = Pick<
@@ -128,6 +131,7 @@ export type UserRecord = Pick<
   | 'userCustomCouponExpiresAt'
   | 'userXp'
   | 'weeklyUserXp'
+  | 'fasterThanAiGameMode'
 >;
 
 // First, create a type that excludes 'uid' from the partial requirement

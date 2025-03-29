@@ -58,10 +58,10 @@ export default function Countdown({ aiTime, isVisible, isSubmitted, wasCorrect }
   const getMessage = () => {
     if (isSubmitted) {
       if (beatAI) {
-        return `You beat ChatGPT by ${(aiTime - elapsedTime).toFixed(1)} seconds!`;
+        return `You beat AI by ${(aiTime - elapsedTime).toFixed(1)} seconds!`;
       }
       if (wasCorrect) {
-        return `ChatGPT was faster by ${(elapsedTime - aiTime).toFixed(1)} seconds`;
+        return `AI was faster by ${(elapsedTime - aiTime).toFixed(1)} seconds`;
       }
       return 'Incorrect answer';
     }
@@ -69,9 +69,9 @@ export default function Countdown({ aiTime, isVisible, isSubmitted, wasCorrect }
     // Not submitted yet
     const timeLeft = aiTime - elapsedTime;
     if (timeLeft > 0) {
-      return `${timeLeft.toFixed(1)} seconds to beat ChatGPT`;
+      return `${timeLeft.toFixed(1)} seconds to beat AI`;
     }
-    return 'ChatGPT would have finished!';
+    return 'AI would have finished!';
   };
 
   return (

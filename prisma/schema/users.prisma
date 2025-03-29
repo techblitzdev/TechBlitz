@@ -59,7 +59,8 @@ model Users {
   hasCreatedCustomSignupCoupon Boolean             @default(false)
   // expires at
   userCustomCouponExpiresAt   DateTime?
-
+  // user opt into faster than an ai game mode
+  fasterThanAiGameMode        Boolean             @default(false)
 
   // relations
   achievements                Achievement[]

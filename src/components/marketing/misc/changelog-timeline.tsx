@@ -45,8 +45,8 @@ export default function ChangelogTimeline() {
         <div>
           <div className="grid grid-cols-2 gap-4">
             <img
-              src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//Screenshot%202025-03-29%20at%2016.23.08.png"
-              alt="Faster than AI game mode"
+              src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//Screenshot%202025-03-29%20at%2016.41.28.png"
+              alt="Simple multiple choice question"
             />
           </div>
           <h5 className="text-white font-normal mt-8 text-xl">New question type</h5>

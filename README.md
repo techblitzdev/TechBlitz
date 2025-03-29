@@ -21,7 +21,7 @@ TechBlitz is designed to empower developers by providing a comprehensive platfor
 - **Leaderboard**: Battle with other users for a chance to win prizes at the end of each month!
 - **Community-Driven**: Open-source and community-powered platform
 - **Statistics**: [Analysis your current skillset, and be guided on how to improve.](https://techblitz.dev/features/statistics)
-  = **Game modes**: Learn through fun, engaging game modes to help you keep coming back for more.
+- **Game modes**: Learn through fun, engaging game modes to help you keep coming back for more.
 
 ## Roadmap
 

@@ -195,7 +195,7 @@ function StudyPathSections({
   // Create a special study path object that only has the slugs for each section
   // This ensures the firstUnansweredQuestion logic in StudyPathsList works section by section
   return (
-    <div className="space-y-24">
+    <div className="flex flex-col gap-y-24">
       {sections.map((section, sectionIndex) => {
         // Determine if this section contains the first unanswered question
         const containsFirstUnanswered =
@@ -250,10 +250,6 @@ function StudyPathSections({
                 <StudyPathsList questions={sectionQuestions} studyPath={sectionStudyPath} />
               </Suspense>
             </div>
-            {/* Add a divider after each section except the last one */}
-            {sectionIndex < sections.length - 1 && (
-              <div className="mt-16 border-b border-gray-800 w-full opacity-30"></div>
-            )}
           </div>
         );
       })}

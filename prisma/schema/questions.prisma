@@ -24,7 +24,8 @@ model Questions {
   previousQuestionSlug String?
   isPremiumQuestion    Boolean             @default(false)
   afterQuestionInfo    String?
-
+  aiTimeToComplete     Int?
+  
   // relations
 
   userAnswers          Answers[]

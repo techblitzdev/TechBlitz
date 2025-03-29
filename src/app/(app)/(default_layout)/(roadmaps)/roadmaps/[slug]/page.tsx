@@ -12,6 +12,21 @@ import { capitalise, getBaseUrl } from '@/utils';
 // types
 import type { QuizJsonLd } from '@/types/Seo';
 import type { StudyPath } from '@prisma/client';
+import { Question } from '@/types/Questions';
+
+// Define a type that extends the Prisma StudyPath to include overviewData
+interface ExtendedStudyPath extends StudyPath {
+  overviewData?: Record<
+    string,
+    {
+      sectionName: string;
+      icon: string | null;
+      color: string;
+      guidebookUrl: string;
+      questionSlugs: string[];
+    }
+  >;
+}
 
 // components
 import StudyPathQuestionCardSkeleton from '@/components/app/study-paths/study-path-question-card-skeleton';
@@ -111,18 +126,162 @@ function createJsonLd(studyPath: StudyPath, slug: string): QuizJsonLd {
   };
 }
 
-export default async function RoadmapPage({ params }: { params: { slug: string } }) {
-  const studyPath = await getStudyPath(params.slug);
+/**
+ * Component for displaying a section header with an icon and title.
+ */
+function SectionHeader({
+  title,
+  icon,
+  color,
+  index,
+}: {
+  title: string;
+  icon?: string | null;
+  color?: string;
+  index: number;
+}) {
+  return (
+    <div className={`flex items-center justify-center gap-x-3 mb-24 ${index !== 0 ? 'pt-24' : ''}`}>
+      <hr className="w-full border-black-50" />
+      <h2 className="text-xl font-bold flex-shrink-0" style={{ color: color || 'inherit' }}>
+        {title}
+      </h2>
+      <hr className="w-full border-black-50" />
+    </div>
+  );
+}
 
-  if (!studyPath) {
+/**
+ * Component for displaying all sections of a study path.
+ */
+function StudyPathSections({
+  studyPath,
+  questions,
+}: {
+  studyPath: ExtendedStudyPath;
+  questions: Question[];
+}) {
+  // If studyPath has overviewData, use it; otherwise, fall back to questionSlugs
+  const overviewData = studyPath.overviewData ?? null;
+
+  // If no overviewData, fall back to the old implementation
+  if (!overviewData) {
+    return (
+      <Suspense fallback={<StudyPathsListSkeleton />}>
+        <StudyPathsList questions={questions} studyPath={studyPath} />
+      </Suspense>
+    );
+  }
+
+  // Group questions by section based on overviewData
+  const sections = Object.entries(overviewData).map(([key, section]) => {
+    const sectionQuestions = section.questionSlugs
+      .map((slug) => questions.find((q) => q.slug === slug))
+      .filter((q): q is Question => q !== undefined);
+
+    return {
+      key,
+      ...section,
+      questions: sectionQuestions,
+    };
+  });
+
+  // Find the first unanswered question across all sections
+  const allQuestions = sections.flatMap((section) => section.questions);
+  const firstUnansweredQuestion = allQuestions.find(
+    (q) => !q.userAnswers?.length || q.userAnswers?.some((answer) => answer.correctAnswer === false)
+  );
+
+  // Create a special study path object that only has the slugs for each section
+  // This ensures the firstUnansweredQuestion logic in StudyPathsList works section by section
+  return (
+    <div className="space-y-24">
+      {sections.map((section, sectionIndex) => {
+        // Determine if this section contains the first unanswered question
+        const containsFirstUnanswered =
+          firstUnansweredQuestion &&
+          section.questions.some((q) => q.uid === firstUnansweredQuestion.uid);
+
+        // Create a special studyPath object for this section
+        const sectionStudyPath = {
+          ...studyPath,
+          // Only include question slugs for this section
+          questionSlugs: section.questions.map((q) => q.slug).filter(Boolean) as string[],
+        };
+
+        // If this is not the section with the first unanswered question,
+        // remove unanswered questions or mark them as answered to prevent "Start" from showing
+        let sectionQuestions = section.questions;
+        if (!containsFirstUnanswered) {
+          // Deep clone the questions to avoid modifying the original
+          sectionQuestions = section.questions.map((q) => ({
+            ...q,
+            // Add a fake userAnswer if there are none, to prevent it from being considered "first unanswered"
+            userAnswers: q.userAnswers?.length
+              ? q.userAnswers
+              : [
+                  {
+                    uid: 'fake',
+                    userUid: 'fake',
+                    questionUid: q.uid,
+                    correctAnswer: true,
+                    // Add other required fields for the Answer type
+                    createdAt: new Date(),
+                    updatedAt: new Date(),
+                    questionDate: new Date().toISOString(),
+                    userAnswerUid: null,
+                    timeTaken: null,
+                    difficulty: 'EASY',
+                  },
+                ],
+          }));
+        }
+
+        return (
+          <div key={section.key} className="space-y-6">
+            <SectionHeader
+              title={section.sectionName}
+              icon={section.icon}
+              color={section.color}
+              index={sectionIndex}
+            />
+            <div className="pl-4">
+              <Suspense fallback={<StudyPathsListSkeleton />}>
+                <StudyPathsList questions={sectionQuestions} studyPath={sectionStudyPath} />
+              </Suspense>
+            </div>
+            {/* Add a divider after each section except the last one */}
+            {sectionIndex < sections.length - 1 && (
+              <div className="mt-16 border-b border-gray-800 w-full opacity-30"></div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+export default async function RoadmapPage({ params }: { params: { slug: string } }) {
+  const studyPathData = await getStudyPath(params.slug);
+
+  if (!studyPathData) {
     return <div>Study path not found</div>;
   }
 
-  const questions = getQuestions({
-    questionSlugs: studyPath?.questionSlugs ?? [],
-  });
+  // Cast to our extended type
+  const studyPath = studyPathData as ExtendedStudyPath;
 
   const jsonLd: QuizJsonLd = createJsonLd(studyPath, params.slug);
+
+  // Get all question slugs from either overviewData or questionSlugs
+  const allQuestionSlugs = studyPath.overviewData
+    ? Object.values(studyPath.overviewData).flatMap((section) => section.questionSlugs)
+    : studyPath.questionSlugs;
+
+  // Fetch questions
+  const questions = getQuestions({
+    questionSlugs: allQuestionSlugs ?? [],
+  });
 
   return (
     <>
@@ -139,7 +298,7 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
         <div className="flex flex-col lg:flex-row gap-12 xl:gap-24">
           <div className="w-full lg:w-[55%] space-y-6 pb-12">
             <Suspense fallback={<StudyPathsListSkeleton />}>
-              <StudyPathsList questions={questions} studyPath={studyPath} />
+              <StudyPathSections questions={await questions} studyPath={studyPath} />
             </Suspense>
           </div>
           <StudyPathSidebar studyPath={studyPath} />

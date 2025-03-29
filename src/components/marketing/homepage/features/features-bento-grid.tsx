@@ -5,7 +5,6 @@ import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 import dynamic from 'next/dynamic';
-import AnimatedSpan from '@/components/ui/animated-span';
 
 import DailyQuestionBox from './daily-question-box';
 const LeaderboardBentoBox = dynamic(() => import('./leaderboard-bento-box'), {
@@ -24,9 +23,8 @@ export default async function FeaturesBentoGrid() {
   return (
     <section className="pt-10 lg:pt-28 pb-10 md:pb-20 flex flex-col gap-y-7 relative">
       <div className="flex flex-col gap-y-1 items-center text-center">
-        <AnimatedSpan content="Land your dream tech job" />
         <h2 className="text-2xl lg:text-5xl !font-onest !leading-[normal] tracking-tight text-gradient from-white to-white/55">
-          Build your tech career with <br /> personalized learning tools
+          Coding made easy with <br /> personalized practice
         </h2>
         <span className="text-sm md:text-base text-gray-400 max-w-4xl">
           Learn to code with tools that adapt to your weaknesses. Get personalized practice, instant
@@ -115,19 +113,19 @@ export default async function FeaturesBentoGrid() {
             <div className="flex justify-between">
               <div className="flex flex-col gap-y-1 h-fit">
                 <h5 className="text-2xl text-gradient from-white to-white/55">
-                  Daily Coding Challenges
+                  Engaging Coding Challenges
                 </h5>
                 <p className="text-xs text-gray-400 font-onest">
-                  Enhance your coding skills with our curated daily challenges. Perfect for all
-                  skill levels, from beginners to advanced developers. Receive structured
-                  programming exercises directly in your inbox.
+                  Coding challenges don't have to be boring. Our challenges are designed to keep you
+                  wanting to learn more. Receive structured programming exercises directly in your
+                  inbox.
                 </p>
               </div>
-              <Button variant="default" className="font-onest">
+              <Button variant="default" className="font-onest hidden md:flex">
                 Start practicing <ChevronRight className="size-4 group-hover:ml-1 duration-300" />
               </Button>
             </div>
-            <div className="relative">
+            <div className="relative top-8">
               <DailyQuestionBox />
             </div>
           </Link>

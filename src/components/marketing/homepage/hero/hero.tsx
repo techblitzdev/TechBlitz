@@ -7,19 +7,11 @@ import { Suspense, use } from 'react';
 import Image from 'next/image';
 import JakeMackieTestimonial from '@/public/images/testimonials/jake-mackie-techblitz-testimonial.jpeg';
 import Link from 'next/link';
+import AnimatedSpan from '@/components/ui/animated-span';
 
 const HeroImageFollow = dynamic(() => import('./hero-image-follow'), {
   ssr: false,
   loading: () => null,
-});
-
-const HeroText = dynamic(() => import('./text-rotate'), {
-  ssr: false,
-  loading: () => (
-    <span className="text-gradient from-white to-white/75 text-focus-in flex justify-center whitespace-pre tracking-tighter text-center pr-3 pb-2 md:pb-4">
-      made easy
-    </span>
-  ),
 });
 
 const GoogleSignUp = dynamic(() => import('./google-sign-up'), {
@@ -90,25 +82,26 @@ export default function HomepageHero({ userCountPromise }: { userCountPromise: P
   return (
     <section className="relative pb-16 pt-28 md:pb-20 md:pt-32 xl:pb-40 xl:pt-56 grid grid-cols-12 gap-4 lg:gap-16 items-center overflow-hidden">
       {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background to-background/0 z-0"></div>
-      <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl opacity-20"></div>
-      <div className="absolute bottom-20 right-10 w-80 h-80 bg-primary/20 rounded-full blur-3xl opacity-20"></div>
-
       <div className="flex flex-col gap-y-2 col-span-full items-center text-center relative z-10">
+        <Link href="/pricing">
+          <AnimatedSpan content="Limited: 40% off lifetime access" />
+        </Link>
         <h1 className="mt-3 text-5xl lg:text-[72px] !font-onest !font-medium tracking-tight leading-[1.1] max-w-5xl py-1.5 items-center">
           <span className="tracking-tighter text-gradient from-white to-white/75 text-focus-in animate-fade-in-up">
-            Learning to code
+            The free, fun way to <br /> master coding
           </span>
+          {/**
+           * 
           <br />
           <div className="h-28 lg:h-16 animate-fade-in-up [animation-delay:300ms]">
             <HeroText />
           </div>
+            */}
         </h1>
 
-        <p className="font-onest max-w-3xl text-gray-300 text-xl tracking-tight mt-6 md:mt-2 text-focus-in animate-fade-in-up [animation-delay:600ms] leading-relaxed">
-          Learn to code with free, fun coding challenges and study paths.
-          <br className="hidden md:block" />
-          Take the first step today and begin your journey to your dream career in tech.
+        <p className="font-onest max-w-3xl text-gray-400 text-xl tracking-tight mt-6 md:mt-2 text-focus-in animate-fade-in-up [animation-delay:600ms] leading-relaxed">
+          TechBlitz helps you go from beginner to coding expert with hands-on challenges,
+          personalized practice, and instant AI feedback.
         </p>
 
         <div className="animate-fade-in-up [animation-delay:900ms] w-full max-w-xl">
@@ -118,7 +111,7 @@ export default function HomepageHero({ userCountPromise }: { userCountPromise: P
         </div>
 
         {/* User avatars */}
-        <div className="flex justify-center mt-16 animate-fade-in-up [animation-delay:1000ms]">
+        <div className="flex justify-center mt-12 animate-fade-in-up [animation-delay:1000ms]">
           <div className="flex -space-x-4">
             {userImages.map((src, index) => (
               <div
@@ -140,8 +133,7 @@ export default function HomepageHero({ userCountPromise }: { userCountPromise: P
         </div>
 
         <div className="mb-8 text-sm font-medium text-gray-400 animate-fade-in-up [animation-delay:1050ms]">
-          Join {userCount}+ developers unlocking their potential and revolutionizing their tech
-          careers
+          Loved by {userCount}+ developers learning new skills every day
         </div>
 
         <div className="py-8 animate-fade-in-up [animation-delay:1200ms] max-w-6xl relative group">

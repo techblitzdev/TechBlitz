@@ -7,7 +7,7 @@ import { CheckCircle, XCircle } from 'lucide-react';
 
 interface MultipleChoiceCardProps {
   index: number;
-  handleSelectAnswer: (option: string, index: number) => void;
+  handleSelectAnswer: ((option: string, index: number) => void) | undefined;
   answer: string;
   selectedAnswer?: string;
   className?: string;
@@ -127,7 +127,7 @@ export default function MultipleChoiceCard({
   return (
     <CardComponent key={index} {...animationProps} className={cn('w-full', className)}>
       <Button
-        onClick={() => handleSelectAnswer(answer, index)}
+        onClick={() => handleSelectAnswer?.(answer, index)}
         className={getCardStyles()}
         variant="default"
         disabled={isSubmitted}

@@ -30,7 +30,7 @@ tags: ['JavaScript', 'Web Development', 'Programming', 'Beginners']
 subpage: true
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 # Introduction to Primitive Types
@@ -55,7 +55,7 @@ Let's explore each type in detail to understand their characteristics and use ca
 
 The `Number` type in JavaScript represents both integers and floating-point numbers using a 64-bit format (IEEE 754). This means it can precisely represent integers up to ±(2^53 - 1).
 
-<CodeSnippet language="javascript" content={`// Integer numbers
+<CodeSnippet code={`// Integer numbers
 let age = 25;
 let temperature = -10;
 
@@ -66,7 +66,7 @@ let price = 99.99;
 // Special number values
 let infinity = Infinity;
 let negativeInfinity = -Infinity;
-let notANumber = NaN;`} />
+let notANumber = NaN;`} language="javascript" filename="javascript-1.js" />
 
 <br />
 
@@ -74,7 +74,7 @@ let notANumber = NaN;`} />
 
 Strings are sequences of characters used to represent text. They can be created using single quotes, double quotes, or backticks (template literals, learn more about [template literals in JavaScript](/javascript-fundamentals/javascript-format-strings-with-variables)).
 
-<CodeSnippet language="javascript" content={`// Different ways to create strings
+<CodeSnippet code={`// Different ways to create strings
 let singleQuotes = 'Hello world';
 let doubleQuotes = "JavaScript is awesome";
 let templateLiteral = \`The sum is \${2 + 2}\`;
@@ -83,7 +83,7 @@ let templateLiteral = \`The sum is \${2 + 2}\`;
 let text = "Hello";
 console.log(text.length);        // 5
 console.log(text.toUpperCase()); // "HELLO"
-console.log(text[0]);           // "H"`} />
+console.log(text[0]);           // "H"`} language="javascript" filename="javascript-2.js" />
 
 <br />
 
@@ -91,7 +91,7 @@ console.log(text[0]);           // "H"`} />
 
 Booleans represent logical values: `true` or `false`. They're essential for conditional statements and logical operations.
 
-<CodeSnippet language="javascript" content={`// Boolean values
+<CodeSnippet code={`// Boolean values
 let isActive = true;
 let isLoggedIn = false;
 
@@ -100,7 +100,7 @@ let hasPermission = true;
 let isAdmin = false;
 console.log(hasPermission && isAdmin); // false
 console.log(hasPermission || isAdmin); // true
-console.log(!isAdmin);                 // true`} />
+console.log(!isAdmin);                 // true`} language="javascript" filename="javascript-3.js" />
 
 <br />
 
@@ -108,7 +108,7 @@ console.log(!isAdmin);                 // true`} />
 
 While both represent "empty" values, they serve different purposes:
 
-<CodeSnippet language="javascript" content={`// Undefined - variable declared but not assigned
+<CodeSnippet code={`// Undefined - variable declared but not assigned
 let userName;
 console.log(userName);        // undefined
 
@@ -121,7 +121,7 @@ let settings = {
 
 // Type checking
 console.log(typeof null);      // "object" (a known JavaScript quirk)
-console.log(typeof undefined); // "undefined"`} />
+console.log(typeof undefined); // "undefined"`} language="javascript" filename="javascript-4.js" />
 
 <br />
 
@@ -129,7 +129,7 @@ console.log(typeof undefined); // "undefined"`} />
 
 Symbols are unique and immutable primitive values that can be used as keys for object properties. They're often used to add unique property keys to objects that won't collide with other keys.
 
-<CodeSnippet language="javascript" content={`// Creating symbols
+<CodeSnippet code={`// Creating symbols
 const id = Symbol('id');
 const key = Symbol.for('key');
 
@@ -141,7 +141,7 @@ const user = {
 
 // Symbols are always unique
 console.log(Symbol('id') === Symbol('id')); // false
-console.log(Symbol.for('key') === Symbol.for('key')); // true`} />
+console.log(Symbol.for('key') === Symbol.for('key')); // true`} language="javascript" filename="javascript-5.js" />
 
 <br />
 
@@ -149,7 +149,7 @@ console.log(Symbol.for('key') === Symbol.for('key')); // true`} />
 
 BigInt allows you to work with numbers larger than 2^53 - 1. They're created by appending 'n' to an integer or using the BigInt() constructor.
 
-<CodeSnippet language="javascript" content={`// Creating BigInts
+<CodeSnippet code={`// Creating BigInts
 const bigNumber = 9007199254740991n;
 const anotherBigNumber = BigInt("9007199254740991");
 
@@ -158,7 +158,7 @@ console.log(bigNumber + 1n);  // 9007199254740992n
 console.log(bigNumber * 2n);  // 18014398509481982n
 
 // Note: Can't mix BigInt with regular numbers
-// console.log(bigNumber + 1);  // TypeError`} />
+// console.log(bigNumber + 1);  // TypeError`} language="javascript" filename="javascript-6.js" />
 
 <br />
 
@@ -166,7 +166,7 @@ console.log(bigNumber * 2n);  // 18014398509481982n
 
 Understanding type checking and coercion is crucial when working with primitives:
 
-<CodeSnippet language="javascript" content={`// Type checking
+<CodeSnippet code={`// Type checking
 console.log(typeof "hello");     // "string"
 console.log(typeof 42);          // "number"
 console.log(typeof true);        // "boolean"
@@ -177,7 +177,7 @@ console.log(typeof 42n);         // "bigint"
 console.log("42" + 1);           // "421" (string concatenation)
 console.log("42" - 1);           // 41 (numeric operation)
 console.log(Boolean(""));        // false
-console.log(Boolean("hello"));   // true`} />
+console.log(Boolean("hello"));   // true`} language="javascript" filename="javascript-7.js" />
 
 <br />
 
@@ -190,7 +190,7 @@ When working with primitive types, keep these best practices in mind:
 - Handle potential `null` or `undefined` values with optional chaining (`?.`) and nullish coalescing (`??`)
 - Use `Number.isInteger()` and `Number.isFinite()` for reliable number checking
 
-<CodeSnippet language="javascript" content={`// Best practices examples
+<CodeSnippet code={`// Best practices examples
 // Type conversion
 const userInput = "42";
 const number = Number(userInput);    // explicit conversion
@@ -201,7 +201,7 @@ const userName = user?.name ?? "Anonymous";
 
 // Number validation
 console.log(Number.isInteger(42.0));  // true
-console.log(Number.isInteger(42.5));  // false`} />
+console.log(Number.isInteger(42.5));  // false`} language="javascript" filename="javascript-8.js" />
 
 <br />
 

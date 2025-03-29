@@ -36,7 +36,7 @@ tags: ['JavaScript', 'Strings', 'Learn']
 keywords: 'JavaScript split, string methods, string manipulation, array creation, JavaScript strings, web development, coding tutorial'
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 # What is split() in JavaScript?
@@ -49,13 +49,13 @@ The split() method is a powerful string manipulation tool in JavaScript that tra
 ### Understanding split():
 </div>
 
-<CodeSnippet language="javascript" content={`// Basic string splitting
+<CodeSnippet code={`// Basic string splitting
 const sentence = "Hello World";
 console.log(sentence.split(" "));     // ["Hello", "World"]
 
 // Empty delimiter splits into characters
 const word = "JavaScript";
-console.log(word.split(""));         // ["J", "a", "v", "a", "S", "c", "r", "i", "p", "t"]`} />
+console.log(word.split(""));         // ["J", "a", "v", "a", "S", "c", "r", "i", "p", "t"]`} language="javascript" filename="javascript-1.js" />
 
 <br />
 
@@ -75,7 +75,7 @@ The split() method takes a delimiter as its argument and returns an array of sub
 ### Basic String Splitting:
 </div>
 
-<CodeSnippet language="javascript" content={`// Different ways to use split()
+<CodeSnippet code={`// Different ways to use split()
 const csvData = "John,Doe,30,New York";
 const dataArray = csvData.split(",");  // ["John", "Doe", "30", "New York"]
 
@@ -84,7 +84,7 @@ const limitedSplit = csvData.split(",", 2);  // ["John", "Doe"]
 
 // Split by multiple characters
 const text = "apple;banana:orange,grape";
-const fruits = text.split(/[;:,]/);  // ["apple", "banana", "orange", "grape"]`} />
+const fruits = text.split(/[;:,]/);  // ["apple", "banana", "orange", "grape"]`} language="javascript" filename="javascript-2.js" />
 
 <div className="my-4">
 Let's break down how split() works:
@@ -102,7 +102,7 @@ Let's break down how split() works:
 For example:
 </div>
 
-<CodeSnippet language="javascript" content={`// Common split() patterns
+<CodeSnippet code={`// Common split() patterns
 const date = "2024-02-06";
 const [year, month, day] = date.split("-");  // Destructuring with split
 
@@ -110,7 +110,7 @@ const fullName = "John Smith";
 const [firstName, lastName] = fullName.split(" ");  // Name parsing
 
 const tags = "javascript,coding,web,development";
-const tagArray = tags.split(",");  // Creating tag arrays`} />
+const tagArray = tags.split(",");  // Creating tag arrays`} language="javascript" filename="javascript-3.js" />
 
 <div className="my-4">
 ### When to Use split():
@@ -136,7 +136,7 @@ Let's look at common scenarios where split() helps process text data. This metho
 
 <br />
 
-<CodeSnippet language="javascript" content={`// Basic split() usage
+<CodeSnippet code={`// Basic split() usage
 const emailAddress = "user@example.com";
 const [username, domain] = emailAddress.split("@");
 
@@ -146,7 +146,7 @@ const [firstName, lastName, age, occupation] = csvLine.split(",");
 
 // Splitting sentences
 const paragraph = "This is a sentence. This is another one.";
-const sentences = paragraph.split(". ");`} />
+const sentences = paragraph.split(". ");`} language="javascript" filename="javascript-4.js" />
 
 <br />
 
@@ -158,7 +158,7 @@ Regular expressions with split() provide powerful pattern matching capabilities 
 
 <br />
 
-<CodeSnippet language="javascript" content={`// Advanced splitting with regex
+<CodeSnippet code={`// Advanced splitting with regex
 const text = "apple;banana:orange,grape";
 const fruits = text.split(/[;:,]/);  // Split on multiple delimiters
 
@@ -168,7 +168,7 @@ const words = sentence.split(/\\s+/);  // ["This", "has", "irregular", "spacing"
 
 // Capturing delimiters
 const data = "value1::value2--value3";
-const values = data.split(/(::|--)/);  // Includes delimiters in result`} />
+const values = data.split(/(::|--)/);  // Includes delimiters in result`} language="javascript" filename="javascript-5.js" />
 
 <br />
 
@@ -179,7 +179,7 @@ Regular expressions enhance split()'s capabilities by allowing complex pattern m
 Real-world applications often involve processing structured text data. Here are some practical examples of how split() can handle common scenarios.
 
 <br />
-<CodeSnippet language="javascript" content={`// URL parsing
+<CodeSnippet code={`// URL parsing
 const url = "https://example.com/path?param=value";
 const [protocol, rest] = url.split("://");
 const [domain, path] = rest.split("/", 2);
@@ -200,7 +200,7 @@ function parseQueryString(queryString) {
             ...params,
             [key]: value
         }), {});
-}`} />
+}`} language="javascript" filename="javascript-6.js" />
 
 <br />
 
@@ -211,7 +211,7 @@ These examples show how split() can be combined with other array methods to crea
 Robust error handling is essential when working with split(). Here's how to handle common edge cases and potential issues.
 
 <br />
-<CodeSnippet language="javascript" content={`// Safe string splitting
+<CodeSnippet code={`// Safe string splitting
 function safeSplit(str, delimiter) {
     if (typeof str !== 'string') {
         return [];
@@ -225,7 +225,7 @@ console.log(emptyString.split(","));  // [""]
 
 // Dealing with missing delimiters
 const text = "no delimiter here";
-console.log(text.split("|"));  // ["no delimiter here"]`} />
+console.log(text.split("|"));  // ["no delimiter here"]`} language="javascript" filename="javascript-7.js" />
 
 <br />
 
@@ -236,7 +236,7 @@ Error handling ensures your code remains robust when dealing with unexpected inp
 Understanding performance implications helps make informed decisions about using split(). Here's a look at performance considerations and alternatives.
 
 <br />
-<CodeSnippet language="javascript" content={`// Performance comparison
+<CodeSnippet code={`// Performance comparison
 const longString = "a,b,c,d,e,f,g".repeat(1000);
 
 console.time('split');
@@ -249,7 +249,7 @@ const charCount = {};
 for (let char of longString) {
     charCount[char] = (charCount[char] || 0) + 1;
 }
-console.timeEnd('manual');`} />
+console.timeEnd('manual');`} language="javascript" filename="javascript-8.js" />
 
 <br />
 

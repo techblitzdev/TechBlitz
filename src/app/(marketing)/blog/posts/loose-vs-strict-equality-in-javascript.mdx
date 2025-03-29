@@ -32,7 +32,7 @@ tags: ['JavaScript', 'Web Development', 'Programming', 'Beginners']
 subpage: true
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 # Understanding JavaScript Equality Operators: == vs ===
@@ -49,11 +49,11 @@ The loose equality operator performs type coercion before comparing values. This
 
 ### How Loose Equality Works
 
-<CodeSnippet language="javascript" content={`// Type coercion examples
+<CodeSnippet code={`// Type coercion examples
 console.log(1 == '1');     // true - string '1' is converted to number 1
 console.log(true == 1);    // true - true is converted to number 1
 console.log(false == 0);   // true - false is converted to number 0
-console.log(null == undefined); // true - special case in JavaScript`} />
+console.log(null == undefined); // true - special case in JavaScript`} language="javascript" filename="javascript-1.js" />
 
 <br />
 
@@ -73,10 +73,10 @@ The strict equality operator compares both value and type, without performing ty
 
 ### How Strict Equality Works
 
-<CodeSnippet language="javascript" content={`// No type coercion
+<CodeSnippet code={`// No type coercion
 console.log(1 === '1');     // false - different types
 console.log(true === 1);    // false - different types
-console.log(null === undefined); // false - different types`} />
+console.log(null === undefined); // false - different types`} language="javascript" filename="javascript-2.js" />
 
 <br />
 
@@ -97,13 +97,13 @@ console.log(null === undefined); // false - different types`} />
 
 ## Common Pitfalls with Loose Equality
 
-<CodeSnippet language="javascript" content={`// Unexpected results with loose equality
+<CodeSnippet code={`// Unexpected results with loose equality
 console.log([] == false);    // true
 console.log('' == 0);        // true
 console.log([1,2] == '1,2'); // true
 console.log(null == 0);      // false
 console.log('' == '0');      // false
-console.log(0 == '');        // true`} />
+console.log(0 == '');        // true`} language="javascript" filename="javascript-3.js" />
 
 <br />
 
@@ -118,7 +118,7 @@ These examples show why loose equality can be dangerous - it's not always intuit
 3. Be explicit about type conversions when needed
 4. Consider using type checking functions for more complex comparisons
 
-<CodeSnippet language="javascript" content={`// Good practices
+<CodeSnippet code={`// Good practices
 // Explicit type conversion when needed
 const userInput = '42';
 const number = Number(userInput);
@@ -126,7 +126,7 @@ console.log(number === 42); // true
 
 // Type checking for more complex cases
 console.log(typeof userInput === 'string'); // true
-console.log(Array.isArray([])); // true`} />
+console.log(Array.isArray([])); // true`} language="javascript" filename="javascript-4.js" />
 
 <br />
 

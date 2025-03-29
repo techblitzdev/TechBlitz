@@ -32,7 +32,7 @@ tags: ['JavaScript', 'Arrays', 'Array Methods', 'Learn']
 keywords: 'JavaScript some, array methods, JavaScript array, some function, JavaScript tutorial, web development, coding tutorial, checking conditions in arrays'
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 ## What is the Some Method in JavaScript?
@@ -56,9 +56,9 @@ The `some()` method is great for beginners and is commonly used when you need to
 ### A Simple Example of Array.some()
 </div>
 
-<CodeSnippet language="javascript" content={`const numbers = [1, 2, 3, 4, 5];
+<CodeSnippet code={`const numbers = [1, 2, 3, 4, 5];
 const hasEvenNumber = numbers.some(num => num % 2 === 0);
-console.log(hasEvenNumber); // true`} />
+console.log(hasEvenNumber); // true`} language="javascript" filename="javascript-1.js" />
 
 <br />
 
@@ -70,7 +70,7 @@ In the above, we are checking if the array `numbers` contains at least one even 
 ### Syntax:
 </div>
 
-<CodeSnippet language="javascript" content={`Array.some(callback(element[, index[, array]])[, thisArg])`} />
+<CodeSnippet code={`Array.some(callback(element[, index[, array]])[, thisArg])`} language="javascript" filename="javascript-2.js" />
 
 <div className="my-4">
 The syntax for the `some` method is straightforward. Here's a breakdown:
@@ -108,10 +108,10 @@ Let's explore some real-world examples that you'll likely encounter in your deve
 
 ### Example 1 - Checking for Even Numbers
 
-<CodeSnippet language="javascript" content={`// Checking for even numbers
+<CodeSnippet code={`// Checking for even numbers
 const numbers = [1, 2, 3, 4, 5];
 const hasEvenNumber = numbers.some(num => num % 2 === 0);
-console.log(hasEvenNumber); // true`} />
+console.log(hasEvenNumber); // true`} language="javascript" filename="javascript-3.js" />
 
 <br />
 
@@ -134,10 +134,10 @@ This is a common real-world example of using `some` to check for a condition in 
 
 ### Example 2 - Checking for a Specific String
 
-<CodeSnippet language="javascript" content={`// Checking for a specific string
+<CodeSnippet code={`// Checking for a specific string
 const fruits = ['banana', 'apple', 'cherry', 'date'];
 const hasApple = fruits.some(fruit => fruit === 'apple');
-console.log(hasApple); // true`} />
+console.log(hasApple); // true`} language="javascript" filename="javascript-4.js" />
 
 <br />
 
@@ -157,7 +157,7 @@ This is a common real-world example of using `some` to check for the presence of
 
 ### Example 3 - Checking Objects for a Property
 
-<CodeSnippet language="javascript" content={`// Checking objects for a property
+<CodeSnippet code={`// Checking objects for a property
 const people = [
   { name: 'Alice', age: 25 },
   { name: 'Bob', age: 30 },
@@ -165,7 +165,7 @@ const people = [
 ];
 
 const hasPersonUnder25 = people.some(person => person.age < 25);
-console.log(hasPersonUnder25); // true`} />
+console.log(hasPersonUnder25); // true`} language="javascript" filename="javascript-5.js" />
 
 <br />
 

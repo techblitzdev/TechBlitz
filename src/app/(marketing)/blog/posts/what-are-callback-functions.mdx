@@ -1,6 +1,6 @@
 ---
-title: 'What are Callback Functions in JavaScript - A Complete Guide'
-description: "Master JavaScript callback functions with clear explanations, practical examples, and real-world use cases. Learn how to write asynchronous code and handle events effectively."
+title: 'JavaScript Callback Functions - What are callback functions and when to use them'
+description: "Callback function are functions that are passed as arguments to other functions and are executed after the main function has finished its execution. Learn how to use them in JavaScript with practical examples and real-world use cases."
 image: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images/what-is-a-callback-function.png'
 date: '2025-01-13'
 author: 'Logan Ford'
@@ -36,10 +36,9 @@ tags: ['JavaScript', 'Learn', 'Callbacks']
 keywords: 'JavaScript callback functions, asynchronous programming, event handling, higher-order functions, JavaScript tutorial, web development, coding tutorial, functional programming'
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
-# What are Callback Functions?
+## What are Callback Functions?
 
 A callback function is a function that is passed as an argument to another function and is executed after the main function has finished its execution. They are fundamental to JavaScript's asynchronous programming model and are extensively used in event handling, array methods, and working with APIs.
 
@@ -49,20 +48,22 @@ A callback function is a function that is passed as an argument to another funct
 ### Understanding the Basics:
 </div>
 
-<CodeSnippet language="javascript" content={`// Basic callback example
+<CodeSnippet code={`
 function greet(name, callback) {
-  console.log('Hello ' + name);
-  callback();
+    console.log('Hello ' + name);
+    callback();
 }
 
 function callbackFunction() {
-  console.log('Callback function executed!');
+    console.log('Callback function executed!');
 }
 
 greet('John', callbackFunction);
 // Output:
 // Hello John
-// Callback function executed!`} />
+// Callback function executed!
+`}
+/>
 
 <br />
 
@@ -71,28 +72,34 @@ In this example, we pass callbackFunction as an argument to the greet function. 
 
 <br />
 
-💡 Pro tip: Callbacks are the foundation of asynchronous programming in JavaScript, making it possible to handle time-consuming operations without blocking the main thread.
+<Callout type="top-tip">
+Callbacks are the foundation of asynchronous programming in JavaScript, making it possible to handle time-consuming operations without blocking the main thread.
+</Callout>
+
 </div>
 
 <div className="my-4">
 ### Syntax and Usage:
 </div>
 
-<CodeSnippet language="javascript" content={`// Function that takes a callback
+<CodeSnippet code={`
+// Function that takes a callback
 function doSomething(callback) {
-  // Main function logic
-  callback();
+    // Main function logic
+    callback();
 }
 
 // Anonymous callback function
 doSomething(function() {
-  console.log('Callback executed');
+    console.log('Callback executed');
 });
 
 // Arrow function as callback
 doSomething(() => {
-  console.log('Callback executed');
-});`} />
+    console.log('Callback executed');
+});
+`}
+/>
 
 <div className="my-4">
 Key points about callbacks:
@@ -111,29 +118,32 @@ Let's explore some real-world examples where callbacks are commonly used.
 
 ### Example 1 - Event Handling in the Browser
 
-<CodeSnippet language="javascript" content={`// Event listener with callback function
+<CodeSnippet code={`
+// Event listener with callback function
 const button = document.getElementById('button');
 
 button.addEventListener('click', function(event) {
-  // event is the Event object containing details about what happened
-  console.log('Button clicked!');
-  console.log('Click coordinates:', event.clientX, event.clientY);
-  console.log('Target element:', event.target);
-  
-  // We can prevent the default behavior
-  event.preventDefault();
-  
-  // Or stop event propagation
-  event.stopPropagation();
+    // event is the Event object containing details about what happened
+    console.log('Button clicked!');
+    console.log('Click coordinates:', event.clientX, event.clientY);
+    console.log('Target element:', event.target);
+    
+    // We can prevent the default behavior
+    event.preventDefault();
+    
+    // Or stop event propagation
+    event.stopPropagation();
 });
 
 // Same example with arrow function syntax
 button.addEventListener('click', (event) => {
-  // Arrow functions provide a more concise syntax
-  // but 'this' behaves differently inside them
-  console.log('Button clicked!');
-  console.log('Event type:', event.type);
-});`} />
+    // Arrow functions provide a more concise syntax
+    // but 'this' behaves differently inside them
+    console.log('Button clicked!');
+    console.log('Event type:', event.type);
+});
+`}
+/>
 
 <br />
 
@@ -160,34 +170,41 @@ Event handling is one of the most common and important use cases for callbacks i
 
 ### Example 2 - Array Methods with Callbacks
 
-<CodeSnippet language="javascript" content={`const numbers = [1, 2, 3, 4, 5];
+<CodeSnippet code={`
+const numbers = [1, 2, 3, 4, 5];
 
 // forEach example - executing code for each element
 console.log('forEach example:');
+
 numbers.forEach(function(number, index, array) {
-  // number: current element
-  // index: current index
-  // array: the original array
-  console.log(\`Element \${number} at index \${index}\`);
+    // number: current element
+    // index: current index
+    // array: the original array
+    console.log(\`Element \${number} at index \${index}\`);
 });
 
 // map example - transforming each element
 console.log('\\nmap example:');
 const doubled = numbers.map((number, index) => {
-  console.log(\`Processing \${number} at index \${index}\`);
-  return number * 2;
+    console.log(\`Processing \${number} at index \${index}\`);
+    return number * 2;
 });
+
 console.log('Doubled array:', doubled); // [2, 4, 6, 8, 10]
 
 // filter example with complex condition
 console.log('\\nfilter example:');
+
 const evenNumbersGreaterThanTwo = numbers.filter((number) => {
-  const isEven = number % 2 === 0;
-  const isGreaterThanTwo = number > 2;
-  console.log(\`\${number} is even: \${isEven}, > 2: \${isGreaterThanTwo}\`);
-  return isEven && isGreaterThanTwo;
+    const isEven = number % 2 === 0;
+    const isGreaterThanTwo = number > 2;
+    console.log(\`\${number} is even: \${isEven}, > 2: \${isGreaterThanTwo}\`);
+    return isEven && isGreaterThanTwo;
 });
-console.log('Filtered numbers:', evenNumbersGreaterThanTwo); // [4]`} />
+
+console.log('Filtered numbers:', evenNumbersGreaterThanTwo); // [4]
+`}
+/>
 
 <br />
 
@@ -219,7 +236,8 @@ Array methods with callbacks are powerful tools for data transformation. Let's e
 
 ### Example 3 - Asynchronous Operations with Callbacks
 
-<CodeSnippet language="javascript" content={`// Fetching data with error handling and loading states
+<CodeSnippet code={`
+// Fetching data with error handling and loading states
 function fetchData(url, successCallback, errorCallback, loadingCallback) {
   // Signal that loading has started
   loadingCallback(true);
@@ -272,7 +290,9 @@ function readFileWithCallback(filename, callback) {
     }
     callback(null, data);
   });
-}`} />
+}
+`}
+/>
 
 <br />
 
@@ -300,7 +320,8 @@ Asynchronous operations are where callbacks truly shine. Let's analyze the patte
 
 ### Example 4 - Custom Higher-Order Functions with Callbacks
 
-<CodeSnippet language="javascript" content={`// Creating a custom retry mechanism
+<CodeSnippet code={`
+// Creating a custom retry mechanism
 function retryOperation(operation, maxAttempts, delay, callback) {
   let attempts = 0;
   
@@ -342,8 +363,9 @@ retryOperation(
       console.log('Final result:', result);
     }
   }
-);`} />
-
+);
+`}
+/>
 <br />
 
 <div className="my-4">

@@ -26,7 +26,7 @@ tags: ['JavaScript', 'String Formatting', 'Template Literals', 'Web Development'
 subpage: true
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 ## How to format strings with variables in JavaScript?
@@ -42,7 +42,7 @@ Backticks are different from single quotes and double quotes. They allow you to 
 
 Take the following example on how to create strings with variables in JavaScript:
 
-<CodeSnippet language="javascript" content={`// Basic template literal
+<CodeSnippet code={`// Basic template literal
 const name = 'John';
 const greeting = \`Hello, \${name}!\`;
 console.log(greeting); // Output: Hello, John!
@@ -56,7 +56,7 @@ console.log(message); // Output: Your coffee costs $4.99
 // Expressions inside template literals
 const quantity = 3;
 const total = \`Total: $\${quantity * price}\`;
-console.log(total); // Output: Total: $14.97`} />
+console.log(total); // Output: Total: $14.97`} language="javascript" filename="javascript-1.js" />
 
 <br />
 
@@ -68,7 +68,7 @@ Also take note that you must use the dollar sign (\$) with curly braces (\{}) to
 Template literals make it easy to create multiline strings:
 
 <br />
-<CodeSnippet language="javascript" content={`const email = \`
+<CodeSnippet code={`const email = \`
 Dear \${name},
 
 Thank you for your order of \${quantity} \${item}(s).
@@ -87,7 +87,7 @@ console.log(email);
 // Your total is $14.97.
 // 
 // Best regards,
-// The Store Team`} />
+// The Store Team`} language="javascript" filename="javascript-2.js" />
 
 <br />
 
@@ -95,7 +95,7 @@ console.log(email);
 
 While template literals are preferred, it's important to know other string formatting methods:
 
-<CodeSnippet language="javascript" content={`// Using the + operator
+<CodeSnippet code={`// Using the + operator
 const name = 'Jane';
 const age = 25;
 const message1 = 'My name is ' + name + ' and I am ' + age + ' years old.';
@@ -107,13 +107,13 @@ const message2 = ''.concat('My name is ', name, ' and I am ', age, ' years old.'
 const message3 = ['My name is', name, 'and I am', age, 'years old'].join(' ');
 
 // Modern approach with template literals
-const message4 = \`My name is \${name} and I am \${age} years old.\`;`} />
+const message4 = \`My name is \${name} and I am \${age} years old.\`;`} language="javascript" filename="javascript-3.js" />
 
 ### Number Formatting
 
 JavaScript provides several powerful methods for formatting numbers, especially when working with currency values. Let's explore the key approaches:
 
-<CodeSnippet language="javascript" content={`const price = 1234.5678;
+<CodeSnippet code={`const price = 1234.5678;
 
 // Basic decimal formatting with toFixed()
 // toFixed() rounds to specified decimal places
@@ -140,13 +140,13 @@ const percentage = percentFormatter.format(0.3467); // 34.7%
 // Formatting large numbers
 const bigNumber = 1234567.89;
 const numberFormatter = new Intl.NumberFormat('en-US');
-const formattedBigNumber = numberFormatter.format(bigNumber); // 1,234,567.89`} />
+const formattedBigNumber = numberFormatter.format(bigNumber); // 1,234,567.89`} language="javascript" filename="javascript-4.js" />
 
 ### Date Formatting
 
 JavaScript's Date object combined with template literals offers flexible date formatting options. Here's a comprehensive look:
 
-<CodeSnippet language="javascript" content={`const date = new Date();
+<CodeSnippet code={`const date = new Date();
 
 // Basic date formatting methods
 const simpleDate = \`Date: \${date.toLocaleDateString()}\`; // e.g., "3/14/2024"
@@ -170,13 +170,13 @@ const fullDate = \`Today is \${date.toLocaleDateString('en-US', options)}\`;
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
                    'July', 'August', 'September', 'October', 'November', 'December'];
 const customDate = \`\${monthNames[date.getMonth()]} \${date.getDate()}, \${date.getFullYear()}\`;
-// e.g., "March 14, 2024"`} />
+// e.g., "March 14, 2024"`} language="javascript" filename="javascript-5.js" />
 
 ## Common Use Cases
 
 ### 1. Dynamic HTML Templates
 
-<CodeSnippet language="javascript" content={`const user = {
+<CodeSnippet code={`const user = {
     name: 'Alice',
     avatar: 'avatar.jpg',
     role: 'Admin'
@@ -188,13 +188,13 @@ const userCard = \`
         <h2>\${user.name}</h2>
         <span class="role">\${user.role}</span>
     </div>
-\`;`} />
+\`;`} language="javascript" filename="javascript-6.js" />
 
 ### 2. URL Construction
 
 URL construction is a common use case for template literals, especially when building API endpoints or navigation links. Template literals make it easy to combine multiple URL components in a clean and readable way.
 
-<CodeSnippet language="javascript" content={`const baseUrl = 'https://api.example.com';
+<CodeSnippet code={`const baseUrl = 'https://api.example.com';
 const endpoint = 'users';
 const id = 123;
 const query = 'status=active';
@@ -217,7 +217,7 @@ const queryString = Object.entries(queryParams)
   .join('&');
   
 const urlWithMultipleParams = \`\${baseUrl}/\${endpoint}?\${queryString}\`;
-// https://api.example.com/users?status=active&role=admin&limit=10`} />
+// https://api.example.com/users?status=active&role=admin&limit=10`} language="javascript" filename="javascript-7.js" />
 
 Template literals are particularly useful for URL construction because they:
 - Eliminate the need for messy string concatenation

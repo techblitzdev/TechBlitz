@@ -48,7 +48,7 @@ tags: ['JavaScript', 'Learn', 'Arrays', 'Array Methods']
 subpage: true
 ---
 
-import CodeSnippet from '@/components/app/questions/single/layout/code-snippet';
+import CodeSnippet from '@/components/marketing/global/code-snippet';
 import MdxQuestionDisplay from '@/components/mdx/mdx-question-display';
 
 <img className='max-h-80 object-cover w-full' src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/marketing-images//javascript-string-cheat-sheet.jpg" alt="What are strings in JS?" />
@@ -69,12 +69,12 @@ To get the length of a string in JavaScript, you can use the `length` property. 
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const message = "Hello, world!";
 const length = message.length; // 13
 
 // output: 13
-`} />
+`} language="js" filename="js-1.js" />
 
 <br />
 
@@ -84,12 +84,12 @@ To convert a string to uppercase in JavaScript, you can use the `toUpperCase` me
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const message = "Hello, world!";
 const uppercaseMessage = message.toUpperCase();
 
 // output: "HELLO, WORLD!"
-`} />
+`} language="js" filename="js-2.js" />
 
 <br />
 
@@ -99,12 +99,12 @@ To convert a string to lowercase in JavaScript, you can use the `toLowerCase` me
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const message = "Hello, world!";
 const lowercaseMessage = message.toLowerCase();
 
 // output: "hello, world!"
-`} />
+`} language="js" filename="js-3.js" />
 
 <br />
 
@@ -114,12 +114,12 @@ To check if a string contains a substring in JavaScript, you can use the `includ
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const message = "Hello, world!";
 const containsHello = message.includes("Hello");
 
 // output: true
-`} />
+`} language="js" filename="js-4.js" />
 
 <br />
 
@@ -129,12 +129,12 @@ To find the index of a substring in JavaScript, you can use the `indexOf` method
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const message = "Hello, world!";
 const indexOfHello = message.indexOf("Hello");
 
 // output: 0
-`} />
+`} language="js" filename="js-5.js" />
 
 <br />
 
@@ -144,12 +144,12 @@ To replace a substring in JavaScript, you can use the `replace` method. This wil
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const message = "Hello, world!";
 const replacedMessage = message.replace("world", "everyone");
 
 // output: "Hello, everyone!"
-`} />
+`} language="js" filename="js-6.js" />
 
 <br />
 
@@ -159,12 +159,12 @@ To extract a substring in JavaScript, you can use the `substring` method. This w
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const message = "Hello, world!";
 const substring = message.substring(0, 5);
 
 // output: "Hello"
-`} />
+`} language="js" filename="js-7.js" />
 
 <br />
 
@@ -174,12 +174,12 @@ To remove whitespace from a string in JavaScript, you can use the `trim` method.
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const message = "   Hello, world!   ";
 const trimmedMessage = message.trim();
 
 // output: "Hello, world!"
-`} />
+`} language="js" filename="js-8.js" />
 
 <br />
 
@@ -189,12 +189,12 @@ To split a string in JavaScript, you can use the `split` method. This will retur
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const message = "Hello, world!";
 const splitMessage = message.split(",");
 
 // output: ["Hello", " world!"]
-`} />
+`} language="js" filename="js-9.js" />
 
 <br />
 
@@ -204,12 +204,12 @@ To join an array of strings into a single string in JavaScript, you can use the 
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const message = "Hello, world!";
 const joinedMessage = message.join(",");
 
 // output: "Hello, world!"
-`} />
+`} language="js" filename="js-10.js" />
 
 <br />
 
@@ -219,12 +219,12 @@ To convert a string to an array in JavaScript, you can use the `split` method. T
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const message = "Hello, world!";
 const splitMessage = message.split(",");
 
 // output: ["Hello", " world!"]
-`} />
+`} language="js" filename="js-11.js" />
 
 <br />
 
@@ -234,12 +234,12 @@ To convert an array to a string in JavaScript, you can use the `join` method. Th
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const message = "Hello, world!";
 const joinedMessage = message.join(",");
 
 // output: "Hello, world!"
-`} />
+`} language="js" filename="js-12.js" />
 
 <br />
 
@@ -249,12 +249,12 @@ To repeat a string in JavaScript, you can use the `repeat` method. This will ret
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const message = "Hello, world!";
 const repeatedMessage = message.repeat(3);
 
 // output: "Hello, world!Hello, world!Hello, world!"
-`} />
+`} language="js" filename="js-13.js" />
 
 <br />
 
@@ -264,12 +264,12 @@ To find if a string ends with a substring in JavaScript, you can use the `endsWi
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const message = "Hello, world!";
 const endsWithWorld = message.endsWith("world");
 
 // output: true
-`} />
+`} language="js" filename="js-14.js" />
 
 <br />
 
@@ -279,12 +279,12 @@ To find if a string starts with a substring in JavaScript, you can use the `star
 
 <br />
 
-<CodeSnippet language="js" content={`
+<CodeSnippet code={`
 const message = "Hello, world!";
 const startsWithHello = message.startsWith("Hello");
 
 // output: true
-`} />
+`} language="js" filename="js-15.js" />
 
 <br />
 

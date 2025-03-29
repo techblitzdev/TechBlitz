@@ -91,7 +91,7 @@ const WrapperWithDemo = () => {
   );
 };
 
-export const BeforeSubmission: Story = {
+export const DuringQuestion: Story = {
   args: {
     fasterThanAiGameMode: true,
     aiTimeToComplete: 15,
@@ -100,15 +100,15 @@ export const BeforeSubmission: Story = {
     children: (
       <div className="min-h-screen flex items-center justify-center">
         <div className="bg-card p-6 rounded-lg border border-border max-w-md">
-          <p className="text-lg font-medium">Before Submission</p>
-          <p className="text-muted-foreground">No feedback should appear</p>
+          <p className="text-lg font-medium">During Question</p>
+          <p className="text-muted-foreground">Countdown timer should appear</p>
         </div>
       </div>
     ),
   },
 };
 
-export const CorrectAnswerFasterThanChatGPT: Story = {
+export const AfterSubmissionCorrect: Story = {
   args: {
     fasterThanAiGameMode: true,
     aiTimeToComplete: 15,
@@ -117,15 +117,15 @@ export const CorrectAnswerFasterThanChatGPT: Story = {
     children: (
       <div className="min-h-screen flex items-center justify-center">
         <div className="bg-card p-6 rounded-lg border border-border max-w-md">
-          <p className="text-lg font-medium">Correct Answer</p>
-          <p className="text-muted-foreground">Feedback should indicate user beat ChatGPT</p>
+          <p className="text-lg font-medium">After Correct Submission</p>
+          <p className="text-muted-foreground">Feedback about beating ChatGPT should appear</p>
         </div>
       </div>
     ),
   },
 };
 
-export const IncorrectAnswer: Story = {
+export const AfterSubmissionIncorrect: Story = {
   args: {
     fasterThanAiGameMode: true,
     aiTimeToComplete: 15,
@@ -134,8 +134,8 @@ export const IncorrectAnswer: Story = {
     children: (
       <div className="min-h-screen flex items-center justify-center">
         <div className="bg-card p-6 rounded-lg border border-border max-w-md">
-          <p className="text-lg font-medium">Incorrect Answer</p>
-          <p className="text-muted-foreground">Feedback should indicate incorrect answer</p>
+          <p className="text-lg font-medium">After Incorrect Submission</p>
+          <p className="text-muted-foreground">Feedback about incorrect answer should appear</p>
         </div>
       </div>
     ),
@@ -146,13 +146,13 @@ export const GameModeDisabled: Story = {
   args: {
     fasterThanAiGameMode: false,
     aiTimeToComplete: 15,
-    isSubmitted: true,
-    wasCorrect: true,
+    isSubmitted: false,
+    wasCorrect: undefined,
     children: (
       <div className="min-h-screen flex items-center justify-center">
         <div className="bg-card p-6 rounded-lg border border-border max-w-md">
           <p className="text-lg font-medium">Game Mode Disabled</p>
-          <p className="text-muted-foreground">No feedback should appear</p>
+          <p className="text-muted-foreground">No countdown or feedback should appear</p>
         </div>
       </div>
     ),

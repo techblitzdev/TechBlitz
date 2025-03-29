@@ -63,6 +63,8 @@ export type Question = {
   userAnswers?: Answer[];
 
   afterQuestionInfo?: string | null;
+
+  aiTimeToComplete?: number | null;
 };
 
 export type QuestionWithoutAnswers = Omit<

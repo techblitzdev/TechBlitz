@@ -12,6 +12,8 @@ import type { QuestionAnswer } from '@/types/QuestionAnswers';
 import { AnimatePresence, motion } from 'framer-motion';
 import { INCORRECT_ANSWER_XP, QUESTION_XP } from '@/utils/constants/question-xp';
 import FeedbackBanner from './feedback-banner';
+import { useQuestionSingle } from '@/contexts/question-single-context';
+import FasterThanAIWrapper from '../faster-than-ai/faster-than-ai-wrapper';
 
 interface QuestionMock {
   uid: string;
@@ -37,11 +39,17 @@ export default function MultipleChoiceLayoutClient({
   question: Question | QuestionMock;
   nextAndPreviousQuestion: NavigationData | null;
 }) {
+  const { user } = useQuestionSingle();
+
+  // determine if this question is eligible for the faster than ai game mode
+  const fasterThanAiGameMode = user?.fasterThanAiGameMode && question.aiTimeToComplete;
+
   // Track the selected answer UID and text
   const [selectedAnswerData, setSelectedAnswerData] = useState<{
     uid: string;
     text: string;
   } | null>(null);
+
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -154,7 +162,8 @@ export default function MultipleChoiceLayoutClient({
     nextQuestion: null,
   };
 
-  return (
+  // Render the question content that will be wrapped
+  const questionContent = (
     <div className="px-4 lg:px-0 lg:container min-h-screen flex flex-col justify-self-center justify-center items-center max-w-xs md:max-w-xl lg:max-w-2xl">
       <div className="flex flex-col gap-4 mb-6 relative w-full">
         {/* Feedback banner that slides in from top when submitted */}
@@ -220,5 +229,17 @@ export default function MultipleChoiceLayoutClient({
         nextAndPreviousQuestion={navigationData}
       />
     </div>
+  );
+
+  // Wrap with FasterThanAIWrapper if the game mode is active
+  return (
+    <FasterThanAIWrapper
+      fasterThanAiGameMode={!!fasterThanAiGameMode}
+      aiTimeToComplete={question.aiTimeToComplete}
+      isSubmitted={isSubmitted}
+      wasCorrect={isCorrect === null ? undefined : isCorrect}
+    >
+      {questionContent}
+    </FasterThanAIWrapper>
   );
 }

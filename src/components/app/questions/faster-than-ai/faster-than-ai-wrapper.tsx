@@ -2,8 +2,7 @@
 
 import { useState, useEffect, ReactNode } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import FasterThanAIAnimation from './animation';
-import Countdown from './countdown';
+import FasterThanAIFeedback from './feedback';
 
 interface FasterThanAIWrapperProps {
   children: ReactNode;
@@ -20,50 +19,32 @@ export default function FasterThanAIWrapper({
   isSubmitted = false,
   wasCorrect,
 }: FasterThanAIWrapperProps) {
-  const [showAnimation, setShowAnimation] = useState(false);
-  const [showCountdown, setShowCountdown] = useState(false);
-  const [initialized, setInitialized] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [userTime, setUserTime] = useState<number | null>(null);
+  const [startTime] = useState<number>(Date.now());
 
-  // Only show the animation on the initial mount if fasterThanAiGameMode is true
+  // When the user submits, calculate their time and show feedback
   useEffect(() => {
-    if (fasterThanAiGameMode && !initialized) {
-      setShowAnimation(true);
-      setInitialized(true);
+    if (isSubmitted && fasterThanAiGameMode && aiTimeToComplete) {
+      const timeTaken = (Date.now() - startTime) / 1000;
+      setUserTime(timeTaken);
+      setShowFeedback(true);
     }
-  }, [fasterThanAiGameMode, initialized]);
-
-  // Handle when the animation completes
-  const handleAnimationComplete = () => {
-    setShowAnimation(false);
-
-    // Show the countdown timer after the animation completes
-    if (fasterThanAiGameMode && aiTimeToComplete) {
-      setShowCountdown(true);
-    }
-  };
+  }, [isSubmitted, fasterThanAiGameMode, aiTimeToComplete, startTime]);
 
   return (
     <>
-      {showAnimation && aiTimeToComplete && (
-        <FasterThanAIAnimation
-          aiTime={aiTimeToComplete}
-          onComplete={handleAnimationComplete}
-          autoDismiss={false}
-        />
-      )}
+      {children}
 
       <AnimatePresence>
-        {showCountdown && aiTimeToComplete && (
-          <Countdown
+        {showFeedback && userTime !== null && aiTimeToComplete && wasCorrect !== undefined && (
+          <FasterThanAIFeedback
             aiTime={aiTimeToComplete}
-            isVisible={showCountdown}
-            isSubmitted={isSubmitted}
+            userTime={userTime}
             wasCorrect={wasCorrect}
           />
         )}
       </AnimatePresence>
-
-      {children}
     </>
   );
 }

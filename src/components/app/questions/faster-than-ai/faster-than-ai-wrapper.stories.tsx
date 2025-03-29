@@ -91,29 +91,24 @@ const WrapperWithDemo = () => {
   );
 };
 
-export const Interactive: Story = {
-  render: () => <WrapperWithDemo />,
-};
-
-// Static examples for different states
-export const GameModeDisabled: Story = {
+export const BeforeSubmission: Story = {
   args: {
-    fasterThanAiGameMode: false,
+    fasterThanAiGameMode: true,
     aiTimeToComplete: 15,
     isSubmitted: false,
     wasCorrect: undefined,
     children: (
       <div className="min-h-screen flex items-center justify-center">
         <div className="bg-card p-6 rounded-lg border border-border max-w-md">
-          <p className="text-lg font-medium">Game Mode Disabled</p>
-          <p className="text-muted-foreground">Animation and countdown should not appear</p>
+          <p className="text-lg font-medium">Before Submission</p>
+          <p className="text-muted-foreground">No feedback should appear</p>
         </div>
       </div>
     ),
   },
 };
 
-export const Submitted: Story = {
+export const CorrectAnswerFasterThanChatGPT: Story = {
   args: {
     fasterThanAiGameMode: true,
     aiTimeToComplete: 15,
@@ -122,10 +117,48 @@ export const Submitted: Story = {
     children: (
       <div className="min-h-screen flex items-center justify-center">
         <div className="bg-card p-6 rounded-lg border border-border max-w-md">
-          <p className="text-lg font-medium">Answer Submitted</p>
-          <p className="text-muted-foreground">Should show completed state</p>
+          <p className="text-lg font-medium">Correct Answer</p>
+          <p className="text-muted-foreground">Feedback should indicate user beat ChatGPT</p>
         </div>
       </div>
     ),
   },
+};
+
+export const IncorrectAnswer: Story = {
+  args: {
+    fasterThanAiGameMode: true,
+    aiTimeToComplete: 15,
+    isSubmitted: true,
+    wasCorrect: false,
+    children: (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="bg-card p-6 rounded-lg border border-border max-w-md">
+          <p className="text-lg font-medium">Incorrect Answer</p>
+          <p className="text-muted-foreground">Feedback should indicate incorrect answer</p>
+        </div>
+      </div>
+    ),
+  },
+};
+
+export const GameModeDisabled: Story = {
+  args: {
+    fasterThanAiGameMode: false,
+    aiTimeToComplete: 15,
+    isSubmitted: true,
+    wasCorrect: true,
+    children: (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="bg-card p-6 rounded-lg border border-border max-w-md">
+          <p className="text-lg font-medium">Game Mode Disabled</p>
+          <p className="text-muted-foreground">No feedback should appear</p>
+        </div>
+      </div>
+    ),
+  },
+};
+
+export const Interactive: Story = {
+  render: () => <WrapperWithDemo />,
 };

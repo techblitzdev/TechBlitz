@@ -99,7 +99,15 @@ export default function ChallengeList({
               {type === 'study-path' && studyPath ? (
                 <div className="pb-8">
                   <Suspense fallback={<StudyPathsListSkeleton />}>
-                    <StudyPathsListWrapper questions={questions || []} studyPath={studyPath} />
+                    {studyPath && questions && Array.isArray(questions) && (
+                      <StudyPathsList
+                        offsetType="sine"
+                        offsetMultiplier={0.06}
+                        questions={questions}
+                        studyPath={studyPath}
+                        className="flex flex-col gap-6"
+                      />
+                    )}
                   </Suspense>
                 </div>
               ) : (

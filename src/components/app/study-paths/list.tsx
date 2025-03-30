@@ -38,11 +38,15 @@ export default function StudyPathsList({
   questions,
   studyPath,
   calculateOffset,
+  offsetType = 'sine',
+  offsetMultiplier = 1,
   className,
 }: {
   questions: Question[]; // No longer accepting a promise
   studyPath: StudyPath;
   calculateOffset?: (index: number) => number;
+  offsetType?: 'sine' | 'linear' | 'none'; // Add a serializable parameter
+  offsetMultiplier?: number; // Add a serializable parameter
   className?: string;
 }) {
   // Get question slugs based on whether we have overviewData or not
@@ -67,10 +71,27 @@ export default function StudyPathsList({
     (q) => !q.userAnswers?.length || q.userAnswers?.some((answer) => answer.correctAnswer === false)
   )?.slug;
 
+  // Internal calculation function based on provided parameters
+  const getOffset = (index: number) => {
+    if (calculateOffset) {
+      return calculateOffset(index);
+    }
+
+    switch (offsetType) {
+      case 'sine':
+        return Math.sin(index * 2.5) * 25 * offsetMultiplier;
+      case 'linear':
+        return (index % 2 === 0 ? 1 : -1) * 20 * offsetMultiplier;
+      case 'none':
+      default:
+        return 0;
+    }
+  };
+
   return (
     <div className={cn('relative z-10 justify-self-center grid', className)}>
       {sortedQuestions.map((question, index) => {
-        const offsetValue = calculateOffset ? calculateOffset(index) : Math.sin(index * 2.5) * 25;
+        const offsetValue = getOffset(index);
         return (
           <div key={question.slug} className="mb-8 flex justify-center">
             <QuestionCardClient questionData={question} offset={offsetValue}>

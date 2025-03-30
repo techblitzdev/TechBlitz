@@ -13,6 +13,8 @@ interface FeedbackButtonProps {
   description?: string;
   children?: React.ReactNode;
   icon?: React.ReactNode;
+  feedbackModalTitle?: string;
+  feedbackModalDescription?: string;
 }
 
 export default function FeedbackButton({
@@ -21,6 +23,8 @@ export default function FeedbackButton({
   description,
   children,
   icon,
+  feedbackModalTitle,
+  feedbackModalDescription,
 }: FeedbackButtonProps) {
   return (
     <Popover>
@@ -31,11 +35,15 @@ export default function FeedbackButton({
           className="items-center gap-2 p-2"
         >
           {title && <p className="text-sm hidden md:block">{title}</p>}
-          {icon && <MsgWriting height="1.25rem" width="1.25rem" />}
+          {icon ?? <MsgWriting height="1.25rem" width="1.25rem" />}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80 bg-black-75 text-white border border-black-50" align="end">
-        <FeedbackModal title={title} description={description} reference={reference}>
+        <FeedbackModal
+          title={feedbackModalTitle || title}
+          description={feedbackModalDescription || description}
+          reference={reference}
+        >
           {children}
         </FeedbackModal>
       </PopoverContent>

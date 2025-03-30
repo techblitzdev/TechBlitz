@@ -8,6 +8,7 @@ import RandomQuestion from '@/components/shared/random-question';
 import { HomeIcon } from 'lucide-react';
 import QuestionActionButtons from './question-action-buttons';
 import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
+import FlagIcon from '@/components/ui/icons/flag';
 
 const UpgradeModalButton = lazy(() => import('@/components/app/shared/upgrade/upgrade-modal'));
 
@@ -65,7 +66,12 @@ export default function QuestionPageHeader({
           <div className="hidden lg:block">
             <CurrentStreak />
           </div>
-          <FeedbackButton reference={question?.slug || undefined} icon={true} />
+          <FeedbackButton
+            feedbackModalTitle="Report a problem"
+            feedbackModalDescription="If you're experiencing issues with this question, please let us know so we can fix it."
+            reference={question?.slug || undefined}
+            icon={<FlagIcon height="1.25rem" width="1.25rem" />}
+          />
           <div className="hidden lg:block">
             <UpgradeModalButton />
           </div>

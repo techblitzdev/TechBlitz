@@ -17,7 +17,6 @@ import { studyPaths } from '@/utils/constants/study-paths';
 import { useQuestionSingle } from '@/contexts/question-single-context';
 
 import { useStudyPathQuestions } from '@/hooks/use-study-path';
-import { Question } from '@/types/Questions';
 
 /**
  * Component for navigation between different questions from within the

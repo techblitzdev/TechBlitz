@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import EnterKey from '@/components/ui/icons/enter-key';
+import DeleteKey from '@/components/ui/icons/delete-key';
 
 // Define navigation interface to match the data from getNextAndPreviousQuestion
 interface NavigationData {
@@ -132,8 +133,14 @@ export default function MultipleChoiceFooter({
 
   return (
     <section className="flex items-center justify-between w-full lg:pt-5">
-      <Button variant="destructive" onClick={handleClear} disabled={isClearDisabled}>
+      <Button
+        variant="destructive"
+        onClick={handleClear}
+        disabled={isClearDisabled}
+        className="flex items-center gap-2"
+      >
         {hasSubmitted ? 'Try Again' : 'Clear'}
+        {hasSubmitted && <DeleteKey width="0.75em" height="0.75em" />}
       </Button>
       <div className="flex items-center gap-x-2">
         {question.hint && (

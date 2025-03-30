@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { useCallback, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { toast } from 'sonner';
 
@@ -45,7 +46,7 @@ export default function MultipleChoiceLayoutClient({
   nextAndPreviousQuestion: NavigationData | null;
 }) {
   const { user, showHint, setShowHint } = useQuestionSingle();
-
+  const router = useRouter();
   // determine if this question is eligible for the faster than ai game mode
   const fasterThanAiGameMode = user?.fasterThanAiGameMode && question.aiTimeToComplete;
 
@@ -62,6 +63,12 @@ export default function MultipleChoiceLayoutClient({
 
   // Track time spent
   const [startTime] = useState<number>(Date.now());
+
+  // Create a default object if nextAndPreviousQuestion is null
+  const navigationData = nextAndPreviousQuestion || {
+    previousQuestion: null,
+    nextQuestion: null,
+  };
 
   // Ensure answers is an array of QuestionAnswer objects
   const answers = Array.isArray(question.answers) ? question.answers : [];
@@ -130,35 +137,53 @@ export default function MultipleChoiceLayoutClient({
     }
   };
 
+  // Determine the navigation href with study path params if necessary
+  const navigationHref = isSubmitted
+    ? nextAndPreviousQuestion?.nextQuestion
+      ? `/question/${nextAndPreviousQuestion.nextQuestion}`
+      : '/questions'
+    : '';
+
   // Add keyboard event handling for number keys
   useEffect(() => {
-    // Only enable keyboard shortcuts when not submitted
-    if (isSubmitted) return;
-
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Check if a number key was pressed (1-9)
+      // Prevent handling if user is typing in an input field
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        return;
+      }
+
       const key = e.key;
-      const numberPressed = parseInt(key);
 
-      // If it's a number key and within the range of available answers
-      if (!isNaN(numberPressed) && numberPressed > 0 && numberPressed <= answers.length) {
-        // Adjust for 0-based indexing (key 1 selects index 0)
-        const index = numberPressed - 1;
-        const answerText = answers[index].answer;
-
-        // Prevent handling if user is typing in an input field
-        if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
-          return;
+      if (isSubmitted) {
+        // After submission keyboard controls
+        if (key === 'Backspace') {
+          // Reset the question when Backspace is pressed after submission
+          resetQuestion();
+          toast.info('Question restarted');
+        } else if (key === 'Enter' && navigationData.nextQuestion) {
+          // Navigate to next question when Enter is pressed after submission
+          // and a next question exists
+          router.push(navigationHref);
         }
+      } else {
+        // Controls when question is not yet submitted
+        const numberPressed = parseInt(key);
 
-        // Select the answer
-        handleSelectAnswer(answerText, index);
+        // If it's a number key and within the range of available answers
+        if (!isNaN(numberPressed) && numberPressed > 0 && numberPressed <= answers.length) {
+          // Adjust for 0-based indexing (key 1 selects index 0)
+          const index = numberPressed - 1;
+          const answerText = answers[index].answer;
 
-        // Provide visual feedback (optional toast)
-        toast.info(`Selected answer ${numberPressed}`);
-      } else if (key === 'Enter' && selectedAnswerData && !isSubmitting) {
-        // Submit answer on Enter key if an answer is selected
-        handleSubmit();
+          // Select the answer
+          handleSelectAnswer(answerText, index);
+
+          // Provide visual feedback
+          toast.info(`Selected answer ${numberPressed}`);
+        } else if (key === 'Enter' && selectedAnswerData && !isSubmitting) {
+          // Submit answer on Enter key if an answer is selected
+          handleSubmit();
+        }
       }
     };
 
@@ -169,7 +194,7 @@ export default function MultipleChoiceLayoutClient({
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [answers, selectedAnswerData, isSubmitted, isSubmitting]);
+  }, [answers, selectedAnswerData, isSubmitted, isSubmitting, navigationData, resetQuestion]);
 
   // Find the correct answer UID for highlighting
   const correctAnswerUid = question.correctAnswer;
@@ -201,12 +226,6 @@ export default function MultipleChoiceLayoutClient({
   }, [isCorrect, isSubmitted]);
 
   const feedbackMessage = getFeedbackMessage();
-
-  // Create a default object if nextAndPreviousQuestion is null
-  const navigationData = nextAndPreviousQuestion || {
-    previousQuestion: null,
-    nextQuestion: null,
-  };
 
   // Render the question content that will be wrapped
   const questionContent = (

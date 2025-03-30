@@ -23,6 +23,7 @@ interface MultipleChoiceFooterProps {
   hasSubmitted?: boolean;
   onReset: () => void;
   nextAndPreviousQuestion: NavigationData;
+  navigating?: boolean;
 }
 
 export default function MultipleChoiceFooter({
@@ -34,6 +35,7 @@ export default function MultipleChoiceFooter({
   onReset,
   nextAndPreviousQuestion,
   question,
+  navigating = false,
 }: MultipleChoiceFooterProps) {
   const { user, showHint, setShowHint } = useQuestionSingle();
   const searchParams = useSearchParams();
@@ -59,7 +61,15 @@ export default function MultipleChoiceFooter({
   };
 
   // if submitted, the submit button will be 'next question'
-  const submitButtonText = hasSubmitted ? 'Next Question' : 'Submit';
+  const submitButtonText = hasSubmitted ? (
+    navigating ? (
+      <Loader2 className="mr-2 size-4 animate-spin" />
+    ) : (
+      'Next Question'
+    )
+  ) : (
+    'Submit'
+  );
 
   // Determine the navigation href with study path params if necessary
   const navigationHref = hasSubmitted
@@ -106,7 +116,7 @@ export default function MultipleChoiceFooter({
           </>
         ) : (
           <>
-            {submitButtonText} <EnterKey width="0.75em    " height="0.75em" />
+            {submitButtonText} <EnterKey width="0.75em" height="0.75em" />
           </>
         )}
       </Button>

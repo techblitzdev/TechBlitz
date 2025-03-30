@@ -60,6 +60,7 @@ export default function MultipleChoiceLayoutClient({
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [xpIncrease, setXpIncrease] = useState(0);
+  const [navigating, setNavigating] = useState(false);
 
   // Track time spent
   const [startTime] = useState<number>(Date.now());
@@ -163,6 +164,7 @@ export default function MultipleChoiceLayoutClient({
         } else if (key === 'Enter' && navigationData.nextQuestion) {
           // Navigate to next question when Enter is pressed after submission
           // and a next question exists
+          setNavigating(true);
           router.push(navigationHref);
         }
       } else {
@@ -293,6 +295,7 @@ export default function MultipleChoiceLayoutClient({
         onReset={resetQuestion}
         nextAndPreviousQuestion={navigationData}
         question={question as Question}
+        navigating={navigating}
       />
     </div>
   );

@@ -35,7 +35,7 @@ export default function FeedbackButton({
           className="items-center gap-2 p-2"
         >
           {title && <p className="text-sm hidden md:block">{title}</p>}
-          {icon || <MsgWriting height="1.25rem" width="1.25rem" />}
+          {icon ?? <MsgWriting height="1.25rem" width="1.25rem" />}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80 bg-black-75 text-white border border-black-50" align="end">

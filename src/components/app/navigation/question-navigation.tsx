@@ -42,12 +42,6 @@ export default function QuestionNavigation(opts: {
   const { questions, isLoading } = useStudyPathQuestions(studyPathSlug || '');
 
   useEffect(() => {
-    console.log('Question navigation rendering with study path:', studyPathSlug);
-    console.log('Questions loaded:', questions?.length || 0);
-    console.log('Is loading:', isLoading);
-  }, [questions, studyPathSlug, isLoading]);
-
-  useEffect(() => {
     // if this is a study-path, get the next/prev questions from the study-path object
     const studyPath =
       type === 'study-path' && studyPathSlug

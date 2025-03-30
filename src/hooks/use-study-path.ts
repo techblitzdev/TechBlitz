@@ -40,16 +40,10 @@ export const useStudyPathQuestions = (studyPathSlug: string) => {
           questionSlugs = Object.values(studyPath.overviewData)
             .flatMap((section: any) => section.questionSlugs || [])
             .filter(Boolean);
-
-          console.log('Using overviewData questionSlugs:', questionSlugs.length);
         } else {
           // Fall back to regular questionSlugs
           questionSlugs = studyPath.questionSlugs || [];
-          console.log('Using regular questionSlugs:', questionSlugs.length);
         }
-
-        console.log('Study path slug:', studyPathSlug);
-        console.log('Question slugs count:', questionSlugs.length);
 
         if (questionSlugs.length === 0) {
           console.log('No question slugs found, returning empty array');
@@ -60,10 +54,8 @@ export const useStudyPathQuestions = (studyPathSlug: string) => {
           questionSlugs,
         });
 
-        console.log('Loaded questions count:', questions.length);
         return questions;
       } catch (err) {
-        console.error('Error processing study path questions:', err);
         return [];
       }
     },

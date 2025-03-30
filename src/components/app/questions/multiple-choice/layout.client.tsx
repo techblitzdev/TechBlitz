@@ -1,19 +1,23 @@
 'use client';
 
-import type React from 'react';
-
-import type { Question } from '@/types/Questions';
-import MultipleChoiceCard from './card';
-import { useCallback, useState } from 'react';
-import MultipleChoiceFooter from './footer';
-import { toast } from 'sonner';
-import { answerQuestion } from '@/actions/answers/answer';
-import type { QuestionAnswer } from '@/types/QuestionAnswers';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useCallback, useState } from 'react';
+
+import { toast } from 'sonner';
+
 import { INCORRECT_ANSWER_XP, QUESTION_XP } from '@/utils/constants/question-xp';
-import FeedbackBanner from './feedback-banner';
+
+import FeedbackBanner from '@/components/app/questions/multiple-choice/feedback-banner';
+import FasterThanAIWrapper from '@/components/app/questions/faster-than-ai/faster-than-ai-wrapper';
+import MultipleChoiceFooter from '@/components/app/questions/multiple-choice/footer';
+import MultipleChoiceCard from '@/components/app/questions/multiple-choice/card';
+
+import { answerQuestion } from '@/actions/answers/answer';
+
 import { useQuestionSingle } from '@/contexts/question-single-context';
-import FasterThanAIWrapper from '../faster-than-ai/faster-than-ai-wrapper';
+
+import type { QuestionAnswer } from '@/types/QuestionAnswers';
+import type { Question } from '@/types/Questions';
 
 interface QuestionMock {
   uid: string;

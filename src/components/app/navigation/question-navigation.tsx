@@ -39,7 +39,7 @@ export default function QuestionNavigation(opts: {
   const { previousQuestion, setPreviousQuestion, nextQuestion, setNextQuestion, studyPath } =
     useQuestionSingle();
 
-  const { questions, isLoading } = useStudyPathQuestions(studyPathSlug || '');
+  const { questions } = useStudyPathQuestions(studyPathSlug || '');
 
   useEffect(() => {
     // if this is a study-path, get the next/prev questions from the study-path object

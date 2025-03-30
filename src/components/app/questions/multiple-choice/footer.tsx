@@ -5,6 +5,8 @@ import { Lightbulb, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import EnterKey from '@/components/ui/icons/enter-key';
+import DeleteKey from '@/components/ui/icons/delete-key';
 
 // Define navigation interface to match the data from getNextAndPreviousQuestion
 interface NavigationData {
@@ -21,6 +23,7 @@ interface MultipleChoiceFooterProps {
   hasSubmitted?: boolean;
   onReset: () => void;
   nextAndPreviousQuestion: NavigationData;
+  navigating?: boolean;
 }
 
 export default function MultipleChoiceFooter({
@@ -32,6 +35,7 @@ export default function MultipleChoiceFooter({
   onReset,
   nextAndPreviousQuestion,
   question,
+  navigating = false,
 }: MultipleChoiceFooterProps) {
   const { user, showHint, setShowHint } = useQuestionSingle();
   const searchParams = useSearchParams();
@@ -57,7 +61,15 @@ export default function MultipleChoiceFooter({
   };
 
   // if submitted, the submit button will be 'next question'
-  const submitButtonText = hasSubmitted ? 'Next Question' : 'Submit';
+  const submitButtonText = hasSubmitted ? (
+    navigating ? (
+      <Loader2 className="mr-2 size-4 animate-spin" />
+    ) : (
+      'Next Question'
+    )
+  ) : (
+    'Submit'
+  );
 
   // Determine the navigation href with study path params if necessary
   const navigationHref = hasSubmitted
@@ -84,19 +96,28 @@ export default function MultipleChoiceFooter({
     // Don't use asChild with conditional rendering in a Link
     submitButton = (
       <Link href={navigationHref}>
-        <Button variant="accent">{submitButtonText}</Button>
+        <Button variant="accent" className="flex items-center gap-2">
+          {submitButtonText} <EnterKey width="0.75em" height="0.75em" />
+        </Button>
       </Link>
     );
   } else {
     submitButton = (
-      <Button variant="accent" onClick={onSubmit} disabled={!selectedAnswer || isSubmitting}>
+      <Button
+        className="flex items-center gap-2"
+        variant="accent"
+        onClick={onSubmit}
+        disabled={!selectedAnswer || isSubmitting}
+      >
         {isSubmitting ? (
           <>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            <Loader2 className="mr-2 size-4 animate-spin" />
             Submitting...
           </>
         ) : (
-          submitButtonText
+          <>
+            {submitButtonText} <EnterKey width="0.75em" height="0.75em" />
+          </>
         )}
       </Button>
     );
@@ -122,8 +143,14 @@ export default function MultipleChoiceFooter({
 
   return (
     <section className="flex items-center justify-between w-full lg:pt-5">
-      <Button variant="destructive" onClick={handleClear} disabled={isClearDisabled}>
+      <Button
+        variant="destructive"
+        onClick={handleClear}
+        disabled={isClearDisabled}
+        className="flex items-center gap-2"
+      >
         {hasSubmitted ? 'Try Again' : 'Clear'}
+        {hasSubmitted && <DeleteKey width="0.75em" height="0.75em" />}
       </Button>
       <div className="flex items-center gap-x-2">
         {question.hint && (

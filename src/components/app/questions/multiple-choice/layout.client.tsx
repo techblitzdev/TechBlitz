@@ -18,6 +18,7 @@ import { useQuestionSingle } from '@/contexts/question-single-context';
 
 import type { QuestionAnswer } from '@/types/QuestionAnswers';
 import type { Question } from '@/types/Questions';
+import HintDrawer from './hint-drawer';
 
 interface QuestionMock {
   uid: string;
@@ -43,7 +44,7 @@ export default function MultipleChoiceLayoutClient({
   question: Question | QuestionMock;
   nextAndPreviousQuestion: NavigationData | null;
 }) {
-  const { user } = useQuestionSingle();
+  const { user, showHint, setShowHint } = useQuestionSingle();
 
   // determine if this question is eligible for the faster than ai game mode
   const fasterThanAiGameMode = user?.fasterThanAiGameMode && question.aiTimeToComplete;
@@ -231,19 +232,27 @@ export default function MultipleChoiceLayoutClient({
         hasSubmitted={isSubmitted}
         onReset={resetQuestion}
         nextAndPreviousQuestion={navigationData}
+        question={question as Question}
       />
     </div>
   );
 
   // Wrap with FasterThanAIWrapper if the game mode is active
   return (
-    <FasterThanAIWrapper
-      fasterThanAiGameMode={!!fasterThanAiGameMode}
-      aiTimeToComplete={question.aiTimeToComplete}
-      isSubmitted={isSubmitted}
-      wasCorrect={isCorrect === null ? undefined : isCorrect}
-    >
-      {questionContent}
-    </FasterThanAIWrapper>
+    <>
+      <FasterThanAIWrapper
+        fasterThanAiGameMode={!!fasterThanAiGameMode}
+        aiTimeToComplete={question.aiTimeToComplete}
+        isSubmitted={isSubmitted}
+        wasCorrect={isCorrect === null ? undefined : isCorrect}
+      >
+        {questionContent}
+      </FasterThanAIWrapper>
+
+      {/* Render hint drawer when showHint is true */}
+      {question.hint && (
+        <HintDrawer hint={question.hint} isOpen={showHint} onClose={() => setShowHint(false)} />
+      )}
+    </>
   );
 }

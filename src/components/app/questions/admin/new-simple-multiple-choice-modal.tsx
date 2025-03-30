@@ -48,6 +48,7 @@ const lowlight = createLowlight(common);
 const simpleMultipleChoiceSchema = z.object({
   slug: z.string().optional(),
   title: z.string().min(1, 'Title is required'),
+  description: z.string().optional(),
   answers: z
     .array(
       z.object({
@@ -58,6 +59,7 @@ const simpleMultipleChoiceSchema = z.object({
   correctAnswer: z.number().refine((val) => val >= 0, {
     message: 'Please select a correct answer',
   }),
+  hint: z.string().optional(),
   afterQuestionInfo: z.string().optional(),
   difficulty: z.enum(['BEGINNER', 'EASY', 'MEDIUM', 'HARD'], {
     required_error: 'Difficulty is required',
@@ -145,13 +147,45 @@ export default function NewSimpleMultipleChoiceModal({ ...props }) {
     },
   });
 
+  const hintEditor = useEditor({
+    extensions: [
+      StarterKit,
+      CodeBlockLowlight.configure({
+        lowlight,
+        defaultLanguage: 'javascript',
+      }),
+    ],
+    content: '',
+    onUpdate: ({ editor }) => {
+      const html = editor.getHTML();
+      form.setValue('hint', html);
+    },
+  });
+
+  const descriptionEditor = useEditor({
+    extensions: [
+      StarterKit,
+      CodeBlockLowlight.configure({
+        lowlight,
+        defaultLanguage: 'javascript',
+      }),
+    ],
+    content: '',
+    onUpdate: ({ editor }) => {
+      const html = editor.getHTML();
+      form.setValue('description', html);
+    },
+  });
+
   const form = useForm<SchemaProps>({
     resolver: zodResolver(simpleMultipleChoiceSchema),
     defaultValues: {
       slug: '',
       title: '',
+      description: '',
       answers: [{ text: '' }, { text: '' }],
       correctAnswer: 0,
+      hint: '',
       afterQuestionInfo: '',
       difficulty: 'EASY',
       tags: '',
@@ -167,7 +201,8 @@ export default function NewSimpleMultipleChoiceModal({ ...props }) {
 
   const { mutateAsync: server_addQuestion, isPending } = useMutation({
     mutationFn: async (values: SchemaProps) => {
-      const { answers, correctAnswer, slug, afterQuestionInfo, tags, ...rest } = values;
+      const { answers, correctAnswer, slug, hint, description, afterQuestionInfo, tags, ...rest } =
+        values;
 
       console.log('adding new question', values);
 
@@ -175,6 +210,7 @@ export default function NewSimpleMultipleChoiceModal({ ...props }) {
         const response = await addQuestion({
           ...rest,
           question: rest.title, // For simple multiple choice, title acts as the question
+          description: description || undefined,
           answers: answers.map((answer) => ({
             text: answer.text,
             isCodeSnippet: false,
@@ -182,6 +218,7 @@ export default function NewSimpleMultipleChoiceModal({ ...props }) {
           })),
           correctAnswer: Number(correctAnswer),
           tags: tags ? tags.split(',').map((tag) => tag.trim()) : [],
+          hint: hint || undefined,
           afterQuestionInfo: afterQuestionInfo || undefined,
           slug: slug || undefined,
           questionType: 'SIMPLE_MULTIPLE_CHOICE', // Pass this as a string rather than enum
@@ -204,6 +241,8 @@ export default function NewSimpleMultipleChoiceModal({ ...props }) {
       form.reset();
       form.setValue('tags', '');
       afterQuestionInfoEditor?.commands.setContent('');
+      hintEditor?.commands.setContent('');
+      descriptionEditor?.commands.setContent('');
       setOpen(false);
     },
     onError: (error) => {
@@ -322,6 +361,18 @@ export default function NewSimpleMultipleChoiceModal({ ...props }) {
                   )}
                 />
 
+                {/* Description Editor */}
+                <div className="space-y-2">
+                  <Label>Description (additional context for the question)</Label>
+                  <div className="border border-black-50 rounded-md">
+                    <MenuBar editor={descriptionEditor} />
+                    <EditorContent
+                      editor={descriptionEditor}
+                      className="prose prose-invert max-w-none p-4"
+                    />
+                  </div>
+                </div>
+
                 {/* Difficulty */}
                 <FormField
                   control={form.control}
@@ -400,6 +451,18 @@ export default function NewSimpleMultipleChoiceModal({ ...props }) {
               <Separator className="bg-black-50" />
 
               <p className="text-white font-semibold text-xl">Additional Information</p>
+
+              {/* Hint Editor */}
+              <div className="space-y-2">
+                <Label>Hint (optional - shown when user requests help)</Label>
+                <div className="border border-black-50 rounded-md">
+                  <MenuBar editor={hintEditor} />
+                  <EditorContent
+                    editor={hintEditor}
+                    className="prose prose-invert max-w-none p-4"
+                  />
+                </div>
+              </div>
 
               {/* After Question Info Editor */}
               <div className="space-y-2">

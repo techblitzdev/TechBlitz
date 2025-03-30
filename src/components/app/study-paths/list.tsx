@@ -1,8 +1,8 @@
-import { Suspense } from 'react';
+'use client';
+
 import dynamic from 'next/dynamic';
 
-import StudyPathQuestionCard from './study-path-question-card';
-import StudyPathQuestionCardSkeleton from './study-path-question-card-skeleton';
+import StudyPathQuestionCardClient from './study-path-question-card-client';
 import { cn } from '@/lib/utils';
 
 import type { Question } from '@/types/Questions';
@@ -12,58 +12,8 @@ const QuestionCardClient = dynamic(() => import('../questions/layout/question-ca
   ssr: false,
 });
 
-export default async function StudyPathsList({
-  questions,
-  studyPath,
-  top,
-  calculateOffset,
-  className,
-}: {
-  questions: Promise<Question[]> | Question[];
-  studyPath: StudyPath;
-  top?: number;
-  calculateOffset?: (index: number) => number;
-  className?: string;
-}) {
-  // either a promise or already resolved
-  const studyPathQuestions = Array.isArray(questions) ? questions : await questions;
-
-  const sortedQuestions = studyPath.questionSlugs
-    .map((slug) => studyPathQuestions.find((q) => q.slug === slug))
-    .filter((q): q is Question => q !== undefined);
-
-  const firstUnansweredQuestion = sortedQuestions.find(
-    (q) => !q.userAnswers?.length || q.userAnswers?.some((answer) => answer.correctAnswer === false)
-  )?.slug;
-
-  return (
-    <div className={cn('relative z-10 justify-self-center', className)}>
-      <Suspense fallback={<StudyPathQuestionCardSkeleton />}>
-        {sortedQuestions.map((question, index) => {
-          const offsetValue = calculateOffset ? calculateOffset(index) : Math.sin(index * 2.5) * 25;
-          return (
-            <div key={question.slug} className="mb-4">
-              <QuestionCardClient
-                questionData={question}
-                index={index}
-                offset={offsetValue}
-                top={top}
-              >
-                <QuestionCardWrapper
-                  question={question}
-                  studyPath={studyPath}
-                  isFirstUnanswered={firstUnansweredQuestion === question.slug}
-                />
-              </QuestionCardClient>
-            </div>
-          );
-        })}
-      </Suspense>
-    </div>
-  );
-}
-
-function QuestionCardWrapper({
+// QuestionCardWrapper as a client component
+const QuestionCardWrapper = ({
   question,
   studyPath,
   isFirstUnanswered,
@@ -71,11 +21,89 @@ function QuestionCardWrapper({
   question: Question;
   studyPath: StudyPath;
   isFirstUnanswered: boolean;
-}) {
+}) => {
   return (
-    <div className="relative group w-full">
+    <div className="relative group w-fit">
       {isFirstUnanswered && <StartBounce />}
-      <StudyPathQuestionCard questionData={question} studyPath={studyPath} />
+      <StudyPathQuestionCardClient
+        questionData={question}
+        studyPath={studyPath}
+        isNextQuestion={isFirstUnanswered}
+      />
+    </div>
+  );
+};
+
+export default function StudyPathsList({
+  questions,
+  studyPath,
+  calculateOffset,
+  offsetType = 'sine',
+  offsetMultiplier = 1,
+  className,
+}: {
+  questions: Question[]; // No longer accepting a promise
+  studyPath: StudyPath;
+  calculateOffset?: (index: number) => number;
+  offsetType?: 'sine' | 'linear' | 'none'; // Add a serializable parameter
+  offsetMultiplier?: number; // Add a serializable parameter
+  className?: string;
+}) {
+  // Get question slugs based on whether we have overviewData or not
+  let allQuestionSlugs: string[] = [];
+
+  if (studyPath.overviewData) {
+    // Extract slugs from overviewData sections
+    allQuestionSlugs = Object.values(studyPath.overviewData)
+      .flatMap((section: any) => section.questionSlugs)
+      .filter(Boolean);
+  } else {
+    // Use regular questionSlugs
+    allQuestionSlugs = studyPath.questionSlugs || [];
+  }
+
+  // Find and sort questions based on the slugs
+  const sortedQuestions = allQuestionSlugs
+    .map((slug) => questions.find((q) => q.slug === slug))
+    .filter((q): q is Question => q !== undefined);
+
+  const firstUnansweredQuestion = sortedQuestions.find(
+    (q) => !q.userAnswers?.length || q.userAnswers?.some((answer) => answer.correctAnswer === false)
+  )?.slug;
+
+  // Internal calculation function based on provided parameters
+  const getOffset = (index: number) => {
+    if (calculateOffset) {
+      return calculateOffset(index);
+    }
+
+    switch (offsetType) {
+      case 'sine':
+        return Math.sin(index * 2.5) * 25 * offsetMultiplier;
+      case 'linear':
+        return (index % 2 === 0 ? 1 : -1) * 20 * offsetMultiplier;
+      case 'none':
+      default:
+        return 0;
+    }
+  };
+
+  return (
+    <div className={cn('relative z-10 justify-self-center grid', className)}>
+      {sortedQuestions.map((question, index) => {
+        const offsetValue = getOffset(index);
+        return (
+          <div key={question.slug} className="mb-8 flex justify-center">
+            <QuestionCardClient questionData={question} offset={offsetValue}>
+              <QuestionCardWrapper
+                question={question}
+                studyPath={studyPath}
+                isFirstUnanswered={firstUnansweredQuestion === question.slug}
+              />
+            </QuestionCardClient>
+          </div>
+        );
+      })}
     </div>
   );
 }

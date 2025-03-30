@@ -1,6 +1,7 @@
 import { getQuestions } from '@/actions/questions/admin/list';
 import { getStudyPath } from '@/utils/data/study-paths/get';
 import StudyPathsList from '../study-paths/list';
+import { cn } from '@/lib/utils';
 
 export default async function NextRoadmapGraphic({
   studyPathSlug,
@@ -19,7 +20,7 @@ export default async function NextRoadmapGraphic({
   });
 
   return (
-    <div className="overflow-hidden relative flex justify-center w-full">
+    <div className={cn('overflow-hidden relative flex justify-center w-full', studyPathClassName)}>
       {studyPath && (
         <StudyPathsList
           offsetType="sine"

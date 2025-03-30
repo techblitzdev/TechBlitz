@@ -29,7 +29,7 @@ function StudyPathsListSkeleton() {
 }
 
 // studyPath list wrapper that handles the async Questions
-function StudyPathsListWrapper({
+export function StudyPathsListWrapper({
   questions,
   studyPath,
 }: {

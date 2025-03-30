@@ -351,9 +351,10 @@ const mockStudyPath: StudyPath = {
   updatedAt: new Date(),
   averageCompletionTime: 3600, // in seconds
   category: 'Programming',
-  icon: '📚',
   isPublished: true,
   nextStudyPathSlug: 'javascript-advanced',
+  overviewData: {},
+  icon: '📚',
 };
 
 const meta: Meta<typeof StudyPathQuestionCard> = {

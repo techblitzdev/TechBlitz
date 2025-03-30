@@ -57,12 +57,7 @@ function StudyPathsListSkeleton() {
   return (
     <div className="flex flex-col gap-6 relative z-10 w-[90%]">
       {Array.from({ length: 9 }).map((_, index) => (
-        <QuestionCardClient
-          key={index}
-          questionData={null}
-          index={index}
-          offset={Math.sin(index * 0.9) * 4}
-        >
+        <QuestionCardClient key={index} questionData={null} offset={Math.sin(index * 0.9) * 4}>
           <StudyPathQuestionCardSkeleton />
         </QuestionCardClient>
       ))}
@@ -107,17 +102,7 @@ function createJsonLd(studyPath: StudyPath, slug: string): QuizJsonLd {
 /**
  * Component for displaying a section header with an icon and title.
  */
-function SectionHeader({
-  title,
-  icon,
-  color,
-  index,
-}: {
-  title: string;
-  icon?: string | null;
-  color?: string;
-  index: number;
-}) {
+function SectionHeader({ title, color }: { title: string; icon?: string | null; color?: string }) {
   return (
     <div className="flex items-center justify-center gap-x-3 mb-8">
       <hr className="w-full border-t-2 border-black-50" />
@@ -216,12 +201,7 @@ function StudyPathSections({
 
         return (
           <div key={section.key} className="space-y-6 inline-grid">
-            <SectionHeader
-              title={section.sectionName}
-              icon={section.icon}
-              color={section.color}
-              index={sectionIndex}
-            />
+            <SectionHeader title={section.sectionName} icon={section.icon} color={section.color} />
             <div className="pl-4 relative">
               <Suspense fallback={<StudyPathsListSkeleton />}>
                 <StudyPathsList questions={sectionQuestions} studyPath={sectionStudyPath} />

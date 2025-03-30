@@ -137,7 +137,6 @@ export default async function ThreeBlockShowcase({
                 {studyPath && (
                   <StudyPathsList
                     calculateOffset={(index) => Math.sin(index * 2) * 3}
-                    top={50}
                     questions={questions}
                     studyPath={studyPath}
                     className="flex flex-col gap-4"

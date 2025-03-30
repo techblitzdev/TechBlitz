@@ -20,12 +20,7 @@ function StudyPathsListSkeleton() {
   return (
     <div className="flex flex-col items-center justify-center gap-6 relative z-10 w-[80%] mx-auto">
       {Array.from({ length: 9 }).map((_, index) => (
-        <QuestionCardClient
-          key={index}
-          questionData={null}
-          index={index}
-          offset={Math.sin(index * 0.9) * 4}
-        >
+        <QuestionCardClient key={index} questionData={null} offset={Math.sin(index * 0.9) * 4}>
           <StudyPathQuestionCardSkeleton />
         </QuestionCardClient>
       ))}

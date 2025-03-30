@@ -23,7 +23,6 @@ export default async function NextRoadmapGraphic({
       {studyPath && (
         <StudyPathsList
           calculateOffset={(index) => Math.sin(index * 2) * 3}
-          top={50}
           questions={questions}
           studyPath={studyPath}
           className={studyPathClassName}

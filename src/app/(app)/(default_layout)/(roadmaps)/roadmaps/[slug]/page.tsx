@@ -14,20 +14,6 @@ import type { QuizJsonLd } from '@/types/Seo';
 import type { StudyPath } from '@prisma/client';
 import { Question } from '@/types/Questions';
 
-// Define a type that extends the Prisma StudyPath to include overviewData
-interface ExtendedStudyPath extends StudyPath {
-  overviewData?: Record<
-    string,
-    {
-      sectionName: string;
-      icon: string | null;
-      color: string;
-      guidebookUrl: string;
-      questionSlugs: string[];
-    }
-  >;
-}
-
 // components
 import StudyPathQuestionCardSkeleton from '@/components/app/study-paths/study-path-question-card-skeleton';
 import QuestionCardClient from '@/components/app/questions/layout/question-card-client';
@@ -52,15 +38,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return createMetadata({
     title: `${studyPath?.title} | TechBlitz`,
     description: studyPath?.description,
-    keywords: [
-      'javascript coding questions',
-      'react coding questions',
-      'web development coding questions',
-      'coding challenges',
-      'coding tutorials',
-      'coding practice',
-      'coding practice questions',
-    ],
     image: {
       text: `${studyPath?.title} | TechBlitz`,
       bgColor: '#000',
@@ -141,7 +118,7 @@ function SectionHeader({
   index: number;
 }) {
   return (
-    <div className={`flex items-center justify-center gap-x-3 mb-24 ${index !== 0 ? 'pt-24' : ''}`}>
+    <div className="flex items-center justify-center gap-x-3 mb-8">
       <hr className="w-full border-black-50" />
       <h2 className="text-xl font-bold flex-shrink-0" style={{ color: color || 'inherit' }}>
         {title}
@@ -158,7 +135,7 @@ function StudyPathSections({
   studyPath,
   questions,
 }: {
-  studyPath: ExtendedStudyPath;
+  studyPath: StudyPath;
   questions: Question[];
 }) {
   // If studyPath has overviewData, use it; otherwise, fall back to questionSlugs
@@ -192,10 +169,8 @@ function StudyPathSections({
     (q) => !q.userAnswers?.length || q.userAnswers?.some((answer) => answer.correctAnswer === false)
   );
 
-  // Create a special study path object that only has the slugs for each section
-  // This ensures the firstUnansweredQuestion logic in StudyPathsList works section by section
   return (
-    <div className="flex flex-col gap-y-24">
+    <div className="flex flex-col">
       {sections.map((section, sectionIndex) => {
         // Determine if this section contains the first unanswered question
         const containsFirstUnanswered =
@@ -238,14 +213,14 @@ function StudyPathSections({
         }
 
         return (
-          <div key={section.key} className="space-y-6">
+          <div key={section.key} className="space-y-6 inline-grid">
             <SectionHeader
               title={section.sectionName}
               icon={section.icon}
               color={section.color}
               index={sectionIndex}
             />
-            <div className="pl-4">
+            <div className="pl-4 relative">
               <Suspense fallback={<StudyPathsListSkeleton />}>
                 <StudyPathsList questions={sectionQuestions} studyPath={sectionStudyPath} />
               </Suspense>
@@ -264,15 +239,12 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
     return <div>Study path not found</div>;
   }
 
-  // Cast to our extended type
-  const studyPath = studyPathData as ExtendedStudyPath;
-
-  const jsonLd: QuizJsonLd = createJsonLd(studyPath, params.slug);
+  const jsonLd: QuizJsonLd = createJsonLd(studyPathData, params.slug);
 
   // Get all question slugs from either overviewData or questionSlugs
-  const allQuestionSlugs = studyPath.overviewData
-    ? Object.values(studyPath.overviewData).flatMap((section) => section.questionSlugs)
-    : studyPath.questionSlugs;
+  const allQuestionSlugs = studyPathData.overviewData
+    ? Object.values(studyPathData.overviewData).flatMap((section) => section.questionSlugs)
+    : studyPathData.questionSlugs;
 
   // Fetch questions
   const questions = getQuestions({
@@ -287,17 +259,17 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
       />
       <div className="flex flex-col gap-y-12 xl:px-28">
         <Hero
-          heading={<HeroHeading studyPath={studyPath} />}
+          heading={<HeroHeading studyPath={studyPathData} />}
           container={false}
-          chip={<HeroChip studyPath={studyPath} />}
+          chip={<HeroChip studyPath={studyPathData} />}
         />
         <div className="flex flex-col lg:flex-row gap-12 xl:gap-24">
-          <div className="w-full lg:w-[55%] space-y-6 pb-12">
+          <div className="w-full lg:w-[55%] flex-1">
             <Suspense fallback={<StudyPathsListSkeleton />}>
-              <StudyPathSections questions={await questions} studyPath={studyPath} />
+              <StudyPathSections questions={await questions} studyPath={studyPathData} />
             </Suspense>
           </div>
-          <StudyPathSidebar studyPath={studyPath} />
+          <StudyPathSidebar studyPath={studyPathData} />
         </div>
       </div>
     </>

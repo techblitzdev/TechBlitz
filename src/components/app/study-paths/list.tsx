@@ -37,12 +37,12 @@ export default async function StudyPathsList({
   )?.slug;
 
   return (
-    <div className={cn('relative z-10 justify-self-center', className)}>
+    <div className={cn('relative z-10 justify-self-center grid', className)}>
       <Suspense fallback={<StudyPathQuestionCardSkeleton />}>
         {sortedQuestions.map((question, index) => {
           const offsetValue = calculateOffset ? calculateOffset(index) : Math.sin(index * 2.5) * 25;
           return (
-            <div key={question.slug} className="mb-4">
+            <div key={question.slug} className="mb-4 flex">
               <QuestionCardClient
                 questionData={question}
                 index={index}

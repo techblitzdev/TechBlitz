@@ -95,7 +95,7 @@ export default function StudyPathQuestionCardClient({
           'absolute -inset-4 rounded-full border-4 transition-all duration-300 transform-gpu',
           getWrapperBorderColor(),
           isCorrect && 'animate-pulse-slow',
-          isNextQuestion && 'animate-pulse',
+          isNextQuestion && '',
           'group-hover:rotate-2 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-accent/20',
           'group-active:rotate-1 group-active:scale-95'
         )}

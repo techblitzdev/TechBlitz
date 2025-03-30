@@ -36,14 +36,6 @@ export default function MultipleChoiceFooter({
 }: MultipleChoiceFooterProps) {
   const { user, showHint, setShowHint } = useQuestionSingle();
   const searchParams = useSearchParams();
-  const [hasViewedHint, setHasViewedHint] = useState<boolean>(false);
-
-  // Track if the user has viewed the hint
-  useEffect(() => {
-    if (showHint) {
-      setHasViewedHint(true);
-    }
-  }, [showHint]);
 
   // Check if the question is part of a study path
   const type = searchParams?.get('type');
@@ -137,26 +129,15 @@ export default function MultipleChoiceFooter({
       <div className="flex items-center gap-x-2">
         {question.hint && (
           <AnimatePresence>
-            <motion.div
-              animate={!hasViewedHint && !hasSubmitted ? 'pulse' : 'idle'}
-              variants={pulseAnimation}
-              initial={false}
-            >
+            <motion.div variants={pulseAnimation} initial={false}>
               <Button
                 variant={showHint ? 'secondary' : 'default'}
                 size="icon"
                 onClick={toggleHint}
                 aria-label={showHint ? 'Hide hint' : 'Show hint'}
                 title={showHint ? 'Hide hint' : 'Show hint'}
-                className={
-                  !hasViewedHint && !hasSubmitted
-                    ? 'text-yellow-400 border border-yellow-500/30'
-                    : ''
-                }
               >
-                <Lightbulb
-                  className={`w-4 h-4 ${!hasViewedHint && !hasSubmitted ? 'text-yellow-400' : ''}`}
-                />
+                <Lightbulb className={`w-4 h-4`} />
               </Button>
             </motion.div>
           </AnimatePresence>

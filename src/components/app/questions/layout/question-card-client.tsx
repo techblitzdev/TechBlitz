@@ -40,7 +40,6 @@ export default function QuestionCardClient({
       key={key}
       className={cn('relative w-full flex justify-center transition-all duration-300')}
       style={{
-        top: `${topValue}px`,
         transform: `translateX(${offset}%)`,
       }}
     >

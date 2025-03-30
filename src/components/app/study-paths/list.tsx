@@ -42,7 +42,7 @@ export default async function StudyPathsList({
         {sortedQuestions.map((question, index) => {
           const offsetValue = calculateOffset ? calculateOffset(index) : Math.sin(index * 2.5) * 25;
           return (
-            <div key={question.slug} className="mb-4 flex">
+            <div key={question.slug} className="mb-16 flex">
               <QuestionCardClient
                 questionData={question}
                 index={index}

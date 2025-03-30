@@ -13,8 +13,8 @@ export async function StudyPathCard({ studyPath }: { studyPath: StudyPath }) {
   const roadmapUrl = studyPath.isPublished
     ? `/roadmaps/${studyPath.slug}`
     : process.env.NODE_ENV === 'development'
-      ? `/roadmaps/${studyPath.slug}`
-      : '#';
+    ? `/roadmaps/${studyPath.slug}`
+    : '#';
 
   return (
     <Link

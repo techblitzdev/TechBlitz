@@ -1,19 +1,24 @@
 'use client';
 
-import type React from 'react';
-
-import type { Question } from '@/types/Questions';
-import MultipleChoiceCard from './card';
-import { useCallback, useState } from 'react';
-import MultipleChoiceFooter from './footer';
-import { toast } from 'sonner';
-import { answerQuestion } from '@/actions/answers/answer';
-import type { QuestionAnswer } from '@/types/QuestionAnswers';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useCallback, useState } from 'react';
+
+import { toast } from 'sonner';
+
 import { INCORRECT_ANSWER_XP, QUESTION_XP } from '@/utils/constants/question-xp';
-import FeedbackBanner from './feedback-banner';
+
+import FeedbackBanner from '@/components/app/questions/multiple-choice/feedback-banner';
+import FasterThanAIWrapper from '@/components/app/questions/faster-than-ai/faster-than-ai-wrapper';
+import MultipleChoiceFooter from '@/components/app/questions/multiple-choice/footer';
+import MultipleChoiceCard from '@/components/app/questions/multiple-choice/card';
+import HintDrawer from '@/components/app/questions/multiple-choice/hint-drawer';
+
+import { answerQuestion } from '@/actions/answers/answer';
+
 import { useQuestionSingle } from '@/contexts/question-single-context';
-import FasterThanAIWrapper from '../faster-than-ai/faster-than-ai-wrapper';
+
+import type { QuestionAnswer } from '@/types/QuestionAnswers';
+import type { Question } from '@/types/Questions';
 
 interface QuestionMock {
   uid: string;
@@ -39,7 +44,7 @@ export default function MultipleChoiceLayoutClient({
   question: Question | QuestionMock;
   nextAndPreviousQuestion: NavigationData | null;
 }) {
-  const { user } = useQuestionSingle();
+  const { user, showHint, setShowHint } = useQuestionSingle();
 
   // determine if this question is eligible for the faster than ai game mode
   const fasterThanAiGameMode = user?.fasterThanAiGameMode && question.aiTimeToComplete;
@@ -227,19 +232,27 @@ export default function MultipleChoiceLayoutClient({
         hasSubmitted={isSubmitted}
         onReset={resetQuestion}
         nextAndPreviousQuestion={navigationData}
+        question={question as Question}
       />
     </div>
   );
 
   // Wrap with FasterThanAIWrapper if the game mode is active
   return (
-    <FasterThanAIWrapper
-      fasterThanAiGameMode={!!fasterThanAiGameMode}
-      aiTimeToComplete={question.aiTimeToComplete}
-      isSubmitted={isSubmitted}
-      wasCorrect={isCorrect === null ? undefined : isCorrect}
-    >
-      {questionContent}
-    </FasterThanAIWrapper>
+    <>
+      <FasterThanAIWrapper
+        fasterThanAiGameMode={!!fasterThanAiGameMode}
+        aiTimeToComplete={question.aiTimeToComplete}
+        isSubmitted={isSubmitted}
+        wasCorrect={isCorrect === null ? undefined : isCorrect}
+      >
+        {questionContent}
+      </FasterThanAIWrapper>
+
+      {/* Render hint drawer when showHint is true */}
+      {question.hint && (
+        <HintDrawer hint={question.hint} isOpen={showHint} onClose={() => setShowHint(false)} />
+      )}
+    </>
   );
 }

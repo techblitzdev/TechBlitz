@@ -43,6 +43,5 @@ export const getStudyPathQuestions = async (opts: GetStudyPathQuestionsOpts) => 
     },
   });
 
-  // current date
   return res;
 };

@@ -1,4 +1,3 @@
-/// *
 ///  * StudyPath is a study path that a user can enroll in.
 model StudyPath {
   uid                   String          @id @default(uuid())
@@ -8,7 +7,10 @@ model StudyPath {
   title                 String
   description           String
   heroChip              String
-  questionSlugs         String[]
+  questionSlugs         String[]        // LEGACY
+
+  overviewData          Json?
+
   educationLevel        String
   averageCompletionTime Int?
   category              String?

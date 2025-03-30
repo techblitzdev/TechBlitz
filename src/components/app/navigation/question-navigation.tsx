@@ -49,19 +49,42 @@ export default function QuestionNavigation(opts: {
         : null;
 
     if (studyPath) {
-      // Find the current question's index in the study path
-      const currentIndex = studyPath.questionSlugs.indexOf(slug);
+      // Check if we're using overviewData
+      if ('overviewData' in studyPath && studyPath.overviewData) {
+        // Get all question slugs from the overviewData structure
+        const allSlugs = Object.values(studyPath.overviewData as any)
+          .flatMap((section: any) => section.questionSlugs || [])
+          .filter(Boolean);
 
-      // Get next and previous questions based on index
-      const nextSlug =
-        currentIndex < studyPath.questionSlugs.length - 1
-          ? studyPath.questionSlugs[currentIndex + 1]
-          : null;
-      const prevSlug = currentIndex > 0 ? studyPath.questionSlugs[currentIndex - 1] : null;
+        // Find the current question's index in the flattened structure
+        const currentIndex = allSlugs.indexOf(slug);
 
-      // Set the full URLs in context
-      setPreviousQuestion(prevSlug ? `${prevSlug}?type=${type}&study-path=${studyPathSlug}` : null);
-      setNextQuestion(nextSlug ? `${nextSlug}?type=${type}&study-path=${studyPathSlug}` : null);
+        // Get next and previous questions based on index
+        const nextSlug = currentIndex < allSlugs.length - 1 ? allSlugs[currentIndex + 1] : null;
+        const prevSlug = currentIndex > 0 ? allSlugs[currentIndex - 1] : null;
+
+        // Set the full URLs in context
+        setPreviousQuestion(
+          prevSlug ? `${prevSlug}?type=${type}&study-path=${studyPathSlug}` : null
+        );
+        setNextQuestion(nextSlug ? `${nextSlug}?type=${type}&study-path=${studyPathSlug}` : null);
+      } else {
+        // Find the current question's index in the study path's questionSlugs
+        const currentIndex = studyPath.questionSlugs.indexOf(slug);
+
+        // Get next and previous questions based on index
+        const nextSlug =
+          currentIndex < studyPath.questionSlugs.length - 1
+            ? studyPath.questionSlugs[currentIndex + 1]
+            : null;
+        const prevSlug = currentIndex > 0 ? studyPath.questionSlugs[currentIndex - 1] : null;
+
+        // Set the full URLs in context
+        setPreviousQuestion(
+          prevSlug ? `${prevSlug}?type=${type}&study-path=${studyPathSlug}` : null
+        );
+        setNextQuestion(nextSlug ? `${nextSlug}?type=${type}&study-path=${studyPathSlug}` : null);
+      }
     } else {
       // Use the provided promise for non-study-path questions
       nextPrevPromise.then((nextPrev) => {
@@ -90,7 +113,7 @@ export default function QuestionNavigation(opts: {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button variant="ghost" size="sm" padding="sm">
-                  <ChallengeList type={type} studyPath={studyPath} questions={questions} />
+                  <ChallengeList type={type} studyPath={studyPath} questions={questions || []} />
                 </Button>
               </TooltipTrigger>
               <TooltipContent side="bottom">Challenge List</TooltipContent>

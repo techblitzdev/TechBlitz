@@ -1,12 +1,14 @@
+'use client';
+
 import { Question } from '@/types/Questions';
 import { cn } from '@/lib/utils';
 import { Circle } from 'lucide-react';
-import { useUserServer } from '@/hooks/use-user-server';
 import Lock from '@/components/ui/icons/lock';
 import Check from '@/components/ui/icons/check';
 import ERemove from '@/components/ui/icons/e-remove';
 import StudyPathQuestionCardPopover from './study-path-card-popover';
 import { StudyPath } from '@prisma/client';
+import { useQuestionSingle } from '@/contexts/question-single-context';
 
 const buttonColorMap = {
   correct: {
@@ -46,7 +48,7 @@ const buttonColorMap = {
   },
 };
 
-export default async function StudyPathQuestionCard({
+export default function StudyPathQuestionCardClient({
   questionData,
   isNextQuestion,
   studyPath,
@@ -56,10 +58,9 @@ export default async function StudyPathQuestionCard({
   studyPath: StudyPath;
 }) {
   const iconSize = '32';
+  const { user } = useQuestionSingle();
 
-  const user = await useUserServer();
-
-  //const title = questionData?.title || questionData?.question;
+  // Use client-side context for user data
   const userCanAccess = user?.userLevel === 'PREMIUM' || !questionData?.isPremiumQuestion;
 
   // Determine the status for visual styling

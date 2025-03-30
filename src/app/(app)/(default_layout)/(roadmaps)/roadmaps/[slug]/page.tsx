@@ -17,6 +17,7 @@ import { Question } from '@/types/Questions';
 // components
 import StudyPathQuestionCardSkeleton from '@/components/app/study-paths/study-path-question-card-skeleton';
 import QuestionCardClient from '@/components/app/questions/layout/question-card-client';
+import { Answer } from '@/types/Answers';
 const StudyPathsList = dynamic(() => import('@/components/app/study-paths/list'), {
   loading: () => <StudyPathsListSkeleton />,
 });
@@ -119,11 +120,11 @@ function SectionHeader({
 }) {
   return (
     <div className="flex items-center justify-center gap-x-3 mb-8">
-      <hr className="w-full border-black-50" />
+      <hr className="w-full border-t-2 border-black-50" />
       <h2 className="text-xl font-bold flex-shrink-0" style={{ color: color || 'inherit' }}>
         {title}
       </h2>
-      <hr className="w-full border-black-50" />
+      <hr className="w-full border-t-2 border-black-50" />
     </div>
   );
 }
@@ -153,8 +154,8 @@ function StudyPathSections({
   // Group questions by section based on overviewData
   const sections = Object.entries(overviewData).map(([key, section]) => {
     const sectionQuestions = section.questionSlugs
-      .map((slug) => questions.find((q) => q.slug === slug))
-      .filter((q): q is Question => q !== undefined);
+      .map((slug: string | null) => questions.find((q) => q.slug === slug))
+      .filter((q: Question): q is Question => q !== undefined);
 
     return {
       key,
@@ -166,7 +167,9 @@ function StudyPathSections({
   // Find the first unanswered question across all sections
   const allQuestions = sections.flatMap((section) => section.questions);
   const firstUnansweredQuestion = allQuestions.find(
-    (q) => !q.userAnswers?.length || q.userAnswers?.some((answer) => answer.correctAnswer === false)
+    (q) =>
+      !q.userAnswers?.length ||
+      q.userAnswers?.some((answer: Answer) => answer.correctAnswer === false)
   );
 
   return (
@@ -175,23 +178,23 @@ function StudyPathSections({
         // Determine if this section contains the first unanswered question
         const containsFirstUnanswered =
           firstUnansweredQuestion &&
-          section.questions.some((q) => q.uid === firstUnansweredQuestion.uid);
+          section.questions.some((q: Question) => q.uid === firstUnansweredQuestion.uid);
 
         // Create a special studyPath object for this section
         const sectionStudyPath = {
           ...studyPath,
           // Only include question slugs for this section
-          questionSlugs: section.questions.map((q) => q.slug).filter(Boolean) as string[],
+          questionSlugs: section.questions.map((q: Question) => q.slug).filter(Boolean) as string[],
         };
 
-        // If this is not the section with the first unanswered question,
+        // if this is not the section with the first unanswered question,
         // remove unanswered questions or mark them as answered to prevent "Start" from showing
         let sectionQuestions = section.questions;
         if (!containsFirstUnanswered) {
           // Deep clone the questions to avoid modifying the original
-          sectionQuestions = section.questions.map((q) => ({
+          sectionQuestions = section.questions.map((q: Question) => ({
             ...q,
-            // Add a fake userAnswer if there are none, to prevent it from being considered "first unanswered"
+            // add a fake userAnswer if there are none, to prevent it from being considered "first unanswered"
             userAnswers: q.userAnswers?.length
               ? q.userAnswers
               : [
@@ -200,7 +203,6 @@ function StudyPathSections({
                     userUid: 'fake',
                     questionUid: q.uid,
                     correctAnswer: true,
-                    // Add other required fields for the Answer type
                     createdAt: new Date(),
                     updatedAt: new Date(),
                     questionDate: new Date().toISOString(),

@@ -78,12 +78,7 @@ export default function HintDrawer({ hint, isOpen, onClose }: HintDrawerProps) {
             </div>
 
             {/* Hint content with staggered animation */}
-            <motion.div
-              className="prose prose-invert max-w-none"
-              variants={containerVariants}
-              initial="hidden"
-              animate="show"
-            >
+            <div className="prose prose-invert max-w-none">
               <Markdown
                 remarkPlugins={[remarkGfm]}
                 components={{
@@ -120,7 +115,7 @@ export default function HintDrawer({ hint, isOpen, onClose }: HintDrawerProps) {
               >
                 {hint}
               </Markdown>
-            </motion.div>
+            </div>
 
             {/* Pulltab indicator */}
             <div className="absolute top-2 left-0 right-0 flex justify-center">

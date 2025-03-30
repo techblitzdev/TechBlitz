@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 
 import { toast } from 'sonner';
 
@@ -129,6 +129,47 @@ export default function MultipleChoiceLayoutClient({
       toast.error('Error submitting answer');
     }
   };
+
+  // Add keyboard event handling for number keys
+  useEffect(() => {
+    // Only enable keyboard shortcuts when not submitted
+    if (isSubmitted) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Check if a number key was pressed (1-9)
+      const key = e.key;
+      const numberPressed = parseInt(key);
+
+      // If it's a number key and within the range of available answers
+      if (!isNaN(numberPressed) && numberPressed > 0 && numberPressed <= answers.length) {
+        // Adjust for 0-based indexing (key 1 selects index 0)
+        const index = numberPressed - 1;
+        const answerText = answers[index].answer;
+
+        // Prevent handling if user is typing in an input field
+        if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+          return;
+        }
+
+        // Select the answer
+        handleSelectAnswer(answerText, index);
+
+        // Provide visual feedback (optional toast)
+        toast.info(`Selected answer ${numberPressed}`);
+      } else if (key === 'Enter' && selectedAnswerData && !isSubmitting) {
+        // Submit answer on Enter key if an answer is selected
+        handleSubmit();
+      }
+    };
+
+    // Add event listener
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Clean up
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [answers, selectedAnswerData, isSubmitted, isSubmitting]);
 
   // Find the correct answer UID for highlighting
   const correctAnswerUid = question.correctAnswer;

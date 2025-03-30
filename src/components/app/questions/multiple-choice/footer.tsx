@@ -5,6 +5,7 @@ import { Lightbulb, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import EnterKey from '@/components/ui/icons/enter-key';
 
 // Define navigation interface to match the data from getNextAndPreviousQuestion
 interface NavigationData {
@@ -84,19 +85,28 @@ export default function MultipleChoiceFooter({
     // Don't use asChild with conditional rendering in a Link
     submitButton = (
       <Link href={navigationHref}>
-        <Button variant="accent">{submitButtonText}</Button>
+        <Button variant="accent" className="flex items-center gap-2">
+          {submitButtonText} <EnterKey width="0.75em" height="0.75em" />
+        </Button>
       </Link>
     );
   } else {
     submitButton = (
-      <Button variant="accent" onClick={onSubmit} disabled={!selectedAnswer || isSubmitting}>
+      <Button
+        className="flex items-center gap-2"
+        variant="accent"
+        onClick={onSubmit}
+        disabled={!selectedAnswer || isSubmitting}
+      >
         {isSubmitting ? (
           <>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            <Loader2 className="mr-2 size-4 animate-spin" />
             Submitting...
           </>
         ) : (
-          submitButtonText
+          <>
+            {submitButtonText} <EnterKey width="0.75em    " height="0.75em" />
+          </>
         )}
       </Button>
     );

@@ -4,7 +4,6 @@ import { Question } from '@/types/Questions';
 import { Lightbulb, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Define navigation interface to match the data from getNextAndPreviousQuestion

@@ -159,7 +159,7 @@ function StudyPathSections({
 
   return (
     <div className="flex flex-col">
-      {sections.map((section, sectionIndex) => {
+      {sections.map((section) => {
         // Determine if this section contains the first unanswered question
         const containsFirstUnanswered =
           firstUnansweredQuestion &&

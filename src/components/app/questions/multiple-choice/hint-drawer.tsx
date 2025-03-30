@@ -5,7 +5,6 @@ import { Lightbulb, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { useState, useEffect } from 'react';
 
 interface HintDrawerProps {
   hint: string;
@@ -14,30 +13,6 @@ interface HintDrawerProps {
 }
 
 export default function HintDrawer({ hint, isOpen, onClose }: HintDrawerProps) {
-  // Split hint content by lines for animation
-  const [contentLines, setContentLines] = useState<string[]>([]);
-
-  // When the hint changes or becomes visible, split it into lines
-  useEffect(() => {
-    if (hint) {
-      // Split content by line breaks but preserve them for Markdown
-      const lines = hint.split(/\n/).filter((line) => line.trim() !== '');
-      setContentLines(lines);
-    }
-  }, [hint]);
-
-  // Animation variants for container and items
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
     show: { y: 0, opacity: 1, transition: { type: 'spring', stiffness: 300, damping: 24 } },

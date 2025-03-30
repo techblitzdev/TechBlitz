@@ -11,6 +11,7 @@ import FeedbackBanner from '@/components/app/questions/multiple-choice/feedback-
 import FasterThanAIWrapper from '@/components/app/questions/faster-than-ai/faster-than-ai-wrapper';
 import MultipleChoiceFooter from '@/components/app/questions/multiple-choice/footer';
 import MultipleChoiceCard from '@/components/app/questions/multiple-choice/card';
+import HintDrawer from '@/components/app/questions/multiple-choice/hint-drawer';
 
 import { answerQuestion } from '@/actions/answers/answer';
 
@@ -18,7 +19,6 @@ import { useQuestionSingle } from '@/contexts/question-single-context';
 
 import type { QuestionAnswer } from '@/types/QuestionAnswers';
 import type { Question } from '@/types/Questions';
-import HintDrawer from './hint-drawer';
 
 interface QuestionMock {
   uid: string;

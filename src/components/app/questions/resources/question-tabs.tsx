@@ -129,12 +129,6 @@ export default function QuestionTabs({
               </div>
             </div>
             <p className="text-sm text-gray-400 font-light font-onest mt-3">{question.question}</p>
-            {question.description && (
-              <div
-                className="text-sm text-gray-300 font-light font-onest mt-1 prose prose-invert max-w-none"
-                dangerouslySetInnerHTML={{ __html: question.description }}
-              />
-            )}
             {renderAnswerForm()}
           </div>
         )}

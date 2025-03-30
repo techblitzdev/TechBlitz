@@ -1,4 +1,4 @@
-import { Suspense, use } from 'react';
+import { use, Suspense } from 'react';
 
 import { cn } from '@/lib/utils';
 import { ChevronRight, List } from 'lucide-react';
@@ -18,13 +18,34 @@ import { Question } from '@/types/Questions';
 
 function StudyPathsListSkeleton() {
   return (
-    <div className="flex flex-col items-center justify-center gap-6 relative z-10 w-[80%] mx-auto">
-      {Array.from({ length: 9 }).map((_, index) => (
+    <div className="flex flex-col items-center justify-center gap-6 relative z-10 w-full mx-auto">
+      {Array.from({ length: 3 }).map((_, index) => (
         <QuestionCardClient key={index} questionData={null} offset={Math.sin(index * 0.9) * 4}>
           <StudyPathQuestionCardSkeleton />
         </QuestionCardClient>
       ))}
     </div>
+  );
+}
+
+// studyPath list wrapper that handles the async Questions
+function StudyPathsListWrapper({
+  questions,
+  studyPath,
+}: {
+  questions: Promise<Question[]> | Question[];
+  studyPath: StudyPath;
+}) {
+  // Resolve questions if they're a promise
+  const resolvedQuestions = Array.isArray(questions) ? questions : use(questions);
+
+  return (
+    <StudyPathsList
+      className="w-full gap-8 pt-24"
+      questions={resolvedQuestions}
+      studyPath={studyPath}
+      calculateOffset={(index) => Math.sin(index * 0.5) * 3}
+    />
   );
 }
 
@@ -62,7 +83,7 @@ export default function ChallengeList({
           </p>
         </div>
       </SheetTrigger>
-      <SheetContent side="left" className="bg-black-75 sm:max-w-xl">
+      <SheetContent side="left" className="bg-black-75 sm:max-w-xl overflow-hidden">
         <div className="flex flex-col h-full gap-10">
           <Link
             href={studyPath ? `/roadmaps/${studyPath.slug}` : '/questions'}
@@ -73,18 +94,14 @@ export default function ChallengeList({
             </h6>
             <ChevronRight className="size-5 group-hover:translate-x-1 transition-transform duration-300" />
           </Link>
-          <div className="flex-1 overflow-y-scroll">
+          <div className="flex-1 overflow-y-auto">
             <ChallengeListClient>
               {type === 'study-path' && studyPath ? (
-                <>
+                <div className="pb-8">
                   <Suspense fallback={<StudyPathsListSkeleton />}>
-                    <StudyPathsList
-                      className="w-[17%] justify-self-center pt-16"
-                      questions={questions || []}
-                      studyPath={studyPath}
-                    />
+                    <StudyPathsListWrapper questions={questions || []} studyPath={studyPath} />
                   </Suspense>
-                </>
+                </div>
               ) : (
                 <>
                   {relatedQuestionsData?.map((question) => (

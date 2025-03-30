@@ -14,7 +14,7 @@ export default async function NextRoadmapGraphic({
   // get the first 3 questions
   const firstThreeQuestions = studyPath?.questionSlugs.slice(0, 3) ?? [];
 
-  const questions = getQuestions({
+  const questions = await getQuestions({
     questionSlugs: firstThreeQuestions,
   });
 

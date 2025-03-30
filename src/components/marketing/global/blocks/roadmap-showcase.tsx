@@ -39,14 +39,17 @@ export default async function RoadmapShowcaseBlock({
 
   const StudyPathContent = () => (
     <div className="col-span-full md:col-span-6 relative overflow-hidden">
-      {studyPath && (
-        <StudyPathsList
-          calculateOffset={(index) => Math.sin(index * 2) * 3}
-          questions={questions}
-          studyPath={studyPath}
-          className="flex flex-col gap-6"
-        />
-      )}
+      <div className="overflow-hidden relative flex justify-center w-full h-52">
+        {studyPath && (
+          <StudyPathsList
+            offsetType="sine"
+            offsetMultiplier={0.12}
+            questions={questions}
+            studyPath={studyPath}
+            className="flex flex-col gap-4"
+          />
+        )}
+      </div>
       <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#000] to-transparent z-10" />
     </div>
   );

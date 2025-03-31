@@ -1,8 +1,6 @@
 export default function TypescriptIcon({ ...props }: React.ComponentPropsWithoutRef<'svg'>) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" {...props}>
-      {...props}
-    >
       <path className="st0" d="M0 200V0h400v400H0" />
       <path
         className="st1"

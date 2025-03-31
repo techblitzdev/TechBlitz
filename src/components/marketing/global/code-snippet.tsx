@@ -5,6 +5,10 @@ import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { codeToHtml } from 'shiki';
 import { motion, AnimatePresence } from 'framer-motion';
+import JavascriptIcon from '@/components/ui/icons/javascript';
+import TypescriptIcon from '@/components/ui/icons/typescript';
+import HtmlIcon from '@/components/ui/icons/html';
+import CssIcon from '@/components/ui/icons/css';
 
 interface CodeSnippetProps {
   code: string;
@@ -13,6 +17,13 @@ interface CodeSnippetProps {
   lightTheme: string;
   darkTheme: string;
 }
+
+const languageSvgIconMap = {
+  javascript: <JavascriptIcon width={16} height={16} />,
+  typescript: <TypescriptIcon width={16} height={16} />,
+  html: <HtmlIcon width={16} height={16} />,
+  css: <CssIcon width={16} height={16} />,
+};
 
 export default function CodeSnippet({
   code,
@@ -65,6 +76,10 @@ export default function CodeSnippet({
     }
   };
 
+  const languageSvgIcon = languageSvgIconMap[language as keyof typeof languageSvgIconMap] || (
+    <FileIcon width={16} height={16} />
+  );
+
   return (
     <div className="mx-auto w-full max-w-3xl">
       <div className="relative w-full overflow-hidden rounded-xl border border-black-50">
@@ -76,8 +91,8 @@ export default function CodeSnippet({
                 'radial-gradient(128% 107% at 50% 0%,#212121 0%,rgb(0,0,0) 77.61472409909909%)',
             }}
           >
-            <div className="flex items-center">
-              <FileIcon className="mr-2 h-4 w-4" />
+            <div className="flex items-center gap-2">
+              {languageSvgIcon}
               <span className="font-medium font-onest">{filename}</span>
             </div>
             <motion.div

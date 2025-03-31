@@ -60,7 +60,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 
       return (
         <div className="mt-3">
-          <CodeSnippet {...withDefaults} language="javascript" filename="example.js" />
+          <CodeSnippet {...withDefaults} language="javascript" filename="index.js" />
         </div>
       );
     },

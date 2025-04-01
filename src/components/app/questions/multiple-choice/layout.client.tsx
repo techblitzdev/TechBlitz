@@ -21,7 +21,6 @@ import { useQuestionSingle } from '@/contexts/question-single-context';
 import type { QuestionAnswer } from '@/types/QuestionAnswers';
 import type { Question } from '@/types/Questions';
 import { cn } from '@/lib/utils';
-import CodeSnippet from '@/components/marketing/global/code-snippet';
 import { CodeBlock } from '@/components/ui/code-block';
 
 interface QuestionMock {

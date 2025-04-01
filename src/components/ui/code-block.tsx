@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { nightOwl } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
-import { Check, Copy, File, FileCode, FileText } from 'lucide-react';
+import { Check, Copy, File } from 'lucide-react';
 import JavascriptIcon from './icons/javascript';
 import TypescriptIcon from './icons/typescript';
 import CssIcon from './icons/css';

@@ -1,7 +1,8 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { toast } from 'sonner';
 
@@ -19,6 +20,8 @@ import { useQuestionSingle } from '@/contexts/question-single-context';
 
 import type { QuestionAnswer } from '@/types/QuestionAnswers';
 import type { Question } from '@/types/Questions';
+import { cn } from '@/lib/utils';
+import { CodeBlock } from '@/components/ui/code-block';
 
 interface QuestionMock {
   uid: string;
@@ -45,7 +48,7 @@ export default function MultipleChoiceLayoutClient({
   nextAndPreviousQuestion: NavigationData | null;
 }) {
   const { user, showHint, setShowHint } = useQuestionSingle();
-
+  const router = useRouter();
   // determine if this question is eligible for the faster than ai game mode
   const fasterThanAiGameMode = user?.fasterThanAiGameMode && question.aiTimeToComplete;
 
@@ -59,12 +62,27 @@ export default function MultipleChoiceLayoutClient({
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [xpIncrease, setXpIncrease] = useState(0);
+  const [navigating, setNavigating] = useState(false);
 
   // Track time spent
   const [startTime] = useState<number>(Date.now());
 
+  // Create a default object if nextAndPreviousQuestion is null
+  const navigationData = nextAndPreviousQuestion || {
+    previousQuestion: null,
+    nextQuestion: null,
+  };
+
   // Ensure answers is an array of QuestionAnswer objects
   const answers = Array.isArray(question.answers) ? question.answers : [];
+
+  // check if this question has a code snippet or not
+  const hasCodeSnippet = question.codeSnippet;
+
+  // the container widths are different depending on if the question has a code snippet or not
+  const containerWidth = hasCodeSnippet
+    ? 'max-w-md md:max-w-2xl lg:max-w-4xl'
+    : 'max-w-xs md:max-w-xl lg:max-w-2xl';
 
   // Handle answer selection
   const handleSelectAnswer = (answer: string, index: number) => {
@@ -130,6 +148,66 @@ export default function MultipleChoiceLayoutClient({
     }
   };
 
+  // Determine the navigation href with study path params if necessary
+  const navigationHref = isSubmitted
+    ? nextAndPreviousQuestion?.nextQuestion
+      ? `/question/${nextAndPreviousQuestion.nextQuestion}`
+      : '/questions'
+    : '';
+
+  // Add keyboard event handling for number keys
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Prevent handling if user is typing in an input field
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        return;
+      }
+
+      const key = e.key;
+
+      if (isSubmitted) {
+        // After submission keyboard controls
+        if (key === 'Backspace') {
+          // Reset the question when Backspace is pressed after submission
+          resetQuestion();
+          toast.info('Question restarted');
+        } else if (key === 'Enter' && navigationData.nextQuestion) {
+          // Navigate to next question when Enter is pressed after submission
+          // and a next question exists
+          setNavigating(true);
+          router.push(navigationHref);
+        }
+      } else {
+        // Controls when question is not yet submitted
+        const numberPressed = parseInt(key);
+
+        // If it's a number key and within the range of available answers
+        if (!isNaN(numberPressed) && numberPressed > 0 && numberPressed <= answers.length) {
+          // Adjust for 0-based indexing (key 1 selects index 0)
+          const index = numberPressed - 1;
+          const answerText = answers[index].answer;
+
+          // Select the answer
+          handleSelectAnswer(answerText, index);
+
+          // Provide visual feedback
+          toast.info(`Selected answer ${numberPressed}`);
+        } else if (key === 'Enter' && selectedAnswerData && !isSubmitting) {
+          // Submit answer on Enter key if an answer is selected
+          handleSubmit();
+        }
+      }
+    };
+
+    // Add event listener
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Clean up
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [answers, selectedAnswerData, isSubmitted, isSubmitting, navigationData, resetQuestion]);
+
   // Find the correct answer UID for highlighting
   const correctAnswerUid = question.correctAnswer;
 
@@ -161,15 +239,14 @@ export default function MultipleChoiceLayoutClient({
 
   const feedbackMessage = getFeedbackMessage();
 
-  // Create a default object if nextAndPreviousQuestion is null
-  const navigationData = nextAndPreviousQuestion || {
-    previousQuestion: null,
-    nextQuestion: null,
-  };
-
   // Render the question content that will be wrapped
   const questionContent = (
-    <div className="px-4 lg:px-0 lg:container min-h-screen flex flex-col justify-self-center justify-center items-center max-w-xs md:max-w-xl lg:max-w-2xl">
+    <div
+      className={cn(
+        'px-4 lg:px-0 lg:container min-h-screen flex flex-col justify-self-center justify-center items-center',
+        containerWidth
+      )}
+    >
       <div className="flex flex-col gap-4 mb-6 relative w-full">
         {/* Feedback banner that slides in from top when submitted */}
         <AnimatePresence>
@@ -184,25 +261,35 @@ export default function MultipleChoiceLayoutClient({
 
         {children}
 
-        {/* Answer cards that stay visible and transform when submitted */}
-        <div className="flex flex-col gap-4 w-full">
-          {answers.map((answerObj, index) => {
-            const isCurrentAnswer = selectedAnswerData?.uid === answerObj.uid;
-            const isCorrectAnswer = answerObj.uid === correctAnswerUid;
+        <div className={cn(hasCodeSnippet ? 'grid grid-cols-1 lg:grid-cols-12 gap-10' : '')}>
+          {/* Answer cards that stay visible and transform when submitted */}
+          <div className="col-span-full md:col-span-6 flex flex-col gap-4 w-full">
+            {answers.map((answerObj, index) => {
+              const isCurrentAnswer = selectedAnswerData?.uid === answerObj.uid;
+              const isCorrectAnswer = answerObj.uid === correctAnswerUid;
 
-            return (
-              <MultipleChoiceCard
-                key={answerObj.uid}
-                index={index}
-                answer={answerObj.answer}
-                handleSelectAnswer={handleSelectAnswer}
-                selectedAnswer={selectedAnswerData?.text}
-                isCorrect={isSubmitted && isCurrentAnswer ? isCorrect : undefined}
-                isSubmitted={isSubmitted}
-                correctAnswer={isSubmitted && isCorrectAnswer ? answerObj.answer : undefined}
+              return (
+                <MultipleChoiceCard
+                  key={answerObj.uid}
+                  index={index}
+                  answer={answerObj.answer}
+                  handleSelectAnswer={handleSelectAnswer}
+                  selectedAnswer={selectedAnswerData?.text}
+                  isCorrect={isSubmitted && isCurrentAnswer ? isCorrect : undefined}
+                  isSubmitted={isSubmitted}
+                  correctAnswer={isSubmitted && isCorrectAnswer ? answerObj.answer : undefined}
+                />
+              );
+            })}
+          </div>
+          {hasCodeSnippet && (
+            <div className="col-span-full md:col-span-6">
+              <CodeBlock
+                className="h-full"
+                files={[{ title: 'index.html', code: question.codeSnippet }]}
               />
-            );
-          })}
+            </div>
+          )}
         </div>
 
         {/* After question info that appears after submission */}
@@ -233,6 +320,7 @@ export default function MultipleChoiceLayoutClient({
         onReset={resetQuestion}
         nextAndPreviousQuestion={navigationData}
         question={question as Question}
+        navigating={navigating}
       />
     </div>
   );

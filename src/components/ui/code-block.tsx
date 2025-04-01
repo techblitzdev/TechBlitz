@@ -173,16 +173,21 @@ function getLanguageFromFileName(fileName: string): string {
 
 function FileIcon({ fileName }: { fileName: string }) {
   const ext = fileName.split('.').pop()?.toLowerCase();
+
+  const size = 'size-4';
+
   switch (ext) {
     case 'js':
     case 'jsx':
-      return <Icons.javascript className="h-4 w-4" />;
+      return <Icons.javascript className={size} />;
     case 'ts':
     case 'tsx':
-      return <Icons.typescript className="h-4 w-4" />;
+      return <Icons.typescript className={size} />;
     case 'css':
-      return <Icons.css className="h-4 w-4" />;
+      return <Icons.css className={size} />;
+    case 'html':
+      return <Icons.html className={size} />;
     default:
-      return <Icons.file className="h-4 w-4" />;
+      return <Icons.file className={size} />;
   }
 }

@@ -287,7 +287,7 @@ export default function MultipleChoiceLayoutClient({
             <div className="col-span-6">
               <CodeBlock
                 className="h-full"
-                files={[{ title: 'index.js', code: question.codeSnippet }]}
+                files={[{ title: 'index.html', code: question.codeSnippet }]}
               />
             </div>
           )}

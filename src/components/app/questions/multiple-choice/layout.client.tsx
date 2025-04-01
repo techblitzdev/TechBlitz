@@ -20,6 +20,8 @@ import { useQuestionSingle } from '@/contexts/question-single-context';
 
 import type { QuestionAnswer } from '@/types/QuestionAnswers';
 import type { Question } from '@/types/Questions';
+import { cn } from '@/lib/utils';
+import { CodeBlock } from '@/components/ui/code-block';
 
 interface QuestionMock {
   uid: string;
@@ -73,6 +75,14 @@ export default function MultipleChoiceLayoutClient({
 
   // Ensure answers is an array of QuestionAnswer objects
   const answers = Array.isArray(question.answers) ? question.answers : [];
+
+  // check if this question has a code snippet or not
+  const hasCodeSnippet = question.codeSnippet;
+
+  // the container widths are different depending on if the question has a code snippet or not
+  const containerWidth = hasCodeSnippet
+    ? 'max-w-md md:max-w-2xl lg:max-w-4xl'
+    : 'max-w-xs md:max-w-xl lg:max-w-2xl';
 
   // Handle answer selection
   const handleSelectAnswer = (answer: string, index: number) => {
@@ -231,7 +241,12 @@ export default function MultipleChoiceLayoutClient({
 
   // Render the question content that will be wrapped
   const questionContent = (
-    <div className="px-4 lg:px-0 lg:container min-h-screen flex flex-col justify-self-center justify-center items-center max-w-xs md:max-w-xl lg:max-w-2xl">
+    <div
+      className={cn(
+        'px-4 lg:px-0 lg:container min-h-screen flex flex-col justify-self-center justify-center items-center',
+        containerWidth
+      )}
+    >
       <div className="flex flex-col gap-4 mb-6 relative w-full">
         {/* Feedback banner that slides in from top when submitted */}
         <AnimatePresence>
@@ -246,25 +261,35 @@ export default function MultipleChoiceLayoutClient({
 
         {children}
 
-        {/* Answer cards that stay visible and transform when submitted */}
-        <div className="flex flex-col gap-4 w-full">
-          {answers.map((answerObj, index) => {
-            const isCurrentAnswer = selectedAnswerData?.uid === answerObj.uid;
-            const isCorrectAnswer = answerObj.uid === correctAnswerUid;
+        <div className={cn(hasCodeSnippet ? 'grid grid-cols-1 lg:grid-cols-12 gap-10' : '')}>
+          {/* Answer cards that stay visible and transform when submitted */}
+          <div className="col-span-full md:col-span-6 flex flex-col gap-4 w-full">
+            {answers.map((answerObj, index) => {
+              const isCurrentAnswer = selectedAnswerData?.uid === answerObj.uid;
+              const isCorrectAnswer = answerObj.uid === correctAnswerUid;
 
-            return (
-              <MultipleChoiceCard
-                key={answerObj.uid}
-                index={index}
-                answer={answerObj.answer}
-                handleSelectAnswer={handleSelectAnswer}
-                selectedAnswer={selectedAnswerData?.text}
-                isCorrect={isSubmitted && isCurrentAnswer ? isCorrect : undefined}
-                isSubmitted={isSubmitted}
-                correctAnswer={isSubmitted && isCorrectAnswer ? answerObj.answer : undefined}
+              return (
+                <MultipleChoiceCard
+                  key={answerObj.uid}
+                  index={index}
+                  answer={answerObj.answer}
+                  handleSelectAnswer={handleSelectAnswer}
+                  selectedAnswer={selectedAnswerData?.text}
+                  isCorrect={isSubmitted && isCurrentAnswer ? isCorrect : undefined}
+                  isSubmitted={isSubmitted}
+                  correctAnswer={isSubmitted && isCorrectAnswer ? answerObj.answer : undefined}
+                />
+              );
+            })}
+          </div>
+          {hasCodeSnippet && (
+            <div className="col-span-full md:col-span-6">
+              <CodeBlock
+                className="h-full"
+                files={[{ title: 'index.html', code: question.codeSnippet }]}
               />
-            );
-          })}
+            </div>
+          )}
         </div>
 
         {/* After question info that appears after submission */}

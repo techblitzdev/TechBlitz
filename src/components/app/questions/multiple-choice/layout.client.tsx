@@ -264,7 +264,7 @@ export default function MultipleChoiceLayoutClient({
 
         <div className={cn(hasCodeSnippet ? 'grid grid-cols-12 gap-10' : '')}>
           {/* Answer cards that stay visible and transform when submitted */}
-          <div className="col-span-6 flex flex-col gap-4 w-full">
+          <div className="col-span-full md:col-span-6 flex flex-col gap-4 w-full">
             {answers.map((answerObj, index) => {
               const isCurrentAnswer = selectedAnswerData?.uid === answerObj.uid;
               const isCorrectAnswer = answerObj.uid === correctAnswerUid;
@@ -284,7 +284,7 @@ export default function MultipleChoiceLayoutClient({
             })}
           </div>
           {hasCodeSnippet && (
-            <div className="col-span-6">
+            <div className="col-span-full md:col-span-6">
               <CodeBlock
                 className="h-full"
                 files={[{ title: 'index.html', code: question.codeSnippet }]}

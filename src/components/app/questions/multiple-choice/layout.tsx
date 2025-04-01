@@ -40,12 +40,12 @@ export default function MultipleChoiceLayout({
       question={question}
       nextAndPreviousQuestion={nextAndPreviousQuestion}
     >
-      <div className="flex flex-col gap-2 justify-between mb-4 self-start">
-        <h2 className="text-2xl font-bold text-white text-start">{question.question}</h2>
+      <div className="flex flex-col gap-2 justify-center mb-4 self-center max-w-3xl">
+        <h2 className="text-3xl font-bold text-white text-center">{question.question}</h2>
         {question.description && (
           <p
             dangerouslySetInnerHTML={{ __html: question.description }}
-            className="text-sm text-gray-400"
+            className="text-sm text-gray-400 text-center"
           />
         )}
       </div>

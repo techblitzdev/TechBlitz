@@ -262,7 +262,7 @@ export default function MultipleChoiceLayoutClient({
 
         {children}
 
-        <div className={cn(hasCodeSnippet ? 'grid grid-cols-12 gap-10' : '')}>
+        <div className={cn(hasCodeSnippet ? 'grid grid-cols-1 lg:grid-cols-12 gap-10' : '')}>
           {/* Answer cards that stay visible and transform when submitted */}
           <div className="col-span-full md:col-span-6 flex flex-col gap-4 w-full">
             {answers.map((answerObj, index) => {

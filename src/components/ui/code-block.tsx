@@ -114,13 +114,13 @@ export function CodeBlock({ files, defaultTitle, className }: CodeBlockProps) {
           {files.map(({ title }) => (
             <Button
               key={title}
-              variant={title === activeTitle ? 'default' : 'outline'}
+              variant={title === activeTitle ? 'default' : 'ghost'}
               size="sm"
               onClick={() => setActiveTitle(title)}
               className="gap-2"
             >
               <FileIcon fileName={title} />
-              <span className="hidden sm:inline">{title}</span>
+              <span className="text-white">{title}</span>
             </Button>
           ))}
         </div>

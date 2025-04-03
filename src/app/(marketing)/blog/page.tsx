@@ -7,22 +7,28 @@ import TagFilter from '@/components/marketing/blog/tag-filter';
 import FeaturedPost from '@/components/marketing/blog/featured-post';
 import { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
+import Link from 'next/link';
+
+const POSTS_PER_PAGE = 9;
 
 interface BlogPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export async function generateMetadata() {
+export async function generateMetadata({ searchParams }: BlogPageProps) {
+  const page = Number(searchParams.page) || 1;
+  const pageTitle = page === 1 ? 'Blog | TechBlitz' : `Blog - Page ${page} | TechBlitz`;
+
   return createMetadata({
-    title: 'Blog | TechBlitz',
+    title: pageTitle,
     description:
       'Stay up to date with the latest news and insights from TechBlitz. Gather insights on how to level up your skills, beyond our coding challenges.',
     image: {
-      text: 'Blog | TechBlitz',
+      text: pageTitle,
       bgColor: '#000',
       textColor: '#fff',
     },
-    canonicalUrl: '/blog',
+    canonicalUrl: page === 1 ? '/blog' : `/blog/page/${page}`,
   });
 }
 
@@ -32,6 +38,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
   const selectedTags = (searchParams.tags as string)?.split(',').filter(Boolean) || [];
   const featuredPost = posts.find((post) => post.featured);
+  const currentPage = Number(searchParams.page) || 1;
 
   // do not include featured post in filtered posts
   const filteredPosts = filterPostsByTags(
@@ -39,11 +46,18 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     selectedTags
   );
 
+  // Calculate pagination
+  const totalPosts = filteredPosts.length;
+  const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
+  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+  const endIndex = startIndex + POSTS_PER_PAGE;
+  const paginatedPosts = filteredPosts.slice(startIndex, endIndex);
+
   const jsonLd: WebPageJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    url: `${getBaseUrl()}/blog`,
-    headline: 'Blog | TechBlitz',
+    url: `${getBaseUrl()}${currentPage === 1 ? '/blog' : `/blog/page/${currentPage}`}`,
+    headline: currentPage === 1 ? 'Blog | TechBlitz' : `Blog - Page ${currentPage} | TechBlitz`,
     description:
       'Stay up to date with the latest news and insights from TechBlitz. Gather insights on how to level up your skills, beyond our coding challenges.',
     image:
@@ -63,6 +77,16 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           name: 'Blog',
           item: `${getBaseUrl()}/blog`,
         },
+        ...(currentPage > 1
+          ? [
+              {
+                '@type': 'ListItem' as const,
+                position: 3,
+                name: `Page ${currentPage}`,
+                item: `${getBaseUrl()}/blog/page/${currentPage}`,
+              },
+            ]
+          : []),
       ],
     },
   };
@@ -92,7 +116,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
-            {filteredPosts.length === 0 && (
+            {paginatedPosts.length === 0 && (
               <div className="col-span-full flex flex-col gap-y-4 items-center">
                 <p className="text-center">
                   It look's like there are no blog posts posted at the moment. <br /> Why not try
@@ -107,10 +131,41 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
               </div>
             )}
 
-            {filteredPosts.map((post: any) => (
+            {paginatedPosts.map((post: any) => (
               <BlogCard key={post.slug} post={post} />
             ))}
           </div>
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="flex justify-center items-center gap-4 mt-12">
+              {currentPage > 1 && (
+                <Link
+                  href={{
+                    pathname: currentPage === 2 ? '/blog' : `/blog/page/${currentPage - 1}`,
+                    query: selectedTags.length ? { tags: selectedTags.join(',') } : undefined,
+                  }}
+                  className="px-4 py-2 border border-black-50 rounded-lg hover:border-accent transition-colors"
+                >
+                  Previous
+                </Link>
+              )}
+              <span className="text-gray-400">
+                Page {currentPage} of {totalPages}
+              </span>
+              {currentPage < totalPages && (
+                <Link
+                  href={{
+                    pathname: `/blog/page/${currentPage + 1}`,
+                    query: selectedTags.length ? { tags: selectedTags.join(',') } : undefined,
+                  }}
+                  className="px-4 py-2 border border-black-50 rounded-lg hover:border-accent transition-colors"
+                >
+                  Next
+                </Link>
+              )}
+            </div>
+          )}
         </section>
       </div>
     </>

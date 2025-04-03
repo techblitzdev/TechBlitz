@@ -48,6 +48,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'what-is-array-at-in-javascript',
     'what-is-length-in-javascript',
     'what-is-git-branch',
+    'how-to-approach-coding-challenges',
   ];
 
   const blogPosts = blogPostSlugs.map((slug) => ({
@@ -105,6 +106,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${baseUrl}/changelog`,
       lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/author/logan`,
+      lastModified: '2025-04-03',
     },
 
     // APP ROUTES ACCESSIBLE TO ALL USERS

@@ -102,7 +102,10 @@ export default async function BlogPost({ params }: BlogPostParams) {
               <span>•</span>
               <span>{typedFrontmatter.readingTime} min read</span>
               {typedFrontmatter.author && (
-                <>
+                <Link
+                  href={`/author/${typedFrontmatter.author.split(' ')[0].toLowerCase()}`}
+                  className="flex items-center gap-2"
+                >
                   <span>•</span>
                   <span className="flex items-center gap-x-2">
                     <img
@@ -112,7 +115,7 @@ export default async function BlogPost({ params }: BlogPostParams) {
                     />
                     {typedFrontmatter.author}
                   </span>
-                </>
+                </Link>
               )}
             </div>
           </div>
@@ -120,16 +123,9 @@ export default async function BlogPost({ params }: BlogPostParams) {
           {/** output the mdx content below the hero */}
           <div className="prose prose-invert prose-pre:bg-black-75 prose-pre:border prose-pre:border-black-50 max-w-none mt-10">
             {content}
-            <div className="mt-10">
-              <CallToActionBlock
-                title="Learn to code, faster"
-                description={`Join ${userCount}+ developers who are accelerating their coding skills with TechBlitz.`}
-                leftCta={{
-                  title: 'Begin Your Journey',
-                  href: '/signup',
-                }}
-              />
-            </div>
+
+            {/** share this post */}
+            <ShareThisPost title={typedFrontmatter.title} slug={params.slug} />
 
             {/** read related posts */}
             <div className="mt-10">
@@ -143,8 +139,16 @@ export default async function BlogPost({ params }: BlogPostParams) {
               </div>
             </div>
 
-            {/** share this post */}
-            <ShareThisPost title={typedFrontmatter.title} slug={params.slug} />
+            <div className="mt-10">
+              <CallToActionBlock
+                title="Learning to code made easier"
+                description={`Join ${userCount}+ developers who are accelerating their coding skills with TechBlitz.`}
+                leftCta={{
+                  title: 'Begin Your Journey',
+                  href: '/signup',
+                }}
+              />
+            </div>
           </div>
         </article>
         <aside className="w-full md:w-2/5 order-first md:order-last hidden md:block">
@@ -154,7 +158,7 @@ export default async function BlogPost({ params }: BlogPostParams) {
                 <TableOfContents headings={typedFrontmatter.headings} />
               </div>
             )}
-            <Card className="w-full border border-black-50 text-white shadow-lg">
+            <Card className="w-full bg-black-75 border border-black-50 text-white shadow-lg">
               <CardHeader className="pb-2">
                 <CardTitle className="font-onest text-2xl flex items-center justify-center">
                   Try TechBlitz for free

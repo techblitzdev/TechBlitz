@@ -1,0 +1,277 @@
+---
+title: 'How to approach coding challenges as a beginner'
+description: "Learning to code through coding challenges are a great way to improve your skills as a developer. But they can be intimidating for beginners. Here are some tips on how to approach them."
+image: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images//Screenshot%202025-04-03%20at%2019.42.27.png'
+date: '2025-04-03'
+author: 'Logan Ford'
+authorImage: 'https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/user-profile-pictures/3a57d7e8-8b80-483b-93d0-70fe1f06b0c0/logo.png?u=1l5im5h5n6e5'
+readingTime: 5
+status: published
+headings:
+    - title: 'How to approach coding challenges'
+      level: 1
+    - title: 'Understand the problem'
+      level: 3
+    - title: 'Break the problem down into smaller problems'
+      level: 3
+    - title: 'Creating a plan for solving the problem'
+      level: 3
+    - title: 'Solve the problem'
+      level: 3
+    - title: 'Refactor your solution'
+      level: 3
+    - title: 'How to use coding challenges to improve your skills'
+      level: 1
+    - title: 'Where to find coding challenges for beginners'
+      level: 1
+tags: ['Coding', 'Challenges', 'Beginner']
+keywords: 'coding challenges, beginner, coding, challenges, improve skills'
+featured: true
+---
+
+<img src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images//how-to-approach-coding-challenges-as-a-beginner.jpg" alt="Image of a rubix cube placed on a laptop, with a code editor open on the laptop." />
+
+## How to approach coding challenges
+
+When you're first starting out, coding challenges can be intimidating. You might not know where to start, or how to solve the problem as there are
+countless ways to approach the same problem.
+
+<br />
+
+But, there are a few steps that you should take to help you solve the problem, no matter how easy or complex the problem is. 
+Let's go through each step and see how you can approach a coding challenge in a structured way.
+
+<br />
+
+### Understand the problem
+
+It may seem obvious, but it's important to understand the problem before you start solving it. This is a step 
+many beginners skip, but it's a crucial step in solving the problem in the cleanest way possible. 
+
+<br />
+
+**But does 'understanding the problem' mean you need to understand the problem in detail?**
+
+<br />
+
+No, not at all. You don't need to know the exact solution, but you should have a good idea of what the problem is asking you to do.
+
+<br />
+
+Let's take a look at some questions you should ask yourself to help you understand the problem:
+
+###### What is the problem asking you to do? 
+The first question you should ask yourself is what is the problem asking you to do? 
+Is it asking you to write a function? Is it asking you to write a class? Is it asking you to write a test? 
+All these questions must be established before you can start solving the problem.
+
+###### What is the input? What is the output? 
+Understanding the input and output is crucial for any coding challenge. What type of data will your solution receive? 
+Is it a string, an array, or something else? Similarly, what should your solution return? 
+A boolean, a modified array, or a completely new data structure? 
+Clarifying these aspects will help you design an appropriate solution and avoid unnecessary complications.
+
+<br />
+
+If you can't answer these questions, you won't be able to solve the problem correctly. Which could lead to a lot of frustration, and some angry emails from 
+your peers!
+
+<Callout type="info">
+A common approach that developer take is to ask an AI to 'dumb' the problem down for them. This is a great way to get started, but it's important to 
+not just let the AI do all the work. As shown [here](https://x.com/leojr94_/status/1901560276488511759), AI is not the most robust way to solve problems!
+</Callout>
+
+<br />
+
+### Break the problem down into smaller problems
+
+Attacking a problem head on can (and will) be overwhelming, even for experienced developers. 
+Once you understand the problem, the next best step is to break it down into smaller, more manageable problems. 
+
+<br />
+
+Viewing each part of the problem as a separate task allows you to solve each part of the coding challenge one step at a time. 
+This makes the process of solving the problem much more manageable, as instead of trying to solve the entire problem at once, you can focus on one part of the problem at a time.
+
+<br />
+
+This works as many challenges given to you, will be devised of many different smaller problems combined together.
+
+<br />
+
+### Creating a plan for solving the problem
+
+Once you've broken down the problem, you can begin to create a plan to solve the problem. 
+There are many different way to approach this, but the most common methods are to use `flowcharts` or `pseudocode`.
+
+<br />
+
+Let's take a look at how you can use both flowcharts and pseudocode to solve a problem.
+
+###### Flowcharts
+
+<img src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/blog-images//flowchart-example.jpg" alt="An example of a flowchart" />
+
+<br />
+
+Flowcharts allow you to visually see the logic of the problem, and how the different parts of the problem are related to each other.
+Flowcharts are represented by a series of shapes, each representing a different part of the problem. 
+
+<br />
+
+Not only are flowcharts great for you as the developer, but they are also great for your co-workers to understand your solution.
+As it is a visual representation of the problem, the solution can be presented to project managers, clients, or other stakeholders. 
+Ensuring everyone is on the same page, and that the solution is understood by all.
+
+###### Pseudocode
+
+Pseudocode is the process of writing out the logic of a problem in plain English, rather than using code.
+This allows you to think about the problem in a more abstract way, and not get bogged down by the syntax of the language you're using.
+
+<br />
+
+Let's take a look at an example of pseudocode:
+
+<CodeSnippet code={`// Problem: Find the largest number in an array
+
+FUNCTION findLargestNumber(array)
+    IF array is empty THEN
+        RETURN null
+    END IF
+    
+    SET largestNumber = first element of array
+    
+    FOR EACH number IN array
+        IF number > largestNumber THEN
+            SET largestNumber = number
+        END IF
+    END FOR
+    
+    RETURN largestNumber
+END FUNCTION`} language="javascript" filename="index.js" />
+
+<br />
+
+Notice how the pseudocode clearly outlines the logic without worrying about specific syntax. It uses plain language with some structure to describe:
+- Function definition and parameters
+- Conditional checks
+- Variable assignments
+- Loops
+- Return values
+
+This makes it easier to focus on solving the problem before translating it into actual code.
+
+<br />
+
+### Solve the problem
+
+Now the fun part, solving the problem! (well, it's fun once you get the hang of it).
+
+<br />
+
+Ensure you're not just writing code, but you're also thinking about the problem and how to solve it.
+If you stick to the plan, you should be able to solve the problem without too much trouble.
+
+<br />
+
+If we go to our pseudocode example, we can see that we have a function that takes an array as an argument.
+We then check if the array is empty, and if it is, we return `null`.
+
+<br />  
+
+<CodeSnippet code={`function findLargestNumber(array) {
+    if (array.length === 0) {
+        return null;
+    }
+}
+`} language="javascript" filename="index.js" />
+
+<br />
+
+We then set the first element of the array to the largest number, and then we loop through the array and check if the current number is larger than the largest number.
+If it is, we update the largest number.
+
+<br />
+
+<CodeSnippet code={`function findLargestNumber(array) {
+    if (array.length === 0) {
+        return null;
+    }
+
+    let largestNumber = array[0];
+    
+}
+`} language="javascript" filename="index.js" />
+
+<br />
+
+Once we've looped through the array, we return the largest number.
+
+<br />
+
+<CodeSnippet code={`function findLargestNumber(array) {
+    if (array.length === 0) {
+        return null;
+    }
+
+    let largestNumber = array[0];
+    
+    for (let i = 1; i < array.length; i++) {
+        if (array[i] > largestNumber) {
+            largestNumber = array[i];
+        }
+    }
+
+    return largestNumber;
+}
+`} language="javascript" filename="index.js" />
+
+<br />
+
+Now we have a working solution for the problem, we can look at improving the solution.
+
+### Refactor your solution
+
+Once you have a working solution for the challenge, it's time to consider if there are any improvements you could make to your solution.
+Code needs to be clean, easy to understand and fast for the end user.
+Going through your solution and making sure it's as efficient as possible is a great way to improve your skills, as 
+reading code is just as important as writing it.
+
+<br />
+
+Make sure comments are added to your code to explain 'why' behind the 'what'. This will help you remember what you did, and why you did it.
+
+<br />
+
+Double check your solution works with the test cases provided. If you're given test cases, you should use them to check your solution.
+If you're not given test cases, try to create your own to check your solution. This will help you catch any edge cases that you may have missed.
+
+<br />
+
+## How to use coding challenges to improve your skills
+
+Consistently solving coding challenges is a great way to improve your skills as a developer.
+Repetition is key, as it helps you to remember the concepts and to become more comfortable with the problems you're given.
+
+<br />
+
+The best approach is to use the guide given in this article to help you solve the problem, and then try to solve the problem again on your own.
+Blindly following AI (or 'vibe coding') is not the best way to improve your skills. You will not be confident in your skills, and you will not be able to apply your skills to new problems.
+
+<br />
+
+So make sure you are not just pressing 'run' and hoping for the best. Take the time to understand the problem, break it down into smaller problems, and then solve the problem.
+
+<br />
+
+## Where to find coding challenges for beginners
+
+There are many different websites that offer coding challenges for beginners, but at TechBlitz we believe that the best way to improve your skills is to solve real problems.
+
+<br />
+
+That's why we've created a platform that allows you to solve real problems, and improve your skills in a structured way, whilst also not making you want to fall asleep!
+
+<br />
+
+Check out some of our [coding challenges](/roadmaps) here, by signing up for a free account!

@@ -38,7 +38,7 @@ export default function FeaturedPost({
             src={image || '/placeholder.svg'}
             alt={title}
             fill
-            className="object-contain"
+            className="object-contain border border-black-50 rounded-lg"
             sizes="(max-width: 768px) 100vw, 50vw"
           />
         </div>

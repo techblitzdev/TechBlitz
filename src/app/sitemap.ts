@@ -48,6 +48,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'what-is-array-at-in-javascript',
     'what-is-length-in-javascript',
     'what-is-git-branch',
+    'how-to-approach-coding-challenges',
   ];
 
   const blogPosts = blogPostSlugs.map((slug) => ({

@@ -37,6 +37,7 @@ export const getBlogPosts = async () => {
           description: frontmatter.description as string,
           title: frontmatter.title as string,
           subpage: frontmatter.subpage as boolean,
+          author: frontmatter.author as string,
           ...frontmatter,
         };
       })

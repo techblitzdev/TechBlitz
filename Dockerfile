@@ -27,8 +27,8 @@ RUN npm install -g pnpm
 # copy the dependencies from the deps stage
 COPY --from=deps /app/node_modules ./node_modules
 
-# copy the prisma schema from the deps stage
-COPY --from=deps /app/prisma/schema/schema.prisma ./prisma/schema/schema.prisma
+# Copy the prisma directory containing schema files
+COPY prisma ./prisma
 
 # copy the rest of the application code
 COPY . .
@@ -41,6 +41,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV CHOKIDAR_USEPOLLING=true
 ENV WATCHPACK_POLLING=true
 
+# Generate Prisma client
 RUN pnpm exec prisma generate
 
 # Build the application

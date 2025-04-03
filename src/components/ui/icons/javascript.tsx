@@ -1,6 +1,15 @@
-export default function JavascriptIcon({ ...props }: React.ComponentPropsWithoutRef<'svg'>) {
+export default function JavascriptIcon({
+  size = 24,
+  ...props
+}: React.ComponentPropsWithoutRef<'svg'> & { size?: number }) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 128 128"
+      width={size}
+      height={size}
+      {...props}
+    >
       <path fill="#F0DB4F" d="M1.408 1.408h125.184v125.185H1.408z" />
       <path
         fill="#323330"

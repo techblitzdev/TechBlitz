@@ -15,7 +15,7 @@ export default function MdxHeading({ children, heading, ...props }: MdxHeadingPr
     h3: 'text-2xl',
     h4: 'text-xl',
     h5: 'text-lg',
-    h6: 'text-base',
+    h6: 'text-base underline',
   };
 
   // get the headingSize for the component passed in

@@ -33,7 +33,7 @@ export default function TagFilter({ tags, selectedTags, className }: TagFilterPr
   };
 
   return (
-    <div className={cn('flex flex-wrap gap-2 mb-6 justify-center', className)}>
+    <div className={cn('flex flex-wrap gap-2 mb-6', className)}>
       {tags.map((tag) => (
         <Button
           key={tag}

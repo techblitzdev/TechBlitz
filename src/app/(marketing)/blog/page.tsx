@@ -9,7 +9,7 @@ import { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
 import Link from 'next/link';
 
-const POSTS_PER_PAGE = 9;
+const POSTS_PER_PAGE = 12;
 
 interface BlogPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -98,7 +98,18 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="container mx-auto px-4 py-8">
-        <section className="pt-32 pb-36 relative">
+        <div className="pt-32 flex flex-col gap-y-4">
+          <h1 className="text-4xl lg:text-6xl font-bold text-gradient from-white/75 to-white py-1">
+            Blog
+          </h1>
+          <p className="text-gray-400 max-w-2xl">
+            Stay up to date with the latest news and insights from TechBlitz. Gather insights on how
+            to level up your skills, beyond our coding challenges.
+          </p>
+
+          <TagFilter className="max-w-2xl pt-4" tags={allTags} selectedTags={selectedTags} />
+        </div>
+        <section className="pt-20 pb-36 relative">
           {featuredPost && (
             <FeaturedPost
               title={featuredPost.title}
@@ -108,12 +119,6 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
               className="my-20"
             />
           )}
-
-          <TagFilter
-            className="max-w-2xl justify-self-center "
-            tags={allTags}
-            selectedTags={selectedTags}
-          />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
             {paginatedPosts.length === 0 && (

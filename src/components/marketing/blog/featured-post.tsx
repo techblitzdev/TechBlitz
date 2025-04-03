@@ -1,3 +1,4 @@
+import AnimatedSpan from '@/components/ui/animated-span';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
@@ -27,7 +28,8 @@ export default function FeaturedPost({
     >
       <Link href={link} className="flex flex-col md:flex-row">
         <div className="w-full md:w-1/2 md:p-6 flex flex-col justify-center">
-          <h2 className="text-xl sm:text-3xl mb-2 line-clamp-2 text-gradient from-white/75 to-white">
+          <AnimatedSpan content="Featured Post" />
+          <h2 className="text-xl sm:text-3xl my-2 line-clamp-2 text-gradient from-white/75 to-white">
             {title}
           </h2>
           <p className="text-gray-400 mb-4 line-clamp-3">{description}</p>

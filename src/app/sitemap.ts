@@ -107,6 +107,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${baseUrl}/changelog`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/author/logan`,
+      lastModified: '2025-04-03',
+    },
 
     // APP ROUTES ACCESSIBLE TO ALL USERS
 

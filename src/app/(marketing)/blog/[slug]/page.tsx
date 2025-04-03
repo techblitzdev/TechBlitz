@@ -102,7 +102,10 @@ export default async function BlogPost({ params }: BlogPostParams) {
               <span>•</span>
               <span>{typedFrontmatter.readingTime} min read</span>
               {typedFrontmatter.author && (
-                <>
+                <Link
+                  href={`/author/${typedFrontmatter.author.split(' ')[0].toLowerCase()}`}
+                  className="flex items-center gap-2"
+                >
                   <span>•</span>
                   <span className="flex items-center gap-x-2">
                     <img
@@ -112,7 +115,7 @@ export default async function BlogPost({ params }: BlogPostParams) {
                     />
                     {typedFrontmatter.author}
                   </span>
-                </>
+                </Link>
               )}
             </div>
           </div>

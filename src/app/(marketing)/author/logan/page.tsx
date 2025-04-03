@@ -24,22 +24,23 @@ export const metadata: Metadata = createMetadata({
 
 const Header = () => {
   return (
-    <div className="flex w-full justify-between items-center">
-      <div className="flex gap-4 items-center">
+    <div className="flex w-full flex-col sm:flex-row justify-between items-center gap-6">
+      <div className="flex flex-col sm:flex-row gap-4 items-center text-center sm:text-left">
         <Image
           src="https://lbycuccwrcmdaxjqyxut.supabase.co/storage/v1/object/public/user-profile-pictures/3a57d7e8-8b80-483b-93d0-70fe1f06b0c0/logo.png?u=1l5im5h5n6e5"
           alt="Logan Ford"
           width={100}
           height={100}
           className="rounded-full size-24"
+          priority
         />
         <div className="flex flex-col gap-y-2">
-          <h1 className="text-4xl font-bold">Logan Ford</h1>
-          <p className="text-xl text-gray-300">Founder & Lead Developer</p>
+          <h1 className="text-3xl sm:text-4xl font-bold">Logan Ford</h1>
+          <p className="text-lg sm:text-xl text-gray-300">Founder & Lead Developer</p>
         </div>
       </div>
       {/* Social Links */}
-      <div className="flex gap-4 mt-8 h-fit">
+      <div className="flex gap-4 mt-4 sm:mt-8 h-fit">
         <a
           href="https://github.com/Logannford"
           target="_blank"
@@ -80,20 +81,20 @@ export default async function LoganAuthorPage() {
   );
 
   return (
-    <div className="container max-w-7xl mx-auto pt-32 pb-20">
-      <div className="grid grid-cols-1 gap-10">
+    <div className="container max-w-7xl mx-auto px-4 sm:px-6 pt-24 sm:pt-32 pb-16 sm:pb-20">
+      <div className="grid grid-cols-1 gap-8 sm:gap-10">
         {/* Author Profile Card */}
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col">
           {/* Author Image */}
           <Hero heading={<Header />} />
         </div>
 
         {/* Author's Articles Section */}
         <section>
-          <h2 className="text-3xl font-bold mb-6">Articles by Logan</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">Articles by Logan</h2>
 
           {loganPosts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {loganPosts.slice(0, 6).map((post) => (
                 <BlogCard key={post.slug} post={post} />
               ))}

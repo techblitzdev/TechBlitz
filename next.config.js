@@ -50,11 +50,6 @@ const nextConfig = {
       },
     ],
   },
-  webpack: (config, { isServer }) => {
-    // Mark the code-snippet component as external
-    config.externals = [...(config.externals || []), '@/components/marketing/global/code-snippet'];
-    return config;
-  },
   async redirects() {
     return [
       {

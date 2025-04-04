@@ -204,7 +204,11 @@ function StudyPathSections({
             <SectionHeader title={section.sectionName} icon={section.icon} color={section.color} />
             <div className="pl-4 relative">
               <Suspense fallback={<StudyPathsListSkeleton />}>
-                <StudyPathsList questions={sectionQuestions} studyPath={sectionStudyPath} />
+                <StudyPathsList
+                  questions={sectionQuestions}
+                  studyPath={sectionStudyPath}
+                  className="gap-8"
+                />
               </Suspense>
             </div>
           </div>

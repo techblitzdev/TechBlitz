@@ -3,12 +3,16 @@ import type { MetadataRoute } from 'next';
 //import { listQuestions } from '@/utils/data/questions/list';
 import { getAllStudyPaths } from '@/utils/data/study-paths/get';
 import { getAllPseoPages } from '@/utils/data/misc/get-all-pseo-pages';
+import { getAllChangelogEntries } from '@/lib/changelog';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://techblitz.dev';
 
   // Fetch all blog posts and questions
-  const [studyPaths] = await Promise.all([getAllStudyPaths()]);
+  const [studyPaths, changelogEntries] = await Promise.all([
+    getAllStudyPaths(),
+    getAllChangelogEntries(),
+  ]);
 
   const studyPathSlugs = studyPaths.map((studyPath) => ({
     url: `${baseUrl}/roadmaps/${studyPath.slug}`,
@@ -21,6 +25,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${baseUrl}/${pseoPage.slug}`,
     lastModified: new Date(pseoPage.updatedAt),
   }));
+
+  // Add changelog entries
+  const changelogSlugs = changelogEntries.map((entry) => {
+    // Parse the date string (format: DD/MM/YY) to a valid Date object
+    const [day, month, year] = entry.date.split('/').map(Number);
+    const formattedDate = new Date(2000 + year, month - 1, day);
+
+    return {
+      url: `${baseUrl}/changelog/${entry.slug}`,
+      lastModified: formattedDate,
+    };
+  });
 
   // for some reason, the blog posts are not being indexed properly when invoking
   // the getBlogPosts function, but only from here.
@@ -338,5 +354,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // Combine static routes with dynamic blog posts
-  return [...routes, ...blogPosts, ...studyPathSlugs, ...pseoPageSlugs];
+  return [...routes, ...blogPosts, ...studyPathSlugs, ...pseoPageSlugs, ...changelogSlugs];
 }

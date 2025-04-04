@@ -1,10 +1,13 @@
 'use client';
 import { useScroll, useTransform, motion } from 'framer-motion';
+import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 
 interface TimelineEntry {
   title: string;
   content: React.ReactNode;
+  slug: string;
+  date?: string;
 }
 
 export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
@@ -31,23 +34,31 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
     <div className="w-full font-sans md:px-10" ref={containerRef}>
       <div ref={ref} className="relative max-w-7xl mx-auto pb-60 overflow-hidden">
         {data.map((item, index) => (
-          <div key={index} className="flex justify-start pt-10 md:pt-40 md:gap-10">
+          <Link
+            key={index}
+            href={`/changelog/${item.slug}`}
+            className="flex justify-start pt-10 md:pt-40 md:gap-10"
+          >
             <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
               <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-white/50 flex items-center justify-center">
                 <div className="h-4 w-4 rounded-full bg-white border border-white/50 p-2" />
               </div>
-              <h3 className="hidden md:block text-sm md:pl-20 md:text-xl font-bold">
-                {item.title}
-              </h3>
+              <div className="hidden md:block md:pl-20">
+                <h3 className="text-sm md:text-xl font-bold">{item.title}</h3>
+                {item.date && <p className="text-sm text-neutral-400">{item.date}</p>}
+              </div>
             </div>
 
             <div className="relative pl-20 pr-4 md:pl-4 w-full">
-              <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-neutral-500">
-                {item.title}
-              </h3>
-              {item.content}{' '}
+              <div className="md:hidden">
+                <h3 className="block text-2xl mb-1 text-left font-bold text-neutral-500">
+                  {item.title}
+                </h3>
+                {item.date && <p className="text-sm text-neutral-400 mb-3">{item.date}</p>}
+              </div>
+              <span className="line-clamp-3">{item.content} </span>
             </div>
-          </div>
+          </Link>
         ))}
         <div
           style={{

@@ -1,4 +1,4 @@
-import { ChangelogEntry, changelogEntries } from '@/data/changelog';
+import { ChangelogEntry, changelogEntries } from '@/utils/constants/changelog';
 
 export async function getChangelogEntry(slug: string): Promise<ChangelogEntry | undefined> {
   return changelogEntries.find((entry) => entry.slug === slug);

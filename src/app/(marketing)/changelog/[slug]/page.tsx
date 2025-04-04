@@ -80,7 +80,7 @@ export default async function ChangelogEntryPage({ params }: ChangelogEntryPageP
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="max-w-4xl mx-auto px-4 py-16">
+      <div className="max-w-4xl mx-auto px-4 py-32">
         <div className="mb-8">
           <Link href="/changelog" className="text-white/70 hover:text-white transition-colors">
             ← Back to Changelog
@@ -89,15 +89,11 @@ export default async function ChangelogEntryPage({ params }: ChangelogEntryPageP
 
         <article className="prose prose-invert max-w-none">
           <header className="mb-8">
+            {entry.date && <p className="text-sm text-neutral-400 mb-2">{entry.date}</p>}
             <h1 className="text-4xl font-bold mb-4">{entry.title}</h1>
-            <time className="text-white/70">{format(new Date(entry.date), 'MMMM d, yyyy')}</time>
           </header>
 
-          {entry.image && (
-            <img src={entry.image} alt={entry.title} className="w-full rounded-lg mb-8" />
-          )}
-
-          <div className="mt-8" dangerouslySetInnerHTML={{ __html: entry.content }} />
+          {entry.content}
         </article>
       </div>
     </>

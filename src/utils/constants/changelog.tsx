@@ -45,7 +45,9 @@ export const changelogEntries: ChangelogEntry[] = [
         </p>
         <br />
         <p className="text-gray-400">
-          We'll be adding more game modes in the future, so stay tuned!
+          We added this game mode as a nice little extra to the platform, giving you a fun way to
+          challenge yourself and see how much faster you can solve a question than widely available
+          AI models.
         </p>
       </div>
     ),
@@ -74,8 +76,17 @@ export const changelogEntries: ChangelogEntry[] = [
         </p>
         <br />
         <p className="text-gray-400">
-          This is a great way to practice your skills under time pressure, and see how much faster
-          you can solve a question.
+          These questions will pop up during your learning journey with TechBlitz, and more are
+          being added to the platform regularly.
+        </p>
+        <br />
+        <p className="text-gray-400">
+          We are always looking for feedback and suggestions for new features. If you have any
+          feedback, please let us know at{' '}
+          <Link href="mailto:team@techblitz.dev" className="text-accent">
+            team@techblitz.dev
+          </Link>
+          .
         </p>
       </div>
     ),

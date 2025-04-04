@@ -110,7 +110,7 @@ export function CodeBlock({ files, defaultTitle, className }: CodeBlockProps) {
       )}
     >
       <div className="flex items-center justify-between border-b border-black-50 px-4 py-2">
-        <div className="flex gap-2">
+        <div className="flex gap-2 bg-black">
           {files.map(({ title }) => (
             <Button
               key={title}

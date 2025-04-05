@@ -71,13 +71,29 @@ const findQuestion = async (questionUid: string) => {
  * @returns
  */
 const findExistingAnswer = async (userUid: string, questionUid: string) => {
-  console.log('hit findExistingAnswer');
-  return prisma.answers.findFirst({
-    where: {
-      user: { is: { uid: userUid } },
-      question: { is: { uid: questionUid } },
-    },
-  });
+  console.log(`Finding existing answer for user ${userUid} and question ${questionUid}`);
+
+  try {
+    // First attempt with the relationship query
+    const answer = await prisma.answers.findFirst({
+      where: {
+        userUid: userUid,
+        questionUid: questionUid,
+      },
+    });
+
+    if (answer) {
+      console.log(`Found existing answer: ${answer.uid}`);
+      return answer;
+    }
+
+    console.log('No existing answer found for this user and question');
+    return null;
+  } catch (error) {
+    console.error('Error finding existing answer:', error);
+    // If there's an error, return null to create a new answer
+    return null;
+  }
 };
 
 const updateStreakDates = async (userUid: string, currentStreak: any) => {
@@ -171,47 +187,58 @@ const updateOrCreateAnswer = async ({
   correctAnswer: boolean;
   timeTaken?: number;
 }) => {
-  // if we are on local, return a mock answer
-  if (process.env.NODE_ENV === 'development') {
-    return {
-      uid: 'mock-answer-uid',
-      text: 'Mock answer text',
-      correctAnswer: true,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      user: { connect: { uid: userUid } },
-      question: { connect: { uid: questionUid } },
-      userAnswerUid: answerUid,
-      timeTaken,
-    };
-  }
-
-  if (existingAnswer) {
-    // Update if the new answer is correct and the previous one was incorrect, or if the time is better
-    if (
-      // Change from incorrect to correct
-      correctAnswer !== existingAnswer.correctAnswer ||
-      // update time taken no matter what
-      timeTaken !== undefined
-    ) {
-      return prisma.answers.update({
-        where: { uid: existingAnswer.uid },
-        data: { userAnswerUid: answerUid, correctAnswer, timeTaken },
-      });
-    }
-    return existingAnswer;
-  }
-
-  // Create new answer if none exists
-  return prisma.answers.create({
-    data: {
-      user: { connect: { uid: userUid } },
-      question: { connect: { uid: questionUid } },
-      userAnswerUid: answerUid,
-      correctAnswer,
-      timeTaken,
-    },
+  console.log('Updating or creating answer:', {
+    existingAnswer: existingAnswer?.uid,
+    userUid,
+    questionUid,
+    answerUid,
+    correctAnswer,
+    timeTaken,
+    environment: process.env.NODE_ENV,
   });
+
+  try {
+    if (existingAnswer) {
+      // Update if the new answer is correct and the previous one was incorrect, or if the time is better
+      if (
+        // Change from incorrect to correct
+        correctAnswer !== existingAnswer.correctAnswer ||
+        // update time taken no matter what
+        timeTaken !== undefined
+      ) {
+        console.log('Updating existing answer:', existingAnswer.uid);
+        return prisma.answers.update({
+          where: { uid: existingAnswer.uid },
+          data: {
+            userAnswerUid: answerUid,
+            correctAnswer,
+            timeTaken,
+          },
+        });
+      }
+      console.log('Using existing answer without changes:', existingAnswer.uid);
+      return existingAnswer;
+    }
+
+    // Create new answer if none exists
+    console.log('Creating new answer for question:', questionUid);
+    const newAnswer = await prisma.answers.create({
+      data: {
+        user: { connect: { uid: userUid } },
+        question: { connect: { uid: questionUid } },
+        userAnswerUid: answerUid,
+        correctAnswer,
+        timeTaken,
+      },
+    });
+
+    console.log('New answer created:', newAnswer.uid);
+    return newAnswer;
+  } catch (error) {
+    console.error('Error saving answer to database:', error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    throw new Error(`Failed to save answer to database: ${errorMessage}`);
+  }
 };
 
 /**
@@ -258,81 +285,112 @@ export async function answerQuestion({
   allPassed,
   studyPathSlug,
 }: AnswerQuestionInput): Promise<AnswerQuestionResponse> {
+  console.log('answerQuestion called with:', {
+    questionUid,
+    answerUid,
+    timeTaken,
+    allPassed,
+    studyPathSlug,
+  });
+
   const user = await getUser();
   if (!user) {
+    console.error('User not found when submitting answer');
     throw new Error('User not found');
   }
 
   const userUid = user.uid;
+  console.log('User ID:', userUid);
 
   // if no answerUid, then we are submitting a coding challenge
   if (!answerUid) {
     answerUid = uniqueId();
+    console.log('Generated answerUid for coding challenge:', answerUid);
   }
 
-  const question = await findQuestion(questionUid);
-  const questionType = question.questionType;
+  try {
+    const question = await findQuestion(questionUid);
+    const questionType = question.questionType;
+    console.log('Question type:', questionType);
 
-  let correctAnswer = false;
-  if (questionType === 'CODING_CHALLENGE') {
-    correctAnswer = allPassed || false;
-  } else {
-    correctAnswer = question.correctAnswer === answerUid;
-  }
+    let correctAnswer = false;
+    if (questionType === 'CODING_CHALLENGE') {
+      correctAnswer = allPassed || false;
+    } else {
+      correctAnswer = question.correctAnswer === answerUid;
+    }
+    console.log('Answer is correct:', correctAnswer);
 
-  const existingAnswer = await findExistingAnswer(userUid, questionUid);
-  const isNewCorrectAnswer = correctAnswer && (!existingAnswer || !existingAnswer.correctAnswer);
-  const isNewAnswer = !existingAnswer;
-
-  let streakContinued = false;
-  // Only update streaks if this is a new answer
-  if (!existingAnswer) {
-    streakContinued = await handleStreakUpdates({
-      userUid,
+    const existingAnswer = await findExistingAnswer(userUid, questionUid);
+    const isNewCorrectAnswer = correctAnswer && (!existingAnswer || !existingAnswer.correctAnswer);
+    const isNewAnswer = !existingAnswer;
+    console.log('Answer status:', {
+      isNewAnswer,
+      isNewCorrectAnswer,
+      existingAnswerId: existingAnswer?.uid,
     });
-  }
 
-  // Handle answer creation or update
-  const userAnswer = await updateOrCreateAnswer({
-    existingAnswer,
-    userUid,
-    questionUid,
-    answerUid,
-    correctAnswer,
-    timeTaken,
-  });
+    let streakContinued = false;
+    // Only update streaks if this is a new answer
+    if (!existingAnswer) {
+      streakContinued = await handleStreakUpdates({
+        userUid,
+      });
+      console.log('Streak continued:', streakContinued);
+    }
 
-  // Update user XP based on answer correctness
-  await updateUserXp(userUid, question, isNewCorrectAnswer, isNewAnswer);
-
-  // if this is a study path, update the study path progress
-  if (studyPathSlug) {
-    await updateStudyPathProgress({
+    // Handle answer creation or update
+    console.log('Saving answer to database...');
+    const userAnswer = await updateOrCreateAnswer({
+      existingAnswer,
       userUid,
-      studyPathSlug,
+      questionUid,
+      answerUid,
+      correctAnswer,
+      timeTaken,
     });
+    console.log('Answer saved successfully:', userAnswer.uid);
+
+    // Update user XP based on answer correctness
+    await updateUserXp(userUid, question, isNewCorrectAnswer, isNewAnswer);
+    console.log('User XP updated');
+
+    // if this is a study path, update the study path progress
+    if (studyPathSlug) {
+      console.log('Updating study path progress for slug:', studyPathSlug);
+      await updateStudyPathProgress({
+        userUid,
+        studyPathSlug,
+      });
+      console.log('Study path progress updated');
+    }
+
+    // handle the updating of daily missions on the user
+    await updateUserDailyMissions({ userAnswer, streakContinued });
+    console.log('Daily missions updated');
+
+    // Get updated user data
+    const userData = await prisma.users.findUnique({
+      where: { uid: userUid },
+    });
+
+    // revalidate leaderboard
+    revalidateTag(`leaderboard-${questionUid}`);
+    // revalidate if the user has answered the streak
+    revalidateTag(`user-has-answered-daily-question-${questionUid}`);
+    // revalidate the user's statistics
+    revalidateTag(`statistics`);
+    console.log('Cache tags revalidated');
+
+    return {
+      correctAnswer,
+      userAnswer,
+      userData: userData as UserRecord | null,
+    };
+  } catch (error) {
+    console.error('Error in answerQuestion:', error);
+    throw error;
   }
-
-  // handle the updating of daily missions on the user
-  await updateUserDailyMissions({ userAnswer, streakContinued });
-
-  // Get updated user data
-  const userData = await prisma.users.findUnique({
-    where: { uid: userUid },
-  });
-
-  // revalidate leaderboard
-  revalidateTag(`leaderboard-${questionUid}`);
-  // revalidate if the user has answered the streak
-  revalidateTag(`user-has-answered-daily-question-${questionUid}`);
-  // revalidate the user's statistics
-  revalidateTag(`statistics`);
-
-  return {
-    correctAnswer,
-    userAnswer,
-    userData: userData as UserRecord | null,
-  };
 }
 
 /**
@@ -403,6 +461,22 @@ const updateStudyPathProgress = async ({
     throw new Error('Study path not found');
   }
 
+  // Validate the studyPath UID
+  if (!studyPath.uid || typeof studyPath.uid !== 'string') {
+    console.error('Invalid study path UID:', studyPath.uid);
+    throw new Error('Invalid study path UID');
+  }
+
+  // If the study path has no questions, just return
+  if (
+    !studyPath.questionSlugs ||
+    !Array.isArray(studyPath.questionSlugs) ||
+    studyPath.questionSlugs.length === 0
+  ) {
+    console.error('Study path has no question slugs');
+    return;
+  }
+
   // Check if user is enrolled in study path, if not enroll them
   const userStudyPath = await prisma.userStudyPath.findUnique({
     where: {
@@ -427,16 +501,32 @@ const updateStudyPathProgress = async ({
     where: {
       question: {
         slug: {
-          in: studyPath?.questionSlugs ?? [],
+          in: studyPath.questionSlugs,
         },
       },
       userUid,
     },
   });
 
-  // get the percentage of questions that have been completed
-  const percentageCompleted =
-    (completedQuestions.length / (studyPath?.questionSlugs?.length ?? 0)) * 100;
+  // Calculate the percentage with validation
+  let percentageCompleted = 0;
+  if (studyPath.questionSlugs.length > 0 && completedQuestions.length > 0) {
+    percentageCompleted = Math.min(
+      Math.round((completedQuestions.length / studyPath.questionSlugs.length) * 100),
+      100 // Cap at 100%
+    );
+  }
+
+  // Ensure we're passing a valid number to the database
+  if (isNaN(percentageCompleted) || !isFinite(percentageCompleted)) {
+    console.error('Invalid percentage calculated:', percentageCompleted);
+    percentageCompleted = 0;
+  }
+
+  // Log the calculation for debugging
+  console.log(
+    `Study path progress: ${completedQuestions.length} / ${studyPath.questionSlugs.length} = ${percentageCompleted}%`
+  );
 
   // update with the percentage completed
   await prisma.userStudyPath.update({
@@ -463,27 +553,38 @@ const updateStudyPathProgress = async ({
       },
     });
 
-    // update the user's roadmap goal completion data
-    await prisma.studyPathGoal.update({
-      where: {
-        userUid_studyPathUid: {
-          userUid,
-          studyPathUid: studyPath.uid,
+    try {
+      // Try to update the user's roadmap goal completion data
+      await prisma.studyPathGoal.update({
+        where: {
+          userUid_studyPathUid: {
+            userUid,
+            studyPathUid: studyPath.uid,
+          },
         },
-      },
-      data: {
-        completed: true,
-        completedAt: new Date(),
-        isActive: false, // completed
-      },
-    });
+        data: {
+          completed: true,
+          completedAt: new Date(),
+          isActive: false, // completed
+        },
+      });
+    } catch (error) {
+      console.error('Error updating study path goal:', error);
+      // Continue execution even if this fails, it's not critical
+    }
 
-    // send the user an email
-    await sendStudyPathCompleteEmail({
-      studyPathUid: studyPath.uid,
-    });
+    try {
+      // send the user an email
+      await sendStudyPathCompleteEmail({
+        studyPathUid: studyPath.uid,
+      });
+    } catch (error) {
+      console.error('Error sending study path completion email:', error);
+      // Continue execution even if this fails, it's not critical
+    }
   }
 
+  // Revalidate the study path cache
   revalidateTag(`study-path-${studyPathSlug}`);
 };
 

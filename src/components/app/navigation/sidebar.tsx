@@ -98,18 +98,21 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       icon: HomeIcon,
       tooltip: 'Dashboard',
       disabled: true,
+      animatable: true,
     },
     {
       title: 'Challenges',
       url: '/questions',
       icon: Blog3,
       tooltip: 'Challenges',
+      animatable: true,
     },
     {
       title: 'Roadmaps',
       url: '/roadmaps',
       icon: MapIcon,
       defaultOpen: true,
+      animatable: true,
       subItems: [
         {
           title: 'Official Roadmaps',
@@ -130,6 +133,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       tooltip: 'Statistics',
       defaultOpen: false,
       disabled: true,
+      animatable: true,
       subItems: [
         {
           title: 'Overview',
@@ -158,18 +162,21 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       url: '/dashboard',
       icon: HomeIcon,
       tooltip: 'Dashboard',
+      animatable: true,
     },
     {
       title: 'Challenges',
       url: '/questions',
       icon: Blog3,
       tooltip: 'Challenges',
+      animatable: true,
     },
     {
       title: 'Roadmaps',
       tooltip: 'Roadmaps',
       url: '/roadmaps',
       icon: MapIcon,
+      animatable: true,
       defaultOpen: true,
       subItems: [
         {
@@ -189,6 +196,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       url: '/statistics',
       icon: BChart3,
       tooltip: 'Statistics',
+      animatable: true,
       defaultOpen: false,
       subItems: [
         {
@@ -209,12 +217,14 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       url: '/leaderboard',
       icon: Award,
       tooltip: 'Leaderboard',
+      animatable: true,
     },
     {
       title: 'Settings',
       url: '/settings/profile',
       icon: SettingsGearIcon,
       tooltip: 'Settings',
+      animatable: true,
     },
   ];
 
@@ -258,6 +268,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
           title: 'Admin',
           url: '/admin',
           icon: UilPadlock,
+          animatable: true,
         },
       ];
     }
@@ -343,14 +354,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
     const iconRef = getIconRef(itemKey);
 
     // Check if the icon is animatable
-    const isAnimatableIcon =
-      item.icon === HomeIcon ||
-      item.icon === MapIcon ||
-      item.icon === BChart3 ||
-      item.icon === Award ||
-      item.icon === Blog3 ||
-      item.icon === UilPadlock ||
-      item.icon === SettingsGearIcon;
+    const isAnimatableIcon = 'animatable' in item && item.animatable === true;
 
     return (
       <SidebarMenuItem key={item.url}>

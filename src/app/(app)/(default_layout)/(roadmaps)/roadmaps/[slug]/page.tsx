@@ -131,7 +131,7 @@ function StudyPathSections({
   if (!overviewData) {
     return (
       <Suspense fallback={<StudyPathsListSkeleton />}>
-        <StudyPathsList questions={questions} studyPath={studyPath} />
+        <StudyPathsList questions={questions} studyPath={studyPath} className="gap-8" />
       </Suspense>
     );
   }
@@ -207,7 +207,7 @@ function StudyPathSections({
                 <StudyPathsList
                   questions={sectionQuestions}
                   studyPath={sectionStudyPath}
-                  className="gap-8"
+                  className="gap-12"
                 />
               </Suspense>
             </div>

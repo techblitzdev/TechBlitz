@@ -11,6 +11,9 @@ interface StudyPathQuestionCardPopoverProps {
   studyPath: StudyPath;
   isAnswered: boolean;
   canAnswer: boolean;
+  isNextQuestion?: boolean;
+  isPremiumLocked?: boolean;
+  isSequenceLocked?: boolean;
 }
 
 export default function StudyPathQuestionCardPopover({
@@ -19,8 +22,39 @@ export default function StudyPathQuestionCardPopover({
   studyPath,
   isAnswered,
   canAnswer,
+  isNextQuestion,
+  isPremiumLocked,
+  isSequenceLocked,
 }: StudyPathQuestionCardPopoverProps) {
   const xp = QUESTION_XP[questionData.difficulty] || 5;
+
+  // Determine the correct URL and button state
+  const getButtonHref = () => {
+    // If premium locked, direct to upgrade page
+    if (isPremiumLocked) {
+      return getUpgradeUrl();
+    }
+
+    // If it's the next question or already answered, allow access
+    if (isNextQuestion || isAnswered || canAnswer) {
+      return `/question/${questionData.slug}?type=study-path&study-path=${studyPath.slug}`;
+    }
+
+    // Otherwise (sequence locked), stay on current page
+    return '#';
+  };
+
+  // Determine the button text based on state
+  const getButtonText = () => {
+    if (isAnswered) return 'Question Recap';
+    if (isPremiumLocked) return 'Upgrade to Access';
+    if (isSequenceLocked) return 'Locked';
+    if (isNextQuestion || canAnswer) return `Answer now +${xp}XP`;
+    return 'Start';
+  };
+
+  // Determine if button should be disabled
+  const isDisabled = isSequenceLocked === true;
 
   return (
     <Popover>
@@ -32,16 +66,13 @@ export default function StudyPathQuestionCardPopover({
 
           {/** how much XP for this question */}
           <Button
-            variant="secondary"
+            variant={isDisabled ? 'default' : 'secondary'}
             fullWidth
-            className="font-onest font-normal"
-            href={
-              canAnswer
-                ? `/question/${questionData.slug}?type=study-path&study-path=${studyPath.slug}`
-                : getUpgradeUrl()
-            }
+            className="font-onest font-normal disabled:opacity-50"
+            href={getButtonHref()}
+            disabled={isDisabled}
           >
-            {isAnswered ? 'Question Recap' : canAnswer ? `Answer now +${xp}XP` : 'Unlock question'}
+            {getButtonText()}
           </Button>
         </div>
       </PopoverContent>

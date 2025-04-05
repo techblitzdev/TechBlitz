@@ -132,19 +132,30 @@ export default function MultipleChoiceLayoutClient({
       setXpIncrease(INCORRECT_ANSWER_XP);
     }
 
-    setIsSubmitting(false);
-
     try {
       const timeTaken = Math.floor((Date.now() - startTime) / 1000);
 
-      await answerQuestion({
+      // Get study path param if it exists
+      const searchParams = new URLSearchParams(window.location.search);
+      const studyPathSlug = searchParams.get('study-path');
+
+      const { correctAnswer, userAnswer } = await answerQuestion({
         questionUid: question.uid,
         answerUid: selectedAnswerData.uid,
         timeTaken,
+        studyPathSlug: studyPathSlug || undefined,
+      });
+
+      console.log({
+        correctAnswer,
+        userAnswer,
       });
     } catch (error) {
       console.error('Error submitting answer:', error);
       toast.error('Error submitting answer');
+    } finally {
+      // Move setting isSubmitting to false here to ensure it happens after the request completes
+      setIsSubmitting(false);
     }
   };
 

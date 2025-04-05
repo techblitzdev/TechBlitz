@@ -10,6 +10,7 @@ export interface SidebarItem {
   dropdownMenu?: React.ReactNode;
   tooltip?: string;
   defaultOpen?: boolean;
+  animatable?: boolean;
 }
 
 interface SidebarGroupItem {

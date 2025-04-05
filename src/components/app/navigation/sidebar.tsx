@@ -1,6 +1,9 @@
 'use client';
+
+import { useEffect, useMemo, useRef, forwardRef } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import React from 'react';
 
 import { Settings, LockIcon, User, CreditCard, ChevronDown, ChevronLeft } from 'lucide-react';
 import {
@@ -21,26 +24,53 @@ import AppSidebarSubMenuItem from '@/components/app/navigation/sidebar-submenu-i
 import SidebarDropdown from '@/components/app/navigation/sidebar-dropdown';
 
 import type { SidebarItemType } from '@/types/Sidebar';
-
-import { useEffect, useMemo } from 'react';
 import type { UserRecord } from '@/types/User';
 import type { QuestionWithTags } from '@/types/Questions';
 import type { Profile } from '@/types/Profile';
-import HomeIcon from '@/components/ui/icons/home';
 
+import { HomeIcon } from '@/components/ui/icons/home';
 import Award from '@/components/ui/icons/award';
 import SidebarFooter from './sidebar-footer';
-import Map from '@/components/ui/icons/map';
+import { RouteIcon as MapIcon } from '@/components/ui/icons/map';
 import Blog3 from '@/components/ui/icons/blog-3';
-import BChart3 from '@/components/ui/icons/b-chart-3';
+import { ChartSplineIcon as BChart3 } from '@/components/ui/icons/b-chart-3';
+import { SettingsGearIcon } from '@/components/ui/icons/cogwheel';
+
+// Interface for any component that has animation controls
+interface AnimatableIconHandle {
+  startAnimation: () => void;
+  stopAnimation: () => void;
+}
+
+// Props for wrapper component
+interface SidebarAnimatedIconProps {
+  icon: React.ComponentType<any>;
+  size?: number;
+}
+
+// Wrapper component that handles animation on parent hover
+const SidebarAnimatedIcon = forwardRef<any, SidebarAnimatedIconProps>(
+  ({ icon: Icon, size = 16 }, ref) => {
+    const iconRef = useRef<AnimatableIconHandle>(null);
+
+    // Pass the icon ref to the parent component
+    useEffect(() => {
+      if (ref) {
+        (ref as React.MutableRefObject<any>).current = iconRef.current;
+      }
+    }, [ref]);
+
+    return <Icon ref={iconRef} size={size} />;
+  }
+);
+
+SidebarAnimatedIcon.displayName = 'SidebarAnimatedIcon';
 
 const LeaderboardIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
     <path fill="currentColor" d="M2 21V9h5.5v12zm7.25 0V3h5.5v18zm7.25 0V11H22v10z" />
   </svg>
 );
-
-const houseIcon = () => <HomeIcon strokewidth={2} />;
 
 interface AppSidebarProps {
   user: UserRecord | null;
@@ -64,7 +94,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
     {
       title: 'Dashboard',
       url: '/dashboard',
-      icon: houseIcon,
+      icon: HomeIcon,
       tooltip: 'Dashboard',
       disabled: true,
     },
@@ -77,7 +107,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
     {
       title: 'Roadmaps',
       url: '/roadmaps',
-      icon: Map,
+      icon: MapIcon,
       defaultOpen: true,
       subItems: [
         {
@@ -125,7 +155,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
     {
       title: 'Dashboard',
       url: '/dashboard',
-      icon: houseIcon,
+      icon: HomeIcon,
       tooltip: 'Dashboard',
     },
     {
@@ -138,7 +168,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       title: 'Roadmaps',
       tooltip: 'Roadmaps',
       url: '/roadmaps',
-      icon: Map,
+      icon: MapIcon,
       defaultOpen: true,
       subItems: [
         {
@@ -182,7 +212,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
     {
       title: 'Settings',
       url: '/settings/profile',
-      icon: Settings,
+      icon: SettingsGearIcon,
       tooltip: 'Settings',
     },
   ];
@@ -262,6 +292,38 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
     return pathname.startsWith(url);
   };
 
+  // Generate a unique ID for each sidebar item to use as a key
+  const getItemKey = (item: SidebarItemType): string => {
+    if ('groupLabel' in item) {
+      return `group-${item.groupLabel}`;
+    }
+    // Use URL as a stable key since it should be unique for each item
+    return `item-${item.url}`;
+  };
+
+  // Keep a map of icon refs for each sidebar item
+  const iconRefs = useRef<Map<string, React.RefObject<AnimatableIconHandle>>>(new Map());
+
+  // Get or create a ref for a sidebar item
+  const getIconRef = (itemKey: string) => {
+    if (!iconRefs.current.has(itemKey)) {
+      iconRefs.current.set(itemKey, React.createRef<AnimatableIconHandle>());
+    }
+    return iconRefs.current.get(itemKey)!;
+  };
+
+  // Handle hover for a sidebar item
+  const handleItemHover = (itemKey: string, isHovering: boolean) => {
+    const ref = iconRefs.current.get(itemKey);
+    if (ref?.current) {
+      if (isHovering) {
+        ref.current.startAnimation();
+      } else {
+        ref.current.stopAnimation();
+      }
+    }
+  };
+
   const renderSidebarItem = (item: SidebarItemType) => {
     if ('groupLabel' in item) {
       return (
@@ -273,15 +335,39 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       );
     }
 
+    // Generate a stable key for this item
+    const itemKey = getItemKey(item);
+
+    // Get ref for this item
+    const iconRef = getIconRef(itemKey);
+
+    // Check if the icon is animatable
+    const isAnimatableIcon =
+      item.icon === HomeIcon ||
+      item.icon === MapIcon ||
+      item.icon === BChart3 ||
+      item.icon === Award ||
+      item.icon === SettingsGearIcon;
+
     return (
       <SidebarMenuItem key={item.url}>
         {item.subItems ? (
           <Collapsible defaultOpen={item.defaultOpen} className="group/collapsible">
             <CollapsibleTrigger asChild>
-              <SidebarMenuButton asChild tooltip={item.tooltip}>
+              <SidebarMenuButton
+                asChild
+                tooltip={item.tooltip}
+                className="group/sidebar-button"
+                onMouseEnter={() => handleItemHover(itemKey, true)}
+                onMouseLeave={() => handleItemHover(itemKey, false)}
+              >
                 {state === 'collapsed' ? (
                   <Link href={item.url} className="flex items-center w-full" prefetch>
-                    {item.icon && <item.icon />}
+                    {item.icon && isAnimatableIcon ? (
+                      <SidebarAnimatedIcon ref={iconRef} icon={item.icon} size={16} />
+                    ) : (
+                      item.icon && <item.icon />
+                    )}
                     <span className="text-sm font-inter group-data-[collapsible=icon]:hidden">
                       {item.title}
                     </span>
@@ -294,7 +380,11 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
                   </Link>
                 ) : (
                   <div className="flex items-center w-full">
-                    {item.icon && <item.icon />}
+                    {item.icon && isAnimatableIcon ? (
+                      <SidebarAnimatedIcon ref={iconRef} icon={item.icon} size={16} />
+                    ) : (
+                      item.icon && <item.icon />
+                    )}
                     <span className="text-sm font-inter group-data-[collapsible=icon]:hidden">
                       {item.title}
                     </span>
@@ -313,7 +403,11 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
             </CollapsibleContent>
           </Collapsible>
         ) : (
-          <div className="flex items-center w-full">
+          <div
+            className="flex items-center w-full"
+            onMouseEnter={() => handleItemHover(itemKey, true)}
+            onMouseLeave={() => handleItemHover(itemKey, false)}
+          >
             <SidebarMenuButton
               asChild
               className="flex-grow"
@@ -322,7 +416,11 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
             >
               {item.disabled ? (
                 <div className="flex items-center font-inter font-medium text-sm p-2 gap-x-2 opacity-50 hover:cursor-not-allowed h-8">
-                  {item.icon && <item.icon />}
+                  {item.icon && isAnimatableIcon ? (
+                    <SidebarAnimatedIcon ref={iconRef} icon={item.icon} size={16} />
+                  ) : (
+                    item.icon && <item.icon />
+                  )}
                   <span className="text-sm font-inter group-data-[collapsible=icon]:hidden">
                     {item.title}
                   </span>
@@ -338,7 +436,11 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
                     isActive(item.url) ? 'bg-black-25 text-white border border-black-50' : ''
                   }`}
                 >
-                  {item.icon && <item.icon />}
+                  {item.icon && isAnimatableIcon ? (
+                    <SidebarAnimatedIcon ref={iconRef} icon={item.icon} size={16} />
+                  ) : (
+                    item.icon && <item.icon />
+                  )}
                   <span className="text-sm group-data-[collapsible=icon]:hidden">{item.title}</span>
                   {item.chip && (
                     <div className="ms-auto group-data-[collapsible=icon]:hidden">

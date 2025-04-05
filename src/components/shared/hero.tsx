@@ -7,8 +7,16 @@ export default function Hero(opts: {
   children?: React.ReactNode;
   container?: boolean;
   chip?: React.ReactNode;
+  gridPosition?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 }) {
-  const { heading, subheading, children, container = true, chip } = opts;
+  const {
+    heading,
+    subheading,
+    children,
+    container = true,
+    chip,
+    gridPosition = 'bottom-left',
+  } = opts;
 
   return (
     <section className="w-full pt-14 pb-8 group relative">
@@ -30,7 +38,7 @@ export default function Hero(opts: {
         )}
         {children}
       </div>
-      <Grid size={25} position="bottom-left" />
+      <Grid size={25} position={gridPosition} />
 
       {/* Fade-out gradient overlay */}
       <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-[#000000] to-transparent pointer-events-none"></div>

@@ -1,18 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Blog from './blog-3';
+import FileText from './file-text';
 
 const meta = {
-  component: Blog,
-} satisfies Meta<typeof Blog>;
+  component: FileText,
+} satisfies Meta<typeof FileText>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    width: 24,
-    height: 24,
-  },
+  args: {},
 };

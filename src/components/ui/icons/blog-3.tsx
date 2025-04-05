@@ -12,11 +12,9 @@ export interface Blog3IconHandle {
 
 interface Blog3Props extends HTMLAttributes<HTMLDivElement> {
   fill?: string;
-  secondaryfill?: string;
   strokewidth?: number;
   width?: string | number;
   height?: string | number;
-  title?: string;
 }
 
 const Blog3 = forwardRef<Blog3IconHandle, Blog3Props>(
@@ -26,11 +24,9 @@ const Blog3 = forwardRef<Blog3IconHandle, Blog3Props>(
       onMouseLeave,
       className,
       fill = 'white',
-      secondaryfill,
       strokewidth = 2,
       width = '1em',
       height = '1em',
-      title = 'blog 3',
       ...props
     },
     ref
@@ -98,9 +94,8 @@ const Blog3 = forwardRef<Blog3IconHandle, Blog3Props>(
             },
           }}
         >
-          <title>{title}</title>
           <g fill={fill} strokeLinecap="butt" strokeLinejoin="miter">
-            <motion.rect
+            <rect
               height="28"
               width="24"
               fill="none"
@@ -112,20 +107,8 @@ const Blog3 = forwardRef<Blog3IconHandle, Blog3Props>(
               strokeWidth={strokewidth}
               x="4"
               y="2"
-              variants={{
-                normal: {
-                  pathLength: 1,
-                },
-                animate: {
-                  pathLength: [1, 0.9, 1],
-                  transition: {
-                    duration: 0.8,
-                    ease: 'easeInOut',
-                  },
-                },
-              }}
             />
-            <motion.rect
+            <rect
               height="8"
               width="14"
               fill="none"
@@ -135,18 +118,6 @@ const Blog3 = forwardRef<Blog3IconHandle, Blog3Props>(
               strokeWidth={strokewidth}
               x="9"
               y="7"
-              variants={{
-                normal: {
-                  pathLength: 1,
-                },
-                animate: {
-                  pathLength: [1, 0.8, 1],
-                  transition: {
-                    duration: 0.5,
-                    delay: 0.1,
-                  },
-                },
-              }}
             />
             <motion.line
               fill="none"

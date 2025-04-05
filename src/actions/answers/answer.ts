@@ -457,22 +457,28 @@ const updateStudyPathProgress = async ({
     where: { slug: studyPathSlug },
   });
 
-  if (!studyPath) {
+  if (!studyPath || !studyPath.uid) {
     throw new Error('Study path not found');
   }
 
-  // Validate the studyPath UID
-  if (!studyPath.uid || typeof studyPath.uid !== 'string') {
-    console.error('Invalid study path UID:', studyPath.uid);
-    throw new Error('Invalid study path UID');
+  let questionSlugs: string[] = [];
+
+  /** study paths can either have questionSlugs, or 'overviewData' */
+  const hasOverviewData = 'overviewData' in studyPath;
+
+  if (hasOverviewData) {
+    // get all the question slugs from the overview data (if it exists)
+    questionSlugs = Object.values(studyPath.overviewData as any).flatMap(
+      (section: any) => section.questionSlugs
+    );
+  } else {
+    // otherwise, this is a legacy study path and we can just use the questionSlugs
+    // type assertion to ensure TypeScript knows questionSlugs exists
+    questionSlugs = (studyPath as any).questionSlugs || [];
   }
 
   // If the study path has no questions, just return
-  if (
-    !studyPath.questionSlugs ||
-    !Array.isArray(studyPath.questionSlugs) ||
-    studyPath.questionSlugs.length === 0
-  ) {
+  if (questionSlugs.length === 0) {
     console.error('Study path has no question slugs');
     return;
   }

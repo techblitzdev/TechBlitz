@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import React from 'react';
 
-import { Settings, LockIcon, User, CreditCard, ChevronDown, ChevronLeft } from 'lucide-react';
+import { Settings, User, CreditCard, ChevronDown, ChevronLeft } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -35,6 +35,7 @@ import { RouteIcon as MapIcon } from '@/components/ui/icons/map';
 import Blog3 from '@/components/ui/icons/blog-3';
 import { ChartSplineIcon as BChart3 } from '@/components/ui/icons/b-chart-3';
 import { SettingsGearIcon } from '@/components/ui/icons/cogwheel';
+import { UilPadlock } from '@/components/ui/icons/lock-animated';
 
 // Interface for any component that has animation controls
 interface AnimatableIconHandle {
@@ -256,7 +257,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
         {
           title: 'Admin',
           url: '/admin',
-          icon: LockIcon,
+          icon: UilPadlock,
         },
       ];
     }

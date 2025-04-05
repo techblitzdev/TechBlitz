@@ -348,6 +348,8 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       item.icon === MapIcon ||
       item.icon === BChart3 ||
       item.icon === Award ||
+      item.icon === Blog3 ||
+      item.icon === UilPadlock ||
       item.icon === SettingsGearIcon;
 
     return (

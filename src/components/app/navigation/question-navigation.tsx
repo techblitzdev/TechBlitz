@@ -6,8 +6,6 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import RouterBack from '../shared/router-back';
-import LogoSmall from '@/components/ui/LogoSmall';
 import ChallengeList from './challenge-list';
 
 import { RoadmapUserQuestions } from '@prisma/client';
@@ -29,12 +27,18 @@ export default function QuestionNavigation(opts: {
   } | null>;
   navigationType: 'question' | 'roadmap';
   slug: string;
+  randomQuestionComponent: React.ReactNode;
 }) {
-  const { nextPrevPromise, navigationType = 'question', slug } = opts;
+  const { nextPrevPromise, navigationType = 'question', slug, randomQuestionComponent } = opts;
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const type = searchParams?.get('type');
   const studyPathSlug = searchParams?.get('study-path');
+
+  // TEMP FIX. the whole structure of study path questions are changing
+  if (type === 'study-path') {
+    return null;
+  }
 
   const { previousQuestion, setPreviousQuestion, nextQuestion, setNextQuestion, studyPath } =
     useQuestionSingle();
@@ -97,16 +101,6 @@ export default function QuestionNavigation(opts: {
   return (
     <div className="flex items-center">
       <div className="flex items-center">
-        <TooltipProvider delayDuration={0} skipDelayDuration={100}>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <RouterBack href="/questions" className="px-0">
-                <LogoSmall size={32} />
-              </RouterBack>
-            </TooltipTrigger>
-            <TooltipContent side="bottom">Back to Questions</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
         <div className="hidden md:block">
           {/** challenge list - provides quick access to the challenge list */}
           <TooltipProvider delayDuration={0} skipDelayDuration={100}>
@@ -163,6 +157,8 @@ export default function QuestionNavigation(opts: {
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
+
+        {randomQuestionComponent}
       </div>
     </div>
   );

@@ -46,6 +46,13 @@ const buttonColorMap = {
     active: 'bg-black-100',
     boxShadow: '[box-shadow:0_8px_0_0_#7c3aed,0_9px_0_0_#7c3aed]',
   },
+  locked: {
+    base: 'bg-[#191919]',
+    '3dShade': 'bg-[#0e0e0e]',
+    hover: 'bg-black-100',
+    active: 'bg-black-100',
+    boxShadow: '[box-shadow:0_8px_0_0_#4b5563,0_9px_0_0_#4b5563]',
+  },
 };
 
 export default function StudyPathQuestionCardClient({
@@ -60,16 +67,29 @@ export default function StudyPathQuestionCardClient({
   const iconSize = '32';
   const { user } = useQuestionSingle();
 
-  // Use client-side context for user data
-  const userCanAccess = user?.userLevel === 'PREMIUM' || !questionData?.isPremiumQuestion;
+  // Define our lock states
+  const isPremiumQuestion = questionData?.isPremiumQuestion;
+  const isPremiumUser = user?.userLevel === 'PREMIUM';
+  const isPremiumLocked = isPremiumQuestion && !isPremiumUser;
 
   // Determine the status for visual styling
   const isCompleted = questionData.userAnswers && questionData.userAnswers.length > 0;
   const isCorrect = isCompleted && questionData?.userAnswers?.[0]?.correctAnswer;
 
+  // Question is sequence-locked if it's not completed, not the next question, and not premium-locked
+  const isSequenceLocked = !isCompleted && !isNextQuestion && !isPremiumLocked;
+
+  // Determine if user can actually interact with the question
+  const canInteract = (isCompleted || isNextQuestion) && !isPremiumLocked;
+
+  // Explicitly convert to boolean for type safety
+  const canInteractBool: boolean = !!canInteract;
+  const isCorrectBool: boolean = isCorrect === true;
+  const isNextQuestionBool: boolean = !!isNextQuestion;
+
   // Get wrapper border color based on status
   const getWrapperBorderColor = () => {
-    if (!userCanAccess) return 'border-yellow-500';
+    if (isPremiumLocked) return 'border-yellow-500';
     if (isCorrect) return 'border-green-500';
     if (isCompleted && !isCorrect) return 'border-red-500';
     if (isNextQuestion) return 'border-accent';
@@ -78,7 +98,7 @@ export default function StudyPathQuestionCardClient({
 
   // Get button style based on status
   const getButtonStyle = () => {
-    if (!userCanAccess) return buttonColorMap.premium;
+    if (isPremiumLocked) return buttonColorMap.premium;
     if (isCorrect) return buttonColorMap.correct;
     if (isCompleted && !isCorrect) return buttonColorMap.incorrect;
     if (isNextQuestion) return buttonColorMap.next;
@@ -104,8 +124,11 @@ export default function StudyPathQuestionCardClient({
       <StudyPathQuestionCardPopover
         questionData={questionData}
         studyPath={studyPath}
-        isAnswered={isCorrect || false}
-        canAnswer={userCanAccess}
+        isAnswered={isCorrectBool}
+        canAnswer={canInteractBool}
+        isNextQuestion={isNextQuestionBool}
+        isPremiumLocked={isPremiumLocked}
+        isSequenceLocked={isSequenceLocked}
       >
         <div
           key={questionData.uid}
@@ -133,9 +156,9 @@ export default function StudyPathQuestionCardClient({
                 isCorrect && 'animate-pulse-slow'
               )}
             >
-              {!userCanAccess ? (
+              {isPremiumLocked ? (
                 <div className="relative animate-pulse-slow drop-shadow-md">
-                  <Lock height="40" width="40" />
+                  <Lock primaryColor="#EAB308" secondaryColor="#FEF08A" height="40" width="40" />
                 </div>
               ) : questionData.userAnswers && questionData.userAnswers.length > 0 ? (
                 questionData.userAnswers[0].correctAnswer ? (

@@ -68,6 +68,11 @@ export default function SidebarAreaComponent(opts: {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
+                <Link href="/settings/profile" className="w-full">
+                  Settings
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
                 <ReferralModal>
                   <Button
                     variant="ghost"

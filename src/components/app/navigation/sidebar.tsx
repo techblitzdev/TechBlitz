@@ -34,7 +34,6 @@ import SidebarFooter from './sidebar-footer';
 import { RouteIcon as MapIcon } from '@/components/ui/icons/map';
 import Blog3 from '@/components/ui/icons/blog-3';
 import { ChartSplineIcon as BChart3 } from '@/components/ui/icons/b-chart-3';
-import { SettingsGearIcon } from '@/components/ui/icons/cogwheel';
 import { UilPadlock } from '@/components/ui/icons/lock-animated';
 
 // Interface for any component that has animation controls
@@ -101,30 +100,18 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       animatable: true,
     },
     {
-      title: 'Challenges',
-      url: '/questions',
+      title: 'Learn',
+      url: '/roadmaps',
       icon: Blog3,
-      tooltip: 'Challenges',
       animatable: true,
     },
     {
-      title: 'Roadmaps',
-      url: '/roadmaps',
+      title: 'Personalized Learning',
+      url: '/personalized-roadmaps',
       icon: MapIcon,
-      defaultOpen: true,
+      tooltip: 'Personalized Learning',
       animatable: true,
-      subItems: [
-        {
-          title: 'Official Roadmaps',
-          url: '/roadmaps',
-          disabled: true,
-        },
-        {
-          title: 'Personalized Roadmaps',
-          url: '/personalized-roadmaps',
-          disabled: true,
-        },
-      ],
+      disabled: true,
     },
     {
       title: 'Stats',
@@ -165,31 +152,19 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       animatable: true,
     },
     {
-      title: 'Challenges',
-      url: '/questions',
+      title: 'Learn',
+      tooltip: 'Learn',
+      url: '/roadmaps',
       icon: Blog3,
-      tooltip: 'Challenges',
       animatable: true,
     },
     {
-      title: 'Roadmaps',
-      tooltip: 'Roadmaps',
-      url: '/roadmaps',
+      title: 'Personalized Learning',
+      url: '/personalized-roadmaps',
       icon: MapIcon,
+      tooltip: 'Personalized Learning',
       animatable: true,
       defaultOpen: true,
-      subItems: [
-        {
-          title: 'Official Roadmaps',
-          url: '/roadmaps',
-          disabled: false,
-        },
-        {
-          title: 'Personalized Roadmaps',
-          url: '/personalized-roadmaps',
-          disabled: false,
-        },
-      ],
     },
     {
       title: 'Stats',
@@ -217,13 +192,6 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       url: '/leaderboard',
       icon: Award,
       tooltip: 'Leaderboard',
-      animatable: true,
-    },
-    {
-      title: 'Settings',
-      url: '/settings/profile',
-      icon: SettingsGearIcon,
-      tooltip: 'Settings',
       animatable: true,
     },
   ];

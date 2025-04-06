@@ -67,6 +67,8 @@ export default function MultipleChoiceFooter({
     ) : (
       'Next Question'
     )
+  ) : isSubmitting ? (
+    'Submitting...'
   ) : (
     'Submit'
   );
@@ -96,8 +98,8 @@ export default function MultipleChoiceFooter({
     // Don't use asChild with conditional rendering in a Link
     submitButton = (
       <Link href={navigationHref}>
-        <Button variant="accent" className="flex items-center gap-2">
-          {submitButtonText} <EnterKey width="0.75em" height="0.75em" />
+        <Button variant="accent" className="flex items-center gap-2" disabled={navigating}>
+          {submitButtonText} {!navigating && <EnterKey width="0.75em" height="0.75em" />}
         </Button>
       </Link>
     );

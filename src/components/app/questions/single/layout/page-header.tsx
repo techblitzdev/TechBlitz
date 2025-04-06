@@ -1,5 +1,4 @@
 import { lazy, Suspense } from 'react';
-import CurrentStreak from '@/components/ui/current-streak';
 
 import QuestionNavigation from '@/components/app/navigation/question-navigation';
 import QuestionNavigationLoading from '@/components/app/navigation/question-navigation-loading';

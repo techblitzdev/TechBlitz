@@ -12,7 +12,6 @@ export interface FlagIconHandle {
 
 interface FlagIconProps extends HTMLAttributes<HTMLDivElement> {
   fill?: string;
-  secondaryfill?: string;
   strokewidth?: number;
   width?: string | number;
   height?: string | number;
@@ -25,7 +24,6 @@ const FlagIcon = forwardRef<FlagIconHandle, FlagIconProps>(
       onMouseLeave,
       className,
       fill = 'currentColor',
-      secondaryfill,
       strokewidth = 1,
       width = '1em',
       height = '1em',
@@ -36,7 +34,6 @@ const FlagIcon = forwardRef<FlagIconHandle, FlagIconProps>(
     const controls = useAnimation();
     const isControlledRef = useRef(false);
     const actualFill = fill || 'currentColor';
-    const actualSecondaryFill = secondaryfill || actualFill;
 
     useImperativeHandle(ref, () => {
       isControlledRef.current = true;

@@ -66,8 +66,10 @@ export default async function QuestionUidLayout({
                 navigationType="question"
                 nextPrevPromise={nextAndPreviousQuestion}
                 slug={uid}
+                randomQuestionComponent={
+                  <RandomQuestion identifier="uid" currentQuestionSlug={uid} />
+                }
               />
-              <RandomQuestion identifier="uid" currentQuestionSlug={uid} />
             </div>
           </div>
           <div className="col-span-7 lg:col-span-4 flex items-center justify-center">

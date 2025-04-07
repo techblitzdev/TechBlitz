@@ -98,24 +98,6 @@ const Lightbulb = forwardRef<LightbulbIconHandle, LightbulbIconProps>(
             },
           }}
         >
-          {/* Main lightbulb elements */}
-          <motion.path
-            d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"
-            variants={{
-              normal: {
-                fillOpacity: 0,
-              },
-              animate: {
-                fillOpacity: 0.1,
-                transition: {
-                  duration: 0.5,
-                },
-              },
-            }}
-          />
-          <path d="M9 18h6" />
-          <path d="M10 22h4" />
-
           {/* Light rays (hidden by default, shown on hover) */}
           <motion.line
             x1="12"
@@ -160,9 +142,9 @@ const Lightbulb = forwardRef<LightbulbIconHandle, LightbulbIconProps>(
             }}
           />
           <motion.line
-            x1="4"
+            x1="2"
             y1="12"
-            x2="2"
+            x2="4"
             y2="12"
             variants={{
               normal: { opacity: 0, pathLength: 0 },
@@ -174,8 +156,8 @@ const Lightbulb = forwardRef<LightbulbIconHandle, LightbulbIconProps>(
             }}
           />
           <motion.line
-            x1="5.5"
-            y1="5.5"
+            x1="2.5"
+            y1="2.5"
             x2="4"
             y2="4"
             variants={{
@@ -188,24 +170,23 @@ const Lightbulb = forwardRef<LightbulbIconHandle, LightbulbIconProps>(
             }}
           />
 
-          {/* Glow inside bulb (visible on hover) */}
-          <motion.circle
-            cx="12"
-            cy="10"
-            r="3"
-            fill="currentColor"
+          {/* Main lightbulb elements */}
+          <motion.path
+            d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"
             variants={{
-              normal: { opacity: 0, scale: 0.8 },
+              normal: {
+                fillOpacity: 0,
+              },
               animate: {
-                opacity: 0.3,
-                scale: 1,
+                fillOpacity: 0.1,
                 transition: {
-                  opacity: { duration: 0.5, repeat: 1, repeatType: 'reverse' },
-                  scale: { duration: 0.5 },
+                  duration: 0.5,
                 },
               },
             }}
           />
+          <path d="M9 18h6" />
+          <path d="M10 22h4" />
         </motion.svg>
       </div>
     );

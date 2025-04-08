@@ -87,7 +87,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       bgColor: '#000',
       textColor: '#fff',
     },
-    canonicalUrl: `/roadmaps/${params.slug}/lesson`,
+    canonicalUrl: `/roadmap/learn/${params.slug}/lesson`,
   });
 }
 
@@ -123,7 +123,7 @@ export default async function RoadmapLessonPage({
 
   // Ensure the lesson index is valid
   if (lessonIndex < 0 || lessonIndex >= allQuestionSlugs.length) {
-    redirect(`/roadmaps/${slug}`);
+    redirect(`/roadmap/learn/${slug}`);
   }
 
   // Get the current question slug
@@ -148,9 +148,9 @@ export default async function RoadmapLessonPage({
   // Create navigation data for the study path
   const studyPathNavigation = {
     nextQuestion:
-      nextLessonIndex !== null ? `/roadmaps/${slug}/lesson?lesson=${nextLessonIndex}` : null,
+      nextLessonIndex !== null ? `/roadmap/learn/${slug}/lesson?lesson=${nextLessonIndex}` : null,
     previousQuestion:
-      prevLessonIndex !== null ? `/roadmaps/${slug}/lesson?lesson=${prevLessonIndex}` : null,
+      prevLessonIndex !== null ? `/roadmap/learn/${slug}/lesson?lesson=${prevLessonIndex}` : null,
   };
 
   if (question.questionType === 'SIMPLE_MULTIPLE_CHOICE') {

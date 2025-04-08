@@ -131,18 +131,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // APP ROUTES ACCESSIBLE TO ALL USERS
 
     {
-      url: `${baseUrl}/signup`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrl}/login`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrl}/forgot-password`,
-      lastModified: new Date(),
-    },
-    {
       url: `${baseUrl}/questions`,
       lastModified: new Date(),
     },

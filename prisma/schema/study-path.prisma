@@ -1,3 +1,10 @@
+enum StudyPathType {
+  LEARN
+  PRACTICE
+  BUILD
+  REVIEW  
+}
+
 ///  * StudyPath is a study path that a user can enroll in.
 model StudyPath {
   uid                   String          @id @default(uuid())
@@ -8,6 +15,7 @@ model StudyPath {
   description           String
   heroChip              String
   questionSlugs         String[]        // LEGACY
+  type                  StudyPathType   @default(LEARN)
 
   overviewData          Json?
 
@@ -19,6 +27,7 @@ model StudyPath {
   icon                  String?
   isPublished           Boolean         @default(false)
   nextStudyPathSlug     String?
+
 }
 
 model UserStudyPath {

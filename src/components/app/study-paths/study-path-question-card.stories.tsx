@@ -355,6 +355,7 @@ const mockStudyPath: StudyPath = {
   nextStudyPathSlug: 'javascript-advanced',
   overviewData: {},
   icon: '📚',
+  type: 'LEARN',
 };
 
 const meta: Meta<typeof StudyPathQuestionCard> = {

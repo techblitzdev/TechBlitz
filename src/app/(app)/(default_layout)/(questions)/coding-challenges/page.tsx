@@ -31,8 +31,7 @@ export async function generateMetadata() {
       bgColor: '#000',
       textColor: '#fff',
     },
-    canonicalUrl: '/challenges',
-  });
+    canonicalUrl: '/coding-challenges',
 }
 
 const heroDescription = (

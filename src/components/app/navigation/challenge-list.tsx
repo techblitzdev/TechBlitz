@@ -86,7 +86,7 @@ export default function ChallengeList({
       <SheetContent side="left" className="bg-black-75 sm:max-w-xl overflow-hidden">
         <div className="flex flex-col h-full gap-10">
           <Link
-            href={studyPath ? `/roadmaps/${studyPath.slug}` : '/questions'}
+            href={studyPath ? `/roadmaps/${studyPath.slug}` : '/coding-challenges'}
             className="flex items-center gap-x-2 group"
           >
             <h6 className="text-xl font-bold">

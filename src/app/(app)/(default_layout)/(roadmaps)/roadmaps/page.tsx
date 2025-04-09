@@ -3,18 +3,12 @@ import { Suspense } from 'react';
 import Hero from '@/components/shared/hero';
 import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
-import { useUserServer } from '@/hooks/use-user-server';
 import ContinueJourney from '@/components/app/navigation/continue-journey-button';
-import { ArrowRightIcon, Mail } from 'lucide-react';
+import { ArrowRightIcon } from 'lucide-react';
 import { getAllStudyPaths } from '@/utils/data/study-paths/get';
 import { StudyPathCard } from '@/components/app/study-paths/study-path-card';
-import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
-import UpgradeCard from '@/components/app/shared/upgrade/upgrade-card';
 import { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
-import DailyGoalsCard from '@/components/app/shared/question/daily-goals-card';
-import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
-import { getUserMissionRecords } from '@/utils/data/missions/get-user-mission-record';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -99,13 +93,8 @@ export default async function ExploreQuestionsPage() {
     },
   };
 
-  const user = await useUserServer();
-
   // run in parallel
   const [studyPaths] = await Promise.all([getAllStudyPaths()]);
-
-  const missionsPromise = getDailyMissions();
-  const userMissionRecordsPromise = getUserMissionRecords();
 
   // group study paths by category
   const studyPathsByCategory: Record<string, typeof studyPaths> = studyPaths.reduce(
@@ -129,11 +118,11 @@ export default async function ExploreQuestionsPage() {
       <div className="flex flex-col gap-y-12 max-w-7xl mx-auto">
         <Hero heading="Library" subheading={heroDescription} container={true} />
         <div className="lg:container flex flex-col lg:flex-row mt-5 gap-16">
-          <div className="w-full lg:w-[70%] flex flex-col gap-12">
+          <div className="w-full flex flex-col gap-12">
             {Object.entries(studyPathsByCategory).map(([category, paths]) => (
               <div key={category} className="space-y-6">
                 <h2 className="text-2xl font-bold text-white">{category}</h2>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {paths.map((studyPath) => (
                     <StudyPathCard key={studyPath.uid} studyPath={studyPath} />
                   ))}
@@ -141,31 +130,6 @@ export default async function ExploreQuestionsPage() {
               </div>
             ))}
           </div>
-          <aside className="w-full lg:w-[30%] order-first lg:order-last">
-            <div className="flex flex-col gap-5 sticky top-20">
-              {user?.userLevel === 'FREE' && (
-                <UpgradeCard
-                  title="Looking for a more personalized experience?"
-                  description="Unlock your full potential with a personalized study plan tailored just for you. Get focused learning paths, progress tracking, and expert guidance to learn 3x faster."
-                />
-              )}
-              <DailyGoalsCard
-                missionsPromise={missionsPromise}
-                userMissionRecordsPromise={userMissionRecordsPromise}
-              />
-              <div className="bg-[#090909] flex flex-col gap-y-2 backdrop-blur-sm border border-black-50 p-4 rounded-lg h-fit">
-                <div className="flex items-center space-x-2 text-white">
-                  <Mail className="size-5 text-white" />
-                  <span>Suggest a roadmap</span>
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  We are adding new roadmaps every week. If you have a roadmap in mind, please let
-                  us know and we will get back to you as soon as possible.
-                </p>
-                <FeedbackButton title="Suggest a roadmap" icon={false} />
-              </div>
-            </div>
-          </aside>
         </div>
       </div>
     </>

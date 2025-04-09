@@ -4,7 +4,7 @@ import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 
 export default async function ContinueJourney(opts: {
   text?: string;
-  variant?: 'accent' | 'secondary' | 'default';
+  variant?: 'accent' | 'secondary' | 'default' | 'ghost';
 }) {
   const suggestions = await getSuggestions({
     limit: 1,

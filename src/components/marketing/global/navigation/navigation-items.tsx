@@ -133,14 +133,14 @@ export function NavigationMenuItems() {
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
               <ListItem
-                href="/questions?tag=javascript"
+                href="/coding-challenges?tag=javascript"
                 title="JavaScript"
                 icon={<JavascriptIcon className="size-4" />}
               >
                 Learn JavaScript with our easy-to-understand coding questions.
               </ListItem>
               <ListItem
-                href="/questions?tag=react"
+                href="/coding-challenges?tag=react"
                 title="React"
                 icon={<ReactIcon className="size-4" />}
               >

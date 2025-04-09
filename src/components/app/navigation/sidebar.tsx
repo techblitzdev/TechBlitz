@@ -100,7 +100,7 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       animatable: true,
     },
     {
-      title: 'Learn',
+      title: 'Library',
       url: '/roadmaps',
       icon: Blog3,
       animatable: true,
@@ -152,8 +152,8 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       animatable: true,
     },
     {
-      title: 'Learn',
-      tooltip: 'Learn',
+      title: 'Library',
+      tooltip: 'Library',
       url: '/roadmaps',
       icon: Blog3,
       animatable: true,

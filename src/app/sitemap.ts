@@ -131,7 +131,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // APP ROUTES ACCESSIBLE TO ALL USERS
 
     {
-      url: `${baseUrl}/questions`,
+      url: `${baseUrl}/coding-challenges`,
       lastModified: new Date(),
     },
     {

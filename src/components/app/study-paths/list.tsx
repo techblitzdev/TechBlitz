@@ -54,8 +54,8 @@ export default function StudyPathsList({
 
   if (studyPath.overviewData) {
     // Extract slugs from overviewData sections
-    allQuestionSlugs = Object.values(studyPath.overviewData)
-      .flatMap((section: any) => section.questionSlugs)
+    allQuestionSlugs = Object.values(studyPath.overviewData || {})
+      .flatMap((section: any) => section.questionSlugs || [])
       .filter(Boolean);
   } else {
     // Use regular questionSlugs
@@ -92,6 +92,8 @@ export default function StudyPathsList({
     <div className={cn('relative z-10 justify-self-center grid', className)}>
       {sortedQuestions.map((question, index) => {
         const offsetValue = getOffset(index);
+        // Find the question's index in the allQuestionSlugs array
+
         return (
           <div key={question.slug} className="mb-8 flex justify-center">
             <QuestionCardClient questionData={question} offset={offsetValue}>

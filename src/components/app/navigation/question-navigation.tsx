@@ -56,7 +56,7 @@ export default function QuestionNavigation(opts: {
       // Check if we're using overviewData
       if ('overviewData' in studyPath && studyPath.overviewData) {
         // Get all question slugs from the overviewData structure
-        const allSlugs = Object.values(studyPath.overviewData as any)
+        const allSlugs = Object.values(studyPath.overviewData || {})
           .flatMap((section: any) => section.questionSlugs || [])
           .filter(Boolean);
 

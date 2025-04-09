@@ -18,20 +18,11 @@ import { getUserMissionRecords } from '@/utils/data/missions/get-user-mission-re
 
 export async function generateMetadata() {
   return createMetadata({
-    title: 'Coding Roadmaps | TechBlitz',
+    title: 'Learning Paths | TechBlitz',
     description:
-      'A collection of coding questions, ranging from Javascript, React, Node, Web Development. Aimed to enhance your coding skills in each domain.',
-    keywords: [
-      'javascript coding questions',
-      'react coding questions',
-      'web development coding questions',
-      'coding challenges',
-      'coding tutorials',
-      'coding practice',
-      'coding practice questions',
-    ],
+      'A collection of learning paths, ranging from Javascript, React, Node, Web Development. Created to help you learn and grow your skills in different areas of programming.',
     image: {
-      text: 'Coding Roadmaps | TechBlitz',
+      text: 'Learning Paths | TechBlitz',
       bgColor: '#000',
       textColor: '#fff',
     },
@@ -41,25 +32,26 @@ export async function generateMetadata() {
 
 const heroDescription = (
   <div className="flex flex-col gap-y-4 z-20 relative font-inter max-w-3xl">
-    <p className="text-sm md:text-base text-gray-400">
-      Explore our curated lists of coding questions, ranging from Javascript, React, Node, Web
-      Development. Perfect for your daily coding practice.
+    <p className="text-sm md:text-base text-gray-400 font-onest">
+      Explore our library of programming learning paths, consisting of many different topics on the
+      web. Set your own goals and work your way through the challenges at your own pace, and get 1%
+      better every day.
     </p>
     <div className="flex flex-col gap-y-2">
-      <p className="text-gray-400">Can't find what you're looking for?</p>
-      <div className="flex items-center gap-x-2">
-        <Button href="/questions" variant="secondary">
-          View all questions
+      <p className="text-gray-400 font-onest">Can't find what you're looking for?</p>
+      <div className="flex items-center gap-x-2 pt-1">
+        <Button href="/coding-challenges" variant="secondary">
+          View all challenges
         </Button>
         <Suspense
           fallback={
-            <Button variant="default" className="w-full">
+            <Button variant="ghost" className="w-full">
               Your next recommended question
-              <ArrowRightIcon className="w-4 h-4" />
+              <ArrowRightIcon className="size-4" />
             </Button>
           }
         >
-          <ContinueJourney text="Your next recommended question" variant="default" />
+          <ContinueJourney text="Your next recommended question" variant="ghost" />
         </Suspense>
       </div>
     </div>
@@ -72,7 +64,7 @@ export default async function ExploreQuestionsPage() {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     url: `${getBaseUrl()}/roadmaps`,
-    headline: 'Coding Roadmaps | TechBlitz',
+    headline: 'Learning Paths | TechBlitz',
     description:
       'Curated lists of coding questions, ranging from Javascript, React, Node, Web Development. Perfect for your daily coding practice.',
     image:
@@ -135,7 +127,7 @@ export default async function ExploreQuestionsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="flex flex-col gap-y-12 max-w-7xl mx-auto">
-        <Hero heading="Coding Roadmaps" subheading={heroDescription} container={true} />
+        <Hero heading="Library" subheading={heroDescription} container={true} />
         <div className="lg:container flex flex-col lg:flex-row mt-5 gap-16">
           <div className="w-full lg:w-[70%] flex flex-col gap-12">
             {Object.entries(studyPathsByCategory).map(([category, paths]) => (

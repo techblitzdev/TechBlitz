@@ -38,13 +38,13 @@ export default function QuestionPageHeader({
   return (
     <div className="grid grid-cols-12 items-center justify-between pt-2 px-3 relative">
       <div className="col-span-2 lg:col-span-4 flex items-center justify-start">
-        <RouterBack href="/questions" className="px-0 block md:hidden">
+        <RouterBack href="/coding-challenges" className="px-0 block md:hidden">
           <HomeIcon width="16" height="16" />
         </RouterBack>
         <TooltipProvider delayDuration={0} skipDelayDuration={100}>
           <Tooltip>
             <TooltipTrigger asChild>
-              <RouterBack href="/questions" className="px-0 hidden md:block">
+              <RouterBack href="/coding-challenges" className="px-0 hidden md:block">
                 <LogoSmall size={32} />
               </RouterBack>
             </TooltipTrigger>

@@ -85,7 +85,9 @@ export const createMetadata = ({
   // Handle OgImageProps case
   const bgColor = image?.bgColor || '#f0f0f0';
   const textColor = image?.textColor || '#000000';
-  const ogImageUrl = `${getBaseUrl()}/api/og?text=${encodeURIComponent(image?.text || title)}&bgColor=${encodeURIComponent(bgColor)}&textColor=${encodeURIComponent(textColor)}`;
+  const ogImageUrl = `${getBaseUrl()}/api/og?text=${encodeURIComponent(
+    image?.text || title
+  )}&bgColor=${encodeURIComponent(bgColor)}&textColor=${encodeURIComponent(textColor)}`;
 
   return {
     title,
@@ -153,8 +155,8 @@ export const WebPageJsonLdBreadcrumb: WebPageJsonLd['breadcrumb'] = {
     {
       '@type': 'ListItem',
       position: 2,
-      name: 'Questions',
-      item: getBaseUrl() + '/questions',
+      name: 'Coding Challenges',
+      item: getBaseUrl() + '/coding-challenges',
     },
     {
       '@type': 'ListItem',

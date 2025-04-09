@@ -71,22 +71,24 @@ export default async function QuestionUidLayout({
   const studyPath = await getStudyPath(slug);
 
   if (!studyPath) {
-    return redirect('/coding-challenges');
+    redirect('/coding-challenges');
+    return null;
   }
 
   let allQuestionSlugs: string[] = [];
 
   if (studyPath.overviewData) {
-    allQuestionSlugs = Object.values(studyPath.overviewData).flatMap(
-      (section) => section.questionSlugs
+    allQuestionSlugs = Object.values(studyPath.overviewData || {}).flatMap(
+      (section: any) => section.questionSlugs || []
     );
   } else {
-    allQuestionSlugs = studyPath.questionSlugs;
+    allQuestionSlugs = studyPath.questionSlugs || [];
   }
 
   // Ensure the lesson index is valid
   if (lessonIndex < 0 || lessonIndex >= allQuestionSlugs.length) {
     redirect(`/roadmap/learn/${slug}`);
+    return null;
   }
 
   const [user, question, { answeredQuestionsCount }] = await Promise.all([
@@ -98,7 +100,8 @@ export default async function QuestionUidLayout({
   ]);
 
   if (!question || !question.slug || !question.tags) {
-    return redirect('/coding-challenges');
+    redirect('/coding-challenges');
+    return null;
   }
 
   const defaultQuestionDescription = `Practice ${capitalise(

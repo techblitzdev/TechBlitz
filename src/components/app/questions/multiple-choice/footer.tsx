@@ -76,9 +76,7 @@ export default function MultipleChoiceFooter({
   // Determine the navigation href with study path params if necessary
   const navigationHref = hasSubmitted
     ? nextAndPreviousQuestion?.nextQuestion
-      ? `/question/${nextAndPreviousQuestion.nextQuestion}${
-          isStudyPath ? `?type=${type}&study-path=${studyPathSlug}` : ''
-        }`
+      ? nextAndPreviousQuestion.nextQuestion
       : isStudyPath
       ? `/study-paths/${studyPathSlug}`
       : '/coding-challenges'

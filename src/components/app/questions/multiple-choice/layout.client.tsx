@@ -162,7 +162,7 @@ export default function MultipleChoiceLayoutClient({
   // Determine the navigation href with study path params if necessary
   const navigationHref = isSubmitted
     ? nextAndPreviousQuestion?.nextQuestion
-      ? `/question/${nextAndPreviousQuestion.nextQuestion}`
+      ? nextAndPreviousQuestion.nextQuestion
       : '/coding-challenges'
     : '';
 

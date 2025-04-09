@@ -69,9 +69,11 @@ export default function QuestionNavigation(opts: {
 
         // Set the full URLs in context
         setPreviousQuestion(
-          prevSlug ? `${prevSlug}?type=${type}&study-path=${studyPathSlug}` : null
+          prevSlug ? `/roadmap/learn/${studyPathSlug}/lesson?lesson=${currentIndex}` : null
         );
-        setNextQuestion(nextSlug ? `${nextSlug}?type=${type}&study-path=${studyPathSlug}` : null);
+        setNextQuestion(
+          nextSlug ? `/roadmap/learn/${studyPathSlug}/lesson?lesson=${currentIndex + 1}` : null
+        );
       } else {
         // Find the current question's index in the study path's questionSlugs
         const currentIndex = studyPath.questionSlugs.indexOf(slug);
@@ -85,9 +87,11 @@ export default function QuestionNavigation(opts: {
 
         // Set the full URLs in context
         setPreviousQuestion(
-          prevSlug ? `${prevSlug}?type=${type}&study-path=${studyPathSlug}` : null
+          prevSlug ? `/roadmap/learn/${studyPathSlug}/lesson?lesson=${currentIndex - 1}` : null
         );
-        setNextQuestion(nextSlug ? `${nextSlug}?type=${type}&study-path=${studyPathSlug}` : null);
+        setNextQuestion(
+          nextSlug ? `/roadmap/learn/${studyPathSlug}/lesson?lesson=${currentIndex + 1}` : null
+        );
       }
     } else {
       // Use the provided promise for non-study-path questions

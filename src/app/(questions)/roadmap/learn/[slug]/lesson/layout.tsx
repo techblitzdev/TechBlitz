@@ -30,14 +30,13 @@ import RouterBack from '@/components/app/shared/router-back';
 import LogoSmall from '@/components/ui/LogoSmall';
 import { FlagIcon } from 'lucide-react';
 import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
+import QuestionPageHeader from '@/components/app/questions/single/layout/page-header';
 
 // Lazy Components
 const PremiumQuestionDeniedAccess = lazy(
   () => import('@/components/app/questions/premium-question-denied-access')
 );
-const UpgradeModal = dynamic(
-  () => import('@/components/app/questions/single/layout/upgrade-modal')
-);
+const UpgradeModal = dynamic(() => import('@/components/app/shared/upgrade/upgrade-modal'));
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const question = await getQuestion('slug', params.slug);
@@ -194,6 +193,8 @@ export default async function QuestionUidLayout({
             userAnswered={userAnswered}
             suggestedQuestions={suggestedQuestions}
           >
+            {/** 
+             * 
             <div className="flex items-center justify-between py-2 px-3">
               <TooltipProvider delayDuration={0} skipDelayDuration={100}>
                 <Tooltip>
@@ -206,6 +207,8 @@ export default async function QuestionUidLayout({
                 </Tooltip>
               </TooltipProvider>
 
+              
+
               <div
                 className={`col-span-3 lg:col-span-4 flex items-center gap-x-1 md:gap-x-3 justify-end ${
                   question.questionType === 'SIMPLE_MULTIPLE_CHOICE'
@@ -215,17 +218,23 @@ export default async function QuestionUidLayout({
               >
                 <Suspense fallback={null}>
                   <FeedbackButton
+                    variant="default"
+                    padding="md"
                     feedbackModalTitle="Report a problem"
                     feedbackModalDescription="If you're experiencing issues with this question, please let us know so we can fix it."
                     reference={question?.slug || undefined}
                     icon={<FlagIcon height="1.5rem" width="1.5rem" />}
                   />
-                  <div className="hidden lg:block">
-                    <UpgradeModal />
-                  </div>
+                  <UpgradeModal />
                 </Suspense>
               </div>
             </div>
+                    */}
+
+            <QuestionPageHeader
+              question={question}
+              nextAndPreviousQuestionPromise={nextAndPreviousQuestion}
+            />
             <div style={{ opacity: 'var(--content-opacity)' }} className="relative">
               {children}
               {question.isPremiumQuestion && !isPremiumUser && <PremiumQuestionDeniedAccess />}

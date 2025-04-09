@@ -33,7 +33,7 @@ const UpgradeModal = dynamic(() => import('@/components/app/shared/upgrade/upgra
 
 type LessonLayoutProps = {
   params: { slug: string };
-  searchParams: { lesson?: string };
+  searchParams: { [key: string]: string | string[] | undefined };
   children: ReactNode;
 };
 
@@ -68,7 +68,7 @@ export default async function QuestionUidLayout({
   children,
 }: LessonLayoutProps) {
   const { slug } = params;
-  const lessonIndex = searchParams?.lesson ? parseInt(searchParams.lesson, 10) : 0;
+  const lessonIndex = searchParams?.lesson ? parseInt(searchParams.lesson as string, 10) : 0;
 
   const studyPath = await getStudyPath(slug);
 

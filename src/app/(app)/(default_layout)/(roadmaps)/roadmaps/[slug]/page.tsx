@@ -254,7 +254,7 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
         <Hero
           heading={<HeroHeading studyPath={studyPathData} />}
           container={false}
-          chip={<HeroChip studyPath={studyPathData} />}
+          chip={<HeroChip />}
         />
         <div className="flex flex-col lg:flex-row gap-12 xl:gap-24">
           <div className="w-full lg:w-[55%] flex-1">

@@ -25,8 +25,8 @@ interface NavigationData {
 interface QuestionPageHeaderProps {
   question: Question;
   nextAndPreviousQuestionPromise: Promise<NavigationData | null>;
-  isStudyPathLesson: boolean;
-  studyPathSlug: string;
+  isStudyPathLesson?: boolean;
+  studyPathSlug?: string;
 }
 
 export default function QuestionPageHeader({

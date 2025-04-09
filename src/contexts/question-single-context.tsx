@@ -176,9 +176,6 @@ export const QuestionSingleContextProvider = ({
 
   // Reset the state when the lesson index changes or question changes
   useEffect(() => {
-    // Get the lesson index from URL params
-    const lessonIndex = searchParams?.get('lesson');
-
     // Reset all answer-related state
     setCorrectAnswer('init');
     setUserAnswer(null);

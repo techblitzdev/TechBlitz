@@ -1,5 +1,5 @@
 import type React from 'react';
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 import dynamic from 'next/dynamic';
 import { redirect } from 'next/navigation';
 
@@ -23,13 +23,6 @@ import { steps } from '@/lib/onborda';
 import { TourCard } from '@/components/app/shared/question/tour-card';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 import { getStudyPath } from '@/utils/data/study-paths/get';
-import { TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { Tooltip } from '@/components/ui/tooltip';
-import { TooltipProvider } from '@/components/ui/tooltip';
-import RouterBack from '@/components/app/shared/router-back';
-import LogoSmall from '@/components/ui/LogoSmall';
-import { FlagIcon } from 'lucide-react';
-import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
 import QuestionPageHeader from '@/components/app/questions/single/layout/page-header';
 
 // Lazy Components

@@ -38,7 +38,6 @@ export default function CodeEditorQuestionSubmitted() {
     user,
     question,
     nextQuestion,
-    studyPath,
   } = useQuestionSingle();
 
   const [isPending, setTransition] = useTransition();

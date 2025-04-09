@@ -35,7 +35,6 @@ export default function QuestionSubmitted() {
     totalSeconds,
     generateAiAnswerHelp,
     user,
-    studyPath,
     nextQuestion,
   } = useQuestionSingle();
 

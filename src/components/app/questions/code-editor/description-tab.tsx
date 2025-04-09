@@ -16,9 +16,13 @@ import ShareQuestion from '@/components/app/shared/question/share-question';
 export default function CodingChallengeDescription(opts: { question: Question }) {
   const { question } = opts;
 
-  const { userAnswered, showHint, setShowHint } = useQuestionSingle();
+  const { userAnswered, showHint, setShowHint, currentLayout } = useQuestionSingle();
 
-  const hasUserAnswered = use(userAnswered);
+  // Only show previous answer indicator in non-answer modes for regular questions
+  const showPreviousAnswerIndicator = currentLayout !== 'answer';
+
+  // Only resolve userAnswered when needed
+  const hasUserAnswered = showPreviousAnswerIndicator ? use(userAnswered) : null;
 
   return (
     <div className="p-4 pt-0 flex flex-col gap-6">
@@ -41,7 +45,7 @@ export default function CodingChallengeDescription(opts: { question: Question })
               textColor={getQuestionDifficultyColor(question.difficulty).text}
               border={getQuestionDifficultyColor(question.difficulty).border}
             />
-            <HasAnswered userAnswered={hasUserAnswered} />
+            {showPreviousAnswerIndicator && <HasAnswered userAnswered={hasUserAnswered} />}
           </div>
         </div>
       </div>

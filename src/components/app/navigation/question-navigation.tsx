@@ -126,7 +126,7 @@ export default function QuestionNavigation(opts: {
             <TooltipTrigger>
               <Button
                 href={previousQuestion || '#'}
-                className={`p-2 rounded-l-md relative group duration-200 size-8 flex items-center justify-center border-r-0 ${
+                className={`p-2 rounded-l-md relative group duration-200 size-8 flex items-center justify-center border-r-0 lesson-nav-btn ${
                   !previousQuestion ? 'opacity-50 pointer-events-none' : ''
                 }`}
                 variant="ghost"
@@ -147,7 +147,7 @@ export default function QuestionNavigation(opts: {
             <TooltipTrigger>
               <Button
                 href={nextQuestion || '#'}
-                className={`p-2 rounded-r-md relative group duration-200 size-8 flex items-center justify-center ${
+                className={`p-2 rounded-r-md relative group duration-200 size-8 flex items-center justify-center lesson-nav-btn ${
                   !nextQuestion ? 'opacity-50 pointer-events-none' : ''
                 }`}
                 variant="ghost"

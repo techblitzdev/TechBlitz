@@ -174,6 +174,27 @@ export const QuestionSingleContextProvider = ({
     }
   }, [selectedAnswer, question.answers, question.codeSnippet]);
 
+  // Reset the state when the lesson index changes or question changes
+  useEffect(() => {
+    // Get the lesson index from URL params
+    const lessonIndex = searchParams?.get('lesson');
+
+    // Reset all answer-related state
+    setCorrectAnswer('init');
+    setUserAnswer(null);
+    setCurrentLayout('questions');
+    setSelectedAnswer('');
+    setAnswerHelp('');
+    setTotalSeconds(0);
+    setTimeTaken(0);
+    setPrefilledCodeSnippet(null);
+    setCode(question.codeSnippet || '');
+    setResult(null);
+    setShowHint(false);
+
+    // This will ensure we start fresh when the question changes or when navigating via lesson parameter
+  }, [question.uid, searchParams?.get('lesson'), question.codeSnippet]);
+
   // METHODS
   // Submit the answer for a non-CODING_CHALLENGE question
   const submitQuestionAnswer = async (

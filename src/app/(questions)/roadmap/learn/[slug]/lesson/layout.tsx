@@ -22,7 +22,6 @@ import { Onborda, OnbordaProvider } from 'onborda';
 import { steps } from '@/lib/onborda';
 import { TourCard } from '@/components/app/shared/question/tour-card';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
-import QuestionPageHeader from '@/components/app/questions/single/layout/page-header';
 import { getStudyPath } from '@/utils/data/study-paths/get';
 import { TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Tooltip } from '@/components/ui/tooltip';
@@ -206,6 +205,7 @@ export default async function QuestionUidLayout({
                   <TooltipContent side="bottom">Back to {studyPath.title}</TooltipContent>
                 </Tooltip>
               </TooltipProvider>
+
               <div
                 className={`col-span-3 lg:col-span-4 flex items-center gap-x-1 md:gap-x-3 justify-end ${
                   question.questionType === 'SIMPLE_MULTIPLE_CHOICE'

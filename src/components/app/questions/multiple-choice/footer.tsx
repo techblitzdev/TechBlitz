@@ -78,7 +78,7 @@ export default function MultipleChoiceFooter({
     ? nextAndPreviousQuestion?.nextQuestion
       ? nextAndPreviousQuestion.nextQuestion
       : isStudyPath
-      ? `/study-paths/${studyPathSlug}`
+      ? `/roadmaps/${studyPathSlug}`
       : '/coding-challenges'
     : '';
 

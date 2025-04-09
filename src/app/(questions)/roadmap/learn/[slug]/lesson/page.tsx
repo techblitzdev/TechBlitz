@@ -10,6 +10,10 @@ import { createMetadata } from '@/utils/seo';
 import { useUserServer } from '@/hooks/use-user-server';
 
 // Components
+const LessonTransitionWrapper = dynamic(
+  () => import('@/components/app/roadmaps/lesson-transition-wrapper'),
+  { ssr: false }
+);
 const QuestionCard = dynamic(
   () => import('@/components/app/questions/single/layout/question-card'),
   {
@@ -156,7 +160,9 @@ export default async function RoadmapLessonPage({
   if (question.questionType === 'SIMPLE_MULTIPLE_CHOICE') {
     return (
       <PremiumContentWrapper>
-        <MultipleChoiceLayout question={question} nextAndPreviousQuestion={studyPathNavigation} />
+        <LessonTransitionWrapper>
+          <MultipleChoiceLayout question={question} nextAndPreviousQuestion={studyPathNavigation} />
+        </LessonTransitionWrapper>
       </PremiumContentWrapper>
     );
   }
@@ -212,13 +218,15 @@ export default async function RoadmapLessonPage({
   return (
     <PremiumContentWrapper>
       <TourStartModal user={user} />
-      <ResizableLayout
-        leftContent={leftContent}
-        rightTopContent={rightContent}
-        rightBottomContent={rightBottomContent}
-        initialLeftWidth={50}
-        initialRightTopHeight={question?.testCases?.length ? 70 : 100}
-      />
+      <LessonTransitionWrapper>
+        <ResizableLayout
+          leftContent={leftContent}
+          rightTopContent={rightContent}
+          rightBottomContent={rightBottomContent}
+          initialLeftWidth={50}
+          initialRightTopHeight={question?.testCases?.length ? 70 : 100}
+        />
+      </LessonTransitionWrapper>
     </PremiumContentWrapper>
   );
 }

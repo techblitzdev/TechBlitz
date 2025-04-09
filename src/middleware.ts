@@ -23,7 +23,7 @@ const routeConfig = {
       '/statistics',
       '/settings',
       '/statistics/reports',
-      '/questions/custom',
+      '/coding-challenges/custom',
       '/roadmaps',
     ],
     requiresAuth: true,

@@ -72,7 +72,7 @@ export default async function QuestionUidLayout({
   ]);
 
   if (!question || !question.slug || !question.tags) {
-    return redirect('/questions');
+    return redirect('/coding-challenges');
   }
 
   const defaultQuestionDescription = `Practice ${capitalise(

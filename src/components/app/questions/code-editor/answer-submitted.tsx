@@ -25,6 +25,8 @@ import FlagIcon from '@/components/ui/icons/flag';
 import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
 import { getUpgradeUrl } from '@/utils';
 import { userIsPremium } from '@/utils/user';
+import { usePathname } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 export default function CodeEditorQuestionSubmitted() {
   const {
@@ -36,9 +38,30 @@ export default function CodeEditorQuestionSubmitted() {
     user,
     question,
     nextQuestion,
+    studyPath,
   } = useQuestionSingle();
 
   const [isPending, setTransition] = useTransition();
+  const searchParams = useSearchParams();
+  const currentLessonIndex = searchParams?.get('lesson');
+
+  // Use the full path to determine if we're in a study path
+  const pathname = usePathname(); // Correctly use the pathname hook
+  const isRoadmapLearn = pathname.includes('/roadmap/learn/');
+
+  // Extract study path slug from the pathname if we're in a roadmap/learn path
+  let studyPathSlug = '';
+  if (isRoadmapLearn) {
+    // URL pattern: /roadmap/learn/[slug]/lesson
+    const pathParts = pathname.split('/');
+    // The slug is the part after "learn"
+    const learnIndex = pathParts.indexOf('learn');
+    if (learnIndex >= 0 && pathParts.length > learnIndex + 1) {
+      studyPathSlug = pathParts[learnIndex + 1];
+    }
+  }
+
+  const isStudyPathLesson = isRoadmapLearn && !!studyPathSlug;
 
   // resolve the related q's here - only if they are not null
   const relatedQuestionData = relatedQuestions ? use(relatedQuestions).slice(0, 3) : [];
@@ -56,6 +79,18 @@ export default function CodeEditorQuestionSubmitted() {
     toast.success(
       'Question difficulty updated, we will now serve more personalized questions to you.'
     );
+  };
+
+  // Generate URL for next question based on whether this is a study path lesson or regular question
+  const getNextQuestionUrl = () => {
+    if (isStudyPathLesson && studyPathSlug) {
+      // If it's a study path lesson, use the lesson index format
+      const nextLessonIndex = currentLessonIndex ? parseInt(currentLessonIndex) + 1 : 1;
+      return `/roadmap/learn/${studyPathSlug}/lesson?lesson=${nextLessonIndex}`;
+    } else {
+      // For regular questions, use the question slug format
+      return `/question/${question.nextQuestionSlug}`;
+    }
   };
 
   return (
@@ -125,7 +160,11 @@ export default function CodeEditorQuestionSubmitted() {
           <p className="text-sm text-gray-400">
             Want to continue the flow? Click the button below to go to the next question.
           </p>
-          <Button variant="secondary" href={`/question/${nextQuestion}`} className="w-fit">
+          <Button
+            variant="secondary"
+            href={isStudyPathLesson ? getNextQuestionUrl() : `/question/${nextQuestion}`}
+            className="w-fit"
+          >
             Next Question
           </Button>
         </div>
@@ -210,8 +249,8 @@ export default function CodeEditorQuestionSubmitted() {
               {correctAnswer === 'correct' && relatedQuestionData.length > 0
                 ? 'Here are some questions that are similar to this one.'
                 : relatedQuestionData.length === 0
-                  ? 'No related questions found.'
-                  : 'Here are some questions that will help you understand this concept better.'}
+                ? 'No related questions found.'
+                : 'Here are some questions that will help you understand this concept better.'}
             </p>
           </div>
           {relatedQuestionData.length > 0 && (

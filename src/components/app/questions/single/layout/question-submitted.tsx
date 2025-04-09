@@ -24,6 +24,7 @@ import { updateAnswerDifficulty } from '@/actions/answers/answer';
 import LoadingSpinner from '@/components/ui/loading';
 import { getUpgradeUrl } from '@/utils';
 import { userIsPremium } from '@/utils/user';
+import { useSearchParams, usePathname } from 'next/navigation';
 
 export default function QuestionSubmitted() {
   const {
@@ -34,12 +35,46 @@ export default function QuestionSubmitted() {
     totalSeconds,
     generateAiAnswerHelp,
     user,
+    studyPath,
+    nextQuestion,
   } = useQuestionSingle();
 
   const [isPending, setTransition] = useTransition();
+  const searchParams = useSearchParams();
+  const currentLessonIndex = searchParams?.get('lesson');
+
+  // Use the full path to determine if we're in a study path
+  const pathname = usePathname(); // Correctly use the pathname hook
+  const isRoadmapLearn = pathname.includes('/roadmap/learn/');
+
+  // Extract study path slug from the pathname if we're in a roadmap/learn path
+  let studyPathSlug = '';
+  if (isRoadmapLearn) {
+    // URL pattern: /roadmap/learn/[slug]/lesson
+    const pathParts = pathname.split('/');
+    // The slug is the part after "learn"
+    const learnIndex = pathParts.indexOf('learn');
+    if (learnIndex >= 0 && pathParts.length > learnIndex + 1) {
+      studyPathSlug = pathParts[learnIndex + 1];
+    }
+  }
+
+  const isStudyPathLesson = isRoadmapLearn && !!studyPathSlug;
 
   // resolve the related q's here - only if they are not null
   const relatedQuestionData = relatedQuestions ? use(relatedQuestions) : [];
+
+  // Generate URL for next question based on whether this is a study path lesson or regular question
+  const getNextQuestionUrl = () => {
+    if (isStudyPathLesson && studyPathSlug) {
+      // If it's a study path lesson, use the lesson index format
+      const nextLessonIndex = currentLessonIndex ? parseInt(currentLessonIndex) + 1 : 1;
+      return `/roadmap/learn/${studyPathSlug}/lesson?lesson=${nextLessonIndex}`;
+    } else {
+      // For regular questions, use the question slug format
+      return `/question/${question.nextQuestionSlug}`;
+    }
+  };
 
   const copyLink = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -226,14 +261,18 @@ export default function QuestionSubmitted() {
           </div>
         </div>
         {/** if the next question slug is not null, show a button to go to the next question */}
-        {question?.nextQuestionSlug && (
+        {(question?.nextQuestionSlug || nextQuestion) && (
           <div className="flex flex-col gap-y-2">
             <p className="text-sm text-gray-400">
               Want to continue the flow? Click the button below to go to the next question.
             </p>
             <Button
               variant="secondary"
-              href={`/question/${question.nextQuestionSlug}`}
+              href={
+                isStudyPathLesson
+                  ? nextQuestion || getNextQuestionUrl()
+                  : `/question/${question.nextQuestionSlug}`
+              }
               className="w-fit"
             >
               Next Question
@@ -248,8 +287,8 @@ export default function QuestionSubmitted() {
               {correctAnswer === 'correct' && relatedQuestionData.length > 0
                 ? 'Here are some questions that are similar to this one.'
                 : relatedQuestionData.length === 0
-                  ? 'No related questions found.'
-                  : 'Here are some questions that will help you understand this concept better.'}
+                ? 'No related questions found.'
+                : 'Here are some questions that will help you understand this concept better.'}
             </p>
           </div>
           {relatedQuestionData.length > 0 && (

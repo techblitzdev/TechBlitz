@@ -1,4 +1,4 @@
-import type React from 'react';
+import type { ReactNode } from 'react';
 import { lazy } from 'react';
 import dynamic from 'next/dynamic';
 import { redirect } from 'next/navigation';
@@ -31,6 +31,12 @@ const PremiumQuestionDeniedAccess = lazy(
 );
 const UpgradeModal = dynamic(() => import('@/components/app/shared/upgrade/upgrade-modal'));
 
+type LessonLayoutProps = {
+  params: { slug: string };
+  searchParams: { lesson?: string };
+  children: ReactNode;
+};
+
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const question = await getQuestion('slug', params.slug);
   const title = question?.title || question?.slug?.replace(/-/g, ' ') || 'Coding Question';
@@ -60,11 +66,7 @@ export default async function QuestionUidLayout({
   params,
   searchParams,
   children,
-}: {
-  params: { slug: string };
-  searchParams: { lesson?: string };
-  children: Readonly<React.ReactNode>;
-}) {
+}: LessonLayoutProps) {
   const { slug } = params;
   const lessonIndex = searchParams?.lesson ? parseInt(searchParams.lesson, 10) : 0;
 
@@ -72,7 +74,8 @@ export default async function QuestionUidLayout({
 
   if (!studyPath) {
     redirect('/coding-challenges');
-    return null;
+    // This line is unreachable but needed for TypeScript
+    return null as unknown as JSX.Element;
   }
 
   let allQuestionSlugs: string[] = [];
@@ -88,7 +91,8 @@ export default async function QuestionUidLayout({
   // Ensure the lesson index is valid
   if (lessonIndex < 0 || lessonIndex >= allQuestionSlugs.length) {
     redirect(`/roadmap/learn/${slug}`);
-    return null;
+    // This line is unreachable but needed for TypeScript
+    return null as unknown as JSX.Element;
   }
 
   const [user, question, { answeredQuestionsCount }] = await Promise.all([
@@ -101,7 +105,8 @@ export default async function QuestionUidLayout({
 
   if (!question || !question.slug || !question.tags) {
     redirect('/coding-challenges');
-    return null;
+    // This line is unreachable but needed for TypeScript
+    return null as unknown as JSX.Element;
   }
 
   const defaultQuestionDescription = `Practice ${capitalise(

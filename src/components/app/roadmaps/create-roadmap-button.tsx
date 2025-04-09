@@ -110,8 +110,8 @@ export default function CreateRoadmapButton({
         </div>
       ) : (
         <div className="text-sm text-muted-foreground flex flex-col gap-y-5">
-          <Button variant="default" href="/questions">
-            Go to questions
+          <Button variant="default" href="/coding-challenges">
+            Go to challenges
           </Button>
           <div className="flex flex-col gap-y-2">
             <Progress value={progress} className="h-2 mb-2" />

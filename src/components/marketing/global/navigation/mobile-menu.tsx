@@ -46,8 +46,8 @@ const menuItems: MenuItem[] = [
     label: 'Learn',
     href: '/roadmaps',
     children: [
-      { label: 'JavaScript', href: '/questions?tag=javascript' },
-      { label: 'React', href: '/questions?tag=react' },
+      { label: 'JavaScript', href: '/coding-challenges?tag=javascript' },
+      { label: 'React', href: '/coding-challenges?tag=react' },
       { label: 'Roadmaps', href: '/roadmaps' },
     ],
   },

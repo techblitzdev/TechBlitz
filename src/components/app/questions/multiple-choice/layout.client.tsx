@@ -163,7 +163,7 @@ export default function MultipleChoiceLayoutClient({
   const navigationHref = isSubmitted
     ? nextAndPreviousQuestion?.nextQuestion
       ? `/question/${nextAndPreviousQuestion.nextQuestion}`
-      : '/questions'
+      : '/coding-challenges'
     : '';
 
   // Add keyboard event handling for number keys

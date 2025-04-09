@@ -20,7 +20,7 @@ export default async function DashboardBentoGrid() {
     {
       header: <AllQuestionsDashboardBentoBox />,
       className: 'col-span-2 text-white lg:min-h-auto lg:h-[370px]',
-      href: '/questions',
+      href: '/coding-challenges',
       padded: false,
     },
     {

@@ -42,7 +42,7 @@ export default async function QuestionUidLayout({
 
   const question = await getQuestion('uid', uid);
   if (!question) {
-    return redirect('/questions/custom');
+    return redirect('/coding-challenges/custom');
   }
   const user = await getUser();
 

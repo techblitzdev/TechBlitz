@@ -31,8 +31,7 @@ export async function generateMetadata() {
       bgColor: '#000',
       textColor: '#fff',
     },
-    canonicalUrl: '/questions',
-  });
+    canonicalUrl: '/coding-challenges',
 }
 
 const heroDescription = (
@@ -80,7 +79,7 @@ export default async function QuestionsDashboard({
           '@type': 'ListItem',
           position: 1,
           name: 'Questions',
-          item: getBaseUrl() + '/questions',
+          item: getBaseUrl() + '/coding-challenges',
         },
       ],
     },

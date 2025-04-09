@@ -81,7 +81,7 @@ export default function MultipleChoiceFooter({
         }`
       : isStudyPath
       ? `/study-paths/${studyPathSlug}`
-      : '/questions'
+      : '/coding-challenges'
     : '';
 
   // Render the submit/next button based on the submission state

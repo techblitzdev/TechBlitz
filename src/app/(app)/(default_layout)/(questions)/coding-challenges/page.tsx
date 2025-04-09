@@ -32,6 +32,7 @@ export async function generateMetadata() {
       textColor: '#fff',
     },
     canonicalUrl: '/coding-challenges',
+  });
 }
 
 const heroDescription = (

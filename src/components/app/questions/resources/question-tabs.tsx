@@ -39,11 +39,16 @@ export default function QuestionTabs({
   renderAnswerForm,
   totalSubmissions,
 }: QuestionTabsProps) {
-  const { userAnswered, showHint, setShowHint, isSubmitting } = useQuestionSingle();
+  const { userAnswered, showHint, setShowHint, isSubmitting, currentLayout } = useQuestionSingle();
 
   const [activeTab, setActiveTab] = useState<'description' | 'resources' | 'stats'>('description');
 
-  const hasUserAnswered = use(userAnswered || false);
+  // Only show previous answer indicator in non-answer modes for regular questions
+  // For roadmap questions (when currentLayout is 'questions'), don't resolve userAnswered
+  const showPreviousAnswerIndicator = currentLayout !== 'answer';
+
+  // Only resolve userAnswered when needed
+  const hasUserAnswered = showPreviousAnswerIndicator ? use(userAnswered || false) : null;
 
   if (isSubmitting) {
     return (
@@ -125,7 +130,7 @@ export default function QuestionTabs({
                   textColor={getQuestionDifficultyColor(question.difficulty).text}
                   border={getQuestionDifficultyColor(question.difficulty).border}
                 />
-                <HasAnswered userAnswered={hasUserAnswered} />
+                {showPreviousAnswerIndicator && <HasAnswered userAnswered={hasUserAnswered} />}
               </div>
             </div>
             <p className="text-sm text-gray-400 font-light font-onest mt-3">{question.question}</p>

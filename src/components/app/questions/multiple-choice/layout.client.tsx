@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { useCallback, useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { toast } from 'sonner';
@@ -162,7 +162,7 @@ export default function MultipleChoiceLayoutClient({
   // Determine the navigation href with study path params if necessary
   const navigationHref = isSubmitted
     ? nextAndPreviousQuestion?.nextQuestion
-      ? `/question/${nextAndPreviousQuestion.nextQuestion}`
+      ? nextAndPreviousQuestion.nextQuestion
       : '/coding-challenges'
     : '';
 
@@ -223,7 +223,7 @@ export default function MultipleChoiceLayoutClient({
   const correctAnswerUid = question.correctAnswer;
 
   // Get the feedback messages
-  const getFeedbackMessage = useCallback(() => {
+  const feedbackMessage = useMemo(() => {
     if (!isSubmitted) return null;
 
     if (isCorrect) {
@@ -247,8 +247,6 @@ export default function MultipleChoiceLayoutClient({
       return messages[Math.floor(Math.random() * messages.length)];
     }
   }, [isCorrect, isSubmitted]);
-
-  const feedbackMessage = getFeedbackMessage();
 
   // Render the question content that will be wrapped
   const questionContent = (

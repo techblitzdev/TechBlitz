@@ -14,6 +14,7 @@ interface StudyPathQuestionCardPopoverProps {
   isNextQuestion?: boolean;
   isPremiumLocked?: boolean;
   isSequenceLocked?: boolean;
+  lessonIndex?: number;
 }
 
 export default function StudyPathQuestionCardPopover({
@@ -25,6 +26,7 @@ export default function StudyPathQuestionCardPopover({
   isNextQuestion,
   isPremiumLocked,
   isSequenceLocked,
+  lessonIndex,
 }: StudyPathQuestionCardPopoverProps) {
   const xp = QUESTION_XP[questionData.difficulty] || 5;
 
@@ -37,7 +39,9 @@ export default function StudyPathQuestionCardPopover({
 
     // If it's the next question or already answered, allow access
     if (isNextQuestion || isAnswered || canAnswer) {
-      return `/question/${questionData.slug}?type=study-path&study-path=${studyPath.slug}`;
+      return `/roadmap/learn/${studyPath.slug}/lesson?lesson=${
+        lessonIndex !== undefined ? lessonIndex : 0
+      }`;
     }
 
     // Otherwise (sequence locked), stay on current page

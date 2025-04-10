@@ -102,7 +102,14 @@ function createJsonLd(studyPath: StudyPath, slug: string): QuizJsonLd {
 /**
  * Component for displaying a section header with an icon and title.
  */
-function SectionHeader({ title, color }: { title: string; icon?: string | null; color?: string }) {
+const SectionHeader = ({
+  title,
+  color,
+}: {
+  title: string;
+  icon?: string | null;
+  color?: string;
+}) => {
   return (
     <div className="flex items-center justify-center gap-x-3 mb-8">
       <hr className="w-full border-t-2 border-black-50" />
@@ -112,7 +119,7 @@ function SectionHeader({ title, color }: { title: string; icon?: string | null; 
       <hr className="w-full border-t-2 border-black-50" />
     </div>
   );
-}
+};
 
 /**
  * Component for displaying all sections of a study path.

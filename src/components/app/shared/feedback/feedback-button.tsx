@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
+import { Button, ButtonProps } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { FeedbackModal } from '@/components/app/shared/feedback/feedback-modal';
 import type React from 'react';
@@ -15,6 +15,8 @@ interface FeedbackButtonProps {
   icon?: React.ReactNode;
   feedbackModalTitle?: string;
   feedbackModalDescription?: string;
+  variant?: ButtonProps['variant'];
+  padding?: ButtonProps['padding'];
 }
 
 export default function FeedbackButton({
@@ -25,13 +27,15 @@ export default function FeedbackButton({
   icon,
   feedbackModalTitle,
   feedbackModalDescription,
+  variant = 'ghost',
+  padding = 'none',
 }: FeedbackButtonProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          variant={title ? 'default' : 'ghost'}
-          padding={title ? 'md' : 'none'}
+          variant={title ? 'default' : variant}
+          padding={title ? 'md' : padding}
           className="items-center gap-2 p-2"
         >
           {title && <p className="text-sm hidden md:block">{title}</p>}

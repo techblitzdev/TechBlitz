@@ -4,11 +4,12 @@ import Hero from '@/components/shared/hero';
 import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
 import ContinueJourney from '@/components/app/navigation/continue-journey-button';
-import { ArrowRightIcon } from 'lucide-react';
+import { ArrowRightIcon, InfoIcon } from 'lucide-react';
 import { getAllStudyPaths, categoryOrder } from '@/utils/data/study-paths/get';
 import { StudyPathCard } from '@/components/app/study-paths/study-path-card';
 import { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -134,7 +135,19 @@ export default async function ExploreQuestionsPage() {
           <div className="w-full flex flex-col gap-12">
             {sortedCategories.map((category) => (
               <div key={category} className="space-y-6">
-                <h2 className="text-2xl font-bold text-white">{category}</h2>
+                <div className="flex items-center gap-x-2">
+                  <h2 className="text-2xl font-bold text-white">{category}</h2>
+                  {studyPathsByCategory[category][0].categoryToolTip && (
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <InfoIcon className="size-4" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        {studyPathsByCategory[category][0].categoryToolTip}
+                      </TooltipContent>
+                    </Tooltip>
+                  )}
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {studyPathsByCategory[category].map((studyPath) => (
                     <StudyPathCard key={studyPath.uid} studyPath={studyPath} />

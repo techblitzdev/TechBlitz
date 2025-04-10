@@ -44,6 +44,16 @@ export default function QuestionCard(opts: {
   isRoadmapQuestion?: boolean;
   index?: number;
   identifier: 'slug' | 'uid';
+  // New props for study path lessons
+  nextAndPreviousQuestion?: {
+    nextQuestion: string | null;
+    previousQuestion: string | null;
+  };
+  studyPathMetadata?: {
+    studyPathSlug: string;
+    lessonIndex: number;
+    totalLessons: number;
+  };
 }) {
   const { user, questionPromise, totalSubmissions } = opts;
 

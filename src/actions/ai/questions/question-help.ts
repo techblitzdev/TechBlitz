@@ -30,7 +30,7 @@ interface ChatMessage {
 export const generateQuestionHelp = async (
   questionUid: string,
   userContent?: string,
-  questionType: 'roadmap' | 'regular' = 'regular',
+  questionType: 'roadmap' | 'regular' | 'study-path' = 'regular',
   previousMessages: ChatMessage[] = []
 ) => {
   'use server';
@@ -46,8 +46,8 @@ export const generateQuestionHelp = async (
     };
   }
 
-  // For regular questions, check if the user has enough tokens
-  if (questionType === 'regular') {
+  // For regular questions and study-path questions, check if the user has enough tokens
+  if (questionType === 'regular' || questionType === 'study-path') {
     const hasTokens = await checkUserTokens(user);
     if (!hasTokens) {
       console.error('User does not have enough tokens');
@@ -78,8 +78,8 @@ export const generateQuestionHelp = async (
         answers: true,
       },
     })) as RoadmapUserQuestions | null;
-  } else if (questionType === 'regular') {
-    // Get the regular question
+  } else if (questionType === 'regular' || questionType === 'study-path') {
+    // Get the regular question or study path question (both use the same Questions table)
     question = await prisma.questions.findUnique({
       where: {
         uid: questionUid,
@@ -107,8 +107,8 @@ export const generateQuestionHelp = async (
 
   // Start the stream generation in the background
   // This is important - we need to return the stream before it completes
-  // Handle token decrement for regular questions
-  if (questionType === 'regular') {
+  // Handle token decrement for regular questions and study-path questions
+  if (questionType === 'regular' || questionType === 'study-path') {
     const deducted = await deductUserTokens(user);
     if (!deducted) {
       return {
@@ -181,7 +181,7 @@ export const generateQuestionHelp = async (
 
   // Determine token count for the response
   const tokensUsed =
-    questionType === 'regular'
+    questionType === 'regular' || questionType === 'study-path'
       ? user.aiQuestionHelpTokens
         ? user.aiQuestionHelpTokens - 1
         : 0

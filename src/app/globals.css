@@ -335,3 +335,17 @@ html {
     @apply bg-background text-foreground;
   }
 }
+
+/* Lesson navigation transitions */
+.lesson-nav-btn {
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease;
+}
+
+.lesson-nav-btn:hover {
+  background-color: rgba(91, 97, 214, 0.1);
+}
+
+.lesson-nav-btn:active {
+  transform: scale(0.95);
+  background-color: rgba(91, 97, 214, 0.2);
+}

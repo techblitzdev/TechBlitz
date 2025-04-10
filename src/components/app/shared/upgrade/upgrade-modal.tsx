@@ -16,7 +16,7 @@ export default async function UpgradeModal() {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="premium" size="sm">
-          Get Pro
+          Get Premium
         </Button>
       </DialogTrigger>
       <DialogContent className="bg-black-75 max-w-6xl max-h-[80vh] border-none overflow-scroll">

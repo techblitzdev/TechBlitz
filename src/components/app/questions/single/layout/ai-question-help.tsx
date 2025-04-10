@@ -34,7 +34,7 @@ interface Message {
 export default function AiQuestionHelp(opts: {
   question: Question | RoadmapUserQuestions | DefaultRoadmapQuestions;
   user: UserRecord | null;
-  questionType: 'roadmap' | 'regular';
+  questionType: 'roadmap' | 'regular' | 'study-path';
 }) {
   const { question, user, questionType } = opts;
 
@@ -61,8 +61,8 @@ export default function AiQuestionHelp(opts: {
     user?.userLevel === 'FREE'
       ? 'Upgrade to premium to use AI assistance'
       : messages.length === 0
-        ? 'Ask for help with this question...'
-        : 'Ask a follow up question...';
+      ? 'Ask for help with this question...'
+      : 'Ask a follow up question...';
 
   // prepare message context for AI
   const getMessageContext = (): string => {

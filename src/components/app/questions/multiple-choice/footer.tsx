@@ -3,7 +3,6 @@ import { useQuestionSingle } from '@/contexts/question-single-context';
 import { Question } from '@/types/Questions';
 import { Lightbulb, Loader2 } from 'lucide-react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import EnterKey from '@/components/ui/icons/enter-key';
 import DeleteKey from '@/components/ui/icons/delete-key';
@@ -37,13 +36,7 @@ export default function MultipleChoiceFooter({
   question,
   navigating = false,
 }: MultipleChoiceFooterProps) {
-  const { user, showHint, setShowHint } = useQuestionSingle();
-  const searchParams = useSearchParams();
-
-  // Check if the question is part of a study path
-  const type = searchParams?.get('type');
-  const studyPathSlug = searchParams?.get('study-path');
-  const isStudyPath = type === 'study-path' && studyPathSlug;
+  const { user, showHint, setShowHint, studyPath } = useQuestionSingle();
 
   const isClearDisabled = !selectedAnswer || isSubmitting;
 
@@ -77,9 +70,9 @@ export default function MultipleChoiceFooter({
   const navigationHref = hasSubmitted
     ? nextAndPreviousQuestion?.nextQuestion
       ? nextAndPreviousQuestion.nextQuestion
-      : isStudyPath
-      ? `/roadmaps/${studyPathSlug}`
-      : '/coding-challenges'
+      : studyPath
+      ? `/roadmaps/${studyPath.slug}`
+      : '/roadmaps'
     : '';
 
   // Render the submit/next button based on the submission state

@@ -468,8 +468,8 @@ const updateStudyPathProgress = async ({
 
   if (hasOverviewData) {
     // get all the question slugs from the overview data (if it exists)
-    questionSlugs = Object.values(studyPath.overviewData as any).flatMap(
-      (section: any) => section.questionSlugs
+    questionSlugs = Object.values(studyPath.overviewData || {}).flatMap(
+      (section: any) => section.questionSlugs || []
     );
   } else {
     // otherwise, this is a legacy study path and we can just use the questionSlugs

@@ -34,7 +34,7 @@ export default async function CustomQuestionsPage({
               filters={filters}
               customQuestions
               showSubmissions={false}
-              paginationUrl="/questions/custom"
+              paginationUrl="/coding-challenges/custom"
             />
           </div>
           <QuestionPageSidebar />

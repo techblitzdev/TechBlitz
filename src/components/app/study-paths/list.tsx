@@ -17,10 +17,12 @@ const QuestionCardWrapper = ({
   question,
   studyPath,
   isFirstUnanswered,
+  lessonIndex,
 }: {
   question: Question;
   studyPath: StudyPath;
   isFirstUnanswered: boolean;
+  lessonIndex: number;
 }) => {
   return (
     <div className="relative group w-fit">
@@ -29,6 +31,7 @@ const QuestionCardWrapper = ({
         questionData={question}
         studyPath={studyPath}
         isNextQuestion={isFirstUnanswered}
+        lessonIndex={lessonIndex}
       />
     </div>
   );
@@ -54,8 +57,8 @@ export default function StudyPathsList({
 
   if (studyPath.overviewData) {
     // Extract slugs from overviewData sections
-    allQuestionSlugs = Object.values(studyPath.overviewData)
-      .flatMap((section: any) => section.questionSlugs)
+    allQuestionSlugs = Object.values(studyPath.overviewData || {})
+      .flatMap((section: any) => section.questionSlugs || [])
       .filter(Boolean);
   } else {
     // Use regular questionSlugs
@@ -92,6 +95,8 @@ export default function StudyPathsList({
     <div className={cn('relative z-10 justify-self-center grid', className)}>
       {sortedQuestions.map((question, index) => {
         const offsetValue = getOffset(index);
+        // Find the question's index in the allQuestionSlugs array
+        const lessonIndex = allQuestionSlugs.findIndex((slug) => slug === question.slug);
         return (
           <div key={question.slug} className="mb-8 flex justify-center">
             <QuestionCardClient questionData={question} offset={offsetValue}>
@@ -99,6 +104,7 @@ export default function StudyPathsList({
                 question={question}
                 studyPath={studyPath}
                 isFirstUnanswered={firstUnansweredQuestion === question.slug}
+                lessonIndex={lessonIndex !== -1 ? lessonIndex : index}
               />
             </QuestionCardClient>
           </div>

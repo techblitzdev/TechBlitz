@@ -56,7 +56,7 @@ export default function QuestionNavigation(opts: {
       // Check if we're using overviewData
       if ('overviewData' in studyPath && studyPath.overviewData) {
         // Get all question slugs from the overviewData structure
-        const allSlugs = Object.values(studyPath.overviewData as any)
+        const allSlugs = Object.values(studyPath.overviewData || {})
           .flatMap((section: any) => section.questionSlugs || [])
           .filter(Boolean);
 
@@ -69,9 +69,11 @@ export default function QuestionNavigation(opts: {
 
         // Set the full URLs in context
         setPreviousQuestion(
-          prevSlug ? `${prevSlug}?type=${type}&study-path=${studyPathSlug}` : null
+          prevSlug ? `/roadmap/learn/${studyPathSlug}/lesson?lesson=${currentIndex}` : null
         );
-        setNextQuestion(nextSlug ? `${nextSlug}?type=${type}&study-path=${studyPathSlug}` : null);
+        setNextQuestion(
+          nextSlug ? `/roadmap/learn/${studyPathSlug}/lesson?lesson=${currentIndex + 1}` : null
+        );
       } else {
         // Find the current question's index in the study path's questionSlugs
         const currentIndex = studyPath.questionSlugs.indexOf(slug);
@@ -85,9 +87,11 @@ export default function QuestionNavigation(opts: {
 
         // Set the full URLs in context
         setPreviousQuestion(
-          prevSlug ? `${prevSlug}?type=${type}&study-path=${studyPathSlug}` : null
+          prevSlug ? `/roadmap/learn/${studyPathSlug}/lesson?lesson=${currentIndex - 1}` : null
         );
-        setNextQuestion(nextSlug ? `${nextSlug}?type=${type}&study-path=${studyPathSlug}` : null);
+        setNextQuestion(
+          nextSlug ? `/roadmap/learn/${studyPathSlug}/lesson?lesson=${currentIndex + 1}` : null
+        );
       }
     } else {
       // Use the provided promise for non-study-path questions
@@ -122,7 +126,7 @@ export default function QuestionNavigation(opts: {
             <TooltipTrigger>
               <Button
                 href={previousQuestion || '#'}
-                className={`p-2 rounded-l-md relative group duration-200 size-8 flex items-center justify-center border-r-0 ${
+                className={`p-2 rounded-l-md relative group duration-200 size-8 flex items-center justify-center border-r-0 lesson-nav-btn ${
                   !previousQuestion ? 'opacity-50 pointer-events-none' : ''
                 }`}
                 variant="ghost"
@@ -143,7 +147,7 @@ export default function QuestionNavigation(opts: {
             <TooltipTrigger>
               <Button
                 href={nextQuestion || '#'}
-                className={`p-2 rounded-r-md relative group duration-200 size-8 flex items-center justify-center ${
+                className={`p-2 rounded-r-md relative group duration-200 size-8 flex items-center justify-center lesson-nav-btn ${
                   !nextQuestion ? 'opacity-50 pointer-events-none' : ''
                 }`}
                 variant="ghost"

@@ -25,11 +25,15 @@ interface NavigationData {
 interface QuestionPageHeaderProps {
   question: Question;
   nextAndPreviousQuestionPromise: Promise<NavigationData | null>;
+  isStudyPathLesson?: boolean;
+  studyPathSlug?: string;
 }
 
 export default function QuestionPageHeader({
   question,
   nextAndPreviousQuestionPromise,
+  isStudyPathLesson,
+  studyPathSlug,
 }: QuestionPageHeaderProps) {
   if (!question.slug) {
     return null;
@@ -38,13 +42,16 @@ export default function QuestionPageHeader({
   return (
     <div className="grid grid-cols-12 items-center justify-between pt-2 px-3 relative">
       <div className="col-span-2 lg:col-span-4 flex items-center justify-start">
-        <RouterBack href="/questions" className="px-0 block md:hidden">
+        <RouterBack href="/coding-challenges" className="px-0 block md:hidden">
           <HomeIcon width="16" height="16" />
         </RouterBack>
         <TooltipProvider delayDuration={0} skipDelayDuration={100}>
           <Tooltip>
             <TooltipTrigger asChild>
-              <RouterBack href="/questions" className="px-0 hidden md:block">
+              <RouterBack
+                href={isStudyPathLesson ? `/roadmaps/${studyPathSlug}` : '/coding-challenges'}
+                className="p-0 hidden md:block"
+              >
                 <LogoSmall size={32} />
               </RouterBack>
             </TooltipTrigger>
@@ -52,18 +59,20 @@ export default function QuestionPageHeader({
           </Tooltip>
         </TooltipProvider>
         {/* Challenge List - only available for standard questions, not study paths */}
-        <div className="items-center hidden md:flex">
-          <Suspense fallback={<QuestionNavigationLoading />}>
-            <QuestionNavigation
-              navigationType="question"
-              slug={question.slug}
-              nextPrevPromise={nextAndPreviousQuestionPromise}
-              randomQuestionComponent={
-                <RandomQuestion identifier="slug" currentQuestionSlug={question.slug} />
-              }
-            />
-          </Suspense>
-        </div>
+        {!isStudyPathLesson && (
+          <div className="items-center hidden md:flex">
+            <Suspense fallback={<QuestionNavigationLoading />}>
+              <QuestionNavigation
+                navigationType="question"
+                slug={question.slug}
+                nextPrevPromise={nextAndPreviousQuestionPromise}
+                randomQuestionComponent={
+                  <RandomQuestion identifier="slug" currentQuestionSlug={question.slug} />
+                }
+              />
+            </Suspense>
+          </div>
+        )}
       </div>
       {question.questionType !== 'SIMPLE_MULTIPLE_CHOICE' && (
         <div className="col-span-7 lg:col-span-4 flex items-center justify-center">

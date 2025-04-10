@@ -67,7 +67,7 @@ export default async function QuestionsDashboard({
   const jsonLd: WebPageJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    url: `${getBaseUrl()}/questions`,
+    url: `${getBaseUrl()}/coding-challenges`,
     headline: 'Coding Challenges | TechBlitz',
     description:
       'Explore a diverse set of coding challenges across various topics to enhance your knowledge.',
@@ -79,7 +79,7 @@ export default async function QuestionsDashboard({
         {
           '@type': 'ListItem',
           position: 1,
-          name: 'Questions',
+          name: 'Coding Challenges',
           item: getBaseUrl() + '/coding-challenges',
         },
       ],
@@ -93,7 +93,7 @@ export default async function QuestionsDashboard({
     datePublished: new Date().toISOString(),
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${getBaseUrl()}/questions`,
+      '@id': `${getBaseUrl()}/coding-challenges`,
     },
     keywords:
       'learn to code for free, beginner-friendly coding lessons, interactive coding challenges, daily programming practice, personalized coding roadmap, improve coding skills, best platform to learn coding, AI-assisted coding, learn javascript',
@@ -138,7 +138,7 @@ export default async function QuestionsDashboard({
               currentPage={filters.page || 1}
               filters={filters}
               customQuestions={false}
-              paginationUrl="/questions"
+              paginationUrl="/coding-challenges"
               postsPerPage={filters.postsPerPage || 15}
             />
           </Suspense>

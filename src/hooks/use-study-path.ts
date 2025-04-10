@@ -37,7 +37,7 @@ export const useStudyPathQuestions = (studyPathSlug: string) => {
       try {
         if (studyPath.overviewData) {
           // If we have overviewData, extract questionSlugs from each section
-          questionSlugs = Object.values(studyPath.overviewData)
+          questionSlugs = Object.values(studyPath.overviewData || {})
             .flatMap((section: any) => section.questionSlugs || [])
             .filter(Boolean);
         } else {

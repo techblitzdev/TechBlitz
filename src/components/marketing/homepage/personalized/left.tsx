@@ -24,7 +24,11 @@ export default function PersonalizedLeft() {
           Stuck on a problem? Ask your very own AI coding assistant. Giving you the ultimate
           learning experience no matter what challenge you are facing.
         </p>
-        <Button variant="default" href="/questions" className="w-fit flex items-center gap-1">
+        <Button
+          variant="default"
+          href="/coding-challenges"
+          className="w-fit flex items-center gap-1"
+        >
           Try it out
           <ChevronRight className="size-3 ml-1" />
         </Button>

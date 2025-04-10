@@ -64,6 +64,11 @@ const nextConfig = {
         destination: '/features/coding-challenges',
         permanent: true,
       },
+      {
+        source: '/questions',
+        destination: '/coding-challenges',
+        permanent: true,
+      },
     ];
   },
   async headers() {

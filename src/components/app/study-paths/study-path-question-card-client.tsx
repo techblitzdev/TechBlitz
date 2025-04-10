@@ -59,10 +59,12 @@ export default function StudyPathQuestionCardClient({
   questionData,
   isNextQuestion,
   studyPath,
+  lessonIndex,
 }: {
   questionData: Question;
   isNextQuestion?: boolean;
   studyPath: StudyPath;
+  lessonIndex?: number;
 }) {
   const iconSize = '32';
   const { user } = useQuestionSingle();
@@ -129,6 +131,7 @@ export default function StudyPathQuestionCardClient({
         isNextQuestion={isNextQuestionBool}
         isPremiumLocked={isPremiumLocked}
         isSequenceLocked={isSequenceLocked}
+        lessonIndex={lessonIndex}
       >
         <div
           key={questionData.uid}

@@ -64,7 +64,7 @@ const faqs = [
       <>
         We update our coding question suite with new challenges every day. Ensuring you can learn
         essential coding skills faster than ever. You can view the question suite{' '}
-        <Link href="/questions" className="text-accent">
+        <Link href="/coding-challenges" className="text-accent">
           here
         </Link>
         .

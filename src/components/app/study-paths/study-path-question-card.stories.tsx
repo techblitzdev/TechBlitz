@@ -356,6 +356,7 @@ const mockStudyPath: StudyPath = {
   overviewData: {},
   icon: '📚',
   type: 'LEARN',
+  categoryToolTip: 'Programming'
 };
 
 const meta: Meta<typeof StudyPathQuestionCard> = {

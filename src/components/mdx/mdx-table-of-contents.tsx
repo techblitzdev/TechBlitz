@@ -14,13 +14,23 @@ interface TableOfContentsProps {
   headings: Heading[];
 }
 
+const generateHeadingId = (title: string): string => {
+  return title
+    .toLowerCase()
+    .replace(/(\d+)\.(\s|$)/g, '$1-') // Replace "1." with "1-"
+    .replace(/[^\w\s-]/g, '') // Remove special chars (except hyphens)
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+    .replace(/^-+|-+$/g, ''); // Trim hyphens from start and end
+};
+
 export default function TableOfContents({ headings }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState('');
 
   useEffect(() => {
     // Set initial active ID to the first heading if available
     if (headings.length > 0 && !activeId) {
-      const firstId = headings[0].title.toLowerCase().replace(/\s+/g, '-');
+      const firstId = generateHeadingId(headings[0].title);
       setActiveId(firstId);
     }
 
@@ -40,7 +50,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
 
     // Observe all section headings
     headings.forEach((heading) => {
-      const id = heading.title.toLowerCase().replace(/\s+/g, '-');
+      const id = generateHeadingId(heading.title);
       const element = document.getElementById(id);
       if (element) {
         observer.observe(element);
@@ -49,7 +59,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
 
     return () => {
       headings.forEach((heading) => {
-        const id = heading.title.toLowerCase().replace(/\s+/g, '-');
+        const id = generateHeadingId(heading.title);
         const element = document.getElementById(id);
         if (element) {
           observer.unobserve(element);
@@ -78,7 +88,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
       <CardContent className="pt-4">
         <nav className="space-y-1">
           {headings.map((heading, index) => {
-            const id = heading.title.toLowerCase().replace(/\s+/g, '-');
+            const id = generateHeadingId(heading.title);
             const isActive = activeId === id;
 
             return (

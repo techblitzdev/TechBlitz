@@ -3,6 +3,20 @@ import { prisma } from '@/lib/prisma';
 import { revalidateTag } from 'next/cache';
 
 /**
+ * Category order configuration for displaying study paths on the roadmaps page
+ * Add categories in the order you want them to appear
+ */
+export const categoryOrder = [
+  'Career Paths',
+  'Full-stack Development',
+  'JavaScript',
+  'React',
+  'HTML',
+  'CSS',
+  'Misc',
+];
+
+/**
  * Get a study path by its slug
  * @param slug - The slug of the study path
  * @returns The study path

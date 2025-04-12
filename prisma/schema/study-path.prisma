@@ -22,6 +22,8 @@ model StudyPath {
   educationLevel        String
   averageCompletionTime Int?
   category              String?
+  categoryToolTip       String?
+  
   goals                 StudyPathGoal[]
   enrollments           UserStudyPath[]
   icon                  String?

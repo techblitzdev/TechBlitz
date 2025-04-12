@@ -21,7 +21,16 @@ export default function MdxHeading({ children, heading, ...props }: MdxHeadingPr
   // get the headingSize for the component passed in
   const headingSize = headingSizes[heading];
 
-  const id = children?.toString().toLowerCase().replace(/\s+/g, '-');
+  // Create an ID that handles numbered headings like "1. TechBlitz" properly
+  const headingText = children?.toString() || '';
+  // Replace periods following numbers with hyphens and remove other special characters
+  const id = headingText
+    .toLowerCase()
+    .replace(/(\d+)\.(\s|$)/g, '$1-') // Replace "1." with "1-"
+    .replace(/[^\w\s-]/g, '') // Remove special chars (except hyphens)
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+    .replace(/^-+|-+$/g, ''); // Trim hyphens from start and end
 
   return (
     <Component id={id} className={cn('font-bold mt-10 mb-5', headingSize)} {...props}>

@@ -65,6 +65,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'what-is-length-in-javascript',
     'what-is-git-branch',
     'how-to-approach-coding-challenges',
+    '7-free-websites-to-learn-javascript',
   ];
 
   const blogPosts = blogPostSlugs.map((slug) => ({

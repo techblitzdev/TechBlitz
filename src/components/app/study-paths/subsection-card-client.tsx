@@ -9,6 +9,7 @@ import Check from '@/components/ui/icons/check';
 import ERemove from '@/components/ui/icons/e-remove';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
+import { useEffect, useState } from 'react';
 
 interface SubSectionData {
   key: string;
@@ -62,18 +63,21 @@ export default function SubSectionCardClient({
 }) {
   const { user } = useQuestionSingle();
   const iconSize = '32';
+  const [animateRing, setAnimateRing] = useState(false);
 
   // Calculate the subsection completion metrics
   const completionPercentage = subSection.completionPercentage;
   const isFirstIncomplete = subSection.isFirstIncompleteSubSection;
 
-  // Get wrapper border color based on status
-  const getWrapperBorderColor = () => {
-    if (completionPercentage === 100) return 'border-green-500';
-    if (isFirstIncomplete) return 'border-accent';
-    if (completionPercentage > 0) return 'border-blue-500';
-    return 'border-transparent';
-  };
+  // Trigger animation on component mount
+  useEffect(() => {
+    // Small delay to ensure the animation is visible after component is rendered
+    const timer = setTimeout(() => {
+      setAnimateRing(true);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Get button style based on status
   const getButtonStyle = () => {
@@ -115,18 +119,63 @@ export default function SubSectionCardClient({
     return 'Start Section';
   };
 
+  // Calculate the progress ring styles
+  const getProgressRingStyles = () => {
+    // Calculate the circumference of the circle
+    const radius = 60; // Slightly larger than the button radius
+    const circumference = 2 * Math.PI * radius;
+
+    // Calculate the dash offset based on completion percentage
+    const dashOffset = circumference * (1 - completionPercentage / 100);
+
+    return {
+      radius,
+      circumference,
+      dashOffset,
+    };
+  };
+
+  const progressRing = getProgressRingStyles();
+
   return (
     <div className="relative group perspective-1000 flex items-center justify-center">
-      {/* Wrapper element with colored border */}
+      {/* Wrapper element with colored border and progress ring */}
       <div
         className={cn(
-          'absolute -inset-4 rounded-full border-4 transition-all duration-300 transform-gpu',
-          getWrapperBorderColor(),
+          'absolute -inset-4 rounded-full transition-all duration-300 transform-gpu',
           completionPercentage === 100 && 'animate-pulse-slow',
           'group-hover:rotate-2 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-accent/20',
           'group-active:rotate-1 group-active:scale-95'
         )}
-      />
+      >
+        {/* Progress ring SVG */}
+        {completionPercentage > 0 && (
+          <svg className="absolute inset-0 w-full h-full -rotate-90 transform-gpu">
+            <circle
+              cx="50%"
+              cy="50%"
+              r={progressRing.radius}
+              fill="none"
+              strokeWidth="4"
+              stroke={
+                completionPercentage === 100
+                  ? 'rgb(34, 197, 94)'
+                  : isFirstIncomplete
+                  ? 'rgb(124, 58, 237)'
+                  : 'rgb(59, 130, 246)'
+              }
+              strokeDasharray={progressRing.circumference}
+              strokeDashoffset={animateRing ? progressRing.dashOffset : progressRing.circumference}
+              strokeLinecap="round"
+              className="transition-all duration-1000 ease-out"
+              style={{
+                transformOrigin: 'center',
+                transform: 'rotate(-90deg)',
+              }}
+            />
+          </svg>
+        )}
+      </div>
 
       <Popover>
         <PopoverTrigger>
@@ -162,11 +211,6 @@ export default function SubSectionCardClient({
                   </div>
                 ) : completionPercentage > 0 ? (
                   <div className="relative">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-white text-lg font-bold">
-                        {Math.round(completionPercentage)}%
-                      </span>
-                    </div>
                     <Circle className="flex-shrink-0 size-6 text-white/30 group-hover:text-accent transition-colors drop-shadow-md" />
                   </div>
                 ) : (

@@ -1,9 +1,6 @@
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 
-// actions
-import { getQuestions } from '@/actions/questions/admin/list';
-
 // utils
 import { createMetadata } from '@/utils/seo';
 import { getAndGroupStudyPathQuestions, getStudyPath } from '@/utils/data/study-paths/get';
@@ -15,12 +12,8 @@ import type { StudyPath } from '@prisma/client';
 import { Question } from '@/types/Questions';
 
 // components
-import { Answer } from '@/types/Answers';
 import { StudyPathWithOverviewData } from '@/types/StudyPath';
 
-const SubSectionCardClient = dynamic(
-  () => import('@/components/app/study-paths/subsection-card-client')
-);
 const StudyPathsList = dynamic(() => import('@/components/app/study-paths/list'), {
   loading: () => <StudyPathsListSkeleton />,
 });
@@ -130,17 +123,6 @@ const SectionHeader = ({
 };
 
 /**
- * Component for displaying a subsection header with title.
- */
-const SubSectionHeader = ({ title }: { title: string }) => {
-  return (
-    <div className="flex items-center mb-6">
-      <h3 className="text-lg font-semibold">{title}</h3>
-    </div>
-  );
-};
-
-/**
  * Component for displaying all sections of a study path.
  */
 function StudyPathSections({
@@ -221,6 +203,8 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
   const jsonLd: QuizJsonLd = createJsonLd(studyPathData, params.slug);
 
   const studyPathSectionData = await getAndGroupStudyPathQuestions({ studyPath: studyPathData });
+
+  console.log(studyPathSectionData);
 
   return (
     <>

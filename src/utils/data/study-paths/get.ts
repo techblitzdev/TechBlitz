@@ -158,10 +158,6 @@ export const getAndGroupStudyPathQuestions = async ({
   // Fetch all questions for the study path
   const questions = await getQuestions({
     questionSlugs: Array.from(allQuestionSlugs),
-    include: {
-      answers: false,
-      tags: false,
-    },
   });
 
   // Find the first section with an incomplete subsection and the first incomplete subsection
@@ -175,10 +171,14 @@ export const getAndGroupStudyPathQuestions = async ({
       ? section.questionSlugs.map((slug) => questions.find((q) => q.slug === slug)).filter(Boolean)
       : [];
 
-    // Calculate section completion
-    const sectionAnsweredCount = sectionQuestions.filter((q) =>
-      q?.userAnswers?.some((answer) => 'correctAnswer' in answer && answer.correctAnswer === true)
+    // Calculate section completion - count questions with correct answers
+    const sectionAnsweredCount = sectionQuestions.filter(
+      (q) =>
+        q?.userAnswers &&
+        q.userAnswers.length > 0 &&
+        q.userAnswers.some((answer) => answer.correctAnswer === true)
     ).length;
+
     const sectionCompletionPercentage =
       sectionQuestions.length > 0
         ? Math.round((sectionAnsweredCount / sectionQuestions.length) * 100)
@@ -191,12 +191,14 @@ export const getAndGroupStudyPathQuestions = async ({
             .map((slug) => questions.find((q) => q.slug === slug))
             .filter(Boolean);
 
-          // Calculate subsection completion
-          const answeredCount = subSectionQuestions.filter((q) =>
-            q?.userAnswers?.some(
-              (answer) => 'correctAnswer' in answer && answer.correctAnswer === true
-            )
+          // Calculate subsection completion - ensure we're properly checking userAnswers
+          const answeredCount = subSectionQuestions.filter(
+            (q) =>
+              q?.userAnswers &&
+              q.userAnswers.length > 0 &&
+              q.userAnswers.some((answer) => answer.correctAnswer === true)
           ).length;
+
           const completionPercentage =
             subSectionQuestions.length > 0
               ? Math.round((answeredCount / subSectionQuestions.length) * 100)
@@ -234,7 +236,12 @@ export const getAndGroupStudyPathQuestions = async ({
       key,
       ...section,
       questions: sectionQuestions,
-      firstIncompleteQuestionIndex: sectionQuestions.findIndex((q) => !q.userAnswers),
+      firstIncompleteQuestionIndex: sectionQuestions.findIndex(
+        (q) =>
+          !q?.userAnswers ||
+          q.userAnswers.length === 0 ||
+          !q.userAnswers.some((a) => a.correctAnswer === true)
+      ),
       subSections: subSections.length > 0 ? subSections : undefined,
       completionPercentage: sectionCompletionPercentage,
       isIncomplete: isSectionIncomplete,

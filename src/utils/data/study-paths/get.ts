@@ -1,6 +1,13 @@
-import { getUser } from '@/actions/user/authed/get-user';
-import { prisma } from '@/lib/prisma';
+// next
 import { revalidateTag } from 'next/cache';
+
+// types
+import type { StudyPathWithOverviewData } from '@/types/StudyPath';
+
+// utils
+import { prisma } from '@/lib/prisma';
+import { getUser } from '@/actions/user/authed/get-user';
+import { getQuestions } from '@/actions/questions/admin/list';
 
 /**
  * Category order configuration for displaying study paths on the roadmaps page
@@ -22,11 +29,11 @@ export const categoryOrder = [
  * @returns The study path
  */
 export const getStudyPath = async (slug: string) => {
-  return await prisma.studyPath.findUnique({
+  return (await prisma.studyPath.findUnique({
     where: {
       slug,
     },
-  });
+  })) as StudyPathWithOverviewData;
 };
 
 export const getStudyPathByUid = async (uid: string) => {
@@ -105,4 +112,138 @@ export const isUserEnrolledInStudyPath = async (studyPathUid: string) => {
   });
 
   return enrollment;
+};
+
+/**
+ * Method for extracting the questions from a study path and grouping them by section and sub-section
+ * We also determine the % complete for each sub-section
+ * We also determine which section/sub-section contains the first incomplete section
+ *
+ * @param studyPath - The study path to extract questions from
+ * @returns The questions grouped by section and sub-section
+ */
+export const getAndGroupStudyPathQuestions = async ({
+  studyPath,
+}: {
+  studyPath: StudyPathWithOverviewData;
+}) => {
+  // we need the study path to extract the overview data
+  if (!studyPath || !studyPath.overviewData) return [];
+
+  // all of the data to drive the study path sections
+  const overviewData = studyPath.overviewData;
+
+  // Get all question slugs from the study path
+  const allQuestionSlugs = new Set<string>();
+
+  // Collect all question slugs from sections and subsections
+  Object.values(overviewData).forEach((section) => {
+    // Add direct section question slugs if they exist
+    if (section.questionSlugs) {
+      section.questionSlugs.forEach((slug) => {
+        if (slug) allQuestionSlugs.add(slug);
+      });
+    }
+
+    // Add subsection question slugs if they exist
+    if (section.subSections) {
+      Object.values(section.subSections).forEach((subSection) => {
+        subSection.questionSlugs.forEach((slug) => {
+          if (slug) allQuestionSlugs.add(slug);
+        });
+      });
+    }
+  });
+
+  // Fetch all questions for the study path
+  const questions = await getQuestions({
+    questionSlugs: Array.from(allQuestionSlugs),
+    include: {
+      answers: false,
+      tags: false,
+    },
+  });
+
+  // Find the first section with an incomplete subsection and the first incomplete subsection
+  let firstSectionWithIncompleteSubSection: string | null = null;
+  let firstIncompleteSubSection: string | null = null;
+
+  // Process sections with their completion status
+  const sections = Object.entries(overviewData).map(([key, section]) => {
+    // Process direct section questions if they exist
+    const sectionQuestions = section.questionSlugs
+      ? section.questionSlugs.map((slug) => questions.find((q) => q.slug === slug)).filter(Boolean)
+      : [];
+
+    // Calculate section completion
+    const sectionAnsweredCount = sectionQuestions.filter((q) =>
+      q?.userAnswers?.some((answer) => 'correctAnswer' in answer && answer.correctAnswer === true)
+    ).length;
+    const sectionCompletionPercentage =
+      sectionQuestions.length > 0
+        ? Math.round((sectionAnsweredCount / sectionQuestions.length) * 100)
+        : 0;
+
+    // Process subsections if they exist
+    const subSections = section.subSections
+      ? Object.entries(section.subSections).map(([subKey, subSection]) => {
+          const subSectionQuestions = subSection.questionSlugs
+            .map((slug) => questions.find((q) => q.slug === slug))
+            .filter(Boolean);
+
+          // Calculate subsection completion
+          const answeredCount = subSectionQuestions.filter((q) =>
+            q?.userAnswers?.some(
+              (answer) => 'correctAnswer' in answer && answer.correctAnswer === true
+            )
+          ).length;
+          const completionPercentage =
+            subSectionQuestions.length > 0
+              ? Math.round((answeredCount / subSectionQuestions.length) * 100)
+              : 0;
+
+          // Check if this subsection is incomplete (less than 100% complete)
+          const isIncomplete = completionPercentage < 100;
+
+          // If we haven't found the first incomplete subsection yet and this one is incomplete
+          if (!firstIncompleteSubSection && isIncomplete && !firstSectionWithIncompleteSubSection) {
+            firstSectionWithIncompleteSubSection = key;
+            firstIncompleteSubSection = subKey;
+          }
+
+          return {
+            key: subKey,
+            ...subSection,
+            questions: subSectionQuestions,
+            completionPercentage,
+            isIncomplete,
+            isFirstIncompleteSubSection:
+              firstIncompleteSubSection === subKey && firstSectionWithIncompleteSubSection === key,
+          };
+        })
+      : [];
+
+    // Check if this section is incomplete (less than 100% complete)
+    const isSectionIncomplete = sectionCompletionPercentage < 100;
+
+    // Find first incomplete subsection in this section
+    const sectionFirstIncompleteSubSection =
+      subSections.length > 0 ? subSections.find((sub) => sub.isIncomplete) : null;
+
+    return {
+      key,
+      ...section,
+      questions: sectionQuestions,
+      firstIncompleteQuestionIndex: sectionQuestions.findIndex((q) => !q.userAnswers),
+      subSections: subSections.length > 0 ? subSections : undefined,
+      completionPercentage: sectionCompletionPercentage,
+      isIncomplete: isSectionIncomplete,
+      firstIncompleteSection: isSectionIncomplete
+        ? sectionFirstIncompleteSubSection || { key, isMainSection: true }
+        : null,
+      isFirstIncompleteSection: key === firstSectionWithIncompleteSubSection,
+    };
+  });
+
+  return sections;
 };

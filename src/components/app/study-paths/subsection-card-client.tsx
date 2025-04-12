@@ -106,9 +106,9 @@ export default function SubSectionCardClient({
   // URL for accessing the subsection
   const getButtonHref = () => {
     if (firstUnansweredQuestion) {
-      return `/roadmaps/${studyPath.slug}/${firstUnansweredQuestion.slug}`;
+      return `/roadmap/learn/${studyPath.slug}/lesson?lesson=`;
     }
-    return `/roadmaps/${studyPath.slug}`;
+    return `/roadmap/learn/${studyPath.slug}/lesson?lesson=`;
   };
 
   // Determine the button text based on state
@@ -144,7 +144,7 @@ export default function SubSectionCardClient({
         className={cn(
           'absolute -inset-4 rounded-full transition-all duration-300 transform-gpu',
           completionPercentage === 100 && 'animate-pulse-slow',
-          'group-hover:rotate-2 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-accent/20',
+          'group-hover:rotate-2 group-hover:scale-105',
           'group-active:rotate-1 group-active:scale-95'
         )}
       >

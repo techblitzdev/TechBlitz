@@ -15,13 +15,19 @@ import type { StudyPath } from '@prisma/client';
 import { Question } from '@/types/Questions';
 
 // components
-import StudyPathQuestionCardSkeleton from '@/components/app/study-paths/study-path-question-card-skeleton';
-import QuestionCardClient from '@/components/app/questions/layout/question-card-client';
 import { Answer } from '@/types/Answers';
 import { StudyPathWithOverviewData } from '@/types/StudyPath';
+
+const SubSectionCardClient = dynamic(
+  () => import('@/components/app/study-paths/subsection-card-client')
+);
 const StudyPathsList = dynamic(() => import('@/components/app/study-paths/list'), {
   loading: () => <StudyPathsListSkeleton />,
 });
+const StudyPathsSubSectionList = dynamic(
+  () => import('@/components/app/study-paths/list').then((mod) => mod.StudyPathsSubSectionList),
+  { loading: () => <StudyPathsListSkeleton /> }
+);
 const StudyPathSidebar = dynamic(() => import('@/components/app/study-paths/study-path-sidebar'));
 const Hero = dynamic(() => import('@/components/shared/hero'));
 const HeroChip = dynamic(() => import('@/components/app/study-paths/hero-chip'));
@@ -56,11 +62,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
  */
 function StudyPathsListSkeleton() {
   return (
-    <div className="flex flex-col gap-6 relative z-10 w-[55%]">
-      {Array.from({ length: 9 }).map((_, index) => (
-        <QuestionCardClient key={index} questionData={null} offset={Math.sin(index * 0.9) * 4}>
-          <StudyPathQuestionCardSkeleton />
-        </QuestionCardClient>
+    <div className="flex flex-col gap-6 relative z-10 w-full">
+      {Array.from({ length: 3 }).map((_, index) => (
+        <div
+          key={index}
+          className="bg-black-75 animate-pulse rounded-xl h-28 w-full border-2 border-black-50"
+        />
       ))}
     </div>
   );
@@ -153,7 +160,7 @@ function StudyPathSections({
 
   return (
     <div className="flex flex-col space-y-16">
-      {studyPathSections.map((section) => {
+      {studyPathSections.map((section, sectionIndex) => {
         // Skip sections with no content
         if (
           (!section.questions || section.questions.length === 0) &&
@@ -166,8 +173,24 @@ function StudyPathSections({
           <div key={section.key} className="space-y-8">
             <SectionHeader title={section.sectionName} icon={section.icon} color={section.color} />
 
-            {/* Render main section questions if any */}
-            {section.questions && section.questions.length > 0 && (
+            {/* Render subsections if any */}
+            {section.subSections && section.subSections.length > 0 && (
+              <div className="space-y-6 pl-4">
+                <Suspense fallback={<StudyPathsListSkeleton />}>
+                  <StudyPathsSubSectionList
+                    studyPath={studyPath}
+                    subSections={section.subSections}
+                    sectionIndex={sectionIndex}
+                    offsetType="sine"
+                    offsetMultiplier={1}
+                    className="gap-8"
+                  />
+                </Suspense>
+              </div>
+            )}
+
+            {/* Render main section questions if any and no subsections */}
+            {section.questions && section.questions.length > 0 && !section.subSections && (
               <div className="pl-4">
                 <Suspense fallback={<StudyPathsListSkeleton />}>
                   <StudyPathsList
@@ -179,47 +202,6 @@ function StudyPathSections({
                     className="gap-8"
                   />
                 </Suspense>
-              </div>
-            )}
-
-            {/* Render subsections if any */}
-            {section.subSections && section.subSections.length > 0 && (
-              <div className="space-y-12">
-                {section.subSections.map((subSection: any) => {
-                  // Skip empty subsections
-                  if (!subSection.questions || subSection.questions.length === 0) {
-                    return null;
-                  }
-
-                  // Create a special studyPath object for this subsection
-                  const subSectionStudyPath = {
-                    ...studyPath,
-                    questionSlugs: subSection.questions
-                      .map((q: Question) => q.slug)
-                      .filter(Boolean),
-                  };
-
-                  // Highlight the first incomplete subsection
-                  const isFirstIncomplete = subSection.isFirstIncompleteSubSection;
-
-                  return (
-                    <div key={subSection.key} className="pl-6 space-y-6">
-                      <SubSectionHeader title={subSection.sectionName} />
-                      <div className={`pl-4 ${isFirstIncomplete ? 'relative' : ''}`}>
-                        {isFirstIncomplete && (
-                          <div className="absolute -left-4 top-0 bottom-0 w-1 bg-blue-500"></div>
-                        )}
-                        <Suspense fallback={<StudyPathsListSkeleton />}>
-                          <StudyPathsList
-                            questions={subSection.questions}
-                            studyPath={subSectionStudyPath}
-                            className="gap-8"
-                          />
-                        </Suspense>
-                      </div>
-                    </div>
-                  );
-                })}
               </div>
             )}
           </div>

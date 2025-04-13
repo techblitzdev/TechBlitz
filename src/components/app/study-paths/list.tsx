@@ -43,7 +43,7 @@ const SubSectionWrapper = ({
   subSection,
   studyPath,
   isFirstIncomplete,
-  sectionIndex,
+  nextQuestionIndex,
 }: {
   subSection: {
     key: string;
@@ -56,7 +56,7 @@ const SubSectionWrapper = ({
   };
   studyPath: StudyPath;
   isFirstIncomplete: boolean;
-  sectionIndex: number;
+  nextQuestionIndex?: number;
 }) => {
   return (
     <div className="relative group w-fit">
@@ -64,7 +64,7 @@ const SubSectionWrapper = ({
       <SubSectionCardClient
         subSection={subSection}
         studyPath={studyPath}
-        sectionIndex={sectionIndex}
+        nextQuestionIndex={nextQuestionIndex}
       />
     </div>
   );
@@ -158,7 +158,7 @@ export default function StudyPathsList({
 
 interface StudyPathsSubSectionListProps {
   studyPath: StudyPath;
-  subSections: Array<{
+  subSections: {
     key: string;
     sectionName: string;
     questionSlugs: string[];
@@ -166,28 +166,22 @@ interface StudyPathsSubSectionListProps {
     completionPercentage: number;
     isIncomplete: boolean;
     isFirstIncompleteSubSection: boolean;
-  }>;
-  sectionIndex: number;
+  }[];
   calculateOffset?: (index: number) => number;
   offsetType?: 'sine' | 'linear' | 'none';
   offsetMultiplier?: number;
   className?: string;
+  nextQuestionIndex?: number;
 }
 
 export function StudyPathsSubSectionList({
   studyPath,
   subSections,
-  sectionIndex,
   calculateOffset,
   offsetType = 'sine',
   offsetMultiplier = 1,
   className,
 }: StudyPathsSubSectionListProps) {
-  // Find the first incomplete subsection
-  const firstIncompleteSubSection = subSections.find(
-    (subSection) => subSection.isFirstIncompleteSubSection
-  );
-
   // Internal calculation function based on provided parameters
   const calculateOffsetValue = (index: number) => {
     if (calculateOffset) {
@@ -218,7 +212,6 @@ export function StudyPathsSubSectionList({
                 subSection={subSection}
                 studyPath={studyPath}
                 isFirstIncomplete={subSection.isFirstIncompleteSubSection}
-                sectionIndex={sectionIndex}
               />
             </QuestionCardClient>
           </div>

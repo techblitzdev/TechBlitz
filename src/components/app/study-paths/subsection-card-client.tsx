@@ -4,9 +4,7 @@ import { Question } from '@/types/Questions';
 import { cn } from '@/lib/utils';
 import { Circle } from 'lucide-react';
 import { StudyPath } from '@prisma/client';
-import { useQuestionSingle } from '@/contexts/question-single-context';
 import Check from '@/components/ui/icons/check';
-import ERemove from '@/components/ui/icons/e-remove';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
@@ -55,13 +53,12 @@ const buttonColorMap = {
 export default function SubSectionCardClient({
   subSection,
   studyPath,
-  sectionIndex,
+  nextQuestionIndex,
 }: {
   subSection: SubSectionData;
   studyPath: StudyPath;
-  sectionIndex: number;
+  nextQuestionIndex?: number;
 }) {
-  const { user } = useQuestionSingle();
   const iconSize = '32';
   const [animateRing, setAnimateRing] = useState(false);
 
@@ -106,9 +103,9 @@ export default function SubSectionCardClient({
   // URL for accessing the subsection
   const getButtonHref = () => {
     if (firstUnansweredQuestion) {
-      return `/roadmap/learn/${studyPath.slug}/lesson?lesson=`;
+      return `/roadmap/learn/${studyPath.slug}/lesson?lesson=${nextQuestionIndex}`;
     }
-    return `/roadmap/learn/${studyPath.slug}/lesson?lesson=`;
+    return `/roadmap/learn/${studyPath.slug}/lesson?lesson=${nextQuestionIndex}`;
   };
 
   // Determine the button text based on state

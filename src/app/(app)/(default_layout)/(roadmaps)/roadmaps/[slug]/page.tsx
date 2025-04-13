@@ -162,7 +162,7 @@ function StudyPathSections({
                   <StudyPathsSubSectionList
                     studyPath={studyPath}
                     subSections={section.subSections}
-                    sectionIndex={sectionIndex}
+                    nextQuestionIndex={section.nextQuestionIndex}
                     offsetType="sine"
                     offsetMultiplier={1}
                     className="gap-8"

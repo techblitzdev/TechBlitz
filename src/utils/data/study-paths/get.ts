@@ -185,6 +185,14 @@ export const getAndGroupStudyPathQuestions = async ({
         ? Math.round((sectionAnsweredCount / sectionQuestions.length) * 100)
         : 0;
 
+    // Find the next unanswered question index in the section
+    const nextQuestionIndex = sectionQuestions.findIndex(
+      (q) =>
+        !q?.userAnswers ||
+        q.userAnswers.length === 0 ||
+        !q.userAnswers.some((a) => a.correctAnswer === true)
+    );
+
     // Process subsections if they exist
     const subSections = section.subSections
       ? Object.entries(section.subSections).map(([subKey, subSection]) => {
@@ -208,6 +216,14 @@ export const getAndGroupStudyPathQuestions = async ({
           // Check if this subsection is incomplete (less than 100% complete)
           const isIncomplete = completionPercentage < 100;
 
+          // Find the next unanswered question index in this subsection
+          const nextQuestionIndex = subSectionQuestions.findIndex(
+            (q) =>
+              !q?.userAnswers ||
+              q.userAnswers.length === 0 ||
+              !q.userAnswers.some((a) => a.correctAnswer === true)
+          );
+
           // If we haven't found the first incomplete subsection yet and this one is incomplete
           if (!firstIncompleteSubSection && isIncomplete && !firstSectionWithIncompleteSubSection) {
             firstSectionWithIncompleteSubSection = key;
@@ -220,6 +236,7 @@ export const getAndGroupStudyPathQuestions = async ({
             questions: subSectionQuestions,
             completionPercentage,
             isIncomplete,
+            nextQuestionIndex: nextQuestionIndex !== -1 ? nextQuestionIndex : null,
             isFirstIncompleteSubSection:
               firstIncompleteSubSection === subKey && firstSectionWithIncompleteSubSection === key,
           };
@@ -243,6 +260,7 @@ export const getAndGroupStudyPathQuestions = async ({
           q.userAnswers.length === 0 ||
           !q.userAnswers.some((a) => a.correctAnswer === true)
       ),
+      nextQuestionIndex: nextQuestionIndex !== -1 ? nextQuestionIndex : null,
       subSections: subSections.length > 0 ? subSections : undefined,
       completionPercentage: sectionCompletionPercentage,
       isIncomplete: isSectionIncomplete,

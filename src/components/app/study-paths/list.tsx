@@ -53,6 +53,7 @@ const SubSectionWrapper = ({
     completionPercentage: number;
     isIncomplete: boolean;
     isFirstIncompleteSubSection: boolean;
+    nextQuestionIndex?: number;
   };
   studyPath: StudyPath;
   isFirstIncomplete: boolean;
@@ -60,6 +61,7 @@ const SubSectionWrapper = ({
 }) => {
   console.log({
     nextQuestionIndex,
+    subsectionNextQuestionIndex: subSection.nextQuestionIndex,
   });
 
   return (
@@ -68,7 +70,11 @@ const SubSectionWrapper = ({
       <SubSectionCardClient
         subSection={subSection}
         studyPath={studyPath}
-        nextQuestionIndex={nextQuestionIndex}
+        nextQuestionIndex={
+          subSection.nextQuestionIndex !== undefined
+            ? subSection.nextQuestionIndex
+            : nextQuestionIndex
+        }
       />
     </div>
   );
@@ -170,6 +176,7 @@ interface StudyPathsSubSectionListProps {
     completionPercentage: number;
     isIncomplete: boolean;
     isFirstIncompleteSubSection: boolean;
+    nextQuestionIndex?: number;
   }[];
   calculateOffset?: (index: number) => number;
   offsetType?: 'sine' | 'linear' | 'none';

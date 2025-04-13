@@ -204,8 +204,6 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
 
   const studyPathSectionData = await getAndGroupStudyPathQuestions({ studyPath: studyPathData });
 
-  console.log(studyPathSectionData);
-
   return (
     <>
       <script

@@ -77,7 +77,7 @@ export default async function QuestionUidLayout({ params, searchParams, children
 
   // Ensure the lesson index is valid
   if (lessonIndex < 0 || lessonIndex >= allQuestionSlugs.length) {
-    redirect(`/roadmap/learn/${slug}`);
+    redirect(`/roadmaps/${slug}?error=invalid_lesson_index`);
   }
 
   const [user, question, { answeredQuestionsCount }] = await Promise.all([

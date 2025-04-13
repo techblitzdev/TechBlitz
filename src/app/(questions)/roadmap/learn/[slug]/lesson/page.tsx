@@ -125,9 +125,9 @@ export default async function RoadmapLessonPage({
     allQuestionSlugs = studyPath.questionSlugs || [];
   }
 
-  // Ensure the lesson index is valid
+  // Ensure the lesson index is valid, if not, return to the roadmap overview page
   if (lessonIndex < 0 || lessonIndex >= allQuestionSlugs.length) {
-    redirect(`/roadmap/learn/${slug}`);
+    redirect(`/roadmaps/${slug}?error=invalid_lesson_index`);
   }
 
   // Get the current question slug

@@ -8,6 +8,7 @@ import type { StudyPathWithOverviewData } from '@/types/StudyPath';
 import { prisma } from '@/lib/prisma';
 import { getUser } from '@/actions/user/authed/get-user';
 import { getQuestions } from '@/actions/questions/admin/list';
+import { listQuestionsBySlugs } from '../questions/list';
 
 /**
  * Category order configuration for displaying study paths on the roadmaps page
@@ -156,7 +157,7 @@ export const getAndGroupStudyPathQuestions = async ({
   });
 
   // Fetch all questions for the study path
-  const questions = await getQuestions({
+  const questions = await listQuestionsBySlugs({
     questionSlugs: Array.from(allQuestionSlugs),
   });
 

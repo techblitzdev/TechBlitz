@@ -8,6 +8,7 @@ import Check from '@/components/ui/icons/check';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
+import { getButtonStyle } from '@/utils/roadmaps';
 
 interface SubSectionData {
   key: string;
@@ -77,23 +78,10 @@ export default function SubSectionCardClient({
   }, []);
 
   // Get button style based on status
-  const getButtonStyle = () => {
-    if (completionPercentage === 100) {
-      return buttonColorMap.completed;
-    }
-
-    if (isFirstIncomplete) {
-      return buttonColorMap.nextUp;
-    }
-
-    if (completionPercentage > 0) {
-      return buttonColorMap.inProgress;
-    }
-
-    return buttonColorMap.notStarted;
-  };
-
-  const buttonStyle = getButtonStyle();
+  const buttonStyle = getButtonStyle({
+    completionPercentage,
+    isFirstIncomplete,
+  });
 
   // Find the first unanswered question in this subsection
   const firstUnansweredQuestion = subSection.questions.find(
@@ -244,6 +232,8 @@ export default function SubSectionCardClient({
               href={getButtonHref()}
             >
               {getButtonText()}
+              <br />
+              next question index: {nextQuestionIndex}
             </Button>
           </div>
         </PopoverContent>

@@ -7,15 +7,10 @@ export default function StatisticsLayout({ children }: Readonly<{ children: Reac
   return (
     <div className="text-white flex flex-col gap-y-4 relative h-full">
       <div className="container">
-        <div className="flex w-full items-center container">
-          <div className="flex-1">
-            <SidebarLayoutTrigger />
-          </div>
-          <div className="flex items-center gap-x-3">
-            <CurrentStreak />
-            <UserXp />
-            <UpgradeModal />
-          </div>
+        <div className="flex items-center gap-x-3 container w-full justify-end">
+          <CurrentStreak />
+          <UserXp />
+          <UpgradeModal />
         </div>
       </div>
       <div className="container">{children}</div>

@@ -58,6 +58,10 @@ const SubSectionWrapper = ({
   isFirstIncomplete: boolean;
   nextQuestionIndex?: number;
 }) => {
+  console.log({
+    nextQuestionIndex,
+  });
+
   return (
     <div className="relative group w-fit">
       {isFirstIncomplete && <StartBounce />}
@@ -181,6 +185,7 @@ export function StudyPathsSubSectionList({
   offsetType = 'sine',
   offsetMultiplier = 1,
   className,
+  nextQuestionIndex,
 }: StudyPathsSubSectionListProps) {
   // Internal calculation function based on provided parameters
   const calculateOffsetValue = (index: number) => {
@@ -212,6 +217,7 @@ export function StudyPathsSubSectionList({
                 subSection={subSection}
                 studyPath={studyPath}
                 isFirstIncomplete={subSection.isFirstIncompleteSubSection}
+                nextQuestionIndex={nextQuestionIndex}
               />
             </QuestionCardClient>
           </div>

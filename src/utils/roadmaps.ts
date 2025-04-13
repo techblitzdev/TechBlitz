@@ -63,3 +63,56 @@ export const getRecommendedCompletionDate = ({
 
   return recommendedCompletionDate;
 };
+
+const buttonColorMap = {
+  completed: {
+    base: 'bg-green-500',
+    '3dShade': 'bg-green-600',
+    hover: 'bg-green-600',
+    active: 'bg-green-700',
+    boxShadow: '[box-shadow:0_8px_0_0_#16a34a,0_9px_0_0_#16a34a]',
+  },
+  inProgress: {
+    base: 'bg-[#191919]',
+    '3dShade': 'bg-[#0e0e0e]',
+    hover: 'bg-black-100',
+    active: 'bg-black-100',
+    boxShadow: '[box-shadow:0_8px_0_0_#0e0e0e,0_9px_0_0_#0e0e0e]',
+  },
+  nextUp: {
+    base: 'bg-[#191919]',
+    '3dShade': 'bg-accent/80',
+    hover: 'bg-black-100',
+    active: 'bg-black-100',
+    boxShadow: '[box-shadow:0_8px_0_0_#7c3aed,0_9px_0_0_#7c3aed]',
+  },
+  notStarted: {
+    base: 'bg-[#191919]',
+    '3dShade': 'bg-[#0e0e0e]',
+    hover: 'bg-black-100',
+    active: 'bg-black-100',
+    boxShadow: '[box-shadow:0_8px_0_0_#0e0e0e,0_9px_0_0_#0e0e0e]',
+  },
+};
+
+export const getButtonStyle = ({
+  completionPercentage,
+  isFirstIncomplete,
+}: {
+  completionPercentage: number;
+  isFirstIncomplete: boolean;
+}) => {
+  if (completionPercentage === 100) {
+    return buttonColorMap.completed;
+  }
+
+  if (isFirstIncomplete) {
+    return buttonColorMap.nextUp;
+  }
+
+  if (completionPercentage > 0) {
+    return buttonColorMap.inProgress;
+  }
+
+  return buttonColorMap.notStarted;
+};

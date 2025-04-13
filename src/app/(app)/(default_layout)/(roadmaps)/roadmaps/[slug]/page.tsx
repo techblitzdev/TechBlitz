@@ -142,7 +142,7 @@ function StudyPathSections({
 
   return (
     <div className="flex flex-col space-y-16">
-      {studyPathSections.map((section, sectionIndex) => {
+      {studyPathSections.map((section) => {
         // Skip sections with no content
         if (
           (!section.questions || section.questions.length === 0) &&

@@ -203,10 +203,30 @@ export function StudyPathsSubSectionList({
     return getOffset(index, offsetType, offsetMultiplier);
   };
 
+  console.log('StudyPathsSubSectionList props:', {
+    studyPathSlug: studyPath.slug,
+    sectionNextQuestionIndex: nextQuestionIndex,
+    subSectionsCount: subSections.length,
+    subSectionIndices: subSections.map((sub) => sub.nextQuestionIndex),
+  });
+
   return (
     <div className={cn('relative z-10 justify-self-center grid', className)}>
       {subSections.map((subSection, index) => {
         const offsetValue = calculateOffsetValue(index);
+
+        // Get the subSection's specific nextQuestionIndex or fall back to the section's
+        const subsectionNextQuestionIndex =
+          subSection.nextQuestionIndex !== undefined && subSection.nextQuestionIndex !== null
+            ? subSection.nextQuestionIndex
+            : nextQuestionIndex;
+
+        console.log(`SubSection [${index}] ${subSection.sectionName}:`, {
+          hasNextIndex: subSection.nextQuestionIndex !== undefined,
+          subSectionNextIdx: subSection.nextQuestionIndex,
+          fallbackNextIdx: nextQuestionIndex,
+          finalNextIdx: subsectionNextQuestionIndex,
+        });
 
         return (
           <div key={subSection.key} className="mb-8 flex justify-center">
@@ -224,7 +244,7 @@ export function StudyPathsSubSectionList({
                 subSection={subSection}
                 studyPath={studyPath}
                 isFirstIncomplete={subSection.isFirstIncompleteSubSection}
-                nextQuestionIndex={nextQuestionIndex}
+                nextQuestionIndex={subsectionNextQuestionIndex}
               />
             </QuestionCardClient>
           </div>

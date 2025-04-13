@@ -83,9 +83,13 @@ export default function CodeEditorQuestionSubmitted() {
   // Generate URL for next question based on whether this is a study path lesson or regular question
   const getNextQuestionUrl = () => {
     if (isStudyPathLesson && studyPathSlug) {
-      // If it's a study path lesson, use the lesson index format
+      // URL pattern: /roadmap/learn/[slug]/[subSection]/lesson
+      const subSection = pathname.split('/')[4] || 'main'; // Get subSection or default to 'main'
+
+      // Calculate the next lesson index
       const nextLessonIndex = currentLessonIndex ? parseInt(currentLessonIndex) + 1 : 1;
-      return `/roadmap/learn/${studyPathSlug}/lesson?lesson=${nextLessonIndex}`;
+
+      return `/roadmap/learn/${studyPathSlug}/${subSection}/lesson?lesson=${nextLessonIndex}`;
     } else {
       // For regular questions, use the question slug format
       return `/question/${question.nextQuestionSlug}`;
@@ -159,11 +163,7 @@ export default function CodeEditorQuestionSubmitted() {
           <p className="text-sm text-gray-400">
             Want to continue the flow? Click the button below to go to the next question.
           </p>
-          <Button
-            variant="secondary"
-            href={isStudyPathLesson ? getNextQuestionUrl() : `/question/${nextQuestion}`}
-            className="w-fit"
-          >
+          <Button variant="secondary" href={getNextQuestionUrl()} className="w-fit">
             Next Question
           </Button>
         </div>

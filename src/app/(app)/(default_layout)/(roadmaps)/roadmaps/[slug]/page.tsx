@@ -204,6 +204,20 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
 
   const studyPathSectionData = await getAndGroupStudyPathQuestions({ studyPath: studyPathData });
 
+  console.log('Study Path Data for', params.slug);
+  console.log('Total sections:', studyPathSectionData.length);
+  console.log(
+    'Question indices:',
+    studyPathSectionData.map((section) => ({
+      sectionName: section.sectionName,
+      nextQuestionIndex: section.nextQuestionIndex,
+      hasSubsections: !!section.subSections,
+      subSectionIndices: section.subSections
+        ? section.subSections.map((sub) => sub.nextQuestionIndex)
+        : [],
+    }))
+  );
+
   return (
     <>
       <script

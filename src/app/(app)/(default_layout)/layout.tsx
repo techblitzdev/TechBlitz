@@ -1,4 +1,3 @@
-import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
 import CurrentStreak from '@/components/ui/current-streak';
 import UpgradeModal from '@/components/app/shared/upgrade/upgrade-modal';
 import UserXp from '@/components/ui/user-xp';

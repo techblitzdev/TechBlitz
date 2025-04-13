@@ -73,7 +73,11 @@ import EditorIcon from '@/components/ui/icons/editor';
 import WindowCode2 from '@/components/ui/icons/window-code';
 import QuestionCardLoading from '@/components/app/questions/single/layout/question-card-loading';
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string; subSection: string };
+}) {
   const studyPath = await getStudyPath(params.slug);
 
   if (!studyPath) {
@@ -83,15 +87,25 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     });
   }
 
+  // Get subsection name if it's not 'main'
+  let subsectionName = '';
+  if (params.subSection !== 'main' && studyPath.overviewData) {
+    Object.values(studyPath.overviewData).forEach((section: any) => {
+      if (section.subSections && section.subSections[params.subSection]) {
+        subsectionName = ` - ${section.subSections[params.subSection].sectionName}`;
+      }
+    });
+  }
+
   return createMetadata({
-    title: `${studyPath?.title} - Lesson | TechBlitz`,
+    title: `${studyPath?.title}${subsectionName} - Lesson | TechBlitz`,
     description: studyPath?.description,
     image: {
-      text: `${studyPath?.title} - Lesson | TechBlitz`,
+      text: `${studyPath?.title}${subsectionName} - Lesson | TechBlitz`,
       bgColor: '#000',
       textColor: '#fff',
     },
-    canonicalUrl: `/roadmap/learn/${params.slug}/lesson`,
+    canonicalUrl: `/roadmap/learn/${params.slug}/${params.subSection}/lesson`,
   });
 }
 
@@ -99,10 +113,10 @@ export default async function RoadmapLessonPage({
   params,
   searchParams,
 }: {
-  params: { slug: string };
+  params: { slug: string; subSection: string };
   searchParams: { lesson?: string };
 }) {
-  const { slug } = params;
+  const { slug, subSection } = params;
   const lessonIndex = searchParams.lesson ? parseInt(searchParams.lesson, 10) : 0;
 
   // Fetch the study path
@@ -116,10 +130,25 @@ export default async function RoadmapLessonPage({
   let allQuestionSlugs: string[] = [];
 
   if (studyPath.overviewData) {
-    // If we have overviewData, extract questionSlugs from each section
-    allQuestionSlugs = Object.values(studyPath.overviewData)
-      .flatMap((section: any) => section.questionSlugs || [])
-      .filter(Boolean);
+    // If it's the main section (not a subsection)
+    if (subSection === 'main') {
+      // Get questions directly from the sections
+      allQuestionSlugs = Object.values(studyPath.overviewData)
+        .flatMap((section: any) => section.questionSlugs || [])
+        .filter(Boolean);
+    } else {
+      // Get questions from the specific subsection
+      const subsectionQuestions: string[] = [];
+
+      // Find the subsection in the study path data
+      Object.values(studyPath.overviewData).forEach((section: any) => {
+        if (section.subSections && section.subSections[subSection]) {
+          subsectionQuestions.push(...(section.subSections[subSection].questionSlugs || []));
+        }
+      });
+
+      allQuestionSlugs = subsectionQuestions;
+    }
   } else {
     // Fall back to regular questionSlugs
     allQuestionSlugs = studyPath.questionSlugs || [];
@@ -152,9 +181,13 @@ export default async function RoadmapLessonPage({
   // Create navigation data for the study path
   const studyPathNavigation = {
     nextQuestion:
-      nextLessonIndex !== null ? `/roadmap/learn/${slug}/lesson?lesson=${nextLessonIndex}` : null,
+      nextLessonIndex !== null
+        ? `/roadmap/learn/${slug}/${subSection}/lesson?lesson=${nextLessonIndex}`
+        : null,
     previousQuestion:
-      prevLessonIndex !== null ? `/roadmap/learn/${slug}/lesson?lesson=${prevLessonIndex}` : null,
+      prevLessonIndex !== null
+        ? `/roadmap/learn/${slug}/${subSection}/lesson?lesson=${prevLessonIndex}`
+        : null,
   };
 
   if (question.questionType === 'SIMPLE_MULTIPLE_CHOICE') {
@@ -178,6 +211,7 @@ export default async function RoadmapLessonPage({
           nextAndPreviousQuestion={studyPathNavigation}
           studyPathMetadata={{
             studyPathSlug: slug,
+            subSection: subSection,
             lessonIndex: lessonIndex,
             totalLessons: allQuestionSlugs.length,
           }}

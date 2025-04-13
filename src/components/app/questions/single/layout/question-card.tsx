@@ -51,6 +51,7 @@ export default function QuestionCard(opts: {
   };
   studyPathMetadata?: {
     studyPathSlug: string;
+    subSection?: string;
     lessonIndex: number;
     totalLessons: number;
   };

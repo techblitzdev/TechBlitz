@@ -8,6 +8,7 @@ export interface StudyPathOverviewData {
     subSections?: {
       [key: string]: {
         sectionName: string;
+        sectionSlug: string;
         questionSlugs: string[];
       };
     };

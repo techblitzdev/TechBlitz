@@ -39,7 +39,8 @@ export default function StudyPathQuestionCardPopover({
 
     // If it's the next question or already answered, allow access
     if (isNextQuestion || isAnswered || canAnswer) {
-      return `/roadmap/learn/${studyPath.slug}/lesson?lesson=${
+      // Since this is not a subsection but a direct question, we use 'main' as the subsection
+      return `/roadmap/learn/${studyPath.slug}/main/lesson?lesson=${
         lessonIndex !== undefined ? lessonIndex : 0
       }`;
     }

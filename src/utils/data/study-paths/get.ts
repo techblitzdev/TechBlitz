@@ -7,7 +7,6 @@ import type { StudyPathWithOverviewData } from '@/types/StudyPath';
 // utils
 import { prisma } from '@/lib/prisma';
 import { getUser } from '@/actions/user/authed/get-user';
-import { getQuestions } from '@/actions/questions/admin/list';
 import { listQuestionsBySlugs } from '../questions/list';
 
 /**

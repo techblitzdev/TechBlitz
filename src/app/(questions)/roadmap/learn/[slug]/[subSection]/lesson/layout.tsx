@@ -68,15 +68,40 @@ export default async function QuestionUidLayout({ params, searchParams, children
   let allQuestionSlugs: string[] = [];
 
   if (studyPath.overviewData) {
-    allQuestionSlugs = Object.values(studyPath.overviewData || {}).flatMap(
-      (section: any) => section.questionSlugs || []
-    );
+    // Collect all question slugs from sections and subsections
+    Object.values(studyPath.overviewData || {}).forEach((section: any) => {
+      // Add direct section question slugs if they exist
+      if (section.questionSlugs) {
+        allQuestionSlugs = [...allQuestionSlugs, ...section.questionSlugs];
+      }
+
+      // Add subsection question slugs if they exist
+      if (section.subSections) {
+        Object.values(section.subSections).forEach((subSection: any) => {
+          if (subSection.questionSlugs) {
+            allQuestionSlugs = [...allQuestionSlugs, ...subSection.questionSlugs];
+          }
+        });
+      }
+    });
   } else {
     allQuestionSlugs = studyPath.questionSlugs || [];
   }
 
+  // Log for debugging
+  console.log(`[LAYOUT] Validating lesson index ${lessonIndex} for study path ${slug}`);
+  console.log(`[LAYOUT] Total questions in study path: ${allQuestionSlugs.length}`);
+  console.log(
+    `[LAYOUT] Question slugs: ${allQuestionSlugs.slice(0, 10).join(', ')}${
+      allQuestionSlugs.length > 10 ? '...' : ''
+    }`
+  );
+
   // Ensure the lesson index is valid
   if (lessonIndex < 0 || lessonIndex >= allQuestionSlugs.length) {
+    console.log(
+      `[LAYOUT] REDIRECTING: Invalid lesson index ${lessonIndex} (total questions: ${allQuestionSlugs.length})`
+    );
     redirect(`/roadmaps/${slug}?error=invalid_lesson_index`);
   }
 

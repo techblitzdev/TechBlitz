@@ -59,7 +59,7 @@ export default function SubSectionCardClient({
       return `/roadmap/learn/${studyPath.slug}/#`;
     }
 
-    return `/roadmap/learn/${studyPath.slug}/lesson?lesson=${nextQuestionIndex}`;
+    return `/roadmap/learn/${studyPath.slug}/${subSection.key}/lesson?lesson=${nextQuestionIndex}`;
   };
 
   // Determine the button text based on state

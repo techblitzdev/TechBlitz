@@ -69,10 +69,10 @@ export default function QuestionNavigation(opts: {
 
         // Set the full URLs in context
         setPreviousQuestion(
-          prevSlug ? `/roadmap/learn/${studyPathSlug}/lesson?lesson=${currentIndex}` : null
+          prevSlug ? `/roadmap/learn/${studyPathSlug}/main/lesson?lesson=${currentIndex}` : null
         );
         setNextQuestion(
-          nextSlug ? `/roadmap/learn/${studyPathSlug}/lesson?lesson=${currentIndex + 1}` : null
+          nextSlug ? `/roadmap/learn/${studyPathSlug}/main/lesson?lesson=${currentIndex + 1}` : null
         );
       } else {
         // Find the current question's index in the study path's questionSlugs
@@ -87,10 +87,10 @@ export default function QuestionNavigation(opts: {
 
         // Set the full URLs in context
         setPreviousQuestion(
-          prevSlug ? `/roadmap/learn/${studyPathSlug}/lesson?lesson=${currentIndex - 1}` : null
+          prevSlug ? `/roadmap/learn/${studyPathSlug}/main/lesson?lesson=${currentIndex - 1}` : null
         );
         setNextQuestion(
-          nextSlug ? `/roadmap/learn/${studyPathSlug}/lesson?lesson=${currentIndex + 1}` : null
+          nextSlug ? `/roadmap/learn/${studyPathSlug}/main/lesson?lesson=${currentIndex + 1}` : null
         );
       }
     } else {

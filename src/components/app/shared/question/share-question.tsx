@@ -3,7 +3,7 @@
 import { ShareIcon, CheckIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { toast } from 'sonner';
+import { copyLinkToClipboard } from '@/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 
@@ -17,10 +17,10 @@ export default function ShareQuestion({
   const [shared, setShared] = useState(false);
 
   const copyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    toast.success('Link copied to clipboard!');
-    setShared(true);
-    setTimeout(() => setShared(false), 3000);
+    const result = copyLinkToClipboard(window.location.href);
+    if (result.success) {
+      result.setShared(setShared);
+    }
   };
 
   return (

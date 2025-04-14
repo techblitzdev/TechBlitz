@@ -23,7 +23,7 @@ import { updateAnswerDifficultyByQuestionUid } from '@/actions/answers/answer';
 import LoadingSpinner from '@/components/ui/loading';
 import FlagIcon from '@/components/ui/icons/flag';
 import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
-import { getUpgradeUrl } from '@/utils';
+import { copyLinkToClipboard, getUpgradeUrl } from '@/utils';
 import { userIsPremium } from '@/utils/user';
 import { usePathname } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
@@ -64,11 +64,6 @@ export default function CodeEditorQuestionSubmitted() {
 
   // resolve the related q's here - only if they are not null
   const relatedQuestionData = relatedQuestions ? use(relatedQuestions).slice(0, 3) : [];
-
-  const copyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    toast.success('Question link copied to clipboard!');
-  };
 
   const handleDifficultySelect = async (value: string) => {
     await updateAnswerDifficultyByQuestionUid(
@@ -132,7 +127,7 @@ export default function CodeEditorQuestionSubmitted() {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <Button variant="ghost" onClick={() => copyLink()}>
+                  <Button variant="ghost" onClick={() => copyLinkToClipboard(window.location.href)}>
                     <LinkIcon className="size-4" />
                   </Button>
                 </TooltipTrigger>

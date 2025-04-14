@@ -10,28 +10,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { use, useTransition } from 'react';
+import { useTransition } from 'react';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
-import { ArrowRight, CheckCircle, LinkIcon, XCircle } from 'lucide-react';
+import { CheckCircle, LinkIcon, XCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { toast } from 'sonner';
 import { formatSeconds } from '@/utils/time';
 import { AnswerDifficulty } from '@prisma/client';
 import { updateAnswerDifficulty } from '@/actions/answers/answer';
 import LoadingSpinner from '@/components/ui/loading';
-import { getUpgradeUrl } from '@/utils';
+import { copyLinkToClipboard, getUpgradeUrl } from '@/utils';
 import { userIsPremium } from '@/utils/user';
 import { useSearchParams, usePathname } from 'next/navigation';
+import { toast } from 'sonner';
 
 export default function QuestionSubmitted() {
   const {
     question,
     userAnswer,
     correctAnswer,
-    relatedQuestions,
     totalSeconds,
     generateAiAnswerHelp,
     user,
@@ -60,9 +58,6 @@ export default function QuestionSubmitted() {
 
   const isStudyPathLesson = isRoadmapLearn && !!studyPathSlug;
 
-  // resolve the related q's here - only if they are not null
-  const relatedQuestionData = relatedQuestions ? use(relatedQuestions) : [];
-
   // Generate URL for next question based on whether this is a study path lesson or regular question
   const getNextQuestionUrl = () => {
     if (isStudyPathLesson && studyPathSlug) {
@@ -77,11 +72,6 @@ export default function QuestionSubmitted() {
       // For regular questions, use the question slug format
       return `/question/${question.nextQuestionSlug}`;
     }
-  };
-
-  const copyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    toast.success('Question link copied to clipboard!');
   };
 
   const handleDifficultySelect = async (value: string) => {
@@ -131,7 +121,7 @@ export default function QuestionSubmitted() {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <Button variant="ghost" onClick={() => copyLink()}>
+                  <Button variant="ghost" onClick={() => copyLinkToClipboard(window.location.href)}>
                     <LinkIcon className="size-4" />
                   </Button>
                 </TooltipTrigger>

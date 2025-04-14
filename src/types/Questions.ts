@@ -80,3 +80,23 @@ export type QuestionWithTags = QuestionWithoutAnswers & {
     };
   }>;
 };
+
+/** Mock question type for storybook */
+export interface QuestionMock {
+  uid: string;
+  question: string;
+  questionDate: string;
+  correctAnswer: string;
+  answers: QuestionAnswer[];
+  createdAt?: Date;
+  updatedAt?: Date;
+  title?: string | null;
+  description?: string | null;
+  dailyQuestion?: boolean;
+  customQuestion?: boolean;
+  difficulty?: string;
+  slug?: string | null;
+  slugGenerated?: boolean;
+  questionType?: string;
+  [key: string]: any;
+}

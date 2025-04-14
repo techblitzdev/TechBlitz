@@ -6,7 +6,7 @@ export default function StatisticsLayout({ children }: Readonly<{ children: Reac
   return (
     <div className="text-white flex flex-col gap-y-4 relative h-full">
       <div className="container">
-        <div className="flex items-center gap-x-3 container w-full justify-end">
+        <div className="flex items-center gap-x-3 lg:container w-full justify-end">
           <CurrentStreak />
           <UserXp />
           <UpgradeModal />

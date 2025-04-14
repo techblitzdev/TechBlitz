@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
  */
 function StudyPathsListSkeleton() {
   return (
-    <div className="flex flex-col gap-6 relative z-10 w-full">
+    <div className="flex flex-col gap-6 relative z-10 w-full lg:w-[55%]">
       {Array.from({ length: 3 }).map((_, index) => (
         <div
           key={index}

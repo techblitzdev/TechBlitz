@@ -79,7 +79,8 @@ export default function CodeEditorQuestionSubmitted() {
   const getNextQuestionUrl = () => {
     if (isStudyPathLesson && studyPathSlug) {
       // URL pattern: /roadmap/learn/[slug]/[subSection]/lesson
-      const subSection = pathname.split('/')[4] || 'main'; // Get subSection or default to 'main'
+      // Extract the subsection from the path (which should be the sectionSlug)
+      const subSection = pathname.split('/')[4] || 'main';
 
       // Calculate the next lesson index
       const nextLessonIndex = currentLessonIndex ? parseInt(currentLessonIndex) + 1 : 1;

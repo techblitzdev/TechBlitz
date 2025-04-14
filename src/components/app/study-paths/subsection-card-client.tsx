@@ -18,6 +18,7 @@ interface SubSectionData {
   completionPercentage: number;
   isIncomplete: boolean;
   isFirstIncompleteSubSection: boolean;
+  sectionSlug?: string;
 }
 
 export default function SubSectionCardClient({
@@ -59,7 +60,9 @@ export default function SubSectionCardClient({
       return `/roadmap/learn/${studyPath.slug}/#`;
     }
 
-    return `/roadmap/learn/${studyPath.slug}/${subSection.key}/lesson?lesson=${nextQuestionIndex}`;
+    // Use sectionSlug if available, otherwise fall back to key
+    const urlPath = subSection.sectionSlug || subSection.key;
+    return `/roadmap/learn/${studyPath.slug}/${urlPath}/lesson?lesson=${nextQuestionIndex}`;
   };
 
   // Determine the button text based on state

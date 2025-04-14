@@ -54,6 +54,7 @@ const SubSectionWrapper = ({
     isIncomplete: boolean;
     isFirstIncompleteSubSection: boolean;
     nextQuestionIndex?: number;
+    sectionSlug?: string;
   };
   studyPath: StudyPath;
   isFirstIncomplete: boolean;
@@ -62,6 +63,7 @@ const SubSectionWrapper = ({
   console.log({
     nextQuestionIndex,
     subsectionNextQuestionIndex: subSection.nextQuestionIndex,
+    sectionSlug: subSection.sectionSlug,
   });
 
   return (
@@ -177,6 +179,7 @@ interface StudyPathsSubSectionListProps {
     isIncomplete: boolean;
     isFirstIncompleteSubSection: boolean;
     nextQuestionIndex?: number;
+    sectionSlug?: string;
   }[];
   calculateOffset?: (index: number) => number;
   offsetType?: 'sine' | 'linear' | 'none';

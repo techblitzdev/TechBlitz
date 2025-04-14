@@ -87,14 +87,28 @@ export async function generateMetadata({
     });
   }
 
-  // Get subsection name if it's not 'main'
+  // Get subsection name by looking up the sectionSlug
   let subsectionName = '';
   if (params.subSection !== 'main' && studyPath.overviewData) {
+    // First try to find by sectionSlug
     Object.values(studyPath.overviewData).forEach((section: any) => {
-      if (section.subSections && section.subSections[params.subSection]) {
-        subsectionName = ` - ${section.subSections[params.subSection].sectionName}`;
+      if (section.subSections) {
+        Object.values(section.subSections).forEach((sub: any) => {
+          if (sub.sectionSlug === params.subSection) {
+            subsectionName = ` - ${sub.sectionName}`;
+          }
+        });
       }
     });
+
+    // If not found by sectionSlug, try to find by key (for backward compatibility)
+    if (!subsectionName) {
+      Object.values(studyPath.overviewData).forEach((section: any) => {
+        if (section.subSections && section.subSections[params.subSection]) {
+          subsectionName = ` - ${section.subSections[params.subSection].sectionName}`;
+        }
+      });
+    }
   }
 
   return createMetadata({
@@ -128,6 +142,7 @@ export default async function RoadmapLessonPage({
 
   // Get all question slugs from either overviewData or questionSlugs
   let allQuestionSlugs: string[] = [];
+  let sectionName = '';
 
   if (studyPath.overviewData) {
     // If it's the main section (not a subsection)
@@ -137,15 +152,30 @@ export default async function RoadmapLessonPage({
         .flatMap((section: any) => section.questionSlugs || [])
         .filter(Boolean);
     } else {
-      // Get questions from the specific subsection
+      // Get questions from the specific subsection by matching sectionSlug
       const subsectionQuestions: string[] = [];
 
-      // Find the subsection in the study path data
+      // Find the subsection in the study path data by matching the sectionSlug
       Object.values(studyPath.overviewData).forEach((section: any) => {
-        if (section.subSections && section.subSections[subSection]) {
-          subsectionQuestions.push(...(section.subSections[subSection].questionSlugs || []));
+        if (section.subSections) {
+          Object.values(section.subSections).forEach((sub: any) => {
+            if (sub.sectionSlug === subSection) {
+              subsectionQuestions.push(...(sub.questionSlugs || []));
+              sectionName = sub.sectionName || '';
+            }
+          });
         }
       });
+
+      // If no subsection found with sectionSlug, try to find by key (for backward compatibility)
+      if (subsectionQuestions.length === 0) {
+        Object.values(studyPath.overviewData).forEach((section: any) => {
+          if (section.subSections && section.subSections[subSection]) {
+            subsectionQuestions.push(...(section.subSections[subSection].questionSlugs || []));
+            sectionName = section.subSections[subSection].sectionName || '';
+          }
+        });
+      }
 
       allQuestionSlugs = subsectionQuestions;
     }
@@ -212,6 +242,7 @@ export default async function RoadmapLessonPage({
           studyPathMetadata={{
             studyPathSlug: slug,
             subSection: subSection,
+            subSectionName: sectionName,
             lessonIndex: lessonIndex,
             totalLessons: allQuestionSlugs.length,
           }}

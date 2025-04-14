@@ -73,12 +73,12 @@ export type QuestionWithoutAnswers = Omit<
 >;
 
 export type QuestionWithTags = QuestionWithoutAnswers & {
-  tags: Array<{
+  tags: {
     tag: {
       uid: string;
       name: string;
     };
-  }>;
+  }[];
 };
 
 /** Mock question type for storybook */

@@ -67,7 +67,7 @@ export default function QuestionNavigation(opts: {
         const nextSlug = currentIndex < allSlugs.length - 1 ? allSlugs[currentIndex + 1] : null;
         const prevSlug = currentIndex > 0 ? allSlugs[currentIndex - 1] : null;
 
-        // Set the full URLs in context
+        // Set the full URLs in context - using 'main' as the section slug for direct questions
         setPreviousQuestion(
           prevSlug ? `/roadmap/learn/${studyPathSlug}/main/lesson?lesson=${currentIndex}` : null
         );

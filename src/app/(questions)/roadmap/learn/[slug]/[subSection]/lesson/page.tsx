@@ -213,11 +213,13 @@ export default async function RoadmapLessonPage({
     nextQuestion:
       nextLessonIndex !== null
         ? `/roadmap/learn/${slug}/${subSection}/lesson?lesson=${nextLessonIndex}`
-        : null,
+        : // If we're at the last lesson, allow navigation back to the roadmap overview
+          `/roadmaps/${slug}`,
     previousQuestion:
       prevLessonIndex !== null
         ? `/roadmap/learn/${slug}/${subSection}/lesson?lesson=${prevLessonIndex}`
-        : null,
+        : // If we're at the first lesson, allow navigation back to the roadmap overview
+          `/roadmaps/${slug}`,
   };
 
   if (question.questionType === 'SIMPLE_MULTIPLE_CHOICE') {

@@ -136,7 +136,11 @@ export default function QuestionNavigation(opts: {
               </Button>
             </TooltipTrigger>
             <TooltipContent side="bottom" className="text-white font-inter">
-              {previousQuestion ? `Previous ${navigationType}` : `No previous ${navigationType}`}
+              {previousQuestion
+                ? previousQuestion.includes('/roadmaps/')
+                  ? 'Back to roadmap'
+                  : `Previous ${navigationType}`
+                : `No previous ${navigationType}`}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -157,7 +161,11 @@ export default function QuestionNavigation(opts: {
               </Button>
             </TooltipTrigger>
             <TooltipContent side="bottom">
-              {nextQuestion ? `Next ${navigationType}` : `No next ${navigationType}`}
+              {nextQuestion
+                ? nextQuestion.includes('/roadmaps/')
+                  ? 'Back to roadmap'
+                  : `Next ${navigationType}`
+                : `No next ${navigationType}`}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

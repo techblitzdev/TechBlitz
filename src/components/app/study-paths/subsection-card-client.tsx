@@ -55,19 +55,27 @@ export default function SubSectionCardClient({
 
   // URL for accessing the subsection
   const getButtonHref = () => {
-    if (!nextQuestionIndex && nextQuestionIndex !== 0) {
-      // If nextQuestionIndex is undefined or null
-      return `/roadmap/learn/${studyPath.slug}/#`;
-    }
-
     // Use sectionSlug if available, otherwise fall back to key
     const urlPath = subSection.sectionSlug || subSection.key;
+
+    // For completed subsections, allow users to start from the beginning (lesson=0)
+    if (completionPercentage === 100) {
+      return `/roadmap/learn/${studyPath.slug}/${urlPath}/lesson?lesson=0`;
+    }
+
+    // For in-progress or not started subsections
+    if (!nextQuestionIndex && nextQuestionIndex !== 0) {
+      // If nextQuestionIndex is undefined or null, start from the beginning
+      return `/roadmap/learn/${studyPath.slug}/${urlPath}/lesson?lesson=0`;
+    }
+
+    // Otherwise use the next question index
     return `/roadmap/learn/${studyPath.slug}/${urlPath}/lesson?lesson=${nextQuestionIndex}`;
   };
 
   // Determine the button text based on state
   const getButtonText = () => {
-    if (completionPercentage === 100) return 'Completed';
+    if (completionPercentage === 100) return 'Review Section';
     if (isFirstIncomplete) return 'Continue Learning';
     if (completionPercentage > 0) return 'Continue';
     return 'Start Section';

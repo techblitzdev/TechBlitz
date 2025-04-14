@@ -65,6 +65,17 @@ export default function QuestionSubmitted() {
       // Extract the subsection from the path (which should be the sectionSlug)
       const subSection = pathname.split('/')[4] || 'main';
 
+      // If we have a nextQuestion URL from context, use that (this will handle the end of a section)
+      if (nextQuestion) {
+        return nextQuestion;
+      }
+
+      // If there's no next question but we're in a roadmap lesson,
+      // return to the roadmap overview
+      if (!question.nextQuestionSlug) {
+        return `/roadmaps/${studyPathSlug}`;
+      }
+
       // Calculate the next lesson index
       const nextLessonIndex = currentLessonIndex ? parseInt(currentLessonIndex) + 1 : 1;
 
@@ -261,7 +272,13 @@ export default function QuestionSubmitted() {
               Want to continue the flow? Click the button below to go to the next question.
             </p>
             <Button variant="secondary" href={getNextQuestionUrl()}>
-              {isStudyPathLesson ? 'Next Lesson' : 'Next Question'}
+              {isStudyPathLesson
+                ? nextQuestion
+                  ? 'Next Lesson'
+                  : question.nextQuestionSlug
+                  ? 'Next Lesson'
+                  : 'Back to Roadmap'
+                : 'Next Question'}
             </Button>
           </div>
         )}

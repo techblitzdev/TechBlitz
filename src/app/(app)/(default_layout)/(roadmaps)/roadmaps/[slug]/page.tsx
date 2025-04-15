@@ -112,7 +112,7 @@ const SectionHeader = ({
   color?: string;
 }) => {
   return (
-    <div className="flex items-center justify-center gap-x-3 mb-8">
+    <div className="flex items-center justify-center gap-x-3 mb-16">
       <hr className="w-full border-t-2 border-black-50" />
       <h2 className="text-xl font-bold flex-shrink-0" style={{ color: color || 'inherit' }}>
         {title}

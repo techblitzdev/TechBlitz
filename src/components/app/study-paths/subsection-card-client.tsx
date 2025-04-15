@@ -209,11 +209,6 @@ export default function SubSectionCardClient({
               href={getButtonHref()}
             >
               {getButtonText()}
-              {process.env.NODE_ENV === 'development' && nextQuestionIndex !== undefined && (
-                <div className="text-xs text-gray-500 mt-1">
-                  Question index: {nextQuestionIndex !== null ? nextQuestionIndex : 'null'}
-                </div>
-              )}
             </Button>
           </div>
         </PopoverContent>

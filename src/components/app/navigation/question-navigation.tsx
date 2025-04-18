@@ -67,12 +67,12 @@ export default function QuestionNavigation(opts: {
         const nextSlug = currentIndex < allSlugs.length - 1 ? allSlugs[currentIndex + 1] : null;
         const prevSlug = currentIndex > 0 ? allSlugs[currentIndex - 1] : null;
 
-        // Set the full URLs in context
+        // Set the full URLs in context - using 'main' as the section slug for direct questions
         setPreviousQuestion(
-          prevSlug ? `/roadmap/learn/${studyPathSlug}/lesson?lesson=${currentIndex}` : null
+          prevSlug ? `/roadmap/learn/${studyPathSlug}/main/lesson?lesson=${currentIndex}` : null
         );
         setNextQuestion(
-          nextSlug ? `/roadmap/learn/${studyPathSlug}/lesson?lesson=${currentIndex + 1}` : null
+          nextSlug ? `/roadmap/learn/${studyPathSlug}/main/lesson?lesson=${currentIndex + 1}` : null
         );
       } else {
         // Find the current question's index in the study path's questionSlugs
@@ -87,10 +87,10 @@ export default function QuestionNavigation(opts: {
 
         // Set the full URLs in context
         setPreviousQuestion(
-          prevSlug ? `/roadmap/learn/${studyPathSlug}/lesson?lesson=${currentIndex - 1}` : null
+          prevSlug ? `/roadmap/learn/${studyPathSlug}/main/lesson?lesson=${currentIndex - 1}` : null
         );
         setNextQuestion(
-          nextSlug ? `/roadmap/learn/${studyPathSlug}/lesson?lesson=${currentIndex + 1}` : null
+          nextSlug ? `/roadmap/learn/${studyPathSlug}/main/lesson?lesson=${currentIndex + 1}` : null
         );
       }
     } else {
@@ -136,7 +136,11 @@ export default function QuestionNavigation(opts: {
               </Button>
             </TooltipTrigger>
             <TooltipContent side="bottom" className="text-white font-inter">
-              {previousQuestion ? `Previous ${navigationType}` : `No previous ${navigationType}`}
+              {previousQuestion
+                ? previousQuestion.includes('/roadmaps/')
+                  ? 'Back to roadmap'
+                  : `Previous ${navigationType}`
+                : `No previous ${navigationType}`}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -157,7 +161,11 @@ export default function QuestionNavigation(opts: {
               </Button>
             </TooltipTrigger>
             <TooltipContent side="bottom">
-              {nextQuestion ? `Next ${navigationType}` : `No next ${navigationType}`}
+              {nextQuestion
+                ? nextQuestion.includes('/roadmaps/')
+                  ? 'Back to roadmap'
+                  : `Next ${navigationType}`
+                : `No next ${navigationType}`}
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

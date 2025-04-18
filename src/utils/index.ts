@@ -3,6 +3,7 @@ import { Filter } from 'bad-words';
 import type { StatsChartData } from '@/components/app/statistics/total-question-chart';
 import { UserExperienceLevel } from '@prisma/client';
 import { QuestionDifficulty } from '@/types/Questions';
+import { toast } from 'sonner';
 
 /**
  * Method to get the current environment
@@ -125,4 +126,23 @@ export const difficultyToExperienceLevel: Record<UserExperienceLevel, QuestionDi
  */
 export const getUpgradeUrl = () => {
   return getEnv() === 'development' ? '/upgrade' : 'https://dub.sh/upgrade-techblitz';
+};
+
+/**
+ * Copy a link to the clipboard
+ *
+ * @param link
+ */
+export const copyLinkToClipboard = (link: string) => {
+  navigator.clipboard.writeText(link);
+  toast.success('Link copied to clipboard!');
+
+  // Support for share button animation state
+  return {
+    success: true,
+    setShared: (setState: React.Dispatch<React.SetStateAction<boolean>>) => {
+      setState(true);
+      setTimeout(() => setState(false), 3000);
+    },
+  };
 };

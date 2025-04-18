@@ -8,6 +8,8 @@ import { cn } from '@/lib/utils';
 import type { Question } from '@/types/Questions';
 import { StudyPath } from '@prisma/client';
 import SubSectionCardClient from './subsection-card-client';
+import { getOffset } from '@/utils/roadmaps';
+import { StudyPathSubSections } from '@/types/StudyPath';
 
 const QuestionCardClient = dynamic(() => import('../questions/layout/question-card-client'), {
   ssr: false,
@@ -45,27 +47,11 @@ const SubSectionWrapper = ({
   isFirstIncomplete,
   nextQuestionIndex,
 }: {
-  subSection: {
-    key: string;
-    sectionName: string;
-    questionSlugs: string[];
-    questions: Question[];
-    completionPercentage: number;
-    isIncomplete: boolean;
-    isFirstIncompleteSubSection: boolean;
-    nextQuestionIndex?: number;
-    sectionSlug?: string;
-  };
+  subSection: StudyPathSubSections;
   studyPath: StudyPath;
   isFirstIncomplete: boolean;
   nextQuestionIndex?: number;
 }) => {
-  console.log({
-    nextQuestionIndex,
-    subsectionNextQuestionIndex: subSection.nextQuestionIndex,
-    sectionSlug: subSection.sectionSlug,
-  });
-
   return (
     <div className="relative group w-fit">
       {isFirstIncomplete && <StartBounce />}
@@ -80,23 +66,6 @@ const SubSectionWrapper = ({
       />
     </div>
   );
-};
-
-// Internal calculation function based on provided parameters
-const getOffset = (
-  index: number,
-  offsetType: 'sine' | 'linear' | 'none',
-  offsetMultiplier: number
-) => {
-  switch (offsetType) {
-    case 'sine':
-      return Math.sin(index * 2.5) * 25 * offsetMultiplier;
-    case 'linear':
-      return (index % 2 === 0 ? 1 : -1) * 20 * offsetMultiplier;
-    case 'none':
-    default:
-      return 0;
-  }
 };
 
 export default function StudyPathsList({
@@ -170,17 +139,7 @@ export default function StudyPathsList({
 
 interface StudyPathsSubSectionListProps {
   studyPath: StudyPath;
-  subSections: {
-    key: string;
-    sectionName: string;
-    questionSlugs: string[];
-    questions: Question[];
-    completionPercentage: number;
-    isIncomplete: boolean;
-    isFirstIncompleteSubSection: boolean;
-    nextQuestionIndex?: number;
-    sectionSlug?: string;
-  }[];
+  subSections: StudyPathSubSections[];
   calculateOffset?: (index: number) => number;
   offsetType?: 'sine' | 'linear' | 'none';
   offsetMultiplier?: number;

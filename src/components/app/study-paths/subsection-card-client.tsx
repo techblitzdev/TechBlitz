@@ -188,7 +188,6 @@ export default function SubSectionCardClient({
                 ) : (
                   <Circle className="flex-shrink-0 size-6 text-black-50 group-hover:text-accent transition-colors drop-shadow-md" />
                 )}
-                {completionPercentage}
               </div>
             </div>
           </div>

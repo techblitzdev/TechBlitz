@@ -164,7 +164,7 @@ export default function CodeEditorQuestionSubmitted() {
         </div>
       </motion.div>
       {/** if the next question slug is not null, show a button to go to the next question */}
-      {nextQuestion && (
+      {nextQuestion ? (
         <div className="flex flex-col gap-y-2 bg-[#111111] border border-black-50 p-4 rounded-lg">
           <h2 className="text-xl font-bold">Next Question</h2>
           <p className="text-sm text-gray-400">
@@ -178,6 +178,16 @@ export default function CodeEditorQuestionSubmitted() {
                 ? 'Next Lesson'
                 : 'Back to Roadmap'
               : 'Next Question'}
+          </Button>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-y-2 bg-[#111111] border border-black-50 p-4 rounded-lg">
+          <h2 className="text-xl font-bold">Next Question</h2>
+          <p className="text-sm text-gray-400">
+            Want to continue the flow? Click the button below to go to the next question.
+          </p>
+          <Button variant="secondary" href={getNextQuestionUrl()} className="w-fit">
+            {isStudyPathLesson ? 'Back to Roadmap' : 'Next Question'}
           </Button>
         </div>
       )}

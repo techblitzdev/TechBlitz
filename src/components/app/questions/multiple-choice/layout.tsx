@@ -1,26 +1,5 @@
-import { Question } from '@/types/Questions';
+import type { Question, QuestionMock } from '@/types/Questions';
 import MultipleChoiceLayoutClient from './layout.client';
-import { QuestionAnswer } from '@/types/QuestionAnswers';
-
-// Mock implementation for Storybook
-interface QuestionMock {
-  uid: string;
-  question: string;
-  questionDate: string;
-  correctAnswer: string;
-  answers: QuestionAnswer[];
-  createdAt?: Date;
-  updatedAt?: Date;
-  title?: string | null;
-  description?: string | null;
-  dailyQuestion?: boolean;
-  customQuestion?: boolean;
-  difficulty?: string;
-  slug?: string | null;
-  slugGenerated?: boolean;
-  questionType?: string;
-  [key: string]: any;
-}
 
 // Define navigation interface to match the data from getNextAndPreviousQuestion
 interface NavigationData {

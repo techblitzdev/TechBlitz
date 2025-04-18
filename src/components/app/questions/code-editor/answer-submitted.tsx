@@ -23,7 +23,7 @@ import { updateAnswerDifficultyByQuestionUid } from '@/actions/answers/answer';
 import LoadingSpinner from '@/components/ui/loading';
 import FlagIcon from '@/components/ui/icons/flag';
 import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
-import { getUpgradeUrl } from '@/utils';
+import { copyLinkToClipboard, getUpgradeUrl } from '@/utils';
 import { userIsPremium } from '@/utils/user';
 import { usePathname } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
@@ -65,11 +65,6 @@ export default function CodeEditorQuestionSubmitted() {
   // resolve the related q's here - only if they are not null
   const relatedQuestionData = relatedQuestions ? use(relatedQuestions).slice(0, 3) : [];
 
-  const copyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    toast.success('Question link copied to clipboard!');
-  };
-
   const handleDifficultySelect = async (value: string) => {
     await updateAnswerDifficultyByQuestionUid(
       question?.uid || '',
@@ -83,9 +78,25 @@ export default function CodeEditorQuestionSubmitted() {
   // Generate URL for next question based on whether this is a study path lesson or regular question
   const getNextQuestionUrl = () => {
     if (isStudyPathLesson && studyPathSlug) {
-      // If it's a study path lesson, use the lesson index format
+      // URL pattern: /roadmap/learn/[slug]/[subSection]/lesson
+      // Extract the subsection from the path (which should be the sectionSlug)
+      const subSection = pathname.split('/')[4] || 'main';
+
+      // If we have a nextQuestion URL from context, use that (this will handle the end of a section)
+      if (nextQuestion) {
+        return nextQuestion;
+      }
+
+      // If there's no next question but we're in a roadmap lesson,
+      // return to the roadmap overview
+      if (!question.nextQuestionSlug) {
+        return `/roadmaps/${studyPathSlug}`;
+      }
+
+      // Calculate the next lesson index
       const nextLessonIndex = currentLessonIndex ? parseInt(currentLessonIndex) + 1 : 1;
-      return `/roadmap/learn/${studyPathSlug}/lesson?lesson=${nextLessonIndex}`;
+
+      return `/roadmap/learn/${studyPathSlug}/${subSection}/lesson?lesson=${nextLessonIndex}`;
     } else {
       // For regular questions, use the question slug format
       return `/question/${question.nextQuestionSlug}`;
@@ -128,7 +139,7 @@ export default function CodeEditorQuestionSubmitted() {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <Button variant="ghost" onClick={() => copyLink()}>
+                  <Button variant="ghost" onClick={() => copyLinkToClipboard(window.location.href)}>
                     <LinkIcon className="size-4" />
                   </Button>
                 </TooltipTrigger>
@@ -153,18 +164,30 @@ export default function CodeEditorQuestionSubmitted() {
         </div>
       </motion.div>
       {/** if the next question slug is not null, show a button to go to the next question */}
-      {nextQuestion && (
+      {nextQuestion ? (
         <div className="flex flex-col gap-y-2 bg-[#111111] border border-black-50 p-4 rounded-lg">
           <h2 className="text-xl font-bold">Next Question</h2>
           <p className="text-sm text-gray-400">
             Want to continue the flow? Click the button below to go to the next question.
           </p>
-          <Button
-            variant="secondary"
-            href={isStudyPathLesson ? getNextQuestionUrl() : `/question/${nextQuestion}`}
-            className="w-fit"
-          >
-            Next Question
+          <Button variant="secondary" href={getNextQuestionUrl()} className="w-fit">
+            {isStudyPathLesson
+              ? nextQuestion
+                ? 'Next Lesson'
+                : question.nextQuestionSlug
+                ? 'Next Lesson'
+                : 'Back to Roadmap'
+              : 'Next Question'}
+          </Button>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-y-2 bg-[#111111] border border-black-50 p-4 rounded-lg">
+          <h2 className="text-xl font-bold">Next Question</h2>
+          <p className="text-sm text-gray-400">
+            Want to continue the flow? Click the button below to go to the next question.
+          </p>
+          <Button variant="secondary" href={getNextQuestionUrl()} className="w-fit">
+            {isStudyPathLesson ? 'Back to Roadmap' : 'Next Question'}
           </Button>
         </div>
       )}

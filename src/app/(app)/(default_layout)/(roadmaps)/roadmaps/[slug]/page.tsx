@@ -1,12 +1,9 @@
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 
-// actions
-import { getQuestions } from '@/actions/questions/admin/list';
-
 // utils
 import { createMetadata } from '@/utils/seo';
-import { getStudyPath } from '@/utils/data/study-paths/get';
+import { getAndGroupStudyPathQuestions, getStudyPath } from '@/utils/data/study-paths/get';
 import { capitalise, getBaseUrl } from '@/utils';
 
 // types
@@ -15,12 +12,15 @@ import type { StudyPath } from '@prisma/client';
 import { Question } from '@/types/Questions';
 
 // components
-import StudyPathQuestionCardSkeleton from '@/components/app/study-paths/study-path-question-card-skeleton';
-import QuestionCardClient from '@/components/app/questions/layout/question-card-client';
-import { Answer } from '@/types/Answers';
+import { StudyPathWithOverviewData } from '@/types/StudyPath';
+
 const StudyPathsList = dynamic(() => import('@/components/app/study-paths/list'), {
   loading: () => <StudyPathsListSkeleton />,
 });
+const StudyPathsSubSectionList = dynamic(
+  () => import('@/components/app/study-paths/list').then((mod) => mod.StudyPathsSubSectionList),
+  { loading: () => <StudyPathsListSkeleton /> }
+);
 const StudyPathSidebar = dynamic(() => import('@/components/app/study-paths/study-path-sidebar'));
 const Hero = dynamic(() => import('@/components/shared/hero'));
 const HeroChip = dynamic(() => import('@/components/app/study-paths/hero-chip'));
@@ -55,11 +55,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
  */
 function StudyPathsListSkeleton() {
   return (
-    <div className="flex flex-col gap-6 relative z-10 w-[55%]">
-      {Array.from({ length: 9 }).map((_, index) => (
-        <QuestionCardClient key={index} questionData={null} offset={Math.sin(index * 0.9) * 4}>
-          <StudyPathQuestionCardSkeleton />
-        </QuestionCardClient>
+    <div className="flex flex-col gap-6 relative z-10 w-full lg:w-[55%]">
+      {Array.from({ length: 3 }).map((_, index) => (
+        <div
+          key={index}
+          className="bg-black-75 animate-pulse rounded-xl h-28 w-full border-2 border-black-50"
+        />
       ))}
     </div>
   );
@@ -111,7 +112,7 @@ const SectionHeader = ({
   color?: string;
 }) => {
   return (
-    <div className="flex items-center justify-center gap-x-3 mb-8">
+    <div className="flex items-center justify-center gap-x-3 mb-16">
       <hr className="w-full border-t-2 border-black-50" />
       <h2 className="text-xl font-bold flex-shrink-0" style={{ color: color || 'inherit' }}>
         {title}
@@ -125,99 +126,66 @@ const SectionHeader = ({
  * Component for displaying all sections of a study path.
  */
 function StudyPathSections({
+  studyPathSections,
   studyPath,
-  questions,
 }: {
-  studyPath: StudyPath;
-  questions: Question[];
+  studyPathSections: any[];
+  studyPath: StudyPathWithOverviewData;
 }) {
-  // If studyPath has overviewData, use it; otherwise, fall back to questionSlugs
-  const overviewData = studyPath.overviewData ?? null;
-
-  // If no overviewData, fall back to the old implementation
-  if (!overviewData) {
+  if (!studyPathSections || studyPathSections.length === 0) {
     return (
-      <Suspense fallback={<StudyPathsListSkeleton />}>
-        <StudyPathsList questions={questions} studyPath={studyPath} className="gap-8" />
-      </Suspense>
+      <div className="text-center py-8">
+        <p>No content available for this roadmap yet.</p>
+      </div>
     );
   }
 
-  // Group questions by section based on overviewData
-  const sections = Object.entries(overviewData).map(([key, section]) => {
-    const sectionQuestions = section.questionSlugs
-      .map((slug: string | null) => questions.find((q) => q.slug === slug))
-      .filter((q: Question): q is Question => q !== undefined);
-
-    return {
-      key,
-      ...section,
-      questions: sectionQuestions,
-    };
-  });
-
-  // Find the first unanswered question across all sections
-  const allQuestions = sections.flatMap((section) => section.questions);
-  const firstUnansweredQuestion = allQuestions.find(
-    (q) =>
-      !q.userAnswers?.length ||
-      q.userAnswers?.some((answer: Answer) => answer.correctAnswer === false)
-  );
-
   return (
-    <div className="flex flex-col">
-      {sections.map((section) => {
-        // Determine if this section contains the first unanswered question
-        const containsFirstUnanswered =
-          firstUnansweredQuestion &&
-          section.questions.some((q: Question) => q.uid === firstUnansweredQuestion.uid);
-
-        // Create a special studyPath object for this section
-        const sectionStudyPath = {
-          ...studyPath,
-          // Only include question slugs for this section
-          questionSlugs: section.questions.map((q: Question) => q.slug).filter(Boolean) as string[],
-        };
-
-        // if this is not the section with the first unanswered question,
-        // remove unanswered questions or mark them as answered to prevent "Start" from showing
-        let sectionQuestions = section.questions;
-        if (!containsFirstUnanswered) {
-          // Deep clone the questions to avoid modifying the original
-          sectionQuestions = section.questions.map((q: Question) => ({
-            ...q,
-            // add a fake userAnswer if there are none, to prevent it from being considered "first unanswered"
-            userAnswers: q.userAnswers?.length
-              ? q.userAnswers
-              : [
-                  {
-                    uid: 'fake',
-                    userUid: 'fake',
-                    questionUid: q.uid,
-                    correctAnswer: true,
-                    createdAt: new Date(),
-                    updatedAt: new Date(),
-                    questionDate: new Date().toISOString(),
-                    userAnswerUid: null,
-                    timeTaken: null,
-                    difficulty: 'EASY',
-                  },
-                ],
-          }));
+    <div className="flex flex-col space-y-16">
+      {studyPathSections.map((section) => {
+        // Skip sections with no content
+        if (
+          (!section.questions || section.questions.length === 0) &&
+          (!section.subSections || section.subSections.length === 0)
+        ) {
+          return null;
         }
 
         return (
-          <div key={section.key} className="space-y-6 inline-grid">
+          <div key={section.key} className="space-y-8">
             <SectionHeader title={section.sectionName} icon={section.icon} color={section.color} />
-            <div className="pl-4 relative">
-              <Suspense fallback={<StudyPathsListSkeleton />}>
-                <StudyPathsList
-                  questions={sectionQuestions}
-                  studyPath={sectionStudyPath}
-                  className="gap-12"
-                />
-              </Suspense>
-            </div>
+
+            {/* Render subsections if any */}
+            {section.subSections && section.subSections.length > 0 && (
+              <div className="space-y-6 pl-4">
+                <Suspense fallback={<StudyPathsListSkeleton />}>
+                  <StudyPathsSubSectionList
+                    studyPath={studyPath}
+                    subSections={section.subSections}
+                    nextQuestionIndex={section.nextQuestionIndex}
+                    offsetType="sine"
+                    offsetMultiplier={1}
+                    className="gap-8"
+                  />
+                </Suspense>
+              </div>
+            )}
+
+            {/* Render main section questions if any and no subsections */}
+            {section.questions && section.questions.length > 0 && !section.subSections && (
+              <div className="pl-4">
+                <Suspense fallback={<StudyPathsListSkeleton />}>
+                  <StudyPathsList
+                    questions={section.questions}
+                    studyPath={{
+                      ...studyPath,
+                      questionSlugs: section.questions.map((q: Question) => q.slug).filter(Boolean),
+                    }}
+                    className="gap-8"
+                  />
+                </Suspense>
+              </div>
+            )}
           </div>
         );
       })}
@@ -234,15 +202,24 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
 
   const jsonLd: QuizJsonLd = createJsonLd(studyPathData, params.slug);
 
-  // Get all question slugs from either overviewData or questionSlugs
-  const allQuestionSlugs = studyPathData.overviewData
-    ? Object.values(studyPathData.overviewData).flatMap((section) => section.questionSlugs)
-    : studyPathData.questionSlugs;
-
-  // Fetch questions
-  const questions = getQuestions({
-    questionSlugs: allQuestionSlugs ?? [],
+  const studyPathSectionData = await getAndGroupStudyPathQuestions({
+    studyPath: studyPathData,
+    takeQuestions: true,
   });
+
+  console.log('Total sections:', studyPathSectionData.length);
+  console.log('studyPathSectionData', studyPathSectionData);
+  console.log(
+    'Question indices:',
+    studyPathSectionData.map((section) => ({
+      sectionName: section.sectionName,
+      nextQuestionIndex: section.nextQuestionIndex,
+      hasSubsections: !!section.subSections,
+      subSectionIndices: section.subSections
+        ? section.subSections.map((sub) => sub.nextQuestionIndex)
+        : [],
+    }))
+  );
 
   return (
     <>
@@ -259,7 +236,10 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
         <div className="flex flex-col lg:flex-row gap-12 xl:gap-24">
           <div className="w-full lg:w-[55%] flex-1">
             <Suspense fallback={<StudyPathsListSkeleton />}>
-              <StudyPathSections questions={await questions} studyPath={studyPathData} />
+              <StudyPathSections
+                studyPathSections={studyPathSectionData}
+                studyPath={studyPathData}
+              />
             </Suspense>
           </div>
           <StudyPathSidebar studyPath={studyPathData} />

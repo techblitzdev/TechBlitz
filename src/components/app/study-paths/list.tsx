@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 
 import type { Question } from '@/types/Questions';
 import { StudyPath } from '@prisma/client';
+import SubSectionCardClient from './subsection-card-client';
 
 const QuestionCardClient = dynamic(() => import('../questions/layout/question-card-client'), {
   ssr: false,
@@ -37,6 +38,67 @@ const QuestionCardWrapper = ({
   );
 };
 
+// SubSectionWrapper component
+const SubSectionWrapper = ({
+  subSection,
+  studyPath,
+  isFirstIncomplete,
+  nextQuestionIndex,
+}: {
+  subSection: {
+    key: string;
+    sectionName: string;
+    questionSlugs: string[];
+    questions: Question[];
+    completionPercentage: number;
+    isIncomplete: boolean;
+    isFirstIncompleteSubSection: boolean;
+    nextQuestionIndex?: number;
+    sectionSlug?: string;
+  };
+  studyPath: StudyPath;
+  isFirstIncomplete: boolean;
+  nextQuestionIndex?: number;
+}) => {
+  console.log({
+    nextQuestionIndex,
+    subsectionNextQuestionIndex: subSection.nextQuestionIndex,
+    sectionSlug: subSection.sectionSlug,
+  });
+
+  return (
+    <div className="relative group w-fit">
+      {isFirstIncomplete && <StartBounce />}
+      <SubSectionCardClient
+        subSection={subSection}
+        studyPath={studyPath}
+        nextQuestionIndex={
+          subSection.nextQuestionIndex !== undefined
+            ? subSection.nextQuestionIndex
+            : nextQuestionIndex
+        }
+      />
+    </div>
+  );
+};
+
+// Internal calculation function based on provided parameters
+const getOffset = (
+  index: number,
+  offsetType: 'sine' | 'linear' | 'none',
+  offsetMultiplier: number
+) => {
+  switch (offsetType) {
+    case 'sine':
+      return Math.sin(index * 2.5) * 25 * offsetMultiplier;
+    case 'linear':
+      return (index % 2 === 0 ? 1 : -1) * 20 * offsetMultiplier;
+    case 'none':
+    default:
+      return 0;
+  }
+};
+
 export default function StudyPathsList({
   questions,
   studyPath,
@@ -48,8 +110,8 @@ export default function StudyPathsList({
   questions: Question[]; // No longer accepting a promise
   studyPath: StudyPath;
   calculateOffset?: (index: number) => number;
-  offsetType?: 'sine' | 'linear' | 'none'; // Add a serializable parameter
-  offsetMultiplier?: number; // Add a serializable parameter
+  offsetType?: 'sine' | 'linear' | 'none';
+  offsetMultiplier?: number;
   className?: string;
 }) {
   // Get question slugs based on whether we have overviewData or not
@@ -75,26 +137,18 @@ export default function StudyPathsList({
   )?.slug;
 
   // Internal calculation function based on provided parameters
-  const getOffset = (index: number) => {
+  const calculateOffsetValue = (index: number) => {
     if (calculateOffset) {
       return calculateOffset(index);
     }
 
-    switch (offsetType) {
-      case 'sine':
-        return Math.sin(index * 2.5) * 25 * offsetMultiplier;
-      case 'linear':
-        return (index % 2 === 0 ? 1 : -1) * 20 * offsetMultiplier;
-      case 'none':
-      default:
-        return 0;
-    }
+    return getOffset(index, offsetType, offsetMultiplier);
   };
 
   return (
     <div className={cn('relative z-10 justify-self-center grid', className)}>
       {sortedQuestions.map((question, index) => {
-        const offsetValue = getOffset(index);
+        const offsetValue = calculateOffsetValue(index);
         // Find the question's index in the allQuestionSlugs array
         const lessonIndex = allQuestionSlugs.findIndex((slug) => slug === question.slug);
         return (
@@ -105,6 +159,95 @@ export default function StudyPathsList({
                 studyPath={studyPath}
                 isFirstUnanswered={firstUnansweredQuestion === question.slug}
                 lessonIndex={lessonIndex !== -1 ? lessonIndex : index}
+              />
+            </QuestionCardClient>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+interface StudyPathsSubSectionListProps {
+  studyPath: StudyPath;
+  subSections: {
+    key: string;
+    sectionName: string;
+    questionSlugs: string[];
+    questions: Question[];
+    completionPercentage: number;
+    isIncomplete: boolean;
+    isFirstIncompleteSubSection: boolean;
+    nextQuestionIndex?: number;
+    sectionSlug?: string;
+  }[];
+  calculateOffset?: (index: number) => number;
+  offsetType?: 'sine' | 'linear' | 'none';
+  offsetMultiplier?: number;
+  className?: string;
+  nextQuestionIndex?: number;
+}
+
+export function StudyPathsSubSectionList({
+  studyPath,
+  subSections,
+  calculateOffset,
+  offsetType = 'sine',
+  offsetMultiplier = 1,
+  className,
+  nextQuestionIndex,
+}: StudyPathsSubSectionListProps) {
+  // Internal calculation function based on provided parameters
+  const calculateOffsetValue = (index: number) => {
+    if (calculateOffset) {
+      return calculateOffset(index);
+    }
+
+    return getOffset(index, offsetType, offsetMultiplier);
+  };
+
+  console.log('StudyPathsSubSectionList props:', {
+    studyPathSlug: studyPath.slug,
+    sectionNextQuestionIndex: nextQuestionIndex,
+    subSectionsCount: subSections.length,
+    subSectionIndices: subSections.map((sub) => sub.nextQuestionIndex),
+  });
+
+  return (
+    <div className={cn('relative z-10 justify-self-center grid', className)}>
+      {subSections.map((subSection, index) => {
+        const offsetValue = calculateOffsetValue(index);
+
+        // Get the subSection's specific nextQuestionIndex or fall back to the section's
+        const subsectionNextQuestionIndex =
+          subSection.nextQuestionIndex !== undefined && subSection.nextQuestionIndex !== null
+            ? subSection.nextQuestionIndex
+            : nextQuestionIndex;
+
+        console.log(`SubSection [${index}] ${subSection.sectionName}:`, {
+          hasNextIndex: subSection.nextQuestionIndex !== undefined,
+          subSectionNextIdx: subSection.nextQuestionIndex,
+          fallbackNextIdx: nextQuestionIndex,
+          finalNextIdx: subsectionNextQuestionIndex,
+        });
+
+        return (
+          <div key={subSection.key} className="mb-8 flex justify-center">
+            <QuestionCardClient
+              questionData={
+                {
+                  uid: `subsection-${subSection.key}`,
+                  title: subSection.sectionName,
+                  slug: subSection.key,
+                } as any
+              }
+              offset={offsetValue}
+            >
+              <SubSectionWrapper
+                subSection={subSection}
+                studyPath={studyPath}
+                isFirstIncomplete={subSection.isFirstIncompleteSubSection}
+                nextQuestionIndex={subsectionNextQuestionIndex}
               />
             </QuestionCardClient>
           </div>

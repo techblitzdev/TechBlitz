@@ -18,19 +18,9 @@ import { answerQuestion } from '@/actions/answers/answer';
 
 import { useQuestionSingle } from '@/contexts/question-single-context';
 
-import type { QuestionAnswer } from '@/types/QuestionAnswers';
-import type { Question } from '@/types/Questions';
+import type { Question, QuestionDifficulty, QuestionMock } from '@/types/Questions';
 import { cn } from '@/lib/utils';
 import { CodeBlock } from '@/components/ui/code-block';
-
-interface QuestionMock {
-  uid: string;
-  question: string;
-  questionDate: string;
-  correctAnswer: string;
-  answers: QuestionAnswer[];
-  [key: string]: any;
-}
 
 // Define navigation interface to match the data from getNextAndPreviousQuestion
 interface NavigationData {
@@ -125,7 +115,7 @@ export default function MultipleChoiceLayoutClient({
     if (question.correctAnswer === selectedAnswerData.uid) {
       setIsCorrect(true);
       setIsSubmitted(true);
-      setXpIncrease(QUESTION_XP[question.difficulty] || 10);
+      setXpIncrease(QUESTION_XP[question.difficulty as QuestionDifficulty] || 10);
     } else {
       setIsCorrect(false);
       setIsSubmitted(true);

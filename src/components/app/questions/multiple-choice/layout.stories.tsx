@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { QuestionDifficulty, QuestionType } from '@prisma/client';
 import Layout from './layout';
 import { QuestionAnswer } from '@/types/QuestionAnswers';
+import { QuestionMock } from '@/types/Questions';
 
 const meta = {
   component: Layout,
@@ -74,14 +75,6 @@ const mockQuestion = {
 };
 
 // Type definition for our mock question
-interface QuestionMock {
-  uid: string;
-  question: string;
-  questionDate: string;
-  correctAnswer: string;
-  answers: QuestionAnswer[];
-  [key: string]: any;
-}
 
 export const Default: Story = {
   args: {

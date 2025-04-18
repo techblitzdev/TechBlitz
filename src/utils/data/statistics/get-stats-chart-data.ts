@@ -1,6 +1,6 @@
 import { StatsChartData, StatsSteps } from '@/types/Stats';
 import { prisma } from '@/lib/prisma';
-import { getRange } from '@/utils/stats/get-range';
+import { getRange } from '@/utils/stats';
 import { revalidateTag } from 'next/cache';
 
 /**

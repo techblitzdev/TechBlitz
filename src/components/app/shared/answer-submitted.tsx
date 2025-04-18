@@ -20,7 +20,7 @@ import { formatSeconds } from '@/utils/time';
 import { useTransition } from 'react';
 import { updateAnswerDifficulty } from '@/actions/answers/answer';
 import { AnswerDifficulty } from '@prisma/client';
-import { getUpgradeUrl } from '@/utils';
+import { copyLinkToClipboard, getUpgradeUrl } from '@/utils';
 
 interface QuestionResultProps {
   correctAnswer: 'correct' | 'incorrect' | 'init';
@@ -76,11 +76,6 @@ export default function QuestionResult({
   isLastQuestion = false,
 }: QuestionResultProps) {
   const [isPending, startTransition] = useTransition();
-
-  const copyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    toast.success('Question link copied to clipboard!');
-  };
 
   const getResultMessage = () => {
     if (isCodeEditorQuestion) {
@@ -151,7 +146,7 @@ export default function QuestionResult({
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <Button variant="ghost" onClick={copyLink}>
+                  <Button variant="ghost" onClick={() => copyLinkToClipboard(window.location.href)}>
                     <LinkIcon className="size-4" />
                   </Button>
                 </TooltipTrigger>
@@ -185,12 +180,12 @@ export default function QuestionResult({
                     isOnboardingQuestion
                       ? userAnswer
                       : isRoadmapQuestion
-                        ? question?.answers.find(
-                            (answer: any) => answer.uid === userAnswer?.answerUid
-                          )?.answer || ''
-                        : question?.answers.find(
-                            (answer: any) => answer.uid === userAnswer?.userAnswerUid
-                          )?.answer || ''
+                      ? question?.answers.find(
+                          (answer: any) => answer.uid === userAnswer?.answerUid
+                        )?.answer || ''
+                      : question?.answers.find(
+                          (answer: any) => answer.uid === userAnswer?.userAnswerUid
+                        )?.answer || ''
                   }
                   hideIndex={isRoadmapQuestion}
                 />

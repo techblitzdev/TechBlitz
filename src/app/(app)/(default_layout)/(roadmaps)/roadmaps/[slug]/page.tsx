@@ -202,10 +202,13 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
 
   const jsonLd: QuizJsonLd = createJsonLd(studyPathData, params.slug);
 
-  const studyPathSectionData = await getAndGroupStudyPathQuestions({ studyPath: studyPathData });
+  const studyPathSectionData = await getAndGroupStudyPathQuestions({
+    studyPath: studyPathData,
+    takeQuestions: true,
+  });
 
-  console.log('Study Path Data for', params.slug);
   console.log('Total sections:', studyPathSectionData.length);
+  console.log('studyPathSectionData', studyPathSectionData);
   console.log(
     'Question indices:',
     studyPathSectionData.map((section) => ({

@@ -60,7 +60,12 @@ export default function SubSectionCardClient({
 
     // For completed subsections, allow users to start from the beginning (lesson=0)
     if (completionPercentage === 100) {
-      return `/roadmap/learn/${studyPath.slug}/${urlPath}/lesson?lesson=0`;
+      return `/roadmap/learn/${studyPath.slug}/${urlPath}/lesson?lesson=testing`;
+    }
+
+    // If this is not the first incomplete subsection, disable access
+    if (!isFirstIncomplete && completionPercentage < 100) {
+      return 'javascript:void(0)'; // Prevent navigation
     }
 
     // For in-progress or not started subsections
@@ -75,6 +80,11 @@ export default function SubSectionCardClient({
 
   // Determine the button text based on state
   const getButtonText = () => {
+    // if this is not the next subsection, return that it is locked
+    if (!isFirstIncomplete && completionPercentage < 100) {
+      return 'Locked';
+    }
+
     if (completionPercentage === 100) return 'Review Section';
     if (isFirstIncomplete) return 'Continue Learning';
     if (completionPercentage > 0) return 'Continue';
@@ -178,6 +188,7 @@ export default function SubSectionCardClient({
                 ) : (
                   <Circle className="flex-shrink-0 size-6 text-black-50 group-hover:text-accent transition-colors drop-shadow-md" />
                 )}
+                {completionPercentage}
               </div>
             </div>
           </div>
@@ -207,8 +218,10 @@ export default function SubSectionCardClient({
               fullWidth
               className="font-onest font-normal"
               href={getButtonHref()}
+              disabled={!isFirstIncomplete && completionPercentage < 100}
             >
               {getButtonText()}
+              {nextQuestionIndex}
             </Button>
           </div>
         </PopoverContent>

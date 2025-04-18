@@ -124,8 +124,10 @@ export const isUserEnrolledInStudyPath = async (studyPathUid: string) => {
  */
 export const getAndGroupStudyPathQuestions = async ({
   studyPath,
+  takeQuestions = false,
 }: {
   studyPath: StudyPathWithOverviewData;
+  takeQuestions?: boolean;
 }) => {
   // we need the study path to extract the overview data
   if (!studyPath || !studyPath.overviewData) return [];
@@ -156,9 +158,11 @@ export const getAndGroupStudyPathQuestions = async ({
   });
 
   // Fetch all questions for the study path
-  const questions = await listQuestionsBySlugs({
-    questionSlugs: Array.from(allQuestionSlugs),
-  });
+  const questions = takeQuestions
+    ? await listQuestionsBySlugs({
+        questionSlugs: Array.from(allQuestionSlugs),
+      })
+    : [];
 
   // Find the first section with an incomplete subsection and the first incomplete subsection
   let firstSectionWithIncompleteSubSection: string | null = null;
@@ -186,10 +190,7 @@ export const getAndGroupStudyPathQuestions = async ({
 
     // Find the next unanswered question index in the section
     const nextQuestionIndex = sectionQuestions.findIndex(
-      (q) =>
-        !q?.userAnswers ||
-        q.userAnswers.length === 0 ||
-        !q.userAnswers.some((a) => a.correctAnswer === true)
+      (q, index) => index >= sectionAnsweredCount && (!q?.userAnswers || q.userAnswers.length === 0)
     );
 
     // Process subsections if they exist
@@ -215,12 +216,17 @@ export const getAndGroupStudyPathQuestions = async ({
           // Check if this subsection is incomplete (less than 100% complete)
           const isIncomplete = completionPercentage < 100;
 
+          console.log({
+            ...subSectionQuestions,
+          });
+
           // Find the next unanswered question index in this subsection
           const nextQuestionIndex = subSectionQuestions.findIndex(
-            (q) =>
-              !q?.userAnswers ||
-              q.userAnswers.length === 0 ||
-              !q.userAnswers.some((a) => a.correctAnswer === true)
+            (q, index) =>
+              index >= answeredCount &&
+              (!q?.userAnswers ||
+                q.userAnswers.length === 0 ||
+                !q.userAnswers.some((a) => a.correctAnswer === true))
           );
 
           // If we haven't found the first incomplete subsection yet and this one is incomplete
@@ -249,15 +255,16 @@ export const getAndGroupStudyPathQuestions = async ({
     const sectionFirstIncompleteSubSection =
       subSections.length > 0 ? subSections.find((sub) => sub.isIncomplete) : null;
 
-    return {
+    const data = {
       key,
       ...section,
       questions: sectionQuestions,
       firstIncompleteQuestionIndex: sectionQuestions.findIndex(
-        (q) =>
-          !q?.userAnswers ||
-          q.userAnswers.length === 0 ||
-          !q.userAnswers.some((a) => a.correctAnswer === true)
+        (q, index) =>
+          index >= sectionAnsweredCount &&
+          (!q?.userAnswers ||
+            q.userAnswers.length === 0 ||
+            !q.userAnswers.some((a) => a.correctAnswer === true))
       ),
       nextQuestionIndex: nextQuestionIndex !== -1 ? nextQuestionIndex : null,
       subSections: subSections.length > 0 ? subSections : undefined,
@@ -268,6 +275,8 @@ export const getAndGroupStudyPathQuestions = async ({
         : null,
       isFirstIncompleteSection: key === firstSectionWithIncompleteSubSection,
     };
+
+    return data;
   });
 
   return sections;

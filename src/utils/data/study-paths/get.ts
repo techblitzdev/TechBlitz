@@ -110,7 +110,12 @@ export const getStudyPathsAndGroupByCategory = async ({
   return {
     categories: sortCategoryOrder ? sortedCategories : Object.keys(studyPathsByCategory),
     studyPathsByCategory: sortCategoryOrder
-      ? studyPathsByCategory
+      ? Object.fromEntries(
+          Object.entries(studyPathsByCategory).map(([category, paths]) => [
+            category,
+            paths as StudyPathWithOverviewData[],
+          ])
+        )
       : ({} as Record<string, StudyPathWithOverviewData[]>),
   };
 };

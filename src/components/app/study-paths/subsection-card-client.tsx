@@ -60,7 +60,7 @@ export default function SubSectionCardClient({
 
     // For completed subsections, allow users to start from the beginning (lesson=0)
     if (completionPercentage === 100) {
-      return `/roadmap/learn/${studyPath.slug}/${urlPath}/lesson?lesson=testing`;
+      return `/roadmap/learn/${studyPath.slug}/${urlPath}/lesson?lesson=0`;
     }
 
     // If this is not the first incomplete subsection, disable access

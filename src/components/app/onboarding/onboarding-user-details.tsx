@@ -31,10 +31,13 @@ import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 const whereDidYouHearAboutTechBlitz = [
   'Reddit',
   'Google',
-  'Twitter',
+  'X (Twitter)',
   'LinkedIn',
   'Daily.dev',
-  'Github',
+  'GitHub',
+  'YouTube',
+  'TikTok',
+  'Instagram',
   'Friend',
   'Other',
 ];

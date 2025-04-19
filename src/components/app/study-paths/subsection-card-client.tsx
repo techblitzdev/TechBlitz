@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-import { Circle } from 'lucide-react';
+import { Circle, X } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import Check from '@/components/ui/icons/check';
 import { Button } from '@/components/ui/button';
@@ -193,6 +193,10 @@ export default function SubSectionCardClient({
           arrowPadding={10}
           className="bg-black-100 text-white border border-black-50 transition-all duration-300"
           sideOffset={5}
+          onCloseAutoFocus={() => {
+            // collapse the questions list
+            setShowQuestions(false);
+          }}
         >
           <div className="flex flex-col gap-y-4">
             {/* Section title */}
@@ -203,37 +207,59 @@ export default function SubSectionCardClient({
                   {subSection.questions.length}{' '}
                   {subSection.questions.length === 1 ? 'question' : 'questions'}
                 </p>
-                •
-                <div
-                  className="text-sm text-gray-400 cursor-pointer hover:text-white transition-colors"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowQuestions(!showQuestions);
-                  }}
-                >
-                  {showQuestions ? 'Hide questions' : 'View all questions'}
-                </div>
+                •{/** either is not first incomplete or completion percentage less than 100 */}
+                {!isFirstIncomplete && completionPercentage < 100 ? (
+                  <span className="text-sm text-gray-500">Locked</span>
+                ) : (
+                  <button
+                    className="text-sm text-gray-400 cursor-pointer hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowQuestions(!showQuestions);
+                    }}
+                    disabled={subSection.questions.length === 0}
+                  >
+                    {showQuestions ? 'Hide questions' : 'View all questions'}
+                  </button>
+                )}
               </div>
               {/* Questions list with transition */}
               <div
                 className={cn(
                   'overflow-hidden transition-all duration-300 ease-in-out',
-                  showQuestions ? 'min-h-fit opacity-100 mt-2' : 'max-h-0 opacity-0'
+                  showQuestions
+                    ? 'max-h-[250px] overflow-y-auto opacity-100 mt-2'
+                    : 'max-h-0 opacity-0'
                 )}
               >
-                <div className="flex flex-col gap-y-2 pl-2 border-l border-black-50">
-                  {subSection.questions.map((question, index) => (
-                    <div
-                      key={question.uid}
-                      className={cn(
-                        'text-sm hover:text-white text-gray-300 transition-colors',
-                        subSection.questions.map((q) => q.uid).includes(question.uid) &&
-                          'line-through'
-                      )}
-                    >
-                      {question.title || `Question ${index + 1}`}
-                    </div>
-                  ))}
+                <div className="flex flex-col gap-y-3 pl-2 border-l border-black-50">
+                  {subSection.questions.map((question, index) => {
+                    // Check if this question has been answered by the user
+                    const isAnswered = question.userAnswers && question.userAnswers.length > 0;
+                    const isCorrect = isAnswered && question.userAnswers?.[0]?.correctAnswer;
+
+                    return (
+                      <div
+                        key={question.uid}
+                        className="flex items-center justify-between gap-x-2 text-sm hover:text-white text-gray-300 transition-colors"
+                      >
+                        <span className={cn(isAnswered && 'line-through', 'font-onest')}>
+                          {question.title || `Question ${index + 1}`}
+                        </span>
+
+                        {/* Show status icons for answered questions */}
+                        {isAnswered && (
+                          <div className="flex-shrink-0">
+                            {isCorrect ? (
+                              <Check fill="rgb(34, 197, 94)" width="16" height="16" />
+                            ) : (
+                              <X className="size-4 text-red-500" />
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>

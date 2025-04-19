@@ -10,7 +10,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 
 // utils
 import { createMetadata } from '@/utils/seo';
-import { categoryOrder, getStudyPathsAndGroupByCategory } from '@/utils/data/study-paths/get';
+import { getStudyPathsAndGroupByCategory } from '@/utils/data/study-paths/get';
 import { getBaseUrl } from '@/utils';
 
 // types

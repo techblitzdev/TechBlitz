@@ -12,7 +12,7 @@ export default function StatisticsLayout({ children }: Readonly<{ children: Reac
           <UpgradeModal />
         </div>
       </div>
-      <div className="container">{children}</div>
+      {children}
     </div>
   );
 }

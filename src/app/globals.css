@@ -8,6 +8,16 @@
 
   --color-secondary: #ffffff;
   --color-accent: #5b61d6;
+
+  /* Add HSL format for accent color that Tailwind expects */
+  --accent: 237 65% 64%; /* HSL values for #5b61d6 */
+  --accent-foreground: 0 0% 100%; /* White text on accent */
+}
+
+/* Define explicitly for dark mode as well */
+.dark {
+  --accent: 237 65% 64%; /* Same accent color in dark mode */
+  --accent-foreground: 0 0% 100%;
 }
 
 body {
@@ -265,8 +275,6 @@ html {
     --secondary-foreground: 240 5.9% 10%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
-    --accent: 237 59.3% 60%;
-    --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;

@@ -116,3 +116,20 @@ export const getButtonStyle = ({
 
   return buttonColorMap.notStarted;
 };
+
+// Internal calculation function based on provided parameters
+export const getOffset = (
+  index: number,
+  offsetType: 'sine' | 'linear' | 'none',
+  offsetMultiplier: number
+) => {
+  switch (offsetType) {
+    case 'sine':
+      return Math.sin(index * 2.5) * 25 * offsetMultiplier;
+    case 'linear':
+      return (index % 2 === 0 ? 1 : -1) * 20 * offsetMultiplier;
+    case 'none':
+    default:
+      return 0;
+  }
+};

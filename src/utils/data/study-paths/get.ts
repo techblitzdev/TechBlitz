@@ -36,6 +36,11 @@ export const getStudyPath = async (slug: string) => {
   })) as StudyPathWithOverviewData;
 };
 
+/**
+ * Retrieve a single study path by its uid
+ * @param uid - The uid of the study path
+ * @returns The study path
+ */
 export const getStudyPathByUid = async (uid: string) => {
   return await prisma.studyPath.findUnique({
     where: {
@@ -44,12 +49,75 @@ export const getStudyPathByUid = async (uid: string) => {
   });
 };
 
+/**
+ * Get all study paths ordered by creation date
+ * @returns The study paths
+ */
 export const getAllStudyPaths = async () => {
   return await prisma.studyPath.findMany({
     orderBy: {
       createdAt: 'asc',
     },
   });
+};
+
+/**
+ * Get all study paths and group them by category
+ * @returns The study paths grouped by category
+ */
+export const getStudyPathsAndGroupByCategory = async ({
+  sortCategoryOrder = true,
+}: {
+  sortCategoryOrder?: boolean;
+}): Promise<{
+  categories: string[];
+  studyPathsByCategory: Record<string, StudyPathWithOverviewData[]>;
+}> => {
+  const studyPaths = await getAllStudyPaths();
+
+  if (!studyPaths) return { categories: [], studyPathsByCategory: {} };
+
+  // group study paths by category
+  const studyPathsByCategory: Record<string, typeof studyPaths> = studyPaths.reduce(
+    (acc, studyPath) => {
+      const category = studyPath.category || 'Uncategorized';
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(studyPath);
+      return acc;
+    },
+    {} as Record<string, typeof studyPaths>
+  );
+
+  let sortedCategories: string[] = [];
+
+  if (sortCategoryOrder) {
+    // Sort categories according to the predefined order
+    sortedCategories = Object.keys(studyPathsByCategory).sort((a, b) => {
+      const indexA = categoryOrder.indexOf(a);
+      const indexB = categoryOrder.indexOf(b);
+
+      // If category is not in our predefined list, place it at the end
+      if (indexA === -1) return 1;
+      if (indexB === -1) return -1;
+
+      // Otherwise sort by the predefined order
+      return indexA - indexB;
+    });
+  }
+
+  return {
+    categories: sortCategoryOrder ? sortedCategories : Object.keys(studyPathsByCategory),
+    studyPathsByCategory: sortCategoryOrder
+      ? Object.fromEntries(
+          Object.entries(studyPathsByCategory).map(([category, paths]) => [
+            category,
+            paths as StudyPathWithOverviewData[],
+          ])
+        )
+      : ({} as Record<string, StudyPathWithOverviewData[]>),
+  };
 };
 
 export const getUserStudyPaths = async () => {

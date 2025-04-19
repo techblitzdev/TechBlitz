@@ -10,28 +10,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { use, useTransition } from 'react';
+import { useTransition } from 'react';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
-import { ArrowRight, CheckCircle, LinkIcon, XCircle } from 'lucide-react';
+import { CheckCircle, LinkIcon, XCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { toast } from 'sonner';
 import { formatSeconds } from '@/utils/time';
 import { AnswerDifficulty } from '@prisma/client';
 import { updateAnswerDifficulty } from '@/actions/answers/answer';
 import LoadingSpinner from '@/components/ui/loading';
-import { getUpgradeUrl } from '@/utils';
+import { copyLinkToClipboard, getUpgradeUrl } from '@/utils';
 import { userIsPremium } from '@/utils/user';
 import { useSearchParams, usePathname } from 'next/navigation';
+import { toast } from 'sonner';
 
 export default function QuestionSubmitted() {
   const {
     question,
     userAnswer,
     correctAnswer,
-    relatedQuestions,
     totalSeconds,
     generateAiAnswerHelp,
     user,
@@ -49,7 +47,7 @@ export default function QuestionSubmitted() {
   // Extract study path slug from the pathname if we're in a roadmap/learn path
   let studyPathSlug = '';
   if (isRoadmapLearn) {
-    // URL pattern: /roadmap/learn/[slug]/lesson
+    // URL pattern: /roadmap/learn/[slug]/[subSection]/lesson
     const pathParts = pathname.split('/');
     // The slug is the part after "learn"
     const learnIndex = pathParts.indexOf('learn');
@@ -60,24 +58,32 @@ export default function QuestionSubmitted() {
 
   const isStudyPathLesson = isRoadmapLearn && !!studyPathSlug;
 
-  // resolve the related q's here - only if they are not null
-  const relatedQuestionData = relatedQuestions ? use(relatedQuestions) : [];
-
   // Generate URL for next question based on whether this is a study path lesson or regular question
   const getNextQuestionUrl = () => {
     if (isStudyPathLesson && studyPathSlug) {
-      // If it's a study path lesson, use the lesson index format
+      // URL pattern: /roadmap/learn/[slug]/[subSection]/lesson
+      // Extract the subsection from the path (which should be the sectionSlug)
+      const subSection = pathname.split('/')[4] || 'main';
+
+      // If we have a nextQuestion URL from context, use that (this will handle the end of a section)
+      if (nextQuestion) {
+        return nextQuestion;
+      }
+
+      // If there's no next question but we're in a roadmap lesson,
+      // return to the roadmap overview
+      if (!question.nextQuestionSlug) {
+        return `/roadmaps/${studyPathSlug}`;
+      }
+
+      // Calculate the next lesson index
       const nextLessonIndex = currentLessonIndex ? parseInt(currentLessonIndex) + 1 : 1;
-      return `/roadmap/learn/${studyPathSlug}/lesson?lesson=${nextLessonIndex}`;
+
+      return `/roadmap/learn/${studyPathSlug}/${subSection}/lesson?lesson=${nextLessonIndex}`;
     } else {
       // For regular questions, use the question slug format
       return `/question/${question.nextQuestionSlug}`;
     }
-  };
-
-  const copyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    toast.success('Question link copied to clipboard!');
   };
 
   const handleDifficultySelect = async (value: string) => {
@@ -127,7 +133,7 @@ export default function QuestionSubmitted() {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <Button variant="ghost" onClick={() => copyLink()}>
+                  <Button variant="ghost" onClick={() => copyLinkToClipboard(window.location.href)}>
                     <LinkIcon className="size-4" />
                   </Button>
                 </TooltipTrigger>
@@ -265,53 +271,17 @@ export default function QuestionSubmitted() {
             <p className="text-sm text-gray-400">
               Want to continue the flow? Click the button below to go to the next question.
             </p>
-            <Button
-              variant="secondary"
-              href={
-                isStudyPathLesson
-                  ? nextQuestion || getNextQuestionUrl()
-                  : `/question/${question.nextQuestionSlug}`
-              }
-              className="w-fit"
-            >
-              Next Question
+            <Button variant="secondary" href={getNextQuestionUrl()}>
+              {isStudyPathLesson
+                ? nextQuestion
+                  ? 'Next Lesson'
+                  : question.nextQuestionSlug
+                  ? 'Next Lesson'
+                  : 'Back to Roadmap'
+                : 'Next Question'}
             </Button>
           </div>
         )}
-        {/** show related questions */}
-        <div className="flex flex-col gap-y-5">
-          <div className="flex flex-col gap-y-2">
-            <h2 className="text-xl font-bold">Related Questions</h2>
-            <p className="text-sm text-gray-400">
-              {correctAnswer === 'correct' && relatedQuestionData.length > 0
-                ? 'Here are some questions that are similar to this one.'
-                : relatedQuestionData.length === 0
-                ? 'No related questions found.'
-                : 'Here are some questions that will help you understand this concept better.'}
-            </p>
-          </div>
-          {relatedQuestionData.length > 0 && (
-            <motion.div
-              className="flex flex-col divide-y divide-black-50 border border-black-50 rounded-xl overflow-hidden"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-            >
-              {relatedQuestionData.map((question) => (
-                <Link
-                  key={question.slug}
-                  href={`/question/${question.slug}`}
-                  className={cn(
-                    'px-4 py-3 w-full flex justify-between items-center group bg-black-75 transition-colors'
-                  )}
-                >
-                  <p className="text-sm text-white">{question.question}</p>
-                  <ArrowRight className="size-4 mr-1 group-hover:mr-0 duration-300 flex-shrink-0" />
-                </Link>
-              ))}
-            </motion.div>
-          )}
-        </div>
       </motion.div>
     </motion.div>
   );

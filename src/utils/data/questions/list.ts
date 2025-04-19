@@ -71,14 +71,14 @@ export const listQuestions = async (opts: GetQuestionsOpts): Promise<ListQuestio
               },
             }
           : filters?.answered === false
-            ? {
-                userAnswers: {
-                  none: {
-                    userUid,
-                  },
+          ? {
+              userAnswers: {
+                none: {
+                  userUid,
                 },
-              }
-            : {},
+              },
+            }
+          : {},
 
         // Tags filter
         filters?.tags?.length
@@ -163,12 +163,12 @@ export const listQuestions = async (opts: GetQuestionsOpts): Promise<ListQuestio
               questionDate: filters?.ascending ? 'asc' : 'desc',
             }
           : filters?.sortBy === 'submissions'
-            ? {
-                userAnswers: {
-                  _count: 'desc',
-                },
-              }
-            : {},
+          ? {
+              userAnswers: {
+                _count: 'desc',
+              },
+            }
+          : {},
       ],
       where: baseWhereClause,
       include: {
@@ -229,4 +229,32 @@ export const listQuestions = async (opts: GetQuestionsOpts): Promise<ListQuestio
       totalPages: Math.ceil(total / pageSize),
     };
   })();
+};
+
+export const listQuestionsBySlugs = async ({ questionSlugs }: { questionSlugs: string[] }) => {
+  const user = await getUser();
+
+  const res = await prisma.questions.findMany({
+    where: {
+      slug: {
+        in: questionSlugs,
+      },
+    },
+    include: {
+      answers: true,
+      tags: {
+        include: {
+          tag: true,
+        },
+      },
+      userAnswers: {
+        where: {
+          userUid: user?.uid,
+        },
+      },
+    },
+  });
+
+  // current date
+  return res;
 };

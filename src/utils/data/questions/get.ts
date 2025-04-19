@@ -16,9 +16,24 @@ export const getQuestion = cache(async (identifier: 'slug' | 'uid' = 'slug', val
     return null;
   }
 
-  try {
-    let res = await prisma.questions.findUnique({
-      where: identifier === 'uid' ? { uid: value } : { slug: value },
+  let res = await prisma.questions.findUnique({
+    where: identifier === 'uid' ? { uid: value } : { slug: value },
+    include: {
+      answers: true,
+      tags: {
+        include: {
+          tag: true,
+        },
+      },
+      QuestionResources: true,
+      bookmarks: true,
+    },
+  });
+
+  // If not found, try the other identifier
+  if (!res) {
+    res = await prisma.questions.findUnique({
+      where: identifier === 'uid' ? { slug: value } : { uid: value },
       include: {
         answers: true,
         tags: {
@@ -30,35 +45,14 @@ export const getQuestion = cache(async (identifier: 'slug' | 'uid' = 'slug', val
         bookmarks: true,
       },
     });
+  }
 
-    // If not found, try the other identifier
-    if (!res) {
-      res = await prisma.questions.findUnique({
-        where: identifier === 'uid' ? { slug: value } : { uid: value },
-        include: {
-          answers: true,
-          tags: {
-            include: {
-              tag: true,
-            },
-          },
-          QuestionResources: true,
-          bookmarks: true,
-        },
-      });
-    }
-
-    if (!res) {
-      console.error('Question not found');
-      return null;
-    }
-
-    // get the tags from out the question
-    const question = getTagsFromQuestion(res) as unknown as Question;
-
-    return question;
-  } catch (e) {
-    console.error('Error getting question', e);
+  if (!res) {
     return null;
   }
+
+  // get the tags from out the question
+  const question = getTagsFromQuestion(res) as unknown as Question;
+
+  return question;
 });

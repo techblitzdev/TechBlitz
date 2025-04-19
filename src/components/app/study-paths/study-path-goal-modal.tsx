@@ -26,7 +26,7 @@ import type { UserRecord } from '@/types/User';
 import { ArrowRight, CheckCircle, Loader2 } from 'lucide-react';
 
 import type { StudyPath, StudyPathGoal } from '@prisma/client';
-import { getRecommendedCompletionDate } from '@/utils/roadmap';
+import { getRecommendedCompletionDate } from '@/utils/roadmaps';
 import { setUserStudyPathGoal } from '@/actions/study-paths/set-goal';
 
 interface StudyPathGoalModalProps {

@@ -1,13 +1,15 @@
 'use client';
-
-import { Question } from '@/types/Questions';
-import { cn } from '@/lib/utils';
-import { Circle } from 'lucide-react';
-import { StudyPath } from '@prisma/client';
-import Check from '@/components/ui/icons/check';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
+
+import { Circle, X } from 'lucide-react';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import Check from '@/components/ui/icons/check';
+import { Button } from '@/components/ui/button';
+
+import type { StudyPath } from '@prisma/client';
+
+import type { Question } from '@/types/Questions';
+import { cn } from '@/lib/utils';
 import { getButtonStyle } from '@/utils/roadmaps';
 
 interface SubSectionData {
@@ -32,6 +34,7 @@ export default function SubSectionCardClient({
 }) {
   const iconSize = '32';
   const [animateRing, setAnimateRing] = useState(false);
+  const [showQuestions, setShowQuestions] = useState(false);
 
   // Calculate the subsection completion metrics
   const completionPercentage = subSection.completionPercentage;
@@ -154,18 +157,12 @@ export default function SubSectionCardClient({
           <div
             className={cn(
               'w-24 h-[90px] justify-center items-center flex flex-col gap-y-5 duration-300 p-5 rounded-full group relative transition-all mb-2',
-              buttonStyle.base,
-              'transform-gpu',
+              'transform-style-3d transition-all duration-150 backface-visibility-hidden cursor-pointer select-none transform-gpu',
               'before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-b before:from-black-100/30 before:to-transparent before:opacity-70',
               'after:absolute after:inset-0 after:rounded-full after:bg-gradient-to-t after:from-black-100/30 after:to-transparent after:opacity-30 after:translate-y-1/2',
               'hover:translate-y-[1px]',
-              'active:translate-y-[1px] active:rotate-1 active:scale-95',
-              'transform-style-3d',
-              'backface-visibility-hidden',
-              'cursor-pointer select-none',
-              'active:translate-y-2 active:[box-shadow:0_0px_0_0_#191919,0_0px_0_0_#191919]',
-              'active:border-b-[0px]',
-              'transition-all duration-150',
+              'active:rotate-1 active:scale-95 active:border-b-[0px] active:translate-y-2 active:[box-shadow:0_0px_0_0_#191919,0_0px_0_0_#191919]',
+              buttonStyle.base,
               buttonStyle.boxShadow
             )}
           >
@@ -194,23 +191,78 @@ export default function SubSectionCardClient({
         </PopoverTrigger>
         <PopoverContent
           arrowPadding={10}
-          className="bg-black-100 text-white border border-black-50"
+          className="bg-black-100 text-white border border-black-50 transition-all duration-300"
+          sideOffset={5}
+          onCloseAutoFocus={() => {
+            // collapse the questions list
+            setShowQuestions(false);
+          }}
         >
           <div className="flex flex-col gap-y-4">
             {/* Section title */}
             <p className="text-lg font-onest">{subSection.sectionName}</p>
-            <p className="text-sm text-gray-400">
-              {subSection.questions.length}{' '}
-              {subSection.questions.length === 1 ? 'question' : 'questions'} •
-              {completionPercentage === 100
-                ? ' Completed'
-                : isFirstIncomplete
-                ? ' Next up'
-                : completionPercentage > 0
-                ? ' In progress'
-                : ' Not started'}
-            </p>
+            <div className="flex flex-col gap-y-2">
+              <div className="flex items-center gap-x-2">
+                <p className="text-sm text-gray-400">
+                  {subSection.questions.length}{' '}
+                  {subSection.questions.length === 1 ? 'question' : 'questions'}
+                </p>
+                •{/** either is not first incomplete or completion percentage less than 100 */}
+                {!isFirstIncomplete && completionPercentage < 100 ? (
+                  <span className="text-sm text-gray-500">Locked</span>
+                ) : (
+                  <button
+                    className="text-sm text-gray-400 cursor-pointer hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowQuestions(!showQuestions);
+                    }}
+                    disabled={subSection.questions.length === 0}
+                  >
+                    {showQuestions ? 'Hide questions' : 'View all questions'}
+                  </button>
+                )}
+              </div>
+              {/* Questions list with transition */}
+              <div
+                className={cn(
+                  'overflow-hidden transition-all duration-300 ease-in-out',
+                  showQuestions
+                    ? 'max-h-[250px] overflow-y-auto opacity-100 mt-2'
+                    : 'max-h-0 opacity-0'
+                )}
+              >
+                <div className="flex flex-col gap-y-3 pl-2 border-l border-black-50">
+                  {subSection.questions.map((question, index) => {
+                    // Check if this question has been answered by the user
+                    const isAnswered = question.userAnswers && question.userAnswers.length > 0;
+                    const isCorrect = isAnswered && question.userAnswers?.[0]?.correctAnswer;
 
+                    return (
+                      <div
+                        key={question.uid}
+                        className="flex items-center justify-between gap-x-2 text-sm hover:text-white text-gray-300 transition-colors"
+                      >
+                        <span className={cn(isAnswered && 'line-through', 'font-onest')}>
+                          {question.title || `Question ${index + 1}`}
+                        </span>
+
+                        {/* Show status icons for answered questions */}
+                        {isAnswered && (
+                          <div className="flex-shrink-0">
+                            {isCorrect ? (
+                              <Check fill="rgb(34, 197, 94)" width="16" height="16" />
+                            ) : (
+                              <X className="size-4 text-red-500" />
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
             {/* Action button */}
             <Button
               variant="secondary"

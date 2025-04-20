@@ -5,8 +5,10 @@ import { WebPageJsonLd } from '@/types/Seo';
 
 interface OgImageProps {
   text: string;
-  bgColor?: string;
+  accentColor?: string;
   textColor?: string;
+  subtitle?: string;
+  bgColor?: string;
 }
 
 export const createMetadata = ({
@@ -83,11 +85,15 @@ export const createMetadata = ({
   }
 
   // Handle OgImageProps case
-  const bgColor = image?.bgColor || '#f0f0f0';
   const textColor = image?.textColor || '#000000';
-  const ogImageUrl = `${getBaseUrl()}/api/og?text=${encodeURIComponent(
-    image?.text || title
-  )}&bgColor=${encodeURIComponent(bgColor)}&textColor=${encodeURIComponent(textColor)}`;
+
+  const ogImageUrl = `
+    ${getBaseUrl()}/api/og
+    ?text=${encodeURIComponent(image?.text || title)}
+    &accentColor=${encodeURIComponent(image?.accentColor || '#000000')}
+    &subtitle=${encodeURIComponent(image?.subtitle || '')}
+    &textColor=${encodeURIComponent(textColor)}
+  `;
 
   return {
     title,
@@ -142,6 +148,7 @@ export const getQuestionEducationLevel = (question: Question['difficulty']) => {
       return 'advanced';
   }
 };
+
 export const WebPageJsonLdBreadcrumb: WebPageJsonLd['breadcrumb'] = {
   '@type': 'BreadcrumbList',
   itemListElement: [

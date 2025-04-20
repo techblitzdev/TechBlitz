@@ -11,6 +11,8 @@ import type { StudyPath } from '@prisma/client';
 import type { Question } from '@/types/Questions';
 import { cn } from '@/lib/utils';
 import { getButtonStyle } from '@/utils/roadmaps';
+import Link from 'next/link';
+import { useQuestionSingle } from '@/contexts/question-single-context';
 
 interface SubSectionData {
   key: string;
@@ -32,6 +34,8 @@ export default function SubSectionCardClient({
   studyPath: StudyPath;
   nextQuestionIndex?: number;
 }) {
+  const { user } = useQuestionSingle();
+
   const iconSize = '32';
   const [animateRing, setAnimateRing] = useState(false);
   const [showQuestions, setShowQuestions] = useState(false);
@@ -203,11 +207,6 @@ export default function SubSectionCardClient({
             <p className="text-lg font-onest">{subSection.sectionName}</p>
             <div className="flex flex-col gap-y-2">
               <div className="flex items-center gap-x-2">
-                <p className="text-sm text-gray-400">
-                  {subSection.questions.length}{' '}
-                  {subSection.questions.length === 1 ? 'question' : 'questions'}
-                </p>
-                •{/** either is not first incomplete or completion percentage less than 100 */}
                 {!isFirstIncomplete && completionPercentage < 100 ? (
                   <span className="text-sm text-gray-500">Locked</span>
                 ) : (
@@ -220,6 +219,7 @@ export default function SubSectionCardClient({
                     disabled={subSection.questions.length === 0}
                   >
                     {showQuestions ? 'Hide questions' : 'View all questions'}
+                    {user?.userLevel}
                   </button>
                 )}
               </div>
@@ -243,9 +243,20 @@ export default function SubSectionCardClient({
                         key={question.uid}
                         className="flex items-center justify-between gap-x-2 text-sm hover:text-white text-gray-300 transition-colors"
                       >
-                        <span className={cn(isAnswered && 'line-through', 'font-onest')}>
-                          {question.title || `Question ${index + 1}`}
-                        </span>
+                        {/** if admin user, allow them to click through to the question */}
+                        {user?.userLevel === 'ADMIN' ? (
+                          <Link
+                            href={`/roadmap/learn/${studyPath.slug}/${subSection.key}/lesson?lesson=${index}`}
+                          >
+                            <span className="font-onest">
+                              {question.title || `Question ${index + 1}`}
+                            </span>
+                          </Link>
+                        ) : (
+                          <span className="font-onest">
+                            {question.title || `Question ${index + 1}`}
+                          </span>
+                        )}
 
                         {/* Show status icons for answered questions */}
                         {isAnswered && (
@@ -272,7 +283,6 @@ export default function SubSectionCardClient({
               disabled={!isFirstIncomplete && completionPercentage < 100}
             >
               {getButtonText()}
-              {nextQuestionIndex}
             </Button>
           </div>
         </PopoverContent>

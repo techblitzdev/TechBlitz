@@ -1,5 +1,7 @@
 import type { Question, QuestionMock } from '@/types/Questions';
 import MultipleChoiceLayoutClient from './layout.client';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 // Define navigation interface to match the data from getNextAndPreviousQuestion
 interface NavigationData {
@@ -21,10 +23,25 @@ export default function MultipleChoiceLayout({
     >
       <div className="flex flex-col gap-2 justify-center mb-4 self-center max-w-3xl">
         {question.description ? (
-          <p
-            dangerouslySetInnerHTML={{ __html: question.description }}
-            className="text-gray-400 text-center text-lg font-onest"
-          />
+          <Markdown
+            remarkPlugins={[remarkGfm]}
+            components={{
+              p: ({ children }) => {
+                return (
+                  <p className="text-gray-400 text-center text-lg font-onest leading-relaxed py-2">
+                    {children}
+                  </p>
+                );
+              },
+              code: ({ children }) => {
+                return (
+                  <span className="bg-gray-700 rounded-md px-1 italic font-onest">{children}</span>
+                );
+              },
+            }}
+          >
+            {question.description}
+          </Markdown>
         ) : (
           <h2 className="text-3xl font-bold text-white text-center">{question.question}</h2>
         )}

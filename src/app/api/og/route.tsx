@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
   ).then((res) => res.arrayBuffer());
 
   // Get parameters from URL with defaults
-  const title = searchParams.get('title') || 'Your Awesome Title';
+  const title = searchParams.get('title') || 'TechBlitz';
   const subtitle =
     searchParams.get('subtitle') || 'Learning to code made free and accessible to everyone.';
   const theme = searchParams.get('theme') || 'dark';

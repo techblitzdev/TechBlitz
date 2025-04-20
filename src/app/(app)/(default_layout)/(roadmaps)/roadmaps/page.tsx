@@ -1,15 +1,20 @@
 import { Suspense } from 'react';
 
+// components
 import Hero from '@/components/shared/hero';
-import { createMetadata } from '@/utils/seo';
 import { Button } from '@/components/ui/button';
 import ContinueJourney from '@/components/app/navigation/continue-journey-button';
 import { ArrowRightIcon, InfoIcon } from 'lucide-react';
-import { getAllStudyPaths, categoryOrder } from '@/utils/data/study-paths/get';
 import { StudyPathCard } from '@/components/app/study-paths/study-path-card';
-import { WebPageJsonLd } from '@/types/Seo';
-import { getBaseUrl } from '@/utils';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+
+// utils
+import { createMetadata } from '@/utils/seo';
+import { getStudyPathsAndGroupByCategory } from '@/utils/data/study-paths/get';
+import { getBaseUrl } from '@/utils';
+
+// types
+import { WebPageJsonLd } from '@/types/Seo';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -94,33 +99,8 @@ export default async function ExploreQuestionsPage() {
     },
   };
 
-  // run in parallel
-  const [studyPaths] = await Promise.all([getAllStudyPaths()]);
-
-  // group study paths by category
-  const studyPathsByCategory: Record<string, typeof studyPaths> = studyPaths.reduce(
-    (acc, studyPath) => {
-      const category = studyPath.category || 'Uncategorized';
-      if (!acc[category]) {
-        acc[category] = [];
-      }
-      acc[category].push(studyPath);
-      return acc;
-    },
-    {} as Record<string, typeof studyPaths>
-  );
-
-  // Sort categories according to the predefined order
-  const sortedCategories = Object.keys(studyPathsByCategory).sort((a, b) => {
-    const indexA = categoryOrder.indexOf(a);
-    const indexB = categoryOrder.indexOf(b);
-
-    // If category is not in our predefined list, place it at the end
-    if (indexA === -1) return 1;
-    if (indexB === -1) return -1;
-
-    // Otherwise sort by the predefined order
-    return indexA - indexB;
+  const { categories, studyPathsByCategory } = await getStudyPathsAndGroupByCategory({
+    sortCategoryOrder: true,
   });
 
   return (
@@ -133,7 +113,7 @@ export default async function ExploreQuestionsPage() {
         <Hero heading="Library" subheading={heroDescription} container={true} />
         <div className="lg:container flex flex-col lg:flex-row mt-5 gap-16">
           <div className="w-full flex flex-col gap-12">
-            {sortedCategories.map((category) => (
+            {categories.map((category) => (
               <div key={category} className="space-y-6">
                 <div className="flex items-center gap-x-2">
                   <h2 className="text-2xl font-bold text-white">{category}</h2>

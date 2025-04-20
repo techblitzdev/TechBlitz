@@ -6,8 +6,13 @@ export const runtime = 'edge';
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
 
+  // go grab the fonts we need
+  const onest = await fetch(
+    new URL('../../styles/fonts/onest/Onest-Regular.ttf', import.meta.url)
+  ).then((res) => res.arrayBuffer());
+
   // get text from query parameter or use default
-  const text = searchParams.get('text') || 'Hello, World!';
+  const text = searchParams.get('text') || 'Testing';
 
   // get background color from query parameter or use default
   const bgColor = searchParams.get('bgColor') || '#000000';
@@ -30,6 +35,7 @@ export async function GET(request: NextRequest) {
           fontSize: 32,
           fontWeight: 600,
           position: 'relative',
+          fontFamily: '"Onest"',
         }}
       >
         <h1
@@ -38,7 +44,7 @@ export async function GET(request: NextRequest) {
             color: textColor,
             fontSize: '4.5rem',
             fontWeight: 500,
-            fontFamily: 'Onest',
+            fontFamily: '"Onest"',
           }}
         >
           {text}
@@ -48,6 +54,7 @@ export async function GET(request: NextRequest) {
             color: textColor,
             fontSize: '14px',
             fontWeight: '400',
+            fontFamily: '"Onest"',
           }}
         >
           The open-source, mobile-friendly software education platform
@@ -76,6 +83,14 @@ export async function GET(request: NextRequest) {
     {
       width: 1200,
       height: 630,
+      fonts: [
+        {
+          name: 'Onest',
+          data: onest,
+          style: 'normal',
+          weight: 500,
+        },
+      ],
     }
   );
 }

@@ -21,7 +21,7 @@ export default function MultipleChoiceLayout({
       question={question}
       nextAndPreviousQuestion={nextAndPreviousQuestion}
     >
-      <div className="flex flex-col gap-2 justify-center mb-4 self-center max-w-3xl">
+      <div className="flex flex-col gap-2 justify-center mb-4 self-center max-w-3xl text-center">
         {question.description ? (
           <Markdown
             remarkPlugins={[remarkGfm]}

@@ -207,11 +207,6 @@ export default function SubSectionCardClient({
             <p className="text-lg font-onest">{subSection.sectionName}</p>
             <div className="flex flex-col gap-y-2">
               <div className="flex items-center gap-x-2">
-                <p className="text-sm text-gray-400">
-                  {subSection.questions.length}{' '}
-                  {subSection.questions.length === 1 ? 'question' : 'questions'}
-                </p>
-                •{/** either is not first incomplete or completion percentage less than 100 */}
                 {!isFirstIncomplete && completionPercentage < 100 ? (
                   <span className="text-sm text-gray-500">Locked</span>
                 ) : (
@@ -258,7 +253,7 @@ export default function SubSectionCardClient({
                             </span>
                           </Link>
                         ) : (
-                          <span className={cn(isAnswered && 'line-through', 'font-onest')}>
+                          <span className="font-onest">
                             {question.title || `Question ${index + 1}`}
                           </span>
                         )}

@@ -8,6 +8,7 @@ interface OgImageProps {
   accentColor?: string;
   textColor?: string;
   subtitle?: string;
+  bgColor?: string;
 }
 
 export const createMetadata = ({
@@ -85,7 +86,6 @@ export const createMetadata = ({
 
   // Handle OgImageProps case
   const textColor = image?.textColor || '#000000';
-  const accentColor = image?.accentColor || '#3b82f6';
 
   const ogImageUrl = `
     ${getBaseUrl()}/api/og

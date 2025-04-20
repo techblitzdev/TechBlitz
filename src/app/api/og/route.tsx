@@ -1,26 +1,34 @@
+import LogoSmall from '@/components/ui/LogoSmall';
 import { ImageResponse } from 'next/og';
-import { NextRequest } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 export const runtime = 'edge';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
 
-  // go grab the fonts we need
-  const onest = await fetch(
+  // Load fonts - using Onest as specified in the original code
+  const onestRegular = await fetch(
     new URL('../../styles/fonts/onest/Onest-Regular.ttf', import.meta.url)
   ).then((res) => res.arrayBuffer());
 
-  // get text from query parameter or use default
-  const text = searchParams.get('text') || 'Testing';
+  const onestMedium = await fetch(
+    new URL('../../styles/fonts/onest/Onest-Medium.ttf', import.meta.url)
+  ).then((res) => res.arrayBuffer());
 
-  // get background color from query parameter or use default
-  const bgColor = searchParams.get('bgColor') || '#000000';
+  // Get parameters from URL with defaults
+  const title = searchParams.get('title') || 'Your Awesome Title';
+  const subtitle =
+    searchParams.get('subtitle') || 'Learning to code made free and accessible to everyone.';
+  const theme = searchParams.get('theme') || 'dark';
 
-  // get text color from query parameter or use default
-  const textColor = searchParams.get('textColor') || '#ffffff';
+  // Select background based on theme - always black now
+  const background = '#000000';
 
-  // generate and return the OG image
+  // Text color based on theme
+  const textColor = theme === 'light' ? '#0f172a' : '#ffffff';
+  const accentColor = theme === 'gradient' ? '#ffffff' : theme === 'dark' ? '#3b82f6' : '#3b82f6';
+
   return new ImageResponse(
     (
       <div
@@ -31,53 +39,149 @@ export async function GET(request: NextRequest) {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: bgColor,
-          fontSize: 32,
-          fontWeight: 600,
+          background,
           position: 'relative',
           fontFamily: '"Onest"',
+          overflow: 'hidden',
         }}
       >
-        <h1
+        {/* Decorative elements */}
+        <div
           style={{
-            marginTop: 40,
-            color: textColor,
-            fontSize: '4.5rem',
-            fontWeight: 500,
-            fontFamily: '"Onest"',
+            position: 'absolute',
+            top: '-100px',
+            right: '-100px',
+            width: '400px',
+            height: '400px',
+            borderRadius: '50%',
+            background: 'rgba(255, 255, 255, 0.1)',
+            filter: 'blur(40px)',
           }}
-        >
-          {text}
-        </h1>
-        <p
+        />
+
+        <div
           style={{
-            color: textColor,
-            fontSize: '14px',
-            fontWeight: '400',
-            fontFamily: '"Onest"',
+            position: 'absolute',
+            bottom: '-150px',
+            left: '-150px',
+            width: '500px',
+            height: '500px',
+            borderRadius: '50%',
+            background: 'rgba(255, 255, 255, 0.08)',
+            filter: 'blur(60px)',
           }}
-        >
-          The open-source, mobile-friendly software education platform
-        </p>
+        />
+
+        {/* Grid pattern overlay */}
         <svg
-          aria-hidden="true"
+          width="100%"
+          height="100%"
           style={{
             position: 'absolute',
             inset: 0,
-            height: '100%',
-            width: '100%',
-            fill: 'rgba(156, 163, 175, 0.3)',
-            stroke: 'rgba(156, 163, 175, 0.3)',
+            opacity: 0.2,
             pointerEvents: 'none',
           }}
         >
           <defs>
-            <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse" x="-1" y="-1">
-              <path d="M.5 50V.5H50" fill="none" strokeDasharray="4 2" />
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path
+                d="M.5 40V.5H40"
+                fill="none"
+                stroke={textColor}
+                strokeOpacity="0.2"
+                strokeDasharray="4 2"
+              />
             </pattern>
           </defs>
-          <rect width="100%" height="100%" strokeWidth={0} fill="url(#grid)" />
+          <rect width="100%" height="100%" fill="url(#grid)" />
         </svg>
+
+        {/* Content container */}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            maxWidth: '900px',
+            zIndex: 10,
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '120px',
+              height: '120px',
+              borderRadius: '16px',
+              background: accentColor,
+              marginBottom: '12px',
+              boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
+            }}
+          >
+            <LogoSmall size={120} className="w-full h-full" />
+          </div>
+
+          {/* Title */}
+          <h1
+            style={{
+              fontSize: '64px',
+              fontWeight: '500',
+              color: textColor,
+              margin: '0 0 16px 0',
+              lineHeight: 1.1,
+              letterSpacing: '-0.02em',
+              fontFamily: '"Onest"',
+            }}
+          >
+            {title}
+          </h1>
+
+          {/* Subtitle */}
+          <p
+            style={{
+              fontSize: '20px',
+              color: textColor,
+              opacity: 0.8,
+              margin: '0',
+              maxWidth: '700px',
+              fontFamily: '"Onest"',
+            }}
+          >
+            {subtitle}
+          </p>
+        </div>
+
+        {/* Bottom bar */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '0',
+            left: '0',
+            right: '0',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '20px 40px',
+            background: 'rgba(0, 0, 0, 0.1)',
+            backdropFilter: 'blur(10px)',
+          }}
+        >
+          <p
+            style={{
+              fontSize: '16px',
+              color: textColor,
+              opacity: 0.7,
+              margin: '0',
+              fontFamily: '"Onest"',
+            }}
+          >
+            techblitz.dev
+          </p>
+        </div>
       </div>
     ),
     {
@@ -86,9 +190,15 @@ export async function GET(request: NextRequest) {
       fonts: [
         {
           name: 'Onest',
-          data: onest,
+          data: onestMedium,
           style: 'normal',
           weight: 500,
+        },
+        {
+          name: 'Onest',
+          data: onestRegular,
+          style: 'normal',
+          weight: 400,
         },
       ],
     }

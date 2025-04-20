@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function QuestionUidLayout({ params, searchParams, children }: any) {
-  const { slug } = params;
+  const { slug, subSection } = params;
   const lessonIndex = searchParams?.lesson ? parseInt(searchParams.lesson as string, 10) : 0;
 
   const studyPath = await getStudyPath(slug);
@@ -65,10 +65,14 @@ export default async function QuestionUidLayout({ params, searchParams, children
     redirect('/coding-challenges');
   }
 
+  // Get all question slugs from all sections for validating the lesson index globally
   let allQuestionSlugs: string[] = [];
 
+  // Get subsection-specific question slugs and section name
+  const subsectionQuestionSlugs: string[] = studyPath.questionSlugs || [];
+
   if (studyPath.overviewData) {
-    // Collect all question slugs from sections and subsections
+    // Collect all question slugs for global validation
     Object.values(studyPath.overviewData || {}).forEach((section: any) => {
       // Add direct section question slugs if they exist
       if (section.questionSlugs) {
@@ -77,37 +81,36 @@ export default async function QuestionUidLayout({ params, searchParams, children
 
       // Add subsection question slugs if they exist
       if (section.subSections) {
-        Object.values(section.subSections).forEach((subSection: any) => {
-          if (subSection.questionSlugs) {
-            allQuestionSlugs = [...allQuestionSlugs, ...subSection.questionSlugs];
+        Object.values(section.subSections).forEach((sub: any) => {
+          if (sub.questionSlugs) {
+            allQuestionSlugs = [...allQuestionSlugs, ...sub.questionSlugs];
           }
         });
       }
     });
-  } else {
-    allQuestionSlugs = studyPath.questionSlugs || [];
   }
 
   // Log for debugging
   console.log(`[LAYOUT] Validating lesson index ${lessonIndex} for study path ${slug}`);
   console.log(`[LAYOUT] Total questions in study path: ${allQuestionSlugs.length}`);
+  console.log(`[LAYOUT] Total questions in subsection: ${subsectionQuestionSlugs.length}`);
   console.log(
-    `[LAYOUT] Question slugs: ${allQuestionSlugs.slice(0, 10).join(', ')}${
-      allQuestionSlugs.length > 10 ? '...' : ''
+    `[LAYOUT] Subsection question slugs: ${subsectionQuestionSlugs.slice(0, 10).join(', ')}${
+      subsectionQuestionSlugs.length > 10 ? '...' : ''
     }`
   );
 
-  // Ensure the lesson index is valid
-  if (lessonIndex < 0 || lessonIndex >= allQuestionSlugs.length) {
+  // Ensure the lesson index is valid within the subsection
+  if (lessonIndex < 0 || lessonIndex >= subsectionQuestionSlugs.length) {
     console.log(
-      `[LAYOUT] REDIRECTING: Invalid lesson index ${lessonIndex} (total questions: ${allQuestionSlugs.length})`
+      `[LAYOUT] REDIRECTING: Invalid lesson index ${lessonIndex} for subsection (total subsection questions: ${subsectionQuestionSlugs.length})`
     );
     redirect(`/roadmaps/${slug}?error=invalid_lesson_index`);
   }
 
   const [user, question, { answeredQuestionsCount }] = await Promise.all([
     getUser(),
-    getQuestion('slug', allQuestionSlugs[lessonIndex]), // cached
+    getQuestion('slug', subsectionQuestionSlugs[lessonIndex]), // cached
     userHasAnsweredAnyQuestion({
       numberOfQuestions: 3,
     }),
@@ -207,6 +210,10 @@ export default async function QuestionUidLayout({ params, searchParams, children
               nextAndPreviousQuestionPromise={nextAndPreviousQuestion}
               isStudyPathLesson={true}
               studyPathSlug={slug}
+              studyPathMetadata={{
+                lessonIndex: lessonIndex,
+                totalLessons: subsectionQuestionSlugs.length,
+              }}
             />
             <div style={{ opacity: 'var(--content-opacity)' }} className="relative">
               {children}

@@ -40,7 +40,7 @@ export default function QuestionPageHeader({
   }
 
   return (
-    <div className="grid grid-cols-12 items-center justify-between pt-2 px-3 relative">
+    <div className="grid grid-cols-12 items-center justify-between py-2 px-3 relative bg-black-100 border-b border-black-50 shadow-lg">
       <div className="col-span-2 lg:col-span-4 flex items-center justify-start">
         <RouterBack href="/coding-challenges" className="px-0 block md:hidden">
           <HomeIcon width="16" height="16" />

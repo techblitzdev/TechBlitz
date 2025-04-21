@@ -16,6 +16,7 @@ import LogoSmall from '@/components/ui/LogoSmall';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import RandomQuestion from '@/components/shared/random-question';
+import SinglePageProgress from '@/components/app/study-paths/single-page-progress';
 
 // Define navigation interface to match the data from getNextAndPreviousQuestion
 interface NavigationData {
@@ -46,11 +47,6 @@ export default function QuestionPageHeader({
   if (!question.slug) {
     return null;
   }
-
-  // Calculate progress percentage for roadmap lessons
-  const progressPercentage = studyPathMetadata
-    ? Math.round(((studyPathMetadata.lessonIndex + 1) / studyPathMetadata.totalLessons) * 100)
-    : 0;
 
   return (
     <div className="grid grid-cols-12 gap-4 py-4 items-center justify-between relative bg-black-100 border-b border-black-50 shadow-lg">
@@ -109,14 +105,7 @@ export default function QuestionPageHeader({
             </Tooltip>
           </TooltipProvider>
 
-          <div className="flex-1 flex flex-col gap-1">
-            {studyPathMetadata.lessonIndex}
-            <Progress
-              value={progressPercentage}
-              className="h-2 bg-black-50 rounded-full w-full"
-              indicatorColor={progressPercentage === 100 ? 'bg-green-500' : 'bg-accent'}
-            />
-          </div>
+          <SinglePageProgress totalLessons={studyPathMetadata.totalLessons} />
         </div>
       )}
       <div

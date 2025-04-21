@@ -14,15 +14,15 @@ import { fetchRoadmapQuestion } from '@/utils/data/roadmap/questions/fetch-roadm
 
 // components
 import { Separator } from '@/components/ui/separator';
-import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal';
+import ExpandedCodeModal from '@/components/app/questions/single/expanded-code-modal';
 
 import { useUserServer } from '@/hooks/use-user-server';
 // types
 import { RoadmapUserQuestions } from '@/types/Roadmap';
 import { UserRecord } from '@/types/User';
 import ResizableLayout from '@/components/ui/resizable-layout';
-import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help';
-import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
+import AiQuestionHelp from '@/components/app/questions/single/ai-question-help';
+import ChangeCodeTheme from '@/components/app/questions/single/change-code-theme';
 
 import QuestionCodeDisplayWrapper from '@/components/app/layout/question-single/question-code-display-wrapper';
 

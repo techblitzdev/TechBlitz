@@ -20,7 +20,7 @@ const LessonTransitionWrapper = dynamic(
   }
 );
 const QuestionCard = dynamic(
-  () => import('@/components/app/questions/single/layout/question-card'),
+  () => import('@/components/app/layout/question-single/question-card'),
   {
     ssr: false,
     loading: () => <QuestionCardLoading />,
@@ -30,7 +30,7 @@ const PremiumContentWrapper = lazy(
   () => import('@/components/app/shared/question/premium-content-wrapper')
 );
 const CodeDisplayWrapper = dynamic(
-  () => import('@/components/app/questions/single/layout/code-display-wrapper'),
+  () => import('@/components/app/layout/question-single/code-display-wrapper'),
   {
     ssr: false,
   }
@@ -40,22 +40,19 @@ const TestCaseSection = lazy(
   () => import('@/components/app/questions/code-editor/test-case-section')
 );
 const TourStartModal = lazy(() => import('@/components/app/shared/question/tour-start-modal'));
-const AiQuestionHelp = dynamic(
-  () => import('@/components/app/questions/single/layout/ai-question-help'),
-  {
-    ssr: false,
-    loading: () => <StarsIcon className="size-4 text-yellow-400 fill-yellow-500" />,
-  }
-);
+const AiQuestionHelp = dynamic(() => import('@/components/app/questions/single/ai-question-help'), {
+  ssr: false,
+  loading: () => <StarsIcon className="size-4 text-yellow-400 fill-yellow-500" />,
+});
 const ChangeCodeTheme = dynamic(
-  () => import('@/components/app/questions/single/layout/change-code-theme'),
+  () => import('@/components/app/questions/single/change-code-theme'),
   {
     ssr: false,
     loading: () => <EditorIcon />,
   }
 );
 const ExpandedCodeModal = dynamic(
-  () => import('@/components/app/questions/single/layout/expanded-code-modal'),
+  () => import('@/components/app/questions/single/expanded-code-modal'),
   {
     ssr: false,
     loading: () => <Expand className="size-4 text-gray-500" />,
@@ -72,7 +69,7 @@ const PremiumQuestionDeniedAccess = lazy(
   () => import('@/components/app/questions/premium-question-denied-access')
 );
 import { QuestionSingleContextProvider } from '@/contexts/question-single-context';
-import QuestionPageHeader from '@/components/app/questions/single/layout/page-header';
+import QuestionPageHeader from '@/components/app/layout/question-single/page-header';
 
 // UI Components
 import { Separator } from '@/components/ui/separator';
@@ -81,7 +78,7 @@ import LoadingSpinner from '@/components/ui/loading';
 import { Expand, StarsIcon } from 'lucide-react';
 import EditorIcon from '@/components/ui/icons/editor';
 import WindowCode2 from '@/components/ui/icons/window-code';
-import QuestionCardLoading from '@/components/app/questions/single/layout/question-card-loading';
+import QuestionCardLoading from '@/components/app/layout/question-single/question-card-loading';
 
 export async function generateMetadata({
   params,

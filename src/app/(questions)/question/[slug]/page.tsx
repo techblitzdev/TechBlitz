@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
 const QuestionCard = dynamic(
-  () => import('@/components/app/questions/single/layout/question-card'),
+  () => import('@/components/app/layout/question-single/question-card'),
   {
     ssr: false,
     loading: () => <QuestionCardLoading />,
@@ -10,7 +10,7 @@ const QuestionCard = dynamic(
 );
 
 const CodeDisplayWrapper = dynamic(
-  () => import('@/components/app/questions/single/layout/code-display-wrapper'),
+  () => import('@/components/app/layout/question-single/code-display-wrapper'),
   {
     ssr: false,
   }
@@ -25,22 +25,19 @@ const PremiumContentWrapper = lazy(
   () => import('@/components/app/shared/question/premium-content-wrapper')
 );
 
-const AiQuestionHelp = dynamic(
-  () => import('@/components/app/questions/single/layout/ai-question-help'),
-  {
-    ssr: false,
-    loading: () => <StarsIcon className="size-4 text-yellow-400 fill-yellow-500" />,
-  }
-);
+const AiQuestionHelp = dynamic(() => import('@/components/app/questions/single/ai-question-help'), {
+  ssr: false,
+  loading: () => <StarsIcon className="size-4 text-yellow-400 fill-yellow-500" />,
+});
 const ChangeCodeTheme = dynamic(
-  () => import('@/components/app/questions/single/layout/change-code-theme'),
+  () => import('@/components/app/questions/single/change-code-theme'),
   {
     ssr: false,
     loading: () => <EditorIcon />,
   }
 );
 const ExpandedCodeModal = dynamic(
-  () => import('@/components/app/questions/single/layout/expanded-code-modal'),
+  () => import('@/components/app/questions/single/expanded-code-modal'),
   {
     ssr: false,
     loading: () => <Expand className="size-4 text-gray-500" />,
@@ -63,7 +60,7 @@ import LoadingSpinner from '@/components/ui/loading';
 import { Expand, StarsIcon } from 'lucide-react';
 import EditorIcon from '@/components/ui/icons/editor';
 import WindowCode2 from '@/components/ui/icons/window-code';
-import QuestionCardLoading from '@/components/app/questions/single/layout/question-card-loading';
+import QuestionCardLoading from '@/components/app/layout/question-single/question-card-loading';
 import MultipleChoiceLayout from '@/components/app/questions/multiple-choice/layout';
 import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation';
 

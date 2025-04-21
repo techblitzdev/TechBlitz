@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import CodeDisplay from './code-snippet';
-import { useQuestionSingle } from '../../../../../contexts/question-single-context';
+import CodeDisplay from '@/components/app/layout/question-single/code-snippet';
+import { useQuestionSingle } from '@/contexts/question-single-context';
 import { capitalize } from 'lodash';
 
 export default function CodeDisplayWrapper() {

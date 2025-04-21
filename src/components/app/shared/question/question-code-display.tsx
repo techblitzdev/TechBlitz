@@ -9,7 +9,7 @@ import type { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
 import type { Question } from '@/types/Questions';
 import type { RoadmapUserQuestions } from '@/types/Roadmap';
 import type { UserRecord } from '@/types/User';
-import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
+import CodeDisplay from '@/components/app/layout/question-single/code-snippet';
 import LoadingSpinner from '@/components/ui/loading';
 import { DefaultRoadmapQuestions } from '@prisma/client';
 import TestCaseSection from '../../questions/code-editor/test-case-section';

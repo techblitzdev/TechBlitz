@@ -4,7 +4,7 @@ import { use, useRef, useState } from 'react';
 
 // components
 import { Separator } from '@/components/ui/separator';
-import QuestionCardFooter from '@/components/app/questions/single/layout/question-card-footer';
+import QuestionCardFooter from '@/components/app/layout/question-single/question-card-footer';
 import Stopwatch from '@/components/app/questions/single/stopwatch';
 import QuestionAccordion from '@/components/app/questions/single/question-accordion';
 import QuestionTabs from '@/components/app/questions/resources/question-tabs';
@@ -16,11 +16,11 @@ import { AnimatePresence } from 'framer-motion';
 import CodeEditorQuestionSubmitted from '@/components/app/questions/code-editor/answer-submitted';
 import CodeEditor from '@/components/app/questions/code-editor/editor';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import ExpandedCodeModal from './expanded-code-modal';
-import ChangeCodeTheme from './change-code-theme';
-import AiQuestionHelp from './ai-question-help';
+import ExpandedCodeModal from '../../questions/single/expanded-code-modal';
+import ChangeCodeTheme from '../../questions/single/change-code-theme';
+import AiQuestionHelp from '../../questions/single/ai-question-help';
 import NoDailyQuestion from '@/components/shared/no-daily-question';
-import QuestionSubmitted from './question-submitted';
+import QuestionSubmitted from '@/components/app/layout/question-single/question-submitted';
 
 // types
 import type { UserRecord } from '@/types/User';

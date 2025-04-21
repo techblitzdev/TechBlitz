@@ -16,6 +16,8 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { TooltipProvider } from '@/components/ui/tooltip';
 import RandomQuestion from '@/components/shared/random-question';
 import SinglePageProgress from '@/components/app/study-paths/single-page-progress';
+import QuestionPageHeaderMiddle from './page-header-middle';
+import { cn } from '@/lib/utils';
 
 // Define navigation interface to match the data from getNextAndPreviousQuestion
 interface NavigationData {
@@ -48,8 +50,43 @@ export default function QuestionPageHeader({
   }
 
   return (
-    <div className="grid grid-cols-12 gap-4 py-4 items-center justify-between relative bg-black-100 border-b border-black-50 shadow-lg">
+    <div
+      className={cn(
+        'grid grid-cols-12 gap-4 py-2 items-center justify-between relative bg-black-100 border-b border-black-50 shadow-lg px-3'
+      )}
+    >
       <div className="col-span-2 flex items-center justify-start">
+        {!isStudyPathLesson && (
+          <>
+            <RouterBack
+              href="/coding-challenges"
+              className="px-0 block md:hidden hover:opacity-80 transition-opacity"
+            >
+              <HomeIcon width="16" height="16" />
+            </RouterBack>
+
+            <TooltipProvider delayDuration={0} skipDelayDuration={100}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <RouterBack
+                    href={isStudyPathLesson ? `/roadmaps/${studyPathSlug}` : '/coding-challenges'}
+                    className="p-0 hidden md:block hover:opacity-80 transition-opacity group relative"
+                  >
+                    <div className="transition-opacity duration-200 group-hover:opacity-0">
+                      <LogoSmall size={32} />
+                    </div>
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:cursor-pointer">
+                      <XIcon width="24" height="24" />
+                    </div>
+                  </RouterBack>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" className="font-medium">
+                  Back to Questions
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </>
+        )}
         {/* Challenge List - only available for standard questions, not study paths */}
         {!isStudyPathLesson && nextAndPreviousQuestionPromise && (
           <div className="items-center hidden md:flex">
@@ -66,51 +103,46 @@ export default function QuestionPageHeader({
           </div>
         )}
       </div>
-      {question.questionType !== 'SIMPLE_MULTIPLE_CHOICE' && (
-        <div className="col-span-7 lg:col-span-4 flex items-center justify-center">
-          <Suspense fallback={<div>Loading...</div>}>
-            <QuestionActionButtons />
-          </Suspense>
-        </div>
-      )}
+
       {/* Progress bar for roadmap lessons */}
-      {isStudyPathLesson && studyPathMetadata && (
-        <div className="col-span-8 bg-black-100 flex items-center gap-6">
-          <RouterBack
-            href="/coding-challenges"
-            className="px-0 block md:hidden hover:opacity-80 transition-opacity"
-          >
-            <HomeIcon width="16" height="16" />
-          </RouterBack>
+      <div className="col-span-8 bg-black-100 flex items-center justify-center gap-6">
+        {isStudyPathLesson && (
+          <>
+            <RouterBack
+              href="/coding-challenges"
+              className="px-0 block md:hidden hover:opacity-80 transition-opacity"
+            >
+              <HomeIcon width="16" height="16" />
+            </RouterBack>
 
-          <TooltipProvider delayDuration={0} skipDelayDuration={100}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <RouterBack
-                  href={isStudyPathLesson ? `/roadmaps/${studyPathSlug}` : '/coding-challenges'}
-                  className="p-0 hidden md:block hover:opacity-80 transition-opacity group relative"
-                >
-                  <div className="transition-opacity duration-200 group-hover:opacity-0">
-                    <LogoSmall size={32} />
-                  </div>
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:cursor-pointer">
-                    <XIcon width="24" height="24" />
-                  </div>
-                </RouterBack>
-              </TooltipTrigger>
-              <TooltipContent side="bottom" className="font-medium">
-                Back to Questions
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-
-          <SinglePageProgress totalLessons={studyPathMetadata.totalLessons} />
-        </div>
-      )}
+            <TooltipProvider delayDuration={0} skipDelayDuration={100}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <RouterBack
+                    href={isStudyPathLesson ? `/roadmaps/${studyPathSlug}` : '/coding-challenges'}
+                    className="p-0 hidden md:block hover:opacity-80 transition-opacity group relative"
+                  >
+                    <div className="transition-opacity duration-200 group-hover:opacity-0">
+                      <LogoSmall size={32} />
+                    </div>
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:cursor-pointer">
+                      <XIcon width="24" height="24" />
+                    </div>
+                  </RouterBack>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" className="font-medium">
+                  Back to Questions
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </>
+        )}
+        <QuestionPageHeaderMiddle question={question} studyPathMetadata={studyPathMetadata} />
+      </div>
       <div
         className={`col-span-2 flex items-center gap-x-1 md:gap-x-3 ${
           question.questionType === 'SIMPLE_MULTIPLE_CHOICE' ? 'col-start-11' : ''
-        }`}
+        } ${!isStudyPathLesson ? 'justify-end' : ''}`}
       >
         <Suspense fallback={null}>
           <FeedbackButton

@@ -50,7 +50,7 @@ export default function QuestionPageHeader({
   return (
     <div
       className={cn(
-        'grid grid-cols-12 gap-4 py-2 items-center justify-between relative bg-black-100 border-b border-black-50 shadow-lg px-3'
+        'grid grid-cols-12 gap-4 py-2 items-center justify-between relative border-b border-black-50 shadow-lg px-3'
       )}
     >
       <div className="col-span-2 flex items-center justify-start">
@@ -103,7 +103,7 @@ export default function QuestionPageHeader({
       </div>
 
       {/* Progress bar for roadmap lessons */}
-      <div className="col-span-8 bg-black-100 flex items-center justify-center gap-6">
+      <div className="col-span-8 flex items-center justify-center gap-6">
         {isStudyPathLesson && (
           <>
             <RouterBack

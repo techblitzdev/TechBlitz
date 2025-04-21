@@ -55,9 +55,15 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   });
 }
 
-export default async function QuestionUidLayout({ params, searchParams, children }: any) {
+export default async function QuestionUidLayout({
+  params,
+  children,
+}: {
+  params: { slug: string; subSection: string };
+  children: React.ReactNode;
+}) {
   const { slug, subSection } = params;
-  const lessonIndex = searchParams?.lesson ? parseInt(searchParams.lesson as string, 10) : 0;
+  const lessonIndex = 0;
 
   const studyPath = await getStudyPath(slug);
 

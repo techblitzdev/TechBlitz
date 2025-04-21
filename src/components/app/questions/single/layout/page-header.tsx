@@ -3,7 +3,7 @@ import { lazy, Suspense } from 'react';
 import QuestionNavigation from '@/components/app/navigation/question-navigation';
 import QuestionNavigationLoading from '@/components/app/navigation/question-navigation-loading';
 import RouterBack from '@/components/app/shared/router-back';
-import { HomeIcon } from 'lucide-react';
+import { HomeIcon, XIcon } from 'lucide-react';
 import QuestionActionButtons from './question-action-buttons';
 import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
 import FlagIcon from '@/components/ui/icons/flag';
@@ -93,9 +93,14 @@ export default function QuestionPageHeader({
               <TooltipTrigger asChild>
                 <RouterBack
                   href={isStudyPathLesson ? `/roadmaps/${studyPathSlug}` : '/coding-challenges'}
-                  className="p-0 hidden md:block hover:opacity-80 transition-opacity"
+                  className="p-0 hidden md:block hover:opacity-80 transition-opacity group relative"
                 >
-                  <LogoSmall size={32} />
+                  <div className="transition-opacity duration-200 group-hover:opacity-0">
+                    <LogoSmall size={32} />
+                  </div>
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:cursor-pointer">
+                    <XIcon width="24" height="24" />
+                  </div>
                 </RouterBack>
               </TooltipTrigger>
               <TooltipContent side="bottom" className="font-medium">
@@ -105,6 +110,7 @@ export default function QuestionPageHeader({
           </TooltipProvider>
 
           <div className="flex-1 flex flex-col gap-1">
+            {studyPathMetadata.lessonIndex}
             <Progress
               value={progressPercentage}
               className="h-2 bg-black-50 rounded-full w-full"

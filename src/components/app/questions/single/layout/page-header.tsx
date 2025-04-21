@@ -31,6 +31,8 @@ interface QuestionPageHeaderProps {
   studyPathMetadata?: {
     lessonIndex: number;
     totalLessons: number;
+    subSection?: string;
+    subSectionName?: string;
   };
 }
 
@@ -51,75 +53,82 @@ export default function QuestionPageHeader({
     : 0;
 
   return (
-    <div className="flex flex-col w-full">
-      <div className="grid grid-cols-12 items-center justify-between py-2 px-3 relative bg-black-100 border-b border-black-50 shadow-lg">
-        <div className="col-span-2 flex items-center justify-start">
-          {/* Challenge List - only available for standard questions, not study paths */}
-          {!isStudyPathLesson && (
-            <div className="items-center hidden md:flex">
-              <Suspense fallback={<QuestionNavigationLoading />}>
-                <QuestionNavigation
-                  navigationType="question"
-                  slug={question.slug}
-                  nextPrevPromise={nextAndPreviousQuestionPromise}
-                  randomQuestionComponent={
-                    <RandomQuestion identifier="slug" currentQuestionSlug={question.slug} />
-                  }
-                />
-              </Suspense>
-            </div>
-          )}
-        </div>
-        {question.questionType !== 'SIMPLE_MULTIPLE_CHOICE' && (
-          <div className="col-span-7 lg:col-span-4 flex items-center justify-center">
-            <Suspense fallback={<div>Loading...</div>}>
-              <QuestionActionButtons />
+    <div className="grid grid-cols-12 gap-4 py-4 items-center justify-between relative bg-black-100 border-b border-black-50 shadow-lg">
+      <div className="col-span-2 flex items-center justify-start">
+        {/* Challenge List - only available for standard questions, not study paths */}
+        {!isStudyPathLesson && (
+          <div className="items-center hidden md:flex">
+            <Suspense fallback={<QuestionNavigationLoading />}>
+              <QuestionNavigation
+                navigationType="question"
+                slug={question.slug}
+                nextPrevPromise={nextAndPreviousQuestionPromise}
+                randomQuestionComponent={
+                  <RandomQuestion identifier="slug" currentQuestionSlug={question.slug} />
+                }
+              />
             </Suspense>
           </div>
         )}
-        {/* Progress bar for roadmap lessons */}
-        {isStudyPathLesson && studyPathMetadata && (
-          <div className="col-span-3 lg:col-span-8 px-3 pt-2 pb-3 flex items-center gap-x-2">
-            <TooltipProvider delayDuration={0} skipDelayDuration={100}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <RouterBack
-                    href={isStudyPathLesson ? `/roadmaps/${studyPathSlug}` : '/coding-challenges'}
-                    className="p-0 hidden md:block"
-                  >
-                    <LogoSmall size={32} />
-                  </RouterBack>
-                </TooltipTrigger>
-                <TooltipContent side="bottom">Back to Questions</TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <Progress
-              value={progressPercentage}
-              className="h-2 bg-black-50 w-full"
-              indicatorColor={progressPercentage === 100 ? 'bg-green-500' : 'bg-accent'}
-            />
-            <RouterBack href="/coding-challenges" className="px-0 block md:hidden">
-              <HomeIcon width="16" height="16" />
-            </RouterBack>
-          </div>
-        )}
-        <div
-          className={`col-span-3 lg:col-span-4 flex items-center gap-x-1 md:gap-x-3 ${
-            question.questionType === 'SIMPLE_MULTIPLE_CHOICE' ? 'col-start-9 lg:col-start-11' : ''
-          }`}
-        >
-          <Suspense fallback={null}>
-            <FeedbackButton
-              feedbackModalTitle="Report a problem"
-              feedbackModalDescription="If you're experiencing issues with this question, please let us know so we can fix it."
-              reference={question?.slug || undefined}
-              icon={<FlagIcon height="1.5rem" width="1.5rem" />}
-            />
-            <div className="hidden lg:block">
-              <UpgradeModalButton />
-            </div>
+      </div>
+      {question.questionType !== 'SIMPLE_MULTIPLE_CHOICE' && (
+        <div className="col-span-7 lg:col-span-4 flex items-center justify-center">
+          <Suspense fallback={<div>Loading...</div>}>
+            <QuestionActionButtons />
           </Suspense>
         </div>
+      )}
+      {/* Progress bar for roadmap lessons */}
+      {isStudyPathLesson && studyPathMetadata && (
+        <div className="col-span-8 bg-black-100 flex items-center gap-6">
+          <RouterBack
+            href="/coding-challenges"
+            className="px-0 block md:hidden hover:opacity-80 transition-opacity"
+          >
+            <HomeIcon width="16" height="16" />
+          </RouterBack>
+
+          <TooltipProvider delayDuration={0} skipDelayDuration={100}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <RouterBack
+                  href={isStudyPathLesson ? `/roadmaps/${studyPathSlug}` : '/coding-challenges'}
+                  className="p-0 hidden md:block hover:opacity-80 transition-opacity"
+                >
+                  <LogoSmall size={32} />
+                </RouterBack>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="font-medium">
+                Back to Questions
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
+          <div className="flex-1 flex flex-col gap-1">
+            <Progress
+              value={progressPercentage}
+              className="h-2 bg-black-50 rounded-full w-full"
+              indicatorColor={progressPercentage === 100 ? 'bg-green-500' : 'bg-accent'}
+            />
+          </div>
+        </div>
+      )}
+      <div
+        className={`col-span-2 flex items-center gap-x-1 md:gap-x-3 ${
+          question.questionType === 'SIMPLE_MULTIPLE_CHOICE' ? 'col-start-11' : ''
+        }`}
+      >
+        <Suspense fallback={null}>
+          <FeedbackButton
+            feedbackModalTitle="Report a problem"
+            feedbackModalDescription="If you're experiencing issues with this question, please let us know so we can fix it."
+            reference={question?.slug || undefined}
+            icon={<FlagIcon height="1.5rem" width="1.5rem" />}
+          />
+          <div className="hidden lg:block">
+            <UpgradeModalButton />
+          </div>
+        </Suspense>
       </div>
     </div>
   );

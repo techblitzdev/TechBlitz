@@ -2,7 +2,7 @@ import { prisma } from '@/lib/prisma';
 import { getTagsFromQuestion } from './tags/get-tags-from-question';
 import { Question } from '@/types/Questions';
 import { cache } from 'react';
-
+import { devLog } from '@/utils';
 /**
  * Retrieve a question via its uid or slug
  *
@@ -12,7 +12,7 @@ import { cache } from 'react';
  */
 export const getQuestion = cache(async (identifier: 'slug' | 'uid' = 'slug', value: string) => {
   if (!value) {
-    console.error('Please provide a uid');
+    devLog('Please provide a uid');
     return null;
   }
 

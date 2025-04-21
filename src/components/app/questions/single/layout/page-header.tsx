@@ -7,7 +7,6 @@ import { HomeIcon, XIcon } from 'lucide-react';
 import QuestionActionButtons from './question-action-buttons';
 import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
 import FlagIcon from '@/components/ui/icons/flag';
-import { Progress } from '@/components/ui/progress';
 
 const UpgradeModalButton = lazy(() => import('@/components/app/shared/upgrade/upgrade-modal'));
 

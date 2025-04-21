@@ -10,7 +10,7 @@ import { Separator } from '@/components/ui/separator';
 import SidebarLayoutTrigger from '@/components/app/navigation/sidebar-layout-trigger';
 import CurrentStreak from '@/components/ui/current-streak';
 import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
-import RoadmapQuestionActionButtons from '@/components/app/roadmaps/questions/[uid]/layout/roadmap-question-action-buttons';
+import RoadmapQuestionActionButtons from '@/components/app/layout/question-single/roadmap-question-action-buttons';
 import { RoadmapQuestionContextProvider } from '@/contexts/roadmap-question-context';
 import { RoadmapQuestionNavigation } from '@/components/app/navigation/question-navigation';
 
@@ -42,7 +42,7 @@ export default async function RoadmapQuestionLayout({
         title: string;
         uid: string;
       };
-    },
+    }
   ];
 
   if (!user || user.userLevel === 'FREE') {

@@ -1,7 +1,7 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { RefreshCcwIcon } from 'lucide-react';
-import { useRoadmapQuestion } from '../../../../../../contexts/roadmap-question-context';
+import { useRoadmapQuestion } from '../../../../contexts/roadmap-question-context';
 
 export default function RoadmapQuestionActionButtons() {
   const { handleAnswerRoadmapQuestion, resetQuestionState } = useRoadmapQuestion();

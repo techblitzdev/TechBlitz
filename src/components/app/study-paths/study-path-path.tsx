@@ -3,7 +3,7 @@
 import type React from 'react';
 import type { Questions } from '@prisma/client';
 import type { StudyPath } from '@prisma/client';
-import QuestionCard from '@/components/app/questions/layout/question-card';
+import QuestionCard from '@/components/app/layout/questions/question-card';
 
 interface RoadmapPathProps {
   questions: Questions[];

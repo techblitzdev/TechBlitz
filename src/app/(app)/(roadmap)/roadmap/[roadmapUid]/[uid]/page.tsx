@@ -24,7 +24,7 @@ import ResizableLayout from '@/components/ui/resizable-layout';
 import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help';
 import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
 
-import QuestionCodeDisplayWrapper from '@/components/app/roadmaps/questions/[uid]/layout/question-code-display-wrapper';
+import QuestionCodeDisplayWrapper from '@/components/app/layout/question-single/question-code-display-wrapper';
 
 export default async function RoadmapQuestionPage({
   params,

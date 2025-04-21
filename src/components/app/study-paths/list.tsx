@@ -12,7 +12,7 @@ import { getOffset } from '@/utils/roadmaps';
 import { StudyPathSubSections } from '@/types/StudyPath';
 import { cn } from '@/lib/utils';
 
-const QuestionCardClient = dynamic(() => import('../questions/layout/question-card-client'), {
+const QuestionCardClient = dynamic(() => import('../layout/questions/question-card-client'), {
   ssr: false,
 });
 

@@ -12,8 +12,8 @@ import { useRoadmapQuestion } from '../../../../contexts/roadmap-question-contex
 import QuestionAccordion from '@/components/app/questions/single/question-accordion';
 import QuestionResult from '../../shared/answer-submitted';
 import QuestionCodeDisplay from '../../shared/question/question-code-display';
-import RoadmapQuestionTabs from './[uid]/layout/roadmap-question-tabs';
 import QuestionResourceTab from '../../questions/resources/question-resource-tab';
+import RoadmapQuestionTabs from '@/components/app/layout/question-single/roadmap-question-tabs';
 
 export default function RoadmapQuestionCard(opts: {
   user: UserRecord;

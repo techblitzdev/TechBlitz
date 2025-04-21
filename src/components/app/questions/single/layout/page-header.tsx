@@ -25,7 +25,7 @@ interface NavigationData {
 
 interface QuestionPageHeaderProps {
   question: Question;
-  nextAndPreviousQuestionPromise: Promise<NavigationData | null>;
+  nextAndPreviousQuestionPromise?: Promise<NavigationData | null>;
   isStudyPathLesson?: boolean;
   studyPathSlug?: string;
   studyPathMetadata?: {
@@ -51,7 +51,7 @@ export default function QuestionPageHeader({
     <div className="grid grid-cols-12 gap-4 py-4 items-center justify-between relative bg-black-100 border-b border-black-50 shadow-lg">
       <div className="col-span-2 flex items-center justify-start">
         {/* Challenge List - only available for standard questions, not study paths */}
-        {!isStudyPathLesson && (
+        {!isStudyPathLesson && nextAndPreviousQuestionPromise && (
           <div className="items-center hidden md:flex">
             <Suspense fallback={<QuestionNavigationLoading />}>
               <QuestionNavigation

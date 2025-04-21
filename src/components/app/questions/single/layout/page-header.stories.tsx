@@ -78,9 +78,5 @@ const mockQuestion = {
 export const Default: Story = {
   args: {
     question: mockQuestion,
-    nextAndPreviousQuestionPromise: Promise.resolve({
-      nextQuestion: 'hello-world',
-      previousQuestion: 'hello-world',
-    }),
   },
 };

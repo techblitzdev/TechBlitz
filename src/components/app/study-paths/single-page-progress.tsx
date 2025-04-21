@@ -5,14 +5,14 @@ import { useSearchParams } from 'next/navigation';
 
 export default function SinglePageProgress({ totalLessons }: { totalLessons: number }) {
   const searchParams = useSearchParams();
-  const lessonIndex = searchParams.get('lesson');
+  const lessonIndex = searchParams.get('lesson') as string;
 
   // if for some reason the lesson index is not found, do not render the component
   if (!lessonIndex) {
     return null;
   }
 
-  const progressPercentage = (lessonIndex / totalLessons) * 100;
+  const progressPercentage = (parseInt(lessonIndex) / totalLessons) * 100;
 
   return (
     <div className="flex-1 flex flex-col gap-1">

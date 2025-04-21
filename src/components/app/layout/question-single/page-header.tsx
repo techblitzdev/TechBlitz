@@ -4,7 +4,6 @@ import QuestionNavigation from '@/components/app/navigation/question-navigation'
 import QuestionNavigationLoading from '@/components/app/navigation/question-navigation-loading';
 import RouterBack from '@/components/app/shared/router-back';
 import { HomeIcon, XIcon } from 'lucide-react';
-import QuestionActionButtons from './question-action-buttons';
 import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
 import FlagIcon from '@/components/ui/icons/flag';
 
@@ -15,7 +14,6 @@ import LogoSmall from '@/components/ui/LogoSmall';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import RandomQuestion from '@/components/shared/random-question';
-import SinglePageProgress from '@/components/app/study-paths/single-page-progress';
 import QuestionPageHeaderMiddle from './page-header-middle';
 import { cn } from '@/lib/utils';
 

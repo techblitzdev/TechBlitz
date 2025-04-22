@@ -1,4 +1,4 @@
-import QuestionCard from '@/components/app/questions/layout/question-card';
+import QuestionCard from '@/components/app/layout/questions/question-card';
 
 import { listQuestions } from '@/utils/data/questions/list';
 

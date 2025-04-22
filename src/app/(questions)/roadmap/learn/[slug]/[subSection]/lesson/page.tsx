@@ -8,14 +8,19 @@ import { getQuestion } from '@/utils/data/questions/get';
 import { getQuestionStats } from '@/utils/data/questions/get-question-stats';
 import { createMetadata } from '@/utils/seo';
 import { useUserServer } from '@/hooks/use-user-server';
+import { getRelatedQuestions } from '@/utils/data/questions/get-related';
+import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
+import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 
 // Components
 const LessonTransitionWrapper = dynamic(
   () => import('@/components/app/roadmaps/lesson-transition-wrapper'),
-  { ssr: false }
+  {
+    ssr: false,
+  }
 );
 const QuestionCard = dynamic(
-  () => import('@/components/app/questions/single/layout/question-card'),
+  () => import('@/components/app/layout/question-single/question-card'),
   {
     ssr: false,
     loading: () => <QuestionCardLoading />,
@@ -25,7 +30,7 @@ const PremiumContentWrapper = lazy(
   () => import('@/components/app/shared/question/premium-content-wrapper')
 );
 const CodeDisplayWrapper = dynamic(
-  () => import('@/components/app/questions/single/layout/code-display-wrapper'),
+  () => import('@/components/app/layout/question-single/code-display-wrapper'),
   {
     ssr: false,
   }
@@ -35,22 +40,19 @@ const TestCaseSection = lazy(
   () => import('@/components/app/questions/code-editor/test-case-section')
 );
 const TourStartModal = lazy(() => import('@/components/app/shared/question/tour-start-modal'));
-const AiQuestionHelp = dynamic(
-  () => import('@/components/app/questions/single/layout/ai-question-help'),
-  {
-    ssr: false,
-    loading: () => <StarsIcon className="size-4 text-yellow-400 fill-yellow-500" />,
-  }
-);
+const AiQuestionHelp = dynamic(() => import('@/components/app/questions/single/ai-question-help'), {
+  ssr: false,
+  loading: () => <StarsIcon className="size-4 text-yellow-400 fill-yellow-500" />,
+});
 const ChangeCodeTheme = dynamic(
-  () => import('@/components/app/questions/single/layout/change-code-theme'),
+  () => import('@/components/app/questions/single/change-code-theme'),
   {
     ssr: false,
     loading: () => <EditorIcon />,
   }
 );
 const ExpandedCodeModal = dynamic(
-  () => import('@/components/app/questions/single/layout/expanded-code-modal'),
+  () => import('@/components/app/questions/single/expanded-code-modal'),
   {
     ssr: false,
     loading: () => <Expand className="size-4 text-gray-500" />,
@@ -63,6 +65,11 @@ const ResizableLayout = dynamic(() => import('@/components/ui/resizable-layout')
 const MultipleChoiceLayout = dynamic(
   () => import('@/components/app/questions/multiple-choice/layout')
 );
+const PremiumQuestionDeniedAccess = lazy(
+  () => import('@/components/app/questions/premium-question-denied-access')
+);
+import { QuestionSingleContextProvider } from '@/contexts/question-single-context';
+import QuestionPageHeader from '@/components/app/layout/question-single/page-header';
 
 // UI Components
 import { Separator } from '@/components/ui/separator';
@@ -71,7 +78,7 @@ import LoadingSpinner from '@/components/ui/loading';
 import { Expand, StarsIcon } from 'lucide-react';
 import EditorIcon from '@/components/ui/icons/editor';
 import WindowCode2 from '@/components/ui/icons/window-code';
-import QuestionCardLoading from '@/components/app/questions/single/layout/question-card-loading';
+import QuestionCardLoading from '@/components/app/layout/question-single/question-card-loading';
 
 export async function generateMetadata({
   params,
@@ -131,7 +138,7 @@ export default async function RoadmapLessonPage({
   searchParams: { lesson?: string };
 }) {
   const { slug, subSection } = params;
-  const lessonIndex = searchParams.lesson ? parseInt(searchParams.lesson, 10) : 0;
+  const lessonIndex = searchParams.lesson ? Number.parseInt(searchParams.lesson, 10) : 0;
 
   // Fetch the study path
   const studyPath = await getStudyPath(slug);
@@ -202,6 +209,21 @@ export default async function RoadmapLessonPage({
     getQuestionStats('slug', questionSlug),
   ]);
 
+  if (!question || !question.slug) {
+    return <NoDailyQuestion textAlign="center" />;
+  }
+
+  // Not resolving the promises here - passing the promises and
+  // using 'use' to resolve them in their own components
+  const relatedQuestions = getRelatedQuestions({
+    questionSlug: question.slug,
+    tags: question.tags || [],
+    limit: 10,
+  });
+  const suggestedQuestions = getSuggestions({ limit: 2 });
+  const userAnswered = getUserAnswer({ questionUid: question.uid });
+  const isPremiumUser = user && user.userLevel !== 'FREE';
+
   if (!question) {
     return <NoDailyQuestion textAlign="center" />;
   }
@@ -222,12 +244,38 @@ export default async function RoadmapLessonPage({
           `/roadmaps/${slug}`,
   };
 
+  if (question.isPremiumQuestion && user?.userLevel === 'FREE') {
+    return <PremiumQuestionDeniedAccess />;
+  }
+
   if (question.questionType === 'SIMPLE_MULTIPLE_CHOICE') {
     return (
       <PremiumContentWrapper>
-        <LessonTransitionWrapper>
-          <MultipleChoiceLayout question={question} nextAndPreviousQuestion={studyPathNavigation} />
-        </LessonTransitionWrapper>
+        <QuestionSingleContextProvider
+          question={question}
+          user={user}
+          relatedQuestions={relatedQuestions}
+          userAnswered={userAnswered}
+          suggestedQuestions={suggestedQuestions}
+        >
+          <QuestionPageHeader
+            question={question}
+            isStudyPathLesson={true}
+            studyPathSlug={slug}
+            studyPathMetadata={{
+              lessonIndex: lessonIndex,
+              totalLessons: allQuestionSlugs.length,
+              subSection: subSection,
+              subSectionName: sectionName,
+            }}
+          />
+          <LessonTransitionWrapper>
+            <MultipleChoiceLayout
+              question={question}
+              nextAndPreviousQuestion={studyPathNavigation}
+            />
+          </LessonTransitionWrapper>
+        </QuestionSingleContextProvider>
       </PremiumContentWrapper>
     );
   }
@@ -298,16 +346,35 @@ export default async function RoadmapLessonPage({
   return (
     <PremiumContentWrapper>
       <TourStartModal user={user} />
-      <LessonTransitionWrapper>
-        <ResizableLayout
-          key={`layout-${question.uid}-${lessonIndex}`}
-          leftContent={leftContent}
-          rightTopContent={rightContent}
-          rightBottomContent={rightBottomContent}
-          initialLeftWidth={50}
-          initialRightTopHeight={question?.testCases?.length ? 70 : 100}
+      <QuestionSingleContextProvider
+        question={question}
+        user={user}
+        relatedQuestions={relatedQuestions}
+        userAnswered={userAnswered}
+        suggestedQuestions={suggestedQuestions}
+      >
+        <QuestionPageHeader
+          question={question}
+          isStudyPathLesson={true}
+          studyPathSlug={slug}
+          studyPathMetadata={{
+            lessonIndex: lessonIndex,
+            totalLessons: allQuestionSlugs.length,
+            subSection: subSection,
+            subSectionName: sectionName,
+          }}
         />
-      </LessonTransitionWrapper>
+        <LessonTransitionWrapper>
+          <ResizableLayout
+            leftContent={leftContent}
+            rightTopContent={rightContent}
+            rightBottomContent={rightBottomContent}
+            initialLeftWidth={50}
+            initialRightTopHeight={question?.testCases?.length ? 70 : 100}
+          />
+          {question.isPremiumQuestion && !isPremiumUser && <PremiumQuestionDeniedAccess />}
+        </LessonTransitionWrapper>
+      </QuestionSingleContextProvider>
     </PremiumContentWrapper>
   );
 }

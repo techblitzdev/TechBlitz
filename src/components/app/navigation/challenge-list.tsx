@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { ChevronRight, List } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useQuestionSingle } from '@/contexts/question-single-context';
-import QuestionCard from '../questions/layout/question-card';
+import QuestionCard from '../layout/questions/question-card';
 import Link from 'next/link';
 import ChallengeListClient from './challenge-list-client';
 import { TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -13,7 +13,7 @@ import { Tooltip } from '@/components/ui/tooltip';
 import { StudyPath } from '@prisma/client';
 import StudyPathsList from '../study-paths/list';
 import StudyPathQuestionCardSkeleton from '@/components/app/study-paths/study-path-question-card-skeleton';
-import QuestionCardClient from '../questions/layout/question-card-client';
+import QuestionCardClient from '../layout/questions/question-card-client';
 import { Question } from '@/types/Questions';
 
 function StudyPathsListSkeleton() {

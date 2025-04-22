@@ -1,5 +1,5 @@
-import QuestionsList from '@/components/app/questions/layout/questions-list';
-import QuestionPageSidebar from '@/components/app/questions/layout/question-page-sidebar';
+import QuestionsList from '@/components/app/layout/questions/questions-list';
+import QuestionPageSidebar from '@/components/app/layout/questions/question-page-sidebar';
 
 // Components
 import Hero from '@/components/shared/hero';

@@ -9,7 +9,7 @@ import { getQuestion } from '@/utils/data/questions/get';
 import { QuestionSingleContextProvider } from '@/contexts/question-single-context';
 import { getUser } from '@/actions/user/authed/get-user';
 import { redirect } from 'next/navigation';
-import QuestionActionButtons from '@/components/app/questions/single/layout/question-action-buttons';
+import QuestionActionButtons from '@/components/app/layout/question-single/question-action-buttons';
 import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
 import QuestionNavigation from '@/components/app/navigation/question-navigation';
 import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation';

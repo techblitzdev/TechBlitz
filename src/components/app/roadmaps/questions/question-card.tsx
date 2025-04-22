@@ -2,9 +2,9 @@
 
 import type { UserRecord } from '@/types/User';
 import type { RoadmapUserQuestions } from '@/types/Roadmap';
-import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help';
-import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
-import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal';
+import AiQuestionHelp from '@/components/app/questions/single/ai-question-help';
+import ChangeCodeTheme from '@/components/app/questions/single/change-code-theme';
+import ExpandedCodeModal from '@/components/app/questions/single/expanded-code-modal';
 import { BookIcon, BookOpen, FileIcon, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import QuestionTabs, { type TabConfig } from '@/components/app/shared/question/question-tabs';
@@ -12,8 +12,8 @@ import { useRoadmapQuestion } from '../../../../contexts/roadmap-question-contex
 import QuestionAccordion from '@/components/app/questions/single/question-accordion';
 import QuestionResult from '../../shared/answer-submitted';
 import QuestionCodeDisplay from '../../shared/question/question-code-display';
-import RoadmapQuestionTabs from './[uid]/layout/roadmap-question-tabs';
 import QuestionResourceTab from '../../questions/resources/question-resource-tab';
+import RoadmapQuestionTabs from '@/components/app/layout/question-single/roadmap-question-tabs';
 
 export default function RoadmapQuestionCard(opts: {
   user: UserRecord;

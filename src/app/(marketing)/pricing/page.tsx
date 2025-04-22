@@ -1,6 +1,5 @@
 import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
 import FAQsBlock from '@/components/marketing/global/blocks/faqs';
-//import { AnimatedBreak } from '@/components/marketing/pricing/animated-break';
 import PricingCardBlock from '@/components/marketing/pricing/pricing-card-block';
 import { createMetadata } from '@/utils/seo';
 import Link from 'next/link';
@@ -205,7 +204,6 @@ export default async function PricingPage() {
             </span>
           </div>
           <h1 className="text-3xl lg:text-5xl !font-onest !font-medium !leading-[1.1] text-gradient from-white to-white/75">
-            {/** Plans that don't <AnimatedBreak /> the bank */}
             Learning to code has <br />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/55">
               never{' '}

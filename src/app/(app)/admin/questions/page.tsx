@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import AdminContainer from '@/components/app/admin/admin-container';
-import NewQuestionModal from '@/components/app/questions/admin/new-question-modal';
-import NewCodingChallengeQuestionModal from '@/components/app/questions/admin/new-coding-challenge-modal';
-import NewSimpleMultipleChoiceModal from '@/components/app/questions/admin/new-simple-multiple-choice-modal';
+import NewQuestionModal from '@/components/app/admin/questions/new-question-modal';
+import NewCodingChallengeQuestionModal from '@/components/app/admin/questions/new-coding-challenge-modal';
+import NewSimpleMultipleChoiceModal from '@/components/app/admin/questions/new-simple-multiple-choice-modal';
 
 export const metadata: Metadata = {
   title: 'TechBlitz | Question Management',

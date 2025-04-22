@@ -23,7 +23,7 @@ const ChartPlaceholder = () => (
 
 // Dynamically import the chart component with SSR disabled
 const ChartComponent = dynamic(
-  () => import('./chart-component').then((mod) => mod.ChartComponent),
+  () => import('../chart-component').then((mod) => mod.ChartComponent),
   {
     ssr: false,
     loading: () => <ChartPlaceholder />,

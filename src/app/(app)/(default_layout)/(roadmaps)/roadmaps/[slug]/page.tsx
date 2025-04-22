@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 // utils
 import { createMetadata } from '@/utils/seo';
 import { getAndGroupStudyPathQuestions, getStudyPath } from '@/utils/data/study-paths/get';
-import { capitalise, getBaseUrl } from '@/utils';
+import { capitalise, devLog, getBaseUrl } from '@/utils';
 
 // types
 import type { QuizJsonLd } from '@/types/Seo';
@@ -207,9 +207,9 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
     takeQuestions: true,
   });
 
-  console.log('Total sections:', studyPathSectionData.length);
-  console.log('studyPathSectionData', studyPathSectionData);
-  console.log(
+  devLog('Total sections:', studyPathSectionData.length);
+  devLog('studyPathSectionData', studyPathSectionData);
+  devLog(
     'Question indices:',
     studyPathSectionData.map((section) => ({
       sectionName: section.sectionName,

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import PseoForm from '@/components/app/admin/pseo-form';
+import PseoForm from '@/components/app/admin/pseo/pseo-form';
 import AdminContainer from '@/components/app/admin/admin-container';
 import Link from 'next/link';
 

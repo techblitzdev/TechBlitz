@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import NewQuestionModal from '@/components/app/questions/admin/new-question-modal';
-import NewCodingChallengeQuestionModal from '@/components/app/questions/admin/new-coding-challenge-modal';
+import NewQuestionModal from '@/components/app/admin/questions/new-question-modal';
+import NewCodingChallengeQuestionModal from '@/components/app/admin/questions/new-coding-challenge-modal';
 import { addSlugFlagToQuestion, addSlugToQuestion } from '@/scripts/add-slug-to-question';
 import { addUidAsUsername } from '@/scripts/add-uid-as-username';
 import { addIsCustomUsernameToUser } from '@/scripts/add-is-custom-username-to-user';

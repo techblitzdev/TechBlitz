@@ -5,17 +5,17 @@ import { Button } from '@/components/ui/button';
 import { validateSearchParams, parseSearchParams } from '@/utils/search-params';
 import { createMetadata } from '@/utils/seo';
 import FilterLoading from '@/components/app/filters/filters-loading';
-import QuestionPageSidebarLoading from '@/components/app/questions/layout/question-page-sidebar-loading';
-import { QuestionCardSkeleton } from '@/components/app/questions/layout/question-card';
+import QuestionPageSidebarLoading from '@/components/app/layout/questions/question-page-sidebar-loading';
+import { QuestionCardSkeleton } from '@/components/app/layout/questions/question-card';
 import { ArrowRightIcon } from 'lucide-react';
 import type { WebPageJsonLd } from '@/types/Seo';
 import { getBaseUrl } from '@/utils';
 
 const Filter = lazy(() => import('@/components/app/filters/filter'));
 const FilterChips = lazy(() => import('@/components/app/filters/chips'));
-const QuestionsList = lazy(() => import('@/components/app/questions/layout/questions-list'));
+const QuestionsList = lazy(() => import('@/components/app/layout/questions/questions-list'));
 const QuestionPageSidebar = lazy(
-  () => import('@/components/app/questions/layout/question-page-sidebar')
+  () => import('@/components/app/layout/questions/question-page-sidebar')
 );
 const ContinueJourney = lazy(() => import('@/components/app/navigation/continue-journey-button'));
 

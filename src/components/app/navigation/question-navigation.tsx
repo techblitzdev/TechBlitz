@@ -6,15 +6,12 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import ChallengeList from './challenge-list';
 
 import { RoadmapUserQuestions } from '@prisma/client';
 
 import { studyPaths } from '@/utils/constants/study-paths';
 
 import { useQuestionSingle } from '@/contexts/question-single-context';
-
-import { useStudyPathQuestions } from '@/hooks/use-study-path';
 
 /**
  * Component for navigation between different questions from within the
@@ -40,10 +37,8 @@ export default function QuestionNavigation(opts: {
     return null;
   }
 
-  const { previousQuestion, setPreviousQuestion, nextQuestion, setNextQuestion, studyPath } =
+  const { previousQuestion, setPreviousQuestion, nextQuestion, setNextQuestion } =
     useQuestionSingle();
-
-  const { questions } = useStudyPathQuestions(studyPathSlug || '');
 
   useEffect(() => {
     // if this is a study-path, get the next/prev questions from the study-path object
@@ -104,21 +99,6 @@ export default function QuestionNavigation(opts: {
 
   return (
     <div className="flex items-center">
-      <div className="flex items-center">
-        <div className="hidden md:block">
-          {/** challenge list - provides quick access to the challenge list */}
-          <TooltipProvider delayDuration={0} skipDelayDuration={100}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant="ghost" size="sm" padding="sm">
-                  <ChallengeList type={type} studyPath={studyPath} questions={questions || []} />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent side="bottom">Challenge List</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
-      </div>
       <div className="flex items-center">
         {/* Previous Question */}
         <TooltipProvider delayDuration={0} skipDelayDuration={100}>

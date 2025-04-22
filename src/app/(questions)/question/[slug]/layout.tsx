@@ -22,15 +22,13 @@ import { Onborda, OnbordaProvider } from 'onborda';
 import { steps } from '@/lib/onborda';
 import { TourCard } from '@/components/app/shared/question/tour-card';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
-import QuestionPageHeader from '@/components/app/questions/single/layout/page-header';
+import QuestionPageHeader from '@/components/app/layout/question-single/page-header';
 
 // Lazy Components
 const PremiumQuestionDeniedAccess = lazy(
   () => import('@/components/app/questions/premium-question-denied-access')
 );
-const UpgradeModal = dynamic(
-  () => import('@/components/app/questions/single/layout/upgrade-modal')
-);
+const UpgradeModal = dynamic(() => import('@/components/app/layout/question-single/upgrade-modal'));
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const question = await getQuestion('slug', params.slug);

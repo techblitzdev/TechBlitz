@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { toast } from 'sonner';
-import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
+import CodeDisplay from '@/components/app/layout/question-single/code-snippet';
 import LoadingSpinner from '@/components/ui/loading';
 import Link from 'next/link';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';

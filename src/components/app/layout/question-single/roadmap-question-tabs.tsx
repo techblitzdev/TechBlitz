@@ -6,7 +6,7 @@ import QuestionHintTrigger from '@/components/app/questions/question-hint-trigge
 import BookmarkQuestion from '@/components/app/questions/single/bookmark';
 import Chip from '@/components/ui/chip';
 import { getQuestionDifficultyColor, capitalise } from '@/utils';
-import { useRoadmapQuestion } from '../../../../../../contexts/roadmap-question-context';
+import { useRoadmapQuestion } from '@/contexts/roadmap-question-context';
 import RoadmapAnswerQuestionForm from '@/components/app/roadmaps/questions/roadmap-answer-form';
 import QuestionResourceTab from '@/components/app/questions/resources/question-resource-tab';
 

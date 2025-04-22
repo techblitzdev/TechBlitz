@@ -1,14 +1,14 @@
 import { getQuestion } from '@/utils/data/questions/get';
 import { Separator } from '@/components/ui/separator';
 import NoDailyQuestion from '@/components/shared/no-daily-question';
-import CodeDisplay from '@/components/app/questions/single/layout/code-snippet';
+import CodeDisplay from '@/components/app/layout/question-single/code-snippet';
 import { useUserServer } from '@/hooks/use-user-server';
-import QuestionCard from '@/components/app/questions/single/layout/question-card';
+import QuestionCard from '@/components/app/layout/question-single/question-card';
 import { getRandomQuestion } from '@/utils/data/questions/get-random';
-import ExpandedCodeModal from '@/components/app/questions/single/layout/expanded-code-modal';
+import ExpandedCodeModal from '@/components/app/questions/single/expanded-code-modal';
 import ResizableLayout from '@/components/ui/resizable-layout';
-import AiQuestionHelp from '@/components/app/questions/single/layout/ai-question-help';
-import ChangeCodeTheme from '@/components/app/questions/single/layout/change-code-theme';
+import AiQuestionHelp from '@/components/app/questions/single/ai-question-help';
+import ChangeCodeTheme from '@/components/app/questions/single/change-code-theme';
 
 export default async function TodaysQuestionPage({ params }: { params: { uid: string } }) {
   const { uid } = params;

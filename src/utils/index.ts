@@ -146,3 +146,19 @@ export const copyLinkToClipboard = (link: string) => {
     },
   };
 };
+
+/**
+ * Log a message to the console if the environment is development
+ *
+ * @param message
+ */
+export const devLog = (message: string, ...args: any[]) => {
+  if (getEnv() === 'development') {
+    console.log(
+      '%c[DEV]%c ' + message,
+      'color: #3b82f6; font-weight: bold;',
+      'color: inherit;',
+      ...args
+    );
+  }
+};

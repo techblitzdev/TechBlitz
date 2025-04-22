@@ -12,6 +12,7 @@ import { executeQuestionCode } from '@/actions/questions/execute';
 import { useStudyPath } from '@/hooks/use-study-path';
 import { StudyPath } from '@prisma/client';
 import { readStreamableValue } from 'ai/rsc';
+import { devLog } from '@/utils';
 
 interface TestRunResult {
   passed: boolean;
@@ -176,6 +177,12 @@ export const QuestionSingleContextProvider = ({
 
   // Reset the state when the lesson index changes or question changes
   useEffect(() => {
+    devLog(
+      `Question changed or lesson index changed: UID=${
+        question.uid
+      }, Lesson Index=${searchParams?.get('lesson')}`
+    );
+
     // Reset all answer-related state
     setCorrectAnswer('init');
     setUserAnswer(null);
@@ -187,10 +194,12 @@ export const QuestionSingleContextProvider = ({
     setPrefilledCodeSnippet(null);
     setCode(question.codeSnippet || '');
     setResult(null);
+    setTestRunResult(null); // Reset test run results when changing questions
     setShowHint(false);
+    setRunningCode(false); // Ensure running code state is reset
 
-    // This will ensure we start fresh when the question changes or when navigating via lesson parameter
-  }, [question.uid, searchParams?.get('lesson'), question.codeSnippet]);
+    // Ensure nothing from the previous question affects this one
+  }, [searchParams?.get('lesson')]);
 
   // METHODS
   // Submit the answer for a non-CODING_CHALLENGE question
@@ -261,7 +270,15 @@ export const QuestionSingleContextProvider = ({
       });
 
       const allPassed = results.every((r: any) => r.passed);
-      setResult({ passed: allPassed, details: results });
+      setResult({
+        passed: allPassed,
+        details: results.map((r: any) => ({
+          passed: r.passed,
+          input: r.input,
+          expected: r.expected,
+          received: r.received,
+        })),
+      });
 
       await answerQuestion({
         questionUid: question.uid,
@@ -361,7 +378,6 @@ export const QuestionSingleContextProvider = ({
 
     setRunningCode(true);
 
-    // simulate a 5 second delay
     // Execute the user's code with test cases
     const results = await executeQuestionCode({
       code,
@@ -377,12 +393,16 @@ export const QuestionSingleContextProvider = ({
 
     const allPassed = results?.every((r: any) => r.passed);
 
-    // simulate a random result
-    setTestRunResult({ passed: allPassed, details: results });
-    // after 5 seconds, set the result to null
-    setTimeout(() => {
-      setTestRunResult(null);
-    }, 5000);
+    // Set the test results
+    setTestRunResult({
+      passed: allPassed,
+      details: results.map((r: any) => ({
+        passed: r.passed,
+        input: r.input,
+        expected: r.expected,
+        received: r.received,
+      })),
+    });
 
     setRunningCode(false);
   };
@@ -401,6 +421,7 @@ export const QuestionSingleContextProvider = ({
     setTotalSeconds(0);
     setCode(originalCode);
     setResult(null);
+    setTestRunResult(null);
     setShowHint(false);
   };
 

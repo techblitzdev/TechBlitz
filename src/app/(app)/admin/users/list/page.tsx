@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import AdminContainer from '@/components/app/admin/admin-container';
-import UserStatusBadge from '@/components/app/admin/user-status-badge';
-import UserRoleBadge from '@/components/app/admin/user-role-badge';
+import UserStatusBadge from '@/components/app/admin/user/user-status-badge';
+import UserRoleBadge from '@/components/app/admin/user/user-role-badge';
 import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
@@ -300,7 +300,9 @@ export default async function UsersListPage({ searchParams }: { searchParams: Se
             <div className="flex space-x-2">
               {currentPage > 1 && (
                 <Link
-                  href={`/admin/users/list?page=${currentPage - 1}&query=${searchQuery}&status=${statusFilter}&role=${roleFilter}`}
+                  href={`/admin/users/list?page=${
+                    currentPage - 1
+                  }&query=${searchQuery}&status=${statusFilter}&role=${roleFilter}`}
                   className="px-3 py-1 bg-black-75 hover:bg-black-50 text-white rounded-md text-sm"
                 >
                   Previous
@@ -337,7 +339,9 @@ export default async function UsersListPage({ searchParams }: { searchParams: Se
 
               {currentPage < totalPages && (
                 <Link
-                  href={`/admin/users/list?page=${currentPage + 1}&query=${searchQuery}&status=${statusFilter}&role=${roleFilter}`}
+                  href={`/admin/users/list?page=${
+                    currentPage + 1
+                  }&query=${searchQuery}&status=${statusFilter}&role=${roleFilter}`}
                   className="px-3 py-1 bg-black-75 hover:bg-black-50 text-white rounded-md text-sm"
                 >
                   Next

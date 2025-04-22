@@ -3,13 +3,6 @@
 import { useQuestionSingle } from '@/contexts/question-single-context';
 import CodeDisplay from './code-snippet';
 import { Button } from '@/components/ui/button';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { useTransition } from 'react';
 import Link from 'next/link';
 import { CheckCircle, LinkIcon, XCircle } from 'lucide-react';
@@ -17,13 +10,10 @@ import { motion } from 'framer-motion';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { formatSeconds } from '@/utils/time';
-import { AnswerDifficulty } from '@prisma/client';
-import { updateAnswerDifficulty } from '@/actions/answers/answer';
 import LoadingSpinner from '@/components/ui/loading';
 import { copyLinkToClipboard, getUpgradeUrl } from '@/utils';
 import { userIsPremium } from '@/utils/user';
 import { useSearchParams, usePathname } from 'next/navigation';
-import { toast } from 'sonner';
 
 export default function QuestionSubmitted() {
   const {
@@ -84,17 +74,6 @@ export default function QuestionSubmitted() {
       // For regular questions, use the question slug format
       return `/question/${question.nextQuestionSlug}`;
     }
-  };
-
-  const handleDifficultySelect = async (value: string) => {
-    await updateAnswerDifficulty(
-      userAnswer?.uid || '',
-      value.toUpperCase() as AnswerDifficulty,
-      false
-    );
-    toast.success(
-      'Question difficulty updated, we will now serve more personalized questions to you.'
-    );
   };
 
   return (
@@ -245,7 +224,7 @@ export default function QuestionSubmitted() {
           </Button>
         </div>
 
-        {/** how difficult was this question? */}
+        {/** how difficult was this question? 
         <div className="flex flex-col gap-y-2 mt-3">
           <h2 className="text-xl font-bold">How difficult was this question?</h2>
           <p className="text-sm text-gray-400">
@@ -265,6 +244,7 @@ export default function QuestionSubmitted() {
             </Select>
           </div>
         </div>
+        */}
         {/** if the next question slug is not null, show a button to go to the next question */}
         {(question?.nextQuestionSlug || nextQuestion) && (
           <div className="flex flex-col gap-y-2">

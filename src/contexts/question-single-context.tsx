@@ -176,6 +176,12 @@ export const QuestionSingleContextProvider = ({
 
   // Reset the state when the lesson index changes or question changes
   useEffect(() => {
+    console.log(
+      `Question changed or lesson index changed: UID=${
+        question.uid
+      }, Lesson Index=${searchParams?.get('lesson')}`
+    );
+
     // Reset all answer-related state
     setCorrectAnswer('init');
     setUserAnswer(null);
@@ -187,10 +193,12 @@ export const QuestionSingleContextProvider = ({
     setPrefilledCodeSnippet(null);
     setCode(question.codeSnippet || '');
     setResult(null);
+    setTestRunResult(null); // Reset test run results when changing questions
     setShowHint(false);
+    setRunningCode(false); // Ensure running code state is reset
 
-    // This will ensure we start fresh when the question changes or when navigating via lesson parameter
-  }, [question.uid, searchParams?.get('lesson'), question.codeSnippet]);
+    // Ensure nothing from the previous question affects this one
+  }, [question, question.uid, searchParams?.get('lesson')]);
 
   // METHODS
   // Submit the answer for a non-CODING_CHALLENGE question
@@ -261,7 +269,15 @@ export const QuestionSingleContextProvider = ({
       });
 
       const allPassed = results.every((r: any) => r.passed);
-      setResult({ passed: allPassed, details: results });
+      setResult({
+        passed: allPassed,
+        details: results.map((r: any) => ({
+          passed: r.passed,
+          input: r.input,
+          expected: r.expected,
+          received: r.received,
+        })),
+      });
 
       await answerQuestion({
         questionUid: question.uid,
@@ -378,7 +394,16 @@ export const QuestionSingleContextProvider = ({
     const allPassed = results?.every((r: any) => r.passed);
 
     // simulate a random result
-    setTestRunResult({ passed: allPassed, details: results });
+    setTestRunResult({
+      passed: allPassed,
+      details: results.map((r: any) => ({
+        passed: r.passed,
+        input: r.input,
+        expected: r.expected,
+        received: r.received,
+      })),
+    });
+
     // after 5 seconds, set the result to null
     setTimeout(() => {
       setTestRunResult(null);
@@ -401,6 +426,7 @@ export const QuestionSingleContextProvider = ({
     setTotalSeconds(0);
     setCode(originalCode);
     setResult(null);
+    setTestRunResult(null);
     setShowHint(false);
   };
 

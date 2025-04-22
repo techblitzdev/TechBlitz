@@ -261,7 +261,15 @@ export const QuestionSingleContextProvider = ({
       });
 
       const allPassed = results.every((r: any) => r.passed);
-      setResult({ passed: allPassed, details: results });
+      setResult({
+        passed: allPassed,
+        details: results.map((r: any) => ({
+          passed: r.passed,
+          input: r.input,
+          expected: r.expected,
+          received: r.received,
+        })),
+      });
 
       await answerQuestion({
         questionUid: question.uid,
@@ -378,7 +386,16 @@ export const QuestionSingleContextProvider = ({
     const allPassed = results?.every((r: any) => r.passed);
 
     // simulate a random result
-    setTestRunResult({ passed: allPassed, details: results });
+    setTestRunResult({
+      passed: allPassed,
+      details: results.map((r: any) => ({
+        passed: r.passed,
+        input: r.input,
+        expected: r.expected,
+        received: r.received,
+      })),
+    });
+
     // after 5 seconds, set the result to null
     setTimeout(() => {
       setTestRunResult(null);

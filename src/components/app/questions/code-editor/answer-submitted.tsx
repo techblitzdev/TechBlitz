@@ -4,15 +4,13 @@ import { useQuestionSingle } from '@/contexts/question-single-context';
 import { Button } from '@/components/ui/button';
 import { useTransition } from 'react';
 import Link from 'next/link';
-import { CheckCircle, LinkIcon, XCircle } from 'lucide-react';
+import { CheckCircle, XCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { TooltipProvider } from '@/components/ui/tooltip';
 import { formatSeconds } from '@/utils/time';
 import LoadingSpinner from '@/components/ui/loading';
 import FlagIcon from '@/components/ui/icons/flag';
 import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
-import { copyLinkToClipboard, getUpgradeUrl } from '@/utils';
+import { getUpgradeUrl } from '@/utils';
 import { userIsPremium } from '@/utils/user';
 import { usePathname } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
@@ -104,27 +102,12 @@ export default function CodeEditorQuestionSubmitted() {
               </div>
             )}
           </h1>
-          <div className="flex items-center">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger>
-                  <Button variant="ghost" onClick={() => copyLinkToClipboard(window.location.href)}>
-                    <LinkIcon className="size-4" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Copy link</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <FeedbackButton
-              reference={question?.slug || question?.uid}
-              title="Report Question"
-              description="Something wrong with this question? Report it and we will fix it."
-              showText={false}
-              icon={<FlagIcon width="16px" height="16px" />}
-            />
-          </div>
+          <FeedbackButton
+            reference={question?.slug || question?.uid}
+            description="Something wrong with this question? Report it and we will fix it."
+            showText={false}
+            icon={<FlagIcon width="16px" height="16px" />}
+          />
         </div>
         <div className="flex flex-col gap-y-2">
           {result?.passed && totalSeconds > 0 && (
@@ -132,28 +115,6 @@ export default function CodeEditorQuestionSubmitted() {
           )}
         </div>
       </motion.div>
-      {/** if the next question slug is not null, show a button to go to the next question */}
-      {nextQuestion ? (
-        <div className="flex flex-col gap-y-2 bg-[#111111] border border-black-50 p-4 rounded-lg">
-          <h2 className="text-xl font-bold">Next Question</h2>
-          <p className="text-sm text-gray-400">
-            Want to continue the flow? Click the button below to go to the next question.
-          </p>
-          <Button variant="secondary" href={getNextQuestionUrl()} className="w-fit">
-            {isStudyPathLesson ? 'Next Lesson' : 'Next Question'}
-          </Button>
-        </div>
-      ) : (
-        <div className="flex flex-col gap-y-2 bg-[#111111] border border-black-50 p-4 rounded-lg">
-          <h2 className="text-xl font-bold">Next Question</h2>
-          <p className="text-sm text-gray-400">
-            Want to continue the flow? Click the button below to go to the next question.
-          </p>
-          <Button variant="secondary" href={getNextQuestionUrl()} className="w-fit">
-            Next Lesson
-          </Button>
-        </div>
-      )}
       <motion.div
         className="flex flex-col gap-y-6"
         initial={{ opacity: 0 }}
@@ -203,6 +164,13 @@ export default function CodeEditorQuestionSubmitted() {
             className="flex lg:hidden"
           >
             {isPending ? 'Generating...' : 'Explain Answer'}
+          </Button>
+        </div>
+
+        {/** if the next question slug is not null, show a button to go to the next question */}
+        <div className="flex flex-col gap-y-2">
+          <Button variant="secondary" href={getNextQuestionUrl()} className="w-fit">
+            {isStudyPathLesson ? 'Next Lesson' : 'Next Question'}
           </Button>
         </div>
       </motion.div>

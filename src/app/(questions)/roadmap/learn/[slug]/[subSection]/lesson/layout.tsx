@@ -108,8 +108,6 @@ export default async function QuestionUidLayout({
           <div style={{ opacity: 'var(--content-opacity)' }} className="relative">
             {children}
           </div>
-          {/** shown every 3 questions */}
-          {user?.userLevel === 'FREE' && answeredQuestionsCount % 3 === 0 && <UpgradeModal />}
         </Onborda>
       </OnbordaProvider>
     </>

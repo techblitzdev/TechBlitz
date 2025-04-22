@@ -102,44 +102,10 @@ export default function QuestionPageHeader({
 
       {/* Progress bar for roadmap lessons */}
       <div className="col-span-8 flex items-center justify-center gap-6">
-        {isStudyPathLesson && (
-          <>
-            <TooltipProvider delayDuration={0} skipDelayDuration={100}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <RouterBack
-                    href={isStudyPathLesson ? `/roadmaps/${studyPathSlug}` : '/coding-challenges'}
-                    className="p-0 hidden md:block hover:opacity-80 transition-opacity group relative"
-                  >
-                    <div className="transition-opacity duration-200 group-hover:opacity-0">
-                      <LogoSmall size={32} />
-                    </div>
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:cursor-pointer">
-                      <XIcon width="24" height="24" />
-                    </div>
-                  </RouterBack>
-                </TooltipTrigger>
-                <TooltipContent side="bottom" className="font-medium">
-                  Back to Questions
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </>
-        )}
         <QuestionPageHeaderMiddle question={question} studyPathMetadata={studyPathMetadata} />
       </div>
-      <div
-        className={`col-span-2 flex items-center gap-x-1 md:gap-x-3 ${
-          question.questionType === 'SIMPLE_MULTIPLE_CHOICE' ? 'col-start-11' : ''
-        } ${!isStudyPathLesson ? 'justify-end' : ''}`}
-      >
+      <div className="col-span-2 flex items-center gap-x-1 md:gap-x-3 col-start-12 justify-end">
         <Suspense fallback={null}>
-          <FeedbackButton
-            feedbackModalTitle="Report a problem"
-            feedbackModalDescription="If you're experiencing issues with this question, please let us know so we can fix it."
-            reference={question?.slug || undefined}
-            icon={<FlagIcon height="1.5rem" width="1.5rem" />}
-          />
           <div className="hidden lg:block">
             <UpgradeModalButton />
           </div>

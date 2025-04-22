@@ -105,21 +105,6 @@ export default function QuestionNavigation(opts: {
   return (
     <div className="flex items-center">
       <div className="flex items-center">
-        <div className="hidden md:block">
-          {/** challenge list - provides quick access to the challenge list */}
-          <TooltipProvider delayDuration={0} skipDelayDuration={100}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant="ghost" size="sm" padding="sm">
-                  <ChallengeList type={type} studyPath={studyPath} questions={questions || []} />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent side="bottom">Challenge List</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
-      </div>
-      <div className="flex items-center">
         {/* Previous Question */}
         <TooltipProvider delayDuration={0} skipDelayDuration={100}>
           <Tooltip>

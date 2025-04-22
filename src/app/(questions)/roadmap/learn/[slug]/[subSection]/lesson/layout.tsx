@@ -1,18 +1,13 @@
-import dynamic from 'next/dynamic';
 import { redirect } from 'next/navigation';
 
 // Actions & Utils
 import { devLog } from '@/utils';
-import { getUser } from '@/actions/user/authed/get-user';
-import { userHasAnsweredAnyQuestion } from '@/utils/data/questions/user-has-answered-any-question';
 
 // Components
 import { Onborda, OnbordaProvider } from 'onborda';
 import { steps } from '@/lib/onborda';
 import { TourCard } from '@/components/app/shared/question/tour-card';
 import { getStudyPath } from '@/utils/data/study-paths/get';
-
-const UpgradeModal = dynamic(() => import('@/components/app/shared/upgrade/upgrade-modal'));
 
 export default async function QuestionUidLayout({
   params,
@@ -86,13 +81,6 @@ export default async function QuestionUidLayout({
     allQuestionSlugs = studyPath.questionSlugs || [];
     subsectionQuestionSlugs = allQuestionSlugs;
   }
-
-  const [user, { answeredQuestionsCount }] = await Promise.all([
-    getUser(),
-    userHasAnsweredAnyQuestion({
-      numberOfQuestions: 3,
-    }),
-  ]);
 
   return (
     <>

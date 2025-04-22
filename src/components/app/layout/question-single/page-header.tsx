@@ -4,8 +4,6 @@ import QuestionNavigation from '@/components/app/navigation/question-navigation'
 import QuestionNavigationLoading from '@/components/app/navigation/question-navigation-loading';
 import RouterBack from '@/components/app/shared/router-back';
 import { HomeIcon, XIcon } from 'lucide-react';
-import FeedbackButton from '@/components/app/shared/feedback/feedback-button';
-import FlagIcon from '@/components/ui/icons/flag';
 
 const UpgradeModalButton = lazy(() => import('@/components/app/shared/upgrade/upgrade-modal'));
 

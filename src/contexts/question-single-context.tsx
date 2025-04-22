@@ -12,6 +12,7 @@ import { executeQuestionCode } from '@/actions/questions/execute';
 import { useStudyPath } from '@/hooks/use-study-path';
 import { StudyPath } from '@prisma/client';
 import { readStreamableValue } from 'ai/rsc';
+import { devLog } from '@/utils';
 
 interface TestRunResult {
   passed: boolean;
@@ -176,7 +177,7 @@ export const QuestionSingleContextProvider = ({
 
   // Reset the state when the lesson index changes or question changes
   useEffect(() => {
-    console.log(
+    devLog(
       `Question changed or lesson index changed: UID=${
         question.uid
       }, Lesson Index=${searchParams?.get('lesson')}`
@@ -198,7 +199,7 @@ export const QuestionSingleContextProvider = ({
     setRunningCode(false); // Ensure running code state is reset
 
     // Ensure nothing from the previous question affects this one
-  }, [question, question.uid, searchParams?.get('lesson')]);
+  }, [searchParams?.get('lesson')]);
 
   // METHODS
   // Submit the answer for a non-CODING_CHALLENGE question
@@ -377,7 +378,6 @@ export const QuestionSingleContextProvider = ({
 
     setRunningCode(true);
 
-    // simulate a 5 second delay
     // Execute the user's code with test cases
     const results = await executeQuestionCode({
       code,
@@ -393,7 +393,7 @@ export const QuestionSingleContextProvider = ({
 
     const allPassed = results?.every((r: any) => r.passed);
 
-    // simulate a random result
+    // Set the test results
     setTestRunResult({
       passed: allPassed,
       details: results.map((r: any) => ({
@@ -403,11 +403,6 @@ export const QuestionSingleContextProvider = ({
         received: r.received,
       })),
     });
-
-    // after 5 seconds, set the result to null
-    setTimeout(() => {
-      setTestRunResult(null);
-    }, 5000);
 
     setRunningCode(false);
   };

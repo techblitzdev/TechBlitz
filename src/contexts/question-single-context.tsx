@@ -176,6 +176,12 @@ export const QuestionSingleContextProvider = ({
 
   // Reset the state when the lesson index changes or question changes
   useEffect(() => {
+    console.log(
+      `Question changed or lesson index changed: UID=${
+        question.uid
+      }, Lesson Index=${searchParams?.get('lesson')}`
+    );
+
     // Reset all answer-related state
     setCorrectAnswer('init');
     setUserAnswer(null);
@@ -187,10 +193,12 @@ export const QuestionSingleContextProvider = ({
     setPrefilledCodeSnippet(null);
     setCode(question.codeSnippet || '');
     setResult(null);
+    setTestRunResult(null); // Reset test run results when changing questions
     setShowHint(false);
+    setRunningCode(false); // Ensure running code state is reset
 
-    // This will ensure we start fresh when the question changes or when navigating via lesson parameter
-  }, [question.uid, searchParams?.get('lesson'), question.codeSnippet]);
+    // Ensure nothing from the previous question affects this one
+  }, [question, question.uid, searchParams?.get('lesson')]);
 
   // METHODS
   // Submit the answer for a non-CODING_CHALLENGE question
@@ -418,6 +426,7 @@ export const QuestionSingleContextProvider = ({
     setTotalSeconds(0);
     setCode(originalCode);
     setResult(null);
+    setTestRunResult(null);
     setShowHint(false);
   };
 

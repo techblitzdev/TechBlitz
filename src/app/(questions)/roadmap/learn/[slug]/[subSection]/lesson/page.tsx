@@ -258,6 +258,7 @@ export default async function RoadmapLessonPage({
       className={`hidden lg:flex flex-col gap-4 p-3 lg:pl-1.5 h-full ${
         question?.testCases?.length ? 'lg:pb-1.5' : 'lg:pb-3'
       }`}
+      key={`code-content-${question.uid}-${lessonIndex}`}
     >
       <div
         id="code-snippet"
@@ -275,18 +276,31 @@ export default async function RoadmapLessonPage({
           </div>
         </div>
         <Separator className="bg-black-50" />
-        {question?.questionType === 'CODING_CHALLENGE' ? <CodeEditor /> : <CodeDisplayWrapper />}
+        {question?.questionType === 'CODING_CHALLENGE' ? (
+          <div key={`editor-${question.uid}-${lessonIndex}`}>
+            <CodeEditor />
+          </div>
+        ) : (
+          <div key={`display-${question.uid}-${lessonIndex}`}>
+            <CodeDisplayWrapper />
+          </div>
+        )}
       </div>
     </div>
   );
 
-  const rightBottomContent = question?.testCases?.length ? <TestCaseSection /> : null;
+  const rightBottomContent = question?.testCases?.length ? (
+    <div key={`test-cases-${question.uid}-${lessonIndex}`}>
+      <TestCaseSection />
+    </div>
+  ) : null;
 
   return (
     <PremiumContentWrapper>
       <TourStartModal user={user} />
       <LessonTransitionWrapper>
         <ResizableLayout
+          key={`layout-${question.uid}-${lessonIndex}`}
           leftContent={leftContent}
           rightTopContent={rightContent}
           rightBottomContent={rightBottomContent}

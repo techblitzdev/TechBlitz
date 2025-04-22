@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useRef, useState } from 'react';
+import { use, useState } from 'react';
 
 // components
 import { Separator } from '@/components/ui/separator';
@@ -70,11 +70,6 @@ export default function QuestionCard(opts: {
     answerHelp,
     showHint,
   } = useQuestionSingle();
-
-  const answerFormRef = useRef<{
-    submitForm: () => void;
-    resetForm: () => void;
-  }>(null);
 
   if (!question) {
     return <NoDailyQuestion textAlign="center" />;

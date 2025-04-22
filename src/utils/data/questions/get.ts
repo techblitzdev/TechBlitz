@@ -2,7 +2,7 @@ import { prisma } from '@/lib/prisma';
 import { getTagsFromQuestion } from './tags/get-tags-from-question';
 import { Question } from '@/types/Questions';
 import { cache } from 'react';
-import { devLog } from '@/utils';
+
 /**
  * Retrieve a question via its uid or slug
  *
@@ -12,56 +12,47 @@ import { devLog } from '@/utils';
  */
 export const getQuestion = cache(async (identifier: 'slug' | 'uid' = 'slug', value: string) => {
   if (!value) {
-    devLog('Please provide a uid');
+    console.error('Please provide a uid');
     return null;
   }
 
-      let res = await prisma.questions.findUnique({
-        where: identifier === 'uid' ? { uid: value } : { slug: value },
+  let res = await prisma.questions.findUnique({
+    where: identifier === 'uid' ? { uid: value } : { slug: value },
+    include: {
+      answers: true,
+      tags: {
         include: {
-          answers: true,
-          tags: {
-            include: {
-              tag: true,
-            },
-          },
-          QuestionResources: true,
-          bookmarks: true,
+          tag: true,
         },
-      });
-
-      // If not found, try the other identifier
-      if (!res) {
-        res = await prisma.questions.findUnique({
-          where: identifier === 'uid' ? { slug: value } : { uid: value },
-          include: {
-            answers: true,
-            tags: {
-              include: {
-                tag: true,
-              },
-            },
-            QuestionResources: true,
-            bookmarks: true,
-          },
-        });
-      }
-
-      if (!res) {
-        return null;
-      }
-
-      // get the tags from out the question
-      const question = getTagsFromQuestion(res) as unknown as Question;
-
-      return question;
+      },
+      QuestionResources: true,
+      bookmarks: true,
     },
-    // Use a unique cache key for each question
-    [`question-${identifier}-${value}`],
-    // Set revalidation options
-    {
-      tags: [`question-${value}`],
-      revalidate: 3600, // Cache for 1 hour
-    }
-  )();
-};
+  });
+
+  // If not found, try the other identifier
+  if (!res) {
+    res = await prisma.questions.findUnique({
+      where: identifier === 'uid' ? { slug: value } : { uid: value },
+      include: {
+        answers: true,
+        tags: {
+          include: {
+            tag: true,
+          },
+        },
+        QuestionResources: true,
+        bookmarks: true,
+      },
+    });
+  }
+
+  if (!res) {
+    return null;
+  }
+
+  // get the tags from out the question
+  const question = getTagsFromQuestion(res) as unknown as Question;
+
+  return question;
+});

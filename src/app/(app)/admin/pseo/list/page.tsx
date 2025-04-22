@@ -3,7 +3,7 @@ import Link from 'next/link';
 import AdminContainer from '@/components/app/admin/admin-container';
 import { prisma } from '@/lib/prisma';
 import { getBaseUrl } from '@/utils';
-import PseoPublishToggle from '@/components/app/admin/pseo-publish-toggle';
+import PseoPublishToggle from '@/components/app/admin/pseo/pseo-publish-toggle';
 
 export const metadata: Metadata = {
   title: 'TechBlitz | PSEO Pages List',

@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import AdminContainer from '@/components/app/admin/admin-container';
 import { prisma } from '@/lib/prisma';
-import QuestionForm from '@/components/app/questions/admin/question-form';
+import QuestionForm from '@/components/app/admin/questions/question-form';
 
 interface QuestionEditPageProps {
   params: {

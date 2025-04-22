@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import AdminContainer from '@/components/app/admin/admin-container';
 import { prisma } from '@/lib/prisma';
-import UserEditForm from '@/components/app/admin/user-edit-form';
+import UserEditForm from '@/components/app/admin/user/user-edit-form';
 
 export const metadata: Metadata = {
   title: 'TechBlitz | Edit User',

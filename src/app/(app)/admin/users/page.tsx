@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import AdminContainer from '@/components/app/admin/admin-container';
-import UserChart from '@/components/app/admin/user-chart';
-import UsersStatsCard from '@/components/app/admin/users-stats-card';
-import RecentUsers from '@/components/app/admin/recent-users';
-import ActiveUsersMap from '@/components/app/admin/active-users-map';
+import UserChart from '@/components/app/admin/user/user-chart';
+import UsersStatsCard from '@/components/app/admin/user/users-stats-card';
+import ActiveUsersMap from '@/components/app/admin/user/active-users-map';
 import { prisma } from '@/lib/prisma';
+import RecentUsers from '@/components/app/admin/user/recent-users';
 
 export const metadata: Metadata = {
   title: 'TechBlitz | User Analytics',

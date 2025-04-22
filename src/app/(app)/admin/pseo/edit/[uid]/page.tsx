@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import AdminContainer from '@/components/app/admin/admin-container';
-import PseoForm from '@/components/app/admin/pseo-form';
+import PseoForm from '@/components/app/admin/pseo/pseo-form';
 import { prisma } from '@/lib/prisma';
 import { getBaseUrl } from '@/utils';
 

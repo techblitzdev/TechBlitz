@@ -54,37 +54,35 @@ export default function QuestionPageHeader({
       )}
     >
       <div className="col-span-2 flex items-center justify-start">
-        {!isStudyPathLesson && (
-          <>
-            <RouterBack
-              href="/coding-challenges"
-              className="px-0 block md:hidden hover:opacity-80 transition-opacity"
-            >
-              <HomeIcon width="16" height="16" />
-            </RouterBack>
+        <>
+          <RouterBack
+            href={isStudyPathLesson ? `/roadmaps/${studyPathSlug}` : '/coding-challenges'}
+            className="px-0 block md:hidden hover:opacity-80 transition-opacity"
+          >
+            <HomeIcon width="16" height="16" />
+          </RouterBack>
 
-            <TooltipProvider delayDuration={0} skipDelayDuration={100}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <RouterBack
-                    href={isStudyPathLesson ? `/roadmaps/${studyPathSlug}` : '/coding-challenges'}
-                    className="p-0 hidden md:block hover:opacity-80 transition-opacity group relative"
-                  >
-                    <div className="transition-opacity duration-200 group-hover:opacity-0">
-                      <LogoSmall size={32} />
-                    </div>
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:cursor-pointer">
-                      <XIcon width="24" height="24" />
-                    </div>
-                  </RouterBack>
-                </TooltipTrigger>
-                <TooltipContent side="bottom" className="font-medium">
-                  Back to Questions
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </>
-        )}
+          <TooltipProvider delayDuration={0} skipDelayDuration={100}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <RouterBack
+                  href={isStudyPathLesson ? `/roadmaps/${studyPathSlug}` : '/coding-challenges'}
+                  className="p-0 hidden md:block hover:opacity-80 transition-opacity group relative"
+                >
+                  <div className="transition-opacity duration-200 group-hover:opacity-0">
+                    <LogoSmall size={32} />
+                  </div>
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:cursor-pointer">
+                    <XIcon width="24" height="24" />
+                  </div>
+                </RouterBack>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="font-medium">
+                Back to Questions
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </>
         {/* Challenge List - only available for standard questions, not study paths */}
         {!isStudyPathLesson && nextAndPreviousQuestionPromise && (
           <div className="items-center hidden md:flex">
@@ -106,13 +104,6 @@ export default function QuestionPageHeader({
       <div className="col-span-8 flex items-center justify-center gap-6">
         {isStudyPathLesson && (
           <>
-            <RouterBack
-              href="/coding-challenges"
-              className="px-0 block md:hidden hover:opacity-80 transition-opacity"
-            >
-              <HomeIcon width="16" height="16" />
-            </RouterBack>
-
             <TooltipProvider delayDuration={0} skipDelayDuration={100}>
               <Tooltip>
                 <TooltipTrigger asChild>

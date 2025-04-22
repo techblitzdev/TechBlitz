@@ -38,11 +38,11 @@ export default function TestCaseSection() {
           </h2>
         </div>
         {userCanAccess && (
-          <Tabs defaultValue="test-0">
+          <Tabs defaultValue="test-0" key={`tabs-${question.uid}`}>
             <TabsList className="text-white rounded-lg bg-transparent flex gap-3 flex-wrap w-full justify-start px-4 py-2">
               {question.testCases.map((_: any, index: number) => (
                 <TabsTrigger
-                  key={index}
+                  key={`trigger-${question.uid}-${index}`}
                   value={`test-${index}`}
                   className="flex items-center justify-center text-sm font-medium transition-colors rounded-md text-gray-400 data-[state=active]:text-white data-[state=active]:bg-black-25 border-0 w-fit p-1"
                 >
@@ -58,7 +58,7 @@ export default function TestCaseSection() {
                       <>
                         {result.details.map((detail: ResultProps, index: number) => (
                           <TabsContent
-                            key={index}
+                            key={`result-${question.uid}-${index}`}
                             value={`test-${index}`}
                             className="overflow-y-auto"
                           >
@@ -86,7 +86,11 @@ export default function TestCaseSection() {
             ) : (
               <>
                 {question.testCases.map((testCase: any, index: number) => (
-                  <TabsContent key={index} value={`test-${index}`} className="overflow-y-auto">
+                  <TabsContent
+                    key={`test-${question.uid}-${index}`}
+                    value={`test-${index}`}
+                    className="overflow-y-auto"
+                  >
                     <div className="p-4">
                       <div className="mb-4">
                         <h3 className="text-sm font-medium mb-2">Input:</h3>

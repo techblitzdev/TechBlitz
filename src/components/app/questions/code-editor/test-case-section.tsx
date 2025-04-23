@@ -94,8 +94,11 @@ export default function TestCaseSection() {
                     <div className="p-4">
                       <div className="mb-4">
                         <h3 className="text-sm font-medium mb-2">Input:</h3>
-                        <pre className="bg-[#1e1e1e] p-3 rounded overflow-x-auto">
-                          {JSON.stringify(testCase.input[0], null, 2)}
+                        <pre className="bg-[#1e1e1e] p-3 rounded overflow-x-auto whitespace-nowrap">
+                          {/** if there is only 1 input, do not wrap it in an array */}
+                          {testCase.input.length === 1
+                            ? JSON.stringify(testCase.input[0], null, 2)
+                            : JSON.stringify(testCase.input, null, 2)}
                         </pre>
                       </div>
                       <div>

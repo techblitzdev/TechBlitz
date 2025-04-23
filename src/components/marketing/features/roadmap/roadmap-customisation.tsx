@@ -3,7 +3,7 @@ import AnimatedSpan from '@/components/ui/animated-span';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-import { RoadmapUserQuestions } from '@/types/Roadmap';
+import type { RoadmapUserQuestions } from '@/types';
 
 const dummyQuestions: Partial<RoadmapUserQuestions>[] = [
   {

@@ -1,7 +1,7 @@
 'use client';
 
 import Chip from '@/components/ui/chip';
-import { RoadmapUserQuestions } from '@/types/Roadmap';
+import type { RoadmapUserQuestions } from '@/types';
 import { capitalise, getQuestionDifficultyColor } from '@/utils';
 import { cn } from '@/lib/utils';
 import { Check, X } from 'lucide-react';

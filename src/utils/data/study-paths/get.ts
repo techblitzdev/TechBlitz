@@ -2,7 +2,7 @@
 import { revalidateTag } from 'next/cache';
 
 // types
-import type { StudyPathWithOverviewData } from '@/types/StudyPath';
+import type { StudyPathWithOverviewData } from '@/types';
 
 // utils
 import { prisma } from '@/lib/prisma';

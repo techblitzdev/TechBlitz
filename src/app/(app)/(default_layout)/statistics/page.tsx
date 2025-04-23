@@ -2,7 +2,7 @@ import StatsRangePicker from '@/components/app/statistics/range-picker';
 import QuestionChart from '@/components/app/statistics/total-question-chart';
 
 import { useUserServer } from '@/hooks/use-user-server';
-import { StatsSteps } from '@/types/Stats';
+import { StatsSteps } from '@/types';
 
 import { STATISTICS } from '@/utils/constants';
 

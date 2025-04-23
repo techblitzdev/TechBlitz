@@ -1,16 +1,17 @@
 'use server';
-import { Answer } from '@/types/Answers';
-import { UserRecord } from '@/types/User';
-import { prisma } from '@/lib/prisma';
 import { revalidateTag } from 'next/cache';
-import { AnswerDifficulty } from '@prisma/client';
+
 import { uniqueId } from 'lodash';
-import { getUser } from '../user/authed/get-user';
-import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
 import { createUserMissionRecords } from '../daily-missions/create-user-missions-record';
 import { sendStudyPathCompleteEmail } from '../study-paths/send-path-complete-email';
+
+import { getUser } from '../user/authed/get-user';
+import { getDailyMissions } from '@/utils/data/missions/get-daily-missions';
 import { QUESTION_XP } from '@/utils/constants/question-xp';
-import { Question } from '@/types/Questions';
+import { prisma } from '@/lib/prisma';
+
+import { AnswerDifficulty } from '@prisma/client';
+import type { Answer, UserRecord, Question } from '@/types';
 
 // Types
 interface AnswerQuestionInput {

@@ -1,8 +1,7 @@
 import { SuggestedChallengeEmailTemplate } from '@/components/emails/daily-challenge';
 import { prisma } from '@/lib/prisma';
 import { resend } from '@/lib/resend';
-import { QuestionWithTags } from '@/types/Questions';
-import { UserRecord } from '@/types/User';
+import type { QuestionWithTags, UserRecord } from '@/types';
 import {
   SUGGESTED_CHALLENGE_EMAIL_DESCRIPTION,
   SUGGESTED_CHALLENGE_EMAIL_SUBJECT,

@@ -1,6 +1,6 @@
 'use server';
 import { prisma } from '@/lib/prisma';
-import { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 
 /**
  * Gathers the tag data for the user stats report

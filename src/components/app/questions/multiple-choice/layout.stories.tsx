@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { QuestionDifficulty, QuestionType } from '@prisma/client';
 import Layout from './layout';
-import { QuestionAnswer } from '@/types/QuestionAnswers';
-import { QuestionMock } from '@/types/Questions';
+import type { QuestionMock, QuestionAnswer } from '@/types';
 
 const meta = {
   component: Layout,

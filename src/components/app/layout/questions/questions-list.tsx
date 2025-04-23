@@ -4,7 +4,7 @@ import { listQuestions } from '@/utils/data/questions/list';
 
 import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/use-user-server';
-import { QuestionFilters } from '@/types/Filters';
+import type { QuestionFilters } from '@/types';
 import ClearFilters from './clear-filters';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 import GlobalPagination from '@/components/app/shared/pagination';

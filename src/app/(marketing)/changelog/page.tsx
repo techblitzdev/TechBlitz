@@ -3,7 +3,7 @@ import { GridPattern } from '@/components/ui/grid';
 import { cn } from '@/lib/utils';
 import { createMetadata } from '@/utils/seo';
 import { getBaseUrl } from '@/utils';
-import { WebPageJsonLd } from '@/types/Seo';
+import type { WebPageJsonLd } from '@/types';
 
 export async function generateMetadata() {
   return createMetadata({

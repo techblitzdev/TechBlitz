@@ -5,7 +5,7 @@ import MarketingContentGrid from '@/components/marketing/global/blocks/content-g
 import { MobileIcon } from '@radix-ui/react-icons';
 import { BarChart, Code, FileBadge2, LaptopIcon } from 'lucide-react';
 import { createMetadata } from '@/utils/seo';
-import { WebPageJsonLd } from '@/types/Seo';
+import type { WebPageJsonLd } from '@/types';
 import { getBaseUrl } from '@/utils';
 
 export async function generateMetadata() {

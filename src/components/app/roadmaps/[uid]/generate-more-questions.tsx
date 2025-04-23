@@ -1,5 +1,5 @@
 'use client';
-import { RoadmapUserQuestions, UserRoadmaps } from '@/types/Roadmap';
+import type { RoadmapUserQuestions, UserRoadmaps } from '@/types';
 import { Button } from '@/components/ui/button';
 import { roadmapGenerate } from '@/actions/ai/roadmap/generate';
 import { forwardRef, useState } from 'react';

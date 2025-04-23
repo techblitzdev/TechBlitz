@@ -1,5 +1,5 @@
 import LoginForm from '@/components/auth/login';
-import { WebPageJsonLd } from '@/types/Seo';
+import type { WebPageJsonLd } from '@/types';
 import { getBaseUrl } from '@/utils';
 import Link from 'next/link';
 

@@ -9,7 +9,7 @@ import FeatureLeftRightSection from '@/components/marketing/features/daily-chall
 
 import { createMetadata } from '@/utils/seo';
 import { getBaseUrl } from '@/utils';
-import { WebPageJsonLd } from '@/types/Seo';
+import type { WebPageJsonLd } from '@/types';
 import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
 import { getUserCount } from '@/utils/data/user/get-user-count';
 import ThreeBlockShowcase from '@/components/marketing/global/blocks/three-block-showcase';

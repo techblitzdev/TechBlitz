@@ -1,9 +1,11 @@
 'use server';
-import { QuestionDifficulty } from '@/types/Questions';
-import { prisma } from '@/lib/prisma';
 import uniqid from 'uniqid';
+
 import { addSlugToQuestion } from '@/scripts/add-slug-to-question';
-import { QuestionAnswerType } from '@/types/QuestionAnswers';
+
+import { prisma } from '@/lib/prisma';
+
+import { QuestionDifficulty, QuestionAnswerType } from '@/types';
 
 export const addQuestion = async (opts: {
   title?: string;

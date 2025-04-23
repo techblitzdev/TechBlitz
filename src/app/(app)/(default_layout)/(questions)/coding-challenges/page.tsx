@@ -8,7 +8,7 @@ import FilterLoading from '@/components/app/filters/filters-loading';
 import QuestionPageSidebarLoading from '@/components/app/layout/questions/question-page-sidebar-loading';
 import { QuestionCardSkeleton } from '@/components/app/layout/questions/question-card';
 import { ArrowRightIcon } from 'lucide-react';
-import type { WebPageJsonLd } from '@/types/Seo';
+import type { WebPageJsonLd } from '@/types';
 import { getBaseUrl } from '@/utils';
 
 const Filter = lazy(() => import('@/components/app/filters/filter'));

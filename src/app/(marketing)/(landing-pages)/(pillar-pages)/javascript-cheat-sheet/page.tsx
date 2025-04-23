@@ -10,7 +10,7 @@ import QuestionMarquee from '@/components/marketing/global/blocks/question-marqu
 import Document from '@/components/ui/icons/document';
 import MaterialSymbolsFilterListRounded from '@/components/ui/icons/filter';
 import RoadmapIcon from '@/components/ui/icons/roadmap';
-import { WebPageJsonLd } from '@/types/Seo';
+import type { WebPageJsonLd } from '@/types';
 import { getBaseUrl } from '@/utils';
 import { QUESTIONS_COUNT } from '@/utils/constants/misc';
 import { createMetadata } from '@/utils/seo';

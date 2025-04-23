@@ -2,7 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 import { cn } from '@/lib/utils';
-import { Question } from '@/types/Questions';
+import type { Question } from '@/types';
 
 export default async function QuestionSuggestedCard(opts: {
   border?: boolean;

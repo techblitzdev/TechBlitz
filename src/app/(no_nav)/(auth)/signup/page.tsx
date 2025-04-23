@@ -1,13 +1,12 @@
 import SignupForm from '@/components/auth/signup';
 import { createMetadata } from '@/utils/seo';
-import { RoadmapUserQuestions } from '@/types/Roadmap';
 import RoadmapQuestionCard from '@/components/app/roadmaps/questions/[uid]/question-card';
 import SocialProof from '@/components/marketing/global/social-proof';
 import { fetchGithubStars } from '@/utils/data/misc/get-github-stars';
 import { getUserCount } from '@/utils/data/user/get-user-count';
 import { Suspense } from 'react';
 import Link from 'next/link';
-import { WebPageJsonLd } from '@/types/Seo';
+import type { WebPageJsonLd, RoadmapUserQuestions } from '@/types';
 import { getBaseUrl } from '@/utils';
 
 export async function generateMetadata() {

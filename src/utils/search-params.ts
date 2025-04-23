@@ -1,5 +1,4 @@
-import { QuestionFilters } from '@/types/Filters';
-import { QuestionDifficulty } from '@/types/Questions';
+import type { QuestionFilters, QuestionDifficulty } from '@/types';
 
 export const parseSearchParams = (searchParams: {
   [key: string]: string | string[] | undefined;

@@ -1,6 +1,6 @@
 import { getQuestionsByTag } from '@/utils/data/questions/get-questions-by-tag';
 import QuestionCard from '../app/layout/questions/question-card';
-import { QuestionDifficulty } from '@/types/Questions';
+import type { QuestionDifficulty } from '@/types';
 
 export default async function MdxQuestionDisplay(opts: {
   tag: string;

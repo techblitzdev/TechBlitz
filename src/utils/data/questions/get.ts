@@ -1,7 +1,8 @@
+import { cache } from 'react';
+
 import { prisma } from '@/lib/prisma';
 import { getTagsFromQuestion } from './tags/get-tags-from-question';
-import { Question } from '@/types/Questions';
-import { cache } from 'react';
+import type { Question } from '@/types';
 
 /**
  * Retrieve a question via its uid or slug

@@ -5,7 +5,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { Stars } from 'lucide-react';
 import { SIDEBAR_FOOTER_DESCRIPTION } from '@/utils/constants/sidebar';
 import { usePathname } from 'next/navigation';
-import { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 import { getUserDisplayName } from '@/utils/user';
 import { getUpgradeUrl } from '@/utils';
 
@@ -52,8 +52,8 @@ export default function SidebarFooterPremium({ user }: SidebarFooterPremiumProps
               {overrideDynamicTitleAndDescription
                 ? '30% off our lifetime plan. One payment, yours forever!'
                 : SIDEBAR_FOOTER_DESCRIPTION[pathname as keyof typeof SIDEBAR_FOOTER_DESCRIPTION]
-                  ? SIDEBAR_FOOTER_DESCRIPTION[pathname as keyof typeof SIDEBAR_FOOTER_DESCRIPTION]
-                  : 'Personalized practice, premium questions and more'}
+                ? SIDEBAR_FOOTER_DESCRIPTION[pathname as keyof typeof SIDEBAR_FOOTER_DESCRIPTION]
+                : 'Personalized practice, premium questions and more'}
             </>
           )}
         </p>

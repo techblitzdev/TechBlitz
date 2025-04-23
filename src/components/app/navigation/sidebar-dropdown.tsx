@@ -19,9 +19,8 @@ import {
 import LogoutButton from '@/components/auth/logout';
 import ProfilePicture from '@/components/ui/profile-picture';
 
-import type { UserRecord } from '@/types/User';
+import type { UserRecord, Profile } from '@/types';
 import { getUserDisplayName } from '@/utils/user';
-import type { Profile } from '@/types/Profile';
 import { capitalise, getUpgradeUrl } from '@/utils';
 import ReferralModal from '@/components/shared/referral-modal';
 

@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { getBaseUrl } from '@/utils';
-import { Question } from '@/types/Questions';
-import { WebPageJsonLd } from '@/types/Seo';
+import type { WebPageJsonLd, Question } from '@/types';
 
 interface OgImageProps {
   text: string;

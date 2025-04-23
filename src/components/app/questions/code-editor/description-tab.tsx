@@ -1,4 +1,4 @@
-import { Question } from '@/types/Questions';
+import type { Question } from '@/types';
 import { Highlight, themes } from 'prism-react-renderer';
 
 // markdown to render the question description

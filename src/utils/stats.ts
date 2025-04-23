@@ -1,4 +1,4 @@
-import { StatsSteps } from '@/types/Stats';
+import type { StatsSteps } from '@/types';
 
 export const getRange = (from: StatsSteps) => {
   const toDate = new Date();

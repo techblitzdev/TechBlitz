@@ -48,7 +48,7 @@ import { addQuestion } from '@/actions/questions/add';
 
 // constants
 import { LANGUAGE_OPTIONS } from '@/utils/constants/language-options';
-import { QuestionDifficulty } from '@/types/Questions';
+import type { QuestionDifficulty } from '@/types';
 
 type SchemaProps = z.infer<typeof newQuestionSchema>;
 

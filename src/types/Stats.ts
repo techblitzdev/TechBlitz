@@ -1,6 +1,6 @@
 import { STEPS } from '@/utils/constants';
 import { StatisticsReport } from '@prisma/client';
-import { Question } from '@/types/Questions';
+import type { Question } from '@/types';
 
 export type StatsChartData = {
   [key: string]: {

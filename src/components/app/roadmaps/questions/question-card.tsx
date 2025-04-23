@@ -1,7 +1,6 @@
 'use client';
 
-import type { UserRecord } from '@/types/User';
-import type { RoadmapUserQuestions } from '@/types/Roadmap';
+import type { UserRecord, RoadmapUserQuestions } from '@/types';
 import AiQuestionHelp from '@/components/app/questions/single/ai-question-help';
 import ChangeCodeTheme from '@/components/app/questions/single/change-code-theme';
 import ExpandedCodeModal from '@/components/app/questions/single/expanded-code-modal';

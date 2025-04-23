@@ -1,25 +1,26 @@
 'use client';
 
-import { useEffect, useState, useTransition } from 'react';
-import { generateQuestionHelp } from '@/actions/ai/questions/question-help';
-import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Textarea } from '@/components/ui/textarea';
-import { Question } from '@/types/Questions';
-import { Send, Infinity } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { Tooltip, TooltipTrigger, TooltipProvider, TooltipContent } from '@/components/ui/tooltip';
 import Link from 'next/link';
-import { UserRecord } from '@/types/User';
+import { useEffect, useState, useTransition } from 'react';
+
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import ChatBot from '@/components/ui/icons/chat-bot';
+import { Send, Infinity } from 'lucide-react';
+import { Tooltip, TooltipTrigger, TooltipProvider, TooltipContent } from '@/components/ui/tooltip';
+
+import { motion } from 'framer-motion';
 import { capitalize } from 'lodash';
-import { RoadmapUserQuestions } from '@/types/Roadmap';
+
 import { DefaultRoadmapQuestions } from '@prisma/client';
-import { getUpgradeUrl } from '@/utils';
+import type { Question, UserRecord, RoadmapUserQuestions } from '@/types';
 
 import { readStreamableValue } from 'ai/rsc';
 
+import { getUpgradeUrl } from '@/utils';
 import { userIsPremium } from '@/utils/user';
-import ChatBot from '@/components/ui/icons/chat-bot';
+import { generateQuestionHelp } from '@/actions/ai/questions/question-help';
 
 // the maximum amount of time we allow the AI to generate a response
 export const maxDuration = 30;

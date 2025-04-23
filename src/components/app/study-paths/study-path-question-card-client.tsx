@@ -1,6 +1,6 @@
 'use client';
 
-import { Question } from '@/types/Questions';
+import type { Question } from '@/types';
 import { cn } from '@/lib/utils';
 import { Circle } from 'lucide-react';
 import Lock from '@/components/ui/icons/lock';

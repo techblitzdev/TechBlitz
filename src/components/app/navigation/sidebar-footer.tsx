@@ -1,4 +1,4 @@
-import type { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 import SidebarFooterPremium from './sidebar-footer-premium';
 import { SidebarMenuItem } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';

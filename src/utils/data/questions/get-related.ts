@@ -1,4 +1,4 @@
-import { Tags } from '@/types/Tags';
+import type { Tags } from '@/types';
 import { prisma } from '@/lib/prisma';
 import { getUser } from '@/actions/user/authed/get-user';
 import { QuestionDifficulty } from '@prisma/client';

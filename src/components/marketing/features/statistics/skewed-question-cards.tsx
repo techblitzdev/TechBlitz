@@ -1,5 +1,5 @@
 import Chip from '@/components/ui/chip';
-import { QuestionDifficulty } from '@/types/Questions';
+import type { QuestionDifficulty } from '@/types';
 import { getQuestionDifficultyColor } from '@/utils';
 import { capitalise } from '@/utils';
 
@@ -35,7 +35,9 @@ export default function SkewedQuestionCards() {
           key={card.id}
           className={`top-1/4 absolute inset-0 bg-black-100 border border-black-50 rounded-lg shadow-lg p-6 transition-all duration-300 ease-in-out hover:z-10 hover:scale-105 h-2/3`}
           style={{
-            transform: `translateX(${index * -20}px) translateY(${index * -20}px) rotateX(10deg) rotateY(-20deg) skewY(4deg)`,
+            transform: `translateX(${index * -20}px) translateY(${
+              index * -20
+            }px) rotateX(10deg) rotateY(-20deg) skewY(4deg)`,
             zIndex: questions.length - index,
             backdropFilter: 'blur(5px)',
           }}

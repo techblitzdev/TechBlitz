@@ -3,7 +3,7 @@
 import { getPrompt } from '@/actions/ai/utils/get-prompt';
 import { openai } from '@/lib/open-ai';
 import { reportHtmlSchema } from '@/lib/zod/schemas/ai/report-html';
-import { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 import { zodResponseFormat } from 'openai/helpers/zod.mjs';
 
 type Tag = {

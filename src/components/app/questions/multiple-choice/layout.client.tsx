@@ -18,7 +18,7 @@ import { answerQuestion } from '@/actions/answers/answer';
 
 import { useQuestionSingle } from '@/contexts/question-single-context';
 
-import type { Question, QuestionDifficulty, QuestionMock } from '@/types/Questions';
+import type { Question, QuestionDifficulty, QuestionMock } from '@/types';
 import { cn } from '@/lib/utils';
 import { CodeBlock } from '@/components/ui/code-block';
 

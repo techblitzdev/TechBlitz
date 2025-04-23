@@ -2,7 +2,7 @@ import { Filter } from 'bad-words';
 
 import type { StatsChartData } from '@/components/app/statistics/total-question-chart';
 import { UserExperienceLevel } from '@prisma/client';
-import { QuestionDifficulty } from '@/types/Questions';
+import type { QuestionDifficulty } from '@/types';
 import { toast } from 'sonner';
 
 /**

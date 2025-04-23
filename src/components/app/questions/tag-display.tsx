@@ -1,5 +1,5 @@
 import Chip from '@/components/ui/chip'; // Assuming this is your Chip component
-import { Tags } from '@/types/Tags';
+import type { Tags } from '@/types';
 import { capitalise } from '@/utils';
 import { cva } from 'class-variance-authority';
 

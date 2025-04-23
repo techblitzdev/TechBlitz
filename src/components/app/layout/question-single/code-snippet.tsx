@@ -1,7 +1,7 @@
 'use client';
 import React, { memo } from 'react';
 import { Highlight, themes } from 'prism-react-renderer';
-import { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 
 interface CodeDisplayProps {
   content: string;

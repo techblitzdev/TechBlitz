@@ -9,8 +9,7 @@ import { getUser } from '@/actions/user/authed/get-user';
 import { checkUserTokens, deductUserTokens } from '../utils/user-tokens';
 
 // types
-import type { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
-import type { Question } from '@/types/Questions';
+import type { Question, DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types';
 
 // ai
 import { streamObject } from 'ai';

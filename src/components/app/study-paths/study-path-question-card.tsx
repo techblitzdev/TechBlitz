@@ -1,4 +1,4 @@
-import { Question } from '@/types/Questions';
+import type { Question } from '@/types';
 import { cn } from '@/lib/utils';
 import { Circle } from 'lucide-react';
 import { useUserServer } from '@/hooks/use-user-server';

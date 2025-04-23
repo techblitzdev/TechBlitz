@@ -1,6 +1,6 @@
 import { getUser } from '@/actions/user/authed/get-user';
 import { prisma } from '@/lib/prisma';
-import { QuestionDifficulty, QuestionType } from '@/types/Questions';
+import type { QuestionDifficulty, QuestionType } from '@/types';
 
 /**
  * Method for getting questions by difficulty or tag.

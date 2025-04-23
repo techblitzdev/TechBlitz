@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState, memo, useEffect } from 'react';
-import { Editor } from '@monaco-editor/react';
+import { Editor, useMonaco } from '@monaco-editor/react';
 import LoadingSpinner from '@/components/ui/loading';
 import { useQuestionSingle } from '@/contexts/question-single-context';
 import { capitalize } from 'lodash';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useMonaco } from '@monaco-editor/react';
 import { CODING_FACTS } from '@/utils/constants';
+import { useLocalStorage } from '@/hooks/use-local-storage';
 
 // memo the LoadingState component to prevent re-renders
 const LoadingState = memo(function LoadingState() {
@@ -31,22 +31,33 @@ const LoadingState = memo(function LoadingState() {
 export default function CodeEditor() {
   const { code, setCode, answerHelp, user, question } = useQuestionSingle();
   const [parsedAnswerHelp, setParsedAnswerHelp] = useState<Record<string, any>>({});
-
-  useEffect(() => {
-    if (answerHelp) {
-      try {
-        const parsed = JSON.parse(answerHelp);
-        setParsedAnswerHelp(parsed);
-      } catch (error) {
-        console.error('Failed to parse answer help:', error);
-        setParsedAnswerHelp({ error: 'Failed to parse answer help' });
-      }
-    }
-  }, [answerHelp]);
-
-  const userCanAccess = question.isPremiumQuestion ? user?.userLevel !== 'FREE' : true;
+  const { value: savedLocalStorageCode, setValue: setSavedLocalStorageCode } = useLocalStorage({
+    key: question.slug ? `challenge-${question.slug}` : '',
+    defaultValue: '',
+  });
 
   const monaco = useMonaco();
+  const userCanAccess = question.isPremiumQuestion ? user?.userLevel !== 'FREE' : true;
+
+  // if the user has code in local storage, set it on init
+  useEffect(() => {
+    if (savedLocalStorageCode) {
+      setCode(savedLocalStorageCode);
+    }
+  }, [savedLocalStorageCode, setCode]);
+
+  // Parse answer help when available
+  useEffect(() => {
+    if (!answerHelp) return;
+
+    try {
+      const parsed = JSON.parse(answerHelp);
+      setParsedAnswerHelp(parsed);
+    } catch (error) {
+      console.error('Failed to parse answer help:', error);
+      setParsedAnswerHelp({ error: 'Failed to parse answer help' });
+    }
+  }, [answerHelp]);
 
   monaco?.editor.defineTheme('vs-dark', {
     base: 'vs-dark',
@@ -92,7 +103,12 @@ export default function CodeEditor() {
         height="90vh"
         defaultLanguage="javascript"
         value={userCanAccess ? code : ''}
-        onChange={(value) => setCode(value || '')}
+        onChange={(value) => {
+          // update the code in the editor
+          setCode(value || '');
+          // update the code in local storage
+          setSavedLocalStorageCode(value || '');
+        }}
         theme="vs-dark"
         options={{
           minimap: { enabled: false },

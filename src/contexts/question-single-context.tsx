@@ -13,6 +13,7 @@ import { useStudyPath } from '@/hooks/use-study-path';
 import { StudyPath } from '@prisma/client';
 import { readStreamableValue } from 'ai/rsc';
 import { devLog } from '@/utils';
+import { useLocalStorage } from '@/hooks/use-local-storage';
 
 interface TestRunResult {
   passed: boolean;
@@ -163,6 +164,15 @@ export const QuestionSingleContextProvider = ({
     }>;
     error?: string;
   } | null>(null);
+  // for resetting the value after successful submission OR when the question changes
+  const {
+    value: savedLocalStorageCode,
+    setValue: setSavedLocalStorageCode,
+    removeFromArray,
+  } = useLocalStorage({
+    key: question.slug ? `challenge-${question.slug}` : '',
+    defaultValue: '',
+  });
 
   // EFFECTS
   useEffect(() => {
@@ -246,6 +256,8 @@ export const QuestionSingleContextProvider = ({
       console.error('Error submitting answer:', error);
       toast.error('Error submitting answer');
     } finally {
+      // delete the code from local storage when the user answers
+      removeFromArray(question.slug ? `challenge-${question.slug}` : '');
       setIsSubmitting(false);
     }
   };
@@ -287,6 +299,9 @@ export const QuestionSingleContextProvider = ({
         allPassed,
         studyPathSlug: studyPathSlug || undefined,
       });
+
+      // delete the code from local storage when the user answers a coding challenge
+      setSavedLocalStorageCode('');
 
       setCorrectAnswer(allPassed ? 'correct' : 'incorrect');
     } catch (error: any) {
@@ -409,20 +424,36 @@ export const QuestionSingleContextProvider = ({
 
   // Reset the question state
   const resetQuestionState = () => {
+    // answer state
     setCorrectAnswer('init');
+    // no user answer
     setUserAnswer(null);
+    // no new user data
     setNewUserData(null);
+    // not submitting
     setIsSubmitting(false);
+    // no selected answer
     setSelectedAnswer('');
+    // no time taken
     setTimeTaken(0);
+    // no prefilled code snippet (not really used anymore)
     setPrefilledCodeSnippet(null);
+    // reset the layout
     setCurrentLayout('questions');
+    // reset any ai answer help
     setAnswerHelp('');
+    // no total seconds
     setTotalSeconds(0);
+    // reset the code
     setCode(originalCode);
+    // reset the result
     setResult(null);
+    // reset the test run result
     setTestRunResult(null);
+    // reset the hint
     setShowHint(false);
+    // delete the local storage code
+    setSavedLocalStorageCode('');
   };
 
   return (

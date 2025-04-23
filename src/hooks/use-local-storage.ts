@@ -10,13 +10,8 @@ export function useLocalStorage<T>({ key, defaultValue }: UseLocalStorageProps<T
   const [value, setValue] = useState<T>(() => {
     if (typeof window === 'undefined') return defaultValue;
 
-    try {
-      const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : defaultValue;
-    } catch (error) {
-      console.error('Error reading from localStorage:', error);
-      return defaultValue;
-    }
+    const item = window.localStorage.getItem(key);
+    return item ? JSON.parse(item) : defaultValue;
   });
 
   useEffect(() => {

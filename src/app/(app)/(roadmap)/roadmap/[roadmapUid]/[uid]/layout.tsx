@@ -16,8 +16,9 @@ import { RoadmapQuestionNavigation } from '@/components/app/navigation/question-
 
 // hooks
 import { useUserServer } from '@/hooks/use-user-server';
-import { RoadmapUserQuestions } from '@/types/Roadmap';
-import { UserRecord } from '@/types/User';
+
+// types
+import { RoadmapUserQuestions, UserRecord } from '@/types';
 
 export default async function RoadmapQuestionLayout({
   children,

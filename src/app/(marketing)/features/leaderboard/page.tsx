@@ -1,4 +1,4 @@
-import { WebPageJsonLd } from '@/types/Seo';
+import type { WebPageJsonLd } from '@/types';
 import { createMetadata } from '@/utils/seo';
 import { getBaseUrl } from '@/utils';
 import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';

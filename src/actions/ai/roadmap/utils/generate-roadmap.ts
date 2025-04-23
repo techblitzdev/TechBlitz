@@ -5,7 +5,7 @@ import { aiQuestionSchema } from '@/lib/zod/schemas/ai/response';
 import type { ReturnType } from '@/actions/ai/roadmap/get-question-data-for-gen';
 import { getPrompt } from '@/actions/ai/utils/get-prompt';
 import Anthropic from '@anthropic-ai/sdk';
-import { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 import { prisma } from '@/lib/prisma';
 import { RoadmapGenerationProgress } from '@prisma/client';
 

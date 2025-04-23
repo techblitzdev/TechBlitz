@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Crown } from 'lucide-react';
 import AnimatedSpan from '@/components/ui/animated-span';
 import ProfilePicture from '@/components/ui/profile-picture';
-import { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 import { getUserDisplayName } from '@/utils/user';
 
 export default function LeaderboardHero({
@@ -67,8 +67,8 @@ export function PodiumItem({
           position === 1
             ? 'size-28 md:size-64'
             : position === 2
-              ? 'size-24 md:h-48 md:w-64'
-              : 'size-24 md:h-40 md:w-64'
+            ? 'size-24 md:h-48 md:w-64'
+            : 'size-24 md:h-40 md:w-64'
         }`}
       >
         <UserInfo user={user} position={position} />

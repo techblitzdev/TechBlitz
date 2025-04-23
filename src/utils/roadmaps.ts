@@ -1,4 +1,4 @@
-import { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 import { StudyPath } from '@prisma/client';
 
 interface GetRecommendedCompletionDateProps {

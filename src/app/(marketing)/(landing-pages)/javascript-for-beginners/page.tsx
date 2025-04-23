@@ -7,7 +7,7 @@ import MarketingContentGrid from '@/components/marketing/global/blocks/content-g
 import FAQsBlock from '@/components/marketing/global/blocks/faqs';
 import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
 import RoadmapIcon from '@/components/ui/icons/roadmap';
-import { WebPageJsonLd } from '@/types/Seo';
+import type { WebPageJsonLd } from '@/types';
 import { getBaseUrl } from '@/utils';
 import { QUESTIONS_COUNT } from '@/utils/constants/misc';
 import { createMetadata } from '@/utils/seo';

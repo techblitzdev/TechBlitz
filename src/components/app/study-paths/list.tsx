@@ -6,10 +6,9 @@ import StudyPathQuestionCardClient from './study-path-question-card-client';
 import SubSectionCardClient from './subsection-card-client';
 //import { toast } from 'sonner';
 
-import type { Question } from '@/types/Questions';
+import type { Question, StudyPathSubSections } from '@/types';
 import { StudyPath } from '@prisma/client';
 import { getOffset } from '@/utils/roadmaps';
-import { StudyPathSubSections } from '@/types/StudyPath';
 import { cn } from '@/lib/utils';
 
 const QuestionCardClient = dynamic(() => import('../layout/questions/question-card-client'), {

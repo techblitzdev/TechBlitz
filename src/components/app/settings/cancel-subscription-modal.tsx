@@ -8,7 +8,7 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import CancelSubscriptionButton from './cancel-subscription-button';
-import { UserWithOutAnswers } from '@/types/User';
+import type { UserWithOutAnswers } from '@/types';
 import { Button } from '@/components/ui/button';
 
 export default function CancelSubscriptionModal(opts: { user: UserWithOutAnswers }) {

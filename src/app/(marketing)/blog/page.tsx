@@ -5,7 +5,7 @@ import BlogCard from '@/components/marketing/resources/blog/blog-card';
 import { createMetadata } from '@/utils/seo';
 import TagFilter from '@/components/marketing/blog/tag-filter';
 import FeaturedPost from '@/components/marketing/blog/featured-post';
-import { WebPageJsonLd } from '@/types/Seo';
+import type { WebPageJsonLd } from '@/types';
 import { getBaseUrl } from '@/utils';
 import Link from 'next/link';
 

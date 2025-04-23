@@ -1,4 +1,4 @@
-import type { ErrorCodes } from '@/types/Constants';
+import type { ErrorCodes } from '@/types';
 
 export const ERROR_CODES: ErrorCodes = {
   'not-authenticated': {

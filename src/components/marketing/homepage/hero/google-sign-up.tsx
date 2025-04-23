@@ -1,9 +1,9 @@
 'use client';
+import { use } from 'react';
 
 import { oauth } from '@/actions/user/account/oauth';
 import { Button } from '@/components/ui/button';
-import { UserRecord } from '@/types/User';
-import { use } from 'react';
+import type { UserRecord } from '@/types';
 
 export default function GoogleSignUp({ userPromise }: { userPromise: Promise<UserRecord | null> }) {
   const user = use(userPromise);

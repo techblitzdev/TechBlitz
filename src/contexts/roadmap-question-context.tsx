@@ -1,12 +1,11 @@
 'use client';
+import { createContext, useState, useContext } from 'react';
 
 import { generateAnswerHelp } from '@/actions/ai/questions/answer-help';
 import { answerRoadmapQuestion } from '@/actions/roadmap/questions/answer-roadmap-question';
 import { answerHelpSchema } from '@/lib/zod/schemas/ai/answer-help';
-import { RoadmapUserQuestions } from '@/types/Roadmap';
-import { UserRecord } from '@/types/User';
+import type { RoadmapUserQuestions, UserRecord } from '@/types';
 import { RoadmapUserQuestionsAnswers, RoadmapUserQuestionsUserAnswers } from '@prisma/client';
-import { createContext, useState, useContext } from 'react';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { readStreamableValue } from 'ai/rsc';

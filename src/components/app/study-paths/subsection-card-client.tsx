@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 
 import type { StudyPath } from '@prisma/client';
 
-import type { Question } from '@/types/Questions';
+import type { Question } from '@/types';
 import { cn } from '@/lib/utils';
 import { getButtonStyle } from '@/utils/roadmaps';
 import Link from 'next/link';

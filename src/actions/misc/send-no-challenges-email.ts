@@ -1,15 +1,17 @@
 'use server';
+import React from 'react';
+
+import NoChallengesEmail from '@/components/emails/7-days-no-challenges';
+import { renderAsync } from '@react-email/components';
+
+import { SUGGESTED_CHALLENGE_EMAIL_7_DAYS } from '@/utils/constants';
+import { getUserDisplayName } from '@/utils/user';
+import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 
 import { resend } from '@/lib/resend';
-import type { UserRecord } from '@/types/User';
-import NoChallengesEmail from '@/components/emails/7-days-no-challenges';
-import { SUGGESTED_CHALLENGE_EMAIL_7_DAYS } from '@/utils/constants';
-import { renderAsync } from '@react-email/components';
-import React from 'react';
-import { getUserDisplayName } from '@/utils/user';
 import { prisma } from '@/lib/prisma';
-import { QuestionDifficulty } from '@/types/Questions';
-import { getSuggestions } from '@/utils/data/questions/get-suggestions';
+
+import type { UserRecord, QuestionDifficulty } from '@/types';
 
 interface SendNoChallengesEmailProps {
   user: UserRecord;

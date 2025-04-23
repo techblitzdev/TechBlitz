@@ -3,7 +3,7 @@
 import EditorIcon from '@/components/ui/icons/editor';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Select, SelectItem, SelectTrigger, SelectContent } from '@/components/ui/select';
-import { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 
 import { useState } from 'react';
 import { themes } from 'prism-react-renderer';

@@ -6,11 +6,11 @@
  * throughout the different steps of the onboarding flow
  */
 import { createContext, useContext, useState } from 'react';
-import type { UpdatableUserFields, UserRecord } from '@/types/User';
-import { QuestionWithTags } from '@/types/Questions';
+import type { UpdatableUserFields, UserRecord, QuestionWithTags } from '@/types';
 import { getOnboardingQuestions } from '@/utils/data/questions/get-onboarding';
 import { UserTimeSpendingPerDay } from '@prisma/client';
 import { answerOnboardingQuestions } from '@/actions/answers/answer-onboarding';
+
 // context type
 type OnboardingContextType = {
   user: Omit<UpdatableUserFields, 'email' | 'userLevel' | 'lastLogin' | 'createdAt' | 'updatedAt'>;

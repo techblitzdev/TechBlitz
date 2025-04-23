@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { EllipsisVertical, FileText } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { generateStatisticsReport } from '@/actions/ai/reports/generate-report';
-import { UserWithOutAnswers } from '@/types/User';
+import type { UserWithOutAnswers } from '@/types';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { useTransition } from 'react';

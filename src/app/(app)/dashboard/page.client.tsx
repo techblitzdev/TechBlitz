@@ -9,7 +9,7 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 import { useRouter } from 'next/navigation';
 import ReferralToast from '@/components/shared/referral-toast';
 import { getUserDisplayName } from '@/utils/user';

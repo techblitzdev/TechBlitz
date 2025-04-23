@@ -2,7 +2,7 @@
 import { lazy } from 'react';
 
 import { ReactNode, use, useState } from 'react';
-import { Question } from '@/types/Questions';
+import { Question } from '@/types';
 
 import { TabsContent, TabsTrigger, TabsList } from '@/components/ui/tabs';
 

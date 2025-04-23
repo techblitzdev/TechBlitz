@@ -7,7 +7,7 @@ import { HomeIcon, XIcon } from 'lucide-react';
 
 const UpgradeModalButton = lazy(() => import('@/components/app/shared/upgrade/upgrade-modal'));
 
-import { Question } from '@/types/Questions';
+import type { Question } from '@/types';
 import LogoSmall from '@/components/ui/LogoSmall';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { TooltipProvider } from '@/components/ui/tooltip';

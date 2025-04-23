@@ -22,8 +22,7 @@ import NoDailyQuestion from '@/components/shared/no-daily-question';
 import QuestionSubmitted from '@/components/app/layout/question-single/question-submitted';
 
 // types
-import type { UserRecord } from '@/types/User';
-import type { Question } from '@/types/Questions';
+import type { UserRecord, Question } from '@/types';
 
 // context
 import { useQuestionSingle } from '@/contexts/question-single-context';

@@ -4,7 +4,7 @@ import { getUserDisplayName } from '@/utils/user';
 
 import ProfilePicture from '@/components/ui/profile-picture';
 import { Input } from '@/components/ui/input';
-import { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { TooltipContent, TooltipProvider, TooltipTrigger, Tooltip } from '@/components/ui/tooltip';

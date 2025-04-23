@@ -1,9 +1,9 @@
+import { Suspense } from 'react';
+
 import { Meta, StoryObj } from '@storybook/react';
 import StudyPathQuestionCard from './study-path-question-card';
-import { Question } from '@/types/Questions';
+import type { Question, QuestionAnswerType } from '@/types';
 import { StudyPath } from '@prisma/client';
-import { QuestionAnswerType } from '@/types/QuestionAnswers';
-import { Suspense } from 'react';
 
 // Mock data for questions
 const mockQuestions: Record<string, Question> = {
@@ -356,7 +356,7 @@ const mockStudyPath: StudyPath = {
   overviewData: {},
   icon: '📚',
   type: 'LEARN',
-  categoryToolTip: 'Programming'
+  categoryToolTip: 'Programming',
 };
 
 const meta: Meta<typeof StudyPathQuestionCard> = {

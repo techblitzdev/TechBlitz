@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import type { Question } from '@/types/Questions';
+import type { Question } from '@/types';
 import { uniqueId } from 'lodash';
 
 export default function QuestionCardClient({

@@ -1,4 +1,4 @@
-import { StatsSteps, StepRange } from '@/types/Stats';
+import type { StatsSteps, StepRange } from '@/types';
 
 export const STEPS = ['7d', '30d', '90d'] as const;
 

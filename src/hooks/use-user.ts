@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { createClient } from '@/utils/supabase/client';
-import type { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 import { getUserFromDb } from '@/actions/user/authed/get-user';
 
 export const useUser = () => {

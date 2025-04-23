@@ -13,7 +13,7 @@ import CallToActionBlock from '@/components/marketing/global/blocks/call-to-acti
 
 import { Metadata } from 'next';
 import { getBaseUrl } from '@/utils';
-import { WebPageJsonLd } from '@/types/Seo';
+import type { WebPageJsonLd } from '@/types';
 import Testimonials from '@/components/marketing/homepage/testimonials';
 import MarketingContentGrid, {
   MarketingContentGridProps,

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { getChangelogEntry } from '@/lib/changelog';
 import { createMetadata } from '@/utils/seo';
 import { getBaseUrl } from '@/utils';
-import { WebPageJsonLd } from '@/types/Seo';
+import type { WebPageJsonLd } from '@/types';
 
 interface ChangelogEntryPageProps {
   params: {

@@ -5,7 +5,7 @@ import CallToActionBlock from '@/components/marketing/global/blocks/call-to-acti
 import MarketingContentGrid from '@/components/marketing/global/blocks/content-grid';
 import FAQsBlock from '@/components/marketing/global/blocks/faqs';
 import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
-import { WebPageJsonLd } from '@/types/Seo';
+import type { WebPageJsonLd } from '@/types';
 import { getBaseUrl } from '@/utils';
 import { QUESTIONS_COUNT } from '@/utils/constants/misc';
 import { createMetadata } from '@/utils/seo';

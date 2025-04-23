@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { onboardingStepOneSchema } from '@/lib/zod/schemas/onboarding/step-one';
-import type { UpdatableUserFields } from '@/types/User';
+import type { UpdatableUserFields } from '@/types';
 
 import { CardContent, CardDescription, CardHeader } from '@/components/ui/card';
 import { InputWithLabel } from '@/components/ui/input-label';

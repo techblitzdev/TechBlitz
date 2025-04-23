@@ -5,7 +5,7 @@ import StatsReportSection from '@/components/marketing/features/statistics/stats
 import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
 import MarketingContentGrid from '@/components/marketing/global/blocks/content-grid';
 import FAQsBlock from '@/components/marketing/global/blocks/faqs';
-import { WebPageJsonLd } from '@/types/Seo';
+import type { WebPageJsonLd } from '@/types';
 import { getBaseUrl } from '@/utils';
 import { QUESTIONS_COUNT } from '@/utils/constants/misc';
 import { createMetadata } from '@/utils/seo';

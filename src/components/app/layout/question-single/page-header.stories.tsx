@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import PageHeader from './page-header';
-import { QuestionDifficulty } from '@prisma/client';
-import { QuestionType } from '@prisma/client';
-import { QuestionAnswer } from '@/types/QuestionAnswers';
+import { QuestionDifficulty, QuestionType } from '@prisma/client';
+import type { QuestionAnswer } from '@/types';
 
 const meta = {
   component: PageHeader,

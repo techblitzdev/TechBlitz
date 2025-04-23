@@ -1,6 +1,6 @@
 'use server';
 import { resend } from '@/lib/resend';
-import type { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 import WelcomeEmail from '@/components/emails/welcome';
 
 /**

@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import LoadingSpinner from '@/components/ui/loading';
-import { QuestionWithTags } from '@/types/Questions';
+import type { QuestionWithTags } from '@/types';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import Lock from '@/components/ui/icons/lock';

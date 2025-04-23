@@ -1,10 +1,11 @@
+import { Suspense, use } from 'react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
+
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useUserServer } from '@/hooks/use-user-server';
-import type { UserRecord } from '@/types/User';
-import { Suspense, use } from 'react';
-import Image from 'next/image';
+import type { UserRecord } from '@/types';
 import JakeMackieTestimonial from '@/public/images/testimonials/jake-mackie-techblitz-testimonial.jpeg';
 import Link from 'next/link';
 import AnimatedSpan from '@/components/ui/animated-span';

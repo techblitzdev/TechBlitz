@@ -3,7 +3,7 @@ import { shortenText } from '@/utils';
 import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { use } from 'react';
-import { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 
 type LeaderboardUser = {
   uid: string;

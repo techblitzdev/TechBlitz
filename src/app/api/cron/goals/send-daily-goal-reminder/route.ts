@@ -1,11 +1,12 @@
+import React from 'react';
+
 import { prisma } from '@/lib/prisma';
 import { isAuthorized } from '@/utils/cron';
 import { NextRequest, NextResponse } from 'next/server';
 import { resend } from '@/lib/resend';
 import { renderAsync } from '@react-email/components';
 import StudyReminderEmail from '@/components/emails/study-reminder';
-import React from 'react';
-import { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 import { StudyPath, StudyPathGoal, UserStudyPath } from '@prisma/client';
 import { getUserDisplayName } from '@/utils/user';
 import { STUDY_REMINDER_EMAIL_SUBJECT } from '@/utils/constants/emails';

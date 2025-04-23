@@ -1,5 +1,5 @@
 import MultipleChoiceCard from '@/components/app/questions/multiple-choice/card';
-import { QuestionAnswer } from '@/types/QuestionAnswers';
+import type { QuestionAnswer } from '@/types';
 
 const mockAnswers: QuestionAnswer[] = [
   {

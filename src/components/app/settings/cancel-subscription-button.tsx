@@ -1,8 +1,9 @@
 'use client';
+import { useState, useTransition } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { cancelSubscription } from '@/actions/stripe/stripe-cancel-subscription';
-import { useState, useTransition } from 'react';
-import type { UserWithOutAnswers } from '@/types/User';
+import type { UserWithOutAnswers } from '@/types';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 

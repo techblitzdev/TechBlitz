@@ -1,4 +1,4 @@
-import { StatsChartData, StatsSteps } from '@/types/Stats';
+import type { StatsChartData, StatsSteps } from '@/types';
 import { prisma } from '@/lib/prisma';
 import { getRange } from '@/utils/stats';
 import { revalidateTag } from 'next/cache';

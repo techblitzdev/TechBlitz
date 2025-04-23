@@ -48,7 +48,7 @@ import { addCodingChallengeQuestion } from '@/actions/questions/add';
 
 // constants
 import { LANGUAGE_OPTIONS } from '@/utils/constants/language-options';
-import { QuestionDifficulty } from '@/types/Questions';
+import type { QuestionDifficulty } from '@/types';
 import { Textarea } from '@/components/ui/textarea';
 
 type SchemaProps = z.infer<typeof newCodingChallengeQuestionSchema>;

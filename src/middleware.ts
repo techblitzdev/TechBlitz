@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { updateSession } from '@/utils/supabase/middleware';
 import { getBaseUrl } from './utils';
-import { User } from './types/User';
+import { User } from './types';
 
 // Define the route groups and their auth requirements
 const routeConfig = {

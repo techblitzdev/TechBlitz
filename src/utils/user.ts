@@ -1,4 +1,4 @@
-import { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 import { filterBadWords } from '.';
 
 export const getUserDisplayName = (user: UserRecord | null) => {

@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { useQuestionSingle } from '@/contexts/question-single-context';
-import { Question } from '@/types/Questions';
+import type { Question } from '@/types';
 import { Lightbulb, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';

@@ -19,7 +19,7 @@ import { getUserMissionRecords } from '@/utils/data/missions/get-user-mission-re
 
 // types
 import type { StudyPath } from '@prisma/client';
-import { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 import { getStudyPathGoal } from '@/utils/data/study-paths/get-goal';
 
 async function GetStartedCta({ studyPath, user }: { studyPath: StudyPath; user: UserRecord }) {

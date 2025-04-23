@@ -16,7 +16,11 @@ export function useLocalStorage<T>({ key, defaultValue }: UseLocalStorageProps<T
 
   useEffect(() => {
     try {
-      window.localStorage.setItem(key, JSON.stringify(value));
+      if (value === '') {
+        window.localStorage.removeItem(key);
+      } else {
+        window.localStorage.setItem(key, JSON.stringify(value));
+      }
     } catch (error) {
       console.error('Error writing to localStorage:', error);
     }

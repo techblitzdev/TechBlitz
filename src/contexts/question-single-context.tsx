@@ -453,7 +453,7 @@ export const QuestionSingleContextProvider = ({
     // reset the hint
     setShowHint(false);
     // delete the local storage code
-    setSavedLocalStorageCode('');
+    removeFromArray(question.slug ? `challenge-${question.slug}` : '');
   };
 
   return (

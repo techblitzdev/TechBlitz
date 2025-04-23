@@ -1,4 +1,4 @@
-import type { Question, QuestionMock } from '@/types/Questions';
+import type { Question, QuestionMock } from '@/types';
 import MultipleChoiceLayoutClient from './layout.client';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';

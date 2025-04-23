@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Question } from '@/types/Questions';
+import type { Question } from '@/types';
 import { getUpgradeUrl } from '@/utils';
 import { QUESTION_XP } from '@/utils/constants/question-xp';
 import { StudyPath } from '@prisma/client';

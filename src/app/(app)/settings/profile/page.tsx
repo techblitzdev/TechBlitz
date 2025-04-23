@@ -24,7 +24,7 @@ import { updateUser } from '@/actions/user/authed/update-user';
 import { userDetailsSchema } from '@/lib/zod/schemas/user-details-schema';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { UserUpdatePayload } from '@/types/User';
+import type { UserUpdatePayload } from '@/types';
 import { themes } from 'prism-react-renderer';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';

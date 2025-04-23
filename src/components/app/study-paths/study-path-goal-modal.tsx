@@ -22,7 +22,7 @@ import { TooltipContent } from '@/components/ui/tooltip';
 import { Tooltip, TooltipTrigger } from '@/components/ui/tooltip';
 import { TooltipProvider } from '@/components/ui/tooltip';
 
-import type { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 import { ArrowRight, CheckCircle, Loader2 } from 'lucide-react';
 
 import type { StudyPath, StudyPathGoal } from '@prisma/client';

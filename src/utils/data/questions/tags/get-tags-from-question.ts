@@ -1,4 +1,4 @@
-import type { Question, QuestionWithoutAnswers, QuestionWithTags } from '@/types/Questions';
+import type { Question, QuestionWithoutAnswers, QuestionWithTags } from '@/types';
 
 export const getTagsFromQuestion = (questions: Question | QuestionWithoutAnswers[]) => {
   if (!questions) return [];

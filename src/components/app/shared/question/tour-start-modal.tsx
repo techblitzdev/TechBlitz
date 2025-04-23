@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -9,11 +11,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 import { getUserDisplayName } from '@/utils/user';
 import { useOnborda } from 'onborda';
-import { useState } from 'react';
-import { useEffect } from 'react';
 
 interface TourStartModalProps {
   user: UserRecord | null;

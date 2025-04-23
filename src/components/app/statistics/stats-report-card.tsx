@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { timeAgo } from '@/utils/time';
-import { StatsReport } from '@/types/Stats';
+import type { StatsReport } from '@/types';
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';

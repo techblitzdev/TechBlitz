@@ -6,7 +6,7 @@ import { addOrderToResponseQuestions } from './utils/add-order-to-response-quest
 import { fetchRoadmapQuestions } from '@/utils/data/roadmap/questions/fetch-roadmap-questions';
 import { generateRoadmapResponse } from './utils/generate-roadmap';
 import { revalidateTag } from 'next/cache';
-import { QuestionDifficulty } from '@/types/Questions';
+import type { QuestionDifficulty } from '@/types';
 import { getUser } from '@/actions/user/authed/get-user';
 import { uniqueId } from 'lodash';
 import { createOrFetchUserRoadmap } from '@/actions/roadmap/create-or-fetch-user-roadmap';

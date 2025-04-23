@@ -14,7 +14,7 @@ import { getUser } from '@/actions/user/authed/get-user';
 import { getRelatedQuestions } from '@/utils/data/questions/get-related';
 import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
 import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation';
-import type { QuizJsonLd } from '@/types/Seo';
+import type { QuizJsonLd } from '@/types';
 import { userHasAnsweredAnyQuestion } from '@/utils/data/questions/user-has-answered-any-question';
 
 // Components

@@ -12,7 +12,7 @@ import MarketingContentGrid, {
 
 import { MobileIcon } from '@radix-ui/react-icons';
 import { createMetadata } from '@/utils/seo';
-import { WebPageJsonLd } from '@/types/Seo';
+import type { WebPageJsonLd } from '@/types';
 import { getBaseUrl } from '@/utils';
 import QuestionMarquee from '@/components/marketing/global/blocks/question-marquee';
 import RoadmapShowcaseBlock from '@/components/marketing/global/blocks/roadmap-showcase';

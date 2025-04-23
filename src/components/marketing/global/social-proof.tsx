@@ -5,7 +5,7 @@ import GithubLogo from '@/components/ui/icons/github';
 import { UserIcon } from 'lucide-react';
 import NumberFlow from '@number-flow/react';
 
-import { Question } from '@/types/Questions';
+import type { Question } from '@/types';
 import { cn } from '@/lib/utils';
 
 export default function SocialProof({

@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label';
 import { updateUser } from '@/actions/user/authed/update-user';
 import { use, useState } from 'react';
 import { toast } from 'sonner';
-import { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 
 export default function ShowTimeTakenToggle(opts: { userPromise: Promise<UserRecord | null> }) {
   const { userPromise } = opts;

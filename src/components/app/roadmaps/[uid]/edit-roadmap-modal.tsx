@@ -13,7 +13,7 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { Loader2 } from 'lucide-react';
-import { UserRoadmaps } from '@/types/Roadmap';
+import type { UserRoadmaps } from '@/types';
 
 interface EditRoadmapModalProps {
   isOpen: boolean;

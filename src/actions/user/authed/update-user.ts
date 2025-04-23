@@ -1,11 +1,18 @@
 'use server';
+import { revalidateTag } from 'next/cache';
 
 import { prisma } from '@/lib/prisma';
-import { revalidateTag } from 'next/cache';
 import { getUser } from './get-user';
-import { UserRecord } from '@/types/User';
 import { handleAddAndRemoveFromPromotionalEmailsList } from './handle-promotional-emails-subscription';
 
+import type { UserRecord } from '@/types';
+
+/**
+ * Update the user in the database
+ *
+ * @param opts
+ * @returns
+ */
 export const updateUser = async (opts: { userDetails: Partial<UserRecord> }) => {
   const { userDetails } = opts;
 

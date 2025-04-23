@@ -7,7 +7,7 @@ import StatisticsReportTabs from '@/components/app/statistics/statistics-report-
 import { getUserDisplayName } from '@/utils/user';
 import { StatisticsReport } from '@prisma/client';
 
-import { Question } from '@/types/Questions';
+import type { Question } from '@/types';
 import StatsReportCardMenu from './stats-report-card-menu';
 import { formatSeconds } from '@/utils/time';
 import { useUserServer } from '@/hooks/use-user-server';

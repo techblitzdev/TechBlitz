@@ -1,6 +1,6 @@
 import { STEPS } from '@/utils/constants';
 import { StatisticsReport, QuestionDifficulty } from '@prisma/client';
-import { Question } from '@/types/Questions';
+import type { Question } from '@/types';
 
 // Record of difficulty types with their counts
 export type DifficultyRecord = {

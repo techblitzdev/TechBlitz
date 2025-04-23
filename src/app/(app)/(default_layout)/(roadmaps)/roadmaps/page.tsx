@@ -14,7 +14,7 @@ import { getStudyPathsAndGroupByCategory } from '@/utils/data/study-paths/get';
 import { getBaseUrl } from '@/utils';
 
 // types
-import { WebPageJsonLd } from '@/types/Seo';
+import { WebPageJsonLd } from '@/types';
 
 export async function generateMetadata() {
   return createMetadata({

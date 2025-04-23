@@ -1,4 +1,4 @@
-import { QuestionDifficulty } from '@/types/Questions';
+import type { QuestionDifficulty } from '@/types';
 import Star3 from './icons/star';
 
 /**

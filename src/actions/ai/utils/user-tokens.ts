@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 
 /**
  * We now have a new pricing plan for users.

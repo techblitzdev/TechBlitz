@@ -16,7 +16,7 @@ import StatisticsReport from '@/components/app/statistics/statistics-report';
 import QuestionTracker from '@/components/app/statistics/question-tracker';
 
 import { useUserServer } from '@/hooks/use-user-server';
-import { StatsSteps } from '@/types/Stats';
+import { StatsSteps } from '@/types';
 
 import { STATISTICS } from '@/utils/constants';
 import { getData } from '@/utils/data/statistics/get-stats-chart-data';

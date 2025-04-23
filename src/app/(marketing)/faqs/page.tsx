@@ -2,7 +2,7 @@ import CallToActionBlock from '@/components/marketing/global/blocks/call-to-acti
 import FAQsBlock from '@/components/marketing/global/blocks/faqs';
 import Link from 'next/link';
 import { createMetadata } from '@/utils/seo';
-import { FaqJsonLd } from '@/types/Seo';
+import type { FaqJsonLd } from '@/types';
 
 export async function generateMetadata() {
   return createMetadata({

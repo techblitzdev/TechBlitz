@@ -3,7 +3,7 @@ import FAQsBlock from '@/components/marketing/global/blocks/faqs';
 import FeatureDailyChallengeHero from '@/components/marketing/features/daily-challenge/hero/daily-challenge-hero';
 import FeatureRoadmapThreeGridBlock from '@/components/marketing/features/roadmap/roadmap-three-grid';
 import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
-import { WebPageJsonLd } from '@/types/Seo';
+import type { WebPageJsonLd } from '@/types';
 import { getBaseUrl } from '@/utils';
 import { createMetadata } from '@/utils/seo';
 import Link from 'next/link';

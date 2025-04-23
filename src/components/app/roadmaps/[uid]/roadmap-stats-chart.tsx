@@ -9,7 +9,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/charts/chart';
-import { UserRoadmapsWithAnswers } from '@/types/Roadmap';
+import type { UserRoadmapsWithAnswers } from '@/types';
 
 const chartConfig = {
   desktop: {

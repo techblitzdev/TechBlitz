@@ -5,7 +5,7 @@ import StatsReportSection from '@/components/marketing/features/statistics/stats
 import CallToActionBlock from '@/components/marketing/global/blocks/call-to-action-block';
 import MarketingContentGrid from '@/components/marketing/global/blocks/content-grid';
 import FAQsBlock from '@/components/marketing/global/blocks/faqs';
-import { WebPageJsonLd } from '@/types/Seo';
+import type { WebPageJsonLd } from '@/types';
 import { getBaseUrl } from '@/utils';
 import { createMetadata } from '@/utils/seo';
 import { MobileIcon } from '@radix-ui/react-icons';
@@ -427,7 +427,9 @@ export default async function JavaScriptFundamentalsPage() {
 
         <CallToActionBlock
           title="Learn the fundamentals of JavaScript today"
-          description={`Join over ${await userCountPromise.then((count) => Math.round(count / 10) * 10)}+ users learning to code on TechBlitz. Our free JavaScript tutorials and online classes provide the perfect environment to master JavaScript programming at your own pace.`}
+          description={`Join over ${await userCountPromise.then(
+            (count) => Math.round(count / 10) * 10
+          )}+ users learning to code on TechBlitz. Our free JavaScript tutorials and online classes provide the perfect environment to master JavaScript programming at your own pace.`}
         />
       </div>
     </>

@@ -1,4 +1,4 @@
-import { LanguageDropdown } from '@/types/LanguageDropdown';
+import type { LanguageDropdown } from '@/types';
 import JavascriptSvg from '@/public/language-imgs/javascript.svg';
 import TypescriptSvg from '@/public/language-imgs/typescript.svg';
 import PythonSvg from '@/public/language-imgs/python.svg';

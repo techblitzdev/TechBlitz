@@ -1,4 +1,4 @@
-import { RoadmapUserQuestions, UserRoadmapsWithAnswers } from '@/types/Roadmap';
+import type { RoadmapUserQuestions, UserRoadmapsWithAnswers } from '@/types';
 import RoadmapStatsChart from './roadmap-stats-chart';
 
 export default function RoadmapStats(opts: {

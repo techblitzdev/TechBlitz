@@ -7,7 +7,7 @@ import { EditRoadmapModal } from './edit-roadmap-modal';
 import { updateRoadmapDetails } from '@/actions/roadmap/update-roadmap-details';
 import { deleteRoadmap } from '@/actions/roadmap/delete-roadmap';
 import { useRouter } from 'next/navigation';
-import { UserRoadmaps } from '@/types/Roadmap';
+import type { UserRoadmaps } from '@/types';
 
 export default function RoadmapDropdown(opts: { roadmap: UserRoadmaps }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);

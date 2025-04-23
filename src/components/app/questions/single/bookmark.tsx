@@ -8,8 +8,7 @@ import { TooltipContent, TooltipTrigger, Tooltip, TooltipProvider } from '@/comp
 import { Bookmark } from 'lucide-react';
 
 import { bookmarkQuestion } from '@/actions/questions/bookmark';
-import type { Question } from '@/types/Questions';
-import { RoadmapUserQuestions } from '@/types/Roadmap';
+import type { Question, RoadmapUserQuestions } from '@/types';
 
 export default function BookmarkQuestion({
   question,

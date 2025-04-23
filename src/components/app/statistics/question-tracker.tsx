@@ -2,7 +2,7 @@
 
 import { Tracker } from '@/components/charts/tracker';
 import { cn } from '@/lib/utils';
-import { StatsSteps } from '@/types/Stats';
+import type { StatsSteps } from '@/types';
 
 interface QuestionTrackerProps {
   stats: {

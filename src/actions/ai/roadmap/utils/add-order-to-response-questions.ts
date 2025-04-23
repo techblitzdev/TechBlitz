@@ -1,4 +1,4 @@
-import { Question } from '@/types/Questions';
+import type { Question } from '@/types';
 
 /**
  * Method to add order to response questions.

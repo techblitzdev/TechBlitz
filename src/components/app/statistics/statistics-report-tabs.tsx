@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 
 import { capitalise } from '@/utils';
 import { StatisticsReport } from '@prisma/client';
-import { Question } from '@/types/Questions';
+import type { Question } from '@/types';
 import { useUserServer } from '@/hooks/use-user-server';
 
 export default async function StatisticsReportTabs(opts: {

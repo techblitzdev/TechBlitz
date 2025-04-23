@@ -3,7 +3,7 @@ import { openai } from '@/lib/open-ai';
 import { zodResponseFormat } from 'openai/helpers/zod';
 import { getPrompt } from '@/actions/ai/utils/get-prompt';
 import { aiQuestionSchema } from '@/lib/zod/schemas/ai/response';
-import { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 
 /**
  * Generate custom questions for a user based on their incorrect tags

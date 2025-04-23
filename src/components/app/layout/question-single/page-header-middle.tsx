@@ -1,7 +1,7 @@
 'use client';
 
 import { Suspense } from 'react';
-import type { Question } from '@/types/Questions';
+import type { Question } from '@/types';
 import SinglePageProgress from '@/components/app/study-paths/single-page-progress';
 import QuestionActionButtons from './question-action-buttons';
 import { motion, AnimatePresence } from 'framer-motion';

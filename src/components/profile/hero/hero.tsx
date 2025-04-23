@@ -1,4 +1,4 @@
-import { UserRecord } from '@/types/User';
+import type { UserRecord } from '@/types';
 import { Camera } from 'lucide-react';
 import { getUserDisplayName } from '@/utils/user';
 import ProfileImage from './profile-image';

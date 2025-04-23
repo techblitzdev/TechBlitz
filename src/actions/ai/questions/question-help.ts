@@ -4,8 +4,7 @@ import { getPrompt } from '../utils/get-prompt';
 import { getUser } from '@/actions/user/authed/get-user';
 import { questionHelpSchema } from '@/lib/zod/schemas/ai/question-help';
 import { checkUserTokens, deductUserTokens } from '../utils/user-tokens';
-import type { Question } from '@/types/Questions';
-import type { DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types/Roadmap';
+import type { Question, DefaultRoadmapQuestions, RoadmapUserQuestions } from '@/types';
 
 // ai
 import { streamObject } from 'ai';

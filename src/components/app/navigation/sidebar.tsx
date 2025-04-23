@@ -23,10 +23,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import AppSidebarSubMenuItem from '@/components/app/navigation/sidebar-submenu-item';
 import SidebarDropdown from '@/components/app/navigation/sidebar-dropdown';
 
-import type { SidebarItemType } from '@/types/Sidebar';
-import type { UserRecord } from '@/types/User';
-import type { QuestionWithTags } from '@/types/Questions';
-import type { Profile } from '@/types/Profile';
+import type { SidebarItemType, UserRecord, QuestionWithTags, Profile } from '@/types';
 
 import { HomeIcon } from '@/components/ui/icons/home';
 import Award from '@/components/ui/icons/award';

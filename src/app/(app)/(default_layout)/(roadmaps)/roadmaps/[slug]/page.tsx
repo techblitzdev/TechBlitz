@@ -7,13 +7,10 @@ import { getAndGroupStudyPathQuestions, getStudyPath } from '@/utils/data/study-
 import { capitalise, devLog, getBaseUrl } from '@/utils';
 
 // types
-import type { QuizJsonLd } from '@/types/Seo';
+import type { QuizJsonLd, Question, StudyPathWithOverviewData } from '@/types';
 import type { StudyPath } from '@prisma/client';
-import { Question } from '@/types/Questions';
 
 // components
-import { StudyPathWithOverviewData } from '@/types/StudyPath';
-
 const StudyPathsList = dynamic(() => import('@/components/app/study-paths/list'), {
   loading: () => <StudyPathsListSkeleton />,
 });

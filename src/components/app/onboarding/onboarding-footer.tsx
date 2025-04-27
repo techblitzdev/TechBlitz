@@ -53,9 +53,15 @@ export default function OnboardingFooter({
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
           >
-            <Button type="button" variant="secondary" onClick={onBack} disabled={isLoading}>
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={onBack}
+              disabled={isLoading}
+              className="text-white"
+              padding="none"
+            >
               <ArrowLeft className="mr-2 size-4" />
-              Back
             </Button>
           </motion.div>
         )}

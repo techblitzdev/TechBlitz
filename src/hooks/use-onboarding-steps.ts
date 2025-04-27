@@ -33,6 +33,7 @@ export function useOnboardingSteps() {
     user,
     handleGetOnboardingQuestions,
     canContinue,
+    setCanContinue,
     timeSpendingPerDay,
     firstQuestionSelection,
     FIRST_QUESTION_TUTORIAL_SLUG,
@@ -111,7 +112,7 @@ export function useOnboardingSteps() {
 
     setIsLoading(true);
     try {
-      // if the user wants to start from scratch, the next page needs to be the pricing page, not the tags page
+      // Handle first question selection routing
       if (
         currentStep === STEPS.FIRST_QUESTION_SELECTION &&
         firstQuestionSelection === 'startFromScratch'
@@ -120,37 +121,36 @@ export function useOnboardingSteps() {
         return;
       }
 
-      // if we are on the last step and the user chose to start from scratch,
-      // redirect them to the first question
-      if (currentStep === STEPS.PRICING && firstQuestionSelection === 'startFromScratch') {
-        // remove onboarding data
-        localStorage.removeItem('onboarding');
-        // then redirect
-        router.push(`/question/${FIRST_QUESTION_TUTORIAL_SLUG}?tutorial=true`);
-        return;
-      } else if (
-        currentStep === STEPS.PRICING &&
-        firstQuestionSelection === 'personalizeLearning'
-      ) {
-        await handleGetOnboardingQuestions();
-        // remove the onboarding data from local storage
-        localStorage.removeItem('onboarding');
-        setCurrentStepState(STEPS.QUESTIONS);
-        return;
+      // Handle pricing step based on user's first question selection
+      if (currentStep === STEPS.PRICING) {
+        if (firstQuestionSelection === 'startFromScratch') {
+          localStorage.removeItem('onboarding');
+          router.push(`/question/${FIRST_QUESTION_TUTORIAL_SLUG}?tutorial=true`);
+          return;
+        } else if (firstQuestionSelection === 'personalizeLearning') {
+          await handleGetOnboardingQuestions();
+          localStorage.removeItem('onboarding');
+          setCurrentStepState(STEPS.QUESTIONS);
+          return;
+        }
       }
 
+      // Handle time commitment step
       if (currentStep === STEPS.TIME_COMMITMENT) {
         await updateUser({ userDetails: { ...user, timeSpendingPerDay } });
         setCurrentStepState(stepConfig[STEPS.TIME_COMMITMENT].next as StepKey);
-      } else if (currentStep === STEPS.USER_DETAILS) {
+        return;
+      }
+
+      // Handle user details step
+      if (currentStep === STEPS.USER_DETAILS) {
         await updateUser({ userDetails: user });
 
-        // if this is false, we need to create a coupon and send the welcome email
+        // Create coupon and send welcome email if needed
         if (!user.hasCreatedCustomSignupCoupon) {
           const coupon = await createCouponOnSignup();
 
-          // Check if welcome email has already been sent using localStorage
-          // Use a generic key if serverUser doesn't have email
+          // Check if welcome email has already been sent
           const storageKey = serverUser?.email
             ? `welcome-email-sent_${serverUser.email}`
             : 'welcome-email-sent';
@@ -159,27 +159,24 @@ export function useOnboardingSteps() {
             key: storageKey,
           });
 
-          // Only send welcome email if it hasn't been sent before
           if (!welcomeEmailSent) {
-            // send the welcome email
             await sendWelcomeEmail(serverUser, coupon?.name ?? '');
-            // Mark that welcome email has been sent for this user
             setWelcomeEmailSent(true);
           }
         }
 
-        // If user is an admin and the feature toggle is enabled, skip the INITIAL_QUESTIONS step
+        // Admin users can skip initial questions if feature flag is enabled
         if (ADMIN_SKIP_INITIAL_QUESTIONS && serverUser?.userLevel === 'ADMIN') {
           console.log('Admin user detected - skipping initial questions');
-          // Skip to the TIME_COMMITMENT step (which is after INITIAL_QUESTIONS)
           setCurrentStepState(STEPS.TIME_COMMITMENT);
         } else {
-          // Regular user follows normal flow
           setCurrentStepState(stepConfig[STEPS.USER_DETAILS].next as StepKey);
         }
-      } else if (currentStep === STEPS.INITIAL_QUESTIONS) {
-        // Fix the userXp field by ensuring it's a numeric value
-        // Make sure to use the existing user object and only update the userXp field
+        return;
+      }
+
+      // Handle initial questions step
+      if (currentStep === STEPS.INITIAL_QUESTIONS) {
         const userXpValue = typeof totalXp === 'number' && !isNaN(totalXp) ? totalXp : 0;
 
         try {
@@ -190,24 +187,23 @@ export function useOnboardingSteps() {
             },
           });
           console.log(`Successfully updated user with XP: ${userXpValue}`);
-          setCurrentStepState(stepConfig[STEPS.INITIAL_QUESTIONS].next as StepKey);
         } catch (error) {
           console.error('Error updating user XP:', error);
-          // We'll still proceed to the next step even if the XP update fails
-          setCurrentStepState(stepConfig[STEPS.INITIAL_QUESTIONS].next as StepKey);
         }
-      } else {
-        await updateUser({ userDetails: user });
-        const nextStep = stepConfig[currentStep].next;
 
-        if (nextStep === 'DASHBOARD') {
-          localStorage.removeItem('onboarding');
-          router.push('/dashboard?onboarding=true');
-        } else if (nextStep === STEPS.PRICING) {
-          setCurrentStepState(STEPS.PRICING);
-        } else {
-          setCurrentStepState(nextStep as StepKey);
-        }
+        setCurrentStepState(stepConfig[STEPS.INITIAL_QUESTIONS].next as StepKey);
+        return;
+      }
+
+      // Handle all other steps
+      await updateUser({ userDetails: user });
+      const nextStep = stepConfig[currentStep].next;
+
+      if (nextStep === 'DASHBOARD') {
+        localStorage.removeItem('onboarding');
+        router.push('/dashboard?onboarding=true');
+      } else {
+        setCurrentStepState(nextStep as StepKey);
       }
     } catch (error) {
       console.error('Error during continue:', error);
@@ -228,10 +224,17 @@ export function useOnboardingSteps() {
       return setCurrentStepState(STEPS.TAGS);
     }
 
+    // Get the previous step
     const previousStep = Object.entries(stepConfig).find(
       ([_, config]) => config.next === currentStep
     )?.[0];
+
     if (previousStep) {
+      // If navigating back to USER_DETAILS, ensure the continue button is enabled
+      if (previousStep === STEPS.USER_DETAILS) {
+        setCanContinue(true);
+      }
+
       setCurrentStepState(previousStep as StepKey);
     }
   };
@@ -252,8 +255,18 @@ export function useOnboardingSteps() {
 
   // Function to determine if back button should be shown
   const showBackButton = () => {
-    // Don't show back button on the first step
-    return currentStep !== STEPS.USER_DETAILS;
+    // Don't show back button on the first step (USER_DETAILS)
+    if (currentStep === STEPS.USER_DETAILS) {
+      return false;
+    }
+
+    // Don't show back button on final steps
+    if (currentStep === STEPS.QUESTIONS || currentStep === STEPS.PRICING) {
+      return false;
+    }
+
+    // Show back button on intermediate steps
+    return true;
   };
 
   return {

@@ -217,15 +217,19 @@ export function useOnboardingSteps() {
   };
 
   const handleBack = () => {
-    // if the user is on the pricing page, they need to go back to the tags page only if they did not
-    // start from scratch
-    if (currentStep === STEPS.PRICING && firstQuestionSelection !== 'startFromScratch') {
-      setCurrentStepState(STEPS.TAGS);
+    // if we're on the first step, we shouldn't go back
+    if (currentStep === STEPS.USER_DETAILS) {
       return;
     }
 
+    // if the user is on the pricing page, they need to go back to the tags page only if they did not
+    // start from scratch
+    if (currentStep === STEPS.PRICING && firstQuestionSelection !== 'startFromScratch') {
+      return setCurrentStepState(STEPS.TAGS);
+    }
+
     const previousStep = Object.entries(stepConfig).find(
-      ([, config]) => config.next === currentStep
+      ([_, config]) => config.next === currentStep
     )?.[0];
     if (previousStep) {
       setCurrentStepState(previousStep as StepKey);
@@ -237,7 +241,19 @@ export function useOnboardingSteps() {
     const isStepOne = currentStep === STEPS.USER_DETAILS;
     const hasUsername = (user?.username?.length ?? 0) > 0;
 
-    return refInUrl || (!isStepOne && hasUsername) || (isStepOne && refInUrl && hasUsername);
+    // Never show skip button on the first page (USER_DETAILS) regardless of other conditions
+    if (isStepOne) {
+      return false;
+    }
+
+    // For other steps, show the skip button if there's a ref in the URL or the user has a username
+    return refInUrl || hasUsername;
+  };
+
+  // Function to determine if back button should be shown
+  const showBackButton = () => {
+    // Don't show back button on the first step
+    return currentStep !== STEPS.USER_DETAILS;
   };
 
   return {
@@ -247,6 +263,7 @@ export function useOnboardingSteps() {
     handleContinue,
     handleBack,
     showSkipButton,
+    showBackButton,
     stepConfig,
   };
 }

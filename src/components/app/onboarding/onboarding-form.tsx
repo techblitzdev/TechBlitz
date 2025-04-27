@@ -49,13 +49,20 @@ const stepComponents = {
 
 export default function OnboardingForm() {
   const { itemVariants } = useOnboardingContext();
-  const { currentStep, isLoading, handleSkip, handleContinue, handleBack, showSkipButton } =
-    useOnboardingSteps();
+  const {
+    currentStep,
+    isLoading,
+    handleSkip,
+    handleContinue,
+    handleBack,
+    showSkipButton,
+    showBackButton,
+  } = useOnboardingSteps();
 
   const StepComponent = stepComponents[currentStep];
 
   return (
-    <div className="container min-h-screen flex items-center justify-center p-4">
+    <div className="container flex items-center justify-center p-4">
       <motion.div initial="hidden" animate="visible" variants={containerVariants}>
         <Card
           className={cn(
@@ -79,6 +86,7 @@ export default function OnboardingForm() {
               currentStep={currentStep}
               isLoading={isLoading}
               showSkipButton={showSkipButton()}
+              showBackButton={showBackButton()}
               onSkip={handleSkip}
               onContinue={handleContinue}
               onBack={handleBack}

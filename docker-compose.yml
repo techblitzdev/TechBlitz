@@ -1,0 +1,64 @@
+# Docker Compose file for TechBlitz application
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/techblitz
+      - NEXT_PUBLIC_URL=http://localhost:3000
+      - NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL:-}
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY:-}
+      - NEXT_PRIVATE_SUPABASE_SERVICE_ROLE_KEY=${NEXT_PRIVATE_SUPABASE_SERVICE_ROLE_KEY:-}
+      - NEXT_PUBLIC_POSTHOG_KEY=${NEXT_PUBLIC_POSTHOG_KEY:-}
+      - NEXT_PUBLIC_POSTHOG_HOST=${NEXT_PUBLIC_POSTHOG_HOST:-}
+      - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:-}
+      - NEXT_PRIVATE_STRIPE_SECRET_KEY=${NEXT_PRIVATE_STRIPE_SECRET_KEY:-}
+      - NEXT_PUBLIC_OPENAI_API_KEY=${NEXT_PUBLIC_OPENAI_API_KEY:-}
+      - NEXT_PUBLIC_ANTHROPIC_API_KEY=${NEXT_PUBLIC_ANTHROPIC_API_KEY:-}
+      - DOCKER=true
+      - PRISMA_SKIP_POSTINSTALL=1
+      - PRISMA_SCHEMA_PATH=prisma/schema/schema.prisma
+    depends_on:
+      - db
+    # Add healthcheck to ensure the application is running properly
+    healthcheck:
+      test: ['CMD', 'wget', '--no-verbose', '--spider', 'http://localhost:3000']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    volumes:
+      # Use volume for node_modules to avoid rebuilding
+      - node_modules:/app/node_modules
+      # Mount prisma directory for schema access
+      - ./prisma:/app/prisma/schema
+
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=techblitz
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    # Add healthcheck to ensure the database is running properly
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  postgres-data:
+    driver: local
+  node_modules:
+    driver: local

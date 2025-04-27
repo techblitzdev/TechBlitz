@@ -8,6 +8,9 @@ import { createCouponOnSignup } from '@/actions/user/account/create-coupon';
 import { sendWelcomeEmail } from '@/actions/misc/send-welcome-email';
 import { useLocalStorage } from './use-local-storage';
 
+// Toggle for admin to skip initial questions
+const ADMIN_SKIP_INITIAL_QUESTIONS = false;
+
 export const STEPS = {
   USER_DETAILS: 'USER_DETAILS', // get the users info
   INITIAL_QUESTIONS: 'INITIAL_QUESTIONS', // give the user 3 very simple multiple choice questions to gauge skill level and give them quick wins!
@@ -165,7 +168,15 @@ export function useOnboardingSteps() {
           }
         }
 
-        setCurrentStepState(stepConfig[STEPS.USER_DETAILS].next as StepKey);
+        // If user is an admin and the feature toggle is enabled, skip the INITIAL_QUESTIONS step
+        if (ADMIN_SKIP_INITIAL_QUESTIONS && serverUser?.userLevel === 'ADMIN') {
+          console.log('Admin user detected - skipping initial questions');
+          // Skip to the TIME_COMMITMENT step (which is after INITIAL_QUESTIONS)
+          setCurrentStepState(STEPS.TIME_COMMITMENT);
+        } else {
+          // Regular user follows normal flow
+          setCurrentStepState(stepConfig[STEPS.USER_DETAILS].next as StepKey);
+        }
       } else if (currentStep === STEPS.INITIAL_QUESTIONS) {
         // Fix the userXp field by ensuring it's a numeric value
         // Make sure to use the existing user object and only update the userXp field

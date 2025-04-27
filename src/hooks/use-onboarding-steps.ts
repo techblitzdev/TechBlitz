@@ -6,6 +6,7 @@ import { useOnboardingContext } from '@/contexts/onboarding-context';
 import { updateUser } from '@/actions/user/authed/update-user';
 import { createCouponOnSignup } from '@/actions/user/account/create-coupon';
 import { sendWelcomeEmail } from '@/actions/misc/send-welcome-email';
+import { useLocalStorage } from './use-local-storage';
 
 export const STEPS = {
   USER_DETAILS: 'USER_DETAILS', // get the users info
@@ -144,8 +145,24 @@ export function useOnboardingSteps() {
         // if this is false, we need to create a coupon and send the welcome email
         if (!user.hasCreatedCustomSignupCoupon) {
           const coupon = await createCouponOnSignup();
-          // send the welcome email
-          await sendWelcomeEmail(serverUser, coupon?.name ?? '');
+
+          // Check if welcome email has already been sent using localStorage
+          // Use a generic key if serverUser doesn't have email
+          const storageKey = serverUser?.email
+            ? `welcome-email-sent_${serverUser.email}`
+            : 'welcome-email-sent';
+          const { value: welcomeEmailSent, setValue: setWelcomeEmailSent } = useLocalStorage({
+            defaultValue: false,
+            key: storageKey,
+          });
+
+          // Only send welcome email if it hasn't been sent before
+          if (!welcomeEmailSent) {
+            // send the welcome email
+            await sendWelcomeEmail(serverUser, coupon?.name ?? '');
+            // Mark that welcome email has been sent for this user
+            setWelcomeEmailSent(true);
+          }
         }
 
         setCurrentStepState(stepConfig[STEPS.USER_DETAILS].next as StepKey);

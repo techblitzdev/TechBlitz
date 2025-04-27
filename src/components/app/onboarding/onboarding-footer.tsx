@@ -76,9 +76,6 @@ export default function OnboardingFooter({
           Continue
           {isLoading && <LoadingSpinner className="ml-2 size-4" />}
         </Button>
-        {process.env.NODE_ENV === 'development' && (
-          <div className="text-white text-xs">DEBUG: {currentStep}</div>
-        )}
       </div>
     </CardFooter>
   );

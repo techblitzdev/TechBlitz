@@ -29,9 +29,7 @@ export default async function OnboardingPage() {
           <Logo />
         </Link>
         <UserOnboardingContextProvider serverUser={user}>
-          <div className="flex-1 flex items-center justify-center">
-            <OnboardingForm />
-          </div>
+          <OnboardingForm />
         </UserOnboardingContextProvider>
       </div>
     </div>

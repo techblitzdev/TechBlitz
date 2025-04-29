@@ -16,9 +16,6 @@ export const STEPS = {
   INITIAL_QUESTIONS: 'INITIAL_QUESTIONS', // give the user 3 very simple multiple choice questions to gauge skill level and give them quick wins!
   TIME_COMMITMENT: 'TIME_COMMITMENT', // get the users daily coding goal
   NOTIFICATIONS: 'NOTIFICATIONS', // offer push notifications
-  TAGS: 'TAGS', // get the users interests
-  PRICING: 'PRICING', // get the users pricing plan
-  QUESTIONS: 'QUESTIONS', // get the users questions
   FIRST_QUESTION_SELECTION: 'FIRST_QUESTION_SELECTION', // get the users first question (either send them to the first question or the tag selection)
 } as const;
 
@@ -31,12 +28,10 @@ export function useOnboardingSteps() {
   const {
     serverUser,
     user,
-    handleGetOnboardingQuestions,
     canContinue,
     setCanContinue,
     timeSpendingPerDay,
     firstQuestionSelection,
-    FIRST_QUESTION_TUTORIAL_SLUG,
     totalXp,
   } = useOnboardingContext();
   const [isLoading, setIsLoading] = useState(false);
@@ -74,34 +69,17 @@ export function useOnboardingSteps() {
       component: 'OnboardingNotifications',
     },
     [STEPS.FIRST_QUESTION_SELECTION]: {
-      next: STEPS.TAGS,
+      next: 'ROADMAP_PAGE',
       component: 'OnboardingFirstQuestionSelection',
-    },
-    [STEPS.TAGS]: {
-      next: STEPS.PRICING,
-      component: 'OnboardingTags',
-    },
-    [STEPS.PRICING]: {
-      next: STEPS.QUESTIONS,
-      component: 'OnboardingPricing',
-    },
-    [STEPS.QUESTIONS]: {
-      next: 'DASHBOARD',
-      component: 'OnboardingQuestions',
     },
   } as const;
 
   const handleSkip = () => {
-    const nextStep = stepConfig[currentStep].next;
-    if (nextStep === 'DASHBOARD') {
+    const nextStep = stepConfig[currentStep]?.next;
+    if (nextStep === 'ROADMAP_PAGE') {
       localStorage.removeItem('onboarding');
       window.location.hash = '';
-      router.push('/dashboard?onboarding=true');
-    }
-    // if the user is skipping past the tags, redirect to the dashboard
-    else if (nextStep === STEPS.TAGS) {
-      localStorage.removeItem('onboarding');
-      router.push('/dashboard?onboarding=true');
+      router.push('/roadmaps?onboarding=true');
     } else {
       setCurrentStepState(nextStep as StepKey);
     }
@@ -117,22 +95,10 @@ export function useOnboardingSteps() {
         currentStep === STEPS.FIRST_QUESTION_SELECTION &&
         firstQuestionSelection === 'startFromScratch'
       ) {
-        setCurrentStepState(STEPS.PRICING);
+        // Navigate to roadmap instead of QUESTIONS step
+        localStorage.removeItem('onboarding');
+        router.push('/roadmaps?onboarding=true');
         return;
-      }
-
-      // Handle pricing step based on user's first question selection
-      if (currentStep === STEPS.PRICING) {
-        if (firstQuestionSelection === 'startFromScratch') {
-          localStorage.removeItem('onboarding');
-          router.push(`/question/${FIRST_QUESTION_TUTORIAL_SLUG}?tutorial=true`);
-          return;
-        } else if (firstQuestionSelection === 'personalizeLearning') {
-          await handleGetOnboardingQuestions();
-          localStorage.removeItem('onboarding');
-          setCurrentStepState(STEPS.QUESTIONS);
-          return;
-        }
       }
 
       // Handle time commitment step
@@ -197,11 +163,11 @@ export function useOnboardingSteps() {
 
       // Handle all other steps
       await updateUser({ userDetails: user });
-      const nextStep = stepConfig[currentStep].next;
+      const nextStep = stepConfig[currentStep]?.next;
 
-      if (nextStep === 'DASHBOARD') {
+      if (nextStep === 'ROADMAP_PAGE') {
         localStorage.removeItem('onboarding');
-        router.push('/dashboard?onboarding=true');
+        router.push('/roadmaps?onboarding=true');
       } else {
         setCurrentStepState(nextStep as StepKey);
       }
@@ -218,15 +184,9 @@ export function useOnboardingSteps() {
       return;
     }
 
-    // if the user is on the pricing page, they need to go back to the tags page only if they did not
-    // start from scratch
-    if (currentStep === STEPS.PRICING && firstQuestionSelection !== 'startFromScratch') {
-      return setCurrentStepState(STEPS.TAGS);
-    }
-
     // Get the previous step
     const previousStep = Object.entries(stepConfig).find(
-      ([_, config]) => config.next === currentStep
+      ([, config]) => config.next === currentStep
     )?.[0];
 
     if (previousStep) {
@@ -260,12 +220,7 @@ export function useOnboardingSteps() {
       return false;
     }
 
-    // Don't show back button on final steps
-    if (currentStep === STEPS.QUESTIONS || currentStep === STEPS.PRICING) {
-      return false;
-    }
-
-    // Show back button on intermediate steps
+    // Show back button on all other steps
     return true;
   };
 

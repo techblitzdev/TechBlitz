@@ -1,22 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/ui/grid';
-import { ChevronRight } from 'lucide-react';
 import GoogleSignUp from '../../homepage/hero/google-sign-up';
 import { useUserServer } from '@/hooks/use-user-server';
 
-export default function CallToActionBlock(opts: {
-  title: string;
-  description?: string;
-  leftCta?: {
-    title: string;
-    href: string;
-  };
-  rightCta?: {
-    title: string;
-    href: string;
-  };
-}) {
-  const { title, description, leftCta, rightCta } = opts;
+export default function CallToActionBlock(opts: { title: string; description?: string }) {
+  const { title, description } = opts;
 
   const user = useUserServer();
 

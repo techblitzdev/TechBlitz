@@ -272,10 +272,6 @@ export default function JavascriptCodingQuestionsPage() {
         <CallToActionBlock
           title="A personalized approach to learning JavaScript."
           description="Learn JavaScript with ease and get the skills you need to land your dream job."
-          leftCta={{
-            title: 'Sign up for free',
-            href: '/signup',
-          }}
         />
       </div>
     </>

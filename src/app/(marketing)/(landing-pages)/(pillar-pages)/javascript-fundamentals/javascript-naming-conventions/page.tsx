@@ -121,10 +121,6 @@ export default async function JavaScriptNamingConventions({ params }: BlogPostPa
               <CallToActionBlock
                 title="Learn to code, faster"
                 description={`Join ${userCount}+ developers who are accelerating their coding skills with TechBlitz.`}
-                leftCta={{
-                  title: 'Begin Your Journey',
-                  href: '/signup',
-                }}
               />
             </div>
 

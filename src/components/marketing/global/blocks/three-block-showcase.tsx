@@ -4,6 +4,7 @@ import AnimatedAIQuestionHelpCard from '../../homepage/personalized/ai-help-demo
 import StudyPathsList from '@/components/app/study-paths/list';
 import { getQuestions } from '@/actions/questions/admin/list';
 import { getStudyPath } from '@/utils/data/study-paths/get';
+import InfiniteScrollingRoadmapCards from '@/components/shared/infinite-scrolling-roadmap-cards';
 
 /**
  *
@@ -133,16 +134,7 @@ export default async function ThreeBlockShowcase({
           {right || (
             <>
               <div className="overflow-hidden relative flex justify-center w-full max-h-60">
-                {' '}
-                {studyPath && (
-                  <StudyPathsList
-                    offsetType="sine"
-                    offsetMultiplier={0.12}
-                    questions={questions}
-                    studyPath={studyPath}
-                    className="flex flex-col gap-4"
-                  />
-                )}
+                <InfiniteScrollingRoadmapCards className="h-full w-full" />
               </div>
               <div className="absolute bottom-8 lg:bottom-12 left-0 right-0 h-56 bg-gradient-to-t from-[#000] to-transparent z-10" />
               <div className={cn(cardTitleClasses, 'z-20')}>

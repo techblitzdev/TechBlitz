@@ -6,9 +6,6 @@ import { motion } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import OnboardingUserDetails from './onboarding-user-details';
 import OnboardingTimeCommitment from './onboarding-time-commitment';
-import OnboardingTags from './onboarding-tags';
-import OnboardingQuestions from './onboarding-questions';
-import OnboardingPricing from './onboarding-pricing';
 import OnboardingFooter from './onboarding-footer';
 import OnboardingNotifications from './onboarding-notifications';
 import OnboardingInitialQuestions from './onboarding-initial-questions';
@@ -42,9 +39,6 @@ const stepComponents = {
   [STEPS.TIME_COMMITMENT]: OnboardingTimeCommitment,
   [STEPS.NOTIFICATIONS]: OnboardingNotifications,
   [STEPS.FIRST_QUESTION_SELECTION]: OnboardingFirstQuestionSelection,
-  [STEPS.TAGS]: OnboardingTags,
-  [STEPS.QUESTIONS]: OnboardingQuestions,
-  [STEPS.PRICING]: OnboardingPricing,
 };
 
 export default function OnboardingForm() {
@@ -62,20 +56,18 @@ export default function OnboardingForm() {
   const StepComponent = stepComponents[currentStep];
 
   return (
-    <div className="container flex items-center justify-center p-4">
+    <div className="container flex items-center justify-center p-4 flex-1">
       <motion.div initial="hidden" animate="visible" variants={containerVariants}>
         <Card
           className={cn(
             'rounded-lg shadow-xl overflow-hidden min-w-fit relative',
-            currentStep === STEPS.PRICING ||
-              (currentStep === STEPS.TIME_COMMITMENT && 'lg:min-w-[58rem]'),
-            currentStep === STEPS.PRICING || currentStep === STEPS.INITIAL_QUESTIONS
-              ? 'border-none'
-              : 'border border-black-50'
+            currentStep === STEPS.TIME_COMMITMENT && 'lg:min-w-[58rem]',
+            currentStep === STEPS.INITIAL_QUESTIONS ? 'border-none' : 'border border-black-50'
           )}
           style={{
             background:
-              currentStep === STEPS.PRICING || currentStep === STEPS.INITIAL_QUESTIONS
+              currentStep === STEPS.INITIAL_QUESTIONS ||
+              currentStep === STEPS.FIRST_QUESTION_SELECTION
                 ? 'none'
                 : 'radial-gradient(128% 107% at 0% 0%, #212121 0%, rgb(0,0,0) 77.61%)',
           }}

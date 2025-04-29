@@ -274,10 +274,6 @@ export default function JavascriptRoadmapPage() {
         <CallToActionBlock
           title="A personalized approach to learning JavaScript."
           description="Create your own progression path with our personalized roadmaps, designed to help you grow as a JavaScript developer."
-          leftCta={{
-            title: 'Create Your JavaScript Roadmap',
-            href: '/signup',
-          }}
         />
       </div>
     </>

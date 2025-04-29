@@ -285,10 +285,6 @@ export default function ReactRoadmapPage() {
         <CallToActionBlock
           title="Your Personalized Path to React Mastery"
           description="Build your custom learning roadmap with our adaptive platform, designed to help you become a proficient React developer."
-          leftCta={{
-            title: 'Start Your React Journey',
-            href: '/signup',
-          }}
         />
       </div>
     </>

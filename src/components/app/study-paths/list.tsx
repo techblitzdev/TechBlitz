@@ -165,13 +165,6 @@ export function StudyPathsSubSectionList({
     return getOffset(index, offsetType, offsetMultiplier);
   };
 
-  console.log('StudyPathsSubSectionList props:', {
-    studyPathSlug: studyPath.slug,
-    sectionNextQuestionIndex: nextQuestionIndex,
-    subSectionsCount: subSections.length,
-    subSectionIndices: subSections.map((sub) => sub.nextQuestionIndex),
-  });
-
   return (
     <div className={cn('relative z-10 justify-self-center grid', className)}>
       {subSections.map((subSection, index) => {
@@ -182,13 +175,6 @@ export function StudyPathsSubSectionList({
           subSection.nextQuestionIndex !== undefined && subSection.nextQuestionIndex !== null
             ? subSection.nextQuestionIndex
             : nextQuestionIndex;
-
-        console.log(`SubSection [${index}] ${subSection.sectionName}:`, {
-          hasNextIndex: subSection.nextQuestionIndex !== undefined,
-          subSectionNextIdx: subSection.nextQuestionIndex,
-          fallbackNextIdx: nextQuestionIndex,
-          finalNextIdx: subsectionNextQuestionIndex,
-        });
 
         return (
           <div key={subSection.key} className="mb-8 flex justify-center">

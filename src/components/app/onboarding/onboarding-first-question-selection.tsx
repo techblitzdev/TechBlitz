@@ -1,8 +1,6 @@
 import { CardHeader } from '@/components/ui/card';
 import { useOnboardingContext } from '@/contexts/onboarding-context';
 import { motion } from 'framer-motion';
-import type { Question } from '@/types';
-import { StudyPath } from '@/utils/constants/study-paths';
 import InfiniteScrollingRoadmapCards from '@/components/shared/infinite-scrolling-roadmap-cards';
 
 export default function OnboardingFirstQuestionSelection() {

@@ -5,7 +5,7 @@ import type { UserRecord } from '@/types';
 import { revalidateTag } from 'next/cache';
 
 /**
- * Get the user from the server - used in api routes, server componets & server actions
+ * Get the user from the server - used in api routes, server components & server actions
  *
  * @returns User | null
  */

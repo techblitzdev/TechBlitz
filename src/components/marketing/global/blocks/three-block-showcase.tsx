@@ -1,9 +1,6 @@
 import ArcheryTarget from '@/components/ui/icons/target';
 import { cn } from '@/lib/utils';
 import AnimatedAIQuestionHelpCard from '../../homepage/personalized/ai-help-demo';
-import StudyPathsList from '@/components/app/study-paths/list';
-import { getQuestions } from '@/actions/questions/admin/list';
-import { getStudyPath } from '@/utils/data/study-paths/get';
 import InfiniteScrollingRoadmapCards from '@/components/shared/infinite-scrolling-roadmap-cards';
 
 /**
@@ -45,12 +42,6 @@ export default async function ThreeBlockShowcase({
     'mt-auto transition-transform duration-300 md:group-hover:translate-y-[-2.5rem] md:group-hover:translate-y-[-2.5rem]';
   const cardDescriptionClasses =
     'absolute bottom-0 left-6 translate-y-full transition-transform duration-300 md:group-hover:translate-y-[-1rem] md:group-hover:translate-y-[-1rem] text-sm text-gray-400';
-
-  // hardcoded study path and questions
-  const studyPath = await getStudyPath('javascript-fundamentals');
-  const questions = await getQuestions({
-    questionSlugs: studyPath?.questionSlugs.slice(0, 3) ?? [],
-  });
 
   return (
     <section className="lg:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16 pb-16 md:pb-24 lg:pb-32 flex flex-col gap-8">

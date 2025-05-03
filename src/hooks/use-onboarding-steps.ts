@@ -9,7 +9,7 @@ import { sendWelcomeEmail } from '@/actions/misc/send-welcome-email';
 import { useLocalStorage } from './use-local-storage';
 
 // Toggle for admin to skip initial questions
-const ADMIN_SKIP_INITIAL_QUESTIONS = false;
+const ADMIN_SKIP_INITIAL_QUESTIONS = true;
 
 export const STEPS = {
   USER_DETAILS: 'USER_DETAILS', // get the users info

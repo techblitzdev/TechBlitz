@@ -1,6 +1,6 @@
 import { Tour } from 'onborda/dist/types';
 
-export const steps = (): Tour[] => [
+export const questionPageSteps = (): Tour[] => [
   {
     tour: 'question-tour',
     steps: [
@@ -76,3 +76,5 @@ export const steps = (): Tour[] => [
     ],
   },
 ];
+
+export const roadmapPageSteps = (): Tour[] => [];

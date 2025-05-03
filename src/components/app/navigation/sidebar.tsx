@@ -168,8 +168,8 @@ export function AppSidebar({ user, profile, suggestion }: AppSidebarProps) {
       url: '/statistics',
       icon: BChart3,
       tooltip: 'Statistics',
+      defaultOpen: true,
       animatable: true,
-      defaultOpen: false,
       subItems: [
         {
           title: 'Overview',

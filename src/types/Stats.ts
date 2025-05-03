@@ -1,12 +1,18 @@
 import { STEPS } from '@/utils/constants';
-import { StatisticsReport } from '@prisma/client';
+import { StatisticsReport, QuestionDifficulty } from '@prisma/client';
 import type { Question } from '@/types';
+
+// Record of difficulty types with their counts
+export type DifficultyRecord = {
+  [K in QuestionDifficulty]?: number;
+};
 
 export type StatsChartData = {
   [key: string]: {
     totalQuestions: number;
     tagCounts: Record<string, number>;
     tags: string[];
+    difficulties?: DifficultyRecord;
   };
 };
 

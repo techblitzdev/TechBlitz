@@ -18,7 +18,7 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from '@/components/ui/chart';
+} from '@/components/charts/chart';
 
 const months = [
   'January',

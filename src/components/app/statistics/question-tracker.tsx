@@ -1,6 +1,6 @@
 'use client';
 
-import { Tracker } from '@/components/ui/tracker';
+import { Tracker } from '@/components/charts/tracker';
 import { cn } from '@/lib/utils';
 import type { StatsSteps } from '@/types';
 

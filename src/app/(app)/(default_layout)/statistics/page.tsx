@@ -1,22 +1,42 @@
+import dynamic from 'next/dynamic';
+
 import StatsRangePicker from '@/components/app/statistics/range-picker';
-import QuestionChart from '@/components/app/statistics/total-question-chart';
+import QuestionChart from '@/components/charts/total-question-chart';
+import QuestionHistory from '@/components/app/statistics/question-history';
+
+const DifficultyRadialChart = dynamic(
+  () => import('@/components/app/statistics/difficulty-radial-chart'),
+  { ssr: false }
+);
+
+import Hero from '@/components/shared/hero';
+import SuggestedQuestions from '@/components/app/statistics/suggested-questions';
+import StatisticsOverviewMenu from '@/components/app/statistics/statistics-overview-menu';
+import StatisticsReport from '@/components/app/statistics/statistics-report';
+import QuestionTracker from '@/components/app/statistics/question-tracker';
 
 import { useUserServer } from '@/hooks/use-user-server';
 import { StatsSteps } from '@/types';
 
 import { STATISTICS } from '@/utils/constants';
-
 import { getData } from '@/utils/data/statistics/get-stats-chart-data';
-import Hero from '@/components/shared/hero';
-import SuggestedQuestions from '@/components/app/statistics/suggested-questions';
-import StatisticsReport from '@/components/app/statistics/statistics-report';
-import StatisticsOverviewMenu from '@/components/app/statistics/statistics-overview-menu';
-import QuestionTracker from '@/components/app/statistics/question-tracker';
+import { createMetadata } from '@/utils/seo';
+import { getUserDisplayName } from '@/utils/user';
+import { getRecentUserAnswers } from '@/utils/data/answers/get-user-answer';
 
-export const metadata = {
-  title: 'Statistics | techblitz',
-  description: 'View your coding statistics and progress',
-};
+export async function generateMetadata() {
+  return createMetadata({
+    title: 'Statistics | TechBlitz',
+    description:
+      'Dive into your current coding journey, track your progress, and gain insight on how to improve your skills.',
+    image: {
+      text: 'Statistics | TechBlitz',
+      bgColor: '#000',
+      textColor: '#fff',
+    },
+    canonicalUrl: '/statistics',
+  });
+}
 
 export default async function StatisticsPage({
   searchParams,
@@ -33,36 +53,45 @@ export default async function StatisticsPage({
   const range = (searchParams.range as StatsSteps) || '7d';
   const { step } = STATISTICS[range];
 
-  // Prefetch data
-  const { stats } = await getData({
-    userUid: user.uid,
-    from: range,
-    to: new Date().toISOString(),
-    step,
-  });
+  // Prefetch data - get both time-grouped and overall stats
+  const [timeGroupedStats, overallStats, recentAnswers] = await Promise.all([
+    getData({
+      userUid: user.uid,
+      from: range,
+      to: new Date().toISOString(),
+      step,
+      includeDifficultyData: true,
+    }),
+    getData({
+      userUid: user.uid,
+      from: 'all',
+      to: new Date().toISOString(),
+      includeDifficultyData: true,
+    }),
+    getRecentUserAnswers({ take: 10 }),
+  ]);
 
   return (
-    <div>
-      <div className="flex flex-col gap-3 md:flex-row w-full justify-between md:items-center">
+    <div className="space-y-6">
+      <div className="flex flex-col gap-3 md:flex-row w-full justify-between">
         <Hero
-          heading="Coding Journey"
+          heading={`${getUserDisplayName(user)}'s Statistics`}
           container={false}
-          subheading="An overview of your coding journey on TechBlitz."
+          subheading="Dive into your coding journey, track your progress, and gain insight on how to improve your skills."
+          gridPosition="top-right"
         />
-        <div className="flex gap-3">
-          <StatsRangePicker selectedRange={STATISTICS[range].label} />
-          <StatisticsOverviewMenu user={user} />
-        </div>
+        {overallStats.stats && (
+          <DifficultyRadialChart questionData={overallStats.stats} legend={false} />
+        )}
       </div>
-
-      <div className="grid grid-cols-12 gap-y-4 gap-x-8 mt-8 md:mt-0">
-        <div className="max-h-[28rem] col-span-12 mb-4">
-          {stats && <QuestionChart questionData={stats} step={step} />}
+      <div className="grid grid-cols-12 gap-4">
+        {/* Question History - Recent answers */}
+        <div className="col-span-12 md:col-span-6 lg:col-span-4">
+          <QuestionHistory recentAnswers={recentAnswers} />
         </div>
-        {stats && <QuestionTracker className="mb-4" stats={stats} step={step} range={range} />}
-        {/** suggested q's and analysis blocks TODO: CHANGE SUGGESTED QUESTIONS TO STREAK DATA (I THINK) */}
-        <SuggestedQuestions />
-        <StatisticsReport />
+        <div className="col-span-12 md:col-span-6 lg:col-span-8">
+          <QuestionChart questionData={timeGroupedStats.stats} step={step} />
+        </div>
       </div>
     </div>
   );

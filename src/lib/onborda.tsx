@@ -77,12 +77,27 @@ export const questionPageSteps = (): Tour[] => [
   },
 ];
 
-export const roadmapPageSteps = (): Tour[] => [
+export const roadmapPageSteps = (nextRoute: string, prevRoute: string): Tour[] => [
   {
     tour: 'roadmap-tour',
     steps: [
       {
-        content: 'Here you can find the roadmap description.',
+        content: (
+          <>
+            Each roadmap is a collection of coding challenges aimed to help you prepare for your
+            first job in tech.
+          </>
+        ),
+        selector: '#first-roadmap-category',
+        side: 'bottom-left',
+        showControls: true,
+        pointerPadding: -1,
+        pointerRadius: 24,
+        icon: <></>,
+        title: 'Your first roadmap',
+      },
+      {
+        content: '',
         selector: '#roadmap-description',
         side: 'bottom-left',
         showControls: true,
@@ -90,6 +105,8 @@ export const roadmapPageSteps = (): Tour[] => [
         pointerRadius: 24,
         icon: <></>,
         title: 'Roadmap Description',
+        nextRoute,
+        prevRoute,
       },
     ],
   },

@@ -15,6 +15,7 @@ import type { UserRecord } from '@/types';
 import { getUserDisplayName } from '@/utils/user';
 import { useOnborda } from 'onborda';
 import Link from 'next/link';
+import GithubLogo from '@/components/ui/icons/github';
 
 interface TourStartModalProps {
   user: UserRecord | null;
@@ -65,12 +66,12 @@ export default function TourStartModal({ user, tourName, queryParam }: TourStart
               </Link>
               .
             </p>
-            <p className="mt-3">
-              Or submit an issue on our{' '}
+            <p className="mt-3 flex gap-2 items-center">
+              If you want to keep up with the latest updates, you can follow us on{' '}
               <Link href="https://git.new/blitz" className="underline text-accent">
-                GitHub
+                <GithubLogo className="size-5" />
               </Link>
-              .
+              and join our community of developers!
             </p>
           </DialogDescription>
         </DialogHeader>

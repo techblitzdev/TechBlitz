@@ -124,7 +124,7 @@ export default async function ExploreQuestionsPage({
       />
       <OnbordaProvider>
         <Onborda
-          steps={roadmapPageSteps()}
+          steps={roadmapPageSteps('/roadmaps/javascript-fundamentals', '/roadmaps')}
           showOnborda={true}
           shadowRgb="0,0,0"
           shadowOpacity="0.8"
@@ -137,7 +137,11 @@ export default async function ExploreQuestionsPage({
             <div className="lg:container flex flex-col lg:flex-row mt-5 gap-16">
               <div className="w-full flex flex-col gap-12">
                 {categories.map((category) => (
-                  <div key={category} className="space-y-6">
+                  <div
+                    key={category}
+                    className="space-y-6"
+                    id={category === 'Full-stack Development' ? 'first-roadmap-category' : ''}
+                  >
                     <div className="flex items-center gap-x-2">
                       <h2 className="text-2xl font-bold text-white">{category}</h2>
                       {studyPathsByCategory[category][0].categoryToolTip && (

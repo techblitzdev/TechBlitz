@@ -77,4 +77,20 @@ export const questionPageSteps = (): Tour[] => [
   },
 ];
 
-export const roadmapPageSteps = (): Tour[] => [];
+export const roadmapPageSteps = (): Tour[] => [
+  {
+    tour: 'roadmap-tour',
+    steps: [
+      {
+        content: 'Here you can find the roadmap description.',
+        selector: '#roadmap-description',
+        side: 'bottom-left',
+        showControls: true,
+        pointerPadding: -1,
+        pointerRadius: 24,
+        icon: <></>,
+        title: 'Roadmap Description',
+      },
+    ],
+  },
+];

@@ -18,7 +18,7 @@ import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 // onboarding
 import { Onborda, OnbordaProvider } from 'onborda';
 import { TourCard } from '@/components/app/shared/question/tour-card';
-import { steps } from '@/lib/onborda';
+import { questionPageSteps } from '@/lib/onborda';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -39,7 +39,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <OnbordaProvider>
           <Onborda
-            steps={steps()}
+            steps={questionPageSteps()}
             showOnborda={true}
             shadowRgb="0,0,0"
             shadowOpacity="0.8"

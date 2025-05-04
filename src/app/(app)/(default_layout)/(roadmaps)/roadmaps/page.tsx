@@ -18,6 +18,8 @@ import { roadmapPageSteps } from '@/lib/onborda';
 import { WebPageJsonLd } from '@/types';
 import { Onborda, OnbordaProvider } from 'onborda';
 import { TourCard } from '@/components/app/shared/question/tour-card';
+import TourStartModal from '@/components/app/shared/question/tour-start-modal';
+import { useUserServer } from '@/hooks/use-user-server';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -66,6 +68,7 @@ export default async function ExploreQuestionsPage({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  const user = await useUserServer();
   // used to determine if the onboarding tour guide needs to be shown.
   const { onboarding } = searchParams;
 
@@ -128,6 +131,7 @@ export default async function ExploreQuestionsPage({
           cardComponent={TourCard}
           cardTransition={{ duration: 0.3, type: 'tween' }}
         >
+          <TourStartModal user={user} tourName="roadmap-tour" queryParam="onboarding=true" />
           <div className="flex flex-col gap-y-12 max-w-7xl mx-auto">
             <Hero heading="Library" subheading={heroDescription} container={true} />
             <div className="lg:container flex flex-col lg:flex-row mt-5 gap-16">

@@ -345,7 +345,7 @@ export default async function RoadmapLessonPage({
 
   return (
     <PremiumContentWrapper>
-      <TourStartModal user={user} />
+      <TourStartModal user={user} tourName="roadmap-tour" queryParam="tutorial=true" />
       <QuestionSingleContextProvider
         question={question}
         user={user}

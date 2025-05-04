@@ -16,6 +16,8 @@ import { getUserDisplayName } from '@/utils/user';
 import { useOnborda } from 'onborda';
 import Link from 'next/link';
 import GithubLogo from '@/components/ui/icons/github';
+import { InstagramLogoIcon } from '@radix-ui/react-icons';
+import TikTokLogo from '@/components/ui/icons/tiktok';
 
 interface TourStartModalProps {
   user: UserRecord | null;
@@ -67,21 +69,32 @@ export default function TourStartModal({ user, tourName, queryParam }: TourStart
               .
             </p>
             <p className="mt-3 flex gap-2 items-center">
-              If you want to keep up with the latest updates, you can follow us on{' '}
+              If you'd like to show your support, you can star our{' '}
               <Link href="https://git.new/blitz" className="underline text-accent">
                 <GithubLogo className="size-5" />
               </Link>
-              and join our community of developers!
+              repository.
             </p>
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className="flex w-full justify-end space-x-3 mt-6">
-          <Button variant="default" onClick={() => setIsModalOpen(false)}>
-            Skip
-          </Button>
-          <Button variant="secondary" onClick={handleStartOnborda}>
-            Start tour
-          </Button>
+        <DialogFooter className="flex w-full items-center justify-between mt-6">
+          {/** socials */}
+          <div className="flex gap-x-3">
+            <Link href="https://dub.sh/4pdwWql" target="_blank">
+              <TikTokLogo className="size-5" />
+            </Link>
+            <Link href="https://dub.sh/SkSc6jX" target="_blank">
+              <InstagramLogoIcon className="size-5" />
+            </Link>
+          </div>
+          <div className="flex space-x-3">
+            <Button variant="default" onClick={() => setIsModalOpen(false)}>
+              Skip
+            </Button>
+            <Button variant="secondary" onClick={handleStartOnborda}>
+              Start tour
+            </Button>
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>

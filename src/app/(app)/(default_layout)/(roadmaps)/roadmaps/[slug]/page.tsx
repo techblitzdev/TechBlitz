@@ -138,7 +138,7 @@ function StudyPathSections({
   }
 
   return (
-    <div className="flex flex-col space-y-16">
+    <div className="flex flex-col space-y-16" id="roadmap-list">
       {studyPathSections.map((section) => {
         // Skip sections with no content
         if (

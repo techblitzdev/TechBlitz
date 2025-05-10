@@ -7,9 +7,6 @@ import { getUser } from '../authed/get-user';
  * Upon user signup, we create a 60% off their first 3 three
  * months of TechBlitz premium.
  * Eligible for 72 hours after signup.
- *
- * We are only hitting this action from within other actions,
- * so we can pass the userUid as a parameter.
  */
 export const createCouponOnSignup = async () => {
   const user = await getUser();

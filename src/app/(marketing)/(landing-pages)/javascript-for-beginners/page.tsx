@@ -255,10 +255,6 @@ export default function JavascriptForBeginnersPage() {
         <CallToActionBlock
           title="Begin Your Coding Adventure"
           description="Learn JavaScript from scratch with guidance every step of the way. Join thousands of beginners who started their coding journey with TechBlitz."
-          leftCta={{
-            title: 'Start Learning for Free',
-            href: '/signup',
-          }}
         />
       </div>
     </>

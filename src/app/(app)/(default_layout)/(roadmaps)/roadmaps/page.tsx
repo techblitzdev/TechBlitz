@@ -12,9 +12,14 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { createMetadata } from '@/utils/seo';
 import { getStudyPathsAndGroupByCategory } from '@/utils/data/study-paths/get';
 import { getBaseUrl } from '@/utils';
+import { roadmapPageSteps } from '@/lib/onborda';
 
 // types
 import { WebPageJsonLd } from '@/types';
+import { Onborda, OnbordaProvider } from 'onborda';
+import { TourCard } from '@/components/app/shared/question/tour-card';
+import TourStartModal from '@/components/app/shared/question/tour-start-modal';
+import { useUserServer } from '@/hooks/use-user-server';
 
 export async function generateMetadata() {
   return createMetadata({
@@ -58,7 +63,15 @@ const heroDescription = (
   </div>
 );
 
-export default async function ExploreQuestionsPage() {
+export default async function ExploreQuestionsPage({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  const user = await useUserServer();
+  // used to determine if the onboarding tour guide needs to be shown.
+  const { onboarding } = searchParams;
+
   // create json ld
   const jsonLd: WebPageJsonLd = {
     '@context': 'https://schema.org',
@@ -109,35 +122,51 @@ export default async function ExploreQuestionsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="flex flex-col gap-y-12 max-w-7xl mx-auto">
-        <Hero heading="Library" subheading={heroDescription} container={true} />
-        <div className="lg:container flex flex-col lg:flex-row mt-5 gap-16">
-          <div className="w-full flex flex-col gap-12">
-            {categories.map((category) => (
-              <div key={category} className="space-y-6">
-                <div className="flex items-center gap-x-2">
-                  <h2 className="text-2xl font-bold text-white">{category}</h2>
-                  {studyPathsByCategory[category][0].categoryToolTip && (
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <InfoIcon className="size-4" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        {studyPathsByCategory[category][0].categoryToolTip}
-                      </TooltipContent>
-                    </Tooltip>
-                  )}
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {studyPathsByCategory[category].map((studyPath) => (
-                    <StudyPathCard key={studyPath.uid} studyPath={studyPath} />
-                  ))}
-                </div>
+      <OnbordaProvider>
+        <Onborda
+          steps={roadmapPageSteps('/roadmaps/javascript-fundamentals', '/roadmaps')}
+          showOnborda={true}
+          shadowRgb="0,0,0"
+          shadowOpacity="0.8"
+          cardComponent={TourCard}
+          cardTransition={{ duration: 0.3, type: 'tween' }}
+        >
+          <TourStartModal user={user} tourName="roadmap-tour" queryParam="onboarding=true" />
+          <div className="flex flex-col gap-y-12 max-w-7xl mx-auto">
+            <Hero heading="Library" subheading={heroDescription} container={true} />
+            <div className="lg:container flex flex-col lg:flex-row mt-5 gap-16">
+              <div className="w-full flex flex-col gap-12">
+                {categories.map((category) => (
+                  <div
+                    key={category}
+                    className="space-y-6"
+                    id={category === 'Full-stack Development' ? 'first-roadmap-category' : ''}
+                  >
+                    <div className="flex items-center gap-x-2">
+                      <h2 className="text-2xl font-bold text-white">{category}</h2>
+                      {studyPathsByCategory[category][0].categoryToolTip && (
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <InfoIcon className="size-4" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            {studyPathsByCategory[category][0].categoryToolTip}
+                          </TooltipContent>
+                        </Tooltip>
+                      )}
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {studyPathsByCategory[category].map((studyPath) => (
+                        <StudyPathCard key={studyPath.uid} studyPath={studyPath} />
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
-        </div>
-      </div>
+        </Onborda>
+      </OnbordaProvider>
     </>
   );
 }

@@ -1,22 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Grid } from '@/components/ui/grid';
-import { ChevronRight } from 'lucide-react';
 import GoogleSignUp from '../../homepage/hero/google-sign-up';
 import { useUserServer } from '@/hooks/use-user-server';
 
-export default function CallToActionBlock(opts: {
-  title: string;
-  description?: string;
-  leftCta?: {
-    title: string;
-    href: string;
-  };
-  rightCta?: {
-    title: string;
-    href: string;
-  };
-}) {
-  const { title, description, leftCta, rightCta } = opts;
+export default function CallToActionBlock(opts: { title: string; description?: string }) {
+  const { title, description } = opts;
 
   const user = useUserServer();
 
@@ -38,36 +26,12 @@ export default function CallToActionBlock(opts: {
       </div>
 
       <div className="z-50 relative flex flex-col sm:flex-row gap-4 items-center justify-center">
-        {process.env.NEXT_PUBLIC_ENV === 'development' ? (
-          <>
-            <Button
-              variant="accent"
-              size="lg"
-              className="font-onest !bg-gradient-to-r !from-accent !via-white/20 !to-accent animate-shimmer bg-[length:200%_100%] transition-colors"
-              href={leftCta?.href || '/signup'}
-            >
-              <span>{leftCta?.title || 'Get Started'}</span>
-            </Button>
-            {rightCta && (
-              <Button
-                variant="secondary"
-                size="lg"
-                className="font-onest group"
-                href={rightCta?.href || '/features'}
-              >
-                <span>{rightCta?.title || 'Learn More'}</span>
-                <ChevronRight size={16} />
-              </Button>
-            )}
-          </>
-        ) : (
-          <>
-            <GoogleSignUp userPromise={user} />
-            <Button variant="default" size="lg" href="/signup" className="flex-1 px-5">
-              Start for free
-            </Button>
-          </>
-        )}
+        <>
+          <GoogleSignUp userPromise={user} />
+          <Button variant="default" size="lg" href="/signup" className="flex-1 px-5">
+            Start for free
+          </Button>
+        </>
       </div>
       <Grid size={30} position="bottom-right" />
       <div className="absolute inset-x-0 w-full bottom-0 h-20 bg-gradient-to-t from-[#000000] to-transparent pointer-events-none"></div>

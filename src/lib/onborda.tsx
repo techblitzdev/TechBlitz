@@ -1,6 +1,6 @@
 import { Tour } from 'onborda/dist/types';
 
-export const steps = (): Tour[] => [
+export const questionPageSteps = (): Tour[] => [
   {
     tour: 'question-tour',
     steps: [
@@ -72,6 +72,42 @@ export const steps = (): Tour[] => [
         pointerRadius: 24,
         icon: <></>,
         title: 'Question Action Buttons',
+      },
+    ],
+  },
+];
+
+export const roadmapPageSteps = (nextRoute: string, prevRoute: string): Tour[] => [
+  {
+    tour: 'roadmap-tour',
+    steps: [
+      {
+        content: (
+          <>
+            Each roadmap is a collection of coding challenges aimed to help you prepare for your
+            first job in tech.
+          </>
+        ),
+        selector: '#first-roadmap-category',
+        side: 'bottom-left',
+        showControls: true,
+        pointerPadding: -1,
+        pointerRadius: 24,
+        icon: <></>,
+        title: 'Your first roadmap',
+        nextRoute,
+      },
+      {
+        content:
+          'Here you can find each subsection of the roadmap. Giving you a brief concept of what this section is about.',
+        selector: '#roadmap-list',
+        side: 'bottom-left',
+        showControls: true,
+        pointerPadding: -1,
+        pointerRadius: 24,
+        icon: <></>,
+        title: 'Roadmap Description',
+        prevRoute,
       },
     ],
   },

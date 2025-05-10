@@ -139,13 +139,7 @@ export default function StatisticsPage() {
           title="Tracking coding progress made simple."
           items={featureShowcaseItems}
         />
-        <CallToActionBlock
-          title="Improve coding skills effortlessly."
-          leftCta={{
-            title: 'Get Started',
-            href: '/signup',
-          }}
-        />
+        <CallToActionBlock title="Improve coding skills effortlessly." />
       </div>
     </>
   );

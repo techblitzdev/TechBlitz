@@ -121,10 +121,6 @@ export default async function JavaScriptNestedConditionals({ params }: BlogPostP
               <CallToActionBlock
                 title="Learn to code, faster"
                 description={`Join ${userCount}+ developers who are accelerating their coding skills with TechBlitz.`}
-                leftCta={{
-                  title: 'Begin Your Journey',
-                  href: '/signup',
-                }}
               />
             </div>
 

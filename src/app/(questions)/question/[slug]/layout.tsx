@@ -7,22 +7,22 @@ import { redirect } from 'next/navigation';
 import { QuestionSingleContextProvider } from '@/contexts/question-single-context';
 
 // Actions & Utils
-import { createMetadata, getQuestionEducationLevel } from '@/utils/seo';
-import { capitalise, getBaseUrl } from '@/utils';
+import { createMetadata } from '@/utils/seo';
+import { capitalise } from '@/utils';
 import { getQuestion } from '@/utils/data/questions/get';
 import { getUser } from '@/actions/user/authed/get-user';
 import { getRelatedQuestions } from '@/utils/data/questions/get-related';
 import { getUserAnswer } from '@/utils/data/answers/get-user-answer';
 import { getNextAndPreviousQuestion } from '@/utils/data/questions/question-navigation';
-import type { QuizJsonLd } from '@/types';
 import { userHasAnsweredAnyQuestion } from '@/utils/data/questions/user-has-answered-any-question';
 
 // Components
 import { Onborda, OnbordaProvider } from 'onborda';
-import { steps } from '@/lib/onborda';
 import { TourCard } from '@/components/app/shared/question/tour-card';
 import { getSuggestions } from '@/utils/data/questions/get-suggestions';
 import QuestionPageHeader from '@/components/app/layout/question-single/page-header';
+
+import { questionPageSteps } from '@/lib/onborda';
 
 // Lazy Components
 const PremiumQuestionDeniedAccess = lazy(
@@ -73,55 +73,6 @@ export default async function QuestionUidLayout({
     return redirect('/coding-challenges');
   }
 
-  const defaultQuestionDescription = `Practice ${capitalise(
-    question?.title || question?.slug?.replace(/-/g, ' ') || 'Coding Question'
-  )} and improve your coding skills with interactive challenges on TechBlitz`;
-
-  const description =
-    question?.questionType === 'SIMPLE_MULTIPLE_CHOICE'
-      ? question?.afterQuestionInfo || defaultQuestionDescription
-      : defaultQuestionDescription;
-
-  // create json ld
-  const jsonLd: QuizJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Quiz',
-    name: capitalise(question?.slug?.replace(/-/g, ' ') || ''),
-    description,
-    url: `${getBaseUrl()}/question/${slug}`,
-    educationLevel: getQuestionEducationLevel(question?.difficulty || 'EASY'),
-    educationalUse: 'practice',
-    learningResourceType: ['quiz', 'learning activity'],
-    creator: { '@type': 'Organization', name: 'TechBlitz', url: getBaseUrl() },
-    assesses: ['coding'],
-    dateCreated: question?.createdAt.toISOString() || '',
-    dateModified: question?.updatedAt.toISOString() || '',
-    datePublished: question?.questionDate || question?.createdAt.toISOString() || '',
-    headline: question?.question || '',
-    interactivityType: 'mixed',
-    isAccessibleForFree: true,
-    isFamilyFriendly: true,
-    teaches: 'coding',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: `${getBaseUrl()}/search?q={search_term_string}`,
-      'query-input': 'required name=search_term_string',
-    },
-    breadcrumb: {
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: `${getBaseUrl()}` },
-        { '@type': 'ListItem', position: 2, name: 'Questions', item: `${getBaseUrl()}/questions` },
-        {
-          '@type': 'ListItem',
-          position: 3,
-          name: question.slug,
-          item: `${getBaseUrl()}/question/${slug}`,
-        },
-      ],
-    },
-  };
-
   // not resolving the promises here - passing the promises and
   // using 'use' to resolve them in their own components
   const nextAndPreviousQuestion = getNextAndPreviousQuestion(question.uid); // cached
@@ -138,13 +89,9 @@ export default async function QuestionUidLayout({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
       <OnbordaProvider>
         <Onborda
-          steps={steps()}
+          steps={questionPageSteps()}
           showOnborda={true}
           shadowRgb="0,0,0"
           shadowOpacity="0.8"

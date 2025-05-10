@@ -1,9 +1,12 @@
+import Link from 'next/link';
+
+import { redirect } from 'next/navigation';
+
 import Logo from '@/components/ui/logo';
 import StarsBackground from '@/components/ui/stars-background';
-
-import Link from 'next/link';
-import { UserOnboardingContextProvider } from '@/contexts/onboarding-context';
 import OnboardingForm from '@/components/app/onboarding/onboarding-form';
+
+import { UserOnboardingContextProvider } from '@/contexts/onboarding-context';
 import { useUserServer } from '@/hooks/use-user-server';
 
 export const metadata = {
@@ -11,7 +14,12 @@ export const metadata = {
 };
 
 export default async function OnboardingPage() {
-  const [user] = await Promise.all([useUserServer()]);
+  const user = await useUserServer();
+
+  // throw the user back to login
+  if (!user) {
+    return redirect('/login');
+  }
 
   return (
     <div className="relative container">
@@ -21,9 +29,7 @@ export default async function OnboardingPage() {
           <Logo />
         </Link>
         <UserOnboardingContextProvider serverUser={user}>
-          <div className="flex-1 flex items-center justify-center">
-            <OnboardingForm />
-          </div>
+          <OnboardingForm />
         </UserOnboardingContextProvider>
       </div>
     </div>

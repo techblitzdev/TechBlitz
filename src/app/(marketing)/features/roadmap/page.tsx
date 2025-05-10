@@ -246,10 +246,6 @@ export default function FeatureDailyQuestionPage() {
         <CallToActionBlock
           title="Learning to code made easy."
           description="Create your own progression path with our personalized roadmaps, designed to help you grow as a developer."
-          leftCta={{
-            title: 'Get Started',
-            href: '/signup',
-          }}
         />
       </div>
     </>

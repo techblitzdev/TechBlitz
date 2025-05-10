@@ -82,10 +82,6 @@ export default function BlogPostLayout({
             <CallToActionBlock
               title="Land your dream tech job faster"
               description={`Join ${userCount}+ developers who are accelerating their coding skills with TechBlitz.`}
-              leftCta={{
-                title: 'Begin Your Journey',
-                href: '/signup',
-              }}
             />
           </div>
 

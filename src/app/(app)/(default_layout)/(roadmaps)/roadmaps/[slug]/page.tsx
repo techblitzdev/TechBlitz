@@ -231,7 +231,7 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
           chip={<HeroChip />}
         />
         <div className="flex flex-col lg:flex-row gap-12 xl:gap-24">
-          <div className="w-full lg:w-[55%] flex-1">
+          <div id="roadmap-list" className="w-full lg:w-[55%] flex-1">
             <Suspense fallback={<StudyPathsListSkeleton />}>
               <StudyPathSections
                 studyPathSections={studyPathSectionData}

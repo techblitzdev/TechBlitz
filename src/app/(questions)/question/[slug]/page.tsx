@@ -140,7 +140,7 @@ export default async function TodaysQuestionPage({ params }: { params: { slug: s
 
   return (
     <PremiumContentWrapper>
-      <TourStartModal user={user} />
+      <TourStartModal user={user} tourName="question-tour" queryParam="tutorial=true" />
       <ResizableLayout
         leftContent={leftContent}
         rightTopContent={rightContent}

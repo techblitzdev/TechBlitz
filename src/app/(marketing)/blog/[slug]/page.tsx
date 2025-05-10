@@ -143,10 +143,6 @@ export default async function BlogPost({ params }: BlogPostParams) {
               <CallToActionBlock
                 title="Learning to code made easier"
                 description={`Join ${userCount}+ developers who are accelerating their coding skills with TechBlitz.`}
-                leftCta={{
-                  title: 'Begin Your Journey',
-                  href: '/signup',
-                }}
               />
             </div>
           </div>

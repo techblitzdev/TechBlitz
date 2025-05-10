@@ -252,10 +252,6 @@ export default function LeaderboardPage() {
         <CallToActionBlock
           title="Get started for free."
           description="See how you stack up against the rest of the community - and improve your skills along the way."
-          leftCta={{
-            title: 'Get Started',
-            href: '/signup',
-          }}
         />
       </div>
     </>

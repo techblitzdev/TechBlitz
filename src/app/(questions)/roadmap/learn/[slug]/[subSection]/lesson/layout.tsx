@@ -5,9 +5,9 @@ import { devLog } from '@/utils';
 
 // Components
 import { Onborda, OnbordaProvider } from 'onborda';
-import { steps } from '@/lib/onborda';
 import { TourCard } from '@/components/app/shared/question/tour-card';
 import { getStudyPath } from '@/utils/data/study-paths/get';
+import { questionPageSteps } from '@/lib/onborda';
 
 export default async function QuestionUidLayout({
   params,
@@ -86,7 +86,7 @@ export default async function QuestionUidLayout({
     <>
       <OnbordaProvider>
         <Onborda
-          steps={steps()}
+          steps={questionPageSteps()}
           showOnborda={true}
           shadowRgb="0,0,0"
           shadowOpacity="0.8"

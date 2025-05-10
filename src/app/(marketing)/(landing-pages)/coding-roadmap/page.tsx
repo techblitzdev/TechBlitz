@@ -274,10 +274,6 @@ export default function CodingRoadmapPage() {
         <CallToActionBlock
           title="A personalized approach to learning to code."
           description="Create your own progression path with our personalized roadmaps, designed to help you grow as a developer."
-          leftCta={{
-            title: 'Create Your Roadmap',
-            href: '/signup',
-          }}
         />
       </div>
     </>

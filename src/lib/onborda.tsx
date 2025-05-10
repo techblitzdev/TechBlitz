@@ -98,7 +98,8 @@ export const roadmapPageSteps = (nextRoute: string, prevRoute: string): Tour[] =
         nextRoute,
       },
       {
-        content: 'This is a mf test.',
+        content:
+          'Here you can find each subsection of the roadmap. Giving you a brief concept of what this section is about.',
         selector: '#roadmap-list',
         side: 'bottom-left',
         showControls: true,

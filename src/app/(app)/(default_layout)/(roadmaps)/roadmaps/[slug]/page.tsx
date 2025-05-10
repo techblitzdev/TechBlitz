@@ -138,7 +138,7 @@ function StudyPathSections({
   }
 
   return (
-    <div className="flex flex-col space-y-16" id="roadmap-list">
+    <div className="flex flex-col space-y-16">
       {studyPathSections.map((section) => {
         // Skip sections with no content
         if (
@@ -231,7 +231,7 @@ export default async function RoadmapPage({ params }: { params: { slug: string }
           chip={<HeroChip />}
         />
         <div className="flex flex-col lg:flex-row gap-12 xl:gap-24">
-          <div className="w-full lg:w-[55%] flex-1">
+          <div id="roadmap-list" className="w-full lg:w-[55%] flex-1">
             <Suspense fallback={<StudyPathsListSkeleton />}>
               <StudyPathSections
                 studyPathSections={studyPathSectionData}

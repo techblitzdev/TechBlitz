@@ -62,7 +62,8 @@ export default function OnboardingForm() {
           className={cn(
             'rounded-lg shadow-xl overflow-hidden min-w-fit relative',
             currentStep === STEPS.TIME_COMMITMENT && 'lg:min-w-[58rem]',
-            currentStep === STEPS.INITIAL_QUESTIONS ? 'border-none' : 'border border-black-50'
+            currentStep === STEPS.INITIAL_QUESTIONS ? 'border-none' : 'border border-black-50',
+            currentStep === STEPS.FIRST_QUESTION_SELECTION && 'w-72 lg:w-96'
           )}
           style={{
             background:
